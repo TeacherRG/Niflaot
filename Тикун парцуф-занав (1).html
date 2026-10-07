@@ -1,0 +1,545 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Тикун парцуф-занав</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: porcelain page, one reading column framed like a bound sefer — gold double-rule hero, riddle "folios", indigo colophon with credits and donation */
+:root{
+  --paper:#F4F5F8; --surface:#FFFFFF; --ink:#141A33; --ink-2:#232B4D; --muted:#5D6482; --line:#E3E5EE;
+  --gold:#A47C2F; --gold-2:#D8B565; --gold-soft:#F7F0E1; --gold-line:#E7D6AE;
+  --fire:#B4461B; --fire-soft:#FBEDE4; --tchelet:#2B4F95; --tchelet-soft:#EAF0FA;
+  --ok:#2A7448; --ok-soft:#E5F3EA; --bad:#AE2A21; --bad-soft:#FBE8E6;
+  --f-display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --f-he:"Frank Ruhl Libre","Times New Roman",serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-num:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --shadow:0 1px 2px rgba(20,26,51,.04),0 8px 28px -12px rgba(20,26,51,.14);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);background-image:radial-gradient(1200px 500px at 50% -120px,#E9ECF5 0,transparent 70%);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;padding-inline:16px;padding-block:0 0}
+.wrap{max-width:780px;margin:0 auto}
+.he{font-family:var(--f-he);direction:rtl;unicode-bidi:isolate}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+button{font:inherit;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.gold-text{background:linear-gradient(180deg,#C99B45 0%,#8E6A24 55%,#B98C3A 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(244,245,248,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-inline:-16px;padding:10px 16px}
+.top-in{max-width:780px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-family:var(--f-display);font-weight:700;font-size:20px;margin-right:auto;letter-spacing:.01em}
+.brand small{font-family:var(--f-body);font-weight:600;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-left:8px}
+.levels{display:flex;gap:6px}
+.lv{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-family:var(--f-num);font-weight:600;font-size:13px;transition:all .2s}
+.lv:hover{border-color:var(--gold)}
+.lv.cur{border-color:var(--gold);color:var(--ink);box-shadow:0 0 0 3px var(--gold-soft)}
+.lv.done{background:var(--ink);border-color:var(--ink);color:var(--gold-2)}
+.score{font-family:var(--f-num);font-weight:600;background:var(--ink);color:var(--gold-2);border-radius:999px;padding:6px 14px;font-size:13px;letter-spacing:.02em}
+
+.timer{font-family:var(--f-num);font-weight:600;font-size:13px;color:var(--ink);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px}
+.timer.run{border-color:var(--gold);color:var(--gold)}
+.r-time{font-family:var(--f-num);font-size:12px;color:var(--muted);letter-spacing:0;text-transform:none;font-weight:500;margin-left:10px}
+.r-time.run{color:var(--gold)}
+.final .time{font-family:var(--f-num);font-size:18px;color:#D7DCEA}
+/* hero */
+.hero{margin-top:28px;background:var(--surface);border-radius:4px;padding:6px;box-shadow:var(--shadow);position:relative}
+.hero-in{border:1px solid var(--gold-line);outline:1px solid var(--gold-line);outline-offset:-6px;padding:40px 28px 32px;display:grid;gap:10px;justify-items:center;text-align:center;position:relative;overflow:hidden}
+.hero-in::before{content:"פ";position:absolute;font-family:var(--f-he);font-weight:900;font-size:340px;line-height:1;color:var(--gold-soft);left:-30px;top:-60px;pointer-events:none}
+.hero-in::after{content:"ז";position:absolute;font-family:var(--f-he);font-weight:900;font-size:300px;line-height:1;color:var(--gold-soft);right:-10px;bottom:-110px;pointer-events:none}
+.hero-in > *{position:relative;z-index:1}
+.year{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:700;display:flex;align-items:center;gap:12px}
+.year::before,.year::after{content:"";width:34px;height:1px;background:var(--gold-line)}
+.hero .heb{font-family:var(--f-he);font-weight:900;font-size:clamp(44px,10vw,76px);line-height:1.05;direction:rtl}
+.hero h1{font-family:var(--f-display);font-weight:600;font-size:clamp(28px,5.4vw,40px);margin:0;text-wrap:balance;line-height:1.1}
+.hero h1 i{font-style:italic;color:var(--gold)}
+.hero p{color:var(--muted);margin:0;max-width:56ch}
+.author{font-family:var(--f-display);font-size:18px;font-style:italic;color:var(--ink-2)}
+.rules{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:8px;font-size:12.5px;color:var(--muted)}
+.rules b{font-family:var(--f-num);color:var(--gold)}
+.rules span{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+
+/* riddle */
+.riddle{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden;box-shadow:var(--shadow);border-top:3px solid var(--gold-2)}
+.r-head{padding:26px 24px 4px;display:grid;gap:6px}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:var(--gold);font-weight:700}
+.r-head h2{font-family:var(--f-display);font-weight:700;font-size:32px;margin:0;line-height:1.1;text-wrap:balance}
+.cond{padding:10px 24px 4px;color:var(--ink-2);max-width:68ch}
+.cond p{margin:0 0 10px}
+.cond em{font-style:normal;font-family:var(--f-he);font-size:1.15em;color:var(--ink)}
+
+.words{display:flex;flex-wrap:wrap;gap:10px;padding:10px 24px 18px}
+.word{border:1px solid var(--gold-line);background:linear-gradient(180deg,#FFFFFF,var(--gold-soft));border-radius:8px;padding:10px 14px;display:grid;gap:2px;justify-items:center;min-width:96px;color:var(--ink);transition:transform .15s,box-shadow .15s}
+.word:hover{transform:translateY(-1px);box-shadow:0 6px 16px -10px rgba(164,124,47,.6)}
+.word .w{font-family:var(--f-he);font-size:30px;font-weight:700;direction:rtl;line-height:1.1}
+.word .t{font-size:11.5px;color:var(--muted)}
+.word .tiles{display:flex;gap:3px;direction:rtl;margin-top:6px}
+.tile{display:grid;justify-items:center;background:var(--surface);border:1px solid var(--gold-line);border-radius:5px;padding:2px 5px;min-width:26px}
+.tile b{font-family:var(--f-he);font-size:17px;line-height:1.2}
+.tile i{font-family:var(--f-num);font-style:normal;font-size:10.5px;color:var(--gold)}
+.word .sum{font-family:var(--f-num);font-weight:600;color:var(--gold);font-size:14px}
+
+.steps{border-top:1px solid var(--line);display:grid}
+.step{padding:18px 24px;border-bottom:1px solid var(--line);display:grid;gap:12px}
+.step:last-child{border-bottom:0}
+.step.locked{opacity:.4;pointer-events:none}
+.step .q{font-weight:500}
+.step .q .n{font-family:var(--f-display);font-weight:700;font-size:20px;color:var(--gold);margin-right:8px}
+.step .q .he{font-size:1.2em;font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.inp{font-family:var(--f-num);font-size:18px;width:130px;padding:9px 14px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}
+.inp:focus{border-color:var(--gold);outline:none;box-shadow:0 0 0 3px var(--gold-soft);background:var(--surface)}
+.btn{border:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:8px;padding:9px 18px;font-weight:600;font-size:14.5px;transition:background .15s,color .15s}
+.btn:hover:not(:disabled){background:var(--ink-2);color:var(--gold-2)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover:not(:disabled){border-color:var(--gold);color:var(--gold);background:transparent}
+.btn:disabled{opacity:.4;cursor:default}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.opt{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:12px;text-align:center;color:var(--ink);display:grid;gap:3px;transition:border-color .15s,box-shadow .15s}
+.opt:hover:not(:disabled){border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+.opt .oh{font-family:var(--f-he);font-size:23px;font-weight:700;direction:rtl}
+.opt .or{font-size:12px;color:var(--muted)}
+.opt .ov{font-family:var(--f-num);font-size:13px;color:var(--gold);min-height:1em}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.fb{font-size:14px;border-radius:8px;padding:9px 14px}
+.fb.ok{background:var(--ok-soft);color:var(--ok);font-weight:600}
+.fb.no{background:var(--bad-soft);color:var(--bad)}
+.fb.hint{background:var(--tchelet-soft);color:var(--tchelet)}
+
+.reveal{background:linear-gradient(180deg,var(--gold-soft),#FFFFFF);padding:22px 24px;display:grid;gap:10px;border-top:1px solid var(--gold-line)}
+.reveal h3{font-family:var(--f-display);margin:0;font-size:26px;font-weight:700;color:var(--gold)}
+.reveal p{margin:0;max-width:68ch;color:var(--ink-2)}
+.eq{font-family:var(--f-num);font-size:15px;background:var(--surface);border:1px solid var(--gold-line);border-radius:6px;padding:9px 14px;overflow-x:auto;white-space:nowrap}
+.eq .he{font-size:18px;font-weight:700}
+.nav{display:flex;justify-content:space-between;gap:8px;padding:16px 24px;border-top:1px solid var(--line);background:var(--paper)}
+
+
+/* lock, reflection, confirm */
+.les-lock{margin:4px 24px 14px;font-size:13.5px;color:var(--muted);border:1px dashed var(--gold-line);border-radius:8px;padding:10px 14px}
+.lessons{margin-top:18px!important}
+.refl{margin:0 24px 20px;border-radius:8px;background:var(--tchelet-soft);padding:16px;display:grid;gap:8px}
+.refl-lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--tchelet);font-weight:700}
+.refl-lbl span{letter-spacing:.04em;text-transform:none;color:var(--muted);font-weight:500}
+.refl p{margin:0;font-family:var(--f-display);font-size:20px;line-height:1.35;color:var(--ink)}
+.refl textarea{width:100%;font:inherit;font-size:15px;border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--surface);color:var(--ink);resize:vertical}
+.refl textarea:focus{outline:none;border-color:var(--tchelet)}
+.word .sum.hide{font-family:var(--f-body);font-weight:500;font-size:11px;color:var(--muted)}
+.confirm{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;color:#D7DCEA}
+.confirm .btn{justify-self:auto}
+@media (max-width:480px){.les-lock,.refl{margin-left:16px;margin-right:16px}}
+@media (max-width:560px){.brand{display:none}.top-in{justify-content:space-between;gap:8px}.lv{width:30px;height:30px;font-size:12px}.levels{gap:4px}.timer,.score{padding:4px 9px;font-size:12px}}
+/* lessons */
+.lessons{margin:4px 24px 18px;border:1px solid var(--gold-line);border-radius:8px;background:var(--surface);overflow:hidden}
+.les-title{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;padding:12px 16px 10px;background:var(--gold-soft);border-bottom:1px solid var(--gold-line)}
+.les-title span{letter-spacing:.04em;text-transform:none;color:var(--muted);font-weight:500}
+.les{border-bottom:1px solid var(--line)}
+.les:last-child{border-bottom:0}
+.les summary{cursor:pointer;list-style:none;padding:12px 16px;font-family:var(--f-display);font-weight:700;font-size:19px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.les summary::-webkit-details-marker{display:none}
+.les summary::after{content:"+";font-family:var(--f-num);color:var(--gold);font-size:18px;transition:transform .2s}
+.les[open] summary::after{transform:rotate(45deg)}
+.les summary:hover{color:var(--gold)}
+.les-b{padding:0 16px 14px;color:var(--ink-2);max-width:68ch}
+.les-b p{margin:0 0 10px}
+.les-b p:last-child{margin:0}
+@media (max-width:480px){.lessons{margin-left:16px;margin-right:16px}}
+
+/* balance */
+.balance{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:0 24px 18px}
+.pan{border:1px dashed var(--gold-line);border-radius:8px;padding:12px;text-align:center;min-height:66px;display:grid;align-content:center}
+.pan .he{font-size:20px;font-weight:700}
+.pan .num{font-size:22px;font-weight:600;color:var(--gold)}
+.pan.lit{border-style:solid;border-color:var(--gold-2);background:var(--gold-soft)}
+.mid{font-family:var(--f-display);font-size:28px;color:var(--gold)}
+
+/* final */
+.final{margin-top:28px;background:var(--ink);background-image:radial-gradient(600px 240px at 50% 0,#2A335C 0,transparent 70%);color:#fff;border-radius:6px;padding:36px 24px;display:grid;gap:12px;text-align:center;box-shadow:var(--shadow);border:1px solid #2A335C}
+.final h2{font-family:var(--f-display);font-weight:600;font-size:36px;margin:0}
+.final .big{font-family:var(--f-num);font-size:60px;font-weight:600;color:var(--gold-2);line-height:1}
+.final p{margin:0 auto;max-width:56ch;color:#C9CEE0}
+.final .btn{justify-self:center;background:var(--gold-2);color:var(--ink);border-color:var(--gold-2)}
+
+
+.share{margin-top:10px;display:grid;gap:12px;text-align:left;border:1px solid #3A4472;border-radius:10px;padding:18px;background:rgba(255,255,255,.03)}
+.share-lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2);font-weight:700}
+.share-txt{margin:0;white-space:pre-wrap;word-break:break-word;font-family:var(--f-body);font-size:14px;line-height:1.55;color:#E6E9F3;background:rgba(0,0,0,.18);border-radius:8px;padding:14px;max-height:340px;overflow:auto;user-select:text}
+.share-btns{display:flex;flex-wrap:wrap;gap:8px}
+.final .btn.gold{background:linear-gradient(180deg,#E3C47C,#C49A47);color:var(--ink);border-color:#C49A47;justify-self:auto}
+.final .btn.ghost-l{background:transparent;color:#fff;border-color:#4A5486;text-decoration:none;justify-self:auto}
+.final .btn.ghost-l:hover{border-color:var(--gold-2);color:var(--gold-2)}
+.share-legend{font-size:12px;color:#8C93B0}
+
+/* calculator */
+.calc{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:24px;display:grid;gap:14px;box-shadow:var(--shadow)}
+.calc h2{font-family:var(--f-display);font-weight:700;font-size:28px;margin:0}
+.calc .sub{color:var(--muted);font-size:14px;margin:-8px 0 0}
+.calc-in{font-family:var(--f-he);font-size:30px;direction:rtl;width:100%;padding:10px 14px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}
+.calc-in:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft);background:var(--surface)}
+.kbd{display:flex;flex-wrap:wrap;gap:5px;direction:rtl}
+.key{font-family:var(--f-he);font-size:19px;width:40px;height:46px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);display:grid;place-items:center;line-height:1;box-shadow:0 1px 0 var(--line)}
+.key small{font-family:var(--f-num);font-size:9px;color:var(--gold)}
+.key:hover{border-color:var(--gold)}
+.key.wide{width:auto;padding:0 12px;font-family:var(--f-body);font-size:12.5px}
+.calc-out{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px}
+.calc-out .total{font-family:var(--f-num);font-size:44px;font-weight:600;color:var(--gold)}
+.calc-out .match{font-size:14px;color:var(--muted)}
+.calc-out .match .he{color:var(--ink);font-size:18px;font-weight:700}
+
+/* colophon */
+.colophon{margin:40px -16px 0;background:var(--ink);background-image:radial-gradient(700px 260px at 50% 0,#28305A 0,transparent 70%);color:#D5D9E8;padding:44px 16px calc(36px + env(safe-area-inset-bottom,0px))}
+.col-in{max-width:780px;margin:0 auto;display:grid;gap:24px}
+.col-top{display:grid;gap:8px;text-align:center;justify-items:center}
+.col-top .orn{color:var(--gold-2);font-family:var(--f-he);font-size:22px;letter-spacing:.4em}
+.col-top .rights{font-family:var(--f-display);font-size:22px;line-height:1.35;color:#fff;max-width:36ch;margin:0}
+.col-top .rights b{color:var(--gold-2);font-weight:700}
+.col-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.col-card{border:1px solid #2F3862;border-radius:8px;padding:16px 18px;display:grid;gap:6px;align-content:start;min-width:0}
+.col-card .lbl{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2);font-weight:700}
+.col-card .val{font-size:16px;color:#fff;word-break:break-word}
+.col-card .val a{text-decoration:none;border-bottom:1px solid #5A6390}
+.col-card .val a:hover{border-color:var(--gold-2);color:var(--gold-2)}
+.copy{justify-self:start;background:transparent;border:1px solid #3A4472;color:#D5D9E8;border-radius:999px;padding:4px 12px;font-size:12px}
+.copy:hover{border-color:var(--gold-2);color:var(--gold-2)}
+.donate{display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;border:1px solid var(--gold);border-radius:10px;padding:20px 22px;background:linear-gradient(135deg,rgba(216,181,101,.14),rgba(216,181,101,.03))}
+.donate h3{font-family:var(--f-display);font-weight:700;font-size:26px;color:#fff;margin:0}
+.donate p{margin:2px 0 0;font-size:14px;color:#C2C8DD}
+.donate a.cta{text-decoration:none;background:linear-gradient(180deg,#E3C47C,#C49A47);color:var(--ink);font-weight:700;border-radius:999px;padding:12px 22px;white-space:nowrap;box-shadow:0 8px 20px -10px rgba(216,181,101,.8)}
+.donate a.cta:hover{filter:brightness(1.06)}
+.fine{text-align:center;font-size:12px;color:#8C93B0}
+@media (max-width:520px){.donate{grid-template-columns:1fr;text-align:center}.donate a.cta{justify-self:center}}
+
+@media (prefers-reduced-motion:no-preference){
+  .pop{animation:pop .4s ease-out}
+  @keyframes pop{from{transform:translateY(4px);opacity:.3}to{transform:none;opacity:1}}
+}
+@media (max-width:480px){
+  .r-head,.cond,.words,.step,.reveal,.nav,.balance{padding-left:16px;padding-right:16px}
+  .hero-in{padding:32px 16px 26px}
+  .inp{width:110px}
+  .brand small{display:none}
+}
+</style>
+
+<div class="top"><div class="top-in">
+  <div class="brand">Тикун парцуф-занав<small>MyChitas</small></div>
+  <div class="levels" id="levels"></div>
+  <div class="timer num" id="timer" title="Время игры">⏱ 0:00</div>
+  <div class="score num" id="score">0 очков</div>
+</div></div>
+
+<div class="wrap">
+  <header class="hero"><div class="hero-in">
+    <div class="year">ה׳תשפ״ז · 5787</div>
+    <div class="heb gold-text">תיקון פרצוף־זנב</div>
+    <h1>Математика души: <i>четыре загадки-гиматрии</i></h1>
+    <div class="author">по статье рава Ицхака Гинзбурга</div>
+    <p>Считайте числовые значения слов, находите скрытые равенства и открывайте их смысл: гордыня и вожделение, молитва, три лика человека и тайна брака.</p>
+    <div class="rules">
+      <span>верно с первой попытки — <b>10</b></span>
+      <span>со второй — <b>5</b>, с третьей — <b>2</b></span>
+      <span>после подсказки — <b>3</b></span>
+      <span>лимит ошибок: 3 в числах, 2 в выборе — затем ответ открывается за <b>0</b></span>
+      <span>урок открывается после решения</span>
+    </div>
+  </div></header>
+
+  <main id="game"></main>
+
+  <section class="calc" aria-labelledby="calc-h">
+    <h2 id="calc-h">Калькулятор гиматрии</h2>
+    <p class="sub">Введите слово на иврите или наберите его на клавиатуре. Если число совпадёт со словом из игры, вы это увидите.</p>
+    <input id="calc-in" class="calc-in" dir="rtl" autocomplete="off" placeholder="אש" aria-label="Слово на иврите">
+    <div class="kbd" id="kbd"></div>
+    <div class="calc-out"><span class="total" id="calc-total">0</span><span class="match" id="calc-match"></span></div>
+  </section>
+</div>
+
+<footer class="colophon">
+  <div class="col-in">
+    <div class="col-top">
+      <div class="orn">✦ ✦ ✦</div>
+      <p class="rights">Все тексты целиком принадлежат <b>раву Ицхаку Гинзбургу</b>.</p>
+    </div>
+    <div class="col-grid">
+      <div class="col-card">
+        <span class="lbl">Идея и проект</span>
+        <span class="val">Тора-проект <a href="https://mychitas.app" target="_blank" rel="noopener">mychitas.app</a></span>
+      </div>
+      <div class="col-card">
+        <span class="lbl">Вопросы и пожелания</span>
+        <span class="val" id="mail">Office@mychitas.app</span>
+        <button class="copy" id="copy-mail">Скопировать адрес</button>
+      </div>
+    </div>
+    <div class="donate">
+      <div>
+        <h3>Поддержать проект</h3>
+        <p>Ваш вклад помогает создавать новые игры и материалы по Торе.</p>
+      </div>
+      <a class="cta" href="https://mychitas.app/donate" target="_blank" rel="noopener">mychitas.app/donate</a>
+    </div>
+    <div class="fine">По уроку «Тикун парцуф-занав», брошюра «Нифлаот», Берешит ה׳תשפ״ז (Гал Эйнай). Полный текст на иврите: pnimi.org.il<br>© MyChitas · Тексты: рав Ицхак Гинзбург</div>
+  </div>
+</footer>
+
+<script>
+const V={'א':1,'ב':2,'ג':3,'ד':4,'ה':5,'ו':6,'ז':7,'ח':8,'ט':9,'י':10,'כ':20,'ך':20,'ל':30,'מ':40,'ם':40,'נ':50,'ן':50,'ס':60,'ע':70,'פ':80,'ף':80,'צ':90,'ץ':90,'ק':100,'ר':200,'ש':300,'ת':400};
+const gem=s=>[...s].reduce((a,c)=>a+(V[c]||0),0);
+const letters=s=>[...s].filter(c=>V[c]);
+
+const W={
+ 'פרצוף':'лицо, облик','זנב':'хвост','גאוה':'гордыня','תאוה':'вожделение','אש':'огонь',
+ 'אלף':'алеф','שין':'шин','תפלה':'молитва','פנים':'внутренний лик','מסכה':'маска',
+ 'לעיני':'пред глазами','כל':'всего','ישראל':'Израиля','אשה':'женщина','טוב':'благо','חי':'жизнь','ויבן':'и построил'
+};
+
+const R=[
+ {id:1,title:'Космическое равновесие двух начал',
+  cond:`<p>Мудрецы Талмуда спорят, чем была «задняя сторона» (<em>אחור</em>) первого человека, из которой сотворена Хава: одни говорят — лицом (<em>פרצוף</em>), другие — хвостом (<em>זנב</em>).</p><p>Хасидизм объясняет: за «лицом» стоит корень гордыни (<em>גאוה</em>), за «хвостом» — корень вожделения (<em>תאוה</em>). Взвесьте обе пары.</p>`,
+  words:['פרצוף','גאוה','זנב','תאוה'],
+  balance:[['פרצוף + גאוה',471],['זנב + תאוה',471]],
+  steps:[
+   {t:'num',q:'Чему равно <span class="he">פרצוף + גאוה</span>?',a:471,hint:'פרצוף = 456, а גאוה — это 3 + 1 + 6 + 5.',pan:0},
+   {t:'num',q:'Чему равно <span class="he">זנב + תאוה</span>?',a:471,hint:'זנב = 7 + 50 + 2, а תאוה = 400 + 1 + 6 + 5.',pan:1},
+   {t:'ch',q:'Какое слово в полном написании букв (מילוי) даёт ровно 471?',
+    opts:[{h:'אש',r:'огонь · אלף + שין',v:471},{h:'אור',r:'свет · אלף + וו + ריש',v:633},{h:'מים',r:'вода · מם + יוד + מם',v:180},{h:'רוח',r:'дух · ריש + וו + חית',v:940}],c:0}
+  ],
+  reveal:{h:'Огонь гордыни и огонь страсти',
+   eq:['פרצוף + גאוה = 456 + 15 = 471','זנב + תאוה = 59 + 412 = 471','אלף (111) + שין (360) = 471 = אש במילוי'],
+   p:'Обе стороны подсознания стоят в точном равновесии. Обе — огонь: буква Алеф служит корнем горделивого «я», буква Шин — пламенем страсти.'}},
+
+ {id:2,title:'Математика исправления',
+  cond:`<p>Соедините в одном анализе обе крайности подсознания — «лицо» и «хвост» (<em>פרצוף־זנב</em>). Какое служение получится в сумме, и какая заповедь исправляет оба корня?</p>`,
+  words:['פרצוף','זנב','תפלה'],
+  steps:[
+   {t:'num',q:'Чему равно <span class="he">פרצוף + זנב</span>?',a:515,hint:'Вы уже знаете оба числа из первой загадки: 456 и 59.'},
+   {t:'ch',q:'Какое слово имеет гиматрию 515?',
+    opts:[{h:'תפלה',r:'молитва',v:515},{h:'תורה',r:'Тора',v:611},{h:'צדקה',r:'цдака',v:199},{h:'תשובה',r:'тшува',v:713}],c:0},
+   {t:'ch',q:'Какая заповедь исправляет и голову, и сердце?',
+    opts:[{h:'תפלין',r:'тфилин'},{h:'ציצית',r:'цицит'},{h:'מזוזה',r:'мезуза'},{h:'שבת',r:'Шабат'}],c:0}
+  ],
+  reveal:{h:'Молитва связывает лицо и хвост',
+   eq:['פרצוף (456) + זנב (59) = 515 = תפלה'],
+   p:'Тфилин на руке кладут напротив сердца, чтобы подчинить страсти («хвост»). Тфилин на голове кладут на мозг, чтобы смирить гордыню разума («лицо»).'}},
+
+ {id:3,title:'Три уровня Моше: от маски до любви',
+  cond:`<p>Статья различает три ступени проявления человека:</p><p>• жёсткая маска (<em>מסכה</em>), которую надевают в гневе и суде;<br>• социальный фасад (<em>פרצוף</em>), с которым выходят учить других;<br>• истинный внутренний лик (<em>פנים</em>), скрывающий любовь к ближнему.</p><p>Сложите все три. Какая фраза из самого конца Торы получится?</p>`,
+  words:['מסכה','פרצוף','פנים'],
+  steps:[
+   {t:'num',q:'Чему равно <span class="he">פנים + פרצוף + מסכה</span>?',a:761,hint:'פנים = 80 + 50 + 10 + 40, מסכה = 40 + 60 + 20 + 5.'},
+   {t:'ch',q:'Какая фраза Торы равна этому числу?',
+    opts:[{h:'לעיני כל ישראל',r:'пред глазами всего Израиля',v:761},{h:'שמע ישראל',r:'Слушай, Израиль',v:951},{h:'בראשית ברא',r:'В начале сотворил',v:1116},{h:'משה רבנו',r:'Моше, наш учитель',v:603}],c:0},
+   {t:'num',q:'761 — центрированное квадратное число 20-го порядка. Вычислите <span class="num">20² + 19²</span>.',a:761,hint:'400 + 361.'}
+  ],
+  reveal:{h:'Последние слова Торы',
+   eq:['פנים (180) + פרצוף (456) + מסכה (125) = 761','לעיני (170) + כל (50) + ישראל (541) = 761','20² + 19² = 400 + 361 = 761'],
+   p:'Тора заканчивается словами «пред глазами всего Израиля» (Дварим 34:12). Все три уровня Моше — маска, фасад и внутренний лик — вместе раскрываются перед всем народом.'}},
+
+ {id:4,title:'Тайна брака: от эгоизма к благу',
+  cond:`<p>В эгоистическом браке («нашёл я», <em>מוצא אני</em>) человек ищет удовлетворения амбиций («лица») или вожделений («хвоста»). Поднявшись до встречи «лицом к лицу», он находит настоящую жену (<em>מצא אשה</em>) и обретает благо (<em>טוב</em>).</p>`,
+  words:['אשה','טוב','ויבן'],
+  steps:[
+   {t:'num',q:'Во сколько раз <span class="he">אשה</span> больше, чем <span class="he">טוב</span>?',a:18,hint:'אשה = 306, טוב = 17. Разделите.'},
+   {t:'ch',q:'Какое слово равно этому множителю?',
+    opts:[{h:'חי',r:'жизнь',v:18},{h:'אהבה',r:'любовь',v:13},{h:'אחד',r:'один',v:13},{h:'לב',r:'сердце',v:32}],c:0},
+   {t:'num',q:'Словом <span class="he">ויבן</span> («и построил») Всевышний создал женщину. Сколько раз в нём содержится <span class="he">טוב</span>?',a:4,hint:'ויבן = 6 + 10 + 2 + 50 = 68.'}
+  ],
+  reveal:{h:'Нашёл жену — нашёл благо',
+   eq:['אשה (306) = 18 × טוב (17)','18 = חי','ויבן (68) = 4 × טוב'],
+   p:'«Женщина» — это восемнадцать раз «благо», то есть жизнь из блага. Сам акт её сотворения, «и построил», четырежды заключает в себе благо.'}}
+];
+
+
+const LES=[
+ [{h:'Год פ״ז: лицо и хвост',b:`<p>Год ה׳תשפ״ז читается как намёк на «парцуф־занав»: буквы פ и ז открывают оба слова. Первый человек был создан «сзади и спереди», и мудрецы спорят, чем была его задняя сторона. Рав говорит — лицом, Шмуэль — хвостом.</p><p>В каббале «зад» человека — его подсознание, то, чего он сам о себе не видит. Значит, спор идёт о том, что лежит в глубине неосознанного: образ «я» или влечение.</p>`},
+  {h:'Что такое «парцуф»',b:`<p>«Парцуф» — не само лицо (פנים) и не маска (מסכה), а нечто среднее. Это образ, который человек хочет показать другим: как он желает выглядеть перед людьми. Отсюда и связь с гордыней.</p><p>Гордыня описана как «другая сторона» (סטרא אחרא): человек как будто примеряет на себя чужое самосознание и возвышается над ближним. «Хвост» связан с блужданием сердца и глаз, и его исправление — хранение завета.</p>`},
+  {h:'Хабад и Бреслав: что в корне',b:`<p>Хасидские школы расходятся так же, как Рав и Шмуэль. В Хабаде главный корень зла — гордыня, то есть «парцуф». В Бреславе — вожделение, то есть «хвост».</p><p>Числа показывают, что обе позиции весят одинаково: «парцуф-гордыня» равно «хвост-вожделение», 471. Это «огонь» в полном написании: Алеф — корень самосознания, Шин — пламя страсти. Исправление гордыни — смирение Моше, «самого скромного из людей».</p>`},
+  {h:'Фрейд и Юнг',b:`<p>Современная психология тоже начинает с подсознания, которое проявляется во сне. Для Фрейда сон выражает самую низкую часть личности, влечения «оно» — это «хвост».</p><p>Для Юнга сон может выражать и высшую часть личности, вплоть до «пророческого» взгляда в коллективное бессознательное — это «парцуф». Юнговское понятие «персоны», маски перед обществом, по сути совпадает с «парцуфом».</p>`}],
+ [{h:'Молитва и тфилин',b:`<p>Если сложить обе стороны, «парцуф» и «занав», получится «молитва» (תפלה). Чтобы исправить оба влечения, существуют два тфилина.</p><p>Ручной тфилин кладут напротив сердца: он исправляет влечение, живущее в сердце. Это «молитва Давида», сердца всего Израиля. Головной тфилин кладут на мозг, место самосознания: он исправляет гордыню. Это «молитва Моше», главы народа.</p>`}],
+ [{h:'Маска Моше',b:`<p>После греха золотого тельца Моше стал закрывать лицо покрывалом. Урок связывает это с моментами, когда Моше гневался и ошибался: гнев скрывает истинное лицо. Маска — это облик, с которым приходят упрекать.</p>`},
+  {h:'Парцуф Моше',b:`<p>Когда Моше учит народ Тору — объясняет, что запрещено, что разрешено, — он выходит к людям в облике учителя. Это его «парцуф», лицо наставления.</p>`},
+  {h:'Истинное лицо Моше',b:`<p>Внутренняя суть Моше — безграничная любовь к Израилю. Он готов, чтобы его стёрли из Торы, лишь бы народ был прощён. Он «верный пастырь», ведущий народ с милосердием.</p><p>Все три уровня вместе — маска, парцуф и лицо — дают 761, «пред глазами всего Израиля»: последние слова Торы, которые сразу смыкаются с её началом, «Берешит».</p>`},
+  {h:'Реалист и идеалист',b:`<p>Спор Рава и Шмуэля урок читает и как спор двух мировоззрений. Шмуэль — реалист: мир развивается постепенно, от «хвоста» к «лицу», как в эволюции. Рав — идеалист: творение с самого начала совершенно, это законченный «парцуф».</p><p>Отсюда и разный взгляд на времена Машиаха: у Шмуэля это постепенное исправление в рамках природы, у Рава — чудесное преображение мира.</p>`}],
+ [{h:'«Нашёл я» и «нашёл жену»',b:`<p>Писание говорит и «нашёл жену — нашёл благо», и «нахожу я горче смерти женщину». Разница — в том, кто смотрит. Взгляд «нашёл я» субъективен: человек видит жену через своё «я».</p><p>«Хвост» в браке ищет удовлетворения желаний. «Парцуф» ищет в жене дополнение к собственному облику и статусу. В обоих случаях человек видит не её, а себя.</p>`},
+  {h:'Видеть только благо',b:`<p>Цель — перейти от отношения «спина к спине» к отношению «лицом к лицу». Тогда человек видит в жене её саму, без масок и чужих проекций, — и видит в ней благо.</p><p>Отсюда числа: «женщина» — это 18 раз «благо», «жизнь благая». Слово «и построил», которым была создана женщина, — четыре раза «благо».</p>`},
+  {h:'Суккот: лицом к лицу',b:`<p>Слово «и построил» связано также с сукой. В Суккот Всевышний ставит человека «лицом к лицу» с тем, что перед ним, и человек удостаивается увидеть истинное лицо — и жены, и самого себя, и Творца.</p>`}]
+];
+const REFL=[
+ 'Что сильнее во мне сегодня — желание выглядеть («парцуф») или желание получить («хвост»)? В какой ситуации на этой неделе это проявилось?',
+ 'Какую одну фразу я скажу в молитве завтра так, чтобы она шла и от головы, и от сердца?',
+ 'Где я ношу маску, где показываю «парцуф», а кому открываю своё настоящее лицо? Кто заслуживает увидеть его чаще?',
+ 'Когда я смотрю на близкого человека, я вижу его или своё отражение? Какое одно благо я замечу в нём сегодня?'
+];
+const reflect=ri=>`<div class="refl"><div class="refl-lbl">Вопрос к себе <span>· правильного ответа нет</span></div><p>${REFL[ri]}</p><textarea id="refl-${ri}" rows="3" placeholder="Запишите мысль. Она останется только на этом устройстве."></textarea></div>`;
+const lessons=ri=>`<div class="lessons"><div class="les-title">Урок открыт <span>· изложение своими словами</span></div>${LES[ri].map(l=>`<details class="les"><summary>${l.h}</summary><div class="les-b">${l.b}</div></details>`).join('')}</div>`;
+
+let S={lvl:0,score:0,done:[],st:{},time:[0,0,0,0],started:[]};
+try{const s=JSON.parse(localStorage.getItem('tikun-pz')||'null');if(s&&s.st)S=s}catch(e){}
+S.time||=[0,0,0,0];S.started||=[];S.ord||={};S.notes||={};
+const save=()=>{try{localStorage.setItem('tikun-pz',JSON.stringify(S))}catch(e){}};
+const st=(r,i)=>(S.st[r+'-'+i]||=(S.st[r+'-'+i]={tries:0,hint:false,ok:false,pick:[]}));
+
+const $=s=>document.querySelector(s);
+function renderTop(){
+  $('#score').textContent=S.score+' очков';
+  $('#levels').innerHTML=R.map((r,i)=>`<button class="lv ${i===S.lvl?'cur':''} ${S.done.includes(i)?'done':''}" data-l="${i}" aria-label="Загадка ${i+1}">${i+1}</button>`).join('')+`<button class="lv ${S.lvl===4?'cur':''}" data-l="4" aria-label="Итог">★</button>`;
+  document.querySelectorAll('.lv').forEach(b=>b.onclick=()=>{S.lvl=+b.dataset.l;save();render();window.scrollTo({top:$('#game').offsetTop-70,behavior:'smooth'})});
+}
+function wordHTML(w,ri){
+  const open=S.st['w'+ri+w];
+  return `<button class="word" data-w="${w}"><span class="w">${w}</span><span class="t">${W[w]||''}</span>${open?`<span class="tiles">${letters(w).map(c=>`<span class="tile"><b>${c}</b><i>${V[c]}</i></span>`).join('')}</span>${S.done.includes(ri)?`<span class="sum">= ${gem(w)}</span>`:`<span class="sum hide">сложите сами</span>`}<span>`:''}</button>`;
+}
+const MAXWRONG={num:3,ch:2};
+function award(s){let p=[10,5,2][s.tries-1]||0;if(s.hint)p=Math.min(p,3);S.score+=p;return p}
+function order(ri,i,n){const k=ri+'-'+i;if(!S.ord[k]||S.ord[k].length!==n){const a=[...Array(n).keys()];for(let j=n-1;j>0;j--){const r=Math.floor(Math.random()*(j+1));[a[j],a[r]]=[a[r],a[j]]}S.ord[k]=a;save()}return S.ord[k]}
+
+
+function fmt(ms){const t=Math.floor(ms/1000),h=Math.floor(t/3600),m=Math.floor(t%3600/60),sec=String(t%60).padStart(2,'0');return h?h+':'+String(m).padStart(2,'0')+':'+sec:m+':'+sec}
+function totalT(){return S.time.reduce((a,b)=>a+b,0)}
+function shareText(max){
+  const grid=R.map((r,ri)=>(ri+1)+' '+r.steps.map((_,i)=>{const x=S.st[ri+'-'+i];return !x||!x.ok?'⬜':(x.fail?'🟥':(x.tries===1&&!x.hint?'🟩':'🟨'))}).join('')).join('\n');
+  const all=S.done.length===4;
+  return `🔥 Что общего у гордыни и вожделения?
+Ответ спрятан в одном числе.
+
+Я ищу его в игре-гиматрии по уроку рава Ицхака Гинзбурга «Тикун парцуф-занав». ${all?'Все четыре загадки разгаданы:':'Мой путь пока такой:'}
+
+✦ ${S.score} из ${max} очков · ⏱ ${fmt(totalT())}
+${grid}
+
+Четыре загадки о лице, маске и сердце. Сможешь лучше?
+Сыграй 👉 mychitas.app
+
+©pnimi.org.il ©mychitas.app`;
+}
+function render(){
+  renderTop();
+  const g=$('#game');
+  if(S.lvl===4){
+    const max=R.reduce((a,r)=>a+r.steps.length*10,0);
+    const text=shareText(max);
+    g.innerHTML=`<section class="final pop"><h2>Тикун завершён</h2><div class="big">${S.score}<span style="font-size:24px;color:#D7DCEA"> / ${max}</span></div><div class="time">⏱ ${fmt(totalT())}${S.done.length===4?'':' · игра продолжается'}</div>
+    <p>${S.done.length===4?'Все четыре загадки разгаданы. Лицо и хвост, гордыня и страсть соединены в молитве и раскрыты пред глазами всего Израиля.':'Разгадано загадок: '+S.done.length+' из 4. Вернитесь к остальным через номера вверху.'}</p>
+    <div class="share">
+      <div class="share-lbl">Поделиться результатом</div>
+      <pre class="share-txt" id="share-txt">${text.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>
+      <div class="share-btns">
+        <button class="btn gold" id="share-copy">Скопировать текст</button>
+        <a class="btn ghost-l" href="https://wa.me/?text=${encodeURIComponent(text)}" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn ghost-l" href="https://t.me/share/url?url=${encodeURIComponent('https://mychitas.app')}&text=${encodeURIComponent(text)}" target="_blank" rel="noopener">Telegram</a>
+      </div>
+      <div class="share-legend">🟩 с первой попытки · 🟨 со второй или с подсказкой · 🟥 ответ открыт · ⬜ не решено</div>
+    </div>
+    <button class="btn" id="restart">Начать заново</button></section>`;
+    const rs=$('#restart');rs.onclick=()=>{rs.outerHTML=`<div class="confirm"><span>Стереть очки, время и заметки?</span><button class="btn ghost-l" id="rs-no">Нет</button><button class="btn" id="rs-yes">Да, начать заново</button></div>`;
+      $('#rs-no').onclick=()=>render();$('#rs-yes').onclick=wipe};
+    function wipe(){S={lvl:0,score:0,done:[],st:{},time:[0,0,0,0],started:[],ord:{},notes:{}};save();render();window.scrollTo({top:0,behavior:'smooth'})}
+    const sc=$('#share-copy');
+    sc.onclick=()=>{const ok=()=>{sc.textContent='Скопировано ✓';setTimeout(()=>sc.textContent='Скопировать текст',2000)};
+      const sel=()=>{const r=document.createRange();r.selectNodeContents($('#share-txt'));const x=getSelection();x.removeAllRanges();x.addRange(r);sc.textContent='Текст выделен, нажмите «Копировать»'};
+      try{navigator.clipboard.writeText(text).then(ok,sel)}catch(e){sel()}};
+    return;
+  }
+  const ri=S.lvl,r=R[ri];
+  let firstOpen=r.steps.findIndex((_,i)=>!st(ri,i).ok); if(firstOpen<0)firstOpen=r.steps.length;
+  const steps=r.steps.map((s,i)=>{
+    const x=st(ri,i),locked=i>firstOpen;
+    let body='';
+    if(s.t==='num'){
+      body=`<div class="row"><input class="inp" id="in-${ri}-${i}" inputmode="numeric" aria-label="Ответ" ${x.ok?`value="${s.a}" disabled`:''}>
+      ${x.ok?'':`<button class="btn" data-check="${i}">Проверить</button>${x.hint?'':`<button class="btn ghost" data-hint="${i}">Подсказка</button>`}`}</div>`;
+    }else{
+      body=`<div class="opts">${order(ri,i,s.opts.length).map(k=>[s.opts[k],k]).map(([o,k])=>{const picked=x.pick.includes(k);const cls=picked?(k===s.c?'right':'wrong'):(x.ok&&k===s.c?'right':'');
+        return `<button class="opt ${cls}" data-opt="${i}:${k}" ${x.ok?'disabled':''}><span class="oh">${o.h}</span><span class="or">${o.r}</span><span class="ov">${(picked||x.ok)&&o.v!=null?'= '+o.v:''}</span></button>`}).join('')}</div>`;
+    }
+    let fb='';
+    const left=MAXWRONG[s.t]-x.tries;
+    if(x.ok&&x.fail)fb=`<div class="fb no">Попытки закончились. Ответ: <b>${s.t==='num'?s.a:s.opts[s.c].h}</b> · 0 очков</div>`;
+    else if(x.ok)fb=`<div class="fb ok">Верно! +${x.pts}</div>`;
+    else if(x.hint)fb=`<div class="fb hint">Подсказка: ${s.hint}</div>`;
+    if(!x.ok&&x.tries>0&&x.last==='no')fb+=`<div class="fb no">Осталось попыток: ${left}. ${s.t==='num'?'Не сходится. Проверьте значения букв и попробуйте ещё раз.':'Не то. Посмотрите на число этого варианта и выберите другой.'}</div>`;
+    return `<div class="step ${locked?'locked':''}"><div class="q"><span class="n">${i+1}.</span>${s.q}</div>${body}${fb}</div>`;
+  }).join('');
+  const solved=firstOpen>=r.steps.length;
+  const bal=r.balance?`<div class="balance">${r.balance.map((b,k)=>`<div class="pan ${st(ri,k).ok?'lit':''}"><span class="he">${b[0]}</span><span class="num">${st(ri,k).ok?b[1]:'?'}</span></div>`).join('<span class="mid">'+(st(ri,0).ok&&st(ri,1).ok?'=':'⚖')+'</span>')}</div>`:'';
+  g.innerHTML=`<article class="riddle">
+    <div class="r-head"><span class="eyebrow">Загадка ${r.id} из 4<span class="r-time" id="r-timer">⏱ ${fmt(S.time[ri])}</span></span><h2>${r.title}</h2></div>
+    <div class="cond">${r.cond}</div>
+    ${solved?'':`<div class="les-lock">📜 Урок к этой загадке откроется после решения</div>`}
+    <div class="words">${r.words.map(w=>wordHTML(w,ri)).join('')}</div>
+    ${bal}
+    <div class="steps">${steps}</div>
+    ${solved?`<div class="reveal pop"><h3>${r.reveal.h}</h3>${r.reveal.eq.map(e=>`<div class="eq">${e.replace(/([א-ת]+(?:\s[א-ת]+)*)/g,'<span class="he">$1</span>')}</div>`).join('')}<p>${r.reveal.p}</p></div>${lessons(ri)}${reflect(ri)}`:''}
+    <div class="nav"><button class="btn ghost" id="prev" ${ri===0?'disabled':''}>← Назад</button><button class="btn" id="next" ${solved?'':'disabled'}>${ri===3?'К итогу':'Следующая загадка'} →</button></div>
+  </article>`;
+
+  g.querySelectorAll('.word').forEach(b=>b.onclick=()=>{const k='w'+ri+b.dataset.w;S.st[k]=!S.st[k];save();render()});
+  g.querySelectorAll('[data-hint]').forEach(b=>b.onclick=()=>{st(ri,+b.dataset.hint).hint=true;save();render()});
+  g.querySelectorAll('[data-check]').forEach(b=>{
+    const i=+b.dataset.check,inp=$(`#in-${ri}-${i}`);
+    const go=()=>{const x=st(ri,i),v=parseInt(inp.value.replace(/\s/g,''),10);if(isNaN(v)){inp.focus();return}
+      x.tries++;if(v===r.steps[i].a){x.ok=true;x.pts=award(x);x.last='ok'}else{x.last='no';if(x.tries>=MAXWRONG.num){x.ok=true;x.fail=true;x.pts=0}}finish();
+      const nx=$(`#in-${ri}-${i+1}`);if(x.ok&&nx)nx.focus();else if(x.ok){}else if(!x.ok)$(`#in-${ri}-${i}`).select()};
+    b.onclick=go;inp.onkeydown=e=>{if(e.key==='Enter')go()};
+  });
+  g.querySelectorAll('[data-opt]').forEach(b=>b.onclick=()=>{
+    const [i,k]=b.dataset.opt.split(':').map(Number),x=st(ri,i);if(x.pick.includes(k))return;
+    x.tries++;x.pick.push(k);if(k===r.steps[i].c){x.ok=true;x.pts=award(x);x.last='ok'}else{x.last='no';if(x.tries>=MAXWRONG.ch){x.ok=true;x.fail=true;x.pts=0}}finish();
+  });
+  const ta=$(`#refl-${ri}`);if(ta){ta.value=S.notes[ri]||'';ta.oninput=()=>{S.notes[ri]=ta.value;save()}}
+  function finish(){if(r.steps.every((_,i)=>st(ri,i).ok)&&!S.done.includes(ri))S.done.push(ri);save();render()}
+  $('#prev').onclick=()=>{S.lvl--;save();render()};
+  $('#next').onclick=()=>{S.lvl++;save();render();window.scrollTo({top:$('#game').offsetTop-70,behavior:'smooth'})};
+}
+
+/* calculator */
+const known={};
+[...Object.keys(W),'אור','מים','רוח','תורה','צדקה','תשובה','אהבה','אחד','לב'].forEach(w=>{(known[gem(w)]||=new Set).add(w)});
+[['פרצוף גאוה'],['זנב תאוה'],['לעיני כל ישראל'],['פרצוף זנב']].forEach(([p])=>{(known[gem(p)]||=new Set).add(p)});
+known[471].add('אלף שין');
+const ci=$('#calc-in');
+function calc(){const v=gem(ci.value);$('#calc-total').textContent=v;
+  const SECRET={471:0,515:1,761:2,18:3};
+  const m=(known[v]&&!(v in SECRET&&!S.done.includes(SECRET[v])))?[...known[v]].filter(w=>w!==ci.value.trim()):[];
+  $('#calc-match').innerHTML=v&&m.length?'Равно: '+m.map(w=>`<span class="he">${w}</span>`).join(', '):(v?'Совпадений среди слов игры нет':'')}
+ci.oninput=calc;
+const KEYS='אבגדהוזחטיכלמנסעפצקרשת'.split('').concat(['ך','ם','ן','ף','ץ']);
+$('#kbd').innerHTML=KEYS.map(k=>`<button class="key" data-k="${k}" aria-label="${k}">${k}<small>${V[k]}</small></button>`).join('')+
+ `<button class="key wide" data-k=" ">пробел</button><button class="key wide" data-k="⌫">стереть</button>`;
+$('#kbd').onclick=e=>{const b=e.target.closest('.key');if(!b)return;const k=b.dataset.k;
+  ci.value=k==='⌫'?[...ci.value].slice(0,-1).join(''):ci.value+k;calc()};
+ci.value='שלום';calc();
+
+const cm=document.getElementById('copy-mail');
+cm.onclick=()=>{const t='Office@mychitas.app';const ok=()=>{cm.textContent='Скопировано';setTimeout(()=>cm.textContent='Скопировать адрес',1800)};
+ try{navigator.clipboard.writeText(t).then(ok,()=>sel())}catch(e){sel()}
+ function sel(){const r=document.createRange();r.selectNodeContents(document.getElementById('mail'));const g=getSelection();g.removeAllRanges();g.addRange(r)}};
+/* timer */
+let last=performance.now(),saveTick=0;
+const running=()=>S.lvl<4&&S.started[S.lvl]&&!S.done.includes(S.lvl)&&!document.hidden;
+function paintTimer(){
+  const t=$('#timer');if(t){t.textContent='⏱ '+fmt(totalT());t.classList.toggle('run',running())}
+  const rt=$('#r-timer');if(rt&&S.lvl<4){rt.textContent='⏱ '+fmt(S.time[S.lvl]);rt.classList.toggle('run',running())}
+}
+setInterval(()=>{const now=performance.now(),d=now-last;last=now;
+  if(running()){S.time[S.lvl]+=Math.min(d,5000);if(++saveTick%5===0)save()}
+  paintTimer()},1000);
+document.addEventListener('visibilitychange',()=>{last=performance.now();save()});
+const startR=e=>{if(S.lvl<4&&!S.started[S.lvl]&&e.target.closest('.riddle')&&!e.target.closest('.nav')){S.started[S.lvl]=true;last=performance.now();save();paintTimer()}};
+$('#game').addEventListener('click',startR);
+$('#game').addEventListener('focusin',startR);
+document.addEventListener('copy',e=>{
+  const a=document.activeElement;if(a&&(a.tagName==='INPUT'||a.tagName==='TEXTAREA'))return;
+  const sel=getSelection();const t=sel?sel.toString():'';if(!t.trim()||!e.clipboardData||t.includes('©mychitas.app'))return;
+  const sig='\n\n©pnimi.org.il\n©mychitas.app';
+  const div=document.createElement('div');for(let i=0;i<sel.rangeCount;i++)div.appendChild(sel.getRangeAt(i).cloneContents());
+  e.clipboardData.setData('text/plain',t+sig);
+  e.clipboardData.setData('text/html',div.innerHTML+'<br><br>©pnimi.org.il<br>©mychitas.app');
+  e.preventDefault();
+});
+render();
+</script>
+
+</body></html>
