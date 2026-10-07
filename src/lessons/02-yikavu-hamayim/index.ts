@@ -69,7 +69,8 @@ const lesson: Lesson = {
       sources: ['bereshit-rabbah-68-9', 'ex-33-21', 'ps-19-5', 'ez-43-2', 'gen-19-27', 'ez-33-24', 'ps-27-14'],
     },
     {
-      words: ['זנב', 'יחיאל', 'אם חי'],
+      // no word cards: the words equal to 59 are the answer and are explained in the reveal
+      words: [],
       steps: [
         { t: 'num', a: 59 },
         { t: 'num', a: 27 },

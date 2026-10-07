@@ -108,6 +108,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
               <h2>{rt.title}</h2>
               <Html as="div" className="p-cond" html={rt.cond} />
 
+              {r.words.length > 0 && (
               <div className="p-words">
                 {r.words.map((w) => (
                   <div key={w} className="p-word">
@@ -125,6 +126,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
                   </div>
                 ))}
               </div>
+              )}
 
               <ol className="p-steps">
                 {r.steps.map((s, i) => {

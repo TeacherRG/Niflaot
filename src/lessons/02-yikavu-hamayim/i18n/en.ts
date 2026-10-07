@@ -141,7 +141,7 @@ const en: LessonText = {
       ],
       reveal: {
         h: 'The common denominator — the “tail”',
-        p: 'The average letter of the ninth verse is 59, and Bilam’s verse is exactly 27 times 59. The common divisor of the two “ninth” verses is 59, “zanav”, the tail. So the new lesson connects to the first: nine, Yesod, and the debate over the “face” and the “tail”.',
+        p: 'The average letter of the ninth verse is 59, and Bilam’s verse is exactly 27 times 59. So the two “ninth” verses share the number 59. And 59 is the “tail” (זנב) of the first lesson: the new lesson connects to the debate over the “face” and the “tail”. Two more words equal 59 — the name Yechiel (יחיאל) and “mother of the living” (אם חי). Both hide the word חי — “life”.',
       },
       lessons: [
         {
@@ -150,7 +150,7 @@ const en: LessonText = {
         },
         {
           h: 'The average letter is 59',
-          b: `<p>3068 is 52 times 59, so the average letter of the ninth verse equals 59. The ninth verse of portion Balak, on which the Rebbe of Izbica builds his rule, equals 1593 — 27 times 59. The common denominator of the two verses is 59.</p><p>59 is a prime; the Rav calls it “the living prime”. It is the gematria of the name Yechiel (<span class="he">יחיאל</span>) and of “mother of the living” (<span class="he">אם חי</span>) — a hint to Chava, called “the mother of all living”.</p>`,
+          b: `<p>3068 is 52 times 59, so the average letter of the ninth verse equals 59. The ninth verse of portion Balak, on which the Rebbe of Izbica builds his rule, equals 1593 — 27 times 59. The common denominator of the two verses is 59.</p><p>The Rav brings two more words with the same number 59 — to show that this number is “alive”.</p><p><b>Yechiel</b> (<span class="he">יחיאל</span> = 10 + 8 + 10 + 1 + 30) — a Hebrew name meaning “may G-d live” (<span class="he">יחי אל</span>).</p><p><b>“Mother of the living”</b> (<span class="he">אם חי</span> = 1 + 40 + 8 + 10) — this is what the Torah calls Chava: “And the man called his wife’s name Chava, because she was the mother of all living” (Genesis 3:20). And Chava is the very woman whose creation the “face” and the “tail” debate.</p><p>Both words contain <span class="he">חי</span> — “life”. That is why the Rav calls 59 “the living prime” (prime — divisible only by 1 and itself).</p>`,
         },
         {
           h: '59 is the “tail”',
@@ -165,7 +165,7 @@ const en: LessonText = {
       takeaways: [
         "The ninth verse = 3068 = 13 × 236 (ורב כח — “the measure of the Creator”); without the word “one” — 3055 = 5 × תורה.",
         "The average letter = 3068 : 52 = 59. The ninth verse of Balak = 1593 = 27 × 59.",
-        "59 = זנב = יחיאל = אם חי: the nine leads to Yesod and to the “tail” of the first lesson.",
+        "59 = זנב — the “tail” of the first lesson: the nine leads to Yesod and to the debate over what Chava was created from. 59 is also the name Yechiel (“may G-d live”) and “mother of the living” (אם חי) — Chava: both contain חי, “life”.",
         "Desire is sanctified: “the desire of the righteous is only good”.",
       ],
     },
