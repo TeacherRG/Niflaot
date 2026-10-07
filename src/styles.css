@@ -185,28 +185,9 @@ a{color:inherit}
 .calc-out .match{font-size:14px;color:var(--muted)}
 .calc-out .match .he{color:var(--ink);font-size:18px;font-weight:700}
 
-/* colophon */
-.colophon{margin:40px -16px 0;background:var(--ink);background-image:radial-gradient(700px 260px at 50% 0,#28305A 0,transparent 70%);color:#D5D9E8;padding:44px 16px calc(36px + env(safe-area-inset-bottom,0px))}
-.col-in{max-width:780px;margin:0 auto;display:grid;gap:24px}
-.col-top{display:grid;gap:8px;text-align:center;justify-items:center}
-.col-top .orn{color:var(--gold-2);font-family:var(--f-he);font-size:22px;letter-spacing:.4em}
-.col-top .rights{font-family:var(--f-display);font-size:22px;line-height:1.35;color:#fff;max-width:36ch;margin:0}
-.col-top .rights b{color:var(--gold-2);font-weight:700}
-.col-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.col-card{border:1px solid #2F3862;border-radius:8px;padding:16px 18px;display:grid;gap:6px;align-content:start;min-width:0}
-.col-card .lbl{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2);font-weight:700}
-.col-card .val{font-size:16px;color:#fff;word-break:break-word}
-.col-card .val a{text-decoration:none;border-bottom:1px solid #5A6390}
-.col-card .val a:hover{border-color:var(--gold-2);color:var(--gold-2)}
-.copy{justify-self:start;background:transparent;border:1px solid #3A4472;color:#D5D9E8;border-radius:999px;padding:4px 12px;font-size:12px}
-.copy:hover{border-color:var(--gold-2);color:var(--gold-2)}
-.donate{display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;border:1px solid var(--gold);border-radius:10px;padding:20px 22px;background:linear-gradient(135deg,rgba(216,181,101,.14),rgba(216,181,101,.03))}
-.donate h3{font-family:var(--f-display);font-weight:700;font-size:26px;color:#fff;margin:0}
-.donate p{margin:2px 0 0;font-size:14px;color:#C2C8DD}
-.donate a.cta{text-decoration:none;background:linear-gradient(180deg,#E3C47C,#C49A47);color:var(--ink);font-weight:700;border-radius:999px;padding:12px 22px;white-space:nowrap;box-shadow:0 8px 20px -10px rgba(216,181,101,.8)}
-.donate a.cta:hover{filter:brightness(1.06)}
-.fine{text-align:center;font-size:12px;color:#8C93B0}
-@media (max-width:520px){.donate{grid-template-columns:1fr;text-align:center}.donate a.cta{justify-self:center}}
+/* footer */
+.colophon{max-width:780px;margin:40px auto 0;padding:20px 0 calc(28px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);text-align:center;font-size:12px;color:var(--muted);display:grid;gap:4px}
+.colophon p{margin:0}
 
 @media (prefers-reduced-motion:no-preference){
   .pop{animation:pop .4s ease-out}
@@ -332,3 +313,24 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
   .hero-lesson .hero-help{margin-top:6px;padding:6px 14px;font-size:13.5px}
   .hero-lesson + .riddle,#game .riddle{margin-top:16px}
 }
+
+/* donate heart */
+.donate-btn{color:var(--bad);margin-inline-end:-6px;text-decoration:none}
+.donate-btn svg{fill:currentColor;fill-opacity:.14}
+.donate-btn:hover{color:var(--bad);background:var(--bad-soft);border-color:transparent}
+.donate-btn:hover svg{fill-opacity:1}
+
+/* about: goals & objectives */
+.prose h4{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:20px 0 8px}
+.prose ul{margin:0 0 14px;padding:0;list-style:none;display:grid;gap:8px}
+.prose ul li{position:relative;padding-inline-start:22px}
+.prose ul li::before{content:"✦";position:absolute;inset-inline-start:0;top:0;color:var(--gold-2);font-size:12px;line-height:1.9}
+.prose a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-line);font-weight:600}
+@media (max-width:560px){
+  .top-in{gap:4px}
+  .lv{width:28px;height:28px;font-size:12px}
+  .levels{gap:3px}
+  .icon-btn{width:32px;height:32px}
+}
+.score-short{display:none}
+@media (max-width:380px){.score-full{display:none}.score-short{display:inline}}

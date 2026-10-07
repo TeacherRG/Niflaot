@@ -69,7 +69,12 @@ export function LessonPage({ lesson }: { lesson: Lesson }) {
         <div className={`timer num${running ? ' run' : ''}`} title={t('top.timer')}>
           ⏱ {formatTime(S.time.reduce((a, b) => a + b, 0))}
         </div>
-        <div className="score num">{t('top.points', { n: S.score })}</div>
+        <div className="score num" title={t('top.points', { n: S.score })}>
+          <span className="score-full">{t('top.points', { n: S.score })}</span>
+          <span className="score-short" aria-hidden="true">
+            ✦ {S.score}
+          </span>
+        </div>
       </TopBar>
 
       <div className="wrap">

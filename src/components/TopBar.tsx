@@ -63,6 +63,16 @@ export function TopBar({ title, children }: { title: string; children?: ReactNod
         </a>
         {children}
         <LanguagePicker />
+        <a
+          className="icon-btn donate-btn"
+          href="https://mychitas.app/donate"
+          target="_blank"
+          rel="noopener"
+          aria-label={t('footer.donate')}
+          title={t('footer.donate')}
+        >
+          <Icon name="heart" size={19} />
+        </a>
       </div>
     </div>
   );
