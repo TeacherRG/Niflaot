@@ -71,6 +71,11 @@ const en: LessonText = {
         "Chabad sees pride as the main root of evil, Breslov sees desire. Jung’s “persona” is the “partzuf”; Freud’s drives of the “id” are the “tail”.",
         "זנב = 59 = נדה: a hint to separation that must be rectified — hence the ideal of a marriage begun in purity.",
       ],
+      puzzle: {
+        q: "Assemble the line of reasoning: from the sages’ debate to the number and its meaning.",
+        pieces: ["Debate: “face” or “tail”", "Man’s “back” is the subconscious", "Two roots: גאוה and תאוה", "Equal weight: 471", "Both are fire, אש"],
+        meaning: "The pride of the “face” and the desire of the “tail” live in the subconscious and weigh the same: both are fire, 471 = אש.",
+      },
     },
     {
       title: 'The mathematics of rectification',
@@ -78,7 +83,7 @@ const en: LessonText = {
       steps: [
         { q: 'What is <span class="he">פרצוף + זנב</span>?', hint: 'You already know both numbers from the first riddle: 456 and 59.' },
         { q: 'Which word has the gematria 515?', opts: ['prayer', 'Torah', 'tzedakah', 'teshuvah'] },
-        { q: 'Which mitzvah rectifies both the head and the heart?', opts: ['tefillin', 'tzitzit', 'mezuzah', 'Shabbat'] },
+        { q: 'Which mitzvah is placed both on the head — the seat of the mind’s pride — and on the arm facing the heart — the seat of passion?', opts: ['tefillin', 'tzitzit', 'mezuzah', 'Shabbat'] },
       ],
       reveal: {
         h: 'Prayer binds the face and the tail',
@@ -96,6 +101,11 @@ const en: LessonText = {
         "The hand tefillin, opposite the heart, rectify desire (“the prayer of David”).",
         "The head tefillin, on the brain, humble the pride of the intellect (“the prayer of Moshe”).",
       ],
+      puzzle: {
+        q: "Assemble the path of rectification: from the two sides to the mitzvah.",
+        pieces: ["Face and tail: 456 + 59", "515 = תפלה, prayer", "Two tefillin: head and arm", "Pride and passion rectified"],
+        meaning: "Face and tail together are prayer. The head tefillin humbles the pride of the mind; the arm tefillin, facing the heart, rectifies passion.",
+      },
     },
     {
       title: 'Moshe’s three levels: from mask to love',
@@ -137,6 +147,11 @@ const en: LessonText = {
         "Moshe’s inner essence is boundless love for Israel: he is ready to be erased from the Torah for the people’s sake.",
         "Rav is an idealist: creation is perfect from the start. Shmuel is a realist: rectification is gradual, from “tail” to “face”.",
       ],
+      puzzle: {
+        q: "Assemble Moshe’s three levels from outer to inner — and their sum.",
+        pieces: ["Mask, מסכה — anger and rebuke", "Partzuf — the teacher’s face", "Face, פנים — hidden love", "761 = “before the eyes of all Israel”"],
+        meaning: "Mask, partzuf and true face together give 761 — the last words of the Torah: all of Moshe is revealed before the people.",
+      },
     },
     {
       title: 'The secret of marriage: from egoism to good',
@@ -175,12 +190,22 @@ const en: LessonText = {
         "אשה (306) = 18 × טוב (17), and 18 = חי — “life drawn from good”; ויבן (68) = 4 × טוב.",
         "On Sukkot the Almighty places a person face to face — with his wife, with himself and with the Creator.",
       ],
+      puzzle: {
+        q: "Assemble the path in marriage: from seeing through oneself to the good.",
+        pieces: ["“I find” — seeing through one’s “I”", "Meeting face to face, without masks", "“Found a wife — found good”", "אשה = 18 × טוב: life from good"],
+        meaning: "While a man sees his wife through his “I”, he sees himself. Face to face he finds her — and the good: אשה = 18 × טוב.",
+      },
     },
   ],
   final: {
     title: 'Tikun complete',
     allSolved:
       'All four riddles are solved. Face and tail, pride and passion are joined in prayer and revealed before the eyes of all Israel.',
+  },
+  puzzle: {
+    q: "Assemble the path of the whole lesson — from the roots of the subconscious to meeting face to face.",
+    pieces: ["Pride and desire — one fire", "Prayer joins both sides", "Moshe’s three faces — before all Israel", "Husband and wife — face to face"],
+    meaning: "Face and tail, pride and passion are joined in prayer, revealed before the eyes of all Israel, and meet face to face.",
   },
   practice:
     "This week, before praying, ask yourself: what is stronger in me right now — the wish to appear or the wish to receive? And once a day, look at someone close to you “face to face”: say out loud one good thing you see in them.",

@@ -52,6 +52,20 @@ export interface StepText {
   opts?: string[];
 }
 
+/**
+ * «Собери смысл»: key terms of a riddle (or of the whole lesson) to put in order, like jigsaw pieces.
+ * The order must follow from the lesson itself, and `q` names the principle of the order
+ * (in order of the text, from the root to the meaning, from outer to inner…).
+ */
+export interface PuzzleText {
+  /** the ordering principle shown to the player; plain text */
+  q: string;
+  /** 3–6 key terms in the correct order; plain text, Hebrew is auto-styled */
+  pieces: string[];
+  /** the meaning the assembled chain spells out, shown when it is complete; plain text */
+  meaning: string;
+}
+
 export interface RiddleText {
   title: string;
   /** HTML; a quoted source is marked with <sup data-src="ID"></sup> right after the quote (footnote) */
@@ -63,6 +77,8 @@ export interface RiddleText {
   reflection: string;
   /** short bullet points for the summary («конспект») on the final screen; plain text, Hebrew is auto-styled */
   takeaways?: string[];
+  /** «Собери смысл» after the lesson sections */
+  puzzle: PuzzleText;
 }
 
 export interface ShareParams {
@@ -90,6 +106,8 @@ export interface LessonText {
   glossary: Record<string, string>;
   riddles: RiddleText[];
   final: { title: string; allSolved: string };
+  /** final «Собери смысл»: the path of the whole lesson */
+  puzzle: PuzzleText;
   /** «Ораа ле-поаль»: one concrete practical conclusion of the lesson */
   practice: string;
   /** caption of the share card under the highlighted equation */

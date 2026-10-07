@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Html, useI18n } from '../i18n';
 import { VALUES, letters } from '../core/gematria';
 import { SITE_HOST } from '../core/site';
-import type { Lesson } from '../lessons/types';
+import type { Lesson, PuzzleText } from '../lessons/types';
 import { PARSHIOT } from '../lessons/parshiot';
 import { SOURCES, translation } from '../sources';
 import { stripFootnotes } from '../sources/footnotes';
@@ -33,6 +33,28 @@ function loadOptions(): Options {
     return { answers: true, lessons: false, reflection: true, sources: false };
   }
 }
+
+/** «Собери смысл» on paper: the pieces in a mixed order with a box for the number. */
+function PrintPuzzle({ puzzle, seed, label }: { puzzle: PuzzleText; seed: number; label: string }) {
+  return (
+    <div className="p-puz">
+      <div className="p-label">{label}</div>
+      <p>
+        <HebrewRuns text={puzzle.q} />
+      </p>
+      <div className="p-pieces">
+        {order(puzzle.pieces.length, seed).map((k) => (
+          <span key={k} className="p-piece">
+            <span className="p-num" />
+            <HebrewRuns text={puzzle.pieces[k]} />
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const chain = (p: PuzzleText) => p.pieces.join(' → ');
 
 /** Printable worksheet: riddles with blanks to fill in by hand, optional answers and lesson text. */
 export function PrintLesson({ lesson }: { lesson: Lesson }) {
@@ -153,6 +175,8 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
                 })}
               </ol>
 
+              <PrintPuzzle puzzle={rt.puzzle} seed={ri * 7 + 3} label={t('print.puzzle')} />
+
               {opt.reflection && (
                 <div className="p-refl">
                   <div className="p-label">{t('print.reflection')}</div>
@@ -167,6 +191,11 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
             </section>
           );
         })}
+
+        <section className="p-riddle">
+          <h2>{t('puzzle.final')}</h2>
+          <PrintPuzzle puzzle={text.puzzle} seed={97} label={t('print.puzzle')} />
+        </section>
 
         <section className="p-block">
           <h3 className="p-label">{t('print.letters')}</h3>
@@ -218,9 +247,19 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
                   <p>
                     <b>{rt.reveal.h}.</b> {rt.reveal.p}
                   </p>
+                  <p className="p-chain">
+                    <b>{t('puzzle.title')}:</b> <HebrewRuns text={chain(rt.puzzle)} />
+                  </p>
                 </div>
               );
             })}
+            <div className="p-ans">
+              <h3>{t('puzzle.final')}</h3>
+              <p className="p-chain">
+                <HebrewRuns text={chain(text.puzzle)} />
+              </p>
+              <p>{text.puzzle.meaning}</p>
+            </div>
           </section>
         )}
 

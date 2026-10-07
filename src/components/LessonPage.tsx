@@ -86,6 +86,7 @@ export function LessonPage({ lesson }: { lesson: Lesson }) {
               lesson={lesson}
               text={text}
               S={S}
+              update={update}
               onOpen={(ri) => goTo(ri)}
               onReset={() => {
                 reset();

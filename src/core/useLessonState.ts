@@ -27,6 +27,8 @@ export interface GameState {
   /** shuffled option order per choice step, key `${riddle}-${step}` */
   ord: Record<string, number[]>;
   notes: Record<number, string>;
+  /** «Собери смысл»: pieces in place, key = riddle index or 'final' */
+  puz: Record<string, number[]>;
 }
 
 export const MAX_WRONG = { num: 3, ch: 2 } as const;
@@ -49,15 +51,22 @@ export const stepState = (S: GameState, ri: number, i: number): StepState =>
 export const draftStep = (S: GameState, ri: number, i: number): StepState =>
   (S.st[`${ri}-${i}`] ??= { tries: 0, hint: false, ok: false, pick: [] });
 
+/** «Собери смысл»: puts piece `i` in place (pieces lock only in their own place). */
+export function placePiece(S: GameState, key: string | number, i: number) {
+  const a = (S.puz[key] ??= []);
+  if (!a.includes(i)) a.push(i);
+}
+
 function emptyState(lesson: Lesson): GameState {
   const n = lesson.riddles.length;
-  return { lvl: 0, score: 0, done: [], st: {}, open: {}, time: Array(n).fill(0), started: [], ord: {}, notes: {} };
+  return { lvl: 0, score: 0, done: [], st: {}, open: {}, time: Array(n).fill(0), started: [], ord: {}, notes: {}, puz: {} };
 }
 
 /** Fills missing fields and pre-generates the option order for every choice step. */
 function normalize(lesson: Lesson, raw: Partial<GameState> & Record<string, unknown>): GameState {
   const S = { ...emptyState(lesson), ...raw } as GameState;
   S.open ??= {};
+  S.puz ??= {};
   // old single-file version kept word toggles inside `st` under keys like "w0פרצוף"
   for (const k of Object.keys(S.st)) {
     const v = S.st[k] as unknown;

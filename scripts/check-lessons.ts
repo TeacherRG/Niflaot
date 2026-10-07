@@ -4,15 +4,31 @@
  *  - every option value (v) equals the real gematria of the option
  *  - every footnote mark points to one of the riddle's sources, every source has a mark (ru and en)
  *  - every source exists in src/sources/sefaria.json; non-Torah sources have a Russian translation
+ *  - «Собери смысл»: every riddle and the lesson have a puzzle of 3–6 distinct pieces, the same count in every language
+ *  - word cards don't show the answer of a choice step
  */
 import { LESSONS } from '../src/lessons';
 import { gematria, gematriaMilui } from '../src/core/gematria';
 import { coachResult } from '../src/core/coach';
 import { SOURCES } from '../src/sources';
 import { PROJECT_RU } from '../src/sources/ru';
+import type { PuzzleText } from '../src/lessons/types';
 
 const errors: string[] = [];
 const err = (m: string) => errors.push(m);
+
+function checkPuzzle(where: string, all: [string, PuzzleText | undefined][]) {
+  const counts = new Set<number>();
+  for (const [lang, p] of all) {
+    if (!p) { err(`${where} [${lang}]: no puzzle («Собери смысл»)`); continue; }
+    const n = p.pieces.length;
+    counts.add(n);
+    if (n < 3 || n > 6) err(`${where} [${lang}]: puzzle has ${n} pieces, 3–6 expected`);
+    if (new Set(p.pieces).size !== n) err(`${where} [${lang}]: puzzle pieces repeat`);
+    if (!p.q.trim() || !p.meaning.trim()) err(`${where} [${lang}]: puzzle needs the ordering principle (q) and the meaning`);
+  }
+  if (counts.size > 1) err(`${where}: puzzles have a different number of pieces in different languages`);
+}
 
 for (const lesson of LESSONS) {
   lesson.riddles.forEach((r, ri) => {
@@ -46,6 +62,10 @@ for (const lesson of LESSONS) {
       else if (!src.ru && PROJECT_RU[id].length !== src.he.length)
         err(`${where()}: ${id} — ${PROJECT_RU[id].length} Russian segments for ${src.he.length} original ones`);
     }
+    r.steps.forEach((s, i) => {
+      if (s.t === 'ch' && r.words.includes(s.opts[s.c].h)) err(`${where(i)}: the answer ${s.opts[s.c].h} is shown on a word card`);
+    });
+    checkPuzzle(where(), Object.entries(lesson.texts).map(([l, tx]) => [l, tx!.riddles[ri].puzzle]));
     for (const [lang, text] of Object.entries(lesson.texts)) {
       const rt = text!.riddles[ri];
       const html = [rt.cond, rt.reveal.p, ...rt.lessons.map((l) => l.b)].join('\n');
@@ -56,8 +76,10 @@ for (const lesson of LESSONS) {
   });
 }
 
+for (const lesson of LESSONS) checkPuzzle(`${lesson.slug} · final`, Object.entries(lesson.texts).map(([l, tx]) => [l, tx!.puzzle]));
+
 if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));
   process.exit(1);
 }
-console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources`);
+console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles`);
