@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { findLesson } from './lessons';
 import { Catalog } from './components/Catalog';
 import { LessonPage } from './components/LessonPage';
+import { PrintLesson } from './components/PrintLesson';
 import { Panels } from './components/Panels';
 import { DonateFab, UIContext, type Panel } from './components/ui';
 import { useI18n } from './i18n';
@@ -10,9 +11,12 @@ import { SITE_HOST } from './core/site';
 
 const SIGNATURE = `\n\n${SITE_HOST}\n©pnimi.org.il\n©mychitas.app`;
 
-/** Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson. Works on any static host. */
+/**
+ * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version.
+ * Works on any static host.
+ */
 function useRoute() {
-  const read = () => location.hash.replace(/^#\/?/, '').split(/[?/]/)[0];
+  const read = () => location.hash.replace(/^#\/?/, '').split('?')[0];
   const [route, setRoute] = useState(read);
   useEffect(() => {
     const on = () => {
@@ -70,11 +74,12 @@ export function App() {
   useCopySignature();
   const [panel, open] = useState<Panel>(null);
   useFirstVisitHelp(open);
-  const ui = useMemo(() => ({ panel, open }), [panel]);
-  const lesson = route ? findLesson(route) : undefined;
+  const [slug, view] = route.split('/');
+  const lesson = slug ? findLesson(slug) : undefined;
+  const ui = useMemo(() => ({ panel, open, lessonSlug: lesson?.slug }), [panel, lesson]);
   return (
     <UIContext.Provider value={ui}>
-      {lesson ? <LessonPage key={lesson.slug} lesson={lesson} /> : <Catalog />}
+      {!lesson ? <Catalog /> : view === 'print' ? <PrintLesson key={lesson.slug} lesson={lesson} /> : <LessonPage key={lesson.slug} lesson={lesson} />}
       <Panels />
       <DonateFab label={t('footer.donate')} />
     </UIContext.Provider>

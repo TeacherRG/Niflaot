@@ -3,7 +3,10 @@ import { createPortal } from 'react-dom';
 
 export type Panel = 'menu' | 'help' | 'about' | null;
 
-export const UIContext = createContext<{ panel: Panel; open: (p: Panel) => void }>({ panel: null, open: () => {} });
+export const UIContext = createContext<{ panel: Panel; open: (p: Panel) => void; lessonSlug?: string }>({
+  panel: null,
+  open: () => {},
+});
 export const useUI = () => useContext(UIContext);
 
 /** Inline icons (stroke = currentColor). */
@@ -19,6 +22,7 @@ const PATHS = {
   info: 'M12 21a9 9 0 100-18 9 9 0 000 18zM12 11v6M12 7.5v.1',
   heart: 'M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z',
   mail: 'M3 6h18v12H3zM3 6l9 7 9-7',
+  print: 'M7 8V3h10v5M7 17H5a2 2 0 01-2-2v-5a2 2 0 012-2h14a2 2 0 012 2v5a2 2 0 01-2 2h-2M7 14h10v7H7z',
 } as const;
 
 export function Icon({ name, size = 20 }: { name: keyof typeof PATHS; size?: number }) {

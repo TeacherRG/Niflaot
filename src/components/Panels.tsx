@@ -8,7 +8,7 @@ const TABLE = Object.entries(VALUES).filter(([c]) => !'ךםןףץ'.includes(c));
 /** Side menu + "How to play" + "About" — rendered once at the app root. */
 export function Panels() {
   const { t, pick } = useI18n();
-  const { panel, open } = useUI();
+  const { panel, open, lessonSlug } = useUI();
   const close = () => open(null);
 
   return (
@@ -29,6 +29,12 @@ export function Panels() {
             <Icon name="book" />
             <span>{t('menu.allLessons')}</span>
           </a>
+          {lessonSlug && (
+            <a href={`#/${lessonSlug}/print`} onClick={close} className="menu-item">
+              <Icon name="print" />
+              <span>{t('print.button')}</span>
+            </a>
+          )}
           <div className="menu-sep" />
           <button className="menu-item" onClick={() => open('help')}>
             <Icon name="help" />
