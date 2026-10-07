@@ -35,12 +35,23 @@ legacy/                     исходная однофайловая верси
 
 ## Как добавить урок
 
-1. Скопируйте `src/lessons/01-tikun-partzuf-zanav/` в `src/lessons/02-<slug>/`.
-2. Заполните `index.ts` (слова, шаги, ответы, уравнения) и `i18n/<язык>.ts` (тексты).
-3. Добавьте урок в `src/lessons/index.ts`.
+Полный порядок — в **[docs/LESSON-GUIDE.md](docs/LESSON-GUIDE.md)** (обязателен для каждого урока):
+полный пересказ статьи, проверка всех чисел кодом, конспект и практический вывод,
+первоисточники из Sefaria (`scripts/fetch-sources.py`), Имена Всевышнего, проверка в браузере.
 
-Число загадок и шагов в уроке не ограничено. Если у урока нет перевода на выбранный язык,
-показывается русский текст с пометкой.
+Коротко: скопировать `src/lessons/01-…/` в `src/lessons/NN-<slug>/`, заполнить `index.ts`
+и `i18n/<язык>.ts`, добавить урок в `src/lessons/index.ts`.
+
+## Первоисточники (Sefaria)
+
+```bash
+python3 scripts/fetch-sources.py ls   "Tanakh/Writings/"                          # обзор библиотеки
+python3 scripts/fetch-sources.py find "Talmud/Bavli/Seder Zeraim/Berakhot" פרצוף    # найти место
+python3 scripts/fetch-sources.py                                                  # скачать все SOURCES
+```
+
+Тексты берутся из открытой выгрузки Sefaria и сохраняются в `src/sources/sefaria.json`;
+русские переводы проекта — в `src/sources/ru.ts`.
 
 ## Как добавить язык
 

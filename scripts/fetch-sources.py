@@ -10,6 +10,17 @@ Hebrew/Aramaic and English are taken verbatim (HTML tags reduced to <b>/<i>); Di
 written respectfully (יהוה → ה׳, אלהים → אלקים; Бог → Б-г). Russian comes from Sefaria where a
 Russian version exists (Torah: D. Slivniak, Da Project); other Russian translations are the
 project's own and live in src/sources/ru.ts.
+
+Finding a passage for a new lesson (no Sefaria API needed — the export is public):
+
+    python3 scripts/fetch-sources.py ls   "Talmud/Bavli/Seder Moed/"            # browse the library
+    python3 scripts/fetch-sources.py ls   "Tanakh/Writings/Psalms/English/"     # list versions of a book
+    python3 scripts/fetch-sources.py find "Talmud/Bavli/Seder Zeraim/Berakhot" פרצוף זנב
+    python3 scripts/fetch-sources.py find "Chasidut/Chabad/Tanya" תדשא
+
+`find` prints every segment containing all the words (vowel points ignored) with its address
+and a ready-to-paste SOURCES entry. Then add the entry below and run the script without arguments.
+See docs/LESSON-GUIDE.md.
 """
 import json, re, sys, urllib.parse, urllib.request
 from pathlib import Path
@@ -169,6 +180,64 @@ def label(book, sec, a, b, ru_name):
         return f'{ru_name} {n}{"а" if side == "a" else "б"}', f'{book} {sec}'
     return f'{ru_name} {sec}:{rng}', f'{book} {sec}:{rng}'
 
+# ───────────────────────── helper commands: ls / find ─────────────────────────
+
+def cmd_ls(prefix):
+    q = urllib.parse.urlencode({'prefix': 'json/' + prefix, 'delimiter': '/', 'fields': 'prefixes,items(name,size)'})
+    with urllib.request.urlopen('https://storage.googleapis.com/storage/v1/b/sefaria-export/o?' + q, timeout=60) as r:
+        d = json.load(r)
+    for x in d.get('prefixes', []):
+        print('📁', x[len('json/'):])
+    for i in d.get('items', []):
+        print('📄', i['name'][len('json/'):], f"({int(i.get('size', 0)) // 1024} KB)")
+
+def _walk(x, path=()):
+    if isinstance(x, str):
+        yield path, x
+    elif isinstance(x, list):
+        for i, y in enumerate(x):
+            yield from _walk(y, path + (i,))
+    elif isinstance(x, dict):
+        for k, y in x.items():
+            yield from _walk(y, path + (k,))
+
+def _daf(i):  # 120 → '61a'
+    return f"{i // 2 + 1}{'ab'[i % 2]}"
+
+def cmd_find(book, words):
+    path = book if book.endswith('.json') else book.rstrip('/') + '/Hebrew/merged.json'
+    d = load(path)
+    talmud = path.startswith('Talmud/Bavli/')
+    tanakh = path.startswith('Tanakh/')
+    name = path.split('/')[-3]
+    n = 0
+    for p, txt in _walk(d['text']):
+        plain = re.sub('[' + MARKS + ']', '', re.sub(r'<[^>]+>', '', txt))
+        if not all(w in plain for w in words):
+            continue
+        n += 1
+        if talmud and len(p) == 2:
+            where = f"{name} {_daf(p[0])}:{p[1] + 1}   →  ('{name}', '{_daf(p[0])}', {p[1]}, {p[1]})"
+        elif tanakh and len(p) == 2:
+            where = f"{name} {p[0] + 1}:{p[1] + 1}   →  ('{name}', {p[0] + 1}, {p[1] + 1}, {p[1] + 1})"
+        else:
+            where = f"path {list(p)}   →  ('custom', …, {list(p)})"
+        print(f'── {where}')
+        print('  ', plain[:300])
+        if n >= 20:
+            print('… (first 20 matches)')
+            break
+    if not n:
+        print('nothing found')
+
+if len(sys.argv) > 1 and sys.argv[1] in ('ls', 'find'):
+    if sys.argv[1] == 'ls':
+        cmd_ls(sys.argv[2] if len(sys.argv) > 2 else '')
+    else:
+        cmd_find(sys.argv[2], sys.argv[3:])
+    sys.exit(0)
+
+# ───────────────────────── fetch all SOURCES ─────────────────────────
 out = {}
 for sid, spec in SOURCES.items():
     if isinstance(spec, tuple) and spec[0] == 'custom':
