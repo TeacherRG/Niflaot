@@ -10,6 +10,7 @@ import en from './i18n/en';
 const lesson: Lesson = {
   slug: 'tikun-partzuf-zanav',
   number: 1,
+  parsha: 'bereshit',
   hebrewTitle: 'תיקון פרצוף־זנב',
   year: 'ה׳תשפ״ז · 5787',
   heroLetters: ['פ', 'ז'],

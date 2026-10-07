@@ -423,3 +423,17 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 /* a Hebrew verse quoted inside a riddle's condition — on its own line, never broken mid-bidi */
 .cond .verse,.p-cond .verse{font-family:var(--f-he);font-size:1.3em;font-weight:500;line-height:1.5;text-align:center;direction:rtl;unicode-bidi:isolate;color:var(--ink);padding:8px 12px;margin:2px 0 10px;border-inline-start:3px solid var(--gold-2);background:var(--gold-soft);border-radius:6px}
 .p-cond .verse{color:#111;background:none;border:1px solid #ccc}
+
+/* lessons grouped by Torah portion */
+.parsha{display:grid;gap:12px}
+.parsha-h{display:flex;align-items:baseline;gap:12px;margin:6px 0 0;font-family:var(--f-display);font-weight:700;font-size:22px;color:var(--ink)}
+.parsha-h::before{content:"";width:18px;height:2px;background:var(--gold-2);align-self:center}
+.parsha-h .he{font-family:var(--f-he);font-weight:700;font-size:20px;color:var(--gold)}
+.menu-group summary{list-style:none;cursor:pointer}
+.menu-group summary::-webkit-details-marker{display:none}
+.menu-group summary::after{content:"+";margin-inline-start:auto;font-family:var(--f-num);color:var(--gold);transition:transform .2s}
+.menu-group[open] summary::after{transform:rotate(45deg)}
+.menu-count{font-family:var(--f-num);font-size:11.5px;color:var(--muted);background:var(--paper);border-radius:999px;padding:1px 8px}
+.menu-sub{display:grid;gap:2px;margin-inline-start:22px;padding-inline-start:10px;border-inline-start:1px solid var(--gold-line)}
+.menu-sub .menu-item{font-weight:500;font-size:14.5px;padding:9px 10px}
+.menu-sub .menu-item[aria-current="page"]{background:var(--gold-soft)}

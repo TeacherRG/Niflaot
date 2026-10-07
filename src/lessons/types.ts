@@ -1,4 +1,5 @@
 import type { Locale } from '../i18n';
+import type { ParshaId } from './parshiot';
 
 /* ───────────── language-independent lesson data ───────────── */
 
@@ -84,6 +85,8 @@ export interface Lesson {
   /** stable id used in URLs and storage */
   slug: string;
   number: number;
+  /** Torah portion the lesson belongs to (groups lessons in the menu and catalog) */
+  parsha: ParshaId;
   hebrewTitle: string;
   /** e.g. "ה׳תשפ״ז · 5787" */
   year: string;

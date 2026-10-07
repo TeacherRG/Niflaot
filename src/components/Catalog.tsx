@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useI18n } from '../i18n';
-import { LESSONS } from '../lessons';
+import { LESSON_GROUPS } from '../lessons';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { Icon, useUI } from './ui';
@@ -17,7 +17,7 @@ function progress(slug: string, legacy?: string): number {
 }
 
 export function Catalog() {
-  const { t, pick } = useI18n();
+  const { t, pick, locale } = useI18n();
   const { open } = useUI();
 
   useEffect(() => {
@@ -47,23 +47,33 @@ export function Catalog() {
         </header>
         <section className="catalog">
           <h2>{t('catalog.heading')}</h2>
+          {LESSON_GROUPS.map((g) => (
+            <div key={g.id} className="parsha">
+              <h3 className="parsha-h">
+                <span>{g.name[locale as keyof typeof g.name] ?? g.name.ru}</span>
+                <span className="he">{g.he}</span>
+              </h3>
+              <div className="cards">
+                {g.lessons.map((l) => {
+                  const text = pick(l.texts).value;
+                  const done = progress(l.slug, l.legacyStorageKey);
+                  const total = l.riddles.length;
+                  return (
+                    <a key={l.slug} className="card" href={`#/${l.slug}`}>
+                      <span className="eyebrow">
+                        <span>{t('catalog.lesson', { n: l.number })}</span>
+                        <span>{done ? t('catalog.progress', { done, total }) : t('catalog.riddles', { n: total })}</span>
+                      </span>
+                      <span className="heb">{l.hebrewTitle}</span>
+                      <h3>{text.title}</h3>
+                      <p>{text.summary}</p>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
           <div className="cards">
-            {LESSONS.map((l) => {
-              const text = pick(l.texts).value;
-              const done = progress(l.slug, l.legacyStorageKey);
-              const total = l.riddles.length;
-              return (
-                <a key={l.slug} className="card" href={`#/${l.slug}`}>
-                  <span className="eyebrow">
-                    <span>{t('catalog.lesson', { n: l.number })}</span>
-                    <span>{done ? t('catalog.progress', { done, total }) : t('catalog.riddles', { n: total })}</span>
-                  </span>
-                  <span className="heb">{l.hebrewTitle}</span>
-                  <h3>{text.title}</h3>
-                  <p>{text.summary}</p>
-                </a>
-              );
-            })}
             <div className="card soon">{t('catalog.soon')}</div>
           </div>
         </section>
