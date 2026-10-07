@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useI18n } from '../i18n';
-import { LESSON_GROUPS } from '../lessons';
+import { LESSONS, LESSON_GROUPS } from '../lessons';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { Icon, useUI } from './ui';
@@ -34,8 +34,21 @@ export function Catalog() {
               5787 · <span className="he">ה׳תשפ״ז</span>
             </div>
             <div className="heb gold-text">נפלאות</div>
-            <h1>{t('app.title')}</h1>
+            <h1 className="uvp">{t('catalog.uvp')}</h1>
             <p>{t('catalog.intro')}</p>
+            {(() => {
+              // continue the first unfinished lesson, or start with lesson 1
+              const started = LESSONS.find((l) => {
+                const d = progress(l.slug, l.legacyStorageKey);
+                return d > 0 && d < l.riddles.length;
+              });
+              const next = started ?? LESSONS.find((l) => progress(l.slug, l.legacyStorageKey) < l.riddles.length) ?? LESSONS[0];
+              return (
+                <a className="btn hero-cta" href={`#/${next.slug}`}>
+                  {t(started ? 'catalog.continue' : 'catalog.start', { n: next.number })} →
+                </a>
+              );
+            })()}
             <div className="hero-actions">
               <button className="btn ghost hero-help" onClick={() => open('help')}>
                 <Icon name="help" size={18} />

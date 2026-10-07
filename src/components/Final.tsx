@@ -5,6 +5,9 @@ import { SITE_HOST, SITE_URL } from '../core/site';
 import { stepState, type GameState } from '../core/useLessonState';
 import type { Lesson, LessonText } from '../lessons/types';
 import { HebrewRuns } from './Hebrew';
+import { Icon } from './ui';
+import { PARSHIOT } from '../lessons/parshiot';
+import { renderCard, shareOrSave } from '../core/shareCard';
 
 /** Concise summary of what was covered: key equations and takeaways of every solved riddle. */
 function Conspect({ lesson, text, S, onOpen }: { lesson: Lesson; text: LessonText; S: GameState; onOpen: (ri: number) => void }) {
@@ -68,7 +71,7 @@ export function Final({
   onReset: () => void;
   onOpen: (ri: number) => void;
 }) {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const [confirm, setConfirm] = useState(false);
   const [copyLabel, setCopyLabel] = useState<string | null>(null);
   const pre = useRef<HTMLPreElement>(null);
@@ -90,6 +93,32 @@ export function Final({
     )
     .join('\n');
   const share = text.share({ score: S.score, max, time, grid, allSolved, site: SITE_HOST });
+  const [cardState, setCardState] = useState<'idle' | 'making' | 'saved'>('idle');
+
+  const shareCard = async () => {
+    setCardState('making');
+    const parsha = PARSHIOT[lesson.parsha];
+    const day = new Date().getDay();
+    try {
+      const blob = await renderCard({
+        eyebrow: `${t('app.title')} · ${parsha.name[locale as keyof typeof parsha.name] ?? parsha.name.ru} ${parsha.year}`,
+        hebrewTitle: lesson.hebrewTitle,
+        title: text.title,
+        found: `${t('final.cardFound')}:`,
+        highlight: lesson.highlight,
+        caption: text.highlight,
+        score: `✦ ${S.score} / ${max} · ⏱ ${time}`,
+        // Thursday and Friday: a note for the Shabbat table
+        extra: day === 4 || day === 5 ? t('final.cardShabbat') : undefined,
+        site: SITE_HOST,
+      });
+      const res = await shareOrSave(blob, `niflaot-${lesson.slug}.png`, share);
+      setCardState(res === 'saved' ? 'saved' : 'idle');
+      if (res === 'saved') setTimeout(() => setCardState('idle'), 2500);
+    } catch {
+      setCardState('idle');
+    }
+  };
 
   const copy = async () => {
     const ok = await copyText(share, pre.current);
@@ -100,6 +129,12 @@ export function Final({
   return (
     <>
     <Conspect lesson={lesson} text={text} S={S} onOpen={onOpen} />
+    {allSolved && (
+      <section className="practice pop">
+        <div className="practice-lbl">{t('final.practice')}</div>
+        <p>{text.practice}</p>
+      </section>
+    )}
     <section className="final pop">
       <h2>{text.final.title}</h2>
       <div className="big">
@@ -117,7 +152,11 @@ export function Final({
           {share}
         </pre>
         <div className="share-btns">
-          <button className="btn gold" onClick={copy}>
+          <button className="btn gold" onClick={shareCard} disabled={cardState === 'making'}>
+            <Icon name="image" size={18} />
+            {cardState === 'making' ? t('final.cardMaking') : cardState === 'saved' ? t('final.cardSaved') : t('final.card')}
+          </button>
+          <button className="btn ghost-l" onClick={copy}>
             {copyLabel ?? t('final.copy')}
           </button>
           <a className="btn ghost-l" href={`https://wa.me/?text=${encodeURIComponent(share)}`} target="_blank" rel="noopener">
@@ -150,6 +189,11 @@ export function Final({
         </button>
       )}
     </section>
+    <a className="mychitas pop" href="https://mychitas.app" target="_blank" rel="noopener">
+      <span className="mc-mark">MyChitas</span>
+      <span className="mc-text">{t('final.mychitas')}</span>
+      <span className="mc-cta">{t('final.mychitasCta')}</span>
+    </a>
     </>
   );
 }

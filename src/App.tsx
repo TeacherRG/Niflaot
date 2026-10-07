@@ -6,6 +6,7 @@ import { PrintLesson } from './components/PrintLesson';
 import { MathPage } from './components/MathPage';
 import { OPS, type Op } from './core/mentalMath';
 import { Panels } from './components/Panels';
+import { TermPopover } from './components/TermPopover';
 import { DonateFab, UIContext, type Panel } from './components/ui';
 import { useI18n } from './i18n';
 
@@ -91,6 +92,7 @@ export function App() {
         <LessonPage key={lesson.slug} lesson={lesson} />
       )}
       <Panels />
+      <TermPopover />
       <DonateFab label={t('footer.donate')} />
     </UIContext.Provider>
   );

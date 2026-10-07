@@ -182,6 +182,9 @@ const en: LessonText = {
     allSolved:
       'All four riddles are solved. Face and tail, pride and passion are joined in prayer and revealed before the eyes of all Israel.',
   },
+  practice:
+    "This week, before praying, ask yourself: what is stronger in me right now — the wish to appear or the wish to receive? And once a day, look at someone close to you “face to face”: say out loud one good thing you see in them.",
+  highlight: "Pride and desire weigh the same: both are fire (אש = 471).",
   share: ({ score, max, time, grid, allSolved, site }) => `🔥 What do pride and desire have in common?
 The answer is hidden in a single number.
 

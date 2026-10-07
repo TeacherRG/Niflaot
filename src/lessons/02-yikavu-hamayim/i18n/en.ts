@@ -29,11 +29,11 @@ const en: LessonText = {
   riddles: [
     {
       title: 'The One in place',
-      cond: `<p>The Rebbe of Izbica, author of the “Mei HaShiloach”, teaches: in every portion the <b>ninth verse</b> hides an intention deeper than its plain meaning. Nine is the sefirah of Yesod, the attribute of Yosef the tzaddik, and the letter <em>ט</em> is “goodness hidden within”.</p><p>In the first portion of the Torah the ninth verse reads:</p><p class="verse" dir="rtl" lang="he">ויאמר אלהים יקוו המים מתחת השמים אל מקום אחד ותראה היבשה ויהי כן</p><p>“And G-d said: let the waters under the heavens gather into one place, and let the dry land appear. And it was so.”</p>`,
+      cond: `<p>The Rebbe of Izbica, author of the “Mei HaShiloach”, teaches: in every portion the <b>ninth verse</b> hides an intention deeper than its plain meaning. Nine is the sefirah of Yesod, the attribute of Yosef the tzaddik, and the letter <em>ט</em> is “goodness hidden within”.</p><p>In the first portion of the Torah the ninth verse reads:</p><p class="verse" dir="rtl" lang="he">ויאמר אלקים יקוו המים מתחת השמים אל מקום אחד ותראה היבשה ויהי כן</p><p>“And G-d said: let the waters under the heavens gather into one place, and let the dry land appear. And it was so.”</p>`,
       steps: [
         {
           q: 'How many words are in the ninth verse?',
-          hint: 'ויאמר · אלהים · יקוו · המים · מתחת · השמים · אל · מקום · אחד · ותראה · היבשה · ויהי · כן',
+          hint: 'ויאמר · אלקים · יקוו · המים · מתחת · השמים · אל · מקום · אחד · ותראה · היבשה · ויהי · כן',
         },
         { q: 'Which word has a gematria equal to the number of words?', opts: ['one', 'good', 'life', 'light'] },
         {
@@ -130,7 +130,7 @@ const en: LessonText = {
     },
     {
       title: 'Fifty-nine',
-      cond: `<p>The gematria of the whole ninth verse of Bereshit is <b>3068</b>, and it has 52 letters.</p><p>The Rebbe of Izbica derived his rule from the ninth verse of portion Balak:</p><p class="verse" dir="rtl" lang="he">ויאמר בלעם אל האלהים בלק בן צפר מלך מואב שלח אלי</p><p>“And Bilam said to G-d: Balak son of Tzipor, king of Moav, has sent to me.” Its gematria is <b>1593</b>. What do the two verses have in common?</p>`,
+      cond: `<p>The gematria of the whole ninth verse of Bereshit is <b>3068</b>, and it has 52 letters.</p><p>The Rebbe of Izbica derived his rule from the ninth verse of portion Balak:</p><p class="verse" dir="rtl" lang="he">ויאמר בלעם אל האלקים בלק בן צפר מלך מואב שלח אלי</p><p>“And Bilam said to G-d: Balak son of Tzipor, king of Moav, has sent to me.” Its gematria is <b>1593</b>. What do the two verses have in common?</p>`,
       steps: [
         { q: 'What is the average value of one letter of the ninth verse of Bereshit?', hint: '3068 : 52.' },
         { q: 'How many times greater is 1593 than this number?', hint: '1593 : 59.' },
@@ -223,6 +223,9 @@ const en: LessonText = {
     allSolved:
       'All four riddles are solved. The waters have gathered into one place, the line has been drawn, and hope has returned to its Source.',
   },
+  practice:
+    "Choose one “place” — a corner of your home or a time of day — and make it “one place”: there you pray, learn or speak a kind word. And take one of your desires and, instead of suppressing it, sanctify it: direct it toward good.",
+  highlight: "The ninth verse of the Torah and the “tail” share one number: 59.",
   share: ({ score, max, time, grid, allSolved, site }) => `🌊 What do the ninth verse of the Torah and the “tail” have in common?
 The answer is a single number.
 
