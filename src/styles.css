@@ -450,3 +450,39 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .p-about .prose a{color:#111;border-bottom:none}
 .p-site{margin-top:14px;font-family:var(--f-num);font-weight:600;font-size:14px;text-align:center}
 .p-riddle + .p-block{margin-top:24px;padding-top:14px;border-top:1px solid #ccc;break-inside:avoid}
+
+/* ───────── mental math ───────── */
+.m-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:20px}
+.m-tabs a{display:grid;justify-items:center;gap:2px;padding:10px 4px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);text-decoration:none;font-weight:600;font-size:13px;transition:border-color .15s}
+.m-tabs a:hover{border-color:var(--gold)}
+.m-tabs a[aria-current="page"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.m-sign{font-family:var(--f-num);font-size:22px;line-height:1;color:var(--gold)}
+.m-tabs a[aria-current="page"] .m-sign{color:var(--gold-2)}
+.m-card{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:22px;box-shadow:var(--shadow);display:grid;gap:10px}
+article.m-card{border-top:3px solid var(--gold-2)}
+.m-card h1{font-family:var(--f-display);font-weight:700;font-size:30px;line-height:1.1;margin:0}
+.m-card .prose ol{margin-top:10px}
+.m-h3{font-family:var(--f-display);font-weight:700;font-size:22px;margin:0}
+.m-examples{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.m-example{border:1px solid var(--gold-line);border-radius:8px;padding:12px 14px;background:linear-gradient(180deg,#fff,var(--gold-soft));display:grid;gap:6px;align-content:start}
+.m-label{font-size:13px;font-weight:600;color:var(--gold);font-family:var(--f-num)}
+.m-label .he{font-family:var(--f-he);font-size:16px;font-weight:700}
+.m-problem{font-size:30px;font-weight:600;color:var(--ink);letter-spacing:.01em}
+.m-problem.small{font-size:19px}
+.m-q{color:var(--gold)}
+.m-steps{margin:0;padding-inline-start:20px;display:grid;gap:4px;font-size:14.5px;color:var(--ink-2)}
+.m-steps li::marker{color:var(--gold);font-family:var(--f-num);font-size:12px}
+.m-steps .num{font-size:14.5px}
+.m-left{color:var(--muted);font-size:13px}
+.m-left b{color:var(--gold)}
+.m-trainer{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--tchelet);border-radius:8px;padding:22px;box-shadow:var(--shadow);display:grid;gap:12px}
+.m-trainer-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
+.m-trainer-head h3{font-family:var(--f-display);font-weight:700;font-size:22px;margin:0}
+.m-levels{display:flex;gap:2px;border:1px solid var(--line);border-radius:999px;padding:2px;background:var(--paper)}
+.m-levels button{border:0;background:transparent;border-radius:999px;padding:5px 11px;font-size:13px;font-weight:600;color:var(--muted)}
+.m-levels button[aria-pressed="true"]{background:var(--tchelet);color:#fff}
+.m-next{justify-self:start}
+.m-streak{font-size:13px;font-weight:600;color:var(--ok)}
+.m-intro{color:var(--muted);font-size:13.5px;text-align:center;margin:16px 0 0}
+.hint-link{display:inline-block;margin-inline-start:8px;color:var(--tchelet);font-weight:600;text-decoration:none;border-bottom:1px solid currentColor}
+@media (max-width:480px){.m-card,.m-trainer{padding:18px 16px}.m-tabs a{font-size:11.5px}}

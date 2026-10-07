@@ -3,6 +3,8 @@ import { findLesson } from './lessons';
 import { Catalog } from './components/Catalog';
 import { LessonPage } from './components/LessonPage';
 import { PrintLesson } from './components/PrintLesson';
+import { MathPage } from './components/MathPage';
+import { OPS, type Op } from './core/mentalMath';
 import { Panels } from './components/Panels';
 import { DonateFab, UIContext, type Panel } from './components/ui';
 import { useI18n } from './i18n';
@@ -79,7 +81,15 @@ export function App() {
   const ui = useMemo(() => ({ panel, open, lessonSlug: lesson?.slug }), [panel, lesson]);
   return (
     <UIContext.Provider value={ui}>
-      {!lesson ? <Catalog /> : view === 'print' ? <PrintLesson key={lesson.slug} lesson={lesson} /> : <LessonPage key={lesson.slug} lesson={lesson} />}
+      {slug === 'math' ? (
+        <MathPage op={OPS.includes(view as Op) ? (view as Op) : 'add'} />
+      ) : !lesson ? (
+        <Catalog />
+      ) : view === 'print' ? (
+        <PrintLesson key={lesson.slug} lesson={lesson} />
+      ) : (
+        <LessonPage key={lesson.slug} lesson={lesson} />
+      )}
       <Panels />
       <DonateFab label={t('footer.donate')} />
     </UIContext.Provider>
