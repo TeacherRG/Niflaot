@@ -5,6 +5,7 @@ import { SITE_HOST } from '../core/site';
 import type { Lesson } from '../lessons/types';
 import { PARSHIOT } from '../lessons/parshiot';
 import { SOURCES, translation } from '../sources';
+import { stripFootnotes } from '../sources/footnotes';
 import { HebrewRuns } from './Hebrew';
 import { Icon } from './ui';
 
@@ -106,7 +107,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
             <section key={ri} className="p-riddle">
               <div className="p-eyebrow">{t('riddle.of', { n: ri + 1, total: lesson.riddles.length })}</div>
               <h2>{rt.title}</h2>
-              <Html as="div" className="p-cond" html={rt.cond} />
+              <Html as="div" className="p-cond" html={stripFootnotes(rt.cond)} />
 
               {r.words.length > 0 && (
               <div className="p-words">
@@ -232,7 +233,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
                   <h3>
                     <HebrewRuns text={l.h} />
                   </h3>
-                  <Html as="div" html={l.b} />
+                  <Html as="div" html={stripFootnotes(l.b)} />
                 </div>
               )),
             )}

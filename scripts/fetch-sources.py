@@ -262,7 +262,11 @@ for sid, spec in SOURCES.items():
             # Sefaria numbers Talmud segments from 1; the pieces above use 0-based indices
             sa, sb = (a + 1, b + 1) if kind == 'Talmud' else (a, b)
             ref_parts.append(f'{book} {sec}:{sa}' + (f'-{sb}' if sb != sa else ''))
-        titles = (' — '.join(t_ru), ' — '.join(t_en))
+        if len(pieces) > 1 and all(pc[0] == pieces[0][0] for pc in pieces):
+            # one book, several dapim/chapters: «Шабат 145б–146а»
+            titles = (t_ru[0] + '–' + t_ru[-1].split(' ', 1)[1], t_en[0] + '–' + t_en[-1].split(' ', 1)[1])
+        else:
+            titles = (' — '.join(t_ru), ' — '.join(t_en))
         ref = ref_parts[0] if len(ref_parts) == 1 else ref_parts[0] + '-' + ref_parts[-1].split(' ', 1)[1]
         ru = ru or None
     out[sid] = {

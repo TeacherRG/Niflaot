@@ -10,3 +10,16 @@ export const gematria = (s: string) => [...s].reduce((a, c) => a + (VALUES[c] ??
 export const letters = (s: string) => [...s].filter((c) => VALUES[c]);
 
 export const KEYBOARD = [...'אבגדהוזחטיכלמנסעפצקרשת', 'ך', 'ם', 'ן', 'ף', 'ץ'];
+
+/**
+ * Letter names for gematria «במילוי» (full spelling): אש = אלף + שין = 111 + 360 = 471.
+ * Common spellings; letters with several spellings use: ה → הא, ו → וו, פ → פא, צ → צדי.
+ */
+export const LETTER_NAMES: Record<string, string> = {
+  'א': 'אלף', 'ב': 'בית', 'ג': 'גימל', 'ד': 'דלת', 'ה': 'הא', 'ו': 'וו', 'ז': 'זין', 'ח': 'חית', 'ט': 'טית',
+  'י': 'יוד', 'כ': 'כף', 'ך': 'כף', 'ל': 'למד', 'מ': 'מם', 'ם': 'מם', 'נ': 'נון', 'ן': 'נון', 'ס': 'סמך',
+  'ע': 'עין', 'פ': 'פא', 'ף': 'פא', 'צ': 'צדי', 'ץ': 'צדי', 'ק': 'קוף', 'ר': 'ריש', 'ש': 'שין', 'ת': 'תו',
+};
+
+/** Gematria of a word with every letter spelled out in full (מילוי). */
+export const gematriaMilui = (s: string) => letters(s).reduce((a, c) => a + gematria(LETTER_NAMES[c]), 0);

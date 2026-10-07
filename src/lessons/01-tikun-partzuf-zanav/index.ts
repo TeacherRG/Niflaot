@@ -23,10 +23,11 @@ const lesson: Lesson = {
         { expr: 'זנב + תאוה', value: 471 },
       ],
       steps: [
-        { t: 'num', a: 471 },
-        { t: 'num', a: 471 },
+        { t: 'num', a: 471, coach: [{ word: 'פרצוף' }, { word: 'גאוה' }, { add: ['$1', '$2'] }] },
+        { t: 'num', a: 471, coach: [{ word: 'זנב' }, { word: 'תאוה' }, { add: ['$1', '$2'] }] },
         {
           t: 'ch',
+          milui: true,
           opts: [
             { h: 'אש', v: 471 },
             { h: 'אור', v: 633 },
@@ -37,12 +38,12 @@ const lesson: Lesson = {
         },
       ],
       equations: ['פרצוף + גאוה = 456 + 15 = 471', 'זנב + תאוה = 59 + 412 = 471', 'אלף (111) + שין (360) = 471 = אש במילוי'],
-      sources: ['gen-2-21', 'berakhot-61a'],
+      sources: ['berakhot-61a', 'gen-2-21', 'num-12-3'],
     },
     {
       words: ['פרצוף', 'זנב', 'תפלה'],
       steps: [
-        { t: 'num', a: 515 },
+        { t: 'num', a: 515, coach: [{ add: [456, 59] }] },
         {
           t: 'ch',
           opts: [
@@ -60,7 +61,7 @@ const lesson: Lesson = {
     {
       words: ['מסכה', 'פרצוף', 'פנים'],
       steps: [
-        { t: 'num', a: 761 },
+        { t: 'num', a: 761, coach: [{ word: 'פנים' }, { word: 'מסכה' }, { add: ['$1', 456, '$2'] }] },
         {
           t: 'ch',
           opts: [
@@ -71,19 +72,19 @@ const lesson: Lesson = {
           ],
           c: 0,
         },
-        { t: 'num', a: 761 },
+        { t: 'num', a: 761, coach: [{ mul: [20, 20] }, { mul: [19, 19] }, { add: ['$1', '$2'] }] },
       ],
       equations: [
         'פנים (180) + פרצוף (456) + מסכה (125) = 761',
         'לעיני (170) + כל (50) + ישראל (541) = 761',
         '20² + 19² = 400 + 361 = 761',
       ],
-      sources: ['deut-34-10', 'ex-34-33', 'ex-32-31', 'num-12-3'],
+      sources: ['ex-34-33', 'ex-32-31', 'deut-34-10'],
     },
     {
       words: ['אשה', 'טוב', 'ויבן'],
       steps: [
-        { t: 'num', a: 18 },
+        { t: 'num', a: 18, coach: [{ word: 'אשה' }, { word: 'טוב' }, { div: ['$1', '$2'] }] },
         {
           t: 'ch',
           opts: [
@@ -94,7 +95,7 @@ const lesson: Lesson = {
           ],
           c: 0,
         },
-        { t: 'num', a: 4 },
+        { t: 'num', a: 4, coach: [{ word: 'ויבן' }, { div: ['$1', 17] }] },
       ],
       equations: ['אשה (306) = 18 × טוב (17)', '18 = חי', 'ויבן (68) = 4 × טוב'],
       sources: ['berakhot-8a', 'prov-18-22', 'eccl-7-26', 'gen-2-21'],

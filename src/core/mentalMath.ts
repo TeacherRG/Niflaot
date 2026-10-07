@@ -198,11 +198,63 @@ export const EXAMPLES: Record<Op, (Problem & { label: string })[]> = {
   ],
 };
 
-/** Which operation a hint like "3068 : 52." asks for (used to link hints to the technique). */
-export function opInText(s: string): Op | null {
-  if (/\d\s*:\s*\d/.test(s)) return 'div';
-  if (/\d\s*×\s*\d/.test(s)) return 'mul';
-  if (/\d\s*[−-]\s*\d/.test(s)) return 'sub';
-  if (/\d\s*\+\s*\d/.test(s)) return 'add';
-  return null;
+
+// ───────────────────────── coach: step-by-step help for one concrete example ─────────────────────────
+
+/** One arithmetic action: a sum of many terms, or a − b, a × b, a : b. */
+export interface Expr {
+  op: Op;
+  terms: number[];
+  text: string;
 }
+
+
+/** One step of the coach: a question with a numeric answer, or a line to read. */
+export type CoachStep =
+  | { kind: 'ask'; ask: string; answer: number; tip?: string[] }
+  | { kind: 'info'; text: string };
+
+const ASK = /^(.*?)\s*=\s*(\d+)$/;
+
+/**
+ * Turns an expression into questions that follow the technique of its operation.
+ * `t.from(a, b)` and `t.left` are localized prompts for counting up and for the remainder.
+ */
+export function coachSteps(e: Expr, t: { from: (a: number, b: number) => string; left: (a: number, b: number) => string }): CoachStep[] {
+  const steps: CoachStep[] = [];
+  if (e.op === 'add') {
+    let cur = e.terms[0];
+    for (const x of e.terms.slice(1)) {
+      // tip: the place-value way to add this term
+      const tip = cur >= 10 && x >= 10 ? solve({ op: 'add', a: cur, b: x }).map((s) => s.text) : undefined;
+      steps.push({ kind: 'ask', ask: `${cur} + ${x}`, answer: cur + x, tip: tip && tip.length > 1 ? tip : undefined });
+      cur += x;
+    }
+    return steps;
+  }
+  const [a, b] = e.terms;
+  if (e.op === 'sub') {
+    // counting up: each jump is a question, then the sum of the jumps
+    const path = solve({ op: 'sub', a, b })[0].text.split(' → ').map((p) => Number(p.split(' ')[0]));
+    for (let i = 1; i < path.length; i++)
+      steps.push({ kind: 'ask', ask: t.from(path[i - 1], path[i]), answer: path[i] - path[i - 1] });
+    const jumps = path.slice(1).map((p, i) => p - path[i]);
+    if (jumps.length > 1) steps.push({ kind: 'ask', ask: jumps.join(' + '), answer: a - b });
+    return steps;
+  }
+  for (const s of solve({ op: e.op, a, b })) {
+    const m = ASK.exec(s.text);
+    if (!m || !/[+−×]/.test(m[1])) {
+      steps.push({ kind: 'info', text: s.text }); // e.g. "59 = 60 − 1"
+      continue;
+    }
+    steps.push({ kind: 'ask', ask: m[1], answer: Number(m[2]) });
+    if ('left' in s && s.left > 0) {
+      // division by chunks: after each chunk ask what is left
+      const before = s.left + Number(m[2]);
+      steps.push({ kind: 'ask', ask: t.left(before, Number(m[2])), answer: s.left });
+    }
+  }
+  return steps;
+}
+

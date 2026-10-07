@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Html, useI18n } from '../i18n';
 import { EXAMPLES, OPS, SIGN, answer, generate, solve, type Op, type Problem } from '../core/mentalMath';
 import { TopBar } from './TopBar';
+import { MathCoach } from './MathCoach';
+import type { CoachAction } from '../core/coach';
 import { HebrewRuns } from './Hebrew';
 import { Colophon } from './Colophon';
 
@@ -38,6 +40,7 @@ function Trainer({ op }: { op: Op }) {
   const [p, setP] = useState(() => generate(op, level));
   const [value, setValue] = useState('');
   const [state, setState] = useState<'idle' | 'ok' | 'no' | 'shown'>('idle');
+  const [coach, setCoach] = useState(false);
   const [streak, setStreak] = useState(0);
   const input = useRef<HTMLInputElement>(null);
 
@@ -45,6 +48,7 @@ function Trainer({ op }: { op: Op }) {
     setP(generate(op, lv));
     setValue('');
     setState('idle');
+    setCoach(false);
     requestAnimationFrame(() => input.current?.focus());
   };
 
@@ -104,14 +108,29 @@ function Trainer({ op }: { op: Op }) {
             <button className="btn" onClick={check}>
               {t('math.check')}
             </button>
+            {state !== 'shown' && !coach && (
+              <button className="btn ghost" onClick={() => (setCoach(true), setStreak(0))}>
+                🧮 {t('coach.open')}
+              </button>
+            )}
             {state !== 'shown' && (
-              <button className="btn ghost" onClick={() => (setState('shown'), setStreak(0))}>
+              <button className="btn ghost" onClick={() => (setState('shown'), setStreak(0), setCoach(false))}>
                 {t('math.show')}
               </button>
             )}
           </>
         )}
       </div>
+      {coach && state !== 'ok' && state !== 'shown' && (
+        <MathCoach
+          key={`${p.a}${op}${p.b}`}
+          actions={[{ [op]: [p.a, p.b] } as CoachAction]}
+          onFill={(n) => {
+            setValue(String(n));
+            input.current?.focus();
+          }}
+        />
+      )}
       {state === 'ok' && <div className="fb ok">{t('math.correct')}</div>}
       {state === 'no' && <div className="fb no">{t('math.wrong')}</div>}
       {(state === 'ok' || state === 'shown') && <Solution p={p} />}
