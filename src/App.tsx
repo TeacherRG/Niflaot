@@ -19,10 +19,17 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©pnimi.org.il\n©mychitas.app`;
 
 /**
  * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version.
- * Works on any static host.
+ * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
+ * written by scripts/prerender.ts) opens that lesson.
  */
+function readRoute() {
+  if (location.hash) return location.hash.replace(/^#\/?/, '').split('?')[0];
+  const seg = location.pathname.split('/').filter(Boolean).pop() ?? '';
+  return findLesson(seg) ? seg : '';
+}
+
 function useRoute() {
-  const read = () => location.hash.replace(/^#\/?/, '').split('?')[0];
+  const read = readRoute;
   const [route, setRoute] = useState(read);
   useEffect(() => {
     const on = () => {

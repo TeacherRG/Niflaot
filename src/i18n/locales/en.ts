@@ -96,6 +96,8 @@ const en: Messages = {
   'catalog.lesson': 'Lesson {n}',
   'catalog.riddles': { one: '{n} riddle', other: '{n} riddles' },
   'catalog.progress': '{done} of {total} solved',
+  'catalog.tags': 'Topics and words',
+  'catalog.tagsSub': 'Concepts and Hebrew words from all the lessons. Tap one to see what it means and where it appears.',
   'catalog.soon': 'More lessons coming soon',
   'catalog.fallback': 'This lesson has not been translated into the selected language yet — showing the Russian text.',
 

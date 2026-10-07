@@ -12,6 +12,8 @@ interface Env {
   ANTHROPIC_API_KEY: string;
   /** comma-separated list of allowed page origins */
   ALLOWED_ORIGINS?: string;
+  /** optional Cloudflare rate limiter (wrangler.toml [[ratelimits]]), keyed by client IP */
+  LIMITER?: { limit(o: { key: string }): Promise<{ success: boolean }> };
 }
 
 const MODEL = 'claude-opus-5-5';
@@ -19,6 +21,8 @@ const MAX_TURNS = 24;
 const MAX_MESSAGE = 2000;
 const MAX_CONTEXT = 24000;
 const MAX_TOOL_ROUNDS = 5;
+/** request body limit, bytes: 24 turns × (2000…8000 chars) + context, with room for UTF-8 */
+const MAX_BODY = 256 * 1024;
 
 const SYSTEM = `You are the study assistant of "Niflaot" (niflaot.mychitas.app) — gematria games based on articles by Rabbi Yitzchak Ginsburgh from the "Niflaot" booklet (Gal Einai), made by the mychitas.app Torah project.
 
@@ -85,11 +89,18 @@ function parse(body: unknown): { messages: Turn[]; context: string } | string {
   return { messages: out, context: (context ?? '').slice(0, MAX_CONTEXT) };
 }
 
+function allowedOrigins(env: Env) {
+  return (env.ALLOWED_ORIGINS ?? 'https://niflaot.mychitas.app').split(',').map((s) => s.trim());
+}
+
+/** The site itself or a local dev server. Requests from other pages are refused, not only left without CORS. */
+function originOk(origin: string | null, env: Env): origin is string {
+  return !!origin && (allowedOrigins(env).includes(origin) || /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin));
+}
+
 function cors(origin: string | null, env: Env): Record<string, string> {
-  const allowed = (env.ALLOWED_ORIGINS ?? 'https://niflaot.mychitas.app').split(',').map((s) => s.trim());
-  const ok = origin && (allowed.includes(origin) || /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin));
   return {
-    'Access-Control-Allow-Origin': ok ? origin : allowed[0],
+    'Access-Control-Allow-Origin': originOk(origin, env) ? origin : allowedOrigins(env)[0],
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Max-Age': '86400',
@@ -114,7 +125,7 @@ async function chat(env: Env, input: { messages: Turn[]; context: string }, writ
   for (let round = 0; round <= MAX_TOOL_ROUNDS; round++) {
     const stream = client.beta.messages.stream({
       model: MODEL,
-      max_tokens: 16000,
+      max_tokens: 4000, // answers are a few short paragraphs; caps the cost of one round
       betas: ['server-side-fallback-2026-07-01'],
       fallbacks: 'default',
       output_config: { effort: 'low' },
@@ -152,7 +163,23 @@ export default {
     if (req.method !== 'POST' || new URL(req.url).pathname !== '/chat')
       return new Response('Not found', { status: 404, headers });
 
-    const input = parse(await req.json().catch(() => null));
+    const origin = req.headers.get('Origin');
+    if (!originOk(origin, env)) return new Response('Forbidden', { status: 403, headers });
+    if (Number(req.headers.get('Content-Length') ?? 0) > MAX_BODY)
+      return new Response('Too large', { status: 413, headers });
+    if (env.LIMITER) {
+      const ip = req.headers.get('CF-Connecting-IP') ?? 'unknown';
+      if (!(await env.LIMITER.limit({ key: ip })).success)
+        return new Response('Too many requests', { status: 429, headers: { ...headers, 'Retry-After': '60' } });
+    }
+
+    const raw = await req.text().catch(() => '');
+    if (raw.length > MAX_BODY) return new Response('Too large', { status: 413, headers });
+    let body: unknown = null;
+    try {
+      body = JSON.parse(raw);
+    } catch {}
+    const input = parse(body);
     if (typeof input === 'string') return new Response(input, { status: 400, headers });
 
     const { readable, writable } = new TransformStream<Uint8Array, Uint8Array>();

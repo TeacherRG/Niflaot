@@ -6,3 +6,12 @@ compatibility_date = "2026-09-01"
 ALLOWED_ORIGINS = "https://niflaot.mychitas.app"
 
 # Secret (not stored here): npx wrangler secret put ANTHROPIC_API_KEY
+
+# Rate limit for /chat: 20 requests per minute from one IP (the worker answers 429 above it).
+[[ratelimits]]
+name = "LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 20
+  period = 60
