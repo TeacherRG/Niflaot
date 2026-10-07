@@ -117,6 +117,7 @@ export function Panels() {
           ))}
         </div>
         <p className="sheet-note">{t('help.finals')}</p>
+        <p className="sheet-note">{t('help.names')}</p>
         <button className="btn sheet-cta" data-autofocus onClick={close}>
           {t('help.go')}
         </button>

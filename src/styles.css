@@ -486,3 +486,47 @@ article.m-card{border-top:3px solid var(--gold-2)}
 .m-intro{color:var(--muted);font-size:13.5px;text-align:center;margin:16px 0 0}
 .hint-link{display:inline-block;margin-inline-start:8px;color:var(--tchelet);font-weight:600;text-decoration:none;border-bottom:1px solid currentColor}
 @media (max-width:480px){.m-card,.m-trainer{padding:18px 16px}.m-tabs a{font-size:11.5px}}
+
+/* summary («конспект») on the final screen */
+.conspect{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--gold-2);border-radius:6px;padding:24px;box-shadow:var(--shadow);display:grid;gap:18px}
+.conspect h2{font-family:var(--f-display);font-weight:700;font-size:30px;margin:0;line-height:1.1}
+.conspect h2 span{font-family:var(--f-body);font-size:13px;font-weight:500;color:var(--muted)}
+.cs-item{display:grid;gap:8px;padding-top:16px;border-top:1px solid var(--line)}
+.cs-item:first-of-type{padding-top:0;border-top:0}
+.cs-item h3{display:flex;align-items:baseline;gap:10px;margin:0;font-family:var(--f-display);font-weight:700;font-size:21px;line-height:1.2}
+.cs-n{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--gold-2);font-family:var(--f-num);font-size:12.5px;transform:translateY(-2px)}
+.cs-eqs{display:flex;flex-wrap:wrap;gap:6px}
+.cs-eq{font-size:12.5px;background:var(--gold-soft);border:1px solid var(--gold-line);border-radius:6px;padding:3px 9px;color:var(--ink)}
+.cs-eq .he{font-size:14px;font-weight:700}
+.cs-item ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;color:var(--ink-2);font-size:15px;line-height:1.5}
+.cs-item li{position:relative;padding-inline-start:20px}
+.cs-item li::before{content:"✦";position:absolute;inset-inline-start:0;color:var(--gold-2);font-size:11px;line-height:2.1}
+.cs-item li .he{font-weight:700}
+.cs-item.locked h3{color:var(--muted)}
+.cs-item.locked .cs-n{background:var(--line);color:var(--muted)}
+.cs-locked{margin:0;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.cs-locked .btn{padding:5px 12px;font-size:13px}
+@media (max-width:480px){.conspect{padding:18px 16px}}
+
+/* glossary terms */
+.term{border-bottom:1.5px dotted var(--gold);cursor:help;border-radius:2px;transition:background .15s}
+.term:hover,.term:focus-visible{background:var(--gold-soft);outline:none}
+.term-pop{position:fixed;z-index:60;background:var(--ink);color:#fff;font-size:13.5px;line-height:1.45;padding:10px 12px;border-radius:8px;box-shadow:0 12px 32px -10px rgba(20,26,51,.55);pointer-events:none}
+@media (prefers-reduced-motion:no-preference){.term-pop{animation:fade .15s ease-out}}
+@media print{.term{border:0}.term-pop{display:none}}
+
+/* practical takeaway, share card button, MyChitas */
+.practice{margin-top:16px;border-radius:8px;background:var(--ok-soft);border:1px solid #BFE0CB;border-inline-start:4px solid var(--ok);padding:16px 18px;display:grid;gap:6px}
+.practice-lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ok);font-weight:700}
+.practice p{margin:0;font-family:var(--f-display);font-size:20px;line-height:1.35;color:var(--ink)}
+.share-btns .btn{display:inline-flex;align-items:center;gap:8px}
+.mychitas{margin-top:16px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;padding:16px 18px;border-radius:10px;background:var(--surface);border:1px solid var(--gold-line);box-shadow:var(--shadow);text-decoration:none;color:var(--ink);transition:transform .15s}
+.mychitas:hover{transform:translateY(-1px)}
+.mc-mark{grid-row:span 2;font-family:var(--f-display);font-weight:700;font-size:20px;color:#fff;background:var(--ink);border-radius:8px;padding:10px 12px}
+.mc-text{font-size:14.5px;color:var(--ink-2)}
+.mc-cta{font-weight:700;color:var(--gold);font-size:14px}
+
+/* home: value proposition + call to action */
+.hero h1.uvp{font-size:clamp(30px,6vw,44px);max-width:18ch}
+.hero-cta{margin-top:10px;padding:13px 26px;font-size:16px;text-decoration:none;border-radius:999px;background:linear-gradient(180deg,#E3C47C,#C49A47);border-color:#C49A47;color:var(--ink);box-shadow:0 10px 24px -12px rgba(164,124,47,.8)}
+.hero-cta:hover:not(:disabled){background:linear-gradient(180deg,#E8CC88,#C9A04F);color:var(--ink)}

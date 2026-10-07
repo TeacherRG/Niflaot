@@ -29,11 +29,11 @@ const en: LessonText = {
   riddles: [
     {
       title: 'The One in place',
-      cond: `<p>The Rebbe of Izbica, author of the “Mei HaShiloach”, teaches: in every portion the <b>ninth verse</b> hides an intention deeper than its plain meaning. Nine is the sefirah of Yesod, the attribute of Yosef the tzaddik, and the letter <em>ט</em> is “goodness hidden within”.</p><p>In the first portion of the Torah the ninth verse reads:</p><p class="verse" dir="rtl" lang="he">ויאמר אלהים יקוו המים מתחת השמים אל מקום אחד ותראה היבשה ויהי כן</p><p>“And G-d said: let the waters under the heavens gather into one place, and let the dry land appear. And it was so.”</p>`,
+      cond: `<p>The Rebbe of Izbica, author of the “Mei HaShiloach”, teaches: in every portion the <b>ninth verse</b> hides an intention deeper than its plain meaning. Nine is the sefirah of Yesod, the attribute of Yosef the tzaddik, and the letter <em>ט</em> is “goodness hidden within”.</p><p>In the first portion of the Torah the ninth verse reads:</p><p class="verse" dir="rtl" lang="he">ויאמר אלקים יקוו המים מתחת השמים אל מקום אחד ותראה היבשה ויהי כן</p><p>“And G-d said: let the waters under the heavens gather into one place, and let the dry land appear. And it was so.”</p>`,
       steps: [
         {
           q: 'How many words are in the ninth verse?',
-          hint: 'ויאמר · אלהים · יקוו · המים · מתחת · השמים · אל · מקום · אחד · ותראה · היבשה · ויהי · כן',
+          hint: 'ויאמר · אלקים · יקוו · המים · מתחת · השמים · אל · מקום · אחד · ותראה · היבשה · ויהי · כן',
         },
         { q: 'Which word has a gematria equal to the number of words?', opts: ['one', 'good', 'life', 'light'] },
         {
@@ -68,6 +68,12 @@ const en: LessonText = {
         },
       ],
       reflection: 'Where in my life does oneness appear in time — in habits and days — and where in place — at home, in the space around me? Which one place can I make into “one place”?',
+      takeaways: [
+        "The rule of the “Mei HaShiloach”: the ninth verse of every portion hides a deep intention. Nine is Yesod, the attribute of Yosef, “goodness hidden within”.",
+        "The ninth verse of the Torah — “let the waters gather into one place” — is the first verse of the third day (5 verses of day one + 3 of day two).",
+        "The second “one” in the Torah: “one day” — unity in time, “one place” — in space, “one flesh” — in the soul.",
+        "13 words = אחד, 52 letters = 4 × 13.",
+      ],
     },
     {
       title: 'Mikveh, line and hope',
@@ -115,10 +121,16 @@ const en: LessonText = {
         },
       ],
       reflection: 'What am I hoping for today? How can I turn this hope into a “line” — one concrete step I will take?',
+      takeaways: [
+        "The root קוה = 111 = אלף = פלא (wonder): mikveh — gathering of waters, kav — line, tikvah — hope.",
+        "Mikveh is the tzimtzum and the reshimu (“let the dry land appear”); the line is the ray from the Infinite that builds the worlds; hope is the returning light, creation longing for its Source.",
+        "(מקוה 151 + קו 106 + תקוה 511) : 3 = 256 = אהרן — service and love of Israel.",
+        "Three lines: mikveh — Avraham (kindness), line — Yaakov (the middle), hope — Yitzchak (the left line, rising upward).",
+      ],
     },
     {
       title: 'Fifty-nine',
-      cond: `<p>The gematria of the whole ninth verse of Bereshit is <b>3068</b>, and it has 52 letters.</p><p>The Rebbe of Izbica derived his rule from the ninth verse of portion Balak:</p><p class="verse" dir="rtl" lang="he">ויאמר בלעם אל האלהים בלק בן צפר מלך מואב שלח אלי</p><p>“And Bilam said to G-d: Balak son of Tzipor, king of Moav, has sent to me.” Its gematria is <b>1593</b>. What do the two verses have in common?</p>`,
+      cond: `<p>The gematria of the whole ninth verse of Bereshit is <b>3068</b>, and it has 52 letters.</p><p>The Rebbe of Izbica derived his rule from the ninth verse of portion Balak:</p><p class="verse" dir="rtl" lang="he">ויאמר בלעם אל האלקים בלק בן צפר מלך מואב שלח אלי</p><p>“And Bilam said to G-d: Balak son of Tzipor, king of Moav, has sent to me.” Its gematria is <b>1593</b>. What do the two verses have in common?</p>`,
       steps: [
         { q: 'What is the average value of one letter of the ninth verse of Bereshit?', hint: '3068 : 52.' },
         { q: 'How many times greater is 1593 than this number?', hint: '1593 : 59.' },
@@ -150,6 +162,12 @@ const en: LessonText = {
         },
       ],
       reflection: 'Which “small” thing in me — a desire, a habit, a “tail” — can I sanctify instead of suppressing? What would that take today?',
+      takeaways: [
+        "The ninth verse = 3068 = 13 × 236 (ורב כח — “the measure of the Creator”); without the word “one” — 3055 = 5 × תורה.",
+        "The average letter = 3068 : 52 = 59. The ninth verse of Balak = 1593 = 27 × 59.",
+        "59 = זנב = יחיאל = אם חי: the nine leads to Yesod and to the “tail” of the first lesson.",
+        "Desire is sanctified: “the desire of the righteous is only good”.",
+      ],
     },
     {
       title: 'All the nines of Bereshit',
@@ -191,6 +209,13 @@ const en: LessonText = {
         },
       ],
       reflection: 'Where does “I will reign” sound inside me? How can I return this “I” to its source — and turn rule into union?',
+      takeaways: [
+        "The rule of nine also holds for letters, words and sections. The ninth letter of the Torah is א — the second alef, like the second “one”.",
+        "The ninth word is היתה (420): being, and the breaking of the vessels in the world of Tohu; תהו = 411 = יש מאין.",
+        "The ninth section is G-d’s words to Chava: “והוא ימשל בך” = 420 = היתה = יעקב + רחל — the consequence of the sin and its rectification.",
+        "Average word 140 (חכמה + בינה, חמה + לבנה), average letter 42 (אמא): 140 + 42 = 182 = יעקב.",
+        "The whole verse = 4246 = 22 × 193 (טפטפיה, כוזו): G-d is “in this and in that”, in every single thing.",
+      ],
     },
   ],
   final: {
@@ -198,6 +223,9 @@ const en: LessonText = {
     allSolved:
       'All four riddles are solved. The waters have gathered into one place, the line has been drawn, and hope has returned to its Source.',
   },
+  practice:
+    "Choose one “place” — a corner of your home or a time of day — and make it “one place”: there you pray, learn or speak a kind word. And take one of your desires and, instead of suppressing it, sanctify it: direct it toward good.",
+  highlight: "The ninth verse of the Torah and the “tail” share one number: 59.",
   share: ({ score, max, time, grid, allSolved, site }) => `🌊 What do the ninth verse of the Torah and the “tail” have in common?
 The answer is a single number.
 

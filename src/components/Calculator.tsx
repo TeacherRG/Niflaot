@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useI18n } from '../i18n';
 import { KEYBOARD, VALUES, gematria } from '../core/gematria';
+import { displayNames } from '../core/names';
 import type { Lesson } from '../lessons/types';
 
 export function Calculator({ lesson, done }: { lesson: Lesson; done: number[] }) {
@@ -63,7 +64,7 @@ export function Calculator({ lesson, done }: { lesson: Lesson; done: number[] })
                 {matches.map((w, i) => (
                   <span key={w}>
                     {i > 0 && ', '}
-                    <span className="he">{w}</span>
+                    <span className="he">{displayNames(w)}</span>
                   </span>
                 ))}
               </>

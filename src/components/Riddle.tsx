@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Html, useI18n } from '../i18n';
+import { withTerms } from '../i18n/glossary';
 import { VALUES, gematria, letters } from '../core/gematria';
 import { formatTime } from '../core/format';
 import { MAX_WRONG, award, draftStep, stepState, type GameState } from '../core/useLessonState';
@@ -18,7 +19,8 @@ interface Props {
 }
 
 export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Props) {
-  const { t } = useI18n();
+  const { t, pick } = useI18n();
+  const textLocale = pick(lesson.texts).locale;
   const r = lesson.riddles[ri];
   const rt = text.riddles[ri];
   const total = lesson.riddles.length;
@@ -78,7 +80,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
         </span>
         <h2>{rt.title}</h2>
       </div>
-      <Html as="div" className="cond" html={rt.cond} />
+      <Html as="div" className="cond" html={withTerms(rt.cond, textLocale)} />
       {!solved && <div className="les-lock">{t('riddle.locked')}</div>}
 
       <div className="words">
@@ -229,7 +231,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
                 <HebrewRuns text={e} />
               </div>
             ))}
-            <p>{rt.reveal.p}</p>
+            <Html as="p" html={withTerms(rt.reveal.p, textLocale)} />
           </div>
           <div className="lessons">
             <div className="les-title">
@@ -242,7 +244,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
                     <HebrewRuns text={l.h} />
                   </span>
                 </summary>
-                <Html as="div" className="les-b" html={l.b} />
+                <Html as="div" className="les-b" html={withTerms(l.b, textLocale)} />
               </details>
             ))}
           </div>

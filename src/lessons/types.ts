@@ -49,6 +49,8 @@ export interface RiddleText {
   /** expandable lesson sections; `b` is HTML */
   lessons: { h: string; b: string }[];
   reflection: string;
+  /** short bullet points for the summary («конспект») on the final screen; plain text, Hebrew is auto-styled */
+  takeaways?: string[];
 }
 
 export interface ShareParams {
@@ -76,6 +78,10 @@ export interface LessonText {
   glossary: Record<string, string>;
   riddles: RiddleText[];
   final: { title: string; allSolved: string };
+  /** «Ораа ле-поаль»: one concrete practical conclusion of the lesson */
+  practice: string;
+  /** caption of the share card under the highlighted equation */
+  highlight: string;
   share: (p: ShareParams) => string;
   /** fine print in the footer */
   source: string;
@@ -93,6 +99,8 @@ export interface Lesson {
   /** two large decorative letters in the hero background */
   heroLetters: [string, string];
   riddles: RiddleData[];
+  /** the lesson’s key equation for the share card: lines of tokens (Hebrew words, numbers, signs) */
+  highlight: string[][];
   calculator: {
     /** extra words/phrases recognised by the calculator besides the cards */
     words: string[];
