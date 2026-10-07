@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Html, useI18n } from '../i18n';
 import { withTerms } from '../i18n/glossary';
 import { VALUES, gematria, letters } from '../core/gematria';
@@ -7,7 +7,7 @@ import { MAX_WRONG, award, draftStep, stepState, type GameState } from '../core/
 import type { Lesson, LessonText } from '../lessons/types';
 import { HebrewRuns } from './Hebrew';
 import { Sources } from './Sources';
-import { opInText } from '../core/mentalMath';
+import { MathCoach } from './MathCoach';
 import { footnotes } from '../sources/footnotes';
 
 interface Props {
@@ -27,6 +27,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
   const rt = text.riddles[ri];
   const total = lesson.riddles.length;
   const solvedRiddle = S.done.includes(ri);
+  const [coachOpen, setCoachOpen] = useState<Record<number, boolean>>({});
   const focusId = useRef<{ id: string; select?: boolean } | null>(null);
 
   useEffect(() => {
@@ -213,13 +214,25 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
               ) : x.hint && st.hint ? (
                 <div className="fb hint">
                   {t('riddle.hintPrefix')} {st.hint}
-                  {opInText(st.hint) && (
-                    <a className="hint-link" href={`#/math/${opInText(st.hint)}`}>
-                      {t(`math.howTo.${opInText(st.hint)!}`)} →
-                    </a>
+                  {s.t === 'num' && s.coach && (
+                    <button className="coach-toggle" aria-expanded={!!coachOpen[i]} onClick={() => setCoachOpen((o) => ({ ...o, [i]: !o[i] }))}>
+                      🧮 {t(coachOpen[i] ? 'coach.hide' : 'coach.open')}
+                    </button>
                   )}
                 </div>
               ) : null}
+              {!x.ok && s.t === 'num' && s.coach && x.hint && coachOpen[i] && (
+                <MathCoach
+                  chain={s.coach}
+                  onFill={(n) => {
+                    const el = document.getElementById(`in-${ri}-${i}`) as HTMLInputElement | null;
+                    if (el) {
+                      el.value = String(n);
+                      el.focus();
+                    }
+                  }}
+                />
+              )}
               {!x.ok && x.tries > 0 && x.last === 'no' && (
                 <div className="fb no">
                   {t('riddle.triesLeft', { n: left })} {t(s.t === 'num' ? 'riddle.wrongNum' : 'riddle.wrongChoice')}

@@ -575,3 +575,23 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .fn-flash{animation:fnflash 1.6s ease-out}
 @keyframes fnflash{0%,30%{background:var(--gold-soft);box-shadow:0 0 0 4px var(--gold-soft)}100%{background:transparent;box-shadow:none}}
 .src,sup.fn a{scroll-margin-top:76px}
+
+/* «Посчитать вместе» — step-by-step help for the hint's example */
+.coach-toggle{display:inline-flex;align-items:center;gap:6px;margin-top:8px;border:1px solid currentColor;border-radius:999px;background:var(--surface);color:var(--tchelet);font-weight:700;font-size:13.5px;padding:5px 12px}
+.coach-toggle:hover{background:var(--tchelet);color:#fff}
+.fb.hint .coach-toggle{display:flex;width:max-content}
+.coach{border:1px solid var(--tchelet-soft);border-inline-start:3px solid var(--tchelet);border-radius:8px;background:var(--surface);padding:12px 14px;display:grid;gap:10px}
+.coach-steps{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.coach-head{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--tchelet);text-transform:uppercase;margin-top:4px}
+.coach-head:first-child{margin-top:0}
+.coach-info{font-size:14px;color:var(--muted)}
+.coach-done{font-size:15px;color:var(--ink-2)}
+.coach-done .ok{color:var(--ok);font-weight:700}
+.coach-done b{color:var(--ink)}
+.coach-now{display:grid;gap:8px;padding:8px 0 2px}
+.coach-q{font-size:22px;font-weight:600;color:var(--ink);display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.coach-count{font-family:var(--f-body);font-size:12px;font-weight:600;color:var(--muted)}
+.coach-end{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:15px;color:var(--ok);font-weight:600}
+.coach-end b{font-size:20px}
+.gold-btn{background:linear-gradient(180deg,#E3C47C,#C49A47);border-color:#C49A47;color:var(--ink)}
+.coach-more{font-size:13px;color:var(--tchelet);text-decoration:none;font-weight:600;justify-self:start}

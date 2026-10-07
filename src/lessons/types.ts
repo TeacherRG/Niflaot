@@ -7,6 +7,11 @@ export interface NumStep {
   t: 'num';
   /** correct numeric answer */
   a: number;
+  /**
+   * Step-by-step help («Посчитать вместе»): expressions computed in order; `$1`, `$2` … stand for
+   * the results of earlier expressions. The last result must equal `a` (checked by scripts).
+   */
+  coach?: string[];
 }
 
 export interface ChoiceStep {

@@ -206,3 +206,89 @@ export function opInText(s: string): Op | null {
   if (/\d\s*\+\s*\d/.test(s)) return 'add';
   return null;
 }
+
+// ───────────────────────── coach: step-by-step help for one concrete example ─────────────────────────
+
+/** An arithmetic expression found in a hint: "5 + 10 + 400 + 5", "3068 : 52", "27 × 59", "471 − 456". */
+export interface Expr {
+  op: Op;
+  terms: number[];
+  text: string;
+}
+
+/** Finds the first arithmetic expression in a hint. Sums may have many terms; other operations two. */
+export function parseExpr(s: string): Expr | null {
+  const m = /\d+(?:\s*[+−×:-]\s*\d+)+/.exec(s);
+  if (!m) return null;
+  const terms = m[0].split(/\s*[+−×:-]\s*/).map(Number);
+  const ops = [...m[0].matchAll(/[+−×:-]/g)].map((x) => x[0].replace('-', '−'));
+  if (ops.every((o) => o === '+')) return { op: 'add', terms, text: m[0] };
+  if (ops.length !== 1) return null;
+  const op: Op = ops[0] === '−' ? 'sub' : ops[0] === '×' ? 'mul' : 'div';
+  if (op === 'sub' && terms[0] < terms[1]) return null;
+  if (op === 'div' && terms[0] % terms[1] !== 0) return null;
+  return { op, terms, text: m[0] };
+}
+
+/** One step of the coach: a question with a numeric answer, or a line to read. */
+export type CoachStep =
+  | { kind: 'ask'; ask: string; answer: number; tip?: string[] }
+  | { kind: 'info'; text: string };
+
+const ASK = /^(.*?)\s*=\s*(\d+)$/;
+
+/**
+ * Turns an expression into questions that follow the technique of its operation.
+ * `t.from(a, b)` and `t.left` are localized prompts for counting up and for the remainder.
+ */
+export function coachSteps(e: Expr, t: { from: (a: number, b: number) => string; left: (a: number, b: number) => string }): CoachStep[] {
+  const steps: CoachStep[] = [];
+  if (e.op === 'add') {
+    let cur = e.terms[0];
+    for (const x of e.terms.slice(1)) {
+      // tip: the place-value way to add this term
+      const tip = cur >= 10 && x >= 10 ? solve({ op: 'add', a: cur, b: x }).map((s) => s.text) : undefined;
+      steps.push({ kind: 'ask', ask: `${cur} + ${x}`, answer: cur + x, tip: tip && tip.length > 1 ? tip : undefined });
+      cur += x;
+    }
+    return steps;
+  }
+  const [a, b] = e.terms;
+  if (e.op === 'sub') {
+    // counting up: each jump is a question, then the sum of the jumps
+    const path = solve({ op: 'sub', a, b })[0].text.split(' → ').map((p) => Number(p.split(' ')[0]));
+    for (let i = 1; i < path.length; i++)
+      steps.push({ kind: 'ask', ask: t.from(path[i - 1], path[i]), answer: path[i] - path[i - 1] });
+    const jumps = path.slice(1).map((p, i) => p - path[i]);
+    if (jumps.length > 1) steps.push({ kind: 'ask', ask: jumps.join(' + '), answer: a - b });
+    return steps;
+  }
+  for (const s of solve({ op: e.op, a, b })) {
+    const m = ASK.exec(s.text);
+    if (!m || !/[+−×]/.test(m[1])) {
+      steps.push({ kind: 'info', text: s.text }); // e.g. "59 = 60 − 1"
+      continue;
+    }
+    steps.push({ kind: 'ask', ask: m[1], answer: Number(m[2]) });
+    if ('left' in s && s.left > 0) {
+      // division by chunks: after each chunk ask what is left
+      const before = s.left + Number(m[2]);
+      steps.push({ kind: 'ask', ask: t.left(before, Number(m[2])), answer: s.left });
+    }
+  }
+  return steps;
+}
+
+/** Resolves a coach chain: substitutes $1, $2 … with earlier results; returns the parsed expressions. */
+export function coachChain(chain: string[]): { expr: Expr; result: number }[] {
+  const out: { expr: Expr; result: number }[] = [];
+  for (const raw of chain) {
+    const text = raw.replace(/\$(\d+)/g, (_, k) => String(out[Number(k) - 1]?.result ?? NaN));
+    const expr = parseExpr(text);
+    if (!expr) throw new Error(`coach: cannot parse "${raw}"`);
+    const result =
+      expr.op === 'add' ? expr.terms.reduce((x, y) => x + y, 0) : answer({ op: expr.op, a: expr.terms[0], b: expr.terms[1] });
+    out.push({ expr, result });
+  }
+  return out;
+}
