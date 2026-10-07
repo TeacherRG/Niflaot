@@ -4,7 +4,7 @@ import type { MessageKey } from '../i18n/locales/ru';
 import { KEYBOARD, VALUES } from '../core/gematria';
 import { gematriaSteps } from '../core/gematriaSteps';
 import { getPageState, subscribePageState } from '../core/assistant';
-import { SOURCES } from '../sources';
+import { SOURCES, sourceLabel } from '../sources';
 import { HebrewRuns } from './Hebrew';
 import { Sheet, useUI } from './ui';
 
@@ -140,7 +140,6 @@ function LessonSources() {
   const { t, locale } = useI18n();
   const page = useSyncExternalStore(subscribePageState, getPageState);
   if (!page) return <p className="sheet-note">{t('helper.sourcesNoLesson')}</p>;
-  const lang = locale === 'ru' ? 'ru' : 'en';
   const ids = (done: boolean) =>
     [...new Set(page.lesson.riddles.flatMap((r, i) => (page.done.includes(i) === done ? (r.sources ?? []) : [])))].filter(
       (id) => SOURCES[id],
@@ -153,9 +152,9 @@ function LessonSources() {
         <ul className="hp-sources">
           {open.map((id) => (
             <li key={id}>
-              <span className="src-kind">{SOURCES[id].kind[lang]}</span>{' '}
+              <span className="src-kind">{sourceLabel(SOURCES[id], locale).kind}</span>{' '}
               <a href={SOURCES[id].url} target="_blank" rel="noopener">
-                {SOURCES[id].title[lang]}
+                {sourceLabel(SOURCES[id], locale).title}
               </a>
             </li>
           ))}

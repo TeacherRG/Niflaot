@@ -71,7 +71,38 @@ const en: Term[] = [
   { re: 'sukkot', def: 'Sukkot — the autumn festival of booths, a few days after Yom Kippur.' },
 ];
 
-export const GLOSSARY: Partial<Record<Locale, Term[]>> = { ru, en };
+const de: Term[] = [
+  { re: 'parzuf', def: '„Parzuf“ — „Antlitz, Gesicht“. In der Kabbala eine vollständige geistige „Person“; in der Lektion das Bild, das ein Mensch anderen zeigt.' },
+  { re: 'sanaw', def: '„Sanaw“ — „Schwanz“: das Kleine, Niedere. In der Lektion die Wurzel der Begierde.' },
+  { re: 'gematria', def: 'Gematria — der Zahlenwert eines Wortes: die Summe seiner Buchstaben (א = 1, ב = 2 … ת = 400).' },
+  { re: 'tikkun', def: 'Tikkun — „Berichtigung“: eine Sache oder Charaktereigenschaft zu ihrer wahren Bestimmung zurückführen.' },
+  { re: 'sefir', def: 'Sefirot — die zehn g-ttlichen Eigenschaften, durch die G-tt die Welt erschafft und lenkt: Chochma, Bina, Chessed … Jessod, Malchut.' },
+  { re: 'jessod', def: 'Jessod — „Grundlage“, die neunte Sefira: Verbindung und Weitergabe. Die Eigenschaft Josefs, des Zaddiks.' },
+  { re: 'chochma', def: 'Chochma — „Weisheit“: der erste Blitz des Gedankens, die erste der Sefirot des Verstandes.' },
+  { re: 'bina(?![a-zäöüß])', def: 'Bina — „Verständnis“: Entfaltung und Vertiefung eines Gedankens. In der Kabbala heißt sie „Mutter“ (Ima).' },
+  { re: 'zimzum', def: 'Zimzum — „Zusammenziehung“: G-tt verbirgt gleichsam Sein unendliches Licht, um der Welt Raum zu geben.' },
+  { re: 'reschimu', def: 'Reschimu — „Spur“: der Abdruck des Lichtes, der nach dem Zimzum im leeren Raum zurückblieb.' },
+  { re: 'or chosser', def: 'Or Chosser — „zurückkehrendes Licht“: Licht, das von unten nach oben steigt, vom Geschöpf zum Schöpfer.' },
+  { re: 'tohu(?![a-zäöüß])', def: 'Tohu — „Chaos“: die Urwelt, in der ein gewaltiges Licht die „Gefäße“ zerbrach; aus ihren Scherben wird die Welt der Berichtigung gebaut.' },
+  { re: 'kabbala', def: 'Kabbala — die innere, verborgene Lehre der Tora über das G-ttliche und den Aufbau der Welten.' },
+  { re: 'chassid', def: 'Chassidut — der vom Baal Schem Tov begründete Weg des Dienstes: Freude, Glaube und der innere Sinn der Tora in jeder Sache.' },
+  { re: 'chabad', def: 'Chabad — die chassidische Bewegung von Lubawitsch; der Name setzt sich aus den Anfangsbuchstaben von Chochma, Bina, Daat zusammen.' },
+  { re: 'breslow', def: 'Breslow — die chassidische Richtung, die Rabbi Nachman von Breslow begründet hat.' },
+  { re: 'tefillin', def: 'Tefillin — Lederkapseln mit Abschnitten der Tora, die beim Morgengebet an Wochentagen an Arm und Kopf gelegt werden.' },
+  { re: 'mikwe', def: 'Mikwe — eine Wasseransammlung zur rituellen Reinigung. In der Lektion die „Sammlung der Wasser“ des dritten Tages.' },
+  { re: 'gemara', def: 'Gemara — der Hauptteil des Talmuds: die Erörterung der Mischna durch die Weisen.' },
+  { re: 'sohar', def: 'Sohar — das Hauptbuch der Kabbala, ein Kommentar zur Tora.' },
+  { re: 'tanja', def: 'Tanja — das grundlegende Buch des Chabad-Chassidismus; sein Verfasser ist der Alter Rebbe, Rabbi Schneur Salman von Ljadi.' },
+  { re: 'midrasch', def: 'Midrasch — Auslegungen und Erzählungen der Weisen zur Tora.' },
+  { re: 'katnut', def: 'Katnut — „Kleinheit“: ein unreifer, verengter Bewusstseinszustand.' },
+  { re: 'nidda', def: 'Nidda — der Zustand ritueller Trennung der Frau an bestimmten Tagen ihres Zyklus.' },
+  { re: 'schiur koma', def: 'Schiur Koma — „Maß der Gestalt“: ein Bild des Aufbaus der g-ttlichen Eigenschaften in einem alten Midrasch.' },
+  { re: 'targum', def: 'Targum — die alte aramäische Übersetzung der Tora.' },
+  { re: 'mei haschiloach', def: '„Mei HaSchiloach“ — ein Buch chassidischer Toraauslegungen von Rabbi Mordechai Josef von Izbica.' },
+  { re: 'sukkot', def: 'Sukkot — das Laubhüttenfest im Herbst, wenige Tage nach Jom Kippur.' },
+];
+
+export const GLOSSARY: Partial<Record<Locale, Term[]>> = { ru, en, de };
 
 const escapeAttr = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
