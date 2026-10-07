@@ -123,7 +123,7 @@ const en: LessonText = {
         { q: 'What is the average value of one letter of the ninth verse of Bereshit?', hint: '3068 : 52.' },
         { q: 'How many times greater is 1593 than this number?', hint: '1593 : 59.' },
         {
-          q: 'Which word from lesson 1 equals the common divisor of the two verses?',
+          q: 'Both verses divide evenly by 59: 3068 = 52 × 59 and 1593 = 27 × 59. Which word from the first lesson (“Tikun Partzuf-Zanav”) also equals 59?',
           opts: ['tail', 'face, countenance', 'pride', 'desire'],
         },
       ],
