@@ -3,11 +3,12 @@ import { Html, useI18n } from '../i18n';
 import { withTerms } from '../i18n/glossary';
 import { VALUES, gematria, letters } from '../core/gematria';
 import { formatTime } from '../core/format';
-import { MAX_WRONG, award, draftStep, stepState, type GameState } from '../core/useLessonState';
+import { MAX_WRONG, award, draftStep, placePiece, stepState, type GameState } from '../core/useLessonState';
 import type { Lesson, LessonText } from '../lessons/types';
 import { HebrewRuns } from './Hebrew';
 import { Sources } from './Sources';
 import { MathCoach } from './MathCoach';
+import { Puzzle } from './Puzzle';
 import { footnotes } from '../sources/footnotes';
 
 interface Props {
@@ -270,6 +271,12 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
             ))}
           </div>
           {r.sources && <Sources ri={ri} ids={fn.ordered} number={fn.number} refs={fn.refs} />}
+          <Puzzle
+            id={`${lesson.slug}:${ri}`}
+            puzzle={rt.puzzle}
+            placed={S.puz[ri] ?? []}
+            onPlace={(i) => update((d) => placePiece(d, ri, i))}
+          />
           <div className="refl">
             <div className="refl-lbl">
               {t('refl.title')} <span>{t('refl.sub')}</span>

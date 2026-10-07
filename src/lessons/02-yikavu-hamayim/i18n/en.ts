@@ -25,6 +25,9 @@ const en: LessonText = {
     'תהו': 'chaos, tohu',
     'יעקב': 'Yaakov',
     'רחל': 'Rachel',
+    'והוא': 'and he',
+    'ימשל': 'shall rule',
+    'בך': 'over you',
   },
   riddles: [
     {
@@ -37,8 +40,8 @@ const en: LessonText = {
         },
         { q: 'Which word has a gematria equal to the number of words?', opts: ['one', 'good', 'life', 'light'] },
         {
-          q: 'And how many letters are in the verse? Hint: exactly four times the number of words.',
-          hint: '5 + 5 + 4 + 4 + 4 + 5 + 2 + 4 + 3 + 5 + 5 + 4 + 2, or simply 4 × 13.',
+          q: 'And how many letters are in the verse?',
+          hint: 'ויאמר — 5 letters, אלקים — 5, יקוו — 4… Add up the letters of all 13 words.',
         },
       ],
       reveal: {
@@ -74,6 +77,11 @@ const en: LessonText = {
         "The second “one” in the Torah: “one day” — unity in time, “one place” — in space, “one flesh” — in the soul.",
         "13 words = אחד, 52 letters = 4 × 13.",
       ],
+      puzzle: {
+        q: "Assemble the line of reasoning: from the rule to the number to the meaning.",
+        pieces: ["Rule: the ninth verse hides a design", "The Torah’s ninth verse — “to one place”", "13 words = אחד", "Unity in space"],
+        meaning: "The Torah’s ninth verse is “let the waters gather to one place”: 13 words, like אחד. After “one day” in time comes unity in place.",
+      },
     },
     {
       title: 'Mikveh, line and hope',
@@ -127,6 +135,11 @@ const en: LessonText = {
         "(מקוה 151 + קו 106 + תקוה 511) : 3 = 256 = אהרן — service and love of Israel.",
         "Three lines: mikveh — Avraham (kindness), line — Yaakov (the middle), hope — Yitzchak (the left line, rising upward).",
       ],
+      puzzle: {
+        q: "Assemble the order hidden in the root קוה: the root, its three meanings in the order the worlds were made, and their average.",
+        pieces: ["קוה = 111 = פלא, wonder", "Mikveh: contraction, “place of the world”", "Line: the ray that builds worlds", "Hope: the light returns", "Average of three: 256 = אהרן"],
+        meaning: "The wonder-root unfolds three times: contraction frees a place, the line builds worlds, hope returns the light to its Source. Their average is Aharon: service and love.",
+      },
     },
     {
       title: 'Fifty-nine',
@@ -135,7 +148,7 @@ const en: LessonText = {
         { q: 'What is the average value of one letter of the ninth verse of Bereshit?', hint: '3068 : 52.' },
         { q: 'How many times greater is 1593 than this number?', hint: '1593 : 59.' },
         {
-          q: 'Both verses divide evenly by 59: 3068 = 52 × 59 and 1593 = 27 × 59. Which word from the first lesson (“Tikun Partzuf-Zanav”) also equals 59?',
+          q: 'Both verses divide evenly by 59: 3068 = 52 × 59 and 1593 = 27 × 59. Which of these words also equals 59?',
           opts: ['tail', 'face, countenance', 'pride', 'desire'],
         },
       ],
@@ -168,6 +181,11 @@ const en: LessonText = {
         "59 = זנב — the “tail” of the first lesson: the nine leads to Yesod and to the debate over what Chava was created from. 59 is also the name Yechiel (“may G-d live”) and “mother of the living” (אם חי) — Chava: both contain חי, “life”.",
         "Desire is sanctified: “the desire of the righteous is only good”.",
       ],
+      puzzle: {
+        q: "Assemble the line of reasoning: from the verse of Bereshit to the shared number and its meaning.",
+        pieces: ["Bereshit verse: 3068, 52 letters", "Average letter: 59", "Balak verse: 1593 = 27 × 59", "59 = זנב, “tail”", "Sanctified desire — “only good”"],
+        meaning: "Both “ninth” verses divide by 59 — the “tail”, the root of desire. In holiness this desire becomes “only good”.",
+      },
     },
     {
       title: 'All the nines of Bereshit',
@@ -216,12 +234,22 @@ const en: LessonText = {
         "Average word 140 (חכמה + בינה, חמה + לבנה), average letter 42 (אמא): 140 + 42 = 182 = יעקב.",
         "The whole verse = 4246 = 22 × 193 (טפטפיה, כוזו): G-d is “in this and in that”, in every single thing.",
       ],
+      puzzle: {
+        q: "Assemble the Torah’s nines from smallest to largest — and the rectification.",
+        pieces: ["Ninth letter — א", "Ninth word — היתה, 420", "Ninth section — והוא ימשל בך, 420", "Rectification: יעקב + רחל = 420"],
+        meaning: "The Torah’s nines — letter, word, section — lead from unity through chaos and rule to the union of Yaakov and Rachel.",
+      },
     },
   ],
   final: {
     title: 'Unity revealed',
     allSolved:
       'All four riddles are solved. The waters have gathered into one place, the line has been drawn, and hope has returned to its Source.',
+  },
+  puzzle: {
+    q: "Assemble the path of the whole lesson: how the ninth verse leads from “one place” to union.",
+    pieces: ["The waters gather to one place", "Mikveh, line and hope", "59: the “tail” that is sanctified", "Rule becomes union"],
+    meaning: "The waters gathered to one place, the line stretched out, hope returned to its Source — and the nine led to the union of Yaakov and Rachel.",
   },
   practice:
     "Choose one “place” — a corner of your home or a time of day — and make it “one place”: there you pray, learn or speak a kind word. And take one of your desires and, instead of suppressing it, sanctify it: direct it toward good.",

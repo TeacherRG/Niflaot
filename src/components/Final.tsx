@@ -2,10 +2,11 @@ import { useRef, useState } from 'react';
 import { useI18n } from '../i18n';
 import { copyText, formatTime } from '../core/format';
 import { SITE_HOST, SITE_URL } from '../core/site';
-import { stepState, type GameState } from '../core/useLessonState';
+import { placePiece, stepState, type GameState } from '../core/useLessonState';
 import type { Lesson, LessonText } from '../lessons/types';
 import { HebrewRuns } from './Hebrew';
 import { Icon } from './ui';
+import { Puzzle } from './Puzzle';
 import { PARSHIOT } from '../lessons/parshiot';
 import { renderCard, shareOrSave } from '../core/shareCard';
 
@@ -62,12 +63,14 @@ export function Final({
   lesson,
   text,
   S,
+  update,
   onReset,
   onOpen,
 }: {
   lesson: Lesson;
   text: LessonText;
   S: GameState;
+  update: (fn: (d: GameState) => void) => void;
   onReset: () => void;
   onOpen: (ri: number) => void;
 }) {
@@ -129,6 +132,17 @@ export function Final({
   return (
     <>
     <Conspect lesson={lesson} text={text} S={S} onOpen={onOpen} />
+    {allSolved && (
+      <div className="final-puzzle pop">
+        <Puzzle
+          id={`${lesson.slug}:final`}
+          title={t('puzzle.final')}
+          puzzle={text.puzzle}
+          placed={S.puz.final ?? []}
+          onPlace={(i) => update((d) => placePiece(d, 'final', i))}
+        />
+      </div>
+    )}
     {allSolved && (
       <section className="practice pop">
         <div className="practice-lbl">{t('final.practice')}</div>

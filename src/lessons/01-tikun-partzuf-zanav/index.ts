@@ -41,7 +41,7 @@ const lesson: Lesson = {
       sources: ['berakhot-61a', 'gen-2-21', 'num-12-3'],
     },
     {
-      words: ['פרצוף', 'זנב', 'תפלה'],
+      words: ['פרצוף', 'זנב'],
       steps: [
         { t: 'num', a: 515, coach: [{ add: [456, 59] }] },
         {
