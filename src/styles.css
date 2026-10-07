@@ -314,11 +314,12 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
   .hero-lesson + .riddle,#game .riddle{margin-top:16px}
 }
 
-/* donate heart */
-.donate-btn{color:var(--bad);margin-inline-end:-6px;text-decoration:none}
-.donate-btn svg{fill:currentColor;fill-opacity:.14}
-.donate-btn:hover{color:var(--bad);background:var(--bad-soft);border-color:transparent}
-.donate-btn:hover svg{fill-opacity:1}
+/* donate heart — floating, bottom-right */
+.donate-fab{position:fixed;z-index:40;inset-inline-end:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--surface);border:1px solid var(--line);color:var(--bad);box-shadow:0 6px 18px -6px rgba(20,26,51,.35);text-decoration:none;transition:transform .15s,background .15s,color .15s}
+.donate-fab svg{fill:currentColor;fill-opacity:.18}
+.donate-fab:hover{transform:scale(1.08);background:var(--bad);color:#fff;border-color:var(--bad)}
+.donate-fab:hover svg{fill-opacity:1}
+.colophon{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
 
 /* about: goals & objectives */
 .prose h4{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:20px 0 8px}

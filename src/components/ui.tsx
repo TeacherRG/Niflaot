@@ -95,3 +95,12 @@ export function Sheet({
     document.body,
   );
 }
+
+/** Small floating heart in the bottom-right corner linking to the donation page. */
+export function DonateFab({ label }: { label: string }) {
+  return (
+    <a className="donate-fab" href="https://mychitas.app/donate" target="_blank" rel="noopener" aria-label={label} title={label}>
+      <Icon name="heart" size={20} />
+    </a>
+  );
+}
