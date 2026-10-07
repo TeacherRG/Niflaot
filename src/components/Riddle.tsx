@@ -251,7 +251,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
               </details>
             ))}
           </div>
-          {r.sources && <Sources ids={r.sources} />}
+          {r.sources && <Sources ids={r.sources} notes={rt.sourceNotes} />}
           <div className="refl">
             <div className="refl-lbl">
               {t('refl.title')} <span>{t('refl.sub')}</span>

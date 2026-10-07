@@ -64,6 +64,10 @@ const en: LessonText = {
         },
       ],
       reflection: 'What is stronger in me today — the wish to appear (“partzuf”) or the wish to receive (“tail”)? In what situation did it show itself this week?',
+      sourceNotes: {
+        "gen-2-21": "The verse Rav and Shmuel debate: “and G-d built the rib (צלע)…”. Section “What woman was created from”.",
+        "berakhot-61a": "The debate itself: “one said a face (פרצוף), the other a tail (זנב)”. The basis of the whole lesson.",
+      },
       takeaways: [
         "Rav and Shmuel debate what Adam’s “back side”, from which Chava was made, was: a “face” (פרצוף) or a “tail” (זנב). In one view woman is equal from the start; in the other she grows from something small.",
         "A person’s “back” is the subconscious. Behind the “face” lies the root of pride (גאוה), behind the “tail” the root of desire (תאוה).",
@@ -131,6 +135,12 @@ const en: LessonText = {
         },
       ],
       reflection: 'Where do I wear a mask, where do I show a “partzuf”, and to whom do I open my true face? Who deserves to see it more often?',
+      sourceNotes: {
+        "deut-34-10": "The last words of the Torah — “before the eyes of all Israel” (לעיני כל ישראל = 761): this riddle’s solution.",
+        "ex-34-33": "Moshe covers his face with a veil (מסוה) — section “Moshe’s mask”.",
+        "ex-32-31": "“Erase me from Your book” — Moshe’s love for the people, section “Moshe’s true face”.",
+        "num-12-3": "“Moshe was the humblest of men”: humility as the rectification of pride (the “face”).",
+      },
       takeaways: [
         "A person has three levels: the mask (מסכה) — the guise of anger and rebuke; the “partzuf” — the teacher’s face before people; the true face (פנים) — hidden love.",
         "פנים + פרצוף + מסכה = 761 = לעיני כל ישראל — the last words of the Torah; 761 = 20² + 19².",
@@ -169,6 +179,12 @@ const en: LessonText = {
         },
       ],
       reflection: 'When I look at someone close to me, do I see them or my own reflection? What one good thing will I notice in them today?',
+      sourceNotes: {
+        "berakhot-8a": "“Matza or motzeh?” — the source of the pair “found a wife” / “I find”.",
+        "prov-18-22": "“He who found a wife found good” (טוב = 17): hence אשה = 18 × טוב.",
+        "eccl-7-26": "“I find more bitter than death the woman” — the view through one’s own “I”.",
+        "gen-2-21": "“And He built (ויבן)…” — ויבן = 68 = 4 × טוב, the riddle’s third step.",
+      },
       takeaways: [
         "The debate moves inside the man: seeing a “tail”, he looks at his wife through desire; seeing a “partzuf”, as part of his own honor.",
         "“I find” is a view through one’s own “I”; “found a wife” is a face-to-face meeting without masks. Then “he who found a wife found good”.",

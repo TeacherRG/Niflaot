@@ -68,6 +68,13 @@ const en: LessonText = {
         },
       ],
       reflection: 'Where in my life does oneness appear in time — in habits and days — and where in place — at home, in the space around me? Which one place can I make into “one place”?',
+      sourceNotes: {
+        "mei-hashiloach-balak": "The rule of the ninth verse itself — the last sentence of the passage. The basis of the lesson.",
+        "zohar-tet": "“Your goodness is hidden within you” — why nine (ט) means the concealed.",
+        "gen-1-1": "The first nine verses of the Torah; the ninth — “let the waters gather into one place” (13 words, 52 letters).",
+        "gen-2-24": "“They shall become one flesh” — unity in the soul, section “One in time, one in place”.",
+        "tanya-ih-20": "The utterance “Let the earth sprout” acts forever — section “The mikveh”.",
+      },
       takeaways: [
         "The rule of the “Mei HaShiloach”: the ninth verse of every portion hides a deep intention. Nine is Yesod, the attribute of Yosef, “goodness hidden within”.",
         "The ninth verse of the Torah — “let the waters gather into one place” — is the first verse of the third day (5 verses of day one + 3 of day two).",
@@ -121,6 +128,15 @@ const en: LessonText = {
         },
       ],
       reflection: 'What am I hoping for today? How can I turn this hope into a “line” — one concrete step I will take?',
+      sourceNotes: {
+        "bereshit-rabbah-68-9": "“He is the place of the world, but the world is not His place” (start of the passage) — section “Contraction”.",
+        "ex-33-21": "“Here is a place with Me” — the verse that saying is built on.",
+        "ps-19-5": "“Their line (קו) has gone out through all the earth”: for Radak “kav” means building. Section “The line that builds worlds”.",
+        "ez-43-2": "“And the earth shone with His glory” — section “Hope: the light returns”.",
+        "gen-19-27": "“The place where Avraham stood” — mikveh as the line of Avraham (section “Three lines”).",
+        "ez-33-24": "“Avraham was one” — “one place” as Avraham’s place.",
+        "ps-27-14": "“Hope (קוה) to G-d” — hope, the line of Yitzchak.",
+      },
       takeaways: [
         "The root קוה = 111 = אלף = פלא (wonder): mikveh — gathering of waters, kav — line, tikvah — hope.",
         "Mikveh is the tzimtzum and the reshimu (“let the dry land appear”); the line is the ray from the Infinite that builds the worlds; hope is the returning light, creation longing for its Source.",
@@ -162,6 +178,17 @@ const en: LessonText = {
         },
       ],
       reflection: 'Which “small” thing in me — a desire, a habit, a “tail” — can I sanctify instead of suppressing? What would that take today?',
+      sourceNotes: {
+        "num-22-10": "The ninth verse of Balak: its gematria is 1593 = 27 × 59 (the riddle’s second step).",
+        "ps-147-5": "“And great in strength” (ורב כח = 236): 3068 = 13 × 236 — section “The measure of creation”.",
+        "gen-3-20": "Chava is called “mother of all living” (אם חי = 59) — section “The average letter is 59”.",
+        "berakhot-61a": "The “face or tail” debate: 59 = זנב ties this lesson to the first.",
+        "shabbat-146a": "The Rav writes that the “tail” is also the secret of the primordial snake that seduced Chava, and cites this passage: “when the snake came to Chava it infected her with impurity”. Section “59 is the tail”.",
+        "gen-3-16": "“Your desire shall be to your husband” — the root of bodily desire.",
+        "prov-11-23": "“The desire of the righteous is only good” (אך טוב) — section “Sanctified desire”.",
+        "ps-73-1": "“Only good to Israel” (אך טוב) — same section.",
+        "yevamot-118b": "“Better to live as two (טן דו) than as a widow” — section “Sanctified desire”: נ is the ninth letter from the end.",
+      },
       takeaways: [
         "The ninth verse = 3068 = 13 × 236 (ורב כח — “the measure of the Creator”); without the word “one” — 3055 = 5 × תורה.",
         "The average letter = 3068 : 52 = 59. The ninth verse of Balak = 1593 = 27 × 59.",
@@ -209,6 +236,15 @@ const en: LessonText = {
         },
       ],
       reflection: 'Where does “I will reign” sound inside me? How can I return this “I” to its source — and turn rule into union?',
+      sourceNotes: {
+        "gen-1-1": "The ninth letter of the Torah (א of ברא) and the ninth word (היתה) — in the first two verses.",
+        "ez-7-26": "“Calamity upon calamity” (הוה על הוה) — “was” as ruin, section “The ninth word”.",
+        "kings1-1-5": "“I will reign” (אני אמלך) — the sense of “I” in the world of Tohu.",
+        "gen-3-16": "The ninth section of the Torah: “and he shall rule over you” = 420 (third step).",
+        "chullin-60b": "The moon’s complaint: “two kings, one crown” — section “Sun and moon”.",
+        "ps-16-8": "“I set G-d before me always” — the Baal Shem Tov on the Name כוזו, section “The whole verse: 193”.",
+        "num-15-41": "“I am G-d your G-d” — the end of the Shema, same section.",
+      },
       takeaways: [
         "The rule of nine also holds for letters, words and sections. The ninth letter of the Torah is א — the second alef, like the second “one”.",
         "The ninth word is היתה (420): being, and the breaking of the vessels in the world of Tohu; תהו = 411 = יש מאין.",

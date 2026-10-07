@@ -122,6 +122,7 @@ const en: Messages = {
   'lessons.sub': '· a retelling in our own words',
   'sources.title': 'Primary sources',
   'sources.count': { one: '{n} passage', other: '{n} passages' },
+  'sources.relates': 'Relates to:',
   'sources.original': 'Original',
   'sources.translation': 'Translation',
   'sources.project': 'the Niflaot project',

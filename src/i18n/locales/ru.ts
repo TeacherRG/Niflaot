@@ -132,6 +132,7 @@ const ru = {
   'lessons.sub': '· изложение своими словами',
   'sources.title': 'Первоисточники',
   'sources.count': { one: '{n} отрывок', few: '{n} отрывка', many: '{n} отрывков', other: '{n} отрывка' },
+  'sources.relates': 'К чему:',
   'sources.original': 'Оригинал',
   'sources.translation': 'Перевод',
   'sources.project': 'проект Нифлаот (с оригинала, сверено с английским Sefaria)',

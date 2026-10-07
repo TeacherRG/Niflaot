@@ -51,6 +51,8 @@ export interface RiddleText {
   /** expandable lesson sections; `b` is HTML */
   lessons: { h: string; b: string }[];
   reflection: string;
+  /** for each primary source of this riddle: what it relates to in the lesson (shown with the source) */
+  sourceNotes?: Record<string, string>;
   /** short bullet points for the summary («конспект») on the final screen; plain text, Hebrew is auto-styled */
   takeaways?: string[];
 }

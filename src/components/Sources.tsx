@@ -1,8 +1,9 @@
 import { Html, useI18n } from '../i18n';
 import { SOURCES, translation } from '../sources';
+import { HebrewRuns } from './Hebrew';
 
 /** Collapsible list of primary sources (original + translation), taken from Sefaria. */
-export function Sources({ ids }: { ids: string[] }) {
+export function Sources({ ids, notes }: { ids: string[]; notes?: Record<string, string> }) {
   const { t, locale } = useI18n();
   const list = ids.filter((id) => SOURCES[id]);
   if (!list.length) return null;
@@ -23,7 +24,14 @@ export function Sources({ ids }: { ids: string[] }) {
             <details key={id} className="src">
               <summary>
                 <span className="src-kind">{s.kind[lang]}</span>
-                <span className="src-name">{s.title[lang]}</span>
+                <span className="src-head">
+                  <span className="src-name">{s.title[lang]}</span>
+                  {notes?.[id] && (
+                    <span className="src-note">
+                      <b>{t('sources.relates')}</b> <HebrewRuns text={notes[id]} />
+                    </span>
+                  )}
+                </span>
               </summary>
               <div className="src-body">
                 {s.he.map((he, i) => (

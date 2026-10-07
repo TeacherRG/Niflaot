@@ -563,3 +563,11 @@ article.m-card{border-top:3px solid var(--gold-2)}
 .p-src-seg p{margin:2px 0;font-size:12px}
 .p-src-seg .he{font-size:15px;text-align:right;line-height:1.6}
 .p-src-credit{font-size:10px;color:#666;margin:4px 0 0}
+
+.src-head{display:grid;gap:2px;margin-inline-end:auto;min-width:0}
+.src-head .src-name{margin:0}
+.src-note{font-size:13px;line-height:1.45;color:var(--ink-2)}
+.src-note b{color:var(--tchelet);font-weight:700}
+.src-note .he{font-size:14px;font-weight:700}
+.src>summary{align-items:flex-start}
+.src-kind{margin-top:3px}
