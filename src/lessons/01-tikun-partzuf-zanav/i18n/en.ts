@@ -164,7 +164,7 @@ I’m searching for it in a gematria game based on Rabbi Yitzchak Ginsburgh’s 
 ✦ ${score} of ${max} points · ⏱ ${time}
 ${grid}
 
-Four riddles about the face, the mask and the heart. Can you do better?
+Four riddles: on pride and passion, on prayer, on the mask and the true face — and on husband and wife meeting face to face. Can you do better?
 Play 👉 ${site}
 
 ©pnimi.org.il ©mychitas.app`,
