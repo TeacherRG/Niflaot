@@ -32,8 +32,8 @@ function lessonCorpus(text: LessonText): string {
   return stripTags(parts.join('\n'));
 }
 
-/** «Парцуф» — «облик…» → Парцуф; “Or chozer” — … → Or chozer */
-const termLabel = (def: string) => def.split(' — ')[0].replace(/[«»“”"]/g, '').trim();
+/** «Парцуф» — «облик…» → Парцуф; “Or chozer” — … → Or chozer; „Parzuf“ — … → Parzuf */
+const termLabel = (def: string) => def.split(' — ')[0].replace(/[«»„“”"]/g, '').trim();
 
 const textOf = (l: Lesson, locale: Locale) => l.texts[locale] ?? l.texts[FALLBACK_LOCALE];
 

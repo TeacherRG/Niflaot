@@ -4,8 +4,17 @@ import type { CoachAction } from '../core/coach';
 
 /* ───────────── language-independent lesson data ───────────── */
 
+/** Average time and difficulty of a step, shown above it (a methodical estimate, see docs/LESSON-GUIDE.md). */
+export interface StepEstimate {
+  /** average time to complete the step, in seconds */
+  sec: number;
+  /** 1 easy · 2 medium · 3 hard */
+  level: 1 | 2 | 3;
+}
+
 export interface NumStep {
   t: 'num';
+  est: StepEstimate;
   /** correct numeric answer */
   a: number;
   /** a counting task (e.g. «how many words»): no arithmetic, so no coach */
@@ -19,6 +28,7 @@ export interface NumStep {
 
 export interface ChoiceStep {
   t: 'ch';
+  est: StepEstimate;
   /** Hebrew option + optional gematria value shown after a pick */
   opts: { h: string; v?: number }[];
   /** index of the correct option */

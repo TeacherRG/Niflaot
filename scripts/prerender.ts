@@ -108,7 +108,7 @@ const home: Page = {
   jsonLd: {
     '@context': 'https://schema.org',
     '@graph': [
-      { ...SITE, inLanguage: ['ru', 'en'], description: plain(ui['catalog.intro'] as string), publisher: PUBLISHER },
+      { ...SITE, inLanguage: ['ru', 'en', 'de'], description: plain(ui['catalog.intro'] as string), publisher: PUBLISHER },
       {
         '@type': 'ItemList',
         name: ui['catalog.heading'],

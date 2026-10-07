@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Html, useI18n } from '../i18n';
 import { withTerms } from '../i18n/glossary';
 import { VALUES, gematria, letters } from '../core/gematria';
-import { formatTime } from '../core/format';
+import { formatEstimate, formatTime, readingSec } from '../core/format';
 import { MAX_WRONG, award, draftStep, placePiece, stepState, type GameState } from '../core/useLessonState';
 import type { Lesson, LessonText } from '../lessons/types';
 import { HebrewRuns } from './Hebrew';
@@ -10,6 +10,24 @@ import { Sources } from './Sources';
 import { MathCoach } from './MathCoach';
 import { Puzzle } from './Puzzle';
 import { footnotes } from '../sources/footnotes';
+
+/** «⏱ ≈ 1 мин · ●●○ средний»: average time and difficulty of a step (or of the whole riddle). */
+function Estimate({ time, level }: { time: string; level: 1 | 2 | 3 }) {
+  const { t } = useI18n();
+  return (
+    <div className={`est l${level}`} title={t('est.title')}>
+      <span className="est-time">⏱ {time}</span>
+      <span className="est-lvl" aria-label={`${t('est.title')}: ${t(`est.l${level}`)}`}>
+        <span className="est-dots" aria-hidden="true">
+          {[1, 2, 3].map((k) => (
+            <i key={k} className={k <= level ? 'on' : ''} />
+          ))}
+        </span>
+        {t(`est.l${level}`)}
+      </span>
+    </div>
+  );
+}
 
 interface Props {
   lesson: Lesson;
@@ -22,7 +40,7 @@ interface Props {
 }
 
 export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Props) {
-  const { t, pick } = useI18n();
+  const { t, pick, locale } = useI18n();
   const textLocale = pick(lesson.texts).locale;
   const r = lesson.riddles[ri];
   const rt = text.riddles[ri];
@@ -87,6 +105,12 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
           <span className={`r-time${running ? ' run' : ''}`}>⏱ {formatTime(S.time[ri])}</span>
         </span>
         <h2>{rt.title}</h2>
+        <Estimate
+          level={Math.max(...r.steps.map((s) => s.est.level)) as 1 | 2 | 3}
+          time={`${t('est.solve', { t: formatEstimate(readingSec(rt.cond) + r.steps.reduce((a, s) => a + s.est.sec, 0), locale, t) })} · ${t('est.read', {
+            t: formatEstimate(rt.lessons.reduce((a, l) => a + readingSec(l.b), 0), locale, t),
+          })}`}
+        />
       </div>
       <Html as="div" className="cond" html={withTerms(condHtml, textLocale)} />
       {!solved && <div className="les-lock">{t('riddle.locked')}</div>}
@@ -152,6 +176,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
           const left = MAX_WRONG[s.t] - x.tries;
           return (
             <div key={i} className={`step${locked ? ' locked' : ''}`}>
+              <Estimate time={formatEstimate(s.est.sec, locale, t)} level={s.est.level} />
               <div className="q">
                 <span className="n">{i + 1}.</span>
                 <Html html={st.q} />

@@ -19,9 +19,9 @@ const lesson: Lesson = {
     {
       words: ['יקוו', 'מקום'],
       steps: [
-        { t: 'num', a: 13, count: true },
+        { t: 'num', est: { sec: 45, level: 1 }, a: 13, count: true },
         {
-          t: 'ch',
+          t: 'ch', est: { sec: 20, level: 1 },
           opts: [
             { h: 'אחד', v: 13 },
             { h: 'טוב', v: 17 },
@@ -30,7 +30,7 @@ const lesson: Lesson = {
           ],
           c: 0,
         },
-        { t: 'num', a: 52, coach: [{ add: [5, 5, 4, 4, 4, 5, 2, 4, 3, 5, 5, 4, 2] }] },
+        { t: 'num', est: { sec: 75, level: 2 }, a: 52, coach: [{ add: [5, 5, 4, 4, 4, 5, 2, 4, 3, 5, 5, 4, 2] }] },
       ],
       equations: ['13 = אחד', '52 = 4 × 13', 'יום אחד → מקום אחד'],
       sources: ['mei-hashiloach-balak', 'zohar-tet', 'gen-1-1', 'gen-2-24', 'tanya-ih-20'],
@@ -38,9 +38,9 @@ const lesson: Lesson = {
     {
       words: ['קוה', 'מקוה', 'קו', 'תקוה'],
       steps: [
-        { t: 'num', a: 111, coach: [{ word: 'קוה' }] },
+        { t: 'num', est: { sec: 30, level: 1 }, a: 111, coach: [{ word: 'קוה' }] },
         {
-          t: 'ch',
+          t: 'ch', est: { sec: 60, level: 2 },
           opts: [
             { h: 'פלא', v: 111 },
             { h: 'אור', v: 207 },
@@ -49,9 +49,9 @@ const lesson: Lesson = {
           ],
           c: 0,
         },
-        { t: 'num', a: 256, coach: [{ word: 'מקוה' }, { word: 'קו' }, { word: 'תקוה' }, { add: ['$1', '$2', '$3'] }, { div: ['$4', 3] }] },
+        { t: 'num', est: { sec: 150, level: 3 }, a: 256, coach: [{ word: 'מקוה' }, { word: 'קו' }, { word: 'תקוה' }, { add: ['$1', '$2', '$3'] }, { div: ['$4', 3] }] },
         {
-          t: 'ch',
+          t: 'ch', est: { sec: 45, level: 2 },
           opts: [
             { h: 'אהרן', v: 256 },
             { h: 'משה', v: 345 },
@@ -73,10 +73,10 @@ const lesson: Lesson = {
       // no word cards: the words equal to 59 are the answer and are explained in the reveal
       words: [],
       steps: [
-        { t: 'num', a: 59, coach: [{ div: [3068, 52] }] },
-        { t: 'num', a: 27, coach: [{ div: [1593, 59] }] },
+        { t: 'num', est: { sec: 90, level: 3 }, a: 59, coach: [{ div: [3068, 52] }] },
+        { t: 'num', est: { sec: 90, level: 3 }, a: 27, coach: [{ div: [1593, 59] }] },
         {
-          t: 'ch',
+          t: 'ch', est: { sec: 30, level: 1 },
           opts: [
             { h: 'זנב', v: 59 },
             { h: 'פרצוף', v: 456 },
@@ -98,14 +98,14 @@ const lesson: Lesson = {
       words: ['היתה', 'תהו', 'והוא', 'ימשל', 'בך'],
       steps: [
         {
-          t: 'ch',
+          t: 'ch', est: { sec: 30, level: 1 },
           opts: [{ h: 'א' }, { h: 'ה' }, { h: 'ר' }, { h: 'ש' }],
           c: 0,
         },
-        { t: 'num', a: 420, coach: [{ word: 'היתה' }] },
-        { t: 'num', a: 420, coach: [{ word: 'והוא' }, { word: 'ימשל' }, { word: 'בך' }, { add: ['$1', '$2', '$3'] }] },
+        { t: 'num', est: { sec: 25, level: 1 }, a: 420, coach: [{ word: 'היתה' }] },
+        { t: 'num', est: { sec: 60, level: 2 }, a: 420, coach: [{ word: 'והוא' }, { word: 'ימשל' }, { word: 'בך' }, { add: ['$1', '$2', '$3'] }] },
         {
-          t: 'ch',
+          t: 'ch', est: { sec: 60, level: 2 },
           opts: [
             { h: 'יעקב + רחל', v: 420 },
             { h: 'אברהם + שרה', v: 753 },

@@ -96,6 +96,8 @@ const de: Messages = {
   'catalog.lesson': 'Lektion {n}',
   'catalog.riddles': { one: '{n} Rätsel', other: '{n} Rätsel' },
   'catalog.progress': '{done} von {total} gelöst',
+  'catalog.tags': 'Themen und Wörter',
+  'catalog.tagsSub': 'Begriffe und hebräische Wörter aus allen Lektionen. Tippe darauf, um zu sehen, was sie bedeuten und wo sie vorkommen.',
   'catalog.soon': 'Weitere Lektionen folgen bald',
   'catalog.fallback': 'Diese Lektion ist noch nicht in die gewählte Sprache übersetzt — der russische Text wird angezeigt.',
 
@@ -110,6 +112,14 @@ const de: Messages = {
   'rules.limit': 'Fehlergrenze: 3 bei Zahlen, 2 bei Auswahl — dann wird die Antwort für <b>0</b> gezeigt',
   'rules.lesson': 'die Lektion öffnet sich nach dem Lösen',
 
+  'est.title': 'Durchschnittliche Zeit und Schwierigkeit',
+  'est.sec': '≈ {n} s',
+  'est.min': '≈ {n} Min.',
+  'est.l1': 'leicht',
+  'est.l2': 'mittel',
+  'est.l3': 'schwer',
+  'est.solve': 'Lösen {t}',
+  'est.read': 'Lesen der Lektion {t}',
   'riddle.of': 'Rätsel {n} von {total}',
   'riddle.locked': '📜 Die Lektion zu diesem Rätsel öffnet sich, sobald du es gelöst hast',
   'riddle.sumYourself': 'zähl selbst zusammen',

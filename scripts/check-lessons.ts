@@ -8,6 +8,7 @@
  *  - every lesson has texts in every language of src/i18n/config.ts
  *  - «Собери смысл»: every riddle and the lesson have a puzzle of 3–6 distinct pieces, the same count in every language
  *  - word cards don't show the answer of a choice step
+ *  - every step has an estimate: average time 5–600 s and difficulty 1–3
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
  */
 import { LESSONS } from '../src/lessons';
@@ -41,6 +42,8 @@ for (const lesson of LESSONS) {
   lesson.riddles.forEach((r, ri) => {
     const where = (i?: number) => `${lesson.slug} · riddle ${ri + 1}${i === undefined ? '' : ` · step ${i + 1}`}`;
     r.steps.forEach((s, i) => {
+      if (!(s.est.sec >= 5 && s.est.sec <= 600) || ![1, 2, 3].includes(s.est.level))
+        err(`${where(i)}: est needs sec 5–600 and level 1–3 (average time and difficulty of the step)`);
       if (s.t === 'num') {
         if (!s.coach) {
           if (!s.count) err(`${where(i)}: numeric step without coach (or mark a counting task with count: true)`);
