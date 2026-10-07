@@ -1,6 +1,7 @@
 import type { Lesson } from '../types';
 import ru from './i18n/ru';
 import en from './i18n/en';
+import de from './i18n/de';
 
 /**
  * Урок №2 — «Йикаву амаим эль маком эхад»: тайны девятого стиха Берешит
@@ -138,7 +139,7 @@ const lesson: Lesson = {
     ],
     secrets: { 13: 0, 52: 0, 256: 1, 59: 2, 420: 3 },
   },
-  texts: { ru, en },
+  texts: { ru, en, de },
 };
 
 export default lesson;

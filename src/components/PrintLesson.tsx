@@ -4,7 +4,7 @@ import { VALUES, letters } from '../core/gematria';
 import { SITE_HOST } from '../core/site';
 import type { Lesson, PuzzleText } from '../lessons/types';
 import { PARSHIOT } from '../lessons/parshiot';
-import { SOURCES, translation } from '../sources';
+import { SOURCES, sourceLabel, translation } from '../sources';
 import { stripFootnotes } from '../sources/footnotes';
 import { HebrewRuns } from './Hebrew';
 import { Icon } from './ui';
@@ -289,7 +289,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
               return (
                 <div key={id} className="p-src">
                   <h3>
-                    {src.title[locale === 'ru' ? 'ru' : 'en']} <small>· {src.kind[locale === 'ru' ? 'ru' : 'en']}</small>
+                    {sourceLabel(src, locale).title} <small>· {sourceLabel(src, locale).kind}</small>
                   </h3>
                   {src.he.map((he, i) => (
                     <div key={i} className="p-src-seg">

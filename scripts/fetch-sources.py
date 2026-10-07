@@ -31,6 +31,14 @@ OUT = Path(__file__).resolve().parent.parent / 'src' / 'sources' / 'sefaria.json
 TANAKH_HE = 'Hebrew/Tanach with Text Only.json'
 TANAKH_EN = 'English/The Holy Scriptures A New Translation JPS 1917.json'
 TORAH_RU = 'English/Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru].json'
+# German: Sefaria's public-domain versions where they exist; the rest are the project's own (src/sources/de.ts)
+TORAH_DE = 'English/Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de].json'
+BERNFELD_DE = 'English/Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de].json'
+BOOK_DE = {
+    'Ezekiel': 'English/Das Buch Jecheskel, übersetzt und erläutert von Dr. Joseph Breuer, Frankfurt a.M, 1921 [de].json',
+    'Proverbs': None,
+}
+BAVLI_DE = 'English/Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de].json'
 BAVLI_HE = 'Hebrew/William Davidson Edition - Aramaic.json'
 BAVLI_EN = 'English/William Davidson Edition - English.json'
 
@@ -51,7 +59,7 @@ BOOK = {
 }
 
 # id: (kind, Sefaria ref for the link, [pieces]); a piece is (book, chapter-or-daf, first, last)
-# For other works: ('custom', title_ru, title_en, ref, he_file, en_file, path)
+# For other works: ('custom', title_ru, title_en, title_de, ref, kind, he_file, en_file, (de_file, de_path) | None, path)
 SOURCES = {
     # lesson 1
     'gen-2-21': ('Genesis', 2, 21, 22),
@@ -85,19 +93,21 @@ SOURCES = {
     'shabbat-146a': [('Shabbat', '145b', 15, 15), ('Shabbat', '146a', 0, 0)],
     'yevamot-118b': ('Yevamot', '118b', 15, 15),
     'chullin-60b': ('Chullin', '60b', 1, 3),
-    'bereshit-rabbah-68-9': ('custom', 'Берешит Раба 68:9', 'Bereshit Rabbah 68:9', 'Bereshit Rabbah 68:9', 'Midrash',
+    'bereshit-rabbah-68-9': ('custom', 'Берешит Раба 68:9', 'Bereshit Rabbah 68:9', 'Bereschit Rabba 68,9', 'Bereshit Rabbah 68:9', 'Midrash',
                              'Midrash/Aggadah/Midrash Rabbah/Bereshit Rabbah/Hebrew/merged.json',
-                             'Midrash/Aggadah/Midrash Rabbah/Bereshit Rabbah/English/The Sefaria Midrash Rabbah, 2022.json', [67, 8]),
-    'mei-hashiloach-balak': ('custom', '«Мей ха-Шилоах», т. I, Балак', 'Mei HaShiloach, Vol. I, Balak', 'Mei HaShiloach, Volume I, Numbers, Balak 2', 'Chasidut',
+                             'Midrash/Aggadah/Midrash Rabbah/Bereshit Rabbah/English/The Sefaria Midrash Rabbah, 2022.json',
+                             ('Midrash/Aggadah/Midrash Rabbah/Bereshit Rabbah/English/Der Midrasch Bereschit Rabba. Zum ersten Male ins Deutsche übertragen von Dr. August Wünsche. Leipzig 1881 [de].json', [67, 8]),
+                             [67, 8]),
+    'mei-hashiloach-balak': ('custom', '«Мей ха-Шилоах», т. I, Балак', 'Mei HaShiloach, Vol. I, Balak', 'Mei HaSchiloach, Bd. I, Balak', 'Mei HaShiloach, Volume I, Numbers, Balak 2', 'Chasidut',
                              'Chasidut/Izhbitz/Mei HaShiloach/Hebrew/merged.json',
-                             'Chasidut/Izhbitz/Mei HaShiloach/English/Living waters, the Mei HaShiloach. Trans. and edited by Betsalel Philip Edwards, Jerusalem, J. Aronson 2001 [Revised digital edition, 2021].json',
+                             'Chasidut/Izhbitz/Mei HaShiloach/English/Living waters, the Mei HaShiloach. Trans. and edited by Betsalel Philip Edwards, Jerusalem, J. Aronson 2001 [Revised digital edition, 2021].json', None,
                              ['Volume I', 'Numbers', 'Balak', 1]),
-    'zohar-tet': ('custom', 'Зоар, Предисловие (I, 3а)', 'Zohar, Introduction (I, 3a)', 'Zohar, Introduction 6:12', 'Zohar',
+    'zohar-tet': ('custom', 'Зоар, Предисловие (I, 3а)', 'Zohar, Introduction (I, 3a)', 'Sohar, Einleitung (I, 3a)', 'Zohar, Introduction 6:12', 'Zohar',
                   'Kabbalah/Zohar/Zohar/Hebrew/Sulam Edition, Jerusalem 1945.json',
-                  'Kabbalah/Zohar/Zohar/English/The Zohar; London, Soncino Press, 1933.json', ['Introduction', 5, 11]),
-    'tanya-ih-20': ('custom', 'Тания, Игерет а-Кодеш 20', 'Tanya, Iggeret HaKodesh 20', 'Tanya, Part IV; Iggeret HaKodesh 20:29', 'Chasidut',
+                  'Kabbalah/Zohar/Zohar/English/The Zohar; London, Soncino Press, 1933.json', None, ['Introduction', 5, 11]),
+    'tanya-ih-20': ('custom', 'Тания, Игерет а-Кодеш 20', 'Tanya, Iggeret HaKodesh 20', 'Tanja, Iggeret HaKodesch 20', 'Tanya, Part IV; Iggeret HaKodesh 20:29', 'Chasidut',
                     'Chasidut/Chabad/Tanya/Hebrew/Kehot Publication Society.json',
-                    'Chasidut/Chabad/Tanya/English/Kehot Publication Society English Translation.json',
+                    'Chasidut/Chabad/Tanya/English/Kehot Publication Society English Translation.json', None,
                     ['Part IV; Iggeret HaKodesh', 19, 28]),
 }
 
@@ -106,6 +116,12 @@ KIND = {
     'Talmud': ('Гемара', 'Gemara'), 'Midrash': ('Мидраш', 'Midrash'), 'Chasidut': ('Хасидут', 'Chassidut'), 'Zohar': ('Зоар', 'Zohar'),
 }
 EN_BOOK = {'I Kings': 'I Kings'}
+KIND_DE = {'Torah': 'Tora', 'Prophets': 'Propheten', 'Writings': 'Schriften', 'Talmud': 'Gemara', 'Midrash': 'Midrasch', 'Chasidut': 'Chassidut', 'Zohar': 'Sohar'}
+DE_NAME = {
+    'Genesis': 'Bereschit', 'Exodus': 'Schemot', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Dewarim', 'Ezekiel': 'Jecheskel',
+    'I Kings': 'I Könige', 'Psalms': 'Tehillim', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
+    'Berakhot': 'Berachot', 'Shabbat': 'Schabbat', 'Yevamot': 'Jewamot', 'Chullin': 'Chullin',
+}
 
 _cache = {}
 def load(path):
@@ -155,6 +171,9 @@ def clean(s, lang):
         s = re.sub(r'\bГосподь\b', 'Г-сподь', s)
         s = re.sub(r'\bГоспод(а|у|ом|е)\b', lambda m: 'Г-спод' + m.group(1), s)
         s = re.sub(r'\bБож(ий|ья|ье|ьи|ьего|ьей|ьему|ьим|ьих|ественн\w*)\b', lambda m: 'Б-ж' + m.group(1), s)
+    if lang == 'de':
+        s = re.sub(r'\bGott(es|e)?\b', lambda m: 'G-tt' + (m.group(1) or ''), s)
+        s = re.sub(r'\bGöttlich', 'G-ttlich', s)
     return s
 
 def meta(d):
@@ -167,18 +186,22 @@ def tanakh_or_talmud(book, sec, a, b):
         i = daf_index(sec)
         pick = lambda d: d['text'][i][a:b + 1]
         ru_d = None
+        de_d = load(folder + BAVLI_DE)
     else:
         he_d, en_d = load(folder + TANAKH_HE), load(folder + TANAKH_EN)
         pick = lambda d: d['text'][sec - 1][a - 1:b]
         ru_d = load(folder + TORAH_RU) if kind == 'Torah' else None
-    return kind, ru_name, he_d, en_d, ru_d, pick
+        de_f = TORAH_DE if kind == 'Torah' else BOOK_DE.get(book, BERNFELD_DE)
+        de_d = load(folder + de_f) if de_f else None
+    return kind, ru_name, he_d, en_d, ru_d, de_d, pick
 
 def label(book, sec, a, b, ru_name):
     rng = f'{a}' if a == b else f'{a}–{b}'
+    de_name = DE_NAME[book]
     if isinstance(sec, str):
         n, side = sec[:-1], sec[-1]
-        return f'{ru_name} {n}{"а" if side == "a" else "б"}', f'{book} {sec}'
-    return f'{ru_name} {sec}:{rng}', f'{book} {sec}:{rng}'
+        return f'{ru_name} {n}{"а" if side == "a" else "б"}', f'{book} {sec}', f'{de_name} {sec}'
+    return f'{ru_name} {sec}:{rng}', f'{book} {sec}:{rng}', f'{de_name} {sec},{rng}'
 
 # ───────────────────────── helper commands: ls / find ─────────────────────────
 
@@ -241,45 +264,53 @@ if len(sys.argv) > 1 and sys.argv[1] in ('ls', 'find'):
 out = {}
 for sid, spec in SOURCES.items():
     if isinstance(spec, tuple) and spec[0] == 'custom':
-        _, t_ru, t_en, ref, kind, he_p, en_p, path = spec
+        _, t_ru, t_en, t_de, ref, kind, he_p, en_p, de_p, path = spec
         he_d, en_d = load(he_p), load(en_p)
-        def at(d):
+        de_d = load(de_p[0]) if de_p else None
+        def at(d, path=path):
             x = d['text']
             for k in path: x = x[k]
             return [x] if isinstance(x, str) else x
         he, en, ru, versions = at(he_d), at(en_d), None, {'he': meta(he_d), 'en': meta(en_d)}
-        titles = (t_ru, t_en)
+        de = at(de_d, de_p[1]) if de_d else None
+        if de_d: versions['de'] = meta(de_d)
+        titles = (t_ru, t_en, t_de)
     else:
         pieces = spec if isinstance(spec, list) else [spec]
-        he, en, ru, versions, t_ru, t_en, ref_parts = [], [], [], {}, [], [], []
+        he, en, ru, de, versions, t_ru, t_en, t_de, ref_parts = [], [], [], [], {}, [], [], [], []
         for (book, sec, a, b) in pieces:
-            kind, ru_name, he_d, en_d, ru_d, pick = tanakh_or_talmud(book, sec, a, b)
+            kind, ru_name, he_d, en_d, ru_d, de_d, pick = tanakh_or_talmud(book, sec, a, b)
             he += pick(he_d); en += pick(en_d)
             if ru_d is not None: ru += pick(ru_d)
-            versions = {'he': meta(he_d), 'en': meta(en_d), **({'ru': meta(ru_d)} if ru_d else {})}
-            lr, le = label(book, sec, a, b, ru_name)
-            t_ru.append(lr); t_en.append(le)
+            if de is not None:
+                if de_d is None: de = None
+                else: de += pick(de_d)
+            versions = {'he': meta(he_d), 'en': meta(en_d), **({'ru': meta(ru_d)} if ru_d else {}), **({'de': meta(de_d)} if de_d else {})}
+            lr, le, ld = label(book, sec, a, b, ru_name)
+            t_ru.append(lr); t_en.append(le); t_de.append(ld)
             # Sefaria numbers Talmud segments from 1; the pieces above use 0-based indices
             sa, sb = (a + 1, b + 1) if kind == 'Talmud' else (a, b)
             ref_parts.append(f'{book} {sec}:{sa}' + (f'-{sb}' if sb != sa else ''))
         if len(pieces) > 1 and all(pc[0] == pieces[0][0] for pc in pieces):
             # one book, several dapim/chapters: «Шабат 145б–146а»
-            titles = (t_ru[0] + '–' + t_ru[-1].split(' ', 1)[1], t_en[0] + '–' + t_en[-1].split(' ', 1)[1])
+            titles = tuple(t[0] + '–' + t[-1].rsplit(' ', 1)[1] for t in (t_ru, t_en, t_de))
         else:
-            titles = (' — '.join(t_ru), ' — '.join(t_en))
+            titles = (' — '.join(t_ru), ' — '.join(t_en), ' — '.join(t_de))
         ref = ref_parts[0] if len(ref_parts) == 1 else ref_parts[0] + '-' + ref_parts[-1].split(' ', 1)[1]
         ru = ru or None
     out[sid] = {
-        'kind': {'ru': KIND[kind][0], 'en': KIND[kind][1]},
-        'title': {'ru': titles[0], 'en': titles[1]},
+        'kind': {'ru': KIND[kind][0], 'en': KIND[kind][1], 'de': KIND_DE[kind]},
+        'title': {'ru': titles[0], 'en': titles[1], 'de': titles[2]},
         'ref': ref,
         'url': 'https://www.sefaria.org/' + urllib.parse.quote(ref.replace(' ', '_').replace(':', '.'), safe='_.,;-'),
         'he': [clean(s, 'he') for s in he if s],
         'en': [clean(s, 'en') for s in en if s],
         **({'ru': [clean(s, 'ru') for s in ru if s]} if ru else {}),
+        # German keeps empty segments, so that line i stays next to Hebrew line i
+        **({'de': [clean(s, 'de') if s else '' for s in de]} if de else {}),
         'versions': versions,
     }
-    sys.stderr.write(f'✓ {sid}: {len(out[sid]["he"])} he / {len(out[sid]["en"])} en' + (f' / {len(out[sid]["ru"])} ru' if ru else '') + '\n')
+    sys.stderr.write(f'✓ {sid}: {len(out[sid]["he"])} he / {len(out[sid]["en"])} en' + (f' / {len(out[sid]["ru"])} ru' if ru else '') + (f' / {len(out[sid]["de"])} de' if de else '') + '\n')
 
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')

@@ -1,6 +1,7 @@
 import type { Lesson } from '../types';
 import ru from './i18n/ru';
 import en from './i18n/en';
+import de from './i18n/de';
 
 /**
  * Урок №1 — «Тикун парцуф-занав» (брошюра «Нифлаот», Берешит ה׳תשפ״ז).
@@ -114,7 +115,7 @@ const lesson: Lesson = {
     ],
     secrets: { 471: 0, 515: 1, 761: 2, 18: 3 },
   },
-  texts: { ru, en },
+  texts: { ru, en, de },
 };
 
 export default lesson;
