@@ -30,6 +30,9 @@ export function Catalog() {
       <div className="wrap">
         <header className="hero">
           <div className="hero-in" data-l1="נ" data-l2="פ">
+            <div className="year">
+              5787 · <span className="he">ה׳תשפ״ז</span>
+            </div>
             <div className="heb gold-text">נפלאות</div>
             <h1>{t('app.title')}</h1>
             <p>{t('catalog.intro')}</p>
@@ -52,6 +55,9 @@ export function Catalog() {
               <h3 className="parsha-h">
                 <span>{g.name[locale as keyof typeof g.name] ?? g.name.ru}</span>
                 <span className="he">{g.he}</span>
+                <span className="parsha-year">
+                  {g.year} · <span className="he">{g.heYear}</span>
+                </span>
               </h3>
               <div className="cards">
                 {g.lessons.map((l) => {

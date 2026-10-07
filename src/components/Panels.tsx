@@ -22,7 +22,9 @@ export function Panels() {
                 <Icon name="book" />
                 <span>
                   {g.name[locale as keyof typeof g.name] ?? g.name.ru}
-                  <small lang="he">{g.he}</small>
+                  <small>
+                    <span lang="he">{g.he}</span> · {g.year}
+                  </small>
                 </span>
                 <span className="menu-count">{g.lessons.length}</span>
               </summary>

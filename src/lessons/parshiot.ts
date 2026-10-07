@@ -5,7 +5,10 @@ import type { Locale } from '../i18n';
  * To add a portion: add it here and set `parsha` on its lessons.
  */
 export const PARSHIOT = {
-  bereshit: { he: 'בראשית', name: { ru: 'Берейшит', en: 'Bereshit' } },
-} satisfies Record<string, { he: string; name: Partial<Record<Locale, string>> & { ru: string } }>;
+  bereshit: { he: 'בראשית', name: { ru: 'Берейшит', en: 'Bereshit' }, year: 5787, heYear: 'ה׳תשפ״ז' },
+} satisfies Record<
+  string,
+  { he: string; name: Partial<Record<Locale, string>> & { ru: string }; year: number; heYear: string }
+>;
 
 export type ParshaId = keyof typeof PARSHIOT;

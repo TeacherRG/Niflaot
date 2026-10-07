@@ -437,3 +437,16 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .menu-sub{display:grid;gap:2px;margin-inline-start:22px;padding-inline-start:10px;border-inline-start:1px solid var(--gold-line)}
 .menu-sub .menu-item{font-weight:500;font-size:14.5px;padding:9px 10px}
 .menu-sub .menu-item[aria-current="page"]{background:var(--gold-soft)}
+
+/* year 5787 */
+.parsha-year{margin-inline-start:auto;font-family:var(--f-num);font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.02em}
+.parsha-year .he{font-size:14px;color:var(--muted)}
+.p-year{font-family:var(--f-body);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#7a5b1e;margin-bottom:6px}
+.p-year .he{letter-spacing:0;font-size:13px}
+/* print: about the project at the very end, on its own page */
+.p-about{break-before:page;margin-top:28px;padding-top:16px;border-top:2px solid #111}
+.p-about>h2{font-size:24px;font-weight:700;margin-bottom:10px}
+.p-about .prose{font-size:13px;color:#222}
+.p-about .prose a{color:#111;border-bottom:none}
+.p-site{margin-top:14px;font-family:var(--f-num);font-weight:600;font-size:14px;text-align:center}
+.p-riddle + .p-block{margin-top:24px;padding-top:14px;border-top:1px solid #ccc;break-inside:avoid}
