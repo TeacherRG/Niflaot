@@ -5,6 +5,25 @@ const en: Messages = {
   'app.brandSub': 'MyChitas',
   'app.language': 'Language',
 
+  'menu.open': 'Open menu',
+  'menu.close': 'Close',
+  'menu.lessons': 'Lessons',
+  'menu.allLessons': 'All lessons',
+  'lang.choose': 'Interface language',
+  'hero.howTo': 'How to play',
+
+  'help.title': 'How to play',
+  'help.body':
+    '<ol><li><b>Read the riddle.</b> Each riddle is a short passage from the lesson and a few Hebrew words.</li><li><b>Tap a word card</b> to reveal its letters and their numerical values. Adding them up is up to you.</li><li><b>Answer step by step:</b> type a number or pick an option. Each step unlocks after the previous one.</li><li><b>Stuck?</b> Tap “Hint” — the answer stays yours, but earns fewer points.</li><li><b>Once solved</b>, the solution, a retelling of the lesson and a question for reflection unlock.</li></ol><p>The calculator at the bottom of the page computes the gematria of any word. Progress and notes are stored only on this device.</p>',
+  'help.scoring': 'Points',
+  'help.table': 'Letter values',
+  'help.finals': 'Final letters ך ם ן ף ץ have the same values as regular ones.',
+  'help.go': 'Got it, let’s play',
+
+  'about.title': 'About the project',
+  'about.body':
+    '<p><b>Niflaot</b> is a series of gematria games based on articles by Rabbi Yitzchak Ginsburgh from the “Niflaot” booklet (Gal Einai). Each lesson is a handful of riddles: you count the numerical values of words, discover hidden equalities and, step by step, uncover the meaning behind them.</p><p>The game does not replace the lesson — it leads to it: after each riddle, a retelling of the article and a question for personal reflection unlock. The full Hebrew text is on pnimi.org.il.</p><p>All texts belong entirely to Rabbi Yitzchak Ginsburgh. Idea and production — the <b>MyChitas</b> Torah project.</p>',
+
   'catalog.heading': 'Lessons',
   'catalog.intro':
     'Gematria games based on articles by Rabbi Yitzchak Ginsburgh from the “Niflaot” booklet. Count the numerical values of words, discover hidden equalities and uncover their meaning.',
@@ -12,7 +31,6 @@ const en: Messages = {
   'catalog.riddles': { one: '{n} riddle', other: '{n} riddles' },
   'catalog.progress': '{done} of {total} solved',
   'catalog.soon': 'More lessons coming soon',
-  'catalog.back': '← All lessons',
   'catalog.fallback': 'This lesson has not been translated into the selected language yet — showing the Russian text.',
 
   'top.timer': 'Play time',

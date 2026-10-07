@@ -3,6 +3,7 @@ import { useI18n } from '../i18n';
 import { LESSONS } from '../lessons';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
+import { Icon, useUI } from './ui';
 
 function progress(slug: string, legacy?: string): number {
   for (const key of [`niflaot:lesson:${slug}`, legacy]) {
@@ -17,6 +18,7 @@ function progress(slug: string, legacy?: string): number {
 
 export function Catalog() {
   const { t, pick } = useI18n();
+  const { open } = useUI();
 
   useEffect(() => {
     document.title = `${t('app.title')} · MyChitas`;
@@ -31,6 +33,16 @@ export function Catalog() {
             <div className="heb gold-text">נפלאות</div>
             <h1>{t('app.title')}</h1>
             <p>{t('catalog.intro')}</p>
+            <div className="hero-actions">
+              <button className="btn ghost hero-help" onClick={() => open('help')}>
+                <Icon name="help" size={18} />
+                {t('help.title')}
+              </button>
+              <button className="btn ghost hero-help" onClick={() => open('about')}>
+                <Icon name="info" size={18} />
+                {t('about.title')}
+              </button>
+            </div>
           </div>
         </header>
         <section className="catalog">

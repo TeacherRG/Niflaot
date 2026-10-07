@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { findLesson } from './lessons';
 import { Catalog } from './components/Catalog';
 import { LessonPage } from './components/LessonPage';
+import { Panels } from './components/Panels';
+import { UIContext, type Panel } from './components/ui';
 
 const SIGNATURE = '\n\n©pnimi.org.il\n©mychitas.app';
 
@@ -43,6 +45,13 @@ function useCopySignature() {
 export function App() {
   const route = useRoute();
   useCopySignature();
+  const [panel, open] = useState<Panel>(null);
+  const ui = useMemo(() => ({ panel, open }), [panel]);
   const lesson = route ? findLesson(route) : undefined;
-  return lesson ? <LessonPage key={lesson.slug} lesson={lesson} /> : <Catalog />;
+  return (
+    <UIContext.Provider value={ui}>
+      {lesson ? <LessonPage key={lesson.slug} lesson={lesson} /> : <Catalog />}
+      <Panels />
+    </UIContext.Provider>
+  );
 }

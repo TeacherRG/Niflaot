@@ -84,6 +84,6 @@ export function useI18n() {
 }
 
 /** Renders a trusted, static translation string that contains inline HTML. */
-export function Html({ html, as: Tag = 'span', className }: { html: string; as?: 'span' | 'div' | 'p' | 'h1' | 'h3'; className?: string }) {
+export function Html({ html, as: Tag = 'span', className }: { html: string; as?: 'span' | 'div' | 'p' | 'h1' | 'h3' | 'li'; className?: string }) {
   return <Tag className={className} dangerouslySetInnerHTML={{ __html: html }} />;
 }
