@@ -1,20 +1,21 @@
 import { useMemo, useRef, useState } from 'react';
 import { useI18n } from '../i18n';
-import { SIGN, coachChain, coachSteps, type CoachStep } from '../core/mentalMath';
+import { SIGN, coachSteps, type CoachStep } from '../core/mentalMath';
+import { buildCoach, type CoachAction, type CoachPart } from '../core/coach';
 
 /**
  * «Посчитать вместе»: walks through the concrete example of a hint, one small question at a time,
  * using the mental-math technique of each operation. The final result can be put into the answer field.
  */
-export function MathCoach({ chain, onFill }: { chain: string[]; onFill: (n: number) => void }) {
+export function MathCoach({ actions, onFill }: { actions: CoachAction[]; onFill?: (n: number) => void }) {
   const { t } = useI18n();
-  const parts = useMemo(() => coachChain(chain), [chain]);
+  const parts = useMemo(() => buildCoach(actions), [actions]);
   const steps = useMemo(() => {
     const labels = { from: (a: number, b: number) => t('coach.from', { a, b }), left: (a: number, b: number) => `${a} − ${b}` };
     return parts.flatMap((p, k) => [
-      { kind: 'head' as const, text: p.expr.text, k },
+      { kind: 'head' as const, part: p, k },
       ...coachSteps(p.expr, labels),
-    ]) as (CoachStep | { kind: 'head'; text: string; k: number })[];
+    ]) as (CoachStep | { kind: 'head'; part: CoachPart; k: number })[];
   }, [parts, t]);
   const asks = steps.map((s, i) => (s.kind === 'ask' ? i : -1)).filter((i) => i >= 0);
   const [done, setDone] = useState(0); // number of answered questions
@@ -22,6 +23,8 @@ export function MathCoach({ chain, onFill }: { chain: string[]; onFill: (n: numb
   const [state, setState] = useState<'idle' | 'no' | 'tip'>('idle');
   const input = useRef<HTMLInputElement>(null);
   const current = asks[done];
+  // a part is shown once the walkthrough reaches it — later heads would give away results
+  const reached = (i: number) => current === undefined || i <= current;
   const finished = done >= asks.length;
   const result = parts[parts.length - 1].result;
   const op = parts[parts.length - 1].expr.op;
@@ -55,10 +58,24 @@ export function MathCoach({ chain, onFill }: { chain: string[]; onFill: (n: numb
     <div className="coach">
       <ol className="coach-steps">
         {steps.map((s, i) => {
+          if (s.kind === 'head' && !reached(i)) return null;
           if (s.kind === 'head')
-            return parts.length > 1 ? (
+            return s.part.word ? (
+              // a word: show its letters with their values, then add them up
+              <li key={i} className="coach-word">
+                <span className="he">{s.part.word}</span>
+                <span className="coach-letters" dir="rtl">
+                  {s.part.letters!.map(([c, v], k) => (
+                    <span key={k}>
+                      <b>{c}</b>
+                      <i>{v}</i>
+                    </span>
+                  ))}
+                </span>
+              </li>
+            ) : parts.length > 1 ? (
               <li key={i} className="coach-head num">
-                {s.text}
+                {s.part.expr.text}
               </li>
             ) : null;
           if (s.kind === 'info')
@@ -117,9 +134,11 @@ export function MathCoach({ chain, onFill }: { chain: string[]; onFill: (n: numb
           <span>
             {t('coach.done')} <b className="num">{result}</b>
           </span>
-          <button className="btn gold-btn" onClick={() => onFill(result)}>
-            {t('coach.fill')}
-          </button>
+          {onFill && (
+            <button className="btn gold-btn" onClick={() => onFill(result)}>
+              {t('coach.fill')}
+            </button>
+          )}
         </div>
       )}
       <a className="coach-more" href={`#/math/${op}`}>

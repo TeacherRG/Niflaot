@@ -595,3 +595,12 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .coach-end b{font-size:20px}
 .gold-btn{background:linear-gradient(180deg,#E3C47C,#C49A47);border-color:#C49A47;color:var(--ink)}
 .coach-more{font-size:13px;color:var(--tchelet);text-decoration:none;font-weight:600;justify-self:start}
+
+.coach-word{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:4px}
+.coach-word:first-child{margin-top:0}
+.coach-word>.he{font-family:var(--f-he);font-size:22px;font-weight:700;color:var(--ink)}
+.coach-letters{display:flex;gap:3px}
+.coach-letters span{display:grid;justify-items:center;border:1px solid var(--gold-line);border-radius:5px;background:var(--gold-soft);padding:1px 5px;min-width:24px}
+.coach-letters b{font-family:var(--f-he);font-size:15px;line-height:1.2}
+.coach-letters i{font-family:var(--f-num);font-style:normal;font-size:10.5px;color:var(--gold)}
+.calc .coach-toggle{justify-self:start}

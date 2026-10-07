@@ -18,7 +18,7 @@ const lesson: Lesson = {
     {
       words: ['יקוו', 'מקום', 'אחד'],
       steps: [
-        { t: 'num', a: 13 },
+        { t: 'num', a: 13, count: true },
         {
           t: 'ch',
           opts: [
@@ -29,7 +29,7 @@ const lesson: Lesson = {
           ],
           c: 0,
         },
-        { t: 'num', a: 52, coach: ['4 × 13'] },
+        { t: 'num', a: 52, coach: [{ mul: [4, 13] }] },
       ],
       equations: ['13 = אחד', '52 = 4 × 13', 'יום אחד → מקום אחד'],
       sources: ['mei-hashiloach-balak', 'zohar-tet', 'gen-1-1', 'gen-2-24', 'tanya-ih-20'],
@@ -37,7 +37,7 @@ const lesson: Lesson = {
     {
       words: ['קוה', 'מקוה', 'קו', 'תקוה'],
       steps: [
-        { t: 'num', a: 111, coach: ['100 + 6 + 5'] },
+        { t: 'num', a: 111, coach: [{ word: 'קוה' }] },
         {
           t: 'ch',
           opts: [
@@ -48,7 +48,7 @@ const lesson: Lesson = {
           ],
           c: 0,
         },
-        { t: 'num', a: 256, coach: ['151 + 106 + 511', '$1 : 3'] },
+        { t: 'num', a: 256, coach: [{ word: 'מקוה' }, { word: 'קו' }, { word: 'תקוה' }, { add: ['$1', '$2', '$3'] }, { div: ['$4', 3] }] },
         {
           t: 'ch',
           opts: [
@@ -72,8 +72,8 @@ const lesson: Lesson = {
       // no word cards: the words equal to 59 are the answer and are explained in the reveal
       words: [],
       steps: [
-        { t: 'num', a: 59, coach: ['3068 : 52'] },
-        { t: 'num', a: 27, coach: ['1593 : 59'] },
+        { t: 'num', a: 59, coach: [{ div: [3068, 52] }] },
+        { t: 'num', a: 27, coach: [{ div: [1593, 59] }] },
         {
           t: 'ch',
           opts: [
@@ -101,8 +101,8 @@ const lesson: Lesson = {
           opts: [{ h: 'א' }, { h: 'ה' }, { h: 'ר' }, { h: 'ש' }],
           c: 0,
         },
-        { t: 'num', a: 420, coach: ['5 + 10 + 400 + 5'] },
-        { t: 'num', a: 420, coach: ['18 + 380 + 22'] },
+        { t: 'num', a: 420, coach: [{ word: 'היתה' }] },
+        { t: 'num', a: 420, coach: [{ word: 'והוא' }, { word: 'ימשל' }, { word: 'בך' }, { add: ['$1', '$2', '$3'] }] },
         {
           t: 'ch',
           opts: [

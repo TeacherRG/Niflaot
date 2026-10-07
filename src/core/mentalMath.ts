@@ -198,37 +198,16 @@ export const EXAMPLES: Record<Op, (Problem & { label: string })[]> = {
   ],
 };
 
-/** Which operation a hint like "3068 : 52." asks for (used to link hints to the technique). */
-export function opInText(s: string): Op | null {
-  if (/\d\s*:\s*\d/.test(s)) return 'div';
-  if (/\d\s*×\s*\d/.test(s)) return 'mul';
-  if (/\d\s*[−-]\s*\d/.test(s)) return 'sub';
-  if (/\d\s*\+\s*\d/.test(s)) return 'add';
-  return null;
-}
 
 // ───────────────────────── coach: step-by-step help for one concrete example ─────────────────────────
 
-/** An arithmetic expression found in a hint: "5 + 10 + 400 + 5", "3068 : 52", "27 × 59", "471 − 456". */
+/** One arithmetic action: a sum of many terms, or a − b, a × b, a : b. */
 export interface Expr {
   op: Op;
   terms: number[];
   text: string;
 }
 
-/** Finds the first arithmetic expression in a hint. Sums may have many terms; other operations two. */
-export function parseExpr(s: string): Expr | null {
-  const m = /\d+(?:\s*[+−×:-]\s*\d+)+/.exec(s);
-  if (!m) return null;
-  const terms = m[0].split(/\s*[+−×:-]\s*/).map(Number);
-  const ops = [...m[0].matchAll(/[+−×:-]/g)].map((x) => x[0].replace('-', '−'));
-  if (ops.every((o) => o === '+')) return { op: 'add', terms, text: m[0] };
-  if (ops.length !== 1) return null;
-  const op: Op = ops[0] === '−' ? 'sub' : ops[0] === '×' ? 'mul' : 'div';
-  if (op === 'sub' && terms[0] < terms[1]) return null;
-  if (op === 'div' && terms[0] % terms[1] !== 0) return null;
-  return { op, terms, text: m[0] };
-}
 
 /** One step of the coach: a question with a numeric answer, or a line to read. */
 export type CoachStep =
@@ -279,16 +258,3 @@ export function coachSteps(e: Expr, t: { from: (a: number, b: number) => string;
   return steps;
 }
 
-/** Resolves a coach chain: substitutes $1, $2 … with earlier results; returns the parsed expressions. */
-export function coachChain(chain: string[]): { expr: Expr; result: number }[] {
-  const out: { expr: Expr; result: number }[] = [];
-  for (const raw of chain) {
-    const text = raw.replace(/\$(\d+)/g, (_, k) => String(out[Number(k) - 1]?.result ?? NaN));
-    const expr = parseExpr(text);
-    if (!expr) throw new Error(`coach: cannot parse "${raw}"`);
-    const result =
-      expr.op === 'add' ? expr.terms.reduce((x, y) => x + y, 0) : answer({ op: expr.op, a: expr.terms[0], b: expr.terms[1] });
-    out.push({ expr, result });
-  }
-  return out;
-}

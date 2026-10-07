@@ -213,7 +213,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
                 <div className="fb ok">{t('riddle.correct', { p: x.pts ?? 0 })}</div>
               ) : x.hint && st.hint ? (
                 <div className="fb hint">
-                  {t('riddle.hintPrefix')} {st.hint}
+                  {t('riddle.hintPrefix')} <HebrewRuns text={st.hint} />
                   {s.t === 'num' && s.coach && (
                     <button className="coach-toggle" aria-expanded={!!coachOpen[i]} onClick={() => setCoachOpen((o) => ({ ...o, [i]: !o[i] }))}>
                       🧮 {t(coachOpen[i] ? 'coach.hide' : 'coach.open')}
@@ -223,7 +223,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
               ) : null}
               {!x.ok && s.t === 'num' && s.coach && x.hint && coachOpen[i] && (
                 <MathCoach
-                  chain={s.coach}
+                  actions={s.coach}
                   onFill={(n) => {
                     const el = document.getElementById(`in-${ri}-${i}`) as HTMLInputElement | null;
                     if (el) {

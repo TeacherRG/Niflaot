@@ -23,10 +23,11 @@ const lesson: Lesson = {
         { expr: 'זנב + תאוה', value: 471 },
       ],
       steps: [
-        { t: 'num', a: 471, coach: ['456 + 3 + 1 + 6 + 5'] },
-        { t: 'num', a: 471, coach: ['7 + 50 + 2', '400 + 1 + 6 + 5', '$1 + $2'] },
+        { t: 'num', a: 471, coach: [{ word: 'פרצוף' }, { word: 'גאוה' }, { add: ['$1', '$2'] }] },
+        { t: 'num', a: 471, coach: [{ word: 'זנב' }, { word: 'תאוה' }, { add: ['$1', '$2'] }] },
         {
           t: 'ch',
+          milui: true,
           opts: [
             { h: 'אש', v: 471 },
             { h: 'אור', v: 633 },
@@ -42,7 +43,7 @@ const lesson: Lesson = {
     {
       words: ['פרצוף', 'זנב', 'תפלה'],
       steps: [
-        { t: 'num', a: 515, coach: ['456 + 59'] },
+        { t: 'num', a: 515, coach: [{ add: [456, 59] }] },
         {
           t: 'ch',
           opts: [
@@ -60,7 +61,7 @@ const lesson: Lesson = {
     {
       words: ['מסכה', 'פרצוף', 'פנים'],
       steps: [
-        { t: 'num', a: 761, coach: ['80 + 50 + 10 + 40', '40 + 60 + 20 + 5', '$1 + 456 + $2'] },
+        { t: 'num', a: 761, coach: [{ word: 'פנים' }, { word: 'מסכה' }, { add: ['$1', 456, '$2'] }] },
         {
           t: 'ch',
           opts: [
@@ -71,7 +72,7 @@ const lesson: Lesson = {
           ],
           c: 0,
         },
-        { t: 'num', a: 761, coach: ['400 + 361'] },
+        { t: 'num', a: 761, coach: [{ mul: [20, 20] }, { mul: [19, 19] }, { add: ['$1', '$2'] }] },
       ],
       equations: [
         'פנים (180) + פרצוף (456) + מסכה (125) = 761',
@@ -83,7 +84,7 @@ const lesson: Lesson = {
     {
       words: ['אשה', 'טוב', 'ויבן'],
       steps: [
-        { t: 'num', a: 18, coach: ['306 : 17'] },
+        { t: 'num', a: 18, coach: [{ word: 'אשה' }, { word: 'טוב' }, { div: ['$1', '$2'] }] },
         {
           t: 'ch',
           opts: [
@@ -94,7 +95,7 @@ const lesson: Lesson = {
           ],
           c: 0,
         },
-        { t: 'num', a: 4, coach: ['6 + 10 + 2 + 50', '$1 : 17'] },
+        { t: 'num', a: 4, coach: [{ word: 'ויבן' }, { div: ['$1', 17] }] },
       ],
       equations: ['אשה (306) = 18 × טוב (17)', '18 = חי', 'ויבן (68) = 4 × טוב'],
       sources: ['berakhot-8a', 'prov-18-22', 'eccl-7-26', 'gen-2-21'],
