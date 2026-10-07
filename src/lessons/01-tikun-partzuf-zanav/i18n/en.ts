@@ -64,6 +64,13 @@ const en: LessonText = {
         },
       ],
       reflection: 'What is stronger in me today — the wish to appear (“partzuf”) or the wish to receive (“tail”)? In what situation did it show itself this week?',
+      takeaways: [
+        "Rav and Shmuel debate what Adam’s “back side”, from which Chava was made, was: a “face” (פרצוף) or a “tail” (זנב). In one view woman is equal from the start; in the other she grows from something small.",
+        "A person’s “back” is the subconscious. Behind the “face” lies the root of pride (גאוה), behind the “tail” the root of desire (תאוה).",
+        "פרצוף + גאוה = זנב + תאוה = 471 = אש spelled out in full (אלף + שין): both passions are fire, and they weigh the same.",
+        "Chabad sees pride as the main root of evil, Breslov sees desire. Jung’s “persona” is the “partzuf”; Freud’s drives of the “id” are the “tail”.",
+        "זנב = 59 = נדה: a hint to separation that must be rectified — hence the ideal of a marriage begun in purity.",
+      ],
     },
     {
       title: 'The mathematics of rectification',
@@ -84,6 +91,11 @@ const en: LessonText = {
         },
       ],
       reflection: 'Which one sentence will I say in prayer tomorrow so that it comes from both the head and the heart?',
+      takeaways: [
+        "פרצוף + זנב = 515 = תפלה: prayer joins and rectifies both sides of the subconscious.",
+        "The hand tefillin, opposite the heart, rectify desire (“the prayer of David”).",
+        "The head tefillin, on the brain, humble the pride of the intellect (“the prayer of Moshe”).",
+      ],
     },
     {
       title: 'Moshe’s three levels: from mask to love',
@@ -119,6 +131,12 @@ const en: LessonText = {
         },
       ],
       reflection: 'Where do I wear a mask, where do I show a “partzuf”, and to whom do I open my true face? Who deserves to see it more often?',
+      takeaways: [
+        "A person has three levels: the mask (מסכה) — the guise of anger and rebuke; the “partzuf” — the teacher’s face before people; the true face (פנים) — hidden love.",
+        "פנים + פרצוף + מסכה = 761 = לעיני כל ישראל — the last words of the Torah; 761 = 20² + 19².",
+        "Moshe’s inner essence is boundless love for Israel: he is ready to be erased from the Torah for the people’s sake.",
+        "Rav is an idealist: creation is perfect from the start. Shmuel is a realist: rectification is gradual, from “tail” to “face”.",
+      ],
     },
     {
       title: 'The secret of marriage: from egoism to good',
@@ -151,6 +169,12 @@ const en: LessonText = {
         },
       ],
       reflection: 'When I look at someone close to me, do I see them or my own reflection? What one good thing will I notice in them today?',
+      takeaways: [
+        "The debate moves inside the man: seeing a “tail”, he looks at his wife through desire; seeing a “partzuf”, as part of his own honor.",
+        "“I find” is a view through one’s own “I”; “found a wife” is a face-to-face meeting without masks. Then “he who found a wife found good”.",
+        "אשה (306) = 18 × טוב (17), and 18 = חי — “life drawn from good”; ויבן (68) = 4 × טוב.",
+        "On Sukkot the Almighty places a person face to face — with his wife, with himself and with the Creator.",
+      ],
     },
   ],
   final: {

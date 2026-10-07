@@ -120,6 +120,10 @@ const en: Messages = {
   'refl.sub': '· there is no right answer',
   'refl.placeholder': 'Write down a thought. It stays only on this device.',
 
+  'final.conspect': 'Summary',
+  'final.conspectSub': '· what you have learned',
+  'final.unsolved': 'Not solved yet — its summary opens once you solve it.',
+  'final.goSolve': 'Solve',
   'final.inProgress': ' · game in progress',
   'final.partial': 'Riddles solved: {done} of {total}. Return to the rest using the numbers at the top.',
   'final.share': 'Share your result',

@@ -4,8 +4,70 @@ import { copyText, formatTime } from '../core/format';
 import { SITE_HOST, SITE_URL } from '../core/site';
 import { stepState, type GameState } from '../core/useLessonState';
 import type { Lesson, LessonText } from '../lessons/types';
+import { HebrewRuns } from './Hebrew';
 
-export function Final({ lesson, text, S, onReset }: { lesson: Lesson; text: LessonText; S: GameState; onReset: () => void }) {
+/** Concise summary of what was covered: key equations and takeaways of every solved riddle. */
+function Conspect({ lesson, text, S, onOpen }: { lesson: Lesson; text: LessonText; S: GameState; onOpen: (ri: number) => void }) {
+  const { t } = useI18n();
+  return (
+    <section className="conspect pop" aria-labelledby="conspect-h">
+      <h2 id="conspect-h">
+        {t('final.conspect')} <span>{t('final.conspectSub')}</span>
+      </h2>
+      {lesson.riddles.map((r, ri) => {
+        const rt = text.riddles[ri];
+        const solved = S.done.includes(ri);
+        return (
+          <div key={ri} className={`cs-item${solved ? '' : ' locked'}`}>
+            <h3>
+              <span className="cs-n">{ri + 1}</span>
+              {rt.title}
+            </h3>
+            {solved ? (
+              <>
+                <div className="cs-eqs">
+                  {r.equations.map((e, k) => (
+                    <span key={k} className="cs-eq num">
+                      <HebrewRuns text={e} />
+                    </span>
+                  ))}
+                </div>
+                <ul>
+                  {(rt.takeaways ?? [rt.reveal.p]).map((x, k) => (
+                    <li key={k}>
+                      <HebrewRuns text={x} />
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p className="cs-locked">
+                {t('final.unsolved')}{' '}
+                <button className="btn ghost" onClick={() => onOpen(ri)}>
+                  {t('final.goSolve')} →
+                </button>
+              </p>
+            )}
+          </div>
+        );
+      })}
+    </section>
+  );
+}
+
+export function Final({
+  lesson,
+  text,
+  S,
+  onReset,
+  onOpen,
+}: {
+  lesson: Lesson;
+  text: LessonText;
+  S: GameState;
+  onReset: () => void;
+  onOpen: (ri: number) => void;
+}) {
   const { t } = useI18n();
   const [confirm, setConfirm] = useState(false);
   const [copyLabel, setCopyLabel] = useState<string | null>(null);
@@ -36,6 +98,8 @@ export function Final({ lesson, text, S, onReset }: { lesson: Lesson; text: Less
   };
 
   return (
+    <>
+    <Conspect lesson={lesson} text={text} S={S} onOpen={onOpen} />
     <section className="final pop">
       <h2>{text.final.title}</h2>
       <div className="big">
@@ -86,5 +150,6 @@ export function Final({ lesson, text, S, onReset }: { lesson: Lesson; text: Less
         </button>
       )}
     </section>
+    </>
   );
 }

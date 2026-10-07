@@ -86,6 +86,7 @@ export function LessonPage({ lesson }: { lesson: Lesson }) {
               lesson={lesson}
               text={text}
               S={S}
+              onOpen={(ri) => goTo(ri)}
               onReset={() => {
                 reset();
                 window.scrollTo({ top: 0, behavior: 'smooth' });

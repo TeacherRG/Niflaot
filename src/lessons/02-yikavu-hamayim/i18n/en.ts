@@ -68,6 +68,12 @@ const en: LessonText = {
         },
       ],
       reflection: 'Where in my life does oneness appear in time — in habits and days — and where in place — at home, in the space around me? Which one place can I make into “one place”?',
+      takeaways: [
+        "The rule of the “Mei HaShiloach”: the ninth verse of every portion hides a deep intention. Nine is Yesod, the attribute of Yosef, “goodness hidden within”.",
+        "The ninth verse of the Torah — “let the waters gather into one place” — is the first verse of the third day (5 verses of day one + 3 of day two).",
+        "The second “one” in the Torah: “one day” — unity in time, “one place” — in space, “one flesh” — in the soul.",
+        "13 words = אחד, 52 letters = 4 × 13.",
+      ],
     },
     {
       title: 'Mikveh, line and hope',
@@ -115,6 +121,12 @@ const en: LessonText = {
         },
       ],
       reflection: 'What am I hoping for today? How can I turn this hope into a “line” — one concrete step I will take?',
+      takeaways: [
+        "The root קוה = 111 = אלף = פלא (wonder): mikveh — gathering of waters, kav — line, tikvah — hope.",
+        "Mikveh is the tzimtzum and the reshimu (“let the dry land appear”); the line is the ray from the Infinite that builds the worlds; hope is the returning light, creation longing for its Source.",
+        "(מקוה 151 + קו 106 + תקוה 511) : 3 = 256 = אהרן — service and love of Israel.",
+        "Three lines: mikveh — Avraham (kindness), line — Yaakov (the middle), hope — Yitzchak (the left line, rising upward).",
+      ],
     },
     {
       title: 'Fifty-nine',
@@ -150,6 +162,12 @@ const en: LessonText = {
         },
       ],
       reflection: 'Which “small” thing in me — a desire, a habit, a “tail” — can I sanctify instead of suppressing? What would that take today?',
+      takeaways: [
+        "The ninth verse = 3068 = 13 × 236 (ורב כח — “the measure of the Creator”); without the word “one” — 3055 = 5 × תורה.",
+        "The average letter = 3068 : 52 = 59. The ninth verse of Balak = 1593 = 27 × 59.",
+        "59 = זנב = יחיאל = אם חי: the nine leads to Yesod and to the “tail” of the first lesson.",
+        "Desire is sanctified: “the desire of the righteous is only good”.",
+      ],
     },
     {
       title: 'All the nines of Bereshit',
@@ -191,6 +209,13 @@ const en: LessonText = {
         },
       ],
       reflection: 'Where does “I will reign” sound inside me? How can I return this “I” to its source — and turn rule into union?',
+      takeaways: [
+        "The rule of nine also holds for letters, words and sections. The ninth letter of the Torah is א — the second alef, like the second “one”.",
+        "The ninth word is היתה (420): being, and the breaking of the vessels in the world of Tohu; תהו = 411 = יש מאין.",
+        "The ninth section is G-d’s words to Chava: “והוא ימשל בך” = 420 = היתה = יעקב + רחל — the consequence of the sin and its rectification.",
+        "Average word 140 (חכמה + בינה, חמה + לבנה), average letter 42 (אמא): 140 + 42 = 182 = יעקב.",
+        "The whole verse = 4246 = 22 × 193 (טפטפיה, כוזו): G-d is “in this and in that”, in every single thing.",
+      ],
     },
   ],
   final: {
