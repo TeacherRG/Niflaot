@@ -1,13 +1,16 @@
 # Niflaot — память проекта
 
-Игры-гиматрии по статьям рава Ицхака Гинзбурга из брошюры «Нифлаот». Сайт: https://niflaot.mychitas.app
+Интерактивные игры-гиматрии по статьям рава Ицхака Гинзбурга из брошюры «Нифлаот» (Тора-проект MyChitas):
+игрок сам считает гиматрию слов на иврите, находит равенства и открывает смысл урока. Уроки с пересказом статьи,
+первоисточниками Sefaria, пазлами «Собери смысл», устным счётом, печатью; ru/en. Сайт: https://niflaot.mychitas.app
 (GitHub Pages, публикация через `.github/workflows/deploy.yml` при пуше в `main`).
 Общаться с владельцем проекта — по-русски.
 
 ## Стек и команды
 
-- React 19 + TypeScript + Vite, hash-роутинг (`#/`, `#/<slug>`, `#/<slug>/print`, `#/math/<op>`).
-- `npm install`, `npm run dev`, `npm run build` (tsc + vite), `npm run check` (проверка данных уроков).
+- React 19 + TypeScript + Vite, hash-роутинг (`#/`, `#/<slug>`, `#/<slug>/print`, `#/math/<op>`);
+  статические `/<slug>/` (SEO) открывают тот же урок.
+- `npm install`, `npm run dev`, `npm run build` (tsc + vite + prerender), `npm run check` (проверка данных уроков).
 - Браузерные проверки: Playwright + Chromium из `/opt/pw-browsers` (не скачивать браузер).
 
 ## Где что лежит
