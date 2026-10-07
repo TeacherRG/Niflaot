@@ -4,6 +4,7 @@ import { VALUES, letters } from '../core/gematria';
 import { SITE_HOST } from '../core/site';
 import type { Lesson } from '../lessons/types';
 import { PARSHIOT } from '../lessons/parshiot';
+import { SOURCES, translation } from '../sources';
 import { HebrewRuns } from './Hebrew';
 import { Icon } from './ui';
 
@@ -22,13 +23,13 @@ function order(n: number, seed: number) {
   return a;
 }
 
-type Options = { answers: boolean; lessons: boolean; reflection: boolean };
+type Options = { answers: boolean; lessons: boolean; reflection: boolean; sources: boolean };
 
 function loadOptions(): Options {
   try {
-    return { answers: true, lessons: false, reflection: true, ...JSON.parse(localStorage.getItem(OPTS_KEY) ?? '{}') };
+    return { answers: true, lessons: false, reflection: true, sources: false, ...JSON.parse(localStorage.getItem(OPTS_KEY) ?? '{}') };
   } catch {
-    return { answers: true, lessons: false, reflection: true };
+    return { answers: true, lessons: false, reflection: true, sources: false };
   }
 }
 
@@ -64,6 +65,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
               ['answers', 'print.withAnswers'],
               ['reflection', 'print.withReflection'],
               ['lessons', 'print.withLessons'],
+              ['sources', 'print.withSources'],
             ] as const
           ).map(([k, label]) => (
             <label key={k}>
@@ -106,6 +108,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
               <h2>{rt.title}</h2>
               <Html as="div" className="p-cond" html={rt.cond} />
 
+              {r.words.length > 0 && (
               <div className="p-words">
                 {r.words.map((w) => (
                   <div key={w} className="p-word">
@@ -123,6 +126,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
                   </div>
                 ))}
               </div>
+              )}
 
               <ol className="p-steps">
                 {r.steps.map((s, i) => {
@@ -232,6 +236,34 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
                 </div>
               )),
             )}
+          </section>
+        )}
+
+        {opt.sources && (
+          <section className="p-sources">
+            <h2>{t('sources.title')}</h2>
+            {[...new Set(lesson.riddles.flatMap((r) => r.sources ?? []))].map((id) => {
+              const src = SOURCES[id];
+              if (!src) return null;
+              const tr = translation(src, id, locale);
+              return (
+                <div key={id} className="p-src">
+                  <h3>
+                    {src.title[locale === 'ru' ? 'ru' : 'en']} <small>· {src.kind[locale === 'ru' ? 'ru' : 'en']}</small>
+                  </h3>
+                  {src.he.map((he, i) => (
+                    <div key={i} className="p-src-seg">
+                      <Html as="p" className="he" html={he} />
+                      {tr.lines[i] && <Html as="p" html={tr.lines[i]} />}
+                    </div>
+                  ))}
+                  <p className="p-src-credit">
+                    {src.url.replace('https://www.', '')} · {t('sources.translation')}:{' '}
+                    {tr.by === 'project' ? t('sources.project') : tr.version}
+                  </p>
+                </div>
+              );
+            })}
           </section>
         )}
 

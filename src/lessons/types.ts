@@ -27,6 +27,8 @@ export interface RiddleData {
   steps: StepData[];
   /** equations shown on solve; Hebrew runs are auto-styled */
   equations: string[];
+  /** primary sources quoted in this riddle’s lesson (ids in src/sources/sefaria.json) */
+  sources?: string[];
 }
 
 /* ───────────── per-language lesson texts ───────────── */

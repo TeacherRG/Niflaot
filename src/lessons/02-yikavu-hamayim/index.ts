@@ -32,6 +32,7 @@ const lesson: Lesson = {
         { t: 'num', a: 52 },
       ],
       equations: ['13 = אחד', '52 = 4 × 13', 'יום אחד → מקום אחד'],
+      sources: ['mei-hashiloach-balak', 'zohar-tet', 'gen-1-1', 'gen-2-24', 'tanya-ih-20'],
     },
     {
       words: ['קוה', 'מקוה', 'קו', 'תקוה'],
@@ -65,9 +66,11 @@ const lesson: Lesson = {
         '256 = 16² = 2⁸ = אהרן',
         'מקוה + אברהם + תקוה + יצחק + קו + יעקב = 1406',
       ],
+      sources: ['bereshit-rabbah-68-9', 'ex-33-21', 'ps-19-5', 'ez-43-2', 'gen-19-27', 'ez-33-24', 'ps-27-14'],
     },
     {
-      words: ['זנב', 'יחיאל', 'אם חי'],
+      // no word cards: the words equal to 59 are the answer and are explained in the reveal
+      words: [],
       steps: [
         { t: 'num', a: 59 },
         { t: 'num', a: 27 },
@@ -88,6 +91,7 @@ const lesson: Lesson = {
         'ויאמר בלעם … שלח אלי = 1593 = 27 × 59',
         '59 = זנב = יחיאל = אם חי',
       ],
+      sources: ['num-22-10', 'ps-147-5', 'gen-3-20', 'berakhot-61a', 'shabbat-146a', 'gen-3-16', 'prov-11-23', 'ps-73-1', 'yevamot-118b'],
     },
     {
       words: ['היתה', 'תהו', 'יעקב', 'רחל'],
@@ -118,6 +122,7 @@ const lesson: Lesson = {
         '420 : 3 = 140 = חכמה בינה = חמה לבנה · 420 : 10 = 42 = אמא · 140 + 42 = 182 = יעקב',
         'אל האשה אמר … והוא ימשל בך = 4246 = 22 × 193 = טפטפיה',
       ],
+      sources: ['gen-1-1', 'ez-7-26', 'kings1-1-5', 'gen-3-16', 'chullin-60b', 'ps-16-8', 'num-15-41'],
     },
   ],
   highlight: [

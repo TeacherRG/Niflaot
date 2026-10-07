@@ -6,6 +6,7 @@ import { formatTime } from '../core/format';
 import { MAX_WRONG, award, draftStep, stepState, type GameState } from '../core/useLessonState';
 import type { Lesson, LessonText } from '../lessons/types';
 import { HebrewRuns } from './Hebrew';
+import { Sources } from './Sources';
 import { opInText } from '../core/mentalMath';
 
 interface Props {
@@ -83,37 +84,39 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
       <Html as="div" className="cond" html={withTerms(rt.cond, textLocale)} />
       {!solved && <div className="les-lock">{t('riddle.locked')}</div>}
 
-      <div className="words">
-        {r.words.map((w) => {
-          const key = `${ri}:${w}`;
-          const open = S.open[key];
-          return (
-            <button key={w} className="word" onClick={() => update((d) => void (d.open[key] = !d.open[key]))}>
-              <span className="w" lang="he">
-                {w}
-              </span>
-              <span className="t">{text.glossary[w] ?? ''}</span>
-              {open && (
-                <>
-                  <span className="tiles">
-                    {letters(w).map((c, k) => (
-                      <span key={k} className="tile">
-                        <b>{c}</b>
-                        <i>{VALUES[c]}</i>
-                      </span>
-                    ))}
-                  </span>
-                  {solvedRiddle ? (
-                    <span className="sum">= {gematria(w)}</span>
-                  ) : (
-                    <span className="sum hide">{t('riddle.sumYourself')}</span>
-                  )}
-                </>
-              )}
-            </button>
-          );
-        })}
-      </div>
+      {r.words.length > 0 && (
+        <div className="words">
+          {r.words.map((w) => {
+            const key = `${ri}:${w}`;
+            const open = S.open[key];
+            return (
+              <button key={w} className="word" onClick={() => update((d) => void (d.open[key] = !d.open[key]))}>
+                <span className="w" lang="he">
+                  {w}
+                </span>
+                <span className="t">{text.glossary[w] ?? ''}</span>
+                {open && (
+                  <>
+                    <span className="tiles">
+                      {letters(w).map((c, k) => (
+                        <span key={k} className="tile">
+                          <b>{c}</b>
+                          <i>{VALUES[c]}</i>
+                        </span>
+                      ))}
+                    </span>
+                    {solvedRiddle ? (
+                      <span className="sum">= {gematria(w)}</span>
+                    ) : (
+                      <span className="sum hide">{t('riddle.sumYourself')}</span>
+                    )}
+                  </>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {r.balance && (
         <div className="balance">
@@ -248,6 +251,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
               </details>
             ))}
           </div>
+          {r.sources && <Sources ids={r.sources} />}
           <div className="refl">
             <div className="refl-lbl">
               {t('refl.title')} <span>{t('refl.sub')}</span>

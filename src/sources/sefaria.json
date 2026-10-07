@@ -1,0 +1,1204 @@
+{
+ "gen-2-21": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah"
+  },
+  "title": {
+   "ru": "Берешит 2:21–22",
+   "en": "Genesis 2:21–22"
+  },
+  "ref": "Genesis 2:21-22",
+  "url": "https://www.sefaria.org/Genesis_2.21-22",
+  "he": [
+   "ויפל ה׳ אלקים תרדמה על האדם ויישן ויקח אחת מצלעתיו ויסגר בשר תחתנה",
+   "ויבן ה׳ אלקים את הצלע אשר לקח מן האדם לאשה ויבאה אל האדם"
+  ],
+  "en": [
+   "And the LORD God caused a deep sleep to fall upon the man, and he slept; and He took one of his ribs, and closed up the place with flesh instead thereof.",
+   "And the rib, which the LORD God had taken from the man, made He a woman, and brought her unto the man."
+  ],
+  "ru": [
+   "И навел Г-сподь крепкий сон на человека, и (человек) уснул; и взял одно из его ребер, и закрыл то место плотью.",
+   "И построил Г-сподь из ребра, которое взял у человека, жену, и привел ее к человеку."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   }
+  }
+ },
+ "berakhot-61a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara"
+  },
+  "title": {
+   "ru": "Брахот 61а",
+   "en": "Berakhot 61a"
+  },
+  "ref": "Berakhot 61a:5-20",
+  "url": "https://www.sefaria.org/Berakhot_61a.5-20",
+  "he": [
+   "אי נמי כדרבי ירמיה בן אלעזר דאמר רבי ירמיה בן אלעזר דו פרצופין ברא הקדוש ברוך הוא באדם הראשון שנאמר אחור וקדם צרתני:",
+   "ויבן ה׳ אלקים את הצלע",
+   "רב ושמואל חד אמר פרצוף וחד אמר זנב",
+   "בשלמא למאן דאמר פרצוף היינו דכתיב אחור וקדם צרתני אלא למאן דאמר זנב מאי אחור וקדם צרתני כדרבי אמי דאמר רבי אמי אחור למעשה בראשית וקדם לפורענות",
+   "בשלמא אחור למעשה בראשית דלא אברי עד מעלי שבתא אלא וקדם לפורענות פורענות דמאי אילימא פורענות דנחש והתניא רבי אומר בגדולה מתחילין מן הגדול ובקללה מתחילין מן הקטן",
+   "בגדולה מתחילין מן הגדול דכתיב וידבר משה אל אהרן ואל אלעזר ואל איתמר בניו הנותרים קחו וגו׳ בקללה מתחילין מן הקטן בתחלה נתקלל נחש ולבסוף נתקללה חוה ולבסוף נתקלל אדם",
+   "אלא פורענות דמבול דכתיב וימח את כל היקום אשר על פני האדמה מאדם ועד בהמה ברישא אדם והדר בהמה",
+   "בשלמא למאן דאמר פרצוף היינו דכתיב וייצר בשני יודין אלא למאן דאמר זנב מאי וייצר",
+   "כדרבי שמעון בן פזי דאמר רבי שמעון בן פזי אוי לי מיוצרי אוי לי מיצרי",
+   "בשלמא למאן דאמר פרצוף היינו דכתיב זכר ונקבה בראם אלא למאן דאמר זנב מאי זכר ונקבה בראם כדרבי אבהו דרבי אבהו רמי כתיב זכר ונקבה בראם וכתיב כי בצלם אלקים עשה את האדם הא כיצד בתחלה עלה במחשבה לבראת שנים ולבסוף לא נברא אלא אחד",
+   "בשלמא למאן דאמר פרצוף היינו דכתיב ויסגר בשר תחתנה אלא למאן דאמר זנב מאי ויסגר בשר תחתנה אמר רבי ירמיה ואיתימא רב זביד ואיתימא רב נחמן בר יצחק לא נצרכה אלא למקום חתך",
+   "בשלמא למאן דאמר זנב היינו דכתיב ויבן אלא למאן דאמר פרצוף מאי ויבן",
+   "לכדרבי שמעון בן מנסיא דדרש רבי שמעון בן מנסיא מאי דכתיב ויבן ה׳ את הצלע מלמד שקלעה הקדוש ברוך הוא לחוה והביאה לאדם הראשון שכן בכרכי הים קורין לקליעתא בנייתא",
+   "דבר אחר ויבן אמר רב חסדא ואמרי לה במתניתא תנא מלמד שבנאה הקדוש ברוך הוא לחוה כבנין אוצר מה אוצר זה קצר מלמעלה ורחב מלמטה כדי לקבל את הפירות אף אשה קצרה מלמעלה ורחבה מלמטה כדי לקבל את הולד",
+   "ויביאה אל האדם אמר רבי ירמיה בן אלעזר מלמד שנעשה הקדוש ברוך הוא שושבין לאדם הראשון מכאן למדה תורה דרך ארץ שיחזור גדול עם קטן בשושבינות ואל ירע לו",
+   "ולמאן דאמר פרצוף הי מינייהו סגי ברישא אמר רב נחמן בר יצחק מסתברא דגברא סגי ברישא דתניא לא יהלך אדם אחורי אשה בדרך ואפילו אשתו נזדמנה לו על הגשר יסלקנה לצדדין וכל העובר אחורי אשה בנהר אין לו חלק לעולם הבא"
+  ],
+  "en": [
+   "<b>Alternatively,</b> this duplication in the language of creation can be explained <b>in accordance with</b> the statement of <b>Rabbi Yirmeya ben Elazar, as Rabbi Yirmeya ben Elazar said: The Holy One, Blessed be He, created two faces [<i>du partzufin</i>] on Adam the first</b> man; he was created both male and female in a single body, <b>as it is stated: “You have formed me [<i>tzartani</i>] behind and before”</b> (Psalms 139:5); <i>tzartani</i> is derived from the word <i>tzura</i> [face]. God formed two faces on a single creation, back and front.",
+   "It is stated: <b>“And the <i>tzela</i> which the Lord, God,</b> had taken from the man, <b>He made</b> a woman, and brought her unto the man” (Genesis 2:22).",
+   "<b>Rav and Shmuel</b> disagree over the meaning of the word <i>tzela</i>: <b>One said:</b> It means <b>face.</b> Eve was originally one face or side of Adam. <b>And one said:</b> It means <b>tail,</b> which he explains to mean that the <i>tzela</i> was an appendage, i.e., one of the ribs in Adam’s chest.",
+   "The Gemara analyzes this dispute: <b>Granted,</b> according <b>to the one who said</b> that <i>tzela</i> means <b>face; that is</b> why <b>it is written: “You have formed me [<i>tzartani</i>] behind and before.” However,</b> according <b>to the one who said</b> that <i>tzela</i> means <b>tail, what is</b> meant by the verse: <b>“You have formed me [<i>tzartani</i>] behind and before”?</b> The Gemara answers: It can be explained <b>in accordance with</b> the opinion of <b>Rabbi Ami, as Rabbi Ami said: Behind</b> means Adam was created at the end of <b>the act of creation; and before</b> means that he was first <b>for punishment.</b>",
+   "The Gemara asks: <b>Granted,</b> Adam was <b>behind,</b> or last, <b>in the act of creation,</b> meaning that <b>he was not created until</b> the sixth day, <b>Shabbat eve; however, before,</b> or first, <b>for punishment,</b> to <b>what punishment</b> does this refer? <b>If you say</b> that he was first <b>for punishment</b> in the wake of the episode with <b>the snake, wasn’t it taught</b> in a <i>baraita</i> that, with regard to punishment, <b>Rabbi</b> Yehuda HaNasi <b>says: In</b> conferring <b>honor, one begins with the greatest; in cursing, one begins with the least significant.</b>",
+   "The Gemara explains: <b>In</b> conferring <b>honor, one begins with the greatest, as it is written: “And Moses said unto Aaron, and Elazar and Itamar, his remaining sons: Take</b> the meal-offering that remains” (Leviticus 10:12). Aaron, who was the greatest among those involved, is mentioned first. And <b>in cursing, one begins with the least significant,</b> as <b>first</b> the <b>snake was cursed, then Eve was cursed, and ultimately Adam</b> himself <b>was cursed.</b> The punishment did not begin with Adam.",
+   "<b>Rather,</b> this refers to <b>the punishment of the flood, as it is written: “And He blotted out every living substance which was upon the face of the ground, both man and cattle,</b> creeping things and fowl of the heaven” (Genesis 7:23); the punishment <b>began with man, then the animals,</b> and ultimately all the other creatures.",
+   "Returning to interpretation of <i>vayyitzer</i>, the Gemara asks: <b>Granted, according to the one who said</b> that Eve was originally a <b>face</b> or side of Adam; <b>that is</b> why <b>it is written <i>vayyitzer</i>,</b> with a double <i>yod</i>, which allude to the two formations. <b>However, according to the one who said</b> that she was a <b>tail,</b> or appendage, of Adam, <b>what is</b> conveyed by spelling <b><i>vayyitzer</i></b> with a double <i>yod</i>?",
+   "The Gemara responds: This is interpreted homiletically <b>in accordance with</b> the opinion of <b>Rabbi Shimon ben Pazi, as Rabbi Shimon ben Pazi said:</b> This comes to emphasize that which a person says to himself in every circumstance: <b>Woe unto me from my Creator and woe unto me from my inclination.</b>",
+   "<b>Granted, according to the one who said</b> that Eve was a <b>face, that is</b> why <b>it is written: “Male and female, He created them”</b> (Genesis 5:2). <b>However, according to the one who said</b> that Eve was a <b>tail, what is</b> the meaning of the verse: <b>“Male and female, He created them”?</b> The Gemara answers: It can be explained in accordance with the opinion of <b>Rabbi Abbahu.</b> As <b>Rabbi Abbahu raised a contradiction</b> between the verses: On the one hand <b>it is written: “Male and female, He created them,” and</b> on the other hand <b>it is written: “For in the image of God He made man”</b> (Genesis 9:6), indicating that man was created alone. <b>How, then,</b> does he resolve the contradiction? <b>At first, the thought entered</b> God’s mind <b>to create two, and ultimately, only one was</b> actually <b>created.</b>",
+   "The Gemara asks: <b>Granted, according to the one who said</b> that Eve was a <b>face, that is</b> why <b>it is written:</b> “And He took one of his sides <b>and closed up the place with flesh in its place”</b> (Genesis 2:21), as it was necessary to close the side that was open. <b>However, according to the one who said</b> that Eve was originally a <b>tail, what is</b> meant by the verse: <b>“And closed up the place with flesh in its place”? Rabbi Yirmeya said, and some say Rav Zevid</b> said, <b>and some say Rav Naḥman bar Yitzḥak</b> said: <b>It was necessary</b> to say that <b>only with regard to the place of the incision.</b>",
+   "The Gemara challenges the other opinion: <b>Granted, according to the one</b> who said that Eve was a <b>tail, that is</b> why <b>it is written: “And</b> the Lord God <b>built</b> the <i>tzela</i>” (Genesis 2:22); it was a completely new building. <b>However, according to the one who said</b> that Eve was a complete <b>face</b> or side, <b>what is</b> the meaning of: <b>“And He built”?</b> What needed to be built?",
+   "The Gemara responds: This must be interpreted homiletically, <b>in accordance with</b> the opinion of <b>Rabbi Shimon ben Menasya, as Rabbi Shimon ben Menasya interpreted homiletically: What is</b> the meaning of <b>that which is written: “And the Lord God built the <i>tzela</i>”?</b> This verse <b>teaches that the Holy One, Blessed be He, braided Eve’s</b> hair, <b>and</b> then <b>brought her to Adam, as in the coastal towns, they call braiding</b> hair, <b>building.</b>",
+   "<b>Alternatively,</b> the verse: <b>And He built,</b> could be understood as a description of her basic shape, as <b>Rav Ḥisda said, and some say that it is taught in a <i>baraita</i>:</b> This verse <b>teaches that the Holy One, Blessed be He, built Eve like the structure of a storehouse. Just as a storehouse is</b> built <b>narrow on top and wide on the bottom, in order to hold produce</b> without collapsing; <b>so too a woman</b> is created <b>narrow on top and wide on the bottom, in order to hold the fetus.</b>",
+   "With regard to the verse: <b>“And brought her unto the man”</b> (Genesis 2:22), <b>Rabbi Yirmeya ben Elazar said:</b> This verse <b>teaches that the Holy One, Blessed be He, was Adam the first</b> man’s <b>best man. From here, the Torah taught that it is a desired mode of behavior for a greater individual to seek out a lesser individual to</b> assist him and <b>serve as his best man.</b> The greater individual should help the lesser <b>and should not feel badly</b> about it, that it might be beneath his dignity.",
+   "The Gemara asks: <b>And according to the one who said</b> that Eve was a <b>face</b> or side of Adam, <b>which one of them walked in front? Rav Naḥman bar Yitzḥak said: It is reasonable</b> to say <b>that the man walked in front, as it is taught</b> in a <i>baraita</i>: <b>A man should not walk behind a woman on a path,</b> as he will look at her constantly, <b>even if it is his wife.</b> If a woman<b> happens upon him along a bridge, he should</b> walk quickly in order to <b>move her to</b> the <b>sides</b> so that she will not walk in front of him. <b>And anyone who walks behind a woman in a river</b> in order to see her exposed skin when she lifts her clothing as she passes through the water <b>has no portion in the World-to-Come.</b>"
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://www.korenpub.com/koren_en_usd/koren/talmud/koren-talmud-bavli-no/mskt-brkvt.html"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   }
+  }
+ },
+ "deut-34-10": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah"
+  },
+  "title": {
+   "ru": "Дварим 34:10–12",
+   "en": "Deuteronomy 34:10–12"
+  },
+  "ref": "Deuteronomy 34:10-12",
+  "url": "https://www.sefaria.org/Deuteronomy_34.10-12",
+  "he": [
+   "ולא קם נביא עוד בישראל כמשה אשר ידעו ה׳ פנים אל פנים",
+   "לכל האתות והמופתים אשר שלחו ה׳ לעשות בארץ מצרים לפרעה ולכל עבדיו ולכל ארצו",
+   "ולכל היד החזקה ולכל המורא הגדול אשר עשה משה לעיני כל ישראל"
+  ],
+  "en": [
+   "And there hath not arisen a prophet since in Israel like unto Moses, whom the LORD knew face to face;",
+   "in all the signs and the wonders, which the LORD sent him to do in the land of Egypt, to Pharaoh, and to all his servants, and to all his land;",
+   "and in all the mighty hand, and in all the great terror, which Moses wrought in the sight of all Israel."
+  ],
+  "ru": [
+   "И не явился больше в Израиле пророк, подобный Моше, которого Г-сподь знал бы лицом к лицу,",
+   "со всеми чудесами и знамениями, которые Г-сподь послал его сотворить в земле Египетской перед фараоном, всеми его рабами и всей его страной",
+   "и с мощными и страшными делами, которые творил Моше на глазах у всего Израиля."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   }
+  }
+ },
+ "ex-34-33": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah"
+  },
+  "title": {
+   "ru": "Шмот 34:33–35",
+   "en": "Exodus 34:33–35"
+  },
+  "ref": "Exodus 34:33-35",
+  "url": "https://www.sefaria.org/Exodus_34.33-35",
+  "he": [
+   "ויכל משה מדבר אתם ויתן על פניו מסוה",
+   "ובבא משה לפני ה׳ לדבר אתו יסיר את המסוה עד צאתו ויצא ודבר אל בני ישראל את אשר יצוה",
+   "וראו בני ישראל את פני משה כי קרן עור פני משה והשיב משה את המסוה על פניו עד באו לדבר אתו"
+  ],
+  "en": [
+   "And when Moses had done speaking with them, he put a veil on his face.",
+   "But when Moses went in before the LORD that He might speak with him, he took the veil off, until he came out; and he came out; and spoke unto the children of Israel that which he was commanded.",
+   "And the children of Israel saw the face of Moses, that the skin of Moses’face sent forth beams; and Moses put the veil back upon his face, until he went in to speak with Him."
+  ],
+  "ru": [
+   "И закончил Моше говорить с ними, и покрыл лицо покрывалом.",
+   "Когда Моше представал перед Г-сподом, чтобы говорить с ним, он снимал покрывало, пока не выйдет (от Г-спода), и, выходя, сообщал сынам Израиля то, что (Г-сподь) ему велел.",
+   "И видели сыны Израиля, что у Моше светится кожа на лице, и Моше надевал покрывало, пока не (приходило время) ему (снова идти) говорить (с Г-сподом)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   }
+  }
+ },
+ "ex-32-31": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah"
+  },
+  "title": {
+   "ru": "Шмот 32:31–32",
+   "en": "Exodus 32:31–32"
+  },
+  "ref": "Exodus 32:31-32",
+  "url": "https://www.sefaria.org/Exodus_32.31-32",
+  "he": [
+   "וישב משה אל ה׳ ויאמר אנא חטא העם הזה חטאה גדלה ויעשו להם אלהי זהב",
+   "ועתה אם תשא חטאתם ואם אין מחני נא מספרך אשר כתבת"
+  ],
+  "en": [
+   "And Moses returned unto the LORD, and said: ‘Oh, this people have sinned a great sin, and have made them a god of gold.",
+   "Yet now, if Thou wilt forgive their sin—; and if not, blot me, I pray Thee, out of Thy book which Thou hast written.’"
+  ],
+  "ru": [
+   "И вернулся Моше к Г-споду, и сказал: Согрешил этот народ великим грехом и сделал себе золотого бога.",
+   "Простишь ли им их грех? Если нет, сотри меня из книги, что написал ты!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   }
+  }
+ },
+ "num-12-3": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah"
+  },
+  "title": {
+   "ru": "Бемидбар 12:3",
+   "en": "Numbers 12:3"
+  },
+  "ref": "Numbers 12:3",
+  "url": "https://www.sefaria.org/Numbers_12.3",
+  "he": [
+   "והאיש משה ענו [עניו] מאד מכל האדם אשר על פני האדמה"
+  ],
+  "en": [
+   "Now the man Moses was very meek, above all the men that were upon the face of the earth.—"
+  ],
+  "ru": [
+   "А человек (тот) Моше был очень скромен, (скромнее) всех людей на земле."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   }
+  }
+ },
+ "berakhot-8a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara"
+  },
+  "title": {
+   "ru": "Брахот 8а",
+   "en": "Berakhot 8a"
+  },
+  "ref": "Berakhot 8a:10",
+  "url": "https://www.sefaria.org/Berakhot_8a.10",
+  "he": [
+   "במערבא כי נסיב אינש אתתא אמרי ליה הכי מצא או מוצא מצא דכתיב מצא אשה מצא טוב ויפק רצון מה׳ מוצא דכתיב ומוצא אני מר ממות את האשה וגו׳"
+  ],
+  "en": [
+   "<b>In Eretz Yisrael,</b> the custom was that <b>when a man married a woman, they would ask him: <i>Matza</i> or <i>motzeh</i>?</b> In other words, they would ask the groom whether the appropriate passage for his wife is the above verse from Proverbs that begins with the word <b><i>matza</i>, as it is written: “He who finds a wife finds good and obtains favor from the Lord”</b> or whether the more appropriate verse is the one beginning with the word <b><i>motzeh</i>, as it is written: “And I find [<i>motzeh</i>] the woman more bitter than death”</b> (Ecclesiastes 7:26)."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://www.korenpub.com/koren_en_usd/koren/talmud/koren-talmud-bavli-no/mskt-brkvt.html"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   }
+  }
+ },
+ "prov-18-22": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings"
+  },
+  "title": {
+   "ru": "Мишлей 18:22",
+   "en": "Proverbs 18:22"
+  },
+  "ref": "Proverbs 18:22",
+  "url": "https://www.sefaria.org/Proverbs_18.22",
+  "he": [
+   "מצא אשה מצא טוב ויפק רצון מה׳"
+  ],
+  "en": [
+   "Whoso findeth a wife findeth a great good, And obtaineth favour of the LORD."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "eccl-7-26": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings"
+  },
+  "title": {
+   "ru": "Коэлет 7:26",
+   "en": "Ecclesiastes 7:26"
+  },
+  "ref": "Ecclesiastes 7:26",
+  "url": "https://www.sefaria.org/Ecclesiastes_7.26",
+  "he": [
+   "ומוצא אני מר ממות את־האשה אשר־היא מצודים וחרמים לבה אסורים ידיה טוב לפני האלקים ימלט ממנה וחוטא ילכד בה"
+  ],
+  "en": [
+   "and I find more bitter than death the woman, whose heart is snares and nets, and her hands as bands; whoso pleaseth God shall escape from her; but the sinner shall be taken by her."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "gen-1-1": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah"
+  },
+  "title": {
+   "ru": "Берешит 1:1–9",
+   "en": "Genesis 1:1–9"
+  },
+  "ref": "Genesis 1:1-9",
+  "url": "https://www.sefaria.org/Genesis_1.1-9",
+  "he": [
+   "בראשית ברא אלקים את השמים ואת הארץ",
+   "והארץ היתה תהו ובהו וחשך על פני תהום ורוח אלקים מרחפת על פני המים",
+   "ויאמר אלקים יהי אור ויהי אור",
+   "וירא אלקים את האור כי טוב ויבדל אלקים בין האור ובין החשך",
+   "ויקרא אלקים לאור יום ולחשך קרא לילה ויהי ערב ויהי בקר יום אחד",
+   "ויאמר אלקים יהי רקיע בתוך המים ויהי מבדיל בין מים למים",
+   "ויעש אלקים את הרקיע ויבדל בין המים אשר מתחת לרקיע ובין המים אשר מעל לרקיע ויהי כן",
+   "ויקרא אלקים לרקיע שמים ויהי ערב ויהי בקר יום שני",
+   "ויאמר אלקים יקוו המים מתחת השמים אל מקום אחד ותראה היבשה ויהי כן"
+  ],
+  "en": [
+   "In the beginning God created the heaven and the earth.",
+   "Now the earth was unformed and void, and darkness was upon the face of the deep; and the spirit of God hovered over the face of the waters.",
+   "And God said: ‘Let there be light.’ And there was light.",
+   "And God saw the light, that it was good; and God divided the light from the darkness.",
+   "And God called the light Day, and the darkness He called Night. And there was evening and there was morning, one day.",
+   "And God said: ‘Let there be a firmament in the midst of the waters, and let it divide the waters from the waters.’",
+   "And God made the firmament, and divided the waters which were under the firmament from the waters which were above the firmament; and it was so.",
+   "And God called the firmament Heaven. And there was evening and there was morning, a second day.",
+   "And God said: ‘Let the waters under the heaven be gathered together unto one place, and let the dry land appear.’ And it was so."
+  ],
+  "ru": [
+   "Вначале, когда творил Б-г небеса и землю,",
+   "а земля была в беспорядке, пуста и пустынна, и тьма над пучиной, и вихрь Б-жий кружил над водами,",
+   "И сказал Б-г: да будет свет, и стал свет.",
+   "И увидел Б-г, что свет хорош, и отделил Б-г свет от тьмы.",
+   "И назвал Б-г свет днем, а тьму назвал ночью. И был вечер, и было утро, день один.",
+   "И сказал Б-г: да будет поверхность посреди вод, и пусть отделяет (она) воды от вод.",
+   "И сделал Б-г поверхность, и отделил воды, которые под поверхностью, от вод, которые над поверхностью, и стало так.",
+   "И назвал Б-г поверхность небесами, и был вечер, и было утро, день второй.",
+   "И сказал Б-г: да соберутся воды под небесами в одно место и покажется суша, и стало так."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   }
+  }
+ },
+ "gen-2-24": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah"
+  },
+  "title": {
+   "ru": "Берешит 2:24",
+   "en": "Genesis 2:24"
+  },
+  "ref": "Genesis 2:24",
+  "url": "https://www.sefaria.org/Genesis_2.24",
+  "he": [
+   "על כן יעזב איש את אביו ואת אמו ודבק באשתו והיו לבשר אחד"
+  ],
+  "en": [
+   "Therefore shall a man leave his father and his mother, and shall cleave unto his wife, and they shall be one flesh."
+  ],
+  "ru": [
+   "Потому покидает муж своего отца и свою мать и прилепляется к своей жене, и становятся одной плотью."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   }
+  }
+ },
+ "gen-3-16": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah"
+  },
+  "title": {
+   "ru": "Берешит 3:16",
+   "en": "Genesis 3:16"
+  },
+  "ref": "Genesis 3:16",
+  "url": "https://www.sefaria.org/Genesis_3.16",
+  "he": [
+   "אל האשה אמר הרבה ארבה עצבונך והרנך בעצב תלדי בנים ואל אישך תשוקתך והוא ימשל בך"
+  ],
+  "en": [
+   "Unto the woman He said: ‘I will greatly multiply thy pain and thy travail; in pain thou shalt bring forth children; and thy desire shall be to thy husband, and he shall rule over thee.’"
+  ],
+  "ru": [
+   "Жене сказал: преумножу я муку твою и (страдания при) родах; в муках будешь рожать детей; и к мужу твоему вожделение твое, а он будет властвовать над тобой."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   }
+  }
+ },
+ "gen-3-20": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah"
+  },
+  "title": {
+   "ru": "Берешит 3:20",
+   "en": "Genesis 3:20"
+  },
+  "ref": "Genesis 3:20",
+  "url": "https://www.sefaria.org/Genesis_3.20",
+  "he": [
+   "ויקרא האדם שם אשתו חוה כי הוא היתה אם כל חי"
+  ],
+  "en": [
+   "And the man called his wife’s name Eve; because she was the mother of all living."
+  ],
+  "ru": [
+   "И дал человек имя жене своей Хавва, ибо она была матерью всего живого."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   }
+  }
+ },
+ "gen-19-27": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah"
+  },
+  "title": {
+   "ru": "Берешит 19:27",
+   "en": "Genesis 19:27"
+  },
+  "ref": "Genesis 19:27",
+  "url": "https://www.sefaria.org/Genesis_19.27",
+  "he": [
+   "וישכם אברהם בבקר אל המקום אשר עמד שם את פני ה׳"
+  ],
+  "en": [
+   "And Abraham got up early in the morning to the place where he had stood before the LORD."
+  ],
+  "ru": [
+   "И пришел Авраам рано утром на то место, где стоял перед Г-сподом."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   }
+  }
+ },
+ "ex-33-21": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah"
+  },
+  "title": {
+   "ru": "Шмот 33:21",
+   "en": "Exodus 33:21"
+  },
+  "ref": "Exodus 33:21",
+  "url": "https://www.sefaria.org/Exodus_33.21",
+  "he": [
+   "ויאמר ה׳ הנה מקום אתי ונצבת על הצור"
+  ],
+  "en": [
+   "And the LORD said: ‘Behold, there is a place by Me, and thou shalt stand upon the rock."
+  ],
+  "ru": [
+   "И сказал Г-сподь: Вот место рядом со мной. Стань (здесь) на скалу."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   }
+  }
+ },
+ "num-22-10": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah"
+  },
+  "title": {
+   "ru": "Бемидбар 22:10",
+   "en": "Numbers 22:10"
+  },
+  "ref": "Numbers 22:10",
+  "url": "https://www.sefaria.org/Numbers_22.10",
+  "he": [
+   "ויאמר בלעם אל האלקים בלק בן צפר מלך מואב שלח אלי"
+  ],
+  "en": [
+   "And Balaam said unto God: ‘Balak the son of Zippor, king of Moab, hath sent unto me [saying]:"
+  ],
+  "ru": [
+   "И ответил: Балак, сын Циппора, царь Моава, прислал (их) ко мне (со словами):"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   }
+  }
+ },
+ "num-15-41": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah"
+  },
+  "title": {
+   "ru": "Бемидбар 15:41",
+   "en": "Numbers 15:41"
+  },
+  "ref": "Numbers 15:41",
+  "url": "https://www.sefaria.org/Numbers_15.41",
+  "he": [
+   "אני ה׳ אלקיכם אשר הוצאתי אתכם מארץ מצרים להיות לכם לאלקים אני ה׳ אלקיכם"
+  ],
+  "en": [
+   "I am the LORD your God, who brought you out of the land of Egypt, to be your God: I am the LORD your God.’"
+  ],
+  "ru": [
+   "Я Г-сподь Б-г ваш, что вывел вас из земли египетской, чтобы быть вам Б-гом; я Г-сподь Б-г ваш."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   }
+  }
+ },
+ "ps-19-5": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings"
+  },
+  "title": {
+   "ru": "Тегилим 19:5",
+   "en": "Psalms 19:5"
+  },
+  "ref": "Psalms 19:5",
+  "url": "https://www.sefaria.org/Psalms_19.5",
+  "he": [
+   "בכל הארץ יצא קום ובקצה תבל מליהם לשמש שם אהל בהם"
+  ],
+  "en": [
+   "Their line is gone out through all the earth, and their words to the end of the world. In them hath He set a tent for the sun,"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "ps-27-14": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings"
+  },
+  "title": {
+   "ru": "Тегилим 27:14",
+   "en": "Psalms 27:14"
+  },
+  "ref": "Psalms 27:14",
+  "url": "https://www.sefaria.org/Psalms_27.14",
+  "he": [
+   "קוה אל ה׳ חזק ויאמץ לבך וקוה אל ה׳"
+  ],
+  "en": [
+   "Wait on the LORD; Be strong, and let thy heart take courage; Yea, wait thou for the LORD."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "ps-147-5": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings"
+  },
+  "title": {
+   "ru": "Тегилим 147:5",
+   "en": "Psalms 147:5"
+  },
+  "ref": "Psalms 147:5",
+  "url": "https://www.sefaria.org/Psalms_147.5",
+  "he": [
+   "גדול אדונינו ורב כח לתבונתו אין מספר"
+  ],
+  "en": [
+   "Great is our Lord, and mighty in power; His understanding is infinite."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "ps-73-1": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings"
+  },
+  "title": {
+   "ru": "Тегилим 73:1",
+   "en": "Psalms 73:1"
+  },
+  "ref": "Psalms 73:1",
+  "url": "https://www.sefaria.org/Psalms_73.1",
+  "he": [
+   "מזמור לאסף אך טוב לישראל אלקים לברי לבב"
+  ],
+  "en": [
+   "A Psalm of Asaph. Surely God is good to Israel, even to such as are pure in heart."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "ps-16-8": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings"
+  },
+  "title": {
+   "ru": "Тегилим 16:8",
+   "en": "Psalms 16:8"
+  },
+  "ref": "Psalms 16:8",
+  "url": "https://www.sefaria.org/Psalms_16.8",
+  "he": [
+   "שויתי ה׳ לנגדי תמיד כי מימיני בל אמוט"
+  ],
+  "en": [
+   "I have set the LORD always before me; Surely He is at my right hand, I shall not be moved."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "prov-11-23": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings"
+  },
+  "title": {
+   "ru": "Мишлей 11:23",
+   "en": "Proverbs 11:23"
+  },
+  "ref": "Proverbs 11:23",
+  "url": "https://www.sefaria.org/Proverbs_11.23",
+  "he": [
+   "תאות צדיקים אך טוב תקות רשעים עברה"
+  ],
+  "en": [
+   "The desire of the righteous is only good; But the expectation of the wicked is wrath."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "ez-33-24": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets"
+  },
+  "title": {
+   "ru": "Йехезкель 33:24",
+   "en": "Ezekiel 33:24"
+  },
+  "ref": "Ezekiel 33:24",
+  "url": "https://www.sefaria.org/Ezekiel_33.24",
+  "he": [
+   "בן אדם ישבי החרבות האלה על אדמת ישראל אמרים לאמר אחד היה אברהם ויירש את הארץ ואנחנו רבים לנו נתנה הארץ למורשה"
+  ],
+  "en": [
+   "’Son of man, they that inhabit those waste places in the land of Israel speak, saying: Abraham was one, and he inherited the land; but we are many; the land is given us for inheritance."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "ez-43-2": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets"
+  },
+  "title": {
+   "ru": "Йехезкель 43:2",
+   "en": "Ezekiel 43:2"
+  },
+  "ref": "Ezekiel 43:2",
+  "url": "https://www.sefaria.org/Ezekiel_43.2",
+  "he": [
+   "והנה כבוד אלקי ישראל בא מדרך הקדים וקולו כקול מים רבים והארץ האירה מכבדו"
+  ],
+  "en": [
+   "and, behold, the glory of the God of Israel came from the way of the east; and His voice was like the sound of many waters; and the earth did shine with His glory."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "ez-7-26": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets"
+  },
+  "title": {
+   "ru": "Йехезкель 7:26",
+   "en": "Ezekiel 7:26"
+  },
+  "ref": "Ezekiel 7:26",
+  "url": "https://www.sefaria.org/Ezekiel_7.26",
+  "he": [
+   "הוה על הוה תבוא ושמעה אל שמועה תהיה ובקשו חזון מנביא ותורה תאבד מכהן ועצה מזקנים"
+  ],
+  "en": [
+   "Calamity shall come upon calamity, and rumour shall be upon rumour; and they shall seek a vision of the prophet, and instruction shall perish from the priest, and counsel from the elders."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "kings1-1-5": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets"
+  },
+  "title": {
+   "ru": "Млахим I 1:5",
+   "en": "I Kings 1:5"
+  },
+  "ref": "I Kings 1:5",
+  "url": "https://www.sefaria.org/I_Kings_1.5",
+  "he": [
+   "ואדניה בן חגית מתנשא לאמר אני אמלך ויעש לו רכב ופרשים וחמשים איש רצים לפניו"
+  ],
+  "en": [
+   "Now Adonijah the son of Haggith exalted himself, saying: ‘I will be king’; and he prepared him chariots and horsemen, and fifty men to run before him."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "shabbat-146a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara"
+  },
+  "title": {
+   "ru": "Шабат 145б — Шабат 146а",
+   "en": "Shabbat 145b — Shabbat 146a"
+  },
+  "ref": "Shabbat 145b:16-146a:1",
+  "url": "https://www.sefaria.org/Shabbat_145b.16-146a.1",
+  "he": [
+   "מפני מה גוים מזוהמין שלא עמדו על הר סיני שבשעה",
+   "שבא נחש על חוה הטיל בה זוהמא ישראל שעמדו על הר סיני פסקה זוהמתן גוים שלא עמדו על הר סיני לא פסקה זוהמתן אמר ליה רב אחא בריה דרבא לרב אשי גרים מאי אמר ליה אף על גב דאינהו לא הוו מזלייהו הוו דכתיב את אשר ישנו פה עמנו עומד היום לפני ה׳ אלקינו ואת אשר איננו פה וגו׳"
+  ],
+  "en": [
+   "Rabbi Yoḥanan then explained to them: <b>Why are gentiles</b> ethically <b>contaminated?</b> It is because <b>they did not stand on Mount Sinai. As when</b>",
+   "<b>the snake came upon Eve,</b> i.e., when it seduced her to eat from the Tree of Knowledge, <b>it infected her with</b> moral <b>contamination,</b> and this contamination remained in all human beings. When the <b>Jewish people stood at Mount Sinai, their contamination ceased,</b> whereas <b>gentiles did not stand at Mount Sinai,</b> and <b>their contamination never ceased. Rav Aḥa, the son of Rava, said to Rav Ashi: What</b> about <b>converts?</b> How do you explain the cessation of their moral contamination? Rav Ashi <b>said to him: Even though they</b> themselves <b>were not</b> at Mount Sinai, <b>their guardian angels were</b> present, <b>as it is written:</b> “It is not with you alone that I make this covenant and this oath, but <b>with he that stands here with us today before the Lord our God, and with he that is not here</b> with us today” (Deuteronomy 29:13–14), and this includes converts."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://www.korenpub.com/koren_en_usd/koren/talmud/koren-talmud-bavli-no/mskt-wbt-hlq-a.html"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   }
+  }
+ },
+ "yevamot-118b": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara"
+  },
+  "title": {
+   "ru": "Йевамот 118б",
+   "en": "Yevamot 118b"
+  },
+  "ref": "Yevamot 118b:16",
+  "url": "https://www.sefaria.org/Yevamot_118b.16",
+  "he": [
+   "אמר ליה רבינא לרבא המזכה גט לאשתו במקום קטטה מהו כיון דאית לה קטטה בהדיה זכות הוא לה או דלמא ניחא דגופא עדיף לה תא שמע דאמר ריש לקיש טב למיתב טן דו מלמיתב ארמלו"
+  ],
+  "en": [
+   "§ <b>Ravina said to Rava:</b> With regard to one <b>who confers possession</b> of <b>a bill of divorce to his wife</b> through an agent in a situation <b>when there was a quarrel</b> between them, <b>what is</b> the <i>halakha</i>? The Gemara explains both sides of the question: <b>Since she has a quarrel with him,</b> the bill of divorce might be considered <b>for her benefit. Or perhaps,</b> her <b>physical comfort is preferable to her,</b> as she prefers to remain married despite the quarrel between her and her husband. <b>Come</b> and <b>hear</b> a resolution, <b>as Reish Lakish said:</b> There is a popular idiom among women: <b>It is better to sit as two [<i>tan du</i>] than to sit</b> lonely as a <b>widow,</b> i.e., a woman prefers the companionship of any husband over being alone."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   }
+  }
+ },
+ "chullin-60b": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara"
+  },
+  "title": {
+   "ru": "Хулин 60б",
+   "en": "Chullin 60b"
+  },
+  "ref": "Chullin 60b:2-4",
+  "url": "https://www.sefaria.org/Chullin_60b.2-4",
+  "he": [
+   "רבי שמעון בן פזי רמי כתיב ויעש אלקים את שני המארת הגדלים וכתיב את המאור הגדל ואת המאור הקטן אמרה ירח לפני הקדוש ברוך הוא רבונו של עולם אפשר לשני מלכים שישתמשו בכתר אחד אמר לה לכי ומעטי את עצמך",
+   "אמרה לפניו רבונו של עולם הואיל ואמרתי לפניך דבר הגון אמעיט את עצמי אמר לה לכי ומשול ביום ובלילה אמרה ליה מאי רבותיה דשרגא בטיהרא מאי אהני אמר לה זיל לימנו בך ישראל ימים ושנים אמרה ליה יומא נמי אי אפשר דלא מנו ביה תקופותא דכתיב והיו לאתת ולמועדים ולימים ושנים זיל ליקרו צדיקי בשמיך יעקב הקטן שמואל הקטן דוד הקטן",
+   "חזייה דלא קא מיתבא דעתה אמר הקדוש ברוך הוא הביאו כפרה עלי שמיעטתי את הירח והיינו דאמר רבי שמעון בן לקיש מה נשתנה שעיר של ראש חדש שנאמר בו לה׳ אמר הקדוש ברוך הוא שעיר זה יהא כפרה על שמיעטתי את הירח"
+  ],
+  "en": [
+   "§ <b>Rabbi Shimon ben Pazi raises a contradiction</b> between two verses. It <b>is written: “And God made the two great lights”</b> (Genesis 1:16), <b>and</b> it <b>is</b> also <b>written</b> in the same verse: <b>“The greater light</b> to rule the day, <b>and the lesser light</b> to rule the night,” indicating that only one was great. Rabbi Shimon ben Pazi explains: When God first created the sun and the moon, they were equally bright. Then, <b>the moon said before the Holy One, Blessed be He: Master of the Universe,</b> is it <b>possible for two kings to serve with one crown?</b> One of us must be subservient to the other. God therefore <b>said to her,</b> i.e., the moon: If so, <b>go and diminish yourself.</b>",
+   "<b>She said before Him: Master of the Universe, since I said a correct</b> observation <b>before You,</b> must <b>I diminish myself?</b> God <b>said to her:</b> As compensation, <b>go and rule</b> both <b>during the day</b> along with the sun <b>and during the night. She said to Him: What is the greatness of</b> shining alongside the sun? <b>What use is a candle in the middle of the day?</b> God <b>said to her: Go; let the Jewish people count the days and years with you,</b> and this will be your greatness. <b>She said to Him: But</b> the Jewish people will count with <b>the sun as well,</b> as <b>it is impossible that they will not count seasons with it, as it is written: “And let them be for signs, and for seasons, and for days and years”</b> (Genesis 1:14). God said to her: <b>Go; let righteous men be named after you.</b> Just as you are called the lesser [<i>hakatan</i>] light, there will be <b>Ya’akov HaKatan,</b> i.e., Jacob our forefather (see Amos 7:2), <b>Shmuel HaKatan</b> the <i>tanna</i>, and <b>David HaKatan,</b> i.e., King David (see I Samuel 17:14).",
+   "God <b>saw that</b> the moon <b>was not comforted. The Holy One, Blessed be He, said: Bring atonement for me, since I diminished the moon.</b> The Gemara notes: <b>And this is what Rabbi Shimon ben Lakish says: What is different</b> about the <b>goat</b> offering <b>of</b> the <b>New Moon, that</b> it <b>is stated with regard to it: “For the Lord”</b> (Numbers 28:15)? <b>The Holy One, Blessed be He, said: This goat shall be an atonement</b> for Me <b>for having diminished</b> the size of <b>the moon.</b>"
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   }
+  }
+ },
+ "bereshit-rabbah-68-9": {
+  "kind": {
+   "ru": "Мидраш",
+   "en": "Midrash"
+  },
+  "title": {
+   "ru": "Берешит Раба 68:9",
+   "en": "Bereshit Rabbah 68:9"
+  },
+  "ref": "Bereshit Rabbah 68:9",
+  "url": "https://www.sefaria.org/Bereshit_Rabbah_68.9",
+  "he": [
+   "וַיִּפְגַע בַּמָּקוֹם (בראשית כח, יא), רַב הוּנָא בְּשֵׁם רַבִּי אַמֵּי אָמַר מִפְּנֵי מָה מְכַנִּין שְׁמוֹ שֶׁל הַקָּדוֹשׁ בָּרוּךְ הוּא וְקוֹרְאִין אוֹתוֹ מָקוֹם, שֶׁהוּא מְקוֹמוֹ שֶׁל עוֹלָם וְאֵין עוֹלָמוֹ מְקוֹמוֹ, מִן מַה דִּכְתִיב (שמות לג, כא): הִנֵּה מָקוֹם אִתִּי, הֱוֵי הַקָּדוֹשׁ בָּרוּךְ הוּא מְקוֹמוֹ שֶׁל עוֹלָם וְאֵין עוֹלָמוֹ מְקוֹמוֹ. אָמַר רַבִּי יִצְחָק כְּתִיב (דברים לג, כז): מְעֹנָה אֱלֹקֵי קֶדֶם, אֵין אָנוּ יוֹדְעִים אִם הַקָּדוֹשׁ בָּרוּךְ הוּא מְעוֹנוֹ שֶׁל עוֹלָמוֹ וְאִם עוֹלָמוֹ מְעוֹנוֹ, מִן מַה דִּכְתִיב (תהלים צ, א): ה' מָעוֹן אַתָּה, הֱוֵי הַקָּדוֹשׁ בָּרוּךְ הוּא מְעוֹנוֹ שֶׁל עוֹלָמוֹ וְאֵין עוֹלָמוֹ מְעוֹנוֹ. אָמַר רַבִּי אַבָּא בַּר יוּדָן לְגִבּוֹר שֶׁהוּא רוֹכֵב עַל הַסּוּס וְכֵלָיו מְשֻׁפָּעִים אֵילָךְ וְאֵילָךְ, הַסּוּס טְפֵלָה לָרוֹכֵב וְאֵין הָרוֹכֵב טְפֵלָה לַסּוּס, שֶׁנֶּאֱמַר (חבקוק ג, ח): כִּי תִרְכַּב עַל סוּסֶיךָ. דָּבָר אַחֵר, מַהוּ וַיִּפְגַּע, צַלִּי, בַּמָּקוֹם, צַלִּי בְּבֵית הַמִּקְדָּשׁ. אָמַר רַבִּי יְהוֹשֻׁעַ בֶּן לֵוִי אָבוֹת הָרִאשׁוֹנִים הִתְקִינוּ שָׁלשׁ תְּפִלּוֹת, אַבְרָהָם, תִּקֵּן תְּפִלַּת שַׁחֲרִית, שֶׁנֶּאֱמַר (בראשית יט, כז): וַיַּשְׁכֵּם אַבְרָהָם בַּבֹּקֶר אֶל הַמָּקוֹם אֲשֶׁר עָמַד שָׁם וגו', וְאֵין עֲמִידָה אֶלָּא תְּפִלָּה, שֶׁנֶּאֱמַר (תהלים קו, ל): וַיַּעֲמֹד פִּינְחָס וַיְפַלֵּל. יִצְחָק תִּקֵּן תְּפִלַּת מִנְחָה, שֶׁנֶּאֱמַר (בראשית כד, סג): וַיֵּצֵא יִצְחָק לָשׂוּחַ בַּשָּׂדֶה, וְאֵין שִׂיחָה אֶלָּא תְּפִלָּה, שֶׁנֶּאֱמַר (תהלים קמב, ג): אֶשְׁפֹּךְ לְפָנָיו שִׂיחִי. יַעֲקֹב תִּקֵּן תְּפִלַּת עַרְבִית, שֶׁנֶּאֱמַר: וַיִּפְגַּע בַּמָּקוֹם, וְאֵין פְּגִיעָה אֶלָּא תְּפִלָּה, שֶׁנֶּאֱמַר (ירמיה ז, טז): וְאַל תִּשָּׂא בַּעֲדָם וגו' וְאַל תִּפְגַּע בִּי. וְכֵן הוּא אוֹמֵר (ירמיה כז, יח): וְאִם נְבִאִים הֵם וְאִם יֵשׁ דְּבַר ה' אִתָּם יִפְגְּעוּ נָא בַּה' צְבָאוֹת, אָמַר רַבִּי שְׁמוּאֵל בַּר נַחְמָן כְּנֶגֶד שָׁלשׁ פְּעָמִים שֶׁהַיּוֹם מִשְׁתַּנֶּה, בְּעַרְבִית צָרִיךְ אָדָם לוֹמַר יְהִי רָצוֹן מִלְּפָנֶיךָ ה' אֱלֹקַי שֶׁתּוֹצִיאֵנִי מֵאֲפֵלָה לְאוֹרָה. בְּשַׁחֲרִית צָרִיךְ לוֹמַר מוֹדֶה אֲנִי לְפָנֶיךָ ה' אֱלֹקַי שֶׁהוֹצֵאתַנִי מֵאֲפֵלָה לְאוֹרָה. בְּמִנְחָה צָרִיךְ אָדָם לוֹמַר יְהִי רָצוֹן מִלְּפָנֶיךָ ה' אֱלֹקַי שֶׁכְּשֵׁם שֶׁזִּכִּיתַנִי לִרְאוֹת חַמָּה בִּזְרִיחָתָהּ כָּךְ תְּזַכֵּנִי לִרְאוֹתָהּ בִּשְׁקִיעָתָהּ. דָּבָר אַחֵר, וַיִּפְגַּע בַּמָּקוֹם, רַבָּנָן אָמְרֵי כְּנֶגֶד תְּמִידִים תִּקְּנוּם, תְּפִלַּת הַשַּׁחַר, כְּנֶגֶד תָּמִיד שֶׁל שַׁחַר. תְּפִלַּת מִנְחָה, כְּנֶגֶד תָּמִיד שֶׁל בֵּין הָעַרְבָּיִם. תְּפִלַּת הָעֶרֶב, אֵין לָהּ קֶבַע. אָמַר רַבִּי תַּנְחוּמָא אֲפִלּוּ תְּפִלַּת הָעֶרֶב יֵשׁ לָהּ קֶבַע, כְּנֶגֶד אֵבָרִים וּפְדָרִים שֶׁהָיוּ מִתְאַכְּלִים בָּאוּר עַל הַמִּזְבֵּחַ."
+  ],
+  "en": [
+   "<b>“He encountered the place and spent the night there because the sun had set; he took from the stones of the place, which he placed beneath his head, and lay down in that place” (Genesis 28:11).</b> “He encountered [<i>vayifga</i>] the place” – Rav Huna said in the name of Rabbi Ami: Why do they change the name of the Holy One blessed be He and call Him the Omnipresent [<i>hamakom</i>]? It is because He is the place [<i>mekomo</i>] of the world, and His world is not His place. From what is written: “Behold, there is a place [<i>makom</i>] with Me” (Exodus 33:21) – the Holy One blessed be He is the place of the world, and His world is not His place. Rabbi Yitzḥak said: It is written: “An abode of the God of eternity” (Deuteronomy 33:27). We do not know whether the Holy One blessed be He is the abode of the world, or whether the world is His abode. From what is written: “You are an abode for us” (Psalms 90:1) – that is, the Holy One blessed be He is the abode of the world, but His world is not His abode. Rabbi Abba bar Yudan said: This is analogous to a warrior who was riding on a horse, and his garments were flowing to both sides. The horse is secondary to the rider, but the rider is not secondary to the horse, as it is stated: “You will ride on Your horses” (Habakkuk 3:8). Another matter, what is <i>vayifga</i>? He prayed. “In the place” – he prayed in the Temple. Rabbi Yehoshua ben Levi said: The early patriarchs instituted three prayers: Abraham instituted the morning prayer, as it is stated: “Abraham arose early in the morning to go to the place where he stood…” (Genesis<i> </i>19:27), and standing is nothing other than prayer, as it is stated: “Pinḥas stood and prayed” (Psalms<i> </i>106:30). Isaac instituted the afternoon prayer, as it is stated: “Isaac went out walking [<i>lasuaḥ</i>] in the field” (Genesis 24:63), and <i>siḥa </i>is nothing other than prayer, as it is stated: “I will pour out [<i>eshpoḥ</i>] my woe before Him” (Psalms 142:3). Jacob instituted the evening prayer, as it is stated:<i> </i>“He encountered<i> </i>[<i>vayifga</i>]<i> </i>the place,” and <i>pegia </i>is nothing other than prayer, as it is stated: “You, do not raise a cry [or a prayer] on their behalf, and do not plead with [<i>tifga</i>] Me” (Jeremiah 7:16). Likewise it says: “If they are prophets, and if the word of the Lord is with them, please, let them plead [<i>yifge’u</i>] with the Lord of hosts” (Jeremiah 27:18). Rabbi Shmuel bar Naḥman said: It is corresponding to the three times that the day changes. In the evening, a person must say: ‘May it be Your will, Lord my God, to take me out from darkness to light.’ In the morning, he must say: ‘I give thanks before You, Lord my God, that You have taken me from darkness to light.’ In the afternoon, a person must say: ‘May it be Your will, Lord my God, that just as you accorded me the privilege of seeing the sun in its rising, so You will accord me the privilege to see it in its setting.’ Another matter, “he encountered the place” – the Rabbis say: It is corresponding to the daily offerings. The morning prayer, corresponding to the daily morning offering; the afternoon prayer, corresponding to the daily afternoon offering; the evening prayer is not obligatory. Rabbi Tanḥuma said: Even the evening prayer is obligatory – corresponding to the limbs and fats that were consumed in the fire on the altar."
+  ],
+  "versions": {
+   "he": {
+    "title": "merged",
+    "license": null,
+    "source": "https://www.sefaria.org/Bereshit_Rabbah"
+   },
+   "en": {
+    "title": "The Sefaria Midrash Rabbah, 2022",
+    "license": "CC-BY",
+    "source": "https://www.sefaria.org/texts"
+   }
+  }
+ },
+ "mei-hashiloach-balak": {
+  "kind": {
+   "ru": "Хасидут",
+   "en": "Chassidut"
+  },
+  "title": {
+   "ru": "«Мей ха-Шилоах», т. I, Балак",
+   "en": "Mei HaShiloach, Vol. I, Balak"
+  },
+  "ref": "Mei HaShiloach, Volume I, Numbers, Balak 2",
+  "url": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Numbers,_Balak_2",
+  "he": [
+   "<b>וַיֹּאמֶר בִּלְעָם אֶל הָאֱלֹקִים בָּלָק בֶּן צִפֹּר מֶלֶךְ מוֹאָב שָׁלַח אֵלָי.</b> לֶהֱיוֹת כִּי בִּלְעָם הָיָה יוֹשֵׁב וּמִשְׁתּוֹקֵק שֶׁיִּשְׁלְחוּ אֵלָיו מֵאֵיזֶה אוּמָּה, וְעַל יְדֵי זֶה נִתְעוֹרֵר בְּלֵב בָּלָק לִשְׁלוֹחַ אֵלָיו, כִּי בִּלְעָם חָשַׁב מַחֲשָׁבוֹת בְּעוֹד שֶׁהָיוּ יִשְׂרָאֵל בְּגָלוּת מִצְרַיִם לַעֲקֹר אוֹתָם מִן הָעוֹלָם כִּדְאִיתָא בַּמִּדְרָשׁ (שמות רבה פרשה א׳,י\"ב) שְׁלֹשָׁה הָיוּ בָּעֵצָה, אַךְ כְּשֶׁרָאָה שֶׁיָּצְאוּ מִמִּצְרַיִם וְנַעֲשָׂה לָהֶם נִסִּים הָיָה מִתְיָרֵא בְּעַצְמוֹ לְקַלְּלָם וְהָיָה יוֹשֵׁב וּמְצַפֶּה שֶׁיִּשְׁלְחוּ אֵלָיו מֵאֵיזֶה אוּמָּה, וְאָז יִהְיֶה לוֹ פִּתְחוֹן פֶּה לִשְׁאוֹל בַּה׳. וְגַם הַפָּסוּק הַזֶּה הוּא פָּסוּק הַתְּשִׁיעִי מֵהַתְחָלַת הַסֵּדֶר וּבְכָל מָקוֹם נִמְצָא בַּפָּסוּק הַתְּשִׁיעִי כַּוָּונָה עֲמֻקָּה מִכְּפִי שֶׁנִּרְאֶה לְעֵין כֹּל עַל פִּי פְּשׁוּטוֹ."
+  ],
+  "en": [
+   "<i>“And Bilaam said to God, Balak son of Tsippor sent to me.”</i> (Bamidbar, 22:10) Since Bilaam was sitting and longing that some nation would send for him (to curse Israel), thus it arose in the heart of Balak to summon him. Bilaam had entertained desires to uproot Israel even when they were in exile in Egypt, as it is said in the Midrash (<i>Shemot</i> Rabba, <i>Parsha</i> 1:12), “three advised Pharaoh, Bilaam, Job, and Yitro … Bilaam advised him to destroy them.” Yet after he saw them go out of Egypt and God performing miracles for them he feared cursing them by himself, and waited expectantly for a nation to send for him, and that gave him an excuse to ask of God. Also, this is the ninth verse in the <i>Parsha</i>, and every time the ninth verse appears it contains an intention far deeper than it would seem at first glance according to its plain meaning., [the <i>sefirah</i> of] <i>Yesod</i>-foundation, and there is something hidden within it. This is as it says in the Holy Zohar [<i>Bereshit</i>, 3a], ‘[because nine is the Hebrew letter <i>tet</i>, the first letter in <i>tov</i> or good] letter <i>tet</i>, your good is closed within you and hidden within you. See below, in <i>Parshat Devarim</i>, “I alone cannot bear you,” in the notes, where the secret of one of the ninth verses is explained.</i>"
+  ],
+  "versions": {
+   "he": {
+    "title": "merged",
+    "license": null,
+    "source": "https://www.sefaria.org/Mei_HaShiloach"
+   },
+   "en": {
+    "title": "Living waters, the Mei HaShiloach. Trans. and edited by Betsalel Philip Edwards, Jerusalem, J. Aronson 2001 [Revised digital edition, 2021]",
+    "license": "CC-BY-NC",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH002230918/NLI"
+   }
+  }
+ },
+ "zohar-tet": {
+  "kind": {
+   "ru": "Зоар",
+   "en": "Zohar"
+  },
+  "title": {
+   "ru": "Зоар, Предисловие (I, 3а)",
+   "en": "Zohar, Introduction (I, 3a)"
+  },
+  "ref": "Zohar, Introduction 6:12",
+  "url": "https://www.sefaria.org/Zohar,_Introduction_6.12",
+  "he": [
+   "עאלת את ט אמרה קמיה: רבון עלמא, ניחא קמך למברי בי עלמא, דאנת, בי אתקריאת טוב וישר. אמר לה: לא אברי בך עלמא, דהא טובך סתים בגווך וצפון בגווך, הה\"ד מה רב טובך אשר צפנת ליראך, הואיל וגניז בגווך, לית ביה חולקא לעלמא דא, דאנא בעי למברי, אלא בעלמא דאתי. ותו, דעל דטובך גניז בגווך, יטבעון תרעי דהיכלא. הה\"ד טבעו בארץ שעריה. ותו ד ח לקבלך, וכד תתחברון כחדא, הא ח\"ט, ועל דא אתוון אלין לא רשימין בשבטין קדישין, מיד נפקת מקמיה."
+  ],
+  "en": [
+   "The <i>Teth</i> then came up and said: O Lord of the universe, may it please Thee to place me at the head in the creation of the world, since through me Thou art called Good (<i>Tob</i>) and upright. The Lord said to her: I will not create the world through thee, as the goodness which thou representest is hidden and concealed within thyself, as it is written, “O how abundant is thy goodness which thou hast laid up for them that fear thee” (Ps. 31, 20). Since then it is treasured within thyself, it has no part in the world which I am going to create, but only in the world to come. And further, it is because thy goodness is hidden within thee that the gates of the Temple sank into the ground, as it is written, “Sunk (<i>Tabe’u</i>) in the ground are her gates” (Lam. 2, 9). And furthermore, the letter <i>Heth</i> is at thy side, and when joined you make sin (HeT). (It is for that reason that these two letters are not to be found in the names of any of the tribes.) She departed immediately."
+  ],
+  "versions": {
+   "he": {
+    "title": "Sulam Edition, Jerusalem 1945",
+    "license": "unknown",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001329911/NLI"
+   },
+   "en": {
+    "title": "The Zohar; London, Soncino Press, 1933",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH997012945475805171/NLI"
+   }
+  }
+ },
+ "tanya-ih-20": {
+  "kind": {
+   "ru": "Хасидут",
+   "en": "Chassidut"
+  },
+  "title": {
+   "ru": "Тания, Игерет а-Кодеш 20",
+   "en": "Tanya, Iggeret HaKodesh 20"
+  },
+  "ref": "Tanya, Part IV; Iggeret HaKodesh 20:29",
+  "url": "https://www.sefaria.org/Tanya,_Part_IV;_Iggeret_HaKodesh_20.29",
+  "he": [
+   "וּלְפִי מַה שֶּׁכָּתוּב בְּ״סֵפֶר הַגִּלְגּוּלִים״ פֶּרֶק כ׳, הוּבָא בְּלִקּוּטֵי אֲמָרִים – מִתְלַבֶּשֶׁת תְּחִלָּה הֶאָרָה זוֹ שֶׁל הַ״קַּו״ דְּאוֹר־אֵין־סוֹף בְּאוֹר הָאֲצִילוּת שֶׁבַּעֲשִׂיָּה, וּמִמֶּנָּה לִבְרִיאָה וִיצִירָה שֶׁבַּעֲשִׂיָּה, וּמֵהֶן לִבְחִינַת אוֹר הַנְּשָׁמָה דְּמַלְכוּת דְּמַלְכוּת דַּעֲשִׂיָּה, וְעַל־יְדֵי זֶה יֵשׁ כֹּחַ וָעוֹז בְּסִיּוּם הַכְּלִי דְּמַלְכוּת דְּמַלְכוּת דַּעֲשִׂיָּה שֶׁבִּיסוֹד הֶעָפָר, וְהוּא מַאֲמַר ״תַּדְשֵׁא הָאָרֶץ וְכוּ׳״, לִהְיוֹת פּוֹעֵל בְּקֶרֶב הָאָרֶץ תָּמִיד לְעוֹלָם וָעֶד –"
+  ],
+  "en": [
+   "According to that which is stated in ch. 20 of <i>Sefer Hagilgulim</i>, cited in <i>Likkutei Amarim</i>,, Part I, ch. 6, author’s glossary note, ad loc.</i> this radiation from the <i>kav</i> of the light of the <i>En Sof</i> vests itself first in the light of <i>Atzilut</i> in <i>Asiyah</i>, and from there to the <i>Beriah</i> and <i>Yetzirah</i> in <i>Asiyah</i>, and from these to the category of the light of the <i>neshamah</i> of the <i>malchut</i> of the <i>malchut</i> of <i>Asiyah</i>. And hence is the (creative) power and force in the culmination of the <i>keli</i> of the <i>malchut</i> of <i>malchut</i> of <i>Asiyah</i> within the element of earth."
+  ],
+  "versions": {
+   "he": {
+    "title": "Kehot Publication Society",
+    "license": "CC-BY-NC",
+    "source": "http://kehot.com"
+   },
+   "en": {
+    "title": "Kehot Publication Society (English Translation)",
+    "license": "CC-BY-NC",
+    "source": "http://kehot.com"
+   }
+  }
+ }
+}

@@ -130,6 +130,13 @@ const ru = {
 
   'lessons.title': 'Урок открыт',
   'lessons.sub': '· изложение своими словами',
+  'sources.title': 'Первоисточники',
+  'sources.count': { one: '{n} отрывок', few: '{n} отрывка', many: '{n} отрывков', other: '{n} отрывка' },
+  'sources.original': 'Оригинал',
+  'sources.translation': 'Перевод',
+  'sources.project': 'проект Нифлаот (с оригинала, сверено с английским Sefaria)',
+  'sources.open': 'Открыть на Sefaria',
+  'print.withSources': 'Первоисточники',
   'refl.title': 'Вопрос к себе',
   'refl.sub': '· что это меняет во мне прямо сейчас?',
   'refl.placeholder': 'Запишите мысль. Она останется только на этом устройстве.',
