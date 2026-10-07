@@ -334,3 +334,4 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 }
 .score-short{display:none}
 @media (max-width:380px){.score-full{display:none}.score-short{display:inline}}
+@media (max-width:560px){.top-in .langpick{margin-inline-start:auto}}
