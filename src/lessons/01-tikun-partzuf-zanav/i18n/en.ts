@@ -45,6 +45,7 @@ const en: LessonText = {
         p: 'Both sides of the subconscious stand in perfect balance. Both are fire: the letter Alef is the root of the proud “I”, the letter Shin is the flame of passion.',
       },
       lessons: [
+        { h: "What woman was created from", b: `<p>The most direct meaning of the debate about the “face” and the “tail” is a debate about <b>what woman was created from</b>. The Gemara (Berachot 61a, Eruvin 18a) discusses the words “and G-d built the rib (<span class="he">צלע</span>)… into a woman”. What was this “rib”?</p><p><b>One says — a “partzuf”, a face.</b> Adam was created with two faces: a male face in front and a female face behind. The Almighty separated them, and the back face became Chava. According to this view, woman is from the very start a complete, separate face, equal to man.</p><p><b>The other says — a “zanav”, a tail.</b> Adam had a small appendage behind, and woman was “built” from it. According to this view, she begins from something small and develops.</p><p>The lesson continues this line. <b>Rav, the idealist:</b> woman is originally a “partzuf”, a perfect creation. <b>Shmuel, the realist:</b> woman is originally a “tail”, and the path to perfection is gradual.</p><p>The word “tail” (<span class="he">זנב</span>) has the gematria 59, like “niddah” (<span class="he">נדה</span>): 50 + 4 + 5. This hints at a state of separation and impurity that must be rectified. Hence the ideal of a marriage begun in purity.</p>` },
         {
           h: 'The year פ״ז: face and tail',
           b: `<p>The year ה׳תשפ״ז reads as a hint to “partzuf-zanav”: the letters פ and ז begin both words. The first man was created “behind and before”, and the Sages debate what his back side was. Rav says — a face, Shmuel says — a tail.</p><p>In Kabbalah a person’s “back” is his subconscious, what he cannot see in himself. So the debate is about what lies in the depths of the unconscious: a self-image or a drive.</p>`,
@@ -135,6 +136,7 @@ const en: LessonText = {
         p: '“Woman” is eighteen times “good”, that is, life drawn from good. The very act of her creation, “and He built”, contains good four times.',
       },
       lessons: [
+        { h: "How he sees his wife", b: `<p>The debate between Rav and Shmuel moves inside the man. Whether he sees his wife as a “face” or a “tail” depends on his own “back” — his subconscious.</p><p>If he sees a “tail”, he looks at her through desire. If he sees a “partzuf”, he looks at her as part of his own honor.</p><p>The rectification is to see her not through his own “back”, but face to face, as she truly is. Then “he who has found a wife has found good”.</p>` },
         {
           h: '“I find” and “found a wife”',
           b: `<p>Scripture says both “He who has found a wife has found good” and “I find more bitter than death the woman”. The difference is in who is looking. The gaze of “I find” is subjective: a person sees his wife through his own “I”.</p><p>The “tail” in marriage seeks the satisfaction of desires. The “partzuf” seeks in the wife a complement to one’s own image and status. In both cases a person sees not her, but himself.</p>`,
@@ -156,7 +158,7 @@ const en: LessonText = {
     allSolved:
       'All four riddles are solved. Face and tail, pride and passion are joined in prayer and revealed before the eyes of all Israel.',
   },
-  share: ({ score, max, time, grid, allSolved }) => `🔥 What do pride and desire have in common?
+  share: ({ score, max, time, grid, allSolved, site }) => `🔥 What do pride and desire have in common?
 The answer is hidden in a single number.
 
 I’m searching for it in a gematria game based on Rabbi Yitzchak Ginsburgh’s lesson “Tikun Partzuf-Zanav”. ${allSolved ? 'All four riddles solved:' : 'My path so far:'}
@@ -164,8 +166,8 @@ I’m searching for it in a gematria game based on Rabbi Yitzchak Ginsburgh’s 
 ✦ ${score} of ${max} points · ⏱ ${time}
 ${grid}
 
-Four riddles about the face, the mask and the heart. Can you do better?
-Play 👉 mychitas.app
+Four riddles: on pride and passion, on prayer, on the mask and the true face — and on husband and wife meeting face to face. Can you do better?
+Play 👉 ${site}
 
 ©pnimi.org.il ©mychitas.app`,
   source:

@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { useI18n } from '../i18n';
 import { copyText, formatTime } from '../core/format';
+import { SITE_HOST, SITE_URL } from '../core/site';
 import { stepState, type GameState } from '../core/useLessonState';
 import type { Lesson, LessonText } from '../lessons/types';
 
@@ -26,7 +27,7 @@ export function Final({ lesson, text, S, onReset }: { lesson: Lesson; text: Less
           .join(''),
     )
     .join('\n');
-  const share = text.share({ score: S.score, max, time, grid, allSolved });
+  const share = text.share({ score: S.score, max, time, grid, allSolved, site: SITE_HOST });
 
   const copy = async () => {
     const ok = await copyText(share, pre.current);
@@ -60,7 +61,7 @@ export function Final({ lesson, text, S, onReset }: { lesson: Lesson; text: Less
           </a>
           <a
             className="btn ghost-l"
-            href={`https://t.me/share/url?url=${encodeURIComponent('https://mychitas.app')}&text=${encodeURIComponent(share)}`}
+            href={`https://t.me/share/url?url=${encodeURIComponent(SITE_URL)}&text=${encodeURIComponent(share)}`}
             target="_blank"
             rel="noopener"
           >

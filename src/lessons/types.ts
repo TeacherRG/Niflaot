@@ -56,6 +56,8 @@ export interface ShareParams {
   time: string;
   grid: string;
   allSolved: boolean;
+  /** site host, e.g. niflaot.mychitas.app */
+  site: string;
 }
 
 export interface LessonText {

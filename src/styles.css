@@ -188,6 +188,7 @@ a{color:inherit}
 /* footer */
 .colophon{max-width:780px;margin:40px auto 0;padding:20px 0 calc(28px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);text-align:center;font-size:12px;color:var(--muted);display:grid;gap:4px}
 .colophon p{margin:0}
+.colophon a{color:var(--gold);text-decoration:none;font-weight:600}
 
 @media (prefers-reduced-motion:no-preference){
   .pop{animation:pop .4s ease-out}
@@ -336,3 +337,89 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .score-short{display:none}
 @media (max-width:380px){.score-full{display:none}.score-short{display:inline}}
 @media (max-width:560px){.top-in .langpick{margin-inline-start:auto}}
+
+/* ───────── printable worksheet ───────── */
+.print-view{padding:16px 0 80px}
+.print-bar{position:sticky;top:0;z-index:5;max-width:820px;margin:0 auto 16px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 12px;background:rgba(244,245,248,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:12px}
+.print-bar .btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.print-bar .btn:last-child{margin-inline-start:auto}
+.print-opts{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px;color:var(--ink-2)}
+.print-opts label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.print-opts input{accent-color:var(--gold);width:16px;height:16px}
+
+.sheet-paper{max-width:820px;margin:0 auto;background:#fff;color:#111;padding:40px 44px;border-radius:4px;box-shadow:var(--shadow);font-size:14px;line-height:1.5}
+.sheet-paper h1,.sheet-paper h2,.sheet-paper h3{font-family:var(--f-display);margin:0;line-height:1.15}
+.sheet-paper .he{font-family:var(--f-he);direction:rtl;unicode-bidi:isolate}
+.p-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;padding-bottom:14px;border-bottom:2px solid #111}
+.p-heb{font-weight:900;font-size:30px;line-height:1;text-align:left}
+.p-head h1{font-size:30px;font-weight:700;margin-top:4px}
+.p-author{font-family:var(--f-display);font-style:italic;font-size:15px;color:#444}
+.p-fields{display:grid;gap:10px;font-size:13px;color:#333}
+.p-label{font-family:var(--f-body)!important;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#7a5b1e;margin-bottom:6px!important}
+.p-block{margin-top:16px}
+.p-table{display:grid;grid-template-columns:repeat(11,1fr);gap:3px}
+.p-table span{display:grid;justify-items:center;border:1px solid #bbb;border-radius:3px;padding:2px 0}
+.p-table b{font-family:var(--f-he);font-size:16px;line-height:1.2}
+.p-table i{font-family:var(--f-num);font-style:normal;font-size:10px;color:#555}
+
+.p-riddle{margin-top:22px;padding-top:16px;border-top:1px solid #ccc;break-inside:avoid-page}
+.p-eyebrow{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#7a5b1e}
+.p-riddle h2{font-size:23px;font-weight:700;margin:2px 0 8px}
+.p-cond p{margin:0 0 6px}
+.p-cond em{font-style:normal;font-family:var(--f-he)}
+.p-words{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+.p-word{border:1px solid #999;border-radius:6px;padding:8px 10px;display:grid;justify-items:center;gap:2px;min-width:110px}
+.p-w{font-size:24px;font-weight:700;line-height:1.1}
+.p-t{font-size:11px;color:#555}
+.p-tiles{display:flex;gap:3px;margin-top:4px}
+.p-tiles span{display:grid;justify-items:center;border:1px solid #bbb;border-radius:3px;padding:1px 3px;min-width:24px}
+.p-tiles b{font-family:var(--f-he);font-size:15px;line-height:1.2}
+.p-tiles i{display:block;width:100%;height:14px;border-top:1px dashed #ccc}
+.p-sum{font-family:var(--f-num);font-size:12px;color:#444;margin-top:2px}
+.p-steps{margin:8px 0 0;padding-inline-start:20px;display:grid;gap:10px}
+.p-steps li{break-inside:avoid}
+.p-q .he{font-weight:700;font-size:1.15em}
+.p-answer{margin-top:6px;font-size:13px;color:#333}
+.p-opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 18px;margin-top:6px}
+.p-opt{display:flex;align-items:baseline;gap:8px}
+.p-opt .he{font-size:17px;font-weight:700}
+.p-opt small{color:#555;font-size:12px}
+.p-box{flex:none;width:12px;height:12px;border:1.5px solid #333;border-radius:2px;transform:translateY(1px)}
+.p-refl{margin-top:12px;border-inline-start:3px solid #c9a24f;padding-inline-start:12px}
+.p-refl p{margin:0;font-family:var(--f-display);font-size:16px}
+.p-lines{display:grid;gap:18px;margin-top:14px}
+.p-lines span{border-bottom:1px solid #aaa}
+
+.p-answers,.p-lessons{break-before:page;margin-top:28px;padding-top:16px;border-top:2px solid #111}
+.p-answers>h2,.p-lessons>h2{font-size:24px;font-weight:700;margin-bottom:8px}
+.p-ans{margin-top:12px;break-inside:avoid}
+.p-ans h3,.p-les h3{font-size:17px;font-weight:700}
+.p-ans ol{margin:4px 0;padding-inline-start:20px}
+.p-ans small{color:#555}
+.p-eqs{font-family:var(--f-num);font-size:12px;display:grid;gap:2px;margin:4px 0}
+.p-ans p,.p-les p{margin:4px 0}
+.p-les{margin-top:10px;break-inside:avoid}
+.p-foot{margin-top:20px;padding-top:10px;border-top:1px solid #ccc;font-size:10.5px;color:#666;text-align:center}
+
+@media (max-width:600px){
+  .sheet-paper{padding:22px 16px}
+  .p-table{grid-template-columns:repeat(6,1fr)}
+  .p-opts{grid-template-columns:1fr}
+  .print-bar .btn:last-child{margin-inline-start:0}
+}
+
+@page{size:A4;margin:14mm 13mm}
+@media print{
+  html,body{background:#fff!important}
+  body{padding:0!important;background-image:none!important}
+  .no-print,.donate-fab,.top,.overlay{display:none!important}
+  .print-view{padding:0}
+  .sheet-paper{max-width:none;padding:0;box-shadow:none;border-radius:0;font-size:12pt}
+  .p-table{grid-template-columns:repeat(11,1fr)}
+  .p-opts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  a{color:inherit;text-decoration:none}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+/* a Hebrew verse quoted inside a riddle's condition — on its own line, never broken mid-bidi */
+.cond .verse,.p-cond .verse{font-family:var(--f-he);font-size:1.3em;font-weight:500;line-height:1.5;text-align:center;direction:rtl;unicode-bidi:isolate;color:var(--ink);padding:8px 12px;margin:2px 0 10px;border-inline-start:3px solid var(--gold-2);background:var(--gold-soft);border-radius:6px}
+.p-cond .verse{color:#111;background:none;border:1px solid #ccc}

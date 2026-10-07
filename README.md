@@ -1,5 +1,7 @@
 # Niflaot
 
+**Сайт: https://niflaot.mychitas.app**
+
 Игры-гиматрии по статьям рава Ицхака Гинзбурга из брошюры «Нифлаот» — проект [MyChitas](https://mychitas.app).
 React + TypeScript + Vite, многоязычный интерфейс (сейчас: русский, English).
 
@@ -47,3 +49,9 @@ legacy/                     исходная однофайловая верси
 3. По желанию — переводы уроков в `src/lessons/*/i18n/<код>.ts`.
 
 Все тексты уроков принадлежат раву Ицхаку Гинзбургу (pnimi.org.il).
+
+## Публикация
+
+Сайт живёт на **https://niflaot.mychitas.app** (GitHub Pages, домен задан в `public/CNAME`).
+При каждом пуше в `main` workflow `.github/workflows/deploy.yml` собирает проект и публикует `dist/`.
+Один раз в настройках репозитория: **Settings → Pages → Source: GitHub Actions**.

@@ -231,7 +231,11 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
             </div>
             {rt.lessons.map((l, k) => (
               <details key={k} className="les">
-                <summary>{l.h}</summary>
+                <summary>
+                  <span>
+                    <HebrewRuns text={l.h} />
+                  </span>
+                </summary>
                 <Html as="div" className="les-b" html={l.b} />
               </details>
             ))}
