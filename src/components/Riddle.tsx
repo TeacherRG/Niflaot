@@ -6,6 +6,7 @@ import { formatTime } from '../core/format';
 import { MAX_WRONG, award, draftStep, stepState, type GameState } from '../core/useLessonState';
 import type { Lesson, LessonText } from '../lessons/types';
 import { HebrewRuns } from './Hebrew';
+import { Sources } from './Sources';
 import { opInText } from '../core/mentalMath';
 
 interface Props {
@@ -248,6 +249,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
               </details>
             ))}
           </div>
+          {r.sources && <Sources ids={r.sources} />}
           <div className="refl">
             <div className="refl-lbl">
               {t('refl.title')} <span>{t('refl.sub')}</span>

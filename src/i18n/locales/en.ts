@@ -120,6 +120,13 @@ const en: Messages = {
 
   'lessons.title': 'Lesson unlocked',
   'lessons.sub': '· a retelling in our own words',
+  'sources.title': 'Primary sources',
+  'sources.count': { one: '{n} passage', other: '{n} passages' },
+  'sources.original': 'Original',
+  'sources.translation': 'Translation',
+  'sources.project': 'the Niflaot project',
+  'sources.open': 'Open on Sefaria',
+  'print.withSources': 'Primary sources',
   'refl.title': 'A question for yourself',
   'refl.sub': '· what does this change in me right now?',
   'refl.placeholder': 'Write down a thought. It stays only on this device.',
