@@ -6,7 +6,9 @@ import { Panels } from './components/Panels';
 import { DonateFab, UIContext, type Panel } from './components/ui';
 import { useI18n } from './i18n';
 
-const SIGNATURE = '\n\n©pnimi.org.il\n©mychitas.app';
+import { SITE_HOST } from './core/site';
+
+const SIGNATURE = `\n\n${SITE_HOST}\n©pnimi.org.il\n©mychitas.app`;
 
 /** Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson. Works on any static host. */
 function useRoute() {
@@ -35,7 +37,7 @@ function useCopySignature() {
       const div = document.createElement('div');
       for (let i = 0; i < sel.rangeCount; i++) div.appendChild(sel.getRangeAt(i).cloneContents());
       e.clipboardData.setData('text/plain', text + SIGNATURE);
-      e.clipboardData.setData('text/html', div.innerHTML + '<br><br>©pnimi.org.il<br>©mychitas.app');
+      e.clipboardData.setData('text/html', `${div.innerHTML}<br><br>${SITE_HOST}<br>©pnimi.org.il<br>©mychitas.app`);
       e.preventDefault();
     };
     document.addEventListener('copy', on);

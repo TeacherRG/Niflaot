@@ -156,7 +156,7 @@ const en: LessonText = {
     allSolved:
       'All four riddles are solved. Face and tail, pride and passion are joined in prayer and revealed before the eyes of all Israel.',
   },
-  share: ({ score, max, time, grid, allSolved }) => `🔥 What do pride and desire have in common?
+  share: ({ score, max, time, grid, allSolved, site }) => `🔥 What do pride and desire have in common?
 The answer is hidden in a single number.
 
 I’m searching for it in a gematria game based on Rabbi Yitzchak Ginsburgh’s lesson “Tikun Partzuf-Zanav”. ${allSolved ? 'All four riddles solved:' : 'My path so far:'}
@@ -165,7 +165,7 @@ I’m searching for it in a gematria game based on Rabbi Yitzchak Ginsburgh’s 
 ${grid}
 
 Four riddles about the face, the mask and the heart. Can you do better?
-Play 👉 mychitas.app
+Play 👉 ${site}
 
 ©pnimi.org.il ©mychitas.app`,
   source:
