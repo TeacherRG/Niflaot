@@ -564,10 +564,14 @@ article.m-card{border-top:3px solid var(--gold-2)}
 .p-src-seg .he{font-size:15px;text-align:right;line-height:1.6}
 .p-src-credit{font-size:10px;color:#666;margin:4px 0 0}
 
-.src-head{display:grid;gap:2px;margin-inline-end:auto;min-width:0}
-.src-head .src-name{margin:0}
-.src-note{font-size:13px;line-height:1.45;color:var(--ink-2)}
-.src-note b{color:var(--tchelet);font-weight:700}
-.src-note .he{font-size:14px;font-weight:700}
-.src>summary{align-items:flex-start}
-.src-kind{margin-top:3px}
+
+/* footnotes */
+sup.fn{line-height:0;font-size:.68em;margin-inline-start:1px}
+sup.fn a{font-family:var(--f-num);font-weight:700;color:var(--tchelet);text-decoration:none;cursor:pointer;padding:0 2px;border-radius:3px}
+sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:none}
+.src-num{flex:none;display:grid;place-items:center;min-width:22px;height:22px;padding:0 5px;border-radius:999px;background:var(--tchelet);color:#fff;font-family:var(--f-num);font-size:11.5px;font-weight:700}
+.fn-back{color:var(--tchelet);font-weight:700;cursor:pointer;text-decoration:none;margin-inline-start:6px}
+.fn-back sup{font-size:.7em}
+.fn-flash{animation:fnflash 1.6s ease-out}
+@keyframes fnflash{0%,30%{background:var(--gold-soft);box-shadow:0 0 0 4px var(--gold-soft)}100%{background:transparent;box-shadow:none}}
+.src,sup.fn a{scroll-margin-top:76px}

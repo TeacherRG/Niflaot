@@ -8,6 +8,7 @@ import type { Lesson, LessonText } from '../lessons/types';
 import { HebrewRuns } from './Hebrew';
 import { Sources } from './Sources';
 import { opInText } from '../core/mentalMath';
+import { footnotes } from '../sources/footnotes';
 
 interface Props {
   lesson: Lesson;
@@ -38,6 +39,10 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
   let firstOpen = r.steps.findIndex((_, i) => !stepState(S, ri, i).ok);
   if (firstOpen < 0) firstOpen = r.steps.length;
   const solved = firstOpen >= r.steps.length;
+
+  // footnotes: numbered in reading order; before the riddle is solved the sources are hidden, so no marks
+  const fn = footnotes([rt.cond, rt.reveal.p, ...rt.lessons.map((l) => l.b)], solved ? (r.sources ?? []) : [], ri, t('sources.footnote'));
+  const [condHtml, revealHtml, ...lessonHtml] = fn.html;
 
   /** Records an attempt; `correct` decides the outcome. */
   const attempt = (i: number, correct: boolean, kind: 'num' | 'ch', pick?: number) =>
@@ -81,7 +86,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
         </span>
         <h2>{rt.title}</h2>
       </div>
-      <Html as="div" className="cond" html={withTerms(rt.cond, textLocale)} />
+      <Html as="div" className="cond" html={withTerms(condHtml, textLocale)} />
       {!solved && <div className="les-lock">{t('riddle.locked')}</div>}
 
       {r.words.length > 0 && (
@@ -234,7 +239,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
                 <HebrewRuns text={e} />
               </div>
             ))}
-            <Html as="p" html={withTerms(rt.reveal.p, textLocale)} />
+            <Html as="p" html={withTerms(revealHtml, textLocale)} />
           </div>
           <div className="lessons">
             <div className="les-title">
@@ -247,11 +252,11 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
                     <HebrewRuns text={l.h} />
                   </span>
                 </summary>
-                <Html as="div" className="les-b" html={withTerms(l.b, textLocale)} />
+                <Html as="div" className="les-b" html={withTerms(lessonHtml[k], textLocale)} />
               </details>
             ))}
           </div>
-          {r.sources && <Sources ids={r.sources} notes={rt.sourceNotes} />}
+          {r.sources && <Sources ri={ri} ids={fn.ordered} number={fn.number} refs={fn.refs} />}
           <div className="refl">
             <div className="refl-lbl">
               {t('refl.title')} <span>{t('refl.sub')}</span>

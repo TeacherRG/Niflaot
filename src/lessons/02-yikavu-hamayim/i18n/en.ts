@@ -48,19 +48,19 @@ const en: LessonText = {
       lessons: [
         {
           h: 'The rule of the “Mei HaShiloach”',
-          b: `<p>The author of the “Mei HaShiloach” has a well-known rule: in every weekly portion, the ninth verse from its beginning holds an intention deeper than what every eye sees in its plain meaning. Why the ninth? The ninth sefirah is Yesod, “foundation”, the attribute of Yosef the tzaddik, and something is hidden in it. The Zohar says of the letter <span class="he">ט</span> (tet, the ninth letter): “your goodness is hidden within you”.</p><p>The Rebbe of Izbica himself states the rule in portion Balak, on the ninth verse of that portion. The Rav shows that it applies first of all to the very first portion of the Torah: “everything follows the opening” and “the body follows the head”.</p>`,
+          b: `<p>The author of the “Mei HaShiloach” has a well-known rule: in every weekly portion, the ninth verse from its beginning holds an intention deeper than what every eye sees in its plain meaning.<sup data-src="mei-hashiloach-balak"></sup> Why the ninth? The ninth sefirah is Yesod, “foundation”, the attribute of Yosef the tzaddik, and something is hidden in it. The Zohar says of the letter <span class="he">ט</span> (tet, the ninth letter): “your goodness is hidden within you”<sup data-src="zohar-tet"></sup>.</p><p>The Rebbe of Izbica himself states the rule in portion Balak, on the ninth verse of that portion. The Rav shows that it applies first of all to the very first portion of the Torah: “everything follows the opening” and “the body follows the head”.</p>`,
         },
         {
           h: 'The ninth verse opens the third day',
-          b: `<p>The first day of creation takes five verses (ending with “and there was evening and there was morning, one day”). The second day takes three. So the ninth verse of the Torah is the first verse of the third day. It completes the work with the waters begun on the second day: “Let the waters under the heavens gather into one place, and let the dry land appear.”</p><p>The root of the ninth verse — what is new and hidden in it, “goodness concealed within” — is the word <span class="he">יקוו</span>, “let them gather”. We return to it in the second riddle.</p>`,
+          b: `<p>The first day of creation takes five verses (ending with “and there was evening and there was morning, one day”). The second day takes three. So the ninth verse of the Torah is the first verse of the third day.<sup data-src="gen-1-1"></sup> It completes the work with the waters begun on the second day: “Let the waters under the heavens gather into one place, and let the dry land appear.”</p><p>The root of the ninth verse — what is new and hidden in it, “goodness concealed within” — is the word <span class="he">יקוו</span>, “let them gather”. We return to it in the second riddle.</p>`,
         },
         {
           h: 'One in time, one in place',
-          b: `<p>Here the word “one” (<span class="he">אחד</span>) appears in the Torah for the second time. The first time — “and there was evening and there was morning, one day” — reveals the One in time. Now — “into one place” — the One is revealed in space.</p><p>Time and place relate to each other as masculine and feminine. In the language of Sefer Yetzirah, time is called “shanah” (year) and place is called “olam” (world). The third dimension is “nefesh”, the soul. Unity in the soul is revealed later, in the second section, after the creation of Adam and Chava: “and they shall become one flesh”. Thus all three are completed: world, year, soul.</p>`,
+          b: `<p>Here the word “one” (<span class="he">אחד</span>) appears in the Torah for the second time. The first time — “and there was evening and there was morning, one day” — reveals the One in time. Now — “into one place” — the One is revealed in space.</p><p>Time and place relate to each other as masculine and feminine. In the language of Sefer Yetzirah, time is called “shanah” (year) and place is called “olam” (world). The third dimension is “nefesh”, the soul. Unity in the soul is revealed later, in the second section, after the creation of Adam and Chava: “and they shall become one flesh”<sup data-src="gen-2-24"></sup>. Thus all three are completed: world, year, soul.</p>`,
         },
         {
           h: 'The mikveh — where land and grass appear',
-          b: `<p>Unity in place is revealed in the “mikveh of waters”, the gathering of water. In Hebrew “makom” (place) and “mikveh” sound alike, and not by chance. The waters gather into one place so that “the dry land may appear”, so that the earth is ready for the next utterance of creation — the main work of the third day: “Let the earth sprout vegetation”.</p><p>As the Tanya explains, this utterance is eternal: even today every blade of grass grows by the power of those words. The “one place” cleared by the waters is a space where life can grow constantly.</p>`,
+          b: `<p>Unity in place is revealed in the “mikveh of waters”, the gathering of water. In Hebrew “makom” (place) and “mikveh” sound alike, and not by chance. The waters gather into one place so that “the dry land may appear”, so that the earth is ready for the next utterance of creation — the main work of the third day: “Let the earth sprout vegetation”.</p><p>As the Tanya explains, this utterance is eternal<sup data-src="tanya-ih-20"></sup>: even today every blade of grass grows by the power of those words. The “one place” cleared by the waters is a space where life can grow constantly.</p>`,
         },
         {
           h: 'Thirteen words, fifty-two letters',
@@ -68,13 +68,6 @@ const en: LessonText = {
         },
       ],
       reflection: 'Where in my life does oneness appear in time — in habits and days — and where in place — at home, in the space around me? Which one place can I make into “one place”?',
-      sourceNotes: {
-        "mei-hashiloach-balak": "The rule of the ninth verse itself — the last sentence of the passage. The basis of the lesson.",
-        "zohar-tet": "“Your goodness is hidden within you” — why nine (ט) means the concealed.",
-        "gen-1-1": "The first nine verses of the Torah; the ninth — “let the waters gather into one place” (13 words, 52 letters).",
-        "gen-2-24": "“They shall become one flesh” — unity in the soul, section “One in time, one in place”.",
-        "tanya-ih-20": "The utterance “Let the earth sprout” acts forever — section “The mikveh”.",
-      },
       takeaways: [
         "The rule of the “Mei HaShiloach”: the ninth verse of every portion hides a deep intention. Nine is Yesod, the attribute of Yosef, “goodness hidden within”.",
         "The ninth verse of the Torah — “let the waters gather into one place” — is the first verse of the third day (5 verses of day one + 3 of day two).",
@@ -108,15 +101,15 @@ const en: LessonText = {
         },
         {
           h: 'Contraction: “I am the place of the world”',
-          b: `<p>The gathering of all the lower waters into one place is the secret of the tzimtzum, the first “contraction” of the Divine light. The light withdraws to the sides, and precisely there, in the vacated space, the “place of the world” comes into being.</p><p>The Sages say of the Almighty: “He is the place of the world, but the world is not His place”. And Moshe was told: “Here is a place with Me”. The great circle of the Infinite light surrounds the empty space cleared by the contraction. “And let the dry land appear” is the “reshimu”, the impression of light that remained in the empty space after the contraction.</p>`,
+          b: `<p>The gathering of all the lower waters into one place is the secret of the tzimtzum, the first “contraction” of the Divine light. The light withdraws to the sides, and precisely there, in the vacated space, the “place of the world” comes into being.</p><p>The Sages say of the Almighty: “He is the place of the world, but the world is not His place”.<sup data-src="bereshit-rabbah-68-9"></sup> And Moshe was told: “Here is a place with Me”.<sup data-src="ex-33-21"></sup> The great circle of the Infinite light surrounds the empty space cleared by the contraction. “And let the dry land appear” is the “reshimu”, the impression of light that remained in the empty space after the contraction.</p>`,
         },
         {
           h: 'The line that builds worlds',
-          b: `<p>Then the “kav” — a line, a ray of light from the Infinite — is drawn into the empty space. The word “yikavu” hides it too. The line goes from the concealed depth of the Infinite to the place of the reshimu and grows from it all the worlds: Adam Kadmon, Atzilut, Beriah, Yetzirah, Asiyah.</p><p>Radak, in his Book of Roots, writes that “kav” also means building: “their line has gone out through all the earth” — that is, their structure. Through the line all the worlds are built.</p>`,
+          b: `<p>Then the “kav” — a line, a ray of light from the Infinite — is drawn into the empty space. The word “yikavu” hides it too. The line goes from the concealed depth of the Infinite to the place of the reshimu and grows from it all the worlds: Adam Kadmon, Atzilut, Beriah, Yetzirah, Asiyah.</p><p>Radak, in his Book of Roots, writes that “kav” also means building: “their line has gone out through all the earth”<sup data-src="ps-19-5"></sup> — that is, their structure. Through the line all the worlds are built.</p>`,
         },
         {
           h: 'Hope: the light returns',
-          b: `<p>At the end, when the line has reached the very bottom, the light rises back — “or chozer”, returning light. This is the secret of the good hope of everything the Almighty created in His world for His glory: the longing to be nullified to Him, to pass “from something to nothing”, knowing that nothing makes itself.</p><p>Hope — every day, every moment — that His glory will be revealed: “and the earth shone with His glory”. That glory is the source of the coming-into-being, the life and the existence of all creation.</p>`,
+          b: `<p>At the end, when the line has reached the very bottom, the light rises back — “or chozer”, returning light. This is the secret of the good hope of everything the Almighty created in His world for His glory: the longing to be nullified to Him, to pass “from something to nothing”, knowing that nothing makes itself.</p><p>Hope — every day, every moment — that His glory will be revealed: “and the earth shone with His glory”.<sup data-src="ez-43-2"></sup> That glory is the source of the coming-into-being, the life and the existence of all creation.</p>`,
         },
         {
           h: 'Aharon: 256',
@@ -124,19 +117,10 @@ const en: LessonText = {
         },
         {
           h: 'Three lines: Avraham, Yitzchak, Yaakov',
-          b: `<p>The three meanings of the root correspond to the three lines of the world of rectification. <b>Mikveh is kindness, the line of Avraham.</b> Of him we pray: “remember the father who followed You like water”. Endless waters enter one place: “the place where Avraham stood before G-d”. “One place” is the place of which it is said “Avraham was one”.</p><p><b>Line is the middle line, the line of Yaakov.</b> It extends directly from the ray of the Infinite and builds all the worlds. Its outer side is the power of division, its left side. Its inner side is the power of inclusion, the right: when it leans to the right, “to include the left in the right”.</p><p><b>Hope is the left line, the line of Yitzchak,</b> rising from below upward: “Hope to G-d, be strong and let your heart take courage, and hope to G-d!” The six words together — mikveh, Avraham, hope, Yitzchak, line, Yaakov — add up to 1406.</p>`,
+          b: `<p>The three meanings of the root correspond to the three lines of the world of rectification. <b>Mikveh is kindness, the line of Avraham.</b> Of him we pray: “remember the father who followed You like water”. Endless waters enter one place: “the place where Avraham stood before G-d”.<sup data-src="gen-19-27"></sup> “One place” is the place of which it is said “Avraham was one”.<sup data-src="ez-33-24"></sup></p><p><b>Line is the middle line, the line of Yaakov.</b> It extends directly from the ray of the Infinite and builds all the worlds. Its outer side is the power of division, its left side. Its inner side is the power of inclusion, the right: when it leans to the right, “to include the left in the right”.</p><p><b>Hope is the left line, the line of Yitzchak,</b> rising from below upward: “Hope to G-d, be strong and let your heart take courage, and hope to G-d!”<sup data-src="ps-27-14"></sup> The six words together — mikveh, Avraham, hope, Yitzchak, line, Yaakov — add up to 1406.</p>`,
         },
       ],
       reflection: 'What am I hoping for today? How can I turn this hope into a “line” — one concrete step I will take?',
-      sourceNotes: {
-        "bereshit-rabbah-68-9": "“He is the place of the world, but the world is not His place” (start of the passage) — section “Contraction”.",
-        "ex-33-21": "“Here is a place with Me” — the verse that saying is built on.",
-        "ps-19-5": "“Their line (קו) has gone out through all the earth”: for Radak “kav” means building. Section “The line that builds worlds”.",
-        "ez-43-2": "“And the earth shone with His glory” — section “Hope: the light returns”.",
-        "gen-19-27": "“The place where Avraham stood” — mikveh as the line of Avraham (section “Three lines”).",
-        "ez-33-24": "“Avraham was one” — “one place” as Avraham’s place.",
-        "ps-27-14": "“Hope (קוה) to G-d” — hope, the line of Yitzchak.",
-      },
       takeaways: [
         "The root קוה = 111 = אלף = פלא (wonder): mikveh — gathering of waters, kav — line, tikvah — hope.",
         "Mikveh is the tzimtzum and the reshimu (“let the dry land appear”); the line is the ray from the Infinite that builds the worlds; hope is the returning light, creation longing for its Source.",
@@ -146,7 +130,7 @@ const en: LessonText = {
     },
     {
       title: 'Fifty-nine',
-      cond: `<p>The gematria of the whole ninth verse of Bereshit is <b>3068</b>, and it has 52 letters.</p><p>The Rebbe of Izbica derived his rule from the ninth verse of portion Balak:</p><p class="verse" dir="rtl" lang="he">ויאמר בלעם אל האלקים בלק בן צפר מלך מואב שלח אלי</p><p>“And Bilam said to G-d: Balak son of Tzipor, king of Moav, has sent to me.” Its gematria is <b>1593</b>. What do the two verses have in common?</p>`,
+      cond: `<p>The gematria of the whole ninth verse of Bereshit is <b>3068</b>, and it has 52 letters.</p><p>The Rebbe of Izbica derived his rule from the ninth verse of portion Balak:</p><p class="verse" dir="rtl" lang="he">ויאמר בלעם אל האלקים בלק בן צפר מלך מואב שלח אלי</p><p>“And Bilam said to G-d: Balak son of Tzipor, king of Moav, has sent to me.”<sup data-src="num-22-10"></sup> Its gematria is <b>1593</b>. What do the two verses have in common?</p>`,
       steps: [
         { q: 'What is the average value of one letter of the ninth verse of Bereshit?', hint: '3068 : 52.' },
         { q: 'How many times greater is 1593 than this number?', hint: '1593 : 59.' },
@@ -162,33 +146,22 @@ const en: LessonText = {
       lessons: [
         {
           h: 'The measure of creation',
-          b: `<p>The gematria of the ninth verse is 3068. That is 13 (“one”) times 236. And 236 is the gematria of “and great in strength” (<span class="he">ורב כח</span>) from the verse “Great is our L-rd and great in strength”. This is the secret of “shiur komah”, the “measure of the Creator’s stature”, spoken of in an ancient midrash.</p><p>Remove the word “one” itself, and the remaining words give 3055 — exactly five times “Torah” (<span class="he">תורה</span> = 611): like the five books, the entire Torah.</p>`,
+          b: `<p>The gematria of the ninth verse is 3068. That is 13 (“one”) times 236. And 236 is the gematria of “and great in strength” (<span class="he">ורב כח</span>) from the verse “Great is our L-rd and great in strength”.<sup data-src="ps-147-5"></sup> This is the secret of “shiur komah”, the “measure of the Creator’s stature”, spoken of in an ancient midrash.</p><p>Remove the word “one” itself, and the remaining words give 3055 — exactly five times “Torah” (<span class="he">תורה</span> = 611): like the five books, the entire Torah.</p>`,
         },
         {
           h: 'The average letter is 59',
-          b: `<p>3068 is 52 times 59, so the average letter of the ninth verse equals 59. The ninth verse of portion Balak, on which the Rebbe of Izbica builds his rule, equals 1593 — 27 times 59. The common denominator of the two verses is 59.</p><p>The Rav brings two more words with the same number 59 — to show that this number is “alive”.</p><p><b>Yechiel</b> (<span class="he">יחיאל</span> = 10 + 8 + 10 + 1 + 30) — a Hebrew name meaning “may G-d live” (<span class="he">יחי אל</span>).</p><p><b>“Mother of the living”</b> (<span class="he">אם חי</span> = 1 + 40 + 8 + 10) — this is what the Torah calls Chava: “And the man called his wife’s name Chava, because she was the mother of all living” (Genesis 3:20). And Chava is the very woman whose creation the “face” and the “tail” debate.</p><p>Both words contain <span class="he">חי</span> — “life”. That is why the Rav calls 59 “the living prime” (prime — divisible only by 1 and itself).</p>`,
+          b: `<p>3068 is 52 times 59, so the average letter of the ninth verse equals 59. The ninth verse of portion Balak, on which the Rebbe of Izbica builds his rule, equals 1593 — 27 times 59. The common denominator of the two verses is 59.</p><p>The Rav brings two more words with the same number 59 — to show that this number is “alive”.</p><p><b>Yechiel</b> (<span class="he">יחיאל</span> = 10 + 8 + 10 + 1 + 30) — a Hebrew name meaning “may G-d live” (<span class="he">יחי אל</span>).</p><p><b>“Mother of the living”</b> (<span class="he">אם חי</span> = 1 + 40 + 8 + 10) — this is what the Torah calls Chava: “And the man called his wife’s name Chava, because she was the mother of all living” (Genesis 3:20)<sup data-src="gen-3-20"></sup>. And Chava is the very woman whose creation the “face” and the “tail” debate.</p><p>Both words contain <span class="he">חי</span> — “life”. That is why the Rav calls 59 “the living prime” (prime — divisible only by 1 and itself).</p>`,
         },
         {
           h: '59 is the “tail”',
-          b: `<p>Most importantly, 59 is the gematria of “tail” (<span class="he">זנב</span>). This is the secret of the debate from the previous lesson: “one said a face, the other said a tail”, about what woman was created from.</p><p>In Kabbalah the “tail” points to Yesod — the ninth attribute — in its state of “smallness” (katnut). It is also the secret of the primordial snake that seduced Chava. There lies the root of bodily desire: “and your desire shall be to your husband”. So the ninth verse is tied to the ninth attribute, and the ninth attribute to the “tail”.</p>`,
+          b: `<p>Most importantly, 59 is the gematria of “tail” (<span class="he">זנב</span>). This is the secret of the debate from the previous lesson: “one said a face, the other said a tail”<sup data-src="berakhot-61a"></sup>, about what woman was created from.</p><p>In Kabbalah the “tail” points to Yesod — the ninth attribute — in its state of “smallness” (katnut). It is also the secret of the primordial snake that seduced Chava.<sup data-src="shabbat-146a"></sup> There lies the root of bodily desire: “and your desire shall be to your husband”.<sup data-src="gen-3-16"></sup> So the ninth verse is tied to the ninth attribute, and the ninth attribute to the “tail”.</p>`,
         },
         {
           h: 'Sanctified desire',
-          b: `<p>A husband’s desire for his wife also comes from here. In holiness it is said: “the desire of the righteous is only good”. The word “only” (<span class="he">אך</span>) is a diminution: the tzaddik diminishes bodily desire in himself, and then “only good to Israel” is fulfilled.</p><p>Hence also the Talmudic saying “better to live as two than alone”. The Rav notes that the letter <span class="he">נ</span> is the ninth from the end of the alphabet (ת, ש, ר, ק, צ, פ, ע, ס, נ). He warns that this also holds a root of licentiousness — which is why desire needs holiness.</p>`,
+          b: `<p>A husband’s desire for his wife also comes from here. In holiness it is said: “the desire of the righteous is only good”.<sup data-src="prov-11-23"></sup> The word “only” (<span class="he">אך</span>) is a diminution: the tzaddik diminishes bodily desire in himself, and then “only good to Israel” is fulfilled.<sup data-src="ps-73-1"></sup></p><p>Hence also the Talmudic saying “better to live as two than alone”.<sup data-src="yevamot-118b"></sup> The Rav notes that the letter <span class="he">נ</span> is the ninth from the end of the alphabet (ת, ש, ר, ק, צ, פ, ע, ס, נ). He warns that this also holds a root of licentiousness — which is why desire needs holiness.</p>`,
         },
       ],
       reflection: 'Which “small” thing in me — a desire, a habit, a “tail” — can I sanctify instead of suppressing? What would that take today?',
-      sourceNotes: {
-        "num-22-10": "The ninth verse of Balak: its gematria is 1593 = 27 × 59 (the riddle’s second step).",
-        "ps-147-5": "“And great in strength” (ורב כח = 236): 3068 = 13 × 236 — section “The measure of creation”.",
-        "gen-3-20": "Chava is called “mother of all living” (אם חי = 59) — section “The average letter is 59”.",
-        "berakhot-61a": "The “face or tail” debate: 59 = זנב ties this lesson to the first.",
-        "shabbat-146a": "The Rav writes that the “tail” is also the secret of the primordial snake that seduced Chava, and cites this passage: “when the snake came to Chava it infected her with impurity”. Section “59 is the tail”.",
-        "gen-3-16": "“Your desire shall be to your husband” — the root of bodily desire.",
-        "prov-11-23": "“The desire of the righteous is only good” (אך טוב) — section “Sanctified desire”.",
-        "ps-73-1": "“Only good to Israel” (אך טוב) — same section.",
-        "yevamot-118b": "“Better to live as two (טן דו) than as a widow” — section “Sanctified desire”: נ is the ninth letter from the end.",
-      },
       takeaways: [
         "The ninth verse = 3068 = 13 × 236 (ורב כח — “the measure of the Creator”); without the word “one” — 3055 = 5 × תורה.",
         "The average letter = 3068 : 52 = 59. The ninth verse of Balak = 1593 = 27 × 59.",
@@ -198,7 +171,7 @@ const en: LessonText = {
     },
     {
       title: 'All the nines of Bereshit',
-      cond: `<p>The rule of the ninth verse applies not only to verses but also to <b>letters, words and sections</b>: nine is the sefirah of Yesod, which is called “all” and can carry opposites within it.</p><p>Let’s look at the ninth letter, ninth word and ninth section of the Torah. The ninth word is <em>היתה</em> (“was”): <em>והארץ היתה תהו ובהו</em> — “and the earth was chaos and void”. The ninth section is G-d’s words to Chava after the sin, ending with: <em>והוא ימשל בך</em> — “and he shall rule over you”.</p>`,
+      cond: `<p>The rule of the ninth verse applies not only to verses but also to <b>letters, words and sections</b>: nine is the sefirah of Yesod, which is called “all” and can carry opposites within it.</p><p>Let’s look at the ninth letter, ninth word and ninth section of the Torah. The ninth word is <em>היתה</em> (“was”): <em>והארץ היתה תהו ובהו</em> — “and the earth was chaos and void”.<sup data-src="gen-1-1"></sup> The ninth section is G-d’s words to Chava after the sin, ending with: <em>והוא ימשל בך</em> — “and he shall rule over you”.</p>`,
       steps: [
         { q: 'Which letter is the ninth in the Torah? (<span class="he">בראשית ברא…</span>)', opts: ['alef · 1', 'hei · 5', 'resh · 200', 'shin · 300'] },
         { q: 'What is the ninth word of the Torah, <span class="he">היתה</span>?', hint: '5 + 10 + 400 + 5.' },
@@ -220,31 +193,22 @@ const en: LessonText = {
         },
         {
           h: 'The ninth word — “was”',
-          b: `<p>The ninth word of the Torah is “was” (<span class="he">היתה</span>): “and the earth was chaos and void”. Here the root “to be” appears in the Torah for the first time — being, the coming of “something from nothing”. According to the Ramban, “bara” means creating something from nothing; “bara” and “was” are each the second word of their verse.</p><p>But “was” also carries a meaning of ruin: “calamity upon calamity” (<span class="he">הוה על הוה</span>). This is the secret of the “breaking of the vessels” in the world of Tohu, the world of chaos. “Tohu” (<span class="he">תהו</span>) = 411 — like “something from nothing” (<span class="he">יש מאין</span>). Chaos is the feeling “I will reign” (the words of Adoniyahu), a “something” grown out of the source of “nothing”. The rectification is true self-nullification before the true Being.</p>`,
+          b: `<p>The ninth word of the Torah is “was” (<span class="he">היתה</span>): “and the earth was chaos and void”. Here the root “to be” appears in the Torah for the first time — being, the coming of “something from nothing”. According to the Ramban, “bara” means creating something from nothing; “bara” and “was” are each the second word of their verse.</p><p>But “was” also carries a meaning of ruin: “calamity upon calamity” (<span class="he">הוה על הוה</span>)<sup data-src="ez-7-26"></sup>. This is the secret of the “breaking of the vessels” in the world of Tohu, the world of chaos. “Tohu” (<span class="he">תהו</span>) = 411 — like “something from nothing” (<span class="he">יש מאין</span>). Chaos is the feeling “I will reign” (the words of Adoniyahu)<sup data-src="kings1-1-5"></sup>, a “something” grown out of the source of “nothing”. The rectification is true self-nullification before the true Being.</p>`,
         },
         {
           h: 'The ninth section — G-d’s words to Chava',
-          b: `<p>The ninth section of the Torah is Chava’s curse after the sin of the Tree of Knowledge: “To the woman He said: I will greatly increase your sorrow and your pregnancy; in pain you shall bear children; your desire shall be to your husband, and he shall rule over you.” One may say this is the main consequence of the sin and the order of the world after it.</p><p>The words “and he shall rule over you” (<span class="he">והוא ימשל בך</span>) equal 420 — like “was” (<span class="he">היתה</span>): the return of the world, the earth, the feminine to chaos. 420 is also “Yaakov” + “Rachel” (182 + 238), but in its opposite, “shadow” form. In the union of Yaakov and Rachel, Rachel stands below him — a consequence of Chava’s sin. Sarah stood above Avraham, and Rivkah was equal to Yitzchak.</p>`,
+          b: `<p>The ninth section of the Torah is Chava’s curse after the sin of the Tree of Knowledge: “To the woman He said: I will greatly increase your sorrow and your pregnancy; in pain you shall bear children; your desire shall be to your husband, and he shall rule over you.”<sup data-src="gen-3-16"></sup> One may say this is the main consequence of the sin and the order of the world after it.</p><p>The words “and he shall rule over you” (<span class="he">והוא ימשל בך</span>) equal 420 — like “was” (<span class="he">היתה</span>): the return of the world, the earth, the feminine to chaos. 420 is also “Yaakov” + “Rachel” (182 + 238), but in its opposite, “shadow” form. In the union of Yaakov and Rachel, Rachel stands below him — a consequence of Chava’s sin. Sarah stood above Avraham, and Rivkah was equal to Yitzchak.</p>`,
         },
         {
           h: 'Sun and moon',
-          b: `<p>“And he shall rule over you” has three words and ten letters. The average word is 140: that is “Chochmah” and “Binah” (73 + 67) and “sun” and “moon” (<span class="he">חמה</span> 53 + <span class="he">לבנה</span> 87). Here is a hint to the source of the sin of the Tree: the moon’s complaint that “two kings cannot use one crown”, and its diminishing.</p><p>The average letter is 42: “ima”, mother (<span class="he">אמא</span>), and the 42-letter Name. Binah, the “mother”, “nests in the throne”, in the world of Beriah, where “something from nothing” begins. Together 140 + 42 = 182 — Yaakov, who marries Rachel, and together they again give 420.</p>`,
+          b: `<p>“And he shall rule over you” has three words and ten letters. The average word is 140: that is “Chochmah” and “Binah” (73 + 67) and “sun” and “moon” (<span class="he">חמה</span> 53 + <span class="he">לבנה</span> 87). Here is a hint to the source of the sin of the Tree: the moon’s complaint that “two kings cannot use one crown”<sup data-src="chullin-60b"></sup>, and its diminishing.</p><p>The average letter is 42: “ima”, mother (<span class="he">אמא</span>), and the 42-letter Name. Binah, the “mother”, “nests in the throne”, in the world of Beriah, where “something from nothing” begins. Together 140 + 42 = 182 — Yaakov, who marries Rachel, and together they again give 420.</p>`,
         },
         {
           h: 'The whole verse: 193',
-          b: `<p>The whole verse about Chava — 16 words — equals 4246, that is, 22 times 193. The last word of the verse, “over you” (<span class="he">בך</span>), is 22. So the verse is 192 times “you” plus one more “you” at the end. And 192 is three times “Adam and Chava” (45 + 19 = 64).</p><p>In Kabbalah 193 is the holy Name <span class="he">טפטפיה</span>, the secret of the union of husband and wife. It is also the letter <span class="he">ז</span> (which begins “tail”) spelled out twice: <span class="he">זין יוד נון</span> = 193. And the full spelling of the Name <span class="he">כוזו</span> (a letter substitution of G-d’s Name, written on the mezuzah): <span class="he">כף ואו זין ואו</span> = 193.</p><p>The Baal Shem Tov explained this Name in a person’s service: “ku” (<span class="he">כו</span> = 26, like G-d’s Name) — “ba-zo u-va-zo”, in this and in that, that is, in every single thing. “I set G-d before me always.” It is also the secret of the words “I am G-d your G-d”, which close the Shema.</p>`,
+          b: `<p>The whole verse about Chava — 16 words — equals 4246, that is, 22 times 193. The last word of the verse, “over you” (<span class="he">בך</span>), is 22. So the verse is 192 times “you” plus one more “you” at the end. And 192 is three times “Adam and Chava” (45 + 19 = 64).</p><p>In Kabbalah 193 is the holy Name <span class="he">טפטפיה</span>, the secret of the union of husband and wife. It is also the letter <span class="he">ז</span> (which begins “tail”) spelled out twice: <span class="he">זין יוד נון</span> = 193. And the full spelling of the Name <span class="he">כוזו</span> (a letter substitution of G-d’s Name, written on the mezuzah): <span class="he">כף ואו זין ואו</span> = 193.</p><p>The Baal Shem Tov explained this Name in a person’s service: “ku” (<span class="he">כו</span> = 26, like G-d’s Name) — “ba-zo u-va-zo”, in this and in that, that is, in every single thing. “I set G-d before me always.”<sup data-src="ps-16-8"></sup> It is also the secret of the words “I am G-d your G-d”<sup data-src="num-15-41"></sup>, which close the Shema.</p>`,
         },
       ],
       reflection: 'Where does “I will reign” sound inside me? How can I return this “I” to its source — and turn rule into union?',
-      sourceNotes: {
-        "gen-1-1": "The ninth letter of the Torah (א of ברא) and the ninth word (היתה) — in the first two verses.",
-        "ez-7-26": "“Calamity upon calamity” (הוה על הוה) — “was” as ruin, section “The ninth word”.",
-        "kings1-1-5": "“I will reign” (אני אמלך) — the sense of “I” in the world of Tohu.",
-        "gen-3-16": "The ninth section of the Torah: “and he shall rule over you” = 420 (third step).",
-        "chullin-60b": "The moon’s complaint: “two kings, one crown” — section “Sun and moon”.",
-        "ps-16-8": "“I set G-d before me always” — the Baal Shem Tov on the Name כוזו, section “The whole verse: 193”.",
-        "num-15-41": "“I am G-d your G-d” — the end of the Shema, same section.",
-      },
       takeaways: [
         "The rule of nine also holds for letters, words and sections. The ninth letter of the Torah is א — the second alef, like the second “one”.",
         "The ninth word is היתה (420): being, and the breaking of the vessels in the world of Tohu; תהו = 411 = יש מאין.",

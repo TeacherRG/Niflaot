@@ -44,15 +44,13 @@ export interface StepText {
 
 export interface RiddleText {
   title: string;
-  /** HTML */
+  /** HTML; a quoted source is marked with <sup data-src="ID"></sup> right after the quote (footnote) */
   cond: string;
   steps: StepText[];
   reveal: { h: string; p: string };
   /** expandable lesson sections; `b` is HTML */
   lessons: { h: string; b: string }[];
   reflection: string;
-  /** for each primary source of this riddle: what it relates to in the lesson (shown with the source) */
-  sourceNotes?: Record<string, string>;
   /** short bullet points for the summary («конспект») on the final screen; plain text, Hebrew is auto-styled */
   takeaways?: string[];
 }
