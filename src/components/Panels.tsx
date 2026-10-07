@@ -3,6 +3,7 @@ import { LESSON_GROUPS, findLesson } from '../lessons';
 import { VALUES } from '../core/gematria';
 import { OPS, SIGN } from '../core/mentalMath';
 import { Icon, Sheet, useUI } from './ui';
+import { ASSISTANT_URL } from '../core/assistant';
 
 const TABLE = Object.entries(VALUES).filter(([c]) => !'ךםןףץ'.includes(c));
 
@@ -83,6 +84,12 @@ export function Panels() {
             <Icon name="help" />
             <span>{t('help.title')}</span>
           </button>
+          {ASSISTANT_URL && (
+            <button className="menu-item" onClick={() => open('assistant')}>
+              <Icon name="spark" />
+              <span>{t('ai.title')}</span>
+            </button>
+          )}
           <button className="menu-item" onClick={() => open('about')}>
             <Icon name="info" />
             <span>{t('about.title')}</span>

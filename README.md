@@ -53,6 +53,12 @@ python3 scripts/fetch-sources.py                                                
 Тексты берутся из открытой выгрузки Sefaria и сохраняются в `src/sources/sefaria.json`;
 русские переводы проекта — в `src/sources/ru.ts`.
 
+## ИИ-помощник
+
+Чат на сайте работает через отдельный сервер с ключом Claude API — `assistant/` (Cloudflare Worker).
+Как развернуть — в [assistant/README.md](assistant/README.md). Адрес сервера передаётся при сборке
+через `VITE_ASSISTANT_URL` (в GitHub — переменная репозитория `ASSISTANT_URL`); без него помощник скрыт.
+
 ## Как добавить язык
 
 1. Добавьте код в `src/i18n/config.ts` (для иврита: `dir: 'rtl'`).

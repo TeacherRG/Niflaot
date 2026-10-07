@@ -23,7 +23,7 @@ const en: Messages = {
 
   'about.title': 'About the project',
   'about.body':
-    '<p><b>Niflaot</b> is a series of gematria games based on articles by Rabbi Yitzchak Ginsburgh from the “Niflaot” booklet (Gal Einai). You count the numerical values of words, discover hidden equalities and, step by step, uncover the meaning behind them.</p><h4>Who it is for</h4><ul><li><b>Parents</b> — to learn Torah together with their children through play.</li><li><b>Chitas readers</b> — as a continuation of daily study.</li><li><b>Young prodigies</b> — those who love numbers, riddles and depth.</li><li><b>Everyone</b> who wants to see wonders — <i>niflaot</i> — in their own life.</li></ul><h4>Goals</h4><ul><li><b>Torah study.</b> Not passive reading but a living search: you find each equality yourself, and so the meaning stays with you.</li><li><b>Rectifying the traits of the soul.</b> Each lesson addresses specific traits — pride, desire, anger, love — and leads from understanding to working on oneself.</li></ul><h4>Objectives</h4><ul><li>Make Rabbi Ginsburgh’s deep articles accessible through play: riddle, solution, retelling of the lesson.</li><li>Turn knowledge into personal work: after every riddle — a question for yourself and room for your notes.</li><li>Release new lessons regularly and translate them into more languages.</li></ul><p>The full Hebrew text of the articles is on pnimi.org.il. All texts belong entirely to Rabbi Yitzchak Ginsburgh. Idea and production — the <a href="https://mychitas.app" target="_blank" rel="noopener">mychitas.app</a> Torah project.</p><p>Website: <a href="https://niflaot.mychitas.app">niflaot.mychitas.app</a></p>',
+    '<p><b>Niflaot</b> is a series of gematria games based on articles by Rabbi Yitzchak Ginsburgh from the “Niflaot” booklet (Gal Einai). You count the numerical values of words, discover hidden equalities and, step by step, uncover the meaning behind them.</p><h4>What you can do here</h4><ul><li><b>Solve the lessons.</b> Each riddle is a passage of the article and a few Hebrew words; you find the equality yourself, and then the solution, the lesson and a question for yourself open up.</li><li><b>Learn mental math through holy gematria.</b> No calculator adds the letters — you do. The “Mental math” section in the menu gives one reliable technique each for addition, subtraction, multiplication and division, with examples from our lessons and a three-level trainer. Numbers from the Torah become the best exercise for the mind.</li><li><b>Read the primary sources.</b> Under every lesson are the Torah verses, midrashim and commentaries it rests on: the Hebrew original and a translation side by side, with a link to Sefaria. You can check and deepen every statement.</li><li><b>Ask the AI assistant.</b> It explains a word, a term or a source, shows how to add gematria in your head and gives hints on a riddle — without revealing the answer too early.</li><li><b>Print a lesson</b> — for study at the table, in class or on Shabbat.</li></ul><h4>Who it is for</h4><ul><li><b>Parents</b> — to learn Torah together with their children through play.</li><li><b>Chitas readers</b> — as a continuation of daily study.</li><li><b>Young prodigies</b> — those who love numbers, riddles and depth.</li><li><b>Everyone</b> who wants to see wonders — <i>niflaot</i> — in their own life.</li></ul><h4>Goals</h4><ul><li><b>Torah study.</b> Not passive reading but a living search: you find each equality yourself, and so the meaning stays with you.</li><li><b>Rectifying the traits of the soul.</b> Each lesson addresses specific traits — pride, desire, anger, love — and leads from understanding to working on oneself.</li><li><b>A clear mind.</b> Mental arithmetic trains attention and memory, and holy words give that training meaning.</li></ul><h4>Objectives</h4><ul><li>Make Rabbi Ginsburgh’s deep articles accessible through play: riddle, solution, retelling of the lesson.</li><li>Ground every lesson in primary sources that anyone can read for themselves.</li><li>Turn knowledge into personal work: after every riddle — a question for yourself and room for your notes.</li><li>Release new lessons regularly and translate them into more languages.</li></ul><p>The full Hebrew text of the articles is on pnimi.org.il. All texts belong entirely to Rabbi Yitzchak Ginsburgh. Primary sources come from the open Sefaria library. Idea and production — the <a href="https://mychitas.app" target="_blank" rel="noopener">mychitas.app</a> Torah project.</p><p>Website: <a href="https://niflaot.mychitas.app">niflaot.mychitas.app</a></p>',
 
   'print.button': 'Print',
   'print.back': '← Back to the game',
@@ -163,6 +163,21 @@ const en: Messages = {
   'calc.noMatch': 'No matches among the game’s words',
   'calc.space': 'space',
   'calc.backspace': 'delete',
+
+  'ai.title': 'AI assistant',
+  'ai.hello': 'Shalom! I can help with the lesson: explain a word or a source, show how to add gematria in your head, and give a hint on a riddle — without revealing the answer too early.',
+  'ai.s.lesson': 'What is this lesson about?',
+  'ai.s.hint': 'Give me a small hint for the riddle',
+  'ai.s.math': 'How do I add gematria quickly in my head?',
+  'ai.s.source': 'Tell me about the lesson’s primary sources',
+  'ai.placeholder': 'Your question…',
+  'ai.send': 'Ask',
+  'ai.stop': 'Stop',
+  'ai.clear': 'Start over',
+  'ai.thinking': 'The assistant is typing…',
+  'ai.note': 'AI can make mistakes — check against the lesson and the sources. Questions are sent to Anthropic (Claude).',
+  'ai.error': 'Couldn’t answer. Please try again.',
+  'ai.busy': 'The assistant is busy right now. Try again in a minute.',
 
   'footer.contact': 'Questions & suggestions',
   'footer.donate': 'Support the project',

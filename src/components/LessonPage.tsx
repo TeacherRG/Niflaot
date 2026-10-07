@@ -9,6 +9,7 @@ import { Riddle } from './Riddle';
 import { Final } from './Final';
 import { Calculator } from './Calculator';
 import { Colophon } from './Colophon';
+import { lessonContext, setAssistantContext } from '../core/assistant';
 
 export function LessonPage({ lesson }: { lesson: Lesson }) {
   const { t, pick, locale } = useI18n();
@@ -22,6 +23,11 @@ export function LessonPage({ lesson }: { lesson: Lesson }) {
   useEffect(() => {
     document.title = `${text.title} · ${t('app.title')}`;
   }, [text.title, t]);
+
+  // what the AI assistant knows: the lesson, where the user is, and only the solved riddles' answers
+  useEffect(() => {
+    setAssistantContext(lessonContext(lesson, textLocale, S.done, S.lvl));
+  }, [lesson, textLocale, S.done, S.lvl]);
 
   // play timer: counts while the current riddle is started, unsolved and the tab is visible
   useEffect(() => {

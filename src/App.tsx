@@ -7,6 +7,8 @@ import { MathPage } from './components/MathPage';
 import { OPS, type Op } from './core/mentalMath';
 import { Panels } from './components/Panels';
 import { TermPopover } from './components/TermPopover';
+import { Assistant } from './components/Assistant';
+import { setAssistantContext } from './core/assistant';
 import { DonateFab, UIContext, type Panel } from './components/ui';
 import { useI18n } from './i18n';
 
@@ -79,6 +81,10 @@ export function App() {
   useFirstVisitHelp(open);
   const [slug, view] = route.split('/');
   const lesson = slug ? findLesson(slug) : undefined;
+  // outside a lesson the assistant gets no lesson context (the lesson page sets its own)
+  useEffect(() => {
+    if (!lesson) setAssistantContext('');
+  }, [lesson]);
   const ui = useMemo(() => ({ panel, open, lessonSlug: lesson?.slug }), [panel, lesson]);
   return (
     <UIContext.Provider value={ui}>
@@ -93,6 +99,7 @@ export function App() {
       )}
       <Panels />
       <TermPopover />
+      <Assistant />
       <DonateFab label={t('footer.donate')} />
     </UIContext.Provider>
   );
