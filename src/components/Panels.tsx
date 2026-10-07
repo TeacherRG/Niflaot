@@ -1,5 +1,5 @@
 import { Html, useI18n } from '../i18n';
-import { LESSONS } from '../lessons';
+import { LESSON_GROUPS, findLesson } from '../lessons';
 import { VALUES } from '../core/gematria';
 import { Icon, Sheet, useUI } from './ui';
 
@@ -7,7 +7,7 @@ const TABLE = Object.entries(VALUES).filter(([c]) => !'ךםןףץ'.includes(c));
 
 /** Side menu + "How to play" + "About" — rendered once at the app root. */
 export function Panels() {
-  const { t, pick } = useI18n();
+  const { t, pick, locale } = useI18n();
   const { panel, open, lessonSlug } = useUI();
   const close = () => open(null);
 
@@ -16,14 +16,36 @@ export function Panels() {
       <Sheet variant="drawer" open={panel === 'menu'} onClose={close} title={t('app.title')} closeLabel={t('menu.close')}>
         <nav className="menu">
           <div className="menu-lbl">{t('menu.lessons')}</div>
-          {LESSONS.map((l) => (
-            <a key={l.slug} href={`#/${l.slug}`} onClick={close} className="menu-item">
-              <span className="menu-num">{l.number}</span>
-              <span>
-                {pick(l.texts).value.title}
-                <small lang="he">{l.hebrewTitle}</small>
-              </span>
-            </a>
+          {LESSON_GROUPS.map((g) => (
+            <details key={g.id} className="menu-group" open={!lessonSlug || findLesson(lessonSlug)?.parsha === g.id}>
+              <summary className="menu-item">
+                <Icon name="book" />
+                <span>
+                  {g.name[locale as keyof typeof g.name] ?? g.name.ru}
+                  <small>
+                    <span lang="he">{g.he}</span> · {g.year}
+                  </small>
+                </span>
+                <span className="menu-count">{g.lessons.length}</span>
+              </summary>
+              <div className="menu-sub">
+                {g.lessons.map((l) => (
+                  <a
+                    key={l.slug}
+                    href={`#/${l.slug}`}
+                    onClick={close}
+                    className="menu-item"
+                    aria-current={l.slug === lessonSlug ? 'page' : undefined}
+                  >
+                    <span className="menu-num">{l.number}</span>
+                    <span>
+                      {pick(l.texts).value.title}
+                      <small lang="he">{l.hebrewTitle}</small>
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </details>
           ))}
           <a href="#/" onClick={close} className="menu-item">
             <Icon name="book" />

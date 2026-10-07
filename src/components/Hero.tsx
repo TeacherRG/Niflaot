@@ -1,5 +1,6 @@
 import { Html, useI18n } from '../i18n';
 import type { Lesson, LessonText } from '../lessons/types';
+import { PARSHIOT } from '../lessons/parshiot';
 import { Icon, useUI } from './ui';
 
 export function Hero({ lesson, text }: { lesson: Lesson; text: LessonText }) {
@@ -8,7 +9,9 @@ export function Hero({ lesson, text }: { lesson: Lesson; text: LessonText }) {
   return (
     <header className="hero hero-lesson">
       <div className="hero-in" data-l1={lesson.heroLetters[0]} data-l2={lesson.heroLetters[1]}>
-        <div className="year">{lesson.year}</div>
+        <div className="year">
+          {PARSHIOT[lesson.parsha].year} · <span className="he">{PARSHIOT[lesson.parsha].heYear}</span>
+        </div>
         <div className="heb gold-text">{lesson.hebrewTitle}</div>
         <Html as="h1" html={text.hero.heading} />
         <div className="author">{text.hero.author}</div>
