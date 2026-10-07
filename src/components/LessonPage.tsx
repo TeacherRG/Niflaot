@@ -3,7 +3,7 @@ import { useI18n } from '../i18n';
 import { formatTime } from '../core/format';
 import { useLessonState } from '../core/useLessonState';
 import type { Lesson } from '../lessons/types';
-import { LanguageSwitcher, TopBar } from './TopBar';
+import { TopBar } from './TopBar';
 import { Hero } from './Hero';
 import { Riddle } from './Riddle';
 import { Final } from './Final';
@@ -50,7 +50,7 @@ export function LessonPage({ lesson }: { lesson: Lesson }) {
 
   return (
     <>
-      <TopBar title={text.title} lang={false}>
+      <TopBar title={text.title}>
         <div className="levels">
           {lesson.riddles.map((_, i) => (
             <button
@@ -73,12 +73,6 @@ export function LessonPage({ lesson }: { lesson: Lesson }) {
       </TopBar>
 
       <div className="wrap">
-        <div className="subnav">
-          <a className="back" href="#/">
-            {t('catalog.back')}
-          </a>
-          <LanguageSwitcher />
-        </div>
         {textLocale !== locale && <div className="fallback-note">{t('catalog.fallback')}</div>}
         <Hero lesson={lesson} text={text} />
         <main id="game" ref={game} onClickCapture={start} onFocusCapture={start}>

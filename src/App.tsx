@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { findLesson } from './lessons';
 import { Catalog } from './components/Catalog';
 import { LessonPage } from './components/LessonPage';
+import { Panels } from './components/Panels';
+import { UIContext, type Panel } from './components/ui';
 
 const SIGNATURE = '\n\n©pnimi.org.il\n©mychitas.app';
 
@@ -40,9 +42,36 @@ function useCopySignature() {
   }, []);
 }
 
+/** Shows "How to play" once, on the very first visit. */
+function useFirstVisitHelp(open: (p: Panel) => void) {
+  useEffect(() => {
+    const KEY = 'niflaot:help-seen';
+    try {
+      if (localStorage.getItem(KEY)) return;
+    } catch {
+      return; // no storage — don't nag on every visit
+    }
+    const id = setTimeout(() => {
+      try {
+        localStorage.setItem(KEY, '1');
+      } catch {}
+      open('help');
+    }, 400);
+    return () => clearTimeout(id);
+  }, [open]);
+}
+
 export function App() {
   const route = useRoute();
   useCopySignature();
+  const [panel, open] = useState<Panel>(null);
+  useFirstVisitHelp(open);
+  const ui = useMemo(() => ({ panel, open }), [panel]);
   const lesson = route ? findLesson(route) : undefined;
-  return lesson ? <LessonPage key={lesson.slug} lesson={lesson} /> : <Catalog />;
+  return (
+    <UIContext.Provider value={ui}>
+      {lesson ? <LessonPage key={lesson.slug} lesson={lesson} /> : <Catalog />}
+      <Panels />
+    </UIContext.Provider>
+  );
 }
