@@ -3,6 +3,7 @@ import { useI18n } from '../i18n';
 import { LESSONS, LESSON_GROUPS } from '../lessons';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
+import { TagCloud } from './TagCloud';
 import { Icon, useUI } from './ui';
 
 function progress(slug: string, legacy?: string): number {
@@ -96,6 +97,7 @@ export function Catalog() {
             <div className="card soon">{t('catalog.soon')}</div>
           </div>
         </section>
+        <TagCloud />
       </div>
       <Colophon />
     </>
