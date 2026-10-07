@@ -564,6 +564,58 @@ article.m-card{border-top:3px solid var(--gold-2)}
 .p-src-seg .he{font-size:15px;text-align:right;line-height:1.6}
 .p-src-credit{font-size:10px;color:#666;margin:4px 0 0}
 
+/* ───────── AI assistant ───────── */
+.ai-fab{position:fixed;z-index:40;inset-inline-end:max(16px,env(safe-area-inset-right,0px));bottom:calc(68px + env(safe-area-inset-bottom,0px));display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--ink);border:1px solid var(--ink);color:var(--gold-2);box-shadow:0 6px 18px -6px rgba(20,26,51,.45);transition:transform .15s}
+.ai-fab:hover{transform:scale(1.08)}
+.ai-fab svg{fill:currentColor;fill-opacity:.25}
+.ai{display:flex;flex-direction:column;gap:12px;min-height:min(60vh,520px)}
+.ai-log{flex:1;display:flex;flex-direction:column;gap:10px;overflow:auto;max-height:min(56vh,520px);padding-inline-end:2px}
+.ai-hello p{margin:0 0 12px;color:var(--muted)}
+.ai-suggest{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 12px;font-size:13.5px;text-align:start;transition:border-color .15s,color .15s}
+.chip:hover{border-color:var(--gold);color:var(--gold)}
+.ai-msg{max-width:92%;padding:10px 13px;border-radius:12px;line-height:1.55;font-size:15px;overflow-wrap:anywhere}
+.ai-user{align-self:flex-end;background:var(--ink);color:#fff;border-end-end-radius:4px;white-space:pre-wrap}
+.ai-bot{align-self:flex-start;background:var(--gold-soft);border:1px solid var(--gold-line);border-end-start-radius:4px}
+.ai-bot p{margin:0 0 8px}.ai-bot p:last-child,.ai-bot ul:last-child{margin-bottom:0}
+.ai-bot ul{margin:0 0 8px;padding-inline-start:18px;display:grid;gap:4px}
+.ai-dots{display:inline-block;width:28px;height:10px;background:radial-gradient(circle,var(--gold) 3px,transparent 3.5px) 0 50%/10px 10px repeat-x;animation:ai-pulse 1s infinite ease-in-out}
+@keyframes ai-pulse{50%{opacity:.35}}
+.ai-error{color:var(--bad);font-size:14px}
+.ai-form{display:flex;gap:8px;align-items:flex-end}
+.ai-form textarea{flex:1;min-width:0;resize:none;font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.ai-form textarea:focus{outline:2px solid var(--gold-line);border-color:var(--gold)}
+.ai-form .btn{flex:none}
+.ai-foot{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;font-size:12px;color:var(--muted)}
+.link-btn{background:none;border:0;padding:0;color:var(--tchelet);font:inherit;font-weight:600;white-space:nowrap;cursor:pointer}
+@media print{.ai-fab{display:none!important}}
+
+/* ───────── offline helper ───────── */
+.hp-intro{margin:0;color:var(--muted)}
+.hp-lead{margin:-4px 0 10px}
+.hp-steps{display:grid;gap:10px}
+.chip.he{font-family:var(--f-he);font-size:17px;padding:4px 12px}
+.hp-in{font-size:24px;padding:8px 12px}
+.hp-kbd summary{font-size:13px;color:var(--tchelet);font-weight:600;cursor:pointer}
+.hp-kbd .kbd{margin-top:8px}
+.hp-kbd .key{width:34px;height:40px;font-size:17px}
+.hp-letters{display:flex;flex-wrap:wrap;gap:6px}
+.hp-letters span{display:grid;justify-items:center;min-width:34px;padding:4px 6px;border:1px solid var(--gold-line);border-radius:6px;background:var(--gold-soft)}
+.hp-letters b{font-family:var(--f-he);font-size:20px;font-weight:500;line-height:1.1}
+.hp-letters i{font-style:normal;font-family:var(--f-num);font-size:12px;color:var(--gold)}
+.hp-try{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.hp-try label{display:flex;align-items:center;gap:8px;font-size:14px}
+.hp-try input{width:84px;font:inherit;font-size:16px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.hp-solution{margin:0;padding:12px 14px 12px 32px;background:var(--paper);border:1px solid var(--line);border-radius:8px;display:grid;gap:6px;font-variant-numeric:tabular-nums}
+.hp-rank{color:var(--muted);font-size:13px}
+.hp-total{font-weight:700;font-size:17px}
+.hp-sources{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.hp-sources a{color:var(--ink);font-weight:600}
+.hp-faq{display:grid;gap:6px}
+.hp-faq details{border:1px solid var(--line);border-radius:8px;padding:9px 12px}
+.hp-faq summary{font-weight:600;cursor:pointer}
+.hp-faq .prose{margin-top:8px;font-size:14.5px}
+.hp-faq .prose p{margin:0}
 
 /* footnotes */
 sup.fn{line-height:0;font-size:.68em;margin-inline-start:1px}

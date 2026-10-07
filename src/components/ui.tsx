@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useRef, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
-export type Panel = 'menu' | 'help' | 'about' | null;
+export type Panel = 'menu' | 'help' | 'about' | 'assistant' | null;
 
 export const UIContext = createContext<{ panel: Panel; open: (p: Panel) => void; lessonSlug?: string }>({
   panel: null,
@@ -24,6 +24,7 @@ const PATHS = {
   mail: 'M3 6h18v12H3zM3 6l9 7 9-7',
   calc: 'M6 3h12a1 1 0 011 1v16a1 1 0 01-1 1H6a1 1 0 01-1-1V4a1 1 0 011-1zM8 7h8M8 12h2M14 12h2M8 16h2M14 16h2',
   image: 'M4 5h16v14H4zM4 15l4-4 4 4 3-3 5 5M15.5 9.5a1.5 1.5 0 100-.01',
+  spark: 'M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z',
   print: 'M7 8V3h10v5M7 17H5a2 2 0 01-2-2v-5a2 2 0 012-2h14a2 2 0 012 2v5a2 2 0 01-2 2h-2M7 14h10v7H7z',
 } as const;
 

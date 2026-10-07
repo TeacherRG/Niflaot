@@ -17,7 +17,9 @@
 - `src/i18n/` — интерфейс ru/en, словарь терминов `glossary.ts`.
 - `src/sources/` — первоисточники из Sefaria (`sefaria.json`) и русские переводы проекта (`ru.ts`).
 - `scripts/fetch-sources.py` — поиск и загрузка первоисточников из открытой выгрузки Sefaria.
-- `src/core/` — гиматрия, Имена (`names.ts`), устный счёт, картинка для шеринга.
+- `src/core/` — гиматрия, Имена (`names.ts`), устный счёт, картинка для шеринга, клиент ИИ-помощника (`assistant.ts`).
+- `src/components/Helper.tsx` — офлайн-помощник (кнопка ✦): гиматрия по шагам, первоисточники, частые вопросы.
+- `assistant/` — сервер ИИ-чата (Cloudflare Worker, Claude API); пока скрыт, включается переменной `ASSISTANT_URL`.
 
 ## Новый урок — всегда по `docs/LESSON-GUIDE.md`
 
