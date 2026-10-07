@@ -1,12 +1,23 @@
 import { useMemo, useState } from 'react';
 import { useI18n } from '../i18n';
-import { KEYBOARD, VALUES, gematria } from '../core/gematria';
+import { KEYBOARD, VALUES, gematria, letters } from '../core/gematria';
 import { displayNames } from '../core/names';
 import type { Lesson } from '../lessons/types';
+import { MathCoach } from './MathCoach';
+import type { CoachAction } from '../core/coach';
+
+/** Each word is spelled out letter by letter; several words are then added up. */
+function wordActions(text: string): CoachAction[] {
+  const words = text.split(/\s+/).filter((w) => letters(w).length);
+  const acts: CoachAction[] = words.map((w) => ({ word: w }));
+  if (words.length > 1) acts.push({ add: words.map((_, i) => `$${i + 1}` as const) });
+  return acts;
+}
 
 export function Calculator({ lesson, done }: { lesson: Lesson; done: number[] }) {
   const { t } = useI18n();
   const [value, setValue] = useState('שלום');
+  const [coach, setCoach] = useState(false);
 
   const known = useMemo(() => {
     const m = new Map<number, Set<string>>();
@@ -73,6 +84,14 @@ export function Calculator({ lesson, done }: { lesson: Lesson; done: number[] })
             ))}
         </span>
       </div>
+      {letters(value).length > 1 && (
+        <button className="coach-toggle" aria-expanded={coach} onClick={() => setCoach((c) => !c)}>
+          🧮 {t(coach ? 'coach.hide' : 'coach.open')}
+        </button>
+      )}
+      {coach && letters(value).length > 1 && (
+        <MathCoach key={value} actions={wordActions(value)} />
+      )}
     </section>
   );
 }

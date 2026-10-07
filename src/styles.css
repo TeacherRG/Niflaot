@@ -616,3 +616,43 @@ article.m-card{border-top:3px solid var(--gold-2)}
 .hp-faq summary{font-weight:600;cursor:pointer}
 .hp-faq .prose{margin-top:8px;font-size:14.5px}
 .hp-faq .prose p{margin:0}
+
+/* footnotes */
+sup.fn{line-height:0;font-size:.68em;margin-inline-start:1px}
+sup.fn a{font-family:var(--f-num);font-weight:700;color:var(--tchelet);text-decoration:none;cursor:pointer;padding:0 2px;border-radius:3px}
+sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:none}
+.src-num{flex:none;display:grid;place-items:center;min-width:22px;height:22px;padding:0 5px;border-radius:999px;background:var(--tchelet);color:#fff;font-family:var(--f-num);font-size:11.5px;font-weight:700}
+.fn-back{color:var(--tchelet);font-weight:700;cursor:pointer;text-decoration:none;margin-inline-start:6px}
+.fn-back sup{font-size:.7em}
+.fn-flash{animation:fnflash 1.6s ease-out}
+@keyframes fnflash{0%,30%{background:var(--gold-soft);box-shadow:0 0 0 4px var(--gold-soft)}100%{background:transparent;box-shadow:none}}
+.src,sup.fn a{scroll-margin-top:76px}
+
+/* «Посчитать вместе» — step-by-step help for the hint's example */
+.coach-toggle{display:inline-flex;align-items:center;gap:6px;margin-top:8px;border:1px solid currentColor;border-radius:999px;background:var(--surface);color:var(--tchelet);font-weight:700;font-size:13.5px;padding:5px 12px}
+.coach-toggle:hover{background:var(--tchelet);color:#fff}
+.fb.hint .coach-toggle{display:flex;width:max-content}
+.coach{border:1px solid var(--tchelet-soft);border-inline-start:3px solid var(--tchelet);border-radius:8px;background:var(--surface);padding:12px 14px;display:grid;gap:10px}
+.coach-steps{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.coach-head{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--tchelet);text-transform:uppercase;margin-top:4px}
+.coach-head:first-child{margin-top:0}
+.coach-info{font-size:14px;color:var(--muted)}
+.coach-done{font-size:15px;color:var(--ink-2)}
+.coach-done .ok{color:var(--ok);font-weight:700}
+.coach-done b{color:var(--ink)}
+.coach-now{display:grid;gap:8px;padding:8px 0 2px}
+.coach-q{font-size:22px;font-weight:600;color:var(--ink);display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.coach-count{font-family:var(--f-body);font-size:12px;font-weight:600;color:var(--muted)}
+.coach-end{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:15px;color:var(--ok);font-weight:600}
+.coach-end b{font-size:20px}
+.gold-btn{background:linear-gradient(180deg,#E3C47C,#C49A47);border-color:#C49A47;color:var(--ink)}
+.coach-more{font-size:13px;color:var(--tchelet);text-decoration:none;font-weight:600;justify-self:start}
+
+.coach-word{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:4px}
+.coach-word:first-child{margin-top:0}
+.coach-word>.he{font-family:var(--f-he);font-size:22px;font-weight:700;color:var(--ink)}
+.coach-letters{display:flex;gap:3px}
+.coach-letters span{display:grid;justify-items:center;border:1px solid var(--gold-line);border-radius:5px;background:var(--gold-soft);padding:1px 5px;min-width:24px}
+.coach-letters b{font-family:var(--f-he);font-size:15px;line-height:1.2}
+.coach-letters i{font-family:var(--f-num);font-style:normal;font-size:10.5px;color:var(--gold)}
+.calc .coach-toggle{justify-self:start}

@@ -1,5 +1,6 @@
 import type { Locale } from '../i18n';
 import type { ParshaId } from './parshiot';
+import type { CoachAction } from '../core/coach';
 
 /* ───────────── language-independent lesson data ───────────── */
 
@@ -7,6 +8,13 @@ export interface NumStep {
   t: 'num';
   /** correct numeric answer */
   a: number;
+  /** a counting task (e.g. «how many words»): no arithmetic, so no coach */
+  count?: boolean;
+  /**
+   * Step-by-step help («Посчитать вместе»): Hebrew words and numbers for the coach module, e.g.
+   * [{ word: 'זנב' }, { word: 'תאוה' }, { add: ['$1', '$2'] }]. The last result must equal `a`.
+   */
+  coach?: CoachAction[];
 }
 
 export interface ChoiceStep {
@@ -15,6 +23,8 @@ export interface ChoiceStep {
   opts: { h: string; v?: number }[];
   /** index of the correct option */
   c: number;
+  /** option values are gematria «במילוי» (letters spelled out in full) */
+  milui?: boolean;
 }
 
 export type StepData = NumStep | ChoiceStep;
@@ -44,7 +54,7 @@ export interface StepText {
 
 export interface RiddleText {
   title: string;
-  /** HTML */
+  /** HTML; a quoted source is marked with <sup data-src="ID"></sup> right after the quote (footnote) */
   cond: string;
   steps: StepText[];
   reveal: { h: string; p: string };

@@ -24,6 +24,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm run check   # lesson data must be consistent before publishing
       - run: npm run build
         env:
           # URL of the AI assistant worker (assistant/); empty → the assistant is hidden

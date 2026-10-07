@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Html, useI18n } from '../i18n';
 import { withTerms } from '../i18n/glossary';
 import { VALUES, gematria, letters } from '../core/gematria';
@@ -7,7 +7,8 @@ import { MAX_WRONG, award, draftStep, stepState, type GameState } from '../core/
 import type { Lesson, LessonText } from '../lessons/types';
 import { HebrewRuns } from './Hebrew';
 import { Sources } from './Sources';
-import { opInText } from '../core/mentalMath';
+import { MathCoach } from './MathCoach';
+import { footnotes } from '../sources/footnotes';
 
 interface Props {
   lesson: Lesson;
@@ -26,6 +27,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
   const rt = text.riddles[ri];
   const total = lesson.riddles.length;
   const solvedRiddle = S.done.includes(ri);
+  const [coachOpen, setCoachOpen] = useState<Record<number, boolean>>({});
   const focusId = useRef<{ id: string; select?: boolean } | null>(null);
 
   useEffect(() => {
@@ -38,6 +40,10 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
   let firstOpen = r.steps.findIndex((_, i) => !stepState(S, ri, i).ok);
   if (firstOpen < 0) firstOpen = r.steps.length;
   const solved = firstOpen >= r.steps.length;
+
+  // footnotes: numbered in reading order; before the riddle is solved the sources are hidden, so no marks
+  const fn = footnotes([rt.cond, rt.reveal.p, ...rt.lessons.map((l) => l.b)], solved ? (r.sources ?? []) : [], ri, t('sources.footnote'));
+  const [condHtml, revealHtml, ...lessonHtml] = fn.html;
 
   /** Records an attempt; `correct` decides the outcome. */
   const attempt = (i: number, correct: boolean, kind: 'num' | 'ch', pick?: number) =>
@@ -81,7 +87,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
         </span>
         <h2>{rt.title}</h2>
       </div>
-      <Html as="div" className="cond" html={withTerms(rt.cond, textLocale)} />
+      <Html as="div" className="cond" html={withTerms(condHtml, textLocale)} />
       {!solved && <div className="les-lock">{t('riddle.locked')}</div>}
 
       {r.words.length > 0 && (
@@ -207,14 +213,26 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
                 <div className="fb ok">{t('riddle.correct', { p: x.pts ?? 0 })}</div>
               ) : x.hint && st.hint ? (
                 <div className="fb hint">
-                  {t('riddle.hintPrefix')} {st.hint}
-                  {opInText(st.hint) && (
-                    <a className="hint-link" href={`#/math/${opInText(st.hint)}`}>
-                      {t(`math.howTo.${opInText(st.hint)!}`)} →
-                    </a>
+                  {t('riddle.hintPrefix')} <HebrewRuns text={st.hint} />
+                  {s.t === 'num' && s.coach && (
+                    <button className="coach-toggle" aria-expanded={!!coachOpen[i]} onClick={() => setCoachOpen((o) => ({ ...o, [i]: !o[i] }))}>
+                      🧮 {t(coachOpen[i] ? 'coach.hide' : 'coach.open')}
+                    </button>
                   )}
                 </div>
               ) : null}
+              {!x.ok && s.t === 'num' && s.coach && x.hint && coachOpen[i] && (
+                <MathCoach
+                  actions={s.coach}
+                  onFill={(n) => {
+                    const el = document.getElementById(`in-${ri}-${i}`) as HTMLInputElement | null;
+                    if (el) {
+                      el.value = String(n);
+                      el.focus();
+                    }
+                  }}
+                />
+              )}
               {!x.ok && x.tries > 0 && x.last === 'no' && (
                 <div className="fb no">
                   {t('riddle.triesLeft', { n: left })} {t(s.t === 'num' ? 'riddle.wrongNum' : 'riddle.wrongChoice')}
@@ -234,7 +252,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
                 <HebrewRuns text={e} />
               </div>
             ))}
-            <Html as="p" html={withTerms(rt.reveal.p, textLocale)} />
+            <Html as="p" html={withTerms(revealHtml, textLocale)} />
           </div>
           <div className="lessons">
             <div className="les-title">
@@ -247,11 +265,11 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
                     <HebrewRuns text={l.h} />
                   </span>
                 </summary>
-                <Html as="div" className="les-b" html={withTerms(l.b, textLocale)} />
+                <Html as="div" className="les-b" html={withTerms(lessonHtml[k], textLocale)} />
               </details>
             ))}
           </div>
-          {r.sources && <Sources ids={r.sources} />}
+          {r.sources && <Sources ri={ri} ids={fn.ordered} number={fn.number} refs={fn.refs} />}
           <div className="refl">
             <div className="refl-lbl">
               {t('refl.title')} <span>{t('refl.sub')}</span>

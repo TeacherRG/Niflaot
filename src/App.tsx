@@ -9,6 +9,7 @@ import { Panels } from './components/Panels';
 import { TermPopover } from './components/TermPopover';
 import { Assistant } from './components/Assistant';
 import { setPageState } from './core/assistant';
+import { installFootnoteNavigation } from './sources/footnotes';
 import { DonateFab, UIContext, type Panel } from './components/ui';
 import { useI18n } from './i18n';
 
@@ -77,6 +78,7 @@ export function App() {
   const { t } = useI18n();
   const route = useRoute();
   useCopySignature();
+  useEffect(installFootnoteNavigation, []);
   const [panel, open] = useState<Panel>(null);
   useFirstVisitHelp(open);
   const [slug, view] = route.split('/');
