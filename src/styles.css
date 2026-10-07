@@ -212,6 +212,29 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .card h3{font-family:var(--f-display);font-weight:700;font-size:24px;margin:0;line-height:1.15}
 .card p{margin:0;color:var(--muted);font-size:14px}
 .card.soon{border-top-color:var(--line);border-style:dashed;box-shadow:none;background:transparent;color:var(--muted);align-content:center;text-align:center}
+.tagcloud{margin-top:36px;display:grid;gap:10px;background:var(--surface);border:1px solid var(--gold-line);border-radius:6px;padding:24px 20px 20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.tagcloud::before{content:"ש";position:absolute;font-family:var(--f-he);font-weight:900;font-size:220px;line-height:1;color:var(--gold-soft);right:-18px;top:-40px;pointer-events:none;opacity:.7}
+.tagcloud>*{position:relative}
+.tagcloud h2{font-family:var(--f-display);font-weight:700;font-size:28px;margin:0;text-align:center}
+.tagcloud-sub{margin:0 auto;color:var(--muted);font-size:14px;text-align:center;max-width:52ch}
+.tags{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 10px}
+.tag{border:1px solid transparent;background:transparent;border-radius:999px;padding:2px 10px;font-family:var(--f-display);font-weight:600;line-height:1.25;color:var(--ink-2);cursor:pointer;transition:color .15s,background .15s,border-color .15s,transform .15s}
+.tag.he{font-family:var(--f-he);font-weight:700;color:var(--gold)}
+.tag.s1{font-size:16px;color:var(--muted)}
+.tag.s2{font-size:19px}
+.tag.s3{font-size:23px}
+.tag.s4{font-size:28px;font-weight:700}
+.tag.s5{font-size:34px;font-weight:700;color:var(--ink)}
+.tag.he.s1{font-size:17px}.tag.he.s2{font-size:20px;font-weight:500}.tag.he.s3{font-size:24px}.tag.he.s4{font-size:29px;font-weight:900}
+.tag:hover{border-color:var(--gold-line);background:var(--gold-soft)}
+.tag.on{background:var(--ink);border-color:var(--ink);color:var(--gold-2)}
+@media (prefers-reduced-motion:no-preference){.tag:hover{transform:translateY(-1px)}}
+.tag-card{margin-top:6px;border-top:1px solid var(--gold-line);padding-top:14px;display:grid;gap:10px}
+.tag-card p{margin:0;color:var(--ink-2);font-size:15px}
+.tag-links{display:flex;flex-wrap:wrap;gap:8px}
+.tag-links a{font-size:14px;font-weight:600;color:var(--gold);text-decoration:none;border:1px solid var(--gold-line);border-radius:999px;padding:4px 12px;background:var(--gold-soft)}
+.tag-links a:hover{border-color:var(--gold)}
+@media (max-width:480px){.tagcloud{padding:20px 12px 16px}.tags{gap:4px 6px}.tag{padding:2px 7px}.tag.s5{font-size:28px}.tag.s4{font-size:24px}.tag.he.s4{font-size:26px}}
 .fallback-note{margin-top:16px;font-size:13.5px;color:var(--tchelet);background:var(--tchelet-soft);border-radius:8px;padding:9px 14px}
 
 /* ───────── header controls ───────── */
@@ -706,3 +729,8 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 @keyframes pz-glow{50%{filter:drop-shadow(0 0 10px #FFD54A) drop-shadow(0 0 3px #FFD54A)}}
 @media (prefers-reduced-motion:reduce){.pz-drag.wrong,.pz-slot.filled .pz-piece,.pz-drag.glow .pz-piece{animation:none}.pz-drag.glow{outline:3px solid #E0A800;outline-offset:3px}}
 @media (max-width:480px){.puzzle{margin-left:16px;margin-right:16px;padding:14px 12px}.pz-slot{flex-basis:130px}.pz-body{font-size:13.5px;padding:9px 16px 9px 18px}}
+/* static outline for search engines (scripts/prerender.ts); the app replaces it on start, so it only shows if scripts are off or slow */
+.static{max-width:780px;margin:40px auto;opacity:0;animation:static-in .3s 1s forwards}
+.static h1{font-family:var(--f-display);font-size:32px;line-height:1.15}
+.static a{color:var(--gold)}
+@keyframes static-in{to{opacity:1}}

@@ -8,6 +8,7 @@
  *  - every lesson has texts in every language of src/i18n/config.ts
  *  - «Собери смысл»: every riddle and the lesson have a puzzle of 3–6 distinct pieces, the same count in every language
  *  - word cards don't show the answer of a choice step
+ *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
  */
 import { LESSONS } from '../src/lessons';
 import { gematria, gematriaMilui } from '../src/core/gematria';
@@ -17,6 +18,8 @@ import { PROJECT_RU } from '../src/sources/ru';
 import { PROJECT_DE } from '../src/sources/de';
 import { LOCALES } from '../src/i18n/config';
 import type { PuzzleText } from '../src/lessons/types';
+import ruUi from '../src/i18n/locales/ru';
+import enUi from '../src/i18n/locales/en';
 
 const errors: string[] = [];
 const err = (m: string) => errors.push(m);
@@ -89,8 +92,22 @@ for (const lesson of LESSONS)
 
 for (const lesson of LESSONS) checkPuzzle(`${lesson.slug} · final`, Object.entries(lesson.texts).map(([l, tx]) => [l, tx!.puzzle]));
 
+// HTML strings go to dangerouslySetInnerHTML: allow inline markup only
+const UNSAFE = /<\s*(script|iframe|object|embed|style|form|link|meta|base)\b|\son[a-z]+\s*=|(href|src)\s*=\s*["']?\s*(javascript|data|vbscript):/i;
+function checkHtml(where: string, v: unknown): void {
+  if (typeof v === 'string') {
+    if (UNSAFE.test(v)) err(`${where}: unsafe HTML (script, event handler or javascript: link)`);
+  } else if (Array.isArray(v)) v.forEach((x, i) => checkHtml(`${where}[${i}]`, x));
+  else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) checkHtml(`${where}.${k}`, x);
+}
+for (const lesson of LESSONS) checkHtml(lesson.slug, lesson.texts);
+checkHtml('ui.ru', ruUi);
+checkHtml('ui.en', enUi);
+checkHtml('sources', SOURCES);
+checkHtml('sources.ru', PROJECT_RU);
+
 if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));
   process.exit(1);
 }
-console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles`);
+console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, safe HTML`);
