@@ -53,11 +53,16 @@ python3 scripts/fetch-sources.py                                                
 Тексты берутся из открытой выгрузки Sefaria и сохраняются в `src/sources/sefaria.json`;
 русские переводы проекта — в `src/sources/ru.ts`.
 
-## ИИ-помощник
+## Помощник
 
-Чат на сайте работает через отдельный сервер с ключом Claude API — `assistant/` (Cloudflare Worker).
-Как развернуть — в [assistant/README.md](assistant/README.md). Адрес сервера передаётся при сборке
-через `VITE_ASSISTANT_URL` (в GitHub — переменная репозитория `ASSISTANT_URL`); без него помощник скрыт.
+Кнопка ✦ открывает помощника. Пока не задан адрес ИИ-сервера, это **офлайн-помощник**
+(`src/components/Helper.tsx`): гиматрия любого слова по шагам (сотни → десятки → единицы,
+`src/core/gematriaSteps.ts`), первоисточники решённых загадок и частые вопросы. Работает без сервера и ключей.
+
+**ИИ-чат** (Claude) уже в коде, но скрыт: он работает через отдельный сервер с ключом Claude API —
+`assistant/` (Cloudflare Worker), как развернуть — в [assistant/README.md](assistant/README.md).
+Адрес сервера передаётся при сборке через `VITE_ASSISTANT_URL` (в GitHub — переменная репозитория
+`ASSISTANT_URL`); когда она задана, вместо офлайн-помощника открывается чат.
 
 ## Как добавить язык
 

@@ -84,12 +84,10 @@ export function Panels() {
             <Icon name="help" />
             <span>{t('help.title')}</span>
           </button>
-          {ASSISTANT_URL && (
-            <button className="menu-item" onClick={() => open('assistant')}>
-              <Icon name="spark" />
-              <span>{t('ai.title')}</span>
-            </button>
-          )}
+          <button className="menu-item" onClick={() => open('assistant')}>
+            <Icon name="spark" />
+            <span>{t(ASSISTANT_URL ? 'ai.title' : 'helper.title')}</span>
+          </button>
           <button className="menu-item" onClick={() => open('about')}>
             <Icon name="info" />
             <span>{t('about.title')}</span>

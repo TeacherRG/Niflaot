@@ -4,6 +4,7 @@ import type { MessageKey } from '../i18n/locales/ru';
 import { ASSISTANT_URL, askAssistant, type ChatTurn } from '../core/assistant';
 import { HebrewRuns } from './Hebrew';
 import { Icon, Sheet, useUI } from './ui';
+import { Helper } from './Helper';
 
 const SUGGEST: MessageKey[] = ['ai.s.lesson', 'ai.s.hint', 'ai.s.math', 'ai.s.source'];
 const MAX_TURNS = 20;
@@ -51,8 +52,26 @@ function Answer({ text }: { text: string }) {
   );
 }
 
-/** Floating button + chat sheet. Rendered only when the assistant endpoint is configured. */
+/**
+ * Floating button + helper sheet. With the AI endpoint configured — a chat with Claude;
+ * without it — the offline helper (gematria step by step, sources, answers to common questions).
+ */
 export function Assistant() {
+  const { t } = useI18n();
+  const { open } = useUI();
+  const title = t(ASSISTANT_URL ? 'ai.title' : 'helper.title');
+  return (
+    <>
+      <button className="ai-fab" onClick={() => open('assistant')} aria-label={title} title={title}>
+        <Icon name="spark" size={20} />
+      </button>
+      {ASSISTANT_URL ? <AiChat /> : <Helper />}
+    </>
+  );
+}
+
+/** Chat with the AI assistant; its state lives here, so closing the sheet keeps the conversation. */
+function AiChat() {
   const { t, locale } = useI18n();
   const { panel, open } = useUI();
   const [turns, setTurns] = useState<ChatTurn[]>([]);
@@ -65,8 +84,6 @@ export function Assistant() {
   useEffect(() => {
     log.current?.scrollTo({ top: log.current.scrollHeight });
   }, [turns, panel]);
-
-  if (!ASSISTANT_URL) return null;
 
   const send = async (q: string) => {
     q = q.trim();
@@ -81,10 +98,15 @@ export function Assistant() {
     abort.current = ctrl;
     let answer = '';
     try {
-      await askAssistant(history, locale, (chunk) => {
-        answer += chunk;
-        setTurns([...history, { role: 'assistant', content: answer }]);
-      }, ctrl.signal);
+      await askAssistant(
+        history,
+        locale,
+        (chunk) => {
+          answer += chunk;
+          setTurns([...history, { role: 'assistant', content: answer }]);
+        },
+        ctrl.signal,
+      );
     } catch (e) {
       if (!ctrl.signal.aborted) setError(String((e as Error).message) === 'busy' ? t('ai.busy') : t('ai.error'));
     } finally {
@@ -103,80 +125,74 @@ export function Assistant() {
   };
 
   return (
-    <>
-      <button className="ai-fab" onClick={() => open('assistant')} aria-label={t('ai.title')} title={t('ai.title')}>
-        <Icon name="spark" size={20} />
-      </button>
-      <Sheet open={panel === 'assistant'} onClose={() => open(null)} title={t('ai.title')} closeLabel={t('menu.close')}>
-        <div className="ai">
-          <div className="ai-log" ref={log} aria-live="polite">
-            {!turns.length && (
-              <div className="ai-hello">
-                <p>{t('ai.hello')}</p>
-                <div className="ai-suggest">
-                  {SUGGEST.map((k) => (
-                    <button key={k} className="chip" onClick={() => send(t(k))}>
-                      {t(k)}
-                    </button>
-                  ))}
-                </div>
+    <Sheet open={panel === 'assistant'} onClose={() => open(null)} title={t('ai.title')} closeLabel={t('menu.close')}>
+      <div className="ai">
+        <div className="ai-log" ref={log} aria-live="polite">
+          {!turns.length && (
+            <div className="ai-hello">
+              <p>{t('ai.hello')}</p>
+              <div className="ai-suggest">
+                {SUGGEST.map((k) => (
+                  <button key={k} className="chip" onClick={() => send(t(k))}>
+                    {t(k)}
+                  </button>
+                ))}
               </div>
-            )}
-            {turns.map((m, i) =>
-              m.role === 'user' ? (
-                <div key={i} className="ai-msg ai-user">
-                  <HebrewRuns text={m.content} />
-                </div>
-              ) : (
-                <div key={i} className="ai-msg ai-bot">
-                  {m.content ? <Answer text={m.content} /> : <span className="ai-dots" aria-label={t('ai.thinking')} />}
-                </div>
-              ),
-            )}
-            {error && <div className="ai-error">{error}</div>}
-          </div>
-          <form
-            className="ai-form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              send(draft);
-            }}
-          >
-            <textarea
-              data-autofocus
-              value={draft}
-              rows={2}
-              maxLength={2000}
-             
-              placeholder={t('ai.placeholder')}
-              onChange={(e) => setDraft(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
-                  e.preventDefault();
-                  send(draft);
-                }
-              }}
-            />
-            {busy ? (
-              <button type="button" className="btn ghost" onClick={() => abort.current?.abort()}>
-                {t('ai.stop')}
-              </button>
+            </div>
+          )}
+          {turns.map((m, i) =>
+            m.role === 'user' ? (
+              <div key={i} className="ai-msg ai-user">
+                <HebrewRuns text={m.content} />
+              </div>
             ) : (
-              <button type="submit" className="btn" disabled={!draft.trim()}>
-                {t('ai.send')}
-              </button>
-            )}
-          </form>
-          <div className="ai-foot">
-            <span>{t('ai.note')}</span>
-            {turns.length > 0 && (
-              <button className="link-btn" onClick={clear}>
-                {t('ai.clear')}
-              </button>
-            )}
-          </div>
+              <div key={i} className="ai-msg ai-bot">
+                {m.content ? <Answer text={m.content} /> : <span className="ai-dots" aria-label={t('ai.thinking')} />}
+              </div>
+            ),
+          )}
+          {error && <div className="ai-error">{error}</div>}
         </div>
-      </Sheet>
-    </>
+        <form
+          className="ai-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            send(draft);
+          }}
+        >
+          <textarea
+            data-autofocus
+            value={draft}
+            rows={2}
+            maxLength={2000}
+            placeholder={t('ai.placeholder')}
+            onChange={(e) => setDraft(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
+                e.preventDefault();
+                send(draft);
+              }
+            }}
+          />
+          {busy ? (
+            <button type="button" className="btn ghost" onClick={() => abort.current?.abort()}>
+              {t('ai.stop')}
+            </button>
+          ) : (
+            <button type="submit" className="btn" disabled={!draft.trim()}>
+              {t('ai.send')}
+            </button>
+          )}
+        </form>
+        <div className="ai-foot">
+          <span>{t('ai.note')}</span>
+          {turns.length > 0 && (
+            <button className="link-btn" onClick={clear}>
+              {t('ai.clear')}
+            </button>
+          )}
+        </div>
+      </div>
+    </Sheet>
   );
 }

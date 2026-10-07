@@ -589,3 +589,30 @@ article.m-card{border-top:3px solid var(--gold-2)}
 .ai-foot{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;font-size:12px;color:var(--muted)}
 .link-btn{background:none;border:0;padding:0;color:var(--tchelet);font:inherit;font-weight:600;white-space:nowrap;cursor:pointer}
 @media print{.ai-fab{display:none!important}}
+
+/* ───────── offline helper ───────── */
+.hp-intro{margin:0;color:var(--muted)}
+.hp-lead{margin:-4px 0 10px}
+.hp-steps{display:grid;gap:10px}
+.chip.he{font-family:var(--f-he);font-size:17px;padding:4px 12px}
+.hp-in{font-size:24px;padding:8px 12px}
+.hp-kbd summary{font-size:13px;color:var(--tchelet);font-weight:600;cursor:pointer}
+.hp-kbd .kbd{margin-top:8px}
+.hp-kbd .key{width:34px;height:40px;font-size:17px}
+.hp-letters{display:flex;flex-wrap:wrap;gap:6px}
+.hp-letters span{display:grid;justify-items:center;min-width:34px;padding:4px 6px;border:1px solid var(--gold-line);border-radius:6px;background:var(--gold-soft)}
+.hp-letters b{font-family:var(--f-he);font-size:20px;font-weight:500;line-height:1.1}
+.hp-letters i{font-style:normal;font-family:var(--f-num);font-size:12px;color:var(--gold)}
+.hp-try{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.hp-try label{display:flex;align-items:center;gap:8px;font-size:14px}
+.hp-try input{width:84px;font:inherit;font-size:16px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.hp-solution{margin:0;padding:12px 14px 12px 32px;background:var(--paper);border:1px solid var(--line);border-radius:8px;display:grid;gap:6px;font-variant-numeric:tabular-nums}
+.hp-rank{color:var(--muted);font-size:13px}
+.hp-total{font-weight:700;font-size:17px}
+.hp-sources{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.hp-sources a{color:var(--ink);font-weight:600}
+.hp-faq{display:grid;gap:6px}
+.hp-faq details{border:1px solid var(--line);border-radius:8px;padding:9px 12px}
+.hp-faq summary{font-weight:600;cursor:pointer}
+.hp-faq .prose{margin-top:8px;font-size:14.5px}
+.hp-faq .prose p{margin:0}

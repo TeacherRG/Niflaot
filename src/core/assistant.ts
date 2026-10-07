@@ -13,10 +13,26 @@ export type ChatTurn = { role: 'user' | 'assistant'; content: string };
 
 /* ───────────── what the assistant knows about the page ───────────── */
 
-let current = '';
-/** Set by the lesson page; read when a question is sent. */
-export const setAssistantContext = (ctx: string) => void (current = ctx);
-export const assistantContext = () => current;
+/** The lesson on screen and the player's progress; set by the lesson page, null elsewhere. */
+export interface PageState {
+  lesson: Lesson;
+  locale: Locale;
+  done: number[];
+  lvl: number;
+}
+
+let page: PageState | null = null;
+const listeners = new Set<() => void>();
+export const setPageState = (s: PageState | null) => {
+  page = s;
+  listeners.forEach((f) => f());
+};
+export const getPageState = () => page;
+export const subscribePageState = (f: () => void) => {
+  listeners.add(f);
+  return () => void listeners.delete(f);
+};
+const assistantContext = () => (page ? lessonContext(page.lesson, page.locale, page.done, page.lvl) : '');
 
 const plain = (html: string) =>
   html
