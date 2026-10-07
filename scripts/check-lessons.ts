@@ -3,9 +3,12 @@
  *  - the coach of every numeric step ends exactly at the step's answer
  *  - every option value (v) equals the real gematria of the option
  *  - every footnote mark points to one of the riddle's sources, every source has a mark (ru and en)
- *  - every source exists in src/sources/sefaria.json; non-Torah sources have a Russian translation
+ *  - every source exists in src/sources/sefaria.json; non-Torah sources have a Russian translation;
+ *    every source has a German one (Sefaria's or the project's, src/sources/de.ts)
+ *  - every lesson has texts in every language of src/i18n/config.ts
  *  - «Собери смысл»: every riddle and the lesson have a puzzle of 3–6 distinct pieces, the same count in every language
  *  - word cards don't show the answer of a choice step
+ *  - every step has an estimate: average time 5–600 s and difficulty 1–3
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
  */
 import { LESSONS } from '../src/lessons';
@@ -13,6 +16,8 @@ import { gematria, gematriaMilui } from '../src/core/gematria';
 import { coachResult } from '../src/core/coach';
 import { SOURCES } from '../src/sources';
 import { PROJECT_RU } from '../src/sources/ru';
+import { PROJECT_DE } from '../src/sources/de';
+import { LOCALES } from '../src/i18n/config';
 import type { PuzzleText } from '../src/lessons/types';
 import ruUi from '../src/i18n/locales/ru';
 import enUi from '../src/i18n/locales/en';
@@ -37,6 +42,8 @@ for (const lesson of LESSONS) {
   lesson.riddles.forEach((r, ri) => {
     const where = (i?: number) => `${lesson.slug} · riddle ${ri + 1}${i === undefined ? '' : ` · step ${i + 1}`}`;
     r.steps.forEach((s, i) => {
+      if (!(s.est.sec >= 5 && s.est.sec <= 600) || ![1, 2, 3].includes(s.est.level))
+        err(`${where(i)}: est needs sec 5–600 and level 1–3 (average time and difficulty of the step)`);
       if (s.t === 'num') {
         if (!s.coach) {
           if (!s.count) err(`${where(i)}: numeric step without coach (or mark a counting task with count: true)`);
@@ -64,6 +71,10 @@ for (const lesson of LESSONS) {
       else if (!src.ru && !PROJECT_RU[id]) err(`${where()}: source ${id} has no Russian translation (src/sources/ru.ts)`);
       else if (!src.ru && PROJECT_RU[id].length !== src.he.length)
         err(`${where()}: ${id} — ${PROJECT_RU[id].length} Russian segments for ${src.he.length} original ones`);
+      if (src && !src.de && !PROJECT_DE[id]) err(`${where()}: source ${id} has no German translation (src/sources/de.ts)`);
+      else if (src && src.de && src.de.length !== src.he.length) err(`${where()}: ${id} — ${src.de.length} German segments for ${src.he.length} original ones`);
+      else if (src && !src.de && PROJECT_DE[id].length !== src.he.length)
+        err(`${where()}: ${id} — ${PROJECT_DE[id].length} German segments for ${src.he.length} original ones`);
     }
     r.steps.forEach((s, i) => {
       if (s.t === 'ch' && r.words.includes(s.opts[s.c].h)) err(`${where(i)}: the answer ${s.opts[s.c].h} is shown on a word card`);
@@ -78,6 +89,9 @@ for (const lesson of LESSONS) {
     }
   });
 }
+
+for (const lesson of LESSONS)
+  for (const l of Object.keys(LOCALES)) if (!(l in lesson.texts)) err(`${lesson.slug}: no texts in ${l} (src/lessons/<lesson>/i18n/${l}.ts)`);
 
 for (const lesson of LESSONS) checkPuzzle(`${lesson.slug} · final`, Object.entries(lesson.texts).map(([l, tx]) => [l, tx!.puzzle]));
 

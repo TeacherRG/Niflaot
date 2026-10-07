@@ -2,10 +2,11 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import { FALLBACK_LOCALE, LOCALES, isLocale, type Locale } from './config';
 import ru, { type MessageKey, type Messages, type PluralForms } from './locales/ru';
 import en from './locales/en';
+import de from './locales/de';
 
 export { LOCALES, FALLBACK_LOCALE, isLocale, type Locale };
 
-const MESSAGES: Record<Locale, Messages> = { ru, en };
+const MESSAGES: Record<Locale, Messages> = { ru, en, de };
 const STORAGE_KEY = 'niflaot:lang';
 
 type Vars = Record<string, string | number>;

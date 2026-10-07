@@ -4,9 +4,10 @@ import { VALUES, letters } from '../core/gematria';
 import { SITE_HOST } from '../core/site';
 import type { Lesson, PuzzleText } from '../lessons/types';
 import { PARSHIOT } from '../lessons/parshiot';
-import { SOURCES, translation } from '../sources';
+import { SOURCES, sourceLabel, translation } from '../sources';
 import { stripFootnotes } from '../sources/footnotes';
 import { HebrewRuns } from './Hebrew';
+import { formatEstimate } from '../core/format';
 import { Icon } from './ui';
 
 const TABLE = Object.entries(VALUES).filter(([c]) => !'ךםןףץ'.includes(c));
@@ -156,6 +157,9 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
                   const st = rt.steps[i];
                   return (
                     <li key={i}>
+                      <div className="p-est">
+                        ⏱ {formatEstimate(s.est.sec, locale, t)} · {t(`est.l${s.est.level}`)}
+                      </div>
                       <Html as="div" className="p-q" html={st.q} />
                       {s.t === 'num' ? (
                         <div className="p-answer">{t('print.answer')} ______________</div>
@@ -289,7 +293,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
               return (
                 <div key={id} className="p-src">
                   <h3>
-                    {src.title[locale === 'ru' ? 'ru' : 'en']} <small>· {src.kind[locale === 'ru' ? 'ru' : 'en']}</small>
+                    {sourceLabel(src, locale).title} <small>· {sourceLabel(src, locale).kind}</small>
                   </h3>
                   {src.he.map((he, i) => (
                     <div key={i} className="p-src-seg">

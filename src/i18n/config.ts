@@ -8,6 +8,7 @@
 export const LOCALES = {
   ru: { label: 'Русский', short: 'RU', dir: 'ltr' },
   en: { label: 'English', short: 'EN', dir: 'ltr' },
+  de: { label: 'Deutsch', short: 'DE', dir: 'ltr' },
 } as const;
 
 export type Locale = keyof typeof LOCALES;

@@ -55,13 +55,15 @@ src/
   lessons/
     index.ts                реестр уроков; parshiot.ts — главы Торы (группировка, год)
     types.ts                схема урока
+    01-tikun-partzuf-zanav/ урок №1
+    02-yikavu-hamayim/      урок №2
     NN-<slug>/index.ts      данные без языка: ивритские слова, ответы, разборы, источники
-    NN-<slug>/i18n/ru.ts, en.ts   тексты урока
-  i18n/                     интерфейс ru/en (config.ts, locales/), словарь терминов glossary.ts
+    */i18n/ru.ts, en.ts, de.ts   тексты уроков
+  i18n/                     интерфейс ru/en/de (config.ts, locales/, index.tsx), словарь терминов glossary.ts
   core/                     гиматрия, Имена, разбор по шагам (coach), устный счёт, картинка «поделиться»,
                             облако тегов (tags.ts), клиент ИИ-помощника
   components/               экраны и UI: главная, урок, загадка, пазл, итог, печать, помощник, облако тегов
-  sources/                  первоисточники Sefaria (sefaria.json) и русские переводы проекта (ru.ts)
+  sources/                  первоисточники Sefaria (sefaria.json) и переводы проекта (ru.ts, de.ts)
 scripts/
   check-lessons.ts          npm run check
   prerender.ts              SEO-страницы, sitemap.xml, robots.txt, CSP (часть npm run build)

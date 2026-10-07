@@ -1,5 +1,5 @@
 import { Html, useI18n } from '../i18n';
-import { SOURCES, translation } from '../sources';
+import { SOURCES, sourceLabel, translation } from '../sources';
 
 /** Collapsible list of primary sources (original + translation), taken from Sefaria. */
 export function Sources({
@@ -16,7 +16,6 @@ export function Sources({
   const { t, locale } = useI18n();
   const list = ids.filter((id) => SOURCES[id]);
   if (!list.length) return null;
-  const lang = locale === 'ru' ? 'ru' : 'en';
 
   return (
     <details className="sources">
@@ -33,8 +32,8 @@ export function Sources({
             <details key={id} className="src" id={`src-${ri}-${id}`}>
               <summary>
                 {number[id] && <span className="src-num">{number[id]}</span>}
-                <span className="src-kind">{s.kind[lang]}</span>
-                <span className="src-name">{s.title[lang]}</span>
+                <span className="src-kind">{sourceLabel(s, locale).kind}</span>
+                <span className="src-name">{sourceLabel(s, locale).title}</span>
               </summary>
               <div className="src-body">
                 {s.he.map((he, i) => (

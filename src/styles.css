@@ -408,6 +408,7 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .p-opt .he{font-size:17px;font-weight:700}
 .p-opt small{color:#555;font-size:12px}
 .p-box{flex:none;width:12px;height:12px;border:1.5px solid #333;border-radius:2px;transform:translateY(1px)}
+.p-est{font-size:11px;color:#666;margin-bottom:2px}
 .p-puz{margin-top:12px;border-inline-start:3px solid #B4461B;padding-inline-start:12px}
 .p-puz p{margin:0 0 6px;font-family:var(--f-display);font-size:16px}
 .p-pieces{display:flex;flex-wrap:wrap;gap:6px 10px}
@@ -734,3 +735,15 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .static h1{font-family:var(--f-display);font-size:32px;line-height:1.15}
 .static a{color:var(--gold)}
 @keyframes static-in{to{opacity:1}}
+
+/* average time and difficulty above a step and under a riddle title */
+.est{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.01em}
+.est-time{font-family:var(--f-num);font-weight:500}
+.est-lvl{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:2px 9px 2px 7px;background:var(--ok-soft);color:var(--ok)}
+.est.l2 .est-lvl{background:var(--gold-soft);color:var(--gold)}
+.est.l3 .est-lvl{background:var(--fire-soft);color:var(--fire)}
+.est-dots{display:inline-flex;gap:3px}
+.est-dots i{width:7px;height:7px;border-radius:50%;border:1.5px solid currentColor}
+.est-dots i.on{background:currentColor}
+.step .est{margin-bottom:-4px}
+.step.locked .est{opacity:.7}

@@ -1,6 +1,7 @@
 import type { Lesson } from '../types';
 import ru from './i18n/ru';
 import en from './i18n/en';
+import de from './i18n/de';
 
 /**
  * Урок №1 — «Тикун парцуф-занав» (брошюра «Нифлаот», Берешит ה׳תשפ״ז).
@@ -23,10 +24,10 @@ const lesson: Lesson = {
         { expr: 'זנב + תאוה', value: 471 },
       ],
       steps: [
-        { t: 'num', a: 471, coach: [{ word: 'פרצוף' }, { word: 'גאוה' }, { add: ['$1', '$2'] }] },
-        { t: 'num', a: 471, coach: [{ word: 'זנב' }, { word: 'תאוה' }, { add: ['$1', '$2'] }] },
+        { t: 'num', est: { sec: 90, level: 2 }, a: 471, coach: [{ word: 'פרצוף' }, { word: 'גאוה' }, { add: ['$1', '$2'] }] },
+        { t: 'num', est: { sec: 60, level: 2 }, a: 471, coach: [{ word: 'זנב' }, { word: 'תאוה' }, { add: ['$1', '$2'] }] },
         {
-          t: 'ch',
+          t: 'ch', est: { sec: 90, level: 3 },
           milui: true,
           opts: [
             { h: 'אש', v: 471 },
@@ -43,9 +44,9 @@ const lesson: Lesson = {
     {
       words: ['פרצוף', 'זנב'],
       steps: [
-        { t: 'num', a: 515, coach: [{ add: [456, 59] }] },
+        { t: 'num', est: { sec: 15, level: 1 }, a: 515, coach: [{ add: [456, 59] }] },
         {
-          t: 'ch',
+          t: 'ch', est: { sec: 30, level: 1 },
           opts: [
             { h: 'תפלה', v: 515 },
             { h: 'תורה', v: 611 },
@@ -54,16 +55,16 @@ const lesson: Lesson = {
           ],
           c: 0,
         },
-        { t: 'ch', opts: [{ h: 'תפלין' }, { h: 'ציצית' }, { h: 'מזוזה' }, { h: 'שבת' }], c: 0 },
+        { t: 'ch', est: { sec: 20, level: 1 }, opts: [{ h: 'תפלין' }, { h: 'ציצית' }, { h: 'מזוזה' }, { h: 'שבת' }], c: 0 },
       ],
       equations: ['פרצוף (456) + זנב (59) = 515 = תפלה'],
     },
     {
       words: ['מסכה', 'פרצוף', 'פנים'],
       steps: [
-        { t: 'num', a: 761, coach: [{ word: 'פנים' }, { word: 'מסכה' }, { add: ['$1', 456, '$2'] }] },
+        { t: 'num', est: { sec: 90, level: 2 }, a: 761, coach: [{ word: 'פנים' }, { word: 'מסכה' }, { add: ['$1', 456, '$2'] }] },
         {
-          t: 'ch',
+          t: 'ch', est: { sec: 60, level: 2 },
           opts: [
             { h: 'לעיני כל ישראל', v: 761 },
             { h: 'שמע ישראל', v: 951 },
@@ -72,7 +73,7 @@ const lesson: Lesson = {
           ],
           c: 0,
         },
-        { t: 'num', a: 761, coach: [{ mul: [20, 20] }, { mul: [19, 19] }, { add: ['$1', '$2'] }] },
+        { t: 'num', est: { sec: 15, level: 1 }, a: 761, coach: [{ mul: [20, 20] }, { mul: [19, 19] }, { add: ['$1', '$2'] }] },
       ],
       equations: [
         'פנים (180) + פרצוף (456) + מסכה (125) = 761',
@@ -84,9 +85,9 @@ const lesson: Lesson = {
     {
       words: ['אשה', 'טוב', 'ויבן'],
       steps: [
-        { t: 'num', a: 18, coach: [{ word: 'אשה' }, { word: 'טוב' }, { div: ['$1', '$2'] }] },
+        { t: 'num', est: { sec: 75, level: 2 }, a: 18, coach: [{ word: 'אשה' }, { word: 'טוב' }, { div: ['$1', '$2'] }] },
         {
-          t: 'ch',
+          t: 'ch', est: { sec: 15, level: 1 },
           opts: [
             { h: 'חי', v: 18 },
             { h: 'אהבה', v: 13 },
@@ -95,7 +96,7 @@ const lesson: Lesson = {
           ],
           c: 0,
         },
-        { t: 'num', a: 4, coach: [{ word: 'ויבן' }, { div: ['$1', 17] }] },
+        { t: 'num', est: { sec: 20, level: 1 }, a: 4, coach: [{ word: 'ויבן' }, { div: ['$1', 17] }] },
       ],
       equations: ['אשה (306) = 18 × טוב (17)', '18 = חי', 'ויבן (68) = 4 × טוב'],
       sources: ['berakhot-8a', 'prov-18-22', 'eccl-7-26', 'gen-2-21'],
@@ -114,7 +115,7 @@ const lesson: Lesson = {
     ],
     secrets: { 471: 0, 515: 1, 761: 2, 18: 3 },
   },
-  texts: { ru, en },
+  texts: { ru, en, de },
 };
 
 export default lesson;

@@ -1,6 +1,6 @@
 import type { Lesson } from '../lessons/types';
 import type { Locale } from '../i18n';
-import { SOURCES, translation } from '../sources';
+import { SOURCES, sourceLabel, translation } from '../sources';
 import { displayNames } from './names';
 
 /**
@@ -70,8 +70,7 @@ export function lessonContext(lesson: Lesson, locale: Locale, done: number[], cu
     for (const id of r.sources ?? []) {
       const s = SOURCES[id];
       if (!s) continue;
-      const lang = locale === 'ru' ? 'ru' : 'en';
-      out.push(`Source — ${s.title[lang]} (${s.ref}): ${s.he.join(' ')}\nTranslation: ${translation(s, id, locale).lines.join(' ')}`);
+      out.push(`Source — ${sourceLabel(s, locale).title} (${s.ref}): ${s.he.join(' ')}\nTranslation: ${translation(s, id, locale).lines.join(' ')}`);
     }
   });
   if (done.length === lesson.riddles.length) out.push(`\nPractical conclusion: ${text.practice}`);
