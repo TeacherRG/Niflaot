@@ -420,3 +420,6 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
   a{color:inherit;text-decoration:none}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+/* a Hebrew verse quoted inside a riddle's condition — on its own line, never broken mid-bidi */
+.cond .verse,.p-cond .verse{font-family:var(--f-he);font-size:1.3em;font-weight:500;line-height:1.5;text-align:center;direction:rtl;unicode-bidi:isolate;color:var(--ink);padding:8px 12px;margin:2px 0 10px;border-inline-start:3px solid var(--gold-2);background:var(--gold-soft);border-radius:6px}
+.p-cond .verse{color:#111;background:none;border:1px solid #ccc}
