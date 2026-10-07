@@ -4,10 +4,11 @@
  *    JSON-LD and the lesson outline as static HTML (the app replaces it on start and opens the lesson);
  *  - static outline of the catalog in dist/index.html, with real links to the lesson pages;
  *  - dist/sitemap.xml and dist/robots.txt;
+ *  - Open Graph picture: dist/og/<slug>.png if it exists (scripts/og-images.ts), else dist/og/site.png;
  *  - Content-Security-Policy <meta> on every page (GitHub Pages can't send headers).
  * Run by `npm run build`.
  */
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { LESSONS, LESSON_GROUPS, type Lesson } from '../src/lessons';
 import { SITE_URL } from '../src/core/site';
 import { displayNames } from '../src/core/names';
@@ -49,6 +50,9 @@ interface Page {
   url: string;
   type: 'website' | 'article';
   jsonLd: object;
+  /** link-preview picture in dist/og/ (scripts/og-images.ts), without .png */
+  image: string;
+  imageAlt: string;
   body: string;
   /** path from the page to dist root */
   root: string;
@@ -69,6 +73,9 @@ function render(p: Page): string {
   html = setMeta(html, 'property', 'og:title', p.title);
   html = setMeta(html, 'property', 'og:description', p.description);
   html = setMeta(html, 'property', 'og:url', p.url);
+  const image = existsSync(`${DIST}/og/${p.image}.png`) ? p.image : 'site';
+  html = setMeta(html, 'property', 'og:image', `${SITE_URL}/og/${image}.png`);
+  html = setMeta(html, 'property', 'og:image:alt', p.imageAlt);
   // `<` escaped so text can never close the <script> element
   const ld = JSON.stringify(p.jsonLd).replace(/</g, '\\u003c');
   html = html.replace(
@@ -96,6 +103,8 @@ const home: Page = {
   url: `${SITE_URL}/`,
   type: 'website',
   root: './',
+  image: 'site',
+  imageAlt: `${ui['app.title']} — ${ui['catalog.uvp']}`,
   jsonLd: {
     '@context': 'https://schema.org',
     '@graph': [
@@ -129,6 +138,8 @@ function lessonPage(l: Lesson): Page {
     url: lessonUrl(l),
     type: 'article',
     root: '../',
+    image: l.slug,
+    imageAlt: `${displayNames(l.hebrewTitle)} — ${tx.title}`,
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'LearningResource',
@@ -137,6 +148,7 @@ function lessonPage(l: Lesson): Page {
       description: plain(tx.summary),
       url: lessonUrl(l),
       inLanguage: 'ru',
+      image: `${SITE_URL}/og/${l.slug}.png`,
       learningResourceType: 'game',
       interactivityType: 'active',
       author: AUTHOR,

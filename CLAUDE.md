@@ -21,6 +21,8 @@
 - `src/core/tags.ts` + `src/components/TagCloud.tsx` — облако тегов на главной (термины словаря по частоте в уроках + слова карточек).
 - `scripts/prerender.ts` (часть `npm run build`) — SEO: страницы `/<slug>/` с мета-тегами, JSON-LD и текстом урока,
   `sitemap.xml`, `robots.txt`, CSP в `<meta>`. Новый урок попадает туда автоматически.
+- `scripts/og-images.ts` — картинки превью ссылок `public/og/*.png` (1200×630). После нового урока:
+  `npm i --no-save playwright && npx tsx scripts/og-images.ts`, PNG закоммитить.
 - `src/components/Helper.tsx` — офлайн-помощник (кнопка ✦): гиматрия по шагам, первоисточники, частые вопросы.
 - `assistant/` — сервер ИИ-чата (Cloudflare Worker, Claude API); пока скрыт, включается переменной `ASSISTANT_URL`.
 
