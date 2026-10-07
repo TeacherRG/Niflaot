@@ -1,6 +1,7 @@
 import { Html, useI18n } from '../i18n';
 import { LESSON_GROUPS, findLesson } from '../lessons';
 import { VALUES } from '../core/gematria';
+import { OPS, SIGN } from '../core/mentalMath';
 import { Icon, Sheet, useUI } from './ui';
 
 const TABLE = Object.entries(VALUES).filter(([c]) => !'ךםןףץ'.includes(c));
@@ -51,6 +52,26 @@ export function Panels() {
             <Icon name="book" />
             <span>{t('menu.allLessons')}</span>
           </a>
+          <details className="menu-group" open={location.hash.startsWith('#/math')}>
+            <summary className="menu-item">
+              <Icon name="calc" />
+              <span>{t('math.title')}</span>
+            </summary>
+            <div className="menu-sub">
+              {OPS.map((o) => (
+                <a
+                  key={o}
+                  href={`#/math/${o}`}
+                  onClick={close}
+                  className="menu-item"
+                  aria-current={location.hash === `#/math/${o}` ? 'page' : undefined}
+                >
+                  <span className="menu-num">{SIGN[o]}</span>
+                  <span>{t(`math.op.${o}`)}</span>
+                </a>
+              ))}
+            </div>
+          </details>
           {lessonSlug && (
             <a href={`#/${lessonSlug}/print`} onClick={close} className="menu-item">
               <Icon name="print" />

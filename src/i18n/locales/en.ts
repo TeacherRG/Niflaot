@@ -41,6 +41,42 @@ const en: Messages = {
   'print.reflection': 'A question for yourself',
   'print.hint': 'Hint:',
 
+  'math.title': 'Mental math',
+  'math.intro': 'One reliable technique for each operation — with examples from our lessons and a trainer.',
+  'math.op.add': 'Addition',
+  'math.op.sub': 'Subtraction',
+  'math.op.mul': 'Multiplication',
+  'math.op.div': 'Division',
+  'math.howTo.add': 'How to add in your head',
+  'math.howTo.sub': 'How to subtract in your head',
+  'math.howTo.mul': 'How to multiply in your head',
+  'math.howTo.div': 'How to divide in your head',
+  'math.name.add': 'By place value, left to right',
+  'math.name.sub': 'Counting up — from the smaller to the larger',
+  'math.name.mul': 'Split a factor into friendly parts',
+  'math.name.div': 'Division by chunks',
+  'math.idea.add':
+    '<p>Don’t do “column addition in your head”. Add the second number piece by piece: hundreds first, then tens, then units. Every step is round and easy, and you only keep one running total in mind.</p><ol><li>Split the second number by place value: 156 = 100 + 50 + 6.</li><li>Add the pieces to the first number one at a time.</li><li>The last total is the answer.</li></ol>',
+  'math.idea.sub':
+    '<p>Subtraction asks “how much is missing?”. Walk from the smaller number up to the larger one in round jumps and add up the jumps. That is how a cashier counts out change — and almost never makes a mistake.</p><ol><li>Go from the smaller number to the nearest round number: a ten, then a hundred.</li><li>Jump to the larger number in one go.</li><li>Add up all the jumps — that is the difference.</li></ol>',
+  'math.idea.mul':
+    '<p>Multiplying by a round number is easy. So split one factor into a round part and the rest — or, if it is just below a round number, round it up and take the extra away.</p><ol><li>Split: 13 = 10 + 3. If a number ends in 8 or 9, round it up: 59 = 60 − 1.</li><li>Multiply the other factor by each part.</li><li>Add the results (or subtract the extra).</li></ol>',
+  'math.idea.div':
+    '<p>Dividing asks “how many times does the divisor fit into the number?”. Take the divisor away in big round chunks — 100 at a time, 10 at a time — until nothing is left. The sum of the chunks is the answer.</p><ol><li>Estimate: round both numbers. 3068 : 52 ≈ 3000 : 50 = 60.</li><li>Take away a round chunk: 52 × 50 = 2600, 468 left.</li><li>Repeat with what is left: 52 × 9 = 468, 0 left.</li><li>Add the chunks: 50 + 9 = 59.</li></ol><p>Check by multiplying: 59 × 52 = 3068.</p>',
+  'math.examples': 'Examples from the lessons',
+  'math.trainer': 'Trainer',
+  'math.level0': 'Easy',
+  'math.level1': 'Medium',
+  'math.level2': 'Hard',
+  'math.check': 'Check',
+  'math.next': 'Next problem',
+  'math.show': 'Show solution',
+  'math.correct': 'Correct!',
+  'math.wrong': 'Not quite. Try again or look at the solution.',
+  'math.left': 'left',
+  'math.streak': 'Correct in a row: {n}',
+  'math.answer': 'Answer',
+
   'catalog.heading': 'Lessons',
   'catalog.intro':
     'Gematria games based on articles by Rabbi Yitzchak Ginsburgh from the “Niflaot” booklet. Count the numerical values of words, discover hidden equalities and uncover their meaning.',

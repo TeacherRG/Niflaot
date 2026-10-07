@@ -5,6 +5,7 @@ import { formatTime } from '../core/format';
 import { MAX_WRONG, award, draftStep, stepState, type GameState } from '../core/useLessonState';
 import type { Lesson, LessonText } from '../lessons/types';
 import { HebrewRuns } from './Hebrew';
+import { opInText } from '../core/mentalMath';
 
 interface Props {
   lesson: Lesson;
@@ -202,6 +203,11 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
               ) : x.hint && st.hint ? (
                 <div className="fb hint">
                   {t('riddle.hintPrefix')} {st.hint}
+                  {opInText(st.hint) && (
+                    <a className="hint-link" href={`#/math/${opInText(st.hint)}`}>
+                      {t(`math.howTo.${opInText(st.hint)!}`)} →
+                    </a>
+                  )}
                 </div>
               ) : null}
               {!x.ok && x.tries > 0 && x.last === 'no' && (
