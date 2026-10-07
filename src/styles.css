@@ -317,3 +317,18 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .about-mark{font-weight:900;font-size:44px;line-height:1;text-align:center;margin:4px 0 16px;background:linear-gradient(180deg,#C99B45 0%,#8E6A24 55%,#B98C3A 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .about-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
 .about-links .btn{text-decoration:none;flex:1 1 auto;text-align:center}
+
+/* compact lesson hero on phones: the first riddle should start on the first screen */
+@media (max-width:560px){
+  .hero-lesson{margin-top:14px}
+  .hero-lesson .hero-in{padding:20px 14px 16px;gap:4px}
+  .hero-lesson .hero-in::before{font-size:180px;left:-16px;top:-30px}
+  .hero-lesson .hero-in::after{font-size:160px;bottom:-60px}
+  .hero-lesson .year{font-size:10px}
+  .hero-lesson .heb{font-size:36px}
+  .hero-lesson h1{font-size:22px}
+  .hero-lesson .author{font-size:15px}
+  .hero-lesson .hero-intro{display:none}
+  .hero-lesson .hero-help{margin-top:6px;padding:6px 14px;font-size:13.5px}
+  .hero-lesson + .riddle,#game .riddle{margin-top:16px}
+}
