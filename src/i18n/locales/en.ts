@@ -22,7 +22,7 @@ const en: Messages = {
 
   'about.title': 'About the project',
   'about.body':
-    '<p><b>Niflaot</b> is a series of gematria games based on articles by Rabbi Yitzchak Ginsburgh from the “Niflaot” booklet (Gal Einai). Each lesson is a handful of riddles: you count the numerical values of words, discover hidden equalities and, step by step, uncover the meaning behind them.</p><p>The game does not replace the lesson — it leads to it: after each riddle, a retelling of the article and a question for personal reflection unlock. The full Hebrew text is on pnimi.org.il.</p><p>All texts belong entirely to Rabbi Yitzchak Ginsburgh. Idea and production — the <b>MyChitas</b> Torah project.</p>',
+    '<p><b>Niflaot</b> is a series of gematria games based on articles by Rabbi Yitzchak Ginsburgh from the “Niflaot” booklet (Gal Einai). You count the numerical values of words, discover hidden equalities and, step by step, uncover the meaning behind them.</p><h4>Who it is for</h4><ul><li><b>Parents</b> — to learn Torah together with their children through play.</li><li><b>Chitas readers</b> — as a continuation of daily study.</li><li><b>Young prodigies</b> — those who love numbers, riddles and depth.</li><li><b>Everyone</b> who wants to see wonders — <i>niflaot</i> — in their own life.</li></ul><h4>Goals</h4><ul><li><b>Torah study.</b> Not passive reading but a living search: you find each equality yourself, and so the meaning stays with you.</li><li><b>Rectifying the traits of the soul.</b> Each lesson addresses specific traits — pride, desire, anger, love — and leads from understanding to working on oneself.</li></ul><h4>Objectives</h4><ul><li>Make Rabbi Ginsburgh’s deep articles accessible through play: riddle, solution, retelling of the lesson.</li><li>Turn knowledge into personal work: after every riddle — a question for yourself and room for your notes.</li><li>Release new lessons regularly and translate them into more languages.</li></ul><p>The full Hebrew text of the articles is on pnimi.org.il. All texts belong entirely to Rabbi Yitzchak Ginsburgh. Idea and production — the <a href="https://mychitas.app" target="_blank" rel="noopener">mychitas.app</a> Torah project.</p>',
 
   'catalog.heading': 'Lessons',
   'catalog.intro':
@@ -88,15 +88,9 @@ const en: Messages = {
   'calc.space': 'space',
   'calc.backspace': 'delete',
 
-  'footer.rights': 'All texts belong entirely to <b>Rabbi Yitzchak Ginsburgh</b>.',
-  'footer.idea': 'Idea & project',
-  'footer.ideaVal': 'Torah project',
   'footer.contact': 'Questions & suggestions',
-  'footer.copyMail': 'Copy address',
-  'footer.copied': 'Copied',
   'footer.donate': 'Support the project',
-  'footer.donateText': 'Your contribution helps create new games and Torah materials.',
-  'footer.fine': '© MyChitas · Texts: Rabbi Yitzchak Ginsburgh',
+  'footer.fine': '© mychitas.app · Texts: Rabbi Yitzchak Ginsburgh',
 };
 
 export default en;

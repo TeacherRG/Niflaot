@@ -3,7 +3,8 @@ import { findLesson } from './lessons';
 import { Catalog } from './components/Catalog';
 import { LessonPage } from './components/LessonPage';
 import { Panels } from './components/Panels';
-import { UIContext, type Panel } from './components/ui';
+import { DonateFab, UIContext, type Panel } from './components/ui';
+import { useI18n } from './i18n';
 
 const SIGNATURE = '\n\n©pnimi.org.il\n©mychitas.app';
 
@@ -62,6 +63,7 @@ function useFirstVisitHelp(open: (p: Panel) => void) {
 }
 
 export function App() {
+  const { t } = useI18n();
   const route = useRoute();
   useCopySignature();
   const [panel, open] = useState<Panel>(null);
@@ -72,6 +74,7 @@ export function App() {
     <UIContext.Provider value={ui}>
       {lesson ? <LessonPage key={lesson.slug} lesson={lesson} /> : <Catalog />}
       <Panels />
+      <DonateFab label={t('footer.donate')} />
     </UIContext.Provider>
   );
 }
