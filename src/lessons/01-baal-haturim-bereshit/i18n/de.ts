@@ -33,8 +33,8 @@ const de: LessonText = {
           opts: ['„an Rosch Haschana erschaffen“', '„im Monat Nissan erschaffen“', '„am ersten Tag erschaffen“', '„in sechs Tagen erschaffen“'],
         },
         {
-          q: 'Bilde ein Wort aus den <b>letzten</b> Buchstaben der ersten drei Wörter der Tora. Tippe die Buchstaben des Verses der Reihe nach an.',
-          hint: 'Die letzten Buchstaben der Wörter sind markiert. Das Wort aus drei Buchstaben bedeutet „Wahrheit“.',
+          q: 'Bilde ein Wort aus den <b>letzten</b> Buchstaben der ersten drei Wörter der Tora. Nimm sie vom Ende her — vom dritten Wort zurück zum ersten.',
+          hint: 'Die letzten Buchstaben der Wörter sind markiert: ם, א, ת. Das Wort aus drei Buchstaben bedeutet „Wahrheit“.',
         },
         {
           q: 'Im zweiten Kapitel heißt es: „Dies sind die Hervorbringungen des Himmels und der Erde <span class="he">בהבראם</span> — als sie erschaffen wurden“. Stelle <b>alle</b> Buchstaben dieses Wortes so um, dass „in Awraham“ entsteht — der Name des Erzvaters mit der Vorsilbe <span class="he">ב</span>.',
@@ -94,8 +94,8 @@ const de: LessonText = {
         },
         { q: 'Welches Wort hat dieselbe Gematria?', opts: ['„in der Tora“', '„Tora“', '„Glaube“', '„Gebot“'] },
         {
-          q: 'Bilde ein Wort aus den <b>letzten</b> Buchstaben von <span class="he">את האור כי טוב</span> („das Licht, dass es gut war“).',
-          hint: 'Die letzten Buchstaben sind markiert. Es ergibt „Brit“ — Bund.',
+          q: 'Bilde ein Wort aus den <b>letzten</b> Buchstaben von <span class="he">את האור כי טוב</span> („das Licht, dass es gut war“), vom letzten Wort zurück zum ersten.',
+          hint: 'Die letzten Buchstaben sind markiert; nimm sie von <span class="he">טוב</span> zurück bis <span class="he">את</span>. Es ergibt „Brit“ — Bund.',
         },
         { q: 'Was ergibt das Wort <span class="he">ויבדל</span> — „und Er schied“?', hint: '6 + 10 + 2 + 4 + 30.' },
         {

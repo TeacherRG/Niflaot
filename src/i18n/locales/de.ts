@@ -133,7 +133,7 @@ const de: Messages = {
   'riddle.triesLeft': 'Verbleibende Versuche: {n}.',
   'riddle.wrongNum': 'Das geht nicht auf. Prüfe die Werte der Buchstaben und versuch es noch einmal.',
   'riddle.wrongChoice': 'Nicht das. Sieh dir die Zahl dieser Möglichkeit an und wähle eine andere.',
-  'riddle.wrongWord': 'Nicht das Wort. Prüfe, welche Buchstaben die Regel nimmt, und setze es neu zusammen.',
+  'riddle.wrongWord': 'Nicht das Wort. Prüfe, welche Buchstaben die Regel nimmt und in welcher Reihenfolge, und setze es neu zusammen.',
   'riddle.wrongPlace': 'Das Wort stimmt, aber einige Buchstaben stammen von der falschen Stelle: Nimm sie nur nach der Regel aus der Frage.',
   'riddle.wrongLetter': 'Nicht dieser Buchstabe. Vergleiche, wie das Wort in der Tora geschrieben ist.',
   'letters.bank': 'Buchstaben des Verses',

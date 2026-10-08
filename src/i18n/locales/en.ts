@@ -133,7 +133,7 @@ const en: Messages = {
   'riddle.triesLeft': 'Tries left: {n}.',
   'riddle.wrongNum': 'That doesn’t add up. Check the letter values and try again.',
   'riddle.wrongChoice': 'Not that one. Look at this option’s number and pick another.',
-  'riddle.wrongWord': 'Not that word. Check which letters the rule takes and build it again.',
+  'riddle.wrongWord': 'Not that word. Check which letters the rule takes and in what order, and build it again.',
   'riddle.wrongPlace': 'The word is right, but some letters come from the wrong place: take them only by the rule in the question.',
   'riddle.wrongLetter': 'Not that letter. Compare with how the word is written in the Torah.',
   'letters.bank': 'Letters of the verse',

@@ -33,8 +33,8 @@ const en: LessonText = {
           opts: ['“created on Rosh Hashanah”', '“created in the month of Nisan”', '“created on the first day”', '“created in six days”'],
         },
         {
-          q: 'Build a word from the <b>last</b> letters of the Torah’s first three words. Tap the letters of the verse in order.',
-          hint: 'The last letters of the words are marked. The three-letter word means “truth”.',
+          q: 'Build a word from the <b>last</b> letters of the Torah’s first three words. Take them from the end — from the third word back to the first.',
+          hint: 'The last letters of the words are marked: ם, א, ת. The three-letter word means “truth”.',
         },
         {
           q: 'The second chapter says: “these are the generations of the heaven and the earth <span class="he">בהבראם</span> — when they were created”. Rearrange <b>all</b> the letters of this word to make “in Avraham” — the Patriarch’s name with the prefix <span class="he">ב</span>.',
@@ -94,8 +94,8 @@ const en: LessonText = {
         },
         { q: 'Which word has the same gematria?', opts: ['“in the Torah”', '“Torah”', '“faith”', '“commandment”'] },
         {
-          q: 'Build a word from the <b>last</b> letters of <span class="he">את האור כי טוב</span> (“the light, that it was good”).',
-          hint: 'The last letters are marked. You get “brit” — covenant.',
+          q: 'Build a word from the <b>last</b> letters of <span class="he">את האור כי טוב</span> (“the light, that it was good”), from the last word back to the first.',
+          hint: 'The last letters are marked; take them from <span class="he">טוב</span> back to <span class="he">את</span>. You get “brit” — covenant.',
         },
         { q: 'What is the word <span class="he">ויבדל</span> — “and He divided” — worth?', hint: '6 + 10 + 2 + 4 + 30.' },
         {
