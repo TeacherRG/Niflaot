@@ -62,19 +62,28 @@ export function Panels() {
                   </span>
                 </a>
                 {g.rebbe.map((l) => (
-                  <a
-                    key={l.slug}
-                    href={`#/${l.slug}`}
-                    onClick={close}
-                    className="menu-item menu-rebbe"
-                    aria-current={l.slug === lessonSlug ? 'page' : undefined}
-                  >
-                    <span className="menu-num">{l.number}</span>
-                    <span>
-                      {pick(l.texts).value.title}
-                      <small lang="he">{l.hebrewTitle}</small>
-                    </span>
-                  </a>
+                  <div key={l.slug} className="menu-rebbe">
+                    <a href={`#/${l.slug}`} onClick={close} className="menu-item">
+                      <span className="menu-num">{l.number}</span>
+                      <span>
+                        {pick(l.texts).value.title}
+                        <small lang="he">{l.hebrewTitle}</small>
+                      </span>
+                    </a>
+                    {/* the lesson's two games: «Расследование» and «Карточки» */}
+                    {lessonGames(l)?.map((game) => (
+                      <a
+                        key={game.href}
+                        href={game.href}
+                        onClick={close}
+                        className="menu-item menu-game"
+                        aria-current={location.hash === game.href ? 'page' : undefined}
+                      >
+                        <span className="menu-num">{game.icon}</span>
+                        <span>{t(game.label)}</span>
+                      </a>
+                    ))}
+                  </div>
                 ))}
               </div>
             </details>
@@ -103,7 +112,9 @@ export function Panels() {
               ))}
             </div>
           </details>
+          {/* the two games of a commentary lesson; a «Нифлаот Ребе» lesson has them under its section above */}
           {lessonSlug &&
+            !findLesson(lessonSlug)!.series &&
             lessonGames(findLesson(lessonSlug)!)?.map((g) => (
               <a key={g.href} href={g.href} onClick={close} className="menu-item">
                 <span className="menu-num">{g.icon}</span>
