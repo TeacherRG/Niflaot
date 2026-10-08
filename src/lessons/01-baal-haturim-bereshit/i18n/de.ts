@@ -287,6 +287,7 @@ const de: LessonText = {
     pieces: ['Anfang: בראשית ברא = 1116', 'Licht: את האור = 613', 'Mensch: האדם = אדמה', 'Der Siebte: עדי = חנוך'],
     meaning: 'Vom ersten Wort bis zur siebten Generation: Die Welt ist mit Wahrheit erschaffen, sie leuchtet mit der Tora, der Mensch aus Erde trägt das g-ttliche Siegel, und die Siebten sind vom Allmächtigen geliebt.',
   },
+  audience: 'Addition und Buchstabenspiele zu vertrauten Themen — Schöpfung, Adam und Chawa. Jüngere Kinder — gemeinsam mit einem Erwachsenen.',
   practice:
     'Schau bei der nächsten Hawdala zuerst auf das Licht der Kerze — zum Beispiel auf die Fingernägel in ihrem Schein — und sprich erst dann den Segen: wie die Tora, zuerst „sah das Licht, dass es gut war“, dann „schied“. Und empfange den nächsten Schabbat ein paar Minuten früher — füge vom Alltäglichen zum Heiligen hinzu.',
   highlight: 'Die ersten Worte der Tora sagen, wann die Welt erschaffen wurde: an Rosch Haschana.',

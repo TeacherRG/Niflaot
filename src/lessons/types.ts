@@ -148,6 +148,8 @@ export interface LessonText {
   final: { title: string; allSolved: string };
   /** final «Собери смысл»: the path of the whole lesson */
   puzzle: PuzzleText;
+  /** who the lesson suits and why (a methodical note next to the age, one short sentence); plain text */
+  audience: string;
   /** «Ораа ле-поаль»: one concrete practical conclusion of the lesson */
   practice: string;
   /** caption of the share card under the highlighted equation */
@@ -166,6 +168,8 @@ export interface Lesson {
   hebrewTitle: string;
   /** e.g. "ה׳תשפ״ז · 5787" */
   year: string;
+  /** recommended minimum age; the range is open upward (adults too), shown as «8+» */
+  age: number;
   /** two large decorative letters in the hero background */
   heroLetters: [string, string];
   riddles: RiddleData[];

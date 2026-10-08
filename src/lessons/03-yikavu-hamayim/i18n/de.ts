@@ -257,6 +257,7 @@ const de: LessonText = {
     pieces: ['Die Wasser sammeln sich an einem Ort', 'Mikwe, Linie und Hoffnung', '59: der „Schwanz“, der geheiligt wird', 'Herrschaft wird zum Bund'],
     meaning: 'Die Wasser haben sich an einem Ort gesammelt, die Linie hat sich ausgestreckt, die Hoffnung ist zur Quelle zurückgekehrt — und die Neun hat zum Bund von Jaakow und Rachel geführt.',
   },
+  audience: 'Erfordert Division und Mittelwert (Klasse 4–5); die Begriffe der Welten werden im Kurs erklärt.',
   practice:
     'Wähle einen „Ort“ — eine Ecke im Haus oder eine Zeit des Tages — und mache ihn zu einem „einen Ort“: Dort betest, lernst oder sprichst du ein gutes Wort. Und einen deiner Wünsche unterdrücke nicht, sondern heilige ihn: Richte ihn auf das Gute.',
   highlight: 'Der neunte Vers der Tora und der „Schwanz“ — eine Zahl: 59.',

@@ -151,13 +151,15 @@ function lessonPage(l: Lesson): Page {
       image: `${SITE_URL}/og/${l.slug}.png`,
       learningResourceType: 'game',
       interactivityType: 'active',
+      typicalAgeRange: `${l.age}-`,
+      audience: { '@type': 'EducationalAudience', educationalRole: 'student', audienceType: plain(tx.audience) },
       author: l.author ? { '@type': 'Person', ...l.author } : AUTHOR,
       publisher: PUBLISHER,
       isPartOf: SITE,
       keywords: ['гиматрия', 'Тора', ...keywords].join(', '),
     },
     body: `<header><p><a href="../">${esc(ui['app.title'] as string)}</a> · ${esc(ui['catalog.lesson'].toString().replace('{n}', String(l.number)))}</p>
-<p class="he">${esc(displayNames(l.hebrewTitle))}</p><h1>${esc(plain(tx.hero.heading))}</h1><p>${esc(plain(tx.hero.author))}</p><p>${esc(plain(tx.hero.intro))}</p></header>
+<p class="he">${esc(displayNames(l.hebrewTitle))}</p><h1>${esc(plain(tx.hero.heading))}</h1><p>${esc(plain(tx.hero.author))}</p><p>${esc(String(ui['age.title']))}: ${esc(String(ui['age.long']).replace('{n}', String(l.age)))}. ${esc(plain(tx.audience))}</p><p>${esc(plain(tx.hero.intro))}</p></header>
 ${tx.riddles
   .map(
     (r) => `<section><h2>${esc(plain(r.title))}</h2><p>${esc(plain(r.cond))}</p>${

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { AgeBadge } from './AgeBadge';
 import { Html, useI18n } from '../i18n';
 import { VALUES, letters } from '../core/gematria';
 import { SITE_HOST } from '../core/site';
@@ -111,7 +112,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
           <div className="p-head-main">
             <div className="p-year">
               {parsha.name[locale as keyof typeof parsha.name] ?? parsha.name.ru} · {parsha.year} ·{' '}
-              <span className="he">{parsha.heYear}</span>
+              <span className="he">{parsha.heYear}</span> · <AgeBadge age={lesson.age} long={false} />
             </div>
             <div className="p-heb he">{lesson.hebrewTitle}</div>
             <h1>{text.title}</h1>

@@ -43,6 +43,11 @@ function checkPuzzle(where: string, all: [string, PuzzleText | undefined][]) {
 }
 
 for (const lesson of LESSONS) {
+  if (!Number.isInteger(lesson.age) || lesson.age < 5 || lesson.age > 18)
+    err(`${lesson.slug}: age needs the recommended minimum age, 5–18 (shown as «N+», open upward)`);
+  for (const [lang, tx] of Object.entries(lesson.texts)) {
+    if (tx && !tx.audience?.trim()) err(`${lesson.slug} [${lang}]: audience — who the lesson suits and why`);
+  }
   lesson.riddles.forEach((r, ri) => {
     const where = (i?: number) => `${lesson.slug} · riddle ${ri + 1}${i === undefined ? '' : ` · step ${i + 1}`}`;
     r.steps.forEach((s, i) => {

@@ -16,6 +16,7 @@ const lesson: Lesson = {
   parsha: 'bereshit',
   hebrewTitle: 'בעל הטורים · בראשית',
   year: 'ה׳תשפ״ז · 5787',
+  age: 8,
   heroLetters: ['ב', 'ת'],
   riddles: [
     {

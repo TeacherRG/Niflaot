@@ -287,6 +287,7 @@ const en: LessonText = {
     pieces: ['Beginning: בראשית ברא = 1116', 'Light: את האור = 613', 'Man: האדם = אדמה', 'The seventh: עדי = חנוך'],
     meaning: 'From the first word to the seventh generation: the world was created with truth, it shines with Torah, man from the earth carries the Divine seal, and the seventh are beloved by the Almighty.',
   },
+  audience: 'Addition and letter games on familiar themes — Creation, Adam and Chava. Younger children — together with an adult.',
   practice:
     'At the next Havdalah, first look at the candle’s light — for example, at your fingernails in its glow — and only then say the blessing: like the Torah, first “saw the light, that it was good”, then “divided”. And welcome next Shabbat a few minutes early — add from the weekday to the holy.',
   highlight: 'The Torah’s first words tell when the world was created: on Rosh Hashanah.',

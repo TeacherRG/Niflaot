@@ -11,6 +11,9 @@ const de: Messages = {
   'menu.allLessons': 'Alle Lektionen',
   'lang.choose': 'Sprache der Oberfläche',
   'hero.howTo': 'So wird gespielt',
+  'age.short': '{n}+',
+  'age.long': 'ab {n} Jahren und für Erwachsene',
+  'age.title': 'Empfohlenes Alter',
 
   'help.title': 'So wird gespielt',
   'help.body':

@@ -14,6 +14,9 @@ const ru = {
   'menu.allLessons': 'Все уроки',
   'lang.choose': 'Язык интерфейса',
   'hero.howTo': 'Как играть',
+  'age.short': '{n}+',
+  'age.long': 'от {n} лет и взрослым',
+  'age.title': 'Рекомендуемый возраст',
 
   'help.title': 'Как играть',
   /** HTML */

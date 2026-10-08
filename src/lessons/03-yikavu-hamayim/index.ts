@@ -14,6 +14,7 @@ const lesson: Lesson = {
   parsha: 'bereshit',
   hebrewTitle: 'יקוו המים אל מקום אחד',
   year: 'ה׳תשפ״ז · 5787',
+  age: 10,
   heroLetters: ['ט', 'ק'],
   riddles: [
     {
