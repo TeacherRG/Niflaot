@@ -7,7 +7,8 @@
  *    every source has a German one (Sefaria's or the project's, src/sources/de.ts);
  *    the project's English (src/sources/en.ts) has as many segments as the original
  *  - every lesson has texts in every language of src/i18n/config.ts
- *  - «Собери смысл»: every riddle and the lesson have a puzzle of 3–6 distinct pieces, the same count in every language
+ *  - «Собери смысл»: every riddle and the lesson have a puzzle of 3–6 distinct pieces, the same count in every language;
+ *    a `commentary` lesson (separate remarks, e.g. Baal HaTurim) has none
  *  - word cards don't show the answer of a choice or «Собери слово» step
  *  - letter steps: the letters the rule takes make the answer; «Найди букву» points at a real letter
  *  - every step has an estimate: average time 5–600 s and difficulty 1–3
@@ -29,7 +30,12 @@ import enUi from '../src/i18n/locales/en';
 const errors: string[] = [];
 const err = (m: string) => errors.push(m);
 
-function checkPuzzle(where: string, all: [string, PuzzleText | undefined][]) {
+function checkPuzzle(where: string, all: [string, PuzzleText | undefined][], commentary: boolean) {
+  // a commentary lesson (separate remarks, e.g. Baal HaTurim) has nothing to chain: no puzzles at all
+  if (commentary) {
+    for (const [lang, p] of all) if (p) err(`${where} [${lang}]: a commentary lesson has no «Собери смысл» puzzle`);
+    return;
+  }
   const counts = new Set<number>();
   for (const [lang, p] of all) {
     if (!p) { err(`${where} [${lang}]: no puzzle («Собери смысл»)`); continue; }
@@ -97,7 +103,7 @@ for (const lesson of LESSONS) {
       if (s.t === 'ch' && r.words.includes(s.opts[s.c].h)) err(`${where(i)}: the answer ${s.opts[s.c].h} is shown on a word card`);
       if (s.t === 'lt' && r.words.some((w) => plainWord(w) === plainWord(s.a))) err(`${where(i)}: the answer ${s.a} is shown on a word card`);
     });
-    checkPuzzle(where(), Object.entries(lesson.texts).map(([l, tx]) => [l, tx!.riddles[ri].puzzle]));
+    checkPuzzle(where(), Object.entries(lesson.texts).map(([l, tx]) => [l, tx!.riddles[ri].puzzle]), lesson.kind === 'commentary');
     for (const [lang, text] of Object.entries(lesson.texts)) {
       const rt = text!.riddles[ri];
       const html = [rt.cond, rt.reveal.p, ...rt.lessons.map((l) => l.b)].join('\n');
@@ -111,7 +117,8 @@ for (const lesson of LESSONS) {
 for (const lesson of LESSONS)
   for (const l of Object.keys(LOCALES)) if (!(l in lesson.texts)) err(`${lesson.slug}: no texts in ${l} (src/lessons/<lesson>/i18n/${l}.ts)`);
 
-for (const lesson of LESSONS) checkPuzzle(`${lesson.slug} · final`, Object.entries(lesson.texts).map(([l, tx]) => [l, tx!.puzzle]));
+for (const lesson of LESSONS)
+  checkPuzzle(`${lesson.slug} · final`, Object.entries(lesson.texts).map(([l, tx]) => [l, tx!.puzzle]), lesson.kind === 'commentary');
 
 // HTML strings go to dangerouslySetInnerHTML: allow inline markup only
 const UNSAFE = /<\s*(script|iframe|object|embed|style|form|link|meta|base)\b|\son[a-z]+\s*=|(href|src)\s*=\s*["']?\s*(javascript|data|vbscript):/i;

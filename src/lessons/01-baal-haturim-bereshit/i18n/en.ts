@@ -78,11 +78,6 @@ const en: LessonText = {
         'The last letters of בראשית ברא אלקים form אמת: the world was created with truth; “the beginning of Your word is truth”.',
         'בהבראם has the letters of באברהם (250): heaven and earth were created for the sake of Avraham.',
       ],
-      puzzle: {
-        q: 'Put the allusions in the order of the Torah text.',
-        pieces: ['בראשית ברא = 1116', '“Created on Rosh Hashanah”', 'Last letters: אמת', 'בהבראם = באברהם'],
-        meaning: 'The Torah’s first words name the day of creation — Rosh Hashanah; their last letters set the seal of truth; and “when they were created” reveals for whose sake: for Avraham’s.',
-      },
     },
     {
       title: 'Light is Torah',
@@ -141,11 +136,6 @@ const en: LessonText = {
         'ויבדל = 52 — Havdalahs a year, one for each Shabbat.',
         'More allusions: “above the firmament” is a secret, like the Chariot; every blade of grass has its mazal; the moon was created so that the sun would not be worshipped.',
       ],
-      puzzle: {
-        q: 'Put the allusions of verse 1:4 in the order of its words.',
-        pieces: ['את האור = 613 = בתורה', 'Last letters of “את האור כי טוב”: ברית', '“Saw that it was good”: first benefit from the light', 'ויבדל = 52 Havdalahs a year'],
-        meaning: 'The light of the first day is Torah and covenant; the Almighty first “saw that it was good”, then “divided” — so every week we too bless the light and then divide Shabbat from the weekdays.',
-      },
     },
     {
       title: 'Man from the earth',
@@ -214,11 +204,6 @@ const en: LessonText = {
         'ויבאה = 24: Chava was adorned with twenty-four ornaments.',
         'After the sin: אשר צויתיך לבלתי אכל → רכיל (a talebearer’s counsel); “evil for good” → האשה (ingratitude).',
       ],
-      puzzle: {
-        q: 'Put the path of man in the order of the verses: from creation to the sin.',
-        pieces: ['האדם = אדמה = 50', 'Last letters: חותם, seal', 'First letters: חלה, challah of the world', 'ויבאה = 24 ornaments', 'Last letters: רכיל, talebearer'],
-        meaning: 'Man is taken from the earth and sealed with the Almighty’s seal; he is the challah of the world; he is given an adorned wife — yet he follows the counsel of a talebearer.',
-      },
     },
     {
       title: 'The seventh',
@@ -270,22 +255,12 @@ const en: LessonText = {
         'עדי = 84 = חנוך: a witness in heaven.',
         'Chanoch is seventh from Adam, Moshe seventh from Avraham: the Almighty loves the seventh.',
       ],
-      puzzle: {
-        q: 'Put the lesson about the seventh in order: from the end of creation to the seventh generations.',
-        pieces: ['The Name seals the six days', 'The seventh day — “most desired”', 'עדי = 84 = חנוך', 'Chanoch — seventh from Adam', 'Moshe — seventh from Avraham'],
-        meaning: 'Creation is sealed with the Name, the seventh day is the most desired; the witness in heaven is Chanoch, the seventh generation, just as Moshe is seventh from Avraham: the Almighty loves the seventh.',
-      },
     },
   ],
   final: {
     title: 'The beginning revealed',
     allSolved:
       'All four riddles solved. The world was created on Rosh Hashanah and sealed with truth, the light of the first day is Torah, man carries the Almighty’s seal, and the seventh ascend to Him.',
-  },
-  puzzle: {
-    q: 'Put the path of the whole lesson in the order of the chapters of Bereshit.',
-    pieces: ['Beginning: בראשית ברא = 1116', 'Light: את האור = 613', 'Man: האדם = אדמה', 'The seventh: עדי = חנוך'],
-    meaning: 'From the first word to the seventh generation: the world was created with truth, it shines with Torah, man from the earth carries the Divine seal, and the seventh are beloved by the Almighty.',
   },
   audience: 'Addition and letter games on familiar themes — Creation, Adam and Chava. Younger children — together with an adult.',
   practice:

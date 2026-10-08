@@ -132,7 +132,7 @@ export function Final({
   return (
     <>
     <Conspect lesson={lesson} text={text} S={S} onOpen={onOpen} />
-    {allSolved && (
+    {allSolved && text.puzzle && (
       <div className="final-puzzle pop">
         <Puzzle
           id={`${lesson.slug}:final`}

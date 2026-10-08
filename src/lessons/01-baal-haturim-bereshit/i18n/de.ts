@@ -78,11 +78,6 @@ const de: LessonText = {
         'Die Endbuchstaben von בראשית ברא אלקים bilden אמת: Die Welt ist mit Wahrheit erschaffen; „der Anfang Deines Wortes ist Wahrheit“.',
         'בהבראם hat die Buchstaben von באברהם (250): Himmel und Erde wurden um Awrahams willen erschaffen.',
       ],
-      puzzle: {
-        q: 'Ordne die Andeutungen in der Reihenfolge des Toratextes.',
-        pieces: ['בראשית ברא = 1116', '„An Rosch Haschana erschaffen“', 'Endbuchstaben: אמת', 'בהבראם = באברהם'],
-        meaning: 'Die ersten Worte der Tora nennen den Tag der Schöpfung — Rosch Haschana; ihre Endbuchstaben setzen das Siegel der Wahrheit; und „als sie erschaffen wurden“ verrät, um wessentwillen: um Awrahams willen.',
-      },
     },
     {
       title: 'Das Licht ist die Tora',
@@ -141,11 +136,6 @@ const de: LessonText = {
         'ויבדל = 52 — so viele Hawdalot im Jahr, eine für jeden Schabbat.',
         'Weitere Andeutungen: „über dem Gewölbe“ ist ein Geheimnis wie der Wagen; jeder Grashalm hat seinen Masal; der Mond wurde erschaffen, damit man die Sonne nicht anbetet.',
       ],
-      puzzle: {
-        q: 'Ordne die Andeutungen von Vers 1,4 nach der Reihenfolge seiner Wörter.',
-        pieces: ['את האור = 613 = בתורה', 'Endbuchstaben von „את האור כי טוב“: ברית', '„Sah, dass es gut war“: zuerst Nutzen vom Licht', 'ויבדל = 52 Hawdalot im Jahr'],
-        meaning: 'Das Licht des ersten Tages ist Tora und Bund; der Allmächtige „sah zuerst, dass es gut war“, dann „schied“ Er — so segnen auch wir jede Woche das Licht und scheiden dann den Schabbat vom Alltag.',
-      },
     },
     {
       title: 'Der Mensch aus Erde',
@@ -214,11 +204,6 @@ const de: LessonText = {
         'ויבאה = 24: Chawa wurde mit vierundzwanzig Schmuckstücken geschmückt.',
         'Nach der Sünde: אשר צויתיך לבלתי אכל → רכיל (Rat eines Verleumders); „Böses für Gutes“ → האשה (Undankbarkeit).',
       ],
-      puzzle: {
-        q: 'Ordne den Weg des Menschen nach der Reihenfolge der Verse: von der Schöpfung bis zur Sünde.',
-        pieces: ['האדם = אדמה = 50', 'Endbuchstaben: חותם, Siegel', 'Anfangsbuchstaben: חלה, Challa der Welt', 'ויבאה = 24 Schmuckstücke', 'Endbuchstaben: רכיל, Verleumder'],
-        meaning: 'Der Mensch ist aus Erde genommen und mit dem Siegel des Allmächtigen versiegelt; er ist die Challa der Welt; ihm wird eine geschmückte Frau gegeben — und doch folgt er dem Rat eines Verleumders.',
-      },
     },
     {
       title: 'Der Siebte',
@@ -270,22 +255,12 @@ const de: LessonText = {
         'עדי = 84 = חנוך: ein Zeuge im Himmel.',
         'Chanoch ist der Siebte nach Adam, Mosche der Siebte nach Awraham: Der Allmächtige liebt die Siebten.',
       ],
-      puzzle: {
-        q: 'Ordne die Lektion über die Siebten: vom Ende der Schöpfung bis zu den siebten Generationen.',
-        pieces: ['Der Name versiegelt die sechs Tage', 'Der siebte Tag — „der begehrteste“', 'עדי = 84 = חנוך', 'Chanoch — der Siebte nach Adam', 'Mosche — der Siebte nach Awraham'],
-        meaning: 'Die Schöpfung ist mit dem Namen versiegelt, der siebte Tag ist der begehrteste; der Zeuge im Himmel ist Chanoch, die siebte Generation, so wie Mosche der Siebte nach Awraham ist: Der Allmächtige liebt die Siebten.',
-      },
     },
   ],
   final: {
     title: 'Der Anfang ist offenbart',
     allSolved:
       'Alle vier Rätsel gelöst. Die Welt wurde an Rosch Haschana erschaffen und mit Wahrheit versiegelt, das Licht des ersten Tages ist die Tora, der Mensch trägt das Siegel des Allmächtigen, und die Siebten steigen zu Ihm hinauf.',
-  },
-  puzzle: {
-    q: 'Ordne den Weg der ganzen Lektion nach der Reihenfolge der Kapitel von Bereschit.',
-    pieces: ['Anfang: בראשית ברא = 1116', 'Licht: את האור = 613', 'Mensch: האדם = אדמה', 'Der Siebte: עדי = חנוך'],
-    meaning: 'Vom ersten Wort bis zur siebten Generation: Die Welt ist mit Wahrheit erschaffen, sie leuchtet mit der Tora, der Mensch aus Erde trägt das g-ttliche Siegel, und die Siebten sind vom Allmächtigen geliebt.',
   },
   audience: 'Addition und Buchstabenspiele zu vertrauten Themen — Schöpfung, Adam und Chawa. Jüngere Kinder — gemeinsam mit einem Erwachsenen.',
   practice:

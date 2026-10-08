@@ -203,7 +203,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
                 })}
               </ol>
 
-              <PrintPuzzle puzzle={rt.puzzle} seed={ri * 7 + 3} label={t('print.puzzle')} />
+              {rt.puzzle && <PrintPuzzle puzzle={rt.puzzle} seed={ri * 7 + 3} label={t('print.puzzle')} />}
 
               {opt.reflection && (
                 <div className="p-refl">
@@ -220,10 +220,12 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
           );
         })}
 
-        <section className="p-riddle">
-          <h2>{t('puzzle.final')}</h2>
-          <PrintPuzzle puzzle={text.puzzle} seed={97} label={t('print.puzzle')} />
-        </section>
+        {text.puzzle && (
+          <section className="p-riddle">
+            <h2>{t('puzzle.final')}</h2>
+            <PrintPuzzle puzzle={text.puzzle} seed={97} label={t('print.puzzle')} />
+          </section>
+        )}
 
         <section className="p-block">
           <h3 className="p-label">{t('print.letters')}</h3>
@@ -283,19 +285,23 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
                   <p>
                     <b>{rt.reveal.h}.</b> {rt.reveal.p}
                   </p>
-                  <p className="p-chain">
-                    <b>{t('puzzle.title')}:</b> <HebrewRuns text={chain(rt.puzzle)} />
-                  </p>
+                  {rt.puzzle && (
+                    <p className="p-chain">
+                      <b>{t('puzzle.title')}:</b> <HebrewRuns text={chain(rt.puzzle)} />
+                    </p>
+                  )}
                 </div>
               );
             })}
-            <div className="p-ans">
-              <h3>{t('puzzle.final')}</h3>
-              <p className="p-chain">
-                <HebrewRuns text={chain(text.puzzle)} />
-              </p>
-              <p>{text.puzzle.meaning}</p>
-            </div>
+            {text.puzzle && (
+              <div className="p-ans">
+                <h3>{t('puzzle.final')}</h3>
+                <p className="p-chain">
+                  <HebrewRuns text={chain(text.puzzle)} />
+                </p>
+                <p>{text.puzzle.meaning}</p>
+              </div>
+            )}
           </section>
         )}
 
@@ -346,7 +352,6 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
         <section className="p-about">
           <h2>{t('about.title')}</h2>
           <Html as="div" className="prose" html={t('about.body')} />
-          <p className="p-site">{SITE_HOST}</p>
         </section>
       </article>
     </div>

@@ -310,12 +310,14 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
             ))}
           </div>
           {r.sources && <Sources ri={ri} ids={fn.ordered} number={fn.number} refs={fn.refs} />}
-          <Puzzle
-            id={`${lesson.slug}:${ri}`}
-            puzzle={rt.puzzle}
-            placed={S.puz[ri] ?? []}
-            onPlace={(i) => update((d) => placePiece(d, ri, i))}
-          />
+          {rt.puzzle && (
+            <Puzzle
+              id={`${lesson.slug}:${ri}`}
+              puzzle={rt.puzzle}
+              placed={S.puz[ri] ?? []}
+              onPlace={(i) => update((d) => placePiece(d, ri, i))}
+            />
+          )}
           <div className="refl">
             <div className="refl-lbl">
               {t('refl.title')} <span>{t('refl.sub')}</span>
