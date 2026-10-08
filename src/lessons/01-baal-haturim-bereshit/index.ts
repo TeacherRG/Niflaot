@@ -17,6 +17,7 @@ const lesson: Lesson = {
   hebrewTitle: 'בעל הטורים · בראשית',
   year: 'ה׳תשפ״ז · 5787',
   age: 8,
+  kind: 'commentary',
   heroLetters: ['ב', 'ת'],
   riddles: [
     {

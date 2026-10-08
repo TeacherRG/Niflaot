@@ -406,12 +406,20 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .p-fields{display:grid;gap:10px;font-size:13px;color:#333}
 .p-label{font-family:var(--f-body)!important;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#7a5b1e;margin-bottom:6px!important}
 .p-block{margin-top:16px}
+.p-letters-block{break-inside:avoid}
+.p-finals{margin:4px 0 0;font-size:11.5px;color:#444}
+.p-finals .he{font-size:14px;font-weight:700;unicode-bidi:isolate}
+.p-holy{margin:0 0 4px;font-style:italic;color:#444}
+.p-teacher{margin:-4px 0 8px;font-size:12px;font-style:italic;color:#555}
 .p-table{display:grid;grid-template-columns:repeat(11,1fr);gap:3px}
 .p-table span{display:grid;justify-items:center;border:1px solid #bbb;border-radius:3px;padding:2px 0}
 .p-table b{font-family:var(--f-he);font-size:16px;line-height:1.2}
 .p-table i{font-family:var(--f-num);font-style:normal;font-size:10px;color:#555}
 
-.p-riddle{margin-top:22px;padding-top:16px;border-top:1px solid #ccc;break-inside:avoid-page}
+.p-riddle{margin-top:22px;padding-top:16px;border-top:1px solid #ccc}
+/* a riddle may continue on the next page, but its parts stay whole and a heading never ends a page */
+.p-eyebrow,.p-riddle h2,.p-cond{break-after:avoid}
+.p-cond .verse,.p-words,.p-word,.p-refl,.p-puz,.p-opts{break-inside:avoid}
 .p-eyebrow{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#7a5b1e}
 .p-riddle h2{font-size:23px;font-weight:700;margin:2px 0 8px}
 .p-cond p{margin:0 0 6px}
@@ -459,7 +467,7 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .p-eqs{font-family:var(--f-num);font-size:12px;display:grid;gap:2px;margin:4px 0}
 .p-ans p,.p-les p{margin:4px 0}
 .p-les{margin-top:10px;break-inside:avoid}
-.p-foot{margin-top:20px;padding-top:10px;border-top:1px solid #ccc;font-size:10.5px;color:#666;text-align:center}
+.p-foot{break-before:avoid;break-inside:avoid;margin-top:20px;padding-top:10px;border-top:1px solid #ccc;font-size:10.5px;color:#666;text-align:center}
 
 @media (max-width:600px){
   .sheet-paper{padding:22px 16px}
@@ -506,9 +514,11 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 /* print: about the project at the very end, on its own page */
 .p-about{break-before:page;margin-top:28px;padding-top:16px;border-top:2px solid #111}
 .p-about>h2{font-size:24px;font-weight:700;margin-bottom:10px}
-.p-about .prose{font-size:13px;color:#222}
+.p-about .prose{font-size:12px;line-height:1.45;color:#222}
+.p-about .prose h4{margin:10px 0 2px}
+.p-about .prose ul{margin:2px 0;padding-inline-start:18px}
+.p-about .prose li{margin:1px 0}
 .p-about .prose a{color:#111;border-bottom:none}
-.p-site{margin-top:14px;font-family:var(--f-num);font-weight:600;font-size:14px;text-align:center}
 .p-riddle + .p-block{margin-top:24px;padding-top:14px;border-top:1px solid #ccc;break-inside:avoid}
 
 /* ───────── mental math ───────── */

@@ -117,8 +117,8 @@ export interface RiddleText {
   reflection: string;
   /** short bullet points for the summary («конспект») on the final screen; plain text, Hebrew is auto-styled */
   takeaways?: string[];
-  /** «Собери смысл» after the lesson sections */
-  puzzle: PuzzleText;
+  /** «Собери смысл» after the lesson sections; none in a `commentary` lesson */
+  puzzle?: PuzzleText;
 }
 
 export interface ShareParams {
@@ -146,8 +146,8 @@ export interface LessonText {
   glossary: Record<string, string>;
   riddles: RiddleText[];
   final: { title: string; allSolved: string };
-  /** final «Собери смысл»: the path of the whole lesson */
-  puzzle: PuzzleText;
+  /** final «Собери смысл»: the path of the whole lesson; none in a `commentary` lesson */
+  puzzle?: PuzzleText;
   /** who the lesson suits and why (a methodical note next to the age, one short sentence); plain text */
   audience: string;
   /** «Ораа ле-поаль»: one concrete practical conclusion of the lesson */
@@ -168,6 +168,12 @@ export interface Lesson {
   hebrewTitle: string;
   /** e.g. "ה׳תשפ״ז · 5787" */
   year: string;
+  /**
+   * `article` (default) — one connected article (Rav Ginzburgh): its ideas follow from one another,
+   * so every riddle and the lesson end with «Собери смысл»;
+   * `commentary` — separate remarks of a commentator (Baal HaTurim…) not linked into one chain: no puzzles.
+   */
+  kind?: 'article' | 'commentary';
   /** recommended minimum age; the range is open upward (adults too), shown as «8+» */
   age: number;
   /** two large decorative letters in the hero background */

@@ -7,7 +7,7 @@ src/sources/sefaria.json. Run it again after adding a source to SOURCES below:
     python3 scripts/fetch-sources.py
 
 Hebrew/Aramaic and English are taken verbatim (HTML tags reduced to <b>/<i>); Divine Names are
-written respectfully (יהוה → ה׳, אלהים → אלקים; Бог → Б-г). Russian comes from Sefaria where a
+written respectfully (יהוה → ה׳, אלהים → אלקים, ה׳ צבאות → ה׳ צב-אות; Бог → Б-г, God → G-d, Lord → L-rd, Gott → G-tt). Russian comes from Sefaria where a
 Russian version exists (Torah: D. Slivniak, Da Project); other Russian translations are the
 project's own and live in src/sources/ru.ts.
 
@@ -171,12 +171,18 @@ MARKS = '\u0591-\u05C7'
 HOLY = re.compile(r'^[והבכלמש]*אלה(ים|יכם|יכן|ינו|יך|יו|יה|יהם|י)$')
 
 def respect_names(s):
-    """יהוה → ה׳; אלהים and its forms → אלקים (also with vowel points). «אלהי זהב» (an idol) is left as is."""
+    """יהוה → ה׳; אלהים and its forms → אלקים (also with vowel points); «ה׳ צבאות» → «ה׳ צב-אות».
+    «אלהי זהב» (an idol) is left as is."""
     words = re.split(r'([^א-ת' + MARKS + r'׳״]+)', s)
     for i, w in enumerate(words):
         plain = re.sub('[' + MARKS + ']', '', w)
         if 'יהוה' in plain:
             words[i] = plain.replace('יהוה', 'ה׳')
+        elif plain == 'צבאות' and i >= 2 and (
+            re.sub('[' + MARKS + ']', '', words[i - 2]) in ('ה׳', 'בה׳', 'לה׳', 'אלקי', 'אלהי')
+            or (re.sub('[' + MARKS + ']', '', words[i - 2]) in ('ה', 'בה', 'לה') and words[i - 1].startswith("'"))):
+            # «ה׳ צבאות» — the Name Tzevaot is written with a hyphen
+            words[i] = 'צב-אות'
         elif HOLY.match(plain) and not (plain.endswith('אלהי') and i + 2 < len(words) and re.sub('[' + MARKS + ']', '', words[i + 2]) == 'זהב'):
             # replace the ה of אלה… with ק, keeping vowel points
             pos = plain.index('אלה') + 2
@@ -202,6 +208,9 @@ def clean(s, lang):
         s = re.sub(r'\bГосподь\b', 'Г-сподь', s)
         s = re.sub(r'\bГоспод(а|у|ом|е)\b', lambda m: 'Г-спод' + m.group(1), s)
         s = re.sub(r'\bБож(ий|ья|ье|ьи|ьего|ьей|ьему|ьим|ьих|ественн\w*)\b', lambda m: 'Б-ж' + m.group(1), s)
+    if lang == 'en':
+        s = re.sub(r'\bGod\b', 'G-d', s)
+        s = re.sub(r'\b(LORD|Lord)\b', 'L-rd', s)
     if lang == 'de':
         s = re.sub(r'\bGott(es|e)?\b', lambda m: 'G-tt' + (m.group(1) or ''), s)
         s = re.sub(r'\bGöttlich', 'G-ttlich', s)
