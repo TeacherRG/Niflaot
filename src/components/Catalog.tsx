@@ -1,137 +1,163 @@
 import { useEffect } from 'react';
 import { useI18n } from '../i18n';
 import { LESSONS, LESSON_GROUPS, type Lesson } from '../lessons';
-import { lessonGames } from './lessonGames';
+import { TEACHERS, teacherOf, type TeacherId } from '../lessons/teachers';
+import { lessonProgress } from '../core/progress';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
-import { TagCloud } from './TagCloud';
-import { AgeBadge } from './AgeBadge';
-import { Icon, useUI } from './ui';
+import { WeekCountdown } from './WeekCountdown';
+import { Icon } from './ui';
 
-function progress(slug: string, legacy?: string): number {
-  for (const key of [`niflaot:lesson:${slug}`, legacy]) {
-    if (!key) continue;
-    try {
-      const s = JSON.parse(localStorage.getItem(key) ?? 'null');
-      if (s && Array.isArray(s.done)) return s.done.length;
-    } catch {}
-  }
-  return 0;
-}
-
-/** A lesson on the home page: number, progress, title, blurb, age; links to both games when it has two. */
-function LessonCard({ lesson: l }: { lesson: Lesson }) {
-  const { t, pick } = useI18n();
-  const text = pick(l.texts).value;
-  const done = progress(l.slug, l.legacyStorageKey);
-  const total = l.riddles.length;
-  const games = lessonGames(l);
+/** The games of a lesson as small icons: gematria (#), Memo or cards, investigation (magnifier). */
+function GameIcons({ lesson: l }: { lesson: Lesson }) {
   return (
-    <div className="card-wrap">
-      <a className="card" href={`#/${l.slug}`}>
-        <span className="eyebrow">
-          <span>{t('catalog.lesson', { n: l.number })}</span>
-          <span>{done ? t('catalog.progress', { done, total }) : t('catalog.riddles', { n: total })}</span>
-        </span>
-        <span className="heb">{l.hebrewTitle}</span>
-        <h3>{text.title}</h3>
-        <p>{text.summary}</p>
-        <AgeBadge age={l.age} />
-      </a>
-      {games && (
-        <div className="card-games">
-          {games.map((g) => (
-            <a key={g.href} href={g.href}>
-              {g.icon} {t(g.label)}
-            </a>
-          ))}
-        </div>
-      )}
-    </div>
+    <span className="h-games">
+      <Icon name={l.kind === 'sicha' ? 'search' : 'hash'} size={15} />
+      {(l.memo || l.cards) && <Icon name="cards" size={15} />}
+    </span>
   );
 }
 
+/** A progress ring: the share of solved riddles. */
+const Ring = ({ done, total }: { done: number; total: number }) => (
+  <span className="h-ring" style={{ ['--p' as string]: `${Math.round((done / total) * 100)}%` }} aria-hidden="true" />
+);
+
+/** A lesson of the week: the teacher's colour and badge, Hebrew and translated title, its games, age and progress. */
+function WeekTile({ lesson: l }: { lesson: Lesson }) {
+  const { t, pick } = useI18n();
+  const text = pick(l.texts).value;
+  const who = teacherOf(l);
+  const done = lessonProgress(l.slug, l.legacyStorageKey);
+  return (
+    <a className={`h-tile t-${TEACHERS[who].color}`} href={`#/${l.slug}`}>
+      <span className="h-tile-top">
+        <span className="h-badge">{t(`teacher.${who}.short`)}</span>
+        <Ring done={done} total={l.riddles.length} />
+      </span>
+      <span className="h-tile-he he" lang="he">
+        {l.hebrewTitle}
+      </span>
+      <span className="h-tile-title">{text.title}</span>
+      <span className="h-tile-sum">{text.summary}</span>
+      <span className="h-tile-foot">
+        <GameIcons lesson={l} />
+        <span className="sr-only">{done ? t('catalog.progress', { done, total: l.riddles.length }) : ''}</span>
+        <b>{t('age.short', { n: l.age })}</b>
+      </span>
+    </a>
+  );
+}
+
+/** A teacher: his letter, name, genre and number of lessons; opens his page with all his lessons. */
+function TeacherTile({ id }: { id: TeacherId }) {
+  const { t } = useI18n();
+  const n = LESSONS.filter((l) => teacherOf(l) === id).length;
+  return (
+    <a className={`h-teacher t-${TEACHERS[id].color}`} href={`#/teacher/${id}`}>
+      <span className="h-teacher-he he" lang="he" aria-hidden="true">
+        {TEACHERS[id].he}
+      </span>
+      <span>
+        <b className="h-teacher-name">{t(`teacher.${id}.name`)}</b>
+        <b className="h-teacher-short">{t(`teacher.${id}.short`)}</b>
+        <span>
+          {t(`teacher.${id}.genre`)}
+          <span className="h-teacher-n"> · {t('home.lessons', { n })}</span>
+        </span>
+      </span>
+    </a>
+  );
+}
+
+/**
+ * The home page — one screen: a short title with «Continue», the lessons of the week's portion (all teachers),
+ * the teachers, and beside them how long the games are open this week (until Shabbat).
+ */
 export function Catalog() {
-  const { t, locale } = useI18n();
-  const { open } = useUI();
+  const { t, pick, locale } = useI18n();
 
   useEffect(() => {
     document.title = `${t('app.title')} · MyChitas`;
   }, [t]);
 
+  // the week's portion: the latest one with lessons
+  const week = LESSON_GROUPS[LESSON_GROUPS.length - 1];
+  const lessons = [...week.lessons, ...week.rebbe];
+  // continue a started lesson, else the first unfinished one of the week
+  const started = LESSONS.find((l) => {
+    const d = lessonProgress(l.slug, l.legacyStorageKey);
+    return d > 0 && d < l.riddles.length;
+  });
+  const next = started ?? lessons.find((l) => lessonProgress(l.slug, l.legacyStorageKey) < l.riddles.length) ?? lessons[0];
+  const nextDone = lessonProgress(next.slug, next.legacyStorageKey);
+  const nextWho = teacherOf(next);
+
   return (
     <>
-      <TopBar title={t('app.title')} />
-      <div className="wrap">
-        <header className="hero">
-          <div className="hero-in" data-l1="נ" data-l2="פ">
-            <div className="year">
-              5787 · <span className="he">ה׳תשפ״ז</span>
-            </div>
-            <div className="heb gold-text">נפלאות</div>
-            <h1 className="uvp">{t('catalog.uvp')}</h1>
-            <p>{t('catalog.intro')}</p>
-            {(() => {
-              // continue the first unfinished lesson, or start with lesson 1
-              const main = LESSONS.filter((l) => !l.series);
-              const started = main.find((l) => {
-                const d = progress(l.slug, l.legacyStorageKey);
-                return d > 0 && d < l.riddles.length;
-              });
-              const next = started ?? main.find((l) => progress(l.slug, l.legacyStorageKey) < l.riddles.length) ?? main[0];
-              return (
-                <a className="btn hero-cta" href={`#/${next.slug}`}>
-                  {t(started ? 'catalog.continue' : 'catalog.start', { n: next.number })} →
-                </a>
-              );
-            })()}
-            <div className="hero-actions">
-              <button className="btn ghost hero-help" onClick={() => open('help')}>
-                <Icon name="help" size={18} />
-                {t('help.title')}
-              </button>
-              <button className="btn ghost hero-help" onClick={() => open('about')}>
-                <Icon name="info" size={18} />
-                {t('about.title')}
-              </button>
-            </div>
-          </div>
-        </header>
-        <section className="catalog">
-          <h2>{t('catalog.heading')}</h2>
-          {LESSON_GROUPS.map((g) => (
-            <div key={g.id} className="parsha">
-              <h3 className="parsha-h">
-                <span>{g.name[locale as keyof typeof g.name] ?? g.name.ru}</span>
-                <span className="he">{g.he}</span>
-                <span className="parsha-year">
-                  {g.year} · <span className="he">{g.heYear}</span>
+      <TopBar title={t('app.title')} wide />
+      <div className="home">
+        <main className="home-main">
+          <section className="h-hero">
+            <div className="h-hero-text">
+              <div className="h-hero-he">
+                <span className="he gold-text" lang="he">
+                  נפלאות
                 </span>
-              </h3>
-              <div className="cards">
-                {g.lessons.map((l) => (
-                  <LessonCard key={l.slug} lesson={l} />
-                ))}
+                <span className="num">
+                  5787 · <span className="he">ה׳תשפ״ז</span>
+                </span>
               </div>
-              <div className="rebbe-block">
-                <a className="rebbe-h" href={`#/rebbe/${g.id}`}>
-                  <span aria-hidden="true">✦</span> {t('rebbe.section')}
-                  <small>{t('rebbe.intro')}</small>
-                </a>
-                <div className="cards">
-                  {g.rebbe.map((l) => (
-                    <LessonCard key={l.slug} lesson={l} />
-                  ))}
-                  {!g.rebbe.length && <div className="card soon">{t('rebbe.soon', { parsha: g.name[locale as keyof typeof g.name] ?? g.name.ru })}</div>}
-                </div>
+              <h1>{t('catalog.uvp')}</h1>
+              <p>{t('home.lead')}</p>
+            </div>
+            <div className="h-hero-side">
+              <a className={`h-continue t-${TEACHERS[nextWho].color}`} href={`#/${next.slug}`}>
+                <span className="h-continue-lbl">{t(started ? 'home.continue' : 'home.start')}</span>
+                <span className="h-continue-title">
+                  {pick(next.texts).value.title}
+                </span>
+                <span className="h-continue-where">
+                  <i />
+                  {t(`teacher.${nextWho}.short`)} ·{' '}
+                  {t('home.riddle', { n: Math.min(nextDone + 1, next.riddles.length), total: next.riddles.length })}
+                </span>
+                <span className="h-bar">
+                  <span style={{ width: `${Math.round((nextDone / next.riddles.length) * 100)}%` }} />
+                </span>
+              </a>
+              <div className="h-countdown-compact">
+                <WeekCountdown variant="compact" />
               </div>
             </div>
-          ))}
-          <div className="cards">
-            <div className="card soon">{t('catalog.soon')}</div>
-          </div>
-        </section>
-        <TagCloud />
+          </section>
+
+          <section className="h-section" aria-labelledby="h-week">
+            <h2 id="h-week">
+              {t('home.week')} · {week.name[locale as keyof typeof week.name] ?? week.name.ru}{' '}
+              <span className="he" lang="he">
+                {week.he}
+              </span>
+            </h2>
+            <div className="h-tiles">
+              {lessons.map((l) => (
+                <WeekTile key={l.slug} lesson={l} />
+              ))}
+            </div>
+          </section>
+
+          <section className="h-section" aria-labelledby="h-teachers">
+            <h2 id="h-teachers">{t('home.teachers')}</h2>
+            <div className="h-teachers">
+              {(Object.keys(TEACHERS) as TeacherId[]).map((id) => (
+                <TeacherTile key={id} id={id} />
+              ))}
+            </div>
+          </section>
+        </main>
+        <aside className="home-side">
+          <WeekCountdown variant="side" />
+        </aside>
       </div>
       <Colophon />
     </>
