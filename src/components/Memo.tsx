@@ -260,7 +260,7 @@ export function Memo({ lesson, memo, text }: { lesson: Lesson; memo: MemoData; t
         <div className="memo-example-lbl">{t('memo.example')}</div>
         <div className="memo-example-cards">
           {[true, false].map((pic) => (
-            <span key={String(pic)} className="mc open static">
+            <span key={String(pic)} className="mc mc-sample">
               <span className="mc-in">
                 <span className="mc-face">
                   <Face card={{ p: example, pic }} item={memo.items[example]} text={text.items[example]} img={images[example]} />
