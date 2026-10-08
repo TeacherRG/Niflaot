@@ -12,6 +12,10 @@ export const useUI = () => useContext(UIContext);
 /** Inline icons (stroke = currentColor). */
 const PATHS = {
   menu: 'M4 7h16M4 12h16M4 17h16',
+  home: 'M3 11l9-7 9 7M5 9.5V20h5v-6h4v6h5V9.5',
+  hash: 'M9 4L7 20M17 4l-2 16M4 9h16M3 15h16',
+  cards: 'M5 5h9a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2zM18 7.5l2.2.6a1.5 1.5 0 011 1.8l-2.5 9.4',
+  search: 'M10 16a6 6 0 100-12 6 6 0 000 12zM14.5 14.5L20 20',
   close: 'M6 6l12 12M18 6L6 18',
   globe:
     'M12 3a9 9 0 100 18 9 9 0 000-18zM3.6 9h16.8M3.6 15h16.8M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z',

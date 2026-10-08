@@ -4,7 +4,7 @@ import { VALUES } from '../core/gematria';
 import { OPS, SIGN } from '../core/mentalMath';
 import { Icon, Sheet, useUI } from './ui';
 import { ASSISTANT_URL } from '../core/assistant';
-import { lessonGames } from './LessonTabs';
+import { lessonGames } from './lessonGames';
 
 const TABLE = Object.entries(VALUES).filter(([c]) => !'ךםןףץ'.includes(c));
 
@@ -22,6 +22,10 @@ export function Panels() {
     <>
       <Sheet variant="drawer" open={panel === 'menu'} onClose={close} title={t('app.title')} closeLabel={t('menu.close')}>
         <nav className="menu">
+          <a href="#/" onClick={close} className="menu-item" aria-current={!location.hash || location.hash === '#/' ? 'page' : undefined}>
+            <Icon name="home" />
+            <span>{t('menu.home')}</span>
+          </a>
           <div className="menu-lbl">{t('menu.lessons')}</div>
           {LESSON_GROUPS.map((g) => (
             <details key={g.id} className="menu-group" open={!currentParsha || currentParsha === g.id}>
@@ -105,10 +109,6 @@ export function Panels() {
               </div>
             </details>
           ))}
-          <a href="#/" onClick={close} className="menu-item">
-            <Icon name="book" />
-            <span>{t('menu.allLessons')}</span>
-          </a>
           <details className="menu-group" open={location.hash.startsWith('#/math')}>
             <summary className="menu-item">
               <Icon name="calc" />

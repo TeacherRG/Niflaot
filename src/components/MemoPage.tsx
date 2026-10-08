@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useI18n } from '../i18n';
 import type { Lesson, MemoData } from '../lessons/types';
 import { TopBar } from './TopBar';
-import { LessonTabs } from './LessonTabs';
 import { Memo } from './Memo';
 import { Colophon } from './Colophon';
 
@@ -24,7 +23,6 @@ export function MemoPage({ lesson, memo }: { lesson: Lesson; memo: MemoData }) {
           <div className="heb gold-text">{lesson.hebrewTitle}</div>
           <h1>{text.title}</h1>
         </div>
-        <LessonTabs lesson={lesson} active="second" />
         {text.memo && <Memo lesson={lesson} memo={memo} text={text.memo} />}
       </div>
       <Colophon source={text.source} />

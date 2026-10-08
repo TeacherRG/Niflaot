@@ -1,8 +1,8 @@
 /**
- * Shabbat times for a place: candle lighting (sunset on Friday minus 18 minutes, Jerusalem 40) and the end of Shabbat
- * (Saturday, the sun 8.5° below the horizon — three small stars). The sun by the standard «sunrise equation»
- * (accurate to about a minute). Where the sun does not set, or does not go 8.5° down (far north in summer),
- * the end is sunset + 72 minutes, and without a sunset at all the times are null.
+ * When the site rests on Shabbat, for a place: from an hour before sunset on Friday to an hour after sunset on
+ * Saturday — a wide margin on both sides. These are not halachic times and the site never shows them as such
+ * (no «candle lighting», no «end of Shabbat»). The sun by the standard «sunrise equation» (accurate to about a minute);
+ * where the sun does not set (far north in summer) the times are null and fixed hours are used.
  */
 const RAD = Math.PI / 180;
 const J2000 = 2451545;
@@ -31,17 +31,17 @@ export function eveningSun(day: Date, lat: number, lon: number, h: number): Date
 }
 
 export const SUNSET = -0.833;
-export const STARS = -8.5;
+/** the site closes an hour before sunset on Friday and opens an hour after sunset on Saturday — with a margin */
+export const MARGIN_MIN = 60;
 
-/** Candle lighting on Friday `friday` and the end of Shabbat on the next day, or null without a sunset. */
-export function shabbatTimes(friday: Date, lat: number, lon: number, candles = 18): { from: Date; to: Date } | null {
+/** When the site rests: an hour before sunset on Friday `friday` to an hour after sunset on Saturday; null without a sunset. */
+export function shabbatTimes(friday: Date, lat: number, lon: number): { from: Date; to: Date } | null {
   const sat = new Date(friday.getFullYear(), friday.getMonth(), friday.getDate() + 1);
   const fri = eveningSun(friday, lat, lon, SUNSET);
   const satSunset = eveningSun(sat, lat, lon, SUNSET);
   if (!fri || !satSunset) return null;
-  const stars = eveningSun(sat, lat, lon, STARS);
   return {
-    from: new Date(fri.getTime() - candles * 60_000),
-    to: stars ?? new Date(satSunset.getTime() + 72 * 60_000),
+    from: new Date(fri.getTime() - MARGIN_MIN * 60_000),
+    to: new Date(satSunset.getTime() + MARGIN_MIN * 60_000),
   };
 }

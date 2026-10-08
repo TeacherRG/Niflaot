@@ -10,6 +10,8 @@ import { ShabbatRest, useShabbatRest } from './components/ShabbatRest';
 import { CardsPage } from './components/CardsPage';
 import { MathPage } from './components/MathPage';
 import { RebbePage } from './components/RebbePage';
+import { TeacherPage } from './components/TeacherPage';
+import { TEACHERS, type TeacherId } from './lessons/teachers';
 import { OPS, type Op } from './core/mentalMath';
 import { Panels } from './components/Panels';
 import { TermPopover } from './components/TermPopover';
@@ -111,6 +113,8 @@ function Site() {
     <UIContext.Provider value={ui}>
       {slug === 'math' ? (
         <MathPage op={OPS.includes(view as Op) ? (view as Op) : 'add'} />
+      ) : slug === 'teacher' && view in TEACHERS ? (
+        <TeacherPage id={view as TeacherId} />
       ) : slug === 'rebbe' && view in PARSHIOT ? (
         <RebbePage parsha={view as ParshaId} />
       ) : !lesson ? (

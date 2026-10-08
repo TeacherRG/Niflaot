@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useI18n } from '../i18n';
 import { PARSHIOT, rebbeLessons, type ParshaId } from '../lessons';
-import { lessonGames } from './LessonTabs';
+import { lessonGames } from './lessonGames';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { AgeBadge } from './AgeBadge';

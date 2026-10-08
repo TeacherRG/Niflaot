@@ -48,12 +48,12 @@ export function LanguagePicker() {
   );
 }
 
-export function TopBar({ title, children }: { title: string; children?: ReactNode }) {
+export function TopBar({ title, children, wide }: { title: string; children?: ReactNode; wide?: boolean }) {
   const { t } = useI18n();
   const { open } = useUI();
   return (
     <div className="top">
-      <div className="top-in">
+      <div className={`top-in${wide ? ' wide' : ''}`}>
         <button className="icon-btn menu-btn" aria-label={t('menu.open')} onClick={() => open('menu')}>
           <Icon name="menu" />
         </button>

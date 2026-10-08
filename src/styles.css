@@ -789,10 +789,6 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .prose ol>li>ul{margin:8px 0 0;gap:6px;font-size:.95em}
 
 /* ───────── the two games of a commentary lesson + Memo ───────── */
-.lesson-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:18px 0 6px;padding:5px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
-.lesson-tabs a{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 8px;border-radius:8px;text-decoration:none;color:var(--ink-2);font-weight:700;font-size:15px;text-align:center;line-height:1.2}
-.lesson-tabs a:hover{background:var(--gold-soft)}
-.lesson-tabs a[aria-current=page]{background:var(--ink);color:#fff}
 .card-wrap{display:grid;gap:6px;align-content:start}
 .card-games{display:flex;gap:6px;flex-wrap:wrap}
 .card-games a{flex:1;text-align:center;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);text-decoration:none;color:var(--ink-2);font-weight:600;font-size:13.5px}
@@ -951,9 +947,7 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .shabbat-he{font-family:var(--f-he);font-weight:900;font-size:clamp(44px,12vw,72px);line-height:1.1;color:var(--gold)}
 .shabbat-rest h1{margin:0;font-family:var(--f-display);font-weight:700;font-size:clamp(30px,7vw,44px);line-height:1.1;color:var(--ink)}
 .shabbat-rest p{margin:0;max-width:460px;font-size:17px;line-height:1.55;color:var(--ink-2)}
-.shabbat-times{font-weight:600;color:var(--ink)!important}
 .shabbat-back{font-weight:700;color:var(--tchelet)!important}
-.shabbat-note{font-size:13px!important;color:var(--muted)!important}
 .shabbat-brand{margin-top:14px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 
 /* «Нифлаот Ребе»: the section of a portion on the home page, its page, the «Карточки» game */
@@ -973,3 +967,154 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .pm-expl-mark{font-size:14px}
 .pm-expl-t{font-size:14px;line-height:1.3;padding:0 6px}
 @media print{.pm-expl-t{font-size:12.5px}}
+
+/* teachers' colours: the strip and badge of a lesson tile, the teacher tile, «Continue» */
+.t-gold{--tc:#8A6524;--tc-line:var(--gold);--tc-soft:var(--gold-soft);--tc-bg:var(--ink);--tc-he:var(--gold-2)}
+.t-tchelet{--tc:var(--tchelet);--tc-line:var(--tchelet);--tc-soft:var(--tchelet-soft);--tc-bg:var(--tchelet);--tc-he:var(--gold-soft)}
+.t-green{--tc:var(--ok);--tc-line:var(--ok);--tc-soft:var(--ok-soft);--tc-bg:#1F5A38;--tc-he:var(--gold-soft)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* home: one screen — title and «Continue», the week's lessons, the teachers; beside them the week countdown */
+.top-in.wide{max-width:1180px}
+.home{max-width:1180px;margin:0 auto;padding:18px 0 4px;display:flex;flex-wrap:wrap;gap:20px;align-items:stretch}
+.home-main{flex:999 1 600px;min-width:0;display:grid;gap:18px;align-content:start}
+.home-side{flex:1 1 260px;max-width:300px;display:flex}
+.h-hero{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:stretch}
+.h-hero-text{flex:1 1 320px;min-width:0;display:grid;gap:4px;align-content:center}
+.h-hero-he{display:flex;align-items:baseline;gap:12px}
+.h-hero-he>.he{font-family:var(--f-he);font-weight:900;font-size:clamp(34px,5vw,50px);line-height:1}
+.h-hero-he .num{font-size:12px;letter-spacing:.14em;color:var(--gold)}
+.h-hero h1{margin:4px 0 0;font-family:var(--f-display);font-weight:700;font-size:clamp(24px,3.4vw,34px);line-height:1.1;text-wrap:balance}
+.h-hero p{margin:0;color:var(--muted);font-size:15px}
+.h-hero-side{flex:0 1 300px;display:flex;gap:10px}
+.h-continue{flex:1;min-width:0;display:grid;gap:5px;align-content:center;padding:14px 16px;border-radius:10px;background:var(--gold-soft);border:1px solid var(--gold-line);text-decoration:none;color:var(--ink)}
+.h-continue:hover{border-color:var(--gold-2)}
+.h-continue-lbl{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.h-continue-title{font-family:var(--f-display);font-weight:700;font-size:22px;line-height:1.1}
+.h-continue-title .he{display:none}
+.h-continue-where{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.h-continue-where i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--tc-line)}
+.h-bar{display:block;height:5px;border-radius:3px;background:var(--gold-line);overflow:hidden}
+.h-bar span{display:block;height:100%;background:var(--tc-line)}
+.h-countdown-compact{display:none}
+.h-section{display:grid;gap:10px}
+.h-section h2{margin:0;font-family:var(--f-display);font-weight:700;font-size:24px;line-height:1.15}
+.h-section h2 .he{font-family:var(--f-he);font-size:19px;color:var(--gold)}
+.h-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.h-tile{display:flex;flex-direction:column;gap:4px;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--tc-line);border-radius:6px;box-shadow:var(--shadow);text-decoration:none;color:var(--ink);min-width:0;transition:transform .15s}
+.h-tile:hover{transform:translateY(-2px)}
+.h-tile-top{display:flex;align-items:center;gap:6px}
+.h-badge{min-width:0;padding:1px 8px;border-radius:999px;background:var(--tc-soft);color:var(--tc);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.h-ring{margin-inline-start:auto;flex:none;width:22px;height:22px;border-radius:50%;background:conic-gradient(var(--tc-line) var(--p),var(--line) 0);-webkit-mask:radial-gradient(circle,transparent 5px,#000 6px);mask:radial-gradient(circle,transparent 5px,#000 6px)}
+.h-tile-he{font-family:var(--f-he);font-weight:700;font-size:19px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.h-tile-title{font-family:var(--f-display);font-weight:700;font-size:20px;line-height:1.1}
+.h-tile-sum{font-size:12.5px;line-height:1.4;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.h-tile-foot{margin-top:auto;padding-top:4px;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.h-tile-foot b{margin-inline-start:auto;color:var(--ink)}
+.h-games{display:flex;gap:4px;color:var(--tc)}
+.h-teachers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.h-teacher{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;background:var(--tc-bg);color:#fff;text-decoration:none;min-width:0}
+.h-teacher:hover{filter:brightness(1.12)}
+.h-teacher-he{font-family:var(--f-he);font-weight:900;font-size:36px;line-height:1;color:var(--tc-he)}
+.h-teacher b{display:block;font-family:var(--f-display);font-size:19px;line-height:1.15}
+.h-teacher span span{font-size:12.5px;opacity:.85}
+.h-teacher-short{display:none!important}
+.h-teacher .h-teacher-n{font-size:inherit;opacity:1}
+
+/* «Осталось играть на этой неделе» */
+.wc-side{position:relative;overflow:hidden;flex:1;display:flex;flex-direction:column;gap:6px;padding:20px;border-radius:14px;background:var(--ink);color:#fff;box-shadow:0 18px 40px -20px rgba(20,26,51,.6)}
+.wc-side>*{position:relative}
+.wc-side>.wc-bg{position:absolute;right:-12px;bottom:-46px;font-family:var(--f-he);font-weight:900;font-size:200px;line-height:1;color:rgba(216,181,101,.07);pointer-events:none}
+.wc-title{margin:4px 0 8px;font-family:var(--f-display);font-weight:700;font-size:26px;line-height:1.1}
+.wc-units{display:grid;gap:8px}
+.wc-unit{display:flex;align-items:baseline;gap:10px;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(216,181,101,.25)}
+.wc-unit b{font-weight:600;font-size:36px;line-height:1;color:var(--gold-2)}
+.wc-unit span{font-size:14px;color:#C9CEE0}
+.wc-week{margin:auto 0 0;padding:14px 0 0;list-style:none;display:flex;justify-content:space-between;gap:2px}
+.wc-week li{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;font-size:11px;color:#9AA1BD}
+.wc-week i{width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3)}
+.wc-week .past i{background:rgba(216,181,101,.55);border-color:transparent}
+.wc-week .today{color:#fff;font-weight:700}
+.wc-week .today i{border-color:var(--gold-2);box-shadow:0 0 0 3px rgba(216,181,101,.25)}
+.wc-week .shabbat{color:var(--gold-2);font-weight:700}
+.wc-week .shabbat i{background:var(--gold-2);border-color:var(--gold-2)}
+.wc-compact{display:grid;justify-items:center;align-content:center;gap:2px;width:108px;height:100%;box-sizing:border-box;padding:8px 6px;border-radius:12px;background:var(--ink);color:#fff;text-align:center}
+.wc-c-title{font-size:10.5px;color:#C9CEE0;line-height:1.2}
+.wc-c-time{font-weight:600;font-size:14px;color:var(--gold-2);line-height:1.3;white-space:nowrap}
+@media (max-width:1099px){
+  .home-side{display:none}
+  .h-countdown-compact{display:block;flex:none}
+  .h-hero-side{flex:1 1 100%}
+}
+@media (max-width:640px){
+  .home{padding-top:12px}
+  .home-main{gap:14px}
+  .h-hero p{display:none}
+  .h-hero h1{font-size:23px}
+  .h-section h2{font-size:21px}
+  .h-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .h-tile{padding:10px 11px}
+  .h-tile-sum{display:none}
+  .h-tile-title{font-size:18px}
+  .h-tile-he{font-size:16px}
+  .h-teachers{gap:8px}
+  .h-teacher{flex-direction:column;align-items:flex-start;gap:2px;padding:8px 10px}
+  .h-teacher-he{font-size:24px}
+  .h-teacher b{font-size:15px}
+  .h-teacher span span{font-size:11px;line-height:1.25}
+  .h-teacher-name,.h-teacher-n{display:none!important}
+  .h-teacher-short{display:block!important}
+  .h-hero-he>.he{font-size:34px}
+  .h-hero h1{margin-top:2px}
+  .h-continue{padding:10px 12px;gap:3px}
+  .h-continue-title{font-size:19px}
+  .h-tile{gap:2px}
+  .h-section{gap:8px}
+}
+
+/* teacher page */
+.teacher-head{margin:24px 0 18px;display:flex;gap:18px;align-items:center;padding:20px 22px;border-radius:12px;background:var(--tc-bg);color:#fff}
+.teacher-he{font-family:var(--f-he);font-weight:900;font-size:64px;line-height:1;color:var(--tc-he)}
+.teacher-head h1{margin:0;font-family:var(--f-display);font-weight:700;font-size:30px;line-height:1.1}
+.teacher-head p{margin:6px 0 0;font-size:15px;opacity:.9}
+.teacher-head .teacher-genre{font-weight:700;opacity:1;color:var(--tc-he)}
+.teacher-soon{margin-top:16px}
+
+/* footer of every page: the site, the year, MyChitas */
+.colophon{max-width:none;margin:28px -16px 0;padding:0;border:0;display:block;text-align:start;font-size:13px;color:inherit}
+.colophon .colophon-source{max-width:780px;margin:0 auto 14px;padding:0 16px;text-align:center;font-size:12px;color:var(--muted)}
+.site-foot{background:var(--ink);color:#C9CEE0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.site-foot-in{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:4px 16px;padding-inline-end:clamp(0px,calc(76px - (100vw - 1212px) / 2),76px)}
+.site-foot .site-foot-brand{font-family:var(--f-display);font-weight:700;font-size:18px;color:#fff}
+.site-foot-brand .he{font-family:var(--f-he);font-size:15px;color:var(--gold-2);margin-inline-start:4px}
+.site-foot-year{font-size:12px}
+.site-foot-by{margin-inline-start:auto}
+.site-foot a{color:var(--gold-2);font-weight:700;text-decoration:none}
+.site-foot button{background:none;border:0;padding:0;color:#fff;font-weight:600;font-size:13px}
+.site-foot .site-foot-fine{max-width:1180px;margin:4px auto 0;font-size:11.5px;color:#9AA1BD}
+@media (max-width:899px){
+  /* one line on a phone: the site, the year, MyChitas (about and donation are in the menu) */
+  .site-foot .site-foot-more,.site-foot .site-foot-fine{display:none}
+  .site-foot-in{flex-wrap:nowrap;gap:10px}
+  .site-foot .site-foot-brand{font-size:16px}
+}
+@media (max-width:640px){
+  .home{padding-top:10px}
+  .home-main{gap:12px}
+  .h-hero{gap:10px}
+  .h-hero h1{font-size:21px}
+  .h-section h2{font-size:20px}
+  .h-tile-he{font-size:15px}
+  .h-tile-title{font-size:17px}
+}
+@media (max-width:380px){
+  .h-tile-he{display:none}
+}
+@media (max-width:899px){
+  .site-foot-in>*{white-space:nowrap}
+  .site-foot-brand .he{display:none}
+  .site-foot-by{margin-inline-start:auto}
+}
+/* the home page fills the screen, so the footer sits at its bottom */
+@media (min-width:900px){.home{box-sizing:border-box;min-height:calc(100svh - 57px - 76px - 28px);align-content:center}}
+@media (max-width:899px){.home{box-sizing:border-box;min-height:calc(100svh - 55px - 50px - 28px);align-content:flex-start}}
