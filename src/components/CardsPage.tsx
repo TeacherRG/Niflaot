@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useI18n } from '../i18n';
 import type { Lesson, RebbeCardsData } from '../lessons/types';
 import { TopBar } from './TopBar';
-import { LessonTabs } from './LessonTabs';
 import { RebbeCards } from './RebbeCards';
 import { Colophon } from './Colophon';
 
@@ -24,7 +23,6 @@ export function CardsPage({ lesson, cards }: { lesson: Lesson; cards: RebbeCards
           <div className="heb gold-text">{lesson.hebrewTitle}</div>
           <h1>{text.title}</h1>
         </div>
-        <LessonTabs lesson={lesson} active="second" />
         {text.cards && <RebbeCards lesson={lesson} cards={cards} text={text.cards} />}
       </div>
       <Colophon source={text.source} />

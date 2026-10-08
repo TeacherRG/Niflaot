@@ -9,7 +9,6 @@ import { Riddle } from './Riddle';
 import { Final } from './Final';
 import { Calculator } from './Calculator';
 import { Colophon } from './Colophon';
-import { LessonTabs } from './LessonTabs';
 import { setPageState } from '../core/assistant';
 
 export function LessonPage({ lesson }: { lesson: Lesson }) {
@@ -87,7 +86,6 @@ export function LessonPage({ lesson }: { lesson: Lesson }) {
       <div className="wrap">
         {textLocale !== locale && <div className="fallback-note">{t('catalog.fallback')}</div>}
         <Hero lesson={lesson} text={text} />
-        <LessonTabs lesson={lesson} active="main" />
         <main id="game" ref={game} onClickCapture={start} onFocusCapture={start}>
           {summary ? (
             <Final

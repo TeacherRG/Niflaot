@@ -789,10 +789,6 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .prose ol>li>ul{margin:8px 0 0;gap:6px;font-size:.95em}
 
 /* ───────── the two games of a commentary lesson + Memo ───────── */
-.lesson-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:18px 0 6px;padding:5px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
-.lesson-tabs a{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 8px;border-radius:8px;text-decoration:none;color:var(--ink-2);font-weight:700;font-size:15px;text-align:center;line-height:1.2}
-.lesson-tabs a:hover{background:var(--gold-soft)}
-.lesson-tabs a[aria-current=page]{background:var(--ink);color:#fff}
 .card-wrap{display:grid;gap:6px;align-content:start}
 .card-games{display:flex;gap:6px;flex-wrap:wrap}
 .card-games a{flex:1;text-align:center;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);text-decoration:none;color:var(--ink-2);font-weight:600;font-size:13.5px}
