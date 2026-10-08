@@ -55,8 +55,9 @@ src/
   lessons/
     index.ts                реестр уроков; parshiot.ts — главы Торы (группировка, год)
     types.ts                схема урока
-    01-tikun-partzuf-zanav/ урок №1
-    02-yikavu-hamayim/      урок №2
+    01-baal-haturim-bereshit/ урок №1
+    02-tikun-partzuf-zanav/ урок №2
+    03-yikavu-hamayim/      урок №3
     NN-<slug>/index.ts      данные без языка: ивритские слова, ответы, разборы, источники
     */i18n/ru.ts, en.ts, de.ts   тексты уроков
   i18n/                     интерфейс ru/en/de (config.ts, locales/, index.tsx), словарь терминов glossary.ts

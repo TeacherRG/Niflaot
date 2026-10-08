@@ -69,7 +69,7 @@ const lessonPage = (l: Lesson) =>
     eyebrow: `Нифлаот · ${PARSHIOT[l.parsha].name.ru} ${PARSHIOT[l.parsha].year} · урок ${l.number}`,
     he: l.hebrewTitle,
     title: l.texts.ru!.title,
-    sub: 'Игра-гиматрия по статье рава Ицхака Гинзбурга',
+    sub: `Игра-гиматрия ${l.texts.ru!.hero.author}`,
     highlight: l.highlight,
     letters: l.heroLetters,
   });

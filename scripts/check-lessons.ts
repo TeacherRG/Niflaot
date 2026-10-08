@@ -4,7 +4,8 @@
  *  - every option value (v) equals the real gematria of the option
  *  - every footnote mark points to one of the riddle's sources, every source has a mark (ru and en)
  *  - every source exists in src/sources/sefaria.json; non-Torah sources have a Russian translation;
- *    every source has a German one (Sefaria's or the project's, src/sources/de.ts)
+ *    every source has a German one (Sefaria's or the project's, src/sources/de.ts);
+ *    the project's English (src/sources/en.ts) has as many segments as the original
  *  - every lesson has texts in every language of src/i18n/config.ts
  *  - «Собери смысл»: every riddle and the lesson have a puzzle of 3–6 distinct pieces, the same count in every language
  *  - word cards don't show the answer of a choice step
@@ -17,6 +18,7 @@ import { coachResult } from '../src/core/coach';
 import { SOURCES } from '../src/sources';
 import { PROJECT_RU } from '../src/sources/ru';
 import { PROJECT_DE } from '../src/sources/de';
+import { PROJECT_EN } from '../src/sources/en';
 import { LOCALES } from '../src/i18n/config';
 import type { PuzzleText } from '../src/lessons/types';
 import ruUi from '../src/i18n/locales/ru';
@@ -75,6 +77,8 @@ for (const lesson of LESSONS) {
       else if (src && src.de && src.de.length !== src.he.length) err(`${where()}: ${id} — ${src.de.length} German segments for ${src.he.length} original ones`);
       else if (src && !src.de && PROJECT_DE[id].length !== src.he.length)
         err(`${where()}: ${id} — ${PROJECT_DE[id].length} German segments for ${src.he.length} original ones`);
+      if (src && PROJECT_EN[id] && PROJECT_EN[id].length !== src.he.length)
+        err(`${where()}: ${id} — ${PROJECT_EN[id].length} English segments for ${src.he.length} original ones`);
     }
     r.steps.forEach((s, i) => {
       if (s.t === 'ch' && r.words.includes(s.opts[s.c].h)) err(`${where(i)}: the answer ${s.opts[s.c].h} is shown on a word card`);
@@ -108,6 +112,8 @@ checkHtml('ui.ru', ruUi);
 checkHtml('ui.en', enUi);
 checkHtml('sources', SOURCES);
 checkHtml('sources.ru', PROJECT_RU);
+checkHtml('sources.de', PROJECT_DE);
+checkHtml('sources.en', PROJECT_EN);
 
 if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));

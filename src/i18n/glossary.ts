@@ -38,6 +38,12 @@ const ru: Term[] = [
   { re: 'таргум', def: 'Таргум — древний арамейский перевод Торы.' },
   { re: 'мей ха-шилоах', def: '«Мей ха-Шилоах» — книга хасидских толкований к Торе рабби Мордехая-Йосефа из Ижбицы.' },
   { re: 'суккот', def: 'Суккот — осенний праздник шалашей, через несколько дней после Йом Кипура.' },
+  { re: 'бааль ха-турим', def: 'Бааль ха-Турим — рабби Яаков бен Ашер (ок. 1269–1343), автор кодекса «Арбаа турим». Так называют и его комментарий к Торе: гиматрии, первые и последние буквы слов, наблюдения масоры.' },
+  { re: 'масор', def: 'Масора — традиция точного написания текста Танаха. Масореты отметили, сколько раз встречается каждое слово и как оно написано — полно или неполно.' },
+  { re: 'нотарикон', def: 'Нотарикон — прочтение слова как аббревиатуры: каждая его буква — начало отдельного слова.' },
+  { re: 'авдал', def: 'Авдала — «разделение»: благословение на исходе субботы над вином, благовониями и пламенем свечи.' },
+  { re: 'мазал', def: 'Мазаль — небесный покровитель, «звезда», через которую до каждой вещи доходит её жизненная сила.' },
+  { re: 'колесниц', def: 'Деяние Колесницы (Маасе Меркава) — тайное учение о видении Б-жественной Колесницы у пророка Йехезкеля.' },
 ];
 
 const en: Term[] = [
@@ -69,6 +75,12 @@ const en: Term[] = [
   { re: 'targum', def: 'Targum — the ancient Aramaic translation of the Torah.' },
   { re: 'mei hashiloach', def: '“Mei HaShiloach” — a book of Chassidic Torah commentary by Rabbi Mordechai Yosef of Izbica.' },
   { re: 'sukkot', def: 'Sukkot — the autumn festival of booths, a few days after Yom Kippur.' },
+  { re: 'baal haturim', def: 'Baal HaTurim — Rabbi Yaakov ben Asher (c. 1269–1343), author of the law code “Arba’ah Turim”. The name also refers to his Torah commentary: gematria, first and last letters of words, observations of the Masorah.' },
+  { re: 'masor', def: 'Masorah — the tradition of the exact text of Tanakh. The Masoretes noted how many times each word appears and how it is spelled — in full or defectively.' },
+  { re: 'notarikon', def: 'Notarikon — reading a word as an acronym: each of its letters begins a separate word.' },
+  { re: 'havdal', def: 'Havdalah — “separation”: the blessing at the end of Shabbat over wine, spices and the flame of a candle.' },
+  { re: 'mazal', def: 'Mazal — a heavenly guardian, a “star” through which each thing receives its life force.' },
+  { re: 'chariot', def: 'The Work of the Chariot (Ma’aseh Merkavah) — the secret teaching about the vision of the Divine Chariot in the prophet Ezekiel.' },
 ];
 
 const de: Term[] = [
@@ -100,6 +112,12 @@ const de: Term[] = [
   { re: 'targum', def: 'Targum — die alte aramäische Übersetzung der Tora.' },
   { re: 'mei haschiloach', def: '„Mei HaSchiloach“ — ein Buch chassidischer Toraauslegungen von Rabbi Mordechai Josef von Izbica.' },
   { re: 'sukkot', def: 'Sukkot — das Laubhüttenfest im Herbst, wenige Tage nach Jom Kippur.' },
+  { re: 'baal haturim', def: 'Baal HaTurim — Rabbi Jaakow ben Ascher (um 1269–1343), Verfasser des Gesetzeskodex „Arba’a Turim“. So heißt auch sein Torakommentar: Gematrien, Anfangs- und Endbuchstaben von Wörtern, Beobachtungen der Massora.' },
+  { re: 'massor', def: 'Massora — die Überlieferung des genauen Textes des Tanach. Die Masoreten vermerkten, wie oft jedes Wort vorkommt und wie es geschrieben ist — voll oder mangelhaft.' },
+  { re: 'notarikon', def: 'Notarikon — das Lesen eines Wortes als Abkürzung: Jeder seiner Buchstaben beginnt ein eigenes Wort.' },
+  { re: 'hawdal', def: 'Hawdala — „Trennung“: der Segen am Ausgang des Schabbats über Wein, Gewürze und die Flamme einer Kerze.' },
+  { re: 'masal', def: 'Masal — ein himmlischer Hüter, ein „Stern“, durch den jedes Ding seine Lebenskraft empfängt.' },
+  { re: 'wagen', def: 'Das Werk des Wagens (Ma’asse Merkawa) — die geheime Lehre über die Vision des g-ttlichen Wagens beim Propheten Jecheskel.' },
 ];
 
 export const GLOSSARY: Partial<Record<Locale, Term[]>> = { ru, en, de };

@@ -151,7 +151,7 @@ function lessonPage(l: Lesson): Page {
       image: `${SITE_URL}/og/${l.slug}.png`,
       learningResourceType: 'game',
       interactivityType: 'active',
-      author: AUTHOR,
+      author: l.author ? { '@type': 'Person', ...l.author } : AUTHOR,
       publisher: PUBLISHER,
       isPartOf: SITE,
       keywords: ['гиматрия', 'Тора', ...keywords].join(', '),

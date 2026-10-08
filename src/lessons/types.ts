@@ -148,6 +148,8 @@ export interface Lesson {
     secrets: Record<number, number>;
   };
   texts: Partial<Record<Locale, LessonText>>;
+  /** author of the text the lesson retells (SEO); Rabbi Yitzchak Ginsburgh when omitted */
+  author?: { name: string; alternateName: string };
   /** localStorage key used by the old single-file version, migrated once */
   legacyStorageKey?: string;
 }
