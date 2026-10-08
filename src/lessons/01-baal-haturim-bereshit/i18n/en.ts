@@ -33,12 +33,12 @@ const en: LessonText = {
           opts: ['“created on Rosh Hashanah”', '“created in the month of Nisan”', '“created on the first day”', '“created in six days”'],
         },
         {
-          q: 'Take the <b>last</b> letters of the first three words: <span class="he">בראשית ברא אלקים</span>. What word do they form?',
-          opts: ['truth', 'Torah', 'light', 'peace (shalom)'],
+          q: 'Build a word from the <b>last</b> letters of the Torah’s first three words. Tap the letters of the verse in order.',
+          hint: 'The last letters of the words are marked. The three-letter word means “truth”.',
         },
         {
-          q: 'The second chapter says: “these are the generations of the heaven and the earth <span class="he">בהבראם</span> — when they were created”. Whose name is hidden in the letters of this word?',
-          opts: ['Avraham', 'Aharon', 'Reuven', 'Hevel (Abel)'],
+          q: 'The second chapter says: “these are the generations of the heaven and the earth <span class="he">בהבראם</span> — when they were created”. Rearrange <b>all</b> the letters of this word to make “in Avraham” — the Patriarch’s name with the prefix <span class="he">ב</span>.',
+          hint: 'Avraham’s name is אברהם. Put ב (“in”) before it.',
         },
       ],
       reveal: {
@@ -94,10 +94,14 @@ const en: LessonText = {
         },
         { q: 'Which word has the same gematria?', opts: ['“in the Torah”', '“Torah”', '“faith”', '“commandment”'] },
         {
-          q: 'Take the <b>last</b> letters of <span class="he">את האור כי טוב</span> (“the light, that it was good”). What word do they make?',
-          opts: ['covenant (brit)', 'house', 'Shabbat', 'truth'],
+          q: 'Build a word from the <b>last</b> letters of <span class="he">את האור כי טוב</span> (“the light, that it was good”).',
+          hint: 'The last letters are marked. You get “brit” — covenant.',
         },
         { q: 'What is the word <span class="he">ויבדל</span> — “and He divided” — worth?', hint: '6 + 10 + 2 + 4 + 30.' },
+        {
+          q: 'On the fourth day: “Let there be luminaries.” The word is usually spelled <span class="he">מאורת</span>, but in the Torah it has <b>one letter less</b>: <span class="he">מארת</span>. Tap the letter the Torah leaves out.',
+          hint: 'Compare the two spellings letter by letter: מ־א־?־ר־ת.',
+        },
       ],
       reveal: {
         h: 'Light is the 613 commandments',
@@ -145,22 +149,26 @@ const en: LessonText = {
     },
     {
       title: 'Man from the earth',
-      cond: `<p>How was man created? The Torah says:</p><p class="verse" dir="rtl" lang="he">וייצר ה׳ אלקים את האדם עפר מן האדמה ויפח באפיו נשמת חיים ויהי האדם לנפש חיה</p><p>“Then the L-rd G-d formed man of the dust of the ground, and breathed into his nostrils the breath of life; and man became a living soul.”<sup data-src="gen-2-7"></sup></p><p>The Baal HaTurim notes: <em>האדם</em>, “man”, is written with the same letters as <em>אדמה</em>, “earth”.</p>`,
+      cond: `<p>How was man created? The Torah says:</p><p class="verse" dir="rtl" lang="he">וייצר ה׳ אלקים את האדם עפר מן האדמה ויפח באפיו נשמת חיים ויהי האדם לנפש חיה</p><p>“Then the L-rd G-d formed man of the dust of the ground, and breathed into his nostrils the breath of life; and man became a living soul.”<sup data-src="gen-2-7"></sup></p><p>The Baal HaTurim notes: the letters of <em>האדם</em>, “man”, hide what man was taken from.</p>`,
       steps: [
         {
-          q: 'What is the word <span class="he">אדמה</span>, “earth”, worth? (<span class="he">האדם</span> gives the same answer: the letters are the same.)',
-          hint: '1 + 4 + 40 + 5.',
+          q: 'Rearrange <b>all</b> the letters of <span class="he">האדם</span> (“man”) to make the word “earth”.',
+          hint: 'Earth in Hebrew is “adamah”: אדמה.',
         },
         {
-          q: 'The last letters of <span class="he">ויפח באפיו נשמת חיים</span> (“and breathed into his nostrils the breath of life”) form a word. Which?',
-          opts: ['seal', 'life', 'soul', 'apple'],
+          q: 'Build a word from the <b>last</b> letters of <span class="he">ויפח באפיו נשמת חיים</span> (“and breathed into his nostrils the breath of life”).',
+          hint: 'The last letters are marked. You get “chotam” — a seal.',
         },
         {
-          q: 'And the first letters of <span class="he">האדם לנפש חיה</span> (“man — a living soul”)? Rearrange them.',
-          opts: ['challah', 'bread', 'army, strength', 'praise (Hallel)'],
+          q: 'Now from the <b>first</b> letters of <span class="he">האדם לנפש חיה</span> (“man — a living soul”). They need to be rearranged.',
+          hint: 'The first letters are marked. You get “challah”.',
         },
         {
-          q: 'The Almighty “brought” Chava “to the man”: <span class="he">ויבאה אל האדם</span>. The word <span class="he">ויבאה</span> (“and He brought her”) is written “defectively”, without the second yud. What is it worth?',
+          q: 'The Almighty “brought” Chava “to the man”. In full the word is spelled <span class="he">ויביאה</span>, but in the Torah it is <span class="he">ויבאה</span>, “defectively”. Tap the letter the Torah leaves out.',
+          hint: 'Compare letter by letter: ו־י־ב־?־א־ה.',
+        },
+        {
+          q: 'What is the word <span class="he">ויבאה</span> (“and He brought her”) worth as written in the Torah?',
           hint: '6 + 10 + 2 + 1 + 5.',
         },
       ],

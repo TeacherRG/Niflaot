@@ -105,6 +105,24 @@ a{color:inherit}
 .fb.ok{background:var(--ok-soft);color:var(--ok);font-weight:600}
 .fb.no{background:var(--bad-soft);color:var(--bad)}
 .fb.hint{background:var(--tchelet-soft);color:var(--tchelet)}
+.lt{display:grid;gap:12px}
+.lt-bank{display:flex;flex-wrap:wrap;gap:10px 16px;justify-content:center}
+.lt-word{display:flex;gap:4px}
+.lt-tile{font-family:var(--f-he);font-size:21px;font-weight:700;line-height:1;min-width:34px;height:40px;padding:0 6px;border:1px solid var(--gold-line);border-radius:6px;background:linear-gradient(180deg,#FFFFFF,var(--gold-soft));color:var(--ink);transition:transform .12s,box-shadow .12s,opacity .12s}
+.lt-tile:hover:not(:disabled){border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+.lt-tile:active:not(:disabled){transform:scale(.94)}
+.lt-tile:disabled{cursor:default}
+.lt-tile.used{opacity:.25}
+.lt-tile.hl{border-color:var(--gold);background:var(--gold-2);color:var(--ink)}
+.lt-tile.big{font-size:30px;min-width:46px;height:56px}
+.lt-tile.wrong{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+.lt-tile.right{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.lt-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
+.lt-slots{display:flex;gap:6px}
+.lt-slot{font-family:var(--f-he);font-size:24px;font-weight:700;width:44px;height:50px;display:grid;place-items:center;border:1.5px dashed var(--gold-line);border-radius:8px;background:var(--paper);color:var(--ink);padding:0}
+.lt-slot.full{border-style:solid;border-color:var(--gold);background:var(--surface)}
+.lt-slot.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.lt-slot:disabled{cursor:default}
 
 .reveal{background:linear-gradient(180deg,var(--gold-soft),#FFFFFF);padding:22px 24px;display:grid;gap:10px;border-top:1px solid var(--gold-line)}
 .reveal h3{font-family:var(--f-display);margin:0;font-size:26px;font-weight:700;color:var(--gold)}
@@ -408,6 +426,9 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .p-opt .he{font-size:17px;font-weight:700}
 .p-opt small{color:#555;font-size:12px}
 .p-box{flex:none;width:12px;height:12px;border:1.5px solid #333;border-radius:2px;transform:translateY(1px)}
+.p-letters{font-size:19px;font-weight:700;letter-spacing:.06em;margin-top:4px}
+.p-boxes{display:inline-flex;gap:6px;vertical-align:middle}
+.p-boxes .p-box{width:22px;height:22px;transform:none}
 .p-est{font-size:11px;color:#666;margin-bottom:2px}
 .p-puz{margin-top:12px;border-inline-start:3px solid #B4461B;padding-inline-start:12px}
 .p-puz p{margin:0 0 6px;font-family:var(--f-display);font-size:16px}

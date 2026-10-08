@@ -33,12 +33,12 @@ const de: LessonText = {
           opts: ['„an Rosch Haschana erschaffen“', '„im Monat Nissan erschaffen“', '„am ersten Tag erschaffen“', '„in sechs Tagen erschaffen“'],
         },
         {
-          q: 'Nimm die <b>letzten</b> Buchstaben der ersten drei Wörter: <span class="he">בראשית ברא אלקים</span>. Welches Wort bilden sie?',
-          opts: ['Wahrheit', 'Tora', 'Licht', 'Frieden (Schalom)'],
+          q: 'Bilde ein Wort aus den <b>letzten</b> Buchstaben der ersten drei Wörter der Tora. Tippe die Buchstaben des Verses der Reihe nach an.',
+          hint: 'Die letzten Buchstaben der Wörter sind markiert. Das Wort aus drei Buchstaben bedeutet „Wahrheit“.',
         },
         {
-          q: 'Im zweiten Kapitel heißt es: „Dies sind die Hervorbringungen des Himmels und der Erde <span class="he">בהבראם</span> — als sie erschaffen wurden“. Wessen Name ist in den Buchstaben dieses Wortes verborgen?',
-          opts: ['Awraham', 'Aharon', 'Re’uwen', 'Hewel (Abel)'],
+          q: 'Im zweiten Kapitel heißt es: „Dies sind die Hervorbringungen des Himmels und der Erde <span class="he">בהבראם</span> — als sie erschaffen wurden“. Stelle <b>alle</b> Buchstaben dieses Wortes so um, dass „in Awraham“ entsteht — der Name des Erzvaters mit der Vorsilbe <span class="he">ב</span>.',
+          hint: 'Awrahams Name ist אברהם. Setze ב („in“) davor.',
         },
       ],
       reveal: {
@@ -94,10 +94,14 @@ const de: LessonText = {
         },
         { q: 'Welches Wort hat dieselbe Gematria?', opts: ['„in der Tora“', '„Tora“', '„Glaube“', '„Gebot“'] },
         {
-          q: 'Nimm die <b>letzten</b> Buchstaben von <span class="he">את האור כי טוב</span> („das Licht, dass es gut war“). Welches Wort ergibt sich?',
-          opts: ['Bund (Brit)', 'Haus', 'Schabbat', 'Wahrheit'],
+          q: 'Bilde ein Wort aus den <b>letzten</b> Buchstaben von <span class="he">את האור כי טוב</span> („das Licht, dass es gut war“).',
+          hint: 'Die letzten Buchstaben sind markiert. Es ergibt „Brit“ — Bund.',
         },
         { q: 'Was ergibt das Wort <span class="he">ויבדל</span> — „und Er schied“?', hint: '6 + 10 + 2 + 4 + 30.' },
+        {
+          q: 'Am vierten Tag: „Es seien Leuchten.“ Gewöhnlich schreibt man das Wort <span class="he">מאורת</span>, in der Tora hat es aber <b>einen Buchstaben weniger</b>: <span class="he">מארת</span>. Tippe den Buchstaben an, der in der Tora fehlt.',
+          hint: 'Vergleiche die beiden Schreibungen Buchstabe für Buchstabe: מ־א־?־ר־ת.',
+        },
       ],
       reveal: {
         h: 'Das Licht sind die 613 Gebote',
@@ -145,22 +149,26 @@ const de: LessonText = {
     },
     {
       title: 'Der Mensch aus Erde',
-      cond: `<p>Wie wurde der Mensch erschaffen? Die Tora sagt:</p><p class="verse" dir="rtl" lang="he">וייצר ה׳ אלקים את האדם עפר מן האדמה ויפח באפיו נשמת חיים ויהי האדם לנפש חיה</p><p>„Da bildete der Ewige G-tt den Menschen aus Staub von der Erde und blies in seine Nase den Hauch des Lebens, und der Mensch wurde zu einem lebendigen Wesen.“<sup data-src="gen-2-7"></sup></p><p>Der Baal HaTurim bemerkt: <em>האדם</em>, „der Mensch“, ist mit denselben Buchstaben geschrieben wie <em>אדמה</em>, „Erde“.</p>`,
+      cond: `<p>Wie wurde der Mensch erschaffen? Die Tora sagt:</p><p class="verse" dir="rtl" lang="he">וייצר ה׳ אלקים את האדם עפר מן האדמה ויפח באפיו נשמת חיים ויהי האדם לנפש חיה</p><p>„Da bildete der Ewige G-tt den Menschen aus Staub von der Erde und blies in seine Nase den Hauch des Lebens, und der Mensch wurde zu einem lebendigen Wesen.“<sup data-src="gen-2-7"></sup></p><p>Der Baal HaTurim bemerkt: In den Buchstaben von <em>האדם</em>, „der Mensch“, ist verborgen, woraus der Mensch genommen ist.</p>`,
       steps: [
         {
-          q: 'Was ergibt das Wort <span class="he">אדמה</span>, „Erde“? (<span class="he">האדם</span> ergibt dasselbe: Die Buchstaben sind gleich.)',
-          hint: '1 + 4 + 40 + 5.',
+          q: 'Stelle <b>alle</b> Buchstaben von <span class="he">האדם</span> („der Mensch“) so um, dass das Wort „Erde“ entsteht.',
+          hint: 'Erde heißt auf Hebräisch „adama“: אדמה.',
         },
         {
-          q: 'Die Endbuchstaben von <span class="he">ויפח באפיו נשמת חיים</span> („und blies in seine Nase den Hauch des Lebens“) bilden ein Wort. Welches?',
-          opts: ['Siegel', 'Leben', 'Seele', 'Apfel'],
+          q: 'Bilde ein Wort aus den <b>letzten</b> Buchstaben von <span class="he">ויפח באפיו נשמת חיים</span> („und blies in seine Nase den Hauch des Lebens“).',
+          hint: 'Die letzten Buchstaben sind markiert. Es ergibt „Chotam“ — Siegel.',
         },
         {
-          q: 'Und die Anfangsbuchstaben von <span class="he">האדם לנפש חיה</span> („der Mensch — zu einem lebendigen Wesen“)? Stelle sie um.',
-          opts: ['Challa', 'Brot', 'Heer, Kraft', 'Lobpreis (Hallel)'],
+          q: 'Und jetzt aus den <b>ersten</b> Buchstaben von <span class="he">האדם לנפש חיה</span> („der Mensch — zu einem lebendigen Wesen“). Sie müssen umgestellt werden.',
+          hint: 'Die ersten Buchstaben sind markiert. Es ergibt „Challa“.',
         },
         {
-          q: 'Der Allmächtige „brachte“ Chawa „zum Menschen“: <span class="he">ויבאה אל האדם</span>. Das Wort <span class="he">ויבאה</span> („und Er brachte sie“) ist „mangelhaft“ geschrieben, ohne das zweite Jud. Was ergibt es?',
+          q: 'Der Allmächtige „brachte“ Chawa „zum Menschen“. Voll geschrieben heißt das Wort <span class="he">ויביאה</span>, in der Tora aber <span class="he">ויבאה</span>, „mangelhaft“. Tippe den Buchstaben an, der in der Tora fehlt.',
+          hint: 'Vergleiche Buchstabe für Buchstabe: ו־י־ב־?־א־ה.',
+        },
+        {
+          q: 'Was ergibt das Wort <span class="he">ויבאה</span> („und Er brachte sie“) so, wie es in der Tora geschrieben ist?',
           hint: '6 + 10 + 2 + 1 + 5.',
         },
       ],

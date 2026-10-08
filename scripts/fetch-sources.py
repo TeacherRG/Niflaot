@@ -45,7 +45,7 @@ BAVLI_EN = 'English/William Davidson Edition - English.json'
 # Kitzur Ba'al HaTurim on Genesis: one comment (all its segments) on chapter ch, verse v
 BHT = "Tanakh/Rishonim on Tanakh/Kitzur Ba'al HaTurim/Torah/Kitzur Ba'al HaTurim on Genesis/"
 def bht(ch, v):
-    return ('custom', f'Бааль ха-Турим, Берешит {ch}:{v}', f"Ba'al HaTurim, Genesis {ch}:{v}", f'Baal HaTurim, Bereschit {ch},{v}',
+    return ('custom', f'Бааль а-Турим, Берешит {ch}:{v}', f"Ba'al HaTurim, Genesis {ch}:{v}", f'Baal HaTurim, Bereschit {ch},{v}',
             f"Kitzur Ba'al HaTurim on Genesis {ch}:{v}", 'Commentary', BHT + 'Hebrew/On Your Way.json', BHT + 'English/Sefaria Community Translation.json', None, [ch - 1, v - 1])
 
 BOOK = {

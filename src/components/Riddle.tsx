@@ -10,6 +10,9 @@ import { Sources } from './Sources';
 import { MathCoach } from './MathCoach';
 import { Puzzle } from './Puzzle';
 import { footnotes } from '../sources/footnotes';
+import { LettersPuzzle, TapPuzzle } from './LetterSteps';
+import { asWord } from '../core/letterPuzzle';
+import { displayNames } from '../core/names';
 
 /** «⏱ ≈ 1 мин · ●●○ средний»: average time and difficulty of a step (or of the whole riddle). */
 function Estimate({ time, level }: { time: string; level: 1 | 2 | 3 }) {
@@ -65,7 +68,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
   const [condHtml, revealHtml, ...lessonHtml] = fn.html;
 
   /** Records an attempt; `correct` decides the outcome. */
-  const attempt = (i: number, correct: boolean, kind: 'num' | 'ch', pick?: number) =>
+  const attempt = (i: number, correct: boolean, kind: keyof typeof MAX_WRONG, pick?: number, place?: boolean) =>
     update((d) => {
       const x = draftStep(d, ri, i);
       x.tries++;
@@ -76,7 +79,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
         d.score += x.pts;
         x.last = 'ok';
       } else {
-        x.last = 'no';
+        x.last = place ? 'place' : 'no';
         if (x.tries >= MAX_WRONG[kind]) {
           x.ok = true;
           x.fail = true;
@@ -174,6 +177,11 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
           const st = rt.steps[i];
           const locked = i > firstOpen;
           const left = MAX_WRONG[s.t] - x.tries;
+          const hintBtn = !x.ok && !x.hint && st.hint && (
+            <button className="btn ghost" onClick={() => update((d) => void (draftStep(d, ri, i).hint = true))}>
+              {t('riddle.hint')}
+            </button>
+          );
           return (
             <div key={i} className={`step${locked ? ' locked' : ''}`}>
               <Estimate time={formatEstimate(s.est.sec, locale, t)} level={s.est.level} />
@@ -195,18 +203,22 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
                     onKeyDown={(e) => e.key === 'Enter' && checkNum(i, s.a)}
                   />
                   {!x.ok && (
-                    <>
-                      <button className="btn" onClick={() => checkNum(i, s.a)}>
-                        {t('riddle.check')}
-                      </button>
-                      {!x.hint && st.hint && (
-                        <button className="btn ghost" onClick={() => update((d) => void (draftStep(d, ri, i).hint = true))}>
-                          {t('riddle.hint')}
-                        </button>
-                      )}
-                    </>
+                    <button className="btn" onClick={() => checkNum(i, s.a)}>
+                      {t('riddle.check')}
+                    </button>
                   )}
+                  {hintBtn}
                 </div>
+              ) : s.t === 'lt' ? (
+                <>
+                  <LettersPuzzle step={s} x={x} locked={locked} onCheck={(res) => attempt(i, res === 'ok', 'lt', undefined, res === 'place')} />
+                  {hintBtn && <div className="row">{hintBtn}</div>}
+                </>
+              ) : s.t === 'tap' ? (
+                <>
+                  <TapPuzzle step={s} x={x} locked={locked} onTap={(k) => attempt(i, k === s.a, 'tap', k)} />
+                  {hintBtn && <div className="row">{hintBtn}</div>}
+                </>
               ) : (
                 <div className="opts">
                   {(S.ord[`${ri}-${i}`] ?? s.opts.map((_, k) => k)).map((k) => {
@@ -233,7 +245,8 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
 
               {x.ok && x.fail ? (
                 <div className="fb no">
-                  {t('riddle.outOfTries')} <b>{s.t === 'num' ? s.a : s.opts[s.c].h}</b> · {t('riddle.zeroPoints')}
+                  {t('riddle.outOfTries')}{' '}
+                  <b>{s.t === 'num' ? s.a : s.t === 'ch' ? s.opts[s.c].h : <span className="he">{s.t === 'lt' ? asWord(s.a) : letters(displayNames(s.word))[s.a]}</span>}</b> · {t('riddle.zeroPoints')}
                 </div>
               ) : x.ok ? (
                 <div className="fb ok">{t('riddle.correct', { p: x.pts ?? 0 })}</div>
@@ -259,9 +272,10 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
                   }}
                 />
               )}
-              {!x.ok && x.tries > 0 && x.last === 'no' && (
+              {!x.ok && x.tries > 0 && (x.last === 'no' || x.last === 'place') && (
                 <div className="fb no">
-                  {t('riddle.triesLeft', { n: left })} {t(s.t === 'num' ? 'riddle.wrongNum' : 'riddle.wrongChoice')}
+                  {t('riddle.triesLeft', { n: left })}{' '}
+                  {t(x.last === 'place' ? 'riddle.wrongPlace' : ({ num: 'riddle.wrongNum', ch: 'riddle.wrongChoice', lt: 'riddle.wrongWord', tap: 'riddle.wrongLetter' } as const)[s.t])}
                 </div>
               )}
             </div>

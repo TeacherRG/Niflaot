@@ -9,6 +9,8 @@ import { stripFootnotes } from '../sources/footnotes';
 import { HebrewRuns } from './Hebrew';
 import { formatEstimate } from '../core/format';
 import { Icon } from './ui';
+import { asWord } from '../core/letterPuzzle';
+import { displayNames } from '../core/names';
 
 const TABLE = Object.entries(VALUES).filter(([c]) => !'ךםןףץ'.includes(c));
 const OPTS_KEY = 'niflaot:print-options';
@@ -163,6 +165,27 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
                       <Html as="div" className="p-q" html={st.q} />
                       {s.t === 'num' ? (
                         <div className="p-answer">{t('print.answer')} ______________</div>
+                      ) : s.t === 'lt' ? (
+                        <>
+                          <div className="p-letters he" dir="rtl">
+                            {displayNames(s.from)}
+                          </div>
+                          <div className="p-answer">
+                            {t('print.answer')}{' '}
+                            <span className="p-boxes" dir="rtl">
+                              {letters(s.a).map((_, k) => (
+                                <span key={k} className="p-box" />
+                              ))}
+                            </span>
+                          </div>
+                        </>
+                      ) : s.t === 'tap' ? (
+                        <div className="p-answer">
+                          {t('print.circle')}{' '}
+                          <span className="p-letters he" dir="rtl">
+                            {letters(displayNames(s.word)).join(' ')}
+                          </span>
+                        </div>
                       ) : (
                         <div className="p-opts">
                           {order(s.opts.length, ri * 10 + i + 1).map((k) => (
@@ -230,7 +253,15 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
                   <ol>
                     {r.steps.map((s, i) => (
                       <li key={i}>
-                        <b>{s.t === 'num' ? s.a : <span className="he">{s.opts[s.c].h}</span>}</b>
+                        <b>
+                          {s.t === 'num' ? (
+                            s.a
+                          ) : (
+                            <span className="he">
+                              {s.t === 'ch' ? s.opts[s.c].h : s.t === 'lt' ? asWord(s.a) : letters(displayNames(s.word))[s.a]}
+                            </span>
+                          )}
+                        </b>
                         {s.t === 'ch' && rt.steps[i].opts?.[s.c] && <> — {rt.steps[i].opts![s.c]}</>}
                         {rt.steps[i].hint && (
                           <small>
