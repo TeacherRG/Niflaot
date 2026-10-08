@@ -8,7 +8,7 @@ const en: Messages = {
   'menu.open': 'Open menu',
   'menu.close': 'Close',
   'menu.lessons': 'Lessons',
-  'menu.allLessons': 'All lessons',
+  'menu.home': 'Home',
   'rebbe.title': 'Niflaot of the Rebbe',
   'rebbe.menuSub': 'coming soon',
   'rebbe.intro': "Wonders of the Torah in the Rebbe's teachings.",
