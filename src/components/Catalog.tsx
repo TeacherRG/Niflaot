@@ -80,7 +80,8 @@ export function Catalog() {
                   const done = progress(l.slug, l.legacyStorageKey);
                   const total = l.riddles.length;
                   return (
-                    <a key={l.slug} className="card" href={`#/${l.slug}`}>
+                    <div key={l.slug} className="card-wrap">
+                    <a className="card" href={`#/${l.slug}`}>
                       <span className="eyebrow">
                         <span>{t('catalog.lesson', { n: l.number })}</span>
                         <span>{done ? t('catalog.progress', { done, total }) : t('catalog.riddles', { n: total })}</span>
@@ -90,6 +91,13 @@ export function Catalog() {
                       <p>{text.summary}</p>
                       <AgeBadge age={l.age} />
                     </a>
+                    {l.memo && (
+                      <div className="card-games">
+                        <a href={`#/${l.slug}`}>🔢 {t('memo.tabGematria')}</a>
+                        <a href={`#/${l.slug}/memo`}>🃏 {t('memo.tabMemo')}</a>
+                      </div>
+                    )}
+                    </div>
                   );
                 })}
               </div>

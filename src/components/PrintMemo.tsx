@@ -3,6 +3,7 @@ import { useI18n } from '../i18n';
 import type { Lesson, MemoData } from '../lessons/types';
 import { memoImages } from '../core/memo';
 import { displayNames } from '../core/names';
+import { SITE_HOST } from '../core/site';
 import { Icon } from './ui';
 import { MemoInfo } from './Memo';
 
@@ -29,14 +30,15 @@ function CardPage({ title, children }: { title: string; children: React.ReactNod
 
 /** The Memo on paper — a separate print variant: cards to cut out, the explanations of the pairs, colouring pages. */
 export function PrintMemo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) {
-  const { t } = useI18n();
+  const { t, pick } = useI18n();
+  const text = pick(lesson.texts).value;
+  const mt = text.memo;
   const images = useMemo(() => memoImages(lesson), [lesson]);
   const [opt, setOpt] = useState(loadOptions);
-  const parsha = lesson.hebrewTitle.split('·').pop()?.trim();
 
   useEffect(() => {
-    document.title = `Memo · ${lesson.hebrewTitle} · ${t('print.button')}`;
-  }, [lesson.hebrewTitle, t]);
+    document.title = `${t('memo.tabMemo')} · ${text.title} · ${t('print.button')}`;
+  }, [text.title, t]);
 
   const toggle = (k: keyof Options) =>
     setOpt((o) => {
@@ -47,10 +49,11 @@ export function PrintMemo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) 
       return n;
     });
 
+  if (!mt) return null;
   return (
     <div className="print-view">
       <div className="print-bar no-print">
-        <a className="btn ghost" href={`#/${lesson.slug}`}>
+        <a className="btn ghost" href={`#/${lesson.slug}/memo`}>
           {t('print.back')}
         </a>
         <div className="print-variant" role="group">
@@ -81,30 +84,31 @@ export function PrintMemo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) 
         </button>
       </div>
 
-      <article className="sheet-paper pm" dir="rtl" lang="he">
+      <article className="sheet-paper pm">
         <header className="pm-head">
-          <div className="pm-eyebrow">משחק זיכרון · בעל הטורים</div>
-          <h1>פרשת {parsha}</h1>
-          <p>
-            24 קלפים — 12 זוגות: ציור והמילים שלו מן התורה. גוזרים את הקלפים לאורך הקווים המקווקווים, הופכים ומערבבים.
-            בכל תור פותחים שני קלפים; מצאתם זוג — הוא שלכם, וקוראים את ההסבר שלו בדף „הסברים”.
-          </p>
+          <div className="p-heb he">{lesson.hebrewTitle}</div>
+          <h1>
+            {t('memo.title')} · {text.title}
+          </h1>
+          <p>{mt.intro}</p>
+          <p>{t('memo.printIntro')}</p>
         </header>
 
         {opt.cards && (
           <>
-            <CardPage title="קלפי ציור">
-              {memo.items.map((it, k) => (
-                <div key={k} className="pm-card">
-                  <img src={images[k]} alt={it.title} />
+            <CardPage title={t('memo.picCards')}>
+              {memo.items.map((_, k) => (
+                <div key={k} className="pm-card pm-pic">
+                  <img src={images[k]} alt="" />
+                  <span className="pm-cap">{mt.items[k].caption}</span>
                 </div>
               ))}
             </CardPage>
-            <CardPage title="קלפי מילים">
+            <CardPage title={t('memo.wordCards')}>
               {memo.items.map((it, k) => (
                 <div key={k} className="pm-card pm-words">
-                  <span className="pm-n">{k + 1}</span>
-                  <span className="pm-verse">{displayNames(it.verse)}</span>
+                  <span className="pm-verse he">{displayNames(it.verse)}</span>
+                  <span className="pm-tr">{mt.items[k].verse}</span>
                   <span className="pm-copy">© mychitas.app 5787</span>
                 </div>
               ))}
@@ -114,9 +118,9 @@ export function PrintMemo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) 
 
         {opt.info && (
           <section className="pm-info">
-            <h2>הסברים — מה גילה בעל הטורים?</h2>
+            <h2>{t('memo.explanations')}</h2>
             {memo.items.map((it, k) => (
-              <MemoInfo key={k} item={it} n={k + 1} img={images[k]} />
+              <MemoInfo key={k} item={it} text={mt.items[k]} n={k + 1} img={images[k]} />
             ))}
           </section>
         )}
@@ -124,16 +128,16 @@ export function PrintMemo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) 
         {opt.color &&
           memo.items.map((it, k) => (
             <section key={k} className="pm-color">
-              <img src={images[k]} alt={it.title} />
+              <img src={images[k]} alt={mt.items[k].caption} />
               <p>
-                {k + 1}. {it.title} — <span>{displayNames(it.verse)}</span>
+                {k + 1}. {mt.items[k].title} — <span className="he">{displayNames(it.verse)}</span>
               </p>
             </section>
           ))}
 
         <footer className="p-foot">
-          <p className="p-holy">בדפים אלה דברי תורה — נא לא לזרוק אותם לפח, אלא לשים בגניזה.</p>
-          כל הכבוד! · שבת שלום! · © mychitas.app 2026
+          <p className="p-holy">{t('print.holy')}</p>
+          {SITE_HOST} · {t('memo.shabbat')} · © mychitas.app 2026
         </footer>
       </article>
     </div>
