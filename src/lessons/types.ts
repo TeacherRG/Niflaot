@@ -148,6 +148,8 @@ export interface LessonText {
   final: { title: string; allSolved: string };
   /** texts of the Memo game, when the lesson has one */
   memo?: MemoText;
+  /** texts of the «Карточки» game of a «Нифлаот Ребе» lesson */
+  cards?: RebbeCardsText;
   /** final «Собери смысл»: the path of the whole lesson; none in a `commentary` lesson */
   puzzle?: PuzzleText;
   /** who the lesson suits and why (a methodical note next to the age, one short sentence); plain text */
@@ -227,6 +229,47 @@ export interface MemoText {
   items: MemoItemText[];
 }
 
+/* ───────────── «Карточки» (the second game of a «Нифлаот Ребе» lesson) ───────────── */
+
+/**
+ * One pair of cards, language-independent: a verse card (Torah words of the portion) and an explanation card —
+ * one explanation of the Rebbe on that verse (Likkutei Sichos). One explanation per verse: every verse once.
+ * The texts are in `LessonText.cards.items`, same order.
+ */
+export interface RebbeCard {
+  /** the Torah words on the verse card, as written in the verse (real spelling of Divine Names) */
+  verse: string;
+  /** the verse in src/sources/sefaria.json (its Hebrew must contain `verse`) */
+  source: string;
+  /** where the talk is: Likkutei Sichos, volume and number of the talk in the portion */
+  ls: { vol: number; sicha: number };
+}
+
+export interface RebbeCardsData {
+  /** exactly 12 pairs, in the order of the verses */
+  items: RebbeCard[];
+}
+
+/** Texts of one pair; plain text, Hebrew is auto-styled. */
+export interface RebbeCardText {
+  /** the theme of the talk, short */
+  title: string;
+  /** translation of the Torah words on the verse card */
+  verse: string;
+  /** the explanation card: the Rebbe's explanation in one short line (≤ 70 characters) */
+  card: string;
+  /** the Rebbe's explanation, a few sentences */
+  explain: string;
+  /** «Ораа» — the practical lesson of the talk */
+  horaah: string;
+}
+
+export interface RebbeCardsText {
+  /** one or two sentences above the game: what the pairs are */
+  intro: string;
+  items: RebbeCardText[];
+}
+
 export interface Lesson {
   /** stable id used in URLs and storage */
   slug: string;
@@ -239,9 +282,13 @@ export interface Lesson {
   /**
    * `article` (default) — one connected article (Rav Ginzburgh): its ideas follow from one another,
    * so every riddle and the lesson end with «Собери смысл»;
-   * `commentary` — separate remarks of a commentator (Baal HaTurim…) not linked into one chain: no puzzles.
+   * `commentary` — separate remarks of a commentator (Baal HaTurim…) not linked into one chain: no puzzles;
+   * `sicha` — a talk of the Lubavitcher Rebbe («Нифлаот Ребе»): an investigation without gematria — a question on
+   * the verse, the Rebbe's answer, the lesson for life; connected, so with puzzles; no gematria calculator.
    */
-  kind?: 'article' | 'commentary';
+  kind?: 'article' | 'commentary' | 'sicha';
+  /** `rebbe` — the lesson belongs to «Нифлаот Ребе» of its portion (its own menu item and section), not to the main list */
+  series?: 'rebbe';
   /** recommended minimum age; the range is open upward (adults too), shown as «8+» */
   age: number;
   /** two large decorative letters in the hero background */
@@ -260,6 +307,8 @@ export interface Lesson {
   author?: { name: string; alternateName: string };
   /** Memo game — the second game of a commentary lesson (#/<slug>/memo): 12 pairs of cards */
   memo?: MemoData;
+  /** «Карточки» — the second game of a «Нифлаот Ребе» lesson (#/<slug>/cards): verse — the Rebbe's explanation */
+  cards?: RebbeCardsData;
   /** localStorage key used by the old single-file version, migrated once */
   legacyStorageKey?: string;
 }

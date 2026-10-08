@@ -955,3 +955,21 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .shabbat-back{font-weight:700;color:var(--tchelet)!important}
 .shabbat-note{font-size:13px!important;color:var(--muted)!important}
 .shabbat-brand{margin-top:14px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+/* «Нифлаот Ребе»: the section of a portion on the home page, its page, the «Карточки» game */
+.rebbe-block{margin-top:18px;padding-top:14px;border-top:1px dashed var(--gold-line)}
+.rebbe-h{display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:baseline;margin:0 0 10px;text-decoration:none;color:var(--ink);font-family:var(--f-display);font-weight:700;font-size:21px}
+.rebbe-h>span{color:var(--gold)}
+.rebbe-h small{grid-column:2;font-family:inherit;font-weight:400;font-size:14px;color:var(--muted)}
+.rebbe-h:hover{color:var(--gold)}
+.rebbe-list{margin-top:16px}
+.menu-sub .menu-lesson{display:grid;gap:2px}
+.menu-sub .menu-game{margin-inline-start:22px;font-size:14px;padding:7px 10px}
+.menu-sub .menu-game .menu-num{width:24px;height:24px;font-size:12px;background:var(--paper)}
+.mc-expl{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;padding:8px 6px;width:100%;height:100%;background:var(--tchelet-soft);text-align:center;font-size:clamp(10.5px,2.8vw,13px);line-height:1.28;color:var(--ink);overflow:hidden}
+.mc-expl-mark{color:var(--gold);font-size:14px;line-height:1}
+.rc-ls{margin:6px 0 0;font-size:13.5px;color:var(--muted);font-style:italic}
+.rc-review-he{flex:none;min-width:64px;max-width:40%;font-family:var(--f-he);font-weight:700;font-size:16px;line-height:1.2;text-align:center;direction:rtl}
+.pm-expl-mark{font-size:14px}
+.pm-expl-t{font-size:14px;line-height:1.3;padding:0 6px}
+@media print{.pm-expl-t{font-size:12.5px}}

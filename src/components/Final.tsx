@@ -203,12 +203,12 @@ export function Final({
         </button>
       )}
     </section>
-    {lesson.memo && (
+    {(lesson.memo || lesson.cards) && (
       <section className="memo-cta pop">
         <span aria-hidden="true">🃏</span>
-        <p>{t('memo.cta')}</p>
-        <a className="btn" href={`#/${lesson.slug}/memo`}>
-          {t('memo.ctaBtn')} →
+        <p>{t(lesson.cards ? 'cards.cta' : 'memo.cta')}</p>
+        <a className="btn" href={`#/${lesson.slug}/${lesson.cards ? 'cards' : 'memo'}`}>
+          {t(lesson.cards ? 'cards.ctaBtn' : 'memo.ctaBtn')} →
         </a>
       </section>
     )}

@@ -69,4 +69,7 @@ export const PROJECT_EN: Record<string, string[]> = {
   'bht-4-18': [
     '<b>Behold, my witness [edi] is in heaven</b> [Job 16:19] — in gematria “Chanoch”; and “He that testifies of me [ve-sahadi]” — in gematria “Metatron”. For the Holy One, blessed be He, took one of those before the generation of the Flood and one of those after the generation of the Flood — namely Chanoch and Pinchas — and raised them to heaven to testify about Him. And He chose Chanoch because he was the seventh generation, and the Holy One, blessed be He, loves the seventh. And likewise of Moshe, who was seventh from the Patriarchs, it is written: “And Moshe went up to G-d” [Exodus 19:3].',
   ],
+  'tanya-ih-7': [
+    "Though this manifestation through the occupation with Torah and the commandments is, generally, equal in every one of Israel — for we all have one Torah and one law — nevertheless, in a more specific way not all the souls (<i>nefesh</i>), spirits (<i>ruach</i>) and souls (<i>neshamah</i>) are equal in this regard, depending on the time of their reincarnation and their coming into this world; as our Sages, of blessed memory, said: “In what was your father more heedful? He answered him: in <i>tzitzit</i>…”",
+  ],
 };

@@ -44,6 +44,15 @@ const ru: Term[] = [
   { re: 'авдал', def: 'Авдала — «разделение»: благословение на исходе субботы над вином, благовониями и пламенем свечи.' },
   { re: 'мазал', def: 'Мазаль — небесный покровитель, «звезда», через которую до каждой вещи доходит её жизненная сила.' },
   { re: 'колесниц', def: 'Деяние Колесницы (Маасе Меркава) — тайное учение о видении Б-жественной Колесницы у пророка Йехезкеля.' },
+  { re: 'йецер', def: "Йецер а-ра — «злое начало»: сила в человеке, которая уговаривает его пойти против воли Б-га. Ей противостоит йецер тов — «доброе начало»." },
+  { re: 'злое начало', def: "Злое начало (йецер а-ра) — сила в человеке, которая уговаривает его пойти против воли Б-га; ему противостоит доброе начало." },
+  { re: 'орл[аеуыо]', def: "Орла — плоды дерева в первые три года после посадки: по заповеди Торы их нельзя есть." },
+  { re: 'ребе рашаб', def: "Ребе Рашаб — рабби Шолом-Дов-Бер Шнеерсон (1860–1920), пятый Любавичский Ребе." },
+  { re: 'ликутей сихот', def: "«Ликутей сихот» — «собрание бесед»: беседы Любавичского Ребе на недельные главы Торы, изданные в 39 томах." },
+  { re: 'раши', def: "Раши — рабби Шломо Ицхаки (1040–1105), автор главного комментария к Торе и Талмуду; его объяснения учат с детства." },
+  { re: 'шхин', def: "Шхина — Б-жественное присутствие, которое «пребывает» в мире: в Храме, в доме, среди людей." },
+  { re: 'хесед', def: "Хесед — «доброта, милость»: первое из Б-жественных качеств, щедрое давание без меры." },
+  { re: 'битуль', def: "Битуль — «отмена себя»: полная преданность Б-гу, когда человек не ставит себя в центр." },
 ];
 
 const en: Term[] = [
@@ -81,6 +90,15 @@ const en: Term[] = [
   { re: 'havdal', def: 'Havdalah — “separation”: the blessing at the end of Shabbat over wine, spices and the flame of a candle.' },
   { re: 'mazal', def: 'Mazal — a heavenly guardian, a “star” through which each thing receives its life force.' },
   { re: 'chariot', def: 'The Work of the Chariot (Ma’aseh Merkavah) — the secret teaching about the vision of the Divine Chariot in the prophet Ezekiel.' },
+  { re: 'yetzer', def: "Yetzer hara — “the evil inclination”: the force within a person that urges him to go against G-d’s will. Opposing it is the yetzer tov, “the good inclination”." },
+  { re: 'evil inclination', def: "The evil inclination (yetzer hara) — the force within a person that urges him to go against G-d’s will; the good inclination opposes it." },
+  { re: 'orlah', def: "Orlah — the fruit of a tree in the first three years after planting: by the Torah’s command it may not be eaten." },
+  { re: 'rebbe rashab', def: "The Rebbe Rashab — Rabbi Shalom Dovber Schneersohn (1860–1920), the fifth Lubavitcher Rebbe." },
+  { re: 'likkutei sichos', def: "Likkutei Sichos — “collected talks”: the Lubavitcher Rebbe’s talks on the weekly Torah portions, published in 39 volumes." },
+  { re: 'rashi', def: "Rashi — Rabbi Shlomo Yitzchaki (1040–1105), author of the classic commentary on the Torah and the Talmud, studied from childhood." },
+  { re: 'shechinah', def: "The Shechinah — the Divine Presence that “dwells” in the world: in the Sanctuary, in the home, among people." },
+  { re: 'chesed', def: "Chesed — “kindness”: the first of the Divine attributes, generous giving without measure." },
+  { re: 'bittul', def: "Bittul — “self-nullification”: complete devotion to G-d, when a person does not put himself at the centre." },
 ];
 
 const de: Term[] = [
@@ -118,6 +136,15 @@ const de: Term[] = [
   { re: 'hawdal', def: 'Hawdala — „Trennung“: der Segen am Ausgang des Schabbats über Wein, Gewürze und die Flamme einer Kerze.' },
   { re: 'masal', def: 'Masal — ein himmlischer Hüter, ein „Stern“, durch den jedes Ding seine Lebenskraft empfängt.' },
   { re: 'wagen', def: 'Das Werk des Wagens (Ma’asse Merkawa) — die geheime Lehre über die Vision des g-ttlichen Wagens beim Propheten Jecheskel.' },
+  { re: 'jezer', def: "Jezer hara — „der böse Trieb“: die Kraft im Menschen, die ihn überreden will, gegen G-ttes Willen zu handeln. Ihm steht der Jezer tow, „der gute Trieb“, gegenüber." },
+  { re: 'böse[nr]? trieb', def: "Der böse Trieb (Jezer hara) — die Kraft im Menschen, die ihn überreden will, gegen G-ttes Willen zu handeln; ihm steht der gute Trieb gegenüber." },
+  { re: 'orla', def: "Orla — die Früchte eines Baumes in den ersten drei Jahren nach dem Pflanzen: nach dem Gebot der Tora darf man sie nicht essen." },
+  { re: 'rebbe raschab', def: "Der Rebbe Raschab — Rabbi Schalom Dowber Schneersohn (1860–1920), der fünfte Lubawitscher Rebbe." },
+  { re: 'likkutej sichot', def: "Likkutej Sichot — „gesammelte Reden“: die Reden des Lubawitscher Rebben zu den Wochenabschnitten der Tora, in 39 Bänden erschienen." },
+  { re: 'raschi', def: "Raschi — Rabbi Schlomo Jizchaki (1040–1105), Verfasser des klassischen Kommentars zu Tora und Talmud, den man von Kindheit an lernt." },
+  { re: 'schechina', def: "Die Schechina — die g-ttliche Gegenwart, die in der Welt „wohnt“: im Heiligtum, im Haus, unter den Menschen." },
+  { re: 'chessed', def: "Chessed — „Güte“: die erste der g-ttlichen Eigenschaften, großzügiges Geben ohne Maß." },
+  { re: 'bittul', def: "Bittul — „Selbstaufhebung“: völlige Hingabe an G-tt, bei der der Mensch nicht sich selbst in die Mitte stellt." },
 ];
 
 export const GLOSSARY: Partial<Record<Locale, Term[]>> = { ru, en, de };

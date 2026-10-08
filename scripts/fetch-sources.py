@@ -63,7 +63,21 @@ BOOK = {
     'Shabbat': ('Talmud/Bavli/Seder Moed/Shabbat/', 'Шабат', 'Talmud'),
     'Yevamot': ('Talmud/Bavli/Seder Nashim/Yevamot/', 'Йевамот', 'Talmud'),
     'Chullin': ('Talmud/Bavli/Seder Kodashim/Chullin/', 'Хулин', 'Talmud'),
+    'Sukkah': ('Talmud/Bavli/Seder Moed/Sukkah/', 'Сукка', 'Talmud'),
+    'Ketubot': ('Talmud/Bavli/Seder Nashim/Ketubot/', 'Ктубот', 'Talmud'),
+    'Sanhedrin': ('Talmud/Bavli/Seder Nezikin/Sanhedrin/', 'Санедрин', 'Talmud'),
+    'Niddah': ('Talmud/Bavli/Seder Tahorot/Niddah/', 'Нида', 'Talmud'),
 }
+
+
+# Bereshit Rabbah / Shemot Rabbah: one paragraph (chapter ch, paragraph p), with A. Wünsche's German
+MR = 'Midrash/Aggadah/Midrash Rabbah/'
+def rabbah(book, ru, en, de, ch, p, de_file):
+    return ('custom', f'{ru} {ch}:{p}', f'{en} {ch}:{p}', f'{de} {ch},{p}', f'{en} {ch}:{p}', 'Midrash',
+            MR + f'{en}/Hebrew/merged.json', MR + f'{en}/English/The Sefaria Midrash Rabbah, 2022.json',
+            (MR + f'{en}/English/{de_file}', [ch - 1, p - 1]), [ch - 1, p - 1])
+BR_DE = 'Der Midrasch Bereschit Rabba. Zum ersten Male ins Deutsche übertragen von Dr. August Wünsche. Leipzig 1881 [de].json'
+SR_DE = 'Der Midrach Schemot Rabba. Zum ersten Male ins Deutsche übertragen von Dr. August Wünsche. Leipzig 1882 [de].json'
 
 # id: (kind, Sefaria ref for the link, [pieces]); a piece is (book, chapter-or-daf, first, last)
 # For other works: ('custom', title_ru, title_en, title_de, ref, kind, he_file, en_file, (de_file, de_path) | None, path)
@@ -133,6 +147,40 @@ SOURCES = {
                     'Chasidut/Chabad/Tanya/Hebrew/Kehot Publication Society.json',
                     'Chasidut/Chabad/Tanya/English/Kehot Publication Society English Translation.json', None,
                     ['Part IV; Iggeret HaKodesh', 19, 28]),
+    # «Нифлаот Ребе»: «Три часа» (Сихот Симхат Тора 5723)
+    'gen-2-17': ('Genesis', 2, 17, 17),
+    'gen-3-3': ('Genesis', 3, 2, 3),
+    'sanhedrin-38b': ('Sanhedrin', '38b', 1, 1),
+    'bereshit-rabbah-21-7': rabbah('Bereshit Rabbah', 'Берешит Раба', 'Bereshit Rabbah', 'Bereschit Rabba', 21, 7, BR_DE),
+    'bereshit-rabbah-24-5': rabbah('Bereshit Rabbah', 'Берешит Раба', 'Bereshit Rabbah', 'Bereschit Rabba', 24, 5, BR_DE),
+    'shabbat-63a': ('Shabbat', '63a', 13, 13),
+    'sukkah-52a': ('Sukkah', '52a', 11, 11),
+    'shabbat-118b': ('Shabbat', '118b', 13, 13),
+    'tanya-ih-7': ('custom', 'Тания, Игерет а-Кодеш 7', 'Tanya, Iggeret HaKodesh 7', 'Tanja, Iggeret HaKodesch 7', 'Tanya, Part IV; Iggeret HaKodesh 7:12', 'Chasidut',
+                   'Chasidut/Chabad/Tanya/Hebrew/Kehot Publication Society.json',
+                   'Chasidut/Chabad/Tanya/English/Kehot Publication Society English Translation.json', None,
+                   ['Part IV; Iggeret HaKodesh', 6, 11]),
+    'bereshit-rabbah-19-3': rabbah('Bereshit Rabbah', 'Берешит Раба', 'Bereshit Rabbah', 'Bereschit Rabba', 19, 3, BR_DE),
+    'shemot-rabbah-28-2': rabbah('Shemot Rabbah', 'Шмот Раба', 'Shemot Rabbah', 'Schemot Rabba', 28, 2, SR_DE),
+    'ez-11-16': ('Ezekiel', 11, 16, 16),
+    'ex-25-8': ('Exodus', 25, 8, 8),
+    'ps-113-9': ('Psalms', 113, 9, 9),
+    'prov-3-17': ('Proverbs', 3, 17, 17),
+    'niddah-45b': ('Niddah', '45b', 10, 10),
+    'ketubot-8a': ('Ketubot', '8a', 4, 4),
+    # «Нифлаот Ребе», карточки: стих — объяснение Ребе
+    'gen-1-1-only': ('Genesis', 1, 1, 1),
+    'gen-1-3': ('Genesis', 1, 3, 3),
+    'gen-1-14': ('Genesis', 1, 14, 14),
+    'gen-1-16': ('Genesis', 1, 16, 16),
+    'gen-1-21': ('Genesis', 1, 21, 21),
+    'gen-1-22': ('Genesis', 1, 22, 22),
+    'gen-1-29': ('Genesis', 1, 29, 29),
+    'gen-2-2': ('Genesis', 2, 2, 2),
+    'gen-2-3': ('Genesis', 2, 3, 3),
+    'gen-2-19': ('Genesis', 2, 19, 19),
+    'gen-4-3': ('Genesis', 4, 3, 4),
+    'gen-6-7': ('Genesis', 6, 7, 7),
 }
 
 KIND = {
@@ -146,6 +194,7 @@ DE_NAME = {
     'Genesis': 'Bereschit', 'Exodus': 'Schemot', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Dewarim', 'Ezekiel': 'Jecheskel',
     'I Kings': 'I Könige', 'Psalms': 'Tehillim', 'Job': 'Ijob', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
     'Berakhot': 'Berachot', 'Shabbat': 'Schabbat', 'Yevamot': 'Jewamot', 'Chullin': 'Chullin',
+    'Sukkah': 'Sukka', 'Ketubot': 'Ketubbot', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda',
 }
 
 _cache = {}

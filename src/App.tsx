@@ -1,12 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
-import { findLesson } from './lessons';
+import { PARSHIOT, findLesson, type ParshaId } from './lessons';
 import { Catalog } from './components/Catalog';
 import { LessonPage } from './components/LessonPage';
 import { PrintLesson } from './components/PrintLesson';
 import { PrintMemo } from './components/PrintMemo';
+import { PrintCards } from './components/PrintCards';
 import { MemoPage } from './components/MemoPage';
 import { ShabbatRest, useShabbatRest } from './components/ShabbatRest';
+import { CardsPage } from './components/CardsPage';
 import { MathPage } from './components/MathPage';
+import { RebbePage } from './components/RebbePage';
 import { OPS, type Op } from './core/mentalMath';
 import { Panels } from './components/Panels';
 import { TermPopover } from './components/TermPopover';
@@ -22,7 +25,7 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©pnimi.org.il\n©mychitas.app`;
 
 /**
  * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version,
- * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/print/memo` — the Memo on paper.
+ * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper.
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson.
  */
@@ -101,17 +104,23 @@ function Site() {
   const lesson = slug ? findLesson(slug) : undefined;
   // outside a lesson the helper knows no lesson (the lesson page sets its own state)
   useEffect(() => {
-    if (!lesson || view === 'print' || view === 'memo') setPageState(null);
+    if (!lesson || view === 'print' || view === 'memo' || view === 'cards') setPageState(null);
   }, [lesson, view]);
   const ui = useMemo(() => ({ panel, open, lessonSlug: lesson?.slug }), [panel, lesson]);
   return (
     <UIContext.Provider value={ui}>
       {slug === 'math' ? (
         <MathPage op={OPS.includes(view as Op) ? (view as Op) : 'add'} />
+      ) : slug === 'rebbe' && view in PARSHIOT ? (
+        <RebbePage parsha={view as ParshaId} />
       ) : !lesson ? (
         <Catalog />
       ) : view === 'print' && variant === 'memo' && lesson.memo ? (
         <PrintMemo key={lesson.slug} lesson={lesson} memo={lesson.memo} />
+      ) : view === 'print' && variant === 'cards' && lesson.cards ? (
+        <PrintCards key={lesson.slug} lesson={lesson} cards={lesson.cards} />
+      ) : view === 'cards' && lesson.cards ? (
+        <CardsPage key={lesson.slug} lesson={lesson} cards={lesson.cards} />
       ) : view === 'memo' && lesson.memo ? (
         <MemoPage key={lesson.slug} lesson={lesson} memo={lesson.memo} />
       ) : view === 'print' ? (
