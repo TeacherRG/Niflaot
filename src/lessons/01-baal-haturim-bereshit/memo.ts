@@ -2,7 +2,7 @@ import type { MemoData } from '../types';
 
 /**
  * Memo «בעל הטורים · בראשית»: 12 comments of the Baal HaTurim on Bereshit 1–4 (Kitzur Ba'al HaTurim, Sefaria),
- * one pair of cards each — a picture (memo/NN.svg, drawn by scripts/memo-art.ts) and the Torah words.
+ * one pair of cards each — a picture (memo/NN.png, framed by scripts/memo-frame.py) and the Torah words.
  * Every gematria and letter hint is the commentary's own and is checked by `npm run check`.
  * The comments use no אתב״ש. Divine Names in real spelling — shown as אלקים.
  */

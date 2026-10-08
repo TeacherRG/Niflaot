@@ -17,7 +17,7 @@ function loadOptions(): Options {
   }
 }
 
-/** A page of 12 cards to cut out: 3 × 4, dashed cut lines. */
+/** A page of 12 cards to cut out: 4 × 3, dashed cut lines. */
 function CardPage({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="pm-page">

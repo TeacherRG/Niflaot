@@ -3,8 +3,8 @@ import { phraseTiles, expectedTiles, type Take } from './letterPuzzle';
 import { displayNames } from './names';
 import type { Lesson, MemoGematria, MemoLetters } from '../lessons/types';
 
-/** Memo pictures of every lesson: src/lessons/NN-<slug>/memo/NN.svg (bundled by Vite). */
-const ART = import.meta.glob<string>('../lessons/*/memo/*.svg', { eager: true, query: '?url', import: 'default' });
+/** Memo pictures of every lesson: src/lessons/NN-<slug>/memo/NN.png, portrait 3:4 (bundled by Vite). */
+const ART = import.meta.glob<string>('../lessons/*/memo/*.png', { eager: true, query: '?url', import: 'default' });
 
 /** Picture URLs of a lesson's Memo, in order (item k → NN = k + 1). */
 export function memoImages(lesson: Lesson): string[] {

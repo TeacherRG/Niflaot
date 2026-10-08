@@ -184,7 +184,7 @@ export interface MemoLetters {
 }
 
 /**
- * One pair of Memo cards: a picture card (`memo/NN.svg` next to the lesson) and a word card with `verse`.
+ * One pair of Memo cards: a picture card (`memo/NN.png` next to the lesson, portrait 3:4) and a word card with `verse`.
  * All texts are in Hebrew — the Memo is played in Hebrew; Divine Names in real spelling, shown respectfully.
  */
 export interface MemoItem {
@@ -207,7 +207,7 @@ export interface MemoItem {
 export interface MemoData {
   /** portion name in Latin letters, as on the pictures */
   parsha: string;
-  /** exactly 12 pairs; item k is drawn in `memo/NN.svg` (NN = k + 1) next to the lesson */
+  /** exactly 12 pairs; item k is drawn in `memo/NN.png` (NN = k + 1) next to the lesson */
   items: MemoItem[];
 }
 

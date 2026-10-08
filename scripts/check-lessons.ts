@@ -12,7 +12,7 @@
  *  - word cards don't show the answer of a choice or «Собери слово» step
  *  - letter steps: the letters the rule takes make the answer; «Найди букву» points at a real letter
  *  - every step has an estimate: average time 5–600 s and difficulty 1–3
- *  - Memo: 12 pairs, a picture memo/NN.svg for each, every gematria (a = b = v) and letter hint (ר״ת, ס״ת, אותיות)
+ *  - Memo: 12 pairs, a picture memo/NN.png for each, every gematria (a = b = v) and letter hint (ר״ת, ס״ת, אותיות)
  *    computed from the real words, a source in sefaria.json, distinct word cards
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
  */
@@ -131,7 +131,7 @@ for (const lesson of LESSONS) {
   if (m.items.length !== 12) err(`${lesson.slug} · memo: ${m.items.length} pairs, 12 expected`);
   const dir = readdirSync('src/lessons').find((d) => d.endsWith(`-${lesson.slug}`));
   m.items.forEach((it, k) => {
-    const pic = `src/lessons/${dir}/memo/${String(k + 1).padStart(2, '0')}.svg`;
+    const pic = `src/lessons/${dir}/memo/${String(k + 1).padStart(2, '0')}.png`;
     if (!existsSync(pic)) err(`${where(k)}: no picture ${pic}`);
     for (const g of it.gematria ?? []) {
       if (gematria(g.a) !== g.v) err(`${where(k)}: ${g.a} = ${gematria(g.a)}, not ${g.v}`);
