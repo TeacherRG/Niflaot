@@ -951,8 +951,8 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .rebbe-h small{grid-column:2;font-family:inherit;font-weight:400;font-size:14px;color:var(--muted)}
 .rebbe-h:hover{color:var(--gold)}
 .rebbe-list{margin-top:16px}
-.menu-sub .menu-rebbe{display:grid;gap:2px;margin-inline-start:16px}
-.menu-sub .menu-game{margin-inline-start:26px;font-size:14px;padding:7px 10px}
+.menu-sub .menu-lesson{display:grid;gap:2px}
+.menu-sub .menu-game{margin-inline-start:22px;font-size:14px;padding:7px 10px}
 .menu-sub .menu-game .menu-num{width:24px;height:24px;font-size:12px;background:var(--paper)}
 .mc-expl{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;padding:8px 6px;width:100%;height:100%;background:var(--tchelet-soft);text-align:center;font-size:clamp(10.5px,2.8vw,13px);line-height:1.28;color:var(--ink);overflow:hidden}
 .mc-expl-mark{color:var(--gold);font-size:14px;line-height:1}
