@@ -3,7 +3,7 @@ import type { Lesson } from './types';
 /**
  * The teachers of the site — each with his own genre of lesson (see «О проекте»): Rabbi Ginsburgh's articles are
  * gematria games, the Baal HaTurim's commentary is gematria and letters plus a Memo, the Rebbe's talks are
- * investigations plus cards. Their names and genres are UI strings `teacher.<id>.name` / `teacher.<id>.genre`.
+ * investigations plus cards. Each has a colour (lesson tiles on the home page) and a short name, UI string `teacher.<id>.short`.
  */
 export const TEACHERS = {
   ginsburgh: { he: 'נ', color: 'gold' },
