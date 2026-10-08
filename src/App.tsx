@@ -85,7 +85,7 @@ function useFirstVisitHelp(open: (p: Panel) => void) {
   }, [open]);
 }
 
-/** The site rests on Shabbat (Friday 21:00 – Saturday 21:00, user's time): nothing but the greeting. */
+/** The site rests on Shabbat (candle lighting – end of Shabbat in the user's city): nothing but the greeting. */
 export function App() {
   return useShabbatRest() ? <ShabbatRest /> : <Site />;
 }

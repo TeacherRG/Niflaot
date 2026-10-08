@@ -944,12 +944,14 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
   .pm-color img{max-width:none;width:auto;height:24cm}
 }
 
-/* ───────── Shabbat: the site rests (Friday 21:00 – Saturday 21:00, user's time) ───────── */
+/* ───────── Shabbat: the site rests (candle lighting – end of Shabbat in the user's city) ───────── */
 .shabbat-rest{min-height:100vh;min-height:100dvh;display:grid;place-content:center;justify-items:center;gap:10px;text-align:center;padding:40px 16px;position:relative}
 .shabbat-lang{position:absolute;top:12px;inset-inline-end:0}
 .shabbat-candles{font-size:44px;line-height:1}
 .shabbat-he{font-family:var(--f-he);font-weight:900;font-size:clamp(44px,12vw,72px);line-height:1.1;color:var(--gold)}
 .shabbat-rest h1{margin:0;font-family:var(--f-display);font-weight:700;font-size:clamp(30px,7vw,44px);line-height:1.1;color:var(--ink)}
 .shabbat-rest p{margin:0;max-width:460px;font-size:17px;line-height:1.55;color:var(--ink-2)}
+.shabbat-times{font-weight:600;color:var(--ink)!important}
 .shabbat-back{font-weight:700;color:var(--tchelet)!important}
+.shabbat-note{font-size:13px!important;color:var(--muted)!important}
 .shabbat-brand{margin-top:14px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
