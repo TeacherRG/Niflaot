@@ -956,3 +956,6 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .mc-expl-mark{color:var(--gold);font-size:14px;line-height:1}
 .rc-ls{margin:6px 0 0;font-size:13.5px;color:var(--muted);font-style:italic}
 .rc-review-he{flex:none;min-width:64px;max-width:40%;font-family:var(--f-he);font-weight:700;font-size:16px;line-height:1.2;text-align:center;direction:rtl}
+.pm-expl-mark{font-size:14px}
+.pm-expl-t{font-size:14px;line-height:1.3;padding:0 6px}
+@media print{.pm-expl-t{font-size:12.5px}}

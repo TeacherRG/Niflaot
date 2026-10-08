@@ -137,6 +137,10 @@ export function RebbeCards({ lesson, cards: data, text }: { lesson: Lesson; card
               <Icon name="help" size={18} />
               {t('memo.rules')}
             </button>
+            <a className="btn ghost" href={`#/${lesson.slug}/print/cards`}>
+              <Icon name="print" size={18} />
+              {t('cards.print')}
+            </a>
           </div>
         </>
       )}

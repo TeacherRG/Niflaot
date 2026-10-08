@@ -228,3 +228,4 @@ node --experimental-strip-types -e "import('./src/core/gematria.ts').then(m=>con
   берётся одна. Данные — `cards.ts` (`verse` — слова Торы как в стихе, `source` — стих в Sefaria, `ls` — том и беседа),
   тексты — `cards` в `i18n/<язык>.ts` (`title`, `verse`, `card` ≤ 70 знаков, `explain`, `horaah`).
   `npm run check` проверяет: 12 пар, слова есть в стихе, стихи не повторяются, длину карточки, тексты на всех языках.
+  Печать — `#/<slug>/print/cards`: карточки со стихами и с объяснениями для вырезания, объяснения пар.

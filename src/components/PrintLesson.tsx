@@ -86,13 +86,13 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
         <a className="btn ghost" href={`#/${lesson.slug}`}>
           {t('print.back')}
         </a>
-        {lesson.memo && (
+        {(lesson.memo || lesson.cards) && (
           <div className="print-variant" role="group">
             <span className="btn gold" aria-current="page">
               {t('print.worksheet')}
             </span>
-            <a className="btn ghost" href={`#/${lesson.slug}/print/memo`}>
-              {t('print.memo')}
+            <a className="btn ghost" href={`#/${lesson.slug}/print/${lesson.cards ? 'cards' : 'memo'}`}>
+              {t(lesson.cards ? 'cards.tab' : 'print.memo')}
             </a>
           </div>
         )}
