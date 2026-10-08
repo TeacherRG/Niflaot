@@ -2,7 +2,7 @@
   "name": "niflaot",
   "private": true,
   "version": "0.1.0",
-  "description": "Игры-гиматрии по статьям рава Ицхака Гинзбурга из брошюры «Нифлаот» — niflaot.mychitas.app",
+  "description": "Игры-гиматрии по статьям рава Ицхака Гинзбурга из брошюры «Нифлаот» и классическим комментариям Торы — niflaot.mychitas.app",
   "homepage": "https://niflaot.mychitas.app",
   "type": "module",
   "scripts": {

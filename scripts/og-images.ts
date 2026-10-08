@@ -85,7 +85,7 @@ const shots: [string, string][] = [
       eyebrowHtml: '5787 · <span class="he">ה׳תשפ״ז</span>',
       he: 'נפלאות',
       title: ru['catalog.uvp'] as string,
-      sub: 'Игры-гиматрии по статьям рава Ицхака Гинзбурга',
+      sub: 'Игры-гиматрии по статьям рава Ицхака Гинзбурга и комментариям Торы',
       letters: ['נ', 'פ'],
     }),
   ],
