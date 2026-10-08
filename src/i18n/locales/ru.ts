@@ -115,7 +115,7 @@ const ru = {
   'teacher.baal-haturim.short': "Бааль а-Турим",
   'teacher.rebbe.short': "Нифлаот Ребе",
   'countdown.title': "Осталось играть на этой неделе",
-  'countdown.short': "осталось играть",
+  'countdown.short': "осталось играть на этой неделе",
   'countdown.days': { one: "{n} день", few: "{n} дня", many: "{n} дней", other: "{n} дня" },
   'countdown.hours': { one: "{n} час", few: "{n} часа", many: "{n} часов", other: "{n} часа" },
   'countdown.mins': { one: "{n} минута", few: "{n} минуты", many: "{n} минут", other: "{n} минуты" },

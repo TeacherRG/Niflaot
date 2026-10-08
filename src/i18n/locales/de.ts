@@ -106,7 +106,7 @@ const de: Messages = {
   'teacher.baal-haturim.short': "Baal HaTurim",
   'teacher.rebbe.short': "Niflaot des Rebben",
   'countdown.title': "Noch zu spielen diese Woche",
-  'countdown.short': "noch spielen",
+  'countdown.short': "noch zu spielen diese Woche",
   'countdown.days': { one: "{n} Tag", other: "{n} Tage" },
   'countdown.hours': { one: "{n} Stunde", other: "{n} Stunden" },
   'countdown.mins': { one: "{n} Minute", other: "{n} Minuten" },

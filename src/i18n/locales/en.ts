@@ -106,7 +106,7 @@ const en: Messages = {
   'teacher.baal-haturim.short': "Baal HaTurim",
   'teacher.rebbe.short': "Niflaot of the Rebbe",
   'countdown.title': "Time left to play this week",
-  'countdown.short': "left to play",
+  'countdown.short': "left to play this week",
   'countdown.days': { one: "{n} day", other: "{n} days" },
   'countdown.hours': { one: "{n} hour", other: "{n} hours" },
   'countdown.mins': { one: "{n} minute", other: "{n} minutes" },
