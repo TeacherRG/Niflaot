@@ -13,8 +13,8 @@ import { Icon, Sheet } from './ui';
 const celebrate = confetti.create(undefined, { resize: true, useWorker: false });
 
 /**
- * Memo — the second game of a commentary lesson. A pair is a picture (with a caption that says what it means)
- * and the Torah words it tells about; a found pair opens its explanation. The way through it, as a teacher would
+ * Memo — the second game of a commentary lesson. A pair is a picture and the Torah words it tells about; under the
+ * board every picture of the game is explained («Что на картинках»); a found pair opens its explanation. The way through it, as a teacher would
  * lead it: study the pairs → an easy game of 6 pairs → the full game of 12 → what we learned.
  */
 
@@ -121,13 +121,10 @@ export function MemoInfo({ item, text, n, img }: { item: MemoItem; text: MemoIte
   );
 }
 
-/** The face of a card: the picture with its caption, or the Torah words with a translation. */
+/** The face of a card: the picture alone, or the Torah words with a translation. */
 function Face({ card, item, text, img }: { card: Card; item: MemoItem; text: MemoItemText; img?: string }) {
   return card.pic ? (
-    <span className="mc-pic">
-      {img && <img src={img} alt="" draggable={false} />}
-      <span className="mc-cap">{text.caption}</span>
-    </span>
+    <span className="mc-pic">{img && <img src={img} alt="" draggable={false} />}</span>
   ) : (
     <span className="mc-words">
       <span className="mc-verse he">{displayNames(item.verse)}</span>
@@ -375,6 +372,21 @@ export function Memo({ lesson, memo, text }: { lesson: Lesson; memo: MemoData; t
                 onClick={() => flip(i)}
               />
             ))}
+          </div>
+          <div className="memo-legend">
+            <h3>{t('memo.legend')}</h3>
+            <p className="memo-legend-note">{t('memo.legendNote')}</p>
+            <ul>
+              {pairs.map((p) => (
+                <li key={p} className={found.includes(p) ? 'found' : undefined}>
+                  {images[p] && <img src={images[p]} alt="" loading="lazy" />}
+                  <span>
+                    <b>{text.items[p].title}</b>
+                    {text.items[p].caption}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
         </>
       )}

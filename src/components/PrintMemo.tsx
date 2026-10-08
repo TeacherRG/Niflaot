@@ -100,7 +100,6 @@ export function PrintMemo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) 
               {memo.items.map((_, k) => (
                 <div key={k} className="pm-card pm-pic">
                   <img src={images[k]} alt="" />
-                  <span className="pm-cap">{mt.items[k].caption}</span>
                 </div>
               ))}
             </CardPage>
@@ -113,6 +112,16 @@ export function PrintMemo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) 
                 </div>
               ))}
             </CardPage>
+            <section className="pm-legend">
+              <h2>{t('memo.legend')}</h2>
+              <ol>
+                {mt.items.map((it, k) => (
+                  <li key={k}>
+                    <b>{it.title}.</b> {it.caption}
+                  </li>
+                ))}
+              </ol>
+            </section>
           </>
         )}
 

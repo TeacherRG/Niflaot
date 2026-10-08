@@ -14,7 +14,7 @@
  *  - every step has an estimate: average time 5–600 s and difficulty 1–3
  *  - Memo: 12 pairs, a picture memo/NN.png for each, every gematria (a = b = v) and letter hint (ר״ת, ס״ת, אותיות)
  *    computed from the real words, a source in sefaria.json, distinct word cards; texts in every language,
- *    picture captions ≤ 45 characters, a `note` for a number without equal words
+ *    picture explanations (caption) ≤ 45 characters, a `note` for a number without equal words
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
  */
 import { LESSONS } from '../src/lessons';
@@ -148,7 +148,7 @@ for (const lesson of LESSONS) {
       const mt = tx?.memo?.items[k];
       if (!mt) continue;
       if (![mt.title, mt.caption, mt.verse, mt.quote, mt.explain, mt.moral].every((x) => x.trim())) err(`${where(k)} [${lang}]: empty text`);
-      if (mt.caption.length > 45) err(`${where(k)} [${lang}]: the picture caption is longer than 45 characters`);
+      if (mt.caption.length > 45) err(`${where(k)} [${lang}]: the picture explanation (caption) is longer than 45 characters`);
       if (it.gematria?.some((g) => !g.b) && !mt.note?.trim()) err(`${where(k)} [${lang}]: a number without equal words needs \`note\` — what it stands for`);
     }
   });

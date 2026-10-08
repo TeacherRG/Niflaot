@@ -207,7 +207,7 @@ export interface MemoData {
 export interface MemoItemText {
   /** short title of the comment */
   title: string;
-  /** the caption under the picture: what it shows and what it means (≤ ~40 chars) — the key to the pair */
+  /** what the picture shows and what it means (≤ 45 chars): in the list «Что на картинках» under the board — the key to the pair */
   caption: string;
   /** translation of the Torah words on the word card */
   verse: string;
