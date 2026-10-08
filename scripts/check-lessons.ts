@@ -12,6 +12,8 @@
  *  - word cards don't show the answer of a choice or «Собери слово» step
  *  - letter steps: the letters the rule takes make the answer; «Найди букву» points at a real letter
  *  - every step has an estimate: average time 5–600 s and difficulty 1–3
+ *  - Memo: 12 pairs, a picture memo/NN.png for each, every gematria (a = b = v) and letter hint (ר״ת, ס״ת, אותיות)
+ *    computed from the real words, a source in sefaria.json, distinct word cards
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
  */
 import { LESSONS } from '../src/lessons';
@@ -24,6 +26,7 @@ import { PROJECT_DE } from '../src/sources/de';
 import { PROJECT_EN } from '../src/sources/en';
 import { LOCALES } from '../src/i18n/config';
 import type { PuzzleText } from '../src/lessons/types';
+import { existsSync, readdirSync } from 'node:fs';
 import ruUi from '../src/i18n/locales/ru';
 import enUi from '../src/i18n/locales/en';
 
@@ -120,6 +123,31 @@ for (const lesson of LESSONS)
 for (const lesson of LESSONS)
   checkPuzzle(`${lesson.slug} · final`, Object.entries(lesson.texts).map(([l, tx]) => [l, tx!.puzzle]), lesson.kind === 'commentary');
 
+// Memo: every number and letter hint is computed, every pair has its picture
+for (const lesson of LESSONS) {
+  const m = lesson.memo;
+  if (!m) continue;
+  const where = (k: number) => `${lesson.slug} · memo ${k + 1}`;
+  if (m.items.length !== 12) err(`${lesson.slug} · memo: ${m.items.length} pairs, 12 expected`);
+  const dir = readdirSync('src/lessons').find((d) => d.endsWith(`-${lesson.slug}`));
+  m.items.forEach((it, k) => {
+    const pic = `src/lessons/${dir}/memo/${String(k + 1).padStart(2, '0')}.png`;
+    if (!existsSync(pic)) err(`${where(k)}: no picture ${pic}`);
+    for (const g of it.gematria ?? []) {
+      if (gematria(g.a) !== g.v) err(`${where(k)}: ${g.a} = ${gematria(g.a)}, not ${g.v}`);
+      if (g.b && gematria(g.b) !== g.v) err(`${where(k)}: ${g.b} = ${gematria(g.b)}, not ${g.v}`);
+      if (!g.b && !g.note) err(`${where(k)}: a gematria needs the equal words (b) or what the number means (note)`);
+    }
+    for (const l of it.letters ?? []) {
+      const e = letterStepError(l.from, l.take, l.word);
+      if (e) err(`${where(k)}: ${l.kind} ${l.from} → ${l.word}: ${e}`);
+    }
+    if (!SOURCES[it.source]) err(`${where(k)}: source ${it.source} is not in sefaria.json`);
+    if (![it.title, it.verse, it.quote, it.explain, it.moral].every((x) => x.trim())) err(`${where(k)}: empty text`);
+  });
+  if (new Set(m.items.map((it) => it.verse)).size !== m.items.length) err(`${lesson.slug} · memo: two word cards are the same`);
+}
+
 // HTML strings go to dangerouslySetInnerHTML: allow inline markup only
 const UNSAFE = /<\s*(script|iframe|object|embed|style|form|link|meta|base)\b|\son[a-z]+\s*=|(href|src)\s*=\s*["']?\s*(javascript|data|vbscript):/i;
 function checkHtml(where: string, v: unknown): void {
@@ -129,6 +157,7 @@ function checkHtml(where: string, v: unknown): void {
   else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) checkHtml(`${where}.${k}`, x);
 }
 for (const lesson of LESSONS) checkHtml(lesson.slug, lesson.texts);
+for (const lesson of LESSONS) checkHtml(`${lesson.slug}.memo`, lesson.memo);
 checkHtml('ui.ru', ruUi);
 checkHtml('ui.en', enUi);
 checkHtml('sources', SOURCES);
@@ -140,4 +169,4 @@ if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));
   process.exit(1);
 }
-console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, safe HTML`);
+console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, memo, safe HTML`);

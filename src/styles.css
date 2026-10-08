@@ -787,3 +787,114 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .step .est{margin-bottom:-4px}
 .step.locked .est{opacity:.7}
 .prose ol>li>ul{margin:8px 0 0;gap:6px;font-size:.95em}
+
+/* ───────── Memo («משחק זיכרון») at the end of a commentary lesson ───────── */
+.memo{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--tchelet);border-radius:6px;box-shadow:var(--shadow);padding:22px 18px 24px;font-family:var(--f-he);scroll-margin-top:70px}
+.memo-head{text-align:center;display:grid;gap:4px;margin-bottom:16px}
+.memo-eyebrow{font-family:var(--f-body);font-size:12px;letter-spacing:.08em;color:var(--tchelet);font-weight:700}
+.memo-head h2{margin:0;font-family:var(--f-he);font-weight:900;font-size:clamp(30px,7vw,42px);line-height:1.1;color:var(--ink)}
+.memo-sub{font-size:14px;color:var(--muted)}
+.memo .btn{font-family:var(--f-he);font-size:17px;padding:10px 20px}
+.memo .btn.gold,.print-variant .btn.gold{background:linear-gradient(180deg,#E3C47C,#C49A47);color:var(--ink);border-color:#C49A47}
+.memo-menu{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:16px}
+.memo-intro{display:grid;gap:14px;justify-items:center;text-align:center}
+.memo-intro p{margin:0;font-size:18px;line-height:1.55;max-width:560px}
+.memo-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;width:100%;max-width:560px}
+.memo-strip img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:6px;border:1px solid var(--line);transform:rotate(-2deg)}
+.memo-strip img:nth-child(even){transform:rotate(2deg)}
+.memo-print{font-size:15px;color:var(--tchelet);display:inline-flex;gap:6px;align-items:center}
+.memo-rules{margin:0 auto;max-width:560px;padding-inline-start:22px;font-size:18px;line-height:1.6;display:grid;gap:4px}
+.memo-study{display:grid;gap:16px}
+.memo-stats{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px 16px;font-size:14px;color:var(--ink-2);margin-bottom:12px}
+.memo-stats .btn{font-size:14px;padding:5px 12px}
+.memo-board{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:760px;margin:0 auto}
+@media (min-width:640px){.memo-board{grid-template-columns:repeat(6,1fr);gap:10px}}
+.mc{aspect-ratio:3/4;padding:0;border:0;background:none;perspective:700px;cursor:pointer;min-width:0}
+.mc:disabled{cursor:default}
+.mc-in{position:relative;display:block;width:100%;height:100%;transition:transform .45s cubic-bezier(.2,.7,.3,1);transform-style:preserve-3d}
+.mc.open .mc-in{transform:rotateY(180deg)}
+.mc-back,.mc-face{position:absolute;inset:0;border-radius:10px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:grid;place-items:center;overflow:hidden}
+.mc-back{background:radial-gradient(circle at 50% 50%,#3A5BA8 0,var(--tchelet) 55%,#1F3A72 100%);border:2px solid var(--gold-2);box-shadow:inset 0 0 0 4px #1F3A72,inset 0 0 0 5px var(--gold-2)}
+.mc-back span{color:var(--gold-2);font-size:clamp(18px,5vw,28px)}
+.mc:not(:disabled):hover .mc-back{filter:brightness(1.12)}
+.mc:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:12px}
+.mc-face{transform:rotateY(180deg);background:#fff;border:2px solid var(--line)}
+.mc-face img{width:100%;height:100%;object-fit:cover}
+.mc.found .mc-face{border-color:var(--ok);box-shadow:0 0 0 2px var(--ok-soft)}
+.mc-words{display:grid;place-items:center;padding:6px;width:100%;height:100%;background:var(--gold-soft);position:relative}
+.mc-n{position:absolute;top:4px;left:6px;font-size:11px;color:var(--gold)}
+.mc-verse{font-family:var(--f-he);font-weight:700;font-size:clamp(12px,3.3vw,19px);line-height:1.2;text-align:center;color:var(--ink);overflow-wrap:anywhere}
+.memo-end{text-align:center;display:grid;gap:10px;justify-items:center;padding:10px 0}
+.memo-bravo{font-weight:900;font-size:clamp(40px,10vw,60px);color:var(--gold);line-height:1}
+.memo-end p{margin:0;font-size:17px}
+.memo-shabbat{font-weight:900;font-size:clamp(30px,8vw,44px);color:var(--tchelet)}
+.memo-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.memo-copy{font-family:var(--f-body);font-size:12px;color:var(--muted);direction:ltr}
+.memo-next{display:block;margin:14px auto 0;font-family:var(--f-he);font-size:17px}
+
+/* one comment explained (the pair's sheet, «למדו את הפרשה», the printed explanations) */
+.mi{display:grid;gap:10px;font-family:var(--f-he);text-align:right}
+.memo-study .mi{border:1px solid var(--line);border-radius:10px;padding:14px}
+.mi-top{display:flex;gap:14px;align-items:center}
+.mi-img{width:120px;height:160px;object-fit:cover;flex:none;border-radius:8px;border:1px solid var(--line)}
+.mi-head{display:grid;gap:2px}
+.mi-n{font-size:12px;color:var(--gold);font-weight:700}
+.mi-head h3{margin:0;font-family:var(--f-he);font-weight:900;font-size:24px;line-height:1.15}
+.mi-verse{font-size:20px;color:var(--tchelet);font-weight:700}
+.mi-quote{margin:0;padding:10px 14px;background:var(--gold-soft);border-inline-start:3px solid var(--gold-2);border-radius:6px;font-size:18px;line-height:1.55}
+.mi-quote cite{display:block;font-style:normal;font-size:13px;margin-top:4px}
+.mi-quote cite a{color:var(--gold)}
+.mi-block h4{margin:0 0 2px;font-size:15px;font-family:var(--f-he);font-weight:900;color:var(--tchelet)}
+.mi-block p{margin:0;font-size:17px;line-height:1.55}
+.mi-calc{background:var(--tchelet-soft);border-radius:8px;padding:8px 12px}
+.mi-eq{display:grid;gap:2px;font-size:17px;padding:3px 0}
+.mi-eq .num{font-family:var(--f-he)}
+.mi-note{font-size:15px;color:var(--muted)}
+.mi-kind{font-size:13px;font-weight:700;color:var(--gold)}
+.mi-moral{background:var(--ok-soft);border-radius:8px;padding:8px 12px}
+.mi-moral h4{color:var(--ok)}
+@media (max-width:420px){.mi-img{width:84px;height:112px}.mi-head h3{font-size:20px}}
+
+/* print variants switch + the Memo on paper */
+.print-variant{display:flex;gap:6px}
+.print-variant .btn{margin:0!important;padding:6px 12px;font-size:13.5px}
+.pm{font-family:var(--f-he)}
+.pm-head{text-align:center;display:grid;gap:4px;padding-bottom:12px;border-bottom:2px solid #111}
+.pm-eyebrow{font-size:13px;letter-spacing:.06em}
+.sheet-paper.pm h1{font-family:var(--f-he);font-weight:900;font-size:34px}
+.pm-head p{margin:4px 0 0;font-size:15px}
+.pm-page{margin-top:18px}
+.pm-page-h{font-size:14px;font-weight:700;margin-bottom:6px}
+.pm-cards{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px dashed #888;border-inline-start:1px dashed #888}
+.pm-card{aspect-ratio:3/4;border-bottom:1px dashed #888;border-inline-end:1px dashed #888;padding:8px;display:grid;place-items:center;position:relative}
+.pm-card img{width:100%;height:100%;object-fit:contain}
+.pm-words{border-radius:0}
+.pm-n{position:absolute;top:12px;left:14px;font-family:var(--f-num);font-size:13px}
+.pm-verse{font-weight:700;font-size:26px;text-align:center;line-height:1.25;padding:0 10px}
+.pm-copy{position:absolute;bottom:10px;right:12px;font-family:var(--f-body);font-size:9px;direction:ltr}
+.pm-info{margin-top:22px}
+.pm-info>*+*{margin-top:12px}
+.sheet-paper .pm-info h2{font-family:var(--f-he);font-weight:900;font-size:24px}
+.pm-info .mi{border:1px solid #ccc;border-radius:8px;padding:10px;break-inside:avoid}
+.pm-info .mi-quote,.pm-info .mi-calc,.pm-info .mi-moral{background:none;border:1px solid #ddd}
+.pm-color{margin-top:22px;text-align:center}
+.pm-color img{width:100%;max-width:560px;display:block;margin:0 auto}
+.pm-color p{margin:6px 0 0;font-size:14px}
+@media print{
+  .pm-page,.pm-color{break-before:page}
+  .pm-cards{justify-content:center}
+  .pm-info .mi-img{width:60px;height:80px}
+  .pm-info .mi{gap:5px;padding:8px}
+  .pm-info .mi-head h3{font-size:17px}
+  .pm-info .mi-verse{font-size:15px}
+  .pm-info .mi-quote,.pm-info .mi-block p,.pm-info .mi-eq{font-size:12.5px;line-height:1.4}
+  .pm-info .mi-quote,.pm-info .mi-calc,.pm-info .mi-moral{padding:4px 8px}
+  .pm-info .mi-block h4{font-size:12px}
+  .pm-page{margin-top:0}
+  .pm-head+.pm-page{break-before:auto;margin-top:14px}
+  .pm-cards{grid-template-columns:repeat(4,4.5cm)}
+  .pm-card{width:4.5cm;height:6cm;aspect-ratio:auto}
+  .pm-info{break-before:page}
+  .pm-color{margin:0}
+  .pm-color img{max-width:none;width:auto;height:24cm}
+}

@@ -159,6 +159,58 @@ export interface LessonText {
   source: string;
 }
 
+/* ───────────── Memo game (end of a commentary lesson) ───────────── */
+
+/** A gematria the commentary itself gives: `a` = `b` = `v`; the sums are computed and shown by the code. */
+export interface MemoGematria {
+  /** real spelling (Divine Names in full; shown respectfully) */
+  a: string;
+  /** the word(s) of equal value, if the commentary names them */
+  b?: string;
+  v: number;
+  /** what the number stands for, when it is not a word (e.g. «כ״ד קישוטים»); Hebrew */
+  note?: string;
+}
+
+/** A letter hint of the commentary: ראשי / סופי תיבות, נוטריקון, the same letters rearranged. */
+export interface MemoLetters {
+  /** the phrase whose letters are taken (real spelling) */
+  from: string;
+  take: 'first' | 'last' | 'all';
+  /** the word they make (checked by `npm run check`) */
+  word: string;
+  /** name of the device in Hebrew: ר״ת, ס״ת, נוטריקון, אותיות… */
+  kind: string;
+}
+
+/**
+ * One pair of Memo cards: a picture card (`memo/NN.png` next to the lesson, portrait 3:4) and a word card with `verse`.
+ * All texts are in Hebrew — the Memo is played in Hebrew; Divine Names in real spelling, shown respectfully.
+ */
+export interface MemoItem {
+  /** short title */
+  title: string;
+  /** the Torah words the comment is on — the word card of the pair */
+  verse: string;
+  /** the commentary's own words */
+  quote: string;
+  /** «הידעת?» — a simple explanation in modern Hebrew for ages 10–15 */
+  explain: string;
+  gematria?: MemoGematria[];
+  letters?: MemoLetters[];
+  /** «מה לומדים מזה?» — a short conclusion (the project's, not the commentator's) */
+  moral: string;
+  /** id in src/sources/sefaria.json */
+  source: string;
+}
+
+export interface MemoData {
+  /** portion name in Latin letters, as on the pictures */
+  parsha: string;
+  /** exactly 12 pairs; item k is drawn in `memo/NN.png` (NN = k + 1) next to the lesson */
+  items: MemoItem[];
+}
+
 export interface Lesson {
   /** stable id used in URLs and storage */
   slug: string;
@@ -190,6 +242,8 @@ export interface Lesson {
   texts: Partial<Record<Locale, LessonText>>;
   /** author of the text the lesson retells (SEO); Rabbi Yitzchak Ginsburgh when omitted */
   author?: { name: string; alternateName: string };
+  /** Memo game at the very end of the lesson (commentary lessons): 12 pairs of cards */
+  memo?: MemoData;
   /** localStorage key used by the old single-file version, migrated once */
   legacyStorageKey?: string;
 }

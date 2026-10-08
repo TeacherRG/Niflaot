@@ -3,6 +3,7 @@ import { findLesson } from './lessons';
 import { Catalog } from './components/Catalog';
 import { LessonPage } from './components/LessonPage';
 import { PrintLesson } from './components/PrintLesson';
+import { PrintMemo } from './components/PrintMemo';
 import { MathPage } from './components/MathPage';
 import { OPS, type Op } from './core/mentalMath';
 import { Panels } from './components/Panels';
@@ -18,7 +19,8 @@ import { SITE_HOST } from './core/site';
 const SIGNATURE = `\n\n${SITE_HOST}\n©pnimi.org.il\n©mychitas.app`;
 
 /**
- * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version.
+ * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version,
+ * `#/<lesson-slug>/print/memo` — the lesson's Memo game on paper.
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson.
  */
@@ -88,7 +90,7 @@ export function App() {
   useEffect(installFootnoteNavigation, []);
   const [panel, open] = useState<Panel>(null);
   useFirstVisitHelp(open);
-  const [slug, view] = route.split('/');
+  const [slug, view, variant] = route.split('/');
   const lesson = slug ? findLesson(slug) : undefined;
   // outside a lesson the helper knows no lesson (the lesson page sets its own state)
   useEffect(() => {
@@ -101,6 +103,8 @@ export function App() {
         <MathPage op={OPS.includes(view as Op) ? (view as Op) : 'add'} />
       ) : !lesson ? (
         <Catalog />
+      ) : view === 'print' && variant === 'memo' && lesson.memo ? (
+        <PrintMemo key={lesson.slug} lesson={lesson} memo={lesson.memo} />
       ) : view === 'print' ? (
         <PrintLesson key={lesson.slug} lesson={lesson} />
       ) : (

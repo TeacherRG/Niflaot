@@ -27,6 +27,9 @@
   `sitemap.xml`, `robots.txt`, CSP в `<meta>`. Новый урок попадает туда автоматически.
 - `scripts/og-images.ts` — картинки превью ссылок `public/og/*.png` (1200×630). После нового урока:
   `npm i --no-save playwright && npx tsx scripts/og-images.ts`, PNG закоммитить.
+- Memo-игра в конце урока-комментария: данные `src/lessons/NN-slug/memo.ts` (12 пар, иврит), картинки-раскраски
+  `memo/NN.png` (3:4; размер и подписи ставит `python3 scripts/memo-frame.py`); игра `src/components/Memo.tsx`, печать `#/<slug>/print/memo`
+  (`PrintMemo.tsx`: карточки, объяснения, раскраски). Числа и буквенные намёки проверяет `npm run check`.
 - `src/components/Helper.tsx` — офлайн-помощник (кнопка ✦): гиматрия по шагам, первоисточники, частые вопросы.
 - `assistant/` — сервер ИИ-чата (Cloudflare Worker, Claude API); пока скрыт, включается переменной `ASSISTANT_URL`.
 
