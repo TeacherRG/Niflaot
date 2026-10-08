@@ -5,6 +5,7 @@ import { LessonPage } from './components/LessonPage';
 import { PrintLesson } from './components/PrintLesson';
 import { PrintMemo } from './components/PrintMemo';
 import { MemoPage } from './components/MemoPage';
+import { ShabbatRest, useShabbatRest } from './components/ShabbatRest';
 import { MathPage } from './components/MathPage';
 import { OPS, type Op } from './core/mentalMath';
 import { Panels } from './components/Panels';
@@ -84,7 +85,12 @@ function useFirstVisitHelp(open: (p: Panel) => void) {
   }, [open]);
 }
 
+/** The site rests on Shabbat (Friday 21:00 – Saturday 21:00, user's time): nothing but the greeting. */
 export function App() {
+  return useShabbatRest() ? <ShabbatRest /> : <Site />;
+}
+
+function Site() {
   const { t } = useI18n();
   const route = useRoute();
   useCopySignature();
