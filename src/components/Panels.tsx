@@ -13,6 +13,8 @@ export function Panels() {
   const { t, pick, locale } = useI18n();
   const { panel, open, lessonSlug } = useUI();
   const close = () => open(null);
+  // the page a menu link points to is open (#/<slug> or #/<slug>/memo, #/<slug>/cards)
+  const isHere = (href: string) => location.hash.split('?')[0] === href;
   // the portion of the open lesson or of its «Нифлаот Ребе» page: only its group is unfolded
   const currentParsha = lessonSlug ? findLesson(lessonSlug)?.parsha : location.hash.match(/^#\/rebbe\/([^/?]+)/)?.[1];
 
@@ -34,21 +36,38 @@ export function Panels() {
                 <span className="menu-count">{g.lessons.length}</span>
               </summary>
               <div className="menu-sub">
-                {g.lessons.map((l) => (
-                  <a
-                    key={l.slug}
-                    href={`#/${l.slug}`}
-                    onClick={close}
-                    className="menu-item"
-                    aria-current={l.slug === lessonSlug ? 'page' : undefined}
-                  >
-                    <span className="menu-num">{l.number}</span>
-                    <span>
-                      {pick(l.texts).value.title}
-                      <small lang="he">{l.hebrewTitle}</small>
-                    </span>
-                  </a>
-                ))}
+                {g.lessons.map((l) => {
+                  const games = lessonGames(l);
+                  return (
+                    <div key={l.slug} className="menu-lesson">
+                      <a
+                        href={`#/${l.slug}`}
+                        onClick={close}
+                        className="menu-item"
+                        aria-current={l.slug === lessonSlug && !games ? 'page' : undefined}
+                      >
+                        <span className="menu-num">{l.number}</span>
+                        <span>
+                          {pick(l.texts).value.title}
+                          <small lang="he">{l.hebrewTitle}</small>
+                        </span>
+                      </a>
+                      {/* a lesson with two games (Baal HaTurim: gematria and Memo): both right under it */}
+                      {games?.map((game) => (
+                        <a
+                          key={game.href}
+                          href={game.href}
+                          onClick={close}
+                          className="menu-item menu-game"
+                          aria-current={isHere(game.href) ? 'page' : undefined}
+                        >
+                          <span className="menu-num">{game.icon}</span>
+                          <span>{t(game.label)}</span>
+                        </a>
+                      ))}
+                    </div>
+                  );
+                })}
                 <a
                   href={`#/rebbe/${g.id}`}
                   onClick={close}
@@ -61,21 +80,28 @@ export function Panels() {
                     {!g.rebbe.length && <small>{t('rebbe.menuSub')}</small>}
                   </span>
                 </a>
-                {g.rebbe.map((l) => (
-                  <a
-                    key={l.slug}
-                    href={`#/${l.slug}`}
-                    onClick={close}
-                    className="menu-item menu-rebbe"
-                    aria-current={l.slug === lessonSlug ? 'page' : undefined}
-                  >
-                    <span className="menu-num">{l.number}</span>
-                    <span>
-                      {pick(l.texts).value.title}
-                      <small lang="he">{l.hebrewTitle}</small>
-                    </span>
-                  </a>
-                ))}
+                {/* «Нифлаот Ребе»: the investigation (named by the lesson's title) and its cards, right under the section */}
+                {g.rebbe.flatMap((l) =>
+                  (lessonGames(l) ?? []).map((game, k) => (
+                    <a
+                      key={game.href}
+                      href={game.href}
+                      onClick={close}
+                      className="menu-item menu-game"
+                      aria-current={isHere(game.href) ? 'page' : undefined}
+                    >
+                      <span className="menu-num">{game.icon}</span>
+                      {k === 0 ? (
+                        <span>
+                          {pick(l.texts).value.title}
+                          <small lang="he">{l.hebrewTitle}</small>
+                        </span>
+                      ) : (
+                        <span>{t(game.label)}</span>
+                      )}
+                    </a>
+                  )),
+                )}
               </div>
             </details>
           ))}
@@ -103,13 +129,6 @@ export function Panels() {
               ))}
             </div>
           </details>
-          {lessonSlug &&
-            lessonGames(findLesson(lessonSlug)!)?.map((g) => (
-              <a key={g.href} href={g.href} onClick={close} className="menu-item">
-                <span className="menu-num">{g.icon}</span>
-                <span>{t(g.label)}</span>
-              </a>
-            ))}
           {lessonSlug && (
             <a href={`#/${lessonSlug}/print`} onClick={close} className="menu-item">
               <Icon name="print" />
