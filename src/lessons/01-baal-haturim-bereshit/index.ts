@@ -2,6 +2,7 @@ import type { Lesson } from '../types';
 import ru from './i18n/ru';
 import en from './i18n/en';
 import de from './i18n/de';
+import memo from './memo';
 
 /**
  * Урок №1 — «Бааль а-Турим: Берешит»: гиматрии, первые и последние буквы и «пары по масоре»
@@ -129,6 +130,7 @@ const lesson: Lesson = {
     secrets: { 1116: 0, 613: 1, 24: 2, 84: 3 },
   },
   texts: { ru, en, de },
+  memo,
   author: { name: 'Яаков бен Ашер (Бааль а-Турим)', alternateName: "Rabbi Yaakov ben Asher (Ba'al HaTurim)" },
 };
 
