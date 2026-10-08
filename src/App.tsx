@@ -6,6 +6,7 @@ import { PrintLesson } from './components/PrintLesson';
 import { PrintMemo } from './components/PrintMemo';
 import { PrintCards } from './components/PrintCards';
 import { MemoPage } from './components/MemoPage';
+import { ShabbatRest, useShabbatRest } from './components/ShabbatRest';
 import { CardsPage } from './components/CardsPage';
 import { MathPage } from './components/MathPage';
 import { RebbePage } from './components/RebbePage';
@@ -87,7 +88,12 @@ function useFirstVisitHelp(open: (p: Panel) => void) {
   }, [open]);
 }
 
+/** The site rests on Shabbat (candle lighting – end of Shabbat in the user's city): nothing but the greeting. */
 export function App() {
+  return useShabbatRest() ? <ShabbatRest /> : <Site />;
+}
+
+function Site() {
   const { t } = useI18n();
   const route = useRoute();
   useCopySignature();

@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
-import { FALLBACK_LOCALE, LOCALES, isLocale, type Locale } from './config';
+import { DEFAULT_LOCALE, FALLBACK_LOCALE, LOCALES, isLocale, type Locale } from './config';
 import ru, { type MessageKey, type Messages, type PluralForms } from './locales/ru';
 import en from './locales/en';
 import de from './locales/de';
@@ -27,7 +27,8 @@ function detectLocale(): Locale {
     const code = l?.slice(0, 2).toLowerCase();
     if (isLocale(code)) return code;
   }
-  return FALLBACK_LOCALE;
+  // a browser in another language: English
+  return DEFAULT_LOCALE;
 }
 
 interface I18n {

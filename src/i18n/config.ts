@@ -13,7 +13,11 @@ export const LOCALES = {
 
 export type Locale = keyof typeof LOCALES;
 
+/** Language of a missing translation (texts are written in Russian first). */
 export const FALLBACK_LOCALE: Locale = 'ru';
+
+/** Interface language for a browser in a language the site does not have (Hebrew, French…). */
+export const DEFAULT_LOCALE: Locale = 'en';
 
 export const isLocale = (v: unknown): v is Locale =>
   typeof v === 'string' && Object.prototype.hasOwnProperty.call(LOCALES, v);
