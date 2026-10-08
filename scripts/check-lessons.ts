@@ -15,6 +15,8 @@
  *  - Memo: 12 pairs, a picture memo/NN.png for each, every gematria (a = b = v) and letter hint (ר״ת, ס״ת, אותיות)
  *    computed from the real words, a source in sefaria.json, distinct word cards; texts in every language,
  *    picture explanations (caption) ≤ 45 characters, a `note` for a number without equal words
+ *  - «Карточки» of a «Нифлаот Ребе» lesson: 12 pairs, every verse once (one explanation per verse), the card words
+ *    in the verse's Hebrew, the explanation card ≤ 70 characters, texts in every language
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
  */
 import { LESSONS } from '../src/lessons';
@@ -26,6 +28,7 @@ import { PROJECT_RU } from '../src/sources/ru';
 import { PROJECT_DE } from '../src/sources/de';
 import { PROJECT_EN } from '../src/sources/en';
 import { LOCALES } from '../src/i18n/config';
+import { displayNames } from '../src/core/names';
 import type { PuzzleText } from '../src/lessons/types';
 import { existsSync, readdirSync } from 'node:fs';
 import ruUi from '../src/i18n/locales/ru';
@@ -159,6 +162,39 @@ for (const lesson of LESSONS) {
   if (new Set(m.items.map((it) => it.verse)).size !== m.items.length) err(`${lesson.slug} · memo: two word cards are the same`);
 }
 
+// «Карточки» of a «Нифлаот Ребе» lesson: 12 verses, each once, each in its Sefaria verse; texts in every language
+for (const lesson of LESSONS) {
+  const c = lesson.cards;
+  if (!c) continue;
+  const where = (k: number) => `${lesson.slug} · cards ${k + 1}`;
+  if (c.items.length !== 12) err(`${lesson.slug} · cards: ${c.items.length} pairs, 12 expected`);
+  const plain = (x: string) => x.replace(/[\u0591-\u05C7]/g, '').replace(/[^א-ת׳ ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  c.items.forEach((it, k) => {
+    const src = SOURCES[it.source];
+    if (!src) err(`${where(k)}: source ${it.source} is not in sefaria.json`);
+    else if (!plain(src.he.join(' ')).includes(plain(displayNames(it.verse)))) err(`${where(k)}: «${it.verse}» is not in ${src.ref}`);
+    if (!(it.ls.vol > 0 && it.ls.sicha > 0)) err(`${where(k)}: Likkutei Sichos volume and talk needed`);
+    for (const [lang, tx] of Object.entries(lesson.texts)) {
+      const ct = tx?.cards?.items[k];
+      if (!ct) continue;
+      if (![ct.title, ct.verse, ct.card, ct.explain, ct.horaah].every((x) => x.trim())) err(`${where(k)} [${lang}]: empty text`);
+      if (ct.card.length > 70) err(`${where(k)} [${lang}]: the explanation card is longer than 70 characters (${ct.card.length})`);
+    }
+  });
+  // one explanation per verse: every verse once
+  if (new Set(c.items.map((it) => it.source)).size !== c.items.length) err(`${lesson.slug} · cards: a verse has two explanations — keep one`);
+  for (const [lang, tx] of Object.entries(lesson.texts)) {
+    if (!tx?.cards) err(`${lesson.slug} · cards [${lang}]: no texts (cards in i18n/${lang}.ts)`);
+    else if (tx.cards.items.length !== c.items.length) err(`${lesson.slug} · cards [${lang}]: ${tx.cards.items.length} texts for ${c.items.length} pairs`);
+  }
+}
+
+// a «Нифлаот Ребе» talk has no gematria calculator and no word cards to count
+for (const lesson of LESSONS) {
+  if (lesson.series === 'rebbe' && lesson.kind !== 'sicha') err(`${lesson.slug}: a «Нифлаот Ребе» lesson is kind: 'sicha'`);
+  if (lesson.kind === 'sicha' && lesson.riddles.some((r) => r.words.length)) err(`${lesson.slug}: a talk of the Rebbe has no gematria word cards`);
+}
+
 // HTML strings go to dangerouslySetInnerHTML: allow inline markup only
 const UNSAFE = /<\s*(script|iframe|object|embed|style|form|link|meta|base)\b|\son[a-z]+\s*=|(href|src)\s*=\s*["']?\s*(javascript|data|vbscript):/i;
 function checkHtml(where: string, v: unknown): void {
@@ -169,6 +205,7 @@ function checkHtml(where: string, v: unknown): void {
 }
 for (const lesson of LESSONS) checkHtml(lesson.slug, lesson.texts);
 for (const lesson of LESSONS) checkHtml(`${lesson.slug}.memo`, lesson.memo);
+for (const lesson of LESSONS) checkHtml(`${lesson.slug}.cards`, lesson.cards);
 checkHtml('ui.ru', ruUi);
 checkHtml('ui.en', enUi);
 checkHtml('sources', SOURCES);

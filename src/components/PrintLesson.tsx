@@ -136,6 +136,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
           </div>
         </header>
 
+        {lesson.kind !== 'sicha' && (
         <section className="p-block p-letters-block">
           <h3 className="p-label">{t('print.letters')}</h3>
           <div className="p-table" dir="rtl">
@@ -153,6 +154,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
             </span>
           </p>
         </section>
+        )}
 
 
         {lesson.riddles.map((r, ri) => {

@@ -2788,5 +2788,1277 @@
     "source": "http://kehot.com"
    }
   }
+ },
+ "gen-2-17": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 2:17",
+   "en": "Genesis 2:17",
+   "de": "Bereschit 2,17"
+  },
+  "ref": "Genesis 2:17",
+  "url": "https://www.sefaria.org/Genesis_2.17",
+  "he": [
+   "ומעץ הדעת טוב ורע לא תאכל ממנו כי ביום אכלך ממנו מות תמות"
+  ],
+  "en": [
+   "but of the tree of the knowledge of good and evil, thou shalt not eat of it; for in the day that thou eatest thereof thou shalt surely die.’"
+  ],
+  "ru": [
+   "А от дерева, что посреди сада, не ешь, ибо, когда поешь от него, смертью умрешь."
+  ],
+  "de": [
+   "aber von dem Baume der Erkenntnis dessen, was gut und bös ist, sollst du nicht essen; denn an dem Tage, an welchem du von ihm issest, musst du sterben."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-3-3": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 3:2–3",
+   "en": "Genesis 3:2–3",
+   "de": "Bereschit 3,2–3"
+  },
+  "ref": "Genesis 3:2-3",
+  "url": "https://www.sefaria.org/Genesis_3.2-3",
+  "he": [
+   "ותאמר האשה אל הנחש מפרי עץ הגן נאכל",
+   "ומפרי העץ אשר בתוך הגן אמר אלקים לא תאכלו ממנו ולא תגעו בו פן תמתון"
+  ],
+  "en": [
+   "And the woman said unto the serpent: ‘Of the fruit of the trees of the garden we may eat;",
+   "but of the fruit of the tree which is in the midst of the garden, G-d hath said: Ye shall not eat of it, neither shall ye touch it, lest ye die.’"
+  ],
+  "ru": [
+   "И сказала жена змею: от плодов садовых деревьев мы есть можем.",
+   "А от плодов дерева, что посреди сада, сказал Б-г: не ешьте от него и не касайтесь его, чтобы не умереть."
+  ],
+  "de": [
+   "Da sprach das Weib zur Schlange: Von der Frucht der Bäume des Gartens dürfen wir wohl essen;",
+   "Aber von der Frucht des Baumes, der in der Mitte des Gartens sich befindet, hat G-tt gesprochen, von dem sollt ihr nicht essen und ihn nicht anrühren, sonst werdet ihr sterben."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "sanhedrin-38b": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Санедрин 38б",
+   "en": "Sanhedrin 38b",
+   "de": "Sanhedrin 38b"
+  },
+  "ref": "Sanhedrin 38b:2",
+  "url": "https://www.sefaria.org/Sanhedrin_38b.2",
+  "he": [
+   "אמר רבי יוחנן בר חנינא שתים עשרה שעות הוי היום שעה ראשונה הוצבר עפרו שניה נעשה גולם שלישית נמתחו אבריו רביעית נזרקה בו נשמה חמישית עמד על רגליו ששית קרא שמות שביעית נזדווגה לו חוה שמינית עלו למטה שנים וירדו ארבעה תשיעית נצטווה שלא לאכול מן האילן עשירית סרח אחת עשרה נידון שתים עשרה נטרד והלך לו שנאמר אדם ביקר בל ילין"
+  ],
+  "en": [
+   "<b>Rabbi Yoḥanan bar Ḥanina says: Daytime is twelve hours</b> long, and the day Adam the first man was created was divided as follows: In the <b>first hour</b> of the day, <b>his dust was gathered.</b> In the <b>second,</b> an undefined <b>figure was fashioned.</b> In the <b>third, his limbs were extended.</b> In the <b>fourth, a soul was cast into him.</b> In the <b>fifth, he stood on his legs.</b> In the <b>sixth, he called</b> the creatures by the <b>names</b> he gave them. In the <b>seventh, Eve was paired with him.</b> In the <b>eighth, they arose to the bed two, and descended four,</b> i.e., Cain and Abel were immediately born. In the <b>ninth, he was commanded not to eat of the Tree</b> of Knowledge. In the <b>tenth, he sinned.</b> In the <b>eleventh, he was judged.</b> In the <b>twelfth, he was expelled and left</b> the Garden of Eden, <b>as it is stated: “But man abides not in honor;</b> he is like the beasts that perish” (Psalms 49:13). Adam did not abide, i.e., sleep, in a place of honor for even one night."
+  ],
+  "de": [
+   "R. Aḥa b. Ḥanina sagte: Zwölf Stunden hat der Tag; in der ersten Stunde wurde sein Staub gesammelt, in der zweiten wurde er zu einem Klumpen geformt, in der dritten wurden seine Glieder gedehnt, in der vierten wurde ihm die Seele eingehaucht, in der fünften stellte er sich auf seine Füße, in der sechsten legte er [den Tieren] Namen hei, in der siebenten wurde ihm Ḥava zugesellt, in der achten legten sie sich ins Bett zu zweien und verließen es zu vieren, in der neunten wurde ihm das Verbot erteilt, in der zehnten sündigte er, in der elften wurde über ihn Gericht gehalten, in der zwölften wurde er verjagt und er ging fort, denn es heißt: <i>und der Mensch, in Herrlichkeit übernachtet er nicht.</i>"
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "bereshit-rabbah-21-7": {
+  "kind": {
+   "ru": "Мидраш",
+   "en": "Midrash",
+   "de": "Midrasch"
+  },
+  "title": {
+   "ru": "Берешит Раба 21:7",
+   "en": "Bereshit Rabbah 21:7",
+   "de": "Bereschit Rabba 21,7"
+  },
+  "ref": "Bereshit Rabbah 21:7",
+  "url": "https://www.sefaria.org/Bereshit_Rabbah_21.7",
+  "he": [
+   "וַיְשַׁלְּחֵהוּ ה' אֱלֹקִים מִגַּן עֵדֶן (בראשית ג, כג), רַבִּי יְהוּדָה וְרַבִּי נְחֶמְיָה. רַבִּי יְהוּדָה אָמַר שִׁלְּחוֹ מִגַּן עֵדֶן בָּעוֹלָם הַזֶּה וְשִׁלְּחוֹ מִגַּן עֵדֶן לָעוֹלָם הַבָּא. רַבִּי נְחֶמְיָה אָמַר שִׁלְחוֹ מִגֵּן עֵדֶן בָּעוֹלָם הַזֶּה, וְלֹא לָעוֹלָם הַבָּא. עַל דַּעְתֵּיהּ דְּרַבִּי יְהוּדָה הִקְשָׁה עָלָיו, וְעַל דַּעְתֵּיהּ דְּרַבִּי נְחֶמְיָה רִיתָה עָלָיו. אָמַר רַבִּי הוּנָא אִתְפַּלְגּוּן רַבִּי אַדָּא בַּר אַהֲבָה וְרַבִּי הַמְנוּנָא, חַד אָמַר כְּרַבִּי יְהוּדָה וְחַד אָמַר כְּרַבִּי נְחֶמְיָה, וְהָא מְסַיֵּעַ לְרַבִּי נְחֶמְיָה (תהלים יז, טו): אֲנִי בְּצֶדֶק אֶחֱזֶה פָנֶיךָ אֶשְׂבְּעָה בְהָקִיץ תְּמוּנָתֶךָ, לִכְשֶׁיָּקִיץ אוֹתוֹ שֶׁנִּבְרָא בִּדְמוּתְךָ, בְּאוֹתָהּ שָׁעָה אֲנִי בְּצֶדֶק אֶחֱזֶה פָנֶיךָ, בְּאוֹתָהּ שָׁעָה אֲנִי מַצְדִיקוֹ מֵאוֹתָהּ גְּזֵרָה, בְּאוֹתָהּ שָׁעָה הֵן הָאָדָם הָיָה כְּאַחַד מִמֶּנּוּ. אָמַר רַבִּי יְהוֹשֻׁעַ בֶּן לֵוִי כְּשֶׁבְּרָאוֹ בְּרָאוֹ בְּמִדַּת הַדִּין וּבְמִדַּת הָרַחֲמִים, וּכְשֶׁטְּרָדוֹ, טְרָדוֹ בְּמִדַּת הַדִּין וּבְמִדַּת הָרַחֲמִים. הֵן הָאָדָם, הָא אָדָם לֹא יָכוֹלְתָּ לַעֲמֹד בְּצִוּוּיָךְ אֲפִלּוּ שָׁעָה אַחַת, אֶתְמְהָא. דָּרַשׁ רַבִּי יְהוּדָה בֶּן פְּדָיָא מִי יְגַלֶּה עָפָר מֵעֵינֶיךָ אָדָם הָרִאשׁוֹן שֶׁלֹא יָכוֹלְתָּ לַעֲמֹד בַּצִּוּוּי אֲפִלּוּ שָׁעָה אַחַת, וַהֲרֵי בָּנֶיךָ מַמְתִּינִין לְעָרְלָה שָׁלשׁ שָׁנִים, שֶׁנֶּאֱמַר (ויקרא יט, כג): שָׁלשׁ שָׁנִים יִהְיֶה לָכֶם עֲרֵלִים לֹא יֵאָכֵל, אָמַר רַב הוּנָא כַּד שָׁמַע בַּר קַפָּרָא כֵּן, אָמַר יָפֶה דָּרַשְׁתָּ בֶּן אֲחוֹתִי."
+  ],
+  "en": [
+   "<b>“The L-rd G-d sent him out of the Garden of Eden, to cultivate the ground from which he was taken” (Genesis 3:23).</b> “The L-rd G-d sent him out of the Garden of Eden” – Rabbi Yehuda and Rabbi Neḥemya, Rabbi Yehuda said: He sent him out of the Garden of Eden in this world, and he [also] sent him out of the Garden of Eden of the World to Come. Rabbi Neḥemya said: He sent him out of the Garden of Eden in this world, but not that of the World to Come. According to Rabbi Yehuda’s opinion, He dealt with him harshly. According to Rabbi Neḥemya’s opinion, He dealt with him mercifully. Rabbi Huna said: Rabbi Ada bar Ahava and Rabbi Hamnuna disagreed. One said in accordance with the opinion of Rabbi Yehuda, and one said in accordance with the opinion of Rabbi Neḥemya. The following supports Rabbi Neḥemya: “I, in justice [<i>betzedek</i>], will see Your face; Your image will fill my waking vision” (Psalms 17:15). When the one who was created in Your image awakens, at that moment, “I, in justice [<i>betzedek</i>], will see Your face” – at that moment I will exonerate him from that decree. At that moment, “behold, the man has become as one of us.” Rabbi Yehoshua ben Levi said: When He created him, He created him through the attribute of justice and the attribute of mercy, and when He expelled him, He expelled him through the attribute of justice and the attribute of mercy.,” indicating His attribute of mercy and His attribute of strict justice.</i> “<i>Hen</i> <i>haadam</i>” – O Adam [<i>hah haadam</i>], were you unable to observe your command for even one hour? It was a rhetorical question. Rabbi Yehuda ben Pedaya expounded: Who will remove the dust from your eyes, Adam the first man, and reveal that you were unable to observe the command for even one hour? Your descendants wait for <i>orla</i>.</i><i> </i>three years, as it is stated: “Three years it shall be sealed off for you; it shall not be eaten” (Leviticus 19:23). Rav Huna said: When bar Kappara heard this, he said: You have expounded well, my sister’s son."
+  ],
+  "de": [
+   "V. 23. Und G-tt schickte ihn aus Gan Eden. Darüber sind R. Jehuda und R. Nechemja verschiedener Meinung. Nach jenem ist der Sinn: aus Gan Eden dieser und aus Gan Eden jener Welt, nach diesem: nur aus Gan Eden dieser Welt. Nach der Meinung jenes sprach er ein hartes Urteil über ihn, nach der Meinung dieses erbarmte er sich seiner. Nach R. Huna sind auch R. Ada bar Ahaba und R. Hamnuna darüber verschiedener Meinung, der eine schließt sich aber dem R. Jehuda, der andere dem R. Nechemja an. Dem R. Nechemja steht zur Seite Ps. 17:15, wo der Sinn ist: Wenn der erwachen wird, der in deiner Ähnlichkeit erschaffen ist, werde auch ich in Gerechtigkeit dein Antlitz schauen und ich werde ihn von dem Verhängnis freisprechen, dann wird er wie einer von uns sein. R. Joschua ben Levi sagte: Wie G-tt Adam mit dem Maß der Gerechtigkeit und mit dem Maß der Erbarmung erschuf, so verfuhr er auch mit ihm, als er ihn aus Gan Eden vertrieb. Siehe der Mensch d.i. siehe, der Mensch konnte nicht einmal eine Stunde in deiner Vorschrift bestehen. R. Jehuda ben Padja sagte darauf: Wer wird dir den Staub aus deinen Augen nehmen, Adam! (d.i. wie bist du so verblendet), der du nicht eine Stunde in deinem Gebot bestehen konntest, während und deine Nachkommen drei Jahre lang die Orla halten (s. Lev. 19:23)? Als Bar Kapra das hörte, bemerkte R. Huna, sprach er: Du hast gut ausgelegt, Sohn meiner Schwester!"
+  ],
+  "versions": {
+   "he": {
+    "title": "merged",
+    "license": null,
+    "source": "https://www.sefaria.org/Bereshit_Rabbah"
+   },
+   "en": {
+    "title": "The Sefaria Midrash Rabbah, 2022",
+    "license": "CC-BY",
+    "source": "https://www.sefaria.org/texts"
+   },
+   "de": {
+    "title": "Der Midrasch Bereschit Rabba. Zum ersten Male ins Deutsche übertragen von Dr. August Wünsche. Leipzig 1881 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH990021066140205171/NLI"
+   }
+  }
+ },
+ "bereshit-rabbah-24-5": {
+  "kind": {
+   "ru": "Мидраш",
+   "en": "Midrash",
+   "de": "Midrasch"
+  },
+  "title": {
+   "ru": "Берешит Раба 24:5",
+   "en": "Bereshit Rabbah 24:5",
+   "de": "Bereschit Rabba 24,5"
+  },
+  "ref": "Bereshit Rabbah 24:5",
+  "url": "https://www.sefaria.org/Bereshit_Rabbah_24.5",
+  "he": [
+   "דָּבָר אַחֵר, זֶה סֵפֶר תּוֹלְדֹת, כְּתִיב (איוב כח, כז): אָז רָאָהּ וַיְסַפְּרָהּ, רַבָּנָן וְרַבִּי אַחָא, רַבָּנָן אָמְרִין כָּל דִּבּוּר וְדִבּוּר שֶׁהָיָה הַקָּדוֹשׁ בָּרוּךְ הוּא אוֹמֵר לְמשֶׁה הָיָה אוֹמְרוֹ שְׁתֵּי פְּעָמִים בְּלִבּוֹ וְאַחַר כָּךְ הָיָה אוֹמֵר לְמשֶׁה, וּמַה טַּעַם אָז רָאָהּ וַיְסַפְּרָהּ חַד, (איוב כח, כז): הֱכִינָהּ וְגַם חֲקָרָהּ חַד, וְאַחַר כָּךְ (איוב, כח, כח): וַיֹּאמֶר לָאָדָם, זֶה משֶׁה. וְרַבִּי אַחָא אָמַר ד', אָז רָאָהּ חַד, וַיְסַפְּרָהּ חַד, הֱכִינָהּ חַד, וְגַם חֲקָרָהּ חַד, וְאַחַר כָּךְ וַיֹּאמֶר לָאָדָם זֶה משֶׁה. אָמַר רַבִּי יְהוּדָה בְּרַבִּי סִימוֹן רָאוּי הָיָה אָדָם הָרִאשׁוֹן שֶׁתִּנָתֵן תּוֹרָה עַל יָדוֹ, מַה טַּעַם זֶה סֵפֶר תּוֹלְדֹת אָדָם, אָמַר הַקָּדוֹשׁ בָּרוּךְ הוּא יְצִיר כַּפַּי וְאֵינִי נוֹתְנָהּ לוֹ. חָזַר הַקָּדוֹשׁ בָּרוּךְ הוּא וְאָמַר לוֹ וּמַה עַכְשָׁו שֵׁשׁ מִצְווֹת נָתַתִּי לוֹ וְלֹא הָיָה יָכוֹל לַעֲמֹד בָּהֶן וְהֵיאַךְ אֲנִי נוֹתֵן לוֹ תרי\"ג מִצְווֹת, רמ\"ח מִצְווֹת עֲשֵׂה וְשס\"ה מִצְווֹת לֹא תַעֲשֶׂה. (איוב כח, כח): וַיֹּאמֶר לָאָדָם, לֹא לָאָדָם אֲנִי נוֹתֵן כִּי אִם לְבָנָיו, שֶׁנֶּאֱמַר זֶה סֵפֶר תּוֹלְדֹת אָדָם, אָמַר רַבִּי יַעֲקֹב דִּכְפַר חָנִין רָאוּי הָיָה אָדָם הָרִאשׁוֹן שֶׁיַּעַמְדוּ מִמֶּנּוּ י\"ב שְׁבָטִים, מַאי טַעְמֵיהּ זֶ\"ה סֵפֶר תּוֹלְדֹת אָדָם, אָמַר הַקָּדוֹשׁ בָּרוּךְ הוּא שְׁנֵי בָנִים נָתַתִּי לוֹ וְעָמַד אֶחָד וְהָרַג אֶת חֲבֵרוֹ וְהֵיאַךְ אֲנִי נוֹתֵן לוֹ שְׁנֵים עָשָׂר שְׁבָטִים. וַיֹּאמֶר לָאָדָם, לֹא לָאָדָם אֲנִי נוֹתֵן אֶלָּא לְבָנָיו, שֶׁנֶּאֱמַר זֶה סֵפֶר תּוֹלְדֹת אָדָם, מִנְיַן זֶ\"ה, ז' שִׁבְעָה ה' חֲמִשָּׁה, הֲרֵי י\"ב."
+  ],
+  "en": [
+   "Another matter, “this is the book of the descendants of Adam.” It is written: “Then He saw and assessed it” (Job 28:27). the Rabbis and Rabbi Aḥa, the Rabbis say: Each and every statement that the Holy One blessed be He would say to Moses, He would say it twice in His heart and then would say it to Moses. What is the source? “Then He saw and assessed it” – one; “prepared it, and also investigated it” (Job 28:27) – another one, and only then: “He said to the man” (Job 28:28) – this is Moses. Rabbi Aḥa said: Four times – “Then He saw” – one; “and assessed it” – another one; “prepared it” – another one; “and also investigated it” – another one, and only then: “He said to the man” – this is Moses. Rabbi Yehuda ben Rabbi Simon said: Adam the first man was worthy to have had the Torah given through him. What is the source? “This is the book of the descendants of Adam.” The Holy One blessed be He said: ‘He is My handiwork; shall I not give it to him?’ The Holy One blessed be He reconsidered and said of him: ‘If now I gave him six mitzvot and he was unable to fulfill them, how will I give him six hundred and thirteen mitzvot – two hundred and forty-eight positive mitzvot and three hundred and sixty-five prohibitions? I am not giving it to Adam, but rather to his descendants,’ as it is stated: “This is the book of the descendants of Adam.” Rabbi Yaakov of Kefar Ḥanin said: Adam the first man was worthy of having the twelve tribes emerge from him. What is the source? “This [<i>zeh</i>] is the book of the descendants of Adam.” The Holy One blessed be He said: ‘I gave him two sons and one arose and killed the other; how can I give him twelve sons?’ “He said to man [<i>laAdam</i>]” (Job 28:28) – not to Adamis an acronym for <i>lo</i> <i>Adam </i>–<i> </i>not Adam.</i> will I give it, but rather to his descendants. The numerical value of <i>Zeh</i> is <i>zayin, </i>seven, and <i>heh</i> – five; that is twelve."
+  ],
+  "de": [
+   "Oder die Worte: Dies ist das Buch der Geschlechtsfolge Adams stehen mit Hi. 28:27 in Verbindung. Nach den Rabbinen sprach G-tt jedes Wort, welches er mit Mosche redete, zuvor zweimal in seinem Herzen. Woher läßt sich das beweisen? Aus den angeführten Worten Hi. 28:27: „er sah und er zählte sie“ d.i. einmal, „er bestellte sie und erforschte sie“ d.i. auch einmal; „hernach sagte er es dem Menschen“ d.i. Mosche. Nach der Ansicht des R. Acha sprach G-tt die Worte viermal in seinem Herzen, er sah sie d.i. einmal, er erzählte sie d.i. das anderemal, er bestellte sie d.i. das drittemal und er erforschte sie d.i. das viertemal, und hernach erzählte er es dem Menschen d.i. Mosche. Nach R. Jehuda bar R. Simon hätte eigentlich das Gesetz durch den ersten Menschen gegeben werden sollen, denn es heißt hier: „Das ist das Buch der Geschlechtsfolge Adams.“ G-tt sprach nämlich: Er ist das Gebilde meiner Hand und ich soll ihm das Gesetz nicht geben? Nachher aber sprach er zu ihm: Wenn er schon jetzt in den sechs Geboten, welche ich ihm gegeben, nicht bestehen konnte, wie soll ich ihm erst 613 Gebote geben, nämlich 248 Gebote und 365 Verbote. Daher sprach er zu Adam: Nicht ihm (dir), sondern seinen (deinen) Kindern will ich es geben, wie es heißt: „Dieses Buch ist für die Nachkommen Adams.“ Nach R. Jakob vom Dorfe Chanin war der erste Mensch würdig, die zwölf Stämme zu stellen. Warum? Der Beweis liegt in dem Worte זה, welches an Zahlenwert 12 hat. Allein G-tt sprach: Ich gab ihm zwei Söhne und es stand der eine auf und erschlug seinen Bruder, wie soll ich ihm zwölf Stämme geben? Deshalb sprach er zu Adam: Nicht ihm, sondern seinen Kindern will ich sie geben, wie es heißt: „Dies ist das Buch“ u.s.w. Das Wort זה hat an Zahlenwert 12, nämlich ז ist 7 und ה ist 5, was zusammen 12 gibt."
+  ],
+  "versions": {
+   "he": {
+    "title": "merged",
+    "license": null,
+    "source": "https://www.sefaria.org/Bereshit_Rabbah"
+   },
+   "en": {
+    "title": "The Sefaria Midrash Rabbah, 2022",
+    "license": "CC-BY",
+    "source": "https://www.sefaria.org/texts"
+   },
+   "de": {
+    "title": "Der Midrasch Bereschit Rabba. Zum ersten Male ins Deutsche übertragen von Dr. August Wünsche. Leipzig 1881 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH990021066140205171/NLI"
+   }
+  }
+ },
+ "shabbat-63a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Шабат 63а",
+   "en": "Shabbat 63a",
+   "de": "Schabbat 63a"
+  },
+  "ref": "Shabbat 63a:14",
+  "url": "https://www.sefaria.org/Shabbat_63a.14",
+  "he": [
+   "אמר ליה רב כהנא למר בריה דרב הונא האי בדברי תורה כתיב אמר ליה אין מקרא יוצא מידי פשוטו"
+  ],
+  "en": [
+   "The Gemara relates that some time later <b>Rav Kahana said to Mar, son of Rav Huna:</b> Is that really a proof? <b>This</b> verse <b>is written in reference to matters of Torah</b> and should be interpreted as a metaphor. <b>He said to him:</b> Nevertheless, <b>a verse does not depart from its literal meaning,</b> although there may be additional homiletical interpretations."
+  ],
+  "de": [
+   "R. Kahana sprach zu Mar, dem Sohne Rabinas: Dies bezieht sich ja auf Worte der Tora!? Dieser entgegnete: Kein Schriftvers kommt aus seinem Wortlaute."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://www.korenpub.com/koren_en_usd/koren/talmud/koren-talmud-bavli-no/mskt-wbt-hlq-a.html"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "sukkah-52a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Сукка 52а",
+   "en": "Sukkah 52a",
+   "de": "Sukka 52a"
+  },
+  "ref": "Sukkah 52a:12",
+  "url": "https://www.sefaria.org/Sukkah_52a.12",
+  "he": [
+   "אמר אביי אי מאן דסני לי הוה לא הוה מצי לאוקומיה נפשיה אזל תלא נפשיה בעיבורא דדשא ומצטער אתא ההוא סבא תנא ליה כל הגדול מחבירו יצרו גדול הימנו"
+  ],
+  "en": [
+   "<b>Abaye said:</b> In that situation, <b>if</b> instead of that man <b>it had been one whom I hate,</b> a euphemism for himself, <b>he would not have been able to restrain himself</b> from sinning. After becoming aware of so great a shortcoming <b>he went and leaned against the doorpost,</b> thinking <b>and feeling regret. A certain Elder came</b> and <b>taught him: Anyone who is greater than another, his</b> evil <b>inclination is greater than his.</b> Therefore, Abaye should not feel regret, as his realization is a consequence of his greatness."
+  ],
+  "de": [
+   "Hierauf sprach Abajje: Wäre es mein Feind, so würde ich mich nicht beherrscht haben. Darauf ließ er sich auf den Türriegel sinken und gab sich seinem Schmerze hin. Da kam ein Greis und lehrte vor ihm: Wer größer als sein Nächster ist, dessen Trieb ist auch größer."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "shabbat-118b": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Шабат 118б",
+   "en": "Shabbat 118b",
+   "de": "Schabbat 118b"
+  },
+  "ref": "Shabbat 118b:14",
+  "url": "https://www.sefaria.org/Shabbat_118b.14",
+  "he": [
+   "אמר ליה רב יוסף לרב יוסף בריה דרבה אבוך במאי זהיר טפי אמר ליה בציצית יומא חד הוה קא סליק בדרגא איפסיק ליה חוטא ולא נחית ואתא כמה דלא רמיה ואמר אביי תיתי לי דכי חזינא צורבא מרבנן דשלים מסכתיה"
+  ],
+  "en": [
+   "<b>Rav Yosef said to Rav Yosef, son of Rabba: In what</b> area <b>was your father,</b> Rabba, <b>especially vigilant?</b> He <b>said to him:</b> It was <b>in</b> the mitzva of <b>ritual fringes.</b> The Gemara relates: <b>One day he was climbing the stairs</b> when a <b>string</b> from his ritual fringes <b>was severed, and he would not descend until he placed</b> a new string <b>on</b> the garment. <b>And Abaye said: May I receive</b> my reward because <b>when I see a young Torah scholar who has completed a tractate</b> that <b>he</b> studied"
+  ],
+  "de": [
+   "R. Joseph sprach zu R. Joseph, dem Sohne Rabbas: Was hat dein Vater am genauesten beobachtet? Dieser erwiderte: Das Çiçithgebot. Einst stieg er auf eine Treppe und ein Çiçithfaden riß ihm ab; da rührte er sich nicht [von der Stelle], bis man ihm einen anderen einknüpfte. Abajje sagte: Möge es mir zugute kommen, daß ich, sobald ich einen Gelehrtenjünger einen Traktat beenden sehe,"
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://www.korenpub.com/koren_en_usd/koren/talmud/koren-talmud-bavli-no/mskt-wbt-hlq-a.html"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "tanya-ih-7": {
+  "kind": {
+   "ru": "Хасидут",
+   "en": "Chassidut",
+   "de": "Chassidut"
+  },
+  "title": {
+   "ru": "Тания, Игерет а-Кодеш 7",
+   "en": "Tanya, Iggeret HaKodesh 7",
+   "de": "Tanja, Iggeret HaKodesch 7"
+  },
+  "ref": "Tanya, Part IV; Iggeret HaKodesh 7:12",
+  "url": "https://www.sefaria.org/Tanya,_Part_IV;_Iggeret_HaKodesh_7.12",
+  "he": [
+   "וְהִנֵּה, אַף שֶׁגִּילּוּי זֶה עַל־יְדֵי עֵסֶק הַתּוֹרָה וְהַמִּצְוֹת הוּא שָׁוֶה לְכָל נֶפֶשׁ מִיִּשְׂרָאֵל בְּדֶרֶךְ כְּלָל, כִּי תּוֹרָה אַחַת וּמִשְׁפָּט אֶחָד לְכוּלָּנוּ, אַף־עַל־פִּי־כֵן, בְּדֶרֶךְ פְּרָט, אֵין כָּל הַנְּפָשׁוֹת אוֹ הָרוּחוֹת וְהַנְּשָׁמוֹת שָׁווֹת בְּעִנְיָן זֶה לְפִי עֵת וּזְמַן גִּלְגּוּלָם וּבוֹאָם בָּעוֹלָם הַזֶּה וּכְמַאֲמַר רַבּוֹתֵינוּ־זִכְרוֹנָם־לִבְרָכָה: ״אֲבוּךְ בְּמַאי הֲוֵי זָהִיר טְפֵי, אָמַר לֵיהּ בְּצִיצִית כוּ׳״."
+  ],
+  "en": [
+   "Though this manifestation through the occupation with Torah and the commandments is, generally, equal in every one of Israel [for we all have one Torah and one law], nevertheless, in a more specific way not all the souls (<i>nefesh</i>) or spirits (<i>ruach</i>) and souls (<i>neshamah</i>) are equal in this regard, depending on the occurrence and time of their reincarnation and their coming into this world; and as our Sages, of blessed memory, said: 118b.</i> “With what was your father more heedful? He answered him—with the <i>tzitzit</i>….”"
+  ],
+  "versions": {
+   "he": {
+    "title": "Kehot Publication Society",
+    "license": "CC-BY-NC",
+    "source": "http://kehot.com"
+   },
+   "en": {
+    "title": "Kehot Publication Society (English Translation)",
+    "license": "CC-BY-NC",
+    "source": "http://kehot.com"
+   }
+  }
+ },
+ "bereshit-rabbah-19-3": {
+  "kind": {
+   "ru": "Мидраш",
+   "en": "Midrash",
+   "de": "Midrasch"
+  },
+  "title": {
+   "ru": "Берешит Раба 19:3",
+   "en": "Bereshit Rabbah 19:3",
+   "de": "Bereschit Rabba 19,3"
+  },
+  "ref": "Bereshit Rabbah 19:3",
+  "url": "https://www.sefaria.org/Bereshit_Rabbah_19.3",
+  "he": [
+   "וַתֹּאמֶר הָאִשָּׁה אֶל הַנָּחָשׁ (בראשית ג, ב), וְהֵיכָן הָיָה אָדָם בְּאוֹתָהּ שָׁעָה, אַבָּא בַּר קוֹרְיָיה אָמַר נִתְעַסֵּק בְּדֶרֶךְ אֶרֶץ וְיָשַׁן לוֹ. רַבָּנָן אַמְרֵי נְטָלוֹ הַקָּדוֹשׁ בָּרוּךְ הוּא וְהֶחֱזִירוֹ בְּכָל הָעוֹלָם כֻּלּוֹ, אָמַר לוֹ כָּאן בֵּית נֶטַע, כָּאן בֵּית זֶרַע, הֲדָא הוּא דִכְתִיב (ירמיה ב, ו): בְּאֶרֶץ לֹא עָבַר בָּהּ אִישׁ וְלֹא יָשַׁב אָדָם שָׁם, לֹא יָשַׁב אָדָם הָרִאשׁוֹן שָׁם. וּמִפְּרִי הָעֵץ אֲשֶׁר בְּתוֹךְ הַגָּן וגו' וְלֹא תִגְעוּ בּוֹ (בראשית ג, ג), הֲדָא הוּא דִכְתִיב (משלי ל, ו): אַל תּוֹסְףְ עַל דְּבָרָיו פֶּן יוֹכִיחַ בְּךָ וְנִכְזָבְתָּ. תָּנֵי רַבִּי חִיָּא שֶׁלֹא תַעֲשֶׂה אֶת הַגָּדֵר יוֹתֵר מִן הָעִקָּר שֶׁלֹא יִפֹּל וְיִקְצֹץ הַנְּטִיעוֹת. כָּךְ אָמַר הַקָּדוֹשׁ בָּרוּךְ הוּא (בראשית ב, יז): כִּי בְּיוֹם אֲכָלְךָ מִמֶּנּוּ וגו', וְהִיא לֹא אָמְרָה כֵּן, אֶלָא (בראשית ג, ג): אָמַר אֱלֹקִים לֹא תֹאכְלוּ מִמֶּנּוּ וְלֹא תִגְּעוּ בּוֹ, כֵּיוָן שֶׁרָאָה אוֹתָהּ עוֹבֶרֶת לִפְנֵי הָעֵץ נְטָלָהּ וּדְחָפָהּ עָלָיו, אָמַר לָהּ הָא לָא מִיתַת, כְּמָה דְּלָא מִיתַת בְּמִקְרְבֵיהּ, כֵּן לָא מִיתַת בְּמֵיכְלֵיהּ, אֶלָּא (בראשית ג, ה): כִּי יֹדֵעַ אֱלֹקִים כִּי בְּיוֹם וגו'."
+  ],
+  "en": [
+   "<b>“The woman said to the serpent: From the fruit of the trees of the garden we may eat” (Genesis 3:2).</b> “The woman said to the serpent” – where was Adam at that time? Abba bar Korya said: He had engaged in the way of nature and he was sleeping. The Rabbis say: The Holy One blessed be He was taking him and circulating throughout the entire world [telling him]: ‘This is a good place to plant, this is a good place to sow.’ That is what is written: “In a land that no man has ever crossed, and where no person [<i>adam</i>] has ever dwelled” (Jeremiah 2:6) – Adam the first man did not dwell there. <b>“But from the fruit of the tree that is in the midst of the garden, G-d said: You shall not eat of it, nor shall you touch it, lest you die” (Genesis 3:3).</b> “But from the fruit of the tree that is in the midst of the garden…nor shall you touch it” – that is what is written: “Do not add to His words, lest He rebuke you, and you will be found to be false” (Proverbs 30:6). Rabbi Ḥiyya taught: [This teaches] that you should not make the fence [around an orchard] taller than the main object [being protected], so it should not fall and sever the saplings. So, the Holy One blessed be He said [merely]: “As on the day that you eat of it [you shall die]” (Genesis 2:17). But she did not say that, rather [she added on to it and said:] “G-d said: You shall not eat of it, nor shall you touch it.” When it saw her passing before the tree, it took hold of her and pushed her onto it. It said to her: ‘See, you did not die. Just as you did not die from touching it, so you will not die from eating of it. Rather [the real reason G-d forbade you to eat of it is:] “for G-d knows that on the day [you eat from it…you will be as G-d, knowing good from evil]”’ (Genesis 3:5)."
+  ],
+  "de": [
+   "V. 2. Das Weib sprach zur Schlange. Wo war denn damals Adam? Er hatte den Beischlaf ausgeübt, wie Abba bar Kurja bemerkte, und war eingeschlafen. Nach den Rabbinen nahm ihn G-tt und führte ihn in der ganzen Welt herum und zeigte ihm (dies und das) und sprach: Siehe, hier kann gepflanzt, dort kann gesät werden s. Jerem. 2:6, wo die Worte: „wo kein Mensch wohnt“ bedeuten: wo der erste Mensch nicht wohnte. Von den Früchten der Bäume des Gartens. In Verbindung mit Prov. 30:6, welche Stelle von R. Chija auf diese Weise ausgelegt wurde: Mache den Zaun um die Hauptsache (um den Garten) nicht zu hoch, damit er nicht einstürze und die Pflanzungen zerknicke. G-tt sprach: Denn an dem Tage, wo du davon issest; die Schlange aber sprach nicht so, sondern: Sollte G-tt gesagt haben, ihr sollt nicht davon essen und ihn auch nicht anrühren? Als sie nämlich das Weib an dem Baume vorbeigehen sah, ergriff sie dasselbe und stieß es an ihn und sprach zu ihm: Siehe, du stirbst nicht; sowie du nun nicht stirbst durch die Berührung, so stirbst du auch nicht durch den Genuss, sondern G-tt weiß u.s.w."
+  ],
+  "versions": {
+   "he": {
+    "title": "merged",
+    "license": null,
+    "source": "https://www.sefaria.org/Bereshit_Rabbah"
+   },
+   "en": {
+    "title": "The Sefaria Midrash Rabbah, 2022",
+    "license": "CC-BY",
+    "source": "https://www.sefaria.org/texts"
+   },
+   "de": {
+    "title": "Der Midrasch Bereschit Rabba. Zum ersten Male ins Deutsche übertragen von Dr. August Wünsche. Leipzig 1881 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH990021066140205171/NLI"
+   }
+  }
+ },
+ "shemot-rabbah-28-2": {
+  "kind": {
+   "ru": "Мидраш",
+   "en": "Midrash",
+   "de": "Midrasch"
+  },
+  "title": {
+   "ru": "Шмот Раба 28:2",
+   "en": "Shemot Rabbah 28:2",
+   "de": "Schemot Rabba 28,2"
+  },
+  "ref": "Shemot Rabbah 28:2",
+  "url": "https://www.sefaria.org/Shemot_Rabbah_28.2",
+  "he": [
+   "וַיִּקְרָא אֵלָיו ה' מִן הָהָר לֵאמֹר, בִּזְכוּת הָהָר, וְאֵין הָהָר אֶלָּא אָבוֹת, שֶׁנֶּאֱמַר (מיכה ו, ב): שִׁמְעוּ הָרִים אֶת רִיב ה'. וּמשֶׁה עָלָה אֶל הָאֱלֹקִים, עָלָה בֶּעָנָן וְיָרַד בֶּעָנָן וּזְכוּת אָבוֹת עוֹלָה וְיוֹרֶדֶת עִמּוֹ. כֹּה תֹאמַר לְבֵית יַעֲקֹב, אֵלּוּ הַנָּשִׁים, אָמַר לוֹ אֱמֹר לָהֶם רָאשֵׁי דְבָרִים שֶׁהֵם יְכוֹלוֹת לִשְׁמֹעַ, וְתַגֵּיד לִבְנֵי יִשְׂרָאֵל, אֵלּוּ הָאֲנָשִׁים, אָמַר לוֹ אֱמֹר לָהֶם דִּקְדּוּקֵי דְּבָרִים שֶׁהֵם יְכוֹלִים לִשְׁמֹעַ. דָּבָר אַחֵר, לָמָּה לַנָּשִׁים תְּחִלָּה, שֶׁהֵן מִזְדָּרְזוֹת בְּמִצְווֹת. דָּבָר אַחֵר, כְּדֵי שֶׁיְהוּ מַנְהִיגוֹת אֶת בְּנֵיהֶן לַתּוֹרָה. אָמַר רַבִּי תַּחְלִיפָא דְּקֵיסָרִין, אָמַר הַקָּדוֹשׁ בָּרוּךְ הוּא כְּשֶׁבָּרָאתִי אֶת הָעוֹלָם, לֹא צִוִּיתִי אֶלָּא לְאָדָם הָרִאשׁוֹן, וְאַחַר כָּךְ נִצְטַוֵּית חַוָּה וְעָבְרָה וְקִלְקְלָה אֶת הָעוֹלָם, עַכְשָׁיו אִם אֵינִי קוֹרֵא לַנָּשִׁים תְּחִלָּה, הֵן מְבַטְּלוֹת אֶת הַתּוֹרָה, לְכָךְ נֶאֱמַר: כֹּה תֹאמַר לְבֵית יַעֲקֹב. וְרַבִּי יוֹחָנָן אָמַר: כֹּה תֹאמַר לְבֵית יַעֲקֹב, אֵלּוּ סַנְהֶדְּרִין, שֶׁנֶּאֱמַר (ישעיה ב, ה): בֵּית יַעֲקֹב לְכוּ וְנֵלְכָה בְּאוֹר ה'. וַיְדַבֵּר אֱלֹקִים אֵת כָּל הַדְּבָרִים הָאֵלֶּה לֵאמֹר, בְּטַכְסִיס שֶׁל מְלָכִים נָהַג הַקָּדוֹשׁ בָּרוּךְ הוּא עִם יִשְׂרָאֵל, שֶׁנֶּאֱמַר (שיר השירים ד, ח): אִתִּי מִלְּבָנוֹן כַּלָּה, לָמָּה כָּךְ בִּזְכוּת שֶׁאָמְרוּ (שמות כד, ז): נַעֲשֶׂה וְנִשְׁמָע."
+  ],
+  "en": [
+   "“The L-rd called to him from the mountain, saying” – due to the merit of the mountain. The mountain is nothing other than the patriarchs, as it is stated: “Listen, mountains, to the L-rd’s quarrel” (Micah 6:2). “Moses ascended to G-d” – he ascended in a cloud, and the merit of the patriarchs ascended and descended with him. “So you shall say to the house of Jacob” – these are the women. He said to him: ‘Say to them the major principles, which they are capable of understanding.’ “And tell to the children of Israel” – these are the men. He said to him: ‘Say to them the fine points, which they are capable of understanding.’ Another matter: Why to the women first? Because they have alacrity regarding mitzvot. Alternatively, so they will guide their children to Torah. Rabbi Taḥlifa of Caesarea said: The Holy One blessed be He said: When I created the world, I commanded only Adam the first man, and thereafter Eve was commanded and she corrupted the world. Now, if I do not summon the women first, they will nullify the Torah. That is why it is stated: “So you shall say to the house of Jacob.” Rabbi Yoḥanan said: “So you shall say to the house of Jacob” – these are the Sanhedrin, as it is stated: “House of Jacob, come, let us walk by the light of the L-rd” (Isaiah 2:5). <b>“G-d spoke all these matters, saying” (Exodus 20:1).</b> “G-d spoke all these matters, saying” – the Holy One blessed be He conducted Himself vis-à-vis Israel with protocols of royalty, as it is stated: “With me, from Lebanon, my bride” (Song of Songs 4:8).). </i> Why was it so? Due to the merit of their saying: “[All that the L-rd has spoken] we will perform and we will heed” (Exodus 24:7)."
+  ],
+  "de": [
+   "Und der Ewige rief ihm zu vom Berge herab d.i. im Verdienste des Berges. Unter dem Berge sind nur die Väter zu verstehen vgl. Mich. 6:2: „Hört, ihr Berge, den Streit des Ewigen.“ Und Mosche stieg hinauf zu G-tt d.i. er stieg in einer Wolke hinauf und kam auch in einer Wolke wieder herab, und das Verdienst der Väter stieg mit ihm hinauf und wieder herab. So sprich zu dem Hause Jakows d.i. zu den Weibern. Er sprach zu ihm: Sage ihnen die hauptsächlichsten Dinge, die sie hören (verstehen) können. Und verkünde den Kindern Israels d.i. den Männern. Er sprach zu ihm: Sage ihnen die genauen Einzelbestimmungen, die sie hören (verstehen) können. Warum werden aber die Weiber zuerst genannt? Weil sie hurtig (eifrig, wacker) in der Erfüllung der Pflichten sind. Oder damit sie ihre Kinder zur Tora leiten. R. Tachlifa von Cäsarea sagte: G-tt sprach: Als ich die Welt erschuf, gab ich zuerst dem Adam und dann der Eva Vorschriften, allein diese übertrat sie und stürzte die Welt ins Verderben, wenn ich jetzt nicht die Weiber zuerst rufe, so werden sie das Gesetz (verhindern) aufheben; darum heißt es: „So sollst du zum Hause Jakows sprechen.“ R. Jochanan sagte aber: Unter dem „Hause Jakows“ ist das Sanhedrin zu verstehen, wie es heißt Jes. 2:5: „Haus Jakows, auf! Lasst uns wandeln im Lichte des Ewigen.“ „Und G-tt redete alle diese Worte.“ Gemäß der Einrichtung aller Könige verfuhr G-tt mit lsrael, wie es heißt Cant. 4:8: „Mit mir vom Libanon, Braut.“ Und warum? Weil sie gesagt hatten: „Wir wollen tun und gehorchen.“"
+  ],
+  "versions": {
+   "he": {
+    "title": "merged",
+    "license": null,
+    "source": "https://www.sefaria.org/Shemot_Rabbah"
+   },
+   "en": {
+    "title": "The Sefaria Midrash Rabbah, 2022",
+    "license": "CC-BY",
+    "source": "https://www.sefaria.org/texts"
+   },
+   "de": {
+    "title": "Der Midrach Schemot Rabba. Zum ersten Male ins Deutsche übertragen von Dr. August Wünsche. Leipzig 1882 [de]",
+    "license": null,
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH990010396710205171/NLI"
+   }
+  }
+ },
+ "ez-11-16": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Йехезкель 11:16",
+   "en": "Ezekiel 11:16",
+   "de": "Jecheskel 11,16"
+  },
+  "ref": "Ezekiel 11:16",
+  "url": "https://www.sefaria.org/Ezekiel_11.16",
+  "he": [
+   "לכן אמר כה אמר אדני ה׳ כי הרחקתים בגוים וכי הפיצותים בארצות ואהי להם למקדש מעט בארצות אשר באו שם"
+  ],
+  "en": [
+   "therefore say: Thus saith the L-rd GOD: Although I have removed them far off among the nations, and although I have scattered them among the countries, yet have I been to them as a little sanctuary in the countries where they are come;"
+  ],
+  "de": [
+   "Deshalb sprich, so hat mein Herr, G-tt, der seine Liebe in Rechtswaltung hüllt, gesprochen: habe ich sie auch in die Ferne unter Völker gegeben und in Länder zerstreut, so werde ich ihnen zum kleinen Heiligtum werden in den Ländern, in die sie gekommen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Das Buch Jecheskel, übersetzt und erläutert von Dr. Joseph Breuer, Frankfurt a.M, 1921 [de]",
+    "license": "Public Domain",
+    "source": "http://talmud.de"
+   }
+  }
+ },
+ "ex-25-8": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Шмот 25:8",
+   "en": "Exodus 25:8",
+   "de": "Schemot 25,8"
+  },
+  "ref": "Exodus 25:8",
+  "url": "https://www.sefaria.org/Exodus_25.8",
+  "he": [
+   "ועשו לי מקדש ושכנתי בתוכם"
+  ],
+  "en": [
+   "And let them make Me a sanctuary, that I may dwell among them."
+  ],
+  "ru": [
+   "И пусть построят мне святилище, чтобы я обитал среди них."
+  ],
+  "de": [
+   "Sie sollen mir ein Heiligtum schaffen, so werde ich unter ihnen wohnen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "ps-113-9": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings",
+   "de": "Schriften"
+  },
+  "title": {
+   "ru": "Тегилим 113:9",
+   "en": "Psalms 113:9",
+   "de": "Tehillim 113,9"
+  },
+  "ref": "Psalms 113:9",
+  "url": "https://www.sefaria.org/Psalms_113.9",
+  "he": [
+   "מושיבי עקרת הבית אם הבנים שמחה הללו יה"
+  ],
+  "en": [
+   "Who maketh the barren woman to dwell in her house As a joyful mother of children. Hallelujah."
+  ],
+  "de": [
+   "Der die Unfruchtbare im Hause einsetzt als die fröhliche Mutter der Kinder. Halleluja!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/  "
+   }
+  }
+ },
+ "prov-3-17": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings",
+   "de": "Schriften"
+  },
+  "title": {
+   "ru": "Мишлей 3:17",
+   "en": "Proverbs 3:17",
+   "de": "Mischle 3,17"
+  },
+  "ref": "Proverbs 3:17",
+  "url": "https://www.sefaria.org/Proverbs_3.17",
+  "he": [
+   "דרכיה דרכי נעם וכל נתיבותיה שלום"
+  ],
+  "en": [
+   "Her ways are ways of pleasantness, And all her paths are peace."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "niddah-45b": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Нида 45б",
+   "en": "Niddah 45b",
+   "de": "Nidda 45b"
+  },
+  "ref": "Niddah 45b:11",
+  "url": "https://www.sefaria.org/Niddah_45b.11",
+  "he": [
+   "אמר רב חסדא מאי טעמא דרבי דכתיב ויבן ה׳ [אלקים] את הצלע מלמד שנתן הקדוש ברוך הוא בינה יתירה באשה יותר מבאיש"
+  ],
+  "en": [
+   "<b>Rav Ḥisda said: What is the reason of Rabbi</b> Yehuda HaNasi? <b>As it is written,</b> with regard to the creation of woman: <b>“And the rib,</b> which <b>the L-rd G-d</b> had taken from the man, <b>He made [<i>vayyiven</i>]</b> a woman, and brought her to the man” (Genesis 2:22). This <b>teaches that the Holy One, Blessed be He, granted a woman a greater understanding [<i>bina</i>] than</b> that <b>of a men.</b>"
+  ],
+  "de": [
+   "R. Ḥisda sagte: Folgendes ist der Grund Rabbis. Es heißt:<i>und der Herr baute die Rippe</i>, dies lehrt, daß der Heilige, gepriesen sei er, dem Weibe mehr Verstand, abgeleitet; viell, aber nur wegen des Gleichklanges.</i>gegeben hat als dem Manne. –"
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "ketubot-8a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Ктубот 8а",
+   "en": "Ketubot 8a",
+   "de": "Ketubbot 8a"
+  },
+  "ref": "Ketubot 8a:5",
+  "url": "https://www.sefaria.org/Ketubot_8a.5",
+  "he": [
+   "שמח תשמח ריעים האהובים כשמחך יצירך בגן עדן מקדם ברוך אתה ה׳ משמח חתן וכלה"
+  ],
+  "en": [
+   "The fifth blessing is: <b>Bring great joy to these loving friends, as You gave joy to Your creations in Eden in ancient times. Blessed are You, L-rd, Who brings joy to the groom and bride.</b>"
+  ],
+  "de": [
+   "Erfreue das Liebespaar, wie du dereinst deine Geschöpfe im E͑dengarten erfreut hast. Gepriesen seist du, o Herr, der du Bräutigam und Braut erfreuest."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "gen-1-1-only": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 1:1",
+   "en": "Genesis 1:1",
+   "de": "Bereschit 1,1"
+  },
+  "ref": "Genesis 1:1",
+  "url": "https://www.sefaria.org/Genesis_1.1",
+  "he": [
+   "בראשית ברא אלקים את השמים ואת הארץ"
+  ],
+  "en": [
+   "In the beginning G-d created the heaven and the earth."
+  ],
+  "ru": [
+   "Вначале, когда творил Б-г небеса и землю,"
+  ],
+  "de": [
+   "Von Anfang hat G-tt den Himmel und die Erde erschaffen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-1-3": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 1:3",
+   "en": "Genesis 1:3",
+   "de": "Bereschit 1,3"
+  },
+  "ref": "Genesis 1:3",
+  "url": "https://www.sefaria.org/Genesis_1.3",
+  "he": [
+   "ויאמר אלקים יהי אור ויהי אור"
+  ],
+  "en": [
+   "And G-d said: ‘Let there be light.’ And there was light."
+  ],
+  "ru": [
+   "И сказал Б-г: да будет свет, и стал свет."
+  ],
+  "de": [
+   "Da sprach G-tt: Es werde Licht! Und da ward Licht."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-1-14": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 1:14",
+   "en": "Genesis 1:14",
+   "de": "Bereschit 1,14"
+  },
+  "ref": "Genesis 1:14",
+  "url": "https://www.sefaria.org/Genesis_1.14",
+  "he": [
+   "ויאמר אלקים יהי מארת ברקיע השמים להבדיל בין היום ובין הלילה והיו לאתת ולמועדים ולימים ושנים"
+  ],
+  "en": [
+   "And G-d said: ‘Let there be lights in the firmament of the heaven to divide the day from the night; and let them be for signs, and for seasons, and for days and years;"
+  ],
+  "ru": [
+   "И сказал Б-г: да будут светила на небесной поверхности, чтобы отделять день от ночи, и да будут они для знамений, и для сроков, и для дней и лет."
+  ],
+  "de": [
+   "G-tt sprach: Es werde eine Einheit von Lichtträgern an dem Gewölbe des Himmels, zu unterscheiden zwischen dem Tage und der Nacht; und sie sollen auch dienen zu Zeichen und zu Festzeiten, und für Tages- und Jahreszeiten."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-1-16": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 1:16",
+   "en": "Genesis 1:16",
+   "de": "Bereschit 1,16"
+  },
+  "ref": "Genesis 1:16",
+  "url": "https://www.sefaria.org/Genesis_1.16",
+  "he": [
+   "ויעש אלקים את שני המארת הגדלים את המאור הגדל לממשלת היום ואת המאור הקטן לממשלת הלילה ואת הכוכבים"
+  ],
+  "en": [
+   "And G-d made the two great lights: the greater light to rule the day, and the lesser light to rule the night; and the stars."
+  ],
+  "ru": [
+   "И сделал Б-г два больших светила: светило большое для правления днем, и светило малое для правления ночью, и звезды."
+  ],
+  "de": [
+   "Es hat also G-tt die beiden großen Lichtträger gemacht, den großen Lichtträger zur Beherrschung des Tages, den kleinen Lichtträger zur Beherrschung der Nacht und die Sterne."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-1-21": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 1:21",
+   "en": "Genesis 1:21",
+   "de": "Bereschit 1,21"
+  },
+  "ref": "Genesis 1:21",
+  "url": "https://www.sefaria.org/Genesis_1.21",
+  "he": [
+   "ויברא אלקים את התנינם הגדלים ואת כל נפש החיה הרמשת אשר שרצו המים למינהם ואת כל עוף כנף למינהו וירא אלקים כי טוב"
+  ],
+  "en": [
+   "And G-d created the great sea-monsters, and every living creature that creepeth, wherewith the waters swarmed, after its kind, and every winged fowl after its kind; and G-d saw that it was good."
+  ],
+  "ru": [
+   "И сотворил Б-г великих морских чудовищ и все живые существа ползучие, которыми кишат воды, по виду их, и всякую птицу крылатую по виду ее, и увидел Б-г, что (это) хорошо."
+  ],
+  "de": [
+   "Es ist also G-tt, der die großen Fischgeschlechter erschaffen und auch alle die Wesen des kleinen sich fortbewegenden Lebens, von welchen die Wasser für ihre Gattungen wimmelnd geworden, und jeden beschwingten Vogel für seine Gattung, und G-tt sah, daß es gut sei."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-1-22": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 1:22",
+   "en": "Genesis 1:22",
+   "de": "Bereschit 1,22"
+  },
+  "ref": "Genesis 1:22",
+  "url": "https://www.sefaria.org/Genesis_1.22",
+  "he": [
+   "ויברך אתם אלקים לאמר פרו ורבו ומלאו את המים בימים והעוף ירב בארץ"
+  ],
+  "en": [
+   "And G-d blessed them, saying: ‘Be fruitful, and multiply, and fill the waters in the seas, and let fowl multiply in the earth.’"
+  ],
+  "ru": [
+   "И благословил их Б-г, говоря: плодитесь, и размножайтесь, и наполняйте воды в морях, а птица да множится на земле."
+  ],
+  "de": [
+   "G-tt segnete sie also: Seid fruchtbar und vermehret euch und füllet die Wasser in den Meeren, aber der Vogel vermehre sich auf der Erde."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-1-29": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 1:29",
+   "en": "Genesis 1:29",
+   "de": "Bereschit 1,29"
+  },
+  "ref": "Genesis 1:29",
+  "url": "https://www.sefaria.org/Genesis_1.29",
+  "he": [
+   "ויאמר אלקים הנה נתתי לכם את כל עשב זרע זרע אשר על פני כל הארץ ואת כל העץ אשר בו פרי עץ זרע זרע לכם יהיה לאכלה"
+  ],
+  "en": [
+   "And G-d said: ‘Behold, I have given you every herb yielding seed, which is upon the face of all the earth, and every tree, in which is the fruit of a tree yielding seed—to you it shall be for food;"
+  ],
+  "ru": [
+   "И сказал Б-г: вот, дал я вам всякую траву, сеящую семя, какая (есть) на всей земле, и всякое дерево, в котором плод древесный, сеящий семя — да будет вам в пищу."
+  ],
+  "de": [
+   "G-tt sprach: Siehe ich habe euch alles Samen streuende Kraut, welches auf der Oberfläche der ganzen Erde ist, und jeden Baum übergeben, an welchem Samen streuende Baumfrucht ist; euch sei es zur Nahrung;"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-2-2": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 2:2",
+   "en": "Genesis 2:2",
+   "de": "Bereschit 2,2"
+  },
+  "ref": "Genesis 2:2",
+  "url": "https://www.sefaria.org/Genesis_2.2",
+  "he": [
+   "ויכל אלקים ביום השביעי מלאכתו אשר עשה וישבת ביום השביעי מכל מלאכתו אשר עשה"
+  ],
+  "en": [
+   "And on the seventh day G-d finished His work which He had made; and He rested on the seventh day from all His work which He had made."
+  ],
+  "ru": [
+   "И завершил Б-г к седьмому дню всю свою работу, которую делал, и отдохнул в седьмой день от всей своей работы, которую делал."
+  ],
+  "de": [
+   "Da vollendete G-tt mit dem siebten Tage sein Werk, das er gemacht hatte, und hörte mit dem siebten Tage von jeglichem seinem Werke, das er gemacht hatte, auf."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-2-3": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 2:3",
+   "en": "Genesis 2:3",
+   "de": "Bereschit 2,3"
+  },
+  "ref": "Genesis 2:3",
+  "url": "https://www.sefaria.org/Genesis_2.3",
+  "he": [
+   "ויברך אלקים את יום השביעי ויקדש אתו כי בו שבת מכל מלאכתו אשר ברא אלקים לעשות"
+  ],
+  "en": [
+   "And G-d blessed the seventh day, and hallowed it; because that in it He rested from all His work which G-d in creating had made."
+  ],
+  "ru": [
+   "И благословил Б-г седьмой день, и освятил его, ибо тогда отдохнул от всей своей работы, которую творил Б-г и делал."
+  ],
+  "de": [
+   "G-tt segnete den siebten Tag und heiligte ihn; denn mit ihm hatte er von allem seinem Werke aufgehört, welches Er, G-tt, ins Dasein gesetzt hatte, es fort zu gestalten."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-2-19": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 2:19",
+   "en": "Genesis 2:19",
+   "de": "Bereschit 2,19"
+  },
+  "ref": "Genesis 2:19",
+  "url": "https://www.sefaria.org/Genesis_2.19",
+  "he": [
+   "ויצר ה׳ אלקים מן האדמה כל חית השדה ואת כל עוף השמים ויבא אל האדם לראות מה יקרא לו וכל אשר יקרא לו האדם נפש חיה הוא שמו"
+  ],
+  "en": [
+   "And out of the ground the L-rd G-d formed every beast of the field, and every fowl of the air; and brought them unto the man to see what he would call them; and whatsoever the man would call every living creature, that was to be the name thereof."
+  ],
+  "ru": [
+   "И образовал Г-сподь Б-г из земли всех зверей полевых, и привел к человеку посмотреть, как он их назовет, и как назовет человек живое существо — такое ему и имя."
+  ],
+  "de": [
+   "Da trieb <i>G-tt</i> alles Tier des Feldes und alles Geflügel des Himmels von der Menschenerde zusammen und brachte sie zum Menschen, damit er sehe, was er sich nennen werde, und alles, wie sich's der Mensch als lebendiges Wesen nennt, das ist sein Name."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-4-3": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 4:3–4",
+   "en": "Genesis 4:3–4",
+   "de": "Bereschit 4,3–4"
+  },
+  "ref": "Genesis 4:3-4",
+  "url": "https://www.sefaria.org/Genesis_4.3-4",
+  "he": [
+   "ויהי מקץ ימים ויבא קין מפרי האדמה מנחה לה׳",
+   "והבל הביא גם הוא מבכרות צאנו ומחלבהן וישע ה׳ אל הבל ואל מנחתו"
+  ],
+  "en": [
+   "And in process of time it came to pass, that Cain brought of the fruit of the ground an offering unto the L-rd.",
+   "And Abel, he also brought of the firstlings of his flock and of the fat thereof. And the L-rd had respect unto Abel and to his offering;"
+  ],
+  "ru": [
+   "Прошло время, и принес Каин жертву Г-споду из плодов земли.",
+   "И Эвель тоже принес первенцев своих овец и их жир. И взглянул Г-сподь на Эвеля и его жертву,"
+  ],
+  "de": [
+   "Es war nach Ablauf einer Zeit, da brachte Kajin von der Frucht der Erde <i>G-tt</i> ein Opfer.",
+   "Und auch Hebel brachte gleichfalls von den Erstgeburten seiner Schafe und von deren besten. Da wandte sich <i>G-tt</i> zu Hebel und seinem Opfer,"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-6-7": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 6:7",
+   "en": "Genesis 6:7",
+   "de": "Bereschit 6,7"
+  },
+  "ref": "Genesis 6:7",
+  "url": "https://www.sefaria.org/Genesis_6.7",
+  "he": [
+   "ויאמר ה׳ אמחה את האדם אשר בראתי מעל פני האדמה מאדם עד בהמה עד רמש ועד עוף השמים כי נחמתי כי עשיתם"
+  ],
+  "en": [
+   "And the L-rd said: ‘I will blot out man whom I have created from the face of the earth; both man, and beast, and creeping thing, and fowl of the air; for it repenteth Me that I have made them.’"
+  ],
+  "ru": [
+   "И сказал Г-сподь: сотру человека, сотворенного мною, с лица земли — от человека до скота, до гада и до птицы небесной, потому что жалею я, что сделал их."
+  ],
+  "de": [
+   "Da sprach <i>G-tt</i>: Ich will den Menschen von der Fläche des Erdbodens weg löschen vom Menschen bis zum Viehe, bis zum Gewürm und bis zum Vogel des Himmels; denn ich bin veranlaßt, den Entschluss zu ändern, daß ich sie geschaffen habe."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
  }
 }

@@ -4,6 +4,7 @@ import { VALUES } from '../core/gematria';
 import { OPS, SIGN } from '../core/mentalMath';
 import { Icon, Sheet, useUI } from './ui';
 import { ASSISTANT_URL } from '../core/assistant';
+import { lessonGames } from './LessonTabs';
 
 const TABLE = Object.entries(VALUES).filter(([c]) => !'ךםןףץ'.includes(c));
 
@@ -57,9 +58,24 @@ export function Panels() {
                   <span className="menu-num">✦</span>
                   <span>
                     {t('rebbe.title')}
-                    <small>{t('rebbe.menuSub')}</small>
+                    {!g.rebbe.length && <small>{t('rebbe.menuSub')}</small>}
                   </span>
                 </a>
+                {g.rebbe.map((l) => (
+                  <a
+                    key={l.slug}
+                    href={`#/${l.slug}`}
+                    onClick={close}
+                    className="menu-item menu-rebbe"
+                    aria-current={l.slug === lessonSlug ? 'page' : undefined}
+                  >
+                    <span className="menu-num">{l.number}</span>
+                    <span>
+                      {pick(l.texts).value.title}
+                      <small lang="he">{l.hebrewTitle}</small>
+                    </span>
+                  </a>
+                ))}
               </div>
             </details>
           ))}
@@ -87,18 +103,13 @@ export function Panels() {
               ))}
             </div>
           </details>
-          {lessonSlug && findLesson(lessonSlug)?.memo && (
-            <>
-              <a href={`#/${lessonSlug}`} onClick={close} className="menu-item">
-                <span className="menu-num">🔢</span>
-                <span>{t('memo.tabGematria')}</span>
+          {lessonSlug &&
+            lessonGames(findLesson(lessonSlug)!)?.map((g) => (
+              <a key={g.href} href={g.href} onClick={close} className="menu-item">
+                <span className="menu-num">{g.icon}</span>
+                <span>{t(g.label)}</span>
               </a>
-              <a href={`#/${lessonSlug}/memo`} onClick={close} className="menu-item">
-                <span className="menu-num">🃏</span>
-                <span>{t('memo.tabMemo')}</span>
-              </a>
-            </>
-          )}
+            ))}
           {lessonSlug && (
             <a href={`#/${lessonSlug}/print`} onClick={close} className="menu-item">
               <Icon name="print" />

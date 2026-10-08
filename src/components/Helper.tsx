@@ -171,7 +171,9 @@ export function Helper() {
   const { t } = useI18n();
   const { panel, open } = useUI();
   const page = useSyncExternalStore(subscribePageState, getPageState);
-  const cards = page ? [...new Set(page.lesson.riddles[Math.min(page.lvl, page.lesson.riddles.length - 1)].words)] : EXAMPLES;
+  const words = page ? [...new Set(page.lesson.riddles[Math.min(page.lvl, page.lesson.riddles.length - 1)].words)] : [];
+  // a riddle without word cards (e.g. a «Нифлаот Ребе» talk): the examples
+  const cards = words.length ? words : EXAMPLES;
 
   return (
     <Sheet open={panel === 'assistant'} onClose={() => open(null)} title={t('helper.title')} closeLabel={t('menu.close')}>

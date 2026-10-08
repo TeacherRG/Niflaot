@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import confetti from 'canvas-confetti';
+import { useMemo } from 'react';
 import { useI18n } from '../i18n';
 import type { Lesson, MemoData, MemoItem, MemoItemText, MemoText } from '../lessons/types';
 import { gematriaLines, lettersLine, memoImages } from '../core/memo';
@@ -8,42 +7,12 @@ import { formatTime } from '../core/format';
 import { SOURCES, sourceLabel } from '../sources';
 import { HebrewRuns } from './Hebrew';
 import { Icon, Sheet } from './ui';
-
-// without a worker: the site's CSP allows no blob: workers
-const celebrate = confetti.create(undefined, { resize: true, useWorker: false });
+import { EASY, usePairsGame, type Card } from '../core/usePairsGame';
 
 /**
  * Memo — the second game of a commentary lesson. A pair is a picture and the Torah words it tells about; under the
- * board every picture of the game is explained («Что на картинках»); a found pair opens its explanation. The way through it, as a teacher would
- * lead it: study the pairs → an easy game of 6 pairs → the full game of 12 → what we learned.
+ * board every picture of the game is explained («Что на картинках»); a found pair opens its explanation.
  */
-
-type Screen = 'home' | 'rules' | 'study' | 'game' | 'end';
-/** a card on the board: pair `p`, picture or words */
-type Card = { p: number; pic: boolean };
-
-const EASY = 6;
-
-function deal(pairs: number[]): Card[] {
-  const cards: Card[] = pairs.flatMap((p) => [
-    { p, pic: true },
-    { p, pic: false },
-  ]);
-  for (let i = cards.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [cards[i], cards[j]] = [cards[j], cards[i]];
-  }
-  return cards;
-}
-
-/** `n` random pairs of `total`, in their order */
-const somePairs = (total: number, n: number) =>
-  [...Array(total).keys()]
-    .map((p) => ({ p, r: Math.random() }))
-    .sort((a, b) => a.r - b.r)
-    .slice(0, n)
-    .map((x) => x.p)
-    .sort((a, b) => a - b);
 
 /** One comment explained: picture, the Torah words, the commentary, «Знаете ли вы?», the numbers, «Чему это учит?». */
 export function MemoInfo({ item, text, n, img }: { item: MemoItem; text: MemoItemText; n: number; img?: string }) {
@@ -123,7 +92,7 @@ export function MemoInfo({ item, text, n, img }: { item: MemoItem; text: MemoIte
 
 /** The face of a card: the picture alone, or the Torah words with a translation. */
 function Face({ card, item, text, img }: { card: Card; item: MemoItem; text: MemoItemText; img?: string }) {
-  return card.pic ? (
+  return card.a ? (
     <span className="mc-pic">{img && <img src={img} alt="" draggable={false} />}</span>
   ) : (
     <span className="mc-words">
@@ -158,7 +127,7 @@ function MemoCard({
       disabled={open}
       aria-label={
         open
-          ? card.pic
+          ? card.a
             ? t('memo.cardPic', { caption: text.caption })
             : t('memo.cardWords', { words: `${displayNames(item.verse)} — ${text.verse}` })
           : t('memo.closed')
@@ -180,69 +149,7 @@ export function Memo({ lesson, memo, text }: { lesson: Lesson; memo: MemoData; t
   const { t } = useI18n();
   const images = useMemo(() => memoImages(lesson), [lesson]);
   const total = memo.items.length;
-  const [screen, setScreen] = useState<Screen>('home');
-  const [pairs, setPairs] = useState<number[]>([]);
-  const [cards, setCards] = useState<Card[]>([]);
-  const [open, setOpen] = useState<number[]>([]);
-  const [found, setFound] = useState<number[]>([]);
-  const [moves, setMoves] = useState(0);
-  const [shown, setShown] = useState<number | null>(null);
-  const [ms, setMs] = useState(0);
-  const box = useRef<HTMLElement>(null);
-  const busy = open.length === 2;
-
-  const go = (s: Screen) => {
-    setScreen(s);
-    requestAnimationFrame(() => box.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
-  };
-
-  const play = (n: number) => {
-    const ps = n >= total ? [...Array(total).keys()] : somePairs(total, n);
-    setPairs(ps);
-    setCards(deal(ps));
-    setOpen([]);
-    setFound([]);
-    setMoves(0);
-    setMs(0);
-    go('game');
-  };
-
-  // timer while the board is in play (paused when the tab is hidden or an explanation is open)
-  useEffect(() => {
-    if (screen !== 'game' || shown !== null) return;
-    const id = setInterval(() => !document.hidden && setMs((x) => x + 1000), 1000);
-    return () => clearInterval(id);
-  }, [screen, shown]);
-
-  // two open cards: a pair stays and shows its explanation, otherwise both turn back
-  useEffect(() => {
-    if (open.length !== 2) return;
-    const [a, b] = open.map((i) => cards[i]);
-    if (a.p === b.p) {
-      const id = setTimeout(() => {
-        setFound((f) => [...f, a.p]);
-        setOpen([]);
-        setShown(a.p);
-      }, 500);
-      return () => clearTimeout(id);
-    }
-    const id = setTimeout(() => setOpen([]), 1400);
-    return () => clearTimeout(id);
-  }, [open, cards]);
-
-  const flip = (i: number) => {
-    if (busy || open.includes(i) || found.includes(cards[i].p)) return;
-    if (open.length === 1) setMoves((m) => m + 1);
-    setOpen((o) => [...o, i]);
-  };
-
-  const closeInfo = () => {
-    setShown(null);
-    if (found.length === pairs.length) {
-      go('end');
-      celebrate({ particleCount: 140, spread: 90, startVelocity: 40, origin: { y: 0.6 }, colors: ['#D8B565', '#A47C2F', '#2B4F95', '#2A7448'], disableForReducedMotion: true });
-    }
-  };
+  const { screen, go, play, pairs, cards, open, found, moves, ms, shown, flip, closeInfo, box } = usePairsGame(total);
 
   const example = 0;
   const rules = (
@@ -260,7 +167,7 @@ export function Memo({ lesson, memo, text }: { lesson: Lesson; memo: MemoData; t
             <span key={String(pic)} className="mc mc-sample">
               <span className="mc-in">
                 <span className="mc-face">
-                  <Face card={{ p: example, pic }} item={memo.items[example]} text={text.items[example]} img={images[example]} />
+                  <Face card={{ p: example, a: pic }} item={memo.items[example]} text={text.items[example]} img={images[example]} />
                 </span>
               </span>
             </span>
