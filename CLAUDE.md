@@ -36,6 +36,10 @@
   `python3 scripts/memo-frame.py`); страница `#/<slug>/memo` (`MemoPage.tsx`, `Memo.tsx`), печать `#/<slug>/print/memo`
   (`PrintMemo.tsx`). Числа, буквенные намёки и тексты на всех языках проверяет `npm run check`.
 - `src/components/Helper.tsx` — офлайн-помощник (кнопка ✦): гиматрия по шагам, первоисточники, частые вопросы.
+- Админка `#/admin` (`src/components/Admin.tsx`, `src/admin/github.ts`): вход GitHub-токеном (fine-grained, Contents RW на репо),
+  правка любых текстов уроков и интерфейса ru/en/de; черновик виден сразу в этом браузере, «Опубликовать» — коммит
+  `src/content/overrides.json` в `main` → деплой. Правки накладываются поверх исходников (`src/content/index.ts`);
+  `npm run check` ругается на правку несуществующего поля. Перед правкой исходника — перенести туда правку из overrides.
 - `assistant/` — сервер ИИ-чата (Cloudflare Worker, Claude API); пока скрыт, включается переменной `ASSISTANT_URL`.
 
 ## Новый урок — всегда по `docs/LESSON-GUIDE.md`

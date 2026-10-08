@@ -10,6 +10,8 @@ import { ShabbatRest, useShabbatRest } from './components/ShabbatRest';
 import { CardsPage } from './components/CardsPage';
 import { MathPage } from './components/MathPage';
 import { RebbePage } from './components/RebbePage';
+import { Admin } from './components/Admin';
+import { isAdmin } from './admin/github';
 import { OPS, type Op } from './core/mentalMath';
 import { Panels } from './components/Panels';
 import { TermPopover } from './components/TermPopover';
@@ -109,7 +111,9 @@ function Site() {
   const ui = useMemo(() => ({ panel, open, lessonSlug: lesson?.slug }), [panel, lesson]);
   return (
     <UIContext.Provider value={ui}>
-      {slug === 'math' ? (
+      {slug === 'admin' ? (
+        <Admin slug={view} />
+      ) : slug === 'math' ? (
         <MathPage op={OPS.includes(view as Op) ? (view as Op) : 'add'} />
       ) : slug === 'rebbe' && view in PARSHIOT ? (
         <RebbePage parsha={view as ParshaId} />
@@ -132,6 +136,11 @@ function Site() {
       <TermPopover />
       <Assistant />
       <DonateFab label={t('footer.donate')} />
+      {isAdmin() && slug !== 'admin' && view !== 'print' && (
+        <a className="admin-fab" href={lesson ? `#/admin/${lesson.slug}` : '#/admin'} title="Редактор текстов">
+          ✎ Править
+        </a>
+      )}
     </UIContext.Provider>
   );
 }

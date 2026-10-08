@@ -17,9 +17,11 @@
  *    picture explanations (caption) ≤ 45 characters, a `note` for a number without equal words
  *  - «Карточки» of a «Нифлаот Ребе» lesson: 12 pairs, every verse once (one explanation per verse), the card words
  *    in the verse's Hebrew, the explanation card ≤ 70 characters, texts in every language
+ *  - every text edit of src/content/overrides.json (made on the site, #/admin) names an existing text
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
  */
 import { LESSONS } from '../src/lessons';
+import { staleOverrides } from '../src/content';
 import { gematria, gematriaMilui } from '../src/core/gematria';
 import { coachResult } from '../src/core/coach';
 import { letterStepError, plainWord, tapStepError } from '../src/core/letterPuzzle';
@@ -212,6 +214,9 @@ checkHtml('sources', SOURCES);
 checkHtml('sources.ru', PROJECT_RU);
 checkHtml('sources.de', PROJECT_DE);
 checkHtml('sources.en', PROJECT_EN);
+
+// text edits made on the site must still name a text of the source files
+for (const k of staleOverrides) err(`src/content/overrides.json: ${k} — no such text (the source changed); remove the edit`);
 
 if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));

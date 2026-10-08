@@ -39,7 +39,7 @@ const CSP = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: blob:",
-  `connect-src 'self'${assistant ? ` ${assistant}` : ''}`,
+  `connect-src 'self' https://api.github.com${assistant ? ` ${assistant}` : ''}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

@@ -4,6 +4,7 @@ import baalHaturimBereshit from './01-baal-haturim-bereshit';
 import tikunPartzufZanav from './02-tikun-partzuf-zanav';
 import yikavuHamayim from './03-yikavu-hamayim';
 import shaloshShaot from './04-shalosh-shaot';
+import { installOverrides } from '../content';
 
 /**
  * Registry of all lessons, in order. To add a lesson:
@@ -12,6 +13,9 @@ import shaloshShaot from './04-shalosh-shaot';
  * A «Нифлаот Ребе» lesson (`series: 'rebbe'`) is listed under «Нифлаот Ребе» of its portion, numbered within it.
  */
 export const LESSONS: Lesson[] = [baalHaturimBereshit, tikunPartzufZanav, yikavuHamayim, shaloshShaot];
+
+// text edits made on the site by the admin (src/content/overrides.json)
+installOverrides(LESSONS);
 
 export const findLesson = (slug: string) => LESSONS.find((l) => l.slug === slug);
 
