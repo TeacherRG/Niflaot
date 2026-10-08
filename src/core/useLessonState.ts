@@ -10,8 +10,9 @@ export interface StepState {
   /** answer revealed after running out of tries */
   fail?: boolean;
   pts?: number;
-  /** outcome of the last attempt; `place` — the right word from letters in the wrong places («Собери слово») */
-  last?: 'ok' | 'no' | 'place';
+  /** outcome of the last attempt; `place` — the right word from letters in the wrong places,
+   *  `order` — the right letters in the wrong order («Собери слово») */
+  last?: 'ok' | 'no' | 'place' | 'order';
 }
 
 export interface GameState {

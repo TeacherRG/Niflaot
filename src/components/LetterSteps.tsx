@@ -19,7 +19,7 @@ export function LettersPuzzle({
   step: LettersStep;
   x: StepState;
   locked: boolean;
-  onCheck: (result: 'ok' | 'place' | 'no') => void;
+  onCheck: (result: 'ok' | 'place' | 'order' | 'no') => void;
 }) {
   const { t } = useI18n();
   const [picked, setPicked] = useState<number[]>([]);

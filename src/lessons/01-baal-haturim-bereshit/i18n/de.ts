@@ -33,8 +33,8 @@ const de: LessonText = {
           opts: ['„an Rosch Haschana erschaffen“', '„im Monat Nissan erschaffen“', '„am ersten Tag erschaffen“', '„in sechs Tagen erschaffen“'],
         },
         {
-          q: 'Bilde ein Wort aus den <b>letzten</b> Buchstaben der ersten drei Wörter der Tora. Nimm sie vom Ende her — vom dritten Wort zurück zum ersten.',
-          hint: 'Die letzten Buchstaben der Wörter sind markiert: ם, א, ת. Das Wort aus drei Buchstaben bedeutet „Wahrheit“.',
+          q: 'Bilde ein Wort aus den <b>letzten</b> Buchstaben der ersten drei Wörter der Tora. Die Buchstaben dürfen umgestellt werden.',
+          hint: 'Die letzten Buchstaben der Wörter sind markiert. Es ergibt ein Wort aus drei Buchstaben, das „Wahrheit“ bedeutet.',
         },
         {
           q: 'Im zweiten Kapitel heißt es: „Dies sind die Hervorbringungen des Himmels und der Erde <span class="he">בהבראם</span> — als sie erschaffen wurden“. Stelle <b>alle</b> Buchstaben dieses Wortes so um, dass „in Awraham“ entsteht — der Name des Erzvaters mit der Vorsilbe <span class="he">ב</span>.',
@@ -94,8 +94,8 @@ const de: LessonText = {
         },
         { q: 'Welches Wort hat dieselbe Gematria?', opts: ['„in der Tora“', '„Tora“', '„Glaube“', '„Gebot“'] },
         {
-          q: 'Bilde ein Wort aus den <b>letzten</b> Buchstaben von <span class="he">את האור כי טוב</span> („das Licht, dass es gut war“), vom letzten Wort zurück zum ersten.',
-          hint: 'Die letzten Buchstaben sind markiert; nimm sie von <span class="he">טוב</span> zurück bis <span class="he">את</span>. Es ergibt „Brit“ — Bund.',
+          q: 'Bilde ein Wort aus den <b>letzten</b> Buchstaben von <span class="he">את האור כי טוב</span> („das Licht, dass es gut war“). Die Buchstaben dürfen umgestellt werden.',
+          hint: 'Die letzten Buchstaben sind markiert. Es ergibt ein Wort, das „Bund“ bedeutet.',
         },
         { q: 'Was ergibt das Wort <span class="he">ויבדל</span> — „und Er schied“?', hint: '6 + 10 + 2 + 4 + 30.' },
         {
@@ -156,12 +156,12 @@ const de: LessonText = {
           hint: 'Erde heißt auf Hebräisch „adama“: אדמה.',
         },
         {
-          q: 'Bilde ein Wort aus den <b>letzten</b> Buchstaben von <span class="he">ויפח באפיו נשמת חיים</span> („und blies in seine Nase den Hauch des Lebens“).',
-          hint: 'Die letzten Buchstaben sind markiert. Es ergibt „Chotam“ — Siegel.',
+          q: 'Bilde ein Wort aus den <b>letzten</b> Buchstaben von <span class="he">ויפח באפיו נשמת חיים</span> („und blies in seine Nase den Hauch des Lebens“). Die Buchstaben dürfen umgestellt werden.',
+          hint: 'Die letzten Buchstaben sind markiert. Es ergibt ein Wort, das „Siegel“ bedeutet.',
         },
         {
           q: 'Und jetzt aus den <b>ersten</b> Buchstaben von <span class="he">האדם לנפש חיה</span> („der Mensch — zu einem lebendigen Wesen“). Sie müssen umgestellt werden.',
-          hint: 'Die ersten Buchstaben sind markiert. Es ergibt „Challa“.',
+          hint: 'Die ersten Buchstaben sind markiert. Es ergibt den Namen des Teigstücks, das abgetrennt und dem Kohen gegeben wird.',
         },
         {
           q: 'Der Allmächtige „brachte“ Chawa „zum Menschen“. Voll geschrieben heißt das Wort <span class="he">ויביאה</span>, in der Tora aber <span class="he">ויבאה</span>, „mangelhaft“. Tippe den Buchstaben an, der in der Tora fehlt.',

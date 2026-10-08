@@ -52,12 +52,14 @@ export const expectedTiles = (tiles: Tile[], take: Take) =>
 
 /**
  * Checks the tiles picked in order: `ok` — the answer from the right letters;
- * `place` — the right word, but some letters were taken from the wrong place; `no` — another word.
+ * `place` — the right word, but some letters were taken from the wrong place;
+ * `order` — the right letters in the wrong order; `no` — another word.
  */
-export function checkLetters(phrase: string, take: Take, answer: string, picked: number[]): 'ok' | 'place' | 'no' {
+export function checkLetters(phrase: string, take: Take, answer: string, picked: number[]): 'ok' | 'place' | 'order' | 'no' {
   const tiles = phraseTiles(phrase);
-  if (picked.map((i) => plainLetter(tiles[i].c)).join('') !== plainWord(answer)) return 'no';
   const exp = expectedTiles(tiles, take);
+  if (picked.map((i) => plainLetter(tiles[i].c)).join('') !== plainWord(answer))
+    return picked.length === exp.size && picked.every((i) => exp.has(i)) ? 'order' : 'no';
   return picked.every((i) => exp.has(i)) && picked.length === exp.size ? 'ok' : 'place';
 }
 
