@@ -251,6 +251,7 @@ const en: LessonText = {
     pieces: ["The waters gather to one place", "Mikveh, line and hope", "59: the “tail” that is sanctified", "Rule becomes union"],
     meaning: "The waters gathered to one place, the line stretched out, hope returned to its Source — and the nine led to the union of Yaakov and Rachel.",
   },
+  audience: 'Needs division and the average (grades 4–5); the ideas about the worlds are explained in the lesson.',
   practice:
     "Choose one “place” — a corner of your home or a time of day — and make it “one place”: there you pray, learn or speak a kind word. And take one of your desires and, instead of suppressing it, sanctify it: direct it toward good.",
   highlight: "The ninth verse of the Torah and the “tail” share one number: 59.",

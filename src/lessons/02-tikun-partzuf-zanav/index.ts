@@ -14,6 +14,7 @@ const lesson: Lesson = {
   parsha: 'bereshit',
   hebrewTitle: 'תיקון פרצוף־זנב',
   year: 'ה׳תשפ״ז · 5787',
+  age: 12,
   heroLetters: ['פ', 'ז'],
   legacyStorageKey: 'tikun-pz',
   riddles: [

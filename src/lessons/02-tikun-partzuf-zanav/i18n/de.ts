@@ -204,6 +204,7 @@ const de: LessonText = {
     pieces: ['Hochmut und Begierde — ein Feuer', 'Das Gebet verbindet beide Seiten', 'Drei Gesichter Mosches — vor ganz Israel', 'Mann und Frau — von Angesicht zu Angesicht'],
     meaning: 'Gesicht und Schwanz, Hochmut und Leidenschaft werden im Gebet verbunden, vor den Augen von ganz Israel offenbart und begegnen einander von Angesicht zu Angesicht.',
   },
+  audience: 'Themen Hochmut, Begierde und Ehe, Quadratzahlen und Division — für Jugendliche und Erwachsene.',
   practice:
     'Frage dich diese Woche vor dem Gebet: Was ist gerade stärker in mir — der Wunsch, gut dazustehen, oder der Wunsch, zu bekommen? Und sieh einmal am Tag einen nahen Menschen „von Angesicht zu Angesicht“ an: Sprich laut ein Gutes aus, das du in ihm siehst.',
   highlight: 'Hochmut und Begierde wiegen gleich viel: Beide sind Feuer (אש = 471).',

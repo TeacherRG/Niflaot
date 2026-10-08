@@ -11,6 +11,9 @@ const en: Messages = {
   'menu.allLessons': 'All lessons',
   'lang.choose': 'Interface language',
   'hero.howTo': 'How to play',
+  'age.short': '{n}+',
+  'age.long': 'ages {n} and up, adults too',
+  'age.title': 'Recommended age',
 
   'help.title': 'How to play',
   'help.body':

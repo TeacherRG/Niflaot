@@ -4,6 +4,7 @@ import { LESSONS, LESSON_GROUPS } from '../lessons';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { TagCloud } from './TagCloud';
+import { AgeBadge } from './AgeBadge';
 import { Icon, useUI } from './ui';
 
 function progress(slug: string, legacy?: string): number {
@@ -87,6 +88,7 @@ export function Catalog() {
                       <span className="heb">{l.hebrewTitle}</span>
                       <h3>{text.title}</h3>
                       <p>{text.summary}</p>
+                      <AgeBadge age={l.age} />
                     </a>
                   );
                 })}

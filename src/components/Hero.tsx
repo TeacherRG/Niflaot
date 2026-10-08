@@ -2,6 +2,7 @@ import { Html, useI18n } from '../i18n';
 import type { Lesson, LessonText } from '../lessons/types';
 import { PARSHIOT } from '../lessons/parshiot';
 import { Icon, useUI } from './ui';
+import { AgeBadge } from './AgeBadge';
 
 export function Hero({ lesson, text }: { lesson: Lesson; text: LessonText }) {
   const { t } = useI18n();
@@ -15,6 +16,10 @@ export function Hero({ lesson, text }: { lesson: Lesson; text: LessonText }) {
         <div className="heb gold-text">{lesson.hebrewTitle}</div>
         <Html as="h1" html={text.hero.heading} />
         <div className="author">{text.hero.author}</div>
+        <p className="hero-age">
+          <AgeBadge age={lesson.age} />
+          <span className="hero-age-note">{text.audience}</span>
+        </p>
         <p className="hero-intro">{text.hero.intro}</p>
         <div className="hero-actions">
           <button className="btn ghost hero-help" onClick={() => open('help')}>

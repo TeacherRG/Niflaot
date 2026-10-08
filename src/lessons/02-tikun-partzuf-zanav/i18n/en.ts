@@ -207,6 +207,7 @@ const en: LessonText = {
     pieces: ["Pride and desire — one fire", "Prayer joins both sides", "Moshe’s three faces — before all Israel", "Husband and wife — face to face"],
     meaning: "Face and tail, pride and passion are joined in prayer, revealed before the eyes of all Israel, and meet face to face.",
   },
+  audience: 'Themes of pride, desire and marriage, squares and division — for teenagers and adults.',
   practice:
     "This week, before praying, ask yourself: what is stronger in me right now — the wish to appear or the wish to receive? And once a day, look at someone close to you “face to face”: say out loud one good thing you see in them.",
   highlight: "Pride and desire weigh the same: both are fire (אש = 471).",
