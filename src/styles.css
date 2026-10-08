@@ -947,9 +947,7 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .shabbat-he{font-family:var(--f-he);font-weight:900;font-size:clamp(44px,12vw,72px);line-height:1.1;color:var(--gold)}
 .shabbat-rest h1{margin:0;font-family:var(--f-display);font-weight:700;font-size:clamp(30px,7vw,44px);line-height:1.1;color:var(--ink)}
 .shabbat-rest p{margin:0;max-width:460px;font-size:17px;line-height:1.55;color:var(--ink-2)}
-.shabbat-times{font-weight:600;color:var(--ink)!important}
 .shabbat-back{font-weight:700;color:var(--tchelet)!important}
-.shabbat-note{font-size:13px!important;color:var(--muted)!important}
 .shabbat-brand{margin-top:14px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 
 /* «Нифлаот Ребе»: the section of a portion on the home page, its page, the «Карточки» game */

@@ -7,8 +7,6 @@ export interface Place {
   lon: number;
   /** city name: English (Latin), and Russian / German where it differs */
   name: { en: string; ru: string; de?: string };
-  /** minutes before sunset to light the candles (Jerusalem: 40) */
-  candles?: number;
 }
 
 // [time zone, latitude, longitude, Russian name, German name if different from English]
@@ -129,5 +127,5 @@ export function placeOf(tz = timeZone()): Place | null {
   if (!z) return null;
   const [id, lat, lon, ru, de] = z;
   const en = id.split('/').pop()!.replace(/_/g, ' ');
-  return { lat, lon, name: { en, ru, de }, candles: id === 'Asia/Jerusalem' ? 40 : undefined };
+  return { lat, lon, name: { en, ru, de } };
 }
