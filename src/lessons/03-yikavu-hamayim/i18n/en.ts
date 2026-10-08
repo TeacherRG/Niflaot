@@ -154,7 +154,7 @@ const en: LessonText = {
       ],
       reveal: {
         h: 'The common denominator — the “tail”',
-        p: 'The average letter of the ninth verse is 59, and Bilam’s verse is exactly 27 times 59. So the two “ninth” verses share the number 59. And 59 is the “tail” (זנב) of the first lesson: the new lesson connects to the debate over the “face” and the “tail”. Two more words equal 59 — the name Yechiel (יחיאל) and “mother of the living” (אם חי). Both hide the word חי — “life”.',
+        p: 'The average letter of the ninth verse is 59, and Bilam’s verse is exactly 27 times 59. So the two “ninth” verses share the number 59. And 59 is the “tail” (זנב) of the lesson “Tikun Partzuf-Zanav”: this lesson connects to the debate over the “face” and the “tail”. Two more words equal 59 — the name Yechiel (יחיאל) and “mother of the living” (אם חי). Both hide the word חי — “life”.',
       },
       lessons: [
         {
@@ -167,7 +167,7 @@ const en: LessonText = {
         },
         {
           h: '59 is the “tail”',
-          b: `<p>Most importantly, 59 is the gematria of “tail” (<span class="he">זנב</span>). This is the secret of the debate from the previous lesson: “one said a face, the other said a tail”<sup data-src="berakhot-61a"></sup>, about what woman was created from.</p><p>In Kabbalah the “tail” points to Yesod — the ninth attribute — in its state of “smallness” (katnut). It is also the secret of the primordial snake that seduced Chava.<sup data-src="shabbat-146a"></sup> There lies the root of bodily desire: “and your desire shall be to your husband”.<sup data-src="gen-3-16"></sup> So the ninth verse is tied to the ninth attribute, and the ninth attribute to the “tail”.</p>`,
+          b: `<p>Most importantly, 59 is the gematria of “tail” (<span class="he">זנב</span>). This is the secret of the debate from the lesson “Tikun Partzuf-Zanav”: “one said a face, the other said a tail”<sup data-src="berakhot-61a"></sup>, about what woman was created from.</p><p>In Kabbalah the “tail” points to Yesod — the ninth attribute — in its state of “smallness” (katnut). It is also the secret of the primordial snake that seduced Chava.<sup data-src="shabbat-146a"></sup> There lies the root of bodily desire: “and your desire shall be to your husband”.<sup data-src="gen-3-16"></sup> So the ninth verse is tied to the ninth attribute, and the ninth attribute to the “tail”.</p>`,
         },
         {
           h: 'Sanctified desire',
@@ -178,7 +178,7 @@ const en: LessonText = {
       takeaways: [
         "The ninth verse = 3068 = 13 × 236 (ורב כח — “the measure of the Creator”); without the word “one” — 3055 = 5 × תורה.",
         "The average letter = 3068 : 52 = 59. The ninth verse of Balak = 1593 = 27 × 59.",
-        "59 = זנב — the “tail” of the first lesson: the nine leads to Yesod and to the debate over what Chava was created from. 59 is also the name Yechiel (“may G-d live”) and “mother of the living” (אם חי) — Chava: both contain חי, “life”.",
+        "59 = זנב — the “tail” of the lesson “Tikun Partzuf-Zanav”: the nine leads to Yesod and to the debate over what Chava was created from. 59 is also the name Yechiel (“may G-d live”) and “mother of the living” (אם חי) — Chava: both contain חי, “life”.",
         "Desire is sanctified: “the desire of the righteous is only good”.",
       ],
       puzzle: {

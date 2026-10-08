@@ -1,14 +1,15 @@
 import type { Lesson } from './types';
 import { PARSHIOT, type ParshaId } from './parshiot';
-import tikunPartzufZanav from './01-tikun-partzuf-zanav';
-import yikavuHamayim from './02-yikavu-hamayim';
+import baalHaturimBereshit from './01-baal-haturim-bereshit';
+import tikunPartzufZanav from './02-tikun-partzuf-zanav';
+import yikavuHamayim from './03-yikavu-hamayim';
 
 /**
- * Registry of all lessons, in order. To add lesson #2:
- *   1. copy `01-tikun-partzuf-zanav/` to `02-<slug>/` and fill in data + i18n,
- *   2. import it here and append it to the list.
+ * Registry of all lessons, in order. To add a lesson:
+ *   1. copy the last lesson folder to `NN-<slug>/` and fill in data + i18n,
+ *   2. import it here and put it into the list (its position = its place in the menu).
  */
-export const LESSONS: Lesson[] = [tikunPartzufZanav, yikavuHamayim];
+export const LESSONS: Lesson[] = [baalHaturimBereshit, tikunPartzufZanav, yikavuHamayim];
 
 export const findLesson = (slug: string) => LESSONS.find((l) => l.slug === slug);
 

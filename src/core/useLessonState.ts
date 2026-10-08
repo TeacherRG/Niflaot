@@ -5,12 +5,13 @@ export interface StepState {
   tries: number;
   hint: boolean;
   ok: boolean;
-  /** picked option indices (choice steps) */
+  /** picked option indices (choice steps) or tapped letters («Найди букву») */
   pick: number[];
   /** answer revealed after running out of tries */
   fail?: boolean;
   pts?: number;
-  last?: 'ok' | 'no';
+  /** outcome of the last attempt; `place` — the right word from letters in the wrong places («Собери слово») */
+  last?: 'ok' | 'no' | 'place';
 }
 
 export interface GameState {
@@ -31,7 +32,7 @@ export interface GameState {
   puz: Record<string, number[]>;
 }
 
-export const MAX_WRONG = { num: 3, ch: 2 } as const;
+export const MAX_WRONG = { num: 3, ch: 2, lt: 3, tap: 2 } as const;
 
 export const storageKey = (lesson: Lesson) => `niflaot:lesson:${lesson.slug}`;
 

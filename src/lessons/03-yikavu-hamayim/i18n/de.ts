@@ -157,7 +157,7 @@ const de: LessonText = {
       ],
       reveal: {
         h: 'Der gemeinsame Nenner — der „Schwanz“',
-        p: 'Der durchschnittliche Buchstabe des neunten Verses ist 59, und der Vers Bilams ist genau 27-mal 59. Die beiden „neunten“ Verse haben also die gemeinsame Zahl 59. Und 59 ist der „Schwanz“ (זנב) aus der ersten Lektion: So schließt sich die neue Lektion an den Streit um „Gesicht“ und „Schwanz“ an. Die Zahl 59 hat noch zwei „Namensvettern“ — den Namen Jechiel (יחיאל) und die Worte „Mutter des Lebendigen“ (אם חי). In beiden ist das Wort חי verborgen — „Leben“.',
+        p: 'Der durchschnittliche Buchstabe des neunten Verses ist 59, und der Vers Bilams ist genau 27-mal 59. Die beiden „neunten“ Verse haben also die gemeinsame Zahl 59. Und 59 ist der „Schwanz“ (זנב) aus der Lektion „Tikkun Parzuf-Sanaw“: So schließt sich diese Lektion an den Streit um „Gesicht“ und „Schwanz“ an. Die Zahl 59 hat noch zwei „Namensvettern“ — den Namen Jechiel (יחיאל) und die Worte „Mutter des Lebendigen“ (אם חי). In beiden ist das Wort חי verborgen — „Leben“.',
       },
       lessons: [
         {
@@ -170,7 +170,7 @@ const de: LessonText = {
         },
         {
           h: '59 ist der „Schwanz“',
-          b: `<p>Und vor allem: 59 ist die Gematria des Wortes „Schwanz“ (<span class="he">זנב</span>). Das ist das Geheimnis des Streits aus der vorigen Lektion: „Einer sagte — Gesicht, der andere sagte — Schwanz“<sup data-src="berakhot-61a"></sup>, darüber, woraus die Frau erschaffen wurde.</p><p>In der Kabbala weist der „Schwanz“ auf Jessod hin — die neunte Eigenschaft — im Zustand der „Kleinheit“ (Katnut). Das ist auch das Geheimnis der Urschlange, die Chawa verführte.<sup data-src="shabbat-146a"></sup> Dort liegt die Wurzel des körperlichen Verlangens: „und zu deinem Mann wird dein Verlangen sein“.<sup data-src="gen-3-16"></sup> So ist der neunte Vers mit der neunten Eigenschaft verbunden und die neunte Eigenschaft mit dem „Schwanz“.</p>`,
+          b: `<p>Und vor allem: 59 ist die Gematria des Wortes „Schwanz“ (<span class="he">זנב</span>). Das ist das Geheimnis des Streits aus der Lektion „Tikkun Parzuf-Sanaw“: „Einer sagte — Gesicht, der andere sagte — Schwanz“<sup data-src="berakhot-61a"></sup>, darüber, woraus die Frau erschaffen wurde.</p><p>In der Kabbala weist der „Schwanz“ auf Jessod hin — die neunte Eigenschaft — im Zustand der „Kleinheit“ (Katnut). Das ist auch das Geheimnis der Urschlange, die Chawa verführte.<sup data-src="shabbat-146a"></sup> Dort liegt die Wurzel des körperlichen Verlangens: „und zu deinem Mann wird dein Verlangen sein“.<sup data-src="gen-3-16"></sup> So ist der neunte Vers mit der neunten Eigenschaft verbunden und die neunte Eigenschaft mit dem „Schwanz“.</p>`,
         },
         {
           h: 'Geheiligtes Verlangen',
@@ -181,7 +181,7 @@ const de: LessonText = {
       takeaways: [
         'Der neunte Vers = 3068 = 13 × 236 (ורב כח — „Maß des Schöpfers“); ohne das Wort „eins“ — 3055 = 5 × תורה.',
         'Der durchschnittliche Buchstabe des Verses = 3068 : 52 = 59. Der neunte Vers des Abschnitts Balak = 1593 = 27 × 59.',
-        '59 = זנב — der „Schwanz“ aus der ersten Lektion: Die Neun führt zu Jessod und zum Streit darüber, woraus Chawa erschaffen wurde. 59 ist auch der Name Jechiel („G-tt möge leben“) und „Mutter des Lebendigen“ (אם חי) — Chawa: In beiden steht חי, „Leben“.',
+        '59 = זנב — der „Schwanz“ aus der Lektion „Tikkun Parzuf-Sanaw“: Die Neun führt zu Jessod und zum Streit darüber, woraus Chawa erschaffen wurde. 59 ist auch der Name Jechiel („G-tt möge leben“) und „Mutter des Lebendigen“ (אם חי) — Chawa: In beiden steht חי, „Leben“.',
         'Das Verlangen wird geheiligt: „Das Verlangen der Gerechten ist nur Gutes“.',
       ],
       puzzle: {

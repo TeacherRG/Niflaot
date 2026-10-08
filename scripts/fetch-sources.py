@@ -22,7 +22,7 @@ Finding a passage for a new lesson (no Sefaria API needed — the export is publ
 and a ready-to-paste SOURCES entry. Then add the entry below and run the script without arguments.
 See docs/LESSON-GUIDE.md.
 """
-import json, re, sys, urllib.parse, urllib.request
+import json, re, sys, time, urllib.parse, urllib.request
 from pathlib import Path
 
 BASE = 'https://storage.googleapis.com/sefaria-export/json/'
@@ -42,6 +42,12 @@ BAVLI_DE = 'English/Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de
 BAVLI_HE = 'Hebrew/William Davidson Edition - Aramaic.json'
 BAVLI_EN = 'English/William Davidson Edition - English.json'
 
+# Kitzur Ba'al HaTurim on Genesis: one comment (all its segments) on chapter ch, verse v
+BHT = "Tanakh/Rishonim on Tanakh/Kitzur Ba'al HaTurim/Torah/Kitzur Ba'al HaTurim on Genesis/"
+def bht(ch, v):
+    return ('custom', f'Бааль а-Турим, Берешит {ch}:{v}', f"Ba'al HaTurim, Genesis {ch}:{v}", f'Baal HaTurim, Bereschit {ch},{v}',
+            f"Kitzur Ba'al HaTurim on Genesis {ch}:{v}", 'Commentary', BHT + 'Hebrew/On Your Way.json', BHT + 'English/Sefaria Community Translation.json', None, [ch - 1, v - 1])
+
 BOOK = {
     'Genesis': ('Tanakh/Torah/Genesis/', 'Берешит', 'Torah'),
     'Exodus': ('Tanakh/Torah/Exodus/', 'Шмот', 'Torah'),
@@ -50,6 +56,7 @@ BOOK = {
     'Ezekiel': ('Tanakh/Prophets/Ezekiel/', 'Йехезкель', 'Prophets'),
     'I Kings': ('Tanakh/Prophets/I Kings/', 'Млахим I', 'Prophets'),
     'Psalms': ('Tanakh/Writings/Psalms/', 'Тегилим', 'Writings'),
+    'Job': ('Tanakh/Writings/Job/', 'Иов', 'Writings'),
     'Proverbs': ('Tanakh/Writings/Proverbs/', 'Мишлей', 'Writings'),
     'Ecclesiastes': ('Tanakh/Writings/Ecclesiastes/', 'Коэлет', 'Writings'),
     'Berakhot': ('Talmud/Bavli/Seder Zeraim/Berakhot/', 'Брахот', 'Talmud'),
@@ -105,6 +112,23 @@ SOURCES = {
     'zohar-tet': ('custom', 'Зоар, Предисловие (I, 3а)', 'Zohar, Introduction (I, 3a)', 'Sohar, Einleitung (I, 3a)', 'Zohar, Introduction 6:12', 'Zohar',
                   'Kabbalah/Zohar/Zohar/Hebrew/Sulam Edition, Jerusalem 1945.json',
                   'Kabbalah/Zohar/Zohar/English/The Zohar; London, Soncino Press, 1933.json', None, ['Introduction', 5, 11]),
+    # lesson «Ba'al HaTurim: Bereshit»
+    **{f'bht-{c}-{v}': bht(c, v) for c, v in [(1, 1), (1, 2), (1, 4), (1, 7), (1, 12), (1, 14), (1, 27), (1, 31), (2, 2), (2, 3),
+                                              (2, 4), (2, 7), (2, 22), (3, 11), (3, 12), (3, 21), (3, 24), (4, 7), (4, 18)]},
+    'ps-119-160': ('Psalms', 119, 160, 160),
+    'ps-96-11': ('Psalms', 96, 11, 11),
+    'job-16-19': ('Job', 16, 19, 19),
+    'prov-17-13': ('Proverbs', 17, 13, 13),
+    'prov-20-27': ('Proverbs', 20, 27, 27),
+    'berakhot-51b': ('Berakhot', '51b', 16, 16),
+    'gen-1-27': ('Genesis', 1, 27, 27),
+    'gen-2-1': ('Genesis', 2, 1, 3),
+    'gen-2-4': ('Genesis', 2, 4, 4),
+    'gen-2-7': ('Genesis', 2, 7, 7),
+    'gen-3-11': ('Genesis', 3, 11, 12),
+    'gen-3-21': ('Genesis', 3, 21, 21),
+    'gen-5-21': ('Genesis', 5, 21, 24),
+    'ex-19-3': ('Exodus', 19, 3, 3),
     'tanya-ih-20': ('custom', 'Тания, Игерет а-Кодеш 20', 'Tanya, Iggeret HaKodesh 20', 'Tanja, Iggeret HaKodesch 20', 'Tanya, Part IV; Iggeret HaKodesh 20:29', 'Chasidut',
                     'Chasidut/Chabad/Tanya/Hebrew/Kehot Publication Society.json',
                     'Chasidut/Chabad/Tanya/English/Kehot Publication Society English Translation.json', None,
@@ -114,12 +138,13 @@ SOURCES = {
 KIND = {
     'Torah': ('Тора', 'Torah'), 'Prophets': ('Пророки', 'Prophets'), 'Writings': ('Писания', 'Writings'),
     'Talmud': ('Гемара', 'Gemara'), 'Midrash': ('Мидраш', 'Midrash'), 'Chasidut': ('Хасидут', 'Chassidut'), 'Zohar': ('Зоар', 'Zohar'),
+    'Commentary': ('Комментарий', 'Commentary'),
 }
 EN_BOOK = {'I Kings': 'I Kings'}
-KIND_DE = {'Torah': 'Tora', 'Prophets': 'Propheten', 'Writings': 'Schriften', 'Talmud': 'Gemara', 'Midrash': 'Midrasch', 'Chasidut': 'Chassidut', 'Zohar': 'Sohar'}
+KIND_DE = {'Torah': 'Tora', 'Prophets': 'Propheten', 'Writings': 'Schriften', 'Talmud': 'Gemara', 'Midrash': 'Midrasch', 'Chasidut': 'Chassidut', 'Zohar': 'Sohar', 'Commentary': 'Kommentar'}
 DE_NAME = {
     'Genesis': 'Bereschit', 'Exodus': 'Schemot', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Dewarim', 'Ezekiel': 'Jecheskel',
-    'I Kings': 'I Könige', 'Psalms': 'Tehillim', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
+    'I Kings': 'I Könige', 'Psalms': 'Tehillim', 'Job': 'Ijob', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
     'Berakhot': 'Berachot', 'Shabbat': 'Schabbat', 'Yevamot': 'Jewamot', 'Chullin': 'Chullin',
 }
 
@@ -128,8 +153,14 @@ def load(path):
     if path not in _cache:
         url = BASE + urllib.parse.quote(path)
         sys.stderr.write(f'  ↓ {path}\n')
-        with urllib.request.urlopen(url, timeout=180) as r:
-            _cache[path] = json.load(r)
+        for attempt in range(5):  # the export sometimes drops connections: retry with backoff
+            try:
+                with urllib.request.urlopen(url, timeout=180) as r:
+                    _cache[path] = json.load(r)
+                break
+            except OSError:
+                if attempt == 4: raise
+                time.sleep(2 ** (attempt + 1))
     return _cache[path]
 
 def daf_index(daf):  # '61a' → 120 (Sefaria Talmud arrays start at 1a)

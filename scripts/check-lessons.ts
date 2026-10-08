@@ -4,19 +4,23 @@
  *  - every option value (v) equals the real gematria of the option
  *  - every footnote mark points to one of the riddle's sources, every source has a mark (ru and en)
  *  - every source exists in src/sources/sefaria.json; non-Torah sources have a Russian translation;
- *    every source has a German one (Sefaria's or the project's, src/sources/de.ts)
+ *    every source has a German one (Sefaria's or the project's, src/sources/de.ts);
+ *    the project's English (src/sources/en.ts) has as many segments as the original
  *  - every lesson has texts in every language of src/i18n/config.ts
  *  - «Собери смысл»: every riddle and the lesson have a puzzle of 3–6 distinct pieces, the same count in every language
- *  - word cards don't show the answer of a choice step
+ *  - word cards don't show the answer of a choice or «Собери слово» step
+ *  - letter steps: the letters the rule takes make the answer; «Найди букву» points at a real letter
  *  - every step has an estimate: average time 5–600 s and difficulty 1–3
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
  */
 import { LESSONS } from '../src/lessons';
 import { gematria, gematriaMilui } from '../src/core/gematria';
 import { coachResult } from '../src/core/coach';
+import { letterStepError, plainWord, tapStepError } from '../src/core/letterPuzzle';
 import { SOURCES } from '../src/sources';
 import { PROJECT_RU } from '../src/sources/ru';
 import { PROJECT_DE } from '../src/sources/de';
+import { PROJECT_EN } from '../src/sources/en';
 import { LOCALES } from '../src/i18n/config';
 import type { PuzzleText } from '../src/lessons/types';
 import ruUi from '../src/i18n/locales/ru';
@@ -56,6 +60,12 @@ for (const lesson of LESSONS) {
             err(`${where(i)}: ${(e as Error).message}`);
           }
         }
+      } else if (s.t === 'lt') {
+        const e = letterStepError(s.from, s.take, s.a);
+        if (e) err(`${where(i)}: ${e}`);
+      } else if (s.t === 'tap') {
+        const e = tapStepError(s.word, s.a, s.written);
+        if (e) err(`${where(i)}: ${e}`);
       } else {
         s.opts.forEach((o) => {
           if (o.v !== undefined && /[א-ת]/.test(o.h) && !/[+:×−]/.test(o.h)) {
@@ -75,9 +85,12 @@ for (const lesson of LESSONS) {
       else if (src && src.de && src.de.length !== src.he.length) err(`${where()}: ${id} — ${src.de.length} German segments for ${src.he.length} original ones`);
       else if (src && !src.de && PROJECT_DE[id].length !== src.he.length)
         err(`${where()}: ${id} — ${PROJECT_DE[id].length} German segments for ${src.he.length} original ones`);
+      if (src && PROJECT_EN[id] && PROJECT_EN[id].length !== src.he.length)
+        err(`${where()}: ${id} — ${PROJECT_EN[id].length} English segments for ${src.he.length} original ones`);
     }
     r.steps.forEach((s, i) => {
       if (s.t === 'ch' && r.words.includes(s.opts[s.c].h)) err(`${where(i)}: the answer ${s.opts[s.c].h} is shown on a word card`);
+      if (s.t === 'lt' && r.words.some((w) => plainWord(w) === plainWord(s.a))) err(`${where(i)}: the answer ${s.a} is shown on a word card`);
     });
     checkPuzzle(where(), Object.entries(lesson.texts).map(([l, tx]) => [l, tx!.riddles[ri].puzzle]));
     for (const [lang, text] of Object.entries(lesson.texts)) {
@@ -108,6 +121,8 @@ checkHtml('ui.ru', ruUi);
 checkHtml('ui.en', enUi);
 checkHtml('sources', SOURCES);
 checkHtml('sources.ru', PROJECT_RU);
+checkHtml('sources.de', PROJECT_DE);
+checkHtml('sources.en', PROJECT_EN);
 
 if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));

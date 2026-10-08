@@ -1,6 +1,7 @@
 import data from './sefaria.json';
 import { PROJECT_RU } from './ru';
 import { PROJECT_DE } from './de';
+import { PROJECT_EN } from './en';
 import type { Locale } from '../i18n';
 
 /** Languages a source can carry besides Hebrew; English is always there. */
@@ -20,8 +21,11 @@ export interface Source {
 
 export const SOURCES = data as unknown as Record<string, Source>;
 
-/** The project's own translations for passages Sefaria has no version of in that language. */
-export const PROJECT: Partial<Record<Locale, Record<string, string[]>>> = { ru: PROJECT_RU, de: PROJECT_DE };
+/**
+ * The project's own translations for passages Sefaria has no version of in that language
+ * (English: where Sefaria's only English is a rough community translation).
+ */
+export const PROJECT: Partial<Record<Locale, Record<string, string[]>>> = { ru: PROJECT_RU, de: PROJECT_DE, en: PROJECT_EN };
 
 /** Kind and title of a source in the reader's language (English if there is none). */
 export const sourceLabel = (s: Source, locale: Locale) => ({
@@ -29,8 +33,12 @@ export const sourceLabel = (s: Source, locale: Locale) => ({
   title: s.title[locale as Lang] ?? s.title.en,
 });
 
-/** Translation for the reader's language: Sefaria’s own if it exists, else the project's, else English. */
+/**
+ * Translation for the reader's language: Sefaria’s own if it exists, else the project's, else English.
+ * In English the project's translation, where there is one, replaces Sefaria's community version.
+ */
 export function translation(s: Source, id: string, locale: Locale): { lines: string[]; by: 'sefaria' | 'project'; version?: string; license?: string } {
+  if (locale === 'en' && PROJECT.en?.[id]) return { lines: PROJECT.en[id], by: 'project' };
   if (locale !== 'en') {
     const own = s[locale as Lang];
     if (own) return { lines: own, by: 'sefaria', version: s.versions[locale as Lang]?.title, license: s.versions[locale as Lang]?.license };

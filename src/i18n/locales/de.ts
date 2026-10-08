@@ -23,7 +23,7 @@ const de: Messages = {
 
   'about.title': 'Über das Projekt',
   'about.body':
-    '<p><b>Niflaot</b> ist eine Reihe von Gematria-Spielen nach Artikeln von Rabbiner Jizchak Ginsburgh aus der Broschüre „Niflaot“ (Gal Einai). Du zählst die Zahlenwerte von Wörtern, entdeckst verborgene Gleichheiten und erschließt Schritt für Schritt ihren Sinn.</p><h4>Was du hier tun kannst</h4><ul><li><b>Lektionen lösen.</b> Jedes Rätsel ist ein Abschnitt des Artikels mit einigen hebräischen Wörtern; die Gleichheit findest du selbst, danach öffnen sich die Lösung, die Lektion und eine Frage an dich selbst.</li><li><b>Kopfrechnen mit heiliger Gematria lernen.</b> Kein Rechner zählt die Buchstaben zusammen — das tust du. Der Abschnitt „Kopfrechnen“ im Menü zeigt je eine sichere Methode für Addition, Subtraktion, Multiplikation und Division, mit Beispielen aus unseren Lektionen und einem Trainer in drei Stufen. Zahlen aus der Tora werden zur besten Übung für den Verstand.</li><li><b>Die Quellen lesen.</b> Unter jeder Lektion stehen die Toraverse, Midraschim und Kommentare, auf die sie sich stützt: das hebräische Original und eine Übersetzung nebeneinander, mit einem Link zu Sefaria. Jede Aussage kannst du nachprüfen und vertiefen.</li><li><b>Den Helfer rufen.</b> Die Taste ✦ in der Ecke zerlegt die Gematria jedes Wortes in Schritte — so, wie man im Kopf rechnet —, sammelt die Quellen der Lektion und beantwortet häufige Fragen.</li><li><b>Eine Lektion drucken</b> — zum Lernen am Tisch, im Unterricht oder am Schabbat.</li></ul><h4>Für wen</h4><ul><li><b>Eltern</b> — um mit ihren Kindern spielerisch Tora zu lernen.</li><li><b>Chitas-Leser</b> — als Fortsetzung des täglichen Lernens.</li><li><b>Junge Talente</b> — alle, die Zahlen, Rätsel und Tiefe lieben.</li><li><b>Alle</b>, die im eigenen Leben Wunder — <i>Niflaot</i> — sehen möchten.</li></ul><h4>Ziele</h4><ul><li><b>Tora lernen.</b> Nicht passives Lesen, sondern lebendiges Suchen: Jede Gleichheit findest du selbst, und deshalb bleibt ihr Sinn bei dir.</li><li><b>Die Eigenschaften der Seele berichtigen.</b> Jede Lektion behandelt bestimmte Eigenschaften — Hochmut, Begierde, Zorn, Liebe — und führt vom Verstehen zur Arbeit an sich selbst.</li><li><b>Ein klarer Kopf.</b> Kopfrechnen schult Aufmerksamkeit und Gedächtnis, und heilige Wörter geben dieser Übung einen Sinn.</li></ul><h4>Aufgaben</h4><ul><li>Die tiefen Artikel von Rabbiner Ginsburgh spielerisch zugänglich machen: Rätsel, Lösung, Nacherzählung der Lektion.</li><li>Jede Lektion auf Quellen stützen, die jeder selbst lesen kann.</li><li>Wissen in persönliche Arbeit verwandeln: nach jedem Rätsel eine Frage an dich selbst und Platz für deine Notizen.</li><li>Regelmäßig neue Lektionen veröffentlichen und in weitere Sprachen übersetzen.</li></ul><p>Der vollständige hebräische Text der Artikel steht auf pnimi.org.il. Alle Texte gehören vollständig Rabbiner Jizchak Ginsburgh. Die Quellen stammen aus der freien Bibliothek Sefaria. Idee und Umsetzung — das Tora-Projekt <a href="https://mychitas.app" target="_blank" rel="noopener">mychitas.app</a>.</p><p>Website: <a href="https://niflaot.mychitas.app">niflaot.mychitas.app</a></p>',
+    '<p><b>Niflaot</b> ist eine Reihe von Gematria-Spielen nach Artikeln von Rabbiner Jizchak Ginsburgh aus der Broschüre „Niflaot“ (Gal Einai) und nach klassischen Torakommentaren wie dem Baal HaTurim. Du zählst die Zahlenwerte von Wörtern, entdeckst verborgene Gleichheiten und erschließt Schritt für Schritt ihren Sinn.</p><h4>Was du hier tun kannst</h4><ul><li><b>Lektionen lösen.</b> Jedes Rätsel ist ein Abschnitt eines Artikels oder Kommentars mit einigen hebräischen Wörtern; die Gleichheit findest du selbst, danach öffnen sich die Lösung, die Lektion und eine Frage an dich selbst.</li><li><b>Kopfrechnen mit heiliger Gematria lernen.</b> Kein Rechner zählt die Buchstaben zusammen — das tust du. Der Abschnitt „Kopfrechnen“ im Menü zeigt je eine sichere Methode für Addition, Subtraktion, Multiplikation und Division, mit Beispielen aus unseren Lektionen und einem Trainer in drei Stufen. Zahlen aus der Tora werden zur besten Übung für den Verstand.</li><li><b>Die Quellen lesen.</b> Unter jeder Lektion stehen die Toraverse, Midraschim und Kommentare, auf die sie sich stützt: das hebräische Original und eine Übersetzung nebeneinander, mit einem Link zu Sefaria. Jede Aussage kannst du nachprüfen und vertiefen.</li><li><b>Den Helfer rufen.</b> Die Taste ✦ in der Ecke zerlegt die Gematria jedes Wortes in Schritte — so, wie man im Kopf rechnet —, sammelt die Quellen der Lektion und beantwortet häufige Fragen.</li><li><b>Eine Lektion drucken</b> — zum Lernen am Tisch, im Unterricht oder am Schabbat.</li></ul><h4>Für wen</h4><ul><li><b>Eltern</b> — um mit ihren Kindern spielerisch Tora zu lernen.</li><li><b>Chitas-Leser</b> — als Fortsetzung des täglichen Lernens.</li><li><b>Junge Talente</b> — alle, die Zahlen, Rätsel und Tiefe lieben.</li><li><b>Alle</b>, die im eigenen Leben Wunder — <i>Niflaot</i> — sehen möchten.</li></ul><h4>Ziele</h4><ul><li><b>Tora lernen.</b> Nicht passives Lesen, sondern lebendiges Suchen: Jede Gleichheit findest du selbst, und deshalb bleibt ihr Sinn bei dir.</li><li><b>Die Eigenschaften der Seele berichtigen.</b> Jede Lektion behandelt bestimmte Eigenschaften — Hochmut, Begierde, Zorn, Liebe — und führt vom Verstehen zur Arbeit an sich selbst.</li><li><b>Ein klarer Kopf.</b> Kopfrechnen schult Aufmerksamkeit und Gedächtnis, und heilige Wörter geben dieser Übung einen Sinn.</li></ul><h4>Aufgaben</h4><ul><li>Die tiefen Artikel von Rabbiner Ginsburgh und die Andeutungen der klassischen Torakommentatoren spielerisch zugänglich machen: Rätsel, Lösung, Nacherzählung der Lektion.</li><li>Jede Lektion auf Quellen stützen, die jeder selbst lesen kann.</li><li>Wissen in persönliche Arbeit verwandeln: nach jedem Rätsel eine Frage an dich selbst und Platz für deine Notizen.</li><li>Regelmäßig neue Lektionen veröffentlichen und in weitere Sprachen übersetzen.</li></ul><p>Der vollständige hebräische Text der Artikel von Rabbiner Jizchak Ginsburgh steht auf pnimi.org.il; die Texte dieser Artikel gehören vollständig ihm. Der Kommentar des Baal HaTurim und alle Quellen stammen aus der freien Bibliothek Sefaria. Idee und Umsetzung — das Tora-Projekt <a href="https://mychitas.app" target="_blank" rel="noopener">mychitas.app</a>.</p><p>Website: <a href="https://niflaot.mychitas.app">niflaot.mychitas.app</a></p>',
 
   'print.button': 'Drucken',
   'print.back': '← Zurück zum Spiel',
@@ -92,7 +92,7 @@ const de: Messages = {
   'catalog.start': 'Beginnen: Lektion {n}',
   'catalog.continue': 'Weiter: Lektion {n}',
   'catalog.intro':
-    'Interaktive Gematria-Studien nach den Lektionen von Rabbiner Jizchak Ginsburgh. Zähle die Buchstaben, entdecke verborgene Verbindungen zwischen Wörtern — und finde heraus, was sie in dir verändern. Für Eltern und Kinder, Chitas-Leser und alle, die Rätsel lieben.',
+    'Interaktive Gematria-Studien nach den Lektionen von Rabbiner Jizchak Ginsburgh und klassischen Torakommentaren. Zähle die Buchstaben, entdecke verborgene Verbindungen zwischen Wörtern — und finde heraus, was sie in dir verändern. Für Eltern und Kinder, Chitas-Leser und alle, die Rätsel lieben.',
   'catalog.lesson': 'Lektion {n}',
   'catalog.riddles': { one: '{n} Rätsel', other: '{n} Rätsel' },
   'catalog.progress': '{done} von {total} gelöst',
@@ -133,6 +133,16 @@ const de: Messages = {
   'riddle.triesLeft': 'Verbleibende Versuche: {n}.',
   'riddle.wrongNum': 'Das geht nicht auf. Prüfe die Werte der Buchstaben und versuch es noch einmal.',
   'riddle.wrongChoice': 'Nicht das. Sieh dir die Zahl dieser Möglichkeit an und wähle eine andere.',
+  'riddle.wrongWord': 'Nicht das Wort. Prüfe, welche Buchstaben die Regel nimmt, und setze es neu zusammen.',
+  'riddle.wrongPlace': 'Das Wort stimmt, aber einige Buchstaben stammen von der falschen Stelle: Nimm sie nur nach der Regel aus der Frage.',
+  'riddle.wrongLetter': 'Nicht dieser Buchstabe. Vergleiche, wie das Wort in der Tora geschrieben ist.',
+  'letters.bank': 'Buchstaben des Verses',
+  'letters.slots': 'Das gebildete Wort',
+  'letters.empty': 'leeres Feld',
+  'letters.remove': 'Buchstaben entfernen',
+  'letters.clear': 'Löschen',
+  'letters.word': 'Buchstaben des Wortes',
+  'print.circle': 'Kreise den Buchstaben ein:',
   'riddle.prev': '← Zurück',
   'riddle.next': 'Nächstes Rätsel →',
   'riddle.toSummary': 'Zum Ergebnis →',
@@ -244,7 +254,7 @@ const de: Messages = {
 
   'footer.contact': 'Fragen und Vorschläge',
   'footer.donate': 'Das Projekt unterstützen',
-  'footer.fine': '© mychitas.app · Texte: Rabbiner Jizchak Ginsburgh',
+  'footer.fine': '© mychitas.app · Texte: Rabbiner Jizchak Ginsburgh, Baal HaTurim',
 };
 
 export default de;

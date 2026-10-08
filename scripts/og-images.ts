@@ -69,7 +69,7 @@ const lessonPage = (l: Lesson) =>
     eyebrow: `Нифлаот · ${PARSHIOT[l.parsha].name.ru} ${PARSHIOT[l.parsha].year} · урок ${l.number}`,
     he: l.hebrewTitle,
     title: l.texts.ru!.title,
-    sub: 'Игра-гиматрия по статье рава Ицхака Гинзбурга',
+    sub: `Игра-гиматрия ${l.texts.ru!.hero.author}`,
     highlight: l.highlight,
     letters: l.heroLetters,
   });
@@ -85,7 +85,7 @@ const shots: [string, string][] = [
       eyebrowHtml: '5787 · <span class="he">ה׳תשפ״ז</span>',
       he: 'נפלאות',
       title: ru['catalog.uvp'] as string,
-      sub: 'Игры-гиматрии по статьям рава Ицхака Гинзбурга',
+      sub: 'Игры-гиматрии по статьям рава Ицхака Гинзбурга и комментариям Торы',
       letters: ['נ', 'פ'],
     }),
   ],

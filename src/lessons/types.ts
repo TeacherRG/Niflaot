@@ -37,7 +37,37 @@ export interface ChoiceStep {
   milui?: boolean;
 }
 
-export type StepData = NumStep | ChoiceStep;
+/**
+ * «Собери слово» — a letter puzzle in the manner of the Baal HaTurim: the player taps letters of the
+ * phrase `from` to build the word `a` from its first letters, last letters or all its letters.
+ */
+export interface LettersStep {
+  t: 'lt';
+  est: StepEstimate;
+  /** the phrase whose letters are tapped (real spelling of Divine Names; shown respectfully) */
+  from: string;
+  /** which letters make the word: first letters of the words, last letters, or all letters */
+  take: 'first' | 'last' | 'all';
+  /** the word to build */
+  a: string;
+}
+
+/**
+ * «Найди букву»: the player taps one letter of `word` — e.g. the letter the Torah leaves out
+ * (`written` is the Torah's spelling without it) or the one it doubles.
+ */
+export interface TapStep {
+  t: 'tap';
+  est: StepEstimate;
+  /** the word shown as letter tiles */
+  word: string;
+  /** index of the right letter (0 = first letter of the word) */
+  a: number;
+  /** the word as written in the Torah without that letter (checked by `npm run check`) */
+  written?: string;
+}
+
+export type StepData = NumStep | ChoiceStep | LettersStep | TapStep;
 
 export interface RiddleData {
   /** Hebrew word cards shown above the steps */
@@ -148,6 +178,8 @@ export interface Lesson {
     secrets: Record<number, number>;
   };
   texts: Partial<Record<Locale, LessonText>>;
+  /** author of the text the lesson retells (SEO); Rabbi Yitzchak Ginsburgh when omitted */
+  author?: { name: string; alternateName: string };
   /** localStorage key used by the old single-file version, migrated once */
   legacyStorageKey?: string;
 }
