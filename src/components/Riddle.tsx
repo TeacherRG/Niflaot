@@ -68,7 +68,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
   const [condHtml, revealHtml, ...lessonHtml] = fn.html;
 
   /** Records an attempt; `correct` decides the outcome. */
-  const attempt = (i: number, correct: boolean, kind: keyof typeof MAX_WRONG, pick?: number, place?: boolean) =>
+  const attempt = (i: number, correct: boolean, kind: keyof typeof MAX_WRONG, pick?: number, miss: 'no' | 'place' | 'order' = 'no') =>
     update((d) => {
       const x = draftStep(d, ri, i);
       x.tries++;
@@ -79,7 +79,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
         d.score += x.pts;
         x.last = 'ok';
       } else {
-        x.last = place ? 'place' : 'no';
+        x.last = miss;
         if (x.tries >= MAX_WRONG[kind]) {
           x.ok = true;
           x.fail = true;
@@ -211,7 +211,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
                 </div>
               ) : s.t === 'lt' ? (
                 <>
-                  <LettersPuzzle step={s} x={x} locked={locked} onCheck={(res) => attempt(i, res === 'ok', 'lt', undefined, res === 'place')} />
+                  <LettersPuzzle step={s} x={x} locked={locked} onCheck={(res) => attempt(i, res === 'ok', 'lt', undefined, res === 'ok' ? 'no' : res)} />
                   {hintBtn && <div className="row">{hintBtn}</div>}
                 </>
               ) : s.t === 'tap' ? (
@@ -272,10 +272,10 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
                   }}
                 />
               )}
-              {!x.ok && x.tries > 0 && (x.last === 'no' || x.last === 'place') && (
+              {!x.ok && x.tries > 0 && (x.last === 'no' || x.last === 'place' || x.last === 'order') && (
                 <div className="fb no">
                   {t('riddle.triesLeft', { n: left })}{' '}
-                  {t(x.last === 'place' ? 'riddle.wrongPlace' : ({ num: 'riddle.wrongNum', ch: 'riddle.wrongChoice', lt: 'riddle.wrongWord', tap: 'riddle.wrongLetter' } as const)[s.t])}
+                  {t(x.last === 'place' ? 'riddle.wrongPlace' : x.last === 'order' ? 'riddle.wrongOrder' : ({ num: 'riddle.wrongNum', ch: 'riddle.wrongChoice', lt: 'riddle.wrongWord', tap: 'riddle.wrongLetter' } as const)[s.t])}
                 </div>
               )}
             </div>
