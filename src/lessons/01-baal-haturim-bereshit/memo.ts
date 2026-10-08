@@ -1,7 +1,7 @@
 import type { MemoData } from '../types';
 
 /**
- * Memo «Бааль а-Турим · Берешит» — the second game of the lesson: 12 comments of the Baal HaTurim on Bereshit 1–4
+ * Memo «Бааль ґа-Турим · Берешит» — the second game of the lesson: 12 comments of the Baal HaTurim on Bereshit 1–4
  * (Kitzur Ba'al HaTurim, Sefaria), one pair of cards each — a picture (memo/NN.png, framed by scripts/memo-frame.py)
  * and the Torah words. Texts — `memo` in i18n/<lang>.ts, same order.
  * Every gematria and letter hint is the commentary's own and is checked by `npm run check`.

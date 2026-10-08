@@ -45,7 +45,7 @@ BAVLI_EN = 'English/William Davidson Edition - English.json'
 # Kitzur Ba'al HaTurim on Genesis: one comment (all its segments) on chapter ch, verse v
 BHT = "Tanakh/Rishonim on Tanakh/Kitzur Ba'al HaTurim/Torah/Kitzur Ba'al HaTurim on Genesis/"
 def bht(ch, v):
-    return ('custom', f'Бааль а-Турим, Берешит {ch}:{v}', f"Ba'al HaTurim, Genesis {ch}:{v}", f'Baal HaTurim, Bereschit {ch},{v}',
+    return ('custom', f'Бааль ґа-Турим, Берешит {ch}:{v}', f"Ba'al HaTurim, Genesis {ch}:{v}", f'Baal HaTurim, Bereschit {ch},{v}',
             f"Kitzur Ba'al HaTurim on Genesis {ch}:{v}", 'Commentary', BHT + 'Hebrew/On Your Way.json', BHT + 'English/Sefaria Community Translation.json', None, [ch - 1, v - 1])
 
 BOOK = {
@@ -55,10 +55,10 @@ BOOK = {
     'Deuteronomy': ('Tanakh/Torah/Deuteronomy/', 'Дварим', 'Torah'),
     'Ezekiel': ('Tanakh/Prophets/Ezekiel/', 'Йехезкель', 'Prophets'),
     'I Kings': ('Tanakh/Prophets/I Kings/', 'Млахим I', 'Prophets'),
-    'Psalms': ('Tanakh/Writings/Psalms/', 'Тегилим', 'Writings'),
+    'Psalms': ('Tanakh/Writings/Psalms/', 'Теґилим', 'Writings'),
     'Job': ('Tanakh/Writings/Job/', 'Иов', 'Writings'),
     'Proverbs': ('Tanakh/Writings/Proverbs/', 'Мишлей', 'Writings'),
-    'Ecclesiastes': ('Tanakh/Writings/Ecclesiastes/', 'Коэлет', 'Writings'),
+    'Ecclesiastes': ('Tanakh/Writings/Ecclesiastes/', 'Коґелет', 'Writings'),
     'Berakhot': ('Talmud/Bavli/Seder Zeraim/Berakhot/', 'Брахот', 'Talmud'),
     'Shabbat': ('Talmud/Bavli/Seder Moed/Shabbat/', 'Шабат', 'Talmud'),
     'Yevamot': ('Talmud/Bavli/Seder Nashim/Yevamot/', 'Йевамот', 'Talmud'),
@@ -119,11 +119,11 @@ SOURCES = {
                              'Midrash/Aggadah/Midrash Rabbah/Bereshit Rabbah/English/The Sefaria Midrash Rabbah, 2022.json',
                              ('Midrash/Aggadah/Midrash Rabbah/Bereshit Rabbah/English/Der Midrasch Bereschit Rabba. Zum ersten Male ins Deutsche übertragen von Dr. August Wünsche. Leipzig 1881 [de].json', [67, 8]),
                              [67, 8]),
-    'mei-hashiloach-balak': ('custom', '«Мей ха-Шилоах», т. I, Балак', 'Mei HaShiloach, Vol. I, Balak', 'Mei HaSchiloach, Bd. I, Balak', 'Mei HaShiloach, Volume I, Numbers, Balak 2', 'Chasidut',
+    'mei-hashiloach-balak': ('custom', '«Мей ґа-Шилоах», т. I, Балак', 'Mei HaShiloach, Vol. I, Balak', 'Mei HaSchiloach, Bd. I, Balak', 'Mei HaShiloach, Volume I, Numbers, Balak 2', 'Chasidut',
                              'Chasidut/Izhbitz/Mei HaShiloach/Hebrew/merged.json',
                              'Chasidut/Izhbitz/Mei HaShiloach/English/Living waters, the Mei HaShiloach. Trans. and edited by Betsalel Philip Edwards, Jerusalem, J. Aronson 2001 [Revised digital edition, 2021].json', None,
                              ['Volume I', 'Numbers', 'Balak', 1]),
-    'zohar-tet': ('custom', 'Зоар, Предисловие (I, 3а)', 'Zohar, Introduction (I, 3a)', 'Sohar, Einleitung (I, 3a)', 'Zohar, Introduction 6:12', 'Zohar',
+    'zohar-tet': ('custom', 'Зоґар, Предисловие (I, 3а)', 'Zohar, Introduction (I, 3a)', 'Sohar, Einleitung (I, 3a)', 'Zohar, Introduction 6:12', 'Zohar',
                   'Kabbalah/Zohar/Zohar/Hebrew/Sulam Edition, Jerusalem 1945.json',
                   'Kabbalah/Zohar/Zohar/English/The Zohar; London, Soncino Press, 1933.json', None, ['Introduction', 5, 11]),
     # lesson «Ba'al HaTurim: Bereshit»
@@ -185,7 +185,7 @@ SOURCES = {
 
 KIND = {
     'Torah': ('Тора', 'Torah'), 'Prophets': ('Пророки', 'Prophets'), 'Writings': ('Писания', 'Writings'),
-    'Talmud': ('Гемара', 'Gemara'), 'Midrash': ('Мидраш', 'Midrash'), 'Chasidut': ('Хасидут', 'Chassidut'), 'Zohar': ('Зоар', 'Zohar'),
+    'Talmud': ('Гемара', 'Gemara'), 'Midrash': ('Мидраш', 'Midrash'), 'Chasidut': ('Хасидут', 'Chassidut'), 'Zohar': ('Зоґар', 'Zohar'),
     'Commentary': ('Комментарий', 'Commentary'),
 }
 EN_BOOK = {'I Kings': 'I Kings'}

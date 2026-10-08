@@ -154,7 +154,7 @@ export interface LessonText {
   puzzle?: PuzzleText;
   /** who the lesson suits and why (a methodical note next to the age, one short sentence); plain text */
   audience: string;
-  /** «Ораа ле-поаль»: one concrete practical conclusion of the lesson */
+  /** «Ґораа ле-поаль»: one concrete practical conclusion of the lesson */
   practice: string;
   /** caption of the share card under the highlighted equation */
   highlight: string;
@@ -260,7 +260,7 @@ export interface RebbeCardText {
   card: string;
   /** the Rebbe's explanation, a few sentences */
   explain: string;
-  /** «Ораа» — the practical lesson of the talk */
+  /** «Ґораа» — the practical lesson of the talk */
   horaah: string;
 }
 
