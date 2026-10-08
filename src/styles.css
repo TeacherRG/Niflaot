@@ -309,8 +309,8 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .prose p{margin:0 0 12px}
 .prose p:last-child{margin-bottom:0}
 .prose ol{margin:0 0 14px;padding-inline-start:0;list-style:none;counter-reset:s;display:grid;gap:10px}
-.prose ol li{counter-increment:s;position:relative;padding-inline-start:38px;min-height:26px}
-.prose ol li::before{content:counter(s);position:absolute;inset-inline-start:0;top:0;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:1px solid var(--gold-line);background:var(--gold-soft);color:var(--gold);font-family:var(--f-num);font-weight:600;font-size:12.5px}
+.prose ol>li{counter-increment:s;position:relative;padding-inline-start:38px;min-height:26px}
+.prose ol>li::before{content:counter(s);position:absolute;inset-inline-start:0;top:0;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:1px solid var(--gold-line);background:var(--gold-soft);color:var(--gold);font-family:var(--f-num);font-weight:600;font-size:12.5px}
 .prose b{color:var(--ink)}
 .score-list{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:14.5px;color:var(--ink-2)}
 .score-list li{padding:8px 12px;border-radius:8px;background:var(--paper)}
@@ -747,3 +747,4 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .est-dots i.on{background:currentColor}
 .step .est{margin-bottom:-4px}
 .step.locked .est{opacity:.7}
+.prose ol>li>ul{margin:8px 0 0;gap:6px;font-size:.95em}
