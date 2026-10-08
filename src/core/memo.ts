@@ -24,9 +24,9 @@ export function sumLine(phrase: string) {
 /** The lines of a gematria: each side with its sum. */
 export const gematriaLines = (g: MemoGematria) => [sumLine(g.a), ...(g.b ? [sumLine(g.b)] : [])];
 
-/** «בראשית ברא אלקים ← ת · א · ם ← אמת» (read right to left) */
+/** «בראשית ברא אלקים → ת · א · ם → אמת» */
 export function lettersLine(l: MemoLetters) {
   const tiles = phraseTiles(l.from);
   const taken = [...expectedTiles(tiles, l.take as Take)].map((i) => tiles[i].c);
-  return `${displayNames(l.from)} ← ${taken.join(' · ')} ← ${l.word}`;
+  return `${displayNames(l.from)} → ${taken.join(' · ')} → ${l.word}`;
 }

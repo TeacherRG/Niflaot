@@ -13,7 +13,8 @@
  *  - letter steps: the letters the rule takes make the answer; «Найди букву» points at a real letter
  *  - every step has an estimate: average time 5–600 s and difficulty 1–3
  *  - Memo: 12 pairs, a picture memo/NN.png for each, every gematria (a = b = v) and letter hint (ר״ת, ס״ת, אותיות)
- *    computed from the real words, a source in sefaria.json, distinct word cards
+ *    computed from the real words, a source in sefaria.json, distinct word cards; texts in every language,
+ *    picture explanations (caption) ≤ 45 characters, a `note` for a number without equal words
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
  */
 import { LESSONS } from '../src/lessons';
@@ -136,15 +137,25 @@ for (const lesson of LESSONS) {
     for (const g of it.gematria ?? []) {
       if (gematria(g.a) !== g.v) err(`${where(k)}: ${g.a} = ${gematria(g.a)}, not ${g.v}`);
       if (g.b && gematria(g.b) !== g.v) err(`${where(k)}: ${g.b} = ${gematria(g.b)}, not ${g.v}`);
-      if (!g.b && !g.note) err(`${where(k)}: a gematria needs the equal words (b) or what the number means (note)`);
     }
     for (const l of it.letters ?? []) {
       const e = letterStepError(l.from, l.take, l.word);
       if (e) err(`${where(k)}: ${l.kind} ${l.from} → ${l.word}: ${e}`);
     }
     if (!SOURCES[it.source]) err(`${where(k)}: source ${it.source} is not in sefaria.json`);
-    if (![it.title, it.verse, it.quote, it.explain, it.moral].every((x) => x.trim())) err(`${where(k)}: empty text`);
+    if (![it.verse, it.quote].every((x) => x.trim())) err(`${where(k)}: empty Hebrew words or quote`);
+    for (const [lang, tx] of Object.entries(lesson.texts)) {
+      const mt = tx?.memo?.items[k];
+      if (!mt) continue;
+      if (![mt.title, mt.caption, mt.verse, mt.quote, mt.explain, mt.moral].every((x) => x.trim())) err(`${where(k)} [${lang}]: empty text`);
+      if (mt.caption.length > 45) err(`${where(k)} [${lang}]: the picture explanation (caption) is longer than 45 characters`);
+      if (it.gematria?.some((g) => !g.b) && !mt.note?.trim()) err(`${where(k)} [${lang}]: a number without equal words needs \`note\` — what it stands for`);
+    }
   });
+  for (const [lang, tx] of Object.entries(lesson.texts)) {
+    if (!tx?.memo) err(`${lesson.slug} · memo [${lang}]: no texts (memo in i18n/${lang}.ts)`);
+    else if (tx.memo.items.length !== m.items.length) err(`${lesson.slug} · memo [${lang}]: ${tx.memo.items.length} texts for ${m.items.length} pairs`);
+  }
   if (new Set(m.items.map((it) => it.verse)).size !== m.items.length) err(`${lesson.slug} · memo: two word cards are the same`);
 }
 

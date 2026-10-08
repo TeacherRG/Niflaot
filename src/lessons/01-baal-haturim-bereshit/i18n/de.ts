@@ -257,6 +257,123 @@ const de: LessonText = {
       ],
     },
   ],
+  memo: {
+    intro:
+      'Zwölf Kommentare des Baal HaTurim zu Bereschit — zwölf Kartenpaare. Jedes Bild erzählt von einem Kommentar, und seine Partnerkarte zeigt die Worte der Tora, um die es darin geht.',
+    items: [
+      {
+        title: 'Die Welt wurde an Rosch Haschana erschaffen',
+        caption: 'Schofar und Welt: ihr Geburtstag',
+        verse: '„Im Anfang schuf“',
+        quote: '„Im Anfang schuf“ — in der Gematria „an Rosch Haschana wurde erschaffen“ (die Welt).',
+        explain:
+          'Die ersten Worte der Tora, בראשית ברא („im Anfang schuf“), haben denselben Zahlenwert wie בראש השנה נברא — „an Rosch Haschana wurde erschaffen“. So deutet schon der Anfang der Tora an: Die Welt wurde an Rosch Haschana erschaffen.',
+        moral: 'Rosch Haschana ist der Geburtstag der Welt. Jeden eigenen Neuanfang kann man beginnen wie die Tora: mit Gedanken und Absicht.',
+      },
+      {
+        title: 'Die Welt wurde mit Wahrheit erschaffen',
+        caption: 'Buch, Welt und gerade Strahlen: Wahrheit',
+        verse: '„Im Anfang schuf G-tt“',
+        quote: '„Im Anfang schuf G-tt“ — die Endbuchstaben der Wörter ergeben אמת (Wahrheit). Das lehrt, dass Er die Welt mit Wahrheit schuf, wie es heißt: „Der Anfang Deines Wortes ist Wahrheit.“',
+        explain:
+          'Nimm den letzten Buchstaben jedes Wortes: ת (בראשית), א (ברא), ם (אלקים). Zusammen ergeben sie אמת, „Wahrheit“. Der Baal HaTurim lernt daraus: G-tt schuf die Welt mit Wahrheit, wie es in den Psalmen heißt: „Der Anfang Deines Wortes ist Wahrheit.“',
+        moral: 'Die Welt steht auf Wahrheit — darum sagen auch wir die Wahrheit, selbst wenn es nicht leicht ist.',
+      },
+      {
+        title: 'Licht und Tora — 613',
+        caption: 'Eine Torarolle im Licht des ersten Tages',
+        verse: '„das Licht“ (G-tt sah das Licht)',
+        quote: '„Das Licht“ — in der Gematria „in der Tora“, und es ergibt die Zahl 613.',
+        explain:
+          'Am ersten Tag wurde das Licht erschaffen. Die Worte את האור („das Licht“) haben denselben Wert wie בתורה — „in der Tora“: 613. Genau so viele Gebote hat die Tora — תרי״ג. So verbindet der Baal HaTurim das erste Licht mit der Tora und ihren Mizwot.',
+        note: 'die 613 Gebote der Tora (תרי״ג)',
+        moral: 'Das Licht der Welt ist mit der Tora verbunden: Jede Mizwa bringt Licht in die Welt.',
+      },
+      {
+        title: 'Hawdala am Ende des Schabbats',
+        caption: 'Kerze, Becher und Gewürze: Hawdala',
+        verse: '„und Er schied“',
+        quote: '„Und G-tt sah das Licht, dass es gut war, und Er schied“ — daraus: Man segnet die Kerze erst, wenn man ihr Licht nutzt. So viel wie der Zahlenwert von „und Er schied“ — so oft macht man im Jahr Hawdala am Ende des Schabbats.',
+        explain:
+          'Zuerst „sah“ G-tt „das Licht, dass es gut war“, und erst dann „schied Er“. Daraus das Gesetz: Bei der Hawdala nach Schabbat spricht man den Segen über die Kerze erst, wenn man ihr Licht schon nutzt. Und das Wort ויבדל („und Er schied“) ergibt 52 — so oft im Jahr macht man Hawdala am Ende des Schabbats.',
+        note: '52 Hawdalot am Ende des Schabbats im Jahr',
+        moral: 'Zuerst bemerken wir das Gute und genießen es — dann danken wir. Ein Segen wächst daraus, dass wir das Gute bemerken.',
+      },
+      {
+        title: 'Jeder Grashalm hat seinen Masal',
+        caption: 'Über jeder Pflanze — ihr eigener Stern',
+        verse: '„die Samen trägt nach ihrer Art“',
+        quote: '„Die Samen trägt nach ihrer Art“ — die Anfangsbuchstaben ergeben מזל (Masal). Es gibt keinen Grashalm, der oben keinen Masal hat.',
+        explain:
+          'Die Anfangsbuchstaben der Wörter: מ (מזריע), ז (זרע), ל (למינהו) — zusammen מזל, „Masal“. Der Baal HaTurim lehrt: Es gibt keinen Grashalm, nicht einmal den kleinsten, ohne seinen eigenen Masal oben im Himmel, der über ihn eingesetzt ist.',
+        moral: 'Wenn über jeden Grashalm oben jemand eingesetzt ist, dann ist niemand auf der Welt vergessen.',
+      },
+      {
+        title: 'Das große Licht und der Mond',
+        caption: 'Sonne und Mond: Leuchten soll die Sonne',
+        verse: '„Lichter“',
+        quote: '„Lichter“ ist ohne ו geschrieben: Nur die Sonne wurde erschaffen, um zu leuchten. Der Mond wurde nur erschaffen, damit man die Sonne nicht anbetet, wäre sie allein.',
+        explain:
+          'In der Tora ist das Wort מארת („Lichter“) ohne den Buchstaben ו geschrieben — „defektive Schreibweise“. Nach dem Baal HaTurim wurde nur die Sonne erschaffen, um zu leuchten. Und der Mond? Er wurde erschaffen, damit die Menschen die Sonne nicht anbeten, wie sie es täten, wäre sie allein am Himmel.',
+        moral: 'Selbst die riesige Sonne ist nur ein Geschöpf G-ttes. Wenn wir etwas Großes und Beeindruckendes sehen, denken wir daran, Wer es gemacht hat.',
+      },
+      {
+        title: 'Der Mensch aus der Erde',
+        caption: 'Ein Mensch auf einem Hügel aus Erde',
+        verse: '„der Mensch“',
+        quote: '„Der Mensch“ hat die Buchstaben von „Erde“: Er wurde aus der Erde erschaffen. אדם ist ein Notarikon: Asche, Blut, Galle.',
+        explain:
+          'Das Wort האדם („der Mensch“) hat genau die Buchstaben von אדמה („Erde“) — denn der Mensch wurde aus der Erde erschaffen; darum sind auch ihre Werte gleich: 50. Und als Notarikon — jeder Buchstabe beginnt ein Wort: א — אפר (Asche), ד — דם (Blut), מ — מרה (Galle).',
+        moral: 'Der Mensch wurde aus Erde gemacht — das lehrt Bescheidenheit: nicht stolz sein und daran denken, woher wir kommen.',
+      },
+      {
+        title: 'Die Seele ist ein Siegel',
+        caption: 'Ein Siegel und der Atem des Lebens',
+        verse: '„und Er blies in seine Nase die Seele des Lebens“',
+        quote: '„Und Er blies in seine Nase die Seele des Lebens“ — die Endbuchstaben ergeben חותם (Siegel).',
+        explain:
+          'G-tt blies dem Menschen „die Seele des Lebens“ ein. Die Endbuchstaben der vier Wörter — ח, ו, ת, ם — ergeben חותם, „Siegel“. Ein Siegel drückt man auf etwas Wichtiges; man kann verstehen, dass die Seele wie G-ttes Siegel in jedem Menschen ist.',
+        moral: 'In jedem von uns ist eine Seele von G-tt — darum achten wir jeden Menschen.',
+      },
+      {
+        title: 'Um Abrahams willen',
+        caption: 'Abrahams Zelt unter dem Sternenhimmel',
+        verse: '„als sie erschaffen wurden“',
+        quote: '„Als sie erschaffen wurden“ hat die Buchstaben von „in Abraham“: Durch Abrahams Verdienst wurden Himmel und Erde erschaffen.',
+        explain:
+          '„Dies ist die Geschichte von Himmel und Erde, als sie erschaffen wurden — בהבראם.“ Stellt man die Buchstaben von בהבראם um, erhält man באברהם — „in Abraham“; darum sind auch ihre Werte gleich: 250. Der Baal HaTurim lehrt: Himmel und Erde wurden durch das Verdienst von Awraham Awinu erschaffen.',
+        moral: 'Ein einziger guter Mensch kann der Grund für großes Gutes in der ganzen Welt sein.',
+      },
+      {
+        title: '24 Schmuckstücke',
+        caption: 'Krone und Juwelen: 24 Schmuckstücke',
+        verse: '„und Er brachte sie zum Menschen“',
+        quote: '„Und Er brachte sie“ ist defektiv geschrieben und ergibt 24: Er schmückte sie mit vierundzwanzig Schmuckstücken und brachte sie zu ihm.',
+        explain:
+          'Von Chawa heißt es: „und Er brachte sie zum Menschen“. Das Wort ist defektiv geschrieben — ויבאה statt ויביאה, ohne י — und so ergibt es 24 (כ״ד). Daraus lernt der Baal HaTurim: G-tt schmückte Chawa mit vierundzwanzig Schmuckstücken und brachte sie erst dann zu Adam.',
+        note: '24 Schmuckstücke (כ״ד קישוטים)',
+        moral: 'G-tt Selbst sorgte für die Ehre und Freude eines anderen. Auch wir können denen um uns Freude und Achtung schenken.',
+      },
+      {
+        title: 'Der Rat des Klatschmauls',
+        caption: 'Die Schlange am Baum: Rat eines Klatschmauls',
+        verse: '„von dem Ich dir geboten habe, nicht zu essen“',
+        quote: '„Von dem Ich dir geboten habe, nicht zu essen“ — die Endbuchstaben ergeben רכיל (Klatschmaul): Du bist dem Rat eines Klatschmauls gefolgt.',
+        explain:
+          'G-tt fragt Adam: „Hast du von dem Baum gegessen, von dem Ich dir geboten habe, nicht zu essen?“ Die Endbuchstaben — ר, ך, י, ל — ergeben רכיל, „Klatschmaul“: jemand, der herumgeht und über andere redet. Das heißt: Du bist dem Rat eines Klatschmauls gefolgt — der Schlange, die mit Chawa sprach und sie überredete.',
+        moral: 'Wir hören nicht auf Klatsch und folgen ihm nicht: Böse Rede kann großen Schaden anrichten.',
+      },
+      {
+        title: 'Chanoch — die siebte Generation',
+        caption: 'Sieben Stufen zum Himmel',
+        verse: '„siehe, im Himmel ist mein Zeuge“ (Hiob)',
+        quote: '„Siehe, im Himmel ist mein Zeuge“ — in der Gematria „Chanoch“… Er wählte Chanoch, die siebte Generation, denn G-tt liebt die Siebten.',
+        explain:
+          'Im Buch Hiob heißt es: „Siehe, im Himmel ist mein Zeuge.“ Das Wort עדי („mein Zeuge“) hat denselben Wert wie der Name חנוך (Chanoch) — 84. G-tt nahm Chanoch in den Himmel, damit er Zeuge sei, und wählte ihn, weil er die siebte Generation nach Adam war — und G-tt liebt die Siebten. So auch Mosche, der Siebte nach Abraham, „stieg hinauf zu G-tt“.',
+        moral: 'G-tt liebt das Siebte — und jede Woche haben wir unseren eigenen siebten Tag: den Schabbat.',
+      },
+    ],
+  },
   final: {
     title: 'Der Anfang ist offenbart',
     allSolved:

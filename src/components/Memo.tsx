@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import confetti from 'canvas-confetti';
-import type { Lesson, MemoData, MemoItem } from '../lessons/types';
+import { useI18n } from '../i18n';
+import type { Lesson, MemoData, MemoItem, MemoItemText, MemoText } from '../lessons/types';
 import { gematriaLines, lettersLine, memoImages } from '../core/memo';
 import { displayNames } from '../core/names';
 import { formatTime } from '../core/format';
-import { SOURCES } from '../sources';
+import { SOURCES, sourceLabel } from '../sources';
 import { HebrewRuns } from './Hebrew';
 import { Icon, Sheet } from './ui';
 
@@ -12,26 +13,19 @@ import { Icon, Sheet } from './ui';
 const celebrate = confetti.create(undefined, { resize: true, useWorker: false });
 
 /**
- * Memo («משחק זיכרון») at the very end of a commentary lesson: 24 cards, 12 pairs — a picture and the Torah words
- * of one comment. A found pair opens its explanation: הידעת? · גימטריה · מה לומדים מזה?
- * Played in Hebrew, whatever the interface language.
+ * Memo — the second game of a commentary lesson. A pair is a picture and the Torah words it tells about; under the
+ * board every picture of the game is explained («Что на картинках»); a found pair opens its explanation. The way through it, as a teacher would
+ * lead it: study the pairs → an easy game of 6 pairs → the full game of 12 → what we learned.
  */
 
-type Screen = 'intro' | 'rules' | 'study' | 'game' | 'end';
+type Screen = 'home' | 'rules' | 'study' | 'game' | 'end';
 /** a card on the board: pair `p`, picture or words */
 type Card = { p: number; pic: boolean };
 
-const RULES = [
-  'על הלוח 24 קלפים — 12 זוגות.',
-  'בכל זוג: קלף עם ציור וקלף עם מילים מן התורה. לשניהם אותו מספר.',
-  'פותחים שני קלפים בכל תור.',
-  'מצאתם זוג? הוא שלכם — ומיד מופיע ההסבר: מה גילה בעל הטורים.',
-  'לא מצאתם? הקלפים נסגרים. נסו לזכור איפה כל קלף!',
-  'מסיימים כשכל 12 הזוגות נמצאו.',
-];
+const EASY = 6;
 
-function shuffle(n: number): Card[] {
-  const cards: Card[] = [...Array(n).keys()].flatMap((p) => [
+function deal(pairs: number[]): Card[] {
+  const cards: Card[] = pairs.flatMap((p) => [
     { p, pic: true },
     { p, pic: false },
   ]);
@@ -42,101 +36,153 @@ function shuffle(n: number): Card[] {
   return cards;
 }
 
-/** «Kitzur Ba'al HaTurim on Genesis 2:7» → «בעל הטורים, בראשית 2:7» */
-function sourceRef(id: string) {
-  const s = SOURCES[id];
-  const m = s?.ref.match(/Genesis (\d+:\d+)/);
-  return s ? { label: `בעל הטורים, בראשית ${m?.[1] ?? ''}`.trim(), url: s.url } : null;
-}
+/** `n` random pairs of `total`, in their order */
+const somePairs = (total: number, n: number) =>
+  [...Array(total).keys()]
+    .map((p) => ({ p, r: Math.random() }))
+    .sort((a, b) => a.r - b.r)
+    .slice(0, n)
+    .map((x) => x.p)
+    .sort((a, b) => a - b);
 
-/** One comment explained: picture, the commentary's words, הידעת?, גימטריה, מה לומדים מזה? */
-export function MemoInfo({ item, n, img }: { item: MemoItem; n: number; img?: string }) {
-  const src = sourceRef(item.source);
+/** One comment explained: picture, the Torah words, the commentary, «Знаете ли вы?», the numbers, «Чему это учит?». */
+export function MemoInfo({ item, text, n, img }: { item: MemoItem; text: MemoItemText; n: number; img?: string }) {
+  const { t, locale } = useI18n();
+  const src = SOURCES[item.source];
   return (
-    <div className="mi" dir="rtl" lang="he">
+    <div className="mi">
       <div className="mi-top">
-        {img && <img className="mi-img" src={img} alt={item.title} loading="lazy" />}
+        {img && <img className="mi-img" src={img} alt={text.caption} loading="lazy" />}
         <div className="mi-head">
           <span className="mi-n num">{n}</span>
-          <h3>{item.title}</h3>
-          <div className="mi-verse">{displayNames(item.verse)}</div>
+          <h3>{text.title}</h3>
+          <div className="mi-verse he">{displayNames(item.verse)}</div>
+          <div className="mi-verse-tr">{text.verse}</div>
         </div>
       </div>
-      <blockquote className="mi-quote">
-        {displayNames(item.quote)}
+      <div className="mi-block mi-quote">
+        <h4>{t('memo.commentary')}</h4>
+        <p className="he" dir="rtl">
+          {displayNames(item.quote)}
+        </p>
+        <p className="mi-quote-tr">{text.quote}</p>
         {src && (
-          <cite>
-            <a href={src.url} target="_blank" rel="noopener">
-              {src.label}
-            </a>
-          </cite>
+          <a className="mi-src" href={src.url} target="_blank" rel="noopener">
+            {sourceLabel(src, locale).title}
+          </a>
         )}
-      </blockquote>
-      <div className="mi-block">
-        <h4>הידעת?</h4>
-        <p>{displayNames(item.explain)}</p>
       </div>
-      {(item.gematria || item.letters) && (
+      <div className="mi-block">
+        <h4>{t('memo.know')}</h4>
+        <p>
+          <HebrewRuns text={text.explain} />
+        </p>
+      </div>
+      {item.gematria && (
         <div className="mi-block mi-calc">
-          <h4>{item.gematria ? 'גימטריה' : 'רמז באותיות'}</h4>
-          {item.gematria?.map((g, k) => (
+          <h4>{t('memo.gematria')}</h4>
+          <p className="mi-how">{t('memo.gematriaHow')}</p>
+          {item.gematria.map((g, k) => (
             <div key={k} className="mi-eq">
               {gematriaLines(g).map((l, j) => (
-                <div key={j} className="num" dir="rtl">
+                <div key={j}>
                   <HebrewRuns text={l} />
                 </div>
               ))}
-              {g.note && <div className="mi-note">{g.v} = {g.note}</div>}
+              {!g.b && text.note && (
+                <div className="mi-note">
+                  {g.v} = <HebrewRuns text={text.note} />
+                </div>
+              )}
             </div>
           ))}
-          {item.letters?.map((l, k) => (
+        </div>
+      )}
+      {item.letters && (
+        <div className="mi-block mi-calc">
+          <h4>{t('memo.lettersTitle')}</h4>
+          {item.letters.map((l, k) => (
             <div key={k} className="mi-eq">
-              <span className="mi-kind">{l.kind}</span>
-              <span dir="rtl">{lettersLine(l)}</span>
+              <span className="mi-kind">
+                <HebrewRuns text={t(`memo.kind.${l.kind}`)} />
+              </span>
+              <span>
+                <HebrewRuns text={lettersLine(l)} />
+              </span>
             </div>
           ))}
         </div>
       )}
       <div className="mi-block mi-moral">
-        <h4>מה לומדים מזה?</h4>
-        <p>{item.moral}</p>
+        <h4>{t('memo.learn')}</h4>
+        <p>{text.moral}</p>
       </div>
     </div>
   );
 }
 
-function MemoCard({ card, item, img, open, found, onClick }: { card: Card; item: MemoItem; img?: string; open: boolean; found: boolean; onClick: () => void }) {
+/** The face of a card: the picture alone, or the Torah words with a translation. */
+function Face({ card, item, text, img }: { card: Card; item: MemoItem; text: MemoItemText; img?: string }) {
+  return card.pic ? (
+    <span className="mc-pic">{img && <img src={img} alt="" draggable={false} />}</span>
+  ) : (
+    <span className="mc-words">
+      <span className="mc-verse he">{displayNames(item.verse)}</span>
+      <span className="mc-tr">{text.verse}</span>
+    </span>
+  );
+}
+
+function MemoCard({
+  card,
+  item,
+  text,
+  img,
+  open,
+  found,
+  onClick,
+}: {
+  card: Card;
+  item: MemoItem;
+  text: MemoItemText;
+  img?: string;
+  open: boolean;
+  found: boolean;
+  onClick: () => void;
+}) {
+  const { t } = useI18n();
   return (
     <button
       className={`mc${open ? ' open' : ''}${found ? ' found' : ''}`}
       onClick={onClick}
       disabled={open}
-      aria-label={open ? (card.pic ? `ציור ${card.p + 1}: ${item.title}` : `${card.p + 1}: ${displayNames(item.verse)}`) : 'קלף סגור'}
+      aria-label={
+        open
+          ? card.pic
+            ? t('memo.cardPic', { caption: text.caption })
+            : t('memo.cardWords', { words: `${displayNames(item.verse)} — ${text.verse}` })
+          : t('memo.closed')
+      }
     >
       <span className="mc-in">
         <span className="mc-back" aria-hidden="true">
           <span>✦</span>
         </span>
         <span className="mc-face" aria-hidden="true">
-          {card.pic ? (
-            img && <img src={img} alt="" draggable={false} />
-          ) : (
-            <span className="mc-words">
-              <span className="mc-n num">{card.p + 1}</span>
-              <span className="mc-verse">{displayNames(item.verse)}</span>
-            </span>
-          )}
+          <Face card={card} item={item} text={text} img={img} />
         </span>
       </span>
     </button>
   );
 }
 
-export function Memo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) {
+export function Memo({ lesson, memo, text }: { lesson: Lesson; memo: MemoData; text: MemoText }) {
+  const { t } = useI18n();
   const images = useMemo(() => memoImages(lesson), [lesson]);
-  const n = memo.items.length;
-  const [screen, setScreen] = useState<Screen>('intro');
-  const [cards, setCards] = useState<Card[]>(() => shuffle(n));
+  const total = memo.items.length;
+  const [screen, setScreen] = useState<Screen>('home');
+  const [pairs, setPairs] = useState<number[]>([]);
+  const [cards, setCards] = useState<Card[]>([]);
   const [open, setOpen] = useState<number[]>([]);
   const [found, setFound] = useState<number[]>([]);
   const [moves, setMoves] = useState(0);
@@ -150,8 +196,10 @@ export function Memo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) {
     requestAnimationFrame(() => box.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
   };
 
-  const start = () => {
-    setCards(shuffle(n));
+  const play = (n: number) => {
+    const ps = n >= total ? [...Array(total).keys()] : somePairs(total, n);
+    setPairs(ps);
+    setCards(deal(ps));
     setOpen([]);
     setFound([]);
     setMoves(0);
@@ -166,7 +214,7 @@ export function Memo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) {
     return () => clearInterval(id);
   }, [screen, shown]);
 
-  // two open cards: a pair stays and shows its explanation, otherwise both close again
+  // two open cards: a pair stays and shows its explanation, otherwise both turn back
   useEffect(() => {
     if (open.length !== 2) return;
     const [a, b] = open.map((i) => cards[i]);
@@ -175,10 +223,10 @@ export function Memo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) {
         setFound((f) => [...f, a.p]);
         setOpen([]);
         setShown(a.p);
-      }, 450);
+      }, 500);
       return () => clearTimeout(id);
     }
-    const id = setTimeout(() => setOpen([]), 1100);
+    const id = setTimeout(() => setOpen([]), 1400);
     return () => clearTimeout(id);
   }, [open, cards]);
 
@@ -190,85 +238,134 @@ export function Memo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) {
 
   const closeInfo = () => {
     setShown(null);
-    if (found.length === n) {
+    if (found.length === pairs.length) {
       go('end');
       celebrate({ particleCount: 140, spread: 90, startVelocity: 40, origin: { y: 0.6 }, colors: ['#D8B565', '#A47C2F', '#2B4F95', '#2A7448'], disableForReducedMotion: true });
     }
   };
 
+  const example = 0;
+  const rules = (
+    <div className="memo-rules">
+      <h3>{t('memo.rules')}</h3>
+      <ol>
+        {(['memo.rule1', 'memo.rule2', 'memo.rule3', 'memo.rule4', 'memo.rule5'] as const).map((k) => (
+          <li key={k}>{t(k)}</li>
+        ))}
+      </ol>
+      <div className="memo-example">
+        <div className="memo-example-lbl">{t('memo.example')}</div>
+        <div className="memo-example-cards">
+          {[true, false].map((pic) => (
+            <span key={String(pic)} className="mc mc-sample">
+              <span className="mc-in">
+                <span className="mc-face">
+                  <Face card={{ p: example, pic }} item={memo.items[example]} text={text.items[example]} img={images[example]} />
+                </span>
+              </span>
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
   return (
-    <section className="memo pop" ref={box} dir="rtl" lang="he" aria-labelledby="memo-h">
+    <section className="memo" ref={box} aria-labelledby="memo-h">
       <header className="memo-head">
-        <div className="memo-eyebrow">משחק זיכרון · בעל הטורים</div>
-        <h2 id="memo-h">פרשת {lesson.hebrewTitle.split('·').pop()?.trim()}</h2>
-        <div className="memo-sub">משחק ← ציור ← סקרנות ← פירוש ← גימטריה ← לימוד תורה</div>
+        <h2 id="memo-h">{t('memo.title')}</h2>
+        {(screen === 'home' || screen === 'rules') && (
+          <>
+            <p className="memo-intro">{text.intro}</p>
+            <p className="memo-goal">{t('memo.goal')}</p>
+          </>
+        )}
       </header>
 
-      {screen !== 'game' && screen !== 'end' && (
-        <nav className="memo-menu">
-          <button className={`btn${screen === 'intro' ? '' : ' ghost'}`} onClick={start}>
-            התחל משחק
-          </button>
-          <button className={`btn ${screen === 'rules' ? 'gold' : 'ghost'}`} onClick={() => go(screen === 'rules' ? 'intro' : 'rules')}>
-            איך משחקים?
-          </button>
-          <button className={`btn ${screen === 'study' ? 'gold' : 'ghost'}`} onClick={() => go(screen === 'study' ? 'intro' : 'study')}>
-            למדו את הפרשה
-          </button>
-        </nav>
-      )}
-
-      {screen === 'intro' && (
-        <div className="memo-intro">
-          <p>
-            12 פירושים של בעל הטורים על פרשת בראשית — גימטריות, ראשי תיבות וסופי תיבות. מצאו את הזוגות: כל ציור והמילים שלו מן התורה.
-          </p>
-          <div className="memo-strip" aria-hidden="true">
-            {images.slice(0, 6).map((src) => (
-              <img key={src} src={src} alt="" loading="lazy" />
+      {screen === 'home' && (
+        <>
+          <ol className="memo-steps">
+            {(
+              [
+                ['memo.step1', 'memo.step1Note', () => go('study')],
+                ['memo.step2', 'memo.step2Note', () => play(EASY)],
+                ['memo.step3', 'memo.step3Note', () => play(total)],
+              ] as const
+            ).map(([h, note, on], k) => (
+              <li key={h}>
+                <button className="memo-step" onClick={on}>
+                  <span className="memo-step-n num">{k + 1}</span>
+                  <span className="memo-step-h">{t(h)}</span>
+                  <span className="memo-step-note">{t(note)}</span>
+                </button>
+              </li>
             ))}
+          </ol>
+          <div className="memo-links">
+            <button className="btn ghost" onClick={() => go('rules')}>
+              <Icon name="help" size={18} />
+              {t('memo.rules')}
+            </button>
+            <a className="btn ghost" href={`#/${lesson.slug}/print/memo`}>
+              <Icon name="print" size={18} />
+              {t('memo.print')}
+            </a>
           </div>
-          <a className="memo-print" href={`#/${lesson.slug}/print/memo`}>
-            <Icon name="print" size={16} /> הדפסת המשחק — קלפים וגיליונות צביעה
-          </a>
-        </div>
+        </>
       )}
 
       {screen === 'rules' && (
-        <ol className="memo-rules">
-          {RULES.map((r) => (
-            <li key={r}>{r}</li>
-          ))}
-          <li>
-            אחרי כל זוג: <b>הידעת?</b> — הסבר קצר, <b>גימטריה</b> — החשבון, <b>מה לומדים מזה?</b> — מסקנה.
-          </li>
-        </ol>
+        <>
+          {rules}
+          <div className="memo-links">
+            <button className="btn" onClick={() => go('study')}>
+              1 · {t('memo.step1')}
+            </button>
+            <button className="btn ghost" onClick={() => play(EASY)}>
+              2 · {t('memo.step2')}
+            </button>
+            <button className="btn ghost" onClick={() => go('home')}>
+              {t('memo.menu')}
+            </button>
+          </div>
+        </>
       )}
 
       {screen === 'study' && (
-        <div className="memo-study">
-          {memo.items.map((it, k) => (
-            <MemoInfo key={k} item={it} n={k + 1} img={images[k]} />
-          ))}
-        </div>
+        <>
+          <div className="memo-study">
+            {memo.items.map((it, k) => (
+              <MemoInfo key={k} item={it} text={text.items[k]} n={k + 1} img={images[k]} />
+            ))}
+          </div>
+          <div className="memo-links">
+            <button className="btn" onClick={() => play(EASY)}>
+              2 · {t('memo.step2')} — {t('memo.step2Note')}
+            </button>
+            <button className="btn ghost" onClick={() => go('home')}>
+              {t('memo.menu')}
+            </button>
+          </div>
+        </>
       )}
 
       {screen === 'game' && (
         <>
-          <div className="memo-stats num">
-            <span>זוגות: {found.length} / {n}</span>
-            <span>ניסיונות: {moves}</span>
+          <div className="memo-stats">
+            <span>{t('memo.pairs', { found: found.length, total: pairs.length })}</span>
+            <span>{t('memo.moves', { n: moves })}</span>
             <span>⏱ {formatTime(ms)}</span>
-            <button className="btn ghost" onClick={() => go('intro')}>
-              תפריט
+            <button className="btn ghost" onClick={() => go('home')}>
+              {t('memo.menu')}
             </button>
           </div>
-          <div className="memo-board">
+          <div className={`memo-board${pairs.length > EASY ? ' full' : ''}`}>
             {cards.map((c, i) => (
               <MemoCard
                 key={i}
                 card={c}
                 item={memo.items[c.p]}
+                text={text.items[c.p]}
                 img={images[c.p]}
                 open={open.includes(i) || found.includes(c.p)}
                 found={found.includes(c.p)}
@@ -276,34 +373,65 @@ export function Memo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) {
               />
             ))}
           </div>
+          <div className="memo-legend">
+            <h3>{t('memo.legend')}</h3>
+            <p className="memo-legend-note">{t('memo.legendNote')}</p>
+            <ul>
+              {pairs.map((p) => (
+                <li key={p} className={found.includes(p) ? 'found' : undefined}>
+                  {images[p] && <img src={images[p]} alt="" loading="lazy" />}
+                  <span>
+                    <b>{text.items[p].title}</b>
+                    {text.items[p].caption}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </>
       )}
 
       {screen === 'end' && (
         <div className="memo-end">
-          <div className="memo-bravo">כל הכבוד!</div>
-          <p>
-            מצאתם את כל {n} הזוגות ב־{moves} ניסיונות · ⏱ {formatTime(ms)}
-          </p>
-          <div className="memo-shabbat">שבת שלום!</div>
-          <div className="memo-btns">
-            <button className="btn" onClick={start}>
-              לשחק שוב
+          <div className="memo-bravo">{t('memo.bravo')}</div>
+          <p>{t('memo.allFound', { n: pairs.length, moves, time: formatTime(ms) })}</p>
+          <div className="memo-review">
+            <h3>{t('memo.review')}</h3>
+            <ul>
+              {pairs.map((p) => (
+                <li key={p}>
+                  {images[p] && <img src={images[p]} alt="" loading="lazy" />}
+                  <span>
+                    <b>{text.items[p].title}.</b> {text.items[p].moral}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="memo-shabbat">{t('memo.shabbat')}</div>
+          <div className="memo-links">
+            {pairs.length < total && (
+              <button className="btn" onClick={() => play(total)}>
+                {t('memo.full')}
+              </button>
+            )}
+            <button className={`btn${pairs.length < total ? ' ghost' : ''}`} onClick={() => play(pairs.length)}>
+              {t('memo.again')}
             </button>
-            <button className="btn ghost" onClick={() => go('study')}>
-              למדו את הפרשה
-            </button>
+            <a className="btn ghost" href={`#/${lesson.slug}`}>
+              {t('memo.toGematria')}
+            </a>
           </div>
           <div className="memo-copy">© mychitas.app 2026</div>
         </div>
       )}
 
-      <Sheet open={shown !== null} onClose={closeInfo} title={'מצאתם זוג!\u200F'} closeLabel="סגור">
+      <Sheet open={shown !== null} onClose={closeInfo} title={t('memo.found')} closeLabel={t('menu.close')}>
         {shown !== null && (
           <>
-            <MemoInfo item={memo.items[shown]} n={shown + 1} img={images[shown]} />
+            <MemoInfo item={memo.items[shown]} text={text.items[shown]} n={shown + 1} img={images[shown]} />
             <button className="btn memo-next" data-autofocus onClick={closeInfo}>
-              {found.length === n ? 'לסיום ←' : 'ממשיכים לשחק ←'}
+              {found.length === pairs.length ? t('memo.finish') : t('memo.next')} →
             </button>
           </>
         )}

@@ -7,7 +7,6 @@ import type { Lesson, LessonText } from '../lessons/types';
 import { HebrewRuns } from './Hebrew';
 import { Icon } from './ui';
 import { Puzzle } from './Puzzle';
-import { Memo } from './Memo';
 import { PARSHIOT } from '../lessons/parshiot';
 import { renderCard, shareOrSave } from '../core/shareCard';
 
@@ -204,7 +203,15 @@ export function Final({
         </button>
       )}
     </section>
-    {lesson.memo && <Memo lesson={lesson} memo={lesson.memo} />}
+    {lesson.memo && (
+      <section className="memo-cta pop">
+        <span aria-hidden="true">🃏</span>
+        <p>{t('memo.cta')}</p>
+        <a className="btn" href={`#/${lesson.slug}/memo`}>
+          {t('memo.ctaBtn')} →
+        </a>
+      </section>
+    )}
     <a className="mychitas pop" href="https://mychitas.app" target="_blank" rel="noopener">
       <span className="mc-mark">MyChitas</span>
       <span className="mc-text">{t('final.mychitas')}</span>

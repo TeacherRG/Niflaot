@@ -73,6 +73,18 @@ export function Panels() {
               ))}
             </div>
           </details>
+          {lessonSlug && findLesson(lessonSlug)?.memo && (
+            <>
+              <a href={`#/${lessonSlug}`} onClick={close} className="menu-item">
+                <span className="menu-num">🔢</span>
+                <span>{t('memo.tabGematria')}</span>
+              </a>
+              <a href={`#/${lessonSlug}/memo`} onClick={close} className="menu-item">
+                <span className="menu-num">🃏</span>
+                <span>{t('memo.tabMemo')}</span>
+              </a>
+            </>
+          )}
           {lessonSlug && (
             <a href={`#/${lessonSlug}/print`} onClick={close} className="menu-item">
               <Icon name="print" />

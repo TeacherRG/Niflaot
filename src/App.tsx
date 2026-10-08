@@ -4,6 +4,7 @@ import { Catalog } from './components/Catalog';
 import { LessonPage } from './components/LessonPage';
 import { PrintLesson } from './components/PrintLesson';
 import { PrintMemo } from './components/PrintMemo';
+import { MemoPage } from './components/MemoPage';
 import { MathPage } from './components/MathPage';
 import { OPS, type Op } from './core/mentalMath';
 import { Panels } from './components/Panels';
@@ -20,7 +21,7 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©pnimi.org.il\n©mychitas.app`;
 
 /**
  * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version,
- * `#/<lesson-slug>/print/memo` — the lesson's Memo game on paper.
+ * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/print/memo` — the Memo on paper.
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson.
  */
@@ -94,7 +95,7 @@ export function App() {
   const lesson = slug ? findLesson(slug) : undefined;
   // outside a lesson the helper knows no lesson (the lesson page sets its own state)
   useEffect(() => {
-    if (!lesson || view === 'print') setPageState(null);
+    if (!lesson || view === 'print' || view === 'memo') setPageState(null);
   }, [lesson, view]);
   const ui = useMemo(() => ({ panel, open, lessonSlug: lesson?.slug }), [panel, lesson]);
   return (
@@ -105,6 +106,8 @@ export function App() {
         <Catalog />
       ) : view === 'print' && variant === 'memo' && lesson.memo ? (
         <PrintMemo key={lesson.slug} lesson={lesson} memo={lesson.memo} />
+      ) : view === 'memo' && lesson.memo ? (
+        <MemoPage key={lesson.slug} lesson={lesson} memo={lesson.memo} />
       ) : view === 'print' ? (
         <PrintLesson key={lesson.slug} lesson={lesson} />
       ) : (

@@ -257,6 +257,123 @@ const en: LessonText = {
       ],
     },
   ],
+  memo: {
+    intro:
+      'Twelve comments of the Baal HaTurim on Bereshit — twelve pairs of cards. Each picture tells about one comment, and its partner card shows the Torah words the comment is about.',
+    items: [
+      {
+        title: 'The world was created on Rosh Hashanah',
+        caption: 'A shofar and the world: its birthday',
+        verse: '“In the beginning He created”',
+        quote: '“In the beginning He created” — in gematria, “on Rosh Hashanah was created” (the world).',
+        explain:
+          'The first words of the Torah, בראשית ברא (“in the beginning He created”), have the same value as בראש השנה נברא — “on Rosh Hashanah was created”. So the very beginning of the Torah hints that the world was created on Rosh Hashanah.',
+        moral: 'Rosh Hashanah is the birthday of the world. Any new start of ours can begin like the Torah: with thought and intention.',
+      },
+      {
+        title: 'The world was created with truth',
+        caption: 'A book, the world and straight rays: truth',
+        verse: '“In the beginning G-d created”',
+        quote: '“In the beginning G-d created” — the last letters of the words spell אמת (truth). It teaches that He created the world with truth, as it says: “The beginning of Your word is truth.”',
+        explain:
+          'Take the last letter of each word: ת (בראשית), א (ברא), ם (אלקים). Together they spell אמת, “truth”. The Baal HaTurim learns from this that G-d created the world with truth, as Psalms says: “The beginning of Your word is truth.”',
+        moral: 'The world stands on truth — so we tell the truth too, even when it is not easy.',
+      },
+      {
+        title: 'Light and Torah — 613',
+        caption: 'A Torah scroll in the light of day one',
+        verse: '“the light” (G-d saw the light)',
+        quote: '“The light” — in gematria “in the Torah”, and it adds up to 613.',
+        explain:
+          'Light was created on the first day. The words את האור (“the light”) have the same value as בתורה — “in the Torah”: 613. That is exactly the number of the Torah’s commandments — תרי״ג. So the Baal HaTurim links the first light with the Torah and its mitzvot.',
+        note: 'the 613 commandments of the Torah (תרי״ג)',
+        moral: 'The light of the world is bound up with the Torah: every mitzvah adds light to the world.',
+      },
+      {
+        title: 'Havdalah after Shabbat',
+        caption: 'Candle, cup and spices: havdalah',
+        verse: '“and He separated”',
+        quote: '“And G-d saw the light, that it was good, and He separated” — from here: we do not bless the candle until we use its light. As the number of “and He separated” — so many times we make havdalah in a year at the end of Shabbat.',
+        explain:
+          'First G-d “saw the light, that it was good”, and only then “He separated”. From here the law: at havdalah after Shabbat we say the blessing on the candle only once we use its light. And the word ויבדל (“and He separated”) equals 52 — the number of times a year we make havdalah after Shabbat.',
+        note: '52 havdalot at the end of Shabbat in a year',
+        moral: 'First we notice the good and enjoy it — then we thank. A blessing grows out of noticing the good.',
+      },
+      {
+        title: 'Every blade of grass has its mazal',
+        caption: 'Above every plant — its own star',
+        verse: '“yielding seed after its kind”',
+        quote: '“Yielding seed after its kind” — the first letters spell מזל (mazal). There is no blade of grass that has no mazal above it.',
+        explain:
+          'The first letters of the words: מ (מזריע), ז (זרע), ל (למינהו) — together מזל, “mazal”. The Baal HaTurim teaches: there is no blade of grass, not even the smallest, without its own mazal above, in the heavens, appointed over it.',
+        moral: 'If someone above is appointed over every blade of grass, then no one in the world is forgotten.',
+      },
+      {
+        title: 'The great light and the moon',
+        caption: 'Sun and moon: the sun is the one to shine',
+        verse: '“lights”',
+        quote: '“Lights” is written without a ו: only the sun was created to give light. The moon was created only so that people would not worship the sun, had it been alone.',
+        explain:
+          'In the Torah the word מארת (“lights”) is written without the letter ו — a “defective spelling”. According to the Baal HaTurim, only the sun was created to give light. And the moon? It was created so that people would not worship the sun, as they would have done had it been alone in the sky.',
+        moral: 'Even the huge sun is only a creation of G-d. When we see something great and impressive, we remember Who made it.',
+      },
+      {
+        title: 'Man from the earth',
+        caption: 'A man on a hill of earth',
+        verse: '“the man”',
+        quote: '“The man” has the letters of “earth”: he was created from the earth. אדם is an acronym: ash, blood, bile.',
+        explain:
+          'The word האדם (“the man”) has exactly the letters of אדמה (“earth”) — because man was created from the earth; that is why their values are equal too: 50. And as a notarikon — each letter begins a word: א — אפר (ash), ד — דם (blood), מ — מרה (bile).',
+        moral: 'Man was made from the earth — this teaches humility: not to be proud, and to remember where we come from.',
+      },
+      {
+        title: 'The soul is a seal',
+        caption: 'A seal and the breath of life',
+        verse: '“and He breathed into his nostrils the soul of life”',
+        quote: '“And He breathed into his nostrils the soul of life” — the last letters spell חותם (a seal).',
+        explain:
+          'G-d breathed into man “the soul of life”. The last letters of the four words — ח, ו, ת, ם — spell חותם, “a seal”. A seal is pressed onto something important; we can understand that the soul is like G-d’s seal in every person.',
+        moral: 'Each of us has a soul from G-d — so we respect every person.',
+      },
+      {
+        title: 'For the sake of Abraham',
+        caption: 'Abraham’s tent under the starry sky',
+        verse: '“when they were created”',
+        quote: '“When they were created” has the letters of “in Abraham”: in Abraham’s merit heaven and earth were created.',
+        explain:
+          '“These are the generations of heaven and earth when they were created — בהבראם.” Rearrange the letters of בהבראם and you get באברהם — “in Abraham”; that is why their values are equal too: 250. The Baal HaTurim teaches: heaven and earth were created in the merit of Avraham Avinu.',
+        moral: 'One good person can be the reason for great good for the whole world.',
+      },
+      {
+        title: '24 ornaments',
+        caption: 'A crown and jewels: 24 ornaments',
+        verse: '“and He brought her to the man”',
+        quote: '“And He brought her” is written defectively and equals 24: He adorned her with twenty-four ornaments and brought her to him.',
+        explain:
+          'Of Chava it says: “and He brought her to the man”. The word is written defectively — ויבאה rather than ויביאה, without a י — and so it equals 24 (כ״ד). From here the Baal HaTurim learns: G-d adorned Chava with twenty-four ornaments and only then brought her to Adam.',
+        note: '24 ornaments (כ״ד קישוטים)',
+        moral: 'G-d Himself cared for the honour and joy of another. We too can bring joy and respect to those around us.',
+      },
+      {
+        title: 'The gossip’s advice',
+        caption: 'The snake on the tree: a gossip’s advice',
+        verse: '“which I commanded you not to eat”',
+        quote: '“Which I commanded you not to eat” — the last letters spell רכיל (a gossip): you followed a gossip’s advice.',
+        explain:
+          'G-d asks Adam: “Have you eaten from the tree which I commanded you not to eat?” The last letters — ר, ך, י, ל — spell רכיל, “a gossip”: someone who goes around talking about others. That is: you followed the advice of a gossip — the snake, who spoke to Chava and talked her into it.',
+        moral: 'We do not listen to gossip and do not follow it: evil talk can do great harm.',
+      },
+      {
+        title: 'Chanoch — the seventh generation',
+        caption: 'Seven steps up to heaven',
+        verse: '“behold, my witness is in heaven” (Job)',
+        quote: '“Behold, my witness is in heaven” — in gematria “Chanoch”… He chose Chanoch, the seventh generation, for G-d loves the sevenths.',
+        explain:
+          'The book of Job says: “Behold, my witness is in heaven.” The word עדי (“my witness”) has the same value as the name חנוך (Chanoch) — 84. G-d took Chanoch up to heaven to be a witness, and chose him because he was the seventh generation from Adam — and G-d loves the sevenths. So too Moshe, seventh from Abraham, “went up to G-d”.',
+        moral: 'G-d loves the seventh — and every week we have our own seventh day: Shabbat.',
+      },
+    ],
+  },
   final: {
     title: 'The beginning revealed',
     allSolved:
