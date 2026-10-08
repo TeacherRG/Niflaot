@@ -87,4 +87,10 @@ export const PROJECT_DE: Record<string, string[]> = {
   'prov-20-27': [
     'Eine Leuchte des Ewigen ist die Seele des Menschen; sie durchforscht alle Kammern des Innern.',
   ],
+  'tanya-ih-7': [
+    "Und obwohl diese Offenbarung durch die Beschäftigung mit Tora und Geboten im Allgemeinen für jede Seele Israels gleich ist — denn eine Tora und ein Gesetz gilt für uns alle —, so sind doch im Einzelnen nicht alle Seelen (Nefesch), Geister (Ruach) und Seelen (Neschama) darin gleich, je nach Zeit und Stunde ihrer Wiederverkörperung und ihres Kommens in diese Welt. Wie unsere Weisen, seligen Andenkens, sagten: „Dein Vater — worin war er besonders sorgsam? Er antwortete ihm: In Zizit…“",
+  ],
+  'prov-3-17': [
+    "Ihre Wege sind Wege der Lieblichkeit, und alle ihre Pfade sind Frieden.",
+  ],
 };

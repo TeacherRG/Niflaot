@@ -25,6 +25,9 @@ const esc = (s: string) =>
 /** plain text for meta tags and static HTML: no markup, Names of G-d as on screen */
 const plain = (html: string) => displayNames(html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim());
 const text = (l: Lesson) => l.texts[LOCALE]!;
+/** «Урок 2», or «Нифлаот Ребе · Урок 1» for a lesson of the Rebbe's section */
+const lessonLabel = (l: Lesson) =>
+  `${l.series === 'rebbe' ? `${ui['rebbe.section']} · ` : ''}${ui['catalog.lesson'].toString().replace('{n}', String(l.number))}`;
 const lessonUrl = (l: Lesson) => `${SITE_URL}/${l.slug}/`;
 
 /* ───── Content-Security-Policy ───── */
@@ -133,7 +136,7 @@ function lessonPage(l: Lesson): Page {
   const tx = text(l);
   const keywords = tags.filter((t) => !t.he && t.lessons.includes(l)).map((t) => t.label);
   return {
-    title: `${tx.title} — ${ui['catalog.lesson'].toString().replace('{n}', String(l.number))} · ${ui['app.title']}`,
+    title: `${tx.title} — ${lessonLabel(l)} · ${ui['app.title']}`,
     description: plain(tx.summary),
     url: lessonUrl(l),
     type: 'article',
@@ -158,7 +161,7 @@ function lessonPage(l: Lesson): Page {
       isPartOf: SITE,
       keywords: ['гиматрия', 'Тора', ...keywords].join(', '),
     },
-    body: `<header><p><a href="../">${esc(ui['app.title'] as string)}</a> · ${esc(ui['catalog.lesson'].toString().replace('{n}', String(l.number)))}</p>
+    body: `<header><p><a href="../">${esc(ui['app.title'] as string)}</a> · ${esc(lessonLabel(l))}</p>
 <p class="he">${esc(displayNames(l.hebrewTitle))}</p><h1>${esc(plain(tx.hero.heading))}</h1><p>${esc(plain(tx.hero.author))}</p><p>${esc(String(ui['age.title']))}: ${esc(String(ui['age.long']).replace('{n}', String(l.age)))}. ${esc(plain(tx.audience))}</p><p>${esc(plain(tx.hero.intro))}</p></header>
 ${tx.riddles
   .map(

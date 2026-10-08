@@ -1,18 +1,18 @@
 import { useEffect } from 'react';
 import { useI18n } from '../i18n';
-import type { Lesson, MemoData } from '../lessons/types';
+import type { Lesson, RebbeCardsData } from '../lessons/types';
 import { TopBar } from './TopBar';
 import { LessonTabs } from './LessonTabs';
-import { Memo } from './Memo';
+import { RebbeCards } from './RebbeCards';
 import { Colophon } from './Colophon';
 
-/** `#/<slug>/memo` — the Memo game of a lesson, next to its gematria game. */
-export function MemoPage({ lesson, memo }: { lesson: Lesson; memo: MemoData }) {
+/** `#/<slug>/cards` — «Карточки» of a «Нифлаот Ребе» lesson, next to its investigation. */
+export function CardsPage({ lesson, cards }: { lesson: Lesson; cards: RebbeCardsData }) {
   const { t, pick, locale } = useI18n();
   const { value: text, locale: textLocale } = pick(lesson.texts);
 
   useEffect(() => {
-    document.title = `${t('memo.tabMemo')} · ${text.title} · ${t('app.title')}`;
+    document.title = `${t('cards.tab')} · ${text.title} · ${t('app.title')}`;
   }, [text.title, t]);
 
   return (
@@ -25,7 +25,7 @@ export function MemoPage({ lesson, memo }: { lesson: Lesson; memo: MemoData }) {
           <h1>{text.title}</h1>
         </div>
         <LessonTabs lesson={lesson} active="second" />
-        {text.memo && <Memo lesson={lesson} memo={memo} text={text.memo} />}
+        {text.cards && <RebbeCards lesson={lesson} cards={cards} text={text.cards} />}
       </div>
       <Colophon source={text.source} />
     </>

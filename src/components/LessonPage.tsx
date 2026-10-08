@@ -87,7 +87,7 @@ export function LessonPage({ lesson }: { lesson: Lesson }) {
       <div className="wrap">
         {textLocale !== locale && <div className="fallback-note">{t('catalog.fallback')}</div>}
         <Hero lesson={lesson} text={text} />
-        <LessonTabs lesson={lesson} active="gematria" />
+        <LessonTabs lesson={lesson} active="main" />
         <main id="game" ref={game} onClickCapture={start} onFocusCapture={start}>
           {summary ? (
             <Final
@@ -114,7 +114,7 @@ export function LessonPage({ lesson }: { lesson: Lesson }) {
             />
           )}
         </main>
-        <Calculator lesson={lesson} done={S.done} />
+        {lesson.kind !== 'sicha' && <Calculator lesson={lesson} done={S.done} />}
       </div>
 
       <Colophon source={text.source} />

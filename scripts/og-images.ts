@@ -66,10 +66,11 @@ ${o.highlight ? `<div class="eq">${o.highlight.map((l) => `<div dir="ltr">${toke
 
 const lessonPage = (l: Lesson) =>
   page({
-    eyebrow: `Нифлаот · ${PARSHIOT[l.parsha].name.ru} ${PARSHIOT[l.parsha].year} · урок ${l.number}`,
+    eyebrow: `${l.series === 'rebbe' ? 'Нифлаот Ребе' : 'Нифлаот'} · ${PARSHIOT[l.parsha].name.ru} ${PARSHIOT[l.parsha].year} · урок ${l.number}`,
     he: l.hebrewTitle,
     title: l.texts.ru!.title,
-    sub: `Игра-гиматрия ${l.texts.ru!.hero.author}`,
+    // a talk of the Rebbe is an investigation, not a gematria game
+    sub: `${l.kind === 'sicha' ? 'Расследование' : 'Игра-гиматрия'} ${l.texts.ru!.hero.author}`,
     highlight: l.highlight,
     letters: l.heroLetters,
   });
