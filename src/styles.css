@@ -406,6 +406,11 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .p-fields{display:grid;gap:10px;font-size:13px;color:#333}
 .p-label{font-family:var(--f-body)!important;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#7a5b1e;margin-bottom:6px!important}
 .p-block{margin-top:16px}
+.p-letters-block{break-inside:avoid}
+.p-finals{margin:4px 0 0;font-size:11.5px;color:#444}
+.p-finals .he{font-size:14px;font-weight:700;unicode-bidi:isolate}
+.p-holy{margin:0 0 4px;font-style:italic;color:#444}
+.p-teacher{margin:-4px 0 8px;font-size:12px;font-style:italic;color:#555}
 .p-table{display:grid;grid-template-columns:repeat(11,1fr);gap:3px}
 .p-table span{display:grid;justify-items:center;border:1px solid #bbb;border-radius:3px;padding:2px 0}
 .p-table b{font-family:var(--f-he);font-size:16px;line-height:1.2}

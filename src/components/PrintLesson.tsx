@@ -126,6 +126,24 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
           </div>
         </header>
 
+        <section className="p-block p-letters-block">
+          <h3 className="p-label">{t('print.letters')}</h3>
+          <div className="p-table" dir="rtl">
+            {TABLE.map(([c, v]) => (
+              <span key={c}>
+                <b>{c}</b>
+                <i>{v}</i>
+              </span>
+            ))}
+          </div>
+          <p className="p-finals">
+            {t('print.finals')}{' '}
+            <span className="he" dir="rtl">
+              ך = כ · ם = מ · ן = נ · ף = פ · ץ = צ
+            </span>
+          </p>
+        </section>
+
 
         {lesson.riddles.map((r, ri) => {
           const rt = text.riddles[ri];
@@ -227,25 +245,15 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
           </section>
         )}
 
-        <section className="p-block">
-          <h3 className="p-label">{t('print.letters')}</h3>
-          <div className="p-table" dir="rtl">
-            {TABLE.map(([c, v]) => (
-              <span key={c}>
-                <b>{c}</b>
-                <i>{v}</i>
-              </span>
-            ))}
-          </div>
-        </section>
-
         <footer className="p-foot">
+          <p className="p-holy">{t('print.holy')}</p>
           {SITE_HOST} · {text.source} · {t('footer.fine')}
         </footer>
 
         {opt.answers && (
           <section className="p-answers">
             <h2>{t('print.answers')}</h2>
+            <p className="p-teacher">{t('print.forTeacher')}</p>
             {lesson.riddles.map((r, ri) => {
               const rt = text.riddles[ri];
               return (
@@ -269,7 +277,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
                         {rt.steps[i].hint && (
                           <small>
                             {' '}
-                            · {t('print.hint')} {rt.steps[i].hint}
+                            · {t('print.hint')} <HebrewRuns text={rt.steps[i].hint!} />
                           </small>
                         )}
                       </li>
