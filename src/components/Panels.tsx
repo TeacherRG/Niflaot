@@ -12,6 +12,8 @@ export function Panels() {
   const { t, pick, locale } = useI18n();
   const { panel, open, lessonSlug } = useUI();
   const close = () => open(null);
+  // the portion of the open lesson or of its «Нифлаот Ребе» page: only its group is unfolded
+  const currentParsha = lessonSlug ? findLesson(lessonSlug)?.parsha : location.hash.match(/^#\/rebbe\/([^/?]+)/)?.[1];
 
   return (
     <>
@@ -19,7 +21,7 @@ export function Panels() {
         <nav className="menu">
           <div className="menu-lbl">{t('menu.lessons')}</div>
           {LESSON_GROUPS.map((g) => (
-            <details key={g.id} className="menu-group" open={!lessonSlug || findLesson(lessonSlug)?.parsha === g.id}>
+            <details key={g.id} className="menu-group" open={!currentParsha || currentParsha === g.id}>
               <summary className="menu-item">
                 <Icon name="book" />
                 <span>
@@ -46,6 +48,18 @@ export function Panels() {
                     </span>
                   </a>
                 ))}
+                <a
+                  href={`#/rebbe/${g.id}`}
+                  onClick={close}
+                  className="menu-item"
+                  aria-current={location.hash === `#/rebbe/${g.id}` ? 'page' : undefined}
+                >
+                  <span className="menu-num">✦</span>
+                  <span>
+                    {t('rebbe.title')}
+                    <small>{t('rebbe.menuSub')}</small>
+                  </span>
+                </a>
               </div>
             </details>
           ))}
