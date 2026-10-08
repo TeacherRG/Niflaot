@@ -1,4 +1,4 @@
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0}
 img{max-width:100%}
@@ -28,7 +28,7 @@ a{color:inherit}
 .gold-text{background:linear-gradient(180deg,#C99B45 0%,#8E6A24 55%,#B98C3A 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 
 /* header */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(244,245,248,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-inline:-16px;padding:10px 16px}
+.top{position:sticky;top:0;z-index:5;background:rgba(244,245,248,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-inline:-16px;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px}
 .top-in{max-width:780px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .brand{font-family:var(--f-display);font-weight:700;font-size:20px;margin-inline-end:auto;text-decoration:none;color:inherit;letter-spacing:.01em}
 .brand small{font-family:var(--f-body);font-weight:600;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-inline-start:8px}
@@ -942,7 +942,7 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 
 /* ───────── Shabbat: the site rests (candle lighting – end of Shabbat in the user's city) ───────── */
 .shabbat-rest{min-height:100vh;min-height:100dvh;display:grid;place-content:center;justify-items:center;gap:10px;text-align:center;padding:40px 16px;position:relative}
-.shabbat-lang{position:absolute;top:12px;inset-inline-end:0}
+.shabbat-lang{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));inset-inline-end:0}
 .shabbat-candles{font-size:44px;line-height:1}
 .shabbat-he{font-family:var(--f-he);font-weight:900;font-size:clamp(44px,12vw,72px);line-height:1.1;color:var(--gold)}
 .shabbat-rest h1{margin:0;font-family:var(--f-display);font-weight:700;font-size:clamp(30px,7vw,44px);line-height:1.1;color:var(--ink)}
@@ -968,13 +968,13 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .pm-expl-t{font-size:14px;line-height:1.3;padding:0 6px}
 @media print{.pm-expl-t{font-size:12.5px}}
 
-/* teachers' colours: the strip and badge of a lesson tile, the teacher tile, «Continue» */
+/* teachers' colours: the strip and badge of a lesson tile, «Continue» */
 .t-gold{--tc:#8A6524;--tc-line:var(--gold);--tc-soft:var(--gold-soft);--tc-bg:var(--ink);--tc-he:var(--gold-2)}
 .t-tchelet{--tc:var(--tchelet);--tc-line:var(--tchelet);--tc-soft:var(--tchelet-soft);--tc-bg:var(--tchelet);--tc-he:var(--gold-soft)}
 .t-green{--tc:var(--ok);--tc-line:var(--ok);--tc-soft:var(--ok-soft);--tc-bg:#1F5A38;--tc-he:var(--gold-soft)}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-/* home: one screen — title and «Continue», the week's lessons, the teachers; beside them the week countdown */
+/* home: one screen — title and «Continue», the week's lessons; beside them the week countdown */
 .top-in.wide{max-width:1180px}
 .home{max-width:1180px;margin:0 auto;padding:18px 0 4px;display:flex;flex-wrap:wrap;gap:20px;align-items:stretch}
 .home-main{flex:999 1 600px;min-width:0;display:grid;gap:18px;align-content:start}
@@ -1008,18 +1008,10 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .h-ring{margin-inline-start:auto;flex:none;width:22px;height:22px;border-radius:50%;background:conic-gradient(var(--tc-line) var(--p),var(--line) 0);-webkit-mask:radial-gradient(circle,transparent 5px,#000 6px);mask:radial-gradient(circle,transparent 5px,#000 6px)}
 .h-tile-he{font-family:var(--f-he);font-weight:700;font-size:19px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .h-tile-title{font-family:var(--f-display);font-weight:700;font-size:20px;line-height:1.1}
-.h-tile-sum{font-size:12.5px;line-height:1.4;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.h-tile-sum{font-size:13px;line-height:1.45;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .h-tile-foot{margin-top:auto;padding-top:4px;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
 .h-tile-foot b{margin-inline-start:auto;color:var(--ink)}
 .h-games{display:flex;gap:4px;color:var(--tc)}
-.h-teachers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.h-teacher{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;background:var(--tc-bg);color:#fff;text-decoration:none;min-width:0}
-.h-teacher:hover{filter:brightness(1.12)}
-.h-teacher-he{font-family:var(--f-he);font-weight:900;font-size:36px;line-height:1;color:var(--tc-he)}
-.h-teacher b{display:block;font-family:var(--f-display);font-size:19px;line-height:1.15}
-.h-teacher span span{font-size:12.5px;opacity:.85}
-.h-teacher-short{display:none!important}
-.h-teacher .h-teacher-n{font-size:inherit;opacity:1}
 
 /* «Осталось играть на этой неделе» */
 .wc-side{position:relative;overflow:hidden;flex:1;display:flex;flex-direction:column;gap:6px;padding:20px;border-radius:14px;background:var(--ink);color:#fff;box-shadow:0 18px 40px -20px rgba(20,26,51,.6)}
@@ -1054,16 +1046,9 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
   .h-section h2{font-size:21px}
   .h-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .h-tile{padding:10px 11px}
-  .h-tile-sum{display:none}
+  .h-tile-sum{font-size:12px;-webkit-line-clamp:3}
   .h-tile-title{font-size:18px}
   .h-tile-he{font-size:16px}
-  .h-teachers{gap:8px}
-  .h-teacher{flex-direction:column;align-items:flex-start;gap:2px;padding:8px 10px}
-  .h-teacher-he{font-size:24px}
-  .h-teacher b{font-size:15px}
-  .h-teacher span span{font-size:11px;line-height:1.25}
-  .h-teacher-name,.h-teacher-n{display:none!important}
-  .h-teacher-short{display:block!important}
   .h-hero-he>.he{font-size:34px}
   .h-hero h1{margin-top:2px}
   .h-continue{padding:10px 12px;gap:3px}
@@ -1072,13 +1057,6 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
   .h-section{gap:8px}
 }
 
-/* teacher page */
-.teacher-head{margin:24px 0 18px;display:flex;gap:18px;align-items:center;padding:20px 22px;border-radius:12px;background:var(--tc-bg);color:#fff}
-.teacher-he{font-family:var(--f-he);font-weight:900;font-size:64px;line-height:1;color:var(--tc-he)}
-.teacher-head h1{margin:0;font-family:var(--f-display);font-weight:700;font-size:30px;line-height:1.1}
-.teacher-head p{margin:6px 0 0;font-size:15px;opacity:.9}
-.teacher-head .teacher-genre{font-weight:700;opacity:1;color:var(--tc-he)}
-.teacher-soon{margin-top:16px}
 
 /* footer of every page: the site, the year, MyChitas */
 .colophon{max-width:none;margin:28px -16px 0;padding:0;border:0;display:block;text-align:start;font-size:13px;color:inherit}
@@ -1116,5 +1094,5 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
   .site-foot-by{margin-inline-start:auto}
 }
 /* the home page fills the screen, so the footer sits at its bottom */
-@media (min-width:900px){.home{box-sizing:border-box;min-height:calc(100svh - 57px - 76px - 28px);align-content:center}}
+@media (min-width:900px){.home{box-sizing:border-box;min-height:calc(100svh - 57px - 76px - 28px);align-content:flex-start;padding-top:28px}}
 @media (max-width:899px){.home{box-sizing:border-box;min-height:calc(100svh - 55px - 50px - 28px);align-content:flex-start}}

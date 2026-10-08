@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useI18n } from '../i18n';
 import { LESSONS, LESSON_GROUPS, type Lesson } from '../lessons';
-import { TEACHERS, teacherOf, type TeacherId } from '../lessons/teachers';
+import { TEACHERS, teacherOf } from '../lessons/teachers';
 import { lessonProgress } from '../core/progress';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
@@ -49,30 +49,9 @@ function WeekTile({ lesson: l }: { lesson: Lesson }) {
   );
 }
 
-/** A teacher: his letter, name, genre and number of lessons; opens his page with all his lessons. */
-function TeacherTile({ id }: { id: TeacherId }) {
-  const { t } = useI18n();
-  const n = LESSONS.filter((l) => teacherOf(l) === id).length;
-  return (
-    <a className={`h-teacher t-${TEACHERS[id].color}`} href={`#/teacher/${id}`}>
-      <span className="h-teacher-he he" lang="he" aria-hidden="true">
-        {TEACHERS[id].he}
-      </span>
-      <span>
-        <b className="h-teacher-name">{t(`teacher.${id}.name`)}</b>
-        <b className="h-teacher-short">{t(`teacher.${id}.short`)}</b>
-        <span>
-          {t(`teacher.${id}.genre`)}
-          <span className="h-teacher-n"> · {t('home.lessons', { n })}</span>
-        </span>
-      </span>
-    </a>
-  );
-}
-
 /**
  * The home page — one screen: a short title with «Continue», the lessons of the week's portion (all teachers),
- * the teachers, and beside them how long the games are open this week (until Shabbat).
+ * and beside them how long the games are open this week (until Shabbat).
  */
 export function Catalog() {
   const { t, pick, locale } = useI18n();
@@ -146,14 +125,6 @@ export function Catalog() {
             </div>
           </section>
 
-          <section className="h-section" aria-labelledby="h-teachers">
-            <h2 id="h-teachers">{t('home.teachers')}</h2>
-            <div className="h-teachers">
-              {(Object.keys(TEACHERS) as TeacherId[]).map((id) => (
-                <TeacherTile key={id} id={id} />
-              ))}
-            </div>
-          </section>
         </main>
         <aside className="home-side">
           <WeekCountdown variant="side" />
