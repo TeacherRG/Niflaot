@@ -210,6 +210,12 @@ const en: LessonText = {
         card: 'First acknowledge the Giver of the Torah (א), then learn it (ב)',
         explain: 'The Torah begins with the letter ב, not א. The Rebbe explains: learning Torah with intellect and understanding is the second step, ב. Before it comes the first step, א: to recognize and thank the One who gave the Torah.',
         horaah: 'Before learning, pause for a moment and remember Who gave the Torah — and then learn with intellect and understanding.',
+        poem: [
+          "The Torah starts with bet, not alef’s sign:",
+          "Bet — learn with mind and understand each line.",
+          "But alef first: before you learn, recall",
+          "Who gave the Torah — thank Him first of all.",
+        ],
       },
       {
         title: 'The hidden light',
@@ -217,6 +223,12 @@ const en: LessonText = {
         card: 'Light was created first and hidden in the Torah — for us to reveal',
         explain: 'Light — the main purpose of creation — was created first, though it was not yet needed, and then hidden; and G-d called it good. This light was hidden in the Torah, so that we have the power to reveal it again.',
         horaah: 'The purpose of our service is not only to drive away darkness, but to refine our portion of the world until it becomes light itself: “to turn darkness into light”.',
+        poem: [
+          "Light was created first, and then concealed,",
+          "Hidden in the Torah, waiting to be revealed.",
+          "Not just to drive away the dark of night —",
+          "But turn the darkness itself into light.",
+        ],
       },
       {
         title: 'Stars and fate',
@@ -224,6 +236,12 @@ const en: LessonText = {
         card: 'The heavenly lights influence a life, but a Jew is not limited by them',
         explain: 'Mazal — the influence of the heavenly bodies — can affect a person’s life. But a Jew is not limited by it.',
         horaah: 'When you add to your service of G-d, there is no need to fear any “influences” at all.',
+        poem: [
+          "The heavenly lights may shape a person’s way,",
+          "Yet they don’t bind a Jew beneath their sway.",
+          "Add more in serving G-d — and have no fear",
+          "Of any “influence” that might be near.",
+        ],
       },
       {
         title: 'Sun and moon',
@@ -231,6 +249,12 @@ const en: LessonText = {
         card: 'Created equal — only afterwards was the moon diminished',
         explain: 'The two luminaries were first created equal, and only afterwards was the moon’s light diminished. For the Jewish people, who receive the Torah, the Oral Torah (the moon) depends on the Written Torah (the sun) and is smaller than it. But from G-d’s side — in His plan — they are equal.',
         horaah: 'The Oral Torah is as precious as the Written Torah: from the side of the Giver of the Torah they are equal.',
+        poem: [
+          "At first the two great lights were made the same,",
+          "And only later did the moon grow small.",
+          "The Oral Torah bears the moon’s place and name,",
+          "But to the Giver — equal after all.",
+        ],
       },
       {
         title: 'A mate for the great fish',
@@ -238,6 +262,12 @@ const en: LessonText = {
         card: 'The great fish had a mate: even a tzaddik needs a companion',
         explain: 'Rashi emphasizes that the great sea creatures had a mate; G-d called it good, and set one of them aside as a reward for the righteous. Hence: even a tzaddik needs a “companion” — a friend in serving G-d.',
         horaah: 'Find yourself a companion in serving G-d: everyone needs one, even a tzaddik.',
+        poem: [
+          "The great sea creatures had a mate, a pair —",
+          "Rashi points out this fact with special care.",
+          "Even a tzaddik needs a friend, it’s true:",
+          "So find a friend to serve G-d next to you.",
+        ],
       },
       {
         title: 'The blessing of the fifth day',
@@ -245,6 +275,12 @@ const en: LessonText = {
         card: 'Fish live in water — in G-d’s unlimited kindness',
         explain: 'On the fifth day G-d blessed the fish. Jews are born with a streak of kindness (chesed), but it is limited. Those born on the fifth day of the week are blessed with unlimited kindness — like the fish, nourished in the water by G-d’s kindness.',
         horaah: 'G-d’s unlimited kindness is received through complete self-nullification (bittul) — as the water completely covers the fish.',
+        poem: [
+          "On day five G-d blessed the fish that swim:",
+          "In water they are fed by kindness from Him.",
+          "Give yourself wholly — as the waters do",
+          "Cover the fish — and boundless kindness comes to you.",
+        ],
       },
       {
         title: 'Without meat',
@@ -252,6 +288,12 @@ const en: LessonText = {
         card: 'Man is creation’s peak, yet was not given meat: against arrogance',
         explain: 'The preceding verses raise man above the animals as the pinnacle of creation. Not allowing him to eat animals ensures that his greatness does not lead to arrogance.',
         horaah: 'The higher a person stands, the more he must guard against arrogance.',
+        poem: [
+          "Man is the crown of all that G-d had made,",
+          "Yet meat as food to him was not conveyed,",
+          "So that his greatness would not turn to pride:",
+          "The higher you rise, the more set pride aside.",
+        ],
       },
       {
         title: 'The exact moment',
@@ -259,6 +301,12 @@ const en: LessonText = {
         card: 'G-d knows the exact moment Shabbat begins',
         explain: 'Rashi’s second explanation: in completing creation G-d did not violate Shabbat, because He knows the exact moment it begins.',
         horaah: 'Every moment is special: one missing moment can affect one’s entire service.',
+        poem: [
+          "G-d finished making all on day seven, yet",
+          "He knew the moment Shabbat would be set.",
+          "Each moment matters: miss a single one —",
+          "It can affect all service you have done.",
+        ],
       },
       {
         title: 'A new repair',
@@ -266,6 +314,12 @@ const en: LessonText = {
         card: 'Shabbat raised the world higher — so it needed a new repair',
         explain: 'In the six days of creation the world was complete. When Shabbat came — a higher level — the world now needed a new, higher tikkun (repair).',
         horaah: 'In our generation the world needs the learning of the inner part of the Torah — Chassidut.',
+        poem: [
+          "In six days the world was all complete;",
+          "Then came Shabbat — a higher level to meet.",
+          "A new tikkun the world then needed too:",
+          "In our generation — Chassidut, the Torah’s inner view.",
+        ],
       },
       {
         title: 'Names for the animals',
@@ -273,6 +327,14 @@ const en: LessonText = {
         card: 'By naming the animals Adam connected creation to its Source',
         explain: 'Adam’s service — naming the animals — connected creation with its Source. The giving of the Torah gave the power to connect creation with G-dliness itself; that is the service of the Jewish people.',
         horaah: 'In the blessings before the Shema we humble the animal soul; in the Shema itself we connect with G-dliness.',
+        poem: [
+          "By giving names, Adam bound each creature fast",
+          "Back to its Source; but Sinai went past:",
+          "The Torah gave the strength to bind the whole",
+          "Creation to G-dliness — Israel’s role.",
+          "Before the Shema, humble the animal soul;",
+          "In the Shema itself — to G-d unite, your goal.",
+        ],
       },
       {
         title: 'The best of what you have',
@@ -280,6 +342,12 @@ const en: LessonText = {
         card: 'Hevel brought the best of his kind — though better kinds existed',
         explain: 'Kayin brought an offering “of the fruit of the ground”, while Hevel brought the best of his kind, even though better kinds existed. Everything belongs to G-d, so what matters is not the kind but bringing the best of what one has.',
         horaah: 'In beautifying a mitzvah, do the best you can — within your own means.',
+        poem: [
+          "Kayin brought “of the fruit of the ground,”",
+          "Hevel — the best of his kind to be found.",
+          "All belongs to G-d; the kind is not the thing —",
+          "The best of what you have is what to bring.",
+        ],
       },
       {
         title: 'A firm decision',
@@ -287,6 +355,12 @@ const en: LessonText = {
         card: 'Not even in thought did G-d reach a firm decision against man',
         explain: 'G-d thought of destroying mankind, but issued the decree only after He had softened His anger. He considered what to do with man, but did not come to a firm decision even in thought.',
         horaah: 'Speak only good of others. And when you see someone do something wrong, make no firm judgment about him — even in thought.',
+        poem: [
+          "G-d thought about mankind — and still, in thought,",
+          "No firm decision against them He brought.",
+          "So speak of others only good; and when",
+          "You see them err — don’t judge them firmly then.",
+        ],
       },
     ],
   },

@@ -16,7 +16,7 @@
  *    computed from the real words, a source in sefaria.json, distinct word cards; texts in every language,
  *    picture explanations (caption) ≤ 45 characters, a `note` for a number without equal words
  *  - «Карточки» of a «Нифлаот Ребе» lesson: 12 pairs, every verse once (one explanation per verse), the card words
- *    in the verse's Hebrew, the explanation card ≤ 70 characters, texts in every language
+ *    in the verse's Hebrew, the explanation card ≤ 70 characters, a poem of 4–6 lines, texts in every language
  *  - every text edit of src/content/overrides.json (made on the site, #/admin) names an existing text
  *  - «Знаете ли вы?» (#/facts): every Hebrew word of the feed has a translation in the lesson glossary of every language,
  *    and every fact links to its place in the lesson (a riddle or a Memo pair)
@@ -183,6 +183,8 @@ for (const lesson of LESSONS) {
       const ct = tx?.cards?.items[k];
       if (!ct) continue;
       if (![ct.title, ct.verse, ct.card, ct.explain, ct.horaah].every((x) => x.trim())) err(`${where(k)} [${lang}]: empty text`);
+      if (!(ct.poem?.length >= 4 && ct.poem.length <= 6) || ct.poem.some((x) => !x.trim() || /[<>]/.test(x)))
+        err(`${where(k)} [${lang}]: the poem («Запомнить в стихах») needs 4–6 non-empty plain lines`);
       if (ct.card.length > 70) err(`${where(k)} [${lang}]: the explanation card is longer than 70 characters (${ct.card.length})`);
     }
   });
