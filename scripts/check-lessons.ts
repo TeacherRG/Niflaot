@@ -228,6 +228,7 @@ for (const k of staleOverrides) err(`src/content/overrides.json: ${k} — no suc
 // «Знаете ли вы?»: the feed shows no explanations, so every Hebrew word in it carries its translation
 const facts = collectFacts(LESSONS);
 if (!facts.length) err('facts: the feed «Знаете ли вы?» is empty');
+if (new Set(facts.map((f) => f.id)).size !== facts.length) err('facts: two facts have the same id (links #/facts/<id>)');
 for (const f of facts) if (f.ri === undefined && f.mi === undefined) err(`${f.lesson.slug}: facts — «${f.kind === 'eq' ? f.q : f.from}» has no place in the lesson to link to`);
 for (const f of facts)
   for (const loc of Object.keys(LOCALES) as (keyof typeof LOCALES)[]) {
