@@ -2,7 +2,7 @@ import type { RebbeCardsData } from '../types';
 
 /**
  * «Карточки» of «Нифлаот Ребе» · Берешит: a verse of the portion and one explanation of the Rebbe on it, from the table
- * of the weekly Likkutei Sichos («Нишмат Эфраим», parshapages.com). Where the table has several talks on one verse
+ * of the weekly Likkutei Sichot («Нишмат Эфраим», parshapages.com). Where the table has several talks on one verse
  * (בראשית — four; ויקרא לו האדם / הוא שמו — two), only one is taken. Order — by the verses.
  */
 const cards: RebbeCardsData = {

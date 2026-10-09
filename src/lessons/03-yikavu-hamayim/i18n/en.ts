@@ -6,10 +6,10 @@ const en: LessonText = {
     heading: 'The secret of the ninth verse: <i>four riddles about “one place”</i>',
     author: 'based on a note by Rabbi Yitzchak Ginsburgh',
     intro:
-      'In every weekly portion the ninth verse hides a deep intention. Find it in the very first portion of the Torah: unity in place, the three meanings of “kav”, the number 59 and all the “nines” of Bereshit.',
+      'In every weekly portion the ninth verse hides a deep intention. Find it in the very first portion of the Torah: unity in place, the three meanings of “kav”, the number 59 and all the “nines” of Bereishit.',
   },
   summary:
-    'The ninth verse of the Torah: “Let the waters gather into one place”. Mikveh, line and hope, the number 59, and the ninth letter, word and section of Bereshit.',
+    'The ninth verse of the Torah: “Let the waters gather into one place”. Mikveh, line and hope, the number 59, and the ninth letter, word and section of Bereishit.',
   glossary: {
     'אלף': 'aleph — the first letter',
     'פלא': 'wonder',
@@ -65,7 +65,7 @@ const en: LessonText = {
         },
         {
           h: 'One in time, one in place',
-          b: `<p>Here the word “one” (<span class="he">אחד</span>) appears in the Torah for the second time. The first time — “and there was evening and there was morning, one day” — reveals the One in time. Now — “into one place” — the One is revealed in space.</p><p>Time and place relate to each other as masculine and feminine. In the language of Sefer Yetzirah, time is called “shanah” (year) and place is called “olam” (world). The third dimension is “nefesh”, the soul. Unity in the soul is revealed later, in the second section, after the creation of Adam and Chava: “and they shall become one flesh”<sup data-src="gen-2-24"></sup>. Thus all three are completed: world, year, soul.</p>`,
+          b: `<p>Here the word “one” (<span class="he">אחד</span>) appears in the Torah for the second time. The first time — “and there was evening and there was morning, one day” — reveals the One in time. Now — “into one place” — the One is revealed in space.</p><p>Time and place relate to each other as masculine and feminine. In the language of Sefer Yetzirah, time is called “shanah” (year) and place is called “olam” (world). The third dimension is “nefesh”, the soul. Unity in the soul is revealed later, in the second section, after the creation of Adam and Chavah: “and they shall become one flesh”<sup data-src="gen-2-24"></sup>. Thus all three are completed: world, year, soul.</p>`,
         },
         {
           h: 'The mikveh — where land and grass appear',
@@ -149,9 +149,9 @@ const en: LessonText = {
     },
     {
       title: 'Fifty-nine',
-      cond: `<p>The gematria of the whole ninth verse of Bereshit is <b>3068</b>, and it has 52 letters.</p><p>The Rebbe of Izbica derived his rule from the ninth verse of portion Balak:</p><p class="verse" dir="rtl" lang="he">ויאמר בלעם אל האלקים בלק בן צפר מלך מואב שלח אלי</p><p>“And Bilam said to G-d: Balak son of Tzipor, king of Moav, has sent to me.”<sup data-src="num-22-10"></sup> Its gematria is <b>1593</b>. What do the two verses have in common?</p>`,
+      cond: `<p>The gematria of the whole ninth verse of Bereishit is <b>3068</b>, and it has 52 letters.</p><p>The Rebbe of Izbica derived his rule from the ninth verse of portion Balak:</p><p class="verse" dir="rtl" lang="he">ויאמר בלעם אל האלקים בלק בן צפר מלך מואב שלח אלי</p><p>“And Bilam said to G-d: Balak son of Tzipor, king of Moav, has sent to me.”<sup data-src="num-22-10"></sup> Its gematria is <b>1593</b>. What do the two verses have in common?</p>`,
       steps: [
-        { q: 'What is the average value of one letter of the ninth verse of Bereshit?', hint: '3068 : 52.' },
+        { q: 'What is the average value of one letter of the ninth verse of Bereishit?', hint: '3068 : 52.' },
         { q: 'How many times greater is 1593 than this number?', hint: '1593 : 59.' },
         {
           q: 'Both verses divide evenly by 59: 3068 = 52 × 59 and 1593 = 27 × 59. Which of these words also equals 59?',
@@ -160,7 +160,7 @@ const en: LessonText = {
       ],
       reveal: {
         h: 'The common denominator — the “tail”',
-        p: 'The average letter of the ninth verse is 59, and Bilam’s verse is exactly 27 times 59. So the two “ninth” verses share the number 59. And 59 is the “tail” (זנב) of the lesson “Tikun Partzuf-Zanav”: this lesson connects to the debate over the “face” and the “tail”. Two more words equal 59 — the name Yechiel (יחיאל) and “mother of the living” (אם חי). Both hide the word חי — “life”.',
+        p: 'The average letter of the ninth verse is 59, and Bilam’s verse is exactly 27 times 59. So the two “ninth” verses share the number 59. And 59 is the “tail” (זנב) of the lesson “Tikkun Partzuf-Zanav”: this lesson connects to the debate over the “face” and the “tail”. Two more words equal 59 — the name Yechiel (יחיאל) and “mother of the living” (אם חי). Both hide the word חי — “life”.',
       },
       lessons: [
         {
@@ -169,11 +169,11 @@ const en: LessonText = {
         },
         {
           h: 'The average letter is 59',
-          b: `<p>3068 is 52 times 59, so the average letter of the ninth verse equals 59. The ninth verse of portion Balak, on which the Rebbe of Izbica builds his rule, equals 1593 — 27 times 59. The common denominator of the two verses is 59.</p><p>The Rav brings two more words with the same number 59 — to show that this number is “alive”.</p><p><b>Yechiel</b> (<span class="he">יחיאל</span> = 10 + 8 + 10 + 1 + 30) — a Hebrew name meaning “may G-d live” (<span class="he">יחי א-ל</span>).</p><p><b>“Mother of the living”</b> (<span class="he">אם חי</span> = 1 + 40 + 8 + 10) — this is what the Torah calls Chava: “And the man called his wife’s name Chava, because she was the mother of all living” (Genesis 3:20)<sup data-src="gen-3-20"></sup>. And Chava is the very woman whose creation the “face” and the “tail” debate.</p><p>Both words contain <span class="he">חי</span> — “life”. That is why the Rav calls 59 “the living prime” (prime — divisible only by 1 and itself).</p>`,
+          b: `<p>3068 is 52 times 59, so the average letter of the ninth verse equals 59. The ninth verse of portion Balak, on which the Rebbe of Izbica builds his rule, equals 1593 — 27 times 59. The common denominator of the two verses is 59.</p><p>The Rav brings two more words with the same number 59 — to show that this number is “alive”.</p><p><b>Yechiel</b> (<span class="he">יחיאל</span> = 10 + 8 + 10 + 1 + 30) — a Hebrew name meaning “may G-d live” (<span class="he">יחי א-ל</span>).</p><p><b>“Mother of the living”</b> (<span class="he">אם חי</span> = 1 + 40 + 8 + 10) — this is what the Torah calls Chavah: “And the man called his wife’s name Chavah, because she was the mother of all living” (Genesis 3:20)<sup data-src="gen-3-20"></sup>. And Chavah is the very woman whose creation the “face” and the “tail” debate.</p><p>Both words contain <span class="he">חי</span> — “life”. That is why the Rav calls 59 “the living prime” (prime — divisible only by 1 and itself).</p>`,
         },
         {
           h: '59 is the “tail”',
-          b: `<p>Most importantly, 59 is the gematria of “tail” (<span class="he">זנב</span>). This is the secret of the debate from the lesson “Tikun Partzuf-Zanav”: “one said a face, the other said a tail”<sup data-src="berakhot-61a"></sup>, about what woman was created from.</p><p>In Kabbalah the “tail” points to Yesod — the ninth attribute — in its state of “smallness” (katnut). It is also the secret of the primordial snake that seduced Chava.<sup data-src="shabbat-146a"></sup> There lies the root of bodily desire: “and your desire shall be to your husband”.<sup data-src="gen-3-16"></sup> So the ninth verse is tied to the ninth attribute, and the ninth attribute to the “tail”.</p>`,
+          b: `<p>Most importantly, 59 is the gematria of “tail” (<span class="he">זנב</span>). This is the secret of the debate from the lesson “Tikkun Partzuf-Zanav”: “one said a face, the other said a tail”<sup data-src="berakhot-61a"></sup>, about what woman was created from.</p><p>In Kabbalah the “tail” points to Yesod — the ninth attribute — in its state of “smallness” (katnut). It is also the secret of the primordial snake that seduced Chavah.<sup data-src="shabbat-146a"></sup> There lies the root of bodily desire: “and your desire shall be to your husband”.<sup data-src="gen-3-16"></sup> So the ninth verse is tied to the ninth attribute, and the ninth attribute to the “tail”.</p>`,
         },
         {
           h: 'Sanctified desire',
@@ -184,23 +184,23 @@ const en: LessonText = {
       takeaways: [
         "The ninth verse = 3068 = 13 × 236 (ורב כח — “the measure of the Creator”); without the word “one” — 3055 = 5 × תורה.",
         "The average letter = 3068 : 52 = 59. The ninth verse of Balak = 1593 = 27 × 59.",
-        "59 = זנב — the “tail” of the lesson “Tikun Partzuf-Zanav”: the nine leads to Yesod and to the debate over what Chava was created from. 59 is also the name Yechiel (“may G-d live”) and “mother of the living” (אם חי) — Chava: both contain חי, “life”.",
+        "59 = זנב — the “tail” of the lesson “Tikkun Partzuf-Zanav”: the nine leads to Yesod and to the debate over what Chavah was created from. 59 is also the name Yechiel (“may G-d live”) and “mother of the living” (אם חי) — Chavah: both contain חי, “life”.",
         "Desire is sanctified: “the desire of the righteous is only good”.",
       ],
       puzzle: {
-        q: "Assemble the line of reasoning: from the verse of Bereshit to the shared number and its meaning.",
-        pieces: ["Bereshit verse: 3068, 52 letters", "Average letter: 59", "Balak verse: 1593 = 27 × 59", "59 = זנב, “tail”", "Sanctified desire — “only good”"],
+        q: "Assemble the line of reasoning: from the verse of Bereishit to the shared number and its meaning.",
+        pieces: ["Bereishit verse: 3068, 52 letters", "Average letter: 59", "Balak verse: 1593 = 27 × 59", "59 = זנב, “tail”", "Sanctified desire — “only good”"],
         meaning: "Both “ninth” verses divide by 59 — the “tail”, the root of desire. In holiness this desire becomes “only good”.",
       },
     },
     {
-      title: 'All the nines of Bereshit',
-      cond: `<p>The rule of the ninth verse applies not only to verses but also to <b>letters, words and sections</b>: nine is the sefirah of Yesod, which is called “all” and can carry opposites within it.</p><p>Let’s look at the ninth letter, ninth word and ninth section of the Torah. The ninth word is <em>היתה</em> (“was”): <em>והארץ היתה תהו ובהו</em> — “and the earth was chaos and void”.<sup data-src="gen-1-1"></sup> The ninth section is G-d’s words to Chava after the sin, ending with: <em>והוא ימשל בך</em> — “and he shall rule over you”.</p>`,
+      title: 'All the nines of Bereishit',
+      cond: `<p>The rule of the ninth verse applies not only to verses but also to <b>letters, words and sections</b>: nine is the sefirah of Yesod, which is called “all” and can carry opposites within it.</p><p>Let’s look at the ninth letter, ninth word and ninth section of the Torah. The ninth word is <em>היתה</em> (“was”): <em>והארץ היתה תהו ובהו</em> — “and the earth was chaos and void”.<sup data-src="gen-1-1"></sup> The ninth section is G-d’s words to Chavah after the sin, ending with: <em>והוא ימשל בך</em> — “and he shall rule over you”.</p>`,
       steps: [
         { q: 'Which letter is the ninth in the Torah? (<span class="he">בראשית ברא…</span>)', opts: ['alef · 1', 'hei · 5', 'resh · 200', 'shin · 300'] },
         { q: 'What is the ninth word of the Torah, <span class="he">היתה</span>?', hint: '5 + 10 + 400 + 5.' },
         { q: 'What do the words <span class="he">והוא ימשל בך</span> equal?', hint: 'והוא = 18, ימשל = 380, בך = 22.' },
-        { q: 'Which couple together gives the same number?', opts: ['Yaakov and Rachel', 'Avraham and Sarah', 'Yitzchak and Rivkah', 'Adam and Chava'] },
+        { q: 'Which couple together gives the same number?', opts: ['Yaakov and Rachel', 'Avraham and Sarah', 'Yitzchak and Rivkah', 'Adam and Chavah'] },
       ],
       reveal: {
         h: 'From chaos to the union of Yaakov and Rachel',
@@ -213,15 +213,15 @@ const en: LessonText = {
         },
         {
           h: 'The ninth letter — the second alef',
-          b: `<p>Count the letters of the Torah: <span class="he">ב ר א ש י ת</span> — six, then <span class="he">ב ר א</span> — the ninth letter is the alef of “bara”, “created”. It completes the first phrase of the Torah, “Bereshit bara” — the secret of “a word and half a word”.</p><p>This is the second alef in the Torah, just as the ninth verse holds the second “one” in the Torah. Alef equals one: here too the nine reveals unity.</p>`,
+          b: `<p>Count the letters of the Torah: <span class="he">ב ר א ש י ת</span> — six, then <span class="he">ב ר א</span> — the ninth letter is the alef of “bara”, “created”. It completes the first phrase of the Torah, “Bereishit bara” — the secret of “a word and half a word”.</p><p>This is the second alef in the Torah, just as the ninth verse holds the second “one” in the Torah. Alef equals one: here too the nine reveals unity.</p>`,
         },
         {
           h: 'The ninth word — “was”',
           b: `<p>The ninth word of the Torah is “was” (<span class="he">היתה</span>): “and the earth was chaos and void”. Here the root “to be” appears in the Torah for the first time — being, the coming of “something from nothing”. According to the Ramban, “bara” means creating something from nothing; “bara” and “was” are each the second word of their verse.</p><p>But “was” also carries a meaning of ruin: “calamity upon calamity” (<span class="he">הוה על הוה</span>)<sup data-src="ez-7-26"></sup>. This is the secret of the “breaking of the vessels” in the world of Tohu, the world of chaos. “Tohu” (<span class="he">תהו</span>) = 411 — like “something from nothing” (<span class="he">יש מאין</span>). Chaos is the feeling “I will reign” (the words of Adoniyahu)<sup data-src="kings1-1-5"></sup>, a “something” grown out of the source of “nothing”. The rectification is true self-nullification before the true Being.</p>`,
         },
         {
-          h: 'The ninth section — G-d’s words to Chava',
-          b: `<p>The ninth section of the Torah is Chava’s curse after the sin of the Tree of Knowledge: “To the woman He said: I will greatly increase your sorrow and your pregnancy; in pain you shall bear children; your desire shall be to your husband, and he shall rule over you.”<sup data-src="gen-3-16"></sup> One may say this is the main consequence of the sin and the order of the world after it.</p><p>The words “and he shall rule over you” (<span class="he">והוא ימשל בך</span>) equal 420 — like “was” (<span class="he">היתה</span>): the return of the world, the earth, the feminine to chaos. 420 is also “Yaakov” + “Rachel” (182 + 238), but in its opposite, “shadow” form. In the union of Yaakov and Rachel, Rachel stands below him — a consequence of Chava’s sin. Sarah stood above Avraham, and Rivkah was equal to Yitzchak.</p>`,
+          h: 'The ninth section — G-d’s words to Chavah',
+          b: `<p>The ninth section of the Torah is Chavah’s curse after the sin of the Tree of Knowledge: “To the woman He said: I will greatly increase your sorrow and your pregnancy; in pain you shall bear children; your desire shall be to your husband, and he shall rule over you.”<sup data-src="gen-3-16"></sup> One may say this is the main consequence of the sin and the order of the world after it.</p><p>The words “and he shall rule over you” (<span class="he">והוא ימשל בך</span>) equal 420 — like “was” (<span class="he">היתה</span>): the return of the world, the earth, the feminine to chaos. 420 is also “Yaakov” + “Rachel” (182 + 238), but in its opposite, “shadow” form. In the union of Yaakov and Rachel, Rachel stands below him — a consequence of Chavah’s sin. Sarah stood above Avraham, and Rivkah was equal to Yitzchak.</p>`,
         },
         {
           h: 'Sun and moon',
@@ -229,14 +229,14 @@ const en: LessonText = {
         },
         {
           h: 'The whole verse: 193',
-          b: `<p>The whole verse about Chava — 16 words — equals 4246, that is, 22 times 193. The last word of the verse, “over you” (<span class="he">בך</span>), is 22. So the verse is 192 times “you” plus one more “you” at the end. And 192 is three times “Adam and Chava” (45 + 19 = 64).</p><p>In Kabbalah 193 is the holy Name <span class="he">טפטפיה</span>, the secret of the union of husband and wife. It is also the letter <span class="he">ז</span> (which begins “tail”) spelled out twice: <span class="he">זין יוד נון</span> = 193. And the full spelling of the Name <span class="he">כוזו</span> (a letter substitution of G-d’s Name, written on the mezuzah): <span class="he">כף ואו זין ואו</span> = 193.</p><p>The Baal Shem Tov explained this Name in a person’s service: “ku” (<span class="he">כו</span> = 26, like G-d’s Name) — “ba-zo u-va-zo”, in this and in that, that is, in every single thing. “I set G-d before me always.”<sup data-src="ps-16-8"></sup> It is also the secret of the words “I am G-d your G-d”<sup data-src="num-15-41"></sup>, which close the Shema.</p>`,
+          b: `<p>The whole verse about Chavah — 16 words — equals 4246, that is, 22 times 193. The last word of the verse, “over you” (<span class="he">בך</span>), is 22. So the verse is 192 times “you” plus one more “you” at the end. And 192 is three times “Adam and Chavah” (45 + 19 = 64).</p><p>In Kabbalah 193 is the holy Name <span class="he">טפטפיה</span>, the secret of the union of husband and wife. It is also the letter <span class="he">ז</span> (which begins “tail”) spelled out twice: <span class="he">זין יוד נון</span> = 193. And the full spelling of the Name <span class="he">כוזו</span> (a letter substitution of G-d’s Name, written on the mezuzah): <span class="he">כף ואו זין ואו</span> = 193.</p><p>The Baal Shem Tov explained this Name in a person’s service: “ku” (<span class="he">כו</span> = 26, like G-d’s Name) — “ba-zo u-va-zo”, in this and in that, that is, in every single thing. “I set G-d before me always.”<sup data-src="ps-16-8"></sup> It is also the secret of the words “I am G-d your G-d”<sup data-src="num-15-41"></sup>, which close the Shema.</p>`,
         },
       ],
       reflection: 'Where does “I will reign” sound inside me? How can I return this “I” to its source — and turn rule into union?',
       takeaways: [
         "The rule of nine also holds for letters, words and sections. The ninth letter of the Torah is א — the second alef, like the second “one”.",
         "The ninth word is היתה (420): being, and the breaking of the vessels in the world of Tohu; תהו = 411 = יש מאין.",
-        "The ninth section is G-d’s words to Chava: “והוא ימשל בך” = 420 = היתה = יעקב + רחל — the consequence of the sin and its rectification.",
+        "The ninth section is G-d’s words to Chavah: “והוא ימשל בך” = 420 = היתה = יעקב + רחל — the consequence of the sin and its rectification.",
         "Average word 140 (חכמה + בינה, חמה + לבנה), average letter 42 (אמא): 140 + 42 = 182 = יעקב.",
         "The whole verse = 4246 = 22 × 193 (טפטפיה, כוזו): G-d is “in this and in that”, in every single thing.",
       ],
@@ -269,12 +269,12 @@ I’m searching for it in a gematria game based on Rabbi Yitzchak Ginsburgh’s 
 ✦ ${score} of ${max} points · ⏱ ${time}
 ${grid}
 
-Four riddles: on one place, on mikveh, line and hope, on the number 59 and on all the “nines” of Bereshit. Can you do better?
+Four riddles: on one place, on mikveh, line and hope, on the number 59 and on all the “nines” of Bereishit. Can you do better?
 Play 👉 ${site}
 
 ©pnimi.org.il ©mychitas.app`,
   source:
-    'Based on the note “Yikavu HaMayim el Makom Echad” (24 Tishrei 5787), “Niflaot” booklet No. 422, Bereshit ה׳תשפ״ז (Gal Einai). Full Hebrew text: pnimi.org.il',
+    'Based on the note “Yikavu HaMayim el Makom Echad” (24 Tishrei 5787), “Niflaot” booklet No. 422, Bereishit ה׳תשפ״ז (Gal Einai). Full Hebrew text: pnimi.org.il',
 };
 
 export default en;

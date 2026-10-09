@@ -23,6 +23,8 @@
  *  - the site asks the browser for no permissions: no microphone, camera, location, notifications, speech recognition
  *    (src/ has none of these APIs; the city for Shabbat comes from the time zone, «Слушать» only speaks)
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
+ *  - English and German follow the house style of chabad.org / de.chabad.org (scripts/style-rules.ts,
+ *    docs/TRANSLATION-GUIDE.md): G-d / G-tt, Shabbat / Schabbat, Moshiach / Moschiach, Avraham / Awraham…
  */
 import { LESSONS } from '../src/lessons';
 import { staleOverrides } from '../src/content';
@@ -40,6 +42,10 @@ import type { PuzzleText } from '../src/lessons/types';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import ruUi from '../src/i18n/locales/ru';
 import enUi from '../src/i18n/locales/en';
+import deUi from '../src/i18n/locales/de';
+import { GLOSSARY } from '../src/i18n/glossary';
+import { PARSHIOT } from '../src/lessons/parshiot';
+import { styleErrors } from './style-rules';
 
 const errors: string[] = [];
 const err = (m: string) => errors.push(m);
@@ -222,6 +228,24 @@ checkHtml('sources.ru', PROJECT_RU);
 checkHtml('sources.de', PROJECT_DE);
 checkHtml('sources.en', PROJECT_EN);
 
+// English and German: the words and spellings of chabad.org / de.chabad.org (docs/TRANSLATION-GUIDE.md)
+function checkStyle(lang: 'en' | 'de', where: string, v: unknown): void {
+  if (typeof v === 'string') for (const e of styleErrors(lang, v)) err(`${where}: ${e}`);
+  else if (Array.isArray(v)) v.forEach((x, i) => checkStyle(lang, `${where}[${i}]`, x));
+  else if (v && typeof v === 'function') checkStyle(lang, where, String(v));
+  else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) checkStyle(lang, `${where}.${k}`, x);
+}
+for (const lang of ['en', 'de'] as const) {
+  for (const lesson of LESSONS) checkStyle(lang, `${lesson.slug} (${lang})`, lesson.texts[lang]);
+  checkStyle(lang, `ui.${lang}`, lang === 'en' ? enUi : deUi);
+  checkStyle(lang, `glossary.${lang}`, GLOSSARY[lang]);
+  // src/core/partners.ts imports the logo images, so its texts are read from the file
+  const partners = readFileSync('src/core/partners.ts', 'utf8').matchAll(new RegExp(`^\\s*${lang}: (.+)$`, 'gm'));
+  checkStyle(lang, `src/core/partners.ts (${lang})`, [...partners].map((m) => m[1]));
+  checkStyle(lang, `parshiot (${lang})`, Object.values(PARSHIOT).map((p) => (p.name as Record<string, string>)[lang]));
+  checkStyle(lang, `sources.${lang}`, lang === 'en' ? PROJECT_EN : PROJECT_DE);
+}
+
 // text edits made on the site must still name a text of the source files
 for (const k of staleOverrides) err(`src/content/overrides.json: ${k} — no such text (the source changed); remove the edit`);
 
@@ -255,4 +279,4 @@ if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));
   process.exit(1);
 }
-console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, memo, ${facts.length} facts, safe HTML, no permission prompts`);
+console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, memo, ${facts.length} facts, safe HTML, no permission prompts, en/de style`);

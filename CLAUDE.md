@@ -70,6 +70,10 @@
    Транслитерация иврита по-русски: ה в начале и в середине слова — **ґ** (ґа-Турим, Авраґам, Йеґуда, Теґилим, Зоґар,
    артикль «ґа-»); ה на конце не пишется (Тора, Шхина, Моше). ח — «х», как и было.
 7. Проверка: `npm run check`, сборка, прохождение урока в браузере (ru/en/de, 390/360 px), PDF печати.
+8. Английский и немецкий — по `docs/TRANSLATION-GUIDE.md`: как на chabad.org (en) и de.chabad.org (de) —
+   G-d / G-tt, Shabbat / Schabbat, Moshiach / Moschiach, Avraham / Awraham, Chavah / Chawa, Rabbi (не Rabbiner),
+   книги на иврите по-немецки (Tehillim, Ijow); немецкий — простой, понятный детям, на «du».
+   Запрещённые формы ловит `npm run check` (`scripts/style-rules.ts`).
 
 ## «Читать» — урок без счёта
 

@@ -20,7 +20,7 @@ export const PROJECT_DE: Record<string, string[]> = {
     '<b>Bereschit bara [»im Anfang erschuf«]</b> — Gematria: »an Rosch Haschana wurde erschaffen« (die Welt). »Bereschit« ist ein Notarikon: »vor allem sah G-tt, dass Israel die Tora annehmen wird«. »Bereschit bara Elokim« — die Endbuchstaben [ergeben] »Emet« [Wahrheit]: Das lehrt, dass Er die Welt mit Wahrheit erschuf, wie es heißt: »Der Anfang Deines Wortes ist Wahrheit« [Tehillim 119,160]. Und so gibt es viele Verse, deren Endbuchstaben »Emet« ergeben.',
   ],
   'bht-1-2': [
-    '<b>Und der Geist G-ttes schwebte</b> — Gematria: »das ist der Geist des Maschiach«.',
+    '<b>Und der Geist G-ttes schwebte</b> — Gematria: »das ist der Geist des Moschiach«.',
   ],
   'bht-1-4': [
     '<b>Das Licht [et ha-or]</b> — Gematria »in der Tora« [ba-Tora], und es ergibt die Zahl 613 [תרי״ג].',
@@ -79,7 +79,7 @@ export const PROJECT_DE: Record<string, string[]> = {
     '<b>Ihr Verlangen [teschukato]</b> — zweimal in der Massora: hier und das andere — »Ich bin meines Geliebten, und nach mir ist sein Verlangen« [Schir ha-Schirim 7,11]. Das ist, was die Weisen sagten: Es gibt zwei Verlangen — das Verlangen der Frevler nach der Sünde, wie es heißt: »und nach dir ist ihr Verlangen«, und das Verlangen des Heiligen, gelobt sei Er, nach Israel, wie es heißt: »Ich bin meines Geliebten, und mein Geliebter ist mein«, »und nach mir ist sein Verlangen«.',
   ],
   'bht-4-18': [
-    '<b>Siehe, im Himmel ist mein Zeuge [edi]</b> [Ijob 16,19] — Gematria »Chanoch«; und »der mich kennt [we-sahadi]« — Gematria »Metatron«. Denn der Heilige, gelobt sei Er, nahm einen von denen vor der Generation der Sintflut und einen von denen nach der Generation der Sintflut — nämlich Chanoch und Pinchas — und hob sie in den Himmel, damit sie von Ihm zeugen. Und Er wählte Chanoch, weil er die siebte Generation war, und der Heilige, gelobt sei Er, liebt die Siebten. Und ebenso steht über Mosche, der der Siebte von den Vätern an war, geschrieben: »und Mosche stieg hinauf zu G-tt« [Schemot 19,3].',
+    '<b>Siehe, im Himmel ist mein Zeuge [edi]</b> [Ijow 16,19] — Gematria »Chanoch«; und »der mich kennt [we-sahadi]« — Gematria »Metatron«. Denn der Heilige, gelobt sei Er, nahm einen von denen vor der Generation der Sintflut und einen von denen nach der Generation der Sintflut — nämlich Chanoch und Pinchas — und hob sie in den Himmel, damit sie von Ihm zeugen. Und Er wählte Chanoch, weil er die siebte Generation war, und der Heilige, gelobt sei Er, liebt die Siebten. Und ebenso steht über Mosche, der der Siebte von den Vätern an war, geschrieben: »und Mosche stieg hinauf zu G-tt« [Schemot 19,3].',
   ],
   'prov-17-13': [
     'Wer Gutes mit Bösem vergilt, von dessen Haus weicht das Böse nicht.',

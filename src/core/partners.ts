@@ -42,7 +42,7 @@ export const PARTNERS: Partner[] = [
     url: 'https://jrcvienna.com',
     about: {
       ru: 'Русскоязычная еврейская община Вены: общинный центр, уроки Торы, субботние трапезы и праздники.',
-      en: 'The Russian-speaking Jewish community of Vienna: a community centre, Torah classes, Shabbat meals and holidays.',
+      en: 'The Russian-speaking Jewish community of Vienna: a community center, Torah classes, Shabbat meals and holidays.',
       de: 'Die russischsprachige jüdische Gemeinde Wiens: Gemeindezentrum, Tora-Unterricht, Schabbat-Mahlzeiten und Feiertage.',
     },
   },

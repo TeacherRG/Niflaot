@@ -233,7 +233,7 @@ export interface MemoText {
 
 /**
  * One pair of cards, language-independent: a verse card (Torah words of the portion) and an explanation card —
- * one explanation of the Rebbe on that verse (Likkutei Sichos). One explanation per verse: every verse once.
+ * one explanation of the Rebbe on that verse (Likkutei Sichot). One explanation per verse: every verse once.
  * The texts are in `LessonText.cards.items`, same order.
  */
 export interface RebbeCard {
@@ -241,7 +241,7 @@ export interface RebbeCard {
   verse: string;
   /** the verse in src/sources/sefaria.json (its Hebrew must contain `verse`) */
   source: string;
-  /** where the talk is: Likkutei Sichos, volume and number of the talk in the portion */
+  /** where the talk is: Likkutei Sichot, volume and number of the talk in the portion */
   ls: { vol: number; sicha: number };
 }
 

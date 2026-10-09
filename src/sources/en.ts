@@ -5,10 +5,10 @@
  */
 export const PROJECT_EN: Record<string, string[]> = {
   'bht-1-1': [
-    '<b>In the beginning He created [Bereshit bara]</b> — in gematria: “on Rosh Hashanah was created” (the world). “Bereshit” is a notarikon: “first of all G-d saw that Israel would accept the Torah”. “Bereshit bara Elokim” — the last letters [form] “emet” [truth]: this teaches that He created the world with truth, as it is said: “The beginning of Your word is truth” [Psalms 119:160]. And so there are many verses whose last letters [form] “emet”.',
+    '<b>In the beginning He created [Bereishit bara]</b> — in gematria: “on Rosh Hashanah was created” (the world). “Bereishit” is a notarikon: “first of all G-d saw that Israel would accept the Torah”. “Bereishit bara Elokim” — the last letters [form] “emet” [truth]: this teaches that He created the world with truth, as it is said: “The beginning of Your word is truth” [Psalms 119:160]. And so there are many verses whose last letters [form] “emet”.',
   ],
   'bht-1-2': [
-    '<b>And the spirit of G-d hovered</b> — in gematria: “this is the spirit of Mashiach”.',
+    '<b>And the spirit of G-d hovered</b> — in gematria: “this is the spirit of Moshiach”.',
   ],
   'bht-1-4': [
     '<b>The light [et ha-or]</b> — its gematria is “in the Torah” [ba-Torah], and it amounts to the number 613 [תרי״ג].',
@@ -47,7 +47,7 @@ export const PROJECT_EN: Record<string, string[]> = {
     '<b>Man became a living soul [ha-adam le-nefesh chayah]</b> — the first letters [form] “challah”: for he was the challah of the world.',
   ],
   'bht-2-22': [
-    '<b>And He brought her [vayevi’eha]</b> — written defectively, and it amounts to 24: for He adorned her with twenty-four ornaments and brought her to him. “And brought her” — four times in the Masorah: “and brought her to the man”; “and Yitzchak brought her into the tent” [Genesis 24:67]; “and brought her into the city of David” [I Kings 3:1]; “and the L-rd watched over the evil and brought it” [Daniel 9:14]. For before [Shlomo] married Pharaoh’s daughter he ruled over the upper beings — and this is like the first man, who was driven from the upper beings through Chava. But with Yitzchak it was the opposite, for she stood in Sarah’s place — so it is in the Midrash.',
+    '<b>And He brought her [vayevi’eha]</b> — written defectively, and it amounts to 24: for He adorned her with twenty-four ornaments and brought her to him. “And brought her” — four times in the Masorah: “and brought her to the man”; “and Yitzchak brought her into the tent” [Genesis 24:67]; “and brought her into the city of David” [I Kings 3:1]; “and the L-rd watched over the evil and brought it” [Daniel 9:14]. For before [Shlomo] married Pharaoh’s daughter he ruled over the upper beings — and this is like the first man, who was driven from the upper beings through Chavah. But with Yitzchak it was the opposite, for she stood in Sarah’s place — so it is in the Midrash.',
   ],
   'bht-3-11': [
     '<b>Of [ha-min]</b> — three times in the Masorah: here and the other — “out of this rock?” [Numbers 20:10]; “out of the threshing floor or out of the winepress?” [II Kings 6:27]. According to the one who says that the tree from which the first man ate was wheat — this is “out of the threshing floor?”. And just as death was decreed on him for “of the tree?”, so there too death was decreed for “out of the rock?”.',
@@ -58,7 +58,7 @@ export const PROJECT_EN: Record<string, string[]> = {
     '<b>She gave me of the tree, and I ate</b> — by the plain meaning: she struck me with a stick until I listened to her words.',
   ],
   'bht-3-21': [
-    '<b>And clothed them [vayalbishem]</b> — twice in the Masorah: here and the other — of Aharon: “and clothed them with tunics” [Leviticus 8:13]. This teaches that the Holy One, blessed be He, made priestly garments for the first man; and Bereshit Rabbah says that the firstborn served in them. And this verse has eight words — corresponding to the eight priestly garments.',
+    '<b>And clothed them [vayalbishem]</b> — twice in the Masorah: here and the other — of Aharon: “and clothed them with tunics” [Leviticus 8:13]. This teaches that the Holy One, blessed be He, made priestly garments for the first man; and Bereishit Rabbah says that the firstborn served in them. And this verse has eight words — corresponding to the eight priestly garments.',
   ],
   'bht-3-24': [
     '<b>To guard [lishmor]</b> — notarikon: “lilin, shedin, mazikin, ruchin” [night spirits, demons, harmful beings, spirits].',
