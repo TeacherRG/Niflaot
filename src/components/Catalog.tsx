@@ -8,12 +8,13 @@ import { Colophon } from './Colophon';
 import { WeekCountdown } from './WeekCountdown';
 import { Icon } from './ui';
 
-/** The games of a lesson as small icons: gematria (#), Memo or cards, investigation (magnifier). */
+/** The games of a lesson as small icons: gematria (#), Memo or cards, investigation (magnifier), reading (book). */
 function GameIcons({ lesson: l }: { lesson: Lesson }) {
   return (
     <span className="h-games">
       <Icon name={l.kind === 'sicha' ? 'search' : 'hash'} size={15} />
       {(l.memo || l.cards) && <Icon name="cards" size={15} />}
+      {l.kind !== 'sicha' && <Icon name="book" size={15} />}
     </span>
   );
 }
