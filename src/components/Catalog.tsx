@@ -81,7 +81,7 @@ export function Catalog() {
         <main className="home-main">
           <section className="h-hero">
             <div className="h-hero-text">
-              <img className="h-logo" src={NIFLAOT_LOGO} alt="Niflaot — Torah you can explore and learn with joy!" width={900} height={353} />
+              <img className="h-logo" src={NIFLAOT_LOGO} alt="Niflaot — Torah you can explore and learn with joy!" width={760} height={298} fetchPriority="high" />
               <div className="h-hero-he">
                 <span className="he gold-text" lang="he">
                   נפלאות

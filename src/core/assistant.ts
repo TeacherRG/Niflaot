@@ -1,6 +1,5 @@
 import type { Lesson } from '../lessons/types';
 import type { Locale } from '../i18n';
-import { SOURCES, sourceLabel, translation } from '../sources';
 import { displayNames } from './names';
 
 /**
@@ -32,7 +31,9 @@ export const subscribePageState = (f: () => void) => {
   listeners.add(f);
   return () => void listeners.delete(f);
 };
-const assistantContext = () => (page ? lessonContext(page.lesson, page.locale, page.done, page.lvl) : '');
+/** The primary sources (sefaria.json) load only with the first question, not with the site. */
+const assistantContext = async () =>
+  page ? lessonContext(page.lesson, page.locale, page.done, page.lvl, await import('../sources')) : '';
 
 const plain = (html: string) =>
   html
@@ -47,7 +48,13 @@ const plain = (html: string) =>
  * Lesson context for the assistant. Solved riddles carry the full solution and lesson text;
  * unsolved ones only the condition, questions and hints — so the assistant cannot spoil them.
  */
-export function lessonContext(lesson: Lesson, locale: Locale, done: number[], current: number): string {
+export function lessonContext(
+  lesson: Lesson,
+  locale: Locale,
+  done: number[],
+  current: number,
+  { SOURCES, sourceLabel, translation }: typeof import('../sources'),
+): string {
   const text = lesson.texts[locale] ?? lesson.texts.ru!;
   const out: string[] = [
     `Lesson ${lesson.number}: ${text.title} (${lesson.hebrewTitle}), ${text.hero.author}`,
@@ -85,10 +92,11 @@ export async function askAssistant(
   onText: (chunk: string) => void,
   signal: AbortSignal,
 ): Promise<void> {
+  const context = await assistantContext();
   const res = await fetch(`${ASSISTANT_URL.replace(/\/$/, '')}/chat`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ locale, messages, context: assistantContext() }),
+    body: JSON.stringify({ locale, messages, context }),
     signal,
   });
   if (!res.ok || !res.body) throw new Error(`http ${res.status}`);
