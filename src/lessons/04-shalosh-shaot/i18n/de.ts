@@ -210,6 +210,12 @@ const de: LessonText = {
         card: 'Zuerst den Geber der Tora anerkennen (א), dann sie lernen (ב)',
         explain: 'Die Tora beginnt mit dem Buchstaben ב, nicht mit א. Der Rebbe erklärt: Die Tora mit Verstand und Begreifen zu lernen ist die zweite Stufe, ב. Davor kommt die erste Stufe, א: Den, der die Tora gab, anzuerkennen und Ihm zu danken.',
         horaah: 'Vor dem Lernen einen Moment innehalten und sich erinnern, Wer die Tora gab — und dann mit Verstand und Begreifen lernen.',
+        poem: [
+          "Die Tora fängt mit Bet an, nicht mit Alef an:",
+          "Bet — lernen mit Verstand, so gut man’s kann.",
+          "Doch Alef kommt zuvor: erst anerkennen,",
+          "Wer uns die Tora gab — und Ihm den Dank bekennen.",
+        ],
       },
       {
         title: 'Das verborgene Licht',
@@ -217,6 +223,12 @@ const de: LessonText = {
         card: 'Das Licht wurde zuerst erschaffen und in der Tora verborgen',
         explain: 'Das Licht — das Hauptziel der Schöpfung — wurde zuerst erschaffen, obwohl es noch nicht gebraucht wurde, und dann verborgen; und G-tt nannte es gut. Dieses Licht ist in der Tora verborgen, damit wir die Kraft haben, es wieder zu enthüllen.',
         horaah: 'Das Ziel des Dienstes ist nicht nur, die Dunkelheit zu vertreiben, sondern den eigenen Teil der Welt zu läutern, bis er selbst Licht wird: „Dunkelheit in Licht verwandeln“.',
+        poem: [
+          "Das Licht schuf G-tt zuerst — und barg es dann,",
+          "Verborgen in der Tora, dass man’s finden kann.",
+          "Nicht bloß das Dunkel jagen — wir sind dazu bestellt,",
+          "Die Finsternis in Licht zu wandeln in der Welt.",
+        ],
       },
       {
         title: 'Sterne und Schicksal',
@@ -224,6 +236,12 @@ const de: LessonText = {
         card: 'Die Himmelslichter beeinflussen das Leben, doch ein Jude ist frei',
         explain: 'Masal — der Einfluss der Himmelskörper — kann das Leben eines Menschen beeinflussen. Doch ein Jude ist nicht durch ihn begrenzt.',
         horaah: 'Wer im Dienst G-ttes zulegt, muss keinerlei „Einflüsse“ fürchten.',
+        poem: [
+          "Die Lichter oben, Masal, wirken ein",
+          "Auf eines Menschen Leben, groß und klein.",
+          "Doch einen Juden halten sie nicht fest:",
+          "Dien G-tt noch mehr — die Furcht dich dann verlässt.",
+        ],
       },
       {
         title: 'Sonne und Mond',
@@ -231,6 +249,12 @@ const de: LessonText = {
         card: 'Zuerst gleich erschaffen — erst danach wurde der Mond kleiner',
         explain: 'Die beiden Himmelslichter wurden zuerst gleich erschaffen, und erst danach wurde das Licht des Mondes vermindert. Für das jüdische Volk, das die Tora empfängt, hängt die Mündliche Tora (der Mond) von der Schriftlichen (der Sonne) ab und ist kleiner als sie. Doch von G-ttes Seite — nach Seinem Plan — sind beide gleich.',
         horaah: 'Die Mündliche Tora ist so kostbar wie die Schriftliche: von der Seite des Gebers der Tora sind sie gleich.',
+        poem: [
+          "Die beiden Lichter waren erst gleich groß,",
+          "Dann wurde kleiner nur des Mondes Los.",
+          "Die Mündliche Tora scheint wie der Mond so klein,",
+          "Doch beim Geber ist sie der Schriftlichen gleich — so soll es sein.",
+        ],
       },
       {
         title: 'Ein Paar für den großen Fisch',
@@ -238,6 +262,12 @@ const de: LessonText = {
         card: 'Der große Fisch hatte ein Paar: auch ein Zaddik braucht Gefährten',
         explain: 'Raschi betont, dass die großen Seeungeheuer ein Paar waren; G-tt nannte es gut und bewahrte eines davon als Lohn für die Gerechten auf. Daraus folgt: Auch ein Zaddik braucht einen „Gefährten“ — einen Freund im Dienst G-ttes.',
         horaah: 'Suche dir einen Gefährten im Dienst G-ttes: Jeder braucht einen, sogar ein Zaddik.',
+        poem: [
+          "Die großen Seetiere hatten ein Paar —",
+          "Raschi betont es, macht es uns klar.",
+          "Selbst ein Zaddik braucht den Freund an seiner Seit’:",
+          "Such dir einen Gefährten, zum Dienst für G-tt bereit.",
+        ],
       },
       {
         title: 'Der Segen des fünften Tages',
@@ -245,6 +275,12 @@ const de: LessonText = {
         card: 'Fische leben im Wasser — in G-ttes grenzenloser Güte',
         explain: 'Am fünften Tag segnete G-tt die Fische. Juden haben von Geburt an einen Zug der Güte (Chessed), doch er ist begrenzt. Wer am fünften Wochentag geboren ist, ist mit grenzenloser Güte gesegnet — wie die Fische, die im Wasser von G-ttes Güte genährt werden.',
         horaah: 'G-ttes grenzenlose Güte empfängt man durch völlige Selbsthingabe (Bittul) — so wie das Wasser die Fische ganz bedeckt.',
+        poem: [
+          "Am fünften Tag hat G-tt die Fische gesegnet,",
+          "Im Wasser ist ihnen Seine Güte stets begegnet.",
+          "Gib dich ganz hin — wie Wasser sie umhüllt —,",
+          "So wirst du mit grenzenloser Güte erfüllt.",
+        ],
       },
       {
         title: 'Ohne Fleisch',
@@ -252,6 +288,12 @@ const de: LessonText = {
         card: 'Krone der Schöpfung, doch ohne Fleisch — gegen Hochmut',
         explain: 'Die vorigen Verse erheben den Menschen über die Tiere als Krone der Schöpfung. Dass er keine Tiere essen durfte, sorgt dafür, dass seine Größe nicht zu Hochmut führt.',
         horaah: 'Je höher ein Mensch steht, desto mehr muss er sich vor Hochmut hüten.',
+        poem: [
+          "Der Mensch ist Krone der Schöpfung, hoch gestellt,",
+          "Doch Fleisch zu essen war ihm nicht bestellt,",
+          "Damit ihn Größe nicht zum Hochmut verführt:",
+          "Je höher du stehst, umso mehr hüte dich, wie’s gebührt.",
+        ],
       },
       {
         title: 'Der genaue Augenblick',
@@ -259,6 +301,12 @@ const de: LessonText = {
         card: 'G-tt kennt den genauen Augenblick, in dem der Schabbat beginnt',
         explain: 'Raschis zweite Erklärung: Als G-tt die Schöpfung vollendete, verletzte Er den Schabbat nicht, denn Er kennt den genauen Augenblick, in dem er beginnt.',
         horaah: 'Jeder Augenblick ist besonders: Ein fehlender Augenblick kann den ganzen Dienst beeinträchtigen.',
+        poem: [
+          "Als G-tt am siebten Tag die Schöpfung vollbracht,",
+          "Hat Er den Schabbat-Anfang genau bedacht.",
+          "Jeder Augenblick ist kostbar: fehlt auch nur ein Stück,",
+          "Wirkt es auf den ganzen Dienst zurück.",
+        ],
       },
       {
         title: 'Eine neue Besserung',
@@ -266,6 +314,12 @@ const de: LessonText = {
         card: 'Der Schabbat hob die Welt höher — sie brauchte neues Tikkun',
         explain: 'In den sechs Schöpfungstagen war die Welt vollendet. Als der Schabbat kam — eine höhere Stufe —, brauchte die Welt ein neues, höheres Tikkun (Besserung).',
         horaah: 'In unserer Generation braucht die Welt das Lernen des inneren Teils der Tora — der Chassidut.',
+        poem: [
+          "In sechs Tagen war die Welt vollendet ganz,",
+          "Doch dann kam Schabbat — höher war sein Glanz.",
+          "Und neues Tikkun braucht sie jetzt dafür:",
+          "In unserer Zeit — Chassidut, der Tora innere Tür.",
+        ],
       },
       {
         title: 'Namen für die Tiere',
@@ -273,6 +327,14 @@ const de: LessonText = {
         card: 'Mit den Namen verband Adam die Schöpfung mit ihrer Quelle',
         explain: 'Adams Dienst — er gab den Tieren Namen — verband die Schöpfung mit ihrer Quelle. Die Gabe der Tora gab die Kraft, die Schöpfung mit der G-ttlichkeit selbst zu verbinden; das ist der Dienst des jüdischen Volkes.',
         horaah: 'In den Segenssprüchen vor dem Schma demütigen wir die tierische Seele, im Schma selbst verbinden wir uns mit der G-ttlichkeit.',
+        poem: [
+          "Adam gab den Tieren Namen, Stück für Stück,",
+          "Und band die Schöpfung an ihren Ursprung zurück.",
+          "Die Tora gab die Kraft — und Israel versteht:",
+          "Die Welt mit G-ttlichkeit selbst zu verbinden — darum es geht.",
+          "Vor dem Schma die tierische Seele bezwingen,",
+          "Im Schma selbst — mit G-ttlichkeit sich verbinden.",
+        ],
       },
       {
         title: 'Das Beste von dem, was man hat',
@@ -280,6 +342,12 @@ const de: LessonText = {
         card: 'Hewel gab das Beste seiner Art — obwohl es bessere Arten gab',
         explain: 'Kajin brachte ein Opfer „von der Frucht des Bodens“, Hewel aber das Beste seiner Art, obwohl es bessere Arten gab. Alles gehört G-tt, darum kommt es nicht auf die Art an, sondern darauf, das Beste von dem zu bringen, was man hat.',
         horaah: 'Bei der Verschönerung eines Gebots das Beste tun, was man kann — im Rahmen der eigenen Möglichkeiten.',
+        poem: [
+          "Kain brachte „von der Frucht des Bodens“ dar,",
+          "Hewel — das Beste seiner Art, das vorhanden war.",
+          "Alles gehört G-tt: Nicht die Art zählt hier,",
+          "Sondern das Beste von dem, was du hast, gib Ihm dafür.",
+        ],
       },
       {
         title: 'Ein fester Beschluss',
@@ -287,6 +355,12 @@ const de: LessonText = {
         card: 'Nicht einmal in Gedanken fasste G-tt einen festen Beschluss',
         explain: 'G-tt dachte daran, die Menschheit zu vernichten, sprach den Beschluss aber erst aus, nachdem Er Seinen Zorn besänftigt hatte. Er überlegte, was mit dem Menschen zu tun sei, kam aber nicht einmal in Gedanken zu einem festen Beschluss.',
         horaah: 'Über andere nur Gutes sagen. Und wer sieht, dass jemand Schlechtes tut, soll über ihn kein festes Urteil fällen — nicht einmal in Gedanken.',
+        poem: [
+          "G-tt dachte über den Menschen nach — doch selbst im Sinn",
+          "Fasste Er keinen festen Beschluss gegen ihn.",
+          "So sprich von anderen nur Gutes allein",
+          "Und urteil’ nicht fest über sie — auch nicht in Gedanken, nein.",
+        ],
       },
     ],
   },

@@ -11,6 +11,12 @@ const en: LessonText = {
   summary:
     'The ninth verse of the Torah: “Let the waters gather into one place”. Mikveh, line and hope, the number 59, and the ninth letter, word and section of Bereshit.',
   glossary: {
+    'אלף': 'aleph — the first letter',
+    'פלא': 'wonder',
+    'אברהם': 'Avraham',
+    'יצחק': 'Yitzchak',
+    'יש מאין': 'something from nothing',
+    'והוא ימשל בך': 'and he shall rule over you',
     'יקוו': 'let them gather',
     'מקום': 'place',
     'אחד': 'one',

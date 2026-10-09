@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useI18n } from '../i18n';
 import type { Lesson, MemoData, MemoItem, MemoItemText, MemoText } from '../lessons/types';
 import { gematriaLines, lettersLine, memoImages } from '../core/memo';
@@ -15,11 +15,11 @@ import { EASY, usePairsGame, type Card } from '../core/usePairsGame';
  */
 
 /** One comment explained: picture, the Torah words, the commentary, «Знаете ли вы?», the numbers, «Чему это учит?». */
-export function MemoInfo({ item, text, n, img }: { item: MemoItem; text: MemoItemText; n: number; img?: string }) {
+export function MemoInfo({ item, text, n, img, here }: { item: MemoItem; text: MemoItemText; n: number; img?: string; here?: boolean }) {
   const { t, locale } = useI18n();
   const src = SOURCES[item.source];
   return (
-    <div className="mi">
+    <div className={`mi${here ? ' here' : ''}`} id={here !== undefined ? `memo-pair-${n}` : undefined}>
       <div className="mi-top">
         {img && <img className="mi-img" src={img} alt={text.caption} loading="lazy" />}
         <div className="mi-head">
@@ -145,11 +145,18 @@ function MemoCard({
   );
 }
 
-export function Memo({ lesson, memo, text }: { lesson: Lesson; memo: MemoData; text: MemoText }) {
+export function Memo({ lesson, memo, text, at }: { lesson: Lesson; memo: MemoData; text: MemoText; at?: number }) {
   const { t } = useI18n();
   const images = useMemo(() => memoImages(lesson), [lesson]);
   const total = memo.items.length;
-  const { screen, go, play, pairs, cards, open, found, moves, ms, shown, flip, closeInfo, box } = usePairsGame(total);
+  const { screen, go, play, pairs, cards, open, found, moves, ms, shown, flip, closeInfo, box } = usePairsGame(total, at ? 'study' : 'home');
+
+  // a link to one pair: open it in «Изучите пары»
+  useEffect(() => {
+    if (!at) return;
+    const id = requestAnimationFrame(() => document.getElementById(`memo-pair-${at}`)?.scrollIntoView({ block: 'start' }));
+    return () => cancelAnimationFrame(id);
+  }, [at]);
 
   const example = 0;
   const rules = (
@@ -242,7 +249,7 @@ export function Memo({ lesson, memo, text }: { lesson: Lesson; memo: MemoData; t
         <>
           <div className="memo-study">
             {memo.items.map((it, k) => (
-              <MemoInfo key={k} item={it} text={text.items[k]} n={k + 1} img={images[k]} />
+              <MemoInfo key={k} item={it} text={text.items[k]} n={k + 1} img={images[k]} here={at === k + 1} />
             ))}
           </div>
           <div className="memo-links">

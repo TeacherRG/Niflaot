@@ -262,6 +262,11 @@ export interface RebbeCardText {
   explain: string;
   /** «Ґораа» — the practical lesson of the talk */
   horaah: string;
+  /**
+   * «Запомнить в стихах»: the pair as a short rhymed poem (4–6 lines) — the verse, the Rebbe's explanation and its lesson,
+   * nothing added; plain text, one line per string
+   */
+  poem: string[];
 }
 
 export interface RebbeCardsText {

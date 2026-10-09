@@ -587,7 +587,7 @@ article.m-card{border-top:3px solid var(--gold-2)}
 
 /* practical takeaway, share card button, MyChitas */
 .practice{margin-top:16px;border-radius:8px;background:var(--ok-soft);border:1px solid #BFE0CB;border-inline-start:4px solid var(--ok);padding:16px 18px;display:grid;gap:6px}
-.practice-lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ok);font-weight:700}
+.practice-lbl{margin:0;font-family:inherit;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ok);font-weight:700}
 .practice p{margin:0;font-family:var(--f-display);font-size:20px;line-height:1.35;color:var(--ink)}
 .share-btns .btn{display:inline-flex;align-items:center;gap:8px}
 .mychitas{margin-top:16px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;padding:16px 18px;border-radius:10px;background:var(--surface);border:1px solid var(--gold-line);box-shadow:var(--shadow);text-decoration:none;color:var(--ink);transition:transform .15s}
@@ -813,9 +813,49 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .read-les .les-b{padding:0}
 .read-take{margin:0 24px 18px;padding:12px 16px 12px 34px;border-radius:8px;background:var(--ok-soft);color:var(--ink-2);display:grid;gap:6px}
 .read-riddle .lt-tile{cursor:default}
+.listen{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.speaking{background:var(--gold-soft);box-shadow:0 0 0 4px var(--gold-soft);border-radius:4px}
+/* «Нифлаот Ребе» · «Прочитать» / «Запомнить в стихах» */
+.seg{display:flex;gap:4px;margin-top:16px;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--surface);width:max-content;max-width:100%}
+.seg a{flex:1 1 auto;padding:8px 16px;border-radius:999px;text-decoration:none;color:var(--ink-2);font-weight:600;font-size:14.5px;text-align:center;white-space:nowrap}
+.seg a.on{background:var(--ink);color:#fff}
+.poems{display:grid;gap:14px;margin-top:16px}
+.poem{background:var(--surface);border:1px solid var(--line);border-inline-start:4px solid var(--ok);border-radius:8px;box-shadow:var(--shadow);padding:16px 18px;display:grid;gap:8px}
+.poem-head{display:flex;align-items:center;gap:10px}
+.poem-head h3{margin:0;font-family:var(--f-display);font-size:20px}
+.poem-verse{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;color:var(--muted);font-size:14px}
+.poem-verse .he{font-family:var(--f-he);font-size:22px;font-weight:700;color:var(--ink)}
+.poem-lines{margin:4px 0 0;display:grid;gap:3px;font-family:var(--f-display);font-size:18.5px;line-height:1.35;color:var(--ink)}
+.poem-lines>span{padding-inline-start:1em;text-indent:-1em}
+/* «Знаете ли вы?» — the feed of equalities */
+.facts-head{margin-top:24px}
+.facts-head h1{margin:0 0 6px;font-family:var(--f-display);font-size:32px}
+.facts-head p{margin:0;color:var(--ink-2);max-width:60ch}
+.facts{display:grid;gap:16px;margin:20px 0 8px}
+.fact{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--tc-line);border-radius:8px;box-shadow:var(--shadow);padding:16px 18px;display:grid;gap:10px;scroll-margin-top:80px}
+.fact-src{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.fact-src .h-badge{position:static}
+.fact-q{margin:0;font-family:var(--f-display);font-size:20px;line-height:1.3;color:var(--ink)}
+.fact-he,.fact-a{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:center;gap:6px 10px}
+.fact-words,.fact-term,.fact-part{display:inline-flex;flex-wrap:wrap;align-items:flex-start;justify-content:center;gap:6px 10px}
+.fact-words{direction:rtl}
+.fact-w{display:inline-grid;justify-items:center;gap:2px;direction:ltr}
+.fact-w .he{font-family:var(--f-he);font-size:30px;font-weight:700;line-height:1.15;color:var(--ink);direction:rtl;text-align:center}
+.fact-w small{font-size:12.5px;color:var(--muted);text-align:center;max-width:22ch}
+.fact-op{font-family:var(--f-num);font-size:24px;color:var(--gold);line-height:1.5}
+.fact-mark{font-family:var(--f-display);font-weight:400;color:var(--tc)}
+.fact-a{background:var(--tc-soft);border-radius:8px;padding:10px 12px}
+.fact-a b.num{font-family:var(--f-num);font-size:26px;color:var(--ok);line-height:1.3}
+.fact-show{justify-self:center}
+.fact-links{display:grid;gap:6px;font-size:14px;border-top:1px solid var(--line);padding-top:10px}
+.fact-links q{font-weight:500;color:var(--ink-2)}
+.read-riddle.here,.mi.here{outline:3px solid var(--gold-2);outline-offset:2px;scroll-margin-top:72px}
+.fact-links a{color:var(--tchelet);font-weight:600;text-decoration:none}
+.fact-links a:hover{text-decoration:underline}
 @media (max-width:480px){.read-take{margin-left:16px;margin-right:16px}}
 .memo-page-head{text-align:center;padding:22px 0 0}
 .memo-page-head .heb{font-family:var(--f-he);font-weight:900;font-size:clamp(32px,8vw,52px);line-height:1.1;direction:rtl}
+.memo-page-head .author{margin:4px 0 0;color:var(--muted);font-size:14px}
 .memo-page-head h1{margin:4px 0 0;font-family:var(--f-display);font-size:clamp(24px,5vw,34px);line-height:1.15}
 
 .memo{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--tchelet);border-radius:6px;box-shadow:var(--shadow);padding:22px 18px 24px;scroll-margin-top:70px}

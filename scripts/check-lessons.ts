@@ -16,8 +16,12 @@
  *    computed from the real words, a source in sefaria.json, distinct word cards; texts in every language,
  *    picture explanations (caption) ≤ 45 characters, a `note` for a number without equal words
  *  - «Карточки» of a «Нифлаот Ребе» lesson: 12 pairs, every verse once (one explanation per verse), the card words
- *    in the verse's Hebrew, the explanation card ≤ 70 characters, texts in every language
+ *    in the verse's Hebrew, the explanation card ≤ 70 characters, a poem of 4–6 lines, texts in every language
  *  - every text edit of src/content/overrides.json (made on the site, #/admin) names an existing text
+ *  - «Знаете ли вы?» (#/facts): every Hebrew word of the feed has a translation in the lesson glossary of every language,
+ *    and every fact links to its place in the lesson (a riddle or a Memo pair)
+ *  - the site asks the browser for no permissions: no microphone, camera, location, notifications, speech recognition
+ *    (src/ has none of these APIs; the city for Shabbat comes from the time zone, «Слушать» only speaks)
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
  */
 import { LESSONS } from '../src/lessons';
@@ -31,8 +35,9 @@ import { PROJECT_DE } from '../src/sources/de';
 import { PROJECT_EN } from '../src/sources/en';
 import { LOCALES } from '../src/i18n/config';
 import { displayNames } from '../src/core/names';
+import { collectFacts, factHebrew } from '../src/core/facts';
 import type { PuzzleText } from '../src/lessons/types';
-import { existsSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import ruUi from '../src/i18n/locales/ru';
 import enUi from '../src/i18n/locales/en';
 
@@ -180,6 +185,8 @@ for (const lesson of LESSONS) {
       const ct = tx?.cards?.items[k];
       if (!ct) continue;
       if (![ct.title, ct.verse, ct.card, ct.explain, ct.horaah].every((x) => x.trim())) err(`${where(k)} [${lang}]: empty text`);
+      if (!(ct.poem?.length >= 4 && ct.poem.length <= 6) || ct.poem.some((x) => !x.trim() || /[<>]/.test(x)))
+        err(`${where(k)} [${lang}]: the poem («Запомнить в стихах») needs 4–6 non-empty plain lines`);
       if (ct.card.length > 70) err(`${where(k)} [${lang}]: the explanation card is longer than 70 characters (${ct.card.length})`);
     }
   });
@@ -218,8 +225,33 @@ checkHtml('sources.en', PROJECT_EN);
 // text edits made on the site must still name a text of the source files
 for (const k of staleOverrides) err(`src/content/overrides.json: ${k} — no such text (the source changed); remove the edit`);
 
+// «Знаете ли вы?»: the feed shows no explanations, so every Hebrew word in it carries its translation
+const facts = collectFacts(LESSONS);
+if (!facts.length) err('facts: the feed «Знаете ли вы?» is empty');
+for (const f of facts) if (f.ri === undefined && f.mi === undefined) err(`${f.lesson.slug}: facts — «${f.kind === 'eq' ? f.q : f.from}» has no place in the lesson to link to`);
+for (const f of facts)
+  for (const loc of Object.keys(LOCALES) as (keyof typeof LOCALES)[]) {
+    const g = f.lesson.texts[loc]?.glossary ?? {};
+    for (const h of factHebrew(f)) if (!g[h]) err(`${f.lesson.slug}: facts — «${h}» has no translation in glossary (${loc})`);
+  }
+
+// no browser permission prompts: the site must work for anyone without asking for the microphone, camera, location…
+const PERMISSION_APIS =
+  /\b(getUserMedia|getDisplayMedia|enumerateDevices|geolocation|getCurrentPosition|watchPosition|SpeechRecognition|requestPermission|requestMIDIAccess|DeviceOrientationEvent|DeviceMotionEvent|wakeLock|bluetooth|navigator\.usb|navigator\.serial|navigator\.hid)\b/;
+for (const f of readdirSync('src', { recursive: true }) as string[]) {
+  if (!/\.(ts|tsx)$/.test(f)) continue;
+  readFileSync(`src/${f}`, 'utf8')
+    .split('\n')
+    .forEach((line, i) => {
+      // comments may name the API (e.g. «no geolocation prompt»)
+      const code = line.replace(/\/\/.*$/, '').replace(/^\s*\*.*$/, '').replace(/\/\*.*?\*\//g, '');
+      const m = code.match(PERMISSION_APIS);
+      if (m) err(`src/${f}:${i + 1}: «${m[1]}» asks the browser for a permission — the site asks for none`);
+    });
+}
+
 if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));
   process.exit(1);
 }
-console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, memo, safe HTML`);
+console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, memo, ${facts.length} facts, safe HTML, no permission prompts`);
