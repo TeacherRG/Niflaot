@@ -5,6 +5,7 @@ import { memoImages } from '../core/memo';
 import { displayNames } from '../core/names';
 import { SITE_HOST } from '../core/site';
 import { Icon } from './ui';
+import { PrintMasthead } from './PrintBrand';
 import { MemoInfo } from './Memo';
 
 const OPTS_KEY = 'niflaot:print-memo-options';
@@ -85,6 +86,7 @@ export function PrintMemo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) 
       </div>
 
       <article className="sheet-paper pm">
+        <PrintMasthead lesson={lesson} />
         <header className="pm-head">
           <div className="p-heb he">{lesson.hebrewTitle}</div>
           <h1>

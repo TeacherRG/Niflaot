@@ -51,6 +51,15 @@ function partValue(p: string): { v: number; heb: boolean } | null {
   return null;
 }
 
+/**
+ * The answer as the feed shows it — no calculations: the value first, then the words equal to it
+ * («האדם ? = 50 = אדמה»); sums of numbers («456 + 15») are dropped.
+ */
+export function answerParts(rest: string[], v: number): string[] {
+  const heb = rest.filter((p) => !NUMS.test(p));
+  return [String(v), ...heb];
+}
+
 /** A riddle equation as a fact, or null when it is not a plain checked equality of gematria. */
 export function parseEquation(e: string): { q: string; rest: string[]; v: number } | null {
   const parts = e.split(' = ').map((p) => p.trim());
@@ -61,7 +70,7 @@ export function parseEquation(e: string): { q: string; rest: string[]; v: number
   if (vals.some((x) => x!.v !== v)) return null;
   const qi = vals.findIndex((x) => x!.heb);
   if (qi < 0) return null;
-  return { q: parts[qi], rest: [...parts.slice(0, qi), ...parts.slice(qi + 1)], v };
+  return { q: parts[qi], rest: answerParts([...parts.slice(0, qi), ...parts.slice(qi + 1)], v), v };
 }
 
 const key = (s: string) => plainWord(s.replace(/ \+ /g, ' '));
@@ -121,7 +130,7 @@ export function collectFacts(lessons: Lesson[]): Fact[] {
     l.memo?.items.forEach((it, mi) => {
       // a number alone is a teaser only for the Torah words of the pair (not e.g. «תריג = 613»)
       for (const g of it.gematria ?? [])
-        if (gematria(g.a) === g.v && (!g.b || gematria(g.b) === g.v) && (g.b || g.a === it.verse)) addEq(g.a, [String(g.v), ...(g.b ? [g.b] : [])], g.v, { mi });
+        if (gematria(g.a) === g.v && (!g.b || gematria(g.b) === g.v) && (g.b || g.a === it.verse)) addEq(g.a, answerParts(g.b ? [g.b] : [], g.v), g.v, { mi });
       for (const x of it.letters ?? []) addLt(x.from, x.take, x.word, { mi });
     });
     l.riddles.forEach((r, ri) => {
@@ -131,7 +140,19 @@ export function collectFacts(lessons: Lesson[]): Fact[] {
       }
       for (const s of r.steps) if (s.t === 'lt') addLt(s.from, s.take, s.a, { ri });
     });
-    // a Memo pair is also explained in a riddle of the lesson: link there too
+    // two equalities of one riddle with the same value are one fact: «פרצוף + גאוה = 471 = זנב + תאוה»
+    for (let i = first; i < out.length; i++) {
+      const a = out[i];
+      if (a.kind !== 'eq' || a.ri === undefined) continue;
+      for (let j = i + 1; j < out.length; j++) {
+        const b = out[j];
+        if (b.kind === 'eq' && b.ri === a.ri && b.v === a.v) {
+          a.rest.push(b.q, ...b.rest.filter((p) => !NUMS.test(p)));
+          out.splice(j--, 1);
+        }
+      }
+    }
+        // a Memo pair is also explained in a riddle of the lesson: link there too
     for (const f of out.slice(first)) if (f.ri === undefined) f.ri = riddleOf(l, f);
   }
   return out;
