@@ -20,6 +20,8 @@
  *  - every text edit of src/content/overrides.json (made on the site, #/admin) names an existing text
  *  - «Знаете ли вы?» (#/facts): every Hebrew word of the feed has a translation in the lesson glossary of every language,
  *    and every fact links to its place in the lesson (a riddle or a Memo pair)
+ *  - the site asks the browser for no permissions: no microphone, camera, location, notifications, speech recognition
+ *    (src/ has none of these APIs; the city for Shabbat comes from the time zone, «Слушать» only speaks)
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
  */
 import { LESSONS } from '../src/lessons';
@@ -35,7 +37,7 @@ import { LOCALES } from '../src/i18n/config';
 import { displayNames } from '../src/core/names';
 import { collectFacts, factHebrew } from '../src/core/facts';
 import type { PuzzleText } from '../src/lessons/types';
-import { existsSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import ruUi from '../src/i18n/locales/ru';
 import enUi from '../src/i18n/locales/en';
 
@@ -233,8 +235,23 @@ for (const f of facts)
     for (const h of factHebrew(f)) if (!g[h]) err(`${f.lesson.slug}: facts — «${h}» has no translation in glossary (${loc})`);
   }
 
+// no browser permission prompts: the site must work for anyone without asking for the microphone, camera, location…
+const PERMISSION_APIS =
+  /\b(getUserMedia|getDisplayMedia|enumerateDevices|geolocation|getCurrentPosition|watchPosition|SpeechRecognition|requestPermission|requestMIDIAccess|DeviceOrientationEvent|DeviceMotionEvent|wakeLock|bluetooth|navigator\.usb|navigator\.serial|navigator\.hid)\b/;
+for (const f of readdirSync('src', { recursive: true }) as string[]) {
+  if (!/\.(ts|tsx)$/.test(f)) continue;
+  readFileSync(`src/${f}`, 'utf8')
+    .split('\n')
+    .forEach((line, i) => {
+      // comments may name the API (e.g. «no geolocation prompt»)
+      const code = line.replace(/\/\/.*$/, '').replace(/^\s*\*.*$/, '').replace(/\/\*.*?\*\//g, '');
+      const m = code.match(PERMISSION_APIS);
+      if (m) err(`src/${f}:${i + 1}: «${m[1]}» asks the browser for a permission — the site asks for none`);
+    });
+}
+
 if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));
   process.exit(1);
 }
-console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, memo, ${facts.length} facts, safe HTML`);
+console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, memo, ${facts.length} facts, safe HTML, no permission prompts`);
