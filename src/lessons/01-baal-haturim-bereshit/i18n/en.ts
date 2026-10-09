@@ -1,7 +1,7 @@
 import type { LessonText } from '../../types';
 
 const en: LessonText = {
-  title: 'Baal HaTurim: Bereshit',
+  title: 'Baal HaTurim: Bereishit',
   hero: {
     heading: 'Baal HaTurim: <i>four riddles of the Torah’s beginning</i>',
     author: 'based on the commentary of the Baal HaTurim, Rabbi Yaakov ben Asher',
@@ -9,8 +9,31 @@ const en: LessonText = {
       'The great commentator found numbers, first and last letters of words and Masoretic “pairs” in the first chapters of the Torah. Count them yourself: when the world was created, why light is Torah, what man is made of and whom the Almighty loves.',
   },
   summary:
-    'Bereshit 1–4 through the eyes of the Baal HaTurim: “Bereshit bara” = “created on Rosh Hashanah”, light = 613, man from the earth, a seal and challah, the seventh day and the seventh generation.',
+    'Bereishit 1–4 through the eyes of the Baal HaTurim: “Bereishit bara” = “created on Rosh Hashanah”, light = 613, man from the earth, a seal and challah, the seventh day and the seventh generation.',
   glossary: {
+    'בראשית ברא': 'in the beginning He created',
+    'בראש השנה נברא': 'created on Rosh Hashanah (the world)',
+    'בראשית ברא אלהים': 'in the beginning G-d created',
+    'אמת': 'truth',
+    'את האור': 'the light (“et ha-or”)',
+    'בתורה': 'in the Torah',
+    'ויבדל': 'and He separated',
+    'מזריע זרע למינהו': 'yielding seed after its kind',
+    'מזל': 'mazal, a heavenly guardian',
+    'האדם': 'the man',
+    'אפר דם מרה': 'dust, blood, gall',
+    'אדם': 'Adam, man',
+    'ויפח באפיו נשמת חיים': 'and He breathed into his nostrils the soul of life',
+    'חותם': 'seal',
+    'בהבראם': 'when they were created',
+    'באברהם': 'for the sake of Avraham',
+    'אשר צויתיך לבלתי אכל': 'which I commanded you not to eat',
+    'רכיל': 'a gossip',
+    'חנוך': 'Chanoch',
+    'את האור כי טוב': 'the light, that it was good',
+    'ברית': 'covenant',
+    'האדם לנפש חיה': 'man — a living being',
+    'חלה': 'challah',
     'בראשית': 'in the beginning',
     'ברא': 'created',
     'את': 'direct-object particle',
@@ -43,19 +66,19 @@ const en: LessonText = {
       ],
       reveal: {
         h: 'The world was created on Rosh Hashanah — with truth',
-        p: 'The Torah’s first two words, “Bereshit bara”, equal 1116 — like “created on Rosh Hashanah”. The last letters of “Bereshit bara Elokim” form the word “emet”, truth: the world was created with truth. And the word “behibar’am”, “when they were created”, has the same letters as “be-Avraham”: heaven and earth were created for the sake of Avraham.',
+        p: 'The Torah’s first two words, “Bereishit bara”, equal 1116 — like “created on Rosh Hashanah”. The last letters of “Bereishit bara Elokim” form the word “emet”, truth: the world was created with truth. And the word “behibar’am”, “when they were created”, has the same letters as “be-Avraham”: heaven and earth were created for the sake of Avraham.',
       },
       lessons: [
         {
           h: 'How to read the Baal HaTurim',
-          b: `<p>The Baal HaTurim’s commentary, printed in almost every Chumash, is a collection of short allusions. It uses several devices. <b>Gematria</b>: two phrases with the same number are linked in meaning. <b>Rashei teivot and sofei teivot</b> (<span class="he">ר״ת</span>, <span class="he">ס״ת</span>): the first or last letters of neighbouring words form a new word. <b>Notarikon</b>: each letter of a word is read as the start of a separate word. <b>“Two in the Masorah”</b> (<span class="he">ב׳ במסורה</span>): a word appears in all of Tanakh exactly twice, and the two places explain each other.</p><p>Every number in this lesson has been checked. Two gematriot of the commentary do not add up in our count — this is said plainly, and they were left out of the riddles.</p>`,
+          b: `<p>The Baal HaTurim’s commentary, printed in almost every Chumash, is a collection of short allusions. It uses several devices. <b>Gematria</b>: two phrases with the same number are linked in meaning. <b>Rashei teivot and sofei teivot</b> (<span class="he">ר״ת</span>, <span class="he">ס״ת</span>): the first or last letters of neighboring words form a new word. <b>Notarikon</b>: each letter of a word is read as the start of a separate word. <b>“Two in the Masorah”</b> (<span class="he">ב׳ במסורה</span>): a word appears in all of Tanakh exactly twice, and the two places explain each other.</p><p>Every number in this lesson has been checked. Two gematriot of the commentary do not add up in our count — this is said plainly, and they were left out of the riddles.</p>`,
         },
         {
           h: 'The world was created on Rosh Hashanah',
-          b: `<p>The Baal HaTurim writes: “<b>Bereshit bara</b> — in gematria: <b>created on Rosh Hashanah</b> (the world).”<sup data-src="bht-1-1"></sup> <span class="he">בראשית</span> = 913, <span class="he">ברא</span> = 203, together 1116. And <span class="he">בראש</span> (503) + <span class="he">השנה</span> (360) + <span class="he">נברא</span> (253) is also 1116.</p><p>The Torah’s very first words speak of the day on which the world began: the head of the year.</p>`,
+          b: `<p>The Baal HaTurim writes: “<b>Bereishit bara</b> — in gematria: <b>created on Rosh Hashanah</b> (the world).”<sup data-src="bht-1-1"></sup> <span class="he">בראשית</span> = 913, <span class="he">ברא</span> = 203, together 1116. And <span class="he">בראש</span> (503) + <span class="he">השנה</span> (360) + <span class="he">נברא</span> (253) is also 1116.</p><p>The Torah’s very first words speak of the day on which the world began: the head of the year.</p>`,
         },
         {
-          h: '“Bereshit” — for the sake of the Torah and Israel',
+          h: '“Bereishit” — for the sake of the Torah and Israel',
           b: `<p>Next the Baal HaTurim reads <span class="he">בראשית</span> as a notarikon — six letters, six words: <span class="he">בראשונה ראה אלקים שיקבלו ישראל תורה</span> — “<b>first of all G-d saw that Israel would accept the Torah</b>”.</p><p>Even before creating heaven and earth, the Almighty “saw” the purpose of creation: a people that would accept the Torah.</p>`,
         },
         {
@@ -63,8 +86,8 @@ const en: LessonText = {
           b: `<p>The last letters of <span class="he">בראשית ברא אלקים</span> — <span class="he">ת</span>, <span class="he">א</span>, <span class="he">ם</span> — form the word <span class="he">אמת</span>, “truth”. This teaches, says the Baal HaTurim, that the Almighty created the world with truth, as it is said: “The beginning of Your word is truth.”<sup data-src="ps-119-160"></sup> “And so there are many verses whose last letters form <span class="he">אמת</span>.”</p><p>The beginning of G-d’s word — the first verse of the Torah — carries the seal of truth at its “end”.</p>`,
         },
         {
-          h: 'The spirit of Mashiach',
-          b: `<p>On the second verse — “and the spirit of G-d hovered over the waters” — the Baal HaTurim writes that the words <span class="he">ורוח אלקים מרחפת</span> equal in gematria <span class="he">זו רוחו של משיח</span>, “this is the spirit of Mashiach”.<sup data-src="bht-1-2"></sup> Already in the Torah’s second verse, over the primordial waters, hovers the spirit of the future redemption.</p><p>To be honest: in our count the numbers differ (1034 and 921) — perhaps the Baal HaTurim had a different spelling of the words. That is why this gematria is not part of the riddles.</p>`,
+          h: 'The spirit of Moshiach',
+          b: `<p>On the second verse — “and the spirit of G-d hovered over the waters” — the Baal HaTurim writes that the words <span class="he">ורוח אלקים מרחפת</span> equal in gematria <span class="he">זו רוחו של משיח</span>, “this is the spirit of Moshiach”.<sup data-src="bht-1-2"></sup> Already in the Torah’s second verse, over the primordial waters, hovers the spirit of the future redemption.</p><p>To be honest: in our count the numbers differ (1034 and 921) — perhaps the Baal HaTurim had a different spelling of the words. That is why this gematria is not part of the riddles.</p>`,
         },
         {
           h: 'For the sake of Avraham',
@@ -154,7 +177,7 @@ const en: LessonText = {
           hint: 'The first letters are marked. You get the name of the portion of dough that is separated and given to the kohen.',
         },
         {
-          q: 'The Almighty “brought” Chava “to the man”. In full the word is spelled <span class="he">ויביאה</span>, but in the Torah it is <span class="he">ויבאה</span>, “defectively”. Tap the letter the Torah leaves out.',
+          q: 'The Almighty “brought” Chavah “to the man”. In full the word is spelled <span class="he">ויביאה</span>, but in the Torah it is <span class="he">ויבאה</span>, “defectively”. Tap the letter the Torah leaves out.',
           hint: 'Compare letter by letter: ו־י־ב־?־א־ה.',
         },
         {
@@ -164,7 +187,7 @@ const en: LessonText = {
       ],
       reveal: {
         h: 'Earth, seal and challah',
-        p: '“Ha-adam” and “adamah” are 50: man was taken from the earth. The last letters of “and breathed into his nostrils the breath of life” give “chotam”, a seal, and the first letters of “man — a living soul” give “challah”: Adam was the “challah of the world”. The word “and He brought her”, written without a yud, equals 24: the Almighty adorned Chava with twenty-four ornaments and brought her to Adam.',
+        p: '“Ha-adam” and “adamah” are 50: man was taken from the earth. The last letters of “and breathed into his nostrils the breath of life” give “chotam”, a seal, and the first letters of “man — a living soul” give “challah”: Adam was the “challah of the world”. The word “and He brought her”, written without a yud, equals 24: the Almighty adorned Chavah with twenty-four ornaments and brought her to Adam.',
       },
       lessons: [
         {
@@ -185,7 +208,7 @@ const en: LessonText = {
         },
         {
           h: 'Twenty-four ornaments',
-          b: `<p>“And the rib… the L-rd G-d made into a woman, and brought her to the man.”<sup data-src="gen-2-21"></sup> The word <span class="he">ויבאה</span> is written defectively and equals 24: the Almighty adorned Chava with twenty-four ornaments and brought her to Adam.</p><p>In full spelling — <span class="he">ויביאה</span> — the word appears four times according to the Masorah: “and brought her to the man”; “and Yitzchak brought her into the tent”; “and brought her into the city of David” — Pharaoh’s daughter, whom Shlomo took; “and the L-rd watched over the evil and brought it”. The Baal HaTurim explains: before Shlomo married Pharaoh’s daughter he ruled over the upper realms — just like Adam, who was driven from the upper realms because of Chava. With Yitzchak it was the opposite: Rivkah took Sarah’s place, as the Midrash says.<sup data-src="bht-2-22"></sup></p>`,
+          b: `<p>“And the rib… the L-rd G-d made into a woman, and brought her to the man.”<sup data-src="gen-2-21"></sup> The word <span class="he">ויבאה</span> is written defectively and equals 24: the Almighty adorned Chavah with twenty-four ornaments and brought her to Adam.</p><p>In full spelling — <span class="he">ויביאה</span> — the word appears four times according to the Masorah: “and brought her to the man”; “and Yitzchak brought her into the tent”; “and brought her into the city of David” — Pharaoh’s daughter, whom Shlomo took; “and the L-rd watched over the evil and brought it”. The Baal HaTurim explains: before Shlomo married Pharaoh’s daughter he ruled over the upper realms — just like Adam, who was driven from the upper realms because of Chavah. With Yitzchak it was the opposite: Rivkah took Sarah’s place, as the Midrash says.<sup data-src="bht-2-22"></sup></p>`,
         },
         {
           h: 'After the sin: the talebearer and ingratitude',
@@ -193,7 +216,7 @@ const en: LessonText = {
         },
         {
           h: 'Priestly garments, the guard and two desires',
-          b: `<p>“And the L-rd G-d made for Adam and his wife garments of skin <span class="he">וילבשם</span> — and clothed them.”<sup data-src="gen-3-21"></sup> According to the Masorah this word appears twice: here and of Aharon and his sons — “and clothed them with tunics”. This teaches that the Almighty made priestly garments for the first man; Bereshit Rabbah says that the firstborn served in them. And this verse has eight words — like the eight garments of the High Priest.<sup data-src="bht-3-21"></sup></p><p>“…<span class="he">לשמר</span> — to guard the way to the Tree of Life.” The notarikon of <span class="he">לשמר</span>: <span class="he">לילין שדין מזיקין רוחין</span> — night spirits, demons, harmful beings and spirits.<sup data-src="bht-3-24"></sup></p><p>The Almighty tells Kayin about sin: “unto you is <span class="he">תשוקתו</span> — its desire”. According to the Masorah — twice: here and “I am my beloved’s, and his desire is toward me” (Song of Songs). The Sages said: there are two desires — the desire of the wicked for sin, and the desire of the Holy One, blessed be He, for Israel.<sup data-src="bht-4-7"></sup></p>`,
+          b: `<p>“And the L-rd G-d made for Adam and his wife garments of skin <span class="he">וילבשם</span> — and clothed them.”<sup data-src="gen-3-21"></sup> According to the Masorah this word appears twice: here and of Aharon and his sons — “and clothed them with tunics”. This teaches that the Almighty made priestly garments for the first man; Bereishit Rabbah says that the firstborn served in them. And this verse has eight words — like the eight garments of the High Priest.<sup data-src="bht-3-21"></sup></p><p>“…<span class="he">לשמר</span> — to guard the way to the Tree of Life.” The notarikon of <span class="he">לשמר</span>: <span class="he">לילין שדין מזיקין רוחין</span> — night spirits, demons, harmful beings and spirits.<sup data-src="bht-3-24"></sup></p><p>The Almighty tells Kayin about sin: “unto you is <span class="he">תשוקתו</span> — its desire”. According to the Masorah — twice: here and “I am my beloved’s, and his desire is toward me” (Song of Songs). The Sages said: there are two desires — the desire of the wicked for sin, and the desire of the Holy One, blessed be He, for Israel.<sup data-src="bht-4-7"></sup></p>`,
         },
       ],
       reflection: 'I am made of “dust, blood and gall” — and I carry the Almighty’s seal. What can I give thanks for today, instead of looking, like Adam, for someone to blame?',
@@ -201,7 +224,7 @@ const en: LessonText = {
         'האדם = אדמה = 50: man from the earth; אדם — “dust, blood, gall”.',
         'וייצר with two yuds: man has two inclinations, the animals one.',
         'The last letters of “ויפח באפיו נשמת חיים” form חותם, a seal; the first letters of “האדם לנפש חיה” form חלה — Adam is the challah of the world.',
-        'ויבאה = 24: Chava was adorned with twenty-four ornaments.',
+        'ויבאה = 24: Chavah was adorned with twenty-four ornaments.',
         'After the sin: אשר צויתיך לבלתי אכל → רכיל (a talebearer’s counsel); “evil for good” → האשה (ingratitude).',
       ],
     },
@@ -259,7 +282,7 @@ const en: LessonText = {
   ],
   memo: {
     intro:
-      'Twelve comments of the Baal HaTurim on Bereshit — twelve pairs of cards. Each picture tells about one comment, and its partner card shows the Torah words the comment is about.',
+      'Twelve comments of the Baal HaTurim on Bereishit — twelve pairs of cards. Each picture tells about one comment, and its partner card shows the Torah words the comment is about.',
     items: [
       {
         title: 'The world was created on Rosh Hashanah',
@@ -336,12 +359,12 @@ const en: LessonText = {
         moral: 'Each of us has a soul from G-d — so we respect every person.',
       },
       {
-        title: 'For the sake of Abraham',
-        caption: 'Abraham’s tent under the starry sky',
+        title: 'For the sake of Avraham',
+        caption: 'Avraham’s tent under the starry sky',
         verse: '“when they were created”',
-        quote: '“When they were created” has the letters of “in Abraham”: in Abraham’s merit heaven and earth were created.',
+        quote: '“When they were created” has the letters of “in Avraham”: in Avraham’s merit heaven and earth were created.',
         explain:
-          '“These are the generations of heaven and earth when they were created — בהבראם.” Rearrange the letters of בהבראם and you get באברהם — “in Abraham”; that is why their values are equal too: 250. The Baal HaTurim teaches: heaven and earth were created in the merit of Avraham Avinu.',
+          '“These are the generations of heaven and earth when they were created — בהבראם.” Rearrange the letters of בהבראם and you get באברהם — “in Avraham”; that is why their values are equal too: 250. The Baal HaTurim teaches: heaven and earth were created in the merit of Avraham Avinu.',
         moral: 'One good person can be the reason for great good for the whole world.',
       },
       {
@@ -350,9 +373,9 @@ const en: LessonText = {
         verse: '“and He brought her to the man”',
         quote: '“And He brought her” is written defectively and equals 24: He adorned her with twenty-four ornaments and brought her to him.',
         explain:
-          'Of Chava it says: “and He brought her to the man”. The word is written defectively — ויבאה rather than ויביאה, without a י — and so it equals 24 (כ״ד). From here the Baal HaTurim learns: G-d adorned Chava with twenty-four ornaments and only then brought her to Adam.',
+          'Of Chavah it says: “and He brought her to the man”. The word is written defectively — ויבאה rather than ויביאה, without a י — and so it equals 24 (כ״ד). From here the Baal HaTurim learns: G-d adorned Chavah with twenty-four ornaments and only then brought her to Adam.',
         note: '24 ornaments (כ״ד קישוטים)',
-        moral: 'G-d Himself cared for the honour and joy of another. We too can bring joy and respect to those around us.',
+        moral: 'G-d Himself cared for the honor and joy of another. We too can bring joy and respect to those around us.',
       },
       {
         title: 'The gossip’s advice',
@@ -360,7 +383,7 @@ const en: LessonText = {
         verse: '“which I commanded you not to eat”',
         quote: '“Which I commanded you not to eat” — the last letters spell רכיל (a gossip): you followed a gossip’s advice.',
         explain:
-          'G-d asks Adam: “Have you eaten from the tree which I commanded you not to eat?” The last letters — ר, ך, י, ל — spell רכיל, “a gossip”: someone who goes around talking about others. That is: you followed the advice of a gossip — the snake, who spoke to Chava and talked her into it.',
+          'G-d asks Adam: “Have you eaten from the tree which I commanded you not to eat?” The last letters — ר, ך, י, ל — spell רכיל, “a gossip”: someone who goes around talking about others. That is: you followed the advice of a gossip — the snake, who spoke to Chavah and talked her into it.',
         moral: 'We do not listen to gossip and do not follow it: evil talk can do great harm.',
       },
       {
@@ -369,7 +392,7 @@ const en: LessonText = {
         verse: '“behold, my witness is in heaven” (Job)',
         quote: '“Behold, my witness is in heaven” — in gematria “Chanoch”… He chose Chanoch, the seventh generation, for G-d loves the sevenths.',
         explain:
-          'The book of Job says: “Behold, my witness is in heaven.” The word עדי (“my witness”) has the same value as the name חנוך (Chanoch) — 84. G-d took Chanoch up to heaven to be a witness, and chose him because he was the seventh generation from Adam — and G-d loves the sevenths. So too Moshe, seventh from Abraham, “went up to G-d”.',
+          'The book of Job says: “Behold, my witness is in heaven.” The word עדי (“my witness”) has the same value as the name חנוך (Chanoch) — 84. G-d took Chanoch up to heaven to be a witness, and chose him because he was the seventh generation from Adam — and G-d loves the sevenths. So too Moshe, seventh from Avraham, “went up to G-d”.',
         moral: 'G-d loves the seventh — and every week we have our own seventh day: Shabbat.',
       },
     ],
@@ -379,7 +402,7 @@ const en: LessonText = {
     allSolved:
       'All four riddles solved. The world was created on Rosh Hashanah and sealed with truth, the light of the first day is Torah, man carries the Almighty’s seal, and the seventh ascend to Him.',
   },
-  audience: 'Addition and letter games on familiar themes — Creation, Adam and Chava. Younger children — together with an adult.',
+  audience: 'Addition and letter games on familiar themes — Creation, Adam and Chavah. Younger children — together with an adult.',
   practice:
     'At the next Havdalah, first look at the candle’s light — for example, at your fingernails in its glow — and only then say the blessing: like the Torah, first “saw the light, that it was good”, then “divided”. And welcome next Shabbat a few minutes early — add from the weekday to the holy.',
   highlight: 'The Torah’s first words tell when the world was created: on Rosh Hashanah.',
@@ -390,12 +413,12 @@ I’m searching for it in a gematria game based on the commentary of the Baal Ha
 ✦ ${score} of ${max} points · ⏱ ${time}
 ${grid}
 
-Four riddles: on “Bereshit bara” and truth, on the light that equals Torah, on man from the earth, and on the seventh day and the seventh generation. Can you do better?
+Four riddles: on “Bereishit bara” and truth, on the light that equals Torah, on man from the earth, and on the seventh day and the seventh generation. Can you do better?
 Play 👉 ${site}
 
 ©mychitas.app`,
   source:
-    'Based on the commentary of the Baal HaTurim (Rabbi Yaakov ben Asher, 14th c.) on chapters 1–4 of Bereshit, short version (“Kitzur Baal HaTurim”). Hebrew text — Sefaria.',
+    'Based on the commentary of the Baal HaTurim (Rabbi Yaakov ben Asher, 14th c.) on chapters 1–4 of Bereishit, short version (“Kitzur Baal HaTurim”). Hebrew text — Sefaria.',
 };
 
 export default en;

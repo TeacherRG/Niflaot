@@ -98,7 +98,7 @@ const de: LessonText = {
       lessons: [
         {
           h: 'Was der böse Trieb will',
-          b: `<p>Das ganze Streben des bösen Triebes ist, dass der Mensch das Gegenteil von dem tut, was G-tt will. Alle Argumente, mit denen er zur Übertretung eines Verbots oder zur Unterlassung eines Gebots überredet, haben ein einziges Motiv: dass der Mensch G-ttes Willen übertritt.</p><p>Es gibt Lagen — wegen des Menschen selbst, wegen des Ortes oder wegen der Zeit —, in denen die Erfüllung eines Gebots besonders wichtig ist. Dann strengt sich der böse Trieb besonders an. Obwohl ein solches Gebot in Wahrheit leicht zu halten ist, bringt der böse Trieb gerade weil es so wichtig ist, allerlei Forderungen und Begründungen vor, um den Menschen davon abzuhalten, G-ttes Willen zu erfüllen.</p>`,
+          b: `<p>Der böse Trieb will nur eines: dass der Mensch das Gegenteil von dem tut, was G-tt will. Er überredet ihn, ein Verbot zu übertreten oder ein Gebot nicht zu tun. Alle seine Gründe haben nur ein Ziel: dass der Mensch gegen G-ttes Willen handelt.</p><p>Manchmal ist ein Gebot besonders wichtig — wegen des Menschen selbst, wegen des Ortes oder wegen der Zeit. Dann strengt sich der böse Trieb besonders an. Eigentlich ist so ein Gebot leicht zu halten. Aber gerade weil es so wichtig ist, findet der böse Trieb viele Gründe, warum man es jetzt nicht tun soll.</p>`,
         },
         {
           h: 'Warum das „Leichte“ am schwersten fällt',
@@ -110,7 +110,7 @@ const de: LessonText = {
         },
         {
           h: 'Größer als sein Gefährte',
-          b: `<p>So lassen sich die Worte der Weisen erklären: „Wer größer ist als sein Gefährte — dessen böser Trieb ist auch größer.“<sup data-src="sukkah-52a"></sup> Je größer ein Mensch ist, desto wichtiger sind die Gebote, die er erfüllt — und desto stärker stellt sich ihm der böse Trieb entgegen.</p><p>Es gibt noch eine andere Erklärung. Damit der Mensch freie Wahl hat, müssen die Kräfte der Heiligkeit und die ihnen entgegenstehenden Kräfte im Gleichgewicht sein. Da ihm größere Kräfte in der Heiligkeit gegeben sind — er ist „größer als sein Gefährte“ —, ist auch seinem bösen Trieb größere Kraft gegeben.</p>`,
+          b: `<p>So lassen sich die Worte der Weisen erklären: „Wer größer ist als sein Gefährte — dessen böser Trieb ist auch größer.“<sup data-src="sukkah-52a"></sup> Je größer ein Mensch ist, desto wichtiger sind die Gebote, die er erfüllt — und desto stärker stellt sich ihm der böse Trieb entgegen.</p><p>Es gibt noch eine andere Erklärung. Der Mensch soll frei wählen können. Darum müssen die Kräfte der Heiligkeit und die Kräfte dagegen gleich stark sein. Wer mehr Kraft zur Heiligkeit bekommen hat — wer „größer als sein Gefährte“ ist —, dessen böser Trieb bekommt auch mehr Kraft.</p>`,
         },
         {
           h: 'Warum Adam vom Baum aß',
@@ -165,11 +165,11 @@ const de: LessonText = {
         },
         {
           h: 'Das Zuhause — ein kleines Heiligtum',
-          b: `<p>Schon das Wort „Tora“ ist mit „Hora’a“ verwandt — „Weisung“. Die Erzählungen des Abschnitts Bereschit geben Weisung für das ganze Jahr. So gibt auch dieser Gedanke eine Weisung, wie ein jüdisches Zuhause sein soll.</p><p>Jedes jüdische Zuhause ist „ein kleines Heiligtum“<sup data-src="ez-11-16"></sup>, von dem G-tt sagt: „…und Ich werde in ihrer Mitte wohnen.“<sup data-src="ex-25-8"></sup> Die Führung des Hauses hängt von der Hausfrau ab, die unsere Überlieferung „die Grundlage des Hauses“ nennt: <span class="he">עקרת הבית</span><sup data-src="ps-113-9"></sup> — „akeret habajit“, was die Weisen als „ikaro schel bajit“ lesen, „das Wichtigste des Hauses“. Darum soll man sie ermutigen, ihre Gebote mit mehr Schwung und Freude zu erfüllen. Und das soll man tun im Bewusstsein, dass „die Wege der Tora liebliche Wege und alle ihre Pfade Frieden sind“<sup data-src="prov-3-17"></sup>, und nicht durch herrische Anweisungen.</p><p>So wird das ganze Haus geschützt, auch der Ehemann: Hätte Chawa das Gebot von G-tt Selbst gehört, hätte sie nicht nur selbst nicht gesündigt, sondern auch Adam vor den Einflüsterungen der Schlange bewahrt.</p>`,
+          b: `<p>Schon das Wort „Tora“ ist mit „Hora’a“ verwandt — „Weisung“. Die Erzählungen des Abschnitts Bereschit geben Weisung für das ganze Jahr. So gibt auch dieser Gedanke eine Weisung, wie ein jüdisches Zuhause sein soll.</p><p>Jedes jüdische Zuhause ist „ein kleines Heiligtum“<sup data-src="ez-11-16"></sup>, von dem G-tt sagt: „…und Ich werde in ihrer Mitte wohnen.“<sup data-src="ex-25-8"></sup> Die Führung des Hauses hängt von der Hausfrau ab, die unsere Überlieferung „die Grundlage des Hauses“ nennt: <span class="he">עקרת הבית</span><sup data-src="ps-113-9"></sup> — „akeret habajit“, was die Weisen als „ikaro schel bajit“ lesen, „das Wichtigste des Hauses“. Darum soll man sie ermutigen, ihre Gebote mit mehr Schwung und Freude zu erfüllen. Und das soll man tun im Bewusstsein, dass „die Wege der Tora liebliche Wege und alle ihre Pfade Frieden sind“<sup data-src="prov-3-17"></sup>, und nicht durch herrische Anweisungen.</p><p>So wird das ganze Haus geschützt, auch der Ehemann: Hätte Chawa das Gebot von G-tt Selbst gehört, hätte sie nicht nur selbst nicht gesündigt, sondern auch Adam davor bewahrt, auf die Schlange zu hören.</p>`,
         },
         {
           h: 'Eine halbe Stunde am Tag',
-          b: `<p>Also beginnt die Grundlage aller Tätigkeit eines Menschen in der Tora in seinem eigenen Haus. Der Rebbe Raschab sagte einmal (Hajom Jom, 22. Tewet): So wie das tägliche Anlegen der Tefillin ein Gebot der Tora für jeden Juden ist, ob großer Gelehrter oder einfacher Mensch, so ist jeder Jude verpflichtet, jeden Tag eine halbe Stunde über die Erziehung seiner Kinder nachzudenken. Er muss alles tun, was in seiner Macht steht — und sogar darüber hinaus —, damit seine Kinder den Weg gehen, auf dem er sie führt.</p>`,
+          b: `<p>Alles, was ein Mensch für die Tora tut, beginnt also in seinem eigenen Haus. Der Rebbe Raschab sagte einmal (Hajom Jom, 22. Tewet): Jeder Jude legt jeden Tag Tefillin — ob großer Gelehrter oder einfacher Mensch. Genauso soll jeder Jude jeden Tag eine halbe Stunde darüber nachdenken, wie er seine Kinder erzieht. Er muss alles tun, was in seiner Macht steht — und sogar darüber hinaus —, damit seine Kinder den Weg gehen, auf dem er sie führt.</p>`,
         },
         {
           h: '„Wie einst“',
@@ -210,6 +210,12 @@ const de: LessonText = {
         card: 'Zuerst den Geber der Tora anerkennen (א), dann sie lernen (ב)',
         explain: 'Die Tora beginnt mit dem Buchstaben ב, nicht mit א. Der Rebbe erklärt: Die Tora mit Verstand und Begreifen zu lernen ist die zweite Stufe, ב. Davor kommt die erste Stufe, א: Den, der die Tora gab, anzuerkennen und Ihm zu danken.',
         horaah: 'Vor dem Lernen einen Moment innehalten und sich erinnern, Wer die Tora gab — und dann mit Verstand und Begreifen lernen.',
+        poem: [
+          "Die Tora fängt mit Bet an, nicht mit Alef an:",
+          "Bet — lernen mit Verstand, so gut man’s kann.",
+          "Doch Alef kommt zuvor: erst anerkennen,",
+          "Wer uns die Tora gab — und Ihm den Dank bekennen.",
+        ],
       },
       {
         title: 'Das verborgene Licht',
@@ -217,6 +223,12 @@ const de: LessonText = {
         card: 'Das Licht wurde zuerst erschaffen und in der Tora verborgen',
         explain: 'Das Licht — das Hauptziel der Schöpfung — wurde zuerst erschaffen, obwohl es noch nicht gebraucht wurde, und dann verborgen; und G-tt nannte es gut. Dieses Licht ist in der Tora verborgen, damit wir die Kraft haben, es wieder zu enthüllen.',
         horaah: 'Das Ziel des Dienstes ist nicht nur, die Dunkelheit zu vertreiben, sondern den eigenen Teil der Welt zu läutern, bis er selbst Licht wird: „Dunkelheit in Licht verwandeln“.',
+        poem: [
+          "Das Licht schuf G-tt zuerst — und barg es dann,",
+          "Verborgen in der Tora, dass man’s finden kann.",
+          "Nicht bloß das Dunkel jagen — wir sind dazu bestellt,",
+          "Die Finsternis in Licht zu wandeln in der Welt.",
+        ],
       },
       {
         title: 'Sterne und Schicksal',
@@ -224,6 +236,12 @@ const de: LessonText = {
         card: 'Die Himmelslichter beeinflussen das Leben, doch ein Jude ist frei',
         explain: 'Masal — der Einfluss der Himmelskörper — kann das Leben eines Menschen beeinflussen. Doch ein Jude ist nicht durch ihn begrenzt.',
         horaah: 'Wer im Dienst G-ttes zulegt, muss keinerlei „Einflüsse“ fürchten.',
+        poem: [
+          "Die Lichter oben, Masal, wirken ein",
+          "Auf eines Menschen Leben, groß und klein.",
+          "Doch einen Juden halten sie nicht fest:",
+          "Dien G-tt noch mehr — die Furcht dich dann verlässt.",
+        ],
       },
       {
         title: 'Sonne und Mond',
@@ -231,6 +249,12 @@ const de: LessonText = {
         card: 'Zuerst gleich erschaffen — erst danach wurde der Mond kleiner',
         explain: 'Die beiden Himmelslichter wurden zuerst gleich erschaffen, und erst danach wurde das Licht des Mondes vermindert. Für das jüdische Volk, das die Tora empfängt, hängt die Mündliche Tora (der Mond) von der Schriftlichen (der Sonne) ab und ist kleiner als sie. Doch von G-ttes Seite — nach Seinem Plan — sind beide gleich.',
         horaah: 'Die Mündliche Tora ist so kostbar wie die Schriftliche: von der Seite des Gebers der Tora sind sie gleich.',
+        poem: [
+          "Die beiden Lichter waren erst gleich groß,",
+          "Dann wurde kleiner nur des Mondes Los.",
+          "Die Mündliche Tora scheint wie der Mond so klein,",
+          "Doch beim Geber ist sie der Schriftlichen gleich — so soll es sein.",
+        ],
       },
       {
         title: 'Ein Paar für den großen Fisch',
@@ -238,6 +262,12 @@ const de: LessonText = {
         card: 'Der große Fisch hatte ein Paar: auch ein Zaddik braucht Gefährten',
         explain: 'Raschi betont, dass die großen Seeungeheuer ein Paar waren; G-tt nannte es gut und bewahrte eines davon als Lohn für die Gerechten auf. Daraus folgt: Auch ein Zaddik braucht einen „Gefährten“ — einen Freund im Dienst G-ttes.',
         horaah: 'Suche dir einen Gefährten im Dienst G-ttes: Jeder braucht einen, sogar ein Zaddik.',
+        poem: [
+          "Die großen Seetiere hatten ein Paar —",
+          "Raschi betont es, macht es uns klar.",
+          "Selbst ein Zaddik braucht den Freund an seiner Seit’:",
+          "Such dir einen Gefährten, zum Dienst für G-tt bereit.",
+        ],
       },
       {
         title: 'Der Segen des fünften Tages',
@@ -245,6 +275,12 @@ const de: LessonText = {
         card: 'Fische leben im Wasser — in G-ttes grenzenloser Güte',
         explain: 'Am fünften Tag segnete G-tt die Fische. Juden haben von Geburt an einen Zug der Güte (Chessed), doch er ist begrenzt. Wer am fünften Wochentag geboren ist, ist mit grenzenloser Güte gesegnet — wie die Fische, die im Wasser von G-ttes Güte genährt werden.',
         horaah: 'G-ttes grenzenlose Güte empfängt man durch völlige Selbsthingabe (Bittul) — so wie das Wasser die Fische ganz bedeckt.',
+        poem: [
+          "Am fünften Tag hat G-tt die Fische gesegnet,",
+          "Im Wasser ist ihnen Seine Güte stets begegnet.",
+          "Gib dich ganz hin — wie Wasser sie umhüllt —,",
+          "So wirst du mit grenzenloser Güte erfüllt.",
+        ],
       },
       {
         title: 'Ohne Fleisch',
@@ -252,13 +288,25 @@ const de: LessonText = {
         card: 'Krone der Schöpfung, doch ohne Fleisch — gegen Hochmut',
         explain: 'Die vorigen Verse erheben den Menschen über die Tiere als Krone der Schöpfung. Dass er keine Tiere essen durfte, sorgt dafür, dass seine Größe nicht zu Hochmut führt.',
         horaah: 'Je höher ein Mensch steht, desto mehr muss er sich vor Hochmut hüten.',
+        poem: [
+          "Der Mensch ist Krone der Schöpfung, hoch gestellt,",
+          "Doch Fleisch zu essen war ihm nicht bestellt,",
+          "Damit ihn Größe nicht zum Hochmut verführt:",
+          "Je höher du stehst, umso mehr hüte dich, wie’s gebührt.",
+        ],
       },
       {
         title: 'Der genaue Augenblick',
         verse: '„Und G-tt vollendete am siebten Tag“',
         card: 'G-tt kennt den genauen Augenblick, in dem der Schabbat beginnt',
         explain: 'Raschis zweite Erklärung: Als G-tt die Schöpfung vollendete, verletzte Er den Schabbat nicht, denn Er kennt den genauen Augenblick, in dem er beginnt.',
-        horaah: 'Jeder Augenblick ist besonders: Ein fehlender Augenblick kann den ganzen Dienst beeinträchtigen.',
+        horaah: 'Jeder Augenblick ist besonders: Ein fehlender Augenblick kann dem ganzen Dienst fehlen.',
+        poem: [
+          "Als G-tt am siebten Tag die Schöpfung vollbracht,",
+          "Hat Er den Schabbat-Anfang genau bedacht.",
+          "Jeder Augenblick ist kostbar: fehlt auch nur ein Stück,",
+          "Wirkt es auf den ganzen Dienst zurück.",
+        ],
       },
       {
         title: 'Eine neue Besserung',
@@ -266,6 +314,12 @@ const de: LessonText = {
         card: 'Der Schabbat hob die Welt höher — sie brauchte neues Tikkun',
         explain: 'In den sechs Schöpfungstagen war die Welt vollendet. Als der Schabbat kam — eine höhere Stufe —, brauchte die Welt ein neues, höheres Tikkun (Besserung).',
         horaah: 'In unserer Generation braucht die Welt das Lernen des inneren Teils der Tora — der Chassidut.',
+        poem: [
+          "In sechs Tagen war die Welt vollendet ganz,",
+          "Doch dann kam Schabbat — höher war sein Glanz.",
+          "Und neues Tikkun braucht sie jetzt dafür:",
+          "In unserer Zeit — Chassidut, der Tora innere Tür.",
+        ],
       },
       {
         title: 'Namen für die Tiere',
@@ -273,13 +327,27 @@ const de: LessonText = {
         card: 'Mit den Namen verband Adam die Schöpfung mit ihrer Quelle',
         explain: 'Adams Dienst — er gab den Tieren Namen — verband die Schöpfung mit ihrer Quelle. Die Gabe der Tora gab die Kraft, die Schöpfung mit der G-ttlichkeit selbst zu verbinden; das ist der Dienst des jüdischen Volkes.',
         horaah: 'In den Segenssprüchen vor dem Schma demütigen wir die tierische Seele, im Schma selbst verbinden wir uns mit der G-ttlichkeit.',
+        poem: [
+          "Adam gab den Tieren Namen, Stück für Stück,",
+          "Und band die Schöpfung an ihren Ursprung zurück.",
+          "Die Tora gab die Kraft — und Israel versteht:",
+          "Die Welt mit G-ttlichkeit selbst zu verbinden — darum es geht.",
+          "Vor dem Schma die tierische Seele bezwingen,",
+          "Im Schma selbst — mit G-ttlichkeit sich verbinden.",
+        ],
       },
       {
         title: 'Das Beste von dem, was man hat',
         verse: '„von der Frucht des Bodens“',
         card: 'Hewel gab das Beste seiner Art — obwohl es bessere Arten gab',
-        explain: 'Kajin brachte ein Opfer „von der Frucht des Bodens“, Hewel aber das Beste seiner Art, obwohl es bessere Arten gab. Alles gehört G-tt, darum kommt es nicht auf die Art an, sondern darauf, das Beste von dem zu bringen, was man hat.',
+        explain: 'Kajin brachte eine Opfergabe „von der Frucht des Bodens“, Hewel aber das Beste seiner Art, obwohl es bessere Arten gab. Alles gehört G-tt, darum kommt es nicht auf die Art an, sondern darauf, das Beste von dem zu bringen, was man hat.',
         horaah: 'Bei der Verschönerung eines Gebots das Beste tun, was man kann — im Rahmen der eigenen Möglichkeiten.',
+        poem: [
+          "Kajin brachte „von der Frucht des Bodens“ dar,",
+          "Hewel — das Beste seiner Art, das vorhanden war.",
+          "Alles gehört G-tt: Nicht die Art zählt hier,",
+          "Sondern das Beste von dem, was du hast, gib Ihm dafür.",
+        ],
       },
       {
         title: 'Ein fester Beschluss',
@@ -287,6 +355,12 @@ const de: LessonText = {
         card: 'Nicht einmal in Gedanken fasste G-tt einen festen Beschluss',
         explain: 'G-tt dachte daran, die Menschheit zu vernichten, sprach den Beschluss aber erst aus, nachdem Er Seinen Zorn besänftigt hatte. Er überlegte, was mit dem Menschen zu tun sei, kam aber nicht einmal in Gedanken zu einem festen Beschluss.',
         horaah: 'Über andere nur Gutes sagen. Und wer sieht, dass jemand Schlechtes tut, soll über ihn kein festes Urteil fällen — nicht einmal in Gedanken.',
+        poem: [
+          "G-tt dachte über den Menschen nach — doch selbst im Sinn",
+          "Fasste Er keinen festen Beschluss gegen ihn.",
+          "So sprich von anderen nur Gutes allein",
+          "Und urteil’ nicht fest über sie — auch nicht in Gedanken, nein.",
+        ],
       },
     ],
   },

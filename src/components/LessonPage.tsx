@@ -11,7 +11,8 @@ import { Calculator } from './Calculator';
 import { Colophon } from './Colophon';
 import { setPageState } from '../core/assistant';
 
-export function LessonPage({ lesson }: { lesson: Lesson }) {
+/** `at` — the riddle (1-based) a link points to (`#/<slug>/r/<n>`): the lesson opens on it. */
+export function LessonPage({ lesson, at }: { lesson: Lesson; at?: number }) {
   const { t, pick, locale } = useI18n();
   const { value: text, locale: textLocale } = pick(lesson.texts);
   const [S, update, reset] = useLessonState(lesson);
@@ -46,6 +47,11 @@ export function LessonPage({ lesson }: { lesson: Lesson }) {
     update((d) => void (d.lvl = lvl));
     if (scroll) requestAnimationFrame(() => window.scrollTo({ top: (game.current?.offsetTop ?? 0) - 70, behavior: 'smooth' }));
   };
+
+  useEffect(() => {
+    if (at && at >= 1 && at <= total) goTo(at - 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [at]);
 
   // the timer of a riddle starts on the first interaction inside it (not the nav buttons)
   const start = (e: React.SyntheticEvent) => {
@@ -83,7 +89,7 @@ export function LessonPage({ lesson }: { lesson: Lesson }) {
         </div>
       </TopBar>
 
-      <div className="wrap">
+      <div className="wrap" lang={textLocale}>
         {textLocale !== locale && <div className="fallback-note">{t('catalog.fallback')}</div>}
         <Hero lesson={lesson} text={text} />
         <main id="game" ref={game} onClickCapture={start} onFocusCapture={start}>

@@ -4,13 +4,19 @@ const de: LessonText = {
   title: 'Jikawu ha-Majim',
   hero: {
     heading: 'Das Geheimnis des neunten Verses: <i>vier Rätsel über den „einen Ort“</i>',
-    author: 'nach einer Reschima von Rabbiner Jizchak Ginsburgh',
+    author: 'nach einer Reschima von Rabbi Jizchak Ginsburgh',
     intro:
       'In jedem Wochenabschnitt verbirgt der neunte Vers eine tiefe Absicht. Finde sie gleich im ersten Abschnitt der Tora: Einheit im Ort, drei Bedeutungen des Wortes „Kaw“, die Zahl 59 und alle „Neunen“ von Bereschit.',
   },
   summary:
     'Der neunte Vers der Tora: „Es sollen sich die Wasser an einem Ort sammeln“. Mikwe, Linie und Hoffnung, die Zahl 59 und der neunte Buchstabe, das neunte Wort und der neunte Abschnitt von Bereschit.',
   glossary: {
+    'אלף': 'Alef — der erste Buchstabe',
+    'פלא': 'Wunder',
+    'אברהם': 'Awraham',
+    'יצחק': 'Jizchak',
+    'יש מאין': 'Etwas aus dem Nichts',
+    'והוא ימשל בך': 'und er wird über dich herrschen',
     'יקוו': 'es sollen sich sammeln',
     'מקום': 'Ort',
     'אחד': 'eins',
@@ -174,7 +180,7 @@ const de: LessonText = {
         },
         {
           h: 'Geheiligtes Verlangen',
-          b: `<p>Auch das Verlangen des Mannes nach seiner Frau kommt von hier. In der Heiligkeit heißt es darüber: „Das Verlangen der Gerechten ist nur Gutes“.<sup data-src="prov-11-23"></sup> Das Wort „nur“ (<span class="he">אך</span>) ist eine Verminderung: Der Gerechte vermindert in sich das körperliche Verlangen, und dann erfüllt sich „nur Gutes für Israel“.<sup data-src="ps-73-1"></sup></p><p>Daher auch der Ausdruck des Talmuds „besser zu zweit leben als allein“.<sup data-src="yevamot-118b"></sup> Der Raw bemerkt: Der Buchstabe <span class="he">נ</span> ist der neunte vom Ende des Alphabets (ת, ש, ר, ק, צ, פ, ע, ס, נ). Er warnt, dass darin auch die Wurzel der Zügellosigkeit liegt — deshalb braucht das Verlangen Heiligkeit.</p>`,
+          b: `<p>Auch das Verlangen des Mannes nach seiner Frau kommt von hier. In der Heiligkeit heißt es darüber: „Das Verlangen der Gerechten ist nur Gutes“.<sup data-src="prov-11-23"></sup> Das Wort „nur“ (<span class="he">אך</span>) ist eine Verminderung: Der Gerechte vermindert in sich das körperliche Verlangen, und dann erfüllt sich „nur Gutes für Israel“.<sup data-src="ps-73-1"></sup></p><p>Daher auch der Ausdruck des Talmuds „besser zu zweit leben als allein“.<sup data-src="yevamot-118b"></sup> Der Raw bemerkt: Der Buchstabe <span class="he">נ</span> ist der neunte vom Ende des Alphabets (ת, ש, ר, ק, צ, פ, ע, ס, נ). Er warnt, dass darin auch die Wurzel dafür, dass man sich nicht mehr beherrscht liegt — deshalb braucht das Verlangen Heiligkeit.</p>`,
         },
       ],
       reflection: 'Welches „Kleine“ in mir — ein Wunsch, eine Gewohnheit, ein „Schwanz“ — kann ich nicht unterdrücken, sondern heiligen? Was muss ich dafür heute tun?',
@@ -225,11 +231,11 @@ const de: LessonText = {
         },
         {
           h: 'Sonne und Mond',
-          b: `<p>Die Worte „und er wird über dich herrschen“ haben drei Wörter und zehn Buchstaben. Das mittlere Wort ist 140: das sind „Chochma“ und „Bina“ (73 + 67) und „Sonne“ und „Mond“ (<span class="he">חמה</span> 53 + <span class="he">לבנה</span> 87). Hier liegt ein Hinweis auf die Quelle der Sünde am Baum: die Klage des Mondes, der sagte „zwei Könige können nicht eine Krone gebrauchen“<sup data-src="chullin-60b"></sup>, und seine Verkleinerung.</p><p>Der mittlere Buchstabe ist 42: „Ima“, Mutter (<span class="he">אמא</span>), und der zweiundvierzigbuchstabige Name. Bina, die „Mutter“, „nistet im Thron“, in der Welt Brija, wo das „Etwas aus nichts“ beginnt. Zusammen 140 + 42 = 182 — Jaakow, der Rachel zur Frau nimmt, und zusammen ergeben sie wieder 420.</p>`,
+          b: `<p>Die Worte „und er wird über dich herrschen“ haben drei Wörter und zehn Buchstaben. Das mittlere Wort ist 140: das sind „Chochma“ und „Bina“ (73 + 67) und „Sonne“ und „Mond“ (<span class="he">חמה</span> 53 + <span class="he">לבנה</span> 87). Hier liegt ein Hinweis auf die Quelle der Sünde am Baum: die Klage des Mondes, der sagte „zwei Könige können nicht eine Krone gebrauchen“<sup data-src="chullin-60b"></sup>, und seine Verkleinerung.</p><p>Der mittlere Buchstabe ist 42: „Ima“, Mutter (<span class="he">אמא</span>), und der Name aus 42 Buchstaben. Bina, die „Mutter“, „nistet im Thron“, in der Welt Brija, wo das „Etwas aus nichts“ beginnt. Zusammen 140 + 42 = 182 — Jaakow, der Rachel zur Frau nimmt, und zusammen ergeben sie wieder 420.</p>`,
         },
         {
           h: 'Der ganze Vers: 193',
-          b: `<p>Der ganze Vers über Chawa — 16 Wörter — ist 4246, also 22-mal 193. Das letzte Wort des Verses ist „über dich“ (<span class="he">בך</span>) = 22. Der Vers ist also 192-mal „dich“ und noch einmal „dich“ am Ende. Und 192 ist dreimal „Adam und Chawa“ (45 + 19 = 64).</p><p>In der Kabbala ist 193 der heilige Name <span class="he">טפטפיה</span>, das Geheimnis des Bundes von Mann und Frau. Es ist auch der Buchstabe <span class="he">ז</span> (mit dem „Schwanz“ beginnt) in doppelter voller Schreibweise: <span class="he">זין יוד נון</span> = 193. Und die volle Schreibweise des Namens <span class="he">כוזו</span> (eine Buchstabenvertauschung des Namens des Ewigen, die man auf die Mesusa schreibt): <span class="he">כף ואו זין ואו</span> = 193.</p><p>Der Baal Schem Tov erklärte diesen Namen im Dienst des Menschen: „Ku“ (<span class="he">כו</span> = 26, wie der Name des Ewigen) — „ba-so u-wa-so“, in diesem und in jenem, also in jeder Sache. „Ich stelle den Ewigen allezeit vor mich.“<sup data-src="ps-16-8"></sup> Das ist auch das Geheimnis der Worte „Ich bin der Ewige, euer G-tt“<sup data-src="num-15-41"></sup>, mit denen das „Schma“ endet.</p>`,
+          b: `<p>Der ganze Vers über Chawa — 16 Wörter — ist 4246, also 22-mal 193. Das letzte Wort des Verses ist „über dich“ (<span class="he">בך</span>) = 22. Der Vers ist also 192-mal „dich“ und noch einmal „dich“ am Ende. Und 192 ist dreimal „Adam und Chawa“ (45 + 19 = 64).</p><p>In der Kabbala ist 193 der heilige Name <span class="he">טפטפיה</span>, das Geheimnis des Bundes von Mann und Frau. Es ist auch der Buchstabe <span class="he">ז</span> (mit dem „Schwanz“ beginnt) in doppelter voller Schreibweise: <span class="he">זין יוד נון</span> = 193. Und die volle Schreibweise des Namens <span class="he">כוזו</span> (der Name des Ewigen mit vertauschten Buchstaben; man schreibt ihn auf die Mesusa): <span class="he">כף ואו זין ואו</span> = 193.</p><p>Der Baal Schem Tov erklärte diesen Namen im Dienst des Menschen: „Ku“ (<span class="he">כו</span> = 26, wie der Name des Ewigen) — „ba-so u-wa-so“, in diesem und in jenem, also in jeder Sache. „Ich stelle den Ewigen allezeit vor mich.“<sup data-src="ps-16-8"></sup> Das ist auch das Geheimnis der Worte „Ich bin der Ewige, euer G-tt“<sup data-src="num-15-41"></sup>, mit denen das „Schma“ endet.</p>`,
         },
       ],
       reflection: 'Wo erklingt in mir „ich werde herrschen“? Wie führe ich dieses „Ich“ zu seiner Quelle zurück — und verwandle Herrschaft in einen Bund?',
@@ -264,7 +270,7 @@ const de: LessonText = {
   share: ({ score, max, time, grid, allSolved, site }) => `🌊 Was haben der neunte Vers der Tora und der „Schwanz“ gemeinsam?
 Die Antwort ist eine einzige Zahl.
 
-Ich suche sie in einem Gematria-Spiel nach der Lektion von Rabbiner Jizchak Ginsburgh „Jikawu ha-Majim“. ${allSolved ? 'Alle vier Rätsel gelöst:' : 'Mein Weg bisher:'}
+Ich suche sie in einem Gematria-Spiel nach der Lektion von Rabbi Jizchak Ginsburgh „Jikawu ha-Majim“. ${allSolved ? 'Alle vier Rätsel gelöst:' : 'Mein Weg bisher:'}
 
 ✦ ${score} von ${max} Punkten · ⏱ ${time}
 ${grid}

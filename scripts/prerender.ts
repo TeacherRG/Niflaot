@@ -14,6 +14,8 @@ import { SITE_URL } from '../src/core/site';
 import { displayNames } from '../src/core/names';
 import { buildTags } from '../src/core/tags';
 import ru from '../src/i18n/locales/ru';
+import { markHebrewHtml } from '../src/core/langMarkup';
+import { stripFootnotes } from '../src/sources/footnotes';
 
 const DIST = 'dist';
 const LOCALE = 'ru';
@@ -87,9 +89,11 @@ function render(p: Page): string {
   );
   // replacer functions: the texts may contain `$`
   html = html.replace('</head>', () => `  <script type="application/ld+json">${ld}</script>\n  </head>`);
-  html = html.replace('<div id="root"></div>', () => `<div id="root"><div class="static">${p.body}</div></div>`);
+  // Hebrew: lang="he" translate="no" — for the browser's translation, reading mode and «read aloud»
+  const body = markHebrewHtml(p.body);
+  html = html.replace('<div id="root"></div>', () => `<div id="root"><div class="static">${body}</div></div>`);
   if (p.root !== './') html = html.replace(/(src|href)="\.\/assets\//g, `$1="${p.root}assets/`);
-  if (!html.includes(p.body)) throw new Error('index.html: no <div id="root"></div>');
+  if (!html.includes(body)) throw new Error('index.html: no <div id="root"></div>');
   return html;
 }
 
@@ -161,16 +165,17 @@ function lessonPage(l: Lesson): Page {
       isPartOf: SITE,
       keywords: ['гиматрия', 'Тора', ...keywords].join(', '),
     },
-    body: `<header><p><a href="../">${esc(ui['app.title'] as string)}</a> · ${esc(lessonLabel(l))}</p>
-<p class="he">${esc(displayNames(l.hebrewTitle))}</p><h1>${esc(plain(tx.hero.heading))}</h1><p>${esc(plain(tx.hero.author))}</p><p>${esc(String(ui['age.title']))}: ${esc(String(ui['age.long']).replace('{n}', String(l.age)))}. ${esc(plain(tx.audience))}</p><p>${esc(plain(tx.hero.intro))}</p></header>
+    // one <article>: the whole retelling, so a browser's reading mode and «read aloud» get the lesson itself
+    body: `<article><header><p><a href="../">${esc(ui['app.title'] as string)}</a> · ${esc(lessonLabel(l))}</p>
+<p class="he">${esc(displayNames(l.hebrewTitle))}</p><h1>${esc(plain(tx.hero.heading))}</h1><p class="author">${esc(plain(tx.hero.author))}</p><p>${esc(String(ui['age.title']))}: ${esc(String(ui['age.long']).replace('{n}', String(l.age)))}. ${esc(plain(tx.audience))}</p><p>${esc(plain(tx.hero.intro))}</p></header>
 ${tx.riddles
   .map(
-    (r) => `<section><h2>${esc(plain(r.title))}</h2><p>${esc(plain(r.cond))}</p>${
-      r.takeaways?.length ? `<ul>${r.takeaways.map((k) => `<li>${esc(plain(k))}</li>`).join('')}</ul>` : ''
-    }</section>`,
+    (r) => `<section><h2>${esc(plain(r.title))}</h2><p>${esc(plain(r.cond))}</p>${r.lessons
+      .map((s) => `<h3>${esc(plain(s.h))}</h3>${displayNames(stripFootnotes(s.b))}`)
+      .join('')}${r.takeaways?.length ? `<ul>${r.takeaways.map((k) => `<li>${esc(plain(k))}</li>`).join('')}</ul>` : ''}</section>`,
   )
   .join('\n')}
-<p>${esc(plain(tx.practice))}</p>`,
+<p>${esc(plain(tx.practice))}</p></article>`,
   };
 }
 

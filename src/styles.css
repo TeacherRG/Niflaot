@@ -467,6 +467,18 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .p-eqs{font-family:var(--f-num);font-size:12px;display:grid;gap:2px;margin:4px 0}
 .p-ans p,.p-les p{margin:4px 0}
 .p-les{margin-top:10px;break-inside:avoid}
+.p-mast{margin:0 0 14px}
+.p-logos{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:10px;border-bottom:1px solid #b89a5e}
+.p-logo-main{height:62px;width:auto}
+.p-logos-partners{display:flex;align-items:center;gap:18px}
+.p-logos-partners img{height:44px;width:auto}
+.p-parsha{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;padding:10px 0;border-bottom:2px solid #111}
+.p-parsha-lbl{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:#7a5b1e}
+.p-parsha-name{font-family:var(--f-display);font-size:26px;font-weight:700;line-height:1.1;color:#111}
+.p-parsha-name .he{font-size:22px;margin-inline-start:8px;color:#7a5b1e}
+.p-dates{text-align:end;font-size:13px;color:#333;line-height:1.35}
+.p-dates .he{font-size:16px;font-weight:700;color:#111}
+.sheet-paper .p-head{border-bottom:1px solid #ccc}
 .p-foot{break-before:avoid;break-inside:avoid;margin-top:20px;padding-top:10px;border-top:1px solid #ccc;font-size:10.5px;color:#666;text-align:center}
 
 @media (max-width:600px){
@@ -587,7 +599,7 @@ article.m-card{border-top:3px solid var(--gold-2)}
 
 /* practical takeaway, share card button, MyChitas */
 .practice{margin-top:16px;border-radius:8px;background:var(--ok-soft);border:1px solid #BFE0CB;border-inline-start:4px solid var(--ok);padding:16px 18px;display:grid;gap:6px}
-.practice-lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ok);font-weight:700}
+.practice-lbl{margin:0;font-family:inherit;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ok);font-weight:700}
 .practice p{margin:0;font-family:var(--f-display);font-size:20px;line-height:1.35;color:var(--ink)}
 .share-btns .btn{display:inline-flex;align-items:center;gap:8px}
 .mychitas{margin-top:16px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;padding:16px 18px;border-radius:10px;background:var(--surface);border:1px solid var(--gold-line);box-shadow:var(--shadow);text-decoration:none;color:var(--ink);transition:transform .15s}
@@ -797,8 +809,65 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .memo-cta span{font-size:28px}
 .memo-cta p{margin:0;flex:1 1 220px;font-size:16px;color:var(--ink)}
 .memo-cta .btn{text-decoration:none}
+/* «Читать»: the lesson with ready answers */
+.les-read{display:block;margin-top:6px;color:var(--tchelet);font-weight:600;text-decoration:none}
+.les-read:hover{text-decoration:underline}
+.read-intro{margin:20px 0 0;font-size:15.5px;color:var(--ink-2);background:var(--tchelet-soft);border-radius:8px;padding:12px 16px}
+.read-riddle .word:hover{transform:none;box-shadow:none}
+.read-ans{font-size:15.5px;color:var(--ink-2)}
+.read-ans b{color:var(--ok);font-size:17px}
+.read-ans b.he{font-family:var(--f-he);font-size:22px}
+.read-coach .coach-head{margin-bottom:2px}
+.read-sum{font-weight:700;color:var(--gold);font-size:16px}
+.read-les{padding:12px 16px 14px;border-bottom:1px solid var(--line)}
+.read-les:last-child{border-bottom:0}
+.read-les h3{margin:0 0 8px;font-family:var(--f-display);font-size:19px}
+.read-les .les-b{padding:0}
+.read-take{margin:0 24px 18px;padding:12px 16px 12px 34px;border-radius:8px;background:var(--ok-soft);color:var(--ink-2);display:grid;gap:6px}
+.read-riddle .lt-tile{cursor:default}
+/* «Нифлаот Ребе» · «Прочитать» / «Запомнить в стихах» */
+.seg{display:flex;gap:4px;margin-top:16px;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--surface);width:max-content;max-width:100%}
+.seg a{flex:1 1 auto;padding:8px 16px;border-radius:999px;text-decoration:none;color:var(--ink-2);font-weight:600;font-size:14.5px;text-align:center;white-space:nowrap}
+.seg a.on{background:var(--ink);color:#fff}
+.poems{display:grid;gap:14px;margin-top:16px}
+.poem{background:var(--surface);border:1px solid var(--line);border-inline-start:4px solid var(--ok);border-radius:8px;box-shadow:var(--shadow);padding:16px 18px;display:grid;gap:8px}
+.poem-head{display:flex;align-items:center;gap:10px}
+.poem-head h3{margin:0;font-family:var(--f-display);font-size:20px}
+.poem-verse{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;color:var(--muted);font-size:14px}
+.poem-verse .he{font-family:var(--f-he);font-size:22px;font-weight:700;color:var(--ink)}
+.poem-lines{margin:4px 0 0;display:grid;gap:3px;font-family:var(--f-display);font-size:18.5px;line-height:1.35;color:var(--ink)}
+.poem-lines>span{padding-inline-start:1em;text-indent:-1em}
+/* «Знаете ли вы?» — the feed of equalities */
+.facts-head{margin-top:24px}
+.facts-head h1{margin:0 0 6px;font-family:var(--f-display);font-size:32px}
+.facts-head p{margin:0;color:var(--ink-2);max-width:60ch}
+.facts{display:grid;gap:16px;margin:20px 0 8px}
+.fact{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--tc-line);border-radius:8px;box-shadow:var(--shadow);padding:16px 18px;display:grid;gap:10px;scroll-margin-top:80px}
+.fact-src{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.fact-src .h-badge{position:static}
+.fact-q{margin:0;font-family:var(--f-display);font-size:20px;line-height:1.3;color:var(--ink)}
+.fact-he,.fact-a{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:center;gap:6px 10px}
+.fact-words,.fact-term,.fact-part{display:inline-flex;flex-wrap:wrap;align-items:flex-start;justify-content:center;gap:6px 10px}
+.fact-words{direction:rtl}
+.fact-w{display:inline-grid;justify-items:center;gap:2px;direction:ltr}
+.fact-w .he{font-family:var(--f-he);font-size:30px;font-weight:700;line-height:1.15;color:var(--ink);direction:rtl;text-align:center}
+.fact-w small{font-size:12.5px;color:var(--muted);text-align:center;max-width:22ch}
+.fact-op{font-family:var(--f-num);font-size:24px;color:var(--gold);line-height:1.5}
+.fact-mark{font-family:var(--f-display);font-weight:400;color:var(--tc)}
+.fact-a{background:var(--tc-soft);border-radius:8px;padding:10px 12px;flex-direction:column;align-items:center;gap:4px}
+.fact-a b.num{font-family:var(--f-num);font-size:26px;color:var(--ok);line-height:1.3}
+.fact-show{justify-self:center}
+.fact-share{justify-self:center;font-size:14px;padding:6px 14px}
+.fact.here{outline:3px solid var(--gold-2);outline-offset:2px}
+.fact-links{display:grid;gap:6px;font-size:14px;border-top:1px solid var(--line);padding-top:10px}
+.fact-links q{font-weight:500;color:var(--ink-2)}
+.read-riddle.here,.mi.here{outline:3px solid var(--gold-2);outline-offset:2px;scroll-margin-top:72px}
+.fact-links a{color:var(--tchelet);font-weight:600;text-decoration:none}
+.fact-links a:hover{text-decoration:underline}
+@media (max-width:480px){.read-take{margin-left:16px;margin-right:16px}}
 .memo-page-head{text-align:center;padding:22px 0 0}
 .memo-page-head .heb{font-family:var(--f-he);font-weight:900;font-size:clamp(32px,8vw,52px);line-height:1.1;direction:rtl}
+.memo-page-head .author{margin:4px 0 0;color:var(--muted);font-size:14px}
 .memo-page-head h1{margin:4px 0 0;font-family:var(--f-display);font-size:clamp(24px,5vw,34px);line-height:1.15}
 
 .memo{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--tchelet);border-radius:6px;box-shadow:var(--shadow);padding:22px 18px 24px;scroll-margin-top:70px}
@@ -898,6 +967,7 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .print-variant{display:flex;gap:6px}
 .print-variant .btn{margin:0!important;padding:6px 12px;font-size:13.5px}
 .pm-head{text-align:center;display:grid;gap:4px;padding-bottom:12px;border-bottom:2px solid #111}
+.pm-head .p-heb{text-align:center}
 .sheet-paper.pm h1{font-size:28px}
 .pm-head p{margin:4px 0 0;font-size:15px}
 .pm-page{margin-top:18px}
@@ -933,8 +1003,9 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
   .pm-info .mi-block h4{font-size:12px}
   .pm-page{margin-top:0}
   .pm-head+.pm-page{break-before:auto;margin-top:14px}
-  .pm-cards{grid-template-columns:repeat(4,4.5cm)}
-  .pm-card{width:4.5cm;height:6cm;aspect-ratio:auto}
+  .pm-cards{grid-template-columns:repeat(4,4cm);break-inside:avoid}
+  /* 4 × 3 cards of 4 × 5.33 cm (3:4): all twelve fit on one A4 page right under the masthead, in every language */
+  .pm-card{width:4cm;height:5.33cm;aspect-ratio:auto}
   .pm-info{break-before:page}
   .pm-color{margin:0}
   .pm-color img{max-width:none;width:auto;height:24cm}
@@ -981,6 +1052,7 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .home-side{flex:1 1 260px;max-width:300px;display:flex}
 .h-hero{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:stretch}
 .h-hero-text{flex:1 1 320px;min-width:0;display:grid;gap:4px;align-content:center}
+.h-logo{display:block;width:min(100%,380px);height:auto;margin:0 0 6px}
 .h-hero-he{display:flex;align-items:baseline;gap:12px}
 .h-hero-he>.he{font-family:var(--f-he);font-weight:900;font-size:clamp(34px,5vw,50px);line-height:1}
 .h-hero-he .num{font-size:12px;letter-spacing:.14em;color:var(--gold)}
@@ -1132,3 +1204,16 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .admin-preview p{margin:.3em 0}
 .admin-fab{position:fixed;z-index:40;inset-inline-start:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--ink);color:#fff;border-radius:999px;padding:9px 14px;font-weight:600;font-size:14px;text-decoration:none;box-shadow:0 6px 18px -6px rgba(20,26,51,.35)}
 @media print{.admin-fab{display:none!important}}
+
+/* «Партнёры» */
+.partners-head{margin-top:24px;text-align:center}
+.partners-logo{display:block;width:min(100%,420px);height:auto;margin:0 auto 10px}
+.partners-head h1{margin:0 0 6px;font-family:var(--f-display);font-size:32px}
+.partners-head p{margin:0 auto;color:var(--ink-2);max-width:60ch}
+.partners{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:22px 0 8px}
+.partner{display:grid;justify-items:center;align-content:center;gap:8px;padding:24px 18px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);text-decoration:none;color:var(--ink)}
+.partner img{max-width:100%;height:150px;width:auto;object-fit:contain}
+.partner-name{font-weight:700}
+.partner-about{font-size:14.5px;color:var(--ink-2);text-align:center;max-width:42ch}
+.partner-url{font-size:14px;font-weight:600;color:var(--tchelet)}
+a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(20,26,51,.45)}

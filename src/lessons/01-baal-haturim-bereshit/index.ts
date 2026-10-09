@@ -131,7 +131,7 @@ const lesson: Lesson = {
   },
   texts: { ru, en, de },
   memo,
-  author: { name: 'Яаков бен Ашер (Бааль ґа-Турим)', alternateName: "Rabbi Yaakov ben Asher (Ba'al HaTurim)" },
+  author: { name: 'Яаков бен Ашер (Бааль ґа-Турим)', alternateName: "Rabbi Yaakov ben Asher (Baal HaTurim)" },
 };
 
 export default lesson;

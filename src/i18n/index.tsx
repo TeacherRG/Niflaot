@@ -55,6 +55,15 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     document.documentElement.lang = locale;
     document.documentElement.dir = LOCALES[locale].dir;
+    // the language goes into the address (?lang=ru): the browser's «listen to this page» and a shared link open the
+    // page anew, without this browser's settings — and must get it in the same language
+    try {
+      const url = new URL(location.href);
+      if (url.searchParams.get('lang') !== locale) {
+        url.searchParams.set('lang', locale);
+        history.replaceState(history.state, '', url);
+      }
+    } catch {}
   }, [locale]);
 
   const value = useMemo<I18n>(() => {

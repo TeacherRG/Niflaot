@@ -8,6 +8,10 @@ import { PrintCards } from './components/PrintCards';
 import { MemoPage } from './components/MemoPage';
 import { ShabbatRest, useShabbatRest } from './components/ShabbatRest';
 import { CardsPage } from './components/CardsPage';
+import { ReadPage } from './components/ReadPage';
+import { FactsPage } from './components/FactsPage';
+import { PartnersPage } from './components/PartnersPage';
+import { CardsReadPage } from './components/CardsReadPage';
 import { MathPage } from './components/MathPage';
 import { RebbePage } from './components/RebbePage';
 import { Admin } from './components/Admin';
@@ -18,6 +22,8 @@ import { TermPopover } from './components/TermPopover';
 import { Assistant } from './components/Assistant';
 import { setPageState } from './core/assistant';
 import { installFootnoteNavigation } from './sources/footnotes';
+import { installLangMarkup } from './core/langMarkup';
+import { installTitleSync } from './core/pageMeta';
 import { DonateFab, UIContext, type Panel } from './components/ui';
 import { useI18n } from './i18n';
 
@@ -27,7 +33,7 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©pnimi.org.il\n©mychitas.app`;
 
 /**
  * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version,
- * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper.
+ * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers (`/read/<n>`, `/memo/<n>`, `/r/<n>` — opened at riddle or Memo pair n), `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/partners` — «Партнёры», `#/facts` — «Знаете ли вы?», the equalities of all lessons (`#/facts/<id>` — opened at one of them), `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper.
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson.
  */
@@ -71,9 +77,18 @@ function useCopySignature() {
   }, []);
 }
 
-/** Shows "How to play" once, on the very first visit. */
+/**
+ * A page opened by a machine, not a person: the browser's «listen to this page» (Google-Read-Aloud), search engines,
+ * previews. It gets the page itself — no «How to play» on top of it.
+ */
+const isReader = () =>
+  navigator.webdriver ||
+  /Google-Read-Aloud|bot\b|crawler|spider|Headless|Lighthouse|Google-InspectionTool/i.test(navigator.userAgent);
+
+/** Shows "How to play" once, on the very first visit (of a person). */
 function useFirstVisitHelp(open: (p: Panel) => void) {
   useEffect(() => {
+    if (isReader()) return;
     const KEY = 'niflaot:help-seen';
     try {
       if (localStorage.getItem(KEY)) return;
@@ -100,19 +115,25 @@ function Site() {
   const route = useRoute();
   useCopySignature();
   useEffect(installFootnoteNavigation, []);
+  useEffect(installLangMarkup, []);
+  useEffect(installTitleSync, []);
   const [panel, open] = useState<Panel>(null);
   useFirstVisitHelp(open);
   const [slug, view, variant] = route.split('/');
   const lesson = slug ? findLesson(slug) : undefined;
   // outside a lesson the helper knows no lesson (the lesson page sets its own state)
   useEffect(() => {
-    if (!lesson || view === 'print' || view === 'memo' || view === 'cards') setPageState(null);
+    if (!lesson || view === 'print' || view === 'memo' || view === 'cards' || view === 'read') setPageState(null);
   }, [lesson, view]);
   const ui = useMemo(() => ({ panel, open, lessonSlug: lesson?.slug }), [panel, lesson]);
   return (
     <UIContext.Provider value={ui}>
       {slug === 'admin' ? (
         <Admin slug={view} />
+      ) : slug === 'partners' ? (
+        <PartnersPage />
+      ) : slug === 'facts' ? (
+        <FactsPage at={view || undefined} />
       ) : slug === 'math' ? (
         <MathPage op={OPS.includes(view as Op) ? (view as Op) : 'add'} />
       ) : slug === 'rebbe' && view in PARSHIOT ? (
@@ -126,11 +147,15 @@ function Site() {
       ) : view === 'cards' && lesson.cards ? (
         <CardsPage key={lesson.slug} lesson={lesson} cards={lesson.cards} />
       ) : view === 'memo' && lesson.memo ? (
-        <MemoPage key={lesson.slug} lesson={lesson} memo={lesson.memo} />
+        <MemoPage key={lesson.slug} lesson={lesson} memo={lesson.memo} at={Number(variant) || undefined} />
+      ) : view === 'read' && lesson.cards ? (
+        <CardsReadPage key={lesson.slug} lesson={lesson} cards={lesson.cards} mode={variant === 'poem' ? 'poem' : 'read'} />
+      ) : view === 'read' && lesson.kind !== 'sicha' ? (
+        <ReadPage key={lesson.slug} lesson={lesson} at={Number(variant) || undefined} />
       ) : view === 'print' ? (
         <PrintLesson key={lesson.slug} lesson={lesson} />
       ) : (
-        <LessonPage key={lesson.slug} lesson={lesson} />
+        <LessonPage key={lesson.slug} lesson={lesson} at={view === 'r' ? Number(variant) || undefined : undefined} />
       )}
       <Panels />
       <TermPopover />

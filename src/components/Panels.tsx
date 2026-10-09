@@ -26,6 +26,13 @@ export function Panels() {
             <Icon name="home" />
             <span>{t('menu.home')}</span>
           </a>
+          <a href="#/facts" onClick={close} className="menu-item" aria-current={location.hash === '#/facts' ? 'page' : undefined}>
+            <Icon name="hash" />
+            <span>
+              {t('facts.title')}
+              <small>{t('facts.menuSub')}</small>
+            </span>
+          </a>
           <div className="menu-lbl">{t('menu.lessons')}</div>
           {LESSON_GROUPS.map((g) => (
             <details key={g.id} className="menu-group" open={!currentParsha || currentParsha === g.id}>
@@ -144,6 +151,10 @@ export function Panels() {
             <Icon name="spark" />
             <span>{t(ASSISTANT_URL ? 'ai.title' : 'helper.title')}</span>
           </button>
+          <a href="#/partners" onClick={close} className="menu-item" aria-current={location.hash === '#/partners' ? 'page' : undefined}>
+            <Icon name="heart" />
+            <span>{t('partners.title')}</span>
+          </a>
           <button className="menu-item" onClick={() => open('about')}>
             <Icon name="info" />
             <span>{t('about.title')}</span>

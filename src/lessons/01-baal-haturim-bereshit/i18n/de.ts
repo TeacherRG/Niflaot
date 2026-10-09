@@ -11,9 +11,32 @@ const de: LessonText = {
   summary:
     'Bereschit 1–4 mit den Augen des Baal HaTurim: „Bereschit bara“ = „an Rosch Haschana erschaffen“, Licht = 613, der Mensch aus Erde, Siegel und Challa, der siebte Tag und die siebte Generation.',
   glossary: {
+    'בראשית ברא': 'im Anfang schuf',
+    'בראש השנה נברא': 'an Rosch Haschana erschaffen (die Welt)',
+    'בראשית ברא אלהים': 'im Anfang schuf G-tt',
+    'אמת': 'Wahrheit',
+    'את האור': 'das Licht („et ha-or“)',
+    'בתורה': 'in der Tora',
+    'ויבדל': 'und Er schied',
+    'מזריע זרע למינהו': 'die Samen trägt nach ihrer Art',
+    'מזל': 'Masal, himmlischer Beschützer',
+    'האדם': 'der Mensch',
+    'אפר דם מרה': 'Staub, Blut, Galle',
+    'אדם': 'Adam, Mensch',
+    'ויפח באפיו נשמת חיים': 'und Er blies in seine Nase die Seele des Lebens',
+    'חותם': 'Siegel',
+    'בהבראם': 'als sie erschaffen wurden',
+    'באברהם': 'um Awrahams willen',
+    'אשר צויתיך לבלתי אכל': 'von dem Ich dir geboten habe, nicht zu essen',
+    'רכיל': 'ein Verleumder',
+    'חנוך': 'Chanoch',
+    'את האור כי טוב': 'das Licht, dass es gut war',
+    'ברית': 'Bund',
+    'האדם לנפש חיה': 'der Mensch — ein lebendiges Wesen',
+    'חלה': 'Challa',
     'בראשית': 'im Anfang',
     'ברא': 'erschuf',
-    'את': 'Partikel des direkten Objekts',
+    'את': 'kleines Wort vor dem „Wen oder was?“ des Satzes',
     'האור': 'das Licht',
     'אדמה': 'Erde, Erdboden',
     'ויבאה': 'und Er brachte sie',
@@ -37,7 +60,7 @@ const de: LessonText = {
           hint: 'Die letzten Buchstaben der Wörter sind markiert. Es ergibt ein Wort aus drei Buchstaben, das „Wahrheit“ bedeutet.',
         },
         {
-          q: 'Im zweiten Kapitel heißt es: „Dies sind die Hervorbringungen des Himmels und der Erde <span class="he">בהבראם</span> — als sie erschaffen wurden“. Stelle <b>alle</b> Buchstaben dieses Wortes so um, dass „in Awraham“ entsteht — der Name des Erzvaters mit der Vorsilbe <span class="he">ב</span>.',
+          q: 'Im zweiten Kapitel heißt es: „Dies ist die Entstehung des Himmels und der Erde <span class="he">בהבראם</span> — als sie erschaffen wurden“. Stelle <b>alle</b> Buchstaben dieses Wortes so um, dass „in Awraham“ entsteht — der Name des Erzvaters mit der Vorsilbe <span class="he">ב</span>.',
           hint: 'Awrahams Name ist אברהם. Setze ב („in“) davor.',
         },
       ],
@@ -63,12 +86,12 @@ const de: LessonText = {
           b: `<p>Die Endbuchstaben von <span class="he">בראשית ברא אלקים</span> — <span class="he">ת</span>, <span class="he">א</span>, <span class="he">ם</span> — bilden das Wort <span class="he">אמת</span>, „Wahrheit“. Das lehrt, sagt der Baal HaTurim, dass der Allmächtige die Welt mit Wahrheit erschuf, wie es heißt: „Der Anfang Deines Wortes ist Wahrheit.“<sup data-src="ps-119-160"></sup> „Und so gibt es viele Verse, deren Endbuchstaben <span class="he">אמת</span> ergeben.“</p><p>Der Anfang von G-ttes Wort — der erste Vers der Tora — trägt an seinem „Ende“ das Siegel der Wahrheit.</p>`,
         },
         {
-          h: 'Der Geist des Maschiach',
-          b: `<p>Zum zweiten Vers — „und der Geist G-ttes schwebte über den Wassern“ — schreibt der Baal HaTurim: Die Worte <span class="he">ורוח אלקים מרחפת</span> entsprechen in Gematria <span class="he">זו רוחו של משיח</span>, „das ist der Geist des Maschiach“.<sup data-src="bht-1-2"></sup> Schon im zweiten Vers der Tora, über den Urwassern, schwebt der Geist der künftigen Erlösung.</p><p>Ehrlich gesagt: In unserer Rechnung stimmen die Zahlen nicht überein (1034 und 921) — vielleicht hatte der Baal HaTurim eine andere Schreibweise der Wörter. Darum ist diese Gematria nicht Teil der Rätsel.</p>`,
+          h: 'Der Geist des Moschiach',
+          b: `<p>Zum zweiten Vers — „und der Geist G-ttes schwebte über den Wassern“ — schreibt der Baal HaTurim: Die Worte <span class="he">ורוח אלקים מרחפת</span> entsprechen in Gematria <span class="he">זו רוחו של משיח</span>, „das ist der Geist des Moschiach“.<sup data-src="bht-1-2"></sup> Schon im zweiten Vers der Tora, über den Urwassern, schwebt der Geist der künftigen Erlösung.</p><p>Ehrlich gesagt: In unserer Rechnung stimmen die Zahlen nicht überein (1034 und 921) — vielleicht hatte der Baal HaTurim eine andere Schreibweise der Wörter. Darum ist diese Gematria nicht Teil der Rätsel.</p>`,
         },
         {
           h: 'Um Awrahams willen',
-          b: `<p>Im zweiten Kapitel: „Dies sind die Hervorbringungen des Himmels und der Erde <span class="he">בהבראם</span> — als sie erschaffen wurden.“<sup data-src="gen-2-4"></sup> Der Baal HaTurim: Die Buchstaben von <span class="he">בהבראם</span> sind die Buchstaben von <span class="he">באברהם</span>, „in Awraham“: <b>Durch das Verdienst Awrahams wurden Himmel und Erde erschaffen</b>.<sup data-src="bht-2-4"></sup> Beide Wörter haben dieselben Buchstaben, also auch dieselbe Gematria — 250.</p><p>Am Ende desselben Verses steht „Erde und Himmel“ — in umgekehrter Reihenfolge. Laut der Massora kommt dieser Ausdruck zweimal vor: hier und im Psalm „Seine Herrlichkeit ist über Erde und Himmel“. Warum dankt man für Erde und Himmel? Weil Er Erde und Himmel gemacht hat.</p>`,
+          b: `<p>Im zweiten Kapitel: „Dies ist die Entstehung des Himmels und der Erde <span class="he">בהבראם</span> — als sie erschaffen wurden.“<sup data-src="gen-2-4"></sup> Der Baal HaTurim: Die Buchstaben von <span class="he">בהבראם</span> sind die Buchstaben von <span class="he">באברהם</span>, „in Awraham“: <b>Durch das Verdienst Awrahams wurden Himmel und Erde erschaffen</b>.<sup data-src="bht-2-4"></sup> Beide Wörter haben dieselben Buchstaben, also auch dieselbe Gematria — 250.</p><p>Am Ende desselben Verses steht „Erde und Himmel“ — in umgekehrter Reihenfolge. Laut der Massora kommt dieser Ausdruck zweimal vor: hier und in Tehillim (den Psalmen): „Seine Herrlichkeit ist über Erde und Himmel“. Warum dankt man für Erde und Himmel? Weil Er Erde und Himmel gemacht hat.</p>`,
         },
       ],
       reflection: 'Womit beginnt mein Tag? Wenn „der Anfang Deines Wortes Wahrheit ist“ — welches erste Wort, welche erste Tat am Morgen gibt allem anderen den Ton?',
@@ -84,7 +107,7 @@ const de: LessonText = {
       cond: `<p>Der erste Tag der Schöpfung. Die Tora sagt:</p><p class="verse" dir="rtl" lang="he">וירא אלקים את האור כי טוב ויבדל אלקים בין האור ובין החשך</p><p>„Und G-tt sah das Licht, dass es gut war, und G-tt schied zwischen dem Licht und der Finsternis.“<sup data-src="gen-1-1"></sup></p><p>Der Baal HaTurim findet in diesem Vers drei Andeutungen: auf die Tora, auf den Bund und auf die Hawdala — die Trennung am Ausgang des Schabbats.</p>`,
       steps: [
         {
-          q: 'Was ergeben die Wörter <span class="he">את האור</span> — „das Licht“ (mit der Partikel des direkten Objekts <span class="he">את</span>)?',
+          q: 'Was ergeben die Wörter <span class="he">את האור</span> — „das Licht“ (mit dem kleinen Wort <span class="he">את</span>)?',
           hint: 'את = 1 + 400; האור = 5 + 1 + 6 + 200.',
         },
         { q: 'Welches Wort hat dieselbe Gematria?', opts: ['„in der Tora“', '„Tora“', '„Glaube“', '„Gebot“'] },
@@ -207,7 +230,7 @@ const de: LessonText = {
     },
     {
       title: 'Der Siebte',
-      cond: `<p>Die sechs Schöpfungstage enden mit den Worten <em>יום הששי. ויכלו השמים</em> — „der sechste Tag. Und vollendet waren die Himmel“. Die Anfangsbuchstaben dieser Wörter, schreibt der Baal HaTurim, bilden den vierbuchstabigen Namen des Allmächtigen: Mit ihm versiegelte Er die Schöpfung.<sup data-src="bht-1-31"></sup> Dann folgt der siebte Tag:</p><p class="verse" dir="rtl" lang="he">ויכל אלקים ביום השביעי מלאכתו אשר עשה וישבת ביום השביעי מכל מלאכתו אשר עשה. ויברך אלקים את יום השביעי ויקדש אתו כי בו שבת מכל מלאכתו אשר ברא אלקים לעשות</p><p>„Und G-tt vollendete am siebten Tag Sein Werk, das Er gemacht hatte, und ruhte am siebten Tag von all Seinem Werk, das Er gemacht hatte. Und G-tt segnete den siebten Tag und heiligte ihn, denn an ihm ruhte Er von all Seinem Werk, das G-tt schaffend gemacht hatte.“<sup data-src="gen-2-1"></sup></p><p>Und am Ende dieser Kapitel bringt der Baal HaTurim die Worte Ijobs: <em>גם עתה הנה בשמים עדי</em> — „auch jetzt, siehe, ist im Himmel mein Zeuge“.<sup data-src="job-16-19"></sup></p>`,
+      cond: `<p>Die sechs Schöpfungstage enden mit den Worten <em>יום הששי. ויכלו השמים</em> — „der sechste Tag. Und vollendet waren die Himmel“. Die Anfangsbuchstaben dieser Wörter, schreibt der Baal HaTurim, bilden den vierbuchstabigen Namen des Allmächtigen: Mit ihm versiegelte Er die Schöpfung.<sup data-src="bht-1-31"></sup> Dann folgt der siebte Tag:</p><p class="verse" dir="rtl" lang="he">ויכל אלקים ביום השביעי מלאכתו אשר עשה וישבת ביום השביעי מכל מלאכתו אשר עשה. ויברך אלקים את יום השביעי ויקדש אתו כי בו שבת מכל מלאכתו אשר ברא אלקים לעשות</p><p>„Und G-tt vollendete am siebten Tag Sein Werk, das Er gemacht hatte, und ruhte am siebten Tag von all Seinem Werk, das Er gemacht hatte. Und G-tt segnete den siebten Tag und heiligte ihn, denn an ihm ruhte Er von all Seinem Werk, das G-tt schaffend gemacht hatte.“<sup data-src="gen-2-1"></sup></p><p>Und am Ende dieser Kapitel bringt der Baal HaTurim die Worte Ijows: <em>גם עתה הנה בשמים עדי</em> — „auch jetzt, siehe, ist im Himmel mein Zeuge“.<sup data-src="job-16-19"></sup></p>`,
       steps: [
         { q: 'Wie oft steht in diesen zwei Versen das Wort <span class="he">מלאכתו</span>, „Sein Werk“?', hint: 'Geh die Verse durch und markiere jedes מלאכתו.' },
         { q: 'Was ergibt das Wort <span class="he">עדי</span>, „mein Zeuge“?', hint: '70 + 4 + 10.' },
@@ -224,7 +247,7 @@ const de: LessonText = {
       lessons: [
         {
           h: 'Die Schöpfung unter dem Siegel des Namens',
-          b: `<p>Die Anfangsbuchstaben von „<b>J</b>om <b>ha</b>-schischi. <b>Wa</b>-jechulu <b>ha</b>-schamajim“ bilden den vierbuchstabigen Namen des Allmächtigen (Hawaja): Mit ihm wurde das Schöpfungswerk versiegelt.<sup data-src="bht-1-31"></sup> Ebenso im Psalm: „<b>J</b>ismechu <b>ha</b>-schamajim <b>we</b>-tagel <b>ha</b>-arez“ — „Es freue sich der Himmel, und es jauchze die Erde“<sup data-src="ps-96-11"></sup>: Die Anfangsbuchstaben sind derselbe Name, mit dem die Welt versiegelt wurde.</p><p>Den Namen selbst schreiben und sprechen wir nicht aus — darum steht er nicht im Rätsel.</p>`,
+          b: `<p>Die Anfangsbuchstaben von „<b>J</b>om <b>ha</b>-schischi. <b>Wa</b>-jechulu <b>ha</b>-schamajim“ bilden den vierbuchstabigen Namen des Allmächtigen (Hawaja): Mit ihm wurde das Schöpfungswerk versiegelt.<sup data-src="bht-1-31"></sup> Ebenso in Tehillim (den Psalmen): „<b>J</b>ismechu <b>ha</b>-schamajim <b>we</b>-tagel <b>ha</b>-arez“ — „Es freue sich der Himmel, und es jauchze die Erde“<sup data-src="ps-96-11"></sup>: Die Anfangsbuchstaben sind derselbe Name, mit dem die Welt versiegelt wurde.</p><p>Den Namen selbst schreiben und sprechen wir nicht aus — darum steht er nicht im Rätsel.</p>`,
         },
         {
           h: 'Der begehrteste der Tage',
@@ -240,7 +263,7 @@ const de: LessonText = {
         },
         {
           h: 'Ein Zeuge im Himmel',
-          b: `<p>Ijob sagt: „Auch jetzt, siehe, ist im Himmel mein Zeuge (<span class="he">עדי</span>), und der mich kennt, in den Höhen.“<sup data-src="job-16-19"></sup> Der Baal HaTurim: <span class="he">עדי</span> ergibt in Gematria <span class="he">חנוך</span>, Chanoch (84). Der Allmächtige nahm einen, der vor der Sintflut lebte, und einen nach der Sintflut — Chanoch und Pinchas — und hob sie in den Himmel, damit sie von Ihm zeugen.<sup data-src="bht-4-18"></sup> Dort schreibt der Baal HaTurim auch, dass das Wort <span class="he">ושהדי</span> („und der mich kennt“) dem Namen des Engels Metatron entspricht; doch in unserer Rechnung stimmen die Zahlen nicht überein (325 und 314), darum steht das nicht im Rätsel.</p><p>Von Chanoch sagt die Tora: „Und Chanoch wandelte mit G-tt, und er war nicht mehr, denn G-tt hatte ihn genommen.“<sup data-src="gen-5-21"></sup></p>`,
+          b: `<p>Ijow sagt: „Auch jetzt, siehe, ist im Himmel mein Zeuge (<span class="he">עדי</span>), und der mich kennt, in den Höhen.“<sup data-src="job-16-19"></sup> Der Baal HaTurim: <span class="he">עדי</span> ergibt in Gematria <span class="he">חנוך</span>, Chanoch (84). Der Allmächtige nahm einen, der vor der Sintflut lebte, und einen nach der Sintflut — Chanoch und Pinchas — und hob sie in den Himmel, damit sie von Ihm zeugen.<sup data-src="bht-4-18"></sup> Dort schreibt der Baal HaTurim auch, dass das Wort <span class="he">ושהדי</span> („und der mich kennt“) dem Namen des Engels Metatron entspricht; doch in unserer Rechnung stimmen die Zahlen nicht überein (325 und 314), darum steht das nicht im Rätsel.</p><p>Von Chanoch sagt die Tora: „Und Chanoch wandelte mit G-tt, und er war nicht mehr, denn G-tt hatte ihn genommen.“<sup data-src="gen-5-21"></sup></p>`,
         },
         {
           h: 'Alle Siebten sind geliebt',
@@ -276,7 +299,7 @@ const de: LessonText = {
         verse: '„Im Anfang schuf G-tt“',
         quote: '„Im Anfang schuf G-tt“ — die Endbuchstaben der Wörter ergeben אמת (Wahrheit). Das lehrt, dass Er die Welt mit Wahrheit schuf, wie es heißt: „Der Anfang Deines Wortes ist Wahrheit.“',
         explain:
-          'Nimm den letzten Buchstaben jedes Wortes: ת (בראשית), א (ברא), ם (אלקים). Zusammen ergeben sie אמת, „Wahrheit“. Der Baal HaTurim lernt daraus: G-tt schuf die Welt mit Wahrheit, wie es in den Psalmen heißt: „Der Anfang Deines Wortes ist Wahrheit.“',
+          'Nimm den letzten Buchstaben jedes Wortes: ת (בראשית), א (ברא), ם (אלקים). Zusammen ergeben sie אמת, „Wahrheit“. Der Baal HaTurim lernt daraus: G-tt schuf die Welt mit Wahrheit, wie es in Tehillim (den Psalmen) heißt: „Der Anfang Deines Wortes ist Wahrheit.“',
         moral: 'Die Welt steht auf Wahrheit — darum sagen auch wir die Wahrheit, selbst wenn es nicht leicht ist.',
       },
       {
@@ -336,12 +359,12 @@ const de: LessonText = {
         moral: 'In jedem von uns ist eine Seele von G-tt — darum achten wir jeden Menschen.',
       },
       {
-        title: 'Um Abrahams willen',
-        caption: 'Abrahams Zelt unter dem Sternenhimmel',
+        title: 'Um Awrahams willen',
+        caption: 'Awrahams Zelt unter dem Sternenhimmel',
         verse: '„als sie erschaffen wurden“',
-        quote: '„Als sie erschaffen wurden“ hat die Buchstaben von „in Abraham“: Durch Abrahams Verdienst wurden Himmel und Erde erschaffen.',
+        quote: '„Als sie erschaffen wurden“ hat die Buchstaben von „in Awraham“: Durch Awrahams Verdienst wurden Himmel und Erde erschaffen.',
         explain:
-          '„Dies ist die Geschichte von Himmel und Erde, als sie erschaffen wurden — בהבראם.“ Stellt man die Buchstaben von בהבראם um, erhält man באברהם — „in Abraham“; darum sind auch ihre Werte gleich: 250. Der Baal HaTurim lehrt: Himmel und Erde wurden durch das Verdienst von Awraham Awinu erschaffen.',
+          '„Dies ist die Geschichte von Himmel und Erde, als sie erschaffen wurden — בהבראם.“ Stellt man die Buchstaben von בהבראם um, erhält man באברהם — „in Awraham“; darum sind auch ihre Werte gleich: 250. Der Baal HaTurim lehrt: Himmel und Erde wurden durch das Verdienst von Awraham Awinu erschaffen.',
         moral: 'Ein einziger guter Mensch kann der Grund für großes Gutes in der ganzen Welt sein.',
       },
       {
@@ -366,10 +389,10 @@ const de: LessonText = {
       {
         title: 'Chanoch — die siebte Generation',
         caption: 'Sieben Stufen zum Himmel',
-        verse: '„siehe, im Himmel ist mein Zeuge“ (Hiob)',
+        verse: '„siehe, im Himmel ist mein Zeuge“ (Ijow)',
         quote: '„Siehe, im Himmel ist mein Zeuge“ — in der Gematria „Chanoch“… Er wählte Chanoch, die siebte Generation, denn G-tt liebt die Siebten.',
         explain:
-          'Im Buch Hiob heißt es: „Siehe, im Himmel ist mein Zeuge.“ Das Wort עדי („mein Zeuge“) hat denselben Wert wie der Name חנוך (Chanoch) — 84. G-tt nahm Chanoch in den Himmel, damit er Zeuge sei, und wählte ihn, weil er die siebte Generation nach Adam war — und G-tt liebt die Siebten. So auch Mosche, der Siebte nach Abraham, „stieg hinauf zu G-tt“.',
+          'Im Buch Ijow heißt es: „Siehe, im Himmel ist mein Zeuge.“ Das Wort עדי („mein Zeuge“) hat denselben Wert wie der Name חנוך (Chanoch) — 84. G-tt nahm Chanoch in den Himmel, damit er Zeuge sei, und wählte ihn, weil er die siebte Generation nach Adam war — und G-tt liebt die Siebten. So auch Mosche, der Siebte nach Awraham, „stieg hinauf zu G-tt“.',
         moral: 'G-tt liebt das Siebte — und jede Woche haben wir unseren eigenen siebten Tag: den Schabbat.',
       },
     ],
