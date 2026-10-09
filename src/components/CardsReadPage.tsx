@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useI18n } from '../i18n';
 import type { Lesson, RebbeCardsData } from '../lessons/types';
 import { displayNames } from '../core/names';
@@ -6,7 +6,6 @@ import { TopBar } from './TopBar';
 import { CardInfo } from './RebbeCards';
 import { HebrewRuns } from './Hebrew';
 import { Colophon } from './Colophon';
-import { Listen } from './Listen';
 
 export type CardsReadMode = 'read' | 'poem';
 
@@ -18,7 +17,6 @@ export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards: 
   const { t, pick, locale } = useI18n();
   const { value: text, locale: textLocale } = pick(lesson.texts);
   const items = text.cards?.items ?? [];
-  const body = useRef<HTMLElement>(null);
 
   useEffect(() => {
     document.title = `${t(mode === 'poem' ? 'cards.modePoem' : 'cards.tabRead')} · ${text.title} · ${t('app.title')}`;
@@ -31,7 +29,7 @@ export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards: 
         {textLocale !== locale && <div className="fallback-note">{t('catalog.fallback')}</div>}
         <main>
           {/* one <article> in the text's language: the browser's reading mode, translation and «read aloud» take it whole */}
-          <article ref={body} lang={textLocale}>
+          <article lang={textLocale}>
             <div className="memo-page-head">
               <div className="heb gold-text">{lesson.hebrewTitle}</div>
               <h1>{text.title}</h1>
@@ -50,7 +48,6 @@ export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards: 
               ))}
             </nav>
             <p className="read-intro no-speak">{t(mode === 'poem' ? 'cards.poemIntro' : 'cards.readIntro')}</p>
-            <Listen key={mode} target={body} lang={textLocale} />
 
             {mode === 'read' ? (
               <div className="memo-study">
