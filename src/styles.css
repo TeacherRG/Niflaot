@@ -467,10 +467,18 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .p-eqs{font-family:var(--f-num);font-size:12px;display:grid;gap:2px;margin:4px 0}
 .p-ans p,.p-les p{margin:4px 0}
 .p-les{margin-top:10px;break-inside:avoid}
-.p-brand{display:flex;justify-content:center;margin:0 0 12px}
-.p-brand img{height:64px;width:auto}
-.p-partners{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 22px;margin:0 0 8px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#666}
-.p-partners img{height:40px;width:auto}
+.p-mast{margin:0 0 14px}
+.p-logos{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:10px;border-bottom:1px solid #b89a5e}
+.p-logo-main{height:62px;width:auto}
+.p-logos-partners{display:flex;align-items:center;gap:18px}
+.p-logos-partners img{height:44px;width:auto}
+.p-parsha{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;padding:10px 0;border-bottom:2px solid #111}
+.p-parsha-lbl{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:#7a5b1e}
+.p-parsha-name{font-family:var(--f-display);font-size:26px;font-weight:700;line-height:1.1;color:#111}
+.p-parsha-name .he{font-size:22px;margin-inline-start:8px;color:#7a5b1e}
+.p-dates{text-align:end;font-size:13px;color:#333;line-height:1.35}
+.p-dates .he{font-size:16px;font-weight:700;color:#111}
+.sheet-paper .p-head{border-bottom:1px solid #ccc}
 .p-foot{break-before:avoid;break-inside:avoid;margin-top:20px;padding-top:10px;border-top:1px solid #ccc;font-size:10.5px;color:#666;text-align:center}
 
 @media (max-width:600px){
@@ -965,6 +973,7 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .print-variant{display:flex;gap:6px}
 .print-variant .btn{margin:0!important;padding:6px 12px;font-size:13.5px}
 .pm-head{text-align:center;display:grid;gap:4px;padding-bottom:12px;border-bottom:2px solid #111}
+.pm-head .p-heb{text-align:center}
 .sheet-paper.pm h1{font-size:28px}
 .pm-head p{margin:4px 0 0;font-size:15px}
 .pm-page{margin-top:18px}

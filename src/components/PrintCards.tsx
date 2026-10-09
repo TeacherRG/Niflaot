@@ -4,7 +4,7 @@ import type { Lesson, RebbeCardsData } from '../lessons/types';
 import { displayNames } from '../core/names';
 import { SITE_HOST } from '../core/site';
 import { Icon } from './ui';
-import { PrintLogo, PrintPartners } from './PrintBrand';
+import { PrintMasthead } from './PrintBrand';
 import { CardInfo } from './RebbeCards';
 
 const OPTS_KEY = 'niflaot:print-cards-options';
@@ -83,7 +83,7 @@ export function PrintCards({ lesson, cards }: { lesson: Lesson; cards: RebbeCard
       </div>
 
       <article className="sheet-paper pm">
-        <PrintLogo />
+        <PrintMasthead lesson={lesson} />
         <header className="pm-head">
           <div className="p-heb he">{lesson.hebrewTitle}</div>
           <h1>
@@ -126,7 +126,6 @@ export function PrintCards({ lesson, cards }: { lesson: Lesson; cards: RebbeCard
         )}
 
         <footer className="p-foot">
-          <PrintPartners />
           <p className="p-holy">{t('print.holy')}</p>
           {SITE_HOST} · {t('memo.shabbat')} · © mychitas.app 2026
         </footer>

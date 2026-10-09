@@ -43,6 +43,8 @@ const de: Messages = {
   'print.withReflection': 'Fragen an dich selbst',
   'print.name': 'Name',
   'print.date': 'Datum',
+  'print.parsha': "Wochenabschnitt",
+  'print.shabbat': "Schabbat",
   'print.letters': 'Zahlenwerte der Buchstaben',
   'print.finals': 'Endbuchstaben sind gleich den gewöhnlichen:',
   'print.holy': 'Dieses Blatt enthält Worte der Tora und den Namen des Allmächtigen. Bitte nicht wegwerfen — in die Geniza legen.',

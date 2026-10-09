@@ -4,14 +4,13 @@ import { Html, useI18n } from '../i18n';
 import { VALUES, letters } from '../core/gematria';
 import { SITE_HOST } from '../core/site';
 import type { Lesson, PuzzleText } from '../lessons/types';
-import { PARSHIOT } from '../lessons/parshiot';
 import { SOURCES, sourceLabel, translation } from '../sources';
 import { stripFootnotes } from '../sources/footnotes';
 import { HebrewRuns } from './Hebrew';
 import { formatEstimate } from '../core/format';
 import { Icon } from './ui';
 import { asWord } from '../core/letterPuzzle';
-import { PrintLogo, PrintPartners } from './PrintBrand';
+import { PrintMasthead } from './PrintBrand';
 import { displayNames } from '../core/names';
 
 const TABLE = Object.entries(VALUES).filter(([c]) => !'ךםןףץ'.includes(c));
@@ -64,7 +63,6 @@ const chain = (p: PuzzleText) => p.pieces.join(' → ');
 /** Printable worksheet: riddles with blanks to fill in by hand, optional answers and lesson text. */
 export function PrintLesson({ lesson }: { lesson: Lesson }) {
   const { t, pick, locale } = useI18n();
-  const parsha = PARSHIOT[lesson.parsha];
   const text = pick(lesson.texts).value;
   const [opt, setOpt] = useState(loadOptions);
 
@@ -119,12 +117,11 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
       </div>
 
       <article className="sheet-paper">
-        <PrintLogo />
+        <PrintMasthead lesson={lesson} />
         <header className="p-head">
           <div className="p-head-main">
             <div className="p-year">
-              {parsha.name[locale as keyof typeof parsha.name] ?? parsha.name.ru} · {parsha.year} ·{' '}
-              <span className="he">{parsha.heYear}</span> · <AgeBadge age={lesson.age} long={false} />
+              <AgeBadge age={lesson.age} long={false} />
             </div>
             <div className="p-heb he">{lesson.hebrewTitle}</div>
             <h1>{text.title}</h1>
@@ -260,7 +257,6 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
         )}
 
         <footer className="p-foot">
-          <PrintPartners />
           <p className="p-holy">{t('print.holy')}</p>
           {SITE_HOST} · {text.source} · {t('footer.fine')}
         </footer>

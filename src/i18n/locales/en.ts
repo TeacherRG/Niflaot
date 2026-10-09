@@ -43,6 +43,8 @@ const en: Messages = {
   'print.withReflection': 'Questions for yourself',
   'print.name': 'Name',
   'print.date': 'Date',
+  'print.parsha': "Weekly Torah portion",
+  'print.shabbat': "Shabbat",
   'print.letters': 'Letter values',
   'print.finals': 'Final letters equal the regular ones:',
   'print.holy': 'This sheet contains words of Torah and the Name of the Almighty. Please do not throw it away — place it in genizah.',

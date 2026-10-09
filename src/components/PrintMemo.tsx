@@ -5,7 +5,7 @@ import { memoImages } from '../core/memo';
 import { displayNames } from '../core/names';
 import { SITE_HOST } from '../core/site';
 import { Icon } from './ui';
-import { PrintLogo, PrintPartners } from './PrintBrand';
+import { PrintMasthead } from './PrintBrand';
 import { MemoInfo } from './Memo';
 
 const OPTS_KEY = 'niflaot:print-memo-options';
@@ -86,7 +86,7 @@ export function PrintMemo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) 
       </div>
 
       <article className="sheet-paper pm">
-        <PrintLogo />
+        <PrintMasthead lesson={lesson} />
         <header className="pm-head">
           <div className="p-heb he">{lesson.hebrewTitle}</div>
           <h1>
@@ -147,7 +147,6 @@ export function PrintMemo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) 
           ))}
 
         <footer className="p-foot">
-          <PrintPartners />
           <p className="p-holy">{t('print.holy')}</p>
           {SITE_HOST} · {t('memo.shabbat')} · © mychitas.app 2026
         </footer>
