@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { SITE_HOST, SITE_URL } from '../core/site';
-import { renderFactCard, shareOrSave } from '../core/shareCard';
+import { renderFactCard, shareOrSave, type FactAnswerPart } from '../core/shareCard';
 import { useI18n } from '../i18n';
 import { LESSONS } from '../lessons';
 import { TEACHERS, teacherOf } from '../lessons/teachers';
@@ -40,26 +40,39 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
   const question = f.kind === 'eq' ? t('facts.qEq') : t(`facts.qLt.${f.take}`);
   const he = f.kind === 'eq' ? f.q : f.from;
 
-  /** «Поделиться загадкой»: the question as a picture signed with the site, the answer behind the link. */
+  /** «Поделиться загадкой»: the riddle and its answer as a picture signed with the site; why it is so — behind the link. */
   const share = async () => {
     setCard('making');
     try {
+      const gloss = (h: string) =>
+        h
+          .split(' + ')
+          .map((w) => text.glossary[w])
+          .filter(Boolean)
+          .join(' · ');
+      const answer: FactAnswerPart[] =
+        f.kind === 'eq'
+          ? f.rest.map((p) => (NUMS.test(p) ? { op: '=', num: p } : { op: '=', he: displayNames(p), gloss: gloss(p) }))
+          : [{ op: '→', he: displayNames(f.word), gloss: gloss(f.word) }];
       const blob = await renderFactCard({
         eyebrow: `${t('app.title')} · ${t('facts.title')}`,
         // «Бааль ґа-Турим · Бааль ґа-Турим: Берешит» — the teacher only when the title doesn't name him
         source: text.title.includes(t(`teacher.${who}.short`)) ? text.title : `${t(`teacher.${who}.short`)} · ${text.title}`,
         question,
         hebrew: displayNames(he),
-        gloss: he
-          .split(' + ')
-          .map((w) => text.glossary[w])
-          .filter(Boolean)
-          .join(' · '),
-        answer: t('facts.cardAnswer'),
+        gloss: gloss(he),
+        answerLabel: t('facts.cardAnswerLabel'),
+        answer,
+        why: t('facts.cardWhy'),
         site: SITE_HOST,
         tagline: t('facts.cardTagline'),
       });
-      const res = await shareOrSave(blob, `niflaot-${f.id}.png`, `${question} ${displayNames(he)}?\n${t('facts.shareText')} 👉 ${SITE_URL}/#/facts/${f.id}`);
+      const said = answer.map((p) => `${p.op} ${p.num ?? p.he}`).join(' ');
+      const res = await shareOrSave(
+        blob,
+        `niflaot-${f.id}.png`,
+        `${question} ${displayNames(he)}?\n${t('facts.answer')}: ${said}\n${t('facts.shareText')} 👉 ${SITE_URL}/#/facts/${f.id}`,
+      );
       setCard(res === 'saved' ? 'saved' : 'idle');
       if (res === 'saved') setTimeout(() => setCard('idle'), 2500);
     } catch {
