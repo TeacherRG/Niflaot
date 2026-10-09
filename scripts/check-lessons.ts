@@ -21,7 +21,7 @@
  *  - «Знаете ли вы?» (#/facts): every Hebrew word of the feed has a translation in the lesson glossary of every language,
  *    and every fact links to its place in the lesson (a riddle or a Memo pair)
  *  - the site asks the browser for no permissions: no microphone, camera, location, notifications, speech recognition
- *    (src/ has none of these APIs; the city for Shabbat comes from the time zone, «Слушать» only speaks)
+ *    (src/ has none of these APIs; the city for Shabbat comes from the time zone)
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
  *  - English and German follow the house style of chabad.org / de.chabad.org (scripts/style-rules.ts,
  *    docs/TRANSLATION-GUIDE.md): G-d / G-tt, Shabbat / Schabbat, Moshiach / Moschiach, Avraham / Awraham…

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Html, useI18n } from '../i18n';
 import { withTerms } from '../i18n/glossary';
 import { VALUES, gematria, letters } from '../core/gematria';
@@ -12,7 +12,6 @@ import { Hero } from './Hero';
 import { HebrewRuns } from './Hebrew';
 import { Sources } from './Sources';
 import { Colophon } from './Colophon';
-import { Listen } from './Listen';
 
 /** A ready calculation from the step's coach data: every word spelled into letter values, every action with its result. */
 function Calc({ actions }: { actions: CoachAction[] }) {
@@ -240,7 +239,6 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
 export function ReadPage({ lesson, at }: { lesson: Lesson; at?: number }) {
   const { t, pick, locale } = useI18n();
   const { value: text, locale: textLocale } = pick(lesson.texts);
-  const body = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (!at) return;
@@ -259,10 +257,9 @@ export function ReadPage({ lesson, at }: { lesson: Lesson; at?: number }) {
         {textLocale !== locale && <div className="fallback-note">{t('catalog.fallback')}</div>}
         <main id="game">
           {/* one <article> in the text's language: the browser's reading mode, translation and «read aloud» take it whole */}
-          <article ref={body} lang={textLocale}>
+          <article lang={textLocale}>
             <Hero lesson={lesson} text={text} reading />
             <p className="read-intro no-speak">📖 {t('read.intro')}</p>
-            <Listen target={body} lang={textLocale} />
             {lesson.riddles.map((_, ri) => (
               <ReadRiddle key={ri} lesson={lesson} text={text} ri={ri} here={at === ri + 1} />
             ))}

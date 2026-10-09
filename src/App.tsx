@@ -77,9 +77,18 @@ function useCopySignature() {
   }, []);
 }
 
-/** Shows "How to play" once, on the very first visit. */
+/**
+ * A page opened by a machine, not a person: the browser's «listen to this page» (Google-Read-Aloud), search engines,
+ * previews. It gets the page itself — no «How to play» on top of it.
+ */
+const isReader = () =>
+  navigator.webdriver ||
+  /Google-Read-Aloud|bot\b|crawler|spider|Headless|Lighthouse|Google-InspectionTool/i.test(navigator.userAgent);
+
+/** Shows "How to play" once, on the very first visit (of a person). */
 function useFirstVisitHelp(open: (p: Panel) => void) {
   useEffect(() => {
+    if (isReader()) return;
     const KEY = 'niflaot:help-seen';
     try {
       if (localStorage.getItem(KEY)) return;
