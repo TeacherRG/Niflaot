@@ -1,20 +1,22 @@
 import { useEffect, useRef, useState, type RefObject } from 'react';
 import { useI18n } from '../i18n';
-import { canSpeak, checkSpeech, loadVoices, speak, speechBlocks, type SpeechCheck } from '../core/speech';
+import { mediaControls, type MediaControls } from '../core/mediaControls';
+import { canSpeak, loadVoices, speak, speechBlocks } from '../core/speech';
 
-type Note = SpeechCheck['status'] | 'testing';
+type Note = 'no-voice' | 'no-lang' | 'blocked' | 'failed' | 'silent';
 
 /**
  * «🔊 Слушать»: reads the block `target` aloud (the browser's own voice, no network), highlighting the paragraph
- * being read; pause / continue / stop. «🔈 Проверить звук» says one phrase and tells whether the browser can play
- * speech here (no voices, no voice for the language, sound blocked or silent). Hidden without speech synthesis.
+ * being read; pause / continue / stop — here and in the browser's own media controls (`mediaControls`). Says why when
+ * nothing sounds (no voices, no voice for the language, sound blocked or silent). Hidden without speech synthesis.
  */
 export function Listen({ target, lang }: { target: RefObject<HTMLElement | null>; lang: string }) {
   const { t } = useI18n();
   const [state, setState] = useState<'idle' | 'playing' | 'paused'>('idle');
-  const [note, setNote] = useState<{ s: Note; voice?: string } | null>(null);
+  const [note, setNote] = useState<{ s: Note } | null>(null);
   const stop = useRef<(() => void) | null>(null);
   const current = useRef<HTMLElement | null>(null);
+  const media = useRef<MediaControls | null>(null);
 
   const unmark = () => {
     current.current?.classList.remove('speaking');
@@ -31,12 +33,36 @@ export function Listen({ target, lang }: { target: RefObject<HTMLElement | null>
 
   if (!canSpeak()) return null;
 
+  const pause = () => {
+    speechSynthesis.pause();
+    media.current?.paused(true);
+    setState('paused');
+  };
+  const resume = () => {
+    speechSynthesis.resume();
+    media.current?.paused(false);
+    setState('playing');
+  };
+
   const play = async () => {
     const root = target.current;
     if (!root) return;
+    // the browser's play / pause / stop buttons: started right on the tap, before any waiting
+    media.current?.stop();
+    media.current = mediaControls(
+      {
+        title: root.querySelector('h1')?.textContent?.trim() || document.title,
+        artist: root.querySelector('.author')?.textContent?.trim() || t('app.title'),
+      },
+      { play: resume, pause, stop: () => stop.current?.() },
+    );
     // no voices on the device: say so instead of «playing» in silence
     const voices = await loadVoices();
-    if (!voices.length) return setNote({ s: 'no-voice' });
+    if (!voices.length) {
+      media.current?.stop();
+      media.current = null;
+      return setNote({ s: 'no-voice' });
+    }
     const own = voices.some((v) => v.lang.toLowerCase().startsWith(lang));
     setNote(own ? null : { s: 'no-lang' });
     const blocks = speechBlocks(root);
@@ -56,6 +82,8 @@ export function Listen({ target, lang }: { target: RefObject<HTMLElement | null>
       () => {
         clearTimeout(watch);
         unmark();
+        media.current?.stop();
+        media.current = null;
         stop.current = null;
         setState('idle');
       },
@@ -70,36 +98,17 @@ export function Listen({ target, lang }: { target: RefObject<HTMLElement | null>
     );
   };
 
-  const test = async () => {
-    setNote({ s: 'testing' });
-    const r = await checkSpeech(lang, t('listen.phrase'));
-    setNote({ s: r.status, voice: r.voice });
-  };
-
   return (
     <div className="listen no-speak" role="group" aria-label={t('listen.title')}>
       {state === 'idle' ? (
-        <>
-          <button className="btn ghost" onClick={play} title={t('listen.title')}>
-            🔊 {t('listen.play')}
-          </button>
-          <button className="btn ghost listen-test" onClick={test} disabled={note?.s === 'testing'}>
-            🔈 {t('listen.test')}
-          </button>
-        </>
+        <button className="btn ghost" onClick={play} title={t('listen.title')}>
+          🔊 {t('listen.play')}
+        </button>
       ) : (
         <>
           <button
             className="btn ghost"
-            onClick={() => {
-              if (state === 'playing') {
-                speechSynthesis.pause();
-                setState('paused');
-              } else {
-                speechSynthesis.resume();
-                setState('playing');
-              }
-            }}
+            onClick={state === 'playing' ? pause : resume}
           >
             {state === 'playing' ? `⏸ ${t('listen.pause')}` : `▶ ${t('listen.resume')}`}
           </button>
@@ -109,8 +118,8 @@ export function Listen({ target, lang }: { target: RefObject<HTMLElement | null>
         </>
       )}
       {note && (
-        <p className={`listen-note${note.s === 'ok' ? ' ok' : note.s === 'testing' ? '' : ' no'}`} role="status">
-          {t(`listen.${note.s}`, { voice: note.voice ?? '' })}
+        <p className="listen-note no" role="status">
+          {t(`listen.${note.s}`)}
         </p>
       )}
     </div>

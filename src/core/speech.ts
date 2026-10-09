@@ -52,37 +52,6 @@ export function loadVoices(wait = 1500): Promise<SpeechSynthesisVoice[]> {
 }
 
 /**
- * Can the browser play speech here? `ok` — a phrase started to sound; `no-voice` — no voices on the device at all;
- * `no-lang` — none for this language (the default voice would read it); `blocked` / `failed` — the browser refused or
- * the audio broke; `silent` — nothing started in a few seconds (often the sound is off or another app holds it).
- */
-export type SpeechCheck = { status: 'ok' | 'no-voice' | 'no-lang' | 'blocked' | 'failed' | 'silent'; voice?: string };
-
-export async function checkSpeech(lang: string, phrase: string, wait = 4000): Promise<SpeechCheck> {
-  const voices = await loadVoices();
-  if (!voices.length) return { status: 'no-voice' };
-  const v = voiceFor(lang);
-  if (!v) return { status: 'no-lang' };
-  speechSynthesis.cancel();
-  return new Promise((resolve) => {
-    let settled = false;
-    const end = (r: SpeechCheck) => {
-      if (settled) return;
-      settled = true;
-      resolve(r);
-    };
-    const u = new SpeechSynthesisUtterance(phrase);
-    u.lang = BCP47[lang] ?? lang;
-    u.voice = v;
-    u.onstart = () => end({ status: 'ok', voice: v.name });
-    u.onend = () => end({ status: 'ok', voice: v.name });
-    u.onerror = (e) => end({ status: e.error === 'not-allowed' ? 'blocked' : 'failed' });
-    speechSynthesis.speak(u);
-    setTimeout(() => end({ status: 'silent' }), wait);
-  });
-}
-
-/**
  * Speaks `blocks` from `from`; `onBlock(i)` before each block, `onEnd()` after the last one or on stop,
  * `onSound()` once the voice has really started, `onFail()` when the browser refuses to play or the audio is broken.
  * Returns a stop function.
