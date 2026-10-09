@@ -6,7 +6,7 @@ import { Colophon } from './Colophon';
 
 /** `#/partners` — «Партнёры»: the communities the project is made with, with their logos. */
 export function PartnersPage() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
 
   useEffect(() => {
     document.title = `${t('partners.title')} · ${t('app.title')}`;
@@ -27,6 +27,8 @@ export function PartnersPage() {
               <>
                 <img src={p.logo} alt={p.he ? `${p.name} · ${p.he}` : p.name} loading="lazy" />
                 <span className="partner-name">{p.name}</span>
+                <span className="partner-about">{p.about[locale] ?? p.about.ru}</span>
+                {p.url && <span className="partner-url">{p.url.replace(/^https?:\/\//, '')} ↗</span>}
               </>
             );
             return p.url ? (
