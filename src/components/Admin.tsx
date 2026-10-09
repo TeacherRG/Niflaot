@@ -24,7 +24,7 @@ const NAMES: Record<string, string> = {
   q: 'Вопрос', hint: 'Подсказка', opts: 'Вариант', reveal: 'Ответ', h: 'Заголовок', p: 'Текст',
   lessons: 'Раздел', b: 'Текст', reflection: 'Вопрос к себе', takeaways: 'Конспект', puzzle: 'Пазл',
   pieces: 'Кусочек', meaning: 'Смысл', final: 'Итог', allSolved: 'Всё решено', memo: 'Memo', cards: 'Карточки',
-  items: 'Пара', audience: 'Для кого', practice: 'Ораа ле-поаль', highlight: 'Подпись к картинке',
+  items: 'Пара', audience: 'Для кого', practice: 'Ґораа ле-поаль', highlight: 'Подпись к картинке',
   caption: 'Подпись', note: 'Примечание',
 };
 

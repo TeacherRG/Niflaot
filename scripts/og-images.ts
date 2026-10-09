@@ -86,7 +86,7 @@ const shots: [string, string][] = [
       eyebrowHtml: '5787 · <span class="he">ה׳תשפ״ז</span>',
       he: 'נפלאות',
       title: ru['catalog.uvp'] as string,
-      sub: 'Рав Ицхак Гинзбург · Бааль а-Турим · Любавичский Ребе',
+      sub: 'Рав Ицхак Гинзбург · Бааль ґа-Турим · Любавичский Ребе',
       letters: ['נ', 'פ'],
     }),
   ],
