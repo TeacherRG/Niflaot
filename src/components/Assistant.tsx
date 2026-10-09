@@ -1,10 +1,12 @@
-import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react';
+import { Fragment, Suspense, lazy, useEffect, useRef, useState, type ReactNode } from 'react';
 import { useI18n } from '../i18n';
 import type { MessageKey } from '../i18n/locales/ru';
 import { ASSISTANT_URL, askAssistant, type ChatTurn } from '../core/assistant';
 import { HebrewRuns } from './Hebrew';
 import { Icon, Sheet, useUI } from './ui';
-import { Helper } from './Helper';
+
+/** The offline helper (with all the primary sources) loads when it is first opened, not with the site. */
+const Helper = lazy(() => import('./Helper').then((m) => ({ default: m.Helper })));
 
 const SUGGEST: MessageKey[] = ['ai.s.lesson', 'ai.s.hint', 'ai.s.math', 'ai.s.source'];
 const MAX_TURNS = 20;
@@ -58,14 +60,24 @@ function Answer({ text }: { text: string }) {
  */
 export function Assistant() {
   const { t } = useI18n();
-  const { open } = useUI();
+  const { panel, open } = useUI();
+  const opened = useRef(false);
+  if (panel === 'assistant') opened.current = true;
   const title = t(ASSISTANT_URL ? 'ai.title' : 'helper.title');
   return (
     <>
       <button className="ai-fab" onClick={() => open('assistant')} aria-label={title} title={title}>
         <Icon name="spark" size={20} />
       </button>
-      {ASSISTANT_URL ? <AiChat /> : <Helper />}
+      {ASSISTANT_URL ? (
+        <AiChat />
+      ) : (
+        opened.current && (
+          <Suspense fallback={null}>
+            <Helper />
+          </Suspense>
+        )
+      )}
     </>
   );
 }

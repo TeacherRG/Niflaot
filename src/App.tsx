@@ -1,20 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useState, type ComponentType } from 'react';
 import { PARSHIOT, findLesson, type ParshaId } from './lessons';
 import { Catalog } from './components/Catalog';
-import { LessonPage } from './components/LessonPage';
-import { PrintLesson } from './components/PrintLesson';
-import { PrintMemo } from './components/PrintMemo';
-import { PrintCards } from './components/PrintCards';
-import { MemoPage } from './components/MemoPage';
 import { ShabbatRest, useShabbatRest } from './components/ShabbatRest';
-import { CardsPage } from './components/CardsPage';
-import { ReadPage } from './components/ReadPage';
-import { FactsPage } from './components/FactsPage';
-import { PartnersPage } from './components/PartnersPage';
-import { CardsReadPage } from './components/CardsReadPage';
-import { MathPage } from './components/MathPage';
-import { RebbePage } from './components/RebbePage';
-import { Admin } from './components/Admin';
 import { isAdmin } from './admin/github';
 import { OPS, type Op } from './core/mentalMath';
 import { Panels } from './components/Panels';
@@ -28,6 +15,23 @@ import { DonateFab, UIContext, type Panel } from './components/ui';
 import { useI18n } from './i18n';
 
 import { SITE_HOST } from './core/site';
+
+/** Every page but the catalog loads on demand: the first screen gets only its own code. */
+const page = <K extends string, P>(load: () => Promise<Record<K, ComponentType<P>>>, name: K) =>
+  lazy(() => load().then((m) => ({ default: m[name] })));
+const LessonPage = page(() => import('./components/LessonPage'), 'LessonPage');
+const PrintLesson = page(() => import('./components/PrintLesson'), 'PrintLesson');
+const PrintMemo = page(() => import('./components/PrintMemo'), 'PrintMemo');
+const PrintCards = page(() => import('./components/PrintCards'), 'PrintCards');
+const MemoPage = page(() => import('./components/MemoPage'), 'MemoPage');
+const CardsPage = page(() => import('./components/CardsPage'), 'CardsPage');
+const ReadPage = page(() => import('./components/ReadPage'), 'ReadPage');
+const FactsPage = page(() => import('./components/FactsPage'), 'FactsPage');
+const PartnersPage = page(() => import('./components/PartnersPage'), 'PartnersPage');
+const CardsReadPage = page(() => import('./components/CardsReadPage'), 'CardsReadPage');
+const MathPage = page(() => import('./components/MathPage'), 'MathPage');
+const RebbePage = page(() => import('./components/RebbePage'), 'RebbePage');
+const Admin = page(() => import('./components/Admin'), 'Admin');
 
 const SIGNATURE = `\n\n${SITE_HOST}\n©pnimi.org.il\n©mychitas.app`;
 
@@ -128,35 +132,37 @@ function Site() {
   const ui = useMemo(() => ({ panel, open, lessonSlug: lesson?.slug }), [panel, lesson]);
   return (
     <UIContext.Provider value={ui}>
-      {slug === 'admin' ? (
-        <Admin slug={view} />
-      ) : slug === 'partners' ? (
-        <PartnersPage />
-      ) : slug === 'facts' ? (
-        <FactsPage at={view || undefined} />
-      ) : slug === 'math' ? (
-        <MathPage op={OPS.includes(view as Op) ? (view as Op) : 'add'} />
-      ) : slug === 'rebbe' && view in PARSHIOT ? (
-        <RebbePage parsha={view as ParshaId} />
-      ) : !lesson ? (
-        <Catalog />
-      ) : view === 'print' && variant === 'memo' && lesson.memo ? (
-        <PrintMemo key={lesson.slug} lesson={lesson} memo={lesson.memo} />
-      ) : view === 'print' && variant === 'cards' && lesson.cards ? (
-        <PrintCards key={lesson.slug} lesson={lesson} cards={lesson.cards} />
-      ) : view === 'cards' && lesson.cards ? (
-        <CardsPage key={lesson.slug} lesson={lesson} cards={lesson.cards} />
-      ) : view === 'memo' && lesson.memo ? (
-        <MemoPage key={lesson.slug} lesson={lesson} memo={lesson.memo} at={Number(variant) || undefined} />
-      ) : view === 'read' && lesson.cards ? (
-        <CardsReadPage key={lesson.slug} lesson={lesson} cards={lesson.cards} mode={variant === 'poem' ? 'poem' : 'read'} />
-      ) : view === 'read' && lesson.kind !== 'sicha' ? (
-        <ReadPage key={lesson.slug} lesson={lesson} at={Number(variant) || undefined} />
-      ) : view === 'print' ? (
-        <PrintLesson key={lesson.slug} lesson={lesson} />
-      ) : (
-        <LessonPage key={lesson.slug} lesson={lesson} at={view === 'r' ? Number(variant) || undefined : undefined} />
-      )}
+      <Suspense fallback={null}>
+        {slug === 'admin' ? (
+          <Admin slug={view} />
+        ) : slug === 'partners' ? (
+          <PartnersPage />
+        ) : slug === 'facts' ? (
+          <FactsPage at={view || undefined} />
+        ) : slug === 'math' ? (
+          <MathPage op={OPS.includes(view as Op) ? (view as Op) : 'add'} />
+        ) : slug === 'rebbe' && view in PARSHIOT ? (
+          <RebbePage parsha={view as ParshaId} />
+        ) : !lesson ? (
+          <Catalog />
+        ) : view === 'print' && variant === 'memo' && lesson.memo ? (
+          <PrintMemo key={lesson.slug} lesson={lesson} memo={lesson.memo} />
+        ) : view === 'print' && variant === 'cards' && lesson.cards ? (
+          <PrintCards key={lesson.slug} lesson={lesson} cards={lesson.cards} />
+        ) : view === 'cards' && lesson.cards ? (
+          <CardsPage key={lesson.slug} lesson={lesson} cards={lesson.cards} />
+        ) : view === 'memo' && lesson.memo ? (
+          <MemoPage key={lesson.slug} lesson={lesson} memo={lesson.memo} at={Number(variant) || undefined} />
+        ) : view === 'read' && lesson.cards ? (
+          <CardsReadPage key={lesson.slug} lesson={lesson} cards={lesson.cards} mode={variant === 'poem' ? 'poem' : 'read'} />
+        ) : view === 'read' && lesson.kind !== 'sicha' ? (
+          <ReadPage key={lesson.slug} lesson={lesson} at={Number(variant) || undefined} />
+        ) : view === 'print' ? (
+          <PrintLesson key={lesson.slug} lesson={lesson} />
+        ) : (
+          <LessonPage key={lesson.slug} lesson={lesson} at={view === 'r' ? Number(variant) || undefined : undefined} />
+        )}
+      </Suspense>
       <Panels />
       <TermPopover />
       <Assistant />
