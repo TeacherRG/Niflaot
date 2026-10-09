@@ -8,6 +8,7 @@ import { PrintCards } from './components/PrintCards';
 import { MemoPage } from './components/MemoPage';
 import { ShabbatRest, useShabbatRest } from './components/ShabbatRest';
 import { CardsPage } from './components/CardsPage';
+import { ReadPage } from './components/ReadPage';
 import { MathPage } from './components/MathPage';
 import { RebbePage } from './components/RebbePage';
 import { Admin } from './components/Admin';
@@ -27,7 +28,7 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©pnimi.org.il\n©mychitas.app`;
 
 /**
  * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version,
- * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper.
+ * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers, `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper.
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson.
  */
@@ -106,7 +107,7 @@ function Site() {
   const lesson = slug ? findLesson(slug) : undefined;
   // outside a lesson the helper knows no lesson (the lesson page sets its own state)
   useEffect(() => {
-    if (!lesson || view === 'print' || view === 'memo' || view === 'cards') setPageState(null);
+    if (!lesson || view === 'print' || view === 'memo' || view === 'cards' || view === 'read') setPageState(null);
   }, [lesson, view]);
   const ui = useMemo(() => ({ panel, open, lessonSlug: lesson?.slug }), [panel, lesson]);
   return (
@@ -127,6 +128,8 @@ function Site() {
         <CardsPage key={lesson.slug} lesson={lesson} cards={lesson.cards} />
       ) : view === 'memo' && lesson.memo ? (
         <MemoPage key={lesson.slug} lesson={lesson} memo={lesson.memo} />
+      ) : view === 'read' && lesson.kind !== 'sicha' ? (
+        <ReadPage key={lesson.slug} lesson={lesson} />
       ) : view === 'print' ? (
         <PrintLesson key={lesson.slug} lesson={lesson} />
       ) : (

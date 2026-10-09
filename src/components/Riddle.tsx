@@ -116,7 +116,16 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
         />
       </div>
       <Html as="div" className="cond" html={withTerms(condHtml, textLocale)} />
-      {!solved && <div className="les-lock">{t('riddle.locked')}</div>}
+      {!solved && (
+        <div className="les-lock">
+          {t('riddle.locked')}
+          {lesson.kind !== 'sicha' && (
+            <a className="les-read" href={`#/${lesson.slug}/read`}>
+              📖 {t('read.lockedLink')} →
+            </a>
+          )}
+        </div>
+      )}
 
       {r.words.length > 0 && (
         <div className="words">

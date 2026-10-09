@@ -4,7 +4,8 @@ import { PARSHIOT } from '../lessons/parshiot';
 import { Icon, useUI } from './ui';
 import { AgeBadge } from './AgeBadge';
 
-export function Hero({ lesson, text }: { lesson: Lesson; text: LessonText }) {
+/** `reading` — on the «Читать» page: the button leads back to the game instead. */
+export function Hero({ lesson, text, reading }: { lesson: Lesson; text: LessonText; reading?: boolean }) {
   const { t } = useI18n();
   const { open } = useUI();
   return (
@@ -26,6 +27,12 @@ export function Hero({ lesson, text }: { lesson: Lesson; text: LessonText }) {
             <Icon name="help" size={18} />
             {t('hero.howTo')}
           </button>
+          {lesson.kind !== 'sicha' && (
+            <a className="btn ghost hero-help" href={reading ? `#/${lesson.slug}` : `#/${lesson.slug}/read`}>
+              {reading ? <Icon name="hash" size={18} /> : <Icon name="book" size={18} />}
+              {t(reading ? 'read.playBtn' : 'read.tab')}
+            </a>
+          )}
           <a className="btn ghost hero-help" href={`#/${lesson.slug}/print`}>
             <Icon name="print" size={18} />
             {t('print.button')}
