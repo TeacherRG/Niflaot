@@ -21,6 +21,8 @@ import { TermPopover } from './components/TermPopover';
 import { Assistant } from './components/Assistant';
 import { setPageState } from './core/assistant';
 import { installFootnoteNavigation } from './sources/footnotes';
+import { installLangMarkup } from './core/langMarkup';
+import { installTitleSync } from './core/pageMeta';
 import { DonateFab, UIContext, type Panel } from './components/ui';
 import { useI18n } from './i18n';
 
@@ -103,6 +105,8 @@ function Site() {
   const route = useRoute();
   useCopySignature();
   useEffect(installFootnoteNavigation, []);
+  useEffect(installLangMarkup, []);
+  useEffect(installTitleSync, []);
   const [panel, open] = useState<Panel>(null);
   useFirstVisitHelp(open);
   const [slug, view, variant] = route.split('/');

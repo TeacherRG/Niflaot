@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { Html, useI18n } from '../i18n';
 import { withTerms } from '../i18n/glossary';
 import { VALUES, gematria, letters } from '../core/gematria';
@@ -12,6 +12,7 @@ import { Hero } from './Hero';
 import { HebrewRuns } from './Hebrew';
 import { Sources } from './Sources';
 import { Colophon } from './Colophon';
+import { Listen } from './Listen';
 
 /** A ready calculation from the step's coach data: every word spelled into letter values, every action with its result. */
 function Calc({ actions }: { actions: CoachAction[] }) {
@@ -22,7 +23,7 @@ function Calc({ actions }: { actions: CoachAction[] }) {
         p.word ? (
           <li key={k} className="coach-word">
             <span className="he">{displayNames(p.word)}</span>
-            <span className="coach-letters" dir="rtl">
+            <span className="coach-letters" dir="rtl" aria-hidden="true">
               {p.letters!.map(([c, v], j) => (
                 <span key={j}>
                   <b>{c}</b>
@@ -76,7 +77,7 @@ function Answer({ s, opts }: { s: StepData; opts?: string[] }) {
     const words = [...new Set(tiles.map((tl) => tl.w))];
     return (
       <div className="lt">
-        <div className="lt-bank" dir="rtl" lang="he">
+        <div className="lt-bank" dir="rtl" lang="he" aria-hidden="true">
           {words.map((w) => (
             <span key={w} className="lt-word">
               {tiles
@@ -99,15 +100,23 @@ function Answer({ s, opts }: { s: StepData; opts?: string[] }) {
     );
   }
   return (
-    <div className="lt-bank tap" dir="rtl" lang="he">
-      <span className="lt-word">
-        {letters(displayNames(s.word)).map((c, k) => (
-          <span key={k} className={`lt-tile big${k === s.a ? ' right' : ''}`}>
-            {c}
-          </span>
-        ))}
-      </span>
-    </div>
+    <>
+      <div className="lt-bank tap" dir="rtl" lang="he" aria-hidden="true">
+        <span className="lt-word">
+          {letters(displayNames(s.word)).map((c, k) => (
+            <span key={k} className={`lt-tile big${k === s.a ? ' right' : ''}`}>
+              {c}
+            </span>
+          ))}
+        </span>
+      </div>
+      <div className="read-ans">
+        {t('read.answer')}{' '}
+        <b className="he" lang="he">
+          {letters(displayNames(s.word))[s.a]}
+        </b>
+      </div>
+    </>
   );
 }
 
@@ -121,7 +130,7 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
   const [condHtml, revealHtml, ...lessonHtml] = fn.html;
 
   return (
-    <article className={`riddle read-riddle${here ? ' here' : ''}`} id={`riddle-${ri + 1}`}>
+    <section className={`riddle read-riddle${here ? ' here' : ''}`} id={`riddle-${ri + 1}`}>
       <div className="r-head">
         <span className="eyebrow">{t('riddle.of', { n: ri + 1, total: lesson.riddles.length })}</span>
         <h2>{rt.title}</h2>
@@ -136,7 +145,7 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
                 {w}
               </span>
               <span className="t">{text.glossary[w] ?? ''}</span>
-              <span className="tiles">
+              <span className="tiles" aria-hidden="true">
                 {letters(w).map((c, k) => (
                   <span key={k} className="tile">
                     <b>{c}</b>
@@ -219,7 +228,7 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
         </div>
         <p>{rt.reflection}</p>
       </div>
-    </article>
+    </section>
   );
 }
 
@@ -231,6 +240,7 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
 export function ReadPage({ lesson, at }: { lesson: Lesson; at?: number }) {
   const { t, pick, locale } = useI18n();
   const { value: text, locale: textLocale } = pick(lesson.texts);
+  const body = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (!at) return;
@@ -247,16 +257,20 @@ export function ReadPage({ lesson, at }: { lesson: Lesson; at?: number }) {
       <TopBar title={text.title} />
       <div className="wrap">
         {textLocale !== locale && <div className="fallback-note">{t('catalog.fallback')}</div>}
-        <Hero lesson={lesson} text={text} reading />
-        <p className="read-intro">📖 {t('read.intro')}</p>
         <main id="game">
-          {lesson.riddles.map((_, ri) => (
-            <ReadRiddle key={ri} lesson={lesson} text={text} ri={ri} here={at === ri + 1} />
-          ))}
-          <section className="practice">
-            <div className="practice-lbl">{t('final.practice')}</div>
-            <p>{text.practice}</p>
-          </section>
+          {/* one <article> in the text's language: the browser's reading mode, translation and «read aloud» take it whole */}
+          <article ref={body} lang={textLocale}>
+            <Hero lesson={lesson} text={text} reading />
+            <p className="read-intro no-speak">📖 {t('read.intro')}</p>
+            <Listen target={body} lang={textLocale} />
+            {lesson.riddles.map((_, ri) => (
+              <ReadRiddle key={ri} lesson={lesson} text={text} ri={ri} here={at === ri + 1} />
+            ))}
+            <section className="practice">
+              <h2 className="practice-lbl">{t('final.practice')}</h2>
+              <p>{text.practice}</p>
+            </section>
+          </article>
           <section className="memo-cta">
             <span aria-hidden="true">🔢</span>
             <p>{t('read.play')}</p>

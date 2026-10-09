@@ -89,7 +89,7 @@ export function LessonPage({ lesson, at }: { lesson: Lesson; at?: number }) {
         </div>
       </TopBar>
 
-      <div className="wrap">
+      <div className="wrap" lang={textLocale}>
         {textLocale !== locale && <div className="fallback-note">{t('catalog.fallback')}</div>}
         <Hero lesson={lesson} text={text} />
         <main id="game" ref={game} onClickCapture={start} onFocusCapture={start}>

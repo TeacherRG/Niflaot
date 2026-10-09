@@ -587,7 +587,7 @@ article.m-card{border-top:3px solid var(--gold-2)}
 
 /* practical takeaway, share card button, MyChitas */
 .practice{margin-top:16px;border-radius:8px;background:var(--ok-soft);border:1px solid #BFE0CB;border-inline-start:4px solid var(--ok);padding:16px 18px;display:grid;gap:6px}
-.practice-lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ok);font-weight:700}
+.practice-lbl{margin:0;font-family:inherit;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ok);font-weight:700}
 .practice p{margin:0;font-family:var(--f-display);font-size:20px;line-height:1.35;color:var(--ink)}
 .share-btns .btn{display:inline-flex;align-items:center;gap:8px}
 .mychitas{margin-top:16px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;padding:16px 18px;border-radius:10px;background:var(--surface);border:1px solid var(--gold-line);box-shadow:var(--shadow);text-decoration:none;color:var(--ink);transition:transform .15s}
@@ -813,6 +813,8 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .read-les .les-b{padding:0}
 .read-take{margin:0 24px 18px;padding:12px 16px 12px 34px;border-radius:8px;background:var(--ok-soft);color:var(--ink-2);display:grid;gap:6px}
 .read-riddle .lt-tile{cursor:default}
+.listen{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.speaking{background:var(--gold-soft);box-shadow:0 0 0 4px var(--gold-soft);border-radius:4px}
 /* «Нифлаот Ребе» · «Прочитать» / «Запомнить в стихах» */
 .seg{display:flex;gap:4px;margin-top:16px;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--surface);width:max-content;max-width:100%}
 .seg a{flex:1 1 auto;padding:8px 16px;border-radius:999px;text-decoration:none;color:var(--ink-2);font-weight:600;font-size:14.5px;text-align:center;white-space:nowrap}
@@ -853,6 +855,7 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 @media (max-width:480px){.read-take{margin-left:16px;margin-right:16px}}
 .memo-page-head{text-align:center;padding:22px 0 0}
 .memo-page-head .heb{font-family:var(--f-he);font-weight:900;font-size:clamp(32px,8vw,52px);line-height:1.1;direction:rtl}
+.memo-page-head .author{margin:4px 0 0;color:var(--muted);font-size:14px}
 .memo-page-head h1{margin:4px 0 0;font-family:var(--f-display);font-size:clamp(24px,5vw,34px);line-height:1.15}
 
 .memo{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--tchelet);border-radius:6px;box-shadow:var(--shadow);padding:22px 18px 24px;scroll-margin-top:70px}

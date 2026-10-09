@@ -17,12 +17,12 @@ export function Hero({ lesson, text, reading }: { lesson: Lesson; text: LessonTe
         <div className="heb gold-text">{lesson.hebrewTitle}</div>
         <Html as="h1" html={text.hero.heading} />
         <div className="author">{text.hero.author}</div>
-        <p className="hero-age">
+        <p className="hero-age no-speak">
           <AgeBadge age={lesson.age} />
           <span className="hero-age-note">{text.audience}</span>
         </p>
         <p className="hero-intro">{text.hero.intro}</p>
-        <div className="hero-actions">
+        <div className="hero-actions no-speak">
           <button className="btn ghost hero-help" onClick={() => open('help')}>
             <Icon name="help" size={18} />
             {t('hero.howTo')}
