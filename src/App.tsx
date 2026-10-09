@@ -9,6 +9,7 @@ import { MemoPage } from './components/MemoPage';
 import { ShabbatRest, useShabbatRest } from './components/ShabbatRest';
 import { CardsPage } from './components/CardsPage';
 import { ReadPage } from './components/ReadPage';
+import { FactsPage } from './components/FactsPage';
 import { MathPage } from './components/MathPage';
 import { RebbePage } from './components/RebbePage';
 import { Admin } from './components/Admin';
@@ -28,7 +29,7 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©pnimi.org.il\n©mychitas.app`;
 
 /**
  * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version,
- * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers, `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper.
+ * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers, `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/facts` — «Знаете ли вы?», the equalities of all lessons, `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper.
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson.
  */
@@ -114,6 +115,8 @@ function Site() {
     <UIContext.Provider value={ui}>
       {slug === 'admin' ? (
         <Admin slug={view} />
+      ) : slug === 'facts' ? (
+        <FactsPage />
       ) : slug === 'math' ? (
         <MathPage op={OPS.includes(view as Op) ? (view as Op) : 'add'} />
       ) : slug === 'rebbe' && view in PARSHIOT ? (

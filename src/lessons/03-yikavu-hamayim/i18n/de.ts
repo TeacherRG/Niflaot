@@ -11,6 +11,12 @@ const de: LessonText = {
   summary:
     'Der neunte Vers der Tora: „Es sollen sich die Wasser an einem Ort sammeln“. Mikwe, Linie und Hoffnung, die Zahl 59 und der neunte Buchstabe, das neunte Wort und der neunte Abschnitt von Bereschit.',
   glossary: {
+    'אלף': 'Alef — der erste Buchstabe',
+    'פלא': 'Wunder',
+    'אברהם': 'Awraham',
+    'יצחק': 'Jizchak',
+    'יש מאין': 'Etwas aus dem Nichts',
+    'והוא ימשל בך': 'und er wird über dich herrschen',
     'יקוו': 'es sollen sich sammeln',
     'מקום': 'Ort',
     'אחד': 'eins',

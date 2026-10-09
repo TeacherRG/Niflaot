@@ -18,6 +18,7 @@
  *  - «Карточки» of a «Нифлаот Ребе» lesson: 12 pairs, every verse once (one explanation per verse), the card words
  *    in the verse's Hebrew, the explanation card ≤ 70 characters, texts in every language
  *  - every text edit of src/content/overrides.json (made on the site, #/admin) names an existing text
+ *  - «Знаете ли вы?» (#/facts): every Hebrew word of the feed has a translation in the lesson glossary of every language
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
  */
 import { LESSONS } from '../src/lessons';
@@ -31,6 +32,7 @@ import { PROJECT_DE } from '../src/sources/de';
 import { PROJECT_EN } from '../src/sources/en';
 import { LOCALES } from '../src/i18n/config';
 import { displayNames } from '../src/core/names';
+import { collectFacts, factHebrew } from '../src/core/facts';
 import type { PuzzleText } from '../src/lessons/types';
 import { existsSync, readdirSync } from 'node:fs';
 import ruUi from '../src/i18n/locales/ru';
@@ -218,8 +220,17 @@ checkHtml('sources.en', PROJECT_EN);
 // text edits made on the site must still name a text of the source files
 for (const k of staleOverrides) err(`src/content/overrides.json: ${k} — no such text (the source changed); remove the edit`);
 
+// «Знаете ли вы?»: the feed shows no explanations, so every Hebrew word in it carries its translation
+const facts = collectFacts(LESSONS);
+if (!facts.length) err('facts: the feed «Знаете ли вы?» is empty');
+for (const f of facts)
+  for (const loc of Object.keys(LOCALES) as (keyof typeof LOCALES)[]) {
+    const g = f.lesson.texts[loc]?.glossary ?? {};
+    for (const h of factHebrew(f)) if (!g[h]) err(`${f.lesson.slug}: facts — «${h}» has no translation in glossary (${loc})`);
+  }
+
 if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));
   process.exit(1);
 }
-console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, memo, safe HTML`);
+console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, memo, ${facts.length} facts, safe HTML`);
