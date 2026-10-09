@@ -11,6 +11,7 @@ import { HebrewRuns } from './Hebrew';
 import { formatEstimate } from '../core/format';
 import { Icon } from './ui';
 import { asWord } from '../core/letterPuzzle';
+import { PrintLogo, PrintPartners } from './PrintBrand';
 import { displayNames } from '../core/names';
 
 const TABLE = Object.entries(VALUES).filter(([c]) => !'ךםןףץ'.includes(c));
@@ -118,6 +119,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
       </div>
 
       <article className="sheet-paper">
+        <PrintLogo />
         <header className="p-head">
           <div className="p-head-main">
             <div className="p-year">
@@ -258,6 +260,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
         )}
 
         <footer className="p-foot">
+          <PrintPartners />
           <p className="p-holy">{t('print.holy')}</p>
           {SITE_HOST} · {text.source} · {t('footer.fine')}
         </footer>
