@@ -6,7 +6,8 @@ import { Memo } from './Memo';
 import { Colophon } from './Colophon';
 
 /** `#/<slug>/memo` — the Memo game of a lesson, next to its gematria game. */
-export function MemoPage({ lesson, memo }: { lesson: Lesson; memo: MemoData }) {
+/** `at` — the pair (1-based) a link points to (`#/<slug>/memo/<n>`): the Memo opens on «Изучите пары» at that pair. */
+export function MemoPage({ lesson, memo, at }: { lesson: Lesson; memo: MemoData; at?: number }) {
   const { t, pick, locale } = useI18n();
   const { value: text, locale: textLocale } = pick(lesson.texts);
 
@@ -23,7 +24,7 @@ export function MemoPage({ lesson, memo }: { lesson: Lesson; memo: MemoData }) {
           <div className="heb gold-text">{lesson.hebrewTitle}</div>
           <h1>{text.title}</h1>
         </div>
-        {text.memo && <Memo lesson={lesson} memo={memo} text={text.memo} />}
+        {text.memo && <Memo lesson={lesson} memo={memo} text={text.memo} at={at} />}
       </div>
       <Colophon source={text.source} />
     </>

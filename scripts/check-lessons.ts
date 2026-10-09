@@ -18,7 +18,8 @@
  *  - «Карточки» of a «Нифлаот Ребе» lesson: 12 pairs, every verse once (one explanation per verse), the card words
  *    in the verse's Hebrew, the explanation card ≤ 70 characters, texts in every language
  *  - every text edit of src/content/overrides.json (made on the site, #/admin) names an existing text
- *  - «Знаете ли вы?» (#/facts): every Hebrew word of the feed has a translation in the lesson glossary of every language
+ *  - «Знаете ли вы?» (#/facts): every Hebrew word of the feed has a translation in the lesson glossary of every language,
+ *    and every fact links to its place in the lesson (a riddle or a Memo pair)
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
  */
 import { LESSONS } from '../src/lessons';
@@ -223,6 +224,7 @@ for (const k of staleOverrides) err(`src/content/overrides.json: ${k} — no suc
 // «Знаете ли вы?»: the feed shows no explanations, so every Hebrew word in it carries its translation
 const facts = collectFacts(LESSONS);
 if (!facts.length) err('facts: the feed «Знаете ли вы?» is empty');
+for (const f of facts) if (f.ri === undefined && f.mi === undefined) err(`${f.lesson.slug}: facts — «${f.kind === 'eq' ? f.q : f.from}» has no place in the lesson to link to`);
 for (const f of facts)
   for (const loc of Object.keys(LOCALES) as (keyof typeof LOCALES)[]) {
     const g = f.lesson.texts[loc]?.glossary ?? {};

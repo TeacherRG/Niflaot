@@ -33,7 +33,7 @@ function FactCard({ f }: { f: Fact }) {
   const [open, setOpen] = useState(false);
   const text = pick(f.lesson.texts).value;
   const who = teacherOf(f.lesson);
-  const why = f.game === 'memo' ? `#/${f.lesson.slug}/memo` : `#/${f.lesson.slug}`;
+  const base = `#/${f.lesson.slug}`;
 
   return (
     <article className={`fact t-${TEACHERS[who].color}`} id={f.id}>
@@ -69,8 +69,19 @@ function FactCard({ f }: { f: Fact }) {
         </button>
       )}
       <div className="fact-links">
-        <a href={why}>{t(f.game === 'memo' ? 'facts.whyMemo' : 'facts.why')} →</a>
-        <a href={`#/${f.lesson.slug}/read`}>📖 {t('facts.read')}</a>
+        {f.ri !== undefined && (
+          <>
+            <a href={`${base}/read/${f.ri + 1}`}>
+              📖 {t('facts.where', { n: f.ri + 1 })} <q>{text.riddles[f.ri].title}</q> →
+            </a>
+            <a href={`${base}/r/${f.ri + 1}`}>🔢 {t('facts.solve')} →</a>
+          </>
+        )}
+        {f.mi !== undefined && text.memo && (
+          <a href={`${base}/memo/${f.mi + 1}`}>
+            🃏 {t('facts.memo', { n: f.mi + 1 })} <q>{text.memo.items[f.mi].title}</q> →
+          </a>
+        )}
       </div>
     </article>
   );

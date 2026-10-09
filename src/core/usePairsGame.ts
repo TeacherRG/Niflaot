@@ -37,8 +37,8 @@ const somePairs = (total: number, n: number) =>
     .map((x) => x.p)
     .sort((a, b) => a - b);
 
-export function usePairsGame(total: number) {
-  const [screen, setScreen] = useState<Screen>('home');
+export function usePairsGame(total: number, initial: Screen = 'home') {
+  const [screen, setScreen] = useState<Screen>(initial);
   const [pairs, setPairs] = useState<number[]>([]);
   const [cards, setCards] = useState<Card[]>([]);
   const [open, setOpen] = useState<number[]>([]);

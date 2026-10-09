@@ -29,7 +29,7 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©pnimi.org.il\n©mychitas.app`;
 
 /**
  * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version,
- * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers, `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/facts` — «Знаете ли вы?», the equalities of all lessons, `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper.
+ * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers (`/read/<n>`, `/memo/<n>`, `/r/<n>` — opened at riddle or Memo pair n), `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/facts` — «Знаете ли вы?», the equalities of all lessons, `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper.
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson.
  */
@@ -130,13 +130,13 @@ function Site() {
       ) : view === 'cards' && lesson.cards ? (
         <CardsPage key={lesson.slug} lesson={lesson} cards={lesson.cards} />
       ) : view === 'memo' && lesson.memo ? (
-        <MemoPage key={lesson.slug} lesson={lesson} memo={lesson.memo} />
+        <MemoPage key={lesson.slug} lesson={lesson} memo={lesson.memo} at={Number(variant) || undefined} />
       ) : view === 'read' && lesson.kind !== 'sicha' ? (
-        <ReadPage key={lesson.slug} lesson={lesson} />
+        <ReadPage key={lesson.slug} lesson={lesson} at={Number(variant) || undefined} />
       ) : view === 'print' ? (
         <PrintLesson key={lesson.slug} lesson={lesson} />
       ) : (
-        <LessonPage key={lesson.slug} lesson={lesson} />
+        <LessonPage key={lesson.slug} lesson={lesson} at={view === 'r' ? Number(variant) || undefined : undefined} />
       )}
       <Panels />
       <TermPopover />

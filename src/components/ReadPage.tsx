@@ -112,7 +112,7 @@ function Answer({ s, opts }: { s: StepData; opts?: string[] }) {
 }
 
 /** One riddle as a chapter to read: the question, ready answers with calculations, the reveal and the lesson. */
-function ReadRiddle({ lesson, text, ri }: { lesson: Lesson; text: LessonText; ri: number }) {
+function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonText; ri: number; here?: boolean }) {
   const { t, pick } = useI18n();
   const textLocale = pick(lesson.texts).locale;
   const r = lesson.riddles[ri];
@@ -121,7 +121,7 @@ function ReadRiddle({ lesson, text, ri }: { lesson: Lesson; text: LessonText; ri
   const [condHtml, revealHtml, ...lessonHtml] = fn.html;
 
   return (
-    <article className="riddle read-riddle">
+    <article className={`riddle read-riddle${here ? ' here' : ''}`} id={`riddle-${ri + 1}`}>
       <div className="r-head">
         <span className="eyebrow">{t('riddle.of', { n: ri + 1, total: lesson.riddles.length })}</span>
         <h2>{rt.title}</h2>
@@ -227,9 +227,16 @@ function ReadRiddle({ lesson, text, ri }: { lesson: Lesson; text: LessonText; ri
  * «Читать» — the whole lesson for a reader who does not want to count: every riddle with its question,
  * ready answers and gematria calculations (from the same checked coach data), the reveal, the lesson and the sources.
  */
-export function ReadPage({ lesson }: { lesson: Lesson }) {
+/** `at` — the riddle (1-based) a link points to, e.g. from «Знаете ли вы?»: the page opens there. */
+export function ReadPage({ lesson, at }: { lesson: Lesson; at?: number }) {
   const { t, pick, locale } = useI18n();
   const { value: text, locale: textLocale } = pick(lesson.texts);
+
+  useEffect(() => {
+    if (!at) return;
+    const id = requestAnimationFrame(() => document.getElementById(`riddle-${at}`)?.scrollIntoView({ block: 'start' }));
+    return () => cancelAnimationFrame(id);
+  }, [at]);
 
   useEffect(() => {
     document.title = `${text.title} · ${t('read.tab')} · ${t('app.title')}`;
@@ -244,7 +251,7 @@ export function ReadPage({ lesson }: { lesson: Lesson }) {
         <p className="read-intro">📖 {t('read.intro')}</p>
         <main id="game">
           {lesson.riddles.map((_, ri) => (
-            <ReadRiddle key={ri} lesson={lesson} text={text} ri={ri} />
+            <ReadRiddle key={ri} lesson={lesson} text={text} ri={ri} here={at === ri + 1} />
           ))}
           <section className="practice">
             <div className="practice-lbl">{t('final.practice')}</div>
