@@ -6,7 +6,7 @@ import type { Locale } from '../i18n';
  * (YYYY-MM-DD; the printouts show it as the civil and the Jewish date).
  */
 export const PARSHIOT = {
-  bereshit: { he: 'בראשית', name: { ru: 'Берейшит', en: 'Bereshit', de: 'Bereschit' }, year: 5787, heYear: 'ה׳תשפ״ז', shabbat: '2026-10-10' },
+  bereshit: { he: 'בראשית', name: { ru: 'Берейшит', en: 'Bereishit', de: 'Bereschit' }, year: 5787, heYear: 'ה׳תשפ״ז', shabbat: '2026-10-10' },
 } satisfies Record<
   string,
   { he: string; name: Partial<Record<Locale, string>> & { ru: string }; year: number; heYear: string; shabbat: string }

@@ -22,6 +22,10 @@ src/lessons/NN-slug/
   i18n/de.ts      все тексты по-немецки
 ```
 
+Английский и немецкий тексты — по `docs/TRANSLATION-GUIDE.md` (транслитерация и слова chabad.org / de.chabad.org,
+простой немецкий для детей).
+
+
 - Скопировать папку предыдущего урока и заполнить заново.
 - Зарегистрировать урок в `src/lessons/index.ts`.
 - Указать главу: `parsha: 'bereshit'` (новую главу добавить в `src/lessons/parshiot.ts` с годом).

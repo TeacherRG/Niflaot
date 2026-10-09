@@ -4,7 +4,7 @@ const de: LessonText = {
   title: 'Tikkun Parzuf-Sanaw',
   hero: {
     heading: 'Die Mathematik der Seele: <i>vier Gematria-Rätsel</i>',
-    author: 'nach einem Artikel von Rabbiner Jizchak Ginsburgh',
+    author: 'nach einem Artikel von Rabbi Jizchak Ginsburgh',
     intro:
       'Zähle die Zahlenwerte von Wörtern, entdecke verborgene Gleichheiten und erschließe ihren Sinn: Hochmut und Begierde, Gebet, die drei Gesichter des Menschen und das Geheimnis der Ehe.',
   },
@@ -134,7 +134,7 @@ const de: LessonText = {
         },
         {
           h: 'Realist und Idealist',
-          b: `<p>Den Streit zwischen Raw und Schmuel liest die Lektion auch als Streit zweier Weltanschauungen. Schmuel ist Realist: Die Welt entwickelt sich schrittweise, vom „Schwanz“ zum „Gesicht“, wie in der Evolution. Raw ist Idealist: Die Schöpfung ist von Anfang an vollkommen, ein vollendeter „Parzuf“.</p><p>Daher auch die unterschiedliche Sicht auf die Tage des Maschiach: Bei Schmuel ist es eine schrittweise Berichtigung im Rahmen der Natur, bei Raw eine wunderbare Verwandlung der Welt.</p>`,
+          b: `<p>Den Streit zwischen Raw und Schmuel liest die Lektion auch als Streit zweier Arten, die Welt zu sehen. Schmuel ist Realist: Die Welt entwickelt sich schrittweise, vom „Schwanz“ zum „Gesicht“, wie in der Evolution. Raw ist Idealist: Die Schöpfung ist von Anfang an vollkommen, ein vollendeter „Parzuf“.</p><p>Daher auch die unterschiedliche Sicht auf die Tage des Moschiach: Bei Schmuel ist es eine schrittweise Berichtigung im Rahmen der Natur, bei Raw eine wunderbare Verwandlung der Welt.</p>`,
         },
       ],
       reflection: 'Wo trage ich eine Maske, wo zeige ich einen „Parzuf“, und wem öffne ich mein wahres Gesicht? Wer verdient es, es öfter zu sehen?',
@@ -173,7 +173,7 @@ const de: LessonText = {
         },
         {
           h: 'Nur das Gute sehen',
-          b: `<p>Das Ziel ist, von einer Beziehung „Rücken an Rücken“ zu einer Beziehung „von Angesicht zu Angesicht“ zu gelangen. Dann sieht der Mensch in seiner Frau sie selbst, ohne Masken und fremde Projektionen — und sieht in ihr das Gute.</p><p>Daher die Zahlen: „Frau“ ist 18-mal „Gutes“, „Leben aus dem Guten“. Das Wort „und Er baute“, mit dem die Frau erschaffen wurde<sup data-src="gen-2-21"></sup>, ist viermal „Gutes“.</p>`,
+          b: `<p>Das Ziel ist, von einer Beziehung „Rücken an Rücken“ zu einer Beziehung „von Angesicht zu Angesicht“ zu gelangen. Dann sieht der Mensch in seiner Frau sie selbst, ohne Masken und ohne fremde Bilder — und sieht in ihr das Gute.</p><p>Daher die Zahlen: „Frau“ ist 18-mal „Gutes“, „Leben aus dem Guten“. Das Wort „und Er baute“, mit dem die Frau erschaffen wurde<sup data-src="gen-2-21"></sup>, ist viermal „Gutes“.</p>`,
         },
         {
           h: 'Sukkot: von Angesicht zu Angesicht',
@@ -211,7 +211,7 @@ const de: LessonText = {
   share: ({ score, max, time, grid, allSolved, site }) => `🔥 Was haben Hochmut und Begierde gemeinsam?
 Die Antwort steckt in einer einzigen Zahl.
 
-Ich suche sie in einem Gematria-Spiel nach der Lektion von Rabbiner Jizchak Ginsburgh „Tikkun Parzuf-Sanaw“. ${allSolved ? 'Alle vier Rätsel gelöst:' : 'Mein Weg bisher:'}
+Ich suche sie in einem Gematria-Spiel nach der Lektion von Rabbi Jizchak Ginsburgh „Tikkun Parzuf-Sanaw“. ${allSolved ? 'Alle vier Rätsel gelöst:' : 'Mein Weg bisher:'}
 
 ✦ ${score} von ${max} Punkten · ⏱ ${time}
 ${grid}

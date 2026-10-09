@@ -98,7 +98,7 @@ const de: LessonText = {
       lessons: [
         {
           h: 'Was der böse Trieb will',
-          b: `<p>Das ganze Streben des bösen Triebes ist, dass der Mensch das Gegenteil von dem tut, was G-tt will. Alle Argumente, mit denen er zur Übertretung eines Verbots oder zur Unterlassung eines Gebots überredet, haben ein einziges Motiv: dass der Mensch G-ttes Willen übertritt.</p><p>Es gibt Lagen — wegen des Menschen selbst, wegen des Ortes oder wegen der Zeit —, in denen die Erfüllung eines Gebots besonders wichtig ist. Dann strengt sich der böse Trieb besonders an. Obwohl ein solches Gebot in Wahrheit leicht zu halten ist, bringt der böse Trieb gerade weil es so wichtig ist, allerlei Forderungen und Begründungen vor, um den Menschen davon abzuhalten, G-ttes Willen zu erfüllen.</p>`,
+          b: `<p>Der böse Trieb will nur eines: dass der Mensch das Gegenteil von dem tut, was G-tt will. Er überredet ihn, ein Verbot zu übertreten oder ein Gebot nicht zu tun. Alle seine Gründe haben nur ein Ziel: dass der Mensch gegen G-ttes Willen handelt.</p><p>Manchmal ist ein Gebot besonders wichtig — wegen des Menschen selbst, wegen des Ortes oder wegen der Zeit. Dann strengt sich der böse Trieb besonders an. Eigentlich ist so ein Gebot leicht zu halten. Aber gerade weil es so wichtig ist, findet der böse Trieb viele Gründe, warum man es jetzt nicht tun soll.</p>`,
         },
         {
           h: 'Warum das „Leichte“ am schwersten fällt',
@@ -110,7 +110,7 @@ const de: LessonText = {
         },
         {
           h: 'Größer als sein Gefährte',
-          b: `<p>So lassen sich die Worte der Weisen erklären: „Wer größer ist als sein Gefährte — dessen böser Trieb ist auch größer.“<sup data-src="sukkah-52a"></sup> Je größer ein Mensch ist, desto wichtiger sind die Gebote, die er erfüllt — und desto stärker stellt sich ihm der böse Trieb entgegen.</p><p>Es gibt noch eine andere Erklärung. Damit der Mensch freie Wahl hat, müssen die Kräfte der Heiligkeit und die ihnen entgegenstehenden Kräfte im Gleichgewicht sein. Da ihm größere Kräfte in der Heiligkeit gegeben sind — er ist „größer als sein Gefährte“ —, ist auch seinem bösen Trieb größere Kraft gegeben.</p>`,
+          b: `<p>So lassen sich die Worte der Weisen erklären: „Wer größer ist als sein Gefährte — dessen böser Trieb ist auch größer.“<sup data-src="sukkah-52a"></sup> Je größer ein Mensch ist, desto wichtiger sind die Gebote, die er erfüllt — und desto stärker stellt sich ihm der böse Trieb entgegen.</p><p>Es gibt noch eine andere Erklärung. Der Mensch soll frei wählen können. Darum müssen die Kräfte der Heiligkeit und die Kräfte dagegen gleich stark sein. Wer mehr Kraft zur Heiligkeit bekommen hat — wer „größer als sein Gefährte“ ist —, dessen böser Trieb bekommt auch mehr Kraft.</p>`,
         },
         {
           h: 'Warum Adam vom Baum aß',
@@ -165,11 +165,11 @@ const de: LessonText = {
         },
         {
           h: 'Das Zuhause — ein kleines Heiligtum',
-          b: `<p>Schon das Wort „Tora“ ist mit „Hora’a“ verwandt — „Weisung“. Die Erzählungen des Abschnitts Bereschit geben Weisung für das ganze Jahr. So gibt auch dieser Gedanke eine Weisung, wie ein jüdisches Zuhause sein soll.</p><p>Jedes jüdische Zuhause ist „ein kleines Heiligtum“<sup data-src="ez-11-16"></sup>, von dem G-tt sagt: „…und Ich werde in ihrer Mitte wohnen.“<sup data-src="ex-25-8"></sup> Die Führung des Hauses hängt von der Hausfrau ab, die unsere Überlieferung „die Grundlage des Hauses“ nennt: <span class="he">עקרת הבית</span><sup data-src="ps-113-9"></sup> — „akeret habajit“, was die Weisen als „ikaro schel bajit“ lesen, „das Wichtigste des Hauses“. Darum soll man sie ermutigen, ihre Gebote mit mehr Schwung und Freude zu erfüllen. Und das soll man tun im Bewusstsein, dass „die Wege der Tora liebliche Wege und alle ihre Pfade Frieden sind“<sup data-src="prov-3-17"></sup>, und nicht durch herrische Anweisungen.</p><p>So wird das ganze Haus geschützt, auch der Ehemann: Hätte Chawa das Gebot von G-tt Selbst gehört, hätte sie nicht nur selbst nicht gesündigt, sondern auch Adam vor den Einflüsterungen der Schlange bewahrt.</p>`,
+          b: `<p>Schon das Wort „Tora“ ist mit „Hora’a“ verwandt — „Weisung“. Die Erzählungen des Abschnitts Bereschit geben Weisung für das ganze Jahr. So gibt auch dieser Gedanke eine Weisung, wie ein jüdisches Zuhause sein soll.</p><p>Jedes jüdische Zuhause ist „ein kleines Heiligtum“<sup data-src="ez-11-16"></sup>, von dem G-tt sagt: „…und Ich werde in ihrer Mitte wohnen.“<sup data-src="ex-25-8"></sup> Die Führung des Hauses hängt von der Hausfrau ab, die unsere Überlieferung „die Grundlage des Hauses“ nennt: <span class="he">עקרת הבית</span><sup data-src="ps-113-9"></sup> — „akeret habajit“, was die Weisen als „ikaro schel bajit“ lesen, „das Wichtigste des Hauses“. Darum soll man sie ermutigen, ihre Gebote mit mehr Schwung und Freude zu erfüllen. Und das soll man tun im Bewusstsein, dass „die Wege der Tora liebliche Wege und alle ihre Pfade Frieden sind“<sup data-src="prov-3-17"></sup>, und nicht durch herrische Anweisungen.</p><p>So wird das ganze Haus geschützt, auch der Ehemann: Hätte Chawa das Gebot von G-tt Selbst gehört, hätte sie nicht nur selbst nicht gesündigt, sondern auch Adam davor bewahrt, auf die Schlange zu hören.</p>`,
         },
         {
           h: 'Eine halbe Stunde am Tag',
-          b: `<p>Also beginnt die Grundlage aller Tätigkeit eines Menschen in der Tora in seinem eigenen Haus. Der Rebbe Raschab sagte einmal (Hajom Jom, 22. Tewet): So wie das tägliche Anlegen der Tefillin ein Gebot der Tora für jeden Juden ist, ob großer Gelehrter oder einfacher Mensch, so ist jeder Jude verpflichtet, jeden Tag eine halbe Stunde über die Erziehung seiner Kinder nachzudenken. Er muss alles tun, was in seiner Macht steht — und sogar darüber hinaus —, damit seine Kinder den Weg gehen, auf dem er sie führt.</p>`,
+          b: `<p>Alles, was ein Mensch für die Tora tut, beginnt also in seinem eigenen Haus. Der Rebbe Raschab sagte einmal (Hajom Jom, 22. Tewet): Jeder Jude legt jeden Tag Tefillin — ob großer Gelehrter oder einfacher Mensch. Genauso soll jeder Jude jeden Tag eine halbe Stunde darüber nachdenken, wie er seine Kinder erzieht. Er muss alles tun, was in seiner Macht steht — und sogar darüber hinaus —, damit seine Kinder den Weg gehen, auf dem er sie führt.</p>`,
         },
         {
           h: '„Wie einst“',
@@ -300,7 +300,7 @@ const de: LessonText = {
         verse: '„Und G-tt vollendete am siebten Tag“',
         card: 'G-tt kennt den genauen Augenblick, in dem der Schabbat beginnt',
         explain: 'Raschis zweite Erklärung: Als G-tt die Schöpfung vollendete, verletzte Er den Schabbat nicht, denn Er kennt den genauen Augenblick, in dem er beginnt.',
-        horaah: 'Jeder Augenblick ist besonders: Ein fehlender Augenblick kann den ganzen Dienst beeinträchtigen.',
+        horaah: 'Jeder Augenblick ist besonders: Ein fehlender Augenblick kann dem ganzen Dienst fehlen.',
         poem: [
           "Als G-tt am siebten Tag die Schöpfung vollbracht,",
           "Hat Er den Schabbat-Anfang genau bedacht.",
@@ -340,10 +340,10 @@ const de: LessonText = {
         title: 'Das Beste von dem, was man hat',
         verse: '„von der Frucht des Bodens“',
         card: 'Hewel gab das Beste seiner Art — obwohl es bessere Arten gab',
-        explain: 'Kajin brachte ein Opfer „von der Frucht des Bodens“, Hewel aber das Beste seiner Art, obwohl es bessere Arten gab. Alles gehört G-tt, darum kommt es nicht auf die Art an, sondern darauf, das Beste von dem zu bringen, was man hat.',
+        explain: 'Kajin brachte eine Opfergabe „von der Frucht des Bodens“, Hewel aber das Beste seiner Art, obwohl es bessere Arten gab. Alles gehört G-tt, darum kommt es nicht auf die Art an, sondern darauf, das Beste von dem zu bringen, was man hat.',
         horaah: 'Bei der Verschönerung eines Gebots das Beste tun, was man kann — im Rahmen der eigenen Möglichkeiten.',
         poem: [
-          "Kain brachte „von der Frucht des Bodens“ dar,",
+          "Kajin brachte „von der Frucht des Bodens“ dar,",
           "Hewel — das Beste seiner Art, das vorhanden war.",
           "Alles gehört G-tt: Nicht die Art zählt hier,",
           "Sondern das Beste von dem, was du hast, gib Ihm dafür.",

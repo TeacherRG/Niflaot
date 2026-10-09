@@ -1,7 +1,7 @@
 import type { LessonText } from '../../types';
 
 const en: LessonText = {
-  title: 'Tikun Partzuf-Zanav',
+  title: 'Tikkun Partzuf-Zanav',
   hero: {
     heading: 'The mathematics of the soul: <i>four gematria riddles</i>',
     author: 'based on an article by Rabbi Yitzchak Ginsburgh',
@@ -31,7 +31,7 @@ const en: LessonText = {
   riddles: [
     {
       title: 'The cosmic balance of two forces',
-      cond: `<p>The Sages of the Talmud debate what the “back side” (<em>אחור</em>) of the first man was, from which Chava was created: some say a face (<em>פרצוף</em>), others say a tail (<em>זנב</em>).<sup data-src="berakhot-61a"></sup></p><p>Chassidut explains: behind the “face” stands the root of pride (<em>גאוה</em>), behind the “tail” — the root of desire (<em>תאוה</em>). Weigh both pairs.</p>`,
+      cond: `<p>The Sages of the Talmud debate what the “back side” (<em>אחור</em>) of the first man was, from which Chavah was created: some say a face (<em>פרצוף</em>), others say a tail (<em>זנב</em>).<sup data-src="berakhot-61a"></sup></p><p>Chassidut explains: behind the “face” stands the root of pride (<em>גאוה</em>), behind the “tail” — the root of desire (<em>תאוה</em>). Weigh both pairs.</p>`,
       steps: [
         { q: 'What is <span class="he">פרצוף + גאוה</span>?', hint: 'פרצוף = 456, and גאוה is 3 + 1 + 6 + 5.' },
         { q: 'What is <span class="he">זנב + תאוה</span>?', hint: 'זנב = 7 + 50 + 2, and תאוה = 400 + 1 + 6 + 5.' },
@@ -45,7 +45,7 @@ const en: LessonText = {
         p: 'Both sides of the subconscious stand in perfect balance. Both are fire: the letter Alef is the root of the proud “I”, the letter Shin is the flame of passion.',
       },
       lessons: [
-        { h: "What woman was created from", b: `<p>The most direct meaning of the debate about the “face” and the “tail” is a debate about <b>what woman was created from</b>. The Gemara (Berachot 61a, Eruvin 18a)<sup data-src="berakhot-61a"></sup> discusses the words “and G-d built the rib (<span class="he">צלע</span>)… into a woman”.<sup data-src="gen-2-21"></sup> What was this “rib”?</p><p><b>One says — a “partzuf”, a face.</b> Adam was created with two faces: a male face in front and a female face behind. The Almighty separated them, and the back face became Chava. According to this view, woman is from the very start a complete, separate face, equal to man.</p><p><b>The other says — a “zanav”, a tail.</b> Adam had a small appendage behind, and woman was “built” from it. According to this view, she begins from something small and develops.</p><p>The lesson continues this line. <b>Rav, the idealist:</b> woman is originally a “partzuf”, a perfect creation. <b>Shmuel, the realist:</b> woman is originally a “tail”, and the path to perfection is gradual.</p><p>The word “tail” (<span class="he">זנב</span>) has the gematria 59, like “niddah” (<span class="he">נדה</span>): 50 + 4 + 5. This hints at a state of separation and impurity that must be rectified. Hence the ideal of a marriage begun in purity.</p>` },
+        { h: "What woman was created from", b: `<p>The most direct meaning of the debate about the “face” and the “tail” is a debate about <b>what woman was created from</b>. The Gemara (Berachot 61a, Eruvin 18a)<sup data-src="berakhot-61a"></sup> discusses the words “and G-d built the rib (<span class="he">צלע</span>)… into a woman”.<sup data-src="gen-2-21"></sup> What was this “rib”?</p><p><b>One says — a “partzuf”, a face.</b> Adam was created with two faces: a male face in front and a female face behind. The Almighty separated them, and the back face became Chavah. According to this view, woman is from the very start a complete, separate face, equal to man.</p><p><b>The other says — a “zanav”, a tail.</b> Adam had a small appendage behind, and woman was “built” from it. According to this view, she begins from something small and develops.</p><p>The lesson continues this line. <b>Rav, the idealist:</b> woman is originally a “partzuf”, a perfect creation. <b>Shmuel, the realist:</b> woman is originally a “tail”, and the path to perfection is gradual.</p><p>The word “tail” (<span class="he">זנב</span>) has the gematria 59, like “niddah” (<span class="he">נדה</span>): 50 + 4 + 5. This hints at a state of separation and impurity that must be rectified. Hence the ideal of a marriage begun in purity.</p>` },
         {
           h: 'The year פ״ז: face and tail',
           b: `<p>The year ה׳תשפ״ז reads as a hint to “partzuf-zanav”: the letters פ and ז begin both words. The first man was created “behind and before”, and the Sages debate what his back side was. Rav says — a face, Shmuel says — a tail.</p><p>In Kabbalah a person’s “back” is his subconscious, what he cannot see in himself. So the debate is about what lies in the depths of the unconscious: a self-image or a drive.</p>`,
@@ -65,7 +65,7 @@ const en: LessonText = {
       ],
       reflection: 'What is stronger in me today — the wish to appear (“partzuf”) or the wish to receive (“tail”)? In what situation did it show itself this week?',
       takeaways: [
-        "Rav and Shmuel debate what Adam’s “back side”, from which Chava was made, was: a “face” (פרצוף) or a “tail” (זנב). In one view woman is equal from the start; in the other she grows from something small.",
+        "Rav and Shmuel debate what Adam’s “back side”, from which Chavah was made, was: a “face” (פרצוף) or a “tail” (זנב). In one view woman is equal from the start; in the other she grows from something small.",
         "A person’s “back” is the subconscious. Behind the “face” lies the root of pride (גאוה), behind the “tail” the root of desire (תאוה).",
         "פרצוף + גאוה = זנב + תאוה = 471 = אש spelled out in full (אלף + שין): both passions are fire, and they weigh the same.",
         "Chabad sees pride as the main root of evil, Breslov sees desire. Jung’s “persona” is the “partzuf”; Freud’s drives of the “id” are the “tail”.",
@@ -133,11 +133,11 @@ const en: LessonText = {
         },
         {
           h: 'Moshe’s true face',
-          b: `<p>Moshe’s inner essence is boundless love for Israel. He is ready to be erased from the Torah, if only the people are forgiven<sup data-src="ex-32-31"></sup>. He is the “faithful shepherd”, leading the people with compassion.</p><p>All three levels together — mask, partzuf and face — give 761, “before the eyes of all Israel”: the last words of the Torah, which<sup data-src="deut-34-10"></sup> immediately join its beginning, “Bereshit”.</p>`,
+          b: `<p>Moshe’s inner essence is boundless love for Israel. He is ready to be erased from the Torah, if only the people are forgiven<sup data-src="ex-32-31"></sup>. He is the “faithful shepherd”, leading the people with compassion.</p><p>All three levels together — mask, partzuf and face — give 761, “before the eyes of all Israel”: the last words of the Torah, which<sup data-src="deut-34-10"></sup> immediately join its beginning, “Bereishit”.</p>`,
         },
         {
           h: 'Realist and idealist',
-          b: `<p>The lesson also reads the debate between Rav and Shmuel as a debate between two worldviews. Shmuel is a realist: the world develops gradually, from “tail” to “face”, as in evolution. Rav is an idealist: creation is perfect from the very start, a complete “partzuf”.</p><p>Hence the different views of the days of Mashiach: for Shmuel it is a gradual rectification within nature, for Rav a miraculous transformation of the world.</p>`,
+          b: `<p>The lesson also reads the debate between Rav and Shmuel as a debate between two worldviews. Shmuel is a realist: the world develops gradually, from “tail” to “face”, as in evolution. Rav is an idealist: creation is perfect from the very start, a complete “partzuf”.</p><p>Hence the different views of the days of Moshiach: for Shmuel it is a gradual rectification within nature, for Rav a miraculous transformation of the world.</p>`,
         },
       ],
       reflection: 'Where do I wear a mask, where do I show a “partzuf”, and to whom do I open my true face? Who deserves to see it more often?',
@@ -198,7 +198,7 @@ const en: LessonText = {
     },
   ],
   final: {
-    title: 'Tikun complete',
+    title: 'Tikkun complete',
     allSolved:
       'All four riddles are solved. Face and tail, pride and passion are joined in prayer and revealed before the eyes of all Israel.',
   },
@@ -214,7 +214,7 @@ const en: LessonText = {
   share: ({ score, max, time, grid, allSolved, site }) => `🔥 What do pride and desire have in common?
 The answer is hidden in a single number.
 
-I’m searching for it in a gematria game based on Rabbi Yitzchak Ginsburgh’s lesson “Tikun Partzuf-Zanav”. ${allSolved ? 'All four riddles solved:' : 'My path so far:'}
+I’m searching for it in a gematria game based on Rabbi Yitzchak Ginsburgh’s lesson “Tikkun Partzuf-Zanav”. ${allSolved ? 'All four riddles solved:' : 'My path so far:'}
 
 ✦ ${score} of ${max} points · ⏱ ${time}
 ${grid}
@@ -224,7 +224,7 @@ Play 👉 ${site}
 
 ©pnimi.org.il ©mychitas.app`,
   source:
-    'Based on the lesson “Tikun Partzuf-Zanav”, “Niflaot” booklet, Bereshit ה׳תשפ״ז (Gal Einai). Full Hebrew text: pnimi.org.il',
+    'Based on the lesson “Tikkun Partzuf-Zanav”, “Niflaot” booklet, Bereishit ה׳תשפ״ז (Gal Einai). Full Hebrew text: pnimi.org.il',
 };
 
 export default en;
