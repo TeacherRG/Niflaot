@@ -1009,8 +1009,9 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
   .pm-info .mi-block h4{font-size:12px}
   .pm-page{margin-top:0}
   .pm-head+.pm-page{break-before:auto;margin-top:14px}
-  .pm-cards{grid-template-columns:repeat(4,4.5cm)}
-  .pm-card{width:4.5cm;height:6cm;aspect-ratio:auto}
+  .pm-cards{grid-template-columns:repeat(4,4cm);break-inside:avoid}
+  /* 4 × 3 cards of 4 × 5.33 cm (3:4): all twelve fit on one A4 page right under the masthead, in every language */
+  .pm-card{width:4cm;height:5.33cm;aspect-ratio:auto}
   .pm-info{break-before:page}
   .pm-color{margin:0}
   .pm-color img{max-width:none;width:auto;height:24cm}
