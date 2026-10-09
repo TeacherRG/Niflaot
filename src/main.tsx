@@ -19,10 +19,13 @@ import '@fontsource/manrope/600.css';
 import '@fontsource/manrope/700.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import '@fontsource/ibm-plex-mono/600.css';
+import { installAnalytics } from './core/analytics';
 import './styles.css';
 
 // the admin's unpublished text edits are shown on the site in their browser
 applyDraft();
+// visit statistics (GoatCounter, no cookies)
+installAnalytics();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
