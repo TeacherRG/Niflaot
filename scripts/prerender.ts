@@ -35,11 +35,11 @@ const lessonUrl = (l: Lesson) => `${SITE_URL}/${l.slug}/`;
 const assistant = process.env.VITE_ASSISTANT_URL ? new URL(process.env.VITE_ASSISTANT_URL).origin : '';
 const CSP = [
   "default-src 'self'",
-  "script-src 'self'",
+  "script-src 'self' https://gc.zgo.at",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
-  "img-src 'self' data: blob:",
-  `connect-src 'self' https://api.github.com${assistant ? ` ${assistant}` : ''}`,
+  "img-src 'self' data: blob: https://niflaot.goatcounter.com",
+  `connect-src 'self' https://api.github.com https://niflaot.goatcounter.com${assistant ? ` ${assistant}` : ''}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

@@ -40,6 +40,9 @@
   правка любых текстов уроков и интерфейса ru/en/de; черновик виден сразу в этом браузере, «Опубликовать» — коммит
   `src/content/overrides.json` в `main` → деплой. Правки накладываются поверх исходников (`src/content/index.ts`);
   `npm run check` ругается на правку несуществующего поля. Перед правкой исходника — перенести туда правку из overrides.
+- Статистика посещений — GoatCounter (`src/core/analytics.ts`, без cookies): https://niflaot.goatcounter.com —
+  страны и число просмотров каждого маршрута (`#/<slug>/memo` → `/<slug>/memo`); не считаются dev, `#/admin`,
+  браузер админа, `?shabbat=preview`. Хосты разрешены в CSP (`scripts/prerender.ts`).
 - `assistant/` — сервер ИИ-чата (Cloudflare Worker, Claude API); пока скрыт, включается переменной `ASSISTANT_URL`.
 
 ## Новый урок — всегда по `docs/LESSON-GUIDE.md`
