@@ -66,6 +66,13 @@ export function parseEquation(e: string): { q: string; rest: string[]; v: number
 
 const key = (s: string) => plainWord(s.replace(/ \+ /g, ' '));
 
+/** A short id that stays the same while the fact does (links `#/facts/<id>` from shared cards keep working). */
+const stableId = (slug: string, s: string) => {
+  let h = 5381;
+  for (const c of s) h = ((h * 33) ^ c.codePointAt(0)!) >>> 0;
+  return `${slug}-${h.toString(36)}`;
+};
+
 /** Hebrew parts of an equality fact (each term of a sum separately) — every one needs a gloss on the page. */
 export const hebrewParts = (f: Extract<Fact, { kind: 'eq' }>) =>
   [f.q, ...f.rest].filter((p) => !NUMS.test(p)).flatMap((p) => p.split(' + '));
@@ -99,7 +106,7 @@ export function collectFacts(lessons: Lesson[]): Fact[] {
       const heb = [q, ...rest].filter((p) => !NUMS.test(p)).map(key);
       if (seen.has(key(q)) || heb.every((h) => seen.has(h))) return;
       heb.forEach((h) => seen.add(h));
-      out.push({ kind: 'eq', id: `${l.slug}-${out.length + 1}`, lesson: l, q, rest, v, ...at });
+      out.push({ kind: 'eq', id: stableId(l.slug, `eq:${key(q)}`), lesson: l, q, rest, v, ...at });
     };
     const addLt = (from: string, take: Take, word: string, at: Place) => {
       const k = `${key(from)}>${key(word)}`;
@@ -107,7 +114,7 @@ export function collectFacts(lessons: Lesson[]): Fact[] {
       // «the same letters» is already told by the equality of the two words
       if (take === 'all' && seen.has(key(from)) && seen.has(key(word))) return;
       seenLt.add(k);
-      out.push({ kind: 'lt', id: `${l.slug}-${out.length + 1}`, lesson: l, from, take, word: asWord(word), ...at });
+      out.push({ kind: 'lt', id: stableId(l.slug, `lt:${key(from)}>${key(word)}`), lesson: l, from, take, word: asWord(word), ...at });
     };
     // Memo pairs first: they carry the commentary's own equalities
     const first = out.length;

@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
+import { SITE_HOST, SITE_URL } from '../core/site';
+import { renderFactCard, shareOrSave } from '../core/shareCard';
 import { useI18n } from '../i18n';
 import { LESSONS } from '../lessons';
 import { TEACHERS, teacherOf } from '../lessons/teachers';
@@ -28,24 +30,52 @@ function Words({ he, gloss, ask }: { he: string; gloss: Record<string, string>; 
   );
 }
 
-function FactCard({ f }: { f: Fact }) {
+function FactCard({ f, here }: { f: Fact; here?: boolean }) {
   const { t, pick } = useI18n();
   const [open, setOpen] = useState(false);
   const text = pick(f.lesson.texts).value;
   const who = teacherOf(f.lesson);
   const base = `#/${f.lesson.slug}`;
+  const [card, setCard] = useState<'idle' | 'making' | 'saved'>('idle');
+  const question = f.kind === 'eq' ? t('facts.qEq') : t(`facts.qLt.${f.take}`);
+  const he = f.kind === 'eq' ? f.q : f.from;
+
+  /** «Поделиться загадкой»: the question as a picture signed with the site, the answer behind the link. */
+  const share = async () => {
+    setCard('making');
+    try {
+      const blob = await renderFactCard({
+        eyebrow: `${t('app.title')} · ${t('facts.title')}`,
+        // «Бааль ґа-Турим · Бааль ґа-Турим: Берешит» — the teacher only when the title doesn't name him
+        source: text.title.includes(t(`teacher.${who}.short`)) ? text.title : `${t(`teacher.${who}.short`)} · ${text.title}`,
+        question,
+        hebrew: displayNames(he),
+        gloss: he
+          .split(' + ')
+          .map((w) => text.glossary[w])
+          .filter(Boolean)
+          .join(' · '),
+        answer: t('facts.cardAnswer'),
+        site: SITE_HOST,
+        tagline: t('facts.cardTagline'),
+      });
+      const res = await shareOrSave(blob, `niflaot-${f.id}.png`, `${question} ${displayNames(he)}?\n${t('facts.shareText')} 👉 ${SITE_URL}/#/facts/${f.id}`);
+      setCard(res === 'saved' ? 'saved' : 'idle');
+      if (res === 'saved') setTimeout(() => setCard('idle'), 2500);
+    } catch {
+      setCard('idle');
+    }
+  };
 
   return (
-    <article className={`fact t-${TEACHERS[who].color}`} id={f.id}>
+    <article className={`fact t-${TEACHERS[who].color}${here ? ' here' : ''}`} id={f.id}>
       <div className="fact-src">
         <span className="h-badge">{t(`teacher.${who}.short`)}</span>
         {text.title}
       </div>
-      <p className="fact-q">
-        {f.kind === 'eq' ? t('facts.qEq') : t(`facts.qLt.${f.take}`)}
-      </p>
+      <p className="fact-q">{question}</p>
       <div className="fact-he">
-        <Words he={f.kind === 'eq' ? f.q : f.from} gloss={text.glossary} ask />
+        <Words he={he} gloss={text.glossary} ask />
       </div>
       {open ? (
         <div className="fact-a pop">
@@ -68,6 +98,9 @@ function FactCard({ f }: { f: Fact }) {
           {t('facts.show')}
         </button>
       )}
+      <button className="btn ghost fact-share" onClick={share} disabled={card === 'making'}>
+        📤 {card === 'making' ? t('final.cardMaking') : card === 'saved' ? t('final.cardSaved') : t('facts.share')}
+      </button>
       <div className="fact-links">
         {f.ri !== undefined && (
           <>
@@ -91,13 +124,20 @@ function FactCard({ f }: { f: Fact }) {
  * «Знаете ли вы?» — every equality and letter hint of the lessons as a feed of short questions, without explanations:
  * the answer opens on a tap, the links lead to the lesson where it is explained.
  */
-export function FactsPage() {
+/** `at` — the fact a shared link points to (`#/facts/<id>`): the feed opens on it. */
+export function FactsPage({ at }: { at?: string }) {
   const { t } = useI18n();
   const facts = useMemo(() => collectFacts(LESSONS), []);
 
   useEffect(() => {
     document.title = `${t('facts.title')} · ${t('app.title')}`;
   }, [t]);
+
+  useEffect(() => {
+    if (!at) return;
+    const id = requestAnimationFrame(() => document.getElementById(at)?.scrollIntoView({ block: 'center' }));
+    return () => cancelAnimationFrame(id);
+  }, [at]);
 
   return (
     <>
@@ -109,7 +149,7 @@ export function FactsPage() {
         </header>
         <main className="facts">
           {facts.map((f) => (
-            <FactCard key={f.id} f={f} />
+            <FactCard key={f.id} f={f} here={f.id === at} />
           ))}
         </main>
       </div>

@@ -814,6 +814,10 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .read-take{margin:0 24px 18px;padding:12px 16px 12px 34px;border-radius:8px;background:var(--ok-soft);color:var(--ink-2);display:grid;gap:6px}
 .read-riddle .lt-tile{cursor:default}
 .listen{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.listen-test{font-size:14px}
+.listen-note{flex:1 1 100%;margin:0;font-size:14px;color:var(--muted)}
+.listen-note.ok{color:var(--ok)}
+.listen-note.no{color:var(--fire)}
 .speaking{background:var(--gold-soft);box-shadow:0 0 0 4px var(--gold-soft);border-radius:4px}
 /* «Нифлаот Ребе» · «Прочитать» / «Запомнить в стихах» */
 .seg{display:flex;gap:4px;margin-top:16px;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--surface);width:max-content;max-width:100%}
@@ -847,6 +851,8 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .fact-a{background:var(--tc-soft);border-radius:8px;padding:10px 12px}
 .fact-a b.num{font-family:var(--f-num);font-size:26px;color:var(--ok);line-height:1.3}
 .fact-show{justify-self:center}
+.fact-share{justify-self:center;font-size:14px;padding:6px 14px}
+.fact.here{outline:3px solid var(--gold-2);outline-offset:2px}
 .fact-links{display:grid;gap:6px;font-size:14px;border-top:1px solid var(--line);padding-top:10px}
 .fact-links q{font-weight:500;color:var(--ink-2)}
 .read-riddle.here,.mi.here{outline:3px solid var(--gold-2);outline-offset:2px;scroll-margin-top:72px}
