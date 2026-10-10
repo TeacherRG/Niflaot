@@ -47,6 +47,18 @@ BHT = "Tanakh/Rishonim on Tanakh/Kitzur Ba'al HaTurim/Torah/Kitzur Ba'al HaTurim
 def bht(ch, v):
     return ('custom', f'Бааль ґа-Турим, Берешит {ch}:{v}', f"Ba'al HaTurim, Genesis {ch}:{v}", f'Baal HaTurim, Bereschit {ch},{v}',
             f"Kitzur Ba'al HaTurim on Genesis {ch}:{v}", 'Commentary', BHT + 'Hebrew/On Your Way.json', BHT + 'English/Sefaria Community Translation.json', None, [ch - 1, v - 1])
+# … or only its comment number k (0-based) when the verse has several unrelated comments
+def bht_one(ch, v, k):
+    spec = bht(ch, v)
+    return spec[:4] + (f"Kitzur Ba'al HaTurim on Genesis {ch}:{v}:{k + 1}",) + spec[5:9] + ([ch - 1, v - 1, k],)
+
+# Rashi on Genesis: one comment (chapter ch, verse v, comment k — 0-based), with S. Bamberger's German
+RASHI = 'Tanakh/Rishonim on Tanakh/Rashi/Torah/Rashi on Genesis/'
+RASHI_ED = "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934.json"
+RASHI_DE = 'Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de].json'
+def rashi(ch, v, k):
+    return ('custom', f'Раши, Берешит {ch}:{v}', f'Rashi, Genesis {ch}:{v}', f'Raschi, Bereschit {ch},{v}', f'Rashi on Genesis {ch}:{v}:{k + 1}', 'Commentary',
+            RASHI + 'Hebrew/' + RASHI_ED, RASHI + 'English/' + RASHI_ED, (RASHI + 'English/' + RASHI_DE, [ch - 1, v - 1, k]), [ch - 1, v - 1, k])
 
 BOOK = {
     'Genesis': ('Tanakh/Torah/Genesis/', 'Берешит', 'Torah'),
@@ -54,6 +66,7 @@ BOOK = {
     'Numbers': ('Tanakh/Torah/Numbers/', 'Бемидбар', 'Torah'),
     'Deuteronomy': ('Tanakh/Torah/Deuteronomy/', 'Дварим', 'Torah'),
     'Ezekiel': ('Tanakh/Prophets/Ezekiel/', 'Йехезкель', 'Prophets'),
+    'Amos': ('Tanakh/Prophets/Amos/', 'Амос', 'Prophets'),
     'I Kings': ('Tanakh/Prophets/I Kings/', 'Млахим I', 'Prophets'),
     'Psalms': ('Tanakh/Writings/Psalms/', 'Теґилим', 'Writings'),
     'Job': ('Tanakh/Writings/Job/', 'Иов', 'Writings'),
@@ -64,6 +77,7 @@ BOOK = {
     'Yevamot': ('Talmud/Bavli/Seder Nashim/Yevamot/', 'Йевамот', 'Talmud'),
     'Chullin': ('Talmud/Bavli/Seder Kodashim/Chullin/', 'Хулин', 'Talmud'),
     'Sukkah': ('Talmud/Bavli/Seder Moed/Sukkah/', 'Сукка', 'Talmud'),
+    'Megillah': ('Talmud/Bavli/Seder Moed/Megillah/', 'Мегила', 'Talmud'),
     'Ketubot': ('Talmud/Bavli/Seder Nashim/Ketubot/', 'Ктубот', 'Talmud'),
     'Sanhedrin': ('Talmud/Bavli/Seder Nezikin/Sanhedrin/', 'Санедрин', 'Talmud'),
     'Niddah': ('Talmud/Bavli/Seder Tahorot/Niddah/', 'Нида', 'Talmud'),
@@ -181,6 +195,27 @@ SOURCES = {
     'gen-2-19': ('Genesis', 2, 19, 19),
     'gen-4-3': ('Genesis', 4, 3, 4),
     'gen-6-7': ('Genesis', 6, 7, 7),
+    # lesson «Ba'al HaTurim: Noach»
+    'gen-6-9': ('Genesis', 6, 9, 11),
+    'gen-6-13': ('Genesis', 6, 13, 16),
+    'gen-7-4': ('Genesis', 7, 4, 4),
+    'gen-7-10': ('Genesis', 7, 10, 10),
+    'gen-7-11': ('Genesis', 7, 11, 11),
+    'gen-7-23': ('Genesis', 7, 23, 23),
+    'gen-9-9': ('Genesis', 9, 9, 9),
+    'gen-9-20': ('Genesis', 9, 20, 21),
+    'gen-9-25': ('Genesis', 9, 25, 25),
+    'gen-11-1': ('Genesis', 11, 1, 4),
+    'ex-21-32': ('Exodus', 21, 32, 32),
+    'prov-11-30': ('Proverbs', 11, 30, 30),
+    'amos-6-6': ('Amos', 6, 6, 7),
+    'job-21-13': ('Job', 21, 13, 13),
+    'gen-11-29': ('Genesis', 11, 29, 29),
+    'megillah-14a': ('Megillah', '14a', 12, 12),
+    'rashi-6-13': rashi(6, 13, 2),
+    'rashi-6-16': rashi(6, 16, 0),
+    **{f'bht-{c}-{v}': bht(c, v) for c, v in [(6, 9), (7, 4), (7, 10), (7, 11), (7, 23), (9, 9), (9, 21), (9, 25), (11, 29)]},
+    **{f'bht-{c}-{v}-{k + 1}': bht_one(c, v, k) for c, v, k in [(6, 11, 1), (6, 13, 0), (6, 13, 3), (6, 13, 5), (6, 16, 0), (11, 1, 1), (11, 3, 0)]},
 }
 
 KIND = {
@@ -191,10 +226,10 @@ KIND = {
 EN_BOOK = {'I Kings': 'I Kings'}
 KIND_DE = {'Torah': 'Tora', 'Prophets': 'Propheten', 'Writings': 'Schriften', 'Talmud': 'Gemara', 'Midrash': 'Midrasch', 'Chasidut': 'Chassidut', 'Zohar': 'Sohar', 'Commentary': 'Kommentar'}
 DE_NAME = {
-    'Genesis': 'Bereschit', 'Exodus': 'Schemot', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Dewarim', 'Ezekiel': 'Jecheskel',
+    'Genesis': 'Bereschit', 'Exodus': 'Schemot', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Dewarim', 'Ezekiel': 'Jecheskel', 'Amos': 'Amos',
     'I Kings': 'I Könige', 'Psalms': 'Tehillim', 'Job': 'Ijob', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
     'Berakhot': 'Berachot', 'Shabbat': 'Schabbat', 'Yevamot': 'Jewamot', 'Chullin': 'Chullin',
-    'Sukkah': 'Sukka', 'Ketubot': 'Ketubbot', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda',
+    'Sukkah': 'Sukka', 'Megillah': 'Megilla', 'Ketubot': 'Ketubbot', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda',
 }
 
 _cache = {}

@@ -704,7 +704,7 @@
    "And Abraham got up early in the morning to the place where he had stood before the L-rd."
   ],
   "ru": [
-   "И пришел Авраґам рано утром на то место, где стоял перед Г-сподом."
+   "И пришел Авраам рано утром на то место, где стоял перед Г-сподом."
   ],
   "de": [
    "Abraham machte sich früh am Morgen auf nach dem Orte hin, wo er vor G-ttes Angesicht gestanden,"
@@ -3984,7 +3984,7 @@
   ],
   "ru": [
    "Прошло время, и принес Каин жертву Г-споду из плодов земли.",
-   "И Ґевель тоже принес первенцев своих овец и их жир. И взглянул Г-сподь на Ґевеля и его жертву,"
+   "И Эвель тоже принес первенцев своих овец и их жир. И взглянул Г-сподь на Эвеля и его жертву,"
   ],
   "de": [
    "Es war nach Ablauf einer Zeit, da brachte Kajin von der Frucht der Erde <i>G-tt</i> ein Opfer.",
@@ -4058,6 +4058,1373 @@
     "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
     "license": "Public Domain",
     "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-6-9": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 6:9–11",
+   "en": "Genesis 6:9–11",
+   "de": "Bereschit 6,9–11"
+  },
+  "ref": "Genesis 6:9-11",
+  "url": "https://www.sefaria.org/Genesis_6.9-11",
+  "he": [
+   "אלה תולדת נח נח איש צדיק תמים היה בדרתיו את האלקים התהלך נח",
+   "ויולד נח שלשה בנים את שם את חם ואת יפת",
+   "ותשחת הארץ לפני האלקים ותמלא הארץ חמס"
+  ],
+  "en": [
+   "These are the generations of Noah. Noah was in his generations a man righteous and wholehearted; Noah walked with G-d.",
+   "And Noah begot three sons, Shem, Ham, and Japheth.",
+   "And the earth was corrupt before G-d, and the earth was filled with violence."
+  ],
+  "ru": [
+   "Вот порождения Ноаха. Ноах (был) муж праведный, непорочный в поколении своем; с Б-гом ходил Ноах.",
+   "И породил Ноах трех сыновей: Шема, Хама и Йефета.",
+   "И извратилась земля перед Б-гом, и наполнилась земля беззаконием."
+  ],
+  "de": [
+   "Dies sind die Erzeugnisse Noach's. Noach, ein gerechter Mann, war in seinen Zeiten sittenrein; mit G-tt führte sich Noach.",
+   "Da zeugte Noach drei Söhne, <i>Schem, Cham</i> und <i>Japhet</i>.",
+   "Es ward aber die Erde vor dem Angesichte G-ttes verderbt, und da ward die Erde des Unrechts voll."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-6-13": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 6:13–16",
+   "en": "Genesis 6:13–16",
+   "de": "Bereschit 6,13–16"
+  },
+  "ref": "Genesis 6:13-16",
+  "url": "https://www.sefaria.org/Genesis_6.13-16",
+  "he": [
+   "ויאמר אלקים לנח קץ כל בשר בא לפני כי מלאה הארץ חמס מפניהם והנני משחיתם את הארץ",
+   "עשה לך תבת עצי גפר קנים תעשה את התבה וכפרת אתה מבית ומחוץ בכפר",
+   "וזה אשר תעשה אתה שלש מאות אמה ארך התבה חמשים אמה רחבה ושלשים אמה קומתה",
+   "צהר תעשה לתבה ואל אמה תכלנה מלמעלה ופתח התבה בצדה תשים תחתים שנים ושלשים תעשה"
+  ],
+  "en": [
+   "And G-d said unto Noah: ‘The end of all flesh is come before Me; for the earth is filled with violence through them; and, behold, I will destroy them with the earth.",
+   "Make thee an ark of gopher wood; with rooms shalt thou make the ark, and shalt pitch it within and without with pitch.",
+   "And this is how thou shalt make it: the length of the ark three hundred cubits, the breadth of it fifty cubits, and the height of it thirty cubits.",
+   "A light shalt thou make to the ark, and to a cubit shalt thou finish it upward; and the door of the ark shalt thou set in the side thereof; with lower, second, and third stories shalt thou make it."
+  ],
+  "ru": [
+   "И сказал Б-г Ноаху: вот, конец приходит всякой плоти предо мной, ибо наполнилась земля беззаконием из-за них, и вот — уничтожаю я их вместе с землей.",
+   "Сделай себе ковчег из дерева гофер; с клетями сделай ковчег и осмоли его изнутри и снаружи смолой.",
+   "И вот каким его сделай: триста локтей длина ковчега, пятьдесят локтей ширина его и тридцать локтей высота.",
+   "Окошко сделай в ковчеге и в локоть сведи его сверху, а дверь ковчега помести сбоку; (с) нижним, вторым и третьим ярусом сделай его."
+  ],
+  "de": [
+   "Da sprach G-tt zu Noach: Das Ende alles Fleisches ist vor mich gekommen, denn die Erde ist voller Unrecht vor ihnen geworden, und so bin ich im Begriff, sie mit der Erde zu verderben.",
+   "Mache dir einen Kasten aus Gopherholz, aus Tierbehältern bestehend sollst du den Kasten machen, und ihn von innen und außen mit Pech bedecken.",
+   "Dies ist's, wie du ihn machen sollst: Dreihundert Ellen die Länge des Kastens, fünfzig Ellen seine Breite und dreißig Ellen seine Höhe.",
+   "Eine Beleuchtung machst du dem Kasten, und lässest sie obwärts bis zu einer Elle abnehmen; die Türe des Kastens bringst du an die Seite an; mit unterstem, zweitem und drittem Stockwerk machst du sie."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-7-4": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 7:4",
+   "en": "Genesis 7:4",
+   "de": "Bereschit 7,4"
+  },
+  "ref": "Genesis 7:4",
+  "url": "https://www.sefaria.org/Genesis_7.4",
+  "he": [
+   "כי לימים עוד שבעה אנכי ממטיר על הארץ ארבעים יום וארבעים לילה ומחיתי את כל היקום אשר עשיתי מעל פני האדמה"
+  ],
+  "en": [
+   "For yet seven days, and I will cause it to rain upon the earth forty days and forty nights; and every living substance that I have made will I blot out from off the face of the earth.’"
+  ],
+  "ru": [
+   "Ибо спустя еще семь дней пролью я дождь на землю, сорок дней и сорок ночей, и сотру все сущее, что создал, с лица земли."
+  ],
+  "de": [
+   "Denn der Tage sind noch sieben, dann lasse Ich auf die Erde vierzig Tage und vierzig Nächte niederregnen, und lösche alles Bestehende, das ich gestaltet habe, weg von der Fläche des Erdbodens."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-7-10": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 7:10",
+   "en": "Genesis 7:10",
+   "de": "Bereschit 7,10"
+  },
+  "ref": "Genesis 7:10",
+  "url": "https://www.sefaria.org/Genesis_7.10",
+  "he": [
+   "ויהי לשבעת הימים ומי המבול היו על הארץ"
+  ],
+  "en": [
+   "And it came to pass after the seven days, that the waters of the flood were upon the earth."
+  ],
+  "ru": [
+   "И было спустя семь дней: воды потопа были на земле."
+  ],
+  "de": [
+   "Es war nach den sieben Tagen, da waren die Wasser der Entseelung auf der Erde."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-7-11": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 7:11",
+   "en": "Genesis 7:11",
+   "de": "Bereschit 7,11"
+  },
+  "ref": "Genesis 7:11",
+  "url": "https://www.sefaria.org/Genesis_7.11",
+  "he": [
+   "בשנת שש מאות שנה לחיי נח בחדש השני בשבעה עשר יום לחדש ביום הזה נבקעו כל מעינת תהום רבה וארבת השמים נפתחו"
+  ],
+  "en": [
+   "In the six hundredth year of Noah’s life, in the second month, on the seventeenth day of the month, on the same day were all the fountains of the great deep broken up, and the windows of heaven were opened."
+  ],
+  "ru": [
+   "На шестисотый год жизни Ноаха, на второй месяц, на семнадцатый день месяца — в этот день забили все родники великой пучины, и окна небес отворились."
+  ],
+  "de": [
+   "Im sechshundertsten Jahre des Lebens Noach's, im zweiten Monate, am 17. Tage des Monates, an diesem Tage wurden alle Quellen der großen Flut aufgerissen und die Schleusen des Himmels geöffnet."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-7-23": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 7:23",
+   "en": "Genesis 7:23",
+   "de": "Bereschit 7,23"
+  },
+  "ref": "Genesis 7:23",
+  "url": "https://www.sefaria.org/Genesis_7.23",
+  "he": [
+   "וימח את כל היקום אשר על פני האדמה מאדם עד בהמה עד רמש ועד עוף השמים וימחו מן הארץ וישאר אך נח ואשר אתו בתבה"
+  ],
+  "en": [
+   "And He blotted out every living substance which was upon the face of the ground, both man, and cattle, and creeping thing, and fowl of the heaven; and they were blotted out from the earth; and Noah only was left, and they that were with him in the ark."
+  ],
+  "ru": [
+   "И стер (Б-г) все сущее, что на земле — от человека до скота, и до гада, и до птиц небесных, стерты были они с земли, и остался Ноах, и те, кто с ним в ковчеге."
+  ],
+  "de": [
+   "Und es löste alles Selbständige auf, das auf der Fläche des Erdbodens war, vom Menschen bis Vieh, Gewürm und Vogel des Himmels; sie wurden von der Erde weggelöscht, und nur Noach und was bei ihm in der Arche war blieb übrig."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-9-9": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 9:9",
+   "en": "Genesis 9:9",
+   "de": "Bereschit 9,9"
+  },
+  "ref": "Genesis 9:9",
+  "url": "https://www.sefaria.org/Genesis_9.9",
+  "he": [
+   "ואני הנני מקים את בריתי אתכם ואת זרעכם אחריכם"
+  ],
+  "en": [
+   "’As for Me, behold, I establish My covenant with you, and with your seed after you;"
+  ],
+  "ru": [
+   "Вот, я устанавливаю свой завет с вами и с вашим потомством, (что будет) после вас."
+  ],
+  "de": [
+   "Und Ich, siehe ich errichte meinen Bund mit euch und mit euren Nachkommen nach euch,"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-9-20": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 9:20–21",
+   "en": "Genesis 9:20–21",
+   "de": "Bereschit 9,20–21"
+  },
+  "ref": "Genesis 9:20-21",
+  "url": "https://www.sefaria.org/Genesis_9.20-21",
+  "he": [
+   "ויחל נח איש האדמה ויטע כרם",
+   "וישת מן היין וישכר ויתגל בתוך אהלה"
+  ],
+  "en": [
+   "And Noah, the man of the land, began and planted a vineyard.",
+   "And he drank of the wine, and was drunken; and he was uncovered within his tent."
+  ],
+  "ru": [
+   "Ноах-земледелец первым посадил виноградник.",
+   "И выпил вина, и опьянел, и обнажился в своем шатре."
+  ],
+  "de": [
+   "Da fing Noach an der Mann der Erde zu sein und pflanzte einen Weinberg,",
+   "und er trank von dem Weine und wurde berauscht, und entblößte sich im Innern seines Zeltes."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-9-25": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 9:25",
+   "en": "Genesis 9:25",
+   "de": "Bereschit 9,25"
+  },
+  "ref": "Genesis 9:25",
+  "url": "https://www.sefaria.org/Genesis_9.25",
+  "he": [
+   "ויאמר ארור כנען עבד עבדים יהיה לאחיו"
+  ],
+  "en": [
+   "And he said: Cursed be Canaan; a servant of servants shall he be unto his brethren."
+  ],
+  "ru": [
+   "И сказал: проклят Кенаан, рабом рабов будет у братьев своих."
+  ],
+  "de": [
+   "Da sprach er: Fluchgetroffen wird Kenaan, Knecht von Knechten wird er seinen Brüdern sein."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-11-1": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 11:1–4",
+   "en": "Genesis 11:1–4",
+   "de": "Bereschit 11,1–4"
+  },
+  "ref": "Genesis 11:1-4",
+  "url": "https://www.sefaria.org/Genesis_11.1-4",
+  "he": [
+   "ויהי כל הארץ שפה אחת ודברים אחדים",
+   "ויהי בנסעם מקדם וימצאו בקעה בארץ שנער וישבו שם",
+   "ויאמרו איש אל רעהו הבה נלבנה לבנים ונשרפה לשרפה ותהי להם הלבנה לאבן והחמר היה להם לחמר",
+   "ויאמרו הבה נבנה לנו עיר ומגדל וראשו בשמים ונעשה לנו שם פן נפוץ על פני כל הארץ"
+  ],
+  "en": [
+   "And the whole earth was of one language and of one speech.",
+   "And it came to pass, as they journeyed east, that they found a plain in the land of Shinar; and they dwelt there.",
+   "And they said one to another: ‘Come, let us make brick, and burn them thoroughly.’ And they had brick for stone, and slime had they for mortar.",
+   "And they said: ‘Come, let us build us a city, and a tower, with its top in heaven, and let us make us a name; lest we be scattered abroad upon the face of the whole earth.’"
+  ],
+  "ru": [
+   "И был у всей земли один язык и одни слова.",
+   "И двигались (люди) с востока, и нашли равнину в земле Шинеар, и поселились там.",
+   "И сказали друг другу: ну-ка, будем делать кирпичи и обжигать в печи, и был у них кирпич камнем, а горная смола была им глиной.",
+   "И сказали: ну-ка, построим город и башню с вершиной в небесах, и сделаем себе имя, чтобы не рассеяться нам по всей земле."
+  ],
+  "de": [
+   "Es war die ganze Erde eine Sprache und einheitliche Worte.",
+   "Da war es, als sie von Osten fortzogen, fanden sie eine Ebene im Lande Schinear, und dort ließen sie sich nieder.",
+   "Da sprachen sie einer zu dem andern: Gib her, wir wollen Ziegel schaffen, und was immer zum Brande verbrennen; da ward ihnen der Ziegel zum Steine und der Mörtel ward ihnen zum Ton.",
+   "Da sprachen sie: Gib her, wir wollen uns eine Stadt bauen und einen Turm, und dessen Spitze soll in den Himmel reichen, so wollen wir uns einen Namen machen! Wir könnten sonst über die Fläche der ganzen Erde zerstreut werden."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "ex-21-32": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Шмот 21:32",
+   "en": "Exodus 21:32",
+   "de": "Schemot 21,32"
+  },
+  "ref": "Exodus 21:32",
+  "url": "https://www.sefaria.org/Exodus_21.32",
+  "he": [
+   "אם עבד יגח השור או אמה כסף שלשים שקלים יתן לאדניו והשור יסקל"
+  ],
+  "en": [
+   "If the ox gore a bondman or a bondwoman, he shall give unto their master thirty shekels of silver, and the ox shall be stoned."
+  ],
+  "ru": [
+   "Если же забодает вол раба или рабыню, (хозяин вола) должен выплатить тридцать шекелей серебра господину, а вола нужно забить камнями."
+  ],
+  "de": [
+   "Stößt der Ochse einen Knecht oder eine Magd, so hat er dreißig Schekel seinem Herrn zu geben, der Ochse aber muss gesteinigt werden."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "prov-11-30": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings",
+   "de": "Schriften"
+  },
+  "title": {
+   "ru": "Мишлей 11:30",
+   "en": "Proverbs 11:30",
+   "de": "Mischle 11,30"
+  },
+  "ref": "Proverbs 11:30",
+  "url": "https://www.sefaria.org/Proverbs_11.30",
+  "he": [
+   "פרי צדיק עץ חיים ולקח נפשות חכם"
+  ],
+  "en": [
+   "The fruit of the righteous is a tree of life; And he that is wise winneth souls."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "amos-6-6": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Амос 6:6–7",
+   "en": "Amos 6:6–7",
+   "de": "Amos 6,6–7"
+  },
+  "ref": "Amos 6:6-7",
+  "url": "https://www.sefaria.org/Amos_6.6-7",
+  "he": [
+   "השתים במזרקי יין וראשית שמנים ימשחו ולא נחלו על שבר יוסף",
+   "לכן עתה יגלו בראש גלים וסר מרזח סרוחים"
+  ],
+  "en": [
+   "That drink wine in bowls, And anoint themselves with the chief ointments; But they are not grieved for the hurt of Joseph.",
+   "Therefore now shall they go captive at the head of them that go captive, And the revelry of them that stretched themselves shall pass away."
+  ],
+  "de": [
+   "Die trinken aus Weinpokalen, und mit dem besten Öle salben sie sich, denn sie kränken sich nicht um den Fall Josefs.",
+   "Fürwahr, bald werden sie an der Spitze der Verbannten wandern, das Geschreigelage der Hingestreckten soll aufhören."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/  "
+   }
+  }
+ },
+ "job-21-13": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings",
+   "de": "Schriften"
+  },
+  "title": {
+   "ru": "Иов 21:13",
+   "en": "Job 21:13",
+   "de": "Ijob 21,13"
+  },
+  "ref": "Job 21:13",
+  "url": "https://www.sefaria.org/Job_21.13",
+  "he": [
+   "יבלו [יכלו] בטוב ימיהם וברגע שאול יחתו"
+  ],
+  "en": [
+   "They spend their days in prosperity, And peacefully they go down to the grave."
+  ],
+  "de": [
+   "Sie verbringen im Glück ihre Tage und auch [nicht] einen Augenblick zagen sie vor dem Grabe."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/  "
+   }
+  }
+ },
+ "gen-11-29": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 11:29",
+   "en": "Genesis 11:29",
+   "de": "Bereschit 11,29"
+  },
+  "ref": "Genesis 11:29",
+  "url": "https://www.sefaria.org/Genesis_11.29",
+  "he": [
+   "ויקח אברם ונחור להם נשים שם אשת אברם שרי ושם אשת נחור מלכה בת הרן אבי מלכה ואבי יסכה"
+  ],
+  "en": [
+   "And Abram and Nahor took them wives: the name of Abram’s wife was Sarai; and the name of Nahor’s wife, Milcah, the daughter of Haran, the father of Milcah, and the father of Iscah."
+  ],
+  "ru": [
+   "И взяли Аврам и Нахор себе жен: имя жены Аврама — Сарай, а имя жены Нахора — Милка, дочь Арана, отца Милки и отца Йиски."
+  ],
+  "de": [
+   "Abram und Nachor nahmen sich Frauen, Abrams Frau hieß Sarai, Nachors Frau Milka, die Tochter Harans, des Vaters Milkas und der Jiska."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "megillah-14a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Мегила 14а",
+   "en": "Megillah 14a",
+   "de": "Megilla 14a"
+  },
+  "ref": "Megillah 14a:13",
+  "url": "https://www.sefaria.org/Megillah_14a.13",
+  "he": [
+   "שבע נביאות מאן נינהו שרה מרים דבורה חנה אביגיל חולדה ואסתר שרה דכתיב אבי מלכה ואבי יסכה ואמר רבי יצחק יסכה זו שרה ולמה נקרא שמה יסכה שסכתה ברוח הקדש שנאמר כל אשר תאמר אליך שרה שמע בקולה דבר אחר יסכה שהכל סוכין ביופיה"
+  ],
+  "en": [
+   "§ The Gemara asks with regard to the prophetesses recorded in the <i>baraita</i>: <b>Who were the seven prophetesses?</b> The Gemara answers: <b>Sarah, Miriam, Deborah, Hannah, Abigail, Huldah, and Esther.</b> The Gemara offers textual support: <b>Sarah, as it is written:</b> “Haran, <b>the father of Milcah, and the father of Iscah”</b> (Genesis 11:29). <b>And Rabbi Yitzḥak said: Iscah is</b> in fact <b>Sarah. And why was she called Iscah? For she saw [<i>sakhta</i>] by means of divine inspiration, as it is stated: “In all that Sarah has said to you, hearken to her voice”</b> (Genesis 21:12). <b>Alternatively,</b> Sarah was also called <b>Iscah, for all gazed [<i>sokhin</i>] upon her beauty.</b>"
+  ],
+  "de": [
+   "Wer sind diese sieben Prophetinnen? – Sara, Mirjam, Debora, Ḥanna, Abigajil, Ḥulda und Ester. Von Sara heißt es: <i>Vater der Milka und Jiska</i>, und hierzu sagte R. Jiçḥaq, Jiska sei Sara, und nur deshalb werde sie Jiska genannt, weü sie durch den heiligen Geist schaute [saka], denn es heißt: <i>gehorche Sara in allem, was sie dir sagt</i>. Eine andere Erklärung: Jiska [wurde sie deshalb genannt], weil alle ihre Schönheit beschauten."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "rashi-6-13": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 6:13",
+   "en": "Rashi, Genesis 6:13",
+   "de": "Raschi, Bereschit 6,13"
+  },
+  "ref": "Rashi on Genesis 6:13:3",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_6.13.3",
+  "he": [
+   "<b>את הארץ.</b> כְּמוֹ מִן הָאָרֶץ, וְדוֹמֶה לוֹ כְּצֵאתִי אֶת הָעִיר (שמ' ט'), מִן הָעִיר; חָלָה אֶת רַגְלָיו (מ\"א ט\"ו), מִן רַגְלָיו. דָּ\"אַ אֶת הָאָרֶץ – עִם הָאָרֶץ, שֶׁאַף ג' טְפָחִים שֶׁל עֹמֶק הַמַּחֲרֵשָׁה נִמֹּחוּ וְנִטַּשְׁטְשׁוּ:"
+  ],
+  "en": [
+   "את הארץ [I WILL DESTROY THEM] WITH THE EARTH — It is similar to מן הארץ \"from the earth”; other examples of this use of את are: (Exodus 9:29) בצאתי ‘‘when I go forth” את העיר which means מן העיר “from the city” and (1 Kings 15:23) חלה ‘‘he suffered” את רגליו which means מן רגליו ‘‘from his feet”. Another explanation of את הארץ is: “together with the earth” — for the earth was blotted out and washed away to the depth of a furrow of three handbreadths (Genesis Rabbah 31:7)."
+  ],
+  "de": [
+   "<b>Von der Erde,</b> אֶת wie מִן, ähnlich (Ex. 9, 29), »wenn ich aus der Stadt hinausgehe«, wie מן רגליו, (I Kön. 15, 23) »litt an den Füßen«, wie מן רגליו. Eine andere Erklärung: Mit der Erde, אֶת wie עִם, denn auch die drei Handbreiten der Tiefe des Pfluges wurden aufgelöst und zergingen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-6-16": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 6:16",
+   "en": "Rashi, Genesis 6:16",
+   "de": "Raschi, Bereschit 6,16"
+  },
+  "ref": "Rashi on Genesis 6:16:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_6.16.1",
+  "he": [
+   "<b>צהר.</b> יֵ\"אֹ חַלּוֹן וְיֵ\"אֹ אֶבֶן טוֹבָה הַמְּאִירָה לָהֶם (ב\"ר שם):"
+  ],
+  "en": [
+   "צהר A LIGHT — Some say this was a window; others say that it was a precious stone that gave light to them (Genesis Rabbah 31:11)."
+  ],
+  "de": [
+   "<b>Eine Belichtung,</b> manche sagen, ein Fenster, und manche, einen Edelstein, der ihnen Licht spendete (Bereschit Rabbah 31:11)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "bht-6-9": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 6:9",
+   "en": "Ba'al HaTurim, Genesis 6:9",
+   "de": "Baal HaTurim, Bereschit 6,9"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 6:9",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_6.9",
+  "he": [
+   "<b>אלה תולדות נח</b> ד' דסמיכי אלה תולדות השמים. אלה תולדות נח אלה תולדות שם. אלה תולדות יעקב. בכולן פסל שלפניו אלה תולדות השמים פסל תהו ובהו. אלה תולדות נח פסל דורות שלפניו. אלה תולדות שם פסל בני חם ובני יפת. אלה תולדות יעקב פסל עשו ואלופיו:",
+   "<b> נח נח וגו'</b> ג' פעמים כתיב נח בפסוק שראה ג' עולמות ד\"א שהיה משלשה שכל אחד הציל ג' בזכותו נח הציל ג' בניו שהם שם וחם ויפת דניאל הציל חנניה מישאל ועזריה בחלום איוב הציל שלשה רעיו אליפז התימני ובלדד השוחי וצופר הנעמתי. ד\"א נח לשמים נח לבריות נח לעליונים נח לתחתונים נח בעולם הזה נח בעולם הבא:",
+   "<b> תמים היה</b> הי\"ה עולה למנין כ' לומר שהיה תמים בכל כ' דורות שמאדם עד אברהם אבל משבא אברהם לא נחשב תמים:",
+   "<b> את האלקים התהלך נח</b> ס\"ת חכם וזה שנאמר ולוקח נפשות חכם:"
+  ],
+  "en": [
+   "\"Eleh toledot Noach\" - The verse is connected to \"Eleh toledot hashamayim\" (These are the generations of the heavens), \"Eleh toledot Shem\" (These are the generations of Shem), and \"Eleh toledot Yaakov\" (These are the generations of Jacob). In all of them, \"Eleh toledot hashamayim\" (These are the generations of the heavens) precedes, representing the creation of the world. \"Eleh toledot Noach\" (These are the generations of Noach) refers to the generations that preceded him. \"Eleh toledot Shem\" (These are the generations of Shem) refers to the descendants of Cham and Yefet. \"Eleh toledot Yaakov\" (These are the generations of Jacob) refers to the descendants of Esau and his chiefs.",
+   "\"Noach, Noach, etc.\" - The word \"Noach\" is repeated three times in the verse to indicate that he saw three worlds. According to one interpretation, Noach was one of three who saved three individuals each. Noach saved his three sons, Shem, Cham, and Yefet. Daniel saved Chananiah, Mishael, and Azariah in a dream. Job saved his three friends Eliphaz the Temanite, Bildad the Shuhite, and Zophar the Naamathite. According to another interpretation, \"Noach\" refers to the heavens, the creatures, the upper beings, the lower beings, the present world, and the world to come.",
+   "\"Noach was a perfect man\" - The word \"hayah\" (was) is spelled with a \"heh,\" which represents the number 5, indicating that he was perfect in all five aspects of his life from Adam to Abraham. However, after Abraham, no one is considered perfect.",
+   "\"Noach walked with G-d\" - This is an expression of praise, indicating that Noach was a wise man. It is similar to the expression used in Job 12:13, \"With Him are wisdom and strength.\""
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-7-4": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 7:4",
+   "en": "Ba'al HaTurim, Genesis 7:4",
+   "de": "Baal HaTurim, Bereschit 7,4"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 7:4",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_7.4",
+  "he": [
+   "<b>היקום אשר עשיתי</b> בגימטריא לא חיים לתחיית המתים:",
+   "<b> היקום</b> ג' במסורה ומחיתי את כל היקום. וימח את כל היקום. ואת כל היקום אשר ברגליהם. לומר כשם שחטאו דור המבול מפני רוב טובה ועושר שהיה להם כך קרח מרוב עושר שהיה לו השתרר וחטא."
+  ],
+  "en": [
+   "היקום אשר עשיתי \"existence that I created\" in Gematria \"No life to the resurrection.\"",
+   "היקום The existence... there are 3 parallel verses in Tanakh: And I wiped out the whole universe. (Gen. 7:23) All existence on earth was blotted out. (Deut. 11:6) and the whole universe at their feet. To say that just as the generation of the flood sinned because of the abundance of favors and wealth that they had, so did a קרח (Korach Tosefta, Sanhedrin XIII, 9, Rab. Bah. 16:1:8) from the abundance of wealth that he had remained and sinned."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-7-10": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 7:10",
+   "en": "Ba'al HaTurim, Genesis 7:10",
+   "de": "Baal HaTurim, Bereschit 7,10"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 7:10",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_7.10",
+  "he": [
+   "<b>לשבעת הימים</b> בגימטריא לימי אבל מתושלח:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-7-11": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 7:11",
+   "en": "Ba'al HaTurim, Genesis 7:11",
+   "de": "Baal HaTurim, Bereschit 7,11"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 7:11",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_7.11",
+  "he": [
+   "<b>בשבעה עשר יום לחודש</b> וזה יבלו בטוב ימיהם כמנין טוב לחודש ירד המבול. וארובות השמים. בגימטריא שלקח שני כוכבים מכימה:"
+  ],
+  "en": [
+   "בשבעה עשר יום לחודש \"on the seventeenth day of the month\" And they will spend their days as well as the month when the flood came down. and the sky chimneys. In Gematria: \"who took two stars from Kima.\""
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-7-23": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 7:23",
+   "en": "Ba'al HaTurim, Genesis 7:23",
+   "de": "Baal HaTurim, Bereschit 7,23"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 7:23",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_7.23",
+  "he": [
+   "<b>וישאר אך נח</b> אין מיעוט אחר מיעוט אלא לרבות לומר שאף עוג נשאר:",
+   "<b> אך נח</b> בגימטריא עוג:"
+  ],
+  "en": [
+   "וישאר אך נח \"Only Noah was left\", all were limited and limited except those that were not included in that, all others that breath were run over (by flood).",
+   "אך נח Only Noach in Gematria עוג to draw."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-9-9": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 9:9",
+   "en": "Ba'al HaTurim, Genesis 9:9",
+   "de": "Baal HaTurim, Bereschit 9,9"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 9:9",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_9.9",
+  "he": [
+   "<b>מקים את בריתי אתכם</b> ס\"ת מתים רמז לתחיית המתים שהשם מקים להם בריתו להחיותם:"
+  ],
+  "en": [
+   "מקים את בריתי אתכם \"I establish my covenant with you\", a prayer arrangement for the dead (Kaddish), an allusion to the resurrection of the dead with whom G-d establishes His covenant to revive them."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-9-21": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 9:21",
+   "en": "Ba'al HaTurim, Genesis 9:21",
+   "de": "Baal HaTurim, Bereschit 9,21"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 9:21",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_9.21",
+  "he": [
+   "<b>היין</b> בגימטריא יללה, ויתגל אותיות גליות שגלו בראש גולים ע\"י היין:"
+  ],
+  "en": [
+   "היין the wine (75) in Gematria יללה howl, And wavy letters that appeared on the head of the exiles by the wine will be revealed:"
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-9-25": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 9:25",
+   "en": "Ba'al HaTurim, Genesis 9:25",
+   "de": "Baal HaTurim, Bereschit 9,25"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 9:25",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_9.25",
+  "he": [
+   "<b>עבד עבדים יהיה</b> יהיה עולה ל' רמז לדמי שקלים של עבד:"
+  ],
+  "en": [
+   "עבד עבדים יהיה \"A slave, slave he will be (יהיה)\" יהיה is numerically equivalent to 30, which is how much a slave is worth (Cf. Exodus 21:32)."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-11-29": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 11:29",
+   "en": "Ba'al HaTurim, Genesis 11:29",
+   "de": "Baal HaTurim, Bereschit 11,29"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 11:29",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_11.29",
+  "he": [
+   "<b>שרה</b> בא\"ת ב\"ש בג\"ץ. שהוא בגימטריא יסכה זו היא רמז למה שאחז\"ל יסכה זו שרה:"
+  ],
+  "en": [
+   "שרה \"Sarah\" in the Aleph Bet Shin Bet Shin Bet Gematria. This is a hint to what our sages said, \"This \"Yiskah\" is Sarah.\""
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-6-11-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 6:11",
+   "en": "Ba'al HaTurim, Genesis 6:11",
+   "de": "Baal HaTurim, Bereschit 6,11"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 6:11:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_6.11.2",
+  "he": [
+   "<b> חמם</b> בגימטריא מי נח מלמד שפרע להם מדה במדה. חמס בגימטריא גיהנם מלמד שברותחין נדונו:"
+  ],
+  "en": [
+   "\"חמם\"[To be hot] has the numerical value of \"Mei Noach\" (the waters of Noah), which teaches that Pharaoh was punished measure for measure. \"Hamess\" has the numerical value of \"Gehinnom\" (hell), which teaches that the wicked are judged in boiling hot water."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-6-13-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 6:13",
+   "en": "Ba'al HaTurim, Genesis 6:13",
+   "de": "Baal HaTurim, Bereschit 6,13"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 6:13:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_6.13.1",
+  "he": [
+   "<b>ויאמר אלקים 'לנח קץ כל בשר</b> רמז לו לימי המבול שהם כמנין קץ מ\"ם יום של מטר וק\"ן של תגבורת:"
+  ],
+  "en": [
+   "ויאמר אלהים 'לנח קץ כל בשר... And G-d said, 'To rest the end of all flesh, he hinted at the days of the flood, which are like the end of a day of rain and a day of reinforcement."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-6-13-4": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 6:13",
+   "en": "Ba'al HaTurim, Genesis 6:13",
+   "de": "Baal HaTurim, Bereschit 6,13"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 6:13:4",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_6.13.4",
+  "he": [
+   "<b> משחיתם</b> בגימטריא היא שלשה טפחים:"
+  ],
+  "en": [
+   "משחיתם... \"destroy them\" In Gematria: She will slap with an open hand."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-6-13-6": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 6:13",
+   "en": "Ba'al HaTurim, Genesis 6:13",
+   "de": "Baal HaTurim, Bereschit 6,13"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 6:13:6",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_6.13.6",
+  "he": [
+   "<b> משחיתם את הארץ</b> ר\"ת מאה לומד לך שהשחית קומתן שהיתה גבוהה מאה אמה:"
+  ],
+  "en": [
+   "משחיתם את הארץ... \"about to destroy them\" our Rabbi Tam (רבנו תם = ר''ת) Ma´ah teaches you that you destroyed their height, which was a hundred cubits high. (Transl. KK)"
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-6-16-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 6:16",
+   "en": "Ba'al HaTurim, Genesis 6:16",
+   "de": "Baal HaTurim, Bereschit 6,16"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 6:16:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_6.16.1",
+  "he": [
+   "<b>צהר</b> בגימטריא לאור האבן:"
+  ],
+  "en": [
+   "1. צהר, Tzohar, window, opening in Gematria: In the light of the stone."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-11-1-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 11:1",
+   "en": "Ba'al HaTurim, Genesis 11:1",
+   "de": "Baal HaTurim, Bereschit 11,1"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 11:1:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_11.1.2",
+  "he": [
+   "<b> שפה אחת</b> בגימטריא לשון הקדש:"
+  ],
+  "en": [
+   "שפה אחת, \"one language\", in Gematria [this corresponds to] לשון הקדש \"the holy tongue\" [= Hebrew]. [the value of שפה אחת is 794, that of לשון הקדש is 795, which is 794 plus 1 added for its totality]"
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-11-3-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 11:3",
+   "en": "Ba'al HaTurim, Genesis 11:3",
+   "de": "Baal HaTurim, Bereschit 11,3"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 11:3:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_11.3.1",
+  "he": [
+   "<b>איש אל רעהו הבה</b> ס\"ת שלוה מפני שלוה יתירה שהיה להם חטאו:"
+  ],
+  "en": [
+   "איש אל רעהו הבה \"Man, come to his neighbor.\" \"A Torah scroll that is incomplete [missing letters] should be set aside in order to promote peace, because of the great peace that would result from correcting it.\""
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
    }
   }
  }

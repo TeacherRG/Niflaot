@@ -7,14 +7,17 @@
  *   [{ word: 'מקוה' }, { word: 'קו' }, { word: 'תקוה' },
  *    { add: ['$1', '$2', '$3'] }, { div: ['$4', 3] }]    → average of three words
  *   [{ div: [3068, 52] }]                               → division by chunks
+ *   [{ word: 'שרה', method: 'atbash' }]               → בגצ: ב 2 + ג 3 + צ 90 (another way of counting, docs/GEMATRIA-RULES.md)
+ *   [{ word: 'שפה אחת' }, { add: ['$1', 1] }]           → «с колелем»: the word itself counts as one more
  * '$k' stands for the result of the k-th action (1-based).
  */
-import { VALUES, letters } from './gematria';
+import { letters } from './gematria';
+import { SWAPS, letterValue, swapLetter, swapWord, type Method } from './gematriaMethods';
 import { SIGN, type Expr } from './mentalMath';
 
 export type CoachNum = number | `$${number}`;
 export type CoachAction =
-  | { word: string }
+  | { word: string; method?: Method }
   | { add: CoachNum[] }
   | { sub: [CoachNum, CoachNum] }
   | { mul: [CoachNum, CoachNum] }
@@ -23,7 +26,11 @@ export type CoachAction =
 export interface CoachPart {
   /** the Hebrew word (or phrase) when the action is a gematria sum */
   word?: string;
-  /** its letters with values */
+  /** the method of counting, when not the usual one */
+  method?: Method;
+  /** for a swapping method (א״ת ב״ש…) — the rewritten word, whose letters are counted */
+  swapped?: string;
+  /** its letters with values (for a swapping method — the new letters) */
   letters?: [string, number][];
   expr: Expr;
   result: number;
@@ -50,9 +57,12 @@ export function buildCoach(actions: CoachAction[]): CoachPart[] {
   for (const a of actions) {
     let part: CoachPart;
     if ('word' in a) {
-      const ls = letters(a.word).map((c) => [c, VALUES[c]] as [string, number]);
+      const m = a.method ?? 'standard';
+      const ls = letters(a.word).map(
+        (c) => [SWAPS.has(m) ? swapLetter(m as 'atbash' | 'albam', c) : c, letterValue(m, c)] as [string, number],
+      );
       const terms = ls.map(([, v]) => v);
-      part = { word: a.word, letters: ls, expr: { op: 'add', terms, text: terms.join(' + ') }, result: 0 };
+      part = { word: a.word, ...(a.method && a.method !== 'standard' ? { method: a.method } : {}), ...(SWAPS.has(m) ? { swapped: swapWord(m, a.word) } : {}), letters: ls, expr: { op: 'add', terms, text: terms.join(' + ') }, result: 0 };
     } else {
       const op = Object.keys(a)[0] as 'add' | 'sub' | 'mul' | 'div';
       const terms = (a as Record<string, CoachNum[]>)[op].map(num);

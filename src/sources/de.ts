@@ -93,4 +93,57 @@ export const PROJECT_DE: Record<string, string[]> = {
   'prov-3-17': [
     "Ihre Wege sind Wege der Lieblichkeit, und alle ihre Pfade sind Frieden.",
   ],
+  // lesson «Baal HaTurim: Noach»
+  'bht-6-9': [
+    '<b>Dies sind die Nachkommen Noachs</b> — viermal [steht es] so nebeneinander: »Dies sind die Nachkommen des Himmels«, »Dies sind die Nachkommen Noachs«, »Dies sind die Nachkommen Schems«, »Dies sind die Nachkommen Jaakows«. Überall schiebt [dieser Ausdruck] beiseite, was vor ihm war: »Dies sind die Nachkommen des Himmels« schiebt das »Tohu wa-Wohu« [Chaos und Leere] beiseite; »Dies sind die Nachkommen Noachs« schiebt die Generationen vor ihm beiseite; »Dies sind die Nachkommen Schems« schiebt die Söhne Chams und die Söhne Jefets beiseite; »Dies sind die Nachkommen Jaakows« schiebt Esaw und seine Fürsten beiseite.',
+    '<b>Noach, Noach …</b> — dreimal steht im Vers »Noach«: weil er drei Welten sah. Eine andere Erklärung: Er war einer von dreien, von denen jeder durch sein Verdienst drei rettete. Noach rettete seine drei Söhne — Schem, Cham und Jefet; Daniel rettete Chananja, Mischael und Asarja [indem er dem König] den Traum [deutete]; Ijow rettete seine drei Freunde — Elifas aus Teman, Bildad aus Schuach und Zofar aus Naama. Eine andere Erklärung: Noach [von »noach«, angenehm] — angenehm dem Himmel, angenehm den Menschen, angenehm den Oberen, angenehm den Unteren, angenehm in dieser Welt, angenehm in der kommenden Welt.',
+    '<b>Untadelig war er</b> — [das Wort] »haja« [war] ergibt die Zahl 20: um zu sagen, dass er untadelig war in allen zwanzig Generationen von Adam bis Awraham; doch seit Awraham kam, galt er [nicht mehr] als untadelig.',
+    '<b>Mit G-tt wandelte Noach</b> — die Endbuchstaben [ergeben] »chacham« [weise]; und das ist, was gesagt ist: »und wer Seelen gewinnt, ist weise« [Mischle 11,30].',
+  ],
+  'bht-6-11-2': [
+    '<b>Chamas [Gewalttat]</b> — Gematria »mej Noach« [die Wasser Noachs]: Das lehrt, dass Er ihnen Maß für Maß vergalt. »Chamas« — Gematria »Gehinnom«: Das lehrt, dass sie mit kochendem Wasser gerichtet wurden.',
+  ],
+  'bht-6-13-1': [
+    '<b>Und G-tt sprach zu Noach: Das Ende allen Fleisches</b> — Er deutete ihm die Tage der Sintflut an, die so viele sind wie »kez« [Ende, 190]: vierzig Tage Regen und hundertfünfzig [Tage], in denen das Wasser stieg.',
+  ],
+  'bht-6-13-4': [
+    '<b>Ich vernichte sie [maschchitam]</b> — Gematria: »das sind drei Handbreiten [Tefachim]«.',
+  ],
+  'bht-6-13-6': [
+    '<b>Ich vernichte sie mit der Erde [maschchitam et ha-arez]</b> — die Anfangsbuchstaben [ergeben] »mea« [hundert]: Das lehrt dich, dass Er ihre Größe vernichtete, die hundert Ellen hoch war.',
+  ],
+  'bht-6-16-1': [
+    '<b>Eine Lichtöffnung [zohar]</b> — Gematria: »für das Licht des Steins« [le-or ha-ewen].',
+  ],
+  'bht-7-4': [
+    '<b>Alles Bestehende, das Ich gemacht habe [ha-jekum ascher asiti]</b> — Gematria: »sie werden nicht leben bei der Auferstehung der Toten« [lo chajim li-techijat ha-metim].',
+    '<b>Das Bestehende [ha-jekum]</b> — dreimal in der Masora: »und Ich lösche alles Bestehende aus«; »und Er löschte alles Bestehende aus«; »und alles Bestehende, das zu ihren Füßen war« [Dewarim 11,6]. Um zu sagen: Wie die Generation der Sintflut wegen des vielen Guten und des Reichtums sündigte, die sie hatten, so erhob sich auch Korach wegen seines großen Reichtums über andere und sündigte.',
+  ],
+  'bht-7-10': [
+    '<b>Nach den sieben Tagen [le-schiwat ha-jamim]</b> — Gematria: »für die Tage der Trauer um Metuschelach« [li-jemej ewel Metuschelach].',
+  ],
+  'bht-7-23': [
+    '<b>Und nur Noach blieb übrig [wa-jischaer ach Noach]</b> — es gibt keine Einschränkung nach einer Einschränkung, außer um etwas einzuschließen: um zu sagen, dass auch Og übrig blieb.',
+    '<b>Ach Noach [nur Noach]</b> — Gematria »Og«.',
+  ],
+  'bht-9-9': [
+    '<b>Ich errichte Meinen Bund mit euch [mekim et briti itchem]</b> — die Endbuchstaben [ergeben] »metim« [die Toten]: ein Hinweis auf die Auferstehung der Toten — dass der Allmächtige mit ihnen Seinen Bund errichtet, um sie wieder lebendig zu machen.',
+  ],
+  'bht-9-21': [
+    '<b>Der Wein [ha-jajin]</b> — Gematria »jelala« [Wehklage]. »Und er entblößte sich« [wa-jitgal] — die Buchstaben von »galujot« [Verbannungen]: denn sie gingen »an der Spitze der Verbannten« ins Exil, wegen des Weins [Amos 6,6–7].',
+  ],
+  'bht-9-25': [
+    '<b>Ein Knecht der Knechte soll er sein [jihje]</b> — »jihje« ergibt 30: ein Hinweis auf die [dreißig] Schekel, den Preis eines Knechtes [Schemot 21,32].',
+  ],
+  'bht-11-3-1': [
+    '<b>Einer zum anderen: Wohlan [isch el reehu hawa]</b> — die Endbuchstaben [ergeben] »schalwa« [sorgloser Wohlstand]: Wegen des übergroßen Wohlstands, den sie hatten, sündigten sie.',
+  ],
+  'prov-11-30': ['Die Frucht des Gerechten ist ein Baum des Lebens, und wer Seelen gewinnt, ist weise.'],
+  'bht-7-11': [
+    '<b>Am siebzehnten Tag des Monats</b> — und das ist [, was gesagt ist]: »sie verbringen ihre Tage im Guten [ba-tow]« [Ijow 21,13]: nach der Zahl von »tow« [17] — an diesem [Tag] des Monats kam die Sintflut herab. »Und die Fenster des Himmels« — Gematria: »dass Er zwei Sterne aus Kima [dem Siebengestirn] nahm«.',
+  ],
+  'bht-11-1-2': ['<b>Eine Sprache [safa achat]</b> — Gematria: »die heilige Sprache« [laschon ha-kodesch].'],
+  'bht-11-29': [
+    '<b>Sara</b> — im Atbasch [א״ת ב״ש] — »bgz« [בג״ץ], und das ist die Gematria von »Jiska«: Das ist ein Hinweis auf das, was unsere Weisen, gesegnet sei ihr Andenken, sagten: »Jiska ist Sara«.',
+  ],
 };

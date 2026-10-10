@@ -53,6 +53,12 @@ const ru: Term[] = [
   { re: 'шхин', def: "Шхина — Б-жественное присутствие, которое «пребывает» в мире: в Храме, в доме, среди людей." },
   { re: 'хесед', def: "Хесед — «доброта, милость»: первое из Б-жественных качеств, щедрое давание без меры." },
   { re: 'битуль', def: "Битуль — «отмена себя»: полная преданность Б-гу, когда человек не ставит себя в центр." },
+  { re: 'гейґином', def: 'Гейґином — место, где душа после смерти очищается от того, что сделала в жизни неправильно, прежде чем войти в Ган Эден.' },
+  { re: 'малая гиматри|малой гиматри', def: 'Малая гиматрия (миспар катан) — значение буквы без нулей: י = 1, כ = 2 … ק = 1, ת = 4.' },
+  { re: 'колел', def: 'Колель («целое») — к гиматрии прибавляют 1 за само слово или выражение как целое (иногда — число слов или букв).' },
+  { re: 'атбаш', def: 'Атбаш (א״ת ב״ש) — замена букв «в зеркало»: первая буква алфавита на последнюю (א ↔ ת), вторая на предпоследнюю (ב ↔ ש) и так далее.' },
+  { re: 'альбам', def: 'Альбам (א״ל ב״ם) — замена букв: алфавит делится пополам, и буквы меняются местами: א ↔ ל, ב ↔ מ, ג ↔ נ…' },
+  { re: 'воскрешени[еяю] мёртвых', def: 'Воскрешение мёртвых (тхият ґа-метим) — одна из основ еврейской веры: во дни Машиаха Всевышний вернёт мёртвых к жизни.' },
 ];
 
 const en: Term[] = [
@@ -99,6 +105,13 @@ const en: Term[] = [
   { re: 'shechinah', def: "The Shechinah — the Divine Presence that “dwells” in the world: in the Sanctuary, in the home, among people." },
   { re: 'chesed', def: "Chesed — “kindness”: the first of the Divine attributes, generous giving without measure." },
   { re: 'bittul', def: "Bittul — “self-nullification”: complete devotion to G-d, when a person does not put himself at the center." },
+  { re: 'gehinnom', def: 'Gehinnom — the place where a soul is cleansed after death of what it did wrong in life, before it enters Gan Eden.' },
+  { re: 'small gematria', def: 'Small gematria (mispar katan) — a letter’s value without zeros: י = 1, כ = 2 … ק = 1, ת = 4.' },
+  { re: 'kolel', def: 'The kolel (“the whole”) — 1 is added to the gematria for the word or expression itself as a whole (sometimes the number of words or letters).' },
+  { re: 'atbash', def: 'Atbash (א״ת ב״ש) — swapping letters like a mirror: the first letter of the alphabet with the last (א ↔ ת), the second with the second to last (ב ↔ ש), and so on.' },
+  { re: 'albam', def: 'Albam (א״ל ב״ם) — swapping letters: the alphabet is split in two halves and the letters change places: א ↔ ל, ב ↔ מ, ג ↔ נ…' },
+  { re: 'resurrection of the dead', def: 'The resurrection of the dead (techiyat ha-metim) — one of the principles of Jewish faith: in the days of Moshiach the Almighty will bring the dead back to life.' },
+  { re: 'tzaddik', def: 'Tzaddik — “righteous one”: a person who fulfills the will of G-d in everything.' },
 ];
 
 const de: Term[] = [
@@ -145,6 +158,13 @@ const de: Term[] = [
   { re: 'schechina', def: "Die Schechina — die g-ttliche Gegenwart, die in der Welt „wohnt“: im Heiligtum, im Haus, unter den Menschen." },
   { re: 'chessed', def: "Chessed — „Güte“: die erste der g-ttlichen Eigenschaften, großzügiges Geben ohne Maß." },
   { re: 'bittul', def: "Bittul — „Selbstaufhebung“: völlige Hingabe an G-tt, bei der der Mensch nicht sich selbst in die Mitte stellt." },
+  { re: 'gehinnom', def: 'Gehinnom — der Ort, an dem eine Seele nach dem Tod von dem gereinigt wird, was sie im Leben falsch gemacht hat, bevor sie in den Gan Eden kommt.' },
+  { re: 'kleine gematria|kleinen gematria', def: 'Kleine Gematria (Mispar Katan) — der Wert eines Buchstabens ohne Nullen: י = 1, כ = 2 … ק = 1, ת = 4.' },
+  { re: 'kolel', def: 'Der Kolel („das Ganze“) — zur Gematria kommt 1 dazu, für das Wort oder den Ausdruck selbst als Ganzes (manchmal die Zahl der Wörter oder Buchstaben).' },
+  { re: 'atbasch', def: 'Atbasch (א״ת ב״ש) — Buchstabentausch wie im Spiegel: der erste Buchstabe des Alphabets mit dem letzten (א ↔ ת), der zweite mit dem vorletzten (ב ↔ ש) und so weiter.' },
+  { re: 'albam', def: 'Albam (א״ל ב״ם) — Buchstabentausch: Das Alphabet wird in zwei Hälften geteilt, und die Buchstaben tauschen die Plätze: א ↔ ל, ב ↔ מ, ג ↔ נ …' },
+  { re: 'auferstehung der toten', def: 'Die Auferstehung der Toten (Techijat ha-Metim) — einer der Grundsätze des jüdischen Glaubens: In den Tagen des Moschiach wird der Allmächtige die Toten wieder lebendig machen.' },
+  { re: 'zaddik', def: 'Zaddik — „Gerechter“: ein Mensch, der in allem den Willen G-ttes erfüllt.' },
 ];
 
 export const GLOSSARY: Partial<Record<Locale, Term[]>> = { ru, en, de };

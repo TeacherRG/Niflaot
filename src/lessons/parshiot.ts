@@ -7,6 +7,7 @@ import type { Locale } from '../i18n';
  */
 export const PARSHIOT = {
   bereshit: { he: 'בראשית', name: { ru: 'Берейшит', en: 'Bereishit', de: 'Bereschit' }, year: 5787, heYear: 'ה׳תשפ״ז', shabbat: '2026-10-10' },
+  noach: { he: 'נח', name: { ru: 'Ноах', en: 'Noach', de: 'Noach' }, year: 5787, heYear: 'ה׳תשפ״ז', shabbat: '2026-10-17' },
 } satisfies Record<
   string,
   { he: string; name: Partial<Record<Locale, string>> & { ru: string }; year: number; heYear: string; shabbat: string }

@@ -72,4 +72,56 @@ export const PROJECT_EN: Record<string, string[]> = {
   'tanya-ih-7': [
     "Though this manifestation through the occupation with Torah and the commandments is, generally, equal in every one of Israel — for we all have one Torah and one law — nevertheless, in a more specific way not all the souls (<i>nefesh</i>), spirits (<i>ruach</i>) and souls (<i>neshamah</i>) are equal in this regard, depending on the time of their reincarnation and their coming into this world; as our Sages, of blessed memory, said: “In what was your father more heedful? He answered him: in <i>tzitzit</i>…”",
   ],
+  // lesson «Baal HaTurim: Noach»
+  'bht-6-9': [
+    '<b>These are the generations of Noach</b> — four [places] next to [these words]: “These are the generations of the heavens”, “These are the generations of Noach”, “These are the generations of Shem”, “These are the generations of Yaakov”. In all of them [the phrase] sets aside what came before it: “These are the generations of the heavens” sets aside the “tohu va-vohu” [chaos and void]; “These are the generations of Noach” sets aside the generations before him; “These are the generations of Shem” sets aside the sons of Cham and the sons of Yefet; “These are the generations of Yaakov” sets aside Esav and his chiefs.',
+    '<b>Noach, Noach…</b> — “Noach” is written three times in the verse: because he saw three worlds. Another explanation: he was one of three who each saved three in his merit. Noach saved his three sons — Shem, Cham and Yefet; Daniel saved Chananiah, Mishael and Azariah [by explaining the king’s] dream; Job saved his three friends — Eliphaz the Temanite, Bildad the Shuhite and Zophar the Naamathite. Another explanation: Noach [from “noach”, pleasant] — pleasant to Heaven, pleasant to people, pleasant to the upper beings, pleasant to the lower beings, pleasant in this world, pleasant in the World to Come.',
+    '<b>Was perfect</b> — [the word] “hayah” [was] amounts to the number 20: to say that he was perfect in all twenty generations from Adam to Avraham; but once Avraham came, he was [no longer] counted as perfect.',
+    '<b>Noach walked with G-d</b> — the last letters [form] “chacham” [wise]; and this is what is said: “and he who wins souls is wise” [Proverbs 11:30].',
+  ],
+  'bht-6-11-2': [
+    '<b>Chamas [violence]</b> — its gematria is “mei Noach” [the waters of Noach]: this teaches that He repaid them measure for measure. “Chamas” — its gematria is “Gehinnom”: this teaches that they were judged with boiling water.',
+  ],
+  'bht-6-13-1': [
+    '<b>And G-d said to Noach: the end of all flesh</b> — He hinted to him the days of the Flood, which are as many as “ketz” [end, 190]: forty days of rain and one hundred and fifty [days] of the waters’ rising.',
+  ],
+  'bht-6-13-4': [
+    '<b>I will destroy them [mashchitam]</b> — in gematria: “it is three handbreadths [tefachim]”.',
+  ],
+  'bht-6-13-6': [
+    '<b>I will destroy them with the earth [mashchitam et ha-aretz]</b> — the first letters [form] “me’ah” [a hundred]: it teaches you that He destroyed their stature, which was a hundred cubits tall.',
+  ],
+  'bht-6-16-1': [
+    '<b>A light [tzohar]</b> — in gematria: “for the light of the stone” [le-or ha-even].',
+  ],
+  'bht-7-4': [
+    '<b>All existence that I made [ha-yekum asher asiti]</b> — in gematria: “they will not live at the resurrection of the dead” [lo chayim li-techiyat ha-metim].',
+    '<b>Existence [ha-yekum]</b> — three times in the Masorah: “and I will blot out all existence”; “and He blotted out all existence”; “and all the existence at their feet” [Deuteronomy 11:6]. To say: just as the generation of the Flood sinned because of the great goodness and wealth they had, so Korach, because of the great wealth he had, raised himself over others and sinned.',
+  ],
+  'bht-7-10': [
+    '<b>After the seven days [le-shivat ha-yamim]</b> — in gematria: “for the days of mourning for Metushelach” [li-yemei evel Metushelach].',
+  ],
+  'bht-7-23': [
+    '<b>And only Noach remained [va-yisha’er ach Noach]</b> — there is no exclusion after an exclusion except to include: to say that Og too remained.',
+    '<b>Ach Noach [only Noach]</b> — its gematria is “Og”.',
+  ],
+  'bht-9-9': [
+    '<b>I establish My covenant with you [mekim et briti itchem]</b> — the last letters [form] “metim” [the dead]: a hint to the resurrection of the dead — that the Almighty establishes His covenant with them to bring them back to life.',
+  ],
+  'bht-9-21': [
+    '<b>The wine [ha-yayin]</b> — its gematria is “yelalah” [wailing]. “And he uncovered himself” [va-yitgal] — the letters of “galuyot” [exiles]: for they went into exile “at the head of the exiles” because of wine [Amos 6:6–7].',
+  ],
+  'bht-9-25': [
+    '<b>A slave of slaves he shall be [yihyeh]</b> — “yihyeh” amounts to 30: a hint to the [thirty] shekels, the price of a slave [Exodus 21:32].',
+  ],
+  'bht-11-3-1': [
+    '<b>To one another: come [ish el re’ehu havah]</b> — the last letters [form] “shalvah” [carefree ease]: they sinned because of the excessive ease they had.',
+  ],
+  'bht-7-11': [
+    '<b>On the seventeenth day of the month</b> — and this is [what is said]: “they spend their days in good [ba-tov]” [Job 21:13]: as the number of “tov” [17] — on that [day] of the month the Flood came down. “And the windows of the heavens” — in gematria: “that He took two stars from Kimah [the Pleiades]”.',
+  ],
+  'bht-11-1-2': ['<b>One language [safah achat]</b> — in gematria: “the holy tongue” [lashon ha-kodesh].'],
+  'bht-11-29': [
+    '<b>Sarah</b> — in atbash [א״ת ב״ש] — “bgtz” [בג״ץ], which is the gematria of “Yiskah”: this is a hint to what our Sages, of blessed memory, said: “Yiskah is Sarah”.',
+  ],
 };

@@ -63,6 +63,16 @@ const en: LessonText = {
           q: 'The second chapter says: “these are the generations of the heaven and the earth <span class="he">בהבראם</span> — when they were created”. Rearrange <b>all</b> the letters of this word to make “in Avraham” — the Patriarch’s name with the prefix <span class="he">ב</span>.',
           hint: 'Avraham’s name is אברהם. Put ב (“in”) before it.',
         },
+        {
+          q: 'The Baal HaTurim also reads the word <span class="he">בראשית</span> as a <b>notarikon</b>: each of its letters begins a separate word. Which phrase is the notarikon of <span class="he">בראשית</span>?',
+          hint: 'Compare the first letters of the words of each phrase with the letters ב־ר־א־ש־י־ת: all six, in order.',
+          opts: [
+            '“first of all G-d saw that Israel would accept the Torah”',
+            '“at first G-d saw heaven and earth”',
+            '“He created a beginning: light, sun, moon”',
+            '“first of all G-d saw that Israel would keep the mitzvot”',
+          ],
+        },
       ],
       reveal: {
         h: 'The world was created on Rosh Hashanah — with truth',
