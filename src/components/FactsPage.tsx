@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { SITE_HOST, SITE_URL } from '../core/site';
+import { SITE_HOST, routeLink } from '../core/site';
 import { renderFactCard, shareOrSave, type FactAnswerPart } from '../core/shareCard';
 import { useI18n } from '../i18n';
 import { LESSONS } from '../lessons';
@@ -31,7 +31,7 @@ function Words({ he, gloss, ask }: { he: string; gloss: Record<string, string>; 
 }
 
 function FactCard({ f, here }: { f: Fact; here?: boolean }) {
-  const { t, pick } = useI18n();
+  const { t, pick, locale } = useI18n();
   const [open, setOpen] = useState(false);
   const text = pick(f.lesson.texts).value;
   const who = teacherOf(f.lesson);
@@ -71,7 +71,7 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
       const res = await shareOrSave(
         blob,
         `niflaot-${f.id}.png`,
-        `${question} ${displayNames(he)}?\n${t('facts.answer')}: ${said}\n${t('facts.shareText')} 👉 ${SITE_URL}/#/facts/${f.id}`,
+        `${question} ${displayNames(he)}?\n${t('facts.answer')}: ${said}\n${t('facts.shareText')} 👉 ${routeLink(`facts/${f.id}`, 'card', locale)}`,
       );
       setCard(res === 'saved' ? 'saved' : 'idle');
       if (res === 'saved') setTimeout(() => setCard('idle'), 2500);

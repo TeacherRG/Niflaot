@@ -1,0 +1,30 @@
+name: Загадка недели в Telegram
+
+# Sunday and Wednesday, 07:47 UTC — never on Shabbat (the script checks that too).
+# Setup: secret TELEGRAM_BOT_TOKEN; variables TELEGRAM_CHAT_RU / _EN / _DE (see scripts/telegram-post.ts).
+on:
+  schedule:
+    - cron: '47 7 * * 0,3'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_RU: ${{ vars.TELEGRAM_CHAT_RU }}
+      TELEGRAM_CHAT_EN: ${{ vars.TELEGRAM_CHAT_EN }}
+      TELEGRAM_CHAT_DE: ${{ vars.TELEGRAM_CHAT_DE }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Post
+        if: ${{ env.TELEGRAM_BOT_TOKEN != '' }}
+        run: npx tsx scripts/telegram-post.ts

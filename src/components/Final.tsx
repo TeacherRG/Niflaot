@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useI18n } from '../i18n';
 import { copyText, formatTime } from '../core/format';
-import { SITE_HOST, SITE_URL } from '../core/site';
+import { SITE_HOST, lessonLink, type Ref } from '../core/site';
 import { placePiece, stepState, type GameState } from '../core/useLessonState';
 import type { Lesson, LessonText } from '../lessons/types';
 import { HebrewRuns } from './Hebrew';
@@ -95,7 +95,10 @@ export function Final({
           .join(''),
     )
     .join('\n');
-  const share = text.share({ score: S.score, max, time, grid, allSolved, site: SITE_HOST });
+  // the text shown on the page names the site; the text sent away links the lesson, marked with the channel (?ref=)
+  const shareText = (ref?: Ref) =>
+    text.share({ score: S.score, max, time, grid, allSolved, site: ref ? lessonLink(lesson.slug, ref, locale) : SITE_HOST });
+  const share = shareText();
   const [cardState, setCardState] = useState<'idle' | 'making' | 'saved'>('idle');
 
   const shareCard = async () => {
@@ -115,7 +118,7 @@ export function Final({
         extra: day === 4 || day === 5 ? t('final.cardShabbat') : undefined,
         site: SITE_HOST,
       });
-      const res = await shareOrSave(blob, `niflaot-${lesson.slug}.png`, share);
+      const res = await shareOrSave(blob, `niflaot-${lesson.slug}.png`, shareText('card'));
       setCardState(res === 'saved' ? 'saved' : 'idle');
       if (res === 'saved') setTimeout(() => setCardState('idle'), 2500);
     } catch {
@@ -124,7 +127,7 @@ export function Final({
   };
 
   const copy = async () => {
-    const ok = await copyText(share, pre.current);
+    const ok = await copyText(shareText('copy'), pre.current);
     setCopyLabel(t(ok ? 'final.copied' : 'final.selected'));
     if (ok) setTimeout(() => setCopyLabel(null), 2000);
   };
@@ -173,12 +176,12 @@ export function Final({
           <button className="btn ghost-l" onClick={copy}>
             {copyLabel ?? t('final.copy')}
           </button>
-          <a className="btn ghost-l" href={`https://wa.me/?text=${encodeURIComponent(share)}`} target="_blank" rel="noopener">
+          <a className="btn ghost-l" href={`https://wa.me/?text=${encodeURIComponent(shareText('wa'))}`} target="_blank" rel="noopener">
             WhatsApp
           </a>
           <a
             className="btn ghost-l"
-            href={`https://t.me/share/url?url=${encodeURIComponent(SITE_URL)}&text=${encodeURIComponent(share)}`}
+            href={`https://t.me/share/url?url=${encodeURIComponent(lessonLink(lesson.slug, 'tg', locale))}&text=${encodeURIComponent(shareText('tg'))}`}
             target="_blank"
             rel="noopener"
           >
