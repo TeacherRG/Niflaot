@@ -4,16 +4,21 @@
  *    JSON-LD and the lesson outline as static HTML (the app replaces it on start and opens the lesson);
  *  - static outline of the catalog in dist/index.html, with real links to the lesson pages;
  *  - dist/sitemap.xml and dist/robots.txt;
+ *  - Atom feeds of the lessons: dist/feed.xml (ru), dist/feed-en.xml, dist/feed-de.xml — for readers, a newsletter
+ *    and auto-posting services (links marked ?ref=rss);
  *  - Open Graph picture: dist/og/<slug>.png if it exists (scripts/og-images.ts), else dist/og/site.png;
  *  - Content-Security-Policy <meta> on every page (GitHub Pages can't send headers).
  * Run by `npm run build`.
  */
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { LESSONS, LESSON_GROUPS, type Lesson } from '../src/lessons';
-import { SITE_URL } from '../src/core/site';
+import { SITE_URL, lessonLink } from '../src/core/site';
 import { displayNames } from '../src/core/names';
 import { buildTags } from '../src/core/tags';
 import ru from '../src/i18n/locales/ru';
+import en from '../src/i18n/locales/en';
+import de from '../src/i18n/locales/de';
+import { PARSHIOT } from '../src/lessons/parshiot';
 import { markHebrewHtml } from '../src/core/langMarkup';
 import { stripFootnotes } from '../src/sources/footnotes';
 
@@ -196,5 +201,49 @@ ${[`${SITE_URL}/`, ...LESSONS.map(lessonUrl)].map((u) => `  <url><loc>${u}</loc>
 </urlset>
 `,
 );
+/* ───── Atom feeds ───── */
+
+const FEEDS = [
+  { locale: 'ru', file: 'feed.xml', ui: ru },
+  { locale: 'en', file: 'feed-en.xml', ui: en },
+  { locale: 'de', file: 'feed-de.xml', ui: de },
+] as const;
+/** a lesson «comes out» on the Sunday of its portion's week */
+const published = (l: Lesson) => {
+  const d = new Date(`${PARSHIOT[l.parsha].shabbat}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() - 6);
+  return d.toISOString().replace('.000', '');
+};
+for (const f of FEEDS) {
+  const items = LESSONS.filter((l) => l.texts[f.locale]).reverse();
+  const entries = items.map((l) => {
+    const tx = l.texts[f.locale]!;
+    const link = lessonLink(l.slug, 'rss', f.locale);
+    return `  <entry>
+    <id>${lessonUrl(l)}#${f.locale}</id>
+    <title>${esc(`${displayNames(l.hebrewTitle)} — ${plain(tx.title)}`)}</title>
+    <link rel="alternate" href="${esc(link)}" />
+    <link rel="enclosure" type="image/png" href="${SITE_URL}/og/${existsSync(`${DIST}/og/${l.slug}.png`) ? l.slug : 'site'}.png" />
+    <published>${published(l)}</published>
+    <updated>${published(l)}</updated>
+    <summary>${esc(plain(tx.summary))}</summary>
+  </entry>`;
+  });
+  writeFileSync(
+    `${DIST}/${f.file}`,
+    `<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="${f.locale}">
+  <id>${SITE_URL}/${f.file}</id>
+  <title>${esc(`${f.ui['app.title']} — ${f.ui['catalog.uvp']}`)}</title>
+  <link rel="self" href="${SITE_URL}/${f.file}" />
+  <link rel="alternate" href="${SITE_URL}/?lang=${f.locale}&amp;ref=rss" />
+  <updated>${items.length ? published(items[0]) : `${today}T00:00:00Z`}</updated>
+  <author><name>MyChitas</name><uri>https://mychitas.app</uri></author>
+${entries.join('\n')}
+</feed>
+`,
+  );
+}
+
 writeFileSync(`${DIST}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
-console.log(`prerender: index + ${LESSONS.length} lesson pages, sitemap.xml, robots.txt`);
+console.log(`prerender: index + ${LESSONS.length} lesson pages, sitemap.xml, robots.txt, ${FEEDS.length} feeds`);

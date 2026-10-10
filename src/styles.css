@@ -476,8 +476,10 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .p-parsha-lbl{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:#7a5b1e}
 .p-parsha-name{font-family:var(--f-display);font-size:26px;font-weight:700;line-height:1.1;color:#111}
 .p-parsha-name .he{font-size:22px;margin-inline-start:8px;color:#7a5b1e}
-.p-dates{text-align:end;font-size:13px;color:#333;line-height:1.35}
+.p-dates{margin-inline-start:auto;text-align:end;font-size:13px;color:#333;line-height:1.35}
 .p-dates .he{font-size:16px;font-weight:700;color:#111}
+.p-qr{display:flex;align-items:center;gap:8px;font-size:10.5px;line-height:1.25;color:#333;max-width:150px}
+.p-qr .qr{flex:none}
 .sheet-paper .p-head{border-bottom:1px solid #ccc}
 .p-foot{break-before:avoid;break-inside:avoid;margin-top:20px;padding-top:10px;border-top:1px solid #ccc;font-size:10.5px;color:#666;text-align:center}
 

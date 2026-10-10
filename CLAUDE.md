@@ -49,6 +49,12 @@
   во всех распечатках — шапка на первой странице (`PrintMasthead` в `PrintBrand.tsx`): логотип «Niflaot» слева,
   логотипы партнёров справа; ниже «Недельная глава · Берейшит · פרשת בראשית» и дата Шабата этой главы — гражданская
   и еврейская на иврите (`src/core/hebrewDate.ts`, по календарю браузера; день Шабата — `shabbat` в `parshiot.ts`).
+- Продвижение (откуда приходят люди): ссылки «поделиться» помечены `?ref=` (`lessonLink`/`routeLink` в `src/core/site.ts`:
+  `wa`, `tg`, `copy`, `card`, `qr`, `rss`, `channel`) — GoatCounter показывает их среди источников. В шапке распечаток —
+  QR-код на урок (`QrCode.tsx`, `?ref=qr`). Ленты Atom `feed.xml` / `feed-en.xml` / `feed-de.xml` собирает
+  `scripts/prerender.ts`. «Загадка недели» в Telegram — `scripts/telegram-post.ts` (только вопрос, ответ — на сайте;
+  проверка: `npx tsx scripts/telegram-post.ts --dry`), запуск — `.github/workflows/telegram.yml` по вс и ср, в Шабат не
+  публикует; нужен secret `TELEGRAM_BOT_TOKEN` и variables `TELEGRAM_CHAT_RU/EN/DE`.
 - `assistant/` — сервер ИИ-чата (Cloudflare Worker, Claude API); пока скрыт, включается переменной `ASSISTANT_URL`.
 
 ## Новый урок — всегда по `docs/LESSON-GUIDE.md`
