@@ -130,6 +130,7 @@ const en: Messages = {
   'daily.seoLead': "One Torah word a day: add up the values of its letters in your head, share your result and compare with your friends. It trains mental math and teaches the Hebrew letters. Free, no sign-up.",
   'daily.values': "Letter values",
   'daily.play': "Play",
+  'daily.howPlay': "How to play",
   /** HTML */
   'daily.rules': "<p>Every day — one word from the Niflaot lessons. Every Hebrew letter has a number value — its gematria: <bdi class=\"he\">א</bdi> = 1, <bdi class=\"he\">ב</bdi> = 2 … <bdi class=\"he\">י</bdi> = 10, <bdi class=\"he\">כ</bdi> = 20 … <bdi class=\"he\">ק</bdi> = 100 … <bdi class=\"he\">ת</bdi> = 400; the final letters (<bdi class=\"he\">ך ם ן ף ץ</bdi>) count like the ordinary ones. Add up the values of all the letters of the word <b>in your head</b> — hundreds first, then tens, then units — and type the answer. You have three tries; the hint shows the letter values.</p><p>You can send your result to friends — without the answer, just squares: 🟥 — a miss, 🟩 — correct, 🟨 — correct with the hint. The word is the same for everyone and changes at midnight.</p>",
   'daily.streak': { one: 'Streak: {n} day', other: 'Streak: {n} days' },
@@ -345,7 +346,7 @@ const en: Messages = {
   'read.playBtn': 'Play',
   'read.lockedLink': 'Don’t feel like counting? Read the whole lesson with ready answers',
   'facts.title': "Did you know?",
-  'facts.menuSub': "riddles from all lessons",
+  'facts.menuSub': "riddles from all lessons and the word of the day",
   'facts.intro': { one: "{n} riddle from the lessons — equalities and hidden words. Guess, then open the answer. Why it is so — in the lesson.", other: "{n} riddles from the lessons — equalities and hidden words. Guess, then open the answer. Why it is so — in the lesson." },
   'facts.qEq': "Do you know what this equals",
   'facts.qLt.first': "Do you know which word hides in the first letters of",

@@ -8,6 +8,7 @@ import { NUMS, collectFacts, type Fact } from '../core/facts';
 import { displayNames } from '../core/names';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
+import { DailyCard } from './DailyCard';
 
 /** Hebrew words in large type with their translations under them (each term of a sum separately); `ask` — ends with «?». */
 function Words({ he, gloss, ask }: { he: string; gloss: Record<string, string>; ask?: boolean }) {
@@ -137,7 +138,7 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
  * «Знаете ли вы?» — every equality and letter hint of the lessons as a feed of short questions, without explanations:
  * the answer opens on a tap, the links lead to the lesson where it is explained.
  */
-/** `at` — the fact a shared link points to (`#/facts/<id>`): the feed opens on it. */
+/** `at` — the fact a shared link points to (`#/facts/<id>`), or `daily` («Гиматрия дня», `#/daily`): the feed opens on it. */
 export function FactsPage({ at }: { at?: string }) {
   const { t } = useI18n();
   const facts = useMemo(() => collectFacts(LESSONS), []);
@@ -148,7 +149,7 @@ export function FactsPage({ at }: { at?: string }) {
 
   useEffect(() => {
     if (!at) return;
-    const id = requestAnimationFrame(() => document.getElementById(at)?.scrollIntoView({ block: 'center' }));
+    const id = requestAnimationFrame(() => document.getElementById(at)?.scrollIntoView({ block: at === 'daily' ? 'start' : 'center' }));
     return () => cancelAnimationFrame(id);
   }, [at]);
 
@@ -160,6 +161,7 @@ export function FactsPage({ at }: { at?: string }) {
           <h1>{t('facts.title')}</h1>
           <p>{t('facts.intro', { n: facts.length })}</p>
         </header>
+        <DailyCard />
         <main className="facts">
           {facts.map((f) => (
             <FactCard key={f.id} f={f} here={f.id === at} />

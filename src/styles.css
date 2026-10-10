@@ -1241,5 +1241,8 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .daily-share{justify-content:center}
 .daily-card .hp-solution{justify-self:stretch;text-align:start}
 .daily-links,.daily-next{margin:0}
+.facts-head+.daily-card{margin-bottom:16px;scroll-margin-top:70px}
+.daily-rules{justify-self:stretch;text-align:start;border-top:1px solid var(--line);padding-top:10px}
+.daily-rules summary{cursor:pointer;font-weight:600;color:var(--tchelet)}
 .m-daily{display:grid;gap:4px;text-decoration:none;color:inherit;border-color:var(--gold-line)}
 .m-daily-title{font-family:var(--f-display);font-weight:700;font-size:22px;color:var(--ink)}

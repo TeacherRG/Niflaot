@@ -55,10 +55,12 @@
   `scripts/prerender.ts`. «Загадка недели» в Telegram — `scripts/telegram-post.ts` (только вопрос, ответ — на сайте;
   проверка: `npx tsx scripts/telegram-post.ts --dry`), запуск — `.github/workflows/telegram.yml` по вс и ср, в Шабат не
   публикует; нужен secret `TELEGRAM_BOT_TOKEN` и variables `TELEGRAM_CHAT_RU/EN/DE`.
-- «Гиматрия дня» (`#/daily`, `DailyPage.tsx`, логика — `src/core/daily.ts`): каждый день (по дате устройства, №1 —
+- «Гиматрия дня» — **первая карточка ленты «Знаете ли вы?»** (`DailyCard.tsx`, логика — `src/core/daily.ts`;
+  `#/daily` и `/daily/` открывают ленту на ней; отдельного пункта меню нет): каждый день (по дате устройства, №1 —
   11.10.2026) одно слово из ленты «Знаете ли вы?» — сумму букв считают в уме, 3 попытки, подсказка «значения букв» → 🟨;
   результат — квадратики без ответа (🟥🟩 · ⏱ · 🔥 серия; Шабат серию не рвёт), ссылка `/daily/?ref=daily`. Результаты —
-  в localStorage. Вход — меню, плитка на главной, карточка в «Устном счёте». Слова проверяет `npm run check`.
+  в localStorage. Вход — лента (пункт меню «Знаете ли вы?»), плитка на главной, карточка в «Устном счёте».
+  Слова проверяет `npm run check`.
 - Страницы для поиска (`scripts/prerender.ts`): «Ментальная арифметика» `/mental-math/` и «Гиматрия дня» `/daily/`,
   на других языках — `/en/…`, `/de/…` (hreflang; язык из пути читает `src/i18n/index.tsx`); открывают `#/math/add` и
   `#/daily` (`STATIC_PAGES` в `src/core/site.ts`). Тексты — ключи `math.seo*`, `daily.seo*`; превью `og/mental-math.png`,

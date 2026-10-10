@@ -26,18 +26,11 @@ export function Panels() {
             <Icon name="home" />
             <span>{t('menu.home')}</span>
           </a>
-          <a href="#/facts" onClick={close} className="menu-item" aria-current={location.hash === '#/facts' ? 'page' : undefined}>
+          <a href="#/facts" onClick={close} className="menu-item" aria-current={location.hash === '#/facts' || location.hash === '#/daily' ? 'page' : undefined}>
             <Icon name="hash" />
             <span>
               {t('facts.title')}
               <small>{t('facts.menuSub')}</small>
-            </span>
-          </a>
-          <a href="#/daily" onClick={close} className="menu-item" aria-current={location.hash === '#/daily' ? 'page' : undefined}>
-            <Icon name="calc" />
-            <span>
-              {t('daily.title')}
-              <small>{t('daily.menuSub')}</small>
             </span>
           </a>
           <div className="menu-lbl">{t('menu.lessons')}</div>
