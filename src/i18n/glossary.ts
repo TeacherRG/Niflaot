@@ -53,6 +53,8 @@ const ru: Term[] = [
   { re: 'шхин', def: "Шхина — Б-жественное присутствие, которое «пребывает» в мире: в Храме, в доме, среди людей." },
   { re: 'хесед', def: "Хесед — «доброта, милость»: первое из Б-жественных качеств, щедрое давание без меры." },
   { re: 'битуль', def: "Битуль — «отмена себя»: полная преданность Б-гу, когда человек не ставит себя в центр." },
+  { re: 'гейґином', def: 'Гейґином — место, где душа после смерти очищается от того, что сделала в жизни неправильно, прежде чем войти в Ган Эден.' },
+  { re: 'воскрешени[еяю] мёртвых', def: 'Воскрешение мёртвых (тхият ґа-метим) — одна из основ еврейской веры: во дни Машиаха Всевышний вернёт мёртвых к жизни.' },
 ];
 
 const en: Term[] = [
@@ -99,6 +101,9 @@ const en: Term[] = [
   { re: 'shechinah', def: "The Shechinah — the Divine Presence that “dwells” in the world: in the Sanctuary, in the home, among people." },
   { re: 'chesed', def: "Chesed — “kindness”: the first of the Divine attributes, generous giving without measure." },
   { re: 'bittul', def: "Bittul — “self-nullification”: complete devotion to G-d, when a person does not put himself at the center." },
+  { re: 'gehinnom', def: 'Gehinnom — the place where a soul is cleansed after death of what it did wrong in life, before it enters Gan Eden.' },
+  { re: 'resurrection of the dead', def: 'The resurrection of the dead (techiyat ha-metim) — one of the principles of Jewish faith: in the days of Moshiach the Almighty will bring the dead back to life.' },
+  { re: 'tzaddik', def: 'Tzaddik — “righteous one”: a person who fulfills the will of G-d in everything.' },
 ];
 
 const de: Term[] = [
@@ -145,6 +150,9 @@ const de: Term[] = [
   { re: 'schechina', def: "Die Schechina — die g-ttliche Gegenwart, die in der Welt „wohnt“: im Heiligtum, im Haus, unter den Menschen." },
   { re: 'chessed', def: "Chessed — „Güte“: die erste der g-ttlichen Eigenschaften, großzügiges Geben ohne Maß." },
   { re: 'bittul', def: "Bittul — „Selbstaufhebung“: völlige Hingabe an G-tt, bei der der Mensch nicht sich selbst in die Mitte stellt." },
+  { re: 'gehinnom', def: 'Gehinnom — der Ort, an dem eine Seele nach dem Tod von dem gereinigt wird, was sie im Leben falsch gemacht hat, bevor sie in den Gan Eden kommt.' },
+  { re: 'auferstehung der toten', def: 'Die Auferstehung der Toten (Techijat ha-Metim) — einer der Grundsätze des jüdischen Glaubens: In den Tagen des Moschiach wird der Allmächtige die Toten wieder lebendig machen.' },
+  { re: 'zaddik', def: 'Zaddik — „Gerechter“: ein Mensch, der in allem den Willen G-ttes erfüllt.' },
 ];
 
 export const GLOSSARY: Partial<Record<Locale, Term[]>> = { ru, en, de };
