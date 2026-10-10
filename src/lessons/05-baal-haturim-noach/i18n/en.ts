@@ -3,13 +3,13 @@ import type { LessonText } from '../../types';
 const en: LessonText = {
   title: 'Baal HaTurim: Noach',
   hero: {
-    heading: 'Baal HaTurim: <i>four riddles of Noach and the Flood</i>',
+    heading: 'Baal HaTurim: <i>five riddles of Noach and the Flood</i>',
     author: 'after the commentary of the Baal HaTurim, Rabbi Yaakov ben Asher',
     intro:
-      'The Baal HaTurim found numbers and hidden words in the portion of Noach. Count for yourself: what kind of man Noach was, how many days the Flood lasted, who else was saved with the ark, and what happened after the Flood — with the wine and with the tower.',
+      'The Baal HaTurim found numbers and hidden words in the portion of Noach. Count for yourself: what kind of man Noach was, how many days the Flood lasted, who else was saved with the ark, and what happened after the Flood — with the wine, the tower and the language; and how to count in atbash and “with the kolel”.',
   },
   summary:
-    'The portion of Noach through the eyes of the Baal HaTurim: “chamas” = “the waters of Noach”, “ketz” — 190 days of Flood, the “tzohar” — a shining stone, “ach Noach” = Og, wine = wailing, and the builders’ “come, let us” hides “carefree ease”.',
+    'The portion of Noach through the eyes of the Baal HaTurim: “chamas” = “the waters of Noach”, “ketz” — 190 days of Flood, the “tzohar” — a shining stone, “ach Noach” = Og, wine = wailing, and the builders’ “come, let us” hides “carefree ease”, and Sarah in atbash is Yiskah.',
   glossary: {
     'נח': 'Noach (the name means “rest”, “pleasant”)',
     'היה': '“was”',
@@ -61,6 +61,19 @@ const en: LessonText = {
     'יהיה': '“shall be”',
     'איש אל רעהו הבה': '“to one another: come, let us”',
     'שלוה': 'carefree ease',
+    'שפה': 'language (lit. “lip”)',
+    'אחת': 'one',
+    'שפה אחת': '“one language”',
+    'לשון הקדש': 'the holy tongue — the Hebrew of the Torah',
+    'שפה ברורה': '“a clear language”',
+    'לשון זהב': '“a golden tongue”',
+    'שפת עבר': '“the language of Ever”',
+    'שרה': 'Sarah',
+    'בגץ': '“bgtz” — the name שרה in atbash',
+    'יסכה': 'Yiskah, daughter of Haran',
+    'רבקה': 'Rivkah',
+    'רחל': 'Rachel',
+    'לאה': 'Leah',
   },
   riddles: [
     {
@@ -95,7 +108,7 @@ const en: LessonText = {
       lessons: [
         {
           h: 'How to read the Baal HaTurim',
-          b: `<p>The commentary of the Baal HaTurim, printed in almost every Chumash, is made of short hints. His tools: <b>gematria</b> — two expressions with the same number are linked in meaning; <b>rashei teivot and sofei teivot</b> (<span class="he">ר״ת</span>, <span class="he">ס״ת</span>) — the first or last letters of neighboring words form a new word; <b>“two or three in the Masorah”</b> — a word appears in all of Tanakh exactly two or three times, and those places explain each other.</p><p>Every number in this lesson has been checked. A few gematriot of the commentary on Noach do not add up in our count — they are not in the lesson.</p>`,
+          b: `<p>The commentary of the Baal HaTurim, printed in almost every Chumash, is made of short hints. His tools: <b>gematria</b> — two expressions with the same number are linked in meaning; <b>rashei teivot and sofei teivot</b> (<span class="he">ר״ת</span>, <span class="he">ס״ת</span>) — the first or last letters of neighboring words form a new word; <b>“two or three in the Masorah”</b> — a word appears in all of Tanakh exactly two or three times, and those places explain each other. Sometimes he counts in other ways too — “with the kolel” or in atbash (riddle 5).</p><p>Every number in this lesson has been checked. A few gematriot of the commentary on Noach do not add up in our count — they are not in the lesson.</p>`,
         },
         {
           h: '“These are the generations”',
@@ -296,24 +309,75 @@ const en: LessonText = {
         'The last letters of “איש אל רעהו הבה” — שלוה: the builders of the tower sinned from too much ease.',
       ],
     },
+    {
+      title: 'One language and Sarah’s name',
+      cond: `<p>Before the Tower of Bavel all people had one language:</p><p class="verse" dir="rtl" lang="he">ויהי כל הארץ שפה אחת ודברים אחדים</p><p>“And the whole earth was of one language and of one speech.”<sup data-src="gen-11-1"></sup></p><p>And at the end of the portion the wives of Avram and Nachor are named — <em>שרי</em> and <em>מלכה</em> — and one more girl about whom the Torah tells nothing else: <em>יסכה</em>, Yiskah.<sup data-src="gen-11-29"></sup></p><p>Here the Baal HaTurim counts <b>not in the usual gematria</b>: the first hint needs the “kolel” — 1 is added for the expression itself; the second uses <b>atbash</b>: every letter is swapped with its “mirror” (first ↔ last: <span class="he">א</span> ↔ <span class="he">ת</span>, second ↔ second to last: <span class="he">ב</span> ↔ <span class="he">ש</span>…).</p>`,
+      steps: [
+        {
+          q: 'What is the value of the words <span class="he">שפה אחת</span> — “one language”?',
+          hint: 'שפה = 300 + 80 + 5; אחת = 1 + 8 + 400.',
+        },
+        {
+          q: 'Add the “kolel” — 1 for the expression itself as a whole. What do you get?',
+          hint: 'Add 1 to the sum of the previous step.',
+        },
+        {
+          q: 'Which expression equals this number — and tells <b>which</b> language it was?',
+          opts: ['“the holy tongue”', '“a clear language”', '“a golden tongue”', '“the language of Ever”'],
+        },
+        {
+          q: 'Write the name <span class="he">שרה</span> (Sarah) in atbash: instead of <span class="he">ש</span> write <span class="he">ב</span>, instead of <span class="he">ר</span> — <span class="he">ג</span>, instead of <span class="he">ה</span> — <span class="he">צ</span>. What is the value of the new word?',
+          hint: 'The new letters are bet, gimel and tzadi: 2 + 3 + 90.',
+        },
+        {
+          q: 'Whose name in this portion has the same gematria?',
+          opts: ['Yiskah', 'Rivkah', 'Rachel', 'Leah'],
+        },
+      ],
+      reveal: {
+        h: 'The holy tongue and Sarah the prophetess',
+        p: '“Safah achat” is 794, and with the kolel 795, like “lashon ha-kodesh”, the holy tongue: before the tower everyone spoke the holy tongue. The name “Sarah” in atbash becomes “bgtz” — 95, like “Yiskah”: the Sages say that Yiskah is Sarah.',
+      },
+      lessons: [
+        {
+          h: 'Ways of counting',
+          b: `<p>For the commentators of the Torah there is more than one gematria. Besides the usual one (<i>mispar hechrechi</i>) there is <b>small gematria</b> (a letter’s value without zeros: <span class="he">י</span> = 1, <span class="he">ק</span> = 1), the <b>ordinal number</b> (<span class="he">א</span> = 1 … <span class="he">ת</span> = 22), the <b>great number</b> (final letters <span class="he">ך ם ן ף ץ</span> — 500…900), <b>full spelling</b> (every letter by its name: <span class="he">א</span> = <span class="he">אלף</span> = 111) and the <b>kolel</b> — when 1 is added for the word itself.</p><p>There are letter swaps too: <b>atbash</b> (<span class="he">א״ת ב״ש</span>) — the first letter of the alphabet swaps with the last, the second with the second to last; <b>albam</b> (<span class="he">א״ל ב״ם</span>) — the alphabet is split in two halves. And letter devices: <b>rashei and sofei teivot</b> — the first and last letters of words; <b>notarikon</b> — every letter of a word begins a separate word. You can try all these ways in the gematria calculator.</p>`,
+        },
+        {
+          h: 'The holy tongue',
+          b: `<p>“And the whole earth was <span class="he">שפה אחת</span> — of one language.” The Baal HaTurim: <span class="he">שפה אחת</span> in gematria is <span class="he">לשון הקדש</span>, “the holy tongue”.<sup data-src="bht-11-1-2"></sup> Before the tower all people spoke the language of the Torah.</p><p>Let’s count: <span class="he">שפה</span> = 385, <span class="he">אחת</span> = 409, together 794; <span class="he">לשון הקדש</span> = 386 + 409 = 795. The difference is one. The Baal HaTurim simply writes “gematria”, and the numbers match by the rule “<b>with the kolel</b>”: 1 is added for the whole expression. 794 + 1 = 795.</p>`,
+        },
+        {
+          h: 'Sarah is Yiskah',
+          b: `<p>At the end of the portion: “the name of Avram’s wife was Sarai, and the name of Nachor’s wife Milkah, the daughter of Haran, the father of Milkah and the father of Yiskah.” Who is Yiskah? The Baal HaTurim: the name <span class="he">שרה</span> in atbash is <span class="he">בג״ץ</span>: <span class="he">ש</span> becomes <span class="he">ב</span>, <span class="he">ר</span> becomes <span class="he">ג</span>, <span class="he">ה</span> becomes <span class="he">צ</span>. And <span class="he">בגץ</span> = 2 + 3 + 90 = 95 — the gematria of <span class="he">יסכה</span> (10 + 60 + 20 + 5). This hints at the words of the Sages: “Yiskah is Sarah”.<sup data-src="bht-11-29"></sup></p><p>In the Gemara Rabbi Yitzchak explains why she was called so: Sarah was one of the seven prophetesses and “saw” (<i>sachtah</i>) with Divine inspiration — that is why the Almighty told Avraham: “whatever Sarah tells you, listen to her voice”. And also because everyone “gazed” at her beauty.<sup data-src="megillah-14a"></sup></p>`,
+        },
+      ],
+      reflection: 'Before the tower everyone spoke one holy language. With which words can I make my speech “holy” today — kind, truthful, without rudeness?',
+      takeaways: [
+        'Besides the usual gematria there are small, ordinal and great numbers, full spelling, the kolel, atbash, albam; letter devices — rashei/sofei teivot and notarikon.',
+        'שפה אחת = 794, with the kolel 795 = לשון הקדש: before the tower everyone spoke the holy tongue.',
+        'שרה in atbash is בגץ = 95 = יסכה: Yiskah is Sarah.',
+        'Sarah is a prophetess: “whatever Sarah tells you, listen to her voice”.',
+      ],
+    },
   ],
   final: {
     title: 'The ark is open',
     allSolved:
-      'All four riddles are solved. Noach is a wise tzaddik, “chamas” was punished with “the waters of Noach”, the ark shone with a stone, Og was saved with Noach, the covenant after the Flood promises life, and the wine and the carefree builders teach us to be careful.',
+      'All five riddles are solved. Noach is a wise tzaddik, “chamas” was punished with “the waters of Noach”, the ark shone with a stone, Og was saved with Noach, the covenant after the Flood promises life, the wine and the carefree builders teach us to be careful, and atbash reveals that Yiskah is Sarah.',
   },
-  audience: 'Addition and letter games, a familiar story — Noach, the ark and the Flood. Younger children — together with an adult.',
+  audience: 'Addition, letter games and atbash, a familiar story — Noach, the ark and the Flood. Younger children — together with an adult.',
   practice:
     'This week, when something works out for you or you receive a gift, say “thank you” out loud — to the Almighty and to whoever helped you. Three times the Baal HaTurim shows: trouble comes not from poverty but from “shalvah” — good times whose Source was forgotten.',
   highlight: 'The “violence” of the Flood generation equals “the waters of Noach”: the Almighty repays measure for measure.',
   share: ({ score, max, time, grid, allSolved, site }) => `🌊 What does the “violence” of the Flood generation equal? The answer is in “the waters of Noach”.
 
-I’m playing a gematria game on the Baal HaTurim’s commentary on the portion of Noach. ${allSolved ? 'All four riddles solved:' : 'My path so far:'}
+I’m playing a gematria game on the Baal HaTurim’s commentary on the portion of Noach. ${allSolved ? 'All five riddles solved:' : 'My path so far:'}
 
 ✦ ${score} of ${max} points · ⏱ ${time}
 ${grid}
 
-Four riddles: about Noach the tzaddik and “the waters of Noach”, the ark and the shining stone, the Flood, Og the giant and the covenant, the wine and the tower. Can you do better?
+Five riddles: about Noach the tzaddik and “the waters of Noach”, the ark and the shining stone, the Flood, Og the giant and the covenant, the wine and the tower, the holy tongue and Sarah’s name. Can you do better?
 Play 👉 ${site}
 
 ©mychitas.app`,

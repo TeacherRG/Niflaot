@@ -4740,6 +4740,94 @@
    }
   }
  },
+ "gen-11-29": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 11:29",
+   "en": "Genesis 11:29",
+   "de": "Bereschit 11,29"
+  },
+  "ref": "Genesis 11:29",
+  "url": "https://www.sefaria.org/Genesis_11.29",
+  "he": [
+   "ויקח אברם ונחור להם נשים שם אשת אברם שרי ושם אשת נחור מלכה בת הרן אבי מלכה ואבי יסכה"
+  ],
+  "en": [
+   "And Abram and Nahor took them wives: the name of Abram’s wife was Sarai; and the name of Nahor’s wife, Milcah, the daughter of Haran, the father of Milcah, and the father of Iscah."
+  ],
+  "ru": [
+   "И взяли Аврам и Нахор себе жен: имя жены Аврама — Сарай, а имя жены Нахора — Милка, дочь Арана, отца Милки и отца Йиски."
+  ],
+  "de": [
+   "Abram und Nachor nahmen sich Frauen, Abrams Frau hieß Sarai, Nachors Frau Milka, die Tochter Harans, des Vaters Milkas und der Jiska."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "megillah-14a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Мегила 14а",
+   "en": "Megillah 14a",
+   "de": "Megilla 14a"
+  },
+  "ref": "Megillah 14a:13",
+  "url": "https://www.sefaria.org/Megillah_14a.13",
+  "he": [
+   "שבע נביאות מאן נינהו שרה מרים דבורה חנה אביגיל חולדה ואסתר שרה דכתיב אבי מלכה ואבי יסכה ואמר רבי יצחק יסכה זו שרה ולמה נקרא שמה יסכה שסכתה ברוח הקדש שנאמר כל אשר תאמר אליך שרה שמע בקולה דבר אחר יסכה שהכל סוכין ביופיה"
+  ],
+  "en": [
+   "§ The Gemara asks with regard to the prophetesses recorded in the <i>baraita</i>: <b>Who were the seven prophetesses?</b> The Gemara answers: <b>Sarah, Miriam, Deborah, Hannah, Abigail, Huldah, and Esther.</b> The Gemara offers textual support: <b>Sarah, as it is written:</b> “Haran, <b>the father of Milcah, and the father of Iscah”</b> (Genesis 11:29). <b>And Rabbi Yitzḥak said: Iscah is</b> in fact <b>Sarah. And why was she called Iscah? For she saw [<i>sakhta</i>] by means of divine inspiration, as it is stated: “In all that Sarah has said to you, hearken to her voice”</b> (Genesis 21:12). <b>Alternatively,</b> Sarah was also called <b>Iscah, for all gazed [<i>sokhin</i>] upon her beauty.</b>"
+  ],
+  "de": [
+   "Wer sind diese sieben Prophetinnen? – Sara, Mirjam, Debora, Ḥanna, Abigajil, Ḥulda und Ester. Von Sara heißt es: <i>Vater der Milka und Jiska</i>, und hierzu sagte R. Jiçḥaq, Jiska sei Sara, und nur deshalb werde sie Jiska genannt, weü sie durch den heiligen Geist schaute [saka], denn es heißt: <i>gehorche Sara in allem, was sie dir sagt</i>. Eine andere Erklärung: Jiska [wurde sie deshalb genannt], weil alle ihre Schönheit beschauten."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
  "rashi-6-13": {
   "kind": {
    "ru": "Комментарий",
@@ -5084,6 +5172,38 @@
    }
   }
  },
+ "bht-11-29": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 11:29",
+   "en": "Ba'al HaTurim, Genesis 11:29",
+   "de": "Baal HaTurim, Bereschit 11,29"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 11:29",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_11.29",
+  "he": [
+   "<b>שרה</b> בא\"ת ב\"ש בג\"ץ. שהוא בגימטריא יסכה זו היא רמז למה שאחז\"ל יסכה זו שרה:"
+  ],
+  "en": [
+   "שרה \"Sarah\" in the Aleph Bet Shin Bet Shin Bet Gematria. This is a hint to what our sages said, \"This \"Yiskah\" is Sarah.\""
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
  "bht-6-11-2": {
   "kind": {
    "ru": "Комментарий",
@@ -5230,6 +5350,38 @@
   ],
   "en": [
    "1. צהר, Tzohar, window, opening in Gematria: In the light of the stone."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-11-1-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 11:1",
+   "en": "Ba'al HaTurim, Genesis 11:1",
+   "de": "Baal HaTurim, Bereschit 11,1"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 11:1:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_11.1.2",
+  "he": [
+   "<b> שפה אחת</b> בגימטריא לשון הקדש:"
+  ],
+  "en": [
+   "שפה אחת, \"one language\", in Gematria [this corresponds to] לשון הקדש \"the holy tongue\" [= Hebrew]. [the value of שפה אחת is 794, that of לשון הקדש is 795, which is 794 plus 1 added for its totality]"
   ],
   "versions": {
    "he": {

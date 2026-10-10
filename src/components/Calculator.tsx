@@ -4,7 +4,49 @@ import { KEYBOARD, VALUES, gematria, letters } from '../core/gematria';
 import { displayNames } from '../core/names';
 import type { Lesson } from '../lessons/types';
 import { MathCoach } from './MathCoach';
+import { HebrewRuns } from './Hebrew';
 import type { CoachAction } from '../core/coach';
+import { SWAPS, gematriaBy, katanMispari, riboa, swapWord, withKolel, type Method } from '../core/gematriaMethods';
+
+const METHODS: Method[] = ['gadol', 'katan', 'siduri', 'kadmi', 'milui', 'neelam', 'atbash', 'albam'];
+
+/** The word in every way of counting (docs/GEMATRIA-RULES.md), with the rule of each. */
+function Methods({ text }: { text: string }) {
+  const { t } = useI18n();
+  const rows: { key: string; v: number; swapped?: string }[] = [
+    ...METHODS.map((m) => ({ key: m, v: gematriaBy(m, text), swapped: SWAPS.has(m) ? swapWord(m, text) : undefined })),
+    { key: 'kolel', v: withKolel(text) },
+    { key: 'katanMispari', v: katanMispari(gematria(text)) },
+    ...(text.trim().includes(' ') ? [] : [{ key: 'riboa', v: riboa(text) }]),
+  ];
+  return (
+    <details className="calc-methods">
+      <summary>{t('calc.methods')}</summary>
+      <p className="sub">{t('calc.methodsSub')}</p>
+      <ul>
+        {rows.map((r) => (
+          <li key={r.key}>
+            <b>
+              <HebrewRuns text={t(`method.${r.key}` as 'method.gadol')} />
+            </b>
+            {r.swapped && (
+              <>
+                {' '}
+                <span dir="ltr">
+                  <bdi className="he">{displayNames(text)}</bdi> → <bdi className="he">{r.swapped}</bdi>
+                </span>
+              </>
+            )}{' '}
+            = <span className="num">{r.v}</span>
+            <small>
+              <HebrewRuns text={t(`method.${r.key}.rule` as 'method.gadol.rule')} />
+            </small>
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
+}
 
 /** Each word is spelled out letter by letter; several words are then added up. */
 function wordActions(text: string): CoachAction[] {
@@ -84,6 +126,7 @@ export function Calculator({ lesson, done }: { lesson: Lesson; done: number[] })
             ))}
         </span>
       </div>
+      {letters(value).length > 0 && <Methods text={value} />}
       {letters(value).length > 1 && (
         <button className="coach-toggle" aria-expanded={coach} onClick={() => setCoach((c) => !c)}>
           🧮 {t(coach ? 'coach.hide' : 'coach.open')}

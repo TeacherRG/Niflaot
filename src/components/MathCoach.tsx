@@ -64,6 +64,13 @@ export function MathCoach({ actions, onFill }: { actions: CoachAction[]; onFill?
               // a word: show its letters with their values, then add them up
               <li key={i} className="coach-word">
                 <span className="he">{s.part.word}</span>
+                {s.part.swapped && (
+                  <>
+                    {' → '}
+                    <span className="he">{s.part.swapped}</span>
+                  </>
+                )}
+                {s.part.method && <small className="coach-method">{t(`method.${s.part.method}` as 'method.gadol')}</small>}
                 <span className="coach-letters" dir="rtl">
                   {s.part.letters!.map(([c, v], k) => (
                     <span key={k}>

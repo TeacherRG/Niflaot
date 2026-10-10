@@ -29,7 +29,7 @@ const lesson: Lesson = {
         { t: 'num', est: { sec: 60, level: 2 }, a: 471, coach: [{ word: 'זנב' }, { word: 'תאוה' }, { add: ['$1', '$2'] }] },
         {
           t: 'ch', est: { sec: 90, level: 3 },
-          milui: true,
+          method: 'milui',
           opts: [
             { h: 'אש', v: 471 },
             { h: 'אור', v: 633 },

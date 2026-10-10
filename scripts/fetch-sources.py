@@ -77,6 +77,7 @@ BOOK = {
     'Yevamot': ('Talmud/Bavli/Seder Nashim/Yevamot/', 'Йевамот', 'Talmud'),
     'Chullin': ('Talmud/Bavli/Seder Kodashim/Chullin/', 'Хулин', 'Talmud'),
     'Sukkah': ('Talmud/Bavli/Seder Moed/Sukkah/', 'Сукка', 'Talmud'),
+    'Megillah': ('Talmud/Bavli/Seder Moed/Megillah/', 'Мегила', 'Talmud'),
     'Ketubot': ('Talmud/Bavli/Seder Nashim/Ketubot/', 'Ктубот', 'Talmud'),
     'Sanhedrin': ('Talmud/Bavli/Seder Nezikin/Sanhedrin/', 'Санедрин', 'Talmud'),
     'Niddah': ('Talmud/Bavli/Seder Tahorot/Niddah/', 'Нида', 'Talmud'),
@@ -209,10 +210,12 @@ SOURCES = {
     'prov-11-30': ('Proverbs', 11, 30, 30),
     'amos-6-6': ('Amos', 6, 6, 7),
     'job-21-13': ('Job', 21, 13, 13),
+    'gen-11-29': ('Genesis', 11, 29, 29),
+    'megillah-14a': ('Megillah', '14a', 12, 12),
     'rashi-6-13': rashi(6, 13, 2),
     'rashi-6-16': rashi(6, 16, 0),
-    **{f'bht-{c}-{v}': bht(c, v) for c, v in [(6, 9), (7, 4), (7, 10), (7, 11), (7, 23), (9, 9), (9, 21), (9, 25)]},
-    **{f'bht-{c}-{v}-{k + 1}': bht_one(c, v, k) for c, v, k in [(6, 11, 1), (6, 13, 0), (6, 13, 3), (6, 13, 5), (6, 16, 0), (11, 3, 0)]},
+    **{f'bht-{c}-{v}': bht(c, v) for c, v in [(6, 9), (7, 4), (7, 10), (7, 11), (7, 23), (9, 9), (9, 21), (9, 25), (11, 29)]},
+    **{f'bht-{c}-{v}-{k + 1}': bht_one(c, v, k) for c, v, k in [(6, 11, 1), (6, 13, 0), (6, 13, 3), (6, 13, 5), (6, 16, 0), (11, 1, 1), (11, 3, 0)]},
 }
 
 KIND = {
@@ -226,7 +229,7 @@ DE_NAME = {
     'Genesis': 'Bereschit', 'Exodus': 'Schemot', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Dewarim', 'Ezekiel': 'Jecheskel', 'Amos': 'Amos',
     'I Kings': 'I Könige', 'Psalms': 'Tehillim', 'Job': 'Ijob', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
     'Berakhot': 'Berachot', 'Shabbat': 'Schabbat', 'Yevamot': 'Jewamot', 'Chullin': 'Chullin',
-    'Sukkah': 'Sukka', 'Ketubot': 'Ketubbot', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda',
+    'Sukkah': 'Sukka', 'Megillah': 'Megilla', 'Ketubot': 'Ketubbot', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda',
 }
 
 _cache = {}

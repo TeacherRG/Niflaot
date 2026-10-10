@@ -11,6 +11,7 @@ import { TopBar } from './TopBar';
 import { Hero } from './Hero';
 import { HebrewRuns } from './Hebrew';
 import { Sources } from './Sources';
+import { firstLetters } from '../core/gematriaMethods';
 import { Colophon } from './Colophon';
 
 /** A ready calculation from the step's coach data: every word spelled into letter values, every action with its result. */
@@ -68,6 +69,12 @@ function Answer({ s, opts }: { s: StepData; opts?: string[] }) {
         </b>
         {opts?.[s.c] && <> — {opts[s.c]}</>}
         {s.opts[s.c].v != null && <span className="num"> = {s.opts[s.c].v}</span>}
+        {s.notarikon && (
+          <span className="he" lang="he">
+            {' '}
+            → {firstLetters(s.opts[s.c].h)} → {s.notarikon}
+          </span>
+        )}
       </div>
     );
   if (s.t === 'lt') {

@@ -3,13 +3,13 @@ import type { LessonText } from '../../types';
 const de: LessonText = {
   title: 'Baal HaTurim: Noach',
   hero: {
-    heading: 'Baal HaTurim: <i>vier Rätsel über Noach und die Sintflut</i>',
+    heading: 'Baal HaTurim: <i>fünf Rätsel über Noach und die Sintflut</i>',
     author: 'nach dem Kommentar des Baal HaTurim, Rabbi Jaakow ben Ascher',
     intro:
-      'Der Baal HaTurim hat im Wochenabschnitt Noach Zahlen und versteckte Wörter gefunden. Rechne selbst nach: wie Noach war, wie viele Tage die Sintflut dauerte, wer noch mit der Arche gerettet wurde und was nach der Sintflut geschah — mit dem Wein und mit dem Turm.',
+      'Der Baal HaTurim hat im Wochenabschnitt Noach Zahlen und versteckte Wörter gefunden. Rechne selbst nach: wie Noach war, wie viele Tage die Sintflut dauerte, wer noch mit der Arche gerettet wurde und was nach der Sintflut geschah — mit dem Wein, dem Turm und der Sprache; und wie man im Atbasch und »mit dem Kolel« zählt.',
   },
   summary:
-    'Der Abschnitt Noach mit den Augen des Baal HaTurim: »Chamas« = »die Wasser Noachs«, »Kez« — 190 Tage Sintflut, der »Zohar« — ein leuchtender Stein, »ach Noach« = Og, Wein = Wehklage, und das »Wohlan!« der Turmbauer versteckt »sorglosen Wohlstand«.',
+    'Der Abschnitt Noach mit den Augen des Baal HaTurim: »Chamas« = »die Wasser Noachs«, »Kez« — 190 Tage Sintflut, der »Zohar« — ein leuchtender Stein, »ach Noach« = Og, Wein = Wehklage, und das »Wohlan!« der Turmbauer versteckt »sorglosen Wohlstand«, und Sara ist im Atbasch Jiska.',
   glossary: {
     'נח': 'Noach (der Name bedeutet »Ruhe«, »angenehm«)',
     'היה': '»war«',
@@ -61,6 +61,19 @@ const de: LessonText = {
     'יהיה': '»soll sein«',
     'איש אל רעהו הבה': '»einer zum anderen: wohlan«',
     'שלוה': 'sorgloser Wohlstand',
+    'שפה': 'Sprache (wörtlich »Lippe«)',
+    'אחת': 'eine, eins',
+    'שפה אחת': '»eine Sprache«',
+    'לשון הקדש': 'die heilige Sprache — das Hebräisch der Tora',
+    'שפה ברורה': '»eine klare Sprache«',
+    'לשון זהב': '»eine goldene Zunge«',
+    'שפת עבר': '»die Sprache Ewers«',
+    'שרה': 'Sara',
+    'בגץ': '»bgz« — der Name שרה im Atbasch',
+    'יסכה': 'Jiska, Tochter Harans',
+    'רבקה': 'Riwka',
+    'רחל': 'Rachel',
+    'לאה': 'Lea',
   },
   riddles: [
     {
@@ -95,7 +108,7 @@ const de: LessonText = {
       lessons: [
         {
           h: 'Wie man den Baal HaTurim liest',
-          b: `<p>Der Kommentar des Baal HaTurim steht in fast jedem Chumasch. Er besteht aus kurzen Hinweisen. Seine Werkzeuge: <b>Gematria</b> — zwei Ausdrücke mit derselben Zahl hängen in ihrer Bedeutung zusammen; <b>Raschej Tewot und Sofej Tewot</b> (<span class="he">ר״ת</span>, <span class="he">ס״ת</span>) — die ersten oder letzten Buchstaben benachbarter Wörter ergeben ein neues Wort; <b>»zwei- oder dreimal in der Masora«</b> — ein Wort kommt im ganzen Tanach genau zwei- oder dreimal vor, und diese Stellen erklären einander.</p><p>Jede Zahl in dieser Lektion wurde geprüft. Einige Gematriot des Kommentars zum Abschnitt Noach stimmen in unserer Rechnung nicht — sie sind nicht in der Lektion.</p>`,
+          b: `<p>Der Kommentar des Baal HaTurim steht in fast jedem Chumasch. Er besteht aus kurzen Hinweisen. Seine Werkzeuge: <b>Gematria</b> — zwei Ausdrücke mit derselben Zahl hängen in ihrer Bedeutung zusammen; <b>Raschej Tewot und Sofej Tewot</b> (<span class="he">ר״ת</span>, <span class="he">ס״ת</span>) — die ersten oder letzten Buchstaben benachbarter Wörter ergeben ein neues Wort; <b>»zwei- oder dreimal in der Masora«</b> — ein Wort kommt im ganzen Tanach genau zwei- oder dreimal vor, und diese Stellen erklären einander. Manchmal zählt er auch anders — »mit dem Kolel« oder im Atbasch (Rätsel 5).</p><p>Jede Zahl in dieser Lektion wurde geprüft. Einige Gematriot des Kommentars zum Abschnitt Noach stimmen in unserer Rechnung nicht — sie sind nicht in der Lektion.</p>`,
         },
         {
           h: '»Dies sind die Nachkommen«',
@@ -296,24 +309,75 @@ const de: LessonText = {
         'Die letzten Buchstaben von »איש אל רעהו הבה« — שלוה: Die Turmbauer sündigten aus zu viel Wohlstand.',
       ],
     },
+    {
+      title: 'Eine Sprache und Saras Name',
+      cond: `<p>Vor dem Turm von Bawel hatten alle Menschen eine Sprache:</p><p class="verse" dir="rtl" lang="he">ויהי כל הארץ שפה אחת ודברים אחדים</p><p>»Und die ganze Erde hatte eine Sprache und dieselben Worte.«<sup data-src="gen-11-1"></sup></p><p>Und am Ende des Abschnitts werden die Frauen von Awram und Nachor genannt — <em>שרי</em> und <em>מלכה</em> — und noch ein Mädchen, von dem die Tora sonst nichts erzählt: <em>יסכה</em>, Jiska.<sup data-src="gen-11-29"></sup></p><p>Hier zählt der Baal HaTurim <b>nicht mit der üblichen Gematria</b>: Beim ersten Hinweis braucht man den »Kolel« — für den Ausdruck selbst kommt 1 dazu; beim zweiten den <b>Atbasch</b>: Jeder Buchstabe wird mit seinem »Spiegelbild« getauscht (erster ↔ letzter: <span class="he">א</span> ↔ <span class="he">ת</span>, zweiter ↔ vorletzter: <span class="he">ב</span> ↔ <span class="he">ש</span> …).</p>`,
+      steps: [
+        {
+          q: 'Wie viel sind die Wörter <span class="he">שפה אחת</span> — »eine Sprache« — wert?',
+          hint: 'שפה = 300 + 80 + 5; אחת = 1 + 8 + 400.',
+        },
+        {
+          q: 'Zähl den »Kolel« dazu — 1 für den ganzen Ausdruck. Wie viel kommt heraus?',
+          hint: 'Zähl zur Summe des letzten Schritts 1 dazu.',
+        },
+        {
+          q: 'Welcher Ausdruck ist so viel wert — und sagt, <b>welche</b> Sprache es war?',
+          opts: ['»die heilige Sprache«', '»eine klare Sprache«', '»eine goldene Zunge«', '»die Sprache Ewers«'],
+        },
+        {
+          q: 'Schreib den Namen <span class="he">שרה</span> (Sara) im Atbasch: statt <span class="he">ש</span> schreibst du <span class="he">ב</span>, statt <span class="he">ר</span> — <span class="he">ג</span>, statt <span class="he">ה</span> — <span class="he">צ</span>. Wie viel ist das neue Wort wert?',
+          hint: 'Die neuen Buchstaben sind Bet, Gimel und Zadi: 2 + 3 + 90.',
+        },
+        {
+          q: 'Wessen Name in diesem Abschnitt hat dieselbe Gematria?',
+          opts: ['Jiska', 'Riwka', 'Rachel', 'Lea'],
+        },
+      ],
+      reveal: {
+        h: 'Die heilige Sprache und Sara, die Prophetin',
+        p: '»Safa achat« ist 794, und mit dem Kolel 795, wie »Laschon ha-Kodesch«, die heilige Sprache: Vor dem Turm sprachen alle die heilige Sprache. Der Name »Sara« wird im Atbasch zu »bgz« — 95, wie »Jiska«: Die Weisen sagen, dass Jiska Sara ist.',
+      },
+      lessons: [
+        {
+          h: 'Arten zu zählen',
+          b: `<p>Bei den Kommentatoren der Tora gibt es mehr als eine Gematria. Außer der üblichen (<i>Mispar Hechrechi</i>) gibt es die <b>kleine Gematria</b> (der Wert eines Buchstabens ohne Nullen: <span class="he">י</span> = 1, <span class="he">ק</span> = 1), die <b>Ordnungszahl</b> (<span class="he">א</span> = 1 … <span class="he">ת</span> = 22), die <b>große Zahl</b> (Endbuchstaben <span class="he">ך ם ן ף ץ</span> — 500 … 900), die <b>volle Schreibweise</b> (jeder Buchstabe mit seinem Namen: <span class="he">א</span> = <span class="he">אלף</span> = 111) und den <b>Kolel</b> — wenn für das Wort selbst 1 dazukommt.</p><p>Es gibt auch Buchstabentausch: <b>Atbasch</b> (<span class="he">א״ת ב״ש</span>) — der erste Buchstabe des Alphabets tauscht mit dem letzten, der zweite mit dem vorletzten; <b>Albam</b> (<span class="he">א״ל ב״ם</span>) — das Alphabet wird in zwei Hälften geteilt. Und Buchstabenspiele: <b>Raschej und Sofej Tewot</b> — die ersten und letzten Buchstaben der Wörter; <b>Notarikon</b> — jeder Buchstabe eines Wortes beginnt ein eigenes Wort. Alle diese Arten kannst du im Gematria-Rechner ausprobieren.</p>`,
+        },
+        {
+          h: 'Die heilige Sprache',
+          b: `<p>»Und die ganze Erde hatte <span class="he">שפה אחת</span> — eine Sprache.« Der Baal HaTurim: <span class="he">שפה אחת</span> hat die Gematria von <span class="he">לשון הקדש</span>, »die heilige Sprache«.<sup data-src="bht-11-1-2"></sup> Vor dem Turm sprachen alle Menschen die Sprache der Tora.</p><p>Rechnen wir nach: <span class="he">שפה</span> = 385, <span class="he">אחת</span> = 409, zusammen 794; <span class="he">לשון הקדש</span> = 386 + 409 = 795. Der Unterschied ist eins. Der Baal HaTurim schreibt einfach »Gematria«, und die Zahlen stimmen nach der Regel »<b>mit dem Kolel</b>«: Für den ganzen Ausdruck kommt 1 dazu. 794 + 1 = 795.</p>`,
+        },
+        {
+          h: 'Sara ist Jiska',
+          b: `<p>Am Ende des Abschnitts: »Der Name der Frau Awrams war Sarai, und der Name der Frau Nachors Milka, die Tochter Harans, des Vaters von Milka und des Vaters von Jiska.« Wer ist Jiska? Der Baal HaTurim: Der Name <span class="he">שרה</span> ist im Atbasch <span class="he">בג״ץ</span>: <span class="he">ש</span> wird zu <span class="he">ב</span>, <span class="he">ר</span> zu <span class="he">ג</span>, <span class="he">ה</span> zu <span class="he">צ</span>. Und <span class="he">בגץ</span> = 2 + 3 + 90 = 95 — die Gematria von <span class="he">יסכה</span> (10 + 60 + 20 + 5). Das ist ein Hinweis auf die Worte der Weisen: »Jiska ist Sara«.<sup data-src="bht-11-29"></sup></p><p>In der Gemara erklärt Rabbi Jizchak, warum sie so hieß: Sara war eine der sieben Prophetinnen und »sah« (<i>sachta</i>) mit heiligem Geist — darum sagte der Allmächtige zu Awraham: »Alles, was Sara dir sagt, darauf hör«. Und auch, weil alle ihre Schönheit »anschauten«.<sup data-src="megillah-14a"></sup></p>`,
+        },
+      ],
+      reflection: 'Vor dem Turm sprachen alle eine heilige Sprache. Mit welchen Worten kann ich heute mein Sprechen »heilig« machen — freundlich, ehrlich, ohne Grobheit?',
+      takeaways: [
+        'Außer der üblichen Gematria gibt es die kleine Zahl, die Ordnungszahl, die große Zahl, die volle Schreibweise, den Kolel, Atbasch, Albam; Buchstabenspiele — Raschej/Sofej Tewot und Notarikon.',
+        'שפה אחת = 794, mit dem Kolel 795 = לשון הקדש: Vor dem Turm sprachen alle die heilige Sprache.',
+        'שרה ist im Atbasch בגץ = 95 = יסכה: Jiska ist Sara.',
+        'Sara ist eine Prophetin: »Alles, was Sara dir sagt, darauf hör«.',
+      ],
+    },
   ],
   final: {
     title: 'Die Arche ist offen',
     allSolved:
-      'Alle vier Rätsel sind gelöst. Noach ist ein weiser Zaddik, »Chamas« wurde mit »den Wassern Noachs« bestraft, die Arche leuchtete durch einen Stein, Og wurde mit Noach gerettet, der Bund nach der Sintflut verspricht Leben, und der Wein und die sorglosen Turmbauer lehren uns, vorsichtig zu sein.',
+      'Alle fünf Rätsel sind gelöst. Noach ist ein weiser Zaddik, »Chamas« wurde mit »den Wassern Noachs« bestraft, die Arche leuchtete durch einen Stein, Og wurde mit Noach gerettet, der Bund nach der Sintflut verspricht Leben, der Wein und die sorglosen Turmbauer lehren uns, vorsichtig zu sein, und der Atbasch zeigt, dass Jiska Sara ist.',
   },
-  audience: 'Addieren und Buchstabenspiele, eine bekannte Geschichte — Noach, die Arche und die Sintflut. Jüngere Kinder — zusammen mit einem Erwachsenen.',
+  audience: 'Addieren, Buchstabenspiele und Atbasch, eine bekannte Geschichte — Noach, die Arche und die Sintflut. Jüngere Kinder — zusammen mit einem Erwachsenen.',
   practice:
     'Wenn dir diese Woche etwas gelingt oder du ein Geschenk bekommst, sag laut »Danke« — dem Allmächtigen und dem, der dir geholfen hat. Dreimal zeigt der Baal HaTurim: Unglück kommt nicht von Armut, sondern von »Schalwa« — von guten Zeiten, bei denen man vergessen hat, woher sie kommen.',
   highlight: 'Die »Gewalttat« der Generation der Sintflut ist so viel wert wie »die Wasser Noachs«: Der Allmächtige vergilt Maß für Maß.',
   share: ({ score, max, time, grid, allSolved, site }) => `🌊 Wie viel ist die »Gewalttat« der Generation der Sintflut wert? Die Antwort steckt in »den Wassern Noachs«.
 
-Ich spiele ein Gematria-Spiel nach dem Kommentar des Baal HaTurim zum Abschnitt Noach. ${allSolved ? 'Alle vier Rätsel gelöst:' : 'Mein Weg bis jetzt:'}
+Ich spiele ein Gematria-Spiel nach dem Kommentar des Baal HaTurim zum Abschnitt Noach. ${allSolved ? 'Alle fünf Rätsel gelöst:' : 'Mein Weg bis jetzt:'}
 
 ✦ ${score} von ${max} Punkten · ⏱ ${time}
 ${grid}
 
-Vier Rätsel: über Noach, den Zaddik, und »die Wasser Noachs«, über die Arche und den leuchtenden Stein, über die Sintflut, den Riesen Og und den Bund, über den Wein und den Turm. Schaffst du es besser?
+Fünf Rätsel: über Noach, den Zaddik, und »die Wasser Noachs«, über die Arche und den leuchtenden Stein, über die Sintflut, den Riesen Og und den Bund, über den Wein und den Turm, über die heilige Sprache und Saras Namen. Schaffst du es besser?
 Spiel mit 👉 ${site}
 
 ©mychitas.app`,

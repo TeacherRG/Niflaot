@@ -1,7 +1,9 @@
 /**
  * Checks every lesson's data and texts:  npm run check
  *  - the coach of every numeric step ends exactly at the step's answer
- *  - every option value (v) equals the real gematria of the option
+ *  - every option value (v) equals the real gematria of the option, in the step's method of counting
+ *    (src/core/gematriaMethods.ts, docs/GEMATRIA-RULES.md); a notarikon step has exactly one fitting option;
+ *    the worked examples of every method come out exactly
  *  - every footnote mark points to one of the riddle's sources, every source has a mark (ru and en)
  *  - every source exists in src/sources/sefaria.json; non-Torah sources have a Russian translation;
  *    every source has a German one (Sefaria's or the project's, src/sources/de.ts);
@@ -29,7 +31,8 @@
  */
 import { LESSONS } from '../src/lessons';
 import { staleOverrides } from '../src/content';
-import { gematria, gematriaMilui } from '../src/core/gematria';
+import { gematria } from '../src/core/gematria';
+import { METHOD_EXAMPLES, exampleValue, gematriaBy, isNotarikon } from '../src/core/gematriaMethods';
 import { coachResult } from '../src/core/coach';
 import { letterStepError, plainWord, tapStepError } from '../src/core/letterPuzzle';
 import { SOURCES } from '../src/sources';
@@ -103,10 +106,15 @@ for (const lesson of LESSONS) {
       } else {
         s.opts.forEach((o) => {
           if (o.v !== undefined && /[א-ת]/.test(o.h) && !/[+:×−]/.test(o.h)) {
-            const g = s.milui ? gematriaMilui(o.h) : gematria(o.h);
-            if (g !== o.v) err(`${where(i)}: option ${o.h} has v=${o.v}, gematria is ${g}`);
+            const g = gematriaBy(s.method ?? 'standard', o.h);
+            if (g !== o.v) err(`${where(i)}: option ${o.h} has v=${o.v}, gematria${s.method ? ` (${s.method})` : ''} is ${g}`);
           }
         });
+        if (s.notarikon) {
+          const fit = s.opts.map((o, k) => (isNotarikon(s.notarikon!, o.h) ? k : -1)).filter((k) => k >= 0);
+          if (fit.length !== 1 || fit[0] !== s.c)
+            err(`${where(i)}: notarikon ${s.notarikon} — exactly the right option must begin with its letters (now: ${fit.map((k) => s.opts[k].h).join(', ') || 'none'})`);
+        }
       }
     });
     for (const id of r.sources ?? []) {
@@ -135,6 +143,13 @@ for (const lesson of LESSONS) {
       for (const id of r.sources ?? []) if (!marks.has(id)) err(`${where()} [${lang}]: source ${id} has no footnote in the text`);
     }
   });
+}
+
+// the ways of counting (docs/GEMATRIA-RULES.md): every worked example comes out exactly
+for (const e of METHOD_EXAMPLES) {
+  const v = exampleValue(e);
+  if (v !== e.v) err(`gematria methods: ${e.method} of ${e.word} is ${v}, not ${e.v}`);
+  if (e.eq && gematria(e.eq) !== e.v) err(`gematria methods: ${e.eq} is ${gematria(e.eq)}, not ${e.v}`);
 }
 
 for (const lesson of LESSONS)

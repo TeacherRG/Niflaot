@@ -12,6 +12,7 @@ import { Puzzle } from './Puzzle';
 import { footnotes } from '../sources/footnotes';
 import { LettersPuzzle, TapPuzzle } from './LetterSteps';
 import { asWord } from '../core/letterPuzzle';
+import { firstLetters } from '../core/gematriaMethods';
 import { displayNames } from '../core/names';
 
 /** «⏱ ≈ 1 мин · ●●○ средний»: average time and difficulty of a step (or of the whole riddle). */
@@ -245,7 +246,9 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
                           {o.h}
                         </span>
                         <span className="or">{st.opts?.[k]}</span>
-                        <span className="ov">{(picked || x.ok) && o.v != null ? `= ${o.v}` : ''}</span>
+                        <span className="ov">
+                          {(picked || x.ok) && s.notarikon ? <span className="he">{firstLetters(o.h)}</span> : (picked || x.ok) && o.v != null ? `= ${o.v}` : ''}
+                        </span>
                       </button>
                     );
                   })}

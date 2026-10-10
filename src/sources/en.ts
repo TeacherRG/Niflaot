@@ -120,4 +120,8 @@ export const PROJECT_EN: Record<string, string[]> = {
   'bht-7-11': [
     '<b>On the seventeenth day of the month</b> — and this is [what is said]: “they spend their days in good [ba-tov]” [Job 21:13]: as the number of “tov” [17] — on that [day] of the month the Flood came down. “And the windows of the heavens” — in gematria: “that He took two stars from Kimah [the Pleiades]”.',
   ],
+  'bht-11-1-2': ['<b>One language [safah achat]</b> — in gematria: “the holy tongue” [lashon ha-kodesh].'],
+  'bht-11-29': [
+    '<b>Sarah</b> — in atbash [א״ת ב״ש] — “bgtz” [בג״ץ], which is the gematria of “Yiskah”: this is a hint to what our Sages, of blessed memory, said: “Yiskah is Sarah”.',
+  ],
 };

@@ -37,6 +37,17 @@ const lesson: Lesson = {
         },
         { t: 'lt', est: { sec: 40, level: 1 }, from: 'בראשית ברא אלהים', take: 'last', a: 'אמת' },
         { t: 'lt', est: { sec: 50, level: 2 }, from: 'בהבראם', take: 'all', a: 'באברהם' },
+        {
+          // נוטריקון: the letters of בראשית begin the words of the phrase (docs/GEMATRIA-RULES.md)
+          t: 'ch', est: { sec: 45, level: 1 }, notarikon: 'בראשית',
+          opts: [
+            { h: 'בראשונה ראה אלקים שיקבלו ישראל תורה' },
+            { h: 'בתחלה ראה אלקים שמים וארץ' },
+            { h: 'ברא ראשית אור שמש ירח' },
+            { h: 'בראשונה ראה אלקים שיעשו ישראל מצות' },
+          ],
+          c: 0,
+        },
       ],
       equations: [
         'בראשית ברא = 913 + 203 = 1116',

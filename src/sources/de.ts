@@ -142,4 +142,8 @@ export const PROJECT_DE: Record<string, string[]> = {
   'bht-7-11': [
     '<b>Am siebzehnten Tag des Monats</b> — und das ist [, was gesagt ist]: »sie verbringen ihre Tage im Guten [ba-tow]« [Ijow 21,13]: nach der Zahl von »tow« [17] — an diesem [Tag] des Monats kam die Sintflut herab. »Und die Fenster des Himmels« — Gematria: »dass Er zwei Sterne aus Kima [dem Siebengestirn] nahm«.',
   ],
+  'bht-11-1-2': ['<b>Eine Sprache [safa achat]</b> — Gematria: »die heilige Sprache« [laschon ha-kodesch].'],
+  'bht-11-29': [
+    '<b>Sara</b> — im Atbasch [א״ת ב״ש] — »bgz« [בג״ץ], und das ist die Gematria von »Jiska«: Das ist ein Hinweis auf das, was unsere Weisen, gesegnet sei ihr Andenken, sagten: »Jiska ist Sara«.',
+  ],
 };

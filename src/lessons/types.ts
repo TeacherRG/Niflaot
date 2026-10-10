@@ -1,6 +1,7 @@
 import type { Locale } from '../i18n';
 import type { ParshaId } from './parshiot';
 import type { CoachAction } from '../core/coach';
+import type { Method } from '../core/gematriaMethods';
 
 /* ───────────── language-independent lesson data ───────────── */
 
@@ -33,8 +34,13 @@ export interface ChoiceStep {
   opts: { h: string; v?: number }[];
   /** index of the correct option */
   c: number;
-  /** option values are gematria «במילוי» (letters spelled out in full) */
-  milui?: boolean;
+  /** how the option values are counted, when not the usual way (docs/GEMATRIA-RULES.md): 'milui', 'katan', 'atbash'… */
+  method?: Method;
+  /**
+   * נוטריקון: the right option is the phrase whose words begin with the letters of this word, in order
+   * (checked by `npm run check`: exactly one option does); after a pick each option shows its first letters
+   */
+  notarikon?: string;
 }
 
 /**

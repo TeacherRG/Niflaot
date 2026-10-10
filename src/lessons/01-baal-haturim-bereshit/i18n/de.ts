@@ -63,6 +63,16 @@ const de: LessonText = {
           q: 'Im zweiten Kapitel heißt es: „Dies ist die Entstehung des Himmels und der Erde <span class="he">בהבראם</span> — als sie erschaffen wurden“. Stelle <b>alle</b> Buchstaben dieses Wortes so um, dass „in Awraham“ entsteht — der Name des Erzvaters mit der Vorsilbe <span class="he">ב</span>.',
           hint: 'Awrahams Name ist אברהם. Setze ב („in“) davor.',
         },
+        {
+          q: 'Der Baal HaTurim liest das Wort <span class="he">בראשית</span> auch als <b>Notarikon</b>: Jeder seiner Buchstaben beginnt ein eigenes Wort. Welcher Satz ist das Notarikon von <span class="he">בראשית</span>?',
+          hint: 'Vergleiche die ersten Buchstaben der Wörter jedes Satzes mit den Buchstaben ב־ר־א־ש־י־ת: alle sechs, in der richtigen Reihenfolge.',
+          opts: [
+            '»vor allem sah G-tt, dass Israel die Tora annehmen wird«',
+            '»zuerst sah G-tt Himmel und Erde«',
+            '»Er erschuf einen Anfang: Licht, Sonne, Mond«',
+            '»vor allem sah G-tt, dass Israel die Mizwot halten wird«',
+          ],
+        },
       ],
       reveal: {
         h: 'Die Welt wurde an Rosch Haschana erschaffen — mit Wahrheit',
