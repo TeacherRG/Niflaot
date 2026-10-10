@@ -189,6 +189,10 @@ export function MathPage({ op }: { op: Op }) {
         </section>
 
         <Trainer key={op} op={op} />
+        <a className="m-card m-daily" href="#/daily">
+          <span className="m-daily-title">✦ {t('math.daily')} →</span>
+          <span>{t('math.dailyCta')}</span>
+        </a>
         <p className="m-intro">{t('math.intro')}</p>
       </div>
       <Colophon />

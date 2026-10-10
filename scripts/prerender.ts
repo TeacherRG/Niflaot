@@ -3,6 +3,8 @@
  *  - dist/<slug>/index.html for every lesson: its own title, description, canonical URL, Open Graph,
  *    JSON-LD and the lesson outline as static HTML (the app replaces it on start and opens the lesson);
  *  - static outline of the catalog in dist/index.html, with real links to the lesson pages;
+ *  - «Устный счёт» and «Гиматрия дня» for search engines: dist/mental-math/, dist/daily/ (ru) and the same under
+ *    dist/en/, dist/de/ — with hreflang alternates; the app opens the trainer / the game on them;
  *  - dist/sitemap.xml and dist/robots.txt;
  *  - Atom feeds of the lessons: dist/feed.xml (ru), dist/feed-en.xml, dist/feed-de.xml — for readers, a newsletter
  *    and auto-posting services (links marked ?ref=rss);
@@ -12,7 +14,9 @@
  */
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { LESSONS, LESSON_GROUPS, type Lesson } from '../src/lessons';
-import { SITE_URL, lessonLink } from '../src/core/site';
+import { SITE_URL, lessonLink, staticPath, type StaticPage } from '../src/core/site';
+import { EXAMPLES, OPS, SIGN, answer, solve } from '../src/core/mentalMath';
+import { KEYBOARD, VALUES } from '../src/core/gematria';
 import { displayNames } from '../src/core/names';
 import { buildTags } from '../src/core/tags';
 import ru from '../src/i18n/locales/ru';
@@ -66,6 +70,9 @@ interface Page {
   body: string;
   /** path from the page to dist root */
   root: string;
+  /** page language (default ru) and the same page in other languages */
+  lang?: 'ru' | 'en' | 'de';
+  alternates?: { lang: string; url: string }[];
 }
 
 function setMeta(html: string, attr: 'name' | 'property', key: string, value: string) {
@@ -86,6 +93,18 @@ function render(p: Page): string {
   const image = existsSync(`${DIST}/og/${p.image}.png`) ? p.image : 'site';
   html = setMeta(html, 'property', 'og:image', `${SITE_URL}/og/${image}.png`);
   html = setMeta(html, 'property', 'og:image:alt', p.imageAlt);
+  if (p.lang && p.lang !== 'ru') {
+    html = html.replace('<html lang="ru">', `<html lang="${p.lang}">`);
+    html = setMeta(html, 'property', 'og:locale', p.lang === 'en' ? 'en_US' : 'de_DE');
+  }
+  if (p.alternates)
+    html = html.replace(
+      /<link rel="canonical" href="[^"]*" \/>/,
+      (m) =>
+        `${m}\n${[...p.alternates!, { lang: 'x-default', url: p.alternates![0].url }]
+          .map((a) => `    <link rel="alternate" hreflang="${a.lang}" href="${a.url}" />`)
+          .join('\n')}`,
+    );
   // `<` escaped so text can never close the <script> element
   const ld = JSON.stringify(p.jsonLd).replace(/</g, '\\u003c');
   html = html.replace(
@@ -184,6 +203,104 @@ ${tx.riddles
   };
 }
 
+/* ───── «Устный счёт» and «Гиматрия дня» ───── */
+
+const LANGS = [
+  { lang: 'ru', ui: ru },
+  { lang: 'en', ui: en },
+  { lang: 'de', ui: de },
+] as const;
+type Ui = (typeof LANGS)[number]['ui'];
+const s = (ui: Ui, k: keyof Ui) => String(ui[k]);
+/** Hebrew in a plain text as <span class="he"> */
+const heRuns = (t: string) => esc(t).replace(/[א-ת][א-ת״׳"' ]*[א-ת״׳]|[א-ת]/g, (m) => `<span class="he">${m}</span>`);
+const alternatesOf = (page: StaticPage) => LANGS.map((l) => ({ lang: l.lang, url: `${SITE_URL}${staticPath(page, l.lang)}` }));
+
+function mathPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
+  const root = lang === 'ru' ? '../' : '../../';
+  const url = `${SITE_URL}${staticPath('mental-math', lang)}`;
+  return {
+    title: `${s(ui, 'math.seoTitle')} · ${s(ui, 'app.title')}`,
+    description: s(ui, 'math.seoLead'),
+    url,
+    type: 'article',
+    root,
+    lang,
+    alternates: alternatesOf('mental-math'),
+    image: 'mental-math',
+    imageAlt: s(ui, 'math.seoTitle'),
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'LearningResource',
+      name: s(ui, 'math.seoTitle'),
+      description: s(ui, 'math.seoLead'),
+      url,
+      inLanguage: lang,
+      learningResourceType: ['exercise', 'game'],
+      interactivityType: 'active',
+      isAccessibleForFree: true,
+      typicalAgeRange: '7-',
+      teaches: OPS.map((o) => s(ui, `math.name.${o}` as keyof Ui)),
+      publisher: PUBLISHER,
+      isPartOf: SITE,
+    },
+    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'math.title'))}</p>
+<h1>${esc(s(ui, 'math.seoTitle'))}</h1><p>${esc(s(ui, 'math.seoLead'))}</p>
+<p><a href="${root}#/math/add">${esc(s(ui, 'math.seoTrain'))} →</a> · <a href="${root}${staticPath('daily', lang).slice(1)}">${esc(s(ui, 'math.daily'))} →</a></p></header>
+${OPS.map(
+  (o) => `<section><h2>${esc(s(ui, `math.op.${o}` as keyof Ui))}: ${esc(s(ui, `math.name.${o}` as keyof Ui))}</h2>${s(ui, `math.idea.${o}` as keyof Ui)}
+<h3>${esc(s(ui, 'math.examples'))}</h3><ul>${EXAMPLES[o]
+    .map((e) => `<li><p>${heRuns(e.label)}: ${e.a} ${SIGN[o]} ${e.b} = ${answer(e)}</p><ol>${solve(e).map((x) => `<li>${esc(x.text)}</li>`).join('')}</ol></li>`)
+    .join('')}</ul></section>`,
+).join('\n')}
+</article>`,
+  };
+}
+
+function dailyPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
+  const root = lang === 'ru' ? '../' : '../../';
+  const url = `${SITE_URL}${staticPath('daily', lang)}`;
+  const letters = KEYBOARD.filter((c) => !'ךםןףץ'.includes(c));
+  return {
+    title: `${s(ui, 'daily.seoTitle')} · ${s(ui, 'app.title')}`,
+    description: s(ui, 'daily.seoLead'),
+    url,
+    type: 'article',
+    root,
+    lang,
+    alternates: alternatesOf('daily'),
+    image: 'daily',
+    imageAlt: s(ui, 'daily.seoTitle'),
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'LearningResource',
+      name: s(ui, 'daily.title'),
+      description: s(ui, 'daily.seoLead'),
+      url,
+      inLanguage: lang,
+      learningResourceType: 'game',
+      interactivityType: 'active',
+      isAccessibleForFree: true,
+      typicalAgeRange: '7-',
+      publisher: PUBLISHER,
+      isPartOf: SITE,
+    },
+    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'daily.title'))}</p>
+<h1>${esc(s(ui, 'daily.seoTitle'))}</h1><p>${esc(s(ui, 'daily.seoLead'))}</p>
+<p><a href="${root}#/daily">${esc(s(ui, 'daily.play'))} →</a> · <a href="${root}${staticPath('mental-math', lang).slice(1)}">${esc(s(ui, 'math.title'))} →</a></p></header>
+<section><h2>${esc(s(ui, 'daily.title'))}</h2>${s(ui, 'daily.rules')}</section>
+<section><h2>${esc(s(ui, 'daily.values'))}</h2><table><tbody>${letters
+      .map((c) => `<tr><td class="he">${c}</td><td>${VALUES[c]}</td></tr>`)
+      .join('')}</tbody></table></section>
+</article>`,
+  };
+}
+
+const STATIC_OUT: [string, Page][] = LANGS.flatMap(({ lang, ui }) => [
+  [staticPath('mental-math', lang), mathPage(lang, ui)] as [string, Page],
+  [staticPath('daily', lang), dailyPage(lang, ui)] as [string, Page],
+]);
+
 /* ───── write ───── */
 
 writeFileSync(`${DIST}/index.html`, render(home));
@@ -192,12 +309,17 @@ for (const l of LESSONS) {
   writeFileSync(`${DIST}/${l.slug}/index.html`, render(lessonPage(l)));
 }
 
+for (const [path, page] of STATIC_OUT) {
+  mkdirSync(`${DIST}${path}`, { recursive: true });
+  writeFileSync(`${DIST}${path}index.html`, render(page));
+}
+
 const today = new Date().toISOString().slice(0, 10);
 writeFileSync(
   `${DIST}/sitemap.xml`,
   `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${[`${SITE_URL}/`, ...LESSONS.map(lessonUrl)].map((u) => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join('\n')}
+${[`${SITE_URL}/`, ...LESSONS.map(lessonUrl), ...STATIC_OUT.map(([, p]) => p.url)].map((u) => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join('\n')}
 </urlset>
 `,
 );
@@ -246,4 +368,4 @@ ${entries.join('\n')}
 }
 
 writeFileSync(`${DIST}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
-console.log(`prerender: index + ${LESSONS.length} lesson pages, sitemap.xml, robots.txt, ${FEEDS.length} feeds`);
+console.log(`prerender: index + ${LESSONS.length} lesson pages + ${STATIC_OUT.length} math / daily pages, sitemap.xml, robots.txt, ${FEEDS.length} feeds`);

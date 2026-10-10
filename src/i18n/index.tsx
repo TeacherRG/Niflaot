@@ -18,6 +18,9 @@ function detectLocale(): Locale {
   try {
     const q = new URLSearchParams(location.search).get('lang');
     if (isLocale(q)) return q;
+    // the static pages of other languages: /en/mental-math/, /de/daily/
+    const dir = location.pathname.split('/').filter(Boolean)[0];
+    if (isLocale(dir)) return dir;
   } catch {}
   try {
     const saved = localStorage.getItem(STORAGE_KEY);

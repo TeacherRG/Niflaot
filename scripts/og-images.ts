@@ -1,6 +1,7 @@
 /**
  * Link-preview pictures (Open Graph, 1200×630) in the style of the share card:
- * public/og/site.png for the catalog and public/og/<slug>.png for every lesson.
+ * public/og/site.png for the catalog, public/og/<slug>.png for every lesson, mental-math.png and daily.png
+ * for «Устный счёт» and «Гиматрия дня».
  * The PNGs are committed; re-run after adding a lesson or changing its title or key equation:
  *
  *   npm i --no-save playwright && npx tsx scripts/og-images.ts
@@ -88,6 +89,28 @@ const shots: [string, string][] = [
       title: ru['catalog.uvp'] as string,
       sub: 'Рав Ицхак Гинзбург · Бааль ґа-Турим · Любавичский Ребе',
       letters: ['נ', 'פ'],
+    }),
+  ],
+  [
+    'mental-math',
+    page({
+      eyebrow: 'Нифлаот · устный счёт',
+      he: 'חשבון',
+      title: 'Ментальная арифметика',
+      sub: 'Сложение · вычитание · умножение · деление — в уме, по шагам',
+      highlight: [['456', '+', '15', '=', '471']],
+      letters: ['ח', 'ש'],
+    }),
+  ],
+  [
+    'daily',
+    page({
+      eyebrow: 'Нифлаот · каждый день',
+      he: 'גימטריה',
+      title: ru['daily.title'] as string,
+      sub: 'Одно слово Торы в день — сложите его буквы в уме',
+      highlight: [['🟥', '🟨', '🟩']],
+      letters: ['ג', 'מ'],
     }),
   ],
   ...LESSONS.map((l) => [l.slug, lessonPage(l)] as [string, string]),

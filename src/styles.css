@@ -1060,7 +1060,10 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .h-hero-he .num{font-size:12px;letter-spacing:.14em;color:var(--gold)}
 .h-hero h1{margin:4px 0 0;font-family:var(--f-display);font-weight:700;font-size:clamp(24px,3.4vw,34px);line-height:1.1;text-wrap:balance}
 .h-hero p{margin:0;color:var(--muted);font-size:15px}
-.h-hero-side{flex:0 1 300px;display:flex;gap:10px}
+.h-hero-side{flex:0 1 300px;display:flex;flex-wrap:wrap;gap:10px}
+.h-daily{flex:1 1 100%;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:10px 14px;border-radius:10px;background:var(--ink);color:#fff;text-decoration:none}
+.h-daily-title{font-family:var(--f-display);font-weight:700;font-size:18px;color:var(--gold-2)}
+.h-daily-sub{font-size:13px;color:#C9CEE0}
 .h-continue{flex:1;min-width:0;display:grid;gap:5px;align-content:center;padding:14px 16px;border-radius:10px;background:var(--gold-soft);border:1px solid var(--gold-line);text-decoration:none;color:var(--ink)}
 .h-continue:hover{border-color:var(--gold-2)}
 .h-continue-lbl{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
@@ -1219,3 +1222,27 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .partner-about{font-size:14.5px;color:var(--ink-2);text-align:center;max-width:42ch}
 .partner-url{font-size:14px;font-weight:600;color:var(--tchelet)}
 a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(20,26,51,.45)}
+
+/* «Гиматрия дня» */
+.daily-card{text-align:center;display:grid;gap:10px;justify-items:center}
+.daily-word{font-size:clamp(48px,14vw,76px);font-weight:700;line-height:1.1;color:var(--ink)}
+.daily-gloss{color:var(--muted);font-size:16px;margin-top:-6px}
+.daily-tiles{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.daily-tiles span{display:grid;justify-items:center;min-width:42px;padding:6px 8px;border:1px solid var(--gold-line);border-radius:8px;background:var(--gold-soft)}
+.daily-tiles b{font-family:var(--f-he);font-size:24px;font-weight:500;line-height:1.1}
+.daily-tiles i{font-style:normal;font-family:var(--f-num);font-size:13px;color:var(--gold)}
+.daily-task{margin:4px 0 0}
+.daily-row{justify-content:center;flex-wrap:wrap}
+.daily-row .inp{width:130px;text-align:center;font-size:20px}
+.daily-note{margin:0;font-size:13px;color:var(--muted)}
+.daily-grid{letter-spacing:2px}
+.daily-result{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;font-size:15px}
+.daily-result .daily-grid{font-size:20px}
+.daily-share{justify-content:center}
+.daily-card .hp-solution{justify-self:stretch;text-align:start}
+.daily-links,.daily-next{margin:0}
+.facts-head+.daily-card{margin-bottom:16px;scroll-margin-top:70px}
+.daily-rules{justify-self:stretch;text-align:start;border-top:1px solid var(--line);padding-top:10px}
+.daily-rules summary{cursor:pointer;font-weight:600;color:var(--tchelet)}
+.m-daily{display:grid;gap:4px;text-decoration:none;color:inherit;border-color:var(--gold-line)}
+.m-daily-title{font-family:var(--f-display);font-weight:700;font-size:22px;color:var(--ink)}

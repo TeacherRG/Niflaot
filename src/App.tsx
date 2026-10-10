@@ -14,7 +14,7 @@ import { installTitleSync } from './core/pageMeta';
 import { DonateFab, UIContext, type Panel } from './components/ui';
 import { useI18n } from './i18n';
 
-import { SITE_HOST } from './core/site';
+import { SITE_HOST, STATIC_PAGES, type StaticPage } from './core/site';
 
 /** Every page but the catalog loads on demand: the first screen gets only its own code. */
 const page = <K extends string, P>(load: () => Promise<Record<K, ComponentType<P>>>, name: K) =>
@@ -38,12 +38,14 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©pnimi.org.il\n©mychitas.app`;
 /**
  * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version,
  * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers (`/read/<n>`, `/memo/<n>`, `/r/<n>` — opened at riddle or Memo pair n), `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/partners` — «Партнёры», `#/facts` — «Знаете ли вы?», the equalities of all lessons (`#/facts/<id>` — opened at one of them), `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper.
+ * `#/daily` — «Знаете ли вы?» opened on «Гиматрия дня», its first card; `#/math/<op>` — «Устный счёт».
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
- * written by scripts/prerender.ts) opens that lesson.
+ * written by scripts/prerender.ts) opens that lesson; `/mental-math/` and `/daily/` (also under `/en/`, `/de/`) — those pages.
  */
 function readRoute() {
   if (location.hash) return location.hash.replace(/^#\/?/, '').split('?')[0];
   const seg = location.pathname.split('/').filter(Boolean).pop() ?? '';
+  if (seg in STATIC_PAGES) return STATIC_PAGES[seg as StaticPage];
   return findLesson(seg) ? seg : '';
 }
 
@@ -139,6 +141,8 @@ function Site() {
           <PartnersPage />
         ) : slug === 'facts' ? (
           <FactsPage at={view || undefined} />
+        ) : slug === 'daily' ? (
+          <FactsPage at="daily" />
         ) : slug === 'math' ? (
           <MathPage op={OPS.includes(view as Op) ? (view as Op) : 'add'} />
         ) : slug === 'rebbe' && view in PARSHIOT ? (

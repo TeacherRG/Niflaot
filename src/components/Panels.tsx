@@ -26,7 +26,7 @@ export function Panels() {
             <Icon name="home" />
             <span>{t('menu.home')}</span>
           </a>
-          <a href="#/facts" onClick={close} className="menu-item" aria-current={location.hash === '#/facts' ? 'page' : undefined}>
+          <a href="#/facts" onClick={close} className="menu-item" aria-current={location.hash === '#/facts' || location.hash === '#/daily' ? 'page' : undefined}>
             <Icon name="hash" />
             <span>
               {t('facts.title')}
