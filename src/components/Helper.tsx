@@ -6,6 +6,7 @@ import { gematriaSteps } from '../core/gematriaSteps';
 import { getPageState, subscribePageState } from '../core/assistant';
 import { SOURCES, sourceLabel } from '../sources';
 import { HebrewRuns } from './Hebrew';
+import { GematriaSolution } from './GematriaSolution';
 import { Sheet, useUI } from './ui';
 
 const EXAMPLES = ['שלום', 'חכמה', 'אהבה', 'תורה'];
@@ -98,26 +99,7 @@ function StepByStep({ words }: { words: string[] }) {
           {verdict === 'ok' && <div className="fb ok">{t('math.correct')}</div>}
           {verdict === 'bad' && !shown && <div className="fb no">{t('math.wrong')}</div>}
           {(shown || verdict === 'ok') && (
-            <ol className="hp-solution">
-              {g.groups.map((gr) => (
-                <li key={gr.rank}>
-                  <span className="hp-rank">{t(`helper.rank.${gr.rank}` as MessageKey)}</span>{' '}
-                  {gr.letters.map((c, i) => (
-                    <span key={i}>
-                      {i > 0 && ' + '}
-                      <span className="he">{c}</span>
-                    </span>
-                  ))}
-                  {' = '}
-                  {gr.values.length > 1 ? `${gr.values.join(' + ')} = ${gr.sum}` : gr.sum}
-                </li>
-              ))}
-              {g.join.length > 0 && (
-                <li>
-                  <span className="hp-rank">{t('helper.join')}</span> {g.join.join(' → ')}
-                </li>
-              )}
-            </ol>
+            <GematriaSolution g={g} />
           )}
           {(shown || verdict === 'ok') && (
             <div className="hp-total">

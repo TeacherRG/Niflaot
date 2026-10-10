@@ -33,6 +33,13 @@ export function Panels() {
               <small>{t('facts.menuSub')}</small>
             </span>
           </a>
+          <a href="#/daily" onClick={close} className="menu-item" aria-current={location.hash === '#/daily' ? 'page' : undefined}>
+            <Icon name="calc" />
+            <span>
+              {t('daily.title')}
+              <small>{t('daily.menuSub')}</small>
+            </span>
+          </a>
           <div className="menu-lbl">{t('menu.lessons')}</div>
           {LESSON_GROUPS.map((g) => (
             <details key={g.id} className="menu-group" open={!currentParsha || currentParsha === g.id}>

@@ -20,6 +20,7 @@
  *  - every text edit of src/content/overrides.json (made on the site, #/admin) names an existing text
  *  - «Знаете ли вы?» (#/facts): every Hebrew word of the feed has a translation in the lesson glossary of every language,
  *    and every fact links to its place in the lesson (a riddle or a Memo pair)
+ *  - «Гиматрия дня» (#/daily): enough words, each with its value, a translation in every language and a place to link to
  *  - the site asks the browser for no permissions: no microphone, camera, location, notifications, speech recognition
  *    (src/ has none of these APIs; the city for Shabbat comes from the time zone)
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
@@ -38,6 +39,8 @@ import { PROJECT_EN } from '../src/sources/en';
 import { LOCALES } from '../src/i18n/config';
 import { displayNames } from '../src/core/names';
 import { collectFacts, factHebrew } from '../src/core/facts';
+import { dailyPool } from '../src/core/daily';
+import { gematria } from '../src/core/gematria';
 import type { PuzzleText } from '../src/lessons/types';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import ruUi from '../src/i18n/locales/ru';
@@ -260,6 +263,15 @@ for (const f of facts)
     for (const h of factHebrew(f)) if (!g[h]) err(`${f.lesson.slug}: facts — «${h}» has no translation in glossary (${loc})`);
   }
 
+const daily = dailyPool(LESSONS);
+if (daily.length < 30) err(`daily: only ${daily.length} words for «Гиматрия дня» — a month at least`);
+for (const w of daily) {
+  if (gematria(w.he) !== w.v) err(`daily: «${w.he}» = ${gematria(w.he)}, not ${w.v}`);
+  if (w.ri === undefined && w.mi === undefined) err(`daily: «${w.he}» has no place in its lesson to link to`);
+  for (const loc of Object.keys(LOCALES) as (keyof typeof LOCALES)[])
+    if (!w.lesson.texts[loc]?.glossary[w.he]) err(`daily: «${w.he}» has no translation in glossary (${loc})`);
+}
+
 // no browser permission prompts: the site must work for anyone without asking for the microphone, camera, location…
 const PERMISSION_APIS =
   /\b(getUserMedia|getDisplayMedia|enumerateDevices|geolocation|getCurrentPosition|watchPosition|SpeechRecognition|requestPermission|requestMIDIAccess|DeviceOrientationEvent|DeviceMotionEvent|wakeLock|bluetooth|navigator\.usb|navigator\.serial|navigator\.hid)\b/;
@@ -279,4 +291,4 @@ if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));
   process.exit(1);
 }
-console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, memo, ${facts.length} facts, safe HTML, no permission prompts, en/de style`);
+console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, memo, ${facts.length} facts, ${daily.length} daily words, safe HTML, no permission prompts, en/de style`);

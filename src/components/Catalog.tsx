@@ -6,6 +6,7 @@ import { lessonProgress } from '../core/progress';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { WeekCountdown } from './WeekCountdown';
+import { dailyNumber, grid, loadResults, streak } from '../core/daily';
 import { Icon } from './ui';
 import { NIFLAOT_LOGO } from '../core/partners';
 
@@ -55,6 +56,25 @@ function WeekTile({ lesson: l }: { lesson: Lesson }) {
  * The home page — one screen: a short title with «Continue», the lessons of the week's portion (all teachers),
  * and beside them how long the games are open this week (until Shabbat).
  */
+/** «Гиматрия дня» on the home screen: today's number, or the result when today's word is solved. */
+function DailyLink() {
+  const { t } = useI18n();
+  const n = dailyNumber();
+  const all = loadResults();
+  const r = all[n];
+  const series = streak(all, n);
+  return (
+    <a className="h-daily" href="#/daily">
+      <span className="h-daily-title">
+        ✦ {t('daily.title')} <span className="num">{t('daily.no', { n })}</span>
+      </span>
+      <span className="h-daily-sub">
+        {r?.done ? `${grid(r) || '🟥🟥🟥'}${series > 1 ? ` · 🔥 ${series}` : ''}` : t('daily.menuSub')} →
+      </span>
+    </a>
+  );
+}
+
 export function Catalog() {
   const { t, pick, locale } = useI18n();
 
@@ -111,6 +131,7 @@ export function Catalog() {
               <div className="h-countdown-compact">
                 <WeekCountdown variant="compact" />
               </div>
+              <DailyLink />
             </div>
           </section>
 
