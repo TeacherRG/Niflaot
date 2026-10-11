@@ -4,9 +4,16 @@
  *
  * POST /chat  { locale, messages: [{role, content}], context?: string }
  *   → application/x-ndjson stream of {"t": "<text>"} chunks, then {"done": true} or {"error": "..."}.
+ *
+ * The daily reminder of the site (src/push.ts, Durable Object PushHub; cron once an hour):
+ * GET /push/key → {key} (VAPID public key) · POST /push/subscribe {subscription, tz, hour, lang}
+ * · POST /push/unsubscribe {endpoint} · POST /push/test {endpoint} — one push right away.
  */
 import Anthropic from '@anthropic-ai/sdk';
 import { gematria, letters, VALUES } from '../../src/core/gematria';
+import { PushHub } from './push';
+
+export { PushHub };
 
 interface Env {
   ANTHROPIC_API_KEY: string;
@@ -14,7 +21,11 @@ interface Env {
   ALLOWED_ORIGINS?: string;
   /** optional Cloudflare rate limiter (wrangler.toml [[ratelimits]]), keyed by client IP */
   LIMITER?: { limit(o: { key: string }): Promise<{ success: boolean }> };
+  /** the daily reminder: subscriptions and sending (wrangler.toml [[durable_objects.bindings]]) */
+  PUSH: DurableObjectNamespace<PushHub>;
 }
+
+const hub = (env: Env) => env.PUSH.get(env.PUSH.idFromName('hub'));
 
 const MODEL = 'claude-opus-5-5';
 const MAX_TURNS = 24;
@@ -101,7 +112,7 @@ function originOk(origin: string | null, env: Env): origin is string {
 function cors(origin: string | null, env: Env): Record<string, string> {
   return {
     'Access-Control-Allow-Origin': originOk(origin, env) ? origin : allowedOrigins(env)[0],
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Max-Age': '86400',
     Vary: 'Origin',
@@ -160,7 +171,9 @@ export default {
   async fetch(req: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const headers = cors(req.headers.get('Origin'), env);
     if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers });
-    if (req.method !== 'POST' || new URL(req.url).pathname !== '/chat')
+    const path = new URL(req.url).pathname;
+    if (path.startsWith('/push/')) return pushRoute(req, env, path.slice(5), headers);
+    if (req.method !== 'POST' || path !== '/chat')
       return new Response('Not found', { status: 404, headers });
 
     const origin = req.headers.get('Origin');
@@ -200,4 +213,24 @@ export default {
       headers: { ...headers, 'Content-Type': 'application/x-ndjson; charset=utf-8', 'Cache-Control': 'no-store' },
     });
   },
+
+  /** once an hour: the reminders whose local hour has come */
+  async scheduled(_event: ScheduledController, env: Env, ctx: ExecutionContext) {
+    ctx.waitUntil(hub(env).fetch('https://hub/tick').then(() => {}));
+  },
 };
+
+async function pushRoute(req: Request, env: Env, path: string, headers: Record<string, string>): Promise<Response> {
+  const json = (r: Response) => new Response(r.body, { status: r.status, headers: { ...headers, 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
+  if (req.method === 'GET' && path === '/key') return json(await hub(env).fetch('https://hub/key'));
+  if (req.method !== 'POST' || !['/subscribe', '/unsubscribe', '/test'].includes(path)) return new Response('Not found', { status: 404, headers });
+  if (!originOk(req.headers.get('Origin'), env)) return new Response('Forbidden', { status: 403, headers });
+  if (env.LIMITER) {
+    const ip = req.headers.get('CF-Connecting-IP') ?? 'unknown';
+    if (!(await env.LIMITER.limit({ key: ip })).success)
+      return new Response('Too many requests', { status: 429, headers: { ...headers, 'Retry-After': '60' } });
+  }
+  const raw = await req.text().catch(() => '');
+  if (raw.length > 4096) return new Response('Too large', { status: 413, headers });
+  return json(await hub(env).fetch(`https://hub${path}`, { method: 'POST', body: raw }));
+}

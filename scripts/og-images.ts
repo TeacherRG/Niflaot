@@ -1,7 +1,9 @@
 /**
  * Link-preview pictures (Open Graph, 1200×630) in the style of the share card:
- * public/og/site.png for the catalog, public/og/<slug>.png for every lesson, mental-math.png and daily.png
- * for «Устный счёт» and «Гиматрия дня».
+ * public/og/site.png for the catalog, public/og/<slug>.png for every lesson, mental-math.png, daily.png, facts.png and
+ * letters.png for «Устный счёт», «Гиматрия дня», «Знаете ли вы?» and «Буквы за 5 минут».
+ * Also the app icons for «install on the phone» (manifest — scripts/prerender.ts): public/icons/icon-192.png,
+ * icon-512.png, maskable-512.png (the mark inside the safe zone) and apple-touch-icon.png (180).
  * The PNGs are committed; re-run after adding a lesson or changing its title or key equation:
  *
  *   npm i --no-save playwright && npx tsx scripts/og-images.ts
@@ -113,6 +115,28 @@ const shots: [string, string][] = [
       letters: ['ג', 'מ'],
     }),
   ],
+  [
+    'facts',
+    page({
+      eyebrow: 'Нифлаот · знаете ли вы?',
+      he: 'נפלאות',
+      title: ru['facts.title'] as string,
+      sub: 'Загадки Торы: гиматрия и тайные слова в первых буквах',
+      highlight: [['האדם', '=', '50', '=', 'אדמה']],
+      letters: ['ד', 'ע'],
+    }),
+  ],
+  [
+    'letters',
+    page({
+      eyebrow: 'Нифлаот · алеф-бет',
+      he: 'אבגד',
+      title: ru['abc.title'] as string,
+      sub: '22 буквы иврита: название, звучание и число',
+      highlight: [['א', '=', '1', '·', 'ב', '=', '2', '·', 'ג', '=', '3']],
+      letters: ['א', 'ב'],
+    }),
+  ],
   ...LESSONS.map((l) => [l.slug, lessonPage(l)] as [string, string]),
 ];
 for (const [name, html] of shots) {
@@ -120,5 +144,26 @@ for (const [name, html] of shots) {
   await p.evaluate(() => document.fonts.ready);
   await p.screenshot({ path: `${OUT}/${name}.png` });
   console.log(`${OUT}/${name}.png`);
+}
+
+/* app icons: נ in gold on the night-blue of the site, in a thin gold frame */
+const icon = (size: number, inset: number) => `<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@900&display=block">
+<style>*{margin:0}body{width:${size}px;height:${size}px;background:#141A33;background-image:radial-gradient(${size}px ${size * 0.7}px at 50% 0,#2A3463 0,transparent 75%);position:relative;overflow:hidden}
+.f{position:absolute;inset:${inset}px;border:${Math.max(2, size / 96)}px solid rgba(216,181,101,.7);border-radius:${size * 0.12}px}
+.l{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"Frank Ruhl Libre";font-weight:900;font-size:${(size - 2 * inset) * 0.78}px;line-height:1;padding-bottom:${size * 0.04}px;background:linear-gradient(180deg,#F1DDA4,#C9A04E);-webkit-background-clip:text;color:transparent}</style>
+</head><body><div class="f"></div><div class="l">נ</div></body></html>`;
+mkdirSync('public/icons', { recursive: true });
+for (const [name, size, inset] of [
+  ['icon-192', 192, 12],
+  ['icon-512', 512, 32],
+  ['maskable-512', 512, 92],
+  ['apple-touch-icon', 180, 12],
+] as const) {
+  await p.setViewportSize({ width: size, height: size });
+  await p.setContent(icon(size, inset), { waitUntil: 'networkidle' });
+  await p.evaluate(() => document.fonts.ready);
+  await p.screenshot({ path: `public/icons/${name}.png` });
+  console.log(`public/icons/${name}.png`);
 }
 await browser.close();

@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useSyncExternalStore } from 'react';
 import { Html, useI18n } from '../i18n';
 import { LESSON_GROUPS, findLesson } from '../lessons';
 import { VALUES } from '../core/gematria';
@@ -6,6 +6,7 @@ import { OPS, SIGN } from '../core/mentalMath';
 import { Icon, Sheet, useUI } from './ui';
 import { ASSISTANT_URL } from '../core/assistant';
 import { lessonGames } from './lessonGames';
+import { canInstall, install, subscribeInstall } from '../core/install';
 
 /** Gematria step by step, sources and FAQ (with all the primary sources) load when «Как играть» opens. */
 const HelperContent = lazy(() => import('./Helper').then((m) => ({ default: m.HelperContent })));
@@ -56,6 +57,7 @@ export function Panels() {
   const { t, pick, locale } = useI18n();
   const { panel, open, lessonSlug } = useUI();
   const level = useHebrewLevel();
+  const installable = useSyncExternalStore(subscribeInstall, canInstall, () => false);
   const close = () => open(null);
   // the page a menu link points to is open (#/<slug> or #/<slug>/memo, #/<slug>/cards)
   const isHere = (href: string) => location.hash.split('?')[0] === href;
@@ -209,6 +211,21 @@ export function Panels() {
             <Icon name="spark" />
             <span>{t(ASSISTANT_URL ? 'ai.title' : 'helper.title')}</span>
           </button>
+          {installable && (
+            <button
+              className="menu-item"
+              onClick={() => {
+                close();
+                install();
+              }}
+            >
+              <Icon name="phone" />
+              <span>
+                {t('install.button')}
+                <small>{t('install.sub')}</small>
+              </span>
+            </button>
+          )}
           <a href="#/teacher" onClick={close} className="menu-item" aria-current={location.hash === '#/teacher' ? 'page' : undefined}>
             <Icon name="user" />
             <span>{t('teacher.title')}</span>

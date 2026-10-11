@@ -3,8 +3,12 @@
  *  - dist/<slug>/index.html for every lesson: its own title, description, canonical URL, Open Graph,
  *    JSON-LD and the lesson outline as static HTML (the app replaces it on start and opens the lesson);
  *  - static outline of the catalog in dist/index.html, with real links to the lesson pages;
- *  - «Устный счёт» and «Гиматрия дня» for search engines: dist/mental-math/, dist/daily/ (ru) and the same under
- *    dist/en/, dist/de/ — with hreflang alternates; the app opens the trainer / the game on them;
+ *  - «Устный счёт», «Гиматрия дня», «Знаете ли вы?» and «Буквы за 5 минут» for search engines: dist/mental-math/,
+ *    dist/daily/, dist/facts/, dist/letters/ (ru) and the same under dist/en/, dist/de/ — with hreflang alternates;
+ *    the app opens the trainer / the game / the feed / the letters on them;
+ *  - web app manifests (install on the phone): dist/manifest.webmanifest (ru), manifest-en / manifest-de.webmanifest;
+ *  - the service worker dist/sw.js (public/sw.js with this build's version and files to keep for offline use) and
+ *    dist/daily-message.json — the daily reminder's message for the coming days (src/core/dailyMessage.ts);
  *  - dist/sitemap.xml and dist/robots.txt;
  *  - Atom feeds of the lessons: dist/feed.xml (ru), dist/feed-en.xml, dist/feed-de.xml — for readers, a newsletter
  *    and auto-posting services (links marked ?ref=rss);
@@ -12,11 +16,15 @@
  *  - Content-Security-Policy <meta> on every page (GitHub Pages can't send headers).
  * Run by `npm run build`.
  */
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { LESSONS, LESSON_GROUPS, type Lesson } from '../src/lessons';
 import { SITE_URL, lessonLink, staticPath, type StaticPage } from '../src/core/site';
 import { EXAMPLES, OPS, SIGN, answer, solve } from '../src/core/mentalMath';
 import { KEYBOARD, VALUES } from '../src/core/gematria';
+import { ALEPH_BET, FINAL_FORMS, LOOKALIKES, letterName, letterSound } from '../src/core/letterNames';
+import { NUMS, collectFacts } from '../src/core/facts';
+import { MSG_LOCALES, schedule } from '../src/core/dailyMessage';
 import { displayNames } from '../src/core/names';
 import { buildTags } from '../src/core/tags';
 import ru from '../src/i18n/locales/ru';
@@ -45,6 +53,8 @@ const lessonUrl = (l: Lesson) => `${SITE_URL}/${l.slug}/`;
 /* ───── Content-Security-Policy ───── */
 
 const assistant = process.env.VITE_ASSISTANT_URL ? new URL(process.env.VITE_ASSISTANT_URL).origin : '';
+/** the newsletter's sign-up form posts there (src/components/Subscribe.tsx) */
+const subscribe = process.env.VITE_SUBSCRIBE_URL ? new URL(process.env.VITE_SUBSCRIBE_URL).origin : '';
 const CSP = [
   "default-src 'self'",
   "script-src 'self' https://gc.zgo.at",
@@ -54,7 +64,7 @@ const CSP = [
   `connect-src 'self' https://api.github.com https://niflaot.goatcounter.com${assistant ? ` ${assistant}` : ''}`,
   "object-src 'none'",
   "base-uri 'self'",
-  "form-action 'self'",
+  `form-action 'self'${subscribe ? ` ${subscribe}` : ''}`,
 ].join('; ');
 
 /* ───── page assembly ───── */
@@ -96,6 +106,7 @@ function render(p: Page): string {
   html = setMeta(html, 'property', 'og:image:alt', p.imageAlt);
   if (p.lang && p.lang !== 'ru') {
     html = html.replace('<html lang="ru">', `<html lang="${p.lang}">`);
+    html = html.replace('href="/manifest.webmanifest"', `href="/manifest-${p.lang}.webmanifest"`);
     html = setMeta(html, 'property', 'og:locale', p.lang === 'en' ? 'en_US' : 'de_DE');
   }
   if (p.alternates)
@@ -131,7 +142,7 @@ const SITE = { '@type': 'WebSite', name: 'Нифлаот', url: `${SITE_URL}/` }
 const tags = buildTags(LOCALE);
 const home: Page = {
   title: `${ui['app.title']} — ${ui['catalog.uvp']} · MyChitas`,
-  description: plain(ui['catalog.intro'] as string),
+  description: ui['catalog.seo'],
   url: `${SITE_URL}/`,
   type: 'website',
   root: './',
@@ -140,7 +151,7 @@ const home: Page = {
   jsonLd: {
     '@context': 'https://schema.org',
     '@graph': [
-      { ...SITE, inLanguage: ['ru', 'en', 'de'], description: plain(ui['catalog.intro'] as string), publisher: PUBLISHER },
+      { ...SITE, inLanguage: ['ru', 'en', 'de'], description: ui['catalog.seo'], publisher: PUBLISHER },
       {
         '@type': 'ItemList',
         name: ui['catalog.heading'],
@@ -305,9 +316,103 @@ function dailyPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
   };
 }
 
+
+/** «Знаете ли вы?»: every riddle of the feed — the question, the answer folded, a link to its place in the lesson. */
+function factsPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
+  const root = lang === 'ru' ? '../' : '../../';
+  const url = `${SITE_URL}${staticPath('facts', lang)}`;
+  const facts = collectFacts(LESSONS);
+  const he = (w: string) => `<span class="he">${esc(displayNames(w))}</span>`;
+  const item = (f: (typeof facts)[number]) => {
+    const tx = f.lesson.texts[lang] ?? f.lesson.texts.ru!;
+    const gl = (w: string) => w.split(' + ').map((x) => tx.glossary[x]).filter(Boolean).join(' + ');
+    const word = (w: string) => `${he(w)}${gl(w) ? ` (${esc(gl(w))})` : ''}`;
+    const q = f.kind === 'eq' ? `${s(ui, 'facts.qEq')} ${word(f.q)}?` : `${s(ui, `facts.qLt.${f.take}` as keyof Ui)} ${word(f.from)}?`;
+    const a = f.kind === 'eq' ? f.rest.map((p) => (NUMS.test(p) ? esc(p) : word(p))).join(' = ') : word(f.word);
+    const where = f.ri !== undefined ? `<a href="${root}${f.lesson.slug}/">${esc(tx.title)}</a> · ${esc(s(ui, 'facts.where').replace('{n}', String(f.ri + 1)))}` : `<a href="${root}${f.lesson.slug}/">${esc(tx.title)}</a>`;
+    return `<li><p>${q}</p><details><summary>${esc(s(ui, 'facts.answer'))}</summary><p>${a}</p></details><p>${where}</p></li>`;
+  };
+  return {
+    title: `${s(ui, 'facts.seoTitle')} · ${s(ui, 'app.title')}`,
+    description: s(ui, 'facts.seoLead'),
+    url,
+    type: 'article',
+    root,
+    lang,
+    alternates: alternatesOf('facts'),
+    image: 'facts',
+    imageAlt: s(ui, 'facts.seoTitle'),
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'LearningResource',
+      name: s(ui, 'facts.title'),
+      description: s(ui, 'facts.seoLead'),
+      url,
+      inLanguage: lang,
+      learningResourceType: 'quiz',
+      interactivityType: 'active',
+      isAccessibleForFree: true,
+      typicalAgeRange: '8-',
+      publisher: PUBLISHER,
+      isPartOf: SITE,
+    },
+    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'facts.title'))}</p>
+<h1>${esc(s(ui, 'facts.seoTitle'))}</h1><p>${esc(s(ui, 'facts.seoLead'))}</p>
+<p><a href="${root}#/facts">${esc(s(ui, 'facts.seoPlay'))} →</a> · <a href="${root}${staticPath('daily', lang).slice(1)}">${esc(s(ui, 'daily.title'))} →</a> · <a href="${root}${staticPath('letters', lang).slice(1)}">${esc(s(ui, 'abc.title'))} →</a></p></header>
+<section><h2>${esc(s(ui, 'facts.title'))}</h2><ol>${facts.map(item).join('')}</ol></section>
+</article>`,
+  };
+}
+
+/** «Буквы за 5 минут»: the table of the letters — shape, name, sound, number — and the lookalikes. */
+function lettersPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
+  const root = lang === 'ru' ? '../' : '../../';
+  const url = `${SITE_URL}${staticPath('letters', lang)}`;
+  const row = (c: string) => `<tr><td class="he">${c}</td><td>${esc(letterName(c, lang))}</td><td>${esc(letterSound(c, lang))}</td><td>${VALUES[c]}</td></tr>`;
+  const table = (cap: string, cs: string[]) =>
+    `<section><h2>${esc(cap)}</h2><table><thead><tr><th>${esc(s(ui, 'abc.colLetter'))}</th><th>${esc(s(ui, 'abc.colName'))}</th><th>${esc(s(ui, 'abc.colSound'))}</th><th>${esc(s(ui, 'abc.colValue'))}</th></tr></thead><tbody>${cs.map(row).join('')}</tbody></table></section>`;
+  return {
+    title: `${s(ui, 'abc.seoTitle')} · ${s(ui, 'app.title')}`,
+    description: s(ui, 'abc.seoLead'),
+    url,
+    type: 'article',
+    root,
+    lang,
+    alternates: alternatesOf('letters'),
+    image: 'letters',
+    imageAlt: s(ui, 'abc.seoTitle'),
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'LearningResource',
+      name: s(ui, 'abc.title'),
+      description: s(ui, 'abc.seoLead'),
+      url,
+      inLanguage: lang,
+      learningResourceType: ['reference', 'quiz'],
+      interactivityType: 'active',
+      isAccessibleForFree: true,
+      typicalAgeRange: '6-',
+      teaches: s(ui, 'abc.seoTitle'),
+      publisher: PUBLISHER,
+      isPartOf: SITE,
+    },
+    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'abc.title'))}</p>
+<h1>${esc(s(ui, 'abc.seoTitle'))}</h1><p>${esc(s(ui, 'abc.seoLead'))}</p><p>${esc(s(ui, 'abc.lead'))}</p>
+<p><a href="${root}#/letters">${esc(s(ui, 'abc.seoPlay'))} →</a> · <a href="${root}${staticPath('facts', lang).slice(1)}">${esc(s(ui, 'facts.title'))} →</a> · <a href="${root}${staticPath('daily', lang).slice(1)}">${esc(s(ui, 'daily.title'))} →</a></p></header>
+${table(s(ui, 'abc.units'), ALEPH_BET.slice(0, 9))}
+${table(s(ui, 'abc.tens'), ALEPH_BET.slice(9, 18))}
+${table(s(ui, 'abc.hundreds'), ALEPH_BET.slice(18))}
+${table(s(ui, 'abc.finals'), FINAL_FORMS)}
+<section><h2>${esc(s(ui, 'abc.alike'))}</h2><ul>${LOOKALIKES.map((g) => `<li>${g.map((c) => `<span class="he">${c}</span> ${esc(letterName(c, lang))}`).join(' · ')}</li>`).join('')}</ul></section>
+</article>`,
+  };
+}
+
 const STATIC_OUT: [string, Page][] = LANGS.flatMap(({ lang, ui }) => [
   [staticPath('mental-math', lang), mathPage(lang, ui)] as [string, Page],
   [staticPath('daily', lang), dailyPage(lang, ui)] as [string, Page],
+  [staticPath('facts', lang), factsPage(lang, ui)] as [string, Page],
+  [staticPath('letters', lang), lettersPage(lang, ui)] as [string, Page],
 ]);
 
 /* ───── write ───── */
@@ -376,5 +481,58 @@ ${entries.join('\n')}
   );
 }
 
+
+/* ───── web app manifests: «install on the phone» ───── */
+
+for (const { lang, ui } of LANGS) {
+  const start = (path: string) => `${path}?lang=${lang}&ref=app`;
+  const manifest = {
+    id: '/',
+    name: `${s(ui, 'app.title')} — ${s(ui, 'catalog.uvp')}`,
+    short_name: s(ui, 'app.title'),
+    description: s(ui, 'catalog.seo'),
+    lang,
+    dir: 'ltr',
+    start_url: start('/'),
+    scope: '/',
+    display: 'standalone',
+    orientation: 'portrait',
+    background_color: '#141A33',
+    theme_color: '#141A33',
+    categories: ['education', 'books', 'kids'],
+    icons: [
+      { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+      { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+      { src: '/icons/maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+    ],
+    shortcuts: [
+      { name: s(ui, 'daily.title'), url: start(staticPath('daily', lang)), icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }] },
+      { name: s(ui, 'facts.title'), url: start(staticPath('facts', lang)), icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }] },
+      { name: s(ui, 'abc.title'), url: start(staticPath('letters', lang)), icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }] },
+    ],
+  };
+  writeFileSync(`${DIST}/manifest${lang === 'ru' ? '' : `-${lang}`}.webmanifest`, `${JSON.stringify(manifest, null, 2)}\n`);
+}
+
+/* ───── service worker and the daily message ───── */
+
+// offline: the app's code, styles and fonts, the icons and manifests (the Memo pictures are kept when first seen)
+const assets = readdirSync(`${DIST}/assets`).filter((f) => /\.(js|css|woff2)$/.test(f)).map((f) => `/assets/${f}`);
+const precache = [...assets, '/icons/icon-192.png', '/manifest.webmanifest', '/manifest-en.webmanifest', '/manifest-de.webmanifest'];
+const version = createHash('sha256').update(assets.join('\n')).update(readFileSync(`${DIST}/index.html`)).digest('hex').slice(0, 12);
+const sw = readFileSync(`${DIST}/sw.js`, 'utf8');
+if (!sw.includes("/*__VERSION__*/ 'dev'") || !sw.includes('/*__PRECACHE__*/ []')) throw new Error('public/sw.js: no build placeholders');
+writeFileSync(
+  `${DIST}/sw.js`,
+  sw.replace("/*__VERSION__*/ 'dev'", `'${version}'`).replace('/*__PRECACHE__*/ []', JSON.stringify(precache)),
+);
+// from yesterday (time zones behind UTC) for two months: the reminder keeps working if the site is not rebuilt for a while
+const yesterday = new Date(Date.now() - 864e5).toISOString().slice(0, 10);
+const days = schedule(yesterday, 62, SITE_URL);
+writeFileSync(
+  `${DIST}/daily-message.json`,
+  JSON.stringify({ updated: today, fallback: Object.fromEntries(MSG_LOCALES.map((l) => [l, LANGS.find((x) => x.lang === l)!.ui['push.fallback']])), days }),
+);
+
 writeFileSync(`${DIST}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
-console.log(`prerender: index + ${LESSONS.length} lesson pages + ${STATIC_OUT.length} math / daily pages, sitemap.xml, robots.txt, ${FEEDS.length} feeds`);
+console.log(`prerender: index + ${LESSONS.length} lesson pages + ${STATIC_OUT.length} math / daily / facts / letters pages, sitemap.xml, robots.txt, ${FEEDS.length} feeds, ${LANGS.length} manifests, sw.js (${precache.length} files offline), daily messages for ${Object.keys(days).length} days`);
