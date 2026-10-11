@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
 import { useI18n } from '../i18n';
 import { SIGN, coachSteps, type CoachStep } from '../core/mentalMath';
+import { useLetterHelp } from './letterHelp';
 import { buildCoach, type CoachAction, type CoachPart } from '../core/coach';
 
 /**
@@ -10,6 +11,7 @@ import { buildCoach, type CoachAction, type CoachPart } from '../core/coach';
 export function MathCoach({ actions, onFill }: { actions: CoachAction[]; onFill?: (n: number) => void }) {
   const { t } = useI18n();
   const parts = useMemo(() => buildCoach(actions), [actions]);
+  const letterHelp = useLetterHelp();
   const steps = useMemo(() => {
     const labels = { from: (a: number, b: number) => t('coach.from', { a, b }), left: (a: number, b: number) => `${a} − ${b}` };
     return parts.flatMap((p, k) => [
@@ -73,9 +75,10 @@ export function MathCoach({ actions, onFill }: { actions: CoachAction[]; onFill?
                 {s.part.method && <small className="coach-method">{t(`method.${s.part.method}` as 'method.gadol')}</small>}
                 <span className="coach-letters" dir="rtl">
                   {s.part.letters!.map(([c, v], k) => (
-                    <span key={k}>
+                    <span key={k} title={letterHelp.title(c)}>
                       <b>{c}</b>
                       <i>{v}</i>
+                      <letterHelp.Name c={c} />
                     </span>
                   ))}
                 </span>

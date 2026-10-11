@@ -28,6 +28,17 @@ const en: LessonText = {
     'חי': 'life',
     'ויבן': 'and He built',
   },
+  translit: {
+    'פרצוף': 'partzuf',
+    'גאוה': 'ga’avah',
+    'זנב': 'zanav',
+    'תאוה': 'ta’avah',
+    'מסכה': 'masechah',
+    'פנים': 'panim',
+    'אשה': 'ishah',
+    'טוב': 'tov',
+    'ויבן': 'vayiven',
+  },
   riddles: [
     {
       title: 'The cosmic balance of two forces',

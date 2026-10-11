@@ -195,6 +195,12 @@ for (const e of METHOD_EXAMPLES) {
 for (const lesson of LESSONS)
   for (const l of Object.keys(LOCALES)) if (!(l in lesson.texts)) err(`${lesson.slug}: no texts in ${l} (src/lessons/<lesson>/i18n/${l}.ts)`);
 
+// a player who doesn't know the letters sees how every word card is read (src/core/hebrewLevel.ts)
+for (const lesson of LESSONS.filter((l) => l.kind !== 'sicha'))
+  for (const w of new Set(lesson.riddles.flatMap((r) => r.words)))
+    for (const [lang, tx] of Object.entries(lesson.texts))
+      if (!tx?.translit?.[w]?.trim()) err(`${lesson.slug} [${lang}]: word card «${w}» has no transliteration (translit)`);
+
 for (const lesson of LESSONS)
   checkPuzzle(`${lesson.slug} · final`, Object.entries(lesson.texts).map(([l, tx]) => [l, tx!.puzzle]), lesson.kind === 'commentary');
 

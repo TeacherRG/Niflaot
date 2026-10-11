@@ -6,6 +6,8 @@ import { gematriaSteps } from '../core/gematriaSteps';
 import { formatTime, copyText } from '../core/format';
 import { pageLink, type Ref } from '../core/site';
 import { MAX_TRIES, dailyNumber, dailyPool, dailyWord, grid, loadResults, saveResult, streak, type DailyResult } from '../core/daily';
+import { useLetterHelp } from './letterHelp';
+import { letterName } from '../core/letterNames';
 import { GematriaSolution } from './GematriaSolution';
 
 /** time until the next local midnight */
@@ -28,6 +30,7 @@ function useUntilMidnight() {
  * its letters added in the head, the result shared without the answer.
  */
 export function DailyCard() {
+  const letterHelp = useLetterHelp();
   const { t, pick, locale } = useI18n();
   const pool = useMemo(() => dailyPool(LESSONS), []);
   const [n] = useState(() => dailyNumber());
@@ -109,9 +112,10 @@ export function DailyCard() {
       <div className="daily-gloss">{text.glossary[w.he]}</div>
       <div className="daily-tiles" dir="rtl">
         {tiles.map((c, i) => (
-          <span key={i}>
+          <span key={i} title={letterHelp.level === 'reads' ? undefined : letterName(c, locale)}>
             <b>{c}</b>
             <i>{r.hint || done ? VALUES[c] : '?'}</i>
+            <letterHelp.Name c={c} />
           </span>
         ))}
       </div>

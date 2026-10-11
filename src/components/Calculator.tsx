@@ -5,6 +5,7 @@ import { displayNames } from '../core/names';
 import type { Lesson } from '../lessons/types';
 import { MathCoach } from './MathCoach';
 import { HebrewRuns } from './Hebrew';
+import { useLetterHelp } from './letterHelp';
 import type { CoachAction } from '../core/coach';
 import { SWAPS, gematriaBy, katanMispari, riboa, swapWord, withKolel, type Method } from '../core/gematriaMethods';
 
@@ -60,6 +61,7 @@ export function Calculator({ lesson, done }: { lesson: Lesson; done: number[] })
   const { t } = useI18n();
   const [value, setValue] = useState('שלום');
   const [coach, setCoach] = useState(false);
+  const letterHelp = useLetterHelp();
 
   const known = useMemo(() => {
     const m = new Map<number, Set<string>>();
@@ -95,7 +97,7 @@ export function Calculator({ lesson, done }: { lesson: Lesson; done: number[] })
       />
       <div className="kbd">
         {KEYBOARD.map((k) => (
-          <button key={k} className="key" aria-label={k} onClick={() => press(k)}>
+          <button key={k} className="key" aria-label={k} title={letterHelp.title(k)} onClick={() => press(k)}>
             {k}
             <small>{VALUES[k]}</small>
           </button>

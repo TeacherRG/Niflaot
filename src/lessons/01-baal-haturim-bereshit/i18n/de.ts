@@ -42,6 +42,14 @@ const de: LessonText = {
     'ויבאה': 'und Er brachte sie',
     'עדי': 'mein Zeuge',
   },
+  translit: {
+    'בראשית': 'bereschit',
+    'ברא': 'bara',
+    'את': 'et',
+    'האור': 'ha-or',
+    'ויבאה': 'wajewieha',
+    'עדי': 'edi',
+  },
   riddles: [
     {
       title: 'Im Anfang — Wahrheit',

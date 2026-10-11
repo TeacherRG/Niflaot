@@ -25,7 +25,7 @@ const NAMES: Record<string, string> = {
   lessons: 'Раздел', b: 'Текст', reflection: 'Вопрос к себе', takeaways: 'Конспект', puzzle: 'Пазл',
   pieces: 'Кусочек', meaning: 'Смысл', final: 'Итог', allSolved: 'Всё решено', memo: 'Memo', cards: 'Карточки',
   items: 'Пара', audience: 'Для кого', practice: 'Ґораа ле-поаль', highlight: 'Подпись к картинке',
-  caption: 'Подпись', note: 'Примечание',
+  caption: 'Подпись', note: 'Примечание', translit: 'Как читается',
 };
 
 /** `riddles/0/steps/1/q` → «Загадка 1 · Шаг 2 · Вопрос». */

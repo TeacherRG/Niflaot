@@ -35,6 +35,19 @@ const en: LessonText = {
     'ימשל': 'shall rule',
     'בך': 'over you',
   },
+  translit: {
+    'יקוו': 'yikavu',
+    'מקום': 'makom',
+    'קוה': 'kavah',
+    'מקוה': 'mikveh',
+    'קו': 'kav',
+    'תקוה': 'tikvah',
+    'היתה': 'haytah',
+    'תהו': 'tohu',
+    'והוא': 'vehu',
+    'ימשל': 'yimshol',
+    'בך': 'bach',
+  },
   riddles: [
     {
       title: 'The One in place',
