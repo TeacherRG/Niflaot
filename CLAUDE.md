@@ -35,7 +35,9 @@
   тексты — `memo` в `i18n/<язык>.ts`; картинки-раскраски `memo/NN.png` (3:4; размер и подписи ставит
   `python3 scripts/memo-frame.py`); страница `#/<slug>/memo` (`MemoPage.tsx`, `Memo.tsx`), печать `#/<slug>/print/memo`
   (`PrintMemo.tsx`). Числа, буквенные намёки и тексты на всех языках проверяет `npm run check`.
-- `src/components/Helper.tsx` — офлайн-помощник (кнопка ✦): гиматрия по шагам, первоисточники, частые вопросы.
+- Кнопка ✦ — ИИ-чат (`Assistant.tsx`). `src/components/Helper.tsx` (`HelperContent`) — гиматрия по шагам, первоисточники урока,
+  частые вопросы: свёрнутыми блоками в «Как играть» («Ещё помощь»), из чата — ссылка «Частые вопросы и гиматрия по шагам»;
+  без `ASSISTANT_URL` то же самое открывает ✦.
 - Админка `#/admin` (`src/components/Admin.tsx`, `src/admin/github.ts`): вход GitHub-токеном (fine-grained, Contents RW на репо),
   правка любых текстов уроков и интерфейса ru/en/de; черновик виден сразу в этом браузере, «Опубликовать» — коммит
   `src/content/overrides.json` в `main` → деплой. Правки накладываются поверх исходников (`src/content/index.ts`);
@@ -66,8 +68,9 @@
   `#/daily` (`STATIC_PAGES` в `src/core/site.ts`). Тексты — ключи `math.seo*`, `daily.seo*`; превью `og/mental-math.png`,
   `og/daily.png` (`scripts/og-images.ts`).
 - «Учитель» (`#/teacher`, `TeacherPage.tsx`, пункт меню): **ИИ-учитель** (стоимость символическая; кнопка открывает чат ✦,
-  без `ASSISTANT_URL` — офлайн-помощник; «ИИ — не раввин») и **учитель-человек** — письмо автору сайта (Office@mychitas.app).
-- `assistant/` — сервер ИИ-чата (Cloudflare Worker, Claude API); пока скрыт, включается переменной `ASSISTANT_URL`;
+  «ИИ — не раввин»; оплаты пока нет — только надпись) и **учитель-человек** — письмо автору сайта (Office@mychitas.app).
+- `assistant/` — сервер ИИ-чата (Cloudflare Worker, Claude API); **работает** с 11.10.2026: https://niflaot-assistant.niflaot.workers.dev
+  (variable `ASSISTANT_URL`; без неё — офлайн-помощник). Лимит расходов — platform.claude.com → Billing; токен Cloudflare истекает 12.10.2027;
   выкладка — `.github/workflows/assistant.yml` (secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `ANTHROPIC_API_KEY`).
 
 ## Новый урок — всегда по `docs/LESSON-GUIDE.md`

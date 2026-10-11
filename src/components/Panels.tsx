@@ -1,3 +1,4 @@
+import { Suspense, lazy } from 'react';
 import { Html, useI18n } from '../i18n';
 import { LESSON_GROUPS, findLesson } from '../lessons';
 import { VALUES } from '../core/gematria';
@@ -5,6 +6,9 @@ import { OPS, SIGN } from '../core/mentalMath';
 import { Icon, Sheet, useUI } from './ui';
 import { ASSISTANT_URL } from '../core/assistant';
 import { lessonGames } from './lessonGames';
+
+/** Gematria step by step, sources and FAQ (with all the primary sources) load when «Как играть» opens. */
+const HelperContent = lazy(() => import('./Helper').then((m) => ({ default: m.HelperContent })));
 import { HEBREW_LEVELS, savedHebrewLevel, setHebrewLevel, useHebrewLevel } from '../core/hebrewLevel';
 import { letterName } from '../core/letterNames';
 
@@ -255,6 +259,12 @@ export function Panels() {
           </a>
         </p>
         <p className="sheet-note">{t('help.names')}</p>
+        <h3 className="sheet-h3">{t('help.more')}</h3>
+        {panel === 'help' && (
+          <Suspense fallback={null}>
+            <HelperContent inHelp />
+          </Suspense>
+        )}
         <button className="btn sheet-cta" data-autofocus onClick={close}>
           {t('help.go')}
         </button>

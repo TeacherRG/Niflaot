@@ -198,6 +198,9 @@ function AiChat() {
         </form>
         <div className="ai-foot">
           <span>{t('ai.note')}</span>
+          <button className="link-btn" onClick={() => open('help')}>
+            {t('ai.faq')}
+          </button>
           {turns.length > 0 && (
             <button className="link-btn" onClick={clear}>
               {t('ai.clear')}
