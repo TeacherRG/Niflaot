@@ -78,6 +78,9 @@
   немецкий — простой, на «du»). Язык берётся из настроек браузера (другой язык — английский), его можно сменить.
 - **Читается браузером вслух и в режиме чтения**: иврит помечен как иврит — переводчик браузера не трогает слова Торы,
   голос читает их правильно.
+- **Как приложение на телефоне:** «Установить на телефон» в меню (Android, компьютер) или «На экран Домой» в Safari —
+  иконка נ и ярлыки «Гиматрия дня», «Знаете ли вы?», «Буквы за 5 минут».
+- **Новые уроки — на почту:** подписка раз в неделю, к недельной главе (когда рассылка подключена).
 - **Приватно:** без регистрации, без cookies, без запросов разрешений (микрофон, камера, геолокация, уведомления);
   прогресс — только в браузере. Статистика — GoatCounter без cookies (страны и просмотры страниц). Вопросы ИИ-учителю
   уходят в Anthropic (Claude) — об этом сказано под чатом.
@@ -108,8 +111,10 @@
 
 | Канал | Что работает | Где в коде |
 |---|---|---|
-| Поиск | страница `/<slug>/` на каждый урок с полным пересказом, мета-тегами, Open Graph и Schema.org; страницы `/mental-math/`, `/daily/` и их версии `/en/…`, `/de/…` (hreflang); `sitemap.xml` | `scripts/prerender.ts` |
-| Превью ссылок | картинка 1200×630 у сайта, каждого урока, «Устного счёта» и «Гиматрии дня» | `scripts/og-images.ts`, `public/og/` |
+| Поиск | страница `/<slug>/` на каждый урок с полным пересказом, мета-тегами, Open Graph и Schema.org; страницы `/mental-math/` (ментальная арифметика), `/daily/` (гиматрия дня), `/facts/` (загадки Торы), `/letters/` (еврейский алфавит за 5 минут) и их версии `/en/…`, `/de/…` (hreflang); `sitemap.xml` | `scripts/prerender.ts` |
+| Превью ссылок | картинка 1200×630 у сайта, каждого урока, «Устного счёта», «Гиматрии дня», «Знаете ли вы?» и «Букв» | `scripts/og-images.ts`, `public/og/` |
+| Телефон | сайт ставится как приложение (иконка נ, ярлыки «Гиматрия дня», «Знаете ли вы?», «Буквы»); кнопка «Установить на телефон» в меню, когда браузер это позволяет | манифесты — `scripts/prerender.ts`, `src/core/install.ts` |
+| Email | форма «Новые уроки — на почту» в итоге урока и под лентой загадок (сервис рассылки, напр. Buttondown; включается переменной `SUBSCRIBE_URL`) | `Subscribe.tsx` |
 | Мессенджеры | «Поделиться» в итоге урока (WhatsApp, Telegram, ссылка), картинка-загадка из ленты, результат «Гиматрии дня» | `Final.tsx`, `FactsPage.tsx`, `DailyCard.tsx` |
 | Telegram-канал | «Загадка недели» по воскресеньям и средам на ru/en/de (только вопрос — за ответом идут на сайт), в Шабат не публикует | `scripts/telegram-post.ts`, `.github/workflows/telegram.yml` |
 | Бумага | QR-код в шапке каждой распечатки — с листа на урок | `PrintBrand.tsx`, `QrCode.tsx` |
@@ -117,7 +122,8 @@
 | Общины | страница «Партнёры» и их логотипы на распечатках | `src/core/partners.ts` |
 
 Откуда пришли люди, видно в [GoatCounter](https://niflaot.goatcounter.com): все ссылки «поделиться» помечены
-`?ref=` — `wa`, `tg`, `copy`, `card` (картинка-загадка), `qr` (распечатка), `rss`, `channel` (Telegram-канал), `daily`.
+`?ref=` — `wa`, `tg`, `copy`, `card` (картинка-загадка), `qr` (распечатка), `rss`, `channel` (Telegram-канал), `daily`,
+`app` (открыто с иконки на телефоне), `mail` (из рассылки).
 
 ## Разработка
 
@@ -145,8 +151,8 @@ npm run build    # tsc + vite + scripts/prerender.ts → dist/
 | `#/math/<add\|sub\|mul\|div>` · `#/letters` | устный счёт · «Буквы за 5 минут» |
 | `#/teacher` · `#/partners` · `#/admin` | «Учитель» (ИИ или человек) · партнёры · админка |
 
-Статические адреса `/<slug>/`, `/daily/`, `/mental-math/` (и `/en/…`, `/de/…`) — для поисковиков и ссылок — открывают
-то же самое. Язык можно задать параметром `?lang=en` (или `de`); выбор запоминается, `?shabbat=preview` показывает
+Статические адреса `/<slug>/`, `/daily/`, `/mental-math/`, `/facts/`, `/letters/` (и `/en/…`, `/de/…`) — для поисковиков
+и ссылок — открывают то же самое; адрес без языка в пути — русская версия. Язык можно задать параметром `?lang=en` (или `de`); выбор запоминается, `?shabbat=preview` показывает
 экран Шабата.
 
 ## Структура
@@ -222,7 +228,8 @@ python3 scripts/fetch-sources.py                                                
 `scripts/prerender.ts` после сборки создаёт для каждого урока страницу `/<slug>/` со своим заголовком, описанием,
 каноническим адресом, Open Graph, разметкой Schema.org (`LearningResource`) и текстом урока, а также
 `sitemap.xml`, `robots.txt` и ленты Atom; страницы `/mental-math/` и `/daily/` — на трёх языках с hreflang.
-Картинки превью (1200×630) — `public/og/site.png`, `public/og/<slug>.png`, `mental-math.png`, `daily.png`.
+Картинки превью (1200×630) — `public/og/site.png`, `public/og/<slug>.png`, `mental-math.png`, `daily.png`, `facts.png`,
+`letters.png`; иконки приложения — `public/icons/` (тот же скрипт `scripts/og-images.ts`).
 
 Чтобы сайт появился в Google: [Search Console](https://search.google.com/search-console) → добавить ресурс
 `niflaot.mychitas.app` → отправить `https://niflaot.mychitas.app/sitemap.xml`.
@@ -279,6 +286,12 @@ python3 scripts/fetch-sources.py                                                
 Сайт живёт на **https://niflaot.mychitas.app** (GitHub Pages, домен задан в `public/CNAME`).
 При каждом пуше в `main` workflow `.github/workflows/deploy.yml` проверяет уроки, собирает проект и публикует `dist/`.
 Один раз в настройках репозитория: **Settings → Pages → Source: GitHub Actions**.
+
+**Рассылка по email.** Форма подписки появится на сайте, когда задана переменная репозитория `SUBSCRIBE_URL`
+(Settings → Secrets and variables → Actions → Variables). С Buttondown (buttondown.com): создать аккаунт, имя рассылки
+`<имя>` → `SUBSCRIBE_URL` = `https://buttondown.com/api/emails/embed-subscribe/<имя>`. Подтверждение адреса (double
+opt-in) и отписку ведёт сервис; язык подписчика приходит тегом `ru` / `en` / `de` — письмо каждой группе на её языке.
+Письма — вручную раз в неделю или автоматически из лент `feed.xml` / `feed-en.xml` / `feed-de.xml` (RSS-to-email у сервиса).
 
 «Загадка недели» в Telegram (`.github/workflows/telegram.yml`, вс и ср) включается, когда заданы secret
 `TELEGRAM_BOT_TOKEN` и variables `TELEGRAM_CHAT_RU` / `TELEGRAM_CHAT_EN` / `TELEGRAM_CHAT_DE`.

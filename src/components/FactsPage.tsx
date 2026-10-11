@@ -9,6 +9,7 @@ import { displayNames } from '../core/names';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { DailyCard } from './DailyCard';
+import { Subscribe } from './Subscribe';
 
 /** Hebrew words in large type with their translations under them (each term of a sum separately); `ask` — ends with «?». */
 function Words({ he, gloss, ask }: { he: string; gloss: Record<string, string>; ask?: boolean }) {
@@ -167,6 +168,7 @@ export function FactsPage({ at }: { at?: string }) {
             <FactCard key={f.id} f={f} here={f.id === at} />
           ))}
         </main>
+        <Subscribe />
       </div>
       <Colophon />
     </>

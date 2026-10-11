@@ -52,7 +52,7 @@
   логотипы партнёров справа; ниже «Недельная глава · Берейшит · פרשת בראשית» и дата Шабата этой главы — гражданская
   и еврейская на иврите (`src/core/hebrewDate.ts`, по календарю браузера; день Шабата — `shabbat` в `parshiot.ts`).
 - Продвижение (откуда приходят люди): ссылки «поделиться» помечены `?ref=` (`lessonLink`/`routeLink` в `src/core/site.ts`:
-  `wa`, `tg`, `copy`, `card`, `qr`, `rss`, `channel`) — GoatCounter показывает их среди источников. В шапке распечаток —
+  `wa`, `tg`, `copy`, `card`, `qr`, `rss`, `channel`, `daily`, `app` — из установленного приложения, `mail`) — GoatCounter показывает их среди источников. В шапке распечаток —
   QR-код на урок (`QrCode.tsx`, `?ref=qr`). Ленты Atom `feed.xml` / `feed-en.xml` / `feed-de.xml` собирает
   `scripts/prerender.ts`. «Загадка недели» в Telegram — `scripts/telegram-post.ts` (только вопрос, ответ — на сайте;
   проверка: `npx tsx scripts/telegram-post.ts --dry`), запуск — `.github/workflows/telegram.yml` по вс и ср, в Шабат не
@@ -63,10 +63,22 @@
   результат — квадратики без ответа (🟥🟩 · ⏱ · 🔥 серия; Шабат серию не рвёт), ссылка `/daily/?ref=daily`. Результаты —
   в localStorage. Вход — лента (пункт меню «Знаете ли вы?»), плитка на главной, карточка в «Устном счёте».
   Слова проверяет `npm run check`.
-- Страницы для поиска (`scripts/prerender.ts`): «Ментальная арифметика» `/mental-math/` и «Гиматрия дня» `/daily/`,
-  на других языках — `/en/…`, `/de/…` (hreflang; язык из пути читает `src/i18n/index.tsx`); открывают `#/math/add` и
-  `#/daily` (`STATIC_PAGES` в `src/core/site.ts`). Тексты — ключи `math.seo*`, `daily.seo*`; превью `og/mental-math.png`,
-  `og/daily.png` (`scripts/og-images.ts`).
+- Страницы для поиска (`scripts/prerender.ts`): «Ментальная арифметика» `/mental-math/`, «Гиматрия дня» `/daily/`,
+  «Знаете ли вы?» `/facts/` (все загадки ленты, ответ свёрнут, ссылка на урок) и «Еврейский алфавит за 5 минут» `/letters/`
+  (таблица букв: вид, название, звучание, число; похожие буквы); на других языках — `/en/…`, `/de/…` (hreflang; язык из
+  пути читает `src/i18n/index.tsx`, страница в корне — всегда русская); открывают `#/math/add`, `#/daily`, `#/facts`,
+  `#/letters` (`STATIC_PAGES` в `src/core/site.ts`). Тексты — ключи `math.seo*`, `daily.seo*`, `facts.seo*`, `abc.seo*`;
+  превью `og/mental-math.png`, `og/daily.png`, `og/facts.png`, `og/letters.png` (`scripts/og-images.ts`).
+  Описание сайта для поиска — `catalog.seo` (и в `index.html`).
+- Установка на телефон: манифесты `manifest.webmanifest` / `manifest-en` / `manifest-de` собирает `scripts/prerender.ts`
+  (имя, ярлыки «Гиматрия дня», «Знаете ли вы?», «Буквы»; `start_url` с `?ref=app`), язык манифеста ставит i18n;
+  иконки `public/icons/*.png` (буква נ, рисует `scripts/og-images.ts`). Кнопка «Установить на телефон» в меню —
+  только когда браузер сам предлагает установку (`src/core/install.ts`, `beforeinstallprompt`); в Safari — «На экран
+  Домой». Service worker нет (сайт должен закрываться на Шабат и не хранить старые версии).
+- Рассылка по email — форма `Subscribe.tsx` (в итоге урока и под лентой «Знаете ли вы?»): POST на адрес сервиса рассылки
+  в новой вкладке (Buttondown: `https://buttondown.com/api/emails/embed-subscribe/<имя>`, поля `email`, `tag` = язык),
+  подтверждение адреса — у сервиса. Включается переменной `SUBSCRIBE_URL` (`VITE_SUBSCRIBE_URL`; хост — в CSP
+  `form-action`), без неё формы нет.
 - «Учитель» (`#/teacher`, `TeacherPage.tsx`, пункт меню): **ИИ-учитель** (стоимость символическая; кнопка открывает чат ✦,
   «ИИ — не раввин»; оплаты пока нет — только надпись) и **учитель-человек** — письмо автору сайта (Office@mychitas.app).
 - `assistant/` — сервер ИИ-чата (Cloudflare Worker, Claude API); **работает** с 11.10.2026: https://niflaot-assistant.niflaot.workers.dev
