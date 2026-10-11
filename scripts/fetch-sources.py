@@ -275,10 +275,11 @@ HOLY = re.compile(r'^[והבכלמש]*אלה(ים|יכם|יכן|ינו|יך|יו
 def respect_names(s):
     """יהוה → ה׳; אלהים and its forms → אלקים (also with vowel points); «ה׳ צבאות» → «ה׳ צב-אות».
     «אלהי זהב» (an idol) is left as is."""
-    words = re.split(r'([^א-ת' + MARKS + r'׳״]+)', s)
+    # words joined by a maqaf (U+05BE, inside MARKS) are separate words: «דִּי־הֲוָה» is not the Name
+    words = re.split(r'([^א-ת' + MARKS + r'׳״]+|\u05BE)', s)
     for i, w in enumerate(words):
         plain = re.sub('[' + MARKS + ']', '', w)
-        if 'יהוה' in plain:
+        if re.fullmatch('[והבכלמש]*יהוה', plain):  # the Name, perhaps with a prefix — not «ירמיהוה…» glued in a scan
             words[i] = plain.replace('יהוה', 'ה׳')
         elif plain == 'צבאות' and i >= 2 and (
             re.sub('[' + MARKS + ']', '', words[i - 2]) in ('ה׳', 'בה׳', 'לה׳', 'אלקי', 'אלהי')

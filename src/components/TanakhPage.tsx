@@ -80,6 +80,7 @@ function Verses({ verses, mode }: { verses: DayVerse[]; mode: StMode }) {
               {v.en && (
                 <p className="tk-en" lang="en">
                   {v.en}
+                  {v.enFrom && <small className="fn"> ({v.enFrom})</small>}
                 </p>
               )}
               {mode !== 'off' && v.st && (

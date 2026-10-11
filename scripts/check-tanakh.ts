@@ -4,7 +4,7 @@
  *  - ни одного дня в Шабат, праздник или 9 ава; даты по порядку; каждый день — хотя бы один стих каждого раздела;
  *    каждый стих Невиим и Ктувим — ровно один раз; оба раздела заканчиваются в последний день цикла;
  *  - тексты дней public/tanakh/<дата>.json: дата — учебный день, стихи — ровно отрывок этого дня, у каждого иврит и
- *    английский; Имена — как во всём проекте; в HTML Штейнзальца — только <b> и <small class="fn">;
+ *    английский и объяснение Штейнзальца на обоих языках; Имена — как во всём проекте; в HTML Штейнзальца — только <b> и <small class="fn">;
  *    public/tanakh/index.json перечисляет все готовые дни.
  */
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
@@ -57,9 +57,13 @@ for (const f of files) {
     for (const v of got) {
       const where = `${f} ${v.b} ${v.c}:${v.v}`;
       if (!v.he || !v.en) err(`${where}: нет иврита или английского`);
+      // у Штейнзальца нет только Йеґошуа 21:36–37 (их нет и во многих изданиях; JPS 1985 даёт их в сноске)
+      if ((!v.st?.he || !v.st?.en) && !(v.b === 'joshua' && v.c === 21 && (v.v === 36 || v.v === 37))) err(`${where}: нет объяснения Штейнзальца`);
       const he = [v.he, v.st?.he, ...(v.intro ?? []).flatMap((x: { he?: string; title: { he?: string } }) => [x.he, x.title.he])].join(' ');
       const en = [v.en, v.st?.en, ...(v.intro ?? []).flatMap((x: { en?: string; title: { en?: string } }) => [x.en, x.title.en])].join(' ');
-      if (/יהוה|(^|[^א-ת])ה'(?![א-ת])/.test(he.replace(/[֑-ׇ]/g, ''))) err(`${where}: Имя не по правилам проекта (ה׳)`);
+      // по словам: макаф разделяет слова («דִּי־הֲוָה» — не Имя)
+      const plain = he.replace(/\u05BE/g, ' ').replace(/[\u0591-\u05C7]/g, '');
+      if (/(^|[^א-ת])[והבכלמש]*יהוה(?![א-ת])|(^|[^א-ת])ה'(?![א-ת])/.test(plain)) err(`${where}: Имя не по правилам проекта (ה׳)`);
       if (/\b(God|LORD|Lord)\b/.test(en)) err(`${where}: G-d / L-rd`);
       const html = `${v.st?.he ?? ''} ${v.st?.en ?? ''}`;
       const tags = html.match(/<[^>]*>/g) ?? [];

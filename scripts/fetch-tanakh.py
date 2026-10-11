@@ -30,6 +30,8 @@ _spec.loader.exec_module(fs)
 
 HE = 'Hebrew/Tanach with Nikkud.json'
 EN = 'English/Tanakh The Holy Scriptures, published by JPS.json'
+# где в JPS 1985 стиха нет (Йеґошуа 21:36–37 — он даёт их только в сноске): JPS 1917, Public Domain
+EN_FALLBACK = 'English/The Holy Scriptures A New Translation JPS 1917.json'
 FOLDER = {'neviim': 'Tanakh/Prophets/', 'ketuvim': 'Tanakh/Writings/'}
 
 def book_file(b, f):
@@ -138,7 +140,7 @@ def st_clean(t, lang):
     """clean() проекта + Имена в стиле Штейнзальца: ה' → ה׳, אלוהים → אלוקים (с огласовками)."""
     t = fs.clean(t, lang)
     if lang != 'he': return t
-    t = re.sub(r"(?<![\u05B0-\u05C7א-ת])((?:[ובכלמש][\u05B0-\u05C7]*)?)ה'(?![א-ת])", r'\1ה׳', t)
+    t = re.sub(r"(?<![\u05B0-\u05BD\u05BF-\u05C7א-ת])((?:[ובכלמש][\u05B0-\u05BD\u05BF-\u05C7]*)?)ה'(?![א-ת])", r'\1ה׳', t)
     def holy(w):
         plain = NIQQUD.sub('', w.group())
         if not HOLY_ST.match(re.sub('[\u0591-\u05C7]', '', plain)): return w.group()
@@ -183,6 +185,11 @@ def section_day(books, section, a, z, st_dirs):
                  'he': fs.clean(he['text'][ch - 1][v - 1], 'he'),
                  'en': fs.clean(en_ch[v - 1], 'en') if v - 1 < len(en_ch) else ''}
         s = st.get((b['slug'], ch, v))
+        if not verse['en']:
+            old = fs.load(book_file(b, EN_FALLBACK))['text'][ch - 1]
+            if v - 1 < len(old) and old[v - 1].strip():
+                verse['en'] = fs.clean(old[v - 1], 'en')
+                verse['enFrom'] = 'JPS 1917'
         if s:
             verse['st'] = {'he': s['he'], 'en': s['en']}
             if 'intro' in s: verse['intro'] = s['intro']
