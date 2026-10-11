@@ -2,7 +2,8 @@ name: Пророки и Писания в Telegram
 
 # Every morning, 04:37 UTC (6:37 in Vienna in summer, 5:37 in winter) — the passage of the day of the three-year cycle.
 # Days without a reading (Shabbat, holidays, 9 Av) and Shabbat itself are skipped by the script.
-# Setup: the same secret TELEGRAM_BOT_TOKEN and variables TELEGRAM_CHAT_RU / _EN / _DE as «Загадка недели».
+# Setup: the same secret TELEGRAM_BOT_TOKEN and variable TELEGRAM_CHAT_RU as «Загадка недели».
+# For now — the Russian channel only; to add English / German, pass TELEGRAM_CHAT_EN / _DE below (the script has their texts).
 on:
   schedule:
     - cron: '37 4 * * *'
@@ -17,8 +18,6 @@ jobs:
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_RU: ${{ vars.TELEGRAM_CHAT_RU }}
-      TELEGRAM_CHAT_EN: ${{ vars.TELEGRAM_CHAT_EN }}
-      TELEGRAM_CHAT_DE: ${{ vars.TELEGRAM_CHAT_DE }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
