@@ -826,6 +826,15 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .subscribe-form input[type=email]{flex:1 1 200px;min-width:0;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}
 .subscribe-form input[type=email]:focus{outline:2px solid var(--gold);outline-offset:1px}
 .reminder{margin-top:16px;padding:16px 18px;text-align:center;border:1px solid var(--gold-line);border-radius:10px;background:var(--gold-soft)}
+.reminder-sheet{margin-top:0;background:none;border:0;padding:0;text-align:start}
+.reminder-sheet .reminder-row{justify-content:flex-start}
+.h-phone{flex:1 1 100%;position:relative;padding:14px 16px;border:1px solid var(--gold-line);border-radius:10px;background:var(--gold-soft)}
+.h-phone h2{margin:0 0 2px;font-size:16px;font-family:var(--f-body);font-weight:700;padding-inline-end:24px}
+.h-phone p{margin:0 0 10px;font-size:14px;color:var(--ink-2)}
+.h-phone .h-phone-note{font-size:13px;color:var(--muted)}
+.h-phone-btns{display:flex;flex-wrap:wrap;gap:8px}
+.h-phone-btns:empty{display:none}
+.h-phone-x{position:absolute;top:6px;inset-inline-end:8px;border:0;background:none;font-size:22px;line-height:1;color:var(--muted);cursor:pointer;padding:4px}
 .reminder h3{margin:0 0 4px;font-size:17px}
 .reminder p{margin:0 0 10px;font-size:15px;color:var(--ink-2)}
 .reminder-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 10px}
@@ -1158,6 +1167,8 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
   .home{padding-top:12px}
   .home-main{gap:14px}
   .h-hero p{display:none}
+  .h-hero .h-phone .h-phone-note{display:block}
+  .h-hero .h-phone h2{margin-bottom:8px}
   .h-hero h1{font-size:23px}
   .h-section h2{font-size:21px}
   .h-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}

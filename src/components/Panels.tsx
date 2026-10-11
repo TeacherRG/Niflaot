@@ -6,6 +6,7 @@ import { OPS, SIGN } from '../core/mentalMath';
 import { Icon, Sheet, useUI } from './ui';
 import { ASSISTANT_URL } from '../core/assistant';
 import { lessonGames } from './lessonGames';
+import { DailyReminder } from './DailyReminder';
 import { canInstall, install, subscribeInstall } from '../core/install';
 
 /** Gematria step by step, sources and FAQ (with all the primary sources) load when «Как играть» opens. */
@@ -226,6 +227,13 @@ export function Panels() {
               </span>
             </button>
           )}
+          <button className="menu-item" onClick={() => open('reminder')}>
+            <Icon name="bell" />
+            <span>
+              {t('push.title')}
+              <small>{t('push.menuSub')}</small>
+            </span>
+          </button>
           <a href="#/teacher" onClick={close} className="menu-item" aria-current={location.hash === '#/teacher' ? 'page' : undefined}>
             <Icon name="user" />
             <span>{t('teacher.title')}</span>
@@ -285,6 +293,10 @@ export function Panels() {
         <button className="btn sheet-cta" data-autofocus onClick={close}>
           {t('help.go')}
         </button>
+      </Sheet>
+
+      <Sheet open={panel === 'reminder'} onClose={close} title={t('push.title')} closeLabel={t('menu.close')}>
+        {panel === 'reminder' && <DailyReminder sheet />}
       </Sheet>
 
       <Sheet open={panel === 'about'} onClose={close} title={t('about.title')} closeLabel={t('menu.close')}>

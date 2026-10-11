@@ -462,6 +462,12 @@ const de: Messages = {
   'push.privacy': "Der Browser fragt dich einmal um Erlaubnis. Wir speichern nur die Benachrichtigungs-Adresse des Browsers, Zeitzone, Uhrzeit und Sprache — keinen Namen, keine E-Mail.",
   'push.answerOnSite': "Die Antwort steht auf der Seite.",
   'push.fallback': "Das Rätsel des Tages wartet auf dich auf der Seite.",
+  'offer.title': "Niflaot auf dem Handy",
+  'offer.lead': "Ein Symbol auf deinem Handy und eine kurze Nachricht am Tag aus dem Wochenabschnitt.",
+  'offer.ios': "Auf iPhone und iPad: Tippe unten in Safari auf „Teilen“ ⬆ → „Zum Home-Bildschirm“. Dann öffne Niflaot vom Home-Bildschirm und schalte die Erinnerung ein.",
+  'offer.inapp': "Öffne die Seite in deinem normalen Browser (Chrome oder Safari): Menü ⋮ → „Im Browser öffnen“ — dort kannst du die Seite installieren und die Erinnerung einschalten.",
+  'offer.close': "Ausblenden",
+  'push.menuSub': "eine Nachricht am Tag aus dem Wochenabschnitt",
   'calc.title': 'Gematria-Rechner',
   'calc.sub':
     'Gib ein hebräisches Wort ein oder benutze die Bildschirmtastatur. Stimmt seine Zahl mit einem Wort aus dem Spiel überein, siehst du es.',

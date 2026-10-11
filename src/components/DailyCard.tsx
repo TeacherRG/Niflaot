@@ -195,9 +195,9 @@ export function DailyCard() {
               time: `${Math.floor(untilNext / 36e5)} ${t('countdown.h')} ${Math.floor((untilNext % 36e5) / 6e4)} ${t('countdown.m')}`,
             })}
           </p>
-          <DailyReminder />
         </>
       )}
+      <DailyReminder />
       <details className="daily-rules">
         <summary>{t('daily.howPlay')}</summary>
         <Html as="div" className="prose" html={t('daily.rules')} />
