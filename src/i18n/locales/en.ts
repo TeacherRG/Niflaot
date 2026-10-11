@@ -465,7 +465,10 @@ const en: Messages = {
   'helper.sourcesLocked': { one: '{n} more source opens once you solve the riddles.', other: '{n} more sources open once you solve the riddles.' },
   'helper.sourcesWhere': 'The original and a translation are in the “Primary sources” block under the lesson of each solved riddle.',
   'helper.faqTitle': 'Common questions',
-   'helper.q.count': 'How do I count gematria in my head?',
+  'helper.q.hebrew': 'Do I need to know Hebrew?',
+  /** HTML */
+  'helper.a.hebrew': '<p>No — it is enough to recognize the letters. Every Hebrew word in a lesson comes with a translation and an explanation. If you don’t know the letters yet, open <a href="#/letters">“The letters in 5 minutes”</a>: a table of the 22 letters and 5 final forms with their names and numbers, and a short quiz.</p><p>In the “My Hebrew” menu, choose your level: “I don’t know the letters” — each letter shows its name, and word cards show how the word is read; “I know the letters” — the name appears on long press or hover; “I read Hebrew” — no hints. The level changes only the hints, not the puzzles or the points.</p>',
+  'helper.q.count': 'How do I count gematria in my head?',
   'helper.a.count': '<p>Each letter is a number: <span class="he">א</span> to <span class="he">ט</span> are units (1–9), <span class="he">י</span> to <span class="he">צ</span> tens (10–90), <span class="he">ק</span> to <span class="he">ת</span> hundreds (100–400). So the letters are already sorted by place value: add the hundreds, the tens and the units separately, then join them left to right.</p><p>For example, <span class="he">שלום</span>: hundreds <span class="he">ש</span> = 300; tens <span class="he">ל</span> + <span class="he">ם</span> = 30 + 40 = 70; units <span class="he">ו</span> = 6. Total 300 + 70 + 6 = 376.</p>',
   'helper.q.stuck': 'I’m stuck on a riddle — what now?',
   'helper.a.stuck': '<p>Tap the word cards to see their letters and values. Break a word down here in “Gematria step by step”. If it still doesn’t work out, use the “Hint” button in the riddle: the answer stays yours but earns fewer points. Techniques for addition, subtraction, multiplication and division are in the “Mental math” section.</p>',
