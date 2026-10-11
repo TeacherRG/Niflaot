@@ -11,6 +11,7 @@ import { formatEstimate } from '../core/format';
 import { Icon } from './ui';
 import { asWord } from '../core/letterPuzzle';
 import { PrintMasthead } from './PrintBrand';
+import { quoteView, sectionQuotes } from '../core/quotes';
 import { displayNames } from '../core/names';
 
 const TABLE = Object.entries(VALUES).filter(([c]) => !'ךםןףץ'.includes(c));
@@ -331,16 +332,31 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
         {opt.lessons && (
           <section className="p-lessons">
             <h2>{t('print.lessonTexts')}</h2>
-            {text.riddles.map((rt, ri) =>
-              rt.lessons.map((l, k) => (
+            {text.riddles.map((rt, ri) => {
+              const quotes = sectionQuotes(lesson.riddles[ri], rt);
+              return rt.lessons.map((l, k) => (
                 <div key={`${ri}-${k}`} className="p-les">
                   <h3>
                     <HebrewRuns text={l.h} />
                   </h3>
+                  {quotes.lessons[k].map((q) => {
+                    const v = quoteView(q, locale);
+                    return (
+                      <div key={q.id + (q.segs?.join() ?? '')} className="p-quote">
+                        <small>{v.title}</small>
+                        {v.segs.map((sg, i) => (
+                          <div key={i}>
+                            <Html as="p" className="he" html={sg.he} />
+                            {sg.tr && <Html as="p" html={sg.tr} />}
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })}
                   <Html as="div" html={stripFootnotes(l.b)} />
                 </div>
-              )),
-            )}
+              ));
+            })}
           </section>
         )}
 

@@ -835,6 +835,9 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .read-les .les-b{padding:0}
 .expl{margin-top:8px;padding-inline-start:10px;border-inline-start:3px solid var(--line);color:var(--ink-2)}
 .expl>b:first-child{color:var(--muted);font-weight:600}
+.p-quote{margin:4px 0 8px;padding-inline-start:10px;border-inline-start:2px solid #999}
+.p-quote small{color:#666}
+.p-quote .he{direction:rtl;text-align:right;margin:2px 0}
 .read-quote{margin:4px 0 12px;padding:10px 14px 8px;border-inline-start:3px solid var(--gold);background:var(--paper);border-radius:6px}
 .read-quote figcaption{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px}
 .read-quote figcaption a{font-weight:400;color:var(--muted)}

@@ -11,7 +11,8 @@ import { TopBar } from './TopBar';
 import { Hero } from './Hero';
 import { HebrewRuns } from './Hebrew';
 import { Sources } from './Sources';
-import { SOURCES, parseQuote, sourceLabel, translation } from '../sources';
+import { sectionQuotes } from '../core/quotes';
+import { Quote } from './Quote';
 import { firstLetters } from '../core/gematriaMethods';
 import { Colophon } from './Colophon';
 
@@ -127,42 +128,6 @@ function Answer({ s, opts }: { s: StepData; opts?: string[] }) {
   );
 }
 
-/** Ids of the commentary sources (Baal HaTurim, Rashi…) marked in an html block, in order. */
-const commentaryIds = (html: string, ids: string[]) =>
-  [...html.matchAll(/<sup data-src="([^"]+)"><\/sup>/g)].map((m) => m[1]).filter((id) => ids.includes(id) && SOURCES[id]?.kind.en === 'Commentary');
-
-/** The corrected word of a misprint (to tell which comment of a passage it is in). */
-const fixedWord = (from: string, fixes: [string, string][]) => fixes.find(([f]) => f === from)![1];
-
-/** The commentator's own words: the original (Sefaria) with its translation, shown in the text where it is retold. */
-function Quote({ id, segs }: { id: string; segs?: number[] }) {
-  const { t, locale } = useI18n();
-  const s = SOURCES[id];
-  const tr = translation(s, id, locale);
-  return (
-    <figure className="read-quote">
-      <figcaption>
-        📜 {sourceLabel(s, locale).title}
-        <a href={s.url} target="_blank" rel="noopener" className="no-speak">
-          {' '}
-          · {t('sources.open')} ↗
-        </a>
-      </figcaption>
-      {s.he.map((he, i) => (segs && !segs.includes(i) ? null : (
-        <div key={i} className="rq-seg">
-          <Html as="p" className="rq-he" html={he} />
-          {tr.lines[i] && <Html as="p" className="rq-tr" html={tr.lines[i]} />}
-        </div>
-      )))}
-      {s.fixes?.filter(([from]) => s.he.some((h, i) => (!segs || segs.includes(i)) && h.includes(fixedWord(from, s.fixes!)))).map(([from, to]) => (
-        <p key={from} className="rq-fix">
-          {t('read.fixed')} <span className="he">{from}</span> → <span className="he">{to}</span>
-        </p>
-      ))}
-    </figure>
-  );
-}
-
 /**
  * One riddle as a chapter to read: the verse, then every section of the lesson — the commentator's own words
  * (original + translation) where they are first retold, then the explanation; the checked calculations of the
@@ -178,12 +143,8 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
   const fn = footnotes([rt.cond, ...rt.lessons.map((l) => l.b)], ids, ri, t('sources.footnote'));
   const [condHtml, ...lessonHtml] = fn.html;
 
-  // the commentator's words: as the lesson data places them (`quotes`), else each passage once,
-  // in the section where it is first retold (or after the verse, if only there)
-  const seen = new Set<string>();
-  const firstIn = (html: string) => commentaryIds(html, ids).filter((id) => !seen.has(id) && seen.add(id));
-  const condQuotes = r.quotes ? [] : firstIn(rt.cond);
-  const lessonQuotes = rt.lessons.map((l, k) => (r.quotes ? (r.quotes[k] ?? []) : firstIn(l.b)).map(parseQuote));
+  // the commentator's words: as the lesson data places them (`quotes`), else each passage where first cited
+  const quotes = sectionQuotes(r, rt);
 
   return (
     <section className={`riddle read-riddle${here ? ' here' : ''}`} id={`riddle-${ri + 1}`}>
@@ -192,8 +153,8 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
         <h2>{rt.title}</h2>
       </div>
       <Html as="div" className="cond" html={withTerms(condHtml, textLocale)} />
-      {condQuotes.map((id) => (
-        <Quote key={id} id={id} />
+      {quotes.cond.map((q) => (
+        <Quote key={q.id} q={q} />
       ))}
 
       <div className="lessons">
@@ -202,8 +163,8 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
             <h3>
               <HebrewRuns text={l.h} />
             </h3>
-            {lessonQuotes[k].map((q) => (
-              <Quote key={q.id + (q.segs?.join() ?? '')} id={q.id} segs={q.segs} />
+            {quotes.lessons[k].map((q) => (
+              <Quote key={q.id + (q.segs?.join() ?? '')} q={q} />
             ))}
             <Html as="div" className="les-b" html={withTerms(lessonHtml[k], textLocale)} />
           </section>
