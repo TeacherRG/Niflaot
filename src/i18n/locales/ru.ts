@@ -670,6 +670,7 @@ const ru = {
   'tanakh.nextReading': 'Следующее чтение',
   'tanakh.restToday': 'Сегодня чтения нет — Шабат или праздник. Вот следующий отрывок.',
   'tanakh.day': 'День {n} из {total}',
+  'tanakh.readingTime': '≈ {n} мин чтения',
   'tanakh.chapter': 'глава {n}',
   'tanakh.navLabel': 'Дни цикла',
   'tanakh.steinsaltz': 'Рав Адин Штейнзальц',

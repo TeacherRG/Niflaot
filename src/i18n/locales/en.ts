@@ -652,6 +652,7 @@ const en: Messages = {
   'tanakh.nextReading': 'Next reading',
   'tanakh.restToday': 'There is no reading today — Shabbat or a holiday. Here is the next passage.',
   'tanakh.day': 'Day {n} of {total}',
+  'tanakh.readingTime': '≈ {n} min read',
   'tanakh.chapter': 'chapter {n}',
   'tanakh.navLabel': 'Days of the cycle',
   'tanakh.steinsaltz': 'Rabbi Adin Steinsaltz',
