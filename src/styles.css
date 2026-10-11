@@ -1389,20 +1389,6 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .acc-lessons{display:block;color:var(--muted);font-size:12px;font-weight:400}
 .acc .prose h3{margin:16px 0 6px;font-size:17px}
 
-/* «Тора · Пророки · Писания» on the home page: the three parts of Tanach */
-.h-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.h-part{display:flex;flex-direction:column;gap:3px;padding:12px 14px;border-radius:10px;border:1px solid var(--line);border-inline-start:4px solid var(--tc-line);background:var(--surface);box-shadow:var(--shadow);color:var(--ink);text-decoration:none;text-align:start;font:inherit;cursor:pointer;min-width:0}
-.h-part:hover{border-color:var(--tc-line)}
-.h-part-he{font-family:var(--f-he);font-weight:700;font-size:20px;line-height:1.1;color:var(--tc)}
-.h-part-title{font-family:var(--f-display);font-weight:700;font-size:22px;line-height:1.1}
-.h-part-sub{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.h-part-ref{font-size:14px;color:var(--tc);font-weight:600;overflow-wrap:anywhere}
-@media (max-width:640px){
-  .h-three{grid-template-columns:1fr;gap:8px}
-  .h-part{display:grid;grid-template-columns:auto 1fr;column-gap:10px;padding:10px 12px}
-  .h-part-he{grid-row:span 3;align-self:center;font-size:24px}
-}
-
 /* #/neviim, #/ketuvim — the passage of the day */
 .tk{padding:16px 16px 8px}
 .tk-head{display:grid;gap:4px;margin-bottom:12px}

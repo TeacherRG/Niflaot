@@ -644,10 +644,8 @@ const de: Messages = {
   'footer.fine': '© mychitas.app · Texte: Rabbi Jizchak Ginsburgh, Baal HaTurim, der Lubawitscher Rebbe',
 
   // «Пророки» и «Писания» (src/components/TanakhPage.tsx)
-  'tanakh.torah': 'Tora',
   'tanakh.neviim': 'Propheten',
   'tanakh.ketuvim': 'Schriften',
-  'tanakh.torahSub': 'Wochenabschnitt: Lektionen und Spiele',
   'tanakh.daySub': 'Abschnitt des Tages',
   'tanakh.today': 'Heute',
   'tanakh.nextReading': 'Nächste Lesung',
@@ -668,7 +666,6 @@ const de: Messages = {
   'tanakh.sourceEn': 'Übersetzung',
   'tanakh.onSefaria': 'Auf Sefaria öffnen',
   'tanakh.cycle': 'Ein Zyklus von drei Jahren: Propheten und Schriften nebeneinander, jeden Tag ein Stück, außer an Schabbat und Feiertagen – beide enden am selben Tag. {start} – {end}, {days} Lerntage.',
-  'tanakh.sections': 'Die drei Teile des Tanach',
 };
 
 export default de;

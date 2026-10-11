@@ -662,10 +662,8 @@ const ru = {
   'footer.fine': '© mychitas.app · Тексты: рав Ицхак Гинзбург, Бааль ґа-Турим, Любавичский Ребе',
 
   // «Пророки» и «Писания» (src/components/TanakhPage.tsx)
-  'tanakh.torah': 'Тора',
   'tanakh.neviim': 'Пророки',
   'tanakh.ketuvim': 'Писания',
-  'tanakh.torahSub': 'Глава недели: уроки и игры',
   'tanakh.daySub': 'Отрывок дня',
   'tanakh.today': 'Сегодня',
   'tanakh.nextReading': 'Следующее чтение',
@@ -686,7 +684,6 @@ const ru = {
   'tanakh.sourceEn': 'Перевод',
   'tanakh.onSefaria': 'Открыть на Sefaria',
   'tanakh.cycle': 'Трёхлетний цикл: Пророки и Писания параллельно, понемногу каждый день, кроме Шабата и праздников, — и оба заканчиваются в один день. {start} – {end}, {days} учебных дней.',
-  'tanakh.sections': 'Три раздела Танаха',
 } satisfies Record<string, string | PluralForms>;
 
 export type PluralForms = Partial<Record<Intl.LDMLPluralRule, string>> & { other: string };

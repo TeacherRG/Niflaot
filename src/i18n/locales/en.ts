@@ -644,10 +644,8 @@ const en: Messages = {
   'footer.fine': '© mychitas.app · Texts: Rabbi Yitzchak Ginsburgh, Baal HaTurim, the Lubavitcher Rebbe',
 
   // «Пророки» и «Писания» (src/components/TanakhPage.tsx)
-  'tanakh.torah': 'Torah',
   'tanakh.neviim': 'Prophets',
   'tanakh.ketuvim': 'Writings',
-  'tanakh.torahSub': 'The weekly portion: lessons and games',
   'tanakh.daySub': 'Today’s passage',
   'tanakh.today': 'Today',
   'tanakh.nextReading': 'Next reading',
@@ -668,7 +666,6 @@ const en: Messages = {
   'tanakh.sourceEn': 'Translation',
   'tanakh.onSefaria': 'Open on Sefaria',
   'tanakh.cycle': 'A three-year cycle: the Prophets and the Writings side by side, a little every day except Shabbat and holidays — both end on the same day. {start} – {end}, {days} study days.',
-  'tanakh.sections': 'The three parts of Tanach',
 };
 
 export default en;
