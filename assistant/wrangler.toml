@@ -7,17 +7,29 @@ ALLOWED_ORIGINS = "https://niflaot.mychitas.app"
 SITE_URL = "https://niflaot.mychitas.app"
 # sender of the login codes; the domain must be verified at Resend (resend.com → Domains)
 MAIL_FROM = "Нифлаот <noreply@mychitas.app>"
+# questions to the AI assistant a day from everyone together (UTC day); above it the chat says «come back tomorrow».
+# Each question is paid (up to 6 model calls) — raise it when the site grows, together with the limit in Billing.
+CHAT_DAILY_LIMIT = "1000"
 
 # Secrets (not stored here): npx wrangler secret put ANTHROPIC_API_KEY, RESEND_API_KEY (login codes by email;
 # without it registration is off and the site shows only the guest mode)
 
-# Rate limit for /chat: 20 requests per minute from one IP (the worker answers 429 above it).
+# Rate limit for /push and the account's changes: 20 requests per minute from one IP (the worker answers 429 above it).
 [[ratelimits]]
 name = "LIMITER"
 namespace_id = "1001"
 
   [ratelimits.simple]
   limit = 20
+  period = 60
+
+# Rate limit for /chat: 6 questions per minute from one IP.
+[[ratelimits]]
+name = "CHAT_LIMITER"
+namespace_id = "1002"
+
+  [ratelimits.simple]
+  limit = 6
   period = 60
 
 # The daily reminder of the site (src/push.ts): subscriptions in a Durable Object with SQLite storage (free plan),

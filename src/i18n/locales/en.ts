@@ -638,6 +638,7 @@ const en: Messages = {
   'ai.note': 'AI can make mistakes — check against the lesson and the sources. Questions are sent to Anthropic (Claude).',
   'ai.error': 'Couldn’t answer. Please try again.',
   'ai.busy': 'The assistant is busy right now. Try again in a minute.',
+  'ai.limit': 'The assistant has answered a great many questions today. Please come back tomorrow — meanwhile, open “Common questions and gematria step by step”.',
 
   'footer.contact': 'Questions & suggestions',
   'footer.donate': 'Support the project',

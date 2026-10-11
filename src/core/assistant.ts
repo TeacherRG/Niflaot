@@ -101,6 +101,8 @@ export async function askAssistant(
     body: JSON.stringify({ locale, messages, context }),
     signal,
   });
+  // 429: too many questions — from this address in a minute (busy) or from everyone today (limit)
+  if (res.status === 429) throw new Error((await res.text().catch(() => '')) === 'daily' ? 'limit' : 'busy');
   if (!res.ok || !res.body) throw new Error(`http ${res.status}`);
   const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
   let buf = '';

@@ -174,8 +174,8 @@ async function push() {
   lastPushed = raw;
 }
 
-/** After signing in: the best of this device and the account in both; the page reloads if this device got more. */
-async function firstSync() {
+/** The best of this device and the account in both; true when this device got something from the account. */
+async function pull(): Promise<boolean> {
   const remote = await api<{ data: Snapshot }>('/progress');
   const local = snapshot();
   const merged = mergeSnapshots(local, remote.data ?? {});
@@ -189,8 +189,24 @@ async function firstSync() {
     }
   lastPushed = '';
   await push();
-  // the lesson pages read their state when they open: show the account's progress right away
-  if (changed) location.reload();
+  return changed;
+}
+
+/** After signing in: the page reloads if this device got more — the lesson pages read their state when they open. */
+async function firstSync() {
+  if (await pull()) location.reload();
+}
+
+/**
+ * Back to the page (another device may have played meanwhile): the account's progress comes to this device,
+ * at most once a minute. A lesson or a game that is open is not reloaded — it reads the new state when it opens
+ * next time, and whatever it saves meanwhile is merged on the server; the main screen reloads to show it.
+ */
+let lastPull = 0;
+async function pullOnReturn() {
+  if (!state.token || !state.me?.user.active || Date.now() - lastPull < 60_000) return;
+  lastPull = Date.now();
+  if ((await pull()) && location.hash.replace(/^#\/?/, '') === '') location.reload();
 }
 
 /**
@@ -203,5 +219,6 @@ export function startAccountSync() {
   setInterval(() => push().catch(() => {}), 30_000);
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') push().catch(() => {});
+    else pullOnReturn().catch(() => {});
   });
 }

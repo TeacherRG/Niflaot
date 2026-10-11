@@ -111,6 +111,7 @@ export class Accounts extends DurableObject<MailEnv> {
       CREATE TABLE IF NOT EXISTS classes (id TEXT PRIMARY KEY, code TEXT UNIQUE NOT NULL, name TEXT NOT NULL, teacher TEXT NOT NULL, created INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS members (class TEXT NOT NULL, user TEXT NOT NULL, joined INTEGER NOT NULL, PRIMARY KEY (class, user));
       CREATE TABLE IF NOT EXISTS ai (user TEXT NOT NULL, day TEXT NOT NULL, n INTEGER NOT NULL, PRIMARY KEY (user, day));
+      CREATE TABLE IF NOT EXISTS chat_day (day TEXT PRIMARY KEY, n INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS consent_mail (user TEXT PRIMARY KEY, sent INTEGER NOT NULL, day TEXT NOT NULL, n INTEGER NOT NULL);
     `);
   }
@@ -169,6 +170,17 @@ export class Accounts extends DurableObject<MailEnv> {
     await sendMail(this.env, u.parent_email!, { subject: m.subject, text: m.text.replace('{site}', site) });
   }
 
+  /** a question to /chat (from the worker): counted for the day of everyone together, refused above the limit */
+  private async chatQuota(req: Request) {
+    const day = new Date().toISOString().slice(0, 10);
+    const limit = Number(req.headers.get('X-Limit')) || 1000;
+    const n = this.one<{ n: number }>('SELECT n FROM chat_day WHERE day = ?', day)?.n ?? 0;
+    if (n >= limit) return json({ ok: false });
+    this.sql.exec('INSERT INTO chat_day (day, n) VALUES (?, 1) ON CONFLICT(day) DO UPDATE SET n = n + 1', day);
+    if (req.headers.get('Authorization')) await this.aiUse(req);
+    return json({ ok: true });
+  }
+
   /** the AI teacher was asked a question by this session's account (from /chat) */
   private async aiUse(req: Request) {
     const u = await this.user(req);
@@ -189,6 +201,7 @@ export class Accounts extends DurableObject<MailEnv> {
     for (const u of this.sql.exec<{ id: string }>('SELECT id FROM users WHERE nick IS NULL AND created < ?', now - 7 * 864e5).toArray()) this.deleteUser(u.id);
     this.sql.exec('DELETE FROM codes WHERE expires < ?', now - 864e5);
     this.sql.exec('DELETE FROM sessions WHERE expires < ?', now);
+    this.sql.exec('DELETE FROM chat_day WHERE day < ?', new Date(now - 90 * 864e5).toISOString().slice(0, 10));
     await this.ctx.storage.setAlarm(now + 864e5);
   }
 
@@ -209,7 +222,7 @@ export class Accounts extends DurableObject<MailEnv> {
     if ((req.method === 'POST' || req.method === 'PUT') && !body) return fail('bad json');
 
     if (path === '/config') return json({ mail: !!this.env.RESEND_API_KEY || this.env.DEV_CODES === '1' });
-    if (path === '/ai-use') return this.aiUse(req);
+    if (path === '/chat-quota') return this.chatQuota(req);
 
     /* ── login ── */
     if (path === '/code') {
