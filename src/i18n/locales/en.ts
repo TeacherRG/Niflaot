@@ -471,6 +471,12 @@ const en: Messages = {
   'push.menuSub': "one message a day from the weekly portion",
   'acc.title': "Account",
   'acc.chipGuest': "Sign in",
+  'acc.avatar': "Account",
+  'acc.manage': "Account and classes",
+  'acc.signIn': "Sign in to an account",
+  'acc.menuGuestNote': "Your progress is kept only in this browser.",
+  'acc.myProgress': "On this device: riddles — {solved}, points — {points}, Gematria of the Day streak — {streak}",
+  'acc.loginSoon': "Sign-in opens soon. Until then everything works without it.",
   'acc.guest': "You are playing as a guest",
   'acc.guestLead': "Everything works without an account — your progress is kept only in this browser. With an account:",
   /** HTML */

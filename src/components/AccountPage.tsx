@@ -7,6 +7,7 @@ import {
   deleteAccount,
   joinClass,
   leaveClass,
+  localSummary,
   loadConfig,
   login,
   logout,
@@ -259,6 +260,13 @@ function Classes() {
   );
 }
 
+/** a guest's progress on this device */
+function GuestProgress() {
+  const { t } = useI18n();
+  const p = localSummary();
+  return <p className="acc-ok">{t('acc.myProgress', { solved: p.solved, points: p.points, streak: p.streak })}</p>;
+}
+
 /** `#/account`: guest mode and sign-in, the profile, the parent's consent, classes, sign out, delete. */
 export function AccountPage() {
   const { t } = useI18n();
@@ -287,6 +295,12 @@ export function AccountPage() {
             <section className="acc-card">
               <h2>👤 {t('acc.guest')}</h2>
               <p>{t('acc.off')}</p>
+              <GuestProgress />
+              <p className="acc-row">
+                <a href="#/">{t('menu.home')} →</a>
+                <a href="#/daily">✦ {t('daily.title')} →</a>
+                <a href="#/leaders">🏆 {t('leaders.title')} →</a>
+              </p>
             </section>
           )}
           {!token && mail && <SignIn />}

@@ -163,6 +163,8 @@ function snapshot(): Snapshot {
   return s;
 }
 const summary = (s: Snapshot) => summarize(s, streak(loadResults(), dailyNumber()));
+/** this device's progress — shown to a guest in the avatar menu */
+export const localSummary = () => summary(snapshot());
 
 let lastPushed = '';
 async function push() {
