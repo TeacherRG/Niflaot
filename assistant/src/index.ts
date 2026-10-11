@@ -26,6 +26,10 @@ interface Env extends MailEnv {
   ALLOWED_ORIGINS?: string;
   /** optional Cloudflare rate limiter (wrangler.toml [[ratelimits]]), keyed by client IP */
   LIMITER?: { limit(o: { key: string }): Promise<{ success: boolean }> };
+  /** the same for /chat, stricter: a person asks a few questions a minute, a script — hundreds */
+  CHAT_LIMITER?: { limit(o: { key: string }): Promise<{ success: boolean }> };
+  /** questions to /chat a day from everyone together (UTC day); above it — 429 «daily». Default 1000 */
+  CHAT_DAILY_LIMIT?: string;
   /** the daily reminder: subscriptions and sending (wrangler.toml [[durable_objects.bindings]]) */
   PUSH: DurableObjectNamespace<PushHub>;
   /** accounts: one instance (wrangler.toml) */
@@ -190,9 +194,10 @@ export default {
     if (!originOk(origin, env)) return new Response('Forbidden', { status: 403, headers });
     if (Number(req.headers.get('Content-Length') ?? 0) > MAX_BODY)
       return new Response('Too large', { status: 413, headers });
-    if (env.LIMITER) {
+    const limiter = env.CHAT_LIMITER ?? env.LIMITER;
+    if (limiter) {
       const ip = req.headers.get('CF-Connecting-IP') ?? 'unknown';
-      if (!(await env.LIMITER.limit({ key: ip })).success)
+      if (!(await limiter.limit({ key: `chat:${ip}` })).success)
         return new Response('Too many requests', { status: 429, headers: { ...headers, 'Retry-After': '60' } });
     }
 
@@ -205,9 +210,19 @@ export default {
     const input = parse(body);
     if (typeof input === 'string') return new Response(input, { status: 400, headers });
 
-    // a signed-in player: the question counts for the account (the base for the AI teacher's price)
+    // the day's budget of everyone together: the Origin check stops other sites, not scripts, and every question
+    // is paid; a signed-in player's question also counts for the account (the base for the AI teacher's price)
     const auth = req.headers.get('Authorization');
-    if (auth) ctx.waitUntil(accounts(env).fetch('https://accounts/ai-use', { headers: { Authorization: auth } }).then(() => {}, () => {}));
+    const quota = await accounts(env)
+      .fetch('https://accounts/chat-quota', {
+        method: 'POST',
+        headers: { 'X-Limit': env.CHAT_DAILY_LIMIT ?? '1000', ...(auth ? { Authorization: auth } : {}) },
+        body: '{}',
+      })
+      .then((r) => r.json<{ ok: boolean }>())
+      // the counter is a safety net: if it fails, the question still gets its answer
+      .catch((e) => (console.error('chat-quota', e), { ok: true }));
+    if (!quota.ok) return new Response('daily', { status: 429, headers: { ...headers, 'Retry-After': '3600' } });
 
     const { readable, writable } = new TransformStream<Uint8Array, Uint8Array>();
     const writer = writable.getWriter();
@@ -237,7 +252,7 @@ export default {
 async function accountRoute(req: Request, env: Env, path: string, headers: Record<string, string>): Promise<Response> {
   const out = (r: Response) =>
     new Response(r.body, { status: r.status, headers: { ...headers, 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
-  if (path === '/ai-use') return new Response('Not found', { status: 404, headers });
+  if (path === '/ai-use' || path === '/chat-quota') return new Response('Not found', { status: 404, headers });
   if (!originOk(req.headers.get('Origin'), env)) return new Response('Forbidden', { status: 403, headers });
   // sending a code costs an email: those go through the rate limit; reading the profile and the boards don't
   if (env.LIMITER && req.method !== 'GET') {

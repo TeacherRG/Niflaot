@@ -120,7 +120,10 @@ function AiChat() {
         ctrl.signal,
       );
     } catch (e) {
-      if (!ctrl.signal.aborted) setError(String((e as Error).message) === 'busy' ? t('ai.busy') : t('ai.error'));
+      if (!ctrl.signal.aborted) {
+        const m = String((e as Error).message);
+        setError(m === 'busy' ? t('ai.busy') : m === 'limit' ? t('ai.limit') : t('ai.error'));
+      }
     } finally {
       // a failed or stopped exchange without any text is dropped so the next request stays valid
       if (!answer.trim()) setTurns(history.slice(0, -1));

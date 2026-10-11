@@ -638,6 +638,7 @@ const de: Messages = {
   'ai.note': 'KI kann sich irren — prüfe es an der Lektion und den Quellen. Fragen werden an Anthropic (Claude) gesendet.',
   'ai.error': 'Keine Antwort möglich. Bitte versuch es noch einmal.',
   'ai.busy': 'Der Assistent ist gerade beschäftigt. Versuch es in einer Minute noch einmal.',
+  'ai.limit': 'Der Assistent hat heute schon sehr viele Fragen beantwortet. Komm morgen wieder — bis dahin hilft dir „Häufige Fragen und Gematria Schritt für Schritt“.',
 
   'footer.contact': 'Fragen und Vorschläge',
   'footer.donate': 'Das Projekt unterstützen',
