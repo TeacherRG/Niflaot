@@ -36,6 +36,19 @@ self.addEventListener('activate', (e) => {
   );
 });
 
+// Safari refuses a page that the worker answers with a redirected response («Response served by service worker
+// has redirections») and shows «the network connection was lost»: the same body as a plain response
+const plain = (res) =>
+  res.redirected ? res.blob().then((body) => new Response(body, { status: res.status, statusText: res.statusText, headers: res.headers })) : res;
+
+// no network and nothing saved: a small page instead of an empty answer (Safari shows that as a lost connection)
+const OFFLINE = `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Нифлаот</title>
+<body style="font-family:system-ui,sans-serif;text-align:center;padding:40px 16px;color:#141A33">
+<p style="font-size:40px;margin:0">נ</p><p>Нет соединения с интернетом. · No internet connection. · Keine Internetverbindung.</p>
+<p><a href="/" onclick="location.reload();return false" style="color:#2B4F95">Обновить · Reload · Neu laden</a></p></body>`;
+const offline = (html) =>
+  html ? new Response(OFFLINE, { status: 503, headers: { 'Content-Type': 'text/html; charset=utf-8' } }) : Response.error();
+
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   const url = new URL(req.url);
@@ -43,17 +56,21 @@ self.addEventListener('fetch', (e) => {
   if (req.mode === 'navigate') {
     e.respondWith(
       fetch(req)
+        .then(plain)
         .then((res) => {
-          if (res.ok) caches.open(CACHE).then((c) => c.put(url.pathname, res.clone()));
+          if (res.ok) {
+            const copy = res.clone();
+            caches.open(CACHE).then((c) => c.put(url.pathname, copy));
+          }
           return res;
         })
-        // offline: this page if it was opened before, else the app (it reads the address itself)
-        .catch(() => caches.match(url.pathname, ANY).then((r) => r || caches.match('/', ANY))),
+        // offline: this page if it was opened before, else the app (it reads the address itself), else a note
+        .catch(() => caches.match(url.pathname, ANY).then((r) => r || caches.match('/', ANY)).then((r) => r || offline(true))),
     );
     return;
   }
   if (url.pathname === '/daily-message.json') {
-    e.respondWith(fetch(req).catch(() => caches.match(req, ANY)));
+    e.respondWith(fetch(req).catch(() => caches.match(req, ANY).then((r) => r || offline(false))));
     return;
   }
   if (url.pathname.startsWith('/assets/')) {
@@ -62,7 +79,10 @@ self.addEventListener('fetch', (e) => {
         (hit) =>
           hit ||
           fetch(req).then((res) => {
-            if (res.ok) caches.open(CACHE).then((c) => c.put(req, res.clone()));
+            if (res.ok) {
+              const copy = res.clone();
+              caches.open(CACHE).then((c) => c.put(req, copy));
+            }
             return res;
           }),
       ),
@@ -73,10 +93,13 @@ self.addEventListener('fetch', (e) => {
     caches.match(req, ANY).then((hit) => {
       const net = fetch(req)
         .then((res) => {
-          if (res.ok) caches.open(CACHE).then((c) => c.put(req, res.clone()));
+          if (res.ok) {
+            const copy = res.clone();
+            caches.open(CACHE).then((c) => c.put(req, copy));
+          }
           return res;
         })
-        .catch(() => hit);
+        .catch(() => hit || offline(false));
       return hit || net;
     }),
   );
