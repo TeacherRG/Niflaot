@@ -29,9 +29,11 @@ export function cycleDayFor(iso: string): { index: number; exact: boolean } {
 
 /** Вступление Штейнзальца к разделу: заголовок и текст (иврит, английский). */
 export interface SteinsaltzIntro {
-  title: { he?: string; en?: string };
+  title: { he?: string; en?: string; ru?: string };
   he?: string;
   en?: string;
+  /** перевод проекта (src/tanakh/ru/<книга>.json) */
+  ru?: string;
 }
 export interface DayVerse {
   b: string;
@@ -43,8 +45,10 @@ export interface DayVerse {
   en: string;
   /** перевод взят из другого издания (где в основном стиха нет) */
   enFrom?: string;
-  /** Штейнзальц: стих с вплетённым объяснением (HTML: слова стиха — <b>, сноски — <small class="fn">) */
-  st?: { he?: string; en?: string };
+  /** русский перевод проекта (src/tanakh/ru/<книга>.json) */
+  ru?: string;
+  /** Штейнзальц: стих с вплетённым объяснением (HTML: слова стиха — <b>, сноски — <small class="fn">); ru — перевод проекта */
+  st?: { he?: string; en?: string; ru?: string };
   /** вступления Штейнзальца к разделу, который начинается этим стихом */
   intro?: SteinsaltzIntro[];
 }
