@@ -6,6 +6,7 @@ import { lessonProgress } from '../core/progress';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { WeekCountdown } from './WeekCountdown';
+import { PhoneOffer } from './PhoneOffer';
 import { dailyNumber, grid, loadResults, streak } from '../core/daily';
 import { Icon } from './ui';
 import { NIFLAOT_LOGO } from '../core/partners';
@@ -132,6 +133,7 @@ export function Catalog() {
                 <WeekCountdown variant="compact" />
               </div>
               <DailyLink />
+              <PhoneOffer />
             </div>
           </section>
 

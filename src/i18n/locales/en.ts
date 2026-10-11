@@ -462,6 +462,12 @@ const en: Messages = {
   'push.privacy': "The browser will ask for permission once. We keep only the browser’s notification address, time zone, time and language — no name, no email.",
   'push.answerOnSite': "The answer is on the site.",
   'push.fallback': "Today’s riddle is waiting for you on the site.",
+  'offer.title': "Niflaot on your phone",
+  'offer.lead': "An icon on your phone’s screen and one short message a day from the weekly portion.",
+  'offer.ios': "On iPhone and iPad: tap “Share” ⬆ at the bottom of Safari → “Add to Home Screen”. Then open Niflaot from the Home Screen and turn on the reminder.",
+  'offer.inapp': "Open the site in your regular browser (Chrome or Safari): menu ⋮ → “Open in browser” — there you can install the site and turn on the reminder.",
+  'offer.close': "Hide",
+  'push.menuSub': "one message a day from the weekly portion",
   'calc.title': 'Gematria calculator',
   'calc.sub':
     'Type a Hebrew word or use the on-screen keyboard. If its number matches a word from the game, you will see it.',

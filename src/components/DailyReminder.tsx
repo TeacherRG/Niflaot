@@ -7,7 +7,7 @@ import { DEFAULT_HOUR, PUSH_HOURS, disablePush, enablePush, pushState, testPush,
  * pick the hour, «Проверить» — a notification right away, «Выключить». Hidden where the browser can't do it at all.
  * Under «Гиматрия дня» after the word is solved and at the end of a lesson.
  */
-export function DailyReminder() {
+export function DailyReminder({ sheet = false }: { sheet?: boolean }) {
   const { t, locale } = useI18n();
   const [state, setState] = useState<PushState | null>(null);
   const [hour, setHour] = useState(DEFAULT_HOUR);
@@ -18,7 +18,9 @@ export function DailyReminder() {
     pushState().then(setState, () => setState({ kind: 'unsupported' }));
   }, []);
 
-  if (!state || state.kind === 'unsupported') return null;
+  if (!state) return null;
+  // in the sheet (menu, home) the player asked for it: say why it can't work here instead of showing nothing
+  if (state.kind === 'unsupported') return sheet ? <p className="reminder-note">{t('push.unsupported')} {t('offer.inapp')}</p> : null;
   const time = (h: number) => `${String(h).padStart(2, '0')}:00`;
   const run = async (f: () => Promise<PushState | void>, ok = '') => {
     setBusy(true);
@@ -35,8 +37,8 @@ export function DailyReminder() {
   };
 
   return (
-    <section className="reminder">
-      <h3>🔔 {t('push.title')}</h3>
+    <section className={sheet ? 'reminder reminder-sheet' : 'reminder'}>
+      {!sheet && <h3>🔔 {t('push.title')}</h3>}
       <p>{t('push.lead')}</p>
       {state.kind === 'ios' && <p className="reminder-note">{t('push.ios')}</p>}
       {state.kind === 'denied' && <p className="reminder-note">{t('push.denied')}</p>}
