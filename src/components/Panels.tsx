@@ -4,7 +4,6 @@ import { LESSON_GROUPS, findLesson } from '../lessons';
 import { VALUES } from '../core/gematria';
 import { OPS, SIGN } from '../core/mentalMath';
 import { Icon, Sheet, useUI } from './ui';
-import { ASSISTANT_URL } from '../core/assistant';
 import { lessonGames } from './lessonGames';
 import { DailyReminder } from './DailyReminder';
 import { canInstall, install, subscribeInstall } from '../core/install';
@@ -62,7 +61,8 @@ export function Panels() {
   const close = () => open(null);
   // the page a menu link points to is open (#/<slug> or #/<slug>/memo, #/<slug>/cards)
   const isHere = (href: string) => location.hash.split('?')[0] === href;
-  // the portion of the open lesson or of its «Нифлаот Ребе» page: only its group is unfolded
+  // all groups start folded; only the one holding the open page (lesson, «Нифлаот Ребе», math) is unfolded
+  const isLearn = location.hash.startsWith('#/math') || location.hash === '#/letters';
   const currentParsha = lessonSlug ? findLesson(lessonSlug)?.parsha : location.hash.match(/^#\/rebbe\/([^/?]+)/)?.[1];
 
   return (
@@ -82,7 +82,7 @@ export function Panels() {
           </a>
           <div className="menu-lbl">{t('menu.lessons')}</div>
           {LESSON_GROUPS.map((g) => (
-            <details key={g.id} className="menu-group" open={!currentParsha || currentParsha === g.id}>
+            <details key={g.id} className="menu-group" open={currentParsha === g.id}>
               <summary className="menu-item">
                 <Icon name="book" />
                 <span>
@@ -163,33 +163,6 @@ export function Panels() {
               </div>
             </details>
           ))}
-          <details className="menu-group" open={location.hash.startsWith('#/math') || location.hash === '#/letters'}>
-            <summary className="menu-item">
-              <Icon name="calc" />
-              <span>{t('math.title')}</span>
-            </summary>
-            <div className="menu-sub">
-              <a href="#/letters" onClick={close} className="menu-item" aria-current={location.hash === '#/letters' ? 'page' : undefined}>
-                <span className="menu-num he">א</span>
-                <span>
-                  {t('abc.title')}
-                  <small>{t('abc.menuSub')}</small>
-                </span>
-              </a>
-              {OPS.map((o) => (
-                <a
-                  key={o}
-                  href={`#/math/${o}`}
-                  onClick={close}
-                  className="menu-item"
-                  aria-current={location.hash === `#/math/${o}` ? 'page' : undefined}
-                >
-                  <span className="menu-num">{SIGN[o]}</span>
-                  <span>{t(`math.op.${o}`)}</span>
-                </a>
-              ))}
-            </div>
-          </details>
           {lessonSlug && (
             <a href={`#/${lessonSlug}/print`} onClick={close} className="menu-item">
               <Icon name="print" />
@@ -197,21 +170,53 @@ export function Panels() {
             </a>
           )}
           <div className="menu-sep" />
-          <button className="menu-item" onClick={() => open('help')}>
-            <Icon name="help" />
-            <span>{t('help.title')}</span>
-          </button>
-          <button className="menu-item" onClick={() => open('help')}>
-            <span className="menu-num he">א</span>
-            <span>
-              {t('hebrew.menu')}
-              <small>{t(`hebrew.${level}`)}</small>
-            </span>
-          </button>
-          <button className="menu-item" onClick={() => open('assistant')}>
-            <Icon name="spark" />
-            <span>{t(ASSISTANT_URL ? 'ai.title' : 'helper.title')}</span>
-          </button>
+          {/* how to play, my Hebrew, letters and mental math: one group */}
+          <details className="menu-group" open={isLearn}>
+            <summary className="menu-item">
+              <Icon name="help" />
+              <span>{t('menu.learn')}</span>
+            </summary>
+            <div className="menu-sub">
+              <button className="menu-item" onClick={() => open('help')}>
+                <span className="menu-num">?</span>
+                <span>{t('help.title')}</span>
+              </button>
+              <button className="menu-item" onClick={() => open('help')}>
+                <span className="menu-num he">א</span>
+                <span>
+                  {t('hebrew.menu')}
+                  <small>{t(`hebrew.${level}`)}</small>
+                </span>
+              </button>
+              <a href="#/letters" onClick={close} className="menu-item" aria-current={location.hash === '#/letters' ? 'page' : undefined}>
+                <span className="menu-num he">ב</span>
+                <span>
+                  {t('abc.title')}
+                  <small>{t('abc.menuSub')}</small>
+                </span>
+              </a>
+              <details className="menu-group" open={location.hash.startsWith('#/math')}>
+                <summary className="menu-item">
+                  <span className="menu-num">±</span>
+                  <span>{t('math.title')}</span>
+                </summary>
+                <div className="menu-sub">
+                  {OPS.map((o) => (
+                    <a
+                      key={o}
+                      href={`#/math/${o}`}
+                      onClick={close}
+                      className="menu-item"
+                      aria-current={location.hash === `#/math/${o}` ? 'page' : undefined}
+                    >
+                      <span className="menu-num">{SIGN[o]}</span>
+                      <span>{t(`math.op.${o}`)}</span>
+                    </a>
+                  ))}
+                </div>
+              </details>
+            </div>
+          </details>
           {installable && (
             <button
               className="menu-item"
