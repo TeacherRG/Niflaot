@@ -1347,3 +1347,44 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .hp-section{border:1px solid var(--line);border-radius:8px;padding:10px 14px;background:var(--surface)}
 .hp-section>summary{font-weight:700;cursor:pointer}
 .hp-section[open]>summary{margin-bottom:10px}
+
+/* ───── account, leaderboard, class (AccountPage.tsx, CommunityPages.tsx) ───── */
+.acc-chip{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);text-decoration:none;font-weight:600;font-size:13px;white-space:nowrap;max-width:150px}
+.acc-chip span{overflow:hidden;text-overflow:ellipsis}
+.acc-chip.in{border-color:var(--gold-line);background:var(--gold-soft)}
+@media (max-width:560px){.acc-chip{padding:0 9px}.acc-chip span{display:none}}
+.acc main{display:grid;gap:14px;margin:8px 0 24px}
+.acc-card{padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
+.acc-card h2{margin:0 0 6px;font-family:var(--f-display);font-size:24px;line-height:1.2}
+.acc-card p{margin:0 0 10px}
+.acc-card .prose ul{margin:0 0 12px;padding-inline-start:20px}
+.acc-form{display:grid;gap:12px;margin:8px 0}
+.acc-form label{display:grid;gap:4px;font-weight:600;font-size:14px}
+.acc-form label small{font-weight:400;color:var(--muted)}
+.acc-form input[type=email],.acc-form input:not([type]),.acc-form input[inputmode]{font:inherit;font-weight:400;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);min-width:0}
+.acc-form fieldset{border:0;padding:0;margin:0;display:grid;gap:6px}
+.acc-form legend{font-weight:600;font-size:14px;margin-bottom:4px}
+.acc-radio,.acc-check{display:flex!important;align-items:flex-start;gap:8px;font-weight:400!important}
+.acc-radio input,.acc-check input{margin-top:4px}
+.acc-form .btn{justify-self:start}
+.acc-inline{display:flex;flex-wrap:wrap;gap:8px}
+.acc-inline input{flex:1 1 180px}
+.acc-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}
+.acc-note{color:var(--muted);font-size:14px}
+.acc-err{color:#B3261E;font-weight:600}
+.acc-ok{color:#1F7A4D;font-weight:600}
+.acc-danger{color:#B3261E}
+.acc-classes{list-style:none;padding:0;margin:0 0 12px;display:grid;gap:10px}
+.acc-classes li{display:grid;gap:4px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.seg button{font:inherit;font-size:14px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--gold-2);border-color:var(--ink)}
+.leaders{list-style:none;padding:0;margin:0 0 12px;display:grid;gap:4px}
+.leaders li{display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:var(--paper)}
+.leaders li.me{background:var(--gold-soft);outline:1px solid var(--gold-line)}
+.acc-table-wrap{overflow-x:auto;margin:0 0 12px}
+.acc-table{width:100%;border-collapse:collapse;font-size:14px}
+.acc-table th,.acc-table td{text-align:start;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.acc-table td.num{text-align:end}
+.acc-lessons{display:block;color:var(--muted);font-size:12px;font-weight:400}
+.acc .prose h3{margin:16px 0 6px;font-size:17px}

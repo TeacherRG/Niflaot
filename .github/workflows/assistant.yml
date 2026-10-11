@@ -1,6 +1,8 @@
 # Publishes the AI assistant (assistant/, Cloudflare Worker) — by hand from the Actions tab
 # and on every push to main that changes assistant/.
 # Needs repository secrets CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID and ANTHROPIC_API_KEY.
+# Registration (login codes by email): secret RESEND_API_KEY and, if the sender is not noreply@mychitas.app,
+# variable MAIL_FROM (e.g. «Нифлаот <noreply@your-domain>»; the domain must be verified at Resend).
 # The worker's address is printed at the end of the "Deploy" step; put it into the variable ASSISTANT_URL.
 name: Deploy AI assistant
 
@@ -17,6 +19,9 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      # secrets can't be read in `if:` — whether the mail key is set, as a job variable
+      HAS_RESEND: ${{ secrets.RESEND_API_KEY != '' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -34,5 +39,17 @@ jobs:
           workingDirectory: assistant
           secrets: |
             ANTHROPIC_API_KEY
+          vars: |
+            MAIL_FROM
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          MAIL_FROM: ${{ vars.MAIL_FROM || 'Нифлаот <noreply@mychitas.app>' }}
+      # registration turns on when the repository has the secret RESEND_API_KEY
+      - name: Mail key for login codes
+        if: ${{ env.HAS_RESEND == 'true' }}
+        working-directory: assistant
+        run: printf '%s' "$RESEND_API_KEY" | npx wrangler secret put RESEND_API_KEY
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

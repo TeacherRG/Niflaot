@@ -4,8 +4,12 @@ compatibility_date = "2026-09-01"
 
 [vars]
 ALLOWED_ORIGINS = "https://niflaot.mychitas.app"
+SITE_URL = "https://niflaot.mychitas.app"
+# sender of the login codes; the domain must be verified at Resend (resend.com → Domains)
+MAIL_FROM = "Нифлаот <noreply@mychitas.app>"
 
-# Secret (not stored here): npx wrangler secret put ANTHROPIC_API_KEY
+# Secrets (not stored here): npx wrangler secret put ANTHROPIC_API_KEY, RESEND_API_KEY (login codes by email;
+# without it registration is off and the site shows only the guest mode)
 
 # Rate limit for /chat: 20 requests per minute from one IP (the worker answers 429 above it).
 [[ratelimits]]
@@ -25,6 +29,15 @@ class_name = "PushHub"
 [[migrations]]
 tag = "v1"
 new_sqlite_classes = ["PushHub"]
+
+# Accounts of the site (src/accounts.ts): one Durable Object with SQLite storage.
+[[durable_objects.bindings]]
+name = "ACCOUNTS"
+class_name = "Accounts"
+
+[[migrations]]
+tag = "v2"
+new_sqlite_classes = ["Accounts"]
 
 [triggers]
 crons = ["1 * * * *"]

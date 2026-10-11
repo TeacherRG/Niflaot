@@ -30,6 +30,9 @@ export function Colophon({ source }: { source?: string }) {
           <button type="button" className="site-foot-more" onClick={() => open('about')}>
             {t('about.title')}
           </button>
+          <a className="site-foot-more" href="#/privacy">
+            {t('privacy.title')}
+          </a>
           <a className="site-foot-more" href="https://mychitas.app/donate" target="_blank" rel="noopener">
             {t('footer.donate')}
           </a>

@@ -26,6 +26,20 @@
 
 Проверить локально: `npx wrangler dev --test-scheduled`, затем `curl localhost:8787/__scheduled?cron=1+*+*+*+*`.
 
+## Аккаунты (вход по коду на email)
+
+`src/accounts.ts` — Durable Object `Accounts`: маршруты `/account/*` (`config`, `code`, `login`, `me`, `profile`,
+`consent`, `consent/resend`, `progress` GET/PUT, `leaders`, `class`, `class/join|leave|remove`, `class/<id>`, `logout`,
+`delete`). Письма — через [Resend](https://resend.com):
+
+1. resend.com → **Domains → Add domain** `mychitas.app` → добавить показанные DNS-записи у регистратора, дождаться «Verified».
+2. **API Keys → Create** (Sending access) → GitHub: **Secrets → `RESEND_API_KEY`**.
+3. Если отправитель не `noreply@mychitas.app` — **Variables → `MAIL_FROM`** (например `Нифлаот <noreply@ваш-домен>`).
+4. **Actions → Deploy AI assistant → Run workflow.**
+
+Без ключа `/account/config` отвечает `{"mail": false}`, и сайт показывает только режим гостя.
+Локально: `npx wrangler dev --var DEV_CODES:1` — коды и письма родителям пишутся в лог вместо отправки.
+
 ## Запуск без терминала (GitHub Actions)
 
 1. Cloudflare → **Manage Account → Account API Tokens → Create Token** → шаблон **Edit Cloudflare Workers** → создать, скопировать.
