@@ -47,3 +47,10 @@ export function validEndpoint(e: unknown): e is string {
   }
 }
 
+
+/* accounts (src/accounts.ts) */
+
+export const validEmail = (e: unknown): e is string => typeof e === 'string' && e.length <= 254 && /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/.test(e);
+/** 3–20 letters, digits, space, _ or -; not only digits */
+export const validNick = (n: unknown): n is string =>
+  typeof n === 'string' && /^[\p{L}\p{N}][\p{L}\p{N} _-]{1,18}[\p{L}\p{N}]$/u.test(n) && !/^\d+$/.test(n);

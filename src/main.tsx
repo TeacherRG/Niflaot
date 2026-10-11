@@ -21,6 +21,7 @@ import '@fontsource/ibm-plex-mono/500.css';
 import '@fontsource/ibm-plex-mono/600.css';
 import { installAnalytics } from './core/analytics';
 import { installPrompt } from './core/install';
+import { startAccountSync } from './core/account';
 import './styles.css';
 
 // the admin's unpublished text edits are shown on the site in their browser
@@ -29,6 +30,8 @@ applyDraft();
 installAnalytics();
 // «Установить на телефон» in the menu, when the browser can install the site
 installPrompt();
+// the optional account: progress on every device (src/core/account.ts)
+startAccountSync();
 // offline use and the daily reminder (public/sw.js); not in development, where the files change all the time
 if (import.meta.env.PROD && 'serviceWorker' in navigator)
   addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));

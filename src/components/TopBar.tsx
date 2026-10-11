@@ -1,6 +1,7 @@
-import { useCallback, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import { LOCALES, useI18n, type Locale } from '../i18n';
 import { Icon, useDismiss, useUI } from './ui';
+import { loadConfig, useAccount } from '../core/account';
 
 /** One button showing the current language; opens a list of all languages in their own names. */
 export function LanguagePicker() {
@@ -48,6 +49,23 @@ export function LanguagePicker() {
   );
 }
 
+/** «Войти» for a guest (only when the site can register), the nickname when signed in — both open `#/account`. */
+function AccountChip() {
+  const { t } = useI18n();
+  const { token, me, mail } = useAccount();
+  useEffect(() => {
+    loadConfig();
+  }, []);
+  if (!token && !mail) return null;
+  const nick = me?.user.nick;
+  return (
+    <a className={`acc-chip${token ? ' in' : ''}`} href="#/account" aria-label={nick ?? t('acc.chipGuest')} title={nick ?? t('acc.chipGuest')}>
+      <Icon name="user" size={18} />
+      <span>{token ? (nick ?? '…') : t('acc.chipGuest')}</span>
+    </a>
+  );
+}
+
 export function TopBar({ title, children, wide }: { title: string; children?: ReactNode; wide?: boolean }) {
   const { t } = useI18n();
   const { open } = useUI();
@@ -62,6 +80,7 @@ export function TopBar({ title, children, wide }: { title: string; children?: Re
           <small>{t('app.brandSub')}</small>
         </a>
         {children}
+        <AccountChip />
         <LanguagePicker />
       </div>
     </div>

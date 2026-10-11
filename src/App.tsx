@@ -29,6 +29,11 @@ const ReadPage = page(() => import('./components/ReadPage'), 'ReadPage');
 const FactsPage = page(() => import('./components/FactsPage'), 'FactsPage');
 const PartnersPage = page(() => import('./components/PartnersPage'), 'PartnersPage');
 const TeacherPage = page(() => import('./components/TeacherPage'), 'TeacherPage');
+const AccountPage = page(() => import('./components/AccountPage'), 'AccountPage');
+const LeadersPage = page<'LeadersPage', { cls?: string }>(() => import('./components/CommunityPages'), 'LeadersPage');
+const ClassPage = page<'ClassPage', { id: string }>(() => import('./components/CommunityPages'), 'ClassPage');
+const ConsentPage = page<'ConsentPage', { token: string }>(() => import('./components/CommunityPages'), 'ConsentPage');
+const PrivacyPage = page<'PrivacyPage', object>(() => import('./components/CommunityPages'), 'PrivacyPage');
 const CardsReadPage = page(() => import('./components/CardsReadPage'), 'CardsReadPage');
 const MathPage = page(() => import('./components/MathPage'), 'MathPage');
 const LettersPage = page(() => import('./components/LettersPage'), 'LettersPage');
@@ -39,7 +44,7 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©pnimi.org.il\n©mychitas.app`;
 
 /**
  * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version,
- * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers (`/read/<n>`, `/memo/<n>`, `/r/<n>` — opened at riddle or Memo pair n), `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/partners` — «Партнёры», `#/teacher` — «Учитель» (ИИ или человек), `#/facts` — «Знаете ли вы?», the equalities of all lessons (`#/facts/<id>` — opened at one of them), `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper, `#/letters` — «Буквы за 5 минут».
+ * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers (`/read/<n>`, `/memo/<n>`, `/r/<n>` — opened at riddle or Memo pair n), `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/partners` — «Партнёры», `#/teacher` — «Учитель» (ИИ или человек), `#/account` — аккаунт (гость / вход по коду / профиль, классы), `#/leaders[/<class>]` — таблица лидеров, `#/class/<id>` — класс для учителя, `#/consent/<token>` — согласие родителя, `#/privacy` — конфиденциальность, `#/facts` — «Знаете ли вы?», the equalities of all lessons (`#/facts/<id>` — opened at one of them), `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper, `#/letters` — «Буквы за 5 минут».
  * `#/daily` — «Знаете ли вы?» opened on «Гиматрия дня», its first card; `#/math/<op>` — «Устный счёт».
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson; `/mental-math/` and `/daily/` (also under `/en/`, `/de/`) — those pages.
@@ -143,6 +148,16 @@ function Site() {
           <PartnersPage />
         ) : slug === 'teacher' ? (
           <TeacherPage />
+        ) : slug === 'account' ? (
+          <AccountPage />
+        ) : slug === 'leaders' ? (
+          <LeadersPage cls={view || undefined} />
+        ) : slug === 'class' && view ? (
+          <ClassPage id={view} />
+        ) : slug === 'consent' && view ? (
+          <ConsentPage token={view} />
+        ) : slug === 'privacy' ? (
+          <PrivacyPage />
         ) : slug === 'facts' ? (
           <FactsPage at={view || undefined} />
         ) : slug === 'daily' ? (

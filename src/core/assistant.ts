@@ -1,6 +1,7 @@
 import type { Lesson } from '../lessons/types';
 import type { Locale } from '../i18n';
 import { displayNames } from './names';
+import { authToken } from './account';
 
 /**
  * AI assistant client. The Claude API key lives in a separate Cloudflare Worker (`assistant/`);
@@ -95,7 +96,8 @@ export async function askAssistant(
   const context = await assistantContext();
   const res = await fetch(`${ASSISTANT_URL.replace(/\/$/, '')}/chat`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    // signed in: the question counts for the account (src/core/account.ts)
+    headers: { 'Content-Type': 'application/json', ...(authToken() ? { Authorization: `Bearer ${authToken()}` } : {}) },
     body: JSON.stringify({ locale, messages, context }),
     signal,
   });

@@ -8,14 +8,19 @@
  * The daily reminder of the site (src/push.ts, Durable Object PushHub; cron once an hour):
  * GET /push/key → {key} (VAPID public key) · POST /push/subscribe {subscription, tz, hour, lang}
  * · POST /push/unsubscribe {endpoint} · POST /push/test {endpoint} — one push right away.
+ *
+ * Accounts of the site (src/accounts.ts, Durable Object Accounts): /account/* — login by a code to the email,
+ * profile, parent's consent, synced progress, leaderboards, classes. /chat with `Authorization: Bearer <token>`
+ * counts the question for that account.
  */
 import Anthropic from '@anthropic-ai/sdk';
 import { gematria, letters, VALUES } from '../../src/core/gematria';
 import { PushHub } from './push';
+import { Accounts, type MailEnv } from './accounts';
 
-export { PushHub };
+export { PushHub, Accounts };
 
-interface Env {
+interface Env extends MailEnv {
   ANTHROPIC_API_KEY: string;
   /** comma-separated list of allowed page origins */
   ALLOWED_ORIGINS?: string;
@@ -23,7 +28,11 @@ interface Env {
   LIMITER?: { limit(o: { key: string }): Promise<{ success: boolean }> };
   /** the daily reminder: subscriptions and sending (wrangler.toml [[durable_objects.bindings]]) */
   PUSH: DurableObjectNamespace<PushHub>;
+  /** accounts: one instance (wrangler.toml) */
+  ACCOUNTS: DurableObjectNamespace<Accounts>;
 }
+
+const accounts = (env: Env) => env.ACCOUNTS.get(env.ACCOUNTS.idFromName('main'));
 
 const hub = (env: Env) => env.PUSH.get(env.PUSH.idFromName('hub'));
 
@@ -112,8 +121,8 @@ function originOk(origin: string | null, env: Env): origin is string {
 function cors(origin: string | null, env: Env): Record<string, string> {
   return {
     'Access-Control-Allow-Origin': originOk(origin, env) ? origin : allowedOrigins(env)[0],
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Max-Age': '86400',
     Vary: 'Origin',
   };
@@ -173,6 +182,7 @@ export default {
     if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers });
     const path = new URL(req.url).pathname;
     if (path.startsWith('/push/')) return pushRoute(req, env, path.slice(5), headers);
+    if (path.startsWith('/account/')) return accountRoute(req, env, path.slice(8), headers);
     if (req.method !== 'POST' || path !== '/chat')
       return new Response('Not found', { status: 404, headers });
 
@@ -194,6 +204,10 @@ export default {
     } catch {}
     const input = parse(body);
     if (typeof input === 'string') return new Response(input, { status: 400, headers });
+
+    // a signed-in player: the question counts for the account (the base for the AI teacher's price)
+    const auth = req.headers.get('Authorization');
+    if (auth) ctx.waitUntil(accounts(env).fetch('https://accounts/ai-use', { headers: { Authorization: auth } }).then(() => {}, () => {}));
 
     const { readable, writable } = new TransformStream<Uint8Array, Uint8Array>();
     const writer = writable.getWriter();
@@ -219,6 +233,26 @@ export default {
     ctx.waitUntil(hub(env).fetch('https://hub/tick').then(() => {}));
   },
 };
+
+async function accountRoute(req: Request, env: Env, path: string, headers: Record<string, string>): Promise<Response> {
+  const out = (r: Response) =>
+    new Response(r.body, { status: r.status, headers: { ...headers, 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
+  if (path === '/ai-use') return new Response('Not found', { status: 404, headers });
+  if (!originOk(req.headers.get('Origin'), env)) return new Response('Forbidden', { status: 403, headers });
+  // sending a code costs an email: those go through the rate limit; reading the profile and the boards don't
+  if (env.LIMITER && req.method !== 'GET') {
+    const ip = req.headers.get('CF-Connecting-IP') ?? 'unknown';
+    if (!(await env.LIMITER.limit({ key: `acc:${ip}` })).success)
+      return new Response(JSON.stringify({ error: 'wait' }), { status: 429, headers: { ...headers, 'Retry-After': '60' } });
+  }
+  const raw = req.method === 'GET' ? undefined : await req.text().catch(() => '');
+  if (raw && raw.length > 300 * 1024) return new Response('Too large', { status: 413, headers });
+  const url = new URL(req.url);
+  const fwd: Record<string, string> = {};
+  const auth = req.headers.get('Authorization');
+  if (auth) fwd.Authorization = auth;
+  return out(await accounts(env).fetch(`https://accounts${path}${url.search}`, { method: req.method, headers: fwd, body: raw }));
+}
 
 async function pushRoute(req: Request, env: Env, path: string, headers: Record<string, string>): Promise<Response> {
   const json = (r: Response) => new Response(r.body, { status: r.status, headers: { ...headers, 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });

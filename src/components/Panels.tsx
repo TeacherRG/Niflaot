@@ -7,6 +7,7 @@ import { Icon, Sheet, useUI } from './ui';
 import { ASSISTANT_URL } from '../core/assistant';
 import { lessonGames } from './lessonGames';
 import { DailyReminder } from './DailyReminder';
+import { useAccount } from '../core/account';
 import { canInstall, install, subscribeInstall } from '../core/install';
 
 /** Gematria step by step, sources and FAQ (with all the primary sources) load when «Как играть» opens. */
@@ -59,6 +60,7 @@ export function Panels() {
   const { panel, open, lessonSlug } = useUI();
   const level = useHebrewLevel();
   const installable = useSyncExternalStore(subscribeInstall, canInstall, () => false);
+  const account = useAccount();
   const close = () => open(null);
   // the page a menu link points to is open (#/<slug> or #/<slug>/memo, #/<slug>/cards)
   const isHere = (href: string) => location.hash.split('?')[0] === href;
@@ -227,6 +229,17 @@ export function Panels() {
               </span>
             </button>
           )}
+          <a href="#/account" onClick={close} className="menu-item" aria-current={location.hash === '#/account' ? 'page' : undefined}>
+            <Icon name="user" />
+            <span>
+              {account.me?.user.nick ?? t(account.token ? 'acc.title' : 'acc.chipGuest')}
+              <small>{account.token ? t('acc.title') : t('acc.guest')}</small>
+            </span>
+          </a>
+          <a href="#/leaders" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/leaders') ? 'page' : undefined}>
+            <span className="menu-num">🏆</span>
+            <span>{t('leaders.title')}</span>
+          </a>
           <button className="menu-item" onClick={() => open('reminder')}>
             <Icon name="bell" />
             <span>
