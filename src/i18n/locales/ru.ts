@@ -671,6 +671,8 @@ const ru = {
   'tanakh.restToday': 'Сегодня чтения нет — Шабат или праздник. Вот следующий отрывок.',
   'tanakh.day': 'День {n} из {total}',
   'tanakh.readingTime': '≈ {n} мин чтения',
+  'tanakh.post.title': 'Пророки и Писания · отрывок дня',
+  'tanakh.post.withSt': 'со Штейнзальцем ≈ {n} мин',
   'tanakh.printBoth': 'вместе с «{other}»',
   'tanakh.printQr': 'Читать онлайн — наведите камеру',
   'tanakh.chapter': 'глава {n}',
