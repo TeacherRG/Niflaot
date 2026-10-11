@@ -9,5 +9,5 @@
     "noEmit": true,
     "types": ["@cloudflare/workers-types"]
   },
-  "include": ["src", "../src/core/gematria.ts"]
+  "include": ["src", "../src/core/gematria.ts", "../src/core/sync.ts"]
 }

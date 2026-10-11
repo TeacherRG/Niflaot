@@ -12,6 +12,7 @@
  */
 import { DurableObject } from 'cloudflare:workers';
 import { validEmail, validNick } from './rules';
+import { mergeSnapshots, summarize, type Snapshot } from '../../src/core/sync';
 
 export interface MailEnv {
   RESEND_API_KEY?: string;
@@ -27,6 +28,9 @@ const CODE_TTL = 10 * 60_000;
 const CODE_TRIES = 5;
 const SESSION_TTL = 180 * 864e5;
 const MAX_PROGRESS = 256 * 1024;
+/** the parent's consent email: not more often than once in 2 minutes and 5 times a day per account */
+const CONSENT_GAP = 2 * 60_000;
+const CONSENT_PER_DAY = 5;
 const CODE_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
 const LANGS = ['ru', 'en', 'de'] as const;
 type Lang = (typeof LANGS)[number];
@@ -107,6 +111,7 @@ export class Accounts extends DurableObject<MailEnv> {
       CREATE TABLE IF NOT EXISTS classes (id TEXT PRIMARY KEY, code TEXT UNIQUE NOT NULL, name TEXT NOT NULL, teacher TEXT NOT NULL, created INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS members (class TEXT NOT NULL, user TEXT NOT NULL, joined INTEGER NOT NULL, PRIMARY KEY (class, user));
       CREATE TABLE IF NOT EXISTS ai (user TEXT NOT NULL, day TEXT NOT NULL, n INTEGER NOT NULL, PRIMARY KEY (user, day));
+      CREATE TABLE IF NOT EXISTS consent_mail (user TEXT PRIMARY KEY, sent INTEGER NOT NULL, day TEXT NOT NULL, n INTEGER NOT NULL);
     `);
   }
 
@@ -145,7 +150,18 @@ export class Accounts extends DurableObject<MailEnv> {
     };
   }
 
+  /** Throws 'wait' when the account asked too often: the parent's address is any address the child typed. */
   private async consentMail(u: User) {
+    const now = Date.now();
+    const day = new Date(now).toISOString().slice(0, 10);
+    const prev = this.one<{ sent: number; day: string; n: number }>('SELECT sent, day, n FROM consent_mail WHERE user = ?', u.id);
+    const n = prev?.day === day ? prev.n + 1 : 1;
+    if ((prev && now - prev.sent < CONSENT_GAP) || n > CONSENT_PER_DAY) throw new Error('wait');
+    this.sql.exec(
+      `INSERT INTO consent_mail (user, sent, day, n) VALUES (?, ?, ?, ?)
+       ON CONFLICT(user) DO UPDATE SET sent = excluded.sent, day = excluded.day, n = excluded.n`,
+      u.id, now, day, n,
+    );
     const token = random(24);
     this.sql.exec('UPDATE users SET consent = ? WHERE id = ?', await sha(token), u.id);
     const site = this.env.SITE_URL || 'https://niflaot.mychitas.app';
@@ -181,7 +197,7 @@ export class Accounts extends DurableObject<MailEnv> {
       this.sql.exec('DELETE FROM members WHERE class = ?', c.id);
       this.sql.exec('DELETE FROM classes WHERE id = ?', c.id);
     }
-    for (const t of ['members', 'progress', 'sessions', 'ai']) this.sql.exec(`DELETE FROM ${t} WHERE user = ?`, id);
+    for (const t of ['members', 'progress', 'sessions', 'ai', 'consent_mail']) this.sql.exec(`DELETE FROM ${t} WHERE user = ?`, id);
     this.sql.exec('DELETE FROM users WHERE id = ?', id);
   }
 
@@ -286,7 +302,9 @@ export class Accounts extends DurableObject<MailEnv> {
       if (u.age !== 'child' || u.parent_ok || !u.parent_email) return fail('no');
       try {
         await this.consentMail(u);
-      } catch {
+      } catch (e) {
+        if ((e as Error).message === 'wait') return fail('wait', 429);
+        console.error(e);
         return fail('mail', 503);
       }
       return json({ ok: true });
@@ -314,12 +332,17 @@ export class Accounts extends DurableObject<MailEnv> {
       const clean: Record<string, string> = {};
       for (const [k, v] of Object.entries(data))
         if (typeof v === 'string' && /^niflaot:(lesson:[a-z0-9-]{1,60}|daily|hebrew|lang|math-level)$/.test(k)) clean[k] = v;
-      const raw = JSON.stringify(clean);
+      // merged with what the account already has: a second device that hasn't seen the first one's progress
+      // must not overwrite it (each device sends its whole copy)
+      const stored = this.one<{ data: string }>('SELECT data FROM progress WHERE user = ?', u.id);
+      const merged = mergeSnapshots(clean, stored ? (JSON.parse(stored.data) as Snapshot) : {});
+      const raw = JSON.stringify(merged);
       if (raw.length > MAX_PROGRESS) return fail('too large', 413);
-      const s = body!.summary ?? {};
+      // the summary is counted here from the merged copy; only the streak comes from the device
+      const s = summarize(merged, clamp(body!.summary?.streak, 1e4));
       const lessons: Record<string, number> = {};
-      for (const [k, v] of Object.entries(s.lessons ?? {})) if (/^[a-z0-9-]{1,60}$/.test(k)) lessons[k] = clamp(v, 100);
-      const summary = { points: clamp(s.points, 1e6), solved: clamp(s.solved, 1e4), days: clamp(s.days, 1e4), streak: clamp(s.streak, 1e4), lessons };
+      for (const [k, v] of Object.entries(s.lessons)) lessons[k] = clamp(v, 100);
+      const summary = { points: clamp(s.points, 1e6), solved: clamp(s.solved, 1e4), days: clamp(s.days, 1e4), streak: s.streak, lessons };
       this.sql.exec(
         `INSERT INTO progress (user, data, summary, updated) VALUES (?, ?, ?, ?)
          ON CONFLICT(user) DO UPDATE SET data = excluded.data, summary = excluded.summary, updated = excluded.updated`,

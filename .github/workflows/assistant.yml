@@ -10,7 +10,8 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['assistant/**']
+    # the worker also bundles these files of the site
+    paths: ['assistant/**', 'src/core/gematria.ts', 'src/core/sync.ts']
 
 concurrency:
   group: assistant
@@ -30,6 +31,8 @@ jobs:
           cache: npm
           cache-dependency-path: assistant/package-lock.json
       - run: npm ci
+        working-directory: assistant
+      - run: npx tsc --noEmit
         working-directory: assistant
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
