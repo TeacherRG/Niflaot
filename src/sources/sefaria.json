@@ -2757,6 +2757,190 @@
    }
   }
  },
+ "onkelos-gen-1-9": {
+  "kind": {
+   "ru": "Таргум",
+   "en": "Targum",
+   "de": "Targum"
+  },
+  "title": {
+   "ru": "Таргум Онкелос, Берешит 1:9",
+   "en": "Targum Onkelos, Genesis 1:9",
+   "de": "Targum Onkelos, Bereschit 1,9"
+  },
+  "ref": "Onkelos Genesis 1:9",
+  "url": "https://www.sefaria.org/Onkelos_Genesis_1.9",
+  "he": [
+   "וַאֲמַר יְיָ יִתְכַּנְשׁוּן מַיָּא מִתְּחוֹת שְׁמַיָּא לַאֲתַר חָד וְתִתְחֲזֵי יַבֶּשְׁתָּא וַהֲוָה כֵן"
+  ],
+  "en": [
+   "Elohim said, Let the waters beneath the heavens be gathered into one place, and let the dryness be seen. It was so."
+  ],
+  "versions": {
+   "he": {
+    "title": "Onkelos Genesis",
+    "license": "Public Domain",
+    "source": "http://toratemetfreeware.com/"
+   },
+   "en": {
+    "title": "Metsudah Chumash, Metsudah Publications, 2009 [with Onkelos translation]",
+    "license": "CC-BY-NC",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH002691623"
+   }
+  }
+ },
+ "chron1-29-11": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings",
+   "de": "Schriften"
+  },
+  "title": {
+   "ru": "Диврей ґа-ямим I 29:11",
+   "en": "I Chronicles 29:11",
+   "de": "Diwre HaJamim I 29,11"
+  },
+  "ref": "I Chronicles 29:11",
+  "url": "https://www.sefaria.org/I_Chronicles_29.11",
+  "he": [
+   "לך ה׳ הגדלה והגבורה והתפארת והנצח וההוד כי כל בשמים ובארץ לך ה׳ הממלכה והמתנשא לכל לראש"
+  ],
+  "en": [
+   "Thine, O L-rd, is the greatness, and the power, and the glory, and the victory, and the majesty; for all that is in the heaven and in the earth is Thine; Thine is the kingdom, O L-rd, and Thou art exalted as head above all."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "ez-18-10": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Йехезкель 18:10",
+   "en": "Ezekiel 18:10",
+   "de": "Jecheskel 18,10"
+  },
+  "ref": "Ezekiel 18:10",
+  "url": "https://www.sefaria.org/Ezekiel_18.10",
+  "he": [
+   "והוליד בן פריץ שפך דם ועשה אח מאחד מאלה"
+  ],
+  "en": [
+   "If he beget a son that is a robber, a shedder of blood, and that doeth to a brother any of these things,"
+  ],
+  "de": [
+   "Der zeugt nun einen Sohn, der die Schranken durchbricht, der Blut vergossen hätte, wenn er an dem Bruder (mit Außerachtlassung) auch nur einer dieser (Verpflichtungen) gehandelt hätte,"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Das Buch Jecheskel, übersetzt und erläutert von Dr. Joseph Breuer, Frankfurt a.M, 1921 [de]",
+    "license": "Public Domain",
+    "source": "http://talmud.de"
+   }
+  }
+ },
+ "ps-86-1": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings",
+   "de": "Schriften"
+  },
+  "title": {
+   "ru": "Теґилим 86:1",
+   "en": "Psalms 86:1",
+   "de": "Tehillim 86,1"
+  },
+  "ref": "Psalms 86:1",
+  "url": "https://www.sefaria.org/Psalms_86.1",
+  "he": [
+   "תפלה לדוד הטה ה׳ אזנך ענני כי עני ואביון אני"
+  ],
+  "en": [
+   "A Prayer of David. Incline Thine ear, O L-rd, and answer me; For I am poor and needy."
+  ],
+  "de": [
+   "Gebet von David. Neige, Herr, dein Ohr, erhöre mich, denn arm und dürftig bin ich."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/  "
+   }
+  }
+ },
+ "ps-90-1": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings",
+   "de": "Schriften"
+  },
+  "title": {
+   "ru": "Теґилим 90:1",
+   "en": "Psalms 90:1",
+   "de": "Tehillim 90,1"
+  },
+  "ref": "Psalms 90:1",
+  "url": "https://www.sefaria.org/Psalms_90.1",
+  "he": [
+   "תפלה למשה איש האלקים אד-ני מעון אתה היית לנו בדר ודר"
+  ],
+  "en": [
+   "A Prayer of Moses the man of G-d. L-rd, Thou hast been our dwelling-place in all generations."
+  ],
+  "de": [
+   "Gebet von Mose, dem göttlichen Manne. Herr eine Zuflucht bist du uns in allen Geschlechtern gewesen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/  "
+   }
+  }
+ },
  "tanya-ih-20": {
   "kind": {
    "ru": "Хасидут",
@@ -4908,6 +5092,94 @@
    }
   }
  },
+ "rashi-7-4": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 7:4",
+   "en": "Rashi, Genesis 7:4",
+   "de": "Raschi, Bereschit 7,4"
+  },
+  "ref": "Rashi on Genesis 7:4:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_7.4.1",
+  "he": [
+   "<b>כי לימים עוד שבעה.</b> אֵלּוּ ז' יְמֵי אֶבְלוֹ שֶׁל מְתוּשֶׁלַח הַצַּדִּיק שֶׁחָס הַקָּבָּ\"ה עַל כְּבוֹדוֹ וְעִכֵּב אֶת הַפֻּרְעָנוּת. צֵא וַחֲשֹׁב שְׁנוֹתָיו שֶׁל מְתוּשֶׁלַח וְתִמְצָא שֶׁהֵם כָּלִים בִּשְנַת ת\"ר שָׁנָה לְחַיֵּי נֹחַ (סנה' ק\"ח):"
+  ],
+  "en": [
+   "כי לימים עוד שבעה FOR YET SEVEN DAYS — These are the seven days of mourning for the righteous man Methuselah for whose honour the Holy One, blessed be He, had regard, and therefore postponed punishment. Go and calculate the years of Methuselah and you will find that they came to an end (i. e. he died) in the six hundredth year of Noah’s life (which coincided with the date of the Flood) (Sanhedrin 108b)."
+  ],
+  "de": [
+   "<b>Denn noch sieben Tage,</b> das sind die sieben Tage der Trauer für den gerechten Methuschelach, auf dessen Ehrung der Heilige, gelobt sei Er, Rücksicht nahm und die Strafe noch aufhielt. Geh und berechne die Jahre von Methuschelach, so wirst du finden, dass sie im Jahre 600 des Lebens von Noach zu Ende sind (Sanhedrin 108b)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "deut-11-6": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Дварим 11:6",
+   "en": "Deuteronomy 11:6",
+   "de": "Dewarim 11,6"
+  },
+  "ref": "Deuteronomy 11:6",
+  "url": "https://www.sefaria.org/Deuteronomy_11.6",
+  "he": [
+   "ואשר עשה לדתן ולאבירם בני אליאב בן ראובן אשר פצתה הארץ את פיה ותבלעם ואת בתיהם ואת אהליהם ואת כל היקום אשר ברגליהם בקרב כל ישראל"
+  ],
+  "en": [
+   "and what He did unto Dathan and Abiram, the sons of Eliab, the son of Reuben; how the earth opened her mouth, and swallowed them up, and their households, and their tents, and every living substance that followed them, in the midst of all Israel;"
+  ],
+  "ru": [
+   "и что осуществил он с Датаном и Авирамом, сынами Элиава, потомка Реувена, которых, раскрыв свою пасть, поглотила земля вместе с семьями, шатрами и всем их имуществом посреди Израиля —"
+  ],
+  "de": [
+   "und was er an Datan und Abiram, den Söhnen Eliabs, Sohn Reubens, vollbracht hat, daß die Erde ihren Schlund öffnete und sie samt ihren Häusern und ihren Zelten verschlang und alles Bestehende, das in ihrem Gefolge war, in Mitte von ganz Jisrael:"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "unknown",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
  "bht-6-9": {
   "kind": {
    "ru": "Комментарий",
@@ -5218,7 +5490,7 @@
   "ref": "Kitzur Ba'al HaTurim on Genesis 6:11:2",
   "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_6.11.2",
   "he": [
-   "<b> חמם</b> בגימטריא מי נח מלמד שפרע להם מדה במדה. חמס בגימטריא גיהנם מלמד שברותחין נדונו:"
+   "<b> חמס</b> בגימטריא מי נח מלמד שפרע להם מדה במדה. חמס בגימטריא גיהנם מלמד שברותחין נדונו:"
   ],
   "en": [
    "\"חמם\"[To be hot] has the numerical value of \"Mei Noach\" (the waters of Noah), which teaches that Pharaoh was punished measure for measure. \"Hamess\" has the numerical value of \"Gehinnom\" (hell), which teaches that the wicked are judged in boiling hot water."
@@ -5234,7 +5506,13 @@
     "license": "CC0",
     "source": "https://www.sefaria.org"
    }
-  }
+  },
+  "fixes": [
+   [
+    "חמם",
+    "חמס"
+   ]
+  ]
  },
  "bht-6-13-1": {
   "kind": {

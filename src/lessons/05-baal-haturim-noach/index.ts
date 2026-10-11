@@ -45,6 +45,8 @@ const lesson: Lesson = {
         'חמס = 108 = מי נח = גיהנם',
       ],
       sources: ['gen-6-9', 'bht-6-9', 'prov-11-30', 'bht-6-11-2'],
+      quotes: [[], ['bht-6-9:1'], ['bht-6-9:2'], ['bht-6-9:3'], ['bht-6-9:4'], ['bht-6-11-2']],
+      noSource: [0],
     },
     {
       words: ['קץ', 'צהר'],
@@ -71,6 +73,7 @@ const lesson: Lesson = {
         'צהר = 295 = לאור האבן',
       ],
       sources: ['gen-6-13', 'bht-6-13-1', 'bht-6-13-6', 'bht-6-13-4', 'rashi-6-13', 'bht-6-16-1', 'rashi-6-16'],
+      quotes: [['bht-6-13-1'], ['bht-6-13-6'], ['bht-6-13-4', 'rashi-6-13'], ['rashi-6-16', 'bht-6-16-1']],
     },
     {
       words: ['לשבעת', 'הימים', 'אך', 'נח'],
@@ -106,7 +109,8 @@ const lesson: Lesson = {
         'אך נח = 79 = עוג',
         'מקים את בריתי אתכם → ם · ת · י · ם → מתים',
       ],
-      sources: ['gen-7-4', 'bht-7-4', 'gen-7-10', 'bht-7-10', 'gen-7-11', 'bht-7-11', 'job-21-13', 'gen-7-23', 'bht-7-23', 'gen-9-9', 'bht-9-9'],
+      sources: ['gen-7-4', 'bht-7-4', 'deut-11-6', 'rashi-7-4', 'gen-7-10', 'bht-7-10', 'gen-7-11', 'bht-7-11', 'job-21-13', 'gen-7-23', 'bht-7-23', 'gen-9-9', 'bht-9-9'],
+      quotes: [['bht-7-4'], ['bht-7-10', 'rashi-7-4'], ['bht-7-11'], ['bht-7-23'], ['bht-9-9']],
     },
     {
       words: ['היין', 'יהיה'],
@@ -133,6 +137,7 @@ const lesson: Lesson = {
         'איש אל רעהו הבה → ש · ל · ו · ה → שלוה',
       ],
       sources: ['gen-9-20', 'bht-9-21', 'amos-6-6', 'gen-9-25', 'bht-9-25', 'ex-21-32', 'gen-11-1', 'bht-11-3-1'],
+      quotes: [['bht-9-21'], [], ['bht-9-25'], ['bht-11-3-1']],
     },
     {
       // other ways of counting (docs/GEMATRIA-RULES.md): «с колелем» (+1) and א״ת ב״ש
@@ -169,6 +174,8 @@ const lesson: Lesson = {
         'בגץ = 95 = יסכה',
       ],
       sources: ['gen-11-1', 'bht-11-1-2', 'gen-11-29', 'bht-11-29', 'megillah-14a'],
+      quotes: [[], ['bht-11-1-2'], ['bht-11-29']],
+      noSource: [0],
     },
   ],
   highlight: [

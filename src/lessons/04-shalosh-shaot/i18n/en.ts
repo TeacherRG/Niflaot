@@ -114,7 +114,7 @@ const en: LessonText = {
         },
         {
           h: 'Why Adam ate from the Tree',
-          b: `<p>Now we can understand why Adam ate from the Tree of Knowledge. He was “the handiwork of the Holy One, blessed be He, Himself,” that is, “greater than his fellows” — and so “his evil inclination was greater than he.”</p><p>All the more so because the command not to eat from the Tree of Knowledge had far-reaching implications, as seen from how far Adam and all his descendants fell because of the sin. Therefore the evil inclination, clothed in the serpent, contended with Adam with all its power and compelled him to eat from the Tree of Knowledge.</p>`,
+          b: `<p>Now we can understand why Adam ate from the Tree of Knowledge. He was “the handiwork of the Holy One, blessed be He, Himself,” that is, “greater than his fellows” — and so “his evil inclination was greater than he.”<sup data-src="sukkah-52a"></sup></p><p>All the more so because the command not to eat from the Tree of Knowledge had far-reaching implications, as seen from how far Adam and all his descendants fell because of the sin. Therefore the evil inclination, clothed in the serpent, contended with Adam with all its power and compelled him to eat from the Tree of Knowledge.</p>`,
         },
       ],
       reflection: 'Which “easy” mitzvah is the hardest for me? Perhaps that is exactly my mitzvah?',

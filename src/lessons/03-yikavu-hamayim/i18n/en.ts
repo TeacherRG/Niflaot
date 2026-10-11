@@ -73,7 +73,7 @@ const en: LessonText = {
         },
         {
           h: 'Thirteen words, fifty-two letters',
-          b: `<p>The ninth verse has 13 words — the gematria of “one” (<span class="he">אחד</span> = 1 + 8 + 4). So does the verse ending with “one day”, and the verse “and they shall become one flesh”. The verse has 52 letters — “one” exactly four times, a perfect ratio of 1 : 4.</p><p>So the very structure of the verse already holds what it speaks of — unity.</p>`,
+          b: `<p>The ninth verse has 13 words — the gematria of “one” (<span class="he">אחד</span> = 1 + 8 + 4). So does the verse ending with “one day”, and the verse “and they shall become one flesh”. The verse has 52 letters — “one” exactly four times, a perfect ratio of 1 : 4.<sup data-src="gen-1-1"></sup><sup data-src="gen-2-24"></sup></p><p>So the very structure of the verse already holds what it speaks of — unity.</p>`,
         },
       ],
       reflection: 'Where in my life does oneness appear in time — in habits and days — and where in place — at home, in the space around me? Which one place can I make into “one place”?',
@@ -111,7 +111,7 @@ const en: LessonText = {
       lessons: [
         {
           h: 'Three meanings of one root',
-          b: `<p>The root <span class="he">קוה</span> has three meanings. The first is gathering, as the Targum translates: “yitkanshun”, “let them gather”. Hence “mikveh”, a gathering of waters. The second is hope, “tikvah”. The third is a line, “kav”.</p><p>The root’s gematria is 111. That is “alef” spelled in full (<span class="he">אלף</span>) and the word “pele”, wonder, with the same letters rearranged. The booklet this lesson comes from is called “Niflaot” — “wonders”.</p>`,
+          b: `<p>The root <span class="he">קוה</span> has three meanings. The first is gathering, as the Targum translates: “yitkanshun”, “let them gather”. Hence “mikveh”, a gathering of waters. The second is hope, “tikvah”. The third is a line, “kav”.<sup data-src="onkelos-gen-1-9"></sup></p><p>The root’s gematria is 111. That is “alef” spelled in full (<span class="he">אלף</span>) and the word “pele”, wonder, with the same letters rearranged. The booklet this lesson comes from is called “Niflaot” — “wonders”.</p>`,
         },
         {
           h: 'Contraction: “I am the place of the world”',
@@ -209,11 +209,11 @@ const en: LessonText = {
       lessons: [
         {
           h: 'Why not only verses',
-          b: `<p>The rule of the “Mei HaShiloach” speaks of verses, but for the same reason it holds for letters, words and sections. Every nine hints at the sefirah of Yesod. Yesod is called “all” — “for all that is in heaven and on earth” — and it has the power to carry opposites; it is “secret”, the foundation.</p><p>There is a clear hint in the ninth verse itself: its ninth word is “one” (<span class="he">אחד</span>). In the verses “one day” and “one flesh” the word “one” is the thirteenth, at the end; here it is the ninth. Nine is the gematria of “ach” (<span class="he">אח</span>, brother): in Yechezkel “ach” is once written instead of “echad”. Here the masculine side of unity is emphasized.</p>`,
+          b: `<p>The rule of the “Mei HaShiloach” speaks of verses, but for the same reason it holds for letters, words and sections. Every nine hints at the sefirah of Yesod. Yesod is called “all” — “for all that is in heaven and on earth”<sup data-src="chron1-29-11"></sup> — and it has the power to carry opposites; it is “secret”, the foundation.</p><p>There is a clear hint in the ninth verse itself: its ninth word is “one” (<span class="he">אחד</span>). In the verses “one day” and “one flesh” the word “one” is the thirteenth, at the end; here it is the ninth. Nine is the gematria of “ach” (<span class="he">אח</span>, brother): in Yechezkel “ach” is once written instead of “echad”.<sup data-src="ez-18-10"></sup> Here the masculine side of unity is emphasized.</p>`,
         },
         {
           h: 'The ninth letter — the second alef',
-          b: `<p>Count the letters of the Torah: <span class="he">ב ר א ש י ת</span> — six, then <span class="he">ב ר א</span> — the ninth letter is the alef of “bara”, “created”. It completes the first phrase of the Torah, “Bereishit bara” — the secret of “a word and half a word”.</p><p>This is the second alef in the Torah, just as the ninth verse holds the second “one” in the Torah. Alef equals one: here too the nine reveals unity.</p>`,
+          b: `<p>Count the letters of the Torah: <span class="he">ב ר א ש י ת</span> — six, then <span class="he">ב ר א</span> — the ninth letter is the alef of “bara”, “created”. It completes the first phrase of the Torah, “Bereishit bara” — the secret of “a word and half a word”.<sup data-src="gen-1-1"></sup></p><p>This is the second alef in the Torah, just as the ninth verse holds the second “one” in the Torah. Alef equals one: here too the nine reveals unity.</p>`,
         },
         {
           h: 'The ninth word — “was”',

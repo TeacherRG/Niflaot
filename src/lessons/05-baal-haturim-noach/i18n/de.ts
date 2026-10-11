@@ -112,23 +112,23 @@ const de: LessonText = {
         },
         {
           h: '»Dies sind die Nachkommen«',
-          b: `<p>Die Worte »dies sind die Nachkommen« (<i>ele toldot</i>) findet der Baal HaTurim an vier Stellen: »die Nachkommen des Himmels«, »die Nachkommen Noachs«, »die Nachkommen Schems«, »die Nachkommen Jaakows«. Jedes Mal schieben sie beiseite, was vorher war: »die Nachkommen des Himmels« — das erste Durcheinander, <i>Tohu wa-Wohu</i>; »die Nachkommen Noachs« — die Generationen vor ihm; »die Nachkommen Schems« — die Söhne Chams und Jefets; »die Nachkommen Jaakows« — Esaw und seine Fürsten.<sup data-src="bht-6-9"></sup> Mit Noach beginnt die Geschichte neu.</p>`,
+          b: `<p>Der Baal HaTurim vergleicht vier Stellen, an denen die Tora sagt „dies sind die Nachkommen“ (<i>ele toldot</i>): Jedes Mal beginnt mit diesen Worten etwas Neues, und das Frühere bleibt zurück.<sup data-src="bht-6-9"></sup></p><p class="expl"><b>Erklärung.</b> Mit Noach beginnt die Geschichte neu.</p>`,
         },
         {
           h: 'Noach, Noach, Noach',
-          b: `<p>Noachs Name steht im ersten Vers des Abschnitts dreimal. Der Baal HaTurim gibt drei Erklärungen. Erstens: Noach <b>sah drei Welten</b>. Zweitens: Noach ist einer von drei Zaddikim, von denen jeder durch sein Verdienst drei Menschen rettete. Noach rettete seine drei Söhne — Schem, Cham und Jefet; Daniel rettete Chananja, Mischael und Asarja, indem er dem König den Traum deutete; Ijow rettete seine drei Freunde — Elifas, Bildad und Zofar.</p><p>Drittens: Der Name Noach bedeutet »angenehm«. Er war <b>angenehm</b> dem Himmel und den Menschen, den Oberen und den Unteren, in dieser Welt und in der kommenden Welt.</p>`,
+          b: `<p>Alle drei Erklärungen sagen, warum der Name <span class="he">נח</span> im ersten Vers des Abschnitts dreimal steht: drei Welten, drei Gerettete durch das Verdienst eines Zaddiks und „angenehm“ — so kann man den Namen <span class="he">נח</span> selbst lesen.<sup data-src="bht-6-9"></sup></p>`,
         },
         {
           h: 'Zwanzig Generationen untadelig',
-          b: `<p>»Untadelig <span class="he">היה</span> — war er.« Das Wort <span class="he">היה</span> = 5 + 10 + 5 = 20. Der Baal HaTurim: Noach war untadelig in allen <b>zwanzig Generationen von Adam bis Awraham</b>. Doch als Awraham kam, galt Noach nicht mehr als untadelig.</p><p>Von Adam bis Noach sind es zehn Generationen, von Noach bis Awraham noch einmal zehn. Noach lebte so lange, dass er sie alle sah.</p>`,
+          b: `<p><span class="he">היה</span> = 5 + 10 + 5 = 20 — so viele Generationen sind es von Adam bis Awraham.<sup data-src="bht-6-9"></sup></p><p class="expl"><b>Erklärung.</b> Von Adam bis Noach sind es zehn Generationen, von Noach bis Awraham noch einmal zehn. Noach lebte so lange, dass er sie alle sah.</p>`,
         },
         {
           h: 'Ein Weiser',
-          b: `<p>Die letzten Buchstaben der Wörter <span class="he">האלקים התהלך נח</span> — <span class="he">ם</span>, <span class="he">ך</span>, <span class="he">ח</span> — ergeben das Wort <span class="he">חכם</span>, »ein Weiser«. Darüber, sagt der Baal HaTurim, heißt es in Mischle: »Die Frucht des Gerechten ist ein Baum des Lebens, <b>und wer Seelen gewinnt, ist weise</b>.«<sup data-src="prov-11-30"></sup></p>`,
+          b: `<p>Die letzten Buchstaben von <span class="he">האלקים התהלך נח</span> — <span class="he">ם</span>, <span class="he">ך</span>, <span class="he">ח</span> — ergeben <span class="he">חכם</span>.<sup data-src="bht-6-9"></sup> Der Vers, den der Baal HaTurim bringt, steht in Mischle: „Die Frucht des Gerechten ist ein Baum des Lebens, und wer Seelen gewinnt, ist weise.“<sup data-src="prov-11-30"></sup></p>`,
         },
         {
           h: 'Gewalttat und Wasser',
-          b: `<p>»Und die Erde wurde voll <span class="he">חמס</span> — Gewalttat.« <span class="he">חמס</span> = 8 + 40 + 60 = 108, und <span class="he">מי נח</span>, »die Wasser Noachs«, ist auch 108 (50 + 58). Das lehrt, sagt der Baal HaTurim, dass der Allmächtige ihnen <b>Maß für Maß</b> vergalt.</p><p>Und noch etwas: <span class="he">חמס</span> hat dieselbe Gematria wie <span class="he">גיהנם</span> (3 + 10 + 5 + 50 + 40 = 108). Das lehrt, dass sie mit kochendem Wasser gerichtet wurden: Das Wasser der Sintflut war heiß.<sup data-src="bht-6-11-2"></sup></p>`,
+          b: `<p><span class="he">חמס</span> = 8 + 40 + 60 = 108; <span class="he">מי נח</span> = 50 + 58 = 108; <span class="he">גיהנם</span> = 3 + 10 + 5 + 50 + 40 = 108.<sup data-src="bht-6-11-2"></sup></p><p class="expl"><b>Erklärung.</b> Die Generation der Sintflut raubte — und wurde von den „Wassern Noachs“ weggespült; „kochendes Wasser“ heißt, dass das Wasser der Sintflut heiß war.</p>`,
         },
       ],
       reflection: 'Noach war »angenehm dem Himmel und den Menschen«. Wem kann ich heute eine Freude machen — dem Allmächtigen und dem Menschen neben mir?',
@@ -171,19 +171,19 @@ const de: LessonText = {
       lessons: [
         {
           h: 'Das Ende — 190 Tage',
-          b: `<p>»Das Ende allen Fleisches ist vor Mich gekommen.« Der Baal HaTurim: Der Allmächtige <b>deutete Noach die Tage der Sintflut an</b> — so viele, wie das Wort <span class="he">קץ</span> wert ist: 100 + 90 = 190. Vierzig Tage Regen und hundertfünfzig Tage, in denen das Wasser stärker wurde.<sup data-src="bht-6-13-1"></sup> 40 + 150 = 190.</p>`,
+          b: `<p>40 Tage Regen + 150 Tage, in denen das Wasser stieg, = 190 = <span class="he">קץ</span> (100 + 90).<sup data-src="bht-6-13-1"></sup></p>`,
         },
         {
           h: 'Hundert Ellen groß',
-          b: `<p>»Siehe, Ich vernichte sie mit der Erde« — <span class="he">משחיתם את הארץ</span>. Die ersten Buchstaben — <span class="he">מ</span>, <span class="he">א</span>, <span class="he">ה</span> — ergeben <span class="he">מאה</span>, »hundert«. Das lehrt, sagt der Baal HaTurim, dass der Allmächtige ihre Größe vernichtete: Die Menschen vor der Sintflut waren <b>hundert Ellen groß</b>.<sup data-src="bht-6-13-6"></sup></p>`,
+          b: `<p>Die ersten Buchstaben von <span class="he">משחיתם את הארץ</span> — <span class="he">מ</span>, <span class="he">א</span>, <span class="he">ה</span> — ergeben <span class="he">מאה</span>, „hundert“.<sup data-src="bht-6-13-6"></sup></p>`,
         },
         {
           h: 'Drei Handbreiten Erde',
-          b: `<p>Noch ein Hinweis im selben Wort: <span class="he">משחיתם</span> = 40 + 300 + 8 + 10 + 400 + 40 = 798 — wie <span class="he">היא שלשה טפחים</span>, »das sind drei Handbreiten« (16 + 635 + 147).<sup data-src="bht-6-13-4"></sup></p><p>Welche drei Handbreiten? Raschi erklärt: »mit der Erde« — denn sogar die oberste Schicht der Erde, so tief wie ein Pflug geht, <b>drei Handbreiten</b>, wurde weggespült und ausgelöscht.<sup data-src="rashi-6-13"></sup></p>`,
+          b: `<p><span class="he">משחיתם</span> = 40 + 300 + 8 + 10 + 400 + 40 = 798 = <span class="he">היא שלשה טפחים</span> (16 + 635 + 147).<sup data-src="bht-6-13-4"></sup> Welche drei Handbreiten? Raschi erklärt: Die Erde selbst wurde so tief weggespült, wie ein Pflug geht — drei Handbreiten.<sup data-src="rashi-6-13"></sup></p>`,
         },
         {
           h: 'Ein Stein, der leuchtete',
-          b: `<p>»Mach einen <span class="he">צהר</span> für die Arche.« Was ist ein Zohar? Raschi bringt zwei Meinungen: Manche sagen, ein Fenster, andere sagen, <b>ein Edelstein, der ihnen Licht gab</b>.<sup data-src="rashi-6-16"></sup></p><p>Der Baal HaTurim stützt die zweite Meinung mit einer Gematria: <span class="he">צהר</span> = 90 + 5 + 200 = 295, und <span class="he">לאור האבן</span>, »für das Licht des Steins«, ist auch 295 (237 + 58).<sup data-src="bht-6-16-1"></sup></p>`,
+          b: `<p>Raschi bringt zwei Meinungen über den Zohar: ein Fenster oder ein leuchtender Stein.<sup data-src="rashi-6-16"></sup> Die Gematria des Baal HaTurim spricht für die zweite: <span class="he">צהר</span> = 90 + 5 + 200 = 295 = <span class="he">לאור האבן</span> (237 + 58).<sup data-src="bht-6-16-1"></sup></p>`,
         },
       ],
       reflection: 'Ein Stein machte die Arche hell, während draußen das Wasser tobte. Was gibt mir von innen Licht, wenn es draußen schwer ist?',
@@ -226,23 +226,23 @@ const de: LessonText = {
       lessons: [
         {
           h: 'Sie werden nicht leben',
-          b: `<p>Sieben Tage vor der Sintflut sagte der Allmächtige: »und Ich lösche aus <span class="he">את כל היקום אשר עשיתי</span> — alles Bestehende, das Ich gemacht habe.«<sup data-src="gen-7-4"></sup> Der Baal HaTurim: <span class="he">היקום אשר עשיתי</span> hat dieselbe Gematria wie <span class="he">לא חיים לתחיית המתים</span> — »sie werden nicht leben bei der Auferstehung der Toten« (1452).<sup data-src="bht-7-4"></sup></p><p>Das Wort <span class="he">היקום</span> (»das Bestehende«) kommt in der Masora dreimal vor: »und Ich lösche alles Bestehende aus«, »und Er löschte alles Bestehende aus« — über die Sintflut, und »alles Bestehende, das zu ihren Füßen war« — über den Reichtum Korachs und seiner Leute. Das lehrt: Wie die Generation der Sintflut <b>wegen des vielen Guten und des Reichtums</b> sündigte, so erhob sich auch Korach wegen seines großen Reichtums über andere und sündigte.</p>`,
+          b: `<p>Sieben Tage vor der Sintflut sagte der Allmächtige: „und Ich lösche aus <span class="he">את כל היקום אשר עשיתי</span>.“<sup data-src="gen-7-4"></sup> Beide Sätze haben die Gematria 1452.<sup data-src="bht-7-4"></sup></p><p>Die dritte Stelle des Wortes <span class="he">היקום</span> spricht von Datan und Awiram, den Leuten Korachs, die die Erde „mit all ihrem Besitz“ verschlang.<sup data-src="deut-11-6"></sup></p>`,
         },
         {
           h: 'Sieben Tage Trauer',
-          b: `<p>»Und es geschah <span class="he">לשבעת הימים</span> — nach den sieben Tagen.« <span class="he">לשבעת</span> = 802, <span class="he">הימים</span> = 105, zusammen 907 — wie <span class="he">לימי אבל מתושלח</span>, »für die Tage der Trauer um Metuschelach«.<sup data-src="bht-7-10"></sup></p><p>Metuschelach, Noachs Großvater, war ein Zaddik und starb kurz vor der Sintflut. Der Allmächtige hielt die Sintflut sieben Tage zurück — die Tage der Trauer um ihn.</p>`,
+          b: `<p><span class="he">לשבעת</span> = 802, <span class="he">הימים</span> = 105, zusammen 907 = <span class="he">לימי אבל מתושלח</span>.<sup data-src="bht-7-10"></sup> Von denselben sieben Tagen der Trauer schreibt auch Raschi — zu den Worten „noch sieben Tage“ (7,4).<sup data-src="rashi-7-4"></sup></p>`,
         },
         {
           h: 'Der Siebzehnte — »tow«',
-          b: `<p>»… <b>am siebzehnten Tag</b> des Monats, an diesem Tag brachen alle Quellen der großen Tiefe auf, und die Fenster des Himmels öffneten sich.«<sup data-src="gen-7-11"></sup> Der Baal HaTurim erinnert an die Worte Ijows über die Bösen: »sie verbringen ihre Tage im Guten (<span class="he">בטוב</span>).«<sup data-src="job-21-13"></sup> <span class="he">טוב</span> = 9 + 6 + 2 = 17: An dem Tag, dessen Zahl »tow« ist, kam die Sintflut herab. Die Generation der Sintflut lebte im Überfluss und im Guten — und am »Tag des Guten« kam die Strafe.</p><p>Dort schreibt der Baal HaTurim auch, dass »und die Fenster des Himmels« dieselbe Gematria hat wie »dass Er zwei Sterne aus dem Sternbild Kima nahm«; doch in unserer Rechnung stimmen die Zahlen nicht (1016 und 1011), darum ist diese Gematria nicht in den Rätseln.<sup data-src="bht-7-11"></sup></p>`,
+          b: `<p>Die Sintflut begann „am siebzehnten Tag des Monats“,<sup data-src="gen-7-11"></sup> und <span class="he">טוב</span> = 9 + 6 + 2 = 17. Die Worte „sie verbringen ihre Tage im Guten“ stehen im Buch Ijow, über die Bösen.<sup data-src="job-21-13"></sup></p><p class="expl"><b>Erklärung.</b> Die Generation der Sintflut lebte im Überfluss und im Guten — und am »Tag des Guten« kam die Strafe.</p><p>Die zweite Gematria dieses Kommentars — „und die Fenster des Himmels“ — stimmt in unserer Rechnung nicht (1016 und 1011), darum ist sie nicht in den Rätseln.<sup data-src="bht-7-11"></sup></p>`,
         },
         {
           h: 'Und Og blieb übrig',
-          b: `<p>»Und <span class="he">אך</span> — nur — Noach blieb übrig.« Der Baal HaTurim erklärt eine Regel der Auslegung: Im Vers stehen zwei »Einschränkungen« hintereinander — »blieb übrig« und »nur«. Und eine Einschränkung nach einer Einschränkung kommt, um etwas <b>hinzuzufügen</b>: Also blieb nicht nur Noach übrig — <b>auch Og blieb übrig</b>.</p><p>Und die Gematria bestätigt es: <span class="he">אך נח</span> = 21 + 58 = 79, und <span class="he">עוג</span> = 70 + 6 + 3 = 79.<sup data-src="bht-7-23"></sup> Og ist der Riese, der viele Jahre später König von Baschan wurde.</p>`,
+          b: `<p>Zwei Einschränkungen hintereinander — <span class="he">וישאר</span> („blieb übrig“) und <span class="he">אך</span> („nur“).<sup data-src="bht-7-23"></sup> Die Gematria: <span class="he">אך נח</span> = 21 + 58 = 79 = <span class="he">עוג</span> (70 + 6 + 3).</p><p class="expl"><b>Erklärung.</b> Og ist der Riese, der viele Jahre später König von Baschan wurde.</p>`,
         },
         {
           h: 'Der Bund — ein Versprechen des Lebens',
-          b: `<p>Nach der Sintflut: »Siehe, <span class="he">מקים את בריתי אתכם</span> — Ich errichte Meinen Bund mit euch.« Die letzten Buchstaben — <span class="he">ם</span>, <span class="he">ת</span>, <span class="he">י</span>, <span class="he">ם</span> — ergeben <span class="he">מתים</span>, »die Toten«. Das ist ein Hinweis auf die <b>Auferstehung der Toten</b>: Der Allmächtige errichtet mit ihnen Seinen Bund, um sie wieder lebendig zu machen.<sup data-src="bht-9-9"></sup></p><p>So endet die Geschichte, die mit »alles Bestehende wird nicht leben« begann, mit einem Versprechen: Die Toten werden wieder leben.</p>`,
+          b: `<p>Die letzten Buchstaben von <span class="he">מקים את בריתי אתכם</span> — <span class="he">ם</span>, <span class="he">ת</span>, <span class="he">י</span>, <span class="he">ם</span> — ergeben <span class="he">מתים</span>.<sup data-src="bht-9-9"></sup></p><p class="expl"><b>Erklärung.</b> So endet die Geschichte, die mit »alles Bestehende wird nicht leben« begann, mit einem Versprechen: Die Toten werden wieder leben.</p>`,
         },
       ],
       reflection: 'Der Allmächtige hielt die Sintflut zurück, um um einen Zaddik zu trauern. Welche guten Menschen um mich herum schätze ich — und sage ich es ihnen, solange sie da sind?',
@@ -286,19 +286,19 @@ const de: LessonText = {
       lessons: [
         {
           h: 'Wein und Wehklage',
-          b: `<p>»Und er trank von <span class="he">היין</span> — dem Wein.« <span class="he">היין</span> = 5 + 10 + 10 + 50 = 75, und <span class="he">יללה</span>, »Wehklage«, ist auch 75 (10 + 30 + 30 + 5). Der Baal HaTurim: Wein ohne Maß bringt Weinen.<sup data-src="bht-9-21"></sup></p>`,
+          b: `<p><span class="he">היין</span> = 5 + 10 + 10 + 50 = 75 = <span class="he">יללה</span> (10 + 30 + 30 + 5).<sup data-src="bht-9-21"></sup></p><p class="expl"><b>Erklärung.</b> Wein ohne Maß bringt Weinen.</p>`,
         },
         {
           h: 'Die Buchstaben des Exils',
-          b: `<p>»<span class="he">ויתגל</span> — und er entblößte sich.« Das sind dieselben Buchstaben wie im Wort <span class="he">גליות</span>, »Verbannungen« (beide Wörter sind 449). Der Baal HaTurim erklärt: Wegen des Weins gingen sie »an der Spitze der Verbannten« ins Exil.<sup data-src="bht-9-21"></sup></p><p>Das sind die Worte des Propheten Amos über die, die »Wein aus Schalen trinken und sich mit dem besten Öl salben — und sich nicht um den Untergang Josefs kümmern: darum werden sie jetzt an der Spitze der Verbannten ins Exil gehen«.<sup data-src="amos-6-6"></sup></p>`,
+          b: `<p><span class="he">ויתגל</span> und <span class="he">גליות</span> haben dieselben Buchstaben, darum auch dieselbe Zahl: 449.<sup data-src="bht-9-21"></sup> „An der Spitze der Verbannten“ — das sind die Worte des Propheten Amos über die, die „Wein aus Schalen trinken und sich mit dem besten Öl salben — und sich nicht um den Untergang Josefs kümmern“.<sup data-src="amos-6-6"></sup></p>`,
         },
         {
           h: 'Dreißig Schekel',
-          b: `<p>Als Noach aufwachte, sagte er über Kenaan: »ein Knecht der Knechte <span class="he">יהיה</span> — soll er seinen Brüdern sein.« <span class="he">יהיה</span> = 10 + 5 + 10 + 5 = 30. Der Baal HaTurim: Das deutet auf den Preis eines Knechtes hin — <b>dreißig Schekel</b>.<sup data-src="bht-9-25"></sup></p><p>So sagt die Tora im Gesetz: Wenn ein Stier einen Knecht stößt, zahlt der Besitzer des Stiers »dreißig Schekel Silber«.<sup data-src="ex-21-32"></sup></p>`,
+          b: `<p>Das sagte Noach über Kenaan, als er aufwachte. <span class="he">יהיה</span> = 10 + 5 + 10 + 5 = 30.<sup data-src="bht-9-25"></sup> Der Preis eines Knechtes steht im Gesetz der Tora: Wenn ein Stier einen Knecht stößt, zahlt der Besitzer des Stiers „dreißig Schekel Silber“.<sup data-src="ex-21-32"></sup></p>`,
         },
         {
           h: 'Die sorglosen Turmbauer',
-          b: `<p>Die Menschen wohnten im Tal Schinar, und <span class="he">איש אל רעהו הבה</span> — »sie sagten einer zum anderen: wohlan«, lasst uns Ziegel machen und einen Turm bis zum Himmel bauen. Die letzten Buchstaben — <span class="he">ש</span>, <span class="he">ל</span>, <span class="he">ו</span>, <span class="he">ה</span> — ergeben <span class="he">שלוה</span>, »sorgloser Wohlstand«. Der Baal HaTurim: Sie sündigten <b>wegen des übergroßen Wohlstands</b>, den sie hatten.<sup data-src="bht-11-3-1"></sup></p><p>So war es auch am Anfang des Abschnitts: Die Generation der Sintflut sündigte »wegen des vielen Guten«, Korach — wegen seines Reichtums. Wenn man von allem viel hat, vergisst man leicht, von Wem das alles kommt.</p>`,
+          b: `<p>Die Menschen wohnten im Tal Schinar und wollten eine Stadt und einen Turm bis zum Himmel bauen. Die letzten Buchstaben von <span class="he">איש אל רעהו הבה</span> — <span class="he">ש</span>, <span class="he">ל</span>, <span class="he">ו</span>, <span class="he">ה</span> — ergeben <span class="he">שלוה</span>.<sup data-src="bht-11-3-1"></sup></p><p class="expl"><b>Erklärung.</b> So war es auch am Anfang des Abschnitts: Die Generation der Sintflut sündigte »wegen des vielen Guten«, Korach — wegen seines Reichtums. Wenn man von allem viel hat, vergisst man leicht, von Wem das alles kommt.</p>`,
         },
       ],
       reflection: 'Wenn es mir gut geht — denke ich daran, von Wem das kommt, oder werde ich sorglos? Was kann ich heute tun, damit gute Zeiten mich zur Dankbarkeit führen und nicht zum Hochmut?',
@@ -345,11 +345,11 @@ const de: LessonText = {
         },
         {
           h: 'Die heilige Sprache',
-          b: `<p>»Und die ganze Erde hatte <span class="he">שפה אחת</span> — eine Sprache.« Der Baal HaTurim: <span class="he">שפה אחת</span> hat die Gematria von <span class="he">לשון הקדש</span>, »die heilige Sprache«.<sup data-src="bht-11-1-2"></sup> Vor dem Turm sprachen alle Menschen die Sprache der Tora.</p><p>Rechnen wir nach: <span class="he">שפה</span> = 385, <span class="he">אחת</span> = 409, zusammen 794; <span class="he">לשון הקדש</span> = 386 + 409 = 795. Der Unterschied ist eins. Der Baal HaTurim schreibt einfach »Gematria«, und die Zahlen stimmen nach der Regel »<b>mit dem Kolel</b>«: Für den ganzen Ausdruck kommt 1 dazu. 794 + 1 = 795.</p>`,
+          b: `<p>Vor dem Turm sprachen alle Menschen eine Sprache — die Sprache der Tora.<sup data-src="bht-11-1-2"></sup></p><p class="expl"><b>Erklärung.</b> Rechnen wir nach: <span class="he">שפה</span> = 385, <span class="he">אחת</span> = 409, zusammen 794; <span class="he">לשון הקדש</span> = 386 + 409 = 795. Der Unterschied ist eins. Der Baal HaTurim schreibt einfach »Gematria«, und die Zahlen stimmen nach der Regel »<b>mit dem Kolel</b>«: Für den ganzen Ausdruck kommt 1 dazu. 794 + 1 = 795.</p>`,
         },
         {
           h: 'Sara ist Jiska',
-          b: `<p>Am Ende des Abschnitts: »Der Name der Frau Awrams war Sarai, und der Name der Frau Nachors Milka, die Tochter Harans, des Vaters von Milka und des Vaters von Jiska.« Wer ist Jiska? Der Baal HaTurim: Der Name <span class="he">שרה</span> ist im Atbasch <span class="he">בג״ץ</span>: <span class="he">ש</span> wird zu <span class="he">ב</span>, <span class="he">ר</span> zu <span class="he">ג</span>, <span class="he">ה</span> zu <span class="he">צ</span>. Und <span class="he">בגץ</span> = 2 + 3 + 90 = 95 — die Gematria von <span class="he">יסכה</span> (10 + 60 + 20 + 5). Das ist ein Hinweis auf die Worte der Weisen: »Jiska ist Sara«.<sup data-src="bht-11-29"></sup></p><p>In der Gemara erklärt Rabbi Jizchak, warum sie so hieß: Sara war eine der sieben Prophetinnen und »sah« (<i>sachta</i>) mit heiligem Geist — darum sagte der Allmächtige zu Awraham: »Alles, was Sara dir sagt, darauf hör«. Und auch, weil alle ihre Schönheit »anschauten«.<sup data-src="megillah-14a"></sup></p>`,
+          b: `<p>Jiska wird am Ende des Abschnitts erwähnt — „des Vaters von Milka und des Vaters von Jiska“ — und sonst nirgends. Im Atbasch wird <span class="he">ש</span> zu <span class="he">ב</span>, <span class="he">ר</span> zu <span class="he">ג</span>, <span class="he">ה</span> zu <span class="he">צ</span>: <span class="he">בגץ</span> = 2 + 3 + 90 = 95 = <span class="he">יסכה</span> (10 + 60 + 20 + 5).<sup data-src="bht-11-29"></sup></p><p>In der Gemara erklärt Rabbi Jizchak, warum sie so hieß: Sara war eine der sieben Prophetinnen und „sah“ (<i>sachta</i>) mit heiligem Geist — darum sagte der Allmächtige zu Awraham: „Alles, was Sara dir sagt, darauf hör“. Und auch, weil alle ihre Schönheit „anschauten“.<sup data-src="megillah-14a"></sup></p>`,
         },
       ],
       reflection: 'Vor dem Turm sprachen alle eine heilige Sprache. Mit welchen Worten kann ich heute mein Sprechen »heilig« machen — freundlich, ehrlich, ohne Grobheit?',

@@ -13,6 +13,8 @@ import { footnotes } from '../sources/footnotes';
 import { LettersPuzzle, TapPuzzle } from './LetterSteps';
 import { asWord } from '../core/letterPuzzle';
 import { firstLetters } from '../core/gematriaMethods';
+import { sectionQuotes } from '../core/quotes';
+import { Quote } from './Quote';
 import { displayNames } from '../core/names';
 
 /** «⏱ ≈ 1 мин · ●●○ средний»: average time and difficulty of a step (or of the whole riddle). */
@@ -67,6 +69,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
   // footnotes: numbered in reading order; before the riddle is solved the sources are hidden, so no marks
   const fn = footnotes([rt.cond, rt.reveal.p, ...rt.lessons.map((l) => l.b)], solved ? (r.sources ?? []) : [], ri, t('sources.footnote'));
   const [condHtml, revealHtml, ...lessonHtml] = fn.html;
+  const quotes = sectionQuotes(r, rt);
 
   /** Records an attempt; `correct` decides the outcome. */
   const attempt = (i: number, correct: boolean, kind: keyof typeof MAX_WRONG, pick?: number, miss: 'no' | 'place' | 'order' = 'no') =>
@@ -320,7 +323,12 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
                     <HebrewRuns text={l.h} />
                   </span>
                 </summary>
-                <Html as="div" className="les-b" html={withTerms(lessonHtml[k], textLocale)} />
+                <div className="les-b">
+                  {quotes.lessons[k].map((q) => (
+                    <Quote key={q.id + (q.segs?.join() ?? '')} q={q} />
+                  ))}
+                  <Html as="div" html={withTerms(lessonHtml[k], textLocale)} />
+                </div>
               </details>
             ))}
           </div>

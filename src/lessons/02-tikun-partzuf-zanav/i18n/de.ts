@@ -48,7 +48,7 @@ const de: LessonText = {
         { h: 'Woraus die Frau erschaffen wurde', b: `<p>Die unmittelbarste Bedeutung des Streits um „Gesicht“ und „Schwanz“ ist ein Streit darüber, <b>woraus die Frau erschaffen wurde</b>. In der Gemara (Berachot 61a, Eruwin 18a)<sup data-src="berakhot-61a"></sup> wird über die Worte „und G-tt baute die Rippe (<span class="he">צלע</span>) … zu einer Frau“<sup data-src="gen-2-21"></sup> gestritten. Was war diese „Rippe“?</p><p><b>Einer sagt — ein „Parzuf“, ein Gesicht.</b> Adam wurde mit zwei Gesichtern erschaffen: vorn ein männliches Gesicht, hinten ein weibliches. Der Allmächtige trennte sie, und das hintere Gesicht wurde Chawa. Nach dieser Meinung ist die Frau von Anfang an ein vollständiges, eigenes Gesicht, dem Mann gleich.</p><p><b>Der andere sagt — ein „Sanaw“, ein Schwanz.</b> Adam hatte hinten einen kleinen Fortsatz, und aus ihm wurde die Frau „gebaut“. Nach dieser Meinung beginnt sie mit etwas Kleinem und entwickelt sich.</p><p>Die Lektion führt diese Linie fort. <b>Raw, der Idealist:</b> Die Frau ist ursprünglich ein „Parzuf“, eine vollkommene Schöpfung. <b>Schmuel, der Realist:</b> Die Frau ist ursprünglich ein „Schwanz“, und der Weg zur Vollkommenheit geht schrittweise.</p><p>Das Wort „Schwanz“ (<span class="he">זנב</span>) hat die Gematria 59, wie „Nidda“ (<span class="he">נדה</span>): 50 + 4 + 5. Das ist ein Hinweis auf einen Zustand der Trennung und Unreinheit, der berichtigt werden muss. Daher das Ideal einer Ehe, die in Reinheit beginnt.</p>` },
         {
           h: 'Das Jahr פ״ז: Gesicht und Schwanz',
-          b: `<p>Das Jahr ה׳תשפ״ז liest sich als Hinweis auf „Parzuf-Sanaw“: Die Buchstaben פ und ז beginnen beide Wörter. Der erste Mensch wurde „hinten und vorn“ erschaffen, und die Weisen streiten darüber, was seine Rückseite war. Raw sagt — ein Gesicht, Schmuel sagt — ein Schwanz.</p><p>In der Kabbala ist die „Rückseite“ des Menschen sein Unterbewusstes, das, was er an sich selbst nicht sieht. Der Streit geht also darum, was in der Tiefe des Unbewussten liegt: ein Bild des eigenen Ich oder ein Trieb.</p>`,
+          b: `<p>Das Jahr ה׳תשפ״ז liest sich als Hinweis auf „Parzuf-Sanaw“: Die Buchstaben פ und ז beginnen beide Wörter. Der erste Mensch wurde „hinten und vorn“ erschaffen, und die Weisen streiten darüber, was seine Rückseite war. Raw sagt — ein Gesicht, Schmuel sagt — ein Schwanz.<sup data-src="berakhot-61a"></sup></p><p>In der Kabbala ist die „Rückseite“ des Menschen sein Unterbewusstes, das, was er an sich selbst nicht sieht. Der Streit geht also darum, was in der Tiefe des Unbewussten liegt: ein Bild des eigenen Ich oder ein Trieb.</p>`,
         },
         {
           h: 'Was ist ein „Parzuf“',
@@ -92,7 +92,7 @@ const de: LessonText = {
       lessons: [
         {
           h: 'Gebet und Tefillin',
-          b: `<p>Zählt man beide Seiten zusammen, „Parzuf“ und „Sanaw“, ergibt sich „Gebet“ (תפלה). Um beide Triebe zu berichtigen, gibt es zwei Tefillin.</p><p>Die Tefillin des Arms legt man gegenüber dem Herzen: Sie berichtigen die Begierde, die im Herzen wohnt. Das ist das „Gebet Davids“, des Herzens von ganz Israel. Die Tefillin des Kopfes legt man auf das Gehirn, den Sitz des Selbstbewusstseins: Sie berichtigen den Hochmut. Das ist das „Gebet Mosches“, des Hauptes des Volkes.</p>`,
+          b: `<p>Zählt man beide Seiten zusammen, „Parzuf“ und „Sanaw“, ergibt sich „Gebet“ (תפלה). Um beide Triebe zu berichtigen, gibt es zwei Tefillin.</p><p>Die Tefillin des Arms legt man gegenüber dem Herzen: Sie berichtigen die Begierde, die im Herzen wohnt. Das ist das „Gebet Davids“<sup data-src="ps-86-1"></sup>, des Herzens von ganz Israel. Die Tefillin des Kopfes legt man auf das Gehirn, den Sitz des Selbstbewusstseins: Sie berichtigen den Hochmut. Das ist das „Gebet Mosches“<sup data-src="ps-90-1"></sup>, des Hauptes des Volkes.</p>`,
         },
       ],
       reflection: 'Welchen einen Satz werde ich morgen im Gebet so sagen, dass er vom Kopf und vom Herzen zugleich kommt?',
@@ -166,7 +166,7 @@ const de: LessonText = {
         p: '„Frau“ ist achtzehnmal „Gutes“, also Leben aus dem Guten. Selbst der Akt ihrer Erschaffung, „und Er baute“, enthält das Gute viermal.',
       },
       lessons: [
-        { h: 'Wie er seine Frau sieht', b: `<p>Der Streit zwischen Raw und Schmuel verlagert sich in den Mann hinein. Ob er seine Frau als „Gesicht“ oder als „Schwanz“ sieht, hängt von seiner eigenen „Rückseite“ ab, von seinem Unterbewussten.</p><p>Sieht er einen „Schwanz“, betrachtet er sie durch die Begierde. Sieht er einen „Parzuf“, betrachtet er sie als Teil seiner eigenen Ehre.</p><p>Die Berichtigung ist, sie nicht mit der eigenen „Rückseite“ zu sehen, sondern von Angesicht zu Angesicht, so wie sie ist. Dann gilt: „Wer eine Frau gefunden hat, hat Gutes gefunden.“</p>` },
+        { h: 'Wie er seine Frau sieht', b: `<p>Der Streit zwischen Raw und Schmuel verlagert sich in den Mann hinein. Ob er seine Frau als „Gesicht“ oder als „Schwanz“ sieht, hängt von seiner eigenen „Rückseite“ ab, von seinem Unterbewussten.</p><p>Sieht er einen „Schwanz“, betrachtet er sie durch die Begierde. Sieht er einen „Parzuf“, betrachtet er sie als Teil seiner eigenen Ehre.</p><p>Die Berichtigung ist, sie nicht mit der eigenen „Rückseite“ zu sehen, sondern von Angesicht zu Angesicht, so wie sie ist. Dann gilt: „Wer eine Frau gefunden hat, hat Gutes gefunden.“<sup data-src="prov-18-22"></sup></p>` },
         {
           h: '„Ich finde“ und „eine Frau gefunden“',
           b: `<p>Die Schrift sagt sowohl „Wer eine Frau gefunden hat, hat Gutes gefunden“<sup data-src="prov-18-22"></sup> als auch „Ich finde die Frau bitterer als den Tod“<sup data-src="eccl-7-26"></sup>. Der Unterschied liegt darin, wer schaut. Der Blick „ich finde“ ist subjektiv: Der Mensch sieht seine Frau durch sein eigenes „Ich“.</p><p>Der „Schwanz“ sucht in der Ehe die Befriedigung von Wünschen. Der „Parzuf“ sucht in der Frau eine Ergänzung zum eigenen Bild und Ansehen. In beiden Fällen sieht der Mensch nicht sie, sondern sich selbst.</p>`,
@@ -177,7 +177,7 @@ const de: LessonText = {
         },
         {
           h: 'Sukkot: von Angesicht zu Angesicht',
-          b: `<p>Das Wort „und Er baute“ ist auch mit der Sukka verbunden. An Sukkot stellt der Allmächtige den Menschen „von Angesicht zu Angesicht“ vor das, was vor ihm steht, und der Mensch wird gewürdigt, das wahre Gesicht zu sehen — das seiner Frau, sein eigenes und das des Schöpfers.</p>`,
+          b: `<p>Das Wort „und Er baute“ ist auch mit der Sukka verbunden. An Sukkot stellt der Allmächtige den Menschen „von Angesicht zu Angesicht“ vor das, was vor ihm steht, und der Mensch wird gewürdigt, das wahre Gesicht zu sehen — das seiner Frau, sein eigenes und das des Schöpfers.<sup data-src="gen-2-21"></sup></p>`,
         },
       ],
       reflection: 'Wenn ich einen nahen Menschen ansehe — sehe ich ihn oder mein eigenes Spiegelbild? Welches eine Gute werde ich heute an ihm bemerken?',

@@ -833,6 +833,23 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .read-les:last-child{border-bottom:0}
 .read-les h3{margin:0 0 8px;font-family:var(--f-display);font-size:19px}
 .read-les .les-b{padding:0}
+.expl{margin-top:8px;padding-inline-start:10px;border-inline-start:3px solid var(--line);color:var(--ink-2)}
+.expl>b:first-child{color:var(--muted);font-weight:600}
+.p-quote{margin:4px 0 8px;padding-inline-start:10px;border-inline-start:2px solid #999}
+.p-quote small{color:#666}
+.p-quote .he{direction:rtl;text-align:right;margin:2px 0}
+.read-quote{margin:4px 0 12px;padding:10px 14px 8px;border-inline-start:3px solid var(--gold);background:var(--paper);border-radius:6px}
+.read-quote figcaption{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px}
+.read-quote figcaption a{font-weight:400;color:var(--muted)}
+.rq-seg+.rq-seg{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+.rq-he{margin:0;font-family:var(--f-he);font-size:19px;line-height:1.6;direction:rtl;text-align:right;color:var(--ink)}
+.rq-tr{margin:4px 0 0;font-size:15px;line-height:1.5;color:var(--ink-2)}
+.rq-fix{margin:6px 0 0;font-size:12.5px;color:var(--muted)}
+.read-calcs{margin:6px 24px 14px;border:1px solid var(--line);border-radius:8px;padding:10px 14px}
+.read-calcs summary{cursor:pointer;font-weight:600;color:var(--ink)}
+.read-calcs .eqs{margin-top:10px;display:grid;gap:6px}
+.read-calcs .steps{margin-top:8px}
+@media (max-width:480px){.read-calcs{margin-left:16px;margin-right:16px}}
 .read-take{margin:0 24px 18px;padding:12px 16px 12px 34px;border-radius:8px;background:var(--ok-soft);color:var(--ink-2);display:grid;gap:6px}
 .read-riddle .lt-tile{cursor:default}
 /* «Нифлаот Ребе» · «Прочитать» / «Запомнить в стихах» */

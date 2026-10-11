@@ -114,7 +114,7 @@ const de: LessonText = {
         },
         {
           h: 'Warum Adam vom Baum aß',
-          b: `<p>Nun ist verständlich, warum Adam vom Baum der Erkenntnis aß. Er war „das Gebilde der Hände des Heiligen, gelobt sei Er, Selbst“, also „größer als seine Gefährten“ — und darum war auch „sein böser Trieb größer als er“.</p><p>Zumal vom Verbot, vom Baum der Erkenntnis zu essen, sehr viel abhing: Das zeigt sich daran, wie tief Adam und alle seine Nachkommen durch die Sünde fielen. Darum trat der böse Trieb, gekleidet in die Schlange, mit aller Kraft gegen Adam an und brachte ihn dazu, vom Baum der Erkenntnis zu essen.</p>`,
+          b: `<p>Nun ist verständlich, warum Adam vom Baum der Erkenntnis aß. Er war „das Gebilde der Hände des Heiligen, gelobt sei Er, Selbst“, also „größer als seine Gefährten“ — und darum war auch „sein böser Trieb größer als er“.<sup data-src="sukkah-52a"></sup></p><p>Zumal vom Verbot, vom Baum der Erkenntnis zu essen, sehr viel abhing: Das zeigt sich daran, wie tief Adam und alle seine Nachkommen durch die Sünde fielen. Darum trat der böse Trieb, gekleidet in die Schlange, mit aller Kraft gegen Adam an und brachte ihn dazu, vom Baum der Erkenntnis zu essen.</p>`,
         },
       ],
       reflection: 'Welches „leichte“ Gebot fällt mir am schwersten? Vielleicht ist gerade das mein Gebot?',

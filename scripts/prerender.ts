@@ -25,6 +25,7 @@ import de from '../src/i18n/locales/de';
 import { PARSHIOT } from '../src/lessons/parshiot';
 import { markHebrewHtml } from '../src/core/langMarkup';
 import { stripFootnotes } from '../src/sources/footnotes';
+import { quoteView, sectionQuotes } from '../src/core/quotes';
 
 const DIST = 'dist';
 const LOCALE = 'ru';
@@ -194,9 +195,17 @@ function lessonPage(l: Lesson): Page {
 <p class="he">${esc(displayNames(l.hebrewTitle))}</p><h1>${esc(plain(tx.hero.heading))}</h1><p class="author">${esc(plain(tx.hero.author))}</p><p>${esc(String(ui['age.title']))}: ${esc(String(ui['age.long']).replace('{n}', String(l.age)))}. ${esc(plain(tx.audience))}</p><p>${esc(plain(tx.hero.intro))}</p></header>
 ${tx.riddles
   .map(
-    (r) => `<section><h2>${esc(plain(r.title))}</h2><p>${esc(plain(r.cond))}</p>${r.lessons
-      .map((s) => `<h3>${esc(plain(s.h))}</h3>${displayNames(stripFootnotes(s.b))}`)
-      .join('')}${r.takeaways?.length ? `<ul>${r.takeaways.map((k) => `<li>${esc(plain(k))}</li>`).join('')}</ul>` : ''}</section>`,
+    (r, ri) => {
+      const quotes = sectionQuotes(l.riddles[ri], r);
+      return `<section><h2>${esc(plain(r.title))}</h2><p>${esc(plain(r.cond))}</p>${r.lessons
+      .map((s, k) => `<h3>${esc(plain(s.h))}</h3>${quotes.lessons[k]
+        .map((q) => {
+          const v = quoteView(q, 'ru');
+          return `<blockquote><p>${esc(v.title)}</p>${v.segs.map((sg) => `<p class="he">${sg.he}</p><p>${sg.tr}</p>`).join('')}</blockquote>`;
+        })
+        .join('')}${displayNames(stripFootnotes(s.b))}`)
+      .join('')}${r.takeaways?.length ? `<ul>${r.takeaways.map((k) => `<li>${esc(plain(k))}</li>`).join('')}</ul>` : ''}</section>`;
+    },
   )
   .join('\n')}
 <p>${esc(plain(tx.practice))}</p></article>`,

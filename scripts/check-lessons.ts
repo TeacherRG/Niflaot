@@ -5,6 +5,8 @@
  *    (src/core/gematriaMethods.ts, docs/GEMATRIA-RULES.md); a notarikon step has exactly one fitting option;
  *    the worked examples of every method come out exactly
  *  - every footnote mark points to one of the riddle's sources, every source has a mark (ru and en)
+ *  - every lesson section has a footnote (except the sections listed in the riddle's `noSource`);
+ *    a commentary lesson places the commentator's words (`quotes`) — every comment once, in a section citing it
  *  - every source exists in src/sources/sefaria.json; non-Torah sources have a Russian translation;
  *    every source has a German one (Sefaria's or the project's, src/sources/de.ts);
  *    the project's English (src/sources/en.ts) has as many segments as the original
@@ -35,7 +37,7 @@ import { gematria } from '../src/core/gematria';
 import { METHOD_EXAMPLES, exampleValue, gematriaBy, isNotarikon } from '../src/core/gematriaMethods';
 import { coachResult } from '../src/core/coach';
 import { letterStepError, plainWord, tapStepError } from '../src/core/letterPuzzle';
-import { SOURCES } from '../src/sources';
+import { SOURCES, parseQuote } from '../src/sources';
 import { PROJECT_RU } from '../src/sources/ru';
 import { PROJECT_DE } from '../src/sources/de';
 import { PROJECT_EN } from '../src/sources/en';
@@ -135,6 +137,43 @@ for (const lesson of LESSONS) {
       if (s.t === 'lt' && r.words.some((w) => plainWord(w) === plainWord(s.a))) err(`${where(i)}: the answer ${s.a} is shown on a word card`);
     });
     checkPuzzle(where(), Object.entries(lesson.texts).map(([l, tx]) => [l, tx!.riddles[ri].puzzle]), lesson.kind === 'commentary');
+    // every lesson section rests on a source: a footnote in every language, unless it is marked as citing none
+    for (const [lang, text] of Object.entries(lesson.texts))
+      text!.riddles[ri].lessons.forEach((sec, k) => {
+        const has = /<sup data-src="[^"]+"><\/sup>/.test(sec.b);
+        if (!has && !r.noSource?.includes(k)) err(`${where()} [${lang}]: section «${sec.h}» has no footnote — add its source (or list it in noSource)`);
+        if (has && r.noSource?.includes(k)) err(`${where()} [${lang}]: section «${sec.h}» is in noSource but has a footnote`);
+      });
+    // «Читать» of a commentary lesson: the commentator's words, every comment quoted once, in a section that cites it
+    if (lesson.kind === 'commentary') {
+      const commentary = (r.sources ?? []).filter((id) => SOURCES[id]?.kind.en === 'Commentary');
+      const n = Object.values(lesson.texts)[0]!.riddles[ri].lessons.length;
+      if (!r.quotes) err(`${where()}: quotes — the commentator's words for every lesson section («Читать»)`);
+      else {
+        if (r.quotes.length !== n) err(`${where()}: quotes has ${r.quotes.length} entries for ${n} lesson sections`);
+        const done = new Map<string, number>();
+        r.quotes.forEach((qs, k) =>
+          qs.forEach((q) => {
+            const { id, segs } = parseQuote(q);
+            const src = SOURCES[id];
+            if (!commentary.includes(id)) return err(`${where()}: quote ${q} — not a commentary source of the riddle`);
+            for (const i of segs ?? src.he.map((_, j) => j)) {
+              if (i < 0 || i >= src.he.length) err(`${where()}: quote ${q} — ${id} has ${src.he.length} comments`);
+              const key = `${id}:${i}`;
+              done.set(key, (done.get(key) ?? 0) + 1);
+            }
+            for (const [lang, text] of Object.entries(lesson.texts))
+              if (!text!.riddles[ri].lessons[k]?.b.includes(`data-src="${id}"`))
+                err(`${where()} [${lang}]: section ${k + 1} quotes ${id} but has no footnote to it`);
+          }),
+        );
+        for (const id of commentary)
+          SOURCES[id]?.he.forEach((_, i) => {
+            const c = done.get(`${id}:${i}`) ?? 0;
+            if (c !== 1) err(`${where()}: comment ${i + 1} of ${id} is quoted ${c} times in «Читать», once expected`);
+          });
+      }
+    }
     for (const [lang, text] of Object.entries(lesson.texts)) {
       const rt = text!.riddles[ri];
       // the solution text (reveal) is shown only in «Нифлаот Ребе»; elsewhere a footnote there would be invisible

@@ -146,4 +146,6 @@ export const PROJECT_DE: Record<string, string[]> = {
   'bht-11-29': [
     '<b>Sara</b> — im Atbasch [א״ת ב״ש] — »bgz« [בג״ץ], und das ist die Gematria von »Jiska«: Das ist ein Hinweis auf das, was unsere Weisen, gesegnet sei ihr Andenken, sagten: »Jiska ist Sara«.',
   ],
+  'onkelos-gen-1-9': ['Und der Ewige sprach: Die Wasser unter dem Himmel sollen sich an einem Ort sammeln [jitkanschun], und das Trockene soll sichtbar werden. Und es geschah so.'],
+  'chron1-29-11': ['Dein, Ewiger, ist die Größe und die Macht und die Herrlichkeit und der Sieg und die Pracht, denn alles im Himmel und auf der Erde ist Dein; Dein, Ewiger, ist das Königreich, und Du bist über alles erhaben als Haupt.'],
 };
