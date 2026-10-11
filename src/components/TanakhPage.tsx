@@ -9,25 +9,32 @@ import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
 export const SECTION_HE: Record<Section, string> = { neviim: 'נביאים', ketuvim: 'כתובים' };
 
 /**
- * Which of Rabbi Steinsaltz's texts to show: Hebrew and the translation, one of them, or none (only the verse and its translation).
- * 'en' is «the translation»: Russian where the project has translated the day (on the Russian site), else English.
+ * The page's one language menu: which text to show — the Hebrew and a translation, only a translation, or only the Hebrew —
+ * and whether to show Rabbi Steinsaltz's explanations. It applies to everything: the verse, the explanation, the introductions.
+ * Russian is the project's translation (src/tanakh/ru), ready week by week; where a day has none, English stands in.
  */
-type StMode = 'both' | 'en' | 'he' | 'off';
-const ST_KEY = 'niflaot:tanakh-st';
-function useStMode(): [StMode, (m: StMode) => void] {
-  const [mode, set] = useState<StMode>(() => {
+type TextLang = 'he-ru' | 'he-en' | 'ru' | 'en' | 'he';
+const TEXT_LANGS: TextLang[] = ['he-ru', 'he-en', 'ru', 'en', 'he'];
+interface View {
+  text: TextLang;
+  st: boolean;
+}
+const VIEW_KEY = 'niflaot:tanakh-view';
+function useView(locale: string): [View, (v: View) => void] {
+  const [view, set] = useState<View>(() => {
     try {
-      const m = localStorage.getItem(ST_KEY);
-      if (m === 'both' || m === 'en' || m === 'he' || m === 'off') return m;
+      const v = JSON.parse(localStorage.getItem(VIEW_KEY) ?? 'null');
+      if (v && TEXT_LANGS.includes(v.text) && typeof v.st === 'boolean') return v;
     } catch {}
-    return 'both';
+    // by default: the Hebrew with the translation in the site's language (Russian site — Russian, else English)
+    return { text: locale === 'ru' ? 'he-ru' : 'he-en', st: true };
   });
   return [
-    mode,
-    (m) => {
-      set(m);
+    view,
+    (v) => {
+      set(v);
       try {
-        localStorage.setItem(ST_KEY, m);
+        localStorage.setItem(VIEW_KEY, JSON.stringify(v));
       } catch {}
     },
   ];
@@ -37,12 +44,10 @@ const bookOf = (slug: string) => BOOKS.find((b) => b.slug === slug)!;
 const labelLang = (locale: string) => (locale === 'en' || locale === 'de' ? locale : 'ru');
 
 /** The verses of one section of one day: a heading at each new chapter, Steinsaltz's introductions, then verse by verse. */
-function Verses({ verses, mode, ru }: { verses: DayVerse[]; mode: StMode; ru: boolean }) {
+function Verses({ verses, he, tr, st }: { verses: DayVerse[]; he: boolean; tr: 'ru' | 'en' | null; st: boolean }) {
   const { t, locale } = useI18n();
-  // the translation: Russian (the project's) on the Russian site when the day has it, else English
-  // (in Б-г / Г-сподь the hyphen doesn't break: a non-breaking hyphen on screen)
-  const tr = <T extends { en?: string; ru?: string }>(x: T) =>
-    ru && x.ru ? { text: x.ru.replace(/([БГ])-(?=г|спод)/g, '$1\u2011'), lang: 'ru' } : { text: x.en, lang: 'en' };
+  // the translation in the chosen language (in Б-г / Г-сподь the hyphen doesn't break: a non-breaking hyphen on screen)
+  const tx = (x: { en?: string; ru?: string }) => (tr === 'ru' ? x.ru?.replace(/([БГ])-(?=г|спод)/g, '$1\u2011') : tr === 'en' ? x.en : undefined);
   return (
     <>
       {verses.map((v, i) => {
@@ -59,42 +64,44 @@ function Verses({ verses, mode, ru }: { verses: DayVerse[]; mode: StMode; ru: bo
                 </span>
               </h2>
             )}
-            {mode !== 'off' &&
+            {st &&
               v.intro?.map((x, k) => (
                 <aside key={k} className="tk-intro">
                   <span className="tk-intro-by">{t('tanakh.steinsaltz')}</span>
-                  {mode !== 'en' && x.title.he && (
+                  {he && x.title.he && (
                     <h3 className="he" lang="he" dir="rtl">
                       {x.title.he}
                     </h3>
                   )}
-                  {mode !== 'he' && tr(x.title).text && <h3 lang={tr(x.title).lang}>{tr(x.title).text}</h3>}
-                  {mode !== 'en' && x.he && (
+                  {tx(x.title) && <h3 lang={tr!}>{tx(x.title)}</h3>}
+                  {he && x.he && (
                     <p className="he" lang="he" dir="rtl">
                       {x.he}
                     </p>
                   )}
-                  {mode !== 'he' && tr(x).text && <p lang={tr(x).lang}>{tr(x).text}</p>}
+                  {tx(x) && <p lang={tr!}>{tx(x)}</p>}
                 </aside>
               ))}
             <section className="tk-verse" id={`v-${v.b}-${v.c}-${v.v}`}>
               <span className="tk-num num" aria-label={`${v.c}:${v.v}`}>
                 {v.c}:{v.v}
               </span>
-              <p className="tk-he he" lang="he" dir="rtl">
-                {v.he}
-              </p>
-              {tr(v).text && (
-                <p className="tk-en" lang={tr(v).lang}>
-                  {tr(v).text}
-                  {tr(v).lang === 'en' && v.enFrom && <small className="fn"> ({v.enFrom})</small>}
+              {he && (
+                <p className="tk-he he" lang="he" dir="rtl">
+                  {v.he}
                 </p>
               )}
-              {mode !== 'off' && v.st && (
+              {tx(v) && (
+                <p className="tk-en" lang={tr!}>
+                  {tx(v)}
+                  {tr === 'en' && v.enFrom && <small className="fn"> ({v.enFrom})</small>}
+                </p>
+              )}
+              {st && v.st && (he || tx(v.st)) && (
                 <div className="tk-st">
                   <span className="tk-st-by">{t('tanakh.steinsaltzShort')}</span>
-                  {mode !== 'en' && v.st.he && <p className="he" lang="he" dir="rtl" dangerouslySetInnerHTML={{ __html: v.st.he }} />}
-                  {mode !== 'he' && tr(v.st).text && <p lang={tr(v.st).lang} dangerouslySetInnerHTML={{ __html: tr(v.st).text! }} />}
+                  {he && v.st.he && <p className="he" lang="he" dir="rtl" dangerouslySetInnerHTML={{ __html: v.st.he }} />}
+                  {tx(v.st) && <p lang={tr!} dangerouslySetInnerHTML={{ __html: tx(v.st)! }} />}
                 </div>
               )}
             </section>
@@ -112,7 +119,7 @@ function Verses({ verses, mode, ru }: { verses: DayVerse[]; mode: StMode; ru: bo
  */
 export function TanakhPage({ section, date }: { section: Section; date?: string }) {
   const { t, locale } = useI18n();
-  const [mode, setMode] = useStMode();
+  const [view, setView] = useView(locale);
   const today = localToday();
   const { index, exact } = cycleDayFor(date ?? today);
   const day = CYCLE[index];
@@ -138,8 +145,11 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
   const prev = CYCLE[index - 1];
   const next = CYCLE[index + 1];
   const sec = content?.[section];
-  // the Russian site shows the project's Russian translation where the whole day is translated
-  const ru = locale === 'ru' && !!sec?.verses.length && sec.verses.every((v) => v.ru);
+  // Russian is shown where the whole day is translated (both sections); otherwise English stands in, with a note
+  const ruReady = !!content && (['neviim', 'ketuvim'] as const).every((s) => content[s].verses.every((v) => v.ru));
+  const he = view.text.startsWith('he');
+  const want = view.text === 'he' ? null : view.text.endsWith('ru') ? 'ru' : 'en';
+  const tr = want === 'ru' && content && !ruReady ? 'en' : want;
   const isToday = day.date === today;
 
   return (
@@ -173,22 +183,32 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
             {next ? <a href={`#/${section}/${next.date}`}>{civilDate(next.date, locale)} →</a> : <span />}
           </nav>
 
-          <div className="tk-mode no-speak" role="group" aria-label={t('tanakh.steinsaltz')}>
-            <span>{t('tanakh.steinsaltzShort')}:</span>
-            {(['both', 'en', 'he', 'off'] as StMode[]).map((m) => (
-              <button key={m} type="button" aria-pressed={mode === m} onClick={() => setMode(m)}>
-                {t(`tanakh.mode.${m}`)}
-              </button>
-            ))}
+          <div className="tk-view no-speak">
+            <label>
+              <span>{t('tanakh.viewLabel')}</span>
+              <select value={view.text} onChange={(e) => setView({ ...view, text: e.target.value as TextLang })}>
+                {TEXT_LANGS.map((l) => (
+                  <option key={l} value={l}>
+                    {t(`tanakh.view.${l}`)}
+                    {l.endsWith('ru') && content && !ruReady ? ` — ${t('tanakh.ruSoon')}` : ''}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="tk-view-st">
+              <input type="checkbox" checked={view.st} onChange={(e) => setView({ ...view, st: e.target.checked })} />
+              <span>{t('tanakh.steinsaltzExpl')}</span>
+            </label>
           </div>
-          {locale !== 'en' && sec && !ru && <p className="tk-note">{t('tanakh.enOnly')}</p>}
+          {want === 'ru' && content && !ruReady && <p className="tk-note">{t('tanakh.ruMissing')}</p>}
+          {locale === 'de' && tr === 'en' && <p className="tk-note">{t('tanakh.enOnly')}</p>}
 
           {content === undefined ? (
             <p className="tk-note">{t('tanakh.loading')}</p>
           ) : !sec ? (
             <p className="tk-note">{t('tanakh.notReady')}</p>
           ) : (
-            <Verses verses={sec.verses} mode={mode} ru={ru} />
+            <Verses verses={sec.verses} he={he} tr={tr} st={view.st} />
           )}
 
           {sec && (
@@ -196,7 +216,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
               <p>
                 {t('tanakh.sourceHe')} — {sec.versions.he?.title} ({sec.versions.he?.license}), Sefaria.{' '}
                 {t('tanakh.sourceEn')} — {sec.versions.en?.title} ({sec.versions.en?.license}), Sefaria.{' '}
-                {ru && <>{t('tanakh.sourceRu')} </>}
+                {tr === 'ru' && <>{t('tanakh.sourceRu')} </>}
                 {sec.versions.steinsaltz && (
                   <>
                     {t('tanakh.steinsaltz')} — {sec.versions.steinsaltz.title} ({sec.versions.steinsaltz.license}).

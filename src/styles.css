@@ -1402,9 +1402,12 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .tk-nav{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;margin:8px 0;font-size:14px}
 .tk-nav a{color:var(--tchelet);text-decoration:none}
 .tk-nav .tk-other{font-weight:700}
-.tk-mode{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:10px 0;font-size:13px;color:var(--muted)}
-.tk-mode button{padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;cursor:pointer}
-.tk-mode button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tk-view{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin:12px 0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font-size:14px}
+.tk-view label{display:flex;align-items:center;gap:8px;cursor:pointer}
+.tk-view label>span:first-child{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.tk-view select{min-height:36px;padding:4px 8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit}
+.tk-view-st input{width:18px;height:18px;accent-color:var(--tchelet)}
+.tk-view-st span{font-size:14px}
 .tk-chapter{margin:22px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--gold-line);font-family:var(--f-display);font-size:24px}
 .tk-chapter .he{font-family:var(--f-he);font-size:19px;color:var(--gold)}
 .tk-intro{margin:12px 0;padding:12px 14px;border-radius:10px;background:var(--tchelet-soft);border-inline-start:4px solid var(--tchelet)}
