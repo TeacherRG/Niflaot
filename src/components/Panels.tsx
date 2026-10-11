@@ -254,10 +254,6 @@ export function Panels() {
               <small>{account.token ? t('acc.title') : t('acc.guest')}</small>
             </span>
           </a>
-          <a href="#/leaders" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/leaders') ? 'page' : undefined}>
-            <span className="menu-num">🏆</span>
-            <span>{t('leaders.title')}</span>
-          </a>
           <button className="menu-item" onClick={() => open('reminder')}>
             <Icon name="bell" />
             <span>
