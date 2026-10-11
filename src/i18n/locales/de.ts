@@ -471,6 +471,12 @@ const de: Messages = {
   'push.menuSub': "eine Nachricht am Tag aus dem Wochenabschnitt",
   'acc.title': "Konto",
   'acc.chipGuest': "Anmelden",
+  'acc.avatar': "Konto",
+  'acc.manage': "Konto und Klassen",
+  'acc.signIn': "Beim Konto anmelden",
+  'acc.menuGuestNote': "Dein Fortschritt bleibt nur in diesem Browser.",
+  'acc.myProgress': "Auf diesem Gerät: Rätsel — {solved}, Punkte — {points}, Serie Gematria des Tages — {streak}",
+  'acc.loginSoon': "Die Anmeldung öffnet bald. Bis dahin funktioniert alles auch ohne.",
   'acc.guest': "Du spielst als Gast",
   'acc.guestLead': "Alles funktioniert auch ohne Konto — dein Fortschritt bleibt nur in diesem Browser. Mit einem Konto:",
   /** HTML */

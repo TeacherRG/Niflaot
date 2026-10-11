@@ -1349,10 +1349,20 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .hp-section[open]>summary{margin-bottom:10px}
 
 /* ───── account, leaderboard, class (AccountPage.tsx, CommunityPages.tsx) ───── */
-.acc-chip{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);text-decoration:none;font-weight:600;font-size:13px;white-space:nowrap;max-width:150px}
-.acc-chip span{overflow:hidden;text-overflow:ellipsis}
-.acc-chip.in{border-color:var(--gold-line);background:var(--gold-soft)}
-@media (max-width:560px){.acc-chip{padding:0 9px}.acc-chip span{display:none}}
+.top-end{display:flex;align-items:center;gap:8px;flex:none;margin-inline-start:auto}
+.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;padding:0;transition:border-color .15s,box-shadow .15s}
+.avatar:hover{border-color:var(--gold)}
+.avatar[aria-expanded="true"]{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+.avatar.in{background:var(--ink);border-color:var(--ink);color:var(--gold-2);font-family:var(--f-display);font-weight:700;font-size:18px}
+.acc-pop{min-width:240px;max-width:min(300px,calc(100vw - 32px));display:grid;gap:2px}
+.acc-pop a,.acc-pop button{display:flex;align-items:center;gap:8px;width:100%;padding:9px 10px;border:0;border-radius:8px;background:transparent;color:var(--ink);text-decoration:none;font:inherit;font-weight:600;font-size:14.5px;text-align:start;cursor:pointer}
+.acc-pop a:hover,.acc-pop button:hover{background:var(--paper)}
+.acc-pop-head{margin:0;padding:8px 10px 10px;display:grid;gap:2px;border-bottom:1px solid var(--line);margin-bottom:4px}
+.acc-pop-head small{color:var(--muted);font-size:12.5px;line-height:1.4}
+.acc-pop-stats{margin:0;padding:6px 10px;font-size:13px;color:var(--ink-2)}
+.acc-pop-soon{margin:0;padding:8px 10px;font-size:13px;color:var(--muted);background:var(--paper);border-radius:8px}
+.acc-pop .acc-pop-cta{background:var(--ink);color:#fff;justify-content:center}
+.acc-pop .acc-pop-cta:hover{background:var(--ink-2)}
 .acc main{display:grid;gap:14px;margin:8px 0 24px}
 .acc-card{padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
 .acc-card h2{margin:0 0 6px;font-family:var(--f-display);font-size:24px;line-height:1.2}
@@ -1388,3 +1398,12 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .acc-table td.num{text-align:end}
 .acc-lessons{display:block;color:var(--muted);font-size:12px;font-weight:400}
 .acc .prose h3{margin:16px 0 6px;font-size:17px}
+/* a narrow phone in a lesson: the riddle numbers, the score, the language and the avatar fit in one row */
+@media (max-width:420px){
+  .lv{width:26px;height:26px;font-size:11px}
+  .levels{gap:3px}
+  .lang-btn{padding:0 9px}
+  .lang-btn svg{display:none}
+  .top-end{gap:6px}
+  .avatar{width:32px;height:32px}
+}
