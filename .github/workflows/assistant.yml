@@ -1,0 +1,38 @@
+# Publishes the AI assistant (assistant/, Cloudflare Worker) — by hand from the Actions tab
+# and on every push to main that changes assistant/.
+# Needs repository secrets CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID and ANTHROPIC_API_KEY.
+# The worker's address is printed at the end of the "Deploy" step; put it into the variable ASSISTANT_URL.
+name: Deploy AI assistant
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['assistant/**']
+
+concurrency:
+  group: assistant
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: assistant/package-lock.json
+      - run: npm ci
+        working-directory: assistant
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: assistant
+          secrets: |
+            ANTHROPIC_API_KEY
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
