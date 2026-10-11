@@ -66,8 +66,9 @@
   `#/daily` (`STATIC_PAGES` в `src/core/site.ts`). Тексты — ключи `math.seo*`, `daily.seo*`; превью `og/mental-math.png`,
   `og/daily.png` (`scripts/og-images.ts`).
 - «Учитель» (`#/teacher`, `TeacherPage.tsx`, пункт меню): **ИИ-учитель** (стоимость символическая; кнопка открывает чат ✦,
-  без `ASSISTANT_URL` — офлайн-помощник; «ИИ — не раввин») и **учитель-человек** — письмо автору сайта (Office@mychitas.app).
-- `assistant/` — сервер ИИ-чата (Cloudflare Worker, Claude API); пока скрыт, включается переменной `ASSISTANT_URL`;
+  «ИИ — не раввин»; оплаты пока нет — только надпись) и **учитель-человек** — письмо автору сайта (Office@mychitas.app).
+- `assistant/` — сервер ИИ-чата (Cloudflare Worker, Claude API); **работает** с 11.10.2026: https://niflaot-assistant.niflaot.workers.dev
+  (variable `ASSISTANT_URL`; без неё — офлайн-помощник). Лимит расходов — platform.claude.com → Billing; токен Cloudflare истекает 12.10.2027;
   выкладка — `.github/workflows/assistant.yml` (secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `ANTHROPIC_API_KEY`).
 
 ## Новый урок — всегда по `docs/LESSON-GUIDE.md`
