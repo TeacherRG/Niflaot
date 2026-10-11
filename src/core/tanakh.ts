@@ -76,3 +76,31 @@ export function loadDay(date: string): Promise<DayContent | null> {
   }
   return p;
 }
+
+/**
+ * About how long the passage takes to read in the chosen view: the vocalized Hebrew read aloud — ~100 words a minute,
+ * the translation and Steinsaltz's explanation — ~180 words a minute. Rounded up, at least a minute.
+ */
+const HE_WPM = 100;
+const TR_WPM = 180;
+const words = (s?: string) => (s ? s.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length : 0);
+export function readingMinutes(verses: DayVerse[], he: boolean, tr: 'ru' | 'en' | null, st: boolean): number {
+  let heW = 0;
+  let trW = 0;
+  const add = (x: { he?: string; en?: string; ru?: string } | undefined) => {
+    if (!x) return;
+    if (he) heW += words(x.he);
+    if (tr) trW += words(x[tr]);
+  };
+  for (const v of verses) {
+    add(v);
+    if (st) {
+      add(v.st);
+      v.intro?.forEach((x) => {
+        add(x);
+        add(x.title);
+      });
+    }
+  }
+  return Math.max(1, Math.ceil(heW / HE_WPM + trW / TR_WPM));
+}

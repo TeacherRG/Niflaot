@@ -58,6 +58,9 @@
   `scripts/prerender.ts`. «Загадка недели» в Telegram — `scripts/telegram-post.ts` (только вопрос, ответ — на сайте;
   проверка: `npx tsx scripts/telegram-post.ts --dry`), запуск — `.github/workflows/telegram.yml` по вс и ср, в Шабат не
   публикует; нужен secret `TELEGRAM_BOT_TOKEN` и variables `TELEGRAM_CHAT_RU/EN/DE`.
+  «Пророки и Писания» — **каждый учебный день**, пока **только в русский канал** (en/de — добавить `TELEGRAM_CHAT_EN/DE` в workflow) (`scripts/telegram-tanakh.ts`, `.github/workflows/telegram-tanakh.yml`,
+  04:37 UTC): раздел, книга и стихи дня, время чтения (без/со Штейнзальцем), ссылки `#/neviim|ketuvim/<дата>?ref=channel`;
+  в дни без чтения и в Шабат не публикует; проверка: `npx tsx scripts/telegram-tanakh.ts --dry [--date 2026-10-12]`.
 - «Гиматрия дня» — **первая карточка ленты «Знаете ли вы?»** (`DailyCard.tsx`, логика — `src/core/daily.ts`;
   `#/daily` и `/daily/` открывают ленту на ней; отдельного пункта меню нет): каждый день (по дате устройства, №1 —
   11.10.2026) одно слово из ленты «Знаете ли вы?» — сумму букв считают в уме, 3 попытки, подсказка «значения букв» → 🟨;

@@ -653,6 +653,8 @@ const en: Messages = {
   'tanakh.restToday': 'There is no reading today — Shabbat or a holiday. Here is the next passage.',
   'tanakh.day': 'Day {n} of {total}',
   'tanakh.readingTime': '≈ {n} min read',
+  'tanakh.post.title': 'Prophets and Writings · today’s passage',
+  'tanakh.post.withSt': 'with Steinsaltz ≈ {n} min',
   'tanakh.printBoth': 'together with “{other}”',
   'tanakh.printQr': 'Read online — point your camera',
   'tanakh.chapter': 'chapter {n}',
