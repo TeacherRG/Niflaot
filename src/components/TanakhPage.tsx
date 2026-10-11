@@ -1,4 +1,5 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import { Icon, useDismiss } from './ui';
 import { useI18n } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
@@ -38,6 +39,58 @@ function useView(locale: string): [View, (v: View) => void] {
       } catch {}
     },
   ];
+}
+
+/**
+ * One button for the page's languages: it shows the current choice and opens a list — the text languages and,
+ * below a line, Rabbi Steinsaltz's explanations on/off.
+ */
+function ViewMenu({ view, setView, ruSoon }: { view: View; setView: (v: View) => void; ruSoon: boolean }) {
+  const { t } = useI18n();
+  const [open, setOpen] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
+  const close = useCallback(() => setOpen(false), []);
+  useDismiss(open, root, close);
+  const label = (l: TextLang) => `${t(`tanakh.view.${l}`)}${l.endsWith('ru') && ruSoon ? ` — ${t('tanakh.ruSoon')}` : ''}`;
+  return (
+    <div className="tk-view no-speak" ref={root}>
+      <button type="button" className="lang-btn tk-view-btn" aria-haspopup="true" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+        <Icon name="globe" size={17} />
+        <span>
+          {t(`tanakh.view.${view.text}`)}
+          {view.st && <small> · {t('tanakh.steinsaltzShort')}</small>}
+        </span>
+        <Icon name="chevron" size={14} />
+      </button>
+      {open && (
+        <div className="lang-list tk-view-list" role="menu" aria-label={t('tanakh.viewLabel')}>
+          <div className="tk-view-head">{t('tanakh.viewLabel')}</div>
+          {TEXT_LANGS.map((l) => (
+            <button
+              key={l}
+              type="button"
+              role="menuitemradio"
+              aria-checked={view.text === l}
+              onClick={() => {
+                setView({ ...view, text: l });
+                close();
+              }}
+            >
+              <span className="code">{l === 'he' ? 'עב' : l.endsWith('ru') ? 'RU' : 'EN'}</span>
+              <span className="name">{label(l)}</span>
+              {view.text === l && <Icon name="check" size={16} />}
+            </button>
+          ))}
+          <div className="tk-view-sep" />
+          <button type="button" role="menuitemcheckbox" aria-checked={view.st} onClick={() => setView({ ...view, st: !view.st })}>
+            <span className="code">✦</span>
+            <span className="name">{t('tanakh.steinsaltzExpl')}</span>
+            {view.st && <Icon name="check" size={16} />}
+          </button>
+        </div>
+      )}
+    </div>
+  );
 }
 
 const bookOf = (slug: string) => BOOKS.find((b) => b.slug === slug)!;
@@ -183,23 +236,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
             {next ? <a href={`#/${section}/${next.date}`}>{civilDate(next.date, locale)} →</a> : <span />}
           </nav>
 
-          <div className="tk-view no-speak">
-            <label>
-              <span>{t('tanakh.viewLabel')}</span>
-              <select value={view.text} onChange={(e) => setView({ ...view, text: e.target.value as TextLang })}>
-                {TEXT_LANGS.map((l) => (
-                  <option key={l} value={l}>
-                    {t(`tanakh.view.${l}`)}
-                    {l.endsWith('ru') && content && !ruReady ? ` — ${t('tanakh.ruSoon')}` : ''}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="tk-view-st">
-              <input type="checkbox" checked={view.st} onChange={(e) => setView({ ...view, st: e.target.checked })} />
-              <span>{t('tanakh.steinsaltzExpl')}</span>
-            </label>
-          </div>
+          <ViewMenu view={view} setView={setView} ruSoon={!!content && !ruReady} />
           {want === 'ru' && content && !ruReady && <p className="tk-note">{t('tanakh.ruMissing')}</p>}
           {locale === 'de' && tr === 'en' && <p className="tk-note">{t('tanakh.enOnly')}</p>}
 
