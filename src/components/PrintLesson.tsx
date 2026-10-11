@@ -294,16 +294,20 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
                       </li>
                     ))}
                   </ol>
-                  <div className="p-eqs">
-                    {r.equations.map((e, k) => (
-                      <div key={k}>
-                        <HebrewRuns text={e} />
+                  {lesson.kind === 'sicha' && (
+                    <>
+                      <div className="p-eqs">
+                        {r.equations.map((e, k) => (
+                          <div key={k}>
+                            <HebrewRuns text={e} />
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                  <p>
-                    <b>{rt.reveal.h}.</b> {rt.reveal.p}
-                  </p>
+                      <p>
+                        <b>{rt.reveal.h}.</b> {rt.reveal.p}
+                      </p>
+                    </>
+                  )}
                   {rt.puzzle && (
                     <p className="p-chain">
                       <b>{t('puzzle.title')}:</b> <HebrewRuns text={chain(rt.puzzle)} />

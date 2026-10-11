@@ -21,7 +21,7 @@ const de: Messages = {
 
   'help.title': 'So wird gespielt',
   'help.body':
-    '<ol><li><b>Lies das Rätsel.</b> Jedes Rätsel ist ein kurzer Abschnitt der Lektion mit einigen hebräischen Wörtern.</li><li><b>Tippe auf eine Wortkarte</b> — dann siehst du ihre Buchstaben und deren Zahlenwerte. Zusammenzählen musst du selbst.</li><li><b>Antworte Schritt für Schritt:</b> gib eine Zahl ein oder wähle eine Möglichkeit. Jeder Schritt öffnet sich nach dem vorigen.</li><li><b>Kommst du nicht weiter?</b> Tippe auf „Hinweis“ — die Antwort bleibt deine, bringt aber weniger Punkte.</li><li><b>Nach dem Lösen</b> öffnen sich die Lösung, eine Nacherzählung der Lektion und eine Frage zum Nachdenken.</li><li><b>In den Lektionen „Niflaot des Rebben“</b> gibt es keine Gematria: Du ermittelst — vergleichst Verse, wählst Antworten — und öffnest erst dann die Antwort des Rebben.</li></ol><p>Der Rechner unten auf der Seite berechnet die Gematria jedes Wortes. Fortschritt und Notizen werden nur auf diesem Gerät gespeichert.</p>',
+    '<ol><li><b>Lies das Rätsel.</b> Jedes Rätsel ist ein kurzer Abschnitt der Lektion mit einigen hebräischen Wörtern.</li><li><b>Tippe auf eine Wortkarte</b> — dann siehst du ihre Buchstaben und deren Zahlenwerte. Zusammenzählen musst du selbst.</li><li><b>Antworte Schritt für Schritt:</b> gib eine Zahl ein oder wähle eine Möglichkeit. Jeder Schritt öffnet sich nach dem vorigen.</li><li><b>Kommst du nicht weiter?</b> Tippe auf „Hinweis“ — die Antwort bleibt deine, bringt aber weniger Punkte.</li><li><b>Nach dem Lösen</b> öffnen sich „Lektion geöffnet“ — eine Nacherzählung der Lektion — und eine Frage zum Nachdenken.</li><li><b>In den Lektionen „Niflaot des Rebben“</b> gibt es keine Gematria: Du ermittelst — vergleichst Verse, wählst Antworten — und öffnest erst dann die Antwort des Rebben.</li></ol><p>Der Rechner unten auf der Seite berechnet die Gematria jedes Wortes. Fortschritt und Notizen werden nur auf diesem Gerät gespeichert.</p>',
   'help.scoring': 'Punkte',
   'help.table': 'Zahlenwerte der Buchstaben',
   'help.finals': 'Die Endbuchstaben ך ם ן ף ץ haben dieselben Werte wie die gewöhnlichen.',
@@ -214,7 +214,6 @@ const de: Messages = {
   'riddle.toSummary': 'Zum Ergebnis →',
 
   'lessons.title': 'Lektion geöffnet',
-  'lessons.sub': '· eine Nacherzählung in eigenen Worten',
   'sources.title': 'Quellen',
   'sources.count': { one: '{n} Abschnitt', other: '{n} Abschnitte' },
   'sources.footnote': 'Quelle',

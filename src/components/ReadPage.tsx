@@ -126,14 +126,14 @@ function Answer({ s, opts }: { s: StepData; opts?: string[] }) {
   );
 }
 
-/** One riddle as a chapter to read: the question, ready answers with calculations, the reveal and the lesson. */
+/** One riddle as a chapter to read: the question, ready answers with calculations and the lesson. */
 function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonText; ri: number; here?: boolean }) {
   const { t, pick } = useI18n();
   const textLocale = pick(lesson.texts).locale;
   const r = lesson.riddles[ri];
   const rt = text.riddles[ri];
   const fn = footnotes([rt.cond, rt.reveal.p, ...rt.lessons.map((l) => l.b)], r.sources ?? [], ri, t('sources.footnote'));
-  const [condHtml, revealHtml, ...lessonHtml] = fn.html;
+  const [condHtml, , ...lessonHtml] = fn.html;
 
   return (
     <section className={`riddle read-riddle${here ? ' here' : ''}`} id={`riddle-${ri + 1}`}>
@@ -193,19 +193,10 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
         ))}
       </div>
 
-      <div className="reveal">
-        <h3>{rt.reveal.h}</h3>
-        {r.equations.map((e, k) => (
-          <div key={k} className="eq">
-            <HebrewRuns text={e} />
-          </div>
-        ))}
-        <Html as="p" html={withTerms(revealHtml, textLocale)} />
-      </div>
 
       <div className="lessons">
         <div className="les-title">
-          {t('lessons.title')} <span>{t('lessons.sub')}</span>
+          {t('lessons.title')}
         </div>
         {rt.lessons.map((l, k) => (
           <section key={k} className="read-les">
@@ -240,7 +231,7 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
 
 /**
  * «Читать» — the whole lesson for a reader who does not want to count: every riddle with its question,
- * ready answers and gematria calculations (from the same checked coach data), the reveal, the lesson and the sources.
+ * ready answers and gematria calculations (from the same checked coach data), the lesson and the sources.
  */
 /** `at` — the riddle (1-based) a link points to, e.g. from «Знаете ли вы?»: the page opens there. */
 export function ReadPage({ lesson, at }: { lesson: Lesson; at?: number }) {
