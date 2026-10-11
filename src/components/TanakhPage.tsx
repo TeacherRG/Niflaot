@@ -4,8 +4,9 @@ import { useI18n } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { BOOKS, rangeLabel, type Section } from '../core/tanakhCycle';
-import { CYCLE, cycleDayFor, loadDay, localToday, type DayContent, type DayVerse } from '../core/tanakh';
+import { CYCLE, cycleDayFor, loadDay, localToday, type DayContent, type SectionDay, type DayVerse } from '../core/tanakh';
 import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
+import { TanakhMasthead } from './PrintBrand';
 
 export const SECTION_HE: Record<Section, string> = { neviim: 'נביאים', ketuvim: 'כתובים' };
 
@@ -121,6 +122,53 @@ function readingMinutes(verses: DayVerse[], he: boolean, tr: 'ru' | 'en' | null,
   return Math.max(1, Math.ceil(heW / HE_WPM + trW / TR_WPM));
 }
 
+/** The sources and licenses under a section, and its link to Sefaria (the link only on screen). */
+function Sources({ sec, ru }: { sec: SectionDay; ru: boolean }) {
+  const { t } = useI18n();
+  return (
+    <footer className="tk-sources">
+      <p>
+        {t('tanakh.sourceHe')} — {sec.versions.he?.title} ({sec.versions.he?.license}), Sefaria.{' '}
+        {t('tanakh.sourceEn')} — {sec.versions.en?.title} ({sec.versions.en?.license}), Sefaria.{' '}
+        {ru && <>{t('tanakh.sourceRu')} </>}
+        {sec.versions.steinsaltz && (
+          <>
+            {t('tanakh.steinsaltz')} — {sec.versions.steinsaltz.title} ({sec.versions.steinsaltz.license}).
+          </>
+        )}
+      </p>
+      <p className="no-print">
+        {sec.refs.map((r) => (
+          <a key={r.url} href={r.url} target="_blank" rel="noopener">
+            {t('tanakh.onSefaria')} ↗
+          </a>
+        ))}
+      </p>
+    </footer>
+  );
+}
+
+/** «Распечатать»: the page as it is shown (the chosen languages, with or without Steinsaltz); optionally both sections of the day. */
+const BOTH_KEY = 'niflaot:tanakh-print-both';
+function usePrintBoth(): [boolean, (v: boolean) => void] {
+  const [v, set] = useState(() => {
+    try {
+      return localStorage.getItem(BOTH_KEY) === '1';
+    } catch {
+      return false;
+    }
+  });
+  return [
+    v,
+    (x) => {
+      set(x);
+      try {
+        localStorage.setItem(BOTH_KEY, x ? '1' : '0');
+      } catch {}
+    },
+  ];
+}
+
 const bookOf = (slug: string) => BOOKS.find((b) => b.slug === slug)!;
 const labelLang = (locale: string) => (locale === 'en' || locale === 'de' ? locale : 'ru');
 
@@ -201,6 +249,7 @@ function Verses({ verses, he, tr, st }: { verses: DayVerse[]; he: boolean; tr: '
 export function TanakhPage({ section, date }: { section: Section; date?: string }) {
   const { t, locale } = useI18n();
   const [view, setView] = useView(locale);
+  const [printBoth, setPrintBoth] = usePrintBoth();
   const today = localToday();
   const { index, exact } = cycleDayFor(date ?? today);
   const day = CYCLE[index];
@@ -238,6 +287,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
       <TopBar title={title} />
       <div className="wrap tk">
         <article>
+          <TanakhMasthead title={title} he={SECTION_HE[section]} route={`${section}/${day.date}`} date={day.date} />
           <header className="tk-head">
             <p className="tk-kicker">
               {isToday ? t('tanakh.today') : !date && !exact ? t('tanakh.nextReading') : civilDate(day.date, locale)} ·{' '}
@@ -267,7 +317,21 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
             {next ? <a href={`#/${section}/${next.date}`}>{civilDate(next.date, locale)} →</a> : <span />}
           </nav>
 
-          <ViewMenu view={view} setView={setView} ruSoon={!!content && !ruReady} />
+          <div className="tk-tools no-print">
+            <ViewMenu view={view} setView={setView} ruSoon={!!content && !ruReady} />
+            {sec && (
+              <div className="tk-print">
+                <button type="button" className="btn ghost" onClick={() => window.print()}>
+                  <Icon name="print" size={18} />
+                  {t('print.button')}
+                </button>
+                <label>
+                  <input type="checkbox" checked={printBoth} onChange={(e) => setPrintBoth(e.target.checked)} />
+                  {t('tanakh.printBoth', { other: t(`tanakh.${other}`) })}
+                </label>
+              </div>
+            )}
+          </div>
           {want === 'ru' && content && !ruReady && <p className="tk-note">{t('tanakh.ruMissing')}</p>}
           {locale === 'de' && tr === 'en' && <p className="tk-note">{t('tanakh.enOnly')}</p>}
 
@@ -279,28 +343,23 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
             <Verses verses={sec.verses} he={he} tr={tr} st={view.st} />
           )}
 
-          {sec && (
-            <footer className="tk-sources">
-              <p>
-                {t('tanakh.sourceHe')} — {sec.versions.he?.title} ({sec.versions.he?.license}), Sefaria.{' '}
-                {t('tanakh.sourceEn')} — {sec.versions.en?.title} ({sec.versions.en?.license}), Sefaria.{' '}
-                {tr === 'ru' && <>{t('tanakh.sourceRu')} </>}
-                {sec.versions.steinsaltz && (
-                  <>
-                    {t('tanakh.steinsaltz')} — {sec.versions.steinsaltz.title} ({sec.versions.steinsaltz.license}).
-                  </>
-                )}
-              </p>
-              <p>
-                {sec.refs.map((r) => (
-                  <a key={r.url} href={r.url} target="_blank" rel="noopener">
-                    {t('tanakh.onSefaria')} ↗
-                  </a>
-                ))}
-              </p>
-            </footer>
+          {sec && <Sources sec={sec} ru={tr === 'ru'} />}
+          {printBoth && content?.[other] && (
+            <section className="tk-print-other print-only">
+              <header className="tk-head">
+                <h1>
+                  {t(`tanakh.${other}`)}{' '}
+                  <span className="he" lang="he">
+                    {SECTION_HE[other]}
+                  </span>
+                </h1>
+                <p className="tk-range">{rangeLabel(other, day[other], lang)}</p>
+              </header>
+              <Verses verses={content[other].verses} he={he} tr={tr} st={view.st} />
+              <Sources sec={content[other]} ru={tr === 'ru'} />
+            </section>
           )}
-          <p className="tk-cycle">
+          <p className="tk-cycle no-print">
             {t('tanakh.cycle', { start: civilDate(CYCLE[0].date, locale), end: civilDate(CYCLE[CYCLE.length - 1].date, locale), days: CYCLE.length })}
           </p>
         </article>
