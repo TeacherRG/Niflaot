@@ -67,7 +67,8 @@
   `og/daily.png` (`scripts/og-images.ts`).
 - «Учитель» (`#/teacher`, `TeacherPage.tsx`, пункт меню): **ИИ-учитель** (стоимость символическая; кнопка открывает чат ✦,
   без `ASSISTANT_URL` — офлайн-помощник; «ИИ — не раввин») и **учитель-человек** — письмо автору сайта (Office@mychitas.app).
-- `assistant/` — сервер ИИ-чата (Cloudflare Worker, Claude API); пока скрыт, включается переменной `ASSISTANT_URL`.
+- `assistant/` — сервер ИИ-чата (Cloudflare Worker, Claude API); пока скрыт, включается переменной `ASSISTANT_URL`;
+  выкладка — `.github/workflows/assistant.yml` (secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `ANTHROPIC_API_KEY`).
 
 ## Новый урок — всегда по `docs/LESSON-GUIDE.md`
 

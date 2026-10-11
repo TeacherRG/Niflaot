@@ -10,7 +10,18 @@
 разгадку, текст урока и первоисточники. Ответы нерешённых загадок на сервер не отправляются, поэтому
 помощник не может их раскрыть.
 
-## Запуск
+## Запуск без терминала (GitHub Actions)
+
+1. Cloudflare → **Manage Account → Account API Tokens → Create Token** → шаблон **Edit Cloudflare Workers** → создать, скопировать.
+   Account ID — на главной странице аккаунта Cloudflare (справа, «Account ID»).
+2. Ключ Claude: console.anthropic.com → **API Keys → Create Key**; там же **Limits** — месячный лимит расходов.
+3. GitHub → **Settings → Secrets and variables → Actions → Secrets**: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`,
+   `ANTHROPIC_API_KEY`.
+4. **Actions → Deploy AI assistant → Run workflow** (`.github/workflows/assistant.yml`). В конце шага «Deploy» —
+   адрес `https://niflaot-assistant.<поддомен>.workers.dev`.
+5. **Variables** → `ASSISTANT_URL` = этот адрес; затем **Actions → Deploy → Run workflow** (или любой пуш в `main`).
+
+## Запуск из терминала
 
 ```bash
 cd assistant
