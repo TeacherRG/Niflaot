@@ -7,6 +7,7 @@ import { BOOKS, rangeLabel, type Section } from '../core/tanakhCycle';
 import { CYCLE, cycleDayFor, loadDay, localToday, readingMinutes, type DayContent, type SectionDay, type DayVerse } from '../core/tanakh';
 import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
 import { TanakhMasthead } from './PrintBrand';
+import { DayAudio } from './DayAudio';
 
 export const SECTION_HE: Record<Section, string> = { neviim: 'נביאים', ketuvim: 'כתובים' };
 
@@ -305,6 +306,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
               </div>
             )}
           </div>
+          <DayAudio section={section} date={day.date} />
           {want === 'ru' && content && !ruReady && <p className="tk-note">{t('tanakh.ruMissing')}</p>}
           {locale === 'de' && tr === 'en' && <p className="tk-note">{t('tanakh.enOnly')}</p>}
 

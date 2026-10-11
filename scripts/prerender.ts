@@ -61,6 +61,8 @@ const CSP = [
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",
   "img-src 'self' data: blob: https://niflaot.goatcounter.com",
+  // «Урок дня»: the recordings come from the assistant's server; blob: — the admin listens before uploading
+  `media-src 'self' blob:${assistant ? ` ${assistant}` : ''}`,
   `connect-src 'self' https://api.github.com https://niflaot.goatcounter.com${assistant ? ` ${assistant}` : ''}`,
   "object-src 'none'",
   "base-uri 'self'",

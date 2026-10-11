@@ -12,15 +12,19 @@
  * Accounts of the site (src/accounts.ts, Durable Object Accounts): /account/* — login by a code to the email,
  * profile, parent's consent, synced progress, leaderboards, classes. /chat with `Authorization: Bearer <token>`
  * counts the question for that account.
+ *
+ * «Урок дня» (src/audio.ts, R2 bucket AUDIO): /audio/list/<section>, /audio/file/<section>/<date> — the recorded
+ * lessons of the passage of the day; the admin uploads them from `#/admin/audio`.
  */
 import Anthropic from '@anthropic-ai/sdk';
 import { gematria, letters, VALUES } from '../../src/core/gematria';
 import { PushHub } from './push';
 import { Accounts, type MailEnv } from './accounts';
+import { audioRoute, type AudioEnv } from './audio';
 
 export { PushHub, Accounts };
 
-interface Env extends MailEnv {
+interface Env extends MailEnv, AudioEnv {
   ANTHROPIC_API_KEY: string;
   /** comma-separated list of allowed page origins */
   ALLOWED_ORIGINS?: string;
@@ -125,8 +129,8 @@ function originOk(origin: string | null, env: Env): origin is string {
 function cors(origin: string | null, env: Env): Record<string, string> {
   return {
     'Access-Control-Allow-Origin': originOk(origin, env) ? origin : allowedOrigins(env)[0],
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Title, X-Duration',
     'Access-Control-Max-Age': '86400',
     Vary: 'Origin',
   };
@@ -187,6 +191,12 @@ export default {
     const path = new URL(req.url).pathname;
     if (path.startsWith('/push/')) return pushRoute(req, env, path.slice(5), headers);
     if (path.startsWith('/account/')) return accountRoute(req, env, path.slice(8), headers);
+    if (path.startsWith('/audio/')) {
+      // reading is open (the player of any page); uploading — from the site's admin page only
+      if (req.method !== 'GET' && req.method !== 'HEAD' && !originOk(req.headers.get('Origin'), env))
+        return new Response('Forbidden', { status: 403, headers });
+      return audioRoute(req, env, path.slice(6), headers);
+    }
     if (req.method !== 'POST' || path !== '/chat')
       return new Response('Not found', { status: 404, headers });
 

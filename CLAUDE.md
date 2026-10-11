@@ -130,6 +130,14 @@
 - Лицензии — в «О проекте» (`about.body`, ru/en/de, раздел «Тексты Пророков и Писаний и их лицензии»): иврит — PD,
   JPS 1985 — CC BY-NC (JPS 1917 — PD), Штейнзальц — © Koren / Steinsaltz Center, бесплатно и некоммерчески, как на
   Sefaria; русский перевод проекта — CC BY-NC.
+- **«🎧 Урок дня»** — записанный урок к отрывку дня, пока только «Писания» (`AUDIO_SECTIONS` в `src/core/audio.ts`):
+  плеер `DayAudio.tsx` на странице дня (скорость 1–2×, место остановки — localStorage `niflaot:audio-pos:*`, событие
+  GoatCounter `/<раздел>/<дата>/listen`; урок на русском — на en/de пометка). Файлы — Cloudflare R2 `niflaot-audio`
+  (`assistant/src/audio.ts`, ключ `<раздел>/<дата>`, название и длина — metadata): `GET /audio/list/<раздел>`
+  (только наступившие дни, по UTC+14), `GET /audio/file/<раздел>/<дата>?v=` (Range), `PUT`/`DELETE` — админ.
+  Загрузка — `#/admin/audio` (`AdminAudio.tsx`), тем же GitHub-токеном (сервер проверяет у GitHub право push в
+  `ADMIN_REPO`); запись на будущий день откроется сама. R2 включается в панели Cloudflare; без него
+  `assistant.yml` выкладывает сервер без блока `# --- audio ---` — плеера нет. CSP `media-src` — `scripts/prerender.ts`.
 - `npm run check` (`scripts/check-tanakh.ts`): цикл совпадает с правилами, каждый стих ровно раз, нет дней отдыха,
   тексты дней = отрывки дня, у каждого стиха иврит, английский и Штейнзальц (he + en), Имена (ה׳, G-d, L-rd;
   слова через макаф — отдельные слова), в HTML Штейнзальца только `<b>` и `<small class="fn">`; русский — только

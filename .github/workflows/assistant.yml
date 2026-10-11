@@ -34,6 +34,20 @@ jobs:
         working-directory: assistant
       - run: npx tsc --noEmit
         working-directory: assistant
+      # «Урок дня»: the R2 bucket for the recordings. R2 must be turned on in the Cloudflare dashboard and the API token
+      # must allow «Workers R2 Storage: Edit»; otherwise the worker goes out without it (the chat and the rest work)
+      - name: Audio bucket
+        working-directory: assistant
+        run: |
+          if npx wrangler r2 bucket info niflaot-audio >/dev/null 2>&1 || npx wrangler r2 bucket create niflaot-audio; then
+            echo "R2 bucket niflaot-audio is ready"
+          else
+            echo "::warning::R2 is not available — deploying without «Урок дня» (turn on R2 in the Cloudflare dashboard)"
+            sed -i '/^# --- audio ---$/,/^# --- \/audio ---$/d' wrangler.toml
+          fi
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:

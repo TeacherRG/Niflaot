@@ -9,11 +9,13 @@ import {
   REPO, deployState, discardDraft, getToken, loadDraft, publish, saveDraft, signIn, signOut,
   type DeployState, type Draft,
 } from '../admin/github';
+import { AdminAudio } from './AdminAudio';
 
 /**
  * `#/admin`, `#/admin/<slug>` — the admin's text editor (Russian only: it is the project owner's tool).
  * Every text of a lesson or of the interface, in every language; an edit is shown on the site at once
  * (in this browser), «Опубликовать» commits all edits and the site rebuilds in a couple of minutes.
+ * `#/admin/audio` — the recordings of «Урок дня» (AdminAudio.tsx).
  */
 const UI_MESSAGES: Record<Locale, Record<string, unknown>> = { ru: ruUi, en: enUi, de: deUi };
 const LOGIN_KEY = 'niflaot:admin-login';
@@ -62,14 +64,17 @@ export function Admin({ slug }: { slug?: string }) {
         }}
       />
     );
+  const out = () => {
+    signOut();
+    setToken(null);
+  };
+  // «Урок дня»: the recordings of the passage of the day
+  if (slug === 'audio') return <AdminAudio token={token} onSignOut={out} />;
   return (
     <Editor
       slug={slug}
       login={login}
-      onSignOut={() => {
-        signOut();
-        setToken(null);
-      }}
+      onSignOut={out}
     />
   );
 }
@@ -231,6 +236,9 @@ function Editor({ slug, login, onSignOut }: { slug?: string; login: string; onSi
       <header className="admin-head">
         <h1>Редактор текстов</h1>
         <span className="admin-who">{login && `@${login} · `}</span>
+        <a className="btn ghost" href="#/admin/audio">
+          🎧 Урок дня
+        </a>
         <button className="btn ghost" onClick={onSignOut}>
           Выйти
         </button>

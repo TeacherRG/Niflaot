@@ -696,6 +696,9 @@ const ru = {
   'tanakh.sourceRu': 'Русский перевод стихов, объяснений и вступлений рава Штейнзальца — перевод проекта Нифлаот.',
   'tanakh.onSefaria': 'Открыть на Sefaria',
   'tanakh.cycle': 'Трёхлетний цикл: Пророки и Писания параллельно, понемногу каждый день, кроме Шабата и праздников, — и оба заканчиваются в один день. {start} – {end}, {days} учебных дней.',
+  'audio.title': 'Урок дня',
+  'audio.inRussian': 'урок на русском',
+  'audio.speed': 'Скорость',
 } satisfies Record<string, string | PluralForms>;
 
 export type PluralForms = Partial<Record<Intl.LDMLPluralRule, string>> & { other: string };

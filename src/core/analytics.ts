@@ -56,3 +56,10 @@ export function installAnalytics() {
   document.head.appendChild(s);
   addEventListener('hashchange', later);
 }
+
+/** An event that is not a page, e.g. `/ketuvim/2026-10-12/listen` — the day's lesson was played. */
+export function countEvent(path: string, title: string) {
+  try {
+    window.goatcounter?.count?.({ path, title, event: true });
+  } catch {}
+}

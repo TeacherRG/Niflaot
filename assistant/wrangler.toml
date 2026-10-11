@@ -10,6 +10,8 @@ MAIL_FROM = "Нифлаот <noreply@mychitas.app>"
 # questions to the AI assistant a day from everyone together (UTC day); above it the chat says «come back tomorrow».
 # Each question is paid (up to 6 model calls) — raise it when the site grows, together with the limit in Billing.
 CHAT_DAILY_LIMIT = "1000"
+# who may push to this repository may upload the recordings of «Урок дня» (the token of #/admin)
+ADMIN_REPO = "TeacherRG/Niflaot"
 
 # Secrets (not stored here): npx wrangler secret put ANTHROPIC_API_KEY, RESEND_API_KEY (login codes by email;
 # without it registration is off and the site shows only the guest mode)
@@ -50,6 +52,15 @@ class_name = "Accounts"
 [[migrations]]
 tag = "v2"
 new_sqlite_classes = ["Accounts"]
+
+# «Урок дня» (src/audio.ts): the recordings of the passage of the day. R2 must be turned on in the Cloudflare dashboard
+# (R2 → Overview; the free tier is 10 GB with no fee for downloads); the deploy workflow creates the bucket.
+# If R2 can't be used, the workflow deploys without this block — the site then shows no player.
+# --- audio ---
+[[r2_buckets]]
+binding = "AUDIO"
+bucket_name = "niflaot-audio"
+# --- /audio ---
 
 [triggers]
 crons = ["1 * * * *"]

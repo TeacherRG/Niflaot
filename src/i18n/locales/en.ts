@@ -678,6 +678,9 @@ const en: Messages = {
   'tanakh.sourceRu': 'Russian translation of the verses and of Rabbi Steinsaltz’s explanations — by the Niflaot project.',
   'tanakh.onSefaria': 'Open on Sefaria',
   'tanakh.cycle': 'A three-year cycle: the Prophets and the Writings side by side, a little every day except Shabbat and holidays — both end on the same day. {start} – {end}, {days} study days.',
+  'audio.title': 'Lesson of the day',
+  'audio.inRussian': 'the lesson is in Russian',
+  'audio.speed': 'Speed',
 };
 
 export default en;
