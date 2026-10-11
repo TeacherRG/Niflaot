@@ -275,10 +275,11 @@ HOLY = re.compile(r'^[והבכלמש]*אלה(ים|יכם|יכן|ינו|יך|יו
 def respect_names(s):
     """יהוה → ה׳; אלהים and its forms → אלקים (also with vowel points); «ה׳ צבאות» → «ה׳ צב-אות».
     «אלהי זהב» (an idol) is left as is."""
-    words = re.split(r'([^א-ת' + MARKS + r'׳״]+)', s)
+    # words joined by a maqaf (U+05BE, inside MARKS) are separate words: «דִּי־הֲוָה» is not the Name
+    words = re.split(r'([^א-ת' + MARKS + r'׳״]+|\u05BE)', s)
     for i, w in enumerate(words):
         plain = re.sub('[' + MARKS + ']', '', w)
-        if 'יהוה' in plain:
+        if re.fullmatch('[והבכלמש]*יהוה', plain):  # the Name, perhaps with a prefix — not «ירמיהוה…» glued in a scan
             words[i] = plain.replace('יהוה', 'ה׳')
         elif plain == 'צבאות' and i >= 2 and (
             re.sub('[' + MARKS + ']', '', words[i - 2]) in ('ה׳', 'בה׳', 'לה׳', 'אלקי', 'אלהי')
@@ -397,70 +398,72 @@ def cmd_find(book, words):
     if not n:
         print('nothing found')
 
-if len(sys.argv) > 1 and sys.argv[1] in ('ls', 'find'):
-    if sys.argv[1] == 'ls':
-        cmd_ls(sys.argv[2] if len(sys.argv) > 2 else '')
-    else:
-        cmd_find(sys.argv[2], sys.argv[3:])
-    sys.exit(0)
-
-# ───────────────────────── fetch all SOURCES ─────────────────────────
-out = {}
-for sid, spec in SOURCES.items():
-    if isinstance(spec, tuple) and spec[0] == 'custom':
-        _, t_ru, t_en, t_de, ref, kind, he_p, en_p, de_p, path = spec
-        he_d, en_d = load(he_p), load(en_p)
-        de_d = load(de_p[0]) if de_p else None
-        def at(d, path=path):
-            x = d['text']
-            for k in path: x = x[k]
-            return [x] if isinstance(x, str) else x
-        he, en, ru, versions = at(he_d), at(en_d), None, {'he': meta(he_d), 'en': meta(en_d)}
-        de = at(de_d, de_p[1]) if de_d else None
-        if de_d: versions['de'] = meta(de_d)
-        titles = (t_ru, t_en, t_de)
-    else:
-        pieces = spec if isinstance(spec, list) else [spec]
-        he, en, ru, de, versions, t_ru, t_en, t_de, ref_parts = [], [], [], [], {}, [], [], [], []
-        for (book, sec, a, b) in pieces:
-            kind, ru_name, he_d, en_d, ru_d, de_d, pick = tanakh_or_talmud(book, sec, a, b)
-            he += pick(he_d); en += pick(en_d)
-            if ru_d is not None: ru += pick(ru_d)
-            if de is not None:
-                if de_d is None: de = None
-                else: de += pick(de_d)
-            versions = {'he': meta(he_d), 'en': meta(en_d), **({'ru': meta(ru_d)} if ru_d else {}), **({'de': meta(de_d)} if de_d else {})}
-            lr, le, ld = label(book, sec, a, b, ru_name)
-            t_ru.append(lr); t_en.append(le); t_de.append(ld)
-            # Sefaria numbers Talmud segments from 1; the pieces above use 0-based indices
-            sa, sb = (a + 1, b + 1) if kind == 'Talmud' else (a, b)
-            ref_parts.append(f'{book} {sec}:{sa}' + (f'-{sb}' if sb != sa else ''))
-        if len(pieces) > 1 and all(pc[0] == pieces[0][0] for pc in pieces):
-            # one book, several dapim/chapters: «Шабат 145б–146а»
-            titles = tuple(t[0] + '–' + t[-1].rsplit(' ', 1)[1] for t in (t_ru, t_en, t_de))
+# the helpers above are shared with scripts/fetch-tanakh.py, which imports this file
+if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] in ('ls', 'find'):
+        if sys.argv[1] == 'ls':
+            cmd_ls(sys.argv[2] if len(sys.argv) > 2 else '')
         else:
-            titles = (' — '.join(t_ru), ' — '.join(t_en), ' — '.join(t_de))
-        ref = ref_parts[0] if len(ref_parts) == 1 else ref_parts[0] + '-' + ref_parts[-1].split(' ', 1)[1]
-        ru = ru or None
-    out[sid] = {
-        'kind': {'ru': KIND[kind][0], 'en': KIND[kind][1], 'de': KIND_DE[kind]},
-        'title': {'ru': titles[0], 'en': titles[1], 'de': titles[2]},
-        'ref': ref,
-        'url': 'https://www.sefaria.org/' + urllib.parse.quote(ref.replace(' ', '_').replace(':', '.'), safe='_.,;-'),
-        'he': [clean(s, 'he') for s in he if s],
-        'en': [clean(s, 'en') for s in en if s],
-        **({'ru': [clean(s, 'ru') for s in ru if s]} if ru else {}),
-        # German keeps empty segments, so that line i stays next to Hebrew line i
-        **({'de': [clean(s, 'de') if s else '' for s in de]} if de else {}),
-        'versions': versions,
-    }
-    for wrong, right in FIXES.get(sid, []):
-        # a misprint of the edition: corrected in the text, shown under the quote on the site
-        assert any(wrong in h for h in out[sid]['he']), f'{sid}: misprint {wrong} not found'
-        out[sid]['he'] = [h.replace(wrong, right) for h in out[sid]['he']]
-        out[sid].setdefault('fixes', []).append([wrong, right])
-    sys.stderr.write(f'✓ {sid}: {len(out[sid]["he"])} he / {len(out[sid]["en"])} en' + (f' / {len(out[sid]["ru"])} ru' if ru else '') + (f' / {len(out[sid]["de"])} de' if de else '') + '\n')
+            cmd_find(sys.argv[2], sys.argv[3:])
+        sys.exit(0)
 
-OUT.parent.mkdir(parents=True, exist_ok=True)
-OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
-print(f'wrote {OUT} ({len(out)} sources)')
+    # ───────────────────────── fetch all SOURCES ─────────────────────────
+    out = {}
+    for sid, spec in SOURCES.items():
+        if isinstance(spec, tuple) and spec[0] == 'custom':
+            _, t_ru, t_en, t_de, ref, kind, he_p, en_p, de_p, path = spec
+            he_d, en_d = load(he_p), load(en_p)
+            de_d = load(de_p[0]) if de_p else None
+            def at(d, path=path):
+                x = d['text']
+                for k in path: x = x[k]
+                return [x] if isinstance(x, str) else x
+            he, en, ru, versions = at(he_d), at(en_d), None, {'he': meta(he_d), 'en': meta(en_d)}
+            de = at(de_d, de_p[1]) if de_d else None
+            if de_d: versions['de'] = meta(de_d)
+            titles = (t_ru, t_en, t_de)
+        else:
+            pieces = spec if isinstance(spec, list) else [spec]
+            he, en, ru, de, versions, t_ru, t_en, t_de, ref_parts = [], [], [], [], {}, [], [], [], []
+            for (book, sec, a, b) in pieces:
+                kind, ru_name, he_d, en_d, ru_d, de_d, pick = tanakh_or_talmud(book, sec, a, b)
+                he += pick(he_d); en += pick(en_d)
+                if ru_d is not None: ru += pick(ru_d)
+                if de is not None:
+                    if de_d is None: de = None
+                    else: de += pick(de_d)
+                versions = {'he': meta(he_d), 'en': meta(en_d), **({'ru': meta(ru_d)} if ru_d else {}), **({'de': meta(de_d)} if de_d else {})}
+                lr, le, ld = label(book, sec, a, b, ru_name)
+                t_ru.append(lr); t_en.append(le); t_de.append(ld)
+                # Sefaria numbers Talmud segments from 1; the pieces above use 0-based indices
+                sa, sb = (a + 1, b + 1) if kind == 'Talmud' else (a, b)
+                ref_parts.append(f'{book} {sec}:{sa}' + (f'-{sb}' if sb != sa else ''))
+            if len(pieces) > 1 and all(pc[0] == pieces[0][0] for pc in pieces):
+                # one book, several dapim/chapters: «Шабат 145б–146а»
+                titles = tuple(t[0] + '–' + t[-1].rsplit(' ', 1)[1] for t in (t_ru, t_en, t_de))
+            else:
+                titles = (' — '.join(t_ru), ' — '.join(t_en), ' — '.join(t_de))
+            ref = ref_parts[0] if len(ref_parts) == 1 else ref_parts[0] + '-' + ref_parts[-1].split(' ', 1)[1]
+            ru = ru or None
+        out[sid] = {
+            'kind': {'ru': KIND[kind][0], 'en': KIND[kind][1], 'de': KIND_DE[kind]},
+            'title': {'ru': titles[0], 'en': titles[1], 'de': titles[2]},
+            'ref': ref,
+            'url': 'https://www.sefaria.org/' + urllib.parse.quote(ref.replace(' ', '_').replace(':', '.'), safe='_.,;-'),
+            'he': [clean(s, 'he') for s in he if s],
+            'en': [clean(s, 'en') for s in en if s],
+            **({'ru': [clean(s, 'ru') for s in ru if s]} if ru else {}),
+            # German keeps empty segments, so that line i stays next to Hebrew line i
+            **({'de': [clean(s, 'de') if s else '' for s in de]} if de else {}),
+            'versions': versions,
+        }
+        for wrong, right in FIXES.get(sid, []):
+            # a misprint of the edition: corrected in the text, shown under the quote on the site
+            assert any(wrong in h for h in out[sid]['he']), f'{sid}: misprint {wrong} not found'
+            out[sid]['he'] = [h.replace(wrong, right) for h in out[sid]['he']]
+            out[sid].setdefault('fixes', []).append([wrong, right])
+        sys.stderr.write(f'✓ {sid}: {len(out[sid]["he"])} he / {len(out[sid]["en"])} en' + (f' / {len(out[sid]["ru"])} ru' if ru else '') + (f' / {len(out[sid]["de"])} de' if de else '') + '\n')
+
+    OUT.parent.mkdir(parents=True, exist_ok=True)
+    OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+    print(f'wrote {OUT} ({len(out)} sources)')

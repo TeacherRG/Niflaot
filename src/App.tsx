@@ -38,13 +38,14 @@ const CardsReadPage = page(() => import('./components/CardsReadPage'), 'CardsRea
 const MathPage = page(() => import('./components/MathPage'), 'MathPage');
 const LettersPage = page(() => import('./components/LettersPage'), 'LettersPage');
 const RebbePage = page(() => import('./components/RebbePage'), 'RebbePage');
+const TanakhPage = page(() => import('./components/TanakhPage'), 'TanakhPage');
 const Admin = page(() => import('./components/Admin'), 'Admin');
 
 const SIGNATURE = `\n\n${SITE_HOST}\n©pnimi.org.il\n©mychitas.app`;
 
 /**
  * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version,
- * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers (`/read/<n>`, `/memo/<n>`, `/r/<n>` — opened at riddle or Memo pair n), `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/partners` — «Партнёры», `#/teacher` — «Учитель» (ИИ или человек), `#/account` — аккаунт (гость / вход по коду / профиль, классы), `#/leaders[/<class>]` — таблица лидеров, `#/class/<id>` — класс для учителя, `#/consent/<token>` — согласие родителя, `#/privacy` — конфиденциальность, `#/facts` — «Знаете ли вы?», the equalities of all lessons (`#/facts/<id>` — opened at one of them), `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper, `#/letters` — «Буквы за 5 минут».
+ * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers (`/read/<n>`, `/memo/<n>`, `/r/<n>` — opened at riddle or Memo pair n), `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/partners` — «Партнёры», `#/teacher` — «Учитель» (ИИ или человек), `#/account` — аккаунт (гость / вход по коду / профиль, классы), `#/leaders[/<class>]` — таблица лидеров, `#/class/<id>` — класс для учителя, `#/consent/<token>` — согласие родителя, `#/privacy` — конфиденциальность, `#/facts` — «Знаете ли вы?», the equalities of all lessons (`#/facts/<id>` — opened at one of them), `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper, `#/letters` — «Буквы за 5 минут», `#/neviim[/<date>]`, `#/ketuvim[/<date>]` — «Пророки», «Писания»: отрывок дня трёхлетнего цикла.
  * `#/daily` — «Знаете ли вы?» opened on «Гиматрия дня», its first card; `#/math/<op>` — «Устный счёт».
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson; `/mental-math/` and `/daily/` (also under `/en/`, `/de/`) — those pages.
@@ -166,6 +167,8 @@ function Site() {
           <LettersPage />
         ) : slug === 'math' ? (
           <MathPage op={OPS.includes(view as Op) ? (view as Op) : 'add'} />
+        ) : slug === 'neviim' || slug === 'ketuvim' ? (
+          <TanakhPage key={`${slug}/${view}`} section={slug} date={/^\d{4}-\d{2}-\d{2}$/.test(view ?? '') ? view : undefined} />
         ) : slug === 'rebbe' && view in PARSHIOT ? (
           <RebbePage parsha={view as ParshaId} />
         ) : !lesson ? (

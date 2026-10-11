@@ -7,7 +7,7 @@ const en: Messages = {
 
   'menu.open': 'Open menu',
   'menu.close': 'Close',
-  'menu.lessons': 'Lessons',
+  'menu.lessons': 'Torah',
   'menu.home': 'Home',
   'menu.learn': 'Play & learn',
   'rebbe.title': 'Niflaot of the Rebbe',
@@ -642,6 +642,30 @@ const en: Messages = {
   'footer.contact': 'Questions & suggestions',
   'footer.donate': 'Support the project',
   'footer.fine': '© mychitas.app · Texts: Rabbi Yitzchak Ginsburgh, Baal HaTurim, the Lubavitcher Rebbe',
+
+  // «Пророки» и «Писания» (src/components/TanakhPage.tsx)
+  'tanakh.neviim': 'Prophets',
+  'tanakh.ketuvim': 'Writings',
+  'tanakh.daySub': 'Today’s passage',
+  'tanakh.today': 'Today',
+  'tanakh.nextReading': 'Next reading',
+  'tanakh.restToday': 'There is no reading today — Shabbat or a holiday. Here is the next passage.',
+  'tanakh.day': 'Day {n} of {total}',
+  'tanakh.chapter': 'chapter {n}',
+  'tanakh.navLabel': 'Days of the cycle',
+  'tanakh.steinsaltz': 'Rabbi Adin Steinsaltz',
+  'tanakh.steinsaltzShort': 'Rabbi Steinsaltz',
+  'tanakh.mode.both': 'Hebrew and English',
+  'tanakh.mode.en': 'English',
+  'tanakh.mode.he': 'Hebrew',
+  'tanakh.mode.off': 'hide',
+  'tanakh.enOnly': '',
+  'tanakh.loading': 'Loading the text…',
+  'tanakh.notReady': 'The text for this day is still being prepared — please check back later.',
+  'tanakh.sourceHe': 'Hebrew',
+  'tanakh.sourceEn': 'Translation',
+  'tanakh.onSefaria': 'Open on Sefaria',
+  'tanakh.cycle': 'A three-year cycle: the Prophets and the Writings side by side, a little every day except Shabbat and holidays — both end on the same day. {start} – {end}, {days} study days.',
 };
 
 export default en;

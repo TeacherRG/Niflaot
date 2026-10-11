@@ -10,7 +10,7 @@ const ru = {
 
   'menu.open': 'Открыть меню',
   'menu.close': 'Закрыть',
-  'menu.lessons': 'Уроки',
+  'menu.lessons': 'Тора',
   'menu.home': 'Главная',
   'menu.learn': 'Как играть и учиться',
   'rebbe.title': 'Нифлаот Ребе',
@@ -660,6 +660,30 @@ const ru = {
   'footer.contact': 'Вопросы и пожелания',
   'footer.donate': 'Поддержать проект',
   'footer.fine': '© mychitas.app · Тексты: рав Ицхак Гинзбург, Бааль ґа-Турим, Любавичский Ребе',
+
+  // «Пророки» и «Писания» (src/components/TanakhPage.tsx)
+  'tanakh.neviim': 'Пророки',
+  'tanakh.ketuvim': 'Писания',
+  'tanakh.daySub': 'Отрывок дня',
+  'tanakh.today': 'Сегодня',
+  'tanakh.nextReading': 'Следующее чтение',
+  'tanakh.restToday': 'Сегодня чтения нет — Шабат или праздник. Вот следующий отрывок.',
+  'tanakh.day': 'День {n} из {total}',
+  'tanakh.chapter': 'глава {n}',
+  'tanakh.navLabel': 'Дни цикла',
+  'tanakh.steinsaltz': 'Рав Адин Штейнзальц',
+  'tanakh.steinsaltzShort': 'Рав Штейнзальц',
+  'tanakh.mode.both': 'иврит и English',
+  'tanakh.mode.en': 'English',
+  'tanakh.mode.he': 'иврит',
+  'tanakh.mode.off': 'скрыть',
+  'tanakh.enOnly': 'Перевод и объяснения пока на английском — русский перевод будет позже.',
+  'tanakh.loading': 'Загружаем текст…',
+  'tanakh.notReady': 'Текст этого дня ещё готовится — загляните позже.',
+  'tanakh.sourceHe': 'Иврит',
+  'tanakh.sourceEn': 'Перевод',
+  'tanakh.onSefaria': 'Открыть на Sefaria',
+  'tanakh.cycle': 'Трёхлетний цикл: Пророки и Писания параллельно, понемногу каждый день, кроме Шабата и праздников, — и оба заканчиваются в один день. {start} – {end}, {days} учебных дней.',
 } satisfies Record<string, string | PluralForms>;
 
 export type PluralForms = Partial<Record<Intl.LDMLPluralRule, string>> & { other: string };
