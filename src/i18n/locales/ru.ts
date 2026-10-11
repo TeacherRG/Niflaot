@@ -12,6 +12,7 @@ const ru = {
   'menu.close': 'Закрыть',
   'menu.lessons': 'Уроки',
   'menu.home': 'Главная',
+  'menu.learn': 'Как играть и учиться',
   'rebbe.title': 'Нифлаот Ребе',
   'rebbe.menuSub': 'скоро',
   'rebbe.intro': "Чудеса Торы в учении Ребе.",

@@ -9,6 +9,7 @@ const de: Messages = {
   'menu.close': 'Schließen',
   'menu.lessons': 'Lektionen',
   'menu.home': 'Startseite',
+  'menu.learn': 'Spielen & lernen',
   'rebbe.title': 'Niflaot des Rebben',
   'rebbe.menuSub': 'bald',
   'rebbe.intro': "Wunder der Tora in der Lehre des Rebben.",
