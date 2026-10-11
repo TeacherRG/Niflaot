@@ -14,11 +14,13 @@ import { Sources } from './Sources';
 import { sectionQuotes } from '../core/quotes';
 import { Quote } from './Quote';
 import { firstLetters } from '../core/gematriaMethods';
+import { useLetterHelp } from './letterHelp';
 import { Colophon } from './Colophon';
 
 /** A ready calculation from the step's coach data: every word spelled into letter values, every action with its result. */
 function Calc({ actions }: { actions: CoachAction[] }) {
   const parts = useMemo(() => buildCoach(actions), [actions]);
+  const help = useLetterHelp();
   return (
     <ol className="coach-steps read-calc">
       {parts.map((p, k) =>
@@ -27,9 +29,10 @@ function Calc({ actions }: { actions: CoachAction[] }) {
             <span className="he">{displayNames(p.word)}</span>
             <span className="coach-letters" dir="rtl" aria-hidden="true">
               {p.letters!.map(([c, v], j) => (
-                <span key={j}>
+                <span key={j} title={help.title(c)}>
                   <b>{c}</b>
                   <i>{v}</i>
+                  <help.Name c={c} />
                 </span>
               ))}
             </span>

@@ -7,13 +7,15 @@ import { getPageState, subscribePageState } from '../core/assistant';
 import { SOURCES, sourceLabel } from '../sources';
 import { HebrewRuns } from './Hebrew';
 import { GematriaSolution } from './GematriaSolution';
+import { useLetterHelp } from './letterHelp';
 import { Sheet, useUI } from './ui';
 
 const EXAMPLES = ['שלום', 'חכמה', 'אהבה', 'תורה'];
-const FAQ = ['count', 'stuck', 'finals', 'names', 'sources', 'progress', 'print', 'contact'] as const;
+const FAQ = ['hebrew', 'count', 'stuck', 'finals', 'names', 'sources', 'progress', 'print', 'contact'] as const;
 
 /** Gematria of any word, explained the way you'd add it in your head. */
 function StepByStep({ words }: { words: string[] }) {
+  const letterHelp = useLetterHelp();
   const { t } = useI18n();
   const [word, setWord] = useState('');
   const [guess, setGuess] = useState('');
@@ -52,7 +54,7 @@ function StepByStep({ words }: { words: string[] }) {
         <summary>{t('helper.keyboard')}</summary>
         <div className="kbd">
           {KEYBOARD.map((k) => (
-            <button key={k} className="key" aria-label={k} onClick={() => press(k)}>
+            <button key={k} className="key" aria-label={k} title={letterHelp.title(k)} onClick={() => press(k)}>
               {k}
               <small>{VALUES[k]}</small>
             </button>
@@ -70,9 +72,10 @@ function StepByStep({ words }: { words: string[] }) {
         <>
           <div className="hp-letters" dir="rtl">
             {g.letters.map((l, i) => (
-              <span key={i}>
+              <span key={i} title={letterHelp.title(l.c)}>
                 <b>{l.c}</b>
                 <i>{l.v}</i>
+                <letterHelp.Name c={l.c} />
               </span>
             ))}
           </div>

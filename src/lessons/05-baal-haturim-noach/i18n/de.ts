@@ -75,6 +75,21 @@ const de: LessonText = {
     'רחל': 'Rachel',
     'לאה': 'Lea',
   },
+  translit: {
+    'היה': 'haja',
+    'חמס': 'chamas',
+    'קץ': 'kez',
+    'צהר': 'zohar',
+    'לשבעת': 'leschiwat',
+    'הימים': 'hajamim',
+    'אך': 'ach',
+    'נח': 'Noach',
+    'היין': 'hajajin',
+    'יהיה': 'jihje',
+    'שפה': 'safa',
+    'אחת': 'achat',
+    'שרה': 'Sara',
+  },
   riddles: [
     {
       title: 'Noach, der Zaddik',

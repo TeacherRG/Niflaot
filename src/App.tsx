@@ -30,6 +30,7 @@ const FactsPage = page(() => import('./components/FactsPage'), 'FactsPage');
 const PartnersPage = page(() => import('./components/PartnersPage'), 'PartnersPage');
 const CardsReadPage = page(() => import('./components/CardsReadPage'), 'CardsReadPage');
 const MathPage = page(() => import('./components/MathPage'), 'MathPage');
+const LettersPage = page(() => import('./components/LettersPage'), 'LettersPage');
 const RebbePage = page(() => import('./components/RebbePage'), 'RebbePage');
 const Admin = page(() => import('./components/Admin'), 'Admin');
 
@@ -37,7 +38,7 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©pnimi.org.il\n©mychitas.app`;
 
 /**
  * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version,
- * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers (`/read/<n>`, `/memo/<n>`, `/r/<n>` — opened at riddle or Memo pair n), `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/partners` — «Партнёры», `#/facts` — «Знаете ли вы?», the equalities of all lessons (`#/facts/<id>` — opened at one of them), `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper.
+ * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers (`/read/<n>`, `/memo/<n>`, `/r/<n>` — opened at riddle or Memo pair n), `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/partners` — «Партнёры», `#/facts` — «Знаете ли вы?», the equalities of all lessons (`#/facts/<id>` — opened at one of them), `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper, `#/letters` — «Буквы за 5 минут».
  * `#/daily` — «Знаете ли вы?» opened on «Гиматрия дня», its first card; `#/math/<op>` — «Устный счёт».
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson; `/mental-math/` and `/daily/` (also under `/en/`, `/de/`) — those pages.
@@ -143,6 +144,8 @@ function Site() {
           <FactsPage at={view || undefined} />
         ) : slug === 'daily' ? (
           <FactsPage at="daily" />
+        ) : slug === 'letters' ? (
+          <LettersPage />
         ) : slug === 'math' ? (
           <MathPage op={OPS.includes(view as Op) ? (view as Op) : 'add'} />
         ) : slug === 'rebbe' && view in PARSHIOT ? (

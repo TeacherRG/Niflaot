@@ -35,6 +35,19 @@ const de: LessonText = {
     'ימשל': 'wird herrschen',
     'בך': 'über dich',
   },
+  translit: {
+    'יקוו': 'jikawu',
+    'מקום': 'makom',
+    'קוה': 'kawa',
+    'מקוה': 'mikwe',
+    'קו': 'kaw',
+    'תקוה': 'tikwa',
+    'היתה': 'hajta',
+    'תהו': 'tohu',
+    'והוא': 'wehu',
+    'ימשל': 'jimschol',
+    'בך': 'bach',
+  },
   riddles: [
     {
       title: 'Das Eine im Ort',

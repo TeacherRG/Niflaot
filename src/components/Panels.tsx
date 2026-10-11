@@ -5,13 +5,53 @@ import { OPS, SIGN } from '../core/mentalMath';
 import { Icon, Sheet, useUI } from './ui';
 import { ASSISTANT_URL } from '../core/assistant';
 import { lessonGames } from './lessonGames';
+import { HEBREW_LEVELS, savedHebrewLevel, setHebrewLevel, useHebrewLevel } from '../core/hebrewLevel';
+import { letterName } from '../core/letterNames';
 
 const TABLE = Object.entries(VALUES).filter(([c]) => !'ךםןףץ'.includes(c));
+
+/**
+ * «Как вы с ивритом?» — at the top of «Как играть» (it opens by itself on the first visit): the answer sets how much
+ * help the letters get (src/core/hebrewLevel.ts). Before an answer no option is marked (the default is «Узнаю буквы»).
+ */
+function HebrewLevelPicker({ onStart }: { onStart: () => void }) {
+  const { t } = useI18n();
+  const level = useHebrewLevel();
+  const answered = savedHebrewLevel() !== null;
+  return (
+    <section className="hb-level" aria-labelledby="hb-q">
+      <h3 id="hb-q" className="sheet-h3">
+        {t('hebrew.q')}
+      </h3>
+      <div className="hb-opts" role="radiogroup" aria-labelledby="hb-q">
+        {HEBREW_LEVELS.map((l) => (
+          <button
+            key={l}
+            role="radio"
+            aria-checked={answered && level === l}
+            className={`hb-opt${answered && level === l ? ' on' : ''}`}
+            onClick={() => setHebrewLevel(l)}
+          >
+            <b>{t(`hebrew.${l}`)}</b>
+            <small>{t(`hebrew.${l}.sub`)}</small>
+          </button>
+        ))}
+      </div>
+      {answered && level === 'none' && (
+        <a className="btn hb-cta" href="#/letters" onClick={onStart}>
+          <span className="he">אבג</span> · {t('abc.cta')} →
+        </a>
+      )}
+      <p className="sheet-note">{t('hebrew.note')}</p>
+    </section>
+  );
+}
 
 /** Side menu + "How to play" + "About" — rendered once at the app root. */
 export function Panels() {
   const { t, pick, locale } = useI18n();
   const { panel, open, lessonSlug } = useUI();
+  const level = useHebrewLevel();
   const close = () => open(null);
   // the page a menu link points to is open (#/<slug> or #/<slug>/memo, #/<slug>/cards)
   const isHere = (href: string) => location.hash.split('?')[0] === href;
@@ -116,12 +156,19 @@ export function Panels() {
               </div>
             </details>
           ))}
-          <details className="menu-group" open={location.hash.startsWith('#/math')}>
+          <details className="menu-group" open={location.hash.startsWith('#/math') || location.hash === '#/letters'}>
             <summary className="menu-item">
               <Icon name="calc" />
               <span>{t('math.title')}</span>
             </summary>
             <div className="menu-sub">
+              <a href="#/letters" onClick={close} className="menu-item" aria-current={location.hash === '#/letters' ? 'page' : undefined}>
+                <span className="menu-num he">א</span>
+                <span>
+                  {t('abc.title')}
+                  <small>{t('abc.menuSub')}</small>
+                </span>
+              </a>
               {OPS.map((o) => (
                 <a
                   key={o}
@@ -146,6 +193,13 @@ export function Panels() {
           <button className="menu-item" onClick={() => open('help')}>
             <Icon name="help" />
             <span>{t('help.title')}</span>
+          </button>
+          <button className="menu-item" onClick={() => open('help')}>
+            <span className="menu-num he">א</span>
+            <span>
+              {t('hebrew.menu')}
+              <small>{t(`hebrew.${level}`)}</small>
+            </span>
           </button>
           <button className="menu-item" onClick={() => open('assistant')}>
             <Icon name="spark" />
@@ -172,6 +226,7 @@ export function Panels() {
       </Sheet>
 
       <Sheet open={panel === 'help'} onClose={close} title={t('help.title')} closeLabel={t('menu.close')}>
+        <HebrewLevelPicker onStart={close} />
         <Html as="div" className="prose" html={t('help.body')} />
         <h3 className="sheet-h3">{t('help.scoring')}</h3>
         <ul className="score-list">
@@ -185,10 +240,16 @@ export function Panels() {
             <span key={c}>
               <b>{c}</b>
               <i>{v}</i>
+              {level !== 'reads' && <small className="ln">{letterName(c, locale)}</small>}
             </span>
           ))}
         </div>
         <p className="sheet-note">{t('help.finals')}</p>
+        <p className="sheet-note">
+          <a href="#/letters" onClick={close}>
+            <span className="he">אבג</span> · {t('abc.title')} →
+          </a>
+        </p>
         <p className="sheet-note">{t('help.names')}</p>
         <button className="btn sheet-cta" data-autofocus onClick={close}>
           {t('help.go')}

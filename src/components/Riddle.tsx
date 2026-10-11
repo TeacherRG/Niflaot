@@ -15,6 +15,8 @@ import { asWord } from '../core/letterPuzzle';
 import { firstLetters } from '../core/gematriaMethods';
 import { sectionQuotes } from '../core/quotes';
 import { Quote } from './Quote';
+import { useLetterHelp } from './letterHelp';
+import { neededLetters } from '../core/letterNames';
 import { displayNames } from '../core/names';
 
 /** «⏱ ≈ 1 мин · ●●○ средний»: average time and difficulty of a step (or of the whole riddle). */
@@ -52,6 +54,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
   const rt = text.riddles[ri];
   const total = lesson.riddles.length;
   const solvedRiddle = S.done.includes(ri);
+  const help = useLetterHelp();
   const [coachOpen, setCoachOpen] = useState<Record<number, boolean>>({});
   const focusId = useRef<{ id: string; select?: boolean } | null>(null);
 
@@ -141,14 +144,16 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
                 <span className="w" lang="he">
                   {w}
                 </span>
+                {help.level === 'none' && text.translit?.[w] && <span className="tr">{text.translit[w]}</span>}
                 <span className="t">{text.glossary[w] ?? ''}</span>
                 {open && (
                   <>
                     <span className="tiles">
                       {letters(w).map((c, k) => (
-                        <span key={k} className="tile">
+                        <span key={k} className="tile" title={help.title(c)}>
                           <b>{c}</b>
                           <i>{VALUES[c]}</i>
+                          <help.Name c={c} />
                         </span>
                       ))}
                     </span>
@@ -267,7 +272,11 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
                 <div className="fb ok">{t('riddle.correct', { p: x.pts ?? 0 })}</div>
               ) : x.hint && st.hint ? (
                 <div className="fb hint">
-                  {t('riddle.hintPrefix')} <HebrewRuns text={st.hint} />
+                  {t('riddle.hintPrefix')}{' '}
+                  {s.t === 'lt' && help.level === 'none' && (
+                    <>{t('letters.need', { names: neededLetters(s.from, s.take, locale) })} </>
+                  )}
+                  <HebrewRuns text={st.hint} />
                   {s.t === 'num' && s.coach && (
                     <button className="coach-toggle" aria-expanded={!!coachOpen[i]} onClick={() => setCoachOpen((o) => ({ ...o, [i]: !o[i] }))}>
                       🧮 {t(coachOpen[i] ? 'coach.hide' : 'coach.open')}

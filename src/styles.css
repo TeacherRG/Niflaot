@@ -1271,3 +1271,39 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .daily-rules summary{cursor:pointer;font-weight:600;color:var(--tchelet)}
 .m-daily{display:grid;gap:4px;text-decoration:none;color:inherit;border-color:var(--gold-line)}
 .m-daily-title{font-family:var(--f-display);font-weight:700;font-size:22px;color:var(--ink)}
+
+/* ───── letter help by Hebrew level (src/core/hebrewLevel.ts) and «Буквы за 5 минут» (#/letters) ───── */
+.ln{display:block;font-family:var(--f-body);font-size:9.5px;line-height:1.1;color:var(--muted);font-weight:400;direction:ltr;white-space:nowrap}
+.lt-tile .ln{margin-top:1px}
+.coach-letters .ln,.gtable .ln{text-align:center}
+.word .tr{display:block;font-size:13px;font-style:italic;color:var(--ink-2)}
+.hb-level{margin:0 0 14px;padding:12px 14px;border:1px solid var(--gold-line);border-radius:8px;background:var(--gold-soft)}
+.hb-level .sheet-h3{margin-top:0}
+.hb-opts{display:grid;gap:8px}
+.hb-opt{display:grid;gap:2px;text-align:start;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);cursor:pointer;font:inherit;color:var(--ink)}
+.hb-opt small{color:var(--muted);font-size:12.5px}
+.hb-opt.on{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-line)}
+.hb-cta{margin-top:10px;display:inline-block}
+.abc h1{font-family:var(--f-display);margin:18px 0 6px}
+.abc-lead{color:var(--ink-2)}
+.abc-group{margin:18px 0}
+.abc-group h2{font-size:15px;margin:0 0 8px;color:var(--ink)}
+.abc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(74px,1fr));gap:6px}
+.abc-card{display:grid;justify-items:center;gap:1px;padding:8px 4px;border:1px solid var(--gold-line);border-radius:8px;background:var(--surface)}
+.abc-card b{font-size:30px;line-height:1.1;font-family:var(--f-he)}
+.abc-name{font-size:13px;font-weight:600;direction:ltr;text-align:center}
+.abc-sound{font-size:11.5px;color:var(--muted);direction:ltr}
+.abc-card .num{font-style:normal;color:var(--gold);font-weight:600}
+.abc-alike{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.abc-pair{display:flex;justify-content:center;gap:12px;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.abc-pair span{display:grid;justify-items:center}
+.abc-pair b{font-size:26px;font-family:var(--f-he)}
+.abc-pair small{font-size:11.5px;color:var(--muted);direction:ltr;text-align:center}
+.abc-quiz{padding:14px;border:1px solid var(--gold-line);border-radius:8px;background:var(--surface)}
+.abc-n{margin:0;color:var(--muted);font-size:12.5px}
+.abc-ask{font-weight:600;margin:6px 0}
+.abc-big{font-size:54px;text-align:center;margin:4px 0;font-family:var(--f-he)}
+.abc-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.abc-opts.letters .oh{font-size:28px;font-family:var(--f-he)}
+.abc-quiz .fb{margin-top:10px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.abc-score{font-size:20px;font-weight:700;color:var(--gold)}

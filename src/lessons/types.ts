@@ -161,6 +161,8 @@ export interface LessonText {
   summary: string;
   /** translations for Hebrew word cards */
   glossary: Record<string, string>;
+  /** how the words of the word cards are read, for a player who doesn't know the letters (src/core/hebrewLevel.ts) */
+  translit?: Record<string, string>;
   riddles: RiddleText[];
   final: { title: string; allSolved: string };
   /** texts of the Memo game, when the lesson has one */

@@ -28,6 +28,17 @@ const de: LessonText = {
     'חי': 'Leben',
     'ויבן': 'und Er baute',
   },
+  translit: {
+    'פרצוף': 'parzuf',
+    'גאוה': 'gaawa',
+    'זנב': 'sanaw',
+    'תאוה': 'taawa',
+    'מסכה': 'masecha',
+    'פנים': 'panim',
+    'אשה': 'ischa',
+    'טוב': 'tow',
+    'ויבן': 'wajiwen',
+  },
   riddles: [
     {
       title: 'Das kosmische Gleichgewicht zweier Kräfte',

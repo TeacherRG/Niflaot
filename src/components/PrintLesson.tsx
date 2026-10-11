@@ -12,6 +12,7 @@ import { Icon } from './ui';
 import { asWord } from '../core/letterPuzzle';
 import { PrintMasthead } from './PrintBrand';
 import { quoteView, sectionQuotes } from '../core/quotes';
+import { letterName } from '../core/letterNames';
 import { displayNames } from '../core/names';
 
 const TABLE = Object.entries(VALUES).filter(([c]) => !'ךםןףץ'.includes(c));
@@ -144,6 +145,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
               <span key={c}>
                 <b>{c}</b>
                 <i>{v}</i>
+                <small className="ln">{letterName(c, locale)}</small>
               </span>
             ))}
           </div>

@@ -4,6 +4,7 @@ import { displayNames } from '../core/names';
 import { letters } from '../core/gematria';
 import { asWord, checkLetters, expectedTiles, phraseTiles, plainLetter } from '../core/letterPuzzle';
 import type { LettersStep, TapStep } from '../lessons/types';
+import { useLetterHelp } from './letterHelp';
 import type { StepState } from '../core/useLessonState';
 
 /**
@@ -23,6 +24,7 @@ export function LettersPuzzle({
 }) {
   const { t } = useI18n();
   const [picked, setPicked] = useState<number[]>([]);
+  const help = useLetterHelp();
   const tiles = phraseTiles(displayNames(step.from));
   const exp = expectedTiles(phraseTiles(step.from), step.take);
   const n = letters(step.a).length;
@@ -51,8 +53,10 @@ export function LettersPuzzle({
                     className={`lt-tile${used ? ' used' : ''}${mark && exp.has(tl.i) ? ' hl' : ''}`}
                     disabled={done || locked || used || picked.length >= n}
                     onClick={() => setPicked((p) => [...p, tl.i])}
+                    title={help.title(tl.c)}
                   >
                     {tl.c}
+                    <help.Name c={tl.c} />
                   </button>
                 );
               })}
@@ -102,6 +106,7 @@ export function LettersPuzzle({
 /** «Найди букву»: the word as letter tiles; a tap is an attempt. */
 export function TapPuzzle({ step, x, locked, onTap }: { step: TapStep; x: StepState; locked: boolean; onTap: (k: number) => void }) {
   const { t } = useI18n();
+  const help = useLetterHelp();
   return (
     <div className="lt-bank tap" dir="rtl" lang="he" aria-label={t('letters.word')}>
       <span className="lt-word">
@@ -114,8 +119,10 @@ export function TapPuzzle({ step, x, locked, onTap }: { step: TapStep; x: StepSt
               className={`lt-tile big${wrong ? ' wrong' : ''}${right ? ' right' : ''}`}
               disabled={x.ok || locked || wrong}
               onClick={() => onTap(k)}
+              title={help.title(c)}
             >
               {c}
+              <help.Name c={c} />
             </button>
           );
         })}
