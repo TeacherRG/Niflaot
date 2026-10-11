@@ -249,12 +249,13 @@ def section_day(books, section, a, z, st_dirs):
         en_ch = en['text'][ch - 1] if ch - 1 < len(en['text']) else []
         verse = {'b': b['slug'], 'c': ch, 'v': v,
                  'he': fs.clean(he['text'][ch - 1][v - 1], 'he'),
-                 'en': fs.clean(en_ch[v - 1], 'en') if v - 1 < len(en_ch) else ''}
+                 # the page shows the verse as plain text: no <i> (JPS italicizes «Selah», transliterations)
+                 'en': re.sub(r'</?i>', '', fs.clean(en_ch[v - 1], 'en')) if v - 1 < len(en_ch) else ''}
         s = st.get((b['slug'], ch, v))
         if not verse['en']:
             old = fs.load(book_file(b, EN_FALLBACK))['text'][ch - 1]
             if v - 1 < len(old) and old[v - 1].strip():
-                verse['en'] = fs.clean(old[v - 1], 'en')
+                verse['en'] = re.sub(r'</?i>', '', fs.clean(old[v - 1], 'en'))
                 verse['enFrom'] = 'JPS 1917'
         if s:
             verse['st'] = {'he': s['he'], 'en': s['en']}
