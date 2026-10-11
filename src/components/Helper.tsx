@@ -151,44 +151,65 @@ function LessonSources() {
   );
 }
 
-/** The helper that works without any server: gematria step by step, sources, answers to common questions. */
-export function Helper() {
+/**
+ * Gematria step by step, the lesson's sources and answers to common questions, folded:
+ * part of «Как играть» (`inHelp`) and, without the AI endpoint, the ✦ helper itself.
+ */
+export function HelperContent({ inHelp = false }: { inHelp?: boolean }) {
   const { t } = useI18n();
-  const { panel, open } = useUI();
+  const { open } = useUI();
   const page = useSyncExternalStore(subscribePageState, getPageState);
   const words = page ? [...new Set(page.lesson.riddles[Math.min(page.lvl, page.lesson.riddles.length - 1)].words)] : [];
   // a riddle without word cards (e.g. a «Нифлаот Ребе» talk): the examples
   const cards = words.length ? words : EXAMPLES;
 
   return (
+    <div className="hp-sections">
+      <details className="hp-section">
+        <summary>{t('helper.stepsTitle')}</summary>
+        <p className="sheet-note hp-lead">{t('helper.stepsLead')}</p>
+        <StepByStep words={cards} />
+      </details>
+
+      <details className="hp-section">
+        <summary>{t('sources.title')}</summary>
+        <LessonSources />
+      </details>
+
+      <details className="hp-section" open={!inHelp}>
+        <summary>{t('helper.faqTitle')}</summary>
+        <div className="hp-faq">
+          {FAQ.map((k) => (
+            <details key={k}>
+              <summary>{t(`helper.q.${k}` as MessageKey)}</summary>
+              <Html as="div" className="prose" html={t(`helper.a.${k}` as MessageKey)} />
+            </details>
+          ))}
+        </div>
+      </details>
+
+      {!inHelp && (
+        <div className="about-links">
+          <button className="btn ghost" onClick={() => open('help')}>
+            {t('help.title')}
+          </button>
+          <a className="btn ghost" href="#/math/add" onClick={() => open(null)}>
+            {t('math.title')}
+          </a>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** The ✦ helper when the AI chat is not configured: the same content in its own sheet. */
+export function Helper() {
+  const { t } = useI18n();
+  const { panel, open } = useUI();
+  return (
     <Sheet open={panel === 'assistant'} onClose={() => open(null)} title={t('helper.title')} closeLabel={t('menu.close')}>
       <p className="hp-intro">{t('helper.intro')}</p>
-
-      <h3 className="sheet-h3">{t('helper.stepsTitle')}</h3>
-      <p className="sheet-note hp-lead">{t('helper.stepsLead')}</p>
-      <StepByStep words={cards} />
-
-      <h3 className="sheet-h3">{t('sources.title')}</h3>
-      <LessonSources />
-
-      <h3 className="sheet-h3">{t('helper.faqTitle')}</h3>
-      <div className="hp-faq">
-        {FAQ.map((k) => (
-          <details key={k}>
-            <summary>{t(`helper.q.${k}` as MessageKey)}</summary>
-            <Html as="div" className="prose" html={t(`helper.a.${k}` as MessageKey)} />
-          </details>
-        ))}
-      </div>
-
-      <div className="about-links">
-        <button className="btn ghost" onClick={() => open('help')}>
-          {t('help.title')}
-        </button>
-        <a className="btn ghost" href="#/math/add" onClick={() => open(null)}>
-          {t('math.title')}
-        </a>
-      </div>
+      <HelperContent />
     </Sheet>
   );
 }

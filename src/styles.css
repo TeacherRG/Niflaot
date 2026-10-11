@@ -677,7 +677,7 @@ article.m-card{border-top:3px solid var(--gold-2)}
 .ai-form textarea{flex:1;min-width:0;resize:none;font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
 .ai-form textarea:focus{outline:2px solid var(--gold-line);border-color:var(--gold)}
 .ai-form .btn{flex:none}
-.ai-foot{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;font-size:12px;color:var(--muted)}
+.ai-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 12px;align-items:flex-start;font-size:12px;color:var(--muted)}
 .link-btn{background:none;border:0;padding:0;color:var(--tchelet);font:inherit;font-weight:600;white-space:nowrap;cursor:pointer}
 @media print{.ai-fab{display:none!important}}
 
@@ -1307,3 +1307,18 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .abc-opts.letters .oh{font-size:28px;font-family:var(--f-he)}
 .abc-quiz .fb{margin-top:10px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .abc-score{font-size:20px;font-weight:700;color:var(--gold)}
+
+/* «Учитель» — ИИ или человек */
+.teacher-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:22px 0 8px}
+.teacher-opt{display:grid;align-content:start;gap:10px;padding:22px 18px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow)}
+.teacher-opt h2{display:flex;align-items:center;gap:8px;margin:0;font-family:var(--f-display);font-size:24px}
+.teacher-opt p{margin:0;color:var(--ink-2)}
+.teacher-price{justify-self:start;padding:3px 10px;border:1px solid var(--gold-line);border-radius:999px;background:var(--gold-soft);font-size:14px;font-weight:600}
+.teacher-opt .btn{justify-self:start;margin-top:4px;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.teacher-note{font-size:14px;color:var(--muted)}
+
+/* Помощник: свёрнутые разделы (в «Как играть» и в офлайн-помощнике ✦) */
+.hp-sections{display:grid;gap:8px}
+.hp-section{border:1px solid var(--line);border-radius:8px;padding:10px 14px;background:var(--surface)}
+.hp-section>summary{font-weight:700;cursor:pointer}
+.hp-section[open]>summary{margin-bottom:10px}
