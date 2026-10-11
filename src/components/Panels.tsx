@@ -205,6 +205,10 @@ export function Panels() {
             <Icon name="spark" />
             <span>{t(ASSISTANT_URL ? 'ai.title' : 'helper.title')}</span>
           </button>
+          <a href="#/teacher" onClick={close} className="menu-item" aria-current={location.hash === '#/teacher' ? 'page' : undefined}>
+            <Icon name="user" />
+            <span>{t('teacher.title')}</span>
+          </a>
           <a href="#/partners" onClick={close} className="menu-item" aria-current={location.hash === '#/partners' ? 'page' : undefined}>
             <Icon name="heart" />
             <span>{t('partners.title')}</span>

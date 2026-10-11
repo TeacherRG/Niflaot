@@ -65,6 +65,8 @@
   на других языках — `/en/…`, `/de/…` (hreflang; язык из пути читает `src/i18n/index.tsx`); открывают `#/math/add` и
   `#/daily` (`STATIC_PAGES` в `src/core/site.ts`). Тексты — ключи `math.seo*`, `daily.seo*`; превью `og/mental-math.png`,
   `og/daily.png` (`scripts/og-images.ts`).
+- «Учитель» (`#/teacher`, `TeacherPage.tsx`, пункт меню): **ИИ-учитель** (стоимость символическая; кнопка открывает чат ✦,
+  без `ASSISTANT_URL` — офлайн-помощник; «ИИ — не раввин») и **учитель-человек** — письмо автору сайта (Office@mychitas.app).
 - `assistant/` — сервер ИИ-чата (Cloudflare Worker, Claude API); пока скрыт, включается переменной `ASSISTANT_URL`.
 
 ## Новый урок — всегда по `docs/LESSON-GUIDE.md`
