@@ -14,7 +14,7 @@
 
 1. Cloudflare → **Manage Account → Account API Tokens → Create Token** → шаблон **Edit Cloudflare Workers** → создать, скопировать.
    Account ID — на главной странице аккаунта Cloudflare (справа, «Account ID»).
-2. Ключ Claude: console.anthropic.com → **API Keys → Create Key**; там же **Limits** — месячный лимит расходов.
+2. Ключ Claude: platform.claude.com (бывший console.anthropic.com) → **API Keys → Create Key**; там же **Limits** — месячный лимит расходов.
 3. GitHub → **Settings → Secrets and variables → Actions → Secrets**: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`,
    `ANTHROPIC_API_KEY`.
 4. **Actions → Deploy AI assistant → Run workflow** (`.github/workflows/assistant.yml`). В конце шага «Deploy» —
@@ -27,7 +27,7 @@
 cd assistant
 npm install
 npx wrangler login                          # аккаунт Cloudflare (бесплатного тарифа достаточно)
-npx wrangler secret put ANTHROPIC_API_KEY   # ключ с console.anthropic.com
+npx wrangler secret put ANTHROPIC_API_KEY   # ключ с platform.claude.com (бывший console.anthropic.com)
 npx wrangler deploy                         # выдаст адрес вида https://niflaot-assistant.<аккаунт>.workers.dev
 ```
 
