@@ -29,6 +29,9 @@ applyDraft();
 installAnalytics();
 // «Установить на телефон» in the menu, when the browser can install the site
 installPrompt();
+// offline use and the daily reminder (public/sw.js); not in development, where the files change all the time
+if (import.meta.env.PROD && 'serviceWorker' in navigator)
+  addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

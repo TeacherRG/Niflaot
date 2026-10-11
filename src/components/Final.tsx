@@ -10,6 +10,7 @@ import { Puzzle } from './Puzzle';
 import { PARSHIOT } from '../lessons/parshiot';
 import { renderCard, shareOrSave } from '../core/shareCard';
 import { Subscribe } from './Subscribe';
+import { DailyReminder } from './DailyReminder';
 
 /** Concise summary of what was covered: key equations and takeaways of every solved riddle. */
 function Conspect({ lesson, text, S, onOpen }: { lesson: Lesson; text: LessonText; S: GameState; onOpen: (ri: number) => void }) {
@@ -216,6 +217,7 @@ export function Final({
         </a>
       </section>
     )}
+    <DailyReminder />
     <Subscribe />
     <a className="mychitas pop" href="https://mychitas.app" target="_blank" rel="noopener">
       <span className="mc-mark">MyChitas</span>

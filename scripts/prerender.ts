@@ -7,6 +7,8 @@
  *    dist/daily/, dist/facts/, dist/letters/ (ru) and the same under dist/en/, dist/de/ — with hreflang alternates;
  *    the app opens the trainer / the game / the feed / the letters on them;
  *  - web app manifests (install on the phone): dist/manifest.webmanifest (ru), manifest-en / manifest-de.webmanifest;
+ *  - the service worker dist/sw.js (public/sw.js with this build's version and files to keep for offline use) and
+ *    dist/daily-message.json — the daily reminder's message for the coming days (src/core/dailyMessage.ts);
  *  - dist/sitemap.xml and dist/robots.txt;
  *  - Atom feeds of the lessons: dist/feed.xml (ru), dist/feed-en.xml, dist/feed-de.xml — for readers, a newsletter
  *    and auto-posting services (links marked ?ref=rss);
@@ -14,13 +16,15 @@
  *  - Content-Security-Policy <meta> on every page (GitHub Pages can't send headers).
  * Run by `npm run build`.
  */
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { LESSONS, LESSON_GROUPS, type Lesson } from '../src/lessons';
 import { SITE_URL, lessonLink, staticPath, type StaticPage } from '../src/core/site';
 import { EXAMPLES, OPS, SIGN, answer, solve } from '../src/core/mentalMath';
 import { KEYBOARD, VALUES } from '../src/core/gematria';
 import { ALEPH_BET, FINAL_FORMS, LOOKALIKES, letterName, letterSound } from '../src/core/letterNames';
 import { NUMS, collectFacts } from '../src/core/facts';
+import { MSG_LOCALES, schedule } from '../src/core/dailyMessage';
 import { displayNames } from '../src/core/names';
 import { buildTags } from '../src/core/tags';
 import ru from '../src/i18n/locales/ru';
@@ -510,5 +514,25 @@ for (const { lang, ui } of LANGS) {
   writeFileSync(`${DIST}/manifest${lang === 'ru' ? '' : `-${lang}`}.webmanifest`, `${JSON.stringify(manifest, null, 2)}\n`);
 }
 
+/* ───── service worker and the daily message ───── */
+
+// offline: the app's code, styles and fonts, the icons and manifests (the Memo pictures are kept when first seen)
+const assets = readdirSync(`${DIST}/assets`).filter((f) => /\.(js|css|woff2)$/.test(f)).map((f) => `/assets/${f}`);
+const precache = [...assets, '/icons/icon-192.png', '/manifest.webmanifest', '/manifest-en.webmanifest', '/manifest-de.webmanifest'];
+const version = createHash('sha256').update(assets.join('\n')).update(readFileSync(`${DIST}/index.html`)).digest('hex').slice(0, 12);
+const sw = readFileSync(`${DIST}/sw.js`, 'utf8');
+if (!sw.includes("/*__VERSION__*/ 'dev'") || !sw.includes('/*__PRECACHE__*/ []')) throw new Error('public/sw.js: no build placeholders');
+writeFileSync(
+  `${DIST}/sw.js`,
+  sw.replace("/*__VERSION__*/ 'dev'", `'${version}'`).replace('/*__PRECACHE__*/ []', JSON.stringify(precache)),
+);
+// from yesterday (time zones behind UTC) for two months: the reminder keeps working if the site is not rebuilt for a while
+const yesterday = new Date(Date.now() - 864e5).toISOString().slice(0, 10);
+const days = schedule(yesterday, 62, SITE_URL);
+writeFileSync(
+  `${DIST}/daily-message.json`,
+  JSON.stringify({ updated: today, fallback: Object.fromEntries(MSG_LOCALES.map((l) => [l, LANGS.find((x) => x.lang === l)!.ui['push.fallback']])), days }),
+);
+
 writeFileSync(`${DIST}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
-console.log(`prerender: index + ${LESSONS.length} lesson pages + ${STATIC_OUT.length} math / daily / facts / letters pages, sitemap.xml, robots.txt, ${FEEDS.length} feeds, ${LANGS.length} manifests`);
+console.log(`prerender: index + ${LESSONS.length} lesson pages + ${STATIC_OUT.length} math / daily / facts / letters pages, sitemap.xml, robots.txt, ${FEEDS.length} feeds, ${LANGS.length} manifests, sw.js (${precache.length} files offline), daily messages for ${Object.keys(days).length} days`);

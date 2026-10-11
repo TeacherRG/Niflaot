@@ -9,6 +9,7 @@ import { MAX_TRIES, dailyNumber, dailyPool, dailyWord, grid, loadResults, saveRe
 import { useLetterHelp } from './letterHelp';
 import { letterName } from '../core/letterNames';
 import { GematriaSolution } from './GematriaSolution';
+import { DailyReminder } from './DailyReminder';
 
 /** time until the next local midnight */
 function useUntilMidnight() {
@@ -194,6 +195,7 @@ export function DailyCard() {
               time: `${Math.floor(untilNext / 36e5)} ${t('countdown.h')} ${Math.floor((untilNext % 36e5) / 6e4)} ${t('countdown.m')}`,
             })}
           </p>
+          <DailyReminder />
         </>
       )}
       <details className="daily-rules">

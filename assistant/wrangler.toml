@@ -15,3 +15,16 @@ namespace_id = "1001"
   [ratelimits.simple]
   limit = 20
   period = 60
+
+# The daily reminder of the site (src/push.ts): subscriptions in a Durable Object with SQLite storage (free plan),
+# sending once an hour.
+[[durable_objects.bindings]]
+name = "PUSH"
+class_name = "PushHub"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["PushHub"]
+
+[triggers]
+crons = ["1 * * * *"]

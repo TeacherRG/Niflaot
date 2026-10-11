@@ -54,6 +54,7 @@ import deUi from '../src/i18n/locales/de';
 import { GLOSSARY } from '../src/i18n/glossary';
 import { PARSHIOT } from '../src/lessons/parshiot';
 import { styleErrors } from './style-rules';
+import { MSG_LOCALES, messageFor, parshaMessages } from '../src/core/dailyMessage';
 
 const errors: string[] = [];
 const err = (m: string) => errors.push(m);
@@ -333,11 +334,49 @@ for (const w of daily) {
     if (!w.lesson.texts[loc]?.glossary[w.he]) err(`daily: «${w.he}» has no translation in glossary (${loc})`);
 }
 
+// «Сообщение дня» (src/core/dailyMessage.ts): every portion with lessons has a message for each of the six days of its
+// week, none repeats in a week, every language has a text and a link to a page of the site
+for (const p of new Set(LESSONS.map((l) => l.parsha))) {
+  const pool = parshaMessages(p);
+  if (pool.length < 6) err(`daily message: portion ${p} has ${pool.length} messages, a week needs 6`);
+  if (new Set(pool.map((m) => m.id)).size !== pool.length) err(`daily message: portion ${p} has repeated messages`);
+  for (const m of pool)
+    for (const loc of MSG_LOCALES) {
+      const x = m.text[loc];
+      if (!x.title || !x.body || !x.route) err(`daily message ${m.id}: empty text (${loc})`);
+      if (/[<>]/.test(x.body)) err(`daily message ${m.id}: markup in the text (${loc})`);
+    }
+}
+{
+  const today = new Date().toISOString().slice(0, 10);
+  const week = new Map<string, Set<string>>();
+  for (let i = 0; i < 120; i++) {
+    const date = new Date(Date.parse(`${today}T00:00:00Z`) + i * 864e5);
+    const m = messageFor(date.toISOString().slice(0, 10));
+    if (date.getUTCDay() === 6) {
+      if (m) err(`daily message on Shabbat ${date.toISOString().slice(0, 10)}`);
+      continue;
+    }
+    if (!m) {
+      err(`no daily message for ${date.toISOString().slice(0, 10)}`);
+      continue;
+    }
+    const sunday = new Date(date.getTime() - date.getUTCDay() * 864e5).toISOString().slice(0, 10);
+    const seen = week.get(sunday) ?? new Set<string>();
+    if (seen.has(m.id)) err(`daily message «${m.id}» repeats in the week of ${sunday}`);
+    seen.add(m.id);
+    week.set(sunday, seen);
+  }
+}
+
 // no browser permission prompts: the site must work for anyone without asking for the microphone, camera, location…
+// The one exception: the daily reminder — Notification.requestPermission(), only in src/core/push.ts and only when
+// the player taps «Включить напоминание».
+const PERMISSION_OK = new Set(['core/push.ts']);
 const PERMISSION_APIS =
   /\b(getUserMedia|getDisplayMedia|enumerateDevices|geolocation|getCurrentPosition|watchPosition|SpeechRecognition|requestPermission|requestMIDIAccess|DeviceOrientationEvent|DeviceMotionEvent|wakeLock|bluetooth|navigator\.usb|navigator\.serial|navigator\.hid)\b/;
 for (const f of readdirSync('src', { recursive: true }) as string[]) {
-  if (!/\.(ts|tsx)$/.test(f)) continue;
+  if (!/\.(ts|tsx)$/.test(f) || PERMISSION_OK.has(f.replace(/\\/g, '/'))) continue;
   readFileSync(`src/${f}`, 'utf8')
     .split('\n')
     .forEach((line, i) => {
@@ -352,4 +391,4 @@ if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));
   process.exit(1);
 }
-console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, memo, ${facts.length} facts, ${daily.length} daily words, safe HTML, no permission prompts, en/de style`);
+console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, memo, ${facts.length} facts, ${daily.length} daily words, safe HTML, no permission prompts, daily messages, en/de style`);

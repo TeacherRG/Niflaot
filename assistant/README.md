@@ -10,6 +10,22 @@
 разгадку, текст урока и первоисточники. Ответы нерешённых загадок на сервер не отправляются, поэтому
 помощник не может их раскрыть.
 
+## Напоминания «каждый день»
+
+Тот же сервер рассылает уведомления сайта (`src/push.ts`, `src/rules.ts`, `src/vapid.ts`):
+
+- `GET /push/key` — открытый ключ VAPID (пара ключей создаётся сама при первом запросе и хранится в Durable Object);
+- `POST /push/subscribe` `{subscription, tz, hour, lang}`, `POST /push/unsubscribe` `{endpoint}`,
+  `POST /push/test` `{endpoint}` — одно уведомление сразу (не чаще раза в минуту);
+- cron `1 * * * *` — раз в час пустой push тем, у кого наступил выбранный час; в субботу и в пятницу с 12:00 по их
+  местному времени — ничего. Текст показывает service worker сайта (`public/sw.js`) из `/daily-message.json`.
+
+Хранилище — Durable Object `PushHub` на SQLite (`[[migrations]] new_sqlite_classes` в `wrangler.toml`), доступен на
+бесплатном тарифе Workers; отдельно создавать ничего не нужно. На бесплатном тарифе — до 50 исходящих запросов за
+вызов, поэтому отправка идёт пачками по 40, остальное продолжается через alarm.
+
+Проверить локально: `npx wrangler dev --test-scheduled`, затем `curl localhost:8787/__scheduled?cron=1+*+*+*+*`.
+
 ## Запуск без терминала (GitHub Actions)
 
 1. Cloudflare → **Manage Account → Account API Tokens → Create Token** → шаблон **Edit Cloudflare Workers** → создать, скопировать.

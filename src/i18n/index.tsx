@@ -4,6 +4,7 @@ import ru, { type MessageKey, type Messages, type PluralForms } from './locales/
 import en from './locales/en';
 import de from './locales/de';
 import { STATIC_PAGES } from '../core/site';
+import { pushLanguage } from '../core/push';
 
 export { LOCALES, FALLBACK_LOCALE, isLocale, type Locale };
 
@@ -62,6 +63,8 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     document.documentElement.lang = locale;
     document.documentElement.dir = LOCALES[locale].dir;
     // «install on the phone»: the app's name and shortcuts in the same language (manifests — scripts/prerender.ts)
+    // the daily reminder in the same language (src/core/push.ts)
+    pushLanguage(locale);
     document.querySelector('link[rel="manifest"]')?.setAttribute('href', `/manifest${locale === 'ru' ? '' : `-${locale}`}.webmanifest`);
     // the language goes into the address (?lang=ru): the browser's «listen to this page» and a shared link open the
     // page anew, without this browser's settings — and must get it in the same language

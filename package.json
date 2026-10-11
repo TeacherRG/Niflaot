@@ -10,7 +10,7 @@
     "build": "tsc --noEmit && vite build && tsx scripts/prerender.ts",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "check": "tsx scripts/check-lessons.ts"
+    "check": "tsx scripts/check-lessons.ts && tsx scripts/check-push.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
