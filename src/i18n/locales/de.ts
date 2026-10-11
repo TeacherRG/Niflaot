@@ -7,7 +7,7 @@ const de: Messages = {
 
   'menu.open': 'Menü öffnen',
   'menu.close': 'Schließen',
-  'menu.lessons': 'Lektionen',
+  'menu.lessons': 'Tora',
   'menu.home': 'Startseite',
   'menu.learn': 'Spielen & lernen',
   'rebbe.title': 'Niflaot des Rebben',
@@ -642,6 +642,33 @@ const de: Messages = {
   'footer.contact': 'Fragen und Vorschläge',
   'footer.donate': 'Das Projekt unterstützen',
   'footer.fine': '© mychitas.app · Texte: Rabbi Jizchak Ginsburgh, Baal HaTurim, der Lubawitscher Rebbe',
+
+  // «Пророки» и «Писания» (src/components/TanakhPage.tsx)
+  'tanakh.torah': 'Tora',
+  'tanakh.neviim': 'Propheten',
+  'tanakh.ketuvim': 'Schriften',
+  'tanakh.torahSub': 'Wochenabschnitt: Lektionen und Spiele',
+  'tanakh.daySub': 'Abschnitt des Tages',
+  'tanakh.today': 'Heute',
+  'tanakh.nextReading': 'Nächste Lesung',
+  'tanakh.restToday': 'Heute gibt es keine Lesung – Schabbat oder Feiertag. Hier ist der nächste Abschnitt.',
+  'tanakh.day': 'Tag {n} von {total}',
+  'tanakh.chapter': 'Kapitel {n}',
+  'tanakh.navLabel': 'Tage des Zyklus',
+  'tanakh.steinsaltz': 'Rabbi Adin Steinsaltz',
+  'tanakh.steinsaltzShort': 'Rabbi Steinsaltz',
+  'tanakh.mode.both': 'Hebräisch und Englisch',
+  'tanakh.mode.en': 'Englisch',
+  'tanakh.mode.he': 'Hebräisch',
+  'tanakh.mode.off': 'ausblenden',
+  'tanakh.enOnly': 'Übersetzung und Erklärungen sind vorerst auf Englisch – die deutsche Übersetzung kommt später.',
+  'tanakh.loading': 'Der Text wird geladen…',
+  'tanakh.notReady': 'Der Text für diesen Tag wird noch vorbereitet – schau später wieder vorbei.',
+  'tanakh.sourceHe': 'Hebräisch',
+  'tanakh.sourceEn': 'Übersetzung',
+  'tanakh.onSefaria': 'Auf Sefaria öffnen',
+  'tanakh.cycle': 'Ein Zyklus von drei Jahren: Propheten und Schriften nebeneinander, jeden Tag ein Stück, außer an Schabbat und Feiertagen – beide enden am selben Tag. {start} – {end}, {days} Lerntage.',
+  'tanakh.sections': 'Die drei Teile des Tanach',
 };
 
 export default de;

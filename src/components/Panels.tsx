@@ -1,4 +1,4 @@
-import { Suspense, lazy, useSyncExternalStore } from 'react';
+import { Suspense, lazy, useSyncExternalStore, Fragment } from 'react';
 import { Html, useI18n } from '../i18n';
 import { LESSON_GROUPS, findLesson } from '../lessons';
 import { VALUES } from '../core/gematria';
@@ -164,6 +164,19 @@ export function Panels() {
                 )}
               </div>
             </details>
+          ))}
+          {/* «Пророки» и «Писания»: the passage of the day of the three-year cycle */}
+          {(['neviim', 'ketuvim'] as const).map((sec) => (
+            <Fragment key={sec}>
+              <div className="menu-lbl">{t(`tanakh.${sec}`)}</div>
+              <a href={`#/${sec}`} onClick={close} className="menu-item" aria-current={location.hash.startsWith(`#/${sec}`) ? 'page' : undefined}>
+                <Icon name="book" />
+                <span>
+                  {t('tanakh.daySub')}
+                  <small lang="he">{sec === 'neviim' ? 'נביאים' : 'כתובים'}</small>
+                </span>
+              </a>
+            </Fragment>
           ))}
           {lessonSlug && (
             <a href={`#/${lessonSlug}/print`} onClick={close} className="menu-item">

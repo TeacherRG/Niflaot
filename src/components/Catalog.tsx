@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
 import { LESSONS, LESSON_GROUPS, type Lesson } from '../lessons';
 import { TEACHERS, teacherOf } from '../lessons/teachers';
@@ -76,6 +76,50 @@ function DailyLink() {
   );
 }
 
+/**
+ * The three parts of Tanach: Torah — the lessons of the week's portion (below), Prophets and Writings — today's passage
+ * of the three-year cycle (#/neviim, #/ketuvim). The cycle's data loads after the first screen.
+ */
+function TanakhSections({ week }: { week: string }) {
+  const { t, locale } = useI18n();
+  const [today, setToday] = useState<{ neviim: string; ketuvim: string; next: boolean } | null>(null);
+  useEffect(() => {
+    let live = true;
+    Promise.all([import('../core/tanakh'), import('../core/tanakhCycle')]).then(([tk, cy]) => {
+      const { index, exact } = tk.cycleDayFor(tk.localToday());
+      const day = tk.CYCLE[index];
+      const lang = locale === 'en' || locale === 'de' ? locale : 'ru';
+      if (live) setToday({ neviim: cy.rangeLabel('neviim', day.neviim, lang), ketuvim: cy.rangeLabel('ketuvim', day.ketuvim, lang), next: !exact });
+    });
+    return () => {
+      live = false;
+    };
+  }, [locale]);
+  const sub = today?.next ? t('tanakh.nextReading') : t('tanakh.daySub');
+  return (
+    <nav className="h-three" aria-label={t('tanakh.sections')}>
+      <button type="button" className="h-part t-gold" onClick={() => document.getElementById('h-week')?.scrollIntoView({ behavior: 'smooth' })}>
+        <span className="h-part-he he" lang="he">
+          תורה
+        </span>
+        <span className="h-part-title">{t('tanakh.torah')}</span>
+        <span className="h-part-sub">{t('tanakh.torahSub')}</span>
+        <span className="h-part-ref">{week}</span>
+      </button>
+      {(['neviim', 'ketuvim'] as const).map((s) => (
+        <a key={s} className={`h-part ${s === 'neviim' ? 't-tchelet' : 't-green'}`} href={`#/${s}`}>
+          <span className="h-part-he he" lang="he">
+            {s === 'neviim' ? 'נביאים' : 'כתובים'}
+          </span>
+          <span className="h-part-title">{t(`tanakh.${s}`)}</span>
+          <span className="h-part-sub">{sub}</span>
+          <span className="h-part-ref">{today ? today[s] : '…'} →</span>
+        </a>
+      ))}
+    </nav>
+  );
+}
+
 export function Catalog() {
   const { t, pick, locale } = useI18n();
 
@@ -137,9 +181,11 @@ export function Catalog() {
             </div>
           </section>
 
+          <TanakhSections week={week.name[locale as keyof typeof week.name] ?? week.name.ru} />
+
           <section className="h-section" aria-labelledby="h-week">
             <h2 id="h-week">
-              {t('home.week')} · {week.name[locale as keyof typeof week.name] ?? week.name.ru}{' '}
+              {t('tanakh.torah')} · {t('home.week')} · {week.name[locale as keyof typeof week.name] ?? week.name.ru}{' '}
               <span className="he" lang="he">
                 {week.he}
               </span>
