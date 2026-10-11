@@ -26,6 +26,7 @@ const de: Messages = {
   'help.table': 'Zahlenwerte der Buchstaben',
   'help.finals': 'Die Endbuchstaben ך ם ן ף ץ haben dieselben Werte wie die gewöhnlichen.',
   'help.names': 'Aus Achtung vor dem Namen G-ttes schreiben wir auf dem Bildschirm und im Druck אלקים statt der vollen Schreibweise. Die Gematria wird nach der wirklichen Schreibweise berechnet.',
+  'help.more': "Mehr Hilfe",
   'help.go': 'Verstanden, los geht’s',
 
   'about.title': 'Über das Projekt',
@@ -506,6 +507,7 @@ const de: Messages = {
   'ai.placeholder': 'Deine Frage…',
   'ai.send': 'Fragen',
   'ai.stop': 'Stopp',
+  'ai.faq': "Häufige Fragen und Gematria Schritt für Schritt",
   'ai.clear': 'Neu beginnen',
   'ai.thinking': 'Der Assistent schreibt…',
   'ai.note': 'KI kann sich irren — prüfe es an der Lektion und den Quellen. Fragen werden an Anthropic (Claude) gesendet.',

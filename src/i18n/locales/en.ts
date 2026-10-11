@@ -26,6 +26,7 @@ const en: Messages = {
   'help.table': 'Letter values',
   'help.finals': 'Final letters ך ם ן ף ץ have the same values as regular ones.',
   'help.names': 'Out of respect for G-d’s Name, on screen and in print we write אלקים instead of the full spelling. Gematria is computed from the real spelling.',
+  'help.more': "More help",
   'help.go': 'Got it, let’s play',
 
   'about.title': 'About the project',
@@ -506,6 +507,7 @@ const en: Messages = {
   'ai.placeholder': 'Your question…',
   'ai.send': 'Ask',
   'ai.stop': 'Stop',
+  'ai.faq': "Common questions and gematria step by step",
   'ai.clear': 'Start over',
   'ai.thinking': 'The assistant is typing…',
   'ai.note': 'AI can make mistakes — check against the lesson and the sources. Questions are sent to Anthropic (Claude).',
