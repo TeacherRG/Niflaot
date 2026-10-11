@@ -85,19 +85,19 @@ const de: LessonText = {
         },
         {
           h: 'Die Welt wurde an Rosch Haschana erschaffen',
-          b: `<p>Der Baal HaTurim schreibt: „<b>Bereschit bara</b> — in Gematria: <b>an Rosch Haschana erschaffen</b> (die Welt).“<sup data-src="bht-1-1"></sup> <span class="he">בראשית</span> = 913, <span class="he">ברא</span> = 203, zusammen 1116. Und <span class="he">בראש</span> (503) + <span class="he">השנה</span> (360) + <span class="he">נברא</span> (253) ergibt ebenfalls 1116.</p><p>Die allerersten Worte der Tora sprechen von dem Tag, an dem die Welt begann: vom Haupt des Jahres.</p>`,
+          b: `<p>Der Baal HaTurim schreibt: „<b>Bereschit bara</b> — in Gematria: <b>an Rosch Haschana erschaffen</b> (die Welt).“<sup data-src="bht-1-1"></sup> <span class="he">בראשית</span> = 913, <span class="he">ברא</span> = 203, zusammen 1116. Und <span class="he">בראש</span> (503) + <span class="he">השנה</span> (360) + <span class="he">נברא</span> (253) ergibt ebenfalls 1116.</p><p class="expl"><b>Erklärung.</b> Die allerersten Worte der Tora sprechen von dem Tag, an dem die Welt begann: vom Haupt des Jahres.</p>`,
         },
         {
           h: '„Bereschit“ — um der Tora und Israels willen',
-          b: `<p>Weiter liest der Baal HaTurim <span class="he">בראשית</span> als Notarikon — sechs Buchstaben, sechs Wörter: <span class="he">בראשונה ראה אלקים שיקבלו ישראל תורה</span> — „<b>vor allem sah G-tt, dass Israel die Tora annehmen wird</b>“.</p><p>Noch bevor Er Himmel und Erde erschuf, „sah“ der Allmächtige das Ziel der Schöpfung: ein Volk, das die Tora annehmen wird.</p>`,
+          b: `<p>Weiter liest der Baal HaTurim <span class="he">בראשית</span> als Notarikon — sechs Buchstaben, sechs Wörter: <span class="he">בראשונה ראה אלקים שיקבלו ישראל תורה</span> — „<b>vor allem sah G-tt, dass Israel die Tora annehmen wird</b>“.<sup data-src="bht-1-1"></sup></p><p class="expl"><b>Erklärung.</b> Noch bevor Er Himmel und Erde erschuf, „sah“ der Allmächtige das Ziel der Schöpfung: ein Volk, das die Tora annehmen wird.</p>`,
         },
         {
           h: 'Das Siegel der Wahrheit',
-          b: `<p>Die Endbuchstaben von <span class="he">בראשית ברא אלקים</span> — <span class="he">ת</span>, <span class="he">א</span>, <span class="he">ם</span> — bilden das Wort <span class="he">אמת</span>, „Wahrheit“. Das lehrt, sagt der Baal HaTurim, dass der Allmächtige die Welt mit Wahrheit erschuf, wie es heißt: „Der Anfang Deines Wortes ist Wahrheit.“<sup data-src="ps-119-160"></sup> „Und so gibt es viele Verse, deren Endbuchstaben <span class="he">אמת</span> ergeben.“</p><p>Der Anfang von G-ttes Wort — der erste Vers der Tora — trägt an seinem „Ende“ das Siegel der Wahrheit.</p>`,
+          b: `<p>Die Endbuchstaben von <span class="he">בראשית ברא אלקים</span> — <span class="he">ת</span>, <span class="he">א</span>, <span class="he">ם</span> — bilden das Wort <span class="he">אמת</span>, „Wahrheit“. Das lehrt, sagt der Baal HaTurim, dass der Allmächtige die Welt mit Wahrheit erschuf, wie es heißt: „Der Anfang Deines Wortes ist Wahrheit.“<sup data-src="ps-119-160"></sup> „Und so gibt es viele Verse, deren Endbuchstaben <span class="he">אמת</span> ergeben.“<sup data-src="bht-1-1"></sup></p><p class="expl"><b>Erklärung.</b> Der Anfang von G-ttes Wort — der erste Vers der Tora — trägt an seinem „Ende“ das Siegel der Wahrheit.</p>`,
         },
         {
           h: 'Der Geist des Moschiach',
-          b: `<p>Zum zweiten Vers — „und der Geist G-ttes schwebte über den Wassern“ — schreibt der Baal HaTurim: Die Worte <span class="he">ורוח אלקים מרחפת</span> entsprechen in Gematria <span class="he">זו רוחו של משיח</span>, „das ist der Geist des Moschiach“.<sup data-src="bht-1-2"></sup> Schon im zweiten Vers der Tora, über den Urwassern, schwebt der Geist der künftigen Erlösung.</p><p>Ehrlich gesagt: In unserer Rechnung stimmen die Zahlen nicht überein (1034 und 921) — vielleicht hatte der Baal HaTurim eine andere Schreibweise der Wörter. Darum ist diese Gematria nicht Teil der Rätsel.</p>`,
+          b: `<p>Zum zweiten Vers — „und der Geist G-ttes schwebte über den Wassern“ — schreibt der Baal HaTurim: Die Worte <span class="he">ורוח אלקים מרחפת</span> entsprechen in Gematria <span class="he">זו רוחו של משיח</span>, „das ist der Geist des Moschiach“.<sup data-src="bht-1-2"></sup></p><p class="expl"><b>Erklärung.</b> Schon im zweiten Vers der Tora, über den Urwassern, schwebt der Geist der künftigen Erlösung.</p><p class="expl"><b>Erklärung.</b> Ehrlich gesagt: In unserer Rechnung stimmen die Zahlen nicht überein (1034 und 921) — vielleicht hatte der Baal HaTurim eine andere Schreibweise der Wörter. Darum ist diese Gematria nicht Teil der Rätsel.</p>`,
         },
         {
           h: 'Um Awrahams willen',
@@ -138,15 +138,15 @@ const de: LessonText = {
       lessons: [
         {
           h: 'Das Licht ist in der Tora',
-          b: `<p>Der Baal HaTurim: „<span class="he">את האור</span> — seine Gematria ist <span class="he">בתורה</span>, und es ergibt <span class="he">תרי״ג</span>“, 613.<sup data-src="bht-1-4"></sup> <span class="he">את</span> (401) + <span class="he">האור</span> (212) = 613; <span class="he">בתורה</span> = 2 + 611 = 613. Das Licht des ersten Tages ist das Licht der Tora mit ihren 613 Geboten.</p><p>Beachte: Das Wort „Tora“ (<span class="he">תורה</span>) ergibt 611, „in der Tora“ aber 613. Das Licht ist nicht die Tora „irgendwo“, sondern das, was in ihr ist.</p>`,
+          b: `<p>Der Baal HaTurim: „<span class="he">את האור</span> — seine Gematria ist <span class="he">בתורה</span>, und es ergibt <span class="he">תרי״ג</span>“, 613.<sup data-src="bht-1-4"></sup> <span class="he">את</span> (401) + <span class="he">האור</span> (212) = 613; <span class="he">בתורה</span> = 2 + 611 = 613.</p><p class="expl"><b>Erklärung.</b> Das Licht des ersten Tages ist das Licht der Tora mit ihren 613 Geboten.</p><p class="expl"><b>Erklärung.</b> Beachte: Das Wort „Tora“ (<span class="he">תורה</span>) ergibt 611, „in der Tora“ aber 613. Das Licht ist nicht die Tora „irgendwo“, sondern das, was in ihr ist.</p>`,
         },
         {
           h: 'Der Bund',
-          b: `<p>Die Endbuchstaben von <span class="he">את האור כי טוב</span> — <span class="he">ת</span>, <span class="he">ר</span>, <span class="he">י</span>, <span class="he">ב</span> — bilden das Wort <span class="he">ברית</span>, „Bund“. Das Licht, über das der Allmächtige „gut“ sagte, ist Sein Bund mit der Schöpfung.</p>`,
+          b: `<p>Die Endbuchstaben von <span class="he">את האור כי טוב</span> — <span class="he">ת</span>, <span class="he">ר</span>, <span class="he">י</span>, <span class="he">ב</span> — bilden das Wort <span class="he">ברית</span>, „Bund“.<sup data-src="bht-1-4"></sup></p><p class="expl"><b>Erklärung.</b> Das Licht, über das der Allmächtige „gut“ sagte, ist Sein Bund mit der Schöpfung.</p>`,
         },
         {
           h: 'Hawdala: zuerst Nutzen vom Licht',
-          b: `<p>„Und G-tt sah das Licht, dass es gut war — und schied.“ Zuerst „sah, dass es gut war“, erst dann „schied“. Daraus, sagt der Baal HaTurim, lernen wir, dass man den Segen über die Kerze (bei der Hawdala) erst spricht, wenn man ihr Licht genutzt hat. So sagt die Mischna: „Man segnet nicht über die Kerze, bis man ihr Licht genießt.“<sup data-src="berakhot-51b"></sup></p><p>Und weiter: <span class="he">ויבדל</span> = 6 + 10 + 2 + 4 + 30 = 52 — so oft im Jahr „scheiden“ wir (machen Hawdala) am Ausgang des Schabbats: Ein Jahr hat 52 Wochen.</p>`,
+          b: `<p>„Und G-tt sah das Licht, dass es gut war — und schied.“ Zuerst „sah, dass es gut war“, erst dann „schied“. Daraus, sagt der Baal HaTurim, lernen wir, dass man den Segen über die Kerze (bei der Hawdala) erst spricht, wenn man ihr Licht genutzt hat. So sagt die Mischna: „Man segnet nicht über die Kerze, bis man ihr Licht genießt.“<sup data-src="berakhot-51b"></sup><sup data-src="bht-1-4"></sup></p><p>Und weiter: <span class="he">ויבדל</span> = 6 + 10 + 2 + 4 + 30 = 52 — so oft im Jahr „scheiden“ wir (machen Hawdala) am Ausgang des Schabbats: Ein Jahr hat 52 Wochen.</p>`,
         },
         {
           h: 'Über dem Himmelsgewölbe — ein Geheimnis',
@@ -210,11 +210,11 @@ const de: LessonText = {
         },
         {
           h: 'Siegel und Seele',
-          b: `<p>Die Endbuchstaben von <span class="he">ויפח באפיו נשמת חיים</span> — <span class="he">ח</span>, <span class="he">ו</span>, <span class="he">ת</span>, <span class="he">ם</span> — bilden <span class="he">חותם</span>, „Siegel“: Die Seele, die der Allmächtige dem Menschen einhauchte, ist Sein Siegel.</p><p>Das Wort <span class="he">נשמת</span> („Hauch“, „Seele“) kommt laut der Massora viermal vor: „und blies in seine Nase den <i>Hauch</i> des Lebens“; „alles, was den <i>Hauch</i> des Lebensgeistes hatte“ (bei der Sintflut); „eine Leuchte des Ewigen ist die <i>Seele</i> des Menschen“<sup data-src="prov-20-27"></sup>; „der <i>Hauch</i> des Ewigen wie ein Schwefelstrom“. Der Baal HaTurim verbindet sie: Die Seele des Menschen ist eine Leuchte des Ewigen, „und wenn nicht“ — wird der Hauch des Ewigen zu einem Schwefelstrom.</p>`,
+          b: `<p>Die Endbuchstaben von <span class="he">ויפח באפיו נשמת חיים</span> — <span class="he">ח</span>, <span class="he">ו</span>, <span class="he">ת</span>, <span class="he">ם</span> — bilden <span class="he">חותם</span>, „Siegel“.<sup data-src="bht-2-7"></sup></p><p class="expl"><b>Erklärung.</b> Die Seele, die der Allmächtige dem Menschen einhauchte, ist Sein Siegel.</p><p>Das Wort <span class="he">נשמת</span> („Hauch“, „Seele“) kommt laut der Massora viermal vor: „und blies in seine Nase den <i>Hauch</i> des Lebens“; „alles, was den <i>Hauch</i> des Lebensgeistes hatte“ (bei der Sintflut); „eine Leuchte des Ewigen ist die <i>Seele</i> des Menschen“<sup data-src="prov-20-27"></sup>; „der <i>Hauch</i> des Ewigen wie ein Schwefelstrom“. Der Baal HaTurim verbindet sie: Die Seele des Menschen ist eine Leuchte des Ewigen, „und wenn nicht“ — wird der Hauch des Ewigen zu einem Schwefelstrom.</p>`,
         },
         {
           h: 'Die Challa der Welt',
-          b: `<p>Die Anfangsbuchstaben von <span class="he">האדם לנפש חיה</span> — <span class="he">ה</span>, <span class="he">ל</span>, <span class="he">ח</span> — sind <span class="he">חלה</span>, Challa: Adam war die „Challa der Welt“. Wie die Challa der erste Teil des Teiges ist, der für den Allmächtigen abgesondert wird, so ist der Mensch der erlesenste, heilige Teil der ganzen Schöpfung.</p>`,
+          b: `<p>Die Anfangsbuchstaben von <span class="he">האדם לנפש חיה</span> — <span class="he">ה</span>, <span class="he">ל</span>, <span class="he">ח</span> — sind <span class="he">חלה</span>, Challa: Adam war die „Challa der Welt“.<sup data-src="bht-2-7"></sup></p><p class="expl"><b>Erklärung.</b> Wie die Challa der erste Teil des Teiges ist, der für den Allmächtigen abgesondert wird, so ist der Mensch der erlesenste, heilige Teil der ganzen Schöpfung.</p>`,
         },
         {
           h: 'Vierundzwanzig Schmuckstücke',
@@ -277,7 +277,7 @@ const de: LessonText = {
         },
         {
           h: 'Alle Siebten sind geliebt',
-          b: `<p>Warum wählte der Allmächtige Chanoch? Weil er die <b>siebte Generation</b> war: Adam, Schet, Enosch, Kenan, Mahalalel, Jered, Chanoch. Und der Heilige, gelobt sei Er, liebt die Siebten.</p><p>So war auch Mosche der Siebte von den Vätern an: Awraham, Jizchak, Jaakow, Levi, Kehat, Amram, Mosche. Und von ihm steht geschrieben: „Und Mosche stieg hinauf zu G-tt.“<sup data-src="ex-19-3"></sup> Der siebte Tag ist der Schabbat, die siebte Generation ist Chanoch, der Siebte nach Awraham ist Mosche: Die Siebten steigen zum Allmächtigen hinauf.</p>`,
+          b: `<p>Warum wählte der Allmächtige Chanoch? Weil er die <b>siebte Generation</b> war: Adam, Schet, Enosch, Kenan, Mahalalel, Jered, Chanoch. Und der Heilige, gelobt sei Er, liebt die Siebten.<sup data-src="bht-4-18"></sup></p><p>So war auch Mosche der Siebte von den Vätern an: Awraham, Jizchak, Jaakow, Levi, Kehat, Amram, Mosche. Und von ihm steht geschrieben: „Und Mosche stieg hinauf zu G-tt.“<sup data-src="ex-19-3"></sup></p><p class="expl"><b>Erklärung.</b> Der siebte Tag ist der Schabbat, die siebte Generation ist Chanoch, der Siebte nach Awraham ist Mosche: Die Siebten steigen zum Allmächtigen hinauf.</p>`,
         },
       ],
       reflection: 'Was in meiner Woche ist das „Siebte“, das der Allmächtige liebt? Wie kann ich ihm ein wenig „vom Alltäglichen“ hinzufügen — es früher empfangen und später verabschieden?',

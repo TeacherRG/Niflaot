@@ -85,19 +85,19 @@ const en: LessonText = {
         },
         {
           h: 'The world was created on Rosh Hashanah',
-          b: `<p>The Baal HaTurim writes: “<b>Bereishit bara</b> — in gematria: <b>created on Rosh Hashanah</b> (the world).”<sup data-src="bht-1-1"></sup> <span class="he">בראשית</span> = 913, <span class="he">ברא</span> = 203, together 1116. And <span class="he">בראש</span> (503) + <span class="he">השנה</span> (360) + <span class="he">נברא</span> (253) is also 1116.</p><p>The Torah’s very first words speak of the day on which the world began: the head of the year.</p>`,
+          b: `<p>The Baal HaTurim writes: “<b>Bereishit bara</b> — in gematria: <b>created on Rosh Hashanah</b> (the world).”<sup data-src="bht-1-1"></sup> <span class="he">בראשית</span> = 913, <span class="he">ברא</span> = 203, together 1116. And <span class="he">בראש</span> (503) + <span class="he">השנה</span> (360) + <span class="he">נברא</span> (253) is also 1116.</p><p class="expl"><b>Explanation.</b> The Torah’s very first words speak of the day on which the world began: the head of the year.</p>`,
         },
         {
           h: '“Bereishit” — for the sake of the Torah and Israel',
-          b: `<p>Next the Baal HaTurim reads <span class="he">בראשית</span> as a notarikon — six letters, six words: <span class="he">בראשונה ראה אלקים שיקבלו ישראל תורה</span> — “<b>first of all G-d saw that Israel would accept the Torah</b>”.</p><p>Even before creating heaven and earth, the Almighty “saw” the purpose of creation: a people that would accept the Torah.</p>`,
+          b: `<p>Next the Baal HaTurim reads <span class="he">בראשית</span> as a notarikon — six letters, six words: <span class="he">בראשונה ראה אלקים שיקבלו ישראל תורה</span> — “<b>first of all G-d saw that Israel would accept the Torah</b>”.<sup data-src="bht-1-1"></sup></p><p class="expl"><b>Explanation.</b> Even before creating heaven and earth, the Almighty “saw” the purpose of creation: a people that would accept the Torah.</p>`,
         },
         {
           h: 'The seal of truth',
-          b: `<p>The last letters of <span class="he">בראשית ברא אלקים</span> — <span class="he">ת</span>, <span class="he">א</span>, <span class="he">ם</span> — form the word <span class="he">אמת</span>, “truth”. This teaches, says the Baal HaTurim, that the Almighty created the world with truth, as it is said: “The beginning of Your word is truth.”<sup data-src="ps-119-160"></sup> “And so there are many verses whose last letters form <span class="he">אמת</span>.”</p><p>The beginning of G-d’s word — the first verse of the Torah — carries the seal of truth at its “end”.</p>`,
+          b: `<p>The last letters of <span class="he">בראשית ברא אלקים</span> — <span class="he">ת</span>, <span class="he">א</span>, <span class="he">ם</span> — form the word <span class="he">אמת</span>, “truth”. This teaches, says the Baal HaTurim, that the Almighty created the world with truth, as it is said: “The beginning of Your word is truth.”<sup data-src="ps-119-160"></sup> “And so there are many verses whose last letters form <span class="he">אמת</span>.”<sup data-src="bht-1-1"></sup></p><p class="expl"><b>Explanation.</b> The beginning of G-d’s word — the first verse of the Torah — carries the seal of truth at its “end”.</p>`,
         },
         {
           h: 'The spirit of Moshiach',
-          b: `<p>On the second verse — “and the spirit of G-d hovered over the waters” — the Baal HaTurim writes that the words <span class="he">ורוח אלקים מרחפת</span> equal in gematria <span class="he">זו רוחו של משיח</span>, “this is the spirit of Moshiach”.<sup data-src="bht-1-2"></sup> Already in the Torah’s second verse, over the primordial waters, hovers the spirit of the future redemption.</p><p>To be honest: in our count the numbers differ (1034 and 921) — perhaps the Baal HaTurim had a different spelling of the words. That is why this gematria is not part of the riddles.</p>`,
+          b: `<p>On the second verse — “and the spirit of G-d hovered over the waters” — the Baal HaTurim writes that the words <span class="he">ורוח אלקים מרחפת</span> equal in gematria <span class="he">זו רוחו של משיח</span>, “this is the spirit of Moshiach”.<sup data-src="bht-1-2"></sup></p><p class="expl"><b>Explanation.</b> Already in the Torah’s second verse, over the primordial waters, hovers the spirit of the future redemption.</p><p class="expl"><b>Explanation.</b> To be honest: in our count the numbers differ (1034 and 921) — perhaps the Baal HaTurim had a different spelling of the words. That is why this gematria is not part of the riddles.</p>`,
         },
         {
           h: 'For the sake of Avraham',
@@ -138,15 +138,15 @@ const en: LessonText = {
       lessons: [
         {
           h: 'The light is in the Torah',
-          b: `<p>The Baal HaTurim: “<span class="he">את האור</span> — its gematria is <span class="he">בתורה</span>, and it amounts to <span class="he">תרי״ג</span>”, 613.<sup data-src="bht-1-4"></sup> <span class="he">את</span> (401) + <span class="he">האור</span> (212) = 613; <span class="he">בתורה</span> = 2 + 611 = 613. The light of the first day is the light of the Torah with its 613 commandments.</p><p>Note: the word “Torah” (<span class="he">תורה</span>) is 611, while “in the Torah” is 613. The light is not the Torah “somewhere”, but what is inside it.</p>`,
+          b: `<p>The Baal HaTurim: “<span class="he">את האור</span> — its gematria is <span class="he">בתורה</span>, and it amounts to <span class="he">תרי״ג</span>”, 613.<sup data-src="bht-1-4"></sup> <span class="he">את</span> (401) + <span class="he">האור</span> (212) = 613; <span class="he">בתורה</span> = 2 + 611 = 613.</p><p class="expl"><b>Explanation.</b> The light of the first day is the light of the Torah with its 613 commandments.</p><p class="expl"><b>Explanation.</b> Note: the word “Torah” (<span class="he">תורה</span>) is 611, while “in the Torah” is 613. The light is not the Torah “somewhere”, but what is inside it.</p>`,
         },
         {
           h: 'The covenant',
-          b: `<p>The last letters of <span class="he">את האור כי טוב</span> — <span class="he">ת</span>, <span class="he">ר</span>, <span class="he">י</span>, <span class="he">ב</span> — form the word <span class="he">ברית</span>, “covenant”. The light about which the Almighty said “good” is His covenant with creation.</p>`,
+          b: `<p>The last letters of <span class="he">את האור כי טוב</span> — <span class="he">ת</span>, <span class="he">ר</span>, <span class="he">י</span>, <span class="he">ב</span> — form the word <span class="he">ברית</span>, “covenant”.<sup data-src="bht-1-4"></sup></p><p class="expl"><b>Explanation.</b> The light about which the Almighty said “good” is His covenant with creation.</p>`,
         },
         {
           h: 'Havdalah: first benefit from the light',
-          b: `<p>“And G-d saw the light, that it was good — and divided.” First “saw that it was good”, and only then “divided”. From here, says the Baal HaTurim, we learn that one does not bless the candle (at Havdalah) until one has benefited from its light. So the Mishnah says: “One does not recite the blessing over the candle until one benefits from its light.”<sup data-src="berakhot-51b"></sup></p><p>And more: <span class="he">ויבדל</span> = 6 + 10 + 2 + 4 + 30 = 52 — the number of times a year we “divide” (make Havdalah) at the end of Shabbat: a year has 52 weeks.</p>`,
+          b: `<p>“And G-d saw the light, that it was good — and divided.” First “saw that it was good”, and only then “divided”. From here, says the Baal HaTurim, we learn that one does not bless the candle (at Havdalah) until one has benefited from its light. So the Mishnah says: “One does not recite the blessing over the candle until one benefits from its light.”<sup data-src="berakhot-51b"></sup><sup data-src="bht-1-4"></sup></p><p>And more: <span class="he">ויבדל</span> = 6 + 10 + 2 + 4 + 30 = 52 — the number of times a year we “divide” (make Havdalah) at the end of Shabbat: a year has 52 weeks.</p>`,
         },
         {
           h: 'Above the firmament — a secret',
@@ -210,11 +210,11 @@ const en: LessonText = {
         },
         {
           h: 'Seal and soul',
-          b: `<p>The last letters of <span class="he">ויפח באפיו נשמת חיים</span> — <span class="he">ח</span>, <span class="he">ו</span>, <span class="he">ת</span>, <span class="he">ם</span> — form <span class="he">חותם</span>, “seal”: the soul the Almighty breathed into man is His seal.</p><p>The word <span class="he">נשמת</span> (“breath”, “soul”) appears four times according to the Masorah: “and breathed into his nostrils the <i>breath</i> of life”; “all in whose nostrils was the <i>breath</i> of the spirit of life” (of the Flood); “the <i>soul</i> of man is the lamp of the L-rd”<sup data-src="prov-20-27"></sup>; “the <i>breath</i> of the L-rd, like a stream of brimstone”. The Baal HaTurim links them: the soul of man is the lamp of the L-rd, “and if not” — the breath of the L-rd becomes a stream of brimstone.</p>`,
+          b: `<p>The last letters of <span class="he">ויפח באפיו נשמת חיים</span> — <span class="he">ח</span>, <span class="he">ו</span>, <span class="he">ת</span>, <span class="he">ם</span> — form <span class="he">חותם</span>, “seal”.<sup data-src="bht-2-7"></sup></p><p class="expl"><b>Explanation.</b> The soul the Almighty breathed into man is His seal.</p><p>The word <span class="he">נשמת</span> (“breath”, “soul”) appears four times according to the Masorah: “and breathed into his nostrils the <i>breath</i> of life”; “all in whose nostrils was the <i>breath</i> of the spirit of life” (of the Flood); “the <i>soul</i> of man is the lamp of the L-rd”<sup data-src="prov-20-27"></sup>; “the <i>breath</i> of the L-rd, like a stream of brimstone”. The Baal HaTurim links them: the soul of man is the lamp of the L-rd, “and if not” — the breath of the L-rd becomes a stream of brimstone.</p>`,
         },
         {
           h: 'The challah of the world',
-          b: `<p>The first letters of <span class="he">האדם לנפש חיה</span> — <span class="he">ה</span>, <span class="he">ל</span>, <span class="he">ח</span> — are <span class="he">חלה</span>, challah: Adam was the “challah of the world”. Just as challah is the first portion of the dough, set apart for the Almighty, so man is the choicest, holy portion of all creation.</p>`,
+          b: `<p>The first letters of <span class="he">האדם לנפש חיה</span> — <span class="he">ה</span>, <span class="he">ל</span>, <span class="he">ח</span> — are <span class="he">חלה</span>, challah: Adam was the “challah of the world”.<sup data-src="bht-2-7"></sup></p><p class="expl"><b>Explanation.</b> Just as challah is the first portion of the dough, set apart for the Almighty, so man is the choicest, holy portion of all creation.</p>`,
         },
         {
           h: 'Twenty-four ornaments',
@@ -277,7 +277,7 @@ const en: LessonText = {
         },
         {
           h: 'All the seventh are beloved',
-          b: `<p>Why did the Almighty choose Chanoch? Because he was the <b>seventh generation</b>: Adam, Shet, Enosh, Kenan, Mahalalel, Yered, Chanoch. And the Holy One, blessed be He, loves the seventh.</p><p>So too Moshe was seventh from the Patriarchs: Avraham, Yitzchak, Yaakov, Levi, Kehat, Amram, Moshe. And of him it is written: “And Moshe went up to G-d.”<sup data-src="ex-19-3"></sup> The seventh day is Shabbat, the seventh generation is Chanoch, the seventh from Avraham is Moshe: the seventh ascend to the Almighty.</p>`,
+          b: `<p>Why did the Almighty choose Chanoch? Because he was the <b>seventh generation</b>: Adam, Shet, Enosh, Kenan, Mahalalel, Yered, Chanoch. And the Holy One, blessed be He, loves the seventh.<sup data-src="bht-4-18"></sup></p><p>So too Moshe was seventh from the Patriarchs: Avraham, Yitzchak, Yaakov, Levi, Kehat, Amram, Moshe. And of him it is written: “And Moshe went up to G-d.”<sup data-src="ex-19-3"></sup></p><p class="expl"><b>Explanation.</b> The seventh day is Shabbat, the seventh generation is Chanoch, the seventh from Avraham is Moshe: the seventh ascend to the Almighty.</p>`,
         },
       ],
       reflection: 'What in my week is the “seventh”, beloved by the Almighty? How can I add a little “from the weekday” to it — welcome it earlier and escort it out later?',

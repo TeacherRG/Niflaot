@@ -48,7 +48,7 @@ const en: LessonText = {
         { h: "What woman was created from", b: `<p>The most direct meaning of the debate about the “face” and the “tail” is a debate about <b>what woman was created from</b>. The Gemara (Berachot 61a, Eruvin 18a)<sup data-src="berakhot-61a"></sup> discusses the words “and G-d built the rib (<span class="he">צלע</span>)… into a woman”.<sup data-src="gen-2-21"></sup> What was this “rib”?</p><p><b>One says — a “partzuf”, a face.</b> Adam was created with two faces: a male face in front and a female face behind. The Almighty separated them, and the back face became Chavah. According to this view, woman is from the very start a complete, separate face, equal to man.</p><p><b>The other says — a “zanav”, a tail.</b> Adam had a small appendage behind, and woman was “built” from it. According to this view, she begins from something small and develops.</p><p>The lesson continues this line. <b>Rav, the idealist:</b> woman is originally a “partzuf”, a perfect creation. <b>Shmuel, the realist:</b> woman is originally a “tail”, and the path to perfection is gradual.</p><p>The word “tail” (<span class="he">זנב</span>) has the gematria 59, like “niddah” (<span class="he">נדה</span>): 50 + 4 + 5. This hints at a state of separation and impurity that must be rectified. Hence the ideal of a marriage begun in purity.</p>` },
         {
           h: 'The year פ״ז: face and tail',
-          b: `<p>The year ה׳תשפ״ז reads as a hint to “partzuf-zanav”: the letters פ and ז begin both words. The first man was created “behind and before”, and the Sages debate what his back side was. Rav says — a face, Shmuel says — a tail.</p><p>In Kabbalah a person’s “back” is his subconscious, what he cannot see in himself. So the debate is about what lies in the depths of the unconscious: a self-image or a drive.</p>`,
+          b: `<p>The year ה׳תשפ״ז reads as a hint to “partzuf-zanav”: the letters פ and ז begin both words. The first man was created “behind and before”, and the Sages debate what his back side was. Rav says — a face, Shmuel says — a tail.<sup data-src="berakhot-61a"></sup></p><p>In Kabbalah a person’s “back” is his subconscious, what he cannot see in himself. So the debate is about what lies in the depths of the unconscious: a self-image or a drive.</p>`,
         },
         {
           h: 'What is a “partzuf”',
@@ -92,7 +92,7 @@ const en: LessonText = {
       lessons: [
         {
           h: 'Prayer and tefillin',
-          b: `<p>Add both sides together, “partzuf” and “zanav”, and you get “prayer” (תפלה). To rectify both drives there are two tefillin.</p><p>The hand tefillin are placed opposite the heart: they rectify the desire that lives in the heart. This is the “prayer of David”, the heart of all Israel. The head tefillin are placed on the brain, the seat of self-awareness: they rectify pride. This is the “prayer of Moshe”, the head of the people.</p>`,
+          b: `<p>Add both sides together, “partzuf” and “zanav”, and you get “prayer” (תפלה). To rectify both drives there are two tefillin.</p><p>The hand tefillin are placed opposite the heart: they rectify the desire that lives in the heart. This is the “prayer of David”<sup data-src="ps-86-1"></sup>, the heart of all Israel. The head tefillin are placed on the brain, the seat of self-awareness: they rectify pride. This is the “prayer of Moshe”<sup data-src="ps-90-1"></sup>, the head of the people.</p>`,
         },
       ],
       reflection: 'Which one sentence will I say in prayer tomorrow so that it comes from both the head and the heart?',
@@ -169,7 +169,7 @@ const en: LessonText = {
         p: '“Woman” is eighteen times “good”, that is, life drawn from good. The very act of her creation, “and He built”, contains good four times.',
       },
       lessons: [
-        { h: "How he sees his wife", b: `<p>The debate between Rav and Shmuel moves inside the man. Whether he sees his wife as a “face” or a “tail” depends on his own “back” — his subconscious.</p><p>If he sees a “tail”, he looks at her through desire. If he sees a “partzuf”, he looks at her as part of his own honor.</p><p>The rectification is to see her not through his own “back”, but face to face, as she truly is. Then “he who has found a wife has found good”.</p>` },
+        { h: "How he sees his wife", b: `<p>The debate between Rav and Shmuel moves inside the man. Whether he sees his wife as a “face” or a “tail” depends on his own “back” — his subconscious.</p><p>If he sees a “tail”, he looks at her through desire. If he sees a “partzuf”, he looks at her as part of his own honor.</p><p>The rectification is to see her not through his own “back”, but face to face, as she truly is. Then “he who has found a wife has found good”.<sup data-src="prov-18-22"></sup></p>` },
         {
           h: '“I find” and “found a wife”',
           b: `<p>Scripture says both “He who has found a wife has found good”<sup data-src="prov-18-22"></sup> and “I find more bitter than death the woman”<sup data-src="eccl-7-26"></sup>. The difference is in who is looking. The gaze of “I find” is subjective: a person sees his wife through his own “I”.</p><p>The “tail” in marriage seeks the satisfaction of desires. The “partzuf” seeks in the wife a complement to one’s own image and status. In both cases a person sees not her, but himself.</p>`,
@@ -180,7 +180,7 @@ const en: LessonText = {
         },
         {
           h: 'Sukkot: face to face',
-          b: `<p>The word “and He built” is also connected to the sukkah. On Sukkot the Almighty places a person “face to face” with what stands before him, and he merits to see the true face — of his wife, of himself and of the Creator.</p>`,
+          b: `<p>The word “and He built” is also connected to the sukkah. On Sukkot the Almighty places a person “face to face” with what stands before him, and he merits to see the true face — of his wife, of himself and of the Creator.<sup data-src="gen-2-21"></sup></p>`,
         },
       ],
       reflection: 'When I look at someone close to me, do I see them or my own reflection? What one good thing will I notice in them today?',

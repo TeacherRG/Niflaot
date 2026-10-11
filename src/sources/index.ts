@@ -17,6 +17,8 @@ export interface Source {
   ru?: string[];
   de?: string[];
   versions: Partial<Record<'he' | Lang, { title: string; license: string; source: string }>>;
+  /** misprints of the edition corrected in `he` (scripts/fetch-sources.py, FIXES): [as printed, corrected] */
+  fixes?: [string, string][];
 }
 
 export const SOURCES = data as unknown as Record<string, Source>;
@@ -46,4 +48,12 @@ export function translation(s: Source, id: string, locale: Locale): { lines: str
     if (project) return { lines: project, by: 'project' };
   }
   return { lines: s.en, by: 'sefaria', version: s.versions.en?.title, license: s.versions.en?.license };
+}
+
+/** 'bht-6-9:2-3' → the source id and its comments (0-based); the whole passage when no comments are named. */
+export function parseQuote(q: string): { id: string; segs?: number[] } {
+  const [id, range] = q.split(':');
+  if (!range) return { id };
+  const [a, b] = range.split('-').map(Number);
+  return { id, segs: Array.from({ length: (b || a) - a + 1 }, (_, k) => a - 1 + k) };
 }

@@ -68,7 +68,8 @@ const lesson: Lesson = {
         '256 = 16² = 2⁸ = אהרן',
         'מקוה + אברהם + תקוה + יצחק + קו + יעקב = 1406',
       ],
-      sources: ['bereshit-rabbah-68-9', 'ex-33-21', 'ps-19-5', 'ez-43-2', 'gen-19-27', 'ez-33-24', 'ps-27-14'],
+      sources: ['bereshit-rabbah-68-9', 'ex-33-21', 'ps-19-5', 'ez-43-2', 'gen-19-27', 'ez-33-24', 'ps-27-14', 'onkelos-gen-1-9'],
+      noSource: [4],
     },
     {
       // no word cards: the words equal to 59 are the answer and are explained in the reveal
@@ -124,7 +125,7 @@ const lesson: Lesson = {
         '420 : 3 = 140 = חכמה בינה = חמה לבנה · 420 : 10 = 42 = אמא · 140 + 42 = 182 = יעקב',
         'אל האשה אמר … והוא ימשל בך = 4246 = 22 × 193 = טפטפיה',
       ],
-      sources: ['gen-1-1', 'ez-7-26', 'kings1-1-5', 'gen-3-16', 'chullin-60b', 'ps-16-8', 'num-15-41'],
+      sources: ['gen-1-1', 'ez-7-26', 'kings1-1-5', 'gen-3-16', 'chullin-60b', 'ps-16-8', 'num-15-41', 'chron1-29-11', 'ez-18-10'],
     },
   ],
   highlight: [

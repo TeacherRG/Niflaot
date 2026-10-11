@@ -59,6 +59,7 @@ const lesson: Lesson = {
       ],
       equations: ['כל הגדול מחבירו יצרו גדול הימנו', 'אבוך במאי זהיר טפי', 'זהיר — זוהר'],
       sources: ['sukkah-52a', 'shabbat-118b', 'tanya-ih-7'],
+      noSource: [0, 1],
     },
     {
       words: [],
@@ -81,6 +82,8 @@ const lesson: Lesson = {
       ],
       equations: ['ולא תגעו בו', 'כה תאמר לבית יעקב — אלו הנשים', 'כשמחך יצירך בגן עדן מקדם'],
       sources: ['gen-2-17', 'gen-3-3', 'gen-2-21', 'bereshit-rabbah-19-3', 'ex-19-3', 'shemot-rabbah-28-2', 'ez-11-16', 'ex-25-8', 'ps-113-9', 'prov-3-17', 'niddah-45b', 'ketubot-8a'],
+      // «Ґа-йом йом», 22 Тевета — not in Sefaria; named in the text
+      noSource: [3],
     },
   ],
   highlight: [['כל הגדול מחבירו'], ['יצרו גדול הימנו']],

@@ -73,7 +73,7 @@ const de: LessonText = {
         },
         {
           h: 'Dreizehn Wörter, zweiundfünfzig Buchstaben',
-          b: `<p>Der neunte Vers hat 13 Wörter — die Gematria des Wortes „eins“ (<span class="he">אחד</span> = 1 + 8 + 4). Ebenso viele Wörter hat der Vers, der mit „einem Tag“ endet, und der Vers „und sie werden zu einem Fleisch“. Der Vers hat 52 Buchstaben — genau viermal „eins“, das vollkommene Verhältnis 1 : 4.</p><p>So ist schon im Bau des Verses enthalten, wovon er spricht — die Einheit.</p>`,
+          b: `<p>Der neunte Vers hat 13 Wörter — die Gematria des Wortes „eins“ (<span class="he">אחד</span> = 1 + 8 + 4). Ebenso viele Wörter hat der Vers, der mit „einem Tag“ endet, und der Vers „und sie werden zu einem Fleisch“. Der Vers hat 52 Buchstaben — genau viermal „eins“, das vollkommene Verhältnis 1 : 4.<sup data-src="gen-1-1"></sup><sup data-src="gen-2-24"></sup></p><p>So ist schon im Bau des Verses enthalten, wovon er spricht — die Einheit.</p>`,
         },
       ],
       reflection: 'Wo zeigt sich in meinem Leben das Eine in der Zeit — in Gewohnheiten und Tagen —, und wo im Ort — im Haus, im Raum um mich? Welchen einen Ort kann ich zu einem „einen Ort“ machen?',
@@ -114,7 +114,7 @@ const de: LessonText = {
       lessons: [
         {
           h: 'Drei Bedeutungen einer Wurzel',
-          b: `<p>Die Wurzel <span class="he">קוה</span> hat drei Bedeutungen. Die erste ist das Sammeln, wie der Targum übersetzt: „Itkanschun“, „es sollen sich sammeln“. Daher „Mikwe“ — Sammlung der Wasser. Die zweite ist Hoffnung, „Tikwa“. Die dritte ist Linie, „Kaw“.</p><p>Die Gematria der Wurzel ist 111. Das ist „Alef“ in voller Schreibweise (<span class="he">אלף</span>) und das Wort „Pele“ — Wunder, mit denselben Buchstaben in anderer Reihenfolge. Die Broschüre, aus der die Lektion stammt, heißt „Niflaot“ — „Wunder“.</p>`,
+          b: `<p>Die Wurzel <span class="he">קוה</span> hat drei Bedeutungen. Die erste ist das Sammeln, wie der Targum übersetzt: „Itkanschun“, „es sollen sich sammeln“. Daher „Mikwe“ — Sammlung der Wasser. Die zweite ist Hoffnung, „Tikwa“. Die dritte ist Linie, „Kaw“.<sup data-src="onkelos-gen-1-9"></sup></p><p>Die Gematria der Wurzel ist 111. Das ist „Alef“ in voller Schreibweise (<span class="he">אלף</span>) und das Wort „Pele“ — Wunder, mit denselben Buchstaben in anderer Reihenfolge. Die Broschüre, aus der die Lektion stammt, heißt „Niflaot“ — „Wunder“.</p>`,
         },
         {
           h: 'Zusammenziehung: „Ich bin der Ort der Welt“',
@@ -215,11 +215,11 @@ const de: LessonText = {
       lessons: [
         {
           h: 'Warum nicht nur Verse',
-          b: `<p>Die Regel des „Mei HaSchiloach“ spricht von Versen, doch aus demselben Grund gilt sie für Buchstaben, Wörter und Abschnitte. Jede Neun weist auf die Sefira Jessod hin. Jessod heißt „alles“ — „denn alles im Himmel und auf Erden“ —, und in ihm liegt die Kraft, Gegensätze zu tragen; das ist das „Geheimnis“, die Grundlage.</p><p>Es gibt auch einen deutlichen Hinweis im neunten Vers selbst: Sein neuntes Wort ist „eins“ (<span class="he">אחד</span>). Doch während in den Versen „ein Tag“ und „ein Fleisch“ das Wort „eins“ an dreizehnter Stelle steht, am Ende, ist es hier das neunte. Neun ist die Gematria des Wortes „Ach“ (<span class="he">אח</span>, Bruder): So steht bei Jecheskel einmal „Ach“ statt „Echad“ geschrieben. Hier ist die männliche Seite der Einheit betont.</p>`,
+          b: `<p>Die Regel des „Mei HaSchiloach“ spricht von Versen, doch aus demselben Grund gilt sie für Buchstaben, Wörter und Abschnitte. Jede Neun weist auf die Sefira Jessod hin. Jessod heißt „alles“ — „denn alles im Himmel und auf Erden“<sup data-src="chron1-29-11"></sup> —, und in ihm liegt die Kraft, Gegensätze zu tragen; das ist das „Geheimnis“, die Grundlage.</p><p>Es gibt auch einen deutlichen Hinweis im neunten Vers selbst: Sein neuntes Wort ist „eins“ (<span class="he">אחד</span>). Doch während in den Versen „ein Tag“ und „ein Fleisch“ das Wort „eins“ an dreizehnter Stelle steht, am Ende, ist es hier das neunte. Neun ist die Gematria des Wortes „Ach“ (<span class="he">אח</span>, Bruder): So steht bei Jecheskel einmal „Ach“ statt „Echad“ geschrieben.<sup data-src="ez-18-10"></sup> Hier ist die männliche Seite der Einheit betont.</p>`,
         },
         {
           h: 'Der neunte Buchstabe — das zweite Alef',
-          b: `<p>Zählen wir die Buchstaben der Tora ab: <span class="he">ב ר א ש י ת</span> — sechs, dann <span class="he">ב ר א</span> — der neunte Buchstabe ist das Alef des Wortes „bara“, „erschuf“. Mit ihm endet die erste Wortverbindung der Tora „Bereschit bara“ — das Geheimnis von „Wort und halbem Wort“.</p><p>Das ist das zweite Alef in der Tora, so wie im neunten Vers das zweite „eins“ der Tora erklingt. Alef ist gleich eins: Auch hier offenbart die Neun die Einheit.</p>`,
+          b: `<p>Zählen wir die Buchstaben der Tora ab: <span class="he">ב ר א ש י ת</span> — sechs, dann <span class="he">ב ר א</span> — der neunte Buchstabe ist das Alef des Wortes „bara“, „erschuf“. Mit ihm endet die erste Wortverbindung der Tora „Bereschit bara“ — das Geheimnis von „Wort und halbem Wort“.<sup data-src="gen-1-1"></sup></p><p>Das ist das zweite Alef in der Tora, so wie im neunten Vers das zweite „eins“ der Tora erklingt. Alef ist gleich eins: Auch hier offenbart die Neun die Einheit.</p>`,
         },
         {
           h: 'Das neunte Wort — „war“',

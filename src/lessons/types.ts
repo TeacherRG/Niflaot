@@ -85,6 +85,17 @@ export interface RiddleData {
   equations: string[];
   /** primary sources quoted in this riddle’s lesson (ids in src/sources/sefaria.json) */
   sources?: string[];
+  /**
+   * «Читать», a commentary lesson: the commentator's own words shown in each lesson section (same order as `lessons`),
+   * as source ids — the whole passage ('bht-6-11-2') or some of its comments, 1-based ('bht-6-9:2', 'bht-2-7:2-3').
+   * Every comment of the riddle's commentary sources is quoted exactly once (checked by `npm run check`).
+   */
+  quotes?: string[][];
+  /**
+   * Lesson sections (0-based) that cite no source — an introduction («Как читать Бааль ґа-Турим») or a summary of the
+   * project; every other section has a footnote (checked by `npm run check`).
+   */
+  noSource?: number[];
 }
 
 /* ───────────── per-language lesson texts ───────────── */

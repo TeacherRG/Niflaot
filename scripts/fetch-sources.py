@@ -37,6 +37,7 @@ BERNFELD_DE = 'English/Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1
 BOOK_DE = {
     'Ezekiel': 'English/Das Buch Jecheskel, übersetzt und erläutert von Dr. Joseph Breuer, Frankfurt a.M, 1921 [de].json',
     'Proverbs': None,
+    'I Chronicles': None,
 }
 BAVLI_DE = 'English/Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de].json'
 BAVLI_HE = 'Hebrew/William Davidson Edition - Aramaic.json'
@@ -67,6 +68,7 @@ BOOK = {
     'Deuteronomy': ('Tanakh/Torah/Deuteronomy/', 'Дварим', 'Torah'),
     'Ezekiel': ('Tanakh/Prophets/Ezekiel/', 'Йехезкель', 'Prophets'),
     'Amos': ('Tanakh/Prophets/Amos/', 'Амос', 'Prophets'),
+    'I Chronicles': ('Tanakh/Writings/I Chronicles/', 'Диврей ґа-ямим I', 'Writings'),
     'I Kings': ('Tanakh/Prophets/I Kings/', 'Млахим I', 'Prophets'),
     'Psalms': ('Tanakh/Writings/Psalms/', 'Теґилим', 'Writings'),
     'Job': ('Tanakh/Writings/Job/', 'Иов', 'Writings'),
@@ -157,6 +159,14 @@ SOURCES = {
     'gen-3-21': ('Genesis', 3, 21, 21),
     'gen-5-21': ('Genesis', 5, 21, 24),
     'ex-19-3': ('Exodus', 19, 3, 3),
+    'onkelos-gen-1-9': ('custom', 'Таргум Онкелос, Берешит 1:9', 'Targum Onkelos, Genesis 1:9', 'Targum Onkelos, Bereschit 1,9', 'Onkelos Genesis 1:9', 'Targum',
+                        'Tanakh/Targum/Onkelos/Torah/Onkelos Genesis/Hebrew/Onkelos Genesis.json',
+                        'Tanakh/Targum/Onkelos/Torah/Onkelos Genesis/English/Metsudah Chumash, Metsudah Publications, 2009 [with Onkelos translation].json',
+                        None, [0, 8]),
+    'chron1-29-11': ('I Chronicles', 29, 11, 11),
+    'ez-18-10': ('Ezekiel', 18, 10, 10),
+    'ps-86-1': ('Psalms', 86, 1, 1),
+    'ps-90-1': ('Psalms', 90, 1, 1),
     'tanya-ih-20': ('custom', 'Тания, Игерет а-Кодеш 20', 'Tanya, Iggeret HaKodesh 20', 'Tanja, Iggeret HaKodesch 20', 'Tanya, Part IV; Iggeret HaKodesh 20:29', 'Chasidut',
                     'Chasidut/Chabad/Tanya/Hebrew/Kehot Publication Society.json',
                     'Chasidut/Chabad/Tanya/English/Kehot Publication Society English Translation.json', None,
@@ -214,19 +224,27 @@ SOURCES = {
     'megillah-14a': ('Megillah', '14a', 12, 12),
     'rashi-6-13': rashi(6, 13, 2),
     'rashi-6-16': rashi(6, 16, 0),
+    'rashi-7-4': rashi(7, 4, 0),
+    'deut-11-6': ('Deuteronomy', 11, 6, 6),
     **{f'bht-{c}-{v}': bht(c, v) for c, v in [(6, 9), (7, 4), (7, 10), (7, 11), (7, 23), (9, 9), (9, 21), (9, 25), (11, 29)]},
     **{f'bht-{c}-{v}-{k + 1}': bht_one(c, v, k) for c, v, k in [(6, 11, 1), (6, 13, 0), (6, 13, 3), (6, 13, 5), (6, 16, 0), (11, 1, 1), (11, 3, 0)]},
+}
+
+# Misprints of an edition, corrected in the Hebrew (shown on the site as «исправлена опечатка: X → Y»):
+# only an obvious letter slip that the commentary itself contradicts (חמם — the word of the verse is חמס).
+FIXES = {
+    'bht-6-11-2': [('חמם', 'חמס')],
 }
 
 KIND = {
     'Torah': ('Тора', 'Torah'), 'Prophets': ('Пророки', 'Prophets'), 'Writings': ('Писания', 'Writings'),
     'Talmud': ('Гемара', 'Gemara'), 'Midrash': ('Мидраш', 'Midrash'), 'Chasidut': ('Хасидут', 'Chassidut'), 'Zohar': ('Зоґар', 'Zohar'),
-    'Commentary': ('Комментарий', 'Commentary'),
+    'Commentary': ('Комментарий', 'Commentary'), 'Targum': ('Таргум', 'Targum'),
 }
 EN_BOOK = {'I Kings': 'I Kings'}
-KIND_DE = {'Torah': 'Tora', 'Prophets': 'Propheten', 'Writings': 'Schriften', 'Talmud': 'Gemara', 'Midrash': 'Midrasch', 'Chasidut': 'Chassidut', 'Zohar': 'Sohar', 'Commentary': 'Kommentar'}
+KIND_DE = {'Torah': 'Tora', 'Prophets': 'Propheten', 'Writings': 'Schriften', 'Talmud': 'Gemara', 'Midrash': 'Midrasch', 'Chasidut': 'Chassidut', 'Zohar': 'Sohar', 'Commentary': 'Kommentar', 'Targum': 'Targum'}
 DE_NAME = {
-    'Genesis': 'Bereschit', 'Exodus': 'Schemot', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Dewarim', 'Ezekiel': 'Jecheskel', 'Amos': 'Amos',
+    'Genesis': 'Bereschit', 'Exodus': 'Schemot', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Dewarim', 'Ezekiel': 'Jecheskel', 'Amos': 'Amos', 'I Chronicles': 'Diwre HaJamim I',
     'I Kings': 'I Könige', 'Psalms': 'Tehillim', 'Job': 'Ijob', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
     'Berakhot': 'Berachot', 'Shabbat': 'Schabbat', 'Yevamot': 'Jewamot', 'Chullin': 'Chullin',
     'Sukkah': 'Sukka', 'Megillah': 'Megilla', 'Ketubot': 'Ketubbot', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda',
@@ -287,6 +305,8 @@ def clean(s, lang):
     s = re.sub(r'\s+', ' ', s).strip()
     if lang == 'he':
         s = respect_names(s)
+        # the Name Adnut, marked in the Tanach text with a joiner (א‍דני): written with a hyphen, like ה׳
+        s = s.replace('א\u200dדני', 'אד-ני')
     if lang == 'ru':
         s = re.sub(r'\bБог(а|у|ом|е)?\b', lambda m: 'Б-г' + (m.group(1) or ''), s)
         s = re.sub(r'\bГосподь\b', 'Г-сподь', s)
@@ -434,6 +454,11 @@ for sid, spec in SOURCES.items():
         **({'de': [clean(s, 'de') if s else '' for s in de]} if de else {}),
         'versions': versions,
     }
+    for wrong, right in FIXES.get(sid, []):
+        # a misprint of the edition: corrected in the text, shown under the quote on the site
+        assert any(wrong in h for h in out[sid]['he']), f'{sid}: misprint {wrong} not found'
+        out[sid]['he'] = [h.replace(wrong, right) for h in out[sid]['he']]
+        out[sid].setdefault('fixes', []).append([wrong, right])
     sys.stderr.write(f'✓ {sid}: {len(out[sid]["he"])} he / {len(out[sid]["en"])} en' + (f' / {len(out[sid]["ru"])} ru' if ru else '') + (f' / {len(out[sid]["de"])} de' if de else '') + '\n')
 
 OUT.parent.mkdir(parents=True, exist_ok=True)
