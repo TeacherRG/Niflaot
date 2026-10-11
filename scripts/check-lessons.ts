@@ -137,7 +137,8 @@ for (const lesson of LESSONS) {
     checkPuzzle(where(), Object.entries(lesson.texts).map(([l, tx]) => [l, tx!.riddles[ri].puzzle]), lesson.kind === 'commentary');
     for (const [lang, text] of Object.entries(lesson.texts)) {
       const rt = text!.riddles[ri];
-      const html = [rt.cond, rt.reveal.p, ...rt.lessons.map((l) => l.b)].join('\n');
+      // the solution text (reveal) is shown only in «Нифлаот Ребе»; elsewhere a footnote there would be invisible
+      const html = [rt.cond, ...(lesson.kind === 'sicha' ? [rt.reveal.p] : []), ...rt.lessons.map((l) => l.b)].join('\n');
       const marks = new Set([...html.matchAll(/<sup data-src="([^"]+)"><\/sup>/g)].map((m) => m[1]));
       for (const id of marks) if (!(r.sources ?? []).includes(id)) err(`${where()} [${lang}]: footnote ${id} is not in the riddle's sources`);
       for (const id of r.sources ?? []) if (!marks.has(id)) err(`${where()} [${lang}]: source ${id} has no footnote in the text`);

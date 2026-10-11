@@ -21,7 +21,7 @@ const en: Messages = {
 
   'help.title': 'How to play',
   'help.body':
-    '<ol><li><b>Read the riddle.</b> Each riddle is a short passage from the lesson and a few Hebrew words.</li><li><b>Tap a word card</b> to reveal its letters and their numerical values. Adding them up is up to you.</li><li><b>Answer step by step:</b> type a number or pick an option. Each step unlocks after the previous one.</li><li><b>Stuck?</b> Tap “Hint” — the answer stays yours, but earns fewer points.</li><li><b>Once solved</b>, the solution, a retelling of the lesson and a question for reflection unlock.</li><li><b>In “Niflaot of the Rebbe” lessons</b> there is no gematria: you run an investigation — compare verses, choose answers — and only then open the Rebbe’s answer.</li></ol><p>The calculator at the bottom of the page computes the gematria of any word. Progress and notes are stored only on this device.</p>',
+    '<ol><li><b>Read the riddle.</b> Each riddle is a short passage from the lesson and a few Hebrew words.</li><li><b>Tap a word card</b> to reveal its letters and their numerical values. Adding them up is up to you.</li><li><b>Answer step by step:</b> type a number or pick an option. Each step unlocks after the previous one.</li><li><b>Stuck?</b> Tap “Hint” — the answer stays yours, but earns fewer points.</li><li><b>Once solved</b>, “Lesson unlocked” — a retelling of the lesson — and a question for reflection unlock.</li><li><b>In “Niflaot of the Rebbe” lessons</b> there is no gematria: you run an investigation — compare verses, choose answers — and only then open the Rebbe’s answer.</li></ol><p>The calculator at the bottom of the page computes the gematria of any word. Progress and notes are stored only on this device.</p>',
   'help.scoring': 'Points',
   'help.table': 'Letter values',
   'help.finals': 'Final letters ך ם ן ף ץ have the same values as regular ones.',
@@ -214,7 +214,6 @@ const en: Messages = {
   'riddle.toSummary': 'To the summary →',
 
   'lessons.title': 'Lesson unlocked',
-  'lessons.sub': '· a retelling in our own words',
   'sources.title': 'Primary sources',
   'sources.count': { one: '{n} passage', other: '{n} passages' },
   'sources.footnote': 'Source',

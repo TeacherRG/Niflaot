@@ -297,18 +297,21 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
 
       {solved && (
         <>
-          <div className="reveal pop">
-            <h3>{rt.reveal.h}</h3>
-            {r.equations.map((e, k) => (
-              <div key={k} className="eq">
-                <HebrewRuns text={e} />
-              </div>
-            ))}
-            <Html as="p" html={withTerms(revealHtml, textLocale)} />
-          </div>
+          {/* the solution block (heading, equations, text) only in «Нифлаот Ребе»: there it is the Rebbe's answer */}
+          {lesson.kind === 'sicha' && (
+            <div className="reveal pop">
+              <h3>{rt.reveal.h}</h3>
+              {r.equations.map((e, k) => (
+                <div key={k} className="eq">
+                  <HebrewRuns text={e} />
+                </div>
+              ))}
+              <Html as="p" html={withTerms(revealHtml, textLocale)} />
+            </div>
+          )}
           <div className="lessons">
             <div className="les-title">
-              {t('lessons.title')} <span>{t('lessons.sub')}</span>
+              {t('lessons.title')}
             </div>
             {rt.lessons.map((l, k) => (
               <details key={k} className="les">
