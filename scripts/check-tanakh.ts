@@ -5,11 +5,14 @@
  *    каждый стих Невиим и Ктувим — ровно один раз; оба раздела заканчиваются в последний день цикла;
  *  - тексты дней public/tanakh/<дата>.json: дата — учебный день, стихи — ровно отрывок этого дня, у каждого иврит и
  *    английский и объяснение Штейнзальца на обоих языках; Имена — как во всём проекте; в HTML Штейнзальца — только <b> и <small class="fn">;
- *    public/tanakh/index.json перечисляет все готовые дни.
+ *    public/tanakh/index.json перечисляет все готовые дни;
+ *  - русский перевод проекта (src/tanakh/ru/<книга>.json): только настоящие стихи; день, где он есть, переведён целиком
+ *    (стих, объяснение Штейнзальца, вступления — заголовок и текст); файлы дней совпадают с переводом
+ *    (после правки — python3 scripts/fetch-tanakh.py ru); Имена — Б-г, Г-сподь; в HTML — только <b> и <small class="fn">.
  */
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { buildCycle } from './tanakh-cycle';
-import { restReason, track, SECTIONS } from '../src/core/tanakhCycle';
+import { BOOKS, restReason, track, SECTIONS } from '../src/core/tanakhCycle';
 import cycleJson from '../src/tanakh/cycle.json';
 
 const errors: string[] = [];
@@ -37,6 +40,28 @@ SECTIONS.forEach((s, k) => {
   if (at !== total) err(`цикл ${s}: пройдено ${at} стихов из ${total} — раздел не заканчивается в последний день`);
 });
 
+// русский перевод проекта: книга → «глава:стих» → {t, st, intro}
+type RuVerse = { t: string; st?: string; intro?: { title: string; text: string }[] };
+const ruDir = new URL('../src/tanakh/ru/', import.meta.url);
+const RU: Record<string, Record<string, RuVerse>> = {};
+for (const f of existsSync(ruDir) ? readdirSync(ruDir).filter((f) => f.endsWith('.json')) : []) {
+  const slug = f.slice(0, -5);
+  const book = BOOKS.find((b) => b.slug === slug);
+  if (!book) {
+    err(`src/tanakh/ru/${f}: нет такой книги`);
+    continue;
+  }
+  RU[slug] = JSON.parse(readFileSync(new URL(f, ruDir), 'utf8'));
+  for (const key of Object.keys(RU[slug])) {
+    const [c, v] = key.split(':').map(Number);
+    if (!(v >= 1 && v <= (book.verses[c - 1] ?? 0))) err(`src/tanakh/ru/${f}: нет стиха ${key}`);
+  }
+}
+const ALLOWED = ['<b>', '</b>', '<small class="fn">', '</small>'];
+const badTags = (html: string) => (html.match(/<[^>]*>/g) ?? []).some((tg) => !ALLOWED.includes(tg));
+// Имена по-русски — как в scripts/fetch-sources.py: Б-г, Г-сподь
+const badRuName = (s: string) => /(^|[^\p{L}-])(Бог|Господ|Бож)/u.test(s);
+
 const dir = new URL('../public/tanakh/', import.meta.url);
 const files = existsSync(dir) ? readdirSync(dir).filter((f) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f)) : [];
 const index = existsSync(new URL('index.json', dir)) ? JSON.parse(readFileSync(new URL('index.json', dir), 'utf8')).days : [];
@@ -49,6 +74,8 @@ for (const f of files) {
     continue;
   }
   if (c.day !== i + 1 || c.days !== days.length) err(`${f}: номер дня ${c.day}/${c.days}, ожидался ${i + 1}/${days.length}`);
+  const all = SECTIONS.flatMap((s) => c[s]?.verses ?? []) as { ru?: string }[];
+  if (all.some((v) => v.ru) && !all.every((v) => v.ru)) err(`${f}: день переведён на русский не целиком`);
   SECTIONS.forEach((s, k) => {
     const want = track(s).slice(days[i][1 + 2 * k], days[i][2 + 2 * k]);
     const got = c[s]?.verses ?? [];
@@ -65,9 +92,15 @@ for (const f of files) {
       const plain = he.replace(/\u05BE/g, ' ').replace(/[\u0591-\u05C7]/g, '');
       if (/(^|[^א-ת])[והבכלמש]*יהוה(?![א-ת])|(^|[^א-ת])ה'(?![א-ת])/.test(plain)) err(`${where}: Имя не по правилам проекта (ה׳)`);
       if (/\b(God|LORD|Lord)\b/.test(en)) err(`${where}: G-d / L-rd`);
-      const html = `${v.st?.he ?? ''} ${v.st?.en ?? ''}`;
-      const tags = html.match(/<[^>]*>/g) ?? [];
-      if (tags.some((tg) => !['<b>', '</b>', '<small class="fn">', '</small>'].includes(tg))) err(`${where}: в HTML Штейнзальца лишние теги`);
+      if (badTags(`${v.st?.he ?? ''} ${v.st?.en ?? ''} ${v.st?.ru ?? ''}`)) err(`${where}: в HTML Штейнзальца лишние теги`);
+      // русский: как в src/tanakh/ru, и целиком
+      const r = RU[v.b]?.[`${v.c}:${v.v}`];
+      const intro = (v.intro ?? []) as { ru?: string; title: { ru?: string } }[];
+      if ((r?.t ?? undefined) !== v.ru || (r?.st ?? undefined) !== v.st?.ru || intro.some((x, k) => x.ru !== r?.intro?.[k]?.text || x.title.ru !== r?.intro?.[k]?.title))
+        err(`${where}: русский перевод в файле дня устарел — python3 scripts/fetch-tanakh.py ru`);
+      if (r && (!r.t || (v.st && !r.st) || (r.intro?.length ?? 0) !== intro.length || r.intro?.some((x) => !x.title || !x.text)))
+        err(`${where}: перевод неполный (стих, Штейнзальц, вступления)`);
+      if (r && badRuName(`${r.t} ${r.st ?? ''} ${r.intro?.map((x) => `${x.title} ${x.text}`).join(' ') ?? ''}`)) err(`${where}: Имена по-русски — Б-г, Г-сподь`);
     }
   });
 }

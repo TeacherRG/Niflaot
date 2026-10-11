@@ -299,7 +299,9 @@ def respect_names(s):
     return ''.join(words)
 
 def clean(s, lang):
-    s = re.sub(r'<sup[^>]*>.*?</sup>\s*<i class="footnote">.*?</i>', '', s, flags=re.S)
+    # a footnote: its marker and text (the marker must not reach over the verse to the next footnote)
+    s = re.sub(r'<sup[^>]*>[^<]*</sup>\s*<i class="footnote">.*?</i>', '', s, flags=re.S)
+    s = re.sub(r'<sup(?: class="endFootnote")?>-[a-z]</sup>', '', s)  # JPS 1985: «-a» closing a footnoted phrase
     s = re.sub(r'<i data-overlay[^>]*></i>', '', s)
     s = re.sub(r'<br\s*/?>', ' ', s)
     s = re.sub(r'<(?!/?(b|i)>)[^>]+>', '', s)          # keep only <b> and <i>

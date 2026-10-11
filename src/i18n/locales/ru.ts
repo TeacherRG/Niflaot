@@ -673,8 +673,8 @@ const ru = {
   'tanakh.navLabel': 'Дни цикла',
   'tanakh.steinsaltz': 'Рав Адин Штейнзальц',
   'tanakh.steinsaltzShort': 'Рав Штейнзальц',
-  'tanakh.mode.both': 'иврит и English',
-  'tanakh.mode.en': 'English',
+  'tanakh.mode.both': 'иврит и перевод',
+  'tanakh.mode.en': 'перевод',
   'tanakh.mode.he': 'иврит',
   'tanakh.mode.off': 'скрыть',
   'tanakh.enOnly': 'Перевод и объяснения пока на английском — русский перевод будет позже.',
@@ -682,6 +682,7 @@ const ru = {
   'tanakh.notReady': 'Текст этого дня ещё готовится — загляните позже.',
   'tanakh.sourceHe': 'Иврит',
   'tanakh.sourceEn': 'Перевод',
+  'tanakh.sourceRu': 'Русский перевод стихов, объяснений и вступлений рава Штейнзальца — перевод проекта Нифлаот.',
   'tanakh.onSefaria': 'Открыть на Sefaria',
   'tanakh.cycle': 'Трёхлетний цикл: Пророки и Писания параллельно, понемногу каждый день, кроме Шабата и праздников, — и оба заканчиваются в один день. {start} – {end}, {days} учебных дней.',
 } satisfies Record<string, string | PluralForms>;

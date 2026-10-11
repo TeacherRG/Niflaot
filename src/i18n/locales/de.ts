@@ -664,6 +664,7 @@ const de: Messages = {
   'tanakh.notReady': 'Der Text für diesen Tag wird noch vorbereitet – schau später wieder vorbei.',
   'tanakh.sourceHe': 'Hebräisch',
   'tanakh.sourceEn': 'Übersetzung',
+  'tanakh.sourceRu': 'Russische Übersetzung der Verse und der Erklärungen von Rabbi Steinsaltz – vom Projekt Niflaot.',
   'tanakh.onSefaria': 'Auf Sefaria öffnen',
   'tanakh.cycle': 'Ein Zyklus von drei Jahren: Propheten und Schriften nebeneinander, jeden Tag ein Stück, außer an Schabbat und Feiertagen – beide enden am selben Tag. {start} – {end}, {days} Lerntage.',
 };

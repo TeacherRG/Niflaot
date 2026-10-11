@@ -6,13 +6,16 @@
     npx tsx scripts/tanakh-cycle.ts                               # расписание цикла → src/tanakh/cycle.json
     python3 scripts/fetch-tanakh.py days 2026-10-11 2026-10-18 \
         --steinsaltz "<The Steinsaltz Neviim>" --steinsaltz "<The Steinsaltz Ketuvim>"   # → public/tanakh/<дата>.json
+    python3 scripts/fetch-tanakh.py ru-import joshua перевод.txt   # перевод блоками → src/tanakh/ru/joshua.json
+    python3 scripts/fetch-tanakh.py ru                           # русский перевод проекта (src/tanakh/ru) → в файлы дней
 
 Каждый учебный день — отрывок Невиим и отрывок Ктувим. На каждый стих:
   he  — масоретский текст с огласовками (Sefaria: Tanach with Nikkud, Public Domain);
   en  — английский перевод (Sefaria: Tanakh: The Holy Scriptures, JPS 1985, CC-BY-NC);
   st  — рав Адин Штейнзальц: стих с вплетённым объяснением на иврите и по-английски (The Steinsaltz Tanakh,
         архивы глав с chabad.org — открытая выгрузка Sefaria его не содержит); сноски — <small class="fn">;
-  intro — вступления Штейнзальца к разделам (заголовок и текст, he + en).
+  intro — вступления Штейнзальца к разделам (заголовок и текст, he + en);
+  ru, st.ru, intro.ru — русский перевод проекта (src/tanakh/ru/<книга>.json), где он уже есть.
 Имена Всевышнего — как во всём проекте (ה׳, אלקים, G-d, L-rd). Другие языки перевода — потом, рядом с "en".
 """
 import importlib.util, json, re, sys, urllib.parse
@@ -171,6 +174,69 @@ def steinsaltz_html(s, lang):
             parts.append(t)
     return ' '.join(parts)
 
+# ───── русский перевод проекта ─────
+# src/tanakh/ru/<книга>.json: {"<глава>:<стих>": {"t": стих, "st": Штейнзальц (HTML: <b> — слова стиха, <small class="fn"> —
+# сноски), "intro": [{"title", "text"}] — вступления в том же порядке}}. Переводится по неделям, раньше дней цикла.
+RU = ROOT / 'src' / 'tanakh' / 'ru'
+_ru = {}
+def ru_book(slug):
+    if slug not in _ru:
+        f = RU / f'{slug}.json'
+        _ru[slug] = json.loads(f.read_text(encoding='utf-8')) if f.exists() else {}
+    return _ru[slug]
+
+def add_ru(verse):
+    """Кладёт в стих перевод проекта, если он есть: ru, st.ru, intro[i].ru и intro[i].title.ru (Имена — Б-г, Г-сподь — проверяет npm run check)."""
+    for k in ('ru',): verse.pop(k, None)
+    if 'st' in verse: verse['st'].pop('ru', None)
+    for x in verse.get('intro', []):
+        x.pop('ru', None); x['title'].pop('ru', None)
+    r = ru_book(verse['b']).get(f"{verse['c']}:{verse['v']}")
+    if not r: return
+    # текст проекта уже написан по правилам (Б-г, Г-сподь); clean() не нужен — он срезал бы разметку сносок
+    verse['ru'] = r['t']
+    if r.get('st') and 'st' in verse: verse['st']['ru'] = r['st']
+    for x, y in zip(verse.get('intro', []), r.get('intro', [])):
+        x['ru'] = y['text']; x['title']['ru'] = y['title']
+
+def cmd_ru_import(slug, files):
+    """Перевод, написанный блоками (=== глава:стих / T: / ST: / INTRO-TITLE: / INTRO:), → src/tanakh/ru/<книга>.json."""
+    data = ru_book(slug)
+    for f in files:
+        cur = None
+        for line in Path(f).read_text(encoding='utf-8').splitlines():
+            m = re.match(r'=== (\d+):(\d+)$', line)
+            if m:
+                cur = data[f'{m.group(1)}:{m.group(2)}'] = {}
+                continue
+            m = re.match(r'(T|ST|INTRO-TITLE|INTRO): (.*)$', line)
+            if not m or cur is None:
+                if line.strip(): sys.exit(f'{f}: непонятная строка: {line[:60]}')
+                continue
+            k, t = m.groups()
+            if k == 'T': cur['t'] = t
+            elif k == 'ST': cur['st'] = t
+            elif k == 'INTRO-TITLE': cur.setdefault('intro', []).append({'title': t})
+            else: cur['intro'][-1]['text'] = t
+    RU.mkdir(parents=True, exist_ok=True)
+    keys = sorted(data, key=lambda k: tuple(map(int, k.split(':'))))
+    (RU / f'{slug}.json').write_text(json.dumps({k: data[k] for k in keys}, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+    print(f'{slug}: {len(data)} стихов переведено')
+
+def cmd_ru():
+    """Переводы из src/tanakh/ru → в готовые файлы дней (без сети)."""
+    n = 0
+    for f in sorted(OUT.glob('????-??-??.json')):
+        day = json.loads(f.read_text(encoding='utf-8'))
+        before = json.dumps(day, ensure_ascii=False, separators=(',', ':'))
+        for sec in ('neviim', 'ketuvim'):
+            for v in day[sec]['verses']: add_ru(v)
+        after = json.dumps(day, ensure_ascii=False, separators=(',', ':'))
+        if after != before:
+            f.write_text(after + '\n', encoding='utf-8'); n += 1
+            sys.stderr.write(f"✓ {day['date']}: русский — {sum('ru' in v for sec in ('neviim', 'ketuvim') for v in day[sec]['verses'])} стихов\n")
+    print(f'updated {n} days')
+
 # ───── один раздел одного дня ─────
 
 def section_day(books, section, a, z, st_dirs):
@@ -183,17 +249,19 @@ def section_day(books, section, a, z, st_dirs):
         en_ch = en['text'][ch - 1] if ch - 1 < len(en['text']) else []
         verse = {'b': b['slug'], 'c': ch, 'v': v,
                  'he': fs.clean(he['text'][ch - 1][v - 1], 'he'),
-                 'en': fs.clean(en_ch[v - 1], 'en') if v - 1 < len(en_ch) else ''}
+                 # the page shows the verse as plain text: no <i> (JPS italicizes «Selah», transliterations)
+                 'en': re.sub(r'</?i>', '', fs.clean(en_ch[v - 1], 'en')) if v - 1 < len(en_ch) else ''}
         s = st.get((b['slug'], ch, v))
         if not verse['en']:
             old = fs.load(book_file(b, EN_FALLBACK))['text'][ch - 1]
             if v - 1 < len(old) and old[v - 1].strip():
-                verse['en'] = fs.clean(old[v - 1], 'en')
+                verse['en'] = re.sub(r'</?i>', '', fs.clean(old[v - 1], 'en'))
                 verse['enFrom'] = 'JPS 1917'
         if s:
             verse['st'] = {'he': s['he'], 'en': s['en']}
             if 'intro' in s: verse['intro'] = s['intro']
             versions['steinsaltz'] = {'title': 'The Steinsaltz Tanakh', 'license': '© Koren Publishers Jerusalem / Steinsaltz Center', 'source': 'https://www.chabad.org/library/bible_cdo/'}
+        add_ru(verse)
         verses.append(verse)
         if not refs or refs[-1]['b'] != b['slug']:
             refs.append({'b': b['slug'], 'from': [ch, v], 'to': [ch, v]})
@@ -230,5 +298,7 @@ if __name__ == '__main__':
     while '--steinsaltz' in args:
         k = args.index('--steinsaltz'); dirs.append(args[k + 1]); del args[k:k + 2]
     if args[:1] == ['books']: cmd_books()
+    elif args[:1] == ['ru']: cmd_ru()
+    elif args[:1] == ['ru-import'] and len(args) >= 3: cmd_ru_import(args[1], args[2:])
     elif args[:1] == ['days'] and len(args) == 3: cmd_days(args[1], args[2], dirs)
     else: sys.exit(__doc__)

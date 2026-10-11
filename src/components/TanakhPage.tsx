@@ -8,7 +8,10 @@ import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
 
 export const SECTION_HE: Record<Section, string> = { neviim: 'נביאים', ketuvim: 'כתובים' };
 
-/** Which of Rabbi Steinsaltz's texts to show: both languages, one of them, or none (only the verse and its translation). */
+/**
+ * Which of Rabbi Steinsaltz's texts to show: Hebrew and the translation, one of them, or none (only the verse and its translation).
+ * 'en' is «the translation»: Russian where the project has translated the day (on the Russian site), else English.
+ */
 type StMode = 'both' | 'en' | 'he' | 'off';
 const ST_KEY = 'niflaot:tanakh-st';
 function useStMode(): [StMode, (m: StMode) => void] {
@@ -34,8 +37,12 @@ const bookOf = (slug: string) => BOOKS.find((b) => b.slug === slug)!;
 const labelLang = (locale: string) => (locale === 'en' || locale === 'de' ? locale : 'ru');
 
 /** The verses of one section of one day: a heading at each new chapter, Steinsaltz's introductions, then verse by verse. */
-function Verses({ verses, mode }: { verses: DayVerse[]; mode: StMode }) {
+function Verses({ verses, mode, ru }: { verses: DayVerse[]; mode: StMode; ru: boolean }) {
   const { t, locale } = useI18n();
+  // the translation: Russian (the project's) on the Russian site when the day has it, else English
+  // (in Б-г / Г-сподь the hyphen doesn't break: a non-breaking hyphen on screen)
+  const tr = <T extends { en?: string; ru?: string }>(x: T) =>
+    ru && x.ru ? { text: x.ru.replace(/([БГ])-(?=г|спод)/g, '$1\u2011'), lang: 'ru' } : { text: x.en, lang: 'en' };
   return (
     <>
       {verses.map((v, i) => {
@@ -61,13 +68,13 @@ function Verses({ verses, mode }: { verses: DayVerse[]; mode: StMode }) {
                       {x.title.he}
                     </h3>
                   )}
-                  {mode !== 'he' && x.title.en && <h3 lang="en">{x.title.en}</h3>}
+                  {mode !== 'he' && tr(x.title).text && <h3 lang={tr(x.title).lang}>{tr(x.title).text}</h3>}
                   {mode !== 'en' && x.he && (
                     <p className="he" lang="he" dir="rtl">
                       {x.he}
                     </p>
                   )}
-                  {mode !== 'he' && x.en && <p lang="en">{x.en}</p>}
+                  {mode !== 'he' && tr(x).text && <p lang={tr(x).lang}>{tr(x).text}</p>}
                 </aside>
               ))}
             <section className="tk-verse" id={`v-${v.b}-${v.c}-${v.v}`}>
@@ -77,17 +84,17 @@ function Verses({ verses, mode }: { verses: DayVerse[]; mode: StMode }) {
               <p className="tk-he he" lang="he" dir="rtl">
                 {v.he}
               </p>
-              {v.en && (
-                <p className="tk-en" lang="en">
-                  {v.en}
-                  {v.enFrom && <small className="fn"> ({v.enFrom})</small>}
+              {tr(v).text && (
+                <p className="tk-en" lang={tr(v).lang}>
+                  {tr(v).text}
+                  {tr(v).lang === 'en' && v.enFrom && <small className="fn"> ({v.enFrom})</small>}
                 </p>
               )}
               {mode !== 'off' && v.st && (
                 <div className="tk-st">
                   <span className="tk-st-by">{t('tanakh.steinsaltzShort')}</span>
                   {mode !== 'en' && v.st.he && <p className="he" lang="he" dir="rtl" dangerouslySetInnerHTML={{ __html: v.st.he }} />}
-                  {mode !== 'he' && v.st.en && <p lang="en" dangerouslySetInnerHTML={{ __html: v.st.en }} />}
+                  {mode !== 'he' && tr(v.st).text && <p lang={tr(v.st).lang} dangerouslySetInnerHTML={{ __html: tr(v.st).text! }} />}
                 </div>
               )}
             </section>
@@ -131,6 +138,8 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
   const prev = CYCLE[index - 1];
   const next = CYCLE[index + 1];
   const sec = content?.[section];
+  // the Russian site shows the project's Russian translation where the whole day is translated
+  const ru = locale === 'ru' && !!sec?.verses.length && sec.verses.every((v) => v.ru);
   const isToday = day.date === today;
 
   return (
@@ -172,14 +181,14 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
               </button>
             ))}
           </div>
-          {locale !== 'en' && <p className="tk-note">{t('tanakh.enOnly')}</p>}
+          {locale !== 'en' && sec && !ru && <p className="tk-note">{t('tanakh.enOnly')}</p>}
 
           {content === undefined ? (
             <p className="tk-note">{t('tanakh.loading')}</p>
           ) : !sec ? (
             <p className="tk-note">{t('tanakh.notReady')}</p>
           ) : (
-            <Verses verses={sec.verses} mode={mode} />
+            <Verses verses={sec.verses} mode={mode} ru={ru} />
           )}
 
           {sec && (
@@ -187,6 +196,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
               <p>
                 {t('tanakh.sourceHe')} — {sec.versions.he?.title} ({sec.versions.he?.license}), Sefaria.{' '}
                 {t('tanakh.sourceEn')} — {sec.versions.en?.title} ({sec.versions.en?.license}), Sefaria.{' '}
+                {ru && <>{t('tanakh.sourceRu')} </>}
                 {sec.versions.steinsaltz && (
                   <>
                     {t('tanakh.steinsaltz')} — {sec.versions.steinsaltz.title} ({sec.versions.steinsaltz.license}).

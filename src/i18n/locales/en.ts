@@ -664,6 +664,7 @@ const en: Messages = {
   'tanakh.notReady': 'The text for this day is still being prepared — please check back later.',
   'tanakh.sourceHe': 'Hebrew',
   'tanakh.sourceEn': 'Translation',
+  'tanakh.sourceRu': 'Russian translation of the verses and of Rabbi Steinsaltz’s explanations — by the Niflaot project.',
   'tanakh.onSefaria': 'Open on Sefaria',
   'tanakh.cycle': 'A three-year cycle: the Prophets and the Writings side by side, a little every day except Shabbat and holidays — both end on the same day. {start} – {end}, {days} study days.',
 };
