@@ -130,7 +130,11 @@ function ProfileForm({ first }: { first: boolean }) {
     e.preventDefault();
     if (!age) return setErr(t('acc.err.age'));
     if (!agree) return setErr(t('acc.err.agree'));
-    run(() => saveProfile({ nick, age, parentEmail: age === 'child' ? parent : undefined, board, lang: locale }));
+    run(async () => {
+      const me = await saveProfile({ nick, age, parentEmail: age === 'child' ? parent : undefined, board, lang: locale });
+      // saved: the profile closes (a child waiting for the parent's consent stays — the page says what to do next)
+      if (me.user.active) location.hash = '#/';
+    });
   };
 
   return (
@@ -259,6 +263,9 @@ function Classes() {
   );
 }
 
+/** «Классы» are hidden for now (the server and `#/class/<id>` stay); true brings the section back to the profile. */
+const SHOW_CLASSES = false;
+
 /** `#/account`: guest mode and sign-in, the profile, the parent's consent, classes, sign out, delete. */
 export function AccountPage() {
   const { t } = useI18n();
@@ -306,7 +313,7 @@ export function AccountPage() {
                   <a href="#/leaders">🏆 {t('leaders.title')} →</a>
                 </p>
               </section>
-              <Classes />
+              {SHOW_CLASSES && <Classes />}
               <section className="acc-card">
                 <h2>{t('acc.profile')}</h2>
                 <ProfileForm first={false} />
