@@ -1429,3 +1429,30 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .tk-sources a{margin-inline-end:12px;color:var(--tchelet)}
 .tk-cycle{font-size:12.5px;color:var(--muted)}
 @media (max-width:420px){.tk-he{font-size:21px}.tk-st p.he{font-size:17px}}
+.tk-tools{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;margin:12px 0}
+.tk-tools .tk-view{margin:0}
+.tk-print{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:14px}
+.tk-print label{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);cursor:pointer}
+.print-only{display:none}
+@media print{
+  .print-only{display:block}
+  .tk{padding:0;max-width:none}
+  .tk .tk-kicker,.tk .tk-day,.tk-nav,.tk-note,.colophon{display:none!important}
+  .tk-head h1{font-size:24pt}
+  .tk article>.tk-head h1{display:none}
+  .tk-range{font-size:13pt;color:#111}
+  .tk-chapter{margin:14pt 0 6pt;font-size:15pt;break-after:avoid}
+  .tk-intro{background:none;border:1px solid #bbb;border-inline-start:3px solid #555;break-inside:avoid}
+  .tk-intro p{font-size:10.5pt}
+  .tk-intro-by,.tk-st-by{color:#555}
+  .tk-verse{padding:6pt 0;border-bottom:1px solid #ddd}
+  .tk-he,.tk-en{break-inside:avoid}
+  .tk-num{color:#7a5b1e}
+  .tk-he{font-size:16pt;line-height:1.55}
+  .tk-en{font-size:11pt}
+  .tk-st{background:none;padding:2pt 0 0 10pt;border-inline-start:2px solid #ccc;border-radius:0}
+  .tk-st p{font-size:10.5pt}
+  .tk-st p.he{font-size:13pt}
+  .tk-sources{font-size:8.5pt;color:#444}
+  .tk-print-other{margin-top:18pt;padding-top:8pt;border-top:2px solid #111}
+}
