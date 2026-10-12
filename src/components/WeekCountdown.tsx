@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
 import { shabbatWindow } from '../core/shabbat';
+import { jewishDate } from '../core/hebrewDate';
 
 /** Two Shabbat candles — the mark of the countdown (an outline drawing, no emoji). */
 function Candles({ size }: { size: number }) {
@@ -25,18 +26,22 @@ function useLeft() {
   left -= days * 86_400_000;
   const hours = Math.floor(left / 3_600_000);
   left -= hours * 3_600_000;
-  return { days, hours, mins: Math.floor(left / 60_000) };
+  return { days, hours, mins: Math.floor(left / 60_000), now: new Date(now) };
 }
 
 /**
- * «Осталось играть на этой неделе»: days, hours and minutes until the site rests for Shabbat. Deliberately no
- * halachic wording (no «candle lighting»): it is only how long the games are open this week.
+ * «Осталось учиться на этой неделе» with today's date (civil and Jewish): days, hours and minutes until the site rests for Shabbat. Deliberately no
+ * halachic wording (no «candle lighting»): it is only how long the site is open for learning this week.
  * `side` — the card beside the home page, with the days of the week; `compact` — a small card for a phone.
  */
 export function WeekCountdown({ variant }: { variant: 'side' | 'compact' }) {
   const { t, locale } = useI18n();
-  const { days, hours, mins } = useLeft();
-  const today = new Date().getDay();
+  const { days, hours, mins, now } = useLeft();
+  const today = now.getDay();
+  // today's date on the device: the civil one in the site's language and the Jewish one in Hebrew
+  const iso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const civil = now.toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const civilShort = now.toLocaleDateString(locale, { weekday: 'short', day: 'numeric', month: 'short' });
   const pad = (n: number) => String(n).padStart(2, '0');
   const label = `${t('countdown.title')}: ${t('countdown.days', { n: days })} ${t('countdown.hours', { n: hours })} ${t('countdown.mins', { n: mins })}`;
 
@@ -44,6 +49,7 @@ export function WeekCountdown({ variant }: { variant: 'side' | 'compact' }) {
     return (
       <div className="wc wc-compact" role="timer" aria-label={label}>
         <Candles size={22} />
+        <span className="wc-c-date">{civilShort}</span>
         <span className="wc-c-title">{t('countdown.short')}</span>
         <span className="wc-c-time num">
           {days}
@@ -62,6 +68,12 @@ export function WeekCountdown({ variant }: { variant: 'side' | 'compact' }) {
         ש
       </span>
       <Candles size={40} />
+      <p className="wc-date">
+        <span>{civil}</span>
+        <span className="he" lang="he">
+          {jewishDate(iso)}
+        </span>
+      </p>
       <h2 className="wc-title">{t('countdown.title')}</h2>
       <div className="wc-units" aria-hidden="true">
         {(
