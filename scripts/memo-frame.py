@@ -5,7 +5,7 @@ and the three captions on every picture: the portion (top left), the number (top
 
   # 12 separate files 01.png … 12.png (any size, portrait 3:4):
   python3 scripts/memo-frame.py <dir> src/lessons/01-baal-haturim-bereshit/memo Bereshit
-  # or one sheet of 12 panels, 4 columns × 3 rows, each with its own frame line:
+  # or one sheet of 12 panels, 4 columns × 3 rows or 3 columns × 4 rows, each with its own frame line:
   python3 scripts/memo-frame.py --sheet <sheet.png> src/lessons/01-baal-haturim-bereshit/memo Bereshit
 
 Saved as 32-level grayscale PNG (line art). Needs Pillow and numpy.
@@ -28,27 +28,34 @@ def font(path: str, size: int):
         return ImageFont.truetype(FONT, size)
 
 
-def lines(dark: np.ndarray, axis: int, n: int) -> list[int]:
-    """Positions of the panels' frame lines along an axis: the n·2 longest dark lines, merged."""
+def lines(dark: np.ndarray, axis: int) -> list[int]:
+    """Positions of the panels' frame lines along an axis: the long dark lines, merged (two per panel)."""
     counts = dark.sum(axis=axis)
     idx = [i for i in np.argsort(-counts) if counts[i] > dark.shape[axis] * 0.6]
     picked: list[int] = []
     for i in sorted(idx):
         if not picked or i - picked[-1] > 3:
             picked.append(int(i))
-    if len(picked) != n * 2:
-        sys.exit(f'expected {n * 2} frame lines, found {len(picked)}: {picked}')
+    # a sheet cropped right at the outer frame: its edges are the outer lines
+    size = dark.shape[1 - axis]
+    if not picked or picked[0] > size * 0.03:
+        picked.insert(0, 0)
+    if picked[-1] < size * 0.97:
+        picked.append(size - 1)
     return picked
 
 
 def panels(sheet: Path) -> list[Image.Image]:
     im = Image.open(sheet).convert('RGB')
     dark = np.array(im.convert('L')) < 100
-    xs = lines(dark, 0, 4)
-    ys = lines(dark, 1, 3)
+    xs = lines(dark, 0)
+    ys = lines(dark, 1)
+    cols, rows = len(xs) // 2, len(ys) // 2
+    if len(xs) % 2 or len(ys) % 2 or (cols, rows) not in ((4, 3), (3, 4)):
+        sys.exit(f'expected 4×3 or 3×4 panels, found frame lines x {xs}, y {ys}')
     out = []
-    for r in range(3):
-        for c in range(4):
+    for r in range(rows):
+        for c in range(cols):
             out.append(im.crop((xs[c * 2], ys[r * 2], xs[c * 2 + 1] + 1, ys[r * 2 + 1] + 1)))
     return out
 
