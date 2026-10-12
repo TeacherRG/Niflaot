@@ -36,7 +36,11 @@
   тексты — `memo` в `i18n/<язык>.ts`; картинки-раскраски `memo/NN.png` (3:4; размер и подписи ставит
   `python3 scripts/memo-frame.py`); страница `#/<slug>/memo` (`MemoPage.tsx`, `Memo.tsx`), печать `#/<slug>/print/memo`
   (`PrintMemo.tsx`). Числа, буквенные намёки и тексты на всех языках проверяет `npm run check`.
-- Кнопка ✦ — ИИ-чат (`Assistant.tsx`). `src/components/Helper.tsx` (`HelperContent`) — гиматрия по шагам, первоисточники урока,
+- Кнопка ✦ — ИИ-чат (`Assistant.tsx`), **ИИ-учитель академии**: системная инструкция — `SYSTEM` в `assistant/src/index.ts`
+  (три раздела, учителя, сертификаты, «подсказывай, не раскрывай»). Что на экране, он получает в `<page_context>`:
+  урок (`lessonContext` в `src/core/assistant.ts`; нерешённые загадки — без ответов), отрывок дня, «Вопросы к отрывку»
+  (неотвеченные — без верного варианта) и «Академия» (`src/core/assistantPages.ts`, страницы ставят `setOtherPage`);
+  по виду страницы — свои вопросы-подсказки (`SUGGEST`). `src/components/Helper.tsx` (`HelperContent`) — гиматрия по шагам, первоисточники урока,
   частые вопросы: свёрнутыми блоками в «Как играть» («Ещё помощь»), из чата — ссылка «Частые вопросы и гиматрия по шагам»;
   без `ASSISTANT_URL` то же самое открывает ✦.
 - Админка `#/admin` (`src/components/Admin.tsx`, `src/admin/github.ts`): вход GitHub-токеном (fine-grained, Contents RW на репо),

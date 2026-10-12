@@ -1,14 +1,21 @@
-import { Fragment, Suspense, lazy, useEffect, useRef, useState, type ReactNode } from 'react';
+import { Fragment, Suspense, lazy, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from 'react';
 import { useI18n } from '../i18n';
 import type { MessageKey } from '../i18n/locales/ru';
-import { ASSISTANT_URL, askAssistant, type ChatTurn } from '../core/assistant';
+import { ASSISTANT_URL, askAssistant, pageKind, subscribePageState, type ChatTurn, type PageKind } from '../core/assistant';
 import { HebrewRuns } from './Hebrew';
 import { Icon, Sheet, useUI } from './ui';
 
 /** The offline helper (with all the primary sources) loads when it is first opened, not with the site. */
 const Helper = lazy(() => import('./Helper').then((m) => ({ default: m.Helper })));
 
-const SUGGEST: MessageKey[] = ['ai.s.lesson', 'ai.s.hint', 'ai.s.math', 'ai.s.source'];
+/** The suggested first questions — for the page on screen (a lesson, a passage, its quiz, «Академия», anything else). */
+const SUGGEST: Record<PageKind | 'site', MessageKey[]> = {
+  lesson: ['ai.s.lesson', 'ai.s.hint', 'ai.s.math', 'ai.s.source'],
+  tanakh: ['ai.s.passage', 'ai.s.who', 'ai.s.steinsaltz', 'ai.s.lessonLife'],
+  quiz: ['ai.s.quizHint', 'ai.s.quizWhy', 'ai.s.passage'],
+  academy: ['ai.s.cert', 'ai.s.start', 'ai.s.plan'],
+  site: ['ai.s.start', 'ai.s.cert', 'ai.s.math'],
+};
 const MAX_TURNS = 20;
 
 /** **bold** inside a line; Hebrew runs are isolated so "ש = 300" keeps its order. */
@@ -133,6 +140,7 @@ function AiChat() {
     }
   };
 
+  const kind = useSyncExternalStore(subscribePageState, pageKind);
   const clear = () => {
     abort.current?.abort();
     setTurns([]);
@@ -147,7 +155,7 @@ function AiChat() {
             <div className="ai-hello">
               <p>{t('ai.hello')}</p>
               <div className="ai-suggest">
-                {SUGGEST.map((k) => (
+                {SUGGEST[kind ?? 'site'].map((k) => (
                   <button key={k} className="chip" onClick={() => send(t(k))}>
                     {t(k)}
                   </button>
