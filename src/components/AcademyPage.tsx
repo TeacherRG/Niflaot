@@ -10,8 +10,11 @@ import { readQuizStore, quizReady } from '../core/quiz';
 import { NIFLAOT_LOGO, PARTNERS } from '../core/partners';
 import { civilDate, jewishDate } from '../core/hebrewDate';
 import { useAccount } from '../core/account';
+import { routeLink } from '../core/site';
+import { QrCode } from './QrCode';
 import {
   PASS,
+  RECTOR,
   TORAH_BOOKS,
   tanakhCertificates,
   tanakhProgress,
@@ -108,6 +111,20 @@ function Card({ c, p, href, extra }: { c: Certificate; p: Progress; href: string
   );
 }
 
+/** The rector's signature: a handwritten stroke in ink, drawn as a vector so it prints sharp. */
+function RectorSignature() {
+  return (
+    <svg className="cert-sig" viewBox="0 0 240 80" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path
+        strokeWidth={2.1}
+        d="M14 58C20 40 30 18 36 14C42 10 40 30 34 46C30 56 26 62 28 60C34 50 44 30 52 30C58 30 52 46 50 52C49 56 54 54 58 48C62 42 66 38 68 42C70 46 64 54 68 54C72 54 78 40 84 40C88 40 84 50 86 52C90 54 96 36 104 28C110 22 114 20 110 34C106 48 100 60 104 58C110 54 116 42 122 42C128 42 122 54 128 54C134 54 140 40 146 40C150 40 146 52 152 52C160 52 170 36 180 34"
+      />
+      <path strokeWidth={1.6} d="M22 66C70 60 140 58 222 50" />
+      <path strokeWidth={1.8} d="M186 30C196 26 206 30 200 38C196 44 188 42 194 36" />
+    </svg>
+  );
+}
+
 const NAME_KEY = 'niflaot:cert-name';
 
 /** The certificate itself: on screen and on paper (A4 landscape); without the result — a sample. */
@@ -168,12 +185,32 @@ function CertificateView({ c, p, sample }: { c: Certificate; p: Progress; sample
           </span>
         </p>
         {!sample && <p className="cert-result">{t('cert.result', { pct: pct(p) })}</p>}
+        {/* date · QR code to the site · the rector's signature */}
         <div className="cert-foot">
-          <span>
-            {civilDate(today, locale)} · <span className="he">{jewishDate(today)}</span>
-          </span>
-          <span>{t('cert.academy')} · niflaot.mychitas.app</span>
+          <div className="cert-sign">
+            <span className="cert-sign-v">
+              {civilDate(today, locale)}
+              <span className="he" lang="he">
+                {jewishDate(today)}
+              </span>
+            </span>
+            <span className="cert-sign-l">{t('cert.date')}</span>
+          </div>
+          <div className="cert-qr">
+            <QrCode value={routeLink('', 'qr', locale)} size={72} title={t('cert.qr')} />
+            <span>niflaot.mychitas.app</span>
+          </div>
+          <div className="cert-sign">
+            <span className="cert-sign-v">
+              <RectorSignature />
+            </span>
+            <span className="cert-sign-l">
+              {t('cert.rector')}
+              {RECTOR.name && <> · {RECTOR.name[lang]}</>}
+            </span>
+          </div>
         </div>
+        <p className="cert-academy">{t('cert.academy')}</p>
       </section>
     </>
   );

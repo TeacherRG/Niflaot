@@ -1523,11 +1523,19 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .cert-book{margin:0;font-family:var(--f-display);font-size:clamp(22px,4vw,38px);font-weight:700;color:var(--tchelet)}
 .cert-book .he{font-family:var(--f-he);color:var(--gold)}
 .cert-result{margin:0;font-size:clamp(12px,1.8vw,16px);font-weight:700}
-.cert-foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;width:100%;margin-top:auto;font-size:clamp(10px,1.4vw,13px);color:var(--muted)}
-.cert-foot .he{font-family:var(--f-he)}
+.cert-foot{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:12px;width:100%;margin-top:auto;font-size:clamp(10px,1.4vw,13px);color:var(--muted)}
+.cert-sign{display:grid;gap:3px;justify-items:center;text-align:center}
+.cert-sign-v{display:grid;justify-items:center;align-content:end;min-height:2.6em;width:100%;padding-bottom:3px;border-bottom:1px solid var(--ink);color:var(--ink);font-size:1.1em}
+.cert-sign-v .he{font-family:var(--f-he);font-size:.95em}
+.cert-sig{display:block;width:150px;max-width:100%;height:50px;margin-bottom:-10px;color:#1b2a5c}
+.cert-sign-l{font-size:.9em;letter-spacing:.04em}
+.cert-qr{display:grid;justify-items:center;gap:2px;font-size:.85em}
+.cert-qr .qr{width:clamp(48px,9vw,80px);height:auto}
+.cert-academy{margin:4px 0 0;font-size:clamp(10px,1.3vw,12px);color:var(--muted);letter-spacing:.06em}
 .cert-wm{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-display);font-size:clamp(60px,16vw,180px);font-weight:700;color:rgba(174,42,33,.12);transform:rotate(-18deg);pointer-events:none}
 @page cert{size:A4 landscape;margin:10mm}
 @media print{
   .ac-one{padding:0;max-width:none}
-  .cert{page:cert;width:100%;height:186mm;aspect-ratio:auto;border-radius:0;break-inside:avoid}
+  .cert{page:cert;width:100%;height:186mm;gap:4px;aspect-ratio:auto;border-radius:0;break-inside:avoid}
 }
+@media screen and (max-width:640px){.cert{aspect-ratio:auto}.cert-foot{gap:8px}}
