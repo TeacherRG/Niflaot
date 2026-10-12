@@ -80,6 +80,9 @@ export function TopBar({ title, children, wide }: { title: string; children?: Re
           <small>{t('app.brandSub')}</small>
         </a>
         {children}
+        <a className="icon-btn search-btn" href="#/search" aria-label={t('search.title')} title={t('search.title')}>
+          <Icon name="search" />
+        </a>
         <AccountChip />
         <LanguagePicker />
       </div>

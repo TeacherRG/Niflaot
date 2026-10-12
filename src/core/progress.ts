@@ -22,3 +22,32 @@ export function lessonScore(slug: string, legacy?: string): number {
   }
   return 0;
 }
+
+/** What «Моё обучение» shows of a lesson played on this device; null — not opened yet. */
+export interface LessonSummary {
+  /** riddles solved (0-based indices) */
+  done: number[];
+  score: number;
+  /** the best score, «Начать заново» included */
+  best: number;
+  /** the player's notes (the question to oneself), by riddle */
+  notes: Record<number, string>;
+}
+
+export function lessonSummary(slug: string, legacy?: string): LessonSummary | null {
+  for (const key of [`niflaot:lesson:${slug}`, legacy]) {
+    if (!key) continue;
+    try {
+      const s = JSON.parse(localStorage.getItem(key) ?? 'null');
+      if (!s || !Array.isArray(s.done)) continue;
+      const score = Number.isFinite(s.score) ? s.score : 0;
+      return {
+        done: s.done.filter((x: unknown) => Number.isInteger(x)),
+        score,
+        best: Math.max(score, Number.isFinite(s.best) ? s.best : 0),
+        notes: s.notes && typeof s.notes === 'object' ? s.notes : {},
+      };
+    } catch {}
+  }
+  return null;
+}
