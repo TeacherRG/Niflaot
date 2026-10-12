@@ -30,7 +30,11 @@ function useView(locale: string): [View, (v: View) => void] {
   const [view, set] = useState<View>(() => {
     try {
       const v = JSON.parse(localStorage.getItem(VIEW_KEY) ?? 'null');
-      if (v && TEXT_LANGS.includes(v.text) && typeof v.st === 'boolean') return v;
+      if (v && TEXT_LANGS.includes(v.text) && typeof v.st === 'boolean') {
+        // a choice saved before the German translation existed (no `de` mark): on the German site English becomes German, once
+        if (locale === 'de' && !v.de && (v.text === 'he-en' || v.text === 'en')) return { text: v.text === 'en' ? 'de' : 'he-de', st: v.st };
+        return { text: v.text, st: v.st };
+      }
     } catch {}
     // by default: the Hebrew with the translation in the site's language
     return { text: locale === 'ru' ? 'he-ru' : locale === 'de' ? 'he-de' : 'he-en', st: true };
@@ -40,7 +44,7 @@ function useView(locale: string): [View, (v: View) => void] {
     (v) => {
       set(v);
       try {
-        localStorage.setItem(VIEW_KEY, JSON.stringify(v));
+        localStorage.setItem(VIEW_KEY, JSON.stringify({ ...v, de: true }));
       } catch {}
     },
   ];
