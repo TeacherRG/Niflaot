@@ -47,15 +47,15 @@ if (index < 0) {
 }
 const day = CYCLE[index];
 const content = JSON.parse(readFileSync(new URL(`../public/tanakh/${date}.json`, import.meta.url), 'utf8')) as DayContent;
-// Russian where the whole day is translated (as on the site), otherwise English
-const ruReady = SECTIONS.every((s) => content[s].verses.every((v) => v.ru));
+// the project's translation where the whole day is translated (as on the site), otherwise English
+const ready = (l: 'ru' | 'de') => SECTIONS.every((s) => content[s].verses.every((v) => v[l]));
 
 const html = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const t = (loc: Loc, key: string, vars: Record<string, string | number> = {}) =>
   String((UI[loc] as Record<string, unknown>)[key] ?? (ru as Record<string, unknown>)[key]).replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''));
 
 function post(loc: Loc): string {
-  const tr = loc === 'ru' && ruReady ? 'ru' : 'en';
+  const tr = (loc === 'ru' || loc === 'de') && ready(loc) ? loc : 'en';
   const lines = [
     `📜 <b>${html(t(loc, 'tanakh.post.title'))}</b>`,
     `${html(civilDate(date, loc))} · ${jewishDate(date)} · ${html(t(loc, 'tanakh.day', { n: index + 1, total: CYCLE.length }))}`,

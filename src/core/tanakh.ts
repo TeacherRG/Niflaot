@@ -29,11 +29,12 @@ export function cycleDayFor(iso: string): { index: number; exact: boolean } {
 
 /** Вступление Штейнзальца к разделу: заголовок и текст (иврит, английский). */
 export interface SteinsaltzIntro {
-  title: { he?: string; en?: string; ru?: string };
+  title: { he?: string; en?: string; ru?: string; de?: string };
   he?: string;
   en?: string;
-  /** перевод проекта (src/tanakh/ru/<книга>.json) */
+  /** переводы проекта (src/tanakh/ru|de/<книга>.json) */
   ru?: string;
+  de?: string;
 }
 export interface DayVerse {
   b: string;
@@ -45,10 +46,11 @@ export interface DayVerse {
   en: string;
   /** перевод взят из другого издания (где в основном стиха нет) */
   enFrom?: string;
-  /** русский перевод проекта (src/tanakh/ru/<книга>.json) */
+  /** переводы проекта: русский (src/tanakh/ru/<книга>.json) и немецкий (src/tanakh/de/<книга>.json) */
   ru?: string;
-  /** Штейнзальц: стих с вплетённым объяснением (HTML: слова стиха — <b>, сноски — <small class="fn">); ru — перевод проекта */
-  st?: { he?: string; en?: string; ru?: string };
+  de?: string;
+  /** Штейнзальц: стих с вплетённым объяснением (HTML: слова стиха — <b>, сноски — <small class="fn">); ru, de — переводы проекта */
+  st?: { he?: string; en?: string; ru?: string; de?: string };
   /** вступления Штейнзальца к разделу, который начинается этим стихом */
   intro?: SteinsaltzIntro[];
 }
@@ -84,10 +86,12 @@ export function loadDay(date: string): Promise<DayContent | null> {
 const HE_WPM = 100;
 const TR_WPM = 180;
 const words = (s?: string) => (s ? s.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length : 0);
-export function readingMinutes(verses: DayVerse[], he: boolean, tr: 'ru' | 'en' | null, st: boolean): number {
+/** язык перевода на странице: английский (JPS 1985 и издание Штейнзальца) или перевод проекта */
+export type Tr = 'en' | 'ru' | 'de';
+export function readingMinutes(verses: DayVerse[], he: boolean, tr: Tr | null, st: boolean): number {
   let heW = 0;
   let trW = 0;
-  const add = (x: { he?: string; en?: string; ru?: string } | undefined) => {
+  const add = (x: ({ he?: string } & Partial<Record<Tr, string>>) | undefined) => {
     if (!x) return;
     if (he) heW += words(x.he);
     if (tr) trW += words(x[tr]);
