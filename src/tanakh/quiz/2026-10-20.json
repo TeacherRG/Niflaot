@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 5:2",
+   "q": {
+    "ru": "Что Б-г велел Йеґошуа сделать кремнёвыми ножами?",
+    "en": "What did G-d tell Joshua to do with flint knives?",
+    "de": "Was sollte Jehoschua mit Feuersteinmessern tun?"
+   },
+   "o": [
+    {
+     "ru": "Провести второе обрезание сынам Израиля",
+     "en": "Circumcise the Israelites a second time",
+     "de": "Die Kinder Israels ein zweites Mal beschneiden"
+    },
+    {
+     "ru": "Высечь надпись на камнях",
+     "en": "Carve writing on stones",
+     "de": "Eine Inschrift in Steine meißeln"
+    },
+    {
+     "ru": "Срубить деревья для моста",
+     "en": "Cut trees for a bridge",
+     "de": "Bäume für eine Brücke fällen"
+    },
+    {
+     "ru": "Сделать оружие для войны",
+     "en": "Make weapons for war",
+     "de": "Waffen für den Krieg machen"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 5:5",
+   "q": {
+    "ru": "Почему понадобилось обрезание?",
+    "en": "Why was the circumcision needed?",
+    "de": "Warum war die Beschneidung nötig?"
+   },
+   "o": [
+    {
+     "ru": "Родившиеся в пустыне не были обрезаны",
+     "en": "Those born in the desert had not been circumcised",
+     "de": "Die in der Wüste Geborenen waren nicht beschnitten"
+    },
+    {
+     "ru": "Все забыли эту заповедь",
+     "en": "Everyone had forgotten this commandment",
+     "de": "Alle hatten dieses Gebot vergessen"
+    },
+    {
+     "ru": "Так велел царь Йерихо",
+     "en": "The king of Jericho ordered it",
+     "de": "Der König von Jericho befahl es"
+    },
+    {
+     "ru": "Обрезание делают каждые сорок лет",
+     "en": "Circumcision is done every forty years",
+     "de": "Man beschneidet alle vierzig Jahre"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 5:9",
+   "q": {
+    "ru": "Что сказал Б-г в месте, которое назвали Гилгал?",
+    "en": "What did G-d say at the place that was named Gilgal?",
+    "de": "Was sagte G-tt an dem Ort, der Gilgal genannt wurde?"
+   },
+   "o": [
+    {
+     "ru": "«Сегодня Я снял с вас позор Египта»",
+     "en": "“Today I have rolled away from you the disgrace of Egypt”",
+     "de": "„Heute habe Ich die Schande Ägyptens von euch abgewälzt“"
+    },
+    {
+     "ru": "«Здесь вы построите город»",
+     "en": "“Here you will build a city”",
+     "de": "„Hier werdet ihr eine Stadt bauen“"
+    },
+    {
+     "ru": "«Отсюда вы вернётесь в пустыню»",
+     "en": "“From here you will return to the desert”",
+     "de": "„Von hier geht ihr zurück in die Wüste“"
+    },
+    {
+     "ru": "«Это место — граница страны»",
+     "en": "“This place is the border of the land”",
+     "de": "„Dieser Ort ist die Grenze des Landes“"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 5:10",
+   "q": {
+    "ru": "Какую жертву принесли в Гилгале в четырнадцатый день месяца?",
+    "en": "What offering was brought at Gilgal on the fourteenth day of the month?",
+    "de": "Welches Opfer wurde in Gilgal am vierzehnten Tag des Monats gebracht?"
+   },
+   "o": [
+    {
+     "ru": "Жертву песах",
+     "en": "The Passover offering",
+     "de": "Das Pessach-Opfer"
+    },
+    {
+     "ru": "Жертву первых плодов",
+     "en": "The first fruits",
+     "de": "Die Erstlingsfrüchte"
+    },
+    {
+     "ru": "Жертву за грех",
+     "en": "A sin offering",
+     "de": "Ein Sündopfer"
+    },
+    {
+     "ru": "Никакой",
+     "en": "None",
+     "de": "Keines"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 7:16",
+   "q": {
+    "ru": "Что случится с тем, кто вырыл яму?",
+    "en": "What will happen to the one who dug a pit?",
+    "de": "Was geschieht mit dem, der eine Grube gegraben hat?"
+   },
+   "o": [
+    {
+     "ru": "Сам упадёт в западню, которую сделал",
+     "en": "He will fall into the trap he made",
+     "de": "Er fällt selbst in die Falle, die er gemacht hat"
+    },
+    {
+     "ru": "Найдёт в ней клад",
+     "en": "He will find treasure in it",
+     "de": "Er findet darin einen Schatz"
+    },
+    {
+     "ru": "Поймает врага",
+     "en": "He will catch his enemy",
+     "de": "Er fängt seinen Feind"
+    },
+    {
+     "ru": "Ничего не случится",
+     "en": "Nothing will happen",
+     "de": "Nichts geschieht"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 7:17",
+   "q": {
+    "ru": "На чью голову обратится злодейство нечестивого?",
+    "en": "On whose head will the wicked man’s mischief recoil?",
+    "de": "Auf wessen Kopf fällt die Bosheit des Bösen zurück?"
+   },
+   "o": [
+    {
+     "ru": "На его собственную",
+     "en": "His own",
+     "de": "Auf seinen eigenen"
+    },
+    {
+     "ru": "На голову праведного",
+     "en": "The righteous man’s",
+     "de": "Auf den des Gerechten"
+    },
+    {
+     "ru": "На голову соседа",
+     "en": "His neighbor’s",
+     "de": "Auf den seines Nachbarn"
+    },
+    {
+     "ru": "Ни на чью",
+     "en": "No one’s",
+     "de": "Auf niemanden"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 7:18",
+   "q": {
+    "ru": "Чем заканчивается псалом 7?",
+    "en": "How does psalm 7 end?",
+    "de": "Wie endet Kapitel 7?"
+   },
+   "o": [
+    {
+     "ru": "Давид прославит Г-спода и воспоёт Его имя",
+     "en": "David will praise the L-rd and sing to His name",
+     "de": "David wird den Ewigen preisen und Seinem Namen singen"
+    },
+    {
+     "ru": "Давид уходит на войну",
+     "en": "David goes to war",
+     "de": "David zieht in den Krieg"
+    },
+    {
+     "ru": "Давид проклинает врагов",
+     "en": "David curses his enemies",
+     "de": "David verflucht seine Feinde"
+    },
+    {
+     "ru": "Давид засыпает",
+     "en": "David falls asleep",
+     "de": "David schläft ein"
+    }
+   ]
+  }
+ ]
+}

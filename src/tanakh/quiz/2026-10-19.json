@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 4:14",
+   "q": {
+    "ru": "Как чтили Йеґошуа после перехода через Ярден?",
+    "en": "How was Joshua revered after the crossing of the Jordan?",
+    "de": "Wie wurde Jehoschua nach dem Zug durch den Jordan verehrt?"
+   },
+   "o": [
+    {
+     "ru": "Как чтили Моше",
+     "en": "As Moshe had been revered",
+     "de": "So wie Mosche verehrt wurde"
+    },
+    {
+     "ru": "Как царя Египта",
+     "en": "Like the king of Egypt",
+     "de": "Wie der König von Ägypten"
+    },
+    {
+     "ru": "Меньше, чем прежде",
+     "en": "Less than before",
+     "de": "Weniger als vorher"
+    },
+    {
+     "ru": "Его никто не замечал",
+     "en": "No one noticed him",
+     "de": "Niemand beachtete ihn"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 4:18",
+   "q": {
+    "ru": "Когда воды Ярдена вернулись на своё место?",
+    "en": "When did the waters of the Jordan return to their place?",
+    "de": "Wann kehrte das Wasser des Jordan an seinen Platz zurück?"
+   },
+   "o": [
+    {
+     "ru": "Как только ноги коэнов ступили на сушу",
+     "en": "As soon as the kohanim’s feet stepped onto dry land",
+     "de": "Sobald die Füße der Kohanim auf trockenes Land traten"
+    },
+    {
+     "ru": "Через неделю",
+     "en": "A week later",
+     "de": "Eine Woche später"
+    },
+    {
+     "ru": "На следующий день",
+     "en": "The next day",
+     "de": "Am nächsten Tag"
+    },
+    {
+     "ru": "Через сорок дней",
+     "en": "Forty days later",
+     "de": "Nach vierzig Tagen"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 4:19",
+   "q": {
+    "ru": "В какой день народ вышел из Ярдена?",
+    "en": "On what day did the people come up from the Jordan?",
+    "de": "An welchem Tag stieg das Volk aus dem Jordan?"
+   },
+   "o": [
+    {
+     "ru": "В десятый день первого месяца",
+     "en": "On the tenth day of the first month",
+     "de": "Am zehnten Tag des ersten Monats"
+    },
+    {
+     "ru": "В первый день седьмого месяца",
+     "en": "On the first day of the seventh month",
+     "de": "Am ersten Tag des siebten Monats"
+    },
+    {
+     "ru": "В пятнадцатый день первого месяца",
+     "en": "On the fifteenth day of the first month",
+     "de": "Am fünfzehnten Tag des ersten Monats"
+    },
+    {
+     "ru": "В последний день года",
+     "en": "On the last day of the year",
+     "de": "Am letzten Tag des Jahres"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 4:20",
+   "q": {
+    "ru": "Где Йеґошуа поставил двенадцать камней, взятых из Ярдена?",
+    "en": "Where did Joshua set up the twelve stones taken from the Jordan?",
+    "de": "Wo stellte Jehoschua die zwölf Steine aus dem Jordan auf?"
+   },
+   "o": [
+    {
+     "ru": "В Гилгале",
+     "en": "At Gilgal",
+     "de": "In Gilgal"
+    },
+    {
+     "ru": "В Йерихо",
+     "en": "In Jericho",
+     "de": "In Jericho"
+    },
+    {
+     "ru": "В Шхеме",
+     "en": "In Shechem",
+     "de": "In Schchem"
+    },
+    {
+     "ru": "В Шило",
+     "en": "In Shiloh",
+     "de": "In Schilo"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 7:1",
+   "q": {
+    "ru": "О ком Давид пел этот шигайон?",
+    "en": "About whom did David sing this shiggaion?",
+    "de": "Über wen sang David dieses Schigajon?"
+   },
+   "o": [
+    {
+     "ru": "О Куше из колена Биньямина",
+     "en": "About Cush, a Benjaminite",
+     "de": "Über Kusch aus dem Stamm Binjamin"
+    },
+    {
+     "ru": "О Голиафе",
+     "en": "About Goliath",
+     "de": "Über Goliat"
+    },
+    {
+     "ru": "Об Авшаломе",
+     "en": "About Avshalom",
+     "de": "Über Awschalom"
+    },
+    {
+     "ru": "О фараоне",
+     "en": "About Pharaoh",
+     "de": "Über den Pharao"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 7:3",
+   "q": {
+    "ru": "С кем Давид сравнивает своих преследователей?",
+    "en": "What does David compare his pursuers to?",
+    "de": "Womit vergleicht David seine Verfolger?"
+   },
+   "o": [
+    {
+     "ru": "Со львом",
+     "en": "A lion",
+     "de": "Mit einem Löwen"
+    },
+    {
+     "ru": "С волком",
+     "en": "A wolf",
+     "de": "Mit einem Wolf"
+    },
+    {
+     "ru": "Со змеёй",
+     "en": "A snake",
+     "de": "Mit einer Schlange"
+    },
+    {
+     "ru": "С орлом",
+     "en": "An eagle",
+     "de": "Mit einem Adler"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 7:5",
+   "q": {
+    "ru": "Что Давид говорит о себе в стихе 5?",
+    "en": "What does David say about himself in verse 5?",
+    "de": "Was sagt David in Vers 5 über sich?"
+   },
+   "o": [
+    {
+     "ru": "Он спас своего врага без всякой награды",
+     "en": "He rescued his foe without reward",
+     "de": "Er hat seinen Feind ohne Lohn gerettet"
+    },
+    {
+     "ru": "Он отомстил врагу",
+     "en": "He took revenge on his foe",
+     "de": "Er hat sich an seinem Feind gerächt"
+    },
+    {
+     "ru": "Он ограбил союзника",
+     "en": "He robbed his ally",
+     "de": "Er hat seinen Verbündeten beraubt"
+    },
+    {
+     "ru": "Он убежал из страны",
+     "en": "He fled the country",
+     "de": "Er ist aus dem Land geflohen"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 7:12",
+   "q": {
+    "ru": "Что Б-г делает каждый день, по стиху 12?",
+    "en": "What does G-d do every day, says verse 12?",
+    "de": "Was tut G-tt laut Vers 12 jeden Tag?"
+   },
+   "o": [
+    {
+     "ru": "Произносит приговор",
+     "en": "He pronounces doom",
+     "de": "Er spricht ein Urteil"
+    },
+    {
+     "ru": "Отдыхает",
+     "en": "He rests",
+     "de": "Er ruht"
+    },
+    {
+     "ru": "Молчит",
+     "en": "He is silent",
+     "de": "Er schweigt"
+    },
+    {
+     "ru": "Забывает о мире",
+     "en": "He forgets the world",
+     "de": "Er vergisst die Welt"
+    }
+   ]
+  }
+ ]
+}

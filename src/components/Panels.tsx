@@ -82,6 +82,13 @@ export function Panels() {
               <small>{t('facts.menuSub')}</small>
             </span>
           </a>
+          <a href="#/academy" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/academy') ? 'page' : undefined}>
+            <Icon name="award" />
+            <span>
+              {t('academy.title')}
+              <small>{t('academy.menuSub')}</small>
+            </span>
+          </a>
           <div className="menu-lbl">{t('menu.lessons')}</div>
           {LESSON_GROUPS.map((g) => (
             <details key={g.id} className="menu-group" open={currentParsha === g.id}>
@@ -169,13 +176,33 @@ export function Panels() {
           {(['neviim', 'ketuvim'] as const).map((sec) => (
             <Fragment key={sec}>
               <div className="menu-lbl">{t(`tanakh.${sec}`)}</div>
-              <a href={`#/${sec}`} onClick={close} className="menu-item" aria-current={location.hash.startsWith(`#/${sec}`) ? 'page' : undefined}>
+              <a
+                href={`#/${sec}`}
+                onClick={close}
+                className="menu-item"
+                aria-current={location.hash.startsWith(`#/${sec}`) && !location.hash.split('?')[0].endsWith('/quiz') ? 'page' : undefined}
+              >
                 <Icon name="book" />
                 <span>
                   {t('tanakh.daySub')}
                   <small lang="he">{sec === 'neviim' ? 'נביאים' : 'כתובים'}</small>
                 </span>
               </a>
+              {/* «Вопросы к отрывку»: a quiz on the passage of the day — for the book's certificate («Академия») */}
+              <div className="menu-sub">
+                <a
+                  href={`#/${sec}/quiz`}
+                  onClick={close}
+                  className="menu-item menu-game"
+                  aria-current={location.hash.startsWith(`#/${sec}`) && location.hash.split('?')[0].endsWith('/quiz') ? 'page' : undefined}
+                >
+                  <span className="menu-num">✓</span>
+                  <span>
+                    {t('quiz.title')}
+                    <small>{t('quiz.menuSub')}</small>
+                  </span>
+                </a>
+              </div>
             </Fragment>
           ))}
           {lessonSlug && (

@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 1:11",
+   "q": {
+    "ru": "Через сколько дней народ должен был перейти Ярден?",
+    "en": "In how many days were the people to cross the Jordan?",
+    "de": "In wie vielen Tagen sollte das Volk den Jordan überqueren?"
+   },
+   "o": [
+    {
+     "ru": "Через три дня",
+     "en": "In three days",
+     "de": "In drei Tagen"
+    },
+    {
+     "ru": "Через семь дней",
+     "en": "In seven days",
+     "de": "In sieben Tagen"
+    },
+    {
+     "ru": "Через сорок дней",
+     "en": "In forty days",
+     "de": "In vierzig Tagen"
+    },
+    {
+     "ru": "На следующий день",
+     "en": "The next day",
+     "de": "Am nächsten Tag"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 1:12",
+   "q": {
+    "ru": "Каким коленам Йеґошуа напомнил их обещание Моше — идти воевать вместе с братьями?",
+    "en": "Which tribes did Joshua remind of their promise to Moshe to fight alongside their brothers?",
+    "de": "Welche Stämme erinnerte Jehoschua an ihr Versprechen an Mosche, mit ihren Brüdern zu kämpfen?"
+   },
+   "o": [
+    {
+     "ru": "Реувену, Гаду и половине колена Менаше",
+     "en": "Reuben, Gad and half the tribe of Manasseh",
+     "de": "Re’uwen, Gad und den halben Stamm Menasche"
+    },
+    {
+     "ru": "Йеґуде и Биньямину",
+     "en": "Judah and Benjamin",
+     "de": "Jehuda und Binjamin"
+    },
+    {
+     "ru": "Леви и Шимону",
+     "en": "Levi and Simeon",
+     "de": "Levi und Schimon"
+    },
+    {
+     "ru": "Эфраиму и Дану",
+     "en": "Ephraim and Dan",
+     "de": "Efrajim und Dan"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 1:14",
+   "q": {
+    "ru": "Кто из этих колен оставался на восточном берегу Ярдена?",
+    "en": "Who from these tribes stayed east of the Jordan?",
+    "de": "Wer aus diesen Stämmen blieb östlich des Jordan?"
+   },
+   "o": [
+    {
+     "ru": "Жёны, дети и скот",
+     "en": "Their wives, children and livestock",
+     "de": "Die Frauen, Kinder und das Vieh"
+    },
+    {
+     "ru": "Все воины",
+     "en": "All the warriors",
+     "de": "Alle Krieger"
+    },
+    {
+     "ru": "Коэны и левиты",
+     "en": "The kohanim and Levites",
+     "de": "Die Kohanim und Leviten"
+    },
+    {
+     "ru": "Никто",
+     "en": "No one",
+     "de": "Niemand"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 1:18",
+   "q": {
+    "ru": "Какими словами народ закончил свой ответ Йеґошуа?",
+    "en": "With what words did the people end their answer to Joshua?",
+    "de": "Mit welchen Worten beendete das Volk seine Antwort an Jehoschua?"
+   },
+   "o": [
+    {
+     "ru": "«Только будь твёрд и решителен!»",
+     "en": "“Only be strong and resolute!”",
+     "de": "„Sei nur stark und mutig!“"
+    },
+    {
+     "ru": "«Дай нам царя!»",
+     "en": "“Give us a king!”",
+     "de": "„Gib uns einen König!“"
+    },
+    {
+     "ru": "«Мы боимся идти»",
+     "en": "“We are afraid to go”",
+     "de": "„Wir haben Angst zu gehen“"
+    },
+    {
+     "ru": "«Веди нас обратно»",
+     "en": "“Lead us back”",
+     "de": "„Führe uns zurück“"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 2:4",
+   "q": {
+    "ru": "Что делает Восседающий на небесах, видя заговор царей?",
+    "en": "What does He who is enthroned in heaven do when the kings plot?",
+    "de": "Was tut Der im Himmel thront, wenn die Könige sich verschwören?"
+   },
+   "o": [
+    {
+     "ru": "Смеётся",
+     "en": "He laughs",
+     "de": "Er lacht"
+    },
+    {
+     "ru": "Плачет",
+     "en": "He weeps",
+     "de": "Er weint"
+    },
+    {
+     "ru": "Молчит и не видит",
+     "en": "He is silent and does not see",
+     "de": "Er schweigt und sieht nichts"
+    },
+    {
+     "ru": "Уходит",
+     "en": "He leaves",
+     "de": "Er geht weg"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 2:6",
+   "q": {
+    "ru": "Где, по словам Б-га, Он поставил Своего царя?",
+    "en": "Where, G-d says, has He installed His king?",
+    "de": "Wo hat G-tt, wie Er sagt, Seinen König eingesetzt?"
+   },
+   "o": [
+    {
+     "ru": "На Ционе, Своей святой горе",
+     "en": "On Zion, His holy mountain",
+     "de": "Auf Zion, Seinem heiligen Berg"
+    },
+    {
+     "ru": "На горе Синай",
+     "en": "On Mount Sinai",
+     "de": "Auf dem Berg Sinai"
+    },
+    {
+     "ru": "В Египте",
+     "en": "In Egypt",
+     "de": "In Ägypten"
+    },
+    {
+     "ru": "У Ярдена",
+     "en": "By the Jordan",
+     "de": "Am Jordan"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 2:9",
+   "q": {
+    "ru": "С чем сравнивается сокрушение врагов?",
+    "en": "What is the shattering of the enemies compared to?",
+    "de": "Womit wird das Zerschlagen der Feinde verglichen?"
+   },
+   "o": [
+    {
+     "ru": "С изделием горшечника",
+     "en": "A potter’s ware",
+     "de": "Mit einem Gefäß des Töpfers"
+    },
+    {
+     "ru": "С сухим листом",
+     "en": "A dry leaf",
+     "de": "Mit einem trockenen Blatt"
+    },
+    {
+     "ru": "С песком",
+     "en": "Sand",
+     "de": "Mit Sand"
+    },
+    {
+     "ru": "С хлебом",
+     "en": "Bread",
+     "de": "Mit Brot"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 2:11",
+   "q": {
+    "ru": "Как, по псалму, нужно служить Г-споду?",
+    "en": "How, says the psalm, should one serve the L-rd?",
+    "de": "Wie soll man laut diesem Kapitel dem Ewigen dienen?"
+   },
+   "o": [
+    {
+     "ru": "В благоговении",
+     "en": "In awe",
+     "de": "In Ehrfurcht"
+    },
+    {
+     "ru": "В гневе",
+     "en": "In anger",
+     "de": "Im Zorn"
+    },
+    {
+     "ru": "Тайно ото всех",
+     "en": "In secret",
+     "de": "Heimlich"
+    },
+    {
+     "ru": "Только в праздники",
+     "en": "Only on festivals",
+     "de": "Nur an Feiertagen"
+    }
+   ]
+  }
+ ]
+}

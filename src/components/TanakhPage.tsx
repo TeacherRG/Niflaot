@@ -316,6 +316,13 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
             <Verses verses={sec.verses} he={he} tr={tr} st={view.st} />
           )}
 
+          {sec && (
+            <p className="tk-quiz no-print">
+              <a className="btn" href={`#/${section}/${day.date}/quiz`}>
+                ✓ {t('quiz.cta')}
+              </a>
+            </p>
+          )}
           {sec && <Sources sec={sec} ru={tr === 'ru'} />}
           {printBoth && content?.[other] && (
             <section className="tk-print-other print-only">

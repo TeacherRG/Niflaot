@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 2:15",
+   "q": {
+    "ru": "Как Рахав помогла разведчикам выбраться из города?",
+    "en": "How did Rahab get the spies out of the city?",
+    "de": "Wie half Rachaw den Kundschaftern aus der Stadt?"
+   },
+   "o": [
+    {
+     "ru": "Спустила их на верёвке через окно",
+     "en": "She let them down by a rope through the window",
+     "de": "Sie ließ sie an einem Seil durchs Fenster hinunter"
+    },
+    {
+     "ru": "Вывела через ворота",
+     "en": "She led them out through the gate",
+     "de": "Sie führte sie durchs Tor hinaus"
+    },
+    {
+     "ru": "Спрятала в повозке",
+     "en": "She hid them in a cart",
+     "de": "Sie versteckte sie in einem Wagen"
+    },
+    {
+     "ru": "Прорыла подкоп",
+     "en": "She dug a tunnel",
+     "de": "Sie grub einen Tunnel"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 2:18",
+   "q": {
+    "ru": "Что Рахав должна была привязать к окну?",
+    "en": "What was Rahab to tie to the window?",
+    "de": "Was sollte Rachaw ans Fenster binden?"
+   },
+   "o": [
+    {
+     "ru": "Алый шнур",
+     "en": "A crimson cord",
+     "de": "Eine rote Schnur"
+    },
+    {
+     "ru": "Белый платок",
+     "en": "A white cloth",
+     "de": "Ein weißes Tuch"
+    },
+    {
+     "ru": "Золотую цепь",
+     "en": "A golden chain",
+     "de": "Eine goldene Kette"
+    },
+    {
+     "ru": "Оливковую ветку",
+     "en": "An olive branch",
+     "de": "Einen Olivenzweig"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 2:22",
+   "q": {
+    "ru": "Сколько дней разведчики скрывались в горах?",
+    "en": "How many days did the spies hide in the hills?",
+    "de": "Wie viele Tage versteckten sich die Kundschafter in den Bergen?"
+   },
+   "o": [
+    {
+     "ru": "Три",
+     "en": "Three",
+     "de": "Drei"
+    },
+    {
+     "ru": "Семь",
+     "en": "Seven",
+     "de": "Sieben"
+    },
+    {
+     "ru": "Сорок",
+     "en": "Forty",
+     "de": "Vierzig"
+    },
+    {
+     "ru": "Один",
+     "en": "One",
+     "de": "Einen"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 2:24",
+   "q": {
+    "ru": "Что разведчики сказали Йеґошуа?",
+    "en": "What did the spies tell Joshua?",
+    "de": "Was sagten die Kundschafter zu Jehoschua?"
+   },
+   "o": [
+    {
+     "ru": "«Г-сподь отдал всю землю в нашу власть»",
+     "en": "“The L-rd has delivered the whole land into our power”",
+     "de": "„Der Ewige hat das ganze Land in unsere Hand gegeben“"
+    },
+    {
+     "ru": "«Город неприступен»",
+     "en": "“The city cannot be taken”",
+     "de": "„Die Stadt ist uneinnehmbar“"
+    },
+    {
+     "ru": "«Там живут великаны»",
+     "en": "“Giants live there”",
+     "de": "„Dort wohnen Riesen“"
+    },
+    {
+     "ru": "«Надо вернуться назад»",
+     "en": "“We must turn back”",
+     "de": "„Wir müssen umkehren“"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 4:2",
+   "q": {
+    "ru": "Как Давид называет Б-га в начале псалма?",
+    "en": "What does David call G-d at the start of the psalm?",
+    "de": "Wie nennt David G-tt am Anfang des Kapitels?"
+   },
+   "o": [
+    {
+     "ru": "«Мой Оправдатель»",
+     "en": "“My vindicator”",
+     "de": "„Der mir Recht verschafft“"
+    },
+    {
+     "ru": "«Мой Отец»",
+     "en": "“My Father”",
+     "de": "„Mein Vater“"
+    },
+    {
+     "ru": "«Мой Пастырь»",
+     "en": "“My shepherd”",
+     "de": "„Mein Hirte“"
+    },
+    {
+     "ru": "«Моя Скала»",
+     "en": "“My rock”",
+     "de": "„Mein Fels“"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 4:5",
+   "q": {
+    "ru": "Где псалом советует обдумать свои поступки?",
+    "en": "Where does the psalm advise thinking things over?",
+    "de": "Wo soll man laut diesem Kapitel über alles nachdenken?"
+   },
+   "o": [
+    {
+     "ru": "На своём ложе",
+     "en": "On your bed",
+     "de": "Auf deinem Lager"
+    },
+    {
+     "ru": "На рынке",
+     "en": "In the market",
+     "de": "Auf dem Markt"
+    },
+    {
+     "ru": "В дороге",
+     "en": "On the road",
+     "de": "Unterwegs"
+    },
+    {
+     "ru": "На поле боя",
+     "en": "On the battlefield",
+     "de": "Auf dem Schlachtfeld"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 4:6",
+   "q": {
+    "ru": "Что, кроме жертв в праведности, велит делать стих 6?",
+    "en": "Besides offering sacrifices in righteousness, what does verse 6 say to do?",
+    "de": "Was sagt Vers 6 außer gerechten Opfern noch?"
+   },
+   "o": [
+    {
+     "ru": "Уповать на Г-спода",
+     "en": "Trust in the L-rd",
+     "de": "Auf den Ewigen vertrauen"
+    },
+    {
+     "ru": "Копить зерно",
+     "en": "Store up grain",
+     "de": "Getreide sammeln"
+    },
+    {
+     "ru": "Строить башни",
+     "en": "Build towers",
+     "de": "Türme bauen"
+    },
+    {
+     "ru": "Уйти в пустыню",
+     "en": "Go out to the desert",
+     "de": "In die Wüste gehen"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 4:9",
+   "q": {
+    "ru": "Как Давид ложится спать?",
+    "en": "How does David lie down to sleep?",
+    "de": "Wie legt sich David schlafen?"
+   },
+   "o": [
+    {
+     "ru": "В безопасности и благополучии",
+     "en": "Safe and untroubled",
+     "de": "In Frieden und sicher"
+    },
+    {
+     "ru": "В страхе",
+     "en": "In fear",
+     "de": "In Angst"
+    },
+    {
+     "ru": "С мечом в руке",
+     "en": "With a sword in his hand",
+     "de": "Mit dem Schwert in der Hand"
+    },
+    {
+     "ru": "Он не спит",
+     "en": "He does not sleep",
+     "de": "Er schläft nicht"
+    }
+   ]
+  }
+ ]
+}

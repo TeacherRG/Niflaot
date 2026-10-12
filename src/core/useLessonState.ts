@@ -31,6 +31,8 @@ export interface GameState {
   notes: Record<number, string>;
   /** «Собери смысл»: pieces in place, key = riddle index or 'final' */
   puz: Record<string, number[]>;
+  /** the best score of an earlier playthrough: «Начать заново» keeps it for the certificates of «Академия» */
+  best?: number;
 }
 
 export const MAX_WRONG = { num: 3, ch: 2, lt: 3, tap: 2 } as const;
@@ -118,7 +120,10 @@ export function useLessonState(lesson: Lesson) {
     });
   }, []);
 
-  const reset = useCallback(() => setState(normalize(lesson, {})), [lesson]);
+  const reset = useCallback(
+    () => setState((prev) => ({ ...normalize(lesson, {}), best: Math.max(prev.best ?? 0, prev.score) })),
+    [lesson],
+  );
 
   return [state, update, reset] as const;
 }

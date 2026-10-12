@@ -1455,3 +1455,79 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
   .tk-sources{font-size:8.5pt;color:#444}
   .tk-print-other{margin-top:18pt;padding-top:8pt;border-top:2px solid #111}
 }
+
+/* «Вопросы к отрывку» — a quiz on the passage of the day */
+.tk-quiz{margin:20px 0 4px;text-align:center}
+.qz-list{list-style:none;margin:12px 0;padding:0;display:grid;gap:14px}
+.qz-q{padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--shadow)}
+.qz-text{display:flex;gap:10px;align-items:baseline;margin:0 0 10px;font-size:17px;font-weight:600;line-height:1.4}
+.qz-num{flex:none;display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--gold-soft);color:var(--gold);font-size:13px}
+.qz-opts{display:grid;gap:8px}
+.qz-opt{text-align:start;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font-size:15.5px;line-height:1.4;transition:border-color .15s,background .15s}
+.qz-opt:hover:not(:disabled){border-color:var(--gold);background:var(--gold-soft)}
+.qz-opt:disabled{cursor:default;opacity:.65}
+.qz-opt.ok{opacity:1;border-color:var(--ok);background:var(--ok-soft);font-weight:600}
+.qz-opt.bad{opacity:1;border-color:var(--bad);background:var(--bad-soft)}
+.qz-fb{margin:8px 0 0;font-size:14.5px;font-weight:600}
+.qz-fb.ok{color:var(--ok)}
+.qz-fb.bad{color:var(--bad)}
+.qz-ref{font-weight:400;color:var(--muted)}
+.qz-result{margin:16px 0;padding:16px;border-radius:12px;text-align:center;background:var(--gold-soft);border:1px solid var(--gold-line)}
+.qz-result.ok{background:var(--ok-soft);border-color:var(--ok)}
+.qz-result p{margin:4px 0}
+.qz-score{font-family:var(--f-display);font-size:30px;font-weight:700}
+.qz-best{font-size:13px;color:var(--muted)}
+.qz-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:10px}
+.qz-actions .btn{text-decoration:none}
+.qz-more{margin:14px 0;text-align:center;font-size:14.5px}
+.qz-more a{color:var(--tchelet);font-weight:700;text-decoration:none}
+
+/* «Академия» — certificates for the books */
+.ac-lead{margin:4px 0;font-size:16px;line-height:1.5;color:var(--ink-2)}
+.ac-h2{margin:26px 0 4px;font-family:var(--f-display);font-size:28px}
+.ac-note{margin:0 0 12px;font-size:14px;color:var(--muted);line-height:1.5}
+.ac-list{list-style:none;margin:10px 0 18px;padding:0;display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr))}
+.ac-card{display:flex;gap:14px;padding:14px;border:1px solid var(--line);border-top:4px solid var(--tc-line,var(--gold));border-radius:12px;background:var(--surface);box-shadow:var(--shadow)}
+.ac-card.earned{background:linear-gradient(180deg,var(--gold-soft),var(--surface) 70%)}
+.ac-seal{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--tc-soft,var(--gold-soft));color:var(--tc,var(--gold));font-size:24px}
+.ac-seal .he{font-family:var(--f-he);font-weight:700}
+.ac-body{flex:1;min-width:0}
+.ac-body h3{margin:0;font-size:16.5px;line-height:1.3}
+.ac-body h3 small{display:block;font-weight:500;font-size:13.5px;color:var(--muted)}
+.ac-body h3 .he{font-family:var(--f-he)}
+.ac-bar{position:relative;height:8px;margin:10px 0 6px;border-radius:999px;background:var(--paper);overflow:hidden}
+.ac-bar span{position:absolute;inset-block:0;inset-inline-start:0;background:var(--tc-line,var(--gold));border-radius:999px}
+.ac-bar i{position:absolute;inset-block:0;width:2px;background:var(--ink)}
+.ac-meta{margin:0;font-size:12.5px;color:var(--muted)}
+.ac-ok{margin:6px 0 0;font-weight:700;color:var(--ok)}
+.ac-wait{margin:6px 0 0;font-size:13px;color:var(--ink-2);line-height:1.45}
+.ac-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.ac-actions .btn{padding:7px 14px;font-size:13.5px;text-decoration:none}
+.ac-tools{display:grid;gap:10px;margin:8px 0 16px}
+.ac-tools>a{color:var(--tchelet);text-decoration:none;font-weight:600}
+.ac-tools .btn{justify-self:start}
+.ac-name{display:grid;gap:4px;font-size:14px;font-weight:600}
+.ac-name input{max-width:420px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;font:inherit;font-weight:500;font-size:16px}
+.ac-name small{font-weight:400;color:var(--muted)}
+
+/* the certificate: A4 landscape on paper */
+.cert{position:relative;overflow:hidden;display:grid;justify-items:center;gap:6px;padding:clamp(18px,4vw,40px);text-align:center;background:#fffdf7;border:2px solid var(--gold);outline:6px double var(--gold-line);outline-offset:-14px;border-radius:6px;color:var(--ink);aspect-ratio:297/210}
+.cert-logos{display:flex;justify-content:space-between;align-items:center;width:100%;gap:12px}
+.cert-logos img{height:clamp(26px,5vw,48px);width:auto}
+.cert-logos span{display:flex;gap:12px}
+.cert-kicker{margin:4px 0 0;font-size:clamp(11px,1.6vw,14px);font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.cert-title{margin:0;font-family:var(--f-display);font-size:clamp(26px,5.4vw,52px);line-height:1.05}
+.cert-awarded{margin:2px 0 0;font-size:clamp(12px,1.8vw,16px);color:var(--muted)}
+.cert-name{min-width:60%;margin:0;padding:0 12px 4px;border-bottom:1px solid var(--gold);font-family:var(--f-display);font-size:clamp(24px,4.6vw,44px);font-weight:700}
+.cert-for{margin:4px 0 0;font-size:clamp(12px,1.8vw,16px);color:var(--ink-2)}
+.cert-book{margin:0;font-family:var(--f-display);font-size:clamp(22px,4vw,38px);font-weight:700;color:var(--tchelet)}
+.cert-book .he{font-family:var(--f-he);color:var(--gold)}
+.cert-result{margin:0;font-size:clamp(12px,1.8vw,16px);font-weight:700}
+.cert-foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;width:100%;margin-top:auto;font-size:clamp(10px,1.4vw,13px);color:var(--muted)}
+.cert-foot .he{font-family:var(--f-he)}
+.cert-wm{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-display);font-size:clamp(60px,16vw,180px);font-weight:700;color:rgba(174,42,33,.12);transform:rotate(-18deg);pointer-events:none}
+@page cert{size:A4 landscape;margin:10mm}
+@media print{
+  .ac-one{padding:0;max-width:none}
+  .cert{page:cert;width:100%;height:186mm;aspect-ratio:auto;border-radius:0;break-inside:avoid}
+}

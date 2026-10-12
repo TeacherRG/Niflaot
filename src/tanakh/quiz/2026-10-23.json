@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 6:17",
+   "q": {
+    "ru": "Кто из Йерихо остался в живых?",
+    "en": "Who in Jericho was spared?",
+    "de": "Wer in Jericho blieb am Leben?"
+   },
+   "o": [
+    {
+     "ru": "Рахав и все, кто с ней в доме",
+     "en": "Rahab and everyone with her in the house",
+     "de": "Rachaw und alle, die bei ihr im Haus waren"
+    },
+    {
+     "ru": "Царь Йерихо",
+     "en": "The king of Jericho",
+     "de": "Der König von Jericho"
+    },
+    {
+     "ru": "Стражники у ворот",
+     "en": "The guards at the gate",
+     "de": "Die Wächter am Tor"
+    },
+    {
+     "ru": "Никто",
+     "en": "No one",
+     "de": "Niemand"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 6:19",
+   "q": {
+    "ru": "Куда должны были пойти серебро, золото, медь и железо?",
+    "en": "Where were the silver, gold, copper and iron to go?",
+    "de": "Wohin sollten Silber, Gold, Kupfer und Eisen kommen?"
+   },
+   "o": [
+    {
+     "ru": "В сокровищницу Г-спода",
+     "en": "Into the treasury of the L-rd",
+     "de": "In die Schatzkammer des Ewigen"
+    },
+    {
+     "ru": "Воинам",
+     "en": "To the soldiers",
+     "de": "An die Soldaten"
+    },
+    {
+     "ru": "Йеґошуа",
+     "en": "To Joshua",
+     "de": "An Jehoschua"
+    },
+    {
+     "ru": "Их закопали в землю",
+     "en": "They were buried in the ground",
+     "de": "Sie wurden vergraben"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 6:20",
+   "q": {
+    "ru": "Что случилось, когда народ издал громкий клич?",
+    "en": "What happened when the people raised a mighty shout?",
+    "de": "Was geschah, als das Volk laut rief?"
+   },
+   "o": [
+    {
+     "ru": "Стена рухнула",
+     "en": "The wall collapsed",
+     "de": "Die Mauer stürzte ein"
+    },
+    {
+     "ru": "Открылись ворота",
+     "en": "The gates opened",
+     "de": "Die Tore öffneten sich"
+    },
+    {
+     "ru": "Царь сдался",
+     "en": "The king surrendered",
+     "de": "Der König ergab sich"
+    },
+    {
+     "ru": "Пошёл дождь",
+     "en": "It began to rain",
+     "de": "Es begann zu regnen"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 6:26",
+   "q": {
+    "ru": "Что Йеґошуа сказал о том, кто отстроит Йерихо?",
+    "en": "What did Joshua say about anyone who would rebuild Jericho?",
+    "de": "Was sagte Jehoschua über den, der Jericho wieder aufbaut?"
+   },
+   "o": [
+    {
+     "ru": "Он заплатит жизнью своего первенца и младшего",
+     "en": "He will pay with his firstborn and his youngest",
+     "de": "Er bezahlt es mit seinem Erstgeborenen und seinem Jüngsten"
+    },
+    {
+     "ru": "Он станет царём",
+     "en": "He will become king",
+     "de": "Er wird König"
+    },
+    {
+     "ru": "Он получит награду",
+     "en": "He will be rewarded",
+     "de": "Er wird belohnt"
+    },
+    {
+     "ru": "Ничего не сказал",
+     "en": "He said nothing",
+     "de": "Er sagte nichts"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 9:12",
+   "q": {
+    "ru": "Где, по стиху 12, царствует Г-сподь?",
+    "en": "Where, says verse 12, does the L-rd reign?",
+    "de": "Wo herrscht der Ewige laut Vers 12?"
+   },
+   "o": [
+    {
+     "ru": "В Ционе",
+     "en": "In Zion",
+     "de": "In Zion"
+    },
+    {
+     "ru": "В Египте",
+     "en": "In Egypt",
+     "de": "In Ägypten"
+    },
+    {
+     "ru": "В пустыне",
+     "en": "In the desert",
+     "de": "In der Wüste"
+    },
+    {
+     "ru": "На горе Синай",
+     "en": "On Mount Sinai",
+     "de": "Auf dem Berg Sinai"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 9:16",
+   "q": {
+    "ru": "Куда провалились народы?",
+    "en": "Into what did the nations sink?",
+    "de": "Worin versanken die Völker?"
+   },
+   "o": [
+    {
+     "ru": "В яму, которую сами сделали",
+     "en": "The pit they made",
+     "de": "In die Grube, die sie selbst gemacht hatten"
+    },
+    {
+     "ru": "В море",
+     "en": "The sea",
+     "de": "Ins Meer"
+    },
+    {
+     "ru": "В огонь",
+     "en": "A fire",
+     "de": "Ins Feuer"
+    },
+    {
+     "ru": "В пещеру",
+     "en": "A cave",
+     "de": "In eine Höhle"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 9:19",
+   "q": {
+    "ru": "Что сказано о нуждающемся?",
+    "en": "What is said about the needy?",
+    "de": "Was wird über den Bedürftigen gesagt?"
+   },
+   "o": [
+    {
+     "ru": "Он не всегда будет забыт",
+     "en": "He shall not always be forgotten",
+     "de": "Er wird nicht immer vergessen sein"
+    },
+    {
+     "ru": "Он всегда будет беден",
+     "en": "He will always be poor",
+     "de": "Er wird immer arm sein"
+    },
+    {
+     "ru": "Он должен молчать",
+     "en": "He must keep silent",
+     "de": "Er muss schweigen"
+    },
+    {
+     "ru": "О нём ничего не сказано",
+     "en": "Nothing is said about him",
+     "de": "Über ihn wird nichts gesagt"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 9:21",
+   "q": {
+    "ru": "Что должны узнать народы, по стиху 21?",
+    "en": "What should the nations know, says verse 21?",
+    "de": "Was sollen die Völker laut Vers 21 erkennen?"
+   },
+   "o": [
+    {
+     "ru": "Что они лишь люди",
+     "en": "That they are only men",
+     "de": "Dass sie nur Menschen sind"
+    },
+    {
+     "ru": "Что они непобедимы",
+     "en": "That they are invincible",
+     "de": "Dass sie unbesiegbar sind"
+    },
+    {
+     "ru": "Что они вечны",
+     "en": "That they are eternal",
+     "de": "Dass sie ewig sind"
+    },
+    {
+     "ru": "Что они всегда правы",
+     "en": "That they are always right",
+     "de": "Dass sie immer recht haben"
+    }
+   ]
+  }
+ ]
+}
