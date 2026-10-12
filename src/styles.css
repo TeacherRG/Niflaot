@@ -1022,7 +1022,7 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .pm-head p{margin:4px 0 0;font-size:15px}
 .pm-page{margin-top:18px}
 .pm-page-h{font-size:14px;font-weight:700;margin-bottom:6px}
-.pm-cards{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px dashed #888;border-inline-start:1px dashed #888}
+.pm-cards{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px dashed #888;border-inline-start:1px dashed #888}
 .pm-card{aspect-ratio:3/4;border-bottom:1px dashed #888;border-inline-end:1px dashed #888;padding:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;position:relative;text-align:center}
 .pm-pic img{flex:1;min-height:0;width:100%;object-fit:contain}
 .pm-num{position:absolute;bottom:8px;left:8px;min-width:18px;height:18px;padding:0 4px;border:1px solid #111;border-radius:9px;background:#fff;font-family:var(--f-body);font-size:11px;font-weight:700;line-height:16px;text-align:center;direction:ltr}
@@ -1043,8 +1043,8 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .pm-color img{width:100%;max-width:560px;display:block;margin:0 auto}
 .pm-color p{margin:6px 0 0;font-size:14px}
 @media print{
-  .pm-page,.pm-color{break-before:page}
-  .pm-cards{justify-content:center}
+  /* the pages flow with no forced breaks: the cards start right under the texts, no half-empty pages */
+  .pm-color{break-before:page}
   .pm-info .mi-img{width:60px;height:80px}
   .pm-info .mi{gap:5px;padding:8px}
   .pm-info .mi-head h3{font-size:17px}
@@ -1052,11 +1052,13 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
   .pm-info .mi-quote,.pm-info .mi-block p,.pm-info .mi-eq{font-size:12.5px;line-height:1.4}
   .pm-info .mi-quote,.pm-info .mi-calc,.pm-info .mi-moral{padding:4px 8px}
   .pm-info .mi-block h4{font-size:12px}
-  .pm-page{margin-top:0}
-  .pm-cards{grid-template-columns:repeat(4,4cm);break-inside:avoid}
-  /* 4 × 3 cards of 4 × 5.33 cm (3:4): all twelve fit on one A4 page right under the masthead, in every language */
-  .pm-card{width:4cm;height:5.33cm;aspect-ratio:auto}
-  .pm-info{break-before:page}
+  .pm-page{margin-top:12px}
+  .pm-page-h{break-after:avoid}
+  /* 3 cards in a row across the whole width of A4: as large as the page allows; a row is never cut */
+  .pm-cards{grid-template-columns:repeat(3,1fr)}
+  .pm-card{aspect-ratio:3/4;padding:3px;break-inside:avoid}
+  .pm-num{font-size:13px;min-width:22px;height:22px;line-height:20px;border-radius:11px}
+  .pm-info{margin-top:16px}
   .pm-color{margin:0}
   .pm-color img{max-width:none;width:auto;height:24cm}
 }
