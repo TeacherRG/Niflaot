@@ -7,6 +7,7 @@ const en: LessonText = {
     author: 'based on the commentary of the Baal HaTurim, Rabbi Yaakov ben Asher',
     intro:
       'The great commentator found numbers, first and last letters of words and Masoretic “pairs” in the first chapters of the Torah. Count them yourself: when the world was created, why light is Torah, what man is made of and whom the Almighty loves.',
+    art: 'The Creation: the first light over the waters, trees and animals, the sun and the moon; on the table a book, a shofar, candles and challah',
   },
   summary:
     'Bereishit 1–4 through the eyes of the Baal HaTurim: “Bereishit bara” = “created on Rosh Hashanah”, light = 613, man from the earth, a seal and challah, the seventh day and the seventh generation.',

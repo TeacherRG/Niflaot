@@ -7,6 +7,7 @@ const de: LessonText = {
     author: 'nach dem Kommentar des Baal HaTurim, Rabbi Jaakow ben Ascher',
     intro:
       'Der Baal HaTurim hat im Wochenabschnitt Noach Zahlen und versteckte Wörter gefunden. Rechne selbst nach: wie Noach war, wie viele Tage die Sintflut dauerte, wer noch mit der Arche gerettet wurde und was nach der Sintflut geschah — mit dem Wein, dem Turm und der Sprache; und wie man im Atbasch und »mit dem Kolel« zählt.',
+    art: 'Die Arche auf den Bergen nach der Flut: ein Regenbogen, eine Taube mit einem Ölblatt, die Tiere kommen heraus, Noach dankt',
   },
   summary:
     'Der Abschnitt Noach mit den Augen des Baal HaTurim: »Chamas« = »die Wasser Noachs«, »Kez« — 190 Tage Sintflut, der »Zohar« — ein leuchtender Stein, »ach Noach« = Og, Wein = Wehklage, und das »Wohlan!« der Turmbauer versteckt »sorglosen Wohlstand«, und Sara ist im Atbasch Jiska.',

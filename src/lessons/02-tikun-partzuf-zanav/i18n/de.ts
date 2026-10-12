@@ -7,6 +7,7 @@ const de: LessonText = {
     author: 'nach einem Artikel von Rabbi Jizchak Ginsburgh',
     intro:
       'Zähle die Zahlenwerte von Wörtern, entdecke verborgene Gleichheiten und erschließe ihren Sinn: Hochmut und Begierde, Gebet, die drei Gesichter des Menschen und das Geheimnis der Ehe.',
+    art: 'Ein Junge mit Kippa schaut in einen Spiegel und sieht sich heller; daneben Bücher und eine abgelegte Maske',
   },
   summary: 'Hochmut und Begierde, Gebet, die drei Gesichter des Menschen und das Geheimnis der Ehe — vier Rätsel über Gesicht, Maske und Herz.',
   glossary: {

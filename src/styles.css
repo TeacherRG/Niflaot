@@ -50,6 +50,10 @@ a{color:inherit}
 .hero-in::before{content:attr(data-l1);position:absolute;font-family:var(--f-he);font-weight:900;font-size:340px;line-height:1;color:var(--gold-soft);left:-30px;top:-60px;pointer-events:none}
 .hero-in::after{content:attr(data-l2);position:absolute;font-family:var(--f-he);font-weight:900;font-size:300px;line-height:1;color:var(--gold-soft);right:-10px;bottom:-110px;pointer-events:none}
 .hero-in > *{position:relative;z-index:1}
+/* the lesson's picture (art/hero.webp) — above the title, inside the frame of the hero card */
+.hero-art{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:2px;margin-bottom:6px}
+.r-art{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:6px;margin:4px 0 14px}
+@media print{.hero-art,.r-art{display:none}}
 .year{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:700;display:flex;align-items:center;gap:12px}
 .year::before,.year::after{content:"";width:34px;height:1px;background:var(--gold-line)}
 .hero .heb{font-family:var(--f-he);font-weight:900;font-size:clamp(44px,10vw,76px);line-height:1.05;direction:rtl}

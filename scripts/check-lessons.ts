@@ -205,6 +205,26 @@ for (const lesson of LESSONS.filter((l) => l.kind !== 'sicha'))
 for (const lesson of LESSONS)
   checkPuzzle(`${lesson.slug} · final`, Object.entries(lesson.texts).map(([l, tx]) => [l, tx!.puzzle]), lesson.kind === 'commentary');
 
+// Illustrations (art/hero.webp, art/riddle-N.webp): every picture belongs to the lesson and has its alt text in every language
+for (const lesson of LESSONS) {
+  const dir = readdirSync('src/lessons').find((d) => d.endsWith(`-${lesson.slug}`));
+  const artDir = `src/lessons/${dir}/art`;
+  if (!existsSync(artDir)) continue;
+  for (const f of readdirSync(artDir)) {
+    const m = /^(?:hero|riddle-(\d+))\.webp$/.exec(f);
+    if (!m) {
+      err(`${lesson.slug} · art/${f}: only hero.webp and riddle-N.webp`);
+      continue;
+    }
+    const ri = m[1] ? Number(m[1]) - 1 : -1;
+    if (ri >= lesson.riddles.length) err(`${lesson.slug} · art/${f}: the lesson has no riddle ${ri + 1}`);
+    for (const [lang, tx] of Object.entries(lesson.texts)) {
+      const alt = ri < 0 ? tx?.hero.art : tx?.riddles[ri]?.art;
+      if (!alt?.trim()) err(`${lesson.slug} · art/${f} [${lang}]: no alt text (${ri < 0 ? 'hero.art' : `riddles[${ri}].art`})`);
+    }
+  }
+}
+
 // Memo: every number and letter hint is computed, every pair has its picture
 for (const lesson of LESSONS) {
   const m = lesson.memo;

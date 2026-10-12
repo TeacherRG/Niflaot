@@ -3,13 +3,16 @@ import type { Lesson, LessonText } from '../lessons/types';
 import { PARSHIOT } from '../lessons/parshiot';
 import { Icon, useUI } from './ui';
 import { AgeBadge } from './AgeBadge';
+import { lessonArt } from '../core/art';
 
 /** `reading` — on the «Читать» page: the button leads back to the game instead. */
 export function Hero({ lesson, text, reading }: { lesson: Lesson; text: LessonText; reading?: boolean }) {
   const { t } = useI18n();
   const { open } = useUI();
+  const art = lessonArt(lesson, 'hero');
   return (
     <header className="hero hero-lesson">
+      {art && <img className="hero-art" src={art} alt={text.hero.art ?? ''} width={1280} height={720} />}
       <div className="hero-in" data-l1={lesson.heroLetters[0]} data-l2={lesson.heroLetters[1]}>
         <div className="year">
           {PARSHIOT[lesson.parsha].year} · <span className="he">{PARSHIOT[lesson.parsha].heYear}</span>

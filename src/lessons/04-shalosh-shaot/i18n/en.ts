@@ -7,6 +7,7 @@ const en: LessonText = {
     author: 'from a talk of the Lubavitcher Rebbe · Simchat Torah 5723',
     intro:
       'The first man — fashioned by the hands of G-d Himself — heard the prohibition from Him directly. A prohibition for just three hours. And he could not hold out. Investigate with the Rebbe: why — and what it teaches every home.',
+    art: 'A tree in Gan Eden in the evening sun, a serpent in its branches; below, a mother and her children set the Shabbat table',
   },
   summary:
     'Why couldn’t Adam keep a prohibition for just three hours? “Whoever is greater than his fellow, his evil inclination is greater too.” Why at Sinai Moshe spoke to the women first. The home as a small Sanctuary.',
@@ -176,6 +177,7 @@ const en: LessonText = {
           b: `<p>Efforts to increase the Torah involvement of Jewish women will benefit Jewish men too. A wife’s thoughts, words and deeds will not run contrary to her husband’s; she will assist and complement him in all things, bringing binah — understanding — to the home. Our Sages say: “The Holy One, blessed be He, gave woman greater binah than man.”<sup data-src="niddah-45b"></sup></p><p>A wife active in Torah affects her entire household, making it a fit place for the Shechinah to rest. This is reflected in the wedding blessing: “Grant joy to these loving companions, as You gladdened Your creation in the Garden of Eden of old (<span class="he">מקדם</span>).”<sup data-src="ketubot-8a"></sup> Why “of old”? Everyone knows the story of Adam and Chavah took place long ago. The blessing, however, refers to the time “before” — before the sin.</p><p>We wish that every new marriage be like the bond between Adam and Chavah before the sin, when each assisted the other. Then the home will be fit to host G-d’s Presence, and there will be joy — “as You gladdened Your creation in the Garden of Eden of old.”</p>`,
         },
       ],
+      art: 'Sinai: the mountain in cloud and light, the people standing at its foot — men, and women with children',
       reflection: 'How can I add joy and light to my home today — with a kind word rather than a directive?',
       takeaways: [
         'Adam, not Chavah, heard the prohibition; she added “nor shall you touch it” — and the serpent used it.',
