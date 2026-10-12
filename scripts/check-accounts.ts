@@ -35,6 +35,14 @@ if (daily[3]?.done !== 'lose') err('sync: a finished day must win over an unfini
 if (m['niflaot:lang'] !== 'de') err('sync: this device\'s settings must win');
 if ('niflaot:admin-token' in m) err('sync: a key that must stay on the device travels (admin token)');
 if (JSON.stringify(mergeSnapshots(m, m)) !== JSON.stringify(m)) err('sync: merging a copy with itself changes it');
+const qz = mergeSnapshots(
+  { 'niflaot:tanakh-quiz': JSON.stringify({ 'd1:neviim': { p: [0, 1, 0], best: 2, n: 3 }, 'd2:neviim': { p: [0, -1, -1], best: -1, n: 3 } }) },
+  { 'niflaot:tanakh-quiz': JSON.stringify({ 'd1:neviim': { p: [0, 0, 0], best: 3, n: 3 }, 'd3:ketuvim': { p: [1, 1, 1], best: 0, n: 3 } }) },
+);
+const q = JSON.parse(qz['niflaot:tanakh-quiz'] ?? '{}');
+if (q['d1:neviim']?.best !== 3 || !q['d2:neviim'] || !q['d3:ketuvim']) err('sync: «Вопросы к отрывку» — a day or the better result is lost');
+const best = mergeSnapshots({ 'niflaot:lesson:a': JSON.stringify({ ...JSON.parse(lesson([0, 1], 20)), best: 40 }) }, { 'niflaot:lesson:a': lesson([0, 1, 2], 25) });
+if (JSON.parse(best['niflaot:lesson:a']).best !== 40 || JSON.parse(best['niflaot:lesson:a']).done.length !== 3) err('sync: a lesson\'s best earlier score is lost');
 const s = summarize(m, 4);
 if (s.solved !== 6 || s.points !== 20 + 15 + 5 || s.days !== 2 || s.streak !== 4 || s.lessons.b !== 3) err(`sync: summary ${JSON.stringify(s)}`);
 

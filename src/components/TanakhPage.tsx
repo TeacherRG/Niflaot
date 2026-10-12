@@ -4,7 +4,7 @@ import { useI18n } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { BOOKS, rangeLabel, type Section } from '../core/tanakhCycle';
-import { CYCLE, cycleDayFor, loadDay, localToday, readingMinutes, type DayContent, type SectionDay, type DayVerse } from '../core/tanakh';
+import { CYCLE, cycleDayFor, loadDay, localToday, readingMinutes, type DayContent, type SectionDay, type DayVerse, type Tr } from '../core/tanakh';
 import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
 import { TanakhMasthead } from './PrintBrand';
 
@@ -13,10 +13,14 @@ export const SECTION_HE: Record<Section, string> = { neviim: 'נביאים', ket
 /**
  * The page's one language menu: which text to show — the Hebrew and a translation, only a translation, or only the Hebrew —
  * and whether to show Rabbi Steinsaltz's explanations. It applies to everything: the verse, the explanation, the introductions.
- * Russian is the project's translation (src/tanakh/ru), ready week by week; where a day has none, English stands in.
+ * Russian and German are the project's translations (src/tanakh/ru, src/tanakh/de), ready week by week; where a day has
+ * none, English stands in.
  */
-type TextLang = 'he-ru' | 'he-en' | 'ru' | 'en' | 'he';
-const TEXT_LANGS: TextLang[] = ['he-ru', 'he-en', 'ru', 'en', 'he'];
+type TextLang = 'he-ru' | 'he-en' | 'he-de' | 'ru' | 'en' | 'de' | 'he';
+const TEXT_LANGS: TextLang[] = ['he-ru', 'he-en', 'he-de', 'ru', 'en', 'de', 'he'];
+/** the project's own translations (the rest is English) */
+type OwnLang = 'ru' | 'de';
+const trOf = (l: TextLang): Tr | null => (l === 'he' ? null : (l.replace('he-', '') as Tr));
 interface View {
   text: TextLang;
   st: boolean;
@@ -26,17 +30,21 @@ function useView(locale: string): [View, (v: View) => void] {
   const [view, set] = useState<View>(() => {
     try {
       const v = JSON.parse(localStorage.getItem(VIEW_KEY) ?? 'null');
-      if (v && TEXT_LANGS.includes(v.text) && typeof v.st === 'boolean') return v;
+      if (v && TEXT_LANGS.includes(v.text) && typeof v.st === 'boolean') {
+        // a choice saved before the German translation existed (no `de` mark): on the German site English becomes German, once
+        if (locale === 'de' && !v.de && (v.text === 'he-en' || v.text === 'en')) return { text: v.text === 'en' ? 'de' : 'he-de', st: v.st };
+        return { text: v.text, st: v.st };
+      }
     } catch {}
-    // by default: the Hebrew with the translation in the site's language (Russian site — Russian, else English)
-    return { text: locale === 'ru' ? 'he-ru' : 'he-en', st: true };
+    // by default: the Hebrew with the translation in the site's language
+    return { text: locale === 'ru' ? 'he-ru' : locale === 'de' ? 'he-de' : 'he-en', st: true };
   });
   return [
     view,
     (v) => {
       set(v);
       try {
-        localStorage.setItem(VIEW_KEY, JSON.stringify(v));
+        localStorage.setItem(VIEW_KEY, JSON.stringify({ ...v, de: true }));
       } catch {}
     },
   ];
@@ -46,13 +54,16 @@ function useView(locale: string): [View, (v: View) => void] {
  * One button for the page's languages: it shows the current choice and opens a list — the text languages and,
  * below a line, Rabbi Steinsaltz's explanations on/off.
  */
-function ViewMenu({ view, setView, ruSoon }: { view: View; setView: (v: View) => void; ruSoon: boolean }) {
+function ViewMenu({ view, setView, soon }: { view: View; setView: (v: View) => void; soon: Record<OwnLang, boolean> }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const close = useCallback(() => setOpen(false), []);
   useDismiss(open, root, close);
-  const label = (l: TextLang) => `${t(`tanakh.view.${l}`)}${l.endsWith('ru') && ruSoon ? ` — ${t('tanakh.ruSoon')}` : ''}`;
+  const label = (l: TextLang) => {
+    const tr = trOf(l);
+    return `${t(`tanakh.view.${l}`)}${tr && tr !== 'en' && soon[tr] ? ` — ${t('tanakh.ruSoon')}` : ''}`;
+  };
   return (
     <div className="tk-view no-speak" ref={root}>
       <button type="button" className="lang-btn tk-view-btn" aria-haspopup="true" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
@@ -77,7 +88,7 @@ function ViewMenu({ view, setView, ruSoon }: { view: View; setView: (v: View) =>
                 close();
               }}
             >
-              <span className="code">{l === 'he' ? 'עב' : l.endsWith('ru') ? 'RU' : 'EN'}</span>
+              <span className="code">{l === 'he' ? 'עב' : trOf(l)!.toUpperCase()}</span>
               <span className="name">{label(l)}</span>
               {view.text === l && <Icon name="check" size={16} />}
             </button>
@@ -96,14 +107,15 @@ function ViewMenu({ view, setView, ruSoon }: { view: View; setView: (v: View) =>
 
 
 /** The sources and licenses under a section, and its link to Sefaria (the link only on screen). */
-function Sources({ sec, ru }: { sec: SectionDay; ru: boolean }) {
+function Sources({ sec, tr }: { sec: SectionDay; tr: Tr | null }) {
   const { t } = useI18n();
   return (
     <footer className="tk-sources">
       <p>
         {t('tanakh.sourceHe')} — {sec.versions.he?.title} ({sec.versions.he?.license}), Sefaria.{' '}
         {t('tanakh.sourceEn')} — {sec.versions.en?.title} ({sec.versions.en?.license}), Sefaria.{' '}
-        {ru && <>{t('tanakh.sourceRu')} </>}
+        {tr === 'ru' && <>{t('tanakh.sourceRu')} </>}
+        {tr === 'de' && <>{t('tanakh.sourceDe')} </>}
         {sec.versions.steinsaltz && (
           <>
             {t('tanakh.steinsaltz')} — {sec.versions.steinsaltz.title} ({sec.versions.steinsaltz.license}).
@@ -146,10 +158,11 @@ const bookOf = (slug: string) => BOOKS.find((b) => b.slug === slug)!;
 const labelLang = (locale: string) => (locale === 'en' || locale === 'de' ? locale : 'ru');
 
 /** The verses of one section of one day: a heading at each new chapter, Steinsaltz's introductions, then verse by verse. */
-function Verses({ verses, he, tr, st }: { verses: DayVerse[]; he: boolean; tr: 'ru' | 'en' | null; st: boolean }) {
+function Verses({ verses, he, tr, st }: { verses: DayVerse[]; he: boolean; tr: Tr | null; st: boolean }) {
   const { t, locale } = useI18n();
-  // the translation in the chosen language (in Б-г / Г-сподь the hyphen doesn't break: a non-breaking hyphen on screen)
-  const tx = (x: { en?: string; ru?: string }) => (tr === 'ru' ? x.ru?.replace(/([БГ])-(?=г|спод)/g, '$1\u2011') : tr === 'en' ? x.en : undefined);
+  // the translation in the chosen language (in Б-г / Г-сподь / G-tt the hyphen doesn't break: a non-breaking hyphen on screen)
+  const tx = (x: Partial<Record<Tr, string>>) =>
+    tr === 'ru' ? x.ru?.replace(/([БГ])-(?=г|спод)/g, '$1\u2011') : tr === 'de' ? x.de?.replace(/([Gg])-(?=tt)/g, '$1\u2011') : tr ? x[tr] : undefined;
   return (
     <>
       {verses.map((v, i) => {
@@ -248,11 +261,13 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
   const prev = CYCLE[index - 1];
   const next = CYCLE[index + 1];
   const sec = content?.[section];
-  // Russian is shown where the whole day is translated (both sections); otherwise English stands in, with a note
-  const ruReady = !!content && (['neviim', 'ketuvim'] as const).every((s) => content[s].verses.every((v) => v.ru));
+  // the project's translation is shown where the whole day is translated (both sections); otherwise English stands in, with a note
+  const ready = (l: OwnLang) => !!content && (['neviim', 'ketuvim'] as const).every((s) => content[s].verses.every((v) => v[l]));
+  const soon = { ru: !!content && !ready('ru'), de: !!content && !ready('de') };
   const he = view.text.startsWith('he');
-  const want = view.text === 'he' ? null : view.text.endsWith('ru') ? 'ru' : 'en';
-  const tr = want === 'ru' && content && !ruReady ? 'en' : want;
+  const want = trOf(view.text);
+  const missing = want === 'ru' || want === 'de' ? soon[want] : false;
+  const tr = missing ? 'en' : want;
   const isToday = day.date === today;
 
   return (
@@ -291,7 +306,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
           </nav>
 
           <div className="tk-tools no-print">
-            <ViewMenu view={view} setView={setView} ruSoon={!!content && !ruReady} />
+            <ViewMenu view={view} setView={setView} soon={soon} />
             {sec && (
               <div className="tk-print">
                 <button type="button" className="btn ghost" onClick={() => window.print()}>
@@ -305,8 +320,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
               </div>
             )}
           </div>
-          {want === 'ru' && content && !ruReady && <p className="tk-note">{t('tanakh.ruMissing')}</p>}
-          {locale === 'de' && tr === 'en' && <p className="tk-note">{t('tanakh.enOnly')}</p>}
+          {missing && <p className="tk-note">{t(want === 'de' ? 'tanakh.deMissing' : 'tanakh.ruMissing')}</p>}
 
           {content === undefined ? (
             <p className="tk-note">{t('tanakh.loading')}</p>
@@ -316,7 +330,14 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
             <Verses verses={sec.verses} he={he} tr={tr} st={view.st} />
           )}
 
-          {sec && <Sources sec={sec} ru={tr === 'ru'} />}
+          {sec && (
+            <p className="tk-quiz no-print">
+              <a className="btn" href={`#/${section}/${day.date}/quiz`}>
+                ✓ {t('quiz.cta')}
+              </a>
+            </p>
+          )}
+          {sec && <Sources sec={sec} tr={tr} />}
           {printBoth && content?.[other] && (
             <section className="tk-print-other print-only">
               <header className="tk-head">
@@ -329,7 +350,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
                 <p className="tk-range">{rangeLabel(other, day[other], lang)}</p>
               </header>
               <Verses verses={content[other].verses} he={he} tr={tr} st={view.st} />
-              <Sources sec={content[other]} ru={tr === 'ru'} />
+              <Sources sec={content[other]} tr={tr} />
             </section>
           )}
           <p className="tk-cycle no-print">

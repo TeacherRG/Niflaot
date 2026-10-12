@@ -217,6 +217,13 @@ export function Final({
         </a>
       </section>
     )}
+    <section className="memo-cta pop">
+      <span aria-hidden="true">🎓</span>
+      <p>{t('final.academy')}</p>
+      <a className="btn" href="#/academy">
+        {t('academy.title')} →
+      </a>
+    </section>
     <DailyReminder />
     <Subscribe />
     <a className="mychitas pop" href="https://mychitas.app" target="_blank" rel="noopener">

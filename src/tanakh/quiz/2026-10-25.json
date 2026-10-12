@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 7:1",
+   "q": {
+    "ru": "Кто взял из херема?",
+    "en": "Who took from the proscribed things?",
+    "de": "Wer nahm vom Gebannten?"
+   },
+   "o": [
+    {
+     "ru": "Ахан из колена Йеґуды",
+     "en": "Achan of the tribe of Judah",
+     "de": "Achan aus dem Stamm Jehuda"
+    },
+    {
+     "ru": "Рахав",
+     "en": "Rahab",
+     "de": "Rachaw"
+    },
+    {
+     "ru": "Калев",
+     "en": "Caleb",
+     "de": "Kalew"
+    },
+    {
+     "ru": "Пинхас",
+     "en": "Pinchas",
+     "de": "Pinchas"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 7:2",
+   "q": {
+    "ru": "Какой город пошли разведывать после Йерихо?",
+    "en": "Which city was scouted after Jericho?",
+    "de": "Welche Stadt wurde nach Jericho erkundet?"
+   },
+   "o": [
+    {
+     "ru": "Ай",
+     "en": "Ai",
+     "de": "Ai"
+    },
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    },
+    {
+     "ru": "Шхем",
+     "en": "Shechem",
+     "de": "Schchem"
+    },
+    {
+     "ru": "Гивон",
+     "en": "Gibeon",
+     "de": "Giwon"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 7:4",
+   "q": {
+    "ru": "Сколько воинов пошли на Ай?",
+    "en": "How many troops went up against Ai?",
+    "de": "Wie viele Krieger zogen gegen Ai?"
+   },
+   "o": [
+    {
+     "ru": "Около трёх тысяч",
+     "en": "About three thousand",
+     "de": "Etwa dreitausend"
+    },
+    {
+     "ru": "Всё войско",
+     "en": "The whole army",
+     "de": "Das ganze Heer"
+    },
+    {
+     "ru": "Сорок тысяч",
+     "en": "Forty thousand",
+     "de": "Vierzigtausend"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 7:6",
+   "q": {
+    "ru": "Что сделал Йеґошуа после поражения у Ая?",
+    "en": "What did Joshua do after the defeat at Ai?",
+    "de": "Was tat Jehoschua nach der Niederlage bei Ai?"
+   },
+   "o": [
+    {
+     "ru": "Разорвал одежды и лёг лицом к земле перед Ковчегом",
+     "en": "He tore his clothes and lay face down before the Ark",
+     "de": "Er zerriss seine Kleider und lag mit dem Gesicht zur Erde vor der Lade"
+    },
+    {
+     "ru": "Сразу объявил новую войну",
+     "en": "He at once declared a new war",
+     "de": "Er erklärte sofort einen neuen Krieg"
+    },
+    {
+     "ru": "Ушёл обратно за Ярден",
+     "en": "He went back across the Jordan",
+     "de": "Er ging zurück über den Jordan"
+    },
+    {
+     "ru": "Наказал разведчиков",
+     "en": "He punished the scouts",
+     "de": "Er bestrafte die Kundschafter"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 10:1",
+   "q": {
+    "ru": "Каким вопросом начинается псалом 10?",
+    "en": "What question opens psalm 10?",
+    "de": "Mit welcher Frage beginnt Kapitel 10?"
+   },
+   "o": [
+    {
+     "ru": "«Почему, Г-сподь, Ты стоишь вдали?»",
+     "en": "“Why, O L-rd, do You stand aloof?”",
+     "de": "„Warum, Ewiger, stehst Du so fern?“"
+    },
+    {
+     "ru": "«Кто взойдёт на гору Г-спода?»",
+     "en": "“Who may ascend the mountain of the L-rd?”",
+     "de": "„Wer darf auf den Berg des Ewigen steigen?“"
+    },
+    {
+     "ru": "«Что такое человек?»",
+     "en": "“What is man?”",
+     "de": "„Was ist der Mensch?“"
+    },
+    {
+     "ru": "«Зачем собираются народы?»",
+     "en": "“Why do nations assemble?”",
+     "de": "„Warum toben die Völker?“"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 10:4",
+   "q": {
+    "ru": "Что думает нечестивый в своём высокомерии?",
+    "en": "What does the wicked man think in his arrogance?",
+    "de": "Was denkt der Böse in seinem Hochmut?"
+   },
+   "o": [
+    {
+     "ru": "«Он не взыщет; Б-гу нет дела»",
+     "en": "“He does not call to account; G-d does not care”",
+     "de": "„Er fordert keine Rechenschaft; G-tt kümmert es nicht“"
+    },
+    {
+     "ru": "«Я согрешил»",
+     "en": "“I have sinned”",
+     "de": "„Ich habe gesündigt“"
+    },
+    {
+     "ru": "«Меня будут судить»",
+     "en": "“I will be judged”",
+     "de": "„Ich werde gerichtet“"
+    },
+    {
+     "ru": "«Я должен измениться»",
+     "en": "“I must change”",
+     "de": "„Ich muss mich ändern“"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 10:7",
+   "q": {
+    "ru": "Чем полны уста нечестивого?",
+    "en": "What fills the wicked man’s mouth?",
+    "de": "Womit ist der Mund des Bösen voll?"
+   },
+   "o": [
+    {
+     "ru": "Клятвами, обманом и ложью",
+     "en": "Oaths, deceit and fraud",
+     "de": "Mit Schwüren, Betrug und Lüge"
+    },
+    {
+     "ru": "Хвалой",
+     "en": "Praise",
+     "de": "Mit Lob"
+    },
+    {
+     "ru": "Молитвой",
+     "en": "Prayer",
+     "de": "Mit Gebet"
+    },
+    {
+     "ru": "Мудростью",
+     "en": "Wisdom",
+     "de": "Mit Weisheit"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 10:8",
+   "q": {
+    "ru": "Где подстерегает нечестивый?",
+    "en": "Where does the wicked man lurk?",
+    "de": "Wo lauert der Böse?"
+   },
+   "o": [
+    {
+     "ru": "В глухих местах, из засады",
+     "en": "In hidden places, in ambush",
+     "de": "An versteckten Orten, aus dem Hinterhalt"
+    },
+    {
+     "ru": "Открыто на рынке",
+     "en": "Openly in the market",
+     "de": "Offen auf dem Markt"
+    },
+    {
+     "ru": "В доме учения",
+     "en": "In the house of study",
+     "de": "Im Lehrhaus"
+    },
+    {
+     "ru": "У царского дворца",
+     "en": "By the royal palace",
+     "de": "Am Königspalast"
+    }
+   ]
+  }
+ ]
+}

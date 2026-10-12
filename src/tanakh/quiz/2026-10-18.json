@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 4:3",
+   "q": {
+    "ru": "Откуда нужно было взять двенадцать камней?",
+    "en": "Where were the twelve stones to be taken from?",
+    "de": "Woher sollten die zwölf Steine genommen werden?"
+   },
+   "o": [
+    {
+     "ru": "Из середины Ярдена, где стояли ноги коэнов",
+     "en": "From the middle of the Jordan, where the kohanim’s feet stood",
+     "de": "Aus der Mitte des Jordan, wo die Füße der Kohanim standen"
+    },
+    {
+     "ru": "Из стены Йерихо",
+     "en": "From the wall of Jericho",
+     "de": "Aus der Mauer von Jericho"
+    },
+    {
+     "ru": "С горы Синай",
+     "en": "From Mount Sinai",
+     "de": "Vom Berg Sinai"
+    },
+    {
+     "ru": "Из пустыни",
+     "en": "From the desert",
+     "de": "Aus der Wüste"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 4:7",
+   "q": {
+    "ru": "Что ответить детям, которые спросят: «Что значат эти камни?»",
+    "en": "What should the children be told when they ask, “What do these stones mean?”",
+    "de": "Was soll man den Kindern sagen, wenn sie fragen: „Was bedeuten diese Steine?“"
+   },
+   "o": [
+    {
+     "ru": "Воды Ярдена прервались перед Ковчегом Завета",
+     "en": "The waters of the Jordan were cut off before the Ark of the Covenant",
+     "de": "Das Wasser des Jordan hörte vor der Bundeslade auf zu fließen"
+    },
+    {
+     "ru": "Здесь похоронен Моше",
+     "en": "Moshe is buried here",
+     "de": "Hier ist Mosche begraben"
+    },
+    {
+     "ru": "Здесь граница страны",
+     "en": "This is the border of the land",
+     "de": "Hier ist die Grenze des Landes"
+    },
+    {
+     "ru": "Здесь стоял Храм",
+     "en": "The Temple stood here",
+     "de": "Hier stand der Tempel"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 4:9",
+   "q": {
+    "ru": "Где Йеґошуа поставил ещё двенадцать камней?",
+    "en": "Where did Joshua set up another twelve stones?",
+    "de": "Wo stellte Jehoschua noch zwölf Steine auf?"
+   },
+   "o": [
+    {
+     "ru": "Посреди Ярдена, где стояли коэны с Ковчегом",
+     "en": "In the middle of the Jordan, where the kohanim with the Ark had stood",
+     "de": "Mitten im Jordan, wo die Kohanim mit der Lade gestanden hatten"
+    },
+    {
+     "ru": "На горе Нево",
+     "en": "On Mount Nebo",
+     "de": "Auf dem Berg Nebo"
+    },
+    {
+     "ru": "У ворот Йерихо",
+     "en": "At the gates of Jericho",
+     "de": "An den Toren von Jericho"
+    },
+    {
+     "ru": "В Шитим",
+     "en": "In Shittim",
+     "de": "In Schittim"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 4:13",
+   "q": {
+    "ru": "Около скольких передовых воинов перешли на равнины Йерихо?",
+    "en": "About how many shock troops crossed to the steppes of Jericho?",
+    "de": "Etwa wie viele Krieger zogen in die Ebene von Jericho?"
+   },
+   "o": [
+    {
+     "ru": "Сорока тысяч",
+     "en": "Forty thousand",
+     "de": "Vierzigtausend"
+    },
+    {
+     "ru": "Тысячи",
+     "en": "A thousand",
+     "de": "Tausend"
+    },
+    {
+     "ru": "Шестисот тысяч",
+     "en": "Six hundred thousand",
+     "de": "Sechshunderttausend"
+    },
+    {
+     "ru": "Двенадцати",
+     "en": "Twelve",
+     "de": "Zwölf"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 6:7",
+   "q": {
+    "ru": "Чем Давид каждую ночь «заливает» свою постель?",
+    "en": "With what does David drench his bed every night?",
+    "de": "Womit tränkt David jede Nacht sein Bett?"
+   },
+   "o": [
+    {
+     "ru": "Слезами",
+     "en": "With tears",
+     "de": "Mit Tränen"
+    },
+    {
+     "ru": "Вином",
+     "en": "With wine",
+     "de": "Mit Wein"
+    },
+    {
+     "ru": "Маслом",
+     "en": "With oil",
+     "de": "Mit Öl"
+    },
+    {
+     "ru": "Водой из колодца",
+     "en": "With water from a well",
+     "de": "Mit Brunnenwasser"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 6:9",
+   "q": {
+    "ru": "Кому Давид говорит «Прочь от меня»?",
+    "en": "To whom does David say, “Away from me”?",
+    "de": "Zu wem sagt David: „Weicht von mir“?"
+   },
+   "o": [
+    {
+     "ru": "Всем творящим зло",
+     "en": "All you evildoers",
+     "de": "Allen Übeltätern"
+    },
+    {
+     "ru": "Своим друзьям",
+     "en": "His friends",
+     "de": "Seinen Freunden"
+    },
+    {
+     "ru": "Своим детям",
+     "en": "His children",
+     "de": "Seinen Kindern"
+    },
+    {
+     "ru": "Ангелам",
+     "en": "The angels",
+     "de": "Den Engeln"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 6:10",
+   "q": {
+    "ru": "Что делает Г-сподь с молитвой Давида?",
+    "en": "What does the L-rd do with David’s prayer?",
+    "de": "Was tut der Ewige mit Davids Gebet?"
+   },
+   "o": [
+    {
+     "ru": "Принимает её",
+     "en": "He accepts it",
+     "de": "Er nimmt es an"
+    },
+    {
+     "ru": "Отвергает её",
+     "en": "He rejects it",
+     "de": "Er weist es ab"
+    },
+    {
+     "ru": "Откладывает на потом",
+     "en": "He puts it off",
+     "de": "Er verschiebt es"
+    },
+    {
+     "ru": "Не слышит",
+     "en": "He does not hear it",
+     "de": "Er hört es nicht"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 6:11",
+   "q": {
+    "ru": "Что будет с врагами Давида?",
+    "en": "What will happen to David’s enemies?",
+    "de": "Was wird mit Davids Feinden geschehen?"
+   },
+   "o": [
+    {
+     "ru": "Будут посрамлены и повернут назад",
+     "en": "They will be frustrated and turn back",
+     "de": "Sie werden beschämt und kehren um"
+    },
+    {
+     "ru": "Станут царями",
+     "en": "They will become kings",
+     "de": "Sie werden Könige"
+    },
+    {
+     "ru": "Получат награду",
+     "en": "They will be rewarded",
+     "de": "Sie werden belohnt"
+    },
+    {
+     "ru": "Ничего",
+     "en": "Nothing",
+     "de": "Nichts"
+    }
+   ]
+  }
+ ]
+}

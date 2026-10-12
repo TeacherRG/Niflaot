@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 6:8",
+   "q": {
+    "ru": "Кто шёл прямо перед Ковчегом?",
+    "en": "Who walked right in front of the Ark?",
+    "de": "Wer ging direkt vor der Lade?"
+   },
+   "o": [
+    {
+     "ru": "Семь коэнов с семью шофарами",
+     "en": "Seven kohanim with seven shofars",
+     "de": "Sieben Kohanim mit sieben Schofarot"
+    },
+    {
+     "ru": "Один Йеґошуа",
+     "en": "Joshua alone",
+     "de": "Jehoschua allein"
+    },
+    {
+     "ru": "Двенадцать старейшин",
+     "en": "Twelve elders",
+     "de": "Zwölf Älteste"
+    },
+    {
+     "ru": "Левиты с арфами",
+     "en": "Levites with harps",
+     "de": "Leviten mit Harfen"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 6:10",
+   "q": {
+    "ru": "Что Йеґошуа приказал остальному народу во время обходов?",
+    "en": "What did Joshua order the rest of the people during the marches?",
+    "de": "Was befahl Jehoschua dem übrigen Volk während der Umzüge?"
+   },
+   "o": [
+    {
+     "ru": "Молчать, пока он не скажет: «Кричите!»",
+     "en": "To keep silent until he says, “Shout!”",
+     "de": "Zu schweigen, bis er sagt: „Ruft!“"
+    },
+    {
+     "ru": "Петь песни",
+     "en": "To sing songs",
+     "de": "Lieder zu singen"
+    },
+    {
+     "ru": "Бить в барабаны",
+     "en": "To beat drums",
+     "de": "Trommeln zu schlagen"
+    },
+    {
+     "ru": "Трубить в шофары",
+     "en": "To blow shofars",
+     "de": "Schofarot zu blasen"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 6:14",
+   "q": {
+    "ru": "Сколько дней город обходили по одному разу?",
+    "en": "For how many days did they march around the city once a day?",
+    "de": "Wie viele Tage zogen sie einmal um die Stadt?"
+   },
+   "o": [
+    {
+     "ru": "Шесть",
+     "en": "Six",
+     "de": "Sechs"
+    },
+    {
+     "ru": "Семь",
+     "en": "Seven",
+     "de": "Sieben"
+    },
+    {
+     "ru": "Три",
+     "en": "Three",
+     "de": "Drei"
+    },
+    {
+     "ru": "Сорок",
+     "en": "Forty",
+     "de": "Vierzig"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 6:16",
+   "q": {
+    "ru": "Что сказал Йеґошуа на седьмом круге?",
+    "en": "What did Joshua say on the seventh round?",
+    "de": "Was sagte Jehoschua bei der siebten Runde?"
+   },
+   "o": [
+    {
+     "ru": "«Кричите! Ибо Г-сподь отдал вам город»",
+     "en": "“Shout! For the L-rd has given you the city”",
+     "de": "„Ruft! Denn der Ewige hat euch die Stadt gegeben“"
+    },
+    {
+     "ru": "«Остановитесь!»",
+     "en": "“Stop!”",
+     "de": "„Halt!“"
+    },
+    {
+     "ru": "«Возвращайтесь в стан»",
+     "en": "“Go back to the camp”",
+     "de": "„Zurück ins Lager“"
+    },
+    {
+     "ru": "«Ставьте лестницы»",
+     "en": "“Set up ladders”",
+     "de": "„Stellt Leitern auf“"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 9:2",
+   "q": {
+    "ru": "О чём Давид обещает рассказать в стихе 2?",
+    "en": "What does David promise to tell in verse 2?",
+    "de": "Wovon will David in Vers 2 erzählen?"
+   },
+   "o": [
+    {
+     "ru": "Обо всех чудесах Б-га",
+     "en": "All of G-d’s wonders",
+     "de": "Von allen Wundern G-ttes"
+    },
+    {
+     "ru": "О своих победах",
+     "en": "His own victories",
+     "de": "Von seinen Siegen"
+    },
+    {
+     "ru": "О своём богатстве",
+     "en": "His wealth",
+     "de": "Von seinem Reichtum"
+    },
+    {
+     "ru": "О своих врагах",
+     "en": "His enemies",
+     "de": "Von seinen Feinden"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 9:5",
+   "q": {
+    "ru": "Каким Судьёй назван Б-г в стихе 5?",
+    "en": "What kind of judge is G-d called in verse 5?",
+    "de": "Was für ein Richter wird G-tt in Vers 5 genannt?"
+   },
+   "o": [
+    {
+     "ru": "Праведным",
+     "en": "Righteous",
+     "de": "Gerecht"
+    },
+    {
+     "ru": "Далёким",
+     "en": "Distant",
+     "de": "Fern"
+    },
+    {
+     "ru": "Суровым без милости",
+     "en": "Harsh and merciless",
+     "de": "Hart und ohne Erbarmen"
+    },
+    {
+     "ru": "Молчаливым",
+     "en": "Silent",
+     "de": "Schweigend"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 9:10",
+   "q": {
+    "ru": "Чем Г-сподь является для угнетённого?",
+    "en": "What is the L-rd for the oppressed?",
+    "de": "Was ist der Ewige für den Unterdrückten?"
+   },
+   "o": [
+    {
+     "ru": "Пристанищем",
+     "en": "A haven",
+     "de": "Eine Zuflucht"
+    },
+    {
+     "ru": "Обвинителем",
+     "en": "An accuser",
+     "de": "Ein Ankläger"
+    },
+    {
+     "ru": "Незнакомцем",
+     "en": "A stranger",
+     "de": "Ein Fremder"
+    },
+    {
+     "ru": "Испытанием",
+     "en": "A test",
+     "de": "Eine Prüfung"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 9:11",
+   "q": {
+    "ru": "Кого Г-сподь не оставляет?",
+    "en": "Whom does the L-rd not abandon?",
+    "de": "Wen verlässt der Ewige nicht?"
+   },
+   "o": [
+    {
+     "ru": "Обращающихся к Нему",
+     "en": "Those who turn to Him",
+     "de": "Die sich an Ihn wenden"
+    },
+    {
+     "ru": "Только богатых",
+     "en": "Only the rich",
+     "de": "Nur die Reichen"
+    },
+    {
+     "ru": "Только сильных",
+     "en": "Only the strong",
+     "de": "Nur die Starken"
+    },
+    {
+     "ru": "Только царей",
+     "en": "Only kings",
+     "de": "Nur die Könige"
+    }
+   ]
+  }
+ ]
+}
