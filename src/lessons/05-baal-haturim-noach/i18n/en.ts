@@ -376,6 +376,121 @@ const en: LessonText = {
       ],
     },
   ],
+  memo: {
+    intro:
+      'Twelve comments of the Baal HaTurim on the portion of Noach — twelve pairs of cards. Each picture tells about one comment, and its pair is the Torah words the comment speaks about.',
+    items: [
+      {
+        title: 'Noach saw three worlds',
+        caption: 'Noach and three windows: three worlds',
+        verse: '“These are the generations of Noach. Noach…”',
+        quote: '“Noach, Noach” — “Noach” is written three times in the verse: he saw three worlds.',
+        explain:
+          'In the first verse of the portion the name נח appears three times: “These are the generations of Noach. Noach was a righteous man… Noach walked with G-d.” The Baal HaTurim explains: Noach saw three worlds — the world before the flood, the world covered with water, and the new world after the flood.',
+        moral: 'The world can change beyond recognition — but a righteous person stays righteous in every one of its worlds.',
+      },
+      {
+        title: 'Noach was wise',
+        caption: 'A wise man with staff and scroll teaches',
+        verse: '“Noach walked with G-d”',
+        quote: '“Noach walked with G-d” — the last letters spell חכם (wise). As it says: “He who wins souls is wise.”',
+        explain:
+          'Take the last letters of האלקים התהלך נח: ם, ך, ח. Rearrange them — and you get חכם, “wise”. The Baal HaTurim quotes a verse from Mishlei: “He who wins souls is wise.” Noach was a wise man: for 120 years he built the ark and called on people to change their ways.',
+        moral: 'A wise person does not only know things himself — he helps others become better too.',
+      },
+      {
+        title: '“Violence” — “the waters of Noach”',
+        caption: 'Boiling waves of the flood',
+        verse: '“and the earth was filled with violence”',
+        quote: '“Violence” has the value of “the waters of Noach”: they were paid back measure for measure. “Violence” has the value of “Gehinnom”: they were judged with boiling water.',
+        explain:
+          'The word חמס (“violence”, robbery) equals 108 — just like מי נח, “the waters of Noach”. The generation of the flood robbed — and was punished by the waters of the flood: measure for measure. And 108 is also גיהנם, Gehinnom: our Sages say the waters of the flood were boiling.',
+        moral: 'What a person does to others comes back to him. So it is worth doing only good to others.',
+      },
+      {
+        title: 'The end — 190 days',
+        caption: 'Rain and long days of high water',
+        verse: '“the end of all flesh”',
+        quote: '“The end of all flesh” — a hint to the days of the flood: as many as the number of “ketz”: 40 days of rain and 150 days of rising water.',
+        explain:
+          'G-d told Noach: “The end of all flesh has come.” The word קץ (“end”) equals 190: ק = 100, ץ = 90. That is exactly how long the flood lasted: it rained for 40 days, and then for 150 more days the water rose and stayed over the earth. 40 + 150 = 190.',
+        note: '40 days of rain + 150 days of high water',
+        moral: 'Even the hardest time has its measure and its end — G-d knows how long it will last.',
+      },
+      {
+        title: 'Giants a hundred cubits tall',
+        caption: 'A giant, a shorter man and a measure',
+        verse: '“I will destroy them with the earth”',
+        quote: '“I will destroy them with the earth” — the first letters spell מאה (a hundred). They were a hundred cubits tall — and He made them shorter.',
+        explain:
+          'The first letters of the words משחיתם את הארץ: מ, א, ה — together מאה, “a hundred”. The people before the flood were giants — a hundred cubits tall. The Baal HaTurim teaches: G-d “destroyed” their great height.',
+        moral: 'Strength and height do not make a person great. Good deeds do.',
+      },
+      {
+        title: 'Light in the ark',
+        caption: 'A shining stone above the ark’s animals',
+        verse: '“make a light for the ark”',
+        quote: '“Tzohar” has the value of “for the light of the stone”.',
+        explain:
+          'G-d told Noach to make a צהר — a tzohar, a source of light — in the ark. Rashi brings two opinions: a window or a shining precious stone. The Baal HaTurim finds the answer in the number: צהר = 295 = לאור האבן, “for the light of the stone”. The stone shone in the ark when it was dark outside.',
+        moral: 'Even on the darkest days you can find light — and become a light for others.',
+      },
+      {
+        title: 'Seven days of mourning',
+        caption: 'A family mourns, the ark is waiting',
+        verse: '“And it came to pass after seven days”',
+        quote: '“After seven days” has the value of “for the days of mourning for Metushelach”.',
+        explain:
+          'The flood did not begin at once, but “after seven days”. Why? The words לשבעת הימים equal 907 — like לימי אבל מתושלח, “for the days of mourning for Metushelach”. Metushelach, Noach’s grandfather, was a tzaddik, and G-d held back the flood for seven days while people mourned him.',
+        moral: 'A tzaddik is remembered and mourned — even in the middle of great trouble. Respect for people matters more than haste.',
+      },
+      {
+        title: 'The windows of heaven and the stars of Kimah',
+        caption: 'The stars of Kimah and heaven’s windows',
+        verse: '“and the windows of heaven were opened”',
+        quote: '“The windows of heaven” has the value of “that He took two stars from Kimah”.',
+        explain:
+          'Our Sages tell: when G-d wanted to bring the flood, He took two stars out of the constellation Kimah — and through these “windows” the water poured down. The Baal HaTurim sees this in the number of the words “the windows of heaven”. Count for yourself: in our spelling the numbers differ by 5 (1016 and 1011) — so here we bring only the idea.',
+        moral: 'The stars and the rain alike serve G-d: everything in the world does His will.',
+      },
+      {
+        title: 'Og survived too',
+        caption: 'Og the giant on the roof of the ark',
+        verse: '“And only Noach was left”',
+        quote: '“Only Noach” has the value of “Og”.',
+        explain:
+          'The Torah says: “And only Noach was left, and those with him in the ark.” But the words אך נח (“only Noach”) equal 79 — like עוג, Og. So the giant Og was saved too: our Sages tell that he held on to the ark from outside. Later Og became king of Bashan, and Moshe fought against him.',
+        moral: 'The Torah chooses every letter: even a short word like “only” can tell a whole story.',
+      },
+      {
+        title: 'The covenant and the resurrection',
+        caption: 'A rainbow over the new earth',
+        verse: '“I establish My covenant with you”',
+        quote: '“I establish My covenant with you” — the last letters spell מתים (the dead). A hint to the resurrection of the dead.',
+        explain:
+          'After the flood G-d made a covenant with Noach, and its sign is the rainbow. Take the last letters of מקים את בריתי אתכם: ם, ת, י, ם — and you get מתים, “the dead”. The Baal HaTurim teaches: a promise is hidden in this covenant — one day the dead will live again.',
+        moral: 'After the greatest trouble G-d promises life. We trust that everything will end well.',
+      },
+      {
+        title: 'Wine and wailing',
+        caption: 'A vineyard and a spilled cup',
+        verse: '“And he drank of the wine”',
+        quote: '“The wine” has the value of “wailing”. “And he uncovered himself” has the letters of “exiles”: because of wine they went into exile at the head of the exiles.',
+        explain:
+          'Noach planted a vineyard, drank of the wine and became drunk. The word היין (“the wine”) equals 75 — like יללה, “wailing”. And ויתגל (“and he uncovered himself”) has the same letters as גליות, “exiles”. The prophet Amos speaks of those who drink wine from bowls: they will be the first to go into exile.',
+        moral: 'A good thing in measure is joy; without measure it can become trouble. We ourselves decide where to stop.',
+      },
+      {
+        title: 'One language — the holy tongue',
+        caption: 'Everyone reads one scroll together',
+        verse: '“one language”',
+        quote: '“One language” has the value of “the holy tongue”.',
+        explain:
+          'Before the Tower of Bavel all people had “one language”. Which one? שפה אחת = 794, and לשון הקדש, “the holy tongue”, is 795. The difference of 1 is the “kolel” — one for the whole expression. So the Baal HaTurim teaches: everyone spoke the holy tongue, the language of the Torah.',
+        moral: 'The language of the Torah once united all people. Every word of it we learn is a step toward unity.',
+      },
+    ],
+  },
   final: {
     title: 'The ark is open',
     allSolved:

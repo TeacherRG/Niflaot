@@ -2,6 +2,7 @@ import type { Lesson } from '../types';
 import ru from './i18n/ru';
 import en from './i18n/en';
 import de from './i18n/de';
+import memo from './memo';
 
 /**
  * Урок №4 — «Бааль ґа-Турим: Ноах»: гиматрии и последние/первые буквы слов в комментарии рабби Яакова бен Ашера
@@ -193,6 +194,7 @@ const lesson: Lesson = {
     secrets: { 108: 0, 295: 1, 79: 2, 75: 3, 795: 4 },
   },
   texts: { ru, en, de },
+  memo,
   author: { name: 'Яаков бен Ашер (Бааль ґа-Турим)', alternateName: 'Rabbi Yaakov ben Asher (Baal HaTurim)' },
 };
 

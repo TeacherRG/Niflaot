@@ -376,6 +376,121 @@ const de: LessonText = {
       ],
     },
   ],
+  memo: {
+    intro:
+      'Zwölf Kommentare des Baal HaTurim zum Wochenabschnitt Noach — zwölf Kartenpaare. Jedes Bild erzählt von einem Kommentar, und sein Paar sind die Worte der Tora, um die es darin geht.',
+    items: [
+      {
+        title: 'Noach sah drei Welten',
+        caption: 'Noach und drei Fenster: drei Welten',
+        verse: '»Dies sind die Nachkommen Noachs. Noach…«',
+        quote: '»Noach, Noach« — dreimal steht »Noach« im Vers: Er sah drei Welten.',
+        explain:
+          'Im ersten Vers des Abschnitts steht der Name נח dreimal: »Dies sind die Nachkommen Noachs. Noach war ein gerechter Mann … mit G-tt ging Noach.« Der Baal HaTurim erklärt: Noach sah drei Welten — die Welt vor der Flut, die Welt unter Wasser und die neue Welt nach der Flut.',
+        moral: 'Die Welt kann sich ganz verändern — aber ein Gerechter bleibt in jeder Welt gerecht.',
+      },
+      {
+        title: 'Noach war weise',
+        caption: 'Ein Weiser mit Stab und Rolle lehrt',
+        verse: '»mit G-tt ging Noach«',
+        quote: '»Mit G-tt ging Noach« — die letzten Buchstaben ergeben חכם (weise). Wie es heißt: »Wer Seelen gewinnt, ist weise.«',
+        explain:
+          'Nimm die letzten Buchstaben von האלקים התהלך נח: ם, ך, ח. Stell sie um — und du bekommst חכם, »weise«. Der Baal HaTurim bringt einen Vers aus Mischlej: »Wer Seelen gewinnt, ist weise.« Noach war weise: 120 Jahre lang baute er die Arche und rief die Menschen auf, sich zu bessern.',
+        moral: 'Ein Weiser weiß nicht nur selbst viel — er hilft auch anderen, besser zu werden.',
+      },
+      {
+        title: '»Gewalt« — »die Wasser Noachs«',
+        caption: 'Kochende Wellen der Flut',
+        verse: '»und die Erde wurde voll Gewalt«',
+        quote: '»Gewalt« hat den Zahlenwert von »die Wasser Noachs«: Maß für Maß wurde ihnen vergolten. »Gewalt« hat den Zahlenwert von »Gehinnom«: Sie wurden mit kochendem Wasser gerichtet.',
+        explain:
+          'Das Wort חמס (»Gewalt«, Raub) ist 108 — genauso viel wie מי נח, »die Wasser Noachs«. Die Generation der Flut raubte — und wurde durch die Wasser der Flut bestraft: Maß für Maß. Und 108 ist auch גיהנם, Gehinnom: Unsere Weisen sagen, die Wasser der Flut waren kochend heiß.',
+        moral: 'Was ein Mensch anderen tut, kommt zu ihm zurück. Darum lohnt es sich, anderen nur Gutes zu tun.',
+      },
+      {
+        title: 'Das Ende — 190 Tage',
+        caption: 'Regen und lange Tage voller Wasser',
+        verse: '»das Ende allen Fleisches«',
+        quote: '»Das Ende allen Fleisches« — ein Hinweis auf die Tage der Flut: so viele wie der Wert von »Kez«: 40 Tage Regen und 150 Tage steigendes Wasser.',
+        explain:
+          'G-tt sagte zu Noach: »Das Ende allen Fleisches ist gekommen.« Das Wort קץ (»Ende«) ist 190: ק = 100, ץ = 90. Genau so lange dauerte die Flut: 40 Tage regnete es, und dann stieg das Wasser noch 150 Tage und blieb über der Erde. 40 + 150 = 190.',
+        note: '40 Tage Regen + 150 Tage hohes Wasser',
+        moral: 'Auch die schwerste Zeit hat ihr Maß und ihr Ende — G-tt weiß, wie lange sie dauert.',
+      },
+      {
+        title: 'Riesen, hundert Ellen groß',
+        caption: 'Ein Riese, ein Kleinerer und ein Maßstab',
+        verse: '»Ich vernichte sie mit der Erde«',
+        quote: '»Ich vernichte sie mit der Erde« — die ersten Buchstaben ergeben מאה (hundert). Sie waren hundert Ellen groß — und Er machte sie kleiner.',
+        explain:
+          'Die ersten Buchstaben der Wörter משחיתם את הארץ: מ, א, ה — zusammen מאה, »hundert«. Die Menschen vor der Flut waren Riesen — hundert Ellen groß. Der Baal HaTurim lehrt: G-tt »vernichtete« ihre große Höhe.',
+        moral: 'Kraft und Größe machen einen Menschen nicht groß. Gute Taten tun es.',
+      },
+      {
+        title: 'Licht in der Arche',
+        caption: 'Ein leuchtender Stein über den Tieren',
+        verse: '»ein Licht mach für die Arche«',
+        quote: '»Zohar« hat den Zahlenwert von »für das Licht des Steins«.',
+        explain:
+          'G-tt sagte Noach, er soll in der Arche einen צהר machen — einen Zohar, eine Quelle des Lichts. Raschi bringt zwei Meinungen: ein Fenster oder ein leuchtender Edelstein. Der Baal HaTurim findet die Antwort in der Zahl: צהר = 295 = לאור האבן, »für das Licht des Steins«. Der Stein leuchtete in der Arche, als es draußen dunkel war.',
+        moral: 'Auch an den dunkelsten Tagen kannst du Licht finden — und selbst ein Licht für andere sein.',
+      },
+      {
+        title: 'Sieben Tage Trauer',
+        caption: 'Eine Familie trauert, die Arche wartet',
+        verse: '»Und es war nach den sieben Tagen«',
+        quote: '»Nach den sieben Tagen« hat den Zahlenwert von »für die Tage der Trauer um Metuschelach«.',
+        explain:
+          'Die Flut begann nicht sofort, sondern »nach den sieben Tagen«. Warum? Die Wörter לשבעת הימים sind 907 — wie לימי אבל מתושלח, »für die Tage der Trauer um Metuschelach«. Metuschelach, Noachs Großvater, war ein Zaddik, und G-tt hielt die Flut sieben Tage zurück, während man um ihn trauerte.',
+        moral: 'Einen Zaddik vergisst man nicht und betrauert ihn — auch mitten in großer Not. Achtung vor Menschen ist wichtiger als Eile.',
+      },
+      {
+        title: 'Die Fenster des Himmels und die Sterne von Kima',
+        caption: 'Die Sterne von Kima und die Fenster',
+        verse: '»und die Fenster des Himmels öffneten sich«',
+        quote: '»Die Fenster des Himmels« hat den Zahlenwert von »dass Er zwei Sterne aus Kima nahm«.',
+        explain:
+          'Unsere Weisen erzählen: Als G-tt die Flut bringen wollte, nahm Er zwei Sterne aus dem Sternbild Kima — und durch diese »Fenster« strömte das Wasser herab. Der Baal HaTurim sieht das in der Zahl der Wörter »die Fenster des Himmels«. Rechne selbst: In unserer Schreibweise liegen die Zahlen 5 auseinander (1016 und 1011) — darum bringen wir hier nur den Gedanken.',
+        moral: 'Die Sterne und der Regen dienen G-tt: Alles in der Welt tut Seinen Willen.',
+      },
+      {
+        title: 'Auch Og wurde gerettet',
+        caption: 'Der Riese Og auf dem Dach der Arche',
+        verse: '»Und es blieb nur Noach«',
+        quote: '»Nur Noach« hat den Zahlenwert von »Og«.',
+        explain:
+          'Die Tora sagt: »Und es blieb nur Noach und wer mit ihm in der Arche war.« Aber die Wörter אך נח (»nur Noach«) sind 79 — wie עוג, Og. Also wurde auch der Riese Og gerettet: Unsere Weisen erzählen, dass er sich außen an der Arche festhielt. Später wurde Og König von Baschan, und Mosche kämpfte gegen ihn.',
+        moral: 'Die Tora wählt jeden Buchstaben: Auch ein kurzes Wort wie »nur« kann eine ganze Geschichte erzählen.',
+      },
+      {
+        title: 'Der Bund und die Auferstehung',
+        caption: 'Ein Regenbogen über der neuen Erde',
+        verse: '»Ich richte Meinen Bund mit euch auf«',
+        quote: '»Ich richte Meinen Bund mit euch auf« — die letzten Buchstaben ergeben מתים (die Toten). Ein Hinweis auf die Auferstehung der Toten.',
+        explain:
+          'Nach der Flut schloss G-tt mit Noach einen Bund, und sein Zeichen ist der Regenbogen. Nimm die letzten Buchstaben von מקים את בריתי אתכם: ם, ת, י, ם — und du bekommst מתים, »die Toten«. Der Baal HaTurim lehrt: In diesem Bund ist ein Versprechen versteckt — eines Tages werden die Toten wieder leben.',
+        moral: 'Nach der größten Not verspricht G-tt Leben. Wir vertrauen darauf, dass alles gut endet.',
+      },
+      {
+        title: 'Wein und Wehklagen',
+        caption: 'Ein Weinberg und ein umgekippter Becher',
+        verse: '»Und er trank von dem Wein«',
+        quote: '»Der Wein« hat den Zahlenwert von »Wehklagen«. »Und er entblößte sich« hat die Buchstaben von »Exile«: Wegen des Weins gingen sie an der Spitze der Verbannten ins Exil.',
+        explain:
+          'Noach pflanzte einen Weinberg, trank von dem Wein und wurde betrunken. Das Wort היין (»der Wein«) ist 75 — wie יללה, »Wehklagen«. Und ויתגל (»und er entblößte sich«) hat dieselben Buchstaben wie גליות, »Exile«. Der Prophet Amos spricht von denen, die Wein aus Schalen trinken: Sie gehen als Erste ins Exil.',
+        moral: 'Etwas Gutes mit Maß ist Freude; ohne Maß kann es zum Unglück werden. Wir selbst entscheiden, wann wir aufhören.',
+      },
+      {
+        title: 'Eine Sprache — die heilige Sprache',
+        caption: 'Alle lesen zusammen eine Rolle',
+        verse: '»eine Sprache«',
+        quote: '»Eine Sprache« hat den Zahlenwert von »die heilige Sprache«.',
+        explain:
+          'Vor dem Turm von Bawel hatten alle Menschen »eine Sprache«. Welche? שפה אחת = 794, und לשון הקדש, »die heilige Sprache«, ist 795. Der Unterschied von 1 ist der »Kolel« — eins für den ganzen Ausdruck. So lehrt der Baal HaTurim: Alle sprachen die heilige Sprache, die Sprache der Tora.',
+        moral: 'Die Sprache der Tora hat einst alle Menschen vereint. Jedes Wort, das wir davon lernen, ist ein Schritt zur Einheit.',
+      },
+    ],
+  },
   final: {
     title: 'Die Arche ist offen',
     allSolved:
