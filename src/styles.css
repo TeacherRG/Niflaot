@@ -1527,7 +1527,7 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .cert-sign{display:grid;gap:3px;justify-items:center;text-align:center}
 .cert-sign-v{display:grid;justify-items:center;align-content:end;min-height:2.6em;width:100%;padding-bottom:3px;border-bottom:1px solid var(--ink);color:var(--ink);font-size:1.1em}
 .cert-sign-v .he{font-family:var(--f-he);font-size:.95em}
-.cert-sign-name{font-family:var(--f-display);font-size:1.5em;font-style:italic}
+.cert-sig{display:block;width:150px;max-width:100%;height:50px;margin-bottom:-10px;color:#1b2a5c}
 .cert-sign-l{font-size:.9em;letter-spacing:.04em}
 .cert-qr{display:grid;justify-items:center;gap:2px;font-size:.85em}
 .cert-qr .qr{width:clamp(48px,9vw,80px);height:auto}
