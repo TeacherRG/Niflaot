@@ -664,6 +664,7 @@ const en: Messages = {
   'tanakh.readingTime': '≈ {n} min read',
   'tanakh.post.title': 'Prophets and Writings · today’s passage',
   'tanakh.post.withSt': 'with Steinsaltz ≈ {n} min',
+  'tanakh.post.pdf': '📄 Today’s passage to print · {date}',
   'tanakh.printBoth': 'together with “{other}”',
   'tanakh.printQr': 'Read online — point your camera',
   'tanakh.chapter': 'chapter {n}',

@@ -9,13 +9,18 @@
  * Каналы и бот — те же, что у «Загадки недели» (scripts/telegram-post.ts): secret `TELEGRAM_BOT_TOKEN`,
  * variables `TELEGRAM_CHAT_RU`, `TELEGRAM_CHAT_EN`, `TELEGRAM_CHAT_DE`; язык без канала пропускается.
  *
- * Проверить без отправки: `npx tsx scripts/telegram-tanakh.ts --dry` (`--date 2026-10-12` — другой день).
+ * Вторым сообщением — **PDF дня для печати**: страница дня с сайта, сохранённая браузером (Playwright) так же, как
+ * кнопка «Распечатать»: иврит и перевод на языке канала, со Штейнзальцем, «Пророки» и «Писания» вместе. Не вышел PDF —
+ * текст всё равно уходит, запуск — красный.
+ *
+ * Проверить без отправки: `npx tsx scripts/telegram-tanakh.ts --dry` (`--date 2026-10-12` — другой день;
+ * `--pdf` — ещё и сохранить PDF в `tanakh-<дата>-<язык>.pdf`, нужен playwright: `npm i --no-save playwright`).
  */
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { CYCLE, readingMinutes, type DayContent } from '../src/core/tanakh';
 import { rangeLabel, SECTIONS, type Section } from '../src/core/tanakhCycle';
 import { civilDate, jewishDate } from '../src/core/hebrewDate';
-import { routeLink } from '../src/core/site';
+import { routeLink, SITE_URL } from '../src/core/site';
 import ru from '../src/i18n/locales/ru';
 import en from '../src/i18n/locales/en';
 import de from '../src/i18n/locales/de';
@@ -30,6 +35,7 @@ const CHATS: Record<Loc, string | undefined> = {
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const args = process.argv.slice(2);
 const DRY = args.includes('--dry');
+const PDF_ONLY = args.includes('--pdf');
 const dateArg = args.indexOf('--date');
 const SECTION_HE: Record<Section, string> = { neviim: 'נביאים', ketuvim: 'כתובים' };
 
@@ -86,6 +92,47 @@ function post(loc: Loc): string {
   return lines.join('\n');
 }
 
+/**
+ * The day's printout, as the «Распечатать» button makes it: the live site's page of the day in a headless browser —
+ * the Hebrew and the translation in the channel's language, with Steinsaltz, both sections — saved as A4 PDF.
+ */
+const VIEW: Record<Loc, string> = { ru: 'he-ru', en: 'he-en', de: 'he-de' };
+async function dayPdf(loc: Loc): Promise<Uint8Array> {
+  const { chromium } = await import('playwright');
+  // CHROMIUM_PATH — a browser already on the machine (locally); in GitHub Actions playwright installs its own
+  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
+  try {
+    const page = await browser.newPage();
+    // a machine's visit — not counted in the statistics
+    await page.route(/goatcounter/, (r) => r.abort());
+    await page.addInitScript(
+      ([view]) => {
+        localStorage.setItem('niflaot:tanakh-view', JSON.stringify({ text: view, st: true }));
+        localStorage.setItem('niflaot:tanakh-print-both', '1');
+      },
+      [VIEW[loc]],
+    );
+    // PDF_SITE — another copy of the site (a local `npm run dev` / `vite preview`), for checking without the live one
+    await page.goto(`${process.env.PDF_SITE || SITE_URL}/?lang=${loc}#/neviim/${date}`, { waitUntil: 'load' });
+    // the second section is in the page only for print (hidden on screen): attached, not visible
+    await page.waitForSelector('.tk-print-other .tk-verse', { state: 'attached', timeout: 60_000 });
+    await page.evaluate(() => document.fonts.ready);
+    return await page.pdf({ format: 'A4', printBackground: true });
+  } finally {
+    await browser.close();
+  }
+}
+
+async function tgFile(chat: string, pdf: Uint8Array, name: string, caption: string) {
+  const form = new FormData();
+  form.append('chat_id', chat);
+  form.append('caption', caption);
+  form.append('document', new Blob([pdf], { type: 'application/pdf' }), name);
+  const res = await fetch(`https://api.telegram.org/bot${TOKEN}/sendDocument`, { method: 'POST', body: form });
+  const json = (await res.json()) as { ok: boolean; description?: string };
+  if (!json.ok) throw new Error(`sendDocument: ${json.description}`);
+}
+
 async function tg(method: string, body: object) {
   const res = await fetch(`https://api.telegram.org/bot${TOKEN}/${method}`, {
     method: 'POST',
@@ -102,6 +149,11 @@ for (const loc of Object.keys(UI) as Loc[]) {
   const text = post(loc);
   if (DRY) {
     console.log(`── ${loc} (${CHATS[loc] ?? 'нет канала'})\n${text}\n`);
+    if (PDF_ONLY) {
+      const file = `tanakh-${date}-${loc}.pdf`;
+      writeFileSync(file, await dayPdf(loc));
+      console.log(`PDF: ${file}`);
+    }
     continue;
   }
   const chat = CHATS[loc];
@@ -112,6 +164,15 @@ for (const loc of Object.keys(UI) as Loc[]) {
     console.log(`${loc}: posted ${date} to ${chat}`);
   } catch (e) {
     console.error(`${loc}: ${(e as Error).message}`);
+    failed = true;
+    continue;
+  }
+  try {
+    const pdf = await dayPdf(loc);
+    await tgFile(chat, pdf, `niflaot-${date}.pdf`, t(loc, 'tanakh.post.pdf', { date: civilDate(date, loc) }));
+    console.log(`${loc}: PDF ${Math.round(pdf.length / 1024)} KB sent`);
+  } catch (e) {
+    console.error(`${loc}: PDF — ${(e as Error).message}`);
     failed = true;
   }
 }
