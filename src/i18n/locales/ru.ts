@@ -682,6 +682,7 @@ const ru = {
   'tanakh.readingTime': '≈ {n} мин чтения',
   'tanakh.post.title': 'Пророки и Писания · отрывок дня',
   'tanakh.post.withSt': 'со Штейнзальцем ≈ {n} мин',
+  'tanakh.post.pdf': '📄 Отрывок дня для печати · {date}',
   'tanakh.printBoth': 'вместе с «{other}»',
   'tanakh.printQr': 'Читать онлайн — наведите камеру',
   'tanakh.chapter': 'глава {n}',

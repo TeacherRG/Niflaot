@@ -664,6 +664,7 @@ const de: Messages = {
   'tanakh.readingTime': '≈ {n} Min. Lesezeit',
   'tanakh.post.title': 'Propheten und Schriften · Abschnitt des Tages',
   'tanakh.post.withSt': 'mit Steinsaltz ≈ {n} Min.',
+  'tanakh.post.pdf': '📄 Abschnitt des Tages zum Drucken · {date}',
   'tanakh.printBoth': 'zusammen mit „{other}“',
   'tanakh.printQr': 'Online lesen — mit der Kamera scannen',
   'tanakh.chapter': 'Kapitel {n}',

@@ -29,6 +29,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # a browser for the day's PDF (scripts/telegram-tanakh.ts prints the site's page of the day)
+      - run: npm i --no-save playwright && npx playwright install --with-deps chromium
       # without the token the run is red with a clear message — not green with a silently skipped post
       - name: Check settings
         run: |
