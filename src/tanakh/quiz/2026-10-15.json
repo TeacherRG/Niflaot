@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 3:3",
+   "q": {
+    "ru": "Что должен был увидеть народ, чтобы двинуться вперёд?",
+    "en": "What were the people to see before moving forward?",
+    "de": "Was sollte das Volk sehen, um loszugehen?"
+   },
+   "o": [
+    {
+     "ru": "Коэнов-левитов, несущих Ковчег Завета",
+     "en": "The levitical kohanim carrying the Ark of the Covenant",
+     "de": "Die levitischen Kohanim, die die Bundeslade tragen"
+    },
+    {
+     "ru": "Облачный столп",
+     "en": "The pillar of cloud",
+     "de": "Die Wolkensäule"
+    },
+    {
+     "ru": "Знамя Йеґошуа",
+     "en": "Joshua’s banner",
+     "de": "Jehoschuas Fahne"
+    },
+    {
+     "ru": "Огонь на горе",
+     "en": "Fire on a mountain",
+     "de": "Feuer auf einem Berg"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 3:4",
+   "q": {
+    "ru": "На каком расстоянии от Ковчега нужно было держаться?",
+    "en": "How far from the Ark were the people to keep?",
+    "de": "Wie weit sollte man von der Lade entfernt bleiben?"
+   },
+   "o": [
+    {
+     "ru": "Около двух тысяч локтей",
+     "en": "About two thousand cubits",
+     "de": "Etwa zweitausend Ellen"
+    },
+    {
+     "ru": "Вплотную к нему",
+     "en": "Right next to it",
+     "de": "Ganz nah dran"
+    },
+    {
+     "ru": "Десять шагов",
+     "en": "Ten steps",
+     "de": "Zehn Schritte"
+    },
+    {
+     "ru": "Сто локтей",
+     "en": "A hundred cubits",
+     "de": "Hundert Ellen"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 3:5",
+   "q": {
+    "ru": "Что Йеґошуа велел народу сделать накануне чуда?",
+    "en": "What did Joshua tell the people to do before the miracle?",
+    "de": "Was sollte das Volk vor dem Wunder tun?"
+   },
+   "o": [
+    {
+     "ru": "Очиститься",
+     "en": "Purify themselves",
+     "de": "Sich reinigen"
+    },
+    {
+     "ru": "Поститься семь дней",
+     "en": "Fast for seven days",
+     "de": "Sieben Tage fasten"
+    },
+    {
+     "ru": "Построить мост",
+     "en": "Build a bridge",
+     "de": "Eine Brücke bauen"
+    },
+    {
+     "ru": "Собрать лодки",
+     "en": "Gather boats",
+     "de": "Boote sammeln"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 3:7",
+   "q": {
+    "ru": "Что Б-г обещал сделать для Йеґошуа в этот день?",
+    "en": "What did G-d promise to do for Joshua that day?",
+    "de": "Was versprach G-tt Jehoschua an diesem Tag?"
+   },
+   "o": [
+    {
+     "ru": "Возвеличить его в глазах всего Израиля",
+     "en": "Exalt him in the sight of all Israel",
+     "de": "Ihn vor ganz Israel groß zu machen"
+    },
+    {
+     "ru": "Дать ему корону",
+     "en": "Give him a crown",
+     "de": "Ihm eine Krone zu geben"
+    },
+    {
+     "ru": "Дать ему новый меч",
+     "en": "Give him a new sword",
+     "de": "Ihm ein neues Schwert zu geben"
+    },
+    {
+     "ru": "Освободить его от войны",
+     "en": "Free him from war",
+     "de": "Ihn vom Krieg zu befreien"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 5:4",
+   "q": {
+    "ru": "В какое время Давид просит Б-га услышать его голос?",
+    "en": "At what time does David ask G-d to hear his voice?",
+    "de": "Zu welcher Zeit bittet David G-tt, seine Stimme zu hören?"
+   },
+   "o": [
+    {
+     "ru": "На рассвете",
+     "en": "At dawn",
+     "de": "Am frühen Morgen"
+    },
+    {
+     "ru": "В полночь",
+     "en": "At midnight",
+     "de": "Um Mitternacht"
+    },
+    {
+     "ru": "В полдень",
+     "en": "At noon",
+     "de": "Am Mittag"
+    },
+    {
+     "ru": "Только в Шабат",
+     "en": "Only on Shabbat",
+     "de": "Nur am Schabbat"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 5:7",
+   "q": {
+    "ru": "Кого губит Б-г, по стиху 7?",
+    "en": "Whom does G-d destroy, says verse 7?",
+    "de": "Wen vernichtet G-tt laut Vers 7?"
+   },
+   "o": [
+    {
+     "ru": "Говорящих ложь",
+     "en": "Those who speak lies",
+     "de": "Die Lügner"
+    },
+    {
+     "ru": "Бедных",
+     "en": "The poor",
+     "de": "Die Armen"
+    },
+    {
+     "ru": "Чужеземцев",
+     "en": "Strangers",
+     "de": "Die Fremden"
+    },
+    {
+     "ru": "Детей",
+     "en": "Children",
+     "de": "Die Kinder"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 5:8",
+   "q": {
+    "ru": "Благодаря чему Давид входит в дом Б-га?",
+    "en": "Through what does David enter G-d’s house?",
+    "de": "Wodurch betritt David G-ttes Haus?"
+   },
+   "o": [
+    {
+     "ru": "По Его великой любви",
+     "en": "Through His abundant love",
+     "de": "Durch Seine große Liebe"
+    },
+    {
+     "ru": "По своим заслугам",
+     "en": "Through his own merit",
+     "de": "Durch seine eigenen Verdienste"
+    },
+    {
+     "ru": "Тайком",
+     "en": "Secretly",
+     "de": "Heimlich"
+    },
+    {
+     "ru": "По приказу царя",
+     "en": "By the king’s order",
+     "de": "Auf Befehl des Königs"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 5:9",
+   "q": {
+    "ru": "О чём Давид просит в стихе 9?",
+    "en": "What does David ask for in verse 9?",
+    "de": "Worum bittet David in Vers 9?"
+   },
+   "o": [
+    {
+     "ru": "Вести его праведным путём",
+     "en": "To be led along G-d’s righteous way",
+     "de": "Ihn auf G-ttes gerechtem Weg zu führen"
+    },
+    {
+     "ru": "Дать ему богатство",
+     "en": "Wealth",
+     "de": "Um Reichtum"
+    },
+    {
+     "ru": "Дать ему долгую жизнь",
+     "en": "A long life",
+     "de": "Um ein langes Leben"
+    },
+    {
+     "ru": "Сделать его пророком",
+     "en": "To become a prophet",
+     "de": "Ein Prophet zu werden"
+    }
+   ]
+  }
+ ]
+}

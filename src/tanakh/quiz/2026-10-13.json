@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 2:1",
+   "q": {
+    "ru": "Сколько разведчиков послал Йеґошуа?",
+    "en": "How many spies did Joshua send?",
+    "de": "Wie viele Kundschafter schickte Jehoschua?"
+   },
+   "o": [
+    {
+     "ru": "Двух",
+     "en": "Two",
+     "de": "Zwei"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    },
+    {
+     "ru": "Семь",
+     "en": "Seven",
+     "de": "Sieben"
+    },
+    {
+     "ru": "Одного",
+     "en": "One",
+     "de": "Einen"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 2:1",
+   "q": {
+    "ru": "Какую область велел разведать Йеґошуа?",
+    "en": "Which region did Joshua tell them to scout?",
+    "de": "Welche Gegend sollten sie erkunden?"
+   },
+   "o": [
+    {
+     "ru": "Йерихо",
+     "en": "Jericho",
+     "de": "Jericho"
+    },
+    {
+     "ru": "Ай",
+     "en": "Ai",
+     "de": "Ai"
+    },
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    },
+    {
+     "ru": "Шхем",
+     "en": "Shechem",
+     "de": "Schchem"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 2:6",
+   "q": {
+    "ru": "Где Рахав спрятала разведчиков?",
+    "en": "Where did Rahab hide the spies?",
+    "de": "Wo versteckte Rachaw die Kundschafter?"
+   },
+   "o": [
+    {
+     "ru": "На крыше, под стеблями льна",
+     "en": "On the roof, under stalks of flax",
+     "de": "Auf dem Dach, unter Flachsstängeln"
+    },
+    {
+     "ru": "В колодце",
+     "en": "In a well",
+     "de": "In einem Brunnen"
+    },
+    {
+     "ru": "В подвале",
+     "en": "In the cellar",
+     "de": "Im Keller"
+    },
+    {
+     "ru": "В пещере за городом",
+     "en": "In a cave outside the city",
+     "de": "In einer Höhle vor der Stadt"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 2:10",
+   "q": {
+    "ru": "Что, по словам Рахав, жители Йерихо слышали об Израиле?",
+    "en": "What, says Rahab, had the people of Jericho heard about Israel?",
+    "de": "Was hatten die Leute von Jericho laut Rachaw über Israel gehört?"
+   },
+   "o": [
+    {
+     "ru": "Что Г-сподь иссушил перед ними воды Ям Суф",
+     "en": "That the L-rd dried up the waters of the Sea of Reeds for them",
+     "de": "Dass der Ewige für sie das Wasser des Schilfmeers austrocknete"
+    },
+    {
+     "ru": "Что Израиль проиграл войну",
+     "en": "That Israel lost a war",
+     "de": "Dass Israel einen Krieg verloren hatte"
+    },
+    {
+     "ru": "Что Израиль построил город",
+     "en": "That Israel built a city",
+     "de": "Dass Israel eine Stadt gebaut hatte"
+    },
+    {
+     "ru": "Ничего",
+     "en": "Nothing",
+     "de": "Nichts"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 3:1",
+   "q": {
+    "ru": "Когда Давид сказал этот псалом?",
+    "en": "When did David say this psalm?",
+    "de": "Wann sprach David dieses Kapitel?"
+   },
+   "o": [
+    {
+     "ru": "Когда бежал от своего сына Авшалома",
+     "en": "When he fled from his son Avshalom",
+     "de": "Als er vor seinem Sohn Awschalom floh"
+    },
+    {
+     "ru": "Когда победил Голиафа",
+     "en": "When he defeated Goliath",
+     "de": "Als er Goliat besiegte"
+    },
+    {
+     "ru": "Когда стал царём",
+     "en": "When he became king",
+     "de": "Als er König wurde"
+    },
+    {
+     "ru": "Когда пас овец",
+     "en": "When he tended sheep",
+     "de": "Als er Schafe hütete"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 3:4",
+   "q": {
+    "ru": "Чем Давид называет Г-спода в стихе 4?",
+    "en": "What does David call the L-rd in verse 4?",
+    "de": "Wie nennt David den Ewigen in Vers 4?"
+   },
+   "o": [
+    {
+     "ru": "Щитом вокруг меня",
+     "en": "A shield about me",
+     "de": "Ein Schild um mich"
+    },
+    {
+     "ru": "Мечом",
+     "en": "A sword",
+     "de": "Ein Schwert"
+    },
+    {
+     "ru": "Пастырем",
+     "en": "A shepherd",
+     "de": "Ein Hirte"
+    },
+    {
+     "ru": "Светильником",
+     "en": "A lamp",
+     "de": "Eine Lampe"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 3:6",
+   "q": {
+    "ru": "Почему Давид может спокойно спать и проснуться?",
+    "en": "Why can David lie down, sleep and wake again?",
+    "de": "Warum kann David sich hinlegen, schlafen und wieder aufwachen?"
+   },
+   "o": [
+    {
+     "ru": "Г-сподь поддерживает его",
+     "en": "The L-rd sustains him",
+     "de": "Der Ewige stützt ihn"
+    },
+    {
+     "ru": "У него много стражи",
+     "en": "He has many guards",
+     "de": "Er hat viele Wächter"
+    },
+    {
+     "ru": "Враги ушли",
+     "en": "The enemies have gone",
+     "de": "Die Feinde sind weg"
+    },
+    {
+     "ru": "Он спрятался",
+     "en": "He is hiding",
+     "de": "Er hat sich versteckt"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 3:9",
+   "q": {
+    "ru": "У кого, по псалму, спасение?",
+    "en": "With whom, says the psalm, is deliverance?",
+    "de": "Bei wem ist laut diesem Kapitel die Rettung?"
+   },
+   "o": [
+    {
+     "ru": "У Г-спода",
+     "en": "With the L-rd",
+     "de": "Beim Ewigen"
+    },
+    {
+     "ru": "У царей",
+     "en": "With kings",
+     "de": "Bei den Königen"
+    },
+    {
+     "ru": "У воинов",
+     "en": "With warriors",
+     "de": "Bei den Kriegern"
+    },
+    {
+     "ru": "У богачей",
+     "en": "With the rich",
+     "de": "Bei den Reichen"
+    }
+   ]
+  }
+ ]
+}

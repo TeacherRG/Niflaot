@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 3:12",
+   "q": {
+    "ru": "Сколько человек велено выбрать из колен Израиля?",
+    "en": "How many men were to be chosen from the tribes of Israel?",
+    "de": "Wie viele Männer sollten aus den Stämmen Israels ausgewählt werden?"
+   },
+   "o": [
+    {
+     "ru": "Двенадцать — по одному от колена",
+     "en": "Twelve — one from each tribe",
+     "de": "Zwölf — einer aus jedem Stamm"
+    },
+    {
+     "ru": "Семьдесят",
+     "en": "Seventy",
+     "de": "Siebzig"
+    },
+    {
+     "ru": "Сорок",
+     "en": "Forty",
+     "de": "Vierzig"
+    },
+    {
+     "ru": "Трёх",
+     "en": "Three",
+     "de": "Drei"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 3:16",
+   "q": {
+    "ru": "Что случилось с водами Ярдена, когда ноги коэнов коснулись воды?",
+    "en": "What happened to the waters of the Jordan when the kohanim’s feet touched the water?",
+    "de": "Was geschah mit dem Wasser des Jordan, als die Füße der Kohanim es berührten?"
+   },
+   "o": [
+    {
+     "ru": "Воды, текущие сверху, встали единой грудой",
+     "en": "The waters coming down from upstream piled up in a single heap",
+     "de": "Das Wasser von oben staute sich zu einem einzigen Wall"
+    },
+    {
+     "ru": "Вода стала кровью",
+     "en": "The water turned to blood",
+     "de": "Das Wasser wurde zu Blut"
+    },
+    {
+     "ru": "Вода замёрзла",
+     "en": "The water froze",
+     "de": "Das Wasser gefror"
+    },
+    {
+     "ru": "Начался дождь",
+     "en": "It began to rain",
+     "de": "Es begann zu regnen"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 3:15",
+   "q": {
+    "ru": "В какое время года Ярден заливает всё своё русло?",
+    "en": "At what season does the Jordan overflow its banks?",
+    "de": "Zu welcher Jahreszeit tritt der Jordan über die Ufer?"
+   },
+   "o": [
+    {
+     "ru": "Во время жатвы",
+     "en": "During the harvest",
+     "de": "Während der Ernte"
+    },
+    {
+     "ru": "В засуху",
+     "en": "In a drought",
+     "de": "In der Dürre"
+    },
+    {
+     "ru": "Никогда",
+     "en": "Never",
+     "de": "Nie"
+    },
+    {
+     "ru": "Только в Суккот",
+     "en": "Only on Sukkot",
+     "de": "Nur an Sukkot"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 3:17",
+   "q": {
+    "ru": "Где стояли коэны с Ковчегом, пока народ переходил?",
+    "en": "Where did the kohanim with the Ark stand while the people crossed?",
+    "de": "Wo standen die Kohanim mit der Lade, während das Volk hinüberging?"
+   },
+   "o": [
+    {
+     "ru": "На сухой земле посреди Ярдена",
+     "en": "On dry ground in the middle of the Jordan",
+     "de": "Auf trockenem Boden mitten im Jordan"
+    },
+    {
+     "ru": "На берегу",
+     "en": "On the bank",
+     "de": "Am Ufer"
+    },
+    {
+     "ru": "На горе",
+     "en": "On a mountain",
+     "de": "Auf einem Berg"
+    },
+    {
+     "ru": "У ворот Йерихо",
+     "en": "At the gates of Jericho",
+     "de": "An den Toren von Jericho"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 5:10",
+   "q": {
+    "ru": "С чем псалом сравнивает горло нечестивых?",
+    "en": "What does the psalm compare the throat of the wicked to?",
+    "de": "Womit vergleicht das Kapitel die Kehle der Bösen?"
+   },
+   "o": [
+    {
+     "ru": "С открытой могилой",
+     "en": "An open grave",
+     "de": "Mit einem offenen Grab"
+    },
+    {
+     "ru": "С колодцем",
+     "en": "A well",
+     "de": "Mit einem Brunnen"
+    },
+    {
+     "ru": "С трубой",
+     "en": "A trumpet",
+     "de": "Mit einer Trompete"
+    },
+    {
+     "ru": "С пещерой",
+     "en": "A cave",
+     "de": "Mit einer Höhle"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 5:13",
+   "q": {
+    "ru": "Как Б-г окружает праведника?",
+    "en": "How does G-d encompass the righteous?",
+    "de": "Womit umgibt G-tt den Gerechten?"
+   },
+   "o": [
+    {
+     "ru": "Благоволением, как щитом",
+     "en": "With favor, like a shield",
+     "de": "Mit Wohlwollen wie mit einem Schild"
+    },
+    {
+     "ru": "Огнём",
+     "en": "With fire",
+     "de": "Mit Feuer"
+    },
+    {
+     "ru": "Каменной стеной",
+     "en": "With a stone wall",
+     "de": "Mit einer Steinmauer"
+    },
+    {
+     "ru": "Войском",
+     "en": "With an army",
+     "de": "Mit einem Heer"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 6:2",
+   "q": {
+    "ru": "О чём просит Давид в начале псалма 6?",
+    "en": "What does David ask at the start of psalm 6?",
+    "de": "Worum bittet David am Anfang von Kapitel 6?"
+   },
+   "o": [
+    {
+     "ru": "Не наказывать его во гневе",
+     "en": "Not to be punished in anger",
+     "de": "Ihn nicht im Zorn zu strafen"
+    },
+    {
+     "ru": "Дать ему царство",
+     "en": "To be given a kingdom",
+     "de": "Ihm ein Königreich zu geben"
+    },
+    {
+     "ru": "Послать дождь",
+     "en": "To send rain",
+     "de": "Regen zu schicken"
+    },
+    {
+     "ru": "Наказать его врагов огнём",
+     "en": "To punish his enemies with fire",
+     "de": "Seine Feinde mit Feuer zu strafen"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 6:5",
+   "q": {
+    "ru": "Ради чего Давид просит спасти его?",
+    "en": "For the sake of what does David ask to be saved?",
+    "de": "Um wessentwillen bittet David um Rettung?"
+   },
+   "o": [
+    {
+     "ru": "Ради верности Б-га",
+     "en": "For the sake of G-d’s faithfulness",
+     "de": "Um G-ttes Treue willen"
+    },
+    {
+     "ru": "Ради своих заслуг",
+     "en": "For his own merits",
+     "de": "Um seiner Verdienste willen"
+    },
+    {
+     "ru": "Ради своих жертв",
+     "en": "For his sacrifices",
+     "de": "Um seiner Opfer willen"
+    },
+    {
+     "ru": "Ради своего войска",
+     "en": "For his army",
+     "de": "Um seines Heeres willen"
+    }
+   ]
+  }
+ ]
+}

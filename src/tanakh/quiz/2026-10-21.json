@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 5:12",
+   "q": {
+    "ru": "Что прекратилось, когда народ стал есть от урожая земли?",
+    "en": "What stopped when the people began to eat the produce of the land?",
+    "de": "Was hörte auf, als das Volk vom Ertrag des Landes aß?"
+   },
+   "o": [
+    {
+     "ru": "Ман",
+     "en": "The manna",
+     "de": "Das Man (Manna)"
+    },
+    {
+     "ru": "Дождь",
+     "en": "The rain",
+     "de": "Der Regen"
+    },
+    {
+     "ru": "Звук шофара",
+     "en": "The sound of the shofar",
+     "de": "Der Klang des Schofars"
+    },
+    {
+     "ru": "Свет солнца",
+     "en": "The sunlight",
+     "de": "Das Sonnenlicht"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 5:14",
+   "q": {
+    "ru": "Кем назвал себя человек с обнажённым мечом?",
+    "en": "Who did the man with the drawn sword say he was?",
+    "de": "Wer war der Mann mit dem gezückten Schwert, nach seinen Worten?"
+   },
+   "o": [
+    {
+     "ru": "Вождём воинства Г-спода",
+     "en": "Captain of the L-rd’s host",
+     "de": "Der Anführer des Heeres des Ewigen"
+    },
+    {
+     "ru": "Царём Йерихо",
+     "en": "The king of Jericho",
+     "de": "Der König von Jericho"
+    },
+    {
+     "ru": "Разведчиком",
+     "en": "A spy",
+     "de": "Ein Kundschafter"
+    },
+    {
+     "ru": "Пастухом",
+     "en": "A shepherd",
+     "de": "Ein Hirte"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 5:15",
+   "q": {
+    "ru": "Что он велел сделать Йеґошуа?",
+    "en": "What did he tell Joshua to do?",
+    "de": "Was sollte Jehoschua tun?"
+   },
+   "o": [
+    {
+     "ru": "Снять сандалии — место свято",
+     "en": "Remove his sandals — the place is holy",
+     "de": "Die Sandalen ausziehen — der Ort ist heilig"
+    },
+    {
+     "ru": "Поднять свой меч",
+     "en": "Raise his sword",
+     "de": "Sein Schwert erheben"
+    },
+    {
+     "ru": "Вернуться в стан",
+     "en": "Return to the camp",
+     "de": "Ins Lager zurückkehren"
+    },
+    {
+     "ru": "Построить жертвенник",
+     "en": "Build an altar",
+     "de": "Einen Altar bauen"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 6:4",
+   "q": {
+    "ru": "Сколько раз нужно было обойти город в седьмой день?",
+    "en": "How many times were they to march around the city on the seventh day?",
+    "de": "Wie oft sollten sie am siebten Tag um die Stadt ziehen?"
+   },
+   "o": [
+    {
+     "ru": "Семь раз",
+     "en": "Seven times",
+     "de": "Siebenmal"
+    },
+    {
+     "ru": "Один раз",
+     "en": "Once",
+     "de": "Einmal"
+    },
+    {
+     "ru": "Три раза",
+     "en": "Three times",
+     "de": "Dreimal"
+    },
+    {
+     "ru": "Двенадцать раз",
+     "en": "Twelve times",
+     "de": "Zwölfmal"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 8:2",
+   "q": {
+    "ru": "Какими словами начинается и заканчивается псалом 8?",
+    "en": "What words open and close psalm 8?",
+    "de": "Mit welchen Worten beginnt und endet Kapitel 8?"
+   },
+   "o": [
+    {
+     "ru": "«Г-сподь, Владыка наш, как величественно Твоё имя по всей земле!»",
+     "en": "“O L-rd, our L-rd, how majestic is Your name throughout the earth!”",
+     "de": "„Ewiger, unser Herr, wie herrlich ist Dein Name auf der ganzen Erde!“"
+    },
+    {
+     "ru": "«Счастлив человек…»",
+     "en": "“Happy is the man…”",
+     "de": "„Glücklich der Mensch…“"
+    },
+    {
+     "ru": "«Зачем собираются народы…»",
+     "en": "“Why do nations assemble…”",
+     "de": "„Warum toben die Völker…“"
+    },
+    {
+     "ru": "«Внемли моей речи…»",
+     "en": "“Give ear to my speech…”",
+     "de": "„Höre meine Worte…“"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 8:3",
+   "q": {
+    "ru": "Из чьих уст Б-г основал силу?",
+    "en": "From whose mouths did G-d found strength?",
+    "de": "Aus wessen Mund hat G-tt Stärke gegründet?"
+   },
+   "o": [
+    {
+     "ru": "Из уст младенцев и грудных детей",
+     "en": "From the mouths of infants and sucklings",
+     "de": "Aus dem Mund der Kinder und Säuglinge"
+    },
+    {
+     "ru": "Из уст царей",
+     "en": "From the mouths of kings",
+     "de": "Aus dem Mund der Könige"
+    },
+    {
+     "ru": "Из уст воинов",
+     "en": "From the mouths of warriors",
+     "de": "Aus dem Mund der Krieger"
+    },
+    {
+     "ru": "Из уст мудрецов",
+     "en": "From the mouths of sages",
+     "de": "Aus dem Mund der Weisen"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 8:6",
+   "q": {
+    "ru": "Каким Б-г сделал человека?",
+    "en": "How did G-d make man?",
+    "de": "Wie hat G-tt den Menschen gemacht?"
+   },
+   "o": [
+    {
+     "ru": "Немногим ниже ангелов",
+     "en": "Little less than the angels",
+     "de": "Nur wenig geringer als die Engel"
+    },
+    {
+     "ru": "Равным ангелам",
+     "en": "Equal to the angels",
+     "de": "Den Engeln gleich"
+    },
+    {
+     "ru": "Ниже зверей",
+     "en": "Lower than the beasts",
+     "de": "Niedriger als die Tiere"
+    },
+    {
+     "ru": "Ровней звёздам",
+     "en": "Equal to the stars",
+     "de": "Den Sternen gleich"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 8:7",
+   "q": {
+    "ru": "Над чем Б-г поставил человека властелином?",
+    "en": "Over what did G-d make man master?",
+    "de": "Worüber hat G-tt den Menschen zum Herrscher gemacht?"
+   },
+   "o": [
+    {
+     "ru": "Над делами Своих рук",
+     "en": "Over His handiwork",
+     "de": "Über das Werk Seiner Hände"
+    },
+    {
+     "ru": "Над ангелами",
+     "en": "Over the angels",
+     "de": "Über die Engel"
+    },
+    {
+     "ru": "Над солнцем и луной",
+     "en": "Over the sun and moon",
+     "de": "Über Sonne und Mond"
+    },
+    {
+     "ru": "Над временем",
+     "en": "Over time",
+     "de": "Über die Zeit"
+    }
+   ]
+  }
+ ]
+}
