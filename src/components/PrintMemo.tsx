@@ -92,28 +92,11 @@ export function PrintMemo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) 
           <h1>
             {t('memo.title')} · {text.title}
           </h1>
-          <p>{mt.intro}</p>
           <p>{t('memo.printIntro')}</p>
         </header>
 
         {opt.cards && (
           <>
-            <CardPage title={t('memo.picCards')}>
-              {memo.items.map((_, k) => (
-                <div key={k} className="pm-card pm-pic">
-                  <img src={images[k]} alt="" />
-                </div>
-              ))}
-            </CardPage>
-            <CardPage title={t('memo.wordCards')}>
-              {memo.items.map((it, k) => (
-                <div key={k} className="pm-card pm-words">
-                  <span className="pm-verse he">{displayNames(it.verse)}</span>
-                  <span className="pm-tr">{mt.items[k].verse}</span>
-                  <span className="pm-copy">© mychitas.app 5787</span>
-                </div>
-              ))}
-            </CardPage>
             <section className="pm-legend">
               <h2>{t('memo.legend')}</h2>
               <ol>
@@ -124,6 +107,17 @@ export function PrintMemo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) 
                 ))}
               </ol>
             </section>
+            {/* on paper a pair is two equal pictures; the small number is the number of its explanation */}
+            {[t('memo.picCards'), t('memo.wordCards')].map((title) => (
+              <CardPage key={title} title={title}>
+                {memo.items.map((_, k) => (
+                  <div key={k} className="pm-card pm-pic">
+                    <img src={images[k]} alt="" />
+                    <span className="pm-num">{k + 1}</span>
+                  </div>
+                ))}
+              </CardPage>
+            ))}
           </>
         )}
 
