@@ -7,6 +7,7 @@ const de: LessonText = {
     author: 'nach dem Kommentar des Baal HaTurim, Rabbi Jaakow ben Ascher',
     intro:
       'Der große Kommentator fand in den ersten Kapiteln der Tora Zahlen, Anfangs- und Endbuchstaben von Wörtern und „Paare“ der Massora. Rechne selbst nach: wann die Welt erschaffen wurde, warum das Licht die Tora ist, woraus der Mensch gemacht ist und wen der Allmächtige liebt.',
+    art: 'Die Schöpfung: das erste Licht über dem Wasser, Bäume und Tiere, Sonne und Mond; auf dem Tisch ein Buch, ein Schofar, Kerzen und Challa',
   },
   summary:
     'Bereschit 1–4 mit den Augen des Baal HaTurim: „Bereschit bara“ = „an Rosch Haschana erschaffen“, Licht = 613, der Mensch aus Erde, Siegel und Challa, der siebte Tag und die siebte Generation.',

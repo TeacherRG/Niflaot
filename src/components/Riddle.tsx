@@ -17,6 +17,7 @@ import { sectionQuotes } from '../core/quotes';
 import { Quote } from './Quote';
 import { useLetterHelp } from './letterHelp';
 import { neededLetters } from '../core/letterNames';
+import { lessonArt } from '../core/art';
 import { displayNames } from '../core/names';
 
 /** «⏱ ≈ 1 мин · ●●○ средний»: average time and difficulty of a step (or of the whole riddle). */
@@ -122,6 +123,9 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
           })}`}
         />
       </div>
+      {lessonArt(lesson, `riddle-${ri + 1}`) && (
+        <img className="r-art" src={lessonArt(lesson, `riddle-${ri + 1}`)} alt={rt.art ?? ''} width={1280} height={720} loading="lazy" />
+      )}
       <Html as="div" className="cond" html={withTerms(condHtml, textLocale)} />
       {!solved && (
         <div className="les-lock">

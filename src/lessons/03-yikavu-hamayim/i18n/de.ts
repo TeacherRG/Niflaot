@@ -7,6 +7,7 @@ const de: LessonText = {
     author: 'nach einer Reschima von Rabbi Jizchak Ginsburgh',
     intro:
       'In jedem Wochenabschnitt verbirgt der neunte Vers eine tiefe Absicht. Finde sie gleich im ersten Abschnitt der Tora: Einheit im Ort, drei Bedeutungen des Wortes „Kaw“, die Zahl 59 und alle „Neunen“ von Bereschit.',
+    art: 'Das Wasser sammelt sich zu einem Meer, und das Land erscheint; vorne eine Mikwe aus Stein',
   },
   summary:
     'Der neunte Vers der Tora: „Es sollen sich die Wasser an einem Ort sammeln“. Mikwe, Linie und Hoffnung, die Zahl 59 und der neunte Buchstabe, das neunte Wort und der neunte Abschnitt von Bereschit.',

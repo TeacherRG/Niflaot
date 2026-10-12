@@ -107,17 +107,15 @@ export function PrintMemo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) 
                 ))}
               </ol>
             </section>
-            {/* on paper a pair is two equal pictures; the small number is the number of its explanation */}
-            {[t('memo.picCards'), t('memo.wordCards')].map((title) => (
-              <CardPage key={title} title={title}>
-                {memo.items.map((_, k) => (
-                  <div key={k} className="pm-card pm-pic">
-                    <img src={images[k]} alt="" />
-                    <span className="pm-num">{k + 1}</span>
-                  </div>
-                ))}
-              </CardPage>
-            ))}
+            {/* on paper a pair is two equal pictures (two sets in one grid); the small number is the number of its explanation */}
+            <CardPage title={t('memo.picCards')}>
+              {[...memo.items, ...memo.items].map((_, i) => (
+                <div key={i} className="pm-card pm-pic">
+                  <img src={images[i % memo.items.length]} alt="" />
+                  <span className="pm-num">{(i % memo.items.length) + 1}</span>
+                </div>
+              ))}
+            </CardPage>
           </>
         )}
 

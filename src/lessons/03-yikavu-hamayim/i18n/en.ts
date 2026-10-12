@@ -7,6 +7,7 @@ const en: LessonText = {
     author: 'based on a note by Rabbi Yitzchak Ginsburgh',
     intro:
       'In every weekly portion the ninth verse hides a deep intention. Find it in the very first portion of the Torah: unity in place, the three meanings of “kav”, the number 59 and all the “nines” of Bereishit.',
+    art: 'The waters gather into one sea and dry land appears; in front, a stone mikvah',
   },
   summary:
     'The ninth verse of the Torah: “Let the waters gather into one place”. Mikveh, line and hope, the number 59, and the ninth letter, word and section of Bereishit.',

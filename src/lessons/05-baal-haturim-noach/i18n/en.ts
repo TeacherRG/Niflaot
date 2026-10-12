@@ -7,6 +7,7 @@ const en: LessonText = {
     author: 'after the commentary of the Baal HaTurim, Rabbi Yaakov ben Asher',
     intro:
       'The Baal HaTurim found numbers and hidden words in the portion of Noach. Count for yourself: what kind of man Noach was, how many days the Flood lasted, who else was saved with the ark, and what happened after the Flood — with the wine, the tower and the language; and how to count in atbash and “with the kolel”.',
+    art: 'The ark on the mountains after the flood: a rainbow, a dove with an olive leaf, the animals coming down, Noach giving thanks',
   },
   summary:
     'The portion of Noach through the eyes of the Baal HaTurim: “chamas” = “the waters of Noach”, “ketz” — 190 days of Flood, the “tzohar” — a shining stone, “ach Noach” = Og, wine = wailing, and the builders’ “come, let us” hides “carefree ease”, and Sarah in atbash is Yiskah.',

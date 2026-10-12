@@ -15,6 +15,7 @@ import { sectionQuotes } from '../core/quotes';
 import { Quote } from './Quote';
 import { firstLetters } from '../core/gematriaMethods';
 import { useLetterHelp } from './letterHelp';
+import { lessonArt } from '../core/art';
 import { Colophon } from './Colophon';
 
 /** A ready calculation from the step's coach data: every word spelled into letter values, every action with its result. */
@@ -155,6 +156,9 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
         <span className="eyebrow">{t('read.chapter', { n: ri + 1, total: lesson.riddles.length })}</span>
         <h2>{rt.title}</h2>
       </div>
+      {lessonArt(lesson, `riddle-${ri + 1}`) && (
+        <img className="r-art" src={lessonArt(lesson, `riddle-${ri + 1}`)} alt={rt.art ?? ''} width={1280} height={720} loading="lazy" />
+      )}
       <Html as="div" className="cond" html={withTerms(condHtml, textLocale)} />
       {quotes.cond.map((q) => (
         <Quote key={q.id} q={q} />

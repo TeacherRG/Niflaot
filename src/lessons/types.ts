@@ -131,6 +131,8 @@ export interface RiddleText {
   reveal: { h: string; p: string };
   /** expandable lesson sections; `b` is HTML */
   lessons: { h: string; b: string }[];
+  /** what the riddle's picture (art/riddle-N.webp) shows — its alt text; required when the picture exists */
+  art?: string;
   reflection: string;
   /** short bullet points for the summary («конспект») on the final screen; plain text, Hebrew is auto-styled */
   takeaways?: string[];
@@ -156,6 +158,8 @@ export interface LessonText {
     heading: string;
     author: string;
     intro: string;
+    /** what the lesson's picture (art/hero.webp) shows — its alt text; required when the picture exists */
+    art?: string;
   };
   /** catalog card blurb */
   summary: string;

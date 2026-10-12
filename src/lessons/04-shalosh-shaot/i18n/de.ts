@@ -7,6 +7,7 @@ const de: LessonText = {
     author: 'nach einer Rede des Lubawitscher Rebben · Simchat Tora 5723',
     intro:
       'Der erste Mensch — das Werk der Hände G-ttes Selbst — hörte das Verbot von Ihm Selbst. Ein Verbot für nur drei Stunden. Und er hielt nicht durch. Ermittle mit dem Rebben: warum — und was das jedes Zuhause lehrt.',
+    art: 'Ein Baum im Gan Eden in der Abendsonne, eine Schlange in den Zweigen; darunter decken eine Mutter und ihre Kinder den Schabbattisch',
   },
   summary:
     'Warum hielt Adam ein Verbot für nur drei Stunden nicht durch? „Wer größer ist als sein Gefährte, dessen böser Trieb ist auch größer.“ Warum Mosche am Sinai zuerst zu den Frauen sprach. Das Zuhause als kleines Heiligtum.',
@@ -176,6 +177,7 @@ const de: LessonText = {
           b: `<p>Bemühungen, Frauen enger mit der Tora zu verbinden, kommen auch den Männern zugute. Die Frau wird ihrem Mann in Gedanken, Worten und Taten nicht widersprechen, sondern ihm helfen und ihn in allem ergänzen und Bina — Verständnis — ins Haus bringen. Unsere Weisen sagen: „Der Heilige, gelobt sei Er, gab der Frau mehr Bina als dem Mann.“<sup data-src="niddah-45b"></sup></p><p>Eine Frau, die mit der Tora verbunden ist, wirkt auf das ganze Haus und macht es zu einem Ort, an dem die Schechina weilen kann. Das spiegelt sich im Hochzeitssegen: „Erfreue die liebenden Gefährten, wie Du Dein Geschöpf im Garten Eden einst (<span class="he">מקדם</span>) erfreut hast.“<sup data-src="ketubot-8a"></sup> Wozu „einst“? Jeder weiß, dass die Geschichte von Adam und Chawa sehr lange her ist. Doch der Segen meint die Zeit „davor“ — vor der Sünde.</p><p>Wir wünschen, dass jede neue Ehe wie der Bund von Adam und Chawa vor der Sünde sei, als jeder dem anderen half. Dann wird das Haus der g-ttlichen Gegenwart würdig, und es wird Freude darin sein — „wie Du Dein Geschöpf im Garten Eden einst erfreut hast“.</p>`,
         },
       ],
+      art: 'Sinai: der Berg in Wolke und Licht, am Fuß steht das Volk — Männer und Frauen mit Kindern',
       reflection: 'Wie kann ich heute in meinem Zuhause mehr Freude und Licht bringen — mit einem guten Wort statt einer Anweisung?',
       takeaways: [
         'Das Verbot hörte Adam, nicht Chawa; sie fügte „und ihn nicht berühren“ hinzu — und die Schlange nutzte das aus.',

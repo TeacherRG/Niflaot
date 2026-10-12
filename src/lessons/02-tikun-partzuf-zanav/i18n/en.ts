@@ -7,6 +7,7 @@ const en: LessonText = {
     author: 'based on an article by Rabbi Yitzchak Ginsburgh',
     intro:
       'Count the numerical values of words, discover hidden equalities and uncover their meaning: pride and desire, prayer, the three faces of a person and the secret of marriage.',
+    art: 'A boy in a kippah looks into a mirror and sees himself brighter; books nearby and a mask set aside',
   },
   summary: 'Pride and desire, prayer, the three faces of a person and the secret of marriage — four riddles about the face, the mask and the heart.',
   glossary: {
