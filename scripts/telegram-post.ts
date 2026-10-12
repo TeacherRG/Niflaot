@@ -80,6 +80,7 @@ async function tg(method: string, body: object) {
 }
 
 const photo = `${SITE_URL}/og/${fact.lesson.slug}.png`;
+if (!DRY && !Object.values(CHATS).some(Boolean)) throw new Error('no channel: set TELEGRAM_CHAT_RU / _EN / _DE (Variables or Secrets)');
 let failed = false;
 for (const loc of Object.keys(UI) as Loc[]) {
   const caption = post(fact, loc);

@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      TELEGRAM_CHAT_RU: ${{ vars.TELEGRAM_CHAT_RU }}
+      TELEGRAM_CHAT_RU: ${{ vars.TELEGRAM_CHAT_RU || secrets.TELEGRAM_CHAT_RU }}
       TELEGRAM_SCHEDULE: ${{ github.event.schedule }}
     steps:
       - uses: actions/checkout@v4
@@ -37,7 +37,7 @@ jobs:
             exit 1
           fi
           if [ -z "$TELEGRAM_CHAT_RU$TELEGRAM_CHAT_EN$TELEGRAM_CHAT_DE" ]; then
-            echo "::error::Не задан ни один канал (TELEGRAM_CHAT_RU): Settings → Secrets and variables → Actions → вкладка Variables."
+            echo "::error::Не задан ни один канал (TELEGRAM_CHAT_RU): Settings → Secrets and variables → Actions (вкладка Variables или Secrets)."
             exit 1
           fi
       - name: Post

@@ -96,6 +96,7 @@ async function tg(method: string, body: object) {
   if (!json.ok) throw new Error(`${method}: ${json.description}`);
 }
 
+if (!DRY && !Object.values(CHATS).some(Boolean)) throw new Error('no channel: set TELEGRAM_CHAT_RU / _EN / _DE (Variables or Secrets)');
 let failed = false;
 for (const loc of Object.keys(UI) as Loc[]) {
   const text = post(loc);
