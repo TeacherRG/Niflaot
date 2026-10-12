@@ -1025,6 +1025,7 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .pm-cards{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px dashed #888;border-inline-start:1px dashed #888}
 .pm-card{aspect-ratio:3/4;border-bottom:1px dashed #888;border-inline-end:1px dashed #888;padding:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;position:relative;text-align:center}
 .pm-pic img{flex:1;min-height:0;width:100%;object-fit:contain}
+.pm-num{position:absolute;bottom:8px;left:8px;min-width:18px;height:18px;padding:0 4px;border:1px solid #111;border-radius:9px;background:#fff;font-family:var(--f-body);font-size:11px;font-weight:700;line-height:16px;text-align:center;direction:ltr}
 .pm-legend{margin-top:16px}
 .sheet-paper .pm-legend h2{font-size:20px}
 .pm-legend ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:24px;font-size:12.5px;line-height:1.4}
@@ -1052,7 +1053,6 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
   .pm-info .mi-quote,.pm-info .mi-calc,.pm-info .mi-moral{padding:4px 8px}
   .pm-info .mi-block h4{font-size:12px}
   .pm-page{margin-top:0}
-  .pm-head+.pm-page{break-before:auto;margin-top:14px}
   .pm-cards{grid-template-columns:repeat(4,4cm);break-inside:avoid}
   /* 4 × 3 cards of 4 × 5.33 cm (3:4): all twelve fit on one A4 page right under the masthead, in every language */
   .pm-card{width:4cm;height:5.33cm;aspect-ratio:auto}
