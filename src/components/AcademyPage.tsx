@@ -10,8 +10,11 @@ import { readQuizStore, quizReady } from '../core/quiz';
 import { NIFLAOT_LOGO, PARTNERS } from '../core/partners';
 import { civilDate, jewishDate } from '../core/hebrewDate';
 import { useAccount } from '../core/account';
+import { routeLink } from '../core/site';
+import { QrCode } from './QrCode';
 import {
   PASS,
+  RECTOR,
   TORAH_BOOKS,
   tanakhCertificates,
   tanakhProgress,
@@ -168,12 +171,27 @@ function CertificateView({ c, p, sample }: { c: Certificate; p: Progress; sample
           </span>
         </p>
         {!sample && <p className="cert-result">{t('cert.result', { pct: pct(p) })}</p>}
+        {/* date · QR code to the site · the rector's signature */}
         <div className="cert-foot">
-          <span>
-            {civilDate(today, locale)} · <span className="he">{jewishDate(today)}</span>
-          </span>
-          <span>{t('cert.academy')} · niflaot.mychitas.app</span>
+          <div className="cert-sign">
+            <span className="cert-sign-v">
+              {civilDate(today, locale)}
+              <span className="he" lang="he">
+                {jewishDate(today)}
+              </span>
+            </span>
+            <span className="cert-sign-l">{t('cert.date')}</span>
+          </div>
+          <div className="cert-qr">
+            <QrCode value={routeLink('', 'qr', locale)} size={72} title={t('cert.qr')} />
+            <span>niflaot.mychitas.app</span>
+          </div>
+          <div className="cert-sign">
+            <span className="cert-sign-v cert-sign-name">{RECTOR.name?.[lang] ?? '\u00a0'}</span>
+            <span className="cert-sign-l">{t('cert.rector')}</span>
+          </div>
         </div>
+        <p className="cert-academy">{t('cert.academy')}</p>
       </section>
     </>
   );
