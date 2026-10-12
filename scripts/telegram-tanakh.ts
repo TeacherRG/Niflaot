@@ -1,7 +1,8 @@
 /**
  * «Пророки и Писания» — отрывок дня в Telegram-каналы (ru / en / de) каждый учебный день цикла: что читать сегодня
  * (раздел, книга и стихи), сколько это займёт и ссылки на страницы дня (`#/neviim/<дата>`, `#/ketuvim/<дата>`,
- * метка `?ref=channel` для GoatCounter). Запускает GitHub Action `.github/workflows/telegram-tanakh.yml` каждое утро.
+ * метка `?ref=channel` для GoatCounter). Запускает GitHub Action `.github/workflows/telegram-tanakh.yml` каждое утро
+ * в 5:30 по Вене: два cron (03:30 и 04:30 UTC — лето и зима), публикует тот, что совпадает с венским временем сегодня.
  * В день без чтения (Шабат, праздник, 9 ава — их нет в src/tanakh/cycle.json) ничего не публикуется; в Шабат —
  * даже при ручном запуске.
  *
@@ -33,6 +34,17 @@ const dateArg = args.indexOf('--date');
 const SECTION_HE: Record<Section, string> = { neviim: 'נביאים', ketuvim: 'כתובים' };
 
 const now = new Date();
+// two crons (03:30 / 04:30 UTC) = 5:30 in Vienna in summer / winter: only the one matching today's offset posts
+// (by the cron that fired, not the clock — GitHub may start a scheduled run late)
+const fired = process.env.TELEGRAM_SCHEDULE;
+if (fired && !DRY) {
+  const firedHour = Number(fired.split(' ')[1]);
+  const viennaHour = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Vienna', hour: 'numeric', hourCycle: 'h23' }).format(new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), firedHour, 30))));
+  if (viennaHour !== 5) {
+    console.log(`cron «${fired}» = ${viennaHour}:30 по Вене — не наш час, пост уходит из другого запуска.`);
+    process.exit(0);
+  }
+}
 const wd = now.getUTCDay();
 if (!DRY && (wd === 6 || (wd === 5 && now.getUTCHours() >= 12))) {
   console.log('Шабат — сегодня не публикуем.');
@@ -84,6 +96,7 @@ async function tg(method: string, body: object) {
   if (!json.ok) throw new Error(`${method}: ${json.description}`);
 }
 
+if (!DRY && !Object.values(CHATS).some(Boolean)) throw new Error('no channel: set TELEGRAM_CHAT_RU / _EN / _DE (Variables or Secrets)');
 let failed = false;
 for (const loc of Object.keys(UI) as Loc[]) {
   const text = post(loc);

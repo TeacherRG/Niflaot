@@ -1,12 +1,15 @@
 name: Пророки и Писания в Telegram
 
-# Every morning, 04:37 UTC (6:37 in Vienna in summer, 5:37 in winter) — the passage of the day of the three-year cycle.
+# Every morning at 5:30 Vienna time — the passage of the day of the three-year cycle. Cron is in UTC, so two runs:
+# 03:30 UTC (= 5:30 in summer, CEST) and 04:30 UTC (= 5:30 in winter, CET); the script posts only from the one that
+# matches today's Vienna offset (TELEGRAM_SCHEDULE says which fired), so there is exactly one post a day.
 # Days without a reading (Shabbat, holidays, 9 Av) and Shabbat itself are skipped by the script.
 # Setup: the same secret TELEGRAM_BOT_TOKEN and variable TELEGRAM_CHAT_RU as «Загадка недели».
 # For now — the Russian channel only; to add English / German, pass TELEGRAM_CHAT_EN / _DE below (the script has their texts).
 on:
   schedule:
-    - cron: '37 4 * * *'
+    - cron: '30 3 * * *'
+    - cron: '30 4 * * *'
   workflow_dispatch:
 
 permissions:
@@ -17,7 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      TELEGRAM_CHAT_RU: ${{ vars.TELEGRAM_CHAT_RU }}
+      TELEGRAM_CHAT_RU: ${{ vars.TELEGRAM_CHAT_RU || secrets.TELEGRAM_CHAT_RU }}
+      TELEGRAM_SCHEDULE: ${{ github.event.schedule }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -25,6 +29,16 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # without the token the run is red with a clear message — not green with a silently skipped post
+      - name: Check settings
+        run: |
+          if [ -z "$TELEGRAM_BOT_TOKEN" ]; then
+            echo "::error::Нет секрета TELEGRAM_BOT_TOKEN: Settings → Secrets and variables → Actions → вкладка Secrets (не Variables) → Repository secrets."
+            exit 1
+          fi
+          if [ -z "$TELEGRAM_CHAT_RU$TELEGRAM_CHAT_EN$TELEGRAM_CHAT_DE" ]; then
+            echo "::error::Не задан ни один канал (TELEGRAM_CHAT_RU): Settings → Secrets and variables → Actions (вкладка Variables или Secrets)."
+            exit 1
+          fi
       - name: Post
-        if: ${{ env.TELEGRAM_BOT_TOKEN != '' }}
         run: npx tsx scripts/telegram-tanakh.ts

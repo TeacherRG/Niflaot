@@ -15,9 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      TELEGRAM_CHAT_RU: ${{ vars.TELEGRAM_CHAT_RU }}
-      TELEGRAM_CHAT_EN: ${{ vars.TELEGRAM_CHAT_EN }}
-      TELEGRAM_CHAT_DE: ${{ vars.TELEGRAM_CHAT_DE }}
+      TELEGRAM_CHAT_RU: ${{ vars.TELEGRAM_CHAT_RU || secrets.TELEGRAM_CHAT_RU }}
+      TELEGRAM_CHAT_EN: ${{ vars.TELEGRAM_CHAT_EN || secrets.TELEGRAM_CHAT_EN }}
+      TELEGRAM_CHAT_DE: ${{ vars.TELEGRAM_CHAT_DE || secrets.TELEGRAM_CHAT_DE }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -25,6 +25,16 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # without the token the run is red with a clear message — not green with a silently skipped post
+      - name: Check settings
+        run: |
+          if [ -z "$TELEGRAM_BOT_TOKEN" ]; then
+            echo "::error::Нет секрета TELEGRAM_BOT_TOKEN: Settings → Secrets and variables → Actions → вкладка Secrets (не Variables) → Repository secrets."
+            exit 1
+          fi
+          if [ -z "$TELEGRAM_CHAT_RU$TELEGRAM_CHAT_EN$TELEGRAM_CHAT_DE" ]; then
+            echo "::error::Не задан ни один канал (TELEGRAM_CHAT_RU / _EN / _DE): Settings → Secrets and variables → Actions (вкладка Variables или Secrets)."
+            exit 1
+          fi
       - name: Post
-        if: ${{ env.TELEGRAM_BOT_TOKEN != '' }}
         run: npx tsx scripts/telegram-post.ts
