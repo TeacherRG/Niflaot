@@ -7,6 +7,8 @@ import { CYCLE, cycleDayFor, localToday } from '../core/tanakh';
 import { civilDate, jewishDate } from '../core/hebrewDate';
 import { loadQuiz, optionOrder, quizReady, useQuizResult, type DayQuiz, type QuizQuestion } from '../core/quiz';
 import { PASS } from '../core/academy';
+import { setOtherPage } from '../core/assistant';
+import { quizContext } from '../core/assistantPages';
 
 const SECTION_HE: Record<Section, string> = { neviim: 'נביאים', ketuvim: 'כתובים' };
 type Lang = 'ru' | 'en' | 'de';
@@ -24,6 +26,11 @@ function Quiz({ date, section, questions }: { date: string; section: Section; qu
   const { t, locale } = useI18n();
   const lang = langOf(locale);
   const { result, answer, restart } = useQuizResult(date, section, questions.length);
+  // the AI assistant (✦) knows the questions and which are answered — it hints, but never gives away an open one
+  useEffect(() => {
+    setOtherPage({ kind: 'quiz', context: () => quizContext(section, date, lang, questions, result) });
+    return () => setOtherPage(null);
+  }, [section, date, lang, questions, result]);
   const answered = result.p.filter((x) => x >= 0).length;
   const right = result.p.filter((x) => x === 0).length;
   const finished = answered === questions.length;

@@ -7,6 +7,8 @@ import { BOOKS, rangeLabel, type Section } from '../core/tanakhCycle';
 import { CYCLE, cycleDayFor, loadDay, localToday, readingMinutes, type DayContent, type SectionDay, type DayVerse, type Tr } from '../core/tanakh';
 import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
 import { TanakhMasthead } from './PrintBrand';
+import { setOtherPage } from '../core/assistant';
+import { tanakhContext } from '../core/assistantPages';
 
 export const SECTION_HE: Record<Section, string> = { neviim: 'נביאים', ketuvim: 'כתובים' };
 
@@ -256,6 +258,13 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
   useEffect(() => {
     document.title = `${title}: ${range} · ${t('app.title')}`;
   }, [title, range, t]);
+
+  // the AI assistant (✦) knows the passage on screen
+  useEffect(() => {
+    const lang = locale === 'en' || locale === 'de' ? locale : 'ru';
+    setOtherPage({ kind: 'tanakh', context: () => tanakhContext(section, day.date, lang) });
+    return () => setOtherPage(null);
+  }, [section, day.date, locale]);
 
   const other: Section = section === 'neviim' ? 'ketuvim' : 'neviim';
   const prev = CYCLE[index - 1];

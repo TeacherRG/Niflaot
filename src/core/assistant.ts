@@ -32,9 +32,29 @@ export const subscribePageState = (f: () => void) => {
   listeners.add(f);
   return () => void listeners.delete(f);
 };
+/**
+ * What the assistant knows about any other page — the passage of the day of «Пророки» / «Писания», its quiz,
+ * «Академия»: the page sets a short kind (it picks the suggested questions) and a builder of the context text.
+ */
+export type PageKind = 'lesson' | 'tanakh' | 'quiz' | 'academy';
+let other: { kind: Exclude<PageKind, 'lesson'>; context: () => string | Promise<string> } | null = null;
+export const setOtherPage = (s: typeof other) => {
+  other = s;
+  listeners.forEach((f) => f());
+};
+export const pageKind = (): PageKind | null => (page ? 'lesson' : (other?.kind ?? null));
+
+/** Context text is cut here (the server takes at most 24 000 characters). */
+const MAX_CONTEXT = 22000;
+
 /** The primary sources (sefaria.json) load only with the first question, not with the site. */
 const assistantContext = async () =>
-  page ? lessonContext(page.lesson, page.locale, page.done, page.lvl, await import('../sources')) : '';
+  (page
+    ? lessonContext(page.lesson, page.locale, page.done, page.lvl, await import('../sources'))
+    : other
+      ? await other.context()
+      : ''
+  ).slice(0, MAX_CONTEXT);
 
 const plain = (html: string) =>
   html

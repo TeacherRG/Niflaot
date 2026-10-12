@@ -12,6 +12,8 @@ import { civilDate, jewishDate } from '../core/hebrewDate';
 import { useAccount } from '../core/account';
 import { routeLink } from '../core/site';
 import { QrCode } from './QrCode';
+import { setOtherPage } from '../core/assistant';
+import { academyContext } from '../core/assistantPages';
 import {
   PASS,
   RECTOR,
@@ -226,6 +228,18 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
   const lang = langOf(locale);
   const { token } = useAccount();
   const { torah, tanakh } = useCertificates();
+  // the AI assistant (✦) knows the certificates and the progress
+  useEffect(() => {
+    const rows = [...torah, ...tanakh].map((c) => ({
+      kind: c.kind,
+      title: certTitle(c, t),
+      book: c.book.name[lang],
+      p: c.progress,
+      extra: c.kind === 'torah' ? t('academy.lessons', { done: c.progress.done, parts: c.progress.parts }) : t('academy.days', { done: c.progress.done, parts: c.progress.parts }),
+    }));
+    setOtherPage({ kind: 'academy', context: () => academyContext(rows) });
+    return () => setOtherPage(null);
+  }, [torah, tanakh, t, lang]);
   useEffect(() => {
     document.title = `${t('academy.h1')} · ${t('app.title')}`;
   }, [t]);
