@@ -1,6 +1,6 @@
 /**
  * What an account keeps for the player (src/core/account.ts): the same localStorage entries a guest has on one
- * device — the state of every lesson, «Гиматрия дня», «Вопросы к отрывку», the Hebrew level, the language, the mental-math level —
+ * device — the state of every lesson, «Гематрия дня», «Вопросы к отрывку», the Hebrew level, the language, the mental-math level —
  * and how two copies are merged (this device and the account) so that nothing solved is ever lost.
  * Pure functions on plain objects; `npm run check` checks the merge.
  */
@@ -42,7 +42,7 @@ function mergeLesson(a: string, b: string): string {
   return win;
 }
 
-/** «Гиматрия дня»: every day from both; the same day — the finished one, then the one with more tries */
+/** «Гематрия дня»: every day from both; the same day — the finished one, then the one with more tries */
 function mergeDaily(a: string, b: string): string {
   const x = parse(a) ?? {};
   const y = parse(b) ?? {};
@@ -73,7 +73,7 @@ function mergeQuiz(a: string, b: string): string {
 }
 
 /**
- * Merge this device (`local`) with the account (`remote`). Progress is never lost: lessons, «Гиматрия дня» and
+ * Merge this device (`local`) with the account (`remote`). Progress is never lost: lessons, «Гематрия дня» and
  * «Вопросы к отрывку» keep the best of both; settings (Hebrew level, language, math level) — this device's choice when it has one.
  */
 export function mergeSnapshots(local: Snapshot, remote: Snapshot): Snapshot {
@@ -96,7 +96,7 @@ export function mergeSnapshots(local: Snapshot, remote: Snapshot): Snapshot {
 export interface Summary {
   points: number;
   solved: number;
-  /** «Гиматрия дня» solved */
+  /** «Гематрия дня» solved */
   days: number;
   streak: number;
   /** lesson slug → riddles solved */

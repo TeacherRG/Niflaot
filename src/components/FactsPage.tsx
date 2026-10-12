@@ -139,7 +139,7 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
  * «Знаете ли вы?» — every equality and letter hint of the lessons as a feed of short questions, without explanations:
  * the answer opens on a tap, the links lead to the lesson where it is explained.
  */
-/** `at` — the fact a shared link points to (`#/facts/<id>`), or `daily` («Гиматрия дня», `#/daily`): the feed opens on it. */
+/** `at` — the fact a shared link points to (`#/facts/<id>`), or `daily` («Гематрия дня», `#/daily`): the feed opens on it. */
 export function FactsPage({ at }: { at?: string }) {
   const { t } = useI18n();
   const facts = useMemo(() => collectFacts(LESSONS), []);

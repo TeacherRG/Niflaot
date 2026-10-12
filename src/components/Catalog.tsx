@@ -57,7 +57,7 @@ function WeekTile({ lesson: l }: { lesson: Lesson }) {
  * The home page — one screen: a short title with «Continue», the lessons of the week's portion (all teachers),
  * and beside them how long the games are open this week (until Shabbat).
  */
-/** «Гиматрия дня» on the home screen: today's number, or the result when today's word is solved. */
+/** «Гематрия дня» on the home screen: today's number, or the result when today's word is solved. */
 function DailyLink() {
   const { t } = useI18n();
   const n = dailyNumber();

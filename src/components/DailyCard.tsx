@@ -27,7 +27,7 @@ function useUntilMidnight() {
 }
 
 /**
- * «Гиматрия дня» — the first card of the feed «Знаете ли вы?» (`#/daily` opens the feed on it): one word a day,
+ * «Гематрия дня» — the first card of the feed «Знаете ли вы?» (`#/daily` opens the feed on it): one word a day,
  * its letters added in the head, the result shared without the answer.
  */
 export function DailyCard() {

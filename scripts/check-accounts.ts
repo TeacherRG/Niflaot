@@ -1,6 +1,6 @@
 /**
  * Checks of the optional account (part of `npm run check`): merging this device's progress with the account's
- * never loses a solved riddle or a «Гиматрия дня» day (src/core/sync.ts), only the synced keys travel, and the
+ * never loses a solved riddle or a «Гематрия дня» day (src/core/sync.ts), only the synced keys travel, and the
  * server's rules for emails and nicknames (assistant/src/rules.ts).
  */
 import { mergeSnapshots, summarize } from '../src/core/sync';
@@ -30,7 +30,7 @@ if (done('niflaot:lesson:a') !== 2) err('sync: the lesson with more riddles solv
 if (done('niflaot:lesson:b') !== 3) err('sync: the lesson with more riddles solved must win (the account)');
 if (!m['niflaot:lesson:c']) err('sync: a lesson only in the account is lost');
 const daily = JSON.parse(m['niflaot:daily']);
-if (!daily[1] || !daily[2]) err('sync: a «Гиматрия дня» day is lost');
+if (!daily[1] || !daily[2]) err('sync: a «Гематрия дня» day is lost');
 if (daily[3]?.done !== 'lose') err('sync: a finished day must win over an unfinished one');
 if (m['niflaot:lang'] !== 'de') err('sync: this device\'s settings must win');
 if ('niflaot:admin-token' in m) err('sync: a key that must stay on the device travels (admin token)');

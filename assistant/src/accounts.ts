@@ -424,7 +424,7 @@ export class Accounts extends DurableObject<MailEnv> {
     return fail('not found', 404);
   }
 
-  /** top 20 by points and by «Гиматрия дня» streak; only active accounts that agreed to be shown (or a class's members) */
+  /** top 20 by points and by «Гематрия дня» streak; only active accounts that agreed to be shown (or a class's members) */
   private leaders(cls: string | null) {
     const where = cls
       ? `JOIN members m ON m.user = u.id AND m.class = ?`
