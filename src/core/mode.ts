@@ -11,7 +11,9 @@ export type Mode = 'kids' | 'adults';
 export const MODES: Mode[] = ['kids', 'adults'];
 
 export const MODE_KEY = 'niflaot:mode';
-const EVENT = 'niflaot:mode';
+/** fired on this page when the mode changes */
+export const MODE_EVENT = 'niflaot:mode';
+const EVENT = MODE_EVENT;
 
 /** The chosen mode, or null when it was never chosen. */
 export function savedMode(): Mode | null {

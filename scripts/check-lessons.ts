@@ -54,7 +54,7 @@ import deUi from '../src/i18n/locales/de';
 import { GLOSSARY } from '../src/i18n/glossary';
 import { PARSHIOT } from '../src/lessons/parshiot';
 import { styleErrors } from './style-rules';
-import { MSG_LOCALES, messageFor, parshaMessages } from '../src/core/dailyMessage';
+import { MSG_LOCALES, adultsMessageFor, messageFor, parshaMessages } from '../src/core/dailyMessage';
 
 const errors: string[] = [];
 const err = (m: string) => errors.push(m);
@@ -386,6 +386,27 @@ for (const p of new Set(LESSONS.map((l) => l.parsha))) {
     if (seen.has(m.id)) err(`daily message «${m.id}» repeats in the week of ${sunday}`);
     seen.add(m.id);
     week.set(sunday, seen);
+  }
+}
+
+// the adults' message: every weekday of the cycle — the passage of the day (or «repeat yesterday's»), all languages
+{
+  const today = new Date().toISOString().slice(0, 10);
+  for (let i = 0; i < 120; i++) {
+    const date = new Date(Date.parse(`${today}T00:00:00Z`) + i * 864e5).toISOString().slice(0, 10);
+    const m = adultsMessageFor(date, () => 7);
+    if (new Date(`${date}T00:00:00Z`).getUTCDay() === 6) {
+      if (m) err(`adults' daily message on Shabbat ${date}`);
+      continue;
+    }
+    if (!m) {
+      if (date >= '2026-10-11' && date <= '2029-09-30') err(`no adults' daily message for ${date}`);
+      continue;
+    }
+    for (const loc of MSG_LOCALES) {
+      const x = m.text[loc];
+      if (!x.title || !x.body || !x.route || /[{}<>]/.test(x.body)) err(`adults' daily message ${m.id}: bad text (${loc}): ${x.body}`);
+    }
   }
 }
 

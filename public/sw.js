@@ -7,7 +7,8 @@
  * other files of the site — from the cache, refreshed in the background. Other hosts (statistics, the AI teacher) — never cached.
  *
  * Reminder: the push from the assistant worker carries no text; the message of the day is taken from
- * /daily-message.json (src/core/dailyMessage.ts) for the device's date, in the language saved by src/core/push.ts.
+ * /daily-message.json (src/core/dailyMessage.ts) for the device's date, in the language and the mode (`adults` — the
+ * passage of the day of the Prophets and Writings) saved by src/core/push.ts.
  */
 const VERSION = /*__VERSION__*/ 'dev';
 const PRECACHE = /*__PRECACHE__*/ [];
@@ -113,6 +114,12 @@ const FALLBACK = {
   de: { title: 'Niflaot', body: 'Das Rätsel des Tages wartet auf dich auf der Seite.' },
 };
 
+const ADULTS_FALLBACK = {
+  ru: { title: 'Пророки и Писания', body: 'Отрывок дня ждёт вас на сайте.' },
+  en: { title: 'Prophets and Writings', body: 'Today’s passage is waiting for you on the site.' },
+  de: { title: 'Propheten und Schriften', body: 'Der Abschnitt des Tages wartet auf dich auf der Seite.' },
+};
+
 const localDate = () => {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -127,7 +134,7 @@ async function prefs() {
   }
 }
 
-async function todaysMessage(lang) {
+async function todaysMessage(lang, mode) {
   let all = null;
   try {
     const res = await fetch('/daily-message.json', { cache: 'no-cache' });
@@ -140,10 +147,13 @@ async function todaysMessage(lang) {
     const hit = await caches.match('/daily-message.json', ANY);
     if (hit) all = await hit.json().catch(() => null);
   }
-  const m = all?.days?.[localDate()]?.[lang];
+  // the adults' mode: the passage of the day of the Prophets and Writings (src/core/dailyMessage.ts)
+  const day = all?.days?.[localDate()];
+  const m = (mode === 'adults' && day?.adults?.[lang]) || day?.[lang];
   if (m) return m;
-  const f = FALLBACK[lang] || FALLBACK.ru;
-  return { title: f.title, body: f.body, url: `${location.origin}/?lang=${lang}&ref=push#/daily` };
+  const adults = mode === 'adults';
+  const f = (adults ? ADULTS_FALLBACK : FALLBACK)[lang] || FALLBACK.ru;
+  return { title: f.title, body: f.body, url: `${location.origin}/?lang=${lang}&ref=push#/${adults ? 'neviim' : 'daily'}` };
 }
 
 self.addEventListener('push', (e) => {
@@ -151,7 +161,7 @@ self.addEventListener('push', (e) => {
     (async () => {
       const p = await prefs();
       const lang = ['ru', 'en', 'de'].includes(p.lang) ? p.lang : 'ru';
-      const m = await todaysMessage(lang);
+      const m = await todaysMessage(lang, p.mode);
       await self.registration.showNotification(m.title, {
         body: m.body,
         lang,
