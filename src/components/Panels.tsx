@@ -230,10 +230,11 @@ export function Panels() {
               </details>
             </div>
           </details>
-          <div className="menu-wing adults">
-            <b>{t('wing.adults')}</b>
-            <small>{t('wing.adultsSub')}</small>
-          </div>
+          <div className="menu-adults">
+            <div className="menu-wing adults">
+              <b>{t('wing.adults')}</b>
+              <small>{t('wing.adultsSub')}</small>
+            </div>
           {/* «Пророки» и «Писания»: the passage of the day of the three-year cycle */}
           {(['neviim', 'ketuvim'] as const).map((sec) => (
             <Fragment key={sec}>
@@ -267,6 +268,7 @@ export function Panels() {
               </div>
             </Fragment>
           ))}
+          </div>
           <div className="menu-sep" />
           {installable && (
             <button

@@ -148,7 +148,7 @@ export function TanakhQuizPage({ section, date }: { section: Section; date?: str
           <nav className="tk-nav" aria-label={t('tanakh.navLabel')}>
             {prev ? <a href={`#/${section}/${prev.date}/quiz`}>← {civilDate(prev.date, locale)}</a> : <span />}
             <a className="tk-other" href={`#/${section}/${day.date}`}>
-              📖 {t('quiz.read')}
+              {t('quiz.read')} →
             </a>
             {next ? <a href={`#/${section}/${next.date}/quiz`}>{civilDate(next.date, locale)} →</a> : <span />}
           </nav>

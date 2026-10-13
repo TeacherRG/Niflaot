@@ -1,20 +1,17 @@
 name: Пророки и Писания в Telegram
 
-# Every morning — the passage of the day of the three-year cycle, from 5:00 Vienna time on.
-# GitHub starts scheduled runs late and sometimes drops them (on 13.10.2026 both morning runs never came), so there are
-# several crons: 03:23 and 04:23 UTC (≈ 5:23 Vienna in summer / winter) and two safety nets later in the morning.
-# The first run from 5:00 Vienna posts (scripts/telegram-tanakh.ts); it saves a mark for the day in the Actions cache
-# (key tanakh-posted-<date>), and the later runs of the day see it and stop before installing anything.
-# Days without a reading (Shabbat, holidays, 9 Av) and Shabbat itself are skipped by the script.
-# Manual run (Run workflow): posts right away, unless today's post is already out; «force» — post again anyway.
+# Every morning — the passage of the day of the three-year cycle, from 6:00 Vienna time on.
+# GitHub starts scheduled runs late and sometimes drops them (on 13.10.2026 no morning run came at all), so there is an
+# attempt every 5 minutes 04:00–06:55 UTC = 6:00–8:55 Vienna in summer (CEST) and 5:00–7:55 in winter (CET); attempts
+# before 6:00 Vienna stop at once. The first attempt that gets through posts (scripts/telegram-tanakh.ts) and saves
+# a mark for the day in the Actions cache (key tanakh-posted-<date>) — also on a day with nothing to post (Shabbat,
+# holidays, 9 Av); the later attempts of the day see it and stop before installing anything.
+# Manual run (Run workflow): posts right away, unless today is already done; «force» — post again anyway.
 # Setup: the same secret TELEGRAM_BOT_TOKEN and variable TELEGRAM_CHAT_RU as «Загадка недели».
 # For now — the Russian channel only; to add English / German, pass TELEGRAM_CHAT_EN / _DE below (the script has their texts).
 on:
   schedule:
-    - cron: '23 3 * * *'
-    - cron: '23 4 * * *'
-    - cron: '41 5 * * *'
-    - cron: '13 7 * * *'
+    - cron: '*/5 4-6 * * *'
   workflow_dispatch:
     inputs:
       force:
@@ -39,12 +36,17 @@ jobs:
       TELEGRAM_SCHEDULE: ${{ github.event.schedule }}
       TANAKH_POSTED_FILE: .tanakh-posted
     steps:
+      # «go» — this attempt should work: it is not before 6:00 Vienna (a scheduled run) and today is not done yet
       - name: Today
         id: day
-        run: echo "date=$(date -u +%F)" >> "$GITHUB_OUTPUT"
+        run: |
+          echo "date=$(date -u +%F)" >> "$GITHUB_OUTPUT"
+          hour=$(TZ=Europe/Vienna date +%-H)
+          if [ -n "$TELEGRAM_SCHEDULE" ] && [ "$hour" -lt 6 ]; then echo "early=true" >> "$GITHUB_OUTPUT"; echo "В Вене $hour ч — до 6:00 не публикуем."; fi
       # has today's post already gone out? (lookup only — nothing to download)
-      - name: Already posted today?
+      - name: Already done today?
         id: posted
+        if: steps.day.outputs.early != 'true'
         uses: actions/cache/restore@v4
         with:
           path: .tanakh-posted
@@ -52,22 +54,22 @@ jobs:
           lookup-only: true
       - name: Skip
         if: steps.posted.outputs.cache-hit == 'true' && !inputs.force
-        run: echo "Пост за ${{ steps.day.outputs.date }} уже опубликован — этот запуск ничего не делает."
+        run: echo "За ${{ steps.day.outputs.date }} всё уже сделано (пост вышел или публиковать нечего) — эта попытка ничего не делает."
       - uses: actions/checkout@v4
-        if: steps.posted.outputs.cache-hit != 'true' || inputs.force
+        if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
       - uses: actions/setup-node@v4
-        if: steps.posted.outputs.cache-hit != 'true' || inputs.force
+        if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
         with:
           node-version: 22
           cache: npm
-      - if: steps.posted.outputs.cache-hit != 'true' || inputs.force
+      - if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
         run: npm ci
       # a browser for the day's PDF (scripts/telegram-tanakh.ts prints the site's page of the day)
-      - if: steps.posted.outputs.cache-hit != 'true' || inputs.force
+      - if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
         run: npm i --no-save playwright && npx playwright install --with-deps chromium
       # without the token the run is red with a clear message — not green with a silently skipped post
       - name: Check settings
-        if: steps.posted.outputs.cache-hit != 'true' || inputs.force
+        if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
         run: |
           if [ -z "$TELEGRAM_BOT_TOKEN" ]; then
             echo "::error::Нет секрета TELEGRAM_BOT_TOKEN: Settings → Secrets and variables → Actions → вкладка Secrets (не Variables) → Repository secrets."
@@ -78,10 +80,11 @@ jobs:
             exit 1
           fi
       - name: Post
-        if: steps.posted.outputs.cache-hit != 'true' || inputs.force
+        if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
         run: npx tsx scripts/telegram-tanakh.ts
-      # the text went out (even if the PDF failed and the run is red): remember it, so the later crons don't repeat it
-      - name: Remember today's post
+      # the text went out (even if the PDF failed and the run is red) or there is nothing to post today: remember it,
+      # so the later attempts don't repeat it
+      - name: Remember today
         if: always() && hashFiles('.tanakh-posted') != '' && steps.posted.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:

@@ -2,8 +2,9 @@
  * «Пророки и Писания» — отрывок дня в Telegram-каналы (ru / en / de) каждый учебный день цикла: что читать сегодня
  * (раздел, книга и стихи), сколько это займёт и ссылки на страницы дня (`#/neviim/<дата>`, `#/ketuvim/<дата>`,
  * метка `?ref=channel` для GoatCounter). Запускает GitHub Action `.github/workflows/telegram-tanakh.yml` каждое утро:
- * несколько cron (GitHub запускает по расписанию с опозданием, а иногда пропускает), публикует первый запуск не раньше
- * 5:00 по Вене; что сегодня уже опубликовано, workflow помнит сам (файл-метка в кэше Actions, `TANAKH_POSTED_FILE`).
+ * попытки каждые 5 минут с 6:00 по Вене (GitHub запускает по расписанию с опозданием, а иногда пропускает); публикует
+ * первая, что дошла; что сегодня уже сделано — опубликовано или публиковать нечего (Шабат, день без чтения), — workflow
+ * помнит сам (файл-метка в кэше Actions, `TANAKH_POSTED_FILE`), и остальные попытки дня ничего не делают.
  * В день без чтения (Шабат, праздник, 9 ава — их нет в src/tanakh/cycle.json) ничего не публикуется; в Шабат —
  * даже при ручном запуске.
  *
@@ -41,19 +42,23 @@ const dateArg = args.indexOf('--date');
 const SECTION_HE: Record<Section, string> = { neviim: 'נביאים', ketuvim: 'כתובים' };
 
 const now = new Date();
-// a scheduled run posts from 5:00 Vienna time on (the first cron in winter fires at 4:23 — too early); later crons are
-// a safety net for runs GitHub drops, and the workflow skips them once today's post is out
+// a scheduled run posts from 6:00 Vienna time on (the workflow already skips earlier ones; this is the same rule)
 const fired = process.env.TELEGRAM_SCHEDULE;
 if (fired && !DRY) {
   const viennaHour = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Vienna', hour: 'numeric', hourCycle: 'h23' }).format(now));
-  if (viennaHour < 5) {
-    console.log(`cron «${fired}»: в Вене ${viennaHour} ч — рано, публикует следующий запуск.`);
+  if (viennaHour < 6) {
+    console.log(`cron «${fired}»: в Вене ${viennaHour} ч — рано, публикует следующая попытка.`);
     process.exit(0);
   }
 }
+/** today is done — posted, or nothing to post: the workflow saves this mark, and the later attempts of the day skip */
+const markDone = (why: string) => {
+  if (process.env.TANAKH_POSTED_FILE && !DRY) writeFileSync(process.env.TANAKH_POSTED_FILE, `${now.toISOString().slice(0, 10)} ${why}\n`);
+};
 const wd = now.getUTCDay();
 if (!DRY && (wd === 6 || (wd === 5 && now.getUTCHours() >= 12))) {
   console.log('Шабат — сегодня не публикуем.');
+  markDone('shabbat');
   process.exit(0);
 }
 // the run is early in the morning in Europe: the UTC date is the readers' date
@@ -61,6 +66,7 @@ const date = dateArg >= 0 ? args[dateArg + 1] : now.toISOString().slice(0, 10);
 const index = CYCLE.findIndex((d) => d.date === date);
 if (index < 0) {
   console.log(`${date}: чтения нет (Шабат, праздник или вне цикла) — не публикуем.`);
+  markDone('no reading');
   process.exit(0);
 }
 const day = CYCLE[index];
@@ -162,8 +168,7 @@ for (const loc of Object.keys(UI) as Loc[]) {
   try {
     await tg('sendMessage', { chat_id: chat, text, parse_mode: 'HTML', link_preview_options: { is_disabled: true } });
     console.log(`${loc}: posted ${date} to ${chat}`);
-    // today's post is out: the workflow saves this mark, and the later runs of the day skip
-    if (process.env.TANAKH_POSTED_FILE) writeFileSync(process.env.TANAKH_POSTED_FILE, `${date}\n`);
+    markDone('posted');
   } catch (e) {
     console.error(`${loc}: ${(e as Error).message}`);
     failed = true;
