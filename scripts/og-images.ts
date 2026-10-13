@@ -137,6 +137,26 @@ const shots: [string, string][] = [
       letters: ['א', 'ב'],
     }),
   ],
+  [
+    'neviim',
+    page({
+      eyebrow: 'Нифлаот · взрослым',
+      he: 'נביאים',
+      title: 'Пророки за три года',
+      sub: 'Отрывок на каждый день · перевод · Мецудат Давид и Раши',
+      letters: ['נ', 'ב'],
+    }),
+  ],
+  [
+    'ketuvim',
+    page({
+      eyebrow: 'Нифлаот · взрослым',
+      he: 'כתובים',
+      title: 'Писания за три года',
+      sub: 'Теґилим, Мишлей, Иов и свитки — понемногу каждый день',
+      letters: ['כ', 'ת'],
+    }),
+  ],
   ...LESSONS.map((l) => [l.slug, lessonPage(l)] as [string, string]),
 ];
 for (const [name, html] of shots) {

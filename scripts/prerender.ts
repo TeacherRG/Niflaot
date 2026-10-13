@@ -34,6 +34,9 @@ import { PARSHIOT } from '../src/lessons/parshiot';
 import { markHebrewHtml } from '../src/core/langMarkup';
 import { stripFootnotes } from '../src/sources/footnotes';
 import { quoteView, sectionQuotes } from '../src/core/quotes';
+import { BOOKS, track, type Section } from '../src/core/tanakhCycle';
+import { civilDate } from '../src/core/hebrewDate';
+import cycleJson from '../src/tanakh/cycle.json';
 
 const DIST = 'dist';
 const LOCALE = 'ru';
@@ -409,11 +412,85 @@ ${table(s(ui, 'abc.finals'), FINAL_FORMS)}
   };
 }
 
+/** For every book of a section: the first and the last study day of the cycle where it is read, and how many days. */
+const CYCLE_DAYS = cycleJson.days as [string, number, number, number, number][];
+function bookPlan(section: Section) {
+  const t = track(section);
+  const k = section === 'neviim' ? 1 : 3;
+  const plan = new Map<string, { from: string; to: string; days: number }>();
+  for (const d of CYCLE_DAYS) {
+    const seen = new Set<string>();
+    for (let i = d[k]; i < d[k + 1]; i++) seen.add(t[i].book.slug);
+    for (const slug of seen) {
+      const p = plan.get(slug);
+      if (p) {
+        p.to = d[0];
+        p.days++;
+      } else plan.set(slug, { from: d[0], to: d[0], days: 1 });
+    }
+  }
+  return BOOKS.filter((b) => b.section === section).map((b) => ({ book: b, ...plan.get(b.slug)! }));
+}
+
+/**
+ * «Пророки» / «Писания» for search: the three-year reading plan — what the daily passage gives, the dates of the cycle
+ * and a table of the books (Hebrew name, chapters, first and last day, days); the app opens today's passage.
+ */
+function tanakhPage(section: Section, lang: 'ru' | 'en' | 'de', ui: Ui): Page {
+  const root = lang === 'ru' ? '../' : '../../';
+  const url = `${SITE_URL}${staticPath(section, lang)}`;
+  const other: Section = section === 'neviim' ? 'ketuvim' : 'neviim';
+  const title = s(ui, `tanakh.seo.${section}.title` as keyof Ui);
+  const lead = s(ui, `tanakh.seo.${section}.lead` as keyof Ui);
+  const date = (iso: string) => civilDate(iso, lang);
+  const cycle = s(ui, 'tanakh.cycle')
+    .replace('{start}', date(CYCLE_DAYS[0][0]))
+    .replace('{end}', date(CYCLE_DAYS[CYCLE_DAYS.length - 1][0]))
+    .replace('{days}', String(CYCLE_DAYS.length));
+  const rows = bookPlan(section)
+    .map(
+      (r) =>
+        `<tr><td>${esc(r.book.name[lang])}</td><td class="he">${r.book.he}</td><td>${r.book.verses.length}</td><td>${esc(date(r.from))}</td><td>${esc(date(r.to))}</td><td>${r.days}</td></tr>`,
+    )
+    .join('');
+  return {
+    title: `${title} · ${s(ui, 'app.title')}`,
+    description: lead,
+    url,
+    type: 'article',
+    root,
+    lang,
+    alternates: alternatesOf(section),
+    image: section,
+    imageAlt: title,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'LearningResource',
+      name: `${s(ui, `tanakh.${section}` as keyof Ui)} — ${s(ui, 'tanakh.daySub')}`,
+      description: lead,
+      url,
+      inLanguage: lang,
+      learningResourceType: ['reading plan', 'quiz'],
+      educationalLevel: 'adult',
+      isAccessibleForFree: true,
+      publisher: PUBLISHER,
+      isPartOf: SITE,
+    },
+    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'wing.adults'))} · ${esc(s(ui, `tanakh.${section}` as keyof Ui))}</p>
+<h1>${esc(title)}</h1><p>${esc(lead)}</p><p>${esc(s(ui, 'tanakh.seo.what'))}</p><p>${esc(cycle)}</p>
+<p><a href="${root}#/${section}">${esc(s(ui, 'tanakh.seo.open'))} →</a> · <a href="${root}#/${section}/quiz">${esc(s(ui, 'quiz.title'))} →</a> · <a href="${root}${staticPath(other, lang).slice(1)}">${esc(s(ui, `tanakh.${other}` as keyof Ui))} →</a></p></header>
+<section><h2>${esc(s(ui, 'tanakh.seo.books'))}</h2><table><thead><tr><th>${esc(s(ui, 'tanakh.seo.colBook'))}</th><th></th><th>${esc(s(ui, 'tanakh.seo.colChapters'))}</th><th>${esc(s(ui, 'tanakh.seo.colFrom'))}</th><th>${esc(s(ui, 'tanakh.seo.colTo'))}</th><th>${esc(s(ui, 'tanakh.seo.colDays'))}</th></tr></thead><tbody>${rows}</tbody></table></section>
+</article>`,
+  };
+}
+
 const STATIC_OUT: [string, Page][] = LANGS.flatMap(({ lang, ui }) => [
   [staticPath('mental-math', lang), mathPage(lang, ui)] as [string, Page],
   [staticPath('daily', lang), dailyPage(lang, ui)] as [string, Page],
   [staticPath('facts', lang), factsPage(lang, ui)] as [string, Page],
   [staticPath('letters', lang), lettersPage(lang, ui)] as [string, Page],
+  [staticPath('neviim', lang), tanakhPage('neviim', lang, ui)] as [string, Page],
+  [staticPath('ketuvim', lang), tanakhPage('ketuvim', lang, ui)] as [string, Page],
 ]);
 
 /* ───── write ───── */
@@ -536,4 +613,4 @@ writeFileSync(
 );
 
 writeFileSync(`${DIST}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
-console.log(`prerender: index + ${LESSONS.length} lesson pages + ${STATIC_OUT.length} math / daily / facts / letters pages, sitemap.xml, robots.txt, ${FEEDS.length} feeds, ${LANGS.length} manifests, sw.js (${precache.length} files offline), daily messages for ${Object.keys(days).length} days`);
+console.log(`prerender: index + ${LESSONS.length} lesson pages + ${STATIC_OUT.length} math / daily / facts / letters / prophets / writings pages, sitemap.xml, robots.txt, ${FEEDS.length} feeds, ${LANGS.length} manifests, sw.js (${precache.length} files offline), daily messages for ${Object.keys(days).length} days`);

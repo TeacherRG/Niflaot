@@ -64,11 +64,18 @@ export interface SectionDay {
 export type DayContent = { date: string; day: number; days: number } & Record<Section, SectionDay>;
 
 const cache = new Map<string, Promise<DayContent | null>>();
+/**
+ * The site's root for /tanakh/<date>.json. The build uses relative paths (base './'), so on a static page such as
+ * /neviim/ or /en/ketuvim/ a relative fetch would miss; the code itself lives in /assets/, one level below the root.
+ * (`up` is a variable so that Vite doesn't treat the URL as an asset to bundle.)
+ */
+const up = '..';
+const ROOT = import.meta.env.DEV ? import.meta.env.BASE_URL : new URL(up, import.meta.url).href;
 /** Тексты дня; null — этот день ещё не подготовлен. */
 export function loadDay(date: string): Promise<DayContent | null> {
   let p = cache.get(date);
   if (!p) {
-    p = fetch(`${import.meta.env.BASE_URL}tanakh/${date}.json`)
+    p = fetch(`${ROOT}tanakh/${date}.json`)
       .then((r) => (r.ok ? (r.json() as Promise<DayContent>) : null))
       .catch(() => null);
     cache.set(date, p);
