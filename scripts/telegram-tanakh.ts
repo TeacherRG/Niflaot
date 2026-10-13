@@ -1,8 +1,10 @@
 /**
  * «Пророки и Писания» — отрывок дня в Telegram-каналы (ru / en / de) каждый учебный день цикла: что читать сегодня
  * (раздел, книга и стихи), сколько это займёт и ссылки на страницы дня (`#/neviim/<дата>`, `#/ketuvim/<дата>`,
- * метка `?ref=channel` для GoatCounter). Запускает GitHub Action `.github/workflows/telegram-tanakh.yml` каждое утро
- * в 5:30 по Вене: два cron (03:30 и 04:30 UTC — лето и зима), публикует тот, что совпадает с венским временем сегодня.
+ * метка `?ref=channel` для GoatCounter). Запускает GitHub Action `.github/workflows/telegram-tanakh.yml` каждое утро:
+ * попытки каждые 5 минут с 6:00 по Вене (GitHub запускает по расписанию с опозданием, а иногда пропускает); публикует
+ * первая, что дошла; что сегодня уже сделано — опубликовано или публиковать нечего (Шабат, день без чтения), — workflow
+ * помнит сам (файл-метка в кэше Actions, `TANAKH_POSTED_FILE`), и остальные попытки дня ничего не делают.
  * В день без чтения (Шабат, праздник, 9 ава — их нет в src/tanakh/cycle.json) ничего не публикуется; в Шабат —
  * даже при ручном запуске.
  *
@@ -10,7 +12,7 @@
  * variables `TELEGRAM_CHAT_RU`, `TELEGRAM_CHAT_EN`, `TELEGRAM_CHAT_DE`; язык без канала пропускается.
  *
  * Вторым сообщением — **PDF дня для печати**: страница дня с сайта, сохранённая браузером (Playwright) так же, как
- * кнопка «Распечатать»: иврит и перевод на языке канала, со Штейнзальцем, «Пророки» и «Писания» вместе. Не вышел PDF —
+ * кнопка «Распечатать»: иврит и перевод на языке канала, с Мецудат Давид, «Пророки» и «Писания» вместе. Не вышел PDF —
  * текст всё равно уходит, запуск — красный.
  *
  * Проверить без отправки: `npx tsx scripts/telegram-tanakh.ts --dry` (`--date 2026-10-12` — другой день;
@@ -40,20 +42,23 @@ const dateArg = args.indexOf('--date');
 const SECTION_HE: Record<Section, string> = { neviim: 'נביאים', ketuvim: 'כתובים' };
 
 const now = new Date();
-// two crons (03:30 / 04:30 UTC) = 5:30 in Vienna in summer / winter: only the one matching today's offset posts
-// (by the cron that fired, not the clock — GitHub may start a scheduled run late)
+// a scheduled run posts from 6:00 Vienna time on (the workflow already skips earlier ones; this is the same rule)
 const fired = process.env.TELEGRAM_SCHEDULE;
 if (fired && !DRY) {
-  const firedHour = Number(fired.split(' ')[1]);
-  const viennaHour = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Vienna', hour: 'numeric', hourCycle: 'h23' }).format(new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), firedHour, 30))));
-  if (viennaHour !== 5) {
-    console.log(`cron «${fired}» = ${viennaHour}:30 по Вене — не наш час, пост уходит из другого запуска.`);
+  const viennaHour = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Vienna', hour: 'numeric', hourCycle: 'h23' }).format(now));
+  if (viennaHour < 6) {
+    console.log(`cron «${fired}»: в Вене ${viennaHour} ч — рано, публикует следующая попытка.`);
     process.exit(0);
   }
 }
+/** today is done — posted, or nothing to post: the workflow saves this mark, and the later attempts of the day skip */
+const markDone = (why: string) => {
+  if (process.env.TANAKH_POSTED_FILE && !DRY) writeFileSync(process.env.TANAKH_POSTED_FILE, `${now.toISOString().slice(0, 10)} ${why}\n`);
+};
 const wd = now.getUTCDay();
 if (!DRY && (wd === 6 || (wd === 5 && now.getUTCHours() >= 12))) {
   console.log('Шабат — сегодня не публикуем.');
+  markDone('shabbat');
   process.exit(0);
 }
 // the run is early in the morning in Europe: the UTC date is the readers' date
@@ -61,6 +66,7 @@ const date = dateArg >= 0 ? args[dateArg + 1] : now.toISOString().slice(0, 10);
 const index = CYCLE.findIndex((d) => d.date === date);
 if (index < 0) {
   console.log(`${date}: чтения нет (Шабат, праздник или вне цикла) — не публикуем.`);
+  markDone('no reading');
   process.exit(0);
 }
 const day = CYCLE[index];
@@ -80,12 +86,12 @@ function post(loc: Loc): string {
   ];
   for (const s of SECTIONS) {
     const verses = content[s].verses;
-    const plain = readingMinutes(verses, true, tr, false);
-    const withSt = readingMinutes(verses, true, tr, true);
+    const plain = readingMinutes(verses, true, tr, { md: false, rashi: false });
+    const withComm = readingMinutes(verses, true, tr, { md: true, rashi: false });
     lines.push(
       '',
       `📖 <b>${html(t(loc, `tanakh.${s}`))}</b> ${SECTION_HE[s]} — ${html(rangeLabel(s, day[s], loc))}`,
-      `⏱ ${html(t(loc, 'tanakh.readingTime', { n: plain }))} · ${html(t(loc, 'tanakh.post.withSt', { n: withSt }))}`,
+      `⏱ ${html(t(loc, 'tanakh.readingTime', { n: plain }))} · ${html(t(loc, 'tanakh.post.withComm', { n: withComm }))}`,
       `👉 ${html(routeLink(`${s}/${date}`, 'channel', loc))}`,
     );
   }
@@ -94,7 +100,7 @@ function post(loc: Loc): string {
 
 /**
  * The day's printout, as the «Распечатать» button makes it: the live site's page of the day in a headless browser —
- * the Hebrew and the translation in the channel's language, with Steinsaltz, both sections — saved as A4 PDF.
+ * the Hebrew and the translation in the channel's language, with Metzudat David, both sections — saved as A4 PDF.
  */
 const VIEW: Record<Loc, string> = { ru: 'he-ru', en: 'he-en', de: 'he-de' };
 async function dayPdf(loc: Loc): Promise<Uint8Array> {
@@ -107,7 +113,7 @@ async function dayPdf(loc: Loc): Promise<Uint8Array> {
     await page.route(/goatcounter/, (r) => r.abort());
     await page.addInitScript(
       ([view]) => {
-        localStorage.setItem('niflaot:tanakh-view', JSON.stringify({ text: view, st: true }));
+        localStorage.setItem('niflaot:tanakh-view', JSON.stringify({ text: view, md: true, rashi: false, de: true }));
         localStorage.setItem('niflaot:tanakh-print-both', '1');
       },
       [VIEW[loc]],
@@ -162,6 +168,7 @@ for (const loc of Object.keys(UI) as Loc[]) {
   try {
     await tg('sendMessage', { chat_id: chat, text, parse_mode: 'HTML', link_preview_options: { is_disabled: true } });
     console.log(`${loc}: posted ${date} to ${chat}`);
+    markDone('posted');
   } catch (e) {
     console.error(`${loc}: ${(e as Error).message}`);
     failed = true;

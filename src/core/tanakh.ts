@@ -27,15 +27,12 @@ export function cycleDayFor(iso: string): { index: number; exact: boolean } {
   return { index: i, exact: CYCLE[i].date === iso };
 }
 
-/** Вступление Штейнзальца к разделу: заголовок и текст (иврит, английский). */
-export interface SteinsaltzIntro {
-  title: { he?: string; en?: string; ru?: string; de?: string };
-  he?: string;
-  en?: string;
-  /** переводы проекта (src/tanakh/ru|de/<книга>.json) */
-  ru?: string;
-  de?: string;
-}
+/**
+ * Комментарий к стиху: несколько коротких комментариев, в начале каждого — слова стиха (<b>).
+ * he — оригинал (Public Domain); en — английский (Раши — Metsudah / Judaica Press, CC-BY; Мецудат Давид — перевод проекта);
+ * ru, de — переводы проекта (src/tanakh/<язык>/<книга>.json).
+ */
+export type Commentary = { he?: string[]; en?: string[]; ru?: string[]; de?: string[] };
 export interface DayVerse {
   b: string;
   c: number;
@@ -49,10 +46,10 @@ export interface DayVerse {
   /** переводы проекта: русский (src/tanakh/ru/<книга>.json) и немецкий (src/tanakh/de/<книга>.json) */
   ru?: string;
   de?: string;
-  /** Штейнзальц: стих с вплетённым объяснением (HTML: слова стиха — <b>, сноски — <small class="fn">); ru, de — переводы проекта */
-  st?: { he?: string; en?: string; ru?: string; de?: string };
-  /** вступления Штейнзальца к разделу, который начинается этим стихом */
-  intro?: SteinsaltzIntro[];
+  /** Мецудат Давид — простое объяснение стиха */
+  md?: Commentary;
+  /** Раши */
+  rashi?: Commentary;
 }
 interface Version {
   title?: string;
@@ -62,16 +59,24 @@ interface Version {
 export interface SectionDay {
   refs: { b: string; from: [number, number]; to: [number, number]; url: string }[];
   verses: DayVerse[];
-  versions: { he?: Version; en?: Version; steinsaltz?: Version };
+  versions: { he?: Version; en?: Version; md?: Version; rashi?: Version; rashiEn?: Version };
 }
 export type DayContent = { date: string; day: number; days: number } & Record<Section, SectionDay>;
 
 const cache = new Map<string, Promise<DayContent | null>>();
+/**
+ * The site's root for /tanakh/<date>.json. The build uses relative paths (base './'), so on a static page such as
+ * /neviim/ or /en/ketuvim/ a relative fetch would miss; the code itself lives in /assets/, one level below the root.
+ * (`up` is a variable so that Vite doesn't treat the URL as an asset to bundle.)
+ */
+const up = '..';
+// computed on first use: outside Vite (node scripts that import this module) there is no import.meta.env
+const root = () => (import.meta.env.DEV ? import.meta.env.BASE_URL : new URL(up, import.meta.url).href);
 /** Тексты дня; null — этот день ещё не подготовлен. */
 export function loadDay(date: string): Promise<DayContent | null> {
   let p = cache.get(date);
   if (!p) {
-    p = fetch(`${import.meta.env.BASE_URL}tanakh/${date}.json`)
+    p = fetch(`${root()}tanakh/${date}.json`)
       .then((r) => (r.ok ? (r.json() as Promise<DayContent>) : null))
       .catch(() => null);
     cache.set(date, p);
@@ -81,29 +86,24 @@ export function loadDay(date: string): Promise<DayContent | null> {
 
 /**
  * About how long the passage takes to read in the chosen view: the vocalized Hebrew read aloud — ~100 words a minute,
- * the translation and Steinsaltz's explanation — ~180 words a minute. Rounded up, at least a minute.
+ * the translation and the commentaries — ~180 words a minute. Rounded up, at least a minute. A commentary is read in the
+ * chosen translation where it has one, otherwise in Hebrew (when the Hebrew is shown).
  */
 const HE_WPM = 100;
 const TR_WPM = 180;
-const words = (s?: string) => (s ? s.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length : 0);
-/** язык перевода на странице: английский (JPS 1985 и издание Штейнзальца) или перевод проекта */
+const words = (s?: string | string[]) => (s ? [s].flat().join(' ').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length : 0);
+/** язык перевода на странице: английский или перевод проекта */
 export type Tr = 'en' | 'ru' | 'de';
-export function readingMinutes(verses: DayVerse[], he: boolean, tr: Tr | null, st: boolean): number {
+export function readingMinutes(verses: DayVerse[], he: boolean, tr: Tr | null, comm: { md: boolean; rashi: boolean }): number {
   let heW = 0;
   let trW = 0;
-  const add = (x: ({ he?: string } & Partial<Record<Tr, string>>) | undefined) => {
-    if (!x) return;
-    if (he) heW += words(x.he);
-    if (tr) trW += words(x[tr]);
-  };
   for (const v of verses) {
-    add(v);
-    if (st) {
-      add(v.st);
-      v.intro?.forEach((x) => {
-        add(x);
-        add(x.title);
-      });
+    if (he) heW += words(v.he);
+    if (tr) trW += words(v[tr]);
+    for (const c of [comm.md && v.md, comm.rashi && v.rashi]) {
+      if (!c) continue;
+      if (he) heW += words(c.he);
+      if (tr) trW += words(c[tr]);
     }
   }
   return Math.max(1, Math.ceil(heW / HE_WPM + trW / TR_WPM));

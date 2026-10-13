@@ -106,7 +106,7 @@ export interface Certificate {
 export function torahCertificates(lessons: Lesson[] = LESSONS): (Certificate & { lessons: Lesson[] })[] {
   const out: (Certificate & { lessons: Lesson[] })[] = [];
   for (const b of TORAH_BOOKS)
-    for (const teacher of ['baal-haturim', 'ginsburgh', 'rebbe'] as TeacherId[]) {
+    for (const teacher of ['baal-haturim', 'rebbe'] as TeacherId[]) {
       const ls = lessons.filter((l) => teacherOf(l) === teacher && bookOfParsha(l.parsha) === b.id && lessonMax(l) > 0);
       if (ls.length)
         out.push({ id: `t-${teacher}-${b.id}`, kind: 'torah', teacher, book: { id: b.id, he: b.he, name: b.name }, lessons: ls });

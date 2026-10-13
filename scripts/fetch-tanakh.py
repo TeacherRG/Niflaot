@@ -4,21 +4,21 @@
 
     python3 scripts/fetch-tanakh.py books                        # число стихов в главах → src/tanakh/books.json
     npx tsx scripts/tanakh-cycle.ts                               # расписание цикла → src/tanakh/cycle.json
-    python3 scripts/fetch-tanakh.py days 2026-10-11 2026-10-18 \
-        --steinsaltz "<The Steinsaltz Neviim>" --steinsaltz "<The Steinsaltz Ketuvim>"   # → public/tanakh/<дата>.json
+    python3 scripts/fetch-tanakh.py days 2026-10-11 2029-09-30   # → public/tanakh/<дата>.json (из выгрузки Sefaria)
     python3 scripts/fetch-tanakh.py ru-import joshua перевод.txt   # перевод блоками → src/tanakh/ru/joshua.json
+    python3 scripts/fetch-tanakh.py en-import joshua translation.txt  # английский Мецудат Давид → src/tanakh/en/joshua.json
     python3 scripts/fetch-tanakh.py de-import joshua Übersetzung.txt  # немецкий — так же → src/tanakh/de/joshua.json
-    python3 scripts/fetch-tanakh.py ru                           # переводы проекта (src/tanakh/ru, src/tanakh/de) → в файлы дней
+    python3 scripts/fetch-tanakh.py tr                           # переводы проекта (src/tanakh/ru|en|de) → в файлы дней
 
-Каждый учебный день — отрывок Невиим и отрывок Ктувим. На каждый стих:
-  he  — масоретский текст с огласовками (Sefaria: Tanach with Nikkud, Public Domain);
-  en  — английский перевод (Sefaria: Tanakh: The Holy Scriptures, JPS 1985, CC-BY-NC);
-  st  — рав Адин Штейнзальц: стих с вплетённым объяснением на иврите и по-английски (The Steinsaltz Tanakh,
-        архивы глав с chabad.org — открытая выгрузка Sefaria его не содержит); сноски — <small class="fn">;
-  intro — вступления Штейнзальца к разделам (заголовок и текст, he + en);
-  ru, st.ru, intro.ru — русский перевод проекта (src/tanakh/ru/<книга>.json), где он уже есть;
-  de, st.de, intro.de — немецкий перевод проекта (src/tanakh/de/<книга>.json), так же.
+Каждый учебный день — отрывок Невиим и отрывок Ктувим. На каждый стих (всё — открытая выгрузка Sefaria):
+  he  — масоретский текст с огласовками (Tanach with Nikkud, Public Domain);
+  en  — английский перевод (Tanakh: The Holy Scriptures, JPS 1985, CC-BY-NC);
+  md  — Мецудат Давид, простое объяснение стиха: he — оригинал (Public Domain), ru/en/de — перевод проекта;
+  rashi — Раши: he — оригинал (Public Domain), en — Metsudah / Judaica Press (CC-BY), ru/de — перевод проекта;
+  ru, de — перевод стиха проекта (src/tanakh/ru|de/<книга>.json), где он уже есть.
+Комментарий — список: на стих несколько комментариев, в начале каждого слова стиха — <b>.
 Имена Всевышнего — как во всём проекте (ה׳, אלקים, G-d, L-rd; Б-г, Г-сподь; G-tt, der Ewige).
+Рав Штейнзальц (© Steinsaltz Center) на сайте не показывается — только ссылка на Sefaria.
 """
 import importlib.util, json, re, sys, urllib.parse
 from pathlib import Path
@@ -55,132 +55,89 @@ def cmd_books():
 def track(books, section):
     return [(b, c + 1, v + 1) for b in books if b['section'] == section for c, n in enumerate(b['verses']) for v in range(n)]
 
-# ───── комментарий Штейнзальца ─────
-# The Steinsaltz Tanakh (Невиим, Ктувим): по главе файл <папка книги>/chapter_NNN.json с chabad.org —
-# verses[i]: text_he / text_en (стих с вплетённым объяснением) и commentary (вступления к разделам: title_*, comment_*).
-
-FOLDER_SLUG = {
-    'Amos': 'amos', 'Chaggai_Haggai': 'haggai', 'Chavakuk_Habakkuk': 'habakkuk', 'Hoshea_Hosea': 'hosea', 'Malachi': 'malachi',
-    'Melachim_II_II_Kings': 'ii-kings', 'Melachim_I_I_Kings': 'i-kings', 'Michah_Micah': 'micah', 'Nachum_Nahum': 'nahum',
-    'Ovadiah_Obadiah': 'obadiah', 'Shmuel_II_II_Samuel': 'ii-samuel', 'Shmuel_I_I_Samuel': 'i-samuel', 'Shoftim_Judges': 'judges',
-    'Tzefaniah_Zephaniah': 'zephaniah', 'Yechezkel_Ezekiel': 'ezekiel', 'Yehoshua_Joshua': 'joshua', 'Yeshayahu_Isaiah': 'isaiah',
-    'Yirmiyahu_Jeremiah': 'jeremiah', 'Yoel_Joel': 'joel', 'Yonah_Jonah': 'jonah', 'Zechariah': 'zechariah',
-    'Daniel': 'daniel', 'Divrei_Hayamim_II_Chronicles_II': 'ii-chronicles', 'Divrei_Hayamim_I_Chronicles_I': 'i-chronicles',
-    'Eichah_Lamentations': 'lamentations', 'Esther': 'esther', 'Ezra': 'ezra', 'Iyov_Job': 'job', 'Kohelet_Ecclesiastes': 'ecclesiastes',
-    'Mishlei_Proverbs': 'proverbs', 'Nechemiah_Nehemiah': 'nehemiah', 'Rut_Ruth': 'ruth', 'Shir_Hashirim_Song_of_Songs': 'song-of-songs',
-    'Tehillim_Psalms': 'psalms',
+# ───── комментарии: Мецудат Давид и Раши ─────
+# Из открытой выгрузки Sefaria, по стихам (деление стихов — как в «Tanach with Nikkud»): на стих — список комментариев,
+# у каждого начало — слова стиха (<b>), дальше объяснение. Иврит — Public Domain; английский Раши — CC-BY (Metsudah,
+# Judaica Press). Мецудат Давид — основное объяснение (его нет только у Рут, Эйхи и Эстер — там Раши); переводы
+# Мецудат Давид на ru/en/de и Раши на ru/de — переводы проекта (src/tanakh/<язык>/<книга>.json).
+COMM = {
+    'md': ('Acharonim on Tanakh/Metzudat David/', 'Metzudat David on '),
+    'rashi': ('Rishonim on Tanakh/Rashi/', 'Rashi on '),
 }
-# где деление на стихи у Штейнзальца другое, чем в масоретском тексте Sefaria: (книга, глава, стих) Штейнзальца → наш
-def remap(slug, ch, v):
-    if slug == 'i-samuel' and ch == 23 and v == 29: return 24, 1
-    if slug == 'i-samuel' and ch == 24: return 24, v + 1
-    if slug == 'jeremiah' and ch == 30 and v == 25: return 31, 1
-    if slug == 'jeremiah' and ch == 31: return 31, v + 1
-    if slug == 'joshua' and ch == 21 and v >= 36: return 21, v + 2   # у Штейнзальца нет 21:36–37
-    return ch, v
+FREE = ('Public Domain', 'CC0', 'CC-BY')
+_ls = {}
+def listing(prefix):
+    if prefix not in _ls:
+        q = urllib.parse.urlencode({'prefix': 'json/' + prefix, 'fields': 'items(name)'})
+        with urllib.request.urlopen('https://storage.googleapis.com/storage/v1/b/sefaria-export/o?' + q, timeout=60) as r:
+            _ls[prefix] = [i['name'][5:] for i in json.load(r).get('items', []) if not i['name'].endswith('merged.json')]
+    return _ls[prefix]
 
-_st = None
-def steinsaltz(dirs):
-    """{(книга, глава, стих): {'he', 'en', 'intro': [...]}} из всех папок архива."""
-    global _st
-    if _st is not None: return _st
-    _st = {}
-    for root in dirs:
-        for f in Path(root).glob('**/chapter_*.json'):
-            slug = FOLDER_SLUG.get(f.parent.name)
-            if not slug: continue
-            ch0 = int(re.search(r'\d+', f.stem).group())
-            for x in json.loads(f.read_text(encoding='utf-8'))['verses']:
-                ch, v = remap(slug, ch0, int(x['verse_num_en']))
-                e = {'he': steinsaltz_html(x.get('text_he', ''), 'he'), 'en': steinsaltz_html(x.get('text_en', ''), 'en')}
-                intro = [{'title': {'he': st_clean(c.get('title_he', ''), 'he'), 'en': st_clean(c.get('title_en', ''), 'en')},
-                          'he': st_clean(c.get('comment_he', ''), 'he'), 'en': st_clean(c.get('comment_en', ''), 'en')}
-                         for c in x.get('commentary', [])]
-                if intro: e['intro'] = intro
-                _st[(slug, ch, v)] = e
-    sys.stderr.write(f'  Штейнзальц: {len(_st)} стихов\n')
-    return _st
+def filled(x):
+    return sum(filled(y) for y in x) if isinstance(x, list) else int(bool(isinstance(x, str) and x.strip()))
 
-NIQQUD = re.compile('[ְ-ׇֽֿׁׂׅׄ]')
-HE_NOTE = re.compile(r'(?:וראו|ראו|כיוצא|עיין|השוו|על פי|ע"פ|בבלי|ירושלמי|תרגום|רש"י|רש״י|רד"ק|רד״ק|רמב"ן|מצודת|אברבנאל|מלבי"ם|מלבי״ם|רלב"ג|ראב"ע|אבן עזרא|ר"י קרא|ספרי|מדרש|פסיקתא|בראשית|שמות|ויקרא|במדבר|דברים|שמואל|מלכים|ישעיה|ירמיה|יחזקאל|תהלים|משלי|איוב)')
-EN_NOTE = re.compile(r'(?:See|see also|Compare|Cf\.)\b')
+_comm = {}
+def commentary(kind, b, lang):
+    """Текст комментария к книге: самое полное издание со свободной лицензией; None — нет такого."""
+    key = (kind, b['slug'], lang)
+    if key not in _comm:
+        folder, title = COMM[kind]
+        sec = 'Prophets/' if b['section'] == 'neviim' else 'Writings/'
+        best = None
+        for path in listing(f'Tanakh/{folder}{sec}{title}{b["sefaria"]}/{lang}/'):
+            d = fs.load(path)
+            if d.get('license') in FREE and (best is None or filled(d['text']) > filled(best['text'])): best = d
+        _comm[key] = best
+    return _comm[key]
 
-def split_notes(s, lang):
-    """В текстах chabad.org сноски вклеены в строку («…משהראו רמב"ן דברים לד,יא.  – לֹא…») и кончаются двойным
-    пробелом. Начало сноски: на иврите — первое слово-ссылка после последнего слова стиха (с огласовками),
-    по-английски — последнее «See…». Возвращает [(вид, текст)]: 't' — текст, 'n' — сноска; что не распознано — текст."""
+def strip_footnotes(t):
+    """Сноски издания (<sup class="footnote-marker">N</sup><i class="footnote">…</i>) — целиком, вместе с вложенными <i>:
+    clean() режет сноску по первому </i>, и от вложенного курсива («<i>Radak</i> maintains…») оставался обрывок."""
     out, pos = [], 0
-    ends = [m for m in re.finditer(r' {2,}', s)] + [None]
-    for m in ends:
-        seg = s[pos:m.start()] if m else s[pos:]
-        start = None
-        if lang == 'he':
-            last = max((x.end() for x in NIQQUD.finditer(seg)), default=0)
-            k = HE_NOTE.search(seg, last)
-            if k and len(seg) - k.start() < 260 and (m or (k.start() > 0 and not seg[k.start() - 1].isspace())):
-                start = k.start()
+    for m in re.finditer(r'<sup[^>]*>[^<]*</sup>\s*<i class="footnote">', t):
+        if m.start() < pos: continue
+        out.append(t[pos:m.start()])
+        depth, i = 1, m.end()
+        for tag in re.finditer(r'<(/?)i\b[^>]*>', t[m.end():]):
+            depth += -1 if tag.group(1) else 1
+            if depth == 0:
+                i = m.end() + tag.end()
+                break
         else:
-            if m:
-                ks = [k for k in EN_NOTE.finditer(seg) if len(seg) - k.start() < 300]
-                if ks: start = ks[-1].start()
-            else:  # в конце текста — последнее предложение «See ….»
-                k = None
-                for k in re.finditer(r'(?:^|(?<=[.!?:]\s))(?:See|Cf\.)\b', seg): pass
-                if k and len(seg) - k.start() < 250 and seg.rstrip().endswith('.') and '. ' not in seg[k.start():].rstrip()[:-1]:
-                    start = k.start()
-        if start is None: out.append(('t', seg))
-        else: out += [('t', seg[:start]), ('n', seg[start:])]
-        if m: pos = m.end()
-    res = []
-    for k, t in out:
-        t = re.sub(r'\s+', ' ', t)
-        if not t.strip(): continue
-        if res and res[-1][0] == k == 't': res[-1] = ('t', res[-1][1] + ' ' + t)
-        else: res.append((k, t))
-    return [(k, t.strip()) for k, t in res]
+            i = len(t)
+        pos = i
+    return ''.join(out) + t[pos:]
 
-HOLY_ST = re.compile(r'^[והבכלמש]*אלוה(ים|יכם|ינו|יך|יו|יה|יהם|י)$')
+def comm_html(t, lang):
+    """clean() проекта; только <b> (слова стиха); на иврите ה' → ה׳, «יי» → ה׳, без невидимых знаков направления."""
+    t = re.sub(r'</?i>', '', fs.clean(strip_footnotes(t.replace('\u200e', '').replace('\u200f', '')), lang)).strip()
+    if lang == 'he':
+        t = re.sub(r"(?<![\u05B0-\u05BD\u05BF-\u05C7א-ת])((?:[ובכלמש])?)ה'(?![א-ת])", r'\1ה׳', t)
+        t = re.sub(r"(?<![א-ת])((?:[ובכלמש])?)יי'?(?![א-ת])", r'\1ה׳', t)
+        t = re.sub(r':(?=[א-ת])', ': ', t)
+    return t.replace('<b> ', ' <b>').replace(' </b>', '</b> ')
 
-def st_clean(t, lang):
-    """clean() проекта + Имена в стиле Штейнзальца: ה' → ה׳, אלוהים → אלוקים (с огласовками)."""
-    t = fs.clean(t, lang)
-    if lang != 'he': return t
-    t = re.sub(r"(?<![\u05B0-\u05BD\u05BF-\u05C7א-ת])((?:[ובכלמש][\u05B0-\u05BD\u05BF-\u05C7]*)?)ה'(?![א-ת])", r'\1ה׳', t)
-    def holy(w):
-        plain = NIQQUD.sub('', w.group())
-        if not HOLY_ST.match(re.sub('[\u0591-\u05C7]', '', plain)): return w.group()
-        pos = re.sub('[\u0591-\u05C7]', '', plain).index('אלוה') + 3
-        k = -1
-        for j, ch in enumerate(w.group()):
-            if 'א' <= ch <= 'ת':
-                k += 1
-                if k == pos: return w.group()[:j] + 'ק' + w.group()[j + 1:]
-        return w.group()
-    t = re.sub(r'[א-ת\u0591-\u05C7]+', holy, t)
-    return re.sub(r':(?=[א-ת])', ': ', t)
+def verse_comm(kind, b, ch, v, lang):
+    d = commentary(kind, b, lang)
+    if not d: return []
+    try: xs = d['text'][ch - 1][v - 1]
+    except IndexError: return []
+    if isinstance(xs, str): xs = [xs]
+    return [h for h in (comm_html(x, 'he' if lang == 'Hebrew' else 'en') for x in xs if isinstance(x, str)) if h]
+
+def comm_meta(kind, b, lang):
+    d = commentary(kind, b, lang)
+    return fs.meta(d) if d else None
 
 def esc(t):
     return t.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
-def steinsaltz_html(s, lang):
-    """HTML объяснения: сноски — <small class="fn">; на иврите слова стиха (с огласовками) — <b>, объяснение — обычным."""
-    if not s.strip(): return ''
-    parts = []
-    for kind, t in split_notes(s, lang):
-        t = esc(st_clean(t, lang))
-        if kind == 'n':
-            parts.append(f'<small class="fn">{t}</small>')
-        elif lang == 'he':
-            parts.append(re.sub(r'\S+', lambda w: f'<b>{w.group()}</b>' if NIQQUD.search(w.group()) else w.group(), t).replace('</b> <b>', ' '))
-        else:
-            parts.append(t)
-    return ' '.join(parts)
-
-# ───── переводы проекта: русский и немецкий ─────
-# src/tanakh/<язык>/<книга>.json: {"<глава>:<стих>": {"t": стих, "st": Штейнзальц (HTML: <b> — слова стиха, <small class="fn"> —
-# сноски), "intro": [{"title", "text"}] — вступления в том же порядке}}. Переводится по неделям, раньше дней цикла,
-# только с английского (JPS 1985 и английское издание Штейнзальца).
-TR_LANGS = ('ru', 'de')
+# ───── переводы проекта ─────
+# src/tanakh/<язык>/<книга>.json: {"<глава>:<стих>": {"t": стих, "md": [комментарии Мецудат Давид], "rashi": [комментарии Раши]}}.
+# Стих (ru, de) — с английского JPS 1985 (CC BY-NC); Мецудат Давид и Раши — с ивритского оригинала (Public Domain),
+# каждый комментарий — отдельной строкой в том же порядке, слова стиха в начале — <b>. Английский файл (en) — только
+# Мецудат Давид (английский стих — JPS, английский Раши — Sefaria). Переводится по неделям, раньше дней цикла.
+TR_LANGS = ('ru', 'en', 'de')
 _tr = {}
 def tr_book(lang, slug):
     if (lang, slug) not in _tr:
@@ -189,48 +146,46 @@ def tr_book(lang, slug):
     return _tr[lang, slug]
 
 def add_tr(verse):
-    """Кладёт в стих переводы проекта, где они есть: <язык>, st.<язык>, intro[i].<язык> и intro[i].title.<язык>
-    (Имена — Б-г, Г-сподь / G-tt, der Ewige — проверяет npm run check)."""
+    """Кладёт в стих переводы проекта, где они есть: стих <язык> (ru, de), md.<язык>, rashi.<язык>
+    (Имена — Б-г, Г-сподь / G-d / G-tt, der Ewige — проверяет npm run check)."""
     for lang in TR_LANGS:
-        verse.pop(lang, None)
-        if 'st' in verse: verse['st'].pop(lang, None)
-        for x in verse.get('intro', []):
-            x.pop(lang, None); x['title'].pop(lang, None)
-        r = tr_book(lang, verse['b']).get(f"{verse['c']}:{verse['v']}")
-        if not r: continue
-        # текст проекта уже написан по правилам; clean() не нужен — он срезал бы разметку сносок
-        verse[lang] = r['t']
-        if r.get('st') and 'st' in verse: verse['st'][lang] = r['st']
-        for x, y in zip(verse.get('intro', []), r.get('intro', [])):
-            x[lang] = y['text']; x['title'][lang] = y['title']
+        r = tr_book(lang, verse['b']).get(f"{verse['c']}:{verse['v']}") or {}
+        if lang != 'en':
+            verse.pop(lang, None)
+            if r.get('t'): verse[lang] = r['t']
+        for kind in ('md', 'rashi'):
+            if kind not in verse or (kind == 'rashi' and lang == 'en'): continue
+            verse[kind].pop(lang, None)
+            if r.get(kind): verse[kind][lang] = r[kind]
 
 def cmd_tr_import(lang, slug, files):
-    """Перевод, написанный блоками (=== глава:стих / T: / ST: / INTRO-TITLE: / INTRO:), → src/tanakh/<язык>/<книга>.json."""
+    """Перевод, написанный блоками (=== глава:стих / T: / MD: / RASHI:), → src/tanakh/<язык>/<книга>.json.
+    MD: и RASHI: — по строке на комментарий, по порядку; новые строки блока заменяют прежний перевод этого вида."""
     data = tr_book(lang, slug)
     for f in files:
-        cur = None
+        cur, seen = None, set()
         for line in Path(f).read_text(encoding='utf-8').splitlines():
             m = re.match(r'=== (\d+):(\d+)$', line)
             if m:
-                cur = data[f'{m.group(1)}:{m.group(2)}'] = {}
+                cur, seen = data.setdefault(f'{m.group(1)}:{m.group(2)}', {}), set()
                 continue
-            m = re.match(r'(T|ST|INTRO-TITLE|INTRO): (.*)$', line)
+            m = re.match(r'(T|MD|RASHI): (.*)$', line)
             if not m or cur is None:
                 if line.strip(): sys.exit(f'{f}: непонятная строка: {line[:60]}')
                 continue
             k, t = m.groups()
-            if k == 'T': cur['t'] = t
-            elif k == 'ST': cur['st'] = t
-            elif k == 'INTRO-TITLE': cur.setdefault('intro', []).append({'title': t})
-            else: cur['intro'][-1]['text'] = t
+            if k == 'T': cur['t'] = t.strip(); continue
+            k = k.lower()
+            if k not in seen: cur[k] = []; seen.add(k)
+            cur[k].append(t.strip())
     out = ROOT / 'src' / 'tanakh' / lang
     out.mkdir(parents=True, exist_ok=True)
     keys = sorted(data, key=lambda k: tuple(map(int, k.split(':'))))
     (out / f'{slug}.json').write_text(json.dumps({k: data[k] for k in keys}, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
-    print(f'{lang}/{slug}: {len(data)} стихов переведено')
+    print(f'{lang}/{slug}: {len(data)} стихов')
 
 def cmd_tr():
-    """Переводы из src/tanakh/ru и src/tanakh/de → в готовые файлы дней (без сети)."""
+    """Переводы из src/tanakh/ru|en|de → в готовые файлы дней (без сети)."""
     n = 0
     for f in sorted(OUT.glob('????-??-??.json')):
         day = json.loads(f.read_text(encoding='utf-8'))
@@ -240,16 +195,16 @@ def cmd_tr():
         after = json.dumps(day, ensure_ascii=False, separators=(',', ':'))
         if after != before:
             f.write_text(after + '\n', encoding='utf-8'); n += 1
-            done = ', '.join(f"{lang} {sum(lang in v for sec in ('neviim', 'ketuvim') for v in day[sec]['verses'])}" for lang in TR_LANGS)
-            sys.stderr.write(f"✓ {day['date']}: переведено стихов — {done}\n")
+            vs = [v for sec in ('neviim', 'ketuvim') for v in day[sec]['verses']]
+            done = ', '.join(f"{lang}: " + (f"стих {sum(lang in v for v in vs)}, " if lang != 'en' else '') + f"Мецудат Давид {sum(lang in v.get('md', {}) for v in vs)} из {sum('md' in v for v in vs)}" for lang in TR_LANGS)
+            sys.stderr.write(f"✓ {day['date']}: {done}\n")
     print(f'updated {n} days')
 
 # ───── один раздел одного дня ─────
 
-def section_day(books, section, a, z, st_dirs):
+def section_day(books, section, a, z):
     t = track(books, section)[a:z]
     verses, refs, versions = [], [], {}
-    st = steinsaltz(st_dirs) if st_dirs else {}
     for b, ch, v in t:
         he = fs.load(book_file(b, HE)); en = fs.load(book_file(b, EN))
         versions['he'] = fs.meta(he); versions['en'] = fs.meta(en)
@@ -258,16 +213,20 @@ def section_day(books, section, a, z, st_dirs):
                  'he': fs.clean(he['text'][ch - 1][v - 1], 'he'),
                  # the page shows the verse as plain text: no <i> (JPS italicizes «Selah», transliterations)
                  'en': re.sub(r'</?i>', '', fs.clean(en_ch[v - 1], 'en')) if v - 1 < len(en_ch) else ''}
-        s = st.get((b['slug'], ch, v))
         if not verse['en']:
             old = fs.load(book_file(b, EN_FALLBACK))['text'][ch - 1]
             if v - 1 < len(old) and old[v - 1].strip():
                 verse['en'] = re.sub(r'</?i>', '', fs.clean(old[v - 1], 'en'))
                 verse['enFrom'] = 'JPS 1917'
-        if s:
-            verse['st'] = {'he': s['he'], 'en': s['en']}
-            if 'intro' in s: verse['intro'] = s['intro']
-            versions['steinsaltz'] = {'title': 'The Steinsaltz Tanakh', 'license': '© Koren Publishers Jerusalem / Steinsaltz Center', 'source': 'https://www.chabad.org/library/bible_cdo/'}
+        md = verse_comm('md', b, ch, v, 'Hebrew')
+        if md:
+            verse['md'] = {'he': md}
+            versions['md'] = comm_meta('md', b, 'Hebrew')
+        rashi_he, rashi_en = verse_comm('rashi', b, ch, v, 'Hebrew'), verse_comm('rashi', b, ch, v, 'English')
+        if rashi_he or rashi_en:
+            verse['rashi'] = {k: x for k, x in (('he', rashi_he), ('en', rashi_en)) if x}
+            if rashi_he: versions['rashi'] = comm_meta('rashi', b, 'Hebrew')
+            if rashi_en: versions['rashiEn'] = comm_meta('rashi', b, 'English')
         add_tr(verse)
         verses.append(verse)
         if not refs or refs[-1]['b'] != b['slug']:
@@ -280,7 +239,7 @@ def section_day(books, section, a, z, st_dirs):
         r['url'] = 'https://www.sefaria.org/' + urllib.parse.quote(ref.replace(' ', '_').replace(':', '.'), safe='_.,;-')
     return {'refs': refs, 'verses': verses, 'versions': versions}
 
-def cmd_days(start, end, st_dirs):
+def cmd_days(start, end):
     books = json.loads(BOOKS.read_text(encoding='utf-8'))['books']
     cycle = json.loads(CYCLE.read_text(encoding='utf-8'))
     OUT.mkdir(parents=True, exist_ok=True)
@@ -288,10 +247,10 @@ def cmd_days(start, end, st_dirs):
     for i, (date, na, nz, ka, kz) in enumerate(cycle['days']):
         if not (start <= date <= end): continue
         day = {'date': date, 'day': i + 1, 'days': len(cycle['days']),
-               'neviim': section_day(books, 'neviim', na, nz, st_dirs),
-               'ketuvim': section_day(books, 'ketuvim', ka, kz, st_dirs)}
+               'neviim': section_day(books, 'neviim', na, nz),
+               'ketuvim': section_day(books, 'ketuvim', ka, kz)}
         (OUT / f'{date}.json').write_text(json.dumps(day, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
-        s = {k: f"{len(day[k]['verses'])} стихов, Штейнзальц {sum('st' in v for v in day[k]['verses'])}" for k in ('neviim', 'ketuvim')}
+        s = {k: f"{len(day[k]['verses'])} стихов, Мецудат Давид {sum('md' in v for v in day[k]['verses'])}, Раши {sum('rashi' in v for v in day[k]['verses'])}" for k in ('neviim', 'ketuvim')}
         sys.stderr.write(f"✓ {date} (день {i + 1}): Невиим {s['neviim']}; Ктувим {s['ketuvim']}\n")
         n += 1
     # список готовых дней — сайт показывает только их
@@ -301,11 +260,8 @@ def cmd_days(start, end, st_dirs):
 
 if __name__ == '__main__':
     args = sys.argv[1:]
-    dirs = []
-    while '--steinsaltz' in args:
-        k = args.index('--steinsaltz'); dirs.append(args[k + 1]); del args[k:k + 2]
     if args[:1] == ['books']: cmd_books()
-    elif args[:1] in (['ru'], ['de']): cmd_tr()
-    elif args[:1] in (['ru-import'], ['de-import']) and len(args) >= 3: cmd_tr_import(args[0][:2], args[1], args[2:])
-    elif args[:1] == ['days'] and len(args) == 3: cmd_days(args[1], args[2], dirs)
+    elif args[:1] in (['ru'], ['tr']): cmd_tr()
+    elif args[:1] in (['ru-import'], ['en-import'], ['de-import']) and len(args) >= 3: cmd_tr_import(args[0][:2], args[1], args[2:])
+    elif args[:1] == ['days'] and len(args) == 3: cmd_days(args[1], args[2])
     else: sys.exit(__doc__)

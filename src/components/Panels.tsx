@@ -75,18 +75,23 @@ export function Panels() {
             <Icon name="home" />
             <span>{t('menu.home')}</span>
           </a>
-          <a href="#/facts" onClick={close} className="menu-item" aria-current={location.hash === '#/facts' || location.hash === '#/daily' ? 'page' : undefined}>
-            <Icon name="hash" />
-            <span>
-              {t('facts.title')}
-              <small>{t('facts.menuSub')}</small>
-            </span>
-          </a>
           <a href="#/academy" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/academy') ? 'page' : undefined}>
             <Icon name="award" />
             <span>
               {t('academy.title')}
               <small>{t('academy.menuSub')}</small>
+            </span>
+          </a>
+          {/* two wings: games for children and families, and the daily study for adults */}
+          <div className="menu-wing kids">
+            <b>{t('wing.kids')}</b>
+            <small>{t('wing.kidsSub')}</small>
+          </div>
+          <a href="#/facts" onClick={close} className="menu-item" aria-current={location.hash === '#/facts' || location.hash === '#/daily' ? 'page' : undefined}>
+            <Icon name="hash" />
+            <span>
+              {t('facts.title')}
+              <small>{t('facts.menuSub')}</small>
             </span>
           </a>
           <div className="menu-lbl">{t('menu.lessons')}</div>
@@ -172,46 +177,12 @@ export function Panels() {
               </div>
             </details>
           ))}
-          {/* «Пророки» и «Писания»: the passage of the day of the three-year cycle */}
-          {(['neviim', 'ketuvim'] as const).map((sec) => (
-            <Fragment key={sec}>
-              <div className="menu-lbl">{t(`tanakh.${sec}`)}</div>
-              <a
-                href={`#/${sec}`}
-                onClick={close}
-                className="menu-item"
-                aria-current={location.hash.startsWith(`#/${sec}`) && !location.hash.split('?')[0].endsWith('/quiz') ? 'page' : undefined}
-              >
-                <Icon name="book" />
-                <span>
-                  {t('tanakh.daySub')}
-                  <small lang="he">{sec === 'neviim' ? 'נביאים' : 'כתובים'}</small>
-                </span>
-              </a>
-              {/* «Вопросы к отрывку»: a quiz on the passage of the day — for the book's certificate («Академия») */}
-              <div className="menu-sub">
-                <a
-                  href={`#/${sec}/quiz`}
-                  onClick={close}
-                  className="menu-item menu-game"
-                  aria-current={location.hash.startsWith(`#/${sec}`) && location.hash.split('?')[0].endsWith('/quiz') ? 'page' : undefined}
-                >
-                  <span className="menu-num">✓</span>
-                  <span>
-                    {t('quiz.title')}
-                    <small>{t('quiz.menuSub')}</small>
-                  </span>
-                </a>
-              </div>
-            </Fragment>
-          ))}
           {lessonSlug && (
             <a href={`#/${lessonSlug}/print`} onClick={close} className="menu-item">
               <Icon name="print" />
               <span>{t('print.button')}</span>
             </a>
           )}
-          <div className="menu-sep" />
           {/* how to play, my Hebrew, letters and mental math: one group */}
           <details className="menu-group" open={isLearn}>
             <summary className="menu-item">
@@ -259,6 +230,46 @@ export function Panels() {
               </details>
             </div>
           </details>
+          <div className="menu-adults">
+            <div className="menu-wing adults">
+              <b>{t('wing.adults')}</b>
+              <small>{t('wing.adultsSub')}</small>
+            </div>
+          {/* «Пророки» и «Писания»: the passage of the day of the three-year cycle */}
+          {(['neviim', 'ketuvim'] as const).map((sec) => (
+            <Fragment key={sec}>
+              <div className="menu-lbl">{t(`tanakh.${sec}`)}</div>
+              <a
+                href={`#/${sec}`}
+                onClick={close}
+                className="menu-item"
+                aria-current={location.hash.startsWith(`#/${sec}`) && !location.hash.split('?')[0].endsWith('/quiz') ? 'page' : undefined}
+              >
+                <Icon name="book" />
+                <span>
+                  {t('tanakh.daySub')}
+                  <small lang="he">{sec === 'neviim' ? 'נביאים' : 'כתובים'}</small>
+                </span>
+              </a>
+              {/* «Вопросы к отрывку»: a quiz on the passage of the day — for the book's certificate («Академия») */}
+              <div className="menu-sub">
+                <a
+                  href={`#/${sec}/quiz`}
+                  onClick={close}
+                  className="menu-item menu-game"
+                  aria-current={location.hash.startsWith(`#/${sec}`) && location.hash.split('?')[0].endsWith('/quiz') ? 'page' : undefined}
+                >
+                  <span className="menu-num">✓</span>
+                  <span>
+                    {t('quiz.title')}
+                    <small>{t('quiz.menuSub')}</small>
+                  </span>
+                </a>
+              </div>
+            </Fragment>
+          ))}
+          </div>
+          <div className="menu-sep" />
           {installable && (
             <button
               className="menu-item"

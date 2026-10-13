@@ -128,6 +128,7 @@ export function TanakhQuizPage({ section, date }: { section: Section; date?: str
       <div className="wrap tk qz">
         <article>
           <header className="tk-head">
+            <p className="wing-tag adults">{t('wing.adults')}</p>
             <p className="tk-kicker">
               {day.date === today ? t('tanakh.today') : civilDate(day.date, locale)} ·{' '}
               <span className="he" lang="he">
@@ -147,7 +148,7 @@ export function TanakhQuizPage({ section, date }: { section: Section; date?: str
           <nav className="tk-nav" aria-label={t('tanakh.navLabel')}>
             {prev ? <a href={`#/${section}/${prev.date}/quiz`}>← {civilDate(prev.date, locale)}</a> : <span />}
             <a className="tk-other" href={`#/${section}/${day.date}`}>
-              📖 {t('quiz.read')}
+              {t('quiz.read')} →
             </a>
             {next ? <a href={`#/${section}/${next.date}/quiz`}>{civilDate(next.date, locale)} →</a> : <span />}
           </nav>

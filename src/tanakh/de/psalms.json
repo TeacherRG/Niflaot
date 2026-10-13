@@ -1,530 +1,1094 @@
 {
  "1:1": {
-  "intro": [
-   {
-    "title": "Tehillim 1",
-    "text": "Ein Lied mit allgemeinen Gedanken: über die Freude eines Menschen, der richtig lebt – und über das ganz andere Leben der Bösen und der Sünder."
-   }
-  ],
   "t": "Glücklich der Mensch, der nicht dem Rat der Bösen gefolgt ist, nicht den Weg der Sünder betreten hat und sich nicht zu den Frechen gesetzt hat;",
-  "st": "Glücklich [aschrej] der Mensch, der nicht im Rat der Bösen gegangen ist und nicht auf dem Weg der Sünder gestanden hat. Wer sich vom Bösen fernhält, lebt ein glückliches, gutes Leben. „Azat reschaim“, „der Rat der Bösen“, ist ein schlechter Rat, den böse Menschen geben. Der glückliche Mensch, von dem hier die Rede ist, hat diesen Rat nicht angenommen und ist ihm nicht gefolgt. An anderen Stellen kann das Wort „azat“ nicht nur „Rat“, sondern auch „Gesellschaft“ bedeuten. Dann kann man den Vers auch so verstehen: Ein guter Mensch hält sich von bösen Menschen fern; er will nicht zu ihnen gehören. Und der nicht im Kreis der Spötter gesessen hat. Im heutigen Iwrit sind „lezim“, hier „Spötter“, Clowns oder Witzbolde. Aber in Tehillim, in Mischle und an anderen Stellen hat das Wort eine dunklere, schlimmere Bedeutung. Spötter sind leichtsinnig und machen sich über das Gute lustig. Vielleicht wollen sie nichts Böses und tun auch nichts Böses. Aber wie sie denken und reden, öffnet die Tür zu allen verbotenen Taten. Die Worte „der nicht im Kreis der Spötter gesessen hat“ zeigen: Auch wer nicht mitmacht und nur bei ihnen sitzt, bringt sich in Gefahr, Unrecht zu tun."
+  "md": [
+   "<b>Glücklich ist der Mensch.</b> Hier wird das Gute an diesem Menschen erzählt – zu seinem Lob: Das ist der, der nicht nach dem Rat der Bösen gegangen ist. Das heißt: Sein Herz ließ sich nicht verführen, ihrem Rat zu folgen und so zu handeln wie sie. Und er passte so gut auf sich auf, dass er nicht einmal auf dem Weg stand, den die Sünder gehen – aus Angst, sie könnten ihm begegnen und ihn zu ihrem Rat verleiten. Darum kam er erst recht nicht dahin, bei ihnen zu sitzen, damit ihr Rat nicht in seinem Herzen Wurzeln schlägt und er ihm folgt. So machte er einen Zaun um den Zaun."
+  ],
+  "rashi": [
+   "<b>Glücklich ist der Mensch.</b> Dieses Buch wurde in zehn Arten von Lied gesagt: „Nizuach“, „Nigun“, „Mismor“, „Schir“, „Hallel“, „Tefila“, „Bracha“, „Hoda’a“, „Aschrej“, „Halleluja“ – entsprechend den zehn Menschen, die es gesagt haben: Adam, Malki-Zedek, Awraham, Mosche, David, Schlomo, Assaf und die drei Söhne Korachs. Über Jedutun gibt es Streit: Manche sagen, er war ein Mensch, wie es in Diwrej HaJamim steht; andere sagen, Jedutun in diesem Buch ist nach den Gesetzen und Urteilen (Datot) benannt – den schweren Zeiten, die über ihn und über Israel kamen.",
+   "<b>Glücklich ist der Mensch.</b> (Altfranzösisch „les félicitements“.) Das ist das Glück und das Lob des Menschen: dass er nicht gegangen ist; und weil er nicht gegangen ist, ist er nicht stehen geblieben, und weil er nicht stehen geblieben ist, hat er sich nicht gesetzt.",
+   "<b>Der Spötter.</b> (Altfranzösisch „gabors“ – Spötter.)"
+  ]
  },
  "1:2": {
   "t": "sondern Freude hat an der Tora des Ewigen und über Seine Tora nachdenkt Tag und Nacht.",
-  "st": "Sondern dessen Wunsch die Tora des Ewigen ist. Der gute und glückliche Mensch wünscht sich G-ttes Tora. Sie zeigt ihm, wie man lebt. Und er denkt über Seine Tora nach, Tag und Nacht. Das Wort „seine“ kann man auch auf den Menschen beziehen, der Tora lernt, und nicht auf G-tt. Dann betont der Vers, wie jeder einzelne Mensch die Tora versteht – was er davon in seinem Kopf und in seinem Herzen weiß. Das Wort „jehge“, hier „er denkt nach“, kann auch „er spricht“ bedeuten. Wer seine ganze Zeit damit verbringt, über G-ttes Tora nachzudenken und darüber zu sprechen, entfernt sich vom Bösen und hält sich am Guten fest. Dafür bekommt er den Lohn, von dem der nächste Vers erzählt."
+  "md": [
+   "<b>Sondern.</b> Er hat sich nicht nur vom Rat des Bösen ferngehalten – er hat auch Gutes getan: Seine ganze Freude war die Tora des Ewigen.",
+   "<b>Und über seine Tora.</b> Immer denkt er nach über das, was er selbst in seinem Herzen gefunden hat: Erklärungen und Schmuck – „Blüten“ – für die Tora."
+  ],
+  "rashi": [
+   "<b>Sondern an der Tora des Ewigen hat er Freude.</b> Daraus lernst du, dass die Gesellschaft der Spötter dazu führt, dass man die Tora vernachlässigt.",
+   "<b>Und über seine Tora denkt er nach.</b> Zuerst heißt sie die Tora des Ewigen, und wenn man sich um sie bemüht hat, heißt sie seine Tora.",
+   "<b>Denkt nach (jehge).</b> Jedes „Haga“ ist im Herzen, wie es heißt (unten 19,15): „und das Sinnen (Higajon) meines Herzens“, (Jeschajahu 33,18): „dein Herz wird über den Schrecken nachdenken (jehge)“, (Mischle 24,2): „denn an Raub denkt (jehge) ihr Herz“."
+  ]
  },
  "1:3": {
   "t": "Er ist wie ein Baum, gepflanzt an Wasserbächen, der seine Frucht zur rechten Zeit bringt und dessen Blätter nicht welken. Alles, was er tut, gelingt.",
-  "st": "Er ist wie ein Baum, gepflanzt an Wasserbächen. Diesem Baum fehlt nichts: Auch ohne Regen hat er genug Wasser. Er bringt seine Frucht zur rechten Zeit, und seine Blätter welken nicht. Bäume ohne genug Wasser tragen oft spät Früchte, und ihre Blätter werden welk und fallen ab. Dieser Baum aber ist immer frisch und blüht. Dieses Bild ist nicht nur ein Segen. Es ist auch ein festes Versprechen, dass er in allem immer Frucht bringen wird. Die Frucht der Tora des Gerechten und die Frucht seiner täglichen Arbeit werden zur rechten Zeit reif. Sie bringen ihm selbst und anderen Gutes. Er wird nicht zu früh schwach oder welk, und alles, was er tut, gelingt."
+  "md": [
+   "<b>Und er wird sein.</b> Und dafür ist sein Lohn, dass er einem Baum gleicht, der am Wasser gepflanzt ist: Er bringt seine Früchte zur rechten Zeit, und auch seine Blätter welken nicht, weil es so viel Feuchtigkeit gibt. So ist auch dieser Mensch reich an allem Guten und hat keinen Mangel. Als ob es heißt: Am Lohn sieht man, wie gerade sein Weg ist. „Und alles, was er tut“ – das heißt: Alles, was von ihm „gepflanzt“ wird, gelingt und wird wie er: Auch die Kinder dieses Menschen werden wie er sein."
+  ],
+  "rashi": [
+   "<b>Gepflanzt.</b> Altfranzösisch „plante“ – umgepflanzt.",
+   "<b>Bäche.</b> Altfranzösisch „ruisseaux“ – Bäche.",
+   "<b>Und seine Blätter welken nicht.</b> Sogar das, was an ihm überflüssig scheint, ist nützlich: Sogar das einfache Gespräch von Tora-Gelehrten ist nützlich und muss studiert werden.",
+   "<b>Welkt nicht.</b> Bedeutet „verwelken“, altfranzösisch „flaistrir“."
+  ]
  },
  "1:4": {
   "t": "So sind die Bösen nicht, sondern wie Spreu, die der Wind verweht.",
-  "st": "Ganz anders: So sind die Bösen nicht. Sie sind gar nicht wie Bäume mit festen Wurzeln, sondern wie Spreu, die der Wind verweht. Spreu kann nicht wachsen. Sie hat keinen festen Platz, und der Wind weht sie in alle Richtungen. So geht es auch den Bösen. Sie haben keinen echten Platz und keinen Plan. Sie lassen sich einfach von allem treiben, was gerade auf sie einwirkt."
+  "md": [
+   "<b>Nicht so.</b> Die Bösen haben keinen solchen Erfolg – im Gegenteil: Viele Leiden warten immer wieder auf den Bösen, wie diese Spreu, die der Wind ständig wegweht, und sie findet keine Ruhe."
+  ],
+  "rashi": [
+   "<b>Wie Spreu.</b> Bedeutet „Stroh“, altfranzösisch „comme paille“."
+  ]
  },
  "1:5": {
   "t": "Darum bestehen die Bösen nicht im Gericht und die Sünder nicht in der Gemeinde der Gerechten.",
-  "st": "Darum bestehen die Bösen nicht im Gericht. Wenn die Zeit des Gerichts kommt, haben die Bösen keinen Stand, und die Sünder nicht unter den Gerechten. Die Sünder werden nicht nur nicht freigesprochen – sie können sich nicht einmal zu den Gerechten gesellen."
+  "md": [
+   "<b>Darum.</b> Weil viele Leiden auf sie warten, werden sie nicht bestehen, wenn das Gericht kommt – wenn ihr Maß voll ist: Dann kommen die Leiden eines nach dem anderen über sie.",
+   "<b>Und die Sünder.</b> Das Wort „nicht“ vom Anfang des Verses gilt auch hier, als ob es heißt: Die Sünder werden nicht in der Gemeinde der Gerechten sein – unter der Obhut des Ewigen wie sie."
+  ],
+  "rashi": [
+   "<b>Darum usw.</b> Das hängt mit dem nächsten Vers zusammen."
+  ]
  },
  "1:6": {
   "t": "Denn der Ewige liebt den Weg der Gerechten, aber der Weg der Bösen geht zugrunde.",
-  "st": "Denn der Ewige kennt den Weg der Gerechten. Hier und an anderen Stellen bedeutet „jodea“, „Er kennt“, vor allem Verbundenheit und Liebe. G-tt liebt die Gerechten. Darum führt Er sie und hilft ihnen auf ihrem Weg durchs Leben. Aber der Weg der Bösen geht zugrunde. Durch ihren Weg verlieren die Bösen nicht nur das ewige Leben. Sie können auch die Wechsel und Stürme dieses Lebens nicht aushalten. Ihr Weg endet sicher im Untergang."
+  "md": [
+   "<b>Denn der Ewige kennt.</b> Denn der Allgegenwärtige, gelobt sei Er, gibt acht auf den Weg der Gerechten, damit sie darauf nicht stolpern. Der Weg der Bösen aber geht der Obhut des Ewigen verloren – er bleibt dem Zufall überlassen; darum werden auch sie nicht in der Gemeinde der Gerechten sein."
+  ],
+  "rashi": [
+   "<b>Denn der Ewige kennt usw.</b> Weil Er den Weg der Gerechten kennt und dieser Weg immer vor Ihm ist, damit Er ihn erkennt, der Weg der Bösen aber in Seinen Augen verhasst ist und Er ihn von Sich wegschafft – darum werden die Bösen am Tag des Gerichts nicht bestehen, und die Sünder werden nicht in die Gemeinde der Gerechten eingeschrieben."
+  ]
  },
  "2:1": {
-  "intro": [
-   {
-    "title": "Tehillim 2",
-    "text": "Ein Lied ohne Überschrift, zu Ehren eines Königs, von dem mehrmals die Rede ist. Der Inhalt und die Sprache voller Visionen zeigen: Das Lied beschreibt keinen bestimmten König. Es ist eine prophetische Vision vom kommenden Erlöser, dem Moschiach."
-   }
-  ],
   "t": "Warum toben die Völker, und warum planen die Nationen Leeres?",
-  "st": "Warum toben die Völker und machen großen Lärm, und warum denken die Nationen Leeres aus? Warum beraten sie und sagen große Worte, die am Ende nur leere Drohungen sind?"
+  "md": [
+   "<b>Warum toben.</b> Das heißt: Wozu brauchen sie das – sich zu versammeln und leere Worte zu reden, die weder helfen noch nützen?"
+  ],
+  "rashi": [
+   "<b>Warum toben die Völker.</b> Unsere Weisen erklärten es über den König Moschiach. Nach dem einfachen Sinn kann man es richtig über David selbst erklären, wie es heißt (Schmuel II 5,17): „Und die Philister hörten, dass man David zum König über Israel gesalbt hatte, und die Philister sammelten ihre Lager“ – und sie fielen in seine Hand. Über sie sagte er: „Warum toben die Völker“ – und alle versammelten sich?",
+   "<b>Und die Nationen sinnen.</b> In ihrem Herzen – Leeres.",
+   "<b>Und die Nationen (Le’umim).</b> Menachem erklärte: „Le’umim“, „Umim“ und „Gojim“ haben alle eine ähnliche Bedeutung."
+  ]
  },
  "2:2": {
   "t": "Die Könige der Erde stellen sich auf, und die Herrscher verschwören sich zusammen gegen den Ewigen und gegen Seinen Gesalbten:",
-  "st": "Die Könige der Erde haben sich versammelt, und die Herrscher haben sich zusammengetan gegen den Ewigen und gegen Seinen Gesalbten, den König. Die Mächtigen beraten miteinander. Sie kommen zusammen, um Pläne gegen G-tt und Seinen Gesalbten zu schmieden – davon erzählt der nächste Vers."
+  "md": [
+   "<b>Stehen auf.</b> Das bezieht sich auf das „warum“ im Vers davor: Warum stehen die Könige und Fürsten in einem gemeinsamen Plan gegen den Ewigen und gegen Seinen Gesalbten auf?"
+  ],
+  "rashi": [
+   "<b>Die Könige der Erde stellen sich auf, und die Fürsten beraten sich zusammen usw.</b> „Fürsten (Rosnim)“ – altfranzösisch „seigneurs“, Gebieter.",
+   "<b>Beraten sich.</b> Von „Sod“, geheimer Rat; altfranzösisch „furent conseillés“. Und was ist der Rat?"
+  ]
  },
  "2:3": {
   "t": "„Lasst uns ihre Fesseln zerreißen und ihre Stricke von uns werfen!“",
-  "st": "Lasst uns ihre Ketten zerreißen – ein Bild dafür, dass Israel über sie herrscht – und ihre Fesseln von uns werfen. Im Aufstand gegen den König wollen sie vor allem von G-tt frei sein. Denn der König steht dafür, dass das Volk mit G-tt verbunden ist."
+  "md": [
+   "<b>Lasst uns zerreißen.</b> Und so sagen sie in ihrem Plan: Wir reißen die Fesseln Seines Jochs von uns ab, damit wir Ihm nicht dienen. Das ist ein Gleichnis – Worte über einen Ochsen, der ein Joch zieht.",
+   "<b>Und lasst uns abwerfen.</b> Das ist derselbe Gedanke mit anderen Worten – damit die Rede schön klingt und die Sache stärker wird."
+  ],
+  "rashi": [
+   "<b>Lasst uns ihre Fesseln zerreißen.</b> Altfranzösisch „derompons leurs couples“ – das sind die Riemen, mit denen man das Joch festbindet.",
+   "<b>Ihre Stricke.</b> Altfranzösisch „leurs cordes“, ihre Seile."
+  ]
  },
  "2:4": {
   "t": "Der im Himmel thront, lacht; der Herr spottet über sie.",
-  "st": "Der im Himmel sitzt, wird lachen; der Herr wird über sie spotten. Alle Pläne dieser Herrscher werden zu nichts, denn in ihnen steckt nichts Echtes. Was wirklich kommen wird, ist die Strafe von oben."
+  "md": [
+   "<b>Der im Himmel thront.</b> Als ob es heißt: Der Ewige thront doch oben im Himmel; schon ein Schwacher gilt als stark, wenn er oben ist – erst recht ein Starker oben. Darum lacht Er über ihren Plan und spottet über sie. Der Gedanke wird mit anderen Worten wiederholt."
+  ],
+  "rashi": [
+   "<b>Er lacht, Er spottet, Er redet.</b> Sie stehen in der Gegenwart."
+  ]
  },
  "2:5": {
   "t": "Dann spricht Er zu ihnen in Seinem Zorn und erschreckt sie in Seiner Wut:",
-  "st": "Dann wird Er in Seinem Zorn zu ihnen sprechen; in Seiner Wut wird Er sie erschrecken und sagen:"
+  "md": [
+   "<b>Dann.</b> Wenn sie heimlich ihren Plan schmieden, wird Er reden usw."
+  ],
+  "rashi": [
+   "<b>Dann redet Er zu ihnen (elejmo).</b> Wie „alejhem“ (über sie). Und was ist die Rede?"
+  ]
  },
  "2:6": {
   "t": "„Ich aber habe Meinen König eingesetzt auf Zion, Meinem heiligen Berg!“",
-  "st": "Ich aber habe Meinen König gesalbt auf Zion, Meinem heiligen Berg. Den Rest des Liedes spricht der König selbst:"
+  "md": [
+   "<b>Ich aber.</b> Und so wird Er sagen: Ich bin es, der ihn zum König gemacht hat – wie könnt ihr euch Mir entgegenstellen? Als ob es heißt: Wir werden sehen, wessen Wort sich erfüllt – eures oder Meines."
+  ],
+  "rashi": [
+   "<b>Ich aber habe Meinen König eingesetzt.</b> Warum habt ihr getobt? Ich habe ihn doch für Mich bestimmt, damit er gesalbt wird und über Zion, Meinen heiligen Berg, herrscht."
+  ]
  },
  "2:7": {
   "t": "Ich will vom Beschluss erzählen: Der Ewige sprach zu mir: „Du bist Mein Sohn, heute habe Ich dich geboren.",
-  "st": "Ich will vom Beschluss erzählen. Ich will sagen, worauf alles beruht, was ich tue. Der Ewige sprach zu mir: Du bist Mein Sohn; heute habe Ich dich geboren. Der König, den G-tt erwählt hat, ist wie ein geliebter Sohn. Wenn er König wird, ist es, als ob er neu geboren wird."
+  "md": [
+   "<b>Ich will erzählen.</b> David sagte: Ich erzähle, was festgeschrieben ist – dass der Ewige zu mir sagte: „Du bist Mein Sohn“, so wie es heißt: „Mein Sohn, Mein Erstgeborener ist Israel“ (Schemot 4,22–23), und der König zählt wie das ganze Volk.",
+   "<b>Ich habe dich heute geboren.</b> Das heißt: Du bist Mir so lieb wie ein Sohn seinem Vater am Tag seiner Geburt."
+  ],
+  "rashi": [
+   "<b>Ich will vom Gesetz erzählen.</b> David sagte: Das ist ein festes Gesetz, und ich nehme es auf mich, das zu erzählen und bekannt zu machen.",
+   "<b>Der Ewige sagte zu mir.</b> Durch Natan, Gad und Schmuel.",
+   "<b>Du bist Mein Sohn.</b> Das Oberhaupt Israels, das in der Tora „Mein Sohn, Mein Erstgeborener“ genannt wird – und sie werden durch dich bestehen, wie es über Awner heißt (Schmuel II 3,18): „So sagt der Ewige: Durch die Hand meines Dieners David werde Ich Mein Volk Israel retten.“ Und ihretwegen bist du vor Mir wie ein Sohn, denn sie alle hängen an dir.",
+   "<b>Ich habe heute.</b> Denn Ich habe dich zum König über sie gemacht.",
+   "<b>Dich geboren.</b> Damit du Mein Sohn heißt und Mir lieb bist wie ein Sohn – ihretwegen, wie es heißt (Diwrej HaJamim I 14,2): „Und David erkannte, dass der Ewige ihn als König über Israel eingesetzt hatte und dass sein Königtum wegen Seines Volkes Israel erhöht war.“ Und wir finden, dass die Könige Israels, die Ihm lieb sind, Söhne genannt werden, wie es über Schlomo heißt (Schmuel II 7,14): „Er wird Mir ein Sohn sein, und Ich werde ihm ein Vater sein.“ Und wir finden es auch über David im 89. Kapitel: „Er wird Mich rufen: Du bist mein Vater, mein G-tt und der Fels meiner Rettung.“"
+  ]
  },
  "2:8": {
   "t": "Bitte Mich, und Ich gebe dir Völker als Erbe und die Enden der Erde als Besitz.",
-  "st": "G-tt hat zu mir gesagt: Bitte Mich, und Ich gebe dir Völker als Erbe; die Enden der Erde werden dein Besitz sein. Du wirst über viele Völker herrschen; deine Herrschaft wird bis an die Enden der Erde reichen."
+  "md": [
+   "<b>Bitte.</b> Darum bitte Mich, und Ich erfülle deine Bitte."
+  ],
+  "rashi": [
+   "<b>Bitte Mich.</b> Bete zu Mir, immer wenn du gegen deine Feinde in den Krieg ziehst."
+  ]
  },
  "2:9": {
   "t": "Du kannst sie mit einem eisernen Stab zerschlagen, sie zerschmettern wie Töpfergeschirr.“",
-  "st": "Du wirst sie mit einem eisernen Stab zerschlagen, sie zerschmettern wie ein Gefäß des Töpfers. Du wirst alle deine Feinde so leicht vernichten, wie man ein Tongefäß zerbricht."
+  "md": [
+   "<b>Du zerschlägst sie.</b> Du zerbrichst sie, wie man etwas mit einem eisernen Stab zerbricht."
+  ],
+  "rashi": [
+   "<b>Du zerschmetterst sie.</b> Du zerschlägst sie.",
+   "<b>Mit einem eisernen Stab.</b> Das ist das Schwert.",
+   "<b>Du zerschlägst sie.</b> Du zerbrichst sie. Dieses Wort „Nipuz“ steht in der ganzen Schrift für eine Tonscherbe, die in kleine Stücke zerbrochen ist."
+  ]
  },
  "2:10": {
   "t": "Und nun, ihr Könige, seid klug; lasst euch warnen, ihr Herrscher der Erde!",
-  "st": "Und nun, ihr Könige, seid weise; lasst euch ermahnen, ihr Richter der Erde. Versteht: G-tt hat mir das Recht gegeben, König zu sein. Darum habt ihr gegen mich keine Macht. Deshalb soll man dem Rat im nächsten Vers folgen:"
+  "md": [
+   "<b>Und jetzt.</b> Weil ihm der Ewige das alles versprochen hat, werdet klug, nehmt die Lehre an und redet nicht so."
+  ],
+  "rashi": [
+   "<b>Und jetzt, ihr Könige, werdet klug.</b> Die Propheten Israels sind barmherzige Menschen: Sie ermahnen die Völker der Welt, von ihrem Bösen abzulassen, denn der Heilige, gelobt sei Er, streckt Bösen und Gerechten die Hand entgegen."
+  ]
  },
  "2:11": {
   "t": "Dient dem Ewigen mit Ehrfurcht und zittert vor Ihm,",
-  "st": "Dient dem Ewigen mit Ehrfurcht – denkt daran, was euch erwartet, wenn ihr Ihm nicht dient – und freut euch mit Zittern. Unter der Herrschaft des Königs könnt ihr euch freuen. Aber diese Freude soll mit zitternder Ehrfurcht verbunden sein. Denn eine verborgene Gefahr ist immer da: Wenn ihr G-tt nicht dient, werdet ihr auf verschiedene Weise bestraft."
+  "md": [
+   "<b>Dient dem Ewigen.</b> Nehmt das Joch Seiner Königsherrschaft auf euch.",
+   "<b>Und freut euch.</b> Dann werdet ihr euch freuen, wenn das Zittern über die Aufständischen kommt, denn das Zittern trifft nicht euch."
+  ],
+  "rashi": [
+   "<b>Und freut euch mit Zittern.</b> Wenn jenes Zittern kommt, über das geschrieben steht (Jeschajahu 33,14): „Zittern packt die Heuchler“ – dann werdet ihr euch freuen und fröhlich sein, wenn ihr dem Ewigen gedient habt."
+  ]
  },
  "2:12": {
   "t": "huldigt Ihm ehrlich, damit Er nicht zornig wird und euer Weg zugrunde geht – denn Sein Zorn brennt schnell. Glücklich alle, die bei Ihm Zuflucht suchen.",
-  "st": "Küsst den Sohn. Die meisten Erklärer sagen: „Bar“ bedeutet hier „Sohn“, wie auf Aramäisch. Gemeint ist der König, denn G-tt hat gesagt: „Du bist Mein Sohn“ (Vers 7). Der Kuss zeigt Ehre und Zuneigung. Damit Er nicht zornig wird und ihr euren Weg verliert, auch wenn Sein Zorn nur ein wenig brennt. Ihr könnt G-ttes Zorn nicht aushalten – nicht einmal Seinen kleinsten Zorn. Aber: Glücklich alle, die sich auf Ihn verlassen. Wer G-tt vertraut, findet die Welt schön und voller Gutes."
+  "md": [
+   "<b>Küsst die Reinheit.</b> Sehnt euch mit reinem Herzen danach, Seine Königsherrschaft anzunehmen – mit ganzem Herzen, ohne Falschheit.",
+   "<b>Damit Er nicht zürnt.</b> Denn sonst könnte der Ewige auf euch zornig werden.",
+   "<b>Und ihr den Weg verliert.</b> Das heißt: Ihr werdet umherirren und nicht wissen, wohin ihr euch wenden sollt.",
+   "<b>Wenn entbrennt.</b> Wenn Sein Zorn entbrennt, auch nur ein wenig – dann verliert ihr den Weg.",
+   "<b>Glücklich.</b> Das ist das Lob derer, die beim Ewigen Schutz suchen: Sie haben von selbst verstanden, wie groß die Kraft des Ewigen und die Stärke Seines Arms ist, und darum suchen sie Schutz bei Ihm."
+  ],
+  "rashi": [
+   "<b>Küsst die Reinheit.</b> Rüstet euch mit Reinheit des Herzens aus. (In einer anderen Handschrift: „Naschku war“ – altfranzösisch „garnement“, Ausrüstung.) Menachem erklärte es als Sehnsucht, wie (Bereschit 3,16): „und nach deinem Mann wird dein Verlangen sein“.",
+   "<b>Damit Er nicht zürnt.</b> Damit Er nicht wütend wird.",
+   "<b>Und ihr den Weg verliert.</b> Wie es heißt: „und der Weg der Bösen geht verloren“ (oben 1,6).",
+   "<b>Denn bald entbrennt Sein Zorn.</b> Denn in einem kurzen Augenblick entbrennt plötzlich Sein Zorn über euch – und in dieser Stunde „glücklich alle, die bei Ihm Zuflucht suchen“: Dann wird man das Glück derer sehen, die bei Ihm Zuflucht suchen."
+  ]
  },
  "3:1": {
-  "intro": [
-   {
-    "title": "Tehillim 3",
-    "text": "Ein Lied über eine Zeit, in der David von Feinden umringt ist und alle denken, für ihn gibt es keine Hoffnung mehr. Trotzdem vertraut er auf G-tt, dass Er ihn von seinen Feinden rettet und ihn zu Sieg und Frieden führt."
-   }
-  ],
   "t": "Ein Lied von David, als er vor seinem Sohn Awschalom floh.",
-  "st": "Ein Lied von David, als er vor Awschalom, seinem Sohn, floh. Die Überschrift nennt eine bestimmte Geschichte. Aber das Lied spricht allgemein von großer Not. Es ist eine Bitte an G-tt, und zugleich zeigt es das Vertrauen, dass Er den Dichter aus seiner schweren Lage rettet."
+  "md": [
+   "<b>Ein Lied.</b> Dieses Gebet sprach er als Lied.",
+   "<b>Von David.</b> Es ist von David, denn er hat es verfasst.",
+   "<b>Als er floh.</b> Damals sah er durch den heiligen Geist voraus, dass er in sein Königreich zurückkehren wird, und sprach dieses Gebet als Lied."
+  ],
+  "rashi": [
+   "<b>Ein Lied von David, als er floh.</b> Die Kenner der Agada gaben dazu viele Auslegungen. Unsere Weisen sagten: Nachdem der Prophet zu ihm gesagt hatte (Schmuel II 12,11): „Siehe, Ich lasse Unglück aus deinem eigenen Haus über dich kommen“, war sein Herz unruhig: „Vielleicht erhebt sich ein Knecht oder ein Mamser gegen mich, der kein Erbarmen mit mir hat.“ Als er erfuhr, dass es sein Sohn war, freute er sich. Und der Midrasch Agada sagt: weil er sah, dass seine Ordnung bestehen blieb: Seine Diener und die „Kreti und Pleti“, das ist der Sanhedrin, hielten an seiner Herrschaft über sie fest. Als er zu ihnen sagte (dort 15,14): „Steht auf, wir fliehen vor Awschalom“ – was steht dort? „Bei allem, was unser Herr, der König, wählt – hier sind deine Diener.“ Und als er nach Machanajim kam (dort 17,27), gingen ihm „Schowi, der Sohn von Nachasch, Machir, der Sohn von Amiel, und Barsilai aus Gilad“ entgegen und versorgten ihn dort."
+  ]
  },
  "3:2": {
   "t": "Ewiger, wie viele sind meine Feinde! Viele stehen gegen mich auf;",
-  "st": "Ewiger, wie viele sind es, die mich quälen; viele stehen gegen mich auf. Sie sind nicht nur Feinde – es sind Aufständische aus meinen eigenen Reihen."
+  "md": [
+   "<b>Wie viele sind meine Feinde.</b> Sogar mein Sohn hat sich gegen mich erhoben.",
+   "<b>Viele.</b> Große Männer – wie Schimi, Doeg und Achitofel."
+  ],
+  "rashi": [
+   "<b>Viele erheben sich gegen mich.</b> Menschen, groß in der Tora, groß an Weisheit, groß an Reichtum, groß von Gestalt – wie Schaul und die Nachkommen des Riesen, Doeg und Achitofel."
+  ]
  },
  "3:3": {
   "t": "viele sagen über mich: „Für ihn gibt es keine Rettung bei G-tt.“ Sela.",
-  "st": "Neben diesen Feinden und Aufständischen – vor allem dem Heer von Awschalom – gibt es noch viele andere, die über mich sagen: Für ihn gibt es keine Rettung bei G-tt. Sie machten beim Aufstand nicht mit. Aber sie glaubten, dass Davids Herrschaft vorbei war und dass es für ihn keine Hoffnung mehr gab. Sela."
+  "md": [
+   "<b>Über mich.</b> Über mich sagen sie, dass ich nie mehr Rettung vom Ewigen bekomme: Wer einmal angefangen hat zu fallen, steht nicht mehr auf."
+  ],
+  "rashi": [
+   "<b>Sagen über meine Seele.</b> Über meine Seele.",
+   "<b>Es gibt keine Rettung für ihn bei G-tt, Sela.</b> Weil er zu einer verheirateten Frau gegangen ist."
+  ]
  },
  "3:4": {
   "t": "Du aber, Ewiger, bist ein Schild um mich, meine Ehre, Du hebst meinen Kopf hoch.",
-  "st": "Du aber, Ewiger, beschützt mich. Du bist meine Ehre – oder: Von Dir kommt meine Ehre –, und Du hebst meinen Kopf hoch. Du lässt nicht zu, dass ich ganz verstoßen und erniedrigt werde."
+  "md": [
+   "<b>Du aber, Ewiger.</b> Aber so ist es nicht: Du bist ein Schild für mich, Du stützt meine Ehre und hebst meinen Kopf, denn ich kehre in mein Königreich zurück."
+  ]
  },
  "3:5": {
   "t": "Laut rufe ich zum Ewigen, und Er antwortet mir von Seinem heiligen Berg. Sela.",
-  "st": "Laut rief ich zum Ewigen, und Er antwortete mir von Seinem heiligen Berg. Sela. Es ist, als ob ich die Stimme G-ttes höre, die vom heiligen Berg in Jeruschalajim zu mir spricht."
+  "md": [
+   "<b>Meine Stimme.</b> Wenn ich mit meiner Stimme zum Ewigen rufe, weiß ich, dass Er mir von Seinem heiligen Berg antwortet – das ist Zion, der Ort Seiner Schechina.",
+   "<b>Sela.</b> Er antwortet mir für immer; das heißt: Es wird eine ewige Erlösung sein – ich werde nie mehr verbannt sein und fliehen müssen."
+  ]
  },
  "3:6": {
   "t": "Ich lege mich hin und schlafe und wache wieder auf, denn der Ewige stützt mich.",
-  "st": "Ich legte mich hin und schlief – oft traurig und ohne Hoffnung, dass ich den nächsten Tag noch erlebe. Aber ich wachte auf und versank nicht in den ewigen Schlaf, denn der Ewige stützt mich und gab mir Kraft weiterzumachen."
+  "md": [
+   "<b>Ich lege mich hin.</b> Wenn ich mich hinlege und vor großem Kummer einschlafe.",
+   "<b>Ich wache auf.</b> Das heißt: Mein Kummer verging, als ich daran dachte, dass der Ewige mich stützt."
+  ],
+  "rashi": [
+   "<b>Ich lege mich hin und schlafe.</b> Mein Herz ist verschlossen vor Sorge und Angst.",
+   "<b>Ich bin aufgewacht.</b> Aus meiner Sorge, weil ich darauf vertraute, dass der Ewige mich stützt."
+  ]
  },
  "3:7": {
   "t": "Ich fürchte mich nicht vor den vielen Tausend, die mich ringsum belagern.",
-  "st": "Und weil G-tt mich stützt, fürchte ich mich nicht vor den vielen Tausend, die mich umringen und gegen mich sind. Ich habe keine Angst vor Zehntausenden von Menschen, auch wenn sie alle bereit sind, mich anzugreifen."
+  "md": [
+   "<b>Ich fürchte mich nicht.</b> Darum fürchte ich mich nicht vor der großen Menge, die mit Awschalom ist und gegen mich kämpfen will."
+  ],
+  "rashi": [
+   "<b>Aufgestellt haben (schatu).</b> Bedeutet „Verwüstung“, altfranzösisch „gâteront“ – sie werden verwüsten. Manche sagen: „schatu“ wie „samu“, sie haben aufgestellt, wie (Schemot 10,1): „damit Ich Meine Zeichen aufstelle (schiti)“."
+  ]
  },
  "3:8": {
   "t": "Steh auf, Ewiger! Rette mich, mein G-tt! Denn Du schlägst alle meine Feinde auf die Wange, Du zerbrichst die Zähne der Bösen.",
-  "st": "Steh auf, Ewiger. Das ist ein Ruf an G-tt, dass Er sich so zeigt, dass alle es erkennen. Rette mich, mein G-tt. Denn Du hast meine Feinde auf die Wange geschlagen. Du hast alle Feinde, die mich umringen, ins Gesicht geschlagen. Zu diesem schmerzhaften Schlag auf die Wange passt das nächste Bild: Die Zähne der Bösen hast Du zerbrochen."
+  "md": [
+   "<b>Steh auf, Ewiger.</b> Weil ich auf Dich vertraue, ist es richtig, dass Du aufstehst, um mich zu retten.",
+   "<b>Denn Du hast geschlagen.</b> Du hast meine Feinde doch immer auf die Wange geschlagen – das heißt mit einem Schlag der Schande, wie es heißt: „Er halte dem, der ihn schlägt, die Wange hin, er werde satt an Schmach“ (Echa 3,30); ein Schlag auf die Wange gilt als Schande.",
+   "<b>Die Zähne der Bösen.</b> Die in ihrem Zorn mit den Zähnen gegen mich knirschten – die hast Du immer zerbrochen; darum zieh auch jetzt Deine Hand nicht von mir zurück."
+  ],
+  "rashi": [
+   "<b>Denn Du hast alle meine Feinde auf die Wange geschlagen.</b> Das ist ein Schlag der Schande, wie es heißt (Echa 3,30): „er halte dem, der ihn schlägt, die Wange hin“, (Micha 4,14): „mit dem Stock schlagen sie auf die Wange“. Und der Midrasch Agada sagt: Das ist ein Schlag mit dem Mund, wie es heißt (Schmuel II 17,23): „und er gab seinem Haus Anweisungen und erhängte sich“.",
+   "<b>Die Zähne der Bösen.</b> Ihre Kraft."
+  ]
  },
  "3:9": {
   "t": "Beim Ewigen ist die Rettung. Dein Segen sei auf Deinem Volk! Sela.",
-  "st": "Zum Schluss sagt David: Beim Ewigen ist die Rettung. Auch wenn G-ttes Rettung nicht bald zu kommen scheint, sieht man am Ende: Dein Segen ist auf Deinem Volk. Sela."
+  "md": [
+   "<b>Beim Ewigen ist die Rettung.</b> Die Rettung ist doch in der Hand des Ewigen, und Er kann mich aus ihrer Hand retten. Und Dein Segen sei für immer auf Deinem Volk. Das heißt: Rette mich, damit sie mir nicht schaden können, aber auch auf ihnen soll Dein Segen sein, damit auch sie nicht geschlagen werden. Als ob er sagt: Ich bete nicht für ihren Fall, sondern für meine Rettung."
+  ],
+  "rashi": [
+   "<b>Beim Ewigen ist die Rettung usw.</b> Es liegt an Ihm, Seine Diener und Sein Volk zu retten, und Seinem Volk ist auferlegt, Ihn zu segnen und Ihm zu danken, Sela."
+  ]
  },
  "4:1": {
-  "intro": [
-   {
-    "title": "Tehillim 4",
-    "text": "Ein Lied, in dem jemand bittet, den man ohne Grund schlechtmacht und verfolgt. Der Dichter ruft zu G-tt, denn G-tt rettet die Unschuldigen und macht die Pläne der Bösen zunichte."
-   }
-  ],
   "t": "Für den Chorleiter, mit Saiteninstrumenten. Ein Lied von David.",
-  "st": "Für den Chorleiter, auf Saiteninstrumenten, ein Lied von David. Wie das Lied davor ist auch dieses vor allem ein Gebet. Es spricht aber nicht von einem bestimmten Kampf oder einer nahen Gefahr, sondern von Not ganz allgemein. Es hat auch Worte, die anderen Mut machen."
+  "md": [
+   "<b>Für den Leiter.</b> Das heißt: Dieses Lied von David wurde dem Leviten übergeben, der leitete, damit er es mit einer Melodie im Heiligtum singt."
+  ],
+  "rashi": [
+   "<b>Für den Leiter, mit Saitenspiel.</b> Dieses Lied verfasste David, damit es die Lewiten singen, die das Saitenspiel leiten, im Gesang auf dem Podium. Das Wort „Nizuach“ gilt für die, die sich in der Arbeit anstrengen, wie es heißt (Esra 3,8): „und sie stellten die Lewiten von zwanzig Jahren an und darüber auf, um die Arbeit am Haus des Ewigen zu leiten (lenazeach)“."
+  ]
  },
  "4:2": {
   "t": "Antworte mir, wenn ich rufe, G-tt meiner Gerechtigkeit! In der Not hast Du mir Raum gemacht. Sei mir gnädig und hör mein Gebet.",
-  "st": "Wenn ich rufe, antworte mir, G-tt meiner Gerechtigkeit. In meiner Not fühle ich mich wie eingesperrt. Das Wort „bazar“, hier „in der Not“, bedeutet wörtlich „an einem engen Ort“. Man fühlt sich wie gelähmt, als ob man sagt: Mein Leben, mein Körper und meine Seele, ist so eingeengt, dass ich mich nicht einmal bewegen kann. Du hast mir Raum gemacht. Das Wort „hirchawta“, „Du hast mir Raum gemacht“, wörtlich „Du hast es weit gemacht“, beschreibt das Gefühl, wenn nach großer Not die Rettung kommt: Als ob alles, was drückt, weit zurückweicht, und man wieder frei atmen und sich bewegen kann. Jetzt, G-tt, sei mir gnädig und hör mein Gebet."
+  "md": [
+   "<b>Wenn ich rufe.</b> Wenn ich zu Dir rufe, antworte mir.",
+   "<b>G-tt meiner Gerechtigkeit.</b> Du bist mein G-tt, der mir Gerechtigkeit tut: Immer, wenn ich in Not und Enge war, hast Du mich in die Weite gestellt; darum sei mir auch jetzt gnädig."
+  ],
+  "rashi": [
+   "<b>In der Enge hast Du mir Weite gegeben.</b> In den vergangenen Tagen; und von jetzt an sei mir gnädig und höre mein Gebet."
+  ]
  },
  "4:3": {
   "t": "Ihr Männer, wie lange wird meine Ehre verspottet? Wie lange liebt ihr Leeres und sucht Lüge? Sela.",
-  "st": "Ihr Männersöhne. Jetzt wendet sich der Dichter an die „bnej isch“, die „Männersöhne“ – das sind die Anführer seiner Gegner. Im Tanach meint das Wort „isch“ meistens einen wichtigen Menschen mit hohem Rang. Wie lange macht ihr meine Ehre zur Schande? Wie lange wollt ihr mich noch schlechtmachen und beschämen? Wie lange liebt ihr Leeres? Dass man David erniedrigt und dass seine Feinde gegen ihn kämpfen, kommt nicht von seinen Fehlern. Es ist ein Krieg ohne Grund. Menschen, die leere Verdrehungen und Lügen verbreiten, haben ihn angefangen. Wie lange sucht ihr Lüge? Sie bemühen sich sehr, Lügen und Betrug über mich zu finden. Sela."
+  "md": [
+   "<b>Ihr Menschen.</b> Ihr großen Leute – wie lange wollt ihr meine Ehre in Schande verwandeln? Das heißt: Statt mir die Ehre zu geben, die mir zusteht, beschämt ihr mich. Als ob es heißt: Angesehene Leute sollten doch den ehren, der Ehre verdient. „Ihr liebt das Leere“ bezieht sich auf „wie lange“: Wie lange wollt ihr ohne Ende gern leere und falsche Worte reden?"
+  ],
+  "rashi": [
+   "<b>Ihr Söhne eines Mannes (Isch).</b> Die Söhne von Awraham, Jizchak und Jaakow, die „Isch“ genannt werden. Über Awraham heißt es (Bereschit 20,7): „Gib die Frau des Mannes (Isch) zurück“; über Jizchak heißt es (dort 24,65): „Wer ist dieser Mann (Isch)?“; über Jaakow heißt es (dort 25,27): „ein schlichter Mann (Isch)“.",
+   "<b>Wie lange wird meine Ehre zur Schande.</b> Wie lange wollt ihr mich verachten: (Schmuel I 22,9): „Ich habe den Sohn von Jischai gesehen“; (dort 25,10): „Wer ist David, und wer ist der Sohn von Jischai?“; (dort 22,8): „als mein Sohn einen Bund mit dem Sohn von Jischai schloss“; (dort 20,30): „dass du den Sohn von Jischai erwählst“ – als hätte ich keinen Namen.",
+   "<b>Ihr sucht die Lüge.</b> Ihr jagt danach, Lügen zu finden – wie die Leute von Sif, die mich verrieten und mir gegenüber Frieden zeigten, und ähnliche Verräter in den Tagen Schauls (dort 23,19): „Versteckt sich David nicht auf dem Hügel Hachila?“ – und viele solche."
+  ]
  },
  "4:4": {
   "t": "Erkennt: Der Ewige hat sich den Frommen ausgesondert; der Ewige hört, wenn ich zu Ihm rufe.",
-  "st": "Statt mich ohne Grund und mit Lügen zu verfolgen, erkennt und wisst: Der Ewige hat sich den Frommen ausgesondert; der Ewige hört, wenn ich zu Ihm rufe. G-tt hat eine besondere Verbindung mit denen, die Ihm treu sind. Alle wussten schon zu Davids Lebzeiten, wie sehr er G-tt ergeben war und wie sehr er Ihm nahe sein wollte. Immer wieder spricht er davon, dass G-tt die, die Ihn suchen, auf besondere Weise auswählt."
+  "md": [
+   "<b>Und wisst.</b> Merkt euch: So wie der Ewige jeden Frommen ausgesondert hat, damit er Ihm gehört, Sein Anteil ist, so hat Er auch mich als Seinen Anteil ausgesondert, und Er hört, wenn ich zu Ihm rufe – und ihr könnt nichts gegen Ihn tun."
+  ],
+  "rashi": [
+   "<b>Er hat ausgesondert (hifla).</b> Er hat getrennt."
+  ]
  },
  "4:5": {
   "t": "Zittert und sündigt nicht mehr! Denkt nach auf eurem Lager und seid still. Sela.",
-  "st": "Zittert und sündigt nicht. In diesem Lied bedeutet „rigsu“, hier „zittert“, Unruhe. An anderen Stellen bedeutet das Wort Zorn. Der Dichter bittet seine Gegner, ihre bösen Wege abzuschütteln. Sprecht in eurem Herzen, auf eurem Lager. Er ruft die Menschen auf, aufzuwachen, anders zu denken und das Leben neu zu sehen – damit sie nicht immer wieder in die Sünde gezogen werden. Es ist, als ob der Dichter sagt: Denkt allein über diese Dinge nach, vor dem Schlafengehen, nicht mit anderen zusammen. Wenn man vor anderen redet, denkt man oft schief und redet verdreht. Wenn man allein nachdenkt, versteht man die Wahrheit klarer. Und seid still. Sela. Der Dichter sagt außerdem: Seid ruhig und schweigt. Man soll nicht über Dinge reden und streiten, die einen nichts angehen oder die man nicht versteht. Hier heißt das: Statt auf David und seine Fehler zu schauen, sollen die Menschen lieber ihr eigenes Verhalten prüfen und sich G-tt zuwenden."
+  "md": [
+   "<b>Zittert.</b> Fürchtet den Ewigen und sündigt nicht gegen mich, indem ihr Lügen über mich erzählt.",
+   "<b>Sprecht usw.</b> Wenn ihr auf eurem Lager seid – zu der Zeit, wenn die Gedanken des Menschen frei von Sorgen sind –, dann denkt in eurem Herzen daran, dass die Lüge in den Augen des Allgegenwärtigen böse ist, und hört für immer auf, Lügen zu erzählen."
+  ],
+  "rashi": [
+   "<b>Zittert.</b> Fürchtet euch vor dem Heiligen, gelobt sei Er, und sündigt nicht.",
+   "<b>Sprecht in eurem Herzen auf eurem Lager.</b> Denkt in eurem Herzen daran, dass der Heilige, gelobt sei Er, davor gewarnt hat."
+  ]
  },
  "4:6": {
   "t": "Bringt Opfergaben in Gerechtigkeit dar und vertraut auf den Ewigen.",
-  "st": "Bringt Opfergaben der Gerechtigkeit dar und vertraut auf den Ewigen."
+  "md": [
+   "<b>Bringt Opfer.</b> Macht eure Taten gerecht, dann zählt der Ewige sie wie Opfer; und dann vertraut auf Ihn, denn es gibt Hoffnung. Warum seid ihr Ihm untreu und schmeichelt Schaul, um Geld von ihm zu bekommen? Es ist doch besser, beim Ewigen Schutz zu suchen."
+  ],
+  "rashi": [
+   "<b>Bringt Opfer der Gerechtigkeit.</b> Macht eure Taten gerecht, dann seid ihr wie die, die Opfer darbringen.",
+   "<b>Und vertraut auf den Ewigen.</b> Dass Er euch Gutes schenkt; und sündigt nicht gegen Ihn wegen des Geldes, das ihr als Lohn von Schaul erhofft."
+  ]
  },
  "4:7": {
   "t": "Viele sagen: „Wer lässt uns Gutes sehen?“ Lass das Licht Deines Angesichts über uns leuchten, Ewiger.",
-  "st": "Viele sagen in ihren Gebeten: Wer lässt uns Gutes sehen? Sie suchen eine Quelle von Segen und Gutem. Lass das Licht Deines Angesichts über uns aufgehen, Ewiger. Sie bitten G-tt, Sein Licht zu bringen und Sein Angesicht über ihnen leuchten zu lassen. Das Wort „nessa“ kann auch „zeige Dich“ bedeuten. Der Dichter sagt weiter: Ich selbst sitze nicht da und denke über das Unrecht der anderen nach. Ich versuche wirklich, G-tt nahe zu sein."
+  "md": [
+   "<b>Viele.</b> Ich habe viele gesehen, die sich sehnen und sagen: „Wer zeigt uns Gutes?“ – das heißt: Sie wollen großen Reichtum.",
+   "<b>Erhebe.</b> „Lass das Licht Deines Angesichts über uns leuchten, Ewiger – um unsere Wünsche zu erfüllen.“"
+  ],
+  "rashi": [
+   "<b>Viele sagen: Wer zeigt uns Gutes?</b> Es gibt viele in Israel, die die Bösen in Reichtum und Ruhe sehen und sagen: „Wer zeigt uns Gutes – reich zu sein und zu bekommen, was wir uns wünschen, wie diese?“",
+   "<b>Erhebe über uns (nesa).</b> Erhebe über uns wie ein Banner das Licht Deines Angesichts – von „erhebt ein Banner (Nes)“ (Jeschajahu 62,10), „Ich erhebe Mein Banner“. Eine andere Erklärung: „nesa alejnu“ – altfranzösisch „reflamboier“, leuchten, wie (Secharja 9,16): „Steine einer Krone, die leuchten“. Ich aber beneide sie nicht, denn mir ist Freude ins Herz gegeben – mehr als zur Zeit, als ihr Korn und ihr Wein viel wurden. Ich bin sicher: Wenn es so ist bei denen, die Ihn erzürnen, dann erst recht bei denen, die Seinen Willen tun, in der Zukunft, am Tag, an dem sie ihren Lohn bekommen."
+  ]
  },
  "4:8": {
   "t": "Du hast Freude in mein Herz gegeben, mehr als wenn ihr Korn und ihr Wein reichlich sind.",
-  "st": "Du hast Freude in mein Herz gegeben, mehr als zu der Zeit, als ihr Korn und ihr junger Wein reichlich waren. Du, G-tt, hast mein Herz froh gemacht – froher als andere, die viel Korn und Wein haben. Ich bin nicht neidisch auf sie. Meine innere Freude genügt mir, und sie wird sogar größer, wenn ich sehe, wie gut es anderen geht."
+  "md": [
+   "<b>Du hast gegeben.</b> Ich aber bin nicht so: Du, Ewiger, hast mir ins Herz gegeben, mich über meinen Anteil mehr zu freuen, als sich jene vielen freuen, wenn ihr Korn und ihr Wein mehr werden."
+  ]
  },
  "4:9": {
   "t": "In Frieden lege ich mich hin und schlafe sofort ein, denn Du allein, Ewiger, lässt mich sicher wohnen.",
-  "st": "Ich lege mich hin und schlafe, in Frieden, alles zusammen. Das bedeutet wohl: Wenn alles zusammen friedlich ist, kann ich ruhig schlafen. Denn auch wenn nur Du allein, Ewiger, Frieden für mich suchst und alle anderen gegen mich sind – das genügt mir. Denn Du lässt mich sicher wohnen."
+  "md": [
+   "<b>In Frieden.</b> Ohne Angst lege ich mich hin und schlafe sofort ein – eins gleich nach dem anderen. Denn wer sich sorgt und Angst hat, dem wird der Schlaf geraubt: Solche Leute können nicht einschlafen, sobald sie sich hinlegen. Ich aber vertraue auf den Ewigen und habe keine Angst, darum lege ich mich hin und schlafe gleich danach ein.",
+   "<b>Denn Du, Ewiger.</b> Der über alles herrscht, und es liegt in Deiner Hand, mich sicher wohnen zu lassen, ohne Angst."
+  ],
+  "rashi": [
+   "<b>In Frieden zusammen lege ich mich hin und schlafe.</b> Wäre Israel in Frieden zusammen mit mir, würde ich mich hinlegen und sicher schlafen und mich vor keinem Bedränger und Feind fürchten.",
+   "<b>Allein, in Sicherheit.</b> Wie (Dewarim 33,28): „sicher, allein – die Quelle Jaakows“: Das bedeutet Sicherheit und Ruhe – er muss keine Truppen bei sich halten."
+  ]
  },
  "5:1": {
-  "intro": [
-   {
-    "title": "Tehillim 5",
-    "text": "Ein Gebet gegen die Bösen, die G-ttes Güte nicht verdienen. Der Dichter betet, dass man sieht, dass er gerecht ist, und dass er gerettet wird – er und alle, die es verdienen."
-   }
-  ],
   "t": "Für den Chorleiter, auf Nechilot. Ein Lied von David.",
-  "st": "Für den Chorleiter, mit Begleitung der Nechilot, ein Lied von David. Wir wissen nicht genau, was „Nechilot“ bedeutet. Wahrscheinlich war es ein Musikinstrument, das dieses Lied begleitete. Manche Erklärer sagen: Es summte wie ein Schwarm [nechil] Bienen. Andere glauben, es ist eine alte Melodie mit dem Namen „El HaNechilot“, zu der man die Worte dieses Liedes sang. Wie die Lieder davor ist auch dieses ein Gebet. Aber es sagt nicht, welche Not der Dichter hat. Stattdessen zeigt er die verschiedenen Wege, auf denen Menschen in die Irre gehen. Er erinnert sich selbst und andere daran, wie wichtig es ist, G-tt nahe sein zu wollen und den richtigen Weg zu wählen."
+  "rashi": [
+   "<b>El haNechilot.</b> Menachem erklärte, dass sie alle – „Nechilot“, „Alamot“, „Gittit“, „Jedutun“ – Namen von Musikinstrumenten sind, und die Melodie des Liedes richtete sich nach dem Gesang, der zu diesem Instrument passt. Und der Midrasch Agada – manche erklären „Nechilot“ von „Nachala“, Erbteil; aber das ist nicht die Bedeutung des Wortes, und das Lied spricht auch nicht von einem Erbteil. Man kann „Nechilot“ als Truppen erklären, wie „ein Schwarm (Nachil) Bienen“, und wie (Tehillim 18,5): „und Ströme (Nachalej) der Bosheit“, was der Targum mit „eine Schar von Schuldigen“ übersetzt: ein Gebet wegen der Truppen der Feinde, die gegen Israel kommen, und der Dichter sagt dieses Lied für ganz Israel."
+  ]
  },
  "5:2": {
   "t": "Hör meine Worte, Ewiger; achte auf mein Seufzen.",
-  "st": "Hör meine Worte, Ewiger; achte auf das, was ich still denke. Bitte hör, G-tt, auf die Gebete des Herzens und auch auf die, die man mit den Lippen spricht."
+  "md": [
+   "<b>Achte auf mein Sinnen.</b> Denn mein Gebet kommt von Herzen."
+  ],
+  "rashi": [
+   "<b>Höre meine Worte, Ewiger.</b> Wenn ich die Kraft habe, vor Dir um das zu bitten, was ich brauche; und wenn ich keine Kraft habe, vor Dir zu beten, und die Sorge in meinem Herzen eingeschlossen ist – <b>achte auf mein Sinnen</b>: Verstehe das Sinnen meines Herzens. So wird es im Midrasch erklärt. Bei jedem „Bina“ in der Schrift liegt die Betonung unter dem Nun, außer hier und an einer ähnlichen Stelle (Ijow 34,16): „und wenn du verstehen (bina) willst, höre das“, wo es kein Hauptwort ist, sondern „verstehe“ bedeutet, wie (Mischle 23,1): „achte genau darauf, was vor dir ist“; darum liegt die Betonung unter dem Bet."
+  ]
  },
  "5:3": {
   "t": "Hör auf die Stimme meines Rufens, mein König und mein G-tt, denn zu Dir bete ich.",
-  "st": "Hör auf die Stimme meines Schreiens, mein König und mein G-tt, denn zu Dir bete ich. Wichtig ist „zu Dir“: Ich bete nur zu Dir, nicht zu anderen."
+  "md": [
+   "<b>Denn zu Dir bete ich.</b> Und ein König neigt gütig sein Ohr seinem Diener zu, der auf ihn vertraut und ihn um etwas bittet."
+  ]
  },
  "5:4": {
   "t": "Ewiger, am Morgen hörst Du meine Stimme; am Morgen bringe ich Dir mein Gebet und warte.",
-  "st": "Am Morgen, jeden Morgen, Tag für Tag, Ewiger, hörst Du meine Stimme. Am Morgen, jeden Morgen, richte ich mein Gebet an Dich und warte auf Deine Antwort. So spricht ein Mensch, der von ganzem Herzen den richtigen Weg wählen will. Er weiß: Jeder andere Weg wäre gegen den Willen G-ttes."
+  "md": [
+   "<b>Am Morgen.</b> Jeden Morgen höre meine Stimme: Sobald es Morgen wird, ordne ich mein Gebet vor Dir und stelle keine eigene Sache davor; darum hoffe ich, dass Du meine Stimme hörst."
+  ],
+  "rashi": [
+   "<b>Am Morgen höre meine Stimme.</b> Am Morgen rufe ich zu Dir gegen sie, denn das ist die Zeit des Gerichts über die Bösen, wie es heißt: „jeden Morgen vernichte ich alle Bösen des Landes“ (unten 101,8), „sei ihr Arm jeden Morgen“ (Jeschajahu 33,2), „denn jeden Morgen wird es vorüberziehen“ (dort 28,19).",
+   "<b>Am Morgen richte ich Dir.</b> Mein Gebet darüber. „E’erach“ kommt von „Ma’aracha“, Reihe; so hat Menachem es zusammengestellt.",
+   "<b>Und ich warte.</b> Dass Du an ihnen Gericht hältst."
+  ]
  },
  "5:5": {
   "t": "Denn Du bist kein G-tt, der Freude am Bösen hat; das Böse kann nicht bei Dir wohnen.",
-  "st": "Denn Du bist kein G-tt, der Gefallen am Bösen hat. G-ttes Wille ist gegen das Böse. Bei Dir wohnt nichts Böses."
+  "md": [
+   "<b>Denn nicht usw.</b> Und Du gibst den Bösen, die mir Schlechtes tun, keine Kraft.",
+   "<b>Wohnt nicht bei Dir.</b> Das Böse wohnt nicht bei Dir. Das ist ein Bild dafür: Das Böse ist dem Allgegenwärtigen verhasst."
+  ],
+  "rashi": [
+   "<b>Denn Du bist kein G-tt, der Bosheit will.</b> Und es passt zu Dir, die Bosheit aus der Welt zu schaffen.",
+   "<b>Das Böse wohnt nicht bei Dir.</b> Es wohnt nicht neben Dir."
+  ]
  },
  "5:6": {
   "t": "Die Prahler bestehen nicht vor Deinen Augen. Du hasst alle, die Böses tun.",
-  "st": "Die Toren – die ohne Nachdenken handeln, kein Ziel haben und in die Irre gehen – bestehen nicht vor Deinen Augen. Du willst sie nicht in Deiner Nähe, denn Du hasst alle, die Böses tun."
+  "md": [
+   "<b>Bestehen nicht.</b> Du willst nicht, dass Böse vor Deinen Augen stehen."
+  ],
+  "rashi": [
+   "<b>Die Prahler (Holelim).</b> Die sich wie Narren benehmen; in der Sprache der Mischna – die verwirrt sind."
+  ]
  },
  "5:7": {
   "t": "Du vernichtest, die Lügen reden; den Mann, der Blut vergießt und betrügt, verabscheut der Ewige.",
-  "st": "Du vernichtest, die Lügen reden; den Mann, der Blut vergießt und betrügt, verabscheut der Ewige."
+  "md": [
+   "<b>Du vernichtest.</b> Ich weiß, dass Du den vernichtest, der vor Schaul Lügen über mich erzählt. Denn der Ewige verabscheut seit jeher den, der dem Blut seines Nächsten auflauert und hinterlistig mit ihm wie ein Freund redet; genauso verabscheut und vernichtet Er den, der Lügen über mich erzählt – denn er redet hinterlistig mit mir, als wäre er mein Freund."
+  ],
+  "rashi": [
+   "<b>Mann des Blutes und des Betrugs.</b> Das ist Amalek und seine Nachkommen."
+  ]
  },
  "5:8": {
   "t": "Ich aber komme durch Deine große Güte in Dein Haus; ich verneige mich in Ehrfurcht vor Deinem heiligen Tempel.",
-  "st": "Ich aber komme durch Deine große Güte in Dein Haus. Der Dichter weiß genau, dass er nicht vollkommen ist. Wichtig ist, dass er versucht, den richtigen Weg zu wählen. Dass er in G-ttes Haus kommen darf, zeigt G-ttes Güte zu ihm. Ich verneige mich vor Deinem heiligen Tempel, in Ehrfurcht vor Dir."
+  "md": [
+   "<b>Durch Deine große Güte.</b> Wegen der großen Güte, die Du mir tust, komme ich in Dein Haus, um mich zu verneigen.",
+   "<b>In Ehrfurcht vor Dir.</b> Und nicht, um vor den Menschen anzugeben."
+  ],
+  "rashi": [
+   "<b>Ich aber.</b> Ich komme in Dein Haus, um Dir für Deine große Güte zu danken, mit der Du an uns Wunder getan hast, indem Du uns Rache an ihnen gezeigt hast."
+  ]
  },
  "5:9": {
   "t": "Ewiger, führe mich in Deiner Gerechtigkeit wegen meiner Feinde, die auf mich lauern; mach Deinen Weg vor mir gerade.",
-  "st": "Führe mich, Ewiger, in Deiner Gerechtigkeit. Stell mich auf den richtigen Weg, leite mich auf Deinen gerechten Wegen, damit ich den richtigen Weg gegen meine Feinde wählen kann. Wenn Feinde einen umringen, weiß man nicht immer, was man tun soll. Gerade dann braucht man Führung, um auf dem richtigen Weg zu bleiben. Mach Deinen Weg vor mir gerade, damit ich leicht auf dem Weg der Gerechtigkeit gehen kann."
+  "md": [
+   "<b>Führe mich in Deiner Gerechtigkeit.</b> Gib mir ins Herz, auf dem Weg der Gerechtigkeit zu gehen. Und wegen dieser Bösen, die zuschauen und auf meinen Fall warten – damit sie nicht sagen „unsere Hand ist stark“ –, lass mir Deinen Weg gerade erscheinen, damit ich darauf nicht stolpere: Dann können sie mir sicher nichts tun."
+  ],
+  "rashi": [
+   "<b>Meiner Feinde, die mir auflauern (Schorraj).</b> Meiner Gegner, die darauf warten, dass ich Dir untreu werde und Du mich verlässt. „Schorraj“ wie (Bamidbar 24,17): „ich sehe (aschurenu) ihn, aber nicht nahe“."
+  ]
  },
  "5:10": {
   "t": "Denn in ihrem Mund ist keine Ehrlichkeit; ihr Inneres ist [voller] Bosheit; ihre Kehle ist ein offenes Grab; mit ihrer Zunge schmeicheln sie.",
-  "st": "In dem, was sie sagen, ist keine Wahrheit. Der Vers davor sprach vom Weg G-ttes. Der Weg der Feinde dagegen ist voller Betrug. Ihr Inneres ist Unglück. In ihnen ist nur das Unglück und das Leid, das sie für andere planen. Ihre Kehle ist ein offenes Grab. Ihr Mund ist wie ein offenes Grab: Aus ihnen kommt Fäulnis von innen, und außerdem locken sie andere, hineinzufallen. Mit ihrer Zunge betrügen sie. Statt ehrlich zu streiten, beschuldigen sie andere oft mit Lügen."
+  "md": [
+   "<b>Denn in ihrem Mund ist nichts.</b> Im Mund von keinem von ihnen ist Wahrheit: Sie sehen aus wie Freunde, aber innen sind sie Feinde. Tief im Herzen planen sie Unheil, um mich zu zerbrechen; ihre Kehle ist wie ein offenes Grab, denn sie wollen mich verschlingen, wie ein Grab den Toten verschlingt; mit ihrer Zunge reden sie glatte Worte, die nicht von Herzen kommen."
+  ],
+  "rashi": [
+   "<b>Denn in ihrem Mund ist nichts Wahres.</b> Sie sehen aus wie Freunde, aber sie sind Feinde.",
+   "<b>Ihr Inneres ist Verderben.</b> Ihre Gedanken sind Betrug.",
+   "<b>Ein offenes Grab ist ihre Kehle.</b> Um die Mühe anderer zu verschlingen, wie ein Grab den Körper verschlingt.",
+   "<b>Sie schmeicheln.</b> Glatte Worte."
+  ]
  },
  "5:11": {
   "t": "Sprich sie schuldig, G-tt; sie sollen durch ihre eigenen Pläne fallen. Stoß sie weg wegen ihrer vielen Verbrechen, denn sie haben sich gegen Dich aufgelehnt.",
-  "st": "Sprich sie schuldig, G-tt. Richte sie so, wie sie es verdienen, und sprich sie schuldig. Sie sollen durch ihre eigenen Pläne fallen – oder: Ihre Pläne und Verschwörungen sollen scheitern. Stoß sie weg wegen ihrer vielen Vergehen, denn sie haben sich gegen Dich aufgelehnt, und darum verdienen sie Strafe. „Pescha“, hier „Vergehen“, ist eine Sünde, die man mit Absicht tut."
+  "md": [
+   "<b>Sprich sie schuldig.</b> Darum sprich sie im Gericht schuldig, und sie sollen tief fallen wegen ihres bösen Plans; und so viele Verbrechen sie haben, so treibe sie von Unglück zu Unglück – denn sie haben sich gegen Dich aufgelehnt, obwohl Du davor gewarnt hast."
+  ],
+  "rashi": [
+   "<b>Durch ihre Pläne.</b> Die sie gegen Israel planen; und dann freuen sich alle, die bei Dir Zuflucht suchen."
+  ]
  },
  "5:12": {
   "t": "Aber alle, die bei Dir Zuflucht suchen, sollen sich freuen und für immer jubeln, denn Du beschützt sie. Und die Deinen Namen lieben, sollen fröhlich sein in Dir.",
-  "st": "Zum Schluss wird der Dichter froher: Aber alle, die Dir vertrauen, sollen sich freuen; sie sollen für immer jubeln, und Du wirst sie beschützen. Die Deinen Namen lieben, werden sich über Dich freuen."
+  "md": [
+   "<b>Und es freuen sich.</b> Die aber bei Dir Schutz suchen, freuen sich für immer, und Du beschützt sie vor dem Bösen.",
+   "<b>An Dir.</b> An Deiner Rettung."
+  ],
+  "rashi": [
+   "<b>Und Du beschützt sie.</b> Du verteidigst und bedeckst sie.",
+   "<b>Und sie jubeln über Dich.</b> Wenn sie sehen, dass Du Deine Freunde und die, die Dich lieben, segnest."
+  ]
  },
  "5:13": {
   "t": "Denn Du segnest den Gerechten, Ewiger, wie mit einem Schild umgibst Du ihn mit Wohlwollen.",
-  "st": "Denn Du bist es, der den Gerechten segnet, Ewiger. Du umgibst ihn mit Wohlwollen wie mit einem großen Schild [zina], der den ganzen Körper bedeckt wie eine Rüstung. So liebt G-tt die Gerechten und ist ihnen nah."
+  "md": [
+   "<b>Denn Du usw.</b> Stell die Worte des Verses um: Denn Du, Ewiger, segnest den Gerechten.",
+   "<b>Wie ein Schild.</b> Wie ein Schild den Körper umgibt, so umgibst Du ihn mit Wohlwollen."
+  ],
+  "rashi": [
+   "<b>Wie ein Schild (Zina).</b> Der den Menschen von drei Seiten umgibt.",
+   "<b>Wohlwollen.</b> Zufriedenheit, altfranzösisch „apaiement“.",
+   "<b>Du umgibst ihn.</b> Du umringst ihn, wie (Schmuel I 23,26): „und Schaul und seine Männer umringten David und seine Männer“."
+  ]
  },
  "6:1": {
-  "intro": [
-   {
-    "title": "Tehillim 6",
-    "text": "Ein Lied voller Bitten. Ein Mann ist krank, und seine Feinde verfolgen ihn. In seinem Leid schreit er zu G-tt und bittet Ihn, Mitleid mit ihm zu haben und auf seine Bitten zu hören."
-   }
-  ],
   "t": "Für den Chorleiter, mit Saiteninstrumenten, auf der Scheminit. Ein Lied von David.",
-  "st": "Für den Chorleiter, auf Saiteninstrumenten, auf der Harfe mit acht Saiten, ein Lied von David."
+  "rashi": [
+   "<b>Auf der Scheminit.</b> Eine Leier mit acht Saiten, die „Scheminit“ heißt. So finden wir es auch (Diwrej HaJamim I 15,21): Soundso und seine Söhne „auf der Scheminit, um zu leiten“."
+  ]
  },
  "6:2": {
   "t": "Ewiger, bestrafe mich nicht in Deinem Zorn, züchtige mich nicht in Deiner Wut.",
-  "st": "Ewiger, weise mich nicht zurecht in Deinem Zorn und züchtige mich nicht in Deinem Unmut. Das Wort „tochicheni“ meint beides: Ermahnung und Strafe am Körper. Der Dichter bittet G-tt: Ermahne mich nicht durch Schmerzen am Körper; Schmerzen kann man manchmal nicht aushalten."
+  "md": [
+   "<b>Und nicht in Deinem Grimm.</b> Der Gedanke wird mit anderen Worten wiederholt."
+  ]
  },
  "6:3": {
   "t": "Sei mir gnädig, Ewiger, denn ich bin schwach; heile mich, Ewiger, denn meine Knochen zittern vor Angst.",
-  "st": "Sei mir gnädig, Ewiger, denn ich bin elend; heile mich, Ewiger, denn meine Knochen haben Angst. Der Dichter bittet nicht wegen seiner guten Taten. Er bittet, weil er so starke Schmerzen nicht aushalten kann. „Meine Knochen haben Angst“ ist sicher ein dichterisches Bild: Angst und Schmerz sind bis ins Innerste gedrungen."
+  "md": [
+   "<b>Sei mir gnädig.</b> Damit Du nicht mehr auf mich zornig bist, denn ich bin ja schon unglücklich – das ist genug.",
+   "<b>Heile mich.</b> Er fügte zu seiner Bitte hinzu und sagte: Heile mich von den Schlägen, die seitdem über mich gekommen sind, denn meine Knochen sind erschrocken."
+  ],
+  "rashi": [
+   "<b>Ich bin schwach (umlal).</b> Zerschlagen und kraftlos (altfranzösisch „confondu“), wie „die elenden (haAmelalim) Juden“ bei Esra (Nechemja 3,34)."
+  ]
  },
  "6:4": {
   "t": "Meine Seele ist voller Angst, und Du, Ewiger – wie lange noch?",
-  "st": "Denn ich habe große Angst. Der Dichter hat nicht nur Schmerzen. Er fürchtet auch, dass er nie mehr gesund wird, dass er stirbt. Er fragt G-tt: Und Du, Ewiger, wie lange lässt Du mich noch in dieser schweren Lage ohne Hoffnung? Wann werde ich gesund?"
+  "md": [
+   "<b>Und meine Seele.</b> Auch meine Seele ist erschrocken. Wenn das so ist – wie lange soll ich noch geschlagen werden? Die Strafe selbst kommt doch, um das Ohr für die Lehre zu öffnen, und ich bin schon erschrocken und habe die Lehre angenommen."
+  ],
+  "rashi": [
+   "<b>Und Du, Ewiger, wie lange.</b> Du schaust zu und heilst nicht."
+  ]
  },
  "6:5": {
   "t": "Kehr um, Ewiger! Rette meine Seele! Hilf mir um Deiner Güte willen.",
-  "st": "Kehr zurück, Ewiger. Schmerz und Leid können wie ein Zeichen wirken, dass G-tt einen verlassen hat. Darum fleht der Dichter G-tt an, zu ihm zurückzukehren. Rette meine Seele. Rette mich aus dieser Bedrängnis. Hilf mir um Deiner Güte willen. Diesen Grund – „um Deiner Güte willen“ – findet man oft im Buch Tehillim."
+  "md": [
+   "<b>Kehre um, Ewiger.</b> Darum kehre um, um meine Seele aus der Not zu holen, und rette mich um Deiner Güte willen – auch wenn ich noch nicht nach dem Maß meiner Sünde bestraft bin."
+  ],
+  "rashi": [
+   "<b>Kehre um, Ewiger.</b> Von Deinem Zorn.",
+   "<b>Rette meine Seele.</b> Von meiner Krankheit."
+  ]
  },
  "6:6": {
   "t": "Denn im Tod denkt man nicht an Dich; wer dankt Dir im Scheol?",
-  "st": "Denn im Tod denkt man nicht an Dich; wer dankt Dir im Grab? Der Dichter sagt: G-tt hat nichts davon, wenn er stirbt. Denn nur solange er lebt, kann er G-tt loben und Ihm danken."
+  "md": [
+   "<b>Denn im Tod ist nicht.</b> Denn wenn ich durch diese Not sterbe, erwähne ich Deinen Namen nicht mehr: Wer dankt im Grab? Nur der Lebende, der Lebende dankt Dir."
+  ]
  },
  "6:7": {
   "t": "Ich bin müde vom Seufzen. Jede Nacht mache ich mein Bett nass, mit meinen Tränen weiche ich mein Lager auf.",
-  "st": "Ich bin erschöpft von meinem Stöhnen. Wenn ein Kranker vor Schmerz viel stöhnt, verliert er noch mehr Kraft. Oder: Sein Schmerz ist so groß, dass er kaum noch stöhnen kann. Jede Nacht lasse ich mein Bett schwimmen. Er weint nachts so viel, dass sein Bett fast ein Teich geworden ist. Mit meinen Tränen löse ich mein Lager auf. Ich weine so sehr, dass meine Tränen mein Bett aufzulösen scheinen."
+  "md": [
+   "<b>Ich bin müde.</b> Ich bin erschöpft und müde davon, dass ich die ganze Zeit seufze.",
+   "<b>Ich lasse schwimmen.</b> Ich lasse mein Bett in Tränen schwimmen, wie etwas, das auf dem Wasser schwimmt.",
+   "<b>Mit meinen Tränen.</b> Mit den Tränen meiner Augen weiche ich mein Lager auf und mache es nass. Der Gedanke wird mit anderen Worten wiederholt."
+  ],
+  "rashi": [
+   "<b>Jede Nacht mache ich mein Bett (asche).</b> Von „Sechi“, Ekel, Schmutz (Echa 3,45), „und ihre Leichen waren wie Unrat (sucha)“ (Jeschajahu 5,25): Ich mache mein Bett mit Tränen eklig. Menachem aber stellte es zu „wie der Schwimmer die Hände ausbreitet, um zu schwimmen (lischchot)“ (dort 25,11) und „Wasser zum Schwimmen (sacho)“ (Jecheskel 47,5).",
+   "<b>Mit meinen Tränen weiche ich mein Lager auf.</b> Ich mache es nass und feucht wie mit Wasser."
+  ]
  },
  "6:8": {
   "t": "Mein Auge ist trüb vor Kummer, alt geworden wegen all meiner Feinde.",
-  "st": "Die Krankheit des Dichters ist nicht nur seine eigene Sache. Sie weckt auch seine Feinde und macht ihnen Mut. Er leidet unter den Schmerzen der Krankheit – und auch daran, dass er weiß: Seine Feinde freuen sich über sein Leid und hoffen jeden Tag, dass er stirbt. Mein Auge ist schwach vor Ärger, herausgerissen wegen all meiner Feinde. Wenn ich daran denke, dass meine Gegner mein Unglück feiern, fühle ich mich, als ob mir die Augen herausfallen. Vor Kummer sehe ich schwach und trüb. Die Feinde in diesem Lied sind nicht unbedingt Menschen aus Fleisch und Blut. Dieses Bild zeigt eher, wie sich ein schwer kranker Mensch fühlt. Er spürt vielleicht, dass viele böse Kräfte sich gegen ihn sammeln und sich über sein Unglück freuen. Aber wenn er gesund wird, verschwinden alle diese dunklen Gefühle. Die letzten Verse zeigen, wie sich die Stimmung des Dichters plötzlich ändert:"
+  "md": [
+   "<b>Trüb vor Kummer.</b> Vom Zorn des Feindes sind meine Augen schwach geworden.",
+   "<b>Gealtert.</b> Wegen meiner Nöte ist mein Auge trüb geworden, als wäre es alt. Also sind all die Nöte genug, die schon über mich gekommen sind."
+  ],
+  "rashi": [
+   "<b>Trüb geworden (ascha).</b> Von „Aschaschit“, Glas: ein Auge, dessen Licht trüb ist, und es scheint ihm, als sehe er durch ein Glas vor seinen Augen. Menachem erklärte es als Fäulnis, wie (unten 31,11): „und meine Knochen sind morsch (aschschu)“, und so jedes Wort „Asch“, Motte.",
+   "<b>Gealtert (atka).</b> Mein Auge ist alt und schwach geworden, weil das Licht trüb wurde. Menachem stellte es zu „und er zog (wajaatek) von dort weiter auf den Berg“ (Bereschit 12,8).",
+   "<b>Wegen aller meiner Bedränger.</b> Wegen der Nöte, mit denen sie mich bedrängen."
+  ]
  },
  "6:9": {
   "t": "Weg von mir, alle, die ihr Böses tut, denn der Ewige hat mein Weinen gehört.",
-  "st": "Geht weg von mir, alle, die ihr Böses tut, denn der Ewige hat die Stimme meines Weinens gehört und hat mich geheilt."
+  "md": [
+   "<b>Weicht.</b> Geht weg von mir, denn von jetzt an könnt ihr mir nichts tun – mein Gebet ist angenommen."
+  ]
  },
  "6:10": {
   "t": "Der Ewige hat mein Flehen gehört; der Ewige nimmt mein Gebet an.",
-  "st": "Der Ewige hat mein Flehen gehört; der Ewige wird mein Gebet annehmen. Wenn Er mein Gebet annimmt, kann ich gesund werden."
+  "md": [
+   "<b>Er hat gehört usw.</b> Der Gedanke wird mit anderen Worten wiederholt."
+  ]
  },
  "6:11": {
   "t": "Alle meine Feinde werden sich schämen und sehr erschrecken; sie werden umkehren und sich im Nu schämen.",
-  "st": "Meine Feinde werden sich sehr schämen und erschrecken; sie werden zurückweichen und sich sofort schämen. Wenn ich gesund bin, verschwinden meine Feinde. Sie werden sich sogar schämen, dass sie mir aufgelauert haben."
+  "md": [
+   "<b>Sie werden sich schämen.</b> Wenn sie meinen Erfolg sehen.",
+   "<b>Und erschrecken.</b> Wie ein Mensch, der staunt und erschrickt, wenn er etwas sieht, das er für unmöglich hielt.",
+   "<b>Sie kehren um.</b> Dann wenden sie sich von ihrem Bösen ab und suchen Frieden mit mir. Und im selben Augenblick schämen sie sich, nicht erst später: Denn ich verzeihe ihnen, was sie mir getan haben, und es wird ihnen nicht mehr zur Schande vorgehalten."
+  ],
+  "rashi": [
+   "<b>Sie werden sich schämen und erschrecken usw.</b> Was bedeutet „sie kehren um, sie schämen sich“ – sie schämen sich ein zweites Mal? Rabbi Jochanan sagte: In der Zukunft wird der Heilige, gelobt sei Er, die Bösen richten und sie zum Gehinom verurteilen, und sie werden sich über Ihn beschweren; da holt der Heilige, gelobt sei Er, sie zurück, zeigt ihnen noch einmal ihre Aufzeichnungen und richtet sie – und sie werden verurteilt, und Er schickt sie zurück in den Gehinom. Das ist doppelte Schande. Rabbi Schmuel bar Nachmani sagt: In der Zukunft wird jedes Volk zu seinem Götzen rufen, und er wird nicht antworten; dann rufen sie wieder zum Heiligen, gelobt sei Er, und Er sagt zu ihnen: „Hättet ihr zuerst zu Mir gerufen, hätte Ich euch geantwortet; jetzt habt ihr den Götzendienst zur Hauptsache gemacht und Mich zur Nebensache – darum antworte Ich nicht.“ Wie es heißt: „Sie schreien, und niemand rettet“ – das ist der Götzendienst, und danach „zum Ewigen, und Er antwortete ihnen nicht“ (unten 18,42). Darum heißt es: „Sie kehren um, sie schämen sich.“",
+   "<b>In einem Augenblick.</b> In kurzer Zeit."
+  ]
  },
  "7:1": {
-  "intro": [
-   {
-    "title": "Tehillim 7",
-    "text": "Ein Gebet eines Menschen, den Feinde bedrängen und den man fälschlich beschuldigt, etwas Böses getan zu haben. Er bittet G-tt, zu zeigen, dass er gerecht ist, und seinen Feinden zu vergelten."
-   }
-  ],
   "t": "Ein Schiggajon von David, das er dem Ewigen sang wegen Kusch aus dem Stamm Binjamin.",
-  "st": "Ein Nachdenken von David. Ein Lied, das er dem Ewigen sang wegen der Worte von Kusch aus dem Stamm Binjamin. Wir wissen nicht sicher, wer Kusch aus dem Stamm Binjamin war. Manche Weisen sagen: Das war ein anderer Name für König Schaul, der aus dem Stamm Binjamin kam. Einfacher ist diese Erklärung: Kusch war ein gewöhnlicher Mann aus dem Stamm Binjamin, der schlecht über David sprach. Vielleicht beschuldigte er ihn, an einer Niederlage schuld zu sein, oder dass er als Soldat im Heer von Schaul nicht tapfer genug kämpfte."
+  "md": [
+   "<b>Schiggajon von David.</b> Mit diesem Gebet betete er wegen seines Fehlers (Schgia) – dass er einen Zipfel vom Mantel Schauls abgeschnitten hatte.",
+   "<b>Kusch aus Binjamin.</b> Das ist Schaul, der aus Binjamin kam. Er wird Kusch genannt, weil er durch seine Taten anders war – zum Guten –, so wie ein Kuschit durch seine Hautfarbe anders ist."
+  ],
+  "rashi": [
+   "<b>Schiggajon von David.</b> Menachem sagte, dass auch das ein Name des Gesangs ist, nach dem Instrument; so erklärte er auch „al Schigjonot“. Unsere Weisen aber erklärten es von „Mischge“, Fehler: Er bekannte und betete wegen des Fehlers, dass er ein Lied über den Fall Schauls gesungen hatte, wie es heißt (Schmuel II 22,1): „Und David sprach zum Ewigen“ usw. Aber der Inhalt des Liedes bestätigt das nicht. Ich sage, dass er es wegen der Sache mit Jischbi in Now sagte (dort 21,16), der als Strafe wegen Schaul gegen ihn kam, wie unsere Weisen erklärten: Der Heilige, gelobt sei Er, sagte zu ihm: „Durch dich wurde Doeg, der Edomiter, vertrieben, durch dich wurden Schaul und seine Söhne getötet“ usw. (wie es im Kapitel Chelek heißt: David bat den Heiligen, gelobt sei Er, lieber in die Hand des Feindes gegeben zu werden, damit seine Nachkommen nicht ausgelöscht werden). Und David änderte sein Gebet und betete, nicht in die Hand des Feindes zu fallen. Und so ist die Erklärung: der Fehler, den David dem Ewigen besang – dass er sich geirrt hatte, als er den Heiligen, gelobt sei Er, bat, ihn wegen der Sache Schauls, der durch ihn getötet worden war, in die Hand des Feindes zu geben. Eine andere Erklärung: wegen des Fehlers mit dem Zipfel des Mantels, den er Schaul abgeschnitten hatte.",
+   "<b>Kusch.</b> Wie ein Kuschit durch seine Haut anders ist, so war Schaul durch seine Taten anders."
+  ]
  },
  "7:2": {
-  "t": "Ewiger, mein G-tt, bei Dir suche ich Zuflucht. Rette mich vor allen meinen Verfolgern und befreie mich,",
-  "st": "Ewiger, ich vertraue auf Dich. Rette mich vor allen meinen Verfolgern und befreie mich,"
+  "t": "Ewiger, mein G-tt, bei Dir suche ich Zuflucht. Rette mich vor allen meinen Verfolgern und befreie mich,"
  },
  "7:3": {
   "t": "damit sie mich nicht zerreißen wie ein Löwe, mich in Stücke reißen, und keiner rettet mich.",
-  "st": "damit er, mein Feind, mich nicht zerreißt wie ein Löwe, mich in Stücke reißt, und keiner da ist, der mich rettet. Jetzt antwortet der Dichter auf den Vorwurf gegen ihn:"
+  "md": [
+   "<b>Damit er nicht zerreißt.</b> Wenn Du mich nicht rettest, wird der Feind mich besiegen und mich zerreißen wie ein Löwe.",
+   "<b>Zerbrechend.</b> Er wird mich zerbrechen, und ich finde keinen Retter, denn alle haben sich gegen mich erhoben."
+  ],
+  "rashi": [
+   "<b>Zerreißend (porek).</b> Wie (Schemot 32,2): „nehmt (parku) die goldenen Ringe ab“."
+  ]
  },
  "7:4": {
   "t": "Ewiger, mein G-tt, wenn ich so etwas getan habe, wenn Unrecht an meinen Händen klebt,",
-  "st": "Ewiger, mein G-tt, wenn ich das getan habe – wenn ich die bösen Taten getan habe, die mir meine Feinde vorwerfen –, wenn meine Hände Unrecht getan haben,"
+  "md": [
+   "<b>Wenn ich das getan habe.</b> Wenn – als ich das tat: einen Zipfel vom Mantel Schauls abschnitt …",
+   "<b>Wenn Unrecht an meinen Händen ist.</b> Habe ich es getan, um Unrecht zu tun, um ihn zu beschämen, damit er in einem zerrissenen Mantel dasteht wie ein armer Mann?"
+  ],
+  "rashi": [
+   "<b>Wenn ich das getan habe.</b> Das, was danach erklärt wird."
+  ]
  },
  "7:5": {
   "t": "wenn ich meinem Freund Böses getan habe – ich, der sogar meinen Feind ohne Grund gerettet hat –,",
-  "st": "wenn ich meinem Freund mit Bösem vergolten habe – gemeint ist jemand, der mir einmal Gutes getan hat, denn „scholmi“, „mein Freund“, klingt ähnlich wie „schalem“, „bezahlen“ –, oder wenn ich meinen Feind ohne Grund ausgeraubt habe,"
+  "md": [
+   "<b>Wenn ich vergolten habe.</b> Als Schaul noch mein Freund war – habe ich ihm da Gutes mit Bösem vergolten, wie er dachte, dass ich sein Feind bin?",
+   "<b>Und ich habe gerettet.</b> Sogar als er mein Feind war und mich grundlos verfolgte, obwohl ich keine Gewalt getan hatte, war mir sein Leben noch kostbar, und ich bewahrte ihn vor dem Tod: Ich rettete ihn vor meinen Männern, die ihn töten wollten, wie es in Schmuel I steht. Als ob es heißt: Darum habe ich seinen Mantel abgeschnitten – damit er weiß, dass er in meiner Hand war und ich ihm nichts getan habe."
+  ],
+  "rashi": [
+   "<b>Wenn ich meinem Freund Böses vergolten habe.</b> Wenn ich ihm nach seinem Verdienst vergolten habe.",
+   "<b>Und ich habe meinen Feind umsonst entkleidet (wa’achalza).</b> Ich habe sein Gewand (Chaliza) beschädigt, als ich den Zipfel seines Mantels abschnitt: etwa um ihn zu verderben, ihn auszuziehen und ihn mit leeren Händen dastehen zu lassen – und habe ich das aus Hass getan? Nein – sondern um ihm zu zeigen, dass er mir ausgeliefert war, ihn zu töten, und ich habe ihn nicht getötet. „Wa’achalza“ bedeutet „ausziehen“."
+  ]
  },
  "7:6": {
   "t": "dann soll der Feind mich verfolgen und einholen, er soll mein Leben in den Boden treten und meine Ehre in den Staub legen. Sela.",
-  "st": "dann soll der Feind mich verfolgen und einholen; mein Leben soll in den Boden getreten werden und meine Seele in den Staub. Sela. Das Wort „kawod“ bedeutet meistens „Ehre“. Es kann aber auch „Wesen“ oder „Seele“ bedeuten. Darum übersetzen wir „kewodi“ hier und an anderen Stellen mit „mein Leben“, „mein Wesen“ oder „meine Seele“. Der Dichter hat gesagt, dass der Feind ihn einholen und in den Boden treten soll. Trotzdem spricht er weiter:"
+  "md": [
+   "<b>Der Feind soll verfolgen.</b> Als ob es heißt: Und wenn es nicht so ist, wie ich sage, soll das meine Strafe sein: Der Feind soll mich verfolgen, andere antreiben, mich zu verfolgen, mich einholen und mich mein ganzes Leben lang in den Boden treten, und er soll meine Ehre erniedrigen, damit sie für immer im Staub liegt."
+  ]
  },
  "7:7": {
   "t": "Steh auf, Ewiger, in Deinem Zorn! Erheb Dich gegen die Wut meiner Feinde! Wach auf für mich – Du hast Gericht befohlen.",
-  "st": "Steh auf, Ewiger, in Deinem Zorn. Es passt auch zu Dir, dass Du zornig wirst über das Böse, das man mir antut. Erheb Dich und zeig Deine Macht gegen die Wut meiner Feinde. Wach auf und bring für mich das Gericht, das Du über mich befohlen hast."
+  "md": [
+   "<b>Steh auf, Ewiger.</b> Das heißt: Obwohl ich nicht gegen Schaul gesündigt habe, bitte ich nichts gegen ihn und seine Männer. Aber steh auf, Ewiger, in Deinem Zorn und erhebe Dich, indem Du Grimm über meine Feinde bringst.",
+   "<b>Und wache auf für mich.</b> Wecke für mich die starke Kraft des Arms, um sie zu besiegen und an ihnen das Gericht zu vollstrecken, das Du über sie befohlen und beschlossen hast; das heißt: Das Gericht über sie soll durch mich geschehen."
+  ],
+  "rashi": [
+   "<b>Steh auf, Ewiger, in Deinem Zorn.</b> Gegen meine Feinde – wie Jischbi und seine Brüder und die Philister –, damit ich nicht in ihre Hand gegeben werde.",
+   "<b>Erhebe Dich.</b> Zeige Deine Herrlichkeit, indem Du Rache des Grimms zeigst, wenn Du über sie zornig wirst.",
+   "<b>Und wache auf für mich.</b> Damit ich an ihnen das Gericht der Rache vollstrecken kann, das Du geboten hast. Und wo hast Du es geboten? „Du zerschmetterst sie mit einem eisernen Stab“ (oben 2,9), „und Ich werde deine Feinde befeinden“ (Schemot 23,22). Das habe ich im Midrasch gefunden."
+  ]
  },
  "7:8": {
   "t": "Die Gemeinde der Völker soll sich um Dich versammeln, und Du thronst über ihr in der Höhe.",
-  "st": "Eine Gemeinde von Völkern wird Dich umringen, und mit ihr kehre in die Höhe zurück. Das ist ein Bild: G-tt ist umringt von den Völkern wie von einer Ehrenwache oder einem Gefolge. Sie alle sind gekommen, um Ihm zu danken und Ihn in den Himmel zu begleiten, an Seinen heiligen Ort in der Höhe."
+  "md": [
+   "<b>Und die Gemeinde.</b> Und auch wenn die Gemeinde der Philister, Ammons und Moaws Dich umringt und sich an Dich wendet, damit Du sie rettest – kehre ihretwegen in die Höhe zurück, halte Dich von ihr fern und wende Dich ihr nicht zu."
+  ],
+  "rashi": [
+   "<b>Und die Gemeinde der Nationen umgibt Dich.</b> Wenn sie sich an Dich wenden, damit Du sie rettest – höre nicht auf ihre Stimme: Halte Dich von ihnen fern, kehre zurück und setz Dich an Deinen Ort in der Höhe (altfranzösisch „repose“, ruhe). Eine andere Erklärung: Kehre in die Höhe zurück, um ihnen zu zeigen, dass Deine Hand oben ist."
+  ]
  },
  "7:9": {
   "t": "Der Ewige richtet die Völker. Richte mich, Ewiger, nach meiner Gerechtigkeit und nach meiner Unschuld.",
-  "st": "Der Ewige wird der Richter der Völker sein. Wenn diese Zeit kommt, wenn G-tt sich im Gericht zeigt, kann auch ich Ihn bitten: Richte mich, Ewiger, wie es zu meiner Gerechtigkeit und zu meiner Unschuld passt."
+  "md": [
+   "<b>Er richtet die Völker.</b> Wenn Du die Völker mit dem richtigen Gericht richtest, dann richte auch mich nach meiner Gerechtigkeit und meiner Unschuld; das heißt: Richte mich nach den guten Taten, und von den Sünden zieh Deine Hand zurück."
+  ],
+  "rashi": [
+   "<b>Der Ewige richtet die Völker.</b> Wende das Gericht von uns ab und richte es auf die Bösen.",
+   "<b>Er richtet (jadin).</b> Bedeutet „Leiden“.",
+   "<b>Richte mich, Ewiger, nach meiner Gerechtigkeit.</b> Richte nach den guten Taten, die sie haben, und nicht nach den Sünden."
+  ]
  },
  "7:10": {
   "t": "Die Bosheit der Bösen soll ein Ende haben, aber gib dem Gerechten Kraft. Der Herz und Nieren prüft, ist der gerechte G-tt.",
-  "st": "Dann soll die Bosheit der Bösen ein Ende haben, aber gib dem Gerechten Kraft. G-tt braucht keine Zeugen von außen, um gerecht zu richten. Denn der G-tt der Gerechtigkeit prüft das Herz und die Gedanken der Menschen. „Kelajot“, hier „Gedanken“, bedeutet wörtlich „Nieren“. Man dachte, dass in den Nieren die Gedanken eines Menschen wohnen."
+  "md": [
+   "<b>Ein Ende soll haben usw.</b> Das Böse, das die Bösen tun, soll sie anklagen, um sie aus der Welt zu vernichten; den Gerechten aber festige, damit er fest auf seinem Platz und Fundament steht.",
+   "<b>Und der prüft.</b> Du, G-tt, prüfst doch Herz und Nieren des Gerechten und weißt, dass sein Herz ganz bei Dir ist."
+  ],
+  "rashi": [
+   "<b>Ein Ende haben soll (jigmar).</b> Bedeutet „Vernichtung“. So erklärte es Menachem: „das Wort ist zu Ende (gamar)“ (unten 77,9), „der Fromme ist dahin (gamar)“ (unten 12,2), und so alle.",
+   "<b>Und festige den Gerechten, der Du Herzen prüfst.</b> Du weißt, wer der Gerechte ist, um ihn zu festigen.",
+   "<b>G-tt ist gerecht.</b> So ist Dein Name."
+  ]
  },
  "7:11": {
   "t": "Bei G-tt suche ich meinen Schild, bei dem Retter derer, die ein aufrichtiges Herz haben.",
-  "st": "G-tt, der Retter derer, die ein aufrichtiges Herz haben, ist mein Schild."
+  "md": [
+   "<b>Der rettet.</b> Weil Er die rettet, die ein gerades Herz haben."
+  ]
  },
  "7:12": {
   "t": "G-tt spricht den Gerechten frei, und G-tt spricht jeden Tag Strafe aus.",
-  "st": "G-tt ist ein gerechter Richter. Weil G-tt gerecht ist, spricht Er die Gerechten frei. Und zugleich zeigt der Allmächtige jeden Tag Seinen Zorn gegen die, die Böses tun,"
+  "md": [
+   "<b>Ein gerechter Richter.</b> Er richtet mit gerechtem Gericht und ist jeden Tag zornig über die, die Ihm Böses tun."
+  ],
+  "rashi": [
+   "<b>Ein gerechter Richter.</b> Du richtest gerecht.",
+   "<b>Er zürnt jeden Tag.</b> Wenn Er die Taten der Bösen sieht."
+  ]
  },
  "7:13": {
   "t": "Wenn einer nicht umkehrt, schärft er sein Schwert, spannt seinen Bogen und zielt,",
-  "st": "wenn er, der Böse, nicht umkehrt von seinen Drohungen und bösen Plänen gegen den Gerechten, wenn er weitermacht, sein Schwert schärft und seinen Bogen spannt, bereit zum Schuss."
+  "md": [
+   "<b>Wenn er nicht umkehrt.</b> Wenn der, der den Gerechten verfolgt, nicht von seinem Weg umkehrt: Er schärft noch sein Schwert, spannt seinen Bogen und zielt, um auf den Gerechten zu schießen."
+  ],
+  "rashi": [
+   "<b>Wenn er nicht umkehrt.</b> Der Böse – von seiner Bosheit.",
+   "<b>Sein Schwert schärft Er.</b> Der Heilige, gelobt sei Er, schärft es gegen ihn (altfranzösisch „fourbir“, polieren) und spannt Seinen Bogen."
+  ]
  },
  "7:14": {
   "t": "dann richtet er tödliche Waffen gegen sich selbst und macht seine Pfeile scharf.",
-  "st": "Aber seine Pläne werden sowieso scheitern, und am Ende vernichtet er sich selbst. Am Ende bereitet er tödliche Waffen gegen sich selbst vor. Gerade die Waffen, mit denen die Bösen auf die Gerechten zielen, treffen und vernichten am Ende die Bösen selbst. Seine Pfeile werden gegen die Verfolger benutzt. Die Pfeile, die gegen die Gerechten gerichtet sind, treffen stattdessen ihre Verfolger."
+  "md": [
+   "<b>Für sich hat er bereitet.</b> Seine Strafe wird sein, dass er diese tödlichen Waffen gegen sich selbst bereitet hat: Die Pfeile, die er mit seinen Händen gemacht hat, macht er in Wahrheit gegen den Verfolger – also gegen sich selbst, denn er wird durch sie getötet."
+  ],
+  "rashi": [
+   "<b>Und für ihn.</b> Und für den Bösen hat der Heilige, gelobt sei Er, tödliche Waffen bereitet.",
+   "<b>Für die Verfolger (leDolkim).</b> Für die, die verfolgen, wie (Bereschit 31,36): „dass du mir nachgejagt bist (dalakta)“. Und so ist die Erklärung: Seine Pfeile, um die Bösen zu töten, die die Gerechten verfolgen, macht und bereitet der Heilige, gelobt sei Er, um sie zu töten. Jedes „Delika“ bedeutet Verfolgung."
+  ]
  },
  "7:15": {
   "t": "Sieh, er brütet Böses aus, ist schwanger mit Unheil und bringt Lüge zur Welt.",
-  "st": "Sieh, wie er Böses empfängt, mit Unheil schwanger ist und Betrug zur Welt bringt. Alles, was der Böse macht und plant, ist „awen“ – hier „Böses“, aber das Wort bedeutet auch „Nichts“ – und „amal“ – hier „Unheil“, aber es bedeutet auch, sich umsonst abzumühen. Am Ende kommt nur eine leere Lüge heraus."
+  "md": [
+   "<b>Er geht schwanger mit Unrecht.</b> Wie eine Frau: Das, wovon sie Wehen hat, hat sie selbst empfangen, und das bringt sie zur Welt. So auch diese Bösen: Ihre bösen Taten haben sie nicht zufällig getan, sondern von Anfang an geplant; und genau damit wird ihnen vergolten."
+  ],
+  "rashi": [
+   "<b>Er geht schwanger (jechabel).</b> Bedeutet „Schwangerschaft und Geburt“, wie (Schir HaSchirim 8,5): „dort ging deine Mutter mit dir schwanger (chibletcha)“.",
+   "<b>Und er empfängt Unheil und gebiert Lüge.</b> Alles, was er hervorbringt und worum er sich bemüht, betrügt ihn: Es bleibt nicht in seiner Hand. Ein Sprichwort sagt: Alles, was die Lüge hervorbringt, trägt Verlust davon."
+  ]
  },
  "7:16": {
   "t": "Er hat eine Grube gegraben und tief gemacht, und er fällt in die Falle, die er gemacht hat.",
-  "st": "Er, der Böse, hat ein tiefes Loch in die Erde gegraben, und er ist in die Grube gefallen, die er gemacht hat. Am Ende fällt der Böse in das Loch, das er für andere gegraben hat."
+  "md": [
+   "<b>Er hat eine Grube gegraben.</b> Damit erklärt er den Vers davor und sagt: Hier ist die Grube, die er gegraben hat und von Anfang an für einen anderen graben wollte – seine Strafe ist, dass er selbst hineinfällt."
+  ]
  },
  "7:17": {
   "t": "Sein Unheil fällt auf seinen eigenen Kopf zurück, und seine Gewalt kommt auf seinen Scheitel herab.",
-  "st": "Sein Unrecht kommt zu ihm zurück und bestraft ihn; seine Gewalt kommt auf seinen Kopf herab. Seine eigenen Sünden und bösen Taten bringen ihm Ärger, Leid und Strafe. Er leidet, auch wenn ihn niemand von außen bestraft. Eigentlich bestrafen ihn seine eigenen bösen Taten."
+  "md": [
+   "<b>Sein Unheil kehrt zurück.</b> Das Böse, das er einem anderen antun wollte, fällt auf seinen Kopf zurück.",
+   "<b>Und auf seinen Scheitel.</b> Der Gedanke wird mit anderen Worten wiederholt – um zu zeigen, dass es immer so ist."
+  ]
  },
  "7:18": {
   "t": "Ich will dem Ewigen danken für Seine Gerechtigkeit und dem Namen des Ewigen, des Höchsten, singen.",
-  "st": "Zum Schluss: Ich danke dem Ewigen für Seine Gerechtigkeit; ich singe dem Namen des Ewigen, des Höchsten."
+  "md": [
+   "<b>Für Seine Gerechtigkeit.</b> Wie es sich gehört, für die Gerechtigkeit Seines Gerichts zu danken.",
+   "<b>Und ich singe.</b> Ich lobe mit einem Lied den Namen des Ewigen und sage, dass Er noch höher und weit erhaben über alles Lob ist."
+  ],
+  "rashi": [
+   "<b>Ich danke dem Ewigen nach Seiner Gerechtigkeit.</b> Wenn Er das vollständige Gericht rechtfertigt – die Bösen nach ihrer Bosheit richtet."
+  ]
  },
  "8:1": {
-  "intro": [
-   {
-    "title": "Tehillim 8",
-    "text": "Ein Lied, das als Loblied für G-tt beginnt. Es ist aber auch ein nachdenkliches Gedicht darüber, welchen Platz der Mensch in der Welt hat."
-   }
-  ],
   "t": "Für den Chorleiter, auf der Gittit. Ein Lied von David.",
-  "st": "Für den Chorleiter, auf der Gittit – wahrscheinlich ein Musikinstrument, das nach der Stadt Gat benannt ist. Vielleicht wurde es dort erfunden oder oft gespielt. Ein Lied von David. Das Lied beginnt und endet mit einem Lob:"
+  "rashi": [
+   "<b>Gittit.</b> Ein Musikinstrument, das aus Gat kam: Dort gab es Handwerker, die sie bauen konnten. Unsere Weisen sagten: über Edom, das wie in einer Kelter (Gat) zertreten werden wird, wie es heißt: „die Kelter habe Ich allein getreten“ (Jeschajahu 63,3). Aber der Inhalt des Liedes bestätigt das nicht."
+  ]
  },
  "8:2": {
   "t": "Ewiger, unser Herr, wie herrlich ist Dein Name auf der ganzen Erde! Du hast Deine Pracht über den Himmel gelegt.",
-  "st": "Ewiger, unser Herr, wie mächtig ist Dein Name in der ganzen Welt! Du hast Deine Herrlichkeit in den Himmel gesetzt. Man kann den Vers so verstehen: G-ttes Name wird im Himmel gepriesen. Andere erklären: Es würde zu Dir passen, Deine Herrlichkeit nur dem Himmel zu geben."
+  "md": [
+   "<b>Wie mächtig ist Dein Name.</b> Wie stark bist Du auf der ganzen Erde: Du gibst auf alles acht und herrschst über alles.",
+   "<b>Der Du gesetzt hast.</b> Denn auch der Glanz Deiner Schechina ist oben im Himmel; schon ein Schwacher oben gilt als stark – erst recht ein Starker oben."
+  ],
+  "rashi": [
+   "<b>Wie mächtig ist Dein Name.</b> Mehr als die Kraft der unteren Welten fassen kann: Die Unteren waren es nicht wert, dass Du Deine Schechina unter ihnen wohnen lässt.",
+   "<b>Der Du Deine Pracht dem Himmel geben solltest.</b> Es wäre passend, dass Du sie dem Himmel gibst, aber Du hast in Deiner großen Demut „Stärke gegründet“ usw."
+  ]
  },
  "8:3": {
   "t": "Aus dem Mund von kleinen Kindern und Säuglingen hast Du Kraft gegründet, wegen Deiner Gegner, um den Feind und den Rachsüchtigen zum Schweigen zu bringen.",
-  "st": "Aus dem Mund von kleinen Kindern und Säuglingen hast Du Kraft gegründet. Ihre besonderen Gebete richten sich gegen Deine Gegner, um den Feind und den Rachsüchtigen aufzuhalten. Kinder singen diese Lieder ehrlich und aus ganzem Herzen. Darum sind sie eine gute Kraft im Kampf gegen G-ttes Feinde. Sie sind eine tiefe, einfache Kraft, die kein Gegner auslöschen kann. Sie schützen gegen die Wellen von Hass, die in jeder Generation wiederkommen."
+  "md": [
+   "<b>Aus dem Mund von Kindern und Säuglingen.</b> Aus dem Mund der Kinder: Im Leib der Mutter ist er geschlossen, und wenn sie geboren werden, öffnet sich ihr Mund, und sie trinken ständig an der Brust ihrer Mutter. Aus diesem Wunder hast Du ein festes Fundament gelegt, um Deine Kraft zu erkennen – denn die Natur verlangt das nicht.",
+   "<b>Wegen Deiner Feinde.</b> Um Deine Feinde zu widerlegen, die den Ewigen leugneten.",
+   "<b>Um zum Schweigen zu bringen.</b> Um die Worte des Feindes und dessen, der sich an denen rächt, die an den Ewigen glauben, zunichtezumachen."
+  ],
+  "rashi": [
+   "<b>Aus dem Mund von Kindern und Säuglingen hast Du Stärke gegründet.</b> Du hast Deine Schechina im Heiligtum wohnen lassen und festgelegt, dass Dir Lob und Stärke aus dem Mund der Lewiten und Kohanim kommt – von Menschen, die im Schmutz aufwachsen wie Kinder und Säuglinge. „Olelim“ (Kinder) kommt von „und ich habe mein Horn im Staub gewälzt (olalti)“ (Ijow 16,15); wegen des Schmutzes heißen alle kleinen Kinder „Olelim“.",
+   "<b>Wegen Deiner Feinde.</b> Um ihnen zu zeigen, dass wir Dein Volk sind.",
+   "<b>Um zum Schweigen zu bringen</b> die Schmähung des Feindes und Rächers, der sagt: „Ihr seid nicht besser als die anderen Völker.“ Und ich, wenn ich Deinen Himmel sehe usw., wundere mich in meinem Herzen: Was ist der Mensch, dass Du an ihn denkst?"
+  ]
  },
  "8:4": {
   "t": "Wenn ich Deinen Himmel ansehe, das Werk Deiner Finger, den Mond und die Sterne, die Du hingestellt hast,",
-  "st": "Wenn ich Deinen Himmel sehe, das Werk Deiner Finger, den Mond und die Sterne, die Du gemacht hast – dann bin ich begeistert, wie unendlich groß Du bist. Aber wenn ich Deine wunderbaren Geschöpfe sehe, kommen mir auch Zweifel und Fragen:"
+  "md": [
+   "<b>Wenn ich sehe.</b> Aus diesem Wunder sehe ich mit Weisheit, dass der Himmel das Werk Deiner Finger ist, und auch der Mond und die Sterne, die Du festgesetzt hast – sie alle sind das Werk Deiner Hände, und die Welt war nicht immer schon da."
+  ]
  },
  "8:5": {
   "t": "was ist der Mensch, dass Du an ihn denkst, und das Menschenkind, dass Du dich um ihn kümmerst?",
-  "st": "Was ist ein sterblicher Mensch, dass Du an ihn denkst, ein Menschenkind, dass Du ihn beachtest? Wenn man die Sonne, den Mond und die Sterne sieht und über riesige, ferne Welten nachdenkt, könnte man denken: Der Mensch ist ein unwichtiges, armseliges Geschöpf. Eigentlich verdient er gar nicht, dass G-tt dort oben auf ihn achtet. Und trotzdem – obwohl der Mensch so klein ist – hast Du, G-tt, beschlossen, ihm viele Gaben zu schenken."
+  "md": [
+   "<b>Was ist der Mensch.</b> Er zeigt weiter, dass der Ewige auf alles achtgibt, und sagt: Was ist der Mensch schon wert, dass vor dem Ewigen an ihn gedacht wird?"
+  ]
  },
  "8:6": {
   "t": "Du hast ihn nur wenig geringer gemacht als g-ttliche Wesen und ihn mit Ehre und Pracht gekrönt.",
-  "st": "Denn Du hast ihn nur wenig geringer gemacht als g-ttliche Wesen. Du hast ihn erschaffen „im Ebenbild G-ttes“. <small class=\"fn\">Bereschit 1,27.</small> Darum wohnt G-ttes Geist im Menschen. Andere erklären: „G-ttliche Wesen“ sind in diesem Vers G-ttes Engel. Du hast dem Menschen besondere Kräfte gegeben. Er ist nur ein wenig niedriger als die Engel, und Du hast ihn mit Ehre und Herrlichkeit gekrönt."
+  "md": [
+   "<b>Und Du hast ihn nur wenig geringer gemacht.</b> Trotz allem hast Du ihn in Deiner Obhut nur wenig geringer gemacht als die Engel an Weisheit und Wissen und ihn mit Ehre und Pracht gekrönt, denn durch die Sprache steht er über allem Lebendigen."
+  ],
+  "rashi": [
+   "<b>Und Du hast ihn nur wenig geringer gemacht als die Engel (Elokim) usw.</b> „Elokim“ bedeutet hier Engel: Denn Du hast Jehoschua die Kraft gegeben, die Sonne anzuhalten und den Jarden auszutrocknen, Mosche, das Wasser des Jam Suf zu spalten und in die Höhe hinaufzusteigen, und Elijahu, einen Toten lebendig zu machen."
+  ]
  },
  "8:7": {
   "t": "Du hast ihn zum Herrscher über das Werk Deiner Hände gemacht, alles hast Du unter seine Füße gelegt:",
-  "st": "Du hast den Menschen nicht nur über alle anderen Geschöpfe gestellt, wie es im Buch Bereschit steht. Du hast ihn auch zum Herrscher über das Werk Deiner Hände gemacht. Du hast ihm das Recht und die Kraft gegeben, über Deine Geschöpfe zu herrschen. Alles hast Du unter seine Füße gelegt. Du hast ihm die Aufgabe gegeben, über alles zu herrschen, was es gibt:"
+  "md": [
+   "<b>Du lässt ihn herrschen.</b> Du hast ihn über alle Geschöpfe herrschen lassen.",
+   "<b>Unter seine Füße.</b> Das heißt: Sie gehorchen ihm."
+  ]
  },
  "8:8": {
   "t": "Schafe und Rinder, sie alle, und auch die wilden Tiere des Feldes,",
-  "st": "alle Schafe und Rinder. Die Haustiere sind dem Menschen gegeben, und er herrscht auch über alle wilden Tiere des Feldes,"
+  "rashi": [
+   "<b>Schafe und Rinder (Zone waAlafim).</b> Kleinvieh und Großvieh, wie (Dewarim 7,13): „den Wurf deiner Rinder (Alafecha)“. „Zone“ bedeutet „Werk“, wie (Bamidbar 32,24): „und Pferche für euer Vieh (leZonachem)“, altfranzösisch „ouvrés“. Es gibt Midraschim der Agada, aber sie passen nicht zu den Versen."
+  ]
  },
  "8:9": {
   "t": "die Vögel des Himmels und die Fische des Meeres, alles, was durch die Pfade der Meere zieht.",
-  "st": "und über die Vögel des Himmels und die Fische des Meeres, alles, was durch die tiefen Wasser des Meeres zieht. Der Mensch soll G-tt danken, dass Er ihm Macht über alle Geschöpfe an Land, im Meer und am Himmel gegeben hat. Diese große Macht soll ihn bescheiden machen. Man kann fragen: Verdient der Mensch sie wirklich? Diese Frage kann etwas lehren: Der Mensch herrscht zwar, aber seine Macht kommt von G-tt, der sie ihm in Seiner Güte gegeben hat. Wenn der Mensch daran denkt, wie klein er ist und wie groß die Macht in seinen Händen, soll er erkennen: Alles ist ein Geschenk von G-tt. Darum soll er noch einmal sagen, wie am Anfang des Liedes:"
+  "md": [
+   "<b>Die Vögel des Himmels.</b> Sie fliegen hoch oben in der Luft, und trotzdem herrscht der Mensch über sie und fängt sie mit seiner Weisheit.",
+   "<b>Was die Pfade der Meere durchzieht.</b> Das heißt: Der Mensch baut mit seiner Weisheit Schiffe, fährt mit ihnen über die Pfade der Meere und kann sogar die Fische des Meeres fangen."
+  ]
  },
  "8:10": {
   "t": "Ewiger, unser Herr, wie herrlich ist Dein Name auf der ganzen Erde!",
-  "st": "Ewiger, unser Herr, wie mächtig ist Dein Name in der ganzen Welt!"
+  "md": [
+   "<b>Wie mächtig.</b> An all dem sieht man, wie mächtig Dein Name auf der ganzen Erde ist: Du gibst auf alles acht und herrschst über alles."
+  ]
  },
  "9:1": {
-  "intro": [
-   {
-    "title": "Tehillim 9",
-    "text": "Ein Danklied von einem Menschen, der vor seinen Feinden gerettet wurde und siegen durfte. Der Dichter betet, dass G-tt ihm weiter beisteht gegen andere, die gegen ihn kämpfen."
-   }
-  ],
   "t": "Für den Chorleiter, auf Almut Laben. Ein Lied von David.",
-  "st": "Für den Chorleiter, über den Tod von Laben, ein Lied von David. Das Lied ist meistens in der Ich-Form geschrieben. Man soll es lernen und anderen beibringen. Damit man es leichter auswendig lernt, beginnen die Verse auf Hebräisch – wie viele andere Texte – nach der Reihenfolge des Alef-Bet. Aber das Alef-Bet ist nicht vollständig, und zwischen manchen Buchstaben stehen Verse, die nicht zur Reihe gehören."
+  "rashi": [
+   "<b>Al Mut laBen.</b> Manche erklären „al Mut laBen“ – über den Tod seines Sohnes Awschalom. Aber diese Erklärung ist nicht möglich, denn es heißt „laBen“ und nicht „haBen“, und im Lied gibt es weder Zeugnis noch Erwähnung, die diese Erklärung stützen. Manche erklären „al Mut Lawan“ – über den Tod Nawals, aber auch das ist nicht möglich – die Buchstaben eines Namens umzustellen –, und im Lied wird er nicht erwähnt. Ich habe in der Großen Massora gesehen, dass es ein einziges Wort ist, denn sie stellt es zu (unten 48,15) „und Er wird uns führen (al Mut)“. Menachem und Dunasch erklärten es auf ihre Weise, aber das erscheint mir nicht richtig. Ich habe in der Pessikta gesehen, dass es um Amalek geht: „Du hast den Völkern gedroht … ihren Namen hast Du ausgelöscht.“ Und ich sage: „Für den Leiter – al Mut laBen“ – dieses Lied ist für die Zukunft, wenn die Jugend und das Schwarze Israels weiß werden (jitlaben), ihre Gerechtigkeit offenbar wird und ihre Rettung nahekommt, wenn Amalek und seine Nachkommen ausgelöscht werden. „Almut“ ist Jugend, „laBen“ wie „lelaben“, weiß machen. Menachem erklärte „Alamot laBen“ als Melodien zum Lehren, und so ist seine Erklärung: „Für den Leiter al Mut laBen“ – für den Sänger, Melodien zum Lehren; „laBen“ wie „verstehen“ und „begreifen“; „Alamot“ nach dem Namen eines Musikinstruments „Alamot“, wie es heißt (unten 46,1): „auf Alamot, ein Lied“. Dunasch erklärte, dass Lawan der Name eines Mannes ist, der Lawan hieß und in jenen Tagen gegen David kämpfte; und was es heißt: „Du hast den Völkern gedroht, Du hast den Bösen vernichtet“ – dieser Böse ist Lawan, der Unschuldige tötete. Und auch wenn man sonst nirgends einen Mann namens Lawan findet als an dieser Stelle, findet man das auch bei anderen Namen, die nur einmal in der Schrift stehen."
+  ]
  },
  "9:2": {
   "t": "Ich will Dir danken, Ewiger, von ganzem Herzen; ich will von allen Deinen Wundern erzählen.",
-  "st": "Ich will Dir danken, Ewiger, von ganzem Herzen. Ich will von allen Deinen Wundern erzählen."
+  "rashi": [
+   "<b>Alle Deine Wunder.</b> Die letzte Erlösung, die so viel wiegt wie alle Wunder, wie es heißt (Jirmejahu 16,14): „und man wird nicht mehr sagen: So wahr der Ewige lebt, der heraufgeführt hat“ usw."
+  ]
  },
  "9:3": {
   "t": "Ich will mich freuen und jubeln über Dich, ich will Deinem Namen singen, Du Höchster.",
-  "st": "Ich will mich freuen und fröhlich sein über Dich. Ich will Deinem Namen singen, Du Höchster."
+  "md": [
+   "<b>Ich singe Deinem Namen, Höchster.</b> Ich lobe Ihn und sage, dass Sein Name noch höher und erhaben über alles Lob ist."
+  ]
  },
  "9:4": {
   "t": "Wenn meine Feinde zurückweichen, stolpern sie und gehen vor Dir zugrunde.",
-  "st": "Wenn meine Feinde zurückweichen, stolpern sie und gehen vor Dir zugrunde."
+  "md": [
+   "<b>Wenn zurückweichen.</b> Wenn meine Feinde mich nicht besiegen können und zurückweichen, stolpern und umkommen – dann freue ich mich und juble: doppelte Freude für doppeltes Gutes."
+  ]
  },
  "9:5": {
   "t": "Denn Du hast mein Recht und meine Sache geführt, Du sitzt auf dem Thron als gerechter Richter.",
-  "st": "Das wird geschehen, denn Du hast mein Recht und mein Urteil gesprochen. Als die Zeit kam, dass Du mich richtest, wusste ich: Du wirst meine Feinde schuldig sprechen. Du hast Dich auf Deinen Thron des Rechts gesetzt, Richter der Gerechtigkeit."
+  "md": [
+   "<b>Denn Du hast geschaffen.</b> Du hast doch schon oft mein Recht geschaffen und Dich auf den Thron gesetzt, um meine Feinde zu richten."
+  ],
+  "rashi": [
+   "<b>Mein Recht und mein Urteil.</b> Doppelte Wörter in der Schrift, zwischen denen es keinen Unterschied gibt, wie „mein Zeuge und mein Bürge in der Höhe“ (Ijow 16,19), „seine Knochen sind Röhren aus Kupfer, seine Gebeine wie ein Stab aus Eisen“ (dort 40,18).",
+   "<b>Mein Recht und mein Urteil.</b> Im Himmel.",
+   "<b>Du hast Dich auf den Thron gesetzt.</b> Den Thron des Gerichts."
+  ]
  },
  "9:6": {
   "t": "Du hast die Völker gescholten, den Bösen vernichtet, ihren Namen für immer und ewig ausgelöscht.",
-  "st": "Du hast die Völker gescholten. G-ttes Tadel zeigt sich in der Welt der Menschen, und darum werden diese bösen Völker geschlagen. Du hast die Bösen so sehr vernichtet, dass Du ihren Namen für immer und ewig ausgelöscht hast."
+  "md": [
+   "<b>Du hast gedroht.</b> Für mich hast Du den Völkern gedroht usw. und ihren Namen ausgelöscht, damit niemand mehr an sie denkt."
+  ],
+  "rashi": [
+   "<b>Du hast den Völkern gedroht.</b> Amalek, „dem ersten der Völker“ (Bamidbar 24,20).",
+   "<b>Du hast den Bösen vernichtet.</b> Seine Vorfahren.",
+   "<b>Ihren Namen hast Du ausgelöscht.</b> „Denn auslöschen, auslöschen werde Ich“ (Schemot 17,14)."
+  ]
  },
  "9:7": {
   "t": "Der Feind ist vernichtet, für immer in Trümmern; ihre Städte hast Du zerstört, die Erinnerung an sie ist verloren.",
-  "st": "Den Feind gibt es nicht mehr, und von seinem Land sind nur ewige Trümmer übrig. Ihre Städte hast Du zerstört. Das Wort „natashta“ übersetzen wir hier mit „Du hast zerstört“. Es ist ähnlich wie das Wort „natazta“, „Du hast zertrümmert“. Die Erinnerung an sie ist verloren. Die Städte wurden nicht nur erobert – auch die Erinnerung an sie ist ausgelöscht."
+  "md": [
+   "<b>Der Feind.</b> Du, Feind, wisse, dass die Trümmer für immer zu Ende sind: Das heißt, die zerstörten Orte bei dir bleiben für immer so und werden nicht wie früher; und auch die Städte, die wegen deiner Sünde zerstört wurden – die Erinnerung an sie geht verloren. Der Gedanke wird mit anderen Worten wiederholt."
+  ],
+  "rashi": [
+   "<b>Der Feind – zu Ende.</b> Denn die Schwerter (Charwot) der Feindschaft sind für immer über ihm wie ein scharfes Schwert. Eine andere Erklärung: „Charwot laNezach“ – der Feind, dessen Schwerter der Feindschaft für immer über uns waren – das ist Amalek, über den es heißt: „und seinen Grimm bewahrt er für immer“ (Amos 1,11). „Charwot“ bedeutet „Zerstörung“, und so ist die Erklärung: „Der Feind ist zu Ende – Trümmer für immer.“ Und so heißt es (Jecheskel 35,9): „Zu ewigen Trümmern mache Ich dich, und deine Städte werden nicht bewohnt sein.“",
+   "<b>Und Städte hast Du zerstört.</b> Denn wenn Edom sagt: „Wir sind zerschlagen“ usw., „aber wir bauen die Trümmer wieder auf“ – so spricht der Ewige Zewa-ot: „Sie werden bauen, und Ich werde zerstören“ (Malachi 1,4).",
+   "<b>Ihr Andenken ist verloren.</b> In jener Stunde."
+  ]
  },
  "9:8": {
   "t": "Aber der Ewige thront für immer; Er hat Seinen Thron zum Gericht aufgestellt,",
-  "st": "Aber ganz anders als die Feinde, von deren Ende hier erzählt wird, bleibt der Ewige für immer. Er hat Seinen Thron zum Gericht bereitgestellt,"
+  "md": [
+   "<b>Der Ewige aber thront für immer.</b> Denn der Ewige lebt für immer, und genauso Seine Herrschaft; wer könnte also wieder aufbauen, was Er zerstört hat?"
+  ],
+  "rashi": [
+   "<b>Der Ewige aber thront für immer usw.</b> Ein vollständiger Name und ein vollständiger Thron, wie es heißt: „Seinen Thron (Kis’o)“. Aber bevor Amalek ausgelöscht ist, steht geschrieben (Schemot 17,16): „denn die Hand ist auf dem Thron (Kes) von J-a“ – der Thron ist unvollständig und der Name geteilt."
+  ]
  },
  "9:9": {
   "t": "und Er richtet die Welt mit Gerechtigkeit und spricht den Völkern ein gerechtes Urteil.",
-  "st": "und Er wird die Welt mit Gerechtigkeit richten. Er wird den Völkern ein gerechtes Urteil sprechen."
+  "md": [
+   "<b>Und Er richtet.</b> Für immer richtet Er sie mit Recht, Geradheit und Gerechtigkeit, wie sie es verdienen."
+  ],
+  "rashi": [
+   "<b>Und Er richtet die Welt in Gerechtigkeit, die Nationen in Geradheit.</b> Bis das Ende kommt, richtet Er sie gewöhnlich mit Erbarmen – nach den geraden Geboten, die ihnen gegeben sind –, Er richtet sie nachts, wenn sie schlafen und frei von Sünden sind."
+  ]
  },
  "9:10": {
   "t": "Der Ewige ist eine Burg für den Unterdrückten, eine Burg in Zeiten der Not.",
-  "st": "Der Ewige ist eine Festung für den Unterdrückten, eine Festung in Zeiten der Not."
+  "md": [
+   "<b>Eine Zuflucht für den Bedrückten.</b> Für die, deren Herz gebrochen ist, ist Er eine Zuflucht. Und wann ist Er eine Zuflucht? Wenn eine Zeit der Not in der Welt ist."
+  ],
+  "rashi": [
+   "<b>Und der Ewige wird eine Zuflucht sein für den Bedrückten (Dach).</b> Von „Daka“, zerschlagen, altfranzösisch „amenuisié“. In der Zukunft, wenn Er Seinen Thron zum Gericht aufstellt, wird Er eine Zuflucht für Israel sein, das bedrückt ist.",
+   "<b>Für Zeiten der Not.</b> Zeiten der Bedrängnis."
+  ]
  },
  "9:11": {
   "t": "Die Deinen Namen kennen, vertrauen auf Dich, denn Du verlässt nicht, die Dich suchen, Ewiger.",
-  "st": "Und die Deinen Namen kennen – die an Dich glauben und Dich erkennen und Dir darum nah sind –, vertrauen auf Dich, denn Du, Ewiger, verlässt nicht, die Dich suchen."
+  "md": [
+   "<b>Denn Du hast nicht verlassen.</b> Denn sie sehen, dass Du die, die Dich suchen, nicht verlassen hast."
+  ]
  },
  "9:12": {
   "t": "Singt dem Ewigen, der in Zion wohnt; erzählt unter den Völkern von Seinen Taten.",
-  "st": "Singt dem Ewigen ein Danklied, Ihm, der in Zion wohnt; macht Seine Taten unter den Völkern bekannt. Erzählt allen Völkern, wie Er euch aus der Gefahr und vor den Angriffen eurer Feinde gerettet hat."
+  "md": [
+   "<b>Der in Zion thront.</b> Der Seine Schechina in Zion wohnen lässt."
+  ],
+  "rashi": [
+   "<b>Singt dem Ewigen, der in Zion thront.</b> Wenn Er Seinen Wohnsitz nach Zion zurückbringt, wird man Ihm so singen."
+  ]
  },
  "9:13": {
   "t": "Denn Er, der das vergossene Blut sucht, denkt an sie; Er vergisst nicht den Schrei der Armen.",
-  "st": "Denn Er rächt das Blut. Das Wort „doresch“, hier „Er rächt“, bedeutet wörtlich „Er sucht“. G-tt untersucht sozusagen, wenn Blut vergossen wird, und Er denkt an sie, an die Gerechten, die ohne Grund getötet wurden. Er vergisst nicht den Schrei der Demütigen – der Menschen, die gerecht und bescheiden gelebt haben."
+  "md": [
+   "<b>Denn der das Blut sucht.</b> Denn Er will vom vergossenen Blut wissen, und sie sind vor Ihm nicht vergessen, auch wenn Er sich mit der Strafe nicht beeilt."
+  ],
+  "rashi": [
+   "<b>An sie hat Er gedacht.</b> An das Blut, das in Israel vergossen wurde."
+  ]
  },
  "9:14": {
   "t": "Sei mir gnädig, Ewiger! Sieh mein Elend, das mir meine Hasser antun – Du, der mich aus den Toren des Todes heraufholt,",
-  "st": "Sei mir gnädig, Ewiger; sieh meine Not, die mir meine Feinde antun. Du holst mich herauf aus den Toren des Todes,"
+  "md": [
+   "<b>Der mich erhebt.</b> Du erhebst mich doch seit jeher von den Toren des Todes."
+  ],
+  "rashi": [
+   "<b>Sei mir gnädig, Ewiger.</b> Jetzt, im Exil.",
+   "<b>Der mich erhebt.</b> Durch Deine Erlösung."
+  ]
  },
  "9:15": {
-  "t": "damit ich in den Toren der Tochter Zion all Dein Lob erzähle und mich über Deine Rettung freue.",
-  "st": "damit ich Dein Lob erzähle, wenn ich Deine Rettung erlebe, in den Toren der Tochter Zion. Die Tore einer Stadt waren öffentliche Orte, wie ein großer Platz in der Mitte der Stadt. Ich freue mich über Deine Rettung und erzähle anderen davon."
+  "t": "damit ich in den Toren der Tochter Zion all Dein Lob erzähle und mich über Deine Rettung freue."
  },
  "9:16": {
   "t": "Die Völker sind in die Grube gesunken, die sie gemacht haben; ihr eigener Fuß hat sich im Netz gefangen, das sie versteckt haben.",
-  "st": "Ganz anders als ich, der sich freut: Die Völker sind in die Grube gesunken, die sie gemacht haben; ihre Füße haben sich in den Netzen gefangen, die sie versteckt haben. Die bösen Völker fallen genau in die Gruben, die sie gegraben haben. Ihre Füße verfangen sich in den Fallen, die sie anderen gestellt haben."
+  "md": [
+   "<b>In die Grube.</b> In die Grube, die sie gemacht haben."
+  ],
+  "rashi": [
+   "<b>Die Völker sind versunken.</b> Das ist das Lob, das ich erzählen will."
+  ]
  },
  "9:17": {
   "t": "Der Ewige hat sich gezeigt, Er hat Gericht gehalten; der Böse ist im Werk seiner eigenen Hände gefangen. Higgajon. Sela.",
-  "st": "Man erkennt den Ewigen an den Urteilen, die Er in der ganzen Welt spricht. Der Böse ist im Werk seiner eigenen Hände gefangen. Denk darüber nach. Sela. Das Wort „higgajon“, hier „denk darüber nach“, kann bedeuten: Über diese Sache soll man nachdenken; denk darüber nach und sprich mit anderen darüber."
+  "md": [
+   "<b>Der Ewige hat Sich bekannt gemacht.</b> Wenn Er Gericht hält, dann wird Er bekannt und berühmt bei allen.",
+   "<b>Der Böse verfängt sich.</b> Wenn der Böse in die Falle fällt, die er selbst gemacht hat, dann denkt man für immer im Herzen daran, wie bekannt der Allgegenwärtige geworden ist."
+  ],
+  "rashi": [
+   "<b>Der Ewige hat Sich bekannt gemacht.</b> Das alles gehört zum Lob: Der Ewige ist den Geschöpfen bekannt, dass Er Herrscher und Gebieter ist und an Seinen Feinden Rache nimmt, denn Er hat an ihnen Gericht gehalten, altfranzösisch „justice“.",
+   "<b>Der Böse verfängt sich.</b> Der Böse stolpert.",
+   "<b>Higajon.</b> Lasst uns darüber nachdenken, Sela."
+  ]
  },
  "9:18": {
   "t": "Die Bösen sollen in den Scheol zurückkehren, alle Völker, die G-tt vergessen!",
-  "st": "Die Bösen werden in die Unterwelt zurückkehren, oder: in ihre Richtung gehen. Man kann auch sagen: In gewissem Sinn kommen die Bösen aus der Unterwelt, und sie müssen dorthin zurück, woher sie kommen. Dasselbe gilt für alle Völker, die nicht an G-tt denken."
+  "md": [
+   "<b>Sie kehren zurück.</b> Weil der Scheol für sie bereitsteht, heißt es „sie kehren zurück“ – wie ein Mensch, der in sein Haus zurückkehrt, das für ihn zum Wohnen bereitsteht."
+  ],
+  "rashi": [
+   "<b>In den Scheol (lischola).</b> Rabbi Nechemja sagte: Jedem Wort, das am Anfang ein Lamed braucht, hat die Schrift am Ende ein He gegeben, wie (Bereschit 12,10) „nach Ägypten (Mizrajma)“, „in die Wüste (Midbara)“. Man wandte ein: Aber es steht doch „lischola“ – „die Bösen kehren in den Scheol zurück“, mit Lamed auch am Anfang? Rabbi Aba bar Sawdi sagte: in die unterste Stufe des Scheol. Und was bedeutet „sie kehren zurück“? Nachdem sie aus dem Gehinom herauskommen, vor Gericht stehen und verurteilt werden, kehren sie in die unterste Stufe des Gehinom zurück."
+  ]
  },
  "9:19": {
   "t": "Denn der Arme wird nicht für immer vergessen, und die Hoffnung der Elenden geht nicht für immer verloren.",
-  "st": "Denn der Arme wird nicht für immer vergessen, und die Hoffnung der Elenden geht nicht für immer verloren. Auch wenn es so aussieht, als ob die Armen verlassen sind, ist die Hoffnung nicht verloren. Am Ende wendet sich G-tt ihnen zu."
+  "md": [
+   "<b>Denn nicht für immer.</b> Und damit vergilt Er denen, die ihn bedrängen.",
+   "<b>Geht für immer verloren.</b> Das Wort „nicht“ gilt für beide Teile, als ob es heißt: „geht nicht für immer verloren“."
+  ],
+  "rashi": [
+   "<b>Denn nicht für immer wird vergessen.</b> Israel, der Arme – Er wird nicht vergessen, sie zur Rechenschaft zu ziehen für das, womit man sie versklavt hat; „und die Hoffnung der Armen geht nicht für immer verloren“."
+  ]
  },
  "9:20": {
   "t": "Steh auf, Ewiger! Lass den Menschen nicht stark werden; die Völker sollen vor Deinem Angesicht gerichtet werden.",
-  "st": "Steh auf, Ewiger. Werde aktiv und zeig Dich durch Gerechtigkeit. Der Mensch soll nicht hochmütig sein. Wenn G-tt sich in der Welt zeigt, werden die Bösen nicht siegen; dann wagt es niemand mehr, frech zu sein. Die Völker sollen vor Deinen Augen gerichtet werden."
+  "md": [
+   "<b>Der Mensch soll nicht stark werden.</b> Deine Feinde sollen nicht stark werden.",
+   "<b>Vor Dir.</b> Das heißt: zur Zeit Deines Zorns."
+  ],
+  "rashi": [
+   "<b>Steh auf, Ewiger.</b> David betete vor dem Heiligen, gelobt sei Er, dass Er aufsteht und sich beeilt, das zu tun.",
+   "<b>Der Mensch soll nicht stark werden.</b> Amalek – auf lange Zeit in seiner Größe.",
+   "<b>Vor Dir.</b> Wegen des Zorns, mit dem sie Dich in Deinem Heiligtum erzürnt haben."
+  ]
  },
  "9:21": {
   "t": "Leg Furcht auf sie, Ewiger! Die Völker sollen erkennen, dass sie nur Menschen sind. Sela.",
-  "st": "Leg Furcht auf sie, Ewiger. Mit dieser Schreibweise, mit He, bedeutet „mora“ „Befehl“. Manche verstehen das Wort aber wie „mora“ mit Alef, das „Furcht“ bedeutet. Der Vers kann also bedeuten: Gib einen Befehl gegen sie, oder: Lass sie Furcht spüren. So oder so – damit die Völker wissen, dass sie nur sterbliche Menschen sind. Sela. Die Völker müssen erkennen, dass sie bei Weitem nicht unbesiegbar sind. Sie sind Menschen, „enosch“, „sterblich“, und ihre Macht und auch ihr Leben werden sicher zu Ende gehen. Dieses Wort ist hier wichtig, denn es erinnert an das ähnlich geschriebene Wort „anusch“ – jemand, der schwer krank ist."
+  "md": [
+   "<b>Lege.</b> Erniedrige sie, damit sie wissen, dass sie für immer sterbliche Menschen bleiben und nicht allmächtig sind."
+  ],
+  "rashi": [
+   "<b>Furcht (Mora).</b> Herrschaft und Joch. Eine andere Erklärung: „Mora“ bedeutet „Werfen“, von „Er warf (jara) ins Meer“ (Schemot 15,4). Manche sagen: „Mora“ bedeutet „Rasiermesser“.",
+   "<b>Die Völker sollen wissen.</b> Dass sie Menschen sind und keine höheren Mächte, deren Kraft herrschen könnte."
+  ]
  },
  "10:1": {
-  "intro": [
-   {
-    "title": "Tehillim 10",
-    "text": "Ein Gebet, das sich gegen die Herrschaft der Bösen auflehnt."
-   }
-  ],
   "t": "Warum, Ewiger, stehst Du so fern und verbirgst Dich in Zeiten der Not?",
-  "st": "Warum stehst Du fern, Ewiger, als ob Du nicht hier bei uns wärst? Warum verbirgst Du Dich in Zeiten der Not?"
+  "md": [
+   "<b>Stehst Du fern.</b> Als ob Du weit weg stehst und Dich in der Zeit der Not verbirgst."
+  ],
+  "rashi": [
+   "<b>Du verbirgst Dich in Zeiten der Not.</b> Du schließt die Augen in Zeiten der Not."
+  ]
  },
  "10:2": {
   "t": "In seinem Hochmut jagt der Böse den Armen – sie sollen sich in den Plänen fangen, die sie ausgedacht haben!",
-  "st": "Die Bösen jagen in ihrem Stolz eifrig die Armen, und die Armen werden in den Plänen gefangen, die jene ausgedacht haben."
+  "md": [
+   "<b>In seinem Hochmut.</b> Wegen seines großen Hochmuts verfolgt er den Armen und fängt ihn mit dem Plan, den er sich ausgedacht hat, um ihn zu fangen."
+  ],
+  "rashi": [
+   "<b>Er verfolgt (jidlak).</b> Er jagt, wie „dass du mir nachgejagt bist (dalakta)“.",
+   "<b>Sie werden gefangen in den Plänen, die sie erdacht haben.</b> Die Armen werden gefangen in den Plänen, die die Bösen gegen sie erdenken."
+  ]
  },
  "10:3": {
   "t": "Der Böse prahlt mit den Wünschen seines Herzens, und der Gierige lästert und verachtet den Ewigen.",
-  "st": "Denn der Böse singt Lob über den Wunsch seines Herzens. Wenn ein böser Mensch aus irgendeinem Grund G-tt lobt, dann nur, weil er bekommen hat, was er wollte. Und der Böse [boze’a] segnet und lästert den Ewigen. Wenn dieser böse Mensch G-tt segnet, ist sein Segen so unehrlich, dass er eigentlich eine Beleidigung für G-tt ist. Man kann „boze’a“ auch übersetzen mit „einer, der Brot bricht“. Dann bedeutet der Satz: Ein unehrlicher Mensch stiehlt einem anderen Brot und setzt sich hin, um es zu essen. Wenn er dann einen Segen über das Brot sagt, ist das eine Sünde gegen das Heilige."
+  "md": [
+   "<b>Denn der Böse rühmt sich.</b> Weil der Böse sich lobt und rühmt, dass er bekommen hat, was er wollte, und der Räuber, wenn er Abscheuliches tut, sich in seinem Herzen segnet und sagt: „Ich werde Frieden haben“ – denn man hat ihm nichts getan. Darum wird das Herz der Menschen voll von dem Wunsch, Böses zu tun."
+  ],
+  "rashi": [
+   "<b>Denn der Böse rühmt sich.</b> Das bezieht sich auf „warum, Ewiger, stehst Du fern“: Denn jetzt rühmt sich der böse Amalek, dass er jeden Wunsch seiner Seele bekommt.",
+   "<b>Und der Räuber segnet – er verachtet den Ewigen.</b> Und der Räuber lobt sich selbst und sagt: „Ich habe den Ewigen verachtet, und ich werde Frieden haben.“",
+   "<b>Segnet (berech).</b> Wie „berach“ – ein Tätigkeitswort. Und wisse: Wäre es ein Hauptwort, läge die Betonung weiter oben, auf dem ersten Buchstaben, und er hätte das Vokalzeichen „Patach“; hier aber steht ein „Kamaz katan“, und die Betonung liegt weiter unten, auf dem Resch. Und wundere dich nicht, dass es „berech“ heißt und nicht „berach“: Viele Wörter mit Resch werden so gebraucht, wie „der Feind hat den Ewigen geschmäht (cheref)“ (unten 74,18), und es heißt nicht „cherap“.",
+   "<b>Er verachtet (ni’ez).</b> Wie „geschmäht“. Und so jedes Wort „Ni’uz“ – so erklärte es Menachem."
+  ]
  },
  "10:4": {
   "t": "Der Böse in seinem Hochmut denkt bei allen seinen Plänen: „Er fragt nicht nach; G-tt kümmert es nicht.“",
-  "st": "Der Böse mit seinem stolzen Gesicht – oder: in seinem großen Zorn – fragt nicht nach G-tt. Je größer sein Stolz oder sein Zorn, desto weniger sucht und findet er G-tt. G-tt ist nicht in seinen Gedanken. Wenn ein böser Mensch Böses plant, denkt er nicht an G-tt."
+  "md": [
+   "<b>In seinem Hochmut.</b> Wenn sein Zorn gegen jemanden hoch aufsteigt, denkt er, dass niemand nach seinen Taten fragt, und alle seine Gedanken sind, dass es keinen G-tt in der Welt gibt, der ihm seine Taten vergilt."
+  ],
+  "rashi": [
+   "<b>Der Böse in der Höhe seines Zorns (Appo).</b> Er ist hochmütig, hebt und reckt sein Gesicht und seine Nase (Af) in seinem Hochmut.",
+   "<b>Er wird nicht nachforschen.</b> Alle seine Pläne sagen ihm: „Der Heilige, gelobt sei Er, wird nicht nach allem forschen, was ich tue, denn es gibt kein Gericht.“",
+   "<b>Es gibt keinen G-tt.</b> Es gibt kein Gericht und keinen Richter."
+  ]
  },
  "10:5": {
   "t": "Seine Wege gelingen immer; Deine Urteile sind hoch über ihm, weit weg von ihm; über alle seine Feinde schnaubt er.",
-  "st": "Seine Wege gelingen immer; Deine Urteile sind in der Höhe, weit weg von seinen Augen. Vor allem den Bösen selbst scheint es so: Deine Urteile „in der Höhe“ können ihnen nichts anhaben, denn sie haben immer Erfolg, egal was sie tun. Und seine Feinde – er bläst sie weg. Ganz leicht, wie mit einem Hauch, blasen die Bösen ihre Gegner weg."
+  "md": [
+   "<b>Gelingen.</b> Weil ihm seine Wege immer gelingen und Dein Gericht fern von ihm ist und er mit einem kleinen Hauch seine Feinde vernichtet."
+  ],
+  "rashi": [
+   "<b>Gelingen (jachilu).</b> Sie haben Erfolg. Ähnlich (Ijow 20,21): „darum wird sein Gutes nicht gelingen (jachil)“. Manche erklären „jachilu“ wie (Schmuel II 3,29): „es falle (jachulu) auf den Kopf Joaws“.",
+   "<b>Hoch sind Deine Gerichte – fern von ihm.</b> Weggeschafft und fern von ihm sind Deine Gerichte – Leiden und Strafen: Sie kommen nicht über ihn.",
+   "<b>Alle seine Feinde – er bläst sie an.</b> Mit einem Hauch bläst er sie an, und sie fallen vor ihm."
+  ]
  },
  "10:6": {
   "t": "Er sagt in seinem Herzen: „Ich wanke nicht; nie, von Generation zu Generation, gerate ich ins Unglück.“",
-  "st": "Er sagte in seinem Herzen: Ich stolpere nicht. In seinem Herzen glaubt der Böse, dass er sicher ist. Er sagt: Ich bleibe, ich stehe fest; nichts kann mich stürzen. Von Generation zu Generation werde ich nie in Not sein. Er glaubt, er kann weiter leben und tun, was er will, und nie wird ihm etwas Schlimmes passieren."
+  "md": [
+   "<b>Er sagt in seinem Herzen.</b> Darum denkt er, dass er niemals wanken und zu Boden geworfen wird.",
+   "<b>Von Geschlecht zu Geschlecht.</b> Auch nach vielen Generationen wird er Erfolg haben und kein Unglück sehen."
+  ],
+  "rashi": [
+   "<b>Von Geschlecht zu Geschlecht – nicht im Unglück.</b> Kein Unglück wird über mich kommen in allen meinen Generationen."
+  ]
  },
  "10:7": {
   "t": "Sein Mund ist voller Flüche, Betrug und List; unter seiner Zunge sind Unheil und Bosheit.",
-  "st": "Sein Mund ist voller Flüche, Betrug und List; unter seiner Zunge sind Unheil und Bosheit."
+  "md": [
+   "<b>Mit Schwüren.</b> Er füllt seinen Mund mit falschen Schwüren und Betrug.",
+   "<b>Unter seiner Zunge.</b> Der Gedanke wird mit anderen Worten wiederholt."
+  ],
+  "rashi": [
+   "<b>Und Verderben (Toch).</b> Bedeutet „ein böser Gedanke“, der immer in seinem Inneren (Toch) wohnt."
+  ]
  },
  "10:8": {
   "t": "Er lauert in den Höfen, im Versteck tötet er den Unschuldigen; seine Augen spähen nach dem Schwachen.",
-  "st": "So handelt der Böse: Er lauert in den Höfen; an versteckten Orten tötet er den Unschuldigen. Seine Augen sind auf den Schwachen gerichtet. An Orten, wo niemand aufpasst, liegt er im Hinterhalt und sucht nach seinen Opfern."
+  "md": [
+   "<b>Er sitzt.</b> Der Böse sitzt im Hinterhalt bei den Dörfern, fängt den Unschuldigen und tötet ihn heimlich.",
+   "<b>Seine Augen.</b> Er tut so, als wende er die Augen vom Armen ab, als ob er gar nicht an ihn denkt – damit der Arme nicht aufpasst."
+  ],
+  "rashi": [
+   "<b>Seine Augen lauern deinem Heer (Chelka) auf.</b> Die Augen Amaleks lauern Israel auf, das dein Heer ist.",
+   "<b>Chelka.</b> „Auf dich verlässt sich Chelka“ (unten 10,14) – beide stehen in der Massora unter den Wörtern, in denen „ka“ statt „cha“ (dein) gebraucht wird, wie (Schemot 7,29): „und gegen dich (uwecha) und gegen dein Volk“, (Mischle 2,11): „Verstand wird dich bewahren (tinzerekka)“, (Schemot 29,35): „alles, was Ich dir geboten habe (otacha)“, (Schmuel I 1,26): „die hier bei dir (imcha) stand“. Aus der Massora lernen wir, dass „Chelka“ wie „Chelcha“ ist, dein Heer. Menachem aber erklärte „leChelka jizponu“ und „auf dich verlässt sich Chelka“ wie „und durch seine Kraft fallen die Elenden (Chelka’im)“ – das bedeutet Gebeugte und Gestürzte; das ist die Wurzel des Wortes."
+  ]
  }
 }

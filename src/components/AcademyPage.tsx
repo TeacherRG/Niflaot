@@ -265,6 +265,8 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
           {!token && <p className="tk-note">{t('academy.guest')}</p>}
         </header>
 
+        {/* two tracks: the children's (Torah lessons) and the adults' (the daily passage) */}
+        <p className="wing-tag kids">{t('wing.kids')}</p>
         <h2 className="ac-h2">{t('academy.torah')}</h2>
         <p className="ac-note">{t('academy.torahNote')}</p>
         {TORAH_BOOKS.map((b) => {
@@ -284,6 +286,7 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
           );
         })}
 
+        <p className="wing-tag adults">{t('wing.adults')}</p>
         <h2 className="ac-h2">{t('academy.tanakh')}</h2>
         <p className="ac-note">{t('academy.tanakhNote')}</p>
         {tanakh.length ? (

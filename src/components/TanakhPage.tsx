@@ -4,7 +4,7 @@ import { useI18n } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { BOOKS, rangeLabel, type Section } from '../core/tanakhCycle';
-import { CYCLE, cycleDayFor, loadDay, localToday, readingMinutes, type DayContent, type SectionDay, type DayVerse, type Tr } from '../core/tanakh';
+import { CYCLE, cycleDayFor, loadDay, localToday, readingMinutes, type Commentary, type DayContent, type SectionDay, type DayVerse, type Tr } from '../core/tanakh';
 import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
 import { TanakhMasthead } from './PrintBrand';
 import { setOtherPage } from '../core/assistant';
@@ -14,9 +14,9 @@ export const SECTION_HE: Record<Section, string> = { neviim: 'נביאים', ket
 
 /**
  * The page's one language menu: which text to show — the Hebrew and a translation, only a translation, or only the Hebrew —
- * and whether to show Rabbi Steinsaltz's explanations. It applies to everything: the verse, the explanation, the introductions.
- * Russian and German are the project's translations (src/tanakh/ru, src/tanakh/de), ready week by week; where a day has
- * none, English stands in.
+ * and which commentaries to show: Metzudat David (a plain explanation of the verse) and Rashi. It applies to the verse and
+ * to the commentaries. Russian and German are the project's translations (src/tanakh/ru, src/tanakh/de), ready week by
+ * week; where a day has none, English stands in.
  */
 type TextLang = 'he-ru' | 'he-en' | 'he-de' | 'ru' | 'en' | 'de' | 'he';
 const TEXT_LANGS: TextLang[] = ['he-ru', 'he-en', 'he-de', 'ru', 'en', 'de', 'he'];
@@ -25,21 +25,26 @@ type OwnLang = 'ru' | 'de';
 const trOf = (l: TextLang): Tr | null => (l === 'he' ? null : (l.replace('he-', '') as Tr));
 interface View {
   text: TextLang;
-  st: boolean;
+  /** Metzudat David */
+  md: boolean;
+  rashi: boolean;
 }
 const VIEW_KEY = 'niflaot:tanakh-view';
 function useView(locale: string): [View, (v: View) => void] {
   const [view, set] = useState<View>(() => {
     try {
       const v = JSON.parse(localStorage.getItem(VIEW_KEY) ?? 'null');
-      if (v && TEXT_LANGS.includes(v.text) && typeof v.st === 'boolean') {
+      if (v && TEXT_LANGS.includes(v.text)) {
+        // a choice saved before the commentaries (`st`, a switch of earlier explanations) becomes Metzudat David's
+        const md = typeof v.md === 'boolean' ? v.md : v.st !== false;
+        const rashi = v.rashi === true;
         // a choice saved before the German translation existed (no `de` mark): on the German site English becomes German, once
-        if (locale === 'de' && !v.de && (v.text === 'he-en' || v.text === 'en')) return { text: v.text === 'en' ? 'de' : 'he-de', st: v.st };
-        return { text: v.text, st: v.st };
+        if (locale === 'de' && !v.de && (v.text === 'he-en' || v.text === 'en')) return { text: v.text === 'en' ? 'de' : 'he-de', md, rashi };
+        return { text: v.text, md, rashi };
       }
     } catch {}
-    // by default: the Hebrew with the translation in the site's language
-    return { text: locale === 'ru' ? 'he-ru' : locale === 'de' ? 'he-de' : 'he-en', st: true };
+    // by default: the Hebrew with the translation in the site's language, with Metzudat David
+    return { text: locale === 'ru' ? 'he-ru' : locale === 'de' ? 'he-de' : 'he-en', md: true, rashi: false };
   });
   return [
     view,
@@ -54,7 +59,7 @@ function useView(locale: string): [View, (v: View) => void] {
 
 /**
  * One button for the page's languages: it shows the current choice and opens a list — the text languages and,
- * below a line, Rabbi Steinsaltz's explanations on/off.
+ * below a line, the commentaries on/off: Metzudat David, Rashi.
  */
 function ViewMenu({ view, setView, soon }: { view: View; setView: (v: View) => void; soon: Record<OwnLang, boolean> }) {
   const { t } = useI18n();
@@ -72,7 +77,8 @@ function ViewMenu({ view, setView, soon }: { view: View; setView: (v: View) => v
         <Icon name="globe" size={17} />
         <span>
           {t(`tanakh.view.${view.text}`)}
-          {view.st && <small> · {t('tanakh.steinsaltzShort')}</small>}
+          {view.md && <small> · {t('tanakh.md')}</small>}
+          {view.rashi && <small> · {t('tanakh.rashi')}</small>}
         </span>
         <Icon name="chevron" size={14} />
       </button>
@@ -96,10 +102,16 @@ function ViewMenu({ view, setView, soon }: { view: View; setView: (v: View) => v
             </button>
           ))}
           <div className="tk-view-sep" />
-          <button type="button" role="menuitemcheckbox" aria-checked={view.st} onClick={() => setView({ ...view, st: !view.st })}>
+          <div className="tk-view-head">{t('tanakh.commLabel')}</div>
+          <button type="button" role="menuitemcheckbox" aria-checked={view.md} onClick={() => setView({ ...view, md: !view.md })}>
             <span className="code">✦</span>
-            <span className="name">{t('tanakh.steinsaltzExpl')}</span>
-            {view.st && <Icon name="check" size={16} />}
+            <span className="name">{t('tanakh.mdLong')}</span>
+            {view.md && <Icon name="check" size={16} />}
+          </button>
+          <button type="button" role="menuitemcheckbox" aria-checked={view.rashi} onClick={() => setView({ ...view, rashi: !view.rashi })}>
+            <span className="code">✦</span>
+            <span className="name">{t('tanakh.rashi')}</span>
+            {view.rashi && <Icon name="check" size={16} />}
           </button>
         </div>
       )}
@@ -111,18 +123,17 @@ function ViewMenu({ view, setView, soon }: { view: View; setView: (v: View) => v
 /** The sources and licenses under a section, and its link to Sefaria (the link only on screen). */
 function Sources({ sec, tr }: { sec: SectionDay; tr: Tr | null }) {
   const { t } = useI18n();
+  const v = sec.versions;
   return (
     <footer className="tk-sources">
       <p>
-        {t('tanakh.sourceHe')} — {sec.versions.he?.title} ({sec.versions.he?.license}), Sefaria.{' '}
-        {t('tanakh.sourceEn')} — {sec.versions.en?.title} ({sec.versions.en?.license}), Sefaria.{' '}
+        {t('tanakh.sourceHe')} — {v.he?.title} ({v.he?.license}), Sefaria.{' '}
+        {t('tanakh.sourceEn')} — {v.en?.title} ({v.en?.license}), Sefaria.{' '}
+        {(v.md || v.rashi) && <>{t('tanakh.sourceComm', { title: (v.md ?? v.rashi)!.title ?? '' })} </>}
+        {v.rashiEn && <>{t('tanakh.sourceRashiEn', { title: v.rashiEn.title ?? '' })} </>}
+        {tr === 'en' && <>{t('tanakh.sourceEnMd')} </>}
         {tr === 'ru' && <>{t('tanakh.sourceRu')} </>}
         {tr === 'de' && <>{t('tanakh.sourceDe')} </>}
-        {sec.versions.steinsaltz && (
-          <>
-            {t('tanakh.steinsaltz')} — {sec.versions.steinsaltz.title} ({sec.versions.steinsaltz.license}).
-          </>
-        )}
       </p>
       <p className="no-print">
         {sec.refs.map((r) => (
@@ -135,7 +146,7 @@ function Sources({ sec, tr }: { sec: SectionDay; tr: Tr | null }) {
   );
 }
 
-/** «Распечатать»: the page as it is shown (the chosen languages, with or without Steinsaltz); optionally both sections of the day. */
+/** «Распечатать»: the page as it is shown (the chosen languages and commentaries); optionally both sections of the day. */
 const BOTH_KEY = 'niflaot:tanakh-print-both';
 function usePrintBoth(): [boolean, (v: boolean) => void] {
   const [v, set] = useState(() => {
@@ -159,18 +170,45 @@ function usePrintBoth(): [boolean, (v: boolean) => void] {
 const bookOf = (slug: string) => BOOKS.find((b) => b.slug === slug)!;
 const labelLang = (locale: string) => (locale === 'en' || locale === 'de' ? locale : 'ru');
 
-/** The verses of one section of one day: a heading at each new chapter, Steinsaltz's introductions, then verse by verse. */
-function Verses({ verses, he, tr, st }: { verses: DayVerse[]; he: boolean; tr: Tr | null; st: boolean }) {
+/** the translation with the Names' hyphen unbroken on screen (Б‑г / Г‑сподь / G‑tt: a non-breaking hyphen) */
+const nb = (tr: Tr | null, x?: string) =>
+  x && (tr === 'ru' ? x.replace(/([БГ])-(?=г|спод)/g, '$1\u2011') : tr === 'de' ? x.replace(/([Gg])-(?=tt)/g, '$1\u2011') : x);
+
+/**
+ * One commentary on a verse: its comments in Hebrew (when the Hebrew is shown) and in the chosen translation. Without a
+ * translation in that language: Rashi — in English, marked; Metzudat David — in Hebrew, with a note (when only the
+ * translation is shown, the Hebrew stands in).
+ */
+function Comm({ c, by, he, tr }: { c: Commentary; by: string; he: boolean; tr: Tr | null }) {
+  const { t } = useI18n();
+  const own = tr ? c[tr] : undefined;
+  const en = !own && tr && tr !== 'en' ? c.en : undefined;
+  const showHe = !!c.he && (he || (!!tr && !own && !en));
+  const pending = !!tr && !own && !en && !!c.he;
+  if (!showHe && !own && !en) return null;
+  return (
+    <div className="tk-st">
+      <span className="tk-st-by">
+        {by}
+        {en && <small> · {t('tanakh.commEnOnly')}</small>}
+        {pending && <small className="no-print"> · {t('tanakh.commTr')}</small>}
+      </span>
+      {showHe && c.he!.map((x, k) => <p key={`h${k}`} className="he" lang="he" dir="rtl" dangerouslySetInnerHTML={{ __html: x }} />)}
+      {(own ?? en)?.map((x, k) => <p key={`t${k}`} lang={own ? tr! : 'en'} dangerouslySetInnerHTML={{ __html: nb(own ? tr : 'en', x)! }} />)}
+    </div>
+  );
+}
+
+/** The verses of one section of one day: a heading at each new chapter, then verse by verse with the chosen commentaries. */
+function Verses({ verses, he, tr, md, rashi }: { verses: DayVerse[]; he: boolean; tr: Tr | null; md: boolean; rashi: boolean }) {
   const { t, locale } = useI18n();
-  // the translation in the chosen language (in Б-г / Г-сподь / G-tt the hyphen doesn't break: a non-breaking hyphen on screen)
-  const tx = (x: Partial<Record<Tr, string>>) =>
-    tr === 'ru' ? x.ru?.replace(/([БГ])-(?=г|спод)/g, '$1\u2011') : tr === 'de' ? x.de?.replace(/([Gg])-(?=tt)/g, '$1\u2011') : tr ? x[tr] : undefined;
   return (
     <>
       {verses.map((v, i) => {
         const prev = verses[i - 1];
         const book = bookOf(v.b);
         const newChapter = !prev || prev.b !== v.b || prev.c !== v.c;
+        const text = tr ? nb(tr, v[tr]) : undefined;
         return (
           <Fragment key={`${v.b}-${v.c}-${v.v}`}>
             {newChapter && (
@@ -181,24 +219,6 @@ function Verses({ verses, he, tr, st }: { verses: DayVerse[]; he: boolean; tr: T
                 </span>
               </h2>
             )}
-            {st &&
-              v.intro?.map((x, k) => (
-                <aside key={k} className="tk-intro">
-                  <span className="tk-intro-by">{t('tanakh.steinsaltz')}</span>
-                  {he && x.title.he && (
-                    <h3 className="he" lang="he" dir="rtl">
-                      {x.title.he}
-                    </h3>
-                  )}
-                  {tx(x.title) && <h3 lang={tr!}>{tx(x.title)}</h3>}
-                  {he && x.he && (
-                    <p className="he" lang="he" dir="rtl">
-                      {x.he}
-                    </p>
-                  )}
-                  {tx(x) && <p lang={tr!}>{tx(x)}</p>}
-                </aside>
-              ))}
             <section className="tk-verse" id={`v-${v.b}-${v.c}-${v.v}`}>
               <span className="tk-num num" aria-label={`${v.c}:${v.v}`}>
                 {v.c}:{v.v}
@@ -208,19 +228,14 @@ function Verses({ verses, he, tr, st }: { verses: DayVerse[]; he: boolean; tr: T
                   {v.he}
                 </p>
               )}
-              {tx(v) && (
+              {text && (
                 <p className="tk-en" lang={tr!}>
-                  {tx(v)}
+                  {text}
                   {tr === 'en' && v.enFrom && <small className="fn"> ({v.enFrom})</small>}
                 </p>
               )}
-              {st && v.st && (he || tx(v.st)) && (
-                <div className="tk-st">
-                  <span className="tk-st-by">{t('tanakh.steinsaltzShort')}</span>
-                  {he && v.st.he && <p className="he" lang="he" dir="rtl" dangerouslySetInnerHTML={{ __html: v.st.he }} />}
-                  {tx(v.st) && <p lang={tr!} dangerouslySetInnerHTML={{ __html: tx(v.st)! }} />}
-                </div>
-              )}
+              {md && v.md && <Comm c={v.md} by={t('tanakh.md')} he={he} tr={tr} />}
+              {rashi && v.rashi && <Comm c={v.rashi} by={t('tanakh.rashi')} he={he} tr={tr} />}
             </section>
           </Fragment>
         );
@@ -231,7 +246,7 @@ function Verses({ verses, he, tr, st }: { verses: DayVerse[]; he: boolean; tr: T
 
 /**
  * `#/neviim[/<date>]`, `#/ketuvim[/<date>]` — «Пророки» / «Писания»: the passage of the day of the three-year cycle
- * (src/core/tanakhCycle.ts): the Hebrew verse, its English translation and Rabbi Adin Steinsaltz's explanation.
+ * (src/core/tanakhCycle.ts): the Hebrew verse, its translation and the commentaries — Metzudat David and Rashi.
  * Without a date — today, or the next study day when today has no reading.
  */
 export function TanakhPage({ section, date }: { section: Section; date?: string }) {
@@ -286,6 +301,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
         <article>
           <TanakhMasthead title={title} he={SECTION_HE[section]} route={`${section}/${day.date}`} date={day.date} />
           <header className="tk-head">
+            <p className="wing-tag adults no-print">{t('wing.adults')}</p>
             <p className="tk-kicker">
               {isToday ? t('tanakh.today') : !date && !exact ? t('tanakh.nextReading') : civilDate(day.date, locale)} ·{' '}
               <span className="he" lang="he">
@@ -301,7 +317,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
             <p className="tk-range">{range}</p>
             <p className="tk-day">
               {t('tanakh.day', { n: index + 1, total: CYCLE.length })}
-              {sec && <> · {t('tanakh.readingTime', { n: readingMinutes(sec.verses, he, tr, view.st) })}</>}
+              {sec && <> · {t('tanakh.readingTime', { n: readingMinutes(sec.verses, he, tr, view) })}</>}
             </p>
             {!date && !exact && <p className="tk-note">{t('tanakh.restToday')}</p>}
           </header>
@@ -336,7 +352,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
           ) : !sec ? (
             <p className="tk-note">{t('tanakh.notReady')}</p>
           ) : (
-            <Verses verses={sec.verses} he={he} tr={tr} st={view.st} />
+            <Verses verses={sec.verses} he={he} tr={tr} md={view.md} rashi={view.rashi} />
           )}
 
           {sec && (
@@ -358,7 +374,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
                 </h1>
                 <p className="tk-range">{rangeLabel(other, day[other], lang)}</p>
               </header>
-              <Verses verses={content[other].verses} he={he} tr={tr} st={view.st} />
+              <Verses verses={content[other].verses} he={he} tr={tr} md={view.md} rashi={view.rashi} />
               <Sources sec={content[other]} tr={tr} />
             </section>
           )}

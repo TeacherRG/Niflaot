@@ -4,7 +4,7 @@
  */
 import type { Section } from './tanakhCycle';
 import { rangeLabel } from './tanakhCycle';
-import { CYCLE, loadDay, type DayVerse } from './tanakh';
+import { CYCLE, loadDay, type Commentary, type DayVerse } from './tanakh';
 import type { QuizQuestion } from './quiz';
 import type { QuizResult } from './academy';
 import { PASS, type Progress } from './academy';
@@ -13,19 +13,20 @@ type Lang = 'ru' | 'en' | 'de';
 const SECTION = { neviim: 'Prophets (Nevi’im)', ketuvim: 'Writings (Ketuvim)' } as const;
 const plain = (html?: string) => (html ?? '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 
-/** The verses of one section of a day: Hebrew, the translation in the site's language (or English), Steinsaltz. */
+/** The verses of one section of a day: Hebrew, the translation in the site's language (or English), Metzudat David and Rashi. */
 function versesText(verses: DayVerse[], lang: Lang) {
+  const comm = (c: Commentary | undefined) => (c ? (c[lang] ?? c.en ?? c.he ?? []).map(plain).join(' ') : '');
   return verses
     .map((v) => {
       const tr = v[lang] || v.en;
-      const st = v.st?.[lang] || v.st?.en;
-      const intro = (v.intro ?? []).map((x) => `[Steinsaltz introduction: ${plain(x.title.en)} — ${plain(x.en)}]\n`).join('');
-      return `${intro}${v.b} ${v.c}:${v.v} ${v.he}\n${plain(tr)}${st ? `\nSteinsaltz: ${plain(st)}` : ''}`;
+      const md = comm(v.md);
+      const rashi = comm(v.rashi);
+      return `${v.b} ${v.c}:${v.v} ${v.he}\n${plain(tr)}${md ? `\nMetzudat David: ${md}` : ''}${rashi ? `\nRashi: ${rashi}` : ''}`;
     })
     .join('\n');
 }
 
-/** «Отрывок дня»: the day, the range, every verse with its translation and Rabbi Steinsaltz's explanation. */
+/** «Отрывок дня»: the day, the range, every verse with its translation and the commentaries (Metzudat David, Rashi). */
 export async function tanakhContext(section: Section, date: string, lang: Lang) {
   const day = CYCLE.find((d) => d.date === date);
   const content = await loadDay(date);
