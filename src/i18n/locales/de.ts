@@ -42,7 +42,7 @@ const de: Messages = {
 
   'help.title': 'So wird gespielt',
   'help.body':
-    '<ol><li><b>Lies das Rätsel.</b> Jedes Rätsel ist ein kurzer Abschnitt der Lektion mit einigen hebräischen Wörtern.</li><li><b>Tippe auf eine Wortkarte</b> — dann siehst du ihre Buchstaben und deren Zahlenwerte. Zusammenzählen musst du selbst.</li><li><b>Antworte Schritt für Schritt:</b> gib eine Zahl ein oder wähle eine Möglichkeit. Jeder Schritt öffnet sich nach dem vorigen.</li><li><b>Kommst du nicht weiter?</b> Tippe auf „Hinweis“ — die Antwort bleibt deine, bringt aber weniger Punkte.</li><li><b>Nach dem Lösen</b> öffnen sich „Lektion geöffnet“ — eine Nacherzählung der Lektion — und eine Frage zum Nachdenken.</li><li><b>In den Lektionen „Niflaot des Rebben“</b> gibt es keine Gematria: Du ermittelst — vergleichst Verse, wählst Antworten — und öffnest erst dann die Antwort des Rebben.</li></ol><p>Der Rechner unten auf der Seite berechnet die Gematria jedes Wortes. Fortschritt und Notizen werden nur auf diesem Gerät gespeichert.</p>',
+    '<ol><li><b>Lies das Rätsel.</b> Jedes Rätsel ist ein kurzer Abschnitt der Lektion mit einigen hebräischen Wörtern.</li><li><b>Tippe auf eine Wortkarte</b> — dann siehst du ihre Buchstaben und deren Zahlenwerte. Zusammenzählen musst du selbst.</li><li><b>Antworte Schritt für Schritt:</b> gib eine Zahl ein oder wähle eine Möglichkeit. Jeder Schritt öffnet sich nach dem vorigen.</li><li><b>Kommst du nicht weiter?</b> Tippe auf „Hinweis“ — die Antwort bleibt deine, bringt aber weniger Punkte.</li><li><b>Nach dem Lösen</b> öffnen sich „Lektion geöffnet“ — eine Nacherzählung der Lektion — und eine Frage zum Nachdenken.</li><li><b>In den Lektionen „Niflaot des Rebben“</b> gibt es keine Gematria: Du ermittelst — vergleichst Verse, wählst Antworten — und öffnest erst dann die Antwort des Rebben.</li></ol><p>Der Rechner unten auf der Seite berechnet die Gematria jedes Wortes. Fortschritt und Notizen bleiben auf diesem Gerät — und in deinem Konto, wenn du dich anmeldest.</p>',
   'help.scoring': 'Punkte',
   'help.table': 'Zahlenwerte der Buchstaben',
   'help.finals': 'Die Endbuchstaben ך ם ן ף ץ haben dieselben Werte wie die gewöhnlichen.',
@@ -359,7 +359,7 @@ const de: Messages = {
   'print.memoColor': 'Ausmalbilder',
   'refl.title': 'Eine Frage an dich selbst',
   'refl.sub': '· was ändert das jetzt in mir?',
-  'refl.placeholder': 'Schreib einen Gedanken auf. Er bleibt nur auf diesem Gerät.',
+  'refl.placeholder': 'Schreib einen Gedanken auf. Nur du siehst ihn.',
 
   'final.conspect': 'Zusammenfassung',
   'final.conspectSub': '· was du gelernt hast',
@@ -635,7 +635,7 @@ const de: Messages = {
   'helper.q.sources': 'Woher stammen die Quellen und wie lese ich sie?',
   'helper.a.sources': '<p>Die Toraverse, der Talmud, die Midraschim und Kommentare, auf die sich eine Lektion stützt, stammen aus der freien Bibliothek Sefaria. Hast du ein Rätsel gelöst, öffnet sich unter seiner Lektion der Block „Quellen“: das hebräische Original und eine Übersetzung nebeneinander, mit einem Link zu Sefaria. Deutsche Übersetzungen: Tora — S. R. Hirsch, Propheten und Schriften — S. Bernfeld und J. Breuer, Talmud — L. Goldschmidt, Midrasch — A. Wünsche; wo es keine gibt, übersetzt das Projekt selbst.</p>',
   'helper.q.progress': 'Wird mein Fortschritt gespeichert?',
-  'helper.a.progress': '<p>Ja, aber nur auf diesem Gerät und in diesem Browser: Punkte, gelöste Rätsel und Notizen werden lokal gespeichert und nirgendwohin gesendet. Auf einem anderen Gerät beginnt die Lektion von vorn.</p>',
+  'helper.a.progress': '<p>Ja. Ohne Konto — nur auf diesem Gerät und in diesem Browser: Punkte, gelöste Rätsel und Notizen werden lokal gespeichert, auf einem anderen Gerät beginnt die Lektion von vorn. Wenn du dich anmeldest („Anmelden“ im Menü), bleibt dein Fortschritt auch in deinem Konto — auf allen deinen Geräten.</p>',
   'helper.q.print': 'Wie drucke ich eine Lektion?',
   'helper.a.print': '<p>Drücke in einer Lektion auf „Drucken“ (oder wähle es im Menü). Du kannst die Antworten, den Text der Lektion und die Fragen an dich selbst ein- oder ausblenden.</p>',
   'helper.q.contact': 'Wie schlage ich eine Idee vor oder melde einen Fehler?',

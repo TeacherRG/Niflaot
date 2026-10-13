@@ -1587,6 +1587,7 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .mode-opt small{color:var(--muted);font-size:14px;line-height:1.35}
 .mode-note{margin:16px 0 0;font-size:13px;color:var(--muted)}
 .h-adults-lead{display:block!important;margin:4px 0 0;color:var(--muted);font-size:15px}
-.h-adults-quiz{display:flex;flex-wrap:wrap;gap:6px 16px;flex:1 1 100%;font-size:14px}
+.h-adults-quiz{display:flex;flex-direction:column;gap:4px;margin-top:8px;padding-top:8px;border-top:1px solid var(--line);font-size:13.5px}
+.home-adults .h-hero-side{align-content:flex-start}
 .h-adults-quiz a,.h-adults-more a{color:var(--tchelet);font-weight:600;text-decoration:none}
 .h-adults-more{display:flex;flex-wrap:wrap;gap:8px 20px;margin:18px 0 0;font-size:14.5px}

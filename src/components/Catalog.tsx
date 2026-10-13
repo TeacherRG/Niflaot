@@ -103,13 +103,24 @@ function DailyLink() {
 function AdultsLink() {
   const { t, locale } = useI18n();
   const [info, setInfo] = useState<{ range: string; min?: number } | null>(null);
+  // today's «Вопросы к отрывку»: shown only when written; a finished one — with its best result
+  const [quiz, setQuiz] = useState<{ sec: 'neviim' | 'ketuvim'; best?: string }[]>([]);
   useEffect(() => {
     let live = true;
     const lang = locale === 'en' || locale === 'de' ? locale : 'ru';
-    Promise.all([import('../core/tanakh'), import('../core/tanakhCycle')]).then(async ([tk, cy]) => {
+    Promise.all([import('../core/tanakh'), import('../core/tanakhCycle'), import('../core/quiz')]).then(async ([tk, cy, qz]) => {
       const day = tk.CYCLE[tk.cycleDayFor(tk.localToday()).index];
       const range = `${cy.rangeLabel('neviim', day.neviim, lang)} · ${cy.rangeLabel('ketuvim', day.ketuvim, lang)}`;
       if (live) setInfo({ range });
+      if (live && qz.quizReady(day.date)) {
+        const store = qz.readQuizStore();
+        setQuiz(
+          (['neviim', 'ketuvim'] as const).map((sec) => {
+            const r = store[`${day.date}:${sec}`];
+            return { sec, best: r && r.n > 0 && r.best >= 0 ? `${r.best}/${r.n}` : undefined };
+          }),
+        );
+      }
       const c = await tk.loadDay(day.date);
       const tr = lang === 'ru' || lang === 'de' ? (c?.neviim.verses.every((v) => v[lang]) ? lang : 'en') : 'en';
       const min = c && tk.readingMinutes([...c.neviim.verses, ...c.ketuvim.verses], true, tr, { md: true, rashi: false });
@@ -131,6 +142,17 @@ function AdultsLink() {
         </span>
         <span className="h-adults-cta">{t('home.adultsCta')} →</span>
       </a>
+      {quiz.length > 0 && (
+        <span className="h-adults-quiz">
+          {quiz.map((q) => (
+            <a key={q.sec} href={`#/${q.sec}/quiz`}>
+              {q.best && '✓ '}
+              {t('quiz.title')} · {t(`tanakh.${q.sec}`)}
+              {q.best && ` · ${q.best}`} →
+            </a>
+          ))}
+        </span>
+      )}
     </div>
   );
 }
@@ -159,13 +181,7 @@ function AdultsHome() {
             </div>
             <div className="h-hero-side">
               <AdultsLink />
-              <div className="h-adults-quiz">
-                {(['neviim', 'ketuvim'] as const).map((sec) => (
-                  <a key={sec} href={`#/${sec}/quiz`}>
-                    ✓ {t('quiz.title')} · {t(`tanakh.${sec}`)} →
-                  </a>
-                ))}
-              </div>
+              <PhoneOffer />
             </div>
           </section>
 
