@@ -78,10 +78,10 @@ function DailyLink() {
 }
 
 /**
- * «Взрослым» on the home screen: a quiet card to the passage of the day of the Prophets and Writings — today's books
- * and verses and the reading time. The cycle's data is loaded only after the page is shown (it is not part of the home bundle).
+ * «Учить каждый день» on the home screen: a quiet card to the passage of the day of the Prophets and Writings — today's books
+ * and verses and the reading time — and «Глава недели — прочитать»: the week's Torah lessons just to read, without games. The cycle's data is loaded only after the page is shown (it is not part of the home bundle).
  */
-function AdultsLink() {
+function AdultsLink({ week }: { week: Lesson[] }) {
   const { t, locale } = useI18n();
   const [info, setInfo] = useState<{ range: string; min?: number } | null>(null);
   useEffect(() => {
@@ -100,18 +100,33 @@ function AdultsLink() {
       live = false;
     };
   }, [locale]);
+  // the reading pages of the week's lessons: Baal HaTurim's «Читать», the Rebbe's «Прочитать»
+  const reads = week.filter((l) => l.kind !== 'sicha' || l.cards);
   return (
-    <a className="h-adults" href="#/neviim">
-      <span className="h-adults-lbl">{t('wing.adults')}</span>
-      <span className="h-adults-title">
-        {t('home.adultsTitle')} <span className="he" lang="he">נביאים · כתובים</span>
-      </span>
-      <span className="h-adults-sub">
-        {info ? info.range : t('wing.adultsSub')}
-        {info?.min ? ` · ${t('tanakh.readingTime', { n: info.min })}` : ''}
-      </span>
-      <span className="h-adults-cta">{t('home.adultsCta')} →</span>
-    </a>
+    <div className="h-adults">
+      <a className="h-adults-main" href="#/neviim">
+        <span className="h-adults-lbl">{t('wing.adults')}</span>
+        <span className="h-adults-title">
+          {t('home.adultsTitle')} <span className="he" lang="he">נביאים · כתובים</span>
+        </span>
+        <span className="h-adults-sub">
+          {info ? info.range : t('wing.adultsSub')}
+          {info?.min ? ` · ${t('tanakh.readingTime', { n: info.min })}` : ''}
+        </span>
+        <span className="h-adults-cta">{t('home.adultsCta')} →</span>
+      </a>
+      {reads.length > 0 && (
+        <div className="h-adults-read">
+          {t('home.weekRead')}:{' '}
+          {reads.map((l, i) => (
+            <span key={l.slug}>
+              {i > 0 && ' · '}
+              <a href={`#/${l.slug}/read`}>{t(`teacher.${teacherOf(l)}.short`)}</a>
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -153,6 +168,8 @@ export function Catalog() {
                 </span>
               </div>
               <h1>{t('catalog.uvp')}</h1>
+              {/* one academy for every age: the promise above both wings, shown on phones too */}
+              <p className="h-promise">{t('home.promise')}</p>
               <p>{t('home.lead')}</p>
             </div>
             <div className="h-hero-side">
@@ -173,9 +190,9 @@ export function Catalog() {
               <div className="h-countdown-compact">
                 <WeekCountdown variant="compact" />
               </div>
-              {reads && <AdultsLink />}
+              {reads && <AdultsLink week={lessons} />}
               <DailyLink />
-              {!reads && <AdultsLink />}
+              {!reads && <AdultsLink week={lessons} />}
               <PhoneOffer />
             </div>
           </section>

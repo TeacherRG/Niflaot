@@ -17,6 +17,7 @@ import { firstLetters } from '../core/gematriaMethods';
 import { useLetterHelp } from './letterHelp';
 import { lessonArt } from '../core/art';
 import { Colophon } from './Colophon';
+import { ChapterCheck, useChapterChecked } from './ReadCheck';
 
 /** A ready calculation from the step's coach data: every word spelled into letter values, every action with its result. */
 function Calc({ actions }: { actions: CoachAction[] }) {
@@ -149,6 +150,8 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
 
   // the commentator's words: as the lesson data places them (`quotes`), else each passage where first cited
   const quotes = sectionQuotes(r, rt);
+  // «Как это сходится» shows the answers — it opens once the chapter's «Проверь себя» is answered
+  const checked = useChapterChecked(lesson, ri);
 
   return (
     <section className={`riddle read-riddle${here ? ' here' : ''}`} id={`riddle-${ri + 1}`}>
@@ -178,27 +181,34 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
         ))}
       </div>
 
-      <details className="read-calcs no-speak">
-        <summary>🧮 {t('read.calcs')}</summary>
-        <div className="eqs">
-          {r.equations.map((e, k) => (
-            <div key={k} className="eq">
-              <HebrewRuns text={e} />
-            </div>
-          ))}
-        </div>
-        <div className="steps">
-          {r.steps.map((s, i) => (
-            <div key={i} className="step">
-              <div className="q">
-                <span className="n">{i + 1}.</span>
-                <Html html={rt.steps[i].q} />
+      {/* «Проверь себя»: the chapter's choice questions, for the Torah certificate of a reader («Академия») */}
+      <ChapterCheck lesson={lesson} text={text} ri={ri} />
+
+      {checked ? (
+        <details className="read-calcs no-speak">
+          <summary>🧮 {t('read.calcs')}</summary>
+          <div className="eqs">
+            {r.equations.map((e, k) => (
+              <div key={k} className="eq">
+                <HebrewRuns text={e} />
               </div>
-              <Answer s={s} opts={rt.steps[i].opts} />
-            </div>
-          ))}
-        </div>
-      </details>
+            ))}
+          </div>
+          <div className="steps">
+            {r.steps.map((s, i) => (
+              <div key={i} className="step">
+                <div className="q">
+                  <span className="n">{i + 1}.</span>
+                  <Html html={rt.steps[i].q} />
+                </div>
+                <Answer s={s} opts={rt.steps[i].opts} />
+              </div>
+            ))}
+          </div>
+        </details>
+      ) : (
+        <p className="read-calcs-locked no-speak">🧮 {t('rc.calcsLocked')}</p>
+      )}
 
       {r.sources && <Sources ri={ri} ids={fn.ordered} number={fn.number} refs={fn.refs} />}
 
@@ -251,7 +261,7 @@ export function ReadPage({ lesson, at }: { lesson: Lesson; at?: number }) {
           {/* one <article> in the text's language: the browser's reading mode, translation and «read aloud» take it whole */}
           <article lang={textLocale}>
             <Hero lesson={lesson} text={text} reading />
-            <p className="read-intro no-speak">📖 {t(lesson.kind === 'commentary' ? 'read.intro' : 'read.introArticle')}</p>
+            <p className="read-intro no-speak">{t(lesson.kind === 'commentary' ? 'read.intro' : 'read.introArticle')}</p>
             {lesson.riddles.map((_, ri) => (
               <ReadRiddle key={ri} lesson={lesson} text={text} ri={ri} here={at === ri + 1} />
             ))}

@@ -6,6 +6,7 @@ import { TopBar } from './TopBar';
 import { CardInfo } from './RebbeCards';
 import { HebrewRuns } from './Hebrew';
 import { Colophon } from './Colophon';
+import { CardsCheck } from './ReadCheck';
 
 export type CardsReadMode = 'read' | 'poem';
 
@@ -84,6 +85,8 @@ export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards: 
               </div>
             )}
           </article>
+          {/* «Проверь себя»: which verse is each explanation about — for the Torah certificate of a reader («Академия») */}
+          <CardsCheck lesson={lesson} text={text} />
         </main>
         <section className="memo-cta">
           <span aria-hidden="true">🃏</span>

@@ -6,7 +6,7 @@
  */
 
 /** the synced localStorage keys: exact names, and `niflaot:lesson:<slug>` */
-export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
+export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:torah-read', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
 export const LESSON_PREFIX = 'niflaot:lesson:';
 export const isSynced = (k: string) => SYNC_KEYS.includes(k) || k.startsWith(LESSON_PREFIX);
 
@@ -72,6 +72,15 @@ function mergeQuiz(a: string, b: string): string {
   return JSON.stringify(out);
 }
 
+/** «Проверь себя» на страницах чтения (src/core/readCheck.ts): every answer from both; a question is answered once, so the account's stays. */
+function mergeRead(a: string, b: string): string {
+  const x = parse(a) ?? {};
+  const y = parse(b) ?? {};
+  const out: Record<string, any> = {};
+  for (const slug of new Set([...Object.keys(x), ...Object.keys(y)])) out[slug] = { ...x[slug], ...y[slug] };
+  return JSON.stringify(out);
+}
+
 /**
  * Merge this device (`local`) with the account (`remote`). Progress is never lost: lessons, «Гематрия дня» and
  * «Вопросы к отрывку» keep the best of both; settings (Hebrew level, language, math level) — this device's choice when it has one.
@@ -87,6 +96,7 @@ export function mergeSnapshots(local: Snapshot, remote: Snapshot): Snapshot {
     else if (k.startsWith(LESSON_PREFIX)) out[k] = mergeLesson(a, b);
     else if (k === 'niflaot:daily') out[k] = mergeDaily(a, b);
     else if (k === 'niflaot:tanakh-quiz') out[k] = mergeQuiz(a, b);
+    else if (k === 'niflaot:torah-read') out[k] = mergeRead(a, b);
     else out[k] = a;
   }
   return out;
