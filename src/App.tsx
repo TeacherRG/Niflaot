@@ -1,6 +1,9 @@
 import { Suspense, lazy, useEffect, useMemo, useState, type ComponentType } from 'react';
 import { PARSHIOT, findLesson, type ParshaId } from './lessons';
 import { Catalog } from './components/Catalog';
+import { ModePicker } from './components/ModePicker';
+import { isReader, savedMode, useSavedMode } from './core/mode';
+import { savedHebrewLevel } from './core/hebrewLevel';
 import { ShabbatRest, useShabbatRest } from './components/ShabbatRest';
 import { isAdmin } from './admin/github';
 import { OPS, type Op } from './core/mentalMath';
@@ -46,7 +49,7 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©mychitas.app`;
 
 /**
  * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version,
- * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers (`/read/<n>`, `/memo/<n>`, `/r/<n>` — opened at riddle or Memo pair n), `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/partners` — «Партнёры», `#/teacher` — «Учитель» (ИИ или человек), `#/account` — аккаунт (гость / вход по коду / профиль, классы), `#/admin/leaders[/<class>]` — таблица лидеров (только в админке), `#/class/<id>` — класс для учителя, `#/consent/<token>` — согласие родителя, `#/privacy` — конфиденциальность, `#/facts` — «Знаете ли вы?», the equalities of all lessons (`#/facts/<id>` — opened at one of them), `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper, `#/letters` — «Буквы за 5 минут», `#/neviim[/<date>]`, `#/ketuvim[/<date>]` — «Пророки», «Писания»: отрывок дня трёхлетнего цикла (`/<date>/quiz`, `/quiz` — «Вопросы к отрывку»), `#/academy[/<id>]` — «Академия»: сертификаты за книги.
+ * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers (`/read/<n>`, `/memo/<n>`, `/r/<n>` — opened at riddle or Memo pair n), `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/partners` — «Партнёры», `#/teacher` — «Учитель» (ИИ или человек), `#/account` — аккаунт (гость / вход по коду / профиль, классы), `#/admin/leaders[/<class>]` — таблица лидеров (только в админке), `#/class/<id>` — класс для учителя, `#/consent/<token>` — согласие родителя, `#/privacy` — конфиденциальность, `#/facts` — «Знаете ли вы?», the equalities of all lessons (`#/facts/<id>` — opened at one of them), `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper, `#/letters` — «Буквы за 5 минут», `#/neviim[/<date>]`, `#/ketuvim[/<date>]` — «Пророки», «Писания»: отрывок дня трёхлетнего цикла (`/<date>/quiz`, `/quiz` — «Вопросы к отрывку»), `#/academy[/<id>]` — «Академия»: сертификаты за книги, `#/mode` — «Кто будет учиться?» (режим сайта; без выбора — вместо главной).
  * `#/daily` — «Знаете ли вы?» opened on «Гематрия дня», its first card; `#/math/<op>` — «Устный счёт».
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson; `/mental-math/` and `/daily/` (also under `/en/`, `/de/`) — those pages.
@@ -93,20 +96,16 @@ function useCopySignature() {
 }
 
 /**
- * A page opened by a machine, not a person: the browser's «listen to this page» (Google-Read-Aloud), search engines,
- * previews. It gets the page itself — no «How to play» on top of it.
+ * Shows "How to play" once, on the first visit of a person who came straight to a lesson (a shared link) and is not
+ * in the adults' mode. On the home page the first visit gets the mode question instead (ModePicker.tsx), and
+ * «Дети и семья» opens "How to play" there.
  */
-const isReader = () =>
-  navigator.webdriver ||
-  /Google-Read-Aloud|bot\b|crawler|spider|Headless|Lighthouse|Google-InspectionTool/i.test(navigator.userAgent);
-
-/** Shows "How to play" once, on the very first visit (of a person). */
-function useFirstVisitHelp(open: (p: Panel) => void) {
+function useFirstVisitHelp(open: (p: Panel) => void, onLesson: boolean) {
   useEffect(() => {
-    if (isReader()) return;
+    if (!onLesson || isReader() || savedMode() === 'adults') return;
     const KEY = 'niflaot:help-seen';
     try {
-      if (localStorage.getItem(KEY)) return;
+      if (localStorage.getItem(KEY) || savedHebrewLevel() !== null) return;
     } catch {
       return; // no storage — don't nag on every visit
     }
@@ -117,7 +116,7 @@ function useFirstVisitHelp(open: (p: Panel) => void) {
       open('help');
     }, 400);
     return () => clearTimeout(id);
-  }, [open]);
+  }, [open, onLesson]);
 }
 
 /** The site rests on Shabbat (candle lighting – end of Shabbat in the user's city): nothing but the greeting. */
@@ -133,9 +132,11 @@ function Site() {
   useEffect(installLangMarkup, []);
   useEffect(installTitleSync, []);
   const [panel, open] = useState<Panel>(null);
-  useFirstVisitHelp(open);
   const [slug, view, variant] = route.split('/');
   const lesson = slug ? findLesson(slug) : undefined;
+  useFirstVisitHelp(open, !!lesson);
+  // who is learning: asked on the home page until chosen (not of machines), and at #/mode
+  const mode = useSavedMode();
   // outside a lesson the helper knows no lesson (the lesson page sets its own state)
   useEffect(() => {
     if (!lesson || view === 'print' || view === 'memo' || view === 'cards' || view === 'read') setPageState(null);
@@ -144,7 +145,9 @@ function Site() {
   return (
     <UIContext.Provider value={ui}>
       <Suspense fallback={null}>
-        {slug === 'admin' ? (
+        {slug === 'mode' || (!slug && mode === null && !isReader()) ? (
+          <ModePicker />
+        ) : slug === 'admin' ? (
           <Admin slug={view} leaders={variant} />
         ) : slug === 'partners' ? (
           <PartnersPage />

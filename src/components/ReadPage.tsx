@@ -17,6 +17,7 @@ import { firstLetters } from '../core/gematriaMethods';
 import { useLetterHelp } from './letterHelp';
 import { lessonArt } from '../core/art';
 import { Colophon } from './Colophon';
+import { useMode } from '../core/mode';
 import { ChapterCheck, useChapterChecked } from './ReadCheck';
 
 /** A ready calculation from the step's coach data: every word spelled into letter values, every action with its result. */
@@ -241,6 +242,7 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
 export function ReadPage({ lesson, at }: { lesson: Lesson; at?: number }) {
   const { t, pick, locale } = useI18n();
   const { value: text, locale: textLocale } = pick(lesson.texts);
+  const adults = useMode() === 'adults';
 
   useEffect(() => {
     if (!at) return;
@@ -270,13 +272,16 @@ export function ReadPage({ lesson, at }: { lesson: Lesson; at?: number }) {
               <p>{text.practice}</p>
             </section>
           </article>
-          <section className="memo-cta">
-            <span aria-hidden="true">🔢</span>
-            <p>{t('read.play')}</p>
-            <a className="btn" href={`#/${lesson.slug}`}>
-              {t('read.playBtn')} →
-            </a>
-          </section>
+          {/* the invitation to play — not in the adults' mode (src/core/mode.ts) */}
+          {!adults && (
+            <section className="memo-cta">
+              <span aria-hidden="true">🔢</span>
+              <p>{t('read.play')}</p>
+              <a className="btn" href={`#/${lesson.slug}`}>
+                {t('read.playBtn')} →
+              </a>
+            </section>
+          )}
         </main>
       </div>
       <Colophon source={text.source} />

@@ -6,6 +6,7 @@ import { TopBar } from './TopBar';
 import { CardInfo } from './RebbeCards';
 import { HebrewRuns } from './Hebrew';
 import { Colophon } from './Colophon';
+import { useMode } from '../core/mode';
 import { CardsCheck } from './ReadCheck';
 
 export type CardsReadMode = 'read' | 'poem';
@@ -17,6 +18,7 @@ export type CardsReadMode = 'read' | 'poem';
 export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards: RebbeCardsData; mode: CardsReadMode }) {
   const { t, pick, locale } = useI18n();
   const { value: text, locale: textLocale } = pick(lesson.texts);
+  const adults = useMode() === 'adults';
   const items = text.cards?.items ?? [];
 
   useEffect(() => {
@@ -88,13 +90,16 @@ export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards: 
           {/* «Проверь себя»: which verse is each explanation about — for the Torah certificate of a reader («Академия») */}
           <CardsCheck lesson={lesson} text={text} />
         </main>
-        <section className="memo-cta">
-          <span aria-hidden="true">🃏</span>
-          <p>{t('cards.readCta')}</p>
-          <a className="btn" href={`#/${lesson.slug}/cards`}>
-            {t('cards.ctaBtn')} →
-          </a>
-        </section>
+        {/* the invitation to play — not in the adults' mode (src/core/mode.ts) */}
+        {!adults && (
+          <section className="memo-cta">
+            <span aria-hidden="true">🃏</span>
+            <p>{t('cards.readCta')}</p>
+            <a className="btn" href={`#/${lesson.slug}/cards`}>
+              {t('cards.ctaBtn')} →
+            </a>
+          </section>
+        )}
       </div>
       <Colophon source={text.source} />
     </>

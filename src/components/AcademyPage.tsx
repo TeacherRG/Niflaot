@@ -6,6 +6,7 @@ import { LESSONS } from '../lessons';
 import { TEACHERS } from '../lessons/teachers';
 import { lessonScore } from '../core/progress';
 import { readScore, readStore } from '../core/readCheck';
+import { useMode } from '../core/mode';
 import { CYCLE, localToday } from '../core/tanakh';
 import { readQuizStore, quizReady } from '../core/quiz';
 import { NIFLAOT_LOGO, PARTNERS } from '../core/partners';
@@ -70,7 +71,12 @@ function Bar({ p }: { p: Progress }) {
   );
 }
 
-function Card({ c, p, href, extra, readHref }: { c: Certificate; p: Progress; href: string; extra: string; readHref?: string }) {
+/**
+ * A certificate with its progress. `reading` — the adults' mode: the Torah certificate by reading — the bar and the
+ * numbers are the «Проверь себя» answers, the button opens the lessons to read.
+ */
+function Card({ c, p: game, href, extra, readHref, reading }: { c: Certificate; p: Progress; href: string; extra: string; readHref?: string; reading?: boolean }) {
+  const p: Progress = reading && game.read ? { ...game, ...game.read, earned: game.earned } : game;
   const { t, locale } = useI18n();
   const lang = langOf(locale);
   const color = c.kind === 'torah' ? TEACHERS[c.teacher!].color : c.section === 'neviim' ? 'tchelet' : 'gold';
@@ -88,9 +94,9 @@ function Card({ c, p, href, extra, readHref }: { c: Certificate; p: Progress; hr
         </h3>
         <Bar p={p} />
         <p className="ac-meta">
-          {t('academy.points', { got: p.got, max: p.max, pct: pct(p) })} · {extra}
+          {t(reading ? 'academy.readPoints' : 'academy.points', { got: p.got, max: p.max, pct: pct(p) })} · {extra}
         </p>
-        {p.read && p.read.max > 0 && (
+        {!reading && readHref && p.read && p.read.max > 0 && (
           <p className="ac-meta ac-read">
             {t('academy.readPath', { got: p.read.got, max: p.read.max, done: p.read.done, parts: p.read.parts })}
           </p>
@@ -110,9 +116,9 @@ function Card({ c, p, href, extra, readHref }: { c: Certificate; p: Progress; hr
           ) : (
             <>
               <a className="btn" href={href}>
-                {t('academy.start')}
+                {t(reading ? 'academy.readBtn' : 'academy.start')}
               </a>
-              {readHref && p.read && p.read.max > 0 && (
+              {!reading && readHref && p.read && p.read.max > 0 && (
                 <a className="btn ghost" href={readHref}>
                   {t('academy.readBtn')}
                 </a>
@@ -243,6 +249,7 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
   const lang = langOf(locale);
   const { token } = useAccount();
   const { torah, tanakh } = useCertificates();
+  const adults = useMode() === 'adults';
   // the AI assistant (✦) knows the certificates and the progress
   useEffect(() => {
     const rows = [...torah, ...tanakh].map((c) => ({
@@ -276,14 +283,13 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
         <header className="tk-head">
           <p className="tk-kicker">🎓 {t('cert.academy')}</p>
           <h1>{t('academy.h1')}</h1>
-          <p className="ac-lead">{t('academy.lead', { pass: PASS_PCT })}</p>
+          <p className="ac-lead">{t(adults ? 'academy.leadAdults' : 'academy.lead', { pass: PASS_PCT })}</p>
           {!token && <p className="tk-note">{t('academy.guest')}</p>}
         </header>
 
-        {/* two tracks: the children's (Torah lessons) and the adults' (the daily passage) */}
-        <p className="wing-tag kids">{t('wing.kids')}</p>
+        {/* by the mode: the children — the Torah certificates by playing; the adults — by reading, and the Prophets and Writings */}
         <h2 className="ac-h2">{t('academy.torah')}</h2>
-        <p className="ac-note">{t('academy.torahNote')}</p>
+        <p className="ac-note">{t(adults ? 'academy.torahNoteAdults' : 'academy.torahNote')}</p>
         {TORAH_BOOKS.map((b) => {
           const cs = torah.filter((c) => c.book.id === b.id);
           if (!cs.length) return null;
@@ -294,24 +300,31 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
               </h3>
               <ul className="ac-list">
                 {cs.map((c) => (
-                  <Card key={c.id} c={c} p={c.progress} href={c.href} readHref={c.readHref} extra={t('academy.lessons', { done: c.progress.done, parts: c.progress.parts })} />
+                  adults ? (
+                    <Card key={c.id} c={c} p={c.progress} href={c.readHref} reading extra={t('academy.readLessons', { done: c.progress.read?.done ?? 0, parts: c.progress.read?.parts ?? 0 })} />
+                  ) : (
+                    <Card key={c.id} c={c} p={c.progress} href={c.href} extra={t('academy.lessons', { done: c.progress.done, parts: c.progress.parts })} />
+                  )
                 ))}
               </ul>
             </section>
           );
         })}
 
-        <p className="wing-tag adults">{t('wing.adults')}</p>
-        <h2 className="ac-h2">{t('academy.tanakh')}</h2>
-        <p className="ac-note">{t('academy.tanakhNote')}</p>
-        {tanakh.length ? (
-          <ul className="ac-list">
-            {tanakh.map((c) => (
-              <Card key={c.id} c={c} p={c.progress} href={c.href} extra={t('academy.days', { done: c.progress.done, parts: c.progress.parts })} />
-            ))}
-          </ul>
-        ) : (
-          <p className="ac-note">{t('academy.empty')}</p>
+        {adults && (
+          <>
+            <h2 className="ac-h2">{t('academy.tanakh')}</h2>
+            <p className="ac-note">{t('academy.tanakhNote')}</p>
+            {tanakh.length ? (
+              <ul className="ac-list">
+                {tanakh.map((c) => (
+                  <Card key={c.id} c={c} p={c.progress} href={c.href} extra={t('academy.days', { done: c.progress.done, parts: c.progress.parts })} />
+                ))}
+              </ul>
+            ) : (
+              <p className="ac-note">{t('academy.empty')}</p>
+            )}
+          </>
         )}
       </div>
       <Colophon />

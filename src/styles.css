@@ -1124,17 +1124,13 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .h-hero-he .num{font-size:12px;letter-spacing:.14em;color:var(--gold)}
 .h-hero h1{margin:4px 0 0;font-family:var(--f-display);font-weight:700;font-size:clamp(24px,3.4vw,34px);line-height:1.1;text-wrap:balance}
 .h-hero p{margin:0;color:var(--muted);font-size:15px}
-.h-hero p.h-promise{display:block;margin:2px 0 6px;color:var(--gold);font-weight:600;font-size:14px;letter-spacing:.02em}
 .h-hero-side{flex:0 1 300px;display:flex;flex-wrap:wrap;gap:10px}
 .h-adults{flex:1 1 100%;display:flex;flex-direction:column;gap:2px;padding:10px 14px;border-radius:10px;background:var(--surface);border:1px solid var(--line);border-inline-start:4px solid var(--tchelet);color:var(--ink);text-decoration:none}
-.h-adults-lbl{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tchelet)}
 .h-adults-title{font-family:var(--f-display);font-weight:700;font-size:17px}
 .h-adults-title .he{font-family:var(--f-he);font-size:14px;font-weight:400;color:var(--muted)}
 .h-adults-sub{font-size:13px;color:var(--muted)}
 .h-adults-cta{font-size:13px;font-weight:600;color:var(--tchelet)}
 .h-adults-main{display:flex;flex-direction:column;gap:2px;color:inherit;text-decoration:none}
-.h-adults-read{margin:4px 0 0;padding-top:6px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
-.h-adults-read a{color:var(--tchelet);font-weight:600}
 .h-daily{flex:1 1 100%;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:10px 14px;border-radius:10px;background:var(--ink);color:#fff;text-decoration:none}
 .h-daily-title{font-family:var(--f-display);font-weight:700;font-size:18px;color:var(--gold-2)}
 .h-daily-sub{font-size:13px;color:#C9CEE0}
@@ -1573,3 +1569,24 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
   .cert{page:cert;width:100%;height:186mm;gap:4px;aspect-ratio:auto;border-radius:0;break-inside:avoid}
 }
 @media screen and (max-width:640px){.cert{aspect-ratio:auto}.cert-foot{gap:8px}}
+
+/* «Кто будет учиться?» — the mode of the site (ModePicker.tsx) */
+.mode-pick{max-width:560px;margin:0 auto;padding:28px 16px 40px;text-align:center}
+.mode-pick .h-logo{margin:0 auto 10px}
+.mode-brand{margin:0 0 18px;font-size:14px;color:var(--muted)}
+.mode-promise{color:var(--gold);font-weight:600}
+.mode-pick h1{margin:0 0 16px;font-family:var(--f-display);font-size:28px}
+.mode-opts{display:grid;gap:12px}
+.mode-opt{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:14px;align-items:center;text-align:start;padding:16px 18px;border:1px solid var(--line);border-inline-start:5px solid var(--gold);border-radius:14px;background:var(--surface);box-shadow:var(--shadow);font:inherit;color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
+.mode-opt.adults{border-inline-start-color:var(--tchelet)}
+.mode-opt:hover,.mode-opt.on{background:var(--gold-soft)}
+.mode-opt.adults:hover,.mode-opt.adults.on{background:var(--tchelet-soft,var(--surface))}
+.mode-opt.on{box-shadow:0 0 0 2px var(--gold-line)}
+.mode-ico{grid-row:1/3;font-size:30px}
+.mode-opt b{font-family:var(--f-display);font-size:20px}
+.mode-opt small{color:var(--muted);font-size:14px;line-height:1.35}
+.mode-note{margin:16px 0 0;font-size:13px;color:var(--muted)}
+.h-adults-lead{display:block!important;margin:4px 0 0;color:var(--muted);font-size:15px}
+.h-adults-quiz{display:flex;flex-wrap:wrap;gap:6px 16px;flex:1 1 100%;font-size:14px}
+.h-adults-quiz a,.h-adults-more a{color:var(--tchelet);font-weight:600;text-decoration:none}
+.h-adults-more{display:flex;flex-wrap:wrap;gap:8px 20px;margin:18px 0 0;font-size:14.5px}
