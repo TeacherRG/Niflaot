@@ -1373,6 +1373,12 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 /* ───── account, leaderboard, class (AccountPage.tsx, CommunityPages.tsx) ───── */
 .acc-chip{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);text-decoration:none;font-weight:600;font-size:13px;white-space:nowrap;max-width:150px}
 .acc-chip span{overflow:hidden;text-overflow:ellipsis}
+.acc-modes{display:grid;gap:8px}
+.acc-mode{display:flex;flex-direction:column;gap:2px;text-align:start;padding:10px 14px;border:1px solid var(--line);border-inline-start:4px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit;cursor:pointer}
+.acc-mode b{font-size:15px}
+.acc-mode small{color:var(--muted);font-size:13px}
+.acc-mode.on{border-color:var(--tchelet);background:var(--tchelet-soft)}
+.acc-mode.on b::before{content:'✓ ';color:var(--tchelet)}
 .acc-chip.in{border-color:var(--gold-line);background:var(--gold-soft)}
 @media (max-width:560px){.acc-chip{padding:0 9px}.acc-chip span{display:none}}
 .acc main{display:grid;gap:14px;margin:8px 0 24px}

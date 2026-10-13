@@ -8,7 +8,6 @@ import { OPS, SIGN } from '../core/mentalMath';
 import { Icon, Sheet, useUI } from './ui';
 import { lessonGames } from './lessonGames';
 import { DailyReminder } from './DailyReminder';
-import { useAccount } from '../core/account';
 import { canInstall, install, subscribeInstall } from '../core/install';
 
 /** Gematria step by step, sources and FAQ (with all the primary sources) load when «Как играть» opens. */
@@ -61,7 +60,6 @@ export function Panels() {
   const { panel, open, lessonSlug } = useUI();
   const level = useHebrewLevel();
   const installable = useSyncExternalStore(subscribeInstall, canInstall, () => false);
-  const account = useAccount();
   const mode = useMode();
   const close = () => open(null);
   // the page a menu link points to is open (#/<slug> or #/<slug>/memo, #/<slug>/cards)
@@ -307,13 +305,6 @@ export function Panels() {
             </>
           )}
           <div className="menu-sep" />
-          <a href="#/mode" onClick={close} className="menu-item" aria-current={location.hash === '#/mode' ? 'page' : undefined}>
-            <Icon name="user" />
-            <span>
-              {t('mode.menu')}: {t(`mode.${mode}`)}
-              <small>{t('mode.change')}</small>
-            </span>
-          </a>
           {installable && (
             <button
               className="menu-item"
@@ -329,13 +320,6 @@ export function Panels() {
               </span>
             </button>
           )}
-          <a href="#/account" onClick={close} className="menu-item" aria-current={location.hash === '#/account' ? 'page' : undefined}>
-            <Icon name="user" />
-            <span>
-              {account.me?.user.nick ?? t(account.token ? 'acc.title' : 'acc.chipGuest')}
-              <small>{account.token ? t('acc.title') : t('acc.guest')}</small>
-            </span>
-          </a>
           <button className="menu-item" onClick={() => open('reminder')}>
             <Icon name="bell" />
             <span>
