@@ -90,9 +90,27 @@ def commentary(kind, b, lang):
         _comm[key] = best
     return _comm[key]
 
+def strip_footnotes(t):
+    """Сноски издания (<sup class="footnote-marker">N</sup><i class="footnote">…</i>) — целиком, вместе с вложенными <i>:
+    clean() режет сноску по первому </i>, и от вложенного курсива («<i>Radak</i> maintains…») оставался обрывок."""
+    out, pos = [], 0
+    for m in re.finditer(r'<sup[^>]*>[^<]*</sup>\s*<i class="footnote">', t):
+        if m.start() < pos: continue
+        out.append(t[pos:m.start()])
+        depth, i = 1, m.end()
+        for tag in re.finditer(r'<(/?)i\b[^>]*>', t[m.end():]):
+            depth += -1 if tag.group(1) else 1
+            if depth == 0:
+                i = m.end() + tag.end()
+                break
+        else:
+            i = len(t)
+        pos = i
+    return ''.join(out) + t[pos:]
+
 def comm_html(t, lang):
     """clean() проекта; только <b> (слова стиха); на иврите ה' → ה׳, «יי» → ה׳, без невидимых знаков направления."""
-    t = re.sub(r'</?i>', '', fs.clean(t.replace('\u200e', '').replace('\u200f', ''), lang)).strip()
+    t = re.sub(r'</?i>', '', fs.clean(strip_footnotes(t.replace('\u200e', '').replace('\u200f', '')), lang)).strip()
     if lang == 'he':
         t = re.sub(r"(?<![\u05B0-\u05BD\u05BF-\u05C7א-ת])((?:[ובכלמש])?)ה'(?![א-ת])", r'\1ה׳', t)
         t = re.sub(r"(?<![א-ת])((?:[ובכלמש])?)יי'?(?![א-ת])", r'\1ה׳', t)

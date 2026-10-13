@@ -9,7 +9,7 @@
  *    public/tanakh/index.json перечисляет все готовые дни;
  *  - переводы проекта (src/tanakh/ru|en|de/<книга>.json): только настоящие стихи; перевод комментария — столько же
  *    комментариев, сколько в оригинале; день, где есть перевод, переведён целиком (стих — ru, de; Мецудат Давид — по
- *    языку); файлы дней совпадают с переводом (после правки — python3 scripts/fetch-tanakh.py tr); Имена — Б-г, Г-сподь /
+ *    языку; Раши — ru, de); файлы дней совпадают с переводом (после правки — python3 scripts/fetch-tanakh.py tr); Имена — Б-г, Г-сподь /
  *    G-d, L-rd / G-tt, der Ewige (немецкий — и стиль de.chabad.org, scripts/style-rules.ts); в стихе — без HTML.
  */
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
@@ -89,11 +89,15 @@ for (const f of files) {
     continue;
   }
   if (c.day !== i + 1 || c.days !== days.length) err(`${f}: номер дня ${c.day}/${c.days}, ожидался ${i + 1}/${days.length}`);
-  const all = SECTIONS.flatMap((s) => c[s]?.verses ?? []) as ({ md?: Comm } & Partial<Record<Lang, string>>)[];
+  const all = SECTIONS.flatMap((s) => c[s]?.verses ?? []) as ({ md?: Comm; rashi?: Comm } & Partial<Record<Lang, string>>)[];
   for (const lang of ['ru', 'de'] as const) if (all.some((v) => v[lang]) && !all.every((v) => v[lang])) err(`${f}: день переведён (${lang}) не целиком`);
   for (const lang of LANGS) {
     const md = all.filter((v) => v.md);
     if (md.some((v) => v.md![lang]) && !md.every((v) => v.md![lang])) err(`${f}: Мецудат Давид переведён (${lang}) не целиком`);
+  }
+  for (const lang of ['ru', 'de'] as const) {
+    const rashi = all.filter((v) => v.rashi?.he);
+    if (rashi.some((v) => v.rashi![lang]) && !rashi.every((v) => v.rashi![lang])) err(`${f}: Раши переведён (${lang}) не целиком`);
   }
   SECTIONS.forEach((s, k) => {
     const want = track(s).slice(days[i][1 + 2 * k], days[i][2 + 2 * k]);
