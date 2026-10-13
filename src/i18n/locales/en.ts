@@ -729,6 +729,7 @@ const en: Messages = {
   'rc.right': "Right!",
   'rc.wrong': "Not quite — the right answer is marked.",
   'rc.cardQ': "Which verse is this explanation of the Rebbe about:",
+  'rc.calcsLocked': "“How it adds up” — with the answers — opens once you answer “Check yourself”.",
   'academy.tanakh': "Prophets and Writings: questions on the passages",
   'academy.tanakhNote': "A book’s certificate is for the “Questions on the passage” of every day the book is read. Listed are the books the three-year cycle has reached.",
   'academy.book': "The book of {name}",

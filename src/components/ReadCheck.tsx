@@ -6,7 +6,7 @@ import { answerRead, readQuestions, readScore, readStore, subscribeRead, type Re
 import { HebrewRuns } from './Hebrew';
 
 /** The reading answers of a lesson, kept up to date. */
-function useAnswers(slug: string) {
+export function useAnswers(slug: string) {
   const [a, setA] = useState(() => readStore()[slug] ?? {});
   useEffect(() => subscribeRead(() => setA(readStore()[slug] ?? {})), [slug]);
   return a;
@@ -121,4 +121,12 @@ export function CardsCheck({ lesson, text }: { lesson: Lesson; text: LessonText 
       </ol>
     </section>
   );
+}
+
+/** All «Проверь себя» questions of a chapter are answered (a chapter without questions — always). */
+export function useChapterChecked(lesson: Lesson, ri: number) {
+  const a = useAnswers(lesson.slug);
+  return readQuestions(lesson)
+    .filter((q) => q.ri === ri)
+    .every((q) => a[q.key] !== undefined);
 }

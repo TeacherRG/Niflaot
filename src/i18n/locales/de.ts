@@ -729,6 +729,7 @@ const de: Messages = {
   'rc.right': "Richtig!",
   'rc.wrong': "Nicht ganz — die richtige Antwort ist markiert.",
   'rc.cardQ': "Zu welchem Vers gehört diese Erklärung des Rebben:",
+  'rc.calcsLocked': "„Wie es aufgeht“ — mit den Antworten — öffnet sich, sobald du „Prüf dich selbst“ beantwortet hast.",
   'academy.tanakh': "Propheten und Schriften: Fragen zu den Abschnitten",
   'academy.tanakhNote': "Das Zertifikat eines Buches gibt es für die „Fragen zum Abschnitt“ aller Tage, an denen das Buch gelesen wird. Hier stehen die Bücher, bis zu denen der Drei-Jahres-Zyklus schon gekommen ist.",
   'academy.book': "Das Buch {name}",
