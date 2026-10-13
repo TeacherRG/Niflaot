@@ -17,6 +17,7 @@ import { firstLetters } from '../core/gematriaMethods';
 import { useLetterHelp } from './letterHelp';
 import { lessonArt } from '../core/art';
 import { Colophon } from './Colophon';
+import { ChapterCheck } from './ReadCheck';
 
 /** A ready calculation from the step's coach data: every word spelled into letter values, every action with its result. */
 function Calc({ actions }: { actions: CoachAction[] }) {
@@ -177,6 +178,9 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
           </section>
         ))}
       </div>
+
+      {/* «Проверь себя»: the chapter's choice questions, for the Torah certificate of a reader («Академия») */}
+      <ChapterCheck lesson={lesson} text={text} ri={ri} />
 
       <details className="read-calcs no-speak">
         <summary>🧮 {t('read.calcs')}</summary>

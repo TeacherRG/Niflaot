@@ -4,7 +4,9 @@
  *    раздела этого дня (`ref`: «joshua 2:18»); 3–4 варианта, верный — первый, варианты разные; тексты на ru, en, de;
  *    Имена — Б-г, Г-сподь, G-d, L-rd, G-tt; английский и немецкий — по docs/TRANSLATION-GUIDE.md (scripts/style-rules.ts);
  *  - главы Торы (src/lessons/parshiot.ts) — из списка TORAH_BOOKS (src/core/academy.ts), у каждой — книга;
- *  - правила сертификатов: PASS, книга открывается последней главой, результат дня считается лучшим.
+ *  - правила сертификатов: PASS, книга открывается последней главой, результат дня считается лучшим;
+ *  - «Проверь себя» на страницах чтения (src/core/readCheck.ts): у каждого урока со страницей чтения ≥ 3 вопроса,
+ *    у вопроса-карточки — 4 разных стиха и верный среди них, тексты на всех языках; сертификат Торы — и за чтение.
  */
 import { readFileSync, readdirSync } from 'node:fs';
 import { PARSHIOT } from '../src/lessons/parshiot';
@@ -23,6 +25,8 @@ import {
   type QuizStore,
 } from '../src/core/academy';
 import { styleErrors } from './style-rules';
+import { readQuestions, readScore, type ReadStore } from '../src/core/readCheck';
+import { mergeSnapshots } from '../src/core/sync';
 import cycleJson from '../src/tanakh/cycle.json';
 
 const errors: string[] = [];
@@ -110,8 +114,51 @@ const missing = all(4);
 delete missing[`${days[0].date}:neviim`];
 if (tanakhProgress(cert, missing, () => true).earned) err('academy: пропущенный день — сертификата быть не должно');
 
+/* «Проверь себя»: the reader's way to a Torah certificate */
+let readQs = 0;
+for (const l of LESSONS) {
+  if (l.kind === 'sicha' && !l.cards) continue;
+  const qs = readQuestions(l);
+  readQs += qs.length;
+  if (qs.length < 3) err(`${l.slug}: «Проверь себя» — меньше 3 вопросов (${qs.length}): сертификат за чтение будет слишком лёгким`);
+  if (new Set(qs.map((q) => q.key)).size !== qs.length) err(`${l.slug}: «Проверь себя» — повторяются ключи вопросов`);
+  // the right option must not always stand in one place
+  if (qs.length >= 4 && new Set(qs.map((q) => q.c)).size < 2) err(`${l.slug}: «Проверь себя» — верный вариант всегда на одном месте`);
+  for (const q of qs) {
+    if (q.card !== undefined) {
+      const o = q.opts;
+      if (o.length !== 4 || new Set(o).size !== 4 || o[q.c] !== q.card) err(`${l.slug} ${q.key}: варианты карточки — 4 разных стиха, верный среди них`);
+      for (const lang of LANGS) {
+        const it = l.texts[lang]?.cards?.items;
+        if (!it?.[q.card]?.card || o.some((x) => !it[x]?.verse)) err(`${l.slug} ${q.key}: нет текста карточки (${lang})`);
+      }
+    } else {
+      const step = l.riddles[q.ri!].steps[q.si!];
+      if (step.t !== 'ch' || q.opts[q.c] !== step.c || [...q.opts].sort().join() !== step.opts.map((_, i) => i).join())
+        err(`${l.slug} ${q.key}: вопрос — не шаг-выбор загадки или варианты перепутаны`);
+      for (const lang of LANGS) if (!l.texts[lang]?.riddles[q.ri!]?.steps[q.si!]?.q) err(`${l.slug} ${q.key}: нет текста вопроса (${lang})`);
+    }
+  }
+}
+const readAll = (right: number): ReadStore =>
+  Object.fromEntries(LESSONS.map((l) => [l.slug, Object.fromEntries(readQuestions(l).map((q, i) => [q.key, i < right * readQuestions(l).length ? q.c : q.c === 0 ? 1 : 0]))]));
+for (const c of certs) {
+  const zero = () => 0;
+  if (!torahProgress(c, zero, true, (l) => readScore(l, readAll(1))).earned) err(`${c.id}: всё прочитано и отвечено верно — сертификат должен быть`);
+  if (torahProgress(c, zero, true, (l) => readScore(l, readAll(0.5))).earned) err(`${c.id}: верных 50 % — сертификата за чтение быть не должно`);
+  if (torahProgress(c, zero, false, (l) => readScore(l, readAll(1))).earned) err(`${c.id}: книга не вся на сайте — сертификата быть не должно`);
+  const part = readAll(1);
+  const first = readQuestions(c.lessons[0])[0];
+  if (first) delete part[c.lessons[0].slug][first.key];
+  if (torahProgress(c, zero, true, (l) => readScore(l, part)).earned) err(`${c.id}: не все вопросы отвечены — сертификата быть не должно`);
+}
+const rm = JSON.parse(
+  mergeSnapshots({ 'niflaot:torah-read': JSON.stringify({ a: { x: 1 }, b: { y: 0 } }) }, { 'niflaot:torah-read': JSON.stringify({ a: { x: 2, z: 0 } }) })['niflaot:torah-read'] ?? '{}',
+);
+if (rm.a?.x !== 2 || rm.a?.z !== 0 || rm.b?.y !== 0) err('sync: ответы «Проверь себя» с обоих устройств должны сохраниться (ответ аккаунта — первый)');
+
 if (errors.length) {
   console.error(`✗ Академия: ${errors.length} ошибок\n  ${errors.slice(0, 40).join('\n  ')}`);
   process.exit(1);
 }
-console.log(`✓ Академия: ${certs.length} сертификатов Торы, вопросы к отрывкам — ${files.length} дней, ${questions} вопросов`);
+console.log(`✓ Академия: ${certs.length} сертификатов Торы (за игру или чтение, «Проверь себя» — ${readQs} вопросов), вопросы к отрывкам — ${files.length} дней, ${questions} вопросов`);

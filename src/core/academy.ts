@@ -3,7 +3,9 @@
  *
  * Тора: сертификат «Знаток <учителя> · книга <Берейшит…>» — за уроки одного учителя во всех главах книги.
  * Он открывается, когда на сайте есть последняя глава книги (Ваехи, Пкудей, Бехукотай, Масэй, Ґаазину), и выдаётся,
- * когда набрано не меньше PASS (70 %) от всех возможных очков этих уроков (очки — как в итоге урока: 10 за шаг).
+ * когда набрано не меньше PASS (70 %) от всех возможных очков этих уроков (очки — как в итоге урока: 10 за шаг),
+ * или — для того, кто только читает, — когда на страницах чтения этих уроков отвечены все вопросы «Проверь себя»
+ * (src/core/readCheck.ts) и верных не меньше PASS.
  *
  * Пророки и Писания: сертификат «книга <Йеґошуа, Теґилим…>» — за «Вопросы к отрывку» (src/tanakh/quiz/<дата>.json)
  * всех дней цикла, в которых читается эта книга: все тесты пройдены и верных ответов — не меньше PASS.
@@ -91,6 +93,8 @@ export interface Progress {
   /** книга целиком есть на сайте (все главы / тесты всех дней) — без этого сертификата нет */
   complete: boolean;
   earned: boolean;
+  /** Тора: путь чтения — вопросы «Проверь себя» (got — верных, max — вопросов, done — отвечено, parts — уроков с вопросами) */
+  read?: { got: number; max: number; done: number; parts: number; earned: boolean };
 }
 
 export interface Certificate {
@@ -114,8 +118,16 @@ export function torahCertificates(lessons: Lesson[] = LESSONS): (Certificate & {
   return out;
 }
 
-/** Прогресс сертификата Торы; `score(slug)` — очки урока на устройстве. */
-export function torahProgress(c: { book: { id: string }; lessons: Lesson[] }, score: (slug: string) => number, complete: boolean): Progress {
+/**
+ * Прогресс сертификата Торы; `score(slug)` — очки урока на устройстве, `read(lesson)` — его вопросы «Проверь себя»
+ * (отвечено, верных, всего). Сертификат — за игру или за чтение, что раньше.
+ */
+export function torahProgress(
+  c: { book: { id: string }; lessons: Lesson[] },
+  score: (slug: string) => number,
+  complete: boolean,
+  read?: (l: Lesson) => { done: number; got: number; n: number },
+): Progress {
   let got = 0;
   let max = 0;
   let done = 0;
@@ -126,7 +138,21 @@ export function torahProgress(c: { book: { id: string }; lessons: Lesson[] }, sc
     max += m;
     if (s > 0) done++;
   }
-  return { got, max, done, parts: c.lessons.length, complete, earned: complete && max > 0 && got >= PASS * max };
+  const game = complete && max > 0 && got >= PASS * max;
+  if (!read) return { got, max, done, parts: c.lessons.length, complete, earned: game };
+  const r = { got: 0, max: 0, done: 0, parts: 0, earned: false };
+  let answered = 0;
+  for (const l of c.lessons) {
+    const x = read(l);
+    r.got += x.got;
+    r.max += x.n;
+    answered += x.done;
+    if (x.n) r.parts++;
+    if (x.n && x.done === x.n) r.done++;
+  }
+  // every lesson of the book has questions, all are answered, and enough are right
+  r.earned = complete && r.max > 0 && r.parts === c.lessons.length && answered === r.max && r.got >= PASS * r.max;
+  return { got, max, done, parts: c.lessons.length, complete, earned: game || r.earned, read: r };
 }
 
 /** Дни цикла, в которых читается эта книга (в её разделе). */

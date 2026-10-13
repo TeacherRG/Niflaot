@@ -5,6 +5,7 @@ import { Colophon } from './Colophon';
 import { LESSONS } from '../lessons';
 import { TEACHERS } from '../lessons/teachers';
 import { lessonScore } from '../core/progress';
+import { readScore, readStore } from '../core/readCheck';
 import { CYCLE, localToday } from '../core/tanakh';
 import { readQuizStore, quizReady } from '../core/quiz';
 import { NIFLAOT_LOGO, PARTNERS } from '../core/partners';
@@ -39,7 +40,11 @@ function useCertificates() {
     const store = readQuizStore();
     const torah = torahCertificates(LESSONS).map((c) => {
       const legacy = (slug: string) => LESSONS.find((l) => l.slug === slug)?.legacyStorageKey;
-      return { ...c, progress: torahProgress(c, (slug) => lessonScore(slug, legacy(slug)), torahBookComplete(c.book.id as never)), href: `#/${c.lessons[0].slug}` };
+      const rs = readStore();
+      const progress = torahProgress(c, (slug) => lessonScore(slug, legacy(slug)), torahBookComplete(c.book.id as never), (l) => readScore(l, rs));
+      // the reading path starts at the first lesson whose «Проверь себя» isn't finished
+      const toRead = c.lessons.find((l) => { const x = readScore(l, rs); return x.done < x.n; }) ?? c.lessons[0];
+      return { ...c, progress, href: `#/${c.lessons[0].slug}`, readHref: `#/${toRead.slug}/read` };
     });
     const tanakh = tanakhCertificates(CYCLE, today).map((c) => {
       const progress = tanakhProgress(c, store, quizReady);
@@ -65,7 +70,7 @@ function Bar({ p }: { p: Progress }) {
   );
 }
 
-function Card({ c, p, href, extra }: { c: Certificate; p: Progress; href: string; extra: string }) {
+function Card({ c, p, href, extra, readHref }: { c: Certificate; p: Progress; href: string; extra: string; readHref?: string }) {
   const { t, locale } = useI18n();
   const lang = langOf(locale);
   const color = c.kind === 'torah' ? TEACHERS[c.teacher!].color : c.section === 'neviim' ? 'tchelet' : 'gold';
@@ -85,6 +90,11 @@ function Card({ c, p, href, extra }: { c: Certificate; p: Progress; href: string
         <p className="ac-meta">
           {t('academy.points', { got: p.got, max: p.max, pct: pct(p) })} · {extra}
         </p>
+        {p.read && p.read.max > 0 && (
+          <p className="ac-meta ac-read">
+            {t('academy.readPath', { got: p.read.got, max: p.read.max, done: p.read.done, parts: p.read.parts })}
+          </p>
+        )}
         {p.earned ? (
           <p className="ac-ok">{t('academy.earned')}</p>
         ) : !p.complete ? (
@@ -102,6 +112,11 @@ function Card({ c, p, href, extra }: { c: Certificate; p: Progress; href: string
               <a className="btn" href={href}>
                 {t('academy.start')}
               </a>
+              {readHref && p.read && p.read.max > 0 && (
+                <a className="btn ghost" href={readHref}>
+                  {t('academy.readBtn')}
+                </a>
+              )}
               <a className="btn ghost" href={`#/academy/${c.id}?sample`}>
                 {t('academy.sample')}
               </a>
@@ -279,7 +294,7 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
               </h3>
               <ul className="ac-list">
                 {cs.map((c) => (
-                  <Card key={c.id} c={c} p={c.progress} href={c.href} extra={t('academy.lessons', { done: c.progress.done, parts: c.progress.parts })} />
+                  <Card key={c.id} c={c} p={c.progress} href={c.href} readHref={c.readHref} extra={t('academy.lessons', { done: c.progress.done, parts: c.progress.parts })} />
                 ))}
               </ul>
             </section>

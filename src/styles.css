@@ -1498,6 +1498,11 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .qz-fb.ok{color:var(--ok)}
 .qz-fb.bad{color:var(--bad)}
 .qz-ref{font-weight:400;color:var(--muted)}
+.read-check{margin:18px 0 8px;padding:14px 14px 4px;border:1px solid var(--line);border-inline-start:4px solid var(--tchelet);border-radius:12px;background:var(--paper)}
+.rc-head h3{margin:0 0 4px;font-family:var(--f-display);font-size:19px;color:var(--tchelet)}
+.rc-head p{margin:0;font-size:13.5px;color:var(--muted)}
+.rc-card{font-weight:400;font-style:italic}
+.ac-read{color:var(--tchelet)}
 .qz-result{margin:16px 0;padding:16px;border-radius:12px;text-align:center;background:var(--gold-soft);border:1px solid var(--gold-line)}
 .qz-result.ok{background:var(--ok-soft);border-color:var(--ok)}
 .qz-result p{margin:4px 0}
