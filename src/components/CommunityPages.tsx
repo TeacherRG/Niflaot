@@ -12,10 +12,10 @@ const useTitle = (title: string) => {
   }, [title, t]);
 };
 
-/** `#/leaders` (everyone who agreed to be shown) and `#/leaders/<class>` (a class): points, streak, days. */
+/** The leaderboard — only in the admin (`#/admin/leaders`, `#/admin/leaders/<class>`): everyone who agreed to be shown, or a class; points, streak, days. */
 export function LeadersPage({ cls }: { cls?: string }) {
   const { t } = useI18n();
-  const { me, token } = useAccount();
+  const { me } = useAccount();
   const [data, setData] = useState<Leaders | null>(null);
   const [err, setErr] = useState(false);
   const [tab, setTab] = useState<keyof Leaders>('points');
@@ -30,7 +30,6 @@ export function LeadersPage({ cls }: { cls?: string }) {
   const rows = data?.[tab] ?? [];
   return (
     <>
-      <TopBar title={t('leaders.title')} />
       <div className="wrap acc">
         <header className="partners-head">
           <h1>🏆 {t('leaders.title')}</h1>
@@ -58,13 +57,8 @@ export function LeadersPage({ cls }: { cls?: string }) {
             </ol>
           )}
           <p className="acc-row">
-            {cls && <a href="#/leaders">{t('leaders.all')} →</a>}
-            {me?.classes.filter((c) => c.id !== cls).map((c) => (
-              <a key={c.id} href={`#/leaders/${c.id}`}>
-                {c.name} →
-              </a>
-            ))}
-            {!token && <a href="#/account">{t('leaders.join')} →</a>}
+            {cls && <a href="#/admin/leaders">{t('leaders.all')} →</a>}
+            <a href="#/admin">← Редактор текстов</a>
           </p>
         </main>
       </div>
@@ -138,7 +132,6 @@ export function ClassPage({ id }: { id: string }) {
             </div>
           )}
           <p className="acc-row">
-            <a href={`#/leaders/${id}`}>🏆 {t('leaders.title')} →</a>
             <a href="#/account">{t('acc.title')} →</a>
           </p>
         </main>

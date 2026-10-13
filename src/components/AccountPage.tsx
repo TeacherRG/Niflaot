@@ -163,9 +163,12 @@ function ProfileForm({ first }: { first: boolean }) {
           <small>{t('acc.parentHint')}</small>
         </label>
       )}
-      <label className="acc-check">
-        <input type="checkbox" checked={board} onChange={(e) => setBoard(e.target.checked)} /> {t('acc.board')}
-      </label>
+      {/* the leaderboard is in the admin for now (#/admin/leaders); true brings the choice back to the profile */}
+      {SHOW_BOARD && (
+        <label className="acc-check">
+          <input type="checkbox" checked={board} onChange={(e) => setBoard(e.target.checked)} /> {t('acc.board')}
+        </label>
+      )}
       {first && (
         <label className="acc-check">
           <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} /> <Html as="span" html={t('acc.agree')} />
@@ -221,7 +224,6 @@ function Classes() {
               {c.teacher && <span className="acc-note"> — {t('acc.teacherOf', { code: c.code ?? '' })}</span>}
               <span className="acc-row">
                 {c.teacher && <a href={`#/class/${c.id}`}>{t('acc.open')} →</a>}
-                <a href={`#/leaders/${c.id}`}>{t('leaders.title')} →</a>
                 <button className="link-btn" disabled={busy} onClick={() => run(() => leaveClass(c.id))}>
                   {t(c.teacher ? 'acc.closeClass' : 'acc.leave')}
                 </button>
@@ -262,6 +264,9 @@ function Classes() {
     </section>
   );
 }
+
+/** The public leaderboard is hidden: only the admin sees it (`#/admin/leaders`). */
+const SHOW_BOARD = false;
 
 /** «Классы» are hidden for now (the server and `#/class/<id>` stay); true brings the section back to the profile. */
 const SHOW_CLASSES = false;
@@ -309,9 +314,6 @@ export function AccountPage() {
               <section className="acc-card">
                 <p className="acc-ok">✓ {t('acc.synced')}</p>
                 <p className="acc-note">{t('acc.ai', { today: me!.ai.today, total: me!.ai.total })}</p>
-                <p>
-                  <a href="#/leaders">🏆 {t('leaders.title')} →</a>
-                </p>
               </section>
               {SHOW_CLASSES && <Classes />}
               <section className="acc-card">

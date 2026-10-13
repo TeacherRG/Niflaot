@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { LESSONS } from '../lessons';
 import { LOCALES, type Locale } from '../i18n';
 import ruUi from '../i18n/locales/ru';
@@ -14,7 +14,9 @@ import {
  * `#/admin`, `#/admin/<slug>` — the admin's text editor (Russian only: it is the project owner's tool).
  * Every text of a lesson or of the interface, in every language; an edit is shown on the site at once
  * (in this browser), «Опубликовать» commits all edits and the site rebuilds in a couple of minutes.
+ * `#/admin/leaders[/<class>]` — the leaderboard: players don't see it on the site, only the admin after signing in.
  */
+const LeadersPage = lazy(() => import('./CommunityPages').then((m) => ({ default: m.LeadersPage })));
 const UI_MESSAGES: Record<Locale, Record<string, unknown>> = { ru: ruUi, en: enUi, de: deUi };
 const LOGIN_KEY = 'niflaot:admin-login';
 
@@ -41,7 +43,7 @@ const label = (path: string) =>
 
 const isHtml = (s: string) => /<[a-z][^>]*>/i.test(s);
 
-export function Admin({ slug }: { slug?: string }) {
+export function Admin({ slug, leaders }: { slug?: string; leaders?: string }) {
   const [token, setToken] = useState(getToken);
   const [login, setLogin] = useState(() => {
     try {
@@ -61,6 +63,12 @@ export function Admin({ slug }: { slug?: string }) {
           setToken(t);
         }}
       />
+    );
+  if (slug === 'leaders')
+    return (
+      <Suspense fallback={null}>
+        <LeadersPage cls={leaders || undefined} />
+      </Suspense>
     );
   return (
     <Editor
@@ -230,6 +238,7 @@ function Editor({ slug, login, onSignOut }: { slug?: string; login: string; onSi
     <main className="admin">
       <header className="admin-head">
         <h1>Редактор текстов</h1>
+        <a href="#/admin/leaders">🏆 Таблица лидеров</a>
         <span className="admin-who">{login && `@${login} · `}</span>
         <button className="btn ghost" onClick={onSignOut}>
           Выйти
