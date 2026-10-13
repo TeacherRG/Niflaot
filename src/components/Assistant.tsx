@@ -11,7 +11,7 @@ const Helper = lazy(() => import('./Helper').then((m) => ({ default: m.Helper })
 /** The suggested first questions — for the page on screen (a lesson, a passage, its quiz, «Академия», anything else). */
 const SUGGEST: Record<PageKind | 'site', MessageKey[]> = {
   lesson: ['ai.s.lesson', 'ai.s.hint', 'ai.s.math', 'ai.s.source'],
-  tanakh: ['ai.s.passage', 'ai.s.who', 'ai.s.steinsaltz', 'ai.s.lessonLife'],
+  tanakh: ['ai.s.passage', 'ai.s.who', 'ai.s.commentary', 'ai.s.lessonLife'],
   quiz: ['ai.s.quizHint', 'ai.s.quizWhy', 'ai.s.passage'],
   academy: ['ai.s.cert', 'ai.s.start', 'ai.s.plan'],
   site: ['ai.s.start', 'ai.s.cert', 'ai.s.math'],

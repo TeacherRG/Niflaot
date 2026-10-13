@@ -27,15 +27,12 @@ export function cycleDayFor(iso: string): { index: number; exact: boolean } {
   return { index: i, exact: CYCLE[i].date === iso };
 }
 
-/** Вступление Штейнзальца к разделу: заголовок и текст (иврит, английский). */
-export interface SteinsaltzIntro {
-  title: { he?: string; en?: string; ru?: string; de?: string };
-  he?: string;
-  en?: string;
-  /** переводы проекта (src/tanakh/ru|de/<книга>.json) */
-  ru?: string;
-  de?: string;
-}
+/**
+ * Комментарий к стиху: несколько коротких комментариев, в начале каждого — слова стиха (<b>).
+ * he — оригинал (Public Domain); en — английский (Раши — Metsudah / Judaica Press, CC-BY; Мецудат Давид — перевод проекта);
+ * ru, de — переводы проекта (src/tanakh/<язык>/<книга>.json).
+ */
+export type Commentary = { he?: string[]; en?: string[]; ru?: string[]; de?: string[] };
 export interface DayVerse {
   b: string;
   c: number;
@@ -49,10 +46,10 @@ export interface DayVerse {
   /** переводы проекта: русский (src/tanakh/ru/<книга>.json) и немецкий (src/tanakh/de/<книга>.json) */
   ru?: string;
   de?: string;
-  /** Штейнзальц: стих с вплетённым объяснением (HTML: слова стиха — <b>, сноски — <small class="fn">); ru, de — переводы проекта */
-  st?: { he?: string; en?: string; ru?: string; de?: string };
-  /** вступления Штейнзальца к разделу, который начинается этим стихом */
-  intro?: SteinsaltzIntro[];
+  /** Мецудат Давид — простое объяснение стиха */
+  md?: Commentary;
+  /** Раши */
+  rashi?: Commentary;
 }
 interface Version {
   title?: string;
@@ -62,7 +59,7 @@ interface Version {
 export interface SectionDay {
   refs: { b: string; from: [number, number]; to: [number, number]; url: string }[];
   verses: DayVerse[];
-  versions: { he?: Version; en?: Version; steinsaltz?: Version };
+  versions: { he?: Version; en?: Version; md?: Version; rashi?: Version; rashiEn?: Version };
 }
 export type DayContent = { date: string; day: number; days: number } & Record<Section, SectionDay>;
 
@@ -81,29 +78,24 @@ export function loadDay(date: string): Promise<DayContent | null> {
 
 /**
  * About how long the passage takes to read in the chosen view: the vocalized Hebrew read aloud — ~100 words a minute,
- * the translation and Steinsaltz's explanation — ~180 words a minute. Rounded up, at least a minute.
+ * the translation and the commentaries — ~180 words a minute. Rounded up, at least a minute. A commentary is read in the
+ * chosen translation where it has one, otherwise in Hebrew (when the Hebrew is shown).
  */
 const HE_WPM = 100;
 const TR_WPM = 180;
-const words = (s?: string) => (s ? s.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length : 0);
-/** язык перевода на странице: английский (JPS 1985 и издание Штейнзальца) или перевод проекта */
+const words = (s?: string | string[]) => (s ? [s].flat().join(' ').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length : 0);
+/** язык перевода на странице: английский или перевод проекта */
 export type Tr = 'en' | 'ru' | 'de';
-export function readingMinutes(verses: DayVerse[], he: boolean, tr: Tr | null, st: boolean): number {
+export function readingMinutes(verses: DayVerse[], he: boolean, tr: Tr | null, comm: { md: boolean; rashi: boolean }): number {
   let heW = 0;
   let trW = 0;
-  const add = (x: ({ he?: string } & Partial<Record<Tr, string>>) | undefined) => {
-    if (!x) return;
-    if (he) heW += words(x.he);
-    if (tr) trW += words(x[tr]);
-  };
   for (const v of verses) {
-    add(v);
-    if (st) {
-      add(v.st);
-      v.intro?.forEach((x) => {
-        add(x);
-        add(x.title);
-      });
+    if (he) heW += words(v.he);
+    if (tr) trW += words(v[tr]);
+    for (const c of [comm.md && v.md, comm.rashi && v.rashi]) {
+      if (!c) continue;
+      if (he) heW += words(c.he);
+      if (tr) trW += words(c[tr]);
     }
   }
   return Math.max(1, Math.ceil(heW / HE_WPM + trW / TR_WPM));

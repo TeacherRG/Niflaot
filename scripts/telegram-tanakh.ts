@@ -80,12 +80,12 @@ function post(loc: Loc): string {
   ];
   for (const s of SECTIONS) {
     const verses = content[s].verses;
-    const plain = readingMinutes(verses, true, tr, false);
-    const withSt = readingMinutes(verses, true, tr, true);
+    const plain = readingMinutes(verses, true, tr, { md: false, rashi: false });
+    const withComm = readingMinutes(verses, true, tr, { md: true, rashi: false });
     lines.push(
       '',
       `📖 <b>${html(t(loc, `tanakh.${s}`))}</b> ${SECTION_HE[s]} — ${html(rangeLabel(s, day[s], loc))}`,
-      `⏱ ${html(t(loc, 'tanakh.readingTime', { n: plain }))} · ${html(t(loc, 'tanakh.post.withSt', { n: withSt }))}`,
+      `⏱ ${html(t(loc, 'tanakh.readingTime', { n: plain }))} · ${html(t(loc, 'tanakh.post.withComm', { n: withComm }))}`,
       `👉 ${html(routeLink(`${s}/${date}`, 'channel', loc))}`,
     );
   }
@@ -94,7 +94,7 @@ function post(loc: Loc): string {
 
 /**
  * The day's printout, as the «Распечатать» button makes it: the live site's page of the day in a headless browser —
- * the Hebrew and the translation in the channel's language, with Steinsaltz, both sections — saved as A4 PDF.
+ * the Hebrew and the translation in the channel's language, with Metzudat David, both sections — saved as A4 PDF.
  */
 const VIEW: Record<Loc, string> = { ru: 'he-ru', en: 'he-en', de: 'he-de' };
 async function dayPdf(loc: Loc): Promise<Uint8Array> {
@@ -107,7 +107,7 @@ async function dayPdf(loc: Loc): Promise<Uint8Array> {
     await page.route(/goatcounter/, (r) => r.abort());
     await page.addInitScript(
       ([view]) => {
-        localStorage.setItem('niflaot:tanakh-view', JSON.stringify({ text: view, st: true }));
+        localStorage.setItem('niflaot:tanakh-view', JSON.stringify({ text: view, md: true, rashi: false, de: true }));
         localStorage.setItem('niflaot:tanakh-print-both', '1');
       },
       [VIEW[loc]],

@@ -1417,19 +1417,17 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .tk-view-list .code{font-family:var(--f-num);font-size:12px;color:var(--gold)}
 .tk-chapter{margin:22px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--gold-line);font-family:var(--f-display);font-size:24px}
 .tk-chapter .he{font-family:var(--f-he);font-size:19px;color:var(--gold)}
-.tk-intro{margin:12px 0;padding:12px 14px;border-radius:10px;background:var(--tchelet-soft);border-inline-start:4px solid var(--tchelet)}
-.tk-intro h3{margin:4px 0;font-family:var(--f-display);font-size:20px;line-height:1.2}
-.tk-intro h3.he{font-family:var(--f-he);font-size:19px}
-.tk-intro p{margin:6px 0 0;font-size:15px;line-height:1.55}
-.tk-intro-by,.tk-st-by{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tchelet)}
 .tk-verse{position:relative;padding:12px 0;border-bottom:1px solid var(--line)}
 .tk-num{display:inline-block;margin-bottom:2px;font-size:12px;color:var(--gold)}
 .tk-he{margin:0;font-family:var(--f-he);font-size:24px;line-height:1.7;text-align:right}
 .tk-en{margin:4px 0 0;font-size:16px;line-height:1.55}
+.tk-st-by{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tchelet)}
 .tk-st{margin-top:8px;padding:8px 12px;border-radius:8px;background:var(--paper)}
 .tk-st p{margin:4px 0;font-size:15px;line-height:1.6}
 .tk-st p.he{font-family:var(--f-he);font-size:18px;line-height:1.75;text-align:right}
 .tk-st b{font-weight:700;color:var(--ink)}
+.tk-st + .tk-st{margin-top:6px}
+.tk-st-by small{font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
 .tk .fn{font-size:.78em;color:var(--muted)}
 .tk-sources{margin-top:18px;font-size:12.5px;color:var(--muted)}
 .tk-sources a{margin-inline-end:12px;color:var(--tchelet)}
@@ -1448,9 +1446,7 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
   .tk article>.tk-head h1{display:none}
   .tk-range{font-size:13pt;color:#111}
   .tk-chapter{margin:14pt 0 6pt;font-size:15pt;break-after:avoid}
-  .tk-intro{background:none;border:1px solid #bbb;border-inline-start:3px solid #555}
-  .tk-intro p{font-size:10.5pt}
-  .tk-intro-by,.tk-st-by{color:#555}
+  .tk-st-by{color:#555}
   .tk-verse{padding:6pt 0;border-bottom:1px solid #ddd}
   .tk-num{color:#7a5b1e}
   .tk-he{font-size:16pt;line-height:1.55}
