@@ -153,6 +153,8 @@ export function Catalog() {
                 </span>
               </div>
               <h1>{t('catalog.uvp')}</h1>
+              {/* one academy for every age: the promise above both wings, shown on phones too */}
+              <p className="h-promise">{t('home.promise')}</p>
               <p>{t('home.lead')}</p>
             </div>
             <div className="h-hero-side">
