@@ -49,15 +49,17 @@ export function LanguagePicker() {
   );
 }
 
-/** «Войти» for a guest (only when the site can register), the nickname when signed in — both open `#/account`. */
+/**
+ * The account button, always there — `#/account`: the site's mode («Дети и семья» / «Подростки и взрослые»), sign-in
+ * and the profile. «Войти» for a guest (when the site can register), the nickname when signed in, else «Аккаунт».
+ */
 function AccountChip() {
   const { t } = useI18n();
   const { token, me, mail } = useAccount();
   useEffect(() => {
     loadConfig();
   }, []);
-  if (!token && !mail) return null;
-  const nick = me?.user.nick;
+  const nick = me?.user.nick ?? (token || mail ? undefined : t('acc.title'));
   return (
     <a className={`acc-chip${token ? ' in' : ''}`} href="#/account" aria-label={nick ?? t('acc.chipGuest')} title={nick ?? t('acc.chipGuest')}>
       <Icon name="user" size={18} />

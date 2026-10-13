@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { Html, useI18n } from '../i18n';
+import { MODES, setMode, useMode } from '../core/mode';
 import type { MessageKey } from '../i18n/locales/ru';
 import {
   AccountError,
@@ -268,6 +269,25 @@ function Classes() {
 /** The public leaderboard is hidden: only the admin sees it (`#/admin/leaders`). */
 const SHOW_BOARD = false;
 
+/** The site's mode (src/core/mode.ts): who is learning — switched here, right away; kept on the device and in the account. */
+function ModeCard() {
+  const { t } = useI18n();
+  const mode = useMode();
+  return (
+    <section className="acc-card">
+      <h2>{t('mode.title')}</h2>
+      <div className="acc-modes" role="radiogroup" aria-label={t('mode.menu')}>
+        {MODES.map((m) => (
+          <button key={m} role="radio" aria-checked={mode === m} className={`acc-mode${mode === m ? ' on' : ''}`} onClick={() => setMode(m)}>
+            <b>{t(`mode.${m}`)}</b>
+            <small>{t(`mode.${m}Sub`)}</small>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 /** «Классы» are hidden for now (the server and `#/class/<id>` stay); true brings the section back to the profile. */
 const SHOW_CLASSES = false;
 
@@ -295,6 +315,7 @@ export function AccountPage() {
           {u && <p>{u.email}</p>}
         </header>
         <main>
+          <ModeCard />
           {!token && mail === false && (
             <section className="acc-card">
               <h2>👤 {t('acc.guest')}</h2>
