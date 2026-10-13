@@ -24,7 +24,7 @@
  *  - every text edit of src/content/overrides.json (made on the site, #/admin) names an existing text
  *  - «Знаете ли вы?» (#/facts): every Hebrew word of the feed has a translation in the lesson glossary of every language,
  *    and every fact links to its place in the lesson (a riddle or a Memo pair)
- *  - «Гиматрия дня» (#/daily): enough words, each with its value, a translation in every language and a place to link to
+ *  - «Гематрия дня» (#/daily): enough words, each with its value, a translation in every language and a place to link to
  *  - the site asks the browser for no permissions: no microphone, camera, location, notifications, speech recognition
  *    (src/ has none of these APIs; the city for Shabbat comes from the time zone)
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
@@ -346,7 +346,7 @@ for (const f of facts)
   }
 
 const daily = dailyPool(LESSONS);
-if (daily.length < 30) err(`daily: only ${daily.length} words for «Гиматрия дня» — a month at least`);
+if (daily.length < 30) err(`daily: only ${daily.length} words for «Гематрия дня» — a month at least`);
 for (const w of daily) {
   if (gematria(w.he) !== w.v) err(`daily: «${w.he}» = ${gematria(w.he)}, not ${w.v}`);
   if (w.ri === undefined && w.mi === undefined) err(`daily: «${w.he}» has no place in its lesson to link to`);

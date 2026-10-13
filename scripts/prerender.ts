@@ -3,7 +3,7 @@
  *  - dist/<slug>/index.html for every lesson: its own title, description, canonical URL, Open Graph,
  *    JSON-LD and the lesson outline as static HTML (the app replaces it on start and opens the lesson);
  *  - static outline of the catalog in dist/index.html, with real links to the lesson pages;
- *  - «Устный счёт», «Гиматрия дня», «Знаете ли вы?» and «Буквы за 5 минут» for search engines: dist/mental-math/,
+ *  - «Устный счёт», «Гематрия дня», «Знаете ли вы?» and «Буквы за 5 минут» for search engines: dist/mental-math/,
  *    dist/daily/, dist/facts/, dist/letters/ (ru) and the same under dist/en/, dist/de/ — with hreflang alternates;
  *    the app opens the trainer / the game / the feed / the letters on them;
  *  - web app manifests (install on the phone): dist/manifest.webmanifest (ru), manifest-en / manifest-de.webmanifest;
@@ -199,7 +199,7 @@ function lessonPage(l: Lesson): Page {
       author: l.author ? { '@type': 'Person', ...l.author } : AUTHOR,
       publisher: PUBLISHER,
       isPartOf: SITE,
-      keywords: ['гиматрия', 'Тора', ...keywords].join(', '),
+      keywords: ['гематрия', 'Тора', ...keywords].join(', '),
     },
     // one <article>: the whole retelling, so a browser's reading mode and «read aloud» get the lesson itself
     body: `<article><header><p><a href="../">${esc(ui['app.title'] as string)}</a> · ${esc(lessonLabel(l))}</p>
@@ -223,7 +223,7 @@ ${tx.riddles
   };
 }
 
-/* ───── «Устный счёт» and «Гиматрия дня» ───── */
+/* ───── «Устный счёт» and «Гематрия дня» ───── */
 
 const LANGS = [
   { lang: 'ru', ui: ru },

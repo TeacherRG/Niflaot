@@ -1,7 +1,7 @@
 /**
  * Link-preview pictures (Open Graph, 1200×630) in the style of the share card:
  * public/og/site.png for the catalog, public/og/<slug>.png for every lesson, mental-math.png, daily.png, facts.png and
- * letters.png for «Устный счёт», «Гиматрия дня», «Знаете ли вы?» and «Буквы за 5 минут».
+ * letters.png for «Устный счёт», «Гематрия дня», «Знаете ли вы?» and «Буквы за 5 минут».
  * Also the app icons for «install on the phone» (manifest — scripts/prerender.ts): public/icons/icon-192.png,
  * icon-512.png, maskable-512.png (the mark inside the safe zone) and apple-touch-icon.png (180).
  * The PNGs are committed; re-run after adding a lesson or changing its title or key equation:
@@ -73,7 +73,7 @@ const lessonPage = (l: Lesson) =>
     he: l.hebrewTitle,
     title: l.texts.ru!.title,
     // a talk of the Rebbe is an investigation, not a gematria game
-    sub: `${l.kind === 'sicha' ? 'Расследование' : 'Игра-гиматрия'} ${l.texts.ru!.hero.author}`,
+    sub: `${l.kind === 'sicha' ? 'Расследование' : 'Игра-гематрия'} ${l.texts.ru!.hero.author}`,
     highlight: l.highlight,
     letters: l.heroLetters,
   });
@@ -121,7 +121,7 @@ const shots: [string, string][] = [
       eyebrow: 'Нифлаот · знаете ли вы?',
       he: 'נפלאות',
       title: ru['facts.title'] as string,
-      sub: 'Загадки Торы: гиматрия и тайные слова в первых буквах',
+      sub: 'Загадки Торы: гематрия и тайные слова в первых буквах',
       highlight: [['האדם', '=', '50', '=', 'אדמה']],
       letters: ['ד', 'ע'],
     }),

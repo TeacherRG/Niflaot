@@ -1,5 +1,5 @@
 /**
- * «Гиматрия дня» (#/daily): every day one word of the lessons — the player adds the values of its letters in the
+ * «Гематрия дня» (#/daily): every day one word of the lessons — the player adds the values of its letters in the
  * head, in up to three tries, and shares the result without the answer (🟥🟩 · 0:42), like Wordle.
  * The words are the Hebrew of the «Знаете ли вы?» facts (checked, with a translation in every language and a place
  * in a lesson). Everyone gets the same word on the same (local) date; a new lesson adds words to the cycle by itself.
@@ -10,7 +10,7 @@ import { displayNames } from './names';
 import { collectFacts, factHebrew } from './facts';
 import type { Lesson } from '../lessons/types';
 
-/** the date of «Гиматрия дня №1» */
+/** the date of «Гематрия дня №1» */
 export const DAILY_START = '2026-10-11';
 export const MAX_TRIES = 3;
 

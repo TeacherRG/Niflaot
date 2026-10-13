@@ -5,7 +5,7 @@ import { DEFAULT_HOUR, PUSH_HOURS, disablePush, enablePush, pushState, testPush,
 /**
  * «Напоминать каждый день»: turn the daily notification on (the browser asks for permission only now, after the tap),
  * pick the hour, «Проверить» — a notification right away, «Выключить». Hidden where the browser can't do it at all.
- * Under «Гиматрия дня» after the word is solved and at the end of a lesson.
+ * Under «Гематрия дня» after the word is solved and at the end of a lesson.
  */
 export function DailyReminder({ sheet = false }: { sheet?: boolean }) {
   const { t, locale } = useI18n();

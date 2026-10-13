@@ -1279,7 +1279,7 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .partner-url{font-size:14px;font-weight:600;color:var(--tchelet)}
 a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(20,26,51,.45)}
 
-/* «Гиматрия дня» */
+/* «Гематрия дня» */
 .daily-card{text-align:center;display:grid;gap:10px;justify-items:center}
 .daily-word{font-size:clamp(48px,14vw,76px);font-weight:700;line-height:1.1;color:var(--ink)}
 .daily-gloss{color:var(--muted);font-size:16px;margin-top:-6px}

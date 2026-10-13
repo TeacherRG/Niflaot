@@ -48,7 +48,7 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©pnimi.org.il\n©mychitas.app`;
 /**
  * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version,
  * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers (`/read/<n>`, `/memo/<n>`, `/r/<n>` — opened at riddle or Memo pair n), `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/partners` — «Партнёры», `#/teacher` — «Учитель» (ИИ или человек), `#/account` — аккаунт (гость / вход по коду / профиль, классы), `#/leaders[/<class>]` — таблица лидеров, `#/class/<id>` — класс для учителя, `#/consent/<token>` — согласие родителя, `#/privacy` — конфиденциальность, `#/facts` — «Знаете ли вы?», the equalities of all lessons (`#/facts/<id>` — opened at one of them), `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper, `#/letters` — «Буквы за 5 минут», `#/neviim[/<date>]`, `#/ketuvim[/<date>]` — «Пророки», «Писания»: отрывок дня трёхлетнего цикла (`/<date>/quiz`, `/quiz` — «Вопросы к отрывку»), `#/academy[/<id>]` — «Академия»: сертификаты за книги.
- * `#/daily` — «Знаете ли вы?» opened on «Гиматрия дня», its first card; `#/math/<op>` — «Устный счёт».
+ * `#/daily` — «Знаете ли вы?» opened on «Гематрия дня», its first card; `#/math/<op>` — «Устный счёт».
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson; `/mental-math/` and `/daily/` (also under `/en/`, `/de/`) — those pages.
  */
