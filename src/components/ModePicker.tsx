@@ -5,6 +5,7 @@ import { savedHebrewLevel } from '../core/hebrewLevel';
 import { setMode, useSavedMode, type Mode } from '../core/mode';
 import { useUI } from './ui';
 import { Colophon } from './Colophon';
+import { TopBar } from './TopBar';
 
 /**
  * «Кто будет учиться?» — on the first visit instead of the home page, and at `#/mode` (menu → «Режим · сменить»):
@@ -35,6 +36,8 @@ export function ModePicker() {
 
   return (
     <>
+      {/* the language and «Войти» are needed before the choice too: a visitor may read another language, or come back on a new device */}
+      <TopBar title={t('app.title')} wide />
       <main className="mode-pick">
         <img className="h-logo" src={NIFLAOT_LOGO} alt="Niflaot" width={760} height={298} fetchPriority="high" />
         <p className="mode-brand">

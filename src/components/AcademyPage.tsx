@@ -94,7 +94,11 @@ function Card({ c, p: game, href, extra, readHref, reading }: { c: Certificate; 
         </h3>
         <Bar p={p} />
         <p className="ac-meta">
-          {t(reading ? 'academy.readPoints' : 'academy.points', { got: p.got, max: p.max, pct: pct(p) })} · {extra}
+          {/* «Вопросы к отрывку» are right or wrong answers too; before the first test — only the days */}
+          {c.kind === 'torah' || p.max > 0
+            ? `${t(reading || c.kind !== 'torah' ? 'academy.readPoints' : 'academy.points', { got: p.got, max: p.max, pct: pct(p) })} · `
+            : ''}
+          {extra}
         </p>
         {!reading && readHref && p.read && p.read.max > 0 && (
           <p className="ac-meta ac-read">

@@ -42,7 +42,7 @@ const en: Messages = {
 
   'help.title': 'How to play',
   'help.body':
-    '<ol><li><b>Read the riddle.</b> Each riddle is a short passage from the lesson and a few Hebrew words.</li><li><b>Tap a word card</b> to reveal its letters and their numerical values. Adding them up is up to you.</li><li><b>Answer step by step:</b> type a number or pick an option. Each step unlocks after the previous one.</li><li><b>Stuck?</b> Tap “Hint” — the answer stays yours, but earns fewer points.</li><li><b>Once solved</b>, “Lesson unlocked” — a retelling of the lesson — and a question for reflection unlock.</li><li><b>In “Niflaot of the Rebbe” lessons</b> there is no gematria: you run an investigation — compare verses, choose answers — and only then open the Rebbe’s answer.</li></ol><p>The calculator at the bottom of the page computes the gematria of any word. Progress and notes are stored only on this device.</p>',
+    '<ol><li><b>Read the riddle.</b> Each riddle is a short passage from the lesson and a few Hebrew words.</li><li><b>Tap a word card</b> to reveal its letters and their numerical values. Adding them up is up to you.</li><li><b>Answer step by step:</b> type a number or pick an option. Each step unlocks after the previous one.</li><li><b>Stuck?</b> Tap “Hint” — the answer stays yours, but earns fewer points.</li><li><b>Once solved</b>, “Lesson unlocked” — a retelling of the lesson — and a question for reflection unlock.</li><li><b>In “Niflaot of the Rebbe” lessons</b> there is no gematria: you run an investigation — compare verses, choose answers — and only then open the Rebbe’s answer.</li></ol><p>The calculator at the bottom of the page computes the gematria of any word. Progress and notes are kept on this device — and in your account, if you sign in.</p>',
   'help.scoring': 'Points',
   'help.table': 'Letter values',
   'help.finals': 'Final letters ך ם ן ף ץ have the same values as regular ones.',
@@ -359,7 +359,7 @@ const en: Messages = {
   'print.memoColor': 'Coloring pages',
   'refl.title': 'A question for yourself',
   'refl.sub': '· what does this change in me right now?',
-  'refl.placeholder': 'Write down a thought. It stays only on this device.',
+  'refl.placeholder': 'Write down a thought. Only you can see it.',
 
   'final.conspect': 'Summary',
   'final.conspectSub': '· what you have learned',
@@ -482,6 +482,11 @@ const en: Messages = {
   'push.privacy': "The browser will ask for permission once. We keep only the browser’s notification address, time zone, time and language — no name, no email.",
   'push.answerOnSite': "The answer is on the site.",
   'push.fallback': "Today’s riddle is waiting for you on the site.",
+  'push.adultsBody': "Today: {range}.",
+  'push.adultsRest': "No new passage today — a good day to review yesterday’s.",
+  'push.adultsLead': "One message a day — today’s passage of the Prophets and Writings: the books, the verses and the reading time. No notifications on Shabbat.",
+  'push.adultsMenuSub': "the Prophets and Writings passage of the day",
+  'offer.adultsLead': "An icon on your phone’s screen and one message a day — today’s passage of the Prophets and Writings.",
   'offer.title': "Niflaot on your phone",
   'offer.lead': "An icon on your phone’s screen and one short message a day from the weekly portion.",
   'offer.ios': "On iPhone and iPad: tap “Share” ⬆ at the bottom of Safari → “Add to Home Screen”. Then open Niflaot from the Home Screen and turn on the reminder.",
@@ -635,7 +640,7 @@ const en: Messages = {
   'helper.q.sources': 'Where do the primary sources come from and how do I read them?',
   'helper.a.sources': '<p>The Torah verses, Talmud, midrashim and commentaries a lesson rests on come from the open Sefaria library. After you solve a riddle, a “Primary sources” block opens under its lesson: the Hebrew original and a translation side by side, with a link to Sefaria.</p>',
   'helper.q.progress': 'Is my progress saved?',
-  'helper.a.progress': '<p>Yes, but only on this device and in this browser: points, solved riddles and notes are stored locally and sent nowhere. On another device the lesson starts afresh.</p>',
+  'helper.a.progress': '<p>Yes. Without an account — only on this device and in this browser: points, solved riddles and notes are stored locally, and on another device the lesson starts afresh. If you sign in (“Sign in” in the menu), your progress is kept in your account too — on all your devices.</p>',
   'helper.q.print': 'How do I print a lesson?',
   'helper.a.print': '<p>In a lesson, press “Print” (or pick it in the menu). You can include or hide the answers, the lesson text and the questions for yourself.</p>',
   'helper.q.contact': 'How do I suggest an idea or report a mistake?',

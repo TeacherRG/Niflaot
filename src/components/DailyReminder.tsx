@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
+import { useMode } from '../core/mode';
 import { DEFAULT_HOUR, PUSH_HOURS, disablePush, enablePush, pushState, testPush, type PushState } from '../core/push';
 
 /**
@@ -9,6 +10,7 @@ import { DEFAULT_HOUR, PUSH_HOURS, disablePush, enablePush, pushState, testPush,
  */
 export function DailyReminder({ sheet = false }: { sheet?: boolean }) {
   const { t, locale } = useI18n();
+  const mode = useMode();
   const [state, setState] = useState<PushState | null>(null);
   const [hour, setHour] = useState(DEFAULT_HOUR);
   const [busy, setBusy] = useState(false);
@@ -39,7 +41,7 @@ export function DailyReminder({ sheet = false }: { sheet?: boolean }) {
   return (
     <section className={sheet ? 'reminder reminder-sheet' : 'reminder'}>
       {!sheet && <h3>🔔 {t('push.title')}</h3>}
-      <p>{t('push.lead')}</p>
+      <p>{t(mode === 'adults' ? 'push.adultsLead' : 'push.lead')}</p>
       {state.kind === 'ios' && <p className="reminder-note">{t('push.ios')}</p>}
       {state.kind === 'denied' && <p className="reminder-note">{t('push.denied')}</p>}
       {state.kind === 'off' && (

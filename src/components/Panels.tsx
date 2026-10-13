@@ -340,7 +340,7 @@ export function Panels() {
             <Icon name="bell" />
             <span>
               {t('push.title')}
-              <small>{t('push.menuSub')}</small>
+              <small>{t(mode === 'adults' ? 'push.adultsMenuSub' : 'push.menuSub')}</small>
             </span>
           </button>
           <a href="#/teacher" onClick={close} className="menu-item" aria-current={location.hash === '#/teacher' ? 'page' : undefined}>

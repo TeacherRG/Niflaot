@@ -11,6 +11,7 @@
  */
 import { ASSISTANT_URL } from './assistant';
 import type { Locale } from '../i18n';
+import { currentMode, MODE_EVENT } from './mode';
 
 const STORE = 'niflaot:push';
 const PREFS = '/__niflaot/push-prefs';
@@ -56,10 +57,13 @@ async function api(path: string, body: object) {
   return res;
 }
 
-/** the language of the message — for the service worker, which can't read localStorage */
+/**
+ * the language and the mode of the message — for the service worker, which can't read localStorage: the adults'
+ * mode gets the passage of the day of the Prophets and Writings (src/core/dailyMessage.ts)
+ */
 async function savePrefs(lang: Locale) {
   const c = await caches.open('niflaot-prefs');
-  await c.put(PREFS, new Response(JSON.stringify({ lang }), { headers: { 'Content-Type': 'application/json' } }));
+  await c.put(PREFS, new Response(JSON.stringify({ lang, mode: currentMode() }), { headers: { 'Content-Type': 'application/json' } }));
 }
 
 /** a browser without a push service (e.g. Chromium without Google) never answers the subscription: give up */
@@ -119,7 +123,15 @@ export async function disablePush(): Promise<PushState> {
   return { kind: 'off' };
 }
 
-/** The language changed on the site: the next messages in the new language. */
+/** The language changed on the site (and on every visit): the next messages in this language and mode. */
+let lastLang: Locale | null = null;
 export async function pushLanguage(lang: Locale) {
+  lastLang = lang;
   if (saved()) await savePrefs(lang).catch(() => {});
 }
+
+// the mode changed («Режим · сменить»): the next messages for the new mode
+if (typeof window !== 'undefined')
+  window.addEventListener(MODE_EVENT, () => {
+    if (lastLang) void pushLanguage(lastLang);
+  });

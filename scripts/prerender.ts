@@ -35,6 +35,7 @@ import { markHebrewHtml } from '../src/core/langMarkup';
 import { stripFootnotes } from '../src/sources/footnotes';
 import { quoteView, sectionQuotes } from '../src/core/quotes';
 import { BOOKS, track, type Section } from '../src/core/tanakhCycle';
+import { readingMinutes, type DayVerse } from '../src/core/tanakh';
 import { civilDate } from '../src/core/hebrewDate';
 import cycleJson from '../src/tanakh/cycle.json';
 
@@ -609,7 +610,15 @@ writeFileSync(
 );
 // from yesterday (time zones behind UTC) for two months: the reminder keeps working if the site is not rebuilt for a while
 const yesterday = new Date(Date.now() - 864e5).toISOString().slice(0, 10);
-const days = schedule(yesterday, 62, SITE_URL);
+// the adults' message: the reading time as on the home page (Hebrew, the translation of the day, Metzudat David)
+const readMinutes = (date: string, loc: 'ru' | 'en' | 'de') => {
+  const file = `public/tanakh/${date}.json`;
+  if (!existsSync(file)) return undefined;
+  const c = JSON.parse(readFileSync(file, 'utf8')) as Record<Section, { verses: DayVerse[] }>;
+  const tr = loc !== 'en' && c.neviim.verses.every((v) => v[loc]) ? loc : 'en';
+  return readingMinutes([...c.neviim.verses, ...c.ketuvim.verses], true, tr, { md: true, rashi: false });
+};
+const days = schedule(yesterday, 62, SITE_URL, readMinutes);
 writeFileSync(
   `${DIST}/daily-message.json`,
   JSON.stringify({ updated: today, fallback: Object.fromEntries(MSG_LOCALES.map((l) => [l, LANGS.find((x) => x.lang === l)!.ui['push.fallback']])), days }),

@@ -1,5 +1,6 @@
 import { useEffect, useState, useSyncExternalStore } from 'react';
 import { useI18n } from '../i18n';
+import { useMode } from '../core/mode';
 import { canInstall, install, subscribeInstall } from '../core/install';
 import { pushState, type PushState } from '../core/push';
 import { useUI } from './ui';
@@ -20,6 +21,7 @@ const inApp = () => /Telegram|Instagram|FBAN|FBAV|Line\/|; wv\)/.test(navigator.
  */
 export function PhoneOffer() {
   const { t } = useI18n();
+  const mode = useMode();
   const { open } = useUI();
   const installable = useSyncExternalStore(subscribeInstall, canInstall, () => false);
   const [push, setPush] = useState<PushState | null>(null);
@@ -54,7 +56,7 @@ export function PhoneOffer() {
         ×
       </button>
       <h2 id="h-phone">📲 {t('offer.title')}</h2>
-      <p>{t('offer.lead')}</p>
+      <p>{t(mode === 'adults' ? 'offer.adultsLead' : 'offer.lead')}</p>
       {messenger && <p className="h-phone-note">{t('offer.inapp')}</p>}
       {ios && <p className="h-phone-note">{t('offer.ios')}</p>}
       <div className="h-phone-btns">
