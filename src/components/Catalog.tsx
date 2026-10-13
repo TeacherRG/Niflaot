@@ -10,7 +10,7 @@ import { PhoneOffer } from './PhoneOffer';
 import { dailyNumber, grid, loadResults, streak } from '../core/daily';
 import { Icon } from './ui';
 import { NIFLAOT_LOGO } from '../core/partners';
-import { useHebrewLevel } from '../core/hebrewLevel';
+import { useMode } from '../core/mode';
 
 /** The games of a lesson as small icons: gematria (#), Memo or cards, investigation (magnifier), reading (book). */
 function GameIcons({ lesson: l }: { lesson: Lesson }) {
@@ -29,11 +29,30 @@ const Ring = ({ done, total }: { done: number; total: number }) => (
 );
 
 /** A lesson of the week: the teacher's colour and badge, Hebrew and translated title, its games, age and progress. */
-function WeekTile({ lesson: l }: { lesson: Lesson }) {
+/** `read` — the adults' home: the tile opens the lesson to read, without games, age or progress ring. */
+function WeekTile({ lesson: l, read }: { lesson: Lesson; read?: boolean }) {
   const { t, pick } = useI18n();
   const text = pick(l.texts).value;
   const who = teacherOf(l);
   const done = lessonProgress(l.slug, l.legacyStorageKey);
+  if (read)
+    return (
+      <a className={`h-tile t-${TEACHERS[who].color}`} href={`#/${l.slug}/read`}>
+        <span className="h-tile-top">
+          <span className="h-badge">{t(`teacher.${who}.short`)}</span>
+        </span>
+        <span className="h-tile-he he" lang="he">
+          {l.hebrewTitle}
+        </span>
+        <span className="h-tile-title">{text.title}</span>
+        <span className="h-tile-sum">{text.summary}</span>
+        <span className="h-tile-foot">
+          <span className="h-games">
+            <Icon name="book" size={15} /> {t(l.cards ? 'cards.tabRead' : 'read.tab')}
+          </span>
+        </span>
+      </a>
+    );
   return (
     <a className={`h-tile t-${TEACHERS[who].color}`} href={`#/${l.slug}`}>
       <span className="h-tile-top">
@@ -78,10 +97,10 @@ function DailyLink() {
 }
 
 /**
- * «Учить каждый день» on the home screen: a quiet card to the passage of the day of the Prophets and Writings — today's books
- * and verses and the reading time — and «Глава недели — прочитать»: the week's Torah lessons just to read, without games. The cycle's data is loaded only after the page is shown (it is not part of the home bundle).
+ * The passage of the day of the Prophets and Writings on the adults' home: today's books and verses and the reading
+ * time. The cycle's data is loaded only after the page is shown (it is not part of the home bundle).
  */
-function AdultsLink({ week }: { week: Lesson[] }) {
+function AdultsLink() {
   const { t, locale } = useI18n();
   const [info, setInfo] = useState<{ range: string; min?: number } | null>(null);
   useEffect(() => {
@@ -100,12 +119,9 @@ function AdultsLink({ week }: { week: Lesson[] }) {
       live = false;
     };
   }, [locale]);
-  // the reading pages of the week's lessons: Baal HaTurim's «Читать», the Rebbe's «Прочитать»
-  const reads = week.filter((l) => l.kind !== 'sicha' || l.cards);
   return (
     <div className="h-adults">
       <a className="h-adults-main" href="#/neviim">
-        <span className="h-adults-lbl">{t('wing.adults')}</span>
         <span className="h-adults-title">
           {t('home.adultsTitle')} <span className="he" lang="he">נביאים · כתובים</span>
         </span>
@@ -115,25 +131,80 @@ function AdultsLink({ week }: { week: Lesson[] }) {
         </span>
         <span className="h-adults-cta">{t('home.adultsCta')} →</span>
       </a>
-      {reads.length > 0 && (
-        <div className="h-adults-read">
-          {t('home.weekRead')}:{' '}
-          {reads.map((l, i) => (
-            <span key={l.slug}>
-              {i > 0 && ' · '}
-              <a href={`#/${l.slug}/read`}>{t(`teacher.${teacherOf(l)}.short`)}</a>
-            </span>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
 
+/**
+ * The adults' home («Подростки и взрослые», src/core/mode.ts): the passage of the day of the Prophets and Writings,
+ * the week's Torah lessons to read, quietly — «Знаете ли вы?» / «Гематрия дня» and «Академия». No games, ages, confetti.
+ */
+function AdultsHome() {
+  const { t, locale } = useI18n();
+  useEffect(() => {
+    document.title = `${t('home.adultsH1')} · ${t('app.title')} · MyChitas`;
+  }, [t]);
+  const week = LESSON_GROUPS[LESSON_GROUPS.length - 1];
+  const reads = [...week.lessons, ...week.rebbe].filter((l) => l.kind !== 'sicha' || l.cards);
+  return (
+    <>
+      <TopBar title={t('app.title')} wide />
+      <div className="home home-adults">
+        <main className="home-main">
+          <section className="h-hero">
+            <div className="h-hero-text">
+              <img className="h-logo" src={NIFLAOT_LOGO} alt="Niflaot" width={760} height={298} fetchPriority="high" />
+              <h1>{t('home.adultsH1')}</h1>
+              <p className="h-adults-lead">{t('home.adultsLead')}</p>
+            </div>
+            <div className="h-hero-side">
+              <AdultsLink />
+              <div className="h-adults-quiz">
+                {(['neviim', 'ketuvim'] as const).map((sec) => (
+                  <a key={sec} href={`#/${sec}/quiz`}>
+                    ✓ {t('quiz.title')} · {t(`tanakh.${sec}`)} →
+                  </a>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {reads.length > 0 && (
+            <section className="h-section" aria-labelledby="h-week">
+              <h2 id="h-week">
+                {t('home.weekReadTitle')} · {week.name[locale as keyof typeof week.name] ?? week.name.ru}{' '}
+                <span className="he" lang="he">
+                  {week.he}
+                </span>
+              </h2>
+              <div className="h-tiles">
+                {reads.map((l) => (
+                  <WeekTile key={l.slug} lesson={l} read />
+                ))}
+              </div>
+            </section>
+          )}
+
+          <p className="h-adults-more">
+            <a href="#/academy">
+              {t('academy.title')} · {t('academy.menuSub')} →
+            </a>
+            <a href="#/facts">{t('home.adultsFacts')} →</a>
+          </p>
+        </main>
+      </div>
+      <Colophon />
+    </>
+  );
+}
+
 export function Catalog() {
+  return useMode() === 'adults' ? <AdultsHome /> : <KidsHome />;
+}
+
+/** The children's and families' home: «Start / Continue», «Гематрия дня», the week's lessons with their games. */
+function KidsHome() {
   const { t, pick, locale } = useI18n();
-  // a reader of Hebrew sees the adults' card first, right under «Continue»
-  const reads = useHebrewLevel() === 'reads';
 
   useEffect(() => {
     document.title = `${t('app.title')} · MyChitas`;
@@ -168,8 +239,6 @@ export function Catalog() {
                 </span>
               </div>
               <h1>{t('catalog.uvp')}</h1>
-              {/* one academy for every age: the promise above both wings, shown on phones too */}
-              <p className="h-promise">{t('home.promise')}</p>
               <p>{t('home.lead')}</p>
             </div>
             <div className="h-hero-side">
@@ -190,9 +259,7 @@ export function Catalog() {
               <div className="h-countdown-compact">
                 <WeekCountdown variant="compact" />
               </div>
-              {reads && <AdultsLink week={lessons} />}
               <DailyLink />
-              {!reads && <AdultsLink week={lessons} />}
               <PhoneOffer />
             </div>
           </section>

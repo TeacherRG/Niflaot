@@ -1,7 +1,8 @@
 import { Suspense, lazy, useSyncExternalStore, Fragment } from 'react';
 import { Html, useI18n } from '../i18n';
 import { LESSON_GROUPS, findLesson } from '../lessons';
-import { TEACHERS, teacherOf } from '../lessons/teachers';
+import { teacherOf } from '../lessons/teachers';
+import { useMode } from '../core/mode';
 import { VALUES } from '../core/gematria';
 import { OPS, SIGN } from '../core/mentalMath';
 import { Icon, Sheet, useUI } from './ui';
@@ -61,6 +62,7 @@ export function Panels() {
   const level = useHebrewLevel();
   const installable = useSyncExternalStore(subscribeInstall, canInstall, () => false);
   const account = useAccount();
+  const mode = useMode();
   const close = () => open(null);
   // the page a menu link points to is open (#/<slug> or #/<slug>/memo, #/<slug>/cards)
   const isHere = (href: string) => location.hash.split('?')[0] === href;
@@ -83,11 +85,7 @@ export function Panels() {
               <small>{t('academy.menuSub')}</small>
             </span>
           </a>
-          {/* two wings: games for children and families, and the daily study for adults */}
-          <div className="menu-wing kids">
-            <b>{t('wing.kids')}</b>
-            <small>{t('wing.kidsSub')}</small>
-          </div>
+          {/* one menu for the mode (src/core/mode.ts): the children's games, or the adults' reading */}
           <a href="#/facts" onClick={close} className="menu-item" aria-current={location.hash === '#/facts' || location.hash === '#/daily' ? 'page' : undefined}>
             <Icon name="hash" />
             <span>
@@ -95,6 +93,8 @@ export function Panels() {
               <small>{t('facts.menuSub')}</small>
             </span>
           </a>
+{mode === 'kids' ? (
+            <>
           <div className="menu-lbl">{t('menu.lessons')}</div>
           {LESSON_GROUPS.map((g) => (
             <details key={g.id} className="menu-group" open={currentParsha === g.id}>
@@ -231,14 +231,11 @@ export function Panels() {
               </details>
             </div>
           </details>
-          <div className="menu-adults">
-            <div className="menu-wing adults">
-              <b>{t('wing.adults')}</b>
-              <small>{t('wing.adultsSub')}</small>
-            </div>
-          {/* the Torah lessons just to read, without games or counting: Baal HaTurim's «Читать», the Rebbe's «Прочитать»;
-              the week's portion is unfolded */}
-          <div className="menu-lbl">{t('menu.torahRead')}</div>
+            </>
+          ) : (
+            <>
+          {/* the Torah lessons to read — Baal HaTurim's «Читать», the Rebbe's «Прочитать»; the open (or the week's) portion unfolded */}
+          <div className="menu-lbl">{t('menu.lessons')}</div>
           {LESSON_GROUPS.map((g, i) => {
             const reads = [...g.lessons, ...g.rebbe].filter((l) => l.kind !== 'sicha' || l.cards);
             if (!reads.length) return null;
@@ -252,6 +249,7 @@ export function Panels() {
                       <span lang="he">{g.he}</span> · {g.year}
                     </small>
                   </span>
+                  <span className="menu-count">{reads.length}</span>
                 </summary>
                 <div className="menu-sub">
                   {reads.map((l) => (
@@ -262,10 +260,10 @@ export function Panels() {
                       className="menu-item menu-game"
                       aria-current={isHere(`#/${l.slug}/read`) ? 'page' : undefined}
                     >
-                      <span className="menu-num he">{TEACHERS[teacherOf(l)].he}</span>
                       <span>
-                        {t(`teacher.${teacherOf(l)}.short`)}
-                        <small>{pick(l.texts).value.title}</small>
+                        {pick(l.texts).value.title}
+                        {/* the teacher, unless the title already names him («Бааль ґа-Турим: Ноах») */}
+                        {!pick(l.texts).value.title.includes(t(`teacher.${teacherOf(l)}.short`)) && <small>{t(`teacher.${teacherOf(l)}.short`)}</small>}
                       </span>
                     </a>
                   ))}
@@ -306,8 +304,16 @@ export function Panels() {
               </div>
             </Fragment>
           ))}
-          </div>
+            </>
+          )}
           <div className="menu-sep" />
+          <a href="#/mode" onClick={close} className="menu-item" aria-current={location.hash === '#/mode' ? 'page' : undefined}>
+            <Icon name="user" />
+            <span>
+              {t('mode.menu')}: {t(`mode.${mode}`)}
+              <small>{t('mode.change')}</small>
+            </span>
+          </a>
           {installable && (
             <button
               className="menu-item"
