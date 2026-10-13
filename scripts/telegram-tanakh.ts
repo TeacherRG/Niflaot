@@ -1,8 +1,9 @@
 /**
  * «Пророки и Писания» — отрывок дня в Telegram-каналы (ru / en / de) каждый учебный день цикла: что читать сегодня
  * (раздел, книга и стихи), сколько это займёт и ссылки на страницы дня (`#/neviim/<дата>`, `#/ketuvim/<дата>`,
- * метка `?ref=channel` для GoatCounter). Запускает GitHub Action `.github/workflows/telegram-tanakh.yml` каждое утро
- * в 5:30 по Вене: два cron (03:30 и 04:30 UTC — лето и зима), публикует тот, что совпадает с венским временем сегодня.
+ * метка `?ref=channel` для GoatCounter). Запускает GitHub Action `.github/workflows/telegram-tanakh.yml` каждое утро:
+ * несколько cron (GitHub запускает по расписанию с опозданием, а иногда пропускает), публикует первый запуск не раньше
+ * 5:00 по Вене; что сегодня уже опубликовано, workflow помнит сам (файл-метка в кэше Actions, `TANAKH_POSTED_FILE`).
  * В день без чтения (Шабат, праздник, 9 ава — их нет в src/tanakh/cycle.json) ничего не публикуется; в Шабат —
  * даже при ручном запуске.
  *
@@ -10,7 +11,7 @@
  * variables `TELEGRAM_CHAT_RU`, `TELEGRAM_CHAT_EN`, `TELEGRAM_CHAT_DE`; язык без канала пропускается.
  *
  * Вторым сообщением — **PDF дня для печати**: страница дня с сайта, сохранённая браузером (Playwright) так же, как
- * кнопка «Распечатать»: иврит и перевод на языке канала, со Штейнзальцем, «Пророки» и «Писания» вместе. Не вышел PDF —
+ * кнопка «Распечатать»: иврит и перевод на языке канала, с Мецудат Давид, «Пророки» и «Писания» вместе. Не вышел PDF —
  * текст всё равно уходит, запуск — красный.
  *
  * Проверить без отправки: `npx tsx scripts/telegram-tanakh.ts --dry` (`--date 2026-10-12` — другой день;
@@ -40,14 +41,13 @@ const dateArg = args.indexOf('--date');
 const SECTION_HE: Record<Section, string> = { neviim: 'נביאים', ketuvim: 'כתובים' };
 
 const now = new Date();
-// two crons (03:30 / 04:30 UTC) = 5:30 in Vienna in summer / winter: only the one matching today's offset posts
-// (by the cron that fired, not the clock — GitHub may start a scheduled run late)
+// a scheduled run posts from 5:00 Vienna time on (the first cron in winter fires at 4:23 — too early); later crons are
+// a safety net for runs GitHub drops, and the workflow skips them once today's post is out
 const fired = process.env.TELEGRAM_SCHEDULE;
 if (fired && !DRY) {
-  const firedHour = Number(fired.split(' ')[1]);
-  const viennaHour = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Vienna', hour: 'numeric', hourCycle: 'h23' }).format(new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), firedHour, 30))));
-  if (viennaHour !== 5) {
-    console.log(`cron «${fired}» = ${viennaHour}:30 по Вене — не наш час, пост уходит из другого запуска.`);
+  const viennaHour = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Vienna', hour: 'numeric', hourCycle: 'h23' }).format(now));
+  if (viennaHour < 5) {
+    console.log(`cron «${fired}»: в Вене ${viennaHour} ч — рано, публикует следующий запуск.`);
     process.exit(0);
   }
 }
@@ -162,6 +162,8 @@ for (const loc of Object.keys(UI) as Loc[]) {
   try {
     await tg('sendMessage', { chat_id: chat, text, parse_mode: 'HTML', link_preview_options: { is_disabled: true } });
     console.log(`${loc}: posted ${date} to ${chat}`);
+    // today's post is out: the workflow saves this mark, and the later runs of the day skip
+    if (process.env.TANAKH_POSTED_FILE) writeFileSync(process.env.TANAKH_POSTED_FILE, `${date}\n`);
   } catch (e) {
     console.error(`${loc}: ${(e as Error).message}`);
     failed = true;

@@ -70,12 +70,13 @@ const cache = new Map<string, Promise<DayContent | null>>();
  * (`up` is a variable so that Vite doesn't treat the URL as an asset to bundle.)
  */
 const up = '..';
-const ROOT = import.meta.env.DEV ? import.meta.env.BASE_URL : new URL(up, import.meta.url).href;
+// computed on first use: outside Vite (node scripts that import this module) there is no import.meta.env
+const root = () => (import.meta.env.DEV ? import.meta.env.BASE_URL : new URL(up, import.meta.url).href);
 /** Тексты дня; null — этот день ещё не подготовлен. */
 export function loadDay(date: string): Promise<DayContent | null> {
   let p = cache.get(date);
   if (!p) {
-    p = fetch(`${ROOT}tanakh/${date}.json`)
+    p = fetch(`${root()}tanakh/${date}.json`)
       .then((r) => (r.ok ? (r.json() as Promise<DayContent>) : null))
       .catch(() => null);
     cache.set(date, p);
