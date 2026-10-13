@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
-import { useMode } from '../core/mode';
 import { DEFAULT_HOUR, PUSH_HOURS, disablePush, enablePush, pushState, testPush, type PushState } from '../core/push';
 
 /**
  * «Напоминать каждый день»: turn the daily notification on (the browser asks for permission only now, after the tap),
  * pick the hour, «Проверить» — a notification right away, «Выключить». Hidden where the browser can't do it at all.
- * Under «Гематрия дня» after the word is solved and at the end of a lesson.
+ * In the account window (`#/account`), under «Гематрия дня», at the end of a lesson and from «Нифлаот на телефоне».
  */
 export function DailyReminder({ sheet = false }: { sheet?: boolean }) {
   const { t, locale } = useI18n();
-  const mode = useMode();
   const [state, setState] = useState<PushState | null>(null);
   const [hour, setHour] = useState(DEFAULT_HOUR);
   const [busy, setBusy] = useState(false);
@@ -41,7 +39,7 @@ export function DailyReminder({ sheet = false }: { sheet?: boolean }) {
   return (
     <section className={sheet ? 'reminder reminder-sheet' : 'reminder'}>
       {!sheet && <h3>🔔 {t('push.title')}</h3>}
-      <p>{t(mode === 'adults' ? 'push.adultsLead' : 'push.lead')}</p>
+      <p>{t('push.lead')}</p>
       {state.kind === 'ios' && <p className="reminder-note">{t('push.ios')}</p>}
       {state.kind === 'denied' && <p className="reminder-note">{t('push.denied')}</p>}
       {state.kind === 'off' && (

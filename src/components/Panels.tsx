@@ -320,13 +320,6 @@ export function Panels() {
               </span>
             </button>
           )}
-          <button className="menu-item" onClick={() => open('reminder')}>
-            <Icon name="bell" />
-            <span>
-              {t('push.title')}
-              <small>{t(mode === 'adults' ? 'push.adultsMenuSub' : 'push.menuSub')}</small>
-            </span>
-          </button>
           <a href="#/teacher" onClick={close} className="menu-item" aria-current={location.hash === '#/teacher' ? 'page' : undefined}>
             <Icon name="user" />
             <span>{t('teacher.title')}</span>
