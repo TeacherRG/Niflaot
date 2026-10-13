@@ -140,7 +140,7 @@ const SITE = { '@type': 'WebSite', name: 'Нифлаот', url: `${SITE_URL}/` }
 
 const tags = buildTags(LOCALE);
 const home: Page = {
-  title: `${ui['app.title']} — ${ui['catalog.uvp']} · MyChitas`,
+  title: `${ui['catalog.seoTitle']} · MyChitas`,
   description: ui['catalog.seo'],
   url: `${SITE_URL}/`,
   type: 'website',
@@ -159,12 +159,14 @@ const home: Page = {
     ],
   },
   body: `<header><p class="he">נפלאות</p><h1>${esc(ui['app.title'] as string)} — ${esc(ui['catalog.uvp'] as string)}</h1><p>${esc(plain(ui['catalog.intro'] as string))}</p></header>
-<h2>${esc(ui['catalog.heading'] as string)}</h2>
+<h2>${esc(ui['wing.kids'] as string)}: ${esc(ui['catalog.heading'] as string)}</h2>
 ${LESSON_GROUPS.map(
   (g) => `<h3>${esc(g.name.ru)} · <span class="he">${g.he}</span></h3><ul>${g.lessons
     .map((l) => `<li><a href="./${l.slug}/"><span class="he">${esc(displayNames(l.hebrewTitle))}</span> — ${esc(text(l).title)}</a>: ${esc(plain(text(l).summary))}</li>`)
     .join('')}</ul>`,
 ).join('\n')}
+<h2>${esc(ui['wing.adults'] as string)}: ${esc(ui['home.adultsTitle'] as string)}</h2>
+<p>${esc(ui['wing.adultsSub'] as string)}. <a href="./#/neviim">${esc(ui['tanakh.neviim'] as string)}</a> · <a href="./#/ketuvim">${esc(ui['tanakh.ketuvim'] as string)}</a></p>
 <h2>${esc(ui['catalog.tags'] as string)}</h2>
 <p>${tags.map((t) => (t.he ? `<span class="he">${esc(displayNames(t.label))}</span>` : esc(t.label))).join(' · ')}</p>`,
 };

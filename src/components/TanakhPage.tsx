@@ -301,6 +301,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
         <article>
           <TanakhMasthead title={title} he={SECTION_HE[section]} route={`${section}/${day.date}`} date={day.date} />
           <header className="tk-head">
+            <p className="wing-tag adults no-print">{t('wing.adults')}</p>
             <p className="tk-kicker">
               {isToday ? t('tanakh.today') : !date && !exact ? t('tanakh.nextReading') : civilDate(day.date, locale)} ·{' '}
               <span className="he" lang="he">

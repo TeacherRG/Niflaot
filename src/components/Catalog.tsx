@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
 import { LESSONS, LESSON_GROUPS, type Lesson } from '../lessons';
 import { TEACHERS, teacherOf } from '../lessons/teachers';
@@ -10,6 +10,7 @@ import { PhoneOffer } from './PhoneOffer';
 import { dailyNumber, grid, loadResults, streak } from '../core/daily';
 import { Icon } from './ui';
 import { NIFLAOT_LOGO } from '../core/partners';
+import { useHebrewLevel } from '../core/hebrewLevel';
 
 /** The games of a lesson as small icons: gematria (#), Memo or cards, investigation (magnifier), reading (book). */
 function GameIcons({ lesson: l }: { lesson: Lesson }) {
@@ -76,8 +77,48 @@ function DailyLink() {
   );
 }
 
+/**
+ * «Взрослым» on the home screen: a quiet card to the passage of the day of the Prophets and Writings — today's books
+ * and verses and the reading time. The cycle's data is loaded only after the page is shown (it is not part of the home bundle).
+ */
+function AdultsLink() {
+  const { t, locale } = useI18n();
+  const [info, setInfo] = useState<{ range: string; min?: number } | null>(null);
+  useEffect(() => {
+    let live = true;
+    const lang = locale === 'en' || locale === 'de' ? locale : 'ru';
+    Promise.all([import('../core/tanakh'), import('../core/tanakhCycle')]).then(async ([tk, cy]) => {
+      const day = tk.CYCLE[tk.cycleDayFor(tk.localToday()).index];
+      const range = `${cy.rangeLabel('neviim', day.neviim, lang)} · ${cy.rangeLabel('ketuvim', day.ketuvim, lang)}`;
+      if (live) setInfo({ range });
+      const c = await tk.loadDay(day.date);
+      const tr = lang === 'ru' || lang === 'de' ? (c?.neviim.verses.every((v) => v[lang]) ? lang : 'en') : 'en';
+      const min = c && tk.readingMinutes([...c.neviim.verses, ...c.ketuvim.verses], true, tr, { md: true, rashi: false });
+      if (live && min) setInfo({ range, min });
+    });
+    return () => {
+      live = false;
+    };
+  }, [locale]);
+  return (
+    <a className="h-adults" href="#/neviim">
+      <span className="h-adults-lbl">{t('wing.adults')}</span>
+      <span className="h-adults-title">
+        {t('home.adultsTitle')} <span className="he" lang="he">נביאים · כתובים</span>
+      </span>
+      <span className="h-adults-sub">
+        {info ? info.range : t('wing.adultsSub')}
+        {info?.min ? ` · ${t('tanakh.readingTime', { n: info.min })}` : ''}
+      </span>
+      <span className="h-adults-cta">{t('home.adultsCta')} →</span>
+    </a>
+  );
+}
+
 export function Catalog() {
   const { t, pick, locale } = useI18n();
+  // a reader of Hebrew sees the adults' card first, right under «Continue»
+  const reads = useHebrewLevel() === 'reads';
 
   useEffect(() => {
     document.title = `${t('app.title')} · MyChitas`;
@@ -132,7 +173,9 @@ export function Catalog() {
               <div className="h-countdown-compact">
                 <WeekCountdown variant="compact" />
               </div>
+              {reads && <AdultsLink />}
               <DailyLink />
+              {!reads && <AdultsLink />}
               <PhoneOffer />
             </div>
           </section>

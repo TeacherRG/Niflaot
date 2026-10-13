@@ -128,6 +128,7 @@ export function TanakhQuizPage({ section, date }: { section: Section; date?: str
       <div className="wrap tk qz">
         <article>
           <header className="tk-head">
+            <p className="wing-tag adults">{t('wing.adults')}</p>
             <p className="tk-kicker">
               {day.date === today ? t('tanakh.today') : civilDate(day.date, locale)} ·{' '}
               <span className="he" lang="he">
