@@ -178,7 +178,7 @@ def cmd_tr():
         if after != before:
             f.write_text(after + '\n', encoding='utf-8'); n += 1
             vs = [v for sec in ('neviim', 'ketuvim') for v in day[sec]['verses']]
-            done = ', '.join(f"{lang}: стих {sum(lang in v for v in vs)}, Мецудат Давид {sum(lang in v.get('md', {}) for v in vs)}" for lang in TR_LANGS)
+            done = ', '.join(f"{lang}: " + (f"стих {sum(lang in v for v in vs)}, " if lang != 'en' else '') + f"Мецудат Давид {sum(lang in v.get('md', {}) for v in vs)} из {sum('md' in v for v in vs)}" for lang in TR_LANGS)
             sys.stderr.write(f"✓ {day['date']}: {done}\n")
     print(f'updated {n} days')
 
