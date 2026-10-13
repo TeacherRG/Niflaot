@@ -35,7 +35,7 @@ function useView(locale: string): [View, (v: View) => void] {
     try {
       const v = JSON.parse(localStorage.getItem(VIEW_KEY) ?? 'null');
       if (v && TEXT_LANGS.includes(v.text)) {
-        // a choice saved with Steinsaltz's explanations (`st`): his switch becomes Metzudat David's
+        // a choice saved before the commentaries (`st`, a switch of earlier explanations) becomes Metzudat David's
         const md = typeof v.md === 'boolean' ? v.md : v.st !== false;
         const rashi = v.rashi === true;
         // a choice saved before the German translation existed (no `de` mark): on the German site English becomes German, once
@@ -120,7 +120,7 @@ function ViewMenu({ view, setView, soon }: { view: View; setView: (v: View) => v
 }
 
 
-/** The sources and licenses under a section, its link to Sefaria and to Rabbi Steinsaltz's explanation there (the links only on screen). */
+/** The sources and licenses under a section, and its link to Sefaria (the link only on screen). */
 function Sources({ sec, tr }: { sec: SectionDay; tr: Tr | null }) {
   const { t } = useI18n();
   const v = sec.versions;
@@ -137,14 +137,9 @@ function Sources({ sec, tr }: { sec: SectionDay; tr: Tr | null }) {
       </p>
       <p className="no-print">
         {sec.refs.map((r) => (
-          <Fragment key={r.url}>
-            <a href={r.url} target="_blank" rel="noopener">
-              {t('tanakh.onSefaria')} ↗
-            </a>
-            <a href={`${r.url}?lang=bi&with=Steinsaltz`} target="_blank" rel="noopener">
-              {t('tanakh.steinsaltz')} ↗
-            </a>
-          </Fragment>
+          <a key={r.url} href={r.url} target="_blank" rel="noopener">
+            {t('tanakh.onSefaria')} ↗
+          </a>
         ))}
       </p>
     </footer>

@@ -139,7 +139,7 @@ export interface FactAnswerPart {
 export interface FactCardData {
   /** e.g. "Нифлаот · Знаете ли вы?" */
   eyebrow: string;
-  /** whose lesson: "Рав Гинзбург · Тикун парцуф-занав" */
+  /** whose lesson: "Бааль ґа-Турим · Берешит" */
   source: string;
   /** "А вы знаете, чему равно" */
   question: string;

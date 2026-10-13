@@ -133,7 +133,6 @@ function render(p: Page): string {
   return html;
 }
 
-const AUTHOR = { '@type': 'Person', name: 'Ицхак Гинзбург', alternateName: 'Rabbi Yitzchak Ginsburgh' };
 const PUBLISHER = { '@type': 'Organization', name: 'MyChitas', url: 'https://mychitas.app' };
 const SITE = { '@type': 'WebSite', name: 'Нифлаот', url: `${SITE_URL}/` };
 
@@ -196,7 +195,7 @@ function lessonPage(l: Lesson): Page {
       interactivityType: 'active',
       typicalAgeRange: `${l.age}-`,
       audience: { '@type': 'EducationalAudience', educationalRole: 'student', audienceType: plain(tx.audience) },
-      author: l.author ? { '@type': 'Person', ...l.author } : AUTHOR,
+      author: { '@type': 'Person', ...l.author },
       publisher: PUBLISHER,
       isPartOf: SITE,
       keywords: ['гематрия', 'Тора', ...keywords].join(', '),

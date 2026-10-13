@@ -1,8 +1,6 @@
 import type { Lesson } from './types';
 import { PARSHIOT, type ParshaId } from './parshiot';
 import baalHaturimBereshit from './01-baal-haturim-bereshit';
-import tikunPartzufZanav from './02-tikun-partzuf-zanav';
-import yikavuHamayim from './03-yikavu-hamayim';
 import shaloshShaot from './04-shalosh-shaot';
 import baalHaturimNoach from './05-baal-haturim-noach';
 import { installOverrides } from '../content';
@@ -13,7 +11,7 @@ import { installOverrides } from '../content';
  *   2. import it here and put it into the list (its position = its place in the menu).
  * A «Нифлаот Ребе» lesson (`series: 'rebbe'`) is listed under «Нифлаот Ребе» of its portion, numbered within it.
  */
-export const LESSONS: Lesson[] = [baalHaturimBereshit, tikunPartzufZanav, yikavuHamayim, shaloshShaot, baalHaturimNoach];
+export const LESSONS: Lesson[] = [baalHaturimBereshit, shaloshShaot, baalHaturimNoach];
 
 // text edits made on the site by the admin (src/content/overrides.json)
 installOverrides(LESSONS);

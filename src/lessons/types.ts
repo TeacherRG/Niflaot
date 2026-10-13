@@ -331,8 +331,8 @@ export interface Lesson {
     secrets: Record<number, number>;
   };
   texts: Partial<Record<Locale, LessonText>>;
-  /** author of the text the lesson retells (SEO); Rabbi Yitzchak Ginsburgh when omitted */
-  author?: { name: string; alternateName: string };
+  /** author of the text the lesson retells (SEO) */
+  author: { name: string; alternateName: string };
   /** Memo game — the second game of a commentary lesson (#/<slug>/memo): 12 pairs of cards */
   memo?: MemoData;
   /** «Карточки» — the second game of a «Нифлаот Ребе» lesson (#/<slug>/cards): verse — the Rebbe's explanation */
