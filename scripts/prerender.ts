@@ -170,6 +170,9 @@ ${LESSON_GROUPS.map(
 ).join('\n')}
 <h2>${esc(ui['wing.adults'] as string)}: ${esc(ui['home.adultsTitle'] as string)}</h2>
 <p>${esc(ui['wing.adultsSub'] as string)}. <a href="./#/neviim">${esc(ui['tanakh.neviim'] as string)}</a> · <a href="./#/ketuvim">${esc(ui['tanakh.ketuvim'] as string)}</a></p>
+<p>${esc(ui['menu.torahRead'] as string)}: ${LESSONS.filter((l) => l.kind !== 'sicha' || l.cards)
+  .map((l) => `<a href="./#/${l.slug}/read">${esc(text(l).title)}</a>`)
+  .join(' · ')}</p>
 <h2>${esc(ui['catalog.tags'] as string)}</h2>
 <p>${tags.map((t) => (t.he ? `<span class="he">${esc(displayNames(t.label))}</span>` : esc(t.label))).join(' · ')}</p>`,
 };

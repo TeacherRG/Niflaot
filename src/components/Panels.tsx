@@ -1,6 +1,7 @@
 import { Suspense, lazy, useSyncExternalStore, Fragment } from 'react';
 import { Html, useI18n } from '../i18n';
 import { LESSON_GROUPS, findLesson } from '../lessons';
+import { TEACHERS, teacherOf } from '../lessons/teachers';
 import { VALUES } from '../core/gematria';
 import { OPS, SIGN } from '../core/mentalMath';
 import { Icon, Sheet, useUI } from './ui';
@@ -235,6 +236,43 @@ export function Panels() {
               <b>{t('wing.adults')}</b>
               <small>{t('wing.adultsSub')}</small>
             </div>
+          {/* the Torah lessons just to read, without games or counting: Baal HaTurim's «Читать», the Rebbe's «Прочитать»;
+              the week's portion is unfolded */}
+          <div className="menu-lbl">{t('menu.torahRead')}</div>
+          {LESSON_GROUPS.map((g, i) => {
+            const reads = [...g.lessons, ...g.rebbe].filter((l) => l.kind !== 'sicha' || l.cards);
+            if (!reads.length) return null;
+            return (
+              <details key={g.id} className="menu-group" open={currentParsha ? currentParsha === g.id : i === LESSON_GROUPS.length - 1}>
+                <summary className="menu-item">
+                  <Icon name="book" />
+                  <span>
+                    {g.name[locale as keyof typeof g.name] ?? g.name.ru}
+                    <small>
+                      <span lang="he">{g.he}</span> · {g.year}
+                    </small>
+                  </span>
+                </summary>
+                <div className="menu-sub">
+                  {reads.map((l) => (
+                    <a
+                      key={l.slug}
+                      href={`#/${l.slug}/read`}
+                      onClick={close}
+                      className="menu-item menu-game"
+                      aria-current={isHere(`#/${l.slug}/read`) ? 'page' : undefined}
+                    >
+                      <span className="menu-num he">{TEACHERS[teacherOf(l)].he}</span>
+                      <span>
+                        {t(`teacher.${teacherOf(l)}.short`)}
+                        <small>{pick(l.texts).value.title}</small>
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </details>
+            );
+          })}
           {/* «Пророки» и «Писания»: the passage of the day of the three-year cycle */}
           {(['neviim', 'ketuvim'] as const).map((sec) => (
             <Fragment key={sec}>
