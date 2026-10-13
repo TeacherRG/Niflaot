@@ -18,6 +18,7 @@ const en: Messages = {
   'home.adultsTitle': 'Prophets and Writings',
   'home.promise': "For all ages — from 8 to 120",
   'home.adultsCta': 'Passage of the day',
+  'home.weekRead': "This week’s portion — read",
   'rebbe.title': 'Niflaot of the Rebbe',
   'rebbe.menuSub': 'coming soon',
   'rebbe.intro': "Wonders of the Torah in the Rebbe's teachings.",

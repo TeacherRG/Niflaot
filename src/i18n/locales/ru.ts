@@ -21,6 +21,7 @@ const ru = {
   'home.adultsTitle': 'Пророки и Писания',
   'home.promise': "Для всех возрастов — от 8 до 120",
   'home.adultsCta': 'Отрывок дня',
+  'home.weekRead': "Глава недели — прочитать",
   'rebbe.title': 'Нифлаот Ребе',
   'rebbe.menuSub': 'скоро',
   'rebbe.intro': "Чудеса Торы в учении Ребе.",

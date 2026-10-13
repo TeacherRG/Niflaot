@@ -1132,6 +1132,9 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .h-adults-title .he{font-family:var(--f-he);font-size:14px;font-weight:400;color:var(--muted)}
 .h-adults-sub{font-size:13px;color:var(--muted)}
 .h-adults-cta{font-size:13px;font-weight:600;color:var(--tchelet)}
+.h-adults-main{display:flex;flex-direction:column;gap:2px;color:inherit;text-decoration:none}
+.h-adults-read{margin:4px 0 0;padding-top:6px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.h-adults-read a{color:var(--tchelet);font-weight:600}
 .h-daily{flex:1 1 100%;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:10px 14px;border-radius:10px;background:var(--ink);color:#fff;text-decoration:none}
 .h-daily-title{font-family:var(--f-display);font-weight:700;font-size:18px;color:var(--gold-2)}
 .h-daily-sub{font-size:13px;color:#C9CEE0}

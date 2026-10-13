@@ -18,6 +18,7 @@ const de: Messages = {
   'home.adultsTitle': 'Propheten und Schriften',
   'home.promise': "Für jedes Alter — von 8 bis 120",
   'home.adultsCta': 'Abschnitt des Tages',
+  'home.weekRead': "Wochenabschnitt — lesen",
   'rebbe.title': 'Niflaot des Rebben',
   'rebbe.menuSub': 'bald',
   'rebbe.intro': "Wunder der Tora in der Lehre des Rebben.",
