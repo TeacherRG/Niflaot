@@ -5,7 +5,10 @@ import { Icon, useUI } from './ui';
 import { AgeBadge } from './AgeBadge';
 import { lessonArt } from '../core/art';
 
-/** `reading` — on the «Читать» page: the button leads back to the game instead. */
+/**
+ * `reading` — on the «Читать» page, a neutral book header for every age: the lesson's title, no age badge,
+ * no game intro or «how to play» (the invitation to play is at the end of the page).
+ */
 export function Hero({ lesson, text, reading }: { lesson: Lesson; text: LessonText; reading?: boolean }) {
   const { t } = useI18n();
   const { open } = useUI();
@@ -18,22 +21,28 @@ export function Hero({ lesson, text, reading }: { lesson: Lesson; text: LessonTe
           {PARSHIOT[lesson.parsha].year} · <span className="he">{PARSHIOT[lesson.parsha].heYear}</span>
         </div>
         <div className="heb gold-text">{lesson.hebrewTitle}</div>
-        <Html as="h1" html={text.hero.heading} />
+        {reading ? <h1>{text.title}</h1> : <Html as="h1" html={text.hero.heading} />}
         <div className="author">{text.hero.author}</div>
-        <p className="hero-age no-speak">
-          <AgeBadge age={lesson.age} />
-          <span className="hero-age-note">{text.audience}</span>
-        </p>
-        <p className="hero-intro">{text.hero.intro}</p>
+        {!reading && (
+          <>
+            <p className="hero-age no-speak">
+              <AgeBadge age={lesson.age} />
+              <span className="hero-age-note">{text.audience}</span>
+            </p>
+            <p className="hero-intro">{text.hero.intro}</p>
+          </>
+        )}
         <div className="hero-actions no-speak">
-          <button className="btn ghost hero-help" onClick={() => open('help')}>
-            <Icon name="help" size={18} />
-            {t('hero.howTo')}
-          </button>
-          {(lesson.kind !== 'sicha' || lesson.cards) && (
-            <a className="btn ghost hero-help" href={reading ? `#/${lesson.slug}` : `#/${lesson.slug}/read`}>
-              {reading ? <Icon name="hash" size={18} /> : <Icon name="book" size={18} />}
-              {t(reading ? 'read.playBtn' : lesson.cards ? 'cards.tabRead' : 'read.tab')}
+          {!reading && (
+            <button className="btn ghost hero-help" onClick={() => open('help')}>
+              <Icon name="help" size={18} />
+              {t('hero.howTo')}
+            </button>
+          )}
+          {!reading && (lesson.kind !== 'sicha' || lesson.cards) && (
+            <a className="btn ghost hero-help" href={`#/${lesson.slug}/read`}>
+              <Icon name="book" size={18} />
+              {t(lesson.cards ? 'cards.tabRead' : 'read.tab')}
             </a>
           )}
           <a className="btn ghost hero-help" href={`#/${lesson.slug}/print`}>

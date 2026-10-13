@@ -20,7 +20,6 @@ const de: Messages = {
   'home.adultsCta': 'Abschnitt des Tages',
   'home.weekRead': "Wochenabschnitt — lesen",
   'rebbe.title': 'Niflaot des Rebben',
-  'rebbe.menuSub': 'bald',
   'rebbe.intro': "Wunder der Tora in der Lehre des Rebben.",
   'rebbe.soon': 'Lektionen „Niflaot des Rebben“ zum Abschnitt {parsha} sind in Vorbereitung.',
   'lang.choose': 'Sprache der Oberfläche',

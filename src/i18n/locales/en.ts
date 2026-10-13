@@ -20,7 +20,6 @@ const en: Messages = {
   'home.adultsCta': 'Passage of the day',
   'home.weekRead': "This week’s portion — read",
   'rebbe.title': 'Niflaot of the Rebbe',
-  'rebbe.menuSub': 'coming soon',
   'rebbe.intro': "Wonders of the Torah in the Rebbe's teachings.",
   'rebbe.soon': 'Lessons “Niflaot of the Rebbe” on portion {parsha} are in preparation.',
   'lang.choose': 'Interface language',

@@ -141,18 +141,18 @@ export function Panels() {
                     </div>
                   );
                 })}
-                <a
-                  href={`#/rebbe/${g.id}`}
-                  onClick={close}
-                  className="menu-item"
-                  aria-current={location.hash === `#/rebbe/${g.id}` ? 'page' : undefined}
-                >
-                  <span className="menu-num">✦</span>
-                  <span>
-                    {t('rebbe.title')}
-                    {!g.rebbe.length && <small>{t('rebbe.menuSub')}</small>}
-                  </span>
-                </a>
+                {/* «Нифлаот Ребе» only when the portion has its lessons — no menu item to an empty «готовятся» page */}
+                {g.rebbe.length > 0 && (
+                  <a
+                    href={`#/rebbe/${g.id}`}
+                    onClick={close}
+                    className="menu-item"
+                    aria-current={location.hash === `#/rebbe/${g.id}` ? 'page' : undefined}
+                  >
+                    <span className="menu-num">✦</span>
+                    <span>{t('rebbe.title')}</span>
+                  </a>
+                )}
                 {/* «Нифлаот Ребе»: the investigation (named by the lesson's title) and its cards, right under the section */}
                 {g.rebbe.flatMap((l) =>
                   (lessonGames(l) ?? []).map((game, k) => (

@@ -251,7 +251,7 @@ export function ReadPage({ lesson, at }: { lesson: Lesson; at?: number }) {
           {/* one <article> in the text's language: the browser's reading mode, translation and «read aloud» take it whole */}
           <article lang={textLocale}>
             <Hero lesson={lesson} text={text} reading />
-            <p className="read-intro no-speak">📖 {t(lesson.kind === 'commentary' ? 'read.intro' : 'read.introArticle')}</p>
+            <p className="read-intro no-speak">{t(lesson.kind === 'commentary' ? 'read.intro' : 'read.introArticle')}</p>
             {lesson.riddles.map((_, ri) => (
               <ReadRiddle key={ri} lesson={lesson} text={text} ri={ri} here={at === ri + 1} />
             ))}
