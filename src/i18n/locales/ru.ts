@@ -395,6 +395,7 @@ const ru = {
   'facts.feedSwitch': 'Лента',
   'facts.riddlesTab': 'Загадки',
   'facts.cardsTab': 'Карточки',
+  'facts.shareCard': 'Поделиться карточкой',
   'facts.cardsIntro': 'Карточки для повторения: пары Memo и стих — объяснение Ребе. Нажмите, чтобы открыть пару.',
   'facts.revealCard': 'Открыть пару',
   'facts.hideCard': 'Скрыть пару',
