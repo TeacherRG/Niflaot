@@ -393,6 +393,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
         <section className="p-about">
           <h2>{t('about.title')}</h2>
           <Html as="div" className="prose" html={t('about.body')} />
+          <Html as="p" className="prose" html={t('about.partners')} />
         </section>
       </article>
     </div>
