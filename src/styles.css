@@ -906,6 +906,23 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .facts-head h1{margin:0 0 6px;font-family:var(--f-display);font-size:32px}
 .facts-head p{margin:0;color:var(--ink-2);max-width:60ch}
 .facts{display:grid;gap:16px;margin:20px 0 8px}
+.facts-tabs{display:flex;width:fit-content;max-width:100%;gap:4px;margin:18px 0 0;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+.facts-tabs a{display:block;padding:8px 16px;border-radius:999px;color:var(--ink-2);font-size:14px;font-weight:700;text-decoration:none}
+.facts-tabs a[aria-current=page]{background:var(--tchelet);color:#fff}
+.facts-tabs a:focus-visible,.facts-card-actions a:focus-visible{outline:3px solid var(--gold-2);outline-offset:2px}
+.facts-cards{grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
+.facts-card{display:grid;align-content:start;gap:12px;padding:16px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--tchelet);border-radius:8px;box-shadow:var(--shadow)}
+.facts-card-src{display:grid;gap:2px;color:var(--muted);font-size:12px}
+.facts-card-src span:first-child{color:var(--tchelet);font-weight:700}
+.facts-card-front,.facts-card-back{display:grid;justify-items:center;align-content:center;gap:8px;min-height:150px;text-align:center}
+.facts-card-front img{width:min(100%,180px);max-height:210px;object-fit:cover;border-radius:6px}
+.facts-card-front h3,.facts-card-back h3{margin:0;font-family:var(--f-display);font-size:21px;line-height:1.2}
+.facts-card-front p,.facts-card-back p{margin:0;color:var(--ink-2)}
+.facts-card-front .he,.facts-card-back .he{font-family:var(--f-he);font-size:27px;line-height:1.25;color:var(--ink);direction:rtl}
+.facts-card-back{padding:12px;border-radius:8px;background:var(--tchelet-soft)}
+.facts-card-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid var(--line);padding-top:10px}
+.facts-card-actions a{color:var(--tchelet);font-size:14px;font-weight:700;text-decoration:none}
+.facts-card-actions a:hover{text-decoration:underline}
 .fact{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--tc-line);border-radius:8px;box-shadow:var(--shadow);padding:16px 18px;display:grid;gap:10px;scroll-margin-top:80px}
 .fact-src{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
 .fact-src .h-badge{position:static}

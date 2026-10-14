@@ -10,6 +10,7 @@ import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { DailyCard } from './DailyCard';
 import { Subscribe } from './Subscribe';
+import { CardFeed } from './CardFeed';
 
 /** Hebrew words in large type with their translations under them (each term of a sum separately); `ask` — ends with «?». */
 function Words({ he, gloss, ask }: { he: string; gloss: Record<string, string>; ask?: boolean }) {
@@ -143,16 +144,17 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
 export function FactsPage({ at }: { at?: string }) {
   const { t } = useI18n();
   const facts = useMemo(() => collectFacts(LESSONS), []);
+  const showCards = at === 'cards';
 
   useEffect(() => {
     document.title = `${t('facts.title')} · ${t('app.title')}`;
   }, [t]);
 
   useEffect(() => {
-    if (!at) return;
+    if (!at || showCards) return;
     const id = requestAnimationFrame(() => document.getElementById(at)?.scrollIntoView({ block: at === 'daily' ? 'start' : 'center' }));
     return () => cancelAnimationFrame(id);
-  }, [at]);
+  }, [at, showCards]);
 
   return (
     <>
@@ -160,14 +162,24 @@ export function FactsPage({ at }: { at?: string }) {
       <div className="wrap">
         <header className="facts-head">
           <h1>{t('facts.title')}</h1>
-          <p>{t('facts.intro', { n: facts.length })}</p>
+          <p>{showCards ? t('facts.cardsIntro') : t('facts.intro', { n: facts.length })}</p>
         </header>
-        <DailyCard />
-        <main className="facts">
-          {facts.map((f) => (
-            <FactCard key={f.id} f={f} here={f.id === at} />
-          ))}
-        </main>
+        <nav className="facts-tabs" aria-label={t('facts.feedSwitch')}>
+          <a href="#/facts" aria-current={!showCards ? 'page' : undefined}>{t('facts.riddlesTab')}</a>
+          <a href="#/facts/cards" aria-current={showCards ? 'page' : undefined}>{t('facts.cardsTab')}</a>
+        </nav>
+        {showCards ? (
+          <CardFeed lessons={LESSONS} />
+        ) : (
+          <>
+            <DailyCard />
+            <main className="facts">
+              {facts.map((f) => (
+                <FactCard key={f.id} f={f} here={f.id === at} />
+              ))}
+            </main>
+          </>
+        )}
         <Subscribe />
       </div>
       <Colophon />
