@@ -81,7 +81,7 @@ function lessonMessages(l: Lesson): DailyMessage[] {
     id: `card:${l.slug}:${i}`,
     text: per((loc) => {
       const it = tx(l, loc).cards!.items[i];
-      return { title: title(l, loc), body: plain(`«${it.verse}» — ${it.card}. ${it.horaah}`), route: `${l.slug}/read` };
+      return { title: title(l, loc), body: plain(`«${it.verse}» — ${it.card}. ${it.horaah}`), route: `${l.slug}/read${l.riddles.length ? '/cards' : ''}` };
     }),
   }));
   const takeaways: DailyMessage[] = l.riddles.flatMap((_, ri) =>
