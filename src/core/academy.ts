@@ -7,8 +7,10 @@
  * или — для того, кто только читает, — когда на страницах чтения этих уроков отвечены все вопросы «Проверь себя»
  * (src/core/readCheck.ts) и верных не меньше PASS.
  *
- * Пророки и Писания: сертификат «книга <Йеґошуа, Теґилим…>» — за «Вопросы к отрывку» (src/tanakh/quiz/<дата>.json)
- * всех дней цикла, в которых читается эта книга: все тесты пройдены и верных ответов — не меньше PASS.
+ * Пророки и Писания: сертификат «книга <Йеґошуа, Теґилим…>» — за чтение: прочитаны (галочка «Я прочитал(а)» под
+ * отрывком, src/core/tanakhDone.ts) 100 % отрывков всех дней цикла, в которых читается эта книга. Сертификат — без баллов
+ * или с баллами: если ещё и «Вопросы к отрывку» (src/tanakh/quiz/<дата>.json) всех этих дней пройдены и верных —
+ * не меньше PASS, в сертификате — результат.
  *
  * Чистые функции; браузерная часть (что сохранено на устройстве, какие тесты уже есть) — в src/core/quiz.ts.
  */
@@ -93,6 +95,10 @@ export interface Progress {
   /** книга целиком есть на сайте (все главы / тесты всех дней) — без этого сертификата нет */
   complete: boolean;
   earned: boolean;
+  /** Пророки и Писания: отрывки книги, отмеченные «Я прочитал(а)» (done — прочитано, parts — дней книги) */
+  seen?: { done: number; parts: number };
+  /** Пророки и Писания: и «Вопросы к отрывку» пройдены (≥ PASS) — сертификат с баллами */
+  scored?: boolean;
   /** Тора: путь чтения — вопросы «Проверь себя» (got — верных, max — вопросов, done — отвечено, parts — уроков с вопросами) */
   read?: { got: number; max: number; done: number; parts: number; earned: boolean };
 }
@@ -184,14 +190,26 @@ export interface QuizResult {
 export type QuizStore = Record<string, QuizResult>;
 export const quizKey = (date: string, section: Section) => `${date}:${section}`;
 
-/** Прогресс сертификата книги Пророков / Писаний; `ready(date)` — тест этого дня уже написан. */
-export function tanakhProgress(c: { section?: Section; days: CycleDay[] }, store: QuizStore, ready: (date: string) => boolean): Progress {
+/**
+ * Прочитанные отрывки: `${дата}:${раздел}` → время отметки (с); отрицательное — отметку сняли (тогда же). Так
+ * синхронизация (src/core/sync.ts) берёт более позднее из двух устройств, и снятая галочка не возвращается.
+ */
+export type DoneStore = Record<string, number>;
+export const isDone = (store: DoneStore, date: string, section: Section) => (store[quizKey(date, section)] ?? 0) > 0;
+
+/**
+ * Прогресс сертификата книги Пророков / Писаний; `ready(date)` — тест этого дня уже написан.
+ * Сертификат — когда прочитаны все отрывки книги (100 %); с баллами — когда ещё и все тесты пройдены на ≥ PASS.
+ */
+export function tanakhProgress(c: { section?: Section; days: CycleDay[] }, store: QuizStore, ready: (date: string) => boolean, read: DoneStore = {}): Progress {
   let got = 0;
   let max = 0;
   let done = 0;
   let readyDays = 0;
+  let seen = 0;
   for (const d of c.days) {
     if (ready(d.date)) readyDays++;
+    if (isDone(read, d.date, c.section!)) seen++;
     const r = store[quizKey(d.date, c.section!)];
     if (r && r.n > 0 && r.best >= 0) {
       done++;
@@ -199,6 +217,9 @@ export function tanakhProgress(c: { section?: Section; days: CycleDay[] }, store
       max += r.n;
     }
   }
-  const complete = readyDays === c.days.length;
-  return { got, max, done, parts: c.days.length, complete, earned: complete && done === c.days.length && max > 0 && got >= PASS * max };
+  const parts = c.days.length;
+  const complete = readyDays === parts;
+  const allRead = parts > 0 && seen === parts;
+  const scored = allRead && complete && done === parts && max > 0 && got >= PASS * max;
+  return { got, max, done, parts, complete, earned: allRead, seen: { done: seen, parts }, scored };
 }

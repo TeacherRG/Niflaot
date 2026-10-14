@@ -1,12 +1,12 @@
 /**
  * What an account keeps for the player (src/core/account.ts): the same localStorage entries a guest has on one
- * device — the state of every lesson, «Гематрия дня», «Вопросы к отрывку», the Hebrew level, the language, the mental-math level —
+ * device — the state of every lesson, «Гематрия дня», «Вопросы к отрывку», the passages read, the Hebrew level, the language, the mental-math level —
  * and how two copies are merged (this device and the account) so that nothing solved is ever lost.
  * Pure functions on plain objects; `npm run check` checks the merge.
  */
 
 /** the synced localStorage keys: exact names, and `niflaot:lesson:<slug>` */
-export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:torah-read', 'niflaot:mode', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
+export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:tanakh-done', 'niflaot:torah-read', 'niflaot:mode', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
 export const LESSON_PREFIX = 'niflaot:lesson:';
 export const isSynced = (k: string) => SYNC_KEYS.includes(k) || k.startsWith(LESSON_PREFIX);
 
@@ -81,6 +81,18 @@ function mergeRead(a: string, b: string): string {
   return JSON.stringify(out);
 }
 
+/** «Я прочитал(а)» (src/core/tanakhDone.ts): every passage from both; the same one — the later mark (read or unmarked). */
+function mergeDone(a: string, b: string): string {
+  const x = parse(a) ?? {};
+  const y = parse(b) ?? {};
+  const out: Record<string, number> = {};
+  for (const k of new Set([...Object.keys(x), ...Object.keys(y)])) {
+    const [p, q] = [Number(x[k]) || 0, Number(y[k]) || 0];
+    out[k] = Math.abs(p) >= Math.abs(q) ? p : q;
+  }
+  return JSON.stringify(out);
+}
+
 /**
  * Merge this device (`local`) with the account (`remote`). Progress is never lost: lessons, «Гематрия дня» and
  * «Вопросы к отрывку» keep the best of both; settings (Hebrew level, language, math level) — this device's choice when it has one.
@@ -97,6 +109,7 @@ export function mergeSnapshots(local: Snapshot, remote: Snapshot): Snapshot {
     else if (k === 'niflaot:daily') out[k] = mergeDaily(a, b);
     else if (k === 'niflaot:tanakh-quiz') out[k] = mergeQuiz(a, b);
     else if (k === 'niflaot:torah-read') out[k] = mergeRead(a, b);
+    else if (k === 'niflaot:tanakh-done') out[k] = mergeDone(a, b);
     else out[k] = a;
   }
   return out;
