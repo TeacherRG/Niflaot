@@ -278,6 +278,96 @@ export async function renderFactCard(d: FactCardData): Promise<Blob> {
   return new Promise((resolve, reject) => c.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png'));
 }
 
+export interface TextCardSection {
+  heading: string;
+  text: string;
+  hebrew?: boolean;
+}
+
+export interface TextCardData {
+  eyebrow: string;
+  source: string;
+  title: string;
+  sections: TextCardSection[];
+  site: string;
+}
+
+/** A share image for a review card in the «Cards» feed. */
+export async function renderTextCard(d: TextCardData): Promise<Blob> {
+  await Promise.all(
+    [`700 64px ${FONTS.display}`, `700 32px ${FONTS.body}`, `500 38px ${FONTS.body}`, `700 54px ${FONTS.he}`].map((f) =>
+      document.fonts.load(f).catch(() => undefined),
+    ),
+  );
+  const c = document.createElement('canvas');
+  c.width = W;
+  c.height = H;
+  const ctx = c.getContext('2d')!;
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = INK;
+  ctx.fillRect(0, 0, W, H);
+  const glow = ctx.createRadialGradient(W / 2, 0, 50, W / 2, 0, 900);
+  glow.addColorStop(0, '#2E3870');
+  glow.addColorStop(1, 'rgba(20,26,51,0)');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = GOLD_DEEP;
+  ctx.lineWidth = 3;
+  ctx.strokeRect(48, 48, W - 96, H - 96);
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(64, 64, W - 128, H - 128);
+
+  const center = (text: string, y: number, font: string, color: string, dir: CanvasDirection = 'ltr') => {
+    ctx.font = font;
+    ctx.fillStyle = color;
+    ctx.direction = dir;
+    ctx.textAlign = 'center';
+    ctx.fillText(text, W / 2, y);
+    ctx.direction = 'ltr';
+  };
+
+  ctx.letterSpacing = '5px';
+  center(d.eyebrow.toUpperCase(), 145, `700 26px ${FONTS.body}`, GOLD);
+  ctx.letterSpacing = '0px';
+  ctx.font = `500 28px ${FONTS.body}`;
+  wrap(ctx, d.source, W - 240).slice(0, 2).forEach((line, i) => center(line, 195 + i * 36, `500 28px ${FONTS.body}`, MUTED));
+
+  type Line = { text: string; font: string; color: string; dir?: CanvasDirection; height: number };
+  const top = 270;
+  const bottom = H - 190;
+  const build = (scale: number): Line[] | null => {
+    const lines: Line[] = [];
+    const add = (text: string, font: string, color: string, height: number, dir?: CanvasDirection) => {
+      ctx.font = font;
+      const wrapped = text.split('\n').flatMap((part) => (part ? wrap(ctx, part, W - 240) : ['']));
+      if (wrapped.some((line) => ctx.measureText(line).width > W - 240)) return false;
+      wrapped.forEach((line) => lines.push({ text: line, font, color, dir, height }));
+      return true;
+    };
+    if (!add(d.title, `700 ${Math.round(60 * scale)}px ${FONTS.display}`, '#FFFFFF', 72 * scale)) return null;
+    for (const section of d.sections) {
+      if (!add(section.heading, `700 ${Math.round(28 * scale)}px ${FONTS.body}`, GOLD, 42 * scale)) return null;
+      if (!add(section.text, `${section.hebrew ? '700' : '500'} ${Math.round((section.hebrew ? 54 : 36) * scale)}px ${section.hebrew ? FONTS.he : FONTS.body}`, '#E6E9F3', (section.hebrew ? 68 : 48) * scale, section.hebrew ? 'rtl' : undefined)) return null;
+    }
+    return lines;
+  };
+  let scale = 1;
+  let lines = build(scale);
+  while ((!lines || lines.reduce((sum, line) => sum + line.height, 0) > bottom - top) && scale > 0.5) {
+    scale -= 0.05;
+    lines = build(scale);
+  }
+  const content = lines ?? [];
+  let y = top + (bottom - top - content.reduce((sum, line) => sum + line.height, 0)) / 2;
+  for (const line of content) {
+    y += line.height;
+    center(line.text, y - line.height * 0.2, line.font, line.color, line.dir);
+  }
+  center(d.site, H - 120, `700 38px ${FONTS.body}`, '#FFFFFF');
+
+  return new Promise((resolve, reject) => c.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png'));
+}
+
 /** Shares the picture through the system sheet when possible, otherwise downloads it. Returns 'shared' | 'saved'. */
 export async function shareOrSave(blob: Blob, filename: string, text: string): Promise<'shared' | 'saved'> {
   const file = new File([blob], filename, { type: 'image/png' });

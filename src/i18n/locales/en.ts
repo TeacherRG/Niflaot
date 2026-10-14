@@ -385,6 +385,7 @@ const en: Messages = {
   'facts.feedSwitch': 'Feed',
   'facts.riddlesTab': 'Riddles',
   'facts.cardsTab': 'Cards',
+  'facts.shareCard': 'Share card',
   'facts.cardsIntro': 'Review cards from Memo pairs and the Rebbe’s verse-and-explanation cards. Tap to reveal the match.',
   'facts.revealCard': 'Reveal pair',
   'facts.hideCard': 'Hide pair',

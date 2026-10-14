@@ -385,6 +385,7 @@ const de: Messages = {
   'facts.feedSwitch': 'Übersicht',
   'facts.riddlesTab': 'Rätsel',
   'facts.cardsTab': 'Karten',
+  'facts.shareCard': 'Karte teilen',
   'facts.cardsIntro': 'Karten zum Wiederholen: Memo-Paare und Verse mit Erklärungen des Rebben. Tippe, um das Paar aufzudecken.',
   'facts.revealCard': 'Paar aufdecken',
   'facts.hideCard': 'Paar schließen',
