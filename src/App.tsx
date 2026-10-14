@@ -195,7 +195,12 @@ function Site() {
         ) : view === 'memo' && lesson.memo ? (
           <MemoPage key={lesson.slug} lesson={lesson} memo={lesson.memo} at={Number(variant) || undefined} />
         ) : view === 'read' && lesson.cards ? (
-          <CardsReadPage key={lesson.slug} lesson={lesson} cards={lesson.cards} mode={variant === 'poem' ? 'poem' : 'read'} />
+          <CardsReadPage
+            key={lesson.slug}
+            lesson={lesson}
+            cards={lesson.cards}
+            mode={variant === 'poem' ? ('poem' as const) : variant === 'cards' || !lesson.riddles.length ? ('read' as const) : ('talk' as const)}
+          />
         ) : view === 'read' && lesson.kind !== 'sicha' ? (
           <ReadPage key={lesson.slug} lesson={lesson} at={Number(variant) || undefined} />
         ) : view === 'print' ? (
