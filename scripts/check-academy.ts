@@ -29,6 +29,7 @@ import {
 import { styleErrors } from './style-rules';
 import { readQuestions, readScore, type ReadStore } from '../src/core/readCheck';
 import { mergeSnapshots } from '../src/core/sync';
+import { passageMilestones, passageSteps, pctMilestones, stepCount, tanakhBookMilestones } from '../src/core/milestones';
 import cycleJson from '../src/tanakh/cycle.json';
 
 const errors: string[] = [];
@@ -129,6 +130,21 @@ const rd = JSON.parse(
   )['niflaot:tanakh-done'] ?? '{}',
 );
 if (rd.a !== 100 || rd.b !== -300 || rd.c !== 5 || rd.d !== 7) err('sync: «Я прочитал(а)» — с обоих устройств, у одного отрывка — более поздняя отметка');
+
+/* «Мой путь по книгам»: the milestones in the account */
+{
+  const total = cycle.length * 2;
+  const steps = passageSteps(total);
+  if (steps[0] !== 1 || steps.at(-1) !== total || steps.some((n, i) => i && n <= steps[i - 1])) err(`вехи чтения: ${steps.join(',')}`);
+  const st: DoneStore = { a: 30, b: 10, c: -5, d: 20 };
+  const pm = passageMilestones(st, total);
+  if (pm[0].at !== 10 || pm[1].at !== undefined) err('вехи чтения: 1-й отрывок — самая ранняя отметка, снятые не считаются');
+  const half: DoneStore = Object.fromEntries(days.slice(0, stepCount(50, days.length)).map((d, i) => [`${d.date}:neviim`, 100 + i]));
+  const bm = tanakhBookMilestones(half, days, 'neviim');
+  if (bm[0].at === undefined || bm[1].at !== 100 + stepCount(50, days.length) - 1 || bm[2].at !== undefined) err('вехи книги: 50 % — дата отметки нужного по счёту отрывка');
+  if (tanakhBookMilestones(allRead, days, 'neviim').some((m) => m.at === undefined)) err('вехи книги: всё прочитано — все вехи');
+  if (pctMilestones(74).filter((m) => m.at !== undefined).length !== 2) err('вехи книги Торы: 74 % — две вехи');
+}
 
 /* «Проверь себя»: the reader's way to a Torah certificate */
 let readQs = 0;

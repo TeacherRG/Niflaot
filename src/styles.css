@@ -1418,6 +1418,23 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .acc-note{color:var(--muted);font-size:14px}
 .acc-err{color:#B3261E;font-weight:600}
 .acc-ok{color:#1F7A4D;font-weight:600}
+.bp-h3{margin:16px 0 6px;font-size:16px}
+.bp-total{font-weight:600}
+.bp-miles{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.bp-miles li{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;font-size:13.5px;background:var(--paper)}
+.bp-miles li.on{border-color:var(--gold);background:var(--gold-soft)}
+.bp-miles li.next{border-style:dashed;color:var(--muted)}
+.bp-miles small{color:var(--muted)}
+.bp-medal{color:var(--gold)}
+.bp-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.bp-book{padding:10px 12px;border:1px solid var(--line);border-inline-start:4px solid var(--tc-line,var(--gold));border-radius:8px}
+.bp-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 6px}
+.bp-head small{color:var(--muted)}
+.bp-cert{margin-inline-start:auto;font-size:13px;font-weight:600}
+.bp-bar .bp-tick{background:var(--line);width:2px}
+.bp-bar .bp-tick.on{background:var(--surface)}
+.bp-steps{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--muted)}
+.bp-steps li.on{color:var(--ok);font-weight:600}
 .acc-danger{color:#B3261E}
 .acc-classes{list-style:none;padding:0;margin:0 0 12px;display:grid;gap:10px}
 .acc-classes li{display:grid;gap:4px;padding-bottom:10px;border-bottom:1px solid var(--line)}
