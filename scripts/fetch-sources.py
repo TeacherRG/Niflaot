@@ -205,6 +205,17 @@ SOURCES = {
     'gen-2-19': ('Genesis', 2, 19, 19),
     'gen-4-3': ('Genesis', 4, 3, 4),
     'gen-6-7': ('Genesis', 6, 7, 7),
+    # «Нифлаот Ребе» · Ноах, карточки
+    'gen-6-9-only': ('Genesis', 6, 9, 9),
+    'gen-6-13-only': ('Genesis', 6, 13, 13),
+    'gen-6-14': ('Genesis', 6, 14, 14),
+    'gen-6-16': ('Genesis', 6, 16, 16),
+    'gen-7-1': ('Genesis', 7, 1, 1),
+    'gen-7-12': ('Genesis', 7, 12, 12),
+    'gen-8-16': ('Genesis', 8, 16, 16),
+    'gen-9-6': ('Genesis', 9, 6, 6),
+    'gen-9-13': ('Genesis', 9, 13, 13),
+    'gen-9-23': ('Genesis', 9, 23, 23),
     # lesson «Ba'al HaTurim: Noach»
     'gen-6-9': ('Genesis', 6, 9, 11),
     'gen-6-13': ('Genesis', 6, 13, 16),
@@ -320,6 +331,7 @@ def clean(s, lang):
         s = re.sub(r'\b(LORD|Lord)\b', 'L-rd', s)
     if lang == 'de':
         s = re.sub(r'\bGott(es|e)?\b', lambda m: 'G-tt' + (m.group(1) or ''), s)
+        s = re.sub(r'\bGottes(?=[a-zäöüß])', 'G-ttes', s)  # Gottesgestalt → G-ttesgestalt
         s = re.sub(r'\bGöttlich', 'G-ttlich', s)
     return s
 

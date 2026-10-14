@@ -73,7 +73,7 @@ const lessonPage = (l: Lesson) =>
     he: l.hebrewTitle,
     title: l.texts.ru!.title,
     // a talk of the Rebbe is an investigation, not a gematria game
-    sub: `${l.kind === 'sicha' ? 'Расследование' : 'Игра-гематрия'} ${l.texts.ru!.hero.author}`,
+    sub: `${!l.riddles.length ? 'Карточки' : l.kind === 'sicha' ? 'Расследование' : 'Игра-гематрия'} ${l.texts.ru!.hero.author}`,
     highlight: l.highlight,
     letters: l.heroLetters,
   });

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useI18n } from '../i18n';
-import { PARSHIOT, rebbeLessons, type ParshaId } from '../lessons';
+import { PARSHIOT, cardsOnly, rebbeLessons, type ParshaId } from '../lessons';
 import { lessonGames } from './lessonGames';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
@@ -33,10 +33,10 @@ export function RebbePage({ parsha }: { parsha: ParshaId }) {
             const text = pick(l.texts).value;
             return (
               <div key={l.slug} className="card-wrap">
-                <a className="card" href={`#/${l.slug}`}>
+                <a className="card" href={`#/${l.slug}${cardsOnly(l) ? '/cards' : ''}`}>
                   <span className="eyebrow">
                     <span>{t('catalog.lesson', { n: l.number })}</span>
-                    <span>{t('catalog.riddles', { n: l.riddles.length })}</span>
+                    <span>{cardsOnly(l) ? t('cards.tab') : t('catalog.riddles', { n: l.riddles.length })}</span>
                   </span>
                   <span className="heb">{l.hebrewTitle}</span>
                   <h3>{text.title}</h3>

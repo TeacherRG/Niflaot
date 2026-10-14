@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
 import type { Lesson, RebbeCardsData } from '../lessons/types';
 import { displayNames } from '../core/names';
+import { cardsOnly } from '../lessons';
 import { SITE_HOST } from '../core/site';
 import { Icon } from './ui';
 import { PrintMasthead } from './PrintBrand';
@@ -56,9 +57,11 @@ export function PrintCards({ lesson, cards }: { lesson: Lesson; cards: RebbeCard
           {t('print.back')}
         </a>
         <div className="print-variant" role="group">
-          <a className="btn ghost" href={`#/${lesson.slug}/print`}>
-            {t('print.worksheet')}
-          </a>
+          {!cardsOnly(lesson) && (
+            <a className="btn ghost" href={`#/${lesson.slug}/print`}>
+              {t('print.worksheet')}
+            </a>
+          )}
           <span className="btn gold" aria-current="page">
             {t('cards.tab')}
           </span>

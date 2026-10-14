@@ -227,6 +227,12 @@ ${tx.riddles
     },
   )
   .join('\n')}
+${(tx.cards?.items ?? [])
+  .map(
+    (c, k) =>
+      `<section><h2>${esc(plain(c.title))}</h2><p class="he">${esc(displayNames(l.cards!.items[k].verse))}</p><p>${esc(plain(c.verse))}</p><p>${esc(plain(c.explain))}</p><p>${esc(plain(c.horaah))}</p></section>`,
+  )
+  .join('\n')}
 <p>${esc(plain(tx.practice))}</p></article>`,
   };
 }
