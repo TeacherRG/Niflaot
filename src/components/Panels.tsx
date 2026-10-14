@@ -395,6 +395,7 @@ export function Panels() {
       <Sheet open={panel === 'about'} onClose={close} title={t('about.title')} closeLabel={t('menu.close')}>
         <div className="about-mark he">נפלאות</div>
         <Html as="div" className="prose" html={t('about.body')} />
+        <Html as="p" className="prose" html={t('about.partners')} />
         <div className="about-links">
           <a className="btn" href="https://mychitas.app/donate" target="_blank" rel="noopener">
             {t('footer.donate')}

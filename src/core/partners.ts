@@ -30,9 +30,9 @@ export const PARTNERS: Partner[] = [
     logo: chabadHaus,
     url: 'https://chabadvienna.com',
     about: {
-      ru: 'Бейт Хабад в Вене — дом для каждого еврея: синагога, уроки Торы, праздники и общинная жизнь.',
-      en: 'The Chabad House of Vienna — a home for every Jew: a synagogue, Torah classes, holidays and community life.',
-      de: 'Das Chabad Haus Wien — ein Zuhause für jeden Juden: Synagoge, Tora-Unterricht, Feiertage und Gemeindeleben.',
+      ru: 'Дом Хабада в Вене — еврейский общинный центр с синагогой, занятиями Торой и встречами к праздникам.',
+      en: 'Chabad Haus Wien is a Jewish community center in Vienna, with a synagogue, Torah learning and holiday gatherings.',
+      de: 'Das Chabad Haus Wien ist ein jüdisches Gemeindezentrum mit Synagoge, Tora-Lernen und Treffen zu den Feiertagen.',
     },
   },
   {
@@ -41,9 +41,9 @@ export const PARTNERS: Partner[] = [
     logo: jrcv,
     url: 'https://jrcvienna.com',
     about: {
-      ru: 'Русскоязычная еврейская община Вены: общинный центр, уроки Торы, субботние трапезы и праздники.',
-      en: 'The Russian-speaking Jewish community of Vienna: a community center, Torah classes, Shabbat meals and holidays.',
-      de: 'Die russischsprachige jüdische Gemeinde Wiens: Gemeindezentrum, Tora-Unterricht, Schabbat-Mahlzeiten und Feiertage.',
+      ru: 'Еврейский центр JRCV в Вене, объединяющий русскоязычную общину и проводящий учебные и общинные программы.',
+      en: 'JRCV is a Jewish center in Vienna serving the Russian-speaking community with educational and community programs.',
+      de: 'JRCV ist ein jüdisches Zentrum in Wien, das die russischsprachige Gemeinde mit Bildungs- und Gemeinschaftsangeboten unterstützt.',
     },
   },
 ];

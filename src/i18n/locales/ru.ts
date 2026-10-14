@@ -56,7 +56,9 @@ const ru = {
 
   'about.title': 'О проекте',
   'partners.title': "Партнёры",
-  'partners.intro': "Общины, вместе с которыми мы делаем «Нифлаот».",
+  'partners.intro': 'Наши партнёры в Вене.',
+  'about.partners':
+    'Партнёры проекта в Вене: <a href="https://chabadvienna.com" target="_blank" rel="noopener">Chabad Haus Wien</a> — еврейский общинный центр с синагогой и занятиями Торой; <a href="https://jrcvienna.com" target="_blank" rel="noopener">JRCV Vienna</a> — еврейский центр, работающий с русскоязычной общиной. <a href="#/partners">Подробнее о партнёрах</a>.',
   'teacher.title': "Учитель",
   'teacher.intro': "Остался вопрос по уроку? Выберите, кто вам ответит.",
   'teacher.ai.title': "ИИ-учитель",

@@ -52,7 +52,9 @@ const de: Messages = {
 
   'about.title': 'Über das Projekt',
   'partners.title': "Partner",
-  'partners.intro': "Die Gemeinden, mit denen wir Niflaot gemeinsam gestalten.",
+  'partners.intro': 'Unsere Partner in Wien.',
+  'about.partners':
+    'Unsere Partner in Wien: <a href="https://chabadvienna.com" target="_blank" rel="noopener">Chabad Haus Wien</a>, ein jüdisches Gemeindezentrum mit Synagoge und Tora-Lernen; und <a href="https://jrcvienna.com" target="_blank" rel="noopener">JRCV Vienna</a>, ein jüdisches Zentrum für die russischsprachige Gemeinde. <a href="#/partners">Mehr über unsere Partner</a>.',
   'teacher.title': "Lehrer",
   'teacher.intro': "Hast du noch eine Frage zur Lektion? Wähle, wer dir antworten soll.",
   'teacher.ai.title': "KI-Lehrer",
