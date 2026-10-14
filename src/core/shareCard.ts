@@ -1,4 +1,5 @@
 import { displayNames } from './names';
+import { NIFLAOT_LOGO } from './partners';
 
 export interface CardData {
   /** e.g. "НИФЛАОТ · БЕРЕЙШИТ 5787" */
@@ -299,6 +300,12 @@ export async function renderTextCard(d: TextCardData): Promise<Blob> {
       document.fonts.load(f).catch(() => undefined),
     ),
   );
+  const logo = await new Promise<HTMLImageElement | null>((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => resolve(null);
+    img.src = NIFLAOT_LOGO;
+  });
   const c = document.createElement('canvas');
   c.width = W;
   c.height = H;
@@ -326,14 +333,19 @@ export async function renderTextCard(d: TextCardData): Promise<Blob> {
     ctx.direction = 'ltr';
   };
 
+  if (logo) {
+    const lh = 110;
+    const lw = Math.min(360, (logo.naturalWidth / logo.naturalHeight) * lh);
+    ctx.drawImage(logo, (W - lw) / 2, 86, lw, lw * (logo.naturalHeight / logo.naturalWidth));
+  }
   ctx.letterSpacing = '5px';
-  center(d.eyebrow.toUpperCase(), 145, `700 26px ${FONTS.body}`, GOLD);
+  center(d.eyebrow.toUpperCase(), 245, `700 26px ${FONTS.body}`, GOLD);
   ctx.letterSpacing = '0px';
   ctx.font = `500 28px ${FONTS.body}`;
-  wrap(ctx, d.source, W - 240).slice(0, 2).forEach((line, i) => center(line, 195 + i * 36, `500 28px ${FONTS.body}`, MUTED));
+  wrap(ctx, d.source, W - 240).slice(0, 2).forEach((line, i) => center(line, 295 + i * 36, `500 28px ${FONTS.body}`, MUTED));
 
   type Line = { text: string; font: string; color: string; dir?: CanvasDirection; height: number };
-  const top = 270;
+  const top = 380;
   const bottom = H - 190;
   const build = (scale: number): Line[] | null => {
     const lines: Line[] = [];
@@ -346,7 +358,7 @@ export async function renderTextCard(d: TextCardData): Promise<Blob> {
     };
     if (!add(d.title, `700 ${Math.round(60 * scale)}px ${FONTS.display}`, '#FFFFFF', 72 * scale)) return null;
     for (const section of d.sections) {
-      if (!add(section.heading, `700 ${Math.round(28 * scale)}px ${FONTS.body}`, GOLD, 42 * scale)) return null;
+      if (section.heading && !add(section.heading, `700 ${Math.round(28 * scale)}px ${FONTS.body}`, GOLD, 42 * scale)) return null;
       if (!add(section.text, `${section.hebrew ? '700' : '500'} ${Math.round((section.hebrew ? 54 : 36) * scale)}px ${section.hebrew ? FONTS.he : FONTS.body}`, '#E6E9F3', (section.hebrew ? 68 : 48) * scale, section.hebrew ? 'rtl' : undefined)) return null;
     }
     return lines;
