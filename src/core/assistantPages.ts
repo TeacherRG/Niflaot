@@ -54,20 +54,28 @@ export async function quizContext(section: Section, date: string, lang: Lang, qu
 
 /** «Академия»: every certificate and the user's progress on this device. */
 export function academyContext(rows: { kind: 'torah' | 'tanakh'; title: string; book: string; p: Progress; extra: string }[]) {
-  return `Page: "Academy" — certificates for books; a certificate needs ${Math.round(PASS * 100)}% of the points.\n` +
+  return `Page: "Academy" — certificates for books. Torah: ${Math.round(PASS * 100)}% of the points. Prophets and Writings: ` +
+    `100% of the book's daily passages marked "I've read it" (under each passage); the certificate shows points too when ` +
+    `the "Questions on the passage" of all those days are passed with ${Math.round(PASS * 100)}%.\n` +
     rows
       .map(
         (r) =>
           `- ${r.title}, ${r.book}: ` +
-          (r.kind === 'torah' ? `${r.p.got} of ${r.p.max} points` : `${r.p.got} of ${r.p.max} quiz answers right`) +
+          (r.kind === 'torah'
+            ? `${r.p.got} of ${r.p.max} points`
+            : `${r.p.seen?.done ?? 0} of ${r.p.parts} passages read, ${r.p.got} of ${r.p.max} quiz answers right`) +
           `, ${r.extra}; ` +
           (r.p.earned
-            ? 'EARNED'
-            : r.p.complete
-              ? 'not earned yet'
-              : r.kind === 'torah'
-                ? 'the book is not complete on the site yet (its last portion is not there)'
-                : 'questions are not written yet for every day of this book'),
+            ? r.kind === 'tanakh'
+              ? r.p.scored
+                ? 'EARNED, with points'
+                : 'EARNED (by reading, without points)'
+              : 'EARNED'
+            : r.kind === 'tanakh'
+              ? 'not earned yet: every passage of the book must be marked read'
+              : r.p.complete
+                ? 'not earned yet'
+                : 'the book is not complete on the site yet (its last portion is not there)'),
       )
       .join('\n');
 }

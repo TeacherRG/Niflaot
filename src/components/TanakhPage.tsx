@@ -9,6 +9,8 @@ import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
 import { TanakhMasthead } from './PrintBrand';
 import { setOtherPage } from '../core/assistant';
 import { tanakhContext } from '../core/assistantPages';
+import { useDone, useDoneStore } from '../core/tanakhDone';
+import { isDone } from '../core/academy';
 
 export const SECTION_HE: Record<Section, string> = { neviim: 'נביאים', ketuvim: 'כתובים' };
 
@@ -245,6 +247,43 @@ function Verses({ verses, he, tr, md, rashi }: { verses: DayVerse[]; he: boolean
 }
 
 /**
+ * «Я прочитал(а)» under the passage, and the reader's tracker of this section: how many passages of the cycle are read,
+ * and the first earlier day left unread. The marks make the certificates of «Академия» (100 % of a book's passages).
+ */
+function DoneCheck({ section, date, today }: { section: Section; date: string; today: string }) {
+  const { t, locale } = useI18n();
+  const [done, setDone] = useDone(date, section);
+  const store = useDoneStore();
+  let read = 0;
+  let missed = 0;
+  let first: string | undefined;
+  for (const d of CYCLE) {
+    if (isDone(store, d.date, section)) read++;
+    else if (d.date < today) {
+      missed++;
+      first ??= d.date;
+    }
+  }
+  return (
+    <div className={`tk-done no-print${done ? ' on' : ''}`}>
+      <label>
+        <input type="checkbox" checked={done} onChange={(e) => setDone(e.target.checked)} />
+        <span>{t('tanakh.doneCheck')}</span>
+      </label>
+      <p>
+        {t('tanakh.doneStat', { n: read, total: CYCLE.length, section: t(`tanakh.${section}`) })}
+        {first && first !== date && (
+          <>
+            {' · '}
+            <a href={`#/${section}/${first}`}>{t('tanakh.doneMissed', { n: missed, date: civilDate(first, locale) })}</a>
+          </>
+        )}
+      </p>
+    </div>
+  );
+}
+
+/**
  * `#/neviim[/<date>]`, `#/ketuvim[/<date>]` — «Пророки» / «Писания»: the passage of the day of the three-year cycle
  * (src/core/tanakhCycle.ts): the Hebrew verse, its translation and the commentaries — Metzudat David and Rashi.
  * Without a date — today, or the next study day when today has no reading.
@@ -355,6 +394,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
             <Verses verses={sec.verses} he={he} tr={tr} md={view.md} rashi={view.rashi} />
           )}
 
+          {sec && <DoneCheck section={section} date={day.date} today={today} />}
           {sec && (
             <p className="tk-quiz no-print">
               <a className="btn" href={`#/${section}/${day.date}/quiz`}>

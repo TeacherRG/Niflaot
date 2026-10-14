@@ -9,6 +9,7 @@ import { readScore, readStore } from '../core/readCheck';
 import { useMode } from '../core/mode';
 import { CYCLE, localToday } from '../core/tanakh';
 import { readQuizStore, quizReady } from '../core/quiz';
+import { readDoneStore } from '../core/tanakhDone';
 import { NIFLAOT_LOGO, PARTNERS } from '../core/partners';
 import { civilDate, jewishDate } from '../core/hebrewDate';
 import { useAccount } from '../core/account';
@@ -19,6 +20,7 @@ import { academyContext } from '../core/assistantPages';
 import {
   PASS,
   RECTOR,
+  isDone,
   TORAH_BOOKS,
   tanakhCertificates,
   tanakhProgress,
@@ -39,6 +41,7 @@ function useCertificates() {
   return useMemo(() => {
     const today = localToday();
     const store = readQuizStore();
+    const read = readDoneStore();
     const torah = torahCertificates(LESSONS).map((c) => {
       const legacy = (slug: string) => LESSONS.find((l) => l.slug === slug)?.legacyStorageKey;
       const rs = readStore();
@@ -48,12 +51,27 @@ function useCertificates() {
       return { ...c, progress, href: `#/${c.lessons[0].slug}`, readHref: `#/${toRead.slug}/read` };
     });
     const tanakh = tanakhCertificates(CYCLE, today).map((c) => {
-      const progress = tanakhProgress(c, store, quizReady);
+      const progress = tanakhProgress(c, store, quizReady, read);
       const ready = c.days.filter((d) => quizReady(d.date)).length;
-      const first = c.days.find((d) => quizReady(d.date) && !(store[`${d.date}:${c.section}`]?.best >= 0)) ?? c.days[0];
-      return { ...c, progress, ready, href: `#/${c.section}/${first.date}/quiz` };
+      const first = c.days.find((d) => quizReady(d.date) && !(store[`${d.date}:${c.section}`]?.best >= 0));
+      // the reading starts at the first passage of the book not marked «Я прочитал(а)»
+      const toRead = c.days.find((d) => !isDone(read, d.date, c.section!)) ?? c.days[0];
+      return { ...c, progress, ready, href: `#/${c.section}/${toRead.date}`, quizHref: first && `#/${c.section}/${first.date}/quiz` };
     });
-    return { torah, tanakh };
+    // the reader's tracker: the passages of the whole cycle read, and those of the days already past
+    const tracker = (['neviim', 'ketuvim'] as const).map((section) => {
+      const past = CYCLE.filter((d) => d.date <= today);
+      const missed = past.find((d) => !isDone(read, d.date, section));
+      return {
+        section,
+        read: CYCLE.filter((d) => isDone(read, d.date, section)).length,
+        total: CYCLE.length,
+        pastRead: past.filter((d) => isDone(read, d.date, section)).length,
+        past: past.length,
+        missed: missed?.date,
+      };
+    });
+    return { torah, tanakh, tracker };
   }, []);
 }
 
@@ -138,6 +156,100 @@ function Card({ c, p: game, href, extra, readHref, reading }: { c: Certificate; 
   );
 }
 
+/**
+ * A certificate of the Prophets and Writings: by reading — every passage of the book marked «Я прочитал(а)» (100 %);
+ * with points when «Вопросы к отрывку» of all its days are passed too. The bar is the passages read.
+ */
+function TanakhCard({ c, p, href, quizHref, ready }: { c: Certificate; p: Progress; href: string; quizHref?: string; ready: number }) {
+  const { t, locale } = useI18n();
+  const lang = langOf(locale);
+  const seen = p.seen ?? { done: 0, parts: p.parts };
+  const readPct = seen.parts ? Math.round((100 * seen.done) / seen.parts) : 0;
+  return (
+    <li className={`ac-card t-${c.section === 'neviim' ? 'tchelet' : 'gold'}${p.earned ? ' earned' : ''}`}>
+      <div className="ac-seal" aria-hidden="true">
+        {p.earned ? '🎓' : <span className="he">{c.book.he.slice(0, 1)}</span>}
+      </div>
+      <div className="ac-body">
+        <h3>
+          {certTitle(c, t)}
+          <small>
+            {t('academy.book', { name: c.book.name[lang] })} · <span className="he" lang="he">{c.book.he}</span>
+          </small>
+        </h3>
+        <div className="ac-bar" role="img" aria-label={`${readPct}%`}>
+          <span style={{ width: `${Math.min(100, readPct)}%` }} />
+        </div>
+        <p className="ac-meta">{t('academy.readDays', { done: seen.done, parts: seen.parts, pct: readPct })}</p>
+        <p className="ac-meta ac-read">
+          {t('academy.days', { done: p.done, parts: p.parts })}
+          {p.max > 0 && ` · ${t('academy.readPoints', { got: p.got, max: p.max, pct: pct(p) })}`}
+        </p>
+        {p.earned ? (
+          <p className="ac-ok">{t(p.scored ? 'academy.earnedPoints' : 'academy.earnedRead', { pct: pct(p) })}</p>
+        ) : (
+          <p className="ac-wait">{t('academy.needRead', { pass: PASS_PCT })}</p>
+        )}
+        {!p.scored && !p.complete && <p className="ac-wait">{t('academy.waitQuiz', { ready, parts: p.parts })}</p>}
+        <div className="ac-actions">
+          {p.earned && (
+            <a className="btn" href={`#/academy/${c.id}`}>
+              {t('academy.open')}
+            </a>
+          )}
+          {seen.done < seen.parts && (
+            <a className={`btn${p.earned ? ' ghost' : ''}`} href={href}>
+              {t('academy.readBtn')}
+            </a>
+          )}
+          {quizHref && (
+            <a className="btn ghost" href={quizHref}>
+              {t('quiz.title')}
+            </a>
+          )}
+          {!p.earned && (
+            <a className="btn ghost" href={`#/academy/${c.id}?sample`}>
+              {t('academy.sample')}
+            </a>
+          )}
+        </div>
+      </div>
+    </li>
+  );
+}
+
+/** The reader's tracker of the three-year cycle: passages read in each section; the first past day left unread. */
+function ReadTracker({ rows }: { rows: { section: 'neviim' | 'ketuvim'; read: number; total: number; pastRead: number; past: number; missed?: string }[] }) {
+  const { t, locale } = useI18n();
+  return (
+    <div className="ac-tracker">
+      <h3>{t('academy.trackerTitle')}</h3>
+      {rows.map((r) => {
+        const v = r.total ? Math.round((100 * r.read) / r.total) : 0;
+        return (
+          <div key={r.section} className={`ac-track t-${r.section === 'neviim' ? 'tchelet' : 'gold'}`}>
+            <p className="ac-track-h">
+              <b>{t(`tanakh.${r.section}`)}</b> {t('academy.trackerRead', { n: r.read, total: r.total, pct: v })}
+            </p>
+            <div className="ac-bar" role="img" aria-label={`${v}%`}>
+              <span style={{ width: `${Math.min(100, v)}%` }} />
+            </div>
+            <p className="ac-meta">
+              {t('academy.trackerPast', { n: r.pastRead, total: r.past })}
+              {r.missed && (
+                <>
+                  {' · '}
+                  <a href={`#/${r.section}/${r.missed}`}>{t('academy.trackerMissed', { date: civilDate(r.missed, locale) })}</a>
+                </>
+              )}
+            </p>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 /** The rector's signature: a handwritten stroke in ink, drawn as a vector so it prints sharp. */
 function RectorSignature() {
   return (
@@ -153,6 +265,17 @@ function RectorSignature() {
 }
 
 const NAME_KEY = 'niflaot:cert-name';
+const POINTS_KEY = 'niflaot:cert-points';
+
+/**
+ * The result printed on a certificate, or null when it has none: a Torah certificate — the points of the way it was
+ * earned (the game, else «Проверь себя»); the Prophets and Writings — the quiz, only when it was passed (with points).
+ */
+function certResult(c: Certificate, p: Progress): number | null {
+  if (c.kind === 'tanakh') return p.scored ? pct(p) : null;
+  if (p.max > 0 && p.got >= PASS * p.max) return pct(p);
+  return p.read && p.read.max ? Math.round((100 * p.read.got) / p.read.max) : null;
+}
 
 /** The certificate itself: on screen and on paper (A4 landscape); without the result — a sample. */
 function CertificateView({ c, p, sample }: { c: Certificate; p: Progress; sample: boolean }) {
@@ -170,6 +293,20 @@ function CertificateView({ c, p, sample }: { c: Certificate; p: Progress; sample
       localStorage.setItem(NAME_KEY, name);
     } catch {}
   }, [name]);
+  const [showPoints, setShowPoints] = useState(() => {
+    try {
+      return localStorage.getItem(POINTS_KEY) !== '0';
+    } catch {
+      return true;
+    }
+  });
+  const togglePoints = (v: boolean) => {
+    setShowPoints(v);
+    try {
+      localStorage.setItem(POINTS_KEY, v ? '1' : '0');
+    } catch {}
+  };
+  const result = sample ? null : certResult(c, p);
   const today = localToday();
   const torahBook = TORAH_BOOKS.find((b) => b.id === c.book.id);
   return (
@@ -182,6 +319,13 @@ function CertificateView({ c, p, sample }: { c: Certificate; p: Progress; sample
           <input value={name} maxLength={60} placeholder={t('cert.namePh')} onChange={(e) => setName(e.target.value)} />
           <small>{t('cert.nameNote')}</small>
         </label>
+        {/* a certificate is given with or without the points: the learner chooses */}
+        {result !== null && (
+          <label className="ac-points">
+            <input type="checkbox" checked={showPoints} onChange={(e) => togglePoints(e.target.checked)} />
+            <span>{t('cert.showPoints', { pct: result })}</span>
+          </label>
+        )}
         <button type="button" className="btn" onClick={() => window.print()}>
           {t('cert.print')}
         </button>
@@ -211,7 +355,8 @@ function CertificateView({ c, p, sample }: { c: Certificate; p: Progress; sample
             {torahBook ? torahBook.he : c.book.he}
           </span>
         </p>
-        {!sample && <p className="cert-result">{t('cert.result', { pct: pct(p) })}</p>}
+        {!sample && c.kind === 'tanakh' && <p className="cert-result">{t('cert.readAll', { n: p.seen?.parts ?? p.parts })}</p>}
+        {result !== null && showPoints && <p className="cert-result">{t('cert.result', { pct: result })}</p>}
         {/* date · QR code to the site · the rector's signature */}
         <div className="cert-foot">
           <div className="cert-sign">
@@ -252,7 +397,7 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
   const { t, locale } = useI18n();
   const lang = langOf(locale);
   const { token } = useAccount();
-  const { torah, tanakh } = useCertificates();
+  const { torah, tanakh, tracker } = useCertificates();
   const adults = useMode() === 'adults';
   // the AI assistant (✦) knows the certificates and the progress
   useEffect(() => {
@@ -261,7 +406,10 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
       title: certTitle(c, t),
       book: c.book.name[lang],
       p: c.progress,
-      extra: c.kind === 'torah' ? t('academy.lessons', { done: c.progress.done, parts: c.progress.parts }) : t('academy.days', { done: c.progress.done, parts: c.progress.parts }),
+      extra:
+        c.kind === 'torah'
+          ? t('academy.lessons', { done: c.progress.done, parts: c.progress.parts })
+          : `${t('academy.readDays', { done: c.progress.seen?.done ?? 0, parts: c.progress.parts, pct: Math.round((100 * (c.progress.seen?.done ?? 0)) / (c.progress.parts || 1)) })}; ${t('academy.days', { done: c.progress.done, parts: c.progress.parts })}`,
     }));
     setOtherPage({ kind: 'academy', context: () => academyContext(rows) });
     return () => setOtherPage(null);
@@ -318,11 +466,12 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
         {adults && (
           <>
             <h2 className="ac-h2">{t('academy.tanakh')}</h2>
-            <p className="ac-note">{t('academy.tanakhNote')}</p>
+            <p className="ac-note">{t('academy.tanakhNote', { pass: PASS_PCT })}</p>
+            <ReadTracker rows={tracker} />
             {tanakh.length ? (
               <ul className="ac-list">
                 {tanakh.map((c) => (
-                  <Card key={c.id} c={c} p={c.progress} href={c.href} extra={t('academy.days', { done: c.progress.done, parts: c.progress.parts })} />
+                  <TanakhCard key={c.id} c={c} p={c.progress} href={c.href} quizHref={c.quizHref} ready={c.ready} />
                 ))}
               </ul>
             ) : (

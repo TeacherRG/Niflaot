@@ -1503,6 +1503,12 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 
 /* «Вопросы к отрывку» — a quiz on the passage of the day */
 .tk-quiz{margin:20px 0 4px;text-align:center}
+.tk-done{margin:24px 0 0;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);text-align:center}
+.tk-done label{display:inline-flex;align-items:center;gap:10px;font-size:17px;font-weight:700;cursor:pointer}
+.tk-done input{width:22px;height:22px;accent-color:var(--tchelet)}
+.tk-done.on{border-color:var(--ok);background:var(--ok-soft)}
+.tk-done.on label{color:var(--ok)}
+.tk-done p{margin:6px 0 0;font-size:13px;color:var(--muted)}
 .qz-list{list-style:none;margin:12px 0;padding:0;display:grid;gap:14px}
 .qz-q{padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--shadow)}
 .qz-text{display:flex;gap:10px;align-items:baseline;margin:0 0 10px;font-size:17px;font-weight:600;line-height:1.4}
@@ -1523,6 +1529,11 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .read-calcs-locked{margin:10px 0;font-size:13.5px;color:var(--muted)}
 .rc-card{font-weight:400;font-style:italic}
 .ac-read{color:var(--tchelet)}
+.ac-tracker{margin:4px 0 16px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--shadow);display:grid;gap:10px}
+.ac-tracker h3{margin:0;font-size:16px}
+.ac-track .ac-bar{margin:6px 0 4px}
+.ac-track-h{margin:0;font-size:14px}
+.ac-points{display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer}
 .qz-result{margin:16px 0;padding:16px;border-radius:12px;text-align:center;background:var(--gold-soft);border:1px solid var(--gold-line)}
 .qz-result.ok{background:var(--ok-soft);border-color:var(--ok)}
 .qz-result p{margin:4px 0}

@@ -4,7 +4,8 @@
  *    раздела этого дня (`ref`: «joshua 2:18»); 3–4 варианта, верный — первый, варианты разные; тексты на ru, en, de;
  *    Имена — Б-г, Г-сподь, G-d, L-rd, G-tt; английский и немецкий — по docs/TRANSLATION-GUIDE.md (scripts/style-rules.ts);
  *  - главы Торы (src/lessons/parshiot.ts) — из списка TORAH_BOOKS (src/core/academy.ts), у каждой — книга;
- *  - правила сертификатов: PASS, книга открывается последней главой, результат дня считается лучшим;
+ *  - правила сертификатов: PASS, книга открывается последней главой, результат дня считается лучшим; Пророки и
+ *    Писания — 100 % прочитанных отрывков («Я прочитал(а)»), с баллами — если ещё и тесты ≥ PASS;
  *  - «Проверь себя» на страницах чтения (src/core/readCheck.ts): у каждого урока со страницей чтения ≥ 3 вопроса,
  *    у вопроса-карточки — 4 разных стиха и верный среди них, тексты на всех языках; сертификат Торы — и за чтение.
  */
@@ -22,6 +23,7 @@ import {
   torahBookComplete,
   torahCertificates,
   torahProgress,
+  type DoneStore,
   type QuizStore,
 } from '../src/core/academy';
 import { styleErrors } from './style-rules';
@@ -107,12 +109,26 @@ const days = bookDays(joshua, cycle);
 if (!days.length || days[0].date !== cycle[0].date) err('academy: дни книги Йеґошуа считаются неверно');
 const all = (best: number): QuizStore => Object.fromEntries(days.map((d) => [`${d.date}:neviim`, { p: [0, 0, 0, 0], best, n: 4 }]));
 const cert = { section: 'neviim' as Section, days };
-if (!tanakhProgress(cert, all(3), () => true).earned) err('academy: 3 из 4 во всех днях — сертификат должен быть');
-if (tanakhProgress(cert, all(2), () => true).earned) err('academy: 2 из 4 — сертификата быть не должно');
-if (tanakhProgress(cert, all(4), (d) => d !== days[1].date).earned) err('academy: не все тесты книги готовы — сертификата быть не должно');
+const allRead: DoneStore = Object.fromEntries(days.map((d, i) => [`${d.date}:neviim`, 1_790_000_000 + i]));
+// the certificate is for reading 100 % of the book's passages; with points — when the quizzes are passed too
+const tp = (q: QuizStore, ready: (d: string) => boolean, r: DoneStore = allRead) => tanakhProgress(cert, q, ready, r);
+if (!tp({}, () => false).earned || tp({}, () => false).scored) err('academy: все отрывки прочитаны — сертификат без баллов должен быть');
+if (!tp(all(3), () => true).scored) err('academy: всё прочитано, 3 из 4 во всех днях — сертификат с баллами');
+if (tp(all(2), () => true).scored || !tp(all(2), () => true).earned) err('academy: 2 из 4 — сертификат без баллов, не с баллами');
+if (tp(all(4), (d) => d !== days[1].date).scored) err('academy: не все тесты книги готовы — баллов в сертификате быть не должно');
+if (tp(all(4), () => true, {}).earned || tp(all(4), () => true, {}).scored) err('academy: ничего не прочитано — сертификата быть не должно, даже за тесты');
 const missing = all(4);
 delete missing[`${days[0].date}:neviim`];
-if (tanakhProgress(cert, missing, () => true).earned) err('academy: пропущенный день — сертификата быть не должно');
+if (tp(missing, () => true).scored) err('academy: пропущенный тест — баллов в сертификате быть не должно');
+const oneLeft = { ...allRead, [`${days.at(-1)!.date}:neviim`]: -1_790_000_100 };
+if (tp(all(4), () => true, oneLeft).earned) err('academy: прочитано меньше 100 % (галочку сняли) — сертификата быть не должно');
+const rd = JSON.parse(
+  mergeSnapshots(
+    { 'niflaot:tanakh-done': JSON.stringify({ a: 100, b: -300, c: 5 }) },
+    { 'niflaot:tanakh-done': JSON.stringify({ a: -50, b: 200, d: 7 }) },
+  )['niflaot:tanakh-done'] ?? '{}',
+);
+if (rd.a !== 100 || rd.b !== -300 || rd.c !== 5 || rd.d !== 7) err('sync: «Я прочитал(а)» — с обоих устройств, у одного отрывка — более поздняя отметка');
 
 /* «Проверь себя»: the reader's way to a Torah certificate */
 let readQs = 0;
