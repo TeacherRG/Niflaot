@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
-import { LESSONS, LESSON_GROUPS, type Lesson } from '../lessons';
+import { LESSONS, LESSON_GROUPS, cardsOnly, type Lesson } from '../lessons';
 import { TEACHERS, teacherOf } from '../lessons/teachers';
 import { lessonProgress } from '../core/progress';
 import { TopBar } from './TopBar';
@@ -16,7 +16,7 @@ import { useMode } from '../core/mode';
 function GameIcons({ lesson: l }: { lesson: Lesson }) {
   return (
     <span className="h-games">
-      <Icon name={l.kind === 'sicha' ? 'search' : 'hash'} size={15} />
+      {!cardsOnly(l) && <Icon name={l.kind === 'sicha' ? 'search' : 'hash'} size={15} />}
       {(l.memo || l.cards) && <Icon name="cards" size={15} />}
       {(l.kind !== 'sicha' || l.cards) && <Icon name="book" size={15} />}
     </span>
@@ -54,10 +54,10 @@ function WeekTile({ lesson: l, read }: { lesson: Lesson; read?: boolean }) {
       </a>
     );
   return (
-    <a className={`h-tile t-${TEACHERS[who].color}`} href={`#/${l.slug}`}>
+    <a className={`h-tile t-${TEACHERS[who].color}`} href={`#/${l.slug}${cardsOnly(l) ? '/cards' : ''}`}>
       <span className="h-tile-top">
         <span className="h-badge">{t(`teacher.${who}.short`)}</span>
-        <Ring done={done} total={l.riddles.length} />
+        {!cardsOnly(l) && <Ring done={done} total={l.riddles.length} />}
       </span>
       <span className="h-tile-he he" lang="he">
         {l.hebrewTitle}
@@ -229,12 +229,14 @@ function KidsHome() {
   // the week's portion: the latest one with lessons
   const week = LESSON_GROUPS[LESSON_GROUPS.length - 1];
   const lessons = [...week.lessons, ...week.rebbe];
-  // continue a started lesson, else the first unfinished one of the week
+  // continue a started lesson, else the first unfinished one of the week (a cards-only lesson has no riddles to continue)
+  const playable = lessons.filter((l) => !cardsOnly(l));
   const started = LESSONS.find((l) => {
     const d = lessonProgress(l.slug, l.legacyStorageKey);
     return d > 0 && d < l.riddles.length;
   });
-  const next = started ?? lessons.find((l) => lessonProgress(l.slug, l.legacyStorageKey) < l.riddles.length) ?? lessons[0];
+  const next =
+    started ?? playable.find((l) => lessonProgress(l.slug, l.legacyStorageKey) < l.riddles.length) ?? playable[0] ?? LESSONS[0];
   const nextDone = lessonProgress(next.slug, next.legacyStorageKey);
   const nextWho = teacherOf(next);
 

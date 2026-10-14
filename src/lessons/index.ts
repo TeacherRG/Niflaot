@@ -3,6 +3,7 @@ import { PARSHIOT, type ParshaId } from './parshiot';
 import baalHaturimBereshit from './01-baal-haturim-bereshit';
 import shaloshShaot from './04-shalosh-shaot';
 import baalHaturimNoach from './05-baal-haturim-noach';
+import rebbeNoach from './06-rebbe-noach';
 import { installOverrides } from '../content';
 
 /**
@@ -11,12 +12,15 @@ import { installOverrides } from '../content';
  *   2. import it here and put it into the list (its position = its place in the menu).
  * A «Нифлаот Ребе» lesson (`series: 'rebbe'`) is listed under «Нифлаот Ребе» of its portion, numbered within it.
  */
-export const LESSONS: Lesson[] = [baalHaturimBereshit, shaloshShaot, baalHaturimNoach];
+export const LESSONS: Lesson[] = [baalHaturimBereshit, shaloshShaot, baalHaturimNoach, rebbeNoach];
 
 // text edits made on the site by the admin (src/content/overrides.json)
 installOverrides(LESSONS);
 
 export const findLesson = (slug: string) => LESSONS.find((l) => l.slug === slug);
+
+/** A «Нифлаот Ребе» lesson that has only «Карточки» so far (no investigation): `#/<slug>` opens the cards. */
+export const cardsOnly = (l: Lesson) => !!l.cards && !l.riddles.length;
 
 /** Lessons grouped by Torah portion, portions in Torah order; «Нифлаот Ребе» lessons go to `rebbe` of their portion. */
 export const LESSON_GROUPS = (Object.keys(PARSHIOT) as ParshaId[])

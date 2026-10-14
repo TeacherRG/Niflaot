@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect, useMemo, useState, type ComponentType } from 'react';
-import { PARSHIOT, findLesson, type ParshaId } from './lessons';
+import { PARSHIOT, cardsOnly, findLesson, type ParshaId } from './lessons';
 import { Catalog } from './components/Catalog';
 import { ModePicker } from './components/ModePicker';
 import { isReader, savedMode, useSavedMode } from './core/mode';
@@ -181,6 +181,13 @@ function Site() {
           <Catalog />
         ) : view === 'print' && variant === 'memo' && lesson.memo ? (
           <PrintMemo key={lesson.slug} lesson={lesson} memo={lesson.memo} />
+        ) : cardsOnly(lesson) && (view === 'print' ? variant !== 'memo' : view !== 'cards' && view !== 'read') ? (
+          // a lesson with only cards so far: its page and its printout are the cards
+          view === 'print' ? (
+            <PrintCards key={lesson.slug} lesson={lesson} cards={lesson.cards!} />
+          ) : (
+            <CardsPage key={lesson.slug} lesson={lesson} cards={lesson.cards!} />
+          )
         ) : view === 'print' && variant === 'cards' && lesson.cards ? (
           <PrintCards key={lesson.slug} lesson={lesson} cards={lesson.cards} />
         ) : view === 'cards' && lesson.cards ? (

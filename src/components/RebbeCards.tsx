@@ -1,6 +1,7 @@
 import { useI18n } from '../i18n';
 import type { Lesson, RebbeCard, RebbeCardText, RebbeCardsData, RebbeCardsText } from '../lessons/types';
 import { displayNames } from '../core/names';
+import { cardsOnly } from '../lessons';
 import { formatTime } from '../core/format';
 import { SOURCES, sourceLabel, translation } from '../sources';
 import { EASY, usePairsGame, type Card } from '../core/usePairsGame';
@@ -251,9 +252,11 @@ export function RebbeCards({ lesson, cards: data, text }: { lesson: Lesson; card
             <button className={`btn${pairs.length < total ? ' ghost' : ''}`} onClick={() => play(pairs.length)}>
               {t('memo.again')}
             </button>
-            <a className="btn ghost" href={`#/${lesson.slug}`}>
-              {t('cards.toLesson')}
-            </a>
+            {!cardsOnly(lesson) && (
+              <a className="btn ghost" href={`#/${lesson.slug}`}>
+                {t('cards.toLesson')}
+              </a>
+            )}
           </div>
           <div className="memo-copy">© mychitas.app 2026</div>
         </div>

@@ -4245,6 +4245,486 @@
    }
   }
  },
+ "gen-6-9-only": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 6:9",
+   "en": "Genesis 6:9",
+   "de": "Bereschit 6,9"
+  },
+  "ref": "Genesis 6:9",
+  "url": "https://www.sefaria.org/Genesis_6.9",
+  "he": [
+   "אלה תולדת נח נח איש צדיק תמים היה בדרתיו את האלקים התהלך נח"
+  ],
+  "en": [
+   "These are the generations of Noah. Noah was in his generations a man righteous and wholehearted; Noah walked with G-d."
+  ],
+  "ru": [
+   "Вот порождения Ноаха. Ноах (был) муж праведный, непорочный в поколении своем; с Б-гом ходил Ноах."
+  ],
+  "de": [
+   "Dies sind die Erzeugnisse Noach's. Noach, ein gerechter Mann, war in seinen Zeiten sittenrein; mit G-tt führte sich Noach."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-6-13-only": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 6:13",
+   "en": "Genesis 6:13",
+   "de": "Bereschit 6,13"
+  },
+  "ref": "Genesis 6:13",
+  "url": "https://www.sefaria.org/Genesis_6.13",
+  "he": [
+   "ויאמר אלקים לנח קץ כל בשר בא לפני כי מלאה הארץ חמס מפניהם והנני משחיתם את הארץ"
+  ],
+  "en": [
+   "And G-d said unto Noah: ‘The end of all flesh is come before Me; for the earth is filled with violence through them; and, behold, I will destroy them with the earth."
+  ],
+  "ru": [
+   "И сказал Б-г Ноаху: вот, конец приходит всякой плоти предо мной, ибо наполнилась земля беззаконием из-за них, и вот — уничтожаю я их вместе с землей."
+  ],
+  "de": [
+   "Da sprach G-tt zu Noach: Das Ende alles Fleisches ist vor mich gekommen, denn die Erde ist voller Unrecht vor ihnen geworden, und so bin ich im Begriff, sie mit der Erde zu verderben."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-6-14": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 6:14",
+   "en": "Genesis 6:14",
+   "de": "Bereschit 6,14"
+  },
+  "ref": "Genesis 6:14",
+  "url": "https://www.sefaria.org/Genesis_6.14",
+  "he": [
+   "עשה לך תבת עצי גפר קנים תעשה את התבה וכפרת אתה מבית ומחוץ בכפר"
+  ],
+  "en": [
+   "Make thee an ark of gopher wood; with rooms shalt thou make the ark, and shalt pitch it within and without with pitch."
+  ],
+  "ru": [
+   "Сделай себе ковчег из дерева гофер; с клетями сделай ковчег и осмоли его изнутри и снаружи смолой."
+  ],
+  "de": [
+   "Mache dir einen Kasten aus Gopherholz, aus Tierbehältern bestehend sollst du den Kasten machen, und ihn von innen und außen mit Pech bedecken."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-6-16": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 6:16",
+   "en": "Genesis 6:16",
+   "de": "Bereschit 6,16"
+  },
+  "ref": "Genesis 6:16",
+  "url": "https://www.sefaria.org/Genesis_6.16",
+  "he": [
+   "צהר תעשה לתבה ואל אמה תכלנה מלמעלה ופתח התבה בצדה תשים תחתים שנים ושלשים תעשה"
+  ],
+  "en": [
+   "A light shalt thou make to the ark, and to a cubit shalt thou finish it upward; and the door of the ark shalt thou set in the side thereof; with lower, second, and third stories shalt thou make it."
+  ],
+  "ru": [
+   "Окошко сделай в ковчеге и в локоть сведи его сверху, а дверь ковчега помести сбоку; (с) нижним, вторым и третьим ярусом сделай его."
+  ],
+  "de": [
+   "Eine Beleuchtung machst du dem Kasten, und lässest sie obwärts bis zu einer Elle abnehmen; die Türe des Kastens bringst du an die Seite an; mit unterstem, zweitem und drittem Stockwerk machst du sie."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-7-1": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 7:1",
+   "en": "Genesis 7:1",
+   "de": "Bereschit 7,1"
+  },
+  "ref": "Genesis 7:1",
+  "url": "https://www.sefaria.org/Genesis_7.1",
+  "he": [
+   "ויאמר ה׳ לנח בא אתה וכל ביתך אל התבה כי אתך ראיתי צדיק לפני בדור הזה"
+  ],
+  "en": [
+   "And the L-rd said unto Noah: ‘Come thou and all thy house into the ark; for thee have I seen righteous before Me in this generation."
+  ],
+  "ru": [
+   "И сказал Г-сподь Ноаху: войди ты и весь дом твой в ковчег, ибо тебя узрел я праведным предо мною в этом поколении."
+  ],
+  "de": [
+   "Da sprach <i>G-tt</i> zu Noach: Gehe du und dein ganzes Haus in die Arche; denn dich habe ich gerecht vor mir gesehen in diesem Zeitalter."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-7-12": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 7:12",
+   "en": "Genesis 7:12",
+   "de": "Bereschit 7,12"
+  },
+  "ref": "Genesis 7:12",
+  "url": "https://www.sefaria.org/Genesis_7.12",
+  "he": [
+   "ויהי הגשם על הארץ ארבעים יום וארבעים לילה"
+  ],
+  "en": [
+   "And the rain was upon the earth forty days and forty nights."
+  ],
+  "ru": [
+   "И был дождь на земле сорок дней и сорок ночей."
+  ],
+  "de": [
+   "Und es kam der Regen über die Erde vierzig Tage und vierzig Nächte."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-8-16": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 8:16",
+   "en": "Genesis 8:16",
+   "de": "Bereschit 8,16"
+  },
+  "ref": "Genesis 8:16",
+  "url": "https://www.sefaria.org/Genesis_8.16",
+  "he": [
+   "צא מן התבה אתה ואשתך ובניך ונשי בניך אתך"
+  ],
+  "en": [
+   "’Go forth from the ark, thou, and thy wife, and thy sons, and thy sons’ wives with thee."
+  ],
+  "ru": [
+   "Выйди из ковчега ты, и жена твоя, и сыновья твои, и жены сыновей твоих с тобой."
+  ],
+  "de": [
+   "Gehe aus der Arche, du, und deine Frau und deine Söhne und die Frauen deiner Söhne mit dir."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-9-6": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 9:6",
+   "en": "Genesis 9:6",
+   "de": "Bereschit 9,6"
+  },
+  "ref": "Genesis 9:6",
+  "url": "https://www.sefaria.org/Genesis_9.6",
+  "he": [
+   "שפך דם האדם באדם דמו ישפך כי בצלם אלקים עשה את האדם"
+  ],
+  "en": [
+   "Whoso sheddeth man’s blood, by man shall his blood be shed; for in the image of G-d made He man."
+  ],
+  "ru": [
+   "Прольет кровь человек — от человека кровь его прольется, ибо по образу Б-жьему сделал (Б-г) человека."
+  ],
+  "de": [
+   "Wer das Blut eines Menschen vergießt, dessen Blut soll durch den Menschen vergossen werden; denn in einer G-ttesgestalt hat Er den Menschen gebildet."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-9-13": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 9:13",
+   "en": "Genesis 9:13",
+   "de": "Bereschit 9,13"
+  },
+  "ref": "Genesis 9:13",
+  "url": "https://www.sefaria.org/Genesis_9.13",
+  "he": [
+   "את קשתי נתתי בענן והיתה לאות ברית ביני ובין הארץ"
+  ],
+  "en": [
+   "I have set My bow in the cloud, and it shall be for a token of a covenant between Me and the earth."
+  ],
+  "ru": [
+   "Радугу полагаю я в облаке как знак завета между мною и землей."
+  ],
+  "de": [
+   "Meinen Bogen! Ich habe ihn in die Wolke gegeben; und er sei nun zum Bundeszeichen zwischen mir und der Erde;"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-9-23": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 9:23",
+   "en": "Genesis 9:23",
+   "de": "Bereschit 9,23"
+  },
+  "ref": "Genesis 9:23",
+  "url": "https://www.sefaria.org/Genesis_9.23",
+  "he": [
+   "ויקח שם ויפת את השמלה וישימו על שכם שניהם וילכו אחרנית ויכסו את ערות אביהם ופניהם אחרנית וערות אביהם לא ראו"
+  ],
+  "en": [
+   "And Shem and Japheth took a garment, and laid it upon both their shoulders, and went backward, and covered the nakedness of their father; and their faces were backward, and they saw not their father’s nakedness."
+  ],
+  "ru": [
+   "И взяли Шем и Йефет одежду, и положили на плечо оба, и прикрыли срам своего отца, а лица их (обращены были) назад, и срама отца своего не видели."
+  ],
+  "de": [
+   "Da nahm Schem und Japhet das Gewand, legten es auf ihrer Beider Schulter, gingen rückwärts und bedeckten die Blöße ihres Vaters; ihr Gesicht blieb rückgewandt und die Blöße ihres Vaters sahen sie nicht."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
  "gen-6-9": {
   "kind": {
    "ru": "Тора",

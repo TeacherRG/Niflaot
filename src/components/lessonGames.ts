@@ -1,4 +1,5 @@
 import type { Lesson } from '../lessons/types';
+import { cardsOnly } from '../lessons';
 
 /**
  * The games of a lesson for the menu and the catalog cards; none when the lesson has only one.
@@ -8,7 +9,8 @@ import type { Lesson } from '../lessons/types';
 export function lessonGames(lesson: Lesson) {
   if (lesson.cards)
     return [
-      { href: `#/${lesson.slug}`, icon: '🔎', label: 'cards.tabLesson' },
+      // a lesson that has only cards so far: no investigation
+      ...(cardsOnly(lesson) ? [] : [{ href: `#/${lesson.slug}`, icon: '🔎', label: 'cards.tabLesson' } as const]),
       { href: `#/${lesson.slug}/cards`, icon: '🃏', label: 'cards.tab' },
       { href: `#/${lesson.slug}/read`, icon: '📖', label: 'cards.tabRead' },
     ] as const;

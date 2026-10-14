@@ -31,7 +31,7 @@
  *  - English and German follow the house style of chabad.org / de.chabad.org (scripts/style-rules.ts,
  *    docs/TRANSLATION-GUIDE.md): G-d / G-tt, Shabbat / Schabbat, Moshiach / Moschiach, Avraham / Awraham…
  */
-import { LESSONS } from '../src/lessons';
+import { LESSONS, cardsOnly } from '../src/lessons';
 import { staleOverrides } from '../src/content';
 import { gematria } from '../src/core/gematria';
 import { METHOD_EXAMPLES, exampleValue, gematriaBy, isNotarikon } from '../src/core/gematriaMethods';
@@ -203,7 +203,8 @@ for (const lesson of LESSONS.filter((l) => l.kind !== 'sicha'))
       if (!tx?.translit?.[w]?.trim()) err(`${lesson.slug} [${lang}]: word card «${w}» has no transliteration (translit)`);
 
 for (const lesson of LESSONS)
-  checkPuzzle(`${lesson.slug} · final`, Object.entries(lesson.texts).map(([l, tx]) => [l, tx!.puzzle]), lesson.kind === 'commentary');
+  // a cards-only lesson (no investigation yet) has no path to assemble
+  checkPuzzle(`${lesson.slug} · final`, Object.entries(lesson.texts).map(([l, tx]) => [l, tx!.puzzle]), lesson.kind === 'commentary' || cardsOnly(lesson));
 
 // Illustrations (art/hero.webp, art/riddle-N.webp): every picture belongs to the lesson and has its alt text in every language
 for (const lesson of LESSONS) {
