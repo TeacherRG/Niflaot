@@ -9,6 +9,7 @@ import type { Lesson } from '../lessons/types';
 
 function FeedCard({
   label,
+  teacher,
   source,
   front,
   back,
@@ -16,6 +17,7 @@ function FeedCard({
   share,
 }: {
   label: string;
+  teacher: string;
   source: string;
   front: ReactNode;
   back: ReactNode;
@@ -30,13 +32,13 @@ function FeedCard({
     setSharing('making');
     try {
       const blob = await renderTextCard({
-        eyebrow: `${t('app.title')} · ${t('facts.cardsTab')}`,
-        source: `${label} · ${source}`,
+        eyebrow: t('app.title'),
+        source: `${teacher} · ${source}`,
         title: share.title,
         sections: share.sections,
         site: SITE_HOST,
       });
-      const description = share.sections.map((section) => `${section.heading}: ${section.text}`).join('\n');
+      const description = share.sections.map((section) => (section.heading ? `${section.heading}: ${section.text}` : section.text)).join('\n');
       const result = await shareOrSave(
         blob,
         `niflaot-${share.filename}.png`,
@@ -89,6 +91,7 @@ export function CardFeed({ lessons }: { lessons: Lesson[] }) {
             return (
               <FeedCard
                 key={`${lesson.slug}-memo-${k}`}
+                teacher={label}
                 label={`${label} · Memo`}
                 source={text.title}
                 href={`#/${lesson.slug}/memo/${k + 1}`}
@@ -96,7 +99,7 @@ export function CardFeed({ lessons }: { lessons: Lesson[] }) {
                   title: itemText.title,
                   filename: `${lesson.slug}-memo-${k + 1}`,
                   sections: [
-                    { heading: t('cards.verse'), text: displayNames(item.verse), hebrew: true },
+                    { heading: '', text: displayNames(item.verse), hebrew: true },
                     { heading: itemText.title, text: itemText.verse },
                     { heading: t('facts.cardWhy'), text: itemText.caption },
                   ],
@@ -124,6 +127,7 @@ export function CardFeed({ lessons }: { lessons: Lesson[] }) {
             return (
               <FeedCard
                 key={`${lesson.slug}-rebbe-${k}`}
+                teacher={label}
                 label={`${label} · ${t('cards.tab')}`}
                 source={text.title}
                 href={`#/${lesson.slug}/cards`}
@@ -131,8 +135,8 @@ export function CardFeed({ lessons }: { lessons: Lesson[] }) {
                   title: itemText.title,
                   filename: `${lesson.slug}-rebbe-${k + 1}`,
                   sections: [
-                    { heading: t('cards.verse'), text: displayNames(item.verse), hebrew: true },
-                    { heading: t('cards.verse'), text: itemText.verse },
+                    { heading: '', text: displayNames(item.verse), hebrew: true },
+                    { heading: '', text: itemText.verse },
                     { heading: t('cards.rebbe'), text: itemText.card },
                     { heading: t('cards.ls', { vol: item.ls.vol, n: item.ls.sicha }), text: itemText.horaah },
                   ],
@@ -159,6 +163,7 @@ export function CardFeed({ lessons }: { lessons: Lesson[] }) {
             return (
               <FeedCard
                 key={`${lesson.slug}-poem-${k}`}
+                teacher={label}
                 label={`${label} · ${t('cards.modePoem')}`}
                 source={text.title}
                 href={`#/${lesson.slug}/read/poem`}
@@ -166,8 +171,8 @@ export function CardFeed({ lessons }: { lessons: Lesson[] }) {
                   title: itemText.title,
                   filename: `${lesson.slug}-poem-${k + 1}`,
                   sections: [
-                    { heading: t('cards.verse'), text: displayNames(item.verse), hebrew: true },
-                    { heading: t('cards.modePoem'), text: itemText.poem.join('\n') },
+                    { heading: '', text: displayNames(item.verse), hebrew: true },
+                    { heading: '', text: itemText.poem.join('\n') },
                   ],
                 }}
                 front={
