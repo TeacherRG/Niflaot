@@ -19,6 +19,7 @@ import {
 } from '../core/account';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
+import { DailyReminder } from './DailyReminder';
 
 /** the server's error code → the text for the player */
 function useErr() {
@@ -316,6 +317,10 @@ export function AccountPage() {
         </header>
         <main>
           <ModeCard />
+          <section className="acc-card">
+            <h2>🔔 {t('push.title')}</h2>
+            <DailyReminder sheet />
+          </section>
           {!token && mail === false && (
             <section className="acc-card">
               <h2>👤 {t('acc.guest')}</h2>
