@@ -57,9 +57,10 @@ def bht_one(ch, v, k):
 RASHI = 'Tanakh/Rishonim on Tanakh/Rashi/Torah/Rashi on Genesis/'
 RASHI_ED = "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934.json"
 RASHI_DE = 'Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de].json'
-def rashi(ch, v, k):
+# (de_k — the comment's place in the German edition, where its order differs: 8:14 «יבשה» comes first there)
+def rashi(ch, v, k, de_k=None):
     return ('custom', f'Раши, Берешит {ch}:{v}', f'Rashi, Genesis {ch}:{v}', f'Raschi, Bereschit {ch},{v}', f'Rashi on Genesis {ch}:{v}:{k + 1}', 'Commentary',
-            RASHI + 'Hebrew/' + RASHI_ED, RASHI + 'English/' + RASHI_ED, (RASHI + 'English/' + RASHI_DE, [ch - 1, v - 1, k]), [ch - 1, v - 1, k])
+            RASHI + 'Hebrew/' + RASHI_ED, RASHI + 'English/' + RASHI_ED, (RASHI + 'English/' + RASHI_DE, [ch - 1, v - 1, k if de_k is None else de_k]), [ch - 1, v - 1, k])
 
 BOOK = {
     'Genesis': ('Tanakh/Torah/Genesis/', 'Берешит', 'Torah'),
@@ -70,6 +71,9 @@ BOOK = {
     'Amos': ('Tanakh/Prophets/Amos/', 'Амос', 'Prophets'),
     'I Chronicles': ('Tanakh/Writings/I Chronicles/', 'Диврей ґа-ямим I', 'Writings'),
     'I Kings': ('Tanakh/Prophets/I Kings/', 'Млахим I', 'Prophets'),
+    'II Kings': ('Tanakh/Prophets/II Kings/', 'Млахим II', 'Prophets'),
+    'Isaiah': ('Tanakh/Prophets/Isaiah/', 'Йешаяґу', 'Prophets'),
+    'Micah': ('Tanakh/Prophets/Micah/', 'Миха', 'Prophets'),
     'Psalms': ('Tanakh/Writings/Psalms/', 'Теґилим', 'Writings'),
     'Job': ('Tanakh/Writings/Job/', 'Иов', 'Writings'),
     'Proverbs': ('Tanakh/Writings/Proverbs/', 'Мишлей', 'Writings'),
@@ -239,6 +243,32 @@ SOURCES = {
     'deut-11-6': ('Deuteronomy', 11, 6, 6),
     **{f'bht-{c}-{v}': bht(c, v) for c, v in [(6, 9), (7, 4), (7, 10), (7, 11), (7, 23), (9, 9), (9, 21), (9, 25), (11, 29)]},
     **{f'bht-{c}-{v}-{k + 1}': bht_one(c, v, k) for c, v, k in [(6, 11, 1), (6, 13, 0), (6, 13, 3), (6, 13, 5), (6, 16, 0), (11, 1, 1), (11, 3, 0)]},
+    # «Нифлаот Ребе» · Ноах: «Выйди из ковчега» (Ликутей сихот, т. 25, Ноах 3)
+    'gen-8-13': ('Genesis', 8, 13, 14),
+    'gen-8-16-17': ('Genesis', 8, 16, 17),
+    'gen-9-1': ('Genesis', 9, 1, 1),
+    'gen-1-28': ('Genesis', 1, 28, 28),
+    'gen-28-14': ('Genesis', 28, 14, 14),
+    'rashi-8-14': rashi(8, 14, 1, de_k=0),
+    'rashi-7-7': rashi(7, 7, 1),
+    'rashi-6-18': rashi(6, 18, 1),
+    'rashi-8-16': rashi(8, 16, 0),
+    'rashi-8-17': rashi(8, 17, 0),
+    'rashi-8-17-2': rashi(8, 17, 1),
+    'rashi-6-14': rashi(6, 14, 2),
+    'rashi-6-20': rashi(6, 20, 0),
+    'gen-8-18': ('Genesis', 8, 18, 18),
+    'rashi-9-9': rashi(9, 9, 0),
+    'bereshit-rabbah-34-4': rabbah('Bereshit Rabbah', 'Берешит Раба', 'Bereshit Rabbah', 'Bereschit Rabba', 34, 4, BR_DE),
+    'isaiah-11-6': ('Isaiah', 11, 6, 9),
+    'kings2-23-25': ('II Kings', 23, 25, 25),
+    'micah-2-13': ('Micah', 2, 13, 13),
+    'berakhot-10a': ('Berakhot', '10a', 26, 28),
+    'yevamot-62a': ('Yevamot', '62a', 16, 16),
+    'tanya-36': ('custom', 'Тания, гл. 36', 'Tanya, ch. 36', 'Tanja, Kap. 36', 'Tanya, Part I; Likkutei Amarim 36:1', 'Chasidut',
+                 'Chasidut/Chabad/Tanya/Hebrew/Kehot Publication Society.json',
+                 'Chasidut/Chabad/Tanya/English/Kehot Publication Society English Translation.json', None,
+                 ['Part I; Likkutei Amarim', '', 35, 0]),
 }
 
 # Misprints of an edition, corrected in the Hebrew (shown on the site as «исправлена опечатка: X → Y»):
@@ -252,11 +282,11 @@ KIND = {
     'Talmud': ('Гемара', 'Gemara'), 'Midrash': ('Мидраш', 'Midrash'), 'Chasidut': ('Хасидут', 'Chassidut'), 'Zohar': ('Зоґар', 'Zohar'),
     'Commentary': ('Комментарий', 'Commentary'), 'Targum': ('Таргум', 'Targum'),
 }
-EN_BOOK = {'I Kings': 'I Kings'}
+EN_BOOK = {'I Kings': 'I Kings', 'II Kings': 'II Kings'}
 KIND_DE = {'Torah': 'Tora', 'Prophets': 'Propheten', 'Writings': 'Schriften', 'Talmud': 'Gemara', 'Midrash': 'Midrasch', 'Chasidut': 'Chassidut', 'Zohar': 'Sohar', 'Commentary': 'Kommentar', 'Targum': 'Targum'}
 DE_NAME = {
     'Genesis': 'Bereschit', 'Exodus': 'Schemot', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Dewarim', 'Ezekiel': 'Jecheskel', 'Amos': 'Amos', 'I Chronicles': 'Diwre HaJamim I',
-    'I Kings': 'I Könige', 'Psalms': 'Tehillim', 'Job': 'Ijob', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
+    'I Kings': 'I Könige', 'II Kings': 'Melachim II', 'Isaiah': 'Jeschajahu', 'Micah': 'Micha', 'Psalms': 'Tehillim', 'Job': 'Ijob', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
     'Berakhot': 'Berachot', 'Shabbat': 'Schabbat', 'Yevamot': 'Jewamot', 'Chullin': 'Chullin',
     'Sukkah': 'Sukka', 'Megillah': 'Megilla', 'Ketubot': 'Ketubbot', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda',
 }

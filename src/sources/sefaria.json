@@ -6185,5 +6185,948 @@
     "source": "https://www.sefaria.org"
    }
   }
+ },
+ "gen-8-13": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 8:13–14",
+   "en": "Genesis 8:13–14",
+   "de": "Bereschit 8,13–14"
+  },
+  "ref": "Genesis 8:13-14",
+  "url": "https://www.sefaria.org/Genesis_8.13-14",
+  "he": [
+   "ויהי באחת ושש מאות שנה בראשון באחד לחדש חרבו המים מעל הארץ ויסר נח את מכסה התבה וירא והנה חרבו פני האדמה",
+   "ובחדש השני בשבעה ועשרים יום לחדש יבשה הארץ"
+  ],
+  "en": [
+   "And it came to pass in the six hundred and first year, in the first month, the first day of the month, the waters were dried up from off the earth; and Noah removed the covering of the ark, and looked, and behold, the face of the ground was dried.",
+   "And in the second month, on the seven and twentieth day of the month, was the earth dry."
+  ],
+  "ru": [
+   "На шестьсот первый год, в первый месяц, первого числа высохли воды на земле, и снял Ноах крышку ковчега, и увидел, что высохла земля.",
+   "А во второй месяц, двадцать второго числа месяца была земля (совсем) суха."
+  ],
+  "de": [
+   "Endlich im 601. Jahre, im ersten Monate, am ersten des Monats, waren die Wasser von der Erde abgetrocknet. Da nahm Noach das Dach der Arche ab, er sah, und siehe: die Oberfläche des Erdbodens war abgetrocknet.",
+   "Im zweiten Monat, am 27. Tage des Monats, war endlich die Erde trocken."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-8-16-17": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 8:16–17",
+   "en": "Genesis 8:16–17",
+   "de": "Bereschit 8,16–17"
+  },
+  "ref": "Genesis 8:16-17",
+  "url": "https://www.sefaria.org/Genesis_8.16-17",
+  "he": [
+   "צא מן התבה אתה ואשתך ובניך ונשי בניך אתך",
+   "כל החיה אשר אתך מכל בשר בעוף ובבהמה ובכל הרמש הרמש על הארץ הוצא [היצא] אתך ושרצו בארץ ופרו ורבו על הארץ"
+  ],
+  "en": [
+   "’Go forth from the ark, thou, and thy wife, and thy sons, and thy sons’ wives with thee.",
+   "Bring forth with thee every living thing that is with thee of all flesh, both fowl, and cattle, and every creeping thing that creepeth upon the earth; that they may swarm in the earth, and be fruitful, and multiply upon the earth.’"
+  ],
+  "ru": [
+   "Выйди из ковчега ты, и жена твоя, и сыновья твои, и жены сыновей твоих с тобой.",
+   "Всякую живность, что с тобой — птицу, скот и всякого гада, ползающего по земле, выведи с собой, и пусть кишат на земле, и плодятся, и множатся на земле."
+  ],
+  "de": [
+   "Gehe aus der Arche, du, und deine Frau und deine Söhne und die Frauen deiner Söhne mit dir.",
+   "Alles Lebendige, das von allem Fleische an Vogel und Vieh und allem auf der Erde kriechenden Gewürm bei dir ist, lasse mit dir hinausgehen, daß sie sich frei bewegen auf der Erde und sich fortpflanzen und vermehren auf Erden."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-9-1": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 9:1",
+   "en": "Genesis 9:1",
+   "de": "Bereschit 9,1"
+  },
+  "ref": "Genesis 9:1",
+  "url": "https://www.sefaria.org/Genesis_9.1",
+  "he": [
+   "ויברך אלקים את נח ואת בניו ויאמר להם פרו ורבו ומלאו את הארץ"
+  ],
+  "en": [
+   "And G-d blessed Noah and his sons, and said unto them: ‘Be fruitful and multiply, and replenish the earth."
+  ],
+  "ru": [
+   "И благословил Б-г Ноаха и его сыновей, и сказал им: плодитесь, и размножайтесь, и наполняйте землю."
+  ],
+  "de": [
+   "Da segnete G-tt Noach und seine Söhne, und sprach zu ihnen: Pflanzet euch fort und vermehret euch und füllet die Erde."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-1-28": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 1:28",
+   "en": "Genesis 1:28",
+   "de": "Bereschit 1,28"
+  },
+  "ref": "Genesis 1:28",
+  "url": "https://www.sefaria.org/Genesis_1.28",
+  "he": [
+   "ויברך אתם אלקים ויאמר להם אלקים פרו ורבו ומלאו את הארץ וכבשה ורדו בדגת הים ובעוף השמים ובכל חיה הרמשת על הארץ"
+  ],
+  "en": [
+   "And G-d blessed them; and G-d said unto them: ‘Be fruitful, and multiply, and replenish the earth, and subdue it; and have dominion over the fish of the sea, and over the fowl of the air, and over every living thing that creepeth upon the earth.’"
+  ],
+  "ru": [
+   "И благословил их Б-г, и сказал им Б-г: плодитесь, и размножайтесь, и наполняйте землю, и покоряйте ее, и властвуйте над рыбой морской, и над птицей небесной, и над всяким животным, ползающим по земле."
+  ],
+  "de": [
+   "Und G-tt segnete sie und es sprach G-tt zu ihnen: Seid fruchtbar und verfielfältigt euch und füllet die Erde und bezwinget sie, und übet eure Herrschaft an dem Fische des Meeres, an dem Vogel des Himmels und an allem Tier, das dahin schreitet auf Erden."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-28-14": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 28:14",
+   "en": "Genesis 28:14",
+   "de": "Bereschit 28,14"
+  },
+  "ref": "Genesis 28:14",
+  "url": "https://www.sefaria.org/Genesis_28.14",
+  "he": [
+   "והיה זרעך כעפר הארץ ופרצת ימה וקדמה וצפנה ונגבה ונברכו בך כל משפחת האדמה ובזרעך"
+  ],
+  "en": [
+   "And thy seed shall be as the dust of the earth, and thou shalt spread abroad to the west, and to the east, and to the north, and to the south. And in thee and in thy seed shall all the families of the earth be blessed."
+  ],
+  "ru": [
+   "А твое потомство будет как прах земной, и распространишься ты на запад, на восток, на север и на юг, и благословятся в тебе все племена земные, и в потомстве твоем."
+  ],
+  "de": [
+   "Es wird dein Same wie Staub der Erde und du breitest dich aus gen Westen und Osten, gen Norden und Familien der Erde gesegnet werden und durch deinen Samen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-8-14": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 8:14",
+   "en": "Rashi, Genesis 8:14",
+   "de": "Raschi, Bereschit 8,14"
+  },
+  "ref": "Rashi on Genesis 8:14:2",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_8.14.2",
+  "he": [
+   "<b>יבשה.</b> נַעֲשָׂה גָּרִיד כְּהִלְכָתָהּ:"
+  ],
+  "en": [
+   "יבשה WAS [THE EARTH] DRIED — It became hard as is its normal condition."
+  ],
+  "de": [
+   "<b>War trocken geworden,</b> war fest geworden, wie es ihre Natur ist (Bereschit Rabbah)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-7-7": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 7:7",
+   "en": "Rashi, Genesis 7:7",
+   "de": "Raschi, Bereschit 7,7"
+  },
+  "ref": "Rashi on Genesis 7:7:2",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_7.7.2",
+  "he": [
+   "<b>מפני מי המבול.</b> אַף נֹחַ מִקְּטַנֵּי אֲמָנָה הָיָה, מַאֲמִין וְאֵינוֹ מַאֲמִין שֶׁיָבֹא הַמַּבּוּל, וְלֹא נִכְנַס לַתֵּבָה עַד שֶׁדְּחָקוּהוּ הַמַּיִם:"
+  ],
+  "en": [
+   "מפני מי המבול BECAUSE OF THE WATERS OF THE FLOOD — (מפני properly means ‘‘from before”) — Noah, also, was of those people who are wanting in faith: he believed and he did not believe that the Flood would come, and he would not enter the Ark until the waters forced him to do so (Genesis Rabbah 32:6)."
+  ],
+  "de": [
+   "<b>Vor dem Wasser der Sintflut,</b> auch Noach gehörte zu denen, die klein an Vertrauen waren, er war nicht ganz davon überzeugt, dass die Sintflut kommen werde, und ging erst in die Arche, als ihn das Wasser drängte (Bereschit Rabbah 32:6)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-6-18": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 6:18",
+   "en": "Rashi, Genesis 6:18",
+   "de": "Raschi, Bereschit 6,18"
+  },
+  "ref": "Rashi on Genesis 6:18:2",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_6.18.2",
+  "he": [
+   "<b>אתה ובניך ואשתך.</b> הָאֲנָשִׁים לְבַד וְהַנָּשִׁים לְבַד; מִכָּאן שֶׁנֶּאֱסְרוּ בְּתַשְׁמִישׁ הַמִּטָּה: (שם):"
+  ],
+  "en": [
+   "אתה ובניך ואשתך THOU, AND THY SONS AND THY WIFE — Males separately and females separately. From this one may infer that they were not permitted to live together in the Ark as man and wife (Sanhedrin 108b)."
+  ],
+  "de": [
+   "<b>Du und deine Söhne und deine Frau,</b> die Männer besonders und die Frauen besonders, von hier geht hervor, dass ihnen der Eheverkehr verboten war (Bereschit Rabbah)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-8-16": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 8:16",
+   "en": "Rashi, Genesis 8:16",
+   "de": "Raschi, Bereschit 8,16"
+  },
+  "ref": "Rashi on Genesis 8:16:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_8.16.1",
+  "he": [
+   "<b>אתה ואשתך וגו'.</b> אִישׁ וְאִשְׁתּוֹ, כָּאן הִתִּיר לָהֶם תַּשְׁמִישׁ הַמִּטָּה:"
+  ],
+  "en": [
+   "’אתה ואשתך וגו THOU AND THY WIFE etc. — Husband and wife are mentioned together— now He allowed them to resume family life (Genesis Rabbah 34:8)."
+  ],
+  "de": [
+   "<b>Du und deine Frau</b>… Mann und Frau, hier erlaubte er ihnen den Eheverkehr (Bereschit Rabbah 34:8)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-8-17": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 8:17",
+   "en": "Rashi, Genesis 8:17",
+   "de": "Raschi, Bereschit 8,17"
+  },
+  "ref": "Rashi on Genesis 8:17:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_8.17.1",
+  "he": [
+   "<b>הוצא.</b> הוֹצֵא כְּתִיב, הַיְצֵא קְרִי, הַיְצֵא – אֱמֹר לָהֶם שֶׁיֵּצְאוּ; הוֹצֵא – אִם אֵינָם רוֹצִים לָצֵאת הוֹצִיאֵם אַתָּה:"
+  ],
+  "en": [
+   "הוצא BRING FORTH — The Ketib is הוצא and the Keri היצא — ;היצא means, “tell them to go forth”, הוצא means, ‘‘if they do not wish (if they refuse) to go forth, you make them go out”."
+  ],
+  "de": [
+   "<b>Führe hinaus,</b> das Ketib ist הוֹצֵא und das Keri הַיְצֵא, dieses bedeutet, sage ihnen, sie sollen hinausgehen, und das Ketib bedeutet, wenn sie nicht hinausgehen wollen, so bringe du selbst sie hinaus."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-8-17-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 8:17",
+   "en": "Rashi, Genesis 8:17",
+   "de": "Raschi, Bereschit 8,17"
+  },
+  "ref": "Rashi on Genesis 8:17:2",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_8.17.2",
+  "he": [
+   "<b>ושרצו בארץ.</b> וְלֹא בַּתֵּבָה, מַגִּיד שֶׁאַף הַבְּהֵמָה וְהָעוֹף נֶאֱסְרוּ בְתַשְׁמִישׁ:"
+  ],
+  "en": [
+   "ושרצו בארץ THAT THEY MAY BRING FORTH ABUNDANTLY IN THE EARTH but not in the Ark: this teaches that cattle and fowls also were separated, male and female, in the Ark (Genesis Rabbah 34:8)."
+  ],
+  "de": [
+   "<b>Dass sie auf der Erde wimmeln,</b> und nicht in der Arche, das lehrt, dass auch den Landtieren und Vögeln der Eheverkehr verboten gewesen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-6-14": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 6:14",
+   "en": "Rashi, Genesis 6:14",
+   "de": "Raschi, Bereschit 6,14"
+  },
+  "ref": "Rashi on Genesis 6:14:3",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_6.14.3",
+  "he": [
+   "<b>קנים.</b> מְדוֹרִים מְדוֹרִים לְכָל בְּהֵמָה וְחַיָּה:"
+  ],
+  "en": [
+   "קנים ROOMS — Separate cabins for each kind of cattle and beast."
+  ],
+  "de": [
+   "<b>Kammern,</b> Wohnungen für alle zahmen und wilden Tiere."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-6-20": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 6:20",
+   "en": "Rashi, Genesis 6:20",
+   "de": "Raschi, Bereschit 6,20"
+  },
+  "ref": "Rashi on Genesis 6:20:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_6.20.1",
+  "he": [
+   "<b>מהעוף למינהו.</b> אוֹתָן שֶׁדָּבְקוּ בְמִינֵיהֶם וְלֹא הִשְׁחִיתוּ דַרְכָּם, וּמֵאֵלֵיהֶם בָּאוּ, וְכֹל שֶׁהַתֵּבָה קוֹלַטְתּוֹ הִכְנִיס (ב\"ר):"
+  ],
+  "en": [
+   "מהעוף למינהו OF THE FOWLS AFTER THEIR KIND— those that had kept to their own species and had not corrupted their way (taking the words to mean, “of the fowls that had kept to their own kind”). All these came of their own accord, but only those which the Ark was allowing to pass in did Noah permit to enter (Sanhedrin 108b)."
+  ],
+  "de": [
+   "<b>Von den Vögeln nach ihrer Art,</b> לְמִינֵהוּ jene, die sich ihren Arten angeschlossen und ihren Wandel nicht verdorben hatten; sie kamen von selbst, und alles, was die Arche annahm, ließ er hineingehen (Sanhedrin I08b)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "gen-8-18": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 8:18",
+   "en": "Genesis 8:18",
+   "de": "Bereschit 8,18"
+  },
+  "ref": "Genesis 8:18",
+  "url": "https://www.sefaria.org/Genesis_8.18",
+  "he": [
+   "ויצא נח ובניו ואשתו ונשי בניו אתו"
+  ],
+  "en": [
+   "And Noah went forth, and his sons, and his wife, and his sons’wives with him;"
+  ],
+  "ru": [
+   "И вышел Ноах, и сыновья его, и жена его, и жены сыновей его с ним."
+  ],
+  "de": [
+   "Da ging Noach hinaus, und seine Söhne, seine Frau und die Frauen seiner Söhne mit ihm."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-9-9": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 9:9",
+   "en": "Rashi, Genesis 9:9",
+   "de": "Raschi, Bereschit 9,9"
+  },
+  "ref": "Rashi on Genesis 9:9:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_9.9.1",
+  "he": [
+   "<b>ואני הנני.</b> מַסְכִּים אֲנִי עִמְּךָ, שֶׁהָיָה נֹחַ דוֹאֵג לַעֲסֹק בִּפְרִיָּה וּרְבִיָּה עַד שֶׁהִבְטִיחוֹ הַקָּבָּ\"ה שֶׁלֹּא לְשַׁחֵת הָעוֹלָם עוֹד, וְכֵן עָשָׂה וּבָאַחֲרוֹנָה אָמַר לוֹ הִנְנִי מַסְכִּים לַעֲשׂוֹת קִיּוּם וְחִזּוּק בְּרִית לְהַבְטָחָתִי וְאֶתֵּן לְךָ אוֹת:"
+  ],
+  "en": [
+   "ואני הנני AND I BEHOLD I — “I am in agreement with you”; He said this because Noah feared to fulfil the duty of propagating the species until the Holy One, blessed be He, promised him that he would not again destroy the world and this promise G-d made (Midrash Tanchuma, Noach 11). Ultimately He said to him, “If you are still anxious I am willing to give to My promise the permanence and strength of a covenant and I will give you a sign.”"
+  ],
+  "de": [
+   "<b>Und ich,</b> siehe ich, ich stimme dir zu, denn Noach war besorgt, das Gebot der Ehegründung zu erfüllen, bis der Heilige, gelobt sei Er, ihm verhieß, die Welt nicht wieder zu zerstören, und so tat Er. Und zuletzt sagte Er zu ihm, siehe, ich stimme zu, meine Verheißung durch einen Bund zu bestätigen und bestärken, und ich gebe dir ein Zeichen (Tanchuma)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "bereshit-rabbah-34-4": {
+  "kind": {
+   "ru": "Мидраш",
+   "en": "Midrash",
+   "de": "Midrasch"
+  },
+  "title": {
+   "ru": "Берешит Раба 34:4",
+   "en": "Bereshit Rabbah 34:4",
+   "de": "Bereschit Rabba 34,4"
+  },
+  "ref": "Bereshit Rabbah 34:4",
+  "url": "https://www.sefaria.org/Bereshit_Rabbah_34.4",
+  "he": [
+   "דָּבָר אַחֵר, צֵא מִן הַתֵּבָה, כְּתִיב (קהלת י, ד): אִם רוּחַ הַמּוֹשֵׁל תַּעֲלֶה עָלֶיךָ מְקוֹמְךָ אַל תַּנַּח, מְדַבֵּר בְּנֹחַ, אָמַר נֹחַ כְּשֵׁם שֶׁלֹא נִכְנַסְתִּי בַּתֵּבָה אֶלָּא בִּרְשׁוּת כָּךְ אֵין אֲנִי יוֹצֵא אֶלָּא בִּרְשׁוּת (בראשית ז, א): בֹּא אֶל הַתֵּבָה, (בראשית ז, ז): וַיָּבֹא נֹחַ, (בראשית ח, טז): צֵא מִן הַתֵּבָה, (בראשית ח, יח): וַיֵּצֵא נֹחַ."
+  ],
+  "en": [
+   "Another interpretation, “go out of the ark.” It is written: “If the spirit of the ruler will depart from you, do not abandon your place” (Ecclesiastes 10:4) – this is speaking of Noah. Noah said: ‘Just as I entered the ark only with permission, so will I leave only with permission.’ [G-d had commanded:] “Come…into the ark” (Genesis 7:1), [and Noah followed:] “Noah came” (Genesis 7:7). [Now He commanded] “Go out of the ark” (Genesis 8:16), [and only then,] “Noah went out” (Genesis 8:18)."
+  ],
+  "de": [
+   "Oder: Es heißt Koh. 10:4: „Wenn der Zorn eines Herrschers gegen dich sich erhebt, so verlasse deinen Posten nicht“ d.i. Noach. Derselbe sprach: Sowie ich mit göttlicher Erlaubnis in die Arche gegangen bin, so will ich auch mit solcher wieder herausgehen, wie es heißt: Und Noach ging heraus."
+  ],
+  "versions": {
+   "he": {
+    "title": "merged",
+    "license": null,
+    "source": "https://www.sefaria.org/Bereshit_Rabbah"
+   },
+   "en": {
+    "title": "The Sefaria Midrash Rabbah, 2022",
+    "license": "CC-BY",
+    "source": "https://www.sefaria.org/texts"
+   },
+   "de": {
+    "title": "Der Midrasch Bereschit Rabba. Zum ersten Male ins Deutsche übertragen von Dr. August Wünsche. Leipzig 1881 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH990021066140205171/NLI"
+   }
+  }
+ },
+ "isaiah-11-6": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Йешаяґу 11:6–9",
+   "en": "Isaiah 11:6–9",
+   "de": "Jeschajahu 11,6–9"
+  },
+  "ref": "Isaiah 11:6-9",
+  "url": "https://www.sefaria.org/Isaiah_11.6-9",
+  "he": [
+   "וגר זאב עם כבש ונמר עם גדי ירבץ ועגל וכפיר ומריא יחדו ונער קטן נהג בם",
+   "ופרה ודב תרעינה יחדו ירבצו ילדיהן ואריה כבקר יאכל תבן",
+   "ושעשע יונק על חר פתן ועל מאורת צפעוני גמול ידו הדה",
+   "לא ירעו ולא ישחיתו בכל הר קדשי כי מלאה הארץ דעה את ה׳ כמים לים מכסים"
+  ],
+  "en": [
+   "And the wolf shall dwell with the lamb, And the leopard shall lie down with the kid; And the calf and the young lion and the fatling together; And a little child shall lead them.",
+   "And the cow and the bear feed; Their young ones shall lie down together; And the lion shall eat straw like the ox.",
+   "And the sucking child shall play on the hole of the asp, And the weaned child shall put his hand on the basilisk’s den.",
+   "They shall not hurt nor destroy In all My holy mountain; For the earth shall be full of the knowledge of the L-rd, As the waters cover the sea."
+  ],
+  "de": [
+   "Dann wird wohnen der Wolf mit dem Lamme, und der Tiger wird lagern neben dem Böcklein, und Kalb und junger Löwe und Masttier zusammen, ein kleiner Knabe wird sie leiten.",
+   "Kuh und Bär werden weiden und ihre Jungen zusammen lagern, und der Löwe Stroh fressen wie ein Rind.",
+   "Der Säugling wird spielen auf dem Loche der Natter, in die Höhle des Basilisken wird das kaum entwöhnte Kind seine Hand strecken.",
+   "Sie werden niemanden ein Leid tun und kein Verderben anrichten auf meinem ganzen heiligen Berge. Denn voll wird die Erde der Erkenntnis des Herrn, wie Wasser die Meerestiefe bedecken."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/jeschajahu-das-buch-jesaja/"
+   }
+  }
+ },
+ "kings2-23-25": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Млахим II 23:25",
+   "en": "II Kings 23:25",
+   "de": "Melachim II 23,25"
+  },
+  "ref": "II Kings 23:25",
+  "url": "https://www.sefaria.org/II_Kings_23.25",
+  "he": [
+   "וכמהו לא היה לפניו מלך אשר שב אל ה׳ בכל לבבו ובכל נפשו ובכל מאדו ככל תורת משה ואחריו לא קם כמהו"
+  ],
+  "en": [
+   "And like unto him was there no king before him, that turned to the L-rd with all his heart, and with all his soul, and with all his might, according to all the law of Moses; neither after him arose there any like him."
+  ],
+  "de": [
+   "Wie [Josija] gab es vor ihm keinen König, der zurückgekehrt wäre zum Herrn mit seinem ganzen Herzen, mit seiner ganzen Seele und mit seinem ganzen Vermögen ganz nach der Lehre Moses. Auch nach ihm erstand nicht seinesgleichen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "micah-2-13": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Миха 2:13",
+   "en": "Micah 2:13",
+   "de": "Micha 2,13"
+  },
+  "ref": "Micah 2:13",
+  "url": "https://www.sefaria.org/Micah_2.13",
+  "he": [
+   "עלה הפרץ לפניהם פרצו ויעברו שער ויצאו בו ויעבר מלכם לפניהם וה׳ בראשם"
+  ],
+  "en": [
+   "The breaker is gone up before them; They have broken forth and passed on, By the gate, and are gone out thereat; And their king is passed on before them, And the L-rd at the head of them."
+  ],
+  "de": [
+   "Es steigt der Mauerbrecher heran vor ihnen her, sie brechen ein und ziehen durch das Tor und ziehen dann durch es [in den Krieg]; ihr König zieht vor ihnen her, und der Herr an ihrer Spitze."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/  "
+   }
+  }
+ },
+ "berakhot-10a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Брахот 10а",
+   "en": "Berakhot 10a",
+   "de": "Berachot 10a"
+  },
+  "ref": "Berakhot 10a:27-29",
+  "url": "https://www.sefaria.org/Berakhot_10a.27-29",
+  "he": [
+   "מה עשה הקדוש ברוך הוא הביא יסורים על חזקיהו ואמר לו לישעיהו לך ובקר את החולה שנאמר בימים ההם חלה חזקיהו למות ויבא אליו ישעיהו בן אמוץ הנביא ויאמר אליו כה אמר ה׳ צב-אות צו לביתך כי מת אתה ולא תחיה וגו׳ מאי כי מת אתה ולא תחיה מת אתה בעולם הזה ולא תחיה לעולם הבא",
+   "אמר ליה מאי כולי האי אמר ליה משום דלא עסקת בפריה ורביה אמר ליה משום דחזאי לי ברוח הקדש דנפקי מינאי בנין דלא מעלו",
+   "אמר ליה בהדי כבשי דרחמנא למה לך מאי דמפקדת איבעי לך למעבד ומה דניחא קמיה קודשא בריך הוא לעביד"
+  ],
+  "en": [
+   "<b>What did the Holy One, Blessed be He, do</b> to effect compromise between Hezekiah and Isaiah? <b>He brought the suffering</b> of illness <b>upon Hezekiah and told Isaiah: Go and visit the sick.</b> Isaiah did as G-d instructed, <b>as it is stated: “In those days Hezekiah became deathly ill, and Isaiah ben Amoz the prophet came and said to him: Thus says the L-rd of Hosts: Set your house in order, for you will die and you will not live”</b> (Isaiah 38:1). This seems redundant; <b>what is</b> the meaning of <b>you will die and you will not live?</b> This repetition means: <b>You will die in this world, and you will not live,</b> you will have no share, <b>in the World-to-Come.</b>",
+   "Hezekiah <b>said to him: What is all of this?</b> For what transgression am I being punished? Isaiah <b>said to him: Because you did not</b> marry and <b>engage in procreation.</b> Hezekiah apologized and <b>said:</b> I had no children <b>because I envisaged through divine inspiration that the children that emerge from me will not be virtuous.</b> Hezekiah meant that he had seen that his children were destined to be evil. In fact, his son Menashe sinned extensively, and he thought it preferable to have no children at all.",
+   "Isaiah <b>said to him: Why do you</b> involve <b>yourself with the secrets of the Holy One, Blessed be He? That which you have been commanded,</b> the mitzva of procreation, <b>you are required to perform, and that which is acceptable</b> in the eyes of <b>the Holy One, Blessed be He, let Him perform,</b> as He has so decided."
+  ],
+  "de": [
+   "Was tat der Heilige, gepriesen sei er? – er brachte Züchtigungen über Ḥizqujahu und sprach zu Ješa͑jahu: Geh und besuche den Kranken. Denn es heißt: <i>In jenen Tagen erkrankte Ḥizqijahu zum Sterben, und der Prophet Ješa͑jahu, Sohn des Amoç, kam zu ihm und sprach: So sprach der Herr der Heerscharen: Bestelle dein Haus, denn sterben wirst du und nicht leben</i>. Was heißt: <i>denn sterben wirst du und nicht leben</i>? – Sterben wirst du, in dieser Welt, und nicht leben, in der zukünftigen Welt. Er sprach zu ihm: Weshalb dies alles?",
+   "Jener erwiderte: Weil du nicht die Fortpflanzung gepflegt hast. Dieser sprach: Weil ich im heiligen Geist geschaut, daß mir ungeratene Kinder entstammen werden.",
+   "Jener entgegnete: Was gehen dich die Geheimnisse des Allbarmherzigen an? Du solltest tun, was dir geboten, und der Heilige, gepriesen sei er, mag tun, was ihm gefällt."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://www.korenpub.com/koren_en_usd/koren/talmud/koren-talmud-bavli-no/mskt-brkvt.html"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "yevamot-62a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Йевамот 62а",
+   "en": "Yevamot 62a",
+   "de": "Jewamot 62a"
+  },
+  "ref": "Yevamot 62a:17",
+  "url": "https://www.sefaria.org/Yevamot_62a.17",
+  "he": [
+   "רב הונא אמר קיים משום דרב אסי דאמר רב אסי אין בן דוד בא עד שיכלו כל נשמות שבגוף שנאמר כי רוח מלפני יעטוף וגו׳ ורבי יוחנן אמר לא קיים פריה ורביה לשבת יצרה בעינן והא ליכא"
+  ],
+  "en": [
+   "The Gemara clarifies the reasons for their opinions: <b>Rav Huna said</b> he has <b>fulfilled</b> the mitzva <b>due to</b> a statement <b>of Rav Asi, as Rav Asi said</b> that the reason for this mitzva is that the Messiah, <b>son of David, will not come until all the souls of the body have been finished,</b> i.e., until all souls that are destined to inhabit physical bodies will do so, <b>as it is stated: “For the spirit that enwraps itself is from Me,</b> and the souls that I have made” (Isaiah 57:16). Consequently, once a child has been born and his soul has entered a body the mitzva has been fulfilled, even if the child subsequently dies. <b>And Rabbi Yoḥanan said</b> he has <b>not fulfilled</b> the mitzva, as <b>we require “He formed it to be inhabited”</b> (Isaiah 45:18), <b>and</b> this <b>is not</b> fulfilled when the children have passed away and no longer inhabit the earth."
+  ],
+  "de": [
+   "R. Hona sagt, er habe sie ausgeübt, nach [einer Lehre] R. Asis, denn R. Asi sagte: Der Sohn Davids kommt erst dann, wenn keine Seele mehr im Guph ist, denn es heißt: <i>der Geist wird vor mir eingehüllt &amp;c.</i> R. Joḥanan sagt, er habe die Fortpflanzung nicht ausgeübt, denn es heißt: <i>zur Bewohnung hat er sie erschaffen,</i> was hierbei nicht der Fall ist."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "tanya-36": {
+  "kind": {
+   "ru": "Хасидут",
+   "en": "Chassidut",
+   "de": "Chassidut"
+  },
+  "title": {
+   "ru": "Тания, гл. 36",
+   "en": "Tanya, ch. 36",
+   "de": "Tanja, Kap. 36"
+  },
+  "ref": "Tanya, Part I; Likkutei Amarim 36:1",
+  "url": "https://www.sefaria.org/Tanya,_Part_I;_Likkutei_Amarim_36.1",
+  "he": [
+   "<b>וְהִנֵּה</b>, מוּדַעַת זֹאת מַאֲמַר רַבּוֹתֵינוּ־זִכְרוֹנָם־לִבְרָכָה, שֶׁתַּכְלִית בְּרִיאַת עוֹלָם הַזֶּה הוּא – שֶׁנִּתְאַוָּה הַקָּדוֹשׁ־בָּרוּךְ־הוּא לִהְיוֹת לוֹ דִּירָה בַּתַּחְתּוֹנִים."
+  ],
+  "en": [
+   "It is a well-known Rabbinic statement that the purpose of the creation of this world is that the Holy One, blessed is He, desired to have an abode in the lower worlds., <i>Nasso</i> 16.</i>"
+  ],
+  "versions": {
+   "he": {
+    "title": "Kehot Publication Society",
+    "license": "CC-BY-NC",
+    "source": "http://kehot.com"
+   },
+   "en": {
+    "title": "Kehot Publication Society (English Translation)",
+    "license": "CC-BY-NC",
+    "source": "http://kehot.com"
+   }
+  }
  }
 }

@@ -124,4 +124,8 @@ export const PROJECT_EN: Record<string, string[]> = {
   'bht-11-29': [
     '<b>Sarah</b> — in atbash [א״ת ב״ש] — “bgtz” [בג״ץ], which is the gematria of “Yiskah”: this is a hint to what our Sages, of blessed memory, said: “Yiskah is Sarah”.',
   ],
+  // «Нифлаот Ребе» · Noach: Sefaria's English carries a broken footnote
+  'tanya-36': [
+    'It is a well-known Rabbinic statement that the purpose of the creation of this world is that the Holy One, blessed is He, desired to have an abode in the lower worlds.',
+  ],
 };
