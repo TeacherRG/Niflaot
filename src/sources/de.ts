@@ -148,4 +148,8 @@ export const PROJECT_DE: Record<string, string[]> = {
   ],
   'onkelos-gen-1-9': ['Und der Ewige sprach: Die Wasser unter dem Himmel sollen sich an einem Ort sammeln [jitkanschun], und das Trockene soll sichtbar werden. Und es geschah so.'],
   'chron1-29-11': ['Dein, Ewiger, ist die Größe und die Macht und die Herrlichkeit und der Sieg und die Pracht, denn alles im Himmel und auf der Erde ist Dein; Dein, Ewiger, ist das Königreich, und Du bist über alles erhaben als Haupt.'],
+  // «Нифлаот Ребе» · Noach: «Geh aus der Arche»
+  'tanya-36': [
+    'Bekannt ist der Ausspruch unserer Weisen, gesegnet sei ihr Andenken: Das Ziel der Erschaffung dieser Welt ist, dass der Heilige, gesegnet sei Er, eine Wohnung in den unteren Welten haben wollte.',
+  ],
 };

@@ -59,6 +59,9 @@ const ru: Term[] = [
   { re: 'атбаш', def: 'Атбаш (א״ת ב״ש) — замена букв «в зеркало»: первая буква алфавита на последнюю (א ↔ ת), вторая на предпоследнюю (ב ↔ ש) и так далее.' },
   { re: 'альбам', def: 'Альбам (א״ל ב״ם) — замена букв: алфавит делится пополам, и буквы меняются местами: א ↔ ל, ב ↔ מ, ג ↔ נ…' },
   { re: 'воскрешени[еяю] мёртвых', def: 'Воскрешение мёртвых (тхият ґа-метим) — одна из основ еврейской веры: во дни Машиаха Всевышний вернёт мёртвых к жизни.' },
+  { re: 'машиах', def: 'Машиах — «помазанник»: царь из дома Давида, который принесёт окончательное избавление; тогда в мире настанет мир, и весь мир будет знать Б-га.' },
+  { re: 'бааль шем тов', def: 'Бааль Шем Тов — рабби Исраэль бен Элиэзер (1698–1760), основатель хасидизма.' },
+  { re: 'жилищ[еаму] в нижних мирах', def: '«Жилище в нижних мирах» (дира ба-тахтоним) — цель творения по хасидуту: чтобы Б-жественное раскрылось именно в нашем, самом низком, материальном мире.' },
 ];
 
 const en: Term[] = [
@@ -112,6 +115,9 @@ const en: Term[] = [
   { re: 'albam', def: 'Albam (א״ל ב״ם) — swapping letters: the alphabet is split in two halves and the letters change places: א ↔ ל, ב ↔ מ, ג ↔ נ…' },
   { re: 'resurrection of the dead', def: 'The resurrection of the dead (techiyat ha-metim) — one of the principles of Jewish faith: in the days of Moshiach the Almighty will bring the dead back to life.' },
   { re: 'tzaddik', def: 'Tzaddik — “righteous one”: a person who fulfills the will of G-d in everything.' },
+  { re: 'moshiach', def: 'Moshiach — “the anointed one”: the king from the house of David who will bring the final redemption; then there will be peace in the world, and the whole world will know G-d.' },
+  { re: 'baal shem tov', def: 'The Baal Shem Tov — Rabbi Yisrael ben Eliezer (1698–1760), the founder of Chassidut.' },
+  { re: 'abode in the lower worlds', def: '“An abode in the lower worlds” (dirah betachtonim) — the purpose of creation according to Chassidut: that G-dliness be revealed precisely in our lowest, physical world.' },
 ];
 
 const de: Term[] = [
@@ -165,6 +171,9 @@ const de: Term[] = [
   { re: 'albam', def: 'Albam (א״ל ב״ם) — Buchstabentausch: Das Alphabet wird in zwei Hälften geteilt, und die Buchstaben tauschen die Plätze: א ↔ ל, ב ↔ מ, ג ↔ נ …' },
   { re: 'auferstehung der toten', def: 'Die Auferstehung der Toten (Techijat ha-Metim) — einer der Grundsätze des jüdischen Glaubens: In den Tagen des Moschiach wird der Allmächtige die Toten wieder lebendig machen.' },
   { re: 'zaddik', def: 'Zaddik — „Gerechter“: ein Mensch, der in allem den Willen G-ttes erfüllt.' },
+  { re: 'moschiach', def: 'Moschiach — „der Gesalbte“: der König aus dem Haus Davids, der die endgültige Erlösung bringt; dann wird Frieden in der Welt sein, und die ganze Welt wird G-tt kennen.' },
+  { re: 'baal schem tow', def: 'Der Baal Schem Tow — Rabbi Jisrael ben Elieser (1698–1760), der Gründer der Chassidut.' },
+  { re: 'wohnung in den unteren welten', def: '„Eine Wohnung in den unteren Welten“ (Dira betachtonim) — das Ziel der Schöpfung nach der Chassidut: dass sich das G-ttliche gerade in unserer untersten, materiellen Welt zeigt.' },
 ];
 
 export const GLOSSARY: Partial<Record<Locale, Term[]>> = { ru, en, de };
