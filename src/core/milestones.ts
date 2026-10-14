@@ -1,20 +1,18 @@
 /**
  * «Мой путь по книгам» в аккаунте (src/components/BookProgress.tsx): прогресс по книгам и вехи.
- * - Вехи чтения Пророков и Писаний — число отрывков, отмеченных «Я прочитал(а)» (src/core/tanakhDone.ts), за весь цикл:
- *   1-й, 10-й, 25-й… отрывок; дата вехи — когда отмечен этот по счёту отрывок (время отметки в `DoneStore`).
- * - Вехи книги — 25 / 50 / 75 / 100 % её отрывков (у книги Торы — её баллов); у Пророков и Писаний — с датой.
+ * - Главные вехи — сами книги: дорожная карта раздела (`bookRoadmap`) — книги цикла по порядку: прочитанная (дата —
+ *   последняя отметка её отрывков), текущая (с прогрессом), следующие (с датой начала по циклу).
+ * - Внутри книги — 25 / 50 / 75 / 100 % её отрывков, отмеченных «Я прочитал(а)» (src/core/tanakhDone.ts), с датой —
+ *   когда отмечен нужный по счёту отрывок (время отметки в `DoneStore`); у книги Торы — её баллов, без дат.
  * Чистые функции; проверяет `npm run check` (scripts/check-academy.ts).
  */
-import { quizKey, type DoneStore } from './academy';
-import type { CycleDay, Section } from './tanakhCycle';
+import { bookDays, isDone, quizKey, type DoneStore } from './academy';
+import { BOOKS, type CycleDay, type Section, type TanakhBook } from './tanakhCycle';
 
 /** вехи книги, % */
 export const BOOK_STEPS = [25, 50, 75, 100] as const;
-/** вехи чтения: N-й отрывок (последняя — все отрывки обоих разделов цикла) */
-export const passageSteps = (total: number) => [1, 10, 25, 50, 100, 250, 500, 1000, total].filter((n, i, a) => n <= total && a.indexOf(n) === i);
-
 export interface Milestone {
-  /** отрывков (вехи чтения) или % (вехи книги) */
+  /** % книги */
   step: number;
   /** когда достигнута (секунды, как в `DoneStore`); undefined — ещё нет; 0 — достигнута, дата неизвестна */
   at?: number;
@@ -24,12 +22,6 @@ export interface Milestone {
 function marks(store: DoneStore, keys?: string[]): number[] {
   const v = keys ? keys.map((k) => store[k] ?? 0) : Object.values(store);
   return v.filter((x) => x > 0).sort((a, b) => a - b);
-}
-
-/** Вехи чтения всего цикла: `total` — отрывков в цикле (дни × 2 раздела). */
-export function passageMilestones(store: DoneStore, total: number): Milestone[] {
-  const m = marks(store);
-  return passageSteps(total).map((step) => ({ step, at: m[step - 1] }));
 }
 
 /** Сколько отрывков нужно для вехи книги `step` % из `parts`. */
@@ -48,4 +40,29 @@ export const pctMilestones = (pct: number): Milestone[] => BOOK_STEPS.map((step)
 export function markDate(at: number): string {
   const d = new Date(at * 1000);
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+export interface RoadBook {
+  book: TanakhBook;
+  days: CycleDay[];
+  /** отрывков прочитано */
+  done: number;
+  /** done — вся книга прочитана; now — читается (начата или по циклу идёт сейчас); next — впереди */
+  status: 'done' | 'now' | 'next';
+  /** когда дочитана (секунды) */
+  finishedAt?: number;
+  /** вехи 25…100 % */
+  steps: Milestone[];
+}
+
+/** Дорожная карта раздела: книги цикла по порядку — вехи пути (`today` — дата устройства, `YYYY-MM-DD`). */
+export function bookRoadmap(section: Section, store: DoneStore, cycle: CycleDay[], today: string): RoadBook[] {
+  return BOOKS.filter((b) => b.section === section).map((book) => {
+    const days = bookDays(book, cycle);
+    const done = days.filter((d) => isDone(store, d.date, section)).length;
+    const steps = tanakhBookMilestones(store, days, section);
+    const all = days.length > 0 && done === days.length;
+    const running = days.length > 0 && days[0].date <= today && today <= days[days.length - 1].date;
+    return { book, days, done, steps, status: all ? 'done' : done > 0 || running ? 'now' : 'next', finishedAt: all ? steps[steps.length - 1].at : undefined };
+  });
 }
