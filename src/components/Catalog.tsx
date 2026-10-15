@@ -202,6 +202,9 @@ function AdultsHome() {
           )}
 
           <p className="h-adults-more">
+            <a href="#/hemshech">
+              {t('hs.menuLbl')} · {t('hs.short')} →
+            </a>
             <a href="#/academy">
               {t('academy.title')} · {t('academy.menuSub')} →
             </a>

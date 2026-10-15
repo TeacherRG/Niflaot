@@ -42,6 +42,7 @@ const LettersPage = page(() => import('./components/LettersPage'), 'LettersPage'
 const RebbePage = page(() => import('./components/RebbePage'), 'RebbePage');
 const TanakhPage = page(() => import('./components/TanakhPage'), 'TanakhPage');
 const TanakhQuizPage = page(() => import('./components/TanakhQuizPage'), 'TanakhQuizPage');
+const HemshechPage = page(() => import('./components/HemshechPage'), 'HemshechPage');
 const AcademyPage = page(() => import('./components/AcademyPage'), 'AcademyPage');
 const Admin = page(() => import('./components/Admin'), 'Admin');
 
@@ -169,6 +170,8 @@ function Site() {
           <LettersPage />
         ) : slug === 'math' ? (
           <MathPage op={OPS.includes(view as Op) ? (view as Op) : 'add'} />
+        ) : slug === 'hemshech' ? (
+          <HemshechPage key={route} passage={view || undefined} />
         ) : slug === 'academy' ? (
           <AcademyPage key={route} id={view || undefined} sample={location.hash.includes('?sample')} />
         ) : (slug === 'neviim' || slug === 'ketuvim') && (view === 'quiz' || variant === 'quiz') ? (

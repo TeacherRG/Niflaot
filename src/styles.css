@@ -1177,10 +1177,13 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .h-tile-foot b{margin-inline-start:auto;color:var(--ink)}
 .h-games{display:flex;gap:4px;color:var(--tc)}
 
-/* «Осталось играть на этой неделе» */
+/* «Осталось учиться на этой неделе» */
 .wc-side{position:relative;overflow:hidden;flex:1;display:flex;flex-direction:column;gap:6px;padding:20px;border-radius:14px;background:var(--ink);color:#fff;box-shadow:0 18px 40px -20px rgba(20,26,51,.6)}
 .wc-side>*{position:relative}
 .wc-side>.wc-bg{position:absolute;right:-12px;bottom:-46px;font-family:var(--f-he);font-weight:900;font-size:200px;line-height:1;color:rgba(216,181,101,.07);pointer-events:none}
+.wc-date{position:relative;display:grid;gap:2px;margin:4px 0 0;font-size:13px;color:#C9CEE0;line-height:1.3}
+.wc-date span:first-child::first-letter{text-transform:uppercase}
+.wc-date .he{justify-self:start;font-family:var(--f-he);font-size:15px;color:var(--gold-2)}
 .wc-title{margin:4px 0 8px;font-family:var(--f-display);font-weight:700;font-size:26px;line-height:1.1}
 .wc-units{display:grid;gap:8px}
 .wc-unit{display:flex;align-items:baseline;gap:10px;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(216,181,101,.25)}
@@ -1195,6 +1198,7 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .wc-week .shabbat{color:var(--gold-2);font-weight:700}
 .wc-week .shabbat i{background:var(--gold-2);border-color:var(--gold-2)}
 .wc-compact{display:grid;justify-items:center;align-content:center;gap:2px;width:108px;height:100%;box-sizing:border-box;padding:8px 6px;border-radius:12px;background:var(--ink);color:#fff;text-align:center}
+.wc-c-date{font-size:10px;font-weight:700;color:var(--gold-2);line-height:1.2;white-space:nowrap}
 .wc-c-title{font-size:10.5px;color:#C9CEE0;line-height:1.2}
 .wc-c-time{font-weight:600;font-size:14px;color:var(--gold-2);line-height:1.3;white-space:nowrap}
 @media (max-width:1099px){
@@ -1647,3 +1651,26 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .home-adults .h-hero-side{align-content:flex-start}
 .h-adults-quiz a,.h-adults-more a{color:var(--tchelet);font-weight:600;text-decoration:none}
 .h-adults-more{display:flex;flex-wrap:wrap;gap:8px 20px;margin:18px 0 0;font-size:14.5px}
+
+/* «Ґемшех Самех-Вав» — the Rebbe Rashab's discourses in passages */
+.st-summary{margin:10px 0 14px;padding:12px 14px;border-radius:10px;background:var(--gold-soft);border-inline-start:4px solid var(--gold);font-size:15.5px;line-height:1.55}
+.st-par{margin:0 0 14px}
+.st-ru{margin:0;font-size:17px;line-height:1.7}
+.st-en{margin:0 0 6px;font-size:14.5px;line-height:1.55;color:var(--muted)}
+.st-block{margin:22px 0}
+.st-block h2{margin:0 0 8px;font-family:var(--f-display);font-size:24px}
+.st-list{margin:6px 0;padding-inline-start:22px;display:grid;gap:8px;font-size:16px}
+.st-list a{color:var(--tchelet);text-decoration:none;font-weight:600}
+.st-done{color:var(--ok);font-size:13px}
+.hs-min{font-size:13px;color:var(--muted)}
+.hs-en-toggle{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;font-size:14px;color:var(--ink-2);cursor:pointer}
+.hs-text{margin:6px 0 18px}
+.hs-credit{margin:18px 0;padding:12px 14px;border-radius:10px;background:var(--paper);font-size:13px;line-height:1.5;color:var(--ink-2)}
+.hs-credit p{margin:0 0 4px}
+.hs-credit a{color:var(--tchelet);font-weight:600;text-decoration:none}
+.hs-today{display:grid;gap:4px;margin:14px 0 6px;padding:14px 16px;border-radius:12px;background:var(--ink);color:#fff;text-decoration:none}
+.hs-today b{font-family:var(--f-display);font-size:22px;line-height:1.2}
+.hs-today .hs-min{color:var(--gold-2)}
+.hs-today-k{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-2)}
+.hs-locked{color:var(--muted)}
+.hs-rights{font-weight:700;color:var(--ink)}
