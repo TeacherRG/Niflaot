@@ -1,5 +1,5 @@
 /**
- * The site's mode — who is learning, chosen on the first visit (ModePicker.tsx) and changeable any time in the menu:
+ * The site's mode — who is learning, chosen on the first visit (ModePicker.tsx) and changeable any time in the account window:
  *   kids   — «Дети и семья»: games and riddles on the Torah portions (ages 8+, no Hebrew needed);
  *   adults — «Подростки и взрослые»: the Torah lessons to read, the Prophets and Writings every day.
  * The mode shapes the home page, the menu and «Академия» — not the access: any link opens in any mode.

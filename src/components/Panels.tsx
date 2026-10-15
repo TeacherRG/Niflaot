@@ -18,7 +18,7 @@ import { letterName } from '../core/letterNames';
 const TABLE = Object.entries(VALUES).filter(([c]) => !'ךםןףץ'.includes(c));
 
 /**
- * «Как вы с ивритом?» — at the top of «Как играть» (it opens by itself on the first visit): the answer sets how much
+ * «Как вы с ивритом?» — at the top of «Как играть» (first asked in the onboarding, ModePicker.tsx): the answer sets how much
  * help the letters get (src/core/hebrewLevel.ts). Before an answer no option is marked (the default is «Узнаю буквы»).
  */
 function HebrewLevelPicker({ onStart }: { onStart: () => void }) {

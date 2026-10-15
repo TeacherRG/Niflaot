@@ -1,10 +1,10 @@
 /**
- * How well the player knows Hebrew — asked once, at the top of «Как играть» on the first visit, changeable any time
- * («Мой иврит» in the menu). It only changes the help around the letters, never the riddles or the score:
+ * How well the player knows Hebrew — asked once, in the onboarding window on the first visit (ModePicker.tsx; on a
+ * shared lesson link — at the top of «Как играть»), changeable any time («Мой иврит» in the menu, the account window). It only changes the help around the letters, never the riddles or the score:
  *   none    — doesn't know the letters: letter names under the tiles, transliteration on word cards, hints name the letters;
  *   letters — knows the letters (the default, also when the question was skipped): names on a long press / hover;
  *   reads   — reads Hebrew: no extra help.
- * Stored only in this browser.
+ * Stored in this browser (`niflaot:hebrew`) and synced with the account (src/core/sync.ts).
  */
 import { useEffect, useState } from 'react';
 
