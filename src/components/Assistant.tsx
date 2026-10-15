@@ -14,6 +14,7 @@ const SUGGEST: Record<PageKind | 'site', MessageKey[]> = {
   tanakh: ['ai.s.passage', 'ai.s.who', 'ai.s.commentary', 'ai.s.lessonLife'],
   quiz: ['ai.s.quizHint', 'ai.s.quizWhy', 'ai.s.passage'],
   academy: ['ai.s.cert', 'ai.s.start', 'ai.s.plan'],
+  hemshech: ['ai.s.hsExplain', 'ai.s.hsTerms', 'ai.s.lessonLife'],
   site: ['ai.s.start', 'ai.s.cert', 'ai.s.math'],
 };
 const MAX_TURNS = 20;

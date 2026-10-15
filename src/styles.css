@@ -1651,3 +1651,20 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .home-adults .h-hero-side{align-content:flex-start}
 .h-adults-quiz a,.h-adults-more a{color:var(--tchelet);font-weight:600;text-decoration:none}
 .h-adults-more{display:flex;flex-wrap:wrap;gap:8px 20px;margin:18px 0 0;font-size:14.5px}
+
+/* «Ґемшех Самех-Вав» — the Rebbe Rashab's discourses in passages */
+.st-summary{margin:10px 0 14px;padding:12px 14px;border-radius:10px;background:var(--gold-soft);border-inline-start:4px solid var(--gold);font-size:15.5px;line-height:1.55}
+.st-par{margin:0 0 14px}
+.st-ru{margin:0;font-size:17px;line-height:1.7}
+.st-en{margin:0 0 6px;font-size:14.5px;line-height:1.55;color:var(--muted)}
+.st-block{margin:22px 0}
+.st-block h2{margin:0 0 8px;font-family:var(--f-display);font-size:24px}
+.st-list{margin:6px 0;padding-inline-start:22px;display:grid;gap:8px;font-size:16px}
+.st-list a{color:var(--tchelet);text-decoration:none;font-weight:600}
+.st-done{color:var(--ok);font-size:13px}
+.hs-min{font-size:13px;color:var(--muted)}
+.hs-en-toggle{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;font-size:14px;color:var(--ink-2);cursor:pointer}
+.hs-text{margin:6px 0 18px}
+.hs-credit{margin:18px 0;padding:12px 14px;border-radius:10px;background:var(--paper);font-size:13px;line-height:1.5;color:var(--ink-2)}
+.hs-credit p{margin:0 0 4px}
+.hs-credit a{color:var(--tchelet);font-weight:600;text-decoration:none}

@@ -36,7 +36,7 @@ export const subscribePageState = (f: () => void) => {
  * What the assistant knows about any other page — the passage of the day of «Пророки» / «Писания», its quiz,
  * «Академия»: the page sets a short kind (it picks the suggested questions) and a builder of the context text.
  */
-export type PageKind = 'lesson' | 'tanakh' | 'quiz' | 'academy';
+export type PageKind = 'lesson' | 'tanakh' | 'quiz' | 'academy' | 'hemshech';
 let other: { kind: Exclude<PageKind, 'lesson'>; context: () => string | Promise<string> } | null = null;
 export const setOtherPage = (s: typeof other) => {
   other = s;

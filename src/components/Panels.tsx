@@ -302,6 +302,15 @@ export function Panels() {
               </div>
             </Fragment>
           ))}
+          {/* «Хасидут»: the Rebbe Rashab's «Ґемшех Самех-Вав» in passages of ten minutes (src/core/hemshech.ts) */}
+          <div className="menu-lbl">{t('hs.menuLbl')}</div>
+          <a href="#/hemshech" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/hemshech') ? 'page' : undefined}>
+            <Icon name="book" />
+            <span>
+              {t('hs.short')}
+              <small>{t('hs.menuSub')}</small>
+            </span>
+          </a>
             </>
           )}
           <div className="menu-sep" />
