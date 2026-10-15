@@ -98,8 +98,8 @@ function useCopySignature() {
 
 /**
  * Shows "How to play" once, on the first visit of a person who came straight to a lesson (a shared link) and is not
- * in the adults' mode. On the home page the first visit gets the mode question instead (ModePicker.tsx), and
- * «Дети и семья» opens "How to play" there.
+ * in the adults' mode. On the home page the first visit gets the onboarding instead (ModePicker.tsx: who is learning
+ * and «Как вы с ивритом?»), and after it "How to play" doesn't open by itself.
  */
 function useFirstVisitHelp(open: (p: Panel) => void, onLesson: boolean) {
   useEffect(() => {

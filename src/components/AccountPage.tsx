@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { Html, useI18n } from '../i18n';
 import { MODES, setMode, useMode } from '../core/mode';
+import { HEBREW_LEVELS, setHebrewLevel, useHebrewLevel } from '../core/hebrewLevel';
 import { BookProgress } from './BookProgress';
 import type { MessageKey } from '../i18n/locales/ru';
 import {
@@ -270,10 +271,14 @@ function Classes() {
 /** The public leaderboard is hidden: only the admin sees it (`#/admin/leaders`). */
 const SHOW_BOARD = false;
 
-/** The site's mode (src/core/mode.ts): who is learning — switched here, right away; kept on the device and in the account. */
+/**
+ * The two onboarding answers (ModePicker.tsx), switched here right away: the site's mode (src/core/mode.ts) — who is
+ * learning, and the Hebrew level (src/core/hebrewLevel.ts); kept on the device and in the account.
+ */
 function ModeCard() {
   const { t } = useI18n();
   const mode = useMode();
+  const level = useHebrewLevel();
   return (
     <section className="acc-card">
       <h2>{t('mode.title')}</h2>
@@ -282,6 +287,15 @@ function ModeCard() {
           <button key={m} role="radio" aria-checked={mode === m} className={`acc-mode${mode === m ? ' on' : ''}`} onClick={() => setMode(m)}>
             <b>{t(`mode.${m}`)}</b>
             <small>{t(`mode.${m}Sub`)}</small>
+          </button>
+        ))}
+      </div>
+      <h2 id="acc-hb">{t('hebrew.q')}</h2>
+      <div className="acc-modes" role="radiogroup" aria-labelledby="acc-hb">
+        {HEBREW_LEVELS.map((l) => (
+          <button key={l} role="radio" aria-checked={level === l} className={`acc-mode${level === l ? ' on' : ''}`} onClick={() => setHebrewLevel(l)}>
+            <b>{t(`hebrew.${l}`)}</b>
+            <small>{t(`hebrew.${l}.sub`)}</small>
           </button>
         ))}
       </div>

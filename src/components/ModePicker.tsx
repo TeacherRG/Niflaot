@@ -1,37 +1,36 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
 import { NIFLAOT_LOGO } from '../core/partners';
-import { savedHebrewLevel } from '../core/hebrewLevel';
+import { HEBREW_LEVELS, savedHebrewLevel, setHebrewLevel, type HebrewLevel } from '../core/hebrewLevel';
 import { setMode, useSavedMode, type Mode } from '../core/mode';
-import { useUI } from './ui';
 import { Colophon } from './Colophon';
 import { TopBar } from './TopBar';
 
 /**
- * «Кто будет учиться?» — on the first visit instead of the home page, and at `#/mode` (menu → «Режим · сменить»):
- * the children's site or the adults' one (src/core/mode.ts). After «Дети и семья» on the first visit — «Как играть»
- * with «Как вы с ивритом?».
+ * The onboarding — one window on the first visit instead of the home page (and at `#/mode`): two short questions,
+ * 1) who is learning — the children's site or the adults' one (src/core/mode.ts),
+ * 2) «Как вы с ивритом?» — how much help the letters get (src/core/hebrewLevel.ts);
+ * «Начать» saves both and opens the home page. Both are changed later in the account window (👤).
  */
 export function ModePicker() {
   const { t } = useI18n();
-  const { open } = useUI();
   const saved = useSavedMode();
+  const [mode, pickMode] = useState<Mode | null>(saved);
+  const [level, pickLevel] = useState<HebrewLevel | null>(savedHebrewLevel);
 
   useEffect(() => {
     document.title = `${t('mode.title')} · ${t('app.title')}`;
   }, [t]);
 
-  const choose = (m: Mode) => {
-    const first = saved === null;
-    setMode(m);
+  const start = () => {
+    if (!mode || !level) return;
+    setHebrewLevel(level);
+    try {
+      localStorage.setItem('niflaot:help-seen', '1');
+    } catch {}
+    setMode(mode);
     if (location.hash !== '#/' && location.hash !== '') location.hash = '#/';
     window.scrollTo(0, 0);
-    if (m === 'kids' && first && savedHebrewLevel() === null) {
-      try {
-        localStorage.setItem('niflaot:help-seen', '1');
-      } catch {}
-      setTimeout(() => open('help'), 300);
-    }
   };
 
   return (
@@ -43,18 +42,36 @@ export function ModePicker() {
         <p className="mode-brand">
           {t('mode.brand')} · <span className="mode-promise">{t('home.promise')}</span>
         </p>
-        <h1>{t('mode.title')}</h1>
-        <div className="mode-opts">
+        <h1 id="mode-q1" className="mode-q">
+          <span className="mode-n">1</span>
+          {t('mode.title')}
+        </h1>
+        <div className="mode-opts" role="radiogroup" aria-labelledby="mode-q1">
           {(['kids', 'adults'] as const).map((m) => (
-            <button key={m} className={`mode-opt ${m}${saved === m ? ' on' : ''}`} onClick={() => choose(m)}>
+            <button key={m} role="radio" aria-checked={mode === m} className={`mode-opt ${m}${mode === m ? ' on' : ''}`} onClick={() => pickMode(m)}>
               <span className="mode-ico" aria-hidden="true">
                 {m === 'kids' ? '🧩' : '📖'}
               </span>
               <b>{t(`mode.${m}`)}</b>
-              <small>{t(`mode.${m}Sub`)}</small>
+              <small>{t(`mode.${m}Short`)}</small>
             </button>
           ))}
         </div>
+        <h2 id="mode-q2" className="mode-q">
+          <span className="mode-n">2</span>
+          {t('hebrew.q')}
+        </h2>
+        <div className="mode-hb" role="radiogroup" aria-labelledby="mode-q2">
+          {HEBREW_LEVELS.map((l) => (
+            <button key={l} role="radio" aria-checked={level === l} className={`mode-hb-opt${level === l ? ' on' : ''}`} onClick={() => pickLevel(l)}>
+              <b>{t(`hebrew.${l}.short`)}</b>
+              <small>{t(`hebrew.${l}.sub`)}</small>
+            </button>
+          ))}
+        </div>
+        <button className="btn mode-start" disabled={!mode || !level} onClick={start}>
+          {t('mode.start')} →
+        </button>
         <p className="mode-note">{t('mode.note')}</p>
       </main>
       <Colophon />
