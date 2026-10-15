@@ -2,7 +2,7 @@
   "name": "niflaot",
   "private": true,
   "version": "0.1.0",
-  "description": "Игры-гематрии по статьям рава Ицхака Гинзбурга из брошюры «Нифлаот» и классическим комментариям Торы — niflaot.mychitas.app",
+  "description": "Онлайн-академия Торы для всех возрастов, от 8 до 120: игры-гематрии по Бааль ґа-Туриму, беседы Ребе, Пророки и Писания, Хасидут — niflaot.mychitas.app",
   "homepage": "https://niflaot.mychitas.app",
   "type": "module",
   "scripts": {
