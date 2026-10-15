@@ -7,7 +7,7 @@
  */
 import book from '../src/hemshech/5666.json';
 import { styleErrors } from './style-rules';
-import { passageMinutes, type HsBook } from '../src/core/hemshech';
+import { allPassages, passageDate, passageMinutes, type HsBook } from '../src/core/hemshech';
 
 const B = book as HsBook;
 const errors: string[] = [];
@@ -53,4 +53,8 @@ if (errors.length) {
   console.error(`✗ Ґемшех Самех-Вав: ${errors.length} ошибок\n  ${errors.slice(0, 40).join('\n  ')}`);
   process.exit(1);
 }
-console.log(`✓ Ґемшех Самех-Вав: ${B.maamarim.length} маамар(ов), ${n} отрывков — переводы, вопросы, подпись Neirot`);
+// «Отрывок дня»: how far ahead the passages are ready (the owner wants about two weeks; a warning, not an error)
+const last = passageDate(allPassages().length - 1);
+const ahead = Math.round((Date.parse(last) - Date.now()) / 86400000);
+console.log(`✓ Ґемшех Самех-Вав: ${B.maamarim.length} маамар(ов), ${n} отрывков — переводы, вопросы, подпись Neirot; отрывки дня готовы до ${last}`);
+if (ahead < 7) console.warn(`  ⚠ Ґемшех Самех-Вав: отрывков осталось меньше чем на неделю (до ${last}) — пора готовить следующие (на 2 недели вперёд)`);

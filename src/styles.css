@@ -1668,3 +1668,8 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .hs-credit{margin:18px 0;padding:12px 14px;border-radius:10px;background:var(--paper);font-size:13px;line-height:1.5;color:var(--ink-2)}
 .hs-credit p{margin:0 0 4px}
 .hs-credit a{color:var(--tchelet);font-weight:600;text-decoration:none}
+.hs-today{display:grid;gap:4px;margin:14px 0 6px;padding:14px 16px;border-radius:12px;background:var(--ink);color:#fff;text-decoration:none}
+.hs-today b{font-family:var(--f-display);font-size:22px;line-height:1.2}
+.hs-today .hs-min{color:var(--gold-2)}
+.hs-today-k{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-2)}
+.hs-locked{color:var(--muted)}

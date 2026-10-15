@@ -4,7 +4,10 @@ import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { optionOrder } from '../core/quiz';
 import { setOtherPage } from '../core/assistant';
-import { HEMSHECH, allPassages, hsLang, passageMinutes, readHsStore, useHsQuiz, type HsLang, type HsPassage } from '../core/hemshech';
+import { HEMSHECH, allPassages, hsLang, passageDate, passageMinutes, readHsStore, todayIndex, useHsQuiz, type HsLang, type HsPassage } from '../core/hemshech';
+import { localToday } from '../core/tanakh';
+import { civilDate, jewishDate } from '../core/hebrewDate';
+import { isAdmin } from '../admin/github';
 
 /** The credit the Neirot Foundation asked for: under every passage, with a link to their site. */
 function Credit({ lang }: { lang: HsLang }) {
@@ -100,6 +103,17 @@ function Passage({ id, lang }: { id: string; lang: HsLang }) {
 
   if (!found) return <p className="tk-note">{t('hs.notFound')}</p>;
   const { m, p } = found;
+  const date = passageDate(at);
+  // a passage opens on its day; the admin sees the coming ones ahead
+  if (date > localToday() && !isAdmin())
+    return (
+      <>
+        <p className="tk-note">{t('hs.opensOn', { date: civilDate(date, lang) })}</p>
+        <p>
+          <a href="#/hemshech">{t('hs.all')}</a>
+        </p>
+      </>
+    );
   const prev = all[at - 1];
   const next = all[at + 1];
   const n = m.passages.indexOf(p) + 1;
@@ -107,6 +121,12 @@ function Passage({ id, lang }: { id: string; lang: HsLang }) {
   return (
     <article className="hs-passage">
       <header className="tk-head">
+        <p className="tk-kicker">
+          {civilDate(date, lang)} ·{' '}
+          <span className="he" lang="he">
+            {jewishDate(date)}
+          </span>
+        </p>
         <p className="tk-kicker">
           {HEMSHECH.title[lang]} · {m.title[lang]} · {t('hs.passageN', { n, total: m.passages.length })}
         </p>
@@ -143,7 +163,7 @@ function Passage({ id, lang }: { id: string; lang: HsLang }) {
       <nav className="tk-nav st-nav no-print">
         {prev ? <a href={`#/hemshech/${prev.p.id}`}>← {prev.p.title[lang]}</a> : <span />}
         <a href="#/hemshech">{t('hs.all')}</a>
-        {next ? <a href={`#/hemshech/${next.p.id}`}>{next.p.title[lang]} →</a> : <span />}
+        {next && (passageDate(at + 1) <= localToday() || isAdmin()) ? <a href={`#/hemshech/${next.p.id}`}>{next.p.title[lang]} →</a> : <span />}
       </nav>
     </article>
   );
@@ -152,6 +172,9 @@ function Passage({ id, lang }: { id: string; lang: HsLang }) {
 function Index({ lang }: { lang: HsLang }) {
   const { t } = useI18n();
   const store = readHsStore();
+  const all = allPassages();
+  const today = todayIndex(localToday());
+  const admin = isAdmin();
   useEffect(() => {
     document.title = `${HEMSHECH.title[lang]} · ${t('app.title')}`;
   }, [lang, t]);
@@ -163,6 +186,17 @@ function Index({ lang }: { lang: HsLang }) {
         <p className="tk-range">{HEMSHECH.author[lang]}</p>
       </header>
       <p className="ac-lead">{t('hs.lead')}</p>
+      {today >= 0 ? (
+        <a className="hs-today" href={`#/hemshech/${all[today].p.id}`}>
+          <span className="hs-today-k">
+            {passageDate(today) === localToday() ? t('hs.today') : t('hs.last')} · {civilDate(passageDate(today), lang)}
+          </span>
+          <b>{all[today].p.title[lang]}</b>
+          <span className="hs-min">{t('tanakh.readingTime', { n: passageMinutes(all[today].p, lang) })} →</span>
+        </a>
+      ) : (
+        <p className="tk-note">{t('hs.startsOn', { date: civilDate(passageDate(0), lang) })}</p>
+      )}
       {HEMSHECH.maamarim.map((m) => (
         <section key={m.id} className="st-block">
           <h2>{m.title[lang]}</h2>
@@ -170,10 +204,14 @@ function Index({ lang }: { lang: HsLang }) {
           <ol className="st-list">
             {m.passages.map((p) => {
               const r = store[p.id];
+              const k = all.findIndex((x) => x.p === p);
+              const open = k <= today || admin;
               return (
-                <li key={p.id}>
-                  <a href={`#/hemshech/${p.id}`}>{p.title[lang]}</a>{' '}
-                  <span className="hs-min">· {t('tanakh.readingTime', { n: passageMinutes(p, lang) })}</span>
+                <li key={p.id} className={open ? undefined : 'hs-locked'}>
+                  {open ? <a href={`#/hemshech/${p.id}`}>{p.title[lang]}</a> : <span>{p.title[lang]}</span>}{' '}
+                  <span className="hs-min">
+                    · {civilDate(passageDate(k), lang)} · {t('tanakh.readingTime', { n: passageMinutes(p, lang) })}
+                  </span>
                   {r && r.best >= 0 && (
                     <span className="st-done">
                       {' '}

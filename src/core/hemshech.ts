@@ -4,10 +4,13 @@
  * used with permission — every passage ends with the credit and a link to neirot.com); Russian and German are the
  * project's translations from that English. No Hebrew original is shown. Data — src/hemshech/5666.json
  * (`npm run check`: scripts/check-hemshech.ts). Answers to the questions — `niflaot:hemshech` (synced with the account).
+ * «Отрывок дня»: one passage a study day (the days of the Prophets-and-Writings cycle — no Shabbat, no festivals),
+ * from HS_START; a passage opens on its day (the admin sees them all ahead).
  */
 import { useCallback, useState } from 'react';
 import data from '../hemshech/5666.json';
 import type { QuizResult, QuizStore } from './academy';
+import { CYCLE } from './tanakh';
 
 export type HsLang = 'ru' | 'en' | 'de';
 type T = Record<HsLang, string>;
@@ -39,7 +42,20 @@ export interface HsBook {
 
 export const HEMSHECH = data as HsBook;
 export const hsLang = (locale: string): HsLang => (locale === 'en' || locale === 'de' ? locale : 'ru');
+/** The study days from HS_START: passage i is learnt on STUDY[i]. */
+export const HS_START = '2026-10-18';
+const STUDY = CYCLE.map((d) => d.date).filter((d) => d >= HS_START);
 export const allPassages = () => HEMSHECH.maamarim.flatMap((m) => m.passages.map((p) => ({ m, p })));
+/** The day a passage is learnt (YYYY-MM-DD). */
+export const passageDate = (index: number) => STUDY[index] ?? STUDY[STUDY.length - 1];
+/** Index of today's passage (the last one already open; -1 — the study has not started yet). */
+export function todayIndex(today: string) {
+  let i = -1;
+  allPassages().forEach((_, k) => {
+    if (passageDate(k) <= today) i = k;
+  });
+  return i;
+}
 
 /** Dense Chassidic text: about 120 words a minute in the translation. */
 export const passageMinutes = (p: HsPassage, lang: HsLang) =>
