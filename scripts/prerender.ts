@@ -106,7 +106,9 @@ function render(p: Page): string {
   html = setMeta(html, 'property', 'og:description', p.description);
   html = setMeta(html, 'property', 'og:url', p.url);
   const image = existsSync(`${DIST}/og/${p.image}.png`) ? p.image : 'site';
-  html = setMeta(html, 'property', 'og:image', `${SITE_URL}/og/${image}.png`);
+  // ?v=<hash of the picture>: Telegram, WhatsApp… cache previews by URL — a new picture gets a new address
+  const v = createHash('sha256').update(readFileSync(`${DIST}/og/${image}.png`)).digest('hex').slice(0, 8);
+  html = setMeta(html, 'property', 'og:image', `${SITE_URL}/og/${image}.png?v=${v}`);
   html = setMeta(html, 'property', 'og:image:alt', p.imageAlt);
   if (p.lang && p.lang !== 'ru') {
     html = html.replace('<html lang="ru">', `<html lang="${p.lang}">`);
@@ -150,7 +152,7 @@ const home: Page = {
   type: 'website',
   root: './',
   image: 'site',
-  imageAlt: `${ui['app.title']} — ${ui['catalog.uvp']}`,
+  imageAlt: ui['catalog.seoTitle'],
   jsonLd: {
     '@context': 'https://schema.org',
     '@graph': [
