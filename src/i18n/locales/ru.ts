@@ -703,7 +703,7 @@ const ru = {
   'hs.showEn': "Показать английский оригинал",
   'hs.questions': "Вопросы к отрывку",
   'hs.all': "Все отрывки",
-  'hs.neirot': "Английский перевод — на сайте Neirot",
+  'hs.rights': "Все права принадлежат © The Neirot Foundation ·",
   'hs.today': "Отрывок дня",
   'hs.last': "Последний отрывок",
   'hs.opensOn': "Этот отрывок откроется {date}",

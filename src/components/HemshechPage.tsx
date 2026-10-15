@@ -15,9 +15,10 @@ function Credit({ lang }: { lang: HsLang }) {
   return (
     <footer className="hs-credit">
       <p>{HEMSHECH.credit[lang]}</p>
-      <p>
+      <p className="hs-rights">
+        {t('hs.rights')}{' '}
         <a href={HEMSHECH.creditUrl} target="_blank" rel="noopener">
-          {t('hs.neirot')} ↗
+          Neirot.com
         </a>
       </p>
     </footer>

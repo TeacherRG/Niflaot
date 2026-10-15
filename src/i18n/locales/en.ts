@@ -685,7 +685,7 @@ const en: Messages = {
   'hs.showEn': "Show the English original",
   'hs.questions': "Questions on the passage",
   'hs.all': "All passages",
-  'hs.neirot': "The English translation at Neirot",
+  'hs.rights': "All rights reserved © The Neirot Foundation ·",
   'hs.today': "Today’s passage",
   'hs.last': "Latest passage",
   'hs.opensOn': "This passage opens on {date}.",

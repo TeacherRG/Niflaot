@@ -685,7 +685,7 @@ const de: Messages = {
   'hs.showEn': "Englisches Original zeigen",
   'hs.questions': "Fragen zum Abschnitt",
   'hs.all': "Alle Abschnitte",
-  'hs.neirot': "Die englische Übersetzung bei Neirot",
+  'hs.rights': "Alle Rechte vorbehalten © The Neirot Foundation ·",
   'hs.today': "Abschnitt des Tages",
   'hs.last': "Letzter Abschnitt",
   'hs.opensOn': "Dieser Abschnitt öffnet sich am {date}.",

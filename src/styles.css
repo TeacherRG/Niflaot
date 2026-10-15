@@ -1673,3 +1673,4 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .hs-today .hs-min{color:var(--gold-2)}
 .hs-today-k{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-2)}
 .hs-locked{color:var(--muted)}
+.hs-rights{font-weight:700;color:var(--ink)}
