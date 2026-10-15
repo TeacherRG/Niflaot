@@ -37,7 +37,7 @@ const pct = (p: Progress) => (p.max ? Math.round((100 * p.got) / p.max) : 0);
 const PASS_PCT = Math.round(PASS * 100);
 
 /** Every certificate with its progress on this device. */
-function useCertificates() {
+export function useCertificates() {
   return useMemo(() => {
     const today = localToday();
     const store = readQuizStore();

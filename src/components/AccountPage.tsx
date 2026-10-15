@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { Html, useI18n } from '../i18n';
 import { MODES, setMode, useMode } from '../core/mode';
+import { BookProgress } from './BookProgress';
 import type { MessageKey } from '../i18n/locales/ru';
 import {
   AccountError,
@@ -291,7 +292,7 @@ function ModeCard() {
 /** «Классы» are hidden for now (the server and `#/class/<id>` stay); true brings the section back to the profile. */
 const SHOW_CLASSES = false;
 
-/** `#/account`: guest mode and sign-in, the profile, the parent's consent, classes, sign out, delete. */
+/** `#/account`: guest mode and sign-in, «Мой путь по книгам» (progress and milestones), the profile, the parent's consent, classes, sign out, delete. */
 export function AccountPage() {
   const { t } = useI18n();
   const { token, me, mail } = useAccount();
@@ -316,6 +317,7 @@ export function AccountPage() {
         </header>
         <main>
           <ModeCard />
+          <BookProgress />
           {!token && mail === false && (
             <section className="acc-card">
               <h2>👤 {t('acc.guest')}</h2>

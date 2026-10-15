@@ -29,6 +29,7 @@ import {
 import { styleErrors } from './style-rules';
 import { readQuestions, readScore, type ReadStore } from '../src/core/readCheck';
 import { mergeSnapshots } from '../src/core/sync';
+import { bookRoadmap, pctMilestones, stepCount, tanakhBookMilestones } from '../src/core/milestones';
 import cycleJson from '../src/tanakh/cycle.json';
 
 const errors: string[] = [];
@@ -129,6 +130,24 @@ const rd = JSON.parse(
   )['niflaot:tanakh-done'] ?? '{}',
 );
 if (rd.a !== 100 || rd.b !== -300 || rd.c !== 5 || rd.d !== 7) err('sync: «Я прочитал(а)» — с обоих устройств, у одного отрывка — более поздняя отметка');
+
+/* «Мой путь по книгам»: the milestones in the account */
+{
+  // the books are the milestones: the roadmap of a section — every book once, in order, each with days
+  for (const sec of ['neviim', 'ketuvim'] as Section[]) {
+    const road = bookRoadmap(sec, {}, cycle, cycle[0].date);
+    if (road.length !== BOOKS.filter((b) => b.section === sec).length || road.some((r) => !r.days.length)) err(`вехи-книги ${sec}: у каждой книги — дни цикла`);
+    if (road[0].status !== 'now' || road.slice(1).some((r) => r.status !== 'next')) err(`вехи-книги ${sec}: в первый день читается первая книга, остальные впереди`);
+  }
+  const road = bookRoadmap('neviim', allRead, cycle, cycle[0].date);
+  if (road[0].status !== 'done' || road[0].finishedAt !== Math.max(...Object.values(allRead))) err('вехи-книги: прочитанная книга — с датой последней отметки');
+  if (bookRoadmap('neviim', { [`${days[3].date}:neviim`]: 5 }, cycle, '2020-01-01')[0].status !== 'now') err('вехи-книги: начатая книга — текущая');
+  const half: DoneStore = Object.fromEntries(days.slice(0, stepCount(50, days.length)).map((d, i) => [`${d.date}:neviim`, 100 + i]));
+  const bm = tanakhBookMilestones(half, days, 'neviim');
+  if (bm[0].at === undefined || bm[1].at !== 100 + stepCount(50, days.length) - 1 || bm[2].at !== undefined) err('вехи книги: 50 % — дата отметки нужного по счёту отрывка');
+  if (tanakhBookMilestones(allRead, days, 'neviim').some((m) => m.at === undefined)) err('вехи книги: всё прочитано — все вехи');
+  if (pctMilestones(74).filter((m) => m.at !== undefined).length !== 2) err('вехи книги Торы: 74 % — две вехи');
+}
 
 /* «Проверь себя»: the reader's way to a Torah certificate */
 let readQs = 0;
