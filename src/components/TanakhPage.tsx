@@ -283,6 +283,61 @@ function DoneCheck({ section, date, today }: { section: Section; date: string; t
   );
 }
 
+const weekday = (iso: string, locale: string) => {
+  const w = new Intl.DateTimeFormat(locale, { weekday: 'long', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+  return w.charAt(0).toUpperCase() + w.slice(1);
+};
+const shortDate = (iso: string, locale: string) =>
+  new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+
+/** ‹ / › at the corners of the date bar: the previous / next study day of the cycle (a day off is skipped). */
+function DayStep({ to, section, dir }: { to?: string; section: Section; dir: 'prev' | 'next' }) {
+  const { t, locale } = useI18n();
+  if (!to) return <span className={`tk-step ${dir}`} aria-hidden="true" />;
+  const label = t(dir === 'prev' ? 'tanakh.prevDay' : 'tanakh.nextDay');
+  return (
+    <a className={`tk-step ${dir}`} href={`#/${section}/${to}`} aria-label={`${label}: ${civilDate(to, locale)}`} title={label}>
+      <Icon name="chevron" size={20} />
+      <small>{shortDate(to, locale)}</small>
+    </a>
+  );
+}
+
+/** «Распечатать»: a small menu — print this section, or both sections of the day (`niflaot:tanakh-print-both`). */
+function PrintMenu({ other, both, setBoth }: { other: Section; both: boolean; setBoth: (v: boolean) => void }) {
+  const { t } = useI18n();
+  const [open, setOpen] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
+  const close = useCallback(() => setOpen(false), []);
+  useDismiss(open, root, close);
+  return (
+    <div className="tk-print" ref={root}>
+      <button type="button" className="lang-btn tk-print-btn" aria-label={t('print.button')} aria-haspopup="true" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+        <Icon name="print" size={17} />
+        <span>{t('print.button')}</span>
+      </button>
+      {open && (
+        <div className="lang-list tk-print-list" role="dialog" aria-label={t('print.button')}>
+          <label>
+            <input type="checkbox" checked={both} onChange={(e) => setBoth(e.target.checked)} />
+            {t('tanakh.printBoth', { other: t(`tanakh.${other}`) })}
+          </label>
+          <button
+            type="button"
+            className="btn"
+            onClick={() => {
+              close();
+              window.print();
+            }}
+          >
+            <Icon name="print" size={16} /> {t('print.button')}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /**
  * `#/neviim[/<date>]`, `#/ketuvim[/<date>]` — «Пророки» / «Писания»: the passage of the day of the three-year cycle
  * (src/core/tanakhCycle.ts): the Hebrew verse, its translation and the commentaries — Metzudat David and Rashi.
@@ -339,14 +394,39 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
       <div className="wrap tk">
         <article>
           <TanakhMasthead title={title} he={SECTION_HE[section]} route={`${section}/${day.date}`} date={day.date} />
-          <header className="tk-head">
-            <p className="wing-tag adults no-print">{t('wing.adults')}</p>
-            <p className="tk-kicker">
-              {isToday ? t('tanakh.today') : !date && !exact ? t('tanakh.nextReading') : civilDate(day.date, locale)} ·{' '}
+          <p className="wing-tag adults no-print">{t('wing.adults')}</p>
+          <nav className="tk-tabs no-print" aria-label={t('tanakh.sectionsLabel')}>
+            {(['neviim', 'ketuvim'] as const).map((s) => (
+              <a key={s} href={`#/${s}/${day.date}`} className={s === section ? 'on' : undefined} aria-current={s === section ? 'page' : undefined}>
+                <span className="tk-tab-name">
+                  {t(`tanakh.${s}`)}{' '}
+                  <span className="he" lang="he">
+                    {SECTION_HE[s]}
+                  </span>
+                </span>
+                <small>{rangeLabel(s, day[s], lang)}</small>
+              </a>
+            ))}
+          </nav>
+
+          <nav className="tk-dates no-print" aria-label={t('tanakh.navLabel')}>
+            <DayStep to={prev?.date} section={section} dir="prev" />
+            <div className="tk-date">
+              <b>{isToday ? t('tanakh.today') : !date && !exact ? t('tanakh.nextReading') : weekday(day.date, locale)}</b>
+              <span>{civilDate(day.date, locale)}</span>
               <span className="he" lang="he">
                 {jewishDate(day.date)}
               </span>
-            </p>
+              {!isToday && (date || exact) && (
+                <a className="tk-to-today" href={`#/${section}`}>
+                  {t('tanakh.toToday')}
+                </a>
+              )}
+            </div>
+            <DayStep to={next?.date} section={section} dir="next" />
+          </nav>
+
+          <header className="tk-head">
             <h1>
               {title}{' '}
               <span className="he" lang="he">
@@ -361,28 +441,9 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
             {!date && !exact && <p className="tk-note">{t('tanakh.restToday')}</p>}
           </header>
 
-          <nav className="tk-nav" aria-label={t('tanakh.navLabel')}>
-            {prev ? <a href={`#/${section}/${prev.date}`}>← {civilDate(prev.date, locale)}</a> : <span />}
-            <a className="tk-other" href={`#/${other}/${day.date}`}>
-              {t(`tanakh.${other}`)}: {rangeLabel(other, day[other], lang)}
-            </a>
-            {next ? <a href={`#/${section}/${next.date}`}>{civilDate(next.date, locale)} →</a> : <span />}
-          </nav>
-
           <div className="tk-tools no-print">
             <ViewMenu view={view} setView={setView} soon={soon} />
-            {sec && (
-              <div className="tk-print">
-                <button type="button" className="btn ghost" onClick={() => window.print()}>
-                  <Icon name="print" size={18} />
-                  {t('print.button')}
-                </button>
-                <label>
-                  <input type="checkbox" checked={printBoth} onChange={(e) => setPrintBoth(e.target.checked)} />
-                  {t('tanakh.printBoth', { other: t(`tanakh.${other}`) })}
-                </label>
-              </div>
-            )}
+            {sec && <PrintMenu other={other} both={printBoth} setBoth={setPrintBoth} />}
           </div>
           {missing && <p className="tk-note">{t(want === 'de' ? 'tanakh.deMissing' : 'tanakh.ruMissing')}</p>}
 
@@ -402,6 +463,24 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
               </a>
             </p>
           )}
+          <nav className="tk-pager no-print" aria-label={t('tanakh.navLabel')}>
+            {prev ? (
+              <a className="prev" href={`#/${section}/${prev.date}`}>
+                <small>← {t('tanakh.prevDay')}</small>
+                <b>{rangeLabel(section, prev[section], lang)}</b>
+                <span>{civilDate(prev.date, locale)}</span>
+              </a>
+            ) : (
+              <span />
+            )}
+            {next && (
+              <a className="next" href={`#/${section}/${next.date}`}>
+                <small>{t('tanakh.nextDay')} →</small>
+                <b>{rangeLabel(section, next[section], lang)}</b>
+                <span>{civilDate(next.date, locale)}</span>
+              </a>
+            )}
+          </nav>
           {sec && <Sources sec={sec} tr={tr} />}
           {printBoth && content?.[other] && (
             <section className="tk-print-other print-only">
