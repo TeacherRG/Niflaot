@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { Html, useI18n } from '../i18n';
-import { MODES, setMode, useMode } from '../core/mode';
-import { HEBREW_LEVELS, setHebrewLevel, useHebrewLevel } from '../core/hebrewLevel';
+import { MODES, savedMode, setMode, useMode } from '../core/mode';
+import { HEBREW_LEVELS, savedHebrewLevel, setHebrewLevel, useHebrewLevel } from '../core/hebrewLevel';
 import { BookProgress } from './BookProgress';
 import type { MessageKey } from '../i18n/locales/ru';
 import {
@@ -275,30 +275,48 @@ const SHOW_BOARD = false;
  * The two onboarding answers (ModePicker.tsx), switched here right away: the site's mode (src/core/mode.ts) — who is
  * learning, and the Hebrew level (src/core/hebrewLevel.ts); kept on the device and in the account.
  */
+const close = (e: { currentTarget: HTMLElement }) => e.currentTarget.closest('details')?.removeAttribute('open');
+
 function ModeCard() {
   const { t } = useI18n();
   const mode = useMode();
   const level = useHebrewLevel();
+  // an answer already given is one line with «Изменить»; the choices open on a tap (and stay open while unanswered)
+  const modeSet = savedMode() !== null;
+  const levelSet = savedHebrewLevel() !== null;
   return (
     <section className="acc-card">
-      <h2>{t('mode.title')}</h2>
-      <div className="acc-modes" role="radiogroup" aria-label={t('mode.menu')}>
-        {MODES.map((m) => (
-          <button key={m} role="radio" aria-checked={mode === m} className={`acc-mode${mode === m ? ' on' : ''}`} onClick={() => setMode(m)}>
-            <b>{t(`mode.${m}`)}</b>
-            <small>{t(`mode.${m}Sub`)}</small>
-          </button>
-        ))}
-      </div>
-      <h2 id="acc-hb">{t('hebrew.q')}</h2>
-      <div className="acc-modes" role="radiogroup" aria-labelledby="acc-hb">
-        {HEBREW_LEVELS.map((l) => (
-          <button key={l} role="radio" aria-checked={level === l} className={`acc-mode${level === l ? ' on' : ''}`} onClick={() => setHebrewLevel(l)}>
-            <b>{t(`hebrew.${l}`)}</b>
-            <small>{t(`hebrew.${l}.sub`)}</small>
-          </button>
-        ))}
-      </div>
+      <h2>{t('acc.settings')}</h2>
+      <details className="acc-pick" open={!modeSet}>
+        <summary>
+          <span className="acc-pick-q">{t('mode.title')}</span>
+          {modeSet && <b>{t(`mode.${mode}`)}</b>}
+          <span className="acc-pick-edit">{t('acc.change')}</span>
+        </summary>
+        <div className="acc-modes" role="radiogroup" aria-label={t('mode.menu')}>
+          {MODES.map((m) => (
+            <button key={m} role="radio" aria-checked={modeSet && mode === m} className={`acc-mode${modeSet && mode === m ? ' on' : ''}`} onClick={(e) => (setMode(m), close(e))}>
+              <b>{t(`mode.${m}`)}</b>
+              <small>{t(`mode.${m}Sub`)}</small>
+            </button>
+          ))}
+        </div>
+      </details>
+      <details className="acc-pick" open={!levelSet}>
+        <summary>
+          <span className="acc-pick-q" id="acc-hb">{t('hebrew.q')}</span>
+          {levelSet && <b>{t(`hebrew.${level}`)}</b>}
+          <span className="acc-pick-edit">{t('acc.change')}</span>
+        </summary>
+        <div className="acc-modes" role="radiogroup" aria-labelledby="acc-hb">
+          {HEBREW_LEVELS.map((l) => (
+            <button key={l} role="radio" aria-checked={levelSet && level === l} className={`acc-mode${levelSet && level === l ? ' on' : ''}`} onClick={(e) => (setHebrewLevel(l), close(e))}>
+              <b>{t(`hebrew.${l}`)}</b>
+              <small>{t(`hebrew.${l}.sub`)}</small>
+            </button>
+          ))}
+        </div>
+      </details>
     </section>
   );
 }

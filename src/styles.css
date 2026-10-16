@@ -1691,3 +1691,15 @@ h2.mode-q{margin-top:22px}
 .hs-today-k{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-2)}
 .hs-locked{color:var(--muted)}
 .hs-rights{font-weight:700;color:var(--ink)}
+.acc-pick{border-top:1px solid var(--line);padding:10px 0}
+.acc-pick:last-child{padding-bottom:0}
+.acc-pick>summary{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;cursor:pointer;list-style:none}
+.acc-pick>summary::-webkit-details-marker{display:none}
+.acc-pick-q{flex-basis:100%;color:var(--muted);font-size:13.5px}
+.acc-pick>summary b{font-size:16px}
+.acc-pick-edit{margin-inline-start:auto;color:var(--tchelet);font-size:13.5px;font-weight:600}
+.acc-pick[open] .acc-pick-edit{visibility:hidden}
+.acc-pick[open]>summary{margin-bottom:10px}
+.bp-all{margin:12px 0;border:1px solid var(--line);border-radius:8px;padding:10px 14px}
+.bp-all>summary{cursor:pointer;font-weight:600;color:var(--tchelet)}
+.bp-all[open]>summary{margin-bottom:8px}
