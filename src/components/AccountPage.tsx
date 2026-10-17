@@ -17,6 +17,7 @@ import {
   resendConsent,
   saveProfile,
   sendCode,
+  syncNow,
   useAccount,
 } from '../core/account';
 import { TopBar } from './TopBar';
@@ -182,6 +183,31 @@ function ProfileForm({ first }: { first: boolean }) {
       </button>
       {err && <p className="acc-err" role="alert">{err}</p>}
     </form>
+  );
+}
+
+/** Whether the progress reached the account: the last exchange of this tab, and «Синхронизировать сейчас». */
+function SyncLine() {
+  const { t, locale } = useI18n();
+  const { sync } = useAccount();
+  const { busy, run } = useAction();
+  const time = sync && new Date(sync.at).toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
+  return (
+    <>
+      {sync && !sync.ok ? (
+        <p className="acc-err" role="status">
+          {t('acc.syncFailed', { time: time! })}
+        </p>
+      ) : (
+        <p className="acc-ok">
+          ✓ {t('acc.synced')}
+          {sync && ` ${t('acc.syncedAt', { time: time! })}`}
+        </p>
+      )}
+      <button className="link-btn" disabled={busy} onClick={() => run(syncNow)}>
+        {t('acc.syncNow')}
+      </button>
+    </>
   );
 }
 
@@ -367,7 +393,7 @@ export function AccountPage() {
           {token && u?.active && (
             <>
               <section className="acc-card">
-                <p className="acc-ok">✓ {t('acc.synced')}</p>
+                <SyncLine />
                 <p className="acc-note">{t('acc.ai', { today: me!.ai.today, total: me!.ai.total })}</p>
               </section>
               {SHOW_CLASSES && <Classes />}

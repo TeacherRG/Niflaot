@@ -11,10 +11,12 @@ import { Panels } from './components/Panels';
 import { TermPopover } from './components/TermPopover';
 import { Assistant } from './components/Assistant';
 import { setPageState } from './core/assistant';
+import { onPulled } from './core/account';
 import { installFootnoteNavigation } from './sources/footnotes';
 import { installLangMarkup } from './core/langMarkup';
 import { installTitleSync } from './core/pageMeta';
 import { DonateFab, UIContext, type Panel } from './components/ui';
+import { NotFound, PageBoundary, PageLoading } from './components/PageStates';
 import { useI18n } from './i18n';
 
 import { SITE_HOST, STATIC_PAGES, type StaticPage } from './core/site';
@@ -138,6 +140,9 @@ function Site() {
   useFirstVisitHelp(open, !!lesson);
   // who is learning: asked on the home page until chosen (not of machines), and at #/mode
   const mode = useSavedMode();
+  // the account brought progress from another device: the home page is drawn again from it
+  const [pulled, setPulled] = useState(0);
+  useEffect(() => onPulled(() => setPulled((n) => n + 1)), []);
   // outside a lesson the helper knows no lesson (the lesson page sets its own state)
   useEffect(() => {
     if (!lesson || view === 'print' || view === 'memo' || view === 'cards' || view === 'read') setPageState(null);
@@ -145,73 +150,78 @@ function Site() {
   const ui = useMemo(() => ({ panel, open, lessonSlug: lesson?.slug }), [panel, lesson]);
   return (
     <UIContext.Provider value={ui}>
-      <Suspense fallback={null}>
-        {slug === 'mode' || (!slug && mode === null && !isReader()) ? (
-          <ModePicker />
-        ) : slug === 'admin' ? (
-          <Admin slug={view} leaders={variant} />
-        ) : slug === 'partners' ? (
-          <PartnersPage />
-        ) : slug === 'teacher' ? (
-          <TeacherPage />
-        ) : slug === 'account' ? (
-          <AccountPage />
-        ) : slug === 'class' && view ? (
-          <ClassPage id={view} />
-        ) : slug === 'consent' && view ? (
-          <ConsentPage token={view} />
-        ) : slug === 'privacy' ? (
-          <PrivacyPage />
-        ) : slug === 'facts' ? (
-          <FactsPage at={view || undefined} />
-        ) : slug === 'daily' ? (
-          <FactsPage at="daily" />
-        ) : slug === 'letters' ? (
-          <LettersPage />
-        ) : slug === 'math' ? (
-          <MathPage op={OPS.includes(view as Op) ? (view as Op) : 'add'} />
-        ) : slug === 'hemshech' ? (
-          <HemshechPage key={route} passage={view || undefined} />
-        ) : slug === 'academy' ? (
-          <AcademyPage key={route} id={view || undefined} sample={location.hash.includes('?sample')} />
-        ) : (slug === 'neviim' || slug === 'ketuvim') && (view === 'quiz' || variant === 'quiz') ? (
-          <TanakhQuizPage key={route} section={slug} date={/^\d{4}-\d{2}-\d{2}$/.test(view ?? '') ? view : undefined} />
-        ) : slug === 'neviim' || slug === 'ketuvim' ? (
-          <TanakhPage key={`${slug}/${view}`} section={slug} date={/^\d{4}-\d{2}-\d{2}$/.test(view ?? '') ? view : undefined} />
-        ) : slug === 'rebbe' && view in PARSHIOT ? (
-          <RebbePage parsha={view as ParshaId} />
-        ) : !lesson ? (
-          <Catalog />
-        ) : view === 'print' && variant === 'memo' && lesson.memo ? (
-          <PrintMemo key={lesson.slug} lesson={lesson} memo={lesson.memo} />
-        ) : cardsOnly(lesson) && (view === 'print' ? variant !== 'memo' : view !== 'cards' && view !== 'read') ? (
-          // a lesson with only cards so far: its page and its printout are the cards
-          view === 'print' ? (
-            <PrintCards key={lesson.slug} lesson={lesson} cards={lesson.cards!} />
+      <PageBoundary key={route}>
+        <Suspense fallback={<PageLoading />}>
+          {slug === 'mode' || (!slug && mode === null && !isReader()) ? (
+            <ModePicker />
+          ) : slug === 'admin' ? (
+            <Admin slug={view} leaders={variant} />
+          ) : slug === 'partners' ? (
+            <PartnersPage />
+          ) : slug === 'teacher' ? (
+            <TeacherPage />
+          ) : slug === 'account' ? (
+            <AccountPage />
+          ) : slug === 'class' && view ? (
+            <ClassPage id={view} />
+          ) : slug === 'consent' && view ? (
+            <ConsentPage token={view} />
+          ) : slug === 'privacy' ? (
+            <PrivacyPage />
+          ) : slug === 'facts' ? (
+            <FactsPage at={view || undefined} />
+          ) : slug === 'daily' ? (
+            <FactsPage at="daily" />
+          ) : slug === 'letters' ? (
+            <LettersPage />
+          ) : slug === 'math' && (!view || OPS.includes(view as Op)) ? (
+            <MathPage op={(view as Op) || 'add'} />
+          ) : slug === 'hemshech' ? (
+            <HemshechPage key={route} passage={view || undefined} />
+          ) : slug === 'academy' ? (
+            <AcademyPage key={route} id={view || undefined} sample={location.hash.includes('?sample')} />
+          ) : (slug === 'neviim' || slug === 'ketuvim') && (view === 'quiz' || variant === 'quiz') ? (
+            <TanakhQuizPage key={route} section={slug} date={/^\d{4}-\d{2}-\d{2}$/.test(view ?? '') ? view : undefined} />
+          ) : slug === 'neviim' || slug === 'ketuvim' ? (
+            <TanakhPage key={`${slug}/${view}`} section={slug} date={/^\d{4}-\d{2}-\d{2}$/.test(view ?? '') ? view : undefined} />
+          ) : slug === 'rebbe' && view in PARSHIOT ? (
+            <RebbePage parsha={view as ParshaId} />
+          ) : !slug ? (
+            <Catalog key={pulled} />
+          ) : !lesson ? (
+            // a mistyped or outdated link (and #/math/<unknown>): say so, not the home page
+            <NotFound />
+          ) : view === 'print' && variant === 'memo' && lesson.memo ? (
+            <PrintMemo key={lesson.slug} lesson={lesson} memo={lesson.memo} />
+          ) : cardsOnly(lesson) && (view === 'print' ? variant !== 'memo' : view !== 'cards' && view !== 'read') ? (
+            // a lesson with only cards so far: its page and its printout are the cards
+            view === 'print' ? (
+              <PrintCards key={lesson.slug} lesson={lesson} cards={lesson.cards!} />
+            ) : (
+              <CardsPage key={lesson.slug} lesson={lesson} cards={lesson.cards!} />
+            )
+          ) : view === 'print' && variant === 'cards' && lesson.cards ? (
+            <PrintCards key={lesson.slug} lesson={lesson} cards={lesson.cards} />
+          ) : view === 'cards' && lesson.cards ? (
+            <CardsPage key={lesson.slug} lesson={lesson} cards={lesson.cards} />
+          ) : view === 'memo' && lesson.memo ? (
+            <MemoPage key={lesson.slug} lesson={lesson} memo={lesson.memo} at={Number(variant) || undefined} />
+          ) : view === 'read' && lesson.cards ? (
+            <CardsReadPage
+              key={lesson.slug}
+              lesson={lesson}
+              cards={lesson.cards}
+              mode={variant === 'poem' ? ('poem' as const) : variant === 'cards' || !lesson.riddles.length ? ('read' as const) : ('talk' as const)}
+            />
+          ) : view === 'read' && lesson.kind !== 'sicha' ? (
+            <ReadPage key={lesson.slug} lesson={lesson} at={Number(variant) || undefined} />
+          ) : view === 'print' ? (
+            <PrintLesson key={lesson.slug} lesson={lesson} />
           ) : (
-            <CardsPage key={lesson.slug} lesson={lesson} cards={lesson.cards!} />
-          )
-        ) : view === 'print' && variant === 'cards' && lesson.cards ? (
-          <PrintCards key={lesson.slug} lesson={lesson} cards={lesson.cards} />
-        ) : view === 'cards' && lesson.cards ? (
-          <CardsPage key={lesson.slug} lesson={lesson} cards={lesson.cards} />
-        ) : view === 'memo' && lesson.memo ? (
-          <MemoPage key={lesson.slug} lesson={lesson} memo={lesson.memo} at={Number(variant) || undefined} />
-        ) : view === 'read' && lesson.cards ? (
-          <CardsReadPage
-            key={lesson.slug}
-            lesson={lesson}
-            cards={lesson.cards}
-            mode={variant === 'poem' ? ('poem' as const) : variant === 'cards' || !lesson.riddles.length ? ('read' as const) : ('talk' as const)}
-          />
-        ) : view === 'read' && lesson.kind !== 'sicha' ? (
-          <ReadPage key={lesson.slug} lesson={lesson} at={Number(variant) || undefined} />
-        ) : view === 'print' ? (
-          <PrintLesson key={lesson.slug} lesson={lesson} />
-        ) : (
-          <LessonPage key={lesson.slug} lesson={lesson} at={view === 'r' ? Number(variant) || undefined : undefined} />
-        )}
-      </Suspense>
+            <LessonPage key={lesson.slug} lesson={lesson} at={view === 'r' ? Number(variant) || undefined : undefined} />
+          )}
+        </Suspense>
+      </PageBoundary>
       <Panels />
       <TermPopover />
       <Assistant />

@@ -34,7 +34,7 @@ export function TeacherPage() {
             <span className="teacher-price">{t('teacher.ai.price')}</span>
             {!ASSISTANT_URL && <p className="teacher-note">{t('teacher.ai.soon')}</p>}
             <button className="btn" onClick={() => open('assistant')}>
-              {t('teacher.ai.go')}
+              {t(ASSISTANT_URL ? 'teacher.ai.go' : 'teacher.ai.goHelper')}
             </button>
             <p className="teacher-note">{t('teacher.ai.note')}</p>
           </section>

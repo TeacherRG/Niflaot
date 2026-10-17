@@ -33,7 +33,10 @@
 ## Стек и команды
 
 - React 19 + TypeScript + Vite, hash-роутинг (`#/`, `#/<slug>`, `#/<slug>/print`, `#/math/<op>`);
-  статические `/<slug>/` (SEO) открывают тот же урок.
+  статические `/<slug>/` (SEO) открывают тот же урок. Неизвестный адрес — «Такой страницы нет» (`NotFound`),
+  загрузка страницы — индикатор, не загрузился код страницы (новый деплой) — сам перезагружает раз в минуту, иначе «Обновить»
+  (`src/components/PageStates.tsx`). Окна `Sheet` — модальные: Tab не выходит, `#root` — `inert`.
+- GitHub Actions — по полному SHA (с комментарием-версией), обновления — Dependabot (`.github/dependabot.yml`).
 - `npm install`, `npm run dev`, `npm run build` (tsc + vite + prerender), `npm run check` (проверка данных уроков).
 - Браузерные проверки: Playwright + Chromium из `/opt/pw-browsers` (не скачивать браузер).
 
@@ -67,9 +70,13 @@
   по виду страницы — свои вопросы-подсказки (`SUGGEST`). `src/components/Helper.tsx` (`HelperContent`) — гематрия по шагам, первоисточники урока,
   частые вопросы: свёрнутыми блоками в «Как играть» («Ещё помощь»), из чата — ссылка «Частые вопросы и гематрия по шагам»;
   без `ASSISTANT_URL` то же самое открывает ✦.
-- Админка `#/admin` (`src/components/Admin.tsx`, `src/admin/github.ts`): вход GitHub-токеном (fine-grained, Contents RW на репо),
+- Админка `#/admin` (`src/components/Admin.tsx`, `src/admin/github.ts`): вход GitHub-токеном (fine-grained, Contents RW на репо,
+  с коротким сроком), токен — **только до закрытия вкладки** (sessionStorage), с галочкой «Запомнить» — 30 дней в localStorage;
+  «браузер админа» (без счётчика посещений, отрывки Хасидута заранее) — флаг `niflaot:admin-device` без секрета;
   правка любых текстов уроков и интерфейса ru/en/de; черновик виден сразу в этом браузере, «Опубликовать» — коммит
-  `src/content/overrides.json` в `main` → деплой. Правки накладываются поверх исходников (`src/content/index.ts`);
+  `src/content/overrides.json` в `main` → деплой. Правки накладываются поверх исходников (`src/content/index.ts`)
+  и **проходят allowlist-санитайзер** (`src/core/sanitize.ts`: только теги и атрибуты, что есть в текстах; без `on…=`,
+  `style`, `javascript:`); новый тег/атрибут в текстах — добавить в allowlist (иначе `npm run check` ругается);
   `npm run check` ругается на правку несуществующего поля. Перед правкой исходника — перенести туда правку из overrides.
 - Статистика посещений — GoatCounter (`src/core/analytics.ts`, без cookies): https://niflaot.goatcounter.com —
   страны и число просмотров каждого маршрута (`#/<slug>/memo` → `/<slug>/memo`); не считаются dev, `#/admin`,
@@ -121,7 +128,8 @@
 - «Учитель» (`#/teacher`, `TeacherPage.tsx`, пункт меню): **ИИ-учитель** (стоимость символическая; кнопка открывает чат ✦,
   «ИИ — не раввин»; оплаты пока нет — только надпись) и **учитель-человек** — письмо автору сайта (Office@mychitas.app).
 - `assistant/` — сервер ИИ-чата (Cloudflare Worker, Claude API); **работает** с 11.10.2026: https://niflaot-assistant.niflaot.workers.dev
-  (variable `ASSISTANT_URL`; без неё — офлайн-помощник). Лимиты: 6 вопросов в минуту с IP (`CHAT_LIMITER`) и
+  (variable `ASSISTANT_URL`; без неё — офлайн-помощник). Счётчик суточной квоты не ответил — вопрос не идёт к модели (503, «помощник занят»).
+  Оборванный ответ помечается и не уходит в следующий запрос; `<page_context>` — данные, не инструкции. Лимиты: 6 вопросов в минуту с IP (`CHAT_LIMITER`) и
   `CHAT_DAILY_LIMIT` (1000) вопросов в сутки от всех вместе (`wrangler.toml`; выше — «загляните завтра»). Лимит расходов — platform.claude.com → Billing; токен Cloudflare истекает 12.10.2027;
   выкладка — `.github/workflows/assistant.yml` (secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `ANTHROPIC_API_KEY`).
 
@@ -361,6 +369,9 @@ ru/en/de), на карточках слов — как читается слов
 
 - **Гость** — по умолчанию: всё доступно, прогресс только в браузере. Аккаунт — по желанию: `#/account`
   (`AccountPage.tsx`), в шапке — «Войти» / ник / «Аккаунт» (`AccountChip` в `TopBar.tsx`, виден всегда; там же режим сайта), в меню пункта нет (таблицы лидеров у игроков нет — только в админке).
+- Маршруты сервера аккаунтов — таблица метод+путь (`ROUTES` в `assistant/src/rules.ts`, другое — 405 / 404; проверка — `scripts/check-accounts.ts`).
+  В аккаунте — строка синхронизации (время последней, ошибка, «Синхронизировать сейчас»); прогресс с другого устройства
+  перерисовывает главную без перезагрузки (`onPulled`).
 - **Вход** — 6-значный код на email, без пароля (`src/core/account.ts` ↔ `assistant/src/accounts.ts`, Durable Object
   `Accounts` на SQLite; письма — Resend, secret `RESEND_API_KEY`, отправитель `MAIL_FROM`). Без ключа `/account/config`
   отвечает `mail: false` — «Войти» не показывается. Коды (10 мин, 5 попыток, не чаще раза в минуту и 5 в час) и

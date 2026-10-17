@@ -687,6 +687,7 @@ article.m-card{border-top:3px solid var(--gold-2)}
 .ai-dots{display:inline-block;width:28px;height:10px;background:radial-gradient(circle,var(--gold) 3px,transparent 3.5px) 0 50%/10px 10px repeat-x;animation:ai-pulse 1s infinite ease-in-out}
 @keyframes ai-pulse{50%{opacity:.35}}
 .ai-error{color:var(--bad);font-size:14px}
+.ai-cut{margin:6px 0 0;color:var(--muted);font-size:13px;font-style:italic}
 .ai-form{display:flex;gap:8px;align-items:flex-end}
 .ai-form textarea{flex:1;min-width:0;resize:none;font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
 .ai-form textarea:focus{outline:2px solid var(--gold-line);border-color:var(--gold)}
@@ -1126,6 +1127,8 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .t-gold{--tc:#8A6524;--tc-line:var(--gold);--tc-soft:var(--gold-soft);--tc-bg:var(--ink);--tc-he:var(--gold-2)}
 .t-tchelet{--tc:var(--tchelet);--tc-line:var(--tchelet);--tc-soft:var(--tchelet-soft);--tc-bg:var(--tchelet);--tc-he:var(--gold-soft)}
 .t-green{--tc:var(--ok);--tc-line:var(--ok);--tc-soft:var(--ok-soft);--tc-bg:#1F5A38;--tc-he:var(--gold-soft)}
+.page-loading{min-height:50vh;display:grid;place-items:center}
+.page-state{padding:48px 16px;text-align:center;display:grid;gap:16px;justify-items:center}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* home: one screen — title and «Continue», the week's lessons; beside them the week countdown */
@@ -1275,6 +1278,7 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .admin-who{color:var(--muted);font-size:14px}
 .admin-login{display:grid;gap:12px;max-width:420px}
 .admin-login label{display:grid;gap:6px;font-weight:600}
+.admin-login .admin-remember{display:flex;gap:8px;align-items:flex-start;font-weight:400}
 .admin input[type=password],.admin input[type=search],.admin select,.admin textarea{font:inherit;font-size:15px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface);color:var(--ink);min-width:0}
 .admin-help{color:var(--muted);font-size:14px}
 .admin-help summary{cursor:pointer;color:var(--ink)}
