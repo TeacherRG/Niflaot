@@ -4,6 +4,7 @@ import { LOCALES, type Locale } from '../i18n';
 import ruUi from '../i18n/locales/ru';
 import enUi from '../i18n/locales/en';
 import deUi from '../i18n/locales/de';
+import { sanitizeHtml } from '../core/sanitize';
 import { PUBLISHED, entries, lessonKey, originalText, setText, stringFields, uiKey } from '../content';
 import {
   REPO, deployState, discardDraft, getToken, loadDraft, publish, saveDraft, signIn, signOut,
@@ -86,13 +87,14 @@ function SignIn({ onDone }: { onDone: (token: string, login: string) => void }) 
   const [value, setValue] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [remember, setRemember] = useState(false);
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setBusy(true);
     setError('');
     try {
       const t = value.trim();
-      onDone(t, await signIn(t));
+      onDone(t, await signIn(t, remember));
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -113,6 +115,10 @@ function SignIn({ onDone }: { onDone: (token: string, login: string) => void }) 
             placeholder="github_pat_…"
           />
         </label>
+        <label className="admin-remember">
+          <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} /> Запомнить на этом
+          устройстве на 30 дней (иначе — до закрытия вкладки)
+        </label>
         <button className="btn" disabled={busy || !value.trim()}>
           {busy ? 'Проверяю…' : 'Войти'}
         </button>
@@ -130,7 +136,11 @@ function SignIn({ onDone }: { onDone: (token: string, login: string) => void }) 
           </li>
           <li>Repository access: Only select repositories → {REPO}.</li>
           <li>Permissions: Contents — Read and write; Actions — Read-only (чтобы видеть ход публикации).</li>
-          <li>Скопируйте токен сюда. Он хранится только в этом браузере; «Выйти» его стирает.</li>
+          <li>Expiration: короткий срок (например, 30 дней) — истёкший токен ничего не может.</li>
+          <li>
+            Скопируйте токен сюда. Он хранится только в этом браузере — до закрытия вкладки или, с галочкой «Запомнить»,
+            30 дней; «Выйти» его стирает.
+          </li>
         </ol>
       </details>
     </main>
@@ -154,13 +164,18 @@ function Editor({ slug, login, onSignOut }: { slug?: string; login: string; onSi
   const [commit, setCommit] = useState<string | null>(null);
   const publishedKeys = useMemo(() => new Set(entries(PUBLISHED).map(([k]) => k)), []);
 
+  // the field shows the text as typed (the site gets it sanitized, so a half-typed tag must not vanish)
+  const typed = (key: string, shown: string) => (typeof draft[key] === 'string' ? (draft[key] as string) : shown);
   const fields: Field[] = useMemo(() => {
     if (section === 'ui')
       return Object.entries(UI_MESSAGES[locale])
         .filter(([, v]) => typeof v === 'string')
-        .map(([k, v]) => ({ key: uiKey(locale, k), path: k, value: v as string }));
+        .map(([k, v]) => ({ key: uiKey(locale, k), path: k, value: typed(uiKey(locale, k), v as string) }));
     const text = LESSONS.find((l) => l.slug === section)?.texts[locale];
-    return stringFields(text).map(({ path, value }) => ({ key: lessonKey(section, locale, path), path, value }));
+    return stringFields(text).map(({ path, value }) => {
+      const key = lessonKey(section, locale, path);
+      return { key, path, value: typed(key, value) };
+    });
     // `draft` is a dependency: the values are read from the (edited) lesson objects
   }, [section, locale, draft]);
 
@@ -324,7 +339,7 @@ function FieldEditor({ field, state, onChange }: { field: Field; state: string; 
         )}
       </div>
       <textarea value={field.value} rows={rows} dir="auto" onChange={(e) => onChange(e.target.value)} />
-      {html && <div className="admin-preview" dangerouslySetInnerHTML={{ __html: field.value }} />}
+      {html && <div className="admin-preview" dangerouslySetInnerHTML={{ __html: sanitizeHtml(field.value) }} />}
     </div>
   );
 }

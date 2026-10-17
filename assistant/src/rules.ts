@@ -54,3 +54,29 @@ export const validEmail = (e: unknown): e is string => typeof e === 'string' && 
 /** 3–20 letters, digits, space, _ or -; not only digits */
 export const validNick = (n: unknown): n is string =>
   typeof n === 'string' && /^[\p{L}\p{N}][\p{L}\p{N} _-]{1,18}[\p{L}\p{N}]$/u.test(n) && !/^\d+$/.test(n);
+
+/**
+ * Every route with the methods it takes (anything else: 405 with `Allow`, an unknown path: 404) — so a GET
+ * never reaches a handler that reads a body, and a write is never done by a GET (a link, a mail scanner).
+ */
+const ROUTES: Record<string, string[]> = {
+  '/config': ['GET'],
+  '/chat-quota': ['POST'],
+  '/code': ['POST'],
+  '/login': ['POST'],
+  '/consent': ['POST'],
+  '/consent/resend': ['POST'],
+  '/leaders': ['GET'],
+  '/me': ['GET'],
+  '/profile': ['POST'],
+  '/logout': ['POST'],
+  '/delete': ['POST'],
+  '/progress': ['GET', 'PUT'],
+  '/class': ['POST'],
+  '/class/join': ['POST'],
+  '/class/leave': ['POST'],
+  '/class/remove': ['POST'],
+};
+/** `/class/<id>` — a teacher's view of their class */
+export const methodsFor = (path: string): string[] | undefined =>
+  ROUTES[path] ?? (/^\/class\/[A-Za-z0-9_-]{1,32}$/.test(path) ? ['GET'] : undefined);

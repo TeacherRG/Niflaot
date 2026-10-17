@@ -11,7 +11,7 @@
  * progress (src/core/sync.ts), its summary, classes, the count of AI questions. «Удалить аккаунт» deletes all of it.
  */
 import { DurableObject } from 'cloudflare:workers';
-import { validEmail, validNick } from './rules';
+import { methodsFor, validEmail, validNick } from './rules';
 import { mergeSnapshots, summarize, type Snapshot } from '../../src/core/sync';
 
 export interface MailEnv {
@@ -218,6 +218,13 @@ export class Accounts extends DurableObject<MailEnv> {
     if (!(await this.ctx.storage.getAlarm())) await this.ctx.storage.setAlarm(Date.now() + 864e5);
     const url = new URL(req.url);
     const path = url.pathname;
+    const allowed = methodsFor(path);
+    if (!allowed) return fail('not found', 404);
+    if (!allowed.includes(req.method))
+      return new Response(JSON.stringify({ error: 'method' }), {
+        status: 405,
+        headers: { 'Content-Type': 'application/json', Allow: allowed.join(', ') },
+      });
     const body = req.method === 'POST' || req.method === 'PUT' ? ((await req.json().catch(() => null)) as Record<string, any> | null) : null;
     if ((req.method === 'POST' || req.method === 'PUT') && !body) return fail('bad json');
 

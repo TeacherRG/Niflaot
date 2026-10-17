@@ -1,4 +1,5 @@
 import { applyOverrides, put, setText, type Overrides } from '../content';
+import { sanitizeHtml } from '../core/sanitize';
 
 /**
  * The admin's side of the text editor: sign-in with a GitHub token (only someone who may push to the repo
@@ -11,23 +12,53 @@ export const FILE = 'src/content/overrides.json';
 const API = 'https://api.github.com';
 const TOKEN_KEY = 'niflaot:admin-token';
 const DRAFT_KEY = 'niflaot:admin-draft';
+/** not a secret: "this is the admin's browser" — no visit counting, future passages open — also after the token is gone */
+const DEVICE_KEY = 'niflaot:admin-device';
+/** a remembered token lives at most this long */
+const REMEMBER_MS = 30 * 24 * 3600 * 1000;
 
-const read = (k: string) => {
+const store = (kind: 'local' | 'session') => {
   try {
-    return localStorage.getItem(k);
+    return kind === 'local' ? localStorage : sessionStorage;
   } catch {
     return null;
   }
 };
-const write = (k: string, v: string | null) => {
+const read = (k: string, kind: 'local' | 'session' = 'local') => {
   try {
-    if (v === null) localStorage.removeItem(k);
-    else localStorage.setItem(k, v);
+    return store(kind)?.getItem(k) ?? null;
+  } catch {
+    return null;
+  }
+};
+const write = (k: string, v: string | null, kind: 'local' | 'session' = 'local') => {
+  try {
+    if (v === null) store(kind)?.removeItem(k);
+    else store(kind)?.setItem(k, v);
   } catch {}
 };
 
-export const getToken = () => read(TOKEN_KEY);
-export const isAdmin = () => !!getToken();
+/**
+ * The token may write to the repo, so it is kept as briefly as possible: by default only for this tab
+ * (sessionStorage — gone when the tab closes); "remember on this device" keeps it in localStorage for 30 days.
+ * A token saved the old way (a bare string in localStorage, no time limit) moves to this tab.
+ */
+export function getToken(): string | null {
+  const own = read(TOKEN_KEY, 'session');
+  if (own) return own;
+  const saved = read(TOKEN_KEY);
+  if (!saved) return null;
+  let kept: { t?: string; exp?: number } | null = null;
+  try {
+    kept = JSON.parse(saved) as { t?: string; exp?: number };
+  } catch {}
+  if (kept && typeof kept === 'object' && kept.t && (kept.exp ?? 0) > Date.now()) return kept.t;
+  write(TOKEN_KEY, null);
+  if (kept && typeof kept === 'object') return null; // a remembered token whose time is up
+  write(TOKEN_KEY, saved, 'session');
+  return saved;
+}
+export const isAdmin = () => read(DEVICE_KEY) === '1' || !!getToken();
 
 async function gh<T>(path: string, init: RequestInit = {}, token = getToken()): Promise<T> {
   const res = await fetch(`${API}${path}`, {
@@ -48,15 +79,18 @@ async function gh<T>(path: string, init: RequestInit = {}, token = getToken()): 
 }
 
 /** Checks the token: it must let its owner push to the repo. Returns the GitHub login. */
-export async function signIn(token: string): Promise<string> {
+export async function signIn(token: string, remember = false): Promise<string> {
   const repo = await gh<{ permissions?: { push?: boolean } }>(`/repos/${REPO}`, {}, token);
   if (!repo.permissions?.push) throw new Error('У этого токена нет права записи в репозиторий');
   const user = await gh<{ login: string }>('/user', {}, token).catch(() => ({ login: '' }));
-  write(TOKEN_KEY, token);
+  write(TOKEN_KEY, token, 'session');
+  write(TOKEN_KEY, remember ? JSON.stringify({ t: token, exp: Date.now() + REMEMBER_MS }) : null);
+  write(DEVICE_KEY, '1');
   return user.login;
 }
 
 export function signOut() {
+  write(TOKEN_KEY, null, 'session');
   write(TOKEN_KEY, null);
 }
 
@@ -107,7 +141,7 @@ const fromBase64 = (b: string) => new TextDecoder().decode(Uint8Array.from(atob(
 export async function publish(draft: Draft, login: string): Promise<string> {
   const file = await gh<{ content: string; sha: string }>(`/repos/${REPO}/contents/${FILE}?ref=${BRANCH}`);
   const ov = JSON.parse(fromBase64(file.content)) as Overrides;
-  for (const [k, v] of Object.entries(draft)) put(ov, k, v);
+  for (const [k, v] of Object.entries(draft)) put(ov, k, v === null ? null : sanitizeHtml(v));
   const n = Object.keys(draft).length;
   const res = await gh<{ commit: { sha: string } }>(`/repos/${REPO}/contents/${FILE}`, {
     method: 'PUT',

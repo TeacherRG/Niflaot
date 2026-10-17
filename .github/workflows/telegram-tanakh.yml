@@ -47,7 +47,7 @@ jobs:
       - name: Already done today?
         id: posted
         if: steps.day.outputs.early != 'true'
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: .tanakh-posted
           key: tanakh-posted-${{ steps.day.outputs.date }}
@@ -55,9 +55,9 @@ jobs:
       - name: Skip
         if: steps.posted.outputs.cache-hit == 'true' && !inputs.force
         run: echo "За ${{ steps.day.outputs.date }} всё уже сделано (пост вышел или публиковать нечего) — эта попытка ничего не делает."
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
         with:
           node-version: 22
@@ -86,7 +86,7 @@ jobs:
       # so the later attempts don't repeat it
       - name: Remember today
         if: always() && hashFiles('.tanakh-posted') != '' && steps.posted.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: .tanakh-posted
           key: tanakh-posted-${{ steps.day.outputs.date }}
