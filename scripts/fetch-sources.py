@@ -243,6 +243,27 @@ SOURCES = {
     'deut-11-6': ('Deuteronomy', 11, 6, 6),
     **{f'bht-{c}-{v}': bht(c, v) for c, v in [(6, 9), (7, 4), (7, 10), (7, 11), (7, 23), (9, 9), (9, 21), (9, 25), (11, 29)]},
     **{f'bht-{c}-{v}-{k + 1}': bht_one(c, v, k) for c, v, k in [(6, 11, 1), (6, 13, 0), (6, 13, 3), (6, 13, 5), (6, 16, 0), (11, 1, 1), (11, 3, 0)]},
+    # lesson «Ba'al HaTurim: Lech Lecha»
+    'gen-12-1': ('Genesis', 12, 1, 3),
+    'gen-12-4': ('Genesis', 12, 4, 4),
+    'gen-21-5': ('Genesis', 21, 5, 5),
+    'gen-25-7': ('Genesis', 25, 7, 7),
+    'num-6-24': ('Numbers', 6, 24, 26),
+    'gen-13-11': ('Genesis', 13, 11, 12),
+    'deut-2-9': ('Deuteronomy', 2, 9, 9),
+    'gen-14-18': ('Genesis', 14, 18, 20),
+    'rashi-14-18': rashi(14, 18, 0),
+    'gen-15-5': ('Genesis', 15, 5, 6),
+    'rashi-15-5': rashi(15, 5, 0),
+    'gen-15-8': ('Genesis', 15, 8, 8),
+    'gen-15-13': ('Genesis', 15, 13, 13),
+    'rashi-15-13': rashi(15, 13, 0),
+    'gen-15-17': ('Genesis', 15, 17, 17),
+    'gen-17-4': ('Genesis', 17, 4, 5),
+    'gen-17-19': ('Genesis', 17, 19, 21),
+    'shabbat-137b': ('Shabbat', '137b', 6, 6),
+    **{f'bht-{c}-{v}': bht(c, v) for c, v in [(12, 1), (13, 11), (14, 18), (15, 8), (15, 13), (15, 17), (17, 4), (17, 21)]},
+    **{f'bht-{c}-{v}-{k + 1}': bht_one(c, v, k) for c, v, k in [(12, 2, 0), (12, 2, 2), (15, 5, 0), (15, 5, 1)]},
     # «Нифлаот Ребе» · Ноах: «Выйди из ковчега» (Ликутей сихот, т. 25, Ноах 3)
     'gen-8-13': ('Genesis', 8, 13, 14),
     'gen-8-16-17': ('Genesis', 8, 16, 17),
@@ -354,7 +375,7 @@ def clean(s, lang):
     if lang == 'ru':
         s = re.sub(r'\bБог(а|у|ом|е)?\b', lambda m: 'Б-г' + (m.group(1) or ''), s)
         s = re.sub(r'\bГосподь\b', 'Г-сподь', s)
-        s = re.sub(r'\bГоспод(а|у|ом|е)\b', lambda m: 'Г-спод' + m.group(1), s)
+        s = re.sub(r'\bГоспод(а|у|ом|е|и)\b', lambda m: 'Г-спод' + m.group(1), s)
         s = re.sub(r'\bБож(ий|ья|ье|ьи|ьего|ьей|ьему|ьим|ьих|ественн\w*)\b', lambda m: 'Б-ж' + m.group(1), s)
     if lang == 'en':
         s = re.sub(r'\bGod\b', 'G-d', s)
@@ -460,7 +481,9 @@ if __name__ == '__main__':
             de_d = load(de_p[0]) if de_p else None
             def at(d, path=path):
                 x = d['text']
-                for k in path: x = x[k]
+                for k in path:
+                    if isinstance(x, list) and k >= len(x): return []  # the edition has no text here (Kitzur Ba'al HaTurim 15:17 in English)
+                    x = x[k]
                 return [x] if isinstance(x, str) else x
             he, en, ru, versions = at(he_d), at(en_d), None, {'he': meta(he_d), 'en': meta(en_d)}
             de = at(de_d, de_p[1]) if de_d else None

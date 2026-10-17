@@ -128,4 +128,36 @@ export const PROJECT_EN: Record<string, string[]> = {
   'tanya-36': [
     'It is a well-known Rabbinic statement that the purpose of the creation of this world is that the Holy One, blessed is He, desired to have an abode in the lower worlds.',
   ],
+  // lesson «Baal HaTurim: Lech Lecha»
+  'bht-12-1': [
+    '<b>Go for yourself [lech lecha]</b> — [the Torah] opened [the story of Avraham] with a saying, the language with which the world was created: for the world was created with ten sayings, and all of it was created only in the merit of Avraham; therefore a saying is written about him.',
+    '<b>Go for yourself [lech lecha]</b> — He hinted to him: when you are a hundred [years old], as the number of “lech lecha” [100], then “I will make you a great nation” — when Yitzchak was born to him. Another explanation: He hinted to him that after you leave your land you will live as the number of “lech lecha”: for he was seventy-five years old when he left, and all his years were a hundred and seventy-five. Another explanation: He hinted to him about the exiles — [“lech” twice:] that twice Israel will go into exile. Another explanation: He hinted to him that after fifty generations, as the number of “lech” [50], they will go into exile — in the days of Tzidkiyahu; and in your merit — for I spoke with you [when you were] seventy-five years old [the edition notes: “it should say seventy”], at the Covenant between the Pieces — they will return after seventy [years]. And therefore [Terach’s death] “in Charan” stands next to “lech lecha”: because through the burning anger [charon] of the Holy One, blessed be He — for our many sins — they went into exile.',
+  ],
+  'bht-12-2-1': [
+    '<b>And I will make you a great nation, etc.</b> — here He blessed him with seven blessings, and these are they. “And I will make you a great nation” — this is the greatest of all: that He will make him a nation, for this includes both the bondage and the freedom. The second — that while he was still Avram, before He brought him into the covenant [of circumcision], He would bless him with the blessing of wealth, as it is written: “And Avram was very rich.” The third — that his name would grow, from Avram to Avraham. The fourth — that he himself would be a blessing. The fifth — that the Almighty would bless those who bless him. The sixth — that He would curse all who seek his harm. The seventh — that all the families of the earth would be blessed through him.',
+  ],
+  'bht-12-2-3': [
+    '<b>I will show you [arecha]</b> — in gematria “in the clouds” [ba-ananim]: this teaches that clouds went before him and showed him the way. “And I will make you a great nation, and I will bless you, and make your name great” — three blessings, corresponding to the three blessings of the Kohanim. And likewise [the word] “mevarechecha” has three crowns [tagin] on [the letter] ך: to tell you that three times twenty is sixty, corresponding to the sixty letters of the Priestly Blessing, which are: “May He bless you…”, “May He shine…”, “May He lift…”. “And I will bless you” [va-avarechecha] — in gematria “Avraham”.',
+  ],
+  'bht-13-11': [
+    '<b>And they parted from one another. Avram [ish me’al achiv. Avram]</b> — the last letters [form] “shalom” [peace]: to say that they parted in order to keep the peace. And it also hinted to him that there would be peace for his descendants, and this is what is said: “Do not harass Moav” [Deuteronomy 2:9].',
+  ],
+  'bht-14-18': ['<b>King of Shalem [melech Shalem]</b> — the first letters [form] “Shem”: to tell you that this was Shem, the son of Noach.'],
+  'bht-15-5-1': [
+    '<b>And He took him outside [va-yotze oto ha-chutzah]</b> — in gematria: “your astrology” [itztagninut’cha]. “So [koh] will your descendants be” — meaning: when he has twenty-five more years, as the number of “koh” [25], he will have descendants: for at the Covenant between the Pieces Avraham was seventy-five years old.',
+  ],
+  'bht-15-5-2': [
+    '<b>Will be [yihyeh]</b> — in gematria “thirty”: to tell you that there is no generation without thirty righteous people. And so He said: as the number of “yihyeh” there will be righteous people among your descendants, as it is said: “And He said to him: so will your descendants be.”',
+  ],
+  'bht-15-8': [
+    '<b>How will I know [ba-mah eda]</b> — “ba-mah” in atbash [א״ת ב״ש] is “shitz” [שי״ץ], which amounts to four hundred: therefore a decree of four hundred [years] was made on his children. The number of “ba-mah eda” is years: fifty-two years when no one passed through Yehudah, and seventy [years] that they were in exile.',
+  ],
+  'bht-15-13': ['<b>That strangers [ki ger]</b> — the last letters [י and ר] amount to 210 — the number of “redu” [רד״ו].'],
+  'bht-15-17': [
+    '<b>And there was darkness, and behold — a furnace [va-alatah hayah ve-hineh tanur]</b> — the first letters, reversed, [form] “tohu” [chaos]: [the Almighty] showed him the exiles, which are like chaos.',
+  ],
+  'bht-17-4': ['Twice in this chapter [it says] “av hamon” [father of a multitude], and it amounts to the number of “Yitzchak”. And likewise “arbeh” [I will multiply] — in gematria “Yitzchak”.'],
+  'bht-17-21': [
+    '<b>But My covenant I will establish with Yitzchak</b> — “akim” [I will establish] is a notarikon: “asher kidesh yedid mi-beten” [Who sanctified the beloved one from the womb].',
+  ],
 };
