@@ -22,8 +22,11 @@ import '@fontsource/ibm-plex-mono/600.css';
 import { installAnalytics } from './core/analytics';
 import { installPrompt } from './core/install';
 import { startAccountSync } from './core/account';
+import { initTelegram } from './core/telegram';
 import './styles.css';
 
+// opened as a Telegram Mini App: Telegram's address → ours, before anything reads it (src/core/telegram.ts)
+initTelegram();
 // the admin's unpublished text edits are shown on the site in their browser
 applyDraft();
 // visit statistics (GoatCounter, no cookies)

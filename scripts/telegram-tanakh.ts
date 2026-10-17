@@ -9,7 +9,8 @@
  * даже при ручном запуске.
  *
  * Каналы и бот — те же, что у «Загадки недели» (scripts/telegram-post.ts): secret `TELEGRAM_BOT_TOKEN`,
- * variables `TELEGRAM_CHAT_RU`, `TELEGRAM_CHAT_EN`, `TELEGRAM_CHAT_DE`; язык без канала пропускается.
+ * variables `TELEGRAM_CHAT_RU`, `TELEGRAM_CHAT_EN`, `TELEGRAM_CHAT_DE`; язык без канала пропускается; с variable
+ * `TELEGRAM_APP` (Mini App, `<бот>/<приложение>`) — под постом кнопки «Пророки» и «Писания»: страница дня внутри Telegram.
  *
  * Вторым сообщением — **PDF дня для печати**: страница дня с сайта, сохранённая браузером (Playwright) так же, как
  * кнопка «Распечатать»: иврит и перевод на языке канала, с Мецудат Давид, «Пророки» и «Писания» вместе. Не вышел PDF —
@@ -23,6 +24,7 @@ import { CYCLE, readingMinutes, type DayContent } from '../src/core/tanakh';
 import { rangeLabel, SECTIONS, type Section } from '../src/core/tanakhCycle';
 import { civilDate, jewishDate } from '../src/core/hebrewDate';
 import { routeLink, SITE_URL } from '../src/core/site';
+import { miniAppLink } from '../src/core/telegram';
 import ru from '../src/i18n/locales/ru';
 import en from '../src/i18n/locales/en';
 import de from '../src/i18n/locales/de';
@@ -35,6 +37,7 @@ const CHATS: Record<Loc, string | undefined> = {
   de: process.env.TELEGRAM_CHAT_DE,
 };
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const APP = process.env.TELEGRAM_APP;
 const args = process.argv.slice(2);
 const DRY = args.includes('--dry');
 const PDF_ONLY = args.includes('--pdf');
@@ -98,6 +101,12 @@ function post(loc: Loc): string {
   return lines.join('\n');
 }
 
+/** the Mini App buttons: the day's two pages on the site, inside Telegram */
+const buttons = (loc: Loc) =>
+  APP
+    ? { reply_markup: { inline_keyboard: [SECTIONS.map((s) => ({ text: `📖 ${t(loc, `tanakh.${s}`)}`, url: miniAppLink(APP, `${s}/${date}`, loc) }))] } }
+    : {};
+
 /**
  * The day's printout, as the «Распечатать» button makes it: the live site's page of the day in a headless browser —
  * the Hebrew and the translation in the channel's language, with Metzudat David, both sections — saved as A4 PDF.
@@ -154,7 +163,7 @@ let failed = false;
 for (const loc of Object.keys(UI) as Loc[]) {
   const text = post(loc);
   if (DRY) {
-    console.log(`── ${loc} (${CHATS[loc] ?? 'нет канала'})\n${text}\n`);
+    console.log(`── ${loc} (${CHATS[loc] ?? 'нет канала'})\n${text}\n${APP ? `${JSON.stringify(buttons(loc).reply_markup)}\n` : ''}`);
     if (PDF_ONLY) {
       const file = `tanakh-${date}-${loc}.pdf`;
       writeFileSync(file, await dayPdf(loc));
@@ -166,7 +175,7 @@ for (const loc of Object.keys(UI) as Loc[]) {
   if (!chat) continue;
   if (!TOKEN) throw new Error('TELEGRAM_BOT_TOKEN is not set');
   try {
-    await tg('sendMessage', { chat_id: chat, text, parse_mode: 'HTML', link_preview_options: { is_disabled: true } });
+    await tg('sendMessage', { chat_id: chat, text, parse_mode: 'HTML', link_preview_options: { is_disabled: true }, ...buttons(loc) });
     console.log(`${loc}: posted ${date} to ${chat}`);
     markDone('posted');
   } catch (e) {

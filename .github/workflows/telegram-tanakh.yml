@@ -33,6 +33,8 @@ jobs:
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_RU: ${{ vars.TELEGRAM_CHAT_RU || secrets.TELEGRAM_CHAT_RU }}
+      # optional: the Mini App from @BotFather (<bot>/<app>) — a button «open in Telegram» under the post
+      TELEGRAM_APP: ${{ vars.TELEGRAM_APP }}
       TELEGRAM_SCHEDULE: ${{ github.event.schedule }}
       TANAKH_POSTED_FILE: .tanakh-posted
     steps:
