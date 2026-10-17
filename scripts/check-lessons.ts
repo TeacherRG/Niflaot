@@ -45,6 +45,7 @@ import { PROJECT_EN } from '../src/sources/en';
 import { LOCALES } from '../src/i18n/config';
 import { displayNames } from '../src/core/names';
 import { collectFacts, factHebrew } from '../src/core/facts';
+import { fromStartParam, miniAppLink } from '../src/core/telegram';
 import { dailyPool } from '../src/core/daily';
 import type { PuzzleText } from '../src/lessons/types';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
@@ -353,6 +354,16 @@ for (const k of staleOverrides) err(`src/content/overrides.json: ${k} — no suc
 const facts = collectFacts(LESSONS);
 if (!facts.length) err('facts: the feed «Знаете ли вы?» is empty');
 if (new Set(facts.map((f) => f.id)).size !== facts.length) err('facts: two facts have the same id (links #/facts/<id>)');
+// the Mini App button under «Загадка недели» (scripts/telegram-post.ts): the fact's route fits Telegram's startapp
+for (const f of facts)
+  for (const loc of Object.keys(LOCALES)) {
+    try {
+      const p = new URL(miniAppLink('bot/app', `facts/${f.id}`, loc)).searchParams.get('startapp');
+      if (fromStartParam(p)?.route !== `facts/${f.id}`) err(`facts: ${f.id} — the Telegram start parameter does not lead back to the fact`);
+    } catch (e) {
+      err(`facts: ${f.id} — ${(e as Error).message}`);
+    }
+  }
 for (const f of facts) if (f.ri === undefined && f.mi === undefined) err(`${f.lesson.slug}: facts — «${f.kind === 'eq' ? f.q : f.from}» has no place in the lesson to link to`);
 for (const f of facts)
   for (const loc of Object.keys(LOCALES) as (keyof typeof LOCALES)[]) {

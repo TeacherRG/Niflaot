@@ -432,6 +432,7 @@ const ru = {
   'facts.answer': "Ответ",
   'facts.shareText': "Почему так",
   'facts.postCta': "Подумайте сами — ответ и почему так — на сайте",
+  'tg.open': '📲 Открыть в Telegram',
   'facts.cardTagline': "Чудеса Торы — найдите их сами",
   'final.card': 'Поделиться картинкой',
   'final.cardMaking': 'Готовлю картинку…',

@@ -6,7 +6,7 @@ export const SITE_URL = `https://${SITE_HOST}`;
  * Where a shared link was sent from — `?ref=` in the address; GoatCounter shows it among the referrers
  * (https://niflaot.goatcounter.com), so we see which channel brings people.
  */
-export type Ref = 'wa' | 'tg' | 'copy' | 'card' | 'qr' | 'rss' | 'channel' | 'daily' | 'app' | 'mail' | 'push';
+export type Ref = 'wa' | 'tg' | 'copy' | 'card' | 'qr' | 'rss' | 'channel' | 'daily' | 'app' | 'mail' | 'push' | 'tgapp';
 
 /** Link to a lesson: its static page `/<slug>/` (own preview picture for messengers), marked with the channel. */
 export const lessonLink = (slug: string, ref: Ref, lang?: string) =>

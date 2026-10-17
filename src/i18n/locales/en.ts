@@ -422,6 +422,7 @@ const en: Messages = {
   'facts.answer': "Answer",
   'facts.shareText': "Why it is so",
   'facts.postCta': "Think it over — the answer and the why are on the site",
+  'tg.open': '📲 Open in Telegram',
   'facts.cardTagline': "Wonders of the Torah — find them yourself",
   'final.card': 'Share as a picture',
   'final.cardMaking': 'Making the picture…',

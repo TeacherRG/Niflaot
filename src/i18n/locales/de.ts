@@ -422,6 +422,7 @@ const de: Messages = {
   'facts.answer': "Antwort",
   'facts.shareText': "Warum es so ist",
   'facts.postCta': "Denk selbst nach — die Antwort und warum, findest du auf der Seite",
+  'tg.open': '📲 In Telegram öffnen',
   'facts.cardTagline': "Wunder der Tora — finde sie selbst",
   'final.card': 'Als Bild teilen',
   'final.cardMaking': 'Bild wird erstellt…',
