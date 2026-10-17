@@ -36,5 +36,28 @@ export const LESSON_GROUPS = (Object.keys(PARSHIOT) as ParshaId[])
 /** «Нифлаот Ребе» lessons of a portion, in order. */
 export const rebbeLessons = (parsha: ParshaId) => LESSONS.filter((l) => l.parsha === parsha && l.series === 'rebbe');
 
+/**
+ * Lessons in order of nearness to the date (YYYY-MM-DD, the device's today by default): the portion of this week
+ * first (the first whose Shabbat is that day or later), then the next portions, then the past ones from the most
+ * recent back; within a portion — in list order. The review feeds («Знаете ли вы?») open on what is learnt now.
+ */
+export function lessonsByNearness(today = localDate()): Lesson[] {
+  const ids = Object.keys(PARSHIOT) as ParshaId[];
+  const rank = (l: Lesson) => {
+    const i = ids.indexOf(l.parsha);
+    const now = ids.findIndex((p) => PARSHIOT[p].shabbat >= today && LESSONS.some((x) => x.parsha === p));
+    const cur = now < 0 ? ids.length : now;
+    return i >= cur ? i - cur : ids.length + (cur - i);
+  };
+  return LESSONS.map((l, k) => ({ l, k, r: rank(l) }))
+    .sort((a, b) => a.r - b.r || a.k - b.k)
+    .map((x) => x.l);
+}
+
+const localDate = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+};
+
 export type { Lesson } from './types';
 export { PARSHIOT, type ParshaId } from './parshiot';
