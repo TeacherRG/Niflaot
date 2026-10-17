@@ -6186,6 +6186,1266 @@
    }
   }
  },
+ "gen-12-1": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 12:1–3",
+   "en": "Genesis 12:1–3",
+   "de": "Bereschit 12,1–3"
+  },
+  "ref": "Genesis 12:1-3",
+  "url": "https://www.sefaria.org/Genesis_12.1-3",
+  "he": [
+   "ויאמר ה׳ אל אברם לך לך מארצך וממולדתך ומבית אביך אל הארץ אשר אראך",
+   "ואעשך לגוי גדול ואברכך ואגדלה שמך והיה ברכה",
+   "ואברכה מברכיך ומקללך אאר ונברכו בך כל משפחת האדמה"
+  ],
+  "en": [
+   "Now the L-rd said unto Abram: ‘Get thee out of thy country, and from thy kindred, and from thy father’s house, unto the land that I will show thee.",
+   "And I will make of thee a great nation, and I will bless thee, and make thy name great; and be thou a blessing.",
+   "And I will bless them that bless thee, and him that curseth thee will I curse; and in thee shall all the families of the earth be blessed.’"
+  ],
+  "ru": [
+   "И сказал Г-сподь Авраму: иди себе из страны своей, и от родни своей, и из дома отца своего в страну, которую я покажу тебе.",
+   "И сделаю тебя великим народом, и благословлю тебя, и возвеличу твое имя, и будешь благословением.",
+   "И благословлю благословляющих тебя, а хулящего тебя прокляну, и благословятся тобою все племена земные."
+  ],
+  "de": [
+   "Zu Abram aber sprach <i>G-tt</i>: Gehe für dich allein von deinem Lande, deinem Geburtsorte und dem Hause deines Vaters, zu dem Lande hin, das ich dir zeigen werde.",
+   "Ich werde dich zu einem großen Volke machen, Ich werde dich segnen, und Ich möchte deinen Namen groß werden lassen; werde du ein Segen!",
+   "Ich möchte segnen, die dich segnen, und wer dir Fluch bringt, dem werde ich fluchen; und es werden durch dich alle Familien des Erdbodens gesegnet werden."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-12-4": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 12:4",
+   "en": "Genesis 12:4",
+   "de": "Bereschit 12,4"
+  },
+  "ref": "Genesis 12:4",
+  "url": "https://www.sefaria.org/Genesis_12.4",
+  "he": [
+   "וילך אברם כאשר דבר אליו ה׳ וילך אתו לוט ואברם בן חמש שנים ושבעים שנה בצאתו מחרן"
+  ],
+  "en": [
+   "So Abram went, as the L-rd had spoken unto him; and Lot went with him; and Abram was seventy and five years old when he departed out of Haran."
+  ],
+  "ru": [
+   "И пошел Аврам, как сказал ему Г-сподь, и пошел с ним Лот, а Авраму было семьдесят пять лет, когда вышел он из Харана."
+  ],
+  "de": [
+   "Da ging Abram wie es G-tt ihm ausgesprochen hatte, und mit ihm ging Lot. Abram aber war 75 Jahre alt als er aus Charan ging."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-21-5": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 21:5",
+   "en": "Genesis 21:5",
+   "de": "Bereschit 21,5"
+  },
+  "ref": "Genesis 21:5",
+  "url": "https://www.sefaria.org/Genesis_21.5",
+  "he": [
+   "ואברהם בן מאת שנה בהולד לו את יצחק בנו"
+  ],
+  "en": [
+   "And Abraham was a hundred years old, when his son Isaac was born unto him."
+  ],
+  "ru": [
+   "А Аврааму было сто лет, когда родился у него сын его Йицхак."
+  ],
+  "de": [
+   "Abraham war aber ein Mann von hundert Jahren, als ihm sein Sohn Jizchak geboren wurde."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-25-7": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 25:7",
+   "en": "Genesis 25:7",
+   "de": "Bereschit 25,7"
+  },
+  "ref": "Genesis 25:7",
+  "url": "https://www.sefaria.org/Genesis_25.7",
+  "he": [
+   "ואלה ימי שני חיי אברהם אשר חי מאת שנה ושבעים שנה וחמש שנים"
+  ],
+  "en": [
+   "And these are the days of the years of Abraham’s life which he lived, a hundred threescore and fifteen years."
+  ],
+  "ru": [
+   "Вот дни жизни Авраама, что он прожил: сто семьдесят пять лет."
+  ],
+  "de": [
+   "Und dieses nun sind die Tage der Jahre des Lebens Abrahams, die er gelebt: hundert Jahre und siebenzig Jahre und fünf Jahre."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "num-6-24": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Бемидбар 6:24–26",
+   "en": "Numbers 6:24–26",
+   "de": "Bamidbar 6,24–26"
+  },
+  "ref": "Numbers 6:24-26",
+  "url": "https://www.sefaria.org/Numbers_6.24-26",
+  "he": [
+   "יברכך ה׳ וישמרך",
+   "יאר ה׳ פניו אליך ויחנך",
+   "ישא ה׳ פניו אליך וישם לך שלום"
+  ],
+  "en": [
+   "The L-rd bless thee, and keep thee;",
+   "The L-rd make His face to shine upon thee, and be gracious unto thee;",
+   "The L-rd lift up His countenance upon thee, and give thee peace."
+  ],
+  "ru": [
+   "Да благословит и да сохранит тебя Г-сподь!",
+   "Да озарит Г-сподь свое лицо и да помилует тебя!",
+   "Да окажет тебе милость Г-сподь и даст тебе мир!"
+  ],
+  "de": [
+   "Es segne dich <i>G-tt</i> und behüte dich.",
+   "Es erleuchte <i>G-tt</i> sein Angesicht dir und begnade dich.",
+   "Es trage <i>G-tt</i> sein Angesicht dir zu und gründe dir Frieden."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "unknown",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-13-11": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 13:11–12",
+   "en": "Genesis 13:11–12",
+   "de": "Bereschit 13,11–12"
+  },
+  "ref": "Genesis 13:11-12",
+  "url": "https://www.sefaria.org/Genesis_13.11-12",
+  "he": [
+   "ויבחר לו לוט את כל ככר הירדן ויסע לוט מקדם ויפרדו איש מעל אחיו",
+   "אברם ישב בארץ כנען ולוט ישב בערי הככר ויאהל עד סדם"
+  ],
+  "en": [
+   "So Lot chose him all the plain of the Jordan; and Lot journeyed east; and they separated themselves the one from the other.",
+   "Abram dwelt in the land of Canaan, and Lot dwelt in the cities of the Plain, and moved his tent as far as Sodom."
+  ],
+  "ru": [
+   "И избрал себе Лот всю равнину Йардена, и двинулся Лот с востока, и разделились они.",
+   "Аврам жил в стране Кенаана, а Лот жил среди городов равнины и поставил свои шатры возле Седома."
+  ],
+  "de": [
+   "und es wählte sich Lot die ganze Talebene des Jardens, und es zog Lot von Osten ab; so trennten sie sich einer von dem andern.",
+   "Abram war im Lande Kenaan geblieben, während Lot sich in die Talebene niedergelassen und seine Zelte bis an Sedom hatte —"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "deut-2-9": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Дварим 2:9",
+   "en": "Deuteronomy 2:9",
+   "de": "Dewarim 2,9"
+  },
+  "ref": "Deuteronomy 2:9",
+  "url": "https://www.sefaria.org/Deuteronomy_2.9",
+  "he": [
+   "ויאמר ה׳ אלי אל תצר את מואב ואל תתגר בם מלחמה כי לא אתן לך מארצו ירשה כי לבני לוט נתתי את ער ירשה"
+  ],
+  "en": [
+   "And the L-rd said unto me: ‘Be not at enmity with Moab, neither contend with them in battle; for I will not give thee of his land for a possession; because I have given Ar unto the children of Lot for a possession.—"
+  ],
+  "ru": [
+   "И сказал мне Г-сподь: «Не обижайте моавитян и не ищите с ними стычек, потому что не дам я вам во владение их землю — сынам Лота дал я Ар во владение.»"
+  ],
+  "de": [
+   "Da sagte <i>G-tt</i> zu mir: Bedränge Moab nicht und bringe dich nicht in Kriegsstreit mit ihm; denn ich gebe dir von seinem Lande kein Erbe; denn den Söhnen Lots habe ich Or zum Erbe gegeben."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "unknown",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-14-18": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 14:18–20",
+   "en": "Genesis 14:18–20",
+   "de": "Bereschit 14,18–20"
+  },
+  "ref": "Genesis 14:18-20",
+  "url": "https://www.sefaria.org/Genesis_14.18-20",
+  "he": [
+   "ומלכי צדק מלך שלם הוציא לחם ויין והוא כהן לאל עליון",
+   "ויברכהו ויאמר ברוך אברם לאל עליון קנה שמים וארץ",
+   "וברוך אל עליון אשר מגן צריך בידך ויתן לו מעשר מכל"
+  ],
+  "en": [
+   "And Melchizedek king of Salem brought forth bread and wine; and he was priest of G-d the Most High.",
+   "And he blessed him, and said: ‘Blessed be Abram of G-d Most High, Maker of heaven and earth;",
+   "and blessed be G-d the Most High, who hath delivered thine enemies into thy hand.’ And he gave him a tenth of all."
+  ],
+  "ru": [
+   "А Малки-Цедек, царь Шалема, принес хлеб и вино, а он священник Б-га Вышнего.",
+   "И благословил его, и сказал: Благословен Аврам от Б-га Вышнего, творца неба и земли,",
+   "И благословен Б-г Вышний, отдавший врагов твоих в руки твои, и дал ему (Аврам) десятину со всего."
+  ],
+  "de": [
+   "Malki Zedek hingegen, König von Schalem, hatte Brot und Wein hinausgebracht; er war aber auch Priester dem höchsten G-tte.",
+   "Er segnete ihn und sprach: Gesegnet Abram dem höchsten G-tte, dem Eigner von Himmel und Erde,",
+   "und gesegnet der höchste G-tt, der deine Feinde in deine Hand gegeben! Er gab ihm den Zehnten von allem."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-14-18": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 14:18",
+   "en": "Rashi, Genesis 14:18",
+   "de": "Raschi, Bereschit 14,18"
+  },
+  "ref": "Rashi on Genesis 14:18:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_14.18.1",
+  "he": [
+   "<b>ומלכי צדק.</b> מִ\"אַ הוּא שֵׁם בֶן נֹחַ (נדרים ל\"ב):"
+  ],
+  "en": [
+   "ומלכי צדק AND MELCHIZEDEK — A Midrashic explanation is that he is identical with Shem, son of Noah (Nedarim 32b)."
+  ],
+  "de": [
+   "<b>Malki Zedek,</b> nach dem agadischen Midrasch war es Schem, der Sohn von Noach (Nedar. 32b)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "gen-15-5": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 15:5–6",
+   "en": "Genesis 15:5–6",
+   "de": "Bereschit 15,5–6"
+  },
+  "ref": "Genesis 15:5-6",
+  "url": "https://www.sefaria.org/Genesis_15.5-6",
+  "he": [
+   "ויוצא אתו החוצה ויאמר הבט נא השמימה וספר הכוכבים אם תוכל לספר אתם ויאמר לו כה יהיה זרעך",
+   "והאמן בה׳ ויחשבה לו צדקה"
+  ],
+  "en": [
+   "And He brought him forth abroad, and said: ‘Look now toward heaven, and count the stars, if thou be able to count them’; and He said unto him: ‘So shall thy seed be.’",
+   "And he believed in the L-rd; and He counted it to him for righteousness."
+  ],
+  "ru": [
+   "И вывел (Г-сподь) его наружу, и сказал: взгляни на небо и пересчитай звезды — сможешь ли их пересчитать; таково будет твое потомство.",
+   "И поверил Аврам (Г-споду), и вменил (Г-сподь) это ему в заслугу."
+  ],
+  "de": [
+   "Er führte ihn hinaus und sprach: Schau doch gen Himmel, und zähle die Sterne, wenn du sie zählen kannst! Er sagte ihm: So wird dein Same!",
+   "Er aber hatte seine ganze Zuversicht auf <i>G-tt</i> gesetzt und dies achtete Er ihm als Pflichtgerechtigkeit."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-15-5": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 15:5",
+   "en": "Rashi, Genesis 15:5",
+   "de": "Raschi, Bereschit 15,5"
+  },
+  "ref": "Rashi on Genesis 15:5:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_15.5.1",
+  "he": [
+   "<b>ויוצא אתו החוצה.</b> לְפִי פְּשׁוּטוֹ הוֹצִיאוֹ מֵאָהֳלוֹ לַחוּץ לִרְאוֹת הַכּוֹכָבִים, וּלְפִי מִדְרָשׁוֹ אָמַר לוֹ צֵא מֵאִצְטַגְנִינוּת שֶׁלְּךָ שֶׁרָאִיתָ בַּמַּזָּלוֹת שֶׁאֵינְךָ עָתִיד לְהַעֲמִיד בֵּן, אַבְרָם אֵין לוֹ בֵן, אֲבָל אַבְרָהָם יֵשׁ לוֹ בֵן, שָׂרַי לֹא תֵלֵד, אֲבָל שָׂרָה תֵלֵד; אֲנִי קוֹרֵא לָכֶם שֵׁם אַחֵר וְיִשְׁתַּנֶּה הַמַּזָּל. דָּ\"אַ הוֹצִיאוֹ מֵחֲלָלוֹ שֶׁל עוֹלָם וְהִגְבִּיהוֹ לְמַעְלָה מִן הַכּוֹכָבִים, וְזֶהוּ לְשׁוֹן הַבָּטָה מִלְמַעְלָה לְמַטָּה:"
+  ],
+  "en": [
+   "ויוצא אתו החוצה AND HE BROUGHT HIM FORTH OUTSIDE — Its real meaning is: He brought him outside his tent so that he could look at the stars. Its Midrashic explanation is: Go forth from (give up) your astrological speculations — that you have seen by the planets that you will not raise a son; Abram indeed may have no son but Abraham will have a son: Sarai may not bear a child but Sarah will bear. I will give you other names, and your destiny (מזל planet, luck) will be changed. Another explanation: He brought him forth from the terrestrial sphere, elevating him above the stars, and this is why He uses the term הבט ‘‘look”, when He said “look at the heavens” — for this word signifies looking from above downward (Genesis Rabbah 44:12)."
+  ],
+  "de": [
+   "<b>Er führte ihn ins Freie hinaus,</b> nach dem einfachen Sinn, Er führte ihn aus seinem Zelte ins Freie, dass er die Sterne sehe; nach dem Midrasch (Bereschit Rabbah 44:12) sagte Er zu ihm, tritt aus deiner Astrologie heraus, du hast in den Sternen gesehen, du würdest keinen Sohn aufstellen, Abram wird keinen Sohn haben, aber Abraham wird einen Sohn haben; Sarai wird nicht gebären, aber Sara wird gebären; ich gebe euch einen andere Namen, dadurch wird das Geschick geändert; andere Erklärung: Er nahm ihn aus dem Hohlraum der Welt heraus und erhob ihn über die Sterne; und das bedeutet der Ausdruck הַבֶּט »schauen«, von oben nach unten."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "gen-15-8": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 15:8",
+   "en": "Genesis 15:8",
+   "de": "Bereschit 15,8"
+  },
+  "ref": "Genesis 15:8",
+  "url": "https://www.sefaria.org/Genesis_15.8",
+  "he": [
+   "ויאמר אדני ה׳ במה אדע כי אירשנה"
+  ],
+  "en": [
+   "And he said: ‘O L-rd GOD, whereby shall I know that I shall inherit it?’"
+  ],
+  "ru": [
+   "И сказал: Господин мой, Г-споди, как мне знать, что буду владеть ею?"
+  ],
+  "de": [
+   "Da sprach er: G-tt, mein Herr, wodurch werde ich wissen, daß ich es in Besitz nehmen soll?"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-15-13": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 15:13",
+   "en": "Genesis 15:13",
+   "de": "Bereschit 15,13"
+  },
+  "ref": "Genesis 15:13",
+  "url": "https://www.sefaria.org/Genesis_15.13",
+  "he": [
+   "ויאמר לאברם ידע תדע כי גר יהיה זרעך בארץ לא להם ועבדום וענו אתם ארבע מאות שנה"
+  ],
+  "en": [
+   "And He said unto Abram: ‘Know of a surety that thy seed shall be a stranger in a land that is not theirs, and shall serve them; and they shall afflict them four hundred years;"
+  ],
+  "ru": [
+   "И сказал (Г-сподь) Авраму: знай, что пришельцами будут твои потомки в чужой стране, и в рабстве будут, и угнетать их будут четыреста лет."
+  ],
+  "de": [
+   "Da sprach Er zu Abram: Wissen, wissen sollst du, daß Fremdling dein Same sein wird in ihnen nicht gehörendem Lande, sie werden ihnen dienen und sie werden sie peinigen, vierhundert Jahre."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-15-13": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 15:13",
+   "en": "Rashi, Genesis 15:13",
+   "de": "Raschi, Bereschit 15,13"
+  },
+  "ref": "Rashi on Genesis 15:13:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_15.13.1",
+  "he": [
+   "<b>כי גר יהיה זרעך.</b> מִשֶּׁנּוֹלַד יִצְחָק עַד שֶׁיָּצְאוּ יִשְֹרָאֵל מִמִּצְרַיִם אַרְבַּע מֵאוֹת שָׁנָה כֵּיצַד? יִצְחָק בֶּן שִׁשִּׁים שָׁנָה כְּשֶׁנּוֹלַד יַעֲקֹב, וְיַעֲקֹב כְּשֶׁיָּרַד לְמִצְרַיִם אָמַר יְמֵי שְׁנֵי מְגוּרַי שְׁלֹשִׁים וּמְאַת שָׁנָה, הֲרֵי ק\"צ, וּבְמִצְרַיִם הָיוּ מָאתַיִם וְעֶשֶׂר כְּמִנְיַן רְד\"וּ, הֲרֵי אַרְבַּע מֵאוֹת שָׁנָה. וְאִם תֹּאמַר בְּמִצְרַיִם הָיוּ אַרְבַּע מֵאוֹת, הֲרֵי קְהָת מִיּוֹרְדֵי מִצְרַיִם הָיָה, צֵא וַחֲשֹׁב שְׁנוֹתָיו שֶׁל קְהָת וְשֶׁל עַמְרָם וּשְׁמוֹנִים שֶׁל משֶׁה שֶׁהָיָה כְּשֶׁיֶָּצְאוּ יִשְֹרָאֵל מִמִּצְרַיִם, אֵין אַתָּה מוֹצֵא אֶלָּא שְׁלֹשׁ מֵאוֹת וַחֲמִשִּׁים, וְאַתָּה צָרִיךְ לְהוֹצִיא מֵהֶן כָּל הַשָּׁנִים שֶׁחַי קְהָת אַחַר לֵדַת עַמְרָם וְשֶׁחַי עַמְרָם אַחַר לֵדַת משֶׁה:"
+  ],
+  "en": [
+   "כי גר יהיה זרעך THAT THY SEED SHALL BE A STRANGER — From the birth of Isaac until Israel left Egypt was a period of 400 years. How so? Isaac was 60 years old when Jacob was born, and Jacob when he went down to Egypt himself stated, (Genesis 47:9) “The days of the years of my sojournings are a hundred and thirty years”, making together 190 years. In Egypt they were 210 years — corresponding to the numerical value of the word רדו (see Rashi in Genesis 42:2) — making altogether 400 years. If, however, you say that they were in Egypt 400 years — well, Kohath was one of those who went down to Egypt with Jacob; go and add up the years of Kohath (130), those of Amram (137), and the 80 years that Moses was old when Israel left Egypt, and you only have about 350, and you really have to deduct all the years that Kohath lived after Amram was born, and those that Amram lived after the birth of Moses (Megillah 9a)."
+  ],
+  "de": [
+   "<b>Dass Fremde deine Nachkommen sein werden,</b> von der Geburt Isaaks bis zum Auszug Israels aus Ägypten sind vierhundert Jahre. Wieso? Isaak war sechzig Jahre alt, als Jaakob geboren wurde; als Jaakob nach Ägypten hinabzog, sagte er, die Tage meiner Pilgerjahre sind 130 Jahre, das sind zusammen 190, und in Ägypten waren sie 210 Jahre gleich dem Zahlenwerte von רְדוּ (Gen. 47:9) das sind zusammen 400 Jahre. Solltest du aber sagen, sie waren 400 Jahre in Ägypten; siehe, Kehat gehörte zu denen, die nach Ägypten hinabzogen; addiere die Jahre von Kehat und Amram und die 80 von Mosche, die er alt war, als Israel aus Ägypten zog, so findest du nur 350 Jahre; und du musst doch davon noch alle die Jahre abziehen, die Kehat nach der Geburt von Amram lebte und Amram nach der Geburt von Mosche (Megillah 9a)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "gen-15-17": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 15:17",
+   "en": "Genesis 15:17",
+   "de": "Bereschit 15,17"
+  },
+  "ref": "Genesis 15:17",
+  "url": "https://www.sefaria.org/Genesis_15.17",
+  "he": [
+   "ויהי השמש באה ועלטה היה והנה תנור עשן ולפיד אש אשר עבר בין הגזרים האלה"
+  ],
+  "en": [
+   "And it came to pass, that, when the sun went down, and there was thick darkness, behold a smoking furnace, and a flaming torch that passed between these pieces."
+  ],
+  "ru": [
+   "И заходило солнце, и надвигалась тьма, и вот дымящаяся печь и огненный факел, что прошел между тех частей."
+  ],
+  "de": [
+   "Als nun die Sonne untergegangen und Finsternis geworden war: siehe, da war es ein rauchender Ofen und eine Feuerfackel, was zwischen diese Stücke durchgefahren war."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-17-4": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 17:4–5",
+   "en": "Genesis 17:4–5",
+   "de": "Bereschit 17,4–5"
+  },
+  "ref": "Genesis 17:4-5",
+  "url": "https://www.sefaria.org/Genesis_17.4-5",
+  "he": [
+   "אני הנה בריתי אתך והיית לאב המון גוים",
+   "ולא יקרא עוד את שמך אברם והיה שמך אברהם כי אב המון גוים נתתיך"
+  ],
+  "en": [
+   "’As for Me, behold, My covenant is with thee, and thou shalt be the father of a multitude of nations.",
+   "Neither shall thy name any more be called Abram, but thy name shall be Abraham; for the father of a multitude of nations have I made thee."
+  ],
+  "ru": [
+   "Вот, я (заключаю) свой завет с тобой, и будешь ты отцом множества народов.",
+   "И не будут тебя звать больше по имени Аврам, но Авраам, ибо отцом множества народов сделал я тебя."
+  ],
+  "de": [
+   "ich, was mich betrifft, siehe mein Bund ist nun mit dir und du wirst zum Vater der wogenden Menge der Völker,",
+   "und nicht mehr soll man dich Abram nennen, sondern Abraham soll dein Name sein; denn zum Vater der wogenden Menge der Völker habe ich dich bestimmt."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-17-19": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 17:19–21",
+   "en": "Genesis 17:19–21",
+   "de": "Bereschit 17,19–21"
+  },
+  "ref": "Genesis 17:19-21",
+  "url": "https://www.sefaria.org/Genesis_17.19-21",
+  "he": [
+   "ויאמר אלקים אבל שרה אשתך ילדת לך בן וקראת את שמו יצחק והקמתי את בריתי אתו לברית עולם לזרעו אחריו",
+   "ולישמעאל שמעתיך הנה ברכתי אתו והפריתי אתו והרביתי אתו במאד מאד שנים עשר נשיאם יוליד ונתתיו לגוי גדול",
+   "ואת בריתי אקים את יצחק אשר תלד לך שרה למועד הזה בשנה האחרת"
+  ],
+  "en": [
+   "And G-d said: ‘‘Nay, but Sarah thy wife shall bear thee a son; and thou shalt call his name Isaac; and I will establish My covenant with him for an everlasting covenant for his seed after him.",
+   "And as for Ishmael, I have heard thee; behold, I have blessed him, and will make him fruitful, and will multiply him exceedingly; twelve princes shall he beget, and I will make him a great nation.",
+   "But My covenant will I establish with Isaac, whom Sarah shall bear unto thee at this set time in the next year.’"
+  ],
+  "ru": [
+   "И сказал Б-г: но ведь Сара, жена твоя, родит тебе сына, и назовешь его по имени Йицхак, и установлю я завет мой с ним в завет вечный с потомством его после него.",
+   "Что до Йишмаэля, я тебя услышал: вот, благословил я его, и распложу его, и умножу его чрезвычайно; двенадцать князей породит он, и сделаю его великим народом.",
+   "Завет же мой установлю с Йицхаком, которого родит тебе Сара к этому сроку на будущий год."
+  ],
+  "de": [
+   "Da sprach G-tt: Nicht so, deine Frau Sara gebiert dir einen Sohn, und den sollst du Jizchak nennen. Mit ihm werde ich mein Bündnis aufrechthalten zu einem ewigen Bündnis für seinen Samen nach ihm.",
+   "Was aber Jischmael betrifft, habe ich dich erhört. Siehe, ich habe ihn bereits gesegnet und werde ihn fruchtbar machen und ihn im Übermaß vermehren; zwölf Fürsten wird er zeugen, und ich werde ihn zu einem großen Volke bestimmen.",
+   "Meinen Bund jedoch werde ich mit Jizchak aufrechthalten, den dir Sara zu dieser Zeit im nächsten Jahre gebären wird."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "shabbat-137b": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Шабат 137б",
+   "en": "Shabbat 137b",
+   "de": "Schabbat 137b"
+  },
+  "ref": "Shabbat 137b:7",
+  "url": "https://www.sefaria.org/Shabbat_137b.7",
+  "he": [
+   "והמברך אומר אשר קידש ידיד מבטן חוק בשארו שם וצאצאיו חתם באות ברית קדש על כן בשכר זאת אל חי חלקנו צוה להציל ידידות שארינו משחת למען בריתו אשר שם בבשרנו ברוך אתה ה׳ כורת הברית"
+  ],
+  "en": [
+   "<b>And the one who recites the</b> additional <b>blessing says: Who made the beloved one holy from the womb, marked the decree in his flesh, and gave his descendants the seal and the sign of the holy covenant. Therefore, as a reward for this, the living G-d, our Portion, commanded to deliver the beloved of our flesh from destruction, for the sake of His covenant that He set in our flesh. Blessed are You, L-rd, Who establishes the covenant.</b>"
+  ],
+  "de": [
+   "Der den Segen spricht, spreche: Der den Liebling vom Leibe aus geheiligt, ein Gesetz an sein Fleisch gesetzt und seine Nachfolger mit dem Zeichen des heiligen Bündnisses besiegelt hat. Darum, um dieser verdienstvollen Handlung willen, o lebendiger G-tt, unser Anteil, befiehl die Lieblichkeit unseres Fleisches vor der Hölle zu bewahren, deines Bündnisses wegen, daß du auf unser Fleisch gedrückt. Gepriesen seist du, o Herr, der du das Bündnis schließest."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://www.korenpub.com/koren_en_usd/koren/talmud/koren-talmud-bavli-no/mskt-wbt-hlq-a.html"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "bht-12-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 12:1",
+   "en": "Ba'al HaTurim, Genesis 12:1",
+   "de": "Baal HaTurim, Bereschit 12,1"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 12:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_12.1",
+  "he": [
+   "<b>לך לך</b> פתח באמירה בלשון שנברא בו העולם שבעשרה מאמרות נברא העולם וכולו לא נברא אלא בזכות אברהם לכך כתיב עליו מאמר.",
+   "<b>לך לך</b> רמז לו כשתהיה בן מאה כמנין לך לך אז ואעשך לגוי גדול שנולד לו יצחק. ד\"א רמז לו שלאחר שתלך מארצך תחיה כמנין לך לך שהרי בן ע\"ה שנה היה כשיצא וכל שנותיו קע\"ה. ד\"א רמז לו הגליות השנים שב' פעמים ילכו ישראל בגולה. ד\"א רמז לו שאחר נ' דורות כמנין לך ילכו בגלות בימי צדקיהו ובזכותך שדברתי עמך בן ע\"ה שנה (צ\"ל ע') שנה בברית בין הבתרים ישובו לאחר ע'. ולכך סמך בחרן ללך לך לפי שבחרון אפו של הקב\"ה בעו\"ה גלו:"
+  ],
+  "en": [
+   "לך לך \"Lech Lecha\" \"Go forth\" opens with a statement in the language in which the world was created, as the world was created with ten sayings, and it was created solely through the merit of Abraham. Therefore, a statement is written about him.",
+   "לך לך \"Lech Lecha\" \"Go forth\" is a hint to Abraham that when he will be one hundred years old, he will have a son, Isaac, who will be like a nation to him. Alternatively, it hints to him that after he leaves his land, he will live like the numerical value of \"Lech Lecha,\" as his age was 75 when he left and lived 100 years more. Alternatively, it hints to him about the two exiles that the people of Israel will go through twice. Alternatively, it hints to him that after nine generations, the people of Israel will go into exile during the days of King Zedekiah. And due to Abraham's merit, because G-d spoke with him when he was 75 years old, they will return after seventy years. Therefore, he relied on going to Haran and moving on to Canaan, as the furnace of the Holy One, blessed be He, was in Haran, and the people of Israel will go into exile. [\"Go, yourself,\" A hint to him, \"When you will be 100 years old (30+20+30+20), then I will make you a great nation.\" For then Isaac will be born.]"
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-13-11": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 13:11",
+   "en": "Ba'al HaTurim, Genesis 13:11",
+   "de": "Baal HaTurim, Bereschit 13,11"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 13:11",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_13.11",
+  "he": [
+   "<b>ויפרדו איש מעל אחיו אברם</b> ס\"ת שלום לומר כדי לעשות שלום נתפרדו וגם רמז לו שיהיה שלום לבניו וזהו שנאמר אל תצר את מואב:"
+  ],
+  "en": [
+   "The verse \"ויפרדו איש מעל אחיו אברם\" (Genesis 13:11) means that Abram and Lot separated from each other. This separation was made in peace, and it also hinted to Abram that there would be peace for his descendants. This is demonstrated by the verse \"אל תצר את מואב\" (Deuteronomy 2:9), which prohibits the Israelites from attacking Moab, which was one of the nations that descended from Lot."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-14-18": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 14:18",
+   "en": "Ba'al HaTurim, Genesis 14:18",
+   "de": "Baal HaTurim, Bereschit 14,18"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 14:18",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_14.18",
+  "he": [
+   "<b>מלך שלם</b> ר\"ת שם לומר לך שזה שם בן נח:"
+  ],
+  "en": [
+   "\"מלך שלם\" (\"King of Salem\") The initial letters of these words spell the name Shem. This teaches that Malchizedek was Shem, the son of Noah"
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-15-8": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 15:8",
+   "en": "Ba'al HaTurim, Genesis 15:8",
+   "de": "Baal HaTurim, Bereschit 15,8"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 15:8",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_15.8",
+  "he": [
+   "<b>במה אדע</b> במה בא\"ת ב\"ש שי\"ץ ועולה לחשבון ת' לכך נגזר על בניו גזרת ת'. חשבון במה אדע, שנים שהם נ\"ב שנים לא עבר איש ביהודה ושבעים היו בגלות:"
+  ],
+  "en": [
+   "\"What will I know?\" In the context of the prohibition of the Torah. Blessed be His name, the conversation of Isaac arrived at the calculation of 400, and therefore a decree of 400 was decreed upon his children. \"What will I know\" in the calculation, that two years were added at the end of the years when no man passed in Judah, and seventy were in exile."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-15-13": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 15:13",
+   "en": "Ba'al HaTurim, Genesis 15:13",
+   "de": "Baal HaTurim, Bereschit 15,13"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 15:13",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_15.13",
+  "he": [
+   "<b>כי גר</b> סופי תיבות עולה למנין רד\"ו:"
+  ],
+  "en": [
+   "For the phrase 'a stranger' כי גר final letters [י and ר] has the numerical value of 210, which corresponds to the actual years of slavery in Egypt."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-15-17": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 15:17",
+   "en": "Ba'al HaTurim, Genesis 15:17",
+   "de": "Baal HaTurim, Bereschit 15,17"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 15:17",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_15.17",
+  "he": [
+   "<b>ועלטה היה והנה תנור.</b> ר\"ת בהיפך תוהו שהראה לו הגליות שדומין לתוהו:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-17-4": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 17:4",
+   "en": "Ba'al HaTurim, Genesis 17:4",
+   "de": "Baal HaTurim, Bereschit 17,4"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 17:4",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_17.4",
+  "he": [
+   "שני פעמים אב המון בפרשה והוא עולה בחשבון יצחק וכן ארבה בגימטריא יצחק:"
+  ],
+  "en": [
+   "\"Twice a father of a multitude\" in the passage, which refers to Abraham, is taken into account for Isaac. And \"arbah\" (meaning \"four\") has the same numerical value as Isaac in Hebrew numerology (gematria)."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-17-21": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 17:21",
+   "en": "Ba'al HaTurim, Genesis 17:21",
+   "de": "Baal HaTurim, Bereschit 17,21"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 17:21",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_17.21",
+  "he": [
+   "<b>ואת בריתי אקים את יצחק</b> אקים נוטריקון אשר קידש ידיד מבטן:"
+  ],
+  "en": [
+   "\"I will establish my covenant with Isaac\" - \"אקים\" can be interpreted as a hint that G-d sanctified His beloved friend (Isaac) from the womb."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-12-2-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 12:2",
+   "en": "Ba'al HaTurim, Genesis 12:2",
+   "de": "Baal HaTurim, Bereschit 12,2"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 12:2:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_12.2.1",
+  "he": [
+   "<b>ואעשך לגוי גדול וגו'</b> ברכו כאן ז' ברכות והם אלו. ואעשך לגוי גדול והיא הגדולה שבכולם שיעשהו לגוי שעם זאת נכלל השיעבוד והשחרור. והשנית שבהיותו אברם טרם הכניסו בברית יברכהו ברכת הממון כמ\"ש ואברם כבד מאד. והשלישי שיגדל שמו מאברם לאברהם. והרביעי שיהיה הוא בעצמו ברכה. והחמישי שיברך השם מבורכיו. והששי שיאור כל מבקשי רעתו. והשביעי שיתברכו בו כל משפחות האדמה:"
+  ],
+  "en": [
+   "\"ואעשך לגוי גדול וגו'\" is a verse from Genesis 12:2, where G-d promises Abraham, \"And I will make of you a great nation, and I will bless you and make your name great, so that you will be a blessing.\" Here, it is explained that this verse is the basis for seven blessings (or \"brachot\") that are recited during Jewish wedding ceremonies. These blessings are: \"And I will make of you a great nation\" - the blessing of greatness and prosperity, \"And I will bless you\" - the blessing of wealth and success, \"And make your name great\" - the blessing of fame and recognition, \"You yourself shall be a blessing\" - the blessing of happiness and joy, \"And I will bless those who bless you\" - the blessing of protection and safety, \"And him who curses you I will curse\" - the blessing of justice and fairness, \"And all the families of the earth shall bless themselves by you\" - the blessing of universal impact and influence."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-12-2-3": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 12:2",
+   "en": "Ba'al HaTurim, Genesis 12:2",
+   "de": "Baal HaTurim, Bereschit 12,2"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 12:2:3",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_12.2.3",
+  "he": [
+   "<b> אראך</b> כגימטריא בעננים מלמד שהיו עננים הולכים לפניו ומראים לו הדרך. ואעשך לגוי גדול ואברכך ואגדלה שמך. ג' ברכות כנגד ג' ברכות כהנים וכן מברכך ג' תגין על ך' לומר לך כי ג\"פ כ' הם ס' כנגד ס' אותיות שבברכת כהנים והם יברכך יאר ישא, ואברכך, בגימטריא אברהם:"
+  ],
+  "en": [
+   "\"The word 'arach' as a gematria [numerical value of Hebrew letters] in the clouds teaches that there were clouds going before him and showing him the way. And I will make you into a great nation, and I will bless you and make your name great. Three blessings corresponding to the three blessings of the priests, and so I bless you with three shields upon you, to tell you that the letters gimmel, peh, and kuf are equal to the letters samech, corresponding to the blessings of the priests, and they will bless you, may He illuminate and uplift you, and I will bless you, with the gematria of Abraham.\""
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-15-5-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 15:5",
+   "en": "Ba'al HaTurim, Genesis 15:5",
+   "de": "Baal HaTurim, Bereschit 15,5"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 15:5:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_15.5.1",
+  "he": [
+   "<b>ויוצא אתו החוצה</b> בגימטריא איצטגנינותך: כה יהיה זרעך פירוש כשיהיה לו עוד כ\"ה שנים כמנין כ\"ה יהיה לו זרע שהרי בברית בין הבתרים היה אברהם בן ע\"ה שנה:"
+  ],
+  "en": [
+   "\"And he brought him outside\" in gematria equals איצטגנינותך [astrology or horoscope]. This means that your offspring will be like the number of letters in איצטגנינותך [astrology or horoscope.] - which is 25. In other words, your offspring will be as numerous as 25. This is because at the time of the covenant between the pieces, Abraham was 75 years old."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-15-5-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 15:5",
+   "en": "Ba'al HaTurim, Genesis 15:5",
+   "de": "Baal HaTurim, Bereschit 15,5"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 15:5:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_15.5.2",
+  "he": [
+   "<b> יהיה</b> בגימטריא שלשים לומר לך שאין דור שאין בו ל' צדיקים וכן אמר כמנין יהיה יהיו צדיקים בזרעך שנאמר ויאמר לו כה יהיה זרעך:"
+  ],
+  "en": [
+   "The word \"yihyeh\" (meaning \"it shall be\") has the gematria of 30. This teaches us that in every generation there are at least 30 righteous individuals. Similarly, it is said \"yihyeh\" (it shall be) to teach that in your offspring there will be righteous individuals, as it is said: \"And He said to him, 'So shall your offspring be.'\" (Genesis 15:5)"
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
  "gen-8-13": {
   "kind": {
    "ru": "Тора",

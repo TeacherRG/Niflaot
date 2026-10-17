@@ -62,6 +62,9 @@ const ru: Term[] = [
   { re: 'машиах', def: 'Машиах — «помазанник»: царь из дома Давида, который принесёт окончательное избавление; тогда в мире настанет мир, и весь мир будет знать Б-га.' },
   { re: 'бааль шем тов', def: 'Бааль Шем Тов — рабби Исраэль бен Элиэзер (1698–1760), основатель хасидизма.' },
   { re: 'жилищ[еаму] в нижних мирах', def: '«Жилище в нижних мирах» (дира ба-тахтоним) — цель творения по хасидуту: чтобы Б-жественное раскрылось именно в нашем, самом низком, материальном мире.' },
+  { re: 'тагин', def: 'Тагин — «короны»: маленькие черточки-украшения над некоторыми буквами в свитке Торы.' },
+  { re: 'благословени[еяию] коэнов', def: 'Благословение коэнов — три стиха из книги Бемидбар (6:24–26), которыми коэны благословляют народ Израиля.' },
+  { re: 'союз[аеу]? между рассечёнными частями', def: 'Союз между рассечёнными частями (брит бейн ґа-бтарим) — союз, который Всевышний заключил с Авраґамом: обещал ему землю и рассказал о будущем изгнании его потомков.' },
 ];
 
 const en: Term[] = [
@@ -118,6 +121,9 @@ const en: Term[] = [
   { re: 'moshiach', def: 'Moshiach — “the anointed one”: the king from the house of David who will bring the final redemption; then there will be peace in the world, and the whole world will know G-d.' },
   { re: 'baal shem tov', def: 'The Baal Shem Tov — Rabbi Yisrael ben Eliezer (1698–1760), the founder of Chassidut.' },
   { re: 'abode in the lower worlds', def: '“An abode in the lower worlds” (dirah betachtonim) — the purpose of creation according to Chassidut: that G-dliness be revealed precisely in our lowest, physical world.' },
+  { re: 'tagin', def: 'Tagin — “crowns”: small decorative strokes on top of some letters in a Torah scroll.' },
+  { re: 'priestly blessing', def: 'The Priestly Blessing — three verses from the book of Numbers (6:24–26) with which the Kohanim bless the people of Israel.' },
+  { re: 'covenant between the pieces', def: 'The Covenant between the Pieces (brit bein ha-betarim) — the covenant G-d made with Avraham: He promised him the land and told him about the future exile of his descendants.' },
 ];
 
 const de: Term[] = [
@@ -174,6 +180,9 @@ const de: Term[] = [
   { re: 'moschiach', def: 'Moschiach — „der Gesalbte“: der König aus dem Haus Davids, der die endgültige Erlösung bringt; dann wird Frieden in der Welt sein, und die ganze Welt wird G-tt kennen.' },
   { re: 'baal schem tow', def: 'Der Baal Schem Tow — Rabbi Jisrael ben Elieser (1698–1760), der Gründer der Chassidut.' },
   { re: 'wohnung in den unteren welten', def: '„Eine Wohnung in den unteren Welten“ (Dira betachtonim) — das Ziel der Schöpfung nach der Chassidut: dass sich das G-ttliche gerade in unserer untersten, materiellen Welt zeigt.' },
+  { re: 'tagin', def: 'Tagin — „Krönchen“: kleine Verzierungen auf manchen Buchstaben in der Torarolle.' },
+  { re: 'priestersegen', def: 'Der Priestersegen — drei Verse aus dem Buch Bamidbar (6,24–26), mit denen die Kohanim das Volk Israel segnen.' },
+  { re: 'bund zwischen den stücken', def: 'Der Bund zwischen den Stücken (Brit bejn ha-Betarim) — der Bund, den G-tt mit Awraham schloss: Er versprach ihm das Land und erzählte ihm vom künftigen Exil seiner Nachkommen.' },
 ];
 
 export const GLOSSARY: Partial<Record<Locale, Term[]>> = { ru, en, de };
