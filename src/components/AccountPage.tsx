@@ -3,6 +3,7 @@ import { Html, useI18n } from '../i18n';
 import { MODES, savedMode, setMode, useMode } from '../core/mode';
 import { HEBREW_LEVELS, savedHebrewLevel, setHebrewLevel, useHebrewLevel } from '../core/hebrewLevel';
 import { BookProgress } from './BookProgress';
+import { DailyReminder } from './DailyReminder';
 import type { MessageKey } from '../i18n/locales/ru';
 import {
   AccountError,
@@ -350,7 +351,7 @@ function ModeCard() {
 /** «Классы» are hidden for now (the server and `#/class/<id>` stay); true brings the section back to the profile. */
 const SHOW_CLASSES = false;
 
-/** `#/account`: guest mode and sign-in, «Мой путь по книгам» (progress and milestones), the profile, the parent's consent, classes, sign out, delete. */
+/** `#/account`: guest mode and sign-in, the settings, «Напоминать каждый день», «Мой путь по книгам» (progress and milestones), the profile, the parent's consent, classes, sign out, delete. */
 export function AccountPage() {
   const { t } = useI18n();
   const { token, me, mail } = useAccount();
@@ -375,6 +376,10 @@ export function AccountPage() {
         </header>
         <main>
           <ModeCard />
+          <section className="acc-card">
+            <h2>🔔 {t('push.title')}</h2>
+            <DailyReminder sheet />
+          </section>
           <BookProgress />
           {!token && mail === false && (
             <section className="acc-card">

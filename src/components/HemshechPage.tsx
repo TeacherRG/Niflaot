@@ -116,11 +116,14 @@ const weekday = (iso: string, locale: string) => {
 /** A passage is open on its day (the admin sees the coming ones ahead). */
 const isOpen = (k: number) => passageDate(k) <= localToday() || isAdmin();
 
-/** ‹ / › at the corners of the date bar — the previous / next passage (as on «Пророки», TanakhPage.tsx). */
+/**
+ * ‹ / › at the corners of the date bar — the previous / next passage (as on «Пророки», TanakhPage.tsx); a coming
+ * passage is reachable too — its page says when it opens.
+ */
 function Step({ k, dir, lang }: { k: number; dir: 'prev' | 'next'; lang: HsLang }) {
   const { t } = useI18n();
   const all = allPassages();
-  if (k < 0 || k >= all.length || !isOpen(k)) return <span className={`tk-step ${dir}`} aria-hidden="true" />;
+  if (k < 0 || k >= all.length) return <span className={`tk-step ${dir}`} aria-hidden="true" />;
   const label = t(dir === 'prev' ? 'hs.prev' : 'hs.next');
   return (
     <a className={`tk-step ${dir}`} href={`#/hemshech/${all[k].p.id}`} aria-label={`${label}: ${all[k].p.title[lang]}`} title={label}>
@@ -176,15 +179,42 @@ function Passage({ at, lang, onHelp }: { at: number; lang: HsLang; onHelp: () =>
       <Step k={at + 1} dir="next" lang={lang} />
     </nav>
   );
+  const prev = all[at - 1];
+  const next = all[at + 1];
+  const pager = (
+    <nav className="tk-pager no-print" aria-label={t('hs.navLabel')}>
+      {prev ? (
+        <a className="prev" href={`#/hemshech/${prev.p.id}`}>
+          <small>← {t('hs.prev')}</small>
+          <b>{prev.p.title[lang]}</b>
+          <span>{civilDate(passageDate(at - 1), lang)}</span>
+        </a>
+      ) : (
+        <span />
+      )}
+      {next && (
+        <a className="next" href={`#/hemshech/${next.p.id}`}>
+          <small>{t('hs.next')} →</small>
+          <b>{next.p.title[lang]}</b>
+          <span>{isOpen(at + 1) ? civilDate(passageDate(at + 1), lang) : t('hs.opens', { date: civilDate(passageDate(at + 1), lang) })}</span>
+        </a>
+      )}
+    </nav>
+  );
   if (!isOpen(at))
     return (
       <>
         {bar}
+        <header className="tk-head">
+          <p className="tk-kicker">
+            {HEMSHECH.title[lang]} · {m.title[lang]} · {t('hs.passageN', { n: m.passages.indexOf(p) + 1, total: m.passages.length })}
+          </p>
+          <h1>{p.title[lang]}</h1>
+        </header>
         <p className="tk-note">{t('hs.opensOn', { date: civilDate(date, lang) })}</p>
+        {pager}
       </>
     );
-  const prev = all[at - 1];
-  const next = all[at + 1] && isOpen(at + 1) ? all[at + 1] : undefined;
   const n = m.passages.indexOf(p) + 1;
   const text = p[lang];
   return (
@@ -233,24 +263,7 @@ function Passage({ at, lang, onHelp }: { at: number; lang: HsLang; onHelp: () =>
       <Credit lang={lang} />
       <DoneCheck id={p.id} lang={lang} />
       <Questions key={p.id} p={p} lang={lang} />
-      <nav className="tk-pager no-print" aria-label={t('hs.navLabel')}>
-        {prev ? (
-          <a className="prev" href={`#/hemshech/${prev.p.id}`}>
-            <small>← {t('hs.prev')}</small>
-            <b>{prev.p.title[lang]}</b>
-            <span>{civilDate(passageDate(at - 1), lang)}</span>
-          </a>
-        ) : (
-          <span />
-        )}
-        {next && (
-          <a className="next" href={`#/hemshech/${next.p.id}`}>
-            <small>{t('hs.next')} →</small>
-            <b>{next.p.title[lang]}</b>
-            <span>{civilDate(passageDate(at + 1), lang)}</span>
-          </a>
-        )}
-      </nav>
+      {pager}
     </article>
   );
 }
