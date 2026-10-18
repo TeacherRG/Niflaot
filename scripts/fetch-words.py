@@ -9,8 +9,10 @@
 Источники (свободные лицензии):
   Open Scriptures Hebrew Bible (github.com/openscriptures/morphhb) — основная форма каждого слова текста (лемма, номер
   Стронга) и его разбор: CC BY 4.0, «Open Scriptures Hebrew Bible Project»; сам текст (WLC) — Public Domain;
-  HebrewStrong.xml (github.com/openscriptures/HebrewLexicon) — заглавная форма слова с огласовками и его происхождение
-  («from H1696») — словарь Стронга, Public Domain.
+  HebrewStrong.xml (github.com/openscriptures/HebrewLexicon) — заглавная форма слова с огласовками (словарь Стронга, PD);
+  LexicalIndex.xml (там же) — корни по словарю Брауна — Драйвера — Бриггса (1906, PD): традиционная система трёхбуквенных
+  корней; Радака («Сефер ґа-шорашим») в открытых выгрузках нет — корень показываем, только если BDB его даёт и его буквы
+  по порядку есть в слове, спорные — в ROOT_FIX.
 Считаются только Пророки и Писания (книги цикла); имена собственные — отдельно (не входят в словарь), приставки
 ו ה ב ל מ כ ש — не слова. Нумерация стихов совпадает с нашими файлами дней (проверяется при сборке).
 Переводы слов — проекта: src/tanakh/words/<ru|en|de>.json (`{"1961": "быть, стать, случиться"}`).
@@ -39,7 +41,13 @@ BOOKS = {
 }
 # Имена Всевышнего: заглавная форма на экране (номер Стронга → как писать)
 # корень, который Стронг даёт неверно: номер → правильный (None — не показывать)
-ROOT_FIX = {'1964': None, '4940': 'שפח', '5542': None}
+# Корень, где правило ниже ошибается: номер → правильный (None — не показывать). Глаголы с «чужим» корнем — как у Радака и
+# в BDB: יָלַךְ — от הלך, יָנַח (הניח) — от נוח, לוּץ — от ליץ; בּוֹר и אוֹת — у словарей нет согласия, корня не показываем.
+# Догадки BDB, которые ученику не показываем: «восемь» от «жир» (שְׁמֹנֶה ← שמן), בַּרְזֶל ← ברז, הָמוֹן ← המן (у Радака — המה),
+# חוֹמָה, חֲצֹצְרָה, אַרְמוֹן, אוּלָם, אֳנִיָּה; слова от имён народов (יְהוּדִי, יְבוּסִי, כּוּשִׁי).
+ROOT_FIX = {'1964': None, '4940': 'שפח', '5542': None, '3212': 'הלך', '3240': 'נוח', '3887': 'ליץ', '953': None, '226': None,
+            '8083': None, '8084': None, '1270': None, '1995': None, '2346': None, '2689': None, '759': None, '197': None,
+            '591': None, '3064': None, '2983': None, '3569': None}
 NAMES = {'430': 'אֱלֹקִים', '433': 'אֱלוֹקַּ', '426': 'אֱלָהּ', '410': 'אֵ-ל', '136': 'אֲדֹ-נָי', '7706': 'שַׁ-דַּי', '3050': 'קָהּ'}
 
 
@@ -48,6 +56,7 @@ def cmd_fetch():
     for b in BOOKS:
         urllib.request.urlretrieve(f'{RAW}/morphhb/master/wlc/{b}.xml', CACHE / 'wlc' / f'{b}.xml')
     urllib.request.urlretrieve(f'{RAW}/HebrewLexicon/master/HebrewStrong.xml', CACHE / 'HebrewStrong.xml')
+    urllib.request.urlretrieve(f'{RAW}/HebrewLexicon/master/LexicalIndex.xml', CACHE / 'LexicalIndex.xml')
     print(f'saved to {CACHE}')
 
 
@@ -65,6 +74,28 @@ def lexicon():
             if f: frm = f[1]
         out[m[1]] = (m[3], m[2], frm)
     return out
+
+
+def bdb_roots():
+    """номер Стронга → корни по словарю Брауна — Драйвера — Бриггса (LexicalIndex.xml: у основного слова — `root`, у
+    производного — ссылка на основное; глагол без пометки — сам себе корень)"""
+    x = (CACHE / 'LexicalIndex.xml').read_text(encoding='utf-8')
+    ents, by = {}, collections.defaultdict(list)
+    for m in re.finditer(r'<entry id="([^"]+)">(.*?)</entry>', x, re.S):
+        b = m[2]
+        w = re.search(r'<w[^>]*>([^<]*)</w>', b)
+        pos = re.search(r'<pos>([^<]*)</pos>', b)
+        et = re.search(r'<etym(?: root="([^"]*)")? type="(\w+)">([^<]*)</etym>', b)
+        ents[m[1]] = (w[1] if w else '', pos[1] if pos else '', et[1] if et else None, et[2] if et else None, (et[3] if et else '').strip())
+        for st in re.findall(r'strong="(\d+)"', b): by[st].append(m[1])
+    def root(e):
+        w, pos, r, typ, ref = e
+        if typ == 'main' and r: return r
+        if typ == 'sub' and ref in ents:
+            mw, mpos, mr, _, _ = ents[ref]
+            return mr or (mw if mpos == 'V' else None)
+        return w if pos == 'V' else None
+    return {st: {letters(r) for r in map(root, (ents[i] for i in ids)) if r and letters(r)} for st, ids in by.items()}
 
 
 def tokens():
@@ -104,6 +135,7 @@ def inside(root, word):
 
 def cmd_build():
     lex = lexicon()
+    bdb = bdb_roots()
     by, names, aram = tokens()
     count = collections.Counter(l for ls in by.values() for l in ls)
     total = sum(count.values())
@@ -112,12 +144,12 @@ def cmd_build():
     for l in ranked:
         he, pos, frm = lex[l]
         w = {'id': l, 'he': NAMES.get(l, he), 'pos': pos, 'n': count[l]}
-        # корень: глагол — сам себе корень; слово «от глагола» — тот глагол
+        # корень — по BDB (традиционная система трёхбуквенных корней — Ибн Джанах, Радак), и только если его буквы по
+        # порядку есть в самом слове: этимологические догадки (בַּיִת «от» בין) ученику не показываем; Имена — без корня
         verb = pos.split()[0] == 'v'
-        root = l if verb else frm if frm and lex.get(frm, ('', ''))[1] == 'v' else None
-        r = letters(lex[root][0]) if root else ''
-        # у Стронга бывают сомнительные происхождения (בַּיִת «от» בנה): корень — только если его буквы по порядку есть в слове
-        if r and (verb or inside(r, letters(he))): w['root'] = r[:-1] + r[-1].translate(SOFIT)
+        rs = sorted(r for r in bdb.get(l, ()) if inside(r, letters(he))) if l not in NAMES else []
+        if verb and not rs and letters(he) in bdb.get(l, {letters(he)}): rs = [letters(he)]
+        if len(rs) == 1: w['root'] = rs[0][:-1] + rs[0][-1].translate(SOFIT)
         if l in ROOT_FIX:
             w.pop('root', None)
             if ROOT_FIX[l]: w['root'] = ROOT_FIX[l]
