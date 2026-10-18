@@ -13,6 +13,8 @@
 import { useEffect, useState } from 'react';
 import type { Locale } from '../i18n/config';
 import type { Lesson } from '../lessons/types';
+import { PARSHIOT, type ParshaId } from '../lessons/parshiot';
+import type { Certificate, Progress } from './academy';
 import { displayNames } from './names';
 import { normWord, type WordEntry } from './sync';
 
@@ -27,6 +29,8 @@ export interface TorahWord {
   /** картинка пары Memo */
   img?: string;
   lesson: string;
+  /** глава Торы урока — по ней фильтр игры и сертификат */
+  parsha: ParshaId;
   /** где это в уроке: пара Memo или загадки */
   href: string;
 }
@@ -50,11 +54,11 @@ export function torahWords(lessons: Lesson[], locale: Locale, images: (l: Lesson
     if (l.memo && text.memo) {
       const imgs = images(l);
       l.memo.items.forEach((m, k) =>
-        add({ key: m.verse, he: displayNames(m.verse), tr: text.memo!.items[k]?.verse ?? '', img: imgs[k], lesson: l.slug, href: `#/${l.slug}/memo/${k + 1}` }),
+        add({ key: m.verse, he: displayNames(m.verse), tr: text.memo!.items[k]?.verse ?? '', img: imgs[k], lesson: l.slug, parsha: l.parsha, href: `#/${l.slug}/memo/${k + 1}` }),
       );
     }
     for (const w of new Set(l.riddles.flatMap((r) => r.words)))
-      add({ key: w, he: displayNames(w), tr: text.glossary[w] ?? '', translit: text.translit?.[w], lesson: l.slug, href: `#/${l.slug}` });
+      add({ key: w, he: displayNames(w), tr: text.glossary[w] ?? '', translit: text.translit?.[w], lesson: l.slug, parsha: l.parsha, href: `#/${l.slug}` });
   }
   return out;
 }
@@ -139,12 +143,32 @@ export function makeRound(words: TorahWord[], all: TorahWord[], stars: StarStore
   const byStars = shuffle(words).sort((a, b) => starsOf(stars, a.key) - starsOf(stars, b.key));
   return byStars.slice(0, ROUND).map((word) => {
     const pool = (ws: TorahWord[]) => shuffle(ws.filter((w) => w.key !== word.key && !alike(w, word)));
-    const near = pool(all.filter((w) => w.lesson === word.lesson));
+    const near = pool(all.filter((w) => w.parsha === word.parsha));
     const others: TorahWord[] = [];
     for (const w of [...near, ...pool(all)]) {
       if (others.length === 3) break;
       if (!others.some((o) => alike(o, w))) others.push(w);
     }
     return { word, reverse: starsOf(stars, word.key) > 0 && Math.random() < 0.5, options: shuffle([word, ...others]) };
+  });
+}
+
+/**
+ * Сертификаты «Академии» детям — «Знаток слов главы» (`tw-<глава>`): все слова главы (из всех её уроков) выучены — у каждого
+ * три звезды. got — выучено, max — слов главы.
+ */
+export function torahWordsCertificates(words: TorahWord[], stars: StarStore): (Certificate & { progress: Progress; href: string })[] {
+  const parshiot = [...new Set(words.map((w) => w.parsha))];
+  return parshiot.map((id) => {
+    const ws = words.filter((w) => w.parsha === id);
+    const got = ws.filter((w) => starsOf(stars, w.key) >= STARS).length;
+    const p = PARSHIOT[id];
+    return {
+      id: `tw-${id}`,
+      kind: 'torahWords' as const,
+      book: { id, he: p.he, name: { ru: p.name.ru, en: p.name.en ?? p.name.ru, de: p.name.de ?? p.name.ru } },
+      progress: { got, max: ws.length, done: got, parts: ws.length, complete: true, earned: ws.length > 0 && got === ws.length },
+      href: `#/torah-words/${id}`,
+    };
   });
 }

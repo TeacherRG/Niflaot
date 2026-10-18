@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useI18n } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
-import { LESSONS, PARSHIOT } from '../lessons';
+import { LESSONS, PARSHIOT, type ParshaId } from '../lessons';
 import { useHebrewLevel } from '../core/hebrewLevel';
 import { memoImages } from '../core/memo';
 import { answerWord, makeRound, readStars, STARS, starsOf, torahWords, useStars, type Question, type TorahWord } from '../core/torahWords';
@@ -15,18 +15,18 @@ const Stars = ({ n }: { n: number }) => (
 );
 
 /**
- * `#/torah-words[/<урок>]` — «Слова Торы», the children's deck (src/core/torahWords.ts): the words of the lessons — the
+ * `#/torah-words[/<глава>]` — «Слова Торы», the children's deck (src/core/torahWords.ts): the words of the lessons — the
  * Memo pairs with their pictures and the words of the riddle cards. A game of 10 questions (the Hebrew → pick the
  * translation; with a star — sometimes the other way), stars for every word, and all the words as cards.
  */
-export function TorahWordsPage({ lesson }: { lesson?: string }) {
+export function TorahWordsPage({ parsha }: { parsha?: string }) {
   const { t, locale } = useI18n();
   const level = useHebrewLevel();
   const stars = useStars();
   const all = useMemo(() => torahWords(LESSONS, locale, memoImages), [locale]);
-  const lessons = useMemo(() => LESSONS.filter((l) => all.some((w) => w.lesson === l.slug)), [all]);
-  const sel = lessons.some((l) => l.slug === lesson) ? lesson : undefined;
-  const words = sel ? all.filter((w) => w.lesson === sel) : all;
+  const parshiot = useMemo(() => [...new Set(all.map((w) => w.parsha))], [all]);
+  const sel = parshiot.find((p) => p === parsha);
+  const words = sel ? all.filter((w) => w.parsha === sel) : all;
   const [round, setRound] = useState<Question[] | null>(null);
 
   useEffect(() => {
@@ -35,11 +35,7 @@ export function TorahWordsPage({ lesson }: { lesson?: string }) {
 
   const learned = words.filter((w) => starsOf(stars, w.key) >= STARS).length;
   const pct = words.length ? Math.round((100 * learned) / words.length) : 0;
-  const name = (slug: string) => {
-    const l = LESSONS.find((x) => x.slug === slug)!;
-    const p = PARSHIOT[l.parsha];
-    return p.name[locale] ?? p.name.ru;
-  };
+  const parshaName = (id: ParshaId) => PARSHIOT[id].name[locale] ?? PARSHIOT[id].name.ru;
 
   return (
     <>
@@ -60,9 +56,9 @@ export function TorahWordsPage({ lesson }: { lesson?: string }) {
           <a href="#/torah-words" aria-current={!sel ? 'page' : undefined}>
             {t('tw.all')}
           </a>
-          {lessons.map((l) => (
-            <a key={l.slug} href={`#/torah-words/${l.slug}`} aria-current={sel === l.slug ? 'page' : undefined}>
-              {name(l.slug)}
+          {parshiot.map((p) => (
+            <a key={p} href={`#/torah-words/${p}`} aria-current={sel === p ? 'page' : undefined}>
+              {parshaName(p)}
             </a>
           ))}
         </nav>
@@ -72,7 +68,19 @@ export function TorahWordsPage({ lesson }: { lesson?: string }) {
           <span className="tk-words-bar" role="img" aria-label={`${pct}%`}>
             <span style={{ width: `${pct}%` }} />
           </span>
-          <small className="ws-goal">{t('tw.how')}</small>
+          <small className="ws-goal">
+            {t('tw.how')}
+            {sel && (
+              <>
+                {' '}
+                {learned === words.length && words.length ? (
+                  <a href={`#/academy/tw-${sel}`}>🎓 {t('tw.certGot')}</a>
+                ) : (
+                  t('tw.certHint', { name: parshaName(sel) })
+                )}
+              </>
+            )}
+          </small>
         </section>
 
         {round ? (
@@ -95,7 +103,7 @@ export function TorahWordsPage({ lesson }: { lesson?: string }) {
               <span className="tw-tr">{w.tr}</span>
               <span className="tw-foot">
                 <Stars n={starsOf(stars, w.key)} />
-                <a href={w.href}>{name(w.lesson)} →</a>
+                <a href={w.href}>{parshaName(w.parsha)} →</a>
               </span>
             </li>
           ))}

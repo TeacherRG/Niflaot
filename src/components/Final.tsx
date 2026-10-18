@@ -221,7 +221,7 @@ export function Final({
       <section className="memo-cta pop">
         <span aria-hidden="true">🔤</span>
         <p>{t('tw.cta')}</p>
-        <a className="btn" href={`#/torah-words/${lesson.slug}`}>
+        <a className="btn" href={`#/torah-words/${lesson.parsha}`}>
           {t('tw.title')} →
         </a>
       </section>

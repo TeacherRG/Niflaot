@@ -10,7 +10,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import cycleJson from '../src/tanakh/cycle.json';
 import { styleErrors } from './style-rules';
 import { LESSONS } from '../src/lessons';
-import { makeRound, torahWords } from '../src/core/torahWords';
+import { makeRound, torahWords, torahWordsCertificates } from '../src/core/torahWords';
 
 type Lang = 'ru' | 'en' | 'de';
 const errors: string[] = [];
@@ -88,6 +88,16 @@ for (const lang of ['ru', 'en', 'de'] as Lang[]) {
     if (/אלהים|יהוה/.test(w.he.replace(/[\u0591-\u05C7]/g, ''))) err(`Слова Торы: «${w.he}» — Имя не по правилам проекта`);
   }
   for (let k = 0; k < 50; k++) for (const q of makeRound(all, all, {})) if (q.options.length < 4) err(`Слова Торы (${lang}): у «${q.word.key}» меньше четырёх вариантов ответа`);
+}
+// «Знаток слов главы»: earned only when every word of the portion has three stars
+{
+  const all = torahWords(LESSONS, 'ru');
+  const p = all[0].parsha;
+  const full = Object.fromEntries(all.filter((w) => w.parsha === p).map((w) => [w.key, [1, 3, 0] as [number, number, number]]));
+  const c1 = torahWordsCertificates(all, full).find((c) => c.id === `tw-${p}`);
+  const [first] = Object.keys(full);
+  const c2 = torahWordsCertificates(all, { ...full, [first]: [2, 2, 0] }).find((c) => c.id === `tw-${p}`);
+  if (!c1?.progress.earned || c2?.progress.earned) err('Слова Торы: сертификат главы — не по правилу «все слова на три звезды»');
 }
 if (errors.length) {
   console.error(`✗ Слова отрывка: ${errors.length} ошибок\n  ${errors.slice(0, 40).join('\n  ')}`);
