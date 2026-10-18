@@ -4,10 +4,11 @@ import { useMode } from '../core/mode';
 import { CYCLE, localToday } from '../core/tanakh';
 import { isDone, PASS, TORAH_BOOKS } from '../core/academy';
 import { useDoneStore } from '../core/tanakhDone';
-import { bookRoadmap, markDate, pctMilestones, type Milestone, type RoadBook } from '../core/milestones';
+import { bookRoadmap, doneMilestones, markDate, pctMilestones, type Milestone, type RoadBook } from '../core/milestones';
 import { civilDate } from '../core/hebrewDate';
 import { TEACHERS } from '../lessons/teachers';
 import { useCertificates } from './AcademyPage';
+import { HEMSHECH, allPassages, hsIsDone, passageDate, useHsDone } from '../core/hemshech';
 
 type Lang = 'ru' | 'en' | 'de';
 const langOf = (locale: string): Lang => (locale === 'en' || locale === 'de' ? locale : 'ru');
@@ -102,6 +103,59 @@ function Road({ section, road }: { section: 'neviim' | 'ketuvim'; road: Stop[] }
   );
 }
 
+/** «Хасидут»: the discourses of «Ґемшех Самех-Вав» as the road — read (with the date), the current, the coming ones. */
+function HsRoad() {
+  const { t, locale } = useI18n();
+  const lang = langOf(locale);
+  const [done] = useHsDone();
+  const all = allPassages();
+  const today = localToday();
+  const road = HEMSHECH.maamarim.map((m) => {
+    const ids = m.passages.map((p) => p.id);
+    const n = ids.filter((id) => hsIsDone(done, id)).length;
+    const steps = doneMilestones(done, ids);
+    const first = passageDate(all.findIndex((x) => x.p === m.passages[0]));
+    const next = m.passages.find((p) => !hsIsDone(done, p.id)) ?? m.passages[0];
+    const status = n === ids.length && ids.length ? 'done' : n > 0 || first <= today ? 'now' : 'next';
+    return { m, n, steps, first, status, href: `#/hemshech/${next.id}` };
+  });
+  const read = road.filter((r) => r.status === 'done').length;
+  return (
+    <div className="bp-section t-tchelet">
+      <h3 className="bp-h3">
+        {t('hs.menuLbl')} · {HEMSHECH.title[lang]} <small>{t('bp.hsRead', { n: read, total: road.length })}</small>
+      </h3>
+      <ol className="bp-road">
+        {road.map((r) => {
+          const pct = Math.round((100 * r.n) / (r.m.passages.length || 1));
+          return (
+            <li key={r.m.id} className={`bp-stop ${r.status}`}>
+              <span className="bp-dot" aria-hidden="true">{r.status === 'done' ? '✓' : r.status === 'now' ? '●' : '○'}</span>
+              <div className="bp-stop-body">
+                <div className="bp-head">
+                  <b>{r.m.title[lang]}</b>
+                  {r.status === 'done' && (
+                    <a className="bp-cert" href={`#/academy/h-${r.m.id}`}>
+                      🎓 {t('bp.cert')}
+                    </a>
+                  )}
+                </div>
+                {r.status === 'done' ? (
+                  <p className="ac-meta">{r.steps[r.steps.length - 1].at ? t('bp.finished', { date: short(r.steps[r.steps.length - 1].at!, locale) }) : t('bp.finishedNoDate')}</p>
+                ) : r.status === 'now' ? (
+                  <Inside pct={pct} meta={t('academy.readDays', { done: r.n, parts: r.m.passages.length, pct })} steps={r.steps} href={r.href} />
+                ) : (
+                  <p className="ac-meta">{t('bp.starts', { date: civilDate(r.first, locale), n: r.m.passages.length })}</p>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  );
+}
+
 /**
  * «Мой путь по книгам» in the account (`#/account`): the books are the milestones. The adults — the road of the
  * Prophets and of the Writings (every book of the cycle in order: read — with the date, the current — its progress and
@@ -113,7 +167,9 @@ export function BookProgress() {
   const lang = langOf(locale);
   const adults = useMode() === 'adults';
   const store = useDoneStore();
-  const { torah } = useCertificates();
+  const { torah, hemshech } = useCertificates();
+  const [hsDone] = useHsDone();
+  const hsRead = allPassages().filter((x) => hsIsDone(hsDone, x.p.id)).length;
 
   const roads = useMemo(() => {
     const today = localToday();
@@ -132,6 +188,7 @@ export function BookProgress() {
   // on the card — only what is done: the books read and the certificates earned; the road itself — under «Весь путь»
   const doneBooks = adults ? roads.flatMap((r) => r.road.filter((b) => b.status === 'done').map((b) => ({ ...b, section: r.section }))) : [];
   const doneTorah = torah.filter((c) => c.progress.earned);
+  const doneHs = adults ? hemshech.filter((c) => c.progress.earned) : [];
 
   return (
     <section className="acc-card bp">
@@ -139,9 +196,11 @@ export function BookProgress() {
       {adults && (
         <p className="bp-total">
           {t('bp.totalBooks', { n: booksRead, total: booksAll })} · {t('bp.total', { n: passages, total: CYCLE.length * 2 })}
+          <br />
+          {t('bp.hsTotal', { n: hsRead, total: allPassages().length })}
         </p>
       )}
-      {doneBooks.length + doneTorah.length ? (
+      {doneBooks.length + doneTorah.length + doneHs.length ? (
         <ol className="bp-road">
           {doneBooks.map((r) => (
             <li key={r.book.slug} className="bp-stop done">
@@ -154,6 +213,19 @@ export function BookProgress() {
                   </a>
                 </div>
                 <p className="ac-meta">{r.finishedAt ? t('bp.finished', { date: short(r.finishedAt, locale) }) : t('bp.finishedNoDate')}</p>
+              </div>
+            </li>
+          ))}
+          {doneHs.map((c) => (
+            <li key={c.id} className="bp-stop done">
+              <span className="bp-dot" aria-hidden="true">✓</span>
+              <div className="bp-stop-body">
+                <div className="bp-head">
+                  <b>{c.book.name[lang]}</b> <small>{t('hs.menuLbl')}</small>
+                  <a className="bp-cert" href={`#/academy/${c.id}`}>
+                    🎓 {t('bp.cert')}
+                  </a>
+                </div>
               </div>
             </li>
           ))}
@@ -185,6 +257,7 @@ export function BookProgress() {
             {roads.map((r) => (
               <Road key={r.section} section={r.section} road={r.road} />
             ))}
+            <HsRoad />
           </>
         )}
 
