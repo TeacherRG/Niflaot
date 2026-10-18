@@ -33,6 +33,11 @@ export const LESSON_GROUPS = (Object.keys(PARSHIOT) as ParshaId[])
   }))
   .filter((g) => g.lessons.length + g.rebbe.length > 0);
 
+/** The portion of the week (YYYY-MM-DD, the device's today by default): the first with lessons whose Shabbat is that day or later; after the last — the last. */
+export function weekParsha(today = localDate()): ParshaId | undefined {
+  return (LESSON_GROUPS.find((g) => g.shabbat >= today) ?? LESSON_GROUPS[LESSON_GROUPS.length - 1])?.id;
+}
+
 /** «Нифлаот Ребе» lessons of a portion, in order. */
 export const rebbeLessons = (parsha: ParshaId) => LESSONS.filter((l) => l.parsha === parsha && l.series === 'rebbe');
 

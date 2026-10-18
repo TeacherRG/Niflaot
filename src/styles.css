@@ -1114,6 +1114,18 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .rebbe-list{margin-top:16px}
 .menu-sub .menu-lesson{display:grid;gap:2px}
 .menu-sub .menu-game{margin-inline-start:22px;font-size:14px;padding:7px 10px}
+/* «Тора» in the menu: the portions in a strip scrolled sideways, the chosen one's lessons under it */
+.parsha-pick{display:flex;align-items:center;gap:2px;margin:0 0 6px;min-width:0}
+.parsha-strip{display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;padding:2px;flex:1;min-width:0}
+.parsha-strip::-webkit-scrollbar{display:none}
+.parsha-chip{flex:none;scroll-snap-align:center;display:grid;gap:1px;text-align:center;padding:6px 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:inherit;font:inherit;cursor:pointer;min-width:84px}
+.parsha-chip b{font-size:14px;font-weight:700;white-space:nowrap}
+.parsha-chip small{font-size:11px;color:var(--muted);white-space:nowrap}
+.parsha-chip.week small{color:var(--gold);font-weight:700}
+.parsha-chip[aria-pressed="true"]{border-color:var(--gold);background:var(--gold-soft)}
+.parsha-arrow{flex:none;width:30px;height:44px;border:0;border-radius:10px;background:none;color:var(--gold);font-size:22px;cursor:pointer}
+.parsha-arrow:disabled{opacity:.3;cursor:default}
+.menu-parsha .menu-sub{margin-inline-start:8px}
 .menu-sub .menu-game .menu-num{width:24px;height:24px;font-size:12px;background:var(--paper)}
 .mc-expl{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;padding:8px 6px;width:100%;height:100%;background:var(--tchelet-soft);text-align:center;font-size:clamp(10.5px,2.8vw,13px);line-height:1.28;color:var(--ink);overflow:hidden}
 .mc-expl-mark{color:var(--gold);font-size:14px;line-height:1}

@@ -3,11 +3,12 @@
  * Only the English is a source: the translation of Rabbi Amiram and Rabbi Yehudah Markel (© The Neirot Foundation,
  * used with permission — every passage ends with the credit and a link to neirot.com); Russian and German are the
  * project's translations from that English. No Hebrew original is shown. Data — src/hemshech/5666.json
- * (`npm run check`: scripts/check-hemshech.ts). Answers to the questions — `niflaot:hemshech` (synced with the account).
+ * (`npm run check`: scripts/check-hemshech.ts). Answers to the questions — `niflaot:hemshech` (synced with the account),
+ * «Я прочитал(а)» under a passage — `niflaot:hemshech-done` = { <passage id>: time of the mark, s (unmarked — negative) }.
  * «Отрывок дня»: one passage a study day (the days of the Prophets-and-Writings cycle — no Shabbat, no festivals),
  * from HS_START; a passage opens on its day (the admin sees them all ahead).
  */
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import data from '../hemshech/5666.json';
 import type { QuizResult, QuizStore } from './academy';
 import { CYCLE } from './tanakh';
@@ -97,4 +98,40 @@ export function useHsQuiz(id: string, n: number) {
   );
   const restart = useCallback(() => save({ ...r, p: Array(n).fill(-1) }), [r, n, id]);
   return { result: r, answer, restart };
+}
+
+const DONE_KEY = 'niflaot:hemshech-done';
+const DONE_EVENT = 'niflaot:hemshech-done';
+export function readHsDone(): Record<string, number> {
+  try {
+    const s = JSON.parse(localStorage.getItem(DONE_KEY) ?? 'null');
+    return s && typeof s === 'object' ? s : {};
+  } catch {
+    return {};
+  }
+}
+export const hsIsDone = (s: Record<string, number>, id: string) => (s[id] ?? 0) > 0;
+
+/** «Я прочитал(а)» of the passages — and the update when the check (this page) or the account (another tab) changes them. */
+export function useHsDone(): [Record<string, number>, (id: string, on: boolean) => void] {
+  const [s, set] = useState(readHsDone);
+  useEffect(() => {
+    const on = () => set(readHsDone());
+    window.addEventListener(DONE_EVENT, on);
+    window.addEventListener('storage', on);
+    return () => {
+      window.removeEventListener(DONE_EVENT, on);
+      window.removeEventListener('storage', on);
+    };
+  }, []);
+  const mark = useCallback((id: string, on: boolean) => {
+    const x = readHsDone();
+    const now = Math.floor(Date.now() / 1000);
+    x[id] = on ? now : -now;
+    try {
+      localStorage.setItem(DONE_KEY, JSON.stringify(x));
+    } catch {}
+    window.dispatchEvent(new Event(DONE_EVENT));
+  }, []);
+  return [s, mark];
 }
