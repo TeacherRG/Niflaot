@@ -1254,10 +1254,10 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .site-foot-by{margin-inline-start:auto}
 .site-foot a{color:var(--gold-2);font-weight:700;text-decoration:none}
 .site-foot button{background:none;border:0;padding:0;color:#fff;font-weight:600;font-size:13px}
-.site-foot .site-foot-fine{max-width:1180px;margin:4px auto 0;font-size:11.5px;color:#9AA1BD}
+
 @media (max-width:899px){
   /* one line on a phone: the site, the year, MyChitas (about and donation are in the menu) */
-  .site-foot .site-foot-more,.site-foot .site-foot-fine{display:none}
+  .site-foot .site-foot-more{display:none}
   .site-foot-in{flex-wrap:nowrap;gap:10px}
   .site-foot .site-foot-brand{font-size:16px}
 }
@@ -1754,3 +1754,5 @@ h2.mode-q{margin-top:22px}
 .bp-all{margin:12px 0;border:1px solid var(--line);border-radius:8px;padding:10px 14px}
 .bp-all>summary{cursor:pointer;font-weight:600;color:var(--tchelet)}
 .bp-all[open]>summary{margin-bottom:8px}
+.hs-about{display:inline-flex;align-items:center;gap:6px;flex:none;white-space:nowrap;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--tchelet);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.hs .tk-tools .hs-en-toggle{margin:0}
