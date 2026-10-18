@@ -152,4 +152,36 @@ export const PROJECT_DE: Record<string, string[]> = {
   'tanya-36': [
     'Bekannt ist der Ausspruch unserer Weisen, gesegnet sei ihr Andenken: Das Ziel der Erschaffung dieser Welt ist, dass der Heilige, gesegnet sei Er, eine Wohnung in den unteren Welten haben wollte.',
   ],
+  // lesson «Baal HaTurim: Lech Lecha»
+  'bht-12-1': [
+    '<b>Geh für dich [lech lecha]</b> — [die Tora] begann [die Geschichte von Awraham] mit einem Spruch, mit der Sprache, mit der die Welt erschaffen wurde: Denn die Welt wurde mit zehn Sprüchen erschaffen, und sie wurde ganz nur durch das Verdienst Awrahams erschaffen; darum steht über ihn ein Spruch.',
+    '<b>Geh für dich [lech lecha]</b> — Er deutete ihm an: Wenn du hundert [Jahre alt] bist, nach der Zahl von „lech lecha“ [100], dann „mache Ich dich zu einem großen Volk“ — als ihm Jizchak geboren wurde. Eine andere Erklärung: Er deutete ihm an, dass du, nachdem du dein Land verlässt, nach der Zahl von „lech lecha“ leben wirst: Denn er war fünfundsiebzig Jahre alt, als er auszog, und alle seine Jahre waren hundertfünfundsiebzig. Eine andere Erklärung: Er deutete ihm die Exile an — [„lech“ zweimal:] dass Israel zweimal ins Exil gehen wird. Eine andere Erklärung: Er deutete ihm an, dass sie nach fünfzig Generationen, nach der Zahl von „lech“ [50], ins Exil gehen — in den Tagen von Zidkijahu; und durch dein Verdienst — denn Ich sprach mit dir, [als du] fünfundsiebzig Jahre [alt warst; in der Ausgabe steht dazu: „es muss heißen: siebzig“], beim Bund zwischen den Stücken — kehren sie nach siebzig [Jahren] zurück. Und darum steht [Terachs Tod] „in Charan“ neben „lech lecha“: Denn durch den glühenden Zorn [charon] des Heiligen, gelobt sei Er, gingen sie wegen unserer vielen Sünden ins Exil.',
+  ],
+  'bht-12-2-1': [
+    '<b>Ich mache dich zu einem großen Volk usw.</b> — hier segnete Er ihn mit sieben Segen, und das sind sie. „Ich mache dich zu einem großen Volk“ — das ist der größte von allen: dass Er ihn zu einem Volk macht, denn darin sind die Knechtschaft und die Befreiung enthalten. Der zweite — dass Er ihn, solange er noch Awram war, bevor Er ihn in den Bund [der Beschneidung] brachte, mit dem Segen des Reichtums segnen wird, wie geschrieben steht: „Und Awram war sehr reich.“ Der dritte — dass sein Name größer wird, von Awram zu Awraham. Der vierte — dass er selbst ein Segen sein wird. Der fünfte — dass der Allmächtige die segnet, die ihn segnen. Der sechste — dass Er alle verflucht, die ihm Böses wollen. Der siebte — dass durch ihn alle Familien der Erde gesegnet werden.',
+  ],
+  'bht-12-2-3': [
+    '<b>Ich werde dir zeigen [arecha]</b> — Gematria „in den Wolken“ [ba-ananim]: Das lehrt, dass Wolken vor ihm hergingen und ihm den Weg zeigten. „Ich mache dich zu einem großen Volk, Ich segne dich und mache deinen Namen groß“ — drei Segen, entsprechend den drei Segen der Kohanim. Und ebenso hat [das Wort] „mewarechecha“ drei Krönchen [Tagin] auf [dem Buchstaben] ך: um dir zu sagen, dass dreimal zwanzig sechzig sind, entsprechend den sechzig Buchstaben im Priestersegen, und das sind: „Er segne dich…“, „Er lasse leuchten…“, „Er erhebe…“. „Und Ich werde dich segnen“ [wa-awarechecha] — Gematria „Awraham“.',
+  ],
+  'bht-13-11': [
+    '<b>Und sie trennten sich voneinander. Awram [isch meal achiw. Awram]</b> — die Endbuchstaben [ergeben] „Schalom“ [Frieden]: um zu sagen, dass sie sich trennten, um den Frieden zu bewahren. Und es deutete ihm auch an, dass es Frieden für seine Nachkommen geben wird, und darum heißt es: „Bedränge Moaw nicht“ [Dewarim 2,9].',
+  ],
+  'bht-14-18': ['<b>König von Schalem [melech Schalem]</b> — die Anfangsbuchstaben [ergeben] „Schem“: um dir zu sagen, dass das Schem war, der Sohn von Noach.'],
+  'bht-15-5-1': [
+    '<b>Er führte ihn hinaus [wa-joze oto ha-chuza]</b> — Gematria: „deine Sterndeuterei“ [iztagninutcha]. „So [ko] werden deine Nachkommen sein“ — das bedeutet: Wenn er noch fünfundzwanzig Jahre hat, nach der Zahl von „ko“ [25], wird er Nachkommen haben: Denn beim Bund zwischen den Stücken war Awraham fünfundsiebzig Jahre alt.',
+  ],
+  'bht-15-5-2': [
+    '<b>Wird sein [jihje]</b> — Gematria „dreißig“: um dir zu sagen, dass es keine Generation ohne dreißig Gerechte gibt. Und so sagte Er: Nach der Zahl von „jihje“ wird es Gerechte unter deinen Nachkommen geben, wie es heißt: „Und Er sagte zu ihm: So werden deine Nachkommen sein.“',
+  ],
+  'bht-15-8': [
+    '<b>Woran werde ich erkennen [ba-ma eda]</b> — „ba-ma“ im Atbasch [א״ת ב״ש] ist „schiz“ [שי״ץ], und das ergibt die Zahl vierhundert: darum wurde über seine Kinder ein Urteil von vierhundert [Jahren] verhängt. Die Zahl von „ba-ma eda“ sind Jahre: zweiundfünfzig Jahre, in denen kein Mensch durch Jehuda zog, und siebzig [Jahre], die sie im Exil waren.',
+  ],
+  'bht-15-13': ['<b>Dass Fremde [ki ger]</b> — die Endbuchstaben [י und ר] ergeben 210 — die Zahl von „redu“ [רד״ו].'],
+  'bht-15-17': [
+    '<b>Und es war Finsternis, und siehe — ein Ofen [wa-alata haja we-hine tanur]</b> — die Anfangsbuchstaben, umgekehrt, [ergeben] „Tohu“ [Chaos]: [der Allmächtige] zeigte ihm die Exile, die wie Chaos sind.',
+  ],
+  'bht-17-4': ['Zweimal [steht] in diesem Kapitel „aw hamon“ [Vater einer Menge], und das ergibt die Zahl von „Jizchak“. Und ebenso „arbe“ [Ich werde vermehren] — Gematria „Jizchak“.'],
+  'bht-17-21': [
+    '<b>Meinen Bund aber werde Ich mit Jizchak aufrichten</b> — „akim“ [Ich werde aufrichten] ist ein Notarikon: „ascher kidesch jedid mi-beten“ [Der den Geliebten vom Mutterleib an geheiligt hat].',
+  ],
 };

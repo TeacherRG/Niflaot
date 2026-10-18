@@ -41,13 +41,15 @@ export interface ClassView {
   members: { nick: string; points: number; solved: number; days: number; streak: number; lessons: Record<string, number>; updated: number | null }[];
 }
 
-type State = { token: string | null; me: Me | null; mail: boolean | null };
+/** the last exchange of progress with the account (this tab only): when, and whether it went through */
+export type SyncStatus = { at: number; ok: boolean } | null;
+type State = { token: string | null; me: Me | null; mail: boolean | null; sync: SyncStatus };
 let state: State = (() => {
   try {
     const s = JSON.parse(localStorage.getItem(STORE) ?? 'null');
-    return { token: s?.token ?? null, me: s?.me ?? null, mail: null };
+    return { token: s?.token ?? null, me: s?.me ?? null, mail: null, sync: null };
   } catch {
-    return { token: null, me: null, mail: null };
+    return { token: null, me: null, mail: null, sync: null };
   }
 })();
 const listeners = new Set<() => void>();
@@ -170,9 +172,36 @@ async function push() {
   const s = snapshot();
   const raw = JSON.stringify(s);
   if (raw === lastPushed) return;
-  await api('/progress', { method: 'PUT', body: { data: s, summary: summary(s) } });
+  try {
+    await api('/progress', { method: 'PUT', body: { data: s, summary: summary(s) } });
+  } catch (e) {
+    // nothing is lost: the progress stays on this device and goes with the next try (every 30 s)
+    set({ sync: { at: Date.now(), ok: false } });
+    throw e;
+  }
   lastPushed = raw;
+  set({ sync: { at: Date.now(), ok: true } });
 }
+
+/** «Синхронизировать сейчас»: the account's progress comes here, this device's goes there. */
+export async function syncNow() {
+  lastPull = Date.now();
+  try {
+    if (await pull()) notifyPulled();
+    else set({ sync: { at: Date.now(), ok: true } });
+  } catch (e) {
+    set({ sync: { at: Date.now(), ok: false } });
+    throw e;
+  }
+}
+
+/** pages that show the progress (the home page) re-read it when the account brought something new */
+const pulledListeners = new Set<() => void>();
+export const onPulled = (f: () => void) => {
+  pulledListeners.add(f);
+  return () => void pulledListeners.delete(f);
+};
+const notifyPulled = () => pulledListeners.forEach((f) => f());
 
 /** The best of this device and the account in both; true when this device got something from the account. */
 async function pull(): Promise<boolean> {
@@ -200,13 +229,14 @@ async function firstSync() {
 /**
  * Back to the page (another device may have played meanwhile): the account's progress comes to this device,
  * at most once a minute. A lesson or a game that is open is not reloaded — it reads the new state when it opens
- * next time, and whatever it saves meanwhile is merged on the server; the main screen reloads to show it.
+ * next time, and whatever it saves meanwhile is merged on the server; the main screen is drawn again to show it.
  */
 let lastPull = 0;
 async function pullOnReturn() {
   if (!state.token || !state.me?.user.active || Date.now() - lastPull < 60_000) return;
   lastPull = Date.now();
-  if ((await pull()) && location.hash.replace(/^#\/?/, '') === '') location.reload();
+  // the home page is drawn again from the new progress (no reload: what is open on it stays)
+  if (await pull()) notifyPulled();
 }
 
 /**

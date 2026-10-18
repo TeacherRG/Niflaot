@@ -3,13 +3,14 @@
  * Only the English is a source: the translation of Rabbi Amiram and Rabbi Yehudah Markel (© The Neirot Foundation,
  * used with permission — every passage ends with the credit and a link to neirot.com); Russian and German are the
  * project's translations from that English. No Hebrew original is shown. Data — src/hemshech/5666.json
- * (`npm run check`: scripts/check-hemshech.ts). Answers to the questions — `niflaot:hemshech` (synced with the account).
+ * (`npm run check`: scripts/check-hemshech.ts). Answers to the questions — `niflaot:hemshech` (synced with the account),
+ * «Я прочитал(а)» under a passage — `niflaot:hemshech-done` = { <passage id>: time of the mark, s (unmarked — negative) }.
  * «Отрывок дня»: one passage a study day (the days of the Prophets-and-Writings cycle — no Shabbat, no festivals),
  * from HS_START; a passage opens on its day (the admin sees them all ahead).
  */
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import data from '../hemshech/5666.json';
-import type { QuizResult, QuizStore } from './academy';
+import { PASS, type Certificate, type Progress, type QuizResult, type QuizStore } from './academy';
 import { CYCLE } from './tanakh';
 
 export type HsLang = 'ru' | 'en' | 'de';
@@ -97,4 +98,74 @@ export function useHsQuiz(id: string, n: number) {
   );
   const restart = useCallback(() => save({ ...r, p: Array(n).fill(-1) }), [r, n, id]);
   return { result: r, answer, restart };
+}
+
+const DONE_KEY = 'niflaot:hemshech-done';
+const DONE_EVENT = 'niflaot:hemshech-done';
+export function readHsDone(): Record<string, number> {
+  try {
+    const s = JSON.parse(localStorage.getItem(DONE_KEY) ?? 'null');
+    return s && typeof s === 'object' ? s : {};
+  } catch {
+    return {};
+  }
+}
+export const hsIsDone = (s: Record<string, number>, id: string) => (s[id] ?? 0) > 0;
+
+/** «Я прочитал(а)» of the passages — and the update when the check (this page) or the account (another tab) changes them. */
+export function useHsDone(): [Record<string, number>, (id: string, on: boolean) => void] {
+  const [s, set] = useState(readHsDone);
+  useEffect(() => {
+    const on = () => set(readHsDone());
+    window.addEventListener(DONE_EVENT, on);
+    window.addEventListener('storage', on);
+    return () => {
+      window.removeEventListener(DONE_EVENT, on);
+      window.removeEventListener('storage', on);
+    };
+  }, []);
+  const mark = useCallback((id: string, on: boolean) => {
+    const x = readHsDone();
+    const now = Math.floor(Date.now() / 1000);
+    x[id] = on ? now : -now;
+    try {
+      localStorage.setItem(DONE_KEY, JSON.stringify(x));
+    } catch {}
+    window.dispatchEvent(new Event(DONE_EVENT));
+  }, []);
+  return [s, mark];
+}
+
+/**
+ * «Академия»: сертификат за маамар (`h-<маамар>`) — как у книги Пророков: прочитаны все его отрывки («Я прочитал(а)»,
+ * 100 %); с баллами — если ещё и вопросы всех отрывков пройдены на ≥ PASS. В списке — маамары, чей первый отрывок уже открыт.
+ */
+export function hsCertificates(today: string, quiz: QuizStore = readHsStore(), done: Record<string, number> = readHsDone()) {
+  const all = allPassages();
+  return HEMSHECH.maamarim
+    .filter((m) => m.passages.length && passageDate(all.findIndex((x) => x.p === m.passages[0])) <= today)
+    .map((m) => {
+      const c: Certificate = { id: `h-${m.id}`, kind: 'hemshech', book: { id: m.id, he: '', name: m.title } };
+      return { ...c, maamar: m, progress: hsProgress(m, quiz, done) };
+    });
+}
+
+export function hsProgress(m: HsMaamar, quiz: QuizStore, done: Record<string, number>): Progress {
+  let got = 0;
+  let max = 0;
+  let tests = 0;
+  let seen = 0;
+  for (const p of m.passages) {
+    if (hsIsDone(done, p.id)) seen++;
+    const r = quiz[p.id];
+    if (r && r.n > 0 && r.best >= 0) {
+      tests++;
+      got += Math.min(r.best, r.n);
+      max += r.n;
+    }
+  }
+  const parts = m.passages.length;
+  const allRead = parts > 0 && seen === parts;
+  const scored = allRead && tests === parts && max > 0 && got >= PASS * max;
+  return { got, max, done: tests, parts, complete: true, earned: allRead, seen: { done: seen, parts }, scored };
 }

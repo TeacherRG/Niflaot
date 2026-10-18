@@ -31,6 +31,7 @@ import { readQuestions, readScore, type ReadStore } from '../src/core/readCheck'
 import { mergeSnapshots } from '../src/core/sync';
 import { bookRoadmap, pctMilestones, stepCount, tanakhBookMilestones } from '../src/core/milestones';
 import cycleJson from '../src/tanakh/cycle.json';
+import { HEMSHECH, hsProgress } from '../src/core/hemshech';
 
 const errors: string[] = [];
 const err = (m: string) => errors.push(m);
@@ -191,6 +192,19 @@ const rm = JSON.parse(
   mergeSnapshots({ 'niflaot:torah-read': JSON.stringify({ a: { x: 1 }, b: { y: 0 } }) }, { 'niflaot:torah-read': JSON.stringify({ a: { x: 2, z: 0 } }) })['niflaot:torah-read'] ?? '{}',
 );
 if (rm.a?.x !== 2 || rm.a?.z !== 0 || rm.b?.y !== 0) err('sync: ответы «Проверь себя» с обоих устройств должны сохраниться (ответ аккаунта — первый)');
+
+// «Хасидут»: сертификат маамара — все отрывки прочитаны; с баллами — и вопросы всех отрывков ≥ PASS
+{
+  const m = HEMSHECH.maamarim[0];
+  const ids = m.passages.map((p) => p.id);
+  const all = Object.fromEntries(ids.map((id) => [id, 100]));
+  const quiz = Object.fromEntries(ids.map((id) => [id, { p: [], best: 3, n: 4 }]));
+  if (hsProgress(m, {}, { ...all, [ids[0]]: -200 }).earned) err('hemshech: не все отрывки прочитаны — сертификата быть не должно');
+  const r = hsProgress(m, {}, all);
+  if (!r.earned || r.scored) err('hemshech: все отрывки прочитаны — сертификат без баллов');
+  if (!hsProgress(m, quiz, all).scored) err('hemshech: прочитано и вопросы ≥ 70 % — сертификат с баллами');
+  if (hsProgress(m, Object.fromEntries(ids.map((id) => [id, { p: [], best: 1, n: 4 }])), all).scored) err('hemshech: вопросы < 70 % — без баллов');
+}
 
 if (errors.length) {
   console.error(`✗ Академия: ${errors.length} ошибок\n  ${errors.slice(0, 40).join('\n  ')}`);

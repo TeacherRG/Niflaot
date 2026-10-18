@@ -123,7 +123,10 @@ export async function askAssistant(
   });
   // 429: too many questions — from this address in a minute (busy) or from everyone today (limit)
   if (res.status === 429) throw new Error((await res.text().catch(() => '')) === 'daily' ? 'limit' : 'busy');
+  // 503: the server can't count questions right now and answers none
+  if (res.status === 503) throw new Error('busy');
   if (!res.ok || !res.body) throw new Error(`http ${res.status}`);
+  let finished = false;
   const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
   let buf = '';
   for (;;) {
@@ -138,6 +141,9 @@ export async function askAssistant(
       const msg = JSON.parse(line) as { t?: string; done?: boolean; error?: string };
       if (msg.error) throw new Error(msg.error);
       if (msg.t) onText(msg.t);
+      if (msg.done) finished = true;
     }
   }
+  // the stream ended without "done": the answer was cut off
+  if (!finished) throw new Error('incomplete');
 }

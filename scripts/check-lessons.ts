@@ -32,7 +32,8 @@
  *    docs/TRANSLATION-GUIDE.md): G-d / G-tt, Shabbat / Schabbat, Moshiach / Moschiach, Avraham / Awraham…
  */
 import { LESSONS, cardsOnly } from '../src/lessons';
-import { staleOverrides } from '../src/content';
+import { PUBLISHED, entries, staleOverrides } from '../src/content';
+import { sanitizeHtml } from '../src/core/sanitize';
 import { gematria } from '../src/core/gematria';
 import { METHOD_EXAMPLES, exampleValue, gematriaBy, isNotarikon } from '../src/core/gematriaMethods';
 import { coachResult } from '../src/core/coach';
@@ -44,8 +45,8 @@ import { PROJECT_EN } from '../src/sources/en';
 import { LOCALES } from '../src/i18n/config';
 import { displayNames } from '../src/core/names';
 import { collectFacts, factHebrew } from '../src/core/facts';
+import { fromStartParam, miniAppLink } from '../src/core/telegram';
 import { dailyPool } from '../src/core/daily';
-import { gematria } from '../src/core/gematria';
 import type { PuzzleText } from '../src/lessons/types';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import ruUi from '../src/i18n/locales/ru';
@@ -309,6 +310,20 @@ for (const lesson of LESSONS) checkHtml(`${lesson.slug}.memo`, lesson.memo);
 for (const lesson of LESSONS) checkHtml(`${lesson.slug}.cards`, lesson.cards);
 checkHtml('ui.ru', ruUi);
 checkHtml('ui.en', enUi);
+checkHtml('ui.de', deUi);
+
+// an edit made on the site (`#/admin`, overrides.json) goes through the allowlist sanitizer (src/core/sanitize.ts):
+// it must keep every text of the source files as it is (else editing a text would break its markup),
+// and the published edits must have nothing it would take out
+function checkSanitizer(where: string, v: unknown): void {
+  if (typeof v === 'string') {
+    if (sanitizeHtml(v) !== v) err(`${where}: markup the editor's sanitizer would drop — add the tag/attribute to src/core/sanitize.ts or change the text`);
+  } else if (Array.isArray(v)) v.forEach((x, i) => checkSanitizer(`${where}[${i}]`, x));
+  else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) checkSanitizer(`${where}.${k}`, x);
+}
+for (const lesson of LESSONS) checkSanitizer(lesson.slug, lesson.texts);
+checkSanitizer('ui', { ru: ruUi, en: enUi, de: deUi });
+for (const [k, v] of entries(PUBLISHED)) if (sanitizeHtml(v) !== v) err(`src/content/overrides.json: ${k} — unsafe or unknown markup (it is dropped on the site)`);
 checkHtml('sources', SOURCES);
 checkHtml('sources.ru', PROJECT_RU);
 checkHtml('sources.de', PROJECT_DE);
@@ -339,6 +354,16 @@ for (const k of staleOverrides) err(`src/content/overrides.json: ${k} — no suc
 const facts = collectFacts(LESSONS);
 if (!facts.length) err('facts: the feed «Знаете ли вы?» is empty');
 if (new Set(facts.map((f) => f.id)).size !== facts.length) err('facts: two facts have the same id (links #/facts/<id>)');
+// the Mini App button under «Загадка недели» (scripts/telegram-post.ts): the fact's route fits Telegram's startapp
+for (const f of facts)
+  for (const loc of Object.keys(LOCALES)) {
+    try {
+      const p = new URL(miniAppLink('bot/app', `facts/${f.id}`, loc)).searchParams.get('startapp');
+      if (fromStartParam(p)?.route !== `facts/${f.id}`) err(`facts: ${f.id} — the Telegram start parameter does not lead back to the fact`);
+    } catch (e) {
+      err(`facts: ${f.id} — ${(e as Error).message}`);
+    }
+  }
 for (const f of facts) if (f.ri === undefined && f.mi === undefined) err(`${f.lesson.slug}: facts — «${f.kind === 'eq' ? f.q : f.from}» has no place in the lesson to link to`);
 for (const f of facts)
   for (const loc of Object.keys(LOCALES) as (keyof typeof LOCALES)[]) {

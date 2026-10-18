@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { SITE_HOST, routeLink } from '../core/site';
 import { renderFactCard, shareOrSave, type FactAnswerPart } from '../core/shareCard';
 import { useI18n } from '../i18n';
-import { LESSONS } from '../lessons';
+import { LESSONS, lessonsByNearness } from '../lessons';
 import { TEACHERS, teacherOf } from '../lessons/teachers';
 import { NUMS, collectFacts, type Fact } from '../core/facts';
 import { displayNames } from '../core/names';
@@ -143,7 +143,12 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
 /** `at` — the fact a shared link points to (`#/facts/<id>`), or `daily` («Гематрия дня», `#/daily`): the feed opens on it. */
 export function FactsPage({ at }: { at?: string }) {
   const { t } = useI18n();
-  const facts = useMemo(() => collectFacts(LESSONS), []);
+  const lessons = useMemo(() => lessonsByNearness(), []);
+  // the facts of the lessons nearest to today first (collectFacts itself keeps its order: «Гематрия дня» draws on it)
+  const facts = useMemo(() => {
+    const all = collectFacts(LESSONS);
+    return lessons.flatMap((l) => all.filter((f) => f.lesson === l));
+  }, [lessons]);
   const showCards = at === 'cards';
 
   useEffect(() => {
@@ -169,7 +174,7 @@ export function FactsPage({ at }: { at?: string }) {
           <a href="#/facts/cards" aria-current={showCards ? 'page' : undefined}>{t('facts.cardsTab')}</a>
         </nav>
         {showCards ? (
-          <CardFeed lessons={LESSONS} />
+          <CardFeed lessons={lessons} />
         ) : (
           <>
             <DailyCard />

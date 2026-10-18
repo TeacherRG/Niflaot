@@ -360,8 +360,12 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
     let live = true;
     setContent(undefined);
     loadDay(day.date).then((c) => live && setContent(c));
+    // the day didn't load without network: when the network is back, it loads by itself
+    const retry = () => loadDay(day.date).then((c) => live && c && setContent(c));
+    addEventListener('online', retry);
     return () => {
       live = false;
+      removeEventListener('online', retry);
     };
   }, [day.date]);
 

@@ -4,7 +4,8 @@
  * server's rules for emails and nicknames (assistant/src/rules.ts).
  */
 import { mergeSnapshots, summarize } from '../src/core/sync';
-import { validEmail, validNick } from '../assistant/src/rules';
+import { methodsFor, validEmail, validNick } from '../assistant/src/rules';
+import { sanitizeHtml } from '../src/core/sanitize';
 
 const errors: string[] = [];
 const err = (s: string) => errors.push(s);
@@ -55,4 +56,33 @@ if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));
   process.exit(1);
 }
-console.log('✓ accounts: progress merge, synced keys, emails, nicknames');
+// every account route takes only its own methods (assistant/src/rules.ts → 405 otherwise)
+const routes: [string, string, boolean][] = [
+  ['/config', 'GET', true], ['/config', 'POST', false],
+  ['/profile', 'POST', true], ['/profile', 'GET', false],
+  ['/logout', 'POST', true], ['/logout', 'GET', false],
+  ['/delete', 'POST', true], ['/delete', 'GET', false], ['/delete', 'DELETE', false],
+  ['/consent', 'POST', true], ['/consent', 'GET', false],
+  ['/progress', 'GET', true], ['/progress', 'PUT', true], ['/progress', 'POST', false],
+  ['/leaders', 'GET', true], ['/class/join', 'POST', true], ['/class/abc_DEF-12', 'GET', true], ['/class/abc', 'POST', false],
+];
+for (const [path, method, ok] of routes)
+  if ((methodsFor(path)?.includes(method) ?? false) !== ok) err(`accounts: ${method} ${path} must be ${ok ? 'allowed' : 'refused'}`);
+for (const path of ['/nope', '/class/', '/class/a/b', '/class/../me']) if (methodsFor(path)) err(`accounts: ${path} must be 404`);
+
+// the editor's sanitizer (src/core/sanitize.ts): what an XSS needs never survives it, the site's own markup does
+const evil = [
+  '<img src=x onerror=alert(1)>', '<a href="javascript:alert(1)">x</a>', '<a href="jav&#x09;ascript:alert(1)">x</a>',
+  '<a href="&#106;avascript:alert(1)">x</a>', '<a href=" JAVASCRIPT:1">x</a>', '<a href="data:text/html,1">x</a>',
+  '<p onclick="x">t</p>', '<p class="x"onmouseover=1>t</p>', '<script>alert(1)</script>', '<svg><script>1</script></svg>',
+  '<scr<script>ipt>alert(1)</script>', '<iframe src="https://x"></iframe>', '<b style="background:url(x)">b</b>',
+  '<a href="vbscript:1">x</a>', '<math><mtext><a href="javascript:1">x</a></mtext></math>', '<!--<img src=x onerror=1>-->',
+];
+for (const e of evil) {
+  const s = sanitizeHtml(e);
+  if (/<(script|iframe|img|svg|math|style)\b|\son[a-z]+\s*=|style\s*=|(javascript|vbscript|data):/i.test(s)) err(`sanitize: ${e} → ${s}`);
+}
+const fine = '<p class="expl" dir="rtl" lang="he"><b>Пояснение.</b> <span class="he">א</span><sup data-src="bht-1"></sup> <a href="#/privacy">x</a> <a href="https://www.neirot.com" target="_blank" rel="noopener">y</a></p>';
+if (sanitizeHtml(fine) !== fine) err(`sanitize: the site's own markup must stay: ${sanitizeHtml(fine)}`);
+
+console.log('✓ accounts: progress merge, synced keys, emails, nicknames, routes and methods; editor sanitizer');

@@ -104,9 +104,9 @@ export interface Progress {
 }
 
 export interface Certificate {
-  /** `t-<учитель>-<книга>` — Тора, `k-<книга>` — Пророки и Писания */
+  /** `t-<учитель>-<книга>` — Тора, `k-<книга>` — Пророки и Писания, `h-<маамар>` — Хасидут (src/core/hemshech.ts) */
   id: string;
-  kind: 'torah' | 'tanakh';
+  kind: 'torah' | 'tanakh' | 'hemshech';
   teacher?: TeacherId;
   section?: Section;
   book: { id: string; he: string; name: { ru: string; en: string; de: string } };

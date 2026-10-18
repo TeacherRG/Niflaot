@@ -7,7 +7,9 @@
  * Настройка в GitHub (Settings → Secrets and variables → Actions):
  *  - secret `TELEGRAM_BOT_TOKEN` — токен бота от @BotFather; бот — администратор каждого канала;
  *  - variables `TELEGRAM_CHAT_RU`, `TELEGRAM_CHAT_EN`, `TELEGRAM_CHAT_DE` — канал (`@niflaot_ru` или числовой id);
- *    язык без канала пропускается.
+ *    язык без канала пропускается;
+ *  - variable `TELEGRAM_APP` (необязательно) — Mini App из @BotFather, `<бот>/<приложение>`: под постом кнопка
+ *    «Открыть в Telegram» — та же загадка на сайте прямо внутри Telegram (src/core/telegram.ts).
  * В Шабат (с полудня пятницы по UTC до конца субботы) ничего не публикуется — даже при ручном запуске.
  *
  * Проверить локально без отправки: `npx tsx scripts/telegram-post.ts --dry` (`--slot N` — другой факт по очереди).
@@ -16,6 +18,7 @@ import { LESSONS } from '../src/lessons';
 import { collectFacts, type Fact } from '../src/core/facts';
 import { displayNames } from '../src/core/names';
 import { SITE_URL, routeLink } from '../src/core/site';
+import { miniAppLink } from '../src/core/telegram';
 import { teacherOf } from '../src/lessons/teachers';
 import ru from '../src/i18n/locales/ru';
 import en from '../src/i18n/locales/en';
@@ -29,6 +32,7 @@ const CHATS: Record<Loc, string | undefined> = {
   de: process.env.TELEGRAM_CHAT_DE,
 };
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const APP = process.env.TELEGRAM_APP;
 const args = process.argv.slice(2);
 const DRY = args.includes('--dry');
 const slotArg = args.indexOf('--slot');
@@ -79,25 +83,29 @@ async function tg(method: string, body: object) {
   if (!json.ok) throw new Error(`${method}: ${json.description}`);
 }
 
+/** the Mini App button: the same fact on the site, inside Telegram */
+const buttons = (loc: Loc) =>
+  APP ? { reply_markup: { inline_keyboard: [[{ text: t(loc, 'tg.open'), url: miniAppLink(APP, `facts/${fact.id}`, loc) }]] } } : {};
+
 const photo = `${SITE_URL}/og/${fact.lesson.slug}.png`;
 if (!DRY && !Object.values(CHATS).some(Boolean)) throw new Error('no channel: set TELEGRAM_CHAT_RU / _EN / _DE (Variables or Secrets)');
 let failed = false;
 for (const loc of Object.keys(UI) as Loc[]) {
   const caption = post(fact, loc);
   if (DRY) {
-    console.log(`── ${loc} (${CHATS[loc] ?? 'нет канала'}) · ${photo}\n${caption}\n`);
+    console.log(`── ${loc} (${CHATS[loc] ?? 'нет канала'}) · ${photo}\n${caption}\n${APP ? `[${t(loc, 'tg.open')}] ${miniAppLink(APP, `facts/${fact.id}`, loc)}\n` : ''}`);
     continue;
   }
   const chat = CHATS[loc];
   if (!chat) continue;
   if (!TOKEN) throw new Error('TELEGRAM_BOT_TOKEN is not set');
   try {
-    await tg('sendPhoto', { chat_id: chat, photo, caption, parse_mode: 'HTML' });
+    await tg('sendPhoto', { chat_id: chat, photo, caption, parse_mode: 'HTML', ...buttons(loc) });
   } catch (e) {
     // no picture for this lesson yet — the question alone
     console.warn(`${loc}: ${(e as Error).message}; sending text`);
     try {
-      await tg('sendMessage', { chat_id: chat, text: caption, parse_mode: 'HTML' });
+      await tg('sendMessage', { chat_id: chat, text: caption, parse_mode: 'HTML', ...buttons(loc) });
     } catch (e2) {
       console.error(`${loc}: ${(e2 as Error).message}`);
       failed = true;

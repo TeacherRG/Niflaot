@@ -4,6 +4,7 @@ import ruUi from '../i18n/locales/ru';
 import enUi from '../i18n/locales/en';
 import deUi from '../i18n/locales/de';
 import published from './overrides.json';
+import { sanitizeHtml } from '../core/sanitize';
 
 /**
  * Text edits made on the site by the admin (`#/admin`), on top of the texts in the source files.
@@ -47,12 +48,15 @@ function locate(key: string): { obj: Record<string, unknown>; prop: string } | u
   return { obj, prop };
 }
 
-/** Sets a text field; `null` brings back the source-file text. Returns false when there is no such text. */
+/**
+ * Sets a text field; `null` brings back the source-file text. Returns false when there is no such text.
+ * An edited text is rendered as HTML, so it passes the allowlist sanitizer first (`src/core/sanitize.ts`).
+ */
 export function setText(key: string, value: string | null): boolean {
   const at = locate(key);
   if (!at) return false;
   if (!ORIGINALS.has(key)) ORIGINALS.set(key, at.obj[at.prop] as string);
-  at.obj[at.prop] = value ?? ORIGINALS.get(key)!;
+  at.obj[at.prop] = value === null ? ORIGINALS.get(key)! : sanitizeHtml(value);
   return true;
 }
 

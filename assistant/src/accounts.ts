@@ -11,7 +11,7 @@
  * progress (src/core/sync.ts), its summary, classes, the count of AI questions. «Удалить аккаунт» deletes all of it.
  */
 import { DurableObject } from 'cloudflare:workers';
-import { validEmail, validNick } from './rules';
+import { methodsFor, validEmail, validNick } from './rules';
 import { mergeSnapshots, summarize, type Snapshot } from '../../src/core/sync';
 
 export interface MailEnv {
@@ -218,6 +218,13 @@ export class Accounts extends DurableObject<MailEnv> {
     if (!(await this.ctx.storage.getAlarm())) await this.ctx.storage.setAlarm(Date.now() + 864e5);
     const url = new URL(req.url);
     const path = url.pathname;
+    const allowed = methodsFor(path);
+    if (!allowed) return fail('not found', 404);
+    if (!allowed.includes(req.method))
+      return new Response(JSON.stringify({ error: 'method' }), {
+        status: 405,
+        headers: { 'Content-Type': 'application/json', Allow: allowed.join(', ') },
+      });
     const body = req.method === 'POST' || req.method === 'PUT' ? ((await req.json().catch(() => null)) as Record<string, any> | null) : null;
     if ((req.method === 'POST' || req.method === 'PUT') && !body) return fail('bad json');
 
@@ -344,7 +351,7 @@ export class Accounts extends DurableObject<MailEnv> {
       if (!data || typeof data !== 'object' || Array.isArray(data)) return fail('data');
       const clean: Record<string, string> = {};
       for (const [k, v] of Object.entries(data))
-        if (typeof v === 'string' && /^niflaot:(lesson:[a-z0-9-]{1,60}|daily|tanakh-quiz|hemshech|tanakh-done|words|torah-read|mode|hebrew|lang|math-level)$/.test(k)) clean[k] = v;
+        if (typeof v === 'string' && /^niflaot:(lesson:[a-z0-9-]{1,60}|daily|tanakh-quiz|hemshech|hemshech-done|tanakh-done|words|torah-read|mode|hebrew|lang|math-level)$/.test(k)) clean[k] = v;
       // merged with what the account already has: a second device that hasn't seen the first one's progress
       // must not overwrite it (each device sends its whole copy)
       const stored = this.one<{ data: string }>('SELECT data FROM progress WHERE user = ?', u.id);

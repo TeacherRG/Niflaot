@@ -4,6 +4,7 @@ import { useMode } from '../core/mode';
 import { canInstall, install, subscribeInstall } from '../core/install';
 import { pushState, type PushState } from '../core/push';
 import { useUI } from './ui';
+import { inTelegram } from '../core/telegram';
 
 const HIDDEN = 'niflaot:offer-hidden';
 /** hidden by the player — shown again after a month */
@@ -37,7 +38,8 @@ export function PhoneOffer() {
     pushState().then(setPush, () => setPush({ kind: 'unsupported' }));
   }, []);
 
-  if (hidden || !push) return null;
+  // inside Telegram (Mini App) the site is already on the phone; «open in Chrome» would only take the player away
+  if (hidden || !push || inTelegram()) return null;
   const ios = push.kind === 'ios' && !standalone();
   const remind = push.kind === 'off' || push.kind === 'denied';
   const messenger = !installable && !ios && push.kind === 'unsupported' && inApp();

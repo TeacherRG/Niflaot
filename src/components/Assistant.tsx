@@ -4,6 +4,7 @@ import type { MessageKey } from '../i18n/locales/ru';
 import { ASSISTANT_URL, askAssistant, pageKind, subscribePageState, type ChatTurn, type PageKind } from '../core/assistant';
 import { HebrewRuns } from './Hebrew';
 import { Icon, Sheet, useUI } from './ui';
+import { PageLoading } from './PageStates';
 
 /** The offline helper (with all the primary sources) loads when it is first opened, not with the site. */
 const Helper = lazy(() => import('./Helper').then((m) => ({ default: m.Helper })));
@@ -18,6 +19,22 @@ const SUGGEST: Record<PageKind | 'site', MessageKey[]> = {
   site: ['ai.s.start', 'ai.s.cert', 'ai.s.math'],
 };
 const MAX_TURNS = 20;
+
+/** a turn of the chat on screen; an answer cut off by an error is marked and not sent back to the model */
+type Turn = ChatTurn & { incomplete?: boolean };
+
+/** The conversation for the next request: a cut-off answer goes, with the question it answered. */
+function forModel(turns: Turn[]): ChatTurn[] {
+  const out: ChatTurn[] = [];
+  for (const m of turns) {
+    if (m.incomplete) {
+      if (out[out.length - 1]?.role === 'user') out.pop();
+      continue;
+    }
+    out.push({ role: m.role, content: m.content });
+  }
+  return out;
+}
 
 /** **bold** inside a line; Hebrew runs are isolated so "ש = 300" keeps its order. */
 function inline(s: string): ReactNode[] {
@@ -81,7 +98,7 @@ export function Assistant() {
         <AiChat />
       ) : (
         opened.current && (
-          <Suspense fallback={null}>
+          <Suspense fallback={<PageLoading />}>
             <Helper />
           </Suspense>
         )
@@ -94,7 +111,7 @@ export function Assistant() {
 function AiChat() {
   const { t, locale } = useI18n();
   const { panel, open } = useUI();
-  const [turns, setTurns] = useState<ChatTurn[]>([]);
+  const [turns, setTurns] = useState<Turn[]>([]);
   const [draft, setDraft] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -108,9 +125,10 @@ function AiChat() {
   const send = async (q: string) => {
     q = q.trim();
     if (!q || busy) return;
-    const history: ChatTurn[] = [...turns, { role: 'user' as const, content: q }].slice(-MAX_TURNS);
+    const shown: Turn[] = [...turns, { role: 'user' as const, content: q }];
+    const history = forModel(shown).slice(-MAX_TURNS);
     if (history[0].role !== 'user') history.shift();
-    setTurns([...history, { role: 'assistant', content: '' }]);
+    setTurns([...shown, { role: 'assistant', content: '' }]);
     setDraft('');
     setError('');
     setBusy(true);
@@ -123,7 +141,7 @@ function AiChat() {
         locale,
         (chunk) => {
           answer += chunk;
-          setTurns([...history, { role: 'assistant', content: answer }]);
+          setTurns([...shown, { role: 'assistant', content: answer }]);
         },
         ctrl.signal,
       );
@@ -131,10 +149,12 @@ function AiChat() {
       if (!ctrl.signal.aborted) {
         const m = String((e as Error).message);
         setError(m === 'busy' ? t('ai.busy') : m === 'limit' ? t('ai.limit') : t('ai.error'));
+        // part of the answer came, then an error: it stays on screen, marked, and is not sent back to the model
+        if (answer.trim()) setTurns([...shown, { role: 'assistant', content: answer, incomplete: true }]);
       }
     } finally {
       // a failed or stopped exchange without any text is dropped so the next request stays valid
-      if (!answer.trim()) setTurns(history.slice(0, -1));
+      if (!answer.trim()) setTurns(shown.slice(0, -1));
       if (!answer.trim() && !ctrl.signal.aborted) setDraft(q);
       setBusy(false);
       abort.current = null;
@@ -172,6 +192,7 @@ function AiChat() {
             ) : (
               <div key={i} className="ai-msg ai-bot">
                 {m.content ? <Answer text={m.content} /> : <span className="ai-dots" aria-label={t('ai.thinking')} />}
+                {m.incomplete && <p className="ai-cut">{t('ai.incomplete')}</p>}
               </div>
             ),
           )}

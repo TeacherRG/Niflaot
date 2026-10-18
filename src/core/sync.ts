@@ -6,7 +6,7 @@
  */
 
 /** the synced localStorage keys: exact names, and `niflaot:lesson:<slug>` */
-export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:tanakh-done', 'niflaot:words', 'niflaot:torah-read', 'niflaot:mode', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
+export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:words', 'niflaot:torah-read', 'niflaot:mode', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
 export const LESSON_PREFIX = 'niflaot:lesson:';
 export const isSynced = (k: string) => SYNC_KEYS.includes(k) || k.startsWith(LESSON_PREFIX);
 
@@ -81,7 +81,7 @@ function mergeRead(a: string, b: string): string {
   return JSON.stringify(out);
 }
 
-/** «Я прочитал(а)» (src/core/tanakhDone.ts) and «Знаю» of the passage's words (src/core/words.ts): every mark from both; the same one — the later (on or off). */
+/** «Я прочитал(а)» (src/core/tanakhDone.ts, «Хасидут» — src/core/hemshech.ts): every passage from both; the same one — the later mark (read or unmarked). */
 function mergeDone(a: string, b: string): string {
   const x = parse(a) ?? {};
   const y = parse(b) ?? {};
@@ -109,7 +109,7 @@ export function mergeSnapshots(local: Snapshot, remote: Snapshot): Snapshot {
     else if (k === 'niflaot:daily') out[k] = mergeDaily(a, b);
     else if (k === 'niflaot:tanakh-quiz' || k === 'niflaot:hemshech') out[k] = mergeQuiz(a, b);
     else if (k === 'niflaot:torah-read') out[k] = mergeRead(a, b);
-    else if (k === 'niflaot:tanakh-done' || k === 'niflaot:words') out[k] = mergeDone(a, b);
+    else if (k === 'niflaot:tanakh-done' || k === 'niflaot:hemshech-done') out[k] = mergeDone(a, b);
     else out[k] = a;
   }
   return out;

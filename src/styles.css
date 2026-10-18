@@ -687,6 +687,7 @@ article.m-card{border-top:3px solid var(--gold-2)}
 .ai-dots{display:inline-block;width:28px;height:10px;background:radial-gradient(circle,var(--gold) 3px,transparent 3.5px) 0 50%/10px 10px repeat-x;animation:ai-pulse 1s infinite ease-in-out}
 @keyframes ai-pulse{50%{opacity:.35}}
 .ai-error{color:var(--bad);font-size:14px}
+.ai-cut{margin:6px 0 0;color:var(--muted);font-size:13px;font-style:italic}
 .ai-form{display:flex;gap:8px;align-items:flex-end}
 .ai-form textarea{flex:1;min-width:0;resize:none;font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
 .ai-form textarea:focus{outline:2px solid var(--gold-line);border-color:var(--gold)}
@@ -1113,6 +1114,18 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .rebbe-list{margin-top:16px}
 .menu-sub .menu-lesson{display:grid;gap:2px}
 .menu-sub .menu-game{margin-inline-start:22px;font-size:14px;padding:7px 10px}
+/* «Тора» in the menu: the portions in a strip scrolled sideways, the chosen one's lessons under it */
+.parsha-pick{display:flex;align-items:center;gap:2px;margin:0 0 6px;min-width:0}
+.parsha-strip{display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;padding:2px;flex:1;min-width:0}
+.parsha-strip::-webkit-scrollbar{display:none}
+.parsha-chip{flex:none;scroll-snap-align:center;display:grid;gap:1px;text-align:center;padding:6px 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:inherit;font:inherit;cursor:pointer;min-width:84px}
+.parsha-chip b{font-size:14px;font-weight:700;white-space:nowrap}
+.parsha-chip small{font-size:11px;color:var(--muted);white-space:nowrap}
+.parsha-chip.week small{color:var(--gold);font-weight:700}
+.parsha-chip[aria-pressed="true"]{border-color:var(--gold);background:var(--gold-soft)}
+.parsha-arrow{flex:none;width:30px;height:44px;border:0;border-radius:10px;background:none;color:var(--gold);font-size:22px;cursor:pointer}
+.parsha-arrow:disabled{opacity:.3;cursor:default}
+.menu-parsha .menu-sub{margin-inline-start:8px}
 .menu-sub .menu-game .menu-num{width:24px;height:24px;font-size:12px;background:var(--paper)}
 .mc-expl{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;padding:8px 6px;width:100%;height:100%;background:var(--tchelet-soft);text-align:center;font-size:clamp(10.5px,2.8vw,13px);line-height:1.28;color:var(--ink);overflow:hidden}
 .mc-expl-mark{color:var(--gold);font-size:14px;line-height:1}
@@ -1126,6 +1139,8 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .t-gold{--tc:#8A6524;--tc-line:var(--gold);--tc-soft:var(--gold-soft);--tc-bg:var(--ink);--tc-he:var(--gold-2)}
 .t-tchelet{--tc:var(--tchelet);--tc-line:var(--tchelet);--tc-soft:var(--tchelet-soft);--tc-bg:var(--tchelet);--tc-he:var(--gold-soft)}
 .t-green{--tc:var(--ok);--tc-line:var(--ok);--tc-soft:var(--ok-soft);--tc-bg:#1F5A38;--tc-he:var(--gold-soft)}
+.page-loading{min-height:50vh;display:grid;place-items:center}
+.page-state{padding:48px 16px;text-align:center;display:grid;gap:16px;justify-items:center}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* home: one screen — title and «Continue», the week's lessons; beside them the week countdown */
@@ -1146,6 +1161,7 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .h-adults-title{font-family:var(--f-display);font-weight:700;font-size:17px}
 .h-adults-title .he{font-family:var(--f-he);font-size:14px;font-weight:400;color:var(--muted)}
 .h-adults-sub{font-size:13px;color:var(--muted)}
+.h-adults-k{font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--muted);margin-inline-start:4px}
 .h-adults-cta{font-size:13px;font-weight:600;color:var(--tchelet)}
 .h-adults-main{display:flex;flex-direction:column;gap:2px;color:inherit;text-decoration:none}
 .h-daily{flex:1 1 100%;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:10px 14px;border-radius:10px;background:var(--ink);color:#fff;text-decoration:none}
@@ -1239,10 +1255,10 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .site-foot-by{margin-inline-start:auto}
 .site-foot a{color:var(--gold-2);font-weight:700;text-decoration:none}
 .site-foot button{background:none;border:0;padding:0;color:#fff;font-weight:600;font-size:13px}
-.site-foot .site-foot-fine{max-width:1180px;margin:4px auto 0;font-size:11.5px;color:#9AA1BD}
+
 @media (max-width:899px){
   /* one line on a phone: the site, the year, MyChitas (about and donation are in the menu) */
-  .site-foot .site-foot-more,.site-foot .site-foot-fine{display:none}
+  .site-foot .site-foot-more{display:none}
   .site-foot-in{flex-wrap:nowrap;gap:10px}
   .site-foot .site-foot-brand{font-size:16px}
 }
@@ -1275,6 +1291,7 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .admin-who{color:var(--muted);font-size:14px}
 .admin-login{display:grid;gap:12px;max-width:420px}
 .admin-login label{display:grid;gap:6px;font-weight:600}
+.admin-login .admin-remember{display:flex;gap:8px;align-items:flex-start;font-weight:400}
 .admin input[type=password],.admin input[type=search],.admin select,.admin textarea{font:inherit;font-size:15px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface);color:var(--ink);min-width:0}
 .admin-help{color:var(--muted);font-size:14px}
 .admin-help summary{cursor:pointer;color:var(--ink)}
@@ -1706,7 +1723,7 @@ a.tk-step:hover{background:var(--tchelet-soft)}
 .mode-q{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 0 12px;font-family:var(--f-display);font-size:22px}
 .mode-pick h1.mode-q{margin:0 0 12px;font-size:22px}
 h2.mode-q{margin-top:22px}
-.mode-n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--gold);color:#fff;font-family:var(--f-body,inherit);font-size:15px;font-weight:700;flex:none}
+.mode-n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--gold);color:#fff;font-family:var(--f-body);font-size:15px;font-weight:700;flex:none}
 .mode-pick .mode-opt{padding:12px 16px}
 .mode-pick .mode-ico{font-size:26px}
 .mode-pick .mode-opt b{font-size:18px}
@@ -1719,7 +1736,6 @@ h2.mode-q{margin-top:22px}
 .mode-start{display:block;width:100%;margin:22px 0 0;padding:14px;font-size:18px}
 .mode-start:disabled{opacity:.45;cursor:default}
 @media (max-width:519px){.mode-hb{grid-template-columns:1fr}.mode-hb-opt{text-align:start;padding:10px 14px}}
-.h-adults-lead{display:block!important;margin:4px 0 0;color:var(--muted);font-size:15px}
 .h-adults-quiz{display:flex;flex-direction:column;gap:4px;margin-top:8px;padding-top:8px;border-top:1px solid var(--line);font-size:13.5px}
 .home-adults .h-hero-side{align-content:flex-start}
 .h-adults-quiz a,.h-adults-more a{color:var(--tchelet);font-weight:600;text-decoration:none}
@@ -1759,3 +1775,5 @@ h2.mode-q{margin-top:22px}
 .bp-all{margin:12px 0;border:1px solid var(--line);border-radius:8px;padding:10px 14px}
 .bp-all>summary{cursor:pointer;font-weight:600;color:var(--tchelet)}
 .bp-all[open]>summary{margin-bottom:8px}
+.hs-about{display:inline-flex;align-items:center;gap:6px;flex:none;white-space:nowrap;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--tchelet);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.hs .tk-tools .hs-en-toggle{margin:0}

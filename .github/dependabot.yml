@@ -1,0 +1,11 @@
+# Actions in the workflows are pinned to a full commit SHA (a moved tag can't change what runs);
+# Dependabot proposes the updates as PRs, once a month, all in one.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ['*']

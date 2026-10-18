@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useRef, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useRef, type KeyboardEvent as ReactKeyboardEvent, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
 export type Panel = 'menu' | 'help' | 'about' | 'assistant' | 'reminder' | null;
@@ -63,6 +63,11 @@ export function useDismiss(active: boolean, ref: React.RefObject<HTMLElement | n
  * Modal surface. `variant="drawer"` slides in from the inline-start edge (the menu),
  * `variant="dialog"` is a centred card that becomes a bottom sheet on phones.
  */
+/** what Tab can reach inside a sheet */
+const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),summary,[tabindex]:not([tabindex="-1"])';
+/** sheets open now (one can open over another): the page is inert until the last one closes */
+let openSheets = 0;
+
 export function Sheet({
   open,
   onClose,
@@ -87,17 +92,38 @@ export function Sheet({
     restore.current = document.activeElement;
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    // a modal: the page behind can't be reached by Tab or a screen reader while the sheet is open
+    const root = document.getElementById('root');
+    openSheets++;
+    root?.setAttribute('inert', '');
     box.current?.querySelector<HTMLElement>('[data-autofocus],button,a')?.focus();
     return () => {
       document.body.style.overflow = prev;
+      if (--openSheets === 0) root?.removeAttribute('inert');
       (restore.current as HTMLElement | null)?.focus?.();
     };
   }, [open]);
 
+  /** Tab and Shift+Tab go round inside the sheet */
+  const trap = (e: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== 'Tab' || !box.current) return;
+    const all = [...box.current.querySelectorAll<HTMLElement>(FOCUSABLE)].filter((el) => el.offsetParent !== null || el === document.activeElement);
+    if (!all.length) return;
+    const first = all[0];
+    const last = all[all.length - 1];
+    if (e.shiftKey && (document.activeElement === first || !box.current.contains(document.activeElement))) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
+
   if (!open) return null;
   return createPortal(
     <div className={`overlay overlay-${variant}`} onPointerDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div ref={box} className={`sheet sheet-${variant}`} role="dialog" aria-modal="true" aria-label={title}>
+      <div ref={box} className={`sheet sheet-${variant}`} role="dialog" aria-modal="true" aria-label={title} onKeyDown={trap}>
         <div className="sheet-head">
           <h2>{title}</h2>
           <button className="icon-btn" onClick={onClose} aria-label={closeLabel}>
