@@ -201,6 +201,38 @@ function HemshechLink() {
 }
 
 /**
+ * «Мои слова» (src/core/words.ts): how many words to review today and how many are known; nothing yet — an invitation.
+ * Read from this browser's marks only (the dictionary itself is not loaded on the home page).
+ */
+function WordsLink() {
+  const { t } = useI18n();
+  const [info, setInfo] = useState<{ due: number; known: number; any: boolean } | null>(null);
+  useEffect(() => {
+    let live = true;
+    import('../core/words').then((w) => {
+      const s = w.readWordStore();
+      const ids = Object.keys(s);
+      if (live) setInfo({ due: w.dueWords(s).length, known: ids.filter((id) => w.isKnown(s, id)).length, any: ids.some((id) => w.inDeck(s, id)) });
+    });
+    return () => {
+      live = false;
+    };
+  }, []);
+  return (
+    <a className="h-adults h-adults-main" href="#/words">
+      <span className="h-adults-title">
+        {t('words.mine')}{' '}
+        <span className="h-adults-k he" lang="he">
+          מִלִּים
+        </span>
+      </span>
+      <span className="h-adults-sub">{info?.any ? (info.due ? t('words.homeSub', { d: info.due, k: info.known }) : t('words.homeSubDone', { k: info.known })) : t('words.homeStart')}</span>
+      <span className="h-adults-cta">{t(info?.due ? 'words.homeReview' : 'words.homeCta')} →</span>
+    </a>
+  );
+}
+
+/**
  * The adults' home («Подростки и взрослые», src/core/mode.ts): the passage of the day of the Prophets and Writings,
  * the week's Torah lessons to read, quietly — «Знаете ли вы?» / «Гематрия дня» and «Академия». No games, ages, confetti.
  */
@@ -224,6 +256,7 @@ function AdultsHome() {
             <div className="h-hero-side">
               <AdultsLink />
               <HemshechLink />
+              <WordsLink />
               <PhoneOffer />
             </div>
           </section>

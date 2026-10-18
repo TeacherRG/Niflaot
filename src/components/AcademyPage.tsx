@@ -10,6 +10,8 @@ import { useMode } from '../core/mode';
 import { CYCLE, localToday } from '../core/tanakh';
 import { readQuizStore, quizReady } from '../core/quiz';
 import { readDoneStore } from '../core/tanakhDone';
+import { readWordStore, wordsCertificates } from '../core/words';
+import { readStars, torahWords, torahWordsCertificates } from '../core/torahWords';
 import { HEMSHECH, allPassages, hsCertificates, hsIsDone, passageDate, readHsDone, todayIndex } from '../core/hemshech';
 import { NIFLAOT_LOGO, PARTNERS } from '../core/partners';
 import { civilDate, jewishDate } from '../core/hebrewDate';
@@ -88,12 +90,24 @@ export function useCertificates() {
       past: hsToday + 1,
       missed: hsMissed && { id: hsMissed.p.id, date: passageDate(passages.indexOf(hsMissed)) },
     };
-    return { torah, tanakh, tracker, hemshech, hsTracker };
+    // «Иврит Танаха»: 100 / 300 / 500 words confirmed by the review (src/core/words.ts)
+    const words = wordsCertificates(readWordStore());
+    // children: «Знаток слов главы» — every word of a portion's lessons on three stars («Слова Торы», src/core/torahWords.ts)
+    const torahWordsCerts = torahWordsCertificates(torahWords(LESSONS, 'ru'), readStars());
+    return { torah, tanakh, tracker, hemshech, hsTracker, words, torahWords: torahWordsCerts };
   }, []);
 }
 
 function certTitle(c: Certificate, t: ReturnType<typeof useI18n>['t']) {
-  return c.kind === 'torah' ? t(`academy.master.${c.teacher!}`) : c.kind === 'hemshech' ? t('academy.master.hemshech') : t('academy.master.tanakh');
+  return c.kind === 'torah'
+    ? t(`academy.master.${c.teacher!}`)
+    : c.kind === 'hemshech'
+      ? t('academy.master.hemshech')
+      : c.kind === 'words'
+        ? t('academy.master.words')
+        : c.kind === 'torahWords'
+          ? t('academy.master.torahWords')
+          : t('academy.master.tanakh');
 }
 
 /** Under the title: the book (with its Hebrew name), or the discourse of «Хасидут» (no Hebrew there). */
@@ -317,6 +331,60 @@ function RectorSignature() {
   );
 }
 
+/**
+ * «Иврит Танаха»: a certificate for 100 / 300 / 500 words — only the words confirmed by the review count (remembered on a
+ * card after «Знаю» or after learning), not the marks alone. The bar is the confirmed words.
+ */
+function WordsCard({ c, p, href = '#/words' }: { c: Certificate; p: Progress; href?: string }) {
+  const { t, locale } = useI18n();
+  const lang = langOf(locale);
+  const v = p.max ? Math.round((100 * p.got) / p.max) : 0;
+  return (
+    <li className={`ac-card t-${c.kind === 'torahWords' ? 'gold' : 'tchelet'}${p.earned ? ' earned' : ''}`}>
+      <div className="ac-seal" aria-hidden="true">
+        {p.earned ? '🎓' : <span className="he">{c.kind === 'torahWords' ? c.book.he.slice(0, 1) : 'מ'}</span>}
+      </div>
+      <div className="ac-body">
+        <h3>
+          {certTitle(c, t)}
+          <small>
+            {c.book.name[lang]} · <span className="he" lang="he">{c.book.he}</span>
+          </small>
+        </h3>
+        <div className="ac-bar" role="img" aria-label={`${v}%`}>
+          <span style={{ width: `${Math.min(100, v)}%` }} />
+        </div>
+        {c.kind === 'torahWords' ? (
+          <p className="ac-meta">{t('academy.twMeta', { got: p.got, max: p.max })}</p>
+        ) : (
+          <p className="ac-meta">{t('academy.wordsMeta', { got: p.got, max: p.max, known: p.done })}</p>
+        )}
+        {p.earned ? (
+          <p className="ac-ok">{t('academy.earned')}</p>
+        ) : (
+          <p className="ac-wait">{c.kind === 'torahWords' ? t('academy.twNeed') : t('academy.wordsNeed', { n: p.max })}</p>
+        )}
+        <div className="ac-actions">
+          {p.earned ? (
+            <a className="btn" href={`#/academy/${c.id}`}>
+              {t('academy.open')}
+            </a>
+          ) : (
+            <>
+              <a className="btn" href={href}>
+                {c.kind === 'torahWords' ? t('tw.title') : t('words.mine')}
+              </a>
+              <a className="btn ghost" href={`#/academy/${c.id}?sample`}>
+                {t('academy.sample')}
+              </a>
+            </>
+          )}
+        </div>
+      </div>
+    </li>
+  );
+}
+
 const NAME_KEY = 'niflaot:cert-name';
 const POINTS_KEY = 'niflaot:cert-points';
 
@@ -401,7 +469,9 @@ function CertificateView({ c, p, sample }: { c: Certificate; p: Progress; sample
         <h1 className="cert-title">{certTitle(c, t)}</h1>
         <p className="cert-awarded">{t('cert.awarded')}</p>
         <p className="cert-name">{name.trim() || ' '}</p>
-        <p className="cert-for">{c.kind === 'torah' ? t('cert.forTorah') : c.kind === 'hemshech' ? t('cert.forHemshech') : t('cert.forTanakh')}</p>
+        <p className="cert-for">
+          {c.kind === 'torah' ? t('cert.forTorah') : c.kind === 'hemshech' ? t('cert.forHemshech') : c.kind === 'words' ? t('cert.forWords') : c.kind === 'torahWords' ? t('cert.forTorahWords') : t('cert.forTanakh')}
+        </p>
         <p className="cert-book">
           {c.kind === 'hemshech' && <>{HEMSHECH.title[lang]} · </>}
           {c.book.name[lang]}{' '}
@@ -411,7 +481,11 @@ function CertificateView({ c, p, sample }: { c: Certificate; p: Progress; sample
             </span>
           )}
         </p>
-        {!sample && c.kind !== 'torah' && <p className="cert-result">{t(c.kind === 'hemshech' ? 'cert.hsReadAll' : 'cert.readAll', { n: p.seen?.parts ?? p.parts })}</p>}
+        {!sample && c.kind === 'words' && <p className="cert-result">{t('cert.wordsAll', { n: p.max })}</p>}
+        {!sample && c.kind === 'torahWords' && <p className="cert-result">{t('cert.twAll', { n: p.max })}</p>}
+        {!sample && (c.kind === 'tanakh' || c.kind === 'hemshech') && (
+          <p className="cert-result">{t(c.kind === 'hemshech' ? 'cert.hsReadAll' : 'cert.readAll', { n: p.seen?.parts ?? p.parts })}</p>
+        )}
         {result !== null && showPoints && <p className="cert-result">{t('cert.result', { pct: result })}</p>}
         {/* date · QR code to the site · the rector's signature */}
         <div className="cert-foot">
@@ -453,11 +527,11 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
   const { t, locale } = useI18n();
   const lang = langOf(locale);
   const { token } = useAccount();
-  const { torah, tanakh, tracker, hemshech, hsTracker } = useCertificates();
+  const { torah, tanakh, tracker, hemshech, hsTracker, words, torahWords: twCerts } = useCertificates();
   const adults = useMode() === 'adults';
   // the AI assistant (✦) knows the certificates and the progress
   useEffect(() => {
-    const rows = [...torah, ...tanakh, ...hemshech].map((c) => ({
+    const rows = [...torah, ...tanakh, ...hemshech, ...words, ...twCerts].map((c) => ({
       kind: c.kind,
       title: certTitle(c, t),
       book: c.book.name[lang],
@@ -465,15 +539,19 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
       extra:
         c.kind === 'torah'
           ? t('academy.lessons', { done: c.progress.done, parts: c.progress.parts })
-          : `${t('academy.readDays', { done: c.progress.seen?.done ?? 0, parts: c.progress.parts, pct: Math.round((100 * (c.progress.seen?.done ?? 0)) / (c.progress.parts || 1)) })}; ${t('academy.days', { done: c.progress.done, parts: c.progress.parts })}`,
+          : c.kind === 'words'
+            ? t('academy.wordsMeta', { got: c.progress.got, max: c.progress.max, known: c.progress.done })
+            : c.kind === 'torahWords'
+            ? t('academy.twMeta', { got: c.progress.got, max: c.progress.max })
+            : `${t('academy.readDays', { done: c.progress.seen?.done ?? 0, parts: c.progress.parts, pct: Math.round((100 * (c.progress.seen?.done ?? 0)) / (c.progress.parts || 1)) })}; ${t('academy.days', { done: c.progress.done, parts: c.progress.parts })}`,
     }));
     setOtherPage({ kind: 'academy', context: () => academyContext(rows) });
     return () => setOtherPage(null);
-  }, [torah, tanakh, hemshech, t, lang]);
+  }, [torah, tanakh, hemshech, words, twCerts, t, lang]);
   useEffect(() => {
     document.title = `${t('academy.h1')} · ${t('app.title')}`;
   }, [t]);
-  const one = id ? [...torah, ...tanakh, ...hemshech].find((c) => c.id === id) : undefined;
+  const one = id ? [...torah, ...tanakh, ...hemshech, ...words, ...twCerts].find((c) => c.id === id) : undefined;
   if (one && (one.progress.earned || sample))
     return (
       <>
@@ -519,6 +597,19 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
           );
         })}
 
+        {/* children: «Слова Торы» — a certificate for every portion whose words are all on three stars */}
+        {!adults && twCerts.length > 0 && (
+          <>
+            <h2 className="ac-h2">{t('tw.title')}</h2>
+            <p className="ac-note">{t('academy.twNote')}</p>
+            <ul className="ac-list">
+              {twCerts.map((c) => (
+                <WordsCard key={c.id} c={c} p={c.progress} href={c.href} />
+              ))}
+            </ul>
+          </>
+        )}
+
         {adults && (
           <>
             <h2 className="ac-h2">{t('academy.tanakh')}</h2>
@@ -547,6 +638,15 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
             ) : (
               <p className="ac-note">{t('hs.startsOn', { date: civilDate(passageDate(0), lang) })}</p>
             )}
+
+            {/* «Иврит Танаха»: 100 / 300 / 500 words of the Prophets and Writings, confirmed by the review */}
+            <h2 className="ac-h2">{t('academy.words')}</h2>
+            <p className="ac-note">{t('academy.wordsNote')}</p>
+            <ul className="ac-list">
+              {words.map((c) => (
+                <WordsCard key={c.id} c={c} p={c.progress} />
+              ))}
+            </ul>
           </>
         )}
       </div>

@@ -120,6 +120,17 @@ const ADULTS_FALLBACK = {
   de: { title: 'Propheten und Schriften', body: 'Der Abschnitt des Tages wartet auf dich auf der Seite.' },
 };
 
+// «Мои слова»: words due for review today — a line under the adults' message (the review days come from src/core/push.ts)
+const WORDS_LINE = {
+  ru: 'Слова: повторить {n} — «Мои слова»',
+  en: 'Words to review: {n} — “My words”',
+  de: 'Wörter wiederholen: {n} — „Meine Wörter“',
+};
+const dayNumber = () => {
+  const d = new Date();
+  return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5);
+};
+
 const localDate = () => {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -162,8 +173,9 @@ self.addEventListener('push', (e) => {
       const p = await prefs();
       const lang = ['ru', 'en', 'de'].includes(p.lang) ? p.lang : 'ru';
       const m = await todaysMessage(lang, p.mode);
+      const due = p.mode === 'adults' && Array.isArray(p.wordsDue) ? p.wordsDue.filter((d) => d <= dayNumber()).length : 0;
       await self.registration.showNotification(m.title, {
-        body: m.body,
+        body: due ? `${m.body}\n${(WORDS_LINE[lang] || WORDS_LINE.ru).replace('{n}', due)}` : m.body,
         lang,
         icon: '/icons/icon-192.png',
         badge: '/icons/icon-192.png',

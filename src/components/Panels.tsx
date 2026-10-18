@@ -149,6 +149,14 @@ export function Panels() {
           </a>
 {mode === 'kids' ? (
             <>
+          {/* «Слова Торы»: a game with the words of the lessons — the Memo pictures and the riddle cards (src/core/torahWords.ts) */}
+          <a href="#/torah-words" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/torah-words') ? 'page' : undefined}>
+            <Icon name="cards" />
+            <span>
+              {t('tw.title')}
+              <small>{t('tw.menuSub')}</small>
+            </span>
+          </a>
           <div className="menu-lbl">{t('menu.lessons')}</div>
           <ParshaPicker groups={LESSON_GROUPS} selected={kidsSel} week={week} onPick={setPicked} />
           {[kidsSel].filter((g) => g).map((g) => (
@@ -346,6 +354,15 @@ export function Panels() {
             <span>
               {t('hs.short')}
               <small>{t('hs.menuSub')}</small>
+            </span>
+          </a>
+          {/* «Мои слова»: the most frequent words of the Prophets and Writings, with the review (src/core/words.ts) */}
+          <div className="menu-lbl">{t('words.menuLbl')}</div>
+          <a href="#/words" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/words') ? 'page' : undefined}>
+            <Icon name="cards" />
+            <span>
+              {t('words.mine')}
+              <small>{t('words.menuSub')}</small>
             </span>
           </a>
             </>

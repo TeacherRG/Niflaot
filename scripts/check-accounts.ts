@@ -44,6 +44,13 @@ const q = JSON.parse(qz['niflaot:tanakh-quiz'] ?? '{}');
 if (q['d1:neviim']?.best !== 3 || !q['d2:neviim'] || !q['d3:ketuvim']) err('sync: «Вопросы к отрывку» — a day or the better result is lost');
 const best = mergeSnapshots({ 'niflaot:lesson:a': JSON.stringify({ ...JSON.parse(lesson([0, 1], 20)), best: 40 }) }, { 'niflaot:lesson:a': lesson([0, 1, 2], 25) });
 if (JSON.parse(best['niflaot:lesson:a']).best !== 40 || JSON.parse(best['niflaot:lesson:a']).done.length !== 3) err('sync: a lesson\'s best earlier score is lost');
+// «Мои слова»: the later change of a word wins; an early number entry (only «Знаю») reads as known (box 3) / removed (box 0)
+const wd = mergeSnapshots(
+  { 'niflaot:words': JSON.stringify({ '1961': [200, 4, 30], '559': [100, 1, 10], '853': 150 }) },
+  { 'niflaot:words': JSON.stringify({ '1961': [100, 1, 5], '559': [300, 0, 0], '3808': [50, 2, 7], '853': -120 }) },
+);
+const w = JSON.parse(wd['niflaot:words'] ?? '{}');
+if (w['1961']?.[1] !== 4 || w['559']?.[1] !== 0 || w['3808']?.[1] !== 2 || w['853']?.[1] !== 3) err(`sync: «Мои слова» — ${JSON.stringify(w)}`);
 const s = summarize(m, 4);
 if (s.solved !== 6 || s.points !== 20 + 15 + 5 || s.days !== 2 || s.streak !== 4 || s.lessons.b !== 3) err(`sync: summary ${JSON.stringify(s)}`);
 

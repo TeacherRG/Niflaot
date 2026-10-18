@@ -12,6 +12,7 @@
 import { ASSISTANT_URL } from './assistant';
 import type { Locale } from '../i18n';
 import { currentMode, MODE_EVENT } from './mode';
+import { normWord } from './sync';
 
 const STORE = 'niflaot:push';
 const PREFS = '/__niflaot/push-prefs';
@@ -63,7 +64,24 @@ async function api(path: string, body: object) {
  */
 async function savePrefs(lang: Locale) {
   const c = await caches.open('niflaot-prefs');
-  await c.put(PREFS, new Response(JSON.stringify({ lang, mode: currentMode() }), { headers: { 'Content-Type': 'application/json' } }));
+  await c.put(PREFS, new Response(JSON.stringify({ lang, mode: currentMode(), wordsDue: wordsDue() }), { headers: { 'Content-Type': 'application/json' } }));
+}
+
+/**
+ * «Мои слова» (src/core/words.ts): the review days of the words in the reader's list — the service worker counts
+ * those already due on the day of the message and adds «Слова: повторить N» to the adults' message. Read straight
+ * from localStorage (the words module and its dictionary stay out of this bundle).
+ */
+function wordsDue(): number[] {
+  try {
+    const raw = JSON.parse(localStorage.getItem('niflaot:words') ?? '{}') ?? {};
+    return Object.values(raw)
+      .map(normWord)
+      .filter((e) => e[1] > 0)
+      .map((e) => e[2]);
+  } catch {
+    return [];
+  }
 }
 
 /** a browser without a push service (e.g. Chromium without Google) never answers the subscription: give up */
@@ -130,8 +148,9 @@ export async function pushLanguage(lang: Locale) {
   if (saved()) await savePrefs(lang).catch(() => {});
 }
 
-// the mode changed («Режим · сменить»): the next messages for the new mode
+// the mode changed («Режим · сменить»), or the words of «Мои слова» did: the next messages know it
 if (typeof window !== 'undefined')
-  window.addEventListener(MODE_EVENT, () => {
-    if (lastLang) void pushLanguage(lastLang);
-  });
+  for (const ev of [MODE_EVENT, 'niflaot:words'])
+    window.addEventListener(ev, () => {
+      if (lastLang) void pushLanguage(lastLang);
+    });

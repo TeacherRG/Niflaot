@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useI18n } from '../i18n';
 import { useMode } from '../core/mode';
 import { CYCLE, localToday } from '../core/tanakh';
@@ -9,6 +9,7 @@ import { civilDate } from '../core/hebrewDate';
 import { TEACHERS } from '../lessons/teachers';
 import { useCertificates } from './AcademyPage';
 import { HEMSHECH, allPassages, hsIsDone, passageDate, useHsDone } from '../core/hemshech';
+import { knownCount, loadDict, textCoverage, useWordStore, type Dict } from '../core/words';
 
 type Lang = 'ru' | 'en' | 'de';
 const langOf = (locale: string): Lang => (locale === 'en' || locale === 'de' ? locale : 'ru');
@@ -156,6 +157,27 @@ function HsRoad() {
   );
 }
 
+/** «Мои слова» (src/core/words.ts): how many words are known and how much of the text they cover — a link to `#/words`. */
+function WordsTotal() {
+  const { t, locale } = useI18n();
+  const store = useWordStore();
+  const [dict, setDict] = useState<Dict | null>(null);
+  useEffect(() => {
+    let live = true;
+    loadDict(locale === 'en' || locale === 'de' ? locale : 'ru').then((d) => live && setDict(d));
+    return () => {
+      live = false;
+    };
+  }, [locale]);
+  if (!dict) return null;
+  return (
+    <>
+      <br />
+      <a href="#/words">{t('words.bpLine', { k: knownCount(dict, store), n: Object.keys(dict.tr).length, p: textCoverage(dict, store) })}</a>
+    </>
+  );
+}
+
 /**
  * «Мой путь по книгам» in the account (`#/account`): the books are the milestones. The adults — the road of the
  * Prophets and of the Writings (every book of the cycle in order: read — with the date, the current — its progress and
@@ -167,7 +189,7 @@ export function BookProgress() {
   const lang = langOf(locale);
   const adults = useMode() === 'adults';
   const store = useDoneStore();
-  const { torah, hemshech } = useCertificates();
+  const { torah, hemshech, words, torahWords: twCerts } = useCertificates();
   const [hsDone] = useHsDone();
   const hsRead = allPassages().filter((x) => hsIsDone(hsDone, x.p.id)).length;
 
@@ -189,6 +211,8 @@ export function BookProgress() {
   const doneBooks = adults ? roads.flatMap((r) => r.road.filter((b) => b.status === 'done').map((b) => ({ ...b, section: r.section }))) : [];
   const doneTorah = torah.filter((c) => c.progress.earned);
   const doneHs = adults ? hemshech.filter((c) => c.progress.earned) : [];
+  // the adults' «100 / 300 / 500 слов Танаха», the children's «Знаток слов главы»
+  const doneWords = (adults ? words : twCerts).filter((c) => c.progress.earned);
 
   return (
     <section className="acc-card bp">
@@ -198,9 +222,10 @@ export function BookProgress() {
           {t('bp.totalBooks', { n: booksRead, total: booksAll })} · {t('bp.total', { n: passages, total: CYCLE.length * 2 })}
           <br />
           {t('bp.hsTotal', { n: hsRead, total: allPassages().length })}
+          <WordsTotal />
         </p>
       )}
-      {doneBooks.length + doneTorah.length + doneHs.length ? (
+      {doneBooks.length + doneTorah.length + doneHs.length + doneWords.length ? (
         <ol className="bp-road">
           {doneBooks.map((r) => (
             <li key={r.book.slug} className="bp-stop done">
@@ -222,6 +247,19 @@ export function BookProgress() {
               <div className="bp-stop-body">
                 <div className="bp-head">
                   <b>{c.book.name[lang]}</b> <small>{t('hs.menuLbl')}</small>
+                  <a className="bp-cert" href={`#/academy/${c.id}`}>
+                    🎓 {t('bp.cert')}
+                  </a>
+                </div>
+              </div>
+            </li>
+          ))}
+          {doneWords.map((c) => (
+            <li key={c.id} className="bp-stop done">
+              <span className="bp-dot" aria-hidden="true">✓</span>
+              <div className="bp-stop-body">
+                <div className="bp-head">
+                  <b>{c.kind === 'torahWords' ? t('tw.certName', { name: c.book.name[lang] }) : c.book.name[lang]}</b> <span className="he" lang="he">{c.book.he}</span>
                   <a className="bp-cert" href={`#/academy/${c.id}`}>
                     🎓 {t('bp.cert')}
                   </a>

@@ -7,6 +7,7 @@ import { BOOKS, rangeLabel, type Section } from '../core/tanakhCycle';
 import { CYCLE, cycleDayFor, loadDay, localToday, readingMinutes, type Commentary, type DayContent, type SectionDay, type DayVerse, type Tr } from '../core/tanakh';
 import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
 import { TanakhMasthead } from './PrintBrand';
+import { TanakhWords } from './TanakhWords';
 import { setOtherPage } from '../core/assistant';
 import { tanakhContext } from '../core/assistantPages';
 import { useDone, useDoneStore } from '../core/tanakhDone';
@@ -467,6 +468,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
               </a>
             </p>
           )}
+          {sec && <TanakhWords section={section} date={day.date} />}
           <nav className="tk-pager no-print" aria-label={t('tanakh.navLabel')}>
             {prev ? (
               <a className="prev" href={`#/${section}/${prev.date}`}>

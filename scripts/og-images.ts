@@ -157,6 +157,16 @@ const shots: [string, string][] = [
       letters: ['כ', 'ת'],
     }),
   ],
+  [
+    'hebrew-words',
+    page({
+      eyebrow: 'Нифлаот · взрослым',
+      he: 'מילים',
+      title: '500 слов Танаха',
+      sub: '80 % текста Пророков и Писаний · перевод, корень, повторение',
+      letters: ['מ', 'ל'],
+    }),
+  ],
   ...LESSONS.map((l) => [l.slug, lessonPage(l)] as [string, string]),
 ];
 for (const [name, html] of shots) {
