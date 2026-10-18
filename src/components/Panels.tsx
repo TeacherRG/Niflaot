@@ -1,6 +1,6 @@
-import { Suspense, lazy, useSyncExternalStore, Fragment } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState, useSyncExternalStore, Fragment } from 'react';
 import { Html, useI18n } from '../i18n';
-import { LESSON_GROUPS, findLesson } from '../lessons';
+import { LESSON_GROUPS, findLesson, weekParsha } from '../lessons';
 import { teacherOf } from '../lessons/teachers';
 import { useMode } from '../core/mode';
 import { VALUES } from '../core/gematria';
@@ -54,6 +54,51 @@ function HebrewLevelPicker({ onStart }: { onStart: () => void }) {
   );
 }
 
+type Group = (typeof LESSON_GROUPS)[number];
+/** The lessons of a portion to read (adults): Baal HaTurim's «Читать», the Rebbe's «Прочитать». */
+const readsOf = (g: Group) => [...g.lessons, ...g.rebbe].filter((l) => l.kind !== 'sicha' || l.cards);
+
+/**
+ * The portions of «Тора» in the menu: a strip scrolled sideways (Torah order, the newest on the right), ‹ › — one back /
+ * forward. The chosen one is in view when the menu opens; its lessons are shown under the strip.
+ */
+function ParshaPicker({ groups, selected, week, onPick }: { groups: Group[]; selected?: Group; week?: string; onPick: (id: string) => void }) {
+  const { t, locale } = useI18n();
+  const strip = useRef<HTMLDivElement>(null);
+  const at = groups.findIndex((g) => g.id === selected?.id);
+  useEffect(() => {
+    const el = strip.current?.querySelector<HTMLElement>('[aria-pressed="true"]');
+    const box = strip.current;
+    if (el && box) box.scrollTo({ left: el.offsetLeft - (box.clientWidth - el.offsetWidth) / 2, behavior: 'smooth' });
+  }, [selected?.id]);
+  if (groups.length < 2) return null;
+  const go = (d: number) => groups[at + d] && onPick(groups[at + d].id);
+  return (
+    <div className="parsha-pick">
+      <button type="button" className="parsha-arrow" onClick={() => go(-1)} disabled={at <= 0} aria-label={t('menu.parshaPrev')}>
+        ‹
+      </button>
+      <div className="parsha-strip" ref={strip} role="group" aria-label={t('menu.parshaPick')}>
+        {groups.map((g) => (
+          <button
+            key={g.id}
+            type="button"
+            className={`parsha-chip${g.id === week ? ' week' : ''}`}
+            aria-pressed={g.id === selected?.id}
+            onClick={() => onPick(g.id)}
+          >
+            <b>{g.name[locale as keyof typeof g.name] ?? g.name.ru}</b>
+            <small>{g.id === week ? t('menu.thisWeek') : <span lang="he">{g.he}</span>}</small>
+          </button>
+        ))}
+      </div>
+      <button type="button" className="parsha-arrow" onClick={() => go(1)} disabled={at >= groups.length - 1} aria-label={t('menu.parshaNext')}>
+        ›
+      </button>
+    </div>
+  );
+}
+
 /** Side menu + "How to play" + "About" — rendered once at the app root. */
 export function Panels() {
   const { t, pick, locale } = useI18n();
@@ -67,6 +112,17 @@ export function Panels() {
   // all groups start folded; only the one holding the open page (lesson, «Нифлаот Ребе», math) is unfolded
   const isLearn = location.hash.startsWith('#/math') || location.hash === '#/letters';
   const currentParsha = lessonSlug ? findLesson(lessonSlug)?.parsha : location.hash.match(/^#\/rebbe\/([^/?]+)/)?.[1];
+  // «Тора»: one portion at a time — the open page's, else the week's; the others — in the strip of portions above it
+  const week = weekParsha();
+  const [picked, setPicked] = useState<string | null>(null);
+  useEffect(() => {
+    if (panel === 'menu') setPicked(null);
+  }, [panel]);
+  const choose = <G extends { id: string }>(gs: G[]) =>
+    gs.find((g) => g.id === picked) ?? gs.find((g) => g.id === currentParsha) ?? gs.find((g) => g.id === week) ?? gs[gs.length - 1];
+  const kidsSel = choose(LESSON_GROUPS);
+  const readGroups = LESSON_GROUPS.filter((g) => readsOf(g).length);
+  const adultsSel = choose(readGroups);
 
   return (
     <>
@@ -94,18 +150,9 @@ export function Panels() {
 {mode === 'kids' ? (
             <>
           <div className="menu-lbl">{t('menu.lessons')}</div>
-          {LESSON_GROUPS.map((g) => (
-            <details key={g.id} className="menu-group" open={currentParsha === g.id}>
-              <summary className="menu-item">
-                <Icon name="book" />
-                <span>
-                  {g.name[locale as keyof typeof g.name] ?? g.name.ru}
-                  <small>
-                    <span lang="he">{g.he}</span> · {g.year}
-                  </small>
-                </span>
-                <span className="menu-count">{g.lessons.length}</span>
-              </summary>
+          <ParshaPicker groups={LESSON_GROUPS} selected={kidsSel} week={week} onPick={setPicked} />
+          {[kidsSel].filter((g) => g).map((g) => (
+            <div key={g.id} className="menu-parsha">
               <div className="menu-sub">
                 {g.lessons.map((l) => {
                   const games = lessonGames(l);
@@ -174,7 +221,7 @@ export function Panels() {
                   )),
                 )}
               </div>
-            </details>
+            </div>
           ))}
           {lessonSlug && (
             <a href={`#/${lessonSlug}/print`} onClick={close} className="menu-item">
@@ -232,23 +279,13 @@ export function Panels() {
             </>
           ) : (
             <>
-          {/* the Torah lessons to read — Baal HaTurim's «Читать», the Rebbe's «Прочитать»; the open (or the week's) portion unfolded */}
+          {/* the Torah lessons to read — Baal HaTurim's «Читать», the Rebbe's «Прочитать»; the open (or the week's) portion, the others in the strip */}
           <div className="menu-lbl">{t('menu.lessons')}</div>
-          {LESSON_GROUPS.map((g, i) => {
-            const reads = [...g.lessons, ...g.rebbe].filter((l) => l.kind !== 'sicha' || l.cards);
-            if (!reads.length) return null;
+          <ParshaPicker groups={readGroups} selected={adultsSel} week={week} onPick={setPicked} />
+          {[adultsSel].filter((g) => g).map((g) => {
+            const reads = readsOf(g);
             return (
-              <details key={g.id} className="menu-group" open={currentParsha ? currentParsha === g.id : i === LESSON_GROUPS.length - 1}>
-                <summary className="menu-item">
-                  <Icon name="book" />
-                  <span>
-                    {g.name[locale as keyof typeof g.name] ?? g.name.ru}
-                    <small>
-                      <span lang="he">{g.he}</span> · {g.year}
-                    </small>
-                  </span>
-                  <span className="menu-count">{reads.length}</span>
-                </summary>
+              <div key={g.id} className="menu-parsha">
                 <div className="menu-sub">
                   {reads.map((l) => (
                     <a
@@ -266,7 +303,7 @@ export function Panels() {
                     </a>
                   ))}
                 </div>
-              </details>
+              </div>
             );
           })}
           {/* «Пророки» и «Писания»: the passage of the day of the three-year cycle */}

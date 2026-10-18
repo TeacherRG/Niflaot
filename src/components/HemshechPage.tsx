@@ -4,7 +4,7 @@ import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { optionOrder } from '../core/quiz';
 import { setOtherPage } from '../core/assistant';
-import { HEMSHECH, allPassages, hsLang, passageDate, passageMinutes, readHsStore, todayIndex, useHsQuiz, type HsLang, type HsPassage } from '../core/hemshech';
+import { HEMSHECH, allPassages, hsLang, passageDate, hsIsDone, passageMinutes, readHsStore, todayIndex, useHsDone, useHsQuiz, type HsLang, type HsPassage } from '../core/hemshech';
 import { localToday } from '../core/tanakh';
 import { civilDate, jewishDate } from '../core/hebrewDate';
 import { isAdmin } from '../admin/github';
@@ -22,6 +22,34 @@ function Credit({ lang }: { lang: HsLang }) {
         </a>
       </p>
     </footer>
+  );
+}
+
+/** «Я прочитал(а)» — at the end of the passage, besides the questions: the reading progress (`niflaot:hemshech-done`). */
+function DoneCheck({ id, lang }: { id: string; lang: HsLang }) {
+  const { t } = useI18n();
+  const [store, mark] = useHsDone();
+  const done = hsIsDone(store, id);
+  const all = allPassages();
+  const today = todayIndex(localToday());
+  const read = all.filter((x) => hsIsDone(store, x.p.id)).length;
+  const missed = all.findIndex((x, k) => k <= today && x.p.id !== id && !hsIsDone(store, x.p.id));
+  return (
+    <div className={`tk-done no-print${done ? ' on' : ''}`}>
+      <label>
+        <input type="checkbox" checked={done} onChange={(e) => mark(id, e.target.checked)} />
+        <span>{t('tanakh.doneCheck')}</span>
+      </label>
+      <p>
+        {t('hs.doneStat', { n: read, total: all.length })}
+        {missed >= 0 && (
+          <>
+            {' · '}
+            <a href={`#/hemshech/${all[missed].p.id}`}>{t('hs.doneFirst', { title: all[missed].p.title[lang] })}</a>
+          </>
+        )}
+      </p>
+    </div>
   );
 }
 
@@ -160,6 +188,7 @@ function Passage({ id, lang }: { id: string; lang: HsLang }) {
         ))}
       </div>
       <Credit lang={lang} />
+      <DoneCheck id={p.id} lang={lang} />
       <Questions key={p.id} p={p} lang={lang} />
       <nav className="tk-nav st-nav no-print">
         {prev ? <a href={`#/hemshech/${prev.p.id}`}>← {prev.p.title[lang]}</a> : <span />}
@@ -173,6 +202,7 @@ function Passage({ id, lang }: { id: string; lang: HsLang }) {
 function Index({ lang }: { lang: HsLang }) {
   const { t } = useI18n();
   const store = readHsStore();
+  const [done] = useHsDone();
   const all = allPassages();
   const today = todayIndex(localToday());
   const admin = isAdmin();
@@ -213,6 +243,7 @@ function Index({ lang }: { lang: HsLang }) {
                   <span className="hs-min">
                     · {civilDate(passageDate(k), lang)} · {t('tanakh.readingTime', { n: passageMinutes(p, lang) })}
                   </span>
+                  {hsIsDone(done, p.id) && <span className="st-done"> · {t('hs.read')}</span>}
                   {r && r.best >= 0 && (
                     <span className="st-done">
                       {' '}
