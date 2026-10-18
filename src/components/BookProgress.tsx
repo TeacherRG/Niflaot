@@ -189,7 +189,7 @@ export function BookProgress() {
   const lang = langOf(locale);
   const adults = useMode() === 'adults';
   const store = useDoneStore();
-  const { torah, hemshech } = useCertificates();
+  const { torah, hemshech, words } = useCertificates();
   const [hsDone] = useHsDone();
   const hsRead = allPassages().filter((x) => hsIsDone(hsDone, x.p.id)).length;
 
@@ -211,6 +211,7 @@ export function BookProgress() {
   const doneBooks = adults ? roads.flatMap((r) => r.road.filter((b) => b.status === 'done').map((b) => ({ ...b, section: r.section }))) : [];
   const doneTorah = torah.filter((c) => c.progress.earned);
   const doneHs = adults ? hemshech.filter((c) => c.progress.earned) : [];
+  const doneWords = adults ? words.filter((c) => c.progress.earned) : [];
 
   return (
     <section className="acc-card bp">
@@ -223,7 +224,7 @@ export function BookProgress() {
           <WordsTotal />
         </p>
       )}
-      {doneBooks.length + doneTorah.length + doneHs.length ? (
+      {doneBooks.length + doneTorah.length + doneHs.length + doneWords.length ? (
         <ol className="bp-road">
           {doneBooks.map((r) => (
             <li key={r.book.slug} className="bp-stop done">
@@ -245,6 +246,19 @@ export function BookProgress() {
               <div className="bp-stop-body">
                 <div className="bp-head">
                   <b>{c.book.name[lang]}</b> <small>{t('hs.menuLbl')}</small>
+                  <a className="bp-cert" href={`#/academy/${c.id}`}>
+                    🎓 {t('bp.cert')}
+                  </a>
+                </div>
+              </div>
+            </li>
+          ))}
+          {doneWords.map((c) => (
+            <li key={c.id} className="bp-stop done">
+              <span className="bp-dot" aria-hidden="true">✓</span>
+              <div className="bp-stop-body">
+                <div className="bp-head">
+                  <b>{c.book.name[lang]}</b> <span className="he" lang="he">{c.book.he}</span>
                   <a className="bp-cert" href={`#/academy/${c.id}`}>
                     🎓 {t('bp.cert')}
                   </a>

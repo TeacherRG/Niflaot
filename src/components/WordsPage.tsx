@@ -3,6 +3,8 @@ import { useI18n } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { WordRow } from './TanakhWords';
+import { setOtherPage } from '../core/assistant';
+import { wordsContext } from '../core/assistantPages';
 import {
   dueWords,
   INTERVALS,
@@ -52,6 +54,26 @@ export function WordsPage() {
       live = false;
     };
   }, [lang]);
+
+  // the AI assistant (✦) knows the reader's words — to quiz them and explain roots
+  useEffect(() => {
+    if (!dict) return;
+    setOtherPage({
+      kind: 'words',
+      context: () => {
+        const s = readWordStore();
+        const d = today();
+        const rows = Object.keys(s)
+          .filter((id) => dict.tr[id] && s[id][1] > 0)
+          .map((id) => {
+            const w = dict.words[dict.rank.get(id)! - 1];
+            return { he: w.he, tr: dict.tr[id], root: w.root, rank: dict.rank.get(id)!, box: s[id][1], due: s[id][2] <= d };
+          });
+        return wordsContext(rows, textCoverage(dict, s));
+      },
+    });
+    return () => setOtherPage(null);
+  }, [dict]);
 
   const day = today();
   const due = useMemo(() => (dict ? dueWords(store, day).filter((id) => dict.tr[id]) : []), [store, dict, day]);

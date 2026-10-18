@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import type { Section } from './tanakhCycle';
 import { localToday, root } from './tanakh';
 import { normWord, type WordEntry } from './sync';
+import type { Certificate, Progress } from './academy';
 
 export interface Word {
   /** номер Стронга */
@@ -170,7 +171,43 @@ export const knownCount = (dict: Dict, known: WordStore) => Object.keys(dict.tr)
 
 /** Сколько процентов слов Пророков и Писаний (без имён) покрывают знакомые слова. */
 export const textCoverage = (dict: Dict, s: WordStore) =>
-  Math.round((dict.words.reduce((a, w) => a + (isKnown(s, w.id) ? w.n : 0), 0) / dict.total) * 1000) / 10;
+  Math.round((dict.words.reduce((a, w) => a + (isKnown(s, w.id) ? w.n : 0), 0) / dict.total) * 100);
 
 /** Вехи «Моих слов» — по ним и сертификаты «Академии» (следующий этап). */
 export const WORD_GOALS = [100, 300, 500];
+
+/**
+ * Сертификаты «Академии» «100 / 300 / 500 слов Танаха» (`w-<число>`): засчитываются только слова, **подтверждённые
+ * повторением** — вспомненные на карточке хотя бы раз после «Знаю» / выученные (коробка `VERIFIED_BOX` и выше), а не
+ * просто отмеченные. got — подтверждено (не больше вехи), done — «знаю» всего.
+ */
+export const VERIFIED_BOX = 4;
+export const verifiedCount = (s: WordStore) => Object.values(s).filter((e) => e[1] >= VERIFIED_BOX).length;
+const W_NAME = (n: number) => ({ ru: `${n} слов Танаха`, en: `${n} words of Tanakh`, de: `${n} Wörter des Tanach` });
+export function wordsCertificates(s: WordStore): (Certificate & { goal: number; progress: Progress })[] {
+  const verified = verifiedCount(s);
+  const known = Object.values(s).filter((e) => e[1] >= KNOWN_BOX).length;
+  return WORD_GOALS.map((goal) => ({
+    id: `w-${goal}`,
+    kind: 'words' as const,
+    goal,
+    book: { id: String(goal), he: 'מִלִּים', name: W_NAME(goal) },
+    progress: { got: Math.min(verified, goal), max: goal, done: known, parts: goal, complete: true, earned: verified >= goal },
+  }));
+}
+
+/**
+ * «Слово дня» (пост в Telegram): из обоих отрывков дня — переведённое слово, которое встречается в них чаще всего,
+ * кроме 50 самых частых (служебных) слов; при равенстве — более частое в Танахе. Нет такого — самое частое из всех.
+ */
+export function wordOfDay(day: DayWords, words: Word[], tr: Record<string, string>): Word | undefined {
+  const rank = new Map(words.map((w, i) => [w.id, i]));
+  const count = new Map<string, number>();
+  for (const s of Object.values(day)) for (const [id, c] of Object.entries(s.w)) count.set(id, (count.get(id) ?? 0) + c);
+  const pick = (min: number) =>
+    [...count.keys()]
+      .filter((id) => tr[id] && (rank.get(id) ?? -1) >= min)
+      .sort((a, b) => count.get(b)! - count.get(a)! || rank.get(a)! - rank.get(b)!)[0];
+  const id = pick(50) ?? pick(0);
+  return id ? words[rank.get(id)!] : undefined;
+}

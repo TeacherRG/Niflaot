@@ -25,6 +25,8 @@ import { rangeLabel, SECTIONS, type Section } from '../src/core/tanakhCycle';
 import { civilDate, jewishDate } from '../src/core/hebrewDate';
 import { routeLink, SITE_URL } from '../src/core/site';
 import { miniAppLink } from '../src/core/telegram';
+import { wordOfDay, type DayWords, type Word } from '../src/core/words';
+import WORDS from '../src/tanakh/words.json';
 import ru from '../src/i18n/locales/ru';
 import en from '../src/i18n/locales/en';
 import de from '../src/i18n/locales/de';
@@ -77,6 +79,10 @@ const content = JSON.parse(readFileSync(new URL(`../public/tanakh/${date}.json`,
 // the project's translation where the whole day is translated (as on the site), otherwise English
 const ready = (l: 'ru' | 'de') => SECTIONS.every((s) => content[s].verses.every((v) => v[l]));
 
+// «Слово дня» — from both passages of the day (src/core/words.ts), with the project's translation in the channel's language
+const dayWords = JSON.parse(readFileSync(new URL(`../public/tanakh/words/${date}.json`, import.meta.url), 'utf8')) as DayWords;
+const wordTr = (loc: Loc) => JSON.parse(readFileSync(new URL(`../src/tanakh/words/${loc}.json`, import.meta.url), 'utf8')) as Record<string, string>;
+
 const html = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const t = (loc: Loc, key: string, vars: Record<string, string | number> = {}) =>
   String((UI[loc] as Record<string, unknown>)[key] ?? (ru as Record<string, unknown>)[key]).replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''));
@@ -98,6 +104,15 @@ function post(loc: Loc): string {
       `👉 ${html(routeLink(`${s}/${date}`, 'channel', loc))}`,
     );
   }
+  const wtr = wordTr(loc);
+  const w: Word | undefined = wordOfDay(dayWords, (WORDS as { words: Word[] }).words, wtr);
+  if (w)
+    lines.push(
+      '',
+      `🔤 <b>${html(t(loc, 'words.post'))}:</b> ${w.he} — ${html(wtr[w.id])}`,
+      `${w.root ? `${html(t(loc, 'words.root'))} ${w.root} · ` : ''}${html(t(loc, 'words.count', { n: w.n }))}`,
+      `👉 ${html(routeLink('words', 'channel', loc))}`,
+    );
   return lines.join('\n');
 }
 
