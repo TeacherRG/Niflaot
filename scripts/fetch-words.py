@@ -160,7 +160,7 @@ def cmd_build():
     for w in words:
         covered += w['n']
         w['cov'] = round(covered / total * 100, 1)
-    head = {'source': 'Open Scriptures Hebrew Bible Project (CC BY 4.0); Strong’s Hebrew Dictionary (Public Domain)',
+    head = {'source': 'Open Scriptures Hebrew Bible Project (CC BY 4.0); Strong’s Hebrew Dictionary and Brown–Driver–Briggs (Public Domain)',
             'total': total, 'names': names, 'lemmas': len(count)}
     body = ',\n'.join(json.dumps(w, ensure_ascii=False) for w in words)
     OUT.write_text(json.dumps(head, ensure_ascii=False)[:-1] + ', "words": [\n' + body + '\n]}\n', encoding='utf-8')
