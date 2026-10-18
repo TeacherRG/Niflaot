@@ -10,7 +10,7 @@
  */
 import { useCallback, useEffect, useState } from 'react';
 import data from '../hemshech/5666.json';
-import type { QuizResult, QuizStore } from './academy';
+import { PASS, type Certificate, type Progress, type QuizResult, type QuizStore } from './academy';
 import { CYCLE } from './tanakh';
 
 export type HsLang = 'ru' | 'en' | 'de';
@@ -134,4 +134,38 @@ export function useHsDone(): [Record<string, number>, (id: string, on: boolean) 
     window.dispatchEvent(new Event(DONE_EVENT));
   }, []);
   return [s, mark];
+}
+
+/**
+ * «Академия»: сертификат за маамар (`h-<маамар>`) — как у книги Пророков: прочитаны все его отрывки («Я прочитал(а)»,
+ * 100 %); с баллами — если ещё и вопросы всех отрывков пройдены на ≥ PASS. В списке — маамары, чей первый отрывок уже открыт.
+ */
+export function hsCertificates(today: string, quiz: QuizStore = readHsStore(), done: Record<string, number> = readHsDone()) {
+  const all = allPassages();
+  return HEMSHECH.maamarim
+    .filter((m) => m.passages.length && passageDate(all.findIndex((x) => x.p === m.passages[0])) <= today)
+    .map((m) => {
+      const c: Certificate = { id: `h-${m.id}`, kind: 'hemshech', book: { id: m.id, he: '', name: m.title } };
+      return { ...c, maamar: m, progress: hsProgress(m, quiz, done) };
+    });
+}
+
+export function hsProgress(m: HsMaamar, quiz: QuizStore, done: Record<string, number>): Progress {
+  let got = 0;
+  let max = 0;
+  let tests = 0;
+  let seen = 0;
+  for (const p of m.passages) {
+    if (hsIsDone(done, p.id)) seen++;
+    const r = quiz[p.id];
+    if (r && r.n > 0 && r.best >= 0) {
+      tests++;
+      got += Math.min(r.best, r.n);
+      max += r.n;
+    }
+  }
+  const parts = m.passages.length;
+  const allRead = parts > 0 && seen === parts;
+  const scored = allRead && tests === parts && max > 0 && got >= PASS * max;
+  return { got, max, done: tests, parts, complete: true, earned: allRead, seen: { done: seen, parts }, scored };
 }

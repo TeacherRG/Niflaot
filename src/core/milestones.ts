@@ -33,6 +33,12 @@ export function tanakhBookMilestones(store: DoneStore, days: CycleDay[], section
   return BOOK_STEPS.map((step) => ({ step, at: m[stepCount(step, days.length) - 1] }));
 }
 
+/** Вехи по отметкам «Я прочитал(а)» этих ключей (маамар «Хасидута» — id его отрывков): 25…100 %, с датой. */
+export function doneMilestones(store: DoneStore, keys: string[]): Milestone[] {
+  const m = marks(store, keys);
+  return BOOK_STEPS.map((step) => ({ step, at: m[stepCount(step, keys.length) - 1] }));
+}
+
 /** Вехи книги по проценту (книги Торы: баллы — без дат). */
 export const pctMilestones = (pct: number): Milestone[] => BOOK_STEPS.map((step) => ({ step, at: pct >= step ? 0 : undefined }));
 

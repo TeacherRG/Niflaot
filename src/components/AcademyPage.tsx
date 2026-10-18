@@ -10,6 +10,7 @@ import { useMode } from '../core/mode';
 import { CYCLE, localToday } from '../core/tanakh';
 import { readQuizStore, quizReady } from '../core/quiz';
 import { readDoneStore } from '../core/tanakhDone';
+import { HEMSHECH, allPassages, hsCertificates, hsIsDone, passageDate, readHsDone, todayIndex } from '../core/hemshech';
 import { NIFLAOT_LOGO, PARTNERS } from '../core/partners';
 import { civilDate, jewishDate } from '../core/hebrewDate';
 import { useAccount } from '../core/account';
@@ -71,12 +72,38 @@ export function useCertificates() {
         missed: missed?.date,
       };
     });
-    return { torah, tanakh, tracker };
+    // «Хасидут»: a certificate for each discourse; the reading starts at its first open passage not marked read
+    const hsDone = readHsDone();
+    const passages = allPassages();
+    const hsToday = todayIndex(today);
+    const hemshech = hsCertificates(today, undefined, hsDone).map((c) => {
+      const toRead = c.maamar.passages.find((p) => !hsIsDone(hsDone, p.id) && passageDate(passages.findIndex((x) => x.p === p)) <= today) ?? c.maamar.passages[0];
+      return { ...c, ready: c.progress.parts, href: `#/hemshech/${toRead.id}` };
+    });
+    const hsMissed = passages.find((x, k) => k <= hsToday && !hsIsDone(hsDone, x.p.id));
+    const hsTracker = {
+      read: passages.filter((x) => hsIsDone(hsDone, x.p.id)).length,
+      total: passages.length,
+      pastRead: passages.filter((x, k) => k <= hsToday && hsIsDone(hsDone, x.p.id)).length,
+      past: hsToday + 1,
+      missed: hsMissed && { id: hsMissed.p.id, date: passageDate(passages.indexOf(hsMissed)) },
+    };
+    return { torah, tanakh, tracker, hemshech, hsTracker };
   }, []);
 }
 
 function certTitle(c: Certificate, t: ReturnType<typeof useI18n>['t']) {
-  return c.kind === 'torah' ? t(`academy.master.${c.teacher!}`) : t('academy.master.tanakh');
+  return c.kind === 'torah' ? t(`academy.master.${c.teacher!}`) : c.kind === 'hemshech' ? t('academy.master.hemshech') : t('academy.master.tanakh');
+}
+
+/** Under the title: the book (with its Hebrew name), or the discourse of «Хасидут» (no Hebrew there). */
+function certBook(c: Certificate, t: ReturnType<typeof useI18n>['t'], lang: Lang) {
+  if (c.kind === 'hemshech') return <>{t('academy.maamar', { name: c.book.name[lang] })}</>;
+  return (
+    <>
+      {t('academy.book', { name: c.book.name[lang] })} · <span className="he" lang="he">{c.book.he}</span>
+    </>
+  );
 }
 
 function Bar({ p }: { p: Progress }) {
@@ -165,17 +192,16 @@ function TanakhCard({ c, p, href, quizHref, ready }: { c: Certificate; p: Progre
   const lang = langOf(locale);
   const seen = p.seen ?? { done: 0, parts: p.parts };
   const readPct = seen.parts ? Math.round((100 * seen.done) / seen.parts) : 0;
+  const hs = c.kind === 'hemshech';
   return (
-    <li className={`ac-card t-${c.section === 'neviim' ? 'tchelet' : 'gold'}${p.earned ? ' earned' : ''}`}>
+    <li className={`ac-card t-${c.section === 'neviim' || hs ? 'tchelet' : 'gold'}${p.earned ? ' earned' : ''}`}>
       <div className="ac-seal" aria-hidden="true">
-        {p.earned ? '🎓' : <span className="he">{c.book.he.slice(0, 1)}</span>}
+        {p.earned ? '🎓' : hs ? '📜' : <span className="he">{c.book.he.slice(0, 1)}</span>}
       </div>
       <div className="ac-body">
         <h3>
           {certTitle(c, t)}
-          <small>
-            {t('academy.book', { name: c.book.name[lang] })} · <span className="he" lang="he">{c.book.he}</span>
-          </small>
+          <small>{certBook(c, t, lang)}</small>
         </h3>
         <div className="ac-bar" role="img" aria-label={`${readPct}%`}>
           <span style={{ width: `${Math.min(100, readPct)}%` }} />
@@ -186,9 +212,9 @@ function TanakhCard({ c, p, href, quizHref, ready }: { c: Certificate; p: Progre
           {p.max > 0 && ` · ${t('academy.readPoints', { got: p.got, max: p.max, pct: pct(p) })}`}
         </p>
         {p.earned ? (
-          <p className="ac-ok">{t(p.scored ? 'academy.earnedPoints' : 'academy.earnedRead', { pct: pct(p) })}</p>
+          <p className="ac-ok">{t(p.scored ? 'academy.earnedPoints' : hs ? 'academy.hsEarnedRead' : 'academy.earnedRead', { pct: pct(p) })}</p>
         ) : (
-          <p className="ac-wait">{t('academy.needRead', { pass: PASS_PCT })}</p>
+          <p className="ac-wait">{t(hs ? 'academy.hsNeedRead' : 'academy.needRead', { pass: PASS_PCT })}</p>
         )}
         {!p.scored && !p.complete && <p className="ac-wait">{t('academy.waitQuiz', { ready, parts: p.parts })}</p>}
         <div className="ac-actions">
@@ -250,6 +276,33 @@ function ReadTracker({ rows }: { rows: { section: 'neviim' | 'ketuvim'; read: nu
   );
 }
 
+/** The reader's tracker of «Хасидут»: passages read, of the days already past, the first one left unread. */
+function HsTracker({ r }: { r: { read: number; total: number; pastRead: number; past: number; missed?: { id: string; date: string } } }) {
+  const { t, locale } = useI18n();
+  const v = r.total ? Math.round((100 * r.read) / r.total) : 0;
+  return (
+    <div className="ac-tracker">
+      <div className="ac-track t-tchelet">
+        <p className="ac-track-h">
+          <b>{t('hs.menuLbl')}</b> {t('academy.trackerRead', { n: r.read, total: r.total, pct: v })}
+        </p>
+        <div className="ac-bar" role="img" aria-label={`${v}%`}>
+          <span style={{ width: `${Math.min(100, v)}%` }} />
+        </div>
+        <p className="ac-meta">
+          {t('academy.hsTrackerPast', { n: r.pastRead, total: r.past })}
+          {r.missed && (
+            <>
+              {' · '}
+              <a href={`#/hemshech/${r.missed.id}`}>{t('academy.trackerMissed', { date: civilDate(r.missed.date, locale) })}</a>
+            </>
+          )}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 /** The rector's signature: a handwritten stroke in ink, drawn as a vector so it prints sharp. */
 function RectorSignature() {
   return (
@@ -272,7 +325,7 @@ const POINTS_KEY = 'niflaot:cert-points';
  * earned (the game, else «Проверь себя»); the Prophets and Writings — the quiz, only when it was passed (with points).
  */
 function certResult(c: Certificate, p: Progress): number | null {
-  if (c.kind === 'tanakh') return p.scored ? pct(p) : null;
+  if (c.kind !== 'torah') return p.scored ? pct(p) : null;
   if (p.max > 0 && p.got >= PASS * p.max) return pct(p);
   return p.read && p.read.max ? Math.round((100 * p.read.got) / p.read.max) : null;
 }
@@ -348,14 +401,17 @@ function CertificateView({ c, p, sample }: { c: Certificate; p: Progress; sample
         <h1 className="cert-title">{certTitle(c, t)}</h1>
         <p className="cert-awarded">{t('cert.awarded')}</p>
         <p className="cert-name">{name.trim() || ' '}</p>
-        <p className="cert-for">{c.kind === 'torah' ? t('cert.forTorah') : t('cert.forTanakh')}</p>
+        <p className="cert-for">{c.kind === 'torah' ? t('cert.forTorah') : c.kind === 'hemshech' ? t('cert.forHemshech') : t('cert.forTanakh')}</p>
         <p className="cert-book">
+          {c.kind === 'hemshech' && <>{HEMSHECH.title[lang]} · </>}
           {c.book.name[lang]}{' '}
-          <span className="he" lang="he">
-            {torahBook ? torahBook.he : c.book.he}
-          </span>
+          {c.kind !== 'hemshech' && (
+            <span className="he" lang="he">
+              {torahBook ? torahBook.he : c.book.he}
+            </span>
+          )}
         </p>
-        {!sample && c.kind === 'tanakh' && <p className="cert-result">{t('cert.readAll', { n: p.seen?.parts ?? p.parts })}</p>}
+        {!sample && c.kind !== 'torah' && <p className="cert-result">{t(c.kind === 'hemshech' ? 'cert.hsReadAll' : 'cert.readAll', { n: p.seen?.parts ?? p.parts })}</p>}
         {result !== null && showPoints && <p className="cert-result">{t('cert.result', { pct: result })}</p>}
         {/* date · QR code to the site · the rector's signature */}
         <div className="cert-foot">
@@ -397,11 +453,11 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
   const { t, locale } = useI18n();
   const lang = langOf(locale);
   const { token } = useAccount();
-  const { torah, tanakh, tracker } = useCertificates();
+  const { torah, tanakh, tracker, hemshech, hsTracker } = useCertificates();
   const adults = useMode() === 'adults';
   // the AI assistant (✦) knows the certificates and the progress
   useEffect(() => {
-    const rows = [...torah, ...tanakh].map((c) => ({
+    const rows = [...torah, ...tanakh, ...hemshech].map((c) => ({
       kind: c.kind,
       title: certTitle(c, t),
       book: c.book.name[lang],
@@ -413,11 +469,11 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
     }));
     setOtherPage({ kind: 'academy', context: () => academyContext(rows) });
     return () => setOtherPage(null);
-  }, [torah, tanakh, t, lang]);
+  }, [torah, tanakh, hemshech, t, lang]);
   useEffect(() => {
     document.title = `${t('academy.h1')} · ${t('app.title')}`;
   }, [t]);
-  const one = id ? [...torah, ...tanakh].find((c) => c.id === id) : undefined;
+  const one = id ? [...torah, ...tanakh, ...hemshech].find((c) => c.id === id) : undefined;
   if (one && (one.progress.earned || sample))
     return (
       <>
@@ -476,6 +532,20 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
               </ul>
             ) : (
               <p className="ac-note">{t('academy.empty')}</p>
+            )}
+
+            {/* «Хасидут»: a certificate for each discourse of «Ґемшех Самех-Вав», by reading — as a book of the Prophets */}
+            <h2 className="ac-h2">{t('academy.hemshech')}</h2>
+            <p className="ac-note">{t('academy.hemshechNote', { pass: PASS_PCT })}</p>
+            <HsTracker r={hsTracker} />
+            {hemshech.length ? (
+              <ul className="ac-list">
+                {hemshech.map((c) => (
+                  <TanakhCard key={c.id} c={c} p={c.progress} href={c.href} ready={c.ready} />
+                ))}
+              </ul>
+            ) : (
+              <p className="ac-note">{t('hs.startsOn', { date: civilDate(passageDate(0), lang) })}</p>
             )}
           </>
         )}
