@@ -727,6 +727,10 @@ const ru = {
   'hs.doneStat': "Прочитано {n} из {total} отрывков",
   'hs.doneFirst': "первый непрочитанный: «{title}»",
   'hs.read': "✓ прочитано",
+  'hs.prev': "Предыдущий отрывок",
+  'hs.next': "Следующий отрывок",
+  'hs.navLabel': "Отрывки по дням",
+  'hs.about': "О разделе",
   'hs.all': "Все отрывки",
   'hs.rights': "Все права принадлежат © The Neirot Foundation ·",
   'hs.today': "Отрывок дня",
@@ -750,7 +754,7 @@ const ru = {
 
   'footer.contact': 'Вопросы и пожелания',
   'footer.donate': 'Поддержать проект',
-  'footer.fine': '© mychitas.app · Тексты: Бааль ґа-Турим, Любавичский Ребе',
+  'footer.fine': '© mychitas.app',
 
   // «Пророки» и «Писания» (src/components/TanakhPage.tsx)
   'tanakh.neviim': 'Пророки',

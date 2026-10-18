@@ -37,7 +37,6 @@ export function Colophon({ source }: { source?: string }) {
             {t('footer.donate')}
           </a>
         </div>
-        <p className="site-foot-fine">{t('footer.fine').replace(/^©\s*mychitas\.app\s*·\s*/, '')}</p>
       </div>
     </footer>
   );

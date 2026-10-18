@@ -709,6 +709,10 @@ const de: Messages = {
   'hs.doneStat': "{n} von {total} Abschnitten gelesen",
   'hs.doneFirst': "erster ungelesener: „{title}“",
   'hs.read': "✓ gelesen",
+  'hs.prev': "Vorheriger Abschnitt",
+  'hs.next': "Nächster Abschnitt",
+  'hs.navLabel': "Abschnitte nach Tagen",
+  'hs.about': "Über den Teil",
   'hs.all': "Alle Abschnitte",
   'hs.rights': "Alle Rechte vorbehalten © The Neirot Foundation ·",
   'hs.today': "Abschnitt des Tages",
@@ -732,7 +736,7 @@ const de: Messages = {
 
   'footer.contact': 'Fragen und Vorschläge',
   'footer.donate': 'Das Projekt unterstützen',
-  'footer.fine': '© mychitas.app · Texte: Baal HaTurim, der Lubawitscher Rebbe',
+  'footer.fine': '© mychitas.app',
 
   // «Пророки» и «Писания» (src/components/TanakhPage.tsx)
   'tanakh.neviim': 'Propheten',

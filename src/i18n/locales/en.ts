@@ -709,6 +709,10 @@ const en: Messages = {
   'hs.doneStat': "{n} of {total} passages read",
   'hs.doneFirst': "first unread: “{title}”",
   'hs.read': "✓ read",
+  'hs.prev': "Previous passage",
+  'hs.next': "Next passage",
+  'hs.navLabel': "Passages by day",
+  'hs.about': "About",
   'hs.all': "All passages",
   'hs.rights': "All rights reserved © The Neirot Foundation ·",
   'hs.today': "Today’s passage",
@@ -732,7 +736,7 @@ const en: Messages = {
 
   'footer.contact': 'Questions & suggestions',
   'footer.donate': 'Support the project',
-  'footer.fine': '© mychitas.app · Texts: Baal HaTurim, the Lubavitcher Rebbe',
+  'footer.fine': '© mychitas.app',
 
   // «Пророки» и «Писания» (src/components/TanakhPage.tsx)
   'tanakh.neviim': 'Prophets',

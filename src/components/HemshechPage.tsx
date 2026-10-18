@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
@@ -8,6 +8,7 @@ import { HEMSHECH, allPassages, hsLang, passageDate, hsIsDone, passageMinutes, r
 import { localToday } from '../core/tanakh';
 import { civilDate, jewishDate } from '../core/hebrewDate';
 import { isAdmin } from '../admin/github';
+import { Icon, Sheet } from './ui';
 
 /** The credit the Neirot Foundation asked for: under every passage, with a link to their site. */
 function Credit({ lang }: { lang: HsLang }) {
@@ -106,12 +107,34 @@ function Questions({ p, lang }: { p: HsPassage; lang: HsLang }) {
   );
 }
 
-function Passage({ id, lang }: { id: string; lang: HsLang }) {
+const shortDate = (iso: string, locale: string) =>
+  new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+const weekday = (iso: string, locale: string) => {
+  const w = new Intl.DateTimeFormat(locale, { weekday: 'long', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+  return w.charAt(0).toUpperCase() + w.slice(1);
+};
+/** A passage is open on its day (the admin sees the coming ones ahead). */
+const isOpen = (k: number) => passageDate(k) <= localToday() || isAdmin();
+
+/** ‹ / › at the corners of the date bar — the previous / next passage (as on «Пророки», TanakhPage.tsx). */
+function Step({ k, dir, lang }: { k: number; dir: 'prev' | 'next'; lang: HsLang }) {
   const { t } = useI18n();
   const all = allPassages();
-  const at = all.findIndex((x) => x.p.id === id);
+  if (k < 0 || k >= all.length || !isOpen(k)) return <span className={`tk-step ${dir}`} aria-hidden="true" />;
+  const label = t(dir === 'prev' ? 'hs.prev' : 'hs.next');
+  return (
+    <a className={`tk-step ${dir}`} href={`#/hemshech/${all[k].p.id}`} aria-label={`${label}: ${all[k].p.title[lang]}`} title={label}>
+      <Icon name="chevron" size={20} />
+      <small>{shortDate(passageDate(k), lang)}</small>
+    </a>
+  );
+}
+
+function Passage({ at, lang, onHelp }: { at: number; lang: HsLang; onHelp: () => void }) {
+  const { t } = useI18n();
+  const all = allPassages();
   const [showEn, setShowEn] = useState(false);
-  const found = at >= 0 ? all[at] : undefined;
+  const found = all[at];
 
   // the AI teacher (✦) knows the passage on screen
   useEffect(() => {
@@ -133,29 +156,41 @@ function Passage({ id, lang }: { id: string; lang: HsLang }) {
   if (!found) return <p className="tk-note">{t('hs.notFound')}</p>;
   const { m, p } = found;
   const date = passageDate(at);
-  // a passage opens on its day; the admin sees the coming ones ahead
-  if (date > localToday() && !isAdmin())
+  const today = todayIndex(localToday());
+  const isToday = at === today;
+  const bar = (
+    <nav className="tk-dates no-print" aria-label={t('hs.navLabel')}>
+      <Step k={at - 1} dir="prev" lang={lang} />
+      <div className="tk-date">
+        <b>{isToday ? t('tanakh.today') : weekday(date, lang)}</b>
+        <span>{civilDate(date, lang)}</span>
+        <span className="he" lang="he">
+          {jewishDate(date)}
+        </span>
+        {!isToday && today >= 0 && (
+          <a className="tk-to-today" href="#/hemshech">
+            {t('tanakh.toToday')}
+          </a>
+        )}
+      </div>
+      <Step k={at + 1} dir="next" lang={lang} />
+    </nav>
+  );
+  if (!isOpen(at))
     return (
       <>
+        {bar}
         <p className="tk-note">{t('hs.opensOn', { date: civilDate(date, lang) })}</p>
-        <p>
-          <a href="#/hemshech">{t('hs.all')}</a>
-        </p>
       </>
     );
   const prev = all[at - 1];
-  const next = all[at + 1];
+  const next = all[at + 1] && isOpen(at + 1) ? all[at + 1] : undefined;
   const n = m.passages.indexOf(p) + 1;
   const text = p[lang];
   return (
     <article className="hs-passage">
+      {bar}
       <header className="tk-head">
-        <p className="tk-kicker">
-          {civilDate(date, lang)} ·{' '}
-          <span className="he" lang="he">
-            {jewishDate(date)}
-          </span>
-        </p>
         <p className="tk-kicker">
           {HEMSHECH.title[lang]} · {m.title[lang]} · {t('hs.passageN', { n, total: m.passages.length })}
         </p>
@@ -164,15 +199,23 @@ function Passage({ id, lang }: { id: string; lang: HsLang }) {
           {HEMSHECH.author[lang]} · {t('tanakh.readingTime', { n: passageMinutes(p, lang) })}
         </p>
       </header>
+      <div className="tk-tools no-print">
+        {lang !== 'en' ? (
+          <label className="hs-en-toggle">
+            <input type="checkbox" checked={showEn} onChange={(e) => setShowEn(e.target.checked)} />
+            {t('hs.showEn')}
+          </label>
+        ) : (
+          <span />
+        )}
+        <button type="button" className="hs-about" onClick={onHelp}>
+          <Icon name="help" size={17} />
+          <span>{t('hs.about')}</span>
+        </button>
+      </div>
       <div className="st-summary">
         <b>{t('hs.summary')}</b> {p.summary[lang]}
       </div>
-      {lang !== 'en' && (
-        <label className="hs-en-toggle no-print">
-          <input type="checkbox" checked={showEn} onChange={(e) => setShowEn(e.target.checked)} />
-          {t('hs.showEn')}
-        </label>
-      )}
       <div className="hs-text">
         {text.map((s, i) => (
           <div key={i} className="st-par">
@@ -190,56 +233,56 @@ function Passage({ id, lang }: { id: string; lang: HsLang }) {
       <Credit lang={lang} />
       <DoneCheck id={p.id} lang={lang} />
       <Questions key={p.id} p={p} lang={lang} />
-      <nav className="tk-nav st-nav no-print">
-        {prev ? <a href={`#/hemshech/${prev.p.id}`}>← {prev.p.title[lang]}</a> : <span />}
-        <a href="#/hemshech">{t('hs.all')}</a>
-        {next && (passageDate(at + 1) <= localToday() || isAdmin()) ? <a href={`#/hemshech/${next.p.id}`}>{next.p.title[lang]} →</a> : <span />}
+      <nav className="tk-pager no-print" aria-label={t('hs.navLabel')}>
+        {prev ? (
+          <a className="prev" href={`#/hemshech/${prev.p.id}`}>
+            <small>← {t('hs.prev')}</small>
+            <b>{prev.p.title[lang]}</b>
+            <span>{civilDate(passageDate(at - 1), lang)}</span>
+          </a>
+        ) : (
+          <span />
+        )}
+        {next && (
+          <a className="next" href={`#/hemshech/${next.p.id}`}>
+            <small>{t('hs.next')} →</small>
+            <b>{next.p.title[lang]}</b>
+            <span>{civilDate(passageDate(at + 1), lang)}</span>
+          </a>
+        )}
       </nav>
     </article>
   );
 }
 
-function Index({ lang }: { lang: HsLang }) {
+
+/** «О разделе»: what «Ґемшех Самех-Вав» is, how it is learnt, and all the passages (with the reading marks). */
+function About({ open, onClose, lang, at }: { open: boolean; onClose: () => void; lang: HsLang; at: number }) {
   const { t } = useI18n();
   const store = readHsStore();
   const [done] = useHsDone();
   const all = allPassages();
-  const today = todayIndex(localToday());
-  const admin = isAdmin();
-  useEffect(() => {
-    document.title = `${HEMSHECH.title[lang]} · ${t('app.title')}`;
-  }, [lang, t]);
   return (
-    <>
-      <header className="tk-head">
-        <p className="tk-kicker">{t('hs.kicker')}</p>
-        <h1>{HEMSHECH.title[lang]}</h1>
-        <p className="tk-range">{HEMSHECH.author[lang]}</p>
-      </header>
-      <p className="ac-lead">{t('hs.lead')}</p>
-      {today >= 0 ? (
-        <a className="hs-today" href={`#/hemshech/${all[today].p.id}`}>
-          <span className="hs-today-k">
-            {passageDate(today) === localToday() ? t('hs.today') : t('hs.last')} · {civilDate(passageDate(today), lang)}
-          </span>
-          <b>{all[today].p.title[lang]}</b>
-          <span className="hs-min">{t('tanakh.readingTime', { n: passageMinutes(all[today].p, lang) })} →</span>
-        </a>
-      ) : (
-        <p className="tk-note">{t('hs.startsOn', { date: civilDate(passageDate(0), lang) })}</p>
-      )}
+    <Sheet open={open} onClose={onClose} title={HEMSHECH.title[lang]} closeLabel={t('menu.close')}>
+      <p className="tk-range">{HEMSHECH.author[lang]}</p>
+      <p>{t('hs.lead')}</p>
       {HEMSHECH.maamarim.map((m) => (
-        <section key={m.id} className="st-block">
-          <h2>{m.title[lang]}</h2>
-          <p className="tk-day">{m.date[lang]}</p>
+        <Fragment key={m.id}>
+          <h3 className="sheet-h3">{m.title[lang]}</h3>
+          <p className="sheet-note">{m.date[lang]}</p>
           <ol className="st-list">
             {m.passages.map((p) => {
               const r = store[p.id];
               const k = all.findIndex((x) => x.p === p);
-              const open = k <= today || admin;
               return (
-                <li key={p.id} className={open ? undefined : 'hs-locked'}>
-                  {open ? <a href={`#/hemshech/${p.id}`}>{p.title[lang]}</a> : <span>{p.title[lang]}</span>}{' '}
+                <li key={p.id} className={isOpen(k) ? undefined : 'hs-locked'}>
+                  {isOpen(k) ? (
+                    <a href={`#/hemshech/${p.id}`} onClick={onClose} aria-current={k === at ? 'page' : undefined}>
+                      {p.title[lang]}
+                    </a>
+                  ) : (
+                    <span>{p.title[lang]}</span>
+                  )}{' '}
                   <span className="hs-min">
                     · {civilDate(passageDate(k), lang)} · {t('tanakh.readingTime', { n: passageMinutes(p, lang) })}
                   </span>
@@ -254,25 +297,53 @@ function Index({ lang }: { lang: HsLang }) {
               );
             })}
           </ol>
-        </section>
+        </Fragment>
       ))}
       <Credit lang={lang} />
-    </>
+    </Sheet>
   );
 }
 
 /**
  * `#/hemshech`, `#/hemshech/<passage>` — «Ґемшех Самех-Вав» of the Rebbe Rashab (src/core/hemshech.ts):
- * the discourses in passages of up to ten minutes, in the site's language, with the English source on request,
- * a short summary, questions and the translators' credit.
+ * the passage of the day (without an id — today's), in the site's language, with the English source on request,
+ * a short summary, questions and the translators' credit; the days — in the date bar, as on «Пророки»;
+ * what the section is and all its passages — in «О разделе».
  */
 export function HemshechPage({ passage }: { passage?: string }) {
   const { t, locale } = useI18n();
   const lang = hsLang(locale);
+  const [help, setHelp] = useState(false);
+  const all = allPassages();
+  const today = todayIndex(localToday());
+  const at = passage ? all.findIndex((x) => x.p.id === passage) : today;
+  useEffect(() => {
+    if (at < 0) document.title = `${HEMSHECH.title[lang]} · ${t('app.title')}`;
+  }, [at, lang, t]);
   return (
     <>
       <TopBar title={t('hs.short')} />
-      <div className="wrap tk hs">{passage ? <Passage key={passage} id={passage} lang={lang} /> : <Index lang={lang} />}</div>
+      <div className="wrap tk hs">
+        {at >= 0 ? (
+          <Passage key={at} at={at} lang={lang} onHelp={() => setHelp(true)} />
+        ) : passage ? (
+          <p className="tk-note">{t('hs.notFound')}</p>
+        ) : (
+          <>
+            <header className="tk-head">
+              <p className="tk-kicker">{t('hs.kicker')}</p>
+              <h1>{HEMSHECH.title[lang]}</h1>
+            </header>
+            <p className="tk-note">{t('hs.startsOn', { date: civilDate(passageDate(0), lang) })}</p>
+            <p>
+              <button type="button" className="btn ghost" onClick={() => setHelp(true)}>
+                {t('hs.about')}
+              </button>
+            </p>
+          </>
+        )}
+      </div>
+      <About open={help} onClose={() => setHelp(false)} lang={lang} at={at} />
       <Colophon />
     </>
   );
