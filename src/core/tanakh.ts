@@ -71,7 +71,7 @@ const cache = new Map<string, Promise<DayContent | null>>();
  */
 const up = '..';
 // computed on first use: outside Vite (node scripts that import this module) there is no import.meta.env
-const root = () => (import.meta.env.DEV ? import.meta.env.BASE_URL : new URL(up, import.meta.url).href);
+export const root = () => (import.meta.env.DEV ? import.meta.env.BASE_URL : new URL(up, import.meta.url).href);
 /** Тексты дня; null — этот день ещё не подготовлен. */
 export function loadDay(date: string): Promise<DayContent | null> {
   let p = cache.get(date);

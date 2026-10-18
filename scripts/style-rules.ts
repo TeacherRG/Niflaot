@@ -17,7 +17,8 @@ export const STYLE_RULES: Record<'en' | 'de', StyleRule[]> = {
     { re: /\bGod(s|ly|liness)?\b/, use: 'G-d, G-dly, G-dliness' },
     { re: /\bLord\b/, use: 'L-rd (in a verse) or G-d, the Almighty' },
     { re: /\b(Jehovah|Yahweh|YHWH)\b/i, use: 'Hashem, “the Four-Letter Name”, ה׳' },
-    { re: /\bOld Testament\b|\bBible\b|\bbiblical\b/i, use: 'Torah, Tanakh, Scripture' },
+    // «Open Scriptures Hebrew Bible Project» — название источника (его требует лицензия CC BY), не наше слово
+    { re: /\bOld Testament\b|(?<!Open Scriptures Hebrew )\bBible\b|\bbiblical\b/i, use: 'Torah, Tanakh, Scripture' },
     { re: /\bMessiah|\bMashiach\b/, use: 'Moshiach' },
     { re: /\bSabbath\b|\bShabbos\b/, use: 'Shabbat' },
     // names and terms: Chabad's spelling
