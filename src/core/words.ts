@@ -7,12 +7,13 @@
  * учить можно только переведённые слова (начало списка). По дню — public/tanakh/words/<дата>.json: сколько слов в
  * отрывке раздела (`n`, без имён) и сколько раз в нём встречается каждое слово словаря (`w`).
  *
- * «Знаю» — localStorage `niflaot:words` = { номер слова: время отметки, с (снятая — со знаком минус) }, синхронизируется
- * с аккаунтом (src/core/sync.ts, слияние — как у «Я прочитал(а)»).
+ * «Мои слова» — localStorage `niflaot:words` = { номер слова: [время, коробка, день повторения] } (ниже),
+ * синхронизируется с аккаунтом (src/core/sync.ts: у одного слова — более позднее изменение).
  */
 import { useEffect, useState } from 'react';
 import type { Section } from './tanakhCycle';
-import { root } from './tanakh';
+import { localToday, root } from './tanakh';
+import { normWord, type WordEntry } from './sync';
 
 export interface Word {
   /** номер Стронга */
@@ -32,6 +33,8 @@ export interface Word {
 export type WordLang = 'ru' | 'en' | 'de';
 export interface Dict {
   words: Word[];
+  /** слов в Пророках и Писаниях без имён */
+  total: number;
   /** номер слова → место по частоте (с 1) */
   rank: Map<string, number>;
   /** номер слова → перевод на языке сайта; только переведённые слова можно учить */
@@ -48,8 +51,8 @@ export function loadDict(lang: WordLang): Promise<Dict> {
   let p = dicts.get(lang);
   if (!p) {
     p = Promise.all([import('../tanakh/words.json'), import(`../tanakh/words/${lang}.json`)]).then(([w, tr]) => {
-      const words = (w.default as { words: Word[] }).words;
-      return { words, rank: new Map(words.map((x, i) => [x.id, i + 1])), tr: tr.default as Record<string, string> };
+      const { words, total } = w.default as { words: Word[]; total: number };
+      return { words, total, rank: new Map(words.map((x, i) => [x.id, i + 1])), tr: tr.default as Record<string, string> };
     });
     dicts.set(lang, p);
   }
@@ -70,26 +73,62 @@ export function loadDayWords(date: string): Promise<DayWords | null> {
 
 export const WORDS_KEY = 'niflaot:words';
 const EVENT = 'niflaot:words';
-export type WordStore = Record<string, number>;
-export const isKnown = (s: WordStore, id: string) => (s[id] ?? 0) > 0;
+/**
+ * Слово в «Моих словах»: [время изменения, с; коробка; день следующего повторения]. Коробки — как «карточки с
+ * коробками»: 0 — убрано, 1–2 — учу, 3–5 — знаю. Вспомнил — следующая коробка, повтор через `INTERVALS[коробка]` дней;
+ * не вспомнил — снова коробка 1, повтор завтра. «Знаю» сразу — коробка 3 (проверка через неделю), «Учу» — коробка 1
+ * (повторить сегодня). Дни — номера дней с 1970-01-01 по дате устройства.
+ */
+export type { WordEntry } from './sync';
+export type WordStore = Record<string, WordEntry>;
+export const INTERVALS = [0, 1, 3, 7, 21, 60];
+export const KNOWN_BOX = 3;
+
+/** сегодня (по дате устройства) — номер дня */
+export const today = () => {
+  const [y, m, d] = localToday().split('-').map(Number);
+  return Math.floor(Date.UTC(y, m - 1, d) / 864e5);
+};
+export const boxOf = (s: WordStore, id: string) => s[id]?.[1] ?? 0;
+export const isKnown = (s: WordStore, id: string) => boxOf(s, id) >= KNOWN_BOX;
+export const inDeck = (s: WordStore, id: string) => boxOf(s, id) > 0;
+/** слова, которые пора повторить сегодня (сначала — те, что ждут дольше) */
+export const dueWords = (s: WordStore, day = today()) =>
+  Object.keys(s)
+    .filter((id) => s[id][1] > 0 && s[id][2] <= day)
+    .sort((a, b) => s[a][2] - s[b][2]);
 
 export function readWordStore(): WordStore {
   try {
-    const s = JSON.parse(localStorage.getItem(WORDS_KEY) ?? 'null');
-    return s && typeof s === 'object' ? s : {};
+    const raw = JSON.parse(localStorage.getItem(WORDS_KEY) ?? 'null');
+    if (!raw || typeof raw !== 'object') return {};
+    const out: WordStore = {};
+    for (const [k, v] of Object.entries(raw)) out[k] = normWord(v);
+    return out;
   } catch {
     return {};
   }
 }
 
-export function setKnown(id: string, on: boolean) {
+function put(id: string, box: number, due: number) {
   const s = readWordStore();
-  const now = Math.floor(Date.now() / 1000);
-  s[id] = on ? now : -now;
+  s[id] = [Math.floor(Date.now() / 1000), box, due];
   try {
     localStorage.setItem(WORDS_KEY, JSON.stringify(s));
   } catch {}
   window.dispatchEvent(new Event(EVENT));
+}
+/** «Знаю» — проверить через неделю; «Учу» — повторить сегодня; убрать из моих слов */
+export const markKnown = (id: string) => put(id, KNOWN_BOX, today() + INTERVALS[KNOWN_BOX]);
+export const markLearn = (id: string) => put(id, 1, today());
+export const unmark = (id: string) => put(id, 0, 0);
+/** итог повторения слова: вспомнил — следующая коробка, нет — снова коробка 1, завтра */
+export function review(id: string, remembered: boolean) {
+  const box = boxOf(readWordStore(), id);
+  if (remembered) {
+    const next = Math.min(box + 1, INTERVALS.length - 1);
+    put(id, next, today() + INTERVALS[next]);
+  } else put(id, 1, today() + 1);
 }
 
 export function useWordStore(): WordStore {
@@ -106,10 +145,10 @@ export function useWordStore(): WordStore {
   return s;
 }
 
-/** Слова дня: самые частые переведённые слова отрывка, которых игрок ещё не знает. */
+/** Слова дня: самые частые переведённые слова отрывка, которых нет в «Моих словах». */
 export function pickWords(day: DayWords[Section], dict: Dict, known: WordStore, n = PER_DAY): Word[] {
   return Object.keys(day.w)
-    .filter((id) => dict.tr[id] && !isKnown(known, id))
+    .filter((id) => dict.tr[id] && !inDeck(known, id))
     .sort((a, b) => dict.rank.get(a)! - dict.rank.get(b)!)
     .slice(0, n)
     .map((id) => dict.words[dict.rank.get(id)! - 1]);
@@ -123,5 +162,15 @@ export function coverage(day: DayWords[Section], known: WordStore): number {
   return Math.round((k / day.n) * 100);
 }
 
+/** Следующие самые частые переведённые слова, которых нет в «Моих словах». */
+export const nextWords = (dict: Dict, s: WordStore, n = PER_DAY) => dict.words.filter((w) => dict.tr[w.id] && !inDeck(s, w.id)).slice(0, n);
+
 /** Сколько переведённых слов словаря игрок знает. */
 export const knownCount = (dict: Dict, known: WordStore) => Object.keys(dict.tr).filter((id) => isKnown(known, id)).length;
+
+/** Сколько процентов слов Пророков и Писаний (без имён) покрывают знакомые слова. */
+export const textCoverage = (dict: Dict, s: WordStore) =>
+  Math.round((dict.words.reduce((a, w) => a + (isKnown(s, w.id) ? w.n : 0), 0) / dict.total) * 1000) / 10;
+
+/** Вехи «Моих слов» — по ним и сертификаты «Академии» (следующий этап). */
+export const WORD_GOALS = [100, 300, 500];

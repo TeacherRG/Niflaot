@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useI18n } from '../i18n';
 import { useMode } from '../core/mode';
 import { CYCLE, localToday } from '../core/tanakh';
@@ -9,6 +9,7 @@ import { civilDate } from '../core/hebrewDate';
 import { TEACHERS } from '../lessons/teachers';
 import { useCertificates } from './AcademyPage';
 import { HEMSHECH, allPassages, hsIsDone, passageDate, useHsDone } from '../core/hemshech';
+import { knownCount, loadDict, textCoverage, useWordStore, type Dict } from '../core/words';
 
 type Lang = 'ru' | 'en' | 'de';
 const langOf = (locale: string): Lang => (locale === 'en' || locale === 'de' ? locale : 'ru');
@@ -156,6 +157,27 @@ function HsRoad() {
   );
 }
 
+/** «Мои слова» (src/core/words.ts): how many words are known and how much of the text they cover — a link to `#/words`. */
+function WordsTotal() {
+  const { t, locale } = useI18n();
+  const store = useWordStore();
+  const [dict, setDict] = useState<Dict | null>(null);
+  useEffect(() => {
+    let live = true;
+    loadDict(locale === 'en' || locale === 'de' ? locale : 'ru').then((d) => live && setDict(d));
+    return () => {
+      live = false;
+    };
+  }, [locale]);
+  if (!dict) return null;
+  return (
+    <>
+      <br />
+      <a href="#/words">{t('words.bpLine', { k: knownCount(dict, store), n: Object.keys(dict.tr).length, p: textCoverage(dict, store) })}</a>
+    </>
+  );
+}
+
 /**
  * «Мой путь по книгам» in the account (`#/account`): the books are the milestones. The adults — the road of the
  * Prophets and of the Writings (every book of the cycle in order: read — with the date, the current — its progress and
@@ -198,6 +220,7 @@ export function BookProgress() {
           {t('bp.totalBooks', { n: booksRead, total: booksAll })} · {t('bp.total', { n: passages, total: CYCLE.length * 2 })}
           <br />
           {t('bp.hsTotal', { n: hsRead, total: allPassages().length })}
+          <WordsTotal />
         </p>
       )}
       {doneBooks.length + doneTorah.length + doneHs.length ? (

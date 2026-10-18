@@ -348,6 +348,15 @@ export function Panels() {
               <small>{t('hs.menuSub')}</small>
             </span>
           </a>
+          {/* «Мои слова»: the most frequent words of the Prophets and Writings, with the review (src/core/words.ts) */}
+          <div className="menu-lbl">{t('words.menuLbl')}</div>
+          <a href="#/words" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/words') ? 'page' : undefined}>
+            <Icon name="cards" />
+            <span>
+              {t('words.mine')}
+              <small>{t('words.menuSub')}</small>
+            </span>
+          </a>
             </>
           )}
           <div className="menu-sep" />

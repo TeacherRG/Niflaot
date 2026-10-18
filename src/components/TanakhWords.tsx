@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
 import type { Section } from '../core/tanakhCycle';
-import { coverage, isKnown, knownCount, loadDayWords, loadDict, pickWords, readWordStore, setKnown, useWordStore, type DayWords, type Dict, type Word, type WordLang } from '../core/words';
+import { boxOf, coverage, KNOWN_BOX, knownCount, loadDayWords, loadDict, markKnown, markLearn, pickWords, readWordStore, unmark, useWordStore, type DayWords, type Dict, type Word, type WordLang, type WordStore } from '../core/words';
 
 /**
  * «Слова отрывка» под отрывком дня (src/core/words.ts): сколько процентов слов отрывка игрок узнаёт и до пяти самых
- * частых слов Танаха из этого отрывка, которых он ещё не знает, — с переводом, корнем и частотой; «Знаю» отмечает слово.
+ * частых слов Танаха из этого отрывка, которых нет в «Моих словах», — с переводом, корнем и частотой; «Учу» / «Знаю» кладёт
+ * слово в «Мои слова» (`#/words`, повторение).
  * Слова на экране не меняются, пока страница открыта: отмеченное остаётся с галочкой (его можно снять).
  */
 export function TanakhWords({ section, date }: { section: Section; date: string }) {
@@ -47,39 +48,60 @@ export function TanakhWords({ section, date }: { section: Section; date: string 
       </div>
       {picks.length ? (
         <ul className="tk-words-list">
-          {picks.map((w) => {
-            const on = isKnown(store, w.id);
-            return (
-              <li key={w.id} className={on ? 'on' : undefined}>
-                <span className="he tk-w-he" lang="he">
-                  {w.he}
-                </span>
-                <span className="tk-w-tr">{dict.tr[w.id]}</span>
-                <small className="tk-w-meta">
-                  {w.root && (
-                    <>
-                      {t('words.root')}{' '}
-                      <span className="he" lang="he">
-                        {w.root}
-                      </span>{' '}
-                      ·{' '}
-                    </>
-                  )}
-                  {w.aram && <>{t('words.aram')} · </>}
-                  {t('words.rank', { n: dict.rank.get(w.id)! })} · {t('words.count', { n: w.n })} · {t('words.here', { n: day.w[w.id] })}
-                </small>
-                <button type="button" className="tk-w-know" aria-pressed={on} onClick={() => setKnown(w.id, !on)}>
-                  {on ? `✓ ${t('words.know')}` : t('words.know')}
-                </button>
-              </li>
-            );
-          })}
+          {picks.map((w) => (
+            <WordRow key={w.id} w={w} dict={dict} store={store} here={day.w[w.id]} />
+          ))}
         </ul>
       ) : (
         <p className="tk-words-done">{t('words.allKnown')}</p>
       )}
+      <p className="tk-words-more">
+        <a href="#/words">{t('words.toMine')} →</a>
+      </p>
       <p className="tk-words-src">{t('words.src')}</p>
     </section>
+  );
+}
+
+/**
+ * One word with «Учу» / «Знаю» (src/core/words.ts): the form with vowels, the translation, the root, the frequency
+ * (and how many times in the passage — `here`). The pressed button takes the word out of «Мои слова» again.
+ */
+export function WordRow({ w, dict, store, here, compact }: { w: Word; dict: Dict; store: WordStore; here?: number; compact?: boolean }) {
+  const { t } = useI18n();
+  const box = boxOf(store, w.id);
+  const known = box >= KNOWN_BOX;
+  const learning = box > 0 && !known;
+  return (
+    <li className={`tk-w${known ? ' on' : learning ? ' learn' : ''}${compact ? ' compact' : ''}`}>
+      <span className="he tk-w-he" lang="he">
+        {w.he}
+      </span>
+      <span className="tk-w-tr">{dict.tr[w.id]}</span>
+      <small className="tk-w-meta">
+        {w.root && (
+          <>
+            {t('words.root')}{' '}
+            <span className="he" lang="he">
+              {w.root}
+            </span>{' '}
+            ·{' '}
+          </>
+        )}
+        {w.aram && <>{t('words.aram')} · </>}
+        {t('words.rank', { n: dict.rank.get(w.id)! })}
+        {!compact && <> · {t('words.count', { n: w.n })}</>}
+        {here ? <> · {t('words.here', { n: here })}</> : null}
+      </small>
+      <span className="tk-w-btns">
+        <button type="button" className="tk-w-learn" aria-pressed={learning} onClick={() => (learning ? unmark(w.id) : markLearn(w.id))}>
+          {learning ? `● ${t('words.learn')}` : t('words.learn')}
+        </button>
+        <button type="button" className="tk-w-know" aria-pressed={known} onClick={() => (known ? unmark(w.id) : markKnown(w.id))}>
+          {known ? `✓ ${t('words.know')}` : t('words.know')}
+        </button>
+      </span>
+    </li>
   );
 }
 

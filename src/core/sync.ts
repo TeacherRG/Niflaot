@@ -94,6 +94,28 @@ function mergeDone(a: string, b: string): string {
 }
 
 /**
+ * «Мои слова» (src/core/words.ts): a word's entry is [time of the change, s; box 0–5; day of the next review]. An early
+ * entry (only «Знаю») was a number: time — known, minus time — unmarked; it reads as box 3 (known) or 0 (removed).
+ */
+export type WordEntry = [number, number, number];
+export function normWord(v: unknown): WordEntry {
+  if (Array.isArray(v) && v.length === 3 && v.every((x) => typeof x === 'number')) return v as WordEntry;
+  const n = Number(v) || 0;
+  return n > 0 ? [n, 3, Math.floor(n / 86400) + 7] : [-n, 0, 0];
+}
+/** every word from both; the same word — the later change */
+function mergeWords(a: string, b: string): string {
+  const x = parse(a) ?? {};
+  const y = parse(b) ?? {};
+  const out: Record<string, WordEntry> = {};
+  for (const k of new Set([...Object.keys(x), ...Object.keys(y)])) {
+    const [p, q] = [normWord(x[k]), normWord(y[k])];
+    out[k] = p[0] >= q[0] ? p : q;
+  }
+  return JSON.stringify(out);
+}
+
+/**
  * Merge this device (`local`) with the account (`remote`). Progress is never lost: lessons, «Гематрия дня» and
  * «Вопросы к отрывку» keep the best of both; settings (Hebrew level, language, math level) — this device's choice when it has one.
  */
@@ -109,6 +131,7 @@ export function mergeSnapshots(local: Snapshot, remote: Snapshot): Snapshot {
     else if (k === 'niflaot:daily') out[k] = mergeDaily(a, b);
     else if (k === 'niflaot:tanakh-quiz' || k === 'niflaot:hemshech') out[k] = mergeQuiz(a, b);
     else if (k === 'niflaot:torah-read') out[k] = mergeRead(a, b);
+    else if (k === 'niflaot:words') out[k] = mergeWords(a, b);
     else if (k === 'niflaot:tanakh-done' || k === 'niflaot:hemshech-done') out[k] = mergeDone(a, b);
     else out[k] = a;
   }
