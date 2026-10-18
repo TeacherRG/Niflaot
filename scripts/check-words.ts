@@ -9,6 +9,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import cycleJson from '../src/tanakh/cycle.json';
 import { styleErrors } from './style-rules';
+import { LESSONS } from '../src/lessons';
+import { makeRound, torahWords } from '../src/core/torahWords';
 
 type Lang = 'ru' | 'en' | 'de';
 const errors: string[] = [];
@@ -75,9 +77,21 @@ for (const [date] of cycleJson.days as [string, ...number[]][]) {
   }
 }
 
+// «Слова Торы» — the children's deck from the lessons (src/core/torahWords.ts): every word translated on every language,
+// Names as on the site, and a game always has four different answers
+let deck = 0;
+for (const lang of ['ru', 'en', 'de'] as Lang[]) {
+  const all = torahWords(LESSONS, lang);
+  deck = all.length;
+  for (const w of all) {
+    if (!w.tr.trim()) err(`Слова Торы (${lang}): «${w.key}» (${w.lesson}) — нет перевода`);
+    if (/אלהים|יהוה/.test(w.he.replace(/[\u0591-\u05C7]/g, ''))) err(`Слова Торы: «${w.he}» — Имя не по правилам проекта`);
+  }
+  for (let k = 0; k < 50; k++) for (const q of makeRound(all, all, {})) if (q.options.length < 4) err(`Слова Торы (${lang}): у «${q.word.key}» меньше четырёх вариантов ответа`);
+}
 if (errors.length) {
   console.error(`✗ Слова отрывка: ${errors.length} ошибок\n  ${errors.slice(0, 40).join('\n  ')}`);
   process.exit(1);
 }
 const learn = Object.keys(tr.ru).length;
-console.log(`✓ Слова отрывка: словарь ${ids.length} слов, переведено ${learn} (${dict.words[learn - 1].cov}% текста) на ru/en/de, файлы всех ${cycleJson.days.length} дней`);
+console.log(`✓ Слова отрывка: словарь ${ids.length} слов, переведено ${learn} (${dict.words[learn - 1].cov}% текста) на ru/en/de, файлы всех ${cycleJson.days.length} дней; «Слова Торы» для детей — ${deck} слов из уроков`);

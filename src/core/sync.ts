@@ -6,7 +6,7 @@
  */
 
 /** the synced localStorage keys: exact names, and `niflaot:lesson:<slug>` */
-export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:words', 'niflaot:torah-read', 'niflaot:mode', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
+export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:words', 'niflaot:torah-words', 'niflaot:torah-read', 'niflaot:mode', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
 export const LESSON_PREFIX = 'niflaot:lesson:';
 export const isSynced = (k: string) => SYNC_KEYS.includes(k) || k.startsWith(LESSON_PREFIX);
 
@@ -103,7 +103,7 @@ export function normWord(v: unknown): WordEntry {
   const n = Number(v) || 0;
   return n > 0 ? [n, 3, Math.floor(n / 86400) + 7] : [-n, 0, 0];
 }
-/** every word from both; the same word — the later change */
+/** every word from both; the same word — the later change (also the children's «Слова Торы», src/core/torahWords.ts) */
 function mergeWords(a: string, b: string): string {
   const x = parse(a) ?? {};
   const y = parse(b) ?? {};
@@ -131,7 +131,7 @@ export function mergeSnapshots(local: Snapshot, remote: Snapshot): Snapshot {
     else if (k === 'niflaot:daily') out[k] = mergeDaily(a, b);
     else if (k === 'niflaot:tanakh-quiz' || k === 'niflaot:hemshech') out[k] = mergeQuiz(a, b);
     else if (k === 'niflaot:torah-read') out[k] = mergeRead(a, b);
-    else if (k === 'niflaot:words') out[k] = mergeWords(a, b);
+    else if (k === 'niflaot:words' || k === 'niflaot:torah-words') out[k] = mergeWords(a, b);
     else if (k === 'niflaot:tanakh-done' || k === 'niflaot:hemshech-done') out[k] = mergeDone(a, b);
     else out[k] = a;
   }

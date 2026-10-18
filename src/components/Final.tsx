@@ -217,6 +217,15 @@ export function Final({
         </a>
       </section>
     )}
+    {lesson.riddles.some((r) => r.words.length) && (
+      <section className="memo-cta pop">
+        <span aria-hidden="true">🔤</span>
+        <p>{t('tw.cta')}</p>
+        <a className="btn" href={`#/torah-words/${lesson.slug}`}>
+          {t('tw.title')} →
+        </a>
+      </section>
+    )}
     <section className="memo-cta pop">
       <span aria-hidden="true">🎓</span>
       <p>{t('final.academy')}</p>

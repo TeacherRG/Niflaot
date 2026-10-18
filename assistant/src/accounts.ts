@@ -351,7 +351,7 @@ export class Accounts extends DurableObject<MailEnv> {
       if (!data || typeof data !== 'object' || Array.isArray(data)) return fail('data');
       const clean: Record<string, string> = {};
       for (const [k, v] of Object.entries(data))
-        if (typeof v === 'string' && /^niflaot:(lesson:[a-z0-9-]{1,60}|daily|tanakh-quiz|hemshech|hemshech-done|tanakh-done|words|torah-read|mode|hebrew|lang|math-level)$/.test(k)) clean[k] = v;
+        if (typeof v === 'string' && /^niflaot:(lesson:[a-z0-9-]{1,60}|daily|tanakh-quiz|hemshech|hemshech-done|tanakh-done|words|torah-words|torah-read|mode|hebrew|lang|math-level)$/.test(k)) clean[k] = v;
       // merged with what the account already has: a second device that hasn't seen the first one's progress
       // must not overwrite it (each device sends its whole copy)
       const stored = this.one<{ data: string }>('SELECT data FROM progress WHERE user = ?', u.id);
