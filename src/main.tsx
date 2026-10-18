@@ -23,6 +23,7 @@ import { installAnalytics } from './core/analytics';
 import { installPrompt } from './core/install';
 import { startAccountSync } from './core/account';
 import { initTelegram } from './core/telegram';
+import { installServiceWorker } from './core/appUpdate';
 import './styles.css';
 
 // opened as a Telegram Mini App: Telegram's address → ours, before anything reads it (src/core/telegram.ts)
@@ -36,8 +37,8 @@ installPrompt();
 // the optional account: progress on every device (src/core/account.ts)
 startAccountSync();
 // offline use and the daily reminder (public/sw.js); not in development, where the files change all the time
-if (import.meta.env.PROD && 'serviceWorker' in navigator)
-  addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+// the installed app looks for a new version when it comes back to the screen (src/core/appUpdate.ts)
+if (import.meta.env.PROD) installServiceWorker();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
