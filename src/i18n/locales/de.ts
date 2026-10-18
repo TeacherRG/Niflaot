@@ -32,7 +32,6 @@ const de: Messages = {
   'mode.menu': "Modus",
   'mode.change': "wechseln",
   'home.adultsH1': "Jeden Tag lernen",
-  'home.adultsLead': "Tora mit Kommentaren, Propheten und Schriften und Chassidut — jeden Tag ein Stück, ohne Spiele und Rechnen.",
   'home.weekReadTitle': "Wochenabschnitt — lesen",
   'home.adultsFacts': "„Wusstest du?“ und „Gematria des Tages“",
   'home.adultsTitle': 'Propheten und Schriften',

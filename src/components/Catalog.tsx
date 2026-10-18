@@ -158,6 +158,49 @@ function AdultsLink() {
 }
 
 /**
+ * «Хасидут» on the adults' home — a tile like the passage of the day: today's passage of «Ґемшех Самех-Вав», its reading
+ * time and the «Я прочитал(а)» mark. The discourse's data is loaded after the page is shown (not in the home bundle).
+ */
+function HemshechLink() {
+  const { t, locale } = useI18n();
+  const [info, setInfo] = useState<{ title: string; min: number; read: boolean } | { starts: string } | null>(null);
+  useEffect(() => {
+    let live = true;
+    Promise.all([import('../core/hemshech'), import('../core/tanakh'), import('../core/hebrewDate')]).then(([hs, tk, hd]) => {
+      const lang = hs.hsLang(locale);
+      const k = hs.todayIndex(tk.localToday());
+      if (!live) return;
+      if (k < 0) return setInfo({ starts: hd.civilDate(hs.passageDate(0), lang) });
+      const { p } = hs.allPassages()[k];
+      setInfo({ title: p.title[lang], min: hs.passageMinutes(p, lang), read: hs.hsIsDone(hs.readHsDone(), p.id) });
+    });
+    return () => {
+      live = false;
+    };
+  }, [locale]);
+  return (
+    <a className="h-adults h-adults-main" href="#/hemshech">
+      <span className="h-adults-title">
+        {t('hs.menuLbl')} <span className="h-adults-k">{t('hs.short')}</span>
+      </span>
+      <span className="h-adults-sub">
+        {info && 'title' in info ? (
+          <>
+            {info.read && '✓ '}
+            {info.title} · {t('tanakh.readingTime', { n: info.min })}
+          </>
+        ) : info ? (
+          t('hs.startsOn', { date: info.starts })
+        ) : (
+          t('hs.menuSub')
+        )}
+      </span>
+      <span className="h-adults-cta">{t('home.adultsCta')} →</span>
+    </a>
+  );
+}
+
+/**
  * The adults' home («Подростки и взрослые», src/core/mode.ts): the passage of the day of the Prophets and Writings,
  * the week's Torah lessons to read, quietly — «Знаете ли вы?» / «Гематрия дня» and «Академия». No games, ages, confetti.
  */
@@ -177,10 +220,10 @@ function AdultsHome() {
             <div className="h-hero-text">
               <img className="h-logo" src={NIFLAOT_LOGO} alt="Niflaot" width={760} height={298} fetchPriority="high" />
               <h1>{t('home.adultsH1')}</h1>
-              <p className="h-adults-lead">{t('home.adultsLead')}</p>
             </div>
             <div className="h-hero-side">
               <AdultsLink />
+              <HemshechLink />
               <PhoneOffer />
             </div>
           </section>
@@ -202,9 +245,6 @@ function AdultsHome() {
           )}
 
           <p className="h-adults-more">
-            <a href="#/hemshech">
-              {t('hs.menuLbl')} · {t('hs.short')} →
-            </a>
             <a href="#/academy">
               {t('academy.title')} · {t('academy.menuSub')} →
             </a>

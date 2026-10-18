@@ -32,7 +32,6 @@ const en: Messages = {
   'mode.menu': "Mode",
   'mode.change': "change",
   'home.adultsH1': "Learn every day",
-  'home.adultsLead': "Torah with commentaries, the Prophets and Writings, and Chassidut — a little every day, no games or counting.",
   'home.weekReadTitle': "This week’s portion — read",
   'home.adultsFacts': "“Did you know?” and “Gematria of the Day”",
   'home.adultsTitle': 'Prophets and Writings',
