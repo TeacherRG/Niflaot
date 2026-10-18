@@ -4,7 +4,7 @@
  *    JSON-LD and the lesson outline as static HTML (the app replaces it on start and opens the lesson);
  *  - static outline of the catalog in dist/index.html, with real links to the lesson pages;
  *  - «Устный счёт», «Гематрия дня», «Знаете ли вы?» and «Буквы за 5 минут» for search engines: dist/mental-math/,
- *    dist/daily/, dist/facts/, dist/letters/ (ru) and the same under dist/en/, dist/de/ — with hreflang alternates;
+ *    dist/daily/, dist/facts/, dist/letters/, dist/hebrew-words/ (ru) and the same under dist/en/, dist/de/ — with hreflang alternates;
  *    the app opens the trainer / the game / the feed / the letters on them;
  *  - web app manifests (install on the phone): dist/manifest.webmanifest (ru), manifest-en / manifest-de.webmanifest;
  *  - the service worker dist/sw.js (public/sw.js with this build's version and files to keep for offline use) and
@@ -38,6 +38,10 @@ import { BOOKS, track, type Section } from '../src/core/tanakhCycle';
 import { readingMinutes, type DayVerse } from '../src/core/tanakh';
 import { civilDate } from '../src/core/hebrewDate';
 import cycleJson from '../src/tanakh/cycle.json';
+import wordsJson from '../src/tanakh/words.json';
+import wordsRu from '../src/tanakh/words/ru.json';
+import wordsEn from '../src/tanakh/words/en.json';
+import wordsDe from '../src/tanakh/words/de.json';
 
 const DIST = 'dist';
 const LOCALE = 'ru';
@@ -172,7 +176,7 @@ ${LESSON_GROUPS.map(
     .join('')}</ul>`,
 ).join('\n')}
 <h2>${esc(ui['wing.adults'] as string)}: ${esc(ui['home.adultsTitle'] as string)}</h2>
-<p>${esc(ui['wing.adultsSub'] as string)}. <a href="./#/neviim">${esc(ui['tanakh.neviim'] as string)}</a> · <a href="./#/ketuvim">${esc(ui['tanakh.ketuvim'] as string)}</a></p>
+<p>${esc(ui['wing.adultsSub'] as string)}. <a href="./#/neviim">${esc(ui['tanakh.neviim'] as string)}</a> · <a href="./#/ketuvim">${esc(ui['tanakh.ketuvim'] as string)}</a> · <a href="./hebrew-words/">${esc(ui['words.seoShort'] as string)}</a></p>
 <p>${esc(ui['menu.torahRead'] as string)}: ${LESSONS.filter((l) => l.kind !== 'sicha' || l.cards)
   .map((l) => `<a href="./#/${l.slug}/read">${esc(text(l).title)}</a>`)
   .join(' · ')}</p>
@@ -490,8 +494,71 @@ function tanakhPage(section: Section, lang: 'ru' | 'en' | 'de', ui: Ui): Page {
     },
     body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'wing.adults'))} · ${esc(s(ui, `tanakh.${section}` as keyof Ui))}</p>
 <h1>${esc(title)}</h1><p>${esc(lead)}</p><p>${esc(s(ui, 'tanakh.seo.what'))}</p><p>${esc(cycle)}</p>
-<p><a href="${root}#/${section}">${esc(s(ui, 'tanakh.seo.open'))} →</a> · <a href="${root}#/${section}/quiz">${esc(s(ui, 'quiz.title'))} →</a> · <a href="${root}${staticPath(other, lang).slice(1)}">${esc(s(ui, `tanakh.${other}` as keyof Ui))} →</a></p></header>
+<p><a href="${root}#/${section}">${esc(s(ui, 'tanakh.seo.open'))} →</a> · <a href="${root}#/${section}/quiz">${esc(s(ui, 'quiz.title'))} →</a> · <a href="${root}${staticPath(other, lang).slice(1)}">${esc(s(ui, `tanakh.${other}` as keyof Ui))} →</a> · <a href="${root}${staticPath('hebrew-words', lang).slice(1)}">${esc(s(ui, 'words.seoShort'))} →</a></p></header>
 <section><h2>${esc(s(ui, 'tanakh.seo.books'))}</h2><table><thead><tr><th>${esc(s(ui, 'tanakh.seo.colBook'))}</th><th></th><th>${esc(s(ui, 'tanakh.seo.colChapters'))}</th><th>${esc(s(ui, 'tanakh.seo.colFrom'))}</th><th>${esc(s(ui, 'tanakh.seo.colTo'))}</th><th>${esc(s(ui, 'tanakh.seo.colDays'))}</th></tr></thead><tbody>${rows}</tbody></table></section>
+</article>`,
+  };
+}
+
+/**
+ * «500 слов Танаха» for search: the most frequent words of the Prophets and Writings (src/core/words.ts) — how much of
+ * the text 100 / 300 / 500 words cover, and every translated word by levels of 50: form, translation, root, how often.
+ * The app opens «Мои слова» (the review). The source (Open Scriptures Hebrew Bible, CC BY 4.0) is credited.
+ */
+const WORDS = wordsJson as { words: { id: string; he: string; n: number; root?: string; cov: number }[] };
+const WORD_TR = { ru: wordsRu, en: wordsEn, de: wordsDe } as Record<'ru' | 'en' | 'de', Record<string, string>>;
+function wordsPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
+  const root = lang === 'ru' ? '../' : '../../';
+  const url = `${SITE_URL}${staticPath('hebrew-words', lang)}`;
+  const tr = WORD_TR[lang];
+  const learn = WORDS.words.filter((w) => tr[w.id]);
+  const fill = (key: string, vars: Record<string, string | number>) => s(ui, key as keyof Ui).replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''));
+  const pctAt = (n: number) => Math.round(WORDS.words[n - 1].cov);
+  const cov = [100, 300, 500, 1000].map((n) => `<li>${esc(fill('words.seoCov', { n, p: pctAt(n) }))}</li>`).join('');
+  const levels: string[] = [];
+  for (let i = 0; i < learn.length; i += 50) {
+    const ws = learn.slice(i, i + 50);
+    const rows = ws
+      .map(
+        (w, k) =>
+          `<tr><td>${i + k + 1}</td><td class="he">${w.he}</td><td>${esc(tr[w.id])}</td><td class="he">${w.root ?? ''}</td><td>${w.n}</td></tr>`,
+      )
+      .join('');
+    levels.push(
+      `<section><h2>${esc(fill('words.level', { a: i + 1, b: i + ws.length }))} · ${esc(fill('words.seoUpTo', { p: Math.round(ws[ws.length - 1].cov) }))}</h2><table><thead><tr><th>№</th><th>${esc(s(ui, 'words.seoColWord'))}</th><th>${esc(s(ui, 'words.seoColTr'))}</th><th>${esc(s(ui, 'words.seoColRoot'))}</th><th>${esc(s(ui, 'words.seoColCount'))}</th></tr></thead><tbody>${rows}</tbody></table></section>`,
+    );
+  }
+  const title = s(ui, 'words.seoTitle');
+  const lead = s(ui, 'words.seoLead');
+  return {
+    title: `${title} · ${s(ui, 'app.title')}`,
+    description: lead,
+    url,
+    type: 'article',
+    root,
+    lang,
+    alternates: alternatesOf('hebrew-words'),
+    image: 'hebrew-words',
+    imageAlt: title,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'LearningResource',
+      name: title,
+      description: lead,
+      url,
+      inLanguage: lang,
+      learningResourceType: ['vocabulary list', 'flashcards'],
+      educationalLevel: 'adult',
+      isAccessibleForFree: true,
+      teaches: s(ui, 'words.menuLbl'),
+      publisher: PUBLISHER,
+      isPartOf: SITE,
+    },
+    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'wing.adults'))} · ${esc(s(ui, 'words.menuLbl'))}</p>
+<h1>${esc(title)}</h1><p>${esc(lead)}</p><ul>${cov}</ul><p>${esc(s(ui, 'words.seoHow'))}</p>
+<p><a href="${root}#/words">${esc(s(ui, 'words.seoStart'))} →</a> · <a href="${root}${staticPath('neviim', lang).slice(1)}">${esc(s(ui, 'tanakh.neviim'))} →</a> · <a href="${root}${staticPath('ketuvim', lang).slice(1)}">${esc(s(ui, 'tanakh.ketuvim'))} →</a></p></header>
+${levels.join('\n')}
+<p><small>${esc(s(ui, 'words.src'))}</small></p>
 </article>`,
   };
 }
@@ -503,6 +570,7 @@ const STATIC_OUT: [string, Page][] = LANGS.flatMap(({ lang, ui }) => [
   [staticPath('letters', lang), lettersPage(lang, ui)] as [string, Page],
   [staticPath('neviim', lang), tanakhPage('neviim', lang, ui)] as [string, Page],
   [staticPath('ketuvim', lang), tanakhPage('ketuvim', lang, ui)] as [string, Page],
+  [staticPath('hebrew-words', lang), wordsPage(lang, ui)] as [string, Page],
 ]);
 
 /* ───── write ───── */
@@ -633,4 +701,4 @@ writeFileSync(
 );
 
 writeFileSync(`${DIST}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
-console.log(`prerender: index + ${LESSONS.length} lesson pages + ${STATIC_OUT.length} math / daily / facts / letters / prophets / writings pages, sitemap.xml, robots.txt, ${FEEDS.length} feeds, ${LANGS.length} manifests, sw.js (${precache.length} files offline), daily messages for ${Object.keys(days).length} days`);
+console.log(`prerender: index + ${LESSONS.length} lesson pages + ${STATIC_OUT.length} math / daily / facts / letters / prophets / writings / words pages, sitemap.xml, robots.txt, ${FEEDS.length} feeds, ${LANGS.length} manifests, sw.js (${precache.length} files offline), daily messages for ${Object.keys(days).length} days`);
