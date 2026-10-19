@@ -1858,3 +1858,5 @@ h2.mode-q{margin-top:22px}
 .habit-short{color:var(--muted);font-size:14px}
 .habit-note{font-size:12px;color:var(--muted)}
 .habit-line{font-size:15px}
+.habit-repair{font-size:14px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.habit-repair .btn{padding:6px 12px;font-size:14px}

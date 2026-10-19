@@ -84,7 +84,15 @@ if (hs.streak !== 4 || !hs.today || hs.best !== 4 || hs.total !== 4) err(`habit:
 hs = st(['2026-10-19', '2026-10-21', '2026-10-22'], '2026-10-22');
 if (hs.streak !== 2 || hs.best !== 2) err(`habit: a missed weekday breaks it ${JSON.stringify(hs)}`);
 hs = st(['2026-10-19'], '2026-10-22');
-if (hs.streak !== 0 || !hs.back) err(`habit: «С возвращением» ${JSON.stringify(hs)}`);
+if (hs.streak !== 0 || !hs.back || hs.repair) err(`habit: two missed days break it ${JSON.stringify(hs)}`);
+// «Восполнить»: one missed weekday after a streak — made up, the streak goes on; two missed — not; once in 30 days
+hs = st(['2026-10-15', '2026-10-16', '2026-10-18'], '2026-10-20');
+if (hs.repair?.day !== '2026-10-19' || hs.repair.streak !== 4) err(`habit: repair over Shabbat ${JSON.stringify(hs)}`);
+hs = st(['2026-10-15', '2026-10-16'], '2026-10-21');
+if (hs.repair || !hs.back) err(`habit: two missed days are not made up ${JSON.stringify(hs)}`);
+if (habitStats(new Set(['2026-10-18']), '2026-10-20', 1).repair) err('habit: a second repair within 30 days');
+hs = st(['2026-10-01'], '2026-10-22');
+if (hs.repair || !hs.back) err(`habit: «С возвращением» ${JSON.stringify(hs)}`);
 
 if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));

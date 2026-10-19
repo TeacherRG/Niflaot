@@ -3,8 +3,11 @@
  * действие — ежедневный минимум, награда — ✓ дня и серия). День засчитан, если в этот день сделано хоть что-то:
  * загадка урока, «Гематрия дня», отрывок Пророков / Писаний или Хасидута, вопросы, «Проверь себя», слова.
  * Шабат, праздники и 9 ава серию не рвут (src/core/restDays.ts); учёба в такой день тоже засчитывается.
+ * **Восполнить пропуск** (как ташлумин — восполнение пропущенной молитвы): один пропущенный учебный день за последнюю
+ * неделю раз в 30 дней можно восполнить — игрок нажимает «Восполнить», и следующее его дело (вчерашний
+ * отрывок, «Слова Торы»…) засчитывается за пропущенный день; серия продолжается.
  *
- * localStorage `niflaot:study-days` = { "YYYY-MM-DD": 1 } (по дате устройства), синхронизируется с аккаунтом
+ * localStorage `niflaot:study-days` = { "YYYY-MM-DD": 1 — учился, 2 — восполнен } (по дате устройства), синхронизируется с аккаунтом
  * (src/core/sync.ts, слияние — все дни обеих копий). Дни до появления журнала берутся из отметок с временем
  * («Я прочитал(а)», слова, «Гематрия дня»), так что серия не начинается с нуля.
  * Модуль без тяжёлых импортов: его вызывают все места, где игрок что-то сделал.
@@ -19,6 +22,8 @@ export const DAILY_START = '2026-10-11';
 
 const iso = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 export const todayIso = () => iso(new Date());
+/** «Восполнить» нажато: { day — пропущенный, on — когда нажато }; только на этом устройстве, до конца дня */
+const REPAIR_KEY = 'niflaot:study-repair';
 
 const parse = (k: string): any => {
   try {
@@ -33,8 +38,16 @@ const parse = (k: string): any => {
 export function markStudied() {
   const today = todayIso();
   const log: Record<string, number> = parse(STUDY_KEY) ?? {};
-  if (log[today]) return;
-  log[today] = 1;
+  const fix = parse(REPAIR_KEY);
+  const repair = fix?.on === today && typeof fix.day === 'string' && !log[fix.day];
+  if (log[today] && !repair) return;
+  log[today] ||= 1;
+  if (repair) {
+    log[fix.day] = 2;
+    try {
+      localStorage.removeItem(REPAIR_KEY);
+    } catch {}
+  }
   const old = addDays(today, -400);
   for (const k of Object.keys(log)) if (k < old) delete log[k];
   try {
@@ -42,6 +55,20 @@ export function markStudied() {
   } catch {}
   window.dispatchEvent(new Event(EVENT));
 }
+
+/** «Восполнить»: следующее дело сегодня засчитается за пропущенный день `day`. */
+export function startRepair(day: string) {
+  try {
+    localStorage.setItem(REPAIR_KEY, JSON.stringify({ day, on: todayIso() }));
+  } catch {}
+  window.dispatchEvent(new Event(EVENT));
+}
+const pendingRepair = (): string | null => {
+  const fix = parse(REPAIR_KEY);
+  return fix?.on === todayIso() && typeof fix.day === 'string' ? fix.day : null;
+};
+/** Восполнено за последние 30 дней. */
+const recentRepairs = (today: string) => Object.entries(parse(STUDY_KEY) ?? {}).filter(([d, v]) => v === 2 && d >= addDays(today, -30)).length;
 
 /** Все учебные дни: журнал и отметки с временем (с — секунды; снятая отметка — со знаком минус — не в счёт). */
 export function studyDates(): Set<string> {
@@ -74,10 +101,24 @@ export interface Habit {
   total: number;
   /** учились раньше, но серия прервалась — «С возвращением» */
   back: boolean;
+  /** один пропуск можно восполнить: пропущенный день и серия, которая тогда продолжится */
+  repair?: { day: string; streak: number };
+}
+
+/** Последний пропущенный учебный день (за неделю), если перед ним была серия и это единственный пропуск после неё. */
+function missedDay(dates: Set<string>, today: string): string | null {
+  let d = addDays(today, -1);
+  while (d >= addDays(today, -7) && (dates.has(d) || isRest(d))) d = addDays(d, -1);
+  if (d < addDays(today, -7)) return null;
+  for (let p = addDays(d, -1); p >= addDays(d, -7); p = addDays(p, -1)) {
+    if (dates.has(p)) return d;
+    if (!isRest(p)) return null;
+  }
+  return null;
 }
 
 /** Серия: учебный день без учёбы рвёт её, день отдыха — нет. */
-export function habitStats(dates: Set<string>, today = todayIso()): Habit {
+export function habitStats(dates: Set<string>, today = todayIso(), repairs = 0): Habit {
   const days = [...dates].filter((d) => d <= today).sort();
   const studied = dates.has(today);
   let best = 0;
@@ -88,14 +129,21 @@ export function habitStats(dates: Set<string>, today = todayIso()): Habit {
       else if (d !== today && !isRest(d)) run = 0;
     }
   // `run` — серия, дошедшая до сегодня (сегодня без учёбы её ещё не рвёт)
-  return { today: studied, streak: run, best, total: days.length, back: !studied && run === 0 && days.length > 0 };
+  const miss = repairs ? null : missedDay(dates, today);
+  const repair = miss ? { day: miss, streak: habitStats(new Set([...dates, miss]), today, 1).streak } : undefined;
+  return { today: studied, streak: run, best, total: days.length, back: !studied && run === 0 && days.length > 0 && !repair, repair };
 }
 
 /** Серия и ✓ дня — и обновление, когда игрок что-то сделал (эта вкладка) или прогресс пришёл из аккаунта. */
-export function useHabit(): Habit {
-  const [h, set] = useState(() => habitStats(studyDates()));
+const current = () => {
+  const today = todayIso();
+  return { ...habitStats(studyDates(), today, recentRepairs(today)), pending: pendingRepair() };
+};
+
+export function useHabit(): Habit & { pending: string | null } {
+  const [h, set] = useState(current);
   useEffect(() => {
-    const on = () => set(habitStats(studyDates()));
+    const on = () => set(current());
     window.addEventListener(EVENT, on);
     window.addEventListener('storage', on);
     return () => {

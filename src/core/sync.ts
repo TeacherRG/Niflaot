@@ -115,10 +115,12 @@ function mergeWords(a: string, b: string): string {
   return JSON.stringify(out);
 }
 
-/** «Учёба каждый день» (src/core/habit.ts): every day of study from both */
+/** «Учёба каждый день» (src/core/habit.ts): every day of study from both; a day studied (1) wins over one made up (2) */
 function mergeStudy(a: string, b: string): string {
-  const out: Record<string, number> = { ...(parse(b) ?? {}), ...(parse(a) ?? {}) };
-  return JSON.stringify(Object.fromEntries(Object.keys(out).sort().map((k) => [k, 1])));
+  const x = parse(a) ?? {};
+  const y = parse(b) ?? {};
+  const keys = [...new Set([...Object.keys(x), ...Object.keys(y)])].sort();
+  return JSON.stringify(Object.fromEntries(keys.map((k) => [k, x[k] === 1 || y[k] === 1 ? 1 : 2])));
 }
 
 /**
