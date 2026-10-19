@@ -142,6 +142,23 @@
   `CHAT_DAILY_LIMIT` (1000) вопросов в сутки от всех вместе (`wrangler.toml`; выше — «загляните завтра»). Лимит расходов — platform.claude.com → Billing; токен Cloudflare истекает 12.10.2027;
   выкладка — `.github/workflows/assistant.yml` (secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `ANTHROPIC_API_KEY`).
 
+## Поиск и ИИ-помощники
+
+- **Уроки — на трёх языках:** `scripts/prerender.ts` пишет `/<slug>/` (ru), `/en/<slug>/`, `/de/<slug>/` — свой `<html lang>`,
+  заголовок, описание, JSON-LD (`inLanguage`), весь пересказ и hreflang между ними (`lessonPage(l, lang)`, `LESSON_OUT`);
+  все — в `sitemap.xml`, ленты en/de ссылаются на свои страницы; со статической главной — «In English» / «Auf Deutsch».
+  Приложение открывает их на языке из пути. Новый урок попадает туда сам.
+- Страницы для поиска ещё и у **Хасидута** `/hemshech/` (описание и открытые на день сборки отрывки: название и «Коротко»,
+  подпись Neirot; полного текста нет) и **«Викторины вместе»** `/quiz/` (как играть, наборы вопросов) — ru/en/de,
+  `STATIC_PAGES`, тексты `hs.seoTitle`, `lq.seoTitle`, `lq.seoCount`.
+- **Для ИИ-помощников** (ChatGPT, Claude, Perplexity…): `/llms.txt` — карта сайта по стандарту llms.txt (что это за сайт,
+  как писать Имена, лицензии текстов — Neirot только ссылкой, все страницы на трёх языках) и `/llms-full.txt` — все уроки
+  обычным текстом на ru/en/de; `robots.txt` пускает всех и называет `llms.txt`.
+- **Подтверждение сайта** в Google Search Console, Bing Webmaster Tools, Яндекс Вебмастере — GitHub variables
+  `GOOGLE_SITE_VERIFICATION`, `BING_SITE_VERIFICATION`, `YANDEX_VERIFICATION` (код из «HTML-тега»; без них тега нет).
+  **IndexNow** (Bing, Яндекс…): после каждой выкладки `deploy.yml` (job `indexnow`, не роняет деплой) отправляет все адреса
+  из sitemap — `scripts/indexnow.mjs`, ключ — `public/<ключ>.txt` (не удалять). Google берёт `sitemap.xml` сам.
+
 ## «Академия» — сертификаты за книги
 
 - Нифлаот — онлайн-академия Торы. Пункт меню «Академия» (`#/academy`, `AcademyPage.tsx`, правила — `src/core/academy.ts`):

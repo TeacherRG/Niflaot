@@ -20,7 +20,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { LESSONS, LESSON_GROUPS, type Lesson } from '../src/lessons';
-import { SITE_URL, lessonLink, staticPath, type StaticPage } from '../src/core/site';
+import { SITE_URL, staticPath, type StaticPage } from '../src/core/site';
 import { EXAMPLES, OPS, SIGN, answer, solve } from '../src/core/mentalMath';
 import { KEYBOARD, VALUES } from '../src/core/gematria';
 import { ALEPH_BET, FINAL_FORMS, LOOKALIKES, letterName, letterSound } from '../src/core/letterNames';
@@ -38,6 +38,7 @@ import { quoteView, sectionQuotes } from '../src/core/quotes';
 import { BOOKS, track, type Section } from '../src/core/tanakhCycle';
 import { readingMinutes, type DayVerse } from '../src/core/tanakh';
 import { civilDate } from '../src/core/hebrewDate';
+import { HEMSHECH, allPassages, passageDate } from '../src/core/hemshech';
 import { buildDecks, deckProblems, QUIZ_LANGS, type DayQuiz } from '../src/core/quizDecks';
 import cycleJson from '../src/tanakh/cycle.json';
 import wordsJson from '../src/tanakh/words.json';
@@ -56,9 +57,12 @@ const esc = (s: string) =>
 const plain = (html: string) => displayNames(html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim());
 const text = (l: Lesson) => l.texts[LOCALE]!;
 /** «Урок 2», or «Нифлаот Ребе · Урок 1» for a lesson of the Rebbe's section */
-const lessonLabel = (l: Lesson) =>
-  `${l.series === 'rebbe' ? `${ui['rebbe.section']} · ` : ''}${ui['catalog.lesson'].toString().replace('{n}', String(l.number))}`;
-const lessonUrl = (l: Lesson) => `${SITE_URL}/${l.slug}/`;
+const lessonLabel = (l: Lesson, u: Record<string, unknown> = ui) =>
+  `${l.series === 'rebbe' ? `${u['rebbe.section']} · ` : ''}${String(u['catalog.lesson']).replace('{n}', String(l.number))}`;
+/** a lesson's static page: Russian at the root, English and German under /en/, /de/ */
+const lessonUrl = (l: Lesson, lang: 'ru' | 'en' | 'de' = 'ru') => `${SITE_URL}/${lang === 'ru' ? '' : `${lang}/`}${l.slug}/`;
+const LESSON_LANGS = ['ru', 'en', 'de'] as const;
+const KEYWORDS = { ru: ['гематрия', 'Тора'], en: ['gematria', 'Torah'], de: ['Gematria', 'Tora'] };
 
 /* ───── Content-Security-Policy ───── */
 
@@ -134,7 +138,7 @@ function render(p: Page): string {
   const ld = JSON.stringify(p.jsonLd).replace(/</g, '\\u003c');
   html = html.replace(
     '<meta charset="utf-8" />',
-    `<meta charset="utf-8" />\n    <meta http-equiv="Content-Security-Policy" content="${CSP}" />`,
+    `<meta charset="utf-8" />\n    <meta http-equiv="Content-Security-Policy" content="${CSP}" />${VERIFY}`,
   );
   // replacer functions: the texts may contain `$`
   html = html.replace('</head>', () => `  <script type="application/ld+json">${ld}</script>\n  </head>`);
@@ -145,6 +149,22 @@ function render(p: Page): string {
   if (!html.includes(body)) throw new Error('index.html: no <div id="root"></div>');
   return html;
 }
+
+/**
+ * Ownership of the site for the webmaster tools — GitHub variables GOOGLE_SITE_VERIFICATION (Google Search Console),
+ * BING_SITE_VERIFICATION (Bing Webmaster Tools), YANDEX_VERIFICATION (Яндекс Вебмастер): the code from the tool's
+ * «HTML tag» option; without a variable — no tag.
+ */
+const VERIFY = (
+  [
+    ['google-site-verification', process.env.GOOGLE_SITE_VERIFICATION],
+    ['msvalidate.01', process.env.BING_SITE_VERIFICATION],
+    ['yandex-verification', process.env.YANDEX_VERIFICATION],
+  ] as const
+)
+  .filter(([, v]) => v && /^[\w-]{6,128}$/.test(v))
+  .map(([k, v]) => `\n    <meta name="${k}" content="${v}" />`)
+  .join('');
 
 const PUBLISHER = { '@type': 'Organization', name: 'MyChitas', url: 'https://mychitas.app' };
 const SITE = { '@type': 'WebSite', name: 'Нифлаот', url: `${SITE_URL}/` };
@@ -183,21 +203,35 @@ ${LESSON_GROUPS.map(
 <p>${esc(ui['menu.torahRead'] as string)}: ${LESSONS
   .map((l) => `<a href="./#/${l.slug}/read">${esc(text(l).title)}</a>`)
   .join(' · ')}</p>
+<h2 lang="en">In English</h2><ul lang="en">${LESSONS.filter((l) => l.texts.en)
+  .map((l) => `<li><a href="./en/${l.slug}/">${esc(l.texts.en!.title)}</a></li>`)
+  .join('')}</ul>
+<h2 lang="de">Auf Deutsch</h2><ul lang="de">${LESSONS.filter((l) => l.texts.de)
+  .map((l) => `<li><a href="./de/${l.slug}/">${esc(l.texts.de!.title)}</a></li>`)
+  .join('')}</ul>
 <h2>${esc(ui['catalog.tags'] as string)}</h2>
 <p>${tags.map((t) => (t.he ? `<span class="he">${esc(displayNames(t.label))}</span>` : esc(t.label))).join(' · ')}</p>`,
 };
 
 /* ───── lessons ───── */
 
-function lessonPage(l: Lesson): Page {
-  const tx = text(l);
-  const keywords = tags.filter((t) => !t.he && t.lessons.includes(l)).map((t) => t.label);
+/** The languages a lesson's text exists in — each gets its own static page. */
+const lessonLangs = (l: Lesson) => LESSON_LANGS.filter((lang) => l.texts[lang]);
+
+function lessonPage(l: Lesson, lang: 'ru' | 'en' | 'de' = 'ru'): Page {
+  const tx = l.texts[lang]!;
+  const ui = { ru, en, de }[lang] as Record<string, unknown>;
+  const langTags = lang === 'ru' ? tags : buildTags(lang);
+  const keywords = langTags.filter((t) => !t.he && t.lessons.includes(l)).map((t) => t.label);
+  const root = lang === 'ru' ? '../' : '../../';
   return {
-    title: `${tx.title} — ${lessonLabel(l)} · ${ui['app.title']}`,
+    title: `${tx.title} — ${lessonLabel(l, ui)} · ${ui['app.title']}`,
     description: plain(tx.summary),
-    url: lessonUrl(l),
+    url: lessonUrl(l, lang),
     type: 'article',
-    root: '../',
+    root,
+    lang,
+    alternates: lessonLangs(l).map((x) => ({ lang: x, url: lessonUrl(l, x) })),
     image: l.slug,
     imageAlt: `${displayNames(l.hebrewTitle)} — ${tx.title}`,
     jsonLd: {
@@ -206,8 +240,8 @@ function lessonPage(l: Lesson): Page {
       name: tx.title,
       alternateName: displayNames(l.hebrewTitle),
       description: plain(tx.summary),
-      url: lessonUrl(l),
-      inLanguage: 'ru',
+      url: lessonUrl(l, lang),
+      inLanguage: lang,
       image: `${SITE_URL}/og/${l.slug}.png`,
       learningResourceType: 'game',
       interactivityType: 'active',
@@ -216,10 +250,10 @@ function lessonPage(l: Lesson): Page {
       author: { '@type': 'Person', ...l.author },
       publisher: PUBLISHER,
       isPartOf: SITE,
-      keywords: ['гематрия', 'Тора', ...keywords].join(', '),
+      keywords: [...KEYWORDS[lang], ...keywords].join(', '),
     },
     // one <article>: the whole retelling, so a browser's reading mode and «read aloud» get the lesson itself
-    body: `<article><header><p><a href="../">${esc(ui['app.title'] as string)}</a> · ${esc(lessonLabel(l))}</p>
+    body: `<article><header><p><a href="${root}${lang === 'ru' ? '' : `?lang=${lang}`}">${esc(ui['app.title'] as string)}</a> · ${esc(lessonLabel(l, ui))}</p>
 <p class="he">${esc(displayNames(l.hebrewTitle))}</p><h1>${esc(plain(tx.hero.heading))}</h1><p class="author">${esc(plain(tx.hero.author))}</p><p>${esc(String(ui['age.title']))}: ${esc(String(ui['age.long']).replace('{n}', String(l.age)))}. ${esc(plain(tx.audience))}</p><p>${esc(plain(tx.hero.intro))}</p></header>
 ${tx.riddles
   .map(
@@ -228,7 +262,7 @@ ${tx.riddles
       return `<section><h2>${esc(plain(r.title))}</h2><p>${esc(plain(r.cond))}</p>${r.lessons
       .map((s, k) => `<h3>${esc(plain(s.h))}</h3>${quotes.lessons[k]
         .map((q) => {
-          const v = quoteView(q, 'ru');
+          const v = quoteView(q, lang);
           return `<blockquote><p>${esc(v.title)}</p>${v.segs.map((sg) => `<p class="he">${sg.he}</p><p>${sg.tr}</p>`).join('')}</blockquote>`;
         })
         .join('')}${displayNames(stripFootnotes(s.b))}`)
@@ -566,6 +600,115 @@ ${levels.join('\n')}
   };
 }
 
+/** the day of the build: what is already open (passages of «Хасидут», weeks of the quiz) */
+const today = new Date().toISOString().slice(0, 10);
+// «Викторина вместе»: the decks — the quiz server takes a deck from here, never from the host
+const quizDir = 'src/tanakh/quiz';
+const tanakhQuiz = Object.fromEntries(
+  readdirSync(quizDir)
+    .filter((f) => f.endsWith('.json'))
+    .map((f) => [f.slice(0, -5), JSON.parse(readFileSync(`${quizDir}/${f}`, 'utf8')) as DayQuiz]),
+);
+const quiz = buildDecks(tanakhQuiz, { ru, en, de });
+const badDecks = deckProblems(quiz.decks);
+if (badDecks.length) throw new Error(`quiz decks the server would refuse: ${badDecks.join(', ')}`);
+/**
+ * «Хасидут» for search: what «Ґемшех Самех-Вав» is and how it is learnt (a passage a study day, up to 10 minutes), and the
+ * passages already open — title and the project's «Коротко»; the text itself only in the app, with the Neirot credit.
+ */
+function hemshechPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
+  const root = lang === 'ru' ? '../' : '../../';
+  const url = `${SITE_URL}${staticPath('hemshech', lang)}`;
+  const title = s(ui, 'hs.seoTitle');
+  const lead = plain(s(ui, 'hs.lead'));
+  const open = allPassages().filter((_, k) => passageDate(k) <= today);
+  const list = HEMSHECH.maamarim
+    .map((m) => ({ m, ps: open.filter((x) => x.m === m).map((x) => x.p) }))
+    .filter((x) => x.ps.length)
+    .map(
+      ({ m, ps }) =>
+        `<section><h2>${esc(m.title[lang])}</h2><ol>${ps
+          .map((p) => `<li><a href="${root}#/hemshech/${p.id}">${esc(p.title[lang])}</a> — ${esc(plain(p.summary[lang]))}</li>`)
+          .join('')}</ol></section>`,
+    )
+    .join('\n');
+  return {
+    title: `${title} · ${s(ui, 'app.title')}`,
+    description: lead,
+    url,
+    type: 'article',
+    root,
+    lang,
+    alternates: alternatesOf('hemshech'),
+    image: 'hemshech',
+    imageAlt: title,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'LearningResource',
+      name: title,
+      description: lead,
+      url,
+      inLanguage: lang,
+      learningResourceType: ['reading plan', 'quiz'],
+      educationalLevel: 'adult',
+      isAccessibleForFree: true,
+      author: { '@type': 'Person', name: 'Rabbi Sholom DovBer Schneersohn' },
+      publisher: PUBLISHER,
+      isPartOf: SITE,
+    },
+    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'wing.adults'))} · ${esc(s(ui, 'hs.menuLbl'))}</p>
+<h1>${esc(title)}</h1><p>${esc(lead)}</p>
+<p><a href="${root}#/hemshech">${esc(s(ui, 'hs.today'))} →</a></p></header>
+${list}
+<p><small>${esc(HEMSHECH.credit[lang])} · <a href="${HEMSHECH.creditUrl}">neirot.com</a>. ${esc(s(ui, 'hs.rights'))} Neirot.com</small></p>
+</article>`,
+  };
+}
+
+/** «Викторина вместе» for search: what it is, how a game goes, and the question sets the site has now. */
+function quizPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
+  const root = lang === 'ru' ? '../' : '../../';
+  const url = `${SITE_URL}${staticPath('quiz', lang)}`;
+  const title = s(ui, 'lq.seoTitle');
+  const lead = s(ui, 'lq.lead');
+  const kinds = ['torah', 'tanakh', 'hs'] as const;
+  const sets = kinds
+    .map((k) => ({ k, ds: quiz.index.filter((d) => d.kind === k && (!d.from || d.from <= today)) }))
+    .filter((g) => g.ds.length)
+    .map((g) => `<h3>${esc(s(ui, `lq.group.${g.k}` as keyof Ui))}</h3><ul>${g.ds.map((d) => `<li>${esc(d.title[lang])} — ${esc(s(ui, 'lq.seoCount').replace('{n}', String(d.n)))}</li>`).join('')}</ul>`)
+    .join('');
+  return {
+    title: `${title} · ${s(ui, 'app.title')}`,
+    description: lead,
+    url,
+    type: 'article',
+    root,
+    lang,
+    alternates: alternatesOf('quiz'),
+    image: 'quiz',
+    imageAlt: title,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'LearningResource',
+      name: title,
+      description: lead,
+      url,
+      inLanguage: lang,
+      learningResourceType: ['quiz', 'game'],
+      interactivityType: 'active',
+      isAccessibleForFree: true,
+      publisher: PUBLISHER,
+      isPartOf: SITE,
+    },
+    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'lq.title'))}</p>
+<h1>${esc(title)}</h1><p>${esc(lead)}</p></header>
+<section><h2>${esc(s(ui, 'lq.howH'))}</h2><ol>${[1, 2, 3].map((k) => `<li><b>${esc(s(ui, `lq.how${k}` as keyof Ui))}</b> — ${esc(s(ui, `lq.how${k}s` as keyof Ui))}</li>`).join('')}</ol>
+<p><a href="${root}#/quiz">${esc(s(ui, 'lq.hostGo'))} →</a></p></section>
+<section><h2>${esc(s(ui, 'lq.step1'))}</h2>${sets}</section>
+</article>`,
+  };
+}
+
 const STATIC_OUT: [string, Page][] = LANGS.flatMap(({ lang, ui }) => [
   [staticPath('mental-math', lang), mathPage(lang, ui)] as [string, Page],
   [staticPath('daily', lang), dailyPage(lang, ui)] as [string, Page],
@@ -574,14 +717,19 @@ const STATIC_OUT: [string, Page][] = LANGS.flatMap(({ lang, ui }) => [
   [staticPath('neviim', lang), tanakhPage('neviim', lang, ui)] as [string, Page],
   [staticPath('ketuvim', lang), tanakhPage('ketuvim', lang, ui)] as [string, Page],
   [staticPath('hebrew-words', lang), wordsPage(lang, ui)] as [string, Page],
+  [staticPath('hemshech', lang), hemshechPage(lang, ui)] as [string, Page],
+  [staticPath('quiz', lang), quizPage(lang, ui)] as [string, Page],
 ]);
 
 /* ───── write ───── */
 
 writeFileSync(`${DIST}/index.html`, render(home));
-for (const l of LESSONS) {
-  mkdirSync(`${DIST}/${l.slug}`, { recursive: true });
-  writeFileSync(`${DIST}/${l.slug}/index.html`, render(lessonPage(l)));
+// every lesson in every language it has: /<slug>/, /en/<slug>/, /de/<slug>/ (hreflang between them)
+const LESSON_OUT = LESSONS.flatMap((l) => lessonLangs(l).map((lang) => ({ l, lang, page: lessonPage(l, lang) })));
+for (const { l, lang, page } of LESSON_OUT) {
+  const dir = `${DIST}/${lang === 'ru' ? '' : `${lang}/`}${l.slug}`;
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(`${dir}/index.html`, render(page));
 }
 
 for (const [path, page] of STATIC_OUT) {
@@ -589,12 +737,11 @@ for (const [path, page] of STATIC_OUT) {
   writeFileSync(`${DIST}${path}index.html`, render(page));
 }
 
-const today = new Date().toISOString().slice(0, 10);
 writeFileSync(
   `${DIST}/sitemap.xml`,
   `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${[`${SITE_URL}/`, ...LESSONS.map(lessonUrl), ...STATIC_OUT.map(([, p]) => p.url)].map((u) => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join('\n')}
+${[`${SITE_URL}/`, ...LESSON_OUT.map((x) => x.page.url), ...STATIC_OUT.map(([, p]) => p.url)].map((u) => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join('\n')}
 </urlset>
 `,
 );
@@ -615,7 +762,8 @@ for (const f of FEEDS) {
   const items = LESSONS.filter((l) => l.texts[f.locale]).reverse();
   const entries = items.map((l) => {
     const tx = l.texts[f.locale]!;
-    const link = lessonLink(l.slug, 'rss', f.locale);
+    // the lesson's static page in the feed's language (its own title and text for previews and search)
+    const link = `${lessonUrl(l, f.locale)}?ref=rss`;
     return `  <entry>
     <id>${lessonUrl(l)}#${f.locale}</id>
     <title>${esc(`${displayNames(l.hebrewTitle)} — ${plain(tx.title)}`)}</title>
@@ -703,21 +851,68 @@ writeFileSync(
   JSON.stringify({ updated: today, fallback: Object.fromEntries(MSG_LOCALES.map((l) => [l, LANGS.find((x) => x.lang === l)!.ui['push.fallback']])), days }),
 );
 
-// «Викторина вместе»: the decks — the quiz server takes a deck from here, never from the host
-const quizDir = 'src/tanakh/quiz';
-const tanakhQuiz = Object.fromEntries(
-  readdirSync(quizDir)
-    .filter((f) => f.endsWith('.json'))
-    .map((f) => [f.slice(0, -5), JSON.parse(readFileSync(`${quizDir}/${f}`, 'utf8')) as DayQuiz]),
-);
-const quiz = buildDecks(tanakhQuiz, { ru, en, de });
-const badDecks = deckProblems(quiz.decks);
-if (badDecks.length) throw new Error(`quiz decks the server would refuse: ${badDecks.join(', ')}`);
 for (const lang of QUIZ_LANGS) {
   mkdirSync(`${DIST}/quiz/${lang}`, { recursive: true });
   for (const d of quiz.decks[lang]) writeFileSync(`${DIST}/quiz/${lang}/${d.id}.json`, JSON.stringify(d));
 }
 writeFileSync(`${DIST}/quiz/index.json`, JSON.stringify(quiz.index));
 
-writeFileSync(`${DIST}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
-console.log(`prerender: index + ${LESSONS.length} lesson pages + ${STATIC_OUT.length} math / daily / facts / letters / prophets / writings / words pages, sitemap.xml, robots.txt, ${FEEDS.length} feeds, ${LANGS.length} manifests, sw.js (${precache.length} files offline), daily messages for ${Object.keys(days).length} days, ${quiz.index.length} quiz decks`);
+/* ───── for AI assistants: /llms.txt (a map of the site) and /llms-full.txt (the lessons as plain text) ───── */
+
+/** the text of a static page's article, paragraph by paragraph */
+const pageText = (html: string) =>
+  displayNames(
+    html
+      .replace(/<(h[1-3])[^>]*>/g, (_, h: string) => `\n\n${'#'.repeat(Number(h[1]) + 1)} `)
+      .replace(/<\/(p|h[1-3]|li|blockquote|tr|section|header)>/g, '\n')
+      .replace(/<li[^>]*>/g, '- ')
+      .replace(/<[^>]+>/g, '')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/[ \t]+/g, ' ')
+      .replace(/ *\n */g, '\n')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim(),
+  );
+const LANG_NAME = { ru: 'Русский', en: 'English', de: 'Deutsch' } as const;
+const link = (p: Page) => `- [${p.title.replace(/ · (Нифлаот|Niflaot|MyChitas).*$/, '')}](${p.url}): ${p.description}`;
+const staticOf = (lang: string) => STATIC_OUT.filter(([, p]) => (p.lang ?? 'ru') === lang).map(([, p]) => p);
+writeFileSync(
+  `${DIST}/llms.txt`,
+  `# Niflaot (נפלאות) — ${en['catalog.seoTitle'].replace(/^Niflaot — /, '')}
+
+> ${en['catalog.seo']}
+
+Niflaot is a free project of the MyChitas Torah project (${SITE_URL}), with partners Chabad Haus Wien and JRCV Vienna. The site works in Russian (the main language), English and German; no sign-up is needed, and it rests on Shabbat. Lessons on the weekly Torah portion: the Baal HaTurim (gematria and letters, with a Memo game) and the Lubavitcher Rebbe (Likkutei Sichot — an investigation and cards). Daily study for teens and adults: a passage of the Prophets and of the Writings (a three-year cycle, Hebrew with translation, Metzudat David and Rashi), Chassidut — the Rebbe Rashab’s Hemshech Samech-Vav, the most frequent Hebrew words of Tanakh, certificates of the Academy, and a live quiz for a class or a family.
+
+Notes for assistants: out of respect, the site writes the Names of G-d as אלקים, ה׳, G-d, L-rd (Russian Б-г, German G-tt); please do the same when quoting. Texts and licences: Hebrew Tanakh, Rashi and Metzudat David — public domain; the English verse translation — JPS 1985 (CC BY-NC); the project’s own translations — CC BY-NC; Hemshech Samech-Vav in English — © The Neirot Foundation (neirot.com), used with permission: link to the site rather than reproducing it. Every page links to its primary sources on Sefaria.
+
+${LESSON_LANGS.map(
+  (lang) => `## ${LANG_NAME[lang]}
+
+${[...LESSON_OUT.filter((x) => x.lang === lang).map((x) => link(x.page)), ...staticOf(lang).map(link)].join('\n')}`,
+).join('\n\n')}
+
+## Optional
+
+- [Full text of the lessons](${SITE_URL}/llms-full.txt): every lesson as plain text, in Russian, English and German
+- [Sitemap](${SITE_URL}/sitemap.xml)
+- [News feed (English)](${SITE_URL}/feed-en.xml), [Russian](${SITE_URL}/feed.xml), [German](${SITE_URL}/feed-de.xml)
+`,
+);
+writeFileSync(
+  `${DIST}/llms-full.txt`,
+  `# Niflaot (נפלאות) — the lessons in full
+
+> The retellings of all lessons of ${SITE_URL}, as on their static pages: the commentator’s words (Hebrew and translation), the explanation, the summary and the lesson for life. Names of G-d are written as on the site.
+
+${LESSON_OUT.map((x) => `# ${x.page.title}\n\nURL: ${x.page.url}\nLanguage: ${LANG_NAME[x.lang]}\n\n${pageText(x.page.body)}`).join('\n\n---\n\n')}
+`,
+);
+
+// every crawler is welcome — search engines and AI assistants alike; the map for AI is /llms.txt
+writeFileSync(`${DIST}/robots.txt`, `User-agent: *\nAllow: /\n\n# A map of the site for AI assistants: ${SITE_URL}/llms.txt\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+console.log(`prerender: index + ${LESSON_OUT.length} lesson pages (ru/en/de) + ${STATIC_OUT.length} math / daily / facts / letters / prophets / writings / words pages, sitemap.xml, robots.txt, llms.txt, ${FEEDS.length} feeds, ${LANGS.length} manifests, sw.js (${precache.length} files offline), daily messages for ${Object.keys(days).length} days, ${quiz.index.length} quiz decks`);

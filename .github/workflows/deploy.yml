@@ -32,6 +32,10 @@ jobs:
           # newsletter sign-up form (src/components/Subscribe.tsx), e.g. https://buttondown.com/api/emails/embed-subscribe/<name>;
           # empty → the form is hidden
           VITE_SUBSCRIBE_URL: ${{ vars.SUBSCRIBE_URL }}
+          # webmaster tools: the code of the «HTML tag» confirmation (scripts/prerender.ts); empty → no tag
+          GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
+          BING_SITE_VERIFICATION: ${{ vars.BING_SITE_VERIFICATION }}
+          YANDEX_VERIFICATION: ${{ vars.YANDEX_VERIFICATION }}
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
           path: dist
@@ -44,3 +48,18 @@ jobs:
       url: https://niflaot.mychitas.app
     steps:
       - uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
+
+  # tell the search engines (Bing, Yandex… — IndexNow) that the pages changed; never fails the deploy
+  indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          sparse-checkout: scripts/indexnow.mjs
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+      - run: node scripts/indexnow.mjs
