@@ -25,7 +25,8 @@ function currentPath(): string {
   const route = location.hash
     ? location.hash.replace(/^#\/?/, '').split('?')[0]
     : location.pathname.split('/').filter(Boolean).pop() ?? '';
-  return `/${route.replace(/\/+$/, '')}`;
+  // «Викторина вместе»: one path for every room, not one per room code
+  return `/${route.replace(/\/+$/, '').replace(/^(quiz(?:\/host)?)\/[A-Z0-9]{5}$/, '$1/room')}`;
 }
 
 let last = '';

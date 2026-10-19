@@ -51,5 +51,14 @@ class_name = "Accounts"
 tag = "v2"
 new_sqlite_classes = ["Accounts"]
 
+# «Викторина вместе» (src/quiz.ts): one Durable Object per room code; WebSockets of the host and the players.
+[[durable_objects.bindings]]
+name = "QUIZ"
+class_name = "QuizRoom"
+
+[[migrations]]
+tag = "v3"
+new_sqlite_classes = ["QuizRoom"]
+
 [triggers]
 crons = ["1 * * * *"]

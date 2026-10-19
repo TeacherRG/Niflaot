@@ -8,6 +8,7 @@
  *    the app opens the trainer / the game / the feed / the letters on them;
  *  - web app manifests (install on the phone): dist/manifest.webmanifest (ru), manifest-en / manifest-de.webmanifest;
  *  - the service worker dist/sw.js (public/sw.js with this build's version and files to keep for offline use) and
+ *    dist/quiz/index.json, dist/quiz/<язык>/<id>.json — колоды «Викторины вместе» (src/core/quizDecks.ts);
  *    dist/daily-message.json — the daily reminder's message for the coming days (src/core/dailyMessage.ts);
  *  - dist/sitemap.xml and dist/robots.txt;
  *  - Atom feeds of the lessons: dist/feed.xml (ru), dist/feed-en.xml, dist/feed-de.xml — for readers, a newsletter
@@ -37,6 +38,7 @@ import { quoteView, sectionQuotes } from '../src/core/quotes';
 import { BOOKS, track, type Section } from '../src/core/tanakhCycle';
 import { readingMinutes, type DayVerse } from '../src/core/tanakh';
 import { civilDate } from '../src/core/hebrewDate';
+import { buildDecks, deckProblems, QUIZ_LANGS, type DayQuiz } from '../src/core/quizDecks';
 import cycleJson from '../src/tanakh/cycle.json';
 import wordsJson from '../src/tanakh/words.json';
 import wordsRu from '../src/tanakh/words/ru.json';
@@ -69,7 +71,8 @@ const CSP = [
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",
   "img-src 'self' data: blob: https://niflaot.goatcounter.com",
-  `connect-src 'self' https://api.github.com https://niflaot.goatcounter.com${assistant ? ` ${assistant}` : ''}`,
+  // the assistant also over WebSocket — «Викторина вместе» (src/core/liveQuiz.ts)
+  `connect-src 'self' https://api.github.com https://niflaot.goatcounter.com${assistant ? ` ${assistant} ${assistant.replace(/^http/, 'ws')}` : ''}`,
   "object-src 'none'",
   "base-uri 'self'",
   `form-action 'self'${subscribe ? ` ${subscribe}` : ''}`,
@@ -700,5 +703,21 @@ writeFileSync(
   JSON.stringify({ updated: today, fallback: Object.fromEntries(MSG_LOCALES.map((l) => [l, LANGS.find((x) => x.lang === l)!.ui['push.fallback']])), days }),
 );
 
+// «Викторина вместе»: the decks — the quiz server takes a deck from here, never from the host
+const quizDir = 'src/tanakh/quiz';
+const tanakhQuiz = Object.fromEntries(
+  readdirSync(quizDir)
+    .filter((f) => f.endsWith('.json'))
+    .map((f) => [f.slice(0, -5), JSON.parse(readFileSync(`${quizDir}/${f}`, 'utf8')) as DayQuiz]),
+);
+const quiz = buildDecks(tanakhQuiz, { ru, en, de });
+const badDecks = deckProblems(quiz.decks);
+if (badDecks.length) throw new Error(`quiz decks the server would refuse: ${badDecks.join(', ')}`);
+for (const lang of QUIZ_LANGS) {
+  mkdirSync(`${DIST}/quiz/${lang}`, { recursive: true });
+  for (const d of quiz.decks[lang]) writeFileSync(`${DIST}/quiz/${lang}/${d.id}.json`, JSON.stringify(d));
+}
+writeFileSync(`${DIST}/quiz/index.json`, JSON.stringify(quiz.index));
+
 writeFileSync(`${DIST}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
-console.log(`prerender: index + ${LESSONS.length} lesson pages + ${STATIC_OUT.length} math / daily / facts / letters / prophets / writings / words pages, sitemap.xml, robots.txt, ${FEEDS.length} feeds, ${LANGS.length} manifests, sw.js (${precache.length} files offline), daily messages for ${Object.keys(days).length} days`);
+console.log(`prerender: index + ${LESSONS.length} lesson pages + ${STATIC_OUT.length} math / daily / facts / letters / prophets / writings / words pages, sitemap.xml, robots.txt, ${FEEDS.length} feeds, ${LANGS.length} manifests, sw.js (${precache.length} files offline), daily messages for ${Object.keys(days).length} days, ${quiz.index.length} quiz decks`);
