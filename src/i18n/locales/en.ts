@@ -302,6 +302,8 @@ const en: Messages = {
   'cards.verse': "The whole verse",
   'cards.rebbe': "The Rebbe explains",
   'cards.ls': "Likkutei Sichot, vol. {vol}, talk {n}",
+  'cards.lsPages': "Likkutei Sichot, vol. {vol}, p. {p}",
+  'cards.tm': "Torat Menachem, {year}, vol. {vol}, p. {p}",
   'cards.horaah': "Hora’ah — the lesson for life",
   'cards.cardVerse': "Verse: {words}",
   'cards.cardExpl': "The Rebbe’s explanation: {text}",

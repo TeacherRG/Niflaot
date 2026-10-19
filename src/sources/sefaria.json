@@ -8675,36 +8675,6 @@
    }
   }
  },
- "torah-ohr-lech-lecha": {
-  "kind": {
-   "ru": "Хасидут",
-   "en": "Chassidut",
-   "de": "Chassidut"
-  },
-  "title": {
-   "ru": "Тора ор, Лех леха",
-   "en": "Torah Ohr, Lech Lecha",
-   "de": "Tora Or, Lech Lecha"
-  },
-  "ref": "Torah Ohr, Lech Lecha 1:2",
-  "url": "https://www.sefaria.org/Torah_Ohr,_Lech_Lecha_1.2",
-  "he": [
-   "<b>הנה</b> אברם הוא השכל הנעלם מכל רעיון א\"ב ר\"ם וצ\"ל בבחי' גילוי דהיינו להיות סדר השתלשלות מבחי' חכים ולא בחכמה ידיעה בבחי' ירידה ממדרגה למדרגה עד סוף כו' והתכלית הוא להיות גילוי בבי\"ע ג\"ע עליון ותחתון תענוג הנבראים שיוכלו לקבל גילוי התענוג כו'."
-  ],
-  "en": [],
-  "versions": {
-   "he": {
-    "title": "Kehot Publication Society",
-    "license": "CC-BY-NC",
-    "source": "http://kehot.com"
-   },
-   "en": {
-    "title": "Sefaria Community Translation",
-    "license": "CC0",
-    "source": "https://www.sefaria.org"
-   }
-  }
- },
  "bava-metzia-71a": {
   "kind": {
    "ru": "Гемара",
@@ -8994,6 +8964,228 @@
     "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
     "license": "Public Domain",
     "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-12-1-only": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 12:1",
+   "en": "Genesis 12:1",
+   "de": "Bereschit 12,1"
+  },
+  "ref": "Genesis 12:1",
+  "url": "https://www.sefaria.org/Genesis_12.1",
+  "he": [
+   "ויאמר ה׳ אל אברם לך לך מארצך וממולדתך ומבית אביך אל הארץ אשר אראך"
+  ],
+  "en": [
+   "Now the L-rd said unto Abram: ‘Get thee out of thy country, and from thy kindred, and from thy father’s house, unto the land that I will show thee."
+  ],
+  "ru": [
+   "И сказал Г-сподь Авраму: иди себе из страны своей, и от родни своей, и из дома отца своего в страну, которую я покажу тебе."
+  ],
+  "de": [
+   "Zu Abram aber sprach <i>G-tt</i>: Gehe für dich allein von deinem Lande, deinem Geburtsorte und dem Hause deines Vaters, zu dem Lande hin, das ich dir zeigen werde."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-12-2": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 12:2",
+   "en": "Genesis 12:2",
+   "de": "Bereschit 12,2"
+  },
+  "ref": "Genesis 12:2",
+  "url": "https://www.sefaria.org/Genesis_12.2",
+  "he": [
+   "ואעשך לגוי גדול ואברכך ואגדלה שמך והיה ברכה"
+  ],
+  "en": [
+   "And I will make of thee a great nation, and I will bless thee, and make thy name great; and be thou a blessing."
+  ],
+  "ru": [
+   "И сделаю тебя великим народом, и благословлю тебя, и возвеличу твое имя, и будешь благословением."
+  ],
+  "de": [
+   "Ich werde dich zu einem großen Volke machen, Ich werde dich segnen, und Ich möchte deinen Namen groß werden lassen; werde du ein Segen!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-12-3": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 12:3",
+   "en": "Genesis 12:3",
+   "de": "Bereschit 12,3"
+  },
+  "ref": "Genesis 12:3",
+  "url": "https://www.sefaria.org/Genesis_12.3",
+  "he": [
+   "ואברכה מברכיך ומקללך אאר ונברכו בך כל משפחת האדמה"
+  ],
+  "en": [
+   "And I will bless them that bless thee, and him that curseth thee will I curse; and in thee shall all the families of the earth be blessed.’"
+  ],
+  "ru": [
+   "И благословлю благословляющих тебя, а хулящего тебя прокляну, и благословятся тобою все племена земные."
+  ],
+  "de": [
+   "Ich möchte segnen, die dich segnen, und wer dir Fluch bringt, dem werde ich fluchen; und es werden durch dich alle Familien des Erdbodens gesegnet werden."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-12-11": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 12:11",
+   "en": "Genesis 12:11",
+   "de": "Bereschit 12,11"
+  },
+  "ref": "Genesis 12:11",
+  "url": "https://www.sefaria.org/Genesis_12.11",
+  "he": [
+   "ויהי כאשר הקריב לבוא מצרימה ויאמר אל שרי אשתו הנה נא ידעתי כי אשה יפת מראה את"
+  ],
+  "en": [
+   "And it came to pass, when he was come near to enter into Egypt, that he said unto Sarai his wife: ‘Behold now, I know that thou art a fair woman to look upon."
+  ],
+  "ru": [
+   "И было, когда приблизился он к Египту, и сказал Сарай, жене своей: вот, знаю я, что ты красивая женщина."
+  ],
+  "de": [
+   "Da war es, als er nahe daran war, nach Mizrajim zu kommen, sprach er zu seiner Frau Sarai: Siehe, ich weiß es ja doch, daß du ein schönes Weib bist,"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-ohr-lech-lecha": {
+  "kind": {
+   "ru": "Хасидут",
+   "en": "Chassidut",
+   "de": "Chassidut"
+  },
+  "title": {
+   "ru": "Тора ор, Лех леха",
+   "en": "Torah Ohr, Lech Lecha",
+   "de": "Tora Or, Lech Lecha"
+  },
+  "ref": "Torah Ohr, Lech Lecha 1:2",
+  "url": "https://www.sefaria.org/Torah_Ohr,_Lech_Lecha_1.2",
+  "he": [
+   "<b>הנה</b> אברם הוא השכל הנעלם מכל רעיון א\"ב ר\"ם וצ\"ל בבחי' גילוי דהיינו להיות סדר השתלשלות מבחי' חכים ולא בחכמה ידיעה בבחי' ירידה ממדרגה למדרגה עד סוף כו' והתכלית הוא להיות גילוי בבי\"ע ג\"ע עליון ותחתון תענוג הנבראים שיוכלו לקבל גילוי התענוג כו'."
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "Kehot Publication Society",
+    "license": "CC-BY-NC",
+    "source": "http://kehot.com"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
    }
   }
  },

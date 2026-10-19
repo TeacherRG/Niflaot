@@ -273,7 +273,9 @@ for (const lesson of LESSONS) {
     const src = SOURCES[it.source];
     if (!src) err(`${where(k)}: source ${it.source} is not in sefaria.json`);
     else if (!plain(src.he.join(' ')).includes(plain(displayNames(it.verse)))) err(`${where(k)}: «${it.verse}» is not in ${src.ref}`);
-    if (!(it.ls.vol > 0 && it.ls.sicha > 0)) err(`${where(k)}: Likkutei Sichos volume and talk needed`);
+    const lsOk = !!it.ls && it.ls.vol > 0 && (!!it.ls.sicha || !!it.ls.pages?.trim());
+    const tmOk = !!it.tm && it.tm.year > 5700 && it.tm.vol > 0 && !!it.tm.pages.trim();
+    if (lsOk === tmOk) err(`${where(k)}: where the talk is — Likkutei Sichos (volume and talk or pages) or Torat Menachem, one of them`);
     for (const [lang, tx] of Object.entries(lesson.texts)) {
       const ct = tx?.cards?.items[k];
       if (!ct) continue;
@@ -283,8 +285,8 @@ for (const lesson of LESSONS) {
       if (ct.card.length > 70) err(`${where(k)} [${lang}]: the explanation card is longer than 70 characters (${ct.card.length})`);
     }
   });
-  // one explanation per verse: every verse once
-  if (new Set(c.items.map((it) => it.source)).size !== c.items.length) err(`${lesson.slug} · cards: a verse has two explanations — keep one`);
+  // one explanation per verse: every verse (or, in a long verse, every phrase of it) once
+  if (new Set(c.items.map((it) => `${it.source}|${it.verse}`)).size !== c.items.length) err(`${lesson.slug} · cards: a verse has two explanations — keep one`);
   for (const [lang, tx] of Object.entries(lesson.texts)) {
     if (!tx?.cards) err(`${lesson.slug} · cards [${lang}]: no texts (cards in i18n/${lang}.ts)`);
     else if (tx.cards.items.length !== c.items.length) err(`${lesson.slug} · cards [${lang}]: ${tx.cards.items.length} texts for ${c.items.length} pairs`);

@@ -12,6 +12,7 @@ import { HebrewRuns } from './Hebrew';
 import { Colophon } from './Colophon';
 import { useMode } from '../core/mode';
 import { CardsCheck, ChapterCheck } from './ReadCheck';
+import { cardRef } from '../core/cardRef';
 
 /**
  * One chapter of the Rebbe's talk (a riddle of the investigation), all of it at once: the question on the verse,
@@ -150,7 +151,7 @@ export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards?:
                             </span>
                           ))}
                         </p>
-                        <p className="rc-ls">{t('cards.ls', { vol: it.ls.vol, n: it.ls.sicha })}</p>
+                        <p className="rc-ls">{cardRef(it, t)}</p>
                       </section>
                     ),
                 )}

@@ -1,4 +1,5 @@
 import type { Lesson } from '../types';
+import cards from './cards';
 import ru from './i18n/ru';
 import en from './i18n/en';
 import de from './i18n/de';
@@ -8,7 +9,7 @@ import de from './i18n/de';
  * «Ликутей сихот». Загадки 1–2 — т. 25, Лех леха 3 (Шабат Лех леха 5744): почему буква ר осталась в имени Авраґам,
  * а י из имени Сарай ушла к Йеґошуа. Загадки 3–4 — т. 30, Лех леха 1 (7 мар-хешвана 5746): три жертвенника Авраґама
  * и почему Раши не объясняет третий, в Хевроне. Расследование без гематрий; число — только виды жертв (4 − 1 = 3).
- * Карточек пока нет: урок — одно расследование, «Прочитать» — беседа по главам.
+ * Вторая игра — «Карточки»: 12 стихов главы и по одному объяснению Ребе к каждому (cards.ts).
  */
 const lesson: Lesson = {
   slug: 'rebbe-lech-lecha',
@@ -153,6 +154,7 @@ const lesson: Lesson = {
   highlight: [['כי אב המון גוים'], ['לא זזה ממקומה']],
   // a talk of the Rebbe: no gematria calculator
   calculator: { words: [], secrets: {} },
+  cards,
   texts: { ru, en, de },
 };
 

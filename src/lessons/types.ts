@@ -263,8 +263,12 @@ export interface RebbeCard {
   verse: string;
   /** the verse in src/sources/sefaria.json (its Hebrew must contain `verse`) */
   source: string;
-  /** where the talk is: Likkutei Sichot, volume and number of the talk in the portion */
-  ls: { vol: number; sicha: number };
+  /**
+   * where the talk is: Likkutei Sichot — volume and number of the talk in the portion (or its pages, when only they are
+   * known); or, for a talk not in Likkutei Sichot, Torat Menachem (Hitvaaduyot) — year, volume and pages. Exactly one.
+   */
+  ls?: { vol: number; sicha?: number; pages?: string };
+  tm?: { year: number; vol: number; pages: string };
 }
 
 export interface RebbeCardsData {
