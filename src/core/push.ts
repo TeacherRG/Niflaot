@@ -20,18 +20,26 @@ const PREFS = '/__niflaot/push-prefs';
 export const PUSH_HOURS = [7, 8, 13, 16, 17, 19] as const;
 export const DEFAULT_HOUR = 17;
 
+/**
+ * «После чего вы будете учиться?» — привязка к тому, что человек и так делает каждый день («якорь» привычки): учёба
+ * сразу после него легче становится постоянной. Якорь задаёт час по умолчанию и первую строку уведомления (public/sw.js).
+ */
+export const ANCHORS = { prayer: 7, breakfast: 8, lunch: 13, school: 16, work: 17, dinner: 19 } as const;
+export type Anchor = keyof typeof ANCHORS;
+export const isAnchor = (a: unknown): a is Anchor => typeof a === 'string' && a in ANCHORS;
+
 export type PushState =
   | { kind: 'unsupported' }
   /** iPhone / iPad in Safari: push only after «На экран Домой» */
   | { kind: 'ios' }
   | { kind: 'denied' }
   | { kind: 'off' }
-  | { kind: 'on'; hour: number };
+  | { kind: 'on'; hour: number; anchor?: Anchor };
 
 const ios = () => /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const supported = () => !!ASSISTANT_URL && 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
 
-const saved = (): { hour: number; endpoint: string } | null => {
+const saved = (): { hour: number; endpoint: string; anchor?: string } | null => {
   try {
     return JSON.parse(localStorage.getItem(STORE) ?? 'null');
   } catch {
@@ -45,7 +53,7 @@ export async function pushState(): Promise<PushState> {
   const reg = await navigator.serviceWorker.getRegistration();
   const sub = await reg?.pushManager.getSubscription();
   const s = saved();
-  return sub && s && s.endpoint === sub.endpoint ? { kind: 'on', hour: s.hour } : { kind: 'off' };
+  return sub && s && s.endpoint === sub.endpoint ? { kind: 'on', hour: s.hour, anchor: isAnchor(s.anchor) ? s.anchor : undefined } : { kind: 'off' };
 }
 
 async function api(path: string, body: object) {
@@ -64,7 +72,7 @@ async function api(path: string, body: object) {
  */
 async function savePrefs(lang: Locale) {
   const c = await caches.open('niflaot-prefs');
-  await c.put(PREFS, new Response(JSON.stringify({ lang, mode: currentMode(), wordsDue: wordsDue() }), { headers: { 'Content-Type': 'application/json' } }));
+  await c.put(PREFS, new Response(JSON.stringify({ lang, mode: currentMode(), wordsDue: wordsDue(), anchor: saved()?.anchor }), { headers: { 'Content-Type': 'application/json' } }));
 }
 
 /**
@@ -94,7 +102,7 @@ const b64 = (s: string) => {
 };
 
 /** Ask once (the player tapped the button), subscribe, tell the server the hour; returns the new state. */
-export async function enablePush(hour: number, lang: Locale): Promise<PushState> {
+export async function enablePush(hour: number, lang: Locale, anchor?: Anchor): Promise<PushState> {
   if (!supported()) return ios() ? { kind: 'ios' } : { kind: 'unsupported' };
   const permission = await Notification.requestPermission();
   if (permission !== 'granted') return permission === 'denied' ? { kind: 'denied' } : { kind: 'off' };
@@ -104,9 +112,9 @@ export async function enablePush(hour: number, lang: Locale): Promise<PushState>
   if (!sub) sub = await timeout(reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64(key) }));
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
   await api('subscribe', { subscription: sub.toJSON(), tz, hour, lang });
+  localStorage.setItem(STORE, JSON.stringify({ hour, endpoint: sub.endpoint, anchor }));
   await savePrefs(lang);
-  localStorage.setItem(STORE, JSON.stringify({ hour, endpoint: sub.endpoint }));
-  return { kind: 'on', hour };
+  return { kind: 'on', hour, anchor };
 }
 
 /**

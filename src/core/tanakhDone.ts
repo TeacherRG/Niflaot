@@ -6,6 +6,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { Section } from './tanakhCycle';
 import { isDone, quizKey, type DoneStore } from './academy';
+import { markStudied } from './habit';
 
 export const DONE_KEY = 'niflaot:tanakh-done';
 const EVENT = 'niflaot:tanakh-done';
@@ -28,6 +29,7 @@ export function setDone(date: string, section: Section, on: boolean) {
     localStorage.setItem(DONE_KEY, JSON.stringify(s));
   } catch {}
   window.dispatchEvent(new Event(EVENT));
+  if (on) markStudied();
 }
 
 /** Все отметки — и обновление, когда их меняет галочка (на этой странице) или вход в аккаунт (другая вкладка). */

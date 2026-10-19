@@ -61,8 +61,41 @@ if (JSON.stringify(site) !== JSON.stringify(SERVER_HOURS)) err(`push hours: site
 const sw = readFileSync('public/sw.js', 'utf8');
 if (!sw.includes("/*__VERSION__*/ 'dev'") || !sw.includes('/*__PRECACHE__*/ []')) err('public/sw.js: no build placeholders');
 
+// «После чего вы будете учиться?»: every anchor has an hour the server accepts and a first line in sw.js in every language
+const anchors = Object.fromEntries(
+  [...(readFileSync('src/core/push.ts', 'utf8').match(/ANCHORS = \{([^}]+)\}/)?.[1] ?? '').matchAll(/(\w+): (\d+)/g)].map((x) => [x[1], Number(x[2])]),
+);
+if (!Object.keys(anchors).length) err('push anchors: ANCHORS not found in src/core/push.ts');
+for (const [a, h] of Object.entries(anchors)) {
+  if (!(SERVER_HOURS as readonly number[]).includes(h)) err(`push anchor ${a}: hour ${h} is not one of the server's`);
+  for (const lang of ['ru', 'en', 'de'])
+    if (!new RegExp(`${lang}: \\{[^}]*\\b${a}: '`).test(sw)) err(`public/sw.js: ANCHOR_LINE.${lang}.${a} missing`);
+}
+
+// «Учёба каждый день» (src/core/habit.ts): Shabbat doesn't break the streak, a missed weekday does
+const { habitStats } = await import('../src/core/habit');
+const st = (days: string[], today: string) => habitStats(new Set(days), today);
+// Thu 22.10, Fri 23.10, (Shabbat 24.10), Sun 25.10 — today Mon 26.10, not yet learnt
+let hs = st(['2026-10-22', '2026-10-23', '2026-10-25'], '2026-10-26');
+if (hs.streak !== 3 || hs.today || hs.back) err(`habit: streak over Shabbat ${JSON.stringify(hs)}`);
+hs = st(['2026-10-22', '2026-10-23', '2026-10-25', '2026-10-26'], '2026-10-26');
+if (hs.streak !== 4 || !hs.today || hs.best !== 4 || hs.total !== 4) err(`habit: today counted ${JSON.stringify(hs)}`);
+// Tue 20.10 missed: the streak starts again on Wed
+hs = st(['2026-10-19', '2026-10-21', '2026-10-22'], '2026-10-22');
+if (hs.streak !== 2 || hs.best !== 2) err(`habit: a missed weekday breaks it ${JSON.stringify(hs)}`);
+hs = st(['2026-10-19'], '2026-10-22');
+if (hs.streak !== 0 || !hs.back || hs.repair) err(`habit: two missed days break it ${JSON.stringify(hs)}`);
+// «Восполнить»: one missed weekday after a streak — made up, the streak goes on; two missed — not; once in 30 days
+hs = st(['2026-10-15', '2026-10-16', '2026-10-18'], '2026-10-20');
+if (hs.repair?.day !== '2026-10-19' || hs.repair.streak !== 4) err(`habit: repair over Shabbat ${JSON.stringify(hs)}`);
+hs = st(['2026-10-15', '2026-10-16'], '2026-10-21');
+if (hs.repair || !hs.back) err(`habit: two missed days are not made up ${JSON.stringify(hs)}`);
+if (habitStats(new Set(['2026-10-18']), '2026-10-20', 1).repair) err('habit: a second repair within 30 days');
+hs = st(['2026-10-01'], '2026-10-22');
+if (hs.repair || !hs.back) err(`habit: «С возвращением» ${JSON.stringify(hs)}`);
+
 if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));
   process.exit(1);
 }
-console.log('✓ daily reminder: VAPID signature, Shabbat rules, push services, hours, service worker');
+console.log('✓ daily reminder: VAPID signature, Shabbat rules, push services, hours, anchors, service worker, study streak');

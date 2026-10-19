@@ -13,6 +13,7 @@
  * = { [slug]: { [question key]: picked option } }, synced with the account (src/core/sync.ts).
  */
 import type { Lesson } from '../lessons/types';
+import { markStudied } from './habit';
 
 export const READ_KEY = 'niflaot:torah-read';
 
@@ -98,6 +99,7 @@ export function answerRead(slug: string, key: string, pick: number) {
   try {
     localStorage.setItem(READ_KEY, JSON.stringify(store));
   } catch {}
+  markStudied();
   listeners.forEach((f) => f());
 }
 

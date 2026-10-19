@@ -15,6 +15,7 @@ import type { Section } from './tanakhCycle';
 import { localToday, root } from './tanakh';
 import { normWord, type WordEntry } from './sync';
 import type { Certificate, Progress } from './academy';
+import { markStudied } from './habit';
 
 export interface Word {
   /** номер Стронга */
@@ -118,6 +119,7 @@ function put(id: string, box: number, due: number) {
     localStorage.setItem(WORDS_KEY, JSON.stringify(s));
   } catch {}
   window.dispatchEvent(new Event(EVENT));
+  if (box > 0) markStudied();
 }
 /** «Знаю» — проверить через неделю; «Учу» — повторить сегодня; убрать из моих слов */
 export const markKnown = (id: string) => put(id, KNOWN_BOX, today() + INTERVALS[KNOWN_BOX]);

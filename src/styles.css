@@ -1847,3 +1847,16 @@ h2.mode-q{margin-top:22px}
 .bp-all[open]>summary{margin-bottom:8px}
 .hs-about{display:inline-flex;align-items:center;gap:6px;flex:none;white-space:nowrap;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--tchelet);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
 .hs .tk-tools .hs-en-toggle{margin:0}
+
+/* «Учёба каждый день» (HabitCard.tsx): ✓ дня, серия, минимум на сегодня */
+.habit{flex:1 1 100%;display:grid;gap:4px;padding:10px 14px;border-radius:10px;background:var(--surface);border:1px solid var(--line);margin:0 0 14px}
+.h-hero-side .habit{margin:0}
+.habit-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 12px}
+.habit-done .habit-head b{color:var(--ok,#1e7a46)}
+.habit-streak{font-weight:600;white-space:nowrap}
+.habit-min{font-size:15px}
+.habit-short{color:var(--muted);font-size:14px}
+.habit-note{font-size:12px;color:var(--muted)}
+.habit-line{font-size:15px}
+.habit-repair{font-size:14px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.habit-repair .btn{padding:6px 12px;font-size:14px}
