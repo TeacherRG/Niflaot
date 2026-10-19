@@ -12,15 +12,19 @@
  * Accounts of the site (src/accounts.ts, Durable Object Accounts): /account/* — login by a code to the email,
  * profile, parent's consent, synced progress, leaderboards, classes. /chat with `Authorization: Bearer <token>`
  * counts the question for that account.
+ *
+ * «Викторина вместе» (src/quiz.ts, Durable Object QuizRoom — одна комната на код): POST /quiz/new {deck, lang, n}
+ * → {code, key}; GET /quiz/ws/<CODE>?role=host&key=… | ?role=player&pid=… — WebSocket ведущего или игрока.
  */
 import Anthropic from '@anthropic-ai/sdk';
 import { gematria, letters, VALUES } from '../../src/core/gematria';
 import { PushHub } from './push';
 import { Accounts, type MailEnv } from './accounts';
+import { QuizRoom, quizRoute, type QuizEnv } from './quiz';
 
-export { PushHub, Accounts };
+export { PushHub, Accounts, QuizRoom };
 
-interface Env extends MailEnv {
+interface Env extends MailEnv, QuizEnv {
   ANTHROPIC_API_KEY: string;
   /** comma-separated list of allowed page origins */
   ALLOWED_ORIGINS?: string;
@@ -75,7 +79,7 @@ Accuracy rules:
 - Out of respect for G-d's Names, write אלקים (not with ה), ה׳ for the Tetragrammaton, and "Б-г", "Г-сподь" / "G-d", "L-rd" / "G-tt" in Russian / English / German. Gematria is still computed from the real spelling (pass the real spelling to the tool).
 - Stay on topic: Torah, the Prophets and Writings, the lessons, gematria, Hebrew, mental math, the academy and how to use the site. Politely decline unrelated requests.
 
-How the site works (for "how do I…" questions): in a lesson, tap a word card to see its letters and values and add them yourself; "Hint" costs points; after a riddle the lesson opens with the primary sources (original + translation, link to Sefaria). Every gematria lesson also has "Read" — the same lesson without counting. "Did you know?" is a feed of all the riddles, with "Gematria of the day" first. "Prophets" / "Writings" in the menu: "Passage of the day" (a language button chooses Hebrew and/or a translation and the commentaries — Metzudat David, Rashi; print) and "Questions on the passage". Also in the menu: "Academy", "How to play and learn" (Hebrew level, "Letters in 5 minutes", "Mental math"), "Remind me every day". Guests can use everything; an optional account (a code by email) keeps progress and certificates on all devices. The site rests on Shabbat.
+How the site works (for "how do I…" questions): in a lesson, tap a word card to see its letters and values and add them yourself; "Hint" costs points; after a riddle the lesson opens with the primary sources (original + translation, link to Sefaria). Every gematria lesson also has "Read" — the same lesson without counting. "Did you know?" is a feed of all the riddles, with "Gematria of the day" first. "Prophets" / "Writings" in the menu: "Passage of the day" (a language button chooses Hebrew and/or a translation and the commentaries — Metzudat David, Rashi; print) and "Questions on the passage". Also in the menu: "Academy", "Quiz together" (a live quiz for a class or a family: the host shows questions from the lessons on a big screen, the players answer from their phones with a room code, no sign-up), "How to play and learn" (Hebrew level, "Letters in 5 minutes", "Mental math"), "Remind me every day". Guests can use everything; an optional account (a code by email) keeps progress and certificates on all devices. The site rests on Shabbat.
 
 Format: plain text with short paragraphs; you may use simple "-" lists and **bold**. No tables, no headings.`;
 
@@ -198,6 +202,18 @@ export default {
     const path = new URL(req.url).pathname;
     if (path.startsWith('/push/')) return pushRoute(req, env, path.slice(5), headers);
     if (path.startsWith('/account/')) return accountRoute(req, env, path.slice(8), headers);
+    if (path.startsWith('/quiz/')) {
+      if (!originOk(req.headers.get('Origin'), env)) return new Response('Forbidden', { status: 403, headers });
+      // a new room costs a fetch of the deck: through the rate limit; joining a room doesn't
+      if (env.LIMITER && path === '/quiz/new') {
+        const ip = req.headers.get('CF-Connecting-IP') ?? 'unknown';
+        if (!(await env.LIMITER.limit({ key: `quiz:${ip}` })).success)
+          return new Response('Too many requests', { status: 429, headers: { ...headers, 'Retry-After': '60' } });
+      }
+      const r = await quizRoute(req, env, path.slice(5));
+      if (r.status === 101) return r;
+      return new Response(r.body, { status: r.status, headers: { ...headers, 'Content-Type': r.headers.get('Content-Type') ?? 'text/plain', 'Cache-Control': 'no-store' } });
+    }
     if (req.method !== 'POST' || path !== '/chat')
       return new Response('Not found', { status: 404, headers });
 

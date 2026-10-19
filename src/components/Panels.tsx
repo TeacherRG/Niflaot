@@ -147,6 +147,14 @@ export function Panels() {
               <small>{t('facts.menuSub')}</small>
             </span>
           </a>
+          {/* «Викторина вместе»: a live quiz for a class or a family — the host's big screen, the players' phones */}
+          <a href="#/quiz" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/quiz') ? 'page' : undefined}>
+            <Icon name="phone" />
+            <span>
+              {t('lq.title')}
+              <small>{t('lq.menuSub')}</small>
+            </span>
+          </a>
 {mode === 'kids' ? (
             <>
           {/* «Слова Торы»: a game with the words of the lessons — the Memo pictures and the riddle cards (src/core/torahWords.ts) */}
