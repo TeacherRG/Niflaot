@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { markStudied } from './habit';
 import type { Lesson } from '../lessons/types';
 
 export interface StepState {
@@ -105,10 +106,15 @@ function load(lesson: Lesson): GameState {
 export function useLessonState(lesson: Lesson) {
   const [state, setState] = useState(() => load(lesson));
 
+  // a step tried or solved (not a word card opened) counts as a day of study (src/core/habit.ts)
+  const tried = useRef(-1);
   useEffect(() => {
     try {
       localStorage.setItem(storageKey(lesson), JSON.stringify(state));
     } catch {}
+    const n = Object.values(state.st).reduce((a, s) => a + s.tries + (s.ok ? 1 : 0), 0);
+    if (tried.current >= 0 && n > tried.current) markStudied();
+    tried.current = n;
   }, [lesson, state]);
 
   /** Immer-style update: mutate a deep copy of the state. */

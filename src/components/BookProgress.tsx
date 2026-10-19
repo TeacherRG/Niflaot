@@ -10,6 +10,7 @@ import { TEACHERS } from '../lessons/teachers';
 import { useCertificates } from './AcademyPage';
 import { HEMSHECH, allPassages, hsIsDone, passageDate, useHsDone } from '../core/hemshech';
 import { knownCount, loadDict, textCoverage, useWordStore, type Dict } from '../core/words';
+import { HabitCard } from './HabitCard';
 
 type Lang = 'ru' | 'en' | 'de';
 const langOf = (locale: string): Lang => (locale === 'en' || locale === 'de' ? locale : 'ru');
@@ -217,6 +218,7 @@ export function BookProgress() {
   return (
     <section className="acc-card bp">
       <h2>📚 {t('bp.title')}</h2>
+      <HabitCard account />
       {adults && (
         <p className="bp-total">
           {t('bp.totalBooks', { n: booksRead, total: booksAll })} · {t('bp.total', { n: passages, total: CYCLE.length * 2 })}

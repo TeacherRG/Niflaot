@@ -126,6 +126,12 @@ const WORDS_LINE = {
   en: 'Words to review: {n} — “My words”',
   de: 'Wörter wiederholen: {n} — „Meine Wörter“',
 };
+// «После чего вы будете учиться?» (src/core/push.ts, ANCHORS): the first line of the message
+const ANCHOR_LINE = {
+  ru: { prayer: 'После утренней молитвы — время учиться', breakfast: 'После завтрака — время учиться', lunch: 'В обед — время учиться', school: 'После школы — время учиться', work: 'После работы — время учиться', dinner: 'После ужина — время учиться' },
+  en: { prayer: 'After the morning prayer — time to learn', breakfast: 'After breakfast — time to learn', lunch: 'At lunch — time to learn', school: 'After school — time to learn', work: 'After work — time to learn', dinner: 'After dinner — time to learn' },
+  de: { prayer: 'Nach dem Morgengebet — Zeit zum Lernen', breakfast: 'Nach dem Frühstück — Zeit zum Lernen', lunch: 'In der Mittagspause — Zeit zum Lernen', school: 'Nach der Schule — Zeit zum Lernen', work: 'Nach der Arbeit — Zeit zum Lernen', dinner: 'Nach dem Abendessen — Zeit zum Lernen' },
+};
 const dayNumber = () => {
   const d = new Date();
   return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5);
@@ -174,8 +180,10 @@ self.addEventListener('push', (e) => {
       const lang = ['ru', 'en', 'de'].includes(p.lang) ? p.lang : 'ru';
       const m = await todaysMessage(lang, p.mode);
       const due = p.mode === 'adults' && Array.isArray(p.wordsDue) ? p.wordsDue.filter((d) => d <= dayNumber()).length : 0;
+      const anchor = ANCHOR_LINE[lang][p.anchor];
+      const body = due ? `${m.body}\n${(WORDS_LINE[lang] || WORDS_LINE.ru).replace('{n}', due)}` : m.body;
       await self.registration.showNotification(m.title, {
-        body: due ? `${m.body}\n${(WORDS_LINE[lang] || WORDS_LINE.ru).replace('{n}', due)}` : m.body,
+        body: anchor ? `${anchor}\n${body}` : body,
         lang,
         icon: '/icons/icon-192.png',
         badge: '/icons/icon-192.png',

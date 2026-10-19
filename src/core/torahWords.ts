@@ -17,6 +17,7 @@ import { PARSHIOT, type ParshaId } from '../lessons/parshiot';
 import type { Certificate, Progress } from './academy';
 import { displayNames } from './names';
 import { normWord, type WordEntry } from './sync';
+import { markStudied } from './habit';
 
 export interface TorahWord {
   /** ключ — слово как в уроке (настоящее написание) */
@@ -89,6 +90,7 @@ export function answerWord(key: string, right: boolean) {
     localStorage.setItem(TORAH_WORDS_KEY, JSON.stringify(s));
   } catch {}
   window.dispatchEvent(new Event(EVENT));
+  markStudied();
 }
 
 export function useStars(): StarStore {

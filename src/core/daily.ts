@@ -11,7 +11,8 @@ import { collectFacts, factHebrew } from './facts';
 import type { Lesson } from '../lessons/types';
 
 /** the date of «Гематрия дня №1» */
-export const DAILY_START = '2026-10-11';
+export { DAILY_START } from './habit';
+import { DAILY_START, markStudied } from './habit';
 export const MAX_TRIES = 3;
 
 export interface DailyWord {
@@ -81,6 +82,7 @@ export function saveResult(n: number, r: DailyResult) {
     for (const k of Object.keys(all)) if (Number(k) < n - 366) delete all[Number(k)];
     localStorage.setItem(KEY, JSON.stringify(all));
   } catch {}
+  if (r.done) markStudied();
 }
 
 /** Days solved in a row up to today (or yesterday, while today is not played yet); Shabbat doesn't break it. */

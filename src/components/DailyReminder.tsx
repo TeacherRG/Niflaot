@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
 import { useMode } from '../core/mode';
-import { DEFAULT_HOUR, PUSH_HOURS, disablePush, enablePush, pushState, testPush, type PushState } from '../core/push';
+import { ANCHORS, DEFAULT_HOUR, PUSH_HOURS, disablePush, enablePush, isAnchor, pushState, testPush, type Anchor, type PushState } from '../core/push';
 
 /**
  * «Напоминать каждый день»: turn the daily notification on (the browser asks for permission only now, after the tap),
- * pick the hour, «Проверить» — a notification right away, «Выключить». Hidden where the browser can't do it at all.
+ * pick «после чего» (the habit's anchor: it sets the hour and the first line of the message) and the hour, «Проверить» — a notification right away, «Выключить». Hidden where the browser can't do it at all.
  * Under «Гематрия дня» after the word is solved and at the end of a lesson.
  */
 export function DailyReminder({ sheet = false }: { sheet?: boolean }) {
@@ -13,6 +13,7 @@ export function DailyReminder({ sheet = false }: { sheet?: boolean }) {
   const mode = useMode();
   const [state, setState] = useState<PushState | null>(null);
   const [hour, setHour] = useState(DEFAULT_HOUR);
+  const [anchor, setAnchor] = useState<Anchor | ''>('');
   const [busy, setBusy] = useState(false);
   const [note, setNote] = useState('');
 
@@ -48,6 +49,26 @@ export function DailyReminder({ sheet = false }: { sheet?: boolean }) {
         <>
           <div className="reminder-row">
             <label>
+              {t('push.anchor')}{' '}
+              <select
+                value={anchor}
+                onChange={(e) => {
+                  const a = e.target.value;
+                  setAnchor(isAnchor(a) ? a : '');
+                  if (isAnchor(a)) setHour(ANCHORS[a]);
+                }}
+              >
+                <option value="">{t('push.anchorNone')}</option>
+                {(Object.keys(ANCHORS) as Anchor[]).map((a) => (
+                  <option key={a} value={a}>
+                    {t(`push.anchor.${a}`)}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div className="reminder-row">
+            <label>
               {t('push.time')}{' '}
               <select value={hour} onChange={(e) => setHour(Number(e.target.value))}>
                 {PUSH_HOURS.map((h) => (
@@ -57,16 +78,18 @@ export function DailyReminder({ sheet = false }: { sheet?: boolean }) {
                 ))}
               </select>
             </label>
-            <button className="btn" disabled={busy} onClick={() => run(() => enablePush(hour, locale))}>
+            <button className="btn" disabled={busy} onClick={() => run(() => enablePush(hour, locale, anchor || undefined))}>
               {t('push.on')}
             </button>
           </div>
+          <p className="reminder-note">{t('push.anchorNote')}</p>
           <p className="reminder-note">{t('push.privacy')}</p>
         </>
       )}
       {state.kind === 'on' && (
         <div className="reminder-row">
-          <span className="reminder-on">✓ {t('push.enabled', { time: time(state.hour) })}</span>
+          <span className="reminder-on">✓ {t('push.enabled', { time: time(state.hour) })}
+            {state.anchor && ` · ${t(`push.anchor.${state.anchor}`)}`}</span>
           <button
             className="btn ghost"
             disabled={busy}

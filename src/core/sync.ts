@@ -6,7 +6,7 @@
  */
 
 /** the synced localStorage keys: exact names, and `niflaot:lesson:<slug>` */
-export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:words', 'niflaot:torah-words', 'niflaot:torah-read', 'niflaot:mode', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
+export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:words', 'niflaot:torah-words', 'niflaot:torah-read', 'niflaot:study-days', 'niflaot:mode', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
 export const LESSON_PREFIX = 'niflaot:lesson:';
 export const isSynced = (k: string) => SYNC_KEYS.includes(k) || k.startsWith(LESSON_PREFIX);
 
@@ -115,6 +115,12 @@ function mergeWords(a: string, b: string): string {
   return JSON.stringify(out);
 }
 
+/** «Учёба каждый день» (src/core/habit.ts): every day of study from both */
+function mergeStudy(a: string, b: string): string {
+  const out: Record<string, number> = { ...(parse(b) ?? {}), ...(parse(a) ?? {}) };
+  return JSON.stringify(Object.fromEntries(Object.keys(out).sort().map((k) => [k, 1])));
+}
+
 /**
  * Merge this device (`local`) with the account (`remote`). Progress is never lost: lessons, «Гематрия дня» and
  * «Вопросы к отрывку» keep the best of both; settings (Hebrew level, language, math level) — this device's choice when it has one.
@@ -132,6 +138,7 @@ export function mergeSnapshots(local: Snapshot, remote: Snapshot): Snapshot {
     else if (k === 'niflaot:tanakh-quiz' || k === 'niflaot:hemshech') out[k] = mergeQuiz(a, b);
     else if (k === 'niflaot:torah-read') out[k] = mergeRead(a, b);
     else if (k === 'niflaot:words' || k === 'niflaot:torah-words') out[k] = mergeWords(a, b);
+    else if (k === 'niflaot:study-days') out[k] = mergeStudy(a, b);
     else if (k === 'niflaot:tanakh-done' || k === 'niflaot:hemshech-done') out[k] = mergeDone(a, b);
     else out[k] = a;
   }

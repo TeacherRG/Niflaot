@@ -12,6 +12,7 @@ import { useCallback, useEffect, useState } from 'react';
 import data from '../hemshech/5666.json';
 import { PASS, type Certificate, type Progress, type QuizResult, type QuizStore } from './academy';
 import { CYCLE } from './tanakh';
+import { markStudied } from './habit';
 
 export type HsLang = 'ru' | 'en' | 'de';
 type T = Record<HsLang, string>;
@@ -85,6 +86,7 @@ export function useHsQuiz(id: string, n: number) {
     try {
       localStorage.setItem(KEY, JSON.stringify(s));
     } catch {}
+    markStudied();
     setR(x);
   };
   const answer = useCallback(
@@ -132,6 +134,7 @@ export function useHsDone(): [Record<string, number>, (id: string, on: boolean) 
       localStorage.setItem(DONE_KEY, JSON.stringify(x));
     } catch {}
     window.dispatchEvent(new Event(DONE_EVENT));
+    if (on) markStudied();
   }, []);
   return [s, mark];
 }

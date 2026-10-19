@@ -6,6 +6,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { Section } from './tanakhCycle';
 import { quizKey, type QuizResult, type QuizStore } from './academy';
+import { markStudied } from './habit';
 
 type Lang = 'ru' | 'en' | 'de';
 export interface QuizQuestion {
@@ -40,6 +41,7 @@ function writeQuizStore(s: QuizStore) {
   try {
     localStorage.setItem(KEY, JSON.stringify(s));
   } catch {}
+  markStudied();
 }
 
 /** Порядок вариантов на экране — перемешан, но всегда один и тот же для этого вопроса (от даты и номера). */

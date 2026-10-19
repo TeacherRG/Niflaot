@@ -7,6 +7,7 @@ import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { WeekCountdown } from './WeekCountdown';
 import { PhoneOffer } from './PhoneOffer';
+import { HabitCard } from './HabitCard';
 import { dailyNumber, grid, loadResults, streak } from '../core/daily';
 import { Icon } from './ui';
 import { NIFLAOT_LOGO } from '../core/partners';
@@ -233,6 +234,8 @@ function AdultsHome() {
             </div>
           </section>
 
+          <HabitCard />
+
           {reads.length > 0 && (
             <section className="h-section" aria-labelledby="h-week">
               <h2 id="h-week">
@@ -333,6 +336,7 @@ function KidsHome() {
               <div className="h-countdown-compact">
                 <WeekCountdown variant="compact" />
               </div>
+              <HabitCard />
               <DailyLink />
               <PhoneOffer />
             </div>
