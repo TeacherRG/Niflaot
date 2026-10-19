@@ -415,10 +415,12 @@ const en: LessonText = {
         explain: 'Why does Avraham tell Sarah “behold, I know that you are beautiful” only at the border of Egypt — after so many years together? Rashi brings explanations: until now he had not noticed it because of the modesty of them both; or: on a journey people usually lose their beauty, but Sarah kept hers; and in the plain meaning — now they are coming among strangers, and it is time to worry about her beauty. The Rebbe brings the explanation of the Baal Shem Tov: Avraham’s thoughts were always bound to G-d, and he paid no attention to outer, physical beauty — until he needed to protect Sarah from the danger of Egypt.',
         horaah: 'Keep your thoughts on what matters: on G-d and on good. Think about outer things when it is needed — to protect.',
         poem: [
-          '“Now I know you’re fair,” he said at Egypt’s gate,',
-          'Though years together came before that date.',
-          'His thoughts were always with his Maker’s light;',
-          'Outer things he saw when danger came in sight.',
+          'At Egypt’s gate he said, “Now I know you’re fair” —',
+          'Before, her beauty passed him unaware:',
+          'His thoughts held fast to G-d through all his days;',
+          'The outer caught his eye when danger crossed their ways.',
+          'So keep your mind on G-d and what is good;',
+          'Look outward just to guard — as Avraham would.',
         ],
       },
       {
