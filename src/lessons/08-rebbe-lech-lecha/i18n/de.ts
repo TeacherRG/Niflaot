@@ -415,10 +415,12 @@ const de: LessonText = {
         explain: 'Warum sagt Awraham zu Sara „sieh, ich weiß, dass du schön bist“ erst an der Grenze von Ägypten — nach so vielen Jahren zusammen? Raschi bringt Erklärungen: Bis jetzt hatte er es wegen der Bescheidenheit von ihnen beiden nicht bemerkt; oder: Auf einer Reise verlieren Menschen meist ihre Schönheit, doch Sara behielt sie; und nach dem einfachen Sinn — jetzt kommen sie zu fremden Menschen, und es ist Zeit, sich um ihre Schönheit zu sorgen. Der Rebbe bringt die Erklärung des Baal Schem Tow: Awrahams Gedanken waren immer mit G-tt verbunden, und auf äußere, körperliche Schönheit achtete er nicht — bis er Sara vor der Gefahr Ägyptens schützen musste.',
         horaah: 'Die Gedanken beim Wichtigen: bei G-tt und beim Guten. An Äußeres denken, wenn es nötig ist — um zu schützen.',
         poem: [
-          '„Jetzt weiß ich: Du bist schön“, sprach er erst dort,',
-          'An Ägyptens Grenze — erst an diesem Ort.',
+          'An Ägyptens Grenze sprach er: „Du bist schön“ —',
+          'Vorher hatte er es gar nicht gesehn:',
           'Mit G-tt war Awraham im Denken stets vereint,',
           'Sah Äußeres nur, wenn Gefahr erscheint.',
+          'Halt bei G-tt und Gutem deinen Sinn',
+          'Und schau aufs Äußere zum Schützen hin.',
         ],
       },
       {
