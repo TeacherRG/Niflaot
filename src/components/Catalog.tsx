@@ -18,7 +18,7 @@ function GameIcons({ lesson: l }: { lesson: Lesson }) {
     <span className="h-games">
       {!cardsOnly(l) && <Icon name={l.kind === 'sicha' ? 'search' : 'hash'} size={15} />}
       {(l.memo || l.cards) && <Icon name="cards" size={15} />}
-      {(l.kind !== 'sicha' || l.cards) && <Icon name="book" size={15} />}
+      <Icon name="book" size={15} />
     </span>
   );
 }
@@ -48,7 +48,7 @@ function WeekTile({ lesson: l, read }: { lesson: Lesson; read?: boolean }) {
         <span className="h-tile-sum">{text.summary}</span>
         <span className="h-tile-foot">
           <span className="h-games">
-            <Icon name="book" size={15} /> {t(l.cards ? 'cards.tabRead' : 'read.tab')}
+            <Icon name="book" size={15} /> {t(l.kind === 'sicha' ? 'cards.tabRead' : 'read.tab')}
           </span>
         </span>
       </a>
@@ -242,7 +242,7 @@ function AdultsHome() {
     document.title = `${t('home.adultsH1')} · ${t('app.title')} · MyChitas`;
   }, [t]);
   const week = LESSON_GROUPS[LESSON_GROUPS.length - 1];
-  const reads = [...week.lessons, ...week.rebbe].filter((l) => l.kind !== 'sicha' || l.cards);
+  const reads = [...week.lessons, ...week.rebbe];
   return (
     <>
       <TopBar title={t('app.title')} wide />

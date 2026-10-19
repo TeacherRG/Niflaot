@@ -39,10 +39,10 @@ export function Hero({ lesson, text, reading }: { lesson: Lesson; text: LessonTe
               {t('hero.howTo')}
             </button>
           )}
-          {!reading && (lesson.kind !== 'sicha' || lesson.cards) && (
+          {!reading && (
             <a className="btn ghost hero-help" href={`#/${lesson.slug}/read`}>
               <Icon name="book" size={18} />
-              {t(lesson.cards ? 'cards.tabRead' : 'read.tab')}
+              {t(lesson.kind === 'sicha' ? 'cards.tabRead' : 'read.tab')}
             </a>
           )}
           <a className="btn ghost hero-help" href={`#/${lesson.slug}/print`}>
