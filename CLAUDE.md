@@ -153,7 +153,11 @@
   `STATIC_PAGES`, тексты `hs.seoTitle`, `lq.seoTitle`, `lq.seoCount`.
 - **Для ИИ-помощников** (ChatGPT, Claude, Perplexity…): `/llms.txt` — карта сайта по стандарту llms.txt (что это за сайт,
   как писать Имена, лицензии текстов — Neirot только ссылкой, все страницы на трёх языках) и `/llms-full.txt` — все уроки
-  обычным текстом на ru/en/de; `robots.txt` пускает всех и называет `llms.txt`.
+  обычным текстом на ru/en/de. **Обучение ИИ — запрещено, поиск и помощники — можно** (решение владельца: разрешение Neirot —
+  на публикацию, не на обучение): `robots.txt` — `Content-Signal: search=yes, ai-input=yes, ai-train=no` и `Disallow` для
+  ботов, которые собирают тексты для обучения (`AI_TRAINING_BOTS`: GPTBot, ClaudeBot, Google-Extended, Applebot-Extended,
+  CCBot, Meta-ExternalAgent, Bytespider…); Googlebot, Bingbot, Яндекс, OAI-SearchBot, ChatGPT-User, Claude-SearchBot,
+  Claude-User, PerplexityBot — пускаются; в `llms.txt` — то же словами.
 - **Подтверждение сайта** в Google Search Console, Bing Webmaster Tools, Яндекс Вебмастере — GitHub variables
   `GOOGLE_SITE_VERIFICATION`, `BING_SITE_VERIFICATION`, `YANDEX_VERIFICATION` (код из «HTML-тега»; без них тега нет).
   **IndexNow** (Bing, Яндекс…): после каждой выкладки `deploy.yml` (job `indexnow`, не роняет деплой) отправляет все адреса

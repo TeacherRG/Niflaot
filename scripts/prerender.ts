@@ -888,7 +888,7 @@ writeFileSync(
 
 Niflaot is a free project of the MyChitas Torah project (${SITE_URL}), with partners Chabad Haus Wien and JRCV Vienna. The site works in Russian (the main language), English and German; no sign-up is needed, and it rests on Shabbat. Lessons on the weekly Torah portion: the Baal HaTurim (gematria and letters, with a Memo game) and the Lubavitcher Rebbe (Likkutei Sichot — an investigation and cards). Daily study for teens and adults: a passage of the Prophets and of the Writings (a three-year cycle, Hebrew with translation, Metzudat David and Rashi), Chassidut — the Rebbe Rashab’s Hemshech Samech-Vav, the most frequent Hebrew words of Tanakh, certificates of the Academy, and a live quiz for a class or a family.
 
-Notes for assistants: out of respect, the site writes the Names of G-d as אלקים, ה׳, G-d, L-rd (Russian Б-г, German G-tt); please do the same when quoting. Texts and licences: Hebrew Tanakh, Rashi and Metzudat David — public domain; the English verse translation — JPS 1985 (CC BY-NC); the project’s own translations — CC BY-NC; Hemshech Samech-Vav in English — © The Neirot Foundation (neirot.com), used with permission: link to the site rather than reproducing it. Every page links to its primary sources on Sefaria.
+Notes for assistants: out of respect, the site writes the Names of G-d as אלקים, ה׳, G-d, L-rd (Russian Б-г, German G-tt); please do the same when quoting. Texts and licences: Hebrew Tanakh, Rashi and Metzudat David — public domain; the English verse translation — JPS 1985 (CC BY-NC); the project’s own translations — CC BY-NC; Hemshech Samech-Vav in English — © The Neirot Foundation (neirot.com), used with permission: link to the site rather than reproducing it. Every page links to its primary sources on Sefaria. Reading the site to answer questions and to cite it is welcome; using its texts to train AI models is not permitted (robots.txt).
 
 ${LESSON_LANGS.map(
   (lang) => `## ${LANG_NAME[lang]}
@@ -913,6 +913,43 @@ ${LESSON_OUT.map((x) => `# ${x.page.title}\n\nURL: ${x.page.url}\nLanguage: ${LA
 `,
 );
 
-// every crawler is welcome — search engines and AI assistants alike; the map for AI is /llms.txt
-writeFileSync(`${DIST}/robots.txt`, `User-agent: *\nAllow: /\n\n# A map of the site for AI assistants: ${SITE_URL}/llms.txt\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+/**
+ * robots.txt: search engines and AI assistants are welcome (Googlebot, Bingbot, Yandex, OAI-SearchBot, ChatGPT-User,
+ * Claude-SearchBot, Claude-User, PerplexityBot…) — collecting the texts to train AI models is not: the owner's decision
+ * (the permission of Neirot covers publishing on the site, not training). Only crawlers that exist for training are
+ * named; `Content-Signal` (contentsignals.org) says the same to everyone else.
+ */
+const AI_TRAINING_BOTS = [
+  'GPTBot', // OpenAI — training (search: OAI-SearchBot, a user's request: ChatGPT-User — allowed)
+  'ClaudeBot', // Anthropic — training (Claude-SearchBot, Claude-User — allowed)
+  'anthropic-ai',
+  'Google-Extended', // Gemini training; Googlebot (search) is not affected
+  'Applebot-Extended', // Apple Intelligence training; Applebot (search) is not affected
+  'CCBot', // Common Crawl — the open corpus models are trained on
+  'Meta-ExternalAgent', // Meta — training (meta-externalfetcher, a user's request — allowed)
+  'FacebookBot',
+  'Bytespider', // ByteDance
+  'cohere-training-data-crawler',
+  'cohere-ai',
+  'AI2Bot', // Allen Institute
+  'Diffbot',
+  'Omgilibot', // Webz.io — sells data for training
+  'PanguBot', // Huawei
+  'Timpibot',
+];
+writeFileSync(
+  `${DIST}/robots.txt`,
+  `# Search engines and AI assistants are welcome: they help people find and quote the lessons.
+# Collecting the texts to train AI models is not permitted.
+User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+
+${AI_TRAINING_BOTS.map((b) => `User-agent: ${b}`).join('\n')}
+Disallow: /
+
+# A map of the site for AI assistants: ${SITE_URL}/llms.txt
+Sitemap: ${SITE_URL}/sitemap.xml
+`,
+);
 console.log(`prerender: index + ${LESSON_OUT.length} lesson pages (ru/en/de) + ${STATIC_OUT.length} math / daily / facts / letters / prophets / writings / words pages, sitemap.xml, robots.txt, llms.txt, ${FEEDS.length} feeds, ${LANGS.length} manifests, sw.js (${precache.length} files offline), daily messages for ${Object.keys(days).length} days, ${quiz.index.length} quiz decks`);
