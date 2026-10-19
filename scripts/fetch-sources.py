@@ -65,11 +65,13 @@ def rashi(ch, v, k, de_k=None):
 BOOK = {
     'Genesis': ('Tanakh/Torah/Genesis/', 'Берешит', 'Torah'),
     'Exodus': ('Tanakh/Torah/Exodus/', 'Шмот', 'Torah'),
+    'Leviticus': ('Tanakh/Torah/Leviticus/', 'Ваикра', 'Torah'),
     'Numbers': ('Tanakh/Torah/Numbers/', 'Бемидбар', 'Torah'),
     'Deuteronomy': ('Tanakh/Torah/Deuteronomy/', 'Дварим', 'Torah'),
     'Ezekiel': ('Tanakh/Prophets/Ezekiel/', 'Йехезкель', 'Prophets'),
     'Amos': ('Tanakh/Prophets/Amos/', 'Амос', 'Prophets'),
     'I Chronicles': ('Tanakh/Writings/I Chronicles/', 'Диврей ґа-ямим I', 'Writings'),
+    'II Samuel': ('Tanakh/Prophets/II Samuel/', 'Шмуэль II', 'Prophets'),
     'I Kings': ('Tanakh/Prophets/I Kings/', 'Млахим I', 'Prophets'),
     'II Kings': ('Tanakh/Prophets/II Kings/', 'Млахим II', 'Prophets'),
     'Isaiah': ('Tanakh/Prophets/Isaiah/', 'Йешаяґу', 'Prophets'),
@@ -83,8 +85,10 @@ BOOK = {
     'Yevamot': ('Talmud/Bavli/Seder Nashim/Yevamot/', 'Йевамот', 'Talmud'),
     'Chullin': ('Talmud/Bavli/Seder Kodashim/Chullin/', 'Хулин', 'Talmud'),
     'Sukkah': ('Talmud/Bavli/Seder Moed/Sukkah/', 'Сукка', 'Talmud'),
+    'Chagigah': ('Talmud/Bavli/Seder Moed/Chagigah/', 'Хагига', 'Talmud'),
     'Megillah': ('Talmud/Bavli/Seder Moed/Megillah/', 'Мегила', 'Talmud'),
     'Ketubot': ('Talmud/Bavli/Seder Nashim/Ketubot/', 'Ктубот', 'Talmud'),
+    'Bava Metzia': ('Talmud/Bavli/Seder Nezikin/Bava Metzia/', 'Бава Мециа', 'Talmud'),
     'Sanhedrin': ('Talmud/Bavli/Seder Nezikin/Sanhedrin/', 'Санедрин', 'Talmud'),
     'Niddah': ('Talmud/Bavli/Seder Tahorot/Niddah/', 'Нида', 'Talmud'),
 }
@@ -290,6 +294,34 @@ SOURCES = {
                  'Chasidut/Chabad/Tanya/Hebrew/Kehot Publication Society.json',
                  'Chasidut/Chabad/Tanya/English/Kehot Publication Society English Translation.json', None,
                  ['Part I; Likkutei Amarim', '', 35, 0]),
+    # «Нифлаот Ребе» · Лех леха: «Буква, которая не ушла» (Ликутей сихот, т. 25, Лех леха 3)
+    # и «Три жертвенника» (т. 30, Лех леха 1)
+    'gen-17-5': ('Genesis', 17, 5, 5),
+    'rashi-17-5': rashi(17, 5, 0),
+    'gen-17-15': ('Genesis', 17, 15, 15),
+    'rashi-17-15': rashi(17, 15, 0),
+    'numbers-13-16': ('Numbers', 13, 16, 16),
+    'berakhot-13a': ('Berakhot', '13a', 4, 6),
+    'gen-21-12': ('Genesis', 21, 12, 12),
+    'gen-3-16': ('Genesis', 3, 16, 16),
+    'bava-metzia-71a': ('Bava Metzia', '71a', 2, 2),
+    'gen-12-7': ('Genesis', 12, 7, 7),
+    'gen-12-8': ('Genesis', 12, 8, 8),
+    'gen-12-9': ('Genesis', 12, 9, 9),
+    'gen-13-17': ('Genesis', 13, 14, 17),
+    'gen-13-18': ('Genesis', 13, 18, 18),
+    'rashi-12-7': rashi(12, 7, 0),
+    'rashi-12-8': rashi(12, 8, 3),
+    'bereshit-rabbah-39-16': rabbah('Bereshit Rabbah', 'Берешит Раба', 'Bereshit Rabbah', 'Bereschit Rabba', 39, 16, BR_DE),
+    'tanchuma-lech-lecha-9': ('custom', 'Мидраш Танхума, Лех леха 9', 'Midrash Tanchuma, Lech Lecha 9', 'Midrasch Tanchuma, Lech Lecha 9', 'Midrash Tanchuma, Lech Lecha 9:3', 'Midrash',
+                              'Midrash/Aggadah/Midrash Tanchuma/Hebrew/Midrash Tanchuma -- Torat Emet.json',
+                              'Midrash/Aggadah/Midrash Tanchuma/English/Midrash Tanhuma-Yelammedenu, trans. Samuel A. Berman.json', None, ['Lech Lecha', 8, 2]),
+    'ketubot-10b': ('Ketubot', '10b', 11, 11),
+    'lev-18-5': ('Leviticus', 18, 5, 5),
+    'chagigah-2a': ('Chagigah', '2a', 5, 5),
+    'isaiah-52-8': ('Isaiah', 52, 8, 8),
+    'samuel2-5-3': ('II Samuel', 5, 3, 3),
+    'ezekiel-37-24': ('Ezekiel', 37, 24, 25),
 }
 
 # Misprints of an edition, corrected in the Hebrew (shown on the site as «исправлена опечатка: X → Y»):
@@ -306,10 +338,10 @@ KIND = {
 EN_BOOK = {'I Kings': 'I Kings', 'II Kings': 'II Kings'}
 KIND_DE = {'Torah': 'Tora', 'Prophets': 'Propheten', 'Writings': 'Schriften', 'Talmud': 'Gemara', 'Midrash': 'Midrasch', 'Chasidut': 'Chassidut', 'Zohar': 'Sohar', 'Commentary': 'Kommentar', 'Targum': 'Targum'}
 DE_NAME = {
-    'Genesis': 'Bereschit', 'Exodus': 'Schemot', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Dewarim', 'Ezekiel': 'Jecheskel', 'Amos': 'Amos', 'I Chronicles': 'Diwre HaJamim I',
-    'I Kings': 'I Könige', 'II Kings': 'Melachim II', 'Isaiah': 'Jeschajahu', 'Micah': 'Micha', 'Psalms': 'Tehillim', 'Job': 'Ijob', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
+    'Genesis': 'Bereschit', 'Exodus': 'Schemot', 'Leviticus': 'Wajikra', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Dewarim', 'Ezekiel': 'Jecheskel', 'Amos': 'Amos', 'I Chronicles': 'Diwre HaJamim I',
+    'II Samuel': 'Schmuel II', 'I Kings': 'I Könige', 'II Kings': 'Melachim II', 'Isaiah': 'Jeschajahu', 'Micah': 'Micha', 'Psalms': 'Tehillim', 'Job': 'Ijob', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
     'Berakhot': 'Berachot', 'Shabbat': 'Schabbat', 'Yevamot': 'Jewamot', 'Chullin': 'Chullin',
-    'Sukkah': 'Sukka', 'Megillah': 'Megilla', 'Ketubot': 'Ketubbot', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda',
+    'Sukkah': 'Sukka', 'Chagigah': 'Chagiga', 'Megillah': 'Megilla', 'Ketubot': 'Ketubbot', 'Bava Metzia': 'Bawa Mezia', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda',
 }
 
 _cache = {}

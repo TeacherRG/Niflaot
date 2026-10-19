@@ -6,7 +6,8 @@
  * - a Baal HaTurim lesson («Читать», ReadPage.tsx): the choice steps of every riddle (`t: 'ch'`) — which word or
  *   phrase the commentator found; the answer is in the text of the chapter, no counting needed;
  * - a «Нифлаот Ребе» lesson («Прочитать», CardsReadPage.tsx): for every pair — «к какому стиху это объяснение?»:
- *   the Rebbe's explanation and four verses of the lesson's cards (the right one and three others).
+ *   the Rebbe's explanation and four verses of the lesson's cards (the right one and three others);
+ *   a «Нифлаот Ребе» lesson without cards yet — the choice steps of its investigation, at the end of each chapter of «Беседа».
  *
  * Each question is answered once (like «Вопросы к отрывку»). Answers: localStorage `niflaot:torah-read`
  * = { [slug]: { [question key]: picked option } }, synced with the account (src/core/sync.ts).
@@ -57,7 +58,7 @@ export function readQuestions(lesson: Lesson): ReadQuestion[] {
     if (n < 4) return [];
     return lesson.cards.items.map((_, k) => ({ key: `c${k}`, card: k, ...cardOptions(lesson.slug, k, n) }));
   }
-  if (lesson.kind === 'sicha') return [];
+  // a «Нифлаот Ребе» lesson without cards asks the choice steps of its investigation, like a gematria lesson
   const out: ReadQuestion[] = [];
   lesson.riddles.forEach((r, ri) =>
     r.steps.forEach((s, si) => {

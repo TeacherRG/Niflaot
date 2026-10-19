@@ -153,7 +153,6 @@ if (rd.a !== 100 || rd.b !== -300 || rd.c !== 5 || rd.d !== 7) err('sync: «Я �
 /* «Проверь себя»: the reader's way to a Torah certificate */
 let readQs = 0;
 for (const l of LESSONS) {
-  if (l.kind === 'sicha' && !l.cards) continue;
   const qs = readQuestions(l);
   readQs += qs.length;
   if (qs.length < 3) err(`${l.slug}: «Проверь себя» — меньше 3 вопросов (${qs.length}): сертификат за чтение будет слишком лёгким`);

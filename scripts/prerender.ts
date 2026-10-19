@@ -177,7 +177,7 @@ ${LESSON_GROUPS.map(
 ).join('\n')}
 <h2>${esc(ui['wing.adults'] as string)}: ${esc(ui['home.adultsTitle'] as string)}</h2>
 <p>${esc(ui['wing.adultsSub'] as string)}. <a href="./#/neviim">${esc(ui['tanakh.neviim'] as string)}</a> · <a href="./#/ketuvim">${esc(ui['tanakh.ketuvim'] as string)}</a> · <a href="./hebrew-words/">${esc(ui['words.seoShort'] as string)}</a></p>
-<p>${esc(ui['menu.torahRead'] as string)}: ${LESSONS.filter((l) => l.kind !== 'sicha' || l.cards)
+<p>${esc(ui['menu.torahRead'] as string)}: ${LESSONS
   .map((l) => `<a href="./#/${l.slug}/read">${esc(text(l).title)}</a>`)
   .join(' · ')}</p>
 <h2>${esc(ui['catalog.tags'] as string)}</h2>

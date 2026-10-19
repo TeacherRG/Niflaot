@@ -21,6 +21,11 @@ export function lessonGames(lesson: Lesson) {
       { href: `#/${lesson.slug}/memo`, icon: '🃏', label: 'memo.tabMemo' },
       read,
     ] as const;
-  if (lesson.kind === 'sicha') return null;
+  // a «Нифлаот Ребе» lesson without cards yet: the investigation and «Прочитать» (the talk)
+  if (lesson.kind === 'sicha')
+    return [
+      { href: `#/${lesson.slug}`, icon: '🔎', label: 'cards.tabLesson' },
+      { href: `#/${lesson.slug}/read`, icon: '📖', label: 'cards.tabRead' },
+    ] as const;
   return [{ href: `#/${lesson.slug}`, icon: '🔢', label: 'memo.tabGematria' }, read] as const;
 }

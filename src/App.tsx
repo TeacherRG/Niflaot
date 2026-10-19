@@ -212,12 +212,12 @@ function Site() {
             <CardsPage key={lesson.slug} lesson={lesson} cards={lesson.cards} />
           ) : view === 'memo' && lesson.memo ? (
             <MemoPage key={lesson.slug} lesson={lesson} memo={lesson.memo} at={Number(variant) || undefined} />
-          ) : view === 'read' && lesson.cards ? (
+          ) : view === 'read' && lesson.kind === 'sicha' ? (
             <CardsReadPage
               key={lesson.slug}
               lesson={lesson}
               cards={lesson.cards}
-              mode={variant === 'poem' ? ('poem' as const) : variant === 'cards' || !lesson.riddles.length ? ('read' as const) : ('talk' as const)}
+              mode={!lesson.cards ? ('talk' as const) : variant === 'poem' ? ('poem' as const) : variant === 'cards' || !lesson.riddles.length ? ('read' as const) : ('talk' as const)}
             />
           ) : view === 'read' && lesson.kind !== 'sicha' ? (
             <ReadPage key={lesson.slug} lesson={lesson} at={Number(variant) || undefined} />

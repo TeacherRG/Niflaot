@@ -8388,5 +8388,1048 @@
     "source": "http://kehot.com"
    }
   }
+ },
+ "gen-17-5": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 17:5",
+   "en": "Genesis 17:5",
+   "de": "Bereschit 17,5"
+  },
+  "ref": "Genesis 17:5",
+  "url": "https://www.sefaria.org/Genesis_17.5",
+  "he": [
+   "ולא יקרא עוד את שמך אברם והיה שמך אברהם כי אב המון גוים נתתיך"
+  ],
+  "en": [
+   "Neither shall thy name any more be called Abram, but thy name shall be Abraham; for the father of a multitude of nations have I made thee."
+  ],
+  "ru": [
+   "И не будут тебя звать больше по имени Аврам, но Авраам, ибо отцом множества народов сделал я тебя."
+  ],
+  "de": [
+   "und nicht mehr soll man dich Abram nennen, sondern Abraham soll dein Name sein; denn zum Vater der wogenden Menge der Völker habe ich dich bestimmt."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-17-5": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 17:5",
+   "en": "Rashi, Genesis 17:5",
+   "de": "Raschi, Bereschit 17,5"
+  },
+  "ref": "Rashi on Genesis 17:5:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_17.5.1",
+  "he": [
+   "<b>כי אב המון גוים.</b> לְשׁוֹן נוֹטָרִיקוֹן שֶׁל שְׁמוֹ; וְרֵי\"ש שֶׁהָיְתָה בוֹ בַּתְּחִלָּה, שֶׁלֹּא הָיָה אָב אֶלָּא לַאֲרָם שֶׁהוּא מְקוֹמוֹ וְעַכְשָׁו אָב לְכָל הָעוֹלָם, לֹא זָזָה מִמְּקוֹמָהּ, שֶׁאַף יוֹ\"ד שֶׁל שָׂרַי נִתְרָעֲמָה עַל הַשְּׁכִינָה עַד שֶׁנִּתּוֹסְפָה לִיהוֹשֻׁעַ, שֶׁנֶּאֱמַר וַיִּקְרָא מֹשֶׁה לְהוֹשֵׁעַ בִּן נוּן יְהוֹשֻׁעַ (במדבר י\"ג):"
+  ],
+  "en": [
+   "כי אב המון גוים FOR A FATHER OF A MULTIDUDE OF NATIONS — An acrostic on his name [אב (ר) הם]. But the ר which was previously in his name — denoting that he was the father (chieftain) only of אב (א) רם] ארם] which was his native country (cf. Genesis 21:7 with verse Genesis 21:10 of the same chapter), whilst now he became father of the entire world — nevertheless was not taken out of his name. For we find also, that the 'י in Sarai’s name continued to complain to G-d that it had been removed from her name when this was changed to Sarah, until it was placed as an additional letter into the name יהושע, as it is said, (Numbers 13:16) “And Moses called Hoshea (הושע) the son of Nun, Joshua (יהושע)” (Genesis Rabbah 47:1)."
+  ],
+  "de": [
+   "<b>Denn zum Vater der Fülle der Völker,</b> ist die Deutung einer Abkürzung, die sein Namen enthält; das Resch, das vorher darin war, solange er nur der Vater von Aram, seiner Heimat, war, während er jetzt der Vater der ganzen Welt geworden war, wich nicht von seiner Stelle (Berach. 13a); denn auch das Jud von Sarai beklagte sich vor dem Ewigen, bis Er es Joschua hinzufügte, wie es heißt (Num. 13,16) »Mosche nannte Hoschea b. Nun Jehoschua« (Bereschit Rabbah 47:1, Sanhedrin 107a)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "gen-17-15": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 17:15",
+   "en": "Genesis 17:15",
+   "de": "Bereschit 17,15"
+  },
+  "ref": "Genesis 17:15",
+  "url": "https://www.sefaria.org/Genesis_17.15",
+  "he": [
+   "ויאמר אלקים אל אברהם שרי אשתך לא תקרא את שמה שרי כי שרה שמה"
+  ],
+  "en": [
+   "And G-d said unto Abraham: ‘As for Sarai thy wife, thou shalt not call her name Sarai, but Sarah shall her name be."
+  ],
+  "ru": [
+   "И сказал Б-г Аврааму: Сарай, жена твоя — не называй ее (больше) именем Сарай, но Сара имя ее."
+  ],
+  "de": [
+   "Es sprach G-tt ferner zu Abraham: Deine Frau Sarai sollst du nicht Sarai nennen, denn Sara ist ihr Name."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-17-15": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 17:15",
+   "en": "Rashi, Genesis 17:15",
+   "de": "Raschi, Bereschit 17,15"
+  },
+  "ref": "Rashi on Genesis 17:15:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_17.15.1",
+  "he": [
+   "<b>לא תקרא את שמה שרי.</b> דְּמַשְׁמַע שָׂרַי, לִי וְלֹא לְאַחֵרִים, <b>כי שרה</b> סְתָם שְׁמָהּ, שֶׁתְּהֵא שָׂרָה עַל כֹּל (ברכות י\"ג):"
+  ],
+  "en": [
+   "לא תקרא את שמה שרי THOU SHALT NOT CALL HER NAME SARAI which means “my princess”— a princess to me and not to others — BUT SARAH, in a more general sense, SHALL BE HER NAME: she shall be princess over all (Berakhot 13a)."
+  ],
+  "de": [
+   "<b>Nenne sie nicht Sarai,</b> שָׂרַי das bedeutet, meine Fürstin, für mich, aber nicht über andere, sondern Sara (Fürstin) ohne Einschränkung sei ihr Name, sie sei die Fürstin שָׂרָה über alle (Bereschit Rabbah)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "numbers-13-16": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Бемидбар 13:16",
+   "en": "Numbers 13:16",
+   "de": "Bamidbar 13,16"
+  },
+  "ref": "Numbers 13:16",
+  "url": "https://www.sefaria.org/Numbers_13.16",
+  "he": [
+   "אלה שמות האנשים אשר שלח משה לתור את הארץ ויקרא משה להושע בן נון יהושע"
+  ],
+  "en": [
+   "These are the names of the men that Moses sent to spy out the land. And Moses called Hoshea the son of Nun Joshua."
+  ],
+  "ru": [
+   "Это имена людей, которых Моше отправил исследовать страну, а Ошеа, сына Нуна, Моше назвал Йеошуа."
+  ],
+  "de": [
+   "Dies sind die Namen der Männer, welche Mosche entsandte, das Land zu erforschen. Es nannte dabei Mosche Hoschea, Sohn Nuns: Jehoschua."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "unknown",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "berakhot-13a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Брахот 13а",
+   "en": "Berakhot 13a",
+   "de": "Berachot 13a"
+  },
+  "ref": "Berakhot 13a:5-7",
+  "url": "https://www.sefaria.org/Berakhot_13a.5-7",
+  "he": [
+   "בתחלה נעשה אב לארם ולבסוף נעשה אב לכל העולם כולו",
+   "שרי היא שרה",
+   "בתחלה נעשית שרי לאומתה ולבסוף נעשית שרה לכל העולם כולו:"
+  ],
+  "en": [
+   "The Gemara explains: <b>Initially he became a father,</b> a minister, and prominent person, only <b>to Aram,</b> so he was called Abram, father [av] of Aram, <b>and ultimately</b> with G-d’s blessing <b>he became the father of the entire world,</b> so he was called Abraham, father of the masses [<i>av hamon</i>], as it is stated: “I have made you the father of a multitude of nations” (Genesis 17:5).",
+   "Similarly, what is the meaning of changing Sarai’s name to Sarah? The same concept applies to Sarai as to Abram: <b>Sarai is Sarah.”</b>",
+   "The Gemara explains: <b>Initially she was a princess</b> only <b>to her nation:</b> My princess [<i>Sarai</i>], <b>but ultimately she became Sarah,</b> a general term indicating that she was princess <b>for the entire world.</b>"
+  ],
+  "de": [
+   "Vorher war er Vater von Aram, später wurde er Vater der ganzen Welt.",
+   "Saraj, das ist Sarah.",
+   "Vorher war sie Fürstin ihres Stammes, später wurde sie Fürstin der ganzen Welt."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://www.korenpub.com/koren_en_usd/koren/talmud/koren-talmud-bavli-no/mskt-brkvt.html"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "gen-21-12": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 21:12",
+   "en": "Genesis 21:12",
+   "de": "Bereschit 21,12"
+  },
+  "ref": "Genesis 21:12",
+  "url": "https://www.sefaria.org/Genesis_21.12",
+  "he": [
+   "ויאמר אלקים אל אברהם אל ירע בעיניך על הנער ועל אמתך כל אשר תאמר אליך שרה שמע בקלה כי ביצחק יקרא לך זרע"
+  ],
+  "en": [
+   "And G-d said unto Abraham: ‘Let it not be grievous in thy sight because of the lad, and because of thy bondwoman; in all that Sarah saith unto thee, hearken unto her voice; for in Isaac shall seed be called to thee."
+  ],
+  "ru": [
+   "И сказал Б-г Аврааму: не огорчайся из-за юноши и из-за служанки; все, что говорит тебе Сара, — слушайся ее, ибо в Йицхаке наречется тебе потомство."
+  ],
+  "de": [
+   "Da sprach G-tt zu Abraham: Lasse es in deinen Augen nicht böse sein um den Knaben und um deine Magd, alles, was dir Sara sagt, gehorche ihrer Stimme, denn in Jizchak wird dir Samen genannt werden."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-ohr-lech-lecha": {
+  "kind": {
+   "ru": "Хасидут",
+   "en": "Chassidut",
+   "de": "Chassidut"
+  },
+  "title": {
+   "ru": "Тора ор, Лех леха",
+   "en": "Torah Ohr, Lech Lecha",
+   "de": "Tora Or, Lech Lecha"
+  },
+  "ref": "Torah Ohr, Lech Lecha 1:2",
+  "url": "https://www.sefaria.org/Torah_Ohr,_Lech_Lecha_1.2",
+  "he": [
+   "<b>הנה</b> אברם הוא השכל הנעלם מכל רעיון א\"ב ר\"ם וצ\"ל בבחי' גילוי דהיינו להיות סדר השתלשלות מבחי' חכים ולא בחכמה ידיעה בבחי' ירידה ממדרגה למדרגה עד סוף כו' והתכלית הוא להיות גילוי בבי\"ע ג\"ע עליון ותחתון תענוג הנבראים שיוכלו לקבל גילוי התענוג כו'."
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "Kehot Publication Society",
+    "license": "CC-BY-NC",
+    "source": "http://kehot.com"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bava-metzia-71a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Бава Мециа 71а",
+   "en": "Bava Metzia 71a",
+   "de": "Bawa Mezia 71a"
+  },
+  "ref": "Bava Metzia 71a:3",
+  "url": "https://www.sefaria.org/Bava_Metzia_71a.3",
+  "he": [
+   "איכא דמתני לה להא דרב הונא אהא דתני רב יוסף אם כסף תלוה את עמי את העני עמך עמי ונכרי עמי קודם עני ועשיר עני קודם ענייך ועניי עירך ענייך קודמין עניי עירך ועניי עיר אחרת עניי עירך קודמין"
+  ],
+  "en": [
+   "<b>There are</b> those <b>who teach that which Rav Huna</b> said in connection with <b>that which Rav Yosef taught:</b> The verse states: <b>“If you lend money to any of My people, even to the poor person who is with you”</b> (Exodus 22:24). The term “My people” teaches that if one of <b>My people,</b> i.e., a Jew, <b>and a gentile</b> both come to borrow money from you, <b>My people take precedence.</b> The term “the poor person” teaches that if <b>a poor person and a rich person</b> come to borrow money, <b>the poor person takes precedence.</b> And from the term: “Who is with you,” it is derived: If <b>your poor person,</b> meaning one of your relatives, <b>and</b> one of <b>the poor of your city</b> come to borrow money, <b>your poor person takes precedence.</b> If it is between one of <b>the poor of your city and</b> one of <b>the poor of another city, the</b> one of <b>the poor of your city takes precedence.</b>"
+  ],
+  "de": [
+   "Manche beziehen die Erklärung R. Honas auf folgende Lehre R. Josephs:<i>Wenn du Geld leihst jemand aus meinem Volke, einem Armen, der bei dir wohnt;</i> von einem aus meinem Volke und einen Nichtjuden geht der aus meinem Volke vor; von einem Armen und einem Reichen geht der Arme vor; von deinen Armen und den Armen deiner Stadt gehen deine Armen vor; von den Armen deiner Stadt und den Armen einer anderen Stadt gehen die Armen deiner Stadt vor."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "gen-12-7": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 12:7",
+   "en": "Genesis 12:7",
+   "de": "Bereschit 12,7"
+  },
+  "ref": "Genesis 12:7",
+  "url": "https://www.sefaria.org/Genesis_12.7",
+  "he": [
+   "וירא ה׳ אל אברם ויאמר לזרעך אתן את הארץ הזאת ויבן שם מזבח לה׳ הנראה אליו"
+  ],
+  "en": [
+   "And the L-rd appeared unto Abram, and said: ‘Unto thy seed will I give this land’; and he builded there an altar unto the L-rd, who appeared unto him."
+  ],
+  "ru": [
+   "И явился Г-сподь Авраму, и сказал: твоему потомству даю я эту страну, и (Аврам) построил там жертвенник Г-споду, явившемуся ему."
+  ],
+  "de": [
+   "Da ward <i>G-tt</i> dem Abram sichtbar und sprach: Deinem Samen gebe ich dieses Land. Da baute er dort <i>G-tt</i> einen Altar, der ihm sichtbar geworden."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-12-8": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 12:8",
+   "en": "Genesis 12:8",
+   "de": "Bereschit 12,8"
+  },
+  "ref": "Genesis 12:8",
+  "url": "https://www.sefaria.org/Genesis_12.8",
+  "he": [
+   "ויעתק משם ההרה מקדם לבית אל ויט אהלה בית אל מים והעי מקדם ויבן שם מזבח לה׳ ויקרא בשם ה׳"
+  ],
+  "en": [
+   "And he removed from thence unto the mountain on the east of Beth-el, and pitched his tent, having Beth-el on the west, and Ai on the east; and he builded there an altar unto the L-rd, and called upon the name of the L-rd."
+  ],
+  "ru": [
+   "И двинулся оттуда в горы к востоку от Бет-Эля, и поставил шатер свой — Бет-Эль с запада, а Ай с востока, и построил там жертвенник Г-споду, и призвал имя Г-спода."
+  ],
+  "de": [
+   "Er ließ von dort aufbrechen zum Gebirge hin, Bet-El zu Osten, und spannte dort sein Zelt; er hatte Bet-El in Westen und Ai in Osten; er baute dort G-tt einen Altar und rief im Namen <i>G-ttes</i>."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-12-9": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 12:9",
+   "en": "Genesis 12:9",
+   "de": "Bereschit 12,9"
+  },
+  "ref": "Genesis 12:9",
+  "url": "https://www.sefaria.org/Genesis_12.9",
+  "he": [
+   "ויסע אברם הלוך ונסוע הנגבה"
+  ],
+  "en": [
+   "And Abram journeyed, going on still toward the South."
+  ],
+  "ru": [
+   "И отправился Аврам дальше в Негев."
+  ],
+  "de": [
+   "Abram brach auf und zog immer mehr gen Süden."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-13-17": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 13:14–17",
+   "en": "Genesis 13:14–17",
+   "de": "Bereschit 13,14–17"
+  },
+  "ref": "Genesis 13:14-17",
+  "url": "https://www.sefaria.org/Genesis_13.14-17",
+  "he": [
+   "וה׳ אמר אל אברם אחרי הפרד לוט מעמו שא נא עיניך וראה מן המקום אשר אתה שם צפנה ונגבה וקדמה וימה",
+   "כי את כל הארץ אשר אתה ראה לך אתננה ולזרעך עד עולם",
+   "ושמתי את זרעך כעפר הארץ אשר אם יוכל איש למנות את עפר הארץ גם זרעך ימנה",
+   "קום התהלך בארץ לארכה ולרחבה כי לך אתננה"
+  ],
+  "en": [
+   "And the L-rd said unto Abram, after that Lot was separated from him: ‘Lift up now thine eyes, and look from the place where thou art, northward and southward and eastward and westward;",
+   "for all the land which thou seest, to thee will I give it, and to thy seed for ever.",
+   "And I will make thy seed as the dust of the earth; so that if a man can number the dust of the earth, then shall thy seed also be numbered.",
+   "Arise, walk through the land in the length of it and in the breadth of it; for unto thee will I give it.’"
+  ],
+  "ru": [
+   "И Г-сподь сказал Авраму после того, как он расстался с Лотом: подними глаза и взгляни с того места, где ты сейчас находишься, на север, на юг, на восток и на запад.",
+   "Потому что всю землю, которую ты видишь, тебе даю я и твоему потомству навеки.",
+   "И сделаю твое потомство как пыль земная — если кто может сосчитать пыль земную, то и твое потомство можно пересчитать.",
+   "Встань, пройди по стране вдоль и вширь, потому что тебе даю я ее."
+  ],
+  "de": [
+   "und <i>G-tt</i> hatte, nachdem Lot von ihm geschieden war, zu Abram gesprochen: Hebe doch deine Augen auf und siehe von dem Orte, wo du bist, nordwärts und südwärts, gen Osten und Westen;",
+   "denn das ganze Land, das du siehst, ich gebe es dir, und deinem Samen auf immer;",
+   "ich mache deinen Samen wie Staub der Erde, daß, wenn jemand den Staub der Erde zählen kann, auch dein Same gezählt werden solle;",
+   "stehe darum auf, gehe hinein in das Land, der Länge nach und der Breite, denn dir gebe ich es —:"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-13-18": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 13:18",
+   "en": "Genesis 13:18",
+   "de": "Bereschit 13,18"
+  },
+  "ref": "Genesis 13:18",
+  "url": "https://www.sefaria.org/Genesis_13.18",
+  "he": [
+   "ויאהל אברם ויבא וישב באלני ממרא אשר בחברון ויבן שם מזבח לה׳"
+  ],
+  "en": [
+   "And Abram moved his tent, and came and dwelt by the terebinths of Mamre, which are in Hebron, and built there an altar unto the L-rd."
+  ],
+  "ru": [
+   "И передвинул Аврам шатры, и пришел, и поселился в дубраве Мамре, что в Хевроне, и построил там жертвенник Г-споду."
+  ],
+  "de": [
+   "da setzte Abram seine Zelte und ging ein und ließ sich in den Hainen Mamres, die in Chebron waren, nieder und baute dort <i>G-tt</i> einen Altar."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-12-7": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 12:7",
+   "en": "Rashi, Genesis 12:7",
+   "de": "Raschi, Bereschit 12,7"
+  },
+  "ref": "Rashi on Genesis 12:7:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_12.7.1",
+  "he": [
+   "<b>ויבן שם מזבח.</b> עַל בְּשׂוֹרַת הַזֶּרַע וְעַל בְּשׂוֹרַת אֶרֶץ יִשְׂרָאֵל:"
+  ],
+  "en": [
+   "ויבן שם מזבח AND HE BUILDED THERE AN ALTAR — in thanksgiving for the good tidings that he would have children, and for the good tidings that they would possess the land of Israel."
+  ],
+  "de": [
+   "<b>Er baute dort einen Altar,</b> für die Verheißung der Nachkommenschaft und die Verheißung des Landes Israel."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-12-8": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 12:8",
+   "en": "Rashi, Genesis 12:8",
+   "de": "Raschi, Bereschit 12,8"
+  },
+  "ref": "Rashi on Genesis 12:8:4",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_12.8.4",
+  "he": [
+   "<b>ויבן שם מזבח.</b> נִתְנַבֵּא שֶׁעֲתִידִין בָּנָיו לְהִכָּשֵׁל שָׁם עַל עֲוֹן עָכָן, וְהִתְפַּלֵּל שָׁם עֲלֵיהֶם:"
+  ],
+  "en": [
+   "ויבן שם מזבח AND HE BUILDED THERE AN ALTAR — He perceived by the gift of prophecy that his descendants would once stumble (fall into sin) there through Achan’s transgression (see, Joshua 7): therefore he prayed there for them (Genesis Rabbah 39:15)."
+  ],
+  "de": [
+   "<b>Und baute dort einen Altar,</b> er weissagte, dass seine Kinder dort durch die Schuld Achans straucheln würden, und betete dort für sie (Bereschit Rabbah 39:15)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "bereshit-rabbah-39-16": {
+  "kind": {
+   "ru": "Мидраш",
+   "en": "Midrash",
+   "de": "Midrasch"
+  },
+  "title": {
+   "ru": "Берешит Раба 39:16",
+   "en": "Bereshit Rabbah 39:16",
+   "de": "Bereschit Rabba 39,16"
+  },
+  "ref": "Bereshit Rabbah 39:16",
+  "url": "https://www.sefaria.org/Bereshit_Rabbah_39.16",
+  "he": [
+   "וַיִּבֶן שָׁם מִזְבֵּחַ לַה' (בראשית יב, ח), אָמַר רַבִּי אֶלְעָזָר שְׁלשָׁה מִזְבְּחוֹת בָּנָה, אֶחָד לִבְשׂוֹרַת אֶרֶץ יִשְׂרָאֵל, וְאֶחָד לְקִנְיָנָהּ, וְאֶחָד שֶׁלֹא יִפְּלוּ בָנָיו, הֲדָא הוּא דִכְתִיב (יהושע ז, ו): וַיִּקְרַע יְהוֹשֻׁעַ שִׂמְלֹתָיו וַיִּפֹּל עַל פָּנָיו אַרְצָה לִפְנֵי אֲרוֹן ה' עַד הָעֶרֶב הוּא וְזִקְנֵי יִשְׂרָאֵל וַיַּעֲלוּ עָפָר עַל רֹאשָׁם, אָמַר רַבִּי אֶלְעָזָר בֶּן שַׁמּוּעַ הִתְחִילוּ מַזְכִּירִים זְכוּתוֹ שֶׁל אַבְרָהָם אָבִינוּ, שֶׁנֶּאֱמַר (בראשית יח, כז): וְאָנֹכִי עָפָר וָאֵפֶר, כְּלוּם בָּנָה אַבְרָהָם מִזְבֵּחַ בָּעַי אֶלָּא שֶׁלֹא יִפְּלוּ בָנָיו בָּעָי. (בראשית יב, ח): וַיִּקְרָא בְּשֵׁם ה', מְלַמֵּד שֶׁהִקְרִיא שְׁמוֹ שֶׁל הַקָּדוֹשׁ בָּרוּךְ הוּא בְּפִי כָּל בְּרִיָה. דָּבָר אַחֵר, וַיִּקְרָא, הִתְחִיל מְגַיֵּר גֵּרִים וּלְהַכְנִיסָם תַּחַת כַּנְפֵי הַשְּׁכִינָה. (בראשית יב, ט): וַיִּסַּע אַבְרָם הָלוֹךְ וְנָסוֹעַ הַנֶּגְבָּה, מְחַקֶּה וְהוֹלֵךְ וּמְכַוֵּן כְּנֶגֶד בֵּית הַמִּקְדָּשׁ."
+  ],
+  "en": [
+   "“He built an altar to the L-rd there” – Rabbi Elazar said: He built three altars; one for the good tidings of [being granted] the Land of Israel, one for its acquisition, and one so his descendants would not fall [in battle]. That is what is written [concerning the battle of Ai]: “Joshua rent his garments, fell on his face to the ground before the Ark of the L-rd until the evening, he and the elders of Israel, and they put dust on their heads” (Joshua 7:6). Rabbi Elazar ben Shamua said: They began evoking the merit of Abraham our forefather, as it is stated: “I am dust and ashes” (Genesis 18:27). Did Abraham not build an altar in Ai specifically so that his descendants should not fall [in battle] at Ai? “And proclaimed [<i>vayikra</i>] the name of the L-rd” – this teaches that he caused all the people to proclaim the name of the L-rd. <i>Vayikra </i>– he began converting proselytes to bring them under the wings of the Divine Presence. <b>“Abram journeyed, steadily journeying to the Negev” (Genesis 12:9).</b> “Abram journeyed, steadily journeying to the Negev” – he directed his attention and charted his path toward the site of the Temple."
+  ],
+  "de": [
+   "Er baute daselbst einen Altar. Nach R. Eleasar errichtete er drei Altäre, einen wegen der guten Nachricht der einstigen Besitznahme des Landes, einen wegen des Erwerbes desselben und einen deswegen, dass seine Kinder nicht fallen möchten s. Jos. 7:6. R. Elieser ben Schamua sagte: Sie fingen damit an, (den Ältesten) die Tugend unsers Vaters Abraham zu rühmen, welcher Gen. 18:27 gesagt hat: ich bin Staub und Asche. Abraham erbaute nur den Altar, damit seine Kinder nicht fallen möchten. Er rief den Namen des Ewigen an. Daraus ist zu lernen, er brachte den göttlichen Namen im Munde aller Geschöpfe zur Erwähnung, oder er fing an, Proselyten unter die Flügel der Schechina zu führen. V. 9. Abram brach auf und zog nach und nach weiter südwärts d.i. immer gegen das Heiligtum gerichtet."
+  ],
+  "versions": {
+   "he": {
+    "title": "merged",
+    "license": null,
+    "source": "https://www.sefaria.org/Bereshit_Rabbah"
+   },
+   "en": {
+    "title": "The Sefaria Midrash Rabbah, 2022",
+    "license": "CC-BY",
+    "source": "https://www.sefaria.org/texts"
+   },
+   "de": {
+    "title": "Der Midrasch Bereschit Rabba. Zum ersten Male ins Deutsche übertragen von Dr. August Wünsche. Leipzig 1881 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH990021066140205171/NLI"
+   }
+  }
+ },
+ "tanchuma-lech-lecha-9": {
+  "kind": {
+   "ru": "Мидраш",
+   "en": "Midrash",
+   "de": "Midrasch"
+  },
+  "title": {
+   "ru": "Мидраш Танхума, Лех леха 9",
+   "en": "Midrash Tanchuma, Lech Lecha 9",
+   "de": "Midrasch Tanchuma, Lech Lecha 9"
+  },
+  "ref": "Midrash Tanchuma, Lech Lecha 9:3",
+  "url": "https://www.sefaria.org/Midrash_Tanchuma,_Lech_Lecha_9.3",
+  "he": [
+   "אָמַר רַבִּי יְהוֹשֻׁעַ דְּסִכְנִין, סִימָן נָתַן לוֹ הַקָּדוֹשׁ בָּרוּךְ הוּא לְאַבְרָהָם, שֶׁכָּל מַה שֶּׁאֵרַע לוֹ אֵרַע לְבָנָיו. כֵּיצַד? בָּחַר בְּאַבְרָהָם מִכָּל בֵּית אָבִיו, שֶׁנֶּאֱמַר: אַתָּה הוּא ה' הָאֱלֹקִים אֲשֶׁר בָּחַרְתָּ בְּאַבְרָם וְהוֹצֵאתוֹ מֵאוּר כַּשְׂדִּים וְשַׂמְתָּ שְׁמוֹ אַבְרָהָם (נחמיה ט, ז). וּבָחַר בְּבָנָיו מִשִּׁבְעִים אֻמּוֹת, שֶׁנֶּאֱמַר: כִּי עַם קָדוֹשׁ אַתָּה לַה' אֱלֹקֶיךָ וּבְךָ בָּחַר ה' לִהְיוֹת לוֹ לְעַם סְגֻלָּה מִכֹּל הָעַמִּים אֲשֶׁר עַל פְּנֵי הָאֲדָמָה (דברים יד, ב). לְאַבְרָהָם נֶאֱמַר לֶךְ לְךָ, וּלְבָנָיו נֶאֱמַר אַעֲלֶה אֶתְכֶם מֵעֳנִי מִצְרַיִם אֶל אֶרֶץ הַכְּנַעֲנִי וְהַחִתִּי וְהָאֱמֹרִי וְהַפְּרִיזִּי וְהַחִוִּי וְהַיְבוּסִי אֶל אֶרֶץ זָבַת חָלָב וּדְבָשׁ (שמות ג, יז). לְאַבְרָהָם נֶאֱמַר: וַאֲבָרְכֶךָ וַאֲגַדְּלָה שְׁמֶךָ וֶהְיֵה בְּרָכָה וַאֲבָרְכָה מְבָרְכֶךָ. וּלְבָנָיו נֶאֱמַר: יְבָרֶכְךָ ה'. לְאַבְרָהָם נֶאֱמַר: וְאֶעֶשְׂךָ לְגוֹי גָּדוֹל, וּלְבָנָיו נֶאֱמַר: וּמִי גּוֹי גָּדוֹל (דברים ד, ח). אַבְרָהָם כְּתִיב בּוֹ: אֶחָד הָיָה אַבְרָהָם (יחזקאל לג, כד). וְיִשְׂרָאֵל: וּמִי כְעַמְּךָ יִשְׂרָאֵל וְגוֹ' (דה״‎א יז, כא). לְאַבְרָהָם נֶאֱמַר: וַיְהִי רָעָב בָּאָרֶץ וַיֵּרֶד אַבְרָם מִצְרַיְמָה לָגוּר שָׁם כִּי כָבֵד הָרָעָב בָּאָרֶץ. וּלְבָנָיו כֵּיוָן שֶׁשָּׁבוּ לְמִצְרַיִם, וְהָרָעָב כָּבֵד בָּאָרֶץ (בראשית מג, א). אַבְרָהָם עַל יְדֵי הָרָעָב יָרַד לְמִצְרָיִם, וְאַף בָּנָיו עַל יְדֵי הָרָעָב יָרְדוּ לְמִצְרַיִם, שֶׁנֶּאֱמַר: וַיֵּרְדוּ אֲחֵי יוֹסֵף עֲשָׂרָה לִשְׁבֹּר בָּר מִמִּצְרָיִם (בראשית מב, ג). אַבְרָהָם כְּשֶׁיָּרַד נִזְדַּוְּגוּ לוֹ הַמִּצְרִים, וַיִּרְאוּ הַמִּצְרִים אֶת הָאִשָּׁה כִּי יָפָה הִיא מְאֹד (בראשית יב, יד). אַף לְבָנָיו, הָבָה נִתְחַכְּמָה לוֹ פֶּן יִרְבֶּה וְהָיָה כִּי תִקְרֶאנָה מִלְחָמָה וְנוֹסַף גַּם הוּא עַל שׂנְאֵינוּ וְנִלְחַם בָּנוּ וְעָלָה מִן הָאָרֶץ (שמות א, י)."
+  ],
+  "en": [
+   "R. Joshua of Sikhnin was of the opinion that the Holy One, blessed be He, gave Abraham a sign that whatever happened to him would likewise happen to his descendants. He chose Abraham from among all those in his father’s house, as it is said: <i>Thou art the L-rd G-d who didst choose Abraham, and brought him forth out of Ur of the Chaldees, and gavest him the name of Abraham</i> (Neh. 9:7). And He selected Abraham’s sons to be His chosen ones among the seventy nations, as is said: <i>For thou art a Holy people unto the L-rd thy G-d, and the L-rd hath chosen thee to be His own treasured nation out of all the peoples that are upon the face of the earth</i> (Deut. 14:2). He said to Abraham: Get thee, and to Abraham’s sons, He said: <i>I will bring you up out of the affliction of Egypt unto the land of the Canaanite, and the Hittite, and the Emorite,</i> etc. (ibid. 3:17). He promised Abraham: <i>And I will bless thee, and make thy name great; and be thou a blessing</i> (Gen. 12:2), and He told his sons: <i>The L-rd bless thee, and keep thee</i> (Num. 6:24). To Abraham He said: <i>I will make thee a great nation</i> (Gen. 12:2), and to his descendants He said: <i>And what great nation is there</i> (Deut. 4:8). Concerning Abraham it is written: <i>Abraham was one</i> (Ezek. 33:24), and of Israel it is said: <i>And who is like thy people Israel, a nation one in the earth</i> (I Chron. 17:21). In reference to Abraham it is said: <i>and hunger was in the land</i> (Gen. 12:10), and about his descendants it is said: <i>When they returned to Egypt, hunger was already in the land</i> (ibid. 43:1). Abraham descended to Egypt because of famine, and his sons, also, descended because of famine, as is said: <i>And Joseph’s ten brethren went down to buy corn from Egypt</i> (ibid. 42:3). When Abraham descended the Egyptians approached him, <i>and the Egyptians beheld the woman that she was very fair</i> (ibid. 12:14), and concerning his descendants, the Egyptians declared: <i>Come, let us deal wisely with them lest they multiply, and it come to pass, that when there befalleth us any war, they also join themselves unto our enemies, and fight against us, and get them up out of the land</i> (Exod. 1:10)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Midrash Tanchuma -- Torat Emet",
+    "license": "Public Domain",
+    "source": "http://www.toratemetfreeware.com/online/a_root.html"
+   },
+   "en": {
+    "title": "Midrash Tanhuma-Yelammedenu, trans. Samuel A. Berman",
+    "license": "CC-BY",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001350458"
+   }
+  }
+ },
+ "ketubot-10b": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Ктубот 10б",
+   "en": "Ketubot 10b",
+   "de": "Ketubbot 10b"
+  },
+  "ref": "Ketubot 10b:12",
+  "url": "https://www.sefaria.org/Ketubot_10b.12",
+  "he": [
+   "אמר רבי אלעזר מזבח מזיח ומזין מחבב מכפר היינו מכפר היינו מזיח מזיח גזירות ומכפר עונות"
+  ],
+  "en": [
+   "<b>Rabbi Elazar said:</b> The term <b><i>mizbe’aḥ</i>,</b> altar, is a rough acrostic representing its qualities. <b>It moves [<i>meziaḥ</i>]</b> sins <b>and sustains [<i>mezin</i>],</b> because as a result of the offerings sacrificed on the altar, sustenance is provided to all. It <b>endears [<i>meḥabev</i>],</b> and <b>atones [<i>mekhapper</i>].</b> <i>Mizbe’aḥ</i> evokes the letters <i>mem</i> and <i>zayin</i> from the first two qualities, <i>bet</i> from <i>meḥabev</i> and the <i>kaf</i> from <i>mekhapper</i>. The Gemara asks: <b>This</b> quality, that the altar <b>atones, is</b> the same as <b>that</b> quality, that it <b>moves</b> sins. Why are they listed separately? The Gemara answers: The altar <b>moves</b> evil <b>decrees, and atones</b> for <b>sins.</b>"
+  ],
+  "de": [
+   "R. Elea͑zar sagte: Der Altar entfernt, nährt, macht beliebt und sühnt. — Sühnen und entfernensind ja identisch!? — Er entfernt die Verhängnisse und sühnt die Sünden."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "lev-18-5": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Ваикра 18:5",
+   "en": "Leviticus 18:5",
+   "de": "Wajikra 18,5"
+  },
+  "ref": "Leviticus 18:5",
+  "url": "https://www.sefaria.org/Leviticus_18.5",
+  "he": [
+   "ושמרתם את חקתי ואת משפטי אשר יעשה אתם האדם וחי בהם אני ה׳"
+  ],
+  "en": [
+   "Ye shall therefore keep My statutes, and Mine ordinances, which if a man do, he shall live by them: I am the L-rd."
+  ],
+  "ru": [
+   "И соблюдайте мои законы и правила, поступая по которым вы останетесь живы — я Г-сподь, Б-г ваш."
+  ],
+  "de": [
+   "Hütet meine Gesetze und meine Rechtsordnungen, die der Mensch zu erfüllen hat und Leben durch sie gewinnt; Ich, <i>G-tt</i>."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "unknown",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "chagigah-2a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Хагига 2а",
+   "en": "Chagigah 2a",
+   "de": "Chagiga 2a"
+  },
+  "ref": "Chagigah 2a:6",
+  "url": "https://www.sefaria.org/Chagigah_2a.6",
+  "he": [
+   "ודלא כי האי תנא דתניא יוחנן בן דהבאי אומר משום רבי יהודה סומא באחת מעיניו פטור מן הראייה שנאמר יראה יראה כדרך שבא לראות כך בא ליראות מה לראות בשתי עיניו אף ליראות בשתי עיניו"
+  ],
+  "en": [
+   "The Gemara notes: <b>And</b> this is <b>not in accordance with</b> the opinion of <b>this <i>tanna</i>, as it is taught</b> in a <i>baraita</i> that <b>Yoḥanan ben Dehavai says in the name of Rabbi Yehuda:</b> One who is <b>blind in one of his eyes is exempt from the</b> mitzva of <b>appearance, as it is stated:</b> “Three occasions in the year all your males <b>will appear [<i>yera’e</i>]</b> before the L-rd G-d” (Exodus 23:17). Since there are no vowels in the text, this can be read as: All your males <b>will see [<i>yireh</i>]</b> the L-rd G-d. This teaches that <b>in the</b> same <b>manner that one comes to see, so he comes to be seen: Just as</b> the usual way <b>to see</b> is <b>with both one’s eyes, so too</b> the obligation <b>to be seen</b> applies only to one who comes <b>with</b> the sight of <b>both his eyes.</b> Therefore, one who is blind in one eye is not obligated in the mitzva of appearance in the Temple."
+  ],
+  "de": [
+   "gegen die Ansicht des folgenden Tanna. Es wird nämlich gelehrt : Joḥanan b. Dahabaj sagte im Namen R. Jehudas: Wer auf einem Auge blind ist, ist vom Erscheinen frei, denn es heißt ‘sehen’ und ‘gesehen werden’, wie das Sehen, so das Erscheinen: wie sehen mit beiden Augen, so auch erscheinen mit beiden Augen."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "isaiah-52-8": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Йешаяґу 52:8",
+   "en": "Isaiah 52:8",
+   "de": "Jeschajahu 52,8"
+  },
+  "ref": "Isaiah 52:8",
+  "url": "https://www.sefaria.org/Isaiah_52.8",
+  "he": [
+   "קול צפיך נשאו קול יחדו ירננו כי עין בעין יראו בשוב ה׳ ציון"
+  ],
+  "en": [
+   "Hark, thy watchmen! they lift up the voice, Together do they sing; For they shall see, eye to eye, The L-rd returning to Zion."
+  ],
+  "de": [
+   "Die Stimme deiner Wächter, — sie erheben ihre Stimmen, gemeinsam jauchzen sie; denn Auge in Auge sehen sie, wenn der Herr nach Zijon zurückkehrt."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/jeschajahu-das-buch-jesaja/"
+   }
+  }
+ },
+ "samuel2-5-3": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Шмуэль II 5:3",
+   "en": "II Samuel 5:3",
+   "de": "Schmuel II 5,3"
+  },
+  "ref": "II Samuel 5:3",
+  "url": "https://www.sefaria.org/II_Samuel_5.3",
+  "he": [
+   "ויבאו כל זקני ישראל אל המלך חברונה ויכרת להם המלך דוד ברית בחברון לפני ה׳ וימשחו את דוד למלך על ישראל"
+  ],
+  "en": [
+   "So all the elders of Israel came to the king to Hebron; and king David made a covenant with them in Hebron before the L-rd; and they anointed David king over Israel."
+  ],
+  "de": [
+   "Es kamen also die Ältesten Israels zu dem König nach Hebron, und der König David schloss mit ihnen einen Bund in Hebron vor dem Herrn, und sie salbten David zum König über Israel."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "ezekiel-37-24": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Йехезкель 37:24–25",
+   "en": "Ezekiel 37:24–25",
+   "de": "Jecheskel 37,24–25"
+  },
+  "ref": "Ezekiel 37:24-25",
+  "url": "https://www.sefaria.org/Ezekiel_37.24-25",
+  "he": [
+   "ועבדי דוד מלך עליהם ורועה אחד יהיה לכלם ובמשפטי ילכו וחקתי ישמרו ועשו אותם",
+   "וישבו על הארץ אשר נתתי לעבדי ליעקב אשר ישבו בה אבותיכם וישבו עליה המה ובניהם ובני בניהם עד עולם ודוד עבדי נשיא להם לעולם"
+  ],
+  "en": [
+   "And My servant David shall be king over them, and they all shall have one shepherd; they shall also walk in Mine ordinances, and observe My statutes, and do them.",
+   "And they shall dwell in the land that I have given unto Jacob My servant, wherein your fathers dwelt; and they shall dwell therein, they, and their children, and their children’s children, for ever; and David My servant shall be their prince for ever."
+  ],
+  "de": [
+   "Und mein Diener David ist König über sie, und ein Hirte ist ihnen allen, und in meinen Rechtsordnungen wandeln sie, und meine Gesetze hüten sie und führen sie aus.",
+   "Und sie wohnen getragen von dem Lande, das ich meinem Diener Jakauw gegeben, in dem eure Väter gewohnt; sie werden, von ihm getragen, es bewohnen, sie und ihre Kinder und ihre Kindeskinder bis in die Ewigkeit, und mein Diener David wird ihnen Fürst sein für immer."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Das Buch Jecheskel, übersetzt und erläutert von Dr. Joseph Breuer, Frankfurt a.M, 1921 [de]",
+    "license": "Public Domain",
+    "source": "http://talmud.de"
+   }
+  }
  }
 }

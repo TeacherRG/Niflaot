@@ -56,7 +56,7 @@ function HebrewLevelPicker({ onStart }: { onStart: () => void }) {
 
 type Group = (typeof LESSON_GROUPS)[number];
 /** The lessons of a portion to read (adults): Baal HaTurim's «Читать», the Rebbe's «Прочитать». */
-const readsOf = (g: Group) => [...g.lessons, ...g.rebbe].filter((l) => l.kind !== 'sicha' || l.cards);
+const readsOf = (g: Group) => [...g.lessons, ...g.rebbe];
 
 /**
  * The portions of «Тора» in the menu: a strip scrolled sideways (Torah order, the newest on the right), ‹ › — one back /

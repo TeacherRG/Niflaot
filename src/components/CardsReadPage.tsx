@@ -11,7 +11,7 @@ import { CardInfo } from './RebbeCards';
 import { HebrewRuns } from './Hebrew';
 import { Colophon } from './Colophon';
 import { useMode } from '../core/mode';
-import { CardsCheck } from './ReadCheck';
+import { CardsCheck, ChapterCheck } from './ReadCheck';
 
 /**
  * One chapter of the Rebbe's talk (a riddle of the investigation), all of it at once: the question on the verse,
@@ -66,6 +66,8 @@ function TalkChapter({ lesson, text, ri }: { lesson: Lesson; text: LessonText; r
         </div>
         <p>{rt.reflection}</p>
       </div>
+      {/* «Проверь себя» of a lesson without cards: the riddle's choice steps (src/core/readCheck.ts) */}
+      <ChapterCheck lesson={lesson} text={text} ri={ri} />
     </section>
   );
 }
@@ -74,8 +76,9 @@ function TalkChapter({ lesson, text, ri }: { lesson: Lesson; text: LessonText; r
  * «Прочитать» of a «Нифлаот Ребе» lesson. `#/<slug>/read` — «Беседа»: the whole talk, chapter by chapter (when the lesson
  * has an investigation); `#/<slug>/read/cards` (or `/read`, for a lesson of cards only) — every verse with the Rebbe's
  * explanation, in a row; `#/<slug>/read/poem` — «Запомнить в стихах»: the same pairs as short rhymed poems. A switch at the top.
+ * A lesson without cards yet has only «Беседа» (no switch).
  */
-export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards: RebbeCardsData; mode: CardsReadMode }) {
+export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards?: RebbeCardsData; mode: CardsReadMode }) {
   const { t, pick, locale } = useI18n();
   const { value: text, locale: textLocale } = pick(lesson.texts);
   const adults = useMode() === 'adults';
@@ -98,13 +101,15 @@ export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards: 
               <h1>{text.title}</h1>
               <p className="author">{text.hero.author}</p>
             </div>
-            <nav className="seg no-speak" aria-label={t('cards.tabRead')}>
-              {cardsReadModes(lesson).map((m) => (
-                <a key={m} href={cardsReadHref(lesson, m)} className={m === mode ? 'on' : undefined} aria-current={m === mode ? 'page' : undefined}>
-                  {m === 'talk' ? '📜' : m === 'read' ? '🃏' : '🎵'} {t(m === 'talk' ? 'cards.modeTalk' : m === 'read' ? 'cards.tab' : 'cards.modePoem')}
-                </a>
-              ))}
-            </nav>
+            {cardsReadModes(lesson).length > 1 && (
+              <nav className="seg no-speak" aria-label={t('cards.tabRead')}>
+                {cardsReadModes(lesson).map((m) => (
+                  <a key={m} href={cardsReadHref(lesson, m)} className={m === mode ? 'on' : undefined} aria-current={m === mode ? 'page' : undefined}>
+                    {m === 'talk' ? '📜' : m === 'read' ? '🃏' : '🎵'} {t(m === 'talk' ? 'cards.modeTalk' : m === 'read' ? 'cards.tab' : 'cards.modePoem')}
+                  </a>
+                ))}
+              </nav>
+            )}
             <p className="read-intro no-speak">{t(mode === 'poem' ? 'cards.poemIntro' : mode === 'talk' ? 'cards.talkIntro' : 'cards.readIntro')}</p>
 
             {mode === 'talk' ? (
@@ -119,11 +124,11 @@ export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards: 
               </>
             ) : mode === 'read' ? (
               <div className="memo-study">
-                {cards.items.map((it, k) => items[k] && <CardInfo key={k} item={it} text={items[k]} n={k + 1} />)}
+                {cards?.items.map((it, k) => items[k] && <CardInfo key={k} item={it} text={items[k]} n={k + 1} />)}
               </div>
             ) : (
               <div className="poems">
-                {cards.items.map(
+                {cards?.items.map(
                   (it, k) =>
                     items[k] && (
                       <section key={k} className="poem">
