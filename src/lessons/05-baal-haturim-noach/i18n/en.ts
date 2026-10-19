@@ -123,10 +123,6 @@ const en: LessonText = {
       },
       lessons: [
         {
-          h: 'How to read the Baal HaTurim',
-          b: `<p>The commentary of the Baal HaTurim, printed in almost every Chumash, is made of short hints. His tools: <b>gematria</b> — two expressions with the same number are linked in meaning; <b>rashei teivot and sofei teivot</b> (<span class="he">ר״ת</span>, <span class="he">ס״ת</span>) — the first or last letters of neighboring words form a new word; <b>“two or three in the Masorah”</b> — a word appears in all of Tanakh exactly two or three times, and those places explain each other. Sometimes he counts in other ways too — “with the kolel” or in atbash (riddle 5).</p><p>Every number in this lesson has been checked. A few gematriot of the commentary on Noach do not add up in our count — they are not in the lesson.</p>`,
-        },
-        {
           h: '“These are the generations”',
           b: `<p>The Baal HaTurim compares four places where the Torah says “these are the generations” (<i>eleh toldot</i>): each time these words begin something new and leave what came before behind.<sup data-src="bht-6-9"></sup></p><p class="expl"><b>Explanation.</b> With Noach the story begins anew.</p>`,
         },
@@ -250,7 +246,7 @@ const en: LessonText = {
         },
         {
           h: 'The seventeenth — “tov”',
-          b: `<p>The Flood began “on the seventeenth day of the month”,<sup data-src="gen-7-11"></sup> and <span class="he">טוב</span> = 9 + 6 + 2 = 17. The words “they spend their days in good” are from the book of Job, about the wicked.<sup data-src="job-21-13"></sup></p><p class="expl"><b>Explanation.</b> The generation of the Flood lived in plenty and goodness — and on the “day of good” the punishment came.</p><p>The second gematria of this comment — “and the windows of the heavens” — does not add up in our count (1016 and 1011), so it is not in the riddles.<sup data-src="bht-7-11"></sup></p>`,
+          b: `<p>The Flood began “on the seventeenth day of the month”,<sup data-src="gen-7-11"></sup> and <span class="he">טוב</span> = 9 + 6 + 2 = 17.<sup data-src="bht-7-11"></sup> The words “they spend their days in good” are from the book of Job, about the wicked.<sup data-src="job-21-13"></sup></p><p class="expl"><b>Explanation.</b> The generation of the Flood lived in plenty and goodness — and on the “day of good” the punishment came.</p>`,
         },
         {
           h: 'And Og remained',
@@ -356,10 +352,6 @@ const en: LessonText = {
       },
       lessons: [
         {
-          h: 'Ways of counting',
-          b: `<p>For the commentators of the Torah there is more than one gematria. Besides the usual one (<i>mispar hechrechi</i>) there is <b>small gematria</b> (a letter’s value without zeros: <span class="he">י</span> = 1, <span class="he">ק</span> = 1), the <b>ordinal number</b> (<span class="he">א</span> = 1 … <span class="he">ת</span> = 22), the <b>great number</b> (final letters <span class="he">ך ם ן ף ץ</span> — 500…900), <b>full spelling</b> (every letter by its name: <span class="he">א</span> = <span class="he">אלף</span> = 111) and the <b>kolel</b> — when 1 is added for the word itself.</p><p>There are letter swaps too: <b>atbash</b> (<span class="he">א״ת ב״ש</span>) — the first letter of the alphabet swaps with the last, the second with the second to last; <b>albam</b> (<span class="he">א״ל ב״ם</span>) — the alphabet is split in two halves. And letter devices: <b>rashei and sofei teivot</b> — the first and last letters of words; <b>notarikon</b> — every letter of a word begins a separate word. You can try all these ways in the gematria calculator.</p>`,
-        },
-        {
           h: 'The holy tongue',
           b: `<p>Before the tower all people spoke one language — the language of the Torah.<sup data-src="bht-11-1-2"></sup></p><p class="expl"><b>Explanation.</b> Let’s count: <span class="he">שפה</span> = 385, <span class="he">אחת</span> = 409, together 794; <span class="he">לשון הקדש</span> = 386 + 409 = 795. The difference is one. The Baal HaTurim simply writes “gematria”, and the numbers match by the rule “<b>with the kolel</b>”: 1 is added for the whole expression. 794 + 1 = 795.</p>`,
         },
@@ -446,13 +438,14 @@ const en: LessonText = {
         moral: 'A tzaddik is remembered and mourned — even in the middle of great trouble. Respect for people matters more than haste.',
       },
       {
-        title: 'The windows of heaven and the stars of Kimah',
-        caption: 'The stars of Kimah and heaven’s windows',
-        verse: '“and the windows of heaven were opened”',
-        quote: '“The windows of heaven” has the value of “that He took two stars from Kimah”.',
+        title: 'The seventeenth — “tov”',
+        caption: 'Heaven’s windows open — the Flood begins',
+        verse: '“on the seventeenth day of the month”',
+        quote: '“On the seventeenth day of the month” — of this it is said: “they spend their days in good”: as the number of “tov” [17] — on that day of the month the Flood came down.',
         explain:
-          'Our Sages tell: when G-d wanted to bring the flood, He took two stars out of the constellation Kimah — and through these “windows” the water poured down. The Baal HaTurim sees this in the number of the words “the windows of heaven”. Count for yourself: in our spelling the numbers differ by 5 (1016 and 1011) — so here we bring only the idea.',
-        moral: 'The stars and the rain alike serve G-d: everything in the world does His will.',
+          'The Flood began on the seventeenth day of the second month: on that day the windows of heaven opened. The Baal HaTurim notes: טוב — “good” — equals 17 (9 + 6 + 2). The generation of the Flood lived in plenty and goodness, “spending their days in good” — and on the “day of good” the punishment came.',
+        note: 'the 17th of the month, when the Flood began',
+        moral: 'Plenty and goodness are given to do good with, not to forget G-d.',
       },
       {
         title: 'Og survived too',

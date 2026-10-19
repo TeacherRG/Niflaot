@@ -20,7 +20,6 @@ const de: LessonText = {
     'ברוח': '„durch den Wind“',
     'ך': 'Schluss-Kaf (20)',
     'ס׳ אותיות שבברכת כהנים': '„die sechzig Buchstaben des Priestersegens“',
-    'ואברכך': '„und Ich werde dich segnen“',
     'אברהם': 'Awraham',
     'אברם': 'Awram — Awrahams erster Name',
     'איש מעל אחיו אברם': '„voneinander. Awram…“ (Ende von Vers 13,11 und Anfang von 13,12)',
@@ -39,7 +38,6 @@ const de: LessonText = {
     'תרח': 'Terach, Awrams Vater',
     'לוט': 'Lot, Awrams Neffe',
     'ויוצא אתו החוצה': '„und Er führte ihn hinaus“',
-    'איצטגנינותך': '„deine Sterndeuterei“',
     'כה': '„ko“ — „so“',
     'יהיה': '„wird sein“',
     'ל׳ צדיקים בכל דור': '„dreißig Gerechte in jeder Generation“',
@@ -111,10 +109,6 @@ const de: LessonText = {
       },
       lessons: [
         {
-          h: 'Wie man den Baal HaTurim liest',
-          b: `<p>Der Kommentar des Baal HaTurim steht in fast jedem Chumasch. Er besteht aus kurzen Hinweisen. Seine Werkzeuge: <b>Gematria</b> — zwei Ausdrücke mit derselben Zahl gehören vom Sinn her zusammen; <b>Raschej tewot und Sofej tewot</b> (<span class="he">ר״ת</span>, <span class="he">ס״ת</span>) — die ersten oder letzten Buchstaben benachbarter Wörter bilden ein neues Wort; <b>„zwei oder drei in der Massora“</b> — ein Wort kommt im ganzen Tanach genau zwei- oder dreimal vor, und diese Stellen erklären einander. Manchmal rechnet er auch anders: mit Atbasch oder mit dem Wert der letzten Buchstaben (Rätsel 4). Und er liest ein Wort als Notarikon (Rätsel 5).</p><p>Jede Zahl in dieser Lektion ist geprüft. Ein paar Gematriot des Kommentars zu Lech Lecha gehen in unserer Rechnung nicht auf. Sie sind nicht in den Rätseln, aber der Text der Lektion sagt, wo sie stehen.</p>`,
-        },
-        {
           h: 'Der Anfang — ein Spruch',
           b: `<p>In der Geschichte der Schöpfung steht zehnmal „und Er sprach“ — <i>wa-jomer</i>. Mit demselben Wort beginnt auch das Kapitel über Awraham: <span class="he">ויאמר ה׳ אל אברם</span>.<sup data-src="bht-12-1"></sup></p>`,
         },
@@ -128,7 +122,7 @@ const de: LessonText = {
         },
         {
           h: 'Wolken und der Priestersegen',
-          b: `<p><span class="he">אראך</span> = 1 + 200 + 1 + 20 = 222; <span class="he">בעננים</span> = 2 + 70 + 50 + 50 + 10 + 40 = 222.<sup data-src="bht-12-2-3"></sup></p><p>Der Priestersegen besteht aus drei Versen im Buch Bamidbar.<sup data-src="num-6-24"></sup> Zähl ihre Buchstaben (der Name G-ttes hat vier Buchstaben): Der erste Vers hat 15, der zweite 20, der dritte 25; zusammen 60 = 3 × 20.</p><p>Die letzte Gematria dieses Kommentars geht in unserer Rechnung nur „mit dem Kolel“ auf: <span class="he">ואברכך</span> = 249, aber <span class="he">אברהם</span> = 248 — ein Unterschied von eins.</p>`,
+          b: `<p><span class="he">אראך</span> = 1 + 200 + 1 + 20 = 222; <span class="he">בעננים</span> = 2 + 70 + 50 + 50 + 10 + 40 = 222.<sup data-src="bht-12-2-3"></sup></p><p>Der Priestersegen besteht aus drei Versen im Buch Bamidbar.<sup data-src="num-6-24"></sup> Zähl ihre Buchstaben (der Name G-ttes hat vier Buchstaben): Der erste Vers hat 15, der zweite 20, der dritte 25; zusammen 60 = 3 × 20.</p>`,
         },
       ],
       reflection: 'Awraham ging los, ohne zu wissen wohin — und Wolken zeigten ihm den Weg. Welchen ersten Schritt zu etwas Gutem kann ich heute machen, auch wenn ich den ganzen Weg noch nicht sehe?',
@@ -210,7 +204,7 @@ const de: LessonText = {
       lessons: [
         {
           h: 'Noch fünfundzwanzig Jahre',
-          b: `<p><span class="he">כה</span> = 20 + 5 = 25.<sup data-src="bht-15-5-1"></sup> 75 + 25 = 100 — „Awraham war hundert Jahre alt, als ihm sein Sohn Jizchak geboren wurde.“<sup data-src="gen-21-5"></sup></p><p>Die erste Gematria dieses Kommentars geht in unserer Rechnung nicht auf: <span class="he">ויוצא אתו החוצה</span> = 634, aber <span class="he">איצטגנינותך</span> = 649. Doch der Gedanke selbst steht bei Raschi: „Geh hinaus aus deiner Sterndeuterei!“ — nach den Sternen hat Awram keinen Sohn, aber Awraham wird einen haben.<sup data-src="rashi-15-5"></sup></p>`,
+          b: `<p><span class="he">כה</span> = 20 + 5 = 25.<sup data-src="bht-15-5-1"></sup> 75 + 25 = 100 — „Awraham war hundert Jahre alt, als ihm sein Sohn Jizchak geboren wurde.“<sup data-src="gen-21-5"></sup></p><p>Zu diesem Vers bringt Raschi einen Midrasch: „Geh hinaus aus deiner Sterndeuterei!“ — nach den Sternen hat Awram keinen Sohn, aber Awraham wird einen haben.<sup data-src="rashi-15-5"></sup></p>`,
         },
         {
           h: 'Dreißig Gerechte',
@@ -220,7 +214,7 @@ const de: LessonText = {
       reflection: 'G-tt sagte zu Awram: „Schau zum Himmel.“ Wenn mir etwas Gutes unmöglich scheint — kann ich dann „die Augen heben“ und glauben, dass sich alles ändern kann?',
       takeaways: [
         'כה = 25: In fünfundzwanzig Jahren, mit hundert, bekommt Awraham Jizchak.',
-        'ויוצא אתו החוצה = 634, איצטגנינותך = 649 — das geht nicht auf; Raschi: „Geh hinaus aus deiner Sterndeuterei.“',
+        'Raschi: „Geh hinaus aus deiner Sterndeuterei“ — nach den Sternen hat Awram keinen Sohn, aber Awraham wird einen haben.',
         'יהיה = 30: In jeder Generation gibt es dreißig Gerechte.',
       ],
     },

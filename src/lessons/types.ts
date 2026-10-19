@@ -92,8 +92,7 @@ export interface RiddleData {
    */
   quotes?: string[][];
   /**
-   * Lesson sections (0-based) that cite no source — an introduction («Как читать Бааль ґа-Турим») or a summary of the
-   * project; every other section has a footnote (checked by `npm run check`).
+   * Lesson sections (0-based) that cite no source — a reasoning of the article or a summary of the project; every other section has a footnote (checked by `npm run check`).
    */
   noSource?: number[];
 }

@@ -89,10 +89,6 @@ const en: LessonText = {
       },
       lessons: [
         {
-          h: 'How to read the Baal HaTurim',
-          b: `<p>The Baal HaTurim’s commentary, printed in almost every Chumash, is a collection of short allusions. It uses several devices. <b>Gematria</b>: two phrases with the same number are linked in meaning. <b>Rashei teivot and sofei teivot</b> (<span class="he">ר״ת</span>, <span class="he">ס״ת</span>): the first or last letters of neighboring words form a new word. <b>Notarikon</b>: each letter of a word is read as the start of a separate word. <b>“Two in the Masorah”</b> (<span class="he">ב׳ במסורה</span>): a word appears in all of Tanakh exactly twice, and the two places explain each other.</p><p>Every number in this lesson has been checked. Two gematriot of the commentary do not add up in our count — this is said plainly, and they were left out of the riddles.</p>`,
-        },
-        {
           h: 'The world was created on Rosh Hashanah',
           b: `<p><span class="he">בראשית</span> = 913, <span class="he">ברא</span> = 203, together 1116; <span class="he">בראש</span> (503) + <span class="he">השנה</span> (360) + <span class="he">נברא</span> (253) — also 1116.<sup data-src="bht-1-1"></sup></p><p class="expl"><b>Explanation.</b> The Torah’s very first words speak of the day on which the world began: the head of the year.</p>`,
         },
@@ -103,10 +99,6 @@ const en: LessonText = {
         {
           h: 'The seal of truth',
           b: `<p>The last letters of <span class="he">בראשית ברא אלקים</span> — <span class="he">ת</span>, <span class="he">א</span>, <span class="he">ם</span> — form <span class="he">אמת</span>.<sup data-src="bht-1-1"></sup> The verse the Baal HaTurim brings is from Psalms: “The beginning of Your word is truth.”<sup data-src="ps-119-160"></sup></p><p class="expl"><b>Explanation.</b> The beginning of G-d’s word — the first verse of the Torah — carries the seal of truth at its “end”.</p>`,
-        },
-        {
-          h: 'The spirit of Moshiach',
-          b: `<p>This is the Torah’s second verse: “and the spirit of G-d hovered over the waters” — <span class="he">ורוח אלקים מרחפת</span>.<sup data-src="bht-1-2"></sup></p><p class="expl"><b>Explanation.</b> Already in the Torah’s second verse, over the primordial waters, hovers the spirit of the future redemption.</p><p class="expl"><b>Explanation.</b> To be honest: in our count the numbers differ (1034 and 921) — perhaps the Baal HaTurim had a different spelling of the words. That is why this gematria is not part of the riddles.</p>`,
         },
         {
           h: 'For the sake of Avraham',
@@ -282,7 +274,7 @@ const en: LessonText = {
         },
         {
           h: 'A witness in heaven',
-          b: `<p>Job says: “Even now, behold, my witness (<span class="he">עדי</span>) is in heaven, and he who knows me is on high.”<sup data-src="job-16-19"></sup> <span class="he">עדי</span> = 70 + 4 + 10 = 84 = <span class="he">חנוך</span> (8 + 50 + 6 + 20).<sup data-src="bht-4-18"></sup> The second gematria — <span class="he">ושהדי</span> and “Metatron” — does not add up in our count (325 and 314), so it is not in the riddle. Of Chanoch the Torah says: “And Chanoch walked with G-d, and he was no more, for G-d took him.”<sup data-src="gen-5-21"></sup></p>`,
+          b: `<p>Job says: “Even now, behold, my witness (<span class="he">עדי</span>) is in heaven, and he who knows me is on high.”<sup data-src="job-16-19"></sup> <span class="he">עדי</span> = 70 + 4 + 10 = 84 = <span class="he">חנוך</span> (8 + 50 + 6 + 20).<sup data-src="bht-4-18"></sup> Of Chanoch the Torah says: “And Chanoch walked with G-d, and he was no more, for G-d took him.”<sup data-src="gen-5-21"></sup></p>`,
         },
         {
           h: 'All the seventh are beloved',

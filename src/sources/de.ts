@@ -19,9 +19,6 @@ export const PROJECT_DE: Record<string, string[]> = {
   'bht-1-1': [
     '<b>Bereschit bara [»im Anfang erschuf«]</b> — Gematria: »an Rosch Haschana wurde erschaffen« (die Welt). »Bereschit« ist ein Notarikon: »vor allem sah G-tt, dass Israel die Tora annehmen wird«. »Bereschit bara Elokim« — die Endbuchstaben [ergeben] »Emet« [Wahrheit]: Das lehrt, dass Er die Welt mit Wahrheit erschuf, wie es heißt: »Der Anfang Deines Wortes ist Wahrheit« [Tehillim 119,160]. Und so gibt es viele Verse, deren Endbuchstaben »Emet« ergeben.',
   ],
-  'bht-1-2': [
-    '<b>Und der Geist G-ttes schwebte</b> — Gematria: »das ist der Geist des Moschiach«.',
-  ],
   'bht-1-4': [
     '<b>Das Licht [et ha-or]</b> — Gematria »in der Tora« [ba-Tora], und es ergibt die Zahl 613 [תרי״ג].',
     '<b>Das Licht, dass es gut war [et ha-or ki tow]</b> — die Endbuchstaben [ergeben] »Brit« [Bund]. »Und G-tt sah das Licht, dass es gut war, und schied«: Daraus [lernen wir], dass man über die Kerze nicht segnet, bis man ihr Licht genießt. [Und »wajawdel«] entspricht der Zahl [52] der Male, die man im Jahr am Ausgang der Schabbatot [Hawdala macht und] scheidet.',
@@ -79,7 +76,7 @@ export const PROJECT_DE: Record<string, string[]> = {
     '<b>Ihr Verlangen [teschukato]</b> — zweimal in der Massora: hier und das andere — »Ich bin meines Geliebten, und nach mir ist sein Verlangen« [Schir ha-Schirim 7,11]. Das ist, was die Weisen sagten: Es gibt zwei Verlangen — das Verlangen der Frevler nach der Sünde, wie es heißt: »und nach dir ist ihr Verlangen«, und das Verlangen des Heiligen, gelobt sei Er, nach Israel, wie es heißt: »Ich bin meines Geliebten, und mein Geliebter ist mein«, »und nach mir ist sein Verlangen«.',
   ],
   'bht-4-18': [
-    '<b>Siehe, im Himmel ist mein Zeuge [edi]</b> [Ijow 16,19] — Gematria »Chanoch«; und »der mich kennt [we-sahadi]« — Gematria »Metatron«. Denn der Heilige, gelobt sei Er, nahm einen von denen vor der Generation der Sintflut und einen von denen nach der Generation der Sintflut — nämlich Chanoch und Pinchas — und hob sie in den Himmel, damit sie von Ihm zeugen. Und Er wählte Chanoch, weil er die siebte Generation war, und der Heilige, gelobt sei Er, liebt die Siebten. Und ebenso steht über Mosche, der der Siebte von den Vätern an war, geschrieben: »und Mosche stieg hinauf zu G-tt« [Schemot 19,3].',
+    '<b>Siehe, im Himmel ist mein Zeuge [edi]</b> [Ijow 16,19] — Gematria »Chanoch«… Denn der Heilige, gelobt sei Er, nahm einen von denen vor der Generation der Sintflut und einen von denen nach der Generation der Sintflut — nämlich Chanoch und Pinchas — und hob sie in den Himmel, damit sie von Ihm zeugen. Und Er wählte Chanoch, weil er die siebte Generation war, und der Heilige, gelobt sei Er, liebt die Siebten. Und ebenso steht über Mosche, der der Siebte von den Vätern an war, geschrieben: »und Mosche stieg hinauf zu G-tt« [Schemot 19,3].',
   ],
   'prov-17-13': [
     'Wer Gutes mit Bösem vergilt, von dessen Haus weicht das Böse nicht.',
@@ -140,7 +137,7 @@ export const PROJECT_DE: Record<string, string[]> = {
   ],
   'prov-11-30': ['Die Frucht des Gerechten ist ein Baum des Lebens, und wer Seelen gewinnt, ist weise.'],
   'bht-7-11': [
-    '<b>Am siebzehnten Tag des Monats</b> — und das ist [, was gesagt ist]: »sie verbringen ihre Tage im Guten [ba-tow]« [Ijow 21,13]: nach der Zahl von »tow« [17] — an diesem [Tag] des Monats kam die Sintflut herab. »Und die Fenster des Himmels« — Gematria: »dass Er zwei Sterne aus Kima [dem Siebengestirn] nahm«.',
+    '<b>Am siebzehnten Tag des Monats</b> — und das ist [, was gesagt ist]: »sie verbringen ihre Tage im Guten [ba-tow]« [Ijow 21,13]: nach der Zahl von »tow« [17] — an diesem [Tag] des Monats kam die Sintflut herab…',
   ],
   'bht-11-1-2': ['<b>Eine Sprache [safa achat]</b> — Gematria: »die heilige Sprache« [laschon ha-kodesch].'],
   'bht-11-29': [
@@ -161,14 +158,14 @@ export const PROJECT_DE: Record<string, string[]> = {
     '<b>Ich mache dich zu einem großen Volk usw.</b> — hier segnete Er ihn mit sieben Segen, und das sind sie. „Ich mache dich zu einem großen Volk“ — das ist der größte von allen: dass Er ihn zu einem Volk macht, denn darin sind die Knechtschaft und die Befreiung enthalten. Der zweite — dass Er ihn, solange er noch Awram war, bevor Er ihn in den Bund [der Beschneidung] brachte, mit dem Segen des Reichtums segnen wird, wie geschrieben steht: „Und Awram war sehr reich.“ Der dritte — dass sein Name größer wird, von Awram zu Awraham. Der vierte — dass er selbst ein Segen sein wird. Der fünfte — dass der Allmächtige die segnet, die ihn segnen. Der sechste — dass Er alle verflucht, die ihm Böses wollen. Der siebte — dass durch ihn alle Familien der Erde gesegnet werden.',
   ],
   'bht-12-2-3': [
-    '<b>Ich werde dir zeigen [arecha]</b> — Gematria „in den Wolken“ [ba-ananim]: Das lehrt, dass Wolken vor ihm hergingen und ihm den Weg zeigten. „Ich mache dich zu einem großen Volk, Ich segne dich und mache deinen Namen groß“ — drei Segen, entsprechend den drei Segen der Kohanim. Und ebenso hat [das Wort] „mewarechecha“ drei Krönchen [Tagin] auf [dem Buchstaben] ך: um dir zu sagen, dass dreimal zwanzig sechzig sind, entsprechend den sechzig Buchstaben im Priestersegen, und das sind: „Er segne dich…“, „Er lasse leuchten…“, „Er erhebe…“. „Und Ich werde dich segnen“ [wa-awarechecha] — Gematria „Awraham“.',
+    '<b>Ich werde dir zeigen [arecha]</b> — Gematria „in den Wolken“ [ba-ananim]: Das lehrt, dass Wolken vor ihm hergingen und ihm den Weg zeigten. „Ich mache dich zu einem großen Volk, Ich segne dich und mache deinen Namen groß“ — drei Segen, entsprechend den drei Segen der Kohanim. Und ebenso hat [das Wort] „mewarechecha“ drei Krönchen [Tagin] auf [dem Buchstaben] ך: um dir zu sagen, dass dreimal zwanzig sechzig sind, entsprechend den sechzig Buchstaben im Priestersegen, und das sind: „Er segne dich…“, „Er lasse leuchten…“, „Er erhebe…“…',
   ],
   'bht-13-11': [
     '<b>Und sie trennten sich voneinander. Awram [isch meal achiw. Awram]</b> — die Endbuchstaben [ergeben] „Schalom“ [Frieden]: um zu sagen, dass sie sich trennten, um den Frieden zu bewahren. Und es deutete ihm auch an, dass es Frieden für seine Nachkommen geben wird, und darum heißt es: „Bedränge Moaw nicht“ [Dewarim 2,9].',
   ],
   'bht-14-18': ['<b>König von Schalem [melech Schalem]</b> — die Anfangsbuchstaben [ergeben] „Schem“: um dir zu sagen, dass das Schem war, der Sohn von Noach.'],
   'bht-15-5-1': [
-    '<b>Er führte ihn hinaus [wa-joze oto ha-chuza]</b> — Gematria: „deine Sterndeuterei“ [iztagninutcha]. „So [ko] werden deine Nachkommen sein“ — das bedeutet: Wenn er noch fünfundzwanzig Jahre hat, nach der Zahl von „ko“ [25], wird er Nachkommen haben: Denn beim Bund zwischen den Stücken war Awraham fünfundsiebzig Jahre alt.',
+    '… <b>„So [ko] werden deine Nachkommen sein“</b> — das bedeutet: Wenn er noch fünfundzwanzig Jahre hat, nach der Zahl von „ko“ [25], wird er Nachkommen haben: Denn beim Bund zwischen den Stücken war Awraham fünfundsiebzig Jahre alt.',
   ],
   'bht-15-5-2': [
     '<b>Wird sein [jihje]</b> — Gematria „dreißig“: um dir zu sagen, dass es keine Generation ohne dreißig Gerechte gibt. Und so sagte Er: Nach der Zahl von „jihje“ wird es Gerechte unter deinen Nachkommen geben, wie es heißt: „Und Er sagte zu ihm: So werden deine Nachkommen sein.“',

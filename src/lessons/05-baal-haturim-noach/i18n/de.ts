@@ -123,10 +123,6 @@ const de: LessonText = {
       },
       lessons: [
         {
-          h: 'Wie man den Baal HaTurim liest',
-          b: `<p>Der Kommentar des Baal HaTurim steht in fast jedem Chumasch. Er besteht aus kurzen Hinweisen. Seine Werkzeuge: <b>Gematria</b> — zwei Ausdrücke mit derselben Zahl hängen in ihrer Bedeutung zusammen; <b>Raschej Tewot und Sofej Tewot</b> (<span class="he">ר״ת</span>, <span class="he">ס״ת</span>) — die ersten oder letzten Buchstaben benachbarter Wörter ergeben ein neues Wort; <b>»zwei- oder dreimal in der Masora«</b> — ein Wort kommt im ganzen Tanach genau zwei- oder dreimal vor, und diese Stellen erklären einander. Manchmal zählt er auch anders — »mit dem Kolel« oder im Atbasch (Rätsel 5).</p><p>Jede Zahl in dieser Lektion wurde geprüft. Einige Gematriot des Kommentars zum Abschnitt Noach stimmen in unserer Rechnung nicht — sie sind nicht in der Lektion.</p>`,
-        },
-        {
           h: '»Dies sind die Nachkommen«',
           b: `<p>Der Baal HaTurim vergleicht vier Stellen, an denen die Tora sagt „dies sind die Nachkommen“ (<i>ele toldot</i>): Jedes Mal beginnt mit diesen Worten etwas Neues, und das Frühere bleibt zurück.<sup data-src="bht-6-9"></sup></p><p class="expl"><b>Erklärung.</b> Mit Noach beginnt die Geschichte neu.</p>`,
         },
@@ -250,7 +246,7 @@ const de: LessonText = {
         },
         {
           h: 'Der Siebzehnte — »tow«',
-          b: `<p>Die Sintflut begann „am siebzehnten Tag des Monats“,<sup data-src="gen-7-11"></sup> und <span class="he">טוב</span> = 9 + 6 + 2 = 17. Die Worte „sie verbringen ihre Tage im Guten“ stehen im Buch Ijow, über die Bösen.<sup data-src="job-21-13"></sup></p><p class="expl"><b>Erklärung.</b> Die Generation der Sintflut lebte im Überfluss und im Guten — und am »Tag des Guten« kam die Strafe.</p><p>Die zweite Gematria dieses Kommentars — „und die Fenster des Himmels“ — stimmt in unserer Rechnung nicht (1016 und 1011), darum ist sie nicht in den Rätseln.<sup data-src="bht-7-11"></sup></p>`,
+          b: `<p>Die Sintflut begann „am siebzehnten Tag des Monats“,<sup data-src="gen-7-11"></sup> und <span class="he">טוב</span> = 9 + 6 + 2 = 17.<sup data-src="bht-7-11"></sup> Die Worte „sie verbringen ihre Tage im Guten“ stehen im Buch Ijow, über die Bösen.<sup data-src="job-21-13"></sup></p><p class="expl"><b>Erklärung.</b> Die Generation der Sintflut lebte im Überfluss und im Guten — und am »Tag des Guten« kam die Strafe.</p>`,
         },
         {
           h: 'Und Og blieb übrig',
@@ -356,10 +352,6 @@ const de: LessonText = {
       },
       lessons: [
         {
-          h: 'Arten zu zählen',
-          b: `<p>Bei den Kommentatoren der Tora gibt es mehr als eine Gematria. Außer der üblichen (<i>Mispar Hechrechi</i>) gibt es die <b>kleine Gematria</b> (der Wert eines Buchstabens ohne Nullen: <span class="he">י</span> = 1, <span class="he">ק</span> = 1), die <b>Ordnungszahl</b> (<span class="he">א</span> = 1 … <span class="he">ת</span> = 22), die <b>große Zahl</b> (Endbuchstaben <span class="he">ך ם ן ף ץ</span> — 500 … 900), die <b>volle Schreibweise</b> (jeder Buchstabe mit seinem Namen: <span class="he">א</span> = <span class="he">אלף</span> = 111) und den <b>Kolel</b> — wenn für das Wort selbst 1 dazukommt.</p><p>Es gibt auch Buchstabentausch: <b>Atbasch</b> (<span class="he">א״ת ב״ש</span>) — der erste Buchstabe des Alphabets tauscht mit dem letzten, der zweite mit dem vorletzten; <b>Albam</b> (<span class="he">א״ל ב״ם</span>) — das Alphabet wird in zwei Hälften geteilt. Und Buchstabenspiele: <b>Raschej und Sofej Tewot</b> — die ersten und letzten Buchstaben der Wörter; <b>Notarikon</b> — jeder Buchstabe eines Wortes beginnt ein eigenes Wort. Alle diese Arten kannst du im Gematria-Rechner ausprobieren.</p>`,
-        },
-        {
           h: 'Die heilige Sprache',
           b: `<p>Vor dem Turm sprachen alle Menschen eine Sprache — die Sprache der Tora.<sup data-src="bht-11-1-2"></sup></p><p class="expl"><b>Erklärung.</b> Rechnen wir nach: <span class="he">שפה</span> = 385, <span class="he">אחת</span> = 409, zusammen 794; <span class="he">לשון הקדש</span> = 386 + 409 = 795. Der Unterschied ist eins. Der Baal HaTurim schreibt einfach »Gematria«, und die Zahlen stimmen nach der Regel »<b>mit dem Kolel</b>«: Für den ganzen Ausdruck kommt 1 dazu. 794 + 1 = 795.</p>`,
         },
@@ -446,13 +438,14 @@ const de: LessonText = {
         moral: 'Einen Zaddik vergisst man nicht und betrauert ihn — auch mitten in großer Not. Achtung vor Menschen ist wichtiger als Eile.',
       },
       {
-        title: 'Die Fenster des Himmels und die Sterne von Kima',
-        caption: 'Die Sterne von Kima und die Fenster',
-        verse: '»und die Fenster des Himmels öffneten sich«',
-        quote: '»Die Fenster des Himmels« hat den Zahlenwert von »dass Er zwei Sterne aus Kima nahm«.',
+        title: 'Der Siebzehnte — »tow«',
+        caption: 'Die Fenster des Himmels öffnen sich',
+        verse: '»am siebzehnten Tag des Monats«',
+        quote: '»Am siebzehnten Tag des Monats« — darüber heißt es: »sie verbringen ihre Tage im Guten«: nach der Zahl von »tow« [17] — an diesem Tag des Monats kam die Sintflut herab.',
         explain:
-          'Unsere Weisen erzählen: Als G-tt die Flut bringen wollte, nahm Er zwei Sterne aus dem Sternbild Kima — und durch diese »Fenster« strömte das Wasser herab. Der Baal HaTurim sieht das in der Zahl der Wörter »die Fenster des Himmels«. Rechne selbst: In unserer Schreibweise liegen die Zahlen 5 auseinander (1016 und 1011) — darum bringen wir hier nur den Gedanken.',
-        moral: 'Die Sterne und der Regen dienen G-tt: Alles in der Welt tut Seinen Willen.',
+          'Die Sintflut begann am siebzehnten Tag des zweiten Monats: An diesem Tag öffneten sich die Fenster des Himmels. Der Baal HaTurim bemerkt: טוב — »gut« — ist 17 (9 + 6 + 2). Die Generation der Sintflut lebte im Überfluss und im Guten, »sie verbrachten ihre Tage im Guten« — und am »Tag des Guten« kam die Strafe.',
+        note: 'der 17. des Monats, als die Sintflut begann',
+        moral: 'Überfluss und Gutes bekommt man, um Gutes zu tun — nicht, um G-tt zu vergessen.',
       },
       {
         title: 'Auch Og wurde gerettet',
