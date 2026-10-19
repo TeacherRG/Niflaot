@@ -1920,3 +1920,60 @@ button.quiz-opt:disabled{cursor:default}
 .quiz-result.ok{background:var(--ok-soft);color:var(--ok)}
 .quiz-result.bad{background:var(--bad-soft);color:var(--bad)}
 .quiz-name{display:grid;gap:6px;font-weight:600}
+
+/* «Викторина вместе» — стартовая страница: как это работает, две роли, настройка по шагам */
+.quiz-hero{display:grid;gap:6px}
+.quiz-how{padding:16px;border-radius:12px;background:var(--tchelet-soft)}
+.quiz-how h2,.quiz-choose,.quiz-setup h2{margin:0 0 12px;font-family:var(--f-display);font-size:22px}
+.quiz-choose{margin:4px 0 -4px}
+.quiz-how ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.quiz-how li{position:relative;display:grid;gap:4px;justify-items:center;text-align:center;padding:12px 10px;border-radius:10px;background:var(--surface)}
+.quiz-how li b{font-size:15px}
+.quiz-how li span:last-child{font-size:13px;color:var(--muted)}
+.quiz-how .quiz-step{position:absolute;top:8px;left:8px}
+.quiz-art{width:100%;max-width:150px;height:auto}
+.quiz-step{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;font-weight:700;flex:none}
+.quiz-roles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.quiz-role{display:grid;gap:8px;align-content:start;justify-items:start;padding:18px;border-radius:14px;background:var(--surface);border:2px solid var(--line);border-top-width:8px}
+.quiz-role.play{border-top-color:var(--tchelet)}
+.quiz-role.host{border-top-color:var(--gold)}
+.quiz-role.host.on{border-color:var(--gold);background:var(--gold-soft)}
+.quiz-role .quiz-art{max-width:130px;justify-self:center}
+.quiz-role h3{margin:0;font-family:var(--f-display);font-size:24px}
+.quiz-role p{margin:0}
+.quiz-join-form{display:flex;flex-wrap:wrap;align-items:end;gap:10px}
+.quiz-code-lbl{display:grid;gap:4px;font-size:13px;font-weight:600;color:var(--muted)}
+.quiz-role.play .quiz-go{background:var(--tchelet);border-color:var(--tchelet)}
+.quiz-role.host .quiz-go{background:var(--gold);border-color:var(--gold)}
+.quiz-setup{display:grid;gap:14px;padding:18px;border-radius:14px;background:var(--surface);border:2px solid var(--gold);scroll-margin-top:70px}
+.quiz-setup h2{margin:0}
+.quiz-setup-step{display:grid;gap:10px}
+.quiz-setup-step h3{margin:0;display:flex;align-items:center;gap:10px;font-size:18px}
+.quiz-decks legend{display:flex;align-items:center;gap:8px}
+.quiz-deck-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.quiz-deck{flex-direction:column;align-items:flex-start;gap:2px;border-width:2px;border-left-width:6px}
+.quiz-deck input{position:absolute;opacity:0;pointer-events:none}
+.quiz-deck{position:relative}
+.quiz-deck:focus-within{outline:2px solid var(--ink);outline-offset:2px}
+.quiz-deck.k-torah{border-left-color:#B4461B}.quiz-deck.k-tanakh{border-left-color:#2B4F95}.quiz-deck.k-hs{border-left-color:#A47C2F}
+.quiz-deck.on::after{content:'✓';position:absolute;top:6px;right:10px;font-weight:700;color:var(--gold)}
+.quiz-kind{width:26px;height:26px;flex:none}
+.quiz-kind.k-torah{color:#B4461B}.quiz-kind.k-tanakh{color:#2B4F95}.quiz-kind.k-hs{color:#A47C2F}
+.quiz-sizes{display:flex;flex-wrap:wrap;gap:10px}
+.quiz-size{display:grid;justify-items:center;gap:2px;min-width:92px;padding:10px 14px;border:2px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit}
+.quiz-size b{font-size:26px}
+.quiz-size small{color:var(--muted)}
+.quiz-size.on{border-color:var(--gold);background:var(--gold-soft)}
+.quiz-create{font-size:19px;padding:14px 28px}
+@media (max-width:640px){
+  .quiz-roles{grid-template-columns:1fr}
+  .quiz-how ol{grid-template-columns:1fr}
+  .quiz-how li{grid-template-columns:90px 1fr;justify-items:start;text-align:start;align-items:center;column-gap:12px}
+  .quiz-how li .quiz-art{grid-row:span 2}
+  .quiz-how .quiz-step{left:4px;top:4px}
+}
+.quiz-setup .quiz-create{background:var(--gold);border-color:var(--gold)}
+.quiz-deck{padding-right:28px}
+.quiz-size{flex:1 1 0;min-width:72px}
+@media (max-width:640px){.quiz-setup,.quiz-role{padding:14px}.quiz-how{padding:12px}}
+.quiz-size{padding:10px 6px}.quiz-size small{white-space:nowrap}
