@@ -312,6 +312,8 @@ const ru = {
   'cards.verse': "Стих целиком",
   'cards.rebbe': "Ребе объясняет",
   'cards.ls': "Ликутей сихот, т. {vol}, беседа {n}",
+  'cards.lsPages': "Ликутей сихот, т. {vol}, с. {p}",
+  'cards.tm': "Торат Менахем, {year}, т. {vol}, с. {p}",
   'cards.horaah': "Ґораа ле-поаль — вывод для жизни",
   'cards.cardVerse': "Стих: {words}",
   'cards.cardExpl': "Объяснение Ребе: {text}",

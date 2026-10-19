@@ -6,6 +6,7 @@ import { SITE_HOST, routeLink } from '../core/site';
 import { useI18n } from '../i18n';
 import { teacherOf } from '../lessons/teachers';
 import type { Lesson } from '../lessons/types';
+import { cardRef } from '../core/cardRef';
 
 function FeedCard({
   label,
@@ -138,7 +139,7 @@ export function CardFeed({ lessons }: { lessons: Lesson[] }) {
                     { heading: '', text: displayNames(item.verse), hebrew: true },
                     { heading: '', text: itemText.verse },
                     { heading: t('cards.rebbe'), text: itemText.card },
-                    { heading: t('cards.ls', { vol: item.ls.vol, n: item.ls.sicha }), text: itemText.horaah },
+                    { heading: cardRef(item, t), text: itemText.horaah },
                   ],
                 }}
                 front={

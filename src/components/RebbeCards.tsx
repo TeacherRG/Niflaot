@@ -7,6 +7,7 @@ import { SOURCES, sourceLabel, translation } from '../sources';
 import { EASY, usePairsGame, type Card } from '../core/usePairsGame';
 import { HebrewRuns } from './Hebrew';
 import { Icon, Sheet } from './ui';
+import { cardRef } from '../core/cardRef';
 
 /**
  * «Карточки» — the second game of a «Нифлаот Ребе» lesson: a pair is a verse of the portion and one explanation
@@ -43,7 +44,7 @@ export function CardInfo({ item, text, n }: { item: RebbeCard; text: RebbeCardTe
         <p>
           <HebrewRuns text={text.explain} />
         </p>
-        <p className="rc-ls">{t('cards.ls', { vol: item.ls.vol, n: item.ls.sicha })}</p>
+        <p className="rc-ls">{cardRef(item, t)}</p>
       </div>
       <div className="mi-block mi-moral">
         <h4>{t('cards.horaah')}</h4>
