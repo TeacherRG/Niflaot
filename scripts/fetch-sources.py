@@ -151,7 +151,7 @@ SOURCES = {
                   'Kabbalah/Zohar/Zohar/Hebrew/Sulam Edition, Jerusalem 1945.json',
                   'Kabbalah/Zohar/Zohar/English/The Zohar; London, Soncino Press, 1933.json', None, ['Introduction', 5, 11]),
     # lesson «Ba'al HaTurim: Bereshit»
-    **{f'bht-{c}-{v}': bht(c, v) for c, v in [(1, 1), (1, 2), (1, 4), (1, 7), (1, 12), (1, 14), (1, 27), (1, 31), (2, 2), (2, 3),
+    **{f'bht-{c}-{v}': bht(c, v) for c, v in [(1, 1), (1, 4), (1, 7), (1, 12), (1, 14), (1, 27), (1, 31), (2, 2), (2, 3),
                                               (2, 4), (2, 7), (2, 22), (3, 11), (3, 12), (3, 21), (3, 24), (4, 7), (4, 18)]},
     'ps-119-160': ('Psalms', 119, 160, 160),
     'ps-96-11': ('Psalms', 96, 11, 11),
@@ -328,6 +328,16 @@ SOURCES = {
 # only an obvious letter slip that the commentary itself contradicts (חמם — the word of the verse is חמס).
 FIXES = {
     'bht-6-11-2': [('חמם', 'חמס')],
+}
+
+# Gematriot of a comment that don't add up in our spelling are not quoted (CLAUDE.md: a number that doesn't add up
+# is left out of the lesson): the phrase is cut from the Hebrew and replaced by «…»; the project's translations
+# (src/sources/ru|en|de.ts) leave it out the same way.
+CUTS = {
+    'bht-4-18': [('ושהד"י בגימטריא מטטרון ', '… ')],
+    'bht-7-11': [(' וארובות השמים. בגימטריא שלקח שני כוכבים מכימה:', ' …')],
+    'bht-12-2-3': [(', ואברכך, בגימטריא אברהם:', ' …')],
+    'bht-15-5-1': [('<b>ויוצא אתו החוצה</b> בגימטריא איצטגנינותך: כה יהיה זרעך', '… <b>כה יהיה זרעך</b>')],
 }
 
 KIND = {
@@ -561,6 +571,9 @@ if __name__ == '__main__':
             assert any(wrong in h for h in out[sid]['he']), f'{sid}: misprint {wrong} not found'
             out[sid]['he'] = [h.replace(wrong, right) for h in out[sid]['he']]
             out[sid].setdefault('fixes', []).append([wrong, right])
+        for cut, rest in CUTS.get(sid, []):
+            assert sum(cut in h for h in out[sid]['he']) == 1, f'{sid}: cut {cut} not found'
+            out[sid]['he'] = [h.replace(cut, rest) for h in out[sid]['he']]
         sys.stderr.write(f'✓ {sid}: {len(out[sid]["he"])} he / {len(out[sid]["en"])} en' + (f' / {len(out[sid]["ru"])} ru' if ru else '') + (f' / {len(out[sid]["de"])} de' if de else '') + '\n')
 
     OUT.parent.mkdir(parents=True, exist_ok=True)

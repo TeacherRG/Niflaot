@@ -11,7 +11,7 @@ import { useLetterHelp } from './letterHelp';
 import { Sheet, useUI } from './ui';
 
 const EXAMPLES = ['שלום', 'חכמה', 'אהבה', 'תורה'];
-const FAQ = ['hebrew', 'count', 'stuck', 'finals', 'names', 'sources', 'progress', 'print', 'contact'] as const;
+const FAQ = ['hebrew', 'count', 'turim', 'methods', 'stuck', 'finals', 'names', 'sources', 'progress', 'print', 'contact'] as const;
 
 /** Gematria of any word, explained the way you'd add it in your head. */
 function StepByStep({ words }: { words: string[] }) {

@@ -89,10 +89,6 @@ const de: LessonText = {
       },
       lessons: [
         {
-          h: 'Wie man den Baal HaTurim liest',
-          b: `<p>Der Kommentar des Baal HaTurim, der in fast jedem Chumasch abgedruckt ist, besteht aus kurzen Andeutungen. Er nutzt mehrere Mittel. <b>Gematria</b>: Zwei Ausdrücke mit derselben Zahl hängen im Sinn zusammen. <b>Raschej tewot und Sofej tewot</b> (<span class="he">ר״ת</span>, <span class="he">ס״ת</span>): Die Anfangs- oder Endbuchstaben benachbarter Wörter bilden ein neues Wort. <b>Notarikon</b>: Jeder Buchstabe eines Wortes wird als Anfang eines eigenen Wortes gelesen. <b>„Zwei in der Massora“</b> (<span class="he">ב׳ במסורה</span>): Ein Wort kommt im ganzen Tanach genau zweimal vor, und die beiden Stellen erklären einander.</p><p>Jede Zahl in dieser Lektion ist geprüft. Zwei Gematrien des Kommentars gehen in unserer Rechnung nicht auf — das wird offen gesagt, und sie wurden nicht in die Rätsel aufgenommen.</p>`,
-        },
-        {
           h: 'Die Welt wurde an Rosch Haschana erschaffen',
           b: `<p><span class="he">בראשית</span> = 913, <span class="he">ברא</span> = 203, zusammen 1116; <span class="he">בראש</span> (503) + <span class="he">השנה</span> (360) + <span class="he">נברא</span> (253) — auch 1116.<sup data-src="bht-1-1"></sup></p><p class="expl"><b>Erklärung.</b> Die allerersten Worte der Tora sprechen von dem Tag, an dem die Welt begann: vom Haupt des Jahres.</p>`,
         },
@@ -103,10 +99,6 @@ const de: LessonText = {
         {
           h: 'Das Siegel der Wahrheit',
           b: `<p>Die Endbuchstaben von <span class="he">בראשית ברא אלקים</span> — <span class="he">ת</span>, <span class="he">א</span>, <span class="he">ם</span> — ergeben <span class="he">אמת</span>.<sup data-src="bht-1-1"></sup> Der Vers, den der Baal HaTurim bringt, steht in Tehillim: „Der Anfang Deines Wortes ist Wahrheit.“<sup data-src="ps-119-160"></sup></p><p class="expl"><b>Erklärung.</b> Der Anfang von G-ttes Wort — der erste Vers der Tora — trägt an seinem „Ende“ das Siegel der Wahrheit.</p>`,
-        },
-        {
-          h: 'Der Geist des Moschiach',
-          b: `<p>Das ist der zweite Vers der Tora: „und der Geist G-ttes schwebte über den Wassern“ — <span class="he">ורוח אלקים מרחפת</span>.<sup data-src="bht-1-2"></sup></p><p class="expl"><b>Erklärung.</b> Schon im zweiten Vers der Tora, über den Urwassern, schwebt der Geist der künftigen Erlösung.</p><p class="expl"><b>Erklärung.</b> Ehrlich gesagt: In unserer Rechnung stimmen die Zahlen nicht überein (1034 und 921) — vielleicht hatte der Baal HaTurim eine andere Schreibweise der Wörter. Darum ist diese Gematria nicht Teil der Rätsel.</p>`,
         },
         {
           h: 'Um Awrahams willen',
@@ -282,7 +274,7 @@ const de: LessonText = {
         },
         {
           h: 'Ein Zeuge im Himmel',
-          b: `<p>Ijow sagt: „Auch jetzt, siehe, ist im Himmel mein Zeuge (<span class="he">עדי</span>), und der mich kennt, ist in der Höhe.“<sup data-src="job-16-19"></sup> <span class="he">עדי</span> = 70 + 4 + 10 = 84 = <span class="he">חנוך</span> (8 + 50 + 6 + 20).<sup data-src="bht-4-18"></sup> Die zweite Gematria — <span class="he">ושהדי</span> und „Metatron“ — stimmt in unserer Rechnung nicht (325 und 314), darum ist sie nicht im Rätsel. Über Chanoch sagt die Tora: „Und Chanoch wandelte mit G-tt, und er war nicht mehr, denn G-tt nahm ihn.“<sup data-src="gen-5-21"></sup></p>`,
+          b: `<p>Ijow sagt: „Auch jetzt, siehe, ist im Himmel mein Zeuge (<span class="he">עדי</span>), und der mich kennt, ist in der Höhe.“<sup data-src="job-16-19"></sup> <span class="he">עדי</span> = 70 + 4 + 10 = 84 = <span class="he">חנוך</span> (8 + 50 + 6 + 20).<sup data-src="bht-4-18"></sup> Über Chanoch sagt die Tora: „Und Chanoch wandelte mit G-tt, und er war nicht mehr, denn G-tt nahm ihn.“<sup data-src="gen-5-21"></sup></p>`,
         },
         {
           h: 'Alle Siebten sind geliebt',

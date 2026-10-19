@@ -7,9 +7,6 @@ export const PROJECT_EN: Record<string, string[]> = {
   'bht-1-1': [
     '<b>In the beginning He created [Bereishit bara]</b> — in gematria: “on Rosh Hashanah was created” (the world). “Bereishit” is a notarikon: “first of all G-d saw that Israel would accept the Torah”. “Bereishit bara Elokim” — the last letters [form] “emet” [truth]: this teaches that He created the world with truth, as it is said: “The beginning of Your word is truth” [Psalms 119:160]. And so there are many verses whose last letters [form] “emet”.',
   ],
-  'bht-1-2': [
-    '<b>And the spirit of G-d hovered</b> — in gematria: “this is the spirit of Moshiach”.',
-  ],
   'bht-1-4': [
     '<b>The light [et ha-or]</b> — its gematria is “in the Torah” [ba-Torah], and it amounts to the number 613 [תרי״ג].',
     '<b>The light, that it was good [et ha-or ki tov]</b> — the last letters [form] “brit” [covenant]. “And G-d saw the light, that it was good, and He divided”: from here [we learn] that one does not bless the candle until one benefits from its light. [And “vayavdel”] equals the number [52] of times a year one divides [makes Havdalah] at the end of the Shabbatot.',
@@ -67,7 +64,7 @@ export const PROJECT_EN: Record<string, string[]> = {
     '<b>Its desire [teshukato]</b> — twice in the Masorah: here and the other — “I am my beloved’s, and his desire is toward me” [Song of Songs 7:11]. This is what the Sages said: there are two desires — the desire of the wicked for sin, as it says “and unto you is its desire”, and the desire of the Holy One, blessed be He, for Israel, as it says “I am my beloved’s and my beloved is mine”, “and his desire is toward me”.',
   ],
   'bht-4-18': [
-    '<b>Behold, my witness [edi] is in heaven</b> [Job 16:19] — in gematria “Chanoch”; and “He that testifies of me [ve-sahadi]” — in gematria “Metatron”. For the Holy One, blessed be He, took one of those before the generation of the Flood and one of those after the generation of the Flood — namely Chanoch and Pinchas — and raised them to heaven to testify about Him. And He chose Chanoch because he was the seventh generation, and the Holy One, blessed be He, loves the seventh. And likewise of Moshe, who was seventh from the Patriarchs, it is written: “And Moshe went up to G-d” [Exodus 19:3].',
+    '<b>Behold, my witness [edi] is in heaven</b> [Job 16:19] — in gematria “Chanoch”… For the Holy One, blessed be He, took one of those before the generation of the Flood and one of those after the generation of the Flood — namely Chanoch and Pinchas — and raised them to heaven to testify about Him. And He chose Chanoch because he was the seventh generation, and the Holy One, blessed be He, loves the seventh. And likewise of Moshe, who was seventh from the Patriarchs, it is written: “And Moshe went up to G-d” [Exodus 19:3].',
   ],
   'tanya-ih-7': [
     "Though this manifestation through the occupation with Torah and the commandments is, generally, equal in every one of Israel — for we all have one Torah and one law — nevertheless, in a more specific way not all the souls (<i>nefesh</i>), spirits (<i>ruach</i>) and souls (<i>neshamah</i>) are equal in this regard, depending on the time of their reincarnation and their coming into this world; as our Sages, of blessed memory, said: “In what was your father more heedful? He answered him: in <i>tzitzit</i>…”",
@@ -118,7 +115,7 @@ export const PROJECT_EN: Record<string, string[]> = {
     '<b>To one another: come [ish el re’ehu havah]</b> — the last letters [form] “shalvah” [carefree ease]: they sinned because of the excessive ease they had.',
   ],
   'bht-7-11': [
-    '<b>On the seventeenth day of the month</b> — and this is [what is said]: “they spend their days in good [ba-tov]” [Job 21:13]: as the number of “tov” [17] — on that [day] of the month the Flood came down. “And the windows of the heavens” — in gematria: “that He took two stars from Kimah [the Pleiades]”.',
+    '<b>On the seventeenth day of the month</b> — and this is [what is said]: “they spend their days in good [ba-tov]” [Job 21:13]: as the number of “tov” [17] — on that [day] of the month the Flood came down…',
   ],
   'bht-11-1-2': ['<b>One language [safah achat]</b> — in gematria: “the holy tongue” [lashon ha-kodesh].'],
   'bht-11-29': [
@@ -137,14 +134,14 @@ export const PROJECT_EN: Record<string, string[]> = {
     '<b>And I will make you a great nation, etc.</b> — here He blessed him with seven blessings, and these are they. “And I will make you a great nation” — this is the greatest of all: that He will make him a nation, for this includes both the bondage and the freedom. The second — that while he was still Avram, before He brought him into the covenant [of circumcision], He would bless him with the blessing of wealth, as it is written: “And Avram was very rich.” The third — that his name would grow, from Avram to Avraham. The fourth — that he himself would be a blessing. The fifth — that the Almighty would bless those who bless him. The sixth — that He would curse all who seek his harm. The seventh — that all the families of the earth would be blessed through him.',
   ],
   'bht-12-2-3': [
-    '<b>I will show you [arecha]</b> — in gematria “in the clouds” [ba-ananim]: this teaches that clouds went before him and showed him the way. “And I will make you a great nation, and I will bless you, and make your name great” — three blessings, corresponding to the three blessings of the Kohanim. And likewise [the word] “mevarechecha” has three crowns [tagin] on [the letter] ך: to tell you that three times twenty is sixty, corresponding to the sixty letters of the Priestly Blessing, which are: “May He bless you…”, “May He shine…”, “May He lift…”. “And I will bless you” [va-avarechecha] — in gematria “Avraham”.',
+    '<b>I will show you [arecha]</b> — in gematria “in the clouds” [ba-ananim]: this teaches that clouds went before him and showed him the way. “And I will make you a great nation, and I will bless you, and make your name great” — three blessings, corresponding to the three blessings of the Kohanim. And likewise [the word] “mevarechecha” has three crowns [tagin] on [the letter] ך: to tell you that three times twenty is sixty, corresponding to the sixty letters of the Priestly Blessing, which are: “May He bless you…”, “May He shine…”, “May He lift…”…',
   ],
   'bht-13-11': [
     '<b>And they parted from one another. Avram [ish me’al achiv. Avram]</b> — the last letters [form] “shalom” [peace]: to say that they parted in order to keep the peace. And it also hinted to him that there would be peace for his descendants, and this is what is said: “Do not harass Moav” [Deuteronomy 2:9].',
   ],
   'bht-14-18': ['<b>King of Shalem [melech Shalem]</b> — the first letters [form] “Shem”: to tell you that this was Shem, the son of Noach.'],
   'bht-15-5-1': [
-    '<b>And He took him outside [va-yotze oto ha-chutzah]</b> — in gematria: “your astrology” [itztagninut’cha]. “So [koh] will your descendants be” — meaning: when he has twenty-five more years, as the number of “koh” [25], he will have descendants: for at the Covenant between the Pieces Avraham was seventy-five years old.',
+    '… <b>“So [koh] will your descendants be”</b> — meaning: when he has twenty-five more years, as the number of “koh” [25], he will have descendants: for at the Covenant between the Pieces Avraham was seventy-five years old.',
   ],
   'bht-15-5-2': [
     '<b>Will be [yihyeh]</b> — in gematria “thirty”: to tell you that there is no generation without thirty righteous people. And so He said: as the number of “yihyeh” there will be righteous people among your descendants, as it is said: “And He said to him: so will your descendants be.”',

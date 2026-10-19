@@ -5,8 +5,8 @@ import type { MemoData } from '../types';
  * (Kitzur Ba'al HaTurim, Sefaria), one pair of cards each — a picture (memo/NN.png, framed by scripts/memo-frame.py)
  * and the Torah words. Texts — `memo` in i18n/<lang>.ts, same order.
  * Every gematria and letter hint is the commentary's own and is checked by `npm run check`.
- * Not given as numbers (they don't add up in our spelling, see index.ts): וארובות השמים (1016) ≠ שלקח שני כוכבים מכימה
- * (1011); שפה אחת (794) = לשון הקדש (795) only with the kolel — the texts say so.
+ * A gematria that doesn't add up in our spelling is not used (וארובות השמים 1016 ≠ שלקח שני כוכבים מכימה 1011 — pair 8 is
+ * the 17th = טוב of the same comment); שפה אחת (794) = לשון הקדש (795) only with the kolel — the texts say so.
  */
 const memo: MemoData = {
   items: [
@@ -55,8 +55,9 @@ const memo: MemoData = {
       source: 'bht-7-10',
     },
     {
-      verse: 'וארבת השמים נפתחו',
-      quote: 'וארובות השמים — בגימטריא שלקח שני כוכבים מכימה',
+      verse: 'בשבעה עשר יום לחדש',
+      quote: 'בשבעה עשר יום לחודש — וזה יבלו בטוב ימיהם: כמנין טוב לחודש ירד המבול',
+      gematria: [{ a: 'טוב', v: 17 }],
       source: 'bht-7-11',
     },
     {

@@ -46,8 +46,7 @@ const lesson: Lesson = {
         'חמס = 108 = מי נח = גיהנם',
       ],
       sources: ['gen-6-9', 'bht-6-9', 'prov-11-30', 'bht-6-11-2'],
-      quotes: [[], ['bht-6-9:1'], ['bht-6-9:2'], ['bht-6-9:3'], ['bht-6-9:4'], ['bht-6-11-2']],
-      noSource: [0],
+      quotes: [['bht-6-9:1'], ['bht-6-9:2'], ['bht-6-9:3'], ['bht-6-9:4'], ['bht-6-11-2']],
     },
     {
       words: ['קץ', 'צהר'],
@@ -175,8 +174,7 @@ const lesson: Lesson = {
         'בגץ = 95 = יסכה',
       ],
       sources: ['gen-11-1', 'bht-11-1-2', 'gen-11-29', 'bht-11-29', 'megillah-14a'],
-      quotes: [[], ['bht-11-1-2'], ['bht-11-29']],
-      noSource: [0],
+      quotes: [['bht-11-1-2'], ['bht-11-29']],
     },
   ],
   highlight: [

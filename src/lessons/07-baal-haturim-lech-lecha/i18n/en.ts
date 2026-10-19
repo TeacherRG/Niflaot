@@ -20,7 +20,6 @@ const en: LessonText = {
     'ברוח': '“by the wind”',
     'ך': 'final letter kaf (20)',
     'ס׳ אותיות שבברכת כהנים': '“the sixty letters of the Priestly Blessing”',
-    'ואברכך': '“and I will bless you”',
     'אברהם': 'Avraham',
     'אברם': 'Avram — Avraham’s first name',
     'איש מעל אחיו אברם': '“from one another. Avram…” (the end of verse 13:11 and the start of 13:12)',
@@ -39,7 +38,6 @@ const en: LessonText = {
     'תרח': 'Terach, Avram’s father',
     'לוט': 'Lot, Avram’s nephew',
     'ויוצא אתו החוצה': '“and He took him outside”',
-    'איצטגנינותך': '“your astrology”',
     'כה': '“koh” — “so”, “thus”',
     'יהיה': '“will be”',
     'ל׳ צדיקים בכל דור': '“thirty righteous people in every generation”',
@@ -111,10 +109,6 @@ const en: LessonText = {
       },
       lessons: [
         {
-          h: 'How to read the Baal HaTurim',
-          b: `<p>The commentary of the Baal HaTurim, printed in almost every Chumash, is made of short hints. His tools: <b>gematria</b> — two phrases with the same number are linked in meaning; <b>rashei teivot and sofei teivot</b> (<span class="he">ר״ת</span>, <span class="he">ס״ת</span>) — the first or last letters of neighboring words form a new word; <b>“two or three in the Masorah”</b> — a word appears in all of Tanakh exactly two or three times, and those places explain each other. Sometimes he counts in other ways too: with atbash or by the value of the last letters (riddle 4), and he reads a word as a notarikon (riddle 5).</p><p>Every number in this lesson has been checked. A few gematriot of the commentary on Lech Lecha do not add up in our count — they are not in the riddles, and the lesson text says where they are.</p>`,
-        },
-        {
           h: 'The beginning — a saying',
           b: `<p>In the story of Creation, “and He said” — <i>va-yomer</i> — appears ten times. The chapter about Avraham opens with the same word: <span class="he">ויאמר ה׳ אל אברם</span>.<sup data-src="bht-12-1"></sup></p>`,
         },
@@ -128,7 +122,7 @@ const en: LessonText = {
         },
         {
           h: 'Clouds and the Priestly Blessing',
-          b: `<p><span class="he">אראך</span> = 1 + 200 + 1 + 20 = 222; <span class="he">בעננים</span> = 2 + 70 + 50 + 50 + 10 + 40 = 222.<sup data-src="bht-12-2-3"></sup></p><p>The Priestly Blessing is three verses in the book of Numbers.<sup data-src="num-6-24"></sup> Count their letters (the Name of G-d is written with four letters): the first verse has 15, the second 20, the third 25; together 60 = 3 × 20.</p><p>The last gematria of this comment adds up in our count only “with the kolel”: <span class="he">ואברכך</span> = 249, while <span class="he">אברהם</span> = 248 — a difference of one.</p>`,
+          b: `<p><span class="he">אראך</span> = 1 + 200 + 1 + 20 = 222; <span class="he">בעננים</span> = 2 + 70 + 50 + 50 + 10 + 40 = 222.<sup data-src="bht-12-2-3"></sup></p><p>The Priestly Blessing is three verses in the book of Numbers.<sup data-src="num-6-24"></sup> Count their letters (the Name of G-d is written with four letters): the first verse has 15, the second 20, the third 25; together 60 = 3 × 20.</p>`,
         },
       ],
       reflection: 'Avraham set out before he knew where to — and clouds showed him the way. What first step toward something good can I take today, even if I can’t yet see the whole path?',
@@ -210,7 +204,7 @@ const en: LessonText = {
       lessons: [
         {
           h: 'Twenty-five more years',
-          b: `<p><span class="he">כה</span> = 20 + 5 = 25.<sup data-src="bht-15-5-1"></sup> 75 + 25 = 100 — “Avraham was a hundred years old when his son Yitzchak was born to him.”<sup data-src="gen-21-5"></sup></p><p>The first gematria of this comment does not add up in our count: <span class="he">ויוצא אתו החוצה</span> = 634, while <span class="he">איצטגנינותך</span> = 649. But the idea itself is in Rashi: “Go out of your astrology!” — by the stars Avram has no son, but Avraham will.<sup data-src="rashi-15-5"></sup></p>`,
+          b: `<p><span class="he">כה</span> = 20 + 5 = 25.<sup data-src="bht-15-5-1"></sup> 75 + 25 = 100 — “Avraham was a hundred years old when his son Yitzchak was born to him.”<sup data-src="gen-21-5"></sup></p><p>On this verse Rashi brings a midrash: “Go out of your astrology!” — by the stars Avram has no son, but Avraham will.<sup data-src="rashi-15-5"></sup></p>`,
         },
         {
           h: 'Thirty righteous people',
@@ -220,7 +214,7 @@ const en: LessonText = {
       reflection: 'G-d told Avram: “Look up at the sky.” When something good seems impossible to me — can I “lift my eyes” and believe that everything can change?',
       takeaways: [
         'כה = 25: in twenty-five years, at a hundred, Avraham will have Yitzchak.',
-        'ויוצא אתו החוצה = 634, איצטגנינותך = 649 — it does not add up; Rashi: “Go out of your astrology.”',
+        'Rashi: “Go out of your astrology” — by the stars Avram has no son, but Avraham will.',
         'יהיה = 30: in every generation there are thirty righteous people.',
       ],
     },
