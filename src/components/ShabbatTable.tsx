@@ -12,6 +12,7 @@ import { SITE_HOST } from '../core/site';
 import { Icon } from './ui';
 import { PrintMasthead } from './PrintBrand';
 import { NotFound } from './PageStates';
+import { SLOGAN_HE, Slogan } from './Slogan';
 
 const TABLE = Object.entries(VALUES).filter(([c]) => !'ךםןףץ'.includes(c));
 
@@ -123,7 +124,9 @@ export function ShabbatTable({ parsha }: { parsha?: string }) {
           <h1>
             {t('table.title')} · {name}
           </h1>
-          <p className="st-tag">{t('slogan')}</p>
+          <p className="st-tag">
+            <Slogan />
+          </p>
           <p className="st-how">{t('table.how')}</p>
         </header>
 
@@ -229,7 +232,7 @@ export function ShabbatTable({ parsha }: { parsha?: string }) {
         )}
 
         <footer className="p-foot">
-          {t('slogan')} · {t('app.title')} · {SITE_HOST} · © mychitas.app 5787
+          <span className="he" lang="he">{SLOGAN_HE}</span> · {t('app.title')} · {SITE_HOST} · © mychitas.app 5787
         </footer>
       </article>
     </div>

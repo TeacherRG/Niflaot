@@ -1,5 +1,6 @@
 import { Fragment, useEffect } from 'react';
 import { useI18n } from '../i18n';
+import { Slogan } from './Slogan';
 import { LESSONS, LESSON_GROUPS, cardsOnly, type Lesson } from '../lessons';
 import { TEACHERS, teacherOf } from '../lessons/teachers';
 import { lessonProgress } from '../core/progress';
@@ -149,9 +150,9 @@ function AdultsHome() {
         </section>
 
         <aside className="a-side">
-          {/* «Учись сам и учи с детьми»: the children learn the same portion in play — the Friday sheet brings it to the table */}
+          {/* the motto «ושננתם לבניך»: the children learn the same portion in play — the Friday sheet brings it to the table */}
           <a className="a-tag" href="#/shabbat-table">
-            <b>{t('slogan')}</b>
+            <Slogan />
             <span>{t('home.adultsTag')} →</span>
           </a>
           {reads.length > 0 && (
@@ -353,7 +354,9 @@ function KidsHome() {
             {t('home.week')} · {weekName} <span className="he">{week.he}</span>
           </span>
           <h1>{t('catalog.uvp')}</h1>
-          <p className="k-tag">{t('slogan')}</p>
+          <p className="k-tag">
+            <Slogan />
+          </p>
         </div>
 
         <div className="k-top">

@@ -1144,8 +1144,9 @@ const en: Messages = {
   'quiz.notReady': "The questions on this passage are still being prepared — come back later.",
   'quiz.cta': "Test yourself: questions on the passage",
   'final.academy': "The lesson’s points count towards the book’s certificate — “Academy”.",
-  // «К шабатнему столу», «Учись сам и учи с детьми», the faculties of the Academy
-  'slogan': "Learn yourself — and teach with your children",
+  // «К шабатнему столу», the motto (Devarim 6:7), the faculties of the Academy
+  'slogan': "“And you shall teach them to your children and speak of them”",
+  'slogan.ref': "Devarim 6:7",
   'home.adultsTag': "Children learn the same portion by playing. The sheet for the Shabbat table: riddles for children, questions for adults",
   'table.title': "For the Shabbat table",
   'table.menuSub': "the portion’s sheet — print it before Shabbat",

@@ -1144,8 +1144,9 @@ const de: Messages = {
   'quiz.notReady': "Die Fragen zu diesem Abschnitt werden noch vorbereitet — schau später wieder vorbei.",
   'quiz.cta': "Teste dich: Fragen zum Abschnitt",
   'final.academy': "Die Punkte der Lektion zählen für das Zertifikat des Buches — „Akademie“.",
-  // «К шабатнему столу», «Учись сам и учи с детьми», the faculties of the Academy
-  'slogan': "Lerne selbst — und lehre mit deinen Kindern",
+  // «К шабатнему столу», the motto (Devarim 6:7), the faculties of the Academy
+  'slogan': "„Und du sollst sie deinen Kindern einschärfen und von ihnen reden“",
+  'slogan.ref': "Dewarim 6,7",
   'home.adultsTag': "Kinder lernen denselben Abschnitt im Spiel. Das Blatt für den Schabbat-Tisch: Rätsel für Kinder, Fragen für Erwachsene",
   'table.title': "Für den Schabbat-Tisch",
   'table.menuSub': "Blatt zum Wochenabschnitt — vor Schabbat drucken",

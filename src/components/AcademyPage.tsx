@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useI18n } from '../i18n';
+import { Slogan } from './Slogan';
 import type { MessageKey } from '../i18n/locales/ru';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
@@ -705,7 +706,9 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
         <header className="tk-head">
           <p className="tk-kicker">🎓 {t('cert.academy')}</p>
           <h1>{t(adults ? 'academy.h1Adults' : 'academy.h1Kids')}</h1>
-          <p className="ac-tag">{t('slogan')}</p>
+          <p className="ac-tag">
+            <Slogan />
+          </p>
           <p className="ac-lead">{t(adults ? 'academy.leadAdults' : 'academy.lead', { pass: PASS_PCT })}</p>
           {!token && <p className="tk-note">{t('academy.guest')}</p>}
         </header>
