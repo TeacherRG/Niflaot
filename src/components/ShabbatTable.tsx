@@ -1,10 +1,7 @@
 import { useEffect } from 'react';
 import { Html, useI18n } from '../i18n';
-import { LESSON_GROUPS, PARSHIOT, weekParsha, type ParshaId } from '../lessons';
+import { LESSON_GROUPS, PARSHIOT, weekParsha, type Lesson, type ParshaId } from '../lessons';
 import { teacherOf } from '../lessons/teachers';
-import { NUMS, type Fact } from '../core/facts';
-import { VALUES } from '../core/gematria';
-import { letterName } from '../core/letterNames';
 import { displayNames } from '../core/names';
 import { stripFootnotes } from '../sources/footnotes';
 import { tableSheet } from '../core/shabbatTable';
@@ -14,70 +11,94 @@ import { PrintMasthead } from './PrintBrand';
 import { NotFound } from './PageStates';
 import { SLOGAN_HE, Slogan } from './Slogan';
 
-const TABLE = Object.entries(VALUES).filter(([c]) => !'ךםןףץ'.includes(c));
-
-/** Hebrew words with their translations, each term of a sum separately; `ask` — ends with «?». */
-function Words({ he, gloss, ask }: { he: string; gloss: Record<string, string>; ask?: boolean }) {
-  const terms = he.split(' + ');
+/** Torah words in Hebrew with their translation under them. */
+function Verse({ he, tr }: { he: string; tr: string }) {
   return (
-    <>
-      {terms.map((w, k) => (
-        <span key={k} className="st-w">
-          {k > 0 && <span className="st-op">+</span>}
-          <span className="he" lang="he">
-            {displayNames(w)}
-            {ask && k === terms.length - 1 && <span className="st-ask">?</span>}
-          </span>
-          {gloss[w] && <small>{gloss[w]}</small>}
-        </span>
-      ))}
-    </>
+    <p className="st-verse">
+      <span className="he" lang="he" dir="rtl">
+        {displayNames(he)}
+      </span>
+      <span className="st-tr">«{tr}»</span>
+    </p>
   );
 }
 
-/** A riddle of «Знаете ли вы?» for the children: the question, the Hebrew with its translation, a line to write the answer. */
-function Riddle({ f, n }: { f: Fact; n: number }) {
-  const { t, pick } = useI18n();
-  const gloss = pick(f.lesson.texts).value.glossary;
+/** The invitation to play at the end of a talk's intro («Расследуйте вместе с Ребе…») — on paper there is nothing to play. */
+const INVITE = /\s*(Расследуйте|Investigate|Ermittle)[^]*$/;
+
+/** The talk of «Нифлаот Ребе» told plainly: its question, then riddle by riddle the Rebbe's answer. */
+function Sicha({ lesson }: { lesson: Lesson }) {
+  const { pick } = useI18n();
+  const tx = pick(lesson.texts).value;
   return (
-    <li className="st-riddle">
-      <span className="st-n">{n}</span>
-      <div>
-        <p className="st-q">{f.kind === 'eq' ? t('facts.qEq') : t(`facts.qLt.${f.take}`)}</p>
-        <p className="st-he">
-          <Words he={f.kind === 'eq' ? f.q : f.from} gloss={gloss} ask />
-        </p>
-        <p className="st-line">{t(f.kind === 'eq' ? 'table.count' : 'table.word')} ______________</p>
-      </div>
+    <div className="st-sicha">
+      <Html as="h3" html={tx.hero.heading} />
+      <p className="st-by">{tx.hero.author}</p>
+      <p className="st-intro">{tx.hero.intro.replace(INVITE, '')}</p>
+      {tx.riddles.map((r, ri) => (
+        <div key={ri} className="st-part">
+          <h4>{r.title}</h4>
+          <p>
+            <b>{r.reveal.h}.</b> <Html html={stripFootnotes(r.reveal.p)} />
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** A verse of the portion with the Rebbe's explanation (a «Карточки» pair). */
+function RebbeVerse({ lesson, k }: { lesson: Lesson; k: number }) {
+  const { pick } = useI18n();
+  const c = pick(lesson.texts).value.cards!.items[k];
+  return (
+    <li className="st-item">
+      <Verse he={lesson.cards!.items[k].verse} tr={c.verse} />
+      <p>
+        <b>{c.card}.</b> {c.explain}
+      </p>
     </li>
   );
 }
 
-/** The answer of a riddle, for the foot of the sheet: no calculations, only the value and the equal words. */
-function Answer({ f, n }: { f: Fact; n: number }) {
-  const { pick } = useI18n();
-  const gloss = pick(f.lesson.texts).value.glossary;
+/** A gematria of the Baal HaTurim with its explanation and lesson (a Memo pair). */
+function Gematria({ lesson, k }: { lesson: Lesson; k: number }) {
+  const { t, pick } = useI18n();
+  const m = lesson.memo!.items[k];
+  const tx = pick(lesson.texts).value.memo!.items[k];
   return (
-    <li>
-      <b>{n}.</b>{' '}
-      {f.kind === 'eq' ? (
-        f.rest.map((p, k) => (
-          <span key={k}>
-            {k > 0 && ' = '}
-            {NUMS.test(p) ? <b className="num">{p}</b> : <Words he={p} gloss={gloss} />}
+    <li className="st-item">
+      <h4>{tx.title}</h4>
+      <Verse he={m.verse} tr={tx.verse} />
+      {m.gematria!.map((g, j) => (
+        <p key={j} className="st-eq" dir="rtl">
+          <span className="he" lang="he">
+            {displayNames(g.a)}
           </span>
-        ))
-      ) : (
-        <Words he={f.word} gloss={gloss} />
-      )}
+          <span className="st-op">=</span>
+          <b className="num">{g.v}</b>
+          {g.b && (
+            <>
+              <span className="st-op">=</span>
+              <span className="he" lang="he">
+                {displayNames(g.b)}
+              </span>
+            </>
+          )}
+        </p>
+      ))}
+      <p>{tx.explain}</p>
+      <p className="st-moral">
+        <b>{t('memo.learn')}</b> {tx.moral}
+      </p>
     </li>
   );
 }
 
 /**
  * `#/shabbat-table[/<глава>]` — «К шабатнему столу»: the Friday sheet of the week's portion (src/core/shabbatTable.ts),
- * to print before Shabbat and read aloud at the table — riddles for the children, the investigations of the Rebbe,
- * questions for the adults, «Ґораа ле-поаль», the Memo games to print; the answers upside down at the foot.
+ * to print before Shabbat and read aloud at the table — the Rebbe's talk told plainly, verses of the portion with the
+ * Rebbe's explanation, gematrias of the Baal HaTurim with their explanation, questions to talk over, «Ґораа ле-поаль».
  */
 export function ShabbatTable({ parsha }: { parsha?: string }) {
   const { t, pick, locale } = useI18n();
@@ -127,112 +148,69 @@ export function ShabbatTable({ parsha }: { parsha?: string }) {
           <p className="st-tag">
             <Slogan />
           </p>
-          <p className="st-how">{t('table.how')}</p>
         </header>
 
-        {sheet.facts.length > 0 && (
+        {sheet.sicha && (
           <section className="p-block">
-            <h2 className="st-h2">🧒 {t('table.kids')}</h2>
-            <p className="st-note">{t('table.kidsNote')}</p>
-            <ol className="st-riddles">
-              {sheet.facts.map((f, k) => (
-                <Riddle key={f.id} f={f} n={k + 1} />
+            <h2 className="st-h2">✦ {t('table.sicha')}</h2>
+            <p className="st-note">{t('table.sichaNote')}</p>
+            <Sicha lesson={sheet.sicha} />
+          </section>
+        )}
+
+        {sheet.verses.length > 0 && (
+          <section className="p-block">
+            <h2 className="st-h2">📜 {t('table.verses')}</h2>
+            <ol className="st-items">
+              {sheet.verses.map(({ lesson, k }) => (
+                <RebbeVerse key={`${lesson.slug}-${k}`} lesson={lesson} k={k} />
               ))}
             </ol>
-            <div className="p-letters-block">
-              <h3 className="p-label">{t('print.letters')}</h3>
-              <div className="p-table" dir="rtl">
-                {TABLE.map(([c, v]) => (
-                  <span key={c}>
-                    <b>{c}</b>
-                    <i>{v}</i>
-                    <small className="ln">{letterName(c, locale)}</small>
-                  </span>
-                ))}
-              </div>
-              <p className="p-finals">
-                {t('print.finals')}{' '}
-                <span className="he" dir="rtl">
-                  ך = כ · ם = מ · ן = נ · ף = פ · ץ = צ
-                </span>
-              </p>
-            </div>
           </section>
         )}
 
-        {sheet.rebbe.length > 0 && (
+        {sheet.gematria.length > 0 && (
           <section className="p-block">
-            <h2 className="st-h2">✦ {t('table.rebbe')}</h2>
-            <p className="st-note">{t('table.rebbeNote')}</p>
-            {sheet.rebbe.map(({ lesson, ri }) => {
-              const r = pick(lesson.texts).value.riddles[ri];
-              return (
-                <div key={`${lesson.slug}-${ri}`} className="st-inv">
-                  <h3>{r.title}</h3>
-                  <Html as="div" className="p-cond" html={stripFootnotes(r.cond)} />
-                  <p className="st-line">{t('table.think')}</p>
-                </div>
-              );
-            })}
-          </section>
-        )}
-
-        <section className="p-block">
-          <h2 className="st-h2">💬 {t('table.adults')}</h2>
-          <ul className="st-list">
-            {sheet.reflections.map(({ lesson, ri }) => (
-              <li key={`${lesson.slug}-${ri}`}>{pick(lesson.texts).value.riddles[ri].reflection}</li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="p-block">
-          <h2 className="st-h2">✋ {t('table.practice')}</h2>
-          <ul className="st-list">
-            {sheet.lessons.map((l) => {
-              const tx = pick(l.texts).value;
-              return (
-                <li key={l.slug}>
-                  <b>{t(`teacher.${teacherOf(l)}.short`)}:</b> {tx.practice}
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-
-        {sheet.memo.length > 0 && (
-          <section className="p-block">
-            <h2 className="st-h2">🃏 {t('table.memo')}</h2>
-            <p className="st-note">
-              {t('table.memoNote')}{' '}
-              {sheet.memo.map((l, k) => (
-                <span key={l.slug}>
-                  {k > 0 && ' · '}
-                  <a href={`#/${l.slug}/print/memo`}>
-                    {SITE_HOST}/#/{l.slug}/print/memo
-                  </a>
-                </span>
+            <h2 className="st-h2">🔢 {t('table.gematria')}</h2>
+            <p className="st-note">{t('table.gematriaNote')}</p>
+            <ol className="st-items">
+              {sheet.gematria.map(({ lesson, k }) => (
+                <Gematria key={`${lesson.slug}-${k}`} lesson={lesson} k={k} />
               ))}
-            </p>
+            </ol>
           </section>
         )}
 
-        {sheet.facts.length > 0 && (
-          <section className="st-answers" aria-label={t('table.answers')}>
-            <div>
-              <h3 className="p-label">{t('table.answers')}</h3>
-              <ol>
-                {sheet.facts.map((f, k) => (
-                  <Answer key={f.id} f={f} n={k + 1} />
-                ))}
-              </ol>
-              <p>{t('table.why')}</p>
-            </div>
+        <div className="st-end">
+          <section className="p-block">
+            <h2 className="st-h2">💬 {t('table.adults')}</h2>
+            <ul className="st-list">
+              {sheet.questions.map(({ lesson, ri }) => (
+                <li key={`${lesson.slug}-${ri}`}>{pick(lesson.texts).value.riddles[ri].reflection}</li>
+              ))}
+            </ul>
           </section>
-        )}
+
+          <section className="p-block">
+            <h2 className="st-h2">✋ {t('table.practice')}</h2>
+            <ul className="st-list">
+              {sheet.lessons.map((l) => {
+                const tx = pick(l.texts).value;
+                return (
+                  <li key={l.slug}>
+                    <b>{t(`teacher.${teacherOf(l)}.short`)}:</b> {tx.practice}
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        </div>
 
         <footer className="p-foot">
-          <span className="he" lang="he">{SLOGAN_HE}</span> · {t('app.title')} · {SITE_HOST} · © mychitas.app 5787
+          <span className="he" lang="he">
+            {SLOGAN_HE}
+          </span>{' '}
+          · {t('app.title')} · {SITE_HOST} · © mychitas.app 5787
         </footer>
       </article>
     </div>

@@ -1,5 +1,5 @@
 /**
- * «К шабатнему столу» в Telegram — каждую пятницу утром: пост с загадкой для детей (только вопрос — ответ на листе)
+ * «К шабатнему столу» в Telegram — каждую пятницу утром: пост с вопросом беседы Ребе (ответ — на листе)
  * и вторым сообщением PDF листа главы (`#/shabbat-table/<глава>`, ShabbatTable.tsx, src/core/shabbatTable.ts) на языке
  * канала — тот же лист, что даёт «Печать» на сайте. Глава — та, чей Шабат наступает в ближайшие 6 дней (по пятницам —
  * завтра); нет такой главы с уроками — ничего не публикуется. В Шабат — даже при ручном запуске ничего.
@@ -84,14 +84,11 @@ function post(loc: Loc): string {
     '',
     html(t(loc, 'table.post.lead')),
   ];
-  // the first riddle of the sheet: only the question — the answer is on paper
-  const f = sheet!.facts[0];
-  if (f) {
-    const text = f.lesson.texts[loc] ?? f.lesson.texts.ru!;
-    const he = f.kind === 'eq' ? f.q : f.from;
-    const gloss = he.split(' + ').map((w) => text.glossary[w]).filter(Boolean).join(' + ');
-    const q = f.kind === 'eq' ? t(loc, 'facts.qEq') : t(loc, `facts.qLt.${f.take}`);
-    lines.push('', `🧒 <b>${html(t(loc, 'table.post.riddle'))}</b> ${html(q)} ${displayNames(he)}${gloss ? ` (${html(gloss)})` : ''}?`, html(t(loc, 'table.post.answer')));
+  // the question of the Rebbe's talk: the answer is on paper
+  const sicha = sheet!.sicha;
+  if (sicha) {
+    const q = (sicha.texts[loc] ?? sicha.texts.ru!).hero.heading.replace(/<[^>]+>/g, '');
+    lines.push('', `✦ <b>${html(t(loc, 'table.post.q'))}</b> ${html(displayNames(q))}`, html(t(loc, 'table.post.qAnswer')));
   }
   lines.push('', `👉 ${html(routeLink(route, 'channel', loc))}`, '', `<i>ושננתם לבניך ודברת בם</i> — ${html(t(loc, 'slogan'))} (${html(t(loc, 'slogan.ref'))})`);
   return lines.join('\n');
