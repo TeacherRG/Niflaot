@@ -2189,10 +2189,12 @@ body:has(.a-home){background:var(--plain)}
 .kar-admin code{font-size:12.5px;word-break:break-all}
 /* the karaoke: «Учить» | «Игра на баллы»; in the game a word of each line is missing, three words to pick from */
 .kar-tabs{display:inline-flex;justify-self:start;gap:4px;padding:4px;border-radius:12px;background:var(--paper)}
-.kar-tabs button{padding:8px 14px;border:0;border-radius:9px;background:none;color:var(--ink-2);font:inherit;font-weight:700;cursor:pointer}
+.kar-tabs button{white-space:nowrap;padding:8px 14px;border:0;border-radius:9px;background:none;color:var(--ink-2);font:inherit;font-weight:700;cursor:pointer}
 .kar-tabs button.on{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
 .kar-game-note{margin:0;font-size:14px;color:var(--ink-2);line-height:1.45}
-.kar-score{color:var(--gold-deep);white-space:nowrap}
+.kar-score{color:var(--gold-deep);white-space:nowrap;font-variant-numeric:tabular-nums}
+.kar-live{margin:0;display:flex;align-items:center;gap:12px;min-height:34px}
+.kar-live .kar-voice{flex:1 1 auto;min-width:0}
 .kar-start{justify-self:start}
 .kar-line{display:grid;gap:4px;padding:8px 12px;border-radius:10px;color:var(--muted)}
 .kar-lines li.now .kar-line{background:var(--gold-soft)}
@@ -2211,7 +2213,8 @@ body:has(.a-home){background:var(--plain)}
 .kar-result-a{display:flex;flex-wrap:wrap;gap:8px}
 /* «Петь» in the karaoke: the privacy line, the live voice — in tune / not / silent, the points of each line */
 .kar-privacy{margin:0;font-size:13px;color:var(--muted);line-height:1.45}
-.kar-voice{margin:0;justify-self:start;padding:6px 12px;border-radius:999px;font-weight:700;font-size:14px;background:var(--paper);color:var(--ink-2)}
+.kar-voice{margin:0;justify-self:stretch;box-sizing:border-box;height:34px;line-height:22px;padding:6px 12px;border-radius:999px;font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:var(--paper);color:var(--ink-2);transition:background-color .2s,color .2s}
 .kar-voice.on{background:var(--ok-soft);color:var(--ok)}
 .kar-voice.off{background:var(--gold-soft);color:var(--gold-deep)}
 .kar-pts{justify-self:start;font-size:13px;font-weight:700;color:var(--gold-deep)}
+@media (max-width:420px){.kar-tabs{justify-self:stretch;display:grid;grid-template-columns:repeat(3,auto);justify-content:space-between}.kar-tabs button{padding:8px 9px;font-size:14px}}
