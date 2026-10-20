@@ -59,6 +59,7 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
   const [track, setTrack] = useState<PitchTrack | null>(null);
   const tally = useRef(n.lines.map(() => ({ sung: 0, inTune: 0 })));
   const [voice, setVoice] = useState<'none' | 'off' | 'on'>('none');
+  const voiceCandidate = useRef<{ state: 'none' | 'off' | 'on'; since: number }>({ state: 'none', since: 0 });
   const [singing, setSinging] = useState(false);
   const [singResult, setSingResult] = useState<{ got: number; max: number } | null>(null);
   const [micError, setMicError] = useState(false);
@@ -90,7 +91,11 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
             tally.current[k].sung++;
             if (me && pitchDistance(me, ref) <= TOLERANCE) tally.current[k].inTune++;
           }
-          setVoice(!me ? 'none' : ref && pitchDistance(me, ref) <= TOLERANCE ? 'on' : 'off');
+          // the hint changes only once a state has held for a moment — a flicker every frame shook the screen
+          const now = !me ? 'none' : ref && pitchDistance(me, ref) <= TOLERANCE ? 'on' : 'off';
+          const c = voiceCandidate.current;
+          if (c.state !== now) voiceCandidate.current = { state: now, since: performance.now() };
+          else if (performance.now() - c.since > 400) setVoice(now);
         }
         setTime(a.currentTime);
       }
@@ -256,12 +261,11 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
       {game && (
         <p className="kar-game-note">
           {t('nigun.gameHow', { n: total, pass: Math.round(PASS * 100) })}
-          {result === null && (
-            <b className="kar-score">
-              {' '}
-              · {t('nigun.score', { n: right * POINTS, max: total * POINTS })}
-            </b>
-          )}
+        </p>
+      )}
+      {game && result === null && (
+        <p className="kar-live">
+          <b className="kar-score">{t('nigun.score', { n: right * POINTS, max: total * POINTS })}</b>
         </p>
       )}
       {game && result !== null && (
@@ -284,19 +288,16 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
         <>
           <p className="kar-game-note">
             {t('nigun.singHow', { pass: 70 })}
-            {singing && (
-              <b className="kar-score">
-                {' '}
-                · {t('nigun.singScore', { n: singNow })}
-              </b>
-            )}
           </p>
           <p className="kar-privacy">🔒 {t('nigun.singPrivacy')}</p>
           {micError && <p className="kar-was">{t('nigun.micError')}</p>}
           {singing && (
-            <p className={`kar-voice ${voice}`} role="status" aria-live="polite">
-              🎤 {t(`nigun.voice.${voice}`)}
-            </p>
+            <div className="kar-live">
+              <p className={`kar-voice ${voice}`} role="status" aria-live="polite">
+                🎤 {t(`nigun.voice.${voice}`)}
+              </p>
+              <b className="kar-score">{t('nigun.singScore', { n: singNow })}</b>
+            </div>
           )}
           {singResult && (
             <div className={`kar-result${singPct >= PASS * 100 ? ' ok' : ''}`} role="status">

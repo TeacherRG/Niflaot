@@ -83,7 +83,8 @@ export function readNigunStore(): Record<string, NigunResult> {
 export function saveNigunResult(id: string, r: NigunResult) {
   const all = readNigunStore();
   const old = all[id];
-  all[id] = { ...r, best: Math.max(r.best, old?.best ?? -1) };
+  // the best result stays — unless it was of another version of the lines
+  all[id] = { ...r, best: Math.max(r.best, old && old.n === r.n && old.p?.length === r.p.length ? old.best : -1) };
   try {
     localStorage.setItem(NIGUN_KEY, JSON.stringify(all));
   } catch {}
@@ -98,8 +99,11 @@ export function nigunCertificates(list: Nigun[], store: Record<string, NigunResu
   return list.map((n) => {
     // the better of the two ways: the missing words, or the singing into the microphone (`<id>:sing`, src/core/singing.ts)
     const gapsN = gaps(n).filter(Boolean).length;
-    const words = { got: Math.max(0, store[n.id]?.best ?? 0) * POINTS, max: gapsN * POINTS, played: (store[n.id]?.best ?? -1) >= 0 };
-    const s = store[`${n.id}:sing`];
+    // a result of another version of the lines (the text was corrected) does not count
+    const w = store[n.id]?.n === gapsN ? store[n.id] : undefined;
+    const words = { got: Math.max(0, w?.best ?? 0) * POINTS, max: gapsN * POINTS, played: (w?.best ?? -1) >= 0 };
+    const s0 = store[`${n.id}:sing`];
+    const s = s0 && s0.p?.length === n.lines.length ? s0 : undefined;
     const sung = { got: Math.max(0, s?.best ?? 0), max: s?.n ?? 0, played: (s?.best ?? -1) >= 0 };
     const share = (x: { got: number; max: number }) => (x.max ? x.got / x.max : 0);
     const { got, max } = sung.played && share(sung) > share(words) ? sung : words;
