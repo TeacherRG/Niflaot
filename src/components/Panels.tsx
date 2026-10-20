@@ -9,6 +9,7 @@ import { Icon, Sheet, useUI } from './ui';
 import { lessonGames } from './lessonGames';
 import { DailyReminder } from './DailyReminder';
 import { canInstall, install, subscribeInstall } from '../core/install';
+import { useToday } from '../core/useToday';
 
 /** Gematria step by step, sources and FAQ (with all the primary sources) load when «Как играть» opens. */
 const HelperContent = lazy(() => import('./Helper').then((m) => ({ default: m.HelperContent })));
@@ -99,52 +100,14 @@ function ParshaPicker({ groups, selected, week, onPick }: { groups: Group[]; sel
   );
 }
 
-type Today = {
-  neviim: { range: string; done: boolean };
-  ketuvim: { range: string; done: boolean };
-  hs?: { title: string; done: boolean };
-  words: { due: number; known: number; any: boolean };
-};
-
 /**
- * «Учить сегодня» — the adults' daily study at the top of the menu: the passages of the day of the Prophets and Writings,
- * Chassidut and «Мои слова», each with today's books / title and ✓ when done. The data loads when the menu opens
- * (not in the main bundle); «Вопросы к отрывку» are under the passage itself.
+ * «Учить сегодня» — the adults' daily study at the top of the menu (src/core/todayStudy.ts): the passages of the day of the
+ * Prophets and Writings, Chassidut and «Мои слова», each with today's books / title and ✓ when done. The data loads when the
+ * menu opens (not in the main bundle); «Вопросы к отрывку» are under the passage itself.
  */
 function TodayStudy({ active, onPick }: { active: boolean; onPick: () => void }) {
   const { t, locale } = useI18n();
-  const [d, setD] = useState<Today | null>(null);
-  useEffect(() => {
-    if (!active) return;
-    let live = true;
-    const lang = locale === 'en' || locale === 'de' ? locale : 'ru';
-    Promise.all([
-      import('../core/tanakh'),
-      import('../core/tanakhCycle'),
-      import('../core/academy'),
-      import('../core/tanakhDone'),
-      import('../core/hemshech'),
-      import('../core/words'),
-    ]).then(([tk, cy, ac, td, hs, w]) => {
-      const today = tk.localToday();
-      const day = tk.CYCLE[tk.cycleDayFor(today).index];
-      const done = td.readDoneStore();
-      const k = hs.todayIndex(today);
-      const p = k >= 0 ? hs.allPassages()[k].p : undefined;
-      const s = w.readWordStore();
-      const ids = Object.keys(s);
-      if (live)
-        setD({
-          neviim: { range: cy.rangeLabel('neviim', day.neviim, lang), done: ac.isDone(done, day.date, 'neviim') },
-          ketuvim: { range: cy.rangeLabel('ketuvim', day.ketuvim, lang), done: ac.isDone(done, day.date, 'ketuvim') },
-          hs: p && { title: p.title[hs.hsLang(locale)], done: hs.hsIsDone(hs.readHsDone(), p.id) },
-          words: { due: w.dueWords(s).length, known: ids.filter((id) => w.isKnown(s, id)).length, any: ids.some((id) => w.inDeck(s, id)) },
-        });
-    });
-    return () => {
-      live = false;
-    };
-  }, [active, locale]);
+  const d = useToday(locale, active);
   const here = (href: string) => location.hash.split('?')[0].startsWith(href) && !location.hash.split('?')[0].endsWith('/quiz');
   const row = (href: string, title: string, sub: string, done = false, icon: 'book' | 'cards' = 'book') => (
     <a href={href} onClick={onPick} className={`menu-item${done ? ' menu-done' : ''}`} aria-current={here(href) ? 'page' : undefined}>
@@ -164,7 +127,7 @@ function TodayStudy({ active, onPick }: { active: boolean; onPick: () => void })
       <div className="menu-lbl">{t('menu.today')}</div>
       {row('#/neviim', t('tanakh.neviim'), d?.neviim.range ?? t('tanakh.daySub'), d?.neviim.done)}
       {row('#/ketuvim', t('tanakh.ketuvim'), d?.ketuvim.range ?? t('tanakh.daySub'), d?.ketuvim.done)}
-      {row('#/hemshech', t('hs.menuLbl'), d?.hs?.title ?? t('hs.short'), d?.hs?.done)}
+      {row('#/hemshech', t('hs.menuLbl'), d && 'title' in d.hs ? d.hs.title : t('hs.short'), !!d && 'title' in d.hs && d.hs.done)}
       {row('#/words', t('words.mine'), w?.any ? (w.due ? t('words.homeSub', { d: w.due, k: w.known }) : t('words.homeSubDone', { k: w.known })) : t('words.menuSub'), !!w?.any && !w.due, 'cards')}
     </>
   );

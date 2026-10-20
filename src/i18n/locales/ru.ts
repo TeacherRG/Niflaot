@@ -210,6 +210,8 @@ const ru = {
   'home.moreWeek': "Ещё в этой главе",
   'home.past': "Прошлые главы",
   'home.pastOne': "Прошлая глава",
+  'home.todayCount': "{n} из {total} сделано",
+  'home.nextCert': "следующий сертификат",
   'home.riddle': "загадка {n} из {total}",
   'home.week': "Глава недели",
   'teacher.baal-haturim.short': "Бааль ґа-Турим",

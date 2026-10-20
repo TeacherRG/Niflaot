@@ -201,6 +201,8 @@ const en: Messages = {
   'home.moreWeek': "More in this portion",
   'home.past': "Earlier portions",
   'home.pastOne': "Earlier portion",
+  'home.todayCount': "{n} of {total} done",
+  'home.nextCert': "next certificate",
   'home.riddle': "riddle {n} of {total}",
   'home.week': "This week’s portion",
   'teacher.baal-haturim.short': "Baal HaTurim",

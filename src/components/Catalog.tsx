@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useI18n } from '../i18n';
 import { LESSONS, LESSON_GROUPS, cardsOnly, type Lesson } from '../lessons';
 import { TEACHERS, teacherOf } from '../lessons/teachers';
@@ -7,42 +7,17 @@ import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { WeekCountdown } from './WeekCountdown';
 import { PhoneOffer } from './PhoneOffer';
-import { HabitCard } from './HabitCard';
+import { HabitCard, Repair } from './HabitCard';
+import { useHabit } from '../core/habit';
+import { useToday } from '../core/useToday';
+import { todayCount } from '../core/todayStudy';
+import { jewishDate } from '../core/hebrewDate';
 import { dailyNumber, grid, loadResults, streak } from '../core/daily';
 import { Icon } from './ui';
 import { lessonGames } from './lessonGames';
 import { lessonArt } from '../core/art';
-import { NIFLAOT_LOGO } from '../core/partners';
 import { useMode } from '../core/mode';
 
-/** A lesson of the week on the adults' home: the tile opens the lesson to read, without games, age or progress. */
-function WeekTile({ lesson: l }: { lesson: Lesson }) {
-  const { t, pick } = useI18n();
-  const text = pick(l.texts).value;
-  const who = teacherOf(l);
-  return (
-    <a className={`h-tile t-${TEACHERS[who].color}`} href={`#/${l.slug}/read`}>
-      <span className="h-tile-top">
-        <span className="h-badge">{t(`teacher.${who}.short`)}</span>
-      </span>
-      <span className="h-tile-he he" lang="he">
-        {l.hebrewTitle}
-      </span>
-      <span className="h-tile-title">{text.title}</span>
-      <span className="h-tile-sum">{text.summary}</span>
-      <span className="h-tile-foot">
-        <span className="h-games">
-          <Icon name="book" size={15} /> {t(l.kind === 'sicha' ? 'cards.tabRead' : 'read.tab')}
-        </span>
-      </span>
-    </a>
-  );
-}
-
-/**
- * The home page — one screen: a short title with «Continue», the lessons of the week's portion (all teachers),
- * and beside them how long the games are open this week (until Shabbat).
- */
 /** «Гематрия дня» on the home screen: today's number, or the result when today's word is solved. */
 function DailyLink() {
   const { t } = useI18n();
@@ -62,177 +37,152 @@ function DailyLink() {
   );
 }
 
-/**
- * The passage of the day of the Prophets and Writings on the adults' home: today's books and verses and the reading
- * time. The cycle's data is loaded only after the page is shown (it is not part of the home bundle).
- */
-function AdultsLink() {
-  const { t, locale } = useI18n();
-  const [info, setInfo] = useState<{ range: string; min?: number } | null>(null);
-  useEffect(() => {
-    let live = true;
-    const lang = locale === 'en' || locale === 'de' ? locale : 'ru';
-    Promise.all([import('../core/tanakh'), import('../core/tanakhCycle')]).then(async ([tk, cy]) => {
-      const day = tk.CYCLE[tk.cycleDayFor(tk.localToday()).index];
-      const range = `${cy.rangeLabel('neviim', day.neviim, lang)} · ${cy.rangeLabel('ketuvim', day.ketuvim, lang)}`;
-      if (live) setInfo({ range });
-      const c = await tk.loadDay(day.date);
-      const tr = lang === 'ru' || lang === 'de' ? (c?.neviim.verses.every((v) => v[lang]) ? lang : 'en') : 'en';
-      const min = c && tk.readingMinutes([...c.neviim.verses, ...c.ketuvim.verses], true, tr, { md: true, rashi: false });
-      if (live && min) setInfo({ range, min });
-    });
-    return () => {
-      live = false;
-    };
-  }, [locale]);
-  return (
-    <div className="h-adults">
-      <a className="h-adults-main" href="#/neviim">
-        <span className="h-adults-title">
-          {t('home.adultsTitle')} <span className="he" lang="he">נביאים · כתובים</span>
-        </span>
-        <span className="h-adults-sub">
-          {info ? info.range : t('wing.adultsSub')}
-          {info?.min ? ` · ${t('tanakh.readingTime', { n: info.min })}` : ''}
-        </span>
-        <span className="h-adults-cta">{t('home.adultsCta')} →</span>
-      </a>
-    </div>
-  );
-}
-
-/**
- * «Хасидут» on the adults' home — a tile like the passage of the day: today's passage of «Ґемшех Самех-Вав», its reading
- * time and the «Я прочитал(а)» mark. The discourse's data is loaded after the page is shown (not in the home bundle).
- */
-function HemshechLink() {
-  const { t, locale } = useI18n();
-  const [info, setInfo] = useState<{ title: string; min: number; read: boolean } | { starts: string } | null>(null);
-  useEffect(() => {
-    let live = true;
-    Promise.all([import('../core/hemshech'), import('../core/tanakh'), import('../core/hebrewDate')]).then(([hs, tk, hd]) => {
-      const lang = hs.hsLang(locale);
-      const k = hs.todayIndex(tk.localToday());
-      if (!live) return;
-      if (k < 0) return setInfo({ starts: hd.civilDate(hs.passageDate(0), lang) });
-      const { p } = hs.allPassages()[k];
-      setInfo({ title: p.title[lang], min: hs.passageMinutes(p, lang), read: hs.hsIsDone(hs.readHsDone(), p.id) });
-    });
-    return () => {
-      live = false;
-    };
-  }, [locale]);
-  return (
-    <a className="h-adults h-adults-main" href="#/hemshech">
-      <span className="h-adults-title">
-        {t('hs.menuLbl')} <span className="h-adults-k">{t('hs.short')}</span>
-      </span>
-      <span className="h-adults-sub">
-        {info && 'title' in info ? (
-          <>
-            {info.read && '✓ '}
-            {info.title} · {t('tanakh.readingTime', { n: info.min })}
-          </>
-        ) : info ? (
-          t('hs.startsOn', { date: info.starts })
-        ) : (
-          t('hs.menuSub')
-        )}
-      </span>
-      <span className="h-adults-cta">{t('home.adultsCta')} →</span>
-    </a>
-  );
-}
-
-/**
- * «Мои слова» (src/core/words.ts): how many words to review today and how many are known; nothing yet — an invitation.
- * Read from this browser's marks only (the dictionary itself is not loaded on the home page).
- */
-function WordsLink() {
+/** A row of the plan of the day: the circle (✓ when done), the section, today's books / title, and «Читать» on the first one to do. */
+function PlanRow({ href, title, sub, done, go, he }: { href: string; title: string; sub: string; done: boolean; go?: string; he?: string }) {
   const { t } = useI18n();
-  const [info, setInfo] = useState<{ due: number; known: number; any: boolean } | null>(null);
-  useEffect(() => {
-    let live = true;
-    import('../core/words').then((w) => {
-      const s = w.readWordStore();
-      const ids = Object.keys(s);
-      if (live) setInfo({ due: w.dueWords(s).length, known: ids.filter((id) => w.isKnown(s, id)).length, any: ids.some((id) => w.inDeck(s, id)) });
-    });
-    return () => {
-      live = false;
-    };
-  }, []);
   return (
-    <a className="h-adults h-adults-main" href="#/words">
-      <span className="h-adults-title">
-        {t('words.mine')}{' '}
-        <span className="h-adults-k he" lang="he">
-          מִלִּים
+    <li>
+      <a className={`a-row${done ? ' done' : ''}`} href={href}>
+        <span className="a-check" aria-hidden="true">
+          {done && <Icon name="check" size={16} />}
         </span>
-      </span>
-      <span className="h-adults-sub">{info?.any ? (info.due ? t('words.homeSub', { d: info.due, k: info.known }) : t('words.homeSubDone', { k: info.known })) : t('words.homeStart')}</span>
-      <span className="h-adults-cta">{t(info?.due ? 'words.homeReview' : 'words.homeCta')} →</span>
-    </a>
+        <span className="a-row-t">
+          {title}
+          {done && <span className="sr-only"> · {t('menu.doneToday')}</span>}
+        </span>
+        <span className="a-row-s">{sub}</span>
+        {go ? (
+          <span className="a-go">{go}</span>
+        ) : (
+          he && (
+            <span className="a-row-he he" aria-hidden="true">
+              {he}
+            </span>
+          )
+        )}
+      </a>
+    </li>
   );
 }
 
 /**
- * The adults' home («Подростки и взрослые», src/core/mode.ts): the passage of the day of the Prophets and Writings,
- * the week's Torah lessons to read, quietly — «Знаете ли вы?» / «Гематрия дня» and «Академия». No games, ages, confetti.
+ * The adults' home («Подростки и взрослые», src/core/mode.ts; the design «Нифлаот — новая главная»): bookish and quiet.
+ * «Сегодня» — the date and the plan of the day as one list (src/core/todayStudy.ts): the Prophets, the Writings, Chassidut,
+ * «Мои слова», each with ✓, «N из M сделано» and the streak; the first thing to do has «Читать». Beside it — the week's
+ * Torah lessons to read, the next certificate of the Academy, «Знаете ли вы?» and «Викторина вместе». No games or ages.
  */
 function AdultsHome() {
-  const { t, locale } = useI18n();
+  const { t, pick, locale } = useI18n();
   useEffect(() => {
     document.title = `${t('home.adultsH1')} · ${t('app.title')} · MyChitas`;
   }, [t]);
+  const h = useHabit();
+  const d = useToday(locale);
   const week = LESSON_GROUPS[LESSON_GROUPS.length - 1];
   const reads = [...week.lessons, ...week.rebbe];
+  const now = new Date();
+  const iso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const civil = now.toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long' });
+  const count = d && todayCount(d);
+  const min = (n?: number) => (n ? ` · ${t('tanakh.readingTime', { n })}` : '');
+
+  // the plan of the day; the first one not done gets «Читать» (words — «Учить» / «Повторить»)
+  const rows = d
+    ? [
+        { href: '#/neviim', title: t('tanakh.neviim'), sub: d.neviim.range + min(d.neviim.min), done: d.neviim.done, he: 'נביאים', go: t('read.tab') },
+        { href: '#/ketuvim', title: t('tanakh.ketuvim'), sub: d.ketuvim.range + min(d.ketuvim.min), done: d.ketuvim.done, he: 'כתובים', go: t('read.tab') },
+        'title' in d.hs
+          ? { href: '#/hemshech', title: t('hs.menuLbl'), sub: d.hs.title + min(d.hs.min), done: d.hs.done, go: t('read.tab') }
+          : { href: '#/hemshech', title: t('hs.menuLbl'), sub: t('hs.startsOn', { date: d.hs.starts }), done: false },
+        {
+          href: '#/words',
+          title: t('words.mine'),
+          sub: d.words.any ? (d.words.due ? t('words.homeSub', { d: d.words.due, k: d.words.known }) : t('words.homeSubDone', { k: d.words.known })) : t('words.homeStart'),
+          done: d.words.any && !d.words.due,
+          he: 'מִלִּים',
+          go: t(d.words.due ? 'words.homeReview' : 'words.homeCta'),
+        },
+      ]
+    : [];
+  const first = rows.findIndex((r) => !r.done && r.go);
+
   return (
     <>
       <TopBar title={t('app.title')} wide />
-      <div className="home home-adults">
-        <main className="home-main">
-          <section className="h-hero">
-            <div className="h-hero-text">
-              <img className="h-logo" src={NIFLAOT_LOGO} alt="Niflaot" width={760} height={298} fetchPriority="high" />
-              <h1>{t('home.adultsH1')}</h1>
-            </div>
-          </section>
+      <main className="a-home">
+        <section className="a-today" aria-labelledby="a-h1">
+          <span className="a-date">
+            {civil} · <span className="he">{jewishDate(iso)}</span>
+          </span>
+          <div className="a-head">
+            <h1 id="a-h1">{t('tab.today')}</h1>
+            {count && (
+              <span className="a-count">
+                <b>{t('home.todayCount', { n: count.done, total: count.total })}</b>
+                {h.streak > 0 && ` · ${t('habit.streak', { n: h.streak })}`}
+              </span>
+            )}
+          </div>
+          <span className="a-bar" aria-hidden="true">
+            <span style={{ width: count ? `${Math.round((count.done / count.total) * 100)}%` : 0 }} />
+          </span>
+          <ul className="a-plan">
+            {rows.map((r, k) => (
+              <PlanRow key={r.href} {...r} go={k === first ? r.go : undefined} />
+            ))}
+          </ul>
+          {h.repair && <Repair day={h.repair.day} streak={h.repair.streak} pending={h.pending === h.repair.day} adults locale={locale} />}
+          <p className="a-short">
+            {t('habit.short')} <a href="#/daily">{t('habit.shortDaily')}</a>
+          </p>
+        </section>
 
-          <HabitCard />
-
+        <aside className="a-side">
           {reads.length > 0 && (
-            <section className="h-section" aria-labelledby="h-week">
-              <h2 id="h-week">
-                {t('home.weekReadTitle')} · {week.name[locale as keyof typeof week.name] ?? week.name.ru}{' '}
-                <span className="he" lang="he">
-                  {week.he}
-                </span>
+            <section aria-labelledby="a-week">
+              <h2 id="a-week">
+                {t('home.week')} · {week.name[locale as keyof typeof week.name] ?? week.name.ru} <span className="he">{week.he}</span>
               </h2>
-              <div className="h-tiles">
-                {reads.map((l) => (
-                  <WeekTile key={l.slug} lesson={l} />
-                ))}
-              </div>
+              <ul className="a-week">
+                {reads.map((l) => {
+                  const who = teacherOf(l);
+                  return (
+                    <li key={l.slug}>
+                      <a className={`t-${TEACHERS[who].color}`} href={`#/${l.slug}/read`}>
+                        <span className="a-week-k">{t(`teacher.${who}.short`)}</span>
+                        <span className="a-week-t">{pick(l.texts).value.title} →</span>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
             </section>
           )}
-
-          {/* the week's Torah lessons first; the daily study (Prophets and Writings, Chassidut, words) below */}
-          <section className="h-adults-tiles">
-            <AdultsLink />
-            <HemshechLink />
-            <WordsLink />
-            <PhoneOffer />
-          </section>
-
-          <p className="h-adults-more">
-            <a href="#/academy">
-              {t('academy.title')} · {t('academy.menuSub')} →
-            </a>
+          <a className="a-cert" href="#/academy">
+            <span className="a-cert-k">
+              {t('academy.title')} · {d?.book ? t('home.nextCert') : t('academy.menuSub')}
+            </span>
+            {d?.book && (
+              <>
+                <span className="a-cert-t">
+                  {t('academy.master.tanakh')} {d.book.name}
+                </span>
+                <span className="a-bar" aria-hidden="true">
+                  <span style={{ width: `${Math.round((d.book.done / d.book.parts) * 100)}%` }} />
+                </span>
+                <span className="a-cert-s">
+                  {t('academy.readDays', { done: d.book.done, parts: d.book.parts, pct: Math.round((d.book.done / d.book.parts) * 100) })}
+                </span>
+              </>
+            )}
+          </a>
+          <PhoneOffer />
+          <p className="a-links">
             <a href="#/facts">{t('home.adultsFacts')} →</a>
+            <a href="#/quiz">{t('lq.title')} →</a>
           </p>
-        </main>
-      </div>
+        </aside>
+      </main>
       <Colophon />
     </>
   );

@@ -1162,64 +1162,13 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .page-state{padding:48px 16px;text-align:center;display:grid;gap:16px;justify-items:center}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-/* home: one screen — title and «Continue», the week's lessons; beside them the week countdown */
+/* the home pages (kids — .k-*, adults — .a-*, below): the wide top bar, «Гематрия дня», a teacher's badge (also the facts) */
 .top-in.wide{max-width:1180px}
-.home{max-width:1180px;margin:0 auto;padding:18px 0 4px;display:flex;flex-wrap:wrap;gap:20px;align-items:stretch}
-.home-main{flex:999 1 600px;min-width:0;display:grid;gap:18px;align-content:start}
-.h-hero{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:stretch}
-.h-hero-text{flex:1 1 320px;min-width:0;display:grid;gap:4px;align-content:center}
 .h-logo{display:block;width:min(100%,380px);height:auto;margin:0 0 6px}
-.h-hero h1{margin:4px 0 0;font-family:var(--f-display);font-weight:700;font-size:clamp(24px,3.4vw,34px);line-height:1.1;text-wrap:balance}
-.h-hero p{margin:0;color:var(--muted);font-size:15px}
-.h-hero-side{flex:0 1 300px;display:flex;flex-wrap:wrap;gap:10px}
-.h-adults{flex:1 1 100%;display:flex;flex-direction:column;gap:2px;padding:10px 14px;border-radius:10px;background:var(--surface);border:1px solid var(--line);border-inline-start:4px solid var(--tchelet);color:var(--ink);text-decoration:none}
-.h-adults-title{font-family:var(--f-display);font-weight:700;font-size:17px}
-.h-adults-title .he{font-family:var(--f-he);font-size:14px;font-weight:400;color:var(--muted)}
-.h-adults-sub{font-size:13px;color:var(--muted)}
-.h-adults-k{font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--muted);margin-inline-start:4px}
-.h-adults-cta{font-size:13px;font-weight:600;color:var(--tchelet)}
-.h-adults-main{display:flex;flex-direction:column;gap:2px;color:inherit;text-decoration:none}
 .h-daily{flex:1 1 100%;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:10px 14px;border-radius:10px;background:var(--ink);color:#fff;text-decoration:none}
 .h-daily-title{font-family:var(--f-display);font-weight:700;font-size:18px;color:var(--gold-2)}
 .h-daily-sub{font-size:13px;color:#C9CEE0}
-.h-bar{display:block;height:5px;border-radius:3px;background:var(--gold-line);overflow:hidden}
-.h-bar span{display:block;height:100%;background:var(--tc-line)}
-.h-section{display:grid;gap:10px}
-.h-section h2{margin:0;font-family:var(--f-display);font-weight:700;font-size:24px;line-height:1.15}
-.h-section h2 .he{font-family:var(--f-he);font-size:19px;color:var(--gold)}
-.h-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.h-tile{display:flex;flex-direction:column;gap:4px;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--tc-line);border-radius:6px;box-shadow:var(--shadow);text-decoration:none;color:var(--ink);min-width:0;transition:transform .15s}
-.h-tile:hover{transform:translateY(-2px)}
-.h-tile-top{display:flex;align-items:center;gap:6px}
 .h-badge{min-width:0;padding:1px 8px;border-radius:999px;background:var(--tc-soft);color:var(--tc);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.h-tile-he{font-family:var(--f-he);font-weight:700;font-size:19px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.h-tile-title{font-family:var(--f-display);font-weight:700;font-size:20px;line-height:1.1}
-.h-tile-sum{font-size:13px;line-height:1.45;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.h-tile-foot{margin-top:auto;padding-top:4px;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
-.h-tile-foot b{margin-inline-start:auto;color:var(--ink)}
-.h-games{display:flex;gap:4px;color:var(--tc)}
-
-/* «Осталось учиться на этой неделе» */
-@media (max-width:1099px){
-  .h-hero-side{flex:1 1 100%}
-}
-@media (max-width:640px){
-  .home{padding-top:12px}
-  .home-main{gap:14px}
-  .h-hero p{display:none}
-  .h-hero .h-phone .h-phone-note{display:block}
-  .h-hero .h-phone h2{margin-bottom:8px}
-  .h-hero h1{font-size:23px}
-  .h-section h2{font-size:21px}
-  .h-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-  .h-tile{padding:10px 11px}
-  .h-tile-sum{font-size:12px;-webkit-line-clamp:3}
-  .h-tile-title{font-size:18px}
-  .h-tile-he{font-size:16px}
-  .h-hero h1{margin-top:2px}
-  .h-tile{gap:2px}
-  .h-section{gap:8px}
-}
 
 
 /* footer of every page: the site, the year, MyChitas */
@@ -1240,27 +1189,11 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
   .site-foot-in{flex-wrap:nowrap;gap:10px}
   .site-foot .site-foot-brand{font-size:16px}
 }
-@media (max-width:640px){
-  .home{padding-top:10px}
-  .home-main{gap:12px}
-  .h-hero{gap:10px}
-  .h-hero h1{font-size:21px}
-  .h-section h2{font-size:20px}
-  .h-tile-he{font-size:15px}
-  .h-tile-title{font-size:17px}
-}
-@media (max-width:380px){
-  .h-tile-he{display:none}
-}
 @media (max-width:899px){
   .site-foot-in>*{white-space:nowrap}
   .site-foot-brand .he{display:none}
   .site-foot-by{margin-inline-start:auto}
 }
-/* the home page fills the screen, so the footer sits at its bottom */
-@media (min-width:900px){.home{box-sizing:border-box;min-height:calc(100svh - 57px - 76px - 28px);align-content:flex-start;padding-top:28px}}
-@media (max-width:899px){.home{box-sizing:border-box;min-height:calc(100svh - 55px - 50px - 28px);align-content:flex-start}}
-
 /* ───── admin: text editor (#/admin) ───── */
 .admin{max-width:980px;margin:0 auto;padding:24px 16px 80px;display:grid;gap:16px}
 .admin h1{font-family:var(--f-display);margin:0;font-size:28px}
@@ -1516,7 +1449,6 @@ a.tk-step:hover{background:var(--tchelet-soft)}
 .tk-words-list li.compact .tk-w-he{font-size:21px}
 .tk-words-more{margin:12px 0 0;font-size:14px;font-weight:600}
 .tk-words-more a{color:var(--tchelet)}
-.h-adults-k.he{font-family:var(--f-he);font-size:16px;font-weight:400;color:var(--gold)}
 .ws{padding:16px 16px 8px}
 .ws-lead{margin:4px 0 0;font-size:15px;color:var(--ink-2)}
 .ws-stats{display:grid;gap:8px;margin:12px 0 20px;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
@@ -1785,9 +1717,6 @@ h2.mode-q{margin-top:22px}
 .mode-start{display:block;width:100%;margin:22px 0 0;padding:14px;font-size:18px}
 .mode-start:disabled{opacity:.45;cursor:default}
 @media (max-width:519px){.mode-hb{grid-template-columns:1fr}.mode-hb-opt{text-align:start;padding:10px 14px}}
-.h-adults-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:18px 0 0;align-items:stretch}
-.h-adults-more a{color:var(--tchelet);font-weight:600;text-decoration:none}
-.h-adults-more{display:flex;flex-wrap:wrap;gap:8px 20px;margin:18px 0 0;font-size:14.5px}
 
 /* «Ґемшех Самех-Вав» — the Rebbe Rashab's discourses in passages */
 .st-summary{margin:10px 0 14px;padding:12px 14px;border-radius:10px;background:var(--gold-soft);border-inline-start:4px solid var(--gold);font-size:15.5px;line-height:1.55}
@@ -1828,7 +1757,6 @@ h2.mode-q{margin-top:22px}
 
 /* «Учёба каждый день» (HabitCard.tsx): ✓ дня, серия, минимум на сегодня */
 .habit{flex:1 1 100%;display:grid;gap:4px;padding:10px 14px;border-radius:10px;background:var(--surface);border:1px solid var(--line);margin:0 0 14px}
-.h-hero-side .habit{margin:0}
 .habit-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 12px}
 .habit-done .habit-head b{color:var(--ok,#1e7a46)}
 .habit-streak{font-weight:600;white-space:nowrap}
@@ -2032,3 +1960,67 @@ body:has(.k-home){background:#FBF7EF}
   /* the brand stays in the top bar on the home page (the ☰ is in the tab bar) */
   .top-in.wide .brand{display:block}
 }
+
+/* the adults' home (Catalog.tsx, AdultsHome; the design «Нифлаот — новая главная»): bookish and quiet — «Сегодня» with
+   the plan of the day as one list of ticks, beside it the week's Torah to read and the next certificate */
+body:has(.a-home){background:#fff}
+.a-home{max-width:1180px;margin:0 auto;padding:36px 0 12px;display:flex;flex-wrap:wrap;gap:28px 72px;align-items:flex-start}
+.a-today{flex:3 1 520px;min-width:0;display:grid;gap:6px}
+.a-date{font-size:14px;color:var(--muted)}
+.a-date::first-letter{text-transform:uppercase}
+.a-date .he,.a-side h2 .he{font-family:var(--f-he)}
+.a-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 20px}
+.a-head h1{margin:0;font-family:var(--f-display);font-weight:700;font-size:clamp(44px,6vw,64px);line-height:1}
+.a-count{font-size:15px;color:var(--muted)}
+.a-count b{color:var(--ink)}
+.a-bar{display:block;height:4px;border-radius:2px;background:#ECEEF4;overflow:hidden}
+.a-bar>span{display:block;height:100%;border-radius:2px;background:var(--tchelet);transition:width .4s}
+.a-today>.a-bar{margin:12px 0 4px}
+.a-plan{list-style:none;margin:0;padding:0}
+.a-plan li+li{border-top:1px solid #ECEEF4}
+.a-row{display:grid;grid-template-columns:32px minmax(0,170px) minmax(0,1fr) auto;align-items:center;gap:6px 20px;min-height:80px;padding:8px 0;color:var(--ink);text-decoration:none}
+.a-check{display:grid;place-items:center;width:32px;height:32px;box-sizing:border-box;border-radius:50%;border:2px solid #B9BFD2;color:#fff}
+.a-row.done .a-check{border:0;background:var(--tchelet)}
+.a-row-t{font-family:var(--f-display);font-weight:700;font-size:28px;line-height:1.05}
+.a-row.done .a-row-t{color:var(--muted)}
+.a-row-s{font-size:16px;color:#3D4466}
+.a-row.done .a-row-s{color:var(--muted)}
+.a-row-he{font-family:var(--f-he);font-size:18px;color:#8A90A8}
+.a-go{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border-radius:12px;background:var(--tchelet);color:#fff;font-weight:800;font-size:15px}
+.a-row:hover .a-row-t{color:var(--tchelet)}
+.a-row:hover .a-go{filter:brightness(1.12)}
+.a-short{margin:10px 0 0;font-size:14px;color:var(--muted)}
+.a-today .habit-repair{margin-top:8px}
+.a-side{flex:2 1 300px;min-width:0;display:grid;gap:26px;padding-top:30px}
+.a-side h2{margin:0 0 8px;font-family:var(--f-display);font-weight:700;font-size:28px;line-height:1.1}
+.a-side h2 .he{font-size:21px;color:var(--tchelet)}
+.a-week{list-style:none;margin:0;padding:0;border-bottom:1px solid #ECEEF4}
+.a-week a{display:grid;gap:2px;padding:14px 0;border-top:1px solid #ECEEF4;color:var(--ink);text-decoration:none}
+.a-week-k{font-size:12px;font-weight:700;color:var(--tc)}
+.a-week-t{font-family:var(--f-display);font-weight:700;font-size:22px;line-height:1.15}
+.a-week a:hover .a-week-t{color:var(--tchelet)}
+.a-cert{display:grid;gap:8px;padding:20px 22px;border-radius:16px;background:#F2F5FB;color:var(--ink);text-decoration:none}
+.a-cert-k{font-size:12px;font-weight:700;color:var(--tchelet)}
+.a-cert-t{font-family:var(--f-display);font-weight:700;font-size:24px;line-height:1.1}
+.a-cert .a-bar{background:#DDE4F1}
+.a-cert-s{font-size:14px;color:var(--muted)}
+.a-side .h-phone{margin:0}
+.a-links{margin:0;display:flex;flex-wrap:wrap;gap:8px 22px;font-size:14px;font-weight:700}
+.a-links a{color:var(--tchelet);text-decoration:none}
+@media (prefers-reduced-motion:reduce){.a-bar>span{transition:none}}
+@media (max-width:640px){
+  .a-home{padding-top:20px;gap:28px}
+  .a-head h1{font-size:44px}
+  .a-row{grid-template-columns:28px minmax(0,1fr) auto;grid-template-areas:"c t g" "c s g";column-gap:14px;row-gap:2px;min-height:64px;padding:10px 0}
+  .a-check{grid-area:c;width:28px;height:28px}
+  .a-row-t{grid-area:t;font-size:21px}
+  .a-row-s{grid-area:s;font-size:13px;color:var(--muted)}
+  .a-go,.a-row-he{grid-area:g}
+  .a-go{min-height:40px;padding:0 14px;font-size:14px}
+  .a-row-he{font-size:15px}
+  .a-side{padding-top:0;gap:22px}
+  .a-side h2{font-size:24px}
+  .a-week-t{font-size:20px}
+}
+/* both home pages fill the screen, so the footer sits at its bottom */
+@media (min-width:641px){.k-home,.a-home{box-sizing:border-box;min-height:calc(100svh - 57px - 76px - 28px)}.k-home{align-content:start}}

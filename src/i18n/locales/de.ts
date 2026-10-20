@@ -201,6 +201,8 @@ const de: Messages = {
   'home.moreWeek': "Mehr in diesem Wochenabschnitt",
   'home.past': "Frühere Wochenabschnitte",
   'home.pastOne': "Früherer Wochenabschnitt",
+  'home.todayCount': "{n} von {total} erledigt",
+  'home.nextCert': "nächstes Zertifikat",
   'home.riddle': "Rätsel {n} von {total}",
   'home.week': "Wochenabschnitt",
   'teacher.baal-haturim.short': "Baal HaTurim",
