@@ -71,7 +71,7 @@ export const NIGUNIM: Nigun[] = [
       { text: "С нашим атаманом", read: { en: "S nashim atamanom", de: "S naschim atamanom" }, tr: { en: "With our ataman", de: "Mit unserem Ataman" } },
       { text: "не приходится тужить.", read: { en: "ne prikhoditsya tuzhit’.", de: "ne prichoditsja tuschit." }, tr: { en: "we have no cause to grieve.", de: "brauchen wir nicht zu klagen." } },
     ],
-    times: [1.5, 4.0, 6.0, 9.1, 12.1, 14.4, 16.4, 21.4, 25.8, 30.4, 32.8, 35.2, 37.6, 39.6, 43.0, 45.9, 48.4, 50.8, 54.8, 59.4, 64.2, 67.5, 71.9, 77.0, 81.1, 84.0],
+    times: [0.06, 3.1, 5.73, 8.12, 11.62, 13.76, 16.09, 18.46, 21.44, 25.74, 30.18, 32.59, 35.66, 37.66, 39.65, 43.94, 47.2, 48.97, 50.94, 53.35, 59, 63.56, 68.23, 73.29, 77.44, 81.95],
     source: { name: 'm770.org', url: 'https://m770.org/' },
   },
 ];
