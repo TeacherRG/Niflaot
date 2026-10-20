@@ -34,7 +34,7 @@ export function PrintMemo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) 
   const { t, pick } = useI18n();
   const text = pick(lesson.texts).value;
   const mt = text.memo;
-  const images = useMemo(() => memoImages(lesson), [lesson]);
+  const images = useMemo(() => memoImages(lesson, true), [lesson]);
   const [opt, setOpt] = useState(loadOptions);
 
   useEffect(() => {

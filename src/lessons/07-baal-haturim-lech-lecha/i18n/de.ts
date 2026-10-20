@@ -308,6 +308,124 @@ const de: LessonText = {
       ],
     },
   ],
+  memo: {
+    intro:
+      'Zwölf Kommentare des Baal HaTurim zum Wochenabschnitt Lech Lecha — zwölf Kartenpaare. Jedes Bild erzählt von einem Kommentar, und sein Paar sind die Worte der Tora, um die es darin geht.',
+    items: [
+      {
+        title: 'Hundert Jahre bis Jizchak',
+        caption: 'Awram und seine Familie brechen auf',
+        verse: '„Geh für dich“',
+        quote: '„Geh für dich“ — Er deutete ihm an: Wenn du hundert [Jahre alt] bist, nach der Zahl von „lech lecha“, dann „mache Ich dich zu einem großen Volk“ — als Jizchak geboren wurde.',
+        explain:
+          'Das Wort לך ist 50: ל = 30, ך = 20. „Lech lecha“ ist zweimal 50, also 100. G-tt sagte „geh für dich“ zu Awram, als er fünfundsiebzig Jahre alt war, und Jizchak wurde geboren, als Awraham hundert wurde. So steckte schon in den ersten Worten ein Hinweis: Mit hundert wirst du Vater eines großen Volkes.',
+        note: 'Awraham war 100 Jahre alt, als Jizchak geboren wurde',
+        moral: 'G-ttes Versprechen erfüllt sich vielleicht nicht sofort — aber es erfüllt sich ganz sicher.',
+      },
+      {
+        title: 'Zehn Sprüche',
+        caption: 'Zehn Lichter — zehn Sprüche der Schöpfung',
+        verse: '„Und der Ewige sprach zu Awram“',
+        quote: '[Die Tora] begann mit einem Spruch — mit der Sprache, mit der die Welt erschaffen wurde: Die Welt wurde mit zehn Sprüchen erschaffen, und sie wurde ganz nur durch das Verdienst Awrahams erschaffen.',
+        explain:
+          'Die Welt wurde mit zehn Sprüchen erschaffen: „Und G-tt sprach: Es werde Licht…“ — zehnmal. Auch die Geschichte von Awraham beginnt die Tora mit „und Er sprach“. Der Baal HaTurim erklärt: Die ganze Welt wurde für Awraham erschaffen — für einen Menschen, der die Menschen lehrt, den Schöpfer zu kennen.',
+        moral: 'Die Welt wurde für gute Taten erschaffen. Auch meine guten Taten gehören dazu.',
+      },
+      {
+        title: 'Drei Segen',
+        caption: 'Awram hebt die Hände: ein Segen',
+        verse: '„und Ich segne dich und mache deinen Namen groß“',
+        quote: '„Ich mache dich zu einem großen Volk, Ich segne dich und mache deinen Namen groß“ — drei Segen, entsprechend den drei Segen der Kohanim.',
+        explain:
+          'Hier segnet G-tt Awram dreimal. Der Baal HaTurim sieht darin die drei Segen der Kohanim: „Er segne dich…“, „Er lasse leuchten…“, „Er erhebe…“. Der Priestersegen hat sechzig Buchstaben, und auch darauf gibt es einen Hinweis: Auf dem Buchstaben ך (20) im Wort „die dich segnen“ stehen drei Krönchen, und dreimal 20 ist 60.',
+        moral: 'Awrahams Segen geht weiter: Die Kohanim segnen seine Nachkommen bis heute.',
+      },
+      {
+        title: 'Pharaos Geschenke',
+        caption: 'Pharao, geschlagen, lässt Awram gehen',
+        verse: '„nimm sie und geh“',
+        quote: '„Nimm sie in deine Hand und geh“: Auch wenn hier nicht steht, dass [Pharao] ihm Geschenke gab, wie Awimelech, gab er sie ihm sicher.',
+        explain:
+          'Pharao nahm Sarai in seinen Palast, und G-tt schlug sein Haus mit schweren Plagen. Da gab Pharao Sarai zurück und sagte zu Awram: „Hier ist deine Frau, nimm sie und geh.“ Die Worte „und geh“ (ולך) stehen fünfmal im Tanach; im Buch Jirmejahu heißt es: „Die Rolle, aus der du gelesen hast — nimm sie in deine Hand und geh.“ Der Baal HaTurim lehrt: „und geh“ bedeutet, dass Awram etwas von Hand zu Hand bekam — Pharao ließ ihn mit Geschenken gehen. Und wirklich: Awram verließ Ägypten sehr reich.',
+        moral: 'G-tt beschützt den Gerechten — sogar aus der Not kommt er mit Gutem heraus.',
+      },
+      {
+        title: 'Getrennt für den Frieden',
+        caption: 'Awram und Lot trennen sich mit ihren Herden',
+        verse: '„voneinander. Awram…“',
+        quote: '„Und sie trennten sich voneinander. Awram“ — die Endbuchstaben: שלום (Frieden). Sie trennten sich, um den Frieden zu bewahren.',
+        explain:
+          'Die Hirten von Awram und Lot stritten sich. Awram sagte: „Es soll kein Streit zwischen mir und dir sein… Gehst du nach links, gehe ich nach rechts.“ Nimm die letzten Buchstaben der Wörter איש מעל אחיו אברם: ש, ל, ו, ם — sie ergeben שלום, „Frieden“. Awram und Lot trennten sich nicht aus Feindschaft, sondern um den Frieden zu bewahren.',
+        moral: 'Manchmal ist es besser nachzugeben und sich freundlich zu trennen, damit Frieden bleibt.',
+      },
+      {
+        title: 'Das vierzehnte Jahr',
+        caption: 'Kampf in der Nacht: Awram rettet Lot',
+        verse: '„und im vierzehnten Jahr“',
+        quote: 'So wie die Völker gegen Chiskijahu kamen und in seine Hand fielen, so kamen sie gegen Awraham und fielen in seine Hand.',
+        explain:
+          'Vier mächtige Könige kämpften gegen fünf und nahmen Lot gefangen. Awram holte sie mit einer kleinen Schar in der Nacht ein, besiegte sie und befreite Lot. Die Worte „und im vierzehnten“ stehen nur zweimal am Anfang eines Verses: hier und im Buch Melachim — „im vierzehnten Jahr des Königs Chiskijahu zog Sancheriw herauf“ mit einem riesigen Heer gegen Jeruschalajim. Der Baal HaTurim verbindet die beiden Geschichten: Awram und Chiskijahu besiegten die stärksten Feinde mit G-ttes Hilfe.',
+        moral: 'Nicht die Stärke und nicht die Zahl der Krieger entscheiden — die Hilfe kommt von G-tt.',
+      },
+      {
+        title: 'Malki-Zedek ist Schem',
+        caption: 'Malki-Zedek bringt Brot und Wein',
+        verse: '„König von Schalem“',
+        quote: '„König von Schalem“ — die Anfangsbuchstaben: שם (Schem). Das ist Schem, der Sohn von Noach.',
+        explain:
+          'Nach dem Sieg kam Malki-Zedek, der König von Schalem und Priester G-ttes, Awram entgegen, brachte Brot und Wein und segnete ihn. Die ersten Buchstaben der Wörter מלך שלם sind מ und ש; vertausche sie — dann steht da שם, Schem. Der Baal HaTurim lehrt: Malki-Zedek ist Schem, der Sohn von Noach, der zur Zeit Awrams noch lebte.',
+        moral: 'Gerechte aus verschiedenen Generationen begegnen sich und segnen einander — so wird das Gute weitergegeben.',
+      },
+      {
+        title: 'Dreißig Gerechte',
+        caption: 'Awram schaut zu den Sternen',
+        verse: '„so werden deine Nachkommen sein“',
+        quote: '„Wird sein“ — Gematria „dreißig“: Es gibt keine Generation ohne dreißig Gerechte.',
+        explain:
+          'G-tt führte Awram aus dem Zelt und sagte: „Schau zum Himmel und zähle die Sterne… So werden deine Nachkommen sein.“ Das Wort יהיה („wird sein“) ist 30: י = 10, ה = 5, י = 10, ה = 5. Der Baal HaTurim lehrt: In jeder Generation gibt es mindestens dreißig Gerechte — sie leuchten für die Welt wie Sterne.',
+        note: 'dreißig Gerechte in jeder Generation',
+        moral: 'Jeder kann einer von denen werden, die für ihre Generation leuchten.',
+      },
+      {
+        title: 'Zweihundertzehn Jahre',
+        caption: 'Jaakows Familie zieht nach Ägypten',
+        verse: '„dass deine Nachkommen Fremde sein werden“',
+        quote: '„Dass Fremde“ — die Endbuchstaben ergeben die Zahl רד״ו (210).',
+        explain:
+          'Beim Bund zwischen den Stücken sagte G-tt zu Awram: „Wisse, dass deine Nachkommen Fremde sein werden in einem Land, das nicht ihres ist.“ Nimm die letzten Buchstaben der Wörter כי גר: י (10) und ר (200) — zusammen 210, wie das Wort רדו, „zieht hinab“. So lange lebte Israel in Ägypten: Jaakow zog mit seiner Familie hinab, und nach 210 Jahren führte Mosche das Volk in die Freiheit.',
+        note: 'so viele Jahre lebten Awrahams Nachkommen in Ägypten',
+        moral: 'Auch ein langes Exil hat ein Ende — und G-tt hat es abgemessen.',
+      },
+      {
+        title: 'Gebet am Wasser',
+        caption: 'Hagar an einer Quelle in der Wüste',
+        verse: '„an der Wasserquelle“',
+        quote: '„An der Wasserquelle“: Es ist gut, am Wasser zu beten. Und das Gebet wird mit Wasser verglichen, wie geschrieben steht: „Schütte dein Herz aus wie Wasser.“',
+        explain:
+          'Hagar, die Magd von Sarai, floh in die Wüste, und ein Engel G-ttes fand sie „an der Wasserquelle“. Diese Worte stehen noch einmal in der Tora — als Awrahams Knecht an einer Quelle stand und betete, eine Frau für Jizchak zu finden. Der Baal HaTurim lehrt: Am Wasser ist es gut zu beten. Und das Gebet selbst ist wie Wasser — im Buch Echa heißt es: „Schütte dein Herz aus wie Wasser.“',
+        moral: 'Beten heißt, G-tt das Herz einfach und ehrlich zu öffnen, so wie Wasser fließt.',
+      },
+      {
+        title: 'Jizchak im Namen Awrahams',
+        caption: 'Neue Namen: Awraham und Sara',
+        verse: '„Vater einer Menge“',
+        quote: 'Zweimal in diesem Kapitel — „Vater einer Menge“, und das ergibt die Zahl von „Jizchak“. Und ebenso „Ich werde vermehren“ — Gematria „Jizchak“.',
+        explain:
+          'G-tt gab Awram einen neuen Namen — Awraham: „denn zum Vater einer Menge von Völkern mache Ich dich.“ Die Worte אב המון („Vater einer Menge“) sind 104, und im Kapitel stehen sie zweimal: 104 + 104 = 208. Genauso viel ist יצחק, Jizchak: 10 + 90 + 8 + 100. Und auch das Wort ארבה („Ich werde vermehren“) ist 208. Im neuen Namen steckte schon ein Versprechen: Awraham und Sara bekommen Jizchak.',
+        note: 'zweimal 104 = 208 = יצחק',
+        moral: 'Manchmal ist das, was wir uns wünschen, schon ganz nah — wir müssen nur warten.',
+      },
+      {
+        title: 'Der Bund der Beschneidung',
+        caption: 'Ein Messer für die Brit Mila und eine Lampe',
+        verse: '„Meinen Bund aber werde Ich aufrichten“',
+        quote: '„Ich werde aufrichten“ — ein Notarikon: „Der den Geliebten vom Mutterleib an geheiligt hat“.',
+        explain:
+          'G-tt sagte zu Awraham: „Meinen Bund aber werde Ich mit Jizchak aufrichten.“ Nimm die ersten Buchstaben der Wörter אשר קידש ידיד מבטן: א, ק, י, מ — sie ergeben אקים, „Ich werde aufrichten“. Diese Worte stammen aus dem Segen, den man bei der Brit Mila sagt. So geht der Bund, der mit Awraham und Jizchak begann, bei jedem jüdischen Jungen weiter.',
+        moral: 'Der Bund mit G-tt geht von Generation zu Generation weiter — und jeder von uns gehört dazu.',
+      },
+    ],
+  },
   final: {
     title: 'Der Weg ist offen',
     allSolved:

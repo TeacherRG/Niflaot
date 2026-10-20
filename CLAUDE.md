@@ -74,7 +74,8 @@
   `npm i --no-save playwright && npx tsx scripts/og-images.ts`, PNG закоммитить.
 - Memo-игра урока-комментария: данные `src/lessons/NN-slug/memo.ts` (12 пар: слова Торы, цитата, гематрии, буквы),
   тексты — `memo` в `i18n/<язык>.ts`; картинки-раскраски `memo/NN.png` (3:4; размер и подписи ставит
-  `python3 scripts/memo-frame.py`); страница `#/<slug>/memo` (`MemoPage.tsx`, `Memo.tsx`), печать `#/<slug>/print/memo`
+  `python3 scripts/memo-frame.py`); можно и цветной набор для экрана — `memo/color/NN.webp` (`memo-frame.py --color`):
+  на сайте — он, в печати — всегда раскраски (`memoImages(lesson, true)`); Memo «Лех леха» — так; страница `#/<slug>/memo` (`MemoPage.tsx`, `Memo.tsx`), печать `#/<slug>/print/memo`
   (`PrintMemo.tsx`: два одинаковых комплекта картинок, 3 в ряд на всю ширину, без пустых мест — карточки сразу под текстом; пара на бумаге = две одинаковые картинки, номер объяснения в углу). Числа, буквенные намёки и тексты на всех языках проверяет `npm run check`.
 - Кнопка ✦ — ИИ-чат (`Assistant.tsx`), **ИИ-учитель академии**: системная инструкция — `SYSTEM` в `assistant/src/index.ts`
   (три раздела, учителя, сертификаты, «подсказывай, не раскрывай»). Что на экране, он получает в `<page_context>`:
