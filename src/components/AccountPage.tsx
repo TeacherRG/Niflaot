@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { Html, useI18n } from '../i18n';
 import { MODES, savedMode, setMode, useMode } from '../core/mode';
 import { HEBREW_LEVELS, savedHebrewLevel, setHebrewLevel, useHebrewLevel } from '../core/hebrewLevel';
+import { BGS, SIZES, THEMES, setLook, useLook } from '../core/look';
 import { BookProgress } from './BookProgress';
 import { DailyReminder } from './DailyReminder';
 import type { MessageKey } from '../i18n/locales/ru';
@@ -344,7 +345,41 @@ function ModeCard() {
           ))}
         </div>
       </details>
+      <LookPicker />
     </section>
+  );
+}
+
+/**
+ * «Вид» (src/core/look.ts): the theme (light by default, or dark), the text size and the background — three rows of
+ * buttons, applied at once; only on this device.
+ */
+function LookPicker() {
+  const { t } = useI18n();
+  const look = useLook();
+  const row = <V extends string | number>(id: string, label: string, values: V[], on: V, name: (v: V) => string, pick: (v: V) => void, swatch?: boolean) => (
+    <div className="acc-look-row">
+      <span className="acc-pick-q" id={id}>
+        {label}
+      </span>
+      <div className="acc-look-opts" role="radiogroup" aria-labelledby={id}>
+        {values.map((v) => (
+          <button key={v} type="button" role="radio" aria-checked={v === on} className={`acc-look-opt${v === on ? ' on' : ''}`} onClick={() => pick(v)}>
+            {swatch && <i className={`acc-swatch sw-${look.theme}-${v}`} aria-hidden="true" />}
+            {name(v)}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+  return (
+    <div className="acc-pick acc-look">
+      <h3 className="acc-look-h">{t('look.title')}</h3>
+      {row('acc-theme', t('look.theme'), THEMES, look.theme, (v) => t(`look.${v}`), (theme) => setLook({ theme }))}
+      {row('acc-size', t('look.size'), SIZES, look.size, (v) => t(`look.size${v}`), (size) => setLook({ size }))}
+      {row('acc-bg', t('look.bg'), BGS[look.theme], look.bg, (v) => t(`look.bg.${v}`), (bg) => setLook({ bg }), true)}
+      <p className="acc-look-note">{t('look.note')}</p>
+    </div>
   );
 }
 

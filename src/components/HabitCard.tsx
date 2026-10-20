@@ -6,9 +6,9 @@ import { useMode } from '../core/mode';
  * «Учёба каждый день» (src/core/habit.ts): ✓ дня и серия по всем разделам; пока сегодня не учились — «минимум на сегодня»
  * (взрослым — отрывок дня, детям — «Гематрия дня») и короткий вариант на 2 минуты; после перерыва — «С возвращением»
  * без упрёков; один пропуск раз в 30 дней — «Восполнить» (ташлумин): следующее дело засчитается за пропущенный день
- * (взрослым — отрывок того дня, детям — «Слова Торы»). Блоки — `div`, не `p`: на телефоне в шапке главной абзацы скрыты (`.h-hero p`). `account` — строка итогов в «Моём пути» (серия, лучшая серия, всего дней).
+ * (взрослым — отрывок того дня, детям — «Слова Торы»). `compact` — плитка на главной детей, без строки о Шабате. Блоки — `div`, не `p`: на телефоне в шапке главной абзацы скрыты (`.h-hero p`). `account` — строка итогов в «Моём пути» (серия, лучшая серия, всего дней).
  */
-export function HabitCard({ account = false }: { account?: boolean }) {
+export function HabitCard({ account = false, compact = false }: { account?: boolean; compact?: boolean }) {
   const { t, locale } = useI18n();
   const adults = useMode() === 'adults';
   const h = useHabit();
@@ -19,9 +19,10 @@ export function HabitCard({ account = false }: { account?: boolean }) {
       </p>
     );
   return (
-    <section className={`habit${h.today ? ' habit-done' : ''}`} aria-label={t('habit.title')}>
+    <section className={`habit${h.today ? ' habit-done' : ''}${compact ? ' habit-compact' : ''}`} aria-label={t('habit.title')}>
       <div className="habit-head">
-        <b>{h.today ? `✓ ${t('habit.today')}` : t(h.back ? 'habit.back' : 'habit.notYet')}</b>
+        {/* a newcomer (no study day yet) is invited to start, not told «вы ещё не учились» */}
+        <b>{h.today ? `✓ ${t('habit.today')}` : t(h.back ? 'habit.back' : h.total ? 'habit.notYet' : 'habit.first')}</b>
         {h.streak > 0 && <span className="habit-streak">🔥 {t('habit.streak', { n: h.streak })}</span>}
       </div>
       {!h.today && (
@@ -37,13 +38,13 @@ export function HabitCard({ account = false }: { account?: boolean }) {
         </div>
       )}
       {h.repair && <Repair day={h.repair.day} streak={h.repair.streak} pending={h.pending === h.repair.day} adults={adults} locale={locale} />}
-      <div className="habit-note">{t('habit.rest')}</div>
+      {!compact && <div className="habit-note">{t('habit.rest')}</div>}
     </section>
   );
 }
 
-/** «Восполнить пропуск»: кнопка ведёт к делу на пропущенный день; нажата — подсказка, что следующее дело его восполнит. */
-function Repair({ day, streak, pending, adults, locale }: { day: string; streak: number; pending: boolean; adults: boolean; locale: string }) {
+/** «Восполнить пропуск»: кнопка ведёт к делу на пропущенный день; нажата — подсказка, что следующее дело его восполнит (и под планом дня взрослых). */
+export function Repair({ day, streak, pending, adults, locale }: { day: string; streak: number; pending: boolean; adults: boolean; locale: string }) {
   const { t } = useI18n();
   const date = new Date(`${day}T12:00:00`).toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long' });
   const href = adults ? `#/neviim/${day}` : '#/torah-words';

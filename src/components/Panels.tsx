@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useRef, useState, useSyncExternalStore, Fragment } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { Html, useI18n } from '../i18n';
 import { LESSON_GROUPS, findLesson, weekParsha } from '../lessons';
 import { teacherOf } from '../lessons/teachers';
@@ -9,6 +9,7 @@ import { Icon, Sheet, useUI } from './ui';
 import { lessonGames } from './lessonGames';
 import { DailyReminder } from './DailyReminder';
 import { canInstall, install, subscribeInstall } from '../core/install';
+import { useToday } from '../core/useToday';
 
 /** Gematria step by step, sources and FAQ (with all the primary sources) load when «Как играть» opens. */
 const HelperContent = lazy(() => import('./Helper').then((m) => ({ default: m.HelperContent })));
@@ -99,6 +100,39 @@ function ParshaPicker({ groups, selected, week, onPick }: { groups: Group[]; sel
   );
 }
 
+/**
+ * «Учить сегодня» — the adults' daily study at the top of the menu (src/core/todayStudy.ts): the passages of the day of the
+ * Prophets and Writings, Chassidut and «Мои слова», each with today's books / title and ✓ when done. The data loads when the
+ * menu opens (not in the main bundle); «Вопросы к отрывку» are under the passage itself.
+ */
+function TodayStudy({ active, onPick }: { active: boolean; onPick: () => void }) {
+  const { t, locale } = useI18n();
+  const d = useToday(locale, active);
+  const here = (href: string) => location.hash.split('?')[0].startsWith(href) && !location.hash.split('?')[0].endsWith('/quiz');
+  const row = (href: string, title: string, sub: string, done = false, icon: 'book' | 'cards' = 'book') => (
+    <a href={href} onClick={onPick} className={`menu-item${done ? ' menu-done' : ''}`} aria-current={here(href) ? 'page' : undefined}>
+      <Icon name={done ? 'check' : icon} />
+      <span>
+        {title}
+        <small>
+          {done && <span className="sr-only">{t('menu.doneToday')} · </span>}
+          {sub}
+        </small>
+      </span>
+    </a>
+  );
+  const w = d?.words;
+  return (
+    <>
+      <div className="menu-lbl">{t('menu.today')}</div>
+      {row('#/neviim', t('tanakh.neviim'), d?.neviim.range ?? t('tanakh.daySub'), d?.neviim.done)}
+      {row('#/ketuvim', t('tanakh.ketuvim'), d?.ketuvim.range ?? t('tanakh.daySub'), d?.ketuvim.done)}
+      {row('#/hemshech', t('hs.menuLbl'), d && 'title' in d.hs ? d.hs.title : t('hs.short'), !!d && 'title' in d.hs && d.hs.done)}
+      {row('#/words', t('words.mine'), w?.any ? (w.due ? t('words.homeSub', { d: w.due, k: w.known }) : t('words.homeSubDone', { k: w.known })) : t('words.menuSub'), !!w?.any && !w.due, 'cards')}
+    </>
+  );
+}
+
 /** Side menu + "How to play" + "About" — rendered once at the app root. */
 export function Panels() {
   const { t, pick, locale } = useI18n();
@@ -124,6 +158,36 @@ export function Panels() {
   const readGroups = LESSON_GROUPS.filter((g) => readsOf(g).length);
   const adultsSel = choose(readGroups);
 
+  // in both modes, after the mode's own study: «Знаете ли вы?», «Викторина вместе», «Академия»
+  const facts = (
+    <a href="#/facts" onClick={close} className="menu-item" aria-current={location.hash === '#/facts' || location.hash === '#/daily' ? 'page' : undefined}>
+      <Icon name="hash" />
+      <span>
+        {t('facts.title')}
+        <small>{t('facts.menuSub')}</small>
+      </span>
+    </a>
+  );
+  /* «Викторина вместе»: a live quiz for a class or a family — the host's big screen, the players' phones */
+  const quiz = (
+    <a href="#/quiz" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/quiz') ? 'page' : undefined}>
+      <Icon name="phone" />
+      <span>
+        {t('lq.title')}
+        <small>{t('lq.menuSub')}</small>
+      </span>
+    </a>
+  );
+  const academy = (
+    <a href="#/academy" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/academy') ? 'page' : undefined}>
+      <Icon name="award" />
+      <span>
+        {t('academy.title')}
+        <small>{t('academy.menuSub')}</small>
+      </span>
+    </a>
+  );
+
   return (
     <>
       <Sheet variant="drawer" open={panel === 'menu'} onClose={close} title={t('app.title')} closeLabel={t('menu.close')}>
@@ -132,39 +196,8 @@ export function Panels() {
             <Icon name="home" />
             <span>{t('menu.home')}</span>
           </a>
-          <a href="#/academy" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/academy') ? 'page' : undefined}>
-            <Icon name="award" />
-            <span>
-              {t('academy.title')}
-              <small>{t('academy.menuSub')}</small>
-            </span>
-          </a>
-          {/* one menu for the mode (src/core/mode.ts): the children's games, or the adults' reading */}
-          <a href="#/facts" onClick={close} className="menu-item" aria-current={location.hash === '#/facts' || location.hash === '#/daily' ? 'page' : undefined}>
-            <Icon name="hash" />
-            <span>
-              {t('facts.title')}
-              <small>{t('facts.menuSub')}</small>
-            </span>
-          </a>
-          {/* «Викторина вместе»: a live quiz for a class or a family — the host's big screen, the players' phones */}
-          <a href="#/quiz" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/quiz') ? 'page' : undefined}>
-            <Icon name="phone" />
-            <span>
-              {t('lq.title')}
-              <small>{t('lq.menuSub')}</small>
-            </span>
-          </a>
 {mode === 'kids' ? (
             <>
-          {/* «Слова Торы»: a game with the words of the lessons — the Memo pictures and the riddle cards (src/core/torahWords.ts) */}
-          <a href="#/torah-words" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/torah-words') ? 'page' : undefined}>
-            <Icon name="cards" />
-            <span>
-              {t('tw.title')}
-              <small>{t('tw.menuSub')}</small>
-            </span>
-          </a>
           <div className="menu-lbl">{t('menu.lessons')}</div>
           <ParshaPicker groups={LESSON_GROUPS} selected={kidsSel} week={week} onPick={setPicked} />
           {[kidsSel].filter((g) => g).map((g) => (
@@ -245,6 +278,17 @@ export function Panels() {
               <span>{t('print.button')}</span>
             </a>
           )}
+          {/* «Слова Торы»: a game with the words of the lessons — the Memo pictures and the riddle cards (src/core/torahWords.ts) */}
+          <a href="#/torah-words" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/torah-words') ? 'page' : undefined}>
+            <Icon name="cards" />
+            <span>
+              {t('tw.title')}
+              <small>{t('tw.menuSub')}</small>
+            </span>
+          </a>
+          {facts}
+          {quiz}
+          {academy}
           {/* how to play, my Hebrew, letters and mental math: one group */}
           <details className="menu-group" open={isLearn}>
             <summary className="menu-item">
@@ -295,6 +339,8 @@ export function Panels() {
             </>
           ) : (
             <>
+          {/* the daily study first: the passages of the day, Chassidut and the words, with today's ✓ */}
+          <TodayStudy active={panel === 'menu'} onPick={close} />
           {/* the Torah lessons to read — Baal HaTurim's «Читать», the Rebbe's «Прочитать»; the open (or the week's) portion, the others in the strip */}
           <div className="menu-lbl">{t('menu.lessons')}</div>
           <ParshaPicker groups={readGroups} selected={adultsSel} week={week} onPick={setPicked} />
@@ -322,57 +368,9 @@ export function Panels() {
               </div>
             );
           })}
-          {/* «Пророки» и «Писания»: the passage of the day of the three-year cycle */}
-          {(['neviim', 'ketuvim'] as const).map((sec) => (
-            <Fragment key={sec}>
-              <div className="menu-lbl">{t(`tanakh.${sec}`)}</div>
-              <a
-                href={`#/${sec}`}
-                onClick={close}
-                className="menu-item"
-                aria-current={location.hash.startsWith(`#/${sec}`) && !location.hash.split('?')[0].endsWith('/quiz') ? 'page' : undefined}
-              >
-                <Icon name="book" />
-                <span>
-                  {t('tanakh.daySub')}
-                  <small lang="he">{sec === 'neviim' ? 'נביאים' : 'כתובים'}</small>
-                </span>
-              </a>
-              {/* «Вопросы к отрывку»: a quiz on the passage of the day — for the book's certificate («Академия») */}
-              <div className="menu-sub">
-                <a
-                  href={`#/${sec}/quiz`}
-                  onClick={close}
-                  className="menu-item menu-game"
-                  aria-current={location.hash.startsWith(`#/${sec}`) && location.hash.split('?')[0].endsWith('/quiz') ? 'page' : undefined}
-                >
-                  <span className="menu-num">✓</span>
-                  <span>
-                    {t('quiz.title')}
-                    <small>{t('quiz.menuSub')}</small>
-                  </span>
-                </a>
-              </div>
-            </Fragment>
-          ))}
-          {/* «Хасидут»: the Rebbe Rashab's «Ґемшех Самех-Вав» in passages of ten minutes (src/core/hemshech.ts) */}
-          <div className="menu-lbl">{t('hs.menuLbl')}</div>
-          <a href="#/hemshech" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/hemshech') ? 'page' : undefined}>
-            <Icon name="book" />
-            <span>
-              {t('hs.short')}
-              <small>{t('hs.menuSub')}</small>
-            </span>
-          </a>
-          {/* «Мои слова»: the most frequent words of the Prophets and Writings, with the review (src/core/words.ts) */}
-          <div className="menu-lbl">{t('words.menuLbl')}</div>
-          <a href="#/words" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/words') ? 'page' : undefined}>
-            <Icon name="cards" />
-            <span>
-              {t('words.mine')}
-              <small>{t('words.menuSub')}</small>
-            </span>
-          </a>
+          {facts}
+          {quiz}
+          {academy}
             </>
           )}
           <div className="menu-sep" />

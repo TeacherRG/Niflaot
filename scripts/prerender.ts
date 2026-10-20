@@ -145,7 +145,7 @@ function render(p: Page): string {
   // Hebrew: lang="he" translate="no" — for the browser's translation, reading mode and «read aloud»
   const body = markHebrewHtml(p.body);
   html = html.replace('<div id="root"></div>', () => `<div id="root"><div class="static">${body}</div></div>`);
-  if (p.root !== './') html = html.replace(/(src|href)="\.\/assets\//g, `$1="${p.root}assets/`);
+  if (p.root !== './') html = html.replace(/(src|href)="\.\/assets\//g, `$1="${p.root}assets/`).replace('src="./look.js"', `src="${p.root}look.js"`);
   if (!html.includes(body)) throw new Error('index.html: no <div id="root"></div>');
   return html;
 }
@@ -827,7 +827,7 @@ for (const { lang, ui } of LANGS) {
 
 // offline: the app's code, styles and fonts, the icons and manifests (the Memo pictures are kept when first seen)
 const assets = readdirSync(`${DIST}/assets`).filter((f) => /\.(js|css|woff2)$/.test(f)).map((f) => `/assets/${f}`);
-const precache = [...assets, '/icons/icon-192.png', '/manifest.webmanifest', '/manifest-en.webmanifest', '/manifest-de.webmanifest'];
+const precache = [...assets, '/look.js', '/icons/icon-192.png', '/manifest.webmanifest', '/manifest-en.webmanifest', '/manifest-de.webmanifest'];
 const version = createHash('sha256').update(assets.join('\n')).update(readFileSync(`${DIST}/index.html`)).digest('hex').slice(0, 12);
 const sw = readFileSync(`${DIST}/sw.js`, 'utf8');
 if (!sw.includes("/*__VERSION__*/ 'dev'") || !sw.includes('/*__PRECACHE__*/ []')) throw new Error('public/sw.js: no build placeholders');
