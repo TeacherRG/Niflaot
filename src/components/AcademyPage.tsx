@@ -16,6 +16,7 @@ import { readWordStore, wordsCertificates } from '../core/words';
 import { readStars, torahWords, torahWordsCertificates } from '../core/torahWords';
 import { HEMSHECH, allPassages, hsCertificates, hsIsDone, passageDate, readHsDone, todayIndex } from '../core/hemshech';
 import { NIFLAOT_LOGO, PARTNERS } from '../core/partners';
+import { NIGUNIM } from '../nigun';
 import { civilDate, jewishDate } from '../core/hebrewDate';
 import { useAccount } from '../core/account';
 import { routeLink } from '../core/site';
@@ -43,8 +44,8 @@ const PASS_PCT = Math.round(PASS * 100);
 
 /**
  * The faculties of the Academy («факультативы»), by the mode. The children: «Лашон ґа-кодеш» (letters and the words of
- * the Torah), «Святая арифметика» (the gematria of the Baal HaTurim — the game), «Святая музыка» (the nigun — a new
- * section, opening soon) and «Кодеш ґа-кодашим» (the Chassidut of the Rebbe — investigations and cards). The adults:
+ * the Torah), «Святая арифметика» (the gematria of the Baal HaTurim — the game), «Святая музыка» (the niggunim of m770.org
+ * by karaoke, #/nigun) and «Кодеш ґа-кодашим» (the Chassidut of the Rebbe — investigations and cards). The adults:
  * the Prophets and Writings and the Chassidut of Chabad («Ґемшех Самех-Вав») first, then the same four «the grown-up
  * way»: the words of Tanakh, the Baal HaTurim and the Rebbe's talks to read.
  */
@@ -65,7 +66,7 @@ const FACULTY: Record<FacultyId, { he: string; color: string }> = {
 const LINKS: Record<FacultyId, Record<'k' | 'a', [string, MessageKey][]>> = {
   lashon: { k: [['#/torah-words', 'tw.title'], ['#/letters', 'abc.title']], a: [['#/words', 'words.mine'], ['#/letters', 'abc.title']] },
   gematria: { k: [['#/daily', 'daily.title'], ['#/facts', 'facts.title'], ['#/math/add', 'math.title']], a: [['#/daily', 'daily.title'], ['#/facts', 'facts.title']] },
-  nigun: { k: [], a: [] },
+  nigun: { k: [['#/nigun', 'nigun.title']], a: [['#/nigun', 'nigun.title']] },
   rebbe: { k: [['#/shabbat-table', 'table.title']], a: [['#/shabbat-table', 'table.title']] },
   tanakh: { k: [], a: [['#/neviim', 'tanakh.neviim'], ['#/ketuvim', 'tanakh.ketuvim']] },
   hemshech: { k: [], a: [['#/hemshech', 'hs.menuLbl']] },
@@ -654,7 +655,19 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
           </>
         );
       case 'nigun':
-        return <p className="ac-soon">🎵 {t('academy.fac.nigun.soon')}</p>;
+        // the lessons of the niggunim: no certificate yet — each lesson is a niggun to learn by karaoke
+        return (
+          <ul className="ng-list">
+            {NIGUNIM.map((x) => (
+              <li key={x.id}>
+                <a href={`#/nigun/${x.id}`}>
+                  <b>🎵 {x.title[lang]}</b>
+                  <span>{t('nigun.karaoke')}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        );
       case 'tanakh':
         return (
           <>
@@ -719,7 +732,7 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
             <button
               key={f}
               type="button"
-              className={`ac-fac-tile t-${FACULTY[f].color}${f === 'nigun' ? ' soon' : ''}`}
+              className={`ac-fac-tile t-${FACULTY[f].color}`}
               onClick={() => document.getElementById(`fac-${f}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               <span className="ac-fac-he he" lang="he">
@@ -728,7 +741,7 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
               <b>{t(`academy.fac.${f}`)}</b>
               <small>{t(`academy.fac.${f}.sub`)}</small>
               <span className="ac-fac-n">
-                {f === 'nigun' ? t('academy.soon') : t('academy.facEarned', { n: earned[f], total: total[f] })}
+                {f === 'nigun' ? t('academy.facLessons', { n: NIGUNIM.length }) : t('academy.facEarned', { n: earned[f], total: total[f] })}
               </span>
             </button>
           ))}

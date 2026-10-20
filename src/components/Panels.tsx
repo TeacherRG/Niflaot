@@ -188,6 +188,16 @@ export function Panels() {
       </span>
     </a>
   );
+  /* «Святая музыка»: the niggunim with karaoke (NigunPage.tsx) */
+  const nigun = (
+    <a href="#/nigun" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/nigun') ? 'page' : undefined}>
+      <span className="menu-num">♪</span>
+      <span>
+        {t('nigun.title')}
+        <small>{t('nigun.menuSub')}</small>
+      </span>
+    </a>
+  );
   const academy = (
     <a href="#/academy" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/academy') ? 'page' : undefined}>
       <Icon name="award" />
@@ -299,6 +309,7 @@ export function Panels() {
           {facts}
           {quiz}
           {table}
+          {nigun}
           {academy}
           {/* how to play, my Hebrew, letters and mental math: one group */}
           <details className="menu-group" open={isLearn}>
@@ -382,6 +393,7 @@ export function Panels() {
           {facts}
           {quiz}
           {table}
+          {nigun}
           {academy}
             </>
           )}

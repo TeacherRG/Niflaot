@@ -2153,3 +2153,35 @@ body:has(.a-home){background:var(--plain)}
   .st-inv h3{break-after:avoid}
 }
 .st-h2{break-after:avoid}
+
+/* «Святая музыка» (NigunPage.tsx) and the karaoke (Karaoke.tsx): the line being sung lights up and fills as it goes */
+.ng h1{margin:4px 0 8px;font-family:var(--f-display);font-size:clamp(30px,5vw,44px);line-height:1.05}
+.ng .tk-kicker a{color:inherit;text-decoration:none}
+.ng-about{margin:0 0 18px;font-size:17px;line-height:1.6;color:var(--ink-2);max-width:720px}
+.ng-h2{margin:8px 0 4px;font-family:var(--f-display);font-size:26px}
+.ng-list{list-style:none;margin:12px 0 18px;padding:0;display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.ng-list a{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:12px;background:var(--surface);box-shadow:var(--shadow);color:var(--ink);text-decoration:none}
+.ng-list b{font-family:var(--f-display);font-size:20px;line-height:1.15}
+.ng-list span{font-size:14px;color:var(--muted);line-height:1.4}
+.ng-credit{margin:18px 0 8px;padding-top:10px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+.ng-credit a{color:var(--tchelet);font-weight:700}
+.kar{display:grid;gap:10px;margin:8px 0 6px;padding:16px;border:1px solid var(--line);border-radius:16px;background:var(--surface);box-shadow:var(--shadow)}
+.kar-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
+.kar-play{min-width:130px}
+.kar-opt{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--ink-2);cursor:pointer}
+.kar-opt input{accent-color:var(--gold);width:16px;height:16px}
+.kar-seek{width:100%;accent-color:var(--gold)}
+.kar-lines{list-style:none;margin:0;padding:6px 0;max-height:min(60vh,520px);overflow-y:auto;scroll-behavior:smooth;display:grid;gap:2px;position:relative}
+.kar-lines button{display:grid;gap:2px;width:100%;padding:8px 12px;border:0;border-radius:10px;background:none;color:var(--muted);font:inherit;text-align:start;cursor:pointer}
+.kar-lines button:hover{background:var(--paper)}
+.kar-lines button:focus-visible{outline:3px solid var(--gold);outline-offset:-2px}
+.kar-text{font-family:var(--f-display);font-size:clamp(22px,4vw,30px);font-weight:700;line-height:1.2}
+.kar-lines li.done .kar-text{color:var(--ink-2);opacity:.6}
+.kar-lines li.now button{background:var(--gold-soft)}
+.kar-lines li.now .kar-text{background:linear-gradient(90deg,var(--gold-deep) var(--p),var(--ink) var(--p));-webkit-background-clip:text;background-clip:text;color:transparent}
+.kar-read{font-size:15px;font-style:italic;color:var(--ink-2)}
+.kar-tr{font-size:14px;color:var(--muted)}
+.kar-note{margin:0;font-size:13px;color:var(--muted)}
+.kar-admin{display:grid;gap:8px;justify-items:start;padding:12px;border:1px dashed var(--line);border-radius:12px;font-size:14px}
+.kar-admin p{margin:0}
+.kar-admin code{font-size:12.5px;word-break:break-all}
