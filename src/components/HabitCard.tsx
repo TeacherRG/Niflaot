@@ -21,7 +21,8 @@ export function HabitCard({ account = false }: { account?: boolean }) {
   return (
     <section className={`habit${h.today ? ' habit-done' : ''}`} aria-label={t('habit.title')}>
       <div className="habit-head">
-        <b>{h.today ? `✓ ${t('habit.today')}` : t(h.back ? 'habit.back' : 'habit.notYet')}</b>
+        {/* a newcomer (no study day yet) is invited to start, not told «вы ещё не учились» */}
+        <b>{h.today ? `✓ ${t('habit.today')}` : t(h.back ? 'habit.back' : h.total ? 'habit.notYet' : 'habit.first')}</b>
         {h.streak > 0 && <span className="habit-streak">🔥 {t('habit.streak', { n: h.streak })}</span>}
       </div>
       {!h.today && (

@@ -347,6 +347,7 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .menu-item{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border:0;border-radius:10px;background:transparent;color:var(--ink);text-decoration:none;font-weight:600;font-size:15px;text-align:start}
 .menu-item:hover{background:var(--paper);color:var(--gold)}
 .menu-item svg{color:var(--gold);flex:none}
+.menu-done>svg{color:var(--ok)}
 .menu-item small{display:block;font-family:var(--f-he);font-weight:500;font-size:14px;color:var(--muted)}
 .menu-num{display:grid;place-items:center;width:28px;height:28px;flex:none;border-radius:50%;background:var(--ink);color:var(--gold-2);font-family:var(--f-num);font-size:12.5px}
 .menu-sep{height:1px;background:var(--line);margin:8px 12px}
@@ -391,6 +392,8 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .donate-fab:hover{transform:scale(1.08);background:var(--bad);color:#fff;border-color:var(--bad)}
 .donate-fab:hover svg{fill-opacity:1}
 .colophon{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+/* a phone: one floating button (✦) — the heart is in the menu and the footer, it hid the text under it */
+@media (max-width:640px){.donate-fab{display:none}}
 
 /* about: goals & objectives */
 .prose h4{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:20px 0 8px}
@@ -673,6 +676,7 @@ article.m-card{border-top:3px solid var(--gold-2)}
 .ai-fab{position:fixed;z-index:40;inset-inline-end:max(16px,env(safe-area-inset-right,0px));bottom:calc(68px + env(safe-area-inset-bottom,0px));display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--ink);border:1px solid var(--ink);color:var(--gold-2);box-shadow:0 6px 18px -6px rgba(20,26,51,.45);transition:transform .15s}
 .ai-fab:hover{transform:scale(1.08)}
 .ai-fab svg{fill:currentColor;fill-opacity:.25}
+@media (max-width:640px){.ai-fab{bottom:calc(16px + env(safe-area-inset-bottom,0px))}}
 .ai{display:flex;flex-direction:column;gap:12px;min-height:min(60vh,520px)}
 .ai-log{flex:1;display:flex;flex-direction:column;gap:10px;overflow:auto;max-height:min(56vh,520px);padding-inline-end:2px}
 .ai-hello p{margin:0 0 12px;color:var(--muted)}
@@ -1174,6 +1178,10 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .h-continue-title .he{display:none}
 .h-continue-where{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
 .h-continue-where i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--tc-line)}
+.h-continue-go{margin-top:4px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px}
+.h-continue-n{font-size:13px;color:var(--muted)}
+.h-continue-btn{display:inline-flex;align-items:center;min-height:44px;box-sizing:border-box;padding:8px 16px;border-radius:8px;background:var(--tc-bg,var(--ink));color:#fff;font-weight:700;font-size:15px;box-shadow:0 6px 14px -8px rgba(20,26,51,.6);transition:filter .15s}
+.h-continue:hover .h-continue-btn{filter:brightness(1.12)}
 .h-bar{display:block;height:5px;border-radius:3px;background:var(--gold-line);overflow:hidden}
 .h-bar span{display:block;height:100%;background:var(--tc-line)}
 .h-countdown-compact{display:none}
@@ -1239,6 +1247,7 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
   .h-hero h1{margin-top:2px}
   .h-continue{padding:10px 12px;gap:3px}
   .h-continue-title{font-size:19px}
+  .h-continue-btn{font-size:14px;padding:8px 12px}
   .h-tile{gap:2px}
   .h-section{gap:8px}
 }

@@ -298,6 +298,7 @@ function KidsHome() {
     started ?? playable.find((l) => lessonProgress(l.slug, l.legacyStorageKey) < l.riddles.length) ?? playable[0] ?? LESSONS[0];
   const nextDone = lessonProgress(next.slug, next.legacyStorageKey);
   const nextWho = teacherOf(next);
+  const nextTitle = pick(next.texts).value.title;
 
   return (
     <>
@@ -319,18 +320,24 @@ function KidsHome() {
               <p>{t('home.lead')}</p>
             </div>
             <div className="h-hero-side">
+              {/* the one main action of the screen: the lesson's title and a real button «▶ Начать» and «загадка 1 из 5» beside it */}
               <a className={`h-continue t-${TEACHERS[nextWho].color}`} href={`#/${next.slug}`}>
-                <span className="h-continue-lbl">{t(started ? 'home.continue' : 'home.start')}</span>
-                <span className="h-continue-title">
-                  {pick(next.texts).value.title}
-                </span>
-                <span className="h-continue-where">
-                  <i />
-                  {t(`teacher.${nextWho}.short`)} ·{' '}
-                  {t('home.riddle', { n: Math.min(nextDone + 1, next.riddles.length), total: next.riddles.length })}
-                </span>
-                <span className="h-bar">
-                  <span style={{ width: `${Math.round((nextDone / next.riddles.length) * 100)}%` }} />
+                {/* the teacher, unless the title already names him («Бааль ґа-Турим: Лех леха») */}
+                {!nextTitle.includes(t(`teacher.${nextWho}.short`)) && (
+                  <span className="h-continue-where">
+                    <i />
+                    {t(`teacher.${nextWho}.short`)}
+                  </span>
+                )}
+                <span className="h-continue-title">{nextTitle}</span>
+                {nextDone > 0 && (
+                  <span className="h-bar">
+                    <span style={{ width: `${Math.round((nextDone / next.riddles.length) * 100)}%` }} />
+                  </span>
+                )}
+                <span className="h-continue-go">
+                  <span className="h-continue-btn">▶ {t(started ? 'home.continue' : 'home.start')}</span>
+                  <span className="h-continue-n">{t('home.riddle', { n: Math.min(nextDone + 1, next.riddles.length), total: next.riddles.length })}</span>
                 </span>
               </a>
               <div className="h-countdown-compact">
