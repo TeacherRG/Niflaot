@@ -2141,7 +2141,9 @@ body:has(.a-home){background:var(--plain)}
 .print-bar select{font:inherit;margin-inline-start:6px;padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
 @media (max-width:600px){.st-riddles{grid-template-columns:1fr}.st-inv{padding:8px 0 8px 10px}.st-inv .p-cond .verse{padding:6px 8px;font-size:1.15em}}
 @media print{
-  .sheet-paper.st{font-size:10.5pt;line-height:1.4}
+  .sheet-paper.st{font-size:10pt;line-height:1.38}
+  .sheet-paper.st h1{font-size:24px}
+  .st-w .he{font-size:21px}
   .st-riddles{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
   .st-riddle{padding:6px 10px}
   .st-tip{display:none}
@@ -2185,3 +2187,25 @@ body:has(.a-home){background:var(--plain)}
 .kar-admin{display:grid;gap:8px;justify-items:start;padding:12px;border:1px dashed var(--line);border-radius:12px;font-size:14px}
 .kar-admin p{margin:0}
 .kar-admin code{font-size:12.5px;word-break:break-all}
+/* the karaoke: «Учить» | «Игра на баллы»; in the game a word of each line is missing, three words to pick from */
+.kar-tabs{display:inline-flex;justify-self:start;gap:4px;padding:4px;border-radius:12px;background:var(--paper)}
+.kar-tabs button{padding:8px 14px;border:0;border-radius:9px;background:none;color:var(--ink-2);font:inherit;font-weight:700;cursor:pointer}
+.kar-tabs button.on{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.kar-game-note{margin:0;font-size:14px;color:var(--ink-2);line-height:1.45}
+.kar-score{color:var(--gold-deep);white-space:nowrap}
+.kar-start{justify-self:start}
+.kar-line{display:grid;gap:4px;padding:8px 12px;border-radius:10px;color:var(--muted)}
+.kar-lines li.now .kar-line{background:var(--gold-soft)}
+.kar-lines li.now .kar-gapline{color:var(--ink);background:none;-webkit-background-clip:border-box;background-clip:border-box}
+.kar-gap{display:inline-block;min-width:3.2em;padding:0 4px;border-bottom:3px solid var(--gold);text-align:center}
+.kar-gap.ok{color:var(--ok);border-color:var(--ok)}
+.kar-gap.bad{color:var(--bad);border-color:var(--bad)}
+.kar-opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.kar-lines .kar-opts button{display:inline-flex;align-items:center;width:auto;min-height:44px;padding:8px 18px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font-size:17px;font-weight:700;box-shadow:var(--shadow)}
+.kar-lines .kar-opts button:hover{border-color:var(--gold);background:var(--surface)}
+.kar-was{font-size:13px;color:var(--bad)}
+.kar-end{justify-self:start}
+.kar-result{display:grid;gap:6px;padding:14px;border:1px solid var(--line);border-inline-start:4px solid var(--gold);border-radius:12px;background:var(--paper)}
+.kar-result.ok{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.kar-result b{font-family:var(--f-display);font-size:20px}
+.kar-result-a{display:flex;flex-wrap:wrap;gap:8px}

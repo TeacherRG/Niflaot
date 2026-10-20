@@ -10,7 +10,7 @@ import { LESSONS, PARSHIOT, type Lesson, type ParshaId } from '../lessons';
 import { collectFacts, type Fact } from './facts';
 
 /** How many of each kind fit on two pages of A4. */
-export const TABLE_LIMITS = { facts: 4, rebbe: 2, reflections: 4 } as const;
+export const TABLE_LIMITS = { facts: 4, rebbe: 2, reflections: 3 } as const;
 
 export interface TableSheet {
   parsha: ParshaId;

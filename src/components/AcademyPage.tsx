@@ -17,6 +17,7 @@ import { readStars, torahWords, torahWordsCertificates } from '../core/torahWord
 import { HEMSHECH, allPassages, hsCertificates, hsIsDone, passageDate, readHsDone, todayIndex } from '../core/hemshech';
 import { NIFLAOT_LOGO, PARTNERS } from '../core/partners';
 import { NIGUNIM } from '../nigun';
+import { nigunCertificates, readNigunStore } from '../core/nigunGame';
 import { civilDate, jewishDate } from '../core/hebrewDate';
 import { useAccount } from '../core/account';
 import { routeLink } from '../core/site';
@@ -127,7 +128,9 @@ export function useCertificates() {
     const words = wordsCertificates(readWordStore());
     // children: «Знаток слов главы» — every word of a portion's lessons on three stars («Слова Торы», src/core/torahWords.ts)
     const torahWordsCerts = torahWordsCertificates(torahWords(LESSONS, 'ru'), readStars());
-    return { torah, tanakh, tracker, hemshech, hsTracker, words, torahWords: torahWordsCerts };
+    // «Святая музыка»: «Знаток нигуна» — the karaoke game on points (src/core/nigunGame.ts)
+    const nigun = nigunCertificates(NIGUNIM, readNigunStore());
+    return { torah, tanakh, tracker, hemshech, hsTracker, words, torahWords: torahWordsCerts, nigun };
   }, []);
 }
 
@@ -140,6 +143,8 @@ function certTitle(c: Certificate, t: ReturnType<typeof useI18n>['t']) {
         ? t('academy.master.words')
         : c.kind === 'torahWords'
           ? t('academy.master.torahWords')
+          : c.kind === 'nigun'
+            ? t('academy.master.nigun')
           : t('academy.master.tanakh');
 }
 
@@ -418,6 +423,46 @@ function WordsCard({ c, p, href = '#/words' }: { c: Certificate; p: Progress; hr
   );
 }
 
+/** «Знаток нигуна»: the best karaoke game of the niggun — the points, the bar with the 70 % mark, the way to play. */
+function NigunCard({ c, p, href }: { c: Certificate; p: Progress; href: string }) {
+  const { t, locale } = useI18n();
+  const lang = langOf(locale);
+  return (
+    <li className={`ac-card t-gold${p.earned ? ' earned' : ''}`}>
+      <div className="ac-seal" aria-hidden="true">
+        {p.earned ? '🎓' : '🎵'}
+      </div>
+      <div className="ac-body">
+        <h3>
+          {certTitle(c, t)}
+          <small>
+            {c.book.name[lang]} · <span className="he" lang="he">{c.book.he}</span>
+          </small>
+        </h3>
+        <Bar p={p} />
+        <p className="ac-meta">{p.done ? t('academy.nigunMeta', { got: p.got, max: p.max, pct: pct(p) }) : t('academy.nigunNone')}</p>
+        {p.earned ? <p className="ac-ok">{t('academy.earned')}</p> : <p className="ac-wait">{t('academy.nigunNeed', { pass: PASS_PCT })}</p>}
+        <div className="ac-actions">
+          {p.earned ? (
+            <a className="btn" href={`#/academy/${c.id}`}>
+              {t('academy.open')}
+            </a>
+          ) : (
+            <>
+              <a className="btn" href={href}>
+                {t('nigun.game')}
+              </a>
+              <a className="btn ghost" href={`#/academy/${c.id}?sample`}>
+                {t('academy.sample')}
+              </a>
+            </>
+          )}
+        </div>
+      </div>
+    </li>
+  );
+}
+
 const NAME_KEY = 'niflaot:cert-name';
 const POINTS_KEY = 'niflaot:cert-points';
 
@@ -503,7 +548,7 @@ function CertificateView({ c, p, sample }: { c: Certificate; p: Progress; sample
         <p className="cert-awarded">{t('cert.awarded')}</p>
         <p className="cert-name">{name.trim() || ' '}</p>
         <p className="cert-for">
-          {c.kind === 'torah' ? t('cert.forTorah') : c.kind === 'hemshech' ? t('cert.forHemshech') : c.kind === 'words' ? t('cert.forWords') : c.kind === 'torahWords' ? t('cert.forTorahWords') : t('cert.forTanakh')}
+          {c.kind === 'torah' ? t('cert.forTorah') : c.kind === 'hemshech' ? t('cert.forHemshech') : c.kind === 'words' ? t('cert.forWords') : c.kind === 'torahWords' ? t('cert.forTorahWords') : c.kind === 'nigun' ? t('cert.forNigun') : t('cert.forTanakh')}
         </p>
         <p className="cert-book">
           {c.kind === 'hemshech' && <>{HEMSHECH.title[lang]} · </>}
@@ -560,11 +605,11 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
   const { t, locale } = useI18n();
   const lang = langOf(locale);
   const { token } = useAccount();
-  const { torah, tanakh, tracker, hemshech, hsTracker, words, torahWords: twCerts } = useCertificates();
+  const { torah, tanakh, tracker, hemshech, hsTracker, words, torahWords: twCerts, nigun } = useCertificates();
   const adults = useMode() === 'adults';
   // the AI assistant (✦) knows the certificates and the progress
   useEffect(() => {
-    const rows = [...torah, ...tanakh, ...hemshech, ...words, ...twCerts].map((c) => ({
+    const rows = [...torah, ...tanakh, ...hemshech, ...words, ...twCerts, ...nigun].map((c) => ({
       kind: c.kind,
       title: certTitle(c, t),
       book: c.book.name[lang],
@@ -576,11 +621,13 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
             ? t('academy.wordsMeta', { got: c.progress.got, max: c.progress.max, known: c.progress.done })
             : c.kind === 'torahWords'
             ? t('academy.twMeta', { got: c.progress.got, max: c.progress.max })
+            : c.kind === 'nigun'
+            ? t('academy.nigunMeta', { got: c.progress.got, max: c.progress.max, pct: pct(c.progress) })
             : `${t('academy.readDays', { done: c.progress.seen?.done ?? 0, parts: c.progress.parts, pct: Math.round((100 * (c.progress.seen?.done ?? 0)) / (c.progress.parts || 1)) })}; ${t('academy.days', { done: c.progress.done, parts: c.progress.parts })}`,
     }));
     setOtherPage({ kind: 'academy', context: () => academyContext(rows) });
     return () => setOtherPage(null);
-  }, [torah, tanakh, hemshech, words, twCerts, t, lang]);
+  }, [torah, tanakh, hemshech, words, twCerts, nigun, t, lang]);
   useEffect(() => {
     document.title = `${t('academy.h1')} · ${t('app.title')}`;
   }, [t]);
@@ -620,7 +667,7 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
             ? tanakh
             : f === 'hemshech'
               ? hemshech
-              : [];
+              : nigun;
   const earned = Object.fromEntries(facs.map((f) => [f, certsOf(f).filter((c) => c.progress.earned).length])) as Record<FacultyId, number>;
   const total = Object.fromEntries(facs.map((f) => [f, certsOf(f).length])) as Record<FacultyId, number>;
   const faculty = (f: FacultyId) => {
@@ -655,16 +702,11 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
           </>
         );
       case 'nigun':
-        // the lessons of the niggunim: no certificate yet — each lesson is a niggun to learn by karaoke
+        // «Знаток нигуна» — a certificate for each niggun, for the karaoke game on points
         return (
-          <ul className="ng-list">
-            {NIGUNIM.map((x) => (
-              <li key={x.id}>
-                <a href={`#/nigun/${x.id}`}>
-                  <b>🎵 {x.title[lang]}</b>
-                  <span>{t('nigun.karaoke')}</span>
-                </a>
-              </li>
+          <ul className="ac-list">
+            {nigun.map((c) => (
+              <NigunCard key={c.id} c={c} p={c.progress} href={c.href} />
             ))}
           </ul>
         );
@@ -701,7 +743,7 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
         );
     }
   };
-  const one = id ? [...torah, ...tanakh, ...hemshech, ...words, ...twCerts].find((c) => c.id === id) : undefined;
+  const one = id ? [...torah, ...tanakh, ...hemshech, ...words, ...twCerts, ...nigun].find((c) => c.id === id) : undefined;
   if (one && (one.progress.earned || sample))
     return (
       <>
@@ -741,7 +783,7 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
               <b>{t(`academy.fac.${f}`)}</b>
               <small>{t(`academy.fac.${f}.sub`)}</small>
               <span className="ac-fac-n">
-                {f === 'nigun' ? t('academy.facLessons', { n: NIGUNIM.length }) : t('academy.facEarned', { n: earned[f], total: total[f] })}
+                {t('academy.facEarned', { n: earned[f], total: total[f] })}
               </span>
             </button>
           ))}

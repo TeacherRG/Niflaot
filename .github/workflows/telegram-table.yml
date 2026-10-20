@@ -1,0 +1,96 @@
+name: К шабатнему столу в Telegram
+
+# Every Friday morning — the sheet of the week's portion «К шабатнему столу» (scripts/telegram-table.ts): a post with a
+# riddle for the children and the PDF of the sheet, in each channel's language. GitHub starts scheduled runs late and
+# sometimes drops them, so there is an attempt every 10 minutes 06:00–09:50 UTC on Fridays (8:00–11:50 Vienna in summer,
+# 7:00–10:50 in winter); attempts before 8:00 Vienna stop at once. The first attempt that gets through posts and saves a
+# mark for the day in the Actions cache (key table-posted-<date>) — also when there is nothing to post (a week without
+# lessons); the later attempts see it and stop before installing anything. On Shabbat — nothing, even by hand.
+# Manual run (Run workflow): posts the sheet of the coming Shabbat right away, unless today is already done; «force» —
+# post again anyway. Setup: the same secret TELEGRAM_BOT_TOKEN and variables TELEGRAM_CHAT_RU / _EN / _DE as
+# «Загадка недели»; a language without a channel is skipped.
+on:
+  schedule:
+    - cron: '*/10 6-9 * * 5'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Опубликовать, даже если сегодня лист уже выходил'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+# one run at a time: a late cron and a manual run must not post twice
+concurrency:
+  group: telegram-table
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_RU: ${{ vars.TELEGRAM_CHAT_RU || secrets.TELEGRAM_CHAT_RU }}
+      TELEGRAM_CHAT_EN: ${{ vars.TELEGRAM_CHAT_EN || secrets.TELEGRAM_CHAT_EN }}
+      TELEGRAM_CHAT_DE: ${{ vars.TELEGRAM_CHAT_DE || secrets.TELEGRAM_CHAT_DE }}
+      # optional: the Mini App from @BotFather (<bot>/<app>) — a button «open in Telegram» under the post
+      TELEGRAM_APP: ${{ vars.TELEGRAM_APP }}
+      TELEGRAM_SCHEDULE: ${{ github.event.schedule }}
+      TABLE_POSTED_FILE: .table-posted
+    steps:
+      # «go» — this attempt should work: it is not before 8:00 Vienna (a scheduled run) and today is not done yet
+      - name: Today
+        id: day
+        run: |
+          echo "date=$(date -u +%F)" >> "$GITHUB_OUTPUT"
+          hour=$(TZ=Europe/Vienna date +%-H)
+          if [ -n "$TELEGRAM_SCHEDULE" ] && [ "$hour" -lt 8 ]; then echo "early=true" >> "$GITHUB_OUTPUT"; echo "В Вене $hour ч — до 8:00 не публикуем."; fi
+      # has today's post already gone out? (lookup only — nothing to download)
+      - name: Already done today?
+        id: posted
+        if: steps.day.outputs.early != 'true'
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: .table-posted
+          key: table-posted-${{ steps.day.outputs.date }}
+          lookup-only: true
+      - name: Skip
+        if: steps.posted.outputs.cache-hit == 'true' && !inputs.force
+        run: echo "За ${{ steps.day.outputs.date }} всё уже сделано (пост вышел или публиковать нечего) — эта попытка ничего не делает."
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
+        with:
+          node-version: 22
+          cache: npm
+      - if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
+        run: npm ci
+      # a browser for the PDF of the sheet (scripts/telegram-table.ts prints the site's page)
+      - if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
+        run: npm i --no-save playwright && npx playwright install --with-deps chromium
+      # without the token the run is red with a clear message — not green with a silently skipped post
+      - name: Check settings
+        if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
+        run: |
+          if [ -z "$TELEGRAM_BOT_TOKEN" ]; then
+            echo "::error::Нет секрета TELEGRAM_BOT_TOKEN: Settings → Secrets and variables → Actions → вкладка Secrets (не Variables) → Repository secrets."
+            exit 1
+          fi
+          if [ -z "$TELEGRAM_CHAT_RU$TELEGRAM_CHAT_EN$TELEGRAM_CHAT_DE" ]; then
+            echo "::error::Не задан ни один канал (TELEGRAM_CHAT_RU / _EN / _DE): Settings → Secrets and variables → Actions (вкладка Variables или Secrets)."
+            exit 1
+          fi
+      - name: Post
+        if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
+        run: npx tsx scripts/telegram-table.ts
+      # the text went out (even if the PDF failed and the run is red) or there is nothing to post today: remember it,
+      # so the later attempts don't repeat it
+      - name: Remember today
+        if: always() && hashFiles('.table-posted') != '' && steps.posted.outputs.cache-hit != 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: .table-posted
+          key: table-posted-${{ steps.day.outputs.date }}
