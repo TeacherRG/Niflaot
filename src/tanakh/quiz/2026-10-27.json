@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 7:21",
+   "q": {
+    "ru": "Что Ахан взял из добычи?",
+    "en": "What did Achan take from the spoil?",
+    "de": "Was nahm Achan von der Beute?"
+   },
+   "o": [
+    {
+     "ru": "Плащ, двести шекелей серебра и слиток золота",
+     "en": "A mantle, two hundred shekels of silver and a wedge of gold",
+     "de": "Einen Mantel, zweihundert Schekel Silber und einen Goldbarren"
+    },
+    {
+     "ru": "Меч и щит царя Йерихо",
+     "en": "The sword and shield of Jericho's king",
+     "de": "Schwert und Schild des Königs von Jericho"
+    },
+    {
+     "ru": "Двух коней и колесницу",
+     "en": "Two horses and a chariot",
+     "de": "Zwei Pferde und einen Wagen"
+    },
+    {
+     "ru": "Свиток и медные сосуды",
+     "en": "A scroll and copper vessels",
+     "de": "Eine Schriftrolle und Kupfergefäße"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 7:21",
+   "q": {
+    "ru": "Где Ахан спрятал взятое?",
+    "en": "Where did Achan hide what he took?",
+    "de": "Wo versteckte Achan, was er genommen hatte?"
+   },
+   "o": [
+    {
+     "ru": "Зарыл в землю в своём шатре",
+     "en": "He buried it in the ground in his tent",
+     "de": "Er vergrub es in seinem Zelt in der Erde"
+    },
+    {
+     "ru": "Отдал на хранение брату",
+     "en": "He gave it to his brother to keep",
+     "de": "Er gab es seinem Bruder zur Aufbewahrung"
+    },
+    {
+     "ru": "Спрятал в пещере у Ая",
+     "en": "He hid it in a cave near Ai",
+     "de": "Er versteckte es in einer Höhle bei Ai"
+    },
+    {
+     "ru": "Бросил в Ярден",
+     "en": "He threw it into the Jordan",
+     "de": "Er warf es in den Jarden"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 7:26",
+   "q": {
+    "ru": "Как назвали то место?",
+    "en": "What was that place named?",
+    "de": "Wie wurde dieser Ort genannt?"
+   },
+   "o": [
+    {
+     "ru": "Долина Ахор",
+     "en": "The Valley of Achor",
+     "de": "Tal Achor"
+    },
+    {
+     "ru": "Гилгаль",
+     "en": "Gilgal",
+     "de": "Gilgal"
+    },
+    {
+     "ru": "Бейт-Эль",
+     "en": "Bethel",
+     "de": "Bet-El"
+    },
+    {
+     "ru": "Долина Аялон",
+     "en": "The Valley of Aijalon",
+     "de": "Tal Ajalon"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 8:2",
+   "q": {
+    "ru": "Что Г-сподь разрешил на этот раз в Ае?",
+    "en": "What did the L-rd permit this time at Ai?",
+    "de": "Was erlaubte der Ewige diesmal in Ai?"
+   },
+   "o": [
+    {
+     "ru": "Взять себе добычу и скот",
+     "en": "To take the spoil and the cattle for themselves",
+     "de": "Die Beute und das Vieh für sich zu nehmen"
+    },
+    {
+     "ru": "Оставить жителей в городе",
+     "en": "To let the inhabitants stay in the city",
+     "de": "Die Bewohner in der Stadt zu lassen"
+    },
+    {
+     "ru": "Не воевать",
+     "en": "Not to fight",
+     "de": "Nicht zu kämpfen"
+    },
+    {
+     "ru": "Построить там жертвенник",
+     "en": "To build an altar there",
+     "de": "Dort einen Altar zu bauen"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 11:1",
+   "q": {
+    "ru": "На кого полагается Давид?",
+    "en": "In whom does David take refuge?",
+    "de": "Bei wem sucht David Zuflucht?"
+   },
+   "o": [
+    {
+     "ru": "На Г-спода",
+     "en": "In the L-rd",
+     "de": "Beim Ewigen"
+    },
+    {
+     "ru": "На свою армию",
+     "en": "In his army",
+     "de": "Bei seinem Heer"
+    },
+    {
+     "ru": "На высокие горы",
+     "en": "In the high mountains",
+     "de": "In den hohen Bergen"
+    },
+    {
+     "ru": "На друзей",
+     "en": "In his friends",
+     "de": "Bei seinen Freunden"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 11:2",
+   "q": {
+    "ru": "Что делают нечестивые в стихе 2?",
+    "en": "What do the wicked do in verse 2?",
+    "de": "Was tun die Bösen in Vers 2?"
+   },
+   "o": [
+    {
+     "ru": "Натягивают лук, чтобы стрелять из темноты",
+     "en": "They bend the bow to shoot from the shadows",
+     "de": "Sie spannen den Bogen, um im Dunkeln zu schießen"
+    },
+    {
+     "ru": "Роют яму на дороге",
+     "en": "They dig a pit on the road",
+     "de": "Sie graben eine Grube auf dem Weg"
+    },
+    {
+     "ru": "Поджигают поля",
+     "en": "They set fields on fire",
+     "de": "Sie zünden Felder an"
+    },
+    {
+     "ru": "Строят высокую башню",
+     "en": "They build a high tower",
+     "de": "Sie bauen einen hohen Turm"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 11:4",
+   "q": {
+    "ru": "Где, по стиху, престол Г-спода?",
+    "en": "According to the verse, where is the L-rd's throne?",
+    "de": "Wo ist nach dem Vers der Thron des Ewigen?"
+   },
+   "o": [
+    {
+     "ru": "На небесах",
+     "en": "In heaven",
+     "de": "Im Himmel"
+    },
+    {
+     "ru": "На горе Синай",
+     "en": "On Mount Sinai",
+     "de": "Auf dem Berg Sinai"
+    },
+    {
+     "ru": "В Шило",
+     "en": "In Shiloh",
+     "de": "In Schilo"
+    },
+    {
+     "ru": "На море",
+     "en": "On the sea",
+     "de": "Auf dem Meer"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 11:7",
+   "q": {
+    "ru": "Кто, по стиху, увидит лицо Г-спода?",
+    "en": "According to the verse, who will behold the L-rd's face?",
+    "de": "Wer wird nach dem Vers das Gesicht des Ewigen sehen?"
+   },
+   "o": [
+    {
+     "ru": "Прямые",
+     "en": "The upright",
+     "de": "Die Aufrichtigen"
+    },
+    {
+     "ru": "Сильные",
+     "en": "The strong",
+     "de": "Die Starken"
+    },
+    {
+     "ru": "Цари",
+     "en": "Kings",
+     "de": "Die Könige"
+    },
+    {
+     "ru": "Все народы",
+     "en": "All the nations",
+     "de": "Alle Völker"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 8:26",
+   "q": {
+    "ru": "До каких пор Йеґошуа держал протянутое копьё?",
+    "en": "How long did Joshua keep his javelin held out?",
+    "de": "Wie lange hielt Jehoschua den Speer ausgestreckt?"
+   },
+   "o": [
+    {
+     "ru": "Пока не были истреблены все жители Ая",
+     "en": "Until all the inhabitants of Ai were destroyed",
+     "de": "Bis alle Bewohner von Ai vernichtet waren"
+    },
+    {
+     "ru": "До захода солнца",
+     "en": "Until sunset",
+     "de": "Bis die Sonne unterging"
+    },
+    {
+     "ru": "Пока не устала рука",
+     "en": "Until his arm grew tired",
+     "de": "Bis sein Arm müde wurde"
+    },
+    {
+     "ru": "Три дня",
+     "en": "Three days",
+     "de": "Drei Tage"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 8:30",
+   "q": {
+    "ru": "Где Йеґошуа построил жертвенник?",
+    "en": "Where did Joshua build an altar?",
+    "de": "Wo baute Jehoschua einen Altar?"
+   },
+   "o": [
+    {
+     "ru": "На горе Эйваль",
+     "en": "On Mount Ebal",
+     "de": "Auf dem Berg Ewal"
+    },
+    {
+     "ru": "На горе Синай",
+     "en": "On Mount Sinai",
+     "de": "Auf dem Berg Sinai"
+    },
+    {
+     "ru": "В Йерихо",
+     "en": "In Jericho",
+     "de": "In Jericho"
+    },
+    {
+     "ru": "На берегу Ярдена",
+     "en": "On the bank of the Jordan",
+     "de": "Am Ufer des Jarden"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 8:31",
+   "q": {
+    "ru": "Из каких камней был жертвенник?",
+    "en": "What kind of stones was the altar made of?",
+    "de": "Aus welchen Steinen war der Altar?"
+   },
+   "o": [
+    {
+     "ru": "Из цельных камней, которых не касалось железо",
+     "en": "Of whole stones no iron had touched",
+     "de": "Aus ganzen Steinen, die kein Eisen berührt hatte"
+    },
+    {
+     "ru": "Из обтёсанных мраморных плит",
+     "en": "Of hewn marble slabs",
+     "de": "Aus behauenen Marmorplatten"
+    },
+    {
+     "ru": "Из камней стены Ая",
+     "en": "Of the stones of Ai's wall",
+     "de": "Aus den Steinen der Mauer von Ai"
+    },
+    {
+     "ru": "Из обожжённых кирпичей",
+     "en": "Of baked bricks",
+     "de": "Aus gebrannten Ziegeln"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 8:33",
+   "q": {
+    "ru": "Напротив каких гор стоял народ?",
+    "en": "Which mountains did the people face?",
+    "de": "Welchen Bergen stand das Volk gegenüber?"
+   },
+   "o": [
+    {
+     "ru": "Гризим и Эйваль",
+     "en": "Gerizim and Ebal",
+     "de": "Grisim und Ewal"
+    },
+    {
+     "ru": "Хермон и Тавор",
+     "en": "Hermon and Tabor",
+     "de": "Hermon und Tawor"
+    },
+    {
+     "ru": "Мория и Цион",
+     "en": "Moriah and Zion",
+     "de": "Morija und Zion"
+    },
+    {
+     "ru": "Кармель и Гильбоа",
+     "en": "Carmel and Gilboa",
+     "de": "Karmel und Gilboa"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 15:1",
+   "q": {
+    "ru": "Какой вопрос задаётся в начале псалма 15?",
+    "en": "What question opens Psalm 15?",
+    "de": "Welche Frage steht am Anfang von Tehillim 15?"
+   },
+   "o": [
+    {
+     "ru": "Кто может жить в шатре Г-спода?",
+     "en": "Who may sojourn in the L-rd's tent?",
+     "de": "Wer darf im Zelt des Ewigen wohnen?"
+    },
+    {
+     "ru": "Когда придёт Машиах?",
+     "en": "When will Moshiach come?",
+     "de": "Wann kommt Moschiach?"
+    },
+    {
+     "ru": "Почему страдает праведник?",
+     "en": "Why does the righteous man suffer?",
+     "de": "Warum leidet der Gerechte?"
+    },
+    {
+     "ru": "Сколько было колен Израиля?",
+     "en": "How many tribes did Israel have?",
+     "de": "Wie viele Stämme hatte Israel?"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 15:3",
+   "q": {
+    "ru": "Что, по псалму, не делает такой человек языком?",
+    "en": "According to the psalm, what does such a man not do with his tongue?",
+    "de": "Was tut so ein Mensch nach dem Lied nicht mit seiner Zunge?"
+   },
+   "o": [
+    {
+     "ru": "Не злословит",
+     "en": "He does not slander",
+     "de": "Er verleumdet nicht"
+    },
+    {
+     "ru": "Не поёт",
+     "en": "He does not sing",
+     "de": "Er singt nicht"
+    },
+    {
+     "ru": "Не молится",
+     "en": "He does not pray",
+     "de": "Er betet nicht"
+    },
+    {
+     "ru": "Не учит Тору",
+     "en": "He does not teach Torah",
+     "de": "Er lehrt keine Tora"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 15:5",
+   "q": {
+    "ru": "Чего не делает такой человек со своим серебром?",
+    "en": "What does such a man not do with his money?",
+    "de": "Was tut so ein Mensch nicht mit seinem Geld?"
+   },
+   "o": [
+    {
+     "ru": "Не даёт его в рост",
+     "en": "He does not lend it at interest",
+     "de": "Er verleiht es nicht gegen Zins"
+    },
+    {
+     "ru": "Не даёт цдаку",
+     "en": "He does not give it as tzedakah",
+     "de": "Er gibt keine Zedaka davon"
+    },
+    {
+     "ru": "Не тратит на Шабат",
+     "en": "He does not spend it for Shabbat",
+     "de": "Er gibt es nicht für Schabbat aus"
+    },
+    {
+     "ru": "Не хранит дома",
+     "en": "He does not keep it at home",
+     "de": "Er bewahrt es nicht zu Hause auf"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 15:5",
+   "q": {
+    "ru": "Что обещано тому, кто так поступает?",
+    "en": "What is promised to the one who acts this way?",
+    "de": "Was wird dem versprochen, der so handelt?"
+   },
+   "o": [
+    {
+     "ru": "Он не пошатнётся вовеки",
+     "en": "He shall never be shaken",
+     "de": "Er wird niemals wanken"
+    },
+    {
+     "ru": "Он станет царём",
+     "en": "He will become king",
+     "de": "Er wird König"
+    },
+    {
+     "ru": "У него будет много детей",
+     "en": "He will have many children",
+     "de": "Er wird viele Kinder haben"
+    },
+    {
+     "ru": "Он разбогатеет",
+     "en": "He will become rich",
+     "de": "Er wird reich"
+    }
+   ]
+  }
+ ]
+}
