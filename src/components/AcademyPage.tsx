@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useI18n } from '../i18n';
+import { Slogan } from './Slogan';
+import type { MessageKey } from '../i18n/locales/ru';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { LESSONS } from '../lessons';
-import { TEACHERS } from '../lessons/teachers';
+import { TEACHERS, type TeacherId } from '../lessons/teachers';
 import { lessonScore } from '../core/progress';
 import { readScore, readStore } from '../core/readCheck';
 import { useMode } from '../core/mode';
@@ -14,6 +16,8 @@ import { readWordStore, wordsCertificates } from '../core/words';
 import { readStars, torahWords, torahWordsCertificates } from '../core/torahWords';
 import { HEMSHECH, allPassages, hsCertificates, hsIsDone, passageDate, readHsDone, todayIndex } from '../core/hemshech';
 import { NIFLAOT_LOGO, PARTNERS } from '../core/partners';
+import { NIGUNIM } from '../nigun';
+import { nigunCertificates, readNigunStore } from '../core/nigunGame';
 import { civilDate, jewishDate } from '../core/hebrewDate';
 import { useAccount } from '../core/account';
 import { routeLink } from '../core/site';
@@ -38,6 +42,36 @@ type Lang = 'ru' | 'en' | 'de';
 const langOf = (locale: string): Lang => (locale === 'en' || locale === 'de' ? locale : 'ru');
 const pct = (p: Progress) => (p.max ? Math.round((100 * p.got) / p.max) : 0);
 const PASS_PCT = Math.round(PASS * 100);
+
+/**
+ * The faculties of the Academy («факультативы»), by the mode. The children: «Лашон ґа-кодеш» (letters and the words of
+ * the Torah), «Святая арифметика» (the gematria of the Baal HaTurim — the game), «Святая музыка» (the niggunim of m770.org
+ * by karaoke, #/nigun) and «Кодеш ґа-кодашим» (the Chassidut of the Rebbe — investigations and cards). The adults:
+ * the Prophets and Writings and the Chassidut of Chabad («Ґемшех Самех-Вав») first, then the same four «the grown-up
+ * way»: the words of Tanakh, the Baal HaTurim and the Rebbe's talks to read.
+ */
+type FacultyId = 'lashon' | 'gematria' | 'nigun' | 'rebbe' | 'tanakh' | 'hemshech';
+const FACULTIES: Record<'kids' | 'adults', FacultyId[]> = {
+  kids: ['lashon', 'gematria', 'nigun', 'rebbe'],
+  adults: ['tanakh', 'hemshech', 'lashon', 'gematria', 'nigun', 'rebbe'],
+};
+const FACULTY: Record<FacultyId, { he: string; color: string }> = {
+  lashon: { he: 'לשון הקודש', color: 'gold' },
+  gematria: { he: 'גימטריא', color: 'tchelet' },
+  nigun: { he: 'ניגון', color: 'gold' },
+  rebbe: { he: 'קודש הקדשים', color: 'green' },
+  tanakh: { he: 'נביאים וכתובים', color: 'tchelet' },
+  hemshech: { he: 'חסידות', color: 'green' },
+};
+/** Where to learn in each faculty: [href, UI key], the children's and the adults'. */
+const LINKS: Record<FacultyId, Record<'k' | 'a', [string, MessageKey][]>> = {
+  lashon: { k: [['#/torah-words', 'tw.title'], ['#/letters', 'abc.title']], a: [['#/words', 'words.mine'], ['#/letters', 'abc.title']] },
+  gematria: { k: [['#/daily', 'daily.title'], ['#/facts', 'facts.title'], ['#/math/add', 'math.title']], a: [['#/daily', 'daily.title'], ['#/facts', 'facts.title']] },
+  nigun: { k: [['#/nigun', 'nigun.title']], a: [['#/nigun', 'nigun.title']] },
+  rebbe: { k: [['#/shabbat-table', 'table.title']], a: [['#/shabbat-table', 'table.title']] },
+  tanakh: { k: [], a: [['#/neviim', 'tanakh.neviim'], ['#/ketuvim', 'tanakh.ketuvim']] },
+  hemshech: { k: [], a: [['#/hemshech', 'hs.menuLbl']] },
+};
 
 /** Every certificate with its progress on this device. */
 export function useCertificates() {
@@ -94,7 +128,9 @@ export function useCertificates() {
     const words = wordsCertificates(readWordStore());
     // children: «Знаток слов главы» — every word of a portion's lessons on three stars («Слова Торы», src/core/torahWords.ts)
     const torahWordsCerts = torahWordsCertificates(torahWords(LESSONS, 'ru'), readStars());
-    return { torah, tanakh, tracker, hemshech, hsTracker, words, torahWords: torahWordsCerts };
+    // «Святая музыка»: «Знаток нигуна» — the karaoke game on points (src/core/nigunGame.ts)
+    const nigun = nigunCertificates(NIGUNIM, readNigunStore());
+    return { torah, tanakh, tracker, hemshech, hsTracker, words, torahWords: torahWordsCerts, nigun };
   }, []);
 }
 
@@ -107,6 +143,8 @@ function certTitle(c: Certificate, t: ReturnType<typeof useI18n>['t']) {
         ? t('academy.master.words')
         : c.kind === 'torahWords'
           ? t('academy.master.torahWords')
+          : c.kind === 'nigun'
+            ? t('academy.master.nigun')
           : t('academy.master.tanakh');
 }
 
@@ -385,6 +423,46 @@ function WordsCard({ c, p, href = '#/words' }: { c: Certificate; p: Progress; hr
   );
 }
 
+/** «Знаток нигуна»: the best karaoke game of the niggun — the points, the bar with the 70 % mark, the way to play. */
+function NigunCard({ c, p, href }: { c: Certificate; p: Progress; href: string }) {
+  const { t, locale } = useI18n();
+  const lang = langOf(locale);
+  return (
+    <li className={`ac-card t-gold${p.earned ? ' earned' : ''}`}>
+      <div className="ac-seal" aria-hidden="true">
+        {p.earned ? '🎓' : '🎵'}
+      </div>
+      <div className="ac-body">
+        <h3>
+          {certTitle(c, t)}
+          <small>
+            {c.book.name[lang]} · <span className="he" lang="he">{c.book.he}</span>
+          </small>
+        </h3>
+        <Bar p={p} />
+        <p className="ac-meta">{p.done ? t('academy.nigunMeta', { got: p.got, max: p.max, pct: pct(p) }) : t('academy.nigunNone')}</p>
+        {p.earned ? <p className="ac-ok">{t('academy.earned')}</p> : <p className="ac-wait">{t('academy.nigunNeed', { pass: PASS_PCT })}</p>}
+        <div className="ac-actions">
+          {p.earned ? (
+            <a className="btn" href={`#/academy/${c.id}`}>
+              {t('academy.open')}
+            </a>
+          ) : (
+            <>
+              <a className="btn" href={href}>
+                {t('nigun.game')}
+              </a>
+              <a className="btn ghost" href={`#/academy/${c.id}?sample`}>
+                {t('academy.sample')}
+              </a>
+            </>
+          )}
+        </div>
+      </div>
+    </li>
+  );
+}
+
 const NAME_KEY = 'niflaot:cert-name';
 const POINTS_KEY = 'niflaot:cert-points';
 
@@ -470,7 +548,7 @@ function CertificateView({ c, p, sample }: { c: Certificate; p: Progress; sample
         <p className="cert-awarded">{t('cert.awarded')}</p>
         <p className="cert-name">{name.trim() || ' '}</p>
         <p className="cert-for">
-          {c.kind === 'torah' ? t('cert.forTorah') : c.kind === 'hemshech' ? t('cert.forHemshech') : c.kind === 'words' ? t('cert.forWords') : c.kind === 'torahWords' ? t('cert.forTorahWords') : t('cert.forTanakh')}
+          {c.kind === 'torah' ? t('cert.forTorah') : c.kind === 'hemshech' ? t('cert.forHemshech') : c.kind === 'words' ? t('cert.forWords') : c.kind === 'torahWords' ? t('cert.forTorahWords') : c.kind === 'nigun' ? t('cert.forNigun') : t('cert.forTanakh')}
         </p>
         <p className="cert-book">
           {c.kind === 'hemshech' && <>{HEMSHECH.title[lang]} · </>}
@@ -527,11 +605,11 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
   const { t, locale } = useI18n();
   const lang = langOf(locale);
   const { token } = useAccount();
-  const { torah, tanakh, tracker, hemshech, hsTracker, words, torahWords: twCerts } = useCertificates();
+  const { torah, tanakh, tracker, hemshech, hsTracker, words, torahWords: twCerts, nigun } = useCertificates();
   const adults = useMode() === 'adults';
   // the AI assistant (✦) knows the certificates and the progress
   useEffect(() => {
-    const rows = [...torah, ...tanakh, ...hemshech, ...words, ...twCerts].map((c) => ({
+    const rows = [...torah, ...tanakh, ...hemshech, ...words, ...twCerts, ...nigun].map((c) => ({
       kind: c.kind,
       title: certTitle(c, t),
       book: c.book.name[lang],
@@ -543,15 +621,129 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
             ? t('academy.wordsMeta', { got: c.progress.got, max: c.progress.max, known: c.progress.done })
             : c.kind === 'torahWords'
             ? t('academy.twMeta', { got: c.progress.got, max: c.progress.max })
+            : c.kind === 'nigun'
+            ? t('academy.nigunMeta', { got: c.progress.got, max: c.progress.max, pct: pct(c.progress) })
             : `${t('academy.readDays', { done: c.progress.seen?.done ?? 0, parts: c.progress.parts, pct: Math.round((100 * (c.progress.seen?.done ?? 0)) / (c.progress.parts || 1)) })}; ${t('academy.days', { done: c.progress.done, parts: c.progress.parts })}`,
     }));
     setOtherPage({ kind: 'academy', context: () => academyContext(rows) });
     return () => setOtherPage(null);
-  }, [torah, tanakh, hemshech, words, twCerts, t, lang]);
+  }, [torah, tanakh, hemshech, words, twCerts, nigun, t, lang]);
   useEffect(() => {
     document.title = `${t('academy.h1')} · ${t('app.title')}`;
   }, [t]);
-  const one = id ? [...torah, ...tanakh, ...hemshech, ...words, ...twCerts].find((c) => c.id === id) : undefined;
+  // the Torah certificates of one teacher, by book: the children by playing, the adults by reading
+  const torahOf = (teacher: TeacherId) =>
+    TORAH_BOOKS.map((b) => {
+      const cs = torah.filter((c) => c.book.id === b.id && c.teacher === teacher);
+      if (!cs.length) return null;
+      return (
+        <section key={b.id}>
+          <h3 className="parsha-h">
+            {b.name[lang]} <span className="he">{b.he}</span>
+          </h3>
+          <ul className="ac-list">
+            {cs.map((c) =>
+              adults ? (
+                <Card key={c.id} c={c} p={c.progress} href={c.readHref} reading extra={t('academy.readLessons', { done: c.progress.read?.done ?? 0, parts: c.progress.read?.parts ?? 0 })} />
+              ) : (
+                <Card key={c.id} c={c} p={c.progress} href={c.href} extra={t('academy.lessons', { done: c.progress.done, parts: c.progress.parts })} />
+              ),
+            )}
+          </ul>
+        </section>
+      );
+    });
+  const facs = adults ? FACULTIES.adults : FACULTIES.kids;
+  const certsOf = (f: FacultyId) =>
+    f === 'lashon'
+      ? adults
+        ? words
+        : twCerts
+      : f === 'gematria'
+        ? torah.filter((c) => c.teacher === 'baal-haturim')
+        : f === 'rebbe'
+          ? torah.filter((c) => c.teacher === 'rebbe')
+          : f === 'tanakh'
+            ? tanakh
+            : f === 'hemshech'
+              ? hemshech
+              : nigun;
+  const earned = Object.fromEntries(facs.map((f) => [f, certsOf(f).filter((c) => c.progress.earned).length])) as Record<FacultyId, number>;
+  const total = Object.fromEntries(facs.map((f) => [f, certsOf(f).length])) as Record<FacultyId, number>;
+  const faculty = (f: FacultyId) => {
+    switch (f) {
+      case 'lashon':
+        // children: «Слова Торы» — a certificate for every portion; adults: «Иврит Танаха» — 100 … 1000 words confirmed by the review
+        return adults ? (
+          <ul className="ac-list">
+            {words.map((c) => (
+              <WordsCard key={c.id} c={c} p={c.progress} />
+            ))}
+          </ul>
+        ) : twCerts.length ? (
+          <ul className="ac-list">
+            {twCerts.map((c) => (
+              <WordsCard key={c.id} c={c} p={c.progress} href={c.href} />
+            ))}
+          </ul>
+        ) : null;
+      case 'gematria':
+        return (
+          <>
+            <p className="ac-note">{t(adults ? 'academy.torahNoteAdults' : 'academy.torahNote')}</p>
+            {torahOf('baal-haturim')}
+          </>
+        );
+      case 'rebbe':
+        return (
+          <>
+            <p className="ac-note">{t(adults ? 'academy.torahNoteAdults' : 'academy.torahNote')}</p>
+            {torahOf('rebbe')}
+          </>
+        );
+      case 'nigun':
+        // «Знаток нигуна» — a certificate for each niggun, for the karaoke game on points
+        return (
+          <ul className="ac-list">
+            {nigun.map((c) => (
+              <NigunCard key={c.id} c={c} p={c.progress} href={c.href} />
+            ))}
+          </ul>
+        );
+      case 'tanakh':
+        return (
+          <>
+            <ReadTracker rows={tracker} />
+            {tanakh.length ? (
+              <ul className="ac-list">
+                {tanakh.map((c) => (
+                  <TanakhCard key={c.id} c={c} p={c.progress} href={c.href} quizHref={c.quizHref} ready={c.ready} />
+                ))}
+              </ul>
+            ) : (
+              <p className="ac-note">{t('academy.empty')}</p>
+            )}
+          </>
+        );
+      case 'hemshech':
+        // «Ґемшех Самех-Вав»: a certificate for each discourse, by reading — as a book of the Prophets
+        return (
+          <>
+            <HsTracker r={hsTracker} />
+            {hemshech.length ? (
+              <ul className="ac-list">
+                {hemshech.map((c) => (
+                  <TanakhCard key={c.id} c={c} p={c.progress} href={c.href} ready={c.ready} />
+                ))}
+              </ul>
+            ) : (
+              <p className="ac-note">{t('hs.startsOn', { date: civilDate(passageDate(0), lang) })}</p>
+            )}
+          </>
+        );
+    }
+  };
+  const one = id ? [...torah, ...tanakh, ...hemshech, ...words, ...twCerts, ...nigun].find((c) => c.id === id) : undefined;
   if (one && (one.progress.earned || sample))
     return (
       <>
@@ -568,87 +760,54 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
       <div className="wrap ac">
         <header className="tk-head">
           <p className="tk-kicker">🎓 {t('cert.academy')}</p>
-          <h1>{t('academy.h1')}</h1>
+          <h1>{t(adults ? 'academy.h1Adults' : 'academy.h1Kids')}</h1>
+          <p className="ac-tag">
+            <Slogan />
+          </p>
           <p className="ac-lead">{t(adults ? 'academy.leadAdults' : 'academy.lead', { pass: PASS_PCT })}</p>
           {!token && <p className="tk-note">{t('academy.guest')}</p>}
         </header>
 
-        {/* by the mode: the children — the Torah certificates by playing; the adults — by reading, and the Prophets and Writings */}
-        <h2 className="ac-h2">{t('academy.torah')}</h2>
-        <p className="ac-note">{t(adults ? 'academy.torahNoteAdults' : 'academy.torahNote')}</p>
-        {TORAH_BOOKS.map((b) => {
-          const cs = torah.filter((c) => c.book.id === b.id);
-          if (!cs.length) return null;
-          return (
-            <section key={b.id}>
-              <h3 className="parsha-h">
-                {b.name[lang]} <span className="he">{b.he}</span>
-              </h3>
-              <ul className="ac-list">
-                {cs.map((c) => (
-                  adults ? (
-                    <Card key={c.id} c={c} p={c.progress} href={c.readHref} reading extra={t('academy.readLessons', { done: c.progress.read?.done ?? 0, parts: c.progress.read?.parts ?? 0 })} />
-                  ) : (
-                    <Card key={c.id} c={c} p={c.progress} href={c.href} extra={t('academy.lessons', { done: c.progress.done, parts: c.progress.parts })} />
-                  )
-                ))}
-              </ul>
-            </section>
-          );
-        })}
+        {/* the faculties of the mode at a glance: a tap scrolls to the faculty */}
+        <nav className={`ac-facs${adults ? '' : ' kids'}`} aria-label={t('academy.facs')}>
+          {facs.map((f) => (
+            <button
+              key={f}
+              type="button"
+              className={`ac-fac-tile t-${FACULTY[f].color}`}
+              onClick={() => document.getElementById(`fac-${f}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            >
+              <span className="ac-fac-he he" lang="he">
+                {FACULTY[f].he}
+              </span>
+              <b>{t(`academy.fac.${f}`)}</b>
+              <small>{t(`academy.fac.${f}.sub`)}</small>
+              <span className="ac-fac-n">
+                {t('academy.facEarned', { n: earned[f], total: total[f] })}
+              </span>
+            </button>
+          ))}
+        </nav>
 
-        {/* children: «Слова Торы» — a certificate for every portion whose words are all on three stars */}
-        {!adults && twCerts.length > 0 && (
-          <>
-            <h2 className="ac-h2">{t('tw.title')}</h2>
-            <p className="ac-note">{t('academy.twNote')}</p>
-            <ul className="ac-list">
-              {twCerts.map((c) => (
-                <WordsCard key={c.id} c={c} p={c.progress} href={c.href} />
-              ))}
-            </ul>
-          </>
-        )}
-
-        {adults && (
-          <>
-            <h2 className="ac-h2">{t('academy.tanakh')}</h2>
-            <p className="ac-note">{t('academy.tanakhNote', { pass: PASS_PCT })}</p>
-            <ReadTracker rows={tracker} />
-            {tanakh.length ? (
-              <ul className="ac-list">
-                {tanakh.map((c) => (
-                  <TanakhCard key={c.id} c={c} p={c.progress} href={c.href} quizHref={c.quizHref} ready={c.ready} />
+        {facs.map((f) => (
+          <section key={f} id={`fac-${f}`} className="ac-fac">
+            <h2 className="ac-h2">
+              {t(`academy.fac.${f}`)} <span className="he" lang="he">{FACULTY[f].he}</span>
+            </h2>
+            <p className="ac-fac-sub">{t(`academy.fac.${f}.sub`)}</p>
+            <p className="ac-note">{t(`academy.fac.${f}.${adults ? 'a' : 'k'}`, { pass: PASS_PCT })}</p>
+            {faculty(f)}
+            {LINKS[f][adults ? 'a' : 'k'].length > 0 && (
+              <p className="ac-fac-links">
+                {LINKS[f][adults ? 'a' : 'k'].map(([href, key]) => (
+                  <a key={href} href={href}>
+                    {t(key)} →
+                  </a>
                 ))}
-              </ul>
-            ) : (
-              <p className="ac-note">{t('academy.empty')}</p>
+              </p>
             )}
-
-            {/* «Хасидут»: a certificate for each discourse of «Ґемшех Самех-Вав», by reading — as a book of the Prophets */}
-            <h2 className="ac-h2">{t('academy.hemshech')}</h2>
-            <p className="ac-note">{t('academy.hemshechNote', { pass: PASS_PCT })}</p>
-            <HsTracker r={hsTracker} />
-            {hemshech.length ? (
-              <ul className="ac-list">
-                {hemshech.map((c) => (
-                  <TanakhCard key={c.id} c={c} p={c.progress} href={c.href} ready={c.ready} />
-                ))}
-              </ul>
-            ) : (
-              <p className="ac-note">{t('hs.startsOn', { date: civilDate(passageDate(0), lang) })}</p>
-            )}
-
-            {/* «Иврит Танаха»: 100 / 300 / 500 words of the Prophets and Writings, confirmed by the review */}
-            <h2 className="ac-h2">{t('academy.words')}</h2>
-            <p className="ac-note">{t('academy.wordsNote')}</p>
-            <ul className="ac-list">
-              {words.map((c) => (
-                <WordsCard key={c.id} c={c} p={c.progress} />
-              ))}
-            </ul>
-          </>
-        )}
+          </section>
+        ))}
       </div>
       <Colophon />
     </>

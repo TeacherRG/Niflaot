@@ -25,7 +25,8 @@
  *  - «Знаете ли вы?» (#/facts): every Hebrew word of the feed has a translation in the lesson glossary of every language,
  *    and every fact links to its place in the lesson (a riddle or a Memo pair)
  *  - «Гематрия дня» (#/daily): enough words, each with its value, a translation in every language and a place to link to
- *  - the site asks the browser for no permissions: no microphone, camera, location, notifications, speech recognition
+ *  - the site asks the browser for no permissions: no camera, location, speech recognition (notifications — only
+ *    src/core/push.ts, the microphone — only src/core/singing.ts, each after a tap)
  *    (src/ has none of these APIs; the city for Shabbat comes from the time zone)
  *  - texts rendered as HTML (lessons, UI, sources) carry no scripts, event handlers or javascript: links
  *  - English and German follow the house style of chabad.org / de.chabad.org (scripts/style-rules.ts,
@@ -438,21 +439,23 @@ for (const p of new Set(LESSONS.map((l) => l.parsha))) {
   }
 }
 
-// no browser permission prompts: the site must work for anyone without asking for the microphone, camera, location…
-// The one exception: the daily reminder — Notification.requestPermission(), only in src/core/push.ts and only when
-// the player taps «Включить напоминание».
-const PERMISSION_OK = new Set(['core/push.ts']);
+// no browser permission prompts: the site must work for anyone without asking for the camera, location…
+// Two exceptions, each in its own module and only after a tap: the daily reminder — Notification.requestPermission()
+// in src/core/push.ts («Включить напоминание»), and the microphone — getUserMedia() in src/core/singing.ts
+// («Петь в микрофон» in the karaoke of a niggun; the sound stays on the device).
+const PERMISSION_OK: Record<string, RegExp> = { 'core/push.ts': /^requestPermission$/, 'core/singing.ts': /^getUserMedia$/ };
 const PERMISSION_APIS =
   /\b(getUserMedia|getDisplayMedia|enumerateDevices|geolocation|getCurrentPosition|watchPosition|SpeechRecognition|requestPermission|requestMIDIAccess|DeviceOrientationEvent|DeviceMotionEvent|wakeLock|bluetooth|navigator\.usb|navigator\.serial|navigator\.hid)\b/;
 for (const f of readdirSync('src', { recursive: true }) as string[]) {
-  if (!/\.(ts|tsx)$/.test(f) || PERMISSION_OK.has(f.replace(/\\/g, '/'))) continue;
+  if (!/\.(ts|tsx)$/.test(f)) continue;
+  const allowed = PERMISSION_OK[f.replace(/\\/g, '/')];
   readFileSync(`src/${f}`, 'utf8')
     .split('\n')
     .forEach((line, i) => {
       // comments may name the API (e.g. «no geolocation prompt»)
       const code = line.replace(/\/\/.*$/, '').replace(/^\s*\*.*$/, '').replace(/\/\*.*?\*\//g, '');
       const m = code.match(PERMISSION_APIS);
-      if (m) err(`src/${f}:${i + 1}: «${m[1]}» asks the browser for a permission — the site asks for none`);
+      if (m && !allowed?.test(m[1])) err(`src/${f}:${i + 1}: «${m[1]}» asks the browser for a permission — the site asks for none`);
     });
 }
 

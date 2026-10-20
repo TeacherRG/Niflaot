@@ -1,6 +1,6 @@
 import { useI18n } from '../i18n';
 import { NIFLAOT_LOGO, PARTNERS } from '../core/partners';
-import { PARSHIOT } from '../lessons/parshiot';
+import { PARSHIOT, type ParshaId } from '../lessons/parshiot';
 import { civilDate, jewishDate } from '../core/hebrewDate';
 import type { Lesson } from '../lessons/types';
 import { lessonLink, routeLink } from '../core/site';
@@ -24,9 +24,11 @@ function PrintLogos() {
   );
 }
 
-export function PrintMasthead({ lesson }: { lesson: Lesson }) {
+export function PrintMasthead({ lesson, parsha: id, route }: { lesson: Lesson; parsha?: never; route?: never } | { lesson?: never; parsha: ParshaId; route: string }) {
   const { t, locale } = useI18n();
-  const parsha = PARSHIOT[lesson.parsha];
+  const parsha = PARSHIOT[lesson ? lesson.parsha : id!];
+  // the QR code: the lesson, or the page of the printout (the Friday sheet «К шабатнему столу»)
+  const qr = lesson ? lessonLink(lesson.slug, 'qr', locale) : routeLink(route!, 'qr', locale);
   return (
     <div className="p-mast">
       <PrintLogos />
@@ -45,7 +47,7 @@ export function PrintMasthead({ lesson }: { lesson: Lesson }) {
           <div className="he">{jewishDate(parsha.shabbat)}</div>
         </div>
         <div className="p-qr">
-          <QrCode value={lessonLink(lesson.slug, 'qr', locale)} size={64} title={t('print.qr')} />
+          <QrCode value={qr} size={64} title={t('print.qr')} />
           <span>{t('print.qr')}</span>
         </div>
       </div>

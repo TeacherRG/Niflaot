@@ -7,7 +7,7 @@ import { rangeLabel } from './tanakhCycle';
 import { CYCLE, loadDay, type Commentary, type DayVerse } from './tanakh';
 import type { QuizQuestion } from './quiz';
 import type { QuizResult } from './academy';
-import { PASS, type Progress } from './academy';
+import { PASS, type Certificate, type Progress } from './academy';
 
 type Lang = 'ru' | 'en' | 'de';
 const SECTION = { neviim: 'Prophets (Nevi’im)', ketuvim: 'Writings (Ketuvim)' } as const;
@@ -53,19 +53,22 @@ export async function quizContext(section: Section, date: string, lang: Lang, qu
 }
 
 /** «Академия»: every certificate and the user's progress on this device. */
-export function academyContext(rows: { kind: 'torah' | 'tanakh' | 'hemshech' | 'words' | 'torahWords'; title: string; book: string; p: Progress; extra: string }[]) {
+export function academyContext(rows: { kind: Certificate['kind']; title: string; book: string; p: Progress; extra: string }[]) {
   return `Page: "Academy" — certificates for books. Torah: ${Math.round(PASS * 100)}% of the points. Prophets and Writings: ` +
     `100% of the book's daily passages marked "I've read it" (under each passage); the certificate shows points too when ` +
     `the "Questions on the passage" of all those days are passed with ${Math.round(PASS * 100)}%. Chassidut («Hemshech 5666»): ` +
     `the same for each discourse — all its passages marked read; with points when their questions are passed. Hebrew of ` +
     `Tanakh: 100 / 300 / 500 / 1000 words, counting only words confirmed by the review in "My words" (remembered on a card), not the marks alone. Children: "Torah words" — ` +
-    `a certificate for each portion when every word of its lessons has three stars in the game.\n` +
+    `a certificate for each portion when every word of its lessons has three stars in the game. Niggun: the karaoke ` +
+    `game — a missing word in every line, picked from three while the recording plays; ${Math.round(PASS * 100)}% of the points.\n` +
     rows
       .map(
         (r) =>
           `- ${r.title}, ${r.book}: ` +
           (r.kind === 'torahWords'
             ? `${r.p.got} of ${r.p.max} words of the portion learned (three stars)`
+            : r.kind === 'nigun'
+            ? `best karaoke game: ${r.p.got} of ${r.p.max} points`
             : r.kind === 'words'
             ? `${r.p.got} of ${r.p.max} words confirmed by the review (${r.p.done} marked known)`
             : r.kind === 'torah'
@@ -78,7 +81,7 @@ export function academyContext(rows: { kind: 'torah' | 'tanakh' | 'hemshech' | '
                 ? 'EARNED, with points'
                 : 'EARNED (by reading, without points)'
               : 'EARNED'
-            : r.kind === 'words' || r.kind === 'torahWords'
+            : r.kind === 'words' || r.kind === 'torahWords' || r.kind === 'nigun'
               ? 'not earned yet'
               : r.kind !== 'torah'
               ? 'not earned yet: every passage must be marked read'

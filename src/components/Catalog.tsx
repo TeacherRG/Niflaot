@@ -1,5 +1,6 @@
 import { Fragment, useEffect } from 'react';
 import { useI18n } from '../i18n';
+import { Slogan } from './Slogan';
 import { LESSONS, LESSON_GROUPS, cardsOnly, type Lesson } from '../lessons';
 import { TEACHERS, teacherOf } from '../lessons/teachers';
 import { lessonProgress } from '../core/progress';
@@ -33,6 +34,17 @@ function DailyLink() {
       <span className="h-daily-sub">
         {r?.done ? `${grid(r) || '🟥🟥🟥'}${series > 1 ? ` · 🔥 ${series}` : ''}` : t('daily.menuSub')} →
       </span>
+    </a>
+  );
+}
+
+/** «К шабатнему столу»: the Friday sheet of the week's portion, to print before Shabbat. */
+function TableLink() {
+  const { t } = useI18n();
+  return (
+    <a className="h-daily h-table" href="#/shabbat-table">
+      <span className="h-daily-title">🖨 {t('table.title')}</span>
+      <span className="h-daily-sub">{t('table.homeSub')} →</span>
     </a>
   );
 }
@@ -138,6 +150,11 @@ function AdultsHome() {
         </section>
 
         <aside className="a-side">
+          {/* the motto «ושננתם לבניך»: the children learn the same portion in play — the Friday sheet brings it to the table */}
+          <a className="a-tag" href="#/shabbat-table">
+            <Slogan />
+            <span>{t('home.adultsTag')} →</span>
+          </a>
           {reads.length > 0 && (
             <section aria-labelledby="a-week">
               <h2 id="a-week">
@@ -337,6 +354,9 @@ function KidsHome() {
             {t('home.week')} · {weekName} <span className="he">{week.he}</span>
           </span>
           <h1>{t('catalog.uvp')}</h1>
+          <p className="k-tag">
+            <Slogan />
+          </p>
         </div>
 
         <div className="k-top">
@@ -365,6 +385,7 @@ function KidsHome() {
           <div className="k-side">
             <HabitCard compact />
             <DailyLink />
+            <TableLink />
             <WeekCountdown />
             <PhoneOffer />
           </div>

@@ -518,6 +518,9 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 
 @media (max-width:600px){
   .sheet-paper{padding:22px 16px}
+  .p-logo-main{height:44px}
+  .p-logos-partners{gap:10px}
+  .p-logos-partners img{height:30px}
   .p-table{grid-template-columns:repeat(6,1fr)}
   .p-opts{grid-template-columns:1fr}
   .print-bar .btn:last-child{margin-inline-start:0}
@@ -2072,3 +2075,143 @@ body:has(.a-home){background:var(--plain)}
   html[data-size="2"] body{zoom:1.1}
   html[data-size="3"] body{zoom:1.2}
 }
+
+/* the motto «ושננתם לבניך ודברת בם» (Devarim 6:7) — on the homes, in the Academy and on the Friday sheet */
+.slogan{display:inline-grid;gap:1px}
+.slogan-he{font-family:var(--f-he);font-size:1.35em;font-weight:700;line-height:1.25;justify-self:start}
+.slogan-tr{font-size:.8em;font-weight:500;opacity:.9}
+.k-tag{margin:4px 0 0;font-size:17px;font-weight:700;color:var(--warm-text)}
+.ac-tag{margin:2px 0 6px;font-size:17px;font-weight:700;color:var(--gold)}
+.a-tag{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-inline-start:4px solid var(--tchelet);border-radius:12px;background:var(--surface);color:var(--ink);text-decoration:none}
+.a-tag .slogan{color:var(--ink);font-size:17px}
+.a-tag>span:last-child{font-size:14px;color:var(--tchelet);font-weight:600;line-height:1.4}
+.h-daily.h-table{background:var(--gold-deep)}
+.h-daily.h-table .h-daily-title{color:#fff}
+.h-daily.h-table .h-daily-sub{color:#fff;opacity:.85}
+
+/* «Академия»: the faculties («факультативы») — tiles on top, a section for each */
+.ac-facs.kids{grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.ac-facs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:10px;margin:14px 0 6px}
+.ac-fac-tile{display:grid;gap:3px;justify-items:start;text-align:start;padding:14px;border:1px solid var(--line);border-top:4px solid var(--tc-line);border-radius:12px;background:var(--surface);color:var(--ink);box-shadow:var(--shadow);font:inherit;cursor:pointer}
+.ac-fac-tile:hover{border-color:var(--tc-line)}
+.ac-fac-tile:focus-visible{outline:3px solid var(--tc-line);outline-offset:2px}
+.ac-fac-tile b{font-family:var(--f-display);font-size:19px;line-height:1.15}
+.ac-fac-tile small{font-size:13px;color:var(--muted);line-height:1.35}
+.ac-fac-he{font-family:var(--f-he);font-size:20px;font-weight:700;color:var(--tc)}
+.ac-fac-n{margin-top:4px;font-size:12.5px;font-weight:700;color:var(--tc)}
+.ac-fac-tile.soon{border-top-style:dashed}
+.ac-fac{scroll-margin-top:70px;padding-top:4px}
+.ac-fac .ac-h2 .he{font-family:var(--f-he);font-size:.75em;color:var(--gold);margin-inline-start:6px}
+.ac-fac-sub{margin:0 0 6px;font-weight:700;color:var(--ink-2)}
+.ac-fac-links{display:flex;flex-wrap:wrap;gap:6px 20px;margin:0 0 18px;font-size:14px;font-weight:700}
+.ac-fac-links a{color:var(--tchelet);text-decoration:none}
+.ac-soon{margin:4px 0 18px;padding:14px;border:1px dashed var(--line);border-radius:12px;color:var(--ink-2);background:var(--surface)}
+
+/* «К шабатнему столу» (ShabbatTable.tsx): the Friday sheet — riddles for the children, the Rebbe, questions, answers upside down */
+.st-tip{max-width:820px;margin:-6px auto 12px;padding:0 4px;font-size:14px;color:var(--muted)}
+.sheet-paper.st h1{font-size:28px}
+.st-head{padding-bottom:10px;border-bottom:1px solid #ccc}
+.st-tag{margin:4px 0 0;font-size:16px;font-weight:700;color:#7a5b1e}
+.st-how{margin:6px 0 0;color:#333}
+.st-h2{font-size:20px!important;margin:0 0 4px!important}
+.st-note{margin:0 0 8px;font-size:12.5px;color:#555}
+.st-note a{color:#111;word-break:break-all}
+.st-riddles{list-style:none;margin:0 0 10px;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.st-riddle{display:flex;gap:10px;padding:10px 12px;border:1px solid #bbb;border-radius:8px;break-inside:avoid}
+.st-n{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#7a5b1e;color:#fff;font-weight:700;font-size:13px}
+.st-q{margin:0;font-size:13px;color:#333}
+.st-he{margin:4px 0;display:flex;flex-wrap:wrap;align-items:flex-start;gap:4px 10px}
+.st-w{display:inline-grid;justify-items:center}
+.st-w .he{font-size:24px;font-weight:700;line-height:1.2}
+.st-w small{font-size:11px;color:#555;text-align:center}
+.st-op{font-size:18px;margin:0 6px}
+.st-ask{font-size:20px;font-weight:700;margin-inline-start:4px}
+.st-line{margin:6px 0 0;font-size:12.5px;color:#444}
+.st-inv{margin:0 0 10px;padding:10px 12px;border-inline-start:3px solid #1F5A38;break-inside:avoid}
+.st-inv h3{font-size:17px;margin:0 0 4px}
+.st-inv .p-cond p{margin:4px 0}
+.st-inv,.st-inv .p-cond{min-width:0;overflow-wrap:anywhere}
+.st-list{margin:0;padding-inline-start:20px;display:grid;gap:6px}
+.st-answers{margin-top:12px;padding-top:8px;border-top:1px dashed #999;break-inside:avoid}
+.st-answers>div{transform:rotate(180deg);font-size:12.5px}
+.st-answers ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;align-items:flex-start;gap:4px 22px}
+.st-answers .st-w .he{font-size:18px}
+.st-answers p{margin:4px 0 0;color:#555}
+.st-answers h3{margin:0 0 2px!important}
+.print-bar select{font:inherit;margin-inline-start:6px;padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+@media (max-width:600px){.st-riddles{grid-template-columns:1fr}.st-inv{padding:8px 0 8px 10px}.st-inv .p-cond .verse{padding:6px 8px;font-size:1.15em}}
+@media print{
+  .sheet-paper.st{font-size:10pt;line-height:1.38}
+  .sheet-paper.st h1{font-size:24px}
+  .st-w .he{font-size:21px}
+  .st-riddles{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+  .st-riddle{padding:6px 10px}
+  .st-tip{display:none}
+  .st-inv .p-cond .verse{margin:2px 0 6px;padding:4px 8px}
+  .sheet-paper.st .p-block{margin-top:10px}
+  .st-inv{break-inside:auto;margin-bottom:6px}
+  .st-list{gap:3px}
+  .sheet-paper.st .p-foot{margin-top:10px}
+  .st-inv h3{break-after:avoid}
+}
+.st-h2{break-after:avoid}
+
+/* «Святая музыка» (NigunPage.tsx) and the karaoke (Karaoke.tsx): the line being sung lights up and fills as it goes */
+.ng h1{margin:4px 0 8px;font-family:var(--f-display);font-size:clamp(30px,5vw,44px);line-height:1.05}
+.ng .tk-kicker a{color:inherit;text-decoration:none}
+.ng-about{margin:0 0 18px;font-size:17px;line-height:1.6;color:var(--ink-2);max-width:720px}
+.ng-h2{margin:8px 0 4px;font-family:var(--f-display);font-size:26px}
+.ng-list{list-style:none;margin:12px 0 18px;padding:0;display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.ng-list a{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:12px;background:var(--surface);box-shadow:var(--shadow);color:var(--ink);text-decoration:none}
+.ng-list b{font-family:var(--f-display);font-size:20px;line-height:1.15}
+.ng-list span{font-size:14px;color:var(--muted);line-height:1.4}
+.ng-credit{margin:18px 0 8px;padding-top:10px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+.ng-credit a{color:var(--tchelet);font-weight:700}
+.kar{display:grid;gap:10px;margin:8px 0 6px;padding:16px;border:1px solid var(--line);border-radius:16px;background:var(--surface);box-shadow:var(--shadow)}
+.kar-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
+.kar-play{min-width:130px}
+.kar-opt{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--ink-2);cursor:pointer}
+.kar-opt input{accent-color:var(--gold);width:16px;height:16px}
+.kar-seek{width:100%;accent-color:var(--gold)}
+.kar-lines{list-style:none;margin:0;padding:6px 0;max-height:min(60vh,520px);overflow-y:auto;scroll-behavior:smooth;display:grid;gap:2px;position:relative}
+.kar-lines button{display:grid;gap:2px;width:100%;padding:8px 12px;border:0;border-radius:10px;background:none;color:var(--muted);font:inherit;text-align:start;cursor:pointer}
+.kar-lines button:hover{background:var(--paper)}
+.kar-lines button:focus-visible{outline:3px solid var(--gold);outline-offset:-2px}
+.kar-text{font-family:var(--f-display);font-size:clamp(22px,4vw,30px);font-weight:700;line-height:1.2}
+.kar-lines li.done .kar-text{color:var(--ink-2);opacity:.6}
+.kar-lines li.now button{background:var(--gold-soft)}
+.kar-lines li.now .kar-text{background:linear-gradient(90deg,var(--gold-deep) var(--p),var(--ink) var(--p));-webkit-background-clip:text;background-clip:text;color:transparent}
+.kar-read{font-size:15px;font-style:italic;color:var(--ink-2)}
+.kar-tr{font-size:14px;color:var(--muted)}
+.kar-note{margin:0;font-size:13px;color:var(--muted)}
+.kar-admin{display:grid;gap:8px;justify-items:start;padding:12px;border:1px dashed var(--line);border-radius:12px;font-size:14px}
+.kar-admin p{margin:0}
+.kar-admin code{font-size:12.5px;word-break:break-all}
+/* the karaoke: «Учить» | «Игра на баллы»; in the game a word of each line is missing, three words to pick from */
+.kar-tabs{display:inline-flex;justify-self:start;gap:4px;padding:4px;border-radius:12px;background:var(--paper)}
+.kar-tabs button{padding:8px 14px;border:0;border-radius:9px;background:none;color:var(--ink-2);font:inherit;font-weight:700;cursor:pointer}
+.kar-tabs button.on{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.kar-game-note{margin:0;font-size:14px;color:var(--ink-2);line-height:1.45}
+.kar-score{color:var(--gold-deep);white-space:nowrap}
+.kar-start{justify-self:start}
+.kar-line{display:grid;gap:4px;padding:8px 12px;border-radius:10px;color:var(--muted)}
+.kar-lines li.now .kar-line{background:var(--gold-soft)}
+.kar-lines li.now .kar-gapline{color:var(--ink);background:none;-webkit-background-clip:border-box;background-clip:border-box}
+.kar-gap{display:inline-block;min-width:3.2em;padding:0 4px;border-bottom:3px solid var(--gold);text-align:center}
+.kar-gap.ok{color:var(--ok);border-color:var(--ok)}
+.kar-gap.bad{color:var(--bad);border-color:var(--bad)}
+.kar-opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.kar-lines .kar-opts button{display:inline-flex;align-items:center;width:auto;min-height:44px;padding:8px 18px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font-size:17px;font-weight:700;box-shadow:var(--shadow)}
+.kar-lines .kar-opts button:hover{border-color:var(--gold);background:var(--surface)}
+.kar-was{font-size:13px;color:var(--bad)}
+.kar-end{justify-self:start}
+.kar-result{display:grid;gap:6px;padding:14px;border:1px solid var(--line);border-inline-start:4px solid var(--gold);border-radius:12px;background:var(--paper)}
+.kar-result.ok{border-inline-start-color:var(--ok);background:var(--ok-soft)}
+.kar-result b{font-family:var(--f-display);font-size:20px}
+.kar-result-a{display:flex;flex-wrap:wrap;gap:8px}
+/* «Петь» in the karaoke: the privacy line, the live voice — in tune / not / silent, the points of each line */
+.kar-privacy{margin:0;font-size:13px;color:var(--muted);line-height:1.45}
+.kar-voice{margin:0;justify-self:start;padding:6px 12px;border-radius:999px;font-weight:700;font-size:14px;background:var(--paper);color:var(--ink-2)}
+.kar-voice.on{background:var(--ok-soft);color:var(--ok)}
+.kar-voice.off{background:var(--gold-soft);color:var(--gold-deep)}
+.kar-pts{justify-self:start;font-size:13px;font-weight:700;color:var(--gold-deep)}
