@@ -2,7 +2,7 @@
  * «К шабатнему столу» — the Friday sheet of a weekly portion (`#/shabbat-table[/<глава>]`, ShabbatTable.tsx): printed
  * before Shabbat and read aloud at the table — for those who don't read the site. Everything comes from the lessons of
  * the portion, nothing is written for it: the talk of «Нифлаот Ребе» told plainly (its question and, riddle by riddle,
- * the Rebbe's answers), two verses of the portion with the Rebbe's explanation (the «Карточки» pairs),
+ * the Rebbe's answers), three explanations of the Rebbe as rhymed poems (the «Карточки» pairs, «Запомнить в стихах»),
  * two gematrias of the Baal HaTurim with their explanation and lesson (the Memo pairs), questions to talk over and
  * «Ґораа ле-поаль». No letter table, no riddles to count. A new lesson gets onto the sheet by itself.
  */
@@ -10,14 +10,14 @@ import { LESSONS, PARSHIOT, type Lesson, type ParshaId } from '../lessons';
 import { stripFootnotes } from '../sources/footnotes';
 
 /** How many of each kind fit on two pages of A4. */
-export const TABLE_LIMITS = { verses: 2, gematria: 2, questions: 2 } as const;
+export const TABLE_LIMITS = { verses: 3, gematria: 2, questions: 2 } as const;
 
 export interface TableSheet {
   parsha: ParshaId;
   lessons: Lesson[];
   /** the talk of «Нифлаот Ребе» told on the sheet */
   sicha: Lesson | null;
-  /** verses of the portion with the Rebbe's explanation: lesson and pair index (0-based) of its cards */
+  /** the Rebbe's explanations of verses as poems: lesson and pair index (0-based) of its cards */
   verses: { lesson: Lesson; k: number }[];
   /** gematrias of the commentary: lesson and pair index of its Memo game */
   gematria: { lesson: Lesson; k: number }[];

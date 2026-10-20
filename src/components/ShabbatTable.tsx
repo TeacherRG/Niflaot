@@ -47,15 +47,17 @@ function Sicha({ lesson }: { lesson: Lesson }) {
   );
 }
 
-/** A verse of the portion with the Rebbe's explanation (a «Карточки» pair). */
-function RebbeVerse({ lesson, k }: { lesson: Lesson; k: number }) {
+/** The Rebbe's explanation of a verse as a short rhymed poem («Запомнить в стихах» of a «Карточки» pair). */
+function RebbePoem({ lesson, k }: { lesson: Lesson; k: number }) {
   const { pick } = useI18n();
   const c = pick(lesson.texts).value.cards!.items[k];
   return (
     <li className="st-item">
       <Verse he={lesson.cards!.items[k].verse} tr={c.verse} />
-      <p>
-        <b>{c.card}.</b> {c.explain}
+      <p className="st-poem">
+        {c.poem.map((line, j) => (
+          <span key={j}>{line}</span>
+        ))}
       </p>
     </li>
   );
@@ -69,24 +71,26 @@ function Gematria({ lesson, k }: { lesson: Lesson; k: number }) {
   return (
     <li className="st-item">
       <h4>{tx.title}</h4>
-      <Verse he={m.verse} tr={tx.verse} />
-      {m.gematria!.map((g, j) => (
-        <p key={j} className="st-eq" dir="rtl">
-          <span className="he" lang="he">
-            {displayNames(g.a)}
-          </span>
-          <span className="st-op">=</span>
-          <b className="num">{g.v}</b>
-          {g.b && (
-            <>
-              <span className="st-op">=</span>
-              <span className="he" lang="he">
-                {displayNames(g.b)}
-              </span>
-            </>
-          )}
-        </p>
-      ))}
+      <div className="st-gline">
+        <Verse he={m.verse} tr={tx.verse} />
+        {m.gematria!.map((g, j) => (
+          <p key={j} className="st-eq" dir="rtl">
+            <span className="he" lang="he">
+              {displayNames(g.a)}
+            </span>
+            <span className="st-op">=</span>
+            <b className="num">{g.v}</b>
+            {g.b && (
+              <>
+                <span className="st-op">=</span>
+                <span className="he" lang="he">
+                  {displayNames(g.b)}
+                </span>
+              </>
+            )}
+          </p>
+        ))}
+      </div>
       <p>{tx.explain}</p>
       <p className="st-moral">
         <b>{t('memo.learn')}</b> {tx.moral}
@@ -161,9 +165,9 @@ export function ShabbatTable({ parsha }: { parsha?: string }) {
         {sheet.verses.length > 0 && (
           <section className="p-block">
             <h2 className="st-h2">📜 {t('table.verses')}</h2>
-            <ol className="st-items">
+            <ol className="st-items poems">
               {sheet.verses.map(({ lesson, k }) => (
-                <RebbeVerse key={`${lesson.slug}-${k}`} lesson={lesson} k={k} />
+                <RebbePoem key={`${lesson.slug}-${k}`} lesson={lesson} k={k} />
               ))}
             </ol>
           </section>

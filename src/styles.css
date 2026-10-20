@@ -2133,6 +2133,11 @@ body:has(.a-home){background:var(--plain)}
 .st-eq .num{font-size:18px;color:#7a5b1e}
 .st-op{font-size:18px}
 .st-moral{color:#333}
+.st-gline{display:flex;flex-wrap:wrap;align-items:center;gap:2px 16px;margin:0 0 4px}
+.st-gline>p{margin:0!important}
+.st-poem span{display:block;font-style:italic}
+.st-items.poems{display:block;columns:2 260px;column-gap:24px;list-style:none;padding:0}
+.st-items.poems .st-item{break-inside:avoid;margin-bottom:8px}
 .st-list{margin:0;padding-inline-start:20px;display:grid;gap:6px}
 .st-end{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 24px;align-items:start}
 .print-bar select{font:inherit;margin-inline-start:6px;padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
@@ -2148,6 +2153,7 @@ body:has(.a-home){background:var(--plain)}
   .st-verse .he{font-size:19px}
   .st-eq .he{font-size:18px}
   .st-item{break-inside:auto}
+  .st-items.poems .st-item{break-inside:avoid;margin-bottom:5px}
   .st-verse,.st-eq{break-after:avoid}
   .st-item p{orphans:2;widows:2}
   .st-list{gap:3px}
