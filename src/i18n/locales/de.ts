@@ -1264,13 +1264,10 @@ const de: Messages = {
   'nigun.singStart': "Ins Mikrofon singen",
   'nigun.singAgain': "Noch einmal singen",
   'nigun.singEnd': "Singen beenden",
-  'nigun.singScore': "Punkte: {n}",
+  'nigun.singProgress': "Wie viel im Ton gesungen ist",
   'nigun.singResult': "{n} von {max} Punkten · {pct} %",
   'nigun.singNeed': "Für das Zertifikat brauchst du {pass} % — hör im Modus „Lernen“ zu und sing noch einmal.",
   'nigun.micError': "Das Mikrofon ging nicht an. Erlaube es für diese Seite im Browser — oder spiel ohne Mikrofon um Punkte.",
-  'nigun.voice.none': "nichts zu hören — sing lauter",
-  'nigun.voice.off': "ich höre dich — versuch, die Melodie zu treffen",
-  'nigun.voice.on': "im Ton! ✓",
 };
 
 export default de;

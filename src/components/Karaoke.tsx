@@ -208,6 +208,7 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
       mic.current?.stop();
       mic.current = await openMic();
       tally.current = n.lines.map(() => ({ sung: 0, inTune: 0 }));
+      barMax.current = 0;
       setLoop(false);
       setSinging(true);
       play(0);
@@ -229,6 +230,13 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
   };
   const singPct = singResult && singResult.max ? Math.round((100 * singResult.got) / singResult.max) : 0;
   const singNow = tally.current.reduce((a, x, k) => a + (k <= cur ? linePoints(x.sung, x.inTune) : 0), 0);
+  // while singing — no numbers, only a bar on top that grows with the points sung in tune
+  const singMax = track ? sungLines(track).filter(Boolean).length * SING_POINTS : 0;
+  // the bar only grows: the current line's points are counted as it goes and may dip for a moment
+  const barMax = useRef(0);
+  if (!singing && !singResult) barMax.current = 0;
+  barMax.current = Math.max(barMax.current, singMax ? Math.min(100, (100 * singNow) / singMax) : 0);
+  const singBar = barMax.current;
   const resultPct = result === null || !total ? 0 : Math.round((100 * result) / total);
 
   return (
@@ -292,11 +300,15 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
           <p className="kar-privacy">🔒 {t('nigun.singPrivacy')}</p>
           {micError && <p className="kar-was">{t('nigun.micError')}</p>}
           {singing && (
-            <div className="kar-live">
-              <p className={`kar-voice ${voice}`} role="status" aria-live="polite">
-                🎤 {t(`nigun.voice.${voice}`)}
-              </p>
-              <b className="kar-score">{t('nigun.singScore', { n: singNow })}</b>
+            <div
+              className={`kar-sing-bar ${voice}`}
+              role="progressbar"
+              aria-label={t('nigun.singProgress')}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={Math.round(singBar)}
+            >
+              <span style={{ width: `${singBar}%` }} />
             </div>
           )}
           {singResult && (
@@ -389,9 +401,6 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
                       {l.text}
                     </span>
                     {extra}
-                    {sing && (singing || singResult) && k <= cur && tally.current[k].sung > 0 && (
-                      <span className="kar-pts">+{linePoints(tally.current[k].sung, tally.current[k].inTune)}</span>
-                    )}
                   </div>
                 ) : (
                   <button type="button" onClick={() => play(times[k])} aria-current={k === cur ? 'true' : undefined}>
