@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
 import { LESSONS, LESSON_GROUPS, cardsOnly, type Lesson } from '../lessons';
 import { TEACHERS, teacherOf } from '../lessons/teachers';
@@ -10,55 +10,20 @@ import { PhoneOffer } from './PhoneOffer';
 import { HabitCard } from './HabitCard';
 import { dailyNumber, grid, loadResults, streak } from '../core/daily';
 import { Icon } from './ui';
+import { lessonGames } from './lessonGames';
+import { lessonArt } from '../core/art';
 import { NIFLAOT_LOGO } from '../core/partners';
 import { useMode } from '../core/mode';
 
-/** The games of a lesson as small icons: gematria (#), Memo or cards, investigation (magnifier), reading (book). */
-function GameIcons({ lesson: l }: { lesson: Lesson }) {
-  return (
-    <span className="h-games">
-      {!cardsOnly(l) && <Icon name={l.kind === 'sicha' ? 'search' : 'hash'} size={15} />}
-      {(l.memo || l.cards) && <Icon name="cards" size={15} />}
-      <Icon name="book" size={15} />
-    </span>
-  );
-}
-
-/** A progress ring: the share of solved riddles. */
-const Ring = ({ done, total }: { done: number; total: number }) => (
-  <span className="h-ring" style={{ ['--p' as string]: `${Math.round((done / total) * 100)}%` }} aria-hidden="true" />
-);
-
-/** A lesson of the week: the teacher's colour and badge, Hebrew and translated title, its games, age and progress. */
-/** `read` — the adults' home: the tile opens the lesson to read, without games, age or progress ring. */
-function WeekTile({ lesson: l, read }: { lesson: Lesson; read?: boolean }) {
+/** A lesson of the week on the adults' home: the tile opens the lesson to read, without games, age or progress. */
+function WeekTile({ lesson: l }: { lesson: Lesson }) {
   const { t, pick } = useI18n();
   const text = pick(l.texts).value;
   const who = teacherOf(l);
-  const done = lessonProgress(l.slug, l.legacyStorageKey);
-  if (read)
-    return (
-      <a className={`h-tile t-${TEACHERS[who].color}`} href={`#/${l.slug}/read`}>
-        <span className="h-tile-top">
-          <span className="h-badge">{t(`teacher.${who}.short`)}</span>
-        </span>
-        <span className="h-tile-he he" lang="he">
-          {l.hebrewTitle}
-        </span>
-        <span className="h-tile-title">{text.title}</span>
-        <span className="h-tile-sum">{text.summary}</span>
-        <span className="h-tile-foot">
-          <span className="h-games">
-            <Icon name="book" size={15} /> {t(l.kind === 'sicha' ? 'cards.tabRead' : 'read.tab')}
-          </span>
-        </span>
-      </a>
-    );
   return (
-    <a className={`h-tile t-${TEACHERS[who].color}`} href={`#/${l.slug}${cardsOnly(l) ? '/cards' : ''}`}>
+    <a className={`h-tile t-${TEACHERS[who].color}`} href={`#/${l.slug}/read`}>
       <span className="h-tile-top">
         <span className="h-badge">{t(`teacher.${who}.short`)}</span>
-        {!cardsOnly(l) && <Ring done={done} total={l.riddles.length} />}
       </span>
       <span className="h-tile-he he" lang="he">
         {l.hebrewTitle}
@@ -66,9 +31,9 @@ function WeekTile({ lesson: l, read }: { lesson: Lesson; read?: boolean }) {
       <span className="h-tile-title">{text.title}</span>
       <span className="h-tile-sum">{text.summary}</span>
       <span className="h-tile-foot">
-        <GameIcons lesson={l} />
-        <span className="sr-only">{done ? t('catalog.progress', { done, total: l.riddles.length }) : ''}</span>
-        <b>{t('age.short', { n: l.age })}</b>
+        <span className="h-games">
+          <Icon name="book" size={15} /> {t(l.kind === 'sicha' ? 'cards.tabRead' : 'read.tab')}
+        </span>
       </span>
     </a>
   );
@@ -246,7 +211,7 @@ function AdultsHome() {
               </h2>
               <div className="h-tiles">
                 {reads.map((l) => (
-                  <WeekTile key={l.slug} lesson={l} read />
+                  <WeekTile key={l.slug} lesson={l} />
                 ))}
               </div>
             </section>
@@ -277,7 +242,116 @@ export function Catalog() {
   return useMode() === 'adults' ? <AdultsHome /> : <KidsHome />;
 }
 
-/** The children's and families' home: «Start / Continue», «Гематрия дня», the week's lessons with their games. */
+/** A lesson's games in words, for the tiles: «Игра с гематриями · Memo-игра · Читать» (src/components/lessonGames.ts). */
+function gamesLine(l: Lesson, t: ReturnType<typeof useI18n>['t']) {
+  return (lessonGames(l) ?? [{ label: l.kind === 'sicha' ? ('cards.tabLesson' as const) : ('memo.tabGematria' as const) }]).map((g) => t(g.label)).join(' · ');
+}
+
+/** The cover of a tile: the lesson's picture (art/hero.webp), else its Hebrew title on the teacher's colour. */
+function Cover({ lesson: l, he }: { lesson?: Lesson; he: string }) {
+  const { pick } = useI18n();
+  const art = l && lessonArt(l, 'hero');
+  return l && art ? (
+    <img className="k-cover" src={art} alt={pick(l.texts).value.hero?.art ?? ''} loading="lazy" width={640} height={360} />
+  ) : (
+    <span className="k-cover k-cover-he he" aria-hidden="true">
+      {he}
+    </span>
+  );
+}
+
+/**
+ * The path of a lesson inside the main card: a circle per riddle (solved — ✓, the next — «сейчас», links to the riddle),
+ * then the certificate of the Academy; a lesson with Memo — «Потом — Memo-игра».
+ */
+function LessonPath({ lesson: l, done }: { lesson: Lesson; done: number }) {
+  const { t } = useI18n();
+  const total = l.riddles.length;
+  return (
+    <div className="k-path">
+      <ol aria-label={t('home.path')}>
+        {l.riddles.map((_, k) => {
+          const state = k < done ? 'done' : k === done ? 'now' : 'next';
+          const label = t('home.riddle', { n: k + 1, total });
+          return (
+            <Fragment key={k}>
+              {k > 0 && <li className={`k-path-line${k <= done ? ' on' : ''}`} aria-hidden="true" />}
+              <li className={`k-step ${state}`}>
+                {state === 'next' ? (
+                  <span aria-label={label}>{k + 1}</span>
+                ) : (
+                  <a href={`#/${l.slug}/r/${k + 1}`} aria-label={state === 'done' ? `${label} ✓` : label} aria-current={state === 'now' ? 'step' : undefined}>
+                    {state === 'done' ? <Icon name="check" size={18} /> : k + 1}
+                  </a>
+                )}
+              </li>
+            </Fragment>
+          );
+        })}
+        <li className={`k-path-line${done >= total ? ' on' : ''}`} aria-hidden="true" />
+        <li className="k-step k-cert">
+          <a href="#/academy" aria-label={t('academy.title')} title={t('academy.title')}>
+            <Icon name="award" size={20} />
+          </a>
+        </li>
+      </ol>
+      {l.memo && (
+        <a className="k-path-memo" href={`#/${l.slug}/memo`}>
+          {t('home.pathMemo')} →
+        </a>
+      )}
+    </div>
+  );
+}
+
+/** A lesson of the week (besides the main one): its cover, teacher and age, title and games. */
+function LessonTile({ lesson: l }: { lesson: Lesson }) {
+  const { t, pick } = useI18n();
+  const who = teacherOf(l);
+  const done = lessonProgress(l.slug, l.legacyStorageKey);
+  return (
+    <a className={`k-tile t-${TEACHERS[who].color}`} href={`#/${l.slug}${cardsOnly(l) ? '/cards' : ''}`}>
+      <Cover lesson={l} he={l.hebrewTitle} />
+      <span className="k-tile-body">
+        <span className="k-tile-k">
+          {t(`teacher.${who}.short`)} · {t('age.short', { n: l.age })}
+          {!cardsOnly(l) && done > 0 && ` · ${t('catalog.progress', { done, total: l.riddles.length })}`}
+        </span>
+        <span className="k-tile-title">{pick(l.texts).value.title}</span>
+        <span className="k-tile-sub">{gamesLine(l, t)}</span>
+      </span>
+    </a>
+  );
+}
+
+/** An earlier portion: the picture of one of its lessons, its name, its teachers; opens its first lesson. */
+function PastTile({ group: g }: { group: (typeof LESSON_GROUPS)[number] }) {
+  const { t, locale } = useI18n();
+  const all = [...g.lessons, ...g.rebbe];
+  const first = all[0];
+  const withArt = all.find((l) => lessonArt(l, 'hero'));
+  const teachers = [...new Set(all.map((l) => t(`teacher.${teacherOf(l)}.short`)))].join(' · ');
+  return (
+    <a className="k-tile t-gold" href={`#/${first.slug}${cardsOnly(first) ? '/cards' : ''}`}>
+      <Cover lesson={withArt} he={g.he} />
+      <span className="k-tile-body">
+        <span className="k-tile-k">{t('home.pastOne')}</span>
+        <span className="k-tile-title">
+          {g.name[locale as keyof typeof g.name] ?? g.name.ru}{' '}
+          <span className="he">{g.he}</span>
+        </span>
+        <span className="k-tile-sub">{teachers}</span>
+      </span>
+    </a>
+  );
+}
+
+/**
+ * The children's and families' home (the design «Нифлаот — новая главная»): warm, with pictures. On top — the week's
+ * portion and one big card: the lesson to start or continue, a real «▶ Начать» button and the path of its riddles up to
+ * the Academy; beside it — the streak, «Гематрия дня», the week's countdown and «Нифлаот на телефоне»; below — the
+ * other lessons of the week and the earlier portions, with the lessons' pictures.
+ */
 function KidsHome() {
   const { t, pick, locale } = useI18n();
 
@@ -299,75 +373,75 @@ function KidsHome() {
   const nextDone = lessonProgress(next.slug, next.legacyStorageKey);
   const nextWho = teacherOf(next);
   const nextTitle = pick(next.texts).value.title;
+  const nextGroup = LESSON_GROUPS.find((g) => g.id === next.parsha);
+  const others = lessons.filter((l) => l !== next);
+  const past = LESSON_GROUPS.filter((g) => g !== week).reverse();
+  const weekName = week.name[locale as keyof typeof week.name] ?? week.name.ru;
 
   return (
     <>
       <TopBar title={t('app.title')} wide />
-      <div className="home">
-        <main className="home-main">
-          <section className="h-hero">
-            <div className="h-hero-text">
-              <img className="h-logo" src={NIFLAOT_LOGO} alt="Niflaot — Torah you can explore and learn with joy!" width={760} height={298} fetchPriority="high" />
-              <div className="h-hero-he">
-                <span className="he gold-text" lang="he">
-                  נפלאות
-                </span>
-                <span className="num">
-                  5787 · <span className="he">ה׳תשפ״ז</span>
-                </span>
-              </div>
-              <h1>{t('catalog.uvp')}</h1>
-              <p>{t('home.lead')}</p>
-            </div>
-            <div className="h-hero-side">
-              {/* the one main action of the screen: the lesson's title and a real button «▶ Начать» and «загадка 1 из 5» beside it */}
-              <a className={`h-continue t-${TEACHERS[nextWho].color}`} href={`#/${next.slug}`}>
-                {/* the teacher, unless the title already names him («Бааль ґа-Турим: Лех леха») */}
-                {!nextTitle.includes(t(`teacher.${nextWho}.short`)) && (
-                  <span className="h-continue-where">
-                    <i />
-                    {t(`teacher.${nextWho}.short`)}
-                  </span>
-                )}
-                <span className="h-continue-title">{nextTitle}</span>
-                {nextDone > 0 && (
-                  <span className="h-bar">
-                    <span style={{ width: `${Math.round((nextDone / next.riddles.length) * 100)}%` }} />
-                  </span>
-                )}
-                <span className="h-continue-go">
-                  <span className="h-continue-btn">▶ {t(started ? 'home.continue' : 'home.start')}</span>
-                  <span className="h-continue-n">{t('home.riddle', { n: Math.min(nextDone + 1, next.riddles.length), total: next.riddles.length })}</span>
-                </span>
+      <main className="k-home">
+        <div className="k-head">
+          <span className="k-week">
+            {t('home.week')} · {weekName} <span className="he">{week.he}</span>
+          </span>
+          <h1>{t('catalog.uvp')}</h1>
+        </div>
+
+        <div className="k-top">
+          {/* the one main action of the screen: the lesson, «▶ Начать», and the path of its riddles */}
+          <section className={`k-go t-${TEACHERS[nextWho].color}`} aria-labelledby="k-go-title">
+            <span className="k-go-he he" aria-hidden="true">
+              {nextGroup?.he ?? next.hebrewTitle}
+            </span>
+            <span className="k-go-lbl">
+              {/* the teacher, unless the title already names him («Бааль ґа-Турим: Лех леха») */}
+              {!nextTitle.includes(t(`teacher.${nextWho}.short`)) && `${t(`teacher.${nextWho}.short`)} · `}
+              {t(next.kind === 'sicha' ? 'cards.tabLesson' : 'memo.tabGematria')} · {t('age.short', { n: next.age })}
+            </span>
+            <h2 id="k-go-title" className="k-go-title">
+              {nextTitle}
+            </h2>
+            <LessonPath lesson={next} done={nextDone} />
+            <span className="k-go-row">
+              <a className="k-go-btn" href={`#/${next.slug}`}>
+                ▶ {t(started ? 'home.continue' : 'home.start')}
               </a>
-              <div className="h-countdown-compact">
-                <WeekCountdown variant="compact" />
-              </div>
-              <HabitCard />
-              <DailyLink />
-              <PhoneOffer />
-            </div>
+              <span className="k-go-n">{t('home.riddle', { n: Math.min(nextDone + 1, next.riddles.length), total: next.riddles.length })}</span>
+            </span>
           </section>
 
-          <section className="h-section" aria-labelledby="h-week">
-            <h2 id="h-week">
-              {t('home.week')} · {week.name[locale as keyof typeof week.name] ?? week.name.ru}{' '}
-              <span className="he" lang="he">
-                {week.he}
-              </span>
-            </h2>
-            <div className="h-tiles">
-              {lessons.map((l) => (
-                <WeekTile key={l.slug} lesson={l} />
+          <div className="k-side">
+            <HabitCard compact />
+            <DailyLink />
+            <WeekCountdown />
+            <PhoneOffer />
+          </div>
+        </div>
+
+        {others.length > 0 && (
+          <section className="k-sec" aria-labelledby="k-more">
+            <h2 id="k-more">{t('home.moreWeek')}</h2>
+            <div className="k-tiles">
+              {others.map((l) => (
+                <LessonTile key={l.slug} lesson={l} />
               ))}
             </div>
           </section>
+        )}
 
-        </main>
-        <aside className="home-side">
-          <WeekCountdown variant="side" />
-        </aside>
-      </div>
+        {past.length > 0 && (
+          <section className="k-sec" aria-labelledby="k-past">
+            <h2 id="k-past">{t('home.past')}</h2>
+            <div className="k-tiles">
+              {past.map((g) => (
+                <PastTile key={g.id} group={g} />
+              ))}
+            </div>
+          </section>
+        )}
+      </main>
       <Colophon />
     </>
   );

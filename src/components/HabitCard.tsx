@@ -6,9 +6,9 @@ import { useMode } from '../core/mode';
  * «Учёба каждый день» (src/core/habit.ts): ✓ дня и серия по всем разделам; пока сегодня не учились — «минимум на сегодня»
  * (взрослым — отрывок дня, детям — «Гематрия дня») и короткий вариант на 2 минуты; после перерыва — «С возвращением»
  * без упрёков; один пропуск раз в 30 дней — «Восполнить» (ташлумин): следующее дело засчитается за пропущенный день
- * (взрослым — отрывок того дня, детям — «Слова Торы»). Блоки — `div`, не `p`: на телефоне в шапке главной абзацы скрыты (`.h-hero p`). `account` — строка итогов в «Моём пути» (серия, лучшая серия, всего дней).
+ * (взрослым — отрывок того дня, детям — «Слова Торы»). `compact` — плитка на главной детей, без строки о Шабате. Блоки — `div`, не `p`: на телефоне в шапке главной абзацы скрыты (`.h-hero p`). `account` — строка итогов в «Моём пути» (серия, лучшая серия, всего дней).
  */
-export function HabitCard({ account = false }: { account?: boolean }) {
+export function HabitCard({ account = false, compact = false }: { account?: boolean; compact?: boolean }) {
   const { t, locale } = useI18n();
   const adults = useMode() === 'adults';
   const h = useHabit();
@@ -19,7 +19,7 @@ export function HabitCard({ account = false }: { account?: boolean }) {
       </p>
     );
   return (
-    <section className={`habit${h.today ? ' habit-done' : ''}`} aria-label={t('habit.title')}>
+    <section className={`habit${h.today ? ' habit-done' : ''}${compact ? ' habit-compact' : ''}`} aria-label={t('habit.title')}>
       <div className="habit-head">
         {/* a newcomer (no study day yet) is invited to start, not told «вы ещё не учились» */}
         <b>{h.today ? `✓ ${t('habit.today')}` : t(h.back ? 'habit.back' : h.total ? 'habit.notYet' : 'habit.first')}</b>
@@ -38,7 +38,7 @@ export function HabitCard({ account = false }: { account?: boolean }) {
         </div>
       )}
       {h.repair && <Repair day={h.repair.day} streak={h.repair.streak} pending={h.pending === h.repair.day} adults={adults} locale={locale} />}
-      <div className="habit-note">{t('habit.rest')}</div>
+      {!compact && <div className="habit-note">{t('habit.rest')}</div>}
     </section>
   );
 }
