@@ -2,7 +2,8 @@
  * «Караоке на баллы» (Karaoke.tsx, «Игра на баллы»): while the recording plays, one word of each line is missing —
  * the player picks the word they hear from three. The site asks for no microphone (see CLAUDE.md), so the points are
  * for listening and knowing the words, not for the voice. One answer per line, 10 points for the right word; the
- * certificate «Знаток нигуна» (`n-<id>`, src/components/AcademyPage.tsx) — at PASS (70 %) of the points.
+ * certificate «Знаток нигуна» (`n-<id>`, src/components/AcademyPage.tsx) — at PASS (70 %) of the points, of this game
+ * or of the singing into the microphone (src/core/singing.ts, kept as `<id>:sing`), whichever is better.
  *
  * Results: `niflaot:nigun` = {<id>: {p: [chosen option per line, -1 — not answered], best: best right answers of a
  * finished game (-1 — none yet), n: gaps}} — the shape of «Вопросы к отрывку», merged the same way (src/core/sync.ts).
@@ -95,9 +96,13 @@ export const rightCount = (n: Nigun, p: number[]) =>
 /** The certificates «Знаток нигуна» — one per niggun. */
 export function nigunCertificates(list: Nigun[], store: Record<string, NigunResult>): (Certificate & { progress: Progress; href: string })[] {
   return list.map((n) => {
-    const max = gaps(n).filter(Boolean).length;
-    const best = Math.max(0, store[n.id]?.best ?? 0);
-    const got = best * POINTS;
+    // the better of the two ways: the missing words, or the singing into the microphone (`<id>:sing`, src/core/singing.ts)
+    const gapsN = gaps(n).filter(Boolean).length;
+    const words = { got: Math.max(0, store[n.id]?.best ?? 0) * POINTS, max: gapsN * POINTS, played: (store[n.id]?.best ?? -1) >= 0 };
+    const s = store[`${n.id}:sing`];
+    const sung = { got: Math.max(0, s?.best ?? 0), max: s?.n ?? 0, played: (s?.best ?? -1) >= 0 };
+    const share = (x: { got: number; max: number }) => (x.max ? x.got / x.max : 0);
+    const { got, max } = sung.played && share(sung) > share(words) ? sung : words;
     return {
       id: `n-${n.id}`,
       kind: 'nigun' as const,
@@ -105,11 +110,11 @@ export function nigunCertificates(list: Nigun[], store: Record<string, NigunResu
       href: `#/nigun/${n.id}`,
       progress: {
         got,
-        max: max * POINTS,
-        done: (store[n.id]?.best ?? -1) >= 0 ? 1 : 0,
+        max,
+        done: words.played || sung.played ? 1 : 0,
         parts: 1,
         complete: true,
-        earned: max > 0 && best >= PASS * max,
+        earned: max > 0 && got >= PASS * max,
         scored: true,
       },
     };

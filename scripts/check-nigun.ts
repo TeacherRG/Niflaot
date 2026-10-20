@@ -3,7 +3,7 @@
  * the recording), the words read and translated on the other languages, the texts on ru/en/de and the link to its
  * source (the condition of the permission of m770.org).
  */
-import { existsSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import { NIGUNIM } from '../src/nigun';
 import { gaps } from '../src/core/nigunGame';
 
@@ -18,6 +18,16 @@ for (const n of NIGUNIM) {
   const file = `public/${n.audio}`;
   if (!existsSync(file)) at(`no recording ${file}`);
   else if (statSync(file).size > 8e6) at('the recording is larger than 8 MB');
+  // «Петь»: the notes of the recording (scripts/nigun-pitch.py), as long as the recording's lines
+  const pitchFile = file.replace(/\.mp3$/, '.pitch.json');
+  if (!existsSync(pitchFile)) at(`no notes of the recording: python3 scripts/nigun-pitch.py ${n.id}`);
+  else {
+    const tr = JSON.parse(readFileSync(pitchFile, 'utf8')) as { hop: number; p: number[] };
+    const len = tr.p.length * tr.hop;
+    if (!(tr.hop > 0) || tr.p.some((x) => typeof x !== 'number')) at('the notes of the recording are broken');
+    if (n.times[n.times.length - 1] >= len) at('the last line starts after the notes of the recording end');
+    if (tr.p.filter(Boolean).length < tr.p.length / 3) at('the recording has too few clear notes to sing along');
+  }
   for (const l of LOCALES) {
     if (!n.title[l]?.trim()) at(`no title (${l})`);
     if (!n.about[l]?.trim()) at(`no text about the niggun (${l})`);
@@ -51,4 +61,4 @@ if (errors.length) {
   for (const e of errors) console.error(`✗ ${e}`);
   process.exit(1);
 }
-console.log(`✓ Святая музыка: ${NIGUNIM.length} нигун(ов) — записи, время строк, тексты ru/en/de, игра на баллы, ссылка на источник`);
+console.log(`✓ Святая музыка: ${NIGUNIM.length} нигун(ов) — записи, время строк, тексты ru/en/de, игра на баллы, ноты для пения, ссылка на источник`);

@@ -5,6 +5,7 @@ import { markStudied } from '../core/habit';
 import type { Nigun } from '../nigun';
 import { PASS } from '../core/academy';
 import { POINTS, gaps, rightCount, saveNigunResult } from '../core/nigunGame';
+import { SING_POINTS, TOLERANCE, linePoints, openMic, pitchDistance, refAt, type PitchTrack } from '../core/singing';
 
 /** The site's root: the built code lives in /assets/, the recordings in /nigun/ (as in src/core/tanakh.ts). */
 const root = () => (import.meta.env.DEV ? import.meta.env.BASE_URL : new URL('..', import.meta.url).href);
@@ -33,6 +34,8 @@ export const lineAt = (times: number[], time: number) => {
  * and again, to learn it. On the English and German site each line also has how it is read and what it means.
  * «Игра на баллы» (src/core/nigunGame.ts): from the start, one word of each line is missing; when the line comes, the
  * player picks the word from three — one answer, 10 points; at the end the result and the certificate «Знаток нигуна».
+ * «Петь» (src/core/singing.ts): the microphone, only after a tap — the voice is compared with the recording note by
+ * note, octave aside, line by line up to 10 points; nothing is recorded or sent. The same certificate «Знаток нигуна».
  * The admin («браузер админа») can mark the start of every line while listening (`niflaot:nigun-times:<id>`, this
  * browser only) and copy the times for the data (src/nigun/index.ts).
  */
@@ -47,8 +50,18 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
   const [slow, setSlow] = useState(false);
   const [loop, setLoop] = useState(false);
   const [marks, setMarks] = useState<number[] | null>(null); // the markup in progress
-  // «Игра на баллы»: the answers of this game (-1 — not yet), and the result once it is over
-  const [game, setGame] = useState(false);
+  // the tab: «Учить», «Игра на баллы» (a missing word), «Петь» (the microphone)
+  const [tab, setTab] = useState<'learn' | 'game' | 'sing'>('learn');
+  const game = tab === 'game';
+  const sing = tab === 'sing';
+  // «Петь»: the microphone while singing, the recording's notes, the tally of every line and the result
+  const mic = useRef<Awaited<ReturnType<typeof openMic>> | null>(null);
+  const [track, setTrack] = useState<PitchTrack | null>(null);
+  const tally = useRef(n.lines.map(() => ({ sung: 0, inTune: 0 })));
+  const [voice, setVoice] = useState<'none' | 'off' | 'on'>('none');
+  const [singing, setSinging] = useState(false);
+  const [singResult, setSingResult] = useState<{ got: number; max: number } | null>(null);
+  const [micError, setMicError] = useState(false);
   const [p, setP] = useState<number[]>(() => n.lines.map(() => -1));
   const [result, setResult] = useState<number | null>(null);
   const gs = gaps(n);
@@ -69,13 +82,26 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
         const k = lineAt(times, a.currentTime);
         const next = times[k + 1] ?? a.duration;
         if (loop && k >= 0 && a.currentTime >= next - 0.05) a.currentTime = times[k];
+        // «Петь»: is the singer in tune with the recording right now?
+        if (singing && mic.current && track && k >= 0) {
+          const ref = refAt(track, a.currentTime);
+          const me = mic.current.read();
+          if (ref) {
+            tally.current[k].sung++;
+            if (me && pitchDistance(me, ref) <= TOLERANCE) tally.current[k].inTune++;
+          }
+          setVoice(!me ? 'none' : ref && pitchDistance(me, ref) <= TOLERANCE ? 'on' : 'off');
+        }
         setTime(a.currentTime);
       }
       id = requestAnimationFrame(tick);
     };
     id = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(id);
-  }, [playing, loop, times]);
+  }, [playing, loop, times, singing, track]);
+
+  // the microphone is never left on: leaving the page or the tab turns it off
+  useEffect(() => () => mic.current?.stop(), []);
 
   useEffect(() => {
     if (audio.current) audio.current.playbackRate = slow ? 0.75 : 1;
@@ -131,7 +157,7 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
     setMarks(null);
     setResult(null);
     setP(n.lines.map(() => -1));
-    setGame(true);
+    setTab('game');
     play(0);
   };
   const finish = (answers: number[]) => {
@@ -147,11 +173,57 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
     // every gap answered — the game is over, even before the recording ends
     if (gs.every((g, i) => !g || next[i] >= 0)) finish(next);
   };
-  const exitGame = () => {
-    audio.current?.pause();
-    setGame(false);
-    setResult(null);
+  const stopMic = () => {
+    mic.current?.stop();
+    mic.current = null;
+    setSinging(false);
+    setVoice('none');
   };
+  const switchTab = (to: 'learn' | 'game' | 'sing') => {
+    if (to === tab) return;
+    audio.current?.pause();
+    stopMic();
+    setResult(null);
+    setSingResult(null);
+    setTab(to);
+  };
+  // the lines the recording sings (has notes in) — they are scored
+  const sungLines = (tr: PitchTrack) =>
+    n.lines.map((_, k) => {
+      const to = times[k + 1] ?? tr.p.length * tr.hop;
+      for (let t = times[k]; t < to; t += tr.hop) if (refAt(tr, t)) return true;
+      return false;
+    });
+  const startSinging = async () => {
+    setMicError(false);
+    setSingResult(null);
+    try {
+      const tr: PitchTrack = track ?? (await (await fetch(`${root()}${n.audio.replace(/\.mp3$/, '.pitch.json')}`)).json());
+      setTrack(tr);
+      mic.current?.stop();
+      mic.current = await openMic();
+      tally.current = n.lines.map(() => ({ sung: 0, inTune: 0 }));
+      setLoop(false);
+      setSinging(true);
+      play(0);
+    } catch {
+      stopMic();
+      setMicError(true);
+    }
+  };
+  const finishSinging = () => {
+    if (!track) return;
+    const lines = sungLines(track);
+    const pts = tally.current.map((x, k) => (lines[k] ? linePoints(x.sung, x.inTune) : 0));
+    const got = pts.reduce((a, b) => a + b, 0);
+    const max = lines.filter(Boolean).length * SING_POINTS;
+    saveNigunResult(`${n.id}:sing`, { p: pts, best: got, n: max });
+    setSingResult({ got, max });
+    audio.current?.pause();
+    stopMic();
+  };
+  const singPct = singResult && singResult.max ? Math.round((100 * singResult.got) / singResult.max) : 0;
+  const singNow = tally.current.reduce((a, x, k) => a + (k <= cur ? linePoints(x.sung, x.inTune) : 0), 0);
   const resultPct = result === null || !total ? 0 : Math.round((100 * result) / total);
 
   return (
@@ -165,16 +237,20 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
         onEnded={() => {
           setPlaying(false);
           if (game && result === null) finish(p);
+          if (sing && singing) finishSinging();
         }}
         onDurationChange={(e) => setEnd(e.currentTarget.duration || 0)}
         onTimeUpdate={(e) => !playing && setTime(e.currentTarget.currentTime)}
       />
       <div className="kar-tabs" role="tablist" aria-label={t('nigun.karaoke')}>
-        <button type="button" role="tab" aria-selected={!game} className={!game ? 'on' : undefined} onClick={exitGame}>
+        <button type="button" role="tab" aria-selected={tab === 'learn'} className={tab === 'learn' ? 'on' : undefined} onClick={() => switchTab('learn')}>
           🎵 {t('nigun.learn')}
         </button>
-        <button type="button" role="tab" aria-selected={game} className={game ? 'on' : undefined} onClick={() => !game && setGame(true)}>
+        <button type="button" role="tab" aria-selected={game} className={game ? 'on' : undefined} onClick={() => switchTab('game')}>
           ⭐ {t('nigun.game')}
+        </button>
+        <button type="button" role="tab" aria-selected={sing} className={sing ? 'on' : undefined} onClick={() => switchTab('sing')}>
+          🎤 {t('nigun.sing')}
         </button>
       </div>
       {game && (
@@ -204,16 +280,54 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
           </span>
         </div>
       )}
+      {sing && (
+        <>
+          <p className="kar-game-note">
+            {t('nigun.singHow', { pass: 70 })}
+            {singing && (
+              <b className="kar-score">
+                {' '}
+                · {t('nigun.singScore', { n: singNow })}
+              </b>
+            )}
+          </p>
+          <p className="kar-privacy">🔒 {t('nigun.singPrivacy')}</p>
+          {micError && <p className="kar-was">{t('nigun.micError')}</p>}
+          {singing && (
+            <p className={`kar-voice ${voice}`} role="status" aria-live="polite">
+              🎤 {t(`nigun.voice.${voice}`)}
+            </p>
+          )}
+          {singResult && (
+            <div className={`kar-result${singPct >= PASS * 100 ? ' ok' : ''}`} role="status">
+              <b>{t('nigun.singResult', { n: singResult.got, max: singResult.max, pct: singPct })}</b>
+              <span>{singPct >= PASS * 100 ? t('nigun.passed') : t('nigun.singNeed', { pass: Math.round(PASS * 100) })}</span>
+              <span className="kar-result-a">
+                {singPct >= PASS * 100 && (
+                  <a className="btn" href={`#/academy/n-${n.id}`}>
+                    🎓 {t('academy.open')}
+                  </a>
+                )}
+              </span>
+            </div>
+          )}
+          {!singing && (
+            <button type="button" className="btn kar-start" onClick={() => void startSinging()}>
+              🎤 {t(singResult ? 'nigun.singAgain' : 'nigun.singStart')}
+            </button>
+          )}
+        </>
+      )}
       {game && result === null && !playing && time === 0 ? (
         <button type="button" className="btn kar-start" onClick={startGame}>
           ▶ {t('nigun.startGame')}
         </button>
       ) : null}
-      <div className="kar-bar" hidden={game && (result !== null || (!playing && time === 0))}>
+      <div className="kar-bar" hidden={(game && (result !== null || (!playing && time === 0))) || (sing && !singing)}>
         <button type="button" className="btn kar-play" onClick={toggle} aria-label={t(playing ? 'nigun.pause' : 'nigun.play')}>
           {playing ? '⏸' : '▶'} {t(playing ? 'nigun.pause' : 'nigun.play')}
         </button>
-        {!game && (
+        {tab === 'learn' && (
           <button type="button" className="btn ghost" onClick={() => play(0)}>
             ⟲ {t('nigun.again')}
           </button>
@@ -222,14 +336,14 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
           <input type="checkbox" checked={slow} onChange={(e) => setSlow(e.target.checked)} />
           {t('nigun.slow')}
         </label>
-        {!game && (
+        {tab === 'learn' && (
           <label className="kar-opt">
             <input type="checkbox" checked={loop} onChange={(e) => setLoop(e.target.checked)} />
             {t('nigun.loop')}
           </label>
         )}
       </div>
-      {!game && (
+      {tab === 'learn' && (
       <input
         className="kar-seek"
         type="range"
@@ -268,12 +382,15 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
           if (!g)
             return (
               <li key={k} className={cls}>
-                {game ? (
+                {game || sing ? (
                   <div className="kar-line">
                     <span className="kar-text" style={{ '--p': `${Math.round(fill * 100)}%` } as React.CSSProperties}>
                       {l.text}
                     </span>
                     {extra}
+                    {sing && (singing || singResult) && k <= cur && tally.current[k].sung > 0 && (
+                      <span className="kar-pts">+{linePoints(tally.current[k].sung, tally.current[k].inTune)}</span>
+                    )}
                   </div>
                 ) : (
                   <button type="button" onClick={() => play(times[k])} aria-current={k === cur ? 'true' : undefined}>
@@ -313,6 +430,11 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
           );
         })}
       </ol>
+      {sing && singing && playing && (
+        <button type="button" className="btn ghost kar-end" onClick={finishSinging}>
+          {t('nigun.singEnd')}
+        </button>
+      )}
       {game && result === null && playing && (
         <button type="button" className="btn ghost kar-end" onClick={() => finish(p)}>
           {t('nigun.finish')}
@@ -320,7 +442,7 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
       )}
       {n.draftTimes && times === n.times && <p className="kar-note">{t('nigun.draft')}</p>}
 
-      {admin && !game && (
+      {admin && tab === 'learn' && (
         <div className="kar-admin no-print">
           <b>{t('nigun.markTitle')}</b>
           {marks && marks.length < n.lines.length ? (

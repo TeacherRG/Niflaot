@@ -2209,3 +2209,9 @@ body:has(.a-home){background:var(--plain)}
 .kar-result.ok{border-inline-start-color:var(--ok);background:var(--ok-soft)}
 .kar-result b{font-family:var(--f-display);font-size:20px}
 .kar-result-a{display:flex;flex-wrap:wrap;gap:8px}
+/* «Петь» in the karaoke: the privacy line, the live voice — in tune / not / silent, the points of each line */
+.kar-privacy{margin:0;font-size:13px;color:var(--muted);line-height:1.45}
+.kar-voice{margin:0;justify-self:start;padding:6px 12px;border-radius:999px;font-weight:700;font-size:14px;background:var(--paper);color:var(--ink-2)}
+.kar-voice.on{background:var(--ok-soft);color:var(--ok)}
+.kar-voice.off{background:var(--gold-soft);color:var(--gold-deep)}
+.kar-pts{justify-self:start;font-size:13px;font-weight:700;color:var(--gold-deep)}
