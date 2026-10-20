@@ -157,4 +157,13 @@ export const PROJECT_EN: Record<string, string[]> = {
   'bht-17-21': [
     '<b>But My covenant I will establish with Yitzchak</b> — “akim” [I will establish] is a notarikon: “asher kidesh yedid mi-beten” [Who sanctified the beloved one from the womb].',
   ],
+  'bht-12-19': [
+    '<b>And go [va-lech]</b> — five times in the Masorah: here, and the others: “Here is Rivkah before you, take her and go” [Bereishit 24:51]; “drive and go” — said of Avishag the Shunammite [so in the edition]: this teaches that she was righteous like the Matriarchs; “and take my staff in your hand and go” [II Kings 4:29]; “The scroll that you read from — take it in your hand and go” [Jeremiah 36:14]. This teaches: although it is not stated here that [Pharaoh] gave him gifts, as [it is stated] of Avimelech, he certainly gave him. And this is “take it in your hand and go”: that he gave him something handed from hand to hand.',
+  ],
+  'bht-14-5': [
+    '<b>And in the fourteenth [u-ve-arba esreh]</b> — twice at the beginning of a verse: here, and the other: “And in the fourteenth year of King Chizkiyahu, Sancheriv went up” [II Kings 18:13]. To tell you: just as the nations came against Chizkiyahu and fell into his hand, so they came against Avraham and fell into his hand.',
+  ],
+  'bht-16-7': [
+    '<b>By the spring of water [al ein ha-mayim]</b> — twice in the Masorah: here, and the other: “Here I stand by the spring of water” [Bereishit 24:13]. For it is good to pray by water, as it is written: “Louder than the sound of the archers, among the watering places — there they will tell of the righteous deeds of the L-rd” [Judges 5:11]. And prayer is likened to water, as it is written: “Pour out your heart like water” [Lamentations 2:19].',
+  ],
 };

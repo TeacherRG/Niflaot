@@ -3,15 +3,23 @@ import { phraseTiles, expectedTiles, type Take } from './letterPuzzle';
 import { displayNames } from './names';
 import type { Lesson, MemoGematria, MemoLetters } from '../lessons/types';
 
-/** Memo pictures of every lesson: src/lessons/NN-<slug>/memo/NN.png, portrait 3:4 (bundled by Vite). */
+/**
+ * Memo pictures of every lesson: src/lessons/NN-<slug>/memo/NN.png, portrait 3:4, line art for colouring (bundled by Vite);
+ * a lesson may also have them in colour for the screen — memo/color/NN.webp.
+ */
 const ART = import.meta.glob<string>('../lessons/*/memo/*.png', { eager: true, query: '?url', import: 'default' });
+const COLOR = import.meta.glob<string>('../lessons/*/memo/color/*.webp', { eager: true, query: '?url', import: 'default' });
 
-/** Picture URLs of a lesson's Memo, in order (item k → NN = k + 1). */
-export function memoImages(lesson: Lesson): string[] {
-  return Object.entries(ART)
-    .filter(([path]) => path.includes(`-${lesson.slug}/memo/`))
+const pictures = (art: Record<string, string>, dir: string) =>
+  Object.entries(art)
+    .filter(([path]) => path.includes(dir))
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([, url]) => url);
+
+/** Picture URLs of a lesson's Memo, in order (item k → NN = k + 1): in colour where there is a colour set, `print` — always the line art. */
+export function memoImages(lesson: Lesson, print = false): string[] {
+  const color = print ? [] : pictures(COLOR, `-${lesson.slug}/memo/color/`);
+  return color.length ? color : pictures(ART, `-${lesson.slug}/memo/`);
 }
 
 /** «בראשית ברא = 913 + 203 = 1116» — the sum of a phrase word by word (shown with respectful Names). */

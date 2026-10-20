@@ -9,6 +9,10 @@ and the three captions on every picture: the portion (top left), the number (top
   python3 scripts/memo-frame.py --sheet <sheet.png> src/lessons/01-baal-haturim-bereshit/memo Bereshit
 
 Saved as 32-level grayscale PNG (line art). Needs Pillow and numpy.
+
+  # the same pictures in colour for the screen (the game online; print keeps the line art):
+  python3 scripts/memo-frame.py --color <dir> src/lessons/07-baal-haturim-lech-lecha/memo 'Lech Lecha'
+  → memo/color/NN.webp, 600×800
 """
 import sys
 from pathlib import Path
@@ -16,7 +20,6 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-W, H = 1200, 1600
 FONT = '/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf'
 FONT_I = '/usr/share/fonts/truetype/dejavu/DejaVuSerif-Italic.ttf'
 
@@ -60,30 +63,35 @@ def panels(sheet: Path) -> list[Image.Image]:
     return out
 
 
-def label(d: ImageDraw.ImageDraw, xy: tuple[float, float], text: str, f, anchor: str):
+def label(d: ImageDraw.ImageDraw, xy: tuple[float, float], text: str, f, anchor: str, k: float = 1):
     """Text on a small white plate, so it reads over any drawing."""
     box = d.textbbox(xy, text, font=f, anchor=anchor)
-    pad = 10
-    d.rounded_rectangle((box[0] - pad, box[1] - pad, box[2] + pad, box[3] + pad), radius=10, fill='white')
+    pad = round(10 * k)
+    d.rounded_rectangle((box[0] - pad, box[1] - pad, box[2] + pad, box[3] + pad), radius=pad, fill='white')
     d.text(xy, text, font=f, fill='#1d1d1f', anchor=anchor)
 
 
-def frame(pic: Image.Image, n: int, parsha: str) -> Image.Image:
+def frame(pic: Image.Image, n: int, parsha: str, k: float = 1) -> Image.Image:
+    """k — the size relative to 1200×1600 (labels scale with it)."""
     pic = pic.convert('RGB')
+    W, H = round(1200 * k), round(1600 * k)
     scale = min(W / pic.width, H / pic.height)
     pic = pic.resize((round(pic.width * scale), round(pic.height * scale)), Image.LANCZOS)
     out = Image.new('RGB', (W, H), 'white')
     out.paste(pic, ((W - pic.width) // 2, (H - pic.height) // 2))
     d = ImageDraw.Draw(out)
-    m = 64
-    label(d, (m, m), parsha, font(FONT_I, 40), 'lt')
-    label(d, (W - m, m), str(n), font(FONT, 44), 'rt')
-    label(d, (W - m, H - m), '© mychitas.app 5787', font(FONT_I, 30), 'rb')
+    m = round(64 * k)
+    label(d, (m, m), parsha, font(FONT_I, round(40 * k)), 'lt', k)
+    label(d, (W - m, m), str(n), font(FONT, round(44 * k)), 'rt', k)
+    label(d, (W - m, H - m), '© mychitas.app 5787', font(FONT_I, round(30 * k)), 'rb', k)
     return out
 
 
 def main():
     args = sys.argv[1:]
+    color = args[0] == '--color'
+    if color:
+        args = args[1:]
     sheet = args[0] == '--sheet'
     if sheet:
         args = args[1:]
@@ -91,9 +99,14 @@ def main():
         sys.exit(__doc__)
     src, dst, parsha = Path(args[0]), Path(args[1]), args[2]
     pics = panels(src) if sheet else [Image.open(src / f'{k:02d}.png') for k in range(1, 13)]
+    if color:
+        dst = dst / 'color'
     dst.mkdir(parents=True, exist_ok=True)
     for k, p in enumerate(pics, 1):
-        frame(p, k, parsha).convert('L').quantize(32).save(dst / f'{k:02d}.png', optimize=True)
+        if color:
+            frame(p, k, parsha, 0.5).save(dst / f'{k:02d}.webp', quality=82, method=6)
+        else:
+            frame(p, k, parsha).convert('L').quantize(32).save(dst / f'{k:02d}.png', optimize=True)
     print(f'✓ {len(pics)} pictures → {dst}')
 
 

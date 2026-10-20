@@ -2,6 +2,7 @@ import type { Lesson } from '../types';
 import ru from './i18n/ru';
 import en from './i18n/en';
 import de from './i18n/de';
+import memo from './memo';
 
 /**
  * Урок №5 — «Бааль ґа-Турим: Лех леха»: гематрии, атбаш и первые/последние буквы слов в комментарии рабби Яакова
@@ -9,7 +10,7 @@ import de from './i18n/de';
  * Все числа проверены кодом (см. уравнения ниже). Гематрии комментария, которые в нашем написании не сходятся,
  * в урок не включены (ни в загадки, ни в текст; в цитате комментария они опущены — CUTS в scripts/fetch-sources.py): «ואברכך» = 249 ≠ «אברהם» = 248 (только с колелем);
  * «ויוצא אתו החוצה» = 634 ≠ «איצטגנינותך» = 649; «ואברכה מברכיך» = 526 ≠ «כהנים המברכים בניך» = 524.
- * Memo-игры пока нет: для неё нужны 12 картинок-раскрасок (memo/NN.png).
+ * Memo-игра — memo.ts (картинки: memo/NN.png — раскраски для печати, memo/color/NN.webp — цветные для экрана).
  */
 const lesson: Lesson = {
   slug: 'baal-haturim-lech-lecha',
@@ -164,6 +165,7 @@ const lesson: Lesson = {
     secrets: { 222: 0, 25: 2, 400: 3, 208: 4 },
   },
   texts: { ru, en, de },
+  memo,
   author: { name: 'Яаков бен Ашер (Бааль ґа-Турим)', alternateName: 'Rabbi Yaakov ben Asher (Baal HaTurim)' },
 };
 

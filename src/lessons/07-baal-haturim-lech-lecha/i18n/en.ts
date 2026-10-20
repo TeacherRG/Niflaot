@@ -308,6 +308,124 @@ const en: LessonText = {
       ],
     },
   ],
+  memo: {
+    intro:
+      'Twelve comments of the Baal HaTurim on the portion of Lech Lecha — twelve pairs of cards. Each picture tells about one comment, and its pair is the Torah words that the comment is about.',
+    items: [
+      {
+        title: 'A hundred years until Yitzchak',
+        caption: 'Avram and his family set out',
+        verse: '“Go for yourself”',
+        quote: '“Go for yourself” — He hinted to him: when you are a hundred [years old], the number of “lech lecha”, then “I will make you a great nation” — when Yitzchak was born.',
+        explain:
+          'The word לך equals 50: ל = 30, ך = 20. “Lech lecha” is twice 50, that is 100. G-d told Avram “go for yourself” when he was seventy-five years old, and Yitzchak was born when Avraham turned one hundred. So the very first words already held a hint: at a hundred you will become the father of a great nation.',
+        note: 'Avraham was 100 years old when Yitzchak was born',
+        moral: 'G-d’s promise may not come true at once — but it will surely come true.',
+      },
+      {
+        title: 'Ten sayings',
+        caption: 'Ten lights — the ten sayings of Creation',
+        verse: '“And the L-rd said to Avram”',
+        quote: '[The Torah] began with a saying — the language with which the world was created: the world was created with ten sayings, and all of it was created only in the merit of Avraham.',
+        explain:
+          'The world was created with ten sayings: “And G-d said: Let there be light…” — ten times. The Torah also begins the story of Avraham with the words “and He said”. The Baal HaTurim explains: the whole world was created for the sake of Avraham — for the sake of a man who would teach people to know the Creator.',
+        moral: 'The world was created for the sake of good deeds. And my good deeds are also part of why it was created.',
+      },
+      {
+        title: 'Three blessings',
+        caption: 'Avram raises his hands: a blessing',
+        verse: '“and I will bless you, and make your name great”',
+        quote: '“And I will make you a great nation, and I will bless you, and make your name great” — three blessings, corresponding to the three blessings of the Kohanim.',
+        explain:
+          'Here G-d blesses Avram three times. The Baal HaTurim sees in this the three blessings of the Kohanim: “May He bless you…”, “May He shine…”, “May He lift up…”. The Priestly Blessing has sixty letters, and there is a hint to them too: over the letter ך (20) in the word “those who bless you” there are three little crowns, and three times 20 is 60.',
+        moral: 'Avraham’s blessing goes on: the Kohanim still bless his descendants today.',
+      },
+      {
+        title: 'Pharaoh’s gifts',
+        caption: 'Pharaoh, struck, sends Avram away',
+        verse: '“take her and go”',
+        quote: '“Take it in your hand and go”: although it is not stated here that [Pharaoh] gave him gifts, as Avimelech did, he certainly gave them.',
+        explain:
+          'Pharaoh took Sarai to his palace, and G-d struck his house with heavy plagues. Then Pharaoh returned Sarai and said to Avram: “Here is your wife, take her and go.” The words “and go” (ולך) appear in Tanakh five times; in the book of Jeremiah it says: “The scroll that you read from — take it in your hand and go.” The Baal HaTurim teaches: “and go” means that Avram was handed something from hand to hand — Pharaoh sent him away with gifts. And indeed, Avram left Egypt very rich.',
+        moral: 'G-d protects the righteous — even out of trouble, they come away with good.',
+      },
+      {
+        title: 'Parting for peace',
+        caption: 'Avram and Lot part with their flocks',
+        verse: '“from one another. Avram…”',
+        quote: '“And they parted from one another. Avram” — the last letters: שלום (peace). They parted in order to keep the peace.',
+        explain:
+          'The shepherds of Avram and Lot quarreled. Avram said: “Let there be no quarrel between me and you… If you go left, I will go right.” Take the last letters of the words איש מעל אחיו אברם: ש, ל, ו, ם — they make שלום, “peace”. Avram and Lot did not part out of hatred, but to keep the peace.',
+        moral: 'Sometimes, to keep the peace, it is better to give way and part kindly.',
+      },
+      {
+        title: 'The fourteenth year',
+        caption: 'A battle at night: Avram rescues Lot',
+        verse: '“and in the fourteenth year”',
+        quote: 'Just as the nations came against Chizkiyahu and fell into his hand, so they came against Avraham and fell into his hand.',
+        explain:
+          'Four mighty kings fought against five and took Lot captive. Avram, with a small band, caught up with them at night, defeated them and freed Lot. The words “and in the fourteenth” stand at the beginning of a verse only twice: here and in the book of Kings — “in the fourteenth year of King Chizkiyahu, Sancheriv went up” with a huge army against Jerusalem. The Baal HaTurim links the two stories: both Avram and Chizkiyahu defeated the mightiest enemies with G-d’s help.',
+        moral: 'It is not strength or the number of soldiers that decides — help comes from G-d.',
+      },
+      {
+        title: 'Malki-Tzedek is Shem',
+        caption: 'Malki-Tzedek brings out bread and wine',
+        verse: '“king of Shalem”',
+        quote: '“King of Shalem” — the first letters: שם (Shem). This is Shem, the son of Noach.',
+        explain:
+          'After the victory Malki-Tzedek, king of Shalem and priest of G-d Most High, came out to meet Avram, brought out bread and wine and blessed him. The first letters of the words מלך שלם are מ and ש; swap them — you get שם, Shem. The Baal HaTurim teaches: Malki-Tzedek is Shem, the son of Noach, who was still alive in Avram’s days.',
+        moral: 'The righteous of different generations meet and bless each other — that is how good is passed on.',
+      },
+      {
+        title: 'Thirty righteous people',
+        caption: 'Avram looks at the stars',
+        verse: '“so shall your offspring be”',
+        quote: '“Shall be” — in gematria “thirty”: there is no generation without thirty righteous people.',
+        explain:
+          'G-d took Avram outside his tent and said: “Look at the sky and count the stars… So shall your offspring be.” The word יהיה (“shall be”) equals 30: י = 10, ה = 5, י = 10, ה = 5. The Baal HaTurim teaches: in every generation there are at least thirty righteous people — they shine for the world like stars.',
+        note: 'thirty righteous people in every generation',
+        moral: 'Anyone can become one of those who shine for their generation.',
+      },
+      {
+        title: 'Two hundred and ten years',
+        caption: 'Yaakov’s family goes down to Egypt',
+        verse: '“that your offspring shall be strangers”',
+        quote: '“That strangers” — the last letters amount to the number רד״ו (210).',
+        explain:
+          'At the Covenant between the Parts G-d told Avram: “Know that your offspring shall be strangers in a land not theirs.” Take the last letters of the words כי גר: י (10) and ר (200) — together 210, like the word רדו, “go down”. That is how long Israel lived in Egypt: Yaakov and his family went down there, and after 210 years Moshe led the people out to freedom.',
+        note: 'the years Avraham’s descendants lived in Egypt',
+        moral: 'Even a long exile has its end — and G-d has measured it.',
+      },
+      {
+        title: 'Prayer by the water',
+        caption: 'Hagar by a spring in the desert',
+        verse: '“by the spring of water”',
+        quote: '“By the spring of water”: it is good to pray by water. And prayer is likened to water, as it is written: “Pour out your heart like water.”',
+        explain:
+          'Hagar, Sarai’s maid, fled into the desert, and an angel of G-d found her “by the spring of water”. These words appear in the Torah once more — when Avraham’s servant stood by a spring and prayed to find a wife for Yitzchak. The Baal HaTurim teaches: it is good to pray by water. And prayer itself is like water — the book of Eichah says: “Pour out your heart like water.”',
+        moral: 'To pray is to open your heart to G-d simply and sincerely, the way water flows.',
+      },
+      {
+        title: 'Yitzchak in Avraham’s name',
+        caption: 'New names: Avraham and Sarah',
+        verse: '“father of a multitude”',
+        quote: 'Twice in this chapter — “father of a multitude”, and it amounts to the number of “Yitzchak”. And likewise “I will multiply” — in gematria “Yitzchak”.',
+        explain:
+          'G-d gave Avram a new name — Avraham: “for I have made you the father of a multitude of nations.” The words אב המון (“father of a multitude”) equal 104, and in the chapter they are written twice: 104 + 104 = 208. Exactly the same as יצחק, Yitzchak: 10 + 90 + 8 + 100. And the word ארבה (“I will multiply”) also equals 208. The new name already held a promise: Avraham and Sarah would have Yitzchak.',
+        note: 'twice 104 = 208 = יצחק',
+        moral: 'Sometimes what we hope for is already very close — we only need to wait.',
+      },
+      {
+        title: 'The covenant of circumcision',
+        caption: 'A circumcision knife and a lamp',
+        verse: '“but My covenant I will establish”',
+        quote: '“I will establish” — a notarikon: “Who sanctified the beloved one from the womb”.',
+        explain:
+          'G-d told Avraham: “But My covenant I will establish with Yitzchak.” Take the first letters of the words אשר קידש ידיד מבטן: א, ק, י, מ — they make אקים, “I will establish”. These words are from the blessing said at a brit milah. So the covenant that began with Avraham and Yitzchak continues with every Jewish boy.',
+        moral: 'The covenant with G-d passes from generation to generation — and each of us is part of it.',
+      },
+    ],
+  },
   final: {
     title: 'The way is open',
     allSolved:
