@@ -158,7 +158,7 @@ export function Panels() {
   const readGroups = LESSON_GROUPS.filter((g) => readsOf(g).length);
   const adultsSel = choose(readGroups);
 
-  // in both modes, after the mode's own study: «Знаете ли вы?», «Викторина вместе», «Академия»
+  // in both modes, after the mode's own study: «Знаете ли вы?», «Викторина вместе», «К шабатнему столу», «Академия»
   const facts = (
     <a href="#/facts" onClick={close} className="menu-item" aria-current={location.hash === '#/facts' || location.hash === '#/daily' ? 'page' : undefined}>
       <Icon name="hash" />
@@ -175,6 +175,16 @@ export function Panels() {
       <span>
         {t('lq.title')}
         <small>{t('lq.menuSub')}</small>
+      </span>
+    </a>
+  );
+  /* «К шабатнему столу»: the Friday sheet of the week's portion to print (ShabbatTable.tsx) */
+  const table = (
+    <a href="#/shabbat-table" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/shabbat-table') ? 'page' : undefined}>
+      <Icon name="print" />
+      <span>
+        {t('table.title')}
+        <small>{t('table.menuSub')}</small>
       </span>
     </a>
   );
@@ -288,6 +298,7 @@ export function Panels() {
           </a>
           {facts}
           {quiz}
+          {table}
           {academy}
           {/* how to play, my Hebrew, letters and mental math: one group */}
           <details className="menu-group" open={isLearn}>
@@ -370,6 +381,7 @@ export function Panels() {
           })}
           {facts}
           {quiz}
+          {table}
           {academy}
             </>
           )}

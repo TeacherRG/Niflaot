@@ -37,6 +37,17 @@ function DailyLink() {
   );
 }
 
+/** «К шабатнему столу»: the Friday sheet of the week's portion, to print before Shabbat. */
+function TableLink() {
+  const { t } = useI18n();
+  return (
+    <a className="h-daily h-table" href="#/shabbat-table">
+      <span className="h-daily-title">🖨 {t('table.title')}</span>
+      <span className="h-daily-sub">{t('table.homeSub')} →</span>
+    </a>
+  );
+}
+
 /** A row of the plan of the day: the circle (✓ when done), the section, today's books / title, and «Читать» on the first one to do. */
 function PlanRow({ href, title, sub, done, go, he }: { href: string; title: string; sub: string; done: boolean; go?: string; he?: string }) {
   const { t } = useI18n();
@@ -138,6 +149,11 @@ function AdultsHome() {
         </section>
 
         <aside className="a-side">
+          {/* «Учись сам и учи с детьми»: the children learn the same portion in play — the Friday sheet brings it to the table */}
+          <a className="a-tag" href="#/shabbat-table">
+            <b>{t('slogan')}</b>
+            <span>{t('home.adultsTag')} →</span>
+          </a>
           {reads.length > 0 && (
             <section aria-labelledby="a-week">
               <h2 id="a-week">
@@ -337,6 +353,7 @@ function KidsHome() {
             {t('home.week')} · {weekName} <span className="he">{week.he}</span>
           </span>
           <h1>{t('catalog.uvp')}</h1>
+          <p className="k-tag">{t('slogan')}</p>
         </div>
 
         <div className="k-top">
@@ -365,6 +382,7 @@ function KidsHome() {
           <div className="k-side">
             <HabitCard compact />
             <DailyLink />
+            <TableLink />
             <WeekCountdown />
             <PhoneOffer />
           </div>

@@ -518,6 +518,9 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 
 @media (max-width:600px){
   .sheet-paper{padding:22px 16px}
+  .p-logo-main{height:44px}
+  .p-logos-partners{gap:10px}
+  .p-logos-partners img{height:30px}
   .p-table{grid-template-columns:repeat(6,1fr)}
   .p-opts{grid-template-columns:1fr}
   .print-bar .btn:last-child{margin-inline-start:0}
@@ -2072,3 +2075,78 @@ body:has(.a-home){background:var(--plain)}
   html[data-size="2"] body{zoom:1.1}
   html[data-size="3"] body{zoom:1.2}
 }
+
+/* «Учись сам и учи с детьми» — the slogan on the homes and in the Academy */
+.k-tag{margin:4px 0 0;font-size:17px;font-weight:700;color:var(--warm-text)}
+.ac-tag{margin:2px 0 6px;font-size:17px;font-weight:700;color:var(--gold)}
+.a-tag{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-inline-start:4px solid var(--tchelet);border-radius:12px;background:var(--surface);color:var(--ink);text-decoration:none}
+.a-tag b{font-family:var(--f-display);font-size:19px;line-height:1.2}
+.a-tag span{font-size:14px;color:var(--tchelet);font-weight:600;line-height:1.4}
+.h-daily.h-table{background:var(--gold-deep)}
+.h-daily.h-table .h-daily-title{color:#fff}
+.h-daily.h-table .h-daily-sub{color:#fff;opacity:.85}
+
+/* «Академия»: the faculties («факультативы») — tiles on top, a section for each */
+.ac-facs.kids{grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.ac-facs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:10px;margin:14px 0 6px}
+.ac-fac-tile{display:grid;gap:3px;justify-items:start;text-align:start;padding:14px;border:1px solid var(--line);border-top:4px solid var(--tc-line);border-radius:12px;background:var(--surface);color:var(--ink);box-shadow:var(--shadow);font:inherit;cursor:pointer}
+.ac-fac-tile:hover{border-color:var(--tc-line)}
+.ac-fac-tile:focus-visible{outline:3px solid var(--tc-line);outline-offset:2px}
+.ac-fac-tile b{font-family:var(--f-display);font-size:19px;line-height:1.15}
+.ac-fac-tile small{font-size:13px;color:var(--muted);line-height:1.35}
+.ac-fac-he{font-family:var(--f-he);font-size:20px;font-weight:700;color:var(--tc)}
+.ac-fac-n{margin-top:4px;font-size:12.5px;font-weight:700;color:var(--tc)}
+.ac-fac-tile.soon{border-top-style:dashed}
+.ac-fac{scroll-margin-top:70px;padding-top:4px}
+.ac-fac .ac-h2 .he{font-family:var(--f-he);font-size:.75em;color:var(--gold);margin-inline-start:6px}
+.ac-fac-sub{margin:0 0 6px;font-weight:700;color:var(--ink-2)}
+.ac-fac-links{display:flex;flex-wrap:wrap;gap:6px 20px;margin:0 0 18px;font-size:14px;font-weight:700}
+.ac-fac-links a{color:var(--tchelet);text-decoration:none}
+.ac-soon{margin:4px 0 18px;padding:14px;border:1px dashed var(--line);border-radius:12px;color:var(--ink-2);background:var(--surface)}
+
+/* «К шабатнему столу» (ShabbatTable.tsx): the Friday sheet — riddles for the children, the Rebbe, questions, answers upside down */
+.st-tip{max-width:820px;margin:-6px auto 12px;padding:0 4px;font-size:14px;color:var(--muted)}
+.sheet-paper.st h1{font-size:28px}
+.st-head{padding-bottom:10px;border-bottom:1px solid #ccc}
+.st-tag{margin:4px 0 0;font-family:var(--f-display);font-size:19px;font-weight:700;color:#7a5b1e}
+.st-how{margin:6px 0 0;color:#333}
+.st-h2{font-size:20px!important;margin:0 0 4px!important}
+.st-note{margin:0 0 8px;font-size:12.5px;color:#555}
+.st-note a{color:#111;word-break:break-all}
+.st-riddles{list-style:none;margin:0 0 10px;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.st-riddle{display:flex;gap:10px;padding:10px 12px;border:1px solid #bbb;border-radius:8px;break-inside:avoid}
+.st-n{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#7a5b1e;color:#fff;font-weight:700;font-size:13px}
+.st-q{margin:0;font-size:13px;color:#333}
+.st-he{margin:4px 0;display:flex;flex-wrap:wrap;align-items:flex-start;gap:4px 10px}
+.st-w{display:inline-grid;justify-items:center}
+.st-w .he{font-size:24px;font-weight:700;line-height:1.2}
+.st-w small{font-size:11px;color:#555;text-align:center}
+.st-op{font-size:18px;margin:0 6px}
+.st-ask{font-size:20px;font-weight:700;margin-inline-start:4px}
+.st-line{margin:6px 0 0;font-size:12.5px;color:#444}
+.st-inv{margin:0 0 10px;padding:10px 12px;border-inline-start:3px solid #1F5A38;break-inside:avoid}
+.st-inv h3{font-size:17px;margin:0 0 4px}
+.st-inv .p-cond p{margin:4px 0}
+.st-inv,.st-inv .p-cond{min-width:0;overflow-wrap:anywhere}
+.st-list{margin:0;padding-inline-start:20px;display:grid;gap:6px}
+.st-answers{margin-top:12px;padding-top:8px;border-top:1px dashed #999;break-inside:avoid}
+.st-answers>div{transform:rotate(180deg);font-size:12.5px}
+.st-answers ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;align-items:flex-start;gap:4px 22px}
+.st-answers .st-w .he{font-size:18px}
+.st-answers p{margin:4px 0 0;color:#555}
+.st-answers h3{margin:0 0 2px!important}
+.print-bar select{font:inherit;margin-inline-start:6px;padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+@media (max-width:600px){.st-riddles{grid-template-columns:1fr}.st-inv{padding:8px 0 8px 10px}.st-inv .p-cond .verse{padding:6px 8px;font-size:1.15em}}
+@media print{
+  .sheet-paper.st{font-size:10.5pt;line-height:1.4}
+  .st-riddles{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+  .st-riddle{padding:6px 10px}
+  .st-tip{display:none}
+  .st-inv .p-cond .verse{margin:2px 0 6px;padding:4px 8px}
+  .sheet-paper.st .p-block{margin-top:10px}
+  .st-inv{break-inside:auto;margin-bottom:6px}
+  .st-list{gap:3px}
+  .sheet-paper.st .p-foot{margin-top:10px}
+  .st-inv h3{break-after:avoid}
+}
+.st-h2{break-after:avoid}
