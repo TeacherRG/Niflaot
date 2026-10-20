@@ -1445,12 +1445,19 @@ a.tk-step:hover{background:var(--tchelet-soft)}
 .tk-words-bar{display:block;height:8px;border-radius:99px;background:var(--tchelet-soft);overflow:hidden}
 .tk-words-bar span{display:block;height:100%;border-radius:99px;background:var(--tchelet-deep);transition:width .3s}
 .tk-words-list{display:grid;gap:8px;margin:0;padding:0;list-style:none}
-.tk-words-list li{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"he tr" "meta meta" "btn btn";align-items:center;gap:4px 12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+.tk-words-list li{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"he tr" "meta meta" "ex ex" "btn btn";align-items:center;gap:4px 12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
 .tk-words-list li.on{border-color:var(--ok);background:var(--ok-soft)}
 .tk-w-he{grid-area:he;font-family:var(--f-he);font-size:26px;line-height:1.3}
 .tk-w-tr{grid-area:tr;font-size:15px;font-weight:600}
 .tk-w-meta{grid-area:meta;font-size:12px;color:var(--muted)}
 .tk-w-meta .he{font-family:var(--f-he);font-size:14px;color:var(--ink-2)}
+.tk-w-ex{grid-area:ex;display:grid;gap:3px;margin-top:4px;padding:6px 10px;border-inline-start:3px solid var(--tchelet-soft);font-size:13.5px;color:var(--ink-2);text-align:start}
+.tk-w-ex .he{font-family:var(--f-he);font-size:18px;line-height:1.5;color:var(--ink);direction:rtl;text-align:right}
+.tk-w-ex .he b{color:var(--tchelet)}
+.tk-w-ex-tr small,.tk-w-ex-ref{font-size:12px;color:var(--muted)}
+.tk-w-ex-ref a{color:var(--tchelet);font-weight:600}
+.ws-card .tk-w-meta,.ws-card .tk-w-ex{grid-area:auto}
+.ws-card .tk-w-ex{width:100%;box-sizing:border-box}
 .tk-w-btns{grid-area:btn;display:flex;justify-content:flex-end;gap:6px}
 .tk-w-btns button{min-height:36px;padding:4px 12px;border:1px solid var(--line);border-radius:99px;background:var(--surface);color:var(--ink);font-size:13.5px;font-weight:600;white-space:nowrap}
 .tk-w-btns button:hover{border-color:var(--tchelet)}

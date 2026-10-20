@@ -73,6 +73,36 @@ export function loadDayWords(date: string): Promise<DayWords | null> {
   return p;
 }
 
+/**
+ * Пример стиха к слову (scripts/fetch-words.py → public/tanakh/words/examples-<язык>.json): стих Пророков или Писаний,
+ * где слово встречается, — дата и раздел дня цикла, «книга глава:стих», иврит [до, слово, после], перевод стиха (проекта;
+ * `en` — английский JPS 1985, на этом языке стих ещё не переведён).
+ */
+export interface Example {
+  date: string;
+  section: Section;
+  ref: string;
+  he: [string, string, string];
+  tr: string;
+  en: boolean;
+}
+type RawExample = [string, Section, string, [string, string, string], string, 1?];
+const examples = new Map<WordLang, Promise<Record<string, RawExample>>>();
+export function loadExamples(lang: WordLang): Promise<Record<string, RawExample>> {
+  let p = examples.get(lang);
+  if (!p) {
+    p = fetch(`${root()}tanakh/words/examples-${lang}.json`)
+      .then((r) => (r.ok ? (r.json() as Promise<Record<string, RawExample>>) : {}))
+      .catch(() => ({}));
+    examples.set(lang, p);
+  }
+  return p;
+}
+export const exampleOf = (all: Record<string, RawExample>, id: string): Example | undefined => {
+  const x = all[id];
+  return x && { date: x[0], section: x[1], ref: x[2], he: x[3], tr: x[4], en: x[5] === 1 };
+};
+
 export const WORDS_KEY = 'niflaot:words';
 const EVENT = 'niflaot:words';
 /**

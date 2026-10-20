@@ -2,16 +2,18 @@ import { useEffect, useMemo, useState } from 'react';
 import { useI18n } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
-import { WordRow } from './TanakhWords';
+import { WordRow, WordVerse } from './TanakhWords';
 import { setOtherPage } from '../core/assistant';
 import { wordsContext } from '../core/assistantPages';
 import {
   dueWords,
+  exampleOf,
   INTERVALS,
   inDeck,
   isKnown,
   knownCount,
   loadDict,
+  loadExamples,
   nextWords,
   readWordStore,
   review,
@@ -20,6 +22,7 @@ import {
   useWordStore,
   WORD_GOALS,
   type Dict,
+  type Example,
   type Word,
   type WordLang,
 } from '../core/words';
@@ -39,6 +42,8 @@ export function WordsPage() {
   // the review and the new words are chosen when they start — marking a word doesn't make the list jump
   const [session, setSession] = useState<string[] | null>(null);
   const [fresh, setFresh] = useState<Word[] | null>(null);
+  // a verse of the Prophets or Writings for each word — loaded apart from the dictionary; the page works without it
+  const [exs, setExs] = useState<Record<string, Example>>({});
 
   useEffect(() => {
     document.title = `${t('words.mine')} · ${t('app.title')}`;
@@ -49,6 +54,12 @@ export function WordsPage() {
       if (!live) return;
       setDict(d);
       setFresh(nextWords(d, readWordStore()));
+    });
+    loadExamples(lang).then((all) => {
+      if (!live) return;
+      const out: Record<string, Example> = {};
+      for (const id of Object.keys(all)) out[id] = exampleOf(all, id)!;
+      setExs(out);
     });
     return () => {
       live = false;
@@ -127,7 +138,7 @@ export function WordsPage() {
         <section className="ws-sec" aria-labelledby="ws-review">
           <h2 id="ws-review">{t('words.reviewH')}</h2>
           {session ? (
-            <Review dict={dict} ids={session} onClose={() => setSession(null)} />
+            <Review dict={dict} ids={session} exs={exs} onClose={() => setSession(null)} />
           ) : due.length ? (
             <button type="button" className="btn ws-start" onClick={() => setSession(due)}>
               {t('words.reviewBtn', { n: due.length })}
@@ -147,7 +158,7 @@ export function WordsPage() {
             <>
               <ul className="tk-words-list">
                 {fresh.map((w) => (
-                  <WordRow key={w.id} w={w} dict={dict} store={store} />
+                  <WordRow key={w.id} w={w} dict={dict} store={store} ex={exs[w.id]} />
                 ))}
               </ul>
               <button type="button" className="btn ghost ws-more" onClick={() => setFresh(nextWords(dict, readWordStore()))}>
@@ -201,10 +212,11 @@ function Level({ words, from, dict }: { words: Word[]; from: number; dict: Dict 
 }
 
 /**
- * The review: one card at a time — the Hebrew word (and its root); «Показать перевод», then «Помню» / «Не помню».
+ * The review: one card at a time — the Hebrew word (and its root) and a verse with it; «Показать перевод» (of the word and
+ * the verse), then «Помню» / «Не помню».
  * Remembered — the next box, the next review later (1, 3, 7, 21, 60 days); not — box 1, tomorrow.
  */
-function Review({ dict, ids, onClose }: { dict: Dict; ids: string[]; onClose: () => void }) {
+function Review({ dict, ids, exs, onClose }: { dict: Dict; ids: string[]; exs: Record<string, Example>; onClose: () => void }) {
   const { t } = useI18n();
   const [i, setI] = useState(0);
   const [shown, setShown] = useState(false);
@@ -219,6 +231,7 @@ function Review({ dict, ids, onClose }: { dict: Dict; ids: string[]; onClose: ()
       </div>
     );
   const w = dict.words[dict.rank.get(ids[i])! - 1];
+  const ex = exs[w.id];
   const answer = (remembered: boolean) => {
     review(w.id, remembered);
     if (remembered) setOk((n) => n + 1);
@@ -239,6 +252,7 @@ function Review({ dict, ids, onClose }: { dict: Dict; ids: string[]; onClose: ()
           </span>
         </small>
       )}
+      {ex && <WordVerse ex={ex} tr={shown} />}
       {shown ? (
         <>
           <span className="ws-tr">{dict.tr[w.id]}</span>

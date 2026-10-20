@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
 import type { Section } from '../core/tanakhCycle';
-import { boxOf, coverage, KNOWN_BOX, knownCount, loadDayWords, loadDict, markKnown, markLearn, pickWords, readWordStore, unmark, useWordStore, type DayWords, type Dict, type Word, type WordLang, type WordStore } from '../core/words';
+import { BOOKS } from '../core/tanakhCycle';
+import { boxOf, coverage, KNOWN_BOX, knownCount, loadDayWords, loadDict, markKnown, markLearn, pickWords, readWordStore, unmark, useWordStore, type DayWords, type Dict, type Example, type Word, type WordLang, type WordStore } from '../core/words';
 
 /**
  * «Слова отрывка» под отрывком дня (src/core/words.ts): сколько процентов слов отрывка игрок узнаёт и до пяти самых
@@ -67,7 +68,7 @@ export function TanakhWords({ section, date }: { section: Section; date: string 
  * One word with «Учу» / «Знаю» (src/core/words.ts): the form with vowels, the translation, the root, the frequency
  * (and how many times in the passage — `here`). The pressed button takes the word out of «Мои слова» again.
  */
-export function WordRow({ w, dict, store, here, compact }: { w: Word; dict: Dict; store: WordStore; here?: number; compact?: boolean }) {
+export function WordRow({ w, dict, store, here, compact, ex }: { w: Word; dict: Dict; store: WordStore; here?: number; compact?: boolean; ex?: Example }) {
   const { t } = useI18n();
   const box = boxOf(store, w.id);
   const known = box >= KNOWN_BOX;
@@ -93,6 +94,7 @@ export function WordRow({ w, dict, store, here, compact }: { w: Word; dict: Dict
         {!compact && <> · {t('words.count', { n: w.n })}</>}
         {here ? <> · {t('words.here', { n: here })}</> : null}
       </small>
+      {ex && <WordVerse ex={ex} />}
       <span className="tk-w-btns">
         <button type="button" className="tk-w-learn" aria-pressed={learning} onClick={() => (learning ? unmark(w.id) : markLearn(w.id))}>
           {learning ? `● ${t('words.learn')}` : t('words.learn')}
@@ -105,3 +107,38 @@ export function WordRow({ w, dict, store, here, compact }: { w: Word; dict: Dict
   );
 }
 
+
+/** «Йеґошуа 1:10» — the verse's place, a link to the passage of that day */
+export function VerseRef({ ex }: { ex: Example }) {
+  const { locale } = useI18n();
+  const lang: WordLang = locale === 'en' || locale === 'de' ? locale : 'ru';
+  const [slug, cv] = ex.ref.split(' ');
+  const book = BOOKS.find((b) => b.slug === slug);
+  return <a href={`#/${ex.section}/${ex.date}`}>{`${book ? book.name[lang] : slug} ${cv}`}</a>;
+}
+
+/**
+ * A verse of the Prophets or Writings with the word (src/core/words.ts, `Example`): the Hebrew with the word in bold,
+ * the translation (`tr: false` — not yet: the review card shows it only after «Показать перевод») and the place.
+ */
+export function WordVerse({ ex, tr = true }: { ex: Example; tr?: boolean }) {
+  const { t } = useI18n();
+  return (
+    <span className="tk-w-ex">
+      <span className="he" lang="he">
+        {ex.he[0]}
+        <b>{ex.he[1]}</b>
+        {ex.he[2]}
+      </span>
+      {tr && (
+        <span className="tk-w-ex-tr" lang={ex.en ? 'en' : undefined}>
+          {ex.tr}
+          {ex.en && <small> {t('words.exampleEn')}</small>}
+        </span>
+      )}
+      <small className="tk-w-ex-ref">
+        <VerseRef ex={ex} />
+      </small>
+    </span>
+  );
+}
