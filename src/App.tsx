@@ -16,6 +16,7 @@ import { installFootnoteNavigation } from './sources/footnotes';
 import { installLangMarkup } from './core/langMarkup';
 import { installTitleSync } from './core/pageMeta';
 import { DonateFab, UIContext, type Panel } from './components/ui';
+import { TabBar } from './components/TabBar';
 import { NotFound, PageBoundary, PageLoading } from './components/PageStates';
 import { useI18n } from './i18n';
 
@@ -235,6 +236,7 @@ function Site() {
       <TermPopover />
       <Assistant />
       <DonateFab label={t('footer.donate')} />
+      <TabBar slug={slug} view={view} />
       {isAdmin() && slug !== 'admin' && view !== 'print' && (
         <a className="admin-fab" href={lesson ? `#/admin/${lesson.slug}` : '#/admin'} title="Редактор текстов">
           ✎ Править

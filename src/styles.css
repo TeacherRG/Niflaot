@@ -677,6 +677,21 @@ article.m-card{border-top:3px solid var(--gold-2)}
 .ai-fab:hover{transform:scale(1.08)}
 .ai-fab svg{fill:currentColor;fill-opacity:.25}
 @media (max-width:640px){.ai-fab{bottom:calc(16px + env(safe-area-inset-bottom,0px))}}
+
+/* the bottom tab bar on a phone (TabBar.tsx): the main sections under the thumb; «Меню» opens the side menu */
+.tabbar{display:none}
+@media (max-width:640px){
+  .tabbar{position:fixed;z-index:30;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:4px 4px calc(4px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);box-shadow:0 -8px 24px -18px rgba(20,26,51,.4)}
+  .tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:0;min-height:52px;padding:0;border:0;background:none;color:var(--muted);font:inherit;font-size:11px;font-weight:700;line-height:1.2;text-decoration:none;white-space:nowrap}
+  .tab-ic{display:grid;place-items:center;width:52px;height:28px;border-radius:999px;transition:background .15s,color .15s}
+  .tab-he{font-family:var(--f-he);font-weight:700;font-size:17px;line-height:1}
+  .tab[aria-current="page"]{color:var(--ink)}
+  .tab[aria-current="page"] .tab-ic{background:var(--gold-soft);color:var(--gold)}
+  .tabbar.adults .tab[aria-current="page"] .tab-ic{background:var(--tchelet-soft);color:var(--tchelet)}
+  html.tabbed body{padding-bottom:calc(60px + env(safe-area-inset-bottom,0px))}
+  html.tabbed .top .menu-btn{display:none}
+  html.tabbed .ai-fab{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+}
 .ai{display:flex;flex-direction:column;gap:12px;min-height:min(60vh,520px)}
 .ai-log{flex:1;display:flex;flex-direction:column;gap:10px;overflow:auto;max-height:min(56vh,520px);padding-inline-end:2px}
 .ai-hello p{margin:0 0 12px;color:var(--muted)}
