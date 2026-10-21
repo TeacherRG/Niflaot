@@ -21,15 +21,21 @@ def stats(name, pcm, rate):
     alt = struct.unpack(f'>{min(n, 48000)}h', pcm[: min(n, 48000) * 2])
     print(f'   mean |x| little-endian {sum(map(abs, s[:48000])) // max(1, min(n, 48000))}, big-endian {sum(map(abs, alt)) // max(1, len(alt))}')
 
-wav = open(sys.argv[1], 'rb').read()
-print('worker file:', len(wav), 'bytes; header', wav[:4], wav[8:16], 'fmt', struct.unpack('<HHIIHH', wav[20:36]), 'data', struct.unpack('<I', wav[40:44]))
-stats('worker WAV', wav[44:], struct.unpack('<I', wav[24:28])[0])
-g = json.load(open(sys.argv[2]))
-print('gemini modelVersion:', g.get('modelVersion'), 'usage:', g.get('usageMetadata'))
-parts = g['candidates'][0]['content']['parts']
-print('gemini parts:', [(p.get('inlineData', {}).get('mimeType'), len(p.get('inlineData', {}).get('data', ''))) for p in parts])
-for k, p in enumerate(parts):
-    d = p.get('inlineData')
-    if d:
-        rate = int(d['mimeType'].split('rate=')[1].split(';')[0]) if 'rate=' in d['mimeType'] else 24000
-        stats(f'gemini direct, part {k}', base64.b64decode(d['data']), rate)
+for f in sys.argv[1:]:
+    b = open(f, 'rb').read()
+    if f.endswith('.wav'):
+        if len(b) < 44:
+            print(f'== {f}: not a WAV ({b[:200]!r})')
+            continue
+        stats(f, b[44:], struct.unpack('<I', b[24:28])[0])
+        continue
+    g = json.loads(b)
+    c = (g.get('candidates') or [{}])[0]
+    print(f'== {f}: modelVersion {g.get("modelVersion")}, finish {c.get("finishReason")}, error {g.get("error", {}).get("message")}')
+    for k, p in enumerate((c.get('content') or {}).get('parts', [])):
+        d = p.get('inlineData')
+        if d:
+            rate = int(d['mimeType'].split('rate=')[1].split(';')[0]) if 'rate=' in d['mimeType'] else 24000
+            pcm = base64.b64decode(d['data'])
+            stats(f'{f} part {k} ({d["mimeType"]})', pcm, rate)
+            open(f.replace('.json', f'-{k}.wav'), 'wb').write(b'RIFF' + struct.pack('<I', 36 + len(pcm)) + b'WAVEfmt ' + struct.pack('<IHHIIHH', 16, 1, 1, rate, rate * 2, 2, 16) + b'data' + struct.pack('<I', len(pcm)) + pcm)
