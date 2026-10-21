@@ -1,0 +1,33 @@
+# Temporary diagnostics of «Слушать» (clicks in the sound) — removed after the fix.
+name: TTS diagnostics
+on:
+  push:
+    branches: [ccr-bcbefd1a-7a17hb]
+    paths: ['.github/workflows/tts-diag.yml', 'scripts/tts-diag.py']
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - name: Fetch a recorded part and the same text from Gemini
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ASSISTANT_URL: ${{ vars.ASSISTANT_URL }}
+        run: |
+          set -e
+          curl -sf https://niflaot.mychitas.app/tts/ru/baal-haturim-noach.json -o m.json
+          H=$(jq -r '.parts[1].h' m.json)
+          jq -r '.parts[1].text' m.json > text.txt
+          curl -s -o part.wav -w 'worker: %{http_code} %{size_download} bytes in %{time_total}s\n' -H 'Origin: https://niflaot.mychitas.app' "${ASSISTANT_URL%/}/tts/ru/baal-haturim-noach/$H.wav"
+          jq -n --rawfile t text.txt '{contents:[{parts:[{text:("Прочитай вслух по-русски, спокойно и тепло, как учитель Торы рассказывает урок; слова на иврите — с израильским произношением:\n\n" + $t)}]}],generationConfig:{responseModalities:["AUDIO"],speechConfig:{voiceConfig:{prebuiltVoiceConfig:{voiceName:"Charon"}}}}}' > req.json
+          curl -s -o gemini.json -w 'gemini: %{http_code} %{size_download} bytes in %{time_total}s\n' -H 'Content-Type: application/json' -H "x-goog-api-key: $GEMINI_API_KEY" \
+            -d @req.json https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-tts-preview:generateContent
+          head -c 300 gemini.json | grep -v '"data"' || true
+          python3 scripts/tts-diag.py part.wav gemini.json
+          python3 -c "import json,base64,struct;d=json.load(open('gemini.json'))['candidates'][0]['content']['parts'][0]['inlineData']['data'];p=base64.b64decode(d);open('gemini.wav','wb').write(b'RIFF'+struct.pack('<I',36+len(p))+b'WAVEfmt '+struct.pack('<IHHIIHH',16,1,1,24000,48000,2,16)+b'data'+struct.pack('<I',len(p))+p)"
+      - uses: actions/upload-artifact@v4 # temporary workflow
+        with:
+          name: tts-diag
+          path: |
+            part.wav
+            gemini.wav
