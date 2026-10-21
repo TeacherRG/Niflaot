@@ -41,6 +41,7 @@ import { PARSHIOT } from '../src/lessons/parshiot';
 import { markHebrewHtml } from '../src/core/langMarkup';
 import { stripFootnotes } from '../src/sources/footnotes';
 import { quoteView, sectionQuotes } from '../src/core/quotes';
+import { narration } from '../src/core/narration';
 import { BOOKS, track, type Section } from '../src/core/tanakhCycle';
 import { readingMinutes, type DayVerse } from '../src/core/tanakh';
 import { civilDate } from '../src/core/hebrewDate';
@@ -119,6 +120,8 @@ const CSP = [
   "font-src 'self' data:",
   "img-src 'self' data: blob: https://niflaot.goatcounter.com",
   // the assistant also over WebSocket — «Викторина вместе» (src/core/liveQuiz.ts)
+  // «Слушать»: the recorded parts are fetched from the assistant and played as blob: (src/components/ListenBar.tsx)
+  "media-src 'self' blob:",
   `connect-src 'self' https://api.github.com https://niflaot.goatcounter.com${assistant ? ` ${assistant} ${assistant.replace(/^http/, 'ws')}` : ''}`,
   "object-src 'none'",
   "base-uri 'self'",
@@ -1042,6 +1045,24 @@ for (const lang of QUIZ_LANGS) {
 }
 writeFileSync(`${DIST}/quiz/index.json`, JSON.stringify(quiz.index));
 
+/* ───── «Слушать»: the text of every lesson's read page in parts, for the worker's Gemini TTS (src/core/narration.ts) ───── */
+
+let narrated = 0;
+for (const l of LESSONS)
+  for (const lang of lessonLangs(l)) {
+    const u = { ru, en, de }[lang] as Record<string, string>;
+    const n = narration(
+      l,
+      lang,
+      { chapter: (k, total) => u['read.chapter'].replace('{n}', String(k)).replace('{total}', String(total)), reflection: u['refl.title'], practice: u['final.practice'] },
+      (t) => createHash('sha256').update(t).digest('hex').slice(0, 16),
+    );
+    if (!n) continue;
+    mkdirSync(`${DIST}/tts/${lang}`, { recursive: true });
+    writeFileSync(`${DIST}/tts/${lang}/${l.slug}.json`, JSON.stringify(n));
+    narrated++;
+  }
+
 /* ───── for AI assistants: /llms.txt (a map of the site) and /llms-full.txt (the lessons as plain text) ───── */
 
 /** the text of a static page's article, paragraph by paragraph */
@@ -1137,4 +1158,4 @@ Disallow: /
 Sitemap: ${SITE_URL}/sitemap.xml
 `,
 );
-console.log(`prerender: index + ${LESSON_OUT.length} lesson pages (ru/en/de) + ${STATIC_OUT.length} math / daily / facts / letters / prophets / writings / words pages, sitemap.xml, robots.txt, llms.txt, ${FEEDS.length} feeds, ${LANGS.length} manifests, sw.js (${precache.length} files offline), daily messages for ${Object.keys(days).length} days, ${quiz.index.length} quiz decks`);
+console.log(`prerender: index + ${LESSON_OUT.length} lesson pages (ru/en/de) + ${STATIC_OUT.length} math / daily / facts / letters / prophets / writings / words pages, sitemap.xml, robots.txt, llms.txt, ${FEEDS.length} feeds, ${LANGS.length} manifests, sw.js (${precache.length} files offline), daily messages for ${Object.keys(days).length} days, ${quiz.index.length} quiz decks, ${narrated} lessons to listen to`);
