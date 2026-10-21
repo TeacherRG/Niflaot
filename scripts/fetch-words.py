@@ -3,7 +3,7 @@
 «Слова Танаха»: частотный словарь Пророков и Писаний для изучения иврита по словам отрывка дня.
 
     python3 scripts/fetch-words.py fetch     # открытая разметка Танаха и словарь → .cache/oshb (без них build не работает)
-    python3 scripts/fetch-words.py build     # → src/tanakh/words.json и public/tanakh/words/<дата>.json
+    python3 scripts/fetch-words.py build     # → src/tanakh/words.json, public/tanakh/words/<дата>.json и примеры стихов
     python3 scripts/fetch-words.py todo ru   # слова без перевода на этом языке (по порядку частоты)
     python3 scripts/fetch-words.py stems     # глаголы почти без каль — проверить FORM_FIX (настоящая форма вместо Стронга)
 
@@ -28,6 +28,8 @@ DAYS = ROOT / 'public' / 'tanakh'
 OUT_DAYS = DAYS / 'words'
 OUT = ROOT / 'src' / 'tanakh' / 'words.json'
 TR = ROOT / 'src' / 'tanakh' / 'words'
+# переводы стихов проекта (ru, de): src/tanakh/<язык>/<книга>.json → `t`
+VERSE_TR = ROOT / 'src' / 'tanakh'
 RAW = 'https://raw.githubusercontent.com/openscriptures'
 # сколько слов в словаре (с частотами и по дням); переводы — по мере готовности, с начала списка
 SIZE = 1000
@@ -206,7 +208,90 @@ def cmd_build():
             out[s] = {'n': len(ls), 'w': dict(sorted(c.items(), key=lambda x: -x[1]))}
         (OUT_DAYS / f.name).write_text(json.dumps(out, separators=(',', ':')) + '\n', encoding='utf-8')
         n += 1
+    cmd_examples(ranked)
     print(f'{total} words ({len(count)} lemmas, {names} names); top {SIZE} cover {words[-1]["cov"]}%; {n} days → {OUT_DAYS}')
+
+
+MARKS = re.compile(r'[\u0591-\u05C7/]')
+def surface():
+    """(книга, глава, стих) → [(номер Стронга или None, буквы слова)] по порядку; стихи с кетив/кри — без них (в них
+    написание WLC и наше могут не совпасть)"""
+    out = {}
+    W = re.compile(r'<verse osisID="([^"]+)">|</verse>|<w lemma="([^"]*)"[^>]*?morph="([^"]*)"[^>]*>([^<]*)</w>')
+    for b, slug in BOOKS.items():
+        x = (CACHE / 'wlc' / f'{b}.xml').read_text(encoding='utf-8')
+        ref, ws, bad = None, [], False
+        for m in W.finditer(re.sub(r'<note\b.*?</note>', '', x, flags=re.S)):
+            if m[1]:
+                _, c, v = m[1].split('.')
+                ref, ws = (slug, int(c), int(v)), []
+                continue
+            if m[0] == '</verse>':
+                out[ref] = ws
+                continue
+            parts = [p for p in m[2].split('/') if re.match(r'\d', p)]
+            name = re.sub(r'^[HA]', '', m[3]).split('/')[-1].startswith('Np')
+            l = re.match(r'\d+', parts[-1])[0] if parts and not name else None
+            ws.append((l, letters(MARKS.sub('', m[4]))))
+        for v in re.findall(r'<verse osisID="([^"]+)">(?:(?!</verse>).)*?<note type="variant">', x, re.S):
+            _, c, vv = v.split('.')
+            out.pop((slug, int(c), int(vv)), None)
+    return out
+
+
+def cmd_examples(ranked):
+    """Пример стиха для каждого слова словаря («Мои слова»): из Пророков и Писаний, где слово встречается;
+    сначала — стих, у которого есть перевод проекта (ru и de), потом — 6–18 слов, короче, раньше по циклу.
+    → public/tanakh/words/examples-<язык>.json: {номер: [дата, раздел, «книга глава:стих», [до, слово, после], перевод,
+    1 — если перевод английский (на этом языке стих ещё не переведён)]}"""
+    sf = surface()
+    trs = {lang: {} for lang in ('ru', 'de')}
+    for lang in trs:
+        for f in (VERSE_TR / lang).glob('*.json'):
+            for k, v in json.loads(f.read_text(encoding='utf-8')).items():
+                if v.get('t'): trs[lang][(f.stem, *map(int, k.split(':')))] = v['t']
+    verses = {}
+    for f in sorted(DAYS.glob('????-??-??.json')):
+        day = json.loads(f.read_text(encoding='utf-8'))
+        for s in ('neviim', 'ketuvim'):
+            for v in day[s]['verses']:
+                verses.setdefault((v['b'], v['c'], v['v']), (f.stem, s, v['he'], v['en']))
+    where = collections.defaultdict(list)
+    for ref, ws in sf.items():
+        if ref not in verses: continue
+        for i, (l, _) in enumerate(ws):
+            if l: where[l].append((ref, i))
+    out = {lang: {} for lang in ('ru', 'en', 'de')}
+    missing = 0
+    for l in ranked:
+        best = None
+        for ref, i in where[l]:
+            date, sec, he, en = verses[ref]
+            parts = re.split(r'([ \u05BE]+)', he.replace('׃', '').strip())
+            cons = [letters(p).replace('ק', 'ה') for p in parts]
+            ws = sf[ref]
+            # то же слово в нашем тексте: по порядку среди слов с теми же буквами (Имена — ק вместо ה)
+            word = ws[i][1].replace('ק', 'ה')
+            k = sum(1 for _, w in ws[:i] if w.replace('ק', 'ה') == word)
+            hits = [j for j, c in enumerate(cons) if c == word]
+            if len(hits) <= k: continue
+            j = hits[k]
+            n = len(ws)
+            key = (not (ref in trs['ru'] and ref in trs['de']), not 6 <= n <= 18, n, date)
+            if best is None or key < best[0]:
+                best = (key, ref, date, sec, [''.join(parts[:j]), parts[j], ''.join(parts[j + 1:]) + '׃'], en)
+        if not best:
+            missing += 1
+            continue
+        _, ref, date, sec, he, en = best
+        r = f'{ref[0]} {ref[1]}:{ref[2]}'
+        out['en'][l] = [date, sec, r, he, en]
+        for lang in trs:
+            t = trs[lang].get(ref)
+            out[lang][l] = [date, sec, r, he, t] if t else [date, sec, r, he, en, 1]
+    for lang, ex in out.items():
+        (OUT_DAYS / f'examples-{lang}.json').write_text(json.dumps(ex, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
+    print(f'examples: {len(out["en"])} words ({missing} without), translated ru {sum(len(x) == 5 for x in out["ru"].values())}')
 
 
 def cmd_todo(lang):

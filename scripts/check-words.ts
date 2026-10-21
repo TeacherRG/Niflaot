@@ -4,7 +4,9 @@
  *    Имена — как во всём проекте (אֱלֹקִים, אֵ-ל, אֲדֹ-נָי; без יהוה); корень — только буквы;
  *  - переводы src/tanakh/words/<ru|en|de>.json: одни и те же слова на всех языках, сплошным началом списка
  *    (не меньше 500), не пустые, Имена — Б-г, Г-сподь / G-d, L-rd / G-tt (английский и немецкий — scripts/style-rules.ts);
- *  - public/tanakh/words/<дата>.json — у каждого дня цикла, оба раздела; слова — из словаря, их не больше, чем слов отрывка.
+ *  - public/tanakh/words/<дата>.json — у каждого дня цикла, оба раздела; слова — из словаря, их не больше, чем слов отрывка;
+ *  - public/tanakh/words/examples-<язык>.json — у каждого переведённого слова стих-пример: тот самый стих дня цикла
+ *    (иврит слово в слово, как на странице отрывка), выделено одно слово, перевод — проекта или английский JPS (с пометкой).
  */
 import { existsSync, readFileSync } from 'node:fs';
 import cycleJson from '../src/tanakh/cycle.json';
@@ -98,6 +100,35 @@ for (const lang of ['ru', 'en', 'de'] as Lang[]) {
   const [first] = Object.keys(full);
   const c2 = torahWordsCertificates(all, { ...full, [first]: [2, 2, 0] }).find((c) => c.id === `tw-${p}`);
   if (!c1?.progress.earned || c2?.progress.earned) err('Слова Торы: сертификат главы — не по правилу «все слова на три звезды»');
+}
+// стихи-примеры «Моих слов»: тот же иврит, что на странице дня, перевод — проекта или JPS, Имена — по правилам
+{
+  const dayCache = new Map<string, { verses: { b: string; c: number; v: number; he: string; en: string }[] }[]>();
+  const verse = (date: string, sec: 'neviim' | 'ketuvim', ref: string) => {
+    if (!dayCache.has(date)) {
+      const d = read(`../public/tanakh/${date}.json`);
+      dayCache.set(date, [d.neviim, d.ketuvim]);
+    }
+    return dayCache.get(date)![sec === 'neviim' ? 0 : 1].verses.find((v) => `${v.b} ${v.c}:${v.v}` === ref);
+  };
+  for (const lang of ['ru', 'en', 'de'] as Lang[]) {
+    const ex = read(`../public/tanakh/words/examples-${lang}.json`) as Record<string, [string, 'neviim' | 'ketuvim', string, [string, string, string], string, 1?]>;
+    for (const id of Object.keys(tr[lang] ?? {})) {
+      const x = ex[id];
+      if (!x) {
+        err(`examples-${lang}: у слова ${id} нет стиха-примера`);
+        continue;
+      }
+      const [date, sec, ref, he, t, en] = x;
+      const v = verse(date, sec, ref);
+      if (!v) err(`examples-${lang}: ${id} — стиха ${ref} нет в отрывке ${date} (${sec})`);
+      else if (he.join('').replace('׃', '') !== v.he.replace(/׃/g, '').trim()) err(`examples-${lang}: ${id} — иврит ${ref} не как на странице дня`);
+      if (!/[א-ת]/.test(he[1]) || /[ \u05BE]/.test(he[1])) err(`examples-${lang}: ${id} — выделено не одно слово`);
+      if (!t || /</.test(t)) err(`examples-${lang}: ${id} — перевод стиха пустой или с HTML`);
+      if (v && (en === 1 || lang === 'en') && t !== v.en) err(`examples-${lang}: ${id} — английский перевод не JPS дня`);
+      if (lang !== 'en' && en !== 1) for (const e of badName[lang](t)) err(`examples-${lang}: ${id} — ${e}`);
+    }
+  }
 }
 if (errors.length) {
   console.error(`✗ Слова отрывка: ${errors.length} ошибок\n  ${errors.slice(0, 40).join('\n  ')}`);
