@@ -172,7 +172,7 @@ export function ListenBar({ slug, lang, title }: { slug: string; lang: string; t
         </button>
         <div className="listen-what">
           <b>{parts[at].label}</b>
-          <span className="num">{t('listen.part', { n: at + 1, total: parts.length })}</span>
+          <span>{t('listen.part', { n: at + 1, total: parts.length })}</span>
         </div>
         <button type="button" className="listen-speed num" onClick={nextSpeed} aria-label={t('listen.speed')}>
           {SPEEDS[speed]}×
