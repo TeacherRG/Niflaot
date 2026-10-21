@@ -35,6 +35,7 @@ export function ListenBar({
   const [at, setAt] = useState(0);
   const [speed, setSpeed] = useState(0);
   const [slow, setSlow] = useState(false);
+  const [quota, setQuota] = useState(false);
   const audio = useRef<HTMLAudioElement | null>(null);
   const urls = useRef(new Map<number, Promise<string>>());
   const run = useRef(0);
@@ -111,8 +112,10 @@ export function ListenBar({
           p.then(URL.revokeObjectURL, () => {});
         }
       media(i);
-    } catch {
-      if (run.current === me) setStatus('error');
+    } catch (e) {
+      if (run.current !== me) return;
+      setQuota((e as Error).message === 'quota');
+      setStatus('error');
     } finally {
       clearTimeout(timer);
     }
@@ -207,7 +210,7 @@ export function ListenBar({
       {status === 'loading' && slow && <p className="listen-msg">{t('listen.preparing')}</p>}
       {status === 'error' && (
         <p className="listen-msg bad">
-          {t('listen.error')}{' '}
+          {t(quota ? 'listen.quota' : 'listen.error')}{' '}
           <button type="button" className="linklike" onClick={() => play(at)}>
             {t('listen.retry')}
           </button>

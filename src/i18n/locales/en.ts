@@ -419,6 +419,7 @@ const en: Messages = {
   'listen.part': 'part {n} of {total}',
   'listen.preparing': 'Nobody has listened to this part yet — it is being recorded, which takes up to a minute. After that it plays at once for everyone.',
   'listen.error': 'The recording could not be played.',
+  'listen.quota': "Today's limit of new recordings is used up: the parts already recorded play, this one will be recorded tomorrow.",
   'listen.retry': 'Try again',
   'listen.done': 'You have listened to the whole lesson.',
   'read.calcs': 'How it adds up — the chapter’s calculations',

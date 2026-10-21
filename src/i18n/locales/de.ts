@@ -419,6 +419,7 @@ const de: Messages = {
   'listen.part': 'Teil {n} von {total}',
   'listen.preparing': 'Diesen Teil hat noch niemand gehört — er wird gerade aufgenommen, das dauert bis zu einer Minute. Danach ist er für alle sofort da.',
   'listen.error': 'Die Aufnahme konnte nicht abgespielt werden.',
+  'listen.quota': 'Das heutige Limit für neue Aufnahmen ist erreicht: Schon aufgenommene Teile laufen, dieser wird morgen aufgenommen.',
   'listen.retry': 'Noch einmal',
   'listen.done': 'Du hast die ganze Lektion gehört.',
   'read.calcs': 'Wie es aufgeht — die Rechnungen des Kapitels',

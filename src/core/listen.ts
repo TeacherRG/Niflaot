@@ -31,7 +31,8 @@ export const partUrl = (lang: string, slug: string, h: string) => `${ASSISTANT_U
 /** a recording as a blob: address; the first time the worker records it (up to a minute) */
 export async function fetchPart(lang: string, slug: string, h: string, signal?: AbortSignal): Promise<string> {
   const r = await fetch(partUrl(lang, slug, h), { signal });
-  if (!r.ok) throw new Error(`tts ${r.status}`);
+  // 503 «quota» — Gemini's limit of the day is spent (assistant/src/tts.ts)
+  if (!r.ok) throw new Error(r.status === 503 && (await r.text().catch(() => '')) === 'quota' ? 'quota' : `tts ${r.status}`);
   return URL.createObjectURL(await r.blob());
 }
 
