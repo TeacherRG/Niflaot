@@ -35,13 +35,18 @@ export async function fetchPart(lang: string, slug: string, h: string, signal?: 
   return URL.createObjectURL(await r.blob());
 }
 
-/** a silent WAV: played right in the tap, it lets iPhone's Safari play the recording that arrives later */
+/**
+ * 0.1 s of a silent WAV: played right in the tap, it lets Safari (iPhone, iPad) play the recording that arrives later.
+ * Not empty: Safari refuses a file without samples, and then the element stays locked.
+ */
 export const silence = () => {
-  const b = new Uint8Array(44);
+  const n = 2400 * 2;
+  const b = new Uint8Array(44 + n);
   const v = new DataView(b.buffer);
-  [...'RIFF'].forEach((c, i) => v.setUint8(i, c.charCodeAt(0)));
-  v.setUint32(4, 36, true);
-  [...'WAVEfmt '].forEach((c, i) => v.setUint8(8 + i, c.charCodeAt(0)));
+  const str = (o: number, s: string) => [...s].forEach((c, i) => v.setUint8(o + i, c.charCodeAt(0)));
+  str(0, 'RIFF');
+  v.setUint32(4, 36 + n, true);
+  str(8, 'WAVEfmt ');
   v.setUint32(16, 16, true);
   v.setUint16(20, 1, true);
   v.setUint16(22, 1, true);
@@ -49,6 +54,7 @@ export const silence = () => {
   v.setUint32(28, 48000, true);
   v.setUint16(32, 2, true);
   v.setUint16(34, 16, true);
-  [...'data'].forEach((c, i) => v.setUint8(36 + i, c.charCodeAt(0)));
+  str(36, 'data');
+  v.setUint32(40, n, true);
   return URL.createObjectURL(new Blob([b], { type: 'audio/wav' }));
 };
