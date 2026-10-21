@@ -1191,6 +1191,12 @@ const en: Messages = {
   'academy.fac.hemshech.a': "A certificate for a discourse — when all its passages are read (100%): mark “I’ve read it” under each. If the questions on all these passages are passed with at least {pass}% too, the certificate shows points. Here — the discourses whose study has begun.",
   // «Святая музыка»: the niggunim of m770.org with karaoke
   'nigun.title': "Holy music",
+  'seo.more': "More on the site",
+  'seo.otherLessons': "More lessons",
+  'seo.lessonCommentary': "gematria of the weekly portion",
+  'seo.lessonSicha': "the Rebbe on Parshat {parsha}",
+  'nigun.seoTitle': "Chassidic niggunim with karaoke — listen, sing and learn",
+  'nigun.seoAbout': "The words of the niggun",
   'nigun.sub': "A course",
   'nigun.menuSub': "niggunim — learn them by karaoke",
   'nigun.lead': "Niggunim are the melodies of the Chassidim. Each lesson tells about the niggun and the Chassidim who sang it, and has a karaoke: listen to the recording and sing along line by line.",

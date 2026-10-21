@@ -183,6 +183,15 @@
 
 ## Поиск и ИИ-помощники
 
+- **SEO-основа** (`scripts/prerender.ts`): главная на трёх языках — `/`, `/en/`, `/de/` (hreflang, `homePage(lang)`; уроки всех учителей
+  по главам, ссылки на страницы для поиска и на другие языки); `<title>` — до 65 знаков (`fitTitle`: сначала отрезается хвост
+  после « — » / «: », потом бренд), meta description — до 160 по слову (`snippet`; полный текст — в JSON-LD и на странице);
+  заголовок урока — то, что ищут: «Бааль ґа-Турим: Ноах — гематрии недельной главы», «Выйди из ковчега — Ребе о главе Ноах»
+  (`seo.lessonCommentary`, `seo.lessonSicha`); JSON-LD урока — `@graph`: LearningResource (`datePublished` — воскресенье
+  недели главы, `dateModified` — git, `isAccessibleForFree`, `about` — глава) + BreadcrumbList; внизу урока — «Другие уроки»
+  (`seo.otherLessons`: сначала эта глава); `sitemap.xml` — `lastmod` по git (`changed()`; страницы дня — сегодня) и
+  `xhtml:link` hreflang — поэтому в `deploy.yml` checkout с `fetch-depth: 0`. «Святая музыка» — `/nigun/` (и en/de;
+  `STATIC_PAGES.nigun`): о нигуне, слова (на en/de — чтение и перевод), m770.org. Превью `og/hemshech|quiz|nigun.png`.
 - **Уроки — на трёх языках:** `scripts/prerender.ts` пишет `/<slug>/` (ru), `/en/<slug>/`, `/de/<slug>/` — свой `<html lang>`,
   заголовок, описание, JSON-LD (`inLanguage`), весь пересказ и hreflang между ними (`lessonPage(l, lang)`, `LESSON_OUT`);
   все — в `sitemap.xml`, ленты en/de ссылаются на свои страницы; со статической главной — «In English» / «Auf Deutsch».

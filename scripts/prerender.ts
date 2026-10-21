@@ -2,7 +2,10 @@
  * After `vite build`: pages and files for search engines and a stricter browser policy.
  *  - dist/<slug>/index.html for every lesson: its own title, description, canonical URL, Open Graph,
  *    JSON-LD and the lesson outline as static HTML (the app replaces it on start and opens the lesson);
- *  - static outline of the catalog in dist/index.html, with real links to the lesson pages;
+ *  - the home page in each language — dist/index.html (ru), dist/en/, dist/de/ (hreflang): the catalog with real links;
+ *  - search snippets within limits: the meta description cut at a word to 160 characters, the <title> to 65 (`fitTitle`);
+ *    JSON-LD with breadcrumbs, dates (git) and «free»; lesson titles say what people search for («гематрии недельной главы»);
+ *  - «Святая музыка» dist/nigun/ (and en/de): the niggunim, their words and the source;
  *  - «Устный счёт», «Гематрия дня», «Знаете ли вы?» and «Буквы за 5 минут» for search engines: dist/mental-math/,
  *    dist/daily/, dist/facts/, dist/letters/, dist/hebrew-words/ (ru) and the same under dist/en/, dist/de/ — with hreflang alternates;
  *    the app opens the trainer / the game / the feed / the letters on them;
@@ -10,7 +13,8 @@
  *  - the service worker dist/sw.js (public/sw.js with this build's version and files to keep for offline use) and
  *    dist/quiz/index.json, dist/quiz/<язык>/<id>.json — колоды «Викторины вместе» (src/core/quizDecks.ts);
  *    dist/daily-message.json — the daily reminder's message for the coming days (src/core/dailyMessage.ts);
- *  - dist/sitemap.xml and dist/robots.txt;
+ *  - dist/sitemap.xml (lastmod — the day the page's sources last changed in git, the pages of the day — today; hreflang
+ *    alternates) and dist/robots.txt;
  *  - Atom feeds of the lessons: dist/feed.xml (ru), dist/feed-en.xml, dist/feed-de.xml — for readers, a newsletter
  *    and auto-posting services (links marked ?ref=rss);
  *  - Open Graph picture: dist/og/<slug>.png if it exists (scripts/og-images.ts), else dist/og/site.png;
@@ -19,6 +23,8 @@
  */
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+import { NIGUNIM } from '../src/nigun';
 import { LESSONS, LESSON_GROUPS, type Lesson } from '../src/lessons';
 import { SITE_URL, staticPath, type StaticPage } from '../src/core/site';
 import { EXAMPLES, OPS, SIGN, answer, solve } from '../src/core/mentalMath';
@@ -54,6 +60,41 @@ const shell = readFileSync(`${DIST}/index.html`, 'utf8');
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 /** plain text for meta tags and static HTML: no markup, Names of G-d as on screen */
+/**
+ * Search snippets: Google and Яндекс show about 155–160 characters of a description and 60–65 of a title, the rest is
+ * cut mid-word. The meta description is cut here at a word (the full text stays in JSON-LD and on the page).
+ */
+const snippet = (t: string, max = 160) => {
+  if (t.length <= max) return t;
+  const cut = t.slice(0, max - 1);
+  return `${cut.slice(0, Math.max(cut.lastIndexOf(' '), max / 2)).replace(/[\s,;:.—–-]+$/, '')}…`;
+};
+/**
+ * <title> within 65 characters: the brand stays if it fits — a long title first loses its tail after « — », « – » or
+ * «: » (the h1 and og:title keep the whole); a title that still doesn't fit loses the brand.
+ */
+const BRAND = / · (Нифлаот|Niflaot|MyChitas)$/;
+function fitTitle(t: string, max = 65) {
+  if (t.length <= max) return t;
+  const brand = t.match(BRAND)?.[0] ?? '';
+  const bare = t.slice(0, t.length - brand.length);
+  const heads = [bare, ...[...bare.matchAll(/ [—–] |: /g)].map((m) => bare.slice(0, m.index)).reverse()].filter((h) => h.length >= 25);
+  return heads.map((h) => h + brand).find((x) => x.length <= max) ?? heads.find((h) => h.length <= max) ?? bare;
+}
+/** the day a file or folder last changed (git), for sitemap `lastmod` and JSON-LD `dateModified`; not in git — today */
+const gitDates = new Map<string, string>();
+function changed(...paths: string[]): string {
+  const key = paths.join('\n');
+  if (!gitDates.has(key)) {
+    let d = '';
+    try {
+      d = execFileSync('git', ['log', '-1', '--format=%cs', '--', ...paths], { encoding: 'utf8' }).trim();
+    } catch {}
+    gitDates.set(key, d || new Date().toISOString().slice(0, 10));
+  }
+  return gitDates.get(key)!;
+}
+const latest = (...dates: string[]) => dates.sort().pop()!;
 const plain = (html: string) => displayNames(html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim());
 const text = (l: Lesson) => l.texts[LOCALE]!;
 /** «Урок 2», or «Нифлаот Ребе · Урок 1» for a lesson of the Rebbe's section */
@@ -63,6 +104,8 @@ const lessonLabel = (l: Lesson, u: Record<string, unknown> = ui) =>
 const lessonUrl = (l: Lesson, lang: 'ru' | 'en' | 'de' = 'ru') => `${SITE_URL}/${lang === 'ru' ? '' : `${lang}/`}${l.slug}/`;
 const LESSON_LANGS = ['ru', 'en', 'de'] as const;
 const KEYWORDS = { ru: ['гематрия', 'Тора'], en: ['gematria', 'Torah'], de: ['Gematria', 'Tora'] };
+/** a talk of the Rebbe has no gematria */
+const SICHA_KEYWORDS = { ru: ['Тора', 'Любавичский Ребе', 'Ликутей сихот'], en: ['Torah', 'the Lubavitcher Rebbe', 'Likkutei Sichot'], de: ['Tora', 'der Lubawitscher Rebbe', 'Likkutej Sichot'] };
 
 /* ───── Content-Security-Policy ───── */
 
@@ -99,6 +142,8 @@ interface Page {
   /** page language (default ru) and the same page in other languages */
   lang?: 'ru' | 'en' | 'de';
   alternates?: { lang: string; url: string }[];
+  /** the day the page's content last changed (sitemap) */
+  lastmod?: string;
 }
 
 function setMeta(html: string, attr: 'name' | 'property', key: string, value: string) {
@@ -109,12 +154,12 @@ function setMeta(html: string, attr: 'name' | 'property', key: string, value: st
 
 function render(p: Page): string {
   let html = shell
-    .replace(/<title>[^<]*<\/title>/, () => `<title>${esc(p.title)}</title>`)
+    .replace(/<title>[^<]*<\/title>/, () => `<title>${esc(fitTitle(p.title))}</title>`)
     .replace(/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${p.url}" />`);
-  html = setMeta(html, 'name', 'description', p.description);
+  html = setMeta(html, 'name', 'description', snippet(p.description));
   html = setMeta(html, 'property', 'og:type', p.type);
   html = setMeta(html, 'property', 'og:title', p.title);
-  html = setMeta(html, 'property', 'og:description', p.description);
+  html = setMeta(html, 'property', 'og:description', snippet(p.description, 200));
   html = setMeta(html, 'property', 'og:url', p.url);
   const image = existsSync(`${DIST}/og/${p.image}.png`) ? p.image : 'site';
   // ?v=<hash of the picture>: Telegram, WhatsApp… cache previews by URL — a new picture gets a new address
@@ -166,52 +211,95 @@ const VERIFY = (
   .map(([k, v]) => `\n    <meta name="${k}" content="${v}" />`)
   .join('');
 
-const PUBLISHER = { '@type': 'Organization', name: 'MyChitas', url: 'https://mychitas.app' };
+const PUBLISHER = { '@type': 'Organization', name: 'MyChitas', url: 'https://mychitas.app', logo: `${SITE_URL}/icons/icon-512.png` };
 const SITE = { '@type': 'WebSite', name: 'Нифлаот', url: `${SITE_URL}/` };
 
 /* ───── catalog ───── */
 
 const tags = buildTags(LOCALE);
-const home: Page = {
-  title: `${ui['catalog.seoTitle']} · MyChitas`,
-  description: ui['catalog.seo'],
-  url: `${SITE_URL}/`,
-  type: 'website',
-  root: './',
-  image: 'site',
-  imageAlt: ui['catalog.seoTitle'],
-  jsonLd: {
-    '@context': 'https://schema.org',
-    '@graph': [
-      { ...SITE, inLanguage: ['ru', 'en', 'de'], description: ui['catalog.seo'], publisher: PUBLISHER },
-      {
-        '@type': 'ItemList',
-        name: ui['catalog.heading'],
-        itemListElement: LESSONS.map((l, i) => ({ '@type': 'ListItem', position: i + 1, url: lessonUrl(l), name: text(l).title })),
-      },
-    ],
-  },
-  body: `<header><p class="he">נפלאות</p><h1>${esc(ui['app.title'] as string)} — ${esc(ui['catalog.uvp'] as string)}</h1><p>${esc(plain(ui['catalog.intro'] as string))}</p></header>
-<h2>${esc(ui['wing.kids'] as string)}: ${esc(ui['catalog.heading'] as string)}</h2>
-${LESSON_GROUPS.map(
-  (g) => `<h3>${esc(g.name.ru)} · <span class="he">${g.he}</span></h3><ul>${g.lessons
-    .map((l) => `<li><a href="./${l.slug}/"><span class="he">${esc(displayNames(l.hebrewTitle))}</span> — ${esc(text(l).title)}</a>: ${esc(plain(text(l).summary))}</li>`)
-    .join('')}</ul>`,
-).join('\n')}
-<h2>${esc(ui['wing.adults'] as string)}: ${esc(ui['home.adultsTitle'] as string)}</h2>
-<p>${esc(ui['wing.adultsSub'] as string)}. <a href="./#/neviim">${esc(ui['tanakh.neviim'] as string)}</a> · <a href="./#/ketuvim">${esc(ui['tanakh.ketuvim'] as string)}</a> · <a href="./hebrew-words/">${esc(ui['words.seoShort'] as string)}</a></p>
-<p>${esc(ui['menu.torahRead'] as string)}: ${LESSONS
-  .map((l) => `<a href="./#/${l.slug}/read">${esc(text(l).title)}</a>`)
-  .join(' · ')}</p>
-<h2 lang="en">In English</h2><ul lang="en">${LESSONS.filter((l) => l.texts.en)
-  .map((l) => `<li><a href="./en/${l.slug}/">${esc(l.texts.en!.title)}</a></li>`)
-  .join('')}</ul>
-<h2 lang="de">Auf Deutsch</h2><ul lang="de">${LESSONS.filter((l) => l.texts.de)
-  .map((l) => `<li><a href="./de/${l.slug}/">${esc(l.texts.de!.title)}</a></li>`)
-  .join('')}</ul>
-<h2>${esc(ui['catalog.tags'] as string)}</h2>
-<p>${tags.map((t) => (t.he ? `<span class="he">${esc(displayNames(t.label))}</span>` : esc(t.label))).join(' · ')}</p>`,
+/** a lesson's folder: src/lessons/NN-<slug> */
+const lessonDir = (l: Lesson) => `src/lessons/${readdirSync('src/lessons').find((d) => d.replace(/^\d+-/, '') === l.slug)}`;
+const lessonChanged = (l: Lesson) => changed(lessonDir(l));
+/** a lesson «comes out» on the Sunday of its portion's week */
+const publishedDay = (l: Lesson) => {
+  const d = new Date(`${PARSHIOT[l.parsha].shabbat}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() - 6);
+  return d.toISOString().slice(0, 10);
 };
+const homeUrl = (lang: 'ru' | 'en' | 'de') => `${SITE_URL}/${lang === 'ru' ? '' : `${lang}/`}`;
+/** «Главная → урок»: breadcrumbs for search results */
+const crumbs = (lang: 'ru' | 'en' | 'de', name: string, url: string) => ({
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: String({ ru, en, de }[lang]['app.title']), item: homeUrl(lang) },
+    { '@type': 'ListItem', position: 2, name, item: url },
+  ],
+});
+
+/**
+ * The home page in each language: `/` (ru), `/en/`, `/de/` (hreflang between them) — what the academy is, the lessons by
+ * portion (every teacher), the daily study of the adults and the pages for search; the app opens the catalog on them.
+ */
+function homePage(lang: 'ru' | 'en' | 'de'): Page {
+  const u = { ru, en, de }[lang] as Record<string, unknown>;
+  const t = (k: string) => esc(String(u[k]));
+  const root = lang === 'ru' ? './' : '../';
+  const langTags = lang === 'ru' ? tags : buildTags(lang);
+  const lessons = LESSONS.filter((l) => l.texts[lang]);
+  const tx = (l: Lesson) => l.texts[lang]!;
+  const page = (p: StaticPage) => `/${lang === 'ru' ? '' : `${lang}/`}${p}/`;
+  const others = LESSON_LANGS.filter((x) => x !== lang);
+  const OTHER = { ru: 'По-русски', en: 'In English', de: 'Auf Deutsch' } as const;
+  return {
+    title: `${u['catalog.seoTitle']} · MyChitas`,
+    description: String(u['catalog.seo']),
+    url: homeUrl(lang),
+    type: 'website',
+    root,
+    lang,
+    alternates: LESSON_LANGS.map((x) => ({ lang: x, url: homeUrl(x) })),
+    lastmod: latest(...LESSONS.map(lessonChanged), changed('scripts/prerender.ts', `src/i18n/locales/${lang}.ts`)),
+    image: 'site',
+    imageAlt: String(u['catalog.seoTitle']),
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        { ...SITE, name: String(u['app.title']), alternateName: ['נפלאות', 'Niflaot', 'Нифлаот'], inLanguage: lang, description: String(u['catalog.seo']), publisher: PUBLISHER },
+        { ...PUBLISHER, '@type': 'EducationalOrganization', name: `${u['app.title']} · MyChitas`, url: homeUrl(lang), parentOrganization: PUBLISHER },
+        {
+          '@type': 'ItemList',
+          name: String(u['catalog.heading']),
+          itemListElement: lessons.map((l, i) => ({ '@type': 'ListItem', position: i + 1, url: lessonUrl(l, lang), name: tx(l).title })),
+        },
+      ],
+    },
+    body: `<header><p class="he">נפלאות</p><h1>${t('app.title')} — ${t('catalog.uvp')}</h1><p>${esc(plain(String(u['catalog.intro'])))}</p></header>
+<h2>${t('wing.kids')}: ${t('catalog.heading')}</h2>
+${LESSON_GROUPS.map((g) => {
+  const ls = [...g.lessons, ...g.rebbe].filter((l) => l.texts[lang]);
+  return ls.length
+    ? `<h3>${esc(g.name[lang] ?? g.name.ru)} · <span class="he">${g.he}</span></h3><ul>${ls
+        .map((l) => `<li><a href="${lessonUrl(l, lang)}"><span class="he">${esc(displayNames(l.hebrewTitle))}</span> — ${esc(tx(l).title)}</a>: ${esc(plain(tx(l).summary))}</li>`)
+        .join('')}</ul>`
+    : '';
+}).join('\n')}
+<h2>${t('wing.adults')}: ${t('home.adultsTitle')}</h2>
+<p>${t('wing.adultsSub')}.</p>
+<ul><li><a href="${page('neviim')}">${t('tanakh.neviim')}</a></li><li><a href="${page('ketuvim')}">${t('tanakh.ketuvim')}</a></li><li><a href="${page('hemshech')}">${t('hs.menuLbl')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li></ul>
+<p>${t('menu.torahRead')}: ${lessons.map((l) => `<a href="${root}#/${l.slug}/read">${esc(tx(l).title)}</a>`).join(' · ')}</p>
+<h2>${t('seo.more')}</h2>
+<ul><li><a href="${page('facts')}">${t('facts.title')}</a></li><li><a href="${page('daily')}">${t('daily.title')}</a></li><li><a href="${page('letters')}">${t('abc.title')}</a></li><li><a href="${page('mental-math')}">${t('math.title')}</a></li><li><a href="${page('nigun')}">${t('nigun.title')}</a></li><li><a href="${page('quiz')}">${t('lq.title')}</a></li></ul>
+${others
+  .map(
+    (o) => `<h2 lang="${o}">${OTHER[o]}</h2><ul lang="${o}"><li><a href="${homeUrl(o)}">${esc(String({ ru, en, de }[o]['catalog.seoTitle']))}</a></li>${LESSONS.filter((l) => l.texts[o])
+      .map((l) => `<li><a href="${lessonUrl(l, o)}">${esc(l.texts[o]!.title)}</a></li>`)
+      .join('')}</ul>`,
+  )
+  .join('\n')}
+<h2>${t('catalog.tags')}</h2>
+<p>${langTags.map((x) => (x.he ? `<span class="he">${esc(displayNames(x.label))}</span>` : esc(x.label))).join(' · ')}</p>`,
+  };
+}
 
 /* ───── lessons ───── */
 
@@ -224,24 +312,38 @@ function lessonPage(l: Lesson, lang: 'ru' | 'en' | 'de' = 'ru'): Page {
   const langTags = lang === 'ru' ? tags : buildTags(lang);
   const keywords = langTags.filter((t) => !t.he && t.lessons.includes(l)).map((t) => t.label);
   const root = lang === 'ru' ? '../' : '../../';
+  const parsha = PARSHIOT[l.parsha].name[lang] ?? PARSHIOT[l.parsha].name.ru;
+  // what people search for: «гематрии недельной главы», «Ребе о главе Ноах» — not «Урок 4»
+  const topic = l.kind === 'sicha' ? String(ui['seo.lessonSicha']).replace('{parsha}', parsha) : String(ui['seo.lessonCommentary']);
+  const url = lessonUrl(l, lang);
+  // the other lessons of the portion first, then the rest: links between the lesson pages
+  const near = [...LESSONS.filter((x) => x !== l && x.parsha === l.parsha), ...LESSONS.filter((x) => x.parsha !== l.parsha).reverse()].filter((x) => x.texts[lang]);
+  const modified = lessonChanged(l);
   return {
-    title: `${tx.title} — ${lessonLabel(l, ui)} · ${ui['app.title']}`,
+    title: `${tx.title} — ${topic} · ${ui['app.title']}`,
     description: plain(tx.summary),
-    url: lessonUrl(l, lang),
+    url,
     type: 'article',
     root,
     lang,
     alternates: lessonLangs(l).map((x) => ({ lang: x, url: lessonUrl(l, x) })),
+    lastmod: modified,
     image: l.slug,
     imageAlt: `${displayNames(l.hebrewTitle)} — ${tx.title}`,
     jsonLd: {
       '@context': 'https://schema.org',
+      '@graph': [
+    {
       '@type': 'LearningResource',
       name: tx.title,
       alternateName: displayNames(l.hebrewTitle),
       description: plain(tx.summary),
-      url: lessonUrl(l, lang),
+      url,
       inLanguage: lang,
+      isAccessibleForFree: true,
+      datePublished: publishedDay(l),
+      dateModified: latest(publishedDay(l), modified),
+      about: { '@type': 'Thing', name: `${parsha} (${PARSHIOT[l.parsha].he})` },
       image: `${SITE_URL}/og/${l.slug}.png`,
       learningResourceType: 'game',
       interactivityType: 'active',
@@ -250,7 +352,10 @@ function lessonPage(l: Lesson, lang: 'ru' | 'en' | 'de' = 'ru'): Page {
       author: { '@type': 'Person', ...l.author },
       publisher: PUBLISHER,
       isPartOf: SITE,
-      keywords: [...KEYWORDS[lang], ...keywords].join(', '),
+      keywords: [...(l.kind === 'sicha' ? SICHA_KEYWORDS : KEYWORDS)[lang], parsha, ...keywords].join(', '),
+    },
+    crumbs(lang, tx.title, url),
+      ],
     },
     // one <article>: the whole retelling, so a browser's reading mode and «read aloud» get the lesson itself
     body: `<article><header><p><a href="${root}${lang === 'ru' ? '' : `?lang=${lang}`}">${esc(ui['app.title'] as string)}</a> · ${esc(lessonLabel(l, ui))}</p>
@@ -276,7 +381,10 @@ ${(tx.cards?.items ?? [])
       `<section><h2>${esc(plain(c.title))}</h2><p class="he">${esc(displayNames(l.cards!.items[k].verse))}</p><p>${esc(plain(c.verse))}</p><p>${esc(plain(c.explain))}</p><p>${esc(plain(c.horaah))}</p></section>`,
   )
   .join('\n')}
-<p>${esc(plain(tx.practice))}</p></article>`,
+<p>${esc(plain(tx.practice))}</p></article>
+<nav class="no-speak"><h2>${esc(String(ui['seo.otherLessons']))}</h2><ul>${near
+  .map((x) => `<li><a href="${lessonUrl(x, lang)}">${esc(x.texts[lang]!.title)}</a> — ${esc(PARSHIOT[x.parsha].name[lang] ?? PARSHIOT[x.parsha].name.ru)}</li>`)
+  .join('')}</ul></nav>`,
   };
 }
 
@@ -709,6 +817,61 @@ function quizPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
   };
 }
 
+/** «Святая музыка»: the niggunim — about each and its words (with how it is read and a translation on en/de); the app opens `#/nigun` */
+function nigunPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
+  const root = lang === 'ru' ? '../' : '../../';
+  const url = `${SITE_URL}${staticPath('nigun', lang)}`;
+  const title = `${s(ui, 'nigun.title')} — ${s(ui, 'nigun.seoTitle')}`;
+  const lead = s(ui, 'nigun.lead');
+  return {
+    title: `${title} · ${s(ui, 'app.title')}`,
+    description: lead,
+    url,
+    type: 'article',
+    root,
+    lang,
+    alternates: alternatesOf('nigun'),
+    lastmod: latest(changed('src/nigun', 'public/nigun'), changed(`src/i18n/locales/${lang}.ts`)),
+    image: 'nigun',
+    imageAlt: title,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'LearningResource',
+          name: title,
+          description: lead,
+          url,
+          inLanguage: lang,
+          learningResourceType: ['audio', 'game'],
+          interactivityType: 'active',
+          isAccessibleForFree: true,
+          publisher: PUBLISHER,
+          isPartOf: SITE,
+          hasPart: NIGUNIM.map((n) => ({
+            '@type': 'MusicComposition',
+            name: n.title[lang],
+            inLanguage: n.lang,
+            description: n.about[lang],
+            recordedAs: { '@type': 'MusicRecording', name: n.title[lang], url: `${homeUrl(lang)}#/nigun/${n.id}`, audio: { '@type': 'AudioObject', contentUrl: `${SITE_URL}/${n.audio}` } },
+          })),
+        },
+        crumbs(lang, s(ui, 'nigun.title'), url),
+      ],
+    },
+    body: `<article><header><p><a href="${root}${lang === 'ru' ? '' : `${lang}/`}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'nigun.sub'))}</p>
+<h1>${esc(title)}</h1><p>${esc(lead)}</p></header>
+${NIGUNIM.map(
+  (n) => `<section><h2>${esc(n.title[lang])}</h2><p>${esc(n.about[lang])}</p><p><a href="${root}#/nigun/${n.id}">${esc(s(ui, 'nigun.karaoke'))} →</a></p>
+<h3>${esc(s(ui, 'nigun.seoAbout'))}</h3><ol>${n.lines
+    .map((x) => `<li>${esc(x.text)}${lang !== n.lang && x.tr?.[lang] ? ` — <i>${esc(x.read?.[lang] ?? '')}</i>: ${esc(x.tr[lang]!)}` : ''}</li>`)
+    .join('')}</ol>
+<p>${esc(s(ui, 'nigun.credit'))} <a href="${n.source.url}">${esc(n.source.name)}</a></p></section>`,
+).join('\n')}
+</article>`,
+  };
+}
+
 const STATIC_OUT: [string, Page][] = LANGS.flatMap(({ lang, ui }) => [
   [staticPath('mental-math', lang), mathPage(lang, ui)] as [string, Page],
   [staticPath('daily', lang), dailyPage(lang, ui)] as [string, Page],
@@ -719,11 +882,26 @@ const STATIC_OUT: [string, Page][] = LANGS.flatMap(({ lang, ui }) => [
   [staticPath('hebrew-words', lang), wordsPage(lang, ui)] as [string, Page],
   [staticPath('hemshech', lang), hemshechPage(lang, ui)] as [string, Page],
   [staticPath('quiz', lang), quizPage(lang, ui)] as [string, Page],
+  [staticPath('nigun', lang), nigunPage(lang, ui)] as [string, Page],
 ]);
+// lastmod: pages that change every day (the passage of the day, the opened passages, the quiz sets of the week) — today;
+// the facts — from the lessons; the rest — when their texts or this script changed
+const DAILY_PAGES = ['daily', 'neviim', 'ketuvim', 'hemshech', 'quiz'];
+for (const [path, page] of STATIC_OUT)
+  page.lastmod ??= DAILY_PAGES.some((d) => path.endsWith(`/${d}/`))
+    ? today
+    : path.endsWith('/facts/')
+      ? latest(...LESSONS.map(lessonChanged))
+      : changed('scripts/prerender.ts', `src/i18n/locales/${page.lang ?? 'ru'}.ts`, 'src/tanakh/words');
 
 /* ───── write ───── */
 
-writeFileSync(`${DIST}/index.html`, render(home));
+const HOMES = LESSON_LANGS.map((lang) => homePage(lang));
+for (const h of HOMES) {
+  const dir = `${DIST}${h.url.slice(SITE_URL.length)}`;
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(`${dir}index.html`, render(h));
+}
 // every lesson in every language it has: /<slug>/, /en/<slug>/, /de/<slug>/ (hreflang between them)
 const LESSON_OUT = LESSONS.flatMap((l) => lessonLangs(l).map((lang) => ({ l, lang, page: lessonPage(l, lang) })));
 for (const { l, lang, page } of LESSON_OUT) {
@@ -740,8 +918,15 @@ for (const [path, page] of STATIC_OUT) {
 writeFileSync(
   `${DIST}/sitemap.xml`,
   `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${[`${SITE_URL}/`, ...LESSON_OUT.map((x) => x.page.url), ...STATIC_OUT.map(([, p]) => p.url)].map((u) => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join('\n')}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${[...HOMES, ...LESSON_OUT.map((x) => x.page), ...STATIC_OUT.map(([, p]) => p)]
+  .map(
+    (p) =>
+      `  <url><loc>${p.url}</loc><lastmod>${p.lastmod ?? today}</lastmod>${(p.alternates ?? [])
+        .map((a) => `<xhtml:link rel="alternate" hreflang="${a.lang}" href="${a.url}"/>`)
+        .join('')}</url>`,
+  )
+  .join('\n')}
 </urlset>
 `,
 );
