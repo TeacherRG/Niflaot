@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useI18n } from '../i18n';
 import { fetchPart, loadNarration, silence } from '../core/listen';
-import type { Narration } from '../core/narration';
+import { ASSISTANT_URL } from '../core/assistant';
+import type { Narration } from '../core/speech';
 
 const SPEEDS = [1, 1.25, 1.5, 0.85];
 
@@ -11,23 +12,43 @@ type Status = 'off' | 'loading' | 'playing' | 'paused' | 'error' | 'done';
  * «Слушать урок» on a read page: the lesson read aloud by a male voice (Gemini TTS, src/core/listen.ts), part after
  * part; the next part is fetched while one plays. The first listener of a part waits while it is recorded (the note
  * says so); everyone after gets it at once. Hidden when the lesson has no recording (no assistant / dev build).
+ * `load` — the parts made on the page (a passage of the Prophets / Writings: src/core/tanakhNarration.ts); a lesson's
+ * are loaded from the site.
  */
-export function ListenBar({ slug, lang, title }: { slug: string; lang: string; title: string }) {
+export function ListenBar({
+  slug,
+  lang,
+  title,
+  load,
+  passage,
+}: {
+  slug: string;
+  lang: string;
+  title: string;
+  load?: () => Promise<Narration | null>;
+  /** a passage of the day, not a lesson: the button's words */
+  passage?: boolean;
+}) {
   const { t } = useI18n();
   const [nar, setNar] = useState<Narration | null>(null);
   const [status, setStatus] = useState<Status>('off');
   const [at, setAt] = useState(0);
   const [speed, setSpeed] = useState(0);
   const [slow, setSlow] = useState(false);
+  const [quota, setQuota] = useState(false);
   const audio = useRef<HTMLAudioElement | null>(null);
   const urls = useRef(new Map<number, Promise<string>>());
   const run = useRef(0);
   const abort = useRef<AbortController | null>(null);
+  const loader = useRef(load);
+  loader.current = load;
 
   useEffect(() => {
     let live = true;
     setNar(null);
-    loadNarration(lang, slug).then((n) => live && setNar(n?.parts.length ? n : null));
+    (ASSISTANT_URL ? (loader.current?.() ?? loadNarration(lang, slug)) : Promise.resolve(null))
+      .catch(() => null)
+      .then((n) => live && setNar(n?.parts.length ? n : null));
     return () => {
       live = false;
     };
@@ -55,7 +76,7 @@ export function ListenBar({ slug, lang, title }: { slug: string; lang: string; t
     let p = urls.current.get(i);
     if (!p) {
       abort.current ??= new AbortController();
-      p = fetchPart(lang, slug, parts[i].h, abort.current.signal);
+      p = fetchPart(nar.lang ?? lang, slug, parts[i].h, abort.current.signal);
       // a failed part is fetched again on the next try
       p.catch(() => urls.current.delete(i));
       urls.current.set(i, p);
@@ -91,8 +112,10 @@ export function ListenBar({ slug, lang, title }: { slug: string; lang: string; t
           p.then(URL.revokeObjectURL, () => {});
         }
       media(i);
-    } catch {
-      if (run.current === me) setStatus('error');
+    } catch (e) {
+      if (run.current !== me) return;
+      setQuota((e as Error).message === 'quota');
+      setStatus('error');
     } finally {
       clearTimeout(timer);
     }
@@ -140,14 +163,14 @@ export function ListenBar({ slug, lang, title }: { slug: string; lang: string; t
     return (
       <div className="listen no-speak">
         <button type="button" className="btn listen-go" onClick={start}>
-          🎧 {t('listen.btn')}
+          🎧 {t(passage ? 'listen.btnPassage' : 'listen.btn')}
         </button>
-        <span className="listen-note">{t('listen.note')}</span>
+        <span className="listen-note">{t(passage ? 'listen.notePassage' : 'listen.note')}</span>
       </div>
     );
 
   return (
-    <div className="listen on no-speak" role="region" aria-label={t('listen.btn')}>
+    <div className="listen on no-speak" role="region" aria-label={t(passage ? 'listen.btnPassage' : 'listen.btn')}>
       <div className="listen-row">
         <button type="button" className="listen-ic" onClick={() => play(Math.max(0, at - 1))} disabled={at === 0} aria-label={t('listen.prev')}>
           ⏮
@@ -187,7 +210,7 @@ export function ListenBar({ slug, lang, title }: { slug: string; lang: string; t
       {status === 'loading' && slow && <p className="listen-msg">{t('listen.preparing')}</p>}
       {status === 'error' && (
         <p className="listen-msg bad">
-          {t('listen.error')}{' '}
+          {t(quota ? 'listen.quota' : 'listen.error')}{' '}
           <button type="button" className="linklike" onClick={() => play(at)}>
             {t('listen.retry')}
           </button>

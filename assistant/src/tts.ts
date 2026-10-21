@@ -3,11 +3,14 @@
  * The first listener of a part waits while it is generated; the audio is kept in a Durable Object with SQLite storage
  * (Narrator, one per lesson and language — free plan, nothing to set up) and every next listener gets the ready file.
  *
- * GET /tts/<lang>/<slug>/<hash>.wav — one part of a lesson. The text is never taken from the request: the object
- * finds the part with this hash in the site's own `SITE_URL/tts/<lang>/<slug>.json` (scripts/prerender.ts,
- * src/core/narration.ts) — so nobody can make it speak (and pay for) other texts, and a changed text gets a new hash.
+ * GET /tts/<lang>/<slug>/<hash>.wav — one part of a lesson, or of a passage of the day (`<slug>` = `neviim-<date>` /
+ * `ketuvim-<date>`). The text is never taken from the request: the object finds the part with this hash in the site's
+ * own `SITE_URL/tts/<lang>/<slug>.json` (scripts/prerender.ts, src/core/narration.ts), or builds the passage's parts
+ * from `SITE_URL/tanakh/<date>.json` (src/core/tanakhNarration.ts, the same code as the page) — so nobody can make it
+ * speak (and pay for) other texts, and a changed text gets a new hash.
  */
 import { DurableObject } from 'cloudflare:workers';
+import { parseTanakhSlug, tanakhLang, tanakhNarration, type SpokenDay } from '../../src/core/tanakhNarration';
 
 export interface TtsEnv {
   SITE_URL?: string;
@@ -103,7 +106,8 @@ export class Narrator extends DurableObject<TtsEnv> {
     const url = new URL(req.url);
     const [, lang, slug, hash] = url.pathname.split('/');
     const voice = this.env.TTS_VOICE || DEFAULT_VOICE;
-    const key = `${hash}-${voice}`;
+    // another voice or model records anew
+    const key = `${hash}-${voice}-${this.env.TTS_MODEL || DEFAULT_MODEL}`;
     const send = (wav: Uint8Array) => new Response(wav, { headers: { 'Content-Length': String(wav.length) } });
     const ready = this.load(key);
     if (ready) return send(ready);
@@ -119,6 +123,8 @@ export class Narrator extends DurableObject<TtsEnv> {
       return send(await job);
     } catch (e) {
       if (e instanceof NotFound) return new Response('Not found', { status: 404 });
+      // the day's limit of Gemini is spent: the recorded parts still play, the new ones — tomorrow
+      if (e instanceof Quota) return new Response('quota', { status: 503, headers: { 'Retry-After': '3600' } });
       console.error('tts', e);
       return new Response('failed', { status: 502 });
     }
@@ -126,42 +132,73 @@ export class Narrator extends DurableObject<TtsEnv> {
 
   private async record(lang: string, slug: string, hash: string, voice: string): Promise<Uint8Array> {
     const site = (this.env.SITE_URL ?? 'https://niflaot.mychitas.app').replace(/\/$/, '');
-    const manifest = await fetch(`${site}/tts/${lang}/${slug}.json`)
-      .then((r) => (r.ok ? r.json<{ parts?: Part[] }>() : null))
-      .catch(() => null);
-    const part = manifest?.parts?.find((p) => p.h === hash);
+    const json = <T>(path: string) =>
+      fetch(`${site}${path}`)
+        .then((r) => (r.ok ? r.json<T>() : null))
+        .catch(() => null);
+    const day = parseTanakhSlug(slug);
+    let parts: Part[] | undefined;
+    if (day) {
+      const content = await json<SpokenDay>(`/tanakh/${day.date}.json`);
+      // only in the language the page reads the day in (an untranslated day — English)
+      const n = content && tanakhLang(content, lang) === lang ? await tanakhNarration(content, day.section, lang as 'ru' | 'en' | 'de') : null;
+      parts = n?.parts;
+    } else parts = (await json<{ parts?: Part[] }>(`/tts/${lang}/${slug}.json`))?.parts;
+    const part = parts?.find((p) => p.h === hash);
     if (!part || typeof part.text !== 'string' || part.text.length > MAX_TEXT) throw new NotFound();
     return speak(this.env, lang, part.text, voice);
   }
 }
 
 class NotFound extends Error {}
+class Quota extends Error {}
 
-/** Gemini TTS → 16-bit PCM → a WAV file */
+/**
+ * Gemini TTS → 16-bit PCM → a WAV file. An unknown model (404) or one whose quota is spent (429 — the free tier has
+ * a small daily limit per model) hands over to the next; an answer without audio (the model's stream broke off —
+ * `finishReason` SAFETY / OTHER, «please retry») is asked again once. The audio may come in several pieces: all are joined.
+ */
 async function speak(env: TtsEnv, lang: string, text: string, voice: string): Promise<Uint8Array> {
   const models = [env.TTS_MODEL || DEFAULT_MODEL, ...FALLBACK_MODELS.filter((x) => x !== env.TTS_MODEL)];
-  for (const model of models) {
-    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY! },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: `${STYLE[lang]}\n\n${text}` }] }],
-        generationConfig: {
-          responseModalities: ['AUDIO'],
-          speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } } },
-        },
-      }),
-    });
-    // this model doesn't exist (any more): the next one
-    if (r.status === 404) continue;
-    if (!r.ok) throw new Error(`gemini ${model} ${r.status}: ${(await r.text()).slice(0, 300)}`);
-    const out = await r.json<{ candidates?: { content?: { parts?: { inlineData?: { mimeType?: string; data?: string } }[] } }[] }>();
-    const audio = out.candidates?.[0]?.content?.parts?.find((p) => p.inlineData?.data)?.inlineData;
-    if (!audio?.data) throw new Error(`gemini ${model}: no audio`);
-    const rate = Number(audio.mimeType?.match(/rate=(\d+)/)?.[1] ?? 24000);
-    return wav(fromBase64(audio.data), rate);
-  }
-  throw new Error('gemini: no TTS model available');
+  let quota = false;
+  for (const model of models)
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY! },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: `${STYLE[lang]}\n\n${text}` }] }],
+          generationConfig: {
+            responseModalities: ['AUDIO'],
+            speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } } },
+          },
+        }),
+      });
+      if (r.status === 404 || r.status === 429) {
+        if (r.status === 429) quota = true;
+        console.error('tts', model, r.status, (await r.text()).slice(0, 300));
+        break;
+      }
+      if (!r.ok) throw new Error(`gemini ${model} ${r.status}: ${(await r.text()).slice(0, 300)}`);
+      const out = await r.json<{
+        candidates?: { finishReason?: string; content?: { parts?: { inlineData?: { mimeType?: string; data?: string } }[] } }[];
+      }>();
+      const pieces = (out.candidates?.[0]?.content?.parts ?? []).map((p) => p.inlineData).filter((d) => d?.data);
+      if (!pieces.length) {
+        console.error('tts', model, 'no audio', out.candidates?.[0]?.finishReason);
+        continue;
+      }
+      const rate = Number(pieces[0]!.mimeType?.match(/rate=(\d+)/)?.[1] ?? 24000);
+      const pcm = pieces.map((d) => fromBase64(d!.data!));
+      const all = new Uint8Array(pcm.reduce((n, x) => n + x.length, 0));
+      let o = 0;
+      for (const x of pcm) {
+        all.set(x, o);
+        o += x.length;
+      }
+      return wav(all, rate);
+    }
+  throw quota ? new Quota() : new Error('gemini: no audio from any TTS model');
 }
 
 function fromBase64(s: string): Uint8Array {
