@@ -106,8 +106,8 @@
 - Продвижение (откуда приходят люди): ссылки «поделиться» помечены `?ref=` (`lessonLink`/`routeLink` в `src/core/site.ts`:
   `wa`, `tg`, `copy`, `card`, `qr`, `rss`, `channel`, `daily`, `app` — из установленного приложения, `mail`, `push` — из уведомления) — GoatCounter показывает их среди источников. В шапке распечаток —
   QR-код на урок (`QrCode.tsx`, `?ref=qr`). Ленты Atom `feed.xml` / `feed-en.xml` / `feed-de.xml` собирает
-  `scripts/prerender.ts`. «Загадка недели» в Telegram — `scripts/telegram-post.ts` (только вопрос, ответ — на сайте;
-  проверка: `npx tsx scripts/telegram-post.ts --dry`), запуск — `.github/workflows/telegram.yml` по вс и ср, в Шабат не
+  `scripts/prerender.ts`. «Загадка недели» в Telegram — `scripts/telegram-post.ts` (загадка **текущей главы** — `parshaOf`: в вс первая, в ср вторая; только вопрос, ответ — на сайте;
+  проверка: `npx tsx scripts/telegram-post.ts --dry [--date 2026-10-21]`), запуск — `.github/workflows/telegram.yml` по вс и ср, в Шабат не
   публикует; нужен secret `TELEGRAM_BOT_TOKEN` и variables `TELEGRAM_CHAT_RU/EN/DE`.
   «Пророки и Писания» — **каждый учебный день**, пока **только в русский канал** (en/de — добавить `TELEGRAM_CHAT_EN/DE` в workflow) (`scripts/telegram-tanakh.ts`, `.github/workflows/telegram-tanakh.yml`,
   каждое утро с 6:00 по Вене: попытка каждые 5 минут — cron `*/5 4-6 * * *` (UTC; 6:00–8:55 по Вене летом,
