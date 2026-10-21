@@ -29,12 +29,17 @@ const MAX_TEXT = 4000;
 /** a value of SQLite storage is at most 2 MB: the file is kept in pieces */
 const PIECE = 1024 * 1024;
 
-/** how the narrator reads: said to the model before the text (it is not read aloud) */
+/**
+ * How the narrator reads: said to the model before the text (it is not read aloud). Short and plain: with a longer
+ * instruction (the Hebrew pronunciation as well) the recordings clicked every few words and once broke off, while the
+ * same text with this one came out clean. Changing it records everything anew (`STYLE_VERSION` is in the key).
+ */
 const STYLE: Record<string, string> = {
-  ru: 'Прочитай вслух по-русски, спокойно и тепло, как учитель Торы рассказывает урок; слова на иврите — с израильским произношением:',
-  en: 'Read aloud in English, calmly and warmly, like a Torah teacher telling a lesson; Hebrew words with an Israeli pronunciation:',
-  de: 'Lies auf Deutsch vor, ruhig und warm, wie ein Tora-Lehrer eine Lektion erzählt; hebräische Wörter mit israelischer Aussprache:',
+  ru: 'Прочитай вслух по-русски, спокойно и тепло:',
+  en: 'Read aloud in English, calmly and warmly:',
+  de: 'Lies auf Deutsch vor, ruhig und warm:',
 };
+const STYLE_VERSION = 2;
 
 interface Part {
   h: string;
@@ -106,8 +111,8 @@ export class Narrator extends DurableObject<TtsEnv> {
     const url = new URL(req.url);
     const [, lang, slug, hash] = url.pathname.split('/');
     const voice = this.env.TTS_VOICE || DEFAULT_VOICE;
-    // another voice or model records anew
-    const key = `${hash}-${voice}-${this.env.TTS_MODEL || DEFAULT_MODEL}`;
+    // another voice, model or instruction records anew
+    const key = `${hash}-${voice}-${this.env.TTS_MODEL || DEFAULT_MODEL}-s${STYLE_VERSION}`;
     const send = (wav: Uint8Array) => new Response(wav, { headers: { 'Content-Length': String(wav.length) } });
     const ready = this.load(key);
     if (ready) return send(ready);
