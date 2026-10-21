@@ -1,3 +1,5 @@
+import { ListenBar } from './ListenBar';
+import { tanakhLang, tanakhNarration, tanakhSlug } from '../core/tanakhNarration';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { Icon, useDismiss } from './ui';
 import { useI18n } from '../i18n';
@@ -451,6 +453,17 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
             {sec && <PrintMenu other={other} both={printBoth} setBoth={setPrintBoth} />}
           </div>
           {missing && <p className="tk-note">{t(want === 'de' ? 'tanakh.deMissing' : 'tanakh.ruMissing')}</p>}
+          {/* «Слушать»: the translation and Metzudat David read aloud (src/core/tanakhNarration.ts) */}
+          {sec && content && (
+            <ListenBar
+              key={`${section}-${day.date}-${locale}`}
+              slug={tanakhSlug(section, day.date)}
+              lang={tanakhLang(content, locale)}
+              title={title}
+              passage
+              load={() => tanakhNarration(content, section, tanakhLang(content, locale))}
+            />
+          )}
 
           {content === undefined ? (
             <p className="tk-note">{t('tanakh.loading')}</p>

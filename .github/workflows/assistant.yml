@@ -12,7 +12,7 @@ on:
   push:
     branches: [main]
     # the worker also bundles these files of the site
-    paths: ['assistant/**', 'src/core/gematria.ts', 'src/core/sync.ts', 'src/core/quizGame.ts']
+    paths: ['assistant/**', 'src/core/gematria.ts', 'src/core/sync.ts', 'src/core/quizGame.ts', 'src/core/speech.ts', 'src/core/tanakhNarration.ts', 'src/core/names.ts', 'src/core/tanakhCycle.ts', 'src/tanakh/books.json']
 
 concurrency:
   group: assistant

@@ -418,6 +418,8 @@ const ru = {
   'read.chapter': 'Глава {n} из {total}',
   'listen.btn': 'Слушать урок',
   'listen.note': 'Читает мужской голос (ИИ Gemini) — по главам, можно слушать без экрана.',
+  'listen.btnPassage': 'Слушать отрывок',
+  'listen.notePassage': 'Читает мужской голос (ИИ Gemini): перевод и объяснение Мецудат Давид, иврит — на странице.',
   'listen.play': 'Слушать',
   'listen.pause': 'Пауза',
   'listen.prev': 'Предыдущая часть',

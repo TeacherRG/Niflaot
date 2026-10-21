@@ -408,6 +408,8 @@ const de: Messages = {
   'read.chapter': 'Kapitel {n} von {total}',
   'listen.btn': 'Lektion anhören',
   'listen.note': 'Gelesen von einer Männerstimme (KI Gemini), Kapitel für Kapitel — du kannst auch bei ausgeschaltetem Bildschirm zuhören.',
+  'listen.btnPassage': 'Abschnitt anhören',
+  'listen.notePassage': 'Gelesen von einer Männerstimme (KI Gemini): die Übersetzung und die Erklärung von Metzudat David; das Hebräische steht auf der Seite.',
   'listen.play': 'Abspielen',
   'listen.pause': 'Pause',
   'listen.prev': 'Vorheriger Teil',

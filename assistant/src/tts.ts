@@ -3,11 +3,14 @@
  * The first listener of a part waits while it is generated; the audio is kept in a Durable Object with SQLite storage
  * (Narrator, one per lesson and language — free plan, nothing to set up) and every next listener gets the ready file.
  *
- * GET /tts/<lang>/<slug>/<hash>.wav — one part of a lesson. The text is never taken from the request: the object
- * finds the part with this hash in the site's own `SITE_URL/tts/<lang>/<slug>.json` (scripts/prerender.ts,
- * src/core/narration.ts) — so nobody can make it speak (and pay for) other texts, and a changed text gets a new hash.
+ * GET /tts/<lang>/<slug>/<hash>.wav — one part of a lesson, or of a passage of the day (`<slug>` = `neviim-<date>` /
+ * `ketuvim-<date>`). The text is never taken from the request: the object finds the part with this hash in the site's
+ * own `SITE_URL/tts/<lang>/<slug>.json` (scripts/prerender.ts, src/core/narration.ts), or builds the passage's parts
+ * from `SITE_URL/tanakh/<date>.json` (src/core/tanakhNarration.ts, the same code as the page) — so nobody can make it
+ * speak (and pay for) other texts, and a changed text gets a new hash.
  */
 import { DurableObject } from 'cloudflare:workers';
+import { parseTanakhSlug, tanakhLang, tanakhNarration, type SpokenDay } from '../../src/core/tanakhNarration';
 
 export interface TtsEnv {
   SITE_URL?: string;
@@ -103,7 +106,8 @@ export class Narrator extends DurableObject<TtsEnv> {
     const url = new URL(req.url);
     const [, lang, slug, hash] = url.pathname.split('/');
     const voice = this.env.TTS_VOICE || DEFAULT_VOICE;
-    const key = `${hash}-${voice}`;
+    // another voice or model records anew
+    const key = `${hash}-${voice}-${this.env.TTS_MODEL || DEFAULT_MODEL}`;
     const send = (wav: Uint8Array) => new Response(wav, { headers: { 'Content-Length': String(wav.length) } });
     const ready = this.load(key);
     if (ready) return send(ready);
@@ -126,10 +130,19 @@ export class Narrator extends DurableObject<TtsEnv> {
 
   private async record(lang: string, slug: string, hash: string, voice: string): Promise<Uint8Array> {
     const site = (this.env.SITE_URL ?? 'https://niflaot.mychitas.app').replace(/\/$/, '');
-    const manifest = await fetch(`${site}/tts/${lang}/${slug}.json`)
-      .then((r) => (r.ok ? r.json<{ parts?: Part[] }>() : null))
-      .catch(() => null);
-    const part = manifest?.parts?.find((p) => p.h === hash);
+    const json = <T>(path: string) =>
+      fetch(`${site}${path}`)
+        .then((r) => (r.ok ? r.json<T>() : null))
+        .catch(() => null);
+    const day = parseTanakhSlug(slug);
+    let parts: Part[] | undefined;
+    if (day) {
+      const content = await json<SpokenDay>(`/tanakh/${day.date}.json`);
+      // only in the language the page reads the day in (an untranslated day — English)
+      const n = content && tanakhLang(content, lang) === lang ? await tanakhNarration(content, day.section, lang as 'ru' | 'en' | 'de') : null;
+      parts = n?.parts;
+    } else parts = (await json<{ parts?: Part[] }>(`/tts/${lang}/${slug}.json`))?.parts;
+    const part = parts?.find((p) => p.h === hash);
     if (!part || typeof part.text !== 'string' || part.text.length > MAX_TEXT) throw new NotFound();
     return speak(this.env, lang, part.text, voice);
   }

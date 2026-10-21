@@ -17,6 +17,7 @@ import { buildCycle } from './tanakh-cycle';
 import { BOOKS, restReason, track, SECTIONS } from '../src/core/tanakhCycle';
 import cycleJson from '../src/tanakh/cycle.json';
 import { styleErrors } from './style-rules';
+import { tanakhLang, tanakhNarration } from '../src/core/tanakhNarration';
 
 const errors: string[] = [];
 const err = (m: string) => errors.push(m);
@@ -89,6 +90,16 @@ for (const f of files) {
     continue;
   }
   if (c.day !== i + 1 || c.days !== days.length) err(`${f}: номер дня ${c.day}/${c.days}, ожидался ${i + 1}/${days.length}`);
+  // «Слушать» (src/core/tanakhNarration.ts): parts the worker accepts (≤ 4000), plain text, the Names said in words
+  for (const loc of ['ru', 'en', 'de'])
+    for (const s of SECTIONS) {
+      const n = await tanakhNarration(c, s, tanakhLang(c, loc));
+      for (const p of n?.parts ?? []) {
+        if (p.text.length > 4000) err(`${f} ${s}: часть для «Слушать» длиннее 4000 знаков (${p.label})`);
+        const bad = p.text.match(/<[^>]+>|&[a-z]+;|[א-ת]-[א-ת]|[БГ]-[а-яё]|G-d|G-tt|L-rd|ה׳/);
+        if (bad) err(`${f} ${s}: в тексте для «Слушать» — «${bad[0]}» (${p.label}); сказать словами — spoken() в src/core/speech.ts`);
+      }
+    }
   const all = SECTIONS.flatMap((s) => c[s]?.verses ?? []) as ({ md?: Comm; rashi?: Comm } & Partial<Record<Lang, string>>)[];
   for (const lang of ['ru', 'de'] as const) if (all.some((v) => v[lang]) && !all.every((v) => v[lang])) err(`${f}: день переведён (${lang}) не целиком`);
   for (const lang of LANGS) {

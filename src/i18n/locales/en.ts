@@ -408,6 +408,8 @@ const en: Messages = {
   'read.chapter': 'Chapter {n} of {total}',
   'listen.btn': 'Listen to the lesson',
   'listen.note': 'Read by a male voice (Gemini AI), chapter by chapter — you can listen with the screen off.',
+  'listen.btnPassage': 'Listen to the passage',
+  'listen.notePassage': "Read by a male voice (Gemini AI): the translation and Metzudat David's explanation; the Hebrew is on the page.",
   'listen.play': 'Play',
   'listen.pause': 'Pause',
   'listen.prev': 'Previous part',

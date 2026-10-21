@@ -4,7 +4,7 @@
  * recorded by Gemini TTS for the first listener, then kept and served to everyone).
  */
 import { ASSISTANT_URL } from './assistant';
-import type { Narration } from './narration';
+import type { Narration } from './speech';
 
 /** the site's root (as in src/core/tanakh.ts): the build uses relative paths, the code lives in /assets/ */
 const up = '..';
