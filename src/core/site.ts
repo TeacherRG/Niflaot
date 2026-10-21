@@ -17,7 +17,7 @@ export const routeLink = (route: string, ref: Ref, lang?: string) =>
   `${SITE_URL}/?${lang ? `lang=${lang}&` : ''}ref=${ref}#/${route}`;
 
 /** Static pages for search engines (scripts/prerender.ts): Russian at the root, other languages under /<lang>/. */
-export type StaticPage = 'mental-math' | 'daily' | 'facts' | 'letters' | 'neviim' | 'ketuvim' | 'hebrew-words' | 'hemshech' | 'quiz';
+export type StaticPage = 'mental-math' | 'daily' | 'facts' | 'letters' | 'neviim' | 'ketuvim' | 'hebrew-words' | 'hemshech' | 'quiz' | 'nigun';
 export const STATIC_PAGES: Record<StaticPage, string> = {
   'mental-math': 'math/add',
   daily: 'daily',
@@ -31,6 +31,8 @@ export const STATIC_PAGES: Record<StaticPage, string> = {
   // «Хасидут»: the app opens today's passage; «Викторина вместе»: the start page of the quiz
   hemshech: 'hemshech',
   quiz: 'quiz',
+  // «Святая музыка»: the niggunim, the app opens their list
+  nigun: 'nigun',
 };
 export const staticPath = (page: StaticPage, lang: string) => `/${lang === 'ru' ? '' : `${lang}/`}${page}/`;
 export const pageLink = (page: StaticPage, lang: string, ref?: Ref) => `${SITE_URL}${staticPath(page, lang)}${ref ? `?ref=${ref}` : ''}`;

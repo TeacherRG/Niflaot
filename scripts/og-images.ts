@@ -1,7 +1,8 @@
 /**
  * Link-preview pictures (Open Graph, 1200×630) in the style of the share card:
  * public/og/site.png for the catalog, public/og/<slug>.png for every lesson, mental-math.png, daily.png, facts.png and
- * letters.png for «Устный счёт», «Гематрия дня», «Знаете ли вы?» and «Буквы за 5 минут».
+ * letters.png for «Устный счёт», «Гематрия дня», «Знаете ли вы?» and «Буквы за 5 минут»; neviim, ketuvim, hebrew-words,
+ * hemshech, quiz and nigun.png for the pages of the daily study, «Викторина вместе» and «Святая музыка».
  * Also the app icons for «install on the phone» (manifest — scripts/prerender.ts): public/icons/icon-192.png,
  * icon-512.png, maskable-512.png (the mark inside the safe zone) and apple-touch-icon.png (180).
  * The PNGs are committed; re-run after adding a lesson or changing its title or key equation:
@@ -165,6 +166,36 @@ const shots: [string, string][] = [
       title: '500 слов Танаха',
       sub: '80 % текста Пророков и Писаний · перевод, корень, повторение',
       letters: ['מ', 'ל'],
+    }),
+  ],
+  [
+    'hemshech',
+    page({
+      eyebrow: 'Нифлаот · хасидут',
+      he: 'המשך תרס״ו',
+      title: 'Ґемшех Самех-Вав',
+      sub: 'Маамары Ребе Рашаба — по 10 минут в учебный день',
+      letters: ['ה', 'ס'],
+    }),
+  ],
+  [
+    'quiz',
+    page({
+      eyebrow: 'Нифлаот · вместе',
+      he: 'חידון',
+      title: ru['lq.title'] as string,
+      sub: 'Вопросы на экране — ответы с телефонов: для класса и семьи',
+      letters: ['ח', 'ד'],
+    }),
+  ],
+  [
+    'nigun',
+    page({
+      eyebrow: 'Нифлаот · святая музыка',
+      he: 'ניגון',
+      title: ru['nigun.title'] as string,
+      sub: 'Хасидские нигуны с караоке — слушать, петь и учить',
+      letters: ['נ', 'ג'],
     }),
   ],
   ...LESSONS.map((l) => [l.slug, lessonPage(l)] as [string, string]),

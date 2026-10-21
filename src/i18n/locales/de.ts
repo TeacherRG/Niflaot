@@ -1191,6 +1191,12 @@ const de: Messages = {
   'academy.fac.hemshech.a': "Ein Zertifikat für einen Maamar — wenn alle seine Abschnitte gelesen sind (100 %): Hake unter jedem „Ich habe gelesen“ an. Wenn du auch die Fragen zu all diesen Abschnitten mit mindestens {pass} % bestehst, steht die Punktzahl darauf. Hier — die Maamarim, deren Lernen schon begonnen hat.",
   // «Святая музыка»: the niggunim of m770.org with karaoke
   'nigun.title': "Heilige Musik",
+  'seo.more': "Mehr auf der Seite",
+  'seo.otherLessons': "Weitere Lektionen",
+  'seo.lessonCommentary': "Gematria zum Wochenabschnitt",
+  'seo.lessonSicha': "der Rebbe zu Paraschat {parsha}",
+  'nigun.seoTitle': "chassidische Nigunim mit Karaoke — hören, singen und lernen",
+  'nigun.seoAbout': "Die Worte des Niguns",
   'nigun.sub': "Ein Kurs",
   'nigun.menuSub': "Nigunim — mit Karaoke lernen",
   'nigun.lead': "Nigunim sind die Melodien der Chassidim. Jede Lektion erzählt vom Nigun und von den Chassidim, die ihn sangen, und hat ein Karaoke: Hör die Aufnahme und sing Zeile für Zeile mit.",
