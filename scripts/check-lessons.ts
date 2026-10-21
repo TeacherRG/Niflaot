@@ -32,6 +32,7 @@
  *  - English and German follow the house style of chabad.org / de.chabad.org (scripts/style-rules.ts,
  *    docs/TRANSLATION-GUIDE.md): G-d / G-tt, Shabbat / Schabbat, Moshiach / Moschiach, Avraham / Awraham…
  */
+import { MAX_PART, narration } from '../src/core/narration';
 import { LESSONS, cardsOnly } from '../src/lessons';
 import { PUBLISHED, entries, staleOverrides } from '../src/content';
 import { sanitizeHtml } from '../src/core/sanitize';
@@ -459,8 +460,22 @@ for (const f of readdirSync('src', { recursive: true }) as string[]) {
     });
 }
 
+// «Слушать» (src/core/narration.ts): every lesson in every language has a text to read aloud, in parts the worker
+// accepts (assistant/src/tts.ts, ≤ 4000), plain text — no tags, no Names written with a dash (they'd be read letter by letter)
+for (const l of LESSONS)
+  for (const lang of ['ru', 'en', 'de'] as const) {
+    if (!l.texts[lang]) continue;
+    const n = narration(l, lang, { chapter: (k, total) => `${k}/${total}`, reflection: 'r', practice: 'p' }, (t) => t);
+    if (!n?.parts.length) err(`${l.slug} (${lang}): no text to listen to`);
+    for (const p of n?.parts ?? []) {
+      if (p.text.length > MAX_PART) err(`${l.slug} (${lang}): a part to listen to is longer than ${MAX_PART}: «${p.text.slice(0, 60)}…»`);
+      const bad = p.text.match(/<[^>]+>|&[a-z]+;|[א-ת]-[א-ת]|[A-ZБГ]-[a-zа-я]+|ה׳/);
+      if (bad) err(`${l.slug} (${lang}): the text to listen to has «${bad[0]}» — say it in words (spoken() in src/core/narration.ts)`);
+    }
+  }
+
 if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));
   process.exit(1);
 }
-console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, memo, ${facts.length} facts, ${daily.length} daily words, safe HTML, no permission prompts, daily messages, en/de style`);
+console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, memo, ${facts.length} facts, ${daily.length} daily words, safe HTML, no permission prompts, daily messages, texts to listen to, en/de style`);

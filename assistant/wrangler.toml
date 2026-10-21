@@ -11,8 +11,13 @@ MAIL_FROM = "Нифлаот <noreply@mychitas.app>"
 # Each question is paid (up to 6 model calls) — raise it when the site grows, together with the limit in Billing.
 CHAT_DAILY_LIMIT = "1000"
 
+# «Слушать» (src/tts.ts): the Gemini TTS model and its male voice; changing the voice records everything anew.
+TTS_MODEL = "gemini-3.1-flash-tts-preview"
+TTS_VOICE = "Charon"
+
 # Secrets (not stored here): npx wrangler secret put ANTHROPIC_API_KEY, RESEND_API_KEY (login codes by email;
-# without it registration is off and the site shows only the guest mode)
+# without it registration is off and the site shows only the guest mode), GEMINI_API_KEY (Google AI Studio —
+# «Слушать»; without it the site hides the button)
 
 # Rate limit for /push and the account's changes: 20 requests per minute from one IP (the worker answers 429 above it).
 [[ratelimits]]
@@ -59,6 +64,16 @@ class_name = "QuizRoom"
 [[migrations]]
 tag = "v3"
 new_sqlite_classes = ["QuizRoom"]
+
+# «Слушать» (src/tts.ts): the recorded lessons, one Durable Object per lesson and language (SQLite storage, free plan) —
+# recorded for the first listener, then served to everyone.
+[[durable_objects.bindings]]
+name = "NARRATOR"
+class_name = "Narrator"
+
+[[migrations]]
+tag = "v4"
+new_sqlite_classes = ["Narrator"]
 
 [triggers]
 crons = ["1 * * * *"]

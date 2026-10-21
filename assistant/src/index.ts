@@ -15,16 +15,20 @@
  *
  * «Викторина вместе» (src/quiz.ts, Durable Object QuizRoom — одна комната на код): POST /quiz/new {deck, lang, n}
  * → {code, key}; GET /quiz/ws/<CODE>?role=host&key=… | ?role=player&pid=… — WebSocket ведущего или игрока.
+ *
+ * «Слушать» (src/tts.ts): GET /tts/<lang>/<slug>/<hash>.wav — a part of a lesson read aloud by Gemini TTS; generated
+ * once (for the first listener, only from the site's pages and texts), then kept in the Durable Object Narrator.
  */
 import Anthropic from '@anthropic-ai/sdk';
 import { gematria, letters, VALUES } from '../../src/core/gematria';
 import { PushHub } from './push';
 import { Accounts, type MailEnv } from './accounts';
 import { QuizRoom, quizRoute, type QuizEnv } from './quiz';
+import { Narrator, ttsRoute, type TtsEnv } from './tts';
 
-export { PushHub, Accounts, QuizRoom };
+export { PushHub, Accounts, QuizRoom, Narrator };
 
-interface Env extends MailEnv, QuizEnv {
+interface Env extends MailEnv, QuizEnv, TtsEnv {
   ANTHROPIC_API_KEY: string;
   /** comma-separated list of allowed page origins */
   ALLOWED_ORIGINS?: string;
@@ -202,6 +206,13 @@ export default {
     const path = new URL(req.url).pathname;
     if (path.startsWith('/push/')) return pushRoute(req, env, path.slice(5), headers);
     if (path.startsWith('/account/')) return accountRoute(req, env, path.slice(8), headers);
+    if (path.startsWith('/tts/'))
+      return ttsRoute(req, env, path.slice(4), headers, async () => {
+        // a new recording costs money: only from the site's pages, through the rate limit
+        if (!originOk(req.headers.get('Origin'), env)) return false;
+        const ip = req.headers.get('CF-Connecting-IP') ?? 'unknown';
+        return !env.LIMITER || (await env.LIMITER.limit({ key: `tts:${ip}` })).success;
+      });
     if (path.startsWith('/quiz/')) {
       if (!originOk(req.headers.get('Origin'), env)) return new Response('Forbidden', { status: 403, headers });
       // a new room costs a fetch of the deck: through the rate limit; joining a room doesn't

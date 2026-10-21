@@ -892,6 +892,27 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .les-read{display:block;margin-top:6px;color:var(--tchelet);font-weight:600;text-decoration:none}
 .les-read:hover{text-decoration:underline}
 .read-intro{margin:20px 0 0;font-size:15.5px;color:var(--ink-2);background:var(--tchelet-soft);border-radius:8px;padding:12px 16px}
+/* «Слушать урок» (ListenBar.tsx): the lesson read aloud, part after part */
+.listen{margin:16px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
+.listen-note{font-size:13.5px;color:var(--muted)}
+.listen.on{display:block;position:sticky;top:64px;z-index:5;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;box-shadow:var(--shadow)}
+.listen-row{display:flex;align-items:center;gap:6px}
+.listen-ic{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:15px;display:grid;place-items:center;padding:0}
+.listen-ic.main{width:44px;height:44px;background:var(--night);border-color:var(--night);color:#fff;font-size:17px}
+.listen-ic:disabled{opacity:.4}
+.listen-what{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.25;margin-left:4px}
+.listen-what b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.listen-what span{font-size:12.5px;color:var(--muted)}
+.listen-speed{flex:none;border:1px solid var(--line);background:var(--tchelet-soft);color:var(--tchelet);border-radius:8px;padding:6px 8px;font-size:13px;font-weight:700;min-width:48px}
+.listen-bar{height:3px;background:var(--line);border-radius:2px;margin-top:8px;overflow:hidden}
+.listen-bar i{display:block;height:100%;background:var(--tchelet);transition:width .3s}
+.listen-msg{margin:8px 0 0;font-size:13.5px;color:var(--ink-2)}
+.listen-msg.bad{color:var(--bad)}
+.listen-msg .linklike{background:none;border:0;padding:0;color:var(--tchelet);text-decoration:underline;font:inherit;cursor:pointer}
+.listen-spin{width:16px;height:16px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:listen-spin .8s linear infinite}
+@keyframes listen-spin{to{transform:rotate(360deg)}}
+@media (max-width:640px){.listen.on{top:56px}.listen-ic{width:32px;height:32px}.listen-ic.main{width:40px;height:40px}}
+@media print{.listen{display:none}}
 .read-riddle .word:hover{transform:none;box-shadow:none}
 .read-ans{font-size:15.5px;color:var(--ink-2)}
 .read-ans b{color:var(--ok);font-size:17px}

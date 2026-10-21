@@ -13,6 +13,7 @@ import { Colophon } from './Colophon';
 import { useMode } from '../core/mode';
 import { CardsCheck, ChapterCheck } from './ReadCheck';
 import { cardRef } from '../core/cardRef';
+import { ListenBar } from './ListenBar';
 
 /**
  * One chapter of the Rebbe's talk (a riddle of the investigation), all of it at once: the question on the verse,
@@ -111,6 +112,8 @@ export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards?:
                 ))}
               </nav>
             )}
+            {/* the talk is read aloud (a lesson of cards only — its pairs): src/core/narration.ts */}
+            {(mode === 'talk' || (mode === 'read' && !lesson.riddles.length)) && <ListenBar slug={lesson.slug} lang={textLocale} title={text.title} />}
             <p className="read-intro no-speak">{t(mode === 'poem' ? 'cards.poemIntro' : mode === 'talk' ? 'cards.talkIntro' : 'cards.readIntro')}</p>
 
             {mode === 'talk' ? (

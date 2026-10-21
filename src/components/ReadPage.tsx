@@ -19,6 +19,7 @@ import { lessonArt } from '../core/art';
 import { Colophon } from './Colophon';
 import { useMode } from '../core/mode';
 import { ChapterCheck, useChapterChecked } from './ReadCheck';
+import { ListenBar } from './ListenBar';
 
 /** A ready calculation from the step's coach data: every word spelled into letter values, every action with its result. */
 function Calc({ actions }: { actions: CoachAction[] }) {
@@ -263,6 +264,7 @@ export function ReadPage({ lesson, at }: { lesson: Lesson; at?: number }) {
           {/* one <article> in the text's language: the browser's reading mode, translation and «read aloud» take it whole */}
           <article lang={textLocale}>
             <Hero lesson={lesson} text={text} reading />
+            <ListenBar slug={lesson.slug} lang={textLocale} title={text.title} />
             <p className="read-intro no-speak">{t(lesson.kind === 'commentary' ? 'read.intro' : 'read.introArticle')}</p>
             {lesson.riddles.map((_, ri) => (
               <ReadRiddle key={ri} lesson={lesson} text={text} ri={ri} here={at === ri + 1} />
