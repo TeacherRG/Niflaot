@@ -1,7 +1,8 @@
 /**
  * «Загадка недели» в Telegram-каналы (ru / en / de) — запускается GitHub Action `.github/workflows/telegram.yml`
- * по воскресеньям и средам. Берёт загадку из ленты «Знаете ли вы?» (src/core/facts.ts) по очереди — один и тот же
- * факт на всех языках — и публикует **только вопрос** с картинкой урока; ответ и разбор — по ссылке на сайт
+ * по воскресеньям и средам. Берёт загадку из ленты «Знаете ли вы?» (src/core/facts.ts) **текущей главы** (та, чей Шабат —
+ * сегодня или позже, `parshaOf` из src/core/dailyMessage.ts): в воскресенье — первую, в среду — вторую (дальше — по очереди);
+ * один и тот же факт на всех языках — и публикует **только вопрос** с картинкой урока; ответ и разбор — по ссылке на сайт
  * (`#/facts/<id>`, метка `?ref=channel` для GoatCounter).
  *
  * Настройка в GitHub (Settings → Secrets and variables → Actions):
@@ -12,10 +13,13 @@
  *    «Открыть в Telegram» — та же загадка на сайте прямо внутри Telegram (src/core/telegram.ts).
  * В Шабат (с полудня пятницы по UTC до конца субботы) ничего не публикуется — даже при ручном запуске.
  *
- * Проверить локально без отправки: `npx tsx scripts/telegram-post.ts --dry` (`--slot N` — другой факт по очереди).
+ * Проверить локально без отправки: `npx tsx scripts/telegram-post.ts --dry [--date 2026-10-21]` (`--slot N` — другой
+ * факт главы по очереди).
  */
 import { LESSONS } from '../src/lessons';
 import { collectFacts, type Fact } from '../src/core/facts';
+import { parshaOf } from '../src/core/dailyMessage';
+import { PARSHIOT } from '../src/lessons/parshiot';
 import { displayNames } from '../src/core/names';
 import { SITE_URL, routeLink } from '../src/core/site';
 import { miniAppLink } from '../src/core/telegram';
@@ -36,19 +40,27 @@ const APP = process.env.TELEGRAM_APP;
 const args = process.argv.slice(2);
 const DRY = args.includes('--dry');
 const slotArg = args.indexOf('--slot');
+const dateArg = args.indexOf('--date');
 
-const now = new Date();
+const now = dateArg >= 0 ? new Date(`${args[dateArg + 1]}T07:00:00Z`) : new Date();
 const day = now.getUTCDay();
 if (!DRY && (day === 6 || (day === 5 && now.getUTCHours() >= 12))) {
   console.log('Шабат — сегодня не публикуем.');
   process.exit(0);
 }
 
-const facts = collectFacts(LESSONS);
-if (!facts.length) throw new Error('no facts');
-// two posts a week: a new slot every 3.5 days, the facts in turn
-const slot = slotArg >= 0 ? Number(args[slotArg + 1]) : Math.floor(now.getTime() / (3.5 * 864e5));
+// the facts of this week's portion (its Shabbat is today or later), not of the one just read
+const today = now.toISOString().slice(0, 10);
+const parsha = parshaOf(today);
+const all = collectFacts(LESSONS);
+const facts = all.filter((f) => f.lesson.parsha === parsha);
+if (!facts.length) throw new Error(`no facts for ${parsha}`);
+// two posts a week: Sunday — the first fact of the portion, Wednesday — the second (after the last portion — on in turn)
+const sunday = (Date.parse(`${PARSHIOT[parsha].shabbat}T00:00:00Z`) - 6 * 864e5) / 864e5;
+const days = Math.max(0, Math.floor(Date.parse(`${today}T00:00:00Z`) / 864e5) - sunday);
+const slot = slotArg >= 0 ? Number(args[slotArg + 1]) : Math.floor((days + 1) / 3.5);
 const fact = facts[slot % facts.length];
+console.log(`${today}: глава ${parsha}, загадка ${(slot % facts.length) + 1} из ${facts.length}`);
 
 const html = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const t = (loc: Loc, key: string) => String((UI[loc] as Record<string, unknown>)[key] ?? (ru as Record<string, unknown>)[key]);
