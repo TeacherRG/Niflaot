@@ -4,22 +4,32 @@ import json, struct, sys, base64
 def stats(name, pcm, rate):
     n = len(pcm) // 2
     s = struct.unpack(f'<{n}h', pcm[: n * 2])
-    jumps = [i for i in range(1, n) if abs(s[i] - s[i - 1]) > 12000]
-    zeros, run, gaps = 0, 0, []
+    d = [abs(s[i] - s[i - 1]) for i in range(1, n)]
+    # a click: one jump far above the jumps around it (speech at 24 kHz changes smoothly from sample to sample)
+    clicks = []
+    W = 48
+    for i in range(W, len(d) - W):
+        if d[i] > 1500:
+            around = sorted(d[i - W : i - 2] + d[i + 3 : i + W])
+            med = around[len(around) // 2] or 1
+            if d[i] > 12 * med and (not clicks or i - clicks[-1] > rate // 100):
+                clicks.append(i)
+    times = [round(c / rate, 2) for c in clicks]
+    gaps = [round(b - a, 2) for a, b in zip(times, times[1:])]
+    print(f'== {name}: {n / rate:.1f} s at {rate} Hz, peak {max(map(abs, s)) if s else 0}')
+    print(f'   clicks: {len(clicks)} ({len(clicks) / max(1e-9, n / rate):.2f} per s); at: {times[:40]}')
+    if gaps:
+        gs = sorted(gaps)
+        print(f'   spacing: median {gs[len(gs) // 2]} s, min {gs[0]}, max {gs[-1]}')
+    # silent stretches inside the speech (|x| < 30 for > 120 ms)
+    run, quiet = 0, []
     for i, x in enumerate(s):
-        if x == 0:
+        if abs(x) < 30:
             run += 1
         else:
-            if run > rate // 50: gaps.append((round((i - run) / rate, 2), round(run / rate, 3)))
+            if run > rate * 0.12: quiet.append((round((i - run) / rate, 2), round(run / rate, 2)))
             run = 0
-    peak = max(abs(x) for x in s) if s else 0
-    print(f'== {name}: {n} samples, {n / rate:.1f} s at {rate} Hz, peak {peak}')
-    print(f'   big jumps (clicks?): {len(jumps)}; first at s: {[round(j / rate, 2) for j in jumps[:25]]}')
-    print(f'   exact-zero gaps > 20 ms: {len(gaps)}; first: {gaps[:15]}')
-    print(f'   odd byte count: {len(pcm) % 2}; "RIFF" inside data: {pcm.find(b"RIFF")}')
-    # byte order: little-endian speech has small values; swapped — noise near full scale
-    alt = struct.unpack(f'>{min(n, 48000)}h', pcm[: min(n, 48000) * 2])
-    print(f'   mean |x| little-endian {sum(map(abs, s[:48000])) // max(1, min(n, 48000))}, big-endian {sum(map(abs, alt)) // max(1, len(alt))}')
+    print(f'   pauses > 120 ms: {len(quiet)}; {quiet[:20]}')
 
 for f in sys.argv[1:]:
     b = open(f, 'rb').read()

@@ -15,17 +15,17 @@ jobs:
           ASSISTANT_URL: ${{ vars.ASSISTANT_URL }}
         run: |
           curl -sf https://niflaot.mychitas.app/tts/ru/baal-haturim-noach.json -o m.json
-          for i in 0 1 2; do
+          for i in 0 2; do
             H=$(jq -r ".parts[$i].h" m.json)
-            curl -s -o worker-$i.wav -w "worker part $i: %{http_code} %{size_download} bytes in %{time_total}s\n" "${ASSISTANT_URL%/}/tts/ru/baal-haturim-noach/$H.wav"
+            curl -s -o worker-$i.wav -w "worker part $i: %{http_code} %{size_download} bytes in %{time_total}s\n" -H 'Origin: https://niflaot.mychitas.app' "${ASSISTANT_URL%/}/tts/ru/baal-haturim-noach/$H.wav"
           done
           jq -r '.parts[1].text' m.json | head -c 600 > text.txt
-          for m in gemini-2.5-flash-preview-tts gemini-2.5-pro-preview-tts gemini-3.1-flash-tts-preview; do
+          for m in gemini-2.5-flash-preview-tts gemini-3.1-flash-tts-preview; do
             jq -n --rawfile t text.txt '{contents:[{parts:[{text:("Прочитай вслух по-русски, спокойно и тепло:\n\n" + $t)}]}],generationConfig:{responseModalities:["AUDIO"],speechConfig:{voiceConfig:{prebuiltVoiceConfig:{voiceName:"Charon"}}}}}' > req.json
             curl -s -o $m.json -w "$m: %{http_code} %{size_download} bytes in %{time_total}s\n" -H 'Content-Type: application/json' -H "x-goog-api-key: $GEMINI_API_KEY" \
               -d @req.json https://generativelanguage.googleapis.com/v1beta/models/$m:generateContent
           done
-          python3 scripts/tts-diag.py worker-0.wav worker-1.wav worker-2.wav gemini-2.5-flash-preview-tts.json gemini-2.5-pro-preview-tts.json gemini-3.1-flash-tts-preview.json
+          python3 scripts/tts-diag.py worker-0.wav worker-2.wav gemini-2.5-flash-preview-tts.json gemini-3.1-flash-tts-preview.json
       - uses: actions/upload-artifact@v4 # temporary workflow
         if: always()
         with:
