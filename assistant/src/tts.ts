@@ -39,7 +39,8 @@ const STYLE: Record<string, string> = {
   en: 'Read aloud in English, calmly and warmly:',
   de: 'Lies auf Deutsch vor, ruhig und warm:',
 };
-const STYLE_VERSION = 2;
+// 3: the parts recorded by a fallback model when the quota ran out (they clicked) are recorded anew
+const STYLE_VERSION = 3;
 
 interface Part {
   h: string;
@@ -159,13 +160,13 @@ class NotFound extends Error {}
 class Quota extends Error {}
 
 /**
- * Gemini TTS → 16-bit PCM → a WAV file. An unknown model (404) or one whose quota is spent (429 — the free tier has
- * a small daily limit per model) hands over to the next; an answer without audio (the model's stream broke off —
+ * Gemini TTS → 16-bit PCM → a WAV file. An unknown model (404) hands over to the next. A spent quota (429 — the free
+ * tier has a small daily limit) does not: the 2.5 models' audio clicks every few words, and a part recorded by another
+ * model would be kept under this one for good — the part waits for the quota instead. An answer without audio (the model's stream broke off —
  * `finishReason` SAFETY / OTHER, «please retry») is asked again once. The audio may come in several pieces: all are joined.
  */
 async function speak(env: TtsEnv, lang: string, text: string, voice: string): Promise<Uint8Array> {
   const models = [env.TTS_MODEL || DEFAULT_MODEL, ...FALLBACK_MODELS.filter((x) => x !== env.TTS_MODEL)];
-  let quota = false;
   for (const model of models)
     for (let attempt = 0; attempt < 2; attempt++) {
       const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
@@ -179,11 +180,11 @@ async function speak(env: TtsEnv, lang: string, text: string, voice: string): Pr
           },
         }),
       });
-      if (r.status === 404 || r.status === 429) {
-        if (r.status === 429) quota = true;
-        console.error('tts', model, r.status, (await r.text()).slice(0, 300));
-        break;
+      if (r.status === 429) {
+        console.error('tts', model, 429, (await r.text()).slice(0, 300));
+        throw new Quota();
       }
+      if (r.status === 404) break;
       if (!r.ok) throw new Error(`gemini ${model} ${r.status}: ${(await r.text()).slice(0, 300)}`);
       const out = await r.json<{
         candidates?: { finishReason?: string; content?: { parts?: { inlineData?: { mimeType?: string; data?: string } }[] } }[];
@@ -203,7 +204,7 @@ async function speak(env: TtsEnv, lang: string, text: string, voice: string): Pr
       }
       return wav(all, rate);
     }
-  throw quota ? new Quota() : new Error('gemini: no audio from any TTS model');
+  throw new Error('gemini: no audio from any TTS model');
 }
 
 function fromBase64(s: string): Uint8Array {
