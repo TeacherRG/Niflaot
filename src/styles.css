@@ -2226,8 +2226,7 @@ body:has(.a-home){background:var(--plain)}
 .kar-game-note{margin:0;font-size:14px;color:var(--ink-2);line-height:1.45}
 .kar-score{color:var(--gold-deep);white-space:nowrap;font-variant-numeric:tabular-nums}
 .kar-live{margin:0;display:flex;align-items:center;gap:12px;min-height:34px}
-.kar-live .kar-voice{flex:1 1 auto;min-width:0}
-.kar-start{justify-self:start}
+.kar-live .kar-start{justify-self:start}
 .kar-line{display:grid;gap:4px;padding:8px 12px;border-radius:10px;color:var(--muted)}
 .kar-lines li.now .kar-line{background:var(--gold-soft)}
 .kar-lines li.now .kar-gapline{color:var(--ink);background:none;-webkit-background-clip:border-box;background-clip:border-box}
@@ -2243,10 +2242,10 @@ body:has(.a-home){background:var(--plain)}
 .kar-result.ok{border-inline-start-color:var(--ok);background:var(--ok-soft)}
 .kar-result b{font-family:var(--f-display);font-size:20px}
 .kar-result-a{display:flex;flex-wrap:wrap;gap:8px}
-/* «Петь» in the karaoke: the privacy line, the live voice — in tune / not / silent, the points of each line */
+/* «Петь» in the karaoke: the privacy line */
 .kar-privacy{margin:0;font-size:13px;color:var(--muted);line-height:1.45}
-.kar-voice{margin:0;justify-self:stretch;box-sizing:border-box;height:34px;line-height:22px;padding:6px 12px;border-radius:999px;font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:var(--paper);color:var(--ink-2);transition:background-color .2s,color .2s}
-.kar-voice.on{background:var(--ok-soft);color:var(--ok)}
-.kar-voice.off{background:var(--gold-soft);color:var(--gold-deep)}
-.kar-pts{justify-self:start;font-size:13px;font-weight:700;color:var(--gold-deep)}
 @media (max-width:420px){.kar-tabs{justify-self:stretch;display:grid;grid-template-columns:repeat(3,auto);justify-content:space-between}.kar-tabs button{padding:8px 9px;font-size:14px}}
+/* «Петь»: no numbers while singing — one bar on top grows with the points sung in tune; green while in tune */
+.kar-sing-bar{height:12px;border-radius:999px;background:var(--paper);overflow:hidden;box-shadow:inset 0 0 0 1px var(--line)}
+.kar-sing-bar span{display:block;height:100%;border-radius:inherit;background:var(--gold);transition:width .3s ease,background-color .3s}
+.kar-sing-bar.on span{background:var(--ok)}

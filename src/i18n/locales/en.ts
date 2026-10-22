@@ -1264,13 +1264,10 @@ const en: Messages = {
   'nigun.singStart': "Sing into the microphone",
   'nigun.singAgain': "Sing again",
   'nigun.singEnd': "Stop singing",
-  'nigun.singScore': "points: {n}",
+  'nigun.singProgress': "How much is sung in tune",
   'nigun.singResult': "{n} of {max} points · {pct}%",
   'nigun.singNeed': "The certificate needs {pass}% — listen in “Learn” and sing again.",
   'nigun.micError': "The microphone did not turn on. Allow it for this site in the browser — or play for points without the microphone.",
-  'nigun.voice.none': "can’t hear you — sing louder",
-  'nigun.voice.off': "I hear you — try to match the tune",
-  'nigun.voice.on': "in tune! ✓",
 };
 
 export default en;

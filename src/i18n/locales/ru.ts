@@ -1284,13 +1284,10 @@ const ru = {
   'nigun.singStart': "Петь в микрофон",
   'nigun.singAgain': "Спеть ещё раз",
   'nigun.singEnd': "Закончить пение",
-  'nigun.singScore': "баллы: {n}",
+  'nigun.singProgress': "Сколько спето в тон",
   'nigun.singResult': "{n} из {max} баллов · {pct}%",
   'nigun.singNeed': "Для сертификата нужно {pass}% — послушайте в режиме «Учить» и спойте ещё раз.",
   'nigun.micError': "Микрофон не включился. Разрешите его для этого сайта в браузере — или играйте на баллы без микрофона.",
-  'nigun.voice.none': "не слышно — пойте громче",
-  'nigun.voice.off': "слышу вас — попробуйте попасть в мелодию",
-  'nigun.voice.on': "в тон! ✓",
 } satisfies Record<string, string | PluralForms>;
 
 export type PluralForms = Partial<Record<Intl.LDMLPluralRule, string>> & { other: string };
