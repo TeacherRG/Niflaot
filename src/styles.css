@@ -1166,6 +1166,8 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .rebbe-list{margin-top:16px}
 .menu-sub .menu-lesson{display:grid;gap:2px}
 .menu-sub .menu-game{margin-inline-start:22px;font-size:14px;padding:7px 10px}
+/* Baal HaTurim's Memo pairs in the adults' menu — under their lesson */
+.menu-sub .menu-memo{margin-inline-start:40px}
 /* «Тора» in the menu: the portions in a strip scrolled sideways, the chosen one's lessons under it */
 .parsha-pick{display:flex;align-items:center;gap:2px;margin:0 0 6px;min-width:0}
 .parsha-strip{display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;padding:2px;flex:1;min-width:0}

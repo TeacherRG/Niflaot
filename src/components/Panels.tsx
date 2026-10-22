@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { Fragment, Suspense, lazy, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { Html, useI18n } from '../i18n';
 import { LESSON_GROUPS, findLesson, weekParsha } from '../lessons';
 import { teacherOf } from '../lessons/teachers';
@@ -372,19 +372,34 @@ export function Panels() {
               <div key={g.id} className="menu-parsha">
                 <div className="menu-sub">
                   {reads.map((l) => (
-                    <a
-                      key={l.slug}
-                      href={`#/${l.slug}/read`}
-                      onClick={close}
-                      className="menu-item menu-game"
-                      aria-current={isHere(`#/${l.slug}/read`) ? 'page' : undefined}
-                    >
-                      <span>
-                        {pick(l.texts).value.title}
-                        {/* the teacher, unless the title already names him («Бааль ґа-Турим: Ноах») */}
-                        {!pick(l.texts).value.title.includes(t(`teacher.${teacherOf(l)}.short`)) && <small>{t(`teacher.${teacherOf(l)}.short`)}</small>}
-                      </span>
-                    </a>
+                    <Fragment key={l.slug}>
+                      <a
+                        href={`#/${l.slug}/read`}
+                        onClick={close}
+                        className="menu-item menu-game"
+                        aria-current={isHere(`#/${l.slug}/read`) ? 'page' : undefined}
+                      >
+                        <span>
+                          {pick(l.texts).value.title}
+                          {/* the teacher, unless the title already names him («Бааль ґа-Турим: Ноах») */}
+                          {!pick(l.texts).value.title.includes(t(`teacher.${teacherOf(l)}.short`)) && <small>{t(`teacher.${teacherOf(l)}.short`)}</small>}
+                        </span>
+                      </a>
+                      {/* Baal HaTurim's Memo pairs to study (picture — the words of the Torah — the comment); the Rebbe's cards are a tab of «Прочитать» */}
+                      {l.memo && (
+                        <a
+                          href={`#/${l.slug}/memo/1`}
+                          onClick={close}
+                          className="menu-item menu-game menu-memo"
+                          aria-current={isHere(`#/${l.slug}/memo`) ? 'page' : undefined}
+                        >
+                          <span>
+                            {t('read.memoMenu')}
+                            <small>{t('read.memoMenuSub', { n: l.memo.items.length })}</small>
+                          </span>
+                        </a>
+                      )}
+                    </Fragment>
                   ))}
                 </div>
               </div>

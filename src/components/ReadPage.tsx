@@ -275,6 +275,16 @@ export function ReadPage({ lesson, at }: { lesson: Lesson; at?: number }) {
             </section>
           </article>
           {/* the invitation to play — not in the adults' mode (src/core/mode.ts) */}
+          {/* the adults: no games, but the Memo pairs to study (the same comments with pictures) */}
+          {adults && lesson.memo && (
+            <section className="memo-cta">
+              <span aria-hidden="true">🃏</span>
+              <p>{t('read.memo', { n: lesson.memo.items.length })}</p>
+              <a className="btn" href={`#/${lesson.slug}/memo/1`}>
+                {t('read.memoBtn')} →
+              </a>
+            </section>
+          )}
           {!adults && (
             <section className="memo-cta">
               <span aria-hidden="true">🔢</span>
