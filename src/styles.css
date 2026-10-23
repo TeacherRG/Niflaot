@@ -1586,6 +1586,20 @@ a.tk-step:hover{background:var(--tchelet-soft)}
 .tk-sources a{margin-inline-end:12px;color:var(--tchelet)}
 .tk-cycle{font-size:12.5px;color:var(--muted)}
 @media (max-width:420px){.tk-he{font-size:21px}.tk-st p.he{font-size:17px}}
+/* «В два столбца»: the translation on the left, the Hebrew on the right, verse by verse and comment by comment */
+.tk-verse.cols{display:grid;grid-template-columns:1fr 1fr;column-gap:20px}
+.tk-verse.cols>.tk-num,.tk-verse.cols>.tk-st{grid-column:1/-1}
+.tk-verse.cols>.tk-en{grid-column:1;grid-row:2;margin:0;padding-inline-end:20px;border-inline-end:1px solid var(--line);margin-inline-end:-20px}
+.tk-verse.cols>.tk-he{grid-column:2;grid-row:2}
+.tk-cols{display:grid;grid-template-columns:1fr 1fr;column-gap:16px;align-items:start}
+@media (max-width:640px){.tk-verse.cols{column-gap:12px}.tk-verse.cols>.tk-en{padding-inline-end:12px;margin-inline-end:-12px}.tk-cols{column-gap:10px}}
+@media (max-width:420px){
+  .tk-verse.cols>.tk-he{font-size:18px;line-height:1.65}
+  .tk-verse.cols>.tk-en{font-size:14px;line-height:1.5}
+  .tk-st.cols{padding:8px}
+  .tk-st.cols p{font-size:13px}
+  .tk-st.cols p.he{font-size:15px}
+}
 .tk-tools{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:12px 0;padding:8px 0;border-block:1px solid var(--line)}
 .tk-tools .tk-view{margin:0;min-width:0}
 .tk-tools .tk-view-btn{max-width:100%}
@@ -1611,6 +1625,7 @@ a.tk-step:hover{background:var(--tchelet-soft)}
   .tk-num{color:#7a5b1e}
   .tk-he{font-size:16pt;line-height:1.55}
   .tk-en{font-size:11pt}
+  .tk-verse.cols{break-inside:avoid}
   .tk-st{background:none;padding:2pt 0 0 10pt;border-inline-start:2px solid #ccc;border-radius:0}
   .tk-num{display:block;break-after:avoid}
   .tk-st-by{display:block;break-after:avoid}
