@@ -33,6 +33,8 @@ interface View {
   /** Metzudat David */
   md: boolean;
   rashi: boolean;
+  /** Hebrew and the translation side by side: the Hebrew on the right, the translation on the left */
+  cols: boolean;
 }
 const VIEW_KEY = 'niflaot:tanakh-view';
 function useView(locale: string): [View, (v: View) => void] {
@@ -43,13 +45,14 @@ function useView(locale: string): [View, (v: View) => void] {
         // a choice saved before the commentaries (`st`, a switch of earlier explanations) becomes Metzudat David's
         const md = typeof v.md === 'boolean' ? v.md : v.st !== false;
         const rashi = v.rashi === true;
+        const cols = v.cols === true;
         // a choice saved before the German translation existed (no `de` mark): on the German site English becomes German, once
-        if (locale === 'de' && !v.de && (v.text === 'he-en' || v.text === 'en')) return { text: v.text === 'en' ? 'de' : 'he-de', md, rashi };
-        return { text: v.text, md, rashi };
+        if (locale === 'de' && !v.de && (v.text === 'he-en' || v.text === 'en')) return { text: v.text === 'en' ? 'de' : 'he-de', md, rashi, cols };
+        return { text: v.text, md, rashi, cols };
       }
     } catch {}
     // by default: the Hebrew with the translation in the site's language, with Metzudat David
-    return { text: locale === 'ru' ? 'he-ru' : locale === 'de' ? 'he-de' : 'he-en', md: true, rashi: false };
+    return { text: locale === 'ru' ? 'he-ru' : locale === 'de' ? 'he-de' : 'he-en', md: true, rashi: false, cols: false };
   });
   return [
     view,
@@ -84,6 +87,7 @@ function ViewMenu({ view, setView, soon }: { view: View; setView: (v: View) => v
           {t(`tanakh.view.${view.text}`)}
           {view.md && <small> · {t('tanakh.md')}</small>}
           {view.rashi && <small> · {t('tanakh.rashi')}</small>}
+          {view.cols && view.text.startsWith('he-') && <small> · {t('tanakh.layout.colsShort')}</small>}
         </span>
         <Icon name="chevron" size={14} />
       </button>
@@ -106,6 +110,19 @@ function ViewMenu({ view, setView, soon }: { view: View; setView: (v: View) => v
               {view.text === l && <Icon name="check" size={16} />}
             </button>
           ))}
+          {view.text.startsWith('he-') && (
+            <>
+              <div className="tk-view-sep" />
+              <div className="tk-view-head">{t('tanakh.layout')}</div>
+              {[false, true].map((cols) => (
+                <button key={String(cols)} type="button" role="menuitemradio" aria-checked={view.cols === cols} onClick={() => setView({ ...view, cols })}>
+                  <span className="code" aria-hidden="true">{cols ? '◧' : '☰'}</span>
+                  <span className="name">{t(cols ? 'tanakh.layout.cols' : 'tanakh.layout.rows')}</span>
+                  {view.cols === cols && <Icon name="check" size={16} />}
+                </button>
+              ))}
+            </>
+          )}
           <div className="tk-view-sep" />
           <div className="tk-view-head">{t('tanakh.commLabel')}</div>
           <button type="button" role="menuitemcheckbox" aria-checked={view.md} onClick={() => setView({ ...view, md: !view.md })}>
@@ -184,28 +201,46 @@ const nb = (tr: Tr | null, x?: string) =>
  * translation in that language: Rashi — in English, marked; Metzudat David — in Hebrew, with a note (when only the
  * translation is shown, the Hebrew stands in).
  */
-function Comm({ c, by, he, tr }: { c: Commentary; by: string; he: boolean; tr: Tr | null }) {
+function Comm({ c, by, he, tr, cols }: { c: Commentary; by: string; he: boolean; tr: Tr | null; cols?: boolean }) {
   const { t } = useI18n();
   const own = tr ? c[tr] : undefined;
   const en = !own && tr && tr !== 'en' ? c.en : undefined;
   const showHe = !!c.he && (he || (!!tr && !own && !en));
   const pending = !!tr && !own && !en && !!c.he;
   if (!showHe && !own && !en) return null;
+  const heP = (x: string, k: number) => <p key={`h${k}`} className="he" lang="he" dir="rtl" dangerouslySetInnerHTML={{ __html: x }} />;
+  const trP = (x: string, k: number) => <p key={`t${k}`} lang={own ? tr! : 'en'} dangerouslySetInnerHTML={{ __html: nb(own ? tr : 'en', x)! }} />;
+  const trs = own ?? en;
+  // side by side: comment by comment in rows — the translation on the left, the Hebrew on the right
+  const pairs = cols && showHe && trs;
   return (
-    <div className="tk-st">
+    <div className={`tk-st${pairs ? ' cols' : ''}`}>
       <span className="tk-st-by">
         {by}
         {en && <small> · {t('tanakh.commEnOnly')}</small>}
         {pending && <small className="no-print"> · {t('tanakh.commTr')}</small>}
       </span>
-      {showHe && c.he!.map((x, k) => <p key={`h${k}`} className="he" lang="he" dir="rtl" dangerouslySetInnerHTML={{ __html: x }} />)}
-      {(own ?? en)?.map((x, k) => <p key={`t${k}`} lang={own ? tr! : 'en'} dangerouslySetInnerHTML={{ __html: nb(own ? tr : 'en', x)! }} />)}
+      {pairs ? (
+        <div className="tk-cols">
+          {Array.from({ length: Math.max(c.he!.length, trs.length) }, (_, k) => (
+            <Fragment key={k}>
+              {trs[k] !== undefined ? trP(trs[k], k) : <span />}
+              {c.he![k] !== undefined ? heP(c.he![k], k) : <span />}
+            </Fragment>
+          ))}
+        </div>
+      ) : (
+        <>
+          {showHe && c.he!.map(heP)}
+          {trs?.map(trP)}
+        </>
+      )}
     </div>
   );
 }
 
 /** The verses of one section of one day: a heading at each new chapter, then verse by verse with the chosen commentaries. */
-function Verses({ verses, he, tr, md, rashi }: { verses: DayVerse[]; he: boolean; tr: Tr | null; md: boolean; rashi: boolean }) {
+function Verses({ verses, he, tr, md, rashi, cols }: { verses: DayVerse[]; he: boolean; tr: Tr | null; md: boolean; rashi: boolean; cols: boolean }) {
   const { t, locale } = useI18n();
   return (
     <>
@@ -224,7 +259,7 @@ function Verses({ verses, he, tr, md, rashi }: { verses: DayVerse[]; he: boolean
                 </span>
               </h2>
             )}
-            <section className="tk-verse" id={`v-${v.b}-${v.c}-${v.v}`}>
+            <section className={`tk-verse${cols && he && text ? ' cols' : ''}`} id={`v-${v.b}-${v.c}-${v.v}`}>
               <span className="tk-num num" aria-label={`${v.c}:${v.v}`}>
                 {v.c}:{v.v}
               </span>
@@ -239,8 +274,8 @@ function Verses({ verses, he, tr, md, rashi }: { verses: DayVerse[]; he: boolean
                   {tr === 'en' && v.enFrom && <small className="fn"> ({v.enFrom})</small>}
                 </p>
               )}
-              {md && v.md && <Comm c={v.md} by={t('tanakh.md')} he={he} tr={tr} />}
-              {rashi && v.rashi && <Comm c={v.rashi} by={t('tanakh.rashi')} he={he} tr={tr} />}
+              {md && v.md && <Comm c={v.md} by={t('tanakh.md')} he={he} tr={tr} cols={cols} />}
+              {rashi && v.rashi && <Comm c={v.rashi} by={t('tanakh.rashi')} he={he} tr={tr} cols={cols} />}
             </section>
           </Fragment>
         );
@@ -470,7 +505,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
           ) : !sec ? (
             <p className="tk-note">{t('tanakh.notReady')}</p>
           ) : (
-            <Verses verses={sec.verses} he={he} tr={tr} md={view.md} rashi={view.rashi} />
+            <Verses verses={sec.verses} he={he} tr={tr} md={view.md} rashi={view.rashi} cols={view.cols} />
           )}
 
           {sec && <DoneCheck section={section} date={day.date} today={today} />}
@@ -512,7 +547,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
                 </h1>
                 <p className="tk-range">{rangeLabel(other, day[other], lang)}</p>
               </header>
-              <Verses verses={content[other].verses} he={he} tr={tr} md={view.md} rashi={view.rashi} />
+              <Verses verses={content[other].verses} he={he} tr={tr} md={view.md} rashi={view.rashi} cols={view.cols} />
               <Sources sec={content[other]} tr={tr} />
             </section>
           )}
