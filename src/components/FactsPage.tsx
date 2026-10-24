@@ -40,8 +40,13 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
   const who = teacherOf(f.lesson);
   const base = `#/${f.lesson.slug}`;
   const [card, setCard] = useState<'idle' | 'making' | 'saved'>('idle');
-  const question = f.kind === 'eq' ? t('facts.qEq') : t(`facts.qLt.${f.take}`);
+  const question = t(`facts.ask.${f.kind === 'eq' ? 'eq' : f.take}`);
   const he = f.kind === 'eq' ? f.q : f.from;
+  const memo = f.mi !== undefined ? text.memo?.items[f.mi] : undefined;
+  // one short line on what the answer means: what a bare number stands for, else the name of the comment
+  const bare = f.kind === 'eq' && f.rest.every((p) => NUMS.test(p));
+  const point = (bare && memo?.note) || memo?.title || (f.ri !== undefined ? text.riddles[f.ri].title : undefined);
+  const why = f.ri !== undefined ? `${base}/read/${f.ri + 1}` : f.mi !== undefined ? `${base}/memo/${f.mi + 1}` : base;
 
   /** «Поделиться загадкой»: the riddle and its answer as a picture signed with the site; why it is so — behind the link. */
   const share = async () => {
@@ -74,7 +79,7 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
       const res = await shareOrSave(
         blob,
         `niflaot-${f.id}.png`,
-        `${question} ${displayNames(he)}?\n${t('facts.answer')}: ${said}\n${t('facts.shareText')} 👉 ${routeLink(`facts/${f.id}`, 'card', locale)}`,
+        `${question}\n${displayNames(he)}\n${t('facts.answer')}: ${said}\n${t('facts.shareText')} 👉 ${routeLink(`facts/${f.id}`, 'card', locale)}`,
       );
       setCard(res === 'saved' ? 'saved' : 'idle');
       if (res === 'saved') setTimeout(() => setCard('idle'), 2500);
@@ -85,52 +90,46 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
 
   return (
     <article className={`fact t-${TEACHERS[who].color}${here ? ' here' : ''}`} id={f.id}>
-      <div className="fact-src">
-        <span className="h-badge">{t(`teacher.${who}.short`)}</span>
-        {text.title}
-      </div>
       <p className="fact-q">{question}</p>
       <div className="fact-he">
         <Words he={he} gloss={text.glossary} ask />
       </div>
       {open ? (
         <div className="fact-a pop">
-          {f.kind === 'eq' ? (
-            f.rest.map((p, k) => (
-              <span key={k} className="fact-part">
-                <span className="fact-op">=</span>
-                {NUMS.test(p) ? <b className="num">{p}</b> : <Words he={p} gloss={text.glossary} />}
+          <div className="fact-ans">
+            {f.kind === 'eq' ? (
+              f.rest.map((p, k) => (
+                <span key={k} className="fact-part">
+                  <span className="fact-op">=</span>
+                  {NUMS.test(p) ? <b className="num">{p}</b> : <Words he={p} gloss={text.glossary} />}
+                </span>
+              ))
+            ) : (
+              <span className="fact-part">
+                <span className="fact-op">→</span>
+                <Words he={f.word} gloss={text.glossary} />
               </span>
-            ))
-          ) : (
-            <span className="fact-part">
-              <span className="fact-op">→</span>
-              <Words he={f.word} gloss={text.glossary} />
-            </span>
-          )}
+            )}
+          </div>
+          {point && <p className="fact-point">{point}</p>}
         </div>
       ) : (
         <button className="btn fact-show" onClick={() => setOpen(true)}>
           {t('facts.show')}
         </button>
       )}
-      <button className="btn ghost fact-share" onClick={share} disabled={card === 'making'}>
-        📤 {card === 'making' ? t('final.cardMaking') : card === 'saved' ? t('final.cardSaved') : t('facts.share')}
-      </button>
-      <div className="fact-links">
-        {f.ri !== undefined && (
-          <>
-            <a href={`${base}/read/${f.ri + 1}`}>
-              📖 {t('facts.where', { n: f.ri + 1 })} <q>{text.riddles[f.ri].title}</q> →
-            </a>
-            <a href={`${base}/r/${f.ri + 1}`}>🔢 {t('facts.solve')} →</a>
-          </>
-        )}
-        {f.mi !== undefined && text.memo && (
-          <a href={`${base}/memo/${f.mi + 1}`}>
-            🃏 {t('facts.memo', { n: f.mi + 1 })} <q>{text.memo.items[f.mi].title}</q> →
-          </a>
-        )}
+      <div className="fact-foot">
+        <a href={why}>{t('facts.why')} →</a>
+        <span className="fact-src">{text.title}</span>
+        <button
+          className="btn ghost fact-share"
+          onClick={share}
+          disabled={card === 'making'}
+          aria-label={t('facts.share')}
+          title={t('facts.share')}
+        >
+          📤{card === 'making' ? ` ${t('final.cardMaking')}` : card === 'saved' ? ` ${t('final.cardSaved')}` : ''}
+        </button>
       </div>
     </article>
   );
@@ -138,7 +137,7 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
 
 /**
  * «Знаете ли вы?» — every equality and letter hint of the lessons as a feed of short questions, without explanations:
- * the answer opens on a tap, the links lead to the lesson where it is explained.
+ * the answer opens on a tap with one line on what it means, «Почему так?» leads to the lesson where it is explained.
  */
 /** `at` — the fact a shared link points to (`#/facts/<id>`), or `daily` («Гематрия дня», `#/daily`): the feed opens on it. */
 export function FactsPage({ at }: { at?: string }) {
