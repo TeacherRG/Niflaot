@@ -1,7 +1,7 @@
 /**
  * «Слушать»: the lesson's text in parts (dist/tts/<lang>/<slug>.json, written by scripts/prerender.ts from
  * src/core/narration.ts) and the address of a part's recording at the assistant's worker (assistant/src/tts.ts:
- * recorded by Gemini TTS for the first listener, then kept and served to everyone).
+ * recorded by Google Cloud Text-to-Speech for the first listener, then kept and served to everyone).
  */
 import { ASSISTANT_URL } from './assistant';
 import type { Narration } from './speech';
@@ -26,12 +26,12 @@ export function loadNarration(lang: string, slug: string): Promise<Narration | n
   return p;
 }
 
-export const partUrl = (lang: string, slug: string, h: string) => `${ASSISTANT_URL.replace(/\/$/, '')}/tts/${lang}/${slug}/${h}.wav`;
+export const partUrl = (lang: string, slug: string, h: string) => `${ASSISTANT_URL.replace(/\/$/, '')}/tts/${lang}/${slug}/${h}.mp3`;
 
 /** a recording as a blob: address; the first time the worker records it (up to a minute) */
 export async function fetchPart(lang: string, slug: string, h: string, signal?: AbortSignal): Promise<string> {
   const r = await fetch(partUrl(lang, slug, h), { signal });
-  // 503 «quota» — Gemini's limit of the day is spent (assistant/src/tts.ts)
+  // 503 «quota» — the quota of Text-to-Speech is spent (assistant/src/tts.ts)
   if (!r.ok) throw new Error(r.status === 503 && (await r.text().catch(() => '')) === 'quota' ? 'quota' : `tts ${r.status}`);
   return URL.createObjectURL(await r.blob());
 }

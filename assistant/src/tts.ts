@@ -1,9 +1,11 @@
 /**
- * «Слушать» — the lessons read aloud by a male voice of Gemini TTS (Google AI Studio key, secret GEMINI_API_KEY).
- * The first listener of a part waits while it is generated; the audio is kept in a Durable Object with SQLite storage
- * (Narrator, one per lesson and language — free plan, nothing to set up) and every next listener gets the ready file.
+ * «Слушать» — the lessons read aloud by a male voice of Google Cloud Text-to-Speech, Chirp 3 HD (the voice Charon;
+ * secret GOOGLE_TTS_KEY — an API key of a Google Cloud project with the Text-to-Speech API on; without it GEMINI_API_KEY
+ * is tried, which works when the same project has that API on). MP3. The first listener of a part waits while it is
+ * recorded; the audio is kept in a Durable Object with SQLite storage (Narrator, one per lesson and language — free plan,
+ * nothing to set up) and every next listener gets the ready file.
  *
- * GET /tts/<lang>/<slug>/<hash>.wav — one part of a lesson, or of a passage of the day (`<slug>` = `neviim-<date>` /
+ * GET /tts/<lang>/<slug>/<hash>.mp3 — one part of a lesson, or of a passage of the day (`<slug>` = `neviim-<date>` /
  * `ketuvim-<date>`). The text is never taken from the request: the object finds the part with this hash in the site's
  * own `SITE_URL/tts/<lang>/<slug>.json` (scripts/prerender.ts, src/core/narration.ts), or builds the passage's parts
  * from `SITE_URL/tanakh/<date>.json` (src/core/tanakhNarration.ts, the same code as the page) — so nobody can make it
@@ -14,33 +16,20 @@ import { parseTanakhSlug, tanakhLang, tanakhNarration, type SpokenDay } from '..
 
 export interface TtsEnv {
   SITE_URL?: string;
+  GOOGLE_TTS_KEY?: string;
   GEMINI_API_KEY?: string;
-  /** Gemini TTS model; when it is unknown (404) the next of FALLBACK_MODELS is tried */
-  TTS_MODEL?: string;
-  /** a prebuilt voice of Gemini TTS; Charon — a calm, clear male voice */
+  /** a Chirp 3 HD voice; Charon — a calm, clear male voice (the same name in every language) */
   TTS_VOICE?: string;
   NARRATOR: DurableObjectNamespace<Narrator>;
 }
 
-const DEFAULT_MODEL = 'gemini-3.1-flash-tts-preview';
-const FALLBACK_MODELS = ['gemini-2.5-pro-preview-tts', 'gemini-2.5-flash-preview-tts'];
 const DEFAULT_VOICE = 'Charon';
+const LOCALES: Record<string, string> = { ru: 'ru-RU', en: 'en-US', de: 'de-DE' };
+/** the full voice name — also the part of the key in storage: another voice records anew */
+const voiceName = (lang: string, voice: string) => `${LOCALES[lang]}-Chirp3-HD-${voice}`;
 const MAX_TEXT = 4000;
 /** a value of SQLite storage is at most 2 MB: the file is kept in pieces */
 const PIECE = 1024 * 1024;
-
-/**
- * How the narrator reads: said to the model before the text (it is not read aloud). Short and plain: with a longer
- * instruction (the Hebrew pronunciation as well) the recordings clicked every few words and once broke off, while the
- * same text with this one came out clean. Changing it records everything anew (`STYLE_VERSION` is in the key).
- */
-const STYLE: Record<string, string> = {
-  ru: 'Прочитай вслух по-русски, спокойно и тепло:',
-  en: 'Read aloud in English, calmly and warmly:',
-  de: 'Lies auf Deutsch vor, ruhig und warm:',
-};
-// 3: the parts recorded by a fallback model when the quota ran out (they clicked) are recorded anew
-const STYLE_VERSION = 3;
 
 interface Part {
   h: string;
@@ -54,10 +43,11 @@ export async function ttsRoute(
   headers: Record<string, string>,
   mayGenerate: () => Promise<boolean>,
 ): Promise<Response> {
-  const m = path.match(/^\/(ru|en|de)\/([a-z0-9-]{1,64})\/([0-9a-f]{16})\.wav$/);
+  // `.wav` — the address of the site's earlier build, until it is redeployed (the file is MP3 either way)
+  const m = path.match(/^\/(ru|en|de)\/([a-z0-9-]{1,64})\/([0-9a-f]{16})\.(mp3|wav)$/);
   if (!m) return new Response('Not found', { status: 404, headers });
   if (req.method !== 'GET') return new Response('Method not allowed', { status: 405, headers: { ...headers, Allow: 'GET' } });
-  if (!env.GEMINI_API_KEY) return new Response('off', { status: 503, headers });
+  if (!(env.GOOGLE_TTS_KEY || env.GEMINI_API_KEY)) return new Response('off', { status: 503, headers });
   const [, lang, slug, hash] = m;
   const stub = env.NARRATOR.get(env.NARRATOR.idFromName(`${lang}/${slug}`));
   const ask = (gen: boolean) => stub.fetch(`https://narrator/${lang}/${slug}/${hash}${gen ? '?gen=1' : ''}`);
@@ -71,7 +61,7 @@ export async function ttsRoute(
   return new Response(r.body, {
     headers: {
       ...headers,
-      'Content-Type': 'audio/wav',
+      'Content-Type': 'audio/mpeg',
       'Content-Length': r.headers.get('Content-Length') ?? '',
       // a part's address has the hash of its text: the file never changes
       'Cache-Control': 'public, max-age=31536000, immutable',
@@ -87,6 +77,8 @@ export class Narrator extends DurableObject<TtsEnv> {
   constructor(ctx: DurableObjectState, env: TtsEnv) {
     super(ctx, env);
     this.sql.exec('CREATE TABLE IF NOT EXISTS audio (key TEXT NOT NULL, n INTEGER NOT NULL, data BLOB NOT NULL, PRIMARY KEY (key, n))');
+    // the WAV recordings of Gemini TTS (before Chirp 3 HD) are not used any more
+    this.sql.exec("DELETE FROM audio WHERE key NOT LIKE '%-Chirp3-HD-%'");
   }
 
   private load(key: string): Uint8Array | null {
@@ -101,27 +93,26 @@ export class Narrator extends DurableObject<TtsEnv> {
     return out;
   }
 
-  private save(key: string, wav: Uint8Array) {
+  private save(key: string, mp3: Uint8Array) {
     this.ctx.storage.transactionSync(() => {
       this.sql.exec('DELETE FROM audio WHERE key = ?', key);
-      for (let n = 0; n * PIECE < wav.length; n++) this.sql.exec('INSERT INTO audio (key, n, data) VALUES (?, ?, ?)', key, n, wav.slice(n * PIECE, (n + 1) * PIECE));
+      for (let n = 0; n * PIECE < mp3.length; n++) this.sql.exec('INSERT INTO audio (key, n, data) VALUES (?, ?, ?)', key, n, mp3.slice(n * PIECE, (n + 1) * PIECE));
     });
   }
 
   async fetch(req: Request): Promise<Response> {
     const url = new URL(req.url);
     const [, lang, slug, hash] = url.pathname.split('/');
-    const voice = this.env.TTS_VOICE || DEFAULT_VOICE;
-    // another voice, model or instruction records anew
-    const key = `${hash}-${voice}-${this.env.TTS_MODEL || DEFAULT_MODEL}-s${STYLE_VERSION}`;
-    const send = (wav: Uint8Array) => new Response(wav, { headers: { 'Content-Length': String(wav.length) } });
+    const voice = voiceName(lang, this.env.TTS_VOICE || DEFAULT_VOICE);
+    const key = `${hash}-${voice}`;
+    const send = (mp3: Uint8Array) => new Response(mp3, { headers: { 'Content-Length': String(mp3.length) } });
     const ready = this.load(key);
     if (ready) return send(ready);
     if (url.searchParams.get('gen') !== '1') return new Response('missing', { status: 404 });
 
     let job = this.pending.get(key);
     if (!job) {
-      job = this.record(lang, slug, hash, voice).then((wav) => (this.save(key, wav), wav));
+      job = this.record(lang, slug, hash, voice).then((mp3) => (this.save(key, mp3), mp3));
       this.pending.set(key, job);
       job.finally(() => this.pending.delete(key)).catch(() => {});
     }
@@ -129,7 +120,7 @@ export class Narrator extends DurableObject<TtsEnv> {
       return send(await job);
     } catch (e) {
       if (e instanceof NotFound) return new Response('Not found', { status: 404 });
-      // the day's limit of Gemini is spent: the recorded parts still play, the new ones — tomorrow
+      // the quota of Text-to-Speech is spent: the recorded parts still play, the new ones — later
       if (e instanceof Quota) return new Response('quota', { status: 503, headers: { 'Retry-After': '3600' } });
       console.error('tts', e);
       return new Response('failed', { status: 502 });
@@ -159,52 +150,34 @@ export class Narrator extends DurableObject<TtsEnv> {
 class NotFound extends Error {}
 class Quota extends Error {}
 
+const HEBREW = /[\u0590-\u05FF][\u0590-\u05FF\s״׳"'-]*/g;
+
 /**
- * Gemini TTS → 16-bit PCM → a WAV file. An unknown model (404) hands over to the next. A spent quota (429 — the free
- * tier has a small daily limit) does not: the 2.5 models' audio clicks every few words, and a part recorded by another
- * model would be kept under this one for good — the part waits for the quota instead. An answer without audio (the model's stream broke off —
- * `finishReason` SAFETY / OTHER, «please retry») is asked again once. The audio may come in several pieces: all are joined.
+ * Google Cloud Text-to-Speech (Chirp 3 HD) → MP3. A spent quota (429) — `Quota`: the part waits. Should the service
+ * refuse a text with Hebrew letters in a Russian / English / German voice (400), it is asked again without them.
  */
 async function speak(env: TtsEnv, lang: string, text: string, voice: string): Promise<Uint8Array> {
-  const models = [env.TTS_MODEL || DEFAULT_MODEL, ...FALLBACK_MODELS.filter((x) => x !== env.TTS_MODEL)];
-  for (const model of models)
-    for (let attempt = 0; attempt < 2; attempt++) {
-      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY! },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: `${STYLE[lang]}\n\n${text}` }] }],
-          generationConfig: {
-            responseModalities: ['AUDIO'],
-            speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } } },
-          },
-        }),
-      });
-      if (r.status === 429) {
-        console.error('tts', model, 429, (await r.text()).slice(0, 300));
-        throw new Quota();
-      }
-      if (r.status === 404) break;
-      if (!r.ok) throw new Error(`gemini ${model} ${r.status}: ${(await r.text()).slice(0, 300)}`);
-      const out = await r.json<{
-        candidates?: { finishReason?: string; content?: { parts?: { inlineData?: { mimeType?: string; data?: string } }[] } }[];
-      }>();
-      const pieces = (out.candidates?.[0]?.content?.parts ?? []).map((p) => p.inlineData).filter((d) => d?.data);
-      if (!pieces.length) {
-        console.error('tts', model, 'no audio', out.candidates?.[0]?.finishReason);
-        continue;
-      }
-      const rate = Number(pieces[0]!.mimeType?.match(/rate=(\d+)/)?.[1] ?? 24000);
-      const pcm = pieces.map((d) => fromBase64(d!.data!));
-      const all = new Uint8Array(pcm.reduce((n, x) => n + x.length, 0));
-      let o = 0;
-      for (const x of pcm) {
-        all.set(x, o);
-        o += x.length;
-      }
-      return wav(all, rate);
+  const key = env.GOOGLE_TTS_KEY || env.GEMINI_API_KEY!;
+  for (const input of [text, text.replace(HEBREW, ' ').replace(/[ \t]{2,}/g, ' ')]) {
+    const r = await fetch('https://texttospeech.googleapis.com/v1/text:synthesize', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
+      body: JSON.stringify({ input: { text: input }, voice: { languageCode: LOCALES[lang], name: voice }, audioConfig: { audioEncoding: 'MP3' } }),
+    });
+    if (r.status === 429) {
+      console.error('tts 429', (await r.text()).slice(0, 300));
+      throw new Quota();
     }
-  throw new Error('gemini: no audio from any TTS model');
+    if (r.status === 400 && input === text && /[\u0590-\u05FF]/.test(text)) {
+      console.error('tts 400, again without Hebrew', (await r.text()).slice(0, 300));
+      continue;
+    }
+    if (!r.ok) throw new Error(`text-to-speech ${r.status}: ${(await r.text()).slice(0, 300)}`);
+    const out = await r.json<{ audioContent?: string }>();
+    if (!out.audioContent) throw new Error('text-to-speech: no audio');
+    return fromBase64(out.audioContent);
+  }
+  throw new Error('text-to-speech: refused');
 }
 
 function fromBase64(s: string): Uint8Array {
@@ -213,27 +186,5 @@ function fromBase64(s: string): Uint8Array {
   const bin = atob(s);
   const out = new Uint8Array(bin.length);
   for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
-  return out;
-}
-
-/** a WAV header in front of mono 16-bit PCM */
-export function wav(pcm: Uint8Array, rate: number): Uint8Array {
-  const out = new Uint8Array(44 + pcm.length);
-  const v = new DataView(out.buffer);
-  const str = (o: number, s: string) => [...s].forEach((c, i) => v.setUint8(o + i, c.charCodeAt(0)));
-  str(0, 'RIFF');
-  v.setUint32(4, 36 + pcm.length, true);
-  str(8, 'WAVE');
-  str(12, 'fmt ');
-  v.setUint32(16, 16, true);
-  v.setUint16(20, 1, true); // PCM
-  v.setUint16(22, 1, true); // mono
-  v.setUint32(24, rate, true);
-  v.setUint32(28, rate * 2, true);
-  v.setUint16(32, 2, true);
-  v.setUint16(34, 16, true);
-  str(36, 'data');
-  v.setUint32(40, pcm.length, true);
-  out.set(pcm, 44);
   return out;
 }
