@@ -450,8 +450,11 @@ const en: Messages = {
   'facts.qLt.all': "Do you know which word the same letters make",
   'facts.show': "Show the answer",
   'facts.where': "Where it is in the lesson: riddle {n}",
-  'facts.solve': "Solve it yourself",
-  'facts.memo': "In the Memo game: pair {n}",
+  'facts.ask.eq': "What is its gematria?",
+  'facts.ask.first': "Which word is in the first letters?",
+  'facts.ask.last': "Which word is in the last letters?",
+  'facts.ask.all': "Which word do the same letters make?",
+  'facts.why': "Why?",
   'facts.share': "Share the riddle",
   'facts.cardAnswerLabel': "Answer",
   'facts.cardWhy': "Why it is so — on the site",
@@ -1264,13 +1267,10 @@ const en: Messages = {
   'nigun.singStart': "Sing into the microphone",
   'nigun.singAgain': "Sing again",
   'nigun.singEnd': "Stop singing",
-  'nigun.singScore': "points: {n}",
+  'nigun.singProgress': "How much is sung in tune",
   'nigun.singResult': "{n} of {max} points · {pct}%",
   'nigun.singNeed': "The certificate needs {pass}% — listen in “Learn” and sing again.",
   'nigun.micError': "The microphone did not turn on. Allow it for this site in the browser — or play for points without the microphone.",
-  'nigun.voice.none': "can’t hear you — sing louder",
-  'nigun.voice.off': "I hear you — try to match the tune",
-  'nigun.voice.on': "in tune! ✓",
 };
 
 export default en;

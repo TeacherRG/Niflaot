@@ -191,15 +191,33 @@ function Comm({ c, by, he, tr }: { c: Commentary; by: string; he: boolean; tr: T
   const showHe = !!c.he && (he || (!!tr && !own && !en));
   const pending = !!tr && !own && !en && !!c.he;
   if (!showHe && !own && !en) return null;
+  const heP = (x: string, k: number) => <p key={`h${k}`} className="he" lang="he" dir="rtl" dangerouslySetInnerHTML={{ __html: x }} />;
+  const trP = (x: string, k: number) => <p key={`t${k}`} lang={own ? tr! : 'en'} dangerouslySetInnerHTML={{ __html: nb(own ? tr : 'en', x)! }} />;
+  const trs = own ?? en;
+  // side by side: comment by comment in rows — the translation on the left, the Hebrew on the right
+  const pairs = showHe && trs;
   return (
-    <div className="tk-st">
+    <div className={`tk-st${pairs ? ' cols' : ''}`}>
       <span className="tk-st-by">
         {by}
         {en && <small> · {t('tanakh.commEnOnly')}</small>}
         {pending && <small className="no-print"> · {t('tanakh.commTr')}</small>}
       </span>
-      {showHe && c.he!.map((x, k) => <p key={`h${k}`} className="he" lang="he" dir="rtl" dangerouslySetInnerHTML={{ __html: x }} />)}
-      {(own ?? en)?.map((x, k) => <p key={`t${k}`} lang={own ? tr! : 'en'} dangerouslySetInnerHTML={{ __html: nb(own ? tr : 'en', x)! }} />)}
+      {pairs ? (
+        <div className="tk-cols">
+          {Array.from({ length: Math.max(c.he!.length, trs.length) }, (_, k) => (
+            <Fragment key={k}>
+              {trs[k] !== undefined ? trP(trs[k], k) : <span />}
+              {c.he![k] !== undefined ? heP(c.he![k], k) : <span />}
+            </Fragment>
+          ))}
+        </div>
+      ) : (
+        <>
+          {showHe && c.he!.map(heP)}
+          {trs?.map(trP)}
+        </>
+      )}
     </div>
   );
 }
@@ -224,7 +242,7 @@ function Verses({ verses, he, tr, md, rashi }: { verses: DayVerse[]; he: boolean
                 </span>
               </h2>
             )}
-            <section className="tk-verse" id={`v-${v.b}-${v.c}-${v.v}`}>
+            <section className={`tk-verse${he && text ? ' cols' : ''}`} id={`v-${v.b}-${v.c}-${v.v}`}>
               <span className="tk-num num" aria-label={`${v.c}:${v.v}`}>
                 {v.c}:{v.v}
               </span>
