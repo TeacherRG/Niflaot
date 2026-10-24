@@ -7510,6 +7510,1706 @@
    }
   }
  },
+ "gen-17-26": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 17:26",
+   "en": "Genesis 17:26",
+   "de": "Bereschit 17,26"
+  },
+  "ref": "Genesis 17:26",
+  "url": "https://www.sefaria.org/Genesis_17.26",
+  "he": [
+   "בעצם היום הזה נמול אברהם וישמעאל בנו"
+  ],
+  "en": [
+   "In the selfsame day was Abraham circumcised, and Ishmael his son."
+  ],
+  "ru": [
+   "В тот самый день обрезаны были Авраам, и сын его Йишмаэль,"
+  ],
+  "de": [
+   "An demselben Tag wurde Abraham und sein Sohn Jischmael beschnitten."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-18-1": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 18:1–2",
+   "en": "Genesis 18:1–2",
+   "de": "Bereschit 18,1–2"
+  },
+  "ref": "Genesis 18:1-2",
+  "url": "https://www.sefaria.org/Genesis_18.1-2",
+  "he": [
+   "וירא אליו ה׳ באלני ממרא והוא ישב פתח האהל כחם היום",
+   "וישא עיניו וירא והנה שלשה אנשים נצבים עליו וירא וירץ לקראתם מפתח האהל וישתחו ארצה"
+  ],
+  "en": [
+   "And the L-rd appeared unto him by the terebinths of Mamre, as he sat in the tent door in the heat of the day;",
+   "and he lifted up his eyes and looked, and, lo, three men stood over against him; and when he saw them, he ran to meet them from the tent door, and bowed down to the earth,"
+  ],
+  "ru": [
+   "И явился к нему Г-сподь в дубраве Мамре, а он сидел у входа в шатер в дневную жару.",
+   "И поднял глаза, и увидел: вот три мужа стоят рядом с ним, и увидел, и побежал к ним навстречу от входа в шатер, и поклонился до земли."
+  ],
+  "de": [
+   "Da ward <i>G-tt</i> ihm sichtbar unter den Bäumen Mamres; während er vor der Türe seines Zeltes saß, als der Tag glühte",
+   "Er hub aber seine Augen auf und sah, und siehe da, drei Männer, auf ihn gerichtet stille stehend; und als er es sah, lief er ihnen vom Eingang des Zeltes entgegen und bückte sich zur Erde —\""
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-18-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 18:1",
+   "en": "Rashi, Genesis 18:1",
+   "de": "Raschi, Bereschit 18,1"
+  },
+  "ref": "Rashi on Genesis 18:1:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_18.1.1",
+  "he": [
+   "<b>וירא אליו.</b> לְבַקֵּר אֶת הַחוֹלֶה. אָמַר רַבִּי חָמָא בַּר חֲנִינָא, יוֹם שְׁלִישִׁי לְמִילָתוֹ הָיָה, וּבָא הַקָּבָּ\"ה וְשָׁאַל בִּשְׁלוֹמוֹ (בבא מציעא פ\"ו):"
+  ],
+  "en": [
+   "וירא אליו AND THE L-rd APPEARED UNTO HIM to visit the sick man. R. Hama the son of Hanina said: it was the third day after his circumcision and the Holy One, blessed be He, came and enquired after the state of his health (Bava Metzia 86b)"
+  ],
+  "de": [
+   "<b>Es erschien ihm,</b> um den Kranken zu besuchen. R. Chama b. Chanina sagt, es war der dritte Tag nach der Beschneidung, und der Heilige, gelobt sei Er, kam und fragte nach seinem Wohle (Bawa Metzia 86b)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-18-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 18:2",
+   "en": "Rashi, Genesis 18:2",
+   "de": "Raschi, Bereschit 18,2"
+  },
+  "ref": "Rashi on Genesis 18:2:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_18.2.1",
+  "he": [
+   "<b>והנה שלשה אנשים.</b> אֶחָד לְבַשֵּׂר אֶת שָׂרָה וְאֶחָד לַהֲפֹךְ אֶת סְדוֹם וְאֶחָד לְרַפְּאוֹת אֶת אַבְרָהָם, שֶׁאֵין מַלְאָךְ אֶחָד עוֹשֶׂה שְׁתֵּי שְׁלִיחֻיּוֹת (בראשית רבה). תֵּדַע לְךָ, שֶׁכֵּן כָּל הַפָּרָשָׁה הוּא מַזְכִּירָן בִּלְשׁוֹן רַבִּים וַיֹּאכֵלוּ, וַיֹּאמְרוּ אֵלָיו, וּבַבְּשׂוֹרָה נֶאֱמַר וַיֹּאמֶר שׁוֹב אָשׁוּב אֵלֶיךָ, וּבַהֲפִיכַת סְדוֹם הוּא אוֹמֵר כִּי לֹא אוּכַל לַעֲשׂוֹת דָּבָר לְבִלְתִּי הָפְכִּי, וּרְפָאֵל שֶׁרִפֵּא אֶת אַבְרָהָם הָלַךְ מִשָּׁם לְהַצִּיל אֶת לוֹט; הוּא שֶׁנֶּאֱמַר וַיְהִי כְהוֹצִיאָם אֹתָם הַחוּצָה וַיֹּאמֶר הִמָּלֵט עַל נַפְשֶׁךָ, לָמַדְתָּ שֶׁהָאֶחָד הָיָה מַצִּיל (בראשית רבה):"
+  ],
+  "en": [
+   "והנה שלשה אנשים AND BEHOLD THREE MEN — one to announce to Sarah the birth of a son, one to overthrow Sodom, and one to cure Abraham, for one angel does not carry out two commissions (Genesis Rabbah 50:2). You may know that this is so because throughout this section it (Scripture) mentions them in the plural — “and they ate” (Genesis 18:8), “and they said unto him” (Genesis 18:9) — whilst in the case of the announcement it states, (Genesis 18:10) “And he said, I will certainly return unto thee”, and with regard to the overthrow of Sodom it says (Genesis 19:22) “For “I” cannot do anything” and (Genesis 19:21) “that “I” will not overthrow [the city]”. Raphael who healed Abraham went thence to rescue Lot; that explains what is stated (Genesis 19:17) “And it came to pass when they had brought them forth, that he said, Escape for thy life”, for you learn from this that only one of these acted as Deliverer"
+  ],
+  "de": [
+   "<b>Und siehe, drei Männer,</b> einer, um Sara die Verheißung zu bringen; einer, um Sedom zu zerstören; und einer, um Abraham zu heilen; weil nicht ein Engel zwei Aufträge erfüllt (Bereschit Rabbah 50:2); das kannst du daran erkennen, dass er sie im ganzen Abschnitt in der Mehrzahl erwähnt, »sie aßen«, »sie sagten zu ihm«; nur bei der Verheißung steht, »er sprach, ich werde zu dir zurückkehren«; und bei der Zerstörung von Sedom sagt er, »denn ich kann nichts tun«, oder »dass ich nicht zerstöre«; Raphael, der Abraham heilte, ging von dort hin, um Lot zu retten, darum heißt es, »als sie sie hinausgeführt hatten, sagte er, rette dein Leben«; daraus lernst du, dass nur einer rettete."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "gen-18-5": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 18:5",
+   "en": "Genesis 18:5",
+   "de": "Bereschit 18,5"
+  },
+  "ref": "Genesis 18:5",
+  "url": "https://www.sefaria.org/Genesis_18.5",
+  "he": [
+   "ואקחה פת לחם וסעדו לבכם אחר תעברו כי על כן עברתם על עבדכם ויאמרו כן תעשה כאשר דברת"
+  ],
+  "en": [
+   "And I will fetch a morsel of bread, and stay ye your heart; after that ye shall pass on; forasmuch as ye are come to your servant.’ And they said: ‘So do, as thou hast said.’"
+  ],
+  "ru": [
+   "А я возьму ломоть хлеба, и подкрепитесь, и идите дальше, потому что проходили вы мимо раба вашего; и сказали они: так и делай, как ты говоришь."
+  ],
+  "de": [
+   "Ich möchte ein Stückchen Brot bringen, damit erquicket euer Herz, dann möget ihr weiter ziehen; denn (ich bitte nur) darum, weil ihr bei eurem Diener vorüber gekommen. Sie antworteten: Tue also, wie du gesprochen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-18-7": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 18:7–8",
+   "en": "Genesis 18:7–8",
+   "de": "Bereschit 18,7–8"
+  },
+  "ref": "Genesis 18:7-8",
+  "url": "https://www.sefaria.org/Genesis_18.7-8",
+  "he": [
+   "ואל הבקר רץ אברהם ויקח בן בקר רך וטוב ויתן אל הנער וימהר לעשות אתו",
+   "ויקח חמאה וחלב ובן הבקר אשר עשה ויתן לפניהם והוא עמד עליהם תחת העץ ויאכלו"
+  ],
+  "en": [
+   "And Abraham ran unto the herd, and fetched a calf tender and good, and gave it unto the servant; and he hastened to dress it.",
+   "And he took curd, and milk, and the calf which he had dressed, and set it before them; and he stood by them under the tree, and they did eat."
+  ],
+  "ru": [
+   "И к стаду побежал Авраам, и взял теленка нежного и хорошего, и отдал отроку, и тот поспешил приготовить его.",
+   "И взял сливки, и молока, и теленка, которого (тот) приготовил, и поставил перед ними, а (сам) он стоял возле них под деревом, и они ели."
+  ],
+  "de": [
+   "Zum Rinde aber lief Abraham selbst, nahm ein junges Rind, zart und gut, und gab es dem Knaben, und eilte es zuzurichten.",
+   "Sodann nahm er Butter und Milch und das junge Rind, das er bereitet hatte, und setzte es ihnen vor. Er aber stand bei ihnen unter dem Baume und sie aßen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-18-7": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 18:7",
+   "en": "Rashi, Genesis 18:7",
+   "de": "Raschi, Bereschit 18,7"
+  },
+  "ref": "Rashi on Genesis 18:7:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_18.7.1",
+  "he": [
+   "<b>בן בקר רך וטוב.</b> ג' פָּרִים הָיוּ, כְדֵי לְהַאֲכִילָן ג' לְשׁוֹנוֹת בְּחַרְדָּל (בבא מציעא פ\"ז):"
+  ],
+  "en": [
+   "בן בקר רך וטוב A CALF, TENDER AND GOOD — There were three calves so that he might give them to eat three tongues together with mustard condiment (Bava Metzia 86b)."
+  ],
+  "de": [
+   "<b>Ein junges Rind,</b> zart und gut, es waren drei Rinder, um ihnen drei Zungen in Senf zu essen zu geben (Bawa Metzia 86b)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "gen-18-16": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 18:16",
+   "en": "Genesis 18:16",
+   "de": "Bereschit 18,16"
+  },
+  "ref": "Genesis 18:16",
+  "url": "https://www.sefaria.org/Genesis_18.16",
+  "he": [
+   "ויקמו משם האנשים וישקפו על פני סדם ואברהם הלך עמם לשלחם"
+  ],
+  "en": [
+   "And the men rose up from thence, and looked out toward Sodom; and Abraham went with them to bring them on the way."
+  ],
+  "ru": [
+   "И поднялись оттуда те мужи, и устремили взгляд на Седом, а Авраам пошел с ними их проводить."
+  ],
+  "de": [
+   "Da erhuben sich die Männer von dort und senkten ihren Blick auf die Gegend von Sedom; Abraham aber ging noch mit ihnen, sie zu geleiten."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-18-9": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 18:9–10",
+   "en": "Genesis 18:9–10",
+   "de": "Bereschit 18,9–10"
+  },
+  "ref": "Genesis 18:9-10",
+  "url": "https://www.sefaria.org/Genesis_18.9-10",
+  "he": [
+   "ויאמרו אליו איה שרה אשתך ויאמר הנה באהל",
+   "ויאמר שוב אשוב אליך כעת חיה והנה בן לשרה אשתך ושרה שמעת פתח האהל והוא אחריו"
+  ],
+  "en": [
+   "And they said unto him: ‘Where is Sarah thy wife?’ And he said: ‘Behold, in the tent.’",
+   "And He said: ‘I will certainly return unto thee when the season cometh round; and, lo, Sarah thy wife shall have a son.’ And Sarah heard in the tent door, which was behind him.—"
+  ],
+  "ru": [
+   "И сказали ему: где Сара, жена твоя? И сказал: вот, в шатре.",
+   "И сказал (посланник): я вернусь к тебе в это время (в будущем году), и (уже) будет сын у Сары, жены твоей, а Сара слушала у входа в шатер, что позади его."
+  ],
+  "de": [
+   "Da sprachen sie zu ihm: Wo ist Sara, deine Frau? Er erwiderte: Natürlich im Zelte.",
+   "Darauf sagte er: Gerade wie diese lebendige Zeit kehre ich zu dir wieder, und siehe, dann hat Sara, deine Frau, einen Sohn. Sara aber hörte alles am Eingange des Zeltes, dieser aber war hinter ihm."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-18-9": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 18:9",
+   "en": "Rashi, Genesis 18:9",
+   "de": "Raschi, Bereschit 18,9"
+  },
+  "ref": "Rashi on Genesis 18:9:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_18.9.1",
+  "he": [
+   "<b>ויאמרו אליו.</b> נָקוּד עַל אי\"ו שֶׁבְּאֵלָיו, וְתַנְיָא רַ\"שִׁ בֶּן אֶלְעָזָר אוֹמֵר כָּל מָקוֹם שֶׁכְּתָב רַבֶּה עַל הַנְּקֻדָּה, אַתָּה דוֹרֵשׁ הַכְּתָב; וְכָאן הַנְּקֻדָּה רַבָּה עַל הַכְּתָב אַתָּה דּוֹרֵשׁ הַנְּקֻדָּה, שֶׁאַף לְשָׂרָה שָׁאֲלוּ אַיּוֹ אַבְרָהָם, לָמַדְנוּ שֶׁיִּשְׁאַל אָדָם בְּאַכְסַנְיָא שֶׁלּוֹ לָאִישׁ עַל הָאִשָּׁה וְלָאִשָּׁה עַל הָאִישׁ. בְּבָבָא מְצִיעָא אוֹמְרִים יוֹדְעִים הָיוּ מַלְאֲכֵי הַשָּׁרֵת שָׂרָה אִמֵּנוּ הֵיכָן הָיְתָה, אֶלָּא לְהוֹדִיעַ שֶׁצְּנוּעָה הָיְתָה, כְּדֵי לְחַבְּבָהּ עַל בַּעֲלָה. אָמַר רַבִּי יוֹסֵי בַּר חֲנִינָא, כְּדֵי לְשַׁגֵּר לָהּ כּוֹס שֶׁל בְּרָכָה:"
+  ],
+  "en": [
+   "ויאמרו אליו AND THEY SAID UNTO HIM — The letters 'א' י' ו of the word אליו have dots over them (thus distinguishing these letters which form the word meaning “where is he”?). R. Simeon the son of Eleazar said: wherever you find in a particular word or phrase that the letters in ordinary writing are more numerous than those dotted, you should give a special interpretation to those in ordinary writing. Here the dotted letters are more than those in ordinary writing and you, therefore, give an explanation of the dotted letters — that of Sarah also, they asked, איו “where is he (Abraham)”? So we may learn that in his inn a man should enquire of the man (the host) as to his wife’s welfare and of the woman (the hostess) about her husband’s. In Treatise Bava Metzia (87a) it is stated: The ministering angels knew, indeed, where our mother Sarah was but they asked this question in order to call attention to her modesty (retiring disposition) and so to endear her all the more to her husband.) R. José the son of Haninah stated that they enquired where she was in order to send her the wine-cup of blessing (the glass of wine held by him who recites the Grace after meals)"
+  ],
+  "de": [
+   "<b>Sie sagten zu ihm,</b> אֵלָיו die drei Buchstaben sind punktiert; dazu heißt es in einer Baraitha (Bereschit Rabbah), R. Schimon b. Elasar sagt, überall, wo die (unpunktierte) Schrift mehr ist als die punktierte, erkläre die unpunktierte, hier ist aber die punktierte mehr als die unpunktierte Schrift, darum deute die punktierte, dass sie nämlich auch Sara fragten, wo ist er (Abraham); daraus lernen wir, dass man sich bei seinen Gastgebern erkundige, beim Manne nach der Frau und bei der Frau nach dem Manne; in Baba mezia (87a) heißt es, die Engel des Dienstes wussten, wo sich unsere Mutter Sara befand; und sie wollten mit ihrer Frage nur zeigen, dass sie sittsam sei, um sie ihrem Manne lieb zu machen; R. Jose b. R. Chanina sagt, sie wollten ihr den Becher des Tischgebetes schicken."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "gen-18-18": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 18:18",
+   "en": "Genesis 18:18",
+   "de": "Bereschit 18,18"
+  },
+  "ref": "Genesis 18:18",
+  "url": "https://www.sefaria.org/Genesis_18.18",
+  "he": [
+   "ואברהם היו יהיה לגוי גדול ועצום ונברכו בו כל גויי הארץ"
+  ],
+  "en": [
+   "seeing that Abraham shall surely become a great and mighty nation, and all the nations of the earth shall be blessed in him?"
+  ],
+  "ru": [
+   "Ведь Авраам станет народом великим и мощным, и благословятся в нем все народы земли."
+  ],
+  "de": [
+   "Abraham soll ja auch zu einem großen und mächtigen Volke und durch dieses alle Völker der Erde gesegnet werden!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-21-7": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 21:7",
+   "en": "Genesis 21:7",
+   "de": "Bereschit 21,7"
+  },
+  "ref": "Genesis 21:7",
+  "url": "https://www.sefaria.org/Genesis_21.7",
+  "he": [
+   "ותאמר מי מלל לאברהם היניקה בנים שרה כי ילדתי בן לזקניו"
+  ],
+  "en": [
+   "And she said: ‘Who would have said unto Abraham, that Sarah should give children suck? for I have borne him a son in his old age.’"
+  ],
+  "ru": [
+   "И сказала: Кто бы рассказал Аврааму, что Сара сыновей кормить будет, ведь родила я сына в старости его!"
+  ],
+  "de": [
+   "Sie fügte jedoch hinzu: Wer hat aber Abraham <i>davon</i> ein Wort gesagt: es hat Sara <i>Söhne</i> gesäugt! denn ich habe ihm einen Sohn für sein Alter geboren."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-18-19": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 18:19",
+   "en": "Genesis 18:19",
+   "de": "Bereschit 18,19"
+  },
+  "ref": "Genesis 18:19",
+  "url": "https://www.sefaria.org/Genesis_18.19",
+  "he": [
+   "כי ידעתיו למען אשר יצוה את בניו ואת ביתו אחריו ושמרו דרך ה׳ לעשות צדקה ומשפט למען הביא ה׳ על אברהם את אשר דבר עליו"
+  ],
+  "en": [
+   "For I have known him, to the end that he may command his children and his household after him, that they may keep the way of the L-rd, to do righteousness and justice; to the end that the L-rd may bring upon Abraham that which He hath spoken of him.’"
+  ],
+  "ru": [
+   "Потому что избрал я его, чтобы он заповедал сыновьям своим и дому своему после себя следовать путем Г-спода, творить справедливость и правосудие, дабы исполнил Г-сподь Аврааму то, что говорил о нем."
+  ],
+  "de": [
+   "Denn ich habe ja nur deshalb mein besonderes Augenmerk auf ihn gerichtet, damit er seine Kinder und sein Haus nach sich verpflichte, daß sie den Weg <i>G-ttes</i> hüten, Pflichtmilde und Recht zu üben, damit <i>G-tt</i> über Abraham bringe, was er über ihn ausgesprochen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-18-27": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 18:27",
+   "en": "Genesis 18:27",
+   "de": "Bereschit 18,27"
+  },
+  "ref": "Genesis 18:27",
+  "url": "https://www.sefaria.org/Genesis_18.27",
+  "he": [
+   "ויען אברהם ויאמר הנה נא הואלתי לדבר אל אדני ואנכי עפר ואפר"
+  ],
+  "en": [
+   "And Abraham answered and said: ‘Behold now, I have taken upon me to speak unto the L-rd, who am but dust and ashes."
+  ],
+  "ru": [
+   "И отвечал Авраам, и сказал: решаюсь я говорить с господином моим, (сам) же я прах и пепел."
+  ],
+  "de": [
+   "Abraham aber begann wieder und sprach: Siehe, ich habe nun einmal angefangen zu meinem Herrn zu reden, und ich bin doch Staub und Asche."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "sotah-17a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Сота 17а",
+   "en": "Sotah 17a",
+   "de": "Sota 17a"
+  },
+  "ref": "Sotah 17a:18",
+  "url": "https://www.sefaria.org/Sotah_17a.18",
+  "he": [
+   "דריש רבא בשכר שאמר אברהם אבינו ואנכי עפר ואפר זכו בניו לשתי מצות אפר פרה ועפר סוטה"
+  ],
+  "en": [
+   "And <b>Rava</b> further <b>taught: As reward</b> for that <b>which our Patriarch Abraham said: “And I am but dust and ashes”</b> (Genesis 18:27), <b>his children merited two mitzvot: The ashes of the</b> red <b>heifer</b> (see Numbers, chapter 19) <b>and the dust of the <i>sota</i>.</b>"
+  ],
+  "de": [
+   "Raba trug vor: Als Belohnung dafür, daß unser Vater Abraham gesagt hat: <i>ich bin Erde und Asche</i>, sind seinen Kindern zwei Gebote beschieden worden, die Asche der [roten] Kuh und die Erde der Ehebruchsverdächtigten. –"
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "num-19-9": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Бемидбар 19:9",
+   "en": "Numbers 19:9",
+   "de": "Bamidbar 19,9"
+  },
+  "ref": "Numbers 19:9",
+  "url": "https://www.sefaria.org/Numbers_19.9",
+  "he": [
+   "ואסף איש טהור את אפר הפרה והניח מחוץ למחנה במקום טהור והיתה לעדת בני ישראל למשמרת למי נדה חטאת הוא"
+  ],
+  "en": [
+   "And a man that is clean shall gather up the ashes of the heifer, and lay them up without the camp in a clean place, and it shall be kept for the congregation of the children of Israel for a water of sprinkling; it is a purification from sin."
+  ],
+  "ru": [
+   "А кто-нибудь (из тех, кто) чист, возьмет пепел коровы и поместит за пределами стана в чистом месте, и будет храниться для общины сынов Израиля, для (использования в) очистительной воде — это (очищение от) греха."
+  ],
+  "de": [
+   "Es sammelt ein reiner Mann die Asche der Kuh und legt sie außerhalb des Lagers an einem reinen Ort nieder. Sie bleibt der Gemeinde der Söhne Jisraels zur Bewahrung, zu einem Entfernungswasser, ein Entsündigungsopfer ists."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "unknown",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "job-42-6": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings",
+   "de": "Schriften"
+  },
+  "title": {
+   "ru": "Иов 42:6",
+   "en": "Job 42:6",
+   "de": "Ijob 42,6"
+  },
+  "ref": "Job 42:6",
+  "url": "https://www.sefaria.org/Job_42.6",
+  "he": [
+   "על כן אמאס ונחמתי על עפר ואפר"
+  ],
+  "en": [
+   "Wherefore I abhor my words, and repent, Seeing I am dust and ashes."
+  ],
+  "de": [
+   "Darüber verwerfe ich mein Geschwätz und bereue in Staub und Asche."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/  "
+   }
+  }
+ },
+ "gen-22-4": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 22:4–5",
+   "en": "Genesis 22:4–5",
+   "de": "Bereschit 22,4–5"
+  },
+  "ref": "Genesis 22:4-5",
+  "url": "https://www.sefaria.org/Genesis_22.4-5",
+  "he": [
+   "ביום השלישי וישא אברהם את עיניו וירא את המקום מרחק",
+   "ויאמר אברהם אל נעריו שבו לכם פה עם החמור ואני והנער נלכה עד כה ונשתחוה ונשובה אליכם"
+  ],
+  "en": [
+   "On the third day Abraham lifted up his eyes, and saw the place afar off.",
+   "And Abraham said unto his young men: ‘Abide ye here with the ass, and I and the lad will go yonder; and we will worship, and come back to you.’"
+  ],
+  "ru": [
+   "На третий день поднял Авраам глаза и увидел (то) место издали.",
+   "И сказал Авраам своим слугам: сидите здесь с ослом, а я с мальчиком пойду туда, и мы поклонимся и вернемся к вам."
+  ],
+  "de": [
+   "Am dritten Tage, als Abraham seine Augen aufhub, sah er den Ort von ferne.",
+   "Da sprach Abraham zu seinen Leuten: Bleibet ihr hier bei dem Esel, ich und der Knabe, wir wollen etwa bis dahin gehen; wir bücken uns dort und kehren dann zu euch zurück."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-22-4": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 22:4",
+   "en": "Rashi, Genesis 22:4",
+   "de": "Raschi, Bereschit 22,4"
+  },
+  "ref": "Rashi on Genesis 22:4:2",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_22.4.2",
+  "he": [
+   "<b>וירא את המקום.</b> רָאָה עָנָן קָשׁוּר עַל הָהָר:"
+  ],
+  "en": [
+   "וירא את המקום AND HE SAW THE PLACE — He saw a cloud lowering over the mountain (Genesis Rabbah 56:1)."
+  ],
+  "de": [
+   "<b>Er sah den Ort,</b> er sah eine Wolke an den Berg geknüpft (Bereschit Rabbah 56:1)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-22-5": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 22:5",
+   "en": "Rashi, Genesis 22:5",
+   "de": "Raschi, Bereschit 22,5"
+  },
+  "ref": "Rashi on Genesis 22:5:2",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_22.5.2",
+  "he": [
+   "<b>ונשובה.</b> נִתְנַבֵּא שֶׁיָּשׁוּבוּ שְׁנֵיהֶם:"
+  ],
+  "en": [
+   "ונשובה AND WE WILL COME BACK — He prophesied that they would both return (Midrash Tanchuma, Vayera 22)."
+  ],
+  "de": [
+   "<b>Und wir werden zurückkehren,</b> er weissagte, dass sie beide wiederkehren würden (Bereschit Rabbah)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "gen-22-14": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 22:14",
+   "en": "Genesis 22:14",
+   "de": "Bereschit 22,14"
+  },
+  "ref": "Genesis 22:14",
+  "url": "https://www.sefaria.org/Genesis_22.14",
+  "he": [
+   "ויקרא אברהם שם המקום ההוא ה׳ יראה אשר יאמר היום בהר ה׳ יראה"
+  ],
+  "en": [
+   "And Abraham called the name of that place Adonai-jireh; as it is said to this day: ‘In the mount where the L-rd is seen.’"
+  ],
+  "ru": [
+   "И назвал Авраам это место «Г-сподь усмотрит», как говорят сегодня «на горе Господней будет видно»."
+  ],
+  "de": [
+   "Da nannte Abraham den Namen dieses Ortes: <i>G-tt</i> schaut! welches heute also auszusprechen ist: Auf <i>G-ttes</i> Berg wird man geschaut."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "isaiah-30-29": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Йешаяґу 30:29",
+   "en": "Isaiah 30:29",
+   "de": "Jeschajahu 30,29"
+  },
+  "ref": "Isaiah 30:29",
+  "url": "https://www.sefaria.org/Isaiah_30.29",
+  "he": [
+   "השיר יהיה לכם כליל התקדש חג ושמחת לבב כהולך בחליל לבוא בהר ה׳ אל צור ישראל"
+  ],
+  "en": [
+   "Ye shall have a song As in the night when a feast is hallowed; And gladness of heart, as when one goeth with the pipe To come into the mountain of the L-rd, to the Rock of Israel."
+  ],
+  "de": [
+   "Einen Gesang werdet ihr dann haben wie in der Nacht der Festesfeier, und ein frohes Herz wie der, der daherzieht mit der Flöte, um nach dem Berge des Herrn zu wallen, zu dem Hort Israels."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/jeschajahu-das-buch-jesaja/"
+   }
+  }
+ },
+ "psalms-24-3": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings",
+   "de": "Schriften"
+  },
+  "title": {
+   "ru": "Теґилим 24:3",
+   "en": "Psalms 24:3",
+   "de": "Tehillim 24,3"
+  },
+  "ref": "Psalms 24:3",
+  "url": "https://www.sefaria.org/Psalms_24.3",
+  "he": [
+   "מי יעלה בהר ה׳ ומי יקום במקום קדשו"
+  ],
+  "en": [
+   "Who shall ascend into the mountain of the L-rd? And who shall stand in His holy place?"
+  ],
+  "de": [
+   "Wer darf hinziehen auf den Berg des Herrn, und wer weilen auf seiner heiligen Stätte?"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/  "
+   }
+  }
+ },
+ "deut-16-16": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Дварим 16:16",
+   "en": "Deuteronomy 16:16",
+   "de": "Dewarim 16,16"
+  },
+  "ref": "Deuteronomy 16:16",
+  "url": "https://www.sefaria.org/Deuteronomy_16.16",
+  "he": [
+   "שלוש פעמים בשנה יראה כל זכורך את פני ה׳ אלקיך במקום אשר יבחר בחג המצות ובחג השבעות ובחג הסכות ולא יראה את פני ה׳ ריקם"
+  ],
+  "en": [
+   "Three times in a year shall all thy males appear before the L-rd thy G-d in the place which He shall choose; on the feast of unleavened bread, and on the feast of weeks, and on the feast of tabernacles; and they shall not appear before the L-rd empty;"
+  ],
+  "ru": [
+   "Три раза в год пусть предстают все мужчины перед Г-сподом на том месте, которое он изберет — в праздник Пресных Хлебов, в праздник Седмиц и в праздник Шалашей, и пусть не приходят с пустыми руками."
+  ],
+  "de": [
+   "Dreimal im Jahre soll all dein Mannhaftes sich sehen unmittelbar vor dem Angesichte <i>G-ttes</i>, deines G-ttes, an dem Orte, den Er erwählen wird, am Feste der Mazzot, am Feste der Wochen und am Feste der Hütten, und er soll sich unmittelbar vor <i>G-ttes</i> Angesicht nicht mit leeren Händen sehen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "unknown",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-22-18": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 22:18",
+   "en": "Genesis 22:18",
+   "de": "Bereschit 22,18"
+  },
+  "ref": "Genesis 22:18",
+  "url": "https://www.sefaria.org/Genesis_22.18",
+  "he": [
+   "והתברכו בזרעך כל גויי הארץ עקב אשר שמעת בקלי"
+  ],
+  "en": [
+   "and in thy seed shall all the nations of the earth be blessed; because thou hast hearkened to My voice.’"
+  ],
+  "ru": [
+   "И благословятся в потомстве твоем все народы земли, потому что послушал ты меня."
+  ],
+  "de": [
+   "und es werden sich durch deinen Samen alle Völker der Erde segnen, als Folge dessen, daß du meiner Stimme gehorcht hast."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "bht-18-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 18:2",
+   "en": "Ba'al HaTurim, Genesis 18:2",
+   "de": "Baal HaTurim, Bereschit 18,2"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 18:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_18.2",
+  "he": [
+   "<b>והנה שלשה</b> בגימטריא אלו מיכאל גבריאל ורפאל:"
+  ],
+  "en": [
+   "\"והנה שלשה\" [And here are three] in gematria refers to Michael, Gabriel, and Raphael."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-18-9": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 18:9",
+   "en": "Ba'al HaTurim, Genesis 18:9",
+   "de": "Baal HaTurim, Bereschit 18,9"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 18:9",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_18.9",
+  "he": [
+   "<b>ויאמרו אליו</b> בגימטריא אמרו אליה איו:"
+  ],
+  "en": [
+   "The phrase \"ויאמרו אליו\" (vayomeru elav) in Genesis 18:9 has a numerical value (gematria) of 241, which is equal to the phrase \"אמרו אליה איו\" (amaru eleha ayu), meaning \"they said to her, 'Where is he?'\""
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-18-19": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 18:19",
+   "en": "Ba'al HaTurim, Genesis 18:19",
+   "de": "Baal HaTurim, Bereschit 18,19"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 18:19",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_18.19",
+  "he": [
+   "<b>אשר יצוה את בניו</b> ס\"ת תורה, אשר יצוה … בגימטריא ברית:"
+  ],
+  "en": [
+   "\"Who will command his children\" – The numerical value(612) of the letters of \"אשר יצוה\" (who will command) is equal to the numerical value of the word \"תורה\" (Torah), and in the numerical value of \"ברית\" (covenant)."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-18-27": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 18:27",
+   "en": "Ba'al HaTurim, Genesis 18:27",
+   "de": "Baal HaTurim, Bereschit 18,27"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 18:27",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_18.27",
+  "he": [
+   "<b>ואנכי עפר ואפר</b> מכאן זכה לאפר פרה ועפר סוטה, עפר בגימטריא לשוטה בשי\"ן שמאל ואפר בגימטריא בפרה. עפר ואפר. ב' במסורה הכא ואידך באיוב ונחמתי על עפר ואפר. וזש\"ה גדול מה שנאמר באיוב ממה שנאמר באברהם:"
+  ],
+  "en": [
+   "\"And I am dust and ashes. From here, [Abraham] merited the ashes of the Red Heifer and the dust of the Sotah (a woman suspected of adultery). 'Dust' in gematria (numerical value) is equal to 'Sotah' with a left Shin (ש), and 'Ashes' in gematria is equal to 'Parah' (Heifer). Dust and ashes. In one context here [Genesis], and in another in the Book of Job. And I will be comforted over dust and ashes. This is greater than what is said in Job than what is said about Abraham.\""
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-21-23": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 21:23",
+   "en": "Ba'al HaTurim, Genesis 21:23",
+   "de": "Baal HaTurim, Bereschit 21,23"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 21:23",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_21.23",
+  "he": [
+   "<b>לנכדי</b> בגימטריא בן בני:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-22-5": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 22:5",
+   "en": "Ba'al HaTurim, Genesis 22:5",
+   "de": "Baal HaTurim, Bereschit 22,5"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 22:5",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_22.5",
+  "he": [
+   "<b>ונשובה</b> ו' במסורה ונשתחוה ונשובה. נתנה ראש ונשובה. לכו ונשובה. נחפשה דרכינו ונחקורה ונשובה. השיבנו ה' אליך ונשובה. לכו ונשובה אל עיר ה'. בזכות אברהם שאמר נשתחוה ונשובה זכו ישראל לעשות תשובה והיינו לכו ונשובה נחפשה דרכינו ונשובה השיבנו ה' אליך ונשובה ובזכותם הגליות מתקבצות לכו ונשובה אל עיר ה' ואם לא זכו אומר נתנה ראש ונשובה הכל בזכות אברהם:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-22-18": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 22:18",
+   "en": "Ba'al HaTurim, Genesis 22:18",
+   "de": "Baal HaTurim, Bereschit 22,18"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 22:18",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_22.18",
+  "he": [
+   "<b>עקב אשר שמעת בקולי</b> ס\"ת ברית:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-18-1-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 18:1",
+   "en": "Ba'al HaTurim, Genesis 18:1",
+   "de": "Baal HaTurim, Bereschit 18,1"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 18:1:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_18.1.2",
+  "he": [
+   "<b> וירא אליו ה'</b> ס\"ת אוה מלמד שאוה לשכון באהלו של אברהם:"
+  ],
+  "en": [
+   "The phrase \"'וירא אליו ה\" with the letter 'ה in the middle (a notation indicating that this is how it appears in a Torah scroll) teaches that the Divine Presence ('ה) came to dwell in the tent of Abraham."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-18-1-3": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 18:1",
+   "en": "Ba'al HaTurim, Genesis 18:1",
+   "de": "Baal HaTurim, Bereschit 18,1"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 18:1:3",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_18.1.3",
+  "he": [
+   "<b> וירא אליו</b> עם התיבות בגימטריא זה בכבוד מילה נגלה אליו:"
+  ],
+  "en": [
+   "\"And He appeared to him\" with the letters' numerical value (gematria), this implies that the word appeared (זה) was revealed to him with great honor."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-18-5-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 18:5",
+   "en": "Ba'al HaTurim, Genesis 18:5",
+   "de": "Baal HaTurim, Bereschit 18,5"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 18:5:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_18.5.1",
+  "he": [
+   "<b>ואקחה פת לחם</b> היה לו לומר קחו פת לחם מכאן רמז שבעל הבית בוצע:"
+  ],
+  "en": [
+   "\"And I will fetch a morsel of bread\" - It would have been sufficient for him to say, \"Take a morsel of bread.\" From here we learn that the host should be proactive."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-18-5-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 18:5",
+   "en": "Ba'al HaTurim, Genesis 18:5",
+   "de": "Baal HaTurim, Bereschit 18,5"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 18:5:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_18.5.2",
+  "he": [
+   "<b> לבכם</b> ג' במסורה הכא ואידך שיתו לבכם לחילה. וראיתם ושש לבכם. וזהו שאמרו שהיה מצטער על שלא באו לו אורחים וזהו שיתו לבכם שהיה מצטער בלבו כיון שראה אלו ושש לבכם:"
+  ],
+  "en": [
+   "Your hearts [לבכם] - three [words] in the Tanakh here and there [in the text]. [It means] \"set your heart to worry.\" \"וראיתם ושש לבכם\" - \"and you shall see, and your heart will be glad.\" This is [to teach us] that [Abraham] was pained that guests had not come to him, and this is [why it says] \"set your heart to worry,\" that he was worried in his heart when he saw them, and \"your heart will be glad,\" as his heart was gladdened [when they arrived]."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-18-7-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 18:7",
+   "en": "Ba'al HaTurim, Genesis 18:7",
+   "de": "Baal HaTurim, Bereschit 18,7"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 18:7:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_18.7.1",
+  "he": [
+   "<b>ואל הבקר</b> ג' תגין על הקו\"ף לומר ששלש בהמות היו ובזכות זה ניתן לו בן לקו\"ף שנה:"
+  ],
+  "en": [
+   "\"and to the cattle\" - The letter \"ק\" (Kuf) is written small to indicate that there were only three animals. In the merit of this, he was granted a son at the age of one hundred."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-18-7-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 18:7",
+   "en": "Ba'al HaTurim, Genesis 18:7",
+   "de": "Baal HaTurim, Bereschit 18,7"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 18:7:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_18.7.2",
+  "he": [
+   "<b> ואל הבקר רץ</b> אותיות אל הקבר רץ שרץ אחריו למערה. …"
+  ],
+  "en": [
+   "\"And he ran to the cattle\" - The letters of \"El HaKever\" (to the burial place) are rearranged to form the word \"Ratz\" (he ran). He ran after them to the cave. \"And he ran to the cattle\" - The gematria (numerical value) of \"Ratz LaMearah\" (he ran to the cave) is equal to the gematria of \"El HaBakar\" (to the cattle)."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-18-16-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 18:16",
+   "en": "Ba'al HaTurim, Genesis 18:16",
+   "de": "Baal HaTurim, Bereschit 18,16"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 18:16:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_18.16.1",
+  "he": [
+   "<b>על פני סדום</b> ס\"ת מיל ששיעור מיל הלך עמהם לשלחם דשיעור לויה מיל:"
+  ],
+  "en": [
+   "\"On the face of Sodom\" - the letters \"samech, tet\" (ס״ת) have the numerical value of \"mil\" (מיל), indicating that the measurement of a mil (distance) went with them to Sodom. This is to teach us that the angel who accompanied Lot measured a mil's worth of distance with him to escort him out of the city."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-18-18-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 18:18",
+   "en": "Ba'al HaTurim, Genesis 18:18",
+   "de": "Baal HaTurim, Bereschit 18,18"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 18:18:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_18.18.2",
+  "he": [
+   "<b> היו</b> יהיה לגוי בגימטריא ק' פירוש כשיהיה בן ק' אז יהיה לגוי גדול …"
+  ],
+  "en": [
+   "The phrase \"היו\" (will be) has a gematria value of 21. The interpretation is that when one is at the age of 21 (בן ק\"ן), he will become a great nation. This aligns with the idea expressed in the verse \"סי כן יבורך גבר\" (The one who diligently seeks good will be blessed)."
+  ],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-21-7-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 21:7",
+   "en": "Ba'al HaTurim, Genesis 21:7",
+   "de": "Baal HaTurim, Bereschit 21,7"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 21:7:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_21.7.2",
+  "he": [
+   "<b> מלל'</b> בגימטריא ק' לומר כשהיה אברהם בן ק' היניקה בנים שרה:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-22-4-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 22:4",
+   "en": "Ba'al HaTurim, Genesis 22:4",
+   "de": "Baal HaTurim, Bereschit 22,4"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 22:4:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_22.4.2",
+  "he": [
+   "<b> מרחק</b> חסר כתיב קרי ביה מרחיק שהשטן היה מרחיק המקום מלפניהם:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-22-14-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 22:14",
+   "en": "Ba'al HaTurim, Genesis 22:14",
+   "de": "Baal HaTurim, Bereschit 22,14"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 22:14:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_22.14.2",
+  "he": [
+   "<b> בהר ה'</b> ג' במסורה בתנ\"ך בתורה בהר ה', בנביאים לבא בהר ה', בכתובים מי יעלה בהר ה', כנגד שלש רגלים שעולין להר ה' לרגל:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
  "gen-8-13": {
   "kind": {
    "ru": "Тора",

@@ -83,6 +83,7 @@ BOOK = {
     'Berakhot': ('Talmud/Bavli/Seder Zeraim/Berakhot/', 'Брахот', 'Talmud'),
     'Shabbat': ('Talmud/Bavli/Seder Moed/Shabbat/', 'Шабат', 'Talmud'),
     'Yevamot': ('Talmud/Bavli/Seder Nashim/Yevamot/', 'Йевамот', 'Talmud'),
+    'Sotah': ('Talmud/Bavli/Seder Nashim/Sotah/', 'Сота', 'Talmud'),
     'Chullin': ('Talmud/Bavli/Seder Kodashim/Chullin/', 'Хулин', 'Talmud'),
     'Sukkah': ('Talmud/Bavli/Seder Moed/Sukkah/', 'Сукка', 'Talmud'),
     'Chagigah': ('Talmud/Bavli/Seder Moed/Chagigah/', 'Хагига', 'Talmud'),
@@ -268,6 +269,34 @@ SOURCES = {
     'shabbat-137b': ('Shabbat', '137b', 6, 6),
     **{f'bht-{c}-{v}': bht(c, v) for c, v in [(12, 1), (13, 11), (14, 18), (15, 8), (15, 13), (15, 17), (17, 4), (17, 21), (12, 19), (14, 5), (16, 7)]},
     **{f'bht-{c}-{v}-{k + 1}': bht_one(c, v, k) for c, v, k in [(12, 2, 0), (12, 2, 2), (15, 5, 0), (15, 5, 1)]},
+    # Бааль ґа-Турим · Вайера
+    'gen-17-26': ('Genesis', 17, 26, 26),
+    'gen-18-1': ('Genesis', 18, 1, 2),
+    'rashi-18-1': rashi(18, 1, 0),
+    'rashi-18-2': rashi(18, 2, 0),
+    'gen-18-5': ('Genesis', 18, 5, 5),
+    'gen-18-7': ('Genesis', 18, 7, 8),
+    'rashi-18-7': rashi(18, 7, 0),
+    'gen-18-16': ('Genesis', 18, 16, 16),
+    'gen-18-9': ('Genesis', 18, 9, 10),
+    'rashi-18-9': rashi(18, 9, 0),
+    'gen-18-18': ('Genesis', 18, 18, 18),
+    'gen-21-7': ('Genesis', 21, 7, 7),
+    'gen-18-19': ('Genesis', 18, 19, 19),
+    'gen-18-27': ('Genesis', 18, 27, 27),
+    'sotah-17a': ('Sotah', '17a', 17, 17),
+    'num-19-9': ('Numbers', 19, 9, 9),
+    'job-42-6': ('Job', 42, 6, 6),
+    'gen-22-4': ('Genesis', 22, 4, 5),
+    'rashi-22-4': rashi(22, 4, 1),
+    'rashi-22-5': rashi(22, 5, 1),
+    'gen-22-14': ('Genesis', 22, 14, 14),
+    'isaiah-30-29': ('Isaiah', 30, 29, 29),
+    'psalms-24-3': ('Psalms', 24, 3, 3),
+    'deut-16-16': ('Deuteronomy', 16, 16, 16),
+    'gen-22-18': ('Genesis', 22, 18, 18),
+    **{f'bht-{c}-{v}': bht(c, v) for c, v in [(18, 2), (18, 9), (18, 19), (18, 27), (21, 23), (22, 5), (22, 18)]},
+    **{f'bht-{c}-{v}-{k + 1}': bht_one(c, v, k) for c, v, k in [(18, 1, 1), (18, 1, 2), (18, 5, 0), (18, 5, 1), (18, 7, 0), (18, 7, 1), (18, 16, 0), (18, 18, 1), (21, 7, 1), (22, 4, 1), (22, 14, 1)]},
     # «Нифлаот Ребе» · Ноах: «Выйди из ковчега» (Ликутей сихот, т. 25, Ноах 3)
     'gen-8-13': ('Genesis', 8, 13, 14),
     'gen-8-16-17': ('Genesis', 8, 16, 17),
@@ -347,6 +376,9 @@ CUTS = {
     'bht-7-11': [(' וארובות השמים. בגימטריא שלקח שני כוכבים מכימה:', ' …')],
     'bht-12-2-3': [(', ואברכך, בגימטריא אברהם:', ' …')],
     'bht-15-5-1': [('<b>ויוצא אתו החוצה</b> בגימטריא איצטגנינותך: כה יהיה זרעך', '… <b>כה יהיה זרעך</b>')],
+    'bht-18-7-2': [(' ואל הבקר רץ. בגימטריא רץ למערה:', ' …')],
+    'bht-18-18-2': [(' וזה שנאמר ס"י כ"ן יבורך גבר:', ' …')],
+    'bht-18-19': [('אשר יצוה בגימטריא תורה ובגימטריא ברית', 'אשר יצוה … בגימטריא ברית')],
 }
 
 KIND = {
@@ -359,7 +391,7 @@ KIND_DE = {'Torah': 'Tora', 'Prophets': 'Propheten', 'Writings': 'Schriften', 'T
 DE_NAME = {
     'Genesis': 'Bereschit', 'Exodus': 'Schemot', 'Leviticus': 'Wajikra', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Dewarim', 'Ezekiel': 'Jecheskel', 'Amos': 'Amos', 'I Chronicles': 'Diwre HaJamim I',
     'II Samuel': 'Schmuel II', 'I Kings': 'I Könige', 'II Kings': 'Melachim II', 'Isaiah': 'Jeschajahu', 'Micah': 'Micha', 'Psalms': 'Tehillim', 'Job': 'Ijob', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
-    'Berakhot': 'Berachot', 'Shabbat': 'Schabbat', 'Yevamot': 'Jewamot', 'Chullin': 'Chullin',
+    'Berakhot': 'Berachot', 'Shabbat': 'Schabbat', 'Yevamot': 'Jewamot', 'Sotah': 'Sota', 'Chullin': 'Chullin',
     'Sukkah': 'Sukka', 'Chagigah': 'Chagiga', 'Megillah': 'Megilla', 'Ketubot': 'Ketubbot', 'Bava Metzia': 'Bawa Mezia', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda',
 }
 
