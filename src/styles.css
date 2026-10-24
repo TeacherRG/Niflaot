@@ -994,6 +994,7 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .fact-a b.num{font-family:var(--f-num);font-size:26px;color:var(--ok);line-height:1.3}
 .fact-show{justify-self:center}
 .fact-share{font-size:14px;padding:4px 10px}
+.share-note{margin:0;padding:8px 12px;border-radius:8px;background:var(--tchelet-soft);color:var(--ink);font-size:14px;line-height:1.4}
 .fact.here{outline:3px solid var(--gold-2);outline-offset:2px}
 .fact-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-size:14px;border-top:1px solid var(--line);padding-top:10px}
 .fact-foot .fact-src{flex:1;font-size:12.5px}

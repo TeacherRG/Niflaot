@@ -380,15 +380,23 @@ export async function renderTextCard(d: TextCardData): Promise<Blob> {
   return new Promise((resolve, reject) => c.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png'));
 }
 
-/** Shares the picture through the system sheet when possible, otherwise downloads it. Returns 'shared' | 'saved'. */
-export async function shareOrSave(blob: Blob, filename: string, text: string): Promise<'shared' | 'saved'> {
+/**
+ * Shares the picture through the system sheet when possible, otherwise downloads it.
+ * The text is copied to the clipboard first: Facebook and Instagram drop the text that comes with a picture,
+ * so the player pastes it (with the link) into the post. `copied` — the copy worked.
+ */
+export async function shareOrSave(blob: Blob, filename: string, text: string): Promise<{ how: 'shared' | 'saved'; copied: boolean }> {
+  const copied = await navigator.clipboard?.writeText(text).then(
+    () => true,
+    () => false,
+  ) ?? false;
   const file = new File([blob], filename, { type: 'image/png' });
   if (navigator.canShare?.({ files: [file] })) {
     try {
       await navigator.share({ files: [file], text });
-      return 'shared';
+      return { how: 'shared', copied };
     } catch (e) {
-      if ((e as DOMException).name === 'AbortError') return 'shared';
+      if ((e as DOMException).name === 'AbortError') return { how: 'shared', copied };
     }
   }
   const url = URL.createObjectURL(blob);
@@ -399,5 +407,8 @@ export async function shareOrSave(blob: Blob, filename: string, text: string): P
   a.click();
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 2000);
-  return 'saved';
+  return { how: 'saved', copied };
 }
+
+/** How long the «текст скопирован» note stays under the share button. */
+export const COPIED_NOTE_MS = 15000;

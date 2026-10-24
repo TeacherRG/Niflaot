@@ -475,6 +475,7 @@ const de: Messages = {
   'final.share': 'Ergebnis teilen',
   'final.copy': 'Text kopieren',
   'final.copied': 'Kopiert ✓',
+  'share.copied': "Der Text mit dem Link ist kopiert. Facebook und Instagram übernehmen ihn nicht — füge ihn selbst in deinen Beitrag ein („Einfügen“).",
   'final.selected': 'Text markiert — drücke „Kopieren“',
   'final.legend': '🟩 beim ersten Versuch · 🟨 beim zweiten oder mit Hinweis · 🟥 Antwort gezeigt · ⬜ ungelöst',
   'final.restart': 'Neu beginnen',

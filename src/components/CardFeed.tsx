@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from 'react';
 import { memoImages } from '../core/memo';
 import { displayNames } from '../core/names';
-import { renderTextCard, shareOrSave, type TextCardSection } from '../core/shareCard';
+import { renderTextCard, shareOrSave, COPIED_NOTE_MS, type TextCardSection } from '../core/shareCard';
 import { SITE_HOST, routeLink } from '../core/site';
 import { useI18n } from '../i18n';
 import { teacherOf } from '../lessons/teachers';
@@ -28,6 +28,7 @@ function FeedCard({
   const { t, locale } = useI18n();
   const [open, setOpen] = useState(false);
   const [sharing, setSharing] = useState<'idle' | 'making' | 'saved'>('idle');
+  const [copiedNote, setCopiedNote] = useState(false);
 
   const shareCard = async () => {
     setSharing('making');
@@ -45,8 +46,12 @@ function FeedCard({
         `niflaot-${share.filename}.png`,
         `${share.title}\n${description}\n${routeLink('facts/cards', 'card', locale)}`,
       );
-      setSharing(result === 'saved' ? 'saved' : 'idle');
-      if (result === 'saved') setTimeout(() => setSharing('idle'), 2500);
+      setSharing(result.how === 'saved' ? 'saved' : 'idle');
+      if (result.how === 'saved') setTimeout(() => setSharing('idle'), 2500);
+      if (result.copied) {
+        setCopiedNote(true);
+        setTimeout(() => setCopiedNote(false), COPIED_NOTE_MS);
+      }
     } catch {
       setSharing('idle');
     }
@@ -69,6 +74,11 @@ function FeedCard({
           📤 {sharing === 'making' ? t('final.cardMaking') : sharing === 'saved' ? t('final.cardSaved') : t('facts.shareCard')}
         </button>
       </div>
+      {copiedNote && (
+        <p className="share-note" role="status">
+          {t('share.copied')}
+        </p>
+      )}
     </article>
   );
 }

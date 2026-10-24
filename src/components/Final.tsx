@@ -8,7 +8,7 @@ import { HebrewRuns } from './Hebrew';
 import { Icon } from './ui';
 import { Puzzle } from './Puzzle';
 import { PARSHIOT } from '../lessons/parshiot';
-import { renderCard, shareOrSave } from '../core/shareCard';
+import { renderCard, shareOrSave, COPIED_NOTE_MS } from '../core/shareCard';
 import { Subscribe } from './Subscribe';
 import { DailyReminder } from './DailyReminder';
 
@@ -102,6 +102,7 @@ export function Final({
     text.share({ score: S.score, max, time, grid, allSolved, site: ref ? lessonLink(lesson.slug, ref, locale) : SITE_HOST });
   const share = shareText();
   const [cardState, setCardState] = useState<'idle' | 'making' | 'saved'>('idle');
+  const [copiedNote, setCopiedNote] = useState(false);
 
   const shareCard = async () => {
     setCardState('making');
@@ -121,8 +122,12 @@ export function Final({
         site: SITE_HOST,
       });
       const res = await shareOrSave(blob, `niflaot-${lesson.slug}.png`, shareText('card'));
-      setCardState(res === 'saved' ? 'saved' : 'idle');
-      if (res === 'saved') setTimeout(() => setCardState('idle'), 2500);
+      setCardState(res.how === 'saved' ? 'saved' : 'idle');
+      if (res.how === 'saved') setTimeout(() => setCardState('idle'), 2500);
+      if (res.copied) {
+        setCopiedNote(true);
+        setTimeout(() => setCopiedNote(false), COPIED_NOTE_MS);
+      }
     } catch {
       setCardState('idle');
     }
@@ -190,6 +195,11 @@ export function Final({
             Telegram
           </a>
         </div>
+        {copiedNote && (
+          <p className="share-note" role="status">
+            {t('share.copied')}
+          </p>
+        )}
         <div className="share-legend">{t('final.legend')}</div>
       </div>
       {confirm ? (

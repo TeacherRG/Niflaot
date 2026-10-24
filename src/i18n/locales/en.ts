@@ -475,6 +475,7 @@ const en: Messages = {
   'final.share': 'Share your result',
   'final.copy': 'Copy text',
   'final.copied': 'Copied ✓',
+  'share.copied': "The text with the link is copied. Facebook and Instagram don’t pass it on — paste it into your post yourself (“Paste”).",
   'final.selected': 'Text selected — press “Copy”',
   'final.legend': '🟩 first try · 🟨 second try or with a hint · 🟥 answer revealed · ⬜ unsolved',
   'final.restart': 'Start over',

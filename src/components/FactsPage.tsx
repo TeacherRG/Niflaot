@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { SITE_HOST, routeLink } from '../core/site';
-import { renderFactCard, shareOrSave, type FactAnswerPart } from '../core/shareCard';
+import { COPIED_NOTE_MS, renderFactCard, shareOrSave, type FactAnswerPart } from '../core/shareCard';
 import { useI18n } from '../i18n';
 import { LESSONS, lessonsByNearness } from '../lessons';
 import { TEACHERS, teacherOf } from '../lessons/teachers';
@@ -40,6 +40,7 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
   const who = teacherOf(f.lesson);
   const base = `#/${f.lesson.slug}`;
   const [card, setCard] = useState<'idle' | 'making' | 'saved'>('idle');
+  const [copiedNote, setCopiedNote] = useState(false);
   const question = t(`facts.ask.${f.kind === 'eq' ? 'eq' : f.take}`);
   const he = f.kind === 'eq' ? f.q : f.from;
   const memo = f.mi !== undefined ? text.memo?.items[f.mi] : undefined;
@@ -75,14 +76,22 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
         site: SITE_HOST,
         tagline: t('facts.cardTagline'),
       });
-      const said = answer.map((p) => `${p.op} ${p.num ?? p.he}`).join(' ');
+      // «100 = מאה (сто)» — no leading «=», words with their translation; then what it means
+      const said = answer
+        .map((p, k) => `${k ? `${p.op} ` : f.kind === 'lt' ? `${p.op} ` : ''}${p.num ?? p.he}${p.gloss ? ` (${p.gloss})` : ''}`)
+        .join(' ');
+      const heGloss = gloss(he);
       const res = await shareOrSave(
         blob,
         `niflaot-${f.id}.png`,
-        `${question}\n${displayNames(he)}\n${t('facts.answer')}: ${said}\n${t('facts.shareText')} 👉 ${routeLink(`facts/${f.id}`, 'card', locale)}`,
+        `${question}\n${displayNames(he)}${heGloss ? ` (${heGloss})` : ''}\n\n${t('facts.answer')}: ${said}${point ? `\n${point}` : ''}\n\n${t('facts.shareText')} 👉 ${routeLink(`facts/${f.id}`, 'card', locale)}`,
       );
-      setCard(res === 'saved' ? 'saved' : 'idle');
-      if (res === 'saved') setTimeout(() => setCard('idle'), 2500);
+      setCard(res.how === 'saved' ? 'saved' : 'idle');
+      if (res.how === 'saved') setTimeout(() => setCard('idle'), 2500);
+      if (res.copied) {
+        setCopiedNote(true);
+        setTimeout(() => setCopiedNote(false), COPIED_NOTE_MS);
+      }
     } catch {
       setCard('idle');
     }
@@ -131,6 +140,11 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
           📤{card === 'making' ? ` ${t('final.cardMaking')}` : card === 'saved' ? ` ${t('final.cardSaved')}` : ''}
         </button>
       </div>
+      {copiedNote && (
+        <p className="share-note" role="status">
+          {t('share.copied')}
+        </p>
+      )}
     </article>
   );
 }
