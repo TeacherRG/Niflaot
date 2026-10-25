@@ -998,6 +998,8 @@ const de: Messages = {
   'ln.menuSub': "Schritt für Schritt: Buchstaben und Wörter",
   'ln.lead': "Schritt für Schritt: die Buchstaben in zwei Teilen, dann die Tora-Wörter — eine Parascha nach der anderen. Eine Lektion dauert fünf Minuten und bringt 5–6 neue Wörter: die Bedeutung wählen, Paare finden, das Wort aus Buchstaben bauen; am Ende der Parascha — eine Wiederholung.",
   'ln.leadAdults': "Schritt für Schritt: die Buchstaben in zwei Teilen, dann die häufigsten Wörter des Tanach — Stufen zu 50, wie in „Meine Wörter“: 10 Lektionen mit je 5 neuen Wörtern und eine Wiederholung. Die Wörter einer fertigen Lektion kommen zu „Meine Wörter“: Wiederhole sie dort, dann zählen sie für das Zertifikat.",
+  'ln.leadReads': "Schritt für Schritt: die Tora-Wörter — eine Parascha nach der anderen. Eine Lektion dauert fünf Minuten und bringt 5–6 neue Wörter: die Bedeutung wählen, Paare finden, das Wort aus Buchstaben bauen; am Ende der Parascha — eine Wiederholung.",
+  'ln.leadAdultsReads': "Schritt für Schritt: die häufigsten Wörter des Tanach — Stufen zu 50, wie in „Meine Wörter“: 10 Lektionen mit je 5 neuen Wörtern und eine Wiederholung. Die Wörter einer fertigen Lektion kommen zu „Meine Wörter“: Wiederhole sie dort, dann zählen sie für das Zertifikat.",
   'ln.statsLbl': "Dein Fortschritt",
   'ln.streak': "Tage in Folge",
   'ln.goal': "Tagesziel: {xp} von {goal} Punkten",

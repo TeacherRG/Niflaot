@@ -998,6 +998,8 @@ const en: Messages = {
   'ln.menuSub': "step by step: letters and words",
   'ln.lead': "Step by step: the letters in two parts, then the Torah words — a portion at a time. A lesson takes five minutes and brings 5–6 new words: pick the meaning, find the pairs, build the word from its letters; at the end of the portion — a review.",
   'ln.leadAdults': "Step by step: the letters in two parts, then the most frequent words of Tanakh — levels of 50, as in “My words”: 10 lessons of 5 new words and a review. The words of a finished lesson go to “My words”: review them there and they count for the certificate.",
+  'ln.leadReads': "Step by step: the Torah words — a portion at a time. A lesson takes five minutes and brings 5–6 new words: pick the meaning, find the pairs, build the word from its letters; at the end of the portion — a review.",
+  'ln.leadAdultsReads': "Step by step: the most frequent words of Tanakh — levels of 50, as in “My words”: 10 lessons of 5 new words and a review. The words of a finished lesson go to “My words”: review them there and they count for the certificate.",
   'ln.statsLbl': "Your progress",
   'ln.streak': "day streak",
   'ln.goal': "Daily goal: {xp} of {goal} points",

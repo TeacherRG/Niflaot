@@ -89,6 +89,8 @@ export function LashonPage() {
   const adults = useMode() === 'adults';
   const store = useCourse();
   const habit = useHabit();
+  // a player who reads Hebrew («Читаю на иврите», src/core/hebrewLevel.ts) doesn't see the letters — only the words
+  const reads = useHebrewLevel() === 'reads';
   const abc = useMemo(() => abcUnits(locale), [locale]);
   const torah = useMemo(() => (adults ? [] : torahUnits(torahWords(LESSONS, locale, memoImages))), [adults, locale]);
   const [tanakh, setTanakh] = useState<Unit[] | null>(adults ? null : []);
@@ -179,7 +181,7 @@ export function LashonPage() {
               לשון הקודש
             </span>
           </h1>
-          <p className="ws-lead">{t(adults ? 'ln.leadAdults' : 'ln.lead')}</p>
+          <p className="ws-lead">{t(adults ? (reads ? 'ln.leadAdultsReads' : 'ln.leadAdults') : reads ? 'ln.leadReads' : 'ln.lead')}</p>
         </header>
 
         <section className="ln-stats" aria-label={t('ln.statsLbl')}>
@@ -199,12 +201,14 @@ export function LashonPage() {
           </span>
         </section>
 
-        <section className="ln-track">
-          <h2 className="tw-h2">
-            {t('ln.abc')} <small>{t('ln.abcSub')}</small>
-          </h2>
-          {path(abc)}
-        </section>
+        {!reads && (
+          <section className="ln-track">
+            <h2 className="tw-h2">
+              {t('ln.abc')} <small>{t('ln.abcSub')}</small>
+            </h2>
+            {path(abc)}
+          </section>
+        )}
 
         <section className="ln-track">
           <h2 className="tw-h2">
@@ -223,7 +227,7 @@ export function LashonPage() {
           ) : (
             <a href="#/torah-words">{t('tw.title')} →</a>
           )}
-          <a href="#/letters">{t('abc.title')} →</a>
+          {!reads && <a href="#/letters">{t('abc.title')} →</a>}
           <a href="#/academy">{t('academy.title')} →</a>
         </p>
       </div>
