@@ -13,6 +13,7 @@ import { HebrewRuns } from './Hebrew';
 import { Sources } from './Sources';
 import { sectionQuotes } from '../core/quotes';
 import { Quote } from './Quote';
+import { markCalcs } from '../core/calcLines';
 import { firstLetters } from '../core/gematriaMethods';
 import { useLetterHelp } from './letterHelp';
 import { lessonArt } from '../core/art';
@@ -178,7 +179,7 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
             {quotes.lessons[k].map((q) => (
               <Quote key={q.id + (q.segs?.join() ?? '')} q={q} />
             ))}
-            <Html as="div" className="les-b" html={withTerms(lessonHtml[k], textLocale)} />
+            <Html as="div" className="les-b" html={withTerms(markCalcs(lessonHtml[k]), textLocale)} />
           </section>
         ))}
       </div>

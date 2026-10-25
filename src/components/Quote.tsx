@@ -1,7 +1,10 @@
 import { Html, useI18n } from '../i18n';
 import { quoteView, type QuoteRef } from '../core/quotes';
 
-/** The commentator's own words: the original (Sefaria) with its translation, in the section that explains them. */
+/**
+ * The commentator's own words: the original (Sefaria) with its translation, in the section that explains them —
+ * in two columns, as in «Пророки и Писания»: the translation on the left, the Hebrew on the right, passage by passage.
+ */
 export function Quote({ q }: { q: QuoteRef }) {
   const { t, locale } = useI18n();
   const v = quoteView(q, locale);
@@ -15,7 +18,7 @@ export function Quote({ q }: { q: QuoteRef }) {
         </a>
       </figcaption>
       {v.segs.map((s, i) => (
-        <div key={i} className="rq-seg">
+        <div key={i} className={`rq-seg${s.tr ? ' cols' : ''}`}>
           <Html as="p" className="rq-he" html={s.he} />
           {s.tr && <Html as="p" className="rq-tr" html={s.tr} />}
         </div>

@@ -15,6 +15,7 @@ import { asWord } from '../core/letterPuzzle';
 import { firstLetters } from '../core/gematriaMethods';
 import { sectionQuotes } from '../core/quotes';
 import { Quote } from './Quote';
+import { markCalcs } from '../core/calcLines';
 import { useLetterHelp } from './letterHelp';
 import { neededLetters } from '../core/letterNames';
 import { lessonArt } from '../core/art';
@@ -340,7 +341,7 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
                   {quotes.lessons[k].map((q) => (
                     <Quote key={q.id + (q.segs?.join() ?? '')} q={q} />
                   ))}
-                  <Html as="div" html={withTerms(lessonHtml[k], textLocale)} />
+                  <Html as="div" html={withTerms(markCalcs(lessonHtml[k]), textLocale)} />
                 </div>
               </details>
             ))}

@@ -919,21 +919,36 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 .read-ans b.he{font-family:var(--f-he);font-size:22px}
 .read-coach .coach-head{margin-bottom:2px}
 .read-sum{font-weight:700;color:var(--gold);font-size:16px}
-.read-les{padding:12px 16px 14px;border-bottom:1px solid var(--line)}
+.read-les{padding:14px 16px 16px;border-bottom:1px solid var(--line)}
 .read-les:last-child{border-bottom:0}
-.read-les h3{margin:0 0 8px;font-family:var(--f-display);font-size:19px}
+.read-les h3{display:flex;align-items:baseline;gap:8px;margin:0 0 10px;font-family:var(--f-display);font-size:20px}
+.read-les h3::before{content:"";flex:none;width:4px;height:.9em;border-radius:2px;background:var(--gold);align-self:center}
 .read-les .les-b{padding:0}
-.expl{margin-top:8px;padding-inline-start:10px;border-inline-start:3px solid var(--line);color:var(--ink-2)}
-.expl>b:first-child{color:var(--muted);font-weight:600}
+.expl{margin:10px 0 0;padding:10px 14px;border-radius:8px;border-inline-start:4px solid var(--tchelet);background:var(--tchelet-soft);color:var(--ink)}
+.expl>b:first-child{color:var(--tchelet);font-weight:700}
+.expl>b:first-child::before{content:"💡 "}
+/* a worked sum in a lesson section (markCalcs in src/core/calcLines.ts): one calculation a line */
+p.calc{display:grid;gap:4px;margin:10px 0;padding:10px 14px;border-radius:8px;background:var(--gold-soft);font-variant-numeric:tabular-nums;color:var(--ink-2)}
+p.calc .he{font-family:var(--f-he);font-size:1.2em;font-weight:700;color:var(--ink)}
 .p-quote{margin:4px 0 8px;padding-inline-start:10px;border-inline-start:2px solid #999}
 .p-quote small{color:#666}
 .p-quote .he{direction:rtl;text-align:right;margin:2px 0}
-.read-quote{margin:4px 0 12px;padding:10px 14px 8px;border-inline-start:3px solid var(--gold);background:var(--paper);border-radius:6px}
-.read-quote figcaption{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px}
+.p-quote-cols{display:grid;grid-template-columns:1fr 1fr;column-gap:14px;align-items:start}
+.p-quote-cols>p{margin:2px 0}
+.p-quote-cols>.he{grid-column:2;grid-row:1}
+.p-quote-cols>p:not(.he){grid-column:1;grid-row:1;padding-inline-end:14px;border-inline-end:1px solid #ccc;margin-inline-end:-14px}
+.read-quote{margin:6px 0 12px;padding:10px 14px;border:1px solid var(--gold-line);border-inline-start:4px solid var(--gold);background:var(--paper);border-radius:8px}
+.read-quote figcaption{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--line)}
 .read-quote figcaption a{font-weight:400;color:var(--muted)}
 .rq-seg+.rq-seg{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
 .rq-he{margin:0;font-family:var(--f-he);font-size:19px;line-height:1.6;direction:rtl;text-align:right;color:var(--ink)}
 .rq-tr{margin:4px 0 0;font-size:15px;line-height:1.5;color:var(--ink-2)}
+/* «В два столбца», as .tk-verse.cols: the translation on the left, the Hebrew on the right */
+.rq-seg.cols{display:grid;grid-template-columns:1fr 1fr;column-gap:20px;align-items:start}
+.rq-seg.cols>.rq-he{grid-column:2;grid-row:1}
+.rq-seg.cols>.rq-tr{grid-column:1;grid-row:1;margin:0;padding-inline-end:20px;border-inline-end:1px solid var(--line);margin-inline-end:-20px}
+@media (max-width:640px){.rq-seg.cols{column-gap:12px}.rq-seg.cols>.rq-tr{padding-inline-end:12px;margin-inline-end:-12px}.read-quote{padding:8px 10px}.read-les{padding:12px 10px 14px}}
+@media (max-width:420px){.rq-seg.cols>.rq-he{font-size:17px;line-height:1.6}.rq-seg.cols>.rq-tr{font-size:14px;line-height:1.5}}
 .rq-fix{margin:6px 0 0;font-size:12.5px;color:var(--muted)}
 .read-calcs{margin:6px 24px 14px;border:1px solid var(--line);border-radius:8px;padding:10px 14px}
 .read-calcs summary{cursor:pointer;font-weight:600;color:var(--ink)}

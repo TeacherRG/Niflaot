@@ -347,7 +347,7 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
                       <div key={q.id + (q.segs?.join() ?? '')} className="p-quote">
                         <small>{v.title}</small>
                         {v.segs.map((sg, i) => (
-                          <div key={i}>
+                          <div key={i} className={sg.tr ? 'p-quote-cols' : undefined}>
                             <Html as="p" className="he" html={sg.he} />
                             {sg.tr && <Html as="p" html={sg.tr} />}
                           </div>
