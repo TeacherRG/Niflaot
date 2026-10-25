@@ -2038,6 +2038,43 @@ body:has(.k-home){background:var(--warm)}
   .k-tile{scroll-snap-align:start}
   .k-tile-title{font-size:20px}
   .k-sec h2{font-size:22px}
+  /* a phone: like the adults' home, the whole page fits one screen above the tab bar */
+  .k-home{padding-top:8px;gap:12px}
+  .k-week{font-size:12px}
+  .k-head h1{font-size:22px}
+  .k-go{padding:14px 16px;border-radius:18px;gap:8px}
+  .k-go>.k-go-he{font-size:96px;top:-20px}
+  .k-go-lbl{font-size:12px}
+  .k-go-title{font-size:23px}
+  .k-path{gap:4px}
+  .k-step>a,.k-step>span{width:28px;height:28px;font-size:13px}
+  .k-step.now>a{width:34px;height:34px;box-shadow:0 0 0 4px rgba(255,255,255,.25)}
+  .k-step.k-cert>a{width:32px;height:32px;border-radius:10px}
+  .k-path-memo{font-size:12.5px}
+  .k-go-btn{min-height:40px;padding:0 18px;border-radius:12px;font-size:15px}
+  .k-go-n{font-size:13px}
+  .k-side{gap:8px}
+  .k-home .k-side>.wc-line{grid-column:auto}
+  .k-side .habit,.k-side .h-daily,.k-side .wc-line{padding:8px 10px;border-radius:12px;gap:2px}
+  .k-side .habit-head b{font-size:13px;line-height:1.25}
+  .k-side .habit-min,.k-side .habit-line,.k-side .habit-streak{font-size:12px;line-height:1.3}
+  .k-side .h-daily-title{font-size:15px}
+  .k-side .h-daily-sub{font-size:11.5px;line-height:1.3}
+  .k-side .wc-l-title{font-size:11px;line-height:1.3}
+  .k-side .wc-l-he{font-size:12px}
+  .k-side .wc-l-time{font-size:13px}
+  .k-side .wc-line svg{width:16px;height:16px}
+  .k-sec{gap:6px}
+  .k-sec h2{font-size:17px}
+  /* the tiles: a small picture beside the name, two at a time sideways */
+  .k-tiles{grid-auto-columns:64%;gap:8px;padding-bottom:4px}
+  .k-tile{flex-direction:row;align-items:center;border-radius:12px}
+  .k-cover{flex:none;width:64px;height:64px;aspect-ratio:auto}
+  .k-cover-he{padding:4px;font-size:15px}
+  .k-tile-body{gap:0;padding:6px 10px;min-width:0}
+  .k-tile-k{font-size:11px}
+  .k-tile-title{font-size:15px;line-height:1.15}
+  .k-tile-sub{display:none}
   /* the brand stays in the top bar on the home page (the ☰ is in the tab bar) */
   .top-in.wide .brand{display:block}
 }
@@ -2164,6 +2201,7 @@ body:has(.a-home){background:var(--plain)}
 .slogan-he{font-family:var(--f-he);font-size:1.35em;font-weight:700;line-height:1.25;justify-self:start}
 .slogan-tr{font-size:.8em;font-weight:500;opacity:.9}
 .k-tag{margin:4px 0 0;font-size:17px;font-weight:700;color:var(--warm-text)}
+@media (max-width:640px){.k-tag{margin-top:2px;font-size:12px}.k-tag .slogan-he{font-size:1.3em}}
 .ac-tag{margin:2px 0 6px;font-size:17px;font-weight:700;color:var(--gold)}
 .h-daily.h-table{background:var(--gold-deep)}
 .h-daily.h-table .h-daily-title{color:#fff}

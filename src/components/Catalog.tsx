@@ -311,8 +311,9 @@ function PastTile({ group: g }: { group: (typeof LESSON_GROUPS)[number] }) {
 /**
  * The children's and families' home (the design «Нифлаот — новая главная»): warm, with pictures. On top — the week's
  * portion and one big card: the lesson to start or continue, a real «▶ Начать» button and the path of its riddles up to
- * the Academy; beside it — the streak, «Гематрия дня», the week's countdown and «Нифлаот на телефоне»; below — the
- * other lessons of the week and the earlier portions, with the lessons' pictures.
+ * the Academy; beside it — the streak, «Гематрия дня», the week's countdown and «Нифлаот на телефоне»; below — one row
+ * of tiles: the other lessons of the week, then the earlier portions, with the lessons' pictures. On a phone it all fits
+ * one screen above the tab bar.
  */
 function KidsHome() {
   const { t, pick, locale } = useI18n();
@@ -386,21 +387,14 @@ function KidsHome() {
           </div>
         </div>
 
-        {others.length > 0 && (
+        {/* one row of tiles: the week's other lessons, then the earlier portions (each tile says «Прошлая глава») */}
+        {others.length + past.length > 0 && (
           <section className="k-sec" aria-labelledby="k-more">
-            <h2 id="k-more">{t('home.moreWeek')}</h2>
+            <h2 id="k-more">{t(others.length ? 'home.moreWeek' : 'home.past')}</h2>
             <div className="k-tiles">
               {others.map((l) => (
                 <LessonTile key={l.slug} lesson={l} />
               ))}
-            </div>
-          </section>
-        )}
-
-        {past.length > 0 && (
-          <section className="k-sec" aria-labelledby="k-past">
-            <h2 id="k-past">{t('home.past')}</h2>
-            <div className="k-tiles">
               {past.map((g) => (
                 <PastTile key={g.id} group={g} />
               ))}
