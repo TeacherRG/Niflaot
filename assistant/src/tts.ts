@@ -54,7 +54,7 @@ export async function ttsRoute(
   headers: Record<string, string>,
   mayGenerate: () => Promise<boolean>,
 ): Promise<Response> {
-  const m = path.match(/^\/(ru|en|de)\/([a-z0-9-]{1,64})\/([0-9a-f]{16})\.wav$/);
+  const m = path.match(/^\/(ru|en|de)\/([a-z0-9-]{1,64})\/([0-9a-f]{16})\.(wav|mp3)$/);
   if (!m) return new Response('Not found', { status: 404, headers });
   if (req.method !== 'GET') return new Response('Method not allowed', { status: 405, headers: { ...headers, Allow: 'GET' } });
   if (!env.GEMINI_API_KEY) return new Response('off', { status: 503, headers });
