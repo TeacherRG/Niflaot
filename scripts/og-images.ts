@@ -5,6 +5,7 @@
  * hemshech, quiz and nigun.png for the pages of the daily study, «Викторина вместе» and «Святая музыка».
  * Also the app icons for «install on the phone» (manifest — scripts/prerender.ts): public/icons/icon-192.png,
  * icon-512.png, maskable-512.png (the mark inside the safe zone) and apple-touch-icon.png (180).
+ * And the podcast covers public/podcast/cover-<ru|en|de>.jpg (3000×3000 — Apple Podcasts, Spotify; feeds — prerender).
  * The PNGs are committed; re-run after adding a lesson or changing its title or key equation:
  *
  *   npm i --no-save playwright && npx tsx scripts/og-images.ts
@@ -226,5 +227,25 @@ for (const [name, size, inset] of [
   await p.evaluate(() => document.fonts.ready);
   await p.screenshot({ path: `public/icons/${name}.png` });
   console.log(`public/icons/${name}.png`);
+}
+
+/* podcast covers: the same night-blue and gold, נפלאות and the podcast's name — square, 3000 px */
+const COVER_SUB = { ru: 'Уроки Торы вслух', en: 'Torah lessons aloud', de: 'Tora-Lektionen zum Hören' } as const;
+const cover = (lang: keyof typeof COVER_SUB) => `<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Frank+Ruhl+Libre:wght@900&family=Manrope:wght@700&display=block">
+<style>*{margin:0;box-sizing:border-box}body{width:3000px;height:3000px;background:#141A33;background-image:radial-gradient(3000px 2100px at 50% 0,#2A3463 0,transparent 75%);position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:90px}
+.f{position:absolute;inset:150px;border:16px solid rgba(216,181,101,.7);border-radius:300px}
+.he{font-family:"Frank Ruhl Libre";font-weight:900;font-size:640px;line-height:1;background:linear-gradient(180deg,#F1DDA4,#C9A04E);-webkit-background-clip:text;color:transparent;padding-bottom:40px}
+.t{font-family:"Cormorant Garamond";font-weight:700;font-size:330px;line-height:1;color:#F6EBD0}
+.s{font-family:Manrope;font-weight:700;font-size:150px;color:#D8B565;letter-spacing:4px;text-align:center}
+.w{position:absolute;bottom:250px;font-family:Manrope;font-weight:700;font-size:90px;color:rgba(246,235,208,.6)}</style>
+</head><body><div class="f"></div><div class="he" dir="rtl">נפלאות</div><div class="t">${lang === 'ru' ? 'Нифлаот' : 'Niflaot'}</div><div class="s">${COVER_SUB[lang]}</div><div class="w">${SITE_HOST}</div></body></html>`;
+mkdirSync('public/podcast', { recursive: true });
+await p.setViewportSize({ width: 3000, height: 3000 });
+for (const lang of ['ru', 'en', 'de'] as const) {
+  await p.setContent(cover(lang), { waitUntil: 'networkidle' });
+  await p.evaluate(() => document.fonts.ready);
+  await p.screenshot({ path: `public/podcast/cover-${lang}.jpg`, type: 'jpeg', quality: 86 });
+  console.log(`public/podcast/cover-${lang}.jpg`);
 }
 await browser.close();

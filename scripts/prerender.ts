@@ -17,6 +17,8 @@
  *    alternates) and dist/robots.txt;
  *  - Atom feeds of the lessons: dist/feed.xml (ru), dist/feed-en.xml, dist/feed-de.xml — for readers, a newsletter
  *    and auto-posting services (links marked ?ref=rss);
+ *  - the podcast — RSS with iTunes tags: dist/podcast.xml (ru), podcast-en.xml, podcast-de.xml; the episodes (MP3 in a
+ *    GitHub release) are made by scripts/podcast.ts, the list is fetched while building — offline, no podcast feeds;
  *  - Open Graph picture: dist/og/<slug>.png if it exists (scripts/og-images.ts), else dist/og/site.png;
  *  - Content-Security-Policy <meta> on every page (GitHub Pages can't send headers).
  * Run by `npm run build`.
@@ -42,6 +44,7 @@ import { markHebrewHtml } from '../src/core/langMarkup';
 import { stripFootnotes } from '../src/sources/footnotes';
 import { quoteView, sectionQuotes } from '../src/core/quotes';
 import { narration } from '../src/core/narration';
+import { PODCAST_FEEDS, PODCAST_RELEASE, episodeTitle, type PodcastEpisodes } from '../src/core/podcast';
 import { BOOKS, track, type Section } from '../src/core/tanakhCycle';
 import { readingMinutes, type DayVerse } from '../src/core/tanakh';
 import { civilDate } from '../src/core/hebrewDate';
@@ -979,6 +982,69 @@ ${entries.join('\n')}
 }
 
 
+/* ───── the podcast: «Слушать урок» as episodes (scripts/podcast.ts uploads the MP3s and the list) ───── */
+
+const episodes: PodcastEpisodes = await fetch(process.env.PODCAST_MANIFEST ?? PODCAST_RELEASE.manifest, { signal: AbortSignal.timeout(20_000) })
+  .then((r) => (r.ok ? (r.json() as Promise<PodcastEpisodes>) : {}))
+  .catch((e) => (console.log(`podcast: no list of episodes (${e})`), {}));
+const rfc822 = (iso: string) => new Date(iso).toUTCString().replace('GMT', '+0000');
+const hms = (sec: number) => [Math.floor(sec / 3600), Math.floor(sec / 60) % 60, sec % 60].map((n) => String(n).padStart(2, '0')).join(':');
+let podcastFeeds = 0;
+for (const f of FEEDS) {
+  const lang = f.locale;
+  const list = LESSONS.filter((l) => l.texts[lang] && episodes[lang]?.[l.slug]).reverse();
+  if (!list.length) continue;
+  const u = f.ui as Record<string, string>;
+  const self = `${SITE_URL}/${PODCAST_FEEDS[lang]}`;
+  const items = list.map((l) => {
+    const tx = l.texts[lang]!;
+    const e = episodes[lang]![l.slug];
+    const link = `${lessonUrl(l, lang)}?ref=podcast`;
+    const parsha = PARSHIOT[l.parsha].name[lang] ?? PARSHIOT[l.parsha].name.ru;
+    const desc = `${plain(tx.summary)}\n\n${u['podcast.more']} ${link}`;
+    return `    <item>
+      <title>${esc(episodeTitle(plain(tx.title), parsha))}</title>
+      <description>${esc(desc)}</description>
+      <link>${esc(link)}</link>
+      <guid isPermaLink="false">niflaot-${lang}-${l.slug}</guid>
+      <pubDate>${rfc822(published(l))}</pubDate>
+      <enclosure url="${PODCAST_RELEASE.base}/${e.file}" length="${e.bytes}" type="audio/mpeg" />
+      <itunes:duration>${hms(e.seconds)}</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:image href="${SITE_URL}/podcast/cover-${lang}.jpg" />
+    </item>`;
+  });
+  writeFileSync(
+    `${DIST}/${PODCAST_FEEDS[lang]}`,
+    `<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:podcast="https://podcastindex.org/namespace/1.0">
+  <channel>
+    <title>${esc(u['podcast.title'])}</title>
+    <link>${SITE_URL}/?lang=${lang}&amp;ref=podcast</link>
+    <atom:link href="${self}" rel="self" type="application/rss+xml" />
+    <language>${lang}</language>
+    <description>${esc(u['podcast.desc'])}</description>
+    <copyright>© MyChitas · niflaot.mychitas.app</copyright>
+    <podcast:locked>no</podcast:locked>
+    <podcast:guid>${createHash('sha256').update(self).digest('hex').replace(/^(.{8})(.{4})(.{4})(.{4})(.{12}).*$/, '$1-$2-$3-$4-$5')}</podcast:guid>
+    <itunes:author>Niflaot · MyChitas</itunes:author>
+    <itunes:owner><itunes:name>MyChitas</itunes:name><itunes:email>Office@mychitas.app</itunes:email></itunes:owner>
+    <itunes:image href="${SITE_URL}/podcast/cover-${lang}.jpg" />
+    <image><url>${SITE_URL}/podcast/cover-${lang}.jpg</url><title>${esc(u['podcast.title'])}</title><link>${SITE_URL}/</link></image>
+    <itunes:category text="Religion &amp; Spirituality"><itunes:category text="Judaism" /></itunes:category>
+    <itunes:category text="Kids &amp; Family"><itunes:category text="Education for Kids" /></itunes:category>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:type>episodic</itunes:type>
+    <lastBuildDate>${rfc822(published(list[0]))}</lastBuildDate>
+${items.join('\n')}
+  </channel>
+</rss>
+`,
+  );
+  podcastFeeds++;
+}
+
 /* ───── web app manifests: «install on the phone» ───── */
 
 for (const { lang, ui } of LANGS) {
@@ -1107,7 +1173,7 @@ ${[...LESSON_OUT.filter((x) => x.lang === lang).map((x) => link(x.page)), ...sta
 - [Full text of the lessons](${SITE_URL}/llms-full.txt): every lesson as plain text, in Russian, English and German
 - [Sitemap](${SITE_URL}/sitemap.xml)
 - [News feed (English)](${SITE_URL}/feed-en.xml), [Russian](${SITE_URL}/feed.xml), [German](${SITE_URL}/feed-de.xml)
-`,
+${podcastFeeds ? `- Podcast — the lessons read aloud (RSS): ${(['en', 'ru', 'de'] as const).filter((l) => existsSync(`${DIST}/${PODCAST_FEEDS[l]}`)).map((l) => `[${LANG_NAME[l]}](${SITE_URL}/${PODCAST_FEEDS[l]})`).join(', ')}\n` : ''}`,
 );
 writeFileSync(
   `${DIST}/llms-full.txt`,
@@ -1158,4 +1224,4 @@ Disallow: /
 Sitemap: ${SITE_URL}/sitemap.xml
 `,
 );
-console.log(`prerender: index + ${LESSON_OUT.length} lesson pages (ru/en/de) + ${STATIC_OUT.length} math / daily / facts / letters / prophets / writings / words pages, sitemap.xml, robots.txt, llms.txt, ${FEEDS.length} feeds, ${LANGS.length} manifests, sw.js (${precache.length} files offline), daily messages for ${Object.keys(days).length} days, ${quiz.index.length} quiz decks, ${narrated} lessons to listen to`);
+console.log(`prerender: index + ${LESSON_OUT.length} lesson pages (ru/en/de) + ${STATIC_OUT.length} math / daily / facts / letters / prophets / writings / words pages, sitemap.xml, robots.txt, llms.txt, ${FEEDS.length} feeds, ${podcastFeeds} podcast feeds, ${LANGS.length} manifests, sw.js (${precache.length} files offline), daily messages for ${Object.keys(days).length} days, ${quiz.index.length} quiz decks, ${narrated} lessons to listen to`);

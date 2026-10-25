@@ -1,0 +1,43 @@
+# The podcast: after the narration is pre-recorded (tts-prerecord.yml — after every deploy and every morning but
+# Shabbat), every lesson whose parts are all recorded becomes one MP3 episode in the release `podcast`
+# (scripts/podcast.ts). New or changed episodes — the site is deployed again, and its build writes the feeds
+# podcast.xml / podcast-en.xml / podcast-de.xml. Nothing new — nothing happens (so the chain stops after one round).
+# Needs the variable ASSISTANT_URL.
+name: Podcast
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['Pre-record narration']
+    types: [completed]
+
+permissions:
+  contents: write   # upload the episodes to the release
+  actions: write    # start the deploy of the site
+
+concurrency:
+  group: podcast
+  cancel-in-progress: false
+
+jobs:
+  episodes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: command -v ffmpeg || (sudo apt-get update -q && sudo apt-get install -y -q ffmpeg)
+      - id: build
+        run: npx tsx scripts/podcast.ts
+        env:
+          ASSISTANT_URL: ${{ vars.ASSISTANT_URL }}
+          GH_TOKEN: ${{ github.token }}
+      # a push with GITHUB_TOKEN starts no workflows, a workflow_dispatch does
+      - if: steps.build.outputs.changed == 'true'
+        run: gh workflow run deploy.yml --ref main
+        env:
+          GH_TOKEN: ${{ github.token }}
