@@ -6,11 +6,11 @@
  *  - «собери» — плитки содержат ответ, из ответа получается слово / фраза; у слова — без Имён через ׳ и -;
  *  - «пропущенная буква» — 4 разных варианта, верный — та самая буква слова;
  *  - «корень» — 4 разных корня, верный — корень слова;
- * урок — от 6 до 20 заданий; слияние прогресса (src/core/sync.ts) — больше из двух.
+ * юнит — буквы (2), глава Торы, уровень из 50 слов Танаха; урок с новым знакомит со всеми своими словами; урок — от 6 до 20 заданий; слияние прогресса (src/core/sync.ts) — больше из двух.
  */
 import { LESSONS } from '../src/lessons';
 import { torahWords } from '../src/core/torahWords';
-import { abcUnits, alike, clusters, core, isRight, makeLesson, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
+import { abcUnits, alike, clusters, core, isRight, makeLesson, stepsOf, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
 import type { Dict, Word } from '../src/core/words';
 import { mergeSnapshots } from '../src/core/sync';
 import wordsJson from '../src/tanakh/words.json';
@@ -75,13 +75,13 @@ function checkUnits(units: Unit[], who: string) {
   if (new Set(ids).size !== ids.length) err(`${who}: id юнитов повторяются`);
   for (const u of units) {
     if (!u.items.length) err(`${who} ${u.id}: пустой юнит`);
-    for (let level = 1; level <= 3; level++)
-      for (let k = 0; k < TRIES; k++) {
-        const lesson = makeLesson(u, level);
-        const where = `${who} ${u.id} ур. ${level}`;
+    if (u.items.length !== u.parts.flat().length || u.parts.some((p) => !p.length || p.length > 6)) err(`${who} ${u.id}: уроки с новым — не по 1–6`);
+    for (let step = 0; step < stepsOf(u); step++)
+      for (let k = 0; k < (u.track === 'abc' || step >= u.parts.length ? TRIES : 2); k++) {
+        const lesson = makeLesson(u, step);
+        const where = `${who} ${u.id} урок ${step + 1}`;
         if (lesson.length < 6 || lesson.length > 20) err(`${where}: заданий ${lesson.length}`);
-        if (level === 1 && u.items.some((it) => !lesson.some((x) => x.t === 'intro' && x.item.key === it.key))) err(`${where}: не все слова представлены`);
-        if (level > 1 && u.items.some((it) => !lesson.some((x) => 'item' in x && x.item.key === it.key))) err(`${where}: не все слова спрошены`);
+        if (step < u.parts.length && u.parts[step].some((it) => !lesson.some((x) => x.t === 'intro' && x.item.key === it.key))) err(`${where}: не все новые слова представлены`);
         for (const ex of lesson) checkEx(u, ex, where);
       }
   }
