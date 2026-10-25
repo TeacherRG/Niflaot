@@ -1,0 +1,36 @@
+# «Слушать»: records the parts ahead (scripts/tts-prerecord.ts), so no listener waits — every lesson and the passages of
+# the Prophets / Writings for the next two weeks. By hand from the Actions tab (language, days) and every Sunday morning.
+# Needs the variable ASSISTANT_URL; the worker records with Gemini TTS (secret GEMINI_API_KEY of the worker).
+name: Pre-record narration
+
+on:
+  workflow_dispatch:
+    inputs:
+      lang:
+        description: 'Language: ru, en or de'
+        default: 'ru'
+      days:
+        description: 'Days of the Prophets / Writings from today'
+        default: '14'
+  schedule:
+    # Sunday 04:23 UTC
+    - cron: '23 4 * * 0'
+
+concurrency:
+  group: tts-prerecord
+  cancel-in-progress: false
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx tsx scripts/tts-prerecord.ts --lang "${{ inputs.lang || 'ru' }}" --days "${{ inputs.days || '14' }}"
+        env:
+          ASSISTANT_URL: ${{ vars.ASSISTANT_URL }}
