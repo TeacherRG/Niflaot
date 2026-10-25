@@ -65,7 +65,7 @@ const FACULTY: Record<FacultyId, { he: string; color: string }> = {
 };
 /** Where to learn in each faculty: [href, UI key], the children's and the adults'. */
 const LINKS: Record<FacultyId, Record<'k' | 'a', [string, MessageKey][]>> = {
-  lashon: { k: [['#/torah-words', 'tw.title'], ['#/letters', 'abc.title']], a: [['#/words', 'words.mine'], ['#/letters', 'abc.title']] },
+  lashon: { k: [['#/lashon', 'ln.title'], ['#/torah-words', 'tw.title'], ['#/letters', 'abc.title']], a: [['#/lashon', 'ln.title'], ['#/words', 'words.mine'], ['#/letters', 'abc.title']] },
   gematria: { k: [['#/daily', 'daily.title'], ['#/facts', 'facts.title'], ['#/math/add', 'math.title']], a: [['#/daily', 'daily.title'], ['#/facts', 'facts.title']] },
   nigun: { k: [['#/nigun', 'nigun.title']], a: [['#/nigun', 'nigun.title']] },
   rebbe: { k: [['#/shabbat-table', 'table.title']], a: [['#/shabbat-table', 'table.title']] },

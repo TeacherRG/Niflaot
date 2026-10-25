@@ -6,7 +6,7 @@
  */
 
 /** the synced localStorage keys: exact names, and `niflaot:lesson:<slug>` */
-export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:nigun', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:words', 'niflaot:torah-words', 'niflaot:torah-read', 'niflaot:study-days', 'niflaot:mode', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
+export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:nigun', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:words', 'niflaot:torah-words', 'niflaot:torah-read', 'niflaot:lashon', 'niflaot:study-days', 'niflaot:mode', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
 export const LESSON_PREFIX = 'niflaot:lesson:';
 export const isSynced = (k: string) => SYNC_KEYS.includes(k) || k.startsWith(LESSON_PREFIX);
 
@@ -115,6 +115,15 @@ function mergeWords(a: string, b: string): string {
   return JSON.stringify(out);
 }
 
+/** «Святой язык — уроки» (src/core/lashon.ts): every unit and every day from both — the more ★ / points */
+function mergeCourse(a: string, b: string): string {
+  const x = parse(a) ?? {};
+  const y = parse(b) ?? {};
+  const max = (p: Record<string, unknown> = {}, q: Record<string, unknown> = {}) =>
+    Object.fromEntries([...new Set([...Object.keys(p), ...Object.keys(q)])].map((k) => [k, Math.max(Number(p[k]) || 0, Number(q[k]) || 0)]));
+  return JSON.stringify({ u: max(x.u, y.u), xp: max(x.xp, y.xp) });
+}
+
 /** «Учёба каждый день» (src/core/habit.ts): every day of study from both; a day studied (1) wins over one made up (2) */
 function mergeStudy(a: string, b: string): string {
   const x = parse(a) ?? {};
@@ -141,6 +150,7 @@ export function mergeSnapshots(local: Snapshot, remote: Snapshot): Snapshot {
     else if (k === 'niflaot:torah-read') out[k] = mergeRead(a, b);
     else if (k === 'niflaot:words' || k === 'niflaot:torah-words') out[k] = mergeWords(a, b);
     else if (k === 'niflaot:study-days') out[k] = mergeStudy(a, b);
+    else if (k === 'niflaot:lashon') out[k] = mergeCourse(a, b);
     else if (k === 'niflaot:tanakh-done' || k === 'niflaot:hemshech-done') out[k] = mergeDone(a, b);
     else out[k] = a;
   }
