@@ -2279,6 +2279,16 @@ body:has(.a-home){background:var(--plain)}
 .kar-privacy{margin:0;font-size:13px;color:var(--muted);line-height:1.45}
 @media (max-width:420px){.kar-tabs{justify-self:stretch;display:grid;grid-template-columns:repeat(3,auto);justify-content:space-between}.kar-tabs button{padding:8px 9px;font-size:14px}}
 /* «Петь»: no numbers while singing — one bar on top grows with the points sung in tune; green while in tune */
-.kar-sing-bar{height:12px;border-radius:999px;background:var(--paper);overflow:hidden;box-shadow:inset 0 0 0 1px var(--line)}
-.kar-sing-bar span{display:block;height:100%;border-radius:inherit;background:var(--gold);transition:width .3s ease,background-color .3s}
-.kar-sing-bar.on span{background:var(--ok)}
+.kar-strip-box{display:grid;gap:6px;padding:10px 12px;border-radius:12px;background:var(--paper);box-shadow:inset 0 0 0 1px var(--line);transition:box-shadow .3s}
+.kar-strip-box.on{box-shadow:inset 0 0 0 2px var(--ok)}
+.kar-strip{list-style:none;margin:0;padding:0;display:flex;gap:3px;height:34px;align-items:stretch}
+.kar-strip li{flex:1 1 0;min-width:4px;border-radius:4px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);display:flex;align-items:flex-end;overflow:hidden}
+.kar-strip li span{display:block;width:100%;background:var(--line);transition:height .3s ease,background-color .3s}
+.kar-strip li.s1 span{background:var(--gold)}
+.kar-strip li.s2 span{background:var(--gold-deep)}
+.kar-strip li.s3 span{background:var(--ok)}
+.kar-strip li.now{box-shadow:inset 0 0 0 2px var(--gold-deep)}
+.kar-stars{margin:0;display:flex;align-items:center;gap:10px;min-height:26px;font-size:14px;color:var(--ink-2)}
+.kar-stars-l{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kar-stars b{flex:none;font-size:20px;letter-spacing:2px;color:var(--gold-deep)}
+.kar-stars b i{font-style:normal;color:var(--line)}

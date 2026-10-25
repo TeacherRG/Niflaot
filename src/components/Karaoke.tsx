@@ -5,7 +5,7 @@ import { markStudied } from '../core/habit';
 import type { Nigun } from '../nigun';
 import { PASS } from '../core/academy';
 import { POINTS, gaps, rightCount, saveNigunResult } from '../core/nigunGame';
-import { SING_POINTS, TOLERANCE, linePoints, openMic, pitchDistance, refAt, type PitchTrack } from '../core/singing';
+import { SING_POINTS, inTuneAt, linePoints, lineStars, newVoice, openMic, refAt, type PitchTrack } from '../core/singing';
 
 /** The site's root: the built code lives in /assets/, the recordings in /nigun/ (as in src/core/tanakh.ts). */
 const root = () => (import.meta.env.DEV ? import.meta.env.BASE_URL : new URL('..', import.meta.url).href);
@@ -54,10 +54,12 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
   const [tab, setTab] = useState<'learn' | 'game' | 'sing'>('learn');
   const game = tab === 'game';
   const sing = tab === 'sing';
-  // «Петь»: the microphone while singing, the recording's notes, the tally of every line and the result
+  // «Петь»: the microphone while singing, the recording's notes, the singer's notes and the result
   const mic = useRef<Awaited<ReturnType<typeof openMic>> | null>(null);
   const [track, setTrack] = useState<PitchTrack | null>(null);
-  const tally = useRef(n.lines.map(() => ({ sung: 0, inTune: 0 })));
+  const heard = useRef<Float32Array | null>(null);
+  // the points of the lines already sung — counted once, when the line is over
+  const donePts = useRef<number[]>([]);
   const [voice, setVoice] = useState<'none' | 'off' | 'on'>('none');
   const voiceCandidate = useRef<{ state: 'none' | 'off' | 'on'; since: number }>({ state: 'none', since: 0 });
   const [singing, setSinging] = useState(false);
@@ -83,16 +85,14 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
         const k = lineAt(times, a.currentTime);
         const next = times[k + 1] ?? a.duration;
         if (loop && k >= 0 && a.currentTime >= next - 0.05) a.currentTime = times[k];
-        // «Петь»: is the singer in tune with the recording right now?
-        if (singing && mic.current && track && k >= 0) {
-          const ref = refAt(track, a.currentTime);
+        // «Петь»: the singer's note at this moment of the recording; in tune right now?
+        if (singing && mic.current && track && heard.current && k >= 0) {
           const me = mic.current.read();
-          if (ref) {
-            tally.current[k].sung++;
-            if (me && pitchDistance(me, ref) <= TOLERANCE) tally.current[k].inTune++;
-          }
+          const f = Math.round(a.currentTime / track.hop);
+          if (me && f < heard.current.length) heard.current[f] = me;
+          const ok = inTuneAt(track, a.currentTime, me);
           // the hint changes only once a state has held for a moment — a flicker every frame shook the screen
-          const now = !me ? 'none' : ref && pitchDistance(me, ref) <= TOLERANCE ? 'on' : 'off';
+          const now = !me ? 'none' : ok ? 'on' : 'off';
           const c = voiceCandidate.current;
           if (c.state !== now) voiceCandidate.current = { state: now, since: performance.now() };
           else if (performance.now() - c.since > 400) setVoice(now);
@@ -207,8 +207,8 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
       setTrack(tr);
       mic.current?.stop();
       mic.current = await openMic();
-      tally.current = n.lines.map(() => ({ sung: 0, inTune: 0 }));
-      barMax.current = 0;
+      heard.current = newVoice(tr);
+      donePts.current = [];
       setLoop(false);
       setSinging(true);
       play(0);
@@ -217,10 +217,18 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
       setMicError(true);
     }
   };
+  // a line's points; the singer may be late, so a line is final only once the next one has gone on a while
+  const ptsOf = (k: number) => {
+    if (!track || !heard.current) return 0;
+    if (donePts.current[k] !== undefined) return donePts.current[k];
+    const v = linePoints(track, heard.current, times[k], times[k + 1] ?? track.p.length * track.hop);
+    if (k < cur - 1) donePts.current[k] = v;
+    return v;
+  };
   const finishSinging = () => {
     if (!track) return;
     const lines = sungLines(track);
-    const pts = tally.current.map((x, k) => (lines[k] ? linePoints(x.sung, x.inTune) : 0));
+    const pts = n.lines.map((_, k) => (lines[k] ? ptsOf(k) : 0));
     const got = pts.reduce((a, b) => a + b, 0);
     const max = lines.filter(Boolean).length * SING_POINTS;
     saveNigunResult(`${n.id}:sing`, { p: pts, best: got, n: max });
@@ -229,14 +237,11 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
     stopMic();
   };
   const singPct = singResult && singResult.max ? Math.round((100 * singResult.got) / singResult.max) : 0;
-  const singNow = tally.current.reduce((a, x, k) => a + (k <= cur ? linePoints(x.sung, x.inTune) : 0), 0);
-  // while singing — no numbers, only a bar on top that grows with the points sung in tune
-  const singMax = track ? sungLines(track).filter(Boolean).length * SING_POINTS : 0;
-  // the bar only grows: the current line's points are counted as it goes and may dip for a moment
-  const barMax = useRef(0);
-  if (!singing && !singResult) barMax.current = 0;
-  barMax.current = Math.max(barMax.current, singMax ? Math.min(100, (100 * singNow) / singMax) : 0);
-  const singBar = barMax.current;
+  // while singing — no numbers: on top, a strip with a cell for every sung line, filled with its points and its stars
+  const scored = track ? sungLines(track) : [];
+  const linePts = n.lines.map((_, k) => (scored[k] && k <= cur && (singing || singResult) ? ptsOf(k) : 0));
+  const strip = scored.flatMap((s, k) => (s ? [k] : []));
+  const lastDone = [...strip].reverse().find((k) => k < cur);
   const resultPct = result === null || !total ? 0 : Math.round((100 * result) / total);
 
   return (
@@ -299,16 +304,39 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
           </p>
           <p className="kar-privacy">🔒 {t('nigun.singPrivacy')}</p>
           {micError && <p className="kar-was">{t('nigun.micError')}</p>}
-          {singing && (
-            <div
-              className={`kar-sing-bar ${voice}`}
-              role="progressbar"
-              aria-label={t('nigun.singProgress')}
-              aria-valuemin={0}
-              aria-valuemax={100}
-              aria-valuenow={Math.round(singBar)}
-            >
-              <span style={{ width: `${singBar}%` }} />
+          {(singing || singResult) && strip.length > 0 && (
+            <div className={`kar-strip-box ${singing ? voice : ''}`}>
+              <ol className="kar-strip" aria-label={t('nigun.singProgress')}>
+                {strip.map((k) => {
+                  const sung = k < cur || (k === cur && singing) || (!singing && k <= cur);
+                  const st = lineStars(linePts[k]);
+                  return (
+                    <li
+                      key={k}
+                      className={`${k === cur && singing ? 'now ' : ''}s${sung ? st : 'x'}`}
+                      title={n.lines[k].text}
+                      aria-label={`${n.lines[k].text}: ${'★'.repeat(st)}${'☆'.repeat(3 - st)}`}
+                    >
+                      <span style={{ height: `${sung ? Math.max(8, (100 * linePts[k]) / SING_POINTS) : 0}%` }} />
+                    </li>
+                  );
+                })}
+              </ol>
+              {singing && (
+                <p className="kar-stars" aria-live="polite">
+                  {lastDone !== undefined ? (
+                    <>
+                      <span className="kar-stars-l">{n.lines[lastDone].text}</span>
+                      <b aria-label={`${lineStars(linePts[lastDone])} / 3`}>
+                        {'★'.repeat(lineStars(linePts[lastDone]))}
+                        <i>{'★'.repeat(3 - lineStars(linePts[lastDone]))}</i>
+                      </b>
+                    </>
+                  ) : (
+                    <span className="kar-stars-l">🎤 {t(`nigun.voice.${voice}`)}</span>
+                  )}
+                </p>
+              )}
             </div>
           )}
           {singResult && (
