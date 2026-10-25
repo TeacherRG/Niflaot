@@ -10,12 +10,16 @@ import { useHabit } from '../core/habit';
 import { memoImages } from '../core/memo';
 import { FINALS, letterName } from '../core/letterNames';
 import { answerWord, torahWords } from '../core/torahWords';
-import { inDeck, loadDict, markLearn, readWordStore, type WordLang } from '../core/words';
+import { inDeck, loadDict, markKnown, markLearn, readWordStore, type WordLang } from '../core/words';
 import {
   GOAL,
   TANAKH_GROUP,
   XP,
   XP_PERFECT,
+  XP_EXAM,
+  EXAM_LIVES,
+  makeExam,
+  passExam,
   abcUnits,
   finishLesson,
   isOpen,
@@ -98,7 +102,7 @@ export function LashonPage() {
   }, [adults, locale]);
   const words = adults ? tanakh ?? [] : torah;
   const units = useMemo(() => [...abc, ...words], [abc, words]);
-  const [run, setRun] = useState<{ unit: Unit; step: number } | null>(null);
+  const [run, setRun] = useState<{ unit: Unit; step: number; exam?: boolean } | null>(null);
 
   useEffect(() => {
     document.title = `${t('ln.title')} · ${t('app.title')}`;
@@ -146,6 +150,12 @@ export function LashonPage() {
                 <>
                   <small>{stepLabel(u)}</small>
                   <Bar k={lv} n={stepsOf(u)} />
+                  {/* «Экзамен»: the whole unit at once — passed, the next one opens */}
+                  {!full && (
+                    <button type="button" className="ln-exam-btn" onClick={() => setRun({ unit: u, step: 0, exam: true })}>
+                      {t('ln.exam')}
+                    </button>
+                  )}
                 </>
               ) : (
                 <small>🔒 {t('ln.locked')}</small>
@@ -218,17 +228,21 @@ export function LashonPage() {
         </p>
       </div>
       <Colophon />
-      {run && <Lesson key={`${run.unit.id}-${run.step}`} unit={run.unit} step={run.step} adults={adults} onClose={() => setRun(null)} />}
+      {run && <Lesson key={`${run.unit.id}-${run.step}-${run.exam}`} unit={run.unit} step={run.step} exam={run.exam} adults={adults} onClose={() => setRun(null)} />}
     </>
   );
 }
 
 type State = 'answer' | 'right' | 'wrong';
 
-/** One lesson over the page: the exercises one by one; a wrong one comes back once at the end. */
-function Lesson({ unit, step, adults, onClose }: { unit: Unit; step: number; adults: boolean; onClose: () => void }) {
+/**
+ * One lesson over the page: the exercises one by one; a wrong one comes back once at the end. An `exam` — the whole unit,
+ * no second chances: ♥ for the mistakes left; one more than `EXAM_LIVES` — failed.
+ */
+function Lesson({ unit, step, exam, adults, onClose }: { unit: Unit; step: number; exam?: boolean; adults: boolean; onClose: () => void }) {
   const { t } = useI18n();
-  const [queue, setQueue] = useState<Exercise[]>(() => makeLesson(unit, step));
+  const [queue, setQueue] = useState<Exercise[]>(() => (exam ? makeExam(unit) : makeLesson(unit, step)));
+  const [failed, setFailed] = useState(false);
   const [i, setI] = useState(0);
   const [state, setState] = useState<State>('answer');
   const [sel, setSel] = useState<string | null>(null);
@@ -262,8 +276,18 @@ function Lesson({ unit, step, adults, onClose }: { unit: Unit; step: number; adu
     setRequeued(false);
     setSel(null);
     setBuilt([]);
-    if (i + 1 < queue.length) setI(i + 1);
-    else {
+    if (exam && mistakes > EXAM_LIVES) setFailed(true);
+    else if (i + 1 < queue.length) setI(i + 1);
+    else if (exam) {
+      passExam(unit);
+      // adults: the words of a unit passed at once — «Знаю» in «Мои слова» (the review there confirms them)
+      let added = 0;
+      if (adults && unit.track === 'words') {
+        const s = readWordStore();
+        for (const it of unit.items) if (!inDeck(s, it.key)) (markKnown(it.key), added++);
+      }
+      setDone({ xp: XP_EXAM, added });
+    } else {
       const xp = mistakes ? XP : XP_PERFECT;
       finishLesson(unit, step, xp);
       // adults: the new words of the lesson go to «Мои слова» — the review there counts for the certificate
@@ -286,7 +310,7 @@ function Lesson({ unit, step, adults, onClose }: { unit: Unit; step: number; adu
     }
     if (!right) {
       setMistakes((n) => n + 1);
-      if (!retried.current.has(ex)) {
+      if (!exam && !retried.current.has(ex)) {
         retried.current.add(ex);
         setQueue((q) => [...q, ex]);
         setRequeued(true);
@@ -302,6 +326,19 @@ function Lesson({ unit, step, adults, onClose }: { unit: Unit; step: number; adu
   };
   const ready = ex && (ex.t === 'build' ? built.length > 0 : sel != null);
 
+  if (failed)
+    return (
+      <div className="ln-session" role="dialog" aria-modal="true" aria-label={t('ln.exam')} ref={box} tabIndex={-1}>
+        <div className="ln-end">
+          <h2>{t('ln.examFail')}</h2>
+          <p>{t('ln.examFailNote', { n: EXAM_LIVES })}</p>
+          <button type="button" className="btn ln-big" onClick={onClose}>
+            {t('ln.continueBtn')}
+          </button>
+        </div>
+      </div>
+    );
+
   if (done)
     return (
       <div className="ln-session" role="dialog" aria-modal="true" aria-label={t('ln.title')} ref={box} tabIndex={-1}>
@@ -311,14 +348,14 @@ function Lesson({ unit, step, adults, onClose }: { unit: Unit; step: number; adu
               {mistakes ? '🎉' : '🏆'}
             </p>
           )}
-          <h2>{t('ln.done')}</h2>
+          <h2>{t(exam ? 'ln.examPass' : 'ln.done')}</h2>
           <p className="ln-xp">{t('ln.xp', { n: done.xp })}</p>
           {!mistakes && <p className="ln-perfect">{t('ln.perfect')}</p>}
           <p>{t('ln.acc', { k: firstTry, n: asked.current })}</p>
           <p>
             <Bar k={Math.max(step + 1, doneOf(readCourse(), unit))} n={stepsOf(unit)} />
           </p>
-          {done.added > 0 && <p className="ln-note">{t('ln.added', { n: done.added })}</p>}
+          {done.added > 0 && <p className="ln-note">{t(exam ? 'ln.addedKnown' : 'ln.added', { n: done.added })}</p>}
           <button type="button" className="btn ln-big" onClick={onClose}>
             {t('ln.continueBtn')}
           </button>
@@ -335,6 +372,12 @@ function Lesson({ unit, step, adults, onClose }: { unit: Unit; step: number; adu
         <span className="ln-bar" role="progressbar" aria-valuemin={0} aria-valuemax={queue.length} aria-valuenow={i}>
           <span style={{ width: `${(100 * i) / queue.length}%` }} />
         </span>
+        {exam && (
+          <span className="ln-lives" aria-label={t('ln.lives', { n: Math.max(0, EXAM_LIVES - mistakes) })}>
+            {'♥'.repeat(Math.max(0, EXAM_LIVES - mistakes))}
+            <i>{'♥'.repeat(Math.min(EXAM_LIVES, mistakes))}</i>
+          </span>
+        )}
         {combo >= 3 && <span className="ln-combo">{adults ? '' : '🔥 '}{combo}</span>}
         <button
           type="button"
@@ -355,7 +398,7 @@ function Lesson({ unit, step, adults, onClose }: { unit: Unit; step: number; adu
       <div className="ln-body" aria-live="polite">
         {ex.t === 'intro' && <Intro item={ex.item} letter={unit.track === 'abc'} />}
         {ex.t === 'pick' && <Pick ex={ex} letter={unit.track === 'abc'} sel={sel} state={state} onPick={setSel} />}
-        {ex.t === 'match' && <Match key={i} pairs={ex.pairs} onMiss={() => (setMistakes((n) => n + 1), tone(false))} onDone={() => answer(true)} />}
+        {ex.t === 'match' && <Match key={i} pairs={ex.pairs} onMiss={() => (!exam && setMistakes((n) => n + 1), tone(false))} onDone={() => answer(true)} />}
         {ex.t === 'build' && <Build ex={ex} built={built} state={state} onBuilt={setBuilt} />}
         {ex.t === 'gap' && <Gap ex={ex} sel={sel} state={state} onPick={setSel} />}
         {ex.t === 'root' && <Root ex={ex} sel={sel} state={state} onPick={setSel} />}

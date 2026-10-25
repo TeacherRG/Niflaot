@@ -1594,6 +1594,10 @@ a.tk-step:hover{background:var(--tchelet-soft)}
 .ln-lbl b.he{font-family:var(--f-he);font-size:18px;font-weight:400;letter-spacing:.06em}
 .ln-lbl small{color:var(--muted);font-size:12px}
 .ln-ubar{width:110px;margin-top:3px}
+.ln-exam-btn{margin-top:4px;padding:4px 12px;border:1px dashed var(--ring);border-radius:99px;background:transparent;color:var(--tchelet);font-size:12px;font-weight:700}
+.ln-exam-btn:hover{background:var(--tchelet-soft)}
+.ln-lives{flex:none;color:var(--bad);font-size:18px;letter-spacing:1px}
+.ln-lives i{color:var(--ring);font-style:normal}
 .ln-session{position:fixed;inset:0;z-index:70;display:grid;grid-template-rows:auto 1fr auto;background:var(--surface);color:var(--ink);outline:none}
 .ln-top{display:flex;align-items:center;gap:12px;width:100%;max-width:640px;margin:0 auto;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 8px}
 .ln-x{flex:none;width:40px;height:40px;border:0;border-radius:50%;background:transparent;color:var(--muted);font-size:20px}

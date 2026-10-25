@@ -6,7 +6,8 @@
  * потом два «Повторения» вперемешку: перевод, наоборот, пары, собери из букв, порядок слов фразы, пропущенная буква,
  * число / звучание буквы, у взрослых во втором — корень. Урок — 10–15 заданий; ошибку задание повторяется в конце (один раз).
  * За урок — 10 очков опыта, без ошибок — 15; цель дня — `GOAL` очков. Юнит открыт, если в предыдущем юните той же
- * части пройдены все уроки с новым (первый юнит части — всегда).
+ * части пройдены все уроки с новым (первый юнит части — всегда) — или сдан его «Экзамен» (`makeExam`: весь юнит сразу,
+ * не больше `EXAM_LIVES` ошибок; сдан — юнит пройден целиком).
  *
  * localStorage `niflaot:lashon` = { u: { <юнит>: пройдено уроков }, xp: { <дата>: очки } } — синхронизируется (src/core/sync.ts:
  * у юнита и у дня — больше из двух).
@@ -236,6 +237,13 @@ export function makeLesson(unit: Unit, step: number): Exercise[] {
   return drill({ ...unit, items: shuffle(unit.items).slice(0, 6) }, k === unit.parts.length ? 2 : 3);
 }
 
+/** «Экзамен» за юнит: сразу весь юнит, чтобы открыть следующий — до `EXAM_ITEMS` его букв / слов вперемешку, трудные задания и пары. */
+export const EXAM_ITEMS = 14;
+/** ошибок можно сделать не больше (пары не считаются) */
+export const EXAM_LIVES = 3;
+export const XP_EXAM = 20;
+export const makeExam = (unit: Unit): Exercise[] => drill({ ...unit, items: shuffle(unit.items).slice(0, EXAM_ITEMS) }, 3);
+
 /** the exercises over `unit.items`: level 1 — introduce and ask each, the pairs; 2 and 3 — every kind mixed (3 — harder) */
 function drill(unit: Unit, level: number): Exercise[] {
   const items = unit.items;
@@ -323,6 +331,11 @@ export function finishLesson(unit: Unit, step: number, xp: number) {
   } catch {}
   window.dispatchEvent(new Event(EVENT));
   markStudied();
+}
+
+/** «Экзамен» сдан: все уроки юнита — пройдены (следующий юнит открыт), сегодня — очки. */
+export function passExam(unit: Unit) {
+  finishLesson(unit, stepsOf(unit) - 1, XP_EXAM);
 }
 
 export function useCourse(): CourseStore {
