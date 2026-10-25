@@ -1,7 +1,8 @@
 # «Слушать»: records the parts ahead (scripts/tts-prerecord.ts), so no listener waits — every lesson and the passages of
 # the Prophets / Writings for the next two weeks. After every deploy of the site (a new or changed lesson gets its parts
 # recorded at once; the ones recorded already are skipped in seconds), by hand from the Actions tab (language, days) and
-# every Sunday morning.
+# every morning but Shabbat — Gemini lets 100 recordings a day per model through (paid Tier 1), so a long backlog is
+# finished over several days.
 # Needs the variable ASSISTANT_URL; the worker records with Gemini TTS (secret GEMINI_API_KEY of the worker).
 name: Pre-record narration
 
@@ -18,8 +19,8 @@ on:
     workflows: ['Deploy to GitHub Pages (niflaot.mychitas.app)']
     types: [completed]
   schedule:
-    # Sunday 04:23 UTC
-    - cron: '23 4 * * 0'
+    # Sunday to Friday 07:23 UTC — just after Gemini's day starts anew (midnight in California)
+    - cron: '23 7 * * 0-5'
 
 concurrency:
   group: tts-prerecord
