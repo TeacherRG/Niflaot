@@ -44,7 +44,6 @@ const ru = {
   'mode.change': "сменить",
   'home.adultsH1': "Учить каждый день",
   'home.weekReadTitle': "Глава недели — читать",
-  'home.adultsFacts': "«Знаете ли вы?» и «Гематрия дня»",
   'home.adultsTitle': 'Пророки и Писания',
   'home.promise': "Для всех возрастов — от 8 до 120",
   'home.adultsCta': 'Отрывок дня',
@@ -212,6 +211,7 @@ const ru = {
   'home.pastOne': "Прошлая глава",
   'home.todayCount': "{n} из {total} сделано",
   'home.nextCert': "следующий сертификат",
+  'home.todayH1': "Сегодня учим в Академии",
   'home.riddle': "загадка {n} из {total}",
   'home.week': "Глава недели",
   'teacher.baal-haturim.short': "Бааль ґа-Турим",
@@ -1189,7 +1189,6 @@ const ru = {
   // «К шабатнему столу», the motto (Devarim 6:7), the faculties of the Academy
   'slogan': "«И повторяй их детям твоим, и говори о них»",
   'slogan.ref': "Дварим 6:7",
-  'home.adultsTag': "Дети учат ту же главу в игре. Лист к шабатнему столу — загадки детям, вопросы взрослым",
   'table.title': "К шабатнему столу",
   'table.menuSub': "лист главы — распечатать до Шабата",
   'table.homeSub': "беседа Ребе, стихи и гематрии главы — распечатать",

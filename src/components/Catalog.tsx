@@ -79,8 +79,8 @@ function PlanRow({ href, title, sub, done, go, he }: { href: string; title: stri
 
 /**
  * The adults' home («Подростки и взрослые», src/core/mode.ts; the design «Нифлаот — новая главная»): bookish and quiet.
- * «Сегодня» — the date and the plan of the day as one list (src/core/todayStudy.ts): the Prophets, the Writings, Chassidut,
- * «Мои слова», each with ✓, «N из M сделано» and the streak; the first thing to do has «Читать». Beside it — the week's
+ * «Сегодня учим в Академии» — the date and the plan of the day as one list (src/core/todayStudy.ts): the Prophets, the Writings, Chassidut,
+ * «Мои слова», each with ✓, «N из M сделано» and the streak; the first thing to do has «Читать». On a phone it all fits one screen. Beside it — the week's
  * Torah lessons to read, the next certificate of the Academy, «Знаете ли вы?» and «Викторина вместе». No games or ages.
  */
 function AdultsHome() {
@@ -127,7 +127,7 @@ function AdultsHome() {
             {civil} · <span className="he">{jewishDate(iso)}</span>
           </span>
           <div className="a-head">
-            <h1 id="a-h1">{t('tab.today')}</h1>
+            <h1 id="a-h1">{t('home.todayH1')}</h1>
             {count && (
               <span className="a-count">
                 <b>{t('home.todayCount', { n: count.done, total: count.total })}</b>
@@ -150,11 +150,6 @@ function AdultsHome() {
         </section>
 
         <aside className="a-side">
-          {/* the motto «ושננתם לבניך»: the children learn the same portion in play — the Friday sheet brings it to the table */}
-          <a className="a-tag" href="#/shabbat-table">
-            <Slogan />
-            <span>{t('home.adultsTag')} →</span>
-          </a>
           {reads.length > 0 && (
             <section aria-labelledby="a-week">
               <h2 id="a-week">
@@ -183,19 +178,19 @@ function AdultsHome() {
               <>
                 <span className="a-cert-t">
                   {t('academy.master.tanakh')} {d.book.name}
+                  <span className="a-cert-s" title={t('academy.readDays', { done: d.book.done, parts: d.book.parts, pct: Math.round((d.book.done / d.book.parts) * 100) })}>
+                    {d.book.done}/{d.book.parts}
+                  </span>
                 </span>
                 <span className="a-bar" aria-hidden="true">
                   <span style={{ width: `${Math.round((d.book.done / d.book.parts) * 100)}%` }} />
-                </span>
-                <span className="a-cert-s">
-                  {t('academy.readDays', { done: d.book.done, parts: d.book.parts, pct: Math.round((d.book.done / d.book.parts) * 100) })}
                 </span>
               </>
             )}
           </a>
           <PhoneOffer />
           <p className="a-links">
-            <a href="#/facts">{t('home.adultsFacts')} →</a>
+            <a href="#/facts">{t('facts.title')} →</a>
             <a href="#/quiz">{t('lq.title')} →</a>
           </p>
         </aside>
