@@ -165,7 +165,7 @@ export function ListenBar({
         <button type="button" className="btn listen-go" onClick={start}>
           🎧 {t(passage ? 'listen.btnPassage' : 'listen.btn')}
         </button>
-        <span className="listen-note">{t(passage ? 'listen.notePassage' : 'listen.note')}</span>
+        {!passage && <span className="listen-note">{t('listen.note')}</span>}
       </div>
     );
 
