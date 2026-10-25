@@ -115,13 +115,13 @@ function mergeWords(a: string, b: string): string {
   return JSON.stringify(out);
 }
 
-/** «Святой язык — уроки» (src/core/lashon.ts): every unit and every day from both — the more ★ / points */
+/** «Святой язык — уроки» (src/core/lashon.ts): every item met, unit and day from both — the more reviews / points */
 function mergeCourse(a: string, b: string): string {
   const x = parse(a) ?? {};
   const y = parse(b) ?? {};
   const max = (p: Record<string, unknown> = {}, q: Record<string, unknown> = {}) =>
     Object.fromEntries([...new Set([...Object.keys(p), ...Object.keys(q)])].map((k) => [k, Math.max(Number(p[k]) || 0, Number(q[k]) || 0)]));
-  return JSON.stringify({ u: max(x.u, y.u), xp: max(x.xp, y.xp) });
+  return JSON.stringify({ s: max(x.s, y.s), r: max(x.r, y.r), xp: max(x.xp, y.xp) });
 }
 
 /** «Учёба каждый день» (src/core/habit.ts): every day of study from both; a day studied (1) wins over one made up (2) */

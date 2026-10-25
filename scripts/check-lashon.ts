@@ -6,11 +6,11 @@
  *  - «собери» — плитки содержат ответ, из ответа получается слово / фраза; у слова — без Имён через ׳ и -;
  *  - «пропущенная буква» — 4 разных варианта, верный — та самая буква слова;
  *  - «корень» — 4 разных корня, верный — корень слова;
- * экзамен за юнит — без знакомства, слова всего юнита; юнит — буквы (2), глава Торы, уровень из 50 слов Танаха; урок с новым знакомит со всеми своими словами; урок — от 6 до 20 заданий; слияние прогресса (src/core/sync.ts) — больше из двух.
+ * уроки с новым — по порядку, без слов из «Моих слов» / «Слов Торы» и уже встреченных; экзамен за юнит — без знакомства, слова всего юнита; юнит — буквы (2), глава Торы, уровень из 50 слов Танаха; урок с новым знакомит со всеми своими словами; урок — от 6 до 20 заданий; слияние прогресса (src/core/sync.ts) — больше из двух.
  */
 import { LESSONS } from '../src/lessons';
 import { torahWords } from '../src/core/torahWords';
-import { abcUnits, alike, clusters, core, isRight, isOpen, makeExam, makeLesson, passExam, readCourse, stepsOf, EXAM_ITEMS, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
+import { abcUnits, alike, clusters, core, isRight, finishLesson, isDone, isOpen, makeExam, makeLesson, newItems, nextPart, passExam, readCourse, EXAM_ITEMS, type CourseStore, type Item, type Known, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
 import type { Dict, Word } from '../src/core/words';
 import { mergeSnapshots } from '../src/core/sync';
 import wordsJson from '../src/tanakh/words.json';
@@ -75,7 +75,7 @@ function checkUnits(units: Unit[], who: string) {
   if (new Set(ids).size !== ids.length) err(`${who}: id юнитов повторяются`);
   for (const u of units) {
     if (!u.items.length) err(`${who} ${u.id}: пустой юнит`);
-    if (u.items.length !== u.parts.flat().length || u.parts.some((p) => !p.length || p.length > 6)) err(`${who} ${u.id}: уроки с новым — не по 1–6`);
+    if (u.size < 1 || u.size > 6) err(`${who} ${u.id}: новых в уроке — ${u.size}`);
     for (let k = 0; k < TRIES; k++) {
       const exam = makeExam(u);
       const where = `${who} ${u.id} экзамен`;
@@ -83,14 +83,24 @@ function checkUnits(units: Unit[], who: string) {
       if (new Set(exam.flatMap((x) => ('item' in x ? [x.item.key] : []))).size < Math.min(EXAM_ITEMS, u.items.length) - 1) err(`${where}: спрошено мало слов`);
       for (const ex of exam) checkEx(u, ex, where);
     }
-    for (let step = 0; step < stepsOf(u); step++)
-      for (let k = 0; k < (u.track === 'abc' || step >= u.parts.length ? TRIES : 2); k++) {
-        const lesson = makeLesson(u, step);
+    // the lessons in order: each brings the next new items, until none are left; then the two reviews
+    const parts: Item[][] = [];
+    const met: CourseStore = { s: {}, r: {}, xp: {} };
+    for (let p = nextPart(u, met, () => false); p.length; p = nextPart(u, met, () => false)) {
+      if (p.length < 3 && u.items.length >= 3) err(`${who} ${u.id}: урок с новым — ${p.length}`);
+      parts.push(p);
+      for (const it of p) met.s[it.key] = 1;
+    }
+    const lessons: [Item[] | null, boolean][] = [...parts.map((p): [Item[], boolean] => [p, false]), [null, false], [null, true]];
+    lessons.forEach(([part, hard], step) => {
+      for (let k = 0; k < (u.track === 'abc' || !part ? TRIES : 2); k++) {
+        const lesson = makeLesson(u, part, hard);
         const where = `${who} ${u.id} урок ${step + 1}`;
         if (lesson.length < 6 || lesson.length > 20) err(`${where}: заданий ${lesson.length}`);
-        if (step < u.parts.length && u.parts[step].some((it) => !lesson.some((x) => x.t === 'intro' && x.item.key === it.key))) err(`${where}: не все новые слова представлены`);
+        if (part && part.some((it) => !lesson.some((x) => x.t === 'intro' && x.item.key === it.key))) err(`${where}: не все новые слова представлены`);
         for (const ex of lesson) checkEx(u, ex, where);
       }
+    });
   }
 }
 
@@ -112,18 +122,35 @@ for (const locale of ['ru', 'en', 'de'] as const) {
     localStorage: { getItem: (k: string) => mem.get(k) ?? null, setItem: (k: string, v: string) => mem.set(k, v), removeItem: (k: string) => mem.delete(k) },
     window: { dispatchEvent: () => true },
   });
+  const none: Known = () => false;
   const units = abcUnits('ru');
-  if (isOpen(units, 1, readCourse())) err('экзамен: второй юнит букв открыт до экзамена');
+  if (isOpen(units, 1, readCourse(), none)) err('экзамен: второй юнит букв открыт до экзамена');
   passExam(units[0]);
-  if (!isOpen(units, 1, readCourse()) || readCourse().u[units[0].id] !== stepsOf(units[0])) err('экзамен: после сдачи следующий юнит не открыт');
+  if (!isOpen(units, 1, readCourse(), none) || !isDone(units[0], readCourse(), none)) err('экзамен: после сдачи следующий юнит не открыт');
+
+  // уроки по порядку: после урока его слова встречались, следующий урок — со следующими
+  const tu = tanakhUnits({ words, total: 0, rank: new Map(), tr: trRu as Record<string, string> });
+  const first = nextPart(tu[0], readCourse(), none);
+  finishLesson(tu[0], first, 10);
+  const second = nextPart(tu[0], readCourse(), none);
+  if (first.length !== 5 || second.length !== 5 || second.some((x) => first.includes(x))) err('уроки: второй урок повторяет слова первого');
+
+  // слова из «Моих слов» — не новые: уровень, где знакомы все слова, сразу открывает следующий
+  const deck = new Set(tu[0].items.map((x) => x.key));
+  const known: Known = (k) => deck.has(k);
+  if (newItems(tu[0], readCourse(), known).length || !isOpen(tu, 1, readCourse(), known)) err('уроки: знакомые слова из «Моих слов» не учтены');
+  if (makeLesson(tu[0], nextPart(tu[0], readCourse(), known)).some((x) => x.t === 'intro')) err('уроки: знакомые слова снова «Новое слово»');
+  const half = new Set(tu[1].items.slice(0, 10).map((x) => x.key));
+  const p = nextPart(tu[1], readCourse(), (k) => half.has(k));
+  if (p.some((x) => half.has(x.key)) || p[0] !== tu[1].items[10]) err('уроки: урок с новым начинается не с первого незнакомого слова');
 }
 
-// sync: the more ★ and points of the two
+// sync: every item met, the more reviews and points of the two
 const m = mergeSnapshots(
-  { 'niflaot:lashon': JSON.stringify({ u: { 'abc-1': 3, 'w-1': 1 }, xp: { '2026-10-25': 20 } }) },
-  { 'niflaot:lashon': JSON.stringify({ u: { 'abc-1': 1, 'w-2': 2 }, xp: { '2026-10-25': 10, '2026-10-24': 15 } }) },
+  { 'niflaot:lashon': JSON.stringify({ s: { 'א': 1 }, r: { 'abc-1': 2, 't-1': 1 }, xp: { '2026-10-25': 20 } }) },
+  { 'niflaot:lashon': JSON.stringify({ s: { '559': 1 }, r: { 'abc-1': 1, 't-2': 2 }, xp: { '2026-10-25': 10, '2026-10-24': 15 } }) },
 );
-if (m['niflaot:lashon'] !== JSON.stringify({ u: { 'abc-1': 3, 'w-1': 1, 'w-2': 2 }, xp: { '2026-10-25': 20, '2026-10-24': 15 } })) err(`слияние «Святой язык»: ${m['niflaot:lashon']}`);
+if (m['niflaot:lashon'] !== JSON.stringify({ s: { 'א': 1, '559': 1 }, r: { 'abc-1': 2, 't-1': 1, 't-2': 2 }, xp: { '2026-10-25': 20, '2026-10-24': 15 } })) err(`слияние «Святой язык»: ${m['niflaot:lashon']}`);
 
 if (errors.size) {
   console.error(`Святой язык — уроки: ${errors.size} ошибок`);

@@ -2,15 +2,17 @@
  * «Святой язык — уроки» (`#/lashon`, LashonPage.tsx): курс иврита по шагам, как в Duolingo. Путь из юнитов: «Буквы» —
  * два юнита (א–כ; ל–ת и конечные), потом слова — детям юнит на главу Торы (слова её уроков, src/core/torahWords.ts),
  * взрослым — уровень из 50 слов Танаха по частоте, как в «Моих словах» (src/core/words.ts, только переведённые).
- * Уроки юнита: сначала с новым (по 5–6 букв / слов: знакомство → выбрать перевод, пары, два вопроса по прошлым урокам),
+ * Уроки юнита: сначала с новым (по 5–6 букв / слов: знакомство → выбрать перевод, пары, два вопроса по прошлым урокам) —
+ * только с теми, что ещё не встречались: ни в курсе, ни в «Моих словах» (взрослые: слово в колоде, `inDeck`), ни в «Словах
+ * Торы» (дети: у слова есть запись игры) — `known` на странице; знакомые слова идут в повторения и экзамен.
  * потом два «Повторения» вперемешку: перевод, наоборот, пары, собери из букв, порядок слов фразы, пропущенная буква,
  * число / звучание буквы, у взрослых во втором — корень. Урок — 10–15 заданий; ошибку задание повторяется в конце (один раз).
  * За урок — 10 очков опыта, без ошибок — 15; цель дня — `GOAL` очков. Юнит открыт, если в предыдущем юните той же
- * части пройдены все уроки с новым (первый юнит части — всегда) — или сдан его «Экзамен» (`makeExam`: весь юнит сразу,
+ * части не осталось новых (первый юнит части — всегда) — или сдан его «Экзамен» (`makeExam`: весь юнит сразу,
  * не больше `EXAM_LIVES` ошибок; сдан — юнит пройден целиком).
  *
- * localStorage `niflaot:lashon` = { u: { <юнит>: пройдено уроков }, xp: { <дата>: очки } } — синхронизируется (src/core/sync.ts:
- * у юнита и у дня — больше из двух).
+ * localStorage `niflaot:lashon` = { s: { <буква / слово>: 1 — встречалось в курсе }, r: { <юнит>: пройдено повторений },
+ * xp: { <дата>: очки } } — синхронизируется (src/core/sync.ts: всё из обоих, у юнита и у дня — больше из двух).
  */
 import { useEffect, useState } from 'react';
 import type { Locale } from '../i18n/config';
@@ -41,15 +43,16 @@ export interface Unit {
   n: number;
   parsha?: string;
   items: Item[];
-  /** новые буквы / слова по урокам: урок k знакомит с parts[k] */
-  parts: Item[][];
+  /** сколько новых букв / слов в уроке */
+  size: number;
   /** откуда брать неверные варианты (сначала — из юнита) */
   pool: Item[];
 }
 
 /** после уроков с новым — два урока «Повторение» (вперемешку, второй труднее) */
 export const REVIEWS = 2;
-export const stepsOf = (u: Unit) => u.parts.length + REVIEWS;
+/** знакомо ли слово вне курса («Мои слова», «Слова Торы») */
+export type Known = (key: string) => boolean;
 export const GOAL = 20;
 export const XP = 10;
 export const XP_PERFECT = 15;
@@ -63,14 +66,6 @@ const shuffle = <T,>(xs: T[]) => {
   return a;
 };
 
-/** split into units of about `size`, as even as possible (13 → 7 + 6) */
-function chunks<T>(xs: T[], size: number): T[][] {
-  const k = Math.max(1, Math.ceil(xs.length / size));
-  const out: T[][] = [];
-  for (let i = 0; i < k; i++) out.push(xs.slice(Math.round((i * xs.length) / k), Math.round(((i + 1) * xs.length) / k)));
-  return out.filter((c) => c.length);
-}
-
 // ——— the letters ———
 
 /** two units: א–כ and ל–ת with the final forms; a lesson — 5–6 new letters */
@@ -81,7 +76,7 @@ export function abcUnits(locale: Locale): Unit[] {
   const all = [...ALEPH_BET, ...FINAL_FORMS].map((c) => letterItem(c, locale));
   return ABC_UNITS.map((ls, i) => {
     const items = ls.map((c) => all.find((x) => x.key === c)!);
-    return { id: `abc-${i + 1}`, track: 'abc', n: i + 1, items, parts: chunks(items, 6), pool: all };
+    return { id: `abc-${i + 1}`, track: 'abc', n: i + 1, items, size: 6, pool: all };
   });
 }
 
@@ -92,7 +87,7 @@ export function torahUnits(words: TorahWord[]): Unit[] {
   const items = words.map((w): Item & { parsha: string } => ({ key: w.key, he: w.he, tr: w.tr, translit: w.translit, img: w.img, parsha: w.parsha }));
   return [...new Set(items.map((w) => w.parsha))].map((p, i) => {
     const ws = items.filter((w) => w.parsha === p);
-    return { id: `tw-${p}`, track: 'words', n: i + 1, parsha: p, items: ws, parts: chunks(ws, 6), pool: [...ws, ...items] };
+    return { id: `tw-${p}`, track: 'words', n: i + 1, parsha: p, items: ws, size: 6, pool: [...ws, ...items] };
   });
 }
 
@@ -109,7 +104,7 @@ export function tanakhUnits(dict: Dict): Unit[] {
       track: 'words',
       n: g + 1,
       items: level,
-      parts: chunks(level, TANAKH_UNIT),
+      size: TANAKH_UNIT,
       pool: [...level, ...items.slice(0, (g + 2) * TANAKH_GROUP)],
     });
   }
@@ -218,23 +213,29 @@ function root(item: Item, unit: Unit): Exercise | null {
   return roots.length === 3 ? { t: 'root', item, options: shuffle([item.root, ...roots]) } : null;
 }
 
+/** the next lesson of a unit: the new items (`size`, in the order of the unit) or none — then a review */
+export function nextPart(unit: Unit, s: CourseStore, known: Known): Item[] {
+  const left = newItems(unit, s, known);
+  // no lesson of one or two: a short remainder joins this one
+  return left.slice(0, left.length <= unit.size + 2 ? left.length : unit.size);
+}
+
 /**
- * Lesson `step` of a unit (from 0). The first lessons bring the new items of `parts[step]`: each one introduced and asked,
- * the pairs, and two questions on the items of the lessons before. Then «Повторение»: 6 items of the whole unit mixed
- * with every kind of exercise (the second — and a finished unit played again — harder).
+ * A lesson of a unit. With `part` — the new items: each one introduced and asked, the pairs, and two questions on the
+ * items met before. Without — «Повторение»: 6 items of the whole unit mixed with every kind of exercise (`hard` — the
+ * second one, and a finished unit played again).
  */
-export function makeLesson(unit: Unit, step: number): Exercise[] {
-  const k = Math.min(step, stepsOf(unit) - 1);
-  if (k < unit.parts.length) {
-    const ex = drill({ ...unit, items: unit.parts[k] }, 1);
-    const before = shuffle(unit.parts.slice(0, k).flat()).slice(0, 2);
+export function makeLesson(unit: Unit, part: Item[] | null, hard = false): Exercise[] {
+  if (part?.length) {
+    const ex = drill({ ...unit, items: part }, 1);
+    const before = shuffle(unit.items.filter((it) => !part.includes(it))).slice(0, 2);
     before.forEach((it, i) => {
       const x = pick(it, unit, i ? 'he' : 'tr');
       if (x) ex.splice(ex.length - 1, 0, x);
     });
     return ex;
   }
-  return drill({ ...unit, items: shuffle(unit.items).slice(0, 6) }, k === unit.parts.length ? 2 : 3);
+  return drill({ ...unit, items: shuffle(unit.items).slice(0, 6) }, hard ? 3 : 2);
 }
 
 /** «Экзамен» за юнит: сразу весь юнит, чтобы открыть следующий — до `EXAM_ITEMS` его букв / слов вперемешку, трудные задания и пары. */
@@ -304,26 +305,48 @@ export function isRight(ex: Exercise, answer: string[] | string): boolean {
 export const LASHON_KEY = 'niflaot:lashon';
 const EVENT = 'niflaot:lashon';
 export interface CourseStore {
-  u: Record<string, number>;
+  /** items met in the course */
+  s: Record<string, number>;
+  /** reviews of a unit done */
+  r: Record<string, number>;
   xp: Record<string, number>;
 }
+const obj = (x: unknown) => (x && typeof x === 'object' ? (x as Record<string, number>) : {});
 export function readCourse(): CourseStore {
   try {
     const raw = JSON.parse(localStorage.getItem(LASHON_KEY) ?? 'null');
-    return { u: raw?.u && typeof raw.u === 'object' ? raw.u : {}, xp: raw?.xp && typeof raw.xp === 'object' ? raw.xp : {} };
+    return { s: obj(raw?.s), r: obj(raw?.r), xp: obj(raw?.xp) };
   } catch {
-    return { u: {}, xp: {} };
+    return { s: {}, r: {}, xp: {} };
   }
 }
-/** lessons of the unit done */
-export const doneOf = (s: CourseStore, u: Unit) => Math.min(stepsOf(u), Number(s.u[u.id]) || 0);
+/** the items of a unit not met yet — neither in the course nor outside it */
+export const newItems = (u: Unit, s: CourseStore, known: Known) => u.items.filter((it) => !s.s[it.key] && !known(it.key));
+export const reviewsOf = (s: CourseStore, u: Unit) => Math.min(REVIEWS, Number(s.r[u.id]) || 0);
+/** progress of a unit, 0–1: the items met (most of it) and the reviews */
+export const progressOf = (u: Unit, s: CourseStore, known: Known) =>
+  (0.8 * (u.items.length - newItems(u, s, known).length)) / u.items.length + (0.2 * reviewsOf(s, u)) / REVIEWS;
+export const isDone = (u: Unit, s: CourseStore, known: Known) => !newItems(u, s, known).length && reviewsOf(s, u) >= REVIEWS;
 export const xpToday = (s: CourseStore) => Number(s.xp[localToday()]) || 0;
 export const xpTotal = (s: CourseStore) => Object.values(s.xp).reduce((a, n) => a + (Number(n) || 0), 0);
 
-/** A lesson finished: the unit counts it (never fewer than before), today — the points. */
-export function finishLesson(unit: Unit, step: number, xp: number) {
+/** A lesson finished: its new items are met (or the unit has one more review), today — the points. */
+export function finishLesson(unit: Unit, part: Item[] | null, xp: number) {
   const s = readCourse();
-  s.u[unit.id] = Math.max(doneOf(s, unit), Math.min(stepsOf(unit), step + 1));
+  if (part?.length) for (const it of part) s.s[it.key] = 1;
+  else s.r[unit.id] = Math.min(REVIEWS, reviewsOf(s, unit) + 1);
+  save(s, xp);
+}
+
+/** «Экзамен» сдан: все буквы / слова юнита — встречались, повторения — пройдены (следующий юнит открыт), сегодня — очки. */
+export function passExam(unit: Unit) {
+  const s = readCourse();
+  for (const it of unit.items) s.s[it.key] = 1;
+  s.r[unit.id] = REVIEWS;
+  save(s, XP_EXAM);
+}
+
+function save(s: CourseStore, xp: number) {
   const d = localToday();
   s.xp[d] = (Number(s.xp[d]) || 0) + xp;
   try {
@@ -331,11 +354,6 @@ export function finishLesson(unit: Unit, step: number, xp: number) {
   } catch {}
   window.dispatchEvent(new Event(EVENT));
   markStudied();
-}
-
-/** «Экзамен» сдан: все уроки юнита — пройдены (следующий юнит открыт), сегодня — очки. */
-export function passExam(unit: Unit) {
-  finishLesson(unit, stepsOf(unit) - 1, XP_EXAM);
 }
 
 export function useCourse(): CourseStore {
@@ -352,11 +370,11 @@ export function useCourse(): CourseStore {
   return s;
 }
 
-/** a unit is open when it's the first of its track or every new item of the one before it (same track) is learned */
-export function isOpen(units: Unit[], i: number, s: CourseStore) {
+/** a unit is open when it's the first of its track or the one before it (same track) has no new items left */
+export function isOpen(units: Unit[], i: number, s: CourseStore, known: Known) {
   const prev = units[i - 1];
-  return !prev || prev.track !== units[i].track || doneOf(s, prev) >= prev.parts.length;
+  return !prev || prev.track !== units[i].track || !newItems(prev, s, known).length;
 }
 
 /** the unit to go on with: the first open one of the track not finished */
-export const nextUnit = (units: Unit[], s: CourseStore) => units.find((u, i) => isOpen(units, i, s) && doneOf(s, u) < stepsOf(u));
+export const nextUnit = (units: Unit[], s: CourseStore, known: Known) => units.find((u, i) => isOpen(units, i, s, known) && !isDone(u, s, known));
