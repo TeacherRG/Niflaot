@@ -67,7 +67,13 @@ export async function ttsRoute(
     if (!(await mayGenerate())) return new Response('Too many requests', { status: 429, headers: { ...headers, 'Retry-After': '60' } });
     r = await ask(true);
   }
-  if (!r.ok) return new Response(r.body, { status: r.status, headers: { ...headers, 'Cache-Control': 'no-store' } });
+  if (!r.ok) {
+    const quota = r.headers.get('X-Quota');
+    return new Response(r.body, {
+      status: r.status,
+      headers: { ...headers, 'Cache-Control': 'no-store', ...(quota ? { 'X-Quota': quota, 'Retry-After': r.headers.get('Retry-After') ?? '3600' } : {}) },
+    });
+  }
   return new Response(r.body, {
     headers: {
       ...headers,
@@ -130,7 +136,8 @@ export class Narrator extends DurableObject<TtsEnv> {
     } catch (e) {
       if (e instanceof NotFound) return new Response('Not found', { status: 404 });
       // the day's limit of Gemini is spent: the recorded parts still play, the new ones — tomorrow
-      if (e instanceof Quota) return new Response('quota', { status: 503, headers: { 'Retry-After': '3600' } });
+      // X-Quota — which limit of Gemini (per minute / per day, free tier or paid): scripts/tts-prerecord.ts waits or stops
+      if (e instanceof Quota) return new Response('quota', { status: 503, headers: { 'Retry-After': String(e.retry ?? 3600), 'X-Quota': e.message } });
       console.error('tts', e);
       return new Response('failed', { status: 502 });
     }
@@ -157,7 +164,27 @@ export class Narrator extends DurableObject<TtsEnv> {
 }
 
 class NotFound extends Error {}
-class Quota extends Error {}
+class Quota extends Error {
+  constructor(
+    reason: string,
+    /** seconds Gemini asks to wait */
+    readonly retry?: number,
+  ) {
+    super(reason);
+  }
+}
+
+/** the limit Gemini names in a 429: «<quota id> <metric> limit N», and how long to wait */
+function quotaOf(body: string): Quota {
+  try {
+    const details = (JSON.parse(body) as { error?: { details?: { violations?: { quotaId?: string; quotaMetric?: string; quotaValue?: string }[]; retryDelay?: string }[] } }).error?.details ?? [];
+    const v = details.flatMap((d) => d.violations ?? []);
+    const retry = Number(details.find((d) => d.retryDelay)?.retryDelay?.replace(/s$/, ''));
+    return new Quota(v.map((x) => `${x.quotaId ?? ''} ${x.quotaMetric?.split('/').pop() ?? ''} limit ${x.quotaValue ?? '?'}`.trim()).join('; ') || 'quota', Number.isFinite(retry) ? Math.ceil(retry) : undefined);
+  } catch {
+    return new Quota('quota');
+  }
+}
 
 /**
  * Gemini TTS → 16-bit PCM → a WAV file. An unknown model (404) hands over to the next. A spent quota (429 — the free
@@ -181,8 +208,9 @@ async function speak(env: TtsEnv, lang: string, text: string, voice: string): Pr
         }),
       });
       if (r.status === 429) {
-        console.error('tts', model, 429, (await r.text()).slice(0, 300));
-        throw new Quota();
+        const body = await r.text();
+        console.error('tts', model, 429, body.slice(0, 500));
+        throw quotaOf(body);
       }
       if (r.status === 404) break;
       if (!r.ok) throw new Error(`gemini ${model} ${r.status}: ${(await r.text()).slice(0, 300)}`);
