@@ -407,7 +407,6 @@ const en: Messages = {
   'read.introArticle': 'The whole lesson, chapter by chapter: the Torah verse and a retelling of the article. The gematria calculations are folded at the end of each chapter — no counting needed.',
   'read.chapter': 'Chapter {n} of {total}',
   'listen.btn': 'Listen to the lesson',
-  'listen.note': 'Read by a male voice (Gemini AI), chapter by chapter — you can listen with the screen off.',
   'listen.btnPassage': 'Listen to the passage',
   'listen.play': 'Play',
   'listen.pause': 'Pause',
