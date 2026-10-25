@@ -3,7 +3,8 @@
  * `SITE_URL/tts/<lang>/<slug>.json`) and the passages of the Prophets / Writings from today for `--days` days (only days
  * translated into the language — src/core/tanakhNarration.ts, the same code as the page and the worker). A part that is
  * recorded already comes back at once; a new one is recorded by the worker (assistant/src/tts.ts) with Gemini TTS.
- * The worker lets 20 new recordings a minute from one address through (`LIMITER`), so the parts go one by one.
+ * The worker lets 20 new recordings a minute from one address through (`LIMITER`), so the parts go one by one; Gemini's
+ * per-minute limit — wait and go on, its daily limit — stop (the reason comes from the worker in `X-Quota`).
  *
  *   npx tsx scripts/tts-prerecord.ts [--lang ru] [--days 14] [--lessons-only] [--dry]
  * Needs ASSISTANT_URL (the worker); the site — SITE_URL (default https://niflaot.mychitas.app).
@@ -69,7 +70,15 @@ for (const j of jobs) {
       break;
     }
     const body = await r.text();
-    if (r.status === 503 && body === 'quota') throw new Error(`the quota of Gemini is spent — stopped at ${j.label}; recorded ${fresh}, ready ${ready}`);
+    if (r.status === 503 && body === 'quota') {
+      // which limit (assistant/src/tts.ts): per minute — wait and go on; per day — stop
+      const why = r.headers.get('X-Quota') ?? '';
+      const wait = Number(r.headers.get('Retry-After') ?? 60);
+      console.log(`quota at ${j.label}: ${why || '?'} (retry after ${wait} s)`);
+      if (/PerDay/i.test(why) || wait > 600 || attempt >= 5) throw new Error(`the quota of Gemini is spent — stopped at ${j.label}; recorded ${fresh}, ready ${ready}`);
+      await sleep(Math.max(wait, 30) * 1000);
+      continue;
+    }
     if (r.status === 429 && attempt < 3) {
       await sleep(60_000);
       continue;
