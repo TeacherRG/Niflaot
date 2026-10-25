@@ -4,7 +4,8 @@
  * translated into the language — src/core/tanakhNarration.ts, the same code as the page and the worker). A part that is
  * recorded already comes back at once; a new one is recorded by the worker (assistant/src/tts.ts) with Gemini TTS.
  * The worker lets 20 new recordings a minute from one address through (`LIMITER`), so the parts go one by one; Gemini's
- * per-minute limit — wait and go on, its daily limit — stop (the reason comes from the worker in `X-Quota`).
+ * per-minute limit — wait and go on, its daily limit (100 recordings a day per model on the paid Tier 1) — stop (the
+ * reason comes from the worker in `X-Quota`); a failure of Gemini (502) is tried again up to three times.
  *
  *   npx tsx scripts/tts-prerecord.ts [--lang ru] [--days 14] [--lessons-only] [--dry]
  * Needs ASSISTANT_URL (the worker); the site — SITE_URL (default https://niflaot.mychitas.app).
@@ -81,6 +82,12 @@ for (const j of jobs) {
     }
     if (r.status === 429 && attempt < 3) {
       await sleep(60_000);
+      continue;
+    }
+    // Gemini fails now and then for a minute (the worker answers 502): try again after a pause
+    if (r.status === 502 && attempt < 3) {
+      console.log(`retry ${j.label}: ${r.status} ${body.slice(0, 100)}`);
+      await sleep(30_000 * (attempt + 1));
       continue;
     }
     failed++;
