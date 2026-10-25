@@ -168,6 +168,16 @@ export function Panels() {
       </span>
     </a>
   );
+  /* «Святой язык — уроки»: the course of Hebrew step by step, as in Duolingo (src/core/lashon.ts) */
+  const lashon = (
+    <a href="#/lashon" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/lashon') ? 'page' : undefined}>
+      <span className="menu-num he">ל</span>
+      <span>
+        {t('ln.title')}
+        <small>{t('ln.menuSub')}</small>
+      </span>
+    </a>
+  );
   /* «Викторина вместе»: a live quiz for a class or a family — the host's big screen, the players' phones */
   const quiz = (
     <a href="#/quiz" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/quiz') ? 'page' : undefined}>
@@ -298,6 +308,7 @@ export function Panels() {
               <span>{t('print.button')}</span>
             </a>
           )}
+          {lashon}
           {/* «Слова Торы»: a game with the words of the lessons — the Memo pictures and the riddle cards (src/core/torahWords.ts) */}
           <a href="#/torah-words" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/torah-words') ? 'page' : undefined}>
             <Icon name="cards" />
@@ -363,6 +374,7 @@ export function Panels() {
             <>
           {/* the daily study first: the passages of the day, Chassidut and the words, with today's ✓ */}
           <TodayStudy active={panel === 'menu'} onPick={close} />
+          {lashon}
           {/* the Torah lessons to read — Baal HaTurim's «Читать», the Rebbe's «Прочитать»; the open (or the week's) portion, the others in the strip */}
           <div className="menu-lbl">{t('menu.lessons')}</div>
           <ParshaPicker groups={readGroups} selected={adultsSel} week={week} onPick={setPicked} />

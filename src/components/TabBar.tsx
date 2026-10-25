@@ -31,11 +31,11 @@ export function TabBar({ slug, view }: { slug: string; view?: string }) {
         { href: '#/', label: t('tab.today'), icon: <Icon name="home" />, here: !slug },
         { href: '#/neviim', label: t('tab.tanakh'), icon: <Icon name="book" />, here: slug === 'neviim' || slug === 'ketuvim' },
         { href: '#/hemshech', label: t('hs.menuLbl'), icon: <Icon name="spark" />, here: slug === 'hemshech' },
-        { href: '#/words', label: t('tab.words'), icon: he('אב'), here: slug === 'words' },
+        { href: '#/words', label: t('tab.words'), icon: he('אב'), here: slug === 'words' || slug === 'lashon' },
       ]
     : [
         { href: '#/', label: t('menu.home'), icon: <Icon name="home" />, here: !slug },
-        { href: '#/torah-words', label: t('tab.words'), icon: he('אב'), here: slug === 'torah-words' },
+        { href: '#/lashon', label: t('tab.words'), icon: he('אב'), here: slug === 'lashon' || slug === 'torah-words' || slug === 'letters' },
         { href: '#/facts', label: t('tab.facts'), icon: <Icon name="hash" />, here: slug === 'facts' || slug === 'daily' },
         { href: '#/academy', label: t('academy.title'), icon: <Icon name="award" />, here: slug === 'academy' },
       ];
