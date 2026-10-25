@@ -6,11 +6,11 @@
  *  - «собери» — плитки содержат ответ, из ответа получается слово / фраза; у слова — без Имён через ׳ и -;
  *  - «пропущенная буква» — 4 разных варианта, верный — та самая буква слова;
  *  - «корень» — 4 разных корня, верный — корень слова;
- * урок — от 6 до 20 заданий; слияние прогресса (src/core/sync.ts) — больше из двух.
+ * экзамен за юнит — без знакомства, слова всего юнита; юнит — буквы (2), глава Торы, уровень из 50 слов Танаха; урок с новым знакомит со всеми своими словами; урок — от 6 до 20 заданий; слияние прогресса (src/core/sync.ts) — больше из двух.
  */
 import { LESSONS } from '../src/lessons';
 import { torahWords } from '../src/core/torahWords';
-import { abcUnits, alike, clusters, core, isRight, makeLesson, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
+import { abcUnits, alike, clusters, core, isRight, isOpen, makeExam, makeLesson, passExam, readCourse, stepsOf, EXAM_ITEMS, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
 import type { Dict, Word } from '../src/core/words';
 import { mergeSnapshots } from '../src/core/sync';
 import wordsJson from '../src/tanakh/words.json';
@@ -75,13 +75,20 @@ function checkUnits(units: Unit[], who: string) {
   if (new Set(ids).size !== ids.length) err(`${who}: id юнитов повторяются`);
   for (const u of units) {
     if (!u.items.length) err(`${who} ${u.id}: пустой юнит`);
-    for (let level = 1; level <= 3; level++)
-      for (let k = 0; k < TRIES; k++) {
-        const lesson = makeLesson(u, level);
-        const where = `${who} ${u.id} ур. ${level}`;
+    if (u.items.length !== u.parts.flat().length || u.parts.some((p) => !p.length || p.length > 6)) err(`${who} ${u.id}: уроки с новым — не по 1–6`);
+    for (let k = 0; k < TRIES; k++) {
+      const exam = makeExam(u);
+      const where = `${who} ${u.id} экзамен`;
+      if (exam.length < 8 || exam.length > 20 || exam.some((x) => x.t === 'intro')) err(`${where}: заданий ${exam.length} или есть знакомство`);
+      if (new Set(exam.flatMap((x) => ('item' in x ? [x.item.key] : []))).size < Math.min(EXAM_ITEMS, u.items.length) - 1) err(`${where}: спрошено мало слов`);
+      for (const ex of exam) checkEx(u, ex, where);
+    }
+    for (let step = 0; step < stepsOf(u); step++)
+      for (let k = 0; k < (u.track === 'abc' || step >= u.parts.length ? TRIES : 2); k++) {
+        const lesson = makeLesson(u, step);
+        const where = `${who} ${u.id} урок ${step + 1}`;
         if (lesson.length < 6 || lesson.length > 20) err(`${where}: заданий ${lesson.length}`);
-        if (level === 1 && u.items.some((it) => !lesson.some((x) => x.t === 'intro' && x.item.key === it.key))) err(`${where}: не все слова представлены`);
-        if (level > 1 && u.items.some((it) => !lesson.some((x) => 'item' in x && x.item.key === it.key))) err(`${where}: не все слова спрошены`);
+        if (step < u.parts.length && u.parts[step].some((it) => !lesson.some((x) => x.t === 'intro' && x.item.key === it.key))) err(`${where}: не все новые слова представлены`);
         for (const ex of lesson) checkEx(u, ex, where);
       }
   }
@@ -96,6 +103,19 @@ for (const locale of ['ru', 'en', 'de'] as const) {
   const tu = tanakhUnits(dict);
   if (tu.reduce((a, u) => a + u.items.length, 0) !== Object.keys(TR[locale]).length) err(`слова Танаха ${locale}: не все переведённые слова в юнитах`);
   checkUnits(tu, `слова Танаха ${locale}`);
+}
+
+// «Экзамен» сдан: юнит пройден целиком — следующий открыт (localStorage и события — заглушки)
+{
+  const mem = new Map<string, string>();
+  Object.assign(globalThis, {
+    localStorage: { getItem: (k: string) => mem.get(k) ?? null, setItem: (k: string, v: string) => mem.set(k, v), removeItem: (k: string) => mem.delete(k) },
+    window: { dispatchEvent: () => true },
+  });
+  const units = abcUnits('ru');
+  if (isOpen(units, 1, readCourse())) err('экзамен: второй юнит букв открыт до экзамена');
+  passExam(units[0]);
+  if (!isOpen(units, 1, readCourse()) || readCourse().u[units[0].id] !== stepsOf(units[0])) err('экзамен: после сдачи следующий юнит не открыт');
 }
 
 // sync: the more ★ and points of the two

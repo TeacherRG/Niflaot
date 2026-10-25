@@ -8,23 +8,27 @@ import { useMode } from '../core/mode';
 import { useHebrewLevel } from '../core/hebrewLevel';
 import { useHabit } from '../core/habit';
 import { memoImages } from '../core/memo';
-import { letterName } from '../core/letterNames';
+import { FINALS, letterName } from '../core/letterNames';
 import { answerWord, torahWords } from '../core/torahWords';
-import { inDeck, loadDict, markLearn, readWordStore, type WordLang } from '../core/words';
+import { inDeck, loadDict, markKnown, markLearn, readWordStore, type WordLang } from '../core/words';
 import {
   GOAL,
-  LEVELS,
   TANAKH_GROUP,
-  TANAKH_UNIT,
   XP,
   XP_PERFECT,
+  XP_EXAM,
+  EXAM_LIVES,
+  makeExam,
+  passExam,
   abcUnits,
   finishLesson,
   isOpen,
   isRight,
-  levelOf,
+  doneOf,
   makeLesson,
+  readCourse,
   nextUnit,
+  stepsOf,
   tanakhUnits,
   torahUnits,
   useCourse,
@@ -67,10 +71,10 @@ function tone(right: boolean) {
   } catch {}
 }
 
-const Stars = ({ n }: { n: number }) => (
-  <span className="ln-stars" aria-label={`${n}/${LEVELS}`}>
-    {'★'.repeat(n)}
-    <i>{'★'.repeat(LEVELS - n)}</i>
+/** the lessons of a unit done: a bar */
+const Bar = ({ k, n }: { k: number; n: number }) => (
+  <span className="tk-words-bar ln-ubar" role="img" aria-label={`${k}/${n}`}>
+    <span style={{ width: `${(100 * k) / n}%` }} />
   </span>
 );
 
@@ -85,6 +89,8 @@ export function LashonPage() {
   const adults = useMode() === 'adults';
   const store = useCourse();
   const habit = useHabit();
+  // a player who reads Hebrew («Читаю на иврите», src/core/hebrewLevel.ts) doesn't see the letters — only the words
+  const reads = useHebrewLevel() === 'reads';
   const abc = useMemo(() => abcUnits(locale), [locale]);
   const torah = useMemo(() => (adults ? [] : torahUnits(torahWords(LESSONS, locale, memoImages))), [adults, locale]);
   const [tanakh, setTanakh] = useState<Unit[] | null>(adults ? null : []);
@@ -98,29 +104,26 @@ export function LashonPage() {
   }, [adults, locale]);
   const words = adults ? tanakh ?? [] : torah;
   const units = useMemo(() => [...abc, ...words], [abc, words]);
-  const [group, setGroup] = useState<string | null>(null);
-  const [run, setRun] = useState<{ unit: Unit; level: number } | null>(null);
+  const [run, setRun] = useState<{ unit: Unit; step: number; exam?: boolean } | null>(null);
 
   useEffect(() => {
     document.title = `${t('ln.title')} · ${t('app.title')}`;
   }, [t]);
 
   const today = xpToday(store);
-  const groups = [...new Set(words.map((u) => u.group))];
-  const nextWords = nextUnit(words, store);
-  const shownGroup = group ?? nextWords?.group ?? groups[0];
-  const start = (unit: Unit) => setRun({ unit, level: Math.min(LEVELS, levelOf(store, unit.id) + 1) });
-  const groupName = (g: string) => {
-    if (!adults) return PARSHIOT[g as ParshaId]?.name[locale] ?? PARSHIOT[g as ParshaId]?.name.ru ?? g;
-    const n = Number(g);
-    return t('ln.group', { n, a: (n - 1) * TANAKH_GROUP + 1, b: n * TANAKH_GROUP });
-  };
+  // a finished unit played again — the harder «Повторение»
+  const start = (unit: Unit) => setRun({ unit, step: Math.min(doneOf(store, unit), stepsOf(unit) - 1) });
   const unitTitle = (u: Unit) =>
     u.track === 'abc'
-      ? u.items.map((x) => x.he).join(' ')
+      ? `${u.items[0].he}–${u.items.filter((x) => !FINALS[x.key]).at(-1)!.he}${u.items.some((x) => FINALS[x.key]) ? ' · ךםןףץ' : ''}`
       : adults
-        ? t('ln.words', { a: (Number(u.id.slice(2)) - 1) * TANAKH_UNIT + 1, b: (Number(u.id.slice(2)) - 1) * TANAKH_UNIT + u.items.length })
-        : `${groupName(u.group)} · ${u.n}`;
+        ? t('ln.group', { n: u.n, a: (u.n - 1) * TANAKH_GROUP + 1, b: (u.n - 1) * TANAKH_GROUP + u.items.length })
+        : PARSHIOT[u.parsha as ParshaId]?.name[locale] ?? PARSHIOT[u.parsha as ParshaId]?.name.ru ?? u.parsha!;
+  /** «Урок 3 из 7» / «Повторение» / «Пройдено» */
+  const stepLabel = (u: Unit) => {
+    const k = doneOf(store, u);
+    return k >= stepsOf(u) ? t('ln.unitDone') : k >= u.parts.length ? t('ln.review') : t('ln.lessonOf', { k: k + 1, n: u.parts.length });
+  };
 
   // on the circle: the first letter, or the shortest word of the unit
   const sym = (u: Unit) => (u.track === 'abc' ? u.items[0].he : [...u.items.flatMap((x) => x.he.split(' '))].sort((a, b) => a.length - b.length)[0]);
@@ -129,22 +132,36 @@ export function LashonPage() {
       {list.map((u) => {
         const i = units.indexOf(u);
         const open = isOpen(units, i, store);
-        const lv = levelOf(store, u.id);
-        const cur = open && lv < LEVELS && nextUnit(u.track === 'abc' ? abc : words, store) === u;
+        const lv = doneOf(store, u);
+        const full = lv >= stepsOf(u);
+        const cur = open && !full && nextUnit(u.track === 'abc' ? abc : words, store) === u;
         return (
-          <li key={u.id} className={`ln-node${cur ? ' cur' : ''}${lv >= LEVELS ? ' full' : ''}${open ? '' : ' locked'}`} style={{ ['--off' as string]: [0, 1, 2, 1, 0, -1, -2, -1][i % 8] }}>
-            <button type="button" className="ln-dot" disabled={!open} onClick={() => start(u)} aria-label={`${unitTitle(u)} · ${lv}/${LEVELS}`}>
+          <li key={u.id} className={`ln-node${cur ? ' cur' : ''}${full ? ' full' : ''}${open ? '' : ' locked'}`} style={{ ['--off' as string]: [0, 1, 2, 1, 0, -1, -2, -1][i % 8] }}>
+            <button type="button" className="ln-dot" disabled={!open} onClick={() => start(u)} aria-label={`${unitTitle(u)} · ${stepLabel(u)}`}>
               <span className={`he${u.track === 'abc' ? '' : ' w'}`} lang="he" data-len={Math.min(6, sym(u).length)}>
                 {sym(u)}
               </span>
-              {lv >= LEVELS && <i className="ln-crown">✓</i>}
+              {full && <i className="ln-crown">✓</i>}
             </button>
             {cur && <span className="ln-go">{t(lv ? 'ln.continue' : 'ln.start')}</span>}
             <span className="ln-lbl">
               <b className={u.track === 'abc' ? 'he' : undefined} lang={u.track === 'abc' ? 'he' : undefined}>
                 {unitTitle(u)}
               </b>
-              {open ? <Stars n={lv} /> : <small>🔒 {t('ln.locked')}</small>}
+              {open ? (
+                <>
+                  <small>{stepLabel(u)}</small>
+                  <Bar k={lv} n={stepsOf(u)} />
+                  {/* «Экзамен»: the whole unit at once — passed, the next one opens */}
+                  {!full && (
+                    <button type="button" className="ln-exam-btn" onClick={() => setRun({ unit: u, step: 0, exam: true })}>
+                      {t('ln.exam')}
+                    </button>
+                  )}
+                </>
+              ) : (
+                <small>🔒 {t('ln.locked')}</small>
+              )}
             </span>
           </li>
         );
@@ -164,7 +181,7 @@ export function LashonPage() {
               לשון הקודש
             </span>
           </h1>
-          <p className="ws-lead">{t(adults ? 'ln.leadAdults' : 'ln.lead')}</p>
+          <p className="ws-lead">{t(adults ? (reads ? 'ln.leadAdultsReads' : 'ln.leadAdults') : reads ? 'ln.leadReads' : 'ln.lead')}</p>
         </header>
 
         <section className="ln-stats" aria-label={t('ln.statsLbl')}>
@@ -184,31 +201,21 @@ export function LashonPage() {
           </span>
         </section>
 
-        <section className="ln-track">
-          <h2 className="tw-h2">
-            {t('ln.abc')} <small>{t('ln.abcSub')}</small>
-          </h2>
-          {path(abc)}
-        </section>
+        {!reads && (
+          <section className="ln-track">
+            <h2 className="tw-h2">
+              {t('ln.abc')} <small>{t('ln.abcSub')}</small>
+            </h2>
+            {path(abc)}
+          </section>
+        )}
 
         <section className="ln-track">
           <h2 className="tw-h2">
             {t(adults ? 'ln.tanakh' : 'ln.torah')} <small>{t(adults ? 'ln.tanakhSub' : 'ln.torahSub')}</small>
           </h2>
           {!adults || tanakh ? (
-            <>
-              {groups.length > 1 && (
-                <nav className="tw-chips" aria-label={t('ln.groups')}>
-                  {groups.map((g) => (
-                    <button key={g} type="button" aria-current={g === shownGroup ? 'page' : undefined} onClick={() => setGroup(g)}>
-                      {adults ? g : groupName(g)}
-                    </button>
-                  ))}
-                </nav>
-              )}
-              {adults && shownGroup && <p className="ln-group">{groupName(shownGroup)}</p>}
-              {path(words.filter((u) => u.group === shownGroup))}
-            </>
+            path(words)
           ) : (
             <p className="ln-group">{t('ln.loading')}</p>
           )}
@@ -220,22 +227,26 @@ export function LashonPage() {
           ) : (
             <a href="#/torah-words">{t('tw.title')} →</a>
           )}
-          <a href="#/letters">{t('abc.title')} →</a>
+          {!reads && <a href="#/letters">{t('abc.title')} →</a>}
           <a href="#/academy">{t('academy.title')} →</a>
         </p>
       </div>
       <Colophon />
-      {run && <Lesson key={`${run.unit.id}-${run.level}`} unit={run.unit} level={run.level} adults={adults} onClose={() => setRun(null)} />}
+      {run && <Lesson key={`${run.unit.id}-${run.step}-${run.exam}`} unit={run.unit} step={run.step} exam={run.exam} adults={adults} onClose={() => setRun(null)} />}
     </>
   );
 }
 
 type State = 'answer' | 'right' | 'wrong';
 
-/** One lesson over the page: the exercises one by one; a wrong one comes back once at the end. */
-function Lesson({ unit, level, adults, onClose }: { unit: Unit; level: number; adults: boolean; onClose: () => void }) {
+/**
+ * One lesson over the page: the exercises one by one; a wrong one comes back once at the end. An `exam` — the whole unit,
+ * no second chances: ♥ for the mistakes left; one more than `EXAM_LIVES` — failed.
+ */
+function Lesson({ unit, step, exam, adults, onClose }: { unit: Unit; step: number; exam?: boolean; adults: boolean; onClose: () => void }) {
   const { t } = useI18n();
-  const [queue, setQueue] = useState<Exercise[]>(() => makeLesson(unit, level));
+  const [queue, setQueue] = useState<Exercise[]>(() => (exam ? makeExam(unit) : makeLesson(unit, step)));
+  const [failed, setFailed] = useState(false);
   const [i, setI] = useState(0);
   const [state, setState] = useState<State>('answer');
   const [sel, setSel] = useState<string | null>(null);
@@ -269,15 +280,25 @@ function Lesson({ unit, level, adults, onClose }: { unit: Unit; level: number; a
     setRequeued(false);
     setSel(null);
     setBuilt([]);
-    if (i + 1 < queue.length) setI(i + 1);
-    else {
-      const xp = mistakes ? XP : XP_PERFECT;
-      finishLesson(unit.id, level, xp);
-      // adults: the words of a unit met for the first time go to «Мои слова» — the review there counts for the certificate
+    if (exam && mistakes > EXAM_LIVES) setFailed(true);
+    else if (i + 1 < queue.length) setI(i + 1);
+    else if (exam) {
+      passExam(unit);
+      // adults: the words of a unit passed at once — «Знаю» in «Мои слова» (the review there confirms them)
       let added = 0;
       if (adults && unit.track === 'words') {
         const s = readWordStore();
-        for (const it of unit.items) if (!inDeck(s, it.key)) (markLearn(it.key), added++);
+        for (const it of unit.items) if (!inDeck(s, it.key)) (markKnown(it.key), added++);
+      }
+      setDone({ xp: XP_EXAM, added });
+    } else {
+      const xp = mistakes ? XP : XP_PERFECT;
+      finishLesson(unit, step, xp);
+      // adults: the new words of the lesson go to «Мои слова» — the review there counts for the certificate
+      let added = 0;
+      if (adults && unit.track === 'words' && step < unit.parts.length) {
+        const s = readWordStore();
+        for (const it of unit.parts[step]) if (!inDeck(s, it.key)) (markLearn(it.key), added++);
       }
       setDone({ xp, added });
     }
@@ -293,7 +314,7 @@ function Lesson({ unit, level, adults, onClose }: { unit: Unit; level: number; a
     }
     if (!right) {
       setMistakes((n) => n + 1);
-      if (!retried.current.has(ex)) {
+      if (!exam && !retried.current.has(ex)) {
         retried.current.add(ex);
         setQueue((q) => [...q, ex]);
         setRequeued(true);
@@ -309,6 +330,19 @@ function Lesson({ unit, level, adults, onClose }: { unit: Unit; level: number; a
   };
   const ready = ex && (ex.t === 'build' ? built.length > 0 : sel != null);
 
+  if (failed)
+    return (
+      <div className="ln-session" role="dialog" aria-modal="true" aria-label={t('ln.exam')} ref={box} tabIndex={-1}>
+        <div className="ln-end">
+          <h2>{t('ln.examFail')}</h2>
+          <p>{t('ln.examFailNote', { n: EXAM_LIVES })}</p>
+          <button type="button" className="btn ln-big" onClick={onClose}>
+            {t('ln.continueBtn')}
+          </button>
+        </div>
+      </div>
+    );
+
   if (done)
     return (
       <div className="ln-session" role="dialog" aria-modal="true" aria-label={t('ln.title')} ref={box} tabIndex={-1}>
@@ -318,14 +352,14 @@ function Lesson({ unit, level, adults, onClose }: { unit: Unit; level: number; a
               {mistakes ? '🎉' : '🏆'}
             </p>
           )}
-          <h2>{t('ln.done')}</h2>
+          <h2>{t(exam ? 'ln.examPass' : 'ln.done')}</h2>
           <p className="ln-xp">{t('ln.xp', { n: done.xp })}</p>
           {!mistakes && <p className="ln-perfect">{t('ln.perfect')}</p>}
           <p>{t('ln.acc', { k: firstTry, n: asked.current })}</p>
           <p>
-            <Stars n={level} />
+            <Bar k={Math.max(step + 1, doneOf(readCourse(), unit))} n={stepsOf(unit)} />
           </p>
-          {done.added > 0 && <p className="ln-note">{t('ln.added', { n: done.added })}</p>}
+          {done.added > 0 && <p className="ln-note">{t(exam ? 'ln.addedKnown' : 'ln.added', { n: done.added })}</p>}
           <button type="button" className="btn ln-big" onClick={onClose}>
             {t('ln.continueBtn')}
           </button>
@@ -342,6 +376,12 @@ function Lesson({ unit, level, adults, onClose }: { unit: Unit; level: number; a
         <span className="ln-bar" role="progressbar" aria-valuemin={0} aria-valuemax={queue.length} aria-valuenow={i}>
           <span style={{ width: `${(100 * i) / queue.length}%` }} />
         </span>
+        {exam && (
+          <span className="ln-lives" aria-label={t('ln.lives', { n: Math.max(0, EXAM_LIVES - mistakes) })}>
+            {'♥'.repeat(Math.max(0, EXAM_LIVES - mistakes))}
+            <i>{'♥'.repeat(Math.min(EXAM_LIVES, mistakes))}</i>
+          </span>
+        )}
         {combo >= 3 && <span className="ln-combo">{adults ? '' : '🔥 '}{combo}</span>}
         <button
           type="button"
@@ -362,7 +402,7 @@ function Lesson({ unit, level, adults, onClose }: { unit: Unit; level: number; a
       <div className="ln-body" aria-live="polite">
         {ex.t === 'intro' && <Intro item={ex.item} letter={unit.track === 'abc'} />}
         {ex.t === 'pick' && <Pick ex={ex} letter={unit.track === 'abc'} sel={sel} state={state} onPick={setSel} />}
-        {ex.t === 'match' && <Match key={i} pairs={ex.pairs} onMiss={() => (setMistakes((n) => n + 1), tone(false))} onDone={() => answer(true)} />}
+        {ex.t === 'match' && <Match key={i} pairs={ex.pairs} onMiss={() => (!exam && setMistakes((n) => n + 1), tone(false))} onDone={() => answer(true)} />}
         {ex.t === 'build' && <Build ex={ex} built={built} state={state} onBuilt={setBuilt} />}
         {ex.t === 'gap' && <Gap ex={ex} sel={sel} state={state} onPick={setSel} />}
         {ex.t === 'root' && <Root ex={ex} sel={sel} state={state} onPick={setSel} />}

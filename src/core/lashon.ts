@@ -1,14 +1,15 @@
 /**
- * «Святой язык — уроки» (`#/lashon`, LashonPage.tsx): курс иврита по шагам, как в Duolingo. Путь из юнитов: сначала
- * «Буквы» (22 буквы и 5 конечных по 5–6), потом слова — детям слова Торы из уроков (src/core/torahWords.ts, по главам,
- * по 6), взрослым — слова Танаха по частоте (src/core/words.ts, только переведённые, по 5; уровни по 50).
- * У юнита три урока (★): 1 — знакомство (новое слово → выбрать перевод) и пары; 2 — вперемешку: перевод, наоборот,
- * пары, собери из букв, порядок слов фразы, пропущенная буква, значение / звучание буквы; 3 — то же, труднее (больше
- * «наоборот» и сборки, у взрослых — корень). Урок — 10–14 заданий; ошибку задание повторяется в конце (один раз).
- * За урок — 10 очков опыта, без ошибок — 15; цель дня — `GOAL` очков. Юнит открыт, если у предыдущего юнита той же
- * части есть хотя бы ★ (первый юнит части — всегда).
+ * «Святой язык — уроки» (`#/lashon`, LashonPage.tsx): курс иврита по шагам, как в Duolingo. Путь из юнитов: «Буквы» —
+ * два юнита (א–כ; ל–ת и конечные), потом слова — детям юнит на главу Торы (слова её уроков, src/core/torahWords.ts),
+ * взрослым — уровень из 50 слов Танаха по частоте, как в «Моих словах» (src/core/words.ts, только переведённые).
+ * Уроки юнита: сначала с новым (по 5–6 букв / слов: знакомство → выбрать перевод, пары, два вопроса по прошлым урокам),
+ * потом два «Повторения» вперемешку: перевод, наоборот, пары, собери из букв, порядок слов фразы, пропущенная буква,
+ * число / звучание буквы, у взрослых во втором — корень. Урок — 10–15 заданий; ошибку задание повторяется в конце (один раз).
+ * За урок — 10 очков опыта, без ошибок — 15; цель дня — `GOAL` очков. Юнит открыт, если в предыдущем юните той же
+ * части пройдены все уроки с новым (первый юнит части — всегда) — или сдан его «Экзамен» (`makeExam`: весь юнит сразу,
+ * не больше `EXAM_LIVES` ошибок; сдан — юнит пройден целиком).
  *
- * localStorage `niflaot:lashon` = { u: { <юнит>: ★ 0–3 }, xp: { <дата>: очки } } — синхронизируется (src/core/sync.ts:
+ * localStorage `niflaot:lashon` = { u: { <юнит>: пройдено уроков }, xp: { <дата>: очки } } — синхронизируется (src/core/sync.ts:
  * у юнита и у дня — больше из двух).
  */
 import { useEffect, useState } from 'react';
@@ -36,16 +37,19 @@ export type Track = 'abc' | 'words';
 export interface Unit {
   id: string;
   track: Track;
-  /** для «слов» — глава Торы (дети) или уровень по 50 (взрослые) */
-  group: string;
-  /** номер юнита внутри группы, с 1 */
+  /** номер юнита в своей части, с 1 (у детских слов — и глава Торы) */
   n: number;
+  parsha?: string;
   items: Item[];
+  /** новые буквы / слова по урокам: урок k знакомит с parts[k] */
+  parts: Item[][];
   /** откуда брать неверные варианты (сначала — из юнита) */
   pool: Item[];
 }
 
-export const LEVELS = 3;
+/** после уроков с новым — два урока «Повторение» (вперемешку, второй труднее) */
+export const REVIEWS = 2;
+export const stepsOf = (u: Unit) => u.parts.length + REVIEWS;
 export const GOAL = 20;
 export const XP = 10;
 export const XP_PERFECT = 15;
@@ -69,50 +73,44 @@ function chunks<T>(xs: T[], size: number): T[][] {
 
 // ——— the letters ———
 
-const ABC_UNITS = [[...'אבגדהו'], [...'זחטיכ'], [...'למנסע'], [...'פצקרשת'], FINAL_FORMS];
+/** two units: א–כ and ל–ת with the final forms; a lesson — 5–6 new letters */
+const ABC_UNITS = [[...'אבגדהוזחטיכ'], [...'למנסעפצקרשת', ...FINAL_FORMS]];
 const letterItem = (c: string, locale: Locale): Item => ({ key: c, he: c, tr: letterName(c, locale), value: VALUES[c], sound: letterSound(c, locale) });
 
 export function abcUnits(locale: Locale): Unit[] {
   const all = [...ALEPH_BET, ...FINAL_FORMS].map((c) => letterItem(c, locale));
-  return ABC_UNITS.map((ls, i) => ({
-    id: `abc-${i + 1}`,
-    track: 'abc',
-    group: 'abc',
-    n: i + 1,
-    items: ls.map((c) => all.find((x) => x.key === c)!),
-    pool: all,
-  }));
+  return ABC_UNITS.map((ls, i) => {
+    const items = ls.map((c) => all.find((x) => x.key === c)!);
+    return { id: `abc-${i + 1}`, track: 'abc', n: i + 1, items, parts: chunks(items, 6), pool: all };
+  });
 }
 
 // ——— the words ———
 
-/** children: the Torah words of the lessons, by portion, units of up to 6 */
+/** children: a unit — the Torah words of one portion's lessons; a lesson — up to 6 new words */
 export function torahUnits(words: TorahWord[]): Unit[] {
   const items = words.map((w): Item & { parsha: string } => ({ key: w.key, he: w.he, tr: w.tr, translit: w.translit, img: w.img, parsha: w.parsha }));
-  const out: Unit[] = [];
-  for (const p of [...new Set(items.map((w) => w.parsha))]) {
+  return [...new Set(items.map((w) => w.parsha))].map((p, i) => {
     const ws = items.filter((w) => w.parsha === p);
-    chunks(ws, 6).forEach((c, i) => out.push({ id: `tw-${p}-${i + 1}`, track: 'words', group: p, n: i + 1, items: c, pool: [...ws, ...items] }));
-  }
-  return out;
+    return { id: `tw-${p}`, track: 'words', n: i + 1, parsha: p, items: ws, parts: chunks(ws, 6), pool: [...ws, ...items] };
+  });
 }
 
 export const TANAKH_UNIT = 5;
 export const TANAKH_GROUP = 50;
-/** adults: the translated words of Tanakh by frequency, units of 5; a group («уровень») — 50 words */
+/** adults: a unit («уровень») — 50 translated words of Tanakh by frequency, as in «Мои слова»; a lesson — 5 new words */
 export function tanakhUnits(dict: Dict): Unit[] {
   const items = dict.words.filter((w) => dict.tr[w.id]).map((w): Item => ({ key: w.id, he: w.he, tr: dict.tr[w.id], root: w.root }));
   const out: Unit[] = [];
-  for (let i = 0; i * TANAKH_UNIT < items.length; i++) {
-    const g = Math.floor((i * TANAKH_UNIT) / TANAKH_GROUP);
-    const group = items.slice(g * TANAKH_GROUP, (g + 1) * TANAKH_GROUP);
+  for (let g = 0; g * TANAKH_GROUP < items.length; g++) {
+    const level = items.slice(g * TANAKH_GROUP, (g + 1) * TANAKH_GROUP);
     out.push({
-      id: `w-${i + 1}`,
+      id: `t-${g + 1}`,
       track: 'words',
-      group: String(g + 1),
-      n: (i % (TANAKH_GROUP / TANAKH_UNIT)) + 1,
-      items: items.slice(i * TANAKH_UNIT, (i + 1) * TANAKH_UNIT),
-      pool: [...group, ...items.slice(0, (g + 2) * TANAKH_GROUP)],
+      n: g + 1,
+      items: level,
+      parts: chunks(level, TANAKH_UNIT),
+      pool: [...level, ...items.slice(0, (g + 2) * TANAKH_GROUP)],
     });
   }
   return out;
@@ -221,10 +219,33 @@ function root(item: Item, unit: Unit): Exercise | null {
 }
 
 /**
- * One lesson of a unit at `level` (1–3). Level 1 introduces every item and asks it once, with the pairs in the middle and
- * at the end; levels 2 and 3 mix every kind of exercise (3 — more «the other way» and building).
+ * Lesson `step` of a unit (from 0). The first lessons bring the new items of `parts[step]`: each one introduced and asked,
+ * the pairs, and two questions on the items of the lessons before. Then «Повторение»: 6 items of the whole unit mixed
+ * with every kind of exercise (the second — and a finished unit played again — harder).
  */
-export function makeLesson(unit: Unit, level: number): Exercise[] {
+export function makeLesson(unit: Unit, step: number): Exercise[] {
+  const k = Math.min(step, stepsOf(unit) - 1);
+  if (k < unit.parts.length) {
+    const ex = drill({ ...unit, items: unit.parts[k] }, 1);
+    const before = shuffle(unit.parts.slice(0, k).flat()).slice(0, 2);
+    before.forEach((it, i) => {
+      const x = pick(it, unit, i ? 'he' : 'tr');
+      if (x) ex.splice(ex.length - 1, 0, x);
+    });
+    return ex;
+  }
+  return drill({ ...unit, items: shuffle(unit.items).slice(0, 6) }, k === unit.parts.length ? 2 : 3);
+}
+
+/** «Экзамен» за юнит: сразу весь юнит, чтобы открыть следующий — до `EXAM_ITEMS` его букв / слов вперемешку, трудные задания и пары. */
+export const EXAM_ITEMS = 14;
+/** ошибок можно сделать не больше (пары не считаются) */
+export const EXAM_LIVES = 3;
+export const XP_EXAM = 20;
+export const makeExam = (unit: Unit): Exercise[] => drill({ ...unit, items: shuffle(unit.items).slice(0, EXAM_ITEMS) }, 3);
+
+/** the exercises over `unit.items`: level 1 — introduce and ask each, the pairs; 2 and 3 — every kind mixed (3 — harder) */
+function drill(unit: Unit, level: number): Exercise[] {
   const items = unit.items;
   const out: (Exercise | null)[] = [];
   const abc = unit.track === 'abc';
@@ -294,14 +315,15 @@ export function readCourse(): CourseStore {
     return { u: {}, xp: {} };
   }
 }
-export const levelOf = (s: CourseStore, id: string) => Math.min(LEVELS, Number(s.u[id]) || 0);
+/** lessons of the unit done */
+export const doneOf = (s: CourseStore, u: Unit) => Math.min(stepsOf(u), Number(s.u[u.id]) || 0);
 export const xpToday = (s: CourseStore) => Number(s.xp[localToday()]) || 0;
 export const xpTotal = (s: CourseStore) => Object.values(s.xp).reduce((a, n) => a + (Number(n) || 0), 0);
 
-/** A lesson finished: the unit gets its ★ (never fewer), today — the points. */
-export function finishLesson(unit: string, level: number, xp: number) {
+/** A lesson finished: the unit counts it (never fewer than before), today — the points. */
+export function finishLesson(unit: Unit, step: number, xp: number) {
   const s = readCourse();
-  s.u[unit] = Math.max(levelOf(s, unit), Math.min(LEVELS, level));
+  s.u[unit.id] = Math.max(doneOf(s, unit), Math.min(stepsOf(unit), step + 1));
   const d = localToday();
   s.xp[d] = (Number(s.xp[d]) || 0) + xp;
   try {
@@ -309,6 +331,11 @@ export function finishLesson(unit: string, level: number, xp: number) {
   } catch {}
   window.dispatchEvent(new Event(EVENT));
   markStudied();
+}
+
+/** «Экзамен» сдан: все уроки юнита — пройдены (следующий юнит открыт), сегодня — очки. */
+export function passExam(unit: Unit) {
+  finishLesson(unit, stepsOf(unit) - 1, XP_EXAM);
 }
 
 export function useCourse(): CourseStore {
@@ -325,11 +352,11 @@ export function useCourse(): CourseStore {
   return s;
 }
 
-/** a unit is open when it's the first of its track or the one before it (same track) has a ★ */
+/** a unit is open when it's the first of its track or every new item of the one before it (same track) is learned */
 export function isOpen(units: Unit[], i: number, s: CourseStore) {
   const prev = units[i - 1];
-  return !prev || prev.track !== units[i].track || levelOf(s, prev.id) > 0;
+  return !prev || prev.track !== units[i].track || doneOf(s, prev) >= prev.parts.length;
 }
 
-/** the unit to go on with: the first open one of the track with fewer than 3 ★ */
-export const nextUnit = (units: Unit[], s: CourseStore) => units.find((u, i) => isOpen(units, i, s) && levelOf(s, u.id) < LEVELS);
+/** the unit to go on with: the first open one of the track not finished */
+export const nextUnit = (units: Unit[], s: CourseStore) => units.find((u, i) => isOpen(units, i, s) && doneOf(s, u) < stepsOf(u));
