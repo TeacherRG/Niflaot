@@ -41,7 +41,6 @@ const en: Messages = {
   'mode.change': "change",
   'home.adultsH1': "Learn every day",
   'home.weekReadTitle': "This week’s portion — read",
-  'home.adultsFacts': "“Did you know?” and “Gematria of the Day”",
   'home.adultsTitle': 'Prophets and Writings',
   'home.promise': "For all ages — from 8 to 120",
   'home.adultsCta': 'Passage of the day',
@@ -203,6 +202,7 @@ const en: Messages = {
   'home.pastOne': "Earlier portion",
   'home.todayCount': "{n} of {total} done",
   'home.nextCert': "next certificate",
+  'home.todayH1': "Today in the Academy",
   'home.riddle': "riddle {n} of {total}",
   'home.week': "This week’s portion",
   'teacher.baal-haturim.short': "Baal HaTurim",
@@ -1168,7 +1168,6 @@ const en: Messages = {
   // «К шабатнему столу», the motto (Devarim 6:7), the faculties of the Academy
   'slogan': "“And you shall teach them to your children and speak of them”",
   'slogan.ref': "Devarim 6:7",
-  'home.adultsTag': "Children learn the same portion by playing. The sheet for the Shabbat table: riddles for children, questions for adults",
   'table.title': "For the Shabbat table",
   'table.menuSub': "the portion’s sheet — print it before Shabbat",
   'table.homeSub': "the Rebbe’s talk, verses and gematrias of the portion — print",

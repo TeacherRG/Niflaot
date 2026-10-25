@@ -41,7 +41,6 @@ const de: Messages = {
   'mode.change': "wechseln",
   'home.adultsH1': "Jeden Tag lernen",
   'home.weekReadTitle': "Wochenabschnitt — lesen",
-  'home.adultsFacts': "„Wusstest du?“ und „Gematria des Tages“",
   'home.adultsTitle': 'Propheten und Schriften',
   'home.promise': "Für jedes Alter — von 8 bis 120",
   'home.adultsCta': 'Abschnitt des Tages',
@@ -203,6 +202,7 @@ const de: Messages = {
   'home.pastOne': "Früherer Wochenabschnitt",
   'home.todayCount': "{n} von {total} erledigt",
   'home.nextCert': "nächstes Zertifikat",
+  'home.todayH1': "Heute in der Akademie",
   'home.riddle': "Rätsel {n} von {total}",
   'home.week': "Wochenabschnitt",
   'teacher.baal-haturim.short': "Baal HaTurim",
@@ -1168,7 +1168,6 @@ const de: Messages = {
   // «К шабатнему столу», the motto (Devarim 6:7), the faculties of the Academy
   'slogan': "„Und du sollst sie deinen Kindern einschärfen und von ihnen reden“",
   'slogan.ref': "Dewarim 6,7",
-  'home.adultsTag': "Kinder lernen denselben Abschnitt im Spiel. Das Blatt für den Schabbat-Tisch: Rätsel für Kinder, Fragen für Erwachsene",
   'table.title': "Für den Schabbat-Tisch",
   'table.menuSub': "Blatt zum Wochenabschnitt — vor Schabbat drucken",
   'table.homeSub': "Gespräch des Rebben, Verse und Gematrias des Abschnitts — drucken",
