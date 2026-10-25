@@ -74,6 +74,27 @@ export const NIGUNIM: Nigun[] = [
     times: [1.2, 3.6, 6.1, 8.5, 11.8, 14, 16.2, 18.4, 22.1, 25.8, 30, 32.5, 35, 37.3, 39.2, 44, 46, 48.2, 50.5, 55, 59.4, 63.6, 67.3, 72, 76.4, 81.5],
     source: { name: 'm770.org', url: 'https://m770.org/' },
   },
+  {
+    id: 'anim-zmirot',
+    title: { ru: 'Аним змирот', en: 'Anim Zemirot', de: 'Anim Semirot' },
+    lang: 'he',
+    audio: 'nigun/anim-zmirot.mp3',
+    about: {
+      ru: '«Буду услаждать песнопениями» («Аним змирот»). Ребе спел этот нигун первый раз под утро в праздник Симхат Тора 1961 года и объяснил его скрытый смысл. Мелодия этого нигуна выражает возвышенную тоску еврейской души по своему Создателю. Слова взяты из праздничной молитвы.',
+      en: '“I will sing sweet songs” (“Anim Zemirot”). The Rebbe first sang this niggun towards morning on Simchat Torah 1961 and explained its hidden meaning. The melody of this niggun expresses the lofty longing of the Jewish soul for its Creator. The words are taken from the festival prayer.',
+      de: '„Ich singe süße Lieder“ („Anim Semirot“). Der Rebbe sang diesen Nigun zum ersten Mal gegen Morgen an Simchat Tora 1961 und erklärte seine verborgene Bedeutung. Die Melodie dieses Niguns drückt die erhabene Sehnsucht der jüdischen Seele nach ihrem Schöpfer aus. Die Worte stammen aus dem Festtagsgebet.',
+    },
+    // the words in Hebrew (sent by the owner), read the Ashkenazi way; the times are a first guess — to be marked by ear (and the repeats added as sung)
+    lines: [
+      { text: "אַנְעִים זְמִירוֹת וְשִׁירִים אֶאֱרֹג,", read: { ru: "Аним змиройс вэ-ширим ээройг,", en: "Anim zmiros ve-shirim e’eroig,", de: "Anim smiros we-schirim e’eroig," }, tr: { ru: "Буду услаждать песнопениями и слагать песни,", en: "I will sing sweet melodies and weave songs,", de: "Ich singe süße Lieder und flechte Gesänge," } },
+      { text: "כִּי אֵלֶיךָ נַפְשִׁי תַעֲרֹג.", read: { ru: "ки эйлехо нафши сааройг.", en: "ki eilecho nafshi sa’aroig.", de: "ki ejlecho nafschi sa’aroig." }, tr: { ru: "ибо Тебя жаждет душа моя.", en: "for my soul longs for You.", de: "denn nach Dir sehnt sich meine Seele." } },
+      { text: "נַפְשִׁי חָמְדָה בְּצֵל יָדֶךָ,", read: { ru: "Нафши хомдо бэцэйль йодэхо,", en: "Nafshi chomdo betzeil yodecho,", de: "Nafschi chomdo bezejl jodecho," }, tr: { ru: "Душе моей любо в тени руки Твоей", en: "My soul yearns, in the shade of Your hand,", de: "Meine Seele sehnt sich, im Schatten Deiner Hand" } },
+      { text: "לָדַעַת כָּל רָז סוֹדֶךָ.", read: { ru: "лодаас коль ройз сойдэхо.", en: "lodaas kol roiz soidecho.", de: "lodaas kol rojs sojdecho." }, tr: { ru: "постигать Твои сокровенные тайны.", en: "to know all Your hidden secrets.", de: "all Deine verborgenen Geheimnisse zu erkennen." } },
+    ],
+    times: [3, 66, 129, 192],
+    draftTimes: true,
+    source: { name: 'm770.org', url: 'https://m770.org/' },
+  },
 ];
 
 export const findNigun = (id: string) => NIGUNIM.find((n) => n.id === id);

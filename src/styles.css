@@ -2246,6 +2246,8 @@ body:has(.a-home){background:var(--plain)}
 .kar-lines li.now .kar-text{background:linear-gradient(90deg,var(--gold-deep) var(--p),var(--ink) var(--p));-webkit-background-clip:text;background-clip:text;color:transparent}
 .kar-read{font-size:15px;font-style:italic;color:var(--ink-2)}
 .kar-tr{font-size:14px;color:var(--muted)}
+.kar-lines[lang="he"] .kar-text,.kar-lines[lang="he"] .kar-opts button{font-family:var(--f-he);direction:rtl;unicode-bidi:isolate}
+.kar-lines[lang="he"] li.now .kar-text{background-image:linear-gradient(270deg,var(--gold-deep) var(--p),var(--ink) var(--p))}
 .kar-note{margin:0;font-size:13px;color:var(--muted)}
 .kar-admin{display:grid;gap:8px;justify-items:start;padding:12px;border:1px dashed var(--line);border-radius:12px;font-size:14px}
 .kar-admin p{margin:0}
