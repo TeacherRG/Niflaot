@@ -962,6 +962,38 @@ ${NIGUNIM.map(
   };
 }
 
+/**
+ * «Конфиденциальность» and «Удалить аккаунт» as plain addresses (`/privacy/`, `/delete-account/` and en/de): Google Play
+ * asks for both links in the app's listing and they must open without the app's own routing.
+ */
+function legalPage(page: 'privacy' | 'delete-account', lang: 'ru' | 'en' | 'de', ui: Ui): Page {
+  const root = lang === 'ru' ? '../' : '../../';
+  const url = `${SITE_URL}${staticPath(page, lang)}`;
+  const [title, lead, body] =
+    page === 'privacy'
+      ? [s(ui, 'privacy.title'), s(ui, 'privacy.seo'), s(ui, 'privacy.body')]
+      : [s(ui, 'del.title'), s(ui, 'del.lead'), s(ui, 'del.body')];
+  const other: 'privacy' | 'delete-account' = page === 'privacy' ? 'delete-account' : 'privacy';
+  return {
+    title: `${title} · ${s(ui, 'app.title')}`,
+    description: lead,
+    url,
+    type: 'website',
+    root,
+    lang,
+    alternates: alternatesOf(page),
+    lastmod: changed(`src/i18n/locales/${lang}.ts`),
+    image: 'site',
+    imageAlt: s(ui, 'app.title'),
+    jsonLd: { '@context': 'https://schema.org', '@graph': [{ '@type': 'WebPage', name: title, description: lead, url, inLanguage: lang, isPartOf: SITE, publisher: PUBLISHER }, crumbs(lang, title, url)] },
+    body: `<article><header><p><a href="${root}${lang === 'ru' ? '' : `${lang}/`}">${esc(s(ui, 'app.title'))}</a></p>
+<h1>${esc(title)}</h1><p>${esc(lead)}</p></header>
+<section>${body}</section>
+<p><a href="${root}${staticPath(other, lang).slice(1)}">${esc(s(ui, other === 'privacy' ? 'privacy.title' : 'del.title'))} →</a></p>
+</article>`,
+  };
+}
+
 const STATIC_OUT: [string, Page][] = LANGS.flatMap(({ lang, ui }) => [
   [staticPath('mental-math', lang), mathPage(lang, ui)] as [string, Page],
   [staticPath('daily', lang), dailyPage(lang, ui)] as [string, Page],
@@ -974,6 +1006,8 @@ const STATIC_OUT: [string, Page][] = LANGS.flatMap(({ lang, ui }) => [
   [staticPath('quiz', lang), quizPage(lang, ui)] as [string, Page],
   [staticPath('nigun', lang), nigunPage(lang, ui)] as [string, Page],
   [staticPath('learn-hebrew', lang), lashonPage(lang, ui)] as [string, Page],
+  [staticPath('privacy', lang), legalPage('privacy', lang, ui)] as [string, Page],
+  [staticPath('delete-account', lang), legalPage('delete-account', lang, ui)] as [string, Page],
 ]);
 // lastmod: pages that change every day (the passage of the day, the opened passages, the quiz sets of the week) — today;
 // the facts — from the lessons; the rest — when their texts or this script changed
@@ -1160,6 +1194,30 @@ for (const { lang, ui } of LANGS) {
     ],
   };
   writeFileSync(`${DIST}/manifest${lang === 'ru' ? '' : `-${lang}`}.webmanifest`, `${JSON.stringify(manifest, null, 2)}\n`);
+}
+
+/*
+ * ───── the Android app in Google Play (Trusted Web Activity) ─────
+ * dist/.well-known/assetlinks.json proves that the app may open this site full screen, without the browser's address bar.
+ * GitHub variables: ANDROID_PACKAGE (the app's package, e.g. app.mychitas.niflaot) and ANDROID_CERT_SHA256 — the SHA-256
+ * fingerprints of the signing certificates from Play Console («Подпись приложения»: the app signing key and the upload key),
+ * comma-separated; without them — no file.
+ */
+const androidPackage = process.env.ANDROID_PACKAGE?.trim() ?? '';
+const androidCerts = (process.env.ANDROID_CERT_SHA256 ?? '').split(/[\s,]+/).filter(Boolean).map((c) => c.toUpperCase());
+if (androidPackage || androidCerts.length) {
+  if (!/^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$/i.test(androidPackage)) throw new Error(`ANDROID_PACKAGE: not a package name: ${androidPackage}`);
+  const bad = androidCerts.filter((c) => !/^([0-9A-F]{2}:){31}[0-9A-F]{2}$/.test(c));
+  if (!androidCerts.length || bad.length) throw new Error(`ANDROID_CERT_SHA256: not SHA-256 fingerprints (AA:BB:…, 32 bytes): ${bad.join(', ') || '(empty)'}`);
+  mkdirSync(`${DIST}/.well-known`, { recursive: true });
+  writeFileSync(
+    `${DIST}/.well-known/assetlinks.json`,
+    `${JSON.stringify(
+      [{ relation: ['delegate_permission/common.handle_all_urls'], target: { namespace: 'android_app', package_name: androidPackage, sha256_cert_fingerprints: androidCerts } }],
+      null,
+      2,
+    )}\n`,
+  );
 }
 
 /* ───── service worker and the daily message ───── */

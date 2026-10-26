@@ -183,6 +183,30 @@ export function ConsentPage({ token }: { token: string }) {
   );
 }
 
+/** `#/delete-account` — how to delete the account and what is deleted (the address for the Google Play listing). */
+export function DeleteAccountPage() {
+  const { t } = useI18n();
+  useTitle(t('del.title'));
+  return (
+    <>
+      <TopBar title={t('del.title')} />
+      <div className="wrap acc">
+        <header className="partners-head">
+          <h1>{t('del.title')}</h1>
+          <p>{t('del.lead')}</p>
+        </header>
+        <Html as="main" className="prose acc-card" html={t('del.body')} />
+        <p>
+          <a className="btn" href="#/account">
+            {t('acc.title')} →
+          </a>
+        </p>
+      </div>
+      <Colophon />
+    </>
+  );
+}
+
 /** `#/privacy` — what the site keeps, where, why and for how long. */
 export function PrivacyPage() {
   const { t } = useI18n();

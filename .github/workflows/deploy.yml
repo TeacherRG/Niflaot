@@ -39,6 +39,10 @@ jobs:
           GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
           BING_SITE_VERIFICATION: ${{ vars.BING_SITE_VERIFICATION }}
           YANDEX_VERIFICATION: ${{ vars.YANDEX_VERIFICATION }}
+          # the Android app in Google Play (Trusted Web Activity): its package and the SHA-256 fingerprints of its signing
+          # certificates from Play Console, comma-separated → dist/.well-known/assetlinks.json; empty → no file
+          ANDROID_PACKAGE: ${{ vars.ANDROID_PACKAGE }}
+          ANDROID_CERT_SHA256: ${{ vars.ANDROID_CERT_SHA256 }}
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
           path: dist

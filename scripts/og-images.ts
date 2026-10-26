@@ -6,6 +6,7 @@
  * Also the app icons for «install on the phone» (manifest — scripts/prerender.ts): public/icons/icon-192.png,
  * icon-512.png, maskable-512.png (the mark inside the safe zone) and apple-touch-icon.png (180).
  * And the podcast covers public/podcast/cover-<ru|en|de>.jpg (3000×3000 — Apple Podcasts, Spotify; feeds — prerender).
+ * And the Google Play feature graphic store/play/feature-<ru|en|de>.png (1024×500; the screenshots — scripts/play-screenshots.ts).
  * The PNGs are committed; re-run after adding a lesson or changing its title or key equation:
  *
  *   npm i --no-save playwright && npx tsx scripts/og-images.ts
@@ -257,5 +258,31 @@ for (const lang of ['ru', 'en', 'de'] as const) {
   await p.evaluate(() => document.fonts.ready);
   await p.screenshot({ path: `public/podcast/cover-${lang}.jpg`, type: 'jpeg', quality: 86 });
   console.log(`public/podcast/cover-${lang}.jpg`);
+}
+/* Google Play: the feature graphic of the listing — 1024×500, the same night-blue and gold; nothing near the edges */
+const FEATURE = {
+  ru: ['Нифлаот', 'Онлайн-академия Торы · от 8 до 120', 'Тора · Пророки и Писания · Хасидут · иврит'],
+  en: ['Niflaot', 'Online Torah academy · from 8 to 120', 'Torah · Prophets & Writings · Chassidut · Hebrew'],
+  de: ['Niflaot', 'Online-Tora-Akademie · von 8 bis 120', 'Tora · Propheten & Schriften · Chassidut · Hebräisch'],
+} as const;
+const feature = (lang: keyof typeof FEATURE) => `<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Frank+Ruhl+Libre:wght@900&family=Manrope:wght@600;700&display=block">
+<style>*{margin:0;box-sizing:border-box}body{width:1024px;height:500px;background:#141A33;background-image:radial-gradient(1024px 420px at 50% -40px,#2A3463 0,transparent 72%);color:#fff;position:relative;overflow:hidden;font-family:Manrope}
+.l{position:absolute;font-family:"Frank Ruhl Libre";font-weight:900;color:rgba(216,181,101,.08);line-height:1}
+.l1{font-size:420px;left:-30px;top:-120px}.l2{font-size:380px;right:-10px;bottom:-190px}
+.in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center}
+.he{font-family:"Frank Ruhl Libre";font-weight:900;font-size:120px;line-height:1.05;background:linear-gradient(180deg,#F1DDA4,#C9A04E);-webkit-background-clip:text;color:transparent}
+.t{font-family:"Cormorant Garamond";font-weight:700;font-size:64px;line-height:1;color:#F6EBD0}
+.s{font-weight:700;font-size:26px;color:#D8B565}
+.s2{font-weight:600;font-size:20px;color:#C9CEE0}</style>
+</head><body><div class="l l1">נ</div><div class="l l2">פ</div>
+<div class="in"><div class="he" dir="rtl">נפלאות</div><div class="t">${FEATURE[lang][0]}</div><div class="s">${esc(FEATURE[lang][1])}</div><div class="s2">${esc(FEATURE[lang][2])}</div></div></body></html>`;
+mkdirSync('store/play', { recursive: true });
+await p.setViewportSize({ width: 1024, height: 500 });
+for (const lang of ['ru', 'en', 'de'] as const) {
+  await p.setContent(feature(lang), { waitUntil: 'networkidle' });
+  await p.evaluate(() => document.fonts.ready);
+  await p.screenshot({ path: `store/play/feature-${lang}.png` });
+  console.log(`store/play/feature-${lang}.png`);
 }
 await browser.close();

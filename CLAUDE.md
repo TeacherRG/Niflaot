@@ -175,6 +175,14 @@
   **«Нифлаот на телефоне»** (`PhoneOffer.tsx`; у детей — рядом с уроком, у взрослых — сбоку от плана дня): «Установить» + «🔔 Напоминать каждый день» (окно
   напоминания, `panel 'reminder'`); на iPhone/iPad — как сделать «На экран Домой»; во встроенном браузере мессенджера —
   «откройте в Chrome / Safari»; нечего предложить — карточки нет; «×» прячет её на 30 дней.
+- **Google Play** — приложение-обёртка сайта (Trusted Web Activity: собирается в pwabuilder.com или Bubblewrap из манифеста;
+  своего кода нет, обновляется вместе с сайтом). Подтверждение сайта — `/.well-known/assetlinks.json`: пишет `scripts/prerender.ts`,
+  если заданы GitHub variables `ANDROID_PACKAGE` (пакет приложения) и `ANDROID_CERT_SHA256` (SHA-256 отпечатки ключей из Play Console
+  → «Подпись приложения», через запятую); без них файла нет. Ссылки для анкеты Play — статические `/privacy/` и
+  `/delete-account/` (и en/de; приложение открывает `#/privacy` и `#/delete-account` — `DeleteAccountPage` в `CommunityPages.tsx`:
+  как удалить аккаунт, что удаляется и что остаётся; тексты `del.*`, `privacy.seo`). Картинки для страницы в Play — `store/play/`:
+  баннер `feature-<язык>.png` 1024×500 (`scripts/og-images.ts`) и снимки телефона `<язык>/NN-*.png` 1080×1920
+  (`npm run build && npx tsx scripts/play-screenshots.ts`: 8 экранов, оба режима).
 - Рассылка по email — форма `Subscribe.tsx` (в итоге урока и под лентой «Знаете ли вы?»): POST на адрес сервиса рассылки
   в новой вкладке (Buttondown: `https://buttondown.com/api/emails/embed-subscribe/<имя>`, поля `email`, `tag` = язык),
   подтверждение адреса — у сервиса. Включается переменной `SUBSCRIBE_URL` (`VITE_SUBSCRIBE_URL`; хост — в CSP
