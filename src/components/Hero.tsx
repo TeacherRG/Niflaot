@@ -4,6 +4,7 @@ import { PARSHIOT } from '../lessons/parshiot';
 import { Icon, useUI } from './ui';
 import { AgeBadge } from './AgeBadge';
 import { lessonArt } from '../core/art';
+import { ShareButton } from './TopBar';
 
 /**
  * `reading` — on the «Читать» page, a neutral book header for every age: the lesson's title, no age badge,
@@ -49,6 +50,8 @@ export function Hero({ lesson, text, reading }: { lesson: Lesson; text: LessonTe
             <Icon name="print" size={18} />
             {t('print.button')}
           </a>
+          {/* a phone: in the game the top bar has the riddles' steps — «Поделиться» is here instead */}
+          {!reading && <ShareButton label className="hero-share" />}
         </div>
       </div>
     </header>

@@ -301,6 +301,18 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .lang-list .code{font-family:var(--f-num);font-size:11.5px;font-weight:600;color:var(--gold)}
 .lang-list .name{font-weight:600;font-size:14.5px}
 .lang-list svg{color:var(--gold)}
+.share-list{text-align:start;z-index:70}
+.share-list a{width:100%;box-sizing:border-box;display:grid;grid-template-columns:30px 1fr auto;align-items:center;gap:8px;padding:9px 10px;border-radius:8px;color:var(--ink);text-decoration:none}
+.share-list a:hover{background:var(--paper)}
+.share-btn{border-color:var(--line);border-radius:999px;background:var(--surface);color:var(--gold);width:34px;height:34px}
+/* «Поделиться» in the game: on a phone — in the lesson's header, the top bar has the riddles' steps; on a big screen — in the top bar */
+.hero-share{display:none}
+@media (max-width:640px){
+  .share-list{position:fixed;inset-inline:auto 12px;top:56px}
+  .top-in:has(.levels) .sharepick{display:none}
+  .hero-share{display:block}
+  .hero-share .share-list{position:fixed;top:auto;bottom:calc(124px + env(safe-area-inset-bottom,0px));inset-inline:12px}
+}
 
 @media (max-width:560px){
   .top .timer{display:none}
