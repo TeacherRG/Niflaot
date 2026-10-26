@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AddCourse } from './AddCourse';
+import { Sheet } from './ui';
 import { useI18n } from '../i18n';
 import type { MessageKey } from '../i18n/locales/ru';
 import { TopBar } from './TopBar';
@@ -55,6 +56,7 @@ import {
   WARM,
   SPACING,
   dayNo,
+  core,
 } from '../core/lashon';
 
 type T = ReturnType<typeof useI18n>['t'];
@@ -113,6 +115,8 @@ export function LashonPage() {
   const words = adults ? tanakh ?? [] : torah;
   const units = useMemo(() => [...abc, ...words], [abc, words]);
   const [run, setRun] = useState<{ unit: Unit; part: Item[] | null; hard?: boolean; exam?: boolean; warm?: Item[] } | null>(null);
+  /** «Словарь урока»: the words of a unit (and the one found by the search — marked) */
+  const [dict, setDict] = useState<{ unit: Unit; mark?: string } | null>(null);
   // the words already met outside the course: the adults' «Мои слова» (in the deck), the children's «Слова Торы» (played)
   const deck = useWordStore();
   const stars = useStars();
@@ -204,6 +208,11 @@ export function LashonPage() {
               ) : (
                 <small>🔒 {t('ln.locked')}</small>
               )}
+              {u.track === 'words' && (
+                <button type="button" className="ln-dict-btn" onClick={() => setDict({ unit: u })}>
+                  {t('ln.dict')}
+                </button>
+              )}
             </span>
           </li>
         );
@@ -260,6 +269,7 @@ export function LashonPage() {
           </h2>
           {!adults || tanakh ? (
             <>
+              <WordSearch units={words} title={unitTitle} met={(k) => !!store.s[k]} onOpen={(unit, mark) => setDict({ unit, mark })} />
               {weak(words)}
               {adults && words.some((u) => u.stage === 2)
                 ? [1, 2].map((st) => {
@@ -293,6 +303,9 @@ export function LashonPage() {
         </p>
       </div>
       <Colophon />
+      <Sheet open={!!dict} onClose={() => setDict(null)} title={dict ? `${t('ln.dict')} · ${unitTitle(dict.unit)}` : ''} closeLabel={t('menu.close')}>
+        {dict && <Dictionary unit={dict.unit} mark={dict.mark} met={(k) => !!store.s[k]} />}
+      </Sheet>
       {run && <Lesson key={`${run.unit.id}-${run.part?.[0]?.key}-${run.exam}`} unit={run.unit} part={run.part} hard={run.hard} exam={run.exam} warm={run.warm} known={knownOf(run.unit)} adults={adults} onClose={() => setRun(null)} />}
     </>
   );
@@ -304,6 +317,93 @@ type State = 'answer' | 'right' | 'wrong';
  * One lesson over the page: the exercises one by one; a wrong one comes back once at the end. An `exam` — the whole unit,
  * no second chances: ♥ for the mistakes left; one more than `EXAM_LIVES` — failed.
  */
+/** «Найти слово»: a word of the course by its Hebrew (without the vowel points) or its translation — and its unit */
+function WordSearch({ units, title, met, onOpen }: { units: Unit[]; title: (u: Unit) => string; met: (key: string) => boolean; onOpen: (u: Unit, mark: string) => void }) {
+  const { t } = useI18n();
+  const [q, setQ] = useState('');
+  const found = useMemo(() => {
+    const k = core(q);
+    if (k.length < 2) return [];
+    const out: { it: Item; u: Unit }[] = [];
+    for (const u of units)
+      for (const it of u.items)
+        // Hebrew — anywhere in the word; a translation — from the start of one of its words («щит», not «сообщить»)
+        if ((core(it.he).includes(k) || (' ' + core(it.tr)).includes(' ' + k)) && !out.some((x) => x.it.key === it.key)) out.push({ it, u });
+    // the exact words first, then the beginnings
+    const rank = (x: { it: Item }) => (core(x.it.he) === k || core(x.it.tr).split(/[ ,;]+/).includes(k) ? 0 : core(x.it.he).startsWith(k) || core(x.it.tr).startsWith(k) ? 1 : 2);
+    return out.sort((a, b) => rank(a) - rank(b)).slice(0, 12);
+  }, [q, units]);
+  return (
+    <div className="ln-search">
+      <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t('ln.searchPh')} aria-label={t('ln.search')} />
+      {core(q).length >= 2 && (
+        <ul className="ln-found" aria-live="polite">
+          {found.length ? (
+            found.map(({ it, u }) => (
+              <li key={it.key}>
+                <button type="button" onClick={() => onOpen(u, it.key)}>
+                  <span className="he" lang="he">
+                    {it.he}
+                  </span>
+                  <span className="ln-found-tr">
+                    {it.tr}
+                    <small>
+                      {title(u)}
+                      {met(it.key) ? ` · ✓ ${t('ln.dictMet')}` : ''}
+                    </small>
+                  </span>
+                </button>
+              </li>
+            ))
+          ) : (
+            <li className="ln-found-none">{t('ln.searchNone')}</li>
+          )}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+/** «Словарь урока»: every word of a unit — Hebrew, translation, root; ✓ — met in the course; the found word is marked */
+function Dictionary({ unit, mark, met }: { unit: Unit; mark?: string; met: (key: string) => boolean }) {
+  const { t } = useI18n();
+  const box = useRef<HTMLOListElement>(null);
+  useEffect(() => {
+    if (mark) box.current?.querySelector('.mark')?.scrollIntoView({ block: 'center' });
+  }, [mark]);
+  const seen = unit.items.filter((it) => met(it.key)).length;
+  return (
+    <>
+      <p className="ln-dict-stat">{t('ln.dictStat', { k: seen, n: unit.items.length })}</p>
+      <ol className="ln-dict" ref={box}>
+        {unit.items.map((it) => (
+          <li key={it.key} className={it.key === mark ? 'mark' : undefined}>
+            <span className="he" lang="he">
+              {it.he}
+            </span>
+            <span className="ln-dict-tr">
+              {it.tr}
+              {it.root && (
+                <small>
+                  {t('ln.rootOf')}{' '}
+                  <span className="he" lang="he">
+                    {it.root}
+                  </span>
+                </small>
+              )}
+            </span>
+            {met(it.key) && (
+              <i className="ln-dict-met" title={t('ln.dictMet')}>
+                ✓
+              </i>
+            )}
+          </li>
+        ))}
+      </ol>
+    </>
+  );
+}
+
 function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit: Unit; part: Item[] | null; hard?: boolean; exam?: boolean; warm?: Item[]; known: Known; adults: boolean; onClose: () => void }) {
   const { t } = useI18n();
   const [queue, setQueue] = useState<Exercise[]>(() => (exam ? makeExam(unit) : makeLesson(unit, part, hard, warm)));

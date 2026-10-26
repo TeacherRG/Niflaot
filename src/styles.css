@@ -1659,6 +1659,22 @@ a.tk-step:hover{background:var(--tchelet-soft)}
 .ln-line.words .ln-tile .he,.ln-line.words~.ln-bank .ln-tile .he{font-size:22px}
 .ln-tile small{color:var(--muted);font-size:11px}
 .ln-tile.used{visibility:hidden}
+.ln-dict-btn{margin-top:4px;border:0;background:none;padding:2px 4px;color:var(--tchelet-deep);font-size:12.5px;font-weight:700;text-decoration:underline;cursor:pointer}
+.ln-search{position:relative;margin:4px 0 14px}
+.ln-search input{width:100%;box-sizing:border-box;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);font:inherit;font-size:15px}
+.ln-found{list-style:none;margin:6px 0 0;padding:0;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.ln-found li+li{border-top:1px solid var(--line-soft)}
+.ln-found button{display:flex;align-items:center;gap:12px;width:100%;padding:8px 12px;border:0;background:none;color:var(--ink);text-align:start;cursor:pointer}
+.ln-found .he,.ln-dict .he{font-family:var(--f-he);font-size:22px;min-width:84px;text-align:right}
+.ln-found-tr,.ln-dict-tr{display:grid;flex:1;font-size:14.5px}
+.ln-found-tr small,.ln-dict-tr small{color:var(--muted);font-size:12px}
+.ln-found-tr small .he,.ln-dict-tr small .he{font-size:13px;min-width:0}
+.ln-found-none{padding:10px 12px;color:var(--muted);font-size:14px}
+.ln-dict-stat{margin:0 0 8px;color:var(--muted);font-size:13.5px}
+.ln-dict{list-style:none;margin:0;padding:0}
+.ln-dict li{display:flex;align-items:center;gap:12px;padding:7px 4px;border-bottom:1px solid var(--line-soft)}
+.ln-dict li.mark{background:var(--gold-soft);border-radius:8px}
+.ln-dict-met{font-style:normal;color:var(--ok-deep);font-weight:800}
 .ln-hint{color:var(--muted);font-size:12px;text-align:center}
 p.ln-hint{margin:0;font-size:13px}
 p.ln-hint .he{font-family:var(--f-he);font-size:18px;color:var(--ink)}
