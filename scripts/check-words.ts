@@ -55,6 +55,19 @@ for (const lang of ['ru', 'en', 'de'] as Lang[]) {
   if (n < 500) err(`words/${lang}.json: переведено ${n} слов, нужно не меньше 500`);
 }
 for (const id of Object.keys(tr.ru)) if (!(id in tr.en) || !(id in tr.de)) err(`слово ${id}: перевод не на всех языках`);
+// без транслитерации в скобках — «чудо (мофет)» подсказывает ответ в «Святом языке» (решил владелец): одинаковая скобка
+// в английском и немецком — это чтение слова, не пояснение (кроме пояснений, совпавших в обоих языках)
+const sound = (x: string) =>
+  x.toLowerCase().replace(/sch/g, 'sh').replace(/w/g, 'v').replace(/j/g, 'y').replace(/z/g, 'tz').replace(/ttz/g, 'tz')
+    .replace(/[’'\s-]/g, '').replace(/(.)\1/g, '$1').replace(/h$/, '');
+const parens = (x: string) => [...x.matchAll(/\(([^()]*)\)/g)].map((m) => m[1]);
+for (const id of Object.keys(tr.ru)) {
+  if (['894', '2374', '6240'].includes(id)) continue; // «Бавель (Вавилон)», «провидец (пророк)», «(в числах 11–19)»
+  const [en, de] = [parens(tr.en[id] ?? ''), parens(tr.de[id] ?? '')];
+  en.forEach((a, k) => {
+    if (de[k] && !/^(piel|niphal)$/i.test(a) && sound(a) === sound(de[k])) err(`words: ${id} «${tr.ru[id]}» — чтение слова в скобках «(${a})» подсказывает ответ`);
+  });
+}
 
 const known = new Set(ids);
 for (const [date] of cycleJson.days as [string, ...number[]][]) {

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AddCourse } from './AddCourse';
+import { Sheet } from './ui';
 import { useI18n } from '../i18n';
 import type { MessageKey } from '../i18n/locales/ru';
 import { TopBar } from './TopBar';
@@ -55,6 +56,7 @@ import {
   WARM,
   SPACING,
   dayNo,
+  core,
 } from '../core/lashon';
 
 type T = ReturnType<typeof useI18n>['t'];
@@ -113,6 +115,8 @@ export function LashonPage() {
   const words = adults ? tanakh ?? [] : torah;
   const units = useMemo(() => [...abc, ...words], [abc, words]);
   const [run, setRun] = useState<{ unit: Unit; part: Item[] | null; hard?: boolean; exam?: boolean; warm?: Item[] } | null>(null);
+  /** «Словарь урока»: the words of a unit (and the one found by the search — marked) */
+  const [dict, setDict] = useState<{ unit: Unit; mark?: string } | null>(null);
   // the words already met outside the course: the adults' «Мои слова» (in the deck), the children's «Слова Торы» (played)
   const deck = useWordStore();
   const stars = useStars();
@@ -204,6 +208,11 @@ export function LashonPage() {
               ) : (
                 <small>🔒 {t('ln.locked')}</small>
               )}
+              {u.track === 'words' && (
+                <button type="button" className="ln-dict-btn" onClick={() => setDict({ unit: u })}>
+                  {t('ln.dict')}
+                </button>
+              )}
             </span>
           </li>
         );
@@ -260,6 +269,7 @@ export function LashonPage() {
           </h2>
           {!adults || tanakh ? (
             <>
+              <WordSearch units={words} title={unitTitle} met={(k) => !!store.s[k]} onOpen={(unit, mark) => setDict({ unit, mark })} />
               {weak(words)}
               {adults && words.some((u) => u.stage === 2)
                 ? [1, 2].map((st) => {
@@ -293,6 +303,9 @@ export function LashonPage() {
         </p>
       </div>
       <Colophon />
+      <Sheet open={!!dict} onClose={() => setDict(null)} title={dict ? `${t('ln.dict')} · ${unitTitle(dict.unit)}` : ''} closeLabel={t('menu.close')}>
+        {dict && <Dictionary unit={dict.unit} mark={dict.mark} met={(k) => !!store.s[k]} />}
+      </Sheet>
       {run && <Lesson key={`${run.unit.id}-${run.part?.[0]?.key}-${run.exam}`} unit={run.unit} part={run.part} hard={run.hard} exam={run.exam} warm={run.warm} known={knownOf(run.unit)} adults={adults} onClose={() => setRun(null)} />}
     </>
   );
@@ -304,6 +317,116 @@ type State = 'answer' | 'right' | 'wrong';
  * One lesson over the page: the exercises one by one; a wrong one comes back once at the end. An `exam` — the whole unit,
  * no second chances: ♥ for the mistakes left; one more than `EXAM_LIVES` — failed.
  */
+/** «Найти слово»: a word of the course by its Hebrew (without the vowel points) or its translation — and its unit */
+function WordSearch({ units, title, met, onOpen }: { units: Unit[]; title: (u: Unit) => string; met: (key: string) => boolean; onOpen: (u: Unit, mark: string) => void }) {
+  const { t } = useI18n();
+  const [q, setQ] = useState('');
+  const found = useMemo(() => {
+    const k = core(q);
+    if (k.length < 2) return [];
+    const out: { it: Item; u: Unit }[] = [];
+    for (const u of units)
+      for (const it of u.items)
+        // Hebrew — anywhere in the word; a translation — from the start of one of its words («щит», not «сообщить»)
+        if ((core(it.he).includes(k) || (' ' + core(it.tr)).includes(' ' + k)) && !out.some((x) => x.it.key === it.key)) out.push({ it, u });
+    // the exact words first, then the beginnings
+    const rank = (x: { it: Item }) => (core(x.it.he) === k || core(x.it.tr).split(/[ ,;]+/).includes(k) ? 0 : core(x.it.he).startsWith(k) || core(x.it.tr).startsWith(k) ? 1 : 2);
+    return out.sort((a, b) => rank(a) - rank(b)).slice(0, 12);
+  }, [q, units]);
+  return (
+    <div className="ln-search">
+      <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t('ln.searchPh')} aria-label={t('ln.search')} />
+      {core(q).length >= 2 && (
+        <ul className="ln-found" aria-live="polite">
+          {found.length ? (
+            found.map(({ it, u }) => (
+              <li key={it.key}>
+                <button type="button" onClick={() => onOpen(u, it.key)}>
+                  <span className="he" lang="he">
+                    {it.he}
+                  </span>
+                  <span className="ln-found-tr">
+                    {it.tr}
+                    <small>
+                      {title(u)}
+                      {met(it.key) ? ` · ✓ ${t('ln.dictMet')}` : ''}
+                    </small>
+                  </span>
+                </button>
+              </li>
+            ))
+          ) : (
+            <li className="ln-found-none">{t('ln.searchNone')}</li>
+          )}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+/** the letters of a Hebrew word for the alef-bet order: no vowel points, signs or maqaf; a final letter — as the plain one */
+const abcKey = (he: string) => he.replace(/[^א-ת]/g, '').replace(/[ךםןףץ]/g, (c) => ({ ך: 'כ', ם: 'מ', ן: 'נ', ף: 'פ', ץ: 'צ' })[c]!);
+
+/** «Словарь урока»: every word of a unit in the alef-bet order, under its first letter — Hebrew, translation, root; ✓ — met
+ *  in the course; the found word is marked */
+function Dictionary({ unit, mark, met }: { unit: Unit; mark?: string; met: (key: string) => boolean }) {
+  const { t } = useI18n();
+  const box = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (mark) box.current?.querySelector('.mark')?.scrollIntoView({ block: 'center' });
+  }, [mark]);
+  const seen = unit.items.filter((it) => met(it.key)).length;
+  const groups = useMemo(() => {
+    const sorted = [...unit.items].sort((a, b) => (abcKey(a.he) < abcKey(b.he) ? -1 : abcKey(a.he) > abcKey(b.he) ? 1 : 0));
+    const out: { letter: string; items: Item[] }[] = [];
+    for (const it of sorted) {
+      const letter = abcKey(it.he)[0] ?? '';
+      if (out.at(-1)?.letter === letter) out.at(-1)!.items.push(it);
+      else out.push({ letter, items: [it] });
+    }
+    return out;
+  }, [unit]);
+  return (
+    <div ref={box}>
+      <p className="ln-dict-stat">{t('ln.dictStat', { k: seen, n: unit.items.length })}</p>
+      {groups.map((g) => (
+        <section key={g.letter} className="ln-dict-group">
+          <h3 className="ln-dict-letter">
+            <span className="he" lang="he">
+              {g.letter}
+            </span>
+          </h3>
+          <ol className="ln-dict">
+            {g.items.map((it) => (
+              <li key={it.key} className={`${it.key === mark ? 'mark' : ''}${met(it.key) ? ' met' : ''}`.trim() || undefined}>
+                <span className="he" lang="he">
+                  {it.he}
+                </span>
+                <span className="ln-dict-tr">
+                  {it.tr}
+                  {it.root && (
+                    <small>
+                      {t('ln.rootOf')}{' '}
+                      <span className="he" lang="he">
+                        {it.root}
+                      </span>
+                    </small>
+                  )}
+                </span>
+                {met(it.key) && (
+                  <i className="ln-dict-met" title={t('ln.dictMet')}>
+                    ✓
+                  </i>
+                )}
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))}
+    </div>
+  );
+}
+
 function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit: Unit; part: Item[] | null; hard?: boolean; exam?: boolean; warm?: Item[]; known: Known; adults: boolean; onClose: () => void }) {
   const { t } = useI18n();
   const [queue, setQueue] = useState<Exercise[]>(() => (exam ? makeExam(unit) : makeLesson(unit, part, hard, warm)));
@@ -373,6 +496,15 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
         for (const it of part) if (!inDeck(s, it.key)) (markLearn(it.key), added++);
       }
       setDone({ xp, added, goal: before < GOAL && before + xp >= GOAL });
+    }
+  };
+  // «Найдите пары»: a pair found without a slip is a right answer too — else the word comes back in «Повторим» at once
+  const pairsAnswered = (pairs: Item[], miss: string[]) => {
+    if (retried.current.has(ex)) return;
+    for (const it of pairs) {
+      if (it.key in answers.current) continue;
+      answers.current[it.key] = !miss.includes(it.key);
+      if (miss.includes(it.key)) missed.current.push(it);
     }
   };
   const answer = (right: boolean) => {
@@ -558,7 +690,7 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
       <div className="ln-body" aria-live="polite">
         {ex.t === 'intro' && <Intro item={ex.item} letter={unit.track === 'abc'} />}
         {ex.t === 'pick' && <Pick ex={ex} letter={unit.track === 'abc'} sel={sel} state={state} onPick={setSel} />}
-        {ex.t === 'match' && <Match key={i} pairs={ex.pairs} onMiss={() => (!exam && setMistakes((n) => n + 1), feedback('wrong'))} onPair={() => feedback('pair')} onDone={() => answer(true)} />}
+        {ex.t === 'match' && <Match key={i} pairs={ex.pairs} onMiss={() => (!exam && setMistakes((n) => n + 1), feedback('wrong'))} onPair={() => feedback('pair')} onDone={(miss) => (pairsAnswered(ex.pairs, miss), answer(true))} />}
         {ex.t === 'build' && <Build ex={ex} built={built} state={state} onBuilt={setBuilt} />}
         {ex.t === 'gap' && <Gap ex={ex} sel={sel} state={state} onPick={setSel} />}
         {ex.t === 'root' && <Root ex={ex} sel={sel} state={state} onPick={setSel} />}
@@ -715,7 +847,7 @@ function Pick({ ex, letter, sel, state, onPick }: { ex: Extract<Exercise, { t: '
 }
 
 /** «Найдите пары»: the Hebrew on one side, the translations on the other; a right pair goes grey, a wrong one shakes */
-function Match({ pairs, onMiss, onPair, onDone }: { pairs: Item[]; onMiss: () => void; onPair: () => void; onDone: () => void }) {
+function Match({ pairs, onMiss, onPair, onDone }: { pairs: Item[]; onMiss: () => void; onPair: () => void; onDone: (miss: string[]) => void }) {
   const { t } = useI18n();
   const [left] = useState(() => [...pairs].sort(() => Math.random() - 0.5));
   const [right] = useState(() => [...pairs].sort(() => Math.random() - 0.5));
@@ -723,18 +855,20 @@ function Match({ pairs, onMiss, onPair, onDone }: { pairs: Item[]; onMiss: () =>
   const [b, setB] = useState<string | null>(null);
   const [ok, setOk] = useState<string[]>([]);
   const [bad, setBad] = useState<string[]>([]);
+  const miss = useRef(new Set<string>());
   useEffect(() => {
     if (!a || !b) return;
     if (a === b) {
       const all = [...ok, a];
       setOk(all);
-      if (all.length === pairs.length) onDone();
+      if (all.length === pairs.length) onDone([...miss.current]);
       else onPair();
       setA(null);
       setB(null);
       return;
     }
     setBad([a, b]);
+    miss.current.add(a).add(b);
     onMiss();
     const id = setTimeout(() => {
       setBad([]);
