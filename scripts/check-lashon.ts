@@ -10,7 +10,7 @@
  */
 import { LESSONS } from '../src/lessons';
 import { torahWords } from '../src/core/torahWords';
-import { abcUnits, alike, clusters, core, isRight, finishLesson, isDone, isOpen, makeExam, makeLesson, newItems, nextPart, passExam, readCourse, EXAM_ITEMS, type CourseStore, torahVerses, verseOf, VERSE_MAX, VERSE_MIN, type Item, type Known, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
+import { abcUnits, alike, clusters, core, isRight, finishLesson, isDone, isOpen, makeExam, makeLesson, newItems, nextPart, passExam, readCourse, EXAM_ITEMS, type CourseStore, torahVerses, verseOf, VERSE_MAX, VERSE_MAX_KIDS, VERSE_MIN, type Item, type Known, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
 import { exampleOf, type Dict, type Word } from '../src/core/words';
 import { readFileSync } from 'node:fs';
 import { mergeSnapshots } from '../src/core/sync';
@@ -121,12 +121,18 @@ for (const locale of ['ru', 'en', 'de'] as const) {
   if (kidsVerse.length < 8) err(`слова Торы ${locale}: стихов для «Составьте стих» — ${kidsVerse.length}`);
   for (const it of kidsVerse) {
     const v = it.verse!;
-    if (v.words.length < VERSE_MIN || v.words.length > VERSE_MAX || !v.tr.trim() || /</.test(v.tr) || !/\d[:,]\d/.test(v.ref))
+    if (v.words.length < VERSE_MIN || v.words.length > VERSE_MAX_KIDS || !v.tr.trim() || /</.test(v.tr) || !/\d[:,]\d/.test(v.ref))
       err(`слова Торы ${locale}: стих ${v.ref} к ${it.he} — не тот`);
     if (!` ${v.words.join(' ')} `.includes(` ${it.he} `)) err(`слова Торы ${locale}: в стихе ${v.ref} нет слова ${it.he}`);
   }
-  if (!twu.some((u) => u.items.some((it) => it.verse && makeLesson(u, [it]).some((x) => x.t === 'build' && x.verse))))
-    err(`слова Торы ${locale}: в уроках нет «Составьте стих»`);
+  // every lesson of a portion with verses — the new words', a review, the exam — has one «Составьте стих»
+  const hasVerse = (l: Exercise[]) => l.some((x) => x.t === 'build' && x.verse);
+  for (const u of twu) {
+    if (!u.verses?.length) err(`слова Торы ${locale}: у ${u.id} нет коротких стихов Торы`);
+    for (let k = 0; k < 5; k++)
+      if (!hasVerse(makeLesson(u, u.items.slice(0, 6))) || !hasVerse(makeLesson(u, null)) || !hasVerse(makeExam(u)))
+        err(`слова Торы ${locale}: в уроке ${u.id} нет «Составьте стих»`);
+  }
   checkUnits(twu, `слова Торы ${locale}`);
   const dict: Dict = { words, total: 0, rank: new Map(words.map((w, i) => [w.id, i + 1])), tr: TR[locale] };
   // «Составьте стих»: the example verses of the words (public/tanakh/words/examples-<lang>.json)
