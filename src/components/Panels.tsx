@@ -281,10 +281,11 @@ export function Panels() {
             </>
           ))}
           {link('#/nigun', <Icon name="music" />, t('nigun.title'), t('nigun.menuSub'))}
-          {group(<Icon name="grid" />, t('menu.misc'), t('menu.miscSub'), starts('#/facts', '#/daily', '#/quiz', '#/shabbat-table'), (
+          {group(<Icon name="grid" />, t('menu.misc'), t('menu.miscSub'), starts('#/facts', '#/daily', '#/quiz', '#/shabbat-table', '#/digest'), (
             <>
               {lessonSlug && link(`#/${lessonSlug}/print`, <Icon name="print" />, t('print.button'))}
               {link('#/shabbat-table', <Icon name="print" />, t('table.title'), t('table.menuSub'))}
+              {link('#/digest', <Icon name="print" />, t('digest.title'), t('digest.menuSub'))}
               {link('#/quiz', <Icon name="phone" />, t('lq.title'), t('lq.menuSub'))}
               {link('#/facts', <Icon name="hash" />, t('facts.title'), t('facts.menuSub'))}
             </>
