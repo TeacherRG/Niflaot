@@ -18,6 +18,8 @@ import { Icon } from './ui';
 import { lessonGames } from './lessonGames';
 import { lessonArt } from '../core/art';
 import { useMode } from '../core/mode';
+import { useCourses, type Course } from '../core/courses';
+import { CoursesCard } from './CoursesCard';
 
 /** «Гематрия дня» on the home screen: today's number, or the result when today's word is solved. */
 function DailyLink() {
@@ -80,8 +82,9 @@ function PlanRow({ href, title, sub, done, go, he }: { href: string; title: stri
 /**
  * The adults' home («Подростки и взрослые», src/core/mode.ts; the design «Нифлаот — новая главная»): bookish and quiet.
  * «Сегодня учим в Академии» — the date and the plan of the day as one list (src/core/todayStudy.ts): the Prophets, the Writings, Chassidut,
- * «Мои слова», each with ✓, «N из M сделано» and the streak; the first thing to do has «Читать». On a phone it all fits one screen. Beside it — the week's
- * Torah lessons to read, the next certificate of the Academy, «Знаете ли вы?» and «Викторина вместе». No games or ages.
+ * «Мои слова» — only the courses chosen (src/core/courses.ts; the Prophets and Writings at one's own pace — the first passage not read),
+ * each with ✓, «N из M сделано» and the streak; the first thing to do has «Читать». On a phone it all fits one screen. Beside it — the week's
+ * Torah lessons to read (the same for everyone), «Мои курсы» (CoursesCard.tsx), «Знаете ли вы?» and «Викторина вместе». No games or ages.
  */
 function AdultsHome() {
   const { t, pick, locale } = useI18n();
@@ -89,24 +92,28 @@ function AdultsHome() {
     document.title = `${t('home.adultsH1')} · ${t('app.title')} · MyChitas`;
   }, [t]);
   const h = useHabit();
-  const d = useToday(locale);
+  const courses = useCourses('adults');
+  const d = useToday(locale, true, courses.pace);
   const week = LESSON_GROUPS[LESSON_GROUPS.length - 1];
   const reads = [...week.lessons, ...week.rebbe];
   const now = new Date();
   const iso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
   const civil = now.toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long' });
-  const count = d && todayCount(d);
+  const count = d && todayCount(d, courses.c);
   const min = (n?: number) => (n ? ` · ${t('tanakh.readingTime', { n })}` : '');
 
   // the plan of the day; the first one not done gets «Читать» (words — «Учить» / «Повторить»)
+  // at one's own pace a passage of the Prophets / Writings is the first one not read, on its own day of the cycle
+  const own = courses.pace === 'own';
   const rows = d
     ? [
-        { href: '#/neviim', title: t('tanakh.neviim'), sub: d.neviim.range + min(d.neviim.min), done: d.neviim.done, he: 'נביאים', go: t('read.tab') },
-        { href: '#/ketuvim', title: t('tanakh.ketuvim'), sub: d.ketuvim.range + min(d.ketuvim.min), done: d.ketuvim.done, he: 'כתובים', go: t('read.tab') },
+        { id: 'neviim', href: own ? `#/neviim/${d.neviim.date}` : '#/neviim', title: t('tanakh.neviim'), sub: d.neviim.range + min(d.neviim.min), done: d.neviim.done, he: 'נביאים', go: t('read.tab') },
+        { id: 'ketuvim', href: own ? `#/ketuvim/${d.ketuvim.date}` : '#/ketuvim', title: t('tanakh.ketuvim'), sub: d.ketuvim.range + min(d.ketuvim.min), done: d.ketuvim.done, he: 'כתובים', go: t('read.tab') },
         'title' in d.hs
-          ? { href: '#/hemshech', title: t('hs.menuLbl'), sub: d.hs.title + min(d.hs.min), done: d.hs.done, go: t('read.tab') }
-          : { href: '#/hemshech', title: t('hs.menuLbl'), sub: t('hs.startsOn', { date: d.hs.starts }), done: false },
+          ? { id: 'hemshech', href: `#/hemshech/${d.hs.id}`, title: t('hs.menuLbl'), sub: d.hs.title + min(d.hs.min), done: d.hs.done, go: t('read.tab') }
+          : { id: 'hemshech', href: '#/hemshech', title: t('hs.menuLbl'), sub: t('hs.startsOn', { date: d.hs.starts }), done: false },
         {
+          id: 'lashon',
           href: '#/words',
           title: t('words.mine'),
           sub: d.words.any ? (d.words.due ? t('words.homeSub', { d: d.words.due, k: d.words.known }) : t('words.homeSubDone', { k: d.words.known })) : t('words.homeStart'),
@@ -114,7 +121,7 @@ function AdultsHome() {
           he: 'מִלִּים',
           go: t(d.words.due ? 'words.homeReview' : 'words.homeCta'),
         },
-      ]
+      ].filter((r) => courses.c.includes(r.id as Course))
     : [];
   const first = rows.findIndex((r) => !r.done && r.go);
 
@@ -128,7 +135,7 @@ function AdultsHome() {
           </span>
           <div className="a-head">
             <h1 id="a-h1">{t('home.todayH1')}</h1>
-            {count && (
+            {count && count.total > 0 && (
               <span className="a-count">
                 <b>{t('home.todayCount', { n: count.done, total: count.total })}</b>
                 {h.streak > 0 && ` · ${t('habit.streak', { n: h.streak })}`}
@@ -136,13 +143,18 @@ function AdultsHome() {
             )}
           </div>
           <span className="a-bar" aria-hidden="true">
-            <span style={{ width: count ? `${Math.round((count.done / count.total) * 100)}%` : 0 }} />
+            <span style={{ width: count?.total ? `${Math.round((count.done / count.total) * 100)}%` : 0 }} />
           </span>
           <ul className="a-plan">
             {rows.map((r, k) => (
-              <PlanRow key={r.href} {...r} go={k === first ? r.go : undefined} />
+              <PlanRow key={r.id} {...r} go={k === first ? r.go : undefined} />
             ))}
           </ul>
+          {d && !rows.length && (
+            <p className="a-short">
+              {t('courses.planEmpty')} <a href="#/account">{t('courses.choose')} →</a>
+            </p>
+          )}
           {h.repair && <Repair day={h.repair.day} streak={h.repair.streak} pending={h.pending === h.repair.day} adults locale={locale} />}
           <p className="a-short">
             {t('habit.short')} <a href="#/daily">{t('habit.shortDaily')}</a>
@@ -170,24 +182,7 @@ function AdultsHome() {
               </ul>
             </section>
           )}
-          <a className="a-cert" href="#/academy">
-            <span className="a-cert-k">
-              {t('academy.title')} · {d?.book ? t('home.nextCert') : t('academy.menuSub')}
-            </span>
-            {d?.book && (
-              <>
-                <span className="a-cert-t">
-                  {t('academy.master.tanakh')} {d.book.name}
-                  <span className="a-cert-s" title={t('academy.readDays', { done: d.book.done, parts: d.book.parts, pct: Math.round((d.book.done / d.book.parts) * 100) })}>
-                    {d.book.done}/{d.book.parts}
-                  </span>
-                </span>
-                <span className="a-bar" aria-hidden="true">
-                  <span style={{ width: `${Math.round((d.book.done / d.book.parts) * 100)}%` }} />
-                </span>
-              </>
-            )}
-          </a>
+          <CoursesCard />
           <PhoneOffer />
           <p className="a-links">
             <a href="#/facts">{t('facts.title')} →</a>
@@ -380,6 +375,7 @@ function KidsHome() {
 
           <div className="k-side">
             <HabitCard compact />
+            <CoursesCard />
             <DailyLink />
             <TableLink />
             <WeekCountdown />

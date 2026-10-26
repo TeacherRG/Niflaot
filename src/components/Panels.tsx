@@ -3,6 +3,7 @@ import { Html, useI18n } from '../i18n';
 import { LESSON_GROUPS, findLesson, weekParsha, type Lesson } from '../lessons';
 import { teacherOf } from '../lessons/teachers';
 import { useMode } from '../core/mode';
+import { useCourses } from '../core/courses';
 import { VALUES } from '../core/gematria';
 import { OPS, SIGN } from '../core/mentalMath';
 import { Icon, Sheet, useUI } from './ui';
@@ -113,8 +114,12 @@ export function Panels() {
   const { panel, open, lessonSlug } = useUI();
   const level = useHebrewLevel();
   const installable = useSyncExternalStore(subscribeInstall, canInstall, () => false);
-  const kids = useMode() === 'kids';
-  const today = useToday(locale, panel === 'menu');
+  const mode = useMode();
+  const kids = mode === 'kids';
+  const pace = useCourses(mode).pace;
+  const today = useToday(locale, panel === 'menu', pace);
+  // at one's own pace (src/core/courses.ts) — the first passage not read, on its own day
+  const tk = (sec: 'neviim' | 'ketuvim') => (pace === 'own' && today ? `#/${sec}/${today[sec].date}` : `#/${sec}`);
   const close = () => open(null);
   const hash = location.hash.split('?')[0];
   // the page a menu link points to is open (#/<slug> or #/<slug>/memo, #/<slug>/cards)
@@ -262,8 +267,8 @@ export function Panels() {
                   <div className="menu-sub">{torah}</div>
                 </details>
               )}
-              {link('#/neviim', num('נ', true), t('menu.neviim'), today?.neviim.range ?? t('tanakh.daySub'), today?.neviim.done)}
-              {link('#/ketuvim', num('כ', true), t('menu.ketuvim'), today?.ketuvim.range ?? t('tanakh.daySub'), today?.ketuvim.done)}
+              {link(tk('neviim'), num('נ', true), t('menu.neviim'), today?.neviim.range ?? t('tanakh.daySub'), today?.neviim.done)}
+              {link(tk('ketuvim'), num('כ', true), t('menu.ketuvim'), today?.ketuvim.range ?? t('tanakh.daySub'), today?.ketuvim.done)}
             </>
           ))}
           {group(<Icon name="chat" />, t('academy.fac.lashon'), t('menu.lashonSub'), starts('#/lashon', '#/torah-words', '#/words', '#/letters'), (

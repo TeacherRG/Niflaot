@@ -3,20 +3,33 @@ import { useI18n } from '../i18n';
 import { NIFLAOT_LOGO } from '../core/partners';
 import { HEBREW_LEVELS, savedHebrewLevel, setHebrewLevel, type HebrewLevel } from '../core/hebrewLevel';
 import { setMode, useSavedMode, type Mode } from '../core/mode';
+import { COURSES, PACES, defaultCourses, savedCourses, setCourses, type Course, type Pace } from '../core/courses';
 import { Colophon } from './Colophon';
 import { TopBar } from './TopBar';
 
 /**
  * The onboarding — one window on the first visit instead of the home page (and at `#/mode`): two short questions,
  * 1) who is learning — the children's site or the adults' one (src/core/mode.ts),
- * 2) «Как вы с ивритом?» — how much help the letters get (src/core/hebrewLevel.ts);
- * «Начать» saves both and opens the home page. Both are changed later in the account window (👤).
+ * 2) «Как вы с ивритом?» — how much help the letters get (src/core/hebrewLevel.ts),
+ * 3) «Что вы хотите учить?» — the courses besides the weekly Torah portion (src/core/courses.ts), none or several, and for
+ *    the Prophets and Writings — at one's own pace or with the Academy;
+ * «Начать» saves the answers and opens the home page. All are changed later in the account window (👤).
  */
 export function ModePicker() {
   const { t } = useI18n();
   const saved = useSavedMode();
   const [mode, pickMode] = useState<Mode | null>(saved);
   const [level, pickLevel] = useState<HebrewLevel | null>(savedHebrewLevel);
+  const [courses, pickCourses] = useState<Course[]>(() => savedCourses()?.c ?? (saved ? defaultCourses(saved).c : []));
+  const [pace, pickPace] = useState<Pace>(() => savedCourses()?.pace ?? 'own');
+  // until the player touches the courses, they follow the mode (its usual courses ticked)
+  const [touched, touch] = useState(() => savedCourses() !== null);
+  const toggle = (c: Course) => (touch(true), pickCourses((x) => (x.includes(c) ? x.filter((y) => y !== c) : [...x, c])));
+  const choose = (m: Mode) => {
+    pickMode(m);
+    if (!touched) pickCourses(defaultCourses(m).c);
+  };
+  const tanakh = courses.includes('neviim') || courses.includes('ketuvim');
 
   useEffect(() => {
     document.title = `${t('mode.title')} · ${t('app.title')}`;
@@ -25,6 +38,7 @@ export function ModePicker() {
   const start = () => {
     if (!mode || !level) return;
     setHebrewLevel(level);
+    setCourses({ c: courses, pace });
     try {
       localStorage.setItem('niflaot:help-seen', '1');
     } catch {}
@@ -48,7 +62,7 @@ export function ModePicker() {
         </h1>
         <div className="mode-opts" role="radiogroup" aria-labelledby="mode-q1">
           {(['kids', 'adults'] as const).map((m) => (
-            <button key={m} role="radio" aria-checked={mode === m} className={`mode-opt ${m}${mode === m ? ' on' : ''}`} onClick={() => pickMode(m)}>
+            <button key={m} role="radio" aria-checked={mode === m} className={`mode-opt ${m}${mode === m ? ' on' : ''}`} onClick={() => choose(m)}>
               <span className="mode-ico" aria-hidden="true">
                 {m === 'kids' ? '🧩' : '📖'}
               </span>
@@ -69,6 +83,32 @@ export function ModePicker() {
             </button>
           ))}
         </div>
+        <h2 id="mode-q3" className="mode-q">
+          <span className="mode-n">3</span>
+          {t('courses.q')}
+        </h2>
+        <p className="mode-sub">{t('courses.qSub')}</p>
+        <div className="mode-courses" role="group" aria-labelledby="mode-q3">
+          {COURSES.map((c) => (
+            <button key={c} role="checkbox" aria-checked={courses.includes(c)} className={`mode-hb-opt${courses.includes(c) ? ' on' : ''}`} onClick={() => toggle(c)}>
+              <b>
+                <span className="mode-tick" aria-hidden="true">{courses.includes(c) ? '✓' : '+'}</span> {t(`courses.${c}`)}
+              </b>
+              <small>{t(`courses.${c}.sub`)}</small>
+            </button>
+          ))}
+        </div>
+        {tanakh && (
+          <div className="mode-pace" role="radiogroup" aria-label={t('courses.paceQ')}>
+            <span>{t('courses.paceQ')}</span>
+            {PACES.map((p) => (
+              <button key={p} role="radio" aria-checked={pace === p} className={`mode-pace-opt${pace === p ? ' on' : ''}`} onClick={() => pickPace(p)}>
+                <b>{t(`courses.pace.${p}`)}</b>
+                <small>{t(`courses.pace.${p}.sub`)}</small>
+              </button>
+            ))}
+          </div>
+        )}
         <button className="btn mode-start" disabled={!mode || !level} onClick={start}>
           {t('mode.start')} →
         </button>
