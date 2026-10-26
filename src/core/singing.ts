@@ -1,13 +1,14 @@
+import { PitchDetector } from 'pitchy';
+
 /**
  * «Петь в микрофон» (Karaoke.tsx): the singer's voice is compared with the recording — note by note, octave aside
  * (a child or a woman sings an octave up). The only place the site asks for the microphone, and only after a tap on
  * «Петь в микрофон»; the sound is analysed right here on the device — nothing is recorded or sent, and the microphone
  * is turned off when the singing stops.
  *
- * The reference: the pitch of the recording every 50 ms (`public/nigun/<id>.pitch.json`, scripts/nigun-pitch.py,
- * the same detector). Lenient on purpose — a phone microphone, an untrained voice: a line scores by the share of the
- * recording's notes the singer meets within TOLERANCE, the singer a little early (EARLY) or late (LATE — the phone's
- * speaker or Bluetooth headphones and the microphone add their own delay, and a line lasts only 2–5 s), of the moments
+ * The reference: the pitch of the recording every 50 ms (`public/nigun/<id>.pitch.json`, scripts/nigun-pitch.py).
+ * Lenient on purpose — a phone microphone, an untrained voice: a line scores by the share of the recording's notes
+ * the singer meets within TOLERANCE, the singer a little early (EARLY) or late (LATE — the phone's speaker or Bluetooth headphones and the microphone add their own delay, and a line lasts only 2–5 s), of the moments
  * the microphone heard a note (not less than HEARD of the line — a breath or a lost frame is no loss).
  * SING_FLOOR of them — still nothing (a monotone hum meets that much by chance), SING_PASS — the full 10 points.
  * Calibrated on the recording's own melody (scripts/check-nigun.ts): exact, 0.8 s late, the microphone hearing a quarter
@@ -40,37 +41,21 @@ export const pitchDistance = (a: number, b: number) => {
   return Math.min(d, 12 - d);
 };
 
-/** The pitch of a frame of sound (autocorrelation; 70–1000 Hz) as a MIDI note, or 0 — silence (below `quiet`) or no clear note. */
-export function detectPitch(buf: Float32Array, sampleRate: number, quiet = 0.01): number {
-  const n = buf.length;
-  let mean = 0;
-  for (let i = 0; i < n; i++) mean += buf[i];
-  mean /= n;
+/** pitchy's clarity (0–1) of a real note; below it the frame is noise, a breath or a consonant */
+export const CLARITY = 0.8;
+
+/**
+ * The pitch of a frame of the microphone as a MIDI note (70–1000 Hz), or 0 — silence (below MIC_QUIET) or no clear note.
+ * The detector is pitchy (the McLeod Pitch Method, 0BSD — github.com/ianprime0509/pitchy): a tuner's algorithm, steadier
+ * on a soft voice than the plain autocorrelation the site had before (26.10.2026).
+ */
+export function micPitch(detector: PitchDetector<Float32Array>, buf: Float32Array, sampleRate: number): number {
   let energy = 0;
-  for (let i = 0; i < n; i++) energy += (buf[i] - mean) ** 2;
-  if (Math.sqrt(energy / n) < quiet) return 0;
-  const lo = Math.floor(sampleRate / 1000);
-  const hi = Math.min(n - 1, Math.ceil(sampleRate / 70));
-  const ac = new Float32Array(hi + 2);
-  for (let lag = lo - 1; lag <= hi + 1; lag++) {
-    let s = 0;
-    for (let i = 0; i + lag < n; i++) s += (buf[i] - mean) * (buf[i + lag] - mean);
-    ac[lag] = s / energy;
-  }
-  let k = lo;
-  for (let lag = lo; lag <= hi; lag++) if (ac[lag] > ac[k]) k = lag;
-  const best = ac[k];
-  if (best < 0.45) return 0;
-  // the first peak close to the best one — not an octave below it
-  for (let lag = lo; lag <= hi; lag++)
-    if (ac[lag] >= 0.9 * best && ac[lag] >= ac[lag - 1] && ac[lag] >= ac[lag + 1]) {
-      k = lag;
-      break;
-    }
-  const [a, b, c] = [ac[k - 1], ac[k], ac[k + 1]];
-  const d = (a - c) / (2 * (a - 2 * b + c) || 1);
-  const lag = k + Math.max(-1, Math.min(1, d));
-  return 69 + 12 * Math.log2(sampleRate / lag / 440);
+  for (let i = 0; i < buf.length; i++) energy += buf[i] * buf[i];
+  if (Math.sqrt(energy / buf.length) < MIC_QUIET) return 0;
+  const [hz, clarity] = detector.findPitch(buf, sampleRate);
+  if (clarity < CLARITY || hz < 70 || hz > 1000) return 0;
+  return 69 + 12 * Math.log2(hz / 440);
 }
 
 /** The recording's note at second `t`, or 0. */
@@ -116,9 +101,9 @@ export const lineStars = (points: number) => (points >= SING_POINTS ? 3 : points
 
 /** The microphone, on a tap: the stream and an analyser; `stop()` turns everything off. */
 export async function openMic(): Promise<{ read: () => number; stop: () => void }> {
-  // the singer's own voice: no echo of the recording through the speakers; the automatic volume on — a phone's microphone
-  // is quiet, and without it most of a soft voice fell under the silence threshold
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: false, autoGainControl: true } });
+  // the singer's own voice: no echo of the recording through the speakers; no automatic volume — on some phones (Samsung)
+  // it squeezes a singing voice down, and pitchy finds the note of a soft voice anyway (above MIC_QUIET)
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: false, autoGainControl: false } });
   const ctx = new AudioContext();
   await ctx.resume();
   const src = ctx.createMediaStreamSource(stream);
@@ -126,10 +111,11 @@ export async function openMic(): Promise<{ read: () => number; stop: () => void 
   an.fftSize = 2048;
   src.connect(an);
   const buf = new Float32Array(an.fftSize);
+  const detector = PitchDetector.forFloat32Array(an.fftSize);
   return {
     read: () => {
       an.getFloatTimeDomainData(buf);
-      return detectPitch(buf, ctx.sampleRate, MIC_QUIET);
+      return micPitch(detector, buf, ctx.sampleRate);
     },
     stop: () => {
       stream.getTracks().forEach((t) => t.stop());
