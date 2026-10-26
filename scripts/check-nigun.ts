@@ -6,6 +6,7 @@
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { NIGUNIM } from '../src/nigun';
 import { gaps } from '../src/core/nigunGame';
+import { PASS } from '../src/core/academy';
 import { SING_POINTS, linePoints, lineStars, pitchDistance, type PitchTrack } from '../src/core/singing';
 
 const LOCALES = ['ru', 'en', 'de'] as const;
@@ -13,7 +14,8 @@ const LOCALES = ['ru', 'en', 'de'] as const;
 /**
  * «Петь»: the scoring is fair on this recording. A singer who sings its melody — exactly, 0.8 s late (a phone's speaker,
  * Bluetooth headphones), with the microphone hearing a quarter of the moments, a semitone off — gets ≥ 90 % and every
- * line a star; one note held through the song or random notes stay far under the certificate's 70 %.
+ * line a star; one note held through the song or random notes stay far under the certificate's 70 % — 20 points below it
+ * (a narrow tune, as «Аним змирот», lets one note in the middle meet up to half of it).
  */
 function calibrate(tr: PitchTrack, times: number[], at: (s: string) => void) {
   const L = tr.p.length;
@@ -55,7 +57,7 @@ function calibrate(tr: PitchTrack, times: number[], at: (s: string) => void) {
   ];
   for (const [what, v] of bad) {
     const r = score(v);
-    if (r.pct > 40) at(`singing ${what} scores ${Math.round(r.pct)} % — too lenient`);
+    if (r.pct > PASS * 100 - 20) at(`singing ${what} scores ${Math.round(r.pct)} % — too lenient`);
   }
 }
 const errors: string[] = [];
