@@ -2541,3 +2541,24 @@ body:has(.a-home){background:var(--plain)}
   .ded-name{font-size:24px}
 }
 @media print{.dedication{display:none}}
+/* «Неделя в Академии» (WeekDigest.tsx): day by day — the day and the passage, then a short quote */
+.wd-range{margin:2px 0 0;font-size:15px;color:#555}
+.wd-days{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.wd-day{break-inside:avoid}
+.wd-when{margin:0 0 2px;font-size:13.5px}
+.wd-when a{color:#1F4E79;text-decoration:none}
+.wd-quote{margin:0;padding:2px 0 2px 12px;border-inline-start:3px solid #d9c9a3}
+.wd-quote p{margin:0}
+.wd-quote .he{font-size:19px;line-height:1.45}
+.wd-tr{font-style:italic;color:#333}
+.wd-ref{font-style:normal;font-size:12.5px;color:#666}
+.wd-read{color:#555}
+.wd-line{margin:0 0 4px;break-inside:avoid}
+.wd-read{font-style:normal}
+.wd .st-note a{color:#1F4E79}
+@media print{
+  .wd .wd-quote .he{font-size:15px;line-height:1.35}
+  .wd .wd-days{gap:4px}
+  .wd .wd-when{font-size:9pt}
+  .wd .wd-song{columns:2;column-gap:20px}
+}
