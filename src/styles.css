@@ -2183,37 +2183,16 @@ body:has(.k-home){background:var(--warm)}
   .top-in.wide .brand{display:block}
 }
 
-/* the adults' home (Catalog.tsx, AdultsHome; the design «Нифлаот — новая главная»): bookish and quiet — «Сегодня» with
-   the plan of the day as one list of ticks, beside it the week's Torah to read and the next certificate */
+/* the adults' home (Catalog.tsx, AdultsHome; the design «Нифлаот — новая главная»): bookish and quiet — «Мои курсы» as
+   the main block (CoursesCard lead: the streak, today's ✓, «Читать» on the first not done), beside it the week's Torah to read */
 body:has(.a-home){background:var(--plain)}
 .a-home{max-width:1180px;margin:0 auto;padding:36px 0 12px;display:flex;flex-wrap:wrap;gap:28px 72px;align-items:flex-start}
-.a-today{flex:3 1 520px;min-width:0;display:grid;gap:6px}
-.a-date{font-size:14px;color:var(--muted)}
-.a-date::first-letter{text-transform:uppercase}
-.a-date .he,.a-side h2 .he{font-family:var(--f-he)}
-.a-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 20px}
-.a-head h1{margin:0;font-family:var(--f-display);font-weight:700;font-size:clamp(44px,6vw,64px);line-height:1}
-.a-count{font-size:15px;color:var(--muted)}
-.a-count b{color:var(--ink)}
 .a-bar{display:block;height:4px;border-radius:2px;background:var(--line-soft);overflow:hidden}
 .a-bar>span{display:block;height:100%;border-radius:2px;background:var(--tchelet-deep);transition:width .4s}
-.a-today>.a-bar{margin:12px 0 4px}
-.a-plan{list-style:none;margin:0;padding:0}
-.a-plan li+li{border-top:1px solid var(--line-soft)}
-.a-row{display:grid;grid-template-columns:32px minmax(0,170px) minmax(0,1fr) auto;align-items:center;gap:6px 20px;min-height:80px;padding:8px 0;color:var(--ink);text-decoration:none}
-.a-check{display:grid;place-items:center;width:32px;height:32px;box-sizing:border-box;border-radius:50%;border:2px solid var(--ring);color:#fff}
-.a-row.done .a-check{border:0;background:var(--tchelet-deep)}
-.a-row-t{font-family:var(--f-display);font-weight:700;font-size:28px;line-height:1.05}
-.a-row.done .a-row-t{color:var(--muted)}
-.a-row-s{font-size:16px;color:var(--ink-3)}
-.a-row.done .a-row-s{color:var(--muted)}
-.a-row-he{font-family:var(--f-he);font-size:18px;color:var(--muted-2)}
-.a-go{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border-radius:12px;background:var(--tchelet-deep);color:#fff;font-weight:800;font-size:15px}
-.a-row:hover .a-row-t{color:var(--tchelet)}
-.a-row:hover .a-go{filter:brightness(1.12)}
-.a-short{margin:10px 0 0;font-size:14px;color:var(--muted)}
-.a-today .habit-repair{margin-top:8px}
-.a-side{flex:2 1 300px;min-width:0;display:grid;gap:26px;padding-top:30px}
+.a-main{flex:3 1 520px;min-width:0;display:grid;gap:12px}
+.a-short{margin:0;font-size:14px;color:var(--muted)}
+.a-short a{color:var(--tchelet)}
+.a-side{flex:2 1 300px;min-width:0;display:grid;gap:26px}
 .a-side h2{margin:0 0 8px;font-family:var(--f-display);font-weight:700;font-size:28px;line-height:1.1}
 .a-side h2 .he{font-size:21px;color:var(--tchelet)}
 .a-week{list-style:none;margin:0;padding:0;border-bottom:1px solid var(--line-soft)}
@@ -2232,31 +2211,13 @@ body:has(.a-home){background:var(--plain)}
 @media (prefers-reduced-motion:reduce){.a-bar>span{transition:none}}
 @media (max-width:640px){
   .a-home{padding-top:20px;gap:28px}
-  .a-head h1{font-size:44px}
-  .a-row{grid-template-columns:28px minmax(0,1fr) auto;grid-template-areas:"c t g" "c s g";column-gap:14px;row-gap:2px;min-height:64px;padding:10px 0}
-  .a-check{grid-area:c;width:28px;height:28px}
-  .a-row-t{grid-area:t;font-size:21px}
-  .a-row-s{grid-area:s;font-size:13px;color:var(--muted)}
-  .a-go,.a-row-he{grid-area:g}
-  .a-go{min-height:40px;padding:0 14px;font-size:14px}
-  .a-row-he{font-size:15px}
-  .a-side{padding-top:0;gap:22px}
+  .a-side{gap:22px}
   .a-side h2{font-size:24px}
   .a-week-t{font-size:20px}
-  /* a phone: «Сегодня учим в Академии» and all beside it fit one screen */
+  /* a phone: it all fits one screen */
   .a-home{padding-top:12px;gap:16px}
-  .a-date{font-size:12.5px}
-  .a-head h1{font-size:28px;line-height:1.1}
-  .a-count{font-size:13px}
-  .a-today>.a-bar{margin:6px 0 0}
-  .a-row{min-height:50px;padding:6px 0;column-gap:12px}
-  .a-check{width:24px;height:24px}
-  .a-row-t{font-size:18px}
-  .a-row-s{font-size:12.5px}
-  .a-go{min-height:36px;padding:0 12px;font-size:13px}
-  .a-row-he{font-size:14px}
-  .a-short{margin-top:4px;font-size:13px}
-  .a-side{gap:12px}
+  .a-side,.a-main{gap:12px}
+  .a-short{font-size:13px}
   .a-side h2{margin-bottom:2px;font-size:18px}
   .a-side h2 .he{font-size:16px}
   .a-week a{padding:7px 0;gap:0}
@@ -2508,6 +2469,34 @@ body:has(.a-home){background:var(--plain)}
 .courses-chip a{padding:3px 4px 3px 10px;color:var(--ink);font-weight:600;text-decoration:none}
 .courses-chip a:hover{color:var(--tchelet)}
 .courses-chip button{padding:3px 10px 3px 6px;border:0;background:none;color:var(--tchelet);font:inherit;font-weight:800;cursor:pointer}
+/* «Мои курсы» as the main block of the adults' home: bigger, the streak line, ✓ for today, «Читать» on the first one to do */
+.courses.lead{gap:10px;padding:24px 28px;border-radius:20px}
+.courses.lead h2{font-size:clamp(32px,4vw,44px);line-height:1}
+.courses-status{margin:-2px 0 4px;font-size:15px;color:var(--muted)}
+.courses-status b{color:var(--ink)}
+.courses.lead ul{gap:0}
+.courses.lead li+li{border-top:1px solid var(--tchelet-line)}
+.courses.lead .courses-row{grid-template-columns:minmax(0,1fr) auto auto;align-items:center;padding:14px 0;column-gap:16px}
+.courses.lead .courses-t{font-family:var(--f-display);font-size:24px;line-height:1.1}
+.courses.lead .courses-t small{font-family:var(--f-body);font-size:13px}
+.courses.lead .courses-n{font-size:14px}
+.courses.lead .courses-s{font-size:14.5px;grid-column:1/3}
+.courses.lead .courses-row .a-bar{grid-column:1/3}
+.courses.lead .courses-row:not(.go){grid-template-columns:minmax(0,1fr) auto}
+.courses.lead .courses-row:not(.go) .courses-s,.courses.lead .courses-row:not(.go) .a-bar{grid-column:1/-1}
+.courses.lead .courses-row.today .courses-t{color:var(--muted)}
+.courses-tick{color:var(--ok);font-weight:800}
+.courses-go{grid-column:3;grid-row:1/span 3;display:inline-flex;align-items:center;min-height:44px;padding:0 22px;border-radius:12px;background:var(--tchelet-deep);color:#fff;font-weight:800;font-size:15px}
+.courses-row.go:hover .courses-go{filter:brightness(1.12)}
+@media (max-width:640px){
+  .courses.lead{padding:14px 16px;border-radius:16px;gap:6px}
+  .courses.lead h2{font-size:26px}
+  .courses-status{font-size:13px;margin:0}
+  .courses.lead .courses-row{padding:8px 0;column-gap:10px}
+  .courses.lead .courses-t{font-size:18px}
+  .courses.lead .courses-s{font-size:12.5px}
+  .courses-go{min-height:36px;padding:0 14px;font-size:13px}
+}
 .mode-later{margin:14px 0 0}
 @media (max-width:640px){.courses-more{font-size:11.5px}.courses-chip a{padding:2px 3px 2px 8px}.courses-chip button{padding:2px 8px 2px 4px}}
 

@@ -221,6 +221,7 @@ const de: Messages = {
   'courses.q': "Was möchtest du lernen?",
   'courses.qSub': "Den Wochenabschnitt der Tora — Baal HaTurim und „Niflaot des Rebben“ — haben alle. Füge die Kurse hinzu, die du machen willst: keinen, einen oder mehrere.",
   'courses.title': "Meine Kurse",
+  'courses.todayDone': "heute {n} von {total}",
   'courses.neviim': "Newiim — Propheten",
   'courses.neviim.sub': "Jehoschua, Schoftim, Schmuel … mit Mezudat David",
   'courses.ketuvim': "Ketuwim — Schriften",

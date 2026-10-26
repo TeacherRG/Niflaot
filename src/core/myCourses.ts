@@ -26,12 +26,21 @@ export interface CourseRow {
   book?: { name: string; done: number; parts: number };
   /** the course is finished (or today's part of it is done) */
   finished?: boolean;
+  /** today's part is done: the passage of the day read, or (at one's own pace) a passage marked today; «Святой язык» — the day's goal */
+  today?: boolean;
   /** the Chassidut has not started yet: the day it opens */
   starts?: string;
   href: string;
 }
 
 type Lang = 'ru' | 'en' | 'de';
+
+/** a mark («Я прочитал(а)», time in s; taken back — negative) was made on this local day */
+const markedOn = (t: number, today: string) => {
+  if (!(t > 0)) return false;
+  const d = new Date(t * 1000);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}` === today;
+};
 const langOf = (locale: string): Lang => (locale === 'en' || locale === 'de' ? locale : 'ru');
 
 function tanakh(sec: Section, pace: Pace, lang: Lang, today: string): CourseRow {
@@ -46,6 +55,7 @@ function tanakh(sec: Section, pace: Pace, lang: Lang, today: string): CourseRow 
     next: rangeLabel(sec, day[sec], lang),
     book: book && { name: book.book.name[lang], done: book.done, parts: book.days.length },
     finished: isDone(store, day.date, sec),
+    today: isDone(store, day.date, sec) || Object.entries(store).some(([k, v]) => k.endsWith(`:${sec}`) && markedOn(v, today)),
     href: `#/${sec}/${day.date}`,
   };
 }
@@ -57,13 +67,14 @@ function hemshech(pace: Pace, locale: string, lang: Lang, today: string): Course
   const k = hsNextIndex(pace, read, today);
   if (k < 0) return { id: 'hemshech', done, total: all.length, starts: civilDate(passageDate(0), lang), href: '#/hemshech' };
   const p = all[k].p;
-  return { id: 'hemshech', done, total: all.length, next: p.title[hsLang(locale)], finished: hsIsDone(read, p.id), href: `#/hemshech/${p.id}` };
+  const today_ = hsIsDone(read, p.id) || Object.values(read).some((v) => markedOn(v, today));
+  return { id: 'hemshech', done, total: all.length, next: p.title[hsLang(locale)], finished: hsIsDone(read, p.id), today: today_, href: `#/hemshech/${p.id}` };
 }
 
 function lashon(): CourseRow {
   const s = readCourse();
   const xp = xpToday(s);
-  return { id: 'lashon', done: Math.min(xp, GOAL), total: GOAL, next: String(Object.keys(s.s).length), finished: xp >= GOAL, href: '#/lashon' };
+  return { id: 'lashon', done: Math.min(xp, GOAL), total: GOAL, next: String(Object.keys(s.s).length), finished: xp >= GOAL, today: xp >= GOAL, href: '#/lashon' };
 }
 
 function nigun(locale: string): CourseRow {

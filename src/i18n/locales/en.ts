@@ -221,6 +221,7 @@ const en: Messages = {
   'courses.q': "What would you like to learn?",
   'courses.qSub': "The weekly Torah portion — the Baal HaTurim and “Niflaot of the Rebbe” — is for everyone. Add the courses you want to follow: none, one or several.",
   'courses.title': "My courses",
+  'courses.todayDone': "today {n} of {total}",
   'courses.neviim': "Nevi’im — Prophets",
   'courses.neviim.sub': "Joshua, Judges, Samuel… with Metzudat David",
   'courses.ketuvim': "Ketuvim — Writings",
