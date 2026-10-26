@@ -120,6 +120,8 @@ export interface Unit {
   verses?: Verse[];
   /** «Повторение»: эти — первыми (трудные и давно не встречавшиеся, `dueItems`) */
   focus?: Item[];
+  /** взрослые: часть пути — 1 частые слова (1–1000), 2 более редкие (1001–1500); первый юнит части открыт сразу */
+  stage?: number;
 }
 
 /** после уроков с новым — два урока «Повторение» (вперемешку, второй труднее) */
@@ -175,6 +177,8 @@ export function torahUnits(words: TorahWord[], verses: Map<string, Verse[]> = ne
 
 export const TANAKH_UNIT = 5;
 export const TANAKH_GROUP = 50;
+/** the common words of Tanakh — the first part of the path; the rarer ones (1001–1500) are the second, open from the start */
+export const TANAKH_COMMON = 1000;
 /**
  * adults: a unit («уровень») — 50 translated words of Tanakh by frequency, as in «Мои слова»; a lesson — 5 new words.
  * `verse` — the word's example verse (src/core/words.ts, `exampleOf`) for «Составьте стих».
@@ -190,6 +194,7 @@ export function tanakhUnits(dict: Dict, verse: (id: string) => Verse | undefined
       n: g + 1,
       items: level,
       size: TANAKH_UNIT,
+      stage: g * TANAKH_GROUP < TANAKH_COMMON ? 1 : 2,
       pool: [...level, ...items.slice(0, (g + 2) * TANAKH_GROUP)],
     });
   }
@@ -578,10 +583,10 @@ export function useCourse(): CourseStore {
   return s;
 }
 
-/** a unit is open when it's the first of its track or the one before it (same track) has no new items left */
+/** a unit is open when it's the first of its track (or of its stage) or the one before it (same track) has no new items left */
 export function isOpen(units: Unit[], i: number, s: CourseStore, known: Known) {
   const prev = units[i - 1];
-  return !prev || prev.track !== units[i].track || !newItems(prev, s, known).length;
+  return !prev || prev.track !== units[i].track || prev.stage !== units[i].stage || !newItems(prev, s, known).length;
 }
 
 /** the unit to go on with: the first open one of the track not finished */
