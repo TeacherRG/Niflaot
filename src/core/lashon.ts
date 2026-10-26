@@ -390,7 +390,27 @@ function drill(unit: Unit, level: number): Exercise[] {
   return ex;
 }
 
-/** the answer of an exercise is right */
+/** the longest run of words in the same order (not necessarily side by side) */
+function lcs(a: string[], b: string[]): number {
+  let row = new Array(b.length + 1).fill(0);
+  for (const x of a) {
+    const next = [0];
+    for (let j = 0; j < b.length; j++) next.push(x === b[j] ? row[j] + 1 : Math.max(row[j + 1], next[j]));
+    row = next;
+  }
+  return row[b.length];
+}
+/** «Составьте стих»: the order of the words is hard to get exactly — all the words of the verse and none else, and at least
+ * half of them in the right order (`lcs`), also count (the right verse is then shown) */
+export const VERSE_ORDER = 0.5;
+export function nearlyRight(ex: Exercise, answer: string[] | string): boolean {
+  if (ex.t !== 'build' || !ex.verse || !Array.isArray(answer) || answer.length !== ex.answer.length) return false;
+  if (answer.join(' ') === ex.answer.join(' ')) return false;
+  if ([...answer].sort().join(' ') !== [...ex.answer].sort().join(' ')) return false;
+  return lcs(answer, ex.answer) >= ex.answer.length * VERSE_ORDER;
+}
+
+/** the answer of an exercise is right (a verse — also `nearlyRight`) */
 export function isRight(ex: Exercise, answer: string[] | string): boolean {
   switch (ex.t) {
     case 'intro':
@@ -400,7 +420,7 @@ export function isRight(ex: Exercise, answer: string[] | string): boolean {
       return answer === ex.item.key;
     case 'build':
       // a phrase: the same words; a word: the same letters (a letter twice — either tile)
-      return Array.isArray(answer) && answer.join(' ') === ex.answer.join(' ');
+      return (Array.isArray(answer) && answer.join(' ') === ex.answer.join(' ')) || nearlyRight(ex, answer);
     case 'gap':
       return answer === ex.parts[ex.at];
     case 'root':

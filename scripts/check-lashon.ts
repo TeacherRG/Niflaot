@@ -10,7 +10,7 @@
  */
 import { LESSONS } from '../src/lessons';
 import { torahWords } from '../src/core/torahWords';
-import { abcUnits, alike, clusters, core, isRight, finishLesson, isDone, isOpen, makeExam, makeLesson, newItems, nextPart, passExam, readCourse, EXAM_ITEMS, type CourseStore, torahVerses, verseOf, VERSE_MAX, VERSE_MAX_KIDS, VERSE_MIN, type Item, type Known, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
+import { abcUnits, alike, clusters, core, isRight, nearlyRight, finishLesson, isDone, isOpen, makeExam, makeLesson, newItems, nextPart, passExam, readCourse, EXAM_ITEMS, type CourseStore, torahVerses, verseOf, VERSE_MAX, VERSE_MAX_KIDS, VERSE_MIN, type Item, type Known, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
 import { exampleOf, type Dict, type Word } from '../src/core/words';
 import { readFileSync } from 'node:fs';
 import { mergeSnapshots } from '../src/core/sync';
@@ -56,6 +56,7 @@ function checkEx(u: Unit, ex: Exercise, where: string) {
       if (made !== ex.item.he) err(`${where}: «собери» ${ex.item.he} — из ответа выходит ${made}`);
       if (!ex.words && /[׳\-־]/.test(ex.item.he)) err(`${where}: «собери» — Имя по буквам: ${ex.item.he}`);
       if (!isRight(ex, ex.answer)) err(`${where}: «собери» ${ex.item.he} — ответ не засчитан`);
+      if (nearlyRight(ex, ex.answer)) err(`${where}: «собери» ${ex.item.he} — точный ответ помечен «почти»`);
       return;
     }
     case 'gap': {
@@ -191,9 +192,25 @@ const m = mergeSnapshots(
 );
 if (m['niflaot:lashon'] !== JSON.stringify({ s: { 'א': 1, '559': 1 }, r: { 'abc-1': 2, 't-1': 1, 't-2': 2 }, xp: { '2026-10-25': 20, '2026-10-24': 15 } })) err(`слияние «Святой язык»: ${m['niflaot:lashon']}`);
 
+// «Составьте стих»: все слова стиха и не меньше половины — по порядку — засчитано (Теґилим 3:9 со скриншота владельца)
+{
+  const answer = ['לַה׳', 'הַיְשׁוּעָה', 'עַל־עַמְּךָ', 'בִרְכָתֶךָ', 'סֶּלָה'];
+  const ex = { t: 'build', item: { key: 'v', he: answer.join(' '), tr: '' }, words: true, answer, tiles: [...answer, 'מִפְּנֵי'], verse: { ref: 'x', words: answer, tr: '' } } as unknown as Exercise;
+  const cases: [string[], boolean][] = [
+    [['הַיְשׁוּעָה', 'לַה׳', 'בִרְכָתֶךָ', 'עַל־עַמְּךָ', 'סֶּלָה'], true], // 3 из 5 по порядку
+    [['סֶּלָה', 'בִרְכָתֶךָ', 'עַל־עַמְּךָ', 'הַיְשׁוּעָה', 'לַה׳'], false], // наоборот
+    [['הַיְשׁוּעָה', 'לַה׳', 'בִרְכָתֶךָ', 'עַל־עַמְּךָ'], false], // не все слова
+    [['הַיְשׁוּעָה', 'לַה׳', 'בִרְכָתֶךָ', 'עַל־עַמְּךָ', 'מִפְּנֵי'], false], // лишнее вместо нужного
+  ];
+  for (const [a, want] of cases) if (isRight(ex, a) !== want || nearlyRight(ex, a) !== want) err(`стих «почти»: ${a.join(' ')} — ожидалось ${want}`);
+  const word = { ...ex, verse: undefined } as Exercise;
+  if (isRight(word, cases[0][0])) err('«почти» засчитано не у стиха');
+}
+
 if (errors.size) {
   console.error(`Святой язык — уроки: ${errors.size} ошибок`);
   for (const e of [...errors].slice(0, 60)) console.error(' -', e);
   process.exit(1);
 }
 console.log('✓ «Святой язык — уроки»: юниты, задания и слияние прогресса');
+
