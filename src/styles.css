@@ -2510,3 +2510,22 @@ body:has(.a-home){background:var(--plain)}
 .courses-chip button{padding:3px 10px 3px 6px;border:0;background:none;color:var(--tchelet);font:inherit;font-weight:800;cursor:pointer}
 .mode-later{margin:14px 0 0}
 @media (max-width:640px){.courses-more{font-size:11.5px}.courses-chip a{padding:2px 3px 2px 8px}.courses-chip button{padding:2px 8px 2px 4px}}
+
+/* the week's dedication (לעילוי נשמת) at the bottom of both homes: a quiet gold frame, centred, Hebrew above */
+.dedication{flex:1 1 100%;justify-self:center;box-sizing:border-box;width:100%;max-width:560px;margin:8px auto 0;padding:18px 24px 20px;display:grid;justify-items:center;gap:4px;text-align:center;
+  background:linear-gradient(180deg,var(--gold-soft),var(--surface));border:1px solid var(--gold-line);border-radius:16px;box-shadow:var(--shadow);position:relative}
+.dedication::before,.dedication::after{content:"";position:absolute;top:50%;width:28px;height:1px;background:var(--gold-2)}
+.dedication::before{left:-40px}
+.dedication::after{right:-40px}
+.ded-he{font-family:var(--f-he);font-size:20px;font-weight:700;color:var(--gold);letter-spacing:.02em}
+.ded-he::before,.ded-he::after{content:"✦";font-size:10px;vertical-align:middle;margin:0 10px;color:var(--gold-2)}
+.ded-lead{font-size:14px;font-weight:600;color:var(--muted)}
+.ded-name{font-family:var(--f-display);font-size:30px;font-weight:700;line-height:1.1;color:var(--ink)}
+@media (max-width:640px){
+  .dedication{padding:12px 16px 14px;margin-top:4px}
+  .dedication::before,.dedication::after{display:none}
+  .ded-he{font-size:17px}
+  .ded-lead{font-size:12.5px}
+  .ded-name{font-size:24px}
+}
+@media print{.dedication{display:none}}
