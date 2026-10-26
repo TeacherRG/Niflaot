@@ -130,12 +130,19 @@ export const dueWords = (s: WordStore, day = today()) =>
     .filter((id) => s[id][1] > 0 && s[id][2] <= day)
     .sort((a, b) => s[a][2] - s[b][2]);
 
+/** номера Стронга, слитые в словаре с другим (`MERGE` в scripts/fetch-words.py): יָלַךְ — это הָלַךְ */
+const MERGED: Record<string, string> = { '3212': '1980' };
+
 export function readWordStore(): WordStore {
   try {
     const raw = JSON.parse(localStorage.getItem(WORDS_KEY) ?? 'null');
     if (!raw || typeof raw !== 'object') return {};
     const out: WordStore = {};
-    for (const [k, v] of Object.entries(raw)) out[k] = normWord(v);
+    for (const [k, v] of Object.entries(raw)) {
+      const id = MERGED[k] ?? k;
+      const w = normWord(v);
+      if (!out[id] || out[id][0] < w[0]) out[id] = w;
+    }
     return out;
   } catch {
     return {};
