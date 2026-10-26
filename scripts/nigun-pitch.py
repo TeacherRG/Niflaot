@@ -4,12 +4,15 @@
 pitch of the voice in the recording (MIDI note, one decimal; 0 — no clear pitch: a pause, a breath, noise).
 The site compares the singer's voice with it, octave aside.
 
-  python3 scripts/nigun-pitch.py lubo-bratzi      → public/nigun/lubo-bratzi.pitch.json
+  python3 scripts/nigun-pitch.py lubo-bratzi                → public/nigun/lubo-bratzi.pitch.json (the whole mix)
+  python3 scripts/nigun-pitch.py lubo-bratzi --vocals       → the voice separated first (Demucs), its notes by pYIN
+  python3 scripts/nigun-pitch.py lubo-bratzi --stem v.wav   → the notes of a voice already separated (pYIN)
 
-Needs ffmpeg and numpy. Autocorrelation over the whole mix (the browser hears the singer with pitchy, src/core/singing.ts).
-Tried 26.10.2026: Spotify Basic Pitch on the mix gives no better melody (repeats of the same line agree 51–59 %, this — 61 %);
-a better reference needs the voice separated first (Demucs, as UltraSinger does) — its model weights are not reachable from
-the cloud container, so that would run in a GitHub Action or on a computer.
+The whole mix: ffmpeg and numpy, autocorrelation — where a choir or an accordion is louder, the reference is not the
+melody a singer sings. Tried 26.10.2026: Spotify Basic Pitch on the mix is no better (repeats of the same line agree
+51–59 %, this — 61 %). So, as UltraSinger does: the voice is separated by Demucs (htdemucs, `--two-stems=vocals`) and its
+notes found by pYIN (librosa) — `.github/workflows/nigun-pitch.yml` runs it (the cloud container can't download the
+model's weights) and offers the notes in a PR with scripts/nigun-repeats.ts's report. Needs then: torch, demucs, librosa.
 """
 import json, subprocess, sys
 import numpy as np
@@ -49,15 +52,47 @@ def pitch(frame: np.ndarray) -> float:
     return round(69 + 12 * np.log2(f / 440), 1)
 
 
-def main():
-    nid = sys.argv[1]
-    src = f'public/nigun/{nid}.mp3'
+def mix_notes(src: str) -> list[float]:
+    """The whole recording: autocorrelation every 50 ms."""
     raw = subprocess.run(['ffmpeg', '-v', 'quiet', '-i', src, '-ac', '1', '-ar', str(SR), '-f', 's16le', '-'], capture_output=True, check=True).stdout
     a = np.frombuffer(raw, dtype=np.int16).astype(np.float64) / 32768
     hop = int(SR * HOP)
-    out = []
-    for i in range(0, len(a) - WIN, hop):
-        out.append(pitch(a[i:i + WIN]))
+    return [pitch(a[i:i + WIN]) for i in range(0, len(a) - WIN, hop)]
+
+
+def voice_notes(wav: str) -> list[float]:
+    """A voice alone (no instruments): pYIN — a note only where it is surely voiced."""
+    import librosa
+    raw = subprocess.run(['ffmpeg', '-v', 'quiet', '-i', wav, '-ac', '1', '-ar', str(SR), '-f', 's16le', '-'], capture_output=True, check=True).stdout
+    y = np.frombuffer(raw, dtype=np.int16).astype(np.float32) / 32768
+    hop = int(SR * HOP)
+    f0, voiced, prob = librosa.pyin(y, fmin=LO, fmax=HI, sr=SR, frame_length=WIN, hop_length=hop)
+    # the separated voice keeps a little of the instruments: a quiet frame is not the singer
+    rms = librosa.feature.rms(y=y, frame_length=WIN, hop_length=hop)[0]
+    quiet = 0.1 * float(np.percentile(rms, 95))
+    return [round(float(69 + 12 * np.log2(f / 440)), 1) if v and p >= 0.5 and r >= quiet else 0.0
+            for f, v, p, r in zip(f0, voiced, prob, rms)]
+
+
+def separate(src: str) -> str:
+    """Demucs: the voice of the recording, apart from the instruments."""
+    import tempfile
+    out = tempfile.mkdtemp()
+    subprocess.run([sys.executable, '-m', 'demucs', '--two-stems=vocals', '-n', 'htdemucs', '-o', out, src], check=True)
+    name = src.rsplit('/', 1)[-1].rsplit('.', 1)[0]
+    return f'{out}/htdemucs/{name}/vocals.wav'
+
+
+def main():
+    nid = sys.argv[1]
+    args = sys.argv[2:]
+    src = f'public/nigun/{nid}.mp3'
+    if '--stem' in args:
+        out = voice_notes(args[args.index('--stem') + 1])
+    elif '--vocals' in args:
+        out = voice_notes(separate(src))
+    else:
+        out = mix_notes(src)
     # a lone voiced frame between pauses is noise
     for i in range(1, len(out) - 1):
         if out[i] and not out[i - 1] and not out[i + 1]:
