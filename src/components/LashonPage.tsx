@@ -9,8 +9,8 @@ import { useHebrewLevel } from '../core/hebrewLevel';
 import { useHabit } from '../core/habit';
 import { memoImages } from '../core/memo';
 import { FINALS, letterName } from '../core/letterNames';
-import { answerWord, torahWords } from '../core/torahWords';
-import { inDeck, loadDict, markKnown, markLearn, readWordStore, type WordLang } from '../core/words';
+import { answerWord, torahWords, useStars } from '../core/torahWords';
+import { inDeck, loadDict, markKnown, markLearn, readWordStore, useWordStore, type WordLang } from '../core/words';
 import {
   GOAL,
   TANAKH_GROUP,
@@ -24,11 +24,16 @@ import {
   finishLesson,
   isOpen,
   isRight,
-  doneOf,
+  isDone,
   makeLesson,
+  newItems,
+  nextPart,
+  progressOf,
+  reviewsOf,
+  REVIEWS,
   readCourse,
+  type Known,
   nextUnit,
-  stepsOf,
   tanakhUnits,
   torahUnits,
   useCourse,
@@ -104,26 +109,40 @@ export function LashonPage() {
   }, [adults, locale]);
   const words = adults ? tanakh ?? [] : torah;
   const units = useMemo(() => [...abc, ...words], [abc, words]);
-  const [run, setRun] = useState<{ unit: Unit; step: number; exam?: boolean } | null>(null);
+  const [run, setRun] = useState<{ unit: Unit; part: Item[] | null; hard?: boolean; exam?: boolean } | null>(null);
+  // the words already met outside the course: the adults' «Мои слова» (in the deck), the children's «Слова Торы» (played)
+  const deck = useWordStore();
+  const stars = useStars();
+  const known: Known = (key) => (adults ? inDeck(deck, key) : key in stars);
+  const knownOf = (u: Unit): Known => (u.track === 'abc' ? () => false : known);
 
   useEffect(() => {
     document.title = `${t('ln.title')} · ${t('app.title')}`;
   }, [t]);
 
   const today = xpToday(store);
-  // a finished unit played again — the harder «Повторение»
-  const start = (unit: Unit) => setRun({ unit, step: Math.min(doneOf(store, unit), stepsOf(unit) - 1) });
+  // the next new items; none — «Повторение» (the second one, and a finished unit played again, harder)
+  const start = (unit: Unit) => {
+    const part = nextPart(unit, store, knownOf(unit));
+    setRun({ unit, part: part.length ? part : null, hard: reviewsOf(store, unit) >= REVIEWS - 1 });
+  };
   const unitTitle = (u: Unit) =>
     u.track === 'abc'
       ? `${u.items[0].he}–${u.items.filter((x) => !FINALS[x.key]).at(-1)!.he}${u.items.some((x) => FINALS[x.key]) ? ' · ךםןףץ' : ''}`
       : adults
         ? t('ln.group', { n: u.n, a: (u.n - 1) * TANAKH_GROUP + 1, b: (u.n - 1) * TANAKH_GROUP + u.items.length })
         : PARSHIOT[u.parsha as ParshaId]?.name[locale] ?? PARSHIOT[u.parsha as ParshaId]?.name.ru ?? u.parsha!;
-  /** «Урок 3 из 7» / «Повторение» / «Пройдено» */
+  /** «Новых: 35 · уроков: 7» / «Повторение» / «Пройдено» */
   const stepLabel = (u: Unit) => {
-    const k = doneOf(store, u);
-    return k >= stepsOf(u) ? t('ln.unitDone') : k >= u.parts.length ? t('ln.review') : t('ln.lessonOf', { k: k + 1, n: u.parts.length });
+    const left = newItems(u, store, knownOf(u)).length;
+    return isDone(u, store, knownOf(u))
+      ? t('ln.unitDone')
+      : left
+        ? t(u.track === 'abc' ? 'ln.newLetters' : 'ln.newWords', { n: left, k: Math.ceil(left / u.size) })
+        : t('ln.review');
   };
+  /** «Уже знакомо по «Моим словам»: 12» */
+  const metOutside = (u: Unit) => (u.track === 'abc' ? 0 : u.items.filter((it) => !store.s[it.key] && known(it.key)).length);
 
   // on the circle: the first letter, or the shortest word of the unit
   const sym = (u: Unit) => (u.track === 'abc' ? u.items[0].he : [...u.items.flatMap((x) => x.he.split(' '))].sort((a, b) => a.length - b.length)[0]);
@@ -131,10 +150,11 @@ export function LashonPage() {
     <ol className="ln-path">
       {list.map((u) => {
         const i = units.indexOf(u);
-        const open = isOpen(units, i, store);
-        const lv = doneOf(store, u);
-        const full = lv >= stepsOf(u);
-        const cur = open && !full && nextUnit(u.track === 'abc' ? abc : words, store) === u;
+        const open = isOpen(units, i, store, knownOf(u));
+        const p = progressOf(u, store, knownOf(u));
+        const full = isDone(u, store, knownOf(u));
+        const cur = open && !full && nextUnit(u.track === 'abc' ? abc : words, store, knownOf(u)) === u;
+        const met = metOutside(u);
         return (
           <li key={u.id} className={`ln-node${cur ? ' cur' : ''}${full ? ' full' : ''}${open ? '' : ' locked'}`} style={{ ['--off' as string]: [0, 1, 2, 1, 0, -1, -2, -1][i % 8] }}>
             <button type="button" className="ln-dot" disabled={!open} onClick={() => start(u)} aria-label={`${unitTitle(u)} · ${stepLabel(u)}`}>
@@ -143,7 +163,7 @@ export function LashonPage() {
               </span>
               {full && <i className="ln-crown">✓</i>}
             </button>
-            {cur && <span className="ln-go">{t(lv ? 'ln.continue' : 'ln.start')}</span>}
+            {cur && <span className="ln-go">{t(p > 0 ? 'ln.continue' : 'ln.start')}</span>}
             <span className="ln-lbl">
               <b className={u.track === 'abc' ? 'he' : undefined} lang={u.track === 'abc' ? 'he' : undefined}>
                 {unitTitle(u)}
@@ -151,10 +171,11 @@ export function LashonPage() {
               {open ? (
                 <>
                   <small>{stepLabel(u)}</small>
-                  <Bar k={lv} n={stepsOf(u)} />
+                  <Bar k={p} n={1} />
+                  {met > 0 && <small className="ln-met">{t(adults ? 'ln.metWords' : 'ln.metTorah', { n: met })}</small>}
                   {/* «Экзамен»: the whole unit at once — passed, the next one opens */}
                   {!full && (
-                    <button type="button" className="ln-exam-btn" onClick={() => setRun({ unit: u, step: 0, exam: true })}>
+                    <button type="button" className="ln-exam-btn" onClick={() => setRun({ unit: u, part: null, exam: true })}>
                       {t('ln.exam')}
                     </button>
                   )}
@@ -232,7 +253,7 @@ export function LashonPage() {
         </p>
       </div>
       <Colophon />
-      {run && <Lesson key={`${run.unit.id}-${run.step}-${run.exam}`} unit={run.unit} step={run.step} exam={run.exam} adults={adults} onClose={() => setRun(null)} />}
+      {run && <Lesson key={`${run.unit.id}-${run.part?.[0]?.key}-${run.exam}`} unit={run.unit} part={run.part} hard={run.hard} exam={run.exam} known={knownOf(run.unit)} adults={adults} onClose={() => setRun(null)} />}
     </>
   );
 }
@@ -243,9 +264,9 @@ type State = 'answer' | 'right' | 'wrong';
  * One lesson over the page: the exercises one by one; a wrong one comes back once at the end. An `exam` — the whole unit,
  * no second chances: ♥ for the mistakes left; one more than `EXAM_LIVES` — failed.
  */
-function Lesson({ unit, step, exam, adults, onClose }: { unit: Unit; step: number; exam?: boolean; adults: boolean; onClose: () => void }) {
+function Lesson({ unit, part, hard, exam, known, adults, onClose }: { unit: Unit; part: Item[] | null; hard?: boolean; exam?: boolean; known: Known; adults: boolean; onClose: () => void }) {
   const { t } = useI18n();
-  const [queue, setQueue] = useState<Exercise[]>(() => (exam ? makeExam(unit) : makeLesson(unit, step)));
+  const [queue, setQueue] = useState<Exercise[]>(() => (exam ? makeExam(unit) : makeLesson(unit, part, hard)));
   const [failed, setFailed] = useState(false);
   const [i, setI] = useState(0);
   const [state, setState] = useState<State>('answer');
@@ -293,12 +314,12 @@ function Lesson({ unit, step, exam, adults, onClose }: { unit: Unit; step: numbe
       setDone({ xp: XP_EXAM, added });
     } else {
       const xp = mistakes ? XP : XP_PERFECT;
-      finishLesson(unit, step, xp);
+      finishLesson(unit, part, xp);
       // adults: the new words of the lesson go to «Мои слова» — the review there counts for the certificate
       let added = 0;
-      if (adults && unit.track === 'words' && step < unit.parts.length) {
+      if (adults && unit.track === 'words' && part) {
         const s = readWordStore();
-        for (const it of unit.parts[step]) if (!inDeck(s, it.key)) (markLearn(it.key), added++);
+        for (const it of part) if (!inDeck(s, it.key)) (markLearn(it.key), added++);
       }
       setDone({ xp, added });
     }
@@ -357,7 +378,7 @@ function Lesson({ unit, step, exam, adults, onClose }: { unit: Unit; step: numbe
           {!mistakes && <p className="ln-perfect">{t('ln.perfect')}</p>}
           <p>{t('ln.acc', { k: firstTry, n: asked.current })}</p>
           <p>
-            <Bar k={Math.max(step + 1, doneOf(readCourse(), unit))} n={stepsOf(unit)} />
+            <Bar k={progressOf(unit, readCourse(), known)} n={1} />
           </p>
           {done.added > 0 && <p className="ln-note">{t(exam ? 'ln.addedKnown' : 'ln.added', { n: done.added })}</p>}
           <button type="button" className="btn ln-big" onClick={onClose}>

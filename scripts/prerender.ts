@@ -7,7 +7,7 @@
  *    JSON-LD with breadcrumbs, dates (git) and «free»; lesson titles say what people search for («гематрии недельной главы»);
  *  - «Святая музыка» dist/nigun/ (and en/de): the niggunim, their words and the source;
  *  - «Устный счёт», «Гематрия дня», «Знаете ли вы?» and «Буквы за 5 минут» for search engines: dist/mental-math/,
- *    dist/daily/, dist/facts/, dist/letters/, dist/hebrew-words/ (ru) and the same under dist/en/, dist/de/ — with hreflang alternates;
+ *    dist/daily/, dist/facts/, dist/letters/, dist/hebrew-words/, dist/learn-hebrew/ (ru) and the same under dist/en/, dist/de/ — with hreflang alternates;
  *    the app opens the trainer / the game / the feed / the letters on them;
  *  - web app manifests (install on the phone): dist/manifest.webmanifest (ru), manifest-en / manifest-de.webmanifest;
  *  - the service worker dist/sw.js (public/sw.js with this build's version and files to keep for offline use) and
@@ -27,6 +27,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { NIGUNIM } from '../src/nigun';
+import { torahWords } from '../src/core/torahWords';
 import { LESSONS, LESSON_GROUPS, type Lesson } from '../src/lessons';
 import { SITE_URL, staticPath, type StaticPage } from '../src/core/site';
 import { EXAMPLES, OPS, SIGN, answer, solve } from '../src/core/mentalMath';
@@ -291,10 +292,10 @@ ${LESSON_GROUPS.map((g) => {
 }).join('\n')}
 <h2>${t('wing.adults')}: ${t('home.adultsTitle')}</h2>
 <p>${t('wing.adultsSub')}.</p>
-<ul><li><a href="${page('neviim')}">${t('tanakh.neviim')}</a></li><li><a href="${page('ketuvim')}">${t('tanakh.ketuvim')}</a></li><li><a href="${page('hemshech')}">${t('hs.menuLbl')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li></ul>
+<ul><li><a href="${page('neviim')}">${t('tanakh.neviim')}</a></li><li><a href="${page('ketuvim')}">${t('tanakh.ketuvim')}</a></li><li><a href="${page('hemshech')}">${t('hs.menuLbl')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li></ul>
 <p>${t('menu.torahRead')}: ${lessons.map((l) => `<a href="${root}#/${l.slug}/read">${esc(tx(l).title)}</a>`).join(' · ')}</p>
 <h2>${t('seo.more')}</h2>
-<ul><li><a href="${page('facts')}">${t('facts.title')}</a></li><li><a href="${page('daily')}">${t('daily.title')}</a></li><li><a href="${page('letters')}">${t('abc.title')}</a></li><li><a href="${page('mental-math')}">${t('math.title')}</a></li><li><a href="${page('nigun')}">${t('nigun.title')}</a></li><li><a href="${page('quiz')}">${t('lq.title')}</a></li></ul>
+<ul><li><a href="${page('facts')}">${t('facts.title')}</a></li><li><a href="${page('daily')}">${t('daily.title')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li><li><a href="${page('letters')}">${t('abc.title')}</a></li><li><a href="${page('mental-math')}">${t('math.title')}</a></li><li><a href="${page('nigun')}">${t('nigun.title')}</a></li><li><a href="${page('quiz')}">${t('lq.title')}</a></li></ul>
 ${others
   .map(
     (o) => `<h2 lang="${o}">${OTHER[o]}</h2><ul lang="${o}"><li><a href="${homeUrl(o)}">${esc(String({ ru, en, de }[o]['catalog.seoTitle']))}</a></li>${LESSONS.filter((l) => l.texts[o])
@@ -569,7 +570,7 @@ function lettersPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
     },
     body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'abc.title'))}</p>
 <h1>${esc(s(ui, 'abc.seoTitle'))}</h1><p>${esc(s(ui, 'abc.seoLead'))}</p><p>${esc(s(ui, 'abc.lead'))}</p>
-<p><a href="${root}#/letters">${esc(s(ui, 'abc.seoPlay'))} →</a> · <a href="${root}${staticPath('facts', lang).slice(1)}">${esc(s(ui, 'facts.title'))} →</a> · <a href="${root}${staticPath('daily', lang).slice(1)}">${esc(s(ui, 'daily.title'))} →</a></p></header>
+<p><a href="${root}#/letters">${esc(s(ui, 'abc.seoPlay'))} →</a> · <a href="${root}${staticPath('facts', lang).slice(1)}">${esc(s(ui, 'facts.title'))} →</a> · <a href="${root}${staticPath('daily', lang).slice(1)}">${esc(s(ui, 'daily.title'))} →</a> · <a href="${root}${staticPath('learn-hebrew', lang).slice(1)}">${esc(s(ui, 'ln.seoShort'))} →</a></p></header>
 ${table(s(ui, 'abc.units'), ALEPH_BET.slice(0, 9))}
 ${table(s(ui, 'abc.tens'), ALEPH_BET.slice(9, 18))}
 ${table(s(ui, 'abc.hundreds'), ALEPH_BET.slice(18))}
@@ -707,8 +708,91 @@ function wordsPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
     },
     body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'wing.adults'))} · ${esc(s(ui, 'words.menuLbl'))}</p>
 <h1>${esc(title)}</h1><p>${esc(lead)}</p><ul>${cov}</ul><p>${esc(s(ui, 'words.seoHow'))}</p>
-<p><a href="${root}#/words">${esc(s(ui, 'words.seoStart'))} →</a> · <a href="${root}${staticPath('neviim', lang).slice(1)}">${esc(s(ui, 'tanakh.neviim'))} →</a> · <a href="${root}${staticPath('ketuvim', lang).slice(1)}">${esc(s(ui, 'tanakh.ketuvim'))} →</a></p></header>
+<p><a href="${root}#/words">${esc(s(ui, 'words.seoStart'))} →</a> · <a href="${root}${staticPath('neviim', lang).slice(1)}">${esc(s(ui, 'tanakh.neviim'))} →</a> · <a href="${root}${staticPath('ketuvim', lang).slice(1)}">${esc(s(ui, 'tanakh.ketuvim'))} →</a> · <a href="${root}${staticPath('learn-hebrew', lang).slice(1)}">${esc(s(ui, 'ln.seoShort'))} →</a></p></header>
 ${levels.join('\n')}
+<p><small>${esc(s(ui, 'words.src'))}</small></p>
+</article>`,
+  };
+}
+
+/**
+ * «Учить иврит — язык Торы и язык Пророков» for search (`/learn-hebrew/`): the course «Святой язык — уроки»
+ * (src/core/lashon.ts) — how it works, the letters, the Torah words by portion, the levels of 50 words of Tanakh — and
+ * the questions people ask (FAQPage). The app opens the course.
+ */
+function lashonPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
+  const root = lang === 'ru' ? '../' : '../../';
+  const url = `${SITE_URL}${staticPath('learn-hebrew', lang)}`;
+  const fill = (key: string, vars: Record<string, string | number>) => s(ui, key as keyof Ui).replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''));
+  const title = s(ui, 'ln.seoTitle');
+  const lead = s(ui, 'ln.seoLead');
+  const tw = torahWords(LESSONS, lang);
+  const torah = [...new Set(tw.map((w) => w.parsha))]
+    .map((p) => {
+      const ws = tw.filter((w) => w.parsha === p && !w.he.includes(' '));
+      return `<h3>${esc(PARSHIOT[p].name[lang] ?? PARSHIOT[p].name.ru)} · <span class="he">${PARSHIOT[p].he}</span></h3><ul>${ws
+        .map((w) => `<li><span class="he">${w.he}</span> — ${esc(w.tr)}</li>`)
+        .join('')}</ul>`;
+    })
+    .join('\n');
+  const tr = WORD_TR[lang];
+  const learn = WORDS.words.filter((w) => tr[w.id]);
+  const levels: string[] = [];
+  for (let i = 0; i < learn.length; i += 50) {
+    const ws = learn.slice(i, i + 50);
+    levels.push(`<li><b>${esc(fill('ln.group', { n: i / 50 + 1, a: i + 1, b: i + ws.length }))}</b>: ${ws
+      .slice(0, 8)
+      .map((w) => `<span class="he">${w.he}</span> (${esc(tr[w.id])})`)
+      .join(', ')}…</li>`);
+  }
+  const faq = [1, 2, 3, 4].map((n) => [s(ui, `ln.seoQ${n}` as keyof Ui), s(ui, `ln.seoA${n}` as keyof Ui)]);
+  return {
+    title: `${title} · ${s(ui, 'app.title')}`,
+    description: lead,
+    url,
+    type: 'article',
+    root,
+    lang,
+    alternates: alternatesOf('learn-hebrew'),
+    image: 'learn-hebrew',
+    imageAlt: title,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'LearningResource',
+          name: title,
+          description: lead,
+          url,
+          inLanguage: lang,
+          learningResourceType: ['lesson', 'quiz', 'flashcards'],
+          interactivityType: 'active',
+          isAccessibleForFree: true,
+          typicalAgeRange: '8-',
+          teaches: s(ui, 'ln.seoShort'),
+          about: [
+            { '@type': 'Language', name: 'Biblical Hebrew', alternateName: ['Lashon HaKodesh', 'לשון הקודש'] },
+            { '@type': 'Thing', name: 'Torah' },
+            { '@type': 'Thing', name: 'Nevi’im (Prophets)' },
+          ],
+          publisher: PUBLISHER,
+          isPartOf: SITE,
+        },
+        {
+          '@type': 'FAQPage',
+          inLanguage: lang,
+          mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+        },
+      ],
+    },
+    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'academy.fac.lashon'))} · <span class="he">לשון הקודש</span></p>
+<h1>${esc(title)}</h1><p>${esc(lead)}</p><p>${esc(s(ui, 'ln.seoHow'))}</p>
+<p><a href="${root}#/lashon">${esc(s(ui, 'ln.seoStart'))} →</a> · <a href="${root}${staticPath('letters', lang).slice(1)}">${esc(s(ui, 'abc.title'))} →</a> · <a href="${root}${staticPath('hebrew-words', lang).slice(1)}">${esc(s(ui, 'words.seoShort'))} →</a></p></header>
+<section><h2>${esc(s(ui, 'ln.seoAbcH'))}</h2><p>${esc(s(ui, 'ln.seoAbcP'))}</p><p class="he">${[...ALEPH_BET, ...FINAL_FORMS].join(' ')}</p></section>
+<section><h2>${esc(s(ui, 'ln.seoTorahH'))}</h2><p>${esc(s(ui, 'ln.seoTorahP'))}</p>
+${torah}</section>
+<section><h2>${esc(s(ui, 'ln.seoTanakhH'))}</h2><p>${esc(s(ui, 'ln.seoTanakhP'))}</p><ul>${levels.join('')}</ul></section>
+<section><h2>${esc(s(ui, 'ln.seoFaqH'))}</h2>${faq.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('\n')}</section>
 <p><small>${esc(s(ui, 'words.src'))}</small></p>
 </article>`,
   };
@@ -889,6 +973,7 @@ const STATIC_OUT: [string, Page][] = LANGS.flatMap(({ lang, ui }) => [
   [staticPath('hemshech', lang), hemshechPage(lang, ui)] as [string, Page],
   [staticPath('quiz', lang), quizPage(lang, ui)] as [string, Page],
   [staticPath('nigun', lang), nigunPage(lang, ui)] as [string, Page],
+  [staticPath('learn-hebrew', lang), lashonPage(lang, ui)] as [string, Page],
 ]);
 // lastmod: pages that change every day (the passage of the day, the opened passages, the quiz sets of the week) — today;
 // the facts — from the lessons; the rest — when their texts or this script changed
