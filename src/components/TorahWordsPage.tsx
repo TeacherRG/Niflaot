@@ -5,6 +5,7 @@ import { Colophon } from './Colophon';
 import { LESSONS, PARSHIOT, type ParshaId } from '../lessons';
 import { useHebrewLevel } from '../core/hebrewLevel';
 import { memoImages } from '../core/memo';
+import { celebrate, feedback } from '../core/fx';
 import { answerWord, makeRound, readStars, STARS, starsOf, torahWords, useStars, type Question, type TorahWord } from '../core/torahWords';
 
 const Stars = ({ n }: { n: number }) => (
@@ -120,6 +121,7 @@ function Game({ round, level, onClose, onAgain }: { round: Question[]; level: st
   const [i, setI] = useState(0);
   const [picked, setPicked] = useState<TorahWord | null>(null);
   const [ok, setOk] = useState(0);
+  const [combo, setCombo] = useState(0);
   if (i >= round.length)
     return (
       <div className="ws-card tw-card ws-done">
@@ -134,6 +136,7 @@ function Game({ round, level, onClose, onAgain }: { round: Question[]; level: st
             onClick={() => {
               setI(0);
               setOk(0);
+              setCombo(0);
               setPicked(null);
               onAgain();
             }}
@@ -149,7 +152,15 @@ function Game({ round, level, onClose, onAgain }: { round: Question[]; level: st
     setPicked(w);
     const right = w.key === q.word.key;
     if (right) setOk((n) => n + 1);
+    const run = right ? combo + 1 : 0;
+    setCombo(run);
+    feedback(right ? 'right' : 'wrong', run);
     answerWord(q.word.key, right);
+    // the last question: a fanfare and confetti, more for all right
+    if (i + 1 === round.length) {
+      const all = right && ok + 1 === round.length;
+      setTimeout(() => (feedback(all ? 'perfect' : 'finish'), celebrate(all ? 'grand' : 'big')), 450);
+    }
   };
   return (
     <div className="ws-card tw-card" aria-live="polite">

@@ -5,6 +5,7 @@ import { Colophon } from './Colophon';
 import { WordRow, WordVerse } from './TanakhWords';
 import { setOtherPage } from '../core/assistant';
 import { wordsContext } from '../core/assistantPages';
+import { celebrate, feedback } from '../core/fx';
 import {
   dueWords,
   exampleOf,
@@ -235,6 +236,8 @@ function Review({ dict, ids, exs, onClose }: { dict: Dict; ids: string[]; exs: R
   const answer = (remembered: boolean) => {
     review(w.id, remembered);
     if (remembered) setOk((n) => n + 1);
+    feedback(remembered ? 'right' : 'wrong');
+    if (i + 1 === ids.length) setTimeout(() => (feedback('finish'), celebrate('big', true)), 300);
     setShown(false);
     setI((n) => n + 1);
   };
