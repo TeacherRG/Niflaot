@@ -2597,35 +2597,110 @@ body:has(.a-home){background:var(--plain)}
   .ded-name{font-size:24px}
 }
 @media print{.dedication{display:none}}
-/* «Неделя в Академии» (WeekDigest.tsx): day by day — the day and the passage, then a short quote */
-.wd-range{margin:2px 0 0;font-size:15px;color:#555}
-.wd-days{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.wd-day{break-inside:avoid}
-.wd-when{margin:0 0 2px;font-size:13.5px}
-.wd-when a{color:#1F4E79;text-decoration:none}
-.wd-retell{margin:0 0 3px}
-.wd-label{margin:8px 0 2px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#7a5b1e}
-.wd-quote{margin:0;padding:2px 0 2px 12px;border-inline-start:3px solid #d9c9a3}
-.wd-quote p{margin:0}
-.wd-quote .he{font-size:19px;line-height:1.45}
+/* «Неделя в Академии» (WeekDigest.tsx) — a sheet of paper (always light, like the other printouts): a centred head with the
+   week in civil and Jewish dates; each section in its own colour (Prophets — tchelet, Writings — gold, Chassidut — green,
+   niggun — wine) with a band of a head, a timeline of days (a badge: weekday and date) and one framed quote. */
+.wd{--wd-c:#1F4E79;--wd-soft:#EEF3F9;--wd-line:#C9D7E8}
+.wd-head{text-align:center;padding:4px 0 18px;margin-bottom:18px;border-bottom:1px solid #E4DCC8;position:relative}
+.wd-head::after{content:"✦";position:absolute;left:50%;bottom:-.7em;transform:translateX(-50%);background:#fff;padding:0 10px;color:#B08A3E;font-size:14px}
+.wd-kicker{margin:0;font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#9A7425}
+.wd-head h1{margin:4px 0 6px;font-family:var(--f-display);font-size:38px;line-height:1.1;color:#14213D}
+.wd-dates{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 12px;margin:0 0 8px;font-size:14px;color:#444}
+.wd-dates span{padding:2px 12px;border-radius:999px;background:#F6F1E4;border:1px solid #E8DDBF}
+.wd-dates .he{font-size:15px}
+.wd-slogan{margin:4px 0 8px;color:#7A5B1E;font-weight:700}
+.wd-lead{max-width:600px;margin:0 auto;font-size:13.5px;line-height:1.5;color:#555;font-style:italic}
+.wd-empty{text-align:center;color:#555}
+.wd-sec{--wd-c:#1F4E79;--wd-soft:#EEF3F9;--wd-line:#C9D7E8;margin:0 0 22px;break-inside:auto}
+.wd-ketuvim{--wd-c:#8A6516;--wd-soft:#FBF5E6;--wd-line:#E8D7AE}
+.wd-hemshech{--wd-c:#1F5A38;--wd-soft:#EEF6F0;--wd-line:#C3DCCB}
+.wd-nigun{--wd-c:#7A2E3B;--wd-soft:#F8EEF0;--wd-line:#E6C9CF}
+.wd-sec-h{display:flex;align-items:center;gap:12px;padding:8px 14px;margin:0 0 10px;border-radius:12px;background:var(--wd-soft);border-inline-start:5px solid var(--wd-c);break-after:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.wd-ico{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--wd-c);color:#fff;font-size:17px;line-height:1}
+.wd-sec-t{flex:1;min-width:0}
+.wd-sec-t h2{margin:0;font-family:var(--f-display);font-size:24px;line-height:1.1;color:var(--wd-c)}
+.wd-sec-t p{margin:1px 0 0;font-size:13px;color:#555}
+.wd-sec-he{flex:none;font-size:24px;font-weight:700;color:var(--wd-c);opacity:.55}
+.wd-days{list-style:none;margin:0;padding:0;position:relative}
+.wd-days::before{content:"";position:absolute;inset-inline-start:25px;top:8px;bottom:8px;width:2px;background:var(--wd-line)}
+.wd-day{position:relative;display:grid;grid-template-columns:52px 1fr;gap:12px;padding:0 0 10px;break-inside:avoid}
+.wd-badge{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:52px;height:44px;border-radius:10px;background:#fff;border:1.5px solid var(--wd-c);color:var(--wd-c);line-height:1.1}
+.wd-badge b{font-size:14px;text-transform:capitalize}
+.wd-badge span{font-size:10.5px;color:#666;white-space:nowrap}
+.wd-body{min-width:0;padding-top:1px}
+.wd-range{display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:.02em;color:var(--wd-c);text-decoration:none}
+.wd-range:hover{text-decoration:underline}
+.wd-retell{margin:1px 0 0;font-size:15px;line-height:1.55;color:#222}
+.wd-quote{margin:4px 0 0;padding:2px 0 2px 12px;border-inline-start:3px solid var(--wd-line)}
+.wd-quote p,.wd-verse p{margin:0}
+.wd-quote .he{font-size:18px;line-height:1.45}
+.wd-verse{position:relative;margin:4px 0 0;padding:14px 22px 12px;border-radius:14px;background:var(--wd-soft);border:1px solid var(--wd-line);text-align:center;break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.wd-verse::before{content:"“";position:absolute;top:-6px;inset-inline-start:12px;font-family:var(--f-display);font-size:56px;line-height:1;color:var(--wd-c);opacity:.35}
+.wd-verse .he{font-size:22px;line-height:1.5;color:#14213D}
+.wd-label{margin:0 0 4px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--wd-c)}
 .wd-tr{font-style:italic;color:#333}
-.wd-ref{font-style:normal;font-size:12.5px;color:#666}
-.wd-read{color:#555}
-.wd-line{margin:0 0 4px;break-inside:avoid}
-.wd-read{font-style:normal}
-.wd .st-note a{color:#1F4E79}
+.wd-verse .wd-tr{font-size:15px;line-height:1.5}
+.wd-ref{display:block;margin-top:3px;font-style:normal;font-size:12px;font-weight:700;color:var(--wd-c)}
+.wd-quote .wd-ref{display:inline;margin-inline-start:6px}
+.wd-credit{margin:8px 0 0;font-size:11.5px;line-height:1.45;color:#666}
+.wd-credit a{color:var(--wd-c)}
+.wd-about{margin:0 0 10px;font-size:14.5px;color:#333}
+.wd-song{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:6px 22px;padding:12px 18px;border-radius:14px;background:var(--wd-soft);border:1px solid var(--wd-line);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.wd-line{break-inside:avoid}
+.wd-line p{margin:0}
+.wd-line .he{font-size:19px;line-height:1.4}
+.wd-sung{font-family:var(--f-display);font-size:18px;font-weight:600;color:#14213D}
+.wd-line .wd-tr{font-size:13px}
+.wd-read{font-style:normal;color:#555}
+a.wd-sing{font-weight:800;text-decoration:none}
+@media (max-width:640px){
+  .wd-head h1{font-size:30px}
+  .wd-sec-h{padding:7px 10px;gap:10px}
+  .wd-sec-t h2{font-size:21px}
+  .wd-sec-he{font-size:19px}
+  .wd-ico{width:30px;height:30px;font-size:15px}
+  .wd-day{grid-template-columns:44px 1fr;gap:10px}
+  .wd-days::before{inset-inline-start:21px}
+  .wd-badge{width:44px;height:40px}
+  .wd-badge b{font-size:13px}
+  .wd-badge span{font-size:9.5px}
+  .wd-retell{font-size:14.5px}
+  .wd-verse{padding:12px 14px 10px}
+  .wd-verse .he{font-size:19px}
+}
 @media print{
-  .wd .wd-quote .he{font-size:14px;line-height:1.3}
-  .wd .wd-quote{font-size:.95em}
-  .wd .wd-days{gap:4px}
-  .wd .wd-when{font-size:9pt}
-  .wd .wd-song{columns:2;column-gap:20px}
-  .wd .wd-line:nth-child(n+3){display:none}
-  .sheet-paper.st.wd{font-size:9pt;line-height:1.3}
-  .sheet-paper.st.wd .p-block{margin-top:4px}
-  .wd .st-h2{font-size:17px!important}
-  .wd .st-head{padding-bottom:4px}
-  .wd .st-tag{display:none}
-  .wd .wd-retell{margin-bottom:1px}
-  .wd .wd-label{margin-top:4px}
+  .sheet-paper.wd{font-size:9pt;line-height:1.3}
+  .wd-head{padding:0 0 8px;margin-bottom:10px}
+  .wd-head h1{font-size:24px;margin:2px 0 3px}
+  .wd-dates{margin-bottom:4px;font-size:9pt}
+  .wd-dates .he{font-size:10pt}
+  /* the masthead of the printout already says «Неделя в Академии» — only the week's dates stay */
+  .wd-slogan,.wd-lead,.wd-kicker,.wd-head h1{display:none}
+  .wd-head{padding-top:6px}
+  .wd-sec{margin-bottom:7px}
+  .wd-sec-h{padding:3px 10px;margin-bottom:5px;border-radius:8px}
+  .wd-ico{width:22px;height:22px;font-size:11px}
+  .wd-sec-t h2{font-size:15px}
+  .wd-sec-t p{font-size:8pt}
+  .wd-sec-he{font-size:15px}
+  .wd-days::before{inset-inline-start:19px}
+  .wd-day{grid-template-columns:40px 1fr;gap:8px;padding-bottom:3px}
+  .wd-badge{width:40px;height:30px;border-radius:7px;border-width:1px}
+  .wd-badge b{font-size:9pt}
+  .wd-badge span{font-size:7pt}
+  .wd-range{font-size:8pt}
+  .wd-retell{font-size:8.8pt;line-height:1.27;margin:0}
+  .wd-verse{padding:5px 14px 5px;border-radius:9px}
+  .wd-verse::before{font-size:34px;top:-4px}
+  .wd-verse .he{font-size:13.5px;line-height:1.35}
+  .wd-verse .wd-tr{font-size:9pt;line-height:1.3}
+  .wd-label{font-size:7pt;margin-bottom:1px}
+  .wd-ref{font-size:7.5pt;margin-top:1px}
+  .wd-quote .he{font-size:13px}
+  .wd-credit{font-size:7pt;margin-top:3px}
+  .wd-song{padding:5px 12px;gap:2px 16px;grid-template-columns:1fr 1fr}
+  .wd-line:nth-child(n+3){display:none}
+  .wd-line .he{font-size:13px}
+  .wd-sung{font-size:12px}
+  .wd-line .wd-tr{font-size:8pt}
 }

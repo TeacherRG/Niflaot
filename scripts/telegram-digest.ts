@@ -153,7 +153,7 @@ async function digestPdf(loc: Loc): Promise<Uint8Array> {
       localStorage.setItem('niflaot:hebrew', 'letters');
     });
     await page.goto(`${process.env.PDF_SITE || SITE_URL}/?lang=${loc}#/${route}`, { waitUntil: 'load' });
-    await page.waitForSelector('.wd .st-head', { timeout: 60_000 });
+    await page.waitForSelector('.wd-head', { timeout: 60_000 });
     await page.evaluate(async () => {
       await document.fonts.ready;
       await Promise.all([...document.images].map((i) => (i.complete ? null : new Promise((r) => ((i.onload = r), (i.onerror = r))))));
