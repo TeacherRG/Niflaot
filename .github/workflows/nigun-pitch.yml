@@ -1,8 +1,10 @@
 # «Святая музыка», «Петь»: the reference of notes of a niggun from its voice alone. Demucs (htdemucs) separates the voice
 # from the instruments, pYIN (librosa) finds its notes (scripts/nigun-pitch.py --vocals) — as UltraSinger does; the
 # cloud container can't download Demucs's weights, a runner can. Run by hand: one niggun or all. The new notes are
-# checked (scripts/check-nigun.ts: the calibration of the singing) and offered in a pull request with the report of
-# scripts/nigun-repeats.ts (how well the repeats of a line agree — before and after); nothing is merged by itself.
+# checked (scripts/check-nigun.ts: the calibration of the singing) and pushed to a branch `nigun-notes-<run>` with the
+# separated voices (nigun-stems/*.flac — to tune pYIN without Demucs) and the report of scripts/nigun-repeats.ts (how well
+# the repeats of a line agree — before and after; also in the run's summary). The repository doesn't let Actions open a
+# pull request — the branch waits for one by hand; nothing is merged by itself. No ffmpeg: installing it took 39 minutes.
 name: Nigun notes (Demucs)
 
 on:
@@ -31,7 +33,6 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: command -v ffmpeg || (sudo apt-get update -q && sudo apt-get install -y -q ffmpeg)
       # torch 2.5 (CPU): Demucs 4.0.1 saves the stems with torchaudio.save, which newer torchaudio moved out
       - name: Demucs and librosa
         run: |
@@ -50,7 +51,8 @@ jobs:
           else
             echo "::error::no niggun «$NIGUN»"; exit 1
           fi
-          for id in $ids; do .venv/bin/python scripts/nigun-pitch.py "$id" --vocals; done
+          mkdir -p nigun-stems
+          for id in $ids; do .venv/bin/python scripts/nigun-pitch.py "$id" --vocals --keep "nigun-stems/$id.flac"; done
       - name: Check and report
         id: report
         run: |
@@ -80,7 +82,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git switch -c "$branch"
-          git add public/nigun/*.pitch.json
+          git add public/nigun/*.pitch.json nigun-stems
           git commit -q -m 'Святая музыка: эталонные ноты по голосу (Demucs + pYIN)'
           git push -q origin "$branch"
           # opening a PR from an Action may be off in the repository's settings — then the branch waits for a PR by hand
