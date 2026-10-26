@@ -4,7 +4,7 @@ import { PARSHIOT, type ParshaId } from '../lessons';
 import { CYCLE, localToday, loadDay, type DayContent, type DayVerse } from '../core/tanakh';
 import { BOOKS, SECTIONS, addDays, rangeLabel, type Section } from '../core/tanakhCycle';
 import { HEMSHECH, hsLang } from '../core/hemshech';
-import { digestWeek, digestWeeks, firstLines, quoteSentence, quoteVerse, weekDays, weekNigun, weekPassages } from '../core/weekDigest';
+import { HS_SENTENCES, digestWeek, digestWeeks, firstLines, firstSentences, quoteSentence, quoteVerse, retell, weekDays, weekNigun, weekPassages } from '../core/weekDigest';
 import { SITE_HOST } from '../core/site';
 import { Icon } from './ui';
 import { TanakhMasthead } from './PrintBrand';
@@ -32,9 +32,13 @@ function Quote({ v, lang }: { v: DayVerse; lang: Lang }) {
   );
 }
 
-/** One section of the Prophets and Writings: day by day — the passage and a verse of it. */
+/**
+ * One section of the Prophets and Writings: day by day — the passage and what it tells (the project's retelling; a day not
+ * retold yet — a verse of it), then one verse of the week (the same choice as a day's, over the whole week).
+ */
 function TanakhWeek({ section, days, lang }: { section: Section; days: DayContent[]; lang: Lang }) {
   const { t, locale } = useI18n();
+  const week = quoteVerse(days.flatMap((d) => d[section].verses));
   return (
     <section className="p-block">
       <h2 className="st-h2">
@@ -42,21 +46,31 @@ function TanakhWeek({ section, days, lang }: { section: Section; days: DayConten
       </h2>
       <ol className="wd-days">
         {days.map((d) => {
-          const v = quoteVerse(d[section].verses);
           const range = rangeLabelOf(d, section, lang);
+          const told = retell(d.date, section, lang);
           return (
             <li key={d.date} className="wd-day">
               <p className="wd-when">
                 <b>{dayLabel(d.date, locale)}</b> ·{' '}
                 <a href={`#/${section}/${d.date}`}>{range}</a>
               </p>
-              {v && <Quote v={v} lang={lang} />}
+              {told ? <p className="wd-retell">{told}</p> : <DayQuote verses={d[section].verses} lang={lang} />}
             </li>
           );
         })}
       </ol>
+      {week && (
+        <>
+          <p className="wd-label">{t('digest.verse')}</p>
+          <Quote v={week} lang={lang} />
+        </>
+      )}
     </section>
   );
+}
+function DayQuote({ verses, lang }: { verses: DayVerse[]; lang: Lang }) {
+  const v = quoteVerse(verses);
+  return v ? <Quote v={v} lang={lang} /> : null;
 }
 const CYCLE_BY_DATE = new Map(CYCLE.map((d) => [d.date, d]));
 /** «Йеґошуа 5:11 – 6:6» — the passage of the day as the cycle has it */
@@ -67,7 +81,8 @@ function rangeLabelOf(d: DayContent, section: Section, lang: Lang) {
 
 /**
  * `#/digest[/<воскресенье>]` — «Неделя в Академии» (src/core/weekDigest.ts): what was learnt this week besides the
- * weekly portion, in short quotes — the Prophets, the Writings, the «Ґемшех» and the niggun of the week; to read or print.
+ * weekly portion, told briefly with small quotes — the Prophets, the Writings, the «Ґемшех» and the niggun of the week;
+ * to read or print.
  */
 export function WeekDigest({ week }: { week?: string }) {
   const { t, locale } = useI18n();
@@ -124,7 +139,7 @@ export function WeekDigest({ week }: { week?: string }) {
       </div>
 
       <article className="sheet-paper st wd">
-        <TanakhMasthead title={t('digest.title')} he={parsha ? `פרשת ${PARSHIOT[parsha].he}` : ''} route={`digest/${sunday}`} date={shabbat} />
+        <TanakhMasthead title={t('digest.title')} he={parsha ? `פרשת ${PARSHIOT[parsha].he}` : ''} route={`digest/${sunday}`} date={shabbat} label={t('digest.kicker')} />
         <header className="st-head">
           <p className="p-label">{t('digest.kicker')}</p>
           <h1>{t('digest.title')}</h1>
@@ -147,12 +162,15 @@ export function WeekDigest({ week }: { week?: string }) {
                   <p className="wd-when">
                     <b>{dayLabel(date, locale)}</b> · <a href={`#/hemshech/${p.id}`}>{p.title[hl]}</a>
                   </p>
-                  <blockquote className="wd-quote">
-                    <p className="wd-tr">«{quoteSentence(p[hl])}»</p>
-                  </blockquote>
+                  <p className="wd-retell">{firstSentences(p.summary[hl].replace(/<[^>]+>/g, ''), HS_SENTENCES)}</p>
                 </li>
               ))}
             </ol>
+            <blockquote className="wd-quote">
+              <p className="wd-tr">
+                «{quoteSentence(passages[passages.length - 1].p[hl])}» <span className="wd-ref">({passages[passages.length - 1].p.title[hl]})</span>
+              </p>
+            </blockquote>
             <p className="st-note">
               {HEMSHECH.credit[hl]} {t('hs.rights')} <a href={HEMSHECH.creditUrl}>{HEMSHECH.creditUrl.replace(/^https?:\/\/(www\.)?/, '')}</a>
             </p>
@@ -161,7 +179,7 @@ export function WeekDigest({ week }: { week?: string }) {
 
         <section className="p-block">
           <h2 className="st-h2">🎵 {t('digest.nigun')} · {nigun.title[locale as Lang] ?? nigun.title.ru}</h2>
-          <p>{nigun.about[locale as Lang] ?? nigun.about.ru}</p>
+          <p className="no-print">{nigun.about[locale as Lang] ?? nigun.about.ru}</p>
           <blockquote className="wd-quote wd-song">
             {firstLines(nigun).map((l, i) => (
               <div key={i} className="wd-line">

@@ -1,9 +1,11 @@
 /**
- * «Неделя в Академии» в Telegram — каждую среду вечером: пост с тем, что учили с воскресенья (стих Пророков, стих Писаний,
- * фраза Хасидута, нигун недели) и вторым сообщением PDF дайджеста недели (`#/digest/<воскресенье>`, WeekDigest.tsx,
- * src/core/weekDigest.ts) на языке канала — тот же лист, что даёт «Печать» на сайте. Стихи — из текстов дней
- * (`public/tanakh/<дата>.json`), выбирает их тот же `quoteVerse`, что и страница: из всех дней недели — короткий, целым
- * предложением, который больше всех объясняет Мецудат Давид. На неделе без учёбы (праздники) ничего не публикуется.
+ * «Неделя в Академии» в Telegram — каждую среду вечером: пост с тем, что учили с воскресенья, коротко пересказанным —
+ * Пророки и Писания по дням (пересказ проекта, src/tanakh/retell.json) с одним стихом недели в каждом разделе, отрывки
+ * Хасидута с одной фразой, нигун недели — и вторым сообщением PDF дайджеста недели
+ * (`#/digest/<воскресенье>`, WeekDigest.tsx, src/core/weekDigest.ts) на языке канала — тот же лист, что даёт «Печать» на
+ * сайте. Стих недели выбирает тот же `quoteVerse`, что и страница, по всем дням недели (`public/tanakh/<дата>.json`).
+ * Пост — коротко: у дня Пророков и Писаний — первое предложение пересказа, у Хасидута — названия отрывков; весь пересказ
+ * и «Коротко» Хасидута — на листе (PDF). Не длиннее 4096 знаков (лимит Telegram). На неделе без учёбы — ничего.
  *
  * Запускает `.github/workflows/telegram-digest.yml`: по средам, попытки каждые 10 минут с 17:00 по Вене (GitHub опаздывает
  * и пропускает запуски); первая дошедшая публикует и оставляет метку дня в кэше Actions (`DIGEST_POSTED_FILE`, ключ
@@ -17,9 +19,10 @@
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import type { DayContent, DayVerse } from '../src/core/tanakh';
-import { BOOKS } from '../src/core/tanakhCycle';
+import { BOOKS, rangeLabel, type Section } from '../src/core/tanakhCycle';
+import { CYCLE } from '../src/core/tanakh';
 import { HEMSHECH } from '../src/core/hemshech';
-import { quoteSentence, quoteVerse, weekDays, weekNigun, weekPassages, weekStart } from '../src/core/weekDigest';
+import { firstSentence, quoteSentence, quoteVerse, retell, weekDays, weekNigun, weekPassages, weekStart } from '../src/core/weekDigest';
 import { routeLink, SITE_URL } from '../src/core/site';
 import { miniAppLink } from '../src/core/telegram';
 import { civilDate } from '../src/core/hebrewDate';
@@ -83,33 +86,55 @@ const t = (loc: Loc, key: string, vars: Record<string, string | number> = {}) =>
   String((UI[loc] as Record<string, unknown>)[key] ?? (ru as Record<string, unknown>)[key]).replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''));
 const dayMonth = (iso: string, loc: Loc) => new Intl.DateTimeFormat(loc, { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
 
-function verseLines(v: DayVerse | null, icon: string, loc: Loc, section: 'neviim' | 'ketuvim'): string[] {
-  if (!v) return [];
-  const tr = v[loc] ?? v.en;
-  const ref = `${BOOKS.find((b) => b.slug === v.b)?.name[loc] ?? v.b} ${v.c}:${v.v}`;
-  return ['', `${icon} <b>${html(t(loc, `tanakh.${section}`))}</b>`, html(plain(v.he)), `<i>«${html(plain(tr))}»</i> (${html(ref)})`];
+const weekday = (iso: string, loc: Loc) => new Intl.DateTimeFormat(loc, { weekday: 'short', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+
+/** A section of the Prophets and Writings: the week's passage, each day in the first sentence of its retelling, and the verse of the week. */
+function sectionLines(section: Section, icon: string, loc: Loc): string[] {
+  if (!days.length) return [];
+  const cyc = days.map((d) => CYCLE.find((c) => c.date === d.date)!);
+  const range = rangeLabel(section, [cyc[0][section][0], cyc[cyc.length - 1][section][1]], loc);
+  const lines = ['', `${icon} <b>${html(t(loc, `tanakh.${section}`))}</b> · ${html(range)}`];
+  for (const d of days) {
+    const told = retell(d.date, section, loc);
+    if (told) lines.push(`<b>${html(weekday(d.date, loc))}:</b> ${html(firstSentence(told))}`);
+  }
+  const v = verses[section];
+  if (v) {
+    const ref = `${BOOKS.find((b) => b.slug === v.b)?.name[loc] ?? v.b} ${v.c}:${v.v}`;
+    lines.push(`${html(plain(v.he))}`, `<i>«${html(plain(v[loc] ?? v.en))}»</i> (${html(ref)})`);
+  }
+  return lines;
 }
 
+/** The passages of Chassidut: their titles, and a sentence of the last. */
+function hemshechLines(loc: Loc): string[] {
+  if (!passages.length) return [];
+  const lines = ['', `✦ <b>${html(t(loc, 'hs.menuLbl'))} · ${html(HEMSHECH.title[loc])}</b>`];
+  for (const { p, date } of passages)
+    lines.push(`<b>${html(weekday(date, loc))}:</b> ${html(p.title[loc])}`);
+  const last = passages[passages.length - 1].p;
+  lines.push(`<i>«${html(quoteSentence(last[loc]))}»</i>`, `© The Neirot Foundation · ${html(HEMSHECH.creditUrl.replace(/^https?:\/\/(www\.)?/, ''))}`);
+  return lines;
+}
+
+const LIMIT = 4096;
+/** The length Telegram counts: the text without the tags, the entities decoded. */
+const shown = (s: string) => s.replace(/<[^>]+>/g, '').replace(/&(amp|lt|gt);/g, '_').length;
 function post(loc: Loc): string {
   const last = [...days.map((d) => d.date), ...passages.map((p) => p.date)].sort().pop()!;
-  const lines = [
-    `📰 <b>${html(t(loc, 'digest.title'))}</b> · ${html(dayMonth(sunday, loc))} – ${html(civilDate(last, loc))}`,
-    html(t(loc, 'digest.post.lead')),
-    ...verseLines(verses.neviim, '📖', loc, 'neviim'),
-    ...verseLines(verses.ketuvim, '📜', loc, 'ketuvim'),
-  ];
-  const p = passages[passages.length - 1];
-  if (p) {
-    lines.push(
+  const text = [
+      `📰 <b>${html(t(loc, 'digest.title'))}</b> · ${html(dayMonth(sunday, loc))} – ${html(civilDate(last, loc))}`,
+      html(t(loc, 'digest.post.lead')),
+      ...sectionLines('neviim', '📖', loc),
+      ...sectionLines('ketuvim', '📜', loc),
+      ...hemshechLines(loc),
       '',
-      `✦ <b>${html(t(loc, 'hs.menuLbl'))} · ${html(HEMSHECH.title[loc])}</b> — ${html(p.p.title[loc])}`,
-      `<i>«${html(quoteSentence(p.p[loc]))}»</i>`,
-      `© The Neirot Foundation · ${html(HEMSHECH.creditUrl.replace(/^https?:\/\/(www\.)?/, ''))}`,
-    );
-  }
-  lines.push('', `🎵 <b>${html(t(loc, 'digest.nigun'))}:</b> ${html(nigun.title[loc])} — ${html(routeLink(`nigun/${nigun.id}`, 'channel', loc))}`);
-  lines.push('', `👉 ${html(t(loc, 'digest.post.all'))} ${html(routeLink(route, 'channel', loc))}`);
-  return lines.join('\n');
+      `🎵 <b>${html(t(loc, 'digest.nigun'))}:</b> ${html(nigun.title[loc])} — ${html(routeLink(`nigun/${nigun.id}`, 'channel', loc))}`,
+      '',
+      `👉 ${html(t(loc, 'digest.post.all'))} ${html(routeLink(route, 'channel', loc))}`,
+    ].join('\n');
+  if (shown(text) > LIMIT) throw new Error(`${loc}: the post is ${shown(text)} characters, Telegram takes ${LIMIT}`);
+  return text;
 }
 
 const buttons = (loc: Loc) =>
@@ -165,7 +190,7 @@ let failed = false;
 for (const loc of Object.keys(UI) as Loc[]) {
   const text = post(loc);
   if (DRY) {
-    console.log(`── ${loc} (${CHATS[loc] ?? 'нет канала'}) · ${text.length} знаков\n${text}\n${APP ? `${JSON.stringify(buttons(loc).reply_markup)}\n` : ''}`);
+    console.log(`── ${loc} (${CHATS[loc] ?? 'нет канала'}) · ${shown(text)} знаков\n${text}\n${APP ? `${JSON.stringify(buttons(loc).reply_markup)}\n` : ''}`);
     if (PDF_ONLY) {
       const file = `digest-${sunday}-${loc}.pdf`;
       writeFileSync(file, await digestPdf(loc));
