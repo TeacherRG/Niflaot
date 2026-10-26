@@ -49,9 +49,10 @@ function TableLink() {
 }
 
 /**
- * The adults' home («Подростки и взрослые», src/core/mode.ts): bookish and quiet. No plan of the day on it (removed by the owner,
- * 26.10.2026 — the day's passages are in the menu and in «Мои курсы»): the week's Torah lessons to read (the same for everyone),
- * «Мои курсы» (CoursesCard.tsx), «Восполнить пропуск» when there is one, «Знаете ли вы?» and «Викторина вместе». No games or ages.
+ * The adults' home («Подростки и взрослые», src/core/mode.ts): bookish and quiet. The main block — «Мои курсы» (CoursesCard.tsx,
+ * `lead`; owner, 26.10.2026, instead of the plan of the day «Сегодня учим в Академии»): the streak and «сегодня N из M», each course
+ * with ✓ for today, «Читать» on the first one not done; under it «Восполнить пропуск» and «Мало времени? 2 минуты — «Гематрия дня»».
+ * Beside it — the week's Torah lessons to read (the same for everyone), «Знаете ли вы?», «Викторина вместе», the phone offer. No games or ages.
  */
 function AdultsHome() {
   const { t, pick, locale } = useI18n();
@@ -67,7 +68,14 @@ function AdultsHome() {
       <TopBar title={t('app.title')} wide />
       <main className="a-home">
         <h1 className="sr-only">{t('home.adultsH1')}</h1>
-        <div className="a-side">
+        <div className="a-main">
+          <CoursesCard lead />
+          {h.repair && <Repair day={h.repair.day} streak={h.repair.streak} pending={h.pending === h.repair.day} adults locale={locale} />}
+          <p className="a-short">
+            {t('habit.short')} <a href="#/daily">{t('habit.shortDaily')}</a>
+          </p>
+        </div>
+        <aside className="a-side">
           {reads.length > 0 && (
             <section aria-labelledby="a-week">
               <h2 id="a-week">
@@ -86,18 +94,14 @@ function AdultsHome() {
                   );
                 })}
               </ul>
-              {h.repair && <Repair day={h.repair.day} streak={h.repair.streak} pending={h.pending === h.repair.day} adults locale={locale} />}
-              <p className="a-links">
-                <a href="#/facts">{t('facts.title')} →</a>
-                <a href="#/quiz">{t('lq.title')} →</a>
-              </p>
             </section>
           )}
-          <div className="a-col">
-            <CoursesCard />
-            <PhoneOffer />
-          </div>
-        </div>
+          <PhoneOffer />
+          <p className="a-links">
+            <a href="#/facts">{t('facts.title')} →</a>
+            <a href="#/quiz">{t('lq.title')} →</a>
+          </p>
+        </aside>
         <Dedication />
       </main>
       <Colophon />

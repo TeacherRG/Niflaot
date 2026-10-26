@@ -2183,16 +2183,16 @@ body:has(.k-home){background:var(--warm)}
   .top-in.wide .brand{display:block}
 }
 
-/* the adults' home (Catalog.tsx, AdultsHome; the design «Нифлаот — новая главная»): bookish and quiet — the week's Torah
-   to read and «Мои курсы» side by side (no plan of the day: removed by the owner, 26.10.2026) */
+/* the adults' home (Catalog.tsx, AdultsHome; the design «Нифлаот — новая главная»): bookish and quiet — «Мои курсы» as
+   the main block (CoursesCard lead: the streak, today's ✓, «Читать» on the first not done), beside it the week's Torah to read */
 body:has(.a-home){background:var(--plain)}
 .a-home{max-width:1180px;margin:0 auto;padding:36px 0 12px;display:flex;flex-wrap:wrap;gap:28px 72px;align-items:flex-start}
 .a-bar{display:block;height:4px;border-radius:2px;background:var(--line-soft);overflow:hidden}
 .a-bar>span{display:block;height:100%;border-radius:2px;background:var(--tchelet-deep);transition:width .4s}
-.a-side{flex:1 1 100%;min-width:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:26px 72px;align-items:start}
-.a-col{display:grid;gap:26px}
-.a-side .habit-repair{margin-top:14px}
-.a-side .a-links{margin-top:14px}
+.a-main{flex:3 1 520px;min-width:0;display:grid;gap:12px}
+.a-short{margin:0;font-size:14px;color:var(--muted)}
+.a-short a{color:var(--tchelet)}
+.a-side{flex:2 1 300px;min-width:0;display:grid;gap:26px}
 .a-side h2{margin:0 0 8px;font-family:var(--f-display);font-weight:700;font-size:28px;line-height:1.1}
 .a-side h2 .he{font-size:21px;color:var(--tchelet)}
 .a-week{list-style:none;margin:0;padding:0;border-bottom:1px solid var(--line-soft)}
@@ -2211,12 +2211,13 @@ body:has(.a-home){background:var(--plain)}
 @media (prefers-reduced-motion:reduce){.a-bar>span{transition:none}}
 @media (max-width:640px){
   .a-home{padding-top:20px;gap:28px}
-  .a-side{padding-top:0;gap:22px}
+  .a-side{gap:22px}
   .a-side h2{font-size:24px}
   .a-week-t{font-size:20px}
   /* a phone: it all fits one screen */
   .a-home{padding-top:12px;gap:16px}
-  .a-side,.a-col{gap:12px}
+  .a-side,.a-main{gap:12px}
+  .a-short{font-size:13px}
   .a-side h2{margin-bottom:2px;font-size:18px}
   .a-side h2 .he{font-size:16px}
   .a-week a{padding:7px 0;gap:0}
@@ -2468,6 +2469,34 @@ body:has(.a-home){background:var(--plain)}
 .courses-chip a{padding:3px 4px 3px 10px;color:var(--ink);font-weight:600;text-decoration:none}
 .courses-chip a:hover{color:var(--tchelet)}
 .courses-chip button{padding:3px 10px 3px 6px;border:0;background:none;color:var(--tchelet);font:inherit;font-weight:800;cursor:pointer}
+/* «Мои курсы» as the main block of the adults' home: bigger, the streak line, ✓ for today, «Читать» on the first one to do */
+.courses.lead{gap:10px;padding:24px 28px;border-radius:20px}
+.courses.lead h2{font-size:clamp(32px,4vw,44px);line-height:1}
+.courses-status{margin:-2px 0 4px;font-size:15px;color:var(--muted)}
+.courses-status b{color:var(--ink)}
+.courses.lead ul{gap:0}
+.courses.lead li+li{border-top:1px solid var(--tchelet-line)}
+.courses.lead .courses-row{grid-template-columns:minmax(0,1fr) auto auto;align-items:center;padding:14px 0;column-gap:16px}
+.courses.lead .courses-t{font-family:var(--f-display);font-size:24px;line-height:1.1}
+.courses.lead .courses-t small{font-family:var(--f-body);font-size:13px}
+.courses.lead .courses-n{font-size:14px}
+.courses.lead .courses-s{font-size:14.5px;grid-column:1/3}
+.courses.lead .courses-row .a-bar{grid-column:1/3}
+.courses.lead .courses-row:not(.go){grid-template-columns:minmax(0,1fr) auto}
+.courses.lead .courses-row:not(.go) .courses-s,.courses.lead .courses-row:not(.go) .a-bar{grid-column:1/-1}
+.courses.lead .courses-row.today .courses-t{color:var(--muted)}
+.courses-tick{color:var(--ok);font-weight:800}
+.courses-go{grid-column:3;grid-row:1/span 3;display:inline-flex;align-items:center;min-height:44px;padding:0 22px;border-radius:12px;background:var(--tchelet-deep);color:#fff;font-weight:800;font-size:15px}
+.courses-row.go:hover .courses-go{filter:brightness(1.12)}
+@media (max-width:640px){
+  .courses.lead{padding:14px 16px;border-radius:16px;gap:6px}
+  .courses.lead h2{font-size:26px}
+  .courses-status{font-size:13px;margin:0}
+  .courses.lead .courses-row{padding:8px 0;column-gap:10px}
+  .courses.lead .courses-t{font-size:18px}
+  .courses.lead .courses-s{font-size:12.5px}
+  .courses-go{min-height:36px;padding:0 14px;font-size:13px}
+}
 .mode-later{margin:14px 0 0}
 @media (max-width:640px){.courses-more{font-size:11.5px}.courses-chip a{padding:2px 3px 2px 8px}.courses-chip button{padding:2px 8px 2px 4px}}
 
