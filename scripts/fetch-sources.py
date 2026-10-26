@@ -88,7 +88,9 @@ BOOK = {
     'Sukkah': ('Talmud/Bavli/Seder Moed/Sukkah/', 'Сукка', 'Talmud'),
     'Chagigah': ('Talmud/Bavli/Seder Moed/Chagigah/', 'Хагига', 'Talmud'),
     'Megillah': ('Talmud/Bavli/Seder Moed/Megillah/', 'Мегила', 'Talmud'),
+    'Yoma': ('Talmud/Bavli/Seder Moed/Yoma/', 'Йома', 'Talmud'),
     'Ketubot': ('Talmud/Bavli/Seder Nashim/Ketubot/', 'Ктубот', 'Talmud'),
+    'Nedarim': ('Talmud/Bavli/Seder Nashim/Nedarim/', 'Недарим', 'Talmud'),
     'Bava Metzia': ('Talmud/Bavli/Seder Nezikin/Bava Metzia/', 'Бава Мециа', 'Talmud'),
     'Sanhedrin': ('Talmud/Bavli/Seder Nezikin/Sanhedrin/', 'Санедрин', 'Talmud'),
     'Niddah': ('Talmud/Bavli/Seder Tahorot/Niddah/', 'Нида', 'Talmud'),
@@ -360,6 +362,17 @@ SOURCES = {
     'isaiah-52-8': ('Isaiah', 52, 8, 8),
     'samuel2-5-3': ('II Samuel', 5, 3, 3),
     'ezekiel-37-24': ('Ezekiel', 37, 24, 25),
+    # «Нифлаот Ребе» · Вайера: «Союз навечно» (Ликутей сихот, т. 25, Вайера 3)
+    'bereshit-rabbah-55-4': rabbah('Bereshit Rabbah', 'Берешит Раба', 'Bereshit Rabbah', 'Bereschit Rabba', 55, 4, BR_DE),
+    'rashi-22-1': rashi(22, 1, 0),
+    'gen-21-4': ('Genesis', 21, 4, 4),
+    'gen-17-12': ('Genesis', 17, 12, 12),
+    'gen-17-13': ('Genesis', 17, 13, 13),
+    'gen-17-24': ('Genesis', 17, 24, 25),
+    'gen-17-1': ('Genesis', 17, 1, 1),
+    'rashi-17-1': rashi(17, 1, 2),
+    'yoma-28b': ('Yoma', '28b', 8, 8),
+    'nedarim-32a': ('Nedarim', '32a', 17, 17),
 }
 
 # Misprints of an edition, corrected in the Hebrew (shown on the site as «исправлена опечатка: X → Y»):
@@ -392,7 +405,7 @@ DE_NAME = {
     'Genesis': 'Bereschit', 'Exodus': 'Schemot', 'Leviticus': 'Wajikra', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Dewarim', 'Ezekiel': 'Jecheskel', 'Amos': 'Amos', 'I Chronicles': 'Diwre HaJamim I',
     'II Samuel': 'Schmuel II', 'I Kings': 'I Könige', 'II Kings': 'Melachim II', 'Isaiah': 'Jeschajahu', 'Micah': 'Micha', 'Psalms': 'Tehillim', 'Job': 'Ijob', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
     'Berakhot': 'Berachot', 'Shabbat': 'Schabbat', 'Yevamot': 'Jewamot', 'Sotah': 'Sota', 'Chullin': 'Chullin',
-    'Sukkah': 'Sukka', 'Chagigah': 'Chagiga', 'Megillah': 'Megilla', 'Ketubot': 'Ketubbot', 'Bava Metzia': 'Bawa Mezia', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda',
+    'Sukkah': 'Sukka', 'Chagigah': 'Chagiga', 'Megillah': 'Megilla', 'Ketubot': 'Ketubbot', 'Yoma': 'Joma', 'Nedarim': 'Nedarim', 'Bava Metzia': 'Bawa Mezia', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda',
 }
 
 _cache = {}
