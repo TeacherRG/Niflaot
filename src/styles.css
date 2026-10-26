@@ -2214,6 +2214,7 @@ body:has(.k-home){background:var(--warm)}
   .k-side .habit-head b{font-size:13px;line-height:1.25}
   .k-side .habit-min,.k-side .habit-line,.k-side .habit-streak{font-size:12px;line-height:1.3}
   .k-side .h-daily-title{font-size:15px}
+  .k-side .h-daily.h-table>a.h-digest{margin-top:4px;padding-top:4px;font-size:12px}
   .k-side .h-daily-sub{font-size:11.5px;line-height:1.3}
   .k-side .wc-l-title{font-size:11px;line-height:1.3}
   .k-side .wc-l-he{font-size:12px}
@@ -2322,6 +2323,8 @@ body:has(.a-home){background:var(--plain)}
 .h-daily.h-table{background:var(--gold-deep)}
 .h-daily.h-table .h-daily-title{color:#fff}
 .h-daily.h-table .h-daily-sub{color:#fff;opacity:.85}
+.h-daily.h-table>a{display:flex;flex-direction:column;gap:inherit;color:inherit;text-decoration:none}
+.h-daily.h-table>a.h-digest{display:block;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.35);color:#fff;font-weight:700;font-size:13.5px}
 
 /* «Академия»: the faculties («факультативы») — tiles on top, a section for each */
 .ac-facs.kids{grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
