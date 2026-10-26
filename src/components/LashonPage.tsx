@@ -400,6 +400,15 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
       setDone({ xp, added });
     }
   };
+  // «Найдите пары»: a pair found without a slip is a right answer too — else the word comes back in «Повторим» at once
+  const pairsAnswered = (pairs: Item[], miss: string[]) => {
+    if (retried.current.has(ex)) return;
+    for (const it of pairs) {
+      if (it.key in answers.current) continue;
+      answers.current[it.key] = !miss.includes(it.key);
+      if (miss.includes(it.key)) missed.current.push(it);
+    }
+  };
   const answer = (right: boolean) => {
     setState(right ? 'right' : 'wrong');
     tone(right);
@@ -526,7 +535,7 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
       <div className="ln-body" aria-live="polite">
         {ex.t === 'intro' && <Intro item={ex.item} letter={unit.track === 'abc'} />}
         {ex.t === 'pick' && <Pick ex={ex} letter={unit.track === 'abc'} sel={sel} state={state} onPick={setSel} />}
-        {ex.t === 'match' && <Match key={i} pairs={ex.pairs} onMiss={() => (!exam && setMistakes((n) => n + 1), tone(false))} onDone={() => answer(true)} />}
+        {ex.t === 'match' && <Match key={i} pairs={ex.pairs} onMiss={() => (!exam && setMistakes((n) => n + 1), tone(false))} onDone={(miss) => (pairsAnswered(ex.pairs, miss), answer(true))} />}
         {ex.t === 'build' && <Build ex={ex} built={built} state={state} onBuilt={setBuilt} />}
         {ex.t === 'gap' && <Gap ex={ex} sel={sel} state={state} onPick={setSel} />}
         {ex.t === 'root' && <Root ex={ex} sel={sel} state={state} onPick={setSel} />}
@@ -664,7 +673,7 @@ function Pick({ ex, letter, sel, state, onPick }: { ex: Extract<Exercise, { t: '
 }
 
 /** «Найдите пары»: the Hebrew on one side, the translations on the other; a right pair goes grey, a wrong one shakes */
-function Match({ pairs, onMiss, onDone }: { pairs: Item[]; onMiss: () => void; onDone: () => void }) {
+function Match({ pairs, onMiss, onDone }: { pairs: Item[]; onMiss: () => void; onDone: (miss: string[]) => void }) {
   const { t } = useI18n();
   const [left] = useState(() => [...pairs].sort(() => Math.random() - 0.5));
   const [right] = useState(() => [...pairs].sort(() => Math.random() - 0.5));
@@ -672,17 +681,19 @@ function Match({ pairs, onMiss, onDone }: { pairs: Item[]; onMiss: () => void; o
   const [b, setB] = useState<string | null>(null);
   const [ok, setOk] = useState<string[]>([]);
   const [bad, setBad] = useState<string[]>([]);
+  const miss = useRef(new Set<string>());
   useEffect(() => {
     if (!a || !b) return;
     if (a === b) {
       const all = [...ok, a];
       setOk(all);
-      if (all.length === pairs.length) onDone();
+      if (all.length === pairs.length) onDone([...miss.current]);
       setA(null);
       setB(null);
       return;
     }
     setBad([a, b]);
+    miss.current.add(a).add(b);
     onMiss();
     const id = setTimeout(() => {
       setBad([]);

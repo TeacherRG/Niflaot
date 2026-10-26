@@ -1652,9 +1652,11 @@ a.tk-step:hover{background:var(--tchelet-soft)}
 .ln-match > div{display:grid;gap:10px;align-content:start}
 .ln-line{display:flex;flex-wrap:wrap;gap:8px;min-height:64px;padding:8px 0;border-bottom:2px solid var(--line)}
 .ln-bank{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
-.ln-tile{display:grid;justify-items:center;min-width:48px;padding:6px 12px;border:2px solid var(--line);border-bottom-width:4px;border-radius:12px;background:var(--surface);color:var(--ink)}
-.ln-tile .he{font-family:var(--f-he);font-size:28px;line-height:1.2}
+.ln-tile{flex:none;display:inline-flex;flex-direction:column;align-items:center;max-width:100%;min-width:48px;padding:6px 12px;border:2px solid var(--line);border-bottom-width:4px;border-radius:12px;background:var(--surface);color:var(--ink)}
+.ln-tile .he{font-family:var(--f-he);font-size:28px;line-height:1.3;white-space:nowrap}
 .ln-line.words .ln-tile .he,.ln-bank .ln-tile .he{font-size:26px}
+.ln-line.words .ln-tile,.ln-line.words~.ln-bank .ln-tile{padding:4px 10px}
+.ln-line.words .ln-tile .he,.ln-line.words~.ln-bank .ln-tile .he{font-size:22px}
 .ln-tile small{color:var(--muted);font-size:11px}
 .ln-tile.used{visibility:hidden}
 .ln-hint{color:var(--muted);font-size:12px;text-align:center}
