@@ -69,9 +69,15 @@ export async function ttsRoute(
   }
   if (!r.ok) {
     const quota = r.headers.get('X-Quota');
+    const error = r.headers.get('X-Error');
     return new Response(r.body, {
       status: r.status,
-      headers: { ...headers, 'Cache-Control': 'no-store', ...(quota ? { 'X-Quota': quota, 'Retry-After': r.headers.get('Retry-After') ?? '3600' } : {}) },
+      headers: {
+        ...headers,
+        'Cache-Control': 'no-store',
+        ...(quota ? { 'X-Quota': quota, 'Retry-After': r.headers.get('Retry-After') ?? '3600' } : {}),
+        ...(error ? { 'X-Error': error } : {}),
+      },
     });
   }
   return new Response(r.body, {
@@ -139,7 +145,9 @@ export class Narrator extends DurableObject<TtsEnv> {
       // X-Quota — which limit of Gemini (per minute / per day, free tier or paid): scripts/tts-prerecord.ts waits or stops
       if (e instanceof Quota) return new Response('quota', { status: 503, headers: { 'Retry-After': String(e.retry ?? 3600), 'X-Quota': e.message } });
       console.error('tts', e);
-      return new Response('failed', { status: 502 });
+      // X-Error — what Gemini answered (scripts/tts-prerecord.ts prints it; a header is ASCII only)
+      const why = String(e instanceof Error ? e.message : e).replace(/[^\x20-\x7e]+/g, ' ').slice(0, 300);
+      return new Response('failed', { status: 502, headers: { 'X-Error': why } });
     }
   }
 
