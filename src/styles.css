@@ -1588,6 +1588,8 @@ a.tk-step:hover{background:var(--tchelet-soft)}
 .ln-goal{text-align:start}
 .ln-goal b{font-size:14px}
 .tw-h2 small{font-family:var(--f-body);font-size:13px;font-weight:500;color:var(--muted)}
+.ln-stage h3{margin:18px 0 6px;font-size:17px}
+.ln-stage h3 small{display:block;font-size:13px;font-weight:500;color:var(--muted)}
 .ln-group{margin:0 0 6px;color:var(--muted);font-size:14px;text-align:center}
 .ln-path{display:grid;gap:30px;margin:8px 0 6px;padding:34px 0 8px;list-style:none;justify-items:center}
 .ln-node{display:grid;justify-items:center;gap:4px;position:relative;transform:translateX(calc(var(--off,0) * 34px))}

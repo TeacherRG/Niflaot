@@ -204,7 +204,7 @@ export function LashonPage() {
         const open = isOpen(units, i, store, knownOf(u));
         const p = progressOf(u, store, knownOf(u));
         const full = isDone(u, store, knownOf(u));
-        const cur = open && !full && nextUnit(u.track === 'abc' ? abc : words, store, knownOf(u)) === u;
+        const cur = open && !full && nextUnit(list, store, knownOf(u)) === u;
         const met = metOutside(u);
         return (
           <li key={u.id} className={`ln-node${cur ? ' cur' : ''}${full ? ' full' : ''}${open ? '' : ' locked'}`} style={{ ['--off' as string]: [0, 1, 2, 1, 0, -1, -2, -1][i % 8] }}>
@@ -291,7 +291,21 @@ export function LashonPage() {
           {!adults || tanakh ? (
             <>
               {weak(words)}
-              {path(words)}
+              {adults && words.some((u) => u.stage === 2)
+                ? [1, 2].map((st) => {
+                    const list = words.filter((u) => u.stage === st);
+                    const a = (list[0].n - 1) * TANAKH_GROUP + 1;
+                    const b = a - 1 + list.reduce((k, u) => k + u.items.length, 0);
+                    return (
+                      <div key={st} className="ln-stage">
+                        <h3>
+                          {t(st === 1 ? 'ln.stage1' : 'ln.stage2', { a, b })} <small>{t(st === 1 ? 'ln.stage1Sub' : 'ln.stage2Sub')}</small>
+                        </h3>
+                        {path(list)}
+                      </div>
+                    );
+                  })
+                : path(words)}
             </>
           ) : (
             <p className="ln-group">{t('ln.loading')}</p>
