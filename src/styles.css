@@ -1640,6 +1640,9 @@ a.tk-step:hover{background:var(--tchelet-soft)}
 .ln-tile small{color:var(--muted);font-size:11px}
 .ln-tile.used{visibility:hidden}
 .ln-hint{color:var(--muted);font-size:12px;text-align:center}
+p.ln-hint{margin:0;font-size:13px}
+p.ln-hint .he{font-family:var(--f-he);font-size:18px;color:var(--ink)}
+.ln-ref{display:block;margin-top:4px;font-size:12px;font-weight:500}
 .ln-hole{display:inline-block;min-width:.9em;border-bottom:3px solid var(--tchelet);color:var(--tchelet)}
 .ln-foot{border-top:2px solid var(--line);padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px));display:grid;gap:10px;justify-items:center}
 .ln-foot > *{width:100%;max-width:608px}

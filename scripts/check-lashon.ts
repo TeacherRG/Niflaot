@@ -3,15 +3,16 @@
  * взрослых (буквы и слова Танаха) каждый урок каждого юнита на каждом уровне собирается много раз, и у каждого задания:
  *  - «выбрать» — 4 разных варианта, верный ровно один, у слов — без похожих (`alike`: один перевод не содержит другой);
  *  - «пары» — 3–5 пар, переводы и иврит разные;
- *  - «собери» — плитки содержат ответ, из ответа получается слово / фраза; у слова — без Имён через ׳ и -;
+ *  - «собери» — плитки содержат ответ, из ответа получается слово / фраза / стих («Составьте стих»: короткий, 3–8 слов, с переводом, со словом урока); у слова — без Имён через ׳ и -;
  *  - «пропущенная буква» — 4 разных варианта, верный — та самая буква слова;
  *  - «корень» — 4 разных корня, верный — корень слова;
  * уроки с новым — по порядку, без слов из «Моих слов» / «Слов Торы» и уже встреченных; экзамен за юнит — без знакомства, слова всего юнита; юнит — буквы (2), глава Торы, уровень из 50 слов Танаха; урок с новым знакомит со всеми своими словами; урок — от 6 до 20 заданий; слияние прогресса (src/core/sync.ts) — больше из двух.
  */
 import { LESSONS } from '../src/lessons';
 import { torahWords } from '../src/core/torahWords';
-import { abcUnits, alike, clusters, core, isRight, finishLesson, isDone, isOpen, makeExam, makeLesson, newItems, nextPart, passExam, readCourse, EXAM_ITEMS, type CourseStore, type Item, type Known, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
-import type { Dict, Word } from '../src/core/words';
+import { abcUnits, alike, clusters, core, isRight, finishLesson, isDone, isOpen, makeExam, makeLesson, newItems, nextPart, passExam, readCourse, EXAM_ITEMS, type CourseStore, verseOf, VERSE_MAX, VERSE_MIN, type Item, type Known, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
+import { exampleOf, type Dict, type Word } from '../src/core/words';
+import { readFileSync } from 'node:fs';
 import { mergeSnapshots } from '../src/core/sync';
 import wordsJson from '../src/tanakh/words.json';
 import trRu from '../src/tanakh/words/ru.json';
@@ -110,7 +111,20 @@ for (const locale of ['ru', 'en', 'de'] as const) {
   checkUnits(abcUnits(locale), `буквы ${locale}`);
   checkUnits(torahUnits(torahWords(LESSONS, locale)), `слова Торы ${locale}`);
   const dict: Dict = { words, total: 0, rank: new Map(words.map((w, i) => [w.id, i + 1])), tr: TR[locale] };
-  const tu = tanakhUnits(dict);
+  // «Составьте стих»: the example verses of the words (public/tanakh/words/examples-<lang>.json)
+  const ex = JSON.parse(readFileSync(`public/tanakh/words/examples-${locale}.json`, 'utf8'));
+  const tu = tanakhUnits(dict, (id) => verseOf(exampleOf(ex, id), locale));
+  const withVerse = tu.flatMap((u) => u.items).filter((it) => it.verse);
+  if (withVerse.length < 200) err(`слова Танаха ${locale}: стихов для «Составьте стих» — ${withVerse.length}`);
+  for (const it of withVerse) {
+    const v = it.verse!;
+    if (v.words.length < VERSE_MIN || v.words.length > VERSE_MAX || !v.tr.trim() || v.words.some((w) => /[׃׀]/.test(w)))
+      err(`слова Танаха ${locale}: стих ${v.ex.ref} к ${it.he} — не тот`);
+    if (!v.words.join(' ').includes(v.ex.he[1])) err(`слова Танаха ${locale}: в стихе ${v.ex.ref} нет слова ${v.ex.he[1]}`);
+  }
+  let verses = 0;
+  for (const u of tu.slice(0, 4)) for (let k = 0; k < 5; k++) verses += makeLesson(u, null, true).filter((x) => x.t === 'build' && x.verse).length;
+  if (!verses) err(`слова Танаха ${locale}: в повторениях нет «Составьте стих»`);
   if (tu.reduce((a, u) => a + u.items.length, 0) !== Object.keys(TR[locale]).length) err(`слова Танаха ${locale}: не все переведённые слова в юнитах`);
   checkUnits(tu, `слова Танаха ${locale}`);
 }

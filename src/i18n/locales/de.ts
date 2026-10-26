@@ -1080,6 +1080,8 @@ const de: Messages = {
   'ln.q.match': "Finde die Paare",
   'ln.q.build': "Bau das Wort aus Buchstaben",
   'ln.q.order': "Bring die Wörter in die richtige Reihenfolge",
+  'ln.q.verse': "Bau den Vers",
+  'ln.verseWord': "Im Vers steht das Wort der Lektion",
   'ln.q.gap': "Welcher Buchstabe fehlt?",
   'ln.q.root': "Welche Wurzel hat dieses Wort?",
   'ln.line': "Deine Antwort",

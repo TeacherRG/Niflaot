@@ -17,7 +17,7 @@
 import { useEffect, useState } from 'react';
 import type { Locale } from '../i18n/config';
 import type { TorahWord } from './torahWords';
-import type { Dict } from './words';
+import type { Dict, Example } from './words';
 import { VALUES } from './gematria';
 import { ALEPH_BET, FINAL_FORMS, FINALS, LOOKALIKES, letterName, letterSound } from './letterNames';
 import { markStudied } from './habit';
@@ -34,6 +34,25 @@ export interface Item {
   /** у буквы: её число и звучание */
   value?: number;
   sound?: string;
+  /** взрослым: короткий стих Пророков / Писаний с этим словом — для «Составьте стих» */
+  verse?: Verse;
+}
+export interface Verse {
+  /** слова стиха на иврите (слова через макаф — одна плитка), без ׃ */
+  words: string[];
+  /** перевод стиха на языке сайта */
+  tr: string;
+  /** где: день цикла и «книга глава:стих» (src/core/words.ts, `Example`) */
+  ex: Example;
+}
+/** «Составьте стих» — только короткие стихи */
+export const VERSE_MAX = 8;
+export const VERSE_MIN = 3;
+/** a verse for a word (scripts/fetch-words.py, examples-<lang>.json): short enough and translated into the site's language */
+export function verseOf(ex: Example | undefined, lang: string): Verse | undefined {
+  if (!ex || (ex.en && lang !== 'en')) return undefined;
+  const words = ex.he.join('').replace(/[׃׀]/g, ' ').split(/\s+/).filter(Boolean);
+  return words.length >= VERSE_MIN && words.length <= VERSE_MAX ? { words, tr: ex.tr, ex } : undefined;
 }
 export type Track = 'abc' | 'words';
 export interface Unit {
@@ -93,9 +112,12 @@ export function torahUnits(words: TorahWord[]): Unit[] {
 
 export const TANAKH_UNIT = 5;
 export const TANAKH_GROUP = 50;
-/** adults: a unit («уровень») — 50 translated words of Tanakh by frequency, as in «Мои слова»; a lesson — 5 new words */
-export function tanakhUnits(dict: Dict): Unit[] {
-  const items = dict.words.filter((w) => dict.tr[w.id]).map((w): Item => ({ key: w.id, he: w.he, tr: dict.tr[w.id], root: w.root }));
+/**
+ * adults: a unit («уровень») — 50 translated words of Tanakh by frequency, as in «Мои слова»; a lesson — 5 new words.
+ * `verse` — the word's example verse (src/core/words.ts, `exampleOf`) for «Составьте стих».
+ */
+export function tanakhUnits(dict: Dict, verse: (id: string) => Verse | undefined = () => undefined): Unit[] {
+  const items = dict.words.filter((w) => dict.tr[w.id]).map((w): Item => ({ key: w.id, he: w.he, tr: dict.tr[w.id], root: w.root, verse: verse(w.id) }));
   const out: Unit[] = [];
   for (let g = 0; g * TANAKH_GROUP < items.length; g++) {
     const level = items.slice(g * TANAKH_GROUP, (g + 1) * TANAKH_GROUP);
@@ -143,8 +165,8 @@ export type Exercise =
   | { t: 'pick'; item: Item; ask: Ask; options: Item[] }
   /** tap the pairs: Hebrew ↔ translation */
   | { t: 'match'; pairs: Item[] }
-  /** put the letters (or the words of a phrase) in order; `tiles` — shuffled, with one or two extra */
-  | { t: 'build'; item: Item; words: boolean; answer: string[]; tiles: string[] }
+  /** put the letters (or the words of a phrase / of a verse — `verse`) in order; `tiles` — shuffled, with one or two extra */
+  | { t: 'build'; item: Item; words: boolean; answer: string[]; tiles: string[]; verse?: Verse; word?: Item }
   /** one letter of the word hidden — pick it */
   | { t: 'gap'; item: Item; at: number; parts: string[]; options: string[] }
   /** adults: the root of the word */
@@ -194,6 +216,17 @@ function build(item: Item, unit: Unit): Exercise | null {
   return { t: 'build', item, words: false, answer, tiles: shuffle([...answer, ...extra]) };
 }
 
+/**
+ * «Составьте стих»: the translation of a short verse of the Prophets or Writings with the word → its Hebrew words in order;
+ * one or two extra words from the other verses of the unit.
+ */
+function verse(item: Item, unit: Unit): Exercise | null {
+  const v = item.verse;
+  if (!v) return null;
+  const extra = [...new Set(shuffle(unit.items.flatMap((w) => (w.verse && w !== item ? w.verse.words : []))).filter((x) => !v.words.includes(x)))].slice(0, v.words.length > 5 ? 1 : 2);
+  return { t: 'build', item: { ...item, he: v.words.join(' '), tr: v.tr }, words: true, answer: v.words, tiles: shuffle([...v.words, ...extra]), verse: v, word: item };
+}
+
 /** a letter that looks like `c` (or any other), keeping c's vowel points */
 function gap(item: Item): Exercise | null {
   if (!tileable(item.he)) return null;
@@ -228,6 +261,8 @@ export function nextPart(unit: Unit, s: CourseStore, known: Known): Item[] {
 export function makeLesson(unit: Unit, part: Item[] | null, hard = false): Exercise[] {
   if (part?.length) {
     const ex = drill({ ...unit, items: part }, 1);
+    const v = shuffle(part).map((it) => verse(it, unit)).find((x) => x);
+    if (v) ex.splice(ex.length - 1, 0, v);
     const before = shuffle(unit.items.filter((it) => !part.includes(it))).slice(0, 2);
     before.forEach((it, i) => {
       const x = pick(it, unit, i ? 'he' : 'tr');
@@ -266,7 +301,7 @@ function drill(unit: Unit, level: number): Exercise[] {
         (it) => pick(it, unit, 'he'),
         (it) => build(it, unit),
         (it) => (hard ? gap(it) ?? root(it, unit) : pick(it, unit, 'tr')),
-        (it) => (hard ? build(it, unit) : gap(it)),
+        (it) => verse(it, unit) ?? (hard ? build(it, unit) : gap(it)),
         (it) => (hard ? root(it, unit) ?? pick(it, unit, 'he') : pick(it, unit, 'he')),
       ];
   let k = hard ? 1 : 0;
