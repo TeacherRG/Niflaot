@@ -80,7 +80,7 @@ export function NotFound() {
   }, [t]);
   return (
     <>
-      <TopBar title={t('notFound.title')} />
+      <TopBar title={t('notFound.title')} share={false} />
       <main className="wrap page-state">
         <h1>{t('notFound.title')}</h1>
         <p>{t('notFound.text')}</p>

@@ -1314,6 +1314,12 @@ const en: Messages = {
   // «К шабатнему столу», the motto (Devarim 6:7), the faculties of the Academy
   'slogan': "“And you shall teach them to your children and speak of them”",
   'slogan.ref': "Devarim 6:7",
+  // «Поделиться» in the top bar (TopBar.tsx)
+  'share.btn': "Share",
+  'share.more': "Send…",
+  'share.mail': "By e-mail",
+  'share.copy': "Copy link",
+  'share.copied': "Link copied",
   // the week's dedication at the bottom of both homes (empty name — no plaque)
   'dedication.lead': "This week's learning is dedicated to the elevation of the soul of",
   'dedication.name': "Pavel ben Yaakov",

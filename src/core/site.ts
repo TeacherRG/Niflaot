@@ -6,7 +6,7 @@ export const SITE_URL = `https://${SITE_HOST}`;
  * Where a shared link was sent from — `?ref=` in the address; GoatCounter shows it among the referrers
  * (https://niflaot.goatcounter.com), so we see which channel brings people.
  */
-export type Ref = 'wa' | 'tg' | 'copy' | 'card' | 'qr' | 'rss' | 'channel' | 'daily' | 'app' | 'mail' | 'push' | 'tgapp' | 'quiz' | 'podcast';
+export type Ref = 'wa' | 'tg' | 'copy' | 'card' | 'qr' | 'rss' | 'channel' | 'daily' | 'app' | 'mail' | 'push' | 'tgapp' | 'quiz' | 'podcast' | 'share';
 
 /** Link to a lesson: its static page `/<slug>/` (own preview picture for messengers), marked with the channel. */
 export const lessonLink = (slug: string, ref: Ref, lang?: string) =>
@@ -38,3 +38,15 @@ export const STATIC_PAGES: Record<StaticPage, string> = {
 };
 export const staticPath = (page: StaticPage, lang: string) => `/${lang === 'ru' ? '' : `${lang}/`}${page}/`;
 export const pageLink = (page: StaticPage, lang: string, ref?: Ref) => `${SITE_URL}${staticPath(page, lang)}${ref ? `?ref=${ref}` : ''}`;
+
+/**
+ * The link to the page open now, for «Поделиться» (TopBar.tsx): a lesson's game (`#/<slug>`) — its static page
+ * (its own preview picture in messengers), anything else («Читать», «Memo», a passage of the day…) — the route itself.
+ */
+export function currentLink(hash: string, ref: Ref, lang: string | undefined, isLesson: (slug: string) => boolean) {
+  const route = hash.replace(/^#\/?/, '');
+  return isLesson(route) ? lessonLink(route, ref, lang) : routeLink(route, ref, lang);
+}
+
+/** pages that are not to share: the home, the onboarding, the account and the admin's — no «Поделиться» */
+export const noShare = (hash: string) => /^#?\/?(?:$|mode|account|consent|admin|class|quiz\/host)/.test(hash);
