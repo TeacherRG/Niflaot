@@ -4,7 +4,7 @@
 # checked (scripts/check-nigun.ts: the calibration of the singing) and pushed to a branch `nigun-notes-<run>` with the
 # separated voices (nigun-stems/*.flac — to tune pYIN without Demucs) and the report of scripts/nigun-repeats.ts (how well
 # the repeats of a line agree — before and after; also in the run's summary). The repository doesn't let Actions open a
-# pull request — the branch waits for one by hand; nothing is merged by itself. No ffmpeg: installing it took 39 minutes.
+# pull request — the branch waits for one by hand; nothing is merged by itself. The branches of earlier runs are removed. No ffmpeg: installing it took 39 minutes.
 name: Nigun notes (Demucs)
 
 on:
@@ -73,6 +73,12 @@ jobs:
             echo "Запуск: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           } > /tmp/body.md
           cat /tmp/body.md >> "$GITHUB_STEP_SUMMARY"
+      # a new run supersedes the branches of the earlier ones (their notes are either merged or replaced) — they would pile up
+      - name: Remove the earlier branches
+        run: |
+          for b in $(git ls-remote --heads origin 'nigun-notes-*' | sed 's#.*refs/heads/##'); do
+            git push -q origin --delete "$b" && echo "removed $b"
+          done
       - name: Pull request
         env:
           GH_TOKEN: ${{ github.token }}
