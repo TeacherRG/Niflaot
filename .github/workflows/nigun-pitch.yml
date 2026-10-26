@@ -1,0 +1,88 @@
+# «Святая музыка», «Петь»: the reference of notes of a niggun from its voice alone. Demucs (htdemucs) separates the voice
+# from the instruments, pYIN (librosa) finds its notes (scripts/nigun-pitch.py --vocals) — as UltraSinger does; the
+# cloud container can't download Demucs's weights, a runner can. Run by hand: one niggun or all. The new notes are
+# checked (scripts/check-nigun.ts: the calibration of the singing) and offered in a pull request with the report of
+# scripts/nigun-repeats.ts (how well the repeats of a line agree — before and after); nothing is merged by itself.
+name: Nigun notes (Demucs)
+
+on:
+  workflow_dispatch:
+    inputs:
+      nigun:
+        description: 'id нигуна (lubo-bratzi, anim-zmirot…) или all'
+        default: all
+
+permissions:
+  contents: write        # push the branch with the notes
+  pull-requests: write   # open the pull request
+
+concurrency:
+  group: nigun-pitch
+  cancel-in-progress: false
+
+jobs:
+  notes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: command -v ffmpeg || (sudo apt-get update -q && sudo apt-get install -y -q ffmpeg)
+      # torch 2.5 (CPU): Demucs 4.0.1 saves the stems with torchaudio.save, which newer torchaudio moved out
+      - name: Demucs and librosa
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install -q torch==2.5.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+          .venv/bin/pip install -q demucs==4.0.1 librosa soundfile
+      - name: The notes from the voice
+        env:
+          NIGUN: ${{ inputs.nigun }}
+        run: |
+          mkdir -p /tmp/old && cp public/nigun/*.pitch.json /tmp/old/
+          if [ "$NIGUN" = all ]; then
+            ids=$(ls public/nigun/*.mp3 | xargs -n1 basename | sed 's/\.mp3$//')
+          elif [[ "$NIGUN" =~ ^[a-z0-9-]+$ ]] && [ -f "public/nigun/$NIGUN.mp3" ]; then
+            ids=$NIGUN
+          else
+            echo "::error::no niggun «$NIGUN»"; exit 1
+          fi
+          for id in $ids; do .venv/bin/python scripts/nigun-pitch.py "$id" --vocals; done
+      - name: Check and report
+        id: report
+        run: |
+          {
+            echo 'Эталонные ноты для «Петь» — по голосу, отделённому от инструментов (Demucs htdemucs + pYIN, `scripts/nigun-pitch.py --vocals`).'
+            echo
+            echo 'Повторы одной строки поются на одну мелодию: чем ближе ноты к мелодии, тем лучше они совпадают (`scripts/nigun-repeats.ts`, было → стало).'
+            echo
+            npx tsx scripts/nigun-repeats.ts --old /tmp/old
+            echo
+            if npx tsx scripts/check-nigun.ts > /tmp/check.txt 2>&1; then
+              echo '`scripts/check-nigun.ts` (и калибровка пения) — ✓'
+            else
+              echo '**`scripts/check-nigun.ts` не прошёл — не сливать:**'
+              echo '```'; cat /tmp/check.txt; echo '```'
+            fi
+            echo
+            echo "Запуск: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          } > /tmp/body.md
+          cat /tmp/body.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- public/nigun; then echo 'The notes are the same — nothing to offer.'; exit 0; fi
+          branch="nigun-notes-${{ github.run_id }}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch -c "$branch"
+          git add public/nigun/*.pitch.json
+          git commit -q -m 'Святая музыка: эталонные ноты по голосу (Demucs + pYIN)'
+          git push -q origin "$branch"
+          # opening a PR from an Action may be off in the repository's settings — then the branch waits for a PR by hand
+          gh pr create --base main --head "$branch" --title 'Святая музыка: эталонные ноты по голосу (Demucs)' --body-file /tmp/body.md \
+            || echo "::warning::The branch $branch is pushed; open the PR by hand: ${{ github.server_url }}/${{ github.repository }}/compare/main...$branch"
