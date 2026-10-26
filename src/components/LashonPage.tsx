@@ -10,7 +10,8 @@ import { useHabit } from '../core/habit';
 import { memoImages } from '../core/memo';
 import { FINALS, letterName } from '../core/letterNames';
 import { answerWord, torahWords, useStars } from '../core/torahWords';
-import { inDeck, loadDict, markKnown, markLearn, readWordStore, useWordStore, type WordLang } from '../core/words';
+import { exampleOf, inDeck, loadDict, loadExamples, markKnown, markLearn, readWordStore, useWordStore, type WordLang } from '../core/words';
+import { BOOKS } from '../core/tanakhCycle';
 import {
   GOAL,
   TANAKH_GROUP,
@@ -36,6 +37,7 @@ import {
   nextUnit,
   tanakhUnits,
   torahUnits,
+  verseOf,
   useCourse,
   xpToday,
   xpTotal,
@@ -102,7 +104,9 @@ export function LashonPage() {
   useEffect(() => {
     if (!adults) return;
     let live = true;
-    loadDict((locale === 'en' || locale === 'de' ? locale : 'ru') as WordLang).then((d) => live && setTanakh(tanakhUnits(d)));
+    const lang = (locale === 'en' || locale === 'de' ? locale : 'ru') as WordLang;
+    // the words and their example verses (for «Составьте стих»)
+    Promise.all([loadDict(lang), loadExamples(lang)]).then(([d, ex]) => live && setTanakh(tanakhUnits(d, (id) => verseOf(exampleOf(ex, id), lang))));
     return () => {
       live = false;
     };
@@ -600,6 +604,13 @@ function Match({ pairs, onMiss, onDone }: { pairs: Item[]; onMiss: () => void; o
   );
 }
 
+/** «Теґилим 2:5» — the verse's place, as text (a link would leave the lesson) */
+const refName = (ref: string, locale: string) => {
+  const [slug, cv] = ref.split(' ');
+  const book = BOOKS.find((b) => b.slug === slug);
+  return `${book ? book.name[locale === 'en' || locale === 'de' ? locale : 'ru'] : slug} ${cv}`;
+};
+
 /** «Соберите слово» / «Расставьте слова»: tap a tile to put it in the line (right to left), tap it there to take it back */
 function Build({ ex, built, state, onBuilt }: { ex: Extract<Exercise, { t: 'build' }>; built: number[]; state: State; onBuilt: (b: number[]) => void }) {
   const { t, locale } = useI18n();
@@ -614,8 +625,24 @@ function Build({ ex, built, state, onBuilt }: { ex: Extract<Exercise, { t: 'buil
   );
   return (
     <>
-      <p className="ln-ask">{t(ex.words ? 'ln.q.order' : 'ln.q.build')}</p>
-      <p className="ln-tr-big">{ex.item.tr}</p>
+      <p className="ln-ask">{t(ex.verse ? 'ln.q.verse' : ex.words ? 'ln.q.order' : 'ln.q.build')}</p>
+      <p className="ln-tr-big">
+        {ex.item.tr}
+        {ex.verse && (
+          <small className="ln-ref">
+            {refName(ex.verse.ex.ref, locale)}
+          </small>
+        )}
+      </p>
+      {ex.word && (
+        <p className="ln-hint">
+          {t('ln.verseWord')}{' '}
+          <span className="he" lang="he">
+            {ex.word.he}
+          </span>{' '}
+          — {ex.word.tr}
+        </p>
+      )}
       {ex.item.img && (
         <div className="ln-prompt">
           <img src={ex.item.img} alt="" />
