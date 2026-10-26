@@ -6,11 +6,13 @@
  *
  * The reference: the pitch of the recording every 50 ms (`public/nigun/<id>.pitch.json`, scripts/nigun-pitch.py,
  * the same detector). Lenient on purpose — a phone microphone, an untrained voice: a line scores by the share of the
- * recording's notes the singer meets within TOLERANCE, the singer a little late or early (the best shift up to LAG),
- * of the moments the microphone heard a note (not less than HEARD of the line — a breath or a lost frame is no loss).
+ * recording's notes the singer meets within TOLERANCE, the singer a little early (EARLY) or late (LATE — the phone's
+ * speaker or Bluetooth headphones and the microphone add their own delay, and a line lasts only 2–5 s), of the moments
+ * the microphone heard a note (not less than HEARD of the line — a breath or a lost frame is no loss).
  * SING_FLOOR of them — still nothing (a monotone hum meets that much by chance), SING_PASS — the full 10 points.
- * Calibrated on the recording's own notes: a singer half a second late, a semitone or two off, the microphone deaf
- * to half the frames — 99–100 %; one note held through the song — 44 %, random notes — 10 %.
+ * Calibrated on the recording's own melody (scripts/check-nigun.ts): exact, 0.8 s late, the microphone hearing a quarter
+ * of the frames, a semitone off — 98–100 % and no line without a star; one note held through the song — under 35 %,
+ * random notes — under 25 %. (Before 26.10.2026 — 0.4 s either way and HEARD 0.4: «half the lines without a star».)
  */
 export interface PitchTrack {
   hop: number;
@@ -20,14 +22,17 @@ export interface PitchTrack {
 
 /** in tune: within a semitone and a half of the recording, in any octave */
 export const TOLERANCE = 1.5;
-/** the singer may be this many seconds late or early */
-export const LAG = 0.4;
+/** the singer may be this many seconds early … late */
+export const EARLY = 0.3;
+export const LATE = 0.9;
 /** the share of a line's notes met: below SING_FLOOR — 0, from SING_PASS — the full points, linear between */
-export const SING_FLOOR = 0.3;
+export const SING_FLOOR = 0.35;
 export const SING_PASS = 0.6;
 /** the moments the microphone heard a note count at least as this share of the line */
-export const HEARD = 0.4;
+export const HEARD = 0.25;
 export const SING_POINTS = 10;
+/** the microphone: quieter than this (RMS) is silence — lower than for the recording, a voice at a phone is soft */
+export const MIC_QUIET = 0.004;
 
 /** The distance in semitones between two notes, octave aside: 0 … 6. */
 export const pitchDistance = (a: number, b: number) => {
@@ -35,15 +40,15 @@ export const pitchDistance = (a: number, b: number) => {
   return Math.min(d, 12 - d);
 };
 
-/** The pitch of a frame of sound (autocorrelation; 70–1000 Hz) as a MIDI note, or 0 — silence or no clear note. */
-export function detectPitch(buf: Float32Array, sampleRate: number): number {
+/** The pitch of a frame of sound (autocorrelation; 70–1000 Hz) as a MIDI note, or 0 — silence (below `quiet`) or no clear note. */
+export function detectPitch(buf: Float32Array, sampleRate: number, quiet = 0.01): number {
   const n = buf.length;
   let mean = 0;
   for (let i = 0; i < n; i++) mean += buf[i];
   mean /= n;
   let energy = 0;
   for (let i = 0; i < n; i++) energy += (buf[i] - mean) ** 2;
-  if (Math.sqrt(energy / n) < 0.01) return 0;
+  if (Math.sqrt(energy / n) < quiet) return 0;
   const lo = Math.floor(sampleRate / 1000);
   const hi = Math.min(n - 1, Math.ceil(sampleRate / 70));
   const ac = new Float32Array(hi + 2);
@@ -74,12 +79,11 @@ export const refAt = (track: PitchTrack, t: number) => track.p[Math.round(t / tr
 /** The singer's notes by the recording's frames (0 — nothing heard), for the whole song. */
 export const newVoice = (track: PitchTrack) => new Float32Array(track.p.length);
 
-/** Is the singer's note `me` in tune with the recording around second `t` (± LAG)? For the live hint. */
+/** Is the singer's note `me` in tune with the recording around second `t` (LATE before … EARLY after)? For the live hint. */
 export function inTuneAt(track: PitchTrack, t: number, me: number): boolean {
   if (!me) return false;
   const k = Math.round(t / track.hop);
-  const w = Math.round(LAG / track.hop);
-  for (let i = Math.max(0, k - w); i <= k + w && i < track.p.length; i++)
+  for (let i = Math.max(0, k - Math.round(LATE / track.hop)); i <= k + Math.round(EARLY / track.hop) && i < track.p.length; i++)
     if (track.p[i] && pitchDistance(me, track.p[i]) <= TOLERANCE) return true;
   return false;
 }
@@ -91,9 +95,9 @@ export function linePoints(track: PitchTrack, voice: Float32Array, from: number,
   let notes = 0;
   for (let f = f0; f < f1; f++) if (track.p[f]) notes++;
   if (!notes) return 0;
-  const w = Math.round(LAG / track.hop);
   let best = 0;
-  for (let d = -w; d <= w; d++) {
+  // d > 0 — the singer late
+  for (let d = -Math.round(EARLY / track.hop); d <= Math.round(LATE / track.hop); d++) {
     let met = 0;
     let heard = 0;
     for (let f = f0; f < f1; f++) {
@@ -112,8 +116,9 @@ export const lineStars = (points: number) => (points >= SING_POINTS ? 3 : points
 
 /** The microphone, on a tap: the stream and an analyser; `stop()` turns everything off. */
 export async function openMic(): Promise<{ read: () => number; stop: () => void }> {
-  // the singer's own voice: no echo of the recording through the speakers, no automatic volume
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: false, autoGainControl: false } });
+  // the singer's own voice: no echo of the recording through the speakers; the automatic volume on — a phone's microphone
+  // is quiet, and without it most of a soft voice fell under the silence threshold
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: false, autoGainControl: true } });
   const ctx = new AudioContext();
   await ctx.resume();
   const src = ctx.createMediaStreamSource(stream);
@@ -124,7 +129,7 @@ export async function openMic(): Promise<{ read: () => number; stop: () => void 
   return {
     read: () => {
       an.getFloatTimeDomainData(buf);
-      return detectPitch(buf, ctx.sampleRate);
+      return detectPitch(buf, ctx.sampleRate, MIC_QUIET);
     },
     stop: () => {
       stream.getTracks().forEach((t) => t.stop());
