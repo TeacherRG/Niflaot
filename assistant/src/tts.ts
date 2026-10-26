@@ -102,8 +102,6 @@ export class Narrator extends DurableObject<TtsEnv> {
   constructor(ctx: DurableObjectState, env: TtsEnv) {
     super(ctx, env);
     this.sql.exec('CREATE TABLE IF NOT EXISTS audio (key TEXT NOT NULL, n INTEGER NOT NULL, data BLOB NOT NULL, PRIMARY KEY (key, n))');
-    // the recordings checked for dropouts: the ones kept before the check are checked once, when first asked for
-    this.sql.exec('CREATE TABLE IF NOT EXISTS checked (key TEXT PRIMARY KEY)');
   }
 
   private load(key: string): Uint8Array | null {
@@ -122,20 +120,17 @@ export class Narrator extends DurableObject<TtsEnv> {
     this.ctx.storage.transactionSync(() => {
       this.sql.exec('DELETE FROM audio WHERE key = ?', key);
       for (let n = 0; n * PIECE < wav.length; n++) this.sql.exec('INSERT INTO audio (key, n, data) VALUES (?, ?, ?)', key, n, wav.slice(n * PIECE, (n + 1) * PIECE));
-      this.sql.exec('INSERT OR IGNORE INTO checked (key) VALUES (?)', key);
     });
   }
 
-  /** a recording kept before the check: with dropouts — removed (recorded again), clean — marked */
+  /** Check cached audio too: older recordings may have been saved after every take contained dropouts. */
   private check(key: string, wav: Uint8Array): boolean {
-    if (this.sql.exec('SELECT 1 FROM checked WHERE key = ?', key).toArray().length) return true;
     const holes = holesOf(wav);
     if (holes > MAX_DROPOUTS) {
       console.error('tts', key, 'dropouts', holes, '— recorded again');
       this.sql.exec('DELETE FROM audio WHERE key = ?', key);
       return false;
     }
-    this.sql.exec('INSERT INTO checked (key) VALUES (?)', key);
     return true;
   }
 
@@ -186,16 +181,16 @@ export class Narrator extends DurableObject<TtsEnv> {
     } else parts = (await json<{ parts?: Part[] }>(`/tts/${lang}/${slug}.json`))?.parts;
     const part = parts?.find((p) => p.h === hash);
     if (!part || typeof part.text !== 'string' || part.text.length > MAX_TEXT) throw new NotFound();
-    // Gemini's audio is now and then cut by dropouts (clicks, breaks): such a take is made again, the best one is kept
-    let best: { wav: Uint8Array; holes: number } | null = null;
+    // Gemini's audio is now and then cut by dropouts (clicks, breaks): only clean takes may be stored.
+    let fewestHoles = Infinity;
     for (let take = 1; take <= TAKES; take++) {
       const wav = await speak(this.env, lang, part.text, voice);
       const holes = holesOf(wav);
       if (holes <= MAX_DROPOUTS) return wav;
       console.error('tts', slug, hash, 'take', take, 'dropouts', holes);
-      if (!best || holes < best.holes) best = { wav, holes };
+      fewestHoles = Math.min(fewestHoles, holes);
     }
-    return best!.wav;
+    throw new Error(`gemini audio quality: all ${TAKES} takes exceeded ${MAX_DROPOUTS} dropouts (fewest: ${fewestHoles})`);
   }
 }
 
