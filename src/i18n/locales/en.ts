@@ -1306,6 +1306,9 @@ const en: Messages = {
   // «К шабатнему столу», the motto (Devarim 6:7), the faculties of the Academy
   'slogan': "“And you shall teach them to your children and speak of them”",
   'slogan.ref': "Devarim 6:7",
+  // the week's dedication at the bottom of both homes (empty name — no plaque)
+  'dedication.lead': "This week's learning is dedicated to the elevation of the soul of",
+  'dedication.name': "Pavel ben Yaakov",
   'table.title': "For the Shabbat table",
   'table.menuSub': "the portion’s sheet — print it before Shabbat",
   'table.homeSub': "the Rebbe’s talk, verses and gematrias of the portion — print",

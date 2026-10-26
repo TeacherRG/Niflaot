@@ -20,6 +20,7 @@ import { lessonArt } from '../core/art';
 import { useMode } from '../core/mode';
 import { useCourses, type Course } from '../core/courses';
 import { CoursesCard } from './CoursesCard';
+import { Dedication } from './Dedication';
 
 /** «Гематрия дня» on the home screen: today's number, or the result when today's word is solved. */
 function DailyLink() {
@@ -189,6 +190,7 @@ function AdultsHome() {
             <a href="#/quiz">{t('lq.title')} →</a>
           </p>
         </aside>
+        <Dedication />
       </main>
       <Colophon />
     </>
@@ -397,6 +399,7 @@ function KidsHome() {
             </div>
           </section>
         )}
+        <Dedication />
       </main>
       <Colophon />
     </>

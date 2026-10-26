@@ -1327,6 +1327,9 @@ const ru = {
   // «К шабатнему столу», the motto (Devarim 6:7), the faculties of the Academy
   'slogan': "«И повторяй их детям твоим, и говори о них»",
   'slogan.ref': "Дварим 6:7",
+  // the week's dedication at the bottom of both homes (empty name — no plaque)
+  'dedication.lead': "Учёба на этой неделе посвящается поднятию души",
+  'dedication.name': "Павел бен Яаков",
   'table.title': "К шабатнему столу",
   'table.menuSub': "лист главы — распечатать до Шабата",
   'table.homeSub': "беседа Ребе, стихи и гематрии главы — распечатать",

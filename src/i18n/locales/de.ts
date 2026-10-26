@@ -1306,6 +1306,9 @@ const de: Messages = {
   // «К шабатнему столу», the motto (Devarim 6:7), the faculties of the Academy
   'slogan': "„Und du sollst sie deinen Kindern einschärfen und von ihnen reden“",
   'slogan.ref': "Dewarim 6,7",
+  // the week's dedication at the bottom of both homes (empty name — no plaque)
+  'dedication.lead': "Das Lernen dieser Woche ist der Erhebung der Seele gewidmet von",
+  'dedication.name': "Pavel ben Jaakov",
   'table.title': "Für den Schabbat-Tisch",
   'table.menuSub': "Blatt zum Wochenabschnitt — vor Schabbat drucken",
   'table.homeSub': "Gespräch des Rebben, Verse und Gematrias des Abschnitts — drucken",
