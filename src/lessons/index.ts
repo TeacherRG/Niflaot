@@ -7,6 +7,7 @@ import rebbeNoach from './06-rebbe-noach';
 import baalHaturimLechLecha from './07-baal-haturim-lech-lecha';
 import rebbeLechLecha from './08-rebbe-lech-lecha';
 import baalHaturimVayera from './09-baal-haturim-vayera';
+import rebbeVayera from './10-rebbe-vayera';
 import { installOverrides } from '../content';
 
 /**
@@ -15,7 +16,7 @@ import { installOverrides } from '../content';
  *   2. import it here and put it into the list (its position = its place in the menu).
  * A «Нифлаот Ребе» lesson (`series: 'rebbe'`) is listed under «Нифлаот Ребе» of its portion, numbered within it.
  */
-export const LESSONS: Lesson[] = [baalHaturimBereshit, shaloshShaot, baalHaturimNoach, rebbeNoach, baalHaturimLechLecha, rebbeLechLecha, baalHaturimVayera];
+export const LESSONS: Lesson[] = [baalHaturimBereshit, shaloshShaot, baalHaturimNoach, rebbeNoach, baalHaturimLechLecha, rebbeLechLecha, baalHaturimVayera, rebbeVayera];
 
 // text edits made on the site by the admin (src/content/overrides.json)
 installOverrides(LESSONS);
