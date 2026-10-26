@@ -11,7 +11,6 @@ import { memoImages } from '../core/memo';
 import { FINALS, letterName } from '../core/letterNames';
 import { answerWord, torahWords, useStars } from '../core/torahWords';
 import { exampleOf, inDeck, loadDict, loadExamples, markKnown, markLearn, readWordStore, useWordStore, type WordLang } from '../core/words';
-import { BOOKS } from '../core/tanakhCycle';
 import {
   GOAL,
   TANAKH_GROUP,
@@ -37,7 +36,9 @@ import {
   nextUnit,
   tanakhUnits,
   torahUnits,
+  torahVerses,
   verseOf,
+  type Verse,
   useCourse,
   xpToday,
   xpTotal,
@@ -99,7 +100,26 @@ export function LashonPage() {
   // a player who reads Hebrew («Читаю на иврите», src/core/hebrewLevel.ts) doesn't see the letters — only the words
   const reads = useHebrewLevel() === 'reads';
   const abc = useMemo(() => abcUnits(locale), [locale]);
-  const torah = useMemo(() => (adults ? [] : torahUnits(torahWords(LESSONS, locale, memoImages))), [adults, locale]);
+  // children: the short Torah verses of the lessons' sources (src/sources — loaded apart) for «Составьте стих»
+  const [verses, setVerses] = useState<Map<string, Verse[]>>(new Map());
+  useEffect(() => {
+    if (adults) return;
+    let live = true;
+    import('../sources').then(({ SOURCES, translation }) => {
+      const source = (id: string) => {
+        const s = SOURCES[id];
+        if (!s) return undefined;
+        const tr = translation(s, id, locale).lines;
+        // a translation in the site's language only (not the English fallback)
+        return { torah: s.kind.en === 'Torah', ref: s.ref, title: s.title[locale] ?? s.title.en, he: s.he, tr: locale !== 'en' && tr === s.en ? [] : tr };
+      };
+      if (live) setVerses(torahVerses(LESSONS, source, locale));
+    });
+    return () => {
+      live = false;
+    };
+  }, [adults, locale]);
+  const torah = useMemo(() => (adults ? [] : torahUnits(torahWords(LESSONS, locale, memoImages), verses)), [adults, locale, verses]);
   const [tanakh, setTanakh] = useState<Unit[] | null>(adults ? null : []);
   useEffect(() => {
     if (!adults) return;
@@ -604,13 +624,6 @@ function Match({ pairs, onMiss, onDone }: { pairs: Item[]; onMiss: () => void; o
   );
 }
 
-/** «Теґилим 2:5» — the verse's place, as text (a link would leave the lesson) */
-const refName = (ref: string, locale: string) => {
-  const [slug, cv] = ref.split(' ');
-  const book = BOOKS.find((b) => b.slug === slug);
-  return `${book ? book.name[locale === 'en' || locale === 'de' ? locale : 'ru'] : slug} ${cv}`;
-};
-
 /** «Соберите слово» / «Расставьте слова»: tap a tile to put it in the line (right to left), tap it there to take it back */
 function Build({ ex, built, state, onBuilt }: { ex: Extract<Exercise, { t: 'build' }>; built: number[]; state: State; onBuilt: (b: number[]) => void }) {
   const { t, locale } = useI18n();
@@ -630,7 +643,7 @@ function Build({ ex, built, state, onBuilt }: { ex: Extract<Exercise, { t: 'buil
         {ex.item.tr}
         {ex.verse && (
           <small className="ln-ref">
-            {refName(ex.verse.ex.ref, locale)}
+            {ex.verse.ref}
           </small>
         )}
       </p>
@@ -643,7 +656,8 @@ function Build({ ex, built, state, onBuilt }: { ex: Extract<Exercise, { t: 'buil
           — {ex.word.tr}
         </p>
       )}
-      {ex.item.img && (
+      {/* a verse — no picture: the tiles stay on the screen */}
+      {ex.item.img && !ex.verse && (
         <div className="ln-prompt">
           <img src={ex.item.img} alt="" />
         </div>
