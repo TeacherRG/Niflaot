@@ -1672,8 +1672,14 @@ a.tk-step:hover{background:var(--tchelet-soft)}
 .ln-found-none{padding:10px 12px;color:var(--muted);font-size:14px}
 .ln-dict-stat{margin:0 0 8px;color:var(--muted);font-size:13.5px}
 .ln-dict{list-style:none;margin:0;padding:0}
-.ln-dict li{display:flex;align-items:center;gap:12px;padding:7px 4px;border-bottom:1px solid var(--line-soft)}
-.ln-dict li.mark{background:var(--gold-soft);border-radius:8px}
+.ln-dict-group{margin-bottom:10px}
+.ln-dict-letter{position:sticky;top:-1px;z-index:1;display:flex;align-items:center;gap:10px;margin:0;padding:6px 0;background:var(--surface)}
+.ln-dict-letter::after{content:"";flex:1;height:2px;background:var(--gold-line)}
+.ln-dict-letter .he{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--gold-deep);color:#fff;font-family:var(--f-he);font-size:24px;line-height:1}
+.ln-dict li{display:flex;align-items:center;gap:12px;padding:8px 6px;border-bottom:1px solid var(--line-soft)}
+.ln-dict li:last-child{border-bottom:0}
+.ln-dict li>.he{font-weight:600;color:var(--tchelet)}
+.ln-dict li.mark{background:var(--gold-soft);border-radius:8px;box-shadow:inset 3px 0 0 var(--gold-deep)}
 .ln-dict-met{font-style:normal;color:var(--ok-deep);font-weight:800}
 .ln-hint{color:var(--muted);font-size:12px;text-align:center}
 p.ln-hint{margin:0;font-size:13px}

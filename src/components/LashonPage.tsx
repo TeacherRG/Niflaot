@@ -364,43 +364,66 @@ function WordSearch({ units, title, met, onOpen }: { units: Unit[]; title: (u: U
   );
 }
 
-/** «Словарь урока»: every word of a unit — Hebrew, translation, root; ✓ — met in the course; the found word is marked */
+/** the letters of a Hebrew word for the alef-bet order: no vowel points, signs or maqaf; a final letter — as the plain one */
+const abcKey = (he: string) => he.replace(/[^א-ת]/g, '').replace(/[ךםןףץ]/g, (c) => ({ ך: 'כ', ם: 'מ', ן: 'נ', ף: 'פ', ץ: 'צ' })[c]!);
+
+/** «Словарь урока»: every word of a unit in the alef-bet order, under its first letter — Hebrew, translation, root; ✓ — met
+ *  in the course; the found word is marked */
 function Dictionary({ unit, mark, met }: { unit: Unit; mark?: string; met: (key: string) => boolean }) {
   const { t } = useI18n();
-  const box = useRef<HTMLOListElement>(null);
+  const box = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (mark) box.current?.querySelector('.mark')?.scrollIntoView({ block: 'center' });
   }, [mark]);
   const seen = unit.items.filter((it) => met(it.key)).length;
+  const groups = useMemo(() => {
+    const sorted = [...unit.items].sort((a, b) => (abcKey(a.he) < abcKey(b.he) ? -1 : abcKey(a.he) > abcKey(b.he) ? 1 : 0));
+    const out: { letter: string; items: Item[] }[] = [];
+    for (const it of sorted) {
+      const letter = abcKey(it.he)[0] ?? '';
+      if (out.at(-1)?.letter === letter) out.at(-1)!.items.push(it);
+      else out.push({ letter, items: [it] });
+    }
+    return out;
+  }, [unit]);
   return (
-    <>
+    <div ref={box}>
       <p className="ln-dict-stat">{t('ln.dictStat', { k: seen, n: unit.items.length })}</p>
-      <ol className="ln-dict" ref={box}>
-        {unit.items.map((it) => (
-          <li key={it.key} className={it.key === mark ? 'mark' : undefined}>
+      {groups.map((g) => (
+        <section key={g.letter} className="ln-dict-group">
+          <h3 className="ln-dict-letter">
             <span className="he" lang="he">
-              {it.he}
+              {g.letter}
             </span>
-            <span className="ln-dict-tr">
-              {it.tr}
-              {it.root && (
-                <small>
-                  {t('ln.rootOf')}{' '}
-                  <span className="he" lang="he">
-                    {it.root}
-                  </span>
-                </small>
-              )}
-            </span>
-            {met(it.key) && (
-              <i className="ln-dict-met" title={t('ln.dictMet')}>
-                ✓
-              </i>
-            )}
-          </li>
-        ))}
-      </ol>
-    </>
+          </h3>
+          <ol className="ln-dict">
+            {g.items.map((it) => (
+              <li key={it.key} className={`${it.key === mark ? 'mark' : ''}${met(it.key) ? ' met' : ''}`.trim() || undefined}>
+                <span className="he" lang="he">
+                  {it.he}
+                </span>
+                <span className="ln-dict-tr">
+                  {it.tr}
+                  {it.root && (
+                    <small>
+                      {t('ln.rootOf')}{' '}
+                      <span className="he" lang="he">
+                        {it.root}
+                      </span>
+                    </small>
+                  )}
+                </span>
+                {met(it.key) && (
+                  <i className="ln-dict-met" title={t('ln.dictMet')}>
+                    ✓
+                  </i>
+                )}
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))}
+    </div>
   );
 }
 
