@@ -241,7 +241,8 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
   const scored = track ? sungLines(track) : [];
   const linePts = n.lines.map((_, k) => (scored[k] && k <= cur && (singing || singResult) ? ptsOf(k) : 0));
   const strip = scored.flatMap((s, k) => (s ? [k] : []));
-  const lastDone = [...strip].reverse().find((k) => k < cur);
+  // under the strip — the line being sung now (the same one that lights up in the words below), its stars growing as it is sung
+  const nowLine = singing && scored[cur] ? cur : undefined;
   const resultPct = result === null || !total ? 0 : Math.round((100 * result) / total);
 
   return (
@@ -324,12 +325,14 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
               </ol>
               {singing && (
                 <p className="kar-stars" aria-live="polite">
-                  {lastDone !== undefined ? (
+                  {nowLine !== undefined ? (
                     <>
-                      <span className="kar-stars-l">{n.lines[lastDone].text}</span>
-                      <b aria-label={`${lineStars(linePts[lastDone])} / 3`}>
-                        {'★'.repeat(lineStars(linePts[lastDone]))}
-                        <i>{'★'.repeat(3 - lineStars(linePts[lastDone]))}</i>
+                      <span className="kar-stars-l" lang={n.lang}>
+                        {n.lines[nowLine].text}
+                      </span>
+                      <b aria-label={`${lineStars(linePts[nowLine])} / 3`}>
+                        {'★'.repeat(lineStars(linePts[nowLine]))}
+                        <i>{'★'.repeat(3 - lineStars(linePts[nowLine]))}</i>
                       </b>
                     </>
                   ) : (
