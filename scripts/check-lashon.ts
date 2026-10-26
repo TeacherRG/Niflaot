@@ -10,10 +10,11 @@
  */
 import { LESSONS } from '../src/lessons';
 import { torahWords } from '../src/core/torahWords';
-import { abcUnits, alike, clusters, core, isRight, finishLesson, isDone, isOpen, makeExam, makeLesson, newItems, nextPart, passExam, readCourse, EXAM_ITEMS, type CourseStore, verseOf, VERSE_MAX, VERSE_MIN, type Item, type Known, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
+import { abcUnits, alike, clusters, core, isRight, finishLesson, isDone, isOpen, makeExam, makeLesson, newItems, nextPart, passExam, readCourse, EXAM_ITEMS, type CourseStore, torahVerses, verseOf, VERSE_MAX, VERSE_MIN, type Item, type Known, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
 import { exampleOf, type Dict, type Word } from '../src/core/words';
 import { readFileSync } from 'node:fs';
 import { mergeSnapshots } from '../src/core/sync';
+import { SOURCES, translation } from '../src/sources';
 import wordsJson from '../src/tanakh/words.json';
 import trRu from '../src/tanakh/words/ru.json';
 import trEn from '../src/tanakh/words/en.json';
@@ -109,7 +110,24 @@ const TR = { ru: trRu, en: trEn, de: trDe } as Record<string, Record<string, str
 const words = (wordsJson as unknown as { words: Word[]; total: number }).words;
 for (const locale of ['ru', 'en', 'de'] as const) {
   checkUnits(abcUnits(locale), `буквы ${locale}`);
-  checkUnits(torahUnits(torahWords(LESSONS, locale)), `слова Торы ${locale}`);
+  // children: «Составьте стих» — the short Torah verses of the lessons' sources, each with a word of the unit in it
+  const source = (id: string) => {
+    const x = SOURCES[id];
+    const tr = x && translation(x, id, locale).lines;
+    return x && { torah: x.kind.en === 'Torah', ref: x.ref, title: x.title[locale] ?? x.title.en, he: x.he, tr: locale !== 'en' && tr === x.en ? [] : tr! };
+  };
+  const twu = torahUnits(torahWords(LESSONS, locale), torahVerses(LESSONS, source, locale));
+  const kidsVerse = twu.flatMap((u) => u.items).filter((it) => it.verse);
+  if (kidsVerse.length < 8) err(`слова Торы ${locale}: стихов для «Составьте стих» — ${kidsVerse.length}`);
+  for (const it of kidsVerse) {
+    const v = it.verse!;
+    if (v.words.length < VERSE_MIN || v.words.length > VERSE_MAX || !v.tr.trim() || /</.test(v.tr) || !/\d[:,]\d/.test(v.ref))
+      err(`слова Торы ${locale}: стих ${v.ref} к ${it.he} — не тот`);
+    if (!` ${v.words.join(' ')} `.includes(` ${it.he} `)) err(`слова Торы ${locale}: в стихе ${v.ref} нет слова ${it.he}`);
+  }
+  if (!twu.some((u) => u.items.some((it) => it.verse && makeLesson(u, [it]).some((x) => x.t === 'build' && x.verse))))
+    err(`слова Торы ${locale}: в уроках нет «Составьте стих»`);
+  checkUnits(twu, `слова Торы ${locale}`);
   const dict: Dict = { words, total: 0, rank: new Map(words.map((w, i) => [w.id, i + 1])), tr: TR[locale] };
   // «Составьте стих»: the example verses of the words (public/tanakh/words/examples-<lang>.json)
   const ex = JSON.parse(readFileSync(`public/tanakh/words/examples-${locale}.json`, 'utf8'));
@@ -119,8 +137,9 @@ for (const locale of ['ru', 'en', 'de'] as const) {
   for (const it of withVerse) {
     const v = it.verse!;
     if (v.words.length < VERSE_MIN || v.words.length > VERSE_MAX || !v.tr.trim() || v.words.some((w) => /[׃׀]/.test(w)))
-      err(`слова Танаха ${locale}: стих ${v.ex.ref} к ${it.he} — не тот`);
-    if (!v.words.join(' ').includes(v.ex.he[1])) err(`слова Танаха ${locale}: в стихе ${v.ex.ref} нет слова ${v.ex.he[1]}`);
+      err(`слова Танаха ${locale}: стих ${v.ref} к ${it.he} — не тот`);
+    const word = exampleOf(ex, it.key)!.he[1];
+    if (!v.words.join(' ').includes(word)) err(`слова Танаха ${locale}: в стихе ${v.ref} нет слова ${word}`);
   }
   let verses = 0;
   for (const u of tu.slice(0, 4)) for (let k = 0; k < 5; k++) verses += makeLesson(u, null, true).filter((x) => x.t === 'build' && x.verse).length;

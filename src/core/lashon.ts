@@ -18,6 +18,8 @@ import { useEffect, useState } from 'react';
 import type { Locale } from '../i18n/config';
 import type { TorahWord } from './torahWords';
 import type { Dict, Example } from './words';
+import type { Lesson } from '../lessons/types';
+import { BOOKS } from './tanakhCycle';
 import { VALUES } from './gematria';
 import { ALEPH_BET, FINAL_FORMS, FINALS, LOOKALIKES, letterName, letterSound } from './letterNames';
 import { markStudied } from './habit';
@@ -34,7 +36,7 @@ export interface Item {
   /** у буквы: её число и звучание */
   value?: number;
   sound?: string;
-  /** взрослым: короткий стих Пророков / Писаний с этим словом — для «Составьте стих» */
+  /** короткий стих с этим словом — для «Составьте стих»: взрослым — Пророков / Писаний, детям — Торы из уроков главы */
   verse?: Verse;
 }
 export interface Verse {
@@ -42,8 +44,8 @@ export interface Verse {
   words: string[];
   /** перевод стиха на языке сайта */
   tr: string;
-  /** где: день цикла и «книга глава:стих» (src/core/words.ts, `Example`) */
-  ex: Example;
+  /** где — «Теґилим 2:5», «Берешит 1:3» (текстом: ссылка увела бы из урока) */
+  ref: string;
 }
 /** «Составьте стих» — только короткие стихи */
 export const VERSE_MAX = 8;
@@ -52,7 +54,47 @@ export const VERSE_MIN = 3;
 export function verseOf(ex: Example | undefined, lang: string): Verse | undefined {
   if (!ex || (ex.en && lang !== 'en')) return undefined;
   const words = ex.he.join('').replace(/[׃׀]/g, ' ').split(/\s+/).filter(Boolean);
-  return words.length >= VERSE_MIN && words.length <= VERSE_MAX ? { words, tr: ex.tr, ex } : undefined;
+  const [slug, cv] = ex.ref.split(' ');
+  const book = BOOKS.find((b) => b.slug === slug);
+  const ref = `${book ? book.name[lang === 'en' || lang === 'de' ? lang : 'ru'] : slug} ${cv}`;
+  return words.length >= VERSE_MIN && words.length <= VERSE_MAX ? { words, tr: ex.tr, ref } : undefined;
+}
+
+/** a primary source of a lesson (src/sources/sefaria.json), as the page hands it: Torah or not, verses, translation lines */
+export interface TorahSource {
+  torah: boolean;
+  /** «Genesis 2:21-22» */
+  ref: string;
+  /** «Берешит 2:21–22» */
+  title: string;
+  he: string[];
+  tr: string[];
+}
+/**
+ * Children: the short verses of the Torah quoted in a portion's lessons (the riddles' sources, the Rebbe's cards) — one
+ * verse per line of the source, 3–8 words, with the translation in the site's language (`de` — «2,21»).
+ */
+export function torahVerses(lessons: Lesson[], source: (id: string) => TorahSource | undefined, lang: string): Map<string, Verse[]> {
+  const out = new Map<string, Verse[]>();
+  for (const l of lessons) {
+    const ids = [...l.riddles.flatMap((r) => r.sources ?? []), ...(l.cards?.items.map((c) => c.source) ?? [])];
+    for (const id of ids) {
+      const s = source(id);
+      const at = s?.ref.match(/(\d+):(\d+)/);
+      if (!s?.torah || !at) continue;
+      const book = s.title.replace(/\s[\d:,.–-]+$/, '');
+      s.he.forEach((he, k) => {
+        const words = he.replace(/[׃׀]/g, ' ').split(/\s+/).filter(Boolean);
+        const tr = (s.tr[k] ?? '').replace(/<[^>]+>/g, '').trim();
+        if (words.length < VERSE_MIN || words.length > VERSE_MAX || !tr) return;
+        const ref = `${book} ${at[1]}${lang === 'de' ? ',' : ':'}${Number(at[2]) + k}`;
+        const list = out.get(l.parsha) ?? [];
+        if (!list.some((v) => v.ref === ref)) list.push({ words, tr, ref });
+        out.set(l.parsha, list);
+      });
+    }
+  }
+  return out;
 }
 export type Track = 'abc' | 'words';
 export interface Unit {
@@ -101,11 +143,19 @@ export function abcUnits(locale: Locale): Unit[] {
 
 // ——— the words ———
 
-/** children: a unit — the Torah words of one portion's lessons; a lesson — up to 6 new words */
-export function torahUnits(words: TorahWord[]): Unit[] {
+/**
+ * children: a unit — the Torah words of one portion's lessons; a lesson — up to 6 new words. `verses` — the portion's short
+ * verses (`torahVerses`): each goes to a word of the unit that stands in it (the longest first), for «Составьте стих».
+ */
+export function torahUnits(words: TorahWord[], verses: Map<string, Verse[]> = new Map()): Unit[] {
   const items = words.map((w): Item & { parsha: string } => ({ key: w.key, he: w.he, tr: w.tr, translit: w.translit, img: w.img, parsha: w.parsha }));
   return [...new Set(items.map((w) => w.parsha))].map((p, i) => {
     const ws = items.filter((w) => w.parsha === p);
+    const inVerse = (it: Item, v: Verse) => ` ${v.words.join(' ')} `.includes(` ${it.he} `);
+    for (const v of verses.get(p) ?? []) {
+      const it = [...ws].sort((a, b) => b.he.length - a.he.length).find((x) => !x.verse && inVerse(x, v));
+      if (it) it.verse = v;
+    }
     return { id: `tw-${p}`, track: 'words', n: i + 1, parsha: p, items: ws, size: 6, pool: [...ws, ...items] };
   });
 }
@@ -261,7 +311,8 @@ export function nextPart(unit: Unit, s: CourseStore, known: Known): Item[] {
 export function makeLesson(unit: Unit, part: Item[] | null, hard = false): Exercise[] {
   if (part?.length) {
     const ex = drill({ ...unit, items: part }, 1);
-    const v = shuffle(part).map((it) => verse(it, unit)).find((x) => x);
+    // one verse with a new word — unless the lesson is already long (a short remainder joined it)
+    const v = part.length <= unit.size ? shuffle(part).map((it) => verse(it, unit)).find((x) => x) : undefined;
     if (v) ex.splice(ex.length - 1, 0, v);
     const before = shuffle(unit.items.filter((it) => !part.includes(it))).slice(0, 2);
     before.forEach((it, i) => {
