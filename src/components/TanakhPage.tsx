@@ -1,4 +1,5 @@
 import { ListenBar } from './ListenBar';
+import { AddCourse } from './AddCourse';
 import { tanakhLang, tanakhNarration, tanakhSlug } from '../core/tanakhNarration';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { Icon, useDismiss } from './ui';
@@ -464,6 +465,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
               {sec && <> · {t('tanakh.readingTime', { n: readingMinutes(sec.verses, he, tr, view) })}</>}
             </p>
             {!date && !exact && <p className="tk-note">{t('tanakh.restToday')}</p>}
+            <AddCourse course={section} />
           </header>
 
           <div className="tk-tools no-print">

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { AddCourse } from './AddCourse';
 import { useI18n } from '../i18n';
 import type { MessageKey } from '../i18n/locales/ru';
 import { TopBar } from './TopBar';
@@ -228,6 +229,7 @@ export function LashonPage() {
             </span>
           </h1>
           <p className="ws-lead">{t(adults ? (reads ? 'ln.leadAdultsReads' : 'ln.leadAdults') : reads ? 'ln.leadReads' : 'ln.lead')}</p>
+          <AddCourse course="lashon" />
         </header>
 
         <section className="ln-stats" aria-label={t('ln.statsLbl')}>

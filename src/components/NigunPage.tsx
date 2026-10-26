@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { AddCourse } from './AddCourse';
 import { useI18n } from '../i18n';
 import { NIGUNIM, findNigun } from '../nigun';
 import { TopBar } from './TopBar';
@@ -46,6 +47,7 @@ export function NigunPage({ id }: { id?: string }) {
               <a href="#/nigun">🎵 {t('nigun.title')}</a> · <span className="he">ניגון</span>
             </p>
             <h1>{n.title[lang]}</h1>
+            <AddCourse course="nigun" />
             <p className="ng-about">{n.about[lang]}</p>
             <h2 className="ng-h2">{t('nigun.karaoke')}</h2>
             <p className="ac-note">{t('nigun.how')}</p>
@@ -60,6 +62,7 @@ export function NigunPage({ id }: { id?: string }) {
               </p>
               <h1>{t('nigun.title')}</h1>
               <p className="ac-lead">{t('nigun.lead')}</p>
+              <AddCourse course="nigun" />
             </header>
             <ul className="ng-list">
               {NIGUNIM.map((x) => (

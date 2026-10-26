@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from 'react';
+import { AddCourse } from './AddCourse';
 import { useI18n } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
@@ -210,6 +211,7 @@ function Passage({ at, lang, onHelp }: { at: number; lang: HsLang; onHelp: () =>
             {HEMSHECH.title[lang]} · {m.title[lang]} · {t('hs.passageN', { n: m.passages.indexOf(p) + 1, total: m.passages.length })}
           </p>
           <h1>{p.title[lang]}</h1>
+          <AddCourse course="hemshech" />
         </header>
         <p className="tk-note">{t('hs.opensOn', { date: civilDate(date, lang) })}</p>
         {pager}
@@ -228,6 +230,7 @@ function Passage({ at, lang, onHelp }: { at: number; lang: HsLang; onHelp: () =>
         <p className="tk-day">
           {HEMSHECH.author[lang]} · {t('tanakh.readingTime', { n: passageMinutes(p, lang) })}
         </p>
+        <AddCourse course="hemshech" />
       </header>
       <div className="tk-tools no-print">
         {lang !== 'en' ? (

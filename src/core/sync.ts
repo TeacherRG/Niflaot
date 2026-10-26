@@ -6,7 +6,7 @@
  */
 
 /** the synced localStorage keys: exact names, and `niflaot:lesson:<slug>` */
-export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:nigun', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:words', 'niflaot:torah-words', 'niflaot:torah-read', 'niflaot:lashon', 'niflaot:study-days', 'niflaot:mode', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
+export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:nigun', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:words', 'niflaot:torah-words', 'niflaot:torah-read', 'niflaot:lashon', 'niflaot:study-days', 'niflaot:mode', 'niflaot:courses', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
 export const LESSON_PREFIX = 'niflaot:lesson:';
 export const isSynced = (k: string) => SYNC_KEYS.includes(k) || k.startsWith(LESSON_PREFIX);
 
@@ -134,7 +134,7 @@ function mergeStudy(a: string, b: string): string {
 
 /**
  * Merge this device (`local`) with the account (`remote`). Progress is never lost: lessons, «Гематрия дня» and
- * «Вопросы к отрывку» keep the best of both; settings (Hebrew level, language, math level) — this device's choice when it has one.
+ * «Вопросы к отрывку» keep the best of both; settings (mode, courses, Hebrew level, language, math level) — this device's choice when it has one.
  */
 export function mergeSnapshots(local: Snapshot, remote: Snapshot): Snapshot {
   const out: Snapshot = {};
