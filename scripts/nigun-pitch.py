@@ -5,14 +5,15 @@ pitch of the voice in the recording (MIDI note, one decimal; 0 — no clear pitc
 The site compares the singer's voice with it, octave aside.
 
   python3 scripts/nigun-pitch.py lubo-bratzi                → public/nigun/lubo-bratzi.pitch.json (the whole mix)
-  python3 scripts/nigun-pitch.py lubo-bratzi --vocals       → the voice separated first (Demucs), its notes by pYIN
-  python3 scripts/nigun-pitch.py lubo-bratzi --stem v.wav   → the notes of a voice already separated (pYIN)
+  python3 scripts/nigun-pitch.py lubo-bratzi --vocals [--keep v.flac]  → the voice separated first (Demucs), its notes by pYIN
+  python3 scripts/nigun-pitch.py lubo-bratzi --stem v.flac             → the notes of a voice already separated (pYIN)
 
 The whole mix: ffmpeg and numpy, autocorrelation — where a choir or an accordion is louder, the reference is not the
 melody a singer sings. Tried 26.10.2026: Spotify Basic Pitch on the mix is no better (repeats of the same line agree
 51–59 %, this — 61 %). So, as UltraSinger does: the voice is separated by Demucs (htdemucs, `--two-stems=vocals`) and its
 notes found by pYIN (librosa) — `.github/workflows/nigun-pitch.yml` runs it (the cloud container can't download the
-model's weights) and offers the notes in a PR with scripts/nigun-repeats.ts's report. Needs then: torch, demucs, librosa.
+model's weights) and pushes the notes and the separated voice (nigun-stems/, to tune pYIN without Demucs) to a branch,
+with scripts/nigun-repeats.ts's report. Needs then: torch, demucs, librosa, soundfile; no ffmpeg.
 """
 import json, subprocess, sys
 import numpy as np
@@ -60,27 +61,45 @@ def mix_notes(src: str) -> list[float]:
     return [pitch(a[i:i + WIN]) for i in range(0, len(a) - WIN, hop)]
 
 
-def voice_notes(wav: str) -> list[float]:
-    """A voice alone (no instruments): pYIN — a note only where it is surely voiced."""
+# pYIN on the separated voice: a note where the voice is likely (PROB) and not near-silent (QUIET of the loud frames).
+# A strict pYIN (its own «voiced» and 0.5) kept a note in only 17–29 % of the recordings (run 26.10.2026) — too few.
+PROB = 0.15
+QUIET = 0.03
+
+
+def load(path: str, sr: int, mono: bool = True):
+    """Any audio file (mp3 too — libsndfile ≥ 1.1), resampled; no ffmpeg needed."""
     import librosa
-    raw = subprocess.run(['ffmpeg', '-v', 'quiet', '-i', wav, '-ac', '1', '-ar', str(SR), '-f', 's16le', '-'], capture_output=True, check=True).stdout
-    y = np.frombuffer(raw, dtype=np.int16).astype(np.float32) / 32768
+    y, _ = librosa.load(path, sr=sr, mono=mono)
+    return y
+
+
+def voice_notes(wav: str) -> list[float]:
+    """A voice alone (no instruments): pYIN."""
+    import librosa
+    y = load(wav, SR)
     hop = int(SR * HOP)
-    f0, voiced, prob = librosa.pyin(y, fmin=LO, fmax=HI, sr=SR, frame_length=WIN, hop_length=hop)
-    # the separated voice keeps a little of the instruments: a quiet frame is not the singer
+    f0, _, prob = librosa.pyin(y, fmin=LO, fmax=HI, sr=SR, frame_length=WIN, hop_length=hop)
+    # the separated voice keeps a little of the instruments: a near-silent frame is not the singer
     rms = librosa.feature.rms(y=y, frame_length=WIN, hop_length=hop)[0]
-    quiet = 0.1 * float(np.percentile(rms, 95))
-    return [round(float(69 + 12 * np.log2(f / 440)), 1) if v and p >= 0.5 and r >= quiet else 0.0
-            for f, v, p, r in zip(f0, voiced, prob, rms)]
+    quiet = QUIET * float(np.percentile(rms, 95))
+    return [round(float(69 + 12 * np.log2(f / 440)), 1) if p >= PROB and r >= quiet and f == f else 0.0
+            for f, p, r in zip(f0, prob, rms)]
 
 
-def separate(src: str) -> str:
-    """Demucs: the voice of the recording, apart from the instruments."""
+def separate(src: str, keep: str | None = None) -> str:
+    """Demucs (htdemucs): the voice of the recording, apart from the instruments. `keep` — save it (FLAC, 16 kHz mono)."""
     import tempfile
+    import soundfile
     out = tempfile.mkdtemp()
-    subprocess.run([sys.executable, '-m', 'demucs', '--two-stems=vocals', '-n', 'htdemucs', '-o', out, src], check=True)
-    name = src.rsplit('/', 1)[-1].rsplit('.', 1)[0]
-    return f'{out}/htdemucs/{name}/vocals.wav'
+    # Demucs reads a WAV by itself (an MP3 would need ffmpeg)
+    wav = f'{out}/mix.wav'
+    soundfile.write(wav, load(src, 44100, mono=False).T, 44100)
+    subprocess.run([sys.executable, '-m', 'demucs', '--two-stems=vocals', '-n', 'htdemucs', '-o', out, wav], check=True)
+    vocals = f'{out}/htdemucs/mix/vocals.wav'
+    if keep:
+        soundfile.write(keep, load(vocals, SR), SR, format='FLAC')
+    return vocals
 
 
 def main():
@@ -90,7 +109,8 @@ def main():
     if '--stem' in args:
         out = voice_notes(args[args.index('--stem') + 1])
     elif '--vocals' in args:
-        out = voice_notes(separate(src))
+        keep = args[args.index('--keep') + 1] if '--keep' in args else None
+        out = voice_notes(separate(src, keep))
     else:
         out = mix_notes(src)
     # a lone voiced frame between pauses is noise
