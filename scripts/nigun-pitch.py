@@ -6,7 +6,10 @@ The site compares the singer's voice with it, octave aside.
 
   python3 scripts/nigun-pitch.py lubo-bratzi      → public/nigun/lubo-bratzi.pitch.json
 
-Needs ffmpeg and numpy. The detector is the same as in the browser (autocorrelation, src/core/singing.ts).
+Needs ffmpeg and numpy. Autocorrelation over the whole mix (the browser hears the singer with pitchy, src/core/singing.ts).
+Tried 26.10.2026: Spotify Basic Pitch on the mix gives no better melody (repeats of the same line agree 51–59 %, this — 61 %);
+a better reference needs the voice separated first (Demucs, as UltraSinger does) — its model weights are not reachable from
+the cloud container, so that would run in a GitHub Action or on a computer.
 """
 import json, subprocess, sys
 import numpy as np
