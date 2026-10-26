@@ -11,8 +11,14 @@
  * части не осталось новых (первый юнит части — всегда) — или сдан его «Экзамен» (`makeExam`: весь юнит сразу,
  * не больше `EXAM_LIVES` ошибок; сдан — юнит пройден целиком).
  *
- * localStorage `niflaot:lashon` = { s: { <буква / слово>: 1 — встречалось в курсе }, r: { <юнит>: пройдено повторений },
- * xp: { <дата>: очки } } — синхронизируется (src/core/sync.ts: всё из обоих, у юнита и у дня — больше из двух).
+ * Как учит (методика): перед уроком — «Повторим» (`WARM` вопроса по прошлым урокам и юнитам: сначала трудные, потом давно
+ * не встречавшиеся — не раньше чем через `SPACING` дня, `dueItems`); «Повторение» начинает с трудных и давних слов юнита;
+ * ошибки запоминаются между уроками («Трудные», `w`) — у части пути кнопка «Трудные: N», урок только из них; в конце урока —
+ * «Обратите внимание» со словами, где была ошибка.
+ *
+ * localStorage `niflaot:lashon` = { s: { <буква / слово>: день последнего верного ответа (1 — встречалось, до дат) },
+ * r: { <юнит>: пройдено повторений }, xp: { <дата>: очки }, w: { <буква / слово>: ошибок недавно, 1–3 } } — синхронизируется
+ * (src/core/sync.ts: всё из обоих, больше из двух).
  */
 import { useEffect, useState } from 'react';
 import type { Locale } from '../i18n/config';
@@ -112,6 +118,8 @@ export interface Unit {
   pool: Item[];
   /** дети: все короткие стихи Торы главы — и те, где нет слова колоды (для «Составьте стих» без подсказки) */
   verses?: Verse[];
+  /** «Повторение»: эти — первыми (трудные и давно не встречавшиеся, `dueItems`) */
+  focus?: Item[];
 }
 
 /** после уроков с новым — два урока «Повторение» (вперемешку, второй труднее) */
@@ -217,7 +225,7 @@ export type Exercise =
   /** a new word or letter: just look (and «Дальше») */
   | { t: 'intro'; item: Item }
   /** pick one of four: `ask` — what the options are (tr — the translation / name, he — the Hebrew, value, sound) */
-  | { t: 'pick'; item: Item; ask: Ask; options: Item[] }
+  | { t: 'pick'; item: Item; ask: Ask; options: Item[]; warm?: boolean }
   /** tap the pairs: Hebrew ↔ translation */
   | { t: 'match'; pairs: Item[] }
   /** put the letters (or the words of a phrase / of a verse — `verse`) in order; `tiles` — shuffled, with one or two extra */
@@ -327,7 +335,10 @@ export function nextPart(unit: Unit, s: CourseStore, known: Known): Item[] {
  * items met before. Without — «Повторение»: 6 items of the whole unit mixed with every kind of exercise (`hard` — the
  * second one, and a finished unit played again).
  */
-export function makeLesson(unit: Unit, part: Item[] | null, hard = false): Exercise[] {
+export function makeLesson(unit: Unit, part: Item[] | null, hard = false, warm: Item[] = []): Exercise[] {
+  return [...warmUp(unit, warm), ...lessonBody(unit, part, hard)];
+}
+function lessonBody(unit: Unit, part: Item[] | null, hard: boolean): Exercise[] {
   if (part?.length) {
     const ex = drill({ ...unit, items: part }, 1);
     // one verse with a new word — unless the lesson is already long (a short remainder joined it)
@@ -339,8 +350,21 @@ export function makeLesson(unit: Unit, part: Item[] | null, hard = false): Exerc
     });
     return ex;
   }
-  const items = shuffle(unit.items).slice(0, 6);
+  // the review: the weakest and the longest not seen of the unit first (`focus`), then the rest
+  const items = (unit.focus?.length ? [...unit.focus, ...shuffle(unit.items.filter((x) => !unit.focus!.includes(x)))] : shuffle(unit.items)).slice(0, 6);
   return ensureVerse(drill({ ...unit, items }, hard ? 3 : 2), unit, items);
+}
+
+/**
+ * «Повторим»: before the lesson — questions on letters / words of the earlier lessons and units (spaced and mixed
+ * retrieval): the ones missed before and the ones not seen the longest (`dueItems`); the translation, then the Hebrew.
+ */
+function warmUp(unit: Unit, warm: Item[]): Exercise[] {
+  const pool = [...unit.pool, ...warm.filter((w) => !unit.pool.some((p) => p.key === w.key))];
+  return warm
+    .map((it, k) => pick(it, { ...unit, items: [], pool }, k % 2 && unit.track === 'words' ? 'he' : 'tr'))
+    .filter((x): x is Exercise & { t: 'pick' } => !!x)
+    .map((x) => ({ ...x, warm: true }));
 }
 
 /** «Экзамен» за юнит: сразу весь юнит, чтобы открыть следующий — до `EXAM_ITEMS` его букв / слов вперемешку, трудные задания и пары. */
@@ -433,21 +457,57 @@ export function isRight(ex: Exercise, answer: string[] | string): boolean {
 export const LASHON_KEY = 'niflaot:lashon';
 const EVENT = 'niflaot:lashon';
 export interface CourseStore {
-  /** items met in the course */
+  /** items met in the course: the day (days since 1970-01-01) it was last answered right; 1 — met, before the days were kept */
   s: Record<string, number>;
   /** reviews of a unit done */
   r: Record<string, number>;
   xp: Record<string, number>;
+  /** «Трудные»: missed lately — 1–3 (a mistake +1, a right first answer −1, 0 — gone) */
+  w: Record<string, number>;
 }
 const obj = (x: unknown) => (x && typeof x === 'object' ? (x as Record<string, number>) : {});
 export function readCourse(): CourseStore {
   try {
     const raw = JSON.parse(localStorage.getItem(LASHON_KEY) ?? 'null');
-    return { s: obj(raw?.s), r: obj(raw?.r), xp: obj(raw?.xp) };
+    return { s: obj(raw?.s), r: obj(raw?.r), xp: obj(raw?.xp), w: obj(raw?.w) };
   } catch {
-    return { s: {}, r: {}, xp: {} };
+    return { s: {}, r: {}, xp: {}, w: {} };
   }
 }
+
+/** today as a day number (days since 1970-01-01, local) */
+export const dayNo = (iso = localToday()) => Math.round(Date.parse(`${iso}T00:00:00Z`) / 864e5);
+/** a mistake counts up to this */
+export const WEAK_MAX = 3;
+/** warm-up questions before a lesson */
+export const WARM = 2;
+/** a word answered right comes back in a warm-up not earlier than after this many days (spacing) */
+export const SPACING = 2;
+/** the «Трудные» lesson: not more than this many items */
+export const WEAK_LESSON = 8;
+/** the «Трудные» lessons — not a unit: no reviews counted */
+export const WEAK_ID = 'weak';
+
+/**
+ * The items to bring back (spaced, mixed retrieval): met in the course, not in `except`; the missed ones first (more
+ * misses — sooner), then those answered right longest ago (at least `SPACING` days); `n` of them.
+ */
+export function dueItems(items: Item[], s: CourseStore, n: number, except: Item[] = [], today = dayNo()): Item[] {
+  const skip = new Set(except.map((x) => x.key));
+  const seen = new Set<string>();
+  return items
+    .filter((it) => s.s[it.key] && !skip.has(it.key) && !seen.has(it.key) && (seen.add(it.key), true))
+    .map((it) => ({ it, w: Number(s.w[it.key]) || 0, age: today - (Number(s.s[it.key]) || 0) }))
+    .filter((x) => x.w > 0 || x.age >= SPACING)
+    .sort((a, b) => b.w - a.w || b.age - a.age)
+    .slice(0, n)
+    .map((x) => x.it);
+}
+/** «Трудные»: the items missed lately, the most missed first */
+export const weakItems = (items: Item[], s: CourseStore) =>
+  items.filter((it, i) => (Number(s.w[it.key]) || 0) > 0 && items.findIndex((x) => x.key === it.key) === i).sort((a, b) => (Number(s.w[b.key]) || 0) - (Number(s.w[a.key]) || 0));
+/** a lesson of the hard items of a track (`pool` — all its items, for the wrong options) */
+export const weakUnit = (track: Track, items: Item[], pool: Item[]): Unit => ({ id: `${WEAK_ID}-${track}`, track, n: 0, items: items.slice(0, WEAK_LESSON), size: WEAK_LESSON, pool });
 /** the items of a unit not met yet — neither in the course nor outside it */
 export const newItems = (u: Unit, s: CourseStore, known: Known) => u.items.filter((it) => !s.s[it.key] && !known(it.key));
 export const reviewsOf = (s: CourseStore, u: Unit) => Math.min(REVIEWS, Number(s.r[u.id]) || 0);
@@ -458,19 +518,39 @@ export const isDone = (u: Unit, s: CourseStore, known: Known) => !newItems(u, s,
 export const xpToday = (s: CourseStore) => Number(s.xp[localToday()]) || 0;
 export const xpTotal = (s: CourseStore) => Object.values(s.xp).reduce((a, n) => a + (Number(n) || 0), 0);
 
-/** A lesson finished: its new items are met (or the unit has one more review), today — the points. */
-export function finishLesson(unit: Unit, part: Item[] | null, xp: number) {
+/** the first answers of a lesson: item key → right (a «Найдите пары» and a verse without a word of the lesson — not counted) */
+export type Answers = Record<string, boolean>;
+/** the answers into the store: right — answered today, one miss less; wrong — one miss more */
+function remember(s: CourseStore, answers: Answers) {
+  const today = dayNo();
+  for (const [k, right] of Object.entries(answers)) {
+    const w = Number(s.w[k]) || 0;
+    if (right) {
+      s.s[k] = Math.max(Number(s.s[k]) || 0, today);
+      if (w > 1) s.w[k] = w - 1;
+      else delete s.w[k];
+    } else {
+      s.s[k] = Math.max(Number(s.s[k]) || 0, 1);
+      s.w[k] = Math.min(WEAK_MAX, w + 1);
+    }
+  }
+}
+
+/** A lesson finished: its new items are met (or the unit has one more review), the answers remembered, today — the points. */
+export function finishLesson(unit: Unit, part: Item[] | null, xp: number, answers: Answers = {}) {
   const s = readCourse();
-  if (part?.length) for (const it of part) s.s[it.key] = 1;
-  else s.r[unit.id] = Math.min(REVIEWS, reviewsOf(s, unit) + 1);
+  if (part?.length) for (const it of part) s.s[it.key] = Math.max(Number(s.s[it.key]) || 0, 1);
+  else if (!unit.id.startsWith(WEAK_ID)) s.r[unit.id] = Math.min(REVIEWS, reviewsOf(s, unit) + 1);
+  remember(s, answers);
   save(s, xp);
 }
 
 /** «Экзамен» сдан: все буквы / слова юнита — встречались, повторения — пройдены (следующий юнит открыт), сегодня — очки. */
-export function passExam(unit: Unit) {
+export function passExam(unit: Unit, answers: Answers = {}) {
   const s = readCourse();
-  for (const it of unit.items) s.s[it.key] = 1;
+  for (const it of unit.items) s.s[it.key] = Math.max(Number(s.s[it.key]) || 0, 1);
   s.r[unit.id] = REVIEWS;
+  remember(s, answers);
   save(s, XP_EXAM);
 }
 

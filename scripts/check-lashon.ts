@@ -10,7 +10,7 @@
  */
 import { LESSONS } from '../src/lessons';
 import { torahWords } from '../src/core/torahWords';
-import { abcUnits, alike, clusters, core, isRight, nearlyRight, finishLesson, isDone, isOpen, makeExam, makeLesson, newItems, nextPart, passExam, readCourse, EXAM_ITEMS, type CourseStore, torahVerses, verseOf, VERSE_MAX, VERSE_MAX_KIDS, VERSE_MIN, type Item, type Known, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
+import { abcUnits, alike, clusters, core, isRight, nearlyRight, finishLesson, isDone, isOpen, makeExam, makeLesson, newItems, nextPart, passExam, readCourse, EXAM_ITEMS, dueItems, weakItems, weakUnit, dayNo, SPACING, WARM, type CourseStore, torahVerses, verseOf, VERSE_MAX, VERSE_MAX_KIDS, VERSE_MIN, type Item, type Known, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
 import { exampleOf, type Dict, type Word } from '../src/core/words';
 import { readFileSync } from 'node:fs';
 import { mergeSnapshots } from '../src/core/sync';
@@ -88,7 +88,7 @@ function checkUnits(units: Unit[], who: string) {
     }
     // the lessons in order: each brings the next new items, until none are left; then the two reviews
     const parts: Item[][] = [];
-    const met: CourseStore = { s: {}, r: {}, xp: {} };
+    const met: CourseStore = { s: {}, r: {}, xp: {}, w: {} };
     for (let p = nextPart(u, met, () => false); p.length; p = nextPart(u, met, () => false)) {
       if (p.length < 3 && u.items.length >= 3) err(`${who} ${u.id}: урок с новым — ${p.length}`);
       parts.push(p);
@@ -104,7 +104,20 @@ function checkUnits(units: Unit[], who: string) {
         for (const ex of lesson) checkEx(u, ex, where);
       }
     });
+    // «Повторим»: questions on the items of the other units before the lesson — valid, marked, first
+    const others = units.filter((x) => x !== u).flatMap((x) => x.items);
+    if (others.length >= WARM) {
+      const warm = others.slice(0, WARM);
+      const lesson = makeLesson({ ...u, pool: [...u.pool, ...others] }, parts[0] ?? null, false, warm);
+      const head = lesson.slice(0, WARM);
+      if (head.some((x) => x.t !== 'pick' || !x.warm) || warm.some((w, k) => head[k]?.t !== 'pick' || (head[k] as { item: Item }).item.key !== w.key)) err(`${who} ${u.id}: «Повторим» — не в начале урока`);
+      for (const ex of head) checkEx(u, ex, `${who} ${u.id} «Повторим»`);
+    }
   }
+  // «Трудные»: a lesson of the missed items of the track — valid
+  const all = units.flatMap((x) => x.items);
+  const hard = weakUnit(units[0].track, all.slice(0, 8), all);
+  for (let k = 0; k < 3; k++) for (const ex of makeLesson(hard, null)) checkEx(hard, ex, `${who} «Трудные»`);
 }
 
 const TR = { ru: trRu, en: trEn, de: trDe } as Record<string, Record<string, string>>;
@@ -185,12 +198,33 @@ for (const locale of ['ru', 'en', 'de'] as const) {
   if (p.some((x) => half.has(x.key)) || p[0] !== tu[1].items[10]) err('уроки: урок с новым начинается не с первого незнакомого слова');
 }
 
-// sync: every item met, the more reviews and points of the two
+// sync: every item met (the later day), the more reviews, points and misses of the two
 const m = mergeSnapshots(
-  { 'niflaot:lashon': JSON.stringify({ s: { 'א': 1 }, r: { 'abc-1': 2, 't-1': 1 }, xp: { '2026-10-25': 20 } }) },
-  { 'niflaot:lashon': JSON.stringify({ s: { '559': 1 }, r: { 'abc-1': 1, 't-2': 2 }, xp: { '2026-10-25': 10, '2026-10-24': 15 } }) },
+  { 'niflaot:lashon': JSON.stringify({ s: { 'א': 1, 'ב': 20750 }, r: { 'abc-1': 2, 't-1': 1 }, xp: { '2026-10-25': 20 }, w: { 'ב': 1 } }) },
+  { 'niflaot:lashon': JSON.stringify({ s: { '559': 1, 'ב': 20752 }, r: { 'abc-1': 1, 't-2': 2 }, xp: { '2026-10-25': 10, '2026-10-24': 15 } }) },
 );
-if (m['niflaot:lashon'] !== JSON.stringify({ s: { 'א': 1, '559': 1 }, r: { 'abc-1': 2, 't-1': 1, 't-2': 2 }, xp: { '2026-10-25': 20, '2026-10-24': 15 } })) err(`слияние «Святой язык»: ${m['niflaot:lashon']}`);
+if (m['niflaot:lashon'] !== JSON.stringify({ s: { 'א': 1, 'ב': 20752, '559': 1 }, r: { 'abc-1': 2, 't-1': 1, 't-2': 2 }, xp: { '2026-10-25': 20, '2026-10-24': 15 }, w: { 'ב': 1 } })) err(`слияние «Святой язык»: ${m['niflaot:lashon']}`);
+
+// повторение с интервалами и «Трудные»: ошибка запоминается, верный ответ её снимает; отвеченное сегодня — не раньше чем через SPACING дня
+{
+  const mem = new Map<string, string>();
+  Object.assign(globalThis, {
+    localStorage: { getItem: (k: string) => mem.get(k) ?? null, setItem: (k: string, v: string) => mem.set(k, v), removeItem: (k: string) => mem.delete(k) },
+    window: { dispatchEvent: () => true },
+  });
+  const u = abcUnits('ru')[0];
+  const [a, b, c] = u.items;
+  finishLesson(u, u.items.slice(0, 6), 10, { [a.key]: false, [b.key]: true });
+  let s = readCourse();
+  if (s.w[a.key] !== 1 || s.w[b.key] || s.s[b.key] !== dayNo() || s.s[c.key] !== 1) err(`интервалы: после урока ${JSON.stringify(s)}`);
+  if (weakItems(u.items, s)[0]?.key !== a.key) err('«Трудные»: ошибка не попала в трудные');
+  const due = dueItems(u.items, s, 3);
+  if (due[0]?.key !== a.key || due.some((x) => x.key === b.key) || !due.some((x) => x.key === c.key)) err(`интервалы: к повторению ${due.map((x) => x.key).join(' ')}`);
+  if (!dueItems([b], s, 1, [], dayNo() + SPACING).length) err(`интервалы: через ${SPACING} дня слово не вернулось`);
+  finishLesson(weakUnit('abc', [a], u.items), null, 10, { [a.key]: true });
+  s = readCourse();
+  if (s.w[a.key] || s.r[u.id] || Object.keys(s.r).length) err(`«Трудные»: верный ответ не снял ошибку или урок засчитан как повторение юнита: ${JSON.stringify(s)}`);
+}
 
 // «Составьте стих»: все слова стиха и не меньше половины — по порядку — засчитано (Теґилим 3:9 со скриншота владельца)
 {

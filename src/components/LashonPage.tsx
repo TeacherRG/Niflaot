@@ -47,6 +47,13 @@ import {
   type Exercise,
   type Item,
   type Unit,
+  type Answers,
+  dueItems,
+  weakItems,
+  weakUnit,
+  WARM,
+  SPACING,
+  dayNo,
 } from '../core/lashon';
 
 type T = ReturnType<typeof useI18n>['t'];
@@ -135,7 +142,7 @@ export function LashonPage() {
   }, [adults, locale]);
   const words = adults ? tanakh ?? [] : torah;
   const units = useMemo(() => [...abc, ...words], [abc, words]);
-  const [run, setRun] = useState<{ unit: Unit; part: Item[] | null; hard?: boolean; exam?: boolean } | null>(null);
+  const [run, setRun] = useState<{ unit: Unit; part: Item[] | null; hard?: boolean; exam?: boolean; warm?: Item[] } | null>(null);
   // the words already met outside the course: the adults' «Мои слова» (in the deck), the children's «Слова Торы» (played)
   const deck = useWordStore();
   const stars = useStars();
@@ -148,9 +155,27 @@ export function LashonPage() {
 
   const today = xpToday(store);
   // the next new items; none — «Повторение» (the second one, and a finished unit played again, harder)
+  // before it — «Повторим»: the hard and the longest not seen of the earlier lessons of the track (spaced, mixed retrieval);
+  // a review starts with the hard and the old ones of the unit itself
+  const trackItems = (u: Unit) => (u.track === 'abc' ? abc : words).flatMap((x) => x.items);
   const start = (unit: Unit) => {
     const part = nextPart(unit, store, knownOf(unit));
-    setRun({ unit, part: part.length ? part : null, hard: reviewsOf(store, unit) >= REVIEWS - 1 });
+    const warm = dueItems(trackItems(unit), store, WARM, part.length ? part : unit.items);
+    const focus = part.length ? undefined : dueItems(unit.items, store, 3, [], dayNo() + SPACING);
+    setRun({ unit: focus ? { ...unit, focus } : unit, part: part.length ? part : null, hard: reviewsOf(store, unit) >= REVIEWS - 1, warm });
+  };
+  /** «Трудные: N» — a lesson of the letters / words missed lately (3 at least: the pairs and the options need them) */
+  const weak = (list: Unit[]) => {
+    const items = weakItems(list.flatMap((u) => u.items), store);
+    if (items.length < 3 || !list.length) return null;
+    return (
+      <p className="ln-weak">
+        <span>{t(list[0].track === 'abc' ? 'ln.weakLetters' : 'ln.weakWords', { n: items.length })}</span>
+        <button type="button" className="btn ghost" onClick={() => setRun({ unit: weakUnit(list[0].track, items, list.flatMap((u) => u.items)), part: null })}>
+          {t('ln.weakBtn')}
+        </button>
+      </p>
+    );
   };
   const unitTitle = (u: Unit) =>
     u.track === 'abc'
@@ -254,6 +279,7 @@ export function LashonPage() {
             <h2 className="tw-h2">
               {t('ln.abc')} <small>{t('ln.abcSub')}</small>
             </h2>
+            {weak(abc)}
             {path(abc)}
           </section>
         )}
@@ -263,7 +289,10 @@ export function LashonPage() {
             {t(adults ? 'ln.tanakh' : 'ln.torah')} <small>{t(adults ? 'ln.tanakhSub' : 'ln.torahSub')}</small>
           </h2>
           {!adults || tanakh ? (
-            path(words)
+            <>
+              {weak(words)}
+              {path(words)}
+            </>
           ) : (
             <p className="ln-group">{t('ln.loading')}</p>
           )}
@@ -280,7 +309,7 @@ export function LashonPage() {
         </p>
       </div>
       <Colophon />
-      {run && <Lesson key={`${run.unit.id}-${run.part?.[0]?.key}-${run.exam}`} unit={run.unit} part={run.part} hard={run.hard} exam={run.exam} known={knownOf(run.unit)} adults={adults} onClose={() => setRun(null)} />}
+      {run && <Lesson key={`${run.unit.id}-${run.part?.[0]?.key}-${run.exam}`} unit={run.unit} part={run.part} hard={run.hard} exam={run.exam} warm={run.warm} known={knownOf(run.unit)} adults={adults} onClose={() => setRun(null)} />}
     </>
   );
 }
@@ -291,9 +320,12 @@ type State = 'answer' | 'right' | 'wrong';
  * One lesson over the page: the exercises one by one; a wrong one comes back once at the end. An `exam` — the whole unit,
  * no second chances: ♥ for the mistakes left; one more than `EXAM_LIVES` — failed.
  */
-function Lesson({ unit, part, hard, exam, known, adults, onClose }: { unit: Unit; part: Item[] | null; hard?: boolean; exam?: boolean; known: Known; adults: boolean; onClose: () => void }) {
+function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit: Unit; part: Item[] | null; hard?: boolean; exam?: boolean; warm?: Item[]; known: Known; adults: boolean; onClose: () => void }) {
   const { t } = useI18n();
-  const [queue, setQueue] = useState<Exercise[]>(() => (exam ? makeExam(unit) : makeLesson(unit, part, hard)));
+  const [queue, setQueue] = useState<Exercise[]>(() => (exam ? makeExam(unit) : makeLesson(unit, part, hard, warm)));
+  /** the first answer for each letter / word — remembered after the lesson (spacing, «Трудные»); the missed — shown at the end */
+  const answers = useRef<Answers>({});
+  const missed = useRef<Item[]>([]);
   const [failed, setFailed] = useState(false);
   const [i, setI] = useState(0);
   const [state, setState] = useState<State>('answer');
@@ -334,7 +366,7 @@ function Lesson({ unit, part, hard, exam, known, adults, onClose }: { unit: Unit
     if (exam && mistakes > EXAM_LIVES) setFailed(true);
     else if (i + 1 < queue.length) setI(i + 1);
     else if (exam) {
-      passExam(unit);
+      passExam(unit, answers.current);
       // adults: the words of a unit passed at once — «Знаю» in «Мои слова» (the review there confirms them)
       let added = 0;
       if (adults && unit.track === 'words') {
@@ -344,7 +376,7 @@ function Lesson({ unit, part, hard, exam, known, adults, onClose }: { unit: Unit
       setDone({ xp: XP_EXAM, added });
     } else {
       const xp = mistakes ? XP : XP_PERFECT;
-      finishLesson(unit, part, xp);
+      finishLesson(unit, part, xp, answers.current);
       // adults: the new words of the lesson go to «Мои слова» — the review there counts for the certificate
       let added = 0;
       if (adults && unit.track === 'words' && part) {
@@ -362,6 +394,12 @@ function Lesson({ unit, part, hard, exam, known, adults, onClose }: { unit: Unit
     if (!retried.current.has(ex)) {
       asked.current++;
       if (right) setFirstTry((n) => n + 1);
+      // the item asked: a verse — its word of the lesson (a verse without one is not a word to remember)
+      const it = ex.t === 'build' ? (ex.verse ? ex.word : ex.item) : ex.t === 'intro' || ex.t === 'match' ? undefined : ex.item;
+      if (it && !(it.key in answers.current)) {
+        answers.current[it.key] = right;
+        if (!right) missed.current.push(it);
+      }
     }
     if (!right) {
       setMistakes((n) => n + 1);
@@ -415,6 +453,23 @@ function Lesson({ unit, part, hard, exam, known, adults, onClose }: { unit: Unit
             <Bar k={progressOf(unit, readCourse(), known)} n={1} />
           </p>
           {done.added > 0 && <p className="ln-note">{t(exam ? 'ln.addedKnown' : 'ln.added', { n: done.added })}</p>}
+          {/* the mistakes once more, quietly: what to remember — they come back in the next lessons («Повторим») */}
+          {missed.current.length > 0 && (
+            <div className="ln-missed">
+              <h3>{t('ln.missed')}</h3>
+              <ul>
+                {missed.current.map((it) => (
+                  <li key={it.key}>
+                    <span className="he" lang="he">
+                      {it.he}
+                    </span>{' '}
+                    — {it.tr}
+                  </li>
+                ))}
+              </ul>
+              <small>{t(unit.track === 'abc' ? 'ln.missedNoteLetters' : 'ln.missedNote')}</small>
+            </div>
+          )}
           <button type="button" className="btn ln-big" onClick={onClose}>
             {t('ln.continueBtn')}
           </button>
@@ -543,6 +598,17 @@ function Intro({ item, letter }: { item: Item; letter: boolean }) {
           </span>
         </p>
       )}
+      {/* a word is remembered in its sentence: the short verse with it, as it stands in the Tanakh */}
+      {item.verse && (
+        <blockquote className="ln-intro-verse">
+          <span className="he" lang="he">
+            {item.verse.words.join(' ')}
+          </span>
+          <span>
+            {item.verse.tr} <small>({item.verse.ref})</small>
+          </span>
+        </blockquote>
+      )}
     </>
   );
 }
@@ -554,7 +620,10 @@ function Pick({ ex, letter, sel, state, onPick }: { ex: Extract<Exercise, { t: '
   const he = ex.ask === 'he';
   return (
     <>
-      <p className="ln-ask">{t(letter && ex.ask === 'tr' ? 'ln.q.name' : ASK[ex.ask])}</p>
+      <p className="ln-ask">
+        {ex.warm && <span className="ln-new ln-warm">{t('ln.warm')}</span>}
+        {t(letter && ex.ask === 'tr' ? 'ln.q.name' : ASK[ex.ask])}
+      </p>
       {he ? <p className="ln-tr-big">{ex.item.tr}</p> : <Prompt item={ex.item} letter={letter} />}
       <div className={`ln-opts${he ? ' he-opts' : ''}`}>
         {ex.options.map((o) => {

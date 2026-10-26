@@ -121,7 +121,7 @@ function mergeCourse(a: string, b: string): string {
   const y = parse(b) ?? {};
   const max = (p: Record<string, unknown> = {}, q: Record<string, unknown> = {}) =>
     Object.fromEntries([...new Set([...Object.keys(p), ...Object.keys(q)])].map((k) => [k, Math.max(Number(p[k]) || 0, Number(q[k]) || 0)]));
-  return JSON.stringify({ s: max(x.s, y.s), r: max(x.r, y.r), xp: max(x.xp, y.xp) });
+  return JSON.stringify({ s: max(x.s, y.s), r: max(x.r, y.r), xp: max(x.xp, y.xp), w: max(x.w, y.w) });
 }
 
 /** «Учёба каждый день» (src/core/habit.ts): every day of study from both; a day studied (1) wins over one made up (2) */
