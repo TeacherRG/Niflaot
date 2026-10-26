@@ -31,7 +31,7 @@ const SHOTS: { name: string; mode: 'kids' | 'adults'; route: string }[] = [
 let site = arg('--site');
 let preview: ReturnType<typeof spawn> | undefined;
 if (!site) {
-  preview = spawn('npx', ['vite', 'preview', '--port', '4173', '--strictPort'], { stdio: ['ignore', 'pipe', 'inherit'] });
+  preview = spawn('node_modules/.bin/vite', ['preview', '--port', '4173', '--strictPort'], { stdio: ['ignore', 'pipe', 'inherit'] });
   site = await new Promise<string>((ok, fail) => {
     const timer = setTimeout(() => fail(new Error('vite preview did not start')), 30_000);
     preview!.stdout!.on('data', (d: Buffer) => {
@@ -76,3 +76,4 @@ try {
   await browser.close();
   preview?.kill();
 }
+process.exit(0);
