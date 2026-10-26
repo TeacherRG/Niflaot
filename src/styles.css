@@ -1618,6 +1618,10 @@ a.tk-step:hover{background:var(--tchelet-soft)}
 .ln-intro-tr{margin:0;font-size:22px;font-weight:700;text-align:center}
 .ln-intro-meta{margin:0;color:var(--muted);text-align:center}
 .ln-intro-meta .he{font-family:var(--f-he);font-size:20px}
+.ln-intro-verse{display:grid;gap:4px;max-width:520px;margin:6px auto 0;padding:10px 14px;border-left:3px solid var(--gold-2);background:var(--gold-soft);border-radius:0 10px 10px 0;font-size:14px;color:var(--ink-3)}
+.ln-intro-verse .he{font-family:var(--f-he);font-size:20px;color:var(--ink);text-align:right}
+.ln-intro-verse small{color:var(--muted)}
+.ln-warm{margin-right:8px;background:var(--gold-soft);color:var(--gold)}
 .ln-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .ln-opt{display:grid;place-items:center;gap:2px;min-height:58px;padding:8px 10px;border:2px solid var(--line);border-bottom-width:4px;border-radius:14px;background:var(--surface);color:var(--ink);font-size:16px;font-weight:600;line-height:1.3}
 .ln-opt small{color:var(--muted);font-size:11px;font-weight:500}
@@ -1666,6 +1670,12 @@ p.ln-hint .he{font-family:var(--f-he);font-size:18px;color:var(--ink)}
 .ln-xp{font-size:24px;font-weight:800;color:var(--gold)}
 .ln-perfect{color:var(--ok);font-weight:700}
 .ln-note{color:var(--muted);font-size:14px}
+.ln-missed{width:100%;padding:12px 16px;border-radius:12px;background:var(--gold-soft);border:1px solid var(--gold-line);text-align:left}
+.ln-missed h3{margin:0 0 6px;font-size:15px;color:var(--gold)}
+.ln-missed ul{margin:0 0 6px;padding:0;list-style:none;display:grid;gap:4px;font-size:15px}
+.ln-missed .he{font-family:var(--f-he);font-size:20px}
+.ln-missed small{color:var(--muted)}
+.ln-weak{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 14px;margin:0 0 10px;padding:10px 14px;border-radius:12px;background:var(--gold-soft);border:1px solid var(--gold-line);font-weight:700}
 .ln-end .ln-ubar{width:200px}
 @media (max-width:400px){.ln-node{transform:translateX(calc(var(--off,0) * 24px))}.ln-ask{font-size:22px}.ln-he.big{font-size:46px}}
 @media (prefers-reduced-motion:reduce){.ln-go,.shake{animation:none}}
