@@ -1690,7 +1690,34 @@ p.ln-hint .he{font-family:var(--f-he);font-size:18px;color:var(--ink)}
 .ln-weak{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 14px;margin:0 0 10px;padding:10px 14px;border-radius:12px;background:var(--gold-soft);border:1px solid var(--gold-line);font-weight:700}
 .ln-end .ln-ubar{width:200px}
 @media (max-width:400px){.ln-node{transform:translateX(calc(var(--off,0) * 24px))}.ln-ask{font-size:22px}.ln-he.big{font-size:46px}}
-@media (prefers-reduced-motion:reduce){.ln-go,.shake{animation:none}}
+/* the feedback, as in the language apps: the answer pops, the footer slides up, the combo pulses, the end screen bounces in */
+.ln-x.off{opacity:.4}
+.ln-bar.hot span{background:linear-gradient(90deg,var(--ok),var(--gold-2));box-shadow:0 0 10px var(--gold-soft)}
+.ln-combo{animation:ln-pulse .45s ease-out}
+@keyframes ln-pulse{0%{transform:scale(1.6)}60%{transform:scale(.92)}100%{transform:none}}
+.ln-fb{animation:ln-up .22s ease-out}
+@keyframes ln-up{from{transform:translateY(12px);opacity:0}}
+.ln-opt.right{animation:ln-pop .35s ease-out}
+.ln-opt.gone{transition:opacity .25s,transform .25s;transform:scale(.96)}
+@keyframes ln-pop{0%{transform:scale(1)}40%{transform:scale(1.07)}100%{transform:none}}
+.ln-foot.wrong .ln-fb b{display:inline-block;animation:ln-shake .35s}
+.ln-end > *{animation:ln-in .45s cubic-bezier(.2,1.4,.4,1) both}
+.ln-end > :nth-child(2){animation-delay:.08s}.ln-end > :nth-child(3){animation-delay:.16s}.ln-end > :nth-child(4){animation-delay:.24s}.ln-end > :nth-child(5){animation-delay:.32s}.ln-end > :nth-child(n+6){animation-delay:.4s}
+@keyframes ln-in{from{transform:translateY(16px) scale(.94);opacity:0}}
+.ln-end-ic{animation:ln-in .45s cubic-bezier(.2,1.4,.4,1) both,ln-bob 1.6s .6s ease-in-out infinite}
+.ln-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:10px;width:100%;margin:6px 0}
+.ln-tile-s{display:grid;border:2px solid var(--gold-2);border-radius:14px;overflow:hidden;background:var(--surface)}
+.ln-tile-s small{padding:3px 6px;background:var(--gold-2);color:var(--on-gold);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.ln-tile-s b{padding:10px 6px;font-size:24px;font-variant-numeric:tabular-nums}
+.ln-tile-s.xp b{color:var(--gold)}
+.ln-tile-s.acc{border-color:var(--ok)}
+.ln-tile-s.acc small{background:var(--ok-deep);color:#fff}
+.ln-tile-s.acc b{color:var(--ok)}
+.ln-tile-s.streak{border-color:var(--fire)}
+.ln-tile-s.streak small{background:var(--fire);color:#fff}
+.ln-tile-s.streak b{color:var(--fire)}
+.ln-goal-hit{padding:8px 14px;border-radius:99px;background:var(--gold-soft);border:1px solid var(--gold-line);color:var(--gold);font-weight:800}
+@media (prefers-reduced-motion:reduce){.ln-go,.shake,.ln-combo,.ln-fb,.ln-opt.right,.ln-end > *,.ln-end-ic,.ln-foot.wrong .ln-fb b{animation:none}}
 .tw-foot a{color:var(--muted)}
 .tw-stars{color:var(--gold);font-size:15px;letter-spacing:1px}
 .tw-stars i{font-style:normal;color:var(--line)}

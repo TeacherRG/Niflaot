@@ -8,6 +8,7 @@ import { LESSONS, PARSHIOT, type ParshaId } from '../lessons';
 import { useMode } from '../core/mode';
 import { useHebrewLevel } from '../core/hebrewLevel';
 import { useHabit } from '../core/habit';
+import { canVibe, celebrate, feedback, setSound as saveSound, setVibe as saveVibe, soundOn, vibeOn } from '../core/fx';
 import { memoImages } from '../core/memo';
 import { FINALS, letterName } from '../core/letterNames';
 import { answerWord, torahWords, useStars } from '../core/torahWords';
@@ -57,37 +58,6 @@ import {
 } from '../core/lashon';
 
 type T = ReturnType<typeof useI18n>['t'];
-const SOUND_KEY = 'niflaot:lashon-sound';
-const soundOn = () => {
-  try {
-    return localStorage.getItem(SOUND_KEY) !== '0';
-  } catch {
-    return true;
-  }
-};
-
-/** a short tone after «Проверить»: up — right, down — wrong (Web Audio, no files; only after a tap) */
-let audio: AudioContext | null = null;
-function tone(right: boolean) {
-  if (!soundOn()) return;
-  try {
-    audio ??= new AudioContext();
-    const now = audio.currentTime;
-    (right ? [660, 880] : [330, 247]).forEach((f, i) => {
-      const o = audio!.createOscillator();
-      const g = audio!.createGain();
-      o.frequency.value = f;
-      o.type = 'sine';
-      g.gain.setValueAtTime(0.0001, now + i * 0.11);
-      g.gain.exponentialRampToValueAtTime(0.15, now + i * 0.11 + 0.02);
-      g.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.11 + 0.18);
-      o.connect(g).connect(audio!.destination);
-      o.start(now + i * 0.11);
-      o.stop(now + i * 0.11 + 0.2);
-    });
-  } catch {}
-}
-
 /** the lessons of a unit done: a bar */
 const Bar = ({ k, n }: { k: number; n: number }) => (
   <span className="tk-words-bar ln-ubar" role="img" aria-label={`${k}/${n}`}>
@@ -337,7 +307,10 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
   /** «Составьте стих»: counted, but the order was not exact — the right verse is shown */
   const [nearly, setNearly] = useState(false);
   const [sound, setSound] = useState(soundOn);
-  const [done, setDone] = useState<{ xp: number; added: number } | null>(null);
+  const [vibe, setVibe] = useState(vibeOn);
+  /** `goal` — this lesson reached the goal of the day */
+  const [done, setDone] = useState<{ xp: number; added: number; goal: boolean } | null>(null);
+  const habit = useHabit();
   const [requeued, setRequeued] = useState(false);
   const retried = useRef(new Set<Exercise>());
   const asked = useRef(0);
@@ -366,6 +339,7 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
     if (exam && mistakes > EXAM_LIVES) setFailed(true);
     else if (i + 1 < queue.length) setI(i + 1);
     else if (exam) {
+      const before = xpToday(readCourse());
       passExam(unit, answers.current);
       // adults: the words of a unit passed at once — «Знаю» in «Мои слова» (the review there confirms them)
       let added = 0;
@@ -373,9 +347,10 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
         const s = readWordStore();
         for (const it of unit.items) if (!inDeck(s, it.key)) (markKnown(it.key), added++);
       }
-      setDone({ xp: XP_EXAM, added });
+      setDone({ xp: XP_EXAM, added, goal: before < GOAL && before + XP_EXAM >= GOAL });
     } else {
       const xp = mistakes ? XP : XP_PERFECT;
+      const before = xpToday(readCourse());
       finishLesson(unit, part, xp, answers.current);
       // adults: the new words of the lesson go to «Мои слова» — the review there counts for the certificate
       let added = 0;
@@ -383,14 +358,18 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
         const s = readWordStore();
         for (const it of part) if (!inDeck(s, it.key)) (markLearn(it.key), added++);
       }
-      setDone({ xp, added });
+      setDone({ xp, added, goal: before < GOAL && before + xp >= GOAL });
     }
   };
   const answer = (right: boolean) => {
     setState(right ? 'right' : 'wrong');
-    tone(right);
-    if (right) setCombo((n) => n + 1);
-    else setCombo(0);
+    const run = right ? combo + 1 : 0;
+    setCombo(run);
+    // every 5 in a row — a fanfare and a little confetti
+    if (run && run % 5 === 0) {
+      feedback('combo');
+      celebrate('small', adults);
+    } else feedback(right ? 'right' : 'wrong', run);
     if (!retried.current.has(ex)) {
       asked.current++;
       if (right) setFirstTry((n) => n + 1);
@@ -422,6 +401,17 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
     else if (sel != null) answer(isRight(ex, sel));
   };
   const ready = ex && (ex.t === 'build' ? built.length > 0 : sel != null);
+  // the end: a fanfare and confetti — the more, the better the lesson went
+  useEffect(() => {
+    if (!done) return;
+    const grand = exam || !mistakes || done.goal;
+    feedback(done.goal ? 'goal' : grand ? 'perfect' : 'finish');
+    celebrate(grand ? 'grand' : 'big', adults);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [done]);
+  useEffect(() => {
+    if (failed) feedback('wrong');
+  }, [failed]);
 
   if (failed)
     return (
@@ -446,8 +436,32 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
             </p>
           )}
           <h2>{t(exam ? 'ln.examPass' : 'ln.done')}</h2>
-          <p className="ln-xp">{t('ln.xp', { n: done.xp })}</p>
+          {/* as in the language apps: three tiles — the points (counted up), the accuracy, the streak */}
+          <div className="ln-tiles">
+            <span className="ln-tile-s xp">
+              <small>{t('ln.tileXp')}</small>
+              <b>
+                +<CountUp n={done.xp} />
+              </b>
+            </span>
+            {asked.current > 0 && (
+              <span className={`ln-tile-s acc${firstTry === asked.current ? ' full' : ''}`}>
+                <small>{t('ln.tileAcc')}</small>
+                <b>
+                  <CountUp n={Math.round((100 * firstTry) / asked.current)} />%
+                </b>
+              </span>
+            )}
+            <span className="ln-tile-s streak">
+              <small>{t('ln.streak')}</small>
+              <b>
+                {adults ? '' : '🔥 '}
+                {habit.streak}
+              </b>
+            </span>
+          </div>
           {!mistakes && <p className="ln-perfect">{t('ln.perfect')}</p>}
+          {done.goal && <p className="ln-goal-hit">{t('ln.goalHit', { goal: GOAL })}</p>}
           <p>{t('ln.acc', { k: firstTry, n: asked.current })}</p>
           <p>
             <Bar k={progressOf(unit, readCourse(), known)} n={1} />
@@ -483,7 +497,7 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
         <button type="button" className="ln-x" onClick={onClose} aria-label={t('ln.close')}>
           ✕
         </button>
-        <span className="ln-bar" role="progressbar" aria-valuemin={0} aria-valuemax={queue.length} aria-valuenow={i}>
+        <span className={`ln-bar${combo >= 3 ? ' hot' : ''}`} role="progressbar" aria-valuemin={0} aria-valuemax={queue.length} aria-valuenow={i}>
           <span style={{ width: `${(100 * i) / queue.length}%` }} />
         </span>
         {exam && (
@@ -492,27 +506,45 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
             <i>{'♥'.repeat(Math.min(EXAM_LIVES, mistakes))}</i>
           </span>
         )}
-        {combo >= 3 && <span className="ln-combo">{adults ? '' : '🔥 '}{combo}</span>}
+        {combo >= 3 && (
+          <span key={combo} className="ln-combo">
+            {adults ? '' : '🔥 '}
+            {combo}
+          </span>
+        )}
         <button
           type="button"
           className="ln-x"
           aria-pressed={sound}
           aria-label={t('ln.sound')}
           onClick={() => {
-            try {
-              localStorage.setItem(SOUND_KEY, sound ? '0' : '1');
-            } catch {}
+            saveSound(!sound);
             setSound(!sound);
           }}
         >
           {sound ? '🔊' : '🔇'}
         </button>
+        {canVibe() && (
+          <button
+            type="button"
+            className={`ln-x${vibe ? '' : ' off'}`}
+            aria-pressed={vibe}
+            aria-label={t('ln.vibe')}
+            onClick={() => {
+              saveVibe(!vibe);
+              setVibe(!vibe);
+              if (!vibe) navigator.vibrate?.(30);
+            }}
+          >
+            📳
+          </button>
+        )}
       </div>
 
       <div className="ln-body" aria-live="polite">
         {ex.t === 'intro' && <Intro item={ex.item} letter={unit.track === 'abc'} />}
         {ex.t === 'pick' && <Pick ex={ex} letter={unit.track === 'abc'} sel={sel} state={state} onPick={setSel} />}
-        {ex.t === 'match' && <Match key={i} pairs={ex.pairs} onMiss={() => (!exam && setMistakes((n) => n + 1), tone(false))} onDone={() => answer(true)} />}
+        {ex.t === 'match' && <Match key={i} pairs={ex.pairs} onMiss={() => (!exam && setMistakes((n) => n + 1), feedback('wrong'))} onPair={() => feedback('pair')} onDone={() => answer(true)} />}
         {ex.t === 'build' && <Build ex={ex} built={built} state={state} onBuilt={setBuilt} />}
         {ex.t === 'gap' && <Gap ex={ex} sel={sel} state={state} onPick={setSel} />}
         {ex.t === 'root' && <Root ex={ex} sel={sel} state={state} onPick={setSel} />}
@@ -520,7 +552,7 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
 
       <div className={`ln-foot ${state}`}>
         {state !== 'answer' && (
-          <div className="ln-fb">
+          <div className="ln-fb" key={`${i}-${state}`}>
             <b>{state === 'right' ? (combo >= 3 ? t('ln.combo', { n: combo }) : t('ln.right')) : t('ln.wrong')}</b>
             {state === 'right' && nearly && <span className="ln-sol-h">{t('ln.nearly')}</span>}
             {(state === 'wrong' || (state === 'right' && nearly)) && <Solution ex={ex} t={t} />}
@@ -545,6 +577,25 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
       </div>
     </div>
   );
+}
+
+/** a number counted up from 0 (the end of a lesson); no animation for «reduce motion» */
+function CountUp({ n }: { n: number }) {
+  const [v, setV] = useState(() => (matchMedia('(prefers-reduced-motion: reduce)').matches ? n : 0));
+  useEffect(() => {
+    if (v >= n) return;
+    const t0 = performance.now();
+    let id = 0;
+    const step = (now: number) => {
+      const k = Math.min(1, (now - t0) / 700);
+      setV(Math.round(n * (1 - (1 - k) ** 3)));
+      if (k < 1) id = requestAnimationFrame(step);
+    };
+    id = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [n]);
+  return <>{v}</>;
 }
 
 /** the right answer under a wrong one */
@@ -650,7 +701,7 @@ function Pick({ ex, letter, sel, state, onPick }: { ex: Extract<Exercise, { t: '
 }
 
 /** «Найдите пары»: the Hebrew on one side, the translations on the other; a right pair goes grey, a wrong one shakes */
-function Match({ pairs, onMiss, onDone }: { pairs: Item[]; onMiss: () => void; onDone: () => void }) {
+function Match({ pairs, onMiss, onPair, onDone }: { pairs: Item[]; onMiss: () => void; onPair: () => void; onDone: () => void }) {
   const { t } = useI18n();
   const [left] = useState(() => [...pairs].sort(() => Math.random() - 0.5));
   const [right] = useState(() => [...pairs].sort(() => Math.random() - 0.5));
@@ -664,6 +715,7 @@ function Match({ pairs, onMiss, onDone }: { pairs: Item[]; onMiss: () => void; o
       const all = [...ok, a];
       setOk(all);
       if (all.length === pairs.length) onDone();
+      else onPair();
       setA(null);
       setB(null);
       return;
