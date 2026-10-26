@@ -8,8 +8,8 @@ export const PODCAST_RELEASE = {
   base: 'https://github.com/TeacherRG/Niflaot/releases/download/podcast',
   manifest: 'https://github.com/TeacherRG/Niflaot/releases/download/podcast/episodes.json',
 };
-/** raise it to make every episode anew (another pause, bitrate, tags) */
-export const PODCAST_VERSION = 1;
+/** raise it to make every episode anew (another pause, bitrate, tags); 2 — the parts with dropouts recorded again */
+export const PODCAST_VERSION = 2;
 /** the feed of each language */
 export const PODCAST_FEEDS = { ru: 'podcast.xml', en: 'podcast-en.xml', de: 'podcast-de.xml' } as const;
 

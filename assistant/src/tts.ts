@@ -11,6 +11,7 @@
  */
 import { DurableObject } from 'cloudflare:workers';
 import { parseTanakhSlug, tanakhLang, tanakhNarration, type SpokenDay } from '../../src/core/tanakhNarration';
+import { dropouts, MAX_DROPOUTS } from '../../src/core/speech';
 
 export interface TtsEnv {
   SITE_URL?: string;
@@ -28,6 +29,8 @@ const DEFAULT_VOICE = 'Charon';
 const MAX_TEXT = 4000;
 /** a value of SQLite storage is at most 2 MB: the file is kept in pieces */
 const PIECE = 1024 * 1024;
+/** a recording with dropouts (`dropouts`) is made again — at most this many times in all; then the best one is kept */
+const TAKES = 3;
 
 /**
  * How the narrator reads: said to the model before the text (it is not read aloud). Short and plain: with a longer
@@ -69,9 +72,15 @@ export async function ttsRoute(
   }
   if (!r.ok) {
     const quota = r.headers.get('X-Quota');
+    const error = r.headers.get('X-Error');
     return new Response(r.body, {
       status: r.status,
-      headers: { ...headers, 'Cache-Control': 'no-store', ...(quota ? { 'X-Quota': quota, 'Retry-After': r.headers.get('Retry-After') ?? '3600' } : {}) },
+      headers: {
+        ...headers,
+        'Cache-Control': 'no-store',
+        ...(quota ? { 'X-Quota': quota, 'Retry-After': r.headers.get('Retry-After') ?? '3600' } : {}),
+        ...(error ? { 'X-Error': error } : {}),
+      },
     });
   }
   return new Response(r.body, {
@@ -93,6 +102,8 @@ export class Narrator extends DurableObject<TtsEnv> {
   constructor(ctx: DurableObjectState, env: TtsEnv) {
     super(ctx, env);
     this.sql.exec('CREATE TABLE IF NOT EXISTS audio (key TEXT NOT NULL, n INTEGER NOT NULL, data BLOB NOT NULL, PRIMARY KEY (key, n))');
+    // the recordings checked for dropouts: the ones kept before the check are checked once, when first asked for
+    this.sql.exec('CREATE TABLE IF NOT EXISTS checked (key TEXT PRIMARY KEY)');
   }
 
   private load(key: string): Uint8Array | null {
@@ -111,7 +122,21 @@ export class Narrator extends DurableObject<TtsEnv> {
     this.ctx.storage.transactionSync(() => {
       this.sql.exec('DELETE FROM audio WHERE key = ?', key);
       for (let n = 0; n * PIECE < wav.length; n++) this.sql.exec('INSERT INTO audio (key, n, data) VALUES (?, ?, ?)', key, n, wav.slice(n * PIECE, (n + 1) * PIECE));
+      this.sql.exec('INSERT OR IGNORE INTO checked (key) VALUES (?)', key);
     });
+  }
+
+  /** a recording kept before the check: with dropouts — removed (recorded again), clean — marked */
+  private check(key: string, wav: Uint8Array): boolean {
+    if (this.sql.exec('SELECT 1 FROM checked WHERE key = ?', key).toArray().length) return true;
+    const holes = holesOf(wav);
+    if (holes > MAX_DROPOUTS) {
+      console.error('tts', key, 'dropouts', holes, '— recorded again');
+      this.sql.exec('DELETE FROM audio WHERE key = ?', key);
+      return false;
+    }
+    this.sql.exec('INSERT INTO checked (key) VALUES (?)', key);
+    return true;
   }
 
   async fetch(req: Request): Promise<Response> {
@@ -122,7 +147,7 @@ export class Narrator extends DurableObject<TtsEnv> {
     const key = `${hash}-${voice}-${this.env.TTS_MODEL || DEFAULT_MODEL}-s${STYLE_VERSION}`;
     const send = (wav: Uint8Array) => new Response(wav, { headers: { 'Content-Length': String(wav.length) } });
     const ready = this.load(key);
-    if (ready) return send(ready);
+    if (ready && this.check(key, ready)) return send(ready);
     if (url.searchParams.get('gen') !== '1') return new Response('missing', { status: 404 });
 
     let job = this.pending.get(key);
@@ -139,7 +164,9 @@ export class Narrator extends DurableObject<TtsEnv> {
       // X-Quota — which limit of Gemini (per minute / per day, free tier or paid): scripts/tts-prerecord.ts waits or stops
       if (e instanceof Quota) return new Response('quota', { status: 503, headers: { 'Retry-After': String(e.retry ?? 3600), 'X-Quota': e.message } });
       console.error('tts', e);
-      return new Response('failed', { status: 502 });
+      // X-Error — what Gemini answered (scripts/tts-prerecord.ts prints it; a header is ASCII only)
+      const why = String(e instanceof Error ? e.message : e).replace(/[^\x20-\x7e]+/g, ' ').slice(0, 300);
+      return new Response('failed', { status: 502, headers: { 'X-Error': why } });
     }
   }
 
@@ -159,7 +186,16 @@ export class Narrator extends DurableObject<TtsEnv> {
     } else parts = (await json<{ parts?: Part[] }>(`/tts/${lang}/${slug}.json`))?.parts;
     const part = parts?.find((p) => p.h === hash);
     if (!part || typeof part.text !== 'string' || part.text.length > MAX_TEXT) throw new NotFound();
-    return speak(this.env, lang, part.text, voice);
+    // Gemini's audio is now and then cut by dropouts (clicks, breaks): such a take is made again, the best one is kept
+    let best: { wav: Uint8Array; holes: number } | null = null;
+    for (let take = 1; take <= TAKES; take++) {
+      const wav = await speak(this.env, lang, part.text, voice);
+      const holes = holesOf(wav);
+      if (holes <= MAX_DROPOUTS) return wav;
+      console.error('tts', slug, hash, 'take', take, 'dropouts', holes);
+      if (!best || holes < best.holes) best = { wav, holes };
+    }
+    return best!.wav;
   }
 }
 
@@ -233,6 +269,13 @@ async function speak(env: TtsEnv, lang: string, text: string, voice: string): Pr
       return wav(all, rate);
     }
   throw new Error('gemini: no audio from any TTS model');
+}
+
+/** the dropouts of a WAV made by `wav` (44-byte header, mono 16-bit) */
+function holesOf(file: Uint8Array): number {
+  const rate = new DataView(file.buffer, file.byteOffset).getUint32(24, true);
+  const pcm = new Int16Array(file.buffer.slice(file.byteOffset + 44, file.byteOffset + file.length - ((file.length - 44) % 2)));
+  return dropouts(pcm, rate);
 }
 
 function fromBase64(s: string): Uint8Array {

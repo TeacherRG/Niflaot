@@ -125,3 +125,28 @@ export async function partHash(lang: string, text: string): Promise<string> {
   const d = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`${NARRATION_VERSION}\n${lang}\n${text}`));
   return [...new Uint8Array(d)].map((b) => b.toString(16).padStart(2, '0')).join('').slice(0, 16);
 }
+
+/**
+ * Dropouts in a recording of Gemini TTS: now and then, mostly after the first minute, the model's audio is cut by
+ * holes of exact digital silence in the middle of the words — heard as clicks and breaks (25.10.2026: 7 parts of 17 of
+ * «Берешит»; 15–151 holes in a broken part, 0–2 in a clean one — a natural pause is never exact zero). Counts the holes
+ * of 20–750 ms between sounds; `pcm` — 16-bit mono.
+ */
+export function dropouts(pcm: Int16Array, rate: number): number {
+  const min = rate * 0.02, max = rate * 0.75;
+  let first = 0;
+  while (first < pcm.length && Math.abs(pcm[first]) <= 3) first++;
+  let last = pcm.length - 1;
+  while (last > first && Math.abs(pcm[last]) <= 3) last--;
+  let holes = 0, run = 0;
+  for (let i = first; i <= last; i++)
+    if (Math.abs(pcm[i]) <= 3) run++;
+    else {
+      if (run >= min && run < max) holes++;
+      run = 0;
+    }
+  return holes;
+}
+
+/** more holes than this — the recording is made again (a clean one has 0–2) */
+export const MAX_DROPOUTS = 5;

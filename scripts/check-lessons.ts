@@ -34,6 +34,7 @@
  */
 import { MAX_PART, narration } from '../src/core/narration';
 import { LESSONS, cardsOnly } from '../src/lessons';
+import { dropouts, MAX_DROPOUTS } from '../src/core/speech';
 import { PUBLISHED, entries, staleOverrides } from '../src/content';
 import { sanitizeHtml } from '../src/core/sanitize';
 import { gematria } from '../src/core/gematria';
@@ -473,6 +474,26 @@ for (const l of LESSONS)
       if (bad) err(`${l.slug} (${lang}): the text to listen to has «${bad[0]}» — say it in words (spoken() in src/core/narration.ts)`);
     }
   }
+
+// dropouts of Gemini TTS (src/core/speech.ts): a voice with pauses of quiet noise is clean, holes of exact zero — broken;
+// the silence before and after the voice and the 0.8 s pause of the podcast are not holes
+{
+  const rate = 24000;
+  const voice = (sec: number, holes: number[]) => {
+    const pcm = new Int16Array(Math.round(sec * rate));
+    for (let i = 0; i < pcm.length; i++) pcm[i] = Math.round(Math.sin(i / 7) * 3000 * (Math.floor(i / rate) % 3 === 2 ? 0.003 : 1));
+    for (const at of holes) pcm.fill(0, Math.round(at * rate), Math.round((at + 0.1) * rate));
+    pcm.fill(0, 0, rate / 2);
+    pcm.fill(0, pcm.length - rate / 2);
+    return pcm;
+  };
+  if (dropouts(voice(20, []), rate) !== 0) err('dropouts(): a clean voice has holes');
+  if (dropouts(voice(20, [3.2, 4.4, 6.1, 7.7, 9.3, 10.1, 12.6]), rate) !== 7) err('dropouts(): 7 holes are not counted');
+  const gap = voice(20, []);
+  gap.fill(0, 9 * rate, 9.8 * rate);
+  if (dropouts(gap, rate) !== 0) err('dropouts(): a long pause is taken for a hole');
+  if (MAX_DROPOUTS < 2) err('MAX_DROPOUTS: a clean recording has up to 2 holes');
+}
 
 if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));
