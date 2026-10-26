@@ -1654,6 +1654,8 @@ p.ln-hint .he{font-family:var(--f-he);font-size:18px;color:var(--ink)}
 .ln-foot.wrong .ln-fb b,.ln-foot.wrong .ln-sol{color:var(--bad)}
 .ln-sol .he{font-family:var(--f-he);font-size:22px}
 .ln-fb small{color:var(--muted)}
+.ln-foot.right .ln-sol-h,.ln-foot.right .ln-sol{color:var(--ok)}
+.ln-sol-h{font-weight:600}
 .btn.ln-big{color:#fff;padding:14px 18px;border-radius:14px;font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
 .ln-foot.right .btn.ln-big{background:var(--ok-deep);border-color:var(--ok-deep);color:#fff}
 .ln-foot.wrong .btn.ln-big{background:var(--bad-deep);border-color:var(--bad-deep);color:#fff}

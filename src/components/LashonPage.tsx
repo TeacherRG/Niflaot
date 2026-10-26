@@ -24,6 +24,7 @@ import {
   finishLesson,
   isOpen,
   isRight,
+  nearlyRight,
   isDone,
   makeLesson,
   newItems,
@@ -299,6 +300,8 @@ function Lesson({ unit, part, hard, exam, known, adults, onClose }: { unit: Unit
   const [mistakes, setMistakes] = useState(0);
   const [firstTry, setFirstTry] = useState(0);
   const [combo, setCombo] = useState(0);
+  /** «Составьте стих»: counted, but the order was not exact — the right verse is shown */
+  const [nearly, setNearly] = useState(false);
   const [sound, setSound] = useState(soundOn);
   const [done, setDone] = useState<{ xp: number; added: number } | null>(null);
   const [requeued, setRequeued] = useState(false);
@@ -325,6 +328,7 @@ function Lesson({ unit, part, hard, exam, known, adults, onClose }: { unit: Unit
     setRequeued(false);
     setSel(null);
     setBuilt([]);
+    setNearly(false);
     if (exam && mistakes > EXAM_LIVES) setFailed(true);
     else if (i + 1 < queue.length) setI(i + 1);
     else if (exam) {
@@ -370,7 +374,11 @@ function Lesson({ unit, part, hard, exam, known, adults, onClose }: { unit: Unit
   };
   const check = () => {
     if (!ex || ex.t === 'intro' || ex.t === 'match') return;
-    if (ex.t === 'build') answer(isRight(ex, built.map((k) => ex.tiles[k])));
+    if (ex.t === 'build') {
+      const words = built.map((k) => ex.tiles[k]);
+      setNearly(nearlyRight(ex, words));
+      answer(isRight(ex, words));
+    }
     else if (sel != null) answer(isRight(ex, sel));
   };
   const ready = ex && (ex.t === 'build' ? built.length > 0 : sel != null);
@@ -457,7 +465,8 @@ function Lesson({ unit, part, hard, exam, known, adults, onClose }: { unit: Unit
         {state !== 'answer' && (
           <div className="ln-fb">
             <b>{state === 'right' ? (combo >= 3 ? t('ln.combo', { n: combo }) : t('ln.right')) : t('ln.wrong')}</b>
-            {state === 'wrong' && <Solution ex={ex} t={t} />}
+            {state === 'right' && nearly && <span className="ln-sol-h">{t('ln.nearly')}</span>}
+            {(state === 'wrong' || (state === 'right' && nearly)) && <Solution ex={ex} t={t} />}
             {requeued && <small>{t('ln.retry')}</small>}
           </div>
         )}

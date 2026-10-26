@@ -1088,6 +1088,7 @@ const de: Messages = {
   'ln.rtl': "Hebräisch schreibt man von rechts nach links: Der erste Buchstabe steht rechts.",
   'ln.right': "Richtig!",
   'ln.combo': "{n} in Folge — weiter so!",
+  'ln.nearly': "Gezählt! Die genaue Wortfolge:",
   'ln.wrong': "Die richtige Antwort:",
   'ln.retry': "Diese Aufgabe kommt am Ende der Lektion noch einmal.",
   'ln.done': "Lektion geschafft!",

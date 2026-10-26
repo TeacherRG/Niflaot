@@ -1088,6 +1088,7 @@ const en: Messages = {
   'ln.rtl': "Hebrew is written right to left: the first letter is on the right.",
   'ln.right': "Correct!",
   'ln.combo': "{n} in a row — keep going!",
+  'ln.nearly': "Counted! The exact word order:",
   'ln.wrong': "The right answer:",
   'ln.retry': "This one comes back at the end of the lesson.",
   'ln.done': "Lesson complete!",
