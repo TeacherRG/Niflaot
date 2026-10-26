@@ -14,8 +14,8 @@ const LOCALES = ['ru', 'en', 'de'] as const;
 /**
  * «Петь»: the scoring is fair on this recording. A singer who sings its melody — exactly, 0.8 s late (a phone's speaker,
  * Bluetooth headphones), with the microphone hearing a quarter of the moments, a semitone off — gets ≥ 90 % and every
- * line a star; one note held through the song or random notes stay far under the certificate's 70 % — 20 points below it
- * (a narrow tune, as «Аним змирот», lets one note in the middle meet up to half of it).
+ * line a star; one note held through the song or random notes stay under the certificate's 70 % — 10 points below it
+ * (a narrow tune, as «Аним змирот», lets one note in the middle meet half of it, and SING_BONUS adds to that: 56 %).
  */
 function calibrate(tr: PitchTrack, times: number[], at: (s: string) => void) {
   const L = tr.p.length;
@@ -57,7 +57,7 @@ function calibrate(tr: PitchTrack, times: number[], at: (s: string) => void) {
   ];
   for (const [what, v] of bad) {
     const r = score(v);
-    if (r.pct > PASS * 100 - 20) at(`singing ${what} scores ${Math.round(r.pct)} % — too lenient`);
+    if (r.pct > PASS * 100 - 10) at(`singing ${what} scores ${Math.round(r.pct)} % — too lenient`);
   }
 }
 const errors: string[] = [];

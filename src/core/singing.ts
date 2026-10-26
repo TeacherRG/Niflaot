@@ -29,6 +29,11 @@ export const LATE = 0.9;
 /** the share of a line's notes met: below SING_FLOOR — 0, from SING_PASS — the full points, linear between */
 export const SING_FLOOR = 0.35;
 export const SING_PASS = 0.6;
+/**
+ * The encouragement (the owner, 26.10.2026: «add up to 50 % while playing — the user must be pleased, we'll make it exact
+ * later»): a line's points × SING_BONUS, capped at SING_POINTS. A line with nothing in tune stays 0, so a hum doesn't earn.
+ */
+export const SING_BONUS = 1.5;
 /** the moments the microphone heard a note count at least as this share of the line */
 export const HEARD = 0.25;
 export const SING_POINTS = 10;
@@ -93,7 +98,9 @@ export function linePoints(track: PitchTrack, voice: Float32Array, from: number,
     }
     best = Math.max(best, met / Math.max(heard, HEARD * notes));
   }
-  return Math.round(SING_POINTS * Math.max(0, Math.min(1, (best - SING_FLOOR) / (SING_PASS - SING_FLOOR))));
+  const raw = SING_POINTS * Math.max(0, Math.min(1, (best - SING_FLOOR) / (SING_PASS - SING_FLOOR)));
+  // the encouragement: a line already sung in tune in part gets up to half more (never above the full points)
+  return Math.round(Math.min(SING_POINTS, raw * SING_BONUS));
 }
 
 /** A line's stars on the strip above the lines: 0–3 (no numbers while singing). */
