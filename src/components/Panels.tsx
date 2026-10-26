@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { Html, useI18n } from '../i18n';
-import { LESSON_GROUPS, findLesson, weekParsha } from '../lessons';
+import { LESSON_GROUPS, findLesson, weekParsha, type Lesson } from '../lessons';
 import { teacherOf } from '../lessons/teachers';
 import { useMode } from '../core/mode';
 import { VALUES } from '../core/gematria';
@@ -56,8 +56,6 @@ function HebrewLevelPicker({ onStart }: { onStart: () => void }) {
 }
 
 type Group = (typeof LESSON_GROUPS)[number];
-/** The lessons of a portion to read (adults): Baal HaTurim's «Читать», the Rebbe's «Прочитать». */
-const readsOf = (g: Group) => [...g.lessons, ...g.rebbe];
 
 /**
  * The portions of «Тора» in the menu: a strip scrolled sideways (Torah order, the newest on the right), ‹ › — one back /
@@ -101,52 +99,31 @@ function ParshaPicker({ groups, selected, week, onPick }: { groups: Group[]; sel
 }
 
 /**
- * «Учить сегодня» — the adults' daily study at the top of the menu (src/core/todayStudy.ts): the passages of the day of the
- * Prophets and Writings, Chassidut and «Мои слова», each with today's books / title and ✓ when done. The data loads when the
- * menu opens (not in the main bundle); «Вопросы к отрывку» are under the passage itself.
+ * The menu, by sections (both modes; a section holding the open page is unfolded):
+ *  - «Хасидут» — «Сихот Ребе» (the «Нифлаот Ребе» lessons of a portion) and «Ґемшех Ребе Рашаба»;
+ *  - «Танах» — «Тора с Бааль ґа-Турим» (the lessons of a portion), «Невиим», «Ктувим» (the passage of the day);
+ *  - «Святой язык» — the course, the words («Слова Торы» / «Мои слова»), the letters; «Святая музыка»;
+ *  - «Разное» — print, «К шабатнему столу», «Викторина вместе», «Знаете ли вы?»;
+ * then «Помощь и навыки» (children), «Академия», «Учитель», «Партнёры», «О проекте». The lessons: the children's — the games
+ * (and «Читать»), the adults' — «Читать» / «Прочитать» only. Today's passages (src/core/todayStudy.ts) show their verses and ✓
+ * when done; the data loads when the menu opens.
  */
-function TodayStudy({ active, onPick }: { active: boolean; onPick: () => void }) {
-  const { t, locale } = useI18n();
-  const d = useToday(locale, active);
-  const here = (href: string) => location.hash.split('?')[0].startsWith(href) && !location.hash.split('?')[0].endsWith('/quiz');
-  const row = (href: string, title: string, sub: string, done = false, icon: 'book' | 'cards' = 'book') => (
-    <a href={href} onClick={onPick} className={`menu-item${done ? ' menu-done' : ''}`} aria-current={here(href) ? 'page' : undefined}>
-      <Icon name={done ? 'check' : icon} />
-      <span>
-        {title}
-        <small>
-          {done && <span className="sr-only">{t('menu.doneToday')} · </span>}
-          {sub}
-        </small>
-      </span>
-    </a>
-  );
-  const w = d?.words;
-  return (
-    <>
-      <div className="menu-lbl">{t('menu.today')}</div>
-      {row('#/neviim', t('tanakh.neviim'), d?.neviim.range ?? t('tanakh.daySub'), d?.neviim.done)}
-      {row('#/ketuvim', t('tanakh.ketuvim'), d?.ketuvim.range ?? t('tanakh.daySub'), d?.ketuvim.done)}
-      {row('#/hemshech', t('hs.menuLbl'), d && 'title' in d.hs ? d.hs.title : t('hs.short'), !!d && 'title' in d.hs && d.hs.done)}
-      {row('#/words', t('words.mine'), w?.any ? (w.due ? t('words.homeSub', { d: w.due, k: w.known }) : t('words.homeSubDone', { k: w.known })) : t('words.menuSub'), !!w?.any && !w.due, 'cards')}
-    </>
-  );
-}
-
-/** Side menu + "How to play" + "About" — rendered once at the app root. */
 export function Panels() {
   const { t, pick, locale } = useI18n();
   const { panel, open, lessonSlug } = useUI();
   const level = useHebrewLevel();
   const installable = useSyncExternalStore(subscribeInstall, canInstall, () => false);
-  const mode = useMode();
+  const kids = useMode() === 'kids';
+  const today = useToday(locale, panel === 'menu');
   const close = () => open(null);
+  const hash = location.hash.split('?')[0];
   // the page a menu link points to is open (#/<slug> or #/<slug>/memo, #/<slug>/cards)
-  const isHere = (href: string) => location.hash.split('?')[0] === href;
-  // all groups start folded; only the one holding the open page (lesson, «Нифлаот Ребе», math) is unfolded
-  const isLearn = location.hash.startsWith('#/math') || location.hash === '#/letters';
-  const currentParsha = lessonSlug ? findLesson(lessonSlug)?.parsha : location.hash.match(/^#\/rebbe\/([^/?]+)/)?.[1];
-  // «Тора»: one portion at a time — the open page's, else the week's; the others — in the strip of portions above it
+  const isHere = (href: string) => hash === href;
+  const starts = (...hs: string[]) => hs.some((h) => hash === h || hash.startsWith(`${h}/`));
+  const lesson = lessonSlug ? findLesson(lessonSlug) : undefined;
+  const isMath = hash.startsWith('#/math');
+  const currentParsha = lesson?.parsha ?? hash.match(/^#\/rebbe\/([^/?]+)/)?.[1];
+  // a portion at a time — the open page's, else the week's; the others — in the strip of portions above it
   const week = weekParsha();
   const [picked, setPicked] = useState<string | null>(null);
   useEffect(() => {
@@ -154,69 +131,97 @@ export function Panels() {
   }, [panel]);
   const choose = <G extends { id: string }>(gs: G[]) =>
     gs.find((g) => g.id === picked) ?? gs.find((g) => g.id === currentParsha) ?? gs.find((g) => g.id === week) ?? gs[gs.length - 1];
-  const kidsSel = choose(LESSON_GROUPS);
-  const readGroups = LESSON_GROUPS.filter((g) => readsOf(g).length);
-  const adultsSel = choose(readGroups);
+  const rebbeGroups = LESSON_GROUPS.filter((g) => g.rebbe.length);
+  const torahGroups = LESSON_GROUPS.filter((g) => g.lessons.length);
+  const rebbeSel = choose(rebbeGroups);
+  const torahSel = choose(torahGroups);
+  const inRebbe = lesson?.series === 'rebbe' || starts('#/rebbe');
+  const inTorah = !!lesson && lesson.series !== 'rebbe';
 
-  // in both modes, after the mode's own study: «Знаете ли вы?», «Викторина вместе», «К шабатнему столу», «Академия»
-  const facts = (
-    <a href="#/facts" onClick={close} className="menu-item" aria-current={location.hash === '#/facts' || location.hash === '#/daily' ? 'page' : undefined}>
-      <Icon name="hash" />
+  const link = (href: string, icon: React.ReactNode, title: string, sub?: string, done = false) => (
+    <a href={href} onClick={close} className={`menu-item${done ? ' menu-done' : ''}`} aria-current={starts(href) ? 'page' : undefined}>
+      {done ? <Icon name="check" /> : icon}
       <span>
-        {t('facts.title')}
-        <small>{t('facts.menuSub')}</small>
+        {title}
+        {sub && (
+          <small>
+            {done && <span className="sr-only">{t('menu.doneToday')} · </span>}
+            {sub}
+          </small>
+        )}
       </span>
     </a>
   );
-  /* «Святой язык — уроки»: the course of Hebrew step by step, as in Duolingo (src/core/lashon.ts) */
-  const lashon = (
-    <a href="#/lashon" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/lashon') ? 'page' : undefined}>
-      <span className="menu-num he">ל</span>
+  const group = (icon: React.ReactNode, title: string, sub: string, on: boolean, body: React.ReactNode) => (
+    <details className="menu-group" open={on}>
+      <summary className="menu-item">
+        {icon}
+        <span>
+          {title}
+          <small>{sub}</small>
+        </span>
+      </summary>
+      <div className="menu-sub">{body}</div>
+    </details>
+  );
+  const num = (s: string, he = false) => <span className={`menu-num${he ? ' he' : ''}`}>{s}</span>;
+  /** the adults: a lesson only to read — Baal HaTurim's «Читать», the Rebbe's «Прочитать» (the children's games include it) */
+  const readLink = (l: Lesson) => (
+    <a key={l.slug} href={`#/${l.slug}/read`} onClick={close} className="menu-item menu-game" aria-current={isHere(`#/${l.slug}/read`) ? 'page' : undefined}>
       <span>
-        {t('ln.title')}
-        <small>{t('ln.menuSub')}</small>
+        {pick(l.texts).value.title}
+        {/* the teacher, unless the title already names him («Бааль ґа-Турим: Ноах») */}
+        {!pick(l.texts).value.title.includes(t(`teacher.${teacherOf(l)}.short`)) && <small>{t(`teacher.${teacherOf(l)}.short`)}</small>}
       </span>
     </a>
   );
-  /* «Викторина вместе»: a live quiz for a class or a family — the host's big screen, the players' phones */
-  const quiz = (
-    <a href="#/quiz" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/quiz') ? 'page' : undefined}>
-      <Icon name="phone" />
-      <span>
-        {t('lq.title')}
-        <small>{t('lq.menuSub')}</small>
-      </span>
-    </a>
+  const games = (l: Lesson, named: boolean) =>
+    (lessonGames(l) ?? []).map((game, k) => (
+      <a key={game.href} href={game.href} onClick={close} className="menu-item menu-game" aria-current={isHere(game.href) ? 'page' : undefined}>
+        {num(game.icon)}
+        {named && k === 0 ? (
+          <span>
+            {pick(l.texts).value.title}
+            <small lang="he">{l.hebrewTitle}</small>
+          </span>
+        ) : (
+          <span>{t(game.label)}</span>
+        )}
+      </a>
+    ));
+
+  /* «Сихот Ребе»: the «Нифлаот Ребе» lessons of a portion — the children's investigation and cards, the adults' «Прочитать» */
+  const sichot = rebbeSel && (
+    <>
+      <ParshaPicker groups={rebbeGroups} selected={rebbeSel} week={week} onPick={setPicked} />
+      {kids && link(`#/rebbe/${rebbeSel.id}`, num('✦'), t('rebbe.title'))}
+      {kids ? rebbeSel.rebbe.flatMap((l) => games(l, true)) : rebbeSel.rebbe.map(readLink)}
+    </>
   );
-  /* «К шабатнему столу»: the Friday sheet of the week's portion to print (ShabbatTable.tsx) */
-  const table = (
-    <a href="#/shabbat-table" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/shabbat-table') ? 'page' : undefined}>
-      <Icon name="print" />
-      <span>
-        {t('table.title')}
-        <small>{t('table.menuSub')}</small>
-      </span>
-    </a>
+  /* «Тора с Бааль ґа-Турим»: the lessons of a portion — the children's games (gematria, Memo) right under the lesson */
+  const torah = torahSel && (
+    <>
+      <ParshaPicker groups={torahGroups} selected={torahSel} week={week} onPick={setPicked} />
+      {kids
+        ? torahSel.lessons.map((l) => {
+            const gs = lessonGames(l);
+            return (
+              <div key={l.slug} className="menu-lesson">
+                <a href={`#/${l.slug}`} onClick={close} className="menu-item" aria-current={l.slug === lessonSlug && !gs ? 'page' : undefined}>
+                  {num(String(l.number))}
+                  <span>
+                    {pick(l.texts).value.title}
+                    <small lang="he">{l.hebrewTitle}</small>
+                  </span>
+                </a>
+                {games(l, false)}
+              </div>
+            );
+          })
+        : torahSel.lessons.map(readLink)}
+    </>
   );
-  /* «Святая музыка»: the niggunim with karaoke (NigunPage.tsx) */
-  const nigun = (
-    <a href="#/nigun" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/nigun') ? 'page' : undefined}>
-      <span className="menu-num">♪</span>
-      <span>
-        {t('nigun.title')}
-        <small>{t('nigun.menuSub')}</small>
-      </span>
-    </a>
-  );
-  const academy = (
-    <a href="#/academy" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/academy') ? 'page' : undefined}>
-      <Icon name="award" />
-      <span>
-        {t('academy.title')}
-        <small>{t('academy.menuSub')}</small>
-      </span>
-    </a>
-  );
+  const w = today?.words;
 
   return (
     <>
@@ -226,189 +231,91 @@ export function Panels() {
             <Icon name="home" />
             <span>{t('menu.home')}</span>
           </a>
-{mode === 'kids' ? (
+          {group(<Icon name="spark" />, t('menu.chassidut'), t('menu.chassidutSub'), inRebbe || starts('#/hemshech'), (
             <>
-          <div className="menu-lbl">{t('menu.lessons')}</div>
-          <ParshaPicker groups={LESSON_GROUPS} selected={kidsSel} week={week} onPick={setPicked} />
-          {[kidsSel].filter((g) => g).map((g) => (
-            <div key={g.id} className="menu-parsha">
-              <div className="menu-sub">
-                {g.lessons.map((l) => {
-                  const games = lessonGames(l);
-                  return (
-                    <div key={l.slug} className="menu-lesson">
-                      <a
-                        href={`#/${l.slug}`}
-                        onClick={close}
-                        className="menu-item"
-                        aria-current={l.slug === lessonSlug && !games ? 'page' : undefined}
-                      >
-                        <span className="menu-num">{l.number}</span>
-                        <span>
-                          {pick(l.texts).value.title}
-                          <small lang="he">{l.hebrewTitle}</small>
-                        </span>
-                      </a>
-                      {/* a lesson with two games (Baal HaTurim: gematria and Memo): both right under it */}
-                      {games?.map((game) => (
-                        <a
-                          key={game.href}
-                          href={game.href}
-                          onClick={close}
-                          className="menu-item menu-game"
-                          aria-current={isHere(game.href) ? 'page' : undefined}
-                        >
-                          <span className="menu-num">{game.icon}</span>
-                          <span>{t(game.label)}</span>
-                        </a>
-                      ))}
-                    </div>
-                  );
-                })}
-                {/* «Нифлаот Ребе» only when the portion has its lessons — no menu item to an empty «готовятся» page */}
-                {g.rebbe.length > 0 && (
-                  <a
-                    href={`#/rebbe/${g.id}`}
-                    onClick={close}
-                    className="menu-item"
-                    aria-current={location.hash === `#/rebbe/${g.id}` ? 'page' : undefined}
-                  >
-                    <span className="menu-num">✦</span>
-                    <span>{t('rebbe.title')}</span>
-                  </a>
-                )}
-                {/* «Нифлаот Ребе»: the investigation (named by the lesson's title) and its cards, right under the section */}
-                {g.rebbe.flatMap((l) =>
-                  (lessonGames(l) ?? []).map((game, k) => (
-                    <a
-                      key={game.href}
-                      href={game.href}
-                      onClick={close}
-                      className="menu-item menu-game"
-                      aria-current={isHere(game.href) ? 'page' : undefined}
-                    >
-                      <span className="menu-num">{game.icon}</span>
-                      {k === 0 ? (
-                        <span>
-                          {pick(l.texts).value.title}
-                          <small lang="he">{l.hebrewTitle}</small>
-                        </span>
-                      ) : (
-                        <span>{t(game.label)}</span>
-                      )}
-                    </a>
-                  )),
-                )}
-              </div>
-            </div>
+              {rebbeGroups.length > 0 && (
+                <details className="menu-group" open={inRebbe}>
+                  <summary className="menu-item">
+                    {num('✦')}
+                    <span>
+                      {t('menu.sichot')}
+                      <small>{t('menu.sichotSub')}</small>
+                    </span>
+                  </summary>
+                  <div className="menu-sub">{sichot}</div>
+                </details>
+              )}
+              {link('#/hemshech', <Icon name="book" />, t('menu.hemshech'), today && 'title' in today.hs ? today.hs.title : t('hs.short'), !!today && 'title' in today.hs && today.hs.done)}
+            </>
           ))}
-          {lessonSlug && (
-            <a href={`#/${lessonSlug}/print`} onClick={close} className="menu-item">
-              <Icon name="print" />
-              <span>{t('print.button')}</span>
-            </a>
-          )}
-          {lashon}
-          {/* «Слова Торы»: a game with the words of the lessons — the Memo pictures and the riddle cards (src/core/torahWords.ts) */}
-          <a href="#/torah-words" onClick={close} className="menu-item" aria-current={location.hash.startsWith('#/torah-words') ? 'page' : undefined}>
-            <Icon name="cards" />
-            <span>
-              {t('tw.title')}
-              <small>{t('tw.menuSub')}</small>
-            </span>
-          </a>
-          {facts}
-          {quiz}
-          {table}
-          {nigun}
-          {academy}
-          {/* how to play, my Hebrew, letters and mental math: one group */}
-          <details className="menu-group" open={isLearn}>
-            <summary className="menu-item">
-              <Icon name="help" />
-              <span>{t('menu.learn')}</span>
-            </summary>
-            <div className="menu-sub">
-              <button className="menu-item" onClick={() => open('help')}>
-                <span className="menu-num">?</span>
-                <span>{t('help.title')}</span>
-              </button>
-              <button className="menu-item" onClick={() => open('help')}>
-                <span className="menu-num he">א</span>
-                <span>
-                  {t('hebrew.menu')}
-                  <small>{t(`hebrew.${level}`)}</small>
-                </span>
-              </button>
-              <a href="#/letters" onClick={close} className="menu-item" aria-current={location.hash === '#/letters' ? 'page' : undefined}>
-                <span className="menu-num he">ב</span>
-                <span>
-                  {t('abc.title')}
-                  <small>{t('abc.menuSub')}</small>
-                </span>
-              </a>
-              <details className="menu-group" open={location.hash.startsWith('#/math')}>
-                <summary className="menu-item">
-                  <span className="menu-num">±</span>
-                  <span>{t('math.title')}</span>
-                </summary>
-                <div className="menu-sub">
-                  {OPS.map((o) => (
-                    <a
-                      key={o}
-                      href={`#/math/${o}`}
-                      onClick={close}
-                      className="menu-item"
-                      aria-current={location.hash === `#/math/${o}` ? 'page' : undefined}
-                    >
-                      <span className="menu-num">{SIGN[o]}</span>
-                      <span>{t(`math.op.${o}`)}</span>
-                    </a>
-                  ))}
-                </div>
-              </details>
-            </div>
-          </details>
-            </>
-          ) : (
+          {group(<Icon name="book" />, t('menu.tanakh'), t('menu.tanakhSub'), inTorah || starts('#/neviim', '#/ketuvim'), (
             <>
-          {/* the daily study first: the passages of the day, Chassidut and the words, with today's ✓ */}
-          <TodayStudy active={panel === 'menu'} onPick={close} />
-          {lashon}
-          {/* the Torah lessons to read — Baal HaTurim's «Читать», the Rebbe's «Прочитать»; the open (or the week's) portion, the others in the strip */}
-          <div className="menu-lbl">{t('menu.lessons')}</div>
-          <ParshaPicker groups={readGroups} selected={adultsSel} week={week} onPick={setPicked} />
-          {[adultsSel].filter((g) => g).map((g) => {
-            const reads = readsOf(g);
-            return (
-              <div key={g.id} className="menu-parsha">
-                <div className="menu-sub">
-                  {reads.map((l) => (
-                    <a
-                      key={l.slug}
-                      href={`#/${l.slug}/read`}
-                      onClick={close}
-                      className="menu-item menu-game"
-                      aria-current={isHere(`#/${l.slug}/read`) ? 'page' : undefined}
-                    >
-                      <span>
-                        {pick(l.texts).value.title}
-                        {/* the teacher, unless the title already names him («Бааль ґа-Турим: Ноах») */}
-                        {!pick(l.texts).value.title.includes(t(`teacher.${teacherOf(l)}.short`)) && <small>{t(`teacher.${teacherOf(l)}.short`)}</small>}
-                      </span>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-          {facts}
-          {quiz}
-          {table}
-          {nigun}
-          {academy}
+              {torahGroups.length > 0 && (
+                <details className="menu-group" open={inTorah}>
+                  <summary className="menu-item">
+                    {num('ת', true)}
+                    <span>
+                      {t('menu.torahBht')}
+                      <small>{t('menu.torahBhtSub')}</small>
+                    </span>
+                  </summary>
+                  <div className="menu-sub">{torah}</div>
+                </details>
+              )}
+              {link('#/neviim', num('נ', true), t('menu.neviim'), today?.neviim.range ?? t('tanakh.daySub'), today?.neviim.done)}
+              {link('#/ketuvim', num('כ', true), t('menu.ketuvim'), today?.ketuvim.range ?? t('tanakh.daySub'), today?.ketuvim.done)}
             </>
-          )}
+          ))}
+          {group(<Icon name="chat" />, t('academy.fac.lashon'), t('menu.lashonSub'), starts('#/lashon', '#/torah-words', '#/words', '#/letters'), (
+            <>
+              {link('#/lashon', num('ל', true), t('ln.title'), t('ln.menuSub'))}
+              {kids
+                ? link('#/torah-words', <Icon name="cards" />, t('tw.title'), t('tw.menuSub'))
+                : link('#/words', <Icon name="cards" />, t('words.mine'), w?.any ? (w.due ? t('words.homeSub', { d: w.due, k: w.known }) : t('words.homeSubDone', { k: w.known })) : t('words.menuSub'), !!w?.any && !w.due)}
+              {level !== 'reads' && link('#/letters', num('א', true), t('abc.title'), t('abc.menuSub'))}
+            </>
+          ))}
+          {link('#/nigun', <Icon name="music" />, t('nigun.title'), t('nigun.menuSub'))}
+          {group(<Icon name="grid" />, t('menu.misc'), t('menu.miscSub'), starts('#/facts', '#/daily', '#/quiz', '#/shabbat-table'), (
+            <>
+              {lessonSlug && link(`#/${lessonSlug}/print`, <Icon name="print" />, t('print.button'))}
+              {link('#/shabbat-table', <Icon name="print" />, t('table.title'), t('table.menuSub'))}
+              {link('#/quiz', <Icon name="phone" />, t('lq.title'), t('lq.menuSub'))}
+              {link('#/facts', <Icon name="hash" />, t('facts.title'), t('facts.menuSub'))}
+            </>
+          ))}
+          {/* the children: how to play, my Hebrew and mental math */}
+          {kids &&
+            group(<Icon name="help" />, t('menu.learn'), t('menu.learnSub'), isMath, (
+              <>
+                <button className="menu-item" onClick={() => open('help')}>
+                  {num('?')}
+                  <span>{t('help.title')}</span>
+                </button>
+                <button className="menu-item" onClick={() => open('help')}>
+                  {num('א', true)}
+                  <span>
+                    {t('hebrew.menu')}
+                    <small>{t(`hebrew.${level}`)}</small>
+                  </span>
+                </button>
+                <details className="menu-group" open={isMath}>
+                  <summary className="menu-item">
+                    {num('±')}
+                    <span>{t('math.title')}</span>
+                  </summary>
+                  <div className="menu-sub">
+                    {OPS.map((o) => (
+                      <a key={o} href={`#/math/${o}`} onClick={close} className="menu-item" aria-current={isHere(`#/math/${o}`) ? 'page' : undefined}>
+                        {num(SIGN[o])}
+                        <span>{t(`math.op.${o}`)}</span>
+                      </a>
+                    ))}
+                  </div>
+                </details>
+              </>
+            ))}
+          {link('#/academy', <Icon name="award" />, t('academy.title'), t('academy.menuSub'))}
           <div className="menu-sep" />
           {installable && (
             <button

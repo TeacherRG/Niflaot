@@ -34,6 +34,9 @@ const PATHS = {
   phone: 'M8 2h8a2 2 0 012 2v16a2 2 0 01-2 2H8a2 2 0 01-2-2V4a2 2 0 012-2zM11 18h2',
   award: 'M12 15a6 6 0 100-12 6 6 0 000 12zM8.5 13.9L7 22l5-3 5 3-1.5-8.1',
   print: 'M7 8V3h10v5M7 17H5a2 2 0 01-2-2v-5a2 2 0 012-2h14a2 2 0 012 2v5a2 2 0 01-2 2h-2M7 14h10v7H7z',
+  music: 'M9 18V5l11-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zM20 16a3 3 0 11-6 0 3 3 0 016 0z',
+  chat: 'M4 5h16v11H9l-5 4z',
+  grid: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
 } as const;
 
 export function Icon({ name, size = 20 }: { name: keyof typeof PATHS; size?: number }) {
