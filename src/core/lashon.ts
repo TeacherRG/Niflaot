@@ -49,6 +49,8 @@ export interface Verse {
 }
 /** «Составьте стих» — только короткие стихи */
 export const VERSE_MAX = 8;
+/** детям — стихи Торы до 10 слов: коротких в уроках главы мало */
+export const VERSE_MAX_KIDS = 10;
 export const VERSE_MIN = 3;
 /** a verse for a word (scripts/fetch-words.py, examples-<lang>.json): short enough and translated into the site's language */
 export function verseOf(ex: Example | undefined, lang: string): Verse | undefined {
@@ -72,7 +74,7 @@ export interface TorahSource {
 }
 /**
  * Children: the short verses of the Torah quoted in a portion's lessons (the riddles' sources, the Rebbe's cards) — one
- * verse per line of the source, 3–8 words, with the translation in the site's language (`de` — «2,21»).
+ * verse per line of the source, 3–10 words, with the translation in the site's language (`de` — «2,21»).
  */
 export function torahVerses(lessons: Lesson[], source: (id: string) => TorahSource | undefined, lang: string): Map<string, Verse[]> {
   const out = new Map<string, Verse[]>();
@@ -86,7 +88,7 @@ export function torahVerses(lessons: Lesson[], source: (id: string) => TorahSour
       s.he.forEach((he, k) => {
         const words = he.replace(/[׃׀]/g, ' ').split(/\s+/).filter(Boolean);
         const tr = (s.tr[k] ?? '').replace(/<[^>]+>/g, '').trim();
-        if (words.length < VERSE_MIN || words.length > VERSE_MAX || !tr) return;
+        if (words.length < VERSE_MIN || words.length > VERSE_MAX_KIDS || !tr) return;
         const ref = `${book} ${at[1]}${lang === 'de' ? ',' : ':'}${Number(at[2]) + k}`;
         const list = out.get(l.parsha) ?? [];
         if (!list.some((v) => v.ref === ref)) list.push({ words, tr, ref });
@@ -108,6 +110,8 @@ export interface Unit {
   size: number;
   /** откуда брать неверные варианты (сначала — из юнита) */
   pool: Item[];
+  /** дети: все короткие стихи Торы главы — и те, где нет слова колоды (для «Составьте стих» без подсказки) */
+  verses?: Verse[];
 }
 
 /** после уроков с новым — два урока «Повторение» (вперемешку, второй труднее) */
@@ -156,7 +160,8 @@ export function torahUnits(words: TorahWord[], verses: Map<string, Verse[]> = ne
       const it = [...ws].sort((a, b) => b.he.length - a.he.length).find((x) => !x.verse && inVerse(x, v));
       if (it) it.verse = v;
     }
-    return { id: `tw-${p}`, track: 'words', n: i + 1, parsha: p, items: ws, size: 6, pool: [...ws, ...items] };
+    const all = verses.get(p) ?? [];
+    return { id: `tw-${p}`, track: 'words', n: i + 1, parsha: p, items: ws, size: 6, pool: [...ws, ...items], verses: all };
   });
 }
 
@@ -271,10 +276,24 @@ function build(item: Item, unit: Unit): Exercise | null {
  * one or two extra words from the other verses of the unit.
  */
 function verse(item: Item, unit: Unit): Exercise | null {
-  const v = item.verse;
-  if (!v) return null;
-  const extra = [...new Set(shuffle(unit.items.flatMap((w) => (w.verse && w !== item ? w.verse.words : []))).filter((x) => !v.words.includes(x)))].slice(0, v.words.length > 5 ? 1 : 2);
-  return { t: 'build', item: { ...item, he: v.words.join(' '), tr: v.tr }, words: true, answer: v.words, tiles: shuffle([...v.words, ...extra]), verse: v, word: item };
+  return item.verse ? verseEx(item.verse, unit, item) : null;
+}
+function verseEx(v: Verse, unit: Unit, word?: Item): Exercise {
+  const others = [...unit.items.flatMap((w) => w.verse ?? []), ...(unit.verses ?? [])].filter((x) => x !== v);
+  const extra = [...new Set(shuffle(others.flatMap((x) => x.words)).filter((x) => !v.words.includes(x)))].slice(0, v.words.length > 5 ? 1 : 2);
+  const item = word ?? { key: `verse:${v.ref}`, he: '', tr: '' };
+  return { t: 'build', item: { ...item, he: v.words.join(' '), tr: v.tr }, words: true, answer: v.words, tiles: shuffle([...v.words, ...extra]), verse: v, word };
+}
+/**
+ * Every lesson of a unit that has verses gets one «Составьте стих»: a verse with a word of `prefer` (the new words), else
+ * with any word of the unit, else (children) any short verse of the portion — without a «word of the lesson» hint.
+ */
+function ensureVerse(ex: Exercise[], unit: Unit, prefer: Item[]) {
+  if (ex.some((x) => x.t === 'build' && x.verse)) return ex;
+  const it = shuffle(prefer).find((x) => x.verse) ?? shuffle(unit.items).find((x) => x.verse);
+  const v = it ? verseEx(it.verse!, unit, it) : unit.verses?.length ? verseEx(shuffle(unit.verses)[0], unit) : null;
+  if (v) ex.splice(Math.max(0, ex.length - 1), 0, v);
+  return ex;
 }
 
 /** a letter that looks like `c` (or any other), keeping c's vowel points */
@@ -312,8 +331,7 @@ export function makeLesson(unit: Unit, part: Item[] | null, hard = false): Exerc
   if (part?.length) {
     const ex = drill({ ...unit, items: part }, 1);
     // one verse with a new word — unless the lesson is already long (a short remainder joined it)
-    const v = part.length <= unit.size ? shuffle(part).map((it) => verse(it, unit)).find((x) => x) : undefined;
-    if (v) ex.splice(ex.length - 1, 0, v);
+    if (part.length <= unit.size) ensureVerse(ex, unit, part);
     const before = shuffle(unit.items.filter((it) => !part.includes(it))).slice(0, 2);
     before.forEach((it, i) => {
       const x = pick(it, unit, i ? 'he' : 'tr');
@@ -321,7 +339,8 @@ export function makeLesson(unit: Unit, part: Item[] | null, hard = false): Exerc
     });
     return ex;
   }
-  return drill({ ...unit, items: shuffle(unit.items).slice(0, 6) }, hard ? 3 : 2);
+  const items = shuffle(unit.items).slice(0, 6);
+  return ensureVerse(drill({ ...unit, items }, hard ? 3 : 2), unit, items);
 }
 
 /** «Экзамен» за юнит: сразу весь юнит, чтобы открыть следующий — до `EXAM_ITEMS` его букв / слов вперемешку, трудные задания и пары. */
@@ -329,7 +348,10 @@ export const EXAM_ITEMS = 14;
 /** ошибок можно сделать не больше (пары не считаются) */
 export const EXAM_LIVES = 3;
 export const XP_EXAM = 20;
-export const makeExam = (unit: Unit): Exercise[] => drill({ ...unit, items: shuffle(unit.items).slice(0, EXAM_ITEMS) }, 3);
+export function makeExam(unit: Unit): Exercise[] {
+  const items = shuffle(unit.items).slice(0, EXAM_ITEMS);
+  return ensureVerse(drill({ ...unit, items }, 3), unit, items);
+}
 
 /** the exercises over `unit.items`: level 1 — introduce and ask each, the pairs; 2 and 3 — every kind mixed (3 — harder) */
 function drill(unit: Unit, level: number): Exercise[] {
