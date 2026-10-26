@@ -2497,3 +2497,16 @@ body:has(.a-home){background:var(--plain)}
   .courses-torah{display:none}
 }
 @media (max-width:519px){.mode-pace{grid-template-columns:1fr}}
+/* «Добавить в мои курсы» on a course's page (AddCourse.tsx) and «Ещё курсы» in the tile */
+.add-course{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:10px 0 0;font-size:14px}
+.add-course-btn{padding:6px 14px;border:1px solid var(--tchelet);border-radius:999px;background:var(--surface);color:var(--tchelet);font:inherit;font-weight:700;cursor:pointer}
+.add-course-btn:hover{background:var(--tchelet-bg)}
+.add-course-on{font-weight:700;color:var(--ok);text-decoration:none}
+.add-course-off{padding:0;border:0;background:none;color:var(--muted);font:inherit;font-size:13px;text-decoration:underline;cursor:pointer}
+.courses-more{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.courses-chip{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;background:var(--surface);overflow:hidden}
+.courses-chip a{padding:3px 4px 3px 10px;color:var(--ink);font-weight:600;text-decoration:none}
+.courses-chip a:hover{color:var(--tchelet)}
+.courses-chip button{padding:3px 10px 3px 6px;border:0;background:none;color:var(--tchelet);font:inherit;font-weight:800;cursor:pointer}
+.mode-later{margin:14px 0 0}
+@media (max-width:640px){.courses-more{font-size:11.5px}.courses-chip a{padding:2px 3px 2px 8px}.courses-chip button{padding:2px 8px 2px 4px}}

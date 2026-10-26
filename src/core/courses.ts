@@ -7,6 +7,8 @@
  * The Prophets and the Writings go either at the player's own pace (`own`: from the beginning of the cycle, the first
  * passage not read yet, whatever the date) or with the Academy (`cycle`: the passage of the day); Chassidut at one's own
  * pace — the first passage already open and not read (a passage opens on its day).
+ * Anyone may also just look around first and choose later: «Добавить в мои курсы» on each course's page (AddCourse.tsx)
+ * and «+ курс» in the tile.
  * localStorage `niflaot:courses` = { c: [<course>…], pace: 'own' | 'cycle' }, synced with the account (src/core/sync.ts).
  */
 import { useEffect, useState } from 'react';
@@ -63,6 +65,12 @@ export function useCourses(mode: Mode): CourseChoice {
     };
   }, [mode]);
   return v;
+}
+
+/** Add a course to «Мои курсы» or remove it (from its page or the home tile); the first change starts from the mode's usual courses. */
+export function toggleCourse(mode: Mode, course: Course, on: boolean) {
+  const { c, pace } = coursesOf(mode);
+  setCourses({ c: on ? [...c, course] : c.filter((x) => x !== course), pace });
 }
 
 /** Whether the question was answered (the account window opens it while it wasn't). */

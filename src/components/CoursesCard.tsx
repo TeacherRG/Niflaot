@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
 import { useMode } from '../core/mode';
-import { useCourses } from '../core/courses';
+import { COURSES, toggleCourse, useCourses } from '../core/courses';
 import type { CourseRow } from '../core/myCourses';
 
 /** the bar: of the book being read (the Prophets, the Writings — a book is a step one sees), else of the whole course */
+/** where to look at a course before adding it */
+const COURSE_HREF = { neviim: '#/neviim', ketuvim: '#/ketuvim', hemshech: '#/hemshech', lashon: '#/lashon', nigun: '#/nigun' } as const;
+
 const pct = (r: CourseRow) => (r.book ? Math.round((r.book.done / r.book.parts) * 100) : r.total ? Math.round((r.done / r.total) * 100) : 0);
 
 /**
  * «Мои курсы» on the home page (both modes): a row for each course the player chose (src/core/courses.ts) — the course,
  * how far along it is (done of the whole course; the Prophets and Writings — the bar of the book being read), what comes next
- * and its link. The weekly Torah portion is not here: it is the same for everyone and has its own card. «Изменить» opens
+ * and its link; under them — the other courses: the name opens the course to try it, «＋» adds it. The weekly Torah portion is not here: it is the same for everyone and has its own card. «Изменить» opens
  * the choice in the account window. The progress (src/core/myCourses.ts) is loaded only here.
  */
 export function CoursesCard() {
@@ -47,7 +50,7 @@ export function CoursesCard() {
       </div>
       {c.length === 0 ? (
         <p className="courses-empty">
-          {t('courses.empty')} <a href="#/account">{t('courses.choose')} →</a>
+          {t('courses.empty')}
         </p>
       ) : (
         <ul>
@@ -70,6 +73,20 @@ export function CoursesCard() {
             </li>
           ))}
         </ul>
+      )}
+      {/* the others — one tap adds a course, without the account window; or open it first and look around */}
+      {c.length < COURSES.length && (
+        <div className="courses-more">
+          <span>{t('courses.more')}</span>
+          {COURSES.filter((x) => !c.includes(x)).map((x) => (
+            <span key={x} className="courses-chip">
+              <a href={COURSE_HREF[x]}>{t(`courses.${x}`)}</a>
+              <button type="button" onClick={() => toggleCourse(mode, x, true)} aria-label={`${t('courses.add')}: ${t(`courses.${x}`)}`} title={t('courses.add')}>
+                ＋
+              </button>
+            </span>
+          ))}
+        </div>
       )}
       <p className="courses-torah">{t('courses.torahNote')}</p>
     </section>

@@ -109,6 +109,7 @@ export function ModePicker() {
             ))}
           </div>
         )}
+        <p className="mode-sub mode-later">{t('courses.later')}</p>
         <button className="btn mode-start" disabled={!mode || !level} onClick={start}>
           {t('mode.start')} →
         </button>
