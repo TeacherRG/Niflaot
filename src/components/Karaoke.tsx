@@ -5,7 +5,8 @@ import { markStudied } from '../core/habit';
 import type { Nigun } from '../nigun';
 import { PASS } from '../core/academy';
 import { POINTS, gaps, rightCount, saveNigunResult } from '../core/nigunGame';
-import { SING_POINTS, inTuneAt, linePoints, lineStars, newVoice, openMic, refAt, type PitchTrack } from '../core/singing';
+import { SING_POINTS, inTuneAt, linePoints, lineStars, newVoice, openMic, recordingFile, refAt, type Mic, type PitchTrack } from '../core/singing';
+import { routeLink } from '../core/site';
 
 /** The site's root: the built code lives in /assets/, the recordings in /nigun/ (as in src/core/tanakh.ts). */
 const root = () => (import.meta.env.DEV ? import.meta.env.BASE_URL : new URL('..', import.meta.url).href);
@@ -55,7 +56,7 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
   const game = tab === 'game';
   const sing = tab === 'sing';
   // «Петь»: the microphone while singing, the recording's notes, the singer's notes and the result
-  const mic = useRef<Awaited<ReturnType<typeof openMic>> | null>(null);
+  const mic = useRef<Mic | null>(null);
   const [track, setTrack] = useState<PitchTrack | null>(null);
   const heard = useRef<Float32Array | null>(null);
   // the points of the lines already sung — counted once, when the line is over
@@ -65,6 +66,10 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
   const [singing, setSinging] = useState(false);
   const [singResult, setSingResult] = useState<{ got: number; max: number } | null>(null);
   const [micError, setMicError] = useState(false);
+  // «Записать моё пение» — only if ticked: the voice with the niggun under it, in memory — to listen, download, share
+  const [record, setRecord] = useState(false);
+  const [take, setTake] = useState<{ file: File; url: string } | null>(null);
+  const takeUrl = useRef<string | null>(null);
   const [p, setP] = useState<number[]>(() => n.lines.map(() => -1));
   const [result, setResult] = useState<number | null>(null);
   const gs = gaps(n);
@@ -106,7 +111,23 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
   }, [playing, loop, times, singing, track]);
 
   // the microphone is never left on: leaving the page or the tab turns it off
-  useEffect(() => () => mic.current?.stop(), []);
+  useEffect(
+    () => () => {
+      void mic.current?.stop();
+      if (takeUrl.current) URL.revokeObjectURL(takeUrl.current);
+    },
+    [],
+  );
+  // the niggun under the voice in the recording follows the player (pause, a tap on a line, «Медленнее»)
+  useEffect(() => {
+    const a = audio.current;
+    if (singing && a) mic.current?.sync(a.currentTime, playing, slow ? 0.75 : 1);
+  }, [singing, playing, slow]);
+  const dropTake = () => {
+    if (takeUrl.current) URL.revokeObjectURL(takeUrl.current);
+    takeUrl.current = null;
+    setTake(null);
+  };
 
   useEffect(() => {
     if (audio.current) audio.current.playbackRate = slow ? 0.75 : 1;
@@ -179,7 +200,7 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
     if (gs.every((g, i) => !g || next[i] >= 0)) finish(next);
   };
   const stopMic = () => {
-    mic.current?.stop();
+    void mic.current?.stop();
     mic.current = null;
     setSinging(false);
     setVoice('none');
@@ -190,6 +211,7 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
     stopMic();
     setResult(null);
     setSingResult(null);
+    dropTake();
     setTab(to);
   };
   // the lines the recording sings (has notes in) — they are scored
@@ -202,11 +224,14 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
   const startSinging = async () => {
     setMicError(false);
     setSingResult(null);
+    dropTake();
     try {
       const tr: PitchTrack = track ?? (await (await fetch(`${root()}${n.audio.replace(/\.mp3$/, '.pitch.json')}`)).json());
       setTrack(tr);
-      mic.current?.stop();
-      mic.current = await openMic();
+      void mic.current?.stop();
+      // the recording: the niggun's mp3 (the browser has it cached from the player) to mix under the voice
+      const music = record ? await fetch(`${root()}${n.audio}`).then((r) => (r.ok ? r.arrayBuffer() : undefined)).catch(() => undefined) : undefined;
+      mic.current = await openMic({ record, music });
       heard.current = newVoice(tr);
       donePts.current = [];
       setLoop(false);
@@ -234,7 +259,28 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
     saveNigunResult(`${n.id}:sing`, { p: pts, best: got, n: max });
     setSingResult({ got, max });
     audio.current?.pause();
-    stopMic();
+    const m = mic.current;
+    mic.current = null;
+    setSinging(false);
+    setVoice('none');
+    void m?.stop().then((blob) => {
+      if (!blob) return;
+      const file = recordingFile(blob, n.id);
+      takeUrl.current = URL.createObjectURL(file);
+      setTake({ file, url: takeUrl.current });
+    });
+  };
+  // «Поделиться записью»: the phone's «Отправить…» with the file, the points and the link to the niggun
+  const canShareTake = !!take && typeof navigator.canShare === 'function' && navigator.canShare({ files: [take.file] });
+  const shareTake = async () => {
+    if (!take || !singResult) return;
+    const pct = singResult.max ? Math.round((100 * singResult.got) / singResult.max) : 0;
+    const text = t('nigun.shareText', { title: n.title[locale], pct, link: routeLink(`nigun/${n.id}`, 'share', locale) });
+    try {
+      await navigator.share({ files: [take.file], title: n.title[locale], text });
+    } catch {
+      /* cancelled */
+    }
   };
   const singPct = singResult && singResult.max ? Math.round((100 * singResult.got) / singResult.max) : 0;
   // while singing — no numbers: on top, a strip with a cell for every sung line, filled with its points and its stars
@@ -253,6 +299,7 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
         preload="metadata"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
+        onSeeked={(e) => singing && mic.current?.sync(e.currentTarget.currentTime, !e.currentTarget.paused, slow ? 0.75 : 1)}
         onEnded={() => {
           setPlaying(false);
           if (game && result === null) finish(p);
@@ -353,12 +400,34 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
                   </a>
                 )}
               </span>
+              {take && (
+                <div className="kar-take">
+                  <span>{t('nigun.takeH')}</span>
+                  <audio controls src={take.url} preload="metadata" />
+                  <span className="kar-result-a">
+                    {canShareTake && (
+                      <button type="button" className="btn" onClick={() => void shareTake()}>
+                        📤 {t('nigun.takeShare')}
+                      </button>
+                    )}
+                    <a className={`btn${canShareTake ? ' ghost' : ''}`} href={take.url} download={take.file.name}>
+                      ⬇ {t('nigun.takeDownload')}
+                    </a>
+                  </span>
+                  <small className="kar-privacy">{t('nigun.takeNote')}</small>
+                </div>
+              )}
             </div>
           )}
           {!singing && (
-            <button type="button" className="btn kar-start" onClick={() => void startSinging()}>
-              🎤 {t(singResult ? 'nigun.singAgain' : 'nigun.singStart')}
-            </button>
+            <>
+              <label className="kar-rec">
+                <input type="checkbox" checked={record} onChange={(e) => setRecord(e.target.checked)} /> {t('nigun.record')}
+              </label>
+              <button type="button" className="btn kar-start" onClick={() => void startSinging()}>
+                🎤 {t(singResult ? 'nigun.singAgain' : 'nigun.singStart')}
+              </button>
+            </>
           )}
         </>
       )}
