@@ -673,7 +673,7 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
   const faculty = (f: FacultyId) => {
     switch (f) {
       case 'lashon':
-        // children: «Слова Торы» — a certificate for every portion; adults: «Иврит Танаха» — 100 … 1500 words confirmed by the review
+        // children: «Слова Торы» — a certificate for every portion; adults: «Иврит Танаха» — 100 … 2000 words confirmed by the review
         return adults ? (
           <ul className="ac-list">
             {words.map((c) => (

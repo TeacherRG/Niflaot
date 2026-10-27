@@ -666,7 +666,7 @@ function wordsPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
   const learn = WORDS.words.filter((w) => tr[w.id]);
   const fill = (key: string, vars: Record<string, string | number>) => s(ui, key as keyof Ui).replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''));
   const pctAt = (n: number) => Math.round(WORDS.words[n - 1].cov);
-  const cov = [100, 300, 500, 1000, 1500].map((n) => `<li>${esc(fill('words.seoCov', { n, p: pctAt(n) }))}</li>`).join('');
+  const cov = [100, 300, 500, 1000, 1500, 2000].map((n) => `<li>${esc(fill('words.seoCov', { n, p: pctAt(n) }))}</li>`).join('');
   const levels: string[] = [];
   for (let i = 0; i < learn.length; i += 50) {
     const ws = learn.slice(i, i + 50);
