@@ -68,8 +68,8 @@ const LINKS: Record<FacultyId, Record<'k' | 'a', [string, MessageKey][]>> = {
   lashon: { k: [['#/lashon', 'ln.title'], ['#/torah-words', 'tw.title'], ['#/letters', 'abc.title']], a: [['#/lashon', 'ln.title'], ['#/words', 'words.mine'], ['#/letters', 'abc.title']] },
   gematria: { k: [['#/daily', 'daily.title'], ['#/facts', 'facts.title'], ['#/math/add', 'math.title']], a: [['#/daily', 'daily.title'], ['#/facts', 'facts.title']] },
   nigun: { k: [['#/nigun', 'nigun.title']], a: [['#/nigun', 'nigun.title']] },
-  rebbe: { k: [['#/shabbat-table', 'table.title']], a: [['#/shabbat-table', 'table.title']] },
-  tanakh: { k: [], a: [['#/neviim', 'tanakh.neviim'], ['#/ketuvim', 'tanakh.ketuvim']] },
+  rebbe: { k: [['#/shabbat-table', 'table.title'], ['#/digest', 'digest.title']], a: [['#/shabbat-table', 'table.title'], ['#/digest', 'digest.title']] },
+  tanakh: { k: [], a: [['#/neviim', 'tanakh.neviim'], ['#/ketuvim', 'tanakh.ketuvim'], ['#/digest', 'digest.title']] },
   hemshech: { k: [], a: [['#/hemshech', 'hs.menuLbl']] },
 };
 

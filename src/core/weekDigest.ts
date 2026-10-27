@@ -1,14 +1,22 @@
 /**
  * «Неделя в Академии» — the digest of a week (`#/digest[/<воскресенье>]`, WeekDigest.tsx): what the Academy learnt from
- * Sunday to Friday besides the weekly portion (that is the Friday sheet «К шабатнему столу»), in short quotes — a verse
- * of each day's Prophets and Writings, a sentence of each day's passage of the «Ґемшех», and the niggun of the week with
- * its first lines. Nothing is written for it: it is picked from the texts of the days. Only days up to today.
+ * Sunday to Friday besides the weekly portion (that is the Friday sheet «К шабатнему столу»), told briefly with small
+ * quotes — each day's Prophets and Writings retold in a sentence or two (the project's retelling, src/tanakh/retell.json,
+ * written a week ahead with the translation) and a verse of it, each passage of the «Ґемшех» — its «Коротко» and a
+ * sentence of it, and the niggun of the week with its first lines. Only days up to today.
  */
 import { CYCLE } from './tanakh';
 import type { DayVerse } from './tanakh';
 import { addDays } from './tanakhCycle';
 import { allPassages, passageDate } from './hemshech';
 import { NIGUNIM, type Nigun } from '../nigun';
+import retellJson from '../tanakh/retell.json';
+import type { Section } from './tanakhCycle';
+
+type Retell = Record<string, Record<Section, Record<'ru' | 'en' | 'de', string>>>;
+export const RETELL = retellJson as Retell;
+/** The retelling of a day's passage of a section in a language; '' — not written yet (the page shows only the quote). */
+export const retell = (date: string, section: Section, lang: 'ru' | 'en' | 'de') => RETELL[date]?.[section]?.[lang] ?? '';
 
 /** The Sunday of the week of a date (YYYY-MM-DD). */
 export const weekStart = (date: string) => addDays(date, -new Date(`${date}T12:00:00Z`).getUTCDay());
@@ -34,7 +42,7 @@ export const weekPassages = (sunday: string, today: string) =>
 
 const count = (s: string, c: string) => s.split(c).length - 1;
 /** No quotation cut in the middle: as many opening marks as closing ones (« », “ ” in English, „ “ in German). */
-const balanced = (s: string) =>
+export const balanced = (s: string) =>
   count(s, '«') === count(s, '»') && (s.includes('„') ? count(s, '„') === count(s, '“') : count(s, '“') === count(s, '”')) && count(s, '"') % 2 === 0;
 const heWords = (s: string) => s.replace(/<[^>]+>/g, ' ').split(/[\s־]+/).filter(Boolean).length;
 const commLength = (v: DayVerse) => (v.md?.he ?? []).join(' ').length;
@@ -66,6 +74,30 @@ export function quoteSentence(paragraphs: string[]): string {
     .filter((s) => s.length >= 60 && s.length <= 240 && !/^[a-zа-яäöü]/.test(s) && balanced(s));
   return sentences.find((s) => /[«„“"]/.test(s)) ?? sentences[0] ?? '';
 }
+
+/** The first sentence of a text — the shortest beginning that ends a sentence with its quotes closed; the whole text if none. */
+export function firstSentence(text: string): string {
+  for (const m of text.matchAll(/[.!?…]+[»”“"]?(?=\s)/g)) {
+    const head = text.slice(0, m.index + m[0].length);
+    if (balanced(head)) return head;
+  }
+  return text;
+}
+
+/** The first `n` sentences of a text (as `firstSentence` finds them). */
+export function firstSentences(text: string, n: number): string {
+  let head = '';
+  let rest = text;
+  for (let i = 0; i < n && rest; i++) {
+    const one = firstSentence(rest);
+    head += one;
+    rest = rest.slice(one.length);
+  }
+  return head.trim();
+}
+
+/** How much of the «Коротко» of a passage of the «Ґемшех» the digest tells: its first two sentences. */
+export const HS_SENTENCES = 2;
 
 /** The niggun of the week: the niggunim by turns, a week each. */
 export const weekNigun = (sunday: string): Nigun =>

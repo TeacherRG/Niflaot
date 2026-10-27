@@ -59,14 +59,14 @@ export function PrintMasthead({ lesson, parsha: id, route }: { lesson: Lesson; p
  * The masthead of a printed passage of «Пророки» / «Писания»: the logos, «Отрывок дня» with the section's name,
  * the day's civil and Jewish date, and a QR code to this day's page online.
  */
-export function TanakhMasthead({ title, he, route, date }: { title: string; he: string; route: string; date: string }) {
+export function TanakhMasthead({ title, he, route, date, label }: { title: string; he: string; route: string; date: string; label?: string }) {
   const { t, locale } = useI18n();
   return (
     <div className="p-mast print-only">
       <PrintLogos />
       <div className="p-parsha">
         <div>
-          <div className="p-parsha-lbl">{t('tanakh.daySub')}</div>
+          <div className="p-parsha-lbl">{label ?? t('tanakh.daySub')}</div>
           <div className="p-parsha-name">
             {title} <span className="he">{he}</span>
           </div>

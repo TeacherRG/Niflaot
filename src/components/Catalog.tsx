@@ -37,14 +37,22 @@ function DailyLink() {
   );
 }
 
-/** «К шабатнему столу»: the Friday sheet of the week's portion, to print before Shabbat. */
+/**
+ * «К шабатнему столу»: the Friday sheet of the week's portion, to print before Shabbat; under it, in the same card,
+ * «Неделя в Академии» — the digest of the week (WeekDigest.tsx), the rest of what was learnt.
+ */
 function TableLink() {
   const { t } = useI18n();
   return (
-    <a className="h-daily h-table" href="#/shabbat-table">
-      <span className="h-daily-title">🖨 {t('table.title')}</span>
-      <span className="h-daily-sub">{t('table.homeSub')} →</span>
-    </a>
+    <div className="h-daily h-table">
+      <a href="#/shabbat-table">
+        <span className="h-daily-title">🖨 {t('table.title')}</span>
+        <span className="h-daily-sub">{t('table.homeSub')} →</span>
+      </a>
+      <a className="h-digest" href="#/digest">
+        {t('digest.title')} →
+      </a>
+    </div>
   );
 }
 
@@ -100,6 +108,7 @@ function AdultsHome() {
           <p className="a-links">
             <a href="#/facts">{t('facts.title')} →</a>
             <a href="#/quiz">{t('lq.title')} →</a>
+            <a href="#/digest">{t('digest.title')} →</a>
           </p>
         </aside>
         <Dedication />
