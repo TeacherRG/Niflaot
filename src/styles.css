@@ -2781,4 +2781,4 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .koelet-bar b{color:var(--ink)}
 .koelet-bar .add-course{margin:0}
 .koelet-frame{display:block;width:calc(100% + 32px);margin-inline:-16px;height:70vh;border:0;border-top:1px solid var(--line);background:var(--paper)}
-@media (max-width:640px){.koelet-bar>span{display:none}.koelet-bar{justify-content:flex-end;padding:4px 0}}
+@media (max-width:640px){.koelet-bar>span{display:none}.koelet-bar{justify-content:flex-end;padding:4px 0}.koelet-bar .add-course{font-size:13px}.koelet-bar .add-course-btn{padding:4px 12px;min-height:0}}
