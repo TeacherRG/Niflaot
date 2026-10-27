@@ -21,6 +21,7 @@ export interface TtsEnv {
   /** a prebuilt voice of Gemini TTS; Charon — a calm, clear male voice */
   TTS_VOICE?: string;
   NARRATOR: DurableObjectNamespace<Narrator>;
+  GATE: DurableObjectNamespace<GeminiGate>;
 }
 
 const DEFAULT_MODEL = 'gemini-3.1-flash-tts-preview';
@@ -194,6 +195,23 @@ export class Narrator extends DurableObject<TtsEnv> {
   }
 }
 
+/**
+ * Gemini refuses requests from some countries («User location is not supported»): a Durable Object runs near whoever
+ * first made it, so a lesson's Narrator may sit in such a place. Every call to Gemini goes through this one object,
+ * created in Western Europe, instead.
+ */
+export class GeminiGate extends DurableObject<TtsEnv> {
+  async fetch(req: Request): Promise<Response> {
+    const { model, body } = await req.json<{ model: string; body: unknown }>();
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': this.env.GEMINI_API_KEY! },
+      body: JSON.stringify(body),
+    });
+    return new Response(r.body, { status: r.status });
+  }
+}
+
 class NotFound extends Error {}
 class Quota extends Error {
   constructor(
@@ -225,23 +243,33 @@ function quotaOf(body: string): Quota {
  */
 async function speak(env: TtsEnv, lang: string, text: string, voice: string): Promise<Uint8Array> {
   const models = [env.TTS_MODEL || DEFAULT_MODEL, ...FALLBACK_MODELS.filter((x) => x !== env.TTS_MODEL)];
+  let rateWaits = 0;
   for (const model of models)
     for (let attempt = 0; attempt < 2; attempt++) {
-      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+      const r = await env.GATE.get(env.GATE.idFromName('weur'), { locationHint: 'weur' }).fetch('https://gate/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY! },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: `${STYLE[lang]}\n\n${text}` }] }],
-          generationConfig: {
-            responseModalities: ['AUDIO'],
-            speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } } },
+          model,
+          body: {
+            contents: [{ parts: [{ text: `${STYLE[lang]}\n\n${text}` }] }],
+            generationConfig: {
+              responseModalities: ['AUDIO'],
+              speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } } },
+            },
           },
         }),
       });
       if (r.status === 429) {
         const body = await r.text();
         console.error('tts', model, 429, body.slice(0, 500));
-        throw quotaOf(body);
+        const quota = quotaOf(body);
+        // a per-minute limit passes in seconds: wait and ask again instead of «tomorrow»
+        if (!/PerDay/i.test(quota.message) && (quota.retry ?? 15) <= 30 && ++rateWaits <= 3) {
+          await new Promise((res) => setTimeout(res, ((quota.retry ?? 15) + 1) * 1000));
+          attempt--;
+          continue;
+        }
+        throw quota;
       }
       if (r.status === 404) break;
       if (!r.ok) throw new Error(`gemini ${model} ${r.status}: ${(await r.text()).slice(0, 300)}`);
@@ -251,6 +279,8 @@ async function speak(env: TtsEnv, lang: string, text: string, voice: string): Pr
       const pieces = (out.candidates?.[0]?.content?.parts ?? []).map((p) => p.inlineData).filter((d) => d?.data);
       if (!pieces.length) {
         console.error('tts', model, 'no audio', out.candidates?.[0]?.finishReason);
+        // one more try on the same model; never hand over to a fallback (its audio clicks and would be kept for good)
+        if (attempt === 1) throw new Error(`gemini ${model}: no audio (${out.candidates?.[0]?.finishReason ?? '?'})`);
         continue;
       }
       const rate = Number(pieces[0]!.mimeType?.match(/rate=(\d+)/)?.[1] ?? 24000);

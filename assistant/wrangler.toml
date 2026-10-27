@@ -75,5 +75,14 @@ class_name = "Narrator"
 tag = "v4"
 new_sqlite_classes = ["Narrator"]
 
+# Every call to Gemini goes through this object, created in Western Europe (Gemini refuses some countries: src/tts.ts).
+[[durable_objects.bindings]]
+name = "GATE"
+class_name = "GeminiGate"
+
+[[migrations]]
+tag = "v5"
+new_sqlite_classes = ["GeminiGate"]
+
 [triggers]
 crons = ["1 * * * *"]

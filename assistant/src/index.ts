@@ -24,9 +24,9 @@ import { gematria, letters, VALUES } from '../../src/core/gematria';
 import { PushHub } from './push';
 import { Accounts, type MailEnv } from './accounts';
 import { QuizRoom, quizRoute, type QuizEnv } from './quiz';
-import { Narrator, ttsRoute, type TtsEnv } from './tts';
+import { GeminiGate, Narrator, ttsRoute, type TtsEnv } from './tts';
 
-export { PushHub, Accounts, QuizRoom, Narrator };
+export { PushHub, Accounts, QuizRoom, Narrator, GeminiGate };
 
 interface Env extends MailEnv, QuizEnv, TtsEnv {
   ANTHROPIC_API_KEY: string;

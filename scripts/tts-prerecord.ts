@@ -56,7 +56,7 @@ console.log(`${jobs.length} parts (${lang})`);
 if (flag('dry')) process.exit(0);
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-let fresh = 0, ready = 0, failed = 0;
+let fresh = 0, ready = 0, failed = 0, streak = 0;
 // a lesson / day whose parts fail one after another: each failure costs Gemini requests of the day's limit too
 // (25.10.2026 «Ноах» failed in every part and took the day's limit) — after two failed parts in a row the rest of it waits
 const failing = new Map<string, number>();
@@ -76,6 +76,7 @@ for (const j of jobs) {
       if (ms > 1500) fresh++, console.log(`recorded ${j.label} (${(ms / 1000).toFixed(1)} s)`);
       else ready++;
       failing.set(j.slug, 0);
+      streak = 0;
       // the rate limit: 20 new recordings a minute
       if (ms > 1500) await sleep(3500);
       break;
@@ -102,7 +103,12 @@ for (const j of jobs) {
       await sleep(30_000);
       continue;
     }
+    // «User location is not supported» and the like (400): every part would fail and spend the day's limit — stop at once
+    if (/ 400 |FAILED_PRECONDITION|PERMISSION_DENIED| 403 /.test(` ${why} `)) throw new Error(`Gemini refuses the requests — stopped at ${j.label}: ${why}`);
     failed++;
+    streak++;
+    // three failed parts in a row (in any lessons): something is broken, not the parts — stop, failures spend the limit
+    if (streak >= 3) throw new Error(`three failed parts in a row — stopped at ${j.label}: ${why}`);
     failing.set(j.slug, (failing.get(j.slug) ?? 0) + 1);
     console.log(`FAILED ${j.label}: ${why}`);
     break;
