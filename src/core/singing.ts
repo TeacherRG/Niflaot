@@ -3,8 +3,9 @@ import { PitchDetector } from 'pitchy';
 /**
  * «Петь в микрофон» (Karaoke.tsx): the singer's voice is compared with the recording — note by note, octave aside
  * (a child or a woman sings an octave up). The only place the site asks for the microphone, and only after a tap on
- * «Петь в микрофон»; the sound is analysed right here on the device — nothing is recorded or sent, and the microphone
- * is turned off when the singing stops.
+ * «Петь в микрофон»; the sound is analysed right here on the device — nothing is sent, and the microphone is turned off
+ * when the singing stops. Recorded only if the singer ticks «Записать моё пение» (`record`): the voice with the niggun
+ * under it, kept in memory to listen to, download or share (the phone's «Отправить…») — never uploaded, gone with the page.
  *
  * The reference: the pitch of the recording every 50 ms (`public/nigun/<id>.pitch.json`, scripts/nigun-pitch.py).
  * Lenient on purpose — a phone microphone, an untrained voice: a line scores by the share of the recording's notes
@@ -106,8 +107,24 @@ export function linePoints(track: PitchTrack, voice: Float32Array, from: number,
 /** A line's stars on the strip above the lines: 0–3 (no numbers while singing). */
 export const lineStars = (points: number) => (points >= SING_POINTS ? 3 : points >= 6 ? 2 : points >= 3 ? 1 : 0);
 
-/** The microphone, on a tap: the stream and an analyser; `stop()` turns everything off. */
-export async function openMic(): Promise<{ read: () => number; stop: () => void }> {
+/** the recording of the singing: what the browser can make — mp4 (Safari, Chrome), else webm / ogg */
+const REC_TYPES = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus'];
+/** the niggun under the voice in the recording — quieter than the voice */
+const MUSIC_GAIN = 0.45;
+
+export interface Mic {
+  read: () => number;
+  /** the niggun under the voice follows the player: from second `t`, at `rate`, or stopped */
+  sync: (t: number, playing: boolean, rate: number) => void;
+  /** turns everything off; the recording, if one was made */
+  stop: () => Promise<Blob | null>;
+}
+
+/**
+ * The microphone, on a tap: the stream and an analyser. With `record` — also a MediaRecorder of the voice and, if
+ * `music` (the niggun's mp3) is given, the niggun mixed under it — only into the recording, not to the speakers.
+ */
+export async function openMic(opts: { record?: boolean; music?: ArrayBuffer } = {}): Promise<Mic> {
   // the singer's own voice: no echo of the recording through the speakers; no automatic volume — on some phones (Samsung)
   // it squeezes a singing voice down, and pitchy finds the note of a soft voice anyway (above MIC_QUIET)
   const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: false, autoGainControl: false } });
@@ -119,14 +136,77 @@ export async function openMic(): Promise<{ read: () => number; stop: () => void 
   src.connect(an);
   const buf = new Float32Array(an.fftSize);
   const detector = PitchDetector.forFloat32Array(an.fftSize);
+
+  let rec: MediaRecorder | null = null;
+  const chunks: Blob[] = [];
+  let music: AudioBuffer | null = null;
+  let gain: GainNode | null = null;
+  let playing: AudioBufferSourceNode | null = null;
+  if (opts.record && typeof MediaRecorder !== 'undefined') {
+    const out = ctx.createMediaStreamDestination();
+    src.connect(out);
+    if (opts.music) {
+      try {
+        music = await ctx.decodeAudioData(opts.music);
+        gain = ctx.createGain();
+        gain.gain.value = MUSIC_GAIN;
+        gain.connect(out);
+      } catch {
+        music = null; // the voice alone
+      }
+    }
+    const type = REC_TYPES.find((x) => MediaRecorder.isTypeSupported(x));
+    try {
+      rec = new MediaRecorder(out.stream, type ? { mimeType: type } : undefined);
+      rec.ondataavailable = (e) => {
+        if (e.data.size) chunks.push(e.data);
+      };
+      rec.start(1000);
+    } catch {
+      rec = null;
+    }
+  }
+  // the voice reaches the recording later than the player's sound reached the singer (the speaker's and the
+  // microphone's delay) — the niggun under it is held back as much
+  const lag = Math.min(0.4, (ctx.outputLatency || 0.05) + (ctx.baseLatency || 0) + 0.05);
+
   return {
     read: () => {
       an.getFloatTimeDomainData(buf);
       return micPitch(detector, buf, ctx.sampleRate);
     },
-    stop: () => {
-      stream.getTracks().forEach((t) => t.stop());
+    sync: (t, on, rate) => {
+      try {
+        playing?.stop();
+      } catch {
+        /* not started */
+      }
+      playing = null;
+      if (!on || !music || !gain || ctx.state === 'closed' || t >= music.duration) return;
+      playing = ctx.createBufferSource();
+      playing.buffer = music;
+      playing.playbackRate.value = rate;
+      playing.connect(gain);
+      playing.start(ctx.currentTime + lag, Math.max(0, t));
+    },
+    stop: async () => {
+      if (rec && rec.state !== 'inactive') {
+        const r = rec;
+        await new Promise<void>((done) => {
+          r.onstop = () => done();
+          r.stop();
+        });
+      }
+      stream.getTracks().forEach((x) => x.stop());
       void ctx.close();
+      return rec && chunks.length ? new Blob(chunks, { type: rec.mimeType || chunks[0].type }) : null;
     },
   };
+}
+
+/** The file of a recording to download or share: «niflaot-<id>.m4a» (or .webm / .ogg), the type without codecs. */
+export function recordingFile(blob: Blob, id: string): File {
+  const type = blob.type.split(';')[0] || 'audio/webm';
+  const ext = type === 'audio/mp4' ? 'm4a' : type === 'audio/ogg' ? 'ogg' : 'webm';
+  return new File([blob], `niflaot-${id}.${ext}`, { type });
 }
