@@ -39,7 +39,7 @@ jobs:
           {
             echo '## Probe'
             echo '```'
-            .venv/bin/python scripts/dicta-parse.py --probe 2>&1 | tail -c 6000
+            .venv/bin/python scripts/dicta-parse.py --probe 2>&1 | tail -c 6000 | tee /dev/stderr
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
       - name: Parse

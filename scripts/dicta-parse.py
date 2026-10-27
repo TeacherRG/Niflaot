@@ -131,6 +131,9 @@ def main():
                 for t, j in zip(toks, real):
                     row[j] = code(t, parts[j], parts[j + 1] if j + 1 < len(parts) else None, full, plain)
             rows[(date, s, ref)] = row
+            # the first verse in the log: the model's answer and our codes — to see that the format is read right
+            if not rows or len(rows) == 1:
+                print(ref, ' '.join(map(str, row)), json.dumps(toks[:3], ensure_ascii=False)[:1500], flush=True)
         if i // B % 50 == 0: print(f'{i + len(batch)} / {len(vs)} verses', flush=True)
     # сравнение с прежним разбором (Open Scriptures) и запись
     agree = collections.Counter()
