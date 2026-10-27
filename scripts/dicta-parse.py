@@ -72,10 +72,9 @@ def pick(lemma, pos, word, full, plain):
     keys = [letters(lemma)]
     if pos in ('VERB', 'AUX') and keys[0].endswith('י'): keys.append(keys[0][:-1] + 'ה')
     if pos in ('PRON', 'ADP', 'ADV', 'SCONJ', 'CCONJ', 'DET', 'INTJ'): keys.insert(0, letters(word))
-    cands = []
-    for L in keys:
-        cands = full.get(L) or plain.get(L[:1] + re.sub('[וי]', '', L[1:])) or []
-        if cands: break
+    # сначала каждое написание как есть, потом — без ו и י
+    cands = next((full[L] for L in keys if L in full), None) or next(
+        (plain[k] for k in (L[:1] + re.sub('[וי]', '', L[1:]) for L in keys) if len(k) > 1 and k in plain), [])
     if not cands: return None
     want = POS.get(pos, '')
     good = [c for c in cands if want and c[1].split()[0].startswith(want)]
