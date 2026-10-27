@@ -2704,3 +2704,25 @@ a.wd-sing{font-weight:800;text-decoration:none}
   .wd-sung{font-size:12px}
   .wd-line .wd-tr{font-size:8pt}
 }
+
+/* the window over a Hebrew word of the day's passage (WordPop.tsx): how it is read, its parts, the translation */
+.tk-hint{margin:0 0 8px;font-size:13px;color:var(--muted)}
+.tk-hw{cursor:pointer;border-radius:4px;transition:background .12s}
+.tk-hw:hover{background:var(--gold-soft)}
+.wp{position:absolute;z-index:60;width:min(300px,calc(100vw - 16px));padding:12px 14px;border-radius:14px;background:var(--surface,#fff);color:var(--ink);border:1px solid var(--line);box-shadow:0 12px 32px rgba(20,33,61,.18);font-size:14px;line-height:1.45}
+.wp p{margin:0}
+.wp-word{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:6px!important}
+.wp-word .he{font-size:26px;line-height:1.2}
+.wp-read{font-weight:700;color:var(--tchelet);font-size:16px}
+.wp-parts{list-style:none;margin:0 0 6px;padding:0;display:grid;gap:2px;font-size:13px;color:var(--muted)}
+.wp-parts .he{font-size:16px;color:var(--ink)}
+.wp-main{display:grid;gap:1px;padding:6px 0;border-top:1px solid var(--line)}
+.wp-head{font-size:20px}
+.wp-tr{font-weight:600}
+.wp-meta{color:var(--muted);font-size:12px}
+.wp-note{color:var(--muted);font-size:12.5px;font-style:italic}
+.wp-suf{font-size:13px;color:var(--muted);padding-top:4px}
+.wp-suf b{color:var(--ink);font-weight:600}
+.wp .wp-btns{display:flex;justify-content:stretch;gap:6px;margin-top:8px}
+.wp-btns button{flex:1}
+@media print{.tk-hint{display:none}}

@@ -11,6 +11,8 @@ import { CYCLE, cycleDayFor, loadDay, localToday, readingMinutes, type Commentar
 import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
 import { TanakhMasthead } from './PrintBrand';
 import { TanakhWords } from './TanakhWords';
+import { HeVerse, WordPop } from './WordPop';
+import { loadDayWords, type DayWords } from '../core/words';
 import { setOtherPage } from '../core/assistant';
 import { tanakhContext } from '../core/assistantPages';
 import { useDone, useDoneStore } from '../core/tanakhDone';
@@ -223,8 +225,11 @@ function Comm({ c, by, he, tr }: { c: Commentary; by: string; he: boolean; tr: T
   );
 }
 
-/** The verses of one section of one day: a heading at each new chapter, then verse by verse with the chosen commentaries. */
-function Verses({ verses, he, tr, md, rashi }: { verses: DayVerse[]; he: boolean; tr: Tr | null; md: boolean; rashi: boolean }) {
+/**
+ * The verses of one section of one day: a heading at each new chapter, then verse by verse with the chosen commentaries.
+ * `parse` — the words of the verses parsed (public/tanakh/words/<date>.json): each Hebrew word opens WordPop.
+ */
+function Verses({ verses, he, tr, md, rashi, parse }: { verses: DayVerse[]; he: boolean; tr: Tr | null; md: boolean; rashi: boolean; parse?: DayWords[Section]['v'] }) {
   const { t, locale } = useI18n();
   return (
     <>
@@ -249,7 +254,7 @@ function Verses({ verses, he, tr, md, rashi }: { verses: DayVerse[]; he: boolean
               </span>
               {he && (
                 <p className="tk-he he" lang="he" dir="rtl">
-                  {v.he}
+                  {parse ? <HeVerse text={v.he} parse={parse[`${v.b} ${v.c}:${v.v}`]} /> : v.he}
                 </p>
               )}
               {text && (
@@ -376,6 +381,16 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
   const title = t(`tanakh.${section}`);
   const range = rangeLabel(section, day[section], lang);
   const [content, setContent] = useState<DayContent | null | undefined>(undefined);
+  // the words of the verses parsed — for the window over a Hebrew word (WordPop)
+  const [parsed, setParsed] = useState<DayWords | null>(null);
+  useEffect(() => {
+    let live = true;
+    setParsed(null);
+    loadDayWords(day.date).then((w) => live && setParsed(w));
+    return () => {
+      live = false;
+    };
+  }, [day.date]);
 
   useEffect(() => {
     let live = true;
@@ -490,7 +505,11 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
           ) : !sec ? (
             <p className="tk-note">{t('tanakh.notReady')}</p>
           ) : (
-            <Verses verses={sec.verses} he={he} tr={tr} md={view.md} rashi={view.rashi} />
+            <>
+              {he && parsed?.[section].v && <p className="tk-hint no-print">{t('wp.hint')}</p>}
+              <Verses verses={sec.verses} he={he} tr={tr} md={view.md} rashi={view.rashi} parse={parsed?.[section].v} />
+              {he && parsed?.[section].v && <WordPop />}
+            </>
           )}
 
           {sec && <DoneCheck section={section} date={day.date} today={today} />}

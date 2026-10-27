@@ -42,7 +42,12 @@ export interface Dict {
   /** номер слова → перевод на языке сайта; только переведённые слова можно учить */
   tr: Record<string, string>;
 }
-export type DayWords = Record<Section, { n: number; w: Record<string, number> }>;
+/**
+ * `v` — the words of each verse parsed (WordPop.tsx): «книга глава:стих» → for each word of our text (split at spaces and
+ * maqaf) «prefixes|number|ending» (prefixes — OSHB letters b c d i k l m s; number `n` — a name, `H` — the Name; `!` first —
+ * a ketiv), 0 — the word didn't match.
+ */
+export type DayWords = Record<Section, { n: number; w: Record<string, number>; v?: Record<string, (string | 0)[]> }>;
 
 /** сколько слов отрывка предлагать в день */
 export const PER_DAY = 5;
@@ -59,6 +64,15 @@ export function loadDict(lang: WordLang): Promise<Dict> {
     dicts.set(lang, p);
   }
   return p;
+}
+
+let lex: Promise<Record<string, string>> | undefined;
+/** The dictionary form of the words outside the dictionary (public/tanakh/words/lex.json), for the window over a word. */
+export function loadLex(): Promise<Record<string, string>> {
+  lex ??= fetch(`${root()}tanakh/words/lex.json`)
+    .then((r) => (r.ok ? (r.json() as Promise<Record<string, string>>) : {}))
+    .catch(() => ({}));
+  return lex;
 }
 
 const days = new Map<string, Promise<DayWords | null>>();
