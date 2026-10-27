@@ -177,8 +177,12 @@ export function torahUnits(words: TorahWord[], verses: Map<string, Verse[]> = ne
 
 export const TANAKH_UNIT = 5;
 export const TANAKH_GROUP = 50;
-/** the common words of Tanakh — the first part of the path; the rarer ones (1001–1500) are the second, open from the start */
+/** the common words of Tanakh — the first part of the path; the rarer ones (1001–1500) are the second, the rare ones
+ *  (1501–2000) the third, each open from the start */
 export const TANAKH_COMMON = 1000;
+export const TANAKH_RARER = 1500;
+/** the path is long: its units are shown in blocks of 10, a block folded unless the unit to go on with is in it */
+export const UNIT_BLOCK = 10;
 /**
  * adults: a unit («уровень») — 50 translated words of Tanakh by frequency, as in «Мои слова»; a lesson — 5 new words.
  * `verse` — the word's example verse (src/core/words.ts, `exampleOf`) for «Составьте стих».
@@ -194,7 +198,7 @@ export function tanakhUnits(dict: Dict, verse: (id: string) => Verse | undefined
       n: g + 1,
       items: level,
       size: TANAKH_UNIT,
-      stage: g * TANAKH_GROUP < TANAKH_COMMON ? 1 : 2,
+      stage: g * TANAKH_GROUP < TANAKH_COMMON ? 1 : g * TANAKH_GROUP < TANAKH_RARER ? 2 : 3,
       pool: [...level, ...items.slice(0, (g + 2) * TANAKH_GROUP)],
     });
   }

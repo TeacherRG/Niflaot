@@ -17,6 +17,7 @@ import { exampleOf, inDeck, loadDict, loadExamples, markKnown, markLearn, readWo
 import {
   GOAL,
   TANAKH_GROUP,
+  UNIT_BLOCK,
   XP,
   XP_PERFECT,
   XP_EXAM,
@@ -171,14 +172,40 @@ export function LashonPage() {
 
   // on the circle: the first letter, or the shortest word of the unit
   const sym = (u: Unit) => (u.track === 'abc' ? u.items[0].he : [...u.items.flatMap((x) => x.he.split(' '))].sort((a, b) => a.length - b.length)[0]);
-  const path = (list: Unit[]) => (
+  /** a long path in blocks of 10 units, folded; the block with the unit to go on with is open */
+  // the unit being learnt: the last one begun and not finished, else the first to go on with — only its block is unfolded
+  const active = (() => {
+    const begun = words.filter((u) => progressOf(u, store, knownOf(u)) > 0 && !isDone(u, store, knownOf(u))).at(-1);
+    return begun ?? (words[0] ? nextUnit(words, store, knownOf(words[0])) : undefined);
+  })();
+  const blocks = (list: Unit[]) => {
+    if (list.length < UNIT_BLOCK) return path(list);
+    const next = active;
+    const out: Unit[][] = [];
+    for (let k = 0; k < list.length; k += UNIT_BLOCK) out.push(list.slice(k, k + UNIT_BLOCK));
+    return out.map((b) => {
+      const done = b.filter((u) => isDone(u, store, knownOf(u))).length;
+      const title = adults ? t('ln.block', { a: b[0].n, b: b.at(-1)!.n, c: (b[0].n - 1) * TANAKH_GROUP + 1, d: (b[0].n - 1) * TANAKH_GROUP + b.reduce((k, u) => k + u.items.length, 0) }) : `${unitTitle(b[0])} — ${unitTitle(b.at(-1)!)}`;
+      return (
+        <details key={b[0].id} className={`ln-block${done === b.length ? ' full' : ''}`} open={!!next && b.includes(next)}>
+          <summary>
+            <b>{title}</b>
+            <small>{t('ln.blockDone', { k: done, n: b.length })}</small>
+            <Bar k={done} n={b.length} />
+          </summary>
+          {path(b, list)}
+        </details>
+      );
+    });
+  };
+  const path = (list: Unit[], all: Unit[] = list) => (
     <ol className="ln-path">
       {list.map((u) => {
         const i = units.indexOf(u);
         const open = isOpen(units, i, store, knownOf(u));
         const p = progressOf(u, store, knownOf(u));
         const full = isDone(u, store, knownOf(u));
-        const cur = open && !full && nextUnit(list, store, knownOf(u)) === u;
+        const cur = open && !full && nextUnit(all, store, knownOf(u)) === u;
         const met = metOutside(u);
         return (
           <li key={u.id} className={`ln-node${cur ? ' cur' : ''}${full ? ' full' : ''}${open ? '' : ' locked'}`} style={{ ['--off' as string]: [0, 1, 2, 1, 0, -1, -2, -1][i % 8] }}>
@@ -272,20 +299,21 @@ export function LashonPage() {
               <WordSearch units={words} title={unitTitle} met={(k) => !!store.s[k]} onOpen={(unit, mark) => setDict({ unit, mark })} />
               {weak(words)}
               {adults && words.some((u) => u.stage === 2)
-                ? [1, 2].map((st) => {
+                ? [1, 2, 3].map((st) => {
                     const list = words.filter((u) => u.stage === st);
+                    if (!list.length) return null;
                     const a = (list[0].n - 1) * TANAKH_GROUP + 1;
                     const b = a - 1 + list.reduce((k, u) => k + u.items.length, 0);
                     return (
                       <div key={st} className="ln-stage">
                         <h3>
-                          {t(st === 1 ? 'ln.stage1' : 'ln.stage2', { a, b })} <small>{t(st === 1 ? 'ln.stage1Sub' : 'ln.stage2Sub')}</small>
+                          {t(`ln.stage${st as 1 | 2 | 3}`, { a, b })} <small>{t(`ln.stage${st as 1 | 2 | 3}Sub`)}</small>
                         </h3>
-                        {path(list)}
+                        {blocks(list)}
                       </div>
                     );
                   })
-                : path(words)}
+                : blocks(words)}
             </>
           ) : (
             <p className="ln-group">{t('ln.loading')}</p>

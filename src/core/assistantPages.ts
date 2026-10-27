@@ -58,7 +58,7 @@ export function academyContext(rows: { kind: Certificate['kind']; title: string;
     `100% of the book's daily passages marked "I've read it" (under each passage); the certificate shows points too when ` +
     `the "Questions on the passage" of all those days are passed with ${Math.round(PASS * 100)}%. Chassidut («Hemshech 5666»): ` +
     `the same for each discourse — all its passages marked read; with points when their questions are passed. Hebrew of ` +
-    `Tanakh: 100 / 300 / 500 / 1000 / 1500 words, counting only words confirmed by the review in "My words" (remembered on a card), not the marks alone. Children: "Torah words" — ` +
+    `Tanakh: 100 / 300 / 500 / 1000 / 1500 / 2000 words, counting only words confirmed by the review in "My words" (remembered on a card), not the marks alone. Children: "Torah words" — ` +
     `a certificate for each portion when every word of its lessons has three stars in the game. Niggun: the karaoke ` +
     `game — a missing word in every line, picked from three while the recording plays; ${Math.round(PASS * 100)}% of the points.\n` +
     rows
@@ -105,7 +105,7 @@ export function wordsContext(rows: { he: string; tr: string; root?: string; rank
   return (
     `Page: "My words" — learning the most frequent words of the Prophets and Writings (500 words are 80% of the text), ` +
     `with spaced review ("I remember" — the next review later: 1, 3, 7, 21, 60 days; "I forgot" — tomorrow). ` +
-    `The certificates 100 / 300 / 500 / 1000 / 1500 words count only words confirmed by the review. The user recognizes ${coverage}% of the words of the text. ` +
+    `The certificates 100 / 300 / 500 / 1000 / 1500 / 2000 words count only words confirmed by the review. The user recognizes ${coverage}% of the words of the text. ` +
     `When you quiz the user, show the Hebrew word and wait for the answer before giving the translation.\n` +
     `To review today (${due.length}):\n${list(due)}\nLearning (${learning.length}):\n${list(learning)}\nKnown (${known.length}):\n${list(known)}`
   );
