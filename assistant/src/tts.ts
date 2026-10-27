@@ -279,6 +279,8 @@ async function speak(env: TtsEnv, lang: string, text: string, voice: string): Pr
       const pieces = (out.candidates?.[0]?.content?.parts ?? []).map((p) => p.inlineData).filter((d) => d?.data);
       if (!pieces.length) {
         console.error('tts', model, 'no audio', out.candidates?.[0]?.finishReason);
+        // one more try on the same model; never hand over to a fallback (its audio clicks and would be kept for good)
+        if (attempt === 1) throw new Error(`gemini ${model}: no audio (${out.candidates?.[0]?.finishReason ?? '?'})`);
         continue;
       }
       const rate = Number(pieces[0]!.mimeType?.match(/rate=(\d+)/)?.[1] ?? 24000);
