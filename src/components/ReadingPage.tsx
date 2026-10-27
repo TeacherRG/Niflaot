@@ -12,14 +12,13 @@ import { useHebrewLevel } from '../core/hebrewLevel';
 import {
   CHAPTERS,
   MAX_WPM,
-  lastChapter,
+  dailyChapter,
   loadChapter,
   loadIndex,
   loadView,
   markedTimes,
   records,
   saveAttempt,
-  saveChapter,
   saveTimes,
   saveView,
   startTimes,
@@ -52,7 +51,7 @@ export function ReadingPage({ chapter }: { chapter?: string }) {
   const { t } = useI18n();
   const mode = useMode();
   const level = useHebrewLevel();
-  const c = chapter === undefined ? lastChapter() : Number(chapter);
+  const c = chapter === undefined ? dailyChapter() : Number(chapter);
   const valid = Number.isInteger(c) && c >= 1 && c <= CHAPTERS;
   const [idx, setIdx] = useState<ReadingIndex | null>(null);
   const [verses, setVerses] = useState<string[] | null>(null);
@@ -67,7 +66,6 @@ export function ReadingPage({ chapter }: { chapter?: string }) {
   }, [t, c]);
   useEffect(() => {
     if (!valid) return;
-    saveChapter(c);
     setVerses(null);
     setActive(-1);
     let live = true;
