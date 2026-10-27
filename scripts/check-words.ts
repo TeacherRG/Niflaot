@@ -13,6 +13,7 @@ import cycleJson from '../src/tanakh/cycle.json';
 import { styleErrors } from './style-rules';
 import { LESSONS } from '../src/lessons';
 import { makeRound, torahWords, torahWordsCertificates } from '../src/core/torahWords';
+import { readHebrew } from '../src/core/translit';
 
 type Lang = 'ru' | 'en' | 'de';
 const errors: string[] = [];
@@ -142,6 +143,49 @@ for (const lang of ['ru', 'en', 'de'] as Lang[]) {
       if (lang !== 'en' && en !== 1) for (const e of badName[lang](t)) err(`examples-${lang}: ${id} — ${e}`);
     }
   }
+}
+// the window over a Hebrew word (WordPop.tsx): every verse of every day parsed word for word, the codes well-formed,
+// the headwords of the words outside the dictionary there; and the reading of words (src/core/translit.ts)
+{
+  const lexAll = JSON.parse(readFileSync('public/tanakh/words/lex.json', 'utf8')) as Record<string, string>;
+  const known = new Set(ids);
+  let words = 0;
+  let matched = 0;
+  for (const [date] of cycleJson.days as [string][]) {
+    const day = JSON.parse(readFileSync(`public/tanakh/${date}.json`, 'utf8'));
+    const w = JSON.parse(readFileSync(`public/tanakh/words/${date}.json`, 'utf8'));
+    for (const sec of ['neviim', 'ketuvim'] as const)
+      for (const v of day[sec].verses as { b: string; c: number; v: number; he: string }[]) {
+        const row = w[sec].v?.[`${v.b} ${v.c}:${v.v}`] as (string | 0)[] | undefined;
+        const n = v.he.split(/[ \u05BE]+/).filter((x) => x && x !== '׃').length;
+        if (!row || row.length !== n) {
+          err(`разбор слов ${date} ${v.b} ${v.c}:${v.v}: ${row?.length ?? 'нет'} вместо ${n} слов`);
+          continue;
+        }
+        for (const c of row) {
+          words++;
+          if (!c) continue;
+          matched++;
+          const m = c.match(/^!?([a-z]*)(?:\|([0-9]*|n|H|=[א-ת]+)(?:\|([123][mfc][sp]))?)?$/);
+          if (!m) err(`разбор слов ${date} ${v.b} ${v.c}:${v.v}: «${c}»`);
+          else if (m[2] && /^\d/.test(m[2]) && !known.has(m[2]) && !lexAll[m[2]]) err(`разбор слов: у ${m[2]} нет заглавной формы (lex.json)`);
+        }
+      }
+  }
+  if (matched / words < 0.99) err(`разбор слов: сопоставлено ${((matched / words) * 100).toFixed(1)}% слов, нужно ≥ 99%`);
+  const READ: [string, string, string, string][] = [
+    ['וַיֹּאמֶר', 'вайомер', 'vayomer', 'wajomer'],
+    ['יְהוֹשֻׁעַ', 'йеґошуа', 'yehoshua', 'jehoschua'],
+    ['כָּל', 'коль', 'kol', 'kol'],
+    ['מַלְכֵי', 'мальхей', 'malchei', 'malchej'],
+    ['רוּחַ', 'руах', 'ruach', 'ruach'],
+    ['עָלָיו', 'алав', 'alav', 'alaw'],
+    ['ה׳', 'Ашем', 'Hashem', 'Haschem'],
+  ];
+  for (const [he, ...want] of READ)
+    (['ru', 'en', 'de'] as const).forEach((l, i) => {
+      if (readHebrew(he, l) !== want[i]) err(`чтение слова ${he} (${l}): «${readHebrew(he, l)}», а нужно «${want[i]}»`);
+    });
 }
 if (errors.length) {
   console.error(`✗ Слова отрывка: ${errors.length} ошибок\n  ${errors.slice(0, 40).join('\n  ')}`);
