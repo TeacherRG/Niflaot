@@ -1,0 +1,65 @@
+# The words of the Prophets and Writings parsed by Dicta's model (DictaBERT-joint, dicta-il/dictabert-joint): prefixes, the
+# dictionary form and the ending of every word of our text, for the window over a Hebrew word on the page of the day
+# (scripts/dicta-parse.py). The cloud container can't reach Hugging Face, a runner can. It runs by hand or when the script
+# or this file changes on a branch; first a probe (the model's card and its raw answer for two verses — in the summary),
+# then all the verses. The new data and the report (how it agrees with the parse of Open Scriptures) go to a branch
+# `dicta-parse-<run>`; nothing is merged by itself. The branches of earlier runs are removed.
+name: Dicta parse (Tanakh words)
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Сколько стихов (пусто — все)'
+        default: ''
+  push:
+    branches: ['ccr-*']
+    paths: ['scripts/dicta-parse.py', '.github/workflows/dicta-parse.yml']
+
+permissions:
+  contents: write # push the branch with the data
+
+concurrency:
+  group: dicta-parse
+  cancel-in-progress: true
+
+jobs:
+  parse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - name: Model
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install -q torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+          .venv/bin/pip install -q transformers==4.44.2 huggingface_hub
+      - name: Probe
+        run: |
+          {
+            echo '## Probe'
+            echo '```'
+            .venv/bin/python scripts/dicta-parse.py --probe 2>&1 | tail -c 6000
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Parse
+        env:
+          LIMIT: ${{ inputs.limit }}
+        run: |
+          if [ -n "$LIMIT" ]; then .venv/bin/python scripts/dicta-parse.py --limit "$LIMIT"; else .venv/bin/python scripts/dicta-parse.py; fi
+          cat dicta-report.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Remove the earlier branches
+        run: |
+          for b in $(git ls-remote --heads origin 'dicta-parse-*' | sed 's#.*refs/heads/##'); do
+            git push -q origin --delete "$b" && echo "removed $b"
+          done
+      - name: Branch with the data
+        run: |
+          branch="dicta-parse-${{ github.run_id }}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch -c "$branch"
+          git add public/tanakh/words dicta-report.md
+          git commit -q -m 'Слова Танаха: разбор Dicta (DictaBERT-joint)'
+          git push -q origin "$branch"
+          echo "Ветка: $branch" >> "$GITHUB_STEP_SUMMARY"
