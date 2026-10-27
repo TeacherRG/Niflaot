@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useI18n } from '../i18n';
 import { useMode } from '../core/mode';
-import { CYCLE, localToday } from '../core/tanakh';
+import { localToday, readingPlan } from '../core/tanakh';
+import { useCourses } from '../core/courses';
 import { isDone, PASS, TORAH_BOOKS } from '../core/academy';
 import { useDoneStore } from '../core/tanakhDone';
 import { bookRoadmap, doneMilestones, markDate, pctMilestones, type Milestone, type RoadBook } from '../core/milestones';
@@ -188,8 +189,12 @@ function WordsTotal() {
 export function BookProgress() {
   const { t, locale } = useI18n();
   const lang = langOf(locale);
-  const adults = useMode() === 'adults';
-  const store = useDoneStore();
+  const mode = useMode();
+  const adults = mode === 'adults';
+  const choice = useCourses(mode);
+  const plan = readingPlan(choice);
+  const cycle = plan.days;
+  const store = useDoneStore(plan.id);
   const { torah, hemshech, words, torahWords: twCerts } = useCertificates();
   const [hsDone] = useHsDone();
   const hsRead = allPassages().filter((x) => hsIsDone(hsDone, x.p.id)).length;
@@ -198,12 +203,12 @@ export function BookProgress() {
     const today = localToday();
     return (['neviim', 'ketuvim'] as const).map((section) => ({
       section,
-      road: bookRoadmap(section, store, CYCLE, today).map((r) => {
+      road: bookRoadmap(section, store, cycle, today).map((r) => {
         const next = r.days.find((d) => !isDone(store, d.date, section)) ?? r.days[0];
         return { ...r, href: `#/${section}/${next.date}` };
       }),
     }));
-  }, [store]);
+  }, [store, cycle]);
   const booksRead = roads.reduce((a, r) => a + r.road.filter((b) => b.status === 'done').length, 0);
   const booksAll = roads.reduce((a, r) => a + r.road.length, 0);
   const passages = Object.values(store).filter((x) => x > 0).length;
@@ -221,7 +226,7 @@ export function BookProgress() {
       <HabitCard account />
       {adults && (
         <p className="bp-total">
-          {t('bp.totalBooks', { n: booksRead, total: booksAll })} · {t('bp.total', { n: passages, total: CYCLE.length * 2 })}
+          {t('bp.totalBooks', { n: booksRead, total: booksAll })} · {t('bp.total', { n: passages, total: cycle.length * 2 })}
           <br />
           {t('bp.hsTotal', { n: hsRead, total: allPassages().length })}
           <WordsTotal />

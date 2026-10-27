@@ -3,7 +3,7 @@ import { useI18n } from '../i18n';
 import { NIFLAOT_LOGO } from '../core/partners';
 import { HEBREW_LEVELS, savedHebrewLevel, setHebrewLevel, type HebrewLevel } from '../core/hebrewLevel';
 import { setMode, useSavedMode, type Mode } from '../core/mode';
-import { COURSES, PACES, defaultCourses, savedCourses, setCourses, type Course, type Pace } from '../core/courses';
+import { COURSES, PACES, PLAN_YEARS, defaultCourses, savedCourses, setCourses, type Course, type Pace, type PlanYears } from '../core/courses';
 import { Colophon } from './Colophon';
 import { TopBar } from './TopBar';
 
@@ -22,6 +22,7 @@ export function ModePicker() {
   const [level, pickLevel] = useState<HebrewLevel | null>(savedHebrewLevel);
   const [courses, pickCourses] = useState<Course[]>(() => savedCourses()?.c ?? (saved ? defaultCourses(saved).c : []));
   const [pace, pickPace] = useState<Pace>(() => savedCourses()?.pace ?? 'own');
+  const [years, pickYears] = useState<PlanYears>(() => savedCourses()?.years ?? 3);
   // until the player touches the courses, they follow the mode (its usual courses ticked)
   const [touched, touch] = useState(() => savedCourses() !== null);
   const toggle = (c: Course) => (touch(true), pickCourses((x) => (x.includes(c) ? x.filter((y) => y !== c) : [...x, c])));
@@ -38,7 +39,7 @@ export function ModePicker() {
   const start = () => {
     if (!mode || !level) return;
     setHebrewLevel(level);
-    setCourses({ c: courses, pace });
+    setCourses({ c: courses, pace, years });
     try {
       localStorage.setItem('niflaot:help-seen', '1');
     } catch {}
@@ -99,15 +100,28 @@ export function ModePicker() {
           ))}
         </div>
         {tanakh && (
-          <div className="mode-pace" role="radiogroup" aria-label={t('courses.paceQ')}>
-            <span>{t('courses.paceQ')}</span>
-            {PACES.map((p) => (
-              <button key={p} role="radio" aria-checked={pace === p} className={`mode-pace-opt${pace === p ? ' on' : ''}`} onClick={() => pickPace(p)}>
-                <b>{t(`courses.pace.${p}`)}</b>
-                <small>{t(`courses.pace.${p}.sub`)}</small>
-              </button>
-            ))}
-          </div>
+          <>
+            <div className="mode-pace" role="radiogroup" aria-label={t('courses.paceQ')}>
+              <span>{t('courses.paceQ')}</span>
+              {PACES.map((p) => (
+                <button key={p} role="radio" aria-checked={pace === p} className={`mode-pace-opt${pace === p ? ' on' : ''}`} onClick={() => pickPace(p)}>
+                  <b>{t(`courses.pace.${p}`)}</b>
+                  <small>{t(`courses.pace.${p}.sub`)}</small>
+                </button>
+              ))}
+            </div>
+            {pace === 'own' && (
+              <div className="mode-pace" role="radiogroup" aria-label={t('courses.yearsQ')}>
+                <span>{t('courses.yearsQ')}</span>
+                {PLAN_YEARS.map((y) => (
+                  <button key={y} role="radio" aria-checked={years === y} className={`mode-pace-opt${years === y ? ' on' : ''}`} onClick={() => pickYears(y)}>
+                    <b>{t(`courses.years.${y}`)}</b>
+                    <small>{t(`courses.years.${y}.sub`)}</small>
+                  </button>
+                ))}
+              </div>
+            )}
+          </>
         )}
         <p className="mode-sub mode-later">{t('courses.later')}</p>
         <button className="btn mode-start" disabled={!mode || !level} onClick={start}>

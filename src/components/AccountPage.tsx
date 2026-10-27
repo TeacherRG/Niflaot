@@ -3,7 +3,7 @@ import { Html, useI18n } from '../i18n';
 import { MODES, savedMode, setMode, useMode } from '../core/mode';
 import { HEBREW_LEVELS, savedHebrewLevel, setHebrewLevel, useHebrewLevel } from '../core/hebrewLevel';
 import { BGS, SIZES, THEMES, setLook, useLook } from '../core/look';
-import { COURSES, PACES, coursesChosen, setCourses, useCourses } from '../core/courses';
+import { COURSES, PACES, PLAN_YEARS, coursesChosen, setCourses, useCourses } from '../core/courses';
 import { BookProgress } from './BookProgress';
 import { DailyReminder } from './DailyReminder';
 import type { MessageKey } from '../i18n/locales/ru';
@@ -358,7 +358,8 @@ function ModeCard() {
  */
 function CoursesPicker() {
   const { t } = useI18n();
-  const { c, pace } = useCourses(useMode());
+  const choice = useCourses(useMode());
+  const { c, pace, years } = choice;
   const chosen = coursesChosen();
   return (
     <details className="acc-pick" open={!chosen}>
@@ -372,7 +373,7 @@ function CoursesPicker() {
         {COURSES.map((x) => {
           const on = c.includes(x);
           return (
-            <button key={x} role="checkbox" aria-checked={on} className={`acc-mode${on ? ' on' : ''}`} onClick={() => setCourses({ c: on ? c.filter((y) => y !== x) : [...c, x], pace })}>
+            <button key={x} role="checkbox" aria-checked={on} className={`acc-mode${on ? ' on' : ''}`} onClick={() => setCourses({ ...choice, c: on ? c.filter((y) => y !== x) : [...c, x] })}>
               <b>
                 {on ? '✓' : '+'} {t(`courses.${x}`)}
               </b>
@@ -385,9 +386,20 @@ function CoursesPicker() {
         <div className="acc-modes acc-pace" role="radiogroup" aria-label={t('courses.paceQ')}>
           <span className="acc-pick-q">{t('courses.paceQ')}</span>
           {PACES.map((p) => (
-            <button key={p} role="radio" aria-checked={pace === p} className={`acc-mode${pace === p ? ' on' : ''}`} onClick={() => setCourses({ c, pace: p })}>
+            <button key={p} role="radio" aria-checked={pace === p} className={`acc-mode${pace === p ? ' on' : ''}`} onClick={() => setCourses({ ...choice, pace: p })}>
               <b>{t(`courses.pace.${p}`)}</b>
               <small>{t(`courses.pace.${p}.sub`)}</small>
+            </button>
+          ))}
+        </div>
+      )}
+      {(c.includes('neviim') || c.includes('ketuvim')) && pace === 'own' && (
+        <div className="acc-modes acc-pace" role="radiogroup" aria-label={t('courses.yearsQ')}>
+          <span className="acc-pick-q">{t('courses.yearsQ')}</span>
+          {PLAN_YEARS.map((y) => (
+            <button key={y} role="radio" aria-checked={years === y} className={`acc-mode${years === y ? ' on' : ''}`} onClick={() => setCourses({ ...choice, years: y })}>
+              <b>{t(`courses.years.${y}`)}</b>
+              <small>{t(`courses.years.${y}.sub`)}</small>
             </button>
           ))}
         </div>

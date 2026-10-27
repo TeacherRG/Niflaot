@@ -23,17 +23,18 @@ export function CoursesCard({ lead = false }: { lead?: boolean }) {
   const { t, locale } = useI18n();
   const h = useHabit();
   const mode = useMode();
-  const { c, pace } = useCourses(mode);
+  const choice = useCourses(mode);
+  const { c, pace, years } = choice;
   const [rows, setRows] = useState<CourseRow[] | null>(null);
   const key = c.join();
   useEffect(() => {
     let live = true;
-    import('../core/myCourses').then((m) => live && setRows(m.myCourses(c, pace, locale)));
+    import('../core/myCourses').then((m) => live && setRows(m.myCourses(c, choice, locale)));
     return () => {
       live = false;
     };
     // the courses' content is the key (the array is new on every change)
-  }, [key, pace, locale]);
+  }, [key, pace, years, choice.startDate, locale]);
 
   const sub = (r: CourseRow) => {
     if (r.starts) return t('courses.starts', { date: r.starts });
@@ -75,7 +76,7 @@ export function CoursesCard({ lead = false }: { lead?: boolean }) {
               <a className={`courses-row${r.finished ? ' done' : ''}${lead && r.today ? ' today' : ''}${r === go ? ' go' : ''}`} href={r.href}>
                 <span className="courses-t">
                   {t(`courses.${r.id}`)}
-                  {(r.id === 'neviim' || r.id === 'ketuvim') && <small> · {t(`courses.pace.${pace}.short`)}</small>}
+                  {(r.id === 'neviim' || r.id === 'ketuvim') && <small> · {t(`courses.pace.${pace}.short`)}{pace === 'own' ? ` · ${t(years === 1 ? 'courses.years.1.short' : 'courses.years.3.short')}` : ''}</small>}
                 </span>
                 <span className="courses-n">
                   {lead && r.today && <span className="courses-tick" aria-label={t('menu.doneToday')}>✓ </span>}

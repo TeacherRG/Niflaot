@@ -116,8 +116,8 @@ export function Panels() {
   const installable = useSyncExternalStore(subscribeInstall, canInstall, () => false);
   const mode = useMode();
   const kids = mode === 'kids';
-  const pace = useCourses(mode).pace;
-  const today = useToday(locale, panel === 'menu', pace);
+  const { pace, years, startDate } = useCourses(mode);
+  const today = useToday(locale, panel === 'menu', { pace, years, startDate });
   // at one's own pace (src/core/courses.ts) — the first passage not read, on its own day
   const tk = (sec: 'neviim' | 'ketuvim') => (pace === 'own' && today ? `#/${sec}/${today[sec].date}` : `#/${sec}`);
   const close = () => open(null);

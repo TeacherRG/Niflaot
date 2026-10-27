@@ -4,12 +4,12 @@
  * a course to choose; the courses are the rest: the Prophets, the Writings, Chassidut («Ґемшех»), the Holy Tongue and the
  * niggunim. The home page shows the chosen ones in the tile «Мои курсы» (CoursesCard.tsx) and the adults' plan of the day
  * only these.
- * The Prophets and the Writings go either at the player's own pace (`own`: from the beginning of the cycle, the first
- * passage not read yet, whatever the date) or with the Academy (`cycle`: the passage of the day); Chassidut at one's own
+ * The Prophets and the Writings go either at the player's own pace (`own`: from the beginning of the chosen one- or
+ * three-year plan, the first passage not read yet, whatever the date) or with the Academy (`cycle`: the passage of the day); Chassidut at one's own
  * pace — the first passage already open and not read (a passage opens on its day).
  * Anyone may also just look around first and choose later: «Добавить в мои курсы» on each course's page (AddCourse.tsx)
  * and «+ курс» in the tile.
- * localStorage `niflaot:courses` = { c: [<course>…], pace: 'own' | 'cycle' }, synced with the account (src/core/sync.ts).
+ * localStorage `niflaot:courses` = { c, pace, years, startDate }, synced with the account (src/core/sync.ts).
  */
 import { useEffect, useState } from 'react';
 import type { Mode } from './mode';
@@ -18,6 +18,8 @@ export type Course = 'neviim' | 'ketuvim' | 'hemshech' | 'lashon' | 'nigun';
 export const COURSES: Course[] = ['neviim', 'ketuvim', 'hemshech', 'lashon', 'nigun'];
 export type Pace = 'own' | 'cycle';
 export const PACES: Pace[] = ['own', 'cycle'];
+export type PlanYears = 1 | 3;
+export const PLAN_YEARS: PlanYears[] = [1, 3];
 
 export const COURSES_KEY = 'niflaot:courses';
 const EVENT = 'niflaot:courses';
@@ -25,14 +27,27 @@ const EVENT = 'niflaot:courses';
 export interface CourseChoice {
   c: Course[];
   pace: Pace;
+  years: PlanYears;
+  startDate?: string;
 }
+
+const localToday = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+};
 
 /** The choice made, or null when the question was never answered. */
 export function savedCourses(): CourseChoice | null {
   try {
     const v = JSON.parse(localStorage.getItem(COURSES_KEY) ?? 'null');
     if (!v || !Array.isArray(v.c)) return null;
-    return { c: COURSES.filter((c) => v.c.includes(c)), pace: v.pace === 'cycle' ? 'cycle' : 'own' };
+    const years: PlanYears = v.years === 1 ? 1 : 3;
+    return {
+      c: COURSES.filter((c) => v.c.includes(c)),
+      pace: v.pace === 'cycle' ? 'cycle' : 'own',
+      years,
+      startDate: years === 1 && typeof v.startDate === 'string' ? v.startDate : undefined,
+    };
   } catch {
     return null;
   }
@@ -40,13 +55,16 @@ export function savedCourses(): CourseChoice | null {
 
 /** Before a choice — what the home page always showed: the adults' plan of the day (with the Academy), the children's courses. */
 export const defaultCourses = (mode: Mode): CourseChoice =>
-  mode === 'adults' ? { c: ['neviim', 'ketuvim', 'hemshech', 'lashon'], pace: 'cycle' } : { c: ['lashon', 'nigun'], pace: 'own' };
+  mode === 'adults' ? { c: ['neviim', 'ketuvim', 'hemshech', 'lashon'], pace: 'cycle', years: 3 } : { c: ['lashon', 'nigun'], pace: 'own', years: 3 };
 
 export const coursesOf = (mode: Mode): CourseChoice => savedCourses() ?? defaultCourses(mode);
 
 export function setCourses(choice: CourseChoice) {
+  const previous = savedCourses();
+  const keepStart = previous?.pace === 'own' && previous.years === 1 && choice.pace === 'own' && choice.years === 1;
+  const startDate = choice.pace === 'own' && choice.years === 1 ? (keepStart ? previous?.startDate : localToday()) : undefined;
   try {
-    localStorage.setItem(COURSES_KEY, JSON.stringify({ c: COURSES.filter((c) => choice.c.includes(c)), pace: choice.pace }));
+    localStorage.setItem(COURSES_KEY, JSON.stringify({ c: COURSES.filter((c) => choice.c.includes(c)), pace: choice.pace, years: choice.years, startDate }));
   } catch {}
   window.dispatchEvent(new Event(EVENT));
 }
@@ -69,8 +87,8 @@ export function useCourses(mode: Mode): CourseChoice {
 
 /** Add a course to «Мои курсы» or remove it (from its page or the home tile); the first change starts from the mode's usual courses. */
 export function toggleCourse(mode: Mode, course: Course, on: boolean) {
-  const { c, pace } = coursesOf(mode);
-  setCourses({ c: on ? [...c, course] : c.filter((x) => x !== course), pace });
+  const { c, pace, years } = coursesOf(mode);
+  setCourses({ c: on ? [...c, course] : c.filter((x) => x !== course), pace, years });
 }
 
 /** Whether the question was answered (the account window opens it while it wasn't). */
