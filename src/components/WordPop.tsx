@@ -130,8 +130,10 @@ export function WordPop() {
   const read = readHebrew(open.word, lang);
   // a name — with a capital letter (Исраэль, Yarden)
   const reading = id === 'n' ? read.charAt(0).toUpperCase() + read.slice(1) : read;
-  const tr = id ? dict?.tr[id] : undefined;
-  const head = w?.he ?? (id ? lex?.[id] : undefined);
+  // `=лемма` — the dictionary form of a word outside the dictionary as the parse gives it (Dicta); a number — the dictionary's
+  const own = id.startsWith('=') ? id.slice(1) : '';
+  const tr = id && !own ? dict?.tr[id] : undefined;
+  const head = w?.he ?? (own || (id ? lex?.[id] : undefined));
   const box_ = id ? boxOf(store, id) : 0;
   const known = box_ >= KNOWN_BOX;
   const learning = box_ > 0 && !known;

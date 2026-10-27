@@ -166,7 +166,7 @@ for (const lang of ['ru', 'en', 'de'] as Lang[]) {
           words++;
           if (!c) continue;
           matched++;
-          const m = c.match(/^!?([a-z]*)(?:\|([0-9]*|n|H)(?:\|([123][mfc][sp]))?)?$/);
+          const m = c.match(/^!?([a-z]*)(?:\|([0-9]*|n|H|=[א-ת]+)(?:\|([123][mfc][sp]))?)?$/);
           if (!m) err(`разбор слов ${date} ${v.b} ${v.c}:${v.v}: «${c}»`);
           else if (m[2] && /^\d/.test(m[2]) && !known.has(m[2]) && !lexAll[m[2]]) err(`разбор слов: у ${m[2]} нет заглавной формы (lex.json)`);
         }
