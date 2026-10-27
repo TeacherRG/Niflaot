@@ -6,6 +6,7 @@
  * Also the app icons for «install on the phone» (manifest — scripts/prerender.ts): public/icons/icon-192.png,
  * icon-512.png, maskable-512.png (the mark inside the safe zone) and apple-touch-icon.png (180).
  * And the podcast covers public/podcast/cover-<ru|en|de>.jpg (3000×3000 — Apple Podcasts, Spotify; feeds — prerender).
+ * The pictures are in English for every page and language (one preview, readable everywhere — owner's decision).
  * The PNGs are committed; re-run after adding a lesson or changing its title or key equation:
  *
  *   npm i --no-save playwright && npx tsx scripts/og-images.ts
@@ -17,7 +18,7 @@ import { chromium } from 'playwright';
 import { LESSONS, PARSHIOT, type Lesson } from '../src/lessons';
 import { displayNames } from '../src/core/names';
 import { SITE_HOST } from '../src/core/site';
-import ru from '../src/i18n/locales/ru';
+import en from '../src/i18n/locales/en';
 
 const OUT = 'public/og';
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -35,7 +36,7 @@ const tokens = (line: string[]) =>
     .join('');
 
 function page(o: { eyebrow: string; eyebrowHtml?: string; he: string; title: string; sub: string; highlight?: string[][]; letters: [string, string] }) {
-  return `<!doctype html><html lang="ru"><head><meta charset="utf-8">
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Frank+Ruhl+Libre:wght@700;900&family=Manrope:wght@600;700&family=IBM+Plex+Mono:wght@600&display=block">
 <style>
 *{box-sizing:border-box;margin:0}
@@ -71,11 +72,11 @@ ${o.highlight ? `<div class="eq">${o.highlight.map((l) => `<div dir="ltr">${toke
 
 const lessonPage = (l: Lesson) =>
   page({
-    eyebrow: `${l.series === 'rebbe' ? 'Нифлаот Ребе' : 'Нифлаот'} · ${PARSHIOT[l.parsha].name.ru} ${PARSHIOT[l.parsha].year} · урок ${l.number}`,
+    eyebrow: `${l.series === 'rebbe' ? 'Niflaot of the Rebbe' : 'Niflaot'} · ${PARSHIOT[l.parsha].name.en ?? PARSHIOT[l.parsha].name.ru} ${PARSHIOT[l.parsha].year} · lesson ${l.number}`,
     he: l.hebrewTitle,
-    title: l.texts.ru!.title,
+    title: (l.texts.en ?? l.texts.ru)!.title,
     // a talk of the Rebbe is an investigation, not a gematria game
-    sub: `${!l.riddles.length ? 'Карточки' : l.kind === 'sicha' ? 'Расследование' : 'Игра-гематрия'} ${l.texts.ru!.hero.author}`,
+    sub: `${!l.riddles.length ? 'Cards' : l.kind === 'sicha' ? 'Investigation' : 'Gematria game'} ${(l.texts.en ?? l.texts.ru)!.hero.author}`,
     highlight: l.highlight,
     letters: l.heroLetters,
   });
@@ -90,18 +91,18 @@ const shots: [string, string][] = [
       eyebrow: '5787 · ה׳תשפ״ז',
       eyebrowHtml: '5787 · <span class="he">ה׳תשפ״ז</span>',
       he: 'נפלאות',
-      title: 'Онлайн-академия Торы · от 8 до 120',
-      sub: 'Тора · Пророки и Писания · Хасидут',
+      title: 'Online Torah Academy · from 8 to 120',
+      sub: 'Torah · Prophets and Writings · Chassidut',
       letters: ['נ', 'פ'],
     }),
   ],
   [
     'mental-math',
     page({
-      eyebrow: 'Нифлаот · устный счёт',
+      eyebrow: 'Niflaot · mental math',
       he: 'חשבון',
-      title: 'Ментальная арифметика',
-      sub: 'Сложение · вычитание · умножение · деление — в уме, по шагам',
+      title: 'Mental Math',
+      sub: 'Addition · subtraction · multiplication · division — in your head, step by step',
       highlight: [['456', '+', '15', '=', '471']],
       letters: ['ח', 'ש'],
     }),
@@ -109,10 +110,10 @@ const shots: [string, string][] = [
   [
     'daily',
     page({
-      eyebrow: 'Нифлаот · каждый день',
+      eyebrow: 'Niflaot · every day',
       he: 'גימטריה',
-      title: ru['daily.title'] as string,
-      sub: 'Одно слово Торы в день — сложите его буквы в уме',
+      title: en['daily.title'] as string,
+      sub: 'One word of Torah a day — add up its letters in your head',
       highlight: [['🟥', '🟨', '🟩']],
       letters: ['ג', 'מ'],
     }),
@@ -120,10 +121,10 @@ const shots: [string, string][] = [
   [
     'facts',
     page({
-      eyebrow: 'Нифлаот · знаете ли вы?',
+      eyebrow: 'Niflaot · did you know?',
       he: 'נפלאות',
-      title: ru['facts.title'] as string,
-      sub: 'Загадки Торы: гематрия и тайные слова в первых буквах',
+      title: en['facts.title'] as string,
+      sub: 'Torah riddles: gematria and words hidden in first letters',
       highlight: [['האדם', '=', '50', '=', 'אדמה']],
       letters: ['ד', 'ע'],
     }),
@@ -131,10 +132,10 @@ const shots: [string, string][] = [
   [
     'letters',
     page({
-      eyebrow: 'Нифлаот · алеф-бет',
+      eyebrow: 'Niflaot · alef-bet',
       he: 'אבגד',
-      title: ru['abc.title'] as string,
-      sub: '22 буквы иврита: название, звучание и число',
+      title: en['abc.title'] as string,
+      sub: '22 Hebrew letters: name, sound and number',
       highlight: [['א', '=', '1', '·', 'ב', '=', '2', '·', 'ג', '=', '3']],
       letters: ['א', 'ב'],
     }),
@@ -142,70 +143,70 @@ const shots: [string, string][] = [
   [
     'neviim',
     page({
-      eyebrow: 'Нифлаот · взрослым',
+      eyebrow: 'Niflaot · for adults',
       he: 'נביאים',
-      title: 'Пророки за три года',
-      sub: 'Отрывок на каждый день · перевод · Мецудат Давид и Раши',
+      title: 'The Prophets in three years',
+      sub: 'A passage every day · translation · Metzudat David and Rashi',
       letters: ['נ', 'ב'],
     }),
   ],
   [
     'ketuvim',
     page({
-      eyebrow: 'Нифлаот · взрослым',
+      eyebrow: 'Niflaot · for adults',
       he: 'כתובים',
-      title: 'Писания за три года',
-      sub: 'Теґилим, Мишлей, Иов и свитки — понемногу каждый день',
+      title: 'The Writings in three years',
+      sub: 'Tehillim, Mishlei, Iyov and the scrolls — a little every day',
       letters: ['כ', 'ת'],
     }),
   ],
   [
     'hebrew-words',
     page({
-      eyebrow: 'Нифлаот · взрослым',
+      eyebrow: 'Niflaot · for adults',
       he: 'מילים',
-      title: '500 слов Танаха',
-      sub: '80 % текста Пророков и Писаний · перевод, корень, повторение',
+      title: '500 words of Tanakh',
+      sub: '80% of the Prophets and Writings · translation, root, review',
       letters: ['מ', 'ל'],
     }),
   ],
   [
     'learn-hebrew',
     page({
-      eyebrow: 'Нифлаот · святой язык',
+      eyebrow: 'Niflaot · the holy tongue',
       he: 'לשון הקודש',
-      title: 'Учить иврит — язык Торы и Пророков',
-      sub: 'Буквы, слова Торы и 2000 слов Танаха · уроки по 5 минут',
+      title: 'Learn Hebrew — the language of the Torah',
+      sub: 'Letters, words of the Torah and 2000 words of Tanakh · 5-minute lessons',
       letters: ['ל', 'ש'],
     }),
   ],
   [
     'hemshech',
     page({
-      eyebrow: 'Нифлаот · хасидут',
+      eyebrow: 'Niflaot · Chassidut',
       he: 'המשך תרס״ו',
-      title: 'Ґемшех Самех-Вав',
-      sub: 'Маамары Ребе Рашаба — по 10 минут в учебный день',
+      title: 'Hemshech Samech-Vav',
+      sub: 'Maamarim of the Rebbe Rashab — 10 minutes a study day',
       letters: ['ה', 'ס'],
     }),
   ],
   [
     'quiz',
     page({
-      eyebrow: 'Нифлаот · вместе',
+      eyebrow: 'Niflaot · together',
       he: 'חידון',
-      title: ru['lq.title'] as string,
-      sub: 'Вопросы на экране — ответы с телефонов: для класса и семьи',
+      title: en['lq.title'] as string,
+      sub: 'Questions on the screen, answers from phones — for class and family',
       letters: ['ח', 'ד'],
     }),
   ],
   [
     'nigun',
     page({
-      eyebrow: 'Нифлаот · святая музыка',
+      eyebrow: 'Niflaot · holy music',
       he: 'ניגון',
-      title: ru['nigun.title'] as string,
-      sub: 'Хасидские нигуны с караоке — слушать, петь и учить',
+      title: en['nigun.title'] as string,
+      sub: 'Chassidic niggunim with karaoke — listen, sing and learn',
       letters: ['נ', 'ג'],
     }),
   ],
