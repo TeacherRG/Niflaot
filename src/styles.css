@@ -977,7 +977,6 @@ p.calc .he{font-family:var(--f-he);font-size:1.2em;font-weight:700;color:var(--i
 .poem-head{display:flex;align-items:center;gap:10px}
 .poem-head h3{margin:0;font-family:var(--f-display);font-size:20px}
 .poem-verse{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;color:var(--muted);font-size:14px}
-.poem-verse .he{font-family:var(--f-he);font-size:22px;font-weight:700;color:var(--ink)}
 .poem-lines{margin:4px 0 0;display:grid;gap:3px;font-family:var(--f-display);font-size:18.5px;line-height:1.35;color:var(--ink)}
 .poem-lines>span{padding-inline-start:1em;text-indent:-1em}
 /* «Знаете ли вы?» — the feed of equalities */

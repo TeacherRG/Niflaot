@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Html, useI18n } from '../i18n';
 import { withTerms } from '../i18n/glossary';
 import type { Lesson, LessonText, RebbeCardsData } from '../lessons/types';
-import { displayNames } from '../core/names';
 import { footnotes } from '../sources/footnotes';
 import { Sources } from './Sources';
 import { cardsReadHref, cardsReadModes, type CardsReadMode } from './cardsRead';
@@ -136,9 +135,6 @@ export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards?:
                           <h3>{items[k].title}</h3>
                         </div>
                         <div className="poem-verse">
-                          <span className="he" lang="he">
-                            {displayNames(it.verse)}
-                          </span>
                           <span>{items[k].verse}</span>
                         </div>
                         <p className="poem-lines">
