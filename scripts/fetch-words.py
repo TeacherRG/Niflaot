@@ -7,6 +7,12 @@
     python3 scripts/fetch-words.py todo ru   # слова без перевода на этом языке (по порядку частоты)
     python3 scripts/fetch-words.py stems     # глаголы почти без каль — проверить FORM_FIX (настоящая форма вместо Стронга)
 
+`build` пишет и разбор каждого слова стиха для окошка над словом на странице дня (WordPop.tsx): в файле дня
+`public/tanakh/words/<дата>.json` — `v`: {«книга глава:стих»: [разбор слова 1, …]} по словам нашего текста (через пробел и
+макаф); разбор — строка «приставки|номер|окончание» (`c/d|776|3ms`; приставки — буквы OSHB: b ב, c ו, d ה, i ה вопроса,
+k כ, l ל, m מ, s ש; номер `n` — имя собственное, `H` — Имя Всевышнего; `!` в начале — кетив: так написано, читается — как
+в скобках), 0 — слово не сопоставилось; и `public/tanakh/words/lex.json` — заглавная форма слов не из словаря.
+
 Источники (свободные лицензии):
   Open Scriptures Hebrew Bible (github.com/openscriptures/morphhb) — основная форма каждого слова текста (лемма, номер
   Стронга) и его разбор: CC BY 4.0, «Open Scriptures Hebrew Bible Project»; сам текст (WLC) — Public Domain;
@@ -234,7 +240,75 @@ def cmd_build():
         (OUT_DAYS / f.name).write_text(json.dumps(out, separators=(',', ':')) + '\n', encoding='utf-8')
         n += 1
     cmd_examples(ranked)
+    cmd_parse(lex)
     print(f'{total} words ({len(count)} lemmas, {names} names); top {SIZE} cover {words[-1]["cov"]}%; {n} days → {OUT_DAYS}')
+
+
+NORM = str.maketrans('ק', 'ה')
+def parse_verses():
+    """(книга, глава, стих) → разбор слов OSHB по порядку: (буквы, «приставки|номер|окончание»); кетив и кери — оба,
+    по порядку текста (у нас: кетив, потом кери в скобках)"""
+    out = {}
+    W = re.compile(r'<verse osisID="([^"]+)">|</verse>|<w( type="x-ketiv")?[^>]*? lemma="([^"]*)"[^>]*?morph="([^"]*)"[^>]*>([^<]*)</w>')
+    for b, slug in BOOKS.items():
+        ref, ws = None, []
+        for m in W.finditer((CACHE / 'wlc' / f'{b}.xml').read_text(encoding='utf-8')):
+            if m[1]:
+                _, c, v = m[1].split('.')
+                ref, ws = (slug, int(c), int(v)), []
+                continue
+            if m[0] == '</verse>':
+                out[ref] = ws
+                continue
+            segs = m[3].split('/')
+            pref = ''.join(p for p in segs if re.fullmatch(r'[a-z]', p))
+            nums = [p for p in segs if re.match(r'\d', p)]
+            morph = re.sub(r'^[HA]', '', m[4]).split('/')
+            suf = morph[-1][2:] if len(morph) > 1 and morph[-1].startswith('S') and morph[-1][1] in 'p' else ''
+            l = re.match(r'\d+', nums[-1])[0] if nums else ''
+            l = MERGE.get(l, l)
+            if l in ('3068', '3069'): l = 'H'
+            elif nums and morph[-1 if not suf else -2].startswith('Np'): l = 'n'
+            code = '|'.join([pref, l, suf]).rstrip('|')
+            ws.append((letters(MARKS.sub('', m[5])).translate(NORM), ('!' if m[2] else '') + code))
+    return out
+
+
+def cmd_parse(lex):
+    """разбор слов стиха по дням (поле `v` в public/tanakh/words/<дата>.json) и заглавные формы слов не из словаря"""
+    pv = parse_verses()
+    known = {w['id'] for w in json.loads(OUT.read_text(encoding='utf-8'))['words']}
+    heads, tot, hit = {}, 0, 0
+    for f in sorted(DAYS.glob('????-??-??.json')):
+        day = json.loads(f.read_text(encoding='utf-8'))
+        out = json.loads((OUT_DAYS / f.name).read_text(encoding='utf-8'))
+        for s in ('neviim', 'ketuvim'):
+            vs = {}
+            for v in day[s]['verses']:
+                ws = pv.get((v['b'], v['c'], v['v']), [])
+                parts = [p for p in re.split(r'[ \u05BE]+', v['he'].replace('׃', '').strip()) if p]
+                row, i = [], 0
+                for p in parts:
+                    L = letters(p).translate(NORM)
+                    code = 0
+                    if L:
+                        tot += 1
+                        for j in range(i, min(i + 4, len(ws))):
+                            wl, c = ws[j]
+                            if wl == L or (L == 'ה' and '|H' in c and len(p) <= 3):
+                                code, i = c, j + 1
+                                hit += 1
+                                break
+                    if code:
+                        l = code.split('|')[1] if '|' in code else ''
+                        if l and l not in known and l[0].isdigit() and l in lex:
+                            heads[l] = NAMES.get(l, FORM_FIX.get(l, lex[l][0]))
+                    row.append(code)
+                vs[f"{v['b']} {v['c']}:{v['v']}"] = row
+            out[s]['v'] = vs
+        (OUT_DAYS / f.name).write_text(json.dumps(out, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
+    (OUT_DAYS / 'lex.json').write_text(json.dumps(dict(sorted(heads.items(), key=lambda x: int(x[0]))), ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
+    print(f'parse: {hit} of {tot} words of the text matched ({hit / tot * 100:.1f}%), {len(heads)} headwords not in the dictionary')
 
 
 MARKS = re.compile(r'[\u0591-\u05C7/]')
