@@ -18,6 +18,7 @@
     "@fontsource/frank-ruhl-libre": "^5.3.0",
     "@fontsource/ibm-plex-mono": "^5.3.0",
     "@fontsource/manrope": "^5.3.0",
+    "@hebcal/core": "^6.14.6",
     "canvas-confetti": "^1.9.4",
     "pitchy": "^4.1.0",
     "qrcode-generator": "^2.0.4",

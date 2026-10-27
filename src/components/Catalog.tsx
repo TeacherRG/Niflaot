@@ -17,6 +17,7 @@ import { lessonArt } from '../core/art';
 import { useMode } from '../core/mode';
 import { CoursesCard } from './CoursesCard';
 import { Dedication } from './Dedication';
+import { ShabbatCalendar } from './ShabbatCalendar';
 
 /** «Гематрия дня» on the home screen: today's number, or the result when today's word is solved. */
 function DailyLink() {
@@ -84,6 +85,7 @@ function AdultsHome() {
           </p>
         </div>
         <aside className="a-side">
+          <ShabbatCalendar />
           {reads.length > 0 && (
             <section aria-labelledby="a-week">
               <h2 id="a-week">
@@ -301,6 +303,7 @@ function KidsHome() {
             <CoursesCard />
             <DailyLink />
             <TableLink />
+            <ShabbatCalendar />
             <WeekCountdown />
             <PhoneOffer />
           </div>
