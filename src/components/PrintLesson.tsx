@@ -299,13 +299,6 @@ export function PrintLesson({ lesson }: { lesson: Lesson }) {
                   </ol>
                   {lesson.kind === 'sicha' && (
                     <>
-                      <div className="p-eqs">
-                        {r.equations.map((e, k) => (
-                          <div key={k}>
-                            <HebrewRuns text={e} />
-                          </div>
-                        ))}
-                      </div>
                       <p>
                         <b>{rt.reveal.h}.</b> {rt.reveal.p}
                       </p>

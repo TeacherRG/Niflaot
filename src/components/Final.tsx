@@ -31,13 +31,15 @@ function Conspect({ lesson, text, S, onOpen }: { lesson: Lesson; text: LessonTex
             </h3>
             {solved ? (
               <>
-                <div className="cs-eqs">
-                  {r.equations.map((e, k) => (
-                    <span key={k} className="cs-eq num">
-                      <HebrewRuns text={e} />
-                    </span>
-                  ))}
-                </div>
+                {lesson.kind !== 'sicha' && (
+                  <div className="cs-eqs">
+                    {r.equations.map((e, k) => (
+                      <span key={k} className="cs-eq num">
+                        <HebrewRuns text={e} />
+                      </span>
+                    ))}
+                  </div>
+                )}
                 <ul>
                   {(rt.takeaways ?? [rt.reveal.p]).map((x, k) => (
                     <li key={k}>

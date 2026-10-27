@@ -509,7 +509,6 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .p-ans h3,.p-les h3{font-size:17px;font-weight:700}
 .p-ans ol{margin:4px 0;padding-inline-start:20px}
 .p-ans small{color:#555}
-.p-eqs{font-family:var(--f-num);font-size:12px;display:grid;gap:2px;margin:4px 0}
 .p-ans p,.p-les p{margin:4px 0}
 .p-les{margin-top:10px;break-inside:avoid}
 .p-mast{margin:0 0 14px}

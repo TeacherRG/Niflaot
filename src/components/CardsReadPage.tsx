@@ -35,11 +35,6 @@ function TalkChapter({ lesson, text, ri }: { lesson: Lesson; text: LessonText; r
       <Html as="div" className="cond" html={withTerms(condHtml, textLocale)} />
       <div className="reveal">
         <h3>{rt.reveal.h}</h3>
-        {r.equations.map((e, k) => (
-          <div key={k} className="eq">
-            <HebrewRuns text={e} />
-          </div>
-        ))}
         <Html as="p" html={withTerms(revealHtml, textLocale)} />
       </div>
       <div className="lessons">
