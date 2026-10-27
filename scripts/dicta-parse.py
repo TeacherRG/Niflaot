@@ -49,7 +49,8 @@ def verses():
 def model_word(p):
     """слово, как его увидит модель: без огласовок; Имена — обычным написанием"""
     if re.fullmatch(r'ה[׳\']', MARKS.sub('', p)): return 'יהוה'
-    w = letters(MARKS.sub('', p).replace('-', ''))
+    # конечные буквы — как в тексте: модель учили на обычном письме (с «נונ» вместо «נון» она путается)
+    w = re.sub(r'[^א-ת]', '', MARKS.sub('', p))
     return re.sub(r'אלק', 'אלה', w)
 
 
@@ -65,9 +66,16 @@ def dictionary():
     return full, plain
 
 
-def pick(lemma, pos, full, plain):
-    L = letters(lemma)
-    cands = full.get(L) or plain.get(L[:1] + re.sub('[וי]', '', L[1:])) or []
+def pick(lemma, pos, word, full, plain):
+    """номер слова словаря для леммы Dicta: сама лемма; у глагола ל״ה — с ה на конце (Dicta пишет «היי» вместо היה); у служебных
+    слов и местоимений — и само слово без приставок («אתה» Dicta сводит к «את»); полным и неполным письмом"""
+    keys = [letters(lemma)]
+    if pos in ('VERB', 'AUX') and keys[0].endswith('י'): keys.append(keys[0][:-1] + 'ה')
+    if pos in ('PRON', 'ADP', 'ADV', 'SCONJ', 'CCONJ', 'DET', 'INTJ'): keys.insert(0, letters(word))
+    cands = []
+    for L in keys:
+        cands = full.get(L) or plain.get(L[:1] + re.sub('[וי]', '', L[1:])) or []
+        if cands: break
     if not cands: return None
     want = POS.get(pos, '')
     good = [c for c in cands if want and c[1].split()[0].startswith(want)]
@@ -84,7 +92,7 @@ def code(tok, part, nxt, full, plain):
     lex = tok.get('lex') or ''
     if pos == 'PROPN': lid = 'n'
     else:
-        lid = pick(lex, pos, full, plain) or (f'={letters(lex)}' if letters(lex) else '')
+        lid = pick(lex, pos, seg[-1], full, plain) or (f'={letters(lex)}' if letters(lex) else '')
     suf = ''
     sf = morph.get('suffix_feats') or {}
     if morph.get('suffix') and sf:
@@ -107,10 +115,11 @@ def main():
     vs = verses()
     if '--probe' in args:
         from huggingface_hub import hf_hub_download
-        print(Path(hf_hub_download(MODEL, 'README.md')).read_text(encoding='utf-8')[:1500])
         for _, _, ref, parts in vs[:2]:
             with torch.no_grad():
-                print(ref, json.dumps(model.predict([' '.join(model_word(p) for p in parts)], tok, output_style='json'), ensure_ascii=False)[:3000])
+                print(ref, json.dumps(model.predict([' '.join(model_word(p) for p in parts)], tok, output_style='json'), ensure_ascii=False)[:2500])
+        # the card's front matter: the licence
+        print(Path(hf_hub_download(MODEL, 'README.md')).read_text(encoding='utf-8')[:600])
         return
     if '--limit' in args: vs = vs[: int(args[args.index('--limit') + 1])]
     full, plain = dictionary()

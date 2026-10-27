@@ -35,7 +35,7 @@ jobs:
           python3 -m venv .venv
           .venv/bin/pip install -q torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
           .venv/bin/pip install -q transformers==4.44.2 huggingface_hub
-          .venv/bin/python scripts/dicta-parse.py --probe 2>&1 | tail -c 8000
+          .venv/bin/python scripts/dicta-parse.py --probe 2>&1 | tail -c 12000
   parse:
     runs-on: ubuntu-latest
     timeout-minutes: 300
