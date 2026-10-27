@@ -8,7 +8,7 @@ import { Colophon } from './Colophon';
 import { TopBar } from './TopBar';
 
 /**
- * The onboarding — one window on the first visit instead of the home page (and at `#/mode`): two short questions,
+ * The onboarding — one window on the first visit instead of the home page (and at `#/mode`): short questions,
  * 1) who is learning — the children's site or the adults' one (src/core/mode.ts),
  * 2) «Как вы с ивритом?» — how much help the letters get (src/core/hebrewLevel.ts),
  * 3) «Что вы хотите учить?» — the courses besides the weekly Torah portion (src/core/courses.ts), none or several, and for
@@ -21,24 +21,32 @@ export function ModePicker() {
   const [mode, pickMode] = useState<Mode | null>(saved);
   const [level, pickLevel] = useState<HebrewLevel | null>(savedHebrewLevel);
   const [courses, pickCourses] = useState<Course[]>(() => savedCourses()?.c ?? (saved ? defaultCourses(saved).c : []));
-  const [pace, pickPace] = useState<Pace>(() => savedCourses()?.pace ?? 'own');
+  const [pace, pickPace] = useState<Pace>(() => savedCourses()?.pace ?? (saved ? defaultCourses(saved).pace : 'own'));
   const [years, pickYears] = useState<PlanYears>(() => savedCourses()?.years ?? 3);
   // until the player touches the courses, they follow the mode (its usual courses ticked)
   const [touched, touch] = useState(() => savedCourses() !== null);
   const toggle = (c: Course) => (touch(true), pickCourses((x) => (x.includes(c) ? x.filter((y) => y !== c) : [...x, c])));
   const choose = (m: Mode) => {
     pickMode(m);
-    if (!touched) pickCourses(defaultCourses(m).c);
+    if (!touched) {
+      const defaults = defaultCourses(m);
+      pickCourses(defaults.c);
+      pickPace(defaults.pace);
+    }
   };
   const tanakh = courses.includes('neviim') || courses.includes('ketuvim');
+  const skipCourses = () => {
+    touch(true);
+    pickCourses([]);
+  };
 
   useEffect(() => {
     document.title = `${t('mode.title')} · ${t('app.title')}`;
   }, [t]);
 
   const start = () => {
-    if (!mode || !level) return;
-    setHebrewLevel(level);
+    if (!mode) return;
+    if (level) setHebrewLevel(level);
     setCourses({ c: courses, pace, years });
     try {
       localStorage.setItem('niflaot:help-seen', '1');
@@ -61,70 +69,76 @@ export function ModePicker() {
           <span className="mode-n">1</span>
           {t('mode.title')}
         </h1>
-        <div className="mode-opts" role="radiogroup" aria-labelledby="mode-q1">
+        <p className="mode-hint">{t('mode.hint')}</p>
+        <fieldset className="mode-opts" aria-labelledby="mode-q1">
           {(['kids', 'adults'] as const).map((m) => (
-            <button key={m} role="radio" aria-checked={mode === m} className={`mode-opt ${m}${mode === m ? ' on' : ''}`} onClick={() => choose(m)}>
-              <span className="mode-ico" aria-hidden="true">
-                {m === 'kids' ? '🧩' : '📖'}
-              </span>
+            <label key={m} className={`mode-opt ${m}${mode === m ? ' on' : ''}`}>
+              <input type="radio" name="mode" checked={mode === m} onChange={() => choose(m)} />
+              <span className="mode-ico" aria-hidden="true">{m === 'kids' ? '🧩' : '📖'}</span>
               <b>{t(`mode.${m}`)}</b>
               <small>{t(`mode.${m}Short`)}</small>
-            </button>
+            </label>
           ))}
-        </div>
+        </fieldset>
         <h2 id="mode-q2" className="mode-q">
           <span className="mode-n">2</span>
           {t('hebrew.q')}
         </h2>
-        <div className="mode-hb" role="radiogroup" aria-labelledby="mode-q2">
+        <p className="mode-hint">{t('hebrew.note')}</p>
+        <fieldset className="mode-hb" aria-labelledby="mode-q2">
           {HEBREW_LEVELS.map((l) => (
-            <button key={l} role="radio" aria-checked={level === l} className={`mode-hb-opt${level === l ? ' on' : ''}`} onClick={() => pickLevel(l)}>
+            <label key={l} className={`mode-hb-opt${level === l ? ' on' : ''}`}>
+              <input type="radio" name="hebrew-level" checked={level === l} onChange={() => pickLevel(l)} />
               <b>{t(`hebrew.${l}.short`)}</b>
               <small>{t(`hebrew.${l}.sub`)}</small>
-            </button>
+            </label>
           ))}
-        </div>
+        </fieldset>
+        <button className="mode-skip" type="button" onClick={() => pickLevel(null)}>{t('hebrew.skip')}</button>
         <h2 id="mode-q3" className="mode-q">
           <span className="mode-n">3</span>
           {t('courses.q')}
         </h2>
         <p className="mode-sub">{t('courses.qSub')}</p>
-        <div className="mode-courses" role="group" aria-labelledby="mode-q3">
+        <div className="mode-courses" aria-labelledby="mode-q3">
           {COURSES.map((c) => (
-            <button key={c} role="checkbox" aria-checked={courses.includes(c)} className={`mode-hb-opt${courses.includes(c) ? ' on' : ''}`} onClick={() => toggle(c)}>
-              <b>
-                <span className="mode-tick" aria-hidden="true">{courses.includes(c) ? '✓' : '+'}</span> {t(`courses.${c}`)}
-              </b>
-              <small>{t(`courses.${c}.sub`)}</small>
-            </button>
+            <label key={c} className={`mode-course${courses.includes(c) ? ' on' : ''}`}>
+              <span className="mode-course-label">
+                <b>{t(`courses.${c}`)}</b>
+                <small>{t(`courses.${c}.sub`)}</small>
+              </span>
+              <input type="checkbox" role="switch" checked={courses.includes(c)} onChange={() => toggle(c)} aria-label={t(`courses.${c}`)} />
+            </label>
           ))}
         </div>
         {tanakh && (
           <>
-            <div className="mode-pace" role="radiogroup" aria-label={t('courses.paceQ')}>
-              <span>{t('courses.paceQ')}</span>
+            <fieldset className="mode-pace">
+              <legend>{t('courses.paceQ')}</legend>
               {PACES.map((p) => (
-                <button key={p} role="radio" aria-checked={pace === p} className={`mode-pace-opt${pace === p ? ' on' : ''}`} onClick={() => pickPace(p)}>
+                <label key={p} className={`mode-pace-opt${pace === p ? ' on' : ''}`}>
+                  <input type="radio" name="course-pace" checked={pace === p} onChange={() => pickPace(p)} />
                   <b>{t(`courses.pace.${p}`)}</b>
                   <small>{t(`courses.pace.${p}.sub`)}</small>
-                </button>
+                </label>
               ))}
-            </div>
+            </fieldset>
             {pace === 'own' && (
-              <div className="mode-pace" role="radiogroup" aria-label={t('courses.yearsQ')}>
-                <span>{t('courses.yearsQ')}</span>
+              <fieldset className="mode-pace">
+                <legend>{t('courses.yearsQ')}</legend>
                 {PLAN_YEARS.map((y) => (
-                  <button key={y} role="radio" aria-checked={years === y} className={`mode-pace-opt${years === y ? ' on' : ''}`} onClick={() => pickYears(y)}>
+                  <label key={y} className={`mode-pace-opt${years === y ? ' on' : ''}`}>
+                    <input type="radio" name="plan-years" checked={years === y} onChange={() => pickYears(y)} />
                     <b>{t(`courses.years.${y}`)}</b>
                     <small>{t(`courses.years.${y}.sub`)}</small>
-                  </button>
+                  </label>
                 ))}
-              </div>
+              </fieldset>
             )}
           </>
         )}
-        <p className="mode-sub mode-later">{t('courses.later')}</p>
-        <button className="btn mode-start" disabled={!mode || !level} onClick={start}>
+        <button className="mode-skip" type="button" onClick={skipCourses}>{t('courses.skip')}</button>
+        <button className="btn mode-start" disabled={!mode} onClick={start}>
           {t('mode.start')} →
         </button>
         <p className="mode-note">{t('mode.note')}</p>
