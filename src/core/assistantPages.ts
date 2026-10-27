@@ -4,7 +4,8 @@
  */
 import type { Section } from './tanakhCycle';
 import { rangeLabel } from './tanakhCycle';
-import { CYCLE, loadDay, type Commentary, type DayVerse } from './tanakh';
+import { loadDay, readingPlan, type Commentary, type DayVerse } from './tanakh';
+import { coursesOf } from './courses';
 import type { QuizQuestion } from './quiz';
 import type { QuizResult } from './academy';
 import { PASS, type Certificate, type Progress } from './academy';
@@ -27,12 +28,12 @@ function versesText(verses: DayVerse[], lang: Lang) {
 }
 
 /** «Отрывок дня»: the day, the range, every verse with its translation and the commentaries (Metzudat David, Rashi). */
-export async function tanakhContext(section: Section, date: string, lang: Lang) {
-  const day = CYCLE.find((d) => d.date === date);
-  const content = await loadDay(date);
-  const head = `Page: "Passage of the day" of the three-year cycle — ${SECTION[section]}, ${date}` +
-    (day ? `, ${rangeLabel(section, day[section], 'en')} (day ${CYCLE.indexOf(day) + 1} of ${CYCLE.length})` : '') +
-    '. Below the passage the user can take the "Questions on the passage" quiz.';
+export async function tanakhContext(section: Section, date: string, lang: Lang, plan = readingPlan(coursesOf('adults'))) {
+  const day = plan.days.find((d) => d.date === date);
+  const content = await loadDay(date, plan);
+  const head = `Page: "Passage of the day" of the ${plan.annual ? 'one-year personal plan' : 'three-year cycle'} — ${SECTION[section]}, ${date}` +
+    (day ? `, ${rangeLabel(section, day[section], 'en')} (day ${plan.days.indexOf(day) + 1} of ${plan.days.length})` : '') +
+    (plan.annual ? '.' : '. Below the passage the user can take the "Questions on the passage" quiz.');
   return content ? `${head}\n\n${versesText(content[section].verses, lang)}` : head;
 }
 
@@ -53,10 +54,9 @@ export async function quizContext(section: Section, date: string, lang: Lang, qu
 }
 
 /** «Академия»: every certificate and the user's progress on this device. */
-export function academyContext(rows: { kind: Certificate['kind']; title: string; book: string; p: Progress; extra: string }[]) {
+export function academyContext(rows: { kind: Certificate['kind']; title: string; book: string; p: Progress; extra: string }[], oneYearPlan = false) {
   return `Page: "Academy" — certificates for books. Torah: ${Math.round(PASS * 100)}% of the points. Prophets and Writings: ` +
-    `100% of the book's daily passages marked "I've read it" (under each passage); the certificate shows points too when ` +
-    `the "Questions on the passage" of all those days are passed with ${Math.round(PASS * 100)}%. Chassidut («Hemshech 5666»): ` +
+    `100% of the book's passages marked "I've read it" (under each passage); ${oneYearPlan ? 'the personal one-year plan is reading-only.' : `the certificate shows points too when the "Questions on the passage" of all those days are passed with ${Math.round(PASS * 100)}%.`} Chassidut («Hemshech 5666»): ` +
     `the same for each discourse — all its passages marked read; with points when their questions are passed. Hebrew of ` +
     `Tanakh: 100 / 300 / 500 / 1000 / 1500 / 2000 words, counting only words confirmed by the review in "My words" (remembered on a card), not the marks alone. Children: "Torah words" — ` +
     `a certificate for each portion when every word of its lessons has three stars in the game. Niggun: the karaoke ` +
@@ -73,7 +73,7 @@ export function academyContext(rows: { kind: Certificate['kind']; title: string;
             ? `${r.p.got} of ${r.p.max} words confirmed by the review (${r.p.done} marked known)`
             : r.kind === 'torah'
             ? `${r.p.got} of ${r.p.max} points`
-            : `${r.p.seen?.done ?? 0} of ${r.p.parts} passages read, ${r.p.got} of ${r.p.max} quiz answers right`) +
+            : `${r.p.seen?.done ?? 0} of ${r.p.parts} passages read${oneYearPlan && r.kind === 'tanakh' ? '' : `, ${r.p.got} of ${r.p.max} quiz answers right`}`) +
           `, ${r.extra}; ` +
           (r.p.earned
             ? r.kind === 'tanakh' || r.kind === 'hemshech'

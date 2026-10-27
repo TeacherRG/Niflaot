@@ -4,10 +4,12 @@ import { tanakhLang, tanakhNarration, tanakhSlug } from '../core/tanakhNarration
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { Icon, useDismiss } from './ui';
 import { useI18n } from '../i18n';
+import { useMode } from '../core/mode';
+import { useCourses } from '../core/courses';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { BOOKS, rangeLabel, type Section } from '../core/tanakhCycle';
-import { CYCLE, cycleDayFor, loadDay, localToday, readingMinutes, type Commentary, type DayContent, type SectionDay, type DayVerse, type Tr } from '../core/tanakh';
+import { cycleDayFor, loadDay, localToday, readingPlan, readingMinutes, type Commentary, type DayContent, type ReadingPlan, type SectionDay, type DayVerse, type Tr } from '../core/tanakh';
 import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
 import { TanakhMasthead } from './PrintBrand';
 import { TanakhWords } from './TanakhWords';
@@ -291,14 +293,14 @@ function Verses({ verses, he, tr, md, rashi, parse }: { verses: DayVerse[]; he: 
  * «Я прочитал(а)» under the passage, and the reader's tracker of this section: how many passages of the cycle are read,
  * and the first earlier day left unread. The marks make the certificates of «Академия» (100 % of a book's passages).
  */
-function DoneCheck({ section, date, today }: { section: Section; date: string; today: string }) {
+function DoneCheck({ section, date, today, plan }: { section: Section; date: string; today: string; plan: ReadingPlan }) {
   const { t, locale } = useI18n();
-  const [done, setDone] = useDone(date, section);
-  const store = useDoneStore();
+  const [done, setDone] = useDone(date, section, plan.id);
+  const store = useDoneStore(plan.id);
   let read = 0;
   let missed = 0;
   let first: string | undefined;
-  for (const d of CYCLE) {
+  for (const d of plan.days) {
     if (isDone(store, d.date, section)) read++;
     else if (d.date < today) {
       missed++;
@@ -312,7 +314,7 @@ function DoneCheck({ section, date, today }: { section: Section; date: string; t
         <span>{t('tanakh.doneCheck')}</span>
       </label>
       <p>
-        {t('tanakh.doneStat', { n: read, total: CYCLE.length, section: t(`tanakh.${section}`) })}
+        {t('tanakh.doneStat', { n: read, total: plan.days.length, section: t(`tanakh.${section}`) })}
         {first && first !== date && (
           <>
             {' · '}
@@ -386,11 +388,20 @@ function PrintMenu({ other, both, setBoth }: { other: Section; both: boolean; se
  */
 export function TanakhPage({ section, date }: { section: Section; date?: string }) {
   const { t, locale } = useI18n();
+  const choice = useCourses(useMode());
+  const plan = readingPlan(choice);
+  const cycle = plan.days;
+  const marks = useDoneStore(plan.id);
   const [view, setView] = useView(locale);
   const [printBoth, setPrintBoth] = usePrintBoth();
   const today = localToday();
-  const { index, exact } = cycleDayFor(date ?? today);
-  const day = CYCLE[index];
+  const firstUnread = choice.pace === 'own' ? cycle.findIndex((d) => !isDone(marks, d.date, section)) : -1;
+  const { index, exact } = date
+    ? cycleDayFor(date, cycle)
+    : choice.pace === 'own'
+      ? { index: firstUnread >= 0 ? firstUnread : cycle.length - 1, exact: firstUnread >= 0 && cycle[firstUnread].date === today }
+      : cycleDayFor(today, cycle);
+  const day = cycle[index];
   const lang = labelLang(locale);
   const title = t(`tanakh.${section}`);
   const range = rangeLabel(section, day[section], lang);
@@ -400,24 +411,25 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
   useEffect(() => {
     let live = true;
     setParsed(null);
-    loadDayWords(day.date).then((w) => live && setParsed(w));
+    if (!plan.annual) loadDayWords(day.date).then((w) => live && setParsed(w));
+    else setParsed(null);
     return () => {
       live = false;
     };
-  }, [day.date]);
+  }, [day.date, plan.annual]);
 
   useEffect(() => {
     let live = true;
     setContent(undefined);
-    loadDay(day.date).then((c) => live && setContent(c));
+    loadDay(day.date, plan).then((c) => live && setContent(c));
     // the day didn't load without network: when the network is back, it loads by itself
-    const retry = () => loadDay(day.date).then((c) => live && c && setContent(c));
+    const retry = () => loadDay(day.date, plan).then((c) => live && c && setContent(c));
     addEventListener('online', retry);
     return () => {
       live = false;
       removeEventListener('online', retry);
     };
-  }, [day.date]);
+  }, [day.date, plan]);
 
   useEffect(() => {
     document.title = `${title}: ${range} · ${t('app.title')}`;
@@ -426,13 +438,13 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
   // the AI assistant (✦) knows the passage on screen
   useEffect(() => {
     const lang = locale === 'en' || locale === 'de' ? locale : 'ru';
-    setOtherPage({ kind: 'tanakh', context: () => tanakhContext(section, day.date, lang) });
+    setOtherPage({ kind: 'tanakh', context: () => tanakhContext(section, day.date, lang, plan) });
     return () => setOtherPage(null);
-  }, [section, day.date, locale]);
+  }, [section, day.date, locale, plan]);
 
   const other: Section = section === 'neviim' ? 'ketuvim' : 'neviim';
-  const prev = CYCLE[index - 1];
-  const next = CYCLE[index + 1];
+  const prev = cycle[index - 1];
+  const next = cycle[index + 1];
   const sec = content?.[section];
   // the project's translation is shown where the whole day is translated (both sections); otherwise English stands in, with a note
   const ready = (l: OwnLang) => !!content && (['neviim', 'ketuvim'] as const).every((s) => content[s].verses.every((v) => v[l]));
@@ -490,7 +502,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
             </h1>
             <p className="tk-range">{range}</p>
             <p className="tk-day">
-              {t('tanakh.day', { n: index + 1, total: CYCLE.length })}
+              {t('tanakh.day', { n: index + 1, total: cycle.length })}
               {sec && <> · {t('tanakh.readingTime', { n: readingMinutes(sec.verses, he, tr, view) })}</>}
             </p>
             {!date && !exact && <p className="tk-note">{t('tanakh.restToday')}</p>}
@@ -526,15 +538,15 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
             </>
           )}
 
-          {sec && <DoneCheck section={section} date={day.date} today={today} />}
-          {sec && (
+          {sec && <DoneCheck section={section} date={day.date} today={today} plan={plan} />}
+          {sec && !plan.annual && (
             <p className="tk-quiz no-print">
               <a className="btn" href={`#/${section}/${day.date}/quiz`}>
                 ✓ {t('quiz.cta')}
               </a>
             </p>
           )}
-          {sec && <TanakhWords section={section} date={day.date} />}
+          {sec && !plan.annual && <TanakhWords section={section} date={day.date} />}
           <nav className="tk-pager no-print" aria-label={t('tanakh.navLabel')}>
             {prev ? (
               <a className="prev" href={`#/${section}/${prev.date}`}>
@@ -570,7 +582,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
             </section>
           )}
           <p className="tk-cycle no-print">
-            {t('tanakh.cycle', { start: civilDate(CYCLE[0].date, locale), end: civilDate(CYCLE[CYCLE.length - 1].date, locale), days: CYCLE.length })}
+            {t(plan.annual ? 'tanakh.personalCycle' : 'tanakh.cycle', { start: civilDate(cycle[0].date, locale), end: civilDate(cycle[cycle.length - 1].date, locale), days: cycle.length })}
           </p>
         </article>
       </div>

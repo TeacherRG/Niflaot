@@ -9,7 +9,8 @@ import { TEACHERS, type TeacherId } from '../lessons/teachers';
 import { lessonScore } from '../core/progress';
 import { readScore, readStore } from '../core/readCheck';
 import { useMode } from '../core/mode';
-import { CYCLE, localToday } from '../core/tanakh';
+import { localToday, readingPlan } from '../core/tanakh';
+import { useCourses } from '../core/courses';
 import { readQuizStore, quizReady } from '../core/quiz';
 import { readDoneStore } from '../core/tanakhDone';
 import { readWordStore, wordsCertificates } from '../core/words';
@@ -75,10 +76,12 @@ const LINKS: Record<FacultyId, Record<'k' | 'a', [string, MessageKey][]>> = {
 
 /** Every certificate with its progress on this device. */
 export function useCertificates() {
+  const choice = useCourses(useMode());
+  const plan = readingPlan(choice);
   return useMemo(() => {
     const today = localToday();
     const store = readQuizStore();
-    const read = readDoneStore();
+    const read = readDoneStore(plan.id);
     const torah = torahCertificates(LESSONS).map((c) => {
       const legacy = (slug: string) => LESSONS.find((l) => l.slug === slug)?.legacyStorageKey;
       const rs = readStore();
@@ -87,22 +90,22 @@ export function useCertificates() {
       const toRead = c.lessons.find((l) => { const x = readScore(l, rs); return x.done < x.n; }) ?? c.lessons[0];
       return { ...c, progress, href: `#/${c.lessons[0].slug}`, readHref: `#/${toRead.slug}/read` };
     });
-    const tanakh = tanakhCertificates(CYCLE, today).map((c) => {
-      const progress = tanakhProgress(c, store, quizReady, read);
-      const ready = c.days.filter((d) => quizReady(d.date)).length;
-      const first = c.days.find((d) => quizReady(d.date) && !(store[`${d.date}:${c.section}`]?.best >= 0));
+    const tanakh = tanakhCertificates(plan.days, today).map((c) => {
+      const progress = tanakhProgress(c, plan.annual ? {} : store, (date) => !plan.annual && quizReady(date), read);
+      const ready = c.days.filter((d) => !plan.annual && quizReady(d.date)).length;
+      const first = c.days.find((d) => !plan.annual && quizReady(d.date) && !(store[`${d.date}:${c.section}`]?.best >= 0));
       // the reading starts at the first passage of the book not marked «Я прочитал(а)»
       const toRead = c.days.find((d) => !isDone(read, d.date, c.section!)) ?? c.days[0];
       return { ...c, progress, ready, href: `#/${c.section}/${toRead.date}`, quizHref: first && `#/${c.section}/${first.date}/quiz` };
     });
     // the reader's tracker: the passages of the whole cycle read, and those of the days already past
     const tracker = (['neviim', 'ketuvim'] as const).map((section) => {
-      const past = CYCLE.filter((d) => d.date <= today);
+      const past = plan.days.filter((d) => d.date <= today);
       const missed = past.find((d) => !isDone(read, d.date, section));
       return {
         section,
-        read: CYCLE.filter((d) => isDone(read, d.date, section)).length,
-        total: CYCLE.length,
+        read: plan.days.filter((d) => isDone(read, d.date, section)).length,
+        total: plan.days.length,
         pastRead: past.filter((d) => isDone(read, d.date, section)).length,
         past: past.length,
         missed: missed?.date,
@@ -131,7 +134,7 @@ export function useCertificates() {
     // «Святая музыка»: «Знаток нигуна» — the karaoke game on points (src/core/nigunGame.ts)
     const nigun = nigunCertificates(NIGUNIM, readNigunStore());
     return { torah, tanakh, tracker, hemshech, hsTracker, words, torahWords: torahWordsCerts, nigun };
-  }, []);
+  }, [plan]);
 }
 
 function certTitle(c: Certificate, t: ReturnType<typeof useI18n>['t']) {
@@ -239,7 +242,7 @@ function Card({ c, p: game, href, extra, readHref, reading }: { c: Certificate; 
  * A certificate of the Prophets and Writings: by reading — every passage of the book marked «Я прочитал(а)» (100 %);
  * with points when «Вопросы к отрывку» of all its days are passed too. The bar is the passages read.
  */
-function TanakhCard({ c, p, href, quizHref, ready }: { c: Certificate; p: Progress; href: string; quizHref?: string; ready: number }) {
+function TanakhCard({ c, p, href, quizHref, ready, quizEnabled = true }: { c: Certificate; p: Progress; href: string; quizHref?: string; ready: number; quizEnabled?: boolean }) {
   const { t, locale } = useI18n();
   const lang = langOf(locale);
   const seen = p.seen ?? { done: 0, parts: p.parts };
@@ -259,16 +262,18 @@ function TanakhCard({ c, p, href, quizHref, ready }: { c: Certificate; p: Progre
           <span style={{ width: `${Math.min(100, readPct)}%` }} />
         </div>
         <p className="ac-meta">{t('academy.readDays', { done: seen.done, parts: seen.parts, pct: readPct })}</p>
-        <p className="ac-meta ac-read">
-          {t('academy.days', { done: p.done, parts: p.parts })}
-          {p.max > 0 && ` · ${t('academy.readPoints', { got: p.got, max: p.max, pct: pct(p) })}`}
-        </p>
-        {p.earned ? (
-          <p className="ac-ok">{t(p.scored ? 'academy.earnedPoints' : hs ? 'academy.hsEarnedRead' : 'academy.earnedRead', { pct: pct(p) })}</p>
-        ) : (
-          <p className="ac-wait">{t(hs ? 'academy.hsNeedRead' : 'academy.needRead', { pass: PASS_PCT })}</p>
+        {(quizEnabled || p.max > 0) && (
+          <p className="ac-meta ac-read">
+            {quizEnabled && t('academy.days', { done: p.done, parts: p.parts })}
+            {p.max > 0 && ` · ${t('academy.readPoints', { got: p.got, max: p.max, pct: pct(p) })}`}
+          </p>
         )}
-        {!p.scored && !p.complete && <p className="ac-wait">{t('academy.waitQuiz', { ready, parts: p.parts })}</p>}
+        {p.earned ? (
+          <p className="ac-ok">{t(p.scored ? 'academy.earnedPoints' : hs ? 'academy.hsEarnedRead' : quizEnabled ? 'academy.earnedRead' : 'academy.earnedReadOnly', { pct: pct(p) })}</p>
+        ) : (
+          <p className="ac-wait">{t(hs ? 'academy.hsNeedRead' : quizEnabled ? 'academy.needRead' : 'academy.needReadOnly', { pass: PASS_PCT })}</p>
+        )}
+        {quizEnabled && !p.scored && !p.complete && <p className="ac-wait">{t('academy.waitQuiz', { ready, parts: p.parts })}</p>}
         <div className="ac-actions">
           {p.earned && (
             <a className="btn" href={`#/academy/${c.id}`}>
@@ -604,9 +609,11 @@ function CertificateView({ c, p, sample }: { c: Certificate; p: Progress; sample
 export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
   const { t, locale } = useI18n();
   const lang = langOf(locale);
+  const mode = useMode();
+  const plan = readingPlan(useCourses(mode));
   const { token } = useAccount();
   const { torah, tanakh, tracker, hemshech, hsTracker, words, torahWords: twCerts, nigun } = useCertificates();
-  const adults = useMode() === 'adults';
+  const adults = mode === 'adults';
   // the AI assistant (✦) knows the certificates and the progress
   useEffect(() => {
     const rows = [...torah, ...tanakh, ...hemshech, ...words, ...twCerts, ...nigun].map((c) => ({
@@ -623,11 +630,11 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
             ? t('academy.twMeta', { got: c.progress.got, max: c.progress.max })
             : c.kind === 'nigun'
             ? t('academy.nigunMeta', { got: c.progress.got, max: c.progress.max, pct: pct(c.progress) })
-            : `${t('academy.readDays', { done: c.progress.seen?.done ?? 0, parts: c.progress.parts, pct: Math.round((100 * (c.progress.seen?.done ?? 0)) / (c.progress.parts || 1)) })}; ${t('academy.days', { done: c.progress.done, parts: c.progress.parts })}`,
+            : `${t('academy.readDays', { done: c.progress.seen?.done ?? 0, parts: c.progress.parts, pct: Math.round((100 * (c.progress.seen?.done ?? 0)) / (c.progress.parts || 1)) })}${plan.annual ? '' : `; ${t('academy.days', { done: c.progress.done, parts: c.progress.parts })}`}`,
     }));
-    setOtherPage({ kind: 'academy', context: () => academyContext(rows) });
+    setOtherPage({ kind: 'academy', context: () => academyContext(rows, plan.annual) });
     return () => setOtherPage(null);
-  }, [torah, tanakh, hemshech, words, twCerts, nigun, t, lang]);
+  }, [torah, tanakh, hemshech, words, twCerts, nigun, t, lang, plan.annual]);
   useEffect(() => {
     document.title = `${t('academy.h1')} · ${t('app.title')}`;
   }, [t]);
@@ -717,7 +724,7 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
             {tanakh.length ? (
               <ul className="ac-list">
                 {tanakh.map((c) => (
-                  <TanakhCard key={c.id} c={c} p={c.progress} href={c.href} quizHref={c.quizHref} ready={c.ready} />
+                  <TanakhCard key={c.id} c={c} p={c.progress} href={c.href} quizHref={c.quizHref} ready={c.ready} quizEnabled={!plan.annual} />
                 ))}
               </ul>
             ) : (

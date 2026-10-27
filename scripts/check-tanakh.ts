@@ -14,7 +14,7 @@
  */
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { buildCycle } from './tanakh-cycle';
-import { BOOKS, restReason, track, SECTIONS } from '../src/core/tanakhCycle';
+import { BOOKS, oneYearCycle, restReason, track, SECTIONS, splitTrack, studyDaysBetween } from '../src/core/tanakhCycle';
 import cycleJson from '../src/tanakh/cycle.json';
 import { styleErrors } from './style-rules';
 import { tanakhLang, tanakhNarration } from '../src/core/tanakhNarration';
@@ -25,6 +25,26 @@ const err = (m: string) => errors.push(m);
 const built = buildCycle();
 if (JSON.stringify(built.days) !== JSON.stringify(cycleJson.days) || built.end !== cycleJson.end)
   err('src/tanakh/cycle.json устарел — запустите npx tsx scripts/tanakh-cycle.ts');
+
+const annual = oneYearCycle('2026-10-27');
+const annualEnd = '2027-10-27';
+const annualDates = studyDaysBetween('2026-10-27', annualEnd);
+if (annual.length !== annualDates.length || annual.some((d, i) => d.date !== annualDates[i]))
+  err('личный годовой план: даты не совпадают с учебными днями года');
+for (const section of SECTIONS) {
+  const total = track(section).length;
+  let at = 0;
+  for (const d of annual) {
+    if (restReason(d.date)) err(`личный годовой план: ${d.date} — день отдыха`);
+    const [from, to] = d[section];
+    if (from !== at || to <= from) err(`личный годовой план ${section}: граница нарушена в ${d.date}`);
+    at = to;
+  }
+  if (at !== total) err(`личный годовой план ${section}: пройдено ${at} стихов из ${total}`);
+  const even = splitTrack(section, annual.length);
+  if (JSON.stringify(annual.map((d) => d[section][0]).concat(total)) !== JSON.stringify(even))
+    err(`личный годовой план ${section}: отрывки распределены неравномерно`);
+}
 
 const days = cycleJson.days as [string, number, number, number, number][];
 days.forEach(([d], i) => {
