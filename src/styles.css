@@ -2747,3 +2747,14 @@ a.wd-sing{font-weight:800;text-decoration:none}
 .wp .wp-btns{display:flex;justify-content:stretch;gap:6px;margin-top:8px}
 .wp-btns button{flex:1}
 @media print{.tk-hint{display:none}}
+/* Phones: let the verse and commentary text fill the screen width */
+@media screen and (max-width:640px){
+  .tk{padding-inline:4px}
+  .tk-verse.cols{column-gap:8px}
+  .tk-verse.cols>.tk-en{padding-inline-end:8px;margin-inline-end:-8px;font-size:17px;line-height:1.5}
+  .tk-verse.cols>.tk-he{font-size:22px;line-height:1.6}
+  .tk-st.cols{padding:6px 2px;background:none}
+  .tk-st.cols p{font-size:16px;line-height:1.5}
+  .tk-st.cols p.he{font-size:19px;line-height:1.6}
+  .tk-cols{column-gap:8px}
+}
