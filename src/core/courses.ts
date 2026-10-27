@@ -1,6 +1,6 @@
 /**
- * «Что вы хотите учить?» — the courses the player chose (the third question of the onboarding, ModePicker.tsx; changed in
- * the account window). The weekly Torah portion — the Baal HaTurim and «Нифлаот Ребе» — is the same for everyone and is not
+ * «Что вы хотите учить?» — the courses the player chose in the Academy (CoursesPicker.tsx) or account window. The weekly
+ * Torah portion — the Baal HaTurim and «Нифлаот Ребе» — is the same for everyone and is not
  * a course to choose; the courses are the rest: the Prophets, the Writings, Chassidut («Ґемшех»), the Holy Tongue and the
  * niggunim. The home page shows the chosen ones in the tile «Мои курсы» (CoursesCard.tsx) and the adults' plan of the day
  * only these.
@@ -73,5 +73,5 @@ export function toggleCourse(mode: Mode, course: Course, on: boolean) {
   setCourses({ c: on ? [...c, course] : c.filter((x) => x !== course), pace });
 }
 
-/** Whether the question was answered (the account window opens it while it wasn't). */
+/** Whether the player saved a course choice (the picker opens automatically until then). */
 export const coursesChosen = () => savedCourses() !== null;

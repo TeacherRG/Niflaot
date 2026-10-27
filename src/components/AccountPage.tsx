@@ -3,7 +3,7 @@ import { Html, useI18n } from '../i18n';
 import { MODES, savedMode, setMode, useMode } from '../core/mode';
 import { HEBREW_LEVELS, savedHebrewLevel, setHebrewLevel, useHebrewLevel } from '../core/hebrewLevel';
 import { BGS, SIZES, THEMES, setLook, useLook } from '../core/look';
-import { COURSES, PACES, coursesChosen, setCourses, useCourses } from '../core/courses';
+import { CoursesPicker } from './CoursesPicker';
 import { BookProgress } from './BookProgress';
 import { DailyReminder } from './DailyReminder';
 import type { MessageKey } from '../i18n/locales/ru';
@@ -349,50 +349,6 @@ function ModeCard() {
       <CoursesPicker />
       <LookPicker />
     </section>
-  );
-}
-
-/**
- * «Что вы хотите учить?» (src/core/courses.ts): the courses besides the weekly Torah portion, ticked on and off at once,
- * and the pace of the Prophets and Writings; the answer — one line, the choices under «Изменить».
- */
-function CoursesPicker() {
-  const { t } = useI18n();
-  const { c, pace } = useCourses(useMode());
-  const chosen = coursesChosen();
-  return (
-    <details className="acc-pick" open={!chosen}>
-      <summary>
-        <span className="acc-pick-q" id="acc-courses">{t('courses.q')}</span>
-        {chosen && <b>{c.length ? c.map((x) => t(`courses.${x}`)).join(', ') : t('courses.none')}</b>}
-        <span className="acc-pick-edit">{t('acc.change')}</span>
-      </summary>
-      <p className="acc-courses-note">{t('courses.qSub')}</p>
-      <div className="acc-modes" role="group" aria-labelledby="acc-courses">
-        {COURSES.map((x) => {
-          const on = c.includes(x);
-          return (
-            <button key={x} role="checkbox" aria-checked={on} className={`acc-mode${on ? ' on' : ''}`} onClick={() => setCourses({ c: on ? c.filter((y) => y !== x) : [...c, x], pace })}>
-              <b>
-                {on ? '✓' : '+'} {t(`courses.${x}`)}
-              </b>
-              <small>{t(`courses.${x}.sub`)}</small>
-            </button>
-          );
-        })}
-      </div>
-      {(c.includes('neviim') || c.includes('ketuvim')) && (
-        <div className="acc-modes acc-pace" role="radiogroup" aria-label={t('courses.paceQ')}>
-          <span className="acc-pick-q">{t('courses.paceQ')}</span>
-          {PACES.map((p) => (
-            <button key={p} role="radio" aria-checked={pace === p} className={`acc-mode${pace === p ? ' on' : ''}`} onClick={() => setCourses({ c, pace: p })}>
-              <b>{t(`courses.pace.${p}`)}</b>
-              <small>{t(`courses.pace.${p}.sub`)}</small>
-            </button>
-          ))}
-        </div>
-      )}
-    </details>
   );
 }
 

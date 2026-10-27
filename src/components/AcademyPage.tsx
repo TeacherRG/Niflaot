@@ -24,6 +24,7 @@ import { routeLink } from '../core/site';
 import { QrCode } from './QrCode';
 import { setOtherPage } from '../core/assistant';
 import { academyContext } from '../core/assistantPages';
+import { CoursesPicker } from './CoursesPicker';
 import {
   PASS,
   RECTOR,
@@ -767,6 +768,8 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
           <p className="ac-lead">{t(adults ? 'academy.leadAdults' : 'academy.lead', { pass: PASS_PCT })}</p>
           {!token && <p className="tk-note">{t('academy.guest')}</p>}
         </header>
+
+        <CoursesPicker />
 
         {/* the faculties of the mode at a glance: a tap scrolls to the faculty */}
         <nav className={`ac-facs${adults ? '' : ' kids'}`} aria-label={t('academy.facs')}>
