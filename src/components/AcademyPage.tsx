@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useI18n } from '../i18n';
 import { Slogan } from './Slogan';
+import { koeletProgress } from '../core/koelet';
 import type { MessageKey } from '../i18n/locales/ru';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
@@ -51,10 +52,10 @@ const PASS_PCT = Math.round(PASS * 100);
  * the Prophets and Writings and the Chassidut of Chabad («Ґемшех Самех-Вав») first, then the same four «the grown-up
  * way»: the words of Tanakh, the Baal HaTurim and the Rebbe's talks to read.
  */
-type FacultyId = 'lashon' | 'gematria' | 'nigun' | 'rebbe' | 'tanakh' | 'hemshech';
+type FacultyId = 'lashon' | 'gematria' | 'nigun' | 'rebbe' | 'tanakh' | 'hemshech' | 'koelet';
 const FACULTIES: Record<'kids' | 'adults', FacultyId[]> = {
-  kids: ['lashon', 'gematria', 'nigun', 'rebbe'],
-  adults: ['tanakh', 'hemshech', 'lashon', 'gematria', 'nigun', 'rebbe'],
+  kids: ['lashon', 'gematria', 'nigun', 'rebbe', 'koelet'],
+  adults: ['tanakh', 'hemshech', 'lashon', 'gematria', 'nigun', 'rebbe', 'koelet'],
 };
 const FACULTY: Record<FacultyId, { he: string; color: string }> = {
   lashon: { he: 'לשון הקודש', color: 'gold' },
@@ -63,6 +64,7 @@ const FACULTY: Record<FacultyId, { he: string; color: string }> = {
   rebbe: { he: 'קודש הקדשים', color: 'green' },
   tanakh: { he: 'נביאים וכתובים', color: 'tchelet' },
   hemshech: { he: 'חסידות', color: 'green' },
+  koelet: { he: 'קהלת', color: 'green' },
 };
 /** Where to learn in each faculty: [href, UI key], the children's and the adults'. */
 const LINKS: Record<FacultyId, Record<'k' | 'a', [string, MessageKey][]>> = {
@@ -72,6 +74,7 @@ const LINKS: Record<FacultyId, Record<'k' | 'a', [string, MessageKey][]>> = {
   rebbe: { k: [['#/shabbat-table', 'table.title'], ['#/digest', 'digest.title']], a: [['#/shabbat-table', 'table.title'], ['#/digest', 'digest.title']] },
   tanakh: { k: [], a: [['#/neviim', 'tanakh.neviim'], ['#/ketuvim', 'tanakh.ketuvim'], ['#/digest', 'digest.title']] },
   hemshech: { k: [], a: [['#/hemshech', 'hs.menuLbl']] },
+  koelet: { k: [], a: [] },
 };
 
 /** Every certificate with its progress on this device. */
@@ -158,6 +161,42 @@ function certBook(c: Certificate, t: ReturnType<typeof useI18n>['t'], lang: Lang
     <>
       {t('academy.book', { name: c.book.name[lang] })} · <span className="he" lang="he">{c.book.he}</span>
     </>
+  );
+}
+
+/**
+ * «Тайна Коэлета» (koelet/, src/core/koelet.ts): the game gives its own certificate (with the hero's name, the photo and the
+ * personal page) after the seven worlds — here the worlds done and the way to it.
+ */
+function KoeletCard() {
+  const { t } = useI18n();
+  const p = koeletProgress();
+  return (
+    <ul className="ac-list">
+      <li className={`ac-card t-green${p.finished ? ' earned' : ''}`}>
+        <div className="ac-seal" aria-hidden="true">
+          {p.finished ? '🎓' : '🧩'}
+        </div>
+        <div className="ac-body">
+          <h3>
+            {t('koelet.cert')}
+            <small>
+              {t('koelet.book')} · <span className="he" lang="he">קהלת</span>
+            </small>
+          </h3>
+          <div className="ac-bar" role="img" aria-label={`${Math.round((100 * p.done) / p.total)}%`}>
+            <span style={{ width: `${Math.round((100 * p.done) / p.total)}%` }} />
+          </div>
+          <p className="ac-meta">{t('courses.koeletSub', { n: p.done, total: p.total })}</p>
+          {p.finished ? <p className="ac-ok">{t('academy.earned')}</p> : <p className="ac-wait">{t('koelet.need')}</p>}
+          <div className="ac-actions">
+            <a className="btn" href="#/koelet">
+              {t(p.finished ? 'koelet.open' : p.started ? 'home.continue' : 'koelet.start')}
+            </a>
+          </div>
+        </div>
+      </li>
+    </ul>
   );
 }
 
@@ -674,9 +713,14 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
             ? tanakh
             : f === 'hemshech'
               ? hemshech
-              : nigun;
+              : f === 'koelet'
+                ? []
+                : nigun;
   const earned = Object.fromEntries(facs.map((f) => [f, certsOf(f).filter((c) => c.progress.earned).length])) as Record<FacultyId, number>;
   const total = Object.fromEntries(facs.map((f) => [f, certsOf(f).length])) as Record<FacultyId, number>;
+  // the game's own certificate, one for the seven worlds
+  earned.koelet = koeletProgress().finished ? 1 : 0;
+  total.koelet = 1;
   const faculty = (f: FacultyId) => {
     switch (f) {
       case 'lashon':
@@ -732,6 +776,8 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
             )}
           </>
         );
+      case 'koelet':
+        return <KoeletCard />;
       case 'hemshech':
         // «Ґемшех Самех-Вав»: a certificate for each discourse, by reading — as a book of the Prophets
         return (

@@ -14,6 +14,7 @@ import { nigunCertificates, readNigunStore } from './nigunGame';
 import { bookRoadmap } from './milestones';
 import { civilDate } from './hebrewDate';
 import { hsNextIndex, nextIndex } from './todayStudy';
+import { koeletProgress } from './koelet';
 import type { Course, CourseChoice, Pace } from './courses';
 
 export interface CourseRow {
@@ -93,11 +94,17 @@ function nigun(locale: string): CourseRow {
   };
 }
 
+/** «Тайна Коэлета»: the worlds done of seven (the game's own progress in this browser, src/core/koelet.ts) */
+function koelet(): CourseRow {
+  const p = koeletProgress();
+  return { id: 'koelet', done: p.done, total: p.total, finished: p.finished, href: '#/koelet' };
+}
+
 /** The rows of the chosen courses, in the order of COURSES. */
 export function myCourses(courses: Course[], choice: CourseChoice, locale: string): CourseRow[] {
   const lang = langOf(locale);
   const today = localToday();
   return courses.map((c) =>
-    c === 'neviim' || c === 'ketuvim' ? tanakh(c, choice, lang, today) : c === 'hemshech' ? hemshech(choice.pace, locale, lang, today) : c === 'lashon' ? lashon() : nigun(locale),
+    c === 'neviim' || c === 'ketuvim' ? tanakh(c, choice, lang, today) : c === 'hemshech' ? hemshech(choice.pace, locale, lang, today) : c === 'lashon' ? lashon() : c === 'koelet' ? koelet() : nigun(locale),
   );
 }

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<!-- Безопасность: GitHub Pages не даёт задать HTTP-заголовки, поэтому политика — в meta.
+     Все файлы, включая шрифты (fonts/), — только с этого сайта; внешних запросов нет.
+     api.github.com — только для вошедшего админа (admin.js: загрузка картин к стихам); у игроков запросов туда нет.
+     защита от встраивания в чужой iframe — frame-guard.js (frame-ancestors в meta не работает). -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self' https://api.github.com; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+<script src="frame-guard.js"></script>
+<meta name="referrer" content="no-referrer">
+<title>Тайна Коэлета</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#edf3ef">
+<link rel="canonical" href="https://niflaot.mychitas.app/koelet/">
+<link rel="alternate" hreflang="ru" href="https://niflaot.mychitas.app/koelet/">
+<link rel="alternate" hreflang="uk" href="https://niflaot.mychitas.app/koelet/?lang=uk">
+<link rel="alternate" hreflang="de" href="https://niflaot.mychitas.app/koelet/?lang=de">
+<link rel="alternate" hreflang="en" href="https://niflaot.mychitas.app/koelet/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://niflaot.mychitas.app/koelet/">
+<meta name="description" content="Интерактивное приключение для детей 8–15 лет и для взрослых (16+) по уроку раввина Шнеора Ашкенази о книге Коэлет. Найди свой хелек — долю, которую дал тебе Всевышний. Без рекламы и чатов, данные не покидают устройство.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="My Lot · mychitas.app">
+<meta property="og:url" content="https://niflaot.mychitas.app/koelet/">
+<meta property="og:title" content="Тайна Коэлета — приключение для детей 8–15 лет и взрослых 16+">
+<meta property="og:description" content="Семь миров книги Коэлет по уроку рава Шнеора Ашкенази. Найди свою деталь в большом пазле — свой хелек, дар Всевышнего.">
+<meta property="og:image" content="https://niflaot.mychitas.app/koelet/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Хранитель библиотеки и надпись «Тайна Коэлета»">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="uk_UA">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Тайна Коэлета","alternateName":["Таємниця Коелета","Das Geheimnis von Kohelet","The Secret of Kohelet"],"url":"https://niflaot.mychitas.app/koelet/","image":"https://niflaot.mychitas.app/koelet/og-image.png","description":"Интерактивное приключение для детей 8–15 лет и для взрослых (16+) по уроку раввина Шнеора Ашкенази о книге Коэлет.","applicationCategory":"EducationalApplication","genre":"Educational game","operatingSystem":"Any (web browser)","inLanguage":["ru","uk","de","en"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"audience":{"@type":"PeopleAudience","suggestedMinAge":8},"publisher":{"@type":"Organization","name":"mychitas.app","url":"https://mychitas.app"}}
+</script>
+
+<div class="scenery" id="scenery" aria-hidden="true"></div>
+<div class="app" id="app">
+  <div class="hud" id="hud" hidden></div>
+  <main id="stage"><noscript><h1>Тайна Коэлета</h1><p>Интерактивное приключение для детей 8–15 лет и для взрослых (16+) по уроку раввина Шнеора Ашкенази о книге Коэлет: семь миров, Хранитель древней библиотеки и твой хелек — доля, которую дал тебе Всевышний. Для игры включи JavaScript.</p></noscript></main>
+  <nav class="backbar" id="backbar" hidden></nav>
+</div>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<div class="print-area" id="print-area" aria-hidden="true"></div>
+
+<!-- Narrative content is kept separate from the runtime so both can evolve independently. -->
+<script src="i18n.js"></script>
+<script src="game-data.js"></script>
+<script src="art.js"></script>
+<script src="voice-key.js"></script>
+<script src="music.js"></script>
+<script src="game.js"></script>
+<script src="shabbat.js"></script>
+<script src="pasuk.js"></script>
+<script src="hayomyom.js"></script>
+<script src="gallery.js"></script>
+<script src="admin.js"></script>
+<script src="lot.js"></script>

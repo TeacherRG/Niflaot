@@ -1,0 +1,16 @@
+{
+  "format": "audio-24khz-48kbitrate-mono-mp3",
+  "rate": "-5%",
+  "voices": {
+    "ru": "ru-RU-DmitryNeural",
+    "uk": "uk-UA-OstapNeural",
+    "de": "de-DE-ConradNeural",
+    "en": "en-GB-RyanNeural"
+  },
+  "lexicon": {
+    "ru": {},
+    "uk": {},
+    "de": {"G-tt": "Gott", "G-ttes": "Gottes"},
+    "en": {"Chelek": "Khelek", "chelek": "khelek", "Chana": "Khana", "Chizkiyahu": "Khizkiyahu", "Yitzchak": "Yitzhak", "Baruch": "Barukh", "Tanach": "Tanakh", "halachah": "halakha", "Mordechai": "Mordekhai"}
+  }
+}

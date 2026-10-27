@@ -7,7 +7,7 @@ import type { CourseRow } from '../core/myCourses';
 
 /** the bar: of the book being read (the Prophets, the Writings — a book is a step one sees), else of the whole course */
 /** where to look at a course before adding it */
-const COURSE_HREF = { neviim: '#/neviim', ketuvim: '#/ketuvim', hemshech: '#/hemshech', lashon: '#/lashon', nigun: '#/nigun' } as const;
+const COURSE_HREF = { neviim: '#/neviim', ketuvim: '#/ketuvim', hemshech: '#/hemshech', lashon: '#/lashon', nigun: '#/nigun', koelet: '#/koelet' } as const;
 
 const pct = (r: CourseRow) => (r.book ? Math.round((r.book.done / r.book.parts) * 100) : r.total ? Math.round((r.done / r.total) * 100) : 0);
 
@@ -40,15 +40,16 @@ export function CoursesCard({ lead = false }: { lead?: boolean }) {
     if (r.starts) return t('courses.starts', { date: r.starts });
     if (r.id === 'neviim' || r.id === 'ketuvim' || r.id === 'hemshech') return r.finished ? `✓ ${r.next}` : `${t('courses.next')}: ${r.next}`;
     if (r.id === 'lashon') return t('courses.lashonSub', { n: r.next ?? 0, xp: r.done, goal: r.total });
+    if (r.id === 'koelet') return r.finished ? t('courses.koeletAll') : r.done ? t('courses.koeletSub', { n: r.done, total: r.total }) : t('courses.koeletStart');
     return r.finished ? t('courses.nigunAll') : `${t('courses.next')}: ${r.next}`;
   };
   // today: the daily courses (a niggun has no part of the day); the first one not done today — the one action of the home
-  const daily = (rows ?? []).filter((r) => r.id !== 'nigun' && !r.starts);
+  const daily = (rows ?? []).filter((r) => r.id !== 'nigun' && r.id !== 'koelet' && !r.starts);
   const doneToday = daily.filter((r) => r.today).length;
-  const go = lead ? (rows ?? []).find((r) => !r.starts && !(r.id === 'nigun' ? r.finished : r.today)) : undefined;
-  const goLabel = (r: CourseRow) => t(r.id === 'lashon' ? 'words.homeCta' : r.id === 'nigun' ? 'home.continue' : 'read.tab');
+  const go = lead ? (rows ?? []).find((r) => !r.starts && !(r.id === 'nigun' || r.id === 'koelet' ? r.finished : r.today)) : undefined;
+  const goLabel = (r: CourseRow) => t(r.id === 'lashon' ? 'words.homeCta' : r.id === 'nigun' || r.id === 'koelet' ? 'home.continue' : 'read.tab');
   const count = (r: CourseRow) =>
-    r.id === 'lashon' ? `${r.done}/${r.total}` : r.id === 'nigun' ? `🎓 ${r.done}/${r.total}` : t('courses.of', { n: r.done, total: r.total });
+    r.id === 'lashon' || r.id === 'koelet' ? `${r.done}/${r.total}` : r.id === 'nigun' ? `🎓 ${r.done}/${r.total}` : t('courses.of', { n: r.done, total: r.total });
 
   return (
     <section className={`courses ${mode === 'adults' ? 'adults' : 'kids'}${lead ? ' lead' : ''}`} aria-labelledby="courses-h">

@@ -8,14 +8,14 @@ type Tab = { href: string; label: string; icon: ReactNode; here: boolean };
 /**
  * The bottom tab bar on a phone (≤ 640 px, CSS) — the main sections under the thumb, like an app; «Меню» opens the
  * side menu (it holds the rest: Torah, help, about). Children: Главная · Слова Торы · Знаете ли вы? · Академия · Меню;
- * adults: Сегодня · Танах · Хасидут · Мои слова · Меню. Not on printouts, the admin, the onboarding and the quiz
- * host's big screen. While it is shown, `html.tabbed` hides the top bar's ☰ and lifts the ✦ button above it.
+ * adults: Сегодня · Танах · Хасидут · Мои слова · Меню. Not on printouts, the admin, the onboarding, the quiz
+ * host's big screen and «Тайна Коэлета» (the game has its own bar at the bottom). While it is shown, `html.tabbed` hides the top bar's ☰ and lifts the ✦ button above it.
  */
 export function TabBar({ slug, view }: { slug: string; view?: string }) {
   const { t } = useI18n();
   const { open, panel } = useUI();
   const adults = useMode() === 'adults';
-  const shown = !(slug === 'admin' || slug === 'mode' || view === 'print' || (slug === 'quiz' && view === 'host'));
+  const shown = !(slug === 'admin' || slug === 'mode' || view === 'print' || (slug === 'quiz' && view === 'host') || slug === 'koelet');
   useEffect(() => {
     document.documentElement.classList.toggle('tabbed', shown);
     return () => document.documentElement.classList.remove('tabbed');
