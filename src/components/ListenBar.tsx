@@ -10,7 +10,8 @@ type Status = 'off' | 'loading' | 'playing' | 'paused' | 'error' | 'done';
 
 /**
  * «Слушать урок» on a read page: the lesson read aloud by a male voice (Gemini TTS, src/core/listen.ts), part after
- * part; the next part is fetched while one plays. The first listener of a part waits while it is recorded (the note
+ * part; the next part is asked for together with the one to play (nothing is recorded ahead — the owner, 27.10.2026: the
+ * first press records them, two at a time, so the next one is ready when this one ends). The first listener of a part waits while it is recorded (the note
  * says so); everyone after gets it at once. Hidden when the lesson has no recording (no assistant / dev build).
  * `load` — the parts made on the page (a passage of the Prophets / Writings: src/core/tanakhNarration.ts); a lesson's
  * are loaded from the site.
@@ -91,6 +92,8 @@ export function ListenBar({
     setStatus('loading');
     setSlow(false);
     const timer = setTimeout(() => run.current === me && setSlow(true), 2500);
+    // the next part — at once, in parallel: its recording (up to a minute) goes on while this one is made and plays
+    if (i + 1 < parts.length) get(i + 1).catch(() => {});
     try {
       const url = await get(i);
       if (run.current !== me) return;
@@ -104,8 +107,7 @@ export function ListenBar({
       await a.play();
       if (run.current !== me) return;
       setStatus('playing');
-      // the part after this one — while this one plays; the ones before are not needed any more
-      if (i + 1 < parts.length) get(i + 1).catch(() => {});
+      // the ones before are not needed any more
       for (const [k, p] of urls.current)
         if (k < i - 1) {
           urls.current.delete(k);

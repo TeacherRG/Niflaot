@@ -1,5 +1,5 @@
-# The podcast: after the narration is pre-recorded (tts-prerecord.yml — after every deploy and every morning but
-# Shabbat), every lesson whose parts are all recorded becomes one MP3 episode in the release `podcast`
+# The podcast: every night and after a pre-recording by hand (tts-prerecord.yml; parts are recorded when listeners press
+# «Слушать»), every lesson whose parts are all recorded becomes one MP3 episode in the release `podcast`
 # (scripts/podcast.ts). New or changed episodes — the site is deployed again, and its build writes the feeds
 # podcast.xml / podcast-en.xml / podcast-de.xml. Nothing new — nothing happens (so the chain stops after one round).
 # Needs the variable ASSISTANT_URL.
@@ -10,6 +10,9 @@ on:
   workflow_run:
     workflows: ['Pre-record narration']
     types: [completed]
+  schedule:
+    # Sunday to Friday 03:41 UTC
+    - cron: '41 3 * * 0-5'
 
 permissions:
   contents: write   # upload the episodes to the release
