@@ -1208,6 +1208,8 @@ const ru = {
   'tanakh.md': 'Мецудат Давид',
   'tanakh.rashi': 'Раши',
   'tanakh.commLabel': 'Комментарии',
+  'tanakh.noComm': 'без комментариев',
+  'tanakh.noCommLong': 'Без комментариев — только текст',
   'tanakh.commTr': 'перевод готовится — пока на иврите',
   'tanakh.commEnOnly': 'по-английски',
   'tanakh.viewLabel': 'Язык',

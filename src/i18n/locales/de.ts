@@ -1187,6 +1187,8 @@ const de: Messages = {
   'tanakh.md': 'Mezudat David',
   'tanakh.rashi': 'Raschi',
   'tanakh.commLabel': 'Kommentare',
+  'tanakh.noComm': 'ohne Kommentare',
+  'tanakh.noCommLong': 'Ohne Kommentare – nur der Text',
   'tanakh.commTr': 'Übersetzung folgt – vorerst auf Hebräisch',
   'tanakh.commEnOnly': 'auf Englisch',
   'tanakh.viewLabel': 'Sprache',

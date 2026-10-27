@@ -38,28 +38,36 @@ interface View {
   rashi: boolean;
 }
 const VIEW_KEY = 'niflaot:tanakh-view';
+/** the translation in the site's language, keeping the shape of the choice: with the Hebrew, alone or Hebrew only */
+const inLocale = (text: TextLang, locale: string): TextLang => {
+  const tr: Tr = locale === 'ru' || locale === 'de' ? locale : 'en';
+  return text === 'he' ? 'he' : text.startsWith('he-') ? `he-${tr}` : tr;
+};
+/**
+ * The choice is remembered with the site's language it was made in (`loc`): another language picked in the list stays
+ * while the site's language is the same; a new site language brings the translation in it (owner, 27.10.2026).
+ */
 function useView(locale: string): [View, (v: View) => void] {
-  const [view, set] = useState<View>(() => {
+  const [saved, set] = useState<View & { loc?: string }>(() => {
     try {
       const v = JSON.parse(localStorage.getItem(VIEW_KEY) ?? 'null');
       if (v && TEXT_LANGS.includes(v.text)) {
         // a choice saved before the commentaries (`st`, a switch of earlier explanations) becomes Metzudat David's
         const md = typeof v.md === 'boolean' ? v.md : v.st !== false;
-        const rashi = v.rashi === true;
-        // a choice saved before the German translation existed (no `de` mark): on the German site English becomes German, once
-        if (locale === 'de' && !v.de && (v.text === 'he-en' || v.text === 'en')) return { text: v.text === 'en' ? 'de' : 'he-de', md, rashi };
-        return { text: v.text, md, rashi };
+        return { text: v.text, md, rashi: v.rashi === true, loc: typeof v.loc === 'string' ? v.loc : undefined };
       }
     } catch {}
     // by default: the Hebrew with the translation in the site's language, with Metzudat David
-    return { text: locale === 'ru' ? 'he-ru' : locale === 'de' ? 'he-de' : 'he-en', md: true, rashi: false };
+    return { text: 'he-en', md: true, rashi: false };
   });
+  const view: View = { text: saved.loc === locale ? saved.text : inLocale(saved.text, locale), md: saved.md, rashi: saved.rashi };
   return [
     view,
     (v) => {
-      set(v);
+      const next = { text: v.text, md: v.md, rashi: v.rashi, loc: locale };
+      set(next);
       try {
-        localStorage.setItem(VIEW_KEY, JSON.stringify({ ...v, de: true }));
+        localStorage.setItem(VIEW_KEY, JSON.stringify(next));
       } catch {}
     },
   ];
@@ -87,6 +95,7 @@ function ViewMenu({ view, setView, soon }: { view: View; setView: (v: View) => v
           {t(`tanakh.view.${view.text}`)}
           {view.md && <small> · {t('tanakh.md')}</small>}
           {view.rashi && <small> · {t('tanakh.rashi')}</small>}
+          {!view.md && !view.rashi && <small> · {t('tanakh.noComm')}</small>}
         </span>
         <Icon name="chevron" size={14} />
       </button>
@@ -111,6 +120,11 @@ function ViewMenu({ view, setView, soon }: { view: View; setView: (v: View) => v
           ))}
           <div className="tk-view-sep" />
           <div className="tk-view-head">{t('tanakh.commLabel')}</div>
+          <button type="button" role="menuitemcheckbox" aria-checked={!view.md && !view.rashi} onClick={() => setView({ ...view, md: false, rashi: false })}>
+            <span className="code">—</span>
+            <span className="name">{t('tanakh.noCommLong')}</span>
+            {!view.md && !view.rashi && <Icon name="check" size={16} />}
+          </button>
           <button type="button" role="menuitemcheckbox" aria-checked={view.md} onClick={() => setView({ ...view, md: !view.md })}>
             <span className="code">✦</span>
             <span className="name">{t('tanakh.mdLong')}</span>
