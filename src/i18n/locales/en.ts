@@ -33,6 +33,8 @@ const en: Messages = {
   'menu.neviim': "Nevi’im — Prophets",
   'menu.ketuvim': "Ketuvim — Writings",
   'menu.lashonSub': "lessons, words, letters",
+  'menu.courses': "Academy courses",
+  'menu.coursesSub': "“The Secret of Kohelet” — a quest on Kohelet",
   'menu.misc': "More",
   'menu.miscSub': "print, quiz, “Did you know?”",
   'menu.learn': "Help & skills",

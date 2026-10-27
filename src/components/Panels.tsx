@@ -102,8 +102,9 @@ function ParshaPicker({ groups, selected, week, onPick }: { groups: Group[]; sel
 /**
  * The menu, by sections (both modes; a section holding the open page is unfolded):
  *  - «Хасидут» — «Сихот Ребе» (the «Нифлаот Ребе» lessons of a portion) and «Ґемшех Ребе Рашаба»;
- *  - «Танах» — «Тора с Бааль ґа-Турим» (the lessons of a portion), «Невиим», «Ктувим» (the passage of the day), «Тайна Коэлета»;
+ *  - «Танах» — «Тора с Бааль ґа-Турим» (the lessons of a portion), «Невиим», «Ктувим» (the passage of the day);
  *  - «Святой язык» — the course, the words («Слова Торы» / «Мои слова»), the letters; «Святая музыка»;
+ *  - «Курсы Академии» — «Тайна Коэлета»;
  *  - «Разное» — print, «К шабатнему столу», «Викторина вместе», «Знаете ли вы?»;
  * then «Помощь и навыки» (children), «Академия», «Учитель», «Партнёры», «О проекте». The lessons: the children's — the games
  * (and «Читать»), the adults' — «Читать» / «Прочитать» only. Today's passages (src/core/todayStudy.ts) show their verses and ✓
@@ -253,7 +254,7 @@ export function Panels() {
               {link('#/hemshech', <Icon name="book" />, t('menu.hemshech'), today && 'title' in today.hs ? today.hs.title : t('hs.short'), !!today && 'title' in today.hs && today.hs.done)}
             </>
           ))}
-          {group(<Icon name="book" />, t('menu.tanakh'), t('menu.tanakhSub'), inTorah || starts('#/neviim', '#/ketuvim', '#/koelet'), (
+          {group(<Icon name="book" />, t('menu.tanakh'), t('menu.tanakhSub'), inTorah || starts('#/neviim', '#/ketuvim'), (
             <>
               {torahGroups.length > 0 && (
                 <details className="menu-group" open={inTorah}>
@@ -269,8 +270,6 @@ export function Panels() {
               )}
               {link(tk('neviim'), num('נ', true), t('menu.neviim'), today?.neviim.range ?? t('tanakh.daySub'), today?.neviim.done)}
               {link(tk('ketuvim'), num('כ', true), t('menu.ketuvim'), today?.ketuvim.range ?? t('tanakh.daySub'), today?.ketuvim.done)}
-              {/* Kohelet is one of the Writings: its adventure, a course of the academy */}
-              {link('#/koelet', num('ק', true), t('koelet.title'), t('koelet.menuSub'))}
             </>
           ))}
           {group(<Icon name="chat" />, t('academy.fac.lashon'), t('menu.lashonSub'), starts('#/lashon', '#/torah-words', '#/words', '#/letters'), (
@@ -283,6 +282,10 @@ export function Panels() {
             </>
           ))}
           {link('#/nigun', <Icon name="music" />, t('nigun.title'), t('nigun.menuSub'))}
+          {/* «Курсы Академии» — the academy's own courses (owner, 27.10.2026): «Тайна Коэлета» so far */}
+          {group(<Icon name="award" />, t('menu.courses'), t('menu.coursesSub'), starts('#/koelet'), (
+            link('#/koelet', num('ק', true), t('koelet.title'), t('koelet.menuSub'))
+          ))}
           {group(<Icon name="grid" />, t('menu.misc'), t('menu.miscSub'), starts('#/facts', '#/daily', '#/quiz', '#/shabbat-table', '#/digest'), (
             <>
               {lessonSlug && link(`#/${lessonSlug}/print`, <Icon name="print" />, t('print.button'))}

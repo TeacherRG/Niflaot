@@ -36,6 +36,8 @@ const ru = {
   'menu.neviim': "Невиим — Пророки",
   'menu.ketuvim': "Ктувим — Писания",
   'menu.lashonSub': "уроки, слова, буквы",
+  'menu.courses': "Курсы Академии",
+  'menu.coursesSub': "«Тайна Коэлета» — квест по книге Коэлет",
   'menu.misc': "Разное",
   'menu.miscSub': "печать, викторина, «Знаете ли вы?»",
   'menu.learn': "Помощь и навыки",
