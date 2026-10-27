@@ -53,7 +53,8 @@ const offline = (html) =>
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   const url = new URL(req.url);
-  if (req.method !== 'GET' || url.origin !== location.origin || url.pathname.startsWith('/__niflaot/')) return;
+  // «Тайна Коэлета» (koelet/) — its own files, music and pictures: not cached, the browser fetches them
+  if (req.method !== 'GET' || url.origin !== location.origin || url.pathname.startsWith('/__niflaot/') || url.pathname.startsWith('/koelet/')) return;
   if (req.mode === 'navigate') {
     e.respondWith(
       fetch(req)

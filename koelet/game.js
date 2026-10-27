@@ -39,6 +39,9 @@ function save(){
 const $=s=>document.querySelector(s);
 const stage=$('#stage');
 const esc=s=>String(s).replace(/[&<>"{}]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','{':'&#123;','}':'&#125;'}[c]));
+/* Игра открыта курсом «Нифлаот» (#/koelet, тот же сайт; класс ставит frame-guard.js) */
+const EMBED=document.documentElement.classList.contains('embed');
+function niflaot(){const o={};try{o.name=(localStorage.getItem('niflaot:cert-name')||'').trim();o.adults=localStorage.getItem('niflaot:mode')==='adults'}catch(e){}return o}
 const heroName=()=>S.hero.name.trim()||t('hero.default');
 /* возраст и род */
 const young=()=>S.hero.age==='y';
@@ -67,7 +70,14 @@ function avatarArt(p){
   const badge=r&&!own?`<g transform="translate(72 72)"><circle cx="12" cy="12" r="13" fill="#fff" stroke="${OUTFITS[p.outfit||0]}" stroke-width="2.5"/><g transform="translate(3 3) scale(.75)" fill="none" stroke="#3a3a3a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[ARCH_IC[p.arch]]}</g></g>`:'';
   return `<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#f4efe6"/><rect width="100" height="100" fill="${OUTFITS[p.outfit||0]}" fill-opacity=".3"/><image href="${src}" width="100" height="100" preserveAspectRatio="xMidYMax slice"/>${badge}</svg>`;
 }
+/* Герой — без аватара (выбор внешности и роли убран, 27.10.2026): кружок с первой буквой имени. Аватары остаются
+   у других персонажей (братья, фишки «К Шабату»); картинки художника для героя — когда вернём выбор. */
+function heroBadge(){
+  const n=(S.hero.name.trim()||t('hero.default')).charAt(0).toUpperCase();
+  return `<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#dcebe2"/><circle cx="50" cy="50" r="38" fill="#fff" stroke="#c9a23a" stroke-width="4"/><text x="50" y="50" dy=".35em" text-anchor="middle" font-size="44" font-weight="700" fill="#2f4a3c">${esc(n)}</text></svg>`;
+}
 function avatar(p){
+  if(p===S.hero)return heroBadge();
   const art=avatarArt(p);if(art)return art;
   const L=LOOKS[p.look||0], out=OUTFITS[p.outfit||0], a=p.arch;
   let back='',hair='',acc='';
@@ -276,7 +286,7 @@ function wireLangPicker(root,after){
 
 /* ---------- О приложении ---------- */
 const PROJECT_URL='https://mychitas.app';
-const APP_URL='https://mylot.mychitas.app';
+const APP_URL='https://niflaot.mychitas.app';   // игра — курс «Нифлаот» (#/koelet); отдельный сайт был mylot.mychitas.app
 const COPYRIGHT='©mychitas.app 5787';
 const DONATE_URL='https://mychitas.app/donate';
 function donateBtn(){
@@ -386,7 +396,7 @@ window.addEventListener('popstate',()=>{
   const m=document.querySelector('.modal'),q=$('#qmenu');
   if(m||q){if(m)m.remove();if(q)q.remove();armBack();return}
   if(goBack())return;
-  if(S.screen==='title'){askExit();return}
+  if(S.screen==='title'){if(EMBED){history.back();return}askExit();return}   // в «Нифлаот» — назад на сайт, без вопроса
   armBack();
 });
 /* запись-страж ставим после первого касания: без него браузер её пропускает */
@@ -483,6 +493,8 @@ function quickMenu(){
 let createTried=false;
 function renderCreate(){
   const h=S.hero;
+  if(EMBED&&!h.pre){h.pre=1;const n=niflaot();   // внутри «Нифлаот»: имя из сертификатов академии, взрослый режим — 16+
+    if(!h.name&&n.name)h.name=n.name.slice(0,16);if(!h.age&&n.adults)h.age='a';save()}
   const seg=(attr,val,label,sub,ic)=>`<button class="segb big ${h[attr]===val?'on':''}" data-${attr}="${val}" aria-pressed="${h[attr]===val}">${icon(h[attr]===val?'check':ic)}<span><b>${label}</b>${sub?`<small>${sub}</small>`:''}</span></button>`;
   const ok=!!(h.age&&h.g);
   const req=(id,n,title,miss,msg,body,cls)=>{const bad=createTried&&miss;
@@ -492,23 +504,16 @@ function renderCreate(){
   stage.innerHTML=`<section class="scene create">
     <span class="kicker">${t('create.kicker')}</span>
     <h2 class="h2">${t('create.title')}</h2>
-    <div class="create-top"><div class="preview" id="pv">${avatar(h)}</div>
-      <div class="field"><label for="hname">${t('create.name')}</label><input id="hname" maxlength="16" autocomplete="off" placeholder="${esc(t('hero.default'))}" value="${esc(h.name)}"></div></div>
+    <div class="field"><label for="hname">${t('create.name')}</label><input id="hname" maxlength="16" autocomplete="off" placeholder="${esc(t('hero.default'))}" value="${esc(h.name)}"></div>
     ${req('f-age',1,t('create.age'),!h.age,t('create.needAge'),seg('age','y',t('create.ageY'),t('create.ageYs'),'book')+seg('age','t',t('create.ageT'),t('create.ageTs'),'compass')+seg('age','a',t('create.ageA'),t('create.ageAs'),'scroll'),'three')}
     ${h.age?`<p class="agenote">${t({y:'create.noteY',t:'create.noteT',a:'create.noteA'}[h.age])}</p>`:''}
     ${req('f-g',2,t('create.address'),!h.g,t('create.needG'),seg('g','m',t('create.m'),t('create.mSub'),'smile')+seg('g','f',t('create.f'),t('create.fSub'),'smile'))}
-    <div class="group"><h3>${t('create.role')}</h3><div class="archs">${ARCHS.map((a,i)=>`<button class="arch ${h.arch===i?'on':''}" data-arch="${i}">${avatar({look:h.look,outfit:h.outfit,arch:i,g:h.g})}<span>${esc(T(a.name))}</span></button>`).join('')}</div></div>
-    <div class="group"><h3>${t('create.looks')}</h3><div class="swatches">${LOOKS.map((l,i)=>`<button class="sw ${h.look===i?'on':''}" data-look="${i}" aria-label="${t('create.lookN',{n:i+1})}"><span data-css="background:linear-gradient(135deg,${l.hair} 50%,${l.skin} 50%)"></span></button>`).join('')}</div></div>
-    <div class="group"><h3>${t('create.outfit')}</h3><div class="swatches">${OUTFITS.map((o,i)=>`<button class="sw ${h.outfit===i?'on':''}" data-outfit="${i}" aria-label="${t('create.outfitN',{n:i+1})}"><span data-css="background:${o}"></span></button>`).join('')}</div></div>
     <div class="actions"><button class="btn ${ok?'':'wait'}" id="ready">${t('create.ready')}</button>${ok?'':`<span class="need ${createTried?'bad':''}">${icon('info')}${t(!h.age&&!h.g?'create.need':!h.age?'create.needAge':'create.needG')}</span>`}</div>
   </section>`;
   const keep=()=>{const y=window.scrollY;renderCreate();window.scrollTo(0,y)};
   $('#hname').oninput=e=>{h.name=e.target.value;save()};
   stage.querySelectorAll('[data-age]').forEach(b=>b.onclick=()=>{h.age=b.dataset.age;sfx.tap();save();keep()});
   stage.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{h.g=b.dataset.g;sfx.tap();save();keep()});
-  stage.querySelectorAll('[data-arch]').forEach(b=>b.onclick=()=>{h.arch=+b.dataset.arch;sfx.tap();save();keep()});
-  stage.querySelectorAll('[data-look]').forEach(b=>b.onclick=()=>{h.look=+b.dataset.look;sfx.tap();save();keep()});
-  stage.querySelectorAll('[data-outfit]').forEach(b=>b.onclick=()=>{h.outfit=+b.dataset.outfit;sfx.tap();save();keep()});
   $('#ready').onclick=()=>{
     if(!(h.age&&h.g)){
       createTried=true;sfx.soft();haptic('choice');renderCreate();

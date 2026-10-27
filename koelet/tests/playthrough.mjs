@@ -60,10 +60,10 @@ async function run(browser, base, sc) {
   const page = await ctx.newPage();
   const problems = new Set(), seen = {jigsaw: false, mirror: false};
   const add = m => problems.add(m);
-  page.on('pageerror', e => add('JS error: ' + e.message));
-  let framing = false; // the iframe check below aborts the framed page's requests on purpose
+  let framing = false; // the iframe check below aborts the framed page's requests on purpose (and the browser complains)
+  page.on('pageerror', e => { if (!framing) add('JS error: ' + e.message); });
   page.on('requestfailed', r => { if (!framing && r.url().startsWith(base) && !/\/audio\/.*\.mp3$/.test(r.url())) add('failed to load ' + r.url().slice(base.length)); });
-  page.on('console', m => { if (m.type() === 'error' && !/Failed to load resource/.test(m.text())) add('console error: ' + m.text()); });
+  page.on('console', m => { if (!framing && m.type() === 'error' && !/Failed to load resource/.test(m.text())) add('console error: ' + m.text()); });
   // players never talk to other servers; GitHub only after the admin signs in (mocked below, nothing real is sent)
   let adminOn = false;
   const gh = [];
@@ -381,15 +381,26 @@ async function run(browser, base, sc) {
     const ok = !localStorage.getItem(KEY).includes('photo') && sessionStorage.getItem(PHOTO_KEY) === S.photo;
     delete S.photo; save(); return ok && !sessionStorage.getItem(PHOTO_KEY); });
   if (!ph) add('the certificate photo is kept in localStorage (or not cleared from sessionStorage)');
-  // inside someone else's iframe the game hides itself and reopens as the whole page (clickjacking guard, frame-guard.js)
+  // inside the site's own iframe («Нифлаот», #/koelet) the game stays and knows it (html.embed, EMBED)
   const url = page.url().replace(/[?#].*$/, ''); framing = true;
   await page.setContent(`<iframe src="${url}"></iframe>`).catch(() => {});
+  let embedded = false;
+  for (let k = 0; k < 40 && !embedded; k++) {
+    embedded = await page.frames()[1]?.evaluate(() => typeof S === 'object' && EMBED && document.documentElement.classList.contains('embed')).catch(() => false);
+    if (!embedded) await page.waitForTimeout(250);
+  }
+  if (!embedded) add('the game does not open inside the site\'s own iframe');
+  // inside someone else's iframe the game hides itself and reopens as the whole page (clickjacking guard, frame-guard.js);
+  // another origin is modelled by a sandbox (an opaque origin: a second local host is blocked by Chromium's local network checks)
+  await page.setContent(`<iframe sandbox="allow-scripts" src="${url}"></iframe>`).catch(() => {});
+  // the browser may block a foreign frame from moving the whole tab — then the game stays hidden in it
   let unframed = false;
   for (let k = 0; k < 40 && !unframed; k++) {
-    unframed = await page.evaluate(() => !document.querySelector('iframe') && typeof S === 'object').catch(() => false);
+    unframed = await page.evaluate(() => !document.querySelector('iframe') && typeof S === 'object').catch(() => false)
+      || await page.frames()[1]?.evaluate(() => document.documentElement.style.display === 'none' && !document.documentElement.classList.contains('embed')).catch(() => false);
     if (!unframed) await page.waitForTimeout(250);
   }
-  if (!unframed) add('the game stays inside a foreign iframe');
+  if (!unframed) add('the game stays visible inside a foreign iframe');
   await ctx.close();
   return {name, steps, problems: [...problems]};
 }

@@ -1,6 +1,8 @@
 # Koelet — «Тайна Коэлета»
 
-Interactive adventure for children aged 8–15 and adults (16+) based on Rabbi Shneor Ashkenazi's lesson on the Book of Kohelet. Plain HTML/CSS/JS, no framework and no build step. The team talks in Russian; answer in Russian unless asked otherwise.
+Interactive adventure for children aged 8–15 and adults (16+) based on Rabbi Shneor Ashkenazi's lesson on the Book of Kohelet. Plain HTML/CSS/JS, no framework and no build step.
+
+**Since 27.10.2026 this is a course of the «Нифлаот» academy** (the Koelet repository was merged into `Niflaot/koelet/` with its history; see «Тайна Коэлета» in the root `CLAUDE.md`). The site serves this folder at `/koelet/` and shows it at `#/koelet` inside an `<iframe>` (`KoeletPage.tsx`); `frame-guard.js` lets only the site's own frame in (`html.embed`, `EMBED` in `game.js`) and sends `/koelet/` opened on its own to `/#/koelet`. The hero has **no avatar** for now (owner, 27.10.2026): the hero screen asks only name, age and boy/girl, the hero is drawn as a circle with the first letter (`heroBadge()`); inside the site the name comes from `niflaot:cert-name` and the adults' mode preselects 16+. Hosting, CNAME, robots and sitemap are the site's; the voice workflow is `.github/workflows/koelet-voice.yml` at the root. The team talks in Russian; answer in Russian unless asked otherwise.
 
 ## Run and test
 
@@ -12,7 +14,7 @@ Interactive adventure for children aged 8–15 and adults (16+) based on Rabbi S
 - `npm run voice:dry` — how many sentences/characters would be sent to Azure; `npm run voice` generates them (needs `AZURE_SPEECH_KEY`, `AZURE_SPEECH_REGION`; `--lang=`, `--rpm=`, `--jobs=`, `--force`).
 - `npm run test:parsha` — no browser: the «Глава рождения» calculation (`lot.js` + `hayomyom.js`) against Hebcal for every day 1900–2100, Israel and outside Israel, and Hebrew birthdays → day.
 - `npm test` — all of the above. Run it before every commit that touches game code or texts.
-- Cloud sessions: `.claude/hooks/session-start.sh` installs Playwright (pinned to 1.56.1, browsers are preinstalled in `/opt/pw-browsers`; never run `playwright install`).
+- Cloud sessions: run `npm ci` in `koelet/` (Playwright pinned to 1.56.1, browsers are preinstalled in `/opt/pw-browsers`; never run `playwright install`).
 - If the playthrough gets stuck on a new screen type, teach the driver loop in `tests/playthrough.mjs` how to pass it.
 
 ## Files
@@ -138,7 +140,7 @@ Interactive adventure for children aged 8–15 and adults (16+) based on Rabbi S
 
 ## Site, search and security
 
-- Hosted on GitHub Pages (`CNAME` → mylot.mychitas.app). Search: `robots.txt`, `sitemap.xml`, canonical/hreflang/JSON-LD in `index.html`. Each language has its own URL `?lang=uk|de|en` (`urlLang()` in `i18n.js`, wins over the saved choice); `setMeta()` sets description (`doc.desc`), og-tags and canonical for the language.
+- Hosted as part of «Нифлаот» at https://niflaot.mychitas.app/koelet/ (the site's `robots.txt` and deploy). Search: canonical/hreflang/JSON-LD in `index.html`. Each language has its own URL `?lang=uk|de|en` (`urlLang()` in `i18n.js`, wins over the saved choice); `setMeta()` sets description (`doc.desc`), og-tags and canonical for the language.
 - Security headers can't be set on Pages, so a Content-Security-Policy lives in a `<meta>` in `index.html`: everything only from the site itself (`'self'`), no external hosts at all (no counter, no Google Fonts; the one exception is `connect-src https://api.github.com` for the signed-in admin, see above), `style-src 'self'` without `'unsafe-inline'`, `<meta name="referrer" content="no-referrer">`. Keep it that way: a new external host is a privacy decision for a children's app, not just a CSP line.
 - No `style="…"` in templates or texts (the CSP drops it; `test:data` rejects it in texts, `test:play` fails on CSP console errors). Static styles → a class in `styles.css`; dynamic values (widths, positions, colours) → `data-css="prop:value;…"`, applied by `applyCss()` in `game.js` via `el.style` (MutationObserver on the page; only whitelisted properties `CSS_PROPS`, no `url(`). Call `applyCss(document.body)` before `window.print()` in the same task.
 - Clickjacking: `frame-ancestors` does not work in a `<meta>` CSP, so `frame-guard.js` (first script in `<head>`) hides the page inside a foreign iframe and tries to reopen it as the whole window. Fonts are self-hosted in `fonts/` (`fonts.css`, OFL), no Google requests; the page makes no requests to other servers.

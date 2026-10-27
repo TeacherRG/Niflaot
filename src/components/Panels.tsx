@@ -102,7 +102,7 @@ function ParshaPicker({ groups, selected, week, onPick }: { groups: Group[]; sel
 /**
  * The menu, by sections (both modes; a section holding the open page is unfolded):
  *  - «Хасидут» — «Сихот Ребе» (the «Нифлаот Ребе» lessons of a portion) and «Ґемшех Ребе Рашаба»;
- *  - «Танах» — «Тора с Бааль ґа-Турим» (the lessons of a portion), «Невиим», «Ктувим» (the passage of the day);
+ *  - «Танах» — «Тора с Бааль ґа-Турим» (the lessons of a portion), «Невиим», «Ктувим» (the passage of the day), «Тайна Коэлета»;
  *  - «Святой язык» — the course, the words («Слова Торы» / «Мои слова»), the letters; «Святая музыка»;
  *  - «Разное» — print, «К шабатнему столу», «Викторина вместе», «Знаете ли вы?»;
  * then «Помощь и навыки» (children), «Академия», «Учитель», «Партнёры», «О проекте». The lessons: the children's — the games
@@ -253,7 +253,7 @@ export function Panels() {
               {link('#/hemshech', <Icon name="book" />, t('menu.hemshech'), today && 'title' in today.hs ? today.hs.title : t('hs.short'), !!today && 'title' in today.hs && today.hs.done)}
             </>
           ))}
-          {group(<Icon name="book" />, t('menu.tanakh'), t('menu.tanakhSub'), inTorah || starts('#/neviim', '#/ketuvim'), (
+          {group(<Icon name="book" />, t('menu.tanakh'), t('menu.tanakhSub'), inTorah || starts('#/neviim', '#/ketuvim', '#/koelet'), (
             <>
               {torahGroups.length > 0 && (
                 <details className="menu-group" open={inTorah}>
@@ -269,6 +269,8 @@ export function Panels() {
               )}
               {link(tk('neviim'), num('נ', true), t('menu.neviim'), today?.neviim.range ?? t('tanakh.daySub'), today?.neviim.done)}
               {link(tk('ketuvim'), num('כ', true), t('menu.ketuvim'), today?.ketuvim.range ?? t('tanakh.daySub'), today?.ketuvim.done)}
+              {/* Kohelet is one of the Writings: its adventure, a course of the academy */}
+              {link('#/koelet', num('ק', true), t('koelet.title'), t('koelet.menuSub'))}
             </>
           ))}
           {group(<Icon name="chat" />, t('academy.fac.lashon'), t('menu.lashonSub'), starts('#/lashon', '#/torah-words', '#/words', '#/letters'), (

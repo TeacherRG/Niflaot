@@ -1,8 +1,8 @@
 /**
  * «Что вы хотите учить?» — the courses the player chose (the third question of the onboarding, ModePicker.tsx; changed in
  * the account window). The weekly Torah portion — the Baal HaTurim and «Нифлаот Ребе» — is the same for everyone and is not
- * a course to choose; the courses are the rest: the Prophets, the Writings, Chassidut («Ґемшех»), the Holy Tongue and the
- * niggunim. The home page shows the chosen ones in the tile «Мои курсы» (CoursesCard.tsx) and the adults' plan of the day
+ * a course to choose; the courses are the rest: the Prophets, the Writings, Chassidut («Ґемшех»), the Holy Tongue, the
+ * niggunim and «Тайна Коэлета» (the adventure on the Book of Kohelet, src/core/koelet.ts). The home page shows the chosen ones in the tile «Мои курсы» (CoursesCard.tsx) and the adults' plan of the day
  * only these.
  * The Prophets and the Writings go either at the player's own pace (`own`: from the beginning of the chosen one- or
  * three-year plan, the first passage not read yet, whatever the date) or with the Academy (`cycle`: the passage of the day); Chassidut at one's own
@@ -14,8 +14,8 @@
 import { useEffect, useState } from 'react';
 import type { Mode } from './mode';
 
-export type Course = 'neviim' | 'ketuvim' | 'hemshech' | 'lashon' | 'nigun';
-export const COURSES: Course[] = ['neviim', 'ketuvim', 'hemshech', 'lashon', 'nigun'];
+export type Course = 'neviim' | 'ketuvim' | 'hemshech' | 'lashon' | 'nigun' | 'koelet';
+export const COURSES: Course[] = ['neviim', 'ketuvim', 'hemshech', 'lashon', 'nigun', 'koelet'];
 export type Pace = 'own' | 'cycle';
 export const PACES: Pace[] = ['own', 'cycle'];
 export type PlanYears = 1 | 3;
