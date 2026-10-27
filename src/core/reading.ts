@@ -3,11 +3,23 @@
  * Текст — public/reading/tehillim/<глава>.json (`python3 scripts/fetch-reading.py`: огласовки и знаки кантилляции, кери,
  * Имена — как во всём проекте). Записи чтения — только на этом устройстве:
  *   `niflaot:reading` = {"<глава>": {best, last — слов в минуту; n — попыток}};
- *   `niflaot:reading-view` = {taamim, big}; `niflaot:reading-ch` — последняя открытая глава;
+ *   `niflaot:reading-view` = {taamim, big};
  *   `niflaot:reading-times:<глава>` — разметка аудио учителем (начало каждого слова, с).
  */
+import { hebrewParts } from './restDays';
 
 export const CHAPTERS = 150;
+
+/** Tehillim for the current day of the Hebrew month. */
+export function chapterForDate(iso: string): number {
+  return hebrewParts(iso).day;
+}
+
+export function dailyChapter(): number {
+  const d = new Date();
+  const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  return chapterForDate(iso);
+}
 
 // the site's root, as in src/core/tanakh.ts (not imported from there: it carries the whole cycle)
 const up = '..';
@@ -19,7 +31,7 @@ export interface ReadingIndex {
   version: { title: string; license: string; source: string };
   /** words in every chapter (through a space and a maqaf, without the paseq) */
   words: number[];
-  /** recordings of chapters, when there are: «<глава>» → mp3 (from the site's root or a full address) and the marked word starts */
+  /** recordings of chapters, when there are: «<глава>» → audio file (from the site's root or a full address) and word start times */
   audio?: Record<string, { src: string; times?: number[]; credit?: { name: string; url: string } }>;
 }
 
@@ -118,12 +130,6 @@ export interface View {
 }
 export const loadView = (): View => ({ taamim: false, big: false, ...read<Partial<View>>('niflaot:reading-view', {}) });
 export const saveView = (v: View) => write('niflaot:reading-view', v);
-
-export const lastChapter = (): number => {
-  const c = Number(read('niflaot:reading-ch', 1));
-  return c >= 1 && c <= CHAPTERS ? c : 1;
-};
-export const saveChapter = (c: number) => write('niflaot:reading-ch', c);
 
 const TIMES = (c: number) => `niflaot:reading-times:${c}`;
 export const markedTimes = (c: number): number[] | null => read<number[] | null>(TIMES(c), null);
