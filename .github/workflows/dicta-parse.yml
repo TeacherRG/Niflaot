@@ -24,6 +24,18 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # a job of its own: its log is readable as soon as it ends (the log of a running job is not)
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - name: Probe
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install -q torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+          .venv/bin/pip install -q transformers==4.44.2 huggingface_hub
+          .venv/bin/python scripts/dicta-parse.py --probe 2>&1 | tail -c 8000
   parse:
     runs-on: ubuntu-latest
     timeout-minutes: 300
@@ -34,14 +46,6 @@ jobs:
           python3 -m venv .venv
           .venv/bin/pip install -q torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
           .venv/bin/pip install -q transformers==4.44.2 huggingface_hub
-      - name: Probe
-        run: |
-          {
-            echo '## Probe'
-            echo '```'
-            .venv/bin/python scripts/dicta-parse.py --probe 2>&1 | tail -c 6000 | tee /dev/stderr
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
       - name: Parse
         env:
           LIMIT: ${{ inputs.limit }}
