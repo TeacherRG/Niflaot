@@ -10,7 +10,7 @@ import { CardInfo } from './RebbeCards';
 import { HebrewRuns } from './Hebrew';
 import { Colophon } from './Colophon';
 import { useMode } from '../core/mode';
-import { CardsCheck, ChapterCheck } from './ReadCheck';
+import { CardsCheck, TalkCheck } from './ReadCheck';
 import { cardRef } from '../core/cardRef';
 import { ListenBar } from './ListenBar';
 
@@ -62,8 +62,6 @@ function TalkChapter({ lesson, text, ri }: { lesson: Lesson; text: LessonText; r
         </div>
         <p>{rt.reflection}</p>
       </div>
-      {/* «Проверь себя» of a lesson without cards: the riddle's choice steps (src/core/readCheck.ts) */}
-      <ChapterCheck lesson={lesson} text={text} ri={ri} />
     </section>
   );
 }
@@ -152,8 +150,8 @@ export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards?:
               </div>
             )}
           </article>
-          {/* «Проверь себя»: which verse is each explanation about — for the Torah certificate of a reader («Академия») */}
-          <CardsCheck lesson={lesson} text={text} />
+          {/* Rebbe self-check questions are collected here at the end of the reading, collapsed by default. */}
+          {mode === 'talk' && !lesson.cards ? <TalkCheck lesson={lesson} text={text} /> : <CardsCheck lesson={lesson} text={text} />}
         </main>
         {/* the invitation to play — not in the adults' mode (src/core/mode.ts) */}
         {!adults && (

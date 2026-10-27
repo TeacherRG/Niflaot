@@ -1853,6 +1853,13 @@ p.ln-hint .he{font-family:var(--f-he);font-size:18px;color:var(--ink)}
 .qz-fb.bad{color:var(--bad)}
 .qz-ref{font-weight:400;color:var(--muted)}
 .read-check{margin:18px 0 8px;padding:14px 14px 4px;border:1px solid var(--line);border-inline-start:4px solid var(--tchelet);border-radius:12px;background:var(--paper)}
+.read-check-details{padding:0;overflow:hidden}
+.read-check-details>summary{cursor:pointer;list-style:none;padding:14px 16px;font-family:var(--f-display);font-size:19px;color:var(--tchelet);display:flex;justify-content:space-between;align-items:center}
+.read-check-details>summary::-webkit-details-marker{display:none}
+.read-check-details>summary::after{content:"+";font-family:var(--f-num);font-size:18px;transition:transform .2s}
+.read-check-details[open]>summary::after{transform:rotate(45deg)}
+.read-check-body{padding:0 14px 4px}
+.rc-chapter h4{margin:12px 0 0;font-size:15px;color:var(--muted)}
 .rc-head h3{margin:0 0 4px;font-family:var(--f-display);font-size:19px;color:var(--tchelet)}
 .rc-head p{margin:0;font-size:13.5px;color:var(--muted)}
 .read-calcs-locked{margin:10px 0;font-size:13.5px;color:var(--muted)}
