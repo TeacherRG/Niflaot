@@ -7,7 +7,7 @@
  *   phrase the commentator found; the answer is in the text of the chapter, no counting needed;
  * - a «Нифлаот Ребе» lesson («Прочитать», CardsReadPage.tsx): for every pair — «к какому стиху это объяснение?»:
  *   the Rebbe's explanation and four verses of the lesson's cards (the right one and three others);
- *   a «Нифлаот Ребе» lesson without cards yet — the choice steps of its investigation, at the end of each chapter of «Беседа».
+ *   a «Нифлаот Ребе» lesson without cards yet — the choice steps of its investigation, collected at the end of «Беседа».
  *
  * Each question is answered once (like «Вопросы к отрывку»). Answers: localStorage `niflaot:torah-read`
  * = { [slug]: { [question key]: picked option } }, synced with the account (src/core/sync.ts).
