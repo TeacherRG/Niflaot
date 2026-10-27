@@ -190,13 +190,15 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
       {checked ? (
         <details className="read-calcs no-speak">
           <summary>🧮 {t('read.calcs')}</summary>
-          <div className="eqs">
-            {r.equations.map((e, k) => (
-              <div key={k} className="eq">
-                <HebrewRuns text={e} />
-              </div>
-            ))}
-          </div>
+          {lesson.kind !== 'sicha' && (
+            <div className="eqs">
+              {r.equations.map((e, k) => (
+                <div key={k} className="eq">
+                  <HebrewRuns text={e} />
+                </div>
+              ))}
+            </div>
+          )}
           <div className="steps">
             {r.steps.map((s, i) => (
               <div key={i} className="step">

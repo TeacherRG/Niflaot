@@ -314,15 +314,10 @@ export function Riddle({ lesson, text, ri, S, update, running, onNavigate }: Pro
 
       {solved && (
         <>
-          {/* the solution block (heading, equations, text) only in «Нифлаот Ребе»: there it is the Rebbe's answer */}
+          {/* the solution block (heading and text) only in «Нифлаот Ребе» */}
           {lesson.kind === 'sicha' && (
             <div className="reveal pop">
               <h3>{rt.reveal.h}</h3>
-              {r.equations.map((e, k) => (
-                <div key={k} className="eq">
-                  <HebrewRuns text={e} />
-                </div>
-              ))}
               <Html as="p" html={withTerms(revealHtml, textLocale)} />
             </div>
           )}
