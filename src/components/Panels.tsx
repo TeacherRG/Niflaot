@@ -103,7 +103,8 @@ function ParshaPicker({ groups, selected, week, onPick }: { groups: Group[]; sel
  * The menu, by sections (both modes; a section holding the open page is unfolded):
  *  - «Хасидут» — «Сихот Ребе» (the «Нифлаот Ребе» lessons of a portion) and «Ґемшех Ребе Рашаба»;
  *  - «Танах» — «Тора с Бааль ґа-Турим» (the lessons of a portion), «Невиим», «Ктувим» (the passage of the day);
- *  - «Святой язык» — the course, the words («Слова Торы» / «Мои слова»), the letters; «Святая музыка»;
+ *  - «Святой язык» — the course, the words («Слова Торы» / «Мои слова»), the letters; «Святое чтение» — fluent reading of
+ *    Tehillim; «Святая музыка»;
  *  - «Курсы Академии» — «Тайна Коэлета»;
  *  - «Разное» — print, «К шабатнему столу», «Викторина вместе», «Знаете ли вы?»;
  * then «Помощь и навыки» (children), «Академия», «Учитель», «Партнёры», «О проекте». The lessons: the children's — the games
@@ -280,6 +281,10 @@ export function Panels() {
                 : link('#/words', <Icon name="cards" />, t('words.mine'), w?.any ? (w.due ? t('words.homeSub', { d: w.due, k: w.known }) : t('words.homeSubDone', { k: w.known })) : t('words.menuSub'), !!w?.any && !w.due)}
               {level !== 'reads' && link('#/letters', num('א', true), t('abc.title'), t('abc.menuSub'))}
             </>
+          ))}
+          {/* «Святое чтение» — fluent reading of Tehillim aloud, with trainers */}
+          {group(<Icon name="book" />, t('reading.title'), t('reading.menuSub'), starts('#/reading'), (
+            link('#/reading', num('ת', true), t('reading.menuItem'), t('reading.menuItemSub'))
           ))}
           {link('#/nigun', <Icon name="music" />, t('nigun.title'), t('nigun.menuSub'))}
           {/* «Курсы Академии» — the academy's own courses (owner, 27.10.2026): «Тайна Коэлета» so far */}

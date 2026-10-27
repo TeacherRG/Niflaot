@@ -47,6 +47,7 @@ const TanakhPage = page(() => import('./components/TanakhPage'), 'TanakhPage');
 const WordsPage = page(() => import('./components/WordsPage'), 'WordsPage');
 const TorahWordsPage = page(() => import('./components/TorahWordsPage'), 'TorahWordsPage');
 const LashonPage = page(() => import('./components/LashonPage'), 'LashonPage');
+const ReadingPage = page(() => import('./components/ReadingPage'), 'ReadingPage');
 const TanakhQuizPage = page(() => import('./components/TanakhQuizPage'), 'TanakhQuizPage');
 const HemshechPage = page(() => import('./components/HemshechPage'), 'HemshechPage');
 const AcademyPage = page(() => import('./components/AcademyPage'), 'AcademyPage');
@@ -61,7 +62,7 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©mychitas.app`;
 
 /**
  * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version,
- * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers (`/read/<n>`, `/memo/<n>`, `/r/<n>` — opened at riddle or Memo pair n), `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/partners` — «Партнёры», `#/teacher` — «Учитель» (ИИ или человек), `#/account` — аккаунт (гость / вход по коду / профиль, классы), `#/admin/leaders[/<class>]` — таблица лидеров (только в админке), `#/class/<id>` — класс для учителя, `#/consent/<token>` — согласие родителя, `#/privacy` — конфиденциальность, `#/facts` — «Знаете ли вы?», the equalities of all lessons (`#/facts/<id>` — opened at one of them), `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper, `#/letters` — «Буквы за 5 минут», `#/neviim[/<date>]`, `#/ketuvim[/<date>]` — «Пророки», «Писания»: отрывок дня трёхлетнего цикла (`/<date>/quiz`, `/quiz` — «Вопросы к отрывку»), `#/academy[/<id>]` — «Академия»: сертификаты за книги, `#/words` — «Мои слова»: слова Танаха с повторением, `#/torah-words[/<глава>]` — «Слова Торы»: детская игра со словами уроков, `#/lashon` — «Святой язык — уроки»: курс иврита по шагам (буквы и слова), `#/mode` — «Кто будет учиться?» (режим сайта; без выбора — вместо главной), `#/quiz` — «Викторина вместе» (`#/quiz/<код>` — игрок, `#/quiz/host/<код>` — ведущий), `#/shabbat-table[/<глава>]` — «К шабатнему столу»: лист главы для печати, `#/digest[/<воскресенье>]` — «Неделя в Академии»: Пророки, Писания, Хасидут и нигун недели короткими цитатами, `#/nigun[/<id>]` — «Святая музыка»: нигуны и караоке, `#/koelet` — «Тайна Коэлета»: квест по книге Коэлет (koelet/, в iframe).
+ * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers (`/read/<n>`, `/memo/<n>`, `/r/<n>` — opened at riddle or Memo pair n), `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/partners` — «Партнёры», `#/teacher` — «Учитель» (ИИ или человек), `#/account` — аккаунт (гость / вход по коду / профиль, классы), `#/admin/leaders[/<class>]` — таблица лидеров (только в админке), `#/class/<id>` — класс для учителя, `#/consent/<token>` — согласие родителя, `#/privacy` — конфиденциальность, `#/facts` — «Знаете ли вы?», the equalities of all lessons (`#/facts/<id>` — opened at one of them), `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper, `#/letters` — «Буквы за 5 минут», `#/neviim[/<date>]`, `#/ketuvim[/<date>]` — «Пророки», «Писания»: отрывок дня трёхлетнего цикла (`/<date>/quiz`, `/quiz` — «Вопросы к отрывку»), `#/academy[/<id>]` — «Академия»: сертификаты за книги, `#/words` — «Мои слова»: слова Танаха с повторением, `#/torah-words[/<глава>]` — «Слова Торы»: детская игра со словами уроков, `#/lashon` — «Святой язык — уроки»: курс иврита по шагам (буквы и слова), `#/mode` — «Кто будет учиться?» (режим сайта; без выбора — вместо главной), `#/quiz` — «Викторина вместе» (`#/quiz/<код>` — игрок, `#/quiz/host/<код>` — ведущий), `#/shabbat-table[/<глава>]` — «К шабатнему столу»: лист главы для печати, `#/digest[/<воскресенье>]` — «Неделя в Академии»: Пророки, Писания, Хасидут и нигун недели короткими цитатами, `#/nigun[/<id>]` — «Святая музыка»: нигуны и караоке, `#/koelet` — «Тайна Коэлета»: квест по книге Коэлет (koelet/, в iframe), `#/reading[/<глава>]` — «Святое чтение»: беглое чтение Теґилим.
  * `#/daily` — «Знаете ли вы?» opened on «Гематрия дня», its first card; `#/math/<op>` — «Устный счёт».
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson; `/mental-math/` and `/daily/` (also under `/en/`, `/de/`) — those pages.
@@ -191,6 +192,8 @@ function Site() {
             <WordsPage />
           ) : slug === 'lashon' ? (
             <LashonPage />
+          ) : slug === 'reading' ? (
+            <ReadingPage key={route} chapter={view || undefined} />
           ) : slug === 'torah-words' ? (
             <TorahWordsPage key={route} parsha={view || undefined} />
           ) : slug === 'quiz' ? (
