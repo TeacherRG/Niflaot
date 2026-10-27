@@ -1,0 +1,66 @@
+Разбор Dicta (`dicta-il/dictabert-joint`): 17360 стихов, не сопоставились по словам: 0.
+
+Совпадение с прежним разбором (Open Scriptures), по 220882 словам: приставки — 92.4%, окончание — 91.8%, основная форма у слов словаря — 65.4% (из 191613).
+
+Примеры расхождений основной формы:
+
+- joshua 1:1: OSHB |1121 → Dicta |n
+- joshua 1:2: OSHB |853 → Dicta |854
+- joshua 1:2: OSHB l|1121 → Dicta l|=לבנ
+- joshua 1:3: OSHB k|834 → Dicta |=כאשר
+- joshua 1:4: OSHB d|2850 → Dicta d|=החתימ
+- joshua 1:5: OSHB l|6440|2ms → Dicta |=לפני|2ms
+- joshua 1:5: OSHB k|834 → Dicta |=כאשר
+- joshua 1:5: OSHB |5973|2fs → Dicta ||2ms
+- joshua 1:5: OSHB |7503|2ms → Dicta |=התהפכ
+- joshua 1:6: OSHB c|553 → Dicta c
+- joshua 1:6: OSHB |5157 → Dicta |=הנחיל
+- joshua 1:6: OSHB |853 → Dicta |854
+- joshua 1:6: OSHB |853 → Dicta |854
+- joshua 1:6: OSHB |7650 → Dicta |=התחייב
+- joshua 1:7: OSHB c|553 → Dicta c|=ואמצ
+- joshua 1:7: OSHB |4480|1cp → Dicta ||3ms
+- joshua 1:7: OSHB c|8040 → Dicta c
+- joshua 1:8: OSHB c|1897 → Dicta c
+- joshua 1:8: OSHB |3119 → Dicta |3117
+- joshua 1:8: OSHB |8104 → Dicta |=נשמר
+- joshua 1:8: OSHB |6743 → Dicta |=הצליח
+- joshua 1:8: OSHB |853 → Dicta |854
+- joshua 1:9: OSHB |2388 → Dicta |2389
+- joshua 1:9: OSHB c|553 → Dicta c
+- joshua 1:9: OSHB |2865 → Dicta |8478
+- joshua 1:9: OSHB |5973|2ms → Dicta ||3ms
+- joshua 1:9: OSHB |430|2ms → Dicta |4428|cs
+- joshua 1:10: OSHB c|6680 → Dicta |=ויצו
+- joshua 1:10: OSHB |853 → Dicta |854
+- psalms 1:1: OSHB |7563 → Dicta |7562
+- psalms 1:1: OSHB |2400 → Dicta |2399
+- psalms 1:1: OSHB |3887 → Dicta l
+- psalms 1:2: OSHB |1897 → Dicta |=הגשימ
+- psalms 1:2: OSHB |3119 → Dicta |3117
+- psalms 1:3: OSHB |8362 → Dicta |=שתול
+- psalms 1:3: OSHB |6388 → Dicta |=פלג
+- psalms 1:3: OSHB c|5929|3ms → Dicta c|5930|3ms
+- psalms 1:3: OSHB |5034 → Dicta |=יבול
+- psalms 1:3: OSHB |6213 → Dicta |=נעשה
+- psalms 1:3: OSHB |6743 → Dicta |=הצליח
+- psalms 1:4: OSHB d|7563 → Dicta d|7562
+- psalms 1:4: OSHB k|4671 → Dicta k
+- psalms 1:5: OSHB |7563 → Dicta |7562
+- psalms 1:5: OSHB c|2400 → Dicta c|2398
+- psalms 1:6: OSHB |7563 → Dicta |7562
+- joshua 1:11: OSHB |853 → Dicta |854
+- joshua 1:11: OSHB |6720 → Dicta |=צידה
+- joshua 1:11: OSHB |7969 → Dicta |=שלושה
+- joshua 1:11: OSHB |859 → Dicta |=אתמ
+- joshua 1:11: OSHB |853 → Dicta |854
+- joshua 1:11: OSHB |853 → Dicta |854
+- joshua 1:11: OSHB l|3423|3fs → Dicta l||3fs
+- joshua 1:12: OSHB cl|7206 → Dicta |n
+- joshua 1:12: OSHB cl|1425 → Dicta |n
+- joshua 1:12: OSHB |7626 → Dicta |n
+- joshua 1:13: OSHB |853 → Dicta |854
+- joshua 1:13: OSHB |853|2mp → Dicta |854|2mp
+- joshua 1:13: OSHB |5117 → Dicta |3240
+- joshua 1:13: OSHB |853 → Dicta |854
+- joshua 1:14: OSHB |2945|2mp → Dicta ||2mp
