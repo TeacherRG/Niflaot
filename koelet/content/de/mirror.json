@@ -1,0 +1,222 @@
+{
+  "name": "Spiegel",
+  "desc": "Ein Saal, in dem alle auf andere schauen",
+  "steps": [
+    {
+      "type": "talk",
+      "who": "mentor",
+      "text": {
+        "__ag": 1,
+        "y": "Das ist der Spiegelsaal. Hier schauen die Kinder nicht auf sich selbst, sondern auf andere. Hilf ihnen.",
+        "t": "Das ist der Spiegelsaal. Hier leben Kinder, die nicht auf sich selbst schauen, sondern auf andere. Jeder Spiegel zeigt jemanden, der „besser“ ist. Hilf ihnen."
+      }
+    },
+    {
+      "type": "choice",
+      "who": {
+        "name": "Dani",
+        "av": {
+          "look": 0,
+          "outfit": 2
+        }
+      },
+      "text": "„Ari spielt besser Fußball als ich. Wozu soll ich überhaupt noch aufs Feld?“",
+      "q": "Was kann Dani tun?",
+      "key": "mirror0",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Jeden Trick von Ari kopieren",
+          "r": "Dani hat ein paar Tricks von Ari gelernt, und einer war wirklich nützlich. Aber ganz „wie Ari“ zu spielen klappte nicht: Das ist ein fremder Stil. Nach einer Woche war Dani erschöpft.",
+          "insight": false
+        },
+        {
+          "t": "Traurig sein und mit Fußball aufhören",
+          "r": "In den ersten Tagen fühlte sich Dani sogar leichter: Niemand zum Vergleichen. Aber dann vermisste er den Ball. Vielleicht war es nur eine Pause?",
+          "insight": false
+        },
+        {
+          "t": "Merken, was er selbst hat",
+          "r": "Dani hat erkannt: Er überblickt das Feld am besten und spielt genaue Pässe. Der Trainer stellte ihn ins Mittelfeld, und Ari schoss ein Tor nach seiner Vorlage.",
+          "insight": true
+        },
+        {
+          "t": "Beweisen, dass er besser ist",
+          "r": "Dani trainierte doppelt so viel und wurde wirklich besser. Nur passt er jetzt niemandem mehr zu, und die Mannschaft hat es mit ihm schwerer.",
+          "insight": false
+        },
+        {
+          "t": "Mit dem Trainer reden",
+          "r": "Der Trainer sagte: „Ich brauche keine zwei Aris. Ich brauche Dani.“ Und er gab ihm eine Liste mit Übungen. Es war viel Arbeit, die ersten Wochen waren nicht leicht.",
+          "insight": true
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": {
+        "name": "Mira",
+        "av": {
+          "look": 3,
+          "outfit": 1
+        }
+      },
+      "text": "„Schira ist klüger als ich. Bei ihr lösen sich alle Aufgaben wie von selbst.“",
+      "q": "Was kann Mira tun?",
+      "key": "mirror1",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Bis in die Nacht lernen, genau wie Schira",
+          "r": "Miras Noten wurden etwas besser. Aber sie schläft zu wenig, und es macht ihr keinen Spaß. Sie lernt wohl auf eine andere Art.",
+          "insight": false
+        },
+        {
+          "t": "Beschließen, dass sie dumm ist, und sich nicht mehr anstrengen",
+          "r": "Mira wurde ruhiger: Sie muss sich mit niemandem messen. Aber ihre tollen Fragen hat nie jemand gehört.",
+          "insight": false
+        },
+        {
+          "t": "Herausfinden, worin sie selbst stark ist",
+          "r": "Mira hat bemerkt: Sie erklärt am besten. Wenn sie ein Thema erzählt, versteht es die ganze Klasse. Sogar Schira bittet sie um Hilfe in Geschichte.",
+          "insight": true
+        },
+        {
+          "t": "Nach Schiras Fehlern suchen und darüber lachen",
+          "r": "Mira fand einen Fehler und lachte. Eine Minute lang fühlte es sich gut an, dann war es beiden peinlich. Und ihre eigenen Aufgaben waren dadurch nicht gelöst.",
+          "insight": false
+        },
+        {
+          "t": "Schira fragen, wie sie lernt",
+          "r": "Schira erzählte ihre Tricks. Die Hälfte passte nicht zu Mira. Aber einen hat sie übernommen und verstanden: Man kann auf die eigene Art lernen.",
+          "insight": true
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": {
+        "name": "Levi",
+        "av": {
+          "look": 1,
+          "outfit": 3
+        }
+      },
+      "text": "„Eli hat einen Haufen Freunde, und ich habe nur zwei.“",
+      "q": "Was kann Levi tun?",
+      "key": "mirror2",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Sich wie Eli benehmen: am lautesten Witze machen",
+          "r": "Über ein paar Witze wurde wirklich gelacht, und das war schön. Aber Levi merkt, dass er eine Rolle spielt. Das macht schnell müde.",
+          "insight": false
+        },
+        {
+          "t": "Allein sitzen: Es klappt ja sowieso nicht",
+          "r": "Manchmal allein zu sein, tut gut. Aber seine Freunde haben Levi schon dreimal eingeladen, und er kam nicht. Jetzt fragen sie seltener.",
+          "insight": false
+        },
+        {
+          "t": "Sich erinnern, was für ein Freund er ist",
+          "r": "Levi hat verstanden: Er hat nicht viele Freunde, aber sehr enge. Er kann Geheimnisse bewahren und ist da, wenn es jemandem schlecht geht. So einen Freund suchen viele.",
+          "insight": true
+        },
+        {
+          "t": "Allen erzählen, dass Eli ein Angeber ist",
+          "r": "Jemand stimmte zu, und eine Minute lang stand Levi im Mittelpunkt. Dann kam das Gerücht bei Eli an. Und näher zu seinen Freunden kam Levi dadurch nicht.",
+          "insight": false
+        },
+        {
+          "t": "Zwei Freunde zu etwas Neuem einladen",
+          "r": "Zu dritt gingen sie wandern. Es war kalt und es gab Mücken, aber sie redeten die halbe Nacht am Lagerfeuer. Es zeigte sich: Freundschaft ist keine Frage der Anzahl.",
+          "insight": true
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": {
+        "name": "Chana",
+        "av": {
+          "look": 2,
+          "outfit": 0
+        }
+      },
+      "text": "„Tali malt wie eine echte Künstlerin. Und bei mir klappt gar nichts.“",
+      "q": "Was kann Chana tun?",
+      "key": "mirror3",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Dieselben Bilder wie Tali malen",
+          "r": "Beim Abmalen hat Chana viel gelernt: Ihre Linien wurden sicherer. Aber bei der Ausstellung weiß man nicht, welches Bild von wem ist. Chana selbst ist dort noch nicht zu sehen.",
+          "insight": false
+        },
+        {
+          "t": "Die Farben wegwerfen",
+          "r": "Die Farben sind im Müll. Erst war es leichter. Doch am Abend fiel Chana ein, wie gern sie Geschichten zu ihren Bildern erfunden hat.",
+          "insight": false
+        },
+        {
+          "t": "Merken, was sie Eigenes hat",
+          "r": "Chana hat verstanden: Ihre Stärke ist es, Geschichten zu erfinden. Zusammen mit Tali machte sie einen Comic: Tali zeichnet, Chana schreibt. Die ganze Schule liest ihn.",
+          "insight": true
+        },
+        {
+          "t": "Sagen, dass Malen Quatsch ist",
+          "r": "Jemand gab Chana recht. Aber leichter wurde es nicht: Innen tut es trotzdem weh.",
+          "insight": false
+        },
+        {
+          "t": "Tali fragen, was ihr an Chana gefällt",
+          "r": "Tali war überrascht: „Du erfindest doch die besten Geschichten!“ Darüber hatte Chana noch nie nachgedacht.",
+          "insight": true
+        }
+      ]
+    },
+    {
+      "type": "mini",
+      "game": "sky"
+    },
+    {
+      "type": "mini",
+      "game": "selfmirror"
+    },
+    {
+      "type": "mini",
+      "game": "pasuk"
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "Was hast du im Spiegelsaal bemerkt?",
+      "key": "mirrorNote",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Vergleichen raubt Kraft",
+          "r": "Ja. Solange du in einen fremden Spiegel schaust, bleibt deine eigene Sache liegen."
+        },
+        {
+          "t": "Jeder hatte etwas Eigenes",
+          "r": "Ja. Und es zeigte sich erst, als die Kinder aufhörten, auf andere zu schauen."
+        },
+        {
+          "t": "Der Erfolg anderer nimmt dir nichts weg",
+          "r": "Ja. Ari hat das Tor geschossen, aber der Pass kam von Dani."
+        },
+        {
+          "t": "So eindeutig ist das nicht",
+          "r": "Genau. Fast jede Wahl hatte Vor- und Nachteile. So ist es auch im Leben."
+        }
+      ]
+    },
+    {
+      "type": "reveal",
+      "text": "Die Stärke eines anderen macht deine nicht schwächer.",
+      "sub": "Die Spiegel erlöschen. Einer nach dem anderen zeigt nun die Kinder selbst."
+    }
+  ],
+  "ach": "mirror"
+}

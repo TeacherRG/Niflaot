@@ -1,0 +1,164 @@
+[
+  {
+    "type": "mini",
+    "game": "book"
+  },
+  {
+    "type": "talk",
+    "who": "mentor",
+    "text": "Du hast es geschafft, es zu öffnen! Also hat dieses Rätsel genau auf dich gewartet. Ich bin der Hüter dieser Bibliothek."
+  },
+  {
+    "type": "choice",
+    "who": "mentor",
+    "text": {
+      "__ag": 1,
+      "y": "Was ist echter Erfolg? Was denkst du?",
+      "t": "Viele Menschen versuchen ihr ganzes Leben lang, erfolgreich zu sein. Aber was ist echter Erfolg? Was denkst du?"
+    },
+    "key": "success",
+    "compact": true,
+    "neutral": true,
+    "options": {
+      "__ag": 1,
+      "y": [
+        {
+          "ic": "coin",
+          "t": "Reichtum",
+          "v": "Reichtum",
+          "r": "Interessante Wahl. Lass uns prüfen, ob das wirklich reicht.",
+          "help": false
+        },
+        {
+          "ic": "star",
+          "t": "Beliebtheit",
+          "v": "Beliebtheit",
+          "r": "Interessante Wahl. Lass uns prüfen, ob das wirklich reicht.",
+          "help": false
+        },
+        {
+          "ic": "book",
+          "t": "Wissen",
+          "v": "Wissen",
+          "r": "Interessante Wahl. Lass uns prüfen, ob das wirklich reicht.",
+          "help": false
+        },
+        {
+          "ic": "friends",
+          "t": "Freunde",
+          "v": "Freunde",
+          "r": "Interessante Wahl. Lass uns prüfen, ob das wirklich reicht.",
+          "help": false
+        },
+        {
+          "ic": "heart",
+          "t": "Anderen helfen",
+          "v": "Anderen helfen",
+          "r": "Interessante Wahl. Lass uns prüfen, ob das wirklich reicht.",
+          "help": true
+        },
+        {
+          "ic": "smile",
+          "t": "Jeden Tag Freude",
+          "v": "Jeden Tag Freude",
+          "r": "Interessante Wahl. Lass uns prüfen, ob das wirklich reicht.",
+          "help": false
+        }
+      ],
+      "t": [
+        {
+          "ic": "coin",
+          "t": "Reichtum",
+          "v": "Reichtum",
+          "r": "Interessante Wahl. Lass uns prüfen, ob das wirklich reicht.",
+          "help": false
+        },
+        {
+          "ic": "star",
+          "t": "Beliebtheit",
+          "v": "Beliebtheit",
+          "r": "Interessante Wahl. Lass uns prüfen, ob das wirklich reicht.",
+          "help": false
+        },
+        {
+          "ic": "book",
+          "t": "Wissen",
+          "v": "Wissen",
+          "r": "Interessante Wahl. Lass uns prüfen, ob das wirklich reicht.",
+          "help": false
+        },
+        {
+          "ic": "friends",
+          "t": "Freunde",
+          "v": "Freunde",
+          "r": "Interessante Wahl. Lass uns prüfen, ob das wirklich reicht.",
+          "help": false
+        },
+        {
+          "ic": "home",
+          "t": "Familie",
+          "v": "Familie",
+          "r": "Interessante Wahl. Lass uns prüfen, ob das wirklich reicht.",
+          "help": false
+        },
+        {
+          "ic": "dove",
+          "t": "Freiheit",
+          "v": "Freiheit",
+          "r": "Interessante Wahl. Lass uns prüfen, ob das wirklich reicht.",
+          "help": false
+        },
+        {
+          "ic": "heart",
+          "t": "Anderen helfen",
+          "v": "Anderen helfen",
+          "r": "Interessante Wahl. Lass uns prüfen, ob das wirklich reicht.",
+          "help": true
+        },
+        {
+          "ic": "trophy",
+          "t": "Erfolge",
+          "v": "Erfolge",
+          "r": "Interessante Wahl. Lass uns prüfen, ob das wirklich reicht.",
+          "help": false
+        },
+        {
+          "ic": "smile",
+          "t": "Jeden Tag Freude",
+          "v": "Jeden Tag Freude",
+          "r": "Interessante Wahl. Lass uns prüfen, ob das wirklich reicht.",
+          "help": false
+        },
+        {
+          "ic": "globe",
+          "t": "Die Welt verändern",
+          "v": "Die Welt verändern",
+          "r": "Interessante Wahl. Lass uns prüfen, ob das wirklich reicht.",
+          "help": false
+        }
+      ]
+    },
+    "own": {
+      "label": "Meine eigene Antwort",
+      "ph": "Zum Beispiel: Frieden in der Familie",
+      "r": "Interessante Wahl. Lass uns prüfen, ob das wirklich reicht."
+    }
+  },
+  {
+    "type": "card",
+    "kicker": "Erste Seite",
+    "title": "Was ist das für ein Buch?",
+    "heb": "קֹהֶלֶת",
+    "pic": {
+      "__ag": 1,
+      "y": "crown scroll key",
+      "t": ""
+    },
+    "body": {
+      "__ag": 1,
+      "y": "<p><b>Kohelet</b> ist ein Buch von König Schlomo. Er hat ehrlich geprüft, was einen Menschen glücklich macht.</p><p>Das Buch beginnt mit den Worten „Alles ist Hauch“. Und am Ende steht eine Antwort. Sie ist in sieben Welten versteckt.</p>",
+      "t": "<p><b>Kohelet</b> ist eines der Bücher des Tanach (der hebräischen Bibel). Es sind die Worte von König Schlomo (auf Deutsch: Salomo), seine Gedanken über das Leben: Er hat ehrlich geprüft, was einen Menschen glücklich macht.</p><p>Das Buch beginnt mit Worten, die viele erschrecken: „Alles ist Hauch“. Und es endet mit einer Antwort. Diese Antwort ist in sieben Welten versteckt.</p>"
+    },
+    "btn": "Karte öffnen"
+  }
+]

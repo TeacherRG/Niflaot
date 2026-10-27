@@ -1,0 +1,76 @@
+# Готовая озвучка через Azure AI Speech (tools/tts.mjs).
+# Запускается сама после изменения текстов в main и вручную (Actions → «Озвучка» → Run workflow).
+# Озвучивает только новые и изменённые предложения, удаляет устаревшие и коммитит audio/ в main.
+# Нужны секреты репозитория AZURE_SPEECH_KEY и AZURE_SPEECH_REGION (Settings → Secrets and variables → Actions).
+name: Озвучка
+
+on:
+  push:
+    branches: [main]
+    paths: ['content/**', 'locales/**', 'voice-key.js', 'tools/tts.mjs', 'tools/tts-config.json', 'tools/voice-phrases.mjs']
+  workflow_dispatch:
+    inputs:
+      lang:
+        description: 'Язык (ru, uk, de, en) — пусто = все'
+        required: false
+      rpm:
+        description: 'Запросов в минуту: 18 для бесплатного тарифа F0, 600 для S0'
+        required: false
+        default: '18'
+      force:
+        description: 'Озвучить всё заново'
+        type: boolean
+        default: false
+
+concurrency:
+  group: voice
+  cancel-in-progress: false
+
+# по умолчанию у токена нет прав; запись в репозиторий — только у задачи озвучки (коммит audio/).
+# Секреты Azure видны только этому workflow: он запускается от push в main и вручную, не от чужих PR.
+permissions: {}
+
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+      - name: Озвучить новые фразы
+        id: tts
+        env:
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+          AZURE_SPEECH_REGION: ${{ secrets.AZURE_SPEECH_REGION }}
+          IN_LANG: ${{ inputs.lang }}
+          IN_RPM: ${{ inputs.rpm || '18' }}
+          IN_FORCE: ${{ inputs.force }}
+        run: |
+          if [ -z "$AZURE_SPEECH_KEY" ] || [ -z "$AZURE_SPEECH_REGION" ]; then
+            echo "::notice::Секреты AZURE_SPEECH_KEY и AZURE_SPEECH_REGION не заданы — озвучка пропущена."
+            exit 0
+          fi
+          args=(--rpm="$IN_RPM")
+          [ -n "$IN_LANG" ] && args+=(--lang="$IN_LANG")
+          [ "$IN_FORCE" = "true" ] && args+=(--force)
+          node tools/tts.mjs "${args[@]}" || echo "failed=1" >> "$GITHUB_OUTPUT"
+      # коммитим и то, что успело озвучиться: следующий запуск продолжит с этого места
+      - name: Сохранить audio/
+        run: |
+          [ -d audio ] || exit 0
+          git add -A audio
+          if git diff --cached --quiet; then echo "Новых фраз нет"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Озвучка: новые и изменённые фразы Хранителя"
+          git pull --rebase origin main
+          git push origin HEAD:main
+      - name: Не все фразы озвучены
+        if: steps.tts.outputs.failed == '1'
+        run: |
+          echo "::error::Часть фраз не озвучилась (см. шаг «Озвучить новые фразы»). Запусти workflow ещё раз."
+          exit 1

@@ -1,0 +1,312 @@
+{
+  "name": "Werkstatt",
+  "desc": "Jeder hat seine eigenen Werkzeuge",
+  "tools": true,
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "Gleichnis",
+      "title": "Der Juwelier und der Blechschmied",
+      "pic": {
+        "__ag": 1,
+        "y": "ring bucket",
+        "t": ""
+      },
+      "body": {
+        "__ag": 1,
+        "y": "<p>Es war einmal ein Juwelier mit feinsten Werkzeugen. Er beschloss, sie seinem Nachbarn zu schenken, einem Blechschmied, der Eimer und Dächer machte.</p>",
+        "t": "<p>Es war einmal ein Juwelier. Er hatte feinste Werkzeuge: Pinzetten, winzige Hämmerchen, Lupen. Eines Tages wollte er etwas Gutes tun und sie seinem Nachbarn schenken, einem Blechschmied, der Eimer und Dächer machte.</p>"
+      }
+    },
+    {
+      "type": "choice",
+      "who": {
+        "name": "Blechschmied",
+        "av": {
+          "look": 1,
+          "outfit": 2
+        }
+      },
+      "text": "Was meinst du: Was hat der Blechschmied geantwortet?",
+      "key": "tinsmith",
+      "options": [
+        {
+          "t": "„Danke, die nehme ich!“",
+          "r": "So hätten viele geantwortet: Das Geschenk ist ja wertvoll. Aber der Blechschmied lehnte höflich ab."
+        },
+        {
+          "t": "„Nein, die passen nicht zu mir.“",
+          "r": "Genau das sagte er. Mit einer feinen Pinzette biegt man keinen Eimer gerade."
+        }
+      ],
+      "after": "Jeder braucht Werkzeuge für seine eigene Arbeit. Die besten fremden Werkzeuge helfen dir nicht."
+    },
+    {
+      "type": "talk",
+      "who": "mentor",
+      "text": "Hier ist dein Werkzeugkasten. Noch ist er leer. Die Werkzeuge leuchten auf, wenn du sie benutzt. Mal sehen, welche deine sind."
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "Ein Freund versteht eine Matheaufgabe nicht. Was tust du?",
+      "key": "tool0",
+      "hint": "Hier gibt es nicht die eine richtige Antwort. Überleg, wie du wirklich handeln würdest.",
+      "options": [
+        {
+          "t": "Ich erkläre es Schritt für Schritt",
+          "r": "Das dauert, und die Pause ist vorbei. Aber die Augen deines Freundes leuchten: „Ah, jetzt hab ich’s!“",
+          "tool": "book",
+          "help": 1
+        },
+        {
+          "t": "Ich lache: Das ist doch leicht",
+          "r": "Du wolltest nur einen Witz machen. Aber dein Freund wurde rot und klappte das Heft zu. Die Aufgabe blieb ungelöst."
+        },
+        {
+          "t": "Ich löse alles für ihn",
+          "r": "Dein Freund ist sehr dankbar: „Du hast mich gerettet!“ Aber bei der Klassenarbeit war er ratlos: Selbst lösen hat er es nie gelernt."
+        },
+        {
+          "t": "Ich gehe, ich habe eigene Sachen zu tun",
+          "r": "Deine Sachen sind auch wichtig. Dein Freund ging zur Lehrerin und hat es verstanden, wenn auch nicht sofort. Vielleicht hilfst du beim nächsten Mal?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "Ein Neuer ist in die Klasse gekommen. In der Pause sitzt er allein.",
+      "key": "tool1",
+      "hint": "Hier gibt es nicht die eine richtige Antwort. Überleg, wie du wirklich handeln würdest.",
+      "options": [
+        {
+          "t": "Ich gehe hin und lade ihn zum Spielen ein",
+          "r": "Der Neue lächelt zum ersten Mal an diesem Tag. Es sieht so aus, als hättest du einen neuen Freund.",
+          "tool": "heart",
+          "help": 1
+        },
+        {
+          "t": "Ich warte, bis er selbst kommt",
+          "r": "Er wartet auch, und die Pause ist vorbei. Vielleicht braucht er Zeit? Am nächsten Tag nickte er dir von selbst zu."
+        },
+        {
+          "t": "Ich rede mit meinen Freunden über ihn",
+          "r": "Ihr habt nur gerätselt, woher er kommt. Aber der Neue hat bemerkt, dass man ihn anschaut und tuschelt, und fühlte sich unwohl."
+        },
+        {
+          "t": "Ich zeige ihm die Schule",
+          "r": "Jetzt weiß er, wo die Mensa, die Bibliothek und die beste Ecke des Hofs sind. Und er kennt dich.",
+          "tool": "compass",
+          "help": 1
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "Die Klasse bereitet ein Fest in der Sukka vor. Es braucht Schmuck.",
+      "key": "tool2",
+      "hint": "Hier gibt es nicht die eine richtige Antwort. Überleg, wie du wirklich handeln würdest.",
+      "options": [
+        {
+          "t": "Ich zeichne einen Entwurf",
+          "r": "Dein Entwurf hängt an der Tafel. Alle streiten, welche Farbe die Girlanden haben sollen.",
+          "tool": "brush"
+        },
+        {
+          "t": "Ich bastle Girlanden",
+          "r": "Die Hände kleben, dafür halten die Girlanden am besten.",
+          "tool": "hammer"
+        },
+        {
+          "t": "Ich sage „Ich kann das nicht“ und gehe weg",
+          "r": "Ehrlich „Ich kann das nicht“ zu sagen, ist auch mutig. Es ging ohne dich. Vielleicht findet sich eine Aufgabe, die dir liegt?"
+        },
+        {
+          "t": "Ich verteile Aufgaben an alle",
+          "r": "Jeder bekam eine passende Aufgabe, auch wenn zwei beleidigt waren, dass man sie nicht gefragt hat. Die Sukka war an einem Abend fertig.",
+          "tool": "puzzle"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "Bei einem gemeinsamen Projekt streiten alle, und nichts geht voran.",
+      "key": "tool3",
+      "hint": "Hier gibt es nicht die eine richtige Antwort. Überleg, wie du wirklich handeln würdest.",
+      "options": [
+        {
+          "t": "Ich schlage einen Plan Schritt für Schritt vor",
+          "r": "Der Plan steht an der Tafel: wer, was, bis wann. Der Streit legt sich.",
+          "tool": "compass"
+        },
+        {
+          "t": "Ich höre allen zu und suche das Gemeinsame",
+          "r": "Es zeigte sich: Alle wollten fast dasselbe, sie haben es nur unterschiedlich gesagt.",
+          "tool": "heart",
+          "help": 1
+        },
+        {
+          "t": "Ich rede am lautesten von allen",
+          "r": "Endlich hat man dich gehört, und eine deiner Ideen wurde sogar übernommen. Aber zwei waren gekränkt, und der Streit wurde noch lauter."
+        },
+        {
+          "t": "Ich mache alles allein",
+          "r": "Das Projekt ist fertig und sieht toll aus. Aber du bist erschöpft, und die anderen sagen: „Uns hat man nicht einmal gefragt.“"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "In der Ankündigung für den Wohltätigkeitsbasar steht das falsche Datum.",
+      "key": "tool4",
+      "hint": "Hier gibt es nicht die eine richtige Antwort. Überleg, wie du wirklich handeln würdest.",
+      "options": [
+        {
+          "t": "Ich bemerke es und sage es den Organisatoren",
+          "r": "Das Datum wurde korrigiert. Ohne dich wäre die Hälfte der Gäste am falschen Tag gekommen.",
+          "tool": "lens",
+          "help": 1
+        },
+        {
+          "t": "Ich schweige, das ist nicht meine Sache",
+          "r": "Vielleicht merkt es jemand anderes? Niemand hat es gemerkt. Irgendwie kamen nur wenige Gäste."
+        },
+        {
+          "t": "Ich mache mich im Chat darüber lustig",
+          "r": "Jemand leitete deine Nachricht an die Organisatoren weiter, und das Datum wurde korrigiert. Aber den Spott zu lesen, war für sie unangenehm."
+        },
+        {
+          "t": "Ich sage beim Schulappell das richtige Datum an",
+          "r": "Die ganze Schule hat dich gehört. Der Basar brachte eine Rekordsumme ein.",
+          "tool": "mic",
+          "help": 1
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "Oma kommt mit ihrem neuen Handy nicht zurecht.",
+      "key": "tool5",
+      "hint": "Hier gibt es nicht die eine richtige Antwort. Überleg, wie du wirklich handeln würdest.",
+      "options": [
+        {
+          "t": "Ich zeige es ihr geduldig Schritt für Schritt",
+          "r": "Oma hat zum ersten Mal selbst ein Foto an die Enkel geschickt. Und stolz den Nachbarn davon erzählt.",
+          "tool": "book",
+          "help": 1
+        },
+        {
+          "t": "Ich sage: „Das ist doch ganz einfach!“",
+          "r": "Für dich ist es wirklich einfach. Aber Oma war es peinlich, noch einmal zu fragen."
+        },
+        {
+          "t": "Ich mache alles für sie",
+          "r": "Das Foto ist verschickt, Oma dankt dir herzlich. Und morgen wartet sie wieder auf dich."
+        },
+        {
+          "t": "Ich male ihr einen Spickzettel mit Bildern",
+          "r": "Der Spickzettel hängt am Kühlschrank. Oma nennt ihn „die Anleitung von meinem Professor“.",
+          "tool": "brush",
+          "help": 1
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "Im Hof ist die Bank kaputt, auf der die Nachbarn gern sitzen.",
+      "key": "tool6",
+      "hint": "Hier gibt es nicht die eine richtige Antwort. Überleg, wie du wirklich handeln würdest.",
+      "options": [
+        {
+          "t": "Ich repariere sie zusammen mit einem Erwachsenen",
+          "r": "Die Bank steht wieder. Die Nachbarn sitzen darauf und wissen nicht, wer sie repariert hat. Aber du weißt es.",
+          "tool": "hammer",
+          "help": 1
+        },
+        {
+          "t": "Ich schreibe in den Gruppenchat",
+          "r": "Im Chat stehen zehn empörte Nachrichten. Ein Nachbar hat doch den Handwerker angerufen, aber man musste eine Woche warten."
+        },
+        {
+          "t": "Ich beschreibe dem Hausverwalter genau den Schaden",
+          "r": "Der Handwerker kam nach zwei Tagen: Du hast alles so genau beschrieben, dass er gleich die richtigen Teile mitbrachte.",
+          "tool": "lens"
+        },
+        {
+          "t": "Ich gehe vorbei",
+          "r": "Die Bank ist immer noch kaputt. Vielleicht ist einfach nicht klar, wo man anfangen soll?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "Der kleine Bruder hat Angst, zu einer neuen AG zu gehen.",
+      "key": "tool7",
+      "hint": "Hier gibt es nicht die eine richtige Antwort. Überleg, wie du wirklich handeln würdest.",
+      "options": [
+        {
+          "t": "Ich erzähle, wie ich selbst beim ersten Mal Angst hatte",
+          "r": "Dein Bruder atmet auf: „Du hattest auch Angst?“ Und er geht hin.",
+          "tool": "heart",
+          "help": 1
+        },
+        {
+          "t": "Ich sage: „Hab keine Angst, das ist nichts“",
+          "r": "Du wolltest ihn aufmuntern. Dein Bruder ging hin, aber er erzählt dir nicht mehr, wovor er Angst hat."
+        },
+        {
+          "t": "Ich gehe mit ihm zur ersten Stunde",
+          "r": "Die ersten fünf Minuten hielt er deine Hand. Dann vergaß er, dass du da bist.",
+          "tool": "compass",
+          "help": 1
+        },
+        {
+          "t": "Ich überlege mit ihm, was er beim Kennenlernen sagen kann",
+          "r": "Mit einem fertigen Satz ist Kennenlernen gar nicht mehr schlimm.",
+          "tool": "puzzle"
+        }
+      ]
+    },
+    {
+      "age": "a",
+      "type": "card",
+      "kicker": "Aus dem Leben von Raw Aschkenasi",
+      "title": "Hör nicht auf mit dem, was du gut kannst",
+      "body": "<p>Vor elf Jahren verbrachte Raw Schneor Aschkenasi drei Tage pro Woche mit der Vorbereitung von Tora-Lektionen. Keine Bezahlung, keine Rückmeldung: Die Aufnahmen hatten hundert bis zweihundert Aufrufe. An Pessach beschloss er, mit dem Unterrichten aufzuhören.</p><p>In den Feiertagen stieß er auf Worte, die zu seinem Leitspruch wurden: <b>„Hör niemals auf mit dem, was du gut kannst.“</b> Er kehrte zu seinen Lektionen zurück. Eine davon ist die Grundlage dieses Spiels.</p>"
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "Das letzte Rätsel der Werkstatt. Ein Löwe ist in ein Jägernetz geraten. Wer hat ihn gerettet?",
+      "key": "lion",
+      "options": [
+        {
+          "t": "Ein anderer Löwe",
+          "r": "Gute Idee, aber mit Löwenpranken zerreißt man kein Netz."
+        },
+        {
+          "t": "Ein Elefant",
+          "r": "Der Elefant ist stark, aber zu groß für die dünnen Seile."
+        },
+        {
+          "t": "Ein kleines Mäuschen",
+          "r": "Ja! Das Mäuschen hat die Seile eines nach dem anderen durchgenagt."
+        }
+      ],
+      "after": "Dieses Gleichnis erzählte Raw Owadja Josef in seinen Büchern. Es ist egal, ob du Löwe oder Maus bist. Wichtig ist, deine Arbeit zu tun."
+    },
+    {
+      "type": "reveal",
+      "text": "Jeder Mensch hat seine eigenen Werkzeuge. Wichtig ist zu verstehen, wofür du sie brauchst.",
+      "sub": "Schau in deinen Kasten: Welche Werkzeuge leuchten?"
+    }
+  ],
+  "ach": "tools"
+}

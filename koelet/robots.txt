@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /tests/
+Disallow: /tools/
+Disallow: /node_modules/
+
+Sitemap: https://mylot.mychitas.app/sitemap.xml

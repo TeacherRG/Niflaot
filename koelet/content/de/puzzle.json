@@ -1,0 +1,180 @@
+{
+  "name": "Puzzle",
+  "desc": "Ein riesiges Bild und ein leerer Platz",
+  "steps": [
+    {
+      "type": "talk",
+      "who": "mentor",
+      "text": "Vor dir liegt ein riesiges Bild. Jeder Mensch bekommt sein eigenes Teil. Aber niemand bekommt das ganze Puzzle. Wer verteilt die Teile wohl?"
+    },
+    {
+      "type": "talk",
+      "who": "mentor",
+      "text": {
+        "__ag": 1,
+        "y": "Zuerst ein Rätsel. Im Buch Kohelet ist ein geheimes Wort versteckt. Es kommt dort 8-mal vor. Findest du alle acht?",
+        "t": "Zuerst ein Rätsel. Im Buch Kohelet gibt es außer „Hauch“ noch ein geheimes Wort. Es kommt dort 8-mal vor. Findest du alle acht?"
+      }
+    },
+    {
+      "type": "mini",
+      "game": "find"
+    },
+    {
+      "type": "card",
+      "kicker": "Wort gefunden",
+      "title": "Chelek – Anteil, Teil",
+      "heb": "חֵלֶק",
+      "body": {
+        "__ag": 1,
+        "y": "<p>„Chelek“ bedeutet „Anteil“, „Teil“. Schlomo schreibt: Freu dich an deinem Tun – das ist dein Anteil.</p><p>Chelek ist dein Teil im großen Puzzle. Es wurde dir gegeben.</p>",
+        "t": "<p>„Chelek“ bedeutet „Anteil“, „Teil“. Schlomo schreibt: „Es gibt nichts Besseres, als dass der Mensch sich an seinem Tun freut, denn das ist sein Anteil“ (Kohelet 3:22).</p><p>Chelek ist dein Teil im großen Puzzle des Lebens. Nicht das Teil, das du dir selbst ausgesucht hast, sondern das, das dir gegeben wurde. Lass uns das Bild zusammensetzen und schauen, woraus die Teile gemacht sind.</p>"
+      }
+    },
+    {
+      "type": "mini",
+      "game": "puzzle"
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "Das Bild besteht aus Teilen. Was meinst du: Wer verteilt die Teile?",
+      "key": "giver",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Der Zufall: Jeder bekommt irgendwas",
+          "r": "Das denken viele. Aber wenn die Teile zufällig verteilt werden – warum hat dann jedes einen so genauen Platz im Bild?"
+        },
+        {
+          "t": "Eltern und Lehrer",
+          "r": "Sie helfen wirklich, das Teil zu finden und zu schleifen. Aber das Teil selbst geben nicht sie."
+        },
+        {
+          "t": "Ich suche es mir selbst aus",
+          "r": "Du entscheidest, was du mit deinem Teil machst. Aber das Teil selbst ist ein Geschenk."
+        },
+        {
+          "t": "Der, der das ganze Bild entworfen hat",
+          "r": "Das klingt richtig. Wer das ganze Bild sieht, weiß auch, wo jedes Teil gebraucht wird."
+        }
+      ]
+    },
+    {
+      "type": "card",
+      "kicker": "Raw Aschkenasi erklärt",
+      "title": "Der Anteil ist ein Geschenk",
+      "pic": {
+        "__ag": 1,
+        "y": "gift puzzle",
+        "t": ""
+      },
+      "body": {
+        "__ag": 1,
+        "y": "<p>Die Teile verteilt G-tt. Er hat das ganze Bild entworfen und jedem sein eigenes Teil gegeben.</p><p>Dein Anteil ist nicht nur das, was du gut kannst. Er ist ein Geschenk, und das ganze Bild braucht ihn.</p>",
+        "t": "<p>Chelek bedeutet nicht einfach „meine Stärken“. Raw Aschkenasi erklärt: Der Anteil ist Teil von G-ttes Plan. Der Schöpfer hat das ganze Bild entworfen und jedem sein eigenes Teil gegeben: Fähigkeiten, Charakter, Familie, die Zeit und den Ort, an dem du lebst.</p><p>Darum lautet die wichtigste Frage nicht nur „Was kann ich?“, sondern auch „Wozu wurde mir das gegeben?“.</p>"
+      }
+    },
+    {
+      "type": "mini",
+      "game": "species"
+    },
+    {
+      "type": "card",
+      "kicker": "Noch ein Bild",
+      "title": "Ein Buchstabe in der Torarolle",
+      "pic": "scroll",
+      "body": {
+        "__ag": 1,
+        "y": "<p>Man sagt, jeder Jude hat seinen eigenen Buchstaben in der Torarolle. Fehlt in der Rolle auch nur ein Buchstabe, darf man nicht aus ihr lesen.</p><p>Jeder Buchstabe wird gebraucht. Auch deiner.</p>",
+        "t": "<p>Die Weisen der Kabbala lehren: Jede jüdische Seele hat ihren eigenen Buchstaben in der Torarolle. Und nach dem Gesetz ist eine Rolle, in der auch nur ein Buchstabe fehlt, ungültig (Rambam, Hilchot Sefer Tora 10:1).</p><p>Große und kleine Buchstaben, am Anfang und am Ende – keiner darf fehlen. So ist es auch mit den Menschen.</p>"
+      }
+    },
+    {
+      "type": "talk",
+      "who": "mentor",
+      "text": "Das Bild ist fast fertig. Aber schau in die Mitte: Dort ist ein leerer Platz. Welches Teil könntest genau du beitragen?"
+    },
+    {
+      "type": "multi",
+      "key": "qualities",
+      "text": {
+        "__ag": 1,
+        "y": "Welche Gaben hast du bekommen? Wähle zwei Eigenschaften, die du hast:",
+        "t": "Welche Gaben hast du bekommen? Wähle drei Eigenschaften, die du hast:"
+      },
+      "options": {
+        "__ag": 1,
+        "y": [
+          "kann gut zuhören",
+          "kann gut erklären",
+          "habe Ideen",
+          "kann gut Freundschaft schließen",
+          "gebe nicht auf",
+          "helfe gern"
+        ],
+        "t": [
+          "kann gut zuhören",
+          "kann gut erklären",
+          "habe Ideen",
+          "kann gut Freundschaft schließen",
+          "gebe nicht auf",
+          "helfe gern",
+          "kann gut organisieren",
+          "sehe, was andere übersehen",
+          "bringe andere zum Lachen",
+          "kann warten und bin geduldig",
+          "probiere Neues aus",
+          "baue gern mit den Händen"
+        ]
+      },
+      "min": {
+        "__ag": 1,
+        "y": 2,
+        "t": 3
+      },
+      "max": {
+        "__ag": 1,
+        "y": 2,
+        "t": 3
+      },
+      "hint": "Denk daran, wofür dir Freunde oder Familie danken. Oft ist genau das deine Gabe.",
+      "own": {
+        "key": "quality",
+        "label": "Eine eigene Eigenschaft – falls deine nicht in der Liste steht",
+        "ph": "Zum Beispiel: kann Streit schlichten"
+      }
+    },
+    {
+      "type": "quote",
+      "he": "לֹא עָלֶיךָ הַמְּלָאכָה לִגְמוֹר",
+      "src": "Pirkej Awot 2:16",
+      "tr": "„Es liegt nicht an dir, die Arbeit zu vollenden, doch du bist auch nicht frei, dich ihr zu entziehen.“",
+      "plain": {
+        "__ag": 1,
+        "y": "Du musst nicht alles auf der Welt schaffen. Aber deinen Teil macht niemand für dich.",
+        "t": "Pirkej Awot, die „Sprüche der Väter“, ist eine Sammlung von Ratschlägen der Weisen. Hier heißt es: Du musst nicht alles auf der Welt schaffen. Aber deinen Teil macht niemand für dich."
+      },
+      "q": "Was fühlst du, wenn du das liest?",
+      "options": [
+        "Erleichterung: Ich muss nicht alles machen",
+        "Bedeutung: Mein Teil wird gebraucht",
+        "Beides zugleich"
+      ],
+      "r": "Die Weisen haben es wohl genau so gemeint: Ein Satz nimmt eine Last ab und gibt zugleich eine Aufgabe."
+    },
+    {
+      "age": "a",
+      "type": "card",
+      "kicker": "Bawa Batra 75a · Raw Aschkenasi erklärt",
+      "title": "Sonne und Mond",
+      "body": "<p>Der Talmud sagt: Mosches Gesicht war wie die Sonne, Jehoschuas Gesicht wie der Mond. Die Weisen sagen das mit Bitterkeit: Die Generationen werden kleiner.</p><p>Raw Aschkenasi schlägt vor, es auch anders zu lesen. Der Mond muss nicht versuchen, die Sonne zu werden. Wenn es Nacht wird, braucht die Welt gerade sein Licht. Mosche hat seine Aufgabe, Jehoschua die seine.</p>"
+    },
+    {
+      "age": "a",
+      "type": "mini",
+      "game": "timeline"
+    }
+  ],
+  "ach": "piece"
+}

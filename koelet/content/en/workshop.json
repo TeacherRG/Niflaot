@@ -1,0 +1,312 @@
+{
+  "name": "Workshop",
+  "desc": "Everyone has their own tools",
+  "tools": true,
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "A parable",
+      "title": "The jeweller and the tinsmith",
+      "pic": {
+        "__ag": 1,
+        "y": "ring bucket",
+        "t": ""
+      },
+      "body": {
+        "__ag": 1,
+        "y": "<p>Once upon a time there was a jeweller with the finest tools. He decided to give them to his neighbour, a tinsmith who made buckets and roofs.</p>",
+        "t": "<p>Once upon a time there was a jeweller. He had the finest tools: tweezers, tiny hammers, magnifying glasses. One day he decided to do a good deed and give them to his neighbour, a tinsmith who made buckets and roofs.</p>"
+      }
+    },
+    {
+      "type": "choice",
+      "who": {
+        "name": "The tinsmith",
+        "av": {
+          "look": 1,
+          "outfit": 2
+        }
+      },
+      "text": "What do you think the tinsmith answered?",
+      "key": "tinsmith",
+      "options": [
+        {
+          "t": "“Thank you, I'll take them!”",
+          "r": "Many people would answer that way: it's an expensive gift, after all. But the tinsmith politely refused."
+        },
+        {
+          "t": "“No, they won't suit me”",
+          "r": "That's exactly what he said. You can't straighten a bucket with fine tweezers."
+        }
+      ],
+      "after": "Everyone needs tools for their own work. The best tools of someone else won't help you."
+    },
+    {
+      "type": "talk",
+      "who": "mentor",
+      "text": "Here is your toolbox. For now it is empty. The tools light up when you use them. Let's see which ones turn out to be yours."
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "A friend is struggling to understand a maths problem. What will you do?",
+      "key": "tool0",
+      "hint": "There is no single right answer here. Think about how you would really act.",
+      "options": [
+        {
+          "t": "I'll help explain it step by step",
+          "r": "It takes a long time, and you didn't make it out for break. But your friend's eyes light up: “Oh, I get it!”",
+          "tool": "book",
+          "help": 1
+        },
+        {
+          "t": "I'll laugh: it's so easy",
+          "r": "You just wanted to make a joke. But your friend blushed and closed the exercise book. The problem stayed unsolved."
+        },
+        {
+          "t": "I'll solve it all for him",
+          "r": "Your friend is very grateful: “You saved me!” But in the test he was lost: he never learned to solve it himself."
+        },
+        {
+          "t": "I'll leave, I have my own things to do",
+          "r": "Your things are important too. Your friend went to the teacher and figured it out, though not right away. Maybe next time you will help?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "A new boy has joined the class. At break he sits alone.",
+      "key": "tool1",
+      "hint": "There is no single right answer here. Think about how you would really act.",
+      "options": [
+        {
+          "t": "I'll go over and invite him to play",
+          "r": "The new boy smiled for the first time that day. It looks like you have a new friend.",
+          "tool": "heart",
+          "help": 1
+        },
+        {
+          "t": "I'll wait until he comes over himself",
+          "r": "He is waiting too, and break is over. Maybe he needs time? The next day he nodded to you himself."
+        },
+        {
+          "t": "I'll talk about him with my friends",
+          "r": "You were only guessing where he comes from. But the new boy noticed people looking at him and whispering, and he felt uncomfortable."
+        },
+        {
+          "t": "I'll show him around the school",
+          "r": "Now he knows where the dining hall is, the library and the best corner of the playground. And he knows you.",
+          "tool": "compass",
+          "help": 1
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "The class is preparing a celebration in the sukkah. Decorations are needed.",
+      "key": "tool2",
+      "hint": "There is no single right answer here. Think about how you would really act.",
+      "options": [
+        {
+          "t": "I'll draw a design",
+          "r": "Your design is pinned on the board. Everyone is arguing about what colour the paper chains will be.",
+          "tool": "brush"
+        },
+        {
+          "t": "I'll make the paper chains",
+          "r": "Your hands are covered in glue, but your paper chains hold better than anyone's.",
+          "tool": "hammer"
+        },
+        {
+          "t": "I'll say “I can't do it” and step away",
+          "r": "Honestly saying “I can't” takes courage too. They managed without you. Maybe there is a job you would enjoy?"
+        },
+        {
+          "t": "I'll hand out tasks to everyone",
+          "r": "Everyone got a job they could manage, though two were hurt that nobody asked them. The sukkah was ready in one evening.",
+          "tool": "puzzle"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "In a group project everyone is arguing, and nothing is getting done.",
+      "key": "tool3",
+      "hint": "There is no single right answer here. Think about how you would really act.",
+      "options": [
+        {
+          "t": "I'll suggest a step-by-step plan",
+          "r": "The plan is on the board: who does what and by which day. The argument died down.",
+          "tool": "compass"
+        },
+        {
+          "t": "I'll listen to everyone and find common ground",
+          "r": "It turned out everyone wanted almost the same thing, they were just saying it in different words.",
+          "tool": "heart",
+          "help": 1
+        },
+        {
+          "t": "I'll talk louder than everyone",
+          "r": "At last they heard you, and one of your ideas was even taken. But two people were hurt, and the argument got even louder."
+        },
+        {
+          "t": "I'll do it all alone",
+          "r": "The project is finished and looks great. But you are worn out, and the others say: “Nobody even asked us.”"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "The notice about the charity fair has the wrong date.",
+      "key": "tool4",
+      "hint": "There is no single right answer here. Think about how you would really act.",
+      "options": [
+        {
+          "t": "I'll notice it and tell the organisers",
+          "r": "The date was corrected. Without you, half the guests would have come on the wrong day.",
+          "tool": "lens",
+          "help": 1
+        },
+        {
+          "t": "I'll keep quiet, it's not my business",
+          "r": "Maybe someone else will notice? Nobody noticed. For some reason there were few guests."
+        },
+        {
+          "t": "I'll make fun of it in the group chat",
+          "r": "Someone forwarded your message to the organisers, and the date was corrected. But it was unpleasant for them to read the mockery."
+        },
+        {
+          "t": "I'll announce the correct date at assembly",
+          "r": "The whole school heard you. The fair raised a record amount.",
+          "tool": "mic",
+          "help": 1
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "Grandma is struggling to figure out her new phone.",
+      "key": "tool5",
+      "hint": "There is no single right answer here. Think about how you would really act.",
+      "options": [
+        {
+          "t": "I'll patiently show her step by step",
+          "r": "For the first time Grandma sent photos to her grandchildren all by herself. And she proudly told the neighbours about it.",
+          "tool": "book",
+          "help": 1
+        },
+        {
+          "t": "I'll say: “But it's so simple!”",
+          "r": "For you it really is simple. But Grandma felt awkward asking again."
+        },
+        {
+          "t": "I'll do it all for her",
+          "r": "The photo is sent, Grandma thanks you warmly. And tomorrow she will be waiting for you again."
+        },
+        {
+          "t": "I'll draw her a cheat sheet with pictures",
+          "r": "The cheat sheet hangs on the fridge. Grandma calls it “the instructions from my professor.”",
+          "tool": "brush",
+          "help": 1
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "The bench in the courtyard, where the neighbours love to sit, has broken.",
+      "key": "tool6",
+      "hint": "There is no single right answer here. Think about how you would really act.",
+      "options": [
+        {
+          "t": "I'll fix it together with an adult",
+          "r": "The bench is standing again. The neighbours sit on it and don't know who fixed it. But you know.",
+          "tool": "hammer",
+          "help": 1
+        },
+        {
+          "t": "I'll write in the neighbours' group chat",
+          "r": "Ten indignant messages in the chat. One neighbour did call a repairman after all, but they had to wait a week."
+        },
+        {
+          "t": "I'll describe the damage precisely to the building manager",
+          "r": "The repairman came two days later: you described everything so precisely that he brought the right parts straight away.",
+          "tool": "lens"
+        },
+        {
+          "t": "I'll walk past",
+          "r": "The bench is still broken. Maybe it's just unclear where to start?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "Your younger brother is afraid to go to a new after-school club.",
+      "key": "tool7",
+      "hint": "There is no single right answer here. Think about how you would really act.",
+      "options": [
+        {
+          "t": "I'll tell him how scared I was the first time",
+          "r": "Your brother breathed out: “You were scared too?” And he went.",
+          "tool": "heart",
+          "help": 1
+        },
+        {
+          "t": "I'll say: “Don't be scared, it's nothing”",
+          "r": "You wanted to encourage him. Your brother went, but he no longer tells you what he is afraid of."
+        },
+        {
+          "t": "I'll go with him to the first session",
+          "r": "He held your hand for the first five minutes. And then he forgot you were there.",
+          "tool": "compass",
+          "help": 1
+        },
+        {
+          "t": "I'll make a plan with him: what to say when meeting new people",
+          "r": "With a ready-made phrase, getting to know people isn't scary at all.",
+          "tool": "puzzle"
+        }
+      ]
+    },
+    {
+      "age": "a",
+      "type": "card",
+      "kicker": "From the life of Rav Ashkenazi",
+      "title": "Don't give up what you are good at",
+      "body": "<p>Eleven years ago Rav Shneor Ashkenazi spent three days a week preparing Torah classes. No payment, no feedback: the recordings had one or two hundred views each. On Pesach he decided he was done with teaching.</p><p>During the festival days he came across words that became his motto: <b>“Never stop doing what you are good at.”</b> He went back to his classes. One of them became the basis of this game.</p>"
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "The last riddle of the workshop. A lion was caught in a hunter's net. Who saved him?",
+      "key": "lion",
+      "options": [
+        {
+          "t": "Another lion",
+          "r": "A good guess, but a lion can't tear a net with his paws."
+        },
+        {
+          "t": "An elephant",
+          "r": "The elephant is strong, but too big for thin ropes."
+        },
+        {
+          "t": "A little mouse",
+          "r": "Yes! The little mouse gnawed through the ropes one by one."
+        }
+      ],
+      "after": "Rav Ovadia Yosef brought this parable in his books. It doesn't matter whether you are a lion or a mouse. What matters is doing your own work."
+    },
+    {
+      "type": "reveal",
+      "text": "Every person has their own tools. The main thing is to understand what you need them for.",
+      "sub": "Look at your toolbox: which tools have lit up?"
+    }
+  ],
+  "ach": "tools"
+}
