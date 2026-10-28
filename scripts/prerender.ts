@@ -84,7 +84,12 @@ function fitTitle(t: string, max = 65) {
   const brand = t.match(BRAND)?.[0] ?? '';
   const bare = t.slice(0, t.length - brand.length);
   const heads = [bare, ...[...bare.matchAll(/ [—–] |: /g)].map((m) => bare.slice(0, m.index)).reverse()].filter((h) => h.length >= 25);
-  return heads.map((h) => h + brand).find((x) => x.length <= max) ?? heads.find((h) => h.length <= max) ?? bare;
+  const fitting = heads.map((h) => h + brand).find((x) => x.length <= max);
+  if (fitting) return fitting;
+  const cut = bare.slice(0, Math.max(1, max - brand.length - 1));
+  const boundary = cut.lastIndexOf(' ');
+  const head = boundary >= cut.length * 0.55 ? cut.slice(0, boundary) : cut;
+  return `${head.replace(/[\s,;:.—–-]+$/, '')}…${brand}`;
 }
 /** the day a file or folder last changed (git), for sitemap `lastmod` and JSON-LD `dateModified`; not in git — today */
 const gitDates = new Map<string, string>();
@@ -171,12 +176,25 @@ function render(p: Page): string {
   const image = existsSync(`${DIST}/og/${p.image}.png`) ? p.image : 'site';
   // ?v=<hash of the picture>: Telegram, WhatsApp… cache previews by URL — a new picture gets a new address
   const v = createHash('sha256').update(readFileSync(`${DIST}/og/${image}.png`)).digest('hex').slice(0, 8);
-  html = setMeta(html, 'property', 'og:image', `${SITE_URL}/og/${image}.png?v=${v}`);
+  const imageUrl = `${SITE_URL}/og/${image}.png?v=${v}`;
+  html = setMeta(html, 'property', 'og:image', imageUrl);
   html = setMeta(html, 'property', 'og:image:alt', p.imageAlt);
+  html = setMeta(html, 'name', 'twitter:title', p.title);
+  html = setMeta(html, 'name', 'twitter:description', snippet(p.description, 200));
+  html = setMeta(html, 'name', 'twitter:image', imageUrl);
+  html = setMeta(html, 'name', 'twitter:image:alt', p.imageAlt);
   if (p.lang && p.lang !== 'ru') {
     html = html.replace('<html lang="ru">', `<html lang="${p.lang}">`);
     html = html.replace('href="/manifest.webmanifest"', `href="/manifest-${p.lang}.webmanifest"`);
     html = setMeta(html, 'property', 'og:locale', p.lang === 'en' ? 'en_US' : 'de_DE');
+  }
+  const locale = { ru: 'ru_RU', en: 'en_US', de: 'de_DE' } as const;
+  for (const alternate of p.alternates ?? []) {
+    if (alternate.lang !== p.lang && alternate.lang in locale)
+      html = html.replace(
+        '</head>',
+        `    <meta property="og:locale:alternate" content="${locale[alternate.lang as keyof typeof locale]}" />\n  </head>`,
+      );
   }
   if (p.alternates)
     html = html.replace(
@@ -187,7 +205,21 @@ function render(p: Page): string {
           .join('\n')}`,
     );
   // `<` escaped so text can never close the <script> element
-  const ld = JSON.stringify(p.jsonLd).replace(/</g, '\\u003c');
+  const data = p.jsonLd as Record<string, unknown>;
+  const graph: unknown[] = Array.isArray(data['@graph'])
+    ? [...data['@graph']]
+    : (() => {
+        const entity = { ...data };
+        delete entity['@context'];
+        return [entity];
+      })();
+  const hasBreadcrumbs = graph.some(
+    (entity) => !!entity && typeof entity === 'object' && !Array.isArray(entity) && (entity as Record<string, unknown>)['@type'] === 'BreadcrumbList',
+  );
+  const lang = p.lang ?? 'ru';
+  if (!hasBreadcrumbs && p.url !== homeUrl(lang))
+    graph.push(crumbs(lang, p.title.replace(/ · (Нифлаот|Niflaot|MyChitas)$/, ''), p.url));
+  const ld = JSON.stringify({ '@context': data['@context'] ?? 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
   html = html.replace(
     '<meta charset="utf-8" />',
     `<meta charset="utf-8" />\n    <meta http-equiv="Content-Security-Policy" content="${CSP}" />${VERIFY}`,
