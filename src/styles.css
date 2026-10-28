@@ -2214,6 +2214,17 @@ body:has(.k-home){background:var(--warm)}
 .wc-l-he{font-family:var(--f-he);font-size:14px;font-weight:500}
 .wc-l-date{font-weight:800}
 .wc-l-time{font-weight:700;font-size:15px;white-space:nowrap}
+.shabbat-calendar{min-width:0;padding:14px 16px;border:1px solid var(--line-soft);border-radius:16px;background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.shabbat-calendar-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.shabbat-calendar h2{margin:0;font-family:var(--f-display);font-size:21px;line-height:1.15}
+.shabbat-calendar-head p,.shabbat-calendar-note{margin:4px 0 0;color:var(--muted);font-size:12px;line-height:1.35}
+.shabbat-calendar-date{display:grid;justify-items:end;text-align:end;font-size:12px;line-height:1.4}
+.shabbat-calendar-date .he{font-family:var(--f-he);font-size:13px}
+.shabbat-calendar-times{margin:10px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 12px}
+.shabbat-calendar-times>div{display:flex;justify-content:space-between;align-items:baseline;gap:6px;border-top:1px solid var(--line-soft);padding-top:5px}
+.shabbat-calendar-times dt{font-size:12px;color:var(--muted);line-height:1.25}
+.shabbat-calendar-times dd{margin:0;font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.shabbat-calendar-note{font-size:10px}
 .k-sec{display:grid;gap:12px}
 .k-sec h2{margin:0;font-family:var(--f-display);font-weight:700;font-size:26px;line-height:1.1}
 .k-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
@@ -2275,6 +2286,14 @@ body:has(.k-home){background:var(--warm)}
   .k-side .wc-l-he{font-size:12px}
   .k-side .wc-l-time{font-size:13px}
   .k-side .wc-line svg{width:16px;height:16px}
+  .k-side .shabbat-calendar{padding:8px 10px;border-radius:12px}
+  .k-side .shabbat-calendar h2{font-size:15px}
+  .k-side .shabbat-calendar-head p,.k-side .shabbat-calendar-date{font-size:10px}
+  .k-side .shabbat-calendar-date .he{font-size:11px}
+  .k-side .shabbat-calendar-times{margin-top:5px;gap:4px 8px}
+  .k-side .shabbat-calendar-times dt{font-size:10px}
+  .k-side .shabbat-calendar-times dd{font-size:12px}
+  .k-side .shabbat-calendar-note{font-size:9px}
   .k-sec{gap:6px}
   .k-sec h2{font-size:17px}
   /* the tiles: a small picture beside the name, two at a time sideways */
