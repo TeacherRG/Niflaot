@@ -6,6 +6,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { CHAPTERS, chapterAudioTracks, dailyPortion, hebrewDayForDate, shortHebrewMonth, stripTaamim, tokens } from '../src/core/reading';
 
 const dir = new URL('../public/reading/tehillim/', import.meta.url);
+const torahDir = new URL('../public/reading/torah/', import.meta.url);
 const audioDir = new URL('../public/reading/Audio/', import.meta.url);
 const index = JSON.parse(readFileSync(new URL('index.json', dir), 'utf8'));
 const errors: string[] = [];
@@ -16,6 +17,7 @@ for (let c = 59; c <= CHAPTERS; c++) {
   if (!existsSync(new URL(file, audioDir))) errors.push(`нет аудио главы ${c}: ${file}`);
 }
 if (!existsSync(new URL('119.2.mp3', audioDir))) errors.push('нет аудио второй части главы 119: 119.2.mp3');
+if (!existsSync(new URL('tora_53.mp3', audioDir))) errors.push('нет аудио «Песни Аазину»: tora_53.mp3');
 if (hebrewDayForDate('2026-10-28') !== 17) errors.push('еврейский календарь: 28.10.2026 должен открывать порцию 17-го дня');
 const day17 = dailyPortion(17).map((p) => p.chapter);
 if (day17.join(',') !== '83,84,85,86,87') errors.push(`порция 17-го дня: ожидались главы 83–87, получены ${day17.join(',')}`);
@@ -67,8 +69,17 @@ for (let c = 1; c <= CHAPTERS; c++) {
     if (/יהוה|(^|[\s־])[והבכלמש]*אלהים/.test(plain)) errors.push(`${c}:${i + 1}: Имя не заменено`);
   });
 }
+const haazinu = JSON.parse(readFileSync(new URL('haazinu.json', torahDir), 'utf8')) as { chapter: number; source: string; v: string[] };
+if (haazinu.chapter !== 32) errors.push(`Аазину: ожидалась глава 32, получено ${haazinu.chapter}`);
+if (haazinu.v.length !== 52) errors.push(`Аазину: ожидалось 52 стиха, получено ${haazinu.v.length}`);
+if (!/sefaria\.org\/Deuteronomy\.32/.test(haazinu.source ?? '')) errors.push('Аазину: неверная ссылка на источник');
+haazinu.v.forEach((s, i) => {
+  const plain = stripTaamim(s).replace(/[ְ-ׇ]/g, '');
+  if (/[[\]()]/.test(s)) errors.push(`Аазину ${i + 1}: скобки (ктив / кери)`);
+  if (/יהוה|(^|[\s־])[והבכלמש]*אלהים/.test(plain)) errors.push(`Аазину ${i + 1}: Имя не заменено`);
+});
 if (errors.length) {
   console.error(errors.slice(0, 20).join('\n'));
   process.exit(1);
 }
-console.log(`✓ Святое чтение: Теґилим — ${CHAPTERS} глав, ${total} слов, кери, Имена`);
+console.log(`✓ Святое чтение: Теґилим — ${CHAPTERS} глав, ${total} слов, кери, Имена; Аазину — ${haazinu.v.length} стихов`);

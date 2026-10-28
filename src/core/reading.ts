@@ -1,8 +1,9 @@
 /**
  * «Святое чтение» — ежедневная порция Теґилим по еврейскому числу месяца (`#/reading[/day/<число>]`).
- * `#/reading/<глава>` остаётся прямым чтением одной главы.
+ * `#/reading/<глава>` остаётся прямым чтением одной главы, `#/reading/haazinu` — «Песнь Аазину» (Дварим 32).
  * Текст — public/reading/tehillim/<глава>.json (`python3 scripts/fetch-reading.py`: огласовки и знаки кантилляции, кери,
- * Имена — как во всём проекте). Записи чтения — только на этом устройстве:
+ * Имена — как во всём проекте). «Песнь Аазину» — public/reading/torah/haazinu.json (Sefaria, Deuteronomy 32).
+ * Записи чтения — только на этом устройстве:
  *   `niflaot:reading` = {"<ключ чтения>": {best, last — слов в минуту; n — попыток}};
  *   `niflaot:reading-view` = {taamim, big};
  *   `niflaot:reading-times:<ключ чтения>` — разметка аудио учителем (начало каждого слова, с).
@@ -93,7 +94,16 @@ export interface ReadingIndex {
   words: number[];
 }
 
+export interface HaazinuText {
+  book: string;
+  chapter: number;
+  he: string;
+  source: string;
+  v: string[];
+}
+
 let index: Promise<ReadingIndex> | undefined;
+let haazinu: Promise<HaazinuText> | undefined;
 const chapters = new Map<number, Promise<string[]>>();
 
 export function loadIndex(): Promise<ReadingIndex> {
@@ -118,6 +128,15 @@ export function loadChapter(c: number): Promise<string[]> {
     chapters.set(c, p);
   }
   return p;
+}
+
+export function loadHaazinu(): Promise<HaazinuText> {
+  haazinu ??= fetch(`${root()}reading/torah/haazinu.json`).then((r) => {
+    if (!r.ok) throw new Error(String(r.status));
+    return r.json();
+  });
+  haazinu.catch(() => (haazinu = undefined));
+  return haazinu;
 }
 
 /** the cantillation marks (and meteg, paseq) — off when the reader turns them off */

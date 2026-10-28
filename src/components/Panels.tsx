@@ -282,9 +282,12 @@ export function Panels() {
               {level !== 'reads' && link('#/letters', num('א', true), t('abc.title'), t('abc.menuSub'))}
             </>
           ))}
-          {/* «Святое чтение» — fluent reading of Tehillim aloud, with trainers */}
+          {/* «Святое чтение» — fluent reading of Tehillim and «Песнь Аазину» aloud, with trainers */}
           {group(<Icon name="book" />, t('reading.title'), t('reading.menuSub'), starts('#/reading'), (
-            link('#/reading', num('ת', true), t('reading.menuItem'), t('reading.menuItemSub'))
+            <>
+              {link('#/reading', num('ת', true), t('reading.menuItem'), t('reading.menuItemSub'))}
+              {link('#/reading/haazinu', num('ש', true), t('reading.menuHaazinu'), t('reading.menuHaazinuSub'))}
+            </>
           ))}
           {link('#/nigun', <Icon name="music" />, t('nigun.title'), t('nigun.menuSub'))}
           {/* «Курсы Академии» — the academy's own courses (owner, 27.10.2026): «Тайна Коэлета» so far */}

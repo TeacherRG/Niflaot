@@ -66,7 +66,7 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©mychitas.app`;
  * `#/daily` — «Знаете ли вы?» opened on «Гематрия дня», its first card; `#/math/<op>` — «Устный счёт».
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson; `/mental-math/` and `/daily/` (also under `/en/`, `/de/`) — those pages.
- * `#/reading` opens the Tehillim portion for today's Hebrew date; `#/reading/day/<day>` selects another date, while `#/reading/<chapter>` opens one chapter.
+ * `#/reading` opens the Tehillim portion for today's Hebrew date; `#/reading/day/<day>` selects another date, `#/reading/<chapter>` opens one chapter, and `#/reading/haazinu` opens Deuteronomy 32 («Песнь Аазину»).
  */
 function readRoute() {
   if (location.hash) return location.hash.replace(/^#\/?/, '').split('?')[0];
