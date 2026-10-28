@@ -170,8 +170,8 @@ export function TopBar({ title, children, wide, share = true }: { title: string;
         {children}
         {share && <ShareButton />}
         <AccountChip />
-        <LanguagePicker />
         <HebrewDay />
+        <LanguagePicker />
       </div>
     </div>
   );

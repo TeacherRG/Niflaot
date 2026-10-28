@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
-import { Sheet } from './ui';
+import { Icon, Sheet } from './ui';
 
 const ShabbatCalendar = lazy(() => import('./ShabbatCalendar').then((m) => ({ default: m.ShabbatCalendar })));
 
@@ -35,7 +35,7 @@ async function todayHebrewDay(): Promise<string | null> {
 }
 
 /**
- * The top bar, right of the language: today's Jewish day, just the number (owner, 28.10.2026; after sunset — the next one);
+ * The top bar, left of the language (owner: the language in the very corner): today's Jewish day, just the number (owner, 28.10.2026; after sunset — the next one);
  * a tap opens the calendar of Shabbat with its times (ShabbatCalendar, loaded only then).
  */
 export function HebrewDay() {
@@ -56,7 +56,8 @@ export function HebrewDay() {
   return (
     <>
       <button type="button" className="hday" onClick={() => setOpen(true)} aria-label={`${t('calendar.hebrewDay')}: ${day} · ${t('calendar.title')}`} title={t('calendar.title')}>
-        {day}
+        <Icon name="calendar" size={15} />
+        <span>{day}</span>
       </button>
       <Sheet open={open} onClose={() => setOpen(false)} title={t('calendar.title')} closeLabel={t('menu.close')}>
         <Suspense fallback={null}>{open && <ShabbatCalendar bare />}</Suspense>

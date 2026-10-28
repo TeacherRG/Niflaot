@@ -39,6 +39,7 @@ const PATHS = {
   music: 'M9 18V5l11-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zM20 16a3 3 0 11-6 0 3 3 0 016 0z',
   chat: 'M4 5h16v11H9l-5 4z',
   grid: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
+  calendar: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4',
 } as const;
 
 export function Icon({ name, size = 20 }: { name: keyof typeof PATHS; size?: number }) {
