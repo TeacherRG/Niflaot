@@ -32,6 +32,17 @@ export function isShabbatRest(d = new Date(), place: Place | null = placeOf()): 
   return d >= w.from && d < w.to;
 }
 
+/**
+ * Search engines' crawlers (not people, not «read aloud»): the server gives them the pages on Shabbat anyway — the rest is
+ * drawn by the page — so they get the page, not the Shabbat screen, else «Шабат шалом» would be indexed instead of a lesson
+ * (Googlebot renders the page; Friday 14:00 – Saturday 23:00 is a fifth of the week).
+ */
+export const isSearchBot = () =>
+  typeof navigator !== 'undefined' &&
+  /Googlebot|Google-InspectionTool|Storebot-Google|bingbot|BingPreview|YandexBot|YandexRenderResolver|DuckDuckBot|Baiduspider|Applebot|OAI-SearchBot|PerplexityBot|Claude-SearchBot|Slurp/i.test(
+    navigator.userAgent,
+  );
+
 /** `?shabbat=preview` shows the Shabbat screen at any time (to check it). */
 export const shabbatPreview = () => {
   try {
