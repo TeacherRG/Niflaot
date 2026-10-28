@@ -331,6 +331,7 @@ const ru = {
   'courses.skip': "Пропустить выбор курсов — добавить их можно позже",
   'home.riddle': "загадка {n} из {total}",
   'home.week': "Глава недели",
+  'home.todayParsha': "Сегодня — глава",
   'calendar.title': "Календарь Шабата",
   'calendar.city': "Время для города: {city}",
   'calendar.locationUnavailable': "Не удалось определить город по часовому поясу устройства.",

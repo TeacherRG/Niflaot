@@ -8,8 +8,7 @@ import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { WeekCountdown } from './WeekCountdown';
 import { PhoneOffer } from './PhoneOffer';
-import { HabitCard, Repair } from './HabitCard';
-import { useHabit } from '../core/habit';
+import { HabitCard } from './HabitCard';
 import { dailyNumber, grid, loadResults, streak } from '../core/daily';
 import { Icon } from './ui';
 import { lessonGames } from './lessonGames';
@@ -58,61 +57,41 @@ function TableLink() {
 }
 
 /**
- * The adults' home («Подростки и взрослые», src/core/mode.ts): bookish and quiet. The main block — «Мои курсы» (CoursesCard.tsx,
- * `lead`; owner, 26.10.2026, instead of the plan of the day «Сегодня учим в Академии»): the streak and «сегодня N из M», each course
- * with ✓ for today, «Читать» on the first one not done; under it «Восполнить пропуск» and «Мало времени? 2 минуты — «Гематрия дня»».
- * Beside it — the week's Torah lessons to read (the same for everyone), «Знаете ли вы?», «Викторина вместе», the phone offer. No games or ages.
+ * The adults' home («Подростки и взрослые», src/core/mode.ts): four tiles and nothing else (owner, 28.10.2026: «убрать все лишние
+ * тексты и повторяющиеся ссылки») — «Сегодня — глава» (the week's portion, opens its first lesson to read), «Мои курсы» (only the
+ * names of the chosen courses with their bars — CoursesCard `simple`), «Беглое чтение Теґилим» (#/reading) and the calendar;
+ * under them — the dedication of the week.
  */
 function AdultsHome() {
-  const { t, pick, locale } = useI18n();
+  const { t, locale } = useI18n();
   useEffect(() => {
     document.title = `${t('home.adultsH1')} · ${t('app.title')} · MyChitas`;
   }, [t]);
-  const h = useHabit();
   const week = LESSON_GROUPS[LESSON_GROUPS.length - 1];
   const reads = [...week.lessons, ...week.rebbe];
+  const art = reads.map((l) => lessonArt(l, 'hero')).find(Boolean);
 
   return (
     <>
       <TopBar title={t('app.title')} wide />
       <main className="a-home">
         <h1 className="sr-only">{t('home.adultsH1')}</h1>
-        <div className="a-main">
-          <CoursesCard lead />
-          {h.repair && <Repair day={h.repair.day} streak={h.repair.streak} pending={h.pending === h.repair.day} adults locale={locale} />}
-          <p className="a-short">
-            {t('habit.short')} <a href="#/daily">{t('habit.shortDaily')}</a>
-          </p>
-        </div>
-        <aside className="a-side">
-          <ShabbatCalendar />
+        <div className="a-tiles">
           {reads.length > 0 && (
-            <section aria-labelledby="a-week">
-              <h2 id="a-week">
-                {t('home.week')} · {week.name[locale as keyof typeof week.name] ?? week.name.ru} <span className="he">{week.he}</span>
-              </h2>
-              <ul className="a-week">
-                {reads.map((l) => {
-                  const who = teacherOf(l);
-                  return (
-                    <li key={l.slug}>
-                      <a className={`t-${TEACHERS[who].color}`} href={`#/${l.slug}/read`}>
-                        <span className="a-week-k">{t(`teacher.${who}.short`)}</span>
-                        <span className="a-week-t">{pick(l.texts).value.title} →</span>
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
+            <a className={`a-tile a-parsha${art ? ' a-art' : ''}`} href={`#/${reads[0].slug}/read`} style={art ? { backgroundImage: `url(${art})` } : undefined}>
+              <span className="a-tile-k">{t('home.todayParsha')}</span>
+              <span className="a-tile-t">{week.name[locale as keyof typeof week.name] ?? week.name.ru}</span>
+              <span className="a-tile-he he">{week.he}</span>
+            </a>
           )}
-          <PhoneOffer />
-          <p className="a-links">
-            <a href="#/facts">{t('facts.title')} →</a>
-            <a href="#/quiz">{t('lq.title')} →</a>
-            <a href="#/digest">{t('digest.title')} →</a>
-          </p>
-        </aside>
+          <a className="a-tile a-reading" href="#/reading">
+            <span className="a-tile-k">{t('reading.title')}</span>
+            <span className="a-tile-t">{t('reading.h1')}</span>
+            <span className="a-tile-he he">תְּהִלִּים</span>
+          </a>
+          <CoursesCard simple />
+          <ShabbatCalendar />
+        </div>
         <Dedication />
       </main>
       <Colophon />

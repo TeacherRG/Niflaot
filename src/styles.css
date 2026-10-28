@@ -2309,51 +2309,39 @@ body:has(.k-home){background:var(--warm)}
   .top-in.wide .brand{display:block}
 }
 
-/* the adults' home (Catalog.tsx, AdultsHome; the design «Нифлаот — новая главная»): bookish and quiet — «Мои курсы» as
-   the main block (CoursesCard lead: the streak, today's ✓, «Читать» on the first not done), beside it the week's Torah to read */
+/* the adults' home (Catalog.tsx, AdultsHome; owner, 28.10.2026): four tiles — «Сегодня — глава», «Беглое чтение Теґилим»,
+   «Мои курсы» (only names and bars), the calendar — and the dedication under them */
 body:has(.a-home){background:var(--plain)}
-.a-home{max-width:1180px;margin:0 auto;padding:36px 0 12px;display:flex;flex-wrap:wrap;gap:28px 72px;align-items:flex-start}
+.a-home{max-width:1080px;margin:0 auto;padding:32px 0 12px;display:flex;flex-wrap:wrap;gap:24px}
 .a-bar{display:block;height:4px;border-radius:2px;background:var(--line-soft);overflow:hidden}
 .a-bar>span{display:block;height:100%;border-radius:2px;background:var(--tchelet-deep);transition:width .4s}
-.a-main{flex:3 1 520px;min-width:0;display:grid;gap:12px}
-.a-short{margin:0;font-size:14px;color:var(--muted)}
-.a-short a{color:var(--tchelet)}
-.a-side{flex:2 1 300px;min-width:0;display:grid;gap:26px}
-.a-side h2{margin:0 0 8px;font-family:var(--f-display);font-weight:700;font-size:28px;line-height:1.1}
-.a-side h2 .he{font-size:21px;color:var(--tchelet)}
-.a-week{list-style:none;margin:0;padding:0;border-bottom:1px solid var(--line-soft)}
-.a-week a{display:grid;gap:2px;padding:14px 0;border-top:1px solid var(--line-soft);color:var(--ink);text-decoration:none}
-.a-week-k{font-size:12px;font-weight:700;color:var(--tc)}
-.a-week-t{font-family:var(--f-display);font-weight:700;font-size:22px;line-height:1.15}
-.a-week a:hover .a-week-t{color:var(--tchelet)}
-.a-cert{display:grid;gap:8px;padding:20px 22px;border-radius:16px;background:var(--tchelet-bg);color:var(--ink);text-decoration:none}
-.a-cert-k{font-size:12px;font-weight:700;color:var(--tchelet)}
-.a-cert-t{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-family:var(--f-display);font-weight:700;font-size:24px;line-height:1.1}
-.a-cert .a-bar{background:var(--tchelet-line)}
-.a-cert-s{flex:none;font-family:var(--f-body);font-size:14px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
-.a-side .h-phone{margin:0}
-.a-links{margin:0;display:flex;flex-wrap:wrap;gap:8px 22px;font-size:14px;font-weight:700}
-.a-links a{color:var(--tchelet);text-decoration:none}
+.a-tiles{flex:1 1 100%;min-width:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:stretch}
+.a-tile{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;min-height:180px;padding:20px 22px;border-radius:18px;overflow:hidden;
+  background:var(--tchelet-deep);background-size:cover;background-position:center;color:#fff;text-decoration:none;box-shadow:var(--shadow)}
+.a-tile.a-art::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(14,22,48,.86),rgba(14,22,48,.15) 70%)}
+.a-tile>*{position:relative}
+.a-reading{background:var(--gold-deep)}
+.a-tile-k{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.9}
+.a-tile-t{font-family:var(--f-display);font-weight:700;font-size:34px;line-height:1.05}
+.a-tile-he{align-self:flex-start;font-size:24px;opacity:.95}
+.a-tile:hover .a-tile-t{text-decoration:underline;text-underline-offset:4px}
+.a-tiles>.courses,.a-tiles>.shabbat-calendar{margin:0}
+.courses.simple{gap:6px}
+.courses.simple h2{font-size:24px}
+.courses.simple .courses-row{grid-template-columns:minmax(0,1fr);gap:4px;padding:5px 0}
+.courses.simple .courses-row .a-bar{margin-top:0}
 @media (prefers-reduced-motion:reduce){.a-bar>span{transition:none}}
 @media (max-width:640px){
-  .a-home{padding-top:20px;gap:28px}
-  .a-side{gap:22px}
-  .a-side h2{font-size:24px}
-  .a-week-t{font-size:20px}
   /* a phone: it all fits one screen */
-  .a-home{padding-top:12px;gap:16px}
-  .a-side,.a-main{gap:12px}
-  .a-short{font-size:13px}
-  .a-side h2{margin-bottom:2px;font-size:18px}
-  .a-side h2 .he{font-size:16px}
-  .a-week a{padding:7px 0;gap:0}
-  .a-week-k{font-size:11px}
-  .a-week-t{font-size:16px}
-  .a-cert{gap:6px;padding:10px 14px;border-radius:12px}
-  .a-cert-k{font-size:11px}
-  .a-cert-t{font-size:17px}
-  .a-cert-s{font-size:12.5px}
-  .a-links{gap:6px 18px;font-size:13px}
+  .a-home{padding-top:12px;gap:12px}
+  .a-tiles{gap:10px}
+  .a-tiles>.courses,.a-tiles>.shabbat-calendar{grid-column:1/-1}
+  .a-tile{min-height:96px;padding:12px 14px;border-radius:14px}
+  .a-tile-k{font-size:10.5px}
+  .a-tile-t{font-size:21px}
+  .a-tile-he{font-size:16px}
+  .courses.simple h2{font-size:17px}
+  .courses.simple .courses-row{padding:2px 0;gap:3px}
 }
 /* both home pages fill the screen, so the footer sits at its bottom */
 @media (min-width:641px){.k-home,.a-home{box-sizing:border-box;min-height:calc(100svh - 57px - 76px - 28px)}.k-home{align-content:start}}
@@ -2598,34 +2586,6 @@ body:has(.a-home){background:var(--plain)}
 .courses-chip a{padding:3px 4px 3px 10px;color:var(--ink);font-weight:600;text-decoration:none}
 .courses-chip a:hover{color:var(--tchelet)}
 .courses-chip button{padding:3px 10px 3px 6px;border:0;background:none;color:var(--tchelet);font:inherit;font-weight:800;cursor:pointer}
-/* «Мои курсы» as the main block of the adults' home: bigger, the streak line, ✓ for today, «Читать» on the first one to do */
-.courses.lead{gap:10px;padding:24px 28px;border-radius:20px}
-.courses.lead h2{font-size:clamp(32px,4vw,44px);line-height:1}
-.courses-status{margin:-2px 0 4px;font-size:15px;color:var(--muted)}
-.courses-status b{color:var(--ink)}
-.courses.lead ul{gap:0}
-.courses.lead li+li{border-top:1px solid var(--tchelet-line)}
-.courses.lead .courses-row{grid-template-columns:minmax(0,1fr) auto auto;align-items:center;padding:14px 0;column-gap:16px}
-.courses.lead .courses-t{font-family:var(--f-display);font-size:24px;line-height:1.1}
-.courses.lead .courses-t small{font-family:var(--f-body);font-size:13px}
-.courses.lead .courses-n{font-size:14px}
-.courses.lead .courses-s{font-size:14.5px;grid-column:1/3}
-.courses.lead .courses-row .a-bar{grid-column:1/3}
-.courses.lead .courses-row:not(.go){grid-template-columns:minmax(0,1fr) auto}
-.courses.lead .courses-row:not(.go) .courses-s,.courses.lead .courses-row:not(.go) .a-bar{grid-column:1/-1}
-.courses.lead .courses-row.today .courses-t{color:var(--muted)}
-.courses-tick{color:var(--ok);font-weight:800}
-.courses-go{grid-column:3;grid-row:1/span 3;display:inline-flex;align-items:center;min-height:44px;padding:0 22px;border-radius:12px;background:var(--tchelet-deep);color:#fff;font-weight:800;font-size:15px}
-.courses-row.go:hover .courses-go{filter:brightness(1.12)}
-@media (max-width:640px){
-  .courses.lead{padding:14px 16px;border-radius:16px;gap:6px}
-  .courses.lead h2{font-size:26px}
-  .courses-status{font-size:13px;margin:0}
-  .courses.lead .courses-row{padding:8px 0;column-gap:10px}
-  .courses.lead .courses-t{font-size:18px}
-  .courses.lead .courses-s{font-size:12.5px}
-  .courses-go{min-height:36px;padding:0 14px;font-size:13px}
-}
 .mode-later{margin:14px 0 0}
 @media (max-width:640px){.courses-more{font-size:11.5px}.courses-chip a{padding:2px 3px 2px 8px}.courses-chip button{padding:2px 8px 2px 4px}}
 
