@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-«Святое чтение» — беглое чтение Теґилим (src/components/ReadingPage.tsx).
+«Святое чтение» — проворное чтение Теґилим (src/components/ReadingPage.tsx).
 
     python3 scripts/fetch-reading.py     # → public/reading/tehillim/<глава>.json и public/reading/tehillim/index.json
 
