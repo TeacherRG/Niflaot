@@ -12,6 +12,7 @@ import {
   chapterAudioTracks,
   currentHebrewDay,
   dailyPortion,
+  loadHaazinu,
   loadChapter,
   loadIndex,
   loadView,
@@ -49,21 +50,31 @@ interface TextSection {
 export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }) {
   const { t } = useI18n();
   const level = useHebrewLevel();
+  const haazinu = chapter === 'haazinu';
   const daily = chapter === undefined;
   const currentDay = currentHebrewDay();
   const dailyDay = day === undefined ? currentDay : Number(day);
-  const c = daily ? dailyPortion(dailyDay)[0]?.chapter ?? 1 : Number(chapter);
+  const c = haazinu ? 32 : daily ? dailyPortion(dailyDay)[0]?.chapter ?? 1 : Number(chapter);
   const shortMonth = shortHebrewMonth(todayISO());
   const maxDailyDay = shortMonth ? 29 : 30;
   const portions: PsalmPortion[] = useMemo(
-    () => (daily ? dailyPortion(dailyDay, dailyDay === 29 && shortMonth) : [{ chapter: c }]),
-    [daily, dailyDay, shortMonth, c],
+    () => (daily ? dailyPortion(dailyDay, dailyDay === 29 && shortMonth) : haazinu ? [] : [{ chapter: c }]),
+    [daily, dailyDay, shortMonth, haazinu, c],
   );
-  const readingId: ReadingId = daily ? `day-${dailyDay}` : c;
-  const tracks = useMemo(() => (daily ? chapterAudioTracks(portions, readingId) : []), [daily, portions, readingId]);
-  const valid = daily ? Number.isInteger(dailyDay) && dailyDay >= 1 && dailyDay <= maxDailyDay : Number.isInteger(c) && c >= 1 && c <= CHAPTERS;
+  const readingId: ReadingId = haazinu ? 'haazinu' : daily ? `day-${dailyDay}` : c;
+  const tracks = useMemo(
+    () =>
+      haazinu
+        ? [{ chapter: 32, src: 'reading/Audio/tora_53.mp3', markId: 'haazinu' }]
+        : daily
+          ? chapterAudioTracks(portions, readingId)
+          : [],
+    [haazinu, daily, portions, readingId],
+  );
+  const valid = haazinu || (daily ? Number.isInteger(dailyDay) && dailyDay >= 1 && dailyDay <= maxDailyDay : Number.isInteger(c) && c >= 1 && c <= CHAPTERS);
   const [idx, setIdx] = useState<ReadingIndex | null>(null);
   const [sections, setSections] = useState<TextSection[] | null>(null);
+  const [source, setSource] = useState<{ title: string; url: string } | null>(null);
   const [failed, setFailed] = useState(false);
   const [view, setView] = useState<View>(loadView);
   const [active, setActive] = useState(-1);
@@ -161,8 +172,9 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   };
 
   useEffect(() => {
-    document.title = `${t('reading.title')} · ${daily ? `${t('reading.day')} ${dailyDay}` : `${t('reading.book')} ${c}`} · ${t('app.title')}`;
-  }, [t, daily, dailyDay, c]);
+    const unit = haazinu ? t('reading.haazinuTitle') : daily ? `${t('reading.day')} ${dailyDay}` : `${t('reading.book')} ${c}`;
+    document.title = `${t('reading.title')} · ${unit} · ${t('app.title')}`;
+  }, [t, haazinu, daily, dailyDay, c]);
   useEffect(() => {
     if (audioRef.current) audioRef.current.playbackRate = audioRate;
   }, [audioRate, audio]);
@@ -171,26 +183,39 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
     stopAudio();
     setAudioFailed(false);
     setFailed(false);
+    setSource(null);
+    setIdx(null);
     setSections(null);
     setActive(-1);
     let live = true;
-    Promise.all([loadIndex(), ...portions.map(({ chapter: n }) => loadChapter(n))])
-      .then(([i, ...loaded]) => {
-        if (!live) return;
-        const nextSections = portions.map((portion, index) => {
-          const all = loaded[index] as string[];
-          const from = portion.fromVerse ?? 1;
-          const to = portion.toVerse ?? all.length;
-          return { chapter: portion.chapter, firstVerse: from, verses: all.slice(from - 1, to) };
-        });
-        setIdx(i as ReadingIndex);
-        setSections(nextSections);
-      })
-      .catch(() => live && setFailed(true));
+    if (haazinu) {
+      loadHaazinu()
+        .then((h) => {
+          if (!live) return;
+          setSource({ title: 'Sefaria · Deuteronomy 32', url: h.source });
+          setSections([{ chapter: h.chapter, firstVerse: 1, verses: h.v }]);
+        })
+        .catch(() => live && setFailed(true));
+    } else {
+      Promise.all([loadIndex(), ...portions.map(({ chapter: n }) => loadChapter(n))])
+        .then(([i, ...loaded]) => {
+          if (!live) return;
+          const nextSections = portions.map((portion, index) => {
+            const all = loaded[index] as string[];
+            const from = portion.fromVerse ?? 1;
+            const to = portion.toVerse ?? all.length;
+            return { chapter: portion.chapter, firstVerse: from, verses: all.slice(from - 1, to) };
+          });
+          setIdx(i as ReadingIndex);
+          setSource({ title: i.version.title, url: i.version.source });
+          setSections(nextSections);
+        })
+        .catch(() => live && setFailed(true));
+    }
     return () => {
       live = false;
     };
-  }, [c, dailyDay, valid, stopAudio, portions]);
+  }, [c, dailyDay, valid, stopAudio, portions, haazinu]);
 
   const setV = (v: View) => {
     setView(v);
@@ -228,9 +253,10 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
             📖 {t('reading.title')} · <span className="he">קְרִיאָה</span>
           </p>
           <h1>
-            {t('reading.h1')} <span className="he">תְּהִלִּים</span>
+            {t('reading.h1')} <span className="he">{haazinu ? 'הַאֲזִינוּ' : 'תְּהִלִּים'}</span>
           </h1>
-          <p className="ac-lead">{t('reading.lead')}</p>
+          <p className="ac-lead">{t(haazinu ? 'reading.haazinuLead' : 'reading.lead')}</p>
+          {haazinu && <p className="ac-lead">{t('reading.haazinuAbout')}</p>}
           {daily && <p className="ac-lead">{t('reading.dayHeader', { day: dailyDay, psalms: dailyPortionLabel(dailyDay) })}</p>}
           {level === 'none' && (
             <p className="rd-note">
@@ -239,24 +265,26 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           )}
         </header>
 
-        <nav className="rd-nav" aria-label={t(daily ? 'reading.dayPick' : 'reading.pick')}>
-          <button type="button" className="rd-arrow" onClick={() => (daily ? goDay(dailyDay - 1) : go(c - 1))} disabled={daily ? dailyDay <= 1 : c <= 1} aria-label={t('reading.prev')}>
-            ‹
-          </button>
-          <label className="rd-pick">
-            <span className="sr-only">{t(daily ? 'reading.dayPick' : 'reading.pick')}</span>
-            <select value={daily ? dailyDay : c} onChange={(e) => (daily ? goDay(Number(e.target.value)) : go(Number(e.target.value)))}>
-              {Array.from({ length: daily ? maxDailyDay : CHAPTERS }, (_, i) => i + 1).map((n) => (
-                <option key={n} value={n}>
-                  {daily ? `${t('reading.day')} ${n} · ${dailyPortionLabel(n)}` : `${t('reading.book')} ${n}${idx ? ` — ${t('reading.words', { n: idx.words[n - 1] })}` : ''}`}
-                </option>
-              ))}
-            </select>
-          </label>
-          <button type="button" className="rd-arrow" onClick={() => (daily ? goDay(dailyDay + 1) : go(c + 1))} disabled={daily ? dailyDay >= maxDailyDay : c >= CHAPTERS} aria-label={t('reading.next')}>
-            ›
-          </button>
-        </nav>
+        {!haazinu && (
+          <nav className="rd-nav" aria-label={t(daily ? 'reading.dayPick' : 'reading.pick')}>
+            <button type="button" className="rd-arrow" onClick={() => (daily ? goDay(dailyDay - 1) : go(c - 1))} disabled={daily ? dailyDay <= 1 : c <= 1} aria-label={t('reading.prev')}>
+              ‹
+            </button>
+            <label className="rd-pick">
+              <span className="sr-only">{t(daily ? 'reading.dayPick' : 'reading.pick')}</span>
+              <select value={daily ? dailyDay : c} onChange={(e) => (daily ? goDay(Number(e.target.value)) : go(Number(e.target.value)))}>
+                {Array.from({ length: daily ? maxDailyDay : CHAPTERS }, (_, i) => i + 1).map((n) => (
+                  <option key={n} value={n}>
+                    {daily ? `${t('reading.day')} ${n} · ${dailyPortionLabel(n)}` : `${t('reading.book')} ${n}${idx ? ` — ${t('reading.words', { n: idx.words[n - 1] })}` : ''}`}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button type="button" className="rd-arrow" onClick={() => (daily ? goDay(dailyDay + 1) : go(c + 1))} disabled={daily ? dailyDay >= maxDailyDay : c >= CHAPTERS} aria-label={t('reading.next')}>
+              ›
+            </button>
+          </nav>
+        )}
 
         <div className="rd-opts no-print">
           <label>
@@ -400,7 +428,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
               <Marking
                 key={track.markId}
                 c={track.markId}
-                label={`${t('reading.book')} ${track.chapter}`}
+                label={haazinu ? t('reading.haazinuMark') : `${t('reading.book')} ${track.chapter}`}
                 toks={indices.map((tokenIndex) => toks[tokenIndex])}
                 src={track.src}
                 setActive={(word) => setActive(indices[word] ?? -1)}
@@ -408,11 +436,11 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
             );
           })}
 
-        {idx && (
+        {source && (
           <p className="rd-credit">
             {t('reading.credit')}{' '}
-            <a href={idx.version.source} target="_blank" rel="noopener">
-              {idx.version.title}
+            <a href={source.url} target="_blank" rel="noopener">
+              {source.title}
             </a>{' '}
             · {t('reading.pd')}
           </p>
