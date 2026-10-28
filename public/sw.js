@@ -186,8 +186,8 @@ self.addEventListener('push', (e) => {
       await self.registration.showNotification(m.title, {
         body: anchor ? `${anchor}\n${body}` : body,
         lang,
-        icon: '/icons/icon-192.png',
-        badge: '/icons/icon-192.png',
+        icon: '/icons/icon-192.png?v=2',
+        badge: '/icons/icon-192.png?v=2',
         tag: 'niflaot-daily',
         data: { url: m.url },
       });
