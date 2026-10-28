@@ -50,7 +50,7 @@ export function CoursesCard({ simple = false }: { simple?: boolean }) {
         <ul>
           {(rows ?? []).map((r) => (
             <li key={r.id}>
-              <a className={`courses-row${r.finished ? ' done' : ''}`} href={r.href}>
+              <a className={`courses-row${r.finished ? ' done' : ''}${!r.done && !r.book?.done ? ' zero' : ''}`} href={r.href}>
                 <span className="courses-t">{t(`courses.${r.id}`)}</span>
                 <span className="a-bar" aria-hidden="true">
                   <span style={{ width: `${pct(r)}%` }} />

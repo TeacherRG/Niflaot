@@ -88,14 +88,14 @@ function AdultsHome() {
             </a>
           )}
           <a className="a-tile a-reading" href="#/reading">
-            <span className="a-tile-k">{t('reading.title')}</span>
+            <span className="a-tile-k">{t('home.readingK')}</span>
             <span className="a-tile-t">{t('reading.h1')}</span>
             <span className="a-tile-he he">תְּהִלִּים</span>
           </a>
           <CoursesCard simple />
           <GematriaTicker />
         </div>
-        <Dedication />
+        <Dedication line />
       </main>
       <Colophon />
     </>

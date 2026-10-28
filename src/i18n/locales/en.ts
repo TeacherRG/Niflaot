@@ -322,7 +322,8 @@ const en: Messages = {
   'courses.skip': "Skip course selection — you can add courses later",
   'home.riddle': "riddle {n} of {total}",
   'home.week': "This week’s portion",
-  'home.todayParsha': "Today — Torah portion",
+  'home.todayParsha': "Today",
+  'home.readingK': "Reading",
   'home.gematria': "Gematria",
   'calendar.title': "Shabbat calendar",
   'calendar.hebrewDay': "Jewish date",
@@ -1447,6 +1448,7 @@ const en: Messages = {
   'share.copied': "Link copied",
   // the week's dedication at the bottom of both homes (empty name — no plaque)
   'dedication.lead': "This week's learning is dedicated to the elevation of the soul of",
+  'dedication.short': "For the elevation of the soul of",
   'dedication.name': "Pavel ben Yaakov",
   'digest.title': "The Week in the Academy",
   'digest.menuSub': "Prophets, Writings, Chassidut and the niggun of the week — in brief",
