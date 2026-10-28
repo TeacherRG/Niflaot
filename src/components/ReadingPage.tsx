@@ -12,7 +12,8 @@ import { useHebrewLevel } from '../core/hebrewLevel';
 import {
   CHAPTERS,
   MAX_WPM,
-  dailyChapter,
+  currentHebrewDay,
+  dailyPortion,
   loadChapter,
   loadIndex,
   loadView,
@@ -21,11 +22,15 @@ import {
   saveAttempt,
   saveTimes,
   saveView,
+  shortHebrewMonth,
   startTimes,
   stripTaamim,
+  todayISO,
   tokens,
   wpm,
   type ReadingIndex,
+  type ReadingId,
+  type PsalmPortion,
   type Token,
   type View,
 } from '../core/reading';
@@ -35,6 +40,11 @@ interface Tok extends Token {
   /** the verse it belongs to */
   v: number;
 }
+interface TextSection {
+  chapter: number;
+  verses: string[];
+  firstVerse: number;
+}
 
 const clock = (ms: number) => {
   const s = Math.floor(ms / 1000);
@@ -42,19 +52,26 @@ const clock = (ms: number) => {
 };
 
 /**
- * «Святое чтение» — беглое чтение Теґилим (`#/reading[/<глава>]`): глава с огласовками (знаки кантилляции и крупный
- * шрифт — по галочкам) и тренажёры: «Чтец» (секундомер: слов в минуту, рекорд и последняя попытка), «Темп» (подсветка
- * идёт по словам с заданной скоростью), «Слово за словом» (подсветка — по пробелу или нажатию); у главы с записью —
- * «Слушать» (подсветка за голосом) и «Разметка аудио (для учителя)». Логика и данные — src/core/reading.ts.
+ * «Святое чтение»: порция Теґилим на день еврейского месяца (`#/reading[/day/<день>]`) или отдельная глава
+ * (`#/reading/<глава>`). Тренажёры: «Чтец», «Темп», «Слово за словом» и аудио порции. Данные — src/core/reading.ts.
  */
-export function ReadingPage({ chapter }: { chapter?: string }) {
+export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }) {
   const { t } = useI18n();
   const mode = useMode();
   const level = useHebrewLevel();
-  const c = chapter === undefined ? dailyChapter() : Number(chapter);
-  const valid = Number.isInteger(c) && c >= 1 && c <= CHAPTERS;
+  const daily = chapter === undefined;
+  const currentDay = currentHebrewDay();
+  const dailyDay = day === undefined ? currentDay : Number(day);
+  const c = daily ? dailyPortion(dailyDay)[0]?.chapter ?? 1 : Number(chapter);
+  const shortMonth = shortHebrewMonth(todayISO());
+  const maxDailyDay = shortMonth ? 29 : 30;
+  const portions: PsalmPortion[] = useMemo(
+    () => (daily ? dailyPortion(dailyDay, dailyDay === 29 && shortMonth) : [{ chapter: c }]),
+    [daily, dailyDay, shortMonth, c],
+  );
+  const valid = daily ? Number.isInteger(dailyDay) && dailyDay >= 1 && dailyDay <= maxDailyDay : Number.isInteger(c) && c >= 1 && c <= CHAPTERS;
   const [idx, setIdx] = useState<ReadingIndex | null>(null);
-  const [verses, setVerses] = useState<string[] | null>(null);
+  const [sections, setSections] = useState<TextSection[] | null>(null);
   const [failed, setFailed] = useState(false);
   const [view, setView] = useState<View>(loadView);
   const [tool, setTool] = useState<Tool>('reader');
@@ -64,9 +81,11 @@ export function ReadingPage({ chapter }: { chapter?: string }) {
   const [, rerender] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  const verses = sections?.flatMap((section) => section.verses) ?? null;
   const toks = useMemo<Tok[]>(() => (verses ?? []).flatMap((v, i) => tokens(v).map((x) => ({ ...x, v: i }))), [verses]);
   const total = useMemo(() => toks.reduce((a, x) => a + x.w, 0), [toks]);
-  const audio = idx?.audio?.[c];
+  const readingId: ReadingId = daily ? `day-${dailyDay}` : c;
+  const audio = daily ? idx?.audio?.[dailyDay] : undefined;
   const playAudio = useCallback((restart = true) => {
     const player = audioRef.current;
     if (!player) return;
@@ -81,8 +100,8 @@ export function ReadingPage({ chapter }: { chapter?: string }) {
   }, []);
 
   useEffect(() => {
-    document.title = `${t('reading.title')} · ${t('reading.book')} ${c} · ${t('app.title')}`;
-  }, [t, c]);
+    document.title = `${t('reading.title')} · ${daily ? `${t('reading.day')} ${dailyDay}` : `${t('reading.book')} ${c}`} · ${t('app.title')}`;
+  }, [t, daily, dailyDay, c]);
   useEffect(() => {
     if (audioRef.current) audioRef.current.playbackRate = audioRate;
   }, [audioRate, audio]);
@@ -90,16 +109,27 @@ export function ReadingPage({ chapter }: { chapter?: string }) {
     if (!valid) return;
     stopAudio();
     setAudioFailed(false);
-    setVerses(null);
+    setFailed(false);
+    setSections(null);
     setActive(-1);
     let live = true;
-    Promise.all([loadIndex(), loadChapter(c)])
-      .then(([i, v]) => live && (setIdx(i), setVerses(v)))
+    Promise.all([loadIndex(), ...portions.map(({ chapter: n }) => loadChapter(n))])
+      .then(([i, ...loaded]) => {
+        if (!live) return;
+        const nextSections = portions.map((portion, index) => {
+          const all = loaded[index] as string[];
+          const from = portion.fromVerse ?? 1;
+          const to = portion.toVerse ?? all.length;
+          return { chapter: portion.chapter, firstVerse: from, verses: all.slice(from - 1, to) };
+        });
+        setIdx(i as ReadingIndex);
+        setSections(nextSections);
+      })
       .catch(() => live && setFailed(true));
     return () => {
       live = false;
     };
-  }, [c, valid, stopAudio]);
+  }, [c, dailyDay, valid, stopAudio, portions]);
 
   const setV = (v: View) => {
     setView(v);
@@ -107,6 +137,16 @@ export function ReadingPage({ chapter }: { chapter?: string }) {
   };
   const go = (n: number) => {
     location.hash = `#/reading/${n}`;
+  };
+  const goDay = (n: number) => {
+    location.hash = `#/reading/day/${n}`;
+  };
+  const dailyPortionLabel = (n: number) => {
+    const ps = dailyPortion(n, n === 29 && shortMonth);
+    if (ps.length && ps[0].chapter === 119) {
+      return `119:${ps[0].fromVerse}–${ps[0].toVerse}`;
+    }
+    return ps.length > 1 ? `${ps[0].chapter}–${ps[ps.length - 1].chapter}` : String(ps[0]?.chapter ?? '');
   };
 
   // the word in the light stays in sight
@@ -132,6 +172,7 @@ export function ReadingPage({ chapter }: { chapter?: string }) {
             {t('reading.h1')} <span className="he">תְּהִלִּים</span>
           </h1>
           <p className="ac-lead">{t('reading.lead')}</p>
+          {daily && <p className="ac-lead">{t('reading.dayHeader', { day: dailyDay, psalms: dailyPortionLabel(dailyDay) })}</p>}
           {level === 'none' && (
             <p className="rd-note">
               {t('reading.noLetters')} <a href="#/letters">{t('abc.title')}</a>
@@ -139,22 +180,21 @@ export function ReadingPage({ chapter }: { chapter?: string }) {
           )}
         </header>
 
-        <nav className="rd-nav" aria-label={t('reading.pick')}>
-          <button type="button" className="rd-arrow" onClick={() => go(c - 1)} disabled={c <= 1} aria-label={t('reading.prev')}>
+        <nav className="rd-nav" aria-label={t(daily ? 'reading.dayPick' : 'reading.pick')}>
+          <button type="button" className="rd-arrow" onClick={() => (daily ? goDay(dailyDay - 1) : go(c - 1))} disabled={daily ? dailyDay <= 1 : c <= 1} aria-label={t('reading.prev')}>
             ‹
           </button>
           <label className="rd-pick">
-            <span className="sr-only">{t('reading.pick')}</span>
-            <select value={c} onChange={(e) => go(Number(e.target.value))}>
-              {Array.from({ length: CHAPTERS }, (_, i) => i + 1).map((n) => (
+            <span className="sr-only">{t(daily ? 'reading.dayPick' : 'reading.pick')}</span>
+            <select value={daily ? dailyDay : c} onChange={(e) => (daily ? goDay(Number(e.target.value)) : go(Number(e.target.value)))}>
+              {Array.from({ length: daily ? maxDailyDay : CHAPTERS }, (_, i) => i + 1).map((n) => (
                 <option key={n} value={n}>
-                  {t('reading.book')} {n}
-                  {idx ? ` — ${t('reading.words', { n: idx.words[n - 1] })}` : ''}
+                  {daily ? `${t('reading.day')} ${n} · ${dailyPortionLabel(n)}` : `${t('reading.book')} ${n}${idx ? ` — ${t('reading.words', { n: idx.words[n - 1] })}` : ''}`}
                 </option>
               ))}
             </select>
           </label>
-          <button type="button" className="rd-arrow" onClick={() => go(c + 1)} disabled={c >= CHAPTERS} aria-label={t('reading.next')}>
+          <button type="button" className="rd-arrow" onClick={() => (daily ? goDay(dailyDay + 1) : go(c + 1))} disabled={daily ? dailyDay >= maxDailyDay : c >= CHAPTERS} aria-label={t('reading.next')}>
             ›
           </button>
         </nav>
@@ -179,7 +219,7 @@ export function ReadingPage({ chapter }: { chapter?: string }) {
               onTimeUpdate={(e) => {
                 const player = e.currentTarget;
                 if (!player.duration) return;
-                const starts = startTimes(toks, player.duration, markedTimes(c) ?? audio.times);
+                const starts = startTimes(toks, player.duration, markedTimes(readingId) ?? audio.times);
                 let i = -1;
                 for (let k = 0; k < starts.length; k++) if (starts[k] <= player.currentTime) i = k;
                 setActive(player.ended ? -1 : i);
@@ -211,10 +251,10 @@ export function ReadingPage({ chapter }: { chapter?: string }) {
           </div>
           {verses && (
             <>
-              {tool === 'reader' && <Reader key={c} c={c} toks={toks} total={total} onWord={onWord} setActive={setActive} onStart={playAudio} onStop={stopAudio} adults={mode === 'adults'} done={() => rerender((n) => n + 1)} />}
-              {tool === 'pace' && <Pace key={c} c={c} toks={toks} setActive={setActive} onStart={playAudio} onPause={pauseAudio} onStop={stopAudio} />}
+              {tool === 'reader' && <Reader key={readingId} c={readingId} toks={toks} total={total} onWord={onWord} setActive={setActive} onStart={playAudio} onStop={stopAudio} adults={mode === 'adults'} done={() => rerender((n) => n + 1)} />}
+              {tool === 'pace' && <Pace key={readingId} c={readingId} toks={toks} setActive={setActive} onStart={playAudio} onPause={pauseAudio} onStop={stopAudio} />}
               {tool === 'step' && <Step key={c} toks={toks} active={active} setActive={setActive} onWord={onWord} />}
-              {tool === 'listen' && audio && <Listen rate={audioRate} setRate={setAudioRate} estimate={!markedTimes(c) && !audio.times} />}
+              {tool === 'listen' && audio && <Listen rate={audioRate} setRate={setAudioRate} estimate={!markedTimes(readingId) && !audio.times} />}
             </>
           )}
         </section>
@@ -225,31 +265,41 @@ export function ReadingPage({ chapter }: { chapter?: string }) {
           <PageLoading />
         ) : (
           <article className="rd-text he" lang="he" dir="rtl" ref={textRef}>
-            <h2 className="rd-ch">פֶּרֶק {hebrewNumber(c)}</h2>
-            {verses.map((_, vi) => (
-              <p key={vi} className="rd-v">
-                <span className="rd-vn" aria-hidden="true">
-                  {hebrewNumber(vi + 1).replace(/[׳״]/g, '')}
-                </span>{' '}
-                {toks.map((x, i) =>
-                  x.v !== vi ? null : (
-                    <span key={i}>
-                      <span
-                        data-i={i}
-                        className={`rd-w${i === active ? ' rd-on' : active > i ? ' rd-past' : ''}${x.w ? '' : ' rd-paseq'}`}
-                        onClick={() => x.w && onWord.current(i)}
-                      >
-                        {view.taamim ? x.s : stripTaamim(x.s)}
-                      </span>{' '}
-                    </span>
-                  ),
-                )}
-              </p>
-            ))}
+            {sections?.map((section, si) => {
+              const verseOffset = sections.slice(0, si).reduce((sum, previous) => sum + previous.verses.length, 0);
+                      return (
+                        <section key={`${section.chapter}-${section.firstVerse}`}>
+                          <h2 className="rd-ch">פֶּרֶק {hebrewNumber(section.chapter)}</h2>
+                  {section.verses.map((_, vi) => {
+                    const globalVerse = verseOffset + vi;
+                    return (
+                      <p key={globalVerse} className="rd-v">
+                        <span className="rd-vn" aria-hidden="true">
+                          {hebrewNumber(section.firstVerse + vi).replace(/[׳״]/g, '')}
+                        </span>{' '}
+                        {toks.map((x, i) =>
+                          x.v !== globalVerse ? null : (
+                            <span key={i}>
+                              <span
+                                data-i={i}
+                                className={`rd-w${i === active ? ' rd-on' : active > i ? ' rd-past' : ''}${x.w ? '' : ' rd-paseq'}`}
+                                onClick={() => x.w && onWord.current(i)}
+                              >
+                                {view.taamim ? x.s : stripTaamim(x.s)}
+                              </span>{' '}
+                            </span>
+                          ),
+                        )}
+                      </p>
+                    );
+                  })}
+                </section>
+              );
+            })}
           </article>
         )}
 
-        {verses && audio && <Marking c={c} toks={toks} src={audio.src} setActive={setActive} />}
+        {verses && audio && <Marking c={readingId} toks={toks} src={audio.src} setActive={setActive} />}
 
         {idx && (
           <p className="rd-credit">
@@ -287,7 +337,7 @@ function Reader({
   adults,
   done,
 }: {
-  c: number;
+  c: ReadingId;
   toks: Tok[];
   total: number;
   onWord: React.MutableRefObject<(i: number) => void>;
@@ -396,7 +446,7 @@ function Reader({
 }
 
 /** «Темп»: the light goes word by word at the chosen speed — keep up with it reading aloud. */
-function Pace({ c, toks, setActive, onStart, onPause, onStop }: { c: number; toks: Tok[]; setActive: (i: number) => void; onStart: (restart?: boolean) => void; onPause: () => void; onStop: () => void }) {
+function Pace({ c, toks, setActive, onStart, onPause, onStop }: { c: ReadingId; toks: Tok[]; setActive: (i: number) => void; onStart: (restart?: boolean) => void; onPause: () => void; onStop: () => void }) {
   const { t } = useI18n();
   const rec = records()[c];
   const [speed, setSpeed] = useState(() => Math.min(200, Math.max(20, Math.round(((rec?.best ?? 50) * 1.1) / 5) * 5)));
@@ -532,7 +582,7 @@ function Listen({ rate, setRate, estimate }: { rate: number; setRate: (rate: num
 }
 
 /** «Разметка аудио (для учителя)»: the recording slowly from the start; a press at the start of every word. */
-function Marking({ c, toks, src, setActive }: { c: number; toks: Tok[]; src: string; setActive: (i: number) => void }) {
+function Marking({ c, toks, src, setActive }: { c: ReadingId; toks: Tok[]; src: string; setActive: (i: number) => void }) {
   const { t } = useI18n();
   const ref = useRef<HTMLAudioElement>(null);
   const words = useMemo(() => toks.map((x, i) => (x.w ? i : -1)).filter((i) => i >= 0), [toks]);

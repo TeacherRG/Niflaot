@@ -3,22 +3,41 @@
  * читается кери (нет ктива в скобках), Имена — как во всём проекте (нет יהוה и אלהים).
  */
 import { existsSync, readFileSync } from 'node:fs';
-import { CHAPTERS, chapterForDate, stripTaamim, tokens } from '../src/core/reading';
+import { CHAPTERS, dailyPortion, hebrewDayForDate, shortHebrewMonth, stripTaamim, tokens } from '../src/core/reading';
 
 const dir = new URL('../public/reading/tehillim/', import.meta.url);
 const index = JSON.parse(readFileSync(new URL('index.json', dir), 'utf8'));
 const errors: string[] = [];
 if (index.words.length !== CHAPTERS) errors.push(`index.json: ${index.words.length} глав вместо ${CHAPTERS}`);
 if (index.version?.license !== 'Public Domain') errors.push(`текст — не общественное достояние: ${index.version?.license}`);
-for (const [chapter, audio] of Object.entries(index.audio ?? {})) {
-  if (!/^(?:[1-9]|[1-9]\d|1[0-4]\d|150)$/.test(chapter)) errors.push(`index.json: неверная глава аудио ${chapter}`);
-  if (!audio.src) errors.push(`index.json: нет пути аудио для главы ${chapter}`);
+for (const [day, audio] of Object.entries(index.audio ?? {})) {
+  if (!/^(?:[1-9]|[12]\d|30)$/.test(day)) errors.push(`index.json: неверный день аудио ${day}`);
+  if (!audio.src) errors.push(`index.json: нет пути аудио для дня ${day}`);
   else if (!/^https?:/.test(audio.src) && !existsSync(new URL(`../public/${audio.src}`, import.meta.url))) {
-    errors.push(`index.json: нет аудио главы ${chapter}: ${audio.src}`);
+    errors.push(`index.json: нет аудио дня ${day}: ${audio.src}`);
   }
 }
-if (chapterForDate('2026-10-27') !== 16 || chapterForDate('2026-10-28') !== 17) {
-  errors.push('еврейский календарь: 27–28.10.2026 должны открывать главы 16–17');
+if (hebrewDayForDate('2026-10-28') !== 17) errors.push('еврейский календарь: 28.10.2026 должен открывать порцию 17-го дня');
+const day17 = dailyPortion(17).map((p) => p.chapter);
+if (day17.join(',') !== '83,84,85,86,87') errors.push(`порция 17-го дня: ожидались главы 83–87, получены ${day17.join(',')}`);
+if (dailyPortion(25)[0]?.chapter !== 119 || dailyPortion(25)[0]?.fromVerse !== 1 || dailyPortion(25)[0]?.toVerse !== 96) {
+  errors.push('порция 25-го дня: ожидались Теилимы 119:1–96');
+}
+if (dailyPortion(26)[0]?.chapter !== 119 || dailyPortion(26)[0]?.fromVerse !== 97 || dailyPortion(26)[0]?.toVerse !== 176) {
+  errors.push('порция 26-го дня: ожидались Теилимы 119:97–176');
+}
+if (dailyPortion(29, true).map((p) => p.chapter).join(',') !== '140,141,142,143,144,145,146,147,148,149,150') {
+  errors.push('в месяце из 29 дней порции 29-го и 30-го дней должны объединяться');
+}
+const coverage = Array.from({ length: 30 }, (_, i) => dailyPortion(i + 1))
+  .flat()
+  .reduce<Record<number, number>>((counts, p) => ((counts[p.chapter] = (counts[p.chapter] ?? 0) + 1), counts), {});
+for (let c = 1; c <= CHAPTERS; c++) {
+  const expected = c === 119 ? 2 : 1;
+  if (coverage[c] !== expected) errors.push(`месячная таблица: глава ${c} распределена ${coverage[c] ?? 0} раз вместо ${expected}`);
+}
+if (!shortHebrewMonth('2027-01-08') || shortHebrewMonth('2027-01-09')) {
+  errors.push('еврейский календарь: Тевет 5787 должен длиться 29 дней');
 }
 let total = 0;
 for (let c = 1; c <= CHAPTERS; c++) {
