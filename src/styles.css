@@ -290,6 +290,9 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 
 .langpick{position:relative;flex:none}
 .lang-btn{display:flex;align-items:center;gap:5px;height:34px;padding:0 9px 0 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font-family:var(--f-num);font-weight:600;font-size:12.5px;letter-spacing:.04em;transition:border-color .15s,box-shadow .15s}
+.hday{display:flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 8px;border:1px solid var(--gold-line,var(--line));border-radius:999px;background:var(--surface);color:var(--gold-deep);font-family:var(--f-num);font-weight:800;font-size:14px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.hday:hover{border-color:var(--gold)}
+.shabbat-calendar.bare{padding:0;border:0;box-shadow:none;background:none}
 .lang-btn svg:first-child{color:var(--gold)}
 .lang-btn svg:last-child{color:var(--muted);transition:transform .2s}
 .lang-btn[aria-expanded="true"]{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
@@ -2314,20 +2317,35 @@ body:has(.k-home){background:var(--warm)}
 /* the adults' home (Catalog.tsx, AdultsHome; owner, 28.10.2026): four tiles — «Сегодня — глава», «Беглое чтение Теґилим»,
    «Мои курсы» (only names and bars), the calendar — and the dedication under them */
 body:has(.a-home){background:var(--plain)}
-.a-home{max-width:1080px;margin:0 auto;padding:32px 0 12px;display:flex;flex-wrap:wrap;gap:24px}
+.a-home{max-width:1080px;margin:0 auto;padding:24px 0 12px;display:flex;flex-direction:column;gap:16px}
 .a-bar{display:block;height:4px;border-radius:2px;background:var(--line-soft);overflow:hidden}
 .a-bar>span{display:block;height:100%;border-radius:2px;background:var(--tchelet-deep);transition:width .4s}
-.a-tiles{flex:1 1 100%;min-width:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:stretch}
-.a-tile{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;min-height:180px;padding:20px 22px;border-radius:18px;overflow:hidden;
+.a-tiles{flex:1 1 auto;min-width:0;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:minmax(118px,.7fr) minmax(0,1.3fr);gap:16px;align-items:stretch}
+.a-tile{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;min-height:0;padding:14px 22px;border-radius:18px;overflow:hidden;
   background:var(--tchelet-deep);background-size:cover;background-position:center;color:#fff;text-decoration:none;box-shadow:var(--shadow)}
 .a-tile.a-art::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(14,22,48,.86),rgba(14,22,48,.15) 70%)}
 .a-tile>*{position:relative}
 .a-reading{background:var(--gold-deep)}
 .a-tile-k{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.9}
-.a-tile-t{font-family:var(--f-display);font-weight:700;font-size:34px;line-height:1.05}
-.a-tile-he{align-self:flex-start;font-size:24px;opacity:.95}
+.a-tile-t{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,4.2vh,34px);line-height:1.05}
+.a-tile-he{align-self:flex-start;font-size:clamp(18px,3vh,24px);opacity:.95}
 .a-tile:hover .a-tile-t{text-decoration:underline;text-underline-offset:4px}
-.a-tiles>.courses,.a-tiles>.shabbat-calendar{margin:0}
+.a-tiles>.courses{margin:0;min-height:0;overflow:hidden}
+/* «Гематрии»: the lessons' equalities running slowly upwards in a closed loop (GematriaTicker in Catalog.tsx) */
+.a-tick{display:flex;flex-direction:column;min-height:0;padding:16px 20px 8px;border-radius:16px;background:var(--surface);border:1px solid var(--line-soft);box-shadow:var(--shadow)}
+.a-tick h2{margin:0 0 6px;font-family:var(--f-display);font-weight:700;font-size:24px;line-height:1.15}
+.a-tick h2 a{color:inherit;text-decoration:none}
+.a-tick h2 a:hover{color:var(--tchelet)}
+.a-tick-win{position:relative;flex:1;min-height:60px;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(transparent,#000 14%,#000 86%,transparent)}
+.a-tick ul{list-style:none;margin:0;padding:0;animation:a-tick linear infinite}
+@keyframes a-tick{to{transform:translateY(-50%)}}
+.a-tick-win:hover ul,.a-tick-win:focus-within ul{animation-play-state:paused}
+.a-tick li a{display:block;padding:8px 0;border-bottom:1px solid var(--line-soft);text-align:center;color:var(--ink);text-decoration:none;font-size:20px;line-height:1.3}
+.a-tick li a:hover{color:var(--tchelet)}
+.a-tick .he{font-family:var(--f-he);font-weight:700}
+.a-tick-eq{color:var(--muted)}
+.a-tick-n{font-family:var(--f-num);font-weight:700;color:var(--gold-deep);direction:ltr;unicode-bidi:isolate}
+@media (prefers-reduced-motion:reduce){.a-tick ul{animation:none}.a-tick-win{overflow:auto;-webkit-mask-image:none;mask-image:none}.a-tick li[aria-hidden]{display:none}}
 .courses.simple{gap:6px}
 .courses.simple h2{font-size:24px}
 .courses.simple .courses-row{grid-template-columns:minmax(0,1fr);gap:4px;padding:5px 0}
@@ -2337,8 +2355,12 @@ body:has(.a-home){background:var(--plain)}
   /* a phone: it all fits one screen */
   .a-home{padding-top:12px;gap:12px}
   .a-tiles{gap:10px}
-  .a-tiles>.courses,.a-tiles>.shabbat-calendar{grid-column:1/-1}
-  .a-tile{min-height:96px;padding:12px 14px;border-radius:14px}
+  .a-tiles{grid-template-rows:auto minmax(0,auto) minmax(0,1fr)}
+  .a-tiles>.courses,.a-tiles>.a-tick{grid-column:1/-1}
+  .a-tick{padding:10px 14px 4px;border-radius:14px}
+  .a-tick h2{font-size:17px;margin-bottom:2px}
+  .a-tick li a{font-size:16px;padding:5px 0}
+  .a-tile{min-height:88px;padding:12px 14px;border-radius:14px}
   .a-tile-k{font-size:10.5px}
   .a-tile-t{font-size:21px}
   .a-tile-he{font-size:16px}
@@ -2346,7 +2368,10 @@ body:has(.a-home){background:var(--plain)}
   .courses.simple .courses-row{padding:2px 0;gap:3px}
 }
 /* both home pages fill the screen, so the footer sits at its bottom */
-@media (min-width:641px){.k-home,.a-home{box-sizing:border-box;min-height:calc(100svh - 57px - 76px - 28px)}.k-home{align-content:start}}
+@media (min-width:641px){.k-home{box-sizing:border-box;min-height:calc(100svh - 57px - 76px - 28px);align-content:start}}
+/* the adults' home is exactly one screen, never scrolled (owner, 28.10.2026): the top bar (57), the home, the footer with the gap above it (81) */
+.a-home{box-sizing:border-box;height:calc(100svh - var(--a-top,57px) - var(--a-foot,81px));min-height:420px}
+@media (max-width:640px){html.tabbed .a-home{height:calc(100svh - var(--a-top,57px) - var(--a-foot,81px) - 60px - env(safe-area-inset-bottom,0px));min-height:0}}
 
 /* ───── the look (src/core/look.ts, settings in the account): theme, background, text size ─────
    html[data-theme="dark"] — the dark theme (on screen only: printouts stay light); html[data-bg] — the background the
@@ -2806,3 +2831,15 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
   .rd-lbl{display:none}
 }
 @media print{.rd-nav,.rd-opts{display:none}.rd-text{border:0;padding:0}}
+.a-home>.dedication{flex:none;margin-top:0}
+/* «Мои курсы» on the adults' home: two columns, so all the chosen courses fit the one screen */
+.courses.simple ul{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:20px;align-content:start}
+@media (max-width:640px){
+  .courses.simple ul{column-gap:12px}
+  .courses.simple .courses-t{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .a-home{padding-bottom:0}
+  .a-home>.dedication{padding:6px 12px 8px;gap:0}
+  .a-home .ded-he{font-size:14px}
+  .a-home .ded-lead{font-size:11px}
+  .a-home .ded-name{font-size:19px}
+}
