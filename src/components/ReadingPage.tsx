@@ -6,20 +6,15 @@ import { Colophon } from './Colophon';
 import { NotFound, PageLoading } from './PageStates';
 import { hebrewNumber } from '../core/hebrewDate';
 import { markStudied } from '../core/habit';
-import { celebrate } from '../core/fx';
-import { useMode } from '../core/mode';
 import { useHebrewLevel } from '../core/hebrewLevel';
 import {
   CHAPTERS,
-  MAX_WPM,
   currentHebrewDay,
   dailyPortion,
   loadChapter,
   loadIndex,
   loadView,
   markedTimes,
-  records,
-  saveAttempt,
   saveTimes,
   saveView,
   shortHebrewMonth,
@@ -27,7 +22,6 @@ import {
   stripTaamim,
   todayISO,
   tokens,
-  wpm,
   type ReadingIndex,
   type ReadingId,
   type PsalmPortion,
@@ -35,7 +29,8 @@ import {
   type View,
 } from '../core/reading';
 
-type Tool = 'reader' | 'pace' | 'step' | 'listen';
+/** скорость записи — список в плеере */
+const RATES = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5];
 interface Tok extends Token {
   /** the verse it belongs to */
   v: number;
@@ -46,18 +41,12 @@ interface TextSection {
   firstVerse: number;
 }
 
-const clock = (ms: number) => {
-  const s = Math.floor(ms / 1000);
-  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
-};
-
 /**
  * «Святое чтение»: порция Теґилим на день еврейского месяца (`#/reading[/day/<день>]`) или отдельная глава
- * (`#/reading/<глава>`). Тренажёры: «Чтец», «Темп», «Слово за словом» и аудио порции. Данные — src/core/reading.ts.
+ * (`#/reading/<глава>`). Аудио порции: подсветка идёт за голосом, нажатие на слово — подсветка с него, скорость 0.5–3.5×. Данные — src/core/reading.ts.
  */
 export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }) {
   const { t } = useI18n();
-  const mode = useMode();
   const level = useHebrewLevel();
   const daily = chapter === undefined;
   const currentDay = currentHebrewDay();
@@ -74,19 +63,15 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   const [sections, setSections] = useState<TextSection[] | null>(null);
   const [failed, setFailed] = useState(false);
   const [view, setView] = useState<View>(loadView);
-  const [tool, setTool] = useState<Tool>('reader');
   const [active, setActive] = useState(-1);
   const [audioFailed, setAudioFailed] = useState(false);
   const [audioRate, setAudioRate] = useState(1);
-  const [, rerender] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
   const syncOffset = useRef(0);
-  const paceSpeed = useRef(50);
   const [audioState, setAudioState] = useState<'stopped' | 'playing' | 'paused'>('stopped');
 
   const verses = sections?.flatMap((section) => section.verses) ?? null;
   const toks = useMemo<Tok[]>(() => (verses ?? []).flatMap((v, i) => tokens(v).map((x) => ({ ...x, v: i }))), [verses]);
-  const total = useMemo(() => toks.reduce((a, x) => a + x.w, 0), [toks]);
   const readingId: ReadingId = daily ? `day-${dailyDay}` : c;
   const audio = daily ? idx?.audio?.[dailyDay] : undefined;
   const playAudio = useCallback((restart = true) => {
@@ -106,17 +91,6 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
     audioRef.current?.pause();
     setAudioState('paused');
   }, []);
-  const setPaceRate = useCallback(
-    (wordsPerMinute: number) => {
-      paceSpeed.current = wordsPerMinute;
-      const duration = audioRef.current?.duration;
-      const words = toks.reduce((sum, token) => sum + token.w, 0);
-      if (!duration || !Number.isFinite(duration) || words === 0) return;
-      const recordingRate = (words * 60) / duration;
-      setAudioRate(Math.max(0.25, Math.min(4, wordsPerMinute / recordingRate)));
-    },
-    [toks],
-  );
   const stopAudio = useCallback(() => {
     syncOffset.current = 0;
     audioRef.current?.pause();
@@ -129,7 +103,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   const seekAudioToWord = (i: number) => {
     const player = audioRef.current;
     if (!audio || !player || !Number.isFinite(player.duration)) {
-      onWord.current(i);
+      setActive(i);
       return;
     }
     const starts = startTimes(toks, player.duration, markedTimes(readingId) ?? audio.times);
@@ -195,8 +169,6 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
     textRef.current?.querySelector(`[data-i="${active}"]`)?.scrollIntoView({ block: 'center', behavior: 'smooth' });
   }, [active]);
 
-  // a click on a word: the reader stops there; word by word — the light moves there
-  const onWord = useRef<(i: number) => void>(() => {});
   if (!valid) return <NotFound />;
 
   return (
@@ -247,66 +219,35 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           </label>
         </div>
 
-        <section className="rd-tools no-print" aria-labelledby="rd-tools-h">
-          <h2 id="rd-tools-h">{t('reading.tools')}</h2>
-          {audio && (
-            <audio
-              ref={audioRef}
-              src={src_(audio.src)}
-              preload="metadata"
-              controls={tool === 'listen'}
-              onLoadedMetadata={() => {
-                if (tool === 'pace') setPaceRate(paceSpeed.current);
-              }}
-              onTimeUpdate={(e) => {
-                const player = e.currentTarget;
-                if (player.paused && player.currentTime === 0) {
-                  setActive(-1);
-                  return;
-                }
-                if (!player.duration) return;
-                const starts = startTimes(toks, player.duration, markedTimes(readingId) ?? audio.times);
-                let i = -1;
-                for (let k = 0; k < starts.length; k++) if (starts[k] <= player.currentTime + syncOffset.current) i = k;
-                setActive(player.ended ? -1 : i);
-              }}
-              onEnded={() => {
+        {audio && (
+          <audio
+            ref={audioRef}
+            src={src_(audio.src)}
+            preload="metadata"
+            onTimeUpdate={(e) => {
+              const player = e.currentTarget;
+              if (player.paused && player.currentTime === 0) {
                 setActive(-1);
-                setAudioState('stopped');
-                markStudied();
-              }}
-              onPlay={() => setAudioState('playing')}
-              onPause={() => setAudioState((state) => (state === 'stopped' ? state : 'paused'))}
-              onError={() => setAudioFailed(true)}
-            />
-          )}
-          {audioFailed && <p className="rd-note" role="alert">{t('reading.audioFailed')}</p>}
-          <div className="rd-tabs" role="tablist">
-            {(['reader', 'pace', 'step', ...(audio ? ['listen' as const] : [])] as Tool[]).map((x) => (
-              <button
-                key={x}
-                type="button"
-                role="tab"
-                aria-selected={tool === x}
-                className={tool === x ? 'on' : ''}
-                onClick={() => {
-                  setTool(x);
-                  setActive(-1);
-                }}
-              >
-                {t(`reading.tool.${x}`)}
-              </button>
-            ))}
-          </div>
-          {verses && (
-            <>
-              {tool === 'reader' && <Reader key={readingId} c={readingId} toks={toks} total={total} onWord={onWord} setActive={setActive} onStart={playAudio} onStop={stopAudio} adults={mode === 'adults'} done={() => rerender((n) => n + 1)} />}
-              {tool === 'pace' && <Pace key={readingId} c={readingId} toks={toks} onWord={onWord} setActive={setActive} onStart={playAudio} onPause={pauseAudio} onStop={stopAudio} onRateChange={setPaceRate} audioState={audioState} hasAudio={!!audio} />}
-              {tool === 'step' && <Step key={c} toks={toks} active={active} setActive={setActive} onWord={onWord} />}
-              {tool === 'listen' && audio && <Listen rate={audioRate} setRate={setAudioRate} estimate={!markedTimes(readingId) && !audio.times} />}
-            </>
-          )}
-        </section>
+                return;
+              }
+              if (!player.duration) return;
+              const starts = startTimes(toks, player.duration, markedTimes(readingId) ?? audio.times);
+              let i = -1;
+              for (let k = 0; k < starts.length; k++) if (starts[k] <= player.currentTime + syncOffset.current) i = k;
+              setActive(player.ended ? -1 : i);
+            }}
+            onEnded={() => {
+              setActive(-1);
+              setAudioState('stopped');
+              markStudied();
+            }}
+            onPlay={() => setAudioState('playing')}
+            onPause={() => setAudioState((state) => (state === 'stopped' ? state : 'paused'))}
+            onError={() => setAudioFailed(true)}
+          />
+        )}
+        {audioFailed && <p className="rd-note" role="alert">{t('reading.audioFailed')}</p>}
+        {audio && <p className="rd-hint rd-tap-hint no-print">{t('reading.tapSync')}</p>}
 
         {audio && (
           <div className="rd-audio-float no-print" role="group" aria-label={t('reading.audioControls')}>
@@ -317,8 +258,8 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
               aria-label={t(audioState === 'playing' ? 'reading.pause' : audioState === 'paused' ? 'reading.resume' : 'reading.start')}
               title={t(audioState === 'playing' ? 'reading.pause' : audioState === 'paused' ? 'reading.resume' : 'reading.start')}
             >
-              {audioState === 'playing' ? '⏸' : '▶'}{' '}
-              {t(audioState === 'playing' ? 'reading.pause' : audioState === 'paused' ? 'reading.resume' : 'reading.start')}
+              {audioState === 'playing' ? '⏸' : '▶'}
+              <span className="rd-lbl"> {t(audioState === 'playing' ? 'reading.pause' : audioState === 'paused' ? 'reading.resume' : 'reading.start')}</span>
             </button>
             <button
               type="button"
@@ -328,8 +269,18 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
               aria-label={t('reading.stop')}
               title={t('reading.stop')}
             >
-              ■ {t('reading.stop')}
+              ■<span className="rd-lbl"> {t('reading.stop')}</span>
             </button>
+            <label className="rd-rate" title={t('reading.speed')}>
+              <span className="sr-only">{t('reading.speed')}</span>
+              <select value={audioRate} onChange={(e) => setAudioRate(Number(e.target.value))}>
+                {RATES.map((r) => (
+                  <option key={r} value={r}>
+                    {r}×
+                  </option>
+                ))}
+              </select>
+            </label>
           </div>
         )}
 
@@ -399,298 +350,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   );
 }
 
-/** «Чтец»: a stopwatch — read the chapter aloud; «Готово» or a tap on the last word read; words per minute, the record. */
-function Reader({
-  c,
-  toks,
-  total,
-  onWord,
-  setActive,
-  onStart,
-  onStop,
-  adults,
-  done,
-}: {
-  c: ReadingId;
-  toks: Tok[];
-  total: number;
-  onWord: React.MutableRefObject<(i: number) => void>;
-  setActive: (i: number) => void;
-  onStart: (restart?: boolean) => void;
-  onStop: () => void;
-  adults: boolean;
-  done: () => void;
-}) {
-  const { t } = useI18n();
-  const [start, setStart] = useState<number | null>(null);
-  const [now, setNow] = useState(0);
-  const [result, setResult] = useState<{ words: number; ms: number; v: number | null; record: boolean } | null>(null);
-  const rec = records()[c];
-
-  useEffect(() => {
-    if (start === null) return;
-    const id = setInterval(() => setNow(Date.now()), 250);
-    return () => clearInterval(id);
-  }, [start]);
-
-  const finish = (words: number) => {
-    if (start === null) return;
-    onStop();
-    const ms = Date.now() - start;
-    let v = wpm(words, ms);
-    if (v !== null && v > MAX_WPM) v = null;
-    const record = v !== null && saveAttempt(c, v);
-    if (v !== null) {
-      markStudied();
-      if (record && rec) celebrate('small', adults);
-    }
-    setStart(null);
-    setResult({ words, ms, v, record: record && !!rec });
-    done();
-  };
-  onWord.current = (i) => {
-    if (start === null) return;
-    setActive(i);
-    finish(toks.slice(0, i + 1).reduce((a, x) => a + x.w, 0));
-  };
-
-  return (
-    <div className="rd-tool">
-      <dl className="rd-stats">
-        <div>
-          <dt>{t('reading.reader')}</dt>
-          <dd>
-            <b>{result?.v ?? rec?.last ?? '–'}</b> {t('reading.wpm')}
-          </dd>
-        </div>
-        <div>
-          <dt>{t('reading.best')}</dt>
-          <dd>{rec ? <b>{rec.best}</b> : <>– {t('reading.noTries')}</>}</dd>
-        </div>
-        <div>
-          <dt>{t('reading.last')}</dt>
-          <dd>
-            <b>{rec?.last ?? '–'}</b>
-          </dd>
-        </div>
-      </dl>
-      {start === null ? (
-        <>
-          {result && (
-            <p className={`rd-result${result.record ? ' rd-record' : ''}`} role="status">
-              {result.v === null
-                ? t('reading.tooFast')
-                : t('reading.result', { words: t('reading.words', { n: result.words }), time: clock(result.ms), v: result.v })}
-              {result.record && <> · {t('reading.newRecord')}</>}
-            </p>
-          )}
-          <p className="rd-hint">{t('reading.readerHow', { words: t('reading.words', { n: total }) })}</p>
-          <button
-            type="button"
-            className="btn rd-big-btn"
-            onClick={() => {
-              setActive(-1);
-              setResult(null);
-              setNow(Date.now());
-              setStart(Date.now());
-              onStart();
-            }}
-          >
-            ▶ {result ? t('reading.again') : t('reading.start')}
-          </button>
-        </>
-      ) : (
-        <>
-          <p className="rd-clock" aria-live="off">
-            {clock(now - start)}
-          </p>
-          <p className="rd-hint">{t('reading.readerRun')}</p>
-          <div className="rd-row">
-            <button type="button" className="btn rd-big-btn" onClick={() => finish(total)}>
-              ■ {t('reading.finish')}
-            </button>
-            <button type="button" className="btn ghost" onClick={() => (onStop(), setStart(null))}>
-              {t('reading.cancel')}
-            </button>
-          </div>
-        </>
-      )}
-    </div>
-  );
-}
-
-/** «Темп»: the light goes word by word at the chosen speed — keep up with it reading aloud. */
-function Pace({
-  c,
-  toks,
-  onWord,
-  setActive,
-  onStart,
-  onPause,
-  onStop,
-  onRateChange,
-  audioState,
-  hasAudio,
-}: {
-  c: ReadingId;
-  toks: Tok[];
-  onWord: React.MutableRefObject<(i: number) => void>;
-  setActive: (i: number) => void;
-  onStart: (restart?: boolean) => void;
-  onPause: () => void;
-  onStop: () => void;
-  onRateChange: (wordsPerMinute: number) => void;
-  audioState: 'stopped' | 'playing' | 'paused';
-  hasAudio: boolean;
-}) {
-  const { t } = useI18n();
-  const rec = records()[c];
-  const [speed, setSpeed] = useState(() => Math.min(200, Math.max(20, Math.round(((rec?.best ?? 50) * 1.1) / 5) * 5)));
-  const [at, setAt] = useState(-1);
-  const [run, setRun] = useState(false);
-  const end = at >= toks.length;
-  const playing = hasAudio ? audioState === 'playing' : run;
-  // a tap on the word being read: the light goes on from it (with a recording — seekAudioToWord)
-  onWord.current = (i) => setAt(i);
-
-  useEffect(() => {
-    if (!hasAudio) setActive(end ? -1 : at);
-  }, [at, end, hasAudio, setActive]);
-  useEffect(() => {
-    onRateChange(speed);
-  }, [onRateChange, speed]);
-  useEffect(() => {
-    if (hasAudio && audioState === 'stopped') setAt(-1);
-  }, [audioState, hasAudio]);
-  useEffect(() => {
-    if (!run || hasAudio) return;
-    if (at >= toks.length) {
-      setRun(false);
-      onStop();
-      markStudied();
-      return;
-    }
-    const w = at < 0 ? 1 : toks[at].w;
-    const id = setTimeout(() => setAt((i) => i + 1), at < 0 ? 600 : (w * 60000) / speed);
-    return () => clearTimeout(id);
-  }, [run, at, speed, toks, onStop, hasAudio]);
-
-  return (
-    <div className="rd-tool">
-      <label className="rd-speed">
-        {t('reading.speed')}: <b>{speed}</b> {t('reading.wpm')}
-        <input type="range" min={20} max={200} step={5} value={speed} onChange={(e) => setSpeed(Number(e.target.value))} />
-      </label>
-      <p className="rd-hint">{end ? t('reading.paceDone') : t('reading.paceHow')}</p>
-      {!end && <p className="rd-hint">{t('reading.tapSync')}</p>}
-      <div className="rd-row">
-        <button
-          type="button"
-          className="btn rd-big-btn"
-          onClick={() => {
-            if (playing) {
-              onPause();
-              if (!hasAudio) setRun(false);
-            } else {
-              if (end || (!hasAudio && at < 0)) setAt(-1);
-              onStart(hasAudio ? audioState === 'stopped' : at < 0 || end);
-              if (!hasAudio) setRun(true);
-            }
-          }}
-        >
-          {playing ? `⏸ ${t('reading.pause')}` : hasAudio ? `▶ ${t(audioState === 'stopped' ? 'reading.start' : 'reading.resume')}` : at < 0 || end ? `▶ ${t('reading.start')}` : `▶ ${t('reading.resume')}`}
-        </button>
-        {!hasAudio && at >= 0 && !end && (
-          <button
-            type="button"
-            className="btn ghost"
-            onClick={() => {
-              onStop();
-              setRun(false);
-              setAt(-1);
-            }}
-          >
-            {t('reading.restart')}
-          </button>
-        )}
-      </div>
-    </div>
-  );
-}
-
-/** «Слово за словом»: the light moves on the space bar, a tap on the big button or on a word. */
-function Step({
-  toks,
-  active,
-  setActive,
-  onWord,
-}: {
-  toks: Tok[];
-  active: number;
-  setActive: (i: number) => void;
-  onWord: React.MutableRefObject<(i: number) => void>;
-}) {
-  const { t } = useI18n();
-  const words = toks.map((x, i) => (x.w ? i : -1)).filter((i) => i >= 0);
-  const k = words.indexOf(active);
-  // counted as in the reader: words joined by a maqaf — each
-  const total = toks.reduce((a, x) => a + x.w, 0);
-  const upTo = toks.slice(0, active + 1).reduce((a, x) => a + x.w, 0);
-  const move = (d: number) => {
-    const n = k + d;
-    if (n >= words.length) {
-      setActive(-1);
-      markStudied();
-    } else setActive(words[Math.max(0, n)]);
-  };
-  onWord.current = (i) => setActive(i);
-  const moveRef = useRef(move);
-  moveRef.current = move;
-  useEffect(() => {
-    const key = (e: KeyboardEvent) => {
-      if ((e.target as HTMLElement)?.closest?.('input, select, textarea, summary')) return;
-      if (e.key === ' ' || e.key === 'Enter') {
-        e.preventDefault();
-        moveRef.current(1);
-      } else if (e.key === 'Backspace') {
-        e.preventDefault();
-        moveRef.current(-1);
-      }
-    };
-    window.addEventListener('keydown', key);
-    return () => window.removeEventListener('keydown', key);
-  }, []);
-  return (
-    <div className="rd-tool">
-      <p className="rd-hint">{t('reading.stepHow')}</p>
-      <p className="rd-count">{k >= 0 ? t('reading.stepAt', { n: upTo, m: total }) : t('reading.stepStart', { m: total })}</p>
-      <div className="rd-row">
-        <button type="button" className="btn ghost" onClick={() => move(-1)} disabled={k <= 0}>
-          {t('reading.back')}
-        </button>
-        <button type="button" className="btn rd-big-btn" onClick={() => move(1)}>
-          {t('reading.nextWord')}
-        </button>
-      </div>
-    </div>
-  );
-}
-
 const src_ = (src: string) => (/^https?:/.test(src) ? src : `${import.meta.env.BASE_URL}${src}`);
-
-/** «Слушать»: the recording, the light follows the voice (the teacher's marking, else an estimate by the letters). */
-function Listen({ rate, setRate, estimate }: { rate: number; setRate: (rate: number) => void; estimate: boolean }) {
-  const { t } = useI18n();
-  return (
-    <div className="rd-tool">
-      <label className="rd-check">
-        <input type="checkbox" checked={rate < 1} onChange={(e) => setRate(e.target.checked ? 0.75 : 1)} /> {t('reading.slower')}
-      </label>
-      {estimate && <p className="rd-hint">{t('reading.estimate')}</p>}
-      <p className="rd-hint">{t('reading.tapSync')}</p>
-    </div>
-  );
-}
 
 /** «Разметка аудио (для учителя)»: the recording slowly from the start; a press at the start of every word. */
 function Marking({ c, toks, src, setActive }: { c: ReadingId; toks: Tok[]; src: string; setActive: (i: number) => void }) {
