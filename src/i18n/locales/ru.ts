@@ -306,6 +306,8 @@ const ru = {
   'reading.finish': "Готово",
   'reading.cancel': "Отменить",
   'reading.audioFailed': "Не удалось воспроизвести запись. Попробуйте ещё раз или откройте вкладку «Слушать».",
+  'reading.audioControls': "Управление записью Теилим",
+  'reading.stop': "Остановить",
   'reading.result': "{words} за {time} — {v} слов в минуту",
   'reading.tooFast': "Слишком быстро, чтобы прочитать вслух, — попытка не засчитана.",
   'reading.newRecord': "новый рекорд!",

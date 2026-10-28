@@ -80,6 +80,8 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   const [audioRate, setAudioRate] = useState(1);
   const [, rerender] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const pendingAudioSeek = useRef<number | null>(null);
+  const [audioState, setAudioState] = useState<'stopped' | 'playing' | 'paused'>('stopped');
 
   const verses = sections?.flatMap((section) => section.verses) ?? null;
   const toks = useMemo<Tok[]>(() => (verses ?? []).flatMap((v, i) => tokens(v).map((x) => ({ ...x, v: i }))), [verses]);
@@ -91,13 +93,38 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
     if (!player) return;
     setAudioFailed(false);
     if (restart) player.currentTime = 0;
-    void player.play().catch(() => setAudioFailed(true));
+    void player.play().catch(() => {
+      setAudioState('paused');
+      setAudioFailed(true);
+    });
   }, []);
-  const pauseAudio = useCallback(() => audioRef.current?.pause(), []);
+  const pauseAudio = useCallback(() => {
+    audioRef.current?.pause();
+    setAudioState('paused');
+  }, []);
   const stopAudio = useCallback(() => {
+    pendingAudioSeek.current = null;
     audioRef.current?.pause();
     if (audioRef.current) audioRef.current.currentTime = 0;
+    setAudioState('stopped');
+    setActive(-1);
   }, []);
+  const seekAudioToWord = (i: number) => {
+    const player = audioRef.current;
+    if (!audio || !player) {
+      onWord.current(i);
+      return;
+    }
+    setActive(i);
+    if (Number.isFinite(player.duration)) {
+      const starts = startTimes(toks, player.duration, markedTimes(readingId) ?? audio.times);
+      player.currentTime = starts[i] ?? 0;
+      playAudio(false);
+    } else {
+      pendingAudioSeek.current = i;
+      playAudio(false);
+    }
+  };
 
   useEffect(() => {
     document.title = `${t('reading.title')} · ${daily ? `${t('reading.day')} ${dailyDay}` : `${t('reading.book')} ${c}`} · ${t('app.title')}`;
@@ -216,8 +243,20 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
               src={src_(audio.src)}
               preload="metadata"
               controls={tool === 'listen'}
+              onLoadedMetadata={(e) => {
+                const i = pendingAudioSeek.current;
+                const player = e.currentTarget;
+                if (i === null || !Number.isFinite(player.duration)) return;
+                const starts = startTimes(toks, player.duration, markedTimes(readingId) ?? audio.times);
+                player.currentTime = starts[i] ?? 0;
+                pendingAudioSeek.current = null;
+              }}
               onTimeUpdate={(e) => {
                 const player = e.currentTarget;
+                if (player.paused && player.currentTime === 0) {
+                  setActive(-1);
+                  return;
+                }
                 if (!player.duration) return;
                 const starts = startTimes(toks, player.duration, markedTimes(readingId) ?? audio.times);
                 let i = -1;
@@ -226,8 +265,11 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
               }}
               onEnded={() => {
                 setActive(-1);
+                setAudioState('stopped');
                 markStudied();
               }}
+              onPlay={() => setAudioState('playing')}
+              onPause={() => setAudioState((state) => (state === 'stopped' ? state : 'paused'))}
               onError={() => setAudioFailed(true)}
             />
           )}
@@ -259,6 +301,31 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           )}
         </section>
 
+        {audio && (
+          <div className="rd-audio-float no-print" role="group" aria-label={t('reading.audioControls')}>
+            <button
+              type="button"
+              className="btn"
+              onClick={() => (audioState === 'playing' ? pauseAudio() : playAudio(audioState === 'stopped'))}
+              aria-label={t(audioState === 'playing' ? 'reading.pause' : audioState === 'paused' ? 'reading.resume' : 'reading.start')}
+              title={t(audioState === 'playing' ? 'reading.pause' : audioState === 'paused' ? 'reading.resume' : 'reading.start')}
+            >
+              {audioState === 'playing' ? '⏸' : '▶'}{' '}
+              {t(audioState === 'playing' ? 'reading.pause' : audioState === 'paused' ? 'reading.resume' : 'reading.start')}
+            </button>
+            <button
+              type="button"
+              className="btn ghost"
+              onClick={stopAudio}
+              disabled={audioState === 'stopped'}
+              aria-label={t('reading.stop')}
+              title={t('reading.stop')}
+            >
+              ■ {t('reading.stop')}
+            </button>
+          </div>
+        )}
+
         {failed ? (
           <p className="rd-note">{t('reading.failed')}</p>
         ) : !verses ? (
@@ -267,9 +334,9 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           <article className="rd-text he" lang="he" dir="rtl" ref={textRef}>
             {sections?.map((section, si) => {
               const verseOffset = sections.slice(0, si).reduce((sum, previous) => sum + previous.verses.length, 0);
-                      return (
-                        <section key={`${section.chapter}-${section.firstVerse}`}>
-                          <h2 className="rd-ch">פֶּרֶק {hebrewNumber(section.chapter)}</h2>
+              return (
+                <section key={`${section.chapter}-${section.firstVerse}`}>
+                  <h2 className="rd-ch">פֶּרֶק {hebrewNumber(section.chapter)}</h2>
                   {section.verses.map((_, vi) => {
                     const globalVerse = verseOffset + vi;
                     return (
@@ -283,7 +350,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
                               <span
                                 data-i={i}
                                 className={`rd-w${i === active ? ' rd-on' : active > i ? ' rd-past' : ''}${x.w ? '' : ' rd-paseq'}`}
-                                onClick={() => x.w && onWord.current(i)}
+                                onClick={() => x.w && seekAudioToWord(i)}
                               >
                                 {view.taamim ? x.s : stripTaamim(x.s)}
                               </span>{' '}

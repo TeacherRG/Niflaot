@@ -297,6 +297,8 @@ const de: Messages = {
   'reading.finish': "Fertig",
   'reading.cancel': "Abbrechen",
   'reading.audioFailed': "Die Aufnahme konnte nicht abgespielt werden. Versuch es noch einmal oder öffne den Tab „Anhören“.",
+  'reading.audioControls': "Steuerung der Tehillim-Aufnahme",
+  'reading.stop': "Stopp",
   'reading.result': "{words} in {time} – {v} Wörter pro Minute",
   'reading.tooFast': "Zu schnell, um laut zu lesen – der Versuch zählt nicht.",
   'reading.newRecord': "neuer Rekord!",

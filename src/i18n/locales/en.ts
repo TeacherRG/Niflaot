@@ -297,6 +297,8 @@ const en: Messages = {
   'reading.finish': "Done",
   'reading.cancel': "Cancel",
   'reading.audioFailed': "Could not play the recording. Try again or open the “Listen” tab.",
+  'reading.audioControls': "Tehillim recording controls",
+  'reading.stop': "Stop",
   'reading.result': "{words} in {time} — {v} words per minute",
   'reading.tooFast': "Too fast to read aloud — this attempt does not count.",
   'reading.newRecord': "a new record!",
