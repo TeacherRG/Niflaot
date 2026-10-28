@@ -1,5 +1,5 @@
 import '@fontsource/noto-serif-hebrew/400.css';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useI18n } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
@@ -59,13 +59,37 @@ export function ReadingPage({ chapter }: { chapter?: string }) {
   const [view, setView] = useState<View>(loadView);
   const [tool, setTool] = useState<Tool>('reader');
   const [active, setActive] = useState(-1);
+  const [audioFailed, setAudioFailed] = useState(false);
+  const [audioRate, setAudioRate] = useState(1);
   const [, rerender] = useState(0);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const toks = useMemo<Tok[]>(() => (verses ?? []).flatMap((v, i) => tokens(v).map((x) => ({ ...x, v: i }))), [verses]);
+  const total = useMemo(() => toks.reduce((a, x) => a + x.w, 0), [toks]);
+  const audio = idx?.audio?.[c];
+  const playAudio = useCallback((restart = true) => {
+    const player = audioRef.current;
+    if (!player) return;
+    setAudioFailed(false);
+    if (restart) player.currentTime = 0;
+    void player.play().catch(() => setAudioFailed(true));
+  }, []);
+  const pauseAudio = useCallback(() => audioRef.current?.pause(), []);
+  const stopAudio = useCallback(() => {
+    audioRef.current?.pause();
+    if (audioRef.current) audioRef.current.currentTime = 0;
+  }, []);
 
   useEffect(() => {
     document.title = `${t('reading.title')} · ${t('reading.book')} ${c} · ${t('app.title')}`;
   }, [t, c]);
   useEffect(() => {
+    if (audioRef.current) audioRef.current.playbackRate = audioRate;
+  }, [audioRate, audio]);
+  useEffect(() => {
     if (!valid) return;
+    stopAudio();
+    setAudioFailed(false);
     setVerses(null);
     setActive(-1);
     let live = true;
@@ -75,11 +99,7 @@ export function ReadingPage({ chapter }: { chapter?: string }) {
     return () => {
       live = false;
     };
-  }, [c, valid]);
-
-  const toks = useMemo<Tok[]>(() => (verses ?? []).flatMap((v, i) => tokens(v).map((x) => ({ ...x, v: i }))), [verses]);
-  const total = useMemo(() => toks.reduce((a, x) => a + x.w, 0), [toks]);
-  const audio = idx?.audio?.[c];
+  }, [c, valid, stopAudio]);
 
   const setV = (v: View) => {
     setView(v);
@@ -150,6 +170,28 @@ export function ReadingPage({ chapter }: { chapter?: string }) {
 
         <section className="rd-tools no-print" aria-labelledby="rd-tools-h">
           <h2 id="rd-tools-h">{t('reading.tools')}</h2>
+          {audio && (
+            <audio
+              ref={audioRef}
+              src={src_(audio.src)}
+              preload="metadata"
+              controls={tool === 'listen'}
+              onTimeUpdate={(e) => {
+                const player = e.currentTarget;
+                if (!player.duration) return;
+                const starts = startTimes(toks, player.duration, markedTimes(c) ?? audio.times);
+                let i = -1;
+                for (let k = 0; k < starts.length; k++) if (starts[k] <= player.currentTime) i = k;
+                setActive(player.ended ? -1 : i);
+              }}
+              onEnded={() => {
+                setActive(-1);
+                markStudied();
+              }}
+              onError={() => setAudioFailed(true)}
+            />
+          )}
+          {audioFailed && <p className="rd-note" role="alert">{t('reading.audioFailed')}</p>}
           <div className="rd-tabs" role="tablist">
             {(['reader', 'pace', 'step', ...(audio ? ['listen' as const] : [])] as Tool[]).map((x) => (
               <button
@@ -169,10 +211,10 @@ export function ReadingPage({ chapter }: { chapter?: string }) {
           </div>
           {verses && (
             <>
-              {tool === 'reader' && <Reader key={c} c={c} toks={toks} total={total} onWord={onWord} setActive={setActive} adults={mode === 'adults'} done={() => rerender((n) => n + 1)} />}
-              {tool === 'pace' && <Pace key={c} c={c} toks={toks} setActive={setActive} />}
+              {tool === 'reader' && <Reader key={c} c={c} toks={toks} total={total} onWord={onWord} setActive={setActive} onStart={playAudio} onStop={stopAudio} adults={mode === 'adults'} done={() => rerender((n) => n + 1)} />}
+              {tool === 'pace' && <Pace key={c} c={c} toks={toks} setActive={setActive} onStart={playAudio} onPause={pauseAudio} onStop={stopAudio} />}
               {tool === 'step' && <Step key={c} toks={toks} active={active} setActive={setActive} onWord={onWord} />}
-              {tool === 'listen' && audio && <Listen key={c} c={c} toks={toks} src={audio.src} times={audio.times} setActive={setActive} />}
+              {tool === 'listen' && audio && <Listen rate={audioRate} setRate={setAudioRate} estimate={!markedTimes(c) && !audio.times} />}
             </>
           )}
         </section>
@@ -240,6 +282,8 @@ function Reader({
   total,
   onWord,
   setActive,
+  onStart,
+  onStop,
   adults,
   done,
 }: {
@@ -248,6 +292,8 @@ function Reader({
   total: number;
   onWord: React.MutableRefObject<(i: number) => void>;
   setActive: (i: number) => void;
+  onStart: (restart?: boolean) => void;
+  onStop: () => void;
   adults: boolean;
   done: () => void;
 }) {
@@ -265,6 +311,7 @@ function Reader({
 
   const finish = (words: number) => {
     if (start === null) return;
+    onStop();
     const ms = Date.now() - start;
     let v = wpm(words, ms);
     if (v !== null && v > MAX_WPM) v = null;
@@ -322,6 +369,7 @@ function Reader({
               setResult(null);
               setNow(Date.now());
               setStart(Date.now());
+              onStart();
             }}
           >
             ▶ {result ? t('reading.again') : t('reading.start')}
@@ -337,7 +385,7 @@ function Reader({
             <button type="button" className="btn rd-big-btn" onClick={() => finish(total)}>
               ■ {t('reading.finish')}
             </button>
-            <button type="button" className="btn ghost" onClick={() => setStart(null)}>
+            <button type="button" className="btn ghost" onClick={() => (onStop(), setStart(null))}>
               {t('reading.cancel')}
             </button>
           </div>
@@ -348,7 +396,7 @@ function Reader({
 }
 
 /** «Темп»: the light goes word by word at the chosen speed — keep up with it reading aloud. */
-function Pace({ c, toks, setActive }: { c: number; toks: Tok[]; setActive: (i: number) => void }) {
+function Pace({ c, toks, setActive, onStart, onPause, onStop }: { c: number; toks: Tok[]; setActive: (i: number) => void; onStart: (restart?: boolean) => void; onPause: () => void; onStop: () => void }) {
   const { t } = useI18n();
   const rec = records()[c];
   const [speed, setSpeed] = useState(() => Math.min(200, Math.max(20, Math.round(((rec?.best ?? 50) * 1.1) / 5) * 5)));
@@ -363,13 +411,14 @@ function Pace({ c, toks, setActive }: { c: number; toks: Tok[]; setActive: (i: n
     if (!run) return;
     if (at >= toks.length) {
       setRun(false);
+      onStop();
       markStudied();
       return;
     }
     const w = at < 0 ? 1 : toks[at].w;
     const id = setTimeout(() => setAt((i) => i + 1), at < 0 ? 600 : (w * 60000) / speed);
     return () => clearTimeout(id);
-  }, [run, at, speed, toks]);
+  }, [run, at, speed, toks, onStop]);
 
   return (
     <div className="rd-tool">
@@ -384,6 +433,8 @@ function Pace({ c, toks, setActive }: { c: number; toks: Tok[]; setActive: (i: n
           className="btn rd-big-btn"
           onClick={() => {
             if (end || at < 0) setAt(-1);
+            if (!run || end) onStart(at < 0 || end);
+            else onPause();
             setRun(!run || end);
           }}
         >
@@ -394,6 +445,7 @@ function Pace({ c, toks, setActive }: { c: number; toks: Tok[]; setActive: (i: n
             type="button"
             className="btn ghost"
             onClick={() => {
+              onStop();
               setRun(false);
               setAt(-1);
             }}
@@ -467,29 +519,14 @@ function Step({
 const src_ = (src: string) => (/^https?:/.test(src) ? src : `${import.meta.env.BASE_URL}${src}`);
 
 /** «Слушать»: the recording, the light follows the voice (the teacher's marking, else an estimate by the letters). */
-function Listen({ c, toks, src, times, setActive }: { c: number; toks: Tok[]; src: string; times?: number[]; setActive: (i: number) => void }) {
+function Listen({ rate, setRate, estimate }: { rate: number; setRate: (rate: number) => void; estimate: boolean }) {
   const { t } = useI18n();
-  const ref = useRef<HTMLAudioElement>(null);
-  const [rate, setRate] = useState(1);
-  const own = markedTimes(c);
-  const update = () => {
-    const a = ref.current;
-    if (!a || !a.duration) return;
-    const st = startTimes(toks, a.duration, own ?? times);
-    let i = -1;
-    for (let k = 0; k < st.length; k++) if (st[k] <= a.currentTime) i = k;
-    setActive(a.ended ? -1 : i);
-  };
-  useEffect(() => {
-    if (ref.current) ref.current.playbackRate = rate;
-  }, [rate]);
   return (
     <div className="rd-tool">
-      <audio ref={ref} src={src_(src)} controls preload="metadata" onTimeUpdate={update} onEnded={() => (setActive(-1), markStudied())} />
       <label className="rd-check">
         <input type="checkbox" checked={rate < 1} onChange={(e) => setRate(e.target.checked ? 0.75 : 1)} /> {t('reading.slower')}
       </label>
-      {!own && !times && <p className="rd-hint">{t('reading.estimate')}</p>}
+      {estimate && <p className="rd-hint">{t('reading.estimate')}</p>}
     </div>
   );
 }
