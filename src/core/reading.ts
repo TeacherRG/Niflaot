@@ -1,25 +1,64 @@
 /**
- * «Святое чтение» — беглое чтение Теґилим (`#/reading[/<глава>]`, src/components/ReadingPage.tsx).
+ * «Святое чтение» — ежедневная порция Теґилим по еврейскому числу месяца (`#/reading[/day/<число>]`).
+ * `#/reading/<глава>` остаётся прямым чтением одной главы.
  * Текст — public/reading/tehillim/<глава>.json (`python3 scripts/fetch-reading.py`: огласовки и знаки кантилляции, кери,
  * Имена — как во всём проекте). Записи чтения — только на этом устройстве:
- *   `niflaot:reading` = {"<глава>": {best, last — слов в минуту; n — попыток}};
+ *   `niflaot:reading` = {"<ключ чтения>": {best, last — слов в минуту; n — попыток}};
  *   `niflaot:reading-view` = {taamim, big};
- *   `niflaot:reading-times:<глава>` — разметка аудио учителем (начало каждого слова, с).
+ *   `niflaot:reading-times:<ключ чтения>` — разметка аудио учителем (начало каждого слова, с).
  */
-import { hebrewParts } from './restDays';
+import { addDays, hebrewParts } from './restDays';
 
 export const CHAPTERS = 150;
 
+export interface PsalmPortion {
+  chapter: number;
+  fromVerse?: number;
+  toVerse?: number;
+}
+
+const psalms = (from: number, to: number): PsalmPortion[] =>
+  Array.from({ length: to - from + 1 }, (_, i) => ({ chapter: from + i }));
+
+const MONTHLY_PORTIONS: PsalmPortion[][] = [
+  psalms(1, 9), psalms(10, 17), psalms(18, 22), psalms(23, 28), psalms(29, 34),
+  psalms(35, 38), psalms(39, 43), psalms(44, 48), psalms(49, 54), psalms(55, 59),
+  psalms(60, 65), psalms(66, 68), psalms(69, 71), psalms(72, 76), psalms(77, 78),
+  psalms(79, 82), psalms(83, 87), psalms(88, 89), psalms(90, 96), psalms(97, 103),
+  psalms(104, 105), psalms(106, 107), psalms(108, 112), psalms(113, 118),
+  [{ chapter: 119, fromVerse: 1, toVerse: 96 }],
+  [{ chapter: 119, fromVerse: 97, toVerse: 176 }],
+  psalms(120, 134), psalms(135, 139), psalms(140, 144), psalms(145, 150),
+];
+
+export function dailyPortion(day: number, combineLastDay = false): PsalmPortion[] {
+  if (!Number.isInteger(day) || day < 1 || day > MONTHLY_PORTIONS.length) return [];
+  const portion = MONTHLY_PORTIONS[day - 1];
+  if (day === 29 && combineLastDay) return [...portion, ...MONTHLY_PORTIONS[29]].map((p) => ({ ...p }));
+  return portion.map((p) => ({ ...p }));
+}
+
+/** Whether the current Hebrew month has 29 days, using the browser's Hebrew calendar. */
+export function shortHebrewMonth(iso: string): boolean {
+  const current = hebrewParts(iso);
+  for (let offset = 1; offset <= 30; offset++) {
+    const next = hebrewParts(addDays(iso, offset));
+    if (next.year !== current.year || next.month !== current.month) return current.day + offset - 1 === 29;
+  }
+  return false;
+}
+
 /** Tehillim for the current day of the Hebrew month. */
-export function chapterForDate(iso: string): number {
+export function hebrewDayForDate(iso: string): number {
   return hebrewParts(iso).day;
 }
 
-export function dailyChapter(): number {
+export function todayISO(): string {
   const d = new Date();
-  const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-  return chapterForDate(iso);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
+
+export const currentHebrewDay = () => hebrewDayForDate(todayISO());
 
 // the site's root, as in src/core/tanakh.ts (not imported from there: it carries the whole cycle)
 const up = '..';
@@ -31,7 +70,7 @@ export interface ReadingIndex {
   version: { title: string; license: string; source: string };
   /** words in every chapter (through a space and a maqaf, without the paseq) */
   words: number[];
-  /** recordings of chapters, when there are: «<глава>» → audio file (from the site's root or a full address) and word start times */
+  /** recordings of daily portions, when there are: Hebrew day of month → audio file and word start times */
   audio?: Record<string, { src: string; times?: number[]; credit?: { name: string; url: string } }>;
 }
 
@@ -95,6 +134,7 @@ export interface Record_ {
   last: number;
   n: number;
 }
+export type ReadingId = number | string;
 
 const KEY = 'niflaot:reading';
 const read = <T,>(k: string, d: T): T => {
@@ -115,7 +155,7 @@ const write = (k: string, v: unknown) => {
 export const records = (): Record<string, Record_> => read(KEY, {});
 
 /** saves an attempt; true — a new record */
-export function saveAttempt(c: number, value: number): boolean {
+export function saveAttempt(c: ReadingId, value: number): boolean {
   const all = records();
   const r = all[c];
   const best = !r || value > r.best;
@@ -131,9 +171,9 @@ export interface View {
 export const loadView = (): View => ({ taamim: false, big: false, ...read<Partial<View>>('niflaot:reading-view', {}) });
 export const saveView = (v: View) => write('niflaot:reading-view', v);
 
-const TIMES = (c: number) => `niflaot:reading-times:${c}`;
-export const markedTimes = (c: number): number[] | null => read<number[] | null>(TIMES(c), null);
-export const saveTimes = (c: number, t: number[]) => write(TIMES(c), t);
+const TIMES = (c: ReadingId) => `niflaot:reading-times:${c}`;
+export const markedTimes = (c: ReadingId): number[] | null => read<number[] | null>(TIMES(c), null);
+export const saveTimes = (c: ReadingId, t: number[]) => write(TIMES(c), t);
 
 /**
  * When each token starts in a recording of `duration` s: the marked times (one per counted word-chunk), else an

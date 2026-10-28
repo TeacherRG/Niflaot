@@ -66,6 +66,7 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©mychitas.app`;
  * `#/daily` — «Знаете ли вы?» opened on «Гематрия дня», its first card; `#/math/<op>` — «Устный счёт».
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson; `/mental-math/` and `/daily/` (also under `/en/`, `/de/`) — those pages.
+ * `#/reading` opens the Tehillim portion for today's Hebrew date; `#/reading/day/<day>` selects another date, while `#/reading/<chapter>` opens one chapter.
  */
 function readRoute() {
   if (location.hash) return location.hash.replace(/^#\/?/, '').split('?')[0];
@@ -193,7 +194,7 @@ function Site() {
           ) : slug === 'lashon' ? (
             <LashonPage />
           ) : slug === 'reading' ? (
-            <ReadingPage key={route} chapter={view || undefined} />
+            <ReadingPage key={route} chapter={view === 'day' ? undefined : view || undefined} day={view === 'day' ? variant : undefined} />
           ) : slug === 'torah-words' ? (
             <TorahWordsPage key={route} parsha={view || undefined} />
           ) : slug === 'quiz' ? (
