@@ -80,7 +80,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   const [audioRate, setAudioRate] = useState(1);
   const [, rerender] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const pendingAudioSeek = useRef<number | null>(null);
+  const pendingAudioSeek = useRef<{ index: number; resume: boolean } | null>(null);
   const [audioState, setAudioState] = useState<'stopped' | 'playing' | 'paused'>('stopped');
 
   const verses = sections?.flatMap((section) => section.verses) ?? null;
@@ -115,14 +115,14 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
       onWord.current(i);
       return;
     }
+    const resume = player.paused || player.ended;
     setActive(i);
     if (Number.isFinite(player.duration)) {
       const starts = startTimes(toks, player.duration, markedTimes(readingId) ?? audio.times);
       player.currentTime = starts[i] ?? 0;
-      playAudio(false);
+      if (resume) playAudio(false);
     } else {
-      pendingAudioSeek.current = i;
-      playAudio(false);
+      pendingAudioSeek.current = { index: i, resume };
     }
   };
 
@@ -244,12 +244,13 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
               preload="metadata"
               controls={tool === 'listen'}
               onLoadedMetadata={(e) => {
-                const i = pendingAudioSeek.current;
+                const pending = pendingAudioSeek.current;
                 const player = e.currentTarget;
-                if (i === null || !Number.isFinite(player.duration)) return;
+                if (!pending || !Number.isFinite(player.duration)) return;
                 const starts = startTimes(toks, player.duration, markedTimes(readingId) ?? audio.times);
-                player.currentTime = starts[i] ?? 0;
+                player.currentTime = starts[pending.index] ?? 0;
                 pendingAudioSeek.current = null;
+                if (pending.resume) playAudio(false);
               }}
               onTimeUpdate={(e) => {
                 const player = e.currentTarget;
