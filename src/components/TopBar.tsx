@@ -4,6 +4,7 @@ import { Icon, useDismiss, useUI } from './ui';
 import { loadConfig, useAccount } from '../core/account';
 import { currentLink, noShare, type Ref } from '../core/site';
 import { NIFLAOT_MARK } from '../core/partners';
+import { HebrewDay } from './HebrewDay';
 import { findLesson } from '../lessons';
 
 /** One button showing the current language; opens a list of all languages in their own names. */
@@ -170,6 +171,7 @@ export function TopBar({ title, children, wide, share = true }: { title: string;
         {share && <ShareButton />}
         <AccountChip />
         <LanguagePicker />
+        <HebrewDay />
       </div>
     </div>
   );

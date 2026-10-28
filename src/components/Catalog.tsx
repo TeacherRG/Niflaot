@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useMemo } from 'react';
 import { useI18n } from '../i18n';
 import { Slogan } from './Slogan';
 import { LESSONS, LESSON_GROUPS, cardsOnly, type Lesson } from '../lessons';
@@ -17,6 +17,8 @@ import { useMode } from '../core/mode';
 import { CoursesCard } from './CoursesCard';
 import { Dedication } from './Dedication';
 import { ShabbatCalendar } from './ShabbatCalendar';
+import { NUMS, collectFacts, type Fact } from '../core/facts';
+import { displayNames } from '../core/names';
 
 /** «Гематрия дня» on the home screen: today's number, or the result when today's word is solved. */
 function DailyLink() {
@@ -59,8 +61,9 @@ function TableLink() {
 /**
  * The adults' home («Подростки и взрослые», src/core/mode.ts): four tiles and nothing else (owner, 28.10.2026: «убрать все лишние
  * тексты и повторяющиеся ссылки») — «Сегодня — глава» (the week's portion, opens its first lesson to read), «Мои курсы» (only the
- * names of the chosen courses with their bars — CoursesCard `simple`), «Беглое чтение Теґилим» (#/reading) and the calendar;
- * under them — the dedication of the week.
+ * names of the chosen courses with their bars — CoursesCard `simple`), «Беглое чтение Теґилим» (#/reading) and the running feed
+ * of the lessons' gematria (the calendar moved to the top bar — HebrewDay.tsx); under them — the dedication of the week.
+ * It all fits one screen, with no scrolling (owner).
  */
 function AdultsHome() {
   const { t, locale } = useI18n();
@@ -90,12 +93,48 @@ function AdultsHome() {
             <span className="a-tile-he he">תְּהִלִּים</span>
           </a>
           <CoursesCard simple />
-          <ShabbatCalendar />
+          <GematriaTicker />
         </div>
         <Dedication />
       </main>
       <Colophon />
     </>
+  );
+}
+
+/**
+ * «Гематрии» on the adults' home: every equality of the lessons («פרצוף + גאוה = 471 = זנב + תאוה», src/core/facts.ts)
+ * running slowly upwards in a closed loop (the list twice, the animation moves it by one list); a tap opens it in
+ * «Знаете ли вы?» (#/facts/<id>); it stops under the mouse or focus; «reduce motion» — a still list to scroll.
+ */
+function GematriaTicker() {
+  const { t } = useI18n();
+  const facts = useMemo(() => collectFacts(LESSONS).filter((f): f is Extract<Fact, { kind: 'eq' }> => f.kind === 'eq'), []);
+  if (!facts.length) return null;
+  const row = (f: Extract<Fact, { kind: 'eq' }>, copy: boolean) => (
+    <li key={`${copy ? 'b' : 'a'}${f.id}`} aria-hidden={copy || undefined}>
+      <a href={`#/facts/${f.id}`} tabIndex={copy ? -1 : undefined} dir="rtl">
+        {[f.q, ...f.rest].map((p, i) => (
+          <Fragment key={i}>
+            {i > 0 && <span className="a-tick-eq"> = </span>}
+            {NUMS.test(p) ? <b className="a-tick-n">{p}</b> : <span className="he">{displayNames(p)}</span>}
+          </Fragment>
+        ))}
+      </a>
+    </li>
+  );
+  return (
+    <section className="a-tick" aria-labelledby="a-tick-h">
+      <h2 id="a-tick-h">
+        <a href="#/facts">{t('home.gematria')}</a>
+      </h2>
+      <div className="a-tick-win">
+        <ul style={{ animationDuration: `${facts.length * 3.5}s` }}>
+          {facts.map((f) => row(f, false))}
+          {facts.map((f) => row(f, true))}
+        </ul>
+      </div>
+    </section>
   );
 }
 

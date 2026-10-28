@@ -34,7 +34,7 @@ function shabbatTimes(now: Date, place: NonNullable<ReturnType<typeof placeOf>>,
 }
 
 /** Home-page calendar and local Shabbat times; location is the city associated with the device time zone. */
-export function ShabbatCalendar() {
+export function ShabbatCalendar({ bare = false }: { bare?: boolean }) {
   const { t, locale } = useI18n();
   const [now, setNow] = useState(() => new Date());
   useEffect(() => {
@@ -46,8 +46,8 @@ export function ShabbatCalendar() {
   const place = placeOf(zone);
   if (!place) {
     return (
-      <section className="shabbat-calendar" aria-labelledby="shabbat-calendar-title">
-        <h2 id="shabbat-calendar-title">{t('calendar.title')}</h2>
+      <section className={`shabbat-calendar${bare ? ' bare' : ''}`} aria-labelledby={bare ? undefined : 'shabbat-calendar-title'}>
+        {!bare && <h2 id="shabbat-calendar-title">{t('calendar.title')}</h2>}
         <p>{t('calendar.locationUnavailable')}</p>
       </section>
     );
@@ -65,10 +65,10 @@ export function ShabbatCalendar() {
   ] as const;
 
   return (
-    <section className="shabbat-calendar" aria-labelledby="shabbat-calendar-title">
+    <section className={`shabbat-calendar${bare ? ' bare' : ''}`} aria-labelledby={bare ? undefined : 'shabbat-calendar-title'}>
       <header className="shabbat-calendar-head">
         <div>
-          <h2 id="shabbat-calendar-title">{t('calendar.title')}</h2>
+          {!bare && <h2 id="shabbat-calendar-title">{t('calendar.title')}</h2>}
           <p>{t('calendar.city', { city })}</p>
         </div>
         <div className="shabbat-calendar-date">
