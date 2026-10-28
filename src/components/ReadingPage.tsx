@@ -9,6 +9,7 @@ import { markStudied } from '../core/habit';
 import { useHebrewLevel } from '../core/hebrewLevel';
 import {
   CHAPTERS,
+  chapterAudioTracks,
   currentHebrewDay,
   dailyPortion,
   loadChapter,
@@ -58,26 +59,45 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
     () => (daily ? dailyPortion(dailyDay, dailyDay === 29 && shortMonth) : [{ chapter: c }]),
     [daily, dailyDay, shortMonth, c],
   );
+  const readingId: ReadingId = daily ? `day-${dailyDay}` : c;
+  const tracks = useMemo(() => (daily ? chapterAudioTracks(portions, readingId) : []), [daily, portions, readingId]);
   const valid = daily ? Number.isInteger(dailyDay) && dailyDay >= 1 && dailyDay <= maxDailyDay : Number.isInteger(c) && c >= 1 && c <= CHAPTERS;
   const [idx, setIdx] = useState<ReadingIndex | null>(null);
   const [sections, setSections] = useState<TextSection[] | null>(null);
   const [failed, setFailed] = useState(false);
   const [view, setView] = useState<View>(loadView);
   const [active, setActive] = useState(-1);
+  const [trackIndex, setTrackIndex] = useState(0);
   const [audioFailed, setAudioFailed] = useState(false);
   const [audioRate, setAudioRate] = useState(1);
   const audioRef = useRef<HTMLAudioElement>(null);
   const syncOffset = useRef(0);
+  const pendingPlay = useRef(false);
+  const pendingWord = useRef<number | null>(null);
   const [audioState, setAudioState] = useState<'stopped' | 'playing' | 'paused'>('stopped');
 
   const verses = sections?.flatMap((section) => section.verses) ?? null;
   const toks = useMemo<Tok[]>(() => (verses ?? []).flatMap((v, i) => tokens(v).map((x) => ({ ...x, v: i }))), [verses]);
-  const readingId: ReadingId = daily ? `day-${dailyDay}` : c;
-  const audio = daily ? idx?.audio?.[dailyDay] : undefined;
+  const trackTokenIndices = useMemo(() => {
+    let firstVerse = 0;
+    return (sections ?? []).map((section) => {
+      const start = firstVerse;
+      firstVerse += section.verses.length;
+      return toks.flatMap((token, i) => (token.v >= start && token.v < firstVerse ? [i] : []));
+    });
+  }, [sections, toks]);
+  const audio = sections ? tracks[trackIndex] ?? null : null;
   const playAudio = useCallback((restart = true) => {
+    if (!tracks.length) return;
+    setAudioFailed(false);
+    if (restart && trackIndex !== 0) {
+      pendingPlay.current = true;
+      pendingWord.current = null;
+      setTrackIndex(0);
+      return;
+    }
     const player = audioRef.current;
     if (!player) return;
-    setAudioFailed(false);
     if (restart) {
       player.currentTime = 0;
       syncOffset.current = 0;
@@ -86,28 +106,56 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
       setAudioState('paused');
       setAudioFailed(true);
     });
-  }, []);
+  }, [tracks.length, trackIndex]);
   const pauseAudio = useCallback(() => {
+    pendingPlay.current = false;
     audioRef.current?.pause();
     setAudioState('paused');
   }, []);
   const stopAudio = useCallback(() => {
+    pendingPlay.current = false;
+    pendingWord.current = null;
     syncOffset.current = 0;
     audioRef.current?.pause();
     if (audioRef.current) audioRef.current.currentTime = 0;
+    setTrackIndex(0);
     setAudioState('stopped');
     setActive(-1);
   }, []);
+  useEffect(() => {
+    if (!pendingPlay.current || !audioRef.current) return;
+    pendingPlay.current = false;
+    void audioRef.current.play().catch(() => {
+      setAudioState('paused');
+      setAudioFailed(true);
+    });
+  }, [trackIndex]);
   // Разметки слов нет, а оценка времени неточна: нажатие на слово не перематывает голос,
   // а сдвигает подсветку, чтобы она шла дальше с этого слова.
   const seekAudioToWord = (i: number) => {
     const player = audioRef.current;
-    if (!audio || !player || !Number.isFinite(player.duration)) {
+    const nextTrackIndex = trackTokenIndices.findIndex((indices) => indices.includes(i));
+    if (!audio || nextTrackIndex < 0) {
       setActive(i);
       return;
     }
-    const starts = startTimes(toks, player.duration, markedTimes(readingId) ?? audio.times);
-    syncOffset.current = (starts[i] ?? 0) - player.currentTime;
+    if (nextTrackIndex !== trackIndex) {
+      pendingPlay.current = true;
+      pendingWord.current = i;
+      syncOffset.current = 0;
+      setTrackIndex(nextTrackIndex);
+      setActive(i);
+      return;
+    }
+    if (!player || !Number.isFinite(player.duration)) {
+      setActive(i);
+      return;
+    }
+    const indices = trackTokenIndices[trackIndex] ?? [];
+    const localIndex = indices.indexOf(i);
+    const localTokens = indices.map((tokenIndex) => toks[tokenIndex]);
+    const starts = startTimes(localTokens, player.duration, markedTimes(audio.markId));
+    syncOffset.current = (starts[localIndex] ?? 0) - player.currentTime;
     setActive(i);
     if (player.paused || player.ended) playAudio(false);
   };
@@ -221,9 +269,22 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
 
         {audio && (
           <audio
+            key={audio.src}
             ref={audioRef}
             src={src_(audio.src)}
             preload="metadata"
+            onLoadedMetadata={(e) => {
+              const word = pendingWord.current;
+              if (word === null) return;
+              pendingWord.current = null;
+              const indices = trackTokenIndices[trackIndex] ?? [];
+              const localIndex = indices.indexOf(word);
+              if (localIndex < 0) return;
+              const localTokens = indices.map((tokenIndex) => toks[tokenIndex]);
+              const starts = startTimes(localTokens, e.currentTarget.duration, markedTimes(audio.markId));
+              syncOffset.current = starts[localIndex] ?? 0;
+              setActive(word);
+            }}
             onTimeUpdate={(e) => {
               const player = e.currentTarget;
               if (player.paused && player.currentTime === 0) {
@@ -231,15 +292,23 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
                 return;
               }
               if (!player.duration) return;
-              const starts = startTimes(toks, player.duration, markedTimes(readingId) ?? audio.times);
+              const indices = trackTokenIndices[trackIndex] ?? [];
+              const localTokens = indices.map((tokenIndex) => toks[tokenIndex]);
+              const starts = startTimes(localTokens, player.duration, markedTimes(audio.markId));
               let i = -1;
               for (let k = 0; k < starts.length; k++) if (starts[k] <= player.currentTime + syncOffset.current) i = k;
-              setActive(player.ended ? -1 : i);
+              setActive(player.ended || i < 0 ? -1 : indices[i]);
             }}
             onEnded={() => {
-              setActive(-1);
-              setAudioState('stopped');
-              markStudied();
+              if (trackIndex + 1 < tracks.length) {
+                syncOffset.current = 0;
+                pendingPlay.current = true;
+                setTrackIndex(trackIndex + 1);
+              } else {
+                setActive(-1);
+                setAudioState('stopped');
+                markStudied();
+              }
             }}
             onPlay={() => setAudioState('playing')}
             onPause={() => setAudioState((state) => (state === 'stopped' ? state : 'paused'))}
@@ -324,7 +393,20 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           </article>
         )}
 
-        {verses && audio && <Marking c={readingId} toks={toks} src={audio.src} setActive={setActive} />}
+        {verses &&
+          tracks.map((track, i) => {
+            const indices = trackTokenIndices[i] ?? [];
+            return (
+              <Marking
+                key={track.markId}
+                c={track.markId}
+                label={`${t('reading.book')} ${track.chapter}`}
+                toks={indices.map((tokenIndex) => toks[tokenIndex])}
+                src={track.src}
+                setActive={(word) => setActive(indices[word] ?? -1)}
+              />
+            );
+          })}
 
         {idx && (
           <p className="rd-credit">
@@ -333,15 +415,6 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
               {idx.version.title}
             </a>{' '}
             · {t('reading.pd')}
-            {audio?.credit && (
-              <>
-                {' '}
-                · {t('reading.audioBy')}{' '}
-                <a href={audio.credit.url} target="_blank" rel="noopener">
-                  {audio.credit.name}
-                </a>
-              </>
-            )}
           </p>
         )}
       </div>
@@ -353,7 +426,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
 const src_ = (src: string) => (/^https?:/.test(src) ? src : `${import.meta.env.BASE_URL}${src}`);
 
 /** «Разметка аудио (для учителя)»: the recording slowly from the start; a press at the start of every word. */
-function Marking({ c, toks, src, setActive }: { c: ReadingId; toks: Tok[]; src: string; setActive: (i: number) => void }) {
+function Marking({ c, label, toks, src, setActive }: { c: ReadingId; label: string; toks: Tok[]; src: string; setActive: (i: number) => void }) {
   const { t } = useI18n();
   const ref = useRef<HTMLAudioElement>(null);
   const words = useMemo(() => toks.map((x, i) => (x.w ? i : -1)).filter((i) => i >= 0), [toks]);
@@ -398,9 +471,9 @@ function Marking({ c, toks, src, setActive }: { c: ReadingId; toks: Tok[]; src: 
   const json = saved ? JSON.stringify({ chapter: c, times: saved }) : '';
   return (
     <details className="rd-mark no-print">
-      <summary>{t('reading.markTitle')}</summary>
+      <summary>{label} · {t('reading.markTitle')}</summary>
       <p className="rd-hint">{t('reading.markHow')}</p>
-      <audio ref={ref} src={src_(src)} preload="metadata" onEnded={() => marks && stop(marks)} />
+      <audio ref={ref} src={src_(src)} preload="none" onEnded={() => marks && stop(marks)} />
       {run ? (
         <div className="rd-row">
           <button type="button" className="btn rd-tap" onClick={tap}>
