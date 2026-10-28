@@ -305,6 +305,7 @@ const en: Messages = {
   'reading.speed': "Speed",
   'reading.paceHow': "The highlight will move word by word at this speed — read aloud and keep up. Easy? Go faster.",
   'reading.paceDone': "Chapter done! Try a little faster.",
+  'reading.tapSync': "Reader lagging or running ahead? Tap the word you are reading — the highlight goes on from it.",
   'reading.pause': "Pause",
   'reading.resume': "Continue",
   'reading.restart': "From the start",

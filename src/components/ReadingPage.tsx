@@ -301,7 +301,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           {verses && (
             <>
               {tool === 'reader' && <Reader key={readingId} c={readingId} toks={toks} total={total} onWord={onWord} setActive={setActive} onStart={playAudio} onStop={stopAudio} adults={mode === 'adults'} done={() => rerender((n) => n + 1)} />}
-              {tool === 'pace' && <Pace key={readingId} c={readingId} toks={toks} setActive={setActive} onStart={playAudio} onPause={pauseAudio} onStop={stopAudio} onRateChange={setPaceRate} audioState={audioState} hasAudio={!!audio} />}
+              {tool === 'pace' && <Pace key={readingId} c={readingId} toks={toks} onWord={onWord} setActive={setActive} onStart={playAudio} onPause={pauseAudio} onStop={stopAudio} onRateChange={setPaceRate} audioState={audioState} hasAudio={!!audio} />}
               {tool === 'step' && <Step key={c} toks={toks} active={active} setActive={setActive} onWord={onWord} />}
               {tool === 'listen' && audio && <Listen rate={audioRate} setRate={setAudioRate} estimate={!markedTimes(readingId) && !audio.times} />}
             </>
@@ -523,6 +523,7 @@ function Reader({
 function Pace({
   c,
   toks,
+  onWord,
   setActive,
   onStart,
   onPause,
@@ -533,6 +534,7 @@ function Pace({
 }: {
   c: ReadingId;
   toks: Tok[];
+  onWord: React.MutableRefObject<(i: number) => void>;
   setActive: (i: number) => void;
   onStart: (restart?: boolean) => void;
   onPause: () => void;
@@ -548,6 +550,8 @@ function Pace({
   const [run, setRun] = useState(false);
   const end = at >= toks.length;
   const playing = hasAudio ? audioState === 'playing' : run;
+  // a tap on the word being read: the light goes on from it (with a recording — seekAudioToWord)
+  onWord.current = (i) => setAt(i);
 
   useEffect(() => {
     if (!hasAudio) setActive(end ? -1 : at);
@@ -578,6 +582,7 @@ function Pace({
         <input type="range" min={20} max={200} step={5} value={speed} onChange={(e) => setSpeed(Number(e.target.value))} />
       </label>
       <p className="rd-hint">{end ? t('reading.paceDone') : t('reading.paceHow')}</p>
+      {!end && <p className="rd-hint">{t('reading.tapSync')}</p>}
       <div className="rd-row">
         <button
           type="button"
@@ -682,6 +687,7 @@ function Listen({ rate, setRate, estimate }: { rate: number; setRate: (rate: num
         <input type="checkbox" checked={rate < 1} onChange={(e) => setRate(e.target.checked ? 0.75 : 1)} /> {t('reading.slower')}
       </label>
       {estimate && <p className="rd-hint">{t('reading.estimate')}</p>}
+      <p className="rd-hint">{t('reading.tapSync')}</p>
     </div>
   );
 }

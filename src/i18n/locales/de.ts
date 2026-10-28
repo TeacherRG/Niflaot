@@ -305,6 +305,7 @@ const de: Messages = {
   'reading.speed': "Tempo",
   'reading.paceHow': "Die Markierung geht in diesem Tempo von Wort zu Wort – lies laut und bleib dran. Zu leicht? Mach schneller.",
   'reading.paceDone': "Kapitel geschafft! Versuch es etwas schneller.",
+  'reading.tapSync': "Hängt der Vorleser hinterher oder eilt voraus? Tippe auf das Wort, das du liest – die Markierung geht ab dort weiter.",
   'reading.pause': "Pause",
   'reading.resume': "Weiter",
   'reading.restart': "Von vorn",
