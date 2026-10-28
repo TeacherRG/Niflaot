@@ -1,0 +1,589 @@
+import '@fontsource/noto-serif-hebrew/400.css';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useI18n } from '../i18n';
+import { TopBar } from './TopBar';
+import { Colophon } from './Colophon';
+import { NotFound, PageLoading } from './PageStates';
+import { hebrewNumber } from '../core/hebrewDate';
+import { markStudied } from '../core/habit';
+import { celebrate } from '../core/fx';
+import { useMode } from '../core/mode';
+import { useHebrewLevel } from '../core/hebrewLevel';
+import {
+  CHAPTERS,
+  MAX_WPM,
+  dailyChapter,
+  loadChapter,
+  loadIndex,
+  loadView,
+  markedTimes,
+  records,
+  saveAttempt,
+  saveTimes,
+  saveView,
+  startTimes,
+  stripTaamim,
+  tokens,
+  wpm,
+  type ReadingIndex,
+  type Token,
+  type View,
+} from '../core/reading';
+
+type Tool = 'reader' | 'pace' | 'step' | 'listen';
+interface Tok extends Token {
+  /** the verse it belongs to */
+  v: number;
+}
+
+const clock = (ms: number) => {
+  const s = Math.floor(ms / 1000);
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+};
+
+/**
+ * «Святое чтение» — беглое чтение Теґилим (`#/reading[/<глава>]`): глава с огласовками (знаки кантилляции и крупный
+ * шрифт — по галочкам) и тренажёры: «Чтец» (секундомер: слов в минуту, рекорд и последняя попытка), «Темп» (подсветка
+ * идёт по словам с заданной скоростью), «Слово за словом» (подсветка — по пробелу или нажатию); у главы с записью —
+ * «Слушать» (подсветка за голосом) и «Разметка аудио (для учителя)». Логика и данные — src/core/reading.ts.
+ */
+export function ReadingPage({ chapter }: { chapter?: string }) {
+  const { t } = useI18n();
+  const mode = useMode();
+  const level = useHebrewLevel();
+  const c = chapter === undefined ? dailyChapter() : Number(chapter);
+  const valid = Number.isInteger(c) && c >= 1 && c <= CHAPTERS;
+  const [idx, setIdx] = useState<ReadingIndex | null>(null);
+  const [verses, setVerses] = useState<string[] | null>(null);
+  const [failed, setFailed] = useState(false);
+  const [view, setView] = useState<View>(loadView);
+  const [tool, setTool] = useState<Tool>('reader');
+  const [active, setActive] = useState(-1);
+  const [, rerender] = useState(0);
+
+  useEffect(() => {
+    document.title = `${t('reading.title')} · ${t('reading.book')} ${c} · ${t('app.title')}`;
+  }, [t, c]);
+  useEffect(() => {
+    if (!valid) return;
+    setVerses(null);
+    setActive(-1);
+    let live = true;
+    Promise.all([loadIndex(), loadChapter(c)])
+      .then(([i, v]) => live && (setIdx(i), setVerses(v)))
+      .catch(() => live && setFailed(true));
+    return () => {
+      live = false;
+    };
+  }, [c, valid]);
+
+  const toks = useMemo<Tok[]>(() => (verses ?? []).flatMap((v, i) => tokens(v).map((x) => ({ ...x, v: i }))), [verses]);
+  const total = useMemo(() => toks.reduce((a, x) => a + x.w, 0), [toks]);
+  const audio = idx?.audio?.[c];
+
+  const setV = (v: View) => {
+    setView(v);
+    saveView(v);
+  };
+  const go = (n: number) => {
+    location.hash = `#/reading/${n}`;
+  };
+
+  // the word in the light stays in sight
+  const textRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (active < 0) return;
+    textRef.current?.querySelector(`[data-i="${active}"]`)?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  }, [active]);
+
+  // a click on a word: the reader stops there; word by word — the light moves there
+  const onWord = useRef<(i: number) => void>(() => {});
+  if (!valid) return <NotFound />;
+
+  return (
+    <>
+      <TopBar title={t('reading.title')} />
+      <div className={`wrap rd${view.big ? ' rd-big' : ''}`}>
+        <header className="tk-head">
+          <p className="tk-kicker">
+            📖 {t('reading.title')} · <span className="he">קְרִיאָה</span>
+          </p>
+          <h1>
+            {t('reading.h1')} <span className="he">תְּהִלִּים</span>
+          </h1>
+          <p className="ac-lead">{t('reading.lead')}</p>
+          {level === 'none' && (
+            <p className="rd-note">
+              {t('reading.noLetters')} <a href="#/letters">{t('abc.title')}</a>
+            </p>
+          )}
+        </header>
+
+        <nav className="rd-nav" aria-label={t('reading.pick')}>
+          <button type="button" className="rd-arrow" onClick={() => go(c - 1)} disabled={c <= 1} aria-label={t('reading.prev')}>
+            ‹
+          </button>
+          <label className="rd-pick">
+            <span className="sr-only">{t('reading.pick')}</span>
+            <select value={c} onChange={(e) => go(Number(e.target.value))}>
+              {Array.from({ length: CHAPTERS }, (_, i) => i + 1).map((n) => (
+                <option key={n} value={n}>
+                  {t('reading.book')} {n}
+                  {idx ? ` — ${t('reading.words', { n: idx.words[n - 1] })}` : ''}
+                </option>
+              ))}
+            </select>
+          </label>
+          <button type="button" className="rd-arrow" onClick={() => go(c + 1)} disabled={c >= CHAPTERS} aria-label={t('reading.next')}>
+            ›
+          </button>
+        </nav>
+
+        <div className="rd-opts no-print">
+          <label>
+            <input type="checkbox" checked={view.taamim} onChange={(e) => setV({ ...view, taamim: e.target.checked })} /> {t('reading.taamim')}
+          </label>
+          <label>
+            <input type="checkbox" checked={view.big} onChange={(e) => setV({ ...view, big: e.target.checked })} /> {t('reading.big')}
+          </label>
+        </div>
+
+        <section className="rd-tools no-print" aria-labelledby="rd-tools-h">
+          <h2 id="rd-tools-h">{t('reading.tools')}</h2>
+          <div className="rd-tabs" role="tablist">
+            {(['reader', 'pace', 'step', ...(audio ? ['listen' as const] : [])] as Tool[]).map((x) => (
+              <button
+                key={x}
+                type="button"
+                role="tab"
+                aria-selected={tool === x}
+                className={tool === x ? 'on' : ''}
+                onClick={() => {
+                  setTool(x);
+                  setActive(-1);
+                }}
+              >
+                {t(`reading.tool.${x}`)}
+              </button>
+            ))}
+          </div>
+          {verses && (
+            <>
+              {tool === 'reader' && <Reader key={c} c={c} toks={toks} total={total} onWord={onWord} setActive={setActive} adults={mode === 'adults'} done={() => rerender((n) => n + 1)} />}
+              {tool === 'pace' && <Pace key={c} c={c} toks={toks} setActive={setActive} />}
+              {tool === 'step' && <Step key={c} toks={toks} active={active} setActive={setActive} onWord={onWord} />}
+              {tool === 'listen' && audio && <Listen key={c} c={c} toks={toks} src={audio.src} times={audio.times} setActive={setActive} />}
+            </>
+          )}
+        </section>
+
+        {failed ? (
+          <p className="rd-note">{t('reading.failed')}</p>
+        ) : !verses ? (
+          <PageLoading />
+        ) : (
+          <article className="rd-text he" lang="he" dir="rtl" ref={textRef}>
+            <h2 className="rd-ch">פֶּרֶק {hebrewNumber(c)}</h2>
+            {verses.map((_, vi) => (
+              <p key={vi} className="rd-v">
+                <span className="rd-vn" aria-hidden="true">
+                  {hebrewNumber(vi + 1).replace(/[׳״]/g, '')}
+                </span>{' '}
+                {toks.map((x, i) =>
+                  x.v !== vi ? null : (
+                    <span key={i}>
+                      <span
+                        data-i={i}
+                        className={`rd-w${i === active ? ' rd-on' : active > i ? ' rd-past' : ''}${x.w ? '' : ' rd-paseq'}`}
+                        onClick={() => x.w && onWord.current(i)}
+                      >
+                        {view.taamim ? x.s : stripTaamim(x.s)}
+                      </span>{' '}
+                    </span>
+                  ),
+                )}
+              </p>
+            ))}
+          </article>
+        )}
+
+        {verses && audio && <Marking c={c} toks={toks} src={audio.src} setActive={setActive} />}
+
+        {idx && (
+          <p className="rd-credit">
+            {t('reading.credit')}{' '}
+            <a href={idx.version.source} target="_blank" rel="noopener">
+              {idx.version.title}
+            </a>{' '}
+            · {t('reading.pd')}
+            {audio?.credit && (
+              <>
+                {' '}
+                · {t('reading.audioBy')}{' '}
+                <a href={audio.credit.url} target="_blank" rel="noopener">
+                  {audio.credit.name}
+                </a>
+              </>
+            )}
+          </p>
+        )}
+      </div>
+      <Colophon />
+    </>
+  );
+}
+
+/** «Чтец»: a stopwatch — read the chapter aloud; «Готово» or a tap on the last word read; words per minute, the record. */
+function Reader({
+  c,
+  toks,
+  total,
+  onWord,
+  setActive,
+  adults,
+  done,
+}: {
+  c: number;
+  toks: Tok[];
+  total: number;
+  onWord: React.MutableRefObject<(i: number) => void>;
+  setActive: (i: number) => void;
+  adults: boolean;
+  done: () => void;
+}) {
+  const { t } = useI18n();
+  const [start, setStart] = useState<number | null>(null);
+  const [now, setNow] = useState(0);
+  const [result, setResult] = useState<{ words: number; ms: number; v: number | null; record: boolean } | null>(null);
+  const rec = records()[c];
+
+  useEffect(() => {
+    if (start === null) return;
+    const id = setInterval(() => setNow(Date.now()), 250);
+    return () => clearInterval(id);
+  }, [start]);
+
+  const finish = (words: number) => {
+    if (start === null) return;
+    const ms = Date.now() - start;
+    let v = wpm(words, ms);
+    if (v !== null && v > MAX_WPM) v = null;
+    const record = v !== null && saveAttempt(c, v);
+    if (v !== null) {
+      markStudied();
+      if (record && rec) celebrate('small', adults);
+    }
+    setStart(null);
+    setResult({ words, ms, v, record: record && !!rec });
+    done();
+  };
+  onWord.current = (i) => {
+    if (start === null) return;
+    setActive(i);
+    finish(toks.slice(0, i + 1).reduce((a, x) => a + x.w, 0));
+  };
+
+  return (
+    <div className="rd-tool">
+      <dl className="rd-stats">
+        <div>
+          <dt>{t('reading.reader')}</dt>
+          <dd>
+            <b>{result?.v ?? rec?.last ?? '–'}</b> {t('reading.wpm')}
+          </dd>
+        </div>
+        <div>
+          <dt>{t('reading.best')}</dt>
+          <dd>{rec ? <b>{rec.best}</b> : <>– {t('reading.noTries')}</>}</dd>
+        </div>
+        <div>
+          <dt>{t('reading.last')}</dt>
+          <dd>
+            <b>{rec?.last ?? '–'}</b>
+          </dd>
+        </div>
+      </dl>
+      {start === null ? (
+        <>
+          {result && (
+            <p className={`rd-result${result.record ? ' rd-record' : ''}`} role="status">
+              {result.v === null
+                ? t('reading.tooFast')
+                : t('reading.result', { words: t('reading.words', { n: result.words }), time: clock(result.ms), v: result.v })}
+              {result.record && <> · {t('reading.newRecord')}</>}
+            </p>
+          )}
+          <p className="rd-hint">{t('reading.readerHow', { words: t('reading.words', { n: total }) })}</p>
+          <button
+            type="button"
+            className="btn rd-big-btn"
+            onClick={() => {
+              setActive(-1);
+              setResult(null);
+              setNow(Date.now());
+              setStart(Date.now());
+            }}
+          >
+            ▶ {result ? t('reading.again') : t('reading.start')}
+          </button>
+        </>
+      ) : (
+        <>
+          <p className="rd-clock" aria-live="off">
+            {clock(now - start)}
+          </p>
+          <p className="rd-hint">{t('reading.readerRun')}</p>
+          <div className="rd-row">
+            <button type="button" className="btn rd-big-btn" onClick={() => finish(total)}>
+              ■ {t('reading.finish')}
+            </button>
+            <button type="button" className="btn ghost" onClick={() => setStart(null)}>
+              {t('reading.cancel')}
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+/** «Темп»: the light goes word by word at the chosen speed — keep up with it reading aloud. */
+function Pace({ c, toks, setActive }: { c: number; toks: Tok[]; setActive: (i: number) => void }) {
+  const { t } = useI18n();
+  const rec = records()[c];
+  const [speed, setSpeed] = useState(() => Math.min(200, Math.max(20, Math.round(((rec?.best ?? 50) * 1.1) / 5) * 5)));
+  const [at, setAt] = useState(-1);
+  const [run, setRun] = useState(false);
+  const end = at >= toks.length;
+
+  useEffect(() => {
+    setActive(end ? -1 : at);
+  }, [at, end, setActive]);
+  useEffect(() => {
+    if (!run) return;
+    if (at >= toks.length) {
+      setRun(false);
+      markStudied();
+      return;
+    }
+    const w = at < 0 ? 1 : toks[at].w;
+    const id = setTimeout(() => setAt((i) => i + 1), at < 0 ? 600 : (w * 60000) / speed);
+    return () => clearTimeout(id);
+  }, [run, at, speed, toks]);
+
+  return (
+    <div className="rd-tool">
+      <label className="rd-speed">
+        {t('reading.speed')}: <b>{speed}</b> {t('reading.wpm')}
+        <input type="range" min={20} max={200} step={5} value={speed} onChange={(e) => setSpeed(Number(e.target.value))} />
+      </label>
+      <p className="rd-hint">{end ? t('reading.paceDone') : t('reading.paceHow')}</p>
+      <div className="rd-row">
+        <button
+          type="button"
+          className="btn rd-big-btn"
+          onClick={() => {
+            if (end || at < 0) setAt(-1);
+            setRun(!run || end);
+          }}
+        >
+          {run && !end ? `⏸ ${t('reading.pause')}` : at < 0 || end ? `▶ ${t('reading.start')}` : `▶ ${t('reading.resume')}`}
+        </button>
+        {at >= 0 && !end && (
+          <button
+            type="button"
+            className="btn ghost"
+            onClick={() => {
+              setRun(false);
+              setAt(-1);
+            }}
+          >
+            {t('reading.restart')}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/** «Слово за словом»: the light moves on the space bar, a tap on the big button or on a word. */
+function Step({
+  toks,
+  active,
+  setActive,
+  onWord,
+}: {
+  toks: Tok[];
+  active: number;
+  setActive: (i: number) => void;
+  onWord: React.MutableRefObject<(i: number) => void>;
+}) {
+  const { t } = useI18n();
+  const words = toks.map((x, i) => (x.w ? i : -1)).filter((i) => i >= 0);
+  const k = words.indexOf(active);
+  // counted as in the reader: words joined by a maqaf — each
+  const total = toks.reduce((a, x) => a + x.w, 0);
+  const upTo = toks.slice(0, active + 1).reduce((a, x) => a + x.w, 0);
+  const move = (d: number) => {
+    const n = k + d;
+    if (n >= words.length) {
+      setActive(-1);
+      markStudied();
+    } else setActive(words[Math.max(0, n)]);
+  };
+  onWord.current = (i) => setActive(i);
+  const moveRef = useRef(move);
+  moveRef.current = move;
+  useEffect(() => {
+    const key = (e: KeyboardEvent) => {
+      if ((e.target as HTMLElement)?.closest?.('input, select, textarea, summary')) return;
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        moveRef.current(1);
+      } else if (e.key === 'Backspace') {
+        e.preventDefault();
+        moveRef.current(-1);
+      }
+    };
+    window.addEventListener('keydown', key);
+    return () => window.removeEventListener('keydown', key);
+  }, []);
+  return (
+    <div className="rd-tool">
+      <p className="rd-hint">{t('reading.stepHow')}</p>
+      <p className="rd-count">{k >= 0 ? t('reading.stepAt', { n: upTo, m: total }) : t('reading.stepStart', { m: total })}</p>
+      <div className="rd-row">
+        <button type="button" className="btn ghost" onClick={() => move(-1)} disabled={k <= 0}>
+          {t('reading.back')}
+        </button>
+        <button type="button" className="btn rd-big-btn" onClick={() => move(1)}>
+          {t('reading.nextWord')}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+const src_ = (src: string) => (/^https?:/.test(src) ? src : `${import.meta.env.BASE_URL}${src}`);
+
+/** «Слушать»: the recording, the light follows the voice (the teacher's marking, else an estimate by the letters). */
+function Listen({ c, toks, src, times, setActive }: { c: number; toks: Tok[]; src: string; times?: number[]; setActive: (i: number) => void }) {
+  const { t } = useI18n();
+  const ref = useRef<HTMLAudioElement>(null);
+  const [rate, setRate] = useState(1);
+  const own = markedTimes(c);
+  const update = () => {
+    const a = ref.current;
+    if (!a || !a.duration) return;
+    const st = startTimes(toks, a.duration, own ?? times);
+    let i = -1;
+    for (let k = 0; k < st.length; k++) if (st[k] <= a.currentTime) i = k;
+    setActive(a.ended ? -1 : i);
+  };
+  useEffect(() => {
+    if (ref.current) ref.current.playbackRate = rate;
+  }, [rate]);
+  return (
+    <div className="rd-tool">
+      <audio ref={ref} src={src_(src)} controls preload="metadata" onTimeUpdate={update} onEnded={() => (setActive(-1), markStudied())} />
+      <label className="rd-check">
+        <input type="checkbox" checked={rate < 1} onChange={(e) => setRate(e.target.checked ? 0.75 : 1)} /> {t('reading.slower')}
+      </label>
+      {!own && !times && <p className="rd-hint">{t('reading.estimate')}</p>}
+    </div>
+  );
+}
+
+/** «Разметка аудио (для учителя)»: the recording slowly from the start; a press at the start of every word. */
+function Marking({ c, toks, src, setActive }: { c: number; toks: Tok[]; src: string; setActive: (i: number) => void }) {
+  const { t } = useI18n();
+  const ref = useRef<HTMLAudioElement>(null);
+  const words = useMemo(() => toks.map((x, i) => (x.w ? i : -1)).filter((i) => i >= 0), [toks]);
+  const [marks, setMarks] = useState<number[] | null>(null);
+  const [saved, setSaved] = useState<number[] | null>(() => markedTimes(c));
+  const [copied, setCopied] = useState(false);
+  const run = marks !== null;
+
+  const stop = (m: number[]) => {
+    ref.current?.pause();
+    setMarks(null);
+    setActive(-1);
+    if (m.length) {
+      saveTimes(c, m);
+      setSaved(m);
+    }
+  };
+  const tap = () => {
+    const a = ref.current;
+    if (!a || !marks) return;
+    const m = [...marks, Math.round(a.currentTime * 100) / 100];
+    if (m.length >= words.length) stop(m);
+    else {
+      setMarks(m);
+      setActive(words[m.length]);
+    }
+  };
+  const tapRef = useRef(tap);
+  tapRef.current = tap;
+  useEffect(() => {
+    if (!run) return;
+    const key = (e: KeyboardEvent) => {
+      if (e.key === ' ') {
+        e.preventDefault();
+        tapRef.current();
+      }
+    };
+    window.addEventListener('keydown', key);
+    return () => window.removeEventListener('keydown', key);
+  }, [run]);
+
+  const json = saved ? JSON.stringify({ chapter: c, times: saved }) : '';
+  return (
+    <details className="rd-mark no-print">
+      <summary>{t('reading.markTitle')}</summary>
+      <p className="rd-hint">{t('reading.markHow')}</p>
+      <audio ref={ref} src={src_(src)} preload="metadata" onEnded={() => marks && stop(marks)} />
+      {run ? (
+        <div className="rd-row">
+          <button type="button" className="btn rd-tap" onClick={tap}>
+            {t('reading.markTap', { n: marks.length + 1, m: words.length })}
+          </button>
+          <button type="button" className="btn ghost" onClick={() => stop(marks)}>
+            {t('reading.markStop')}
+          </button>
+        </div>
+      ) : (
+        <button
+          type="button"
+          className="btn"
+          onClick={() => {
+            const a = ref.current;
+            if (!a) return;
+            a.currentTime = 0;
+            a.playbackRate = 0.6;
+            setMarks([]);
+            setActive(words[0]);
+            void a.play();
+          }}
+        >
+          ▶ {t('reading.markStart')}
+        </button>
+      )}
+      {saved && !run && (
+        <>
+          <p className="rd-hint">{t('reading.markSaved', { n: saved.length, m: words.length })}</p>
+          <textarea className="rd-json" readOnly value={json} rows={3} onFocus={(e) => e.target.select()} />
+          <button
+            type="button"
+            className="btn ghost"
+            onClick={() => {
+              void navigator.clipboard?.writeText(json).then(() => setCopied(true));
+            }}
+          >
+            {copied ? `✓ ${t('reading.copied')}` : t('reading.copy')}
+          </button>
+        </>
+      )}
+    </details>
+  );
+}
