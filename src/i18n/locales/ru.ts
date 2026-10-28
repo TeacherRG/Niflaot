@@ -331,7 +331,8 @@ const ru = {
   'courses.skip': "Пропустить выбор курсов — добавить их можно позже",
   'home.riddle': "загадка {n} из {total}",
   'home.week': "Глава недели",
-  'home.todayParsha': "Сегодня — глава",
+  'home.todayParsha': "Сегодня",
+  'home.readingK': "Чтение",
   'home.gematria': "Гематрии",
   'calendar.title': "Календарь Шабата",
   'calendar.hebrewDay': "Еврейская дата",
@@ -1468,6 +1469,7 @@ const ru = {
   'share.copied': "Ссылка скопирована",
   // the week's dedication at the bottom of both homes (empty name — no plaque)
   'dedication.lead': "Учёба на этой неделе посвящается поднятию души",
+  'dedication.short': "Для поднятия души",
   'dedication.name': "Павел бен Яаков",
   'digest.title': "Неделя в Академии",
   'digest.menuSub': "Пророки, Писания, Хасидут и нигун недели — коротко",

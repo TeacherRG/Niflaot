@@ -2323,10 +2323,12 @@ body:has(.a-home){background:var(--plain)}
 .a-bar{display:block;height:4px;border-radius:2px;background:var(--line-soft);overflow:hidden}
 .a-bar>span{display:block;height:100%;border-radius:2px;background:var(--tchelet-deep);transition:width .4s}
 .a-tiles{flex:1 1 0;min-width:0;min-height:300px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:minmax(118px,.7fr) minmax(0,1.3fr);gap:16px;align-items:stretch}
-.a-tile{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;min-height:0;padding:14px 22px;border-radius:18px;overflow:hidden;
+.a-tile{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;min-height:0;padding:14px 48px 14px 22px;border-radius:16px;overflow:hidden;
   background:var(--tchelet-deep);background-size:cover;background-position:center;color:#fff;text-decoration:none;box-shadow:var(--shadow)}
 .a-tile.a-art::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(14,22,48,.86),rgba(14,22,48,.15) 70%)}
 .a-tile>*{position:relative}
+.a-tile::after{content:"→";position:absolute;right:20px;bottom:14px;font-size:22px;line-height:1;opacity:.75;transition:transform .15s,opacity .15s}
+.a-tile:hover::after{transform:translateX(3px);opacity:1}
 .a-reading{background:var(--gold-deep)}
 .a-tile-k{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.9;overflow-wrap:anywhere;hyphens:auto}
 .a-tile-t{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,4.2vh,34px);line-height:1.05}
@@ -2353,7 +2355,10 @@ body:has(.a-home){background:var(--plain)}
 .a-tick-eq{color:var(--muted)}
 .a-tick-n{font-family:var(--f-num);font-weight:700;color:var(--gold-deep);direction:ltr;unicode-bidi:isolate}
 @media (prefers-reduced-motion:reduce){.a-tick ul{animation:none}.a-tick-win{overflow:auto;-webkit-mask-image:none;mask-image:none}.a-tick li[aria-hidden]{display:none}}
-.courses.simple{gap:6px;align-content:start}
+.courses.simple,.courses.adults.simple{gap:6px;align-content:start;background:var(--surface);border:1px solid var(--line-soft);box-shadow:var(--shadow);border-radius:16px}
+.courses.simple .a-bar{height:6px;border-radius:3px;background:var(--tchelet-bg)}
+.courses.simple .a-bar>span{border-radius:3px;min-width:6px}
+.courses.simple .courses-row.zero .a-bar>span{min-width:0}
 .courses.simple h2{font-size:24px}
 .courses.simple .courses-row{grid-template-columns:minmax(0,1fr);gap:4px;padding:5px 0}
 .courses.simple .courses-row .a-bar{margin-top:0}
@@ -2854,8 +2859,19 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
   .courses.simple ul{column-gap:12px}
   .courses.simple .courses-t{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .a-home{padding-bottom:0}
-  .a-home>.dedication{padding:6px 12px 8px;gap:0}
-  .a-home .ded-he{font-size:14px}
-  .a-home .ded-lead{font-size:11px}
-  .a-home .ded-name{font-size:19px}
+}
+/* the dedication in one line (the adults' home): «לעילוי נשמת · Для поднятия души Павел бен Яаков» */
+.dedication.line{display:flex;flex-wrap:nowrap;align-items:baseline;justify-content:center;gap:0 8px;box-sizing:border-box;max-width:100%;width:auto;margin:0 auto;padding:8px 18px;border-radius:999px;white-space:nowrap;overflow:hidden}
+.dedication.line>*{flex:none}
+.dedication.line .ded-short{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.dedication.line::before,.dedication.line::after{display:none}
+.dedication.line .ded-he{font-size:16px}
+.dedication.line .ded-he::before,.dedication.line .ded-he::after{display:none}
+.dedication.line .ded-short{font-size:14px;font-weight:600;color:var(--muted)}
+.dedication.line .ded-name{font-size:18px}
+@media (max-width:640px){
+  .dedication.line{padding:6px 14px}
+  .dedication.line .ded-he{display:none}
+  .dedication.line .ded-short{font-size:12px}
+  .dedication.line .ded-name{font-size:15px}
 }
