@@ -17,6 +17,12 @@ export interface PsalmPortion {
   toVerse?: number;
 }
 
+export interface PsalmAudioTrack {
+  chapter: number;
+  src: string;
+  markId: string;
+}
+
 const psalms = (from: number, to: number): PsalmPortion[] =>
   Array.from({ length: to - from + 1 }, (_, i) => ({ chapter: from + i }));
 
@@ -36,6 +42,21 @@ export function dailyPortion(day: number, combineLastDay = false): PsalmPortion[
   const portion = MONTHLY_PORTIONS[day - 1];
   if (day === 29 && combineLastDay) return [...portion, ...MONTHLY_PORTIONS[29]].map((p) => ({ ...p }));
   return portion.map((p) => ({ ...p }));
+}
+
+/** Chapter recordings currently available in public/reading/Audio. */
+export function chapterAudioTracks(portions: PsalmPortion[], readingId: ReadingId): PsalmAudioTrack[] {
+  if (!portions.length || portions.some(({ chapter }) => chapter < 59 || chapter > CHAPTERS)) return [];
+  return portions.map((portion) => {
+    const secondHalf = portion.chapter === 119 && (portion.fromVerse ?? 1) > 96;
+    const suffix = secondHalf ? '.2' : '';
+    const part = portion.fromVerse ? `-${portion.fromVerse}` : '';
+    return {
+      chapter: portion.chapter,
+      src: `reading/Audio/${portion.chapter}${suffix}.mp3`,
+      markId: `${readingId}-${portion.chapter}${part}`,
+    };
+  });
 }
 
 /** Whether the current Hebrew month has 29 days, using the browser's Hebrew calendar. */
@@ -70,8 +91,6 @@ export interface ReadingIndex {
   version: { title: string; license: string; source: string };
   /** words in every chapter (through a space and a maqaf, without the paseq) */
   words: number[];
-  /** recordings of daily portions, when there are: Hebrew day of month → audio file and word start times */
-  audio?: Record<string, { src: string; times?: number[]; credit?: { name: string; url: string } }>;
 }
 
 let index: Promise<ReadingIndex> | undefined;
