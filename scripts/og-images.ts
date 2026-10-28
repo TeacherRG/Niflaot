@@ -244,19 +244,16 @@ for (const [name, size, inset] of [
   console.log(`public/icons/${name}.png`);
 }
 
-/* podcast covers: the seal on its night-blue, the podcast's name under it — square, 3000 px */
-const COVER_SUB = { ru: 'Уроки Торы вслух', en: 'Torah lessons aloud', de: 'Tora-Lektionen zum Hören' } as const;
-const cover = (lang: keyof typeof COVER_SUB) => `<!doctype html><html><head><meta charset="utf-8">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Manrope:wght@700&display=block">
-<style>*{margin:0;box-sizing:border-box}body{width:3000px;height:3000px;background:${NAVY};position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:60px}
-img{width:2000px;height:2000px}
-.t{font-family:"Cormorant Garamond";font-weight:700;font-size:300px;line-height:1;color:#F6EBD0}
-.s{font-family:Manrope;font-weight:700;font-size:140px;color:#D8B565;letter-spacing:4px;text-align:center}</style>
-</head><body><img src="${LOGO_BIG}" alt=""><div class="t">${lang === 'ru' ? 'Нифлаот' : 'Niflaot'}</div><div class="s">${COVER_SUB[lang]}</div></body></html>`;
+/* podcast covers: only the seal on its night-blue — no words, the site speaks several languages (owner, 28.10.2026);
+   one picture, saved for each feed (ru, en, de) — square, 3000 px */
+const cover = () => `<!doctype html><html><head><meta charset="utf-8">
+<style>*{margin:0}body{width:3000px;height:3000px;background:${NAVY};display:flex;align-items:center;justify-content:center;overflow:hidden}
+img{width:2700px;height:2700px}</style>
+</head><body><img src="${LOGO_BIG}" alt=""></body></html>`;
 mkdirSync('public/podcast', { recursive: true });
 await p.setViewportSize({ width: 3000, height: 3000 });
 for (const lang of ['ru', 'en', 'de'] as const) {
-  await p.setContent(cover(lang), { waitUntil: 'networkidle' });
+  await p.setContent(cover(), { waitUntil: 'networkidle' });
   await p.evaluate(() => document.fonts.ready);
   await p.screenshot({ path: `public/podcast/cover-${lang}.jpg`, type: 'jpeg', quality: 86 });
   console.log(`public/podcast/cover-${lang}.jpg`);
