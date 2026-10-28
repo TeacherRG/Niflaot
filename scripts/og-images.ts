@@ -3,8 +3,9 @@
  * public/og/site.png for the catalog, public/og/<slug>.png for every lesson, mental-math.png, daily.png, facts.png and
  * letters.png for «Устный счёт», «Гематрия дня», «Знаете ли вы?» and «Буквы за 5 минут»; neviim, ketuvim, hebrew-words,
  * hemshech, quiz and nigun.png for the pages of the daily study, «Викторина вместе» and «Святая музыка».
- * Also the app icons for «install on the phone» (manifest — scripts/prerender.ts): public/icons/icon-192.png,
- * icon-512.png, maskable-512.png (the mark inside the safe zone) and apple-touch-icon.png (180).
+ * Every picture carries the site's logo — the round seal «נפלאות» (src/assets/logos/niflaot.webp; the big one for the covers —
+ * scripts/assets/niflaot-logo.webp). Also the app icons for «install on the phone» (manifest — scripts/prerender.ts):
+ * public/icons/icon-192.png, icon-512.png, maskable-512.png (the seal inside the safe zone) and apple-touch-icon.png (180).
  * And the podcast covers public/podcast/cover-<ru|en|de>.jpg (3000×3000 — Apple Podcasts, Spotify; feeds — prerender).
  * The pictures are in English for every page and language (one preview, readable everywhere — owner's decision).
  * The PNGs are committed; re-run after adding a lesson or changing its title or key equation:
@@ -13,7 +14,7 @@
  *
  * Uses the pre-installed Chromium (/opt/pw-browsers) and the site's Google Fonts.
  */
-import { mkdirSync } from 'node:fs';
+import { mkdirSync, readFileSync } from 'node:fs';
 import { chromium } from 'playwright';
 import { LESSONS, PARSHIOT, type Lesson } from '../src/lessons';
 import { displayNames } from '../src/core/names';
@@ -21,6 +22,10 @@ import { SITE_HOST } from '../src/core/site';
 import en from '../src/i18n/locales/en';
 
 const OUT = 'public/og';
+/** the round seal «נפלאות» — one logo everywhere (owner, 28.10.2026): 512 px for previews and icons, 1600 px for the podcast covers */
+const LOGO = `data:image/webp;base64,${readFileSync('src/assets/logos/niflaot.webp').toString('base64')}`;
+const LOGO_BIG = `data:image/webp;base64,${readFileSync('scripts/assets/niflaot-logo.webp').toString('base64')}`;
+const NAVY = '#0B1D3C';
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const isHe = (s: string) => /[א-ת]/.test(s);
 
@@ -44,7 +49,8 @@ body{width:1200px;height:630px;background:#141A33;background-image:radial-gradie
 .frame{position:absolute;inset:28px;border:1px solid rgba(216,181,101,.55);outline:1px solid rgba(216,181,101,.3);outline-offset:-8px}
 .l{position:absolute;font-family:"Frank Ruhl Libre";font-weight:900;color:rgba(216,181,101,.08);line-height:1}
 .l1{font-size:520px;left:-40px;top:-140px}.l2{font-size:460px;right:-20px;bottom:-230px}
-.in{position:absolute;inset:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:0 80px}
+.in{position:absolute;inset:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:0 120px}
+.logo{position:absolute;top:46px;left:46px;width:104px;height:104px}
 .eyebrow{font-size:20px;letter-spacing:.28em;text-transform:uppercase;color:#D8B565;font-weight:700;display:flex;align-items:center;gap:18px}
 .eyebrow .he{font-family:"Frank Ruhl Libre";letter-spacing:0;font-size:24px;direction:rtl;unicode-bidi:isolate}
 .eyebrow:before,.eyebrow:after{content:"";width:48px;height:1px;background:rgba(216,181,101,.6)}
@@ -58,7 +64,7 @@ h1{font-family:"Cormorant Garamond";font-weight:700;font-size:56px;line-height:1
 .sub{font-size:22px;color:#C9CEE0;font-weight:600}
 .site{position:absolute;bottom:52px;left:0;right:0;text-align:center;font-family:"IBM Plex Mono";font-size:18px;color:#D8B565;letter-spacing:.06em}
 </style></head><body>
-<div class="l l1">${o.letters[0]}</div><div class="l l2">${o.letters[1]}</div><div class="frame"></div>
+<div class="l l1">${o.letters[0]}</div><div class="l l2">${o.letters[1]}</div><div class="frame"></div><img class="logo" src="${LOGO}" alt="">
 <div class="in">
 <div class="eyebrow">${o.eyebrowHtml ?? esc(o.eyebrow)}</div>
 <div class="heb">${esc(displayNames(o.he))}</div>
@@ -219,19 +225,17 @@ for (const [name, html] of shots) {
   console.log(`${OUT}/${name}.png`);
 }
 
-/* app icons: נ in gold on the night-blue of the site, in a thin gold frame */
+/* app icons: the seal on its night-blue; maskable — inside the safe zone (a circle of 80 %) */
 const icon = (size: number, inset: number) => `<!doctype html><html><head><meta charset="utf-8">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@900&display=block">
-<style>*{margin:0}body{width:${size}px;height:${size}px;background:#141A33;background-image:radial-gradient(${size}px ${size * 0.7}px at 50% 0,#2A3463 0,transparent 75%);position:relative;overflow:hidden}
-.f{position:absolute;inset:${inset}px;border:${Math.max(2, size / 96)}px solid rgba(216,181,101,.7);border-radius:${size * 0.12}px}
-.l{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"Frank Ruhl Libre";font-weight:900;font-size:${(size - 2 * inset) * 0.78}px;line-height:1;padding-bottom:${size * 0.04}px;background:linear-gradient(180deg,#F1DDA4,#C9A04E);-webkit-background-clip:text;color:transparent}</style>
-</head><body><div class="f"></div><div class="l">נ</div></body></html>`;
+<style>*{margin:0}body{width:${size}px;height:${size}px;background:${NAVY};position:relative;overflow:hidden}
+img{position:absolute;inset:${inset}px;width:${size - 2 * inset}px;height:${size - 2 * inset}px}</style>
+</head><body><img src="${LOGO}" alt=""></body></html>`;
 mkdirSync('public/icons', { recursive: true });
 for (const [name, size, inset] of [
-  ['icon-192', 192, 12],
-  ['icon-512', 512, 32],
-  ['maskable-512', 512, 92],
-  ['apple-touch-icon', 180, 12],
+  ['icon-192', 192, 4],
+  ['icon-512', 512, 10],
+  ['maskable-512', 512, 52],
+  ['apple-touch-icon', 180, 8],
 ] as const) {
   await p.setViewportSize({ width: size, height: size });
   await p.setContent(icon(size, inset), { waitUntil: 'networkidle' });
@@ -240,17 +244,15 @@ for (const [name, size, inset] of [
   console.log(`public/icons/${name}.png`);
 }
 
-/* podcast covers: the same night-blue and gold, נפלאות and the podcast's name — square, 3000 px */
+/* podcast covers: the seal on its night-blue, the podcast's name under it — square, 3000 px */
 const COVER_SUB = { ru: 'Уроки Торы вслух', en: 'Torah lessons aloud', de: 'Tora-Lektionen zum Hören' } as const;
 const cover = (lang: keyof typeof COVER_SUB) => `<!doctype html><html><head><meta charset="utf-8">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Frank+Ruhl+Libre:wght@900&family=Manrope:wght@700&display=block">
-<style>*{margin:0;box-sizing:border-box}body{width:3000px;height:3000px;background:#141A33;background-image:radial-gradient(3000px 2100px at 50% 0,#2A3463 0,transparent 75%);position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:90px}
-.f{position:absolute;inset:150px;border:16px solid rgba(216,181,101,.7);border-radius:300px}
-.he{font-family:"Frank Ruhl Libre";font-weight:900;font-size:640px;line-height:1;background:linear-gradient(180deg,#F1DDA4,#C9A04E);-webkit-background-clip:text;color:transparent;padding-bottom:40px}
-.t{font-family:"Cormorant Garamond";font-weight:700;font-size:330px;line-height:1;color:#F6EBD0}
-.s{font-family:Manrope;font-weight:700;font-size:150px;color:#D8B565;letter-spacing:4px;text-align:center}
-.w{position:absolute;bottom:250px;font-family:Manrope;font-weight:700;font-size:90px;color:rgba(246,235,208,.6)}</style>
-</head><body><div class="f"></div><div class="he" dir="rtl">נפלאות</div><div class="t">${lang === 'ru' ? 'Нифлаот' : 'Niflaot'}</div><div class="s">${COVER_SUB[lang]}</div><div class="w">${SITE_HOST}</div></body></html>`;
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Manrope:wght@700&display=block">
+<style>*{margin:0;box-sizing:border-box}body{width:3000px;height:3000px;background:${NAVY};position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:60px}
+img{width:2000px;height:2000px}
+.t{font-family:"Cormorant Garamond";font-weight:700;font-size:300px;line-height:1;color:#F6EBD0}
+.s{font-family:Manrope;font-weight:700;font-size:140px;color:#D8B565;letter-spacing:4px;text-align:center}</style>
+</head><body><img src="${LOGO_BIG}" alt=""><div class="t">${lang === 'ru' ? 'Нифлаот' : 'Niflaot'}</div><div class="s">${COVER_SUB[lang]}</div></body></html>`;
 mkdirSync('public/podcast', { recursive: true });
 await p.setViewportSize({ width: 3000, height: 3000 });
 for (const lang of ['ru', 'en', 'de'] as const) {

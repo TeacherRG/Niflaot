@@ -3,11 +3,14 @@
  * and every printout (`PrintBrand.tsx`). Files — src/assets/logos/ (transparent WebP, prepared from the originals).
  */
 import niflaot from '../assets/logos/niflaot.webp';
+import niflaotSmall from '../assets/logos/niflaot-128.webp';
 import chabadHaus from '../assets/logos/chabad-haus-vienna.webp';
 import jrcv from '../assets/logos/jrcv-vienna.webp';
 import type { Locale } from '../i18n';
 
+/** the round seal «נפלאות» (owner, 28.10.2026: one logo everywhere) — 512 px; the top bar takes the small one (128 px) */
 export const NIFLAOT_LOGO = niflaot;
+export const NIFLAOT_MARK = niflaotSmall;
 
 export interface Partner {
   id: string;

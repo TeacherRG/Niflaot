@@ -3,6 +3,7 @@ import { LOCALES, useI18n, type Locale } from '../i18n';
 import { Icon, useDismiss, useUI } from './ui';
 import { loadConfig, useAccount } from '../core/account';
 import { currentLink, noShare, type Ref } from '../core/site';
+import { NIFLAOT_MARK } from '../core/partners';
 import { findLesson } from '../lessons';
 
 /** One button showing the current language; opens a list of all languages in their own names. */
@@ -159,8 +160,11 @@ export function TopBar({ title, children, wide, share = true }: { title: string;
           <Icon name="menu" />
         </button>
         <a className="brand" href="#/">
-          {title}
-          <small>{t('app.brandSub')}</small>
+          <img className="brand-logo" src={NIFLAOT_MARK} alt="" width={36} height={36} />
+          <span className="brand-text">
+            {title}
+            <small>{t('app.brandSub')}</small>
+          </span>
         </a>
         {children}
         {share && <ShareButton />}

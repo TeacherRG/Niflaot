@@ -334,7 +334,7 @@ export async function renderTextCard(d: TextCardData): Promise<Blob> {
   };
 
   if (logo) {
-    const lh = 110;
+    const lh = 140;
     const lw = Math.min(360, (logo.naturalWidth / logo.naturalHeight) * lh);
     ctx.drawImage(logo, (W - lw) / 2, 86, lw, lw * (logo.naturalHeight / logo.naturalWidth));
   }
