@@ -2850,9 +2850,14 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .rd-json{width:100%;font-family:var(--f-num);font-size:12px;border:1px solid var(--line);border-radius:8px;padding:6px;background:var(--paper);color:var(--ink)}
 .rd-credit{margin:18px 0 8px;padding-top:10px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
 .rd-credit a{color:var(--tchelet);font-weight:700}
-@media (max-width:640px){
+.rd-audio-float{position:fixed;z-index:35;left:50%;bottom:16px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:8px;border:1px solid var(--line);border-radius:999px;background:var(--surface);box-shadow:0 6px 22px -6px rgba(20,26,51,.4)}
+.rd-audio-float button{min-height:40px;padding:8px 14px}
+.rd-audio-float button:disabled{opacity:.45}
+@media(max-width:640px){
   .rd-text{font-size:21px;padding:12px}
   .rd-big .rd-text{font-size:27px}
   .rd-stats b{font-size:19px}
+  .rd-audio-float{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+  .rd-audio-float button{padding:7px 11px;font-size:14px}
 }
 @media print{.rd-tools,.rd-nav,.rd-opts{display:none}.rd-text{border:0;padding:0}}
