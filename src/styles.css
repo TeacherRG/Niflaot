@@ -40,7 +40,7 @@ a{color:inherit}
 .top{position:sticky;top:0;z-index:5;background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-inline:-16px;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px}
 .top-in{max-width:780px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:700;font-size:20px;margin-inline-end:auto;text-decoration:none;color:inherit;letter-spacing:.01em}
-.brand-logo{flex:none;width:36px;height:36px;border-radius:50%}
+.brand-logo{flex:none;width:38px;height:38px;border-radius:50%;box-shadow:0 0 0 1px var(--gold-line)}
 .brand small{font-family:var(--f-body);font-weight:600;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-inline-start:8px}
 .levels{display:flex;gap:6px}
 .lv{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-family:var(--f-num);font-weight:600;font-size:13px;transition:all .2s}
@@ -290,8 +290,9 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 
 .langpick{position:relative;flex:none}
 .lang-btn{display:flex;align-items:center;gap:5px;height:34px;padding:0 9px 0 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font-family:var(--f-num);font-weight:600;font-size:12.5px;letter-spacing:.04em;transition:border-color .15s,box-shadow .15s}
-.hday{display:flex;align-items:center;justify-content:center;gap:5px;min-width:34px;height:34px;padding:0 10px 0 9px;border:1px solid var(--gold-line,var(--line));border-radius:999px;background:var(--surface);color:var(--gold-deep);font-family:var(--f-num);font-weight:800;font-size:14px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
-.hday:hover{border-color:var(--gold)}
+.hday{display:flex;align-items:center;justify-content:center;gap:5px;min-width:34px;height:34px;padding:0 10px 0 9px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font-family:var(--f-num);font-weight:700;font-size:13px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.hday svg{color:var(--gold)}
+.hday:hover{border-color:var(--gold-line)}
 .shabbat-calendar.bare{padding:0;border:0;box-shadow:none;background:none}
 .lang-btn svg:first-child{color:var(--gold)}
 .lang-btn svg:last-child{color:var(--muted);transition:transform .2s}
@@ -434,7 +435,7 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 }
 .score-short{display:none}
 @media (max-width:380px){.score-full{display:none}.score-short{display:inline}}
-@media (max-width:560px){.top-in .langpick{margin-inline-start:auto}}
+
 
 /* ───────── printable worksheet ───────── */
 .print-view{padding:16px 0 80px}
@@ -1294,6 +1295,7 @@ p.calc .he{font-family:var(--f-he);font-size:1.2em;font-weight:700;color:var(--i
 .admin-preview p{margin:.3em 0}
 .admin-fab{position:fixed;z-index:40;inset-inline-start:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--night);color:#fff;border-radius:999px;padding:9px 14px;font-weight:600;font-size:14px;text-decoration:none;box-shadow:0 6px 18px -6px rgba(20,26,51,.35)}
 @media print{.admin-fab{display:none!important}}
+@media (max-width:640px){html.tabbed .admin-fab{bottom:calc(72px + env(safe-area-inset-bottom,0px))}}
 
 /* «Партнёры» */
 .partners-head{margin-top:24px;text-align:center}
@@ -1393,7 +1395,7 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .acc-mode small{color:var(--muted);font-size:13px}
 .acc-mode.on{border-color:var(--tchelet);background:var(--tchelet-soft)}
 .acc-mode.on b::before{content:'✓ ';color:var(--tchelet)}
-.acc-chip.in{border-color:var(--gold-line);background:var(--gold-soft)}
+.acc-chip.in{border-color:var(--gold-line)}
 @media (max-width:560px){.acc-chip{padding:0 9px}.acc-chip span{display:none}}
 .acc main{display:grid;gap:14px;margin:8px 0 24px}
 .acc-card{padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
@@ -2320,33 +2322,38 @@ body:has(.a-home){background:var(--plain)}
 .a-home{max-width:1080px;margin:0 auto;padding:24px 0 12px;display:flex;flex-direction:column;gap:16px}
 .a-bar{display:block;height:4px;border-radius:2px;background:var(--line-soft);overflow:hidden}
 .a-bar>span{display:block;height:100%;border-radius:2px;background:var(--tchelet-deep);transition:width .4s}
-.a-tiles{flex:1 1 auto;min-width:0;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:minmax(118px,.7fr) minmax(0,1.3fr);gap:16px;align-items:stretch}
+.a-tiles{flex:1 1 0;min-width:0;min-height:300px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:minmax(118px,.7fr) minmax(0,1.3fr);gap:16px;align-items:stretch}
 .a-tile{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;min-height:0;padding:14px 22px;border-radius:18px;overflow:hidden;
   background:var(--tchelet-deep);background-size:cover;background-position:center;color:#fff;text-decoration:none;box-shadow:var(--shadow)}
 .a-tile.a-art::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(14,22,48,.86),rgba(14,22,48,.15) 70%)}
 .a-tile>*{position:relative}
 .a-reading{background:var(--gold-deep)}
-.a-tile-k{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.9}
+.a-tile-k{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.9;overflow-wrap:anywhere;hyphens:auto}
 .a-tile-t{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,4.2vh,34px);line-height:1.05}
 .a-tile-he{align-self:flex-start;font-size:clamp(18px,3vh,24px);opacity:.95}
 .a-tile:hover .a-tile-t{text-decoration:underline;text-underline-offset:4px}
-.a-tiles>.courses{margin:0;min-height:0;overflow:hidden}
+.a-tiles>.courses{margin:0;min-height:0;overflow:auto}
 /* «Гематрии»: the lessons' equalities running slowly upwards in a closed loop (GematriaTicker in Catalog.tsx) */
-.a-tick{display:flex;flex-direction:column;min-height:0;padding:16px 20px 8px;border-radius:16px;background:var(--surface);border:1px solid var(--line-soft);box-shadow:var(--shadow)}
-.a-tick h2{margin:0 0 6px;font-family:var(--f-display);font-weight:700;font-size:24px;line-height:1.15}
+.a-tick{display:flex;flex-direction:column;min-height:0;overflow:hidden;padding:16px 20px 8px;border-radius:16px;background:var(--surface);border:1px solid var(--line-soft);box-shadow:var(--shadow)}
+.a-tick-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:6px;border-bottom:1px solid var(--line-soft)}
+.a-tick h2{margin:0;font-family:var(--f-display);font-weight:700;font-size:24px;line-height:1.15}
+.a-tick-pause{display:grid;place-items:center;width:30px;height:30px;flex:none;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--muted);font-size:12px;cursor:pointer}
+.a-tick-pause:hover{color:var(--ink);border-color:var(--gold-line)}
+.a-tick.paused ul{animation-play-state:paused}
 .a-tick h2 a{color:inherit;text-decoration:none}
 .a-tick h2 a:hover{color:var(--tchelet)}
-.a-tick-win{position:relative;flex:1;min-height:60px;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(transparent,#000 14%,#000 86%,transparent)}
+.a-tick-win{position:relative;flex:1;min-height:60px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)}
 .a-tick ul{list-style:none;margin:0;padding:0;animation:a-tick linear infinite}
 @keyframes a-tick{to{transform:translateY(-50%)}}
 .a-tick-win:hover ul,.a-tick-win:focus-within ul{animation-play-state:paused}
-.a-tick li a{display:block;padding:8px 0;border-bottom:1px solid var(--line-soft);text-align:center;color:var(--ink);text-decoration:none;font-size:20px;line-height:1.3}
+.a-tick li a{display:grid;gap:1px;padding:8px 0;border-bottom:1px solid var(--line-soft);text-align:center;color:var(--ink);text-decoration:none;font-size:20px;line-height:1.3}
+.a-tick-g{font-family:var(--f-body);font-size:12.5px;line-height:1.3;color:var(--muted)}
 .a-tick li a:hover{color:var(--tchelet)}
 .a-tick .he{font-family:var(--f-he);font-weight:700}
 .a-tick-eq{color:var(--muted)}
 .a-tick-n{font-family:var(--f-num);font-weight:700;color:var(--gold-deep);direction:ltr;unicode-bidi:isolate}
 @media (prefers-reduced-motion:reduce){.a-tick ul{animation:none}.a-tick-win{overflow:auto;-webkit-mask-image:none;mask-image:none}.a-tick li[aria-hidden]{display:none}}
-.courses.simple{gap:6px}
+.courses.simple{gap:6px;align-content:start}
 .courses.simple h2{font-size:24px}
 .courses.simple .courses-row{grid-template-columns:minmax(0,1fr);gap:4px;padding:5px 0}
 .courses.simple .courses-row .a-bar{margin-top:0}
@@ -2358,7 +2365,10 @@ body:has(.a-home){background:var(--plain)}
   .a-tiles{grid-template-rows:auto minmax(0,auto) minmax(0,1fr)}
   .a-tiles>.courses,.a-tiles>.a-tick{grid-column:1/-1}
   .a-tick{padding:10px 14px 4px;border-radius:14px}
-  .a-tick h2{font-size:17px;margin-bottom:2px}
+  .a-tick h2{font-size:17px}
+  .a-tick-head{padding-bottom:3px}
+  .a-tick-pause{width:26px;height:26px;font-size:11px}
+  .a-tick-g{font-size:11px}
   .a-tick li a{font-size:16px;padding:5px 0}
   .a-tile{min-height:88px;padding:12px 14px;border-radius:14px}
   .a-tile-k{font-size:10.5px}
@@ -2369,9 +2379,15 @@ body:has(.a-home){background:var(--plain)}
 }
 /* both home pages fill the screen, so the footer sits at its bottom */
 @media (min-width:641px){.k-home{box-sizing:border-box;min-height:calc(100svh - 57px - 76px - 28px);align-content:start}}
-/* the adults' home is exactly one screen, never scrolled (owner, 28.10.2026): the top bar (57), the home, the footer with the gap above it (81) */
-.a-home{box-sizing:border-box;height:calc(100svh - var(--a-top,57px) - var(--a-foot,81px));min-height:420px}
-@media (max-width:640px){html.tabbed .a-home{height:calc(100svh - var(--a-top,57px) - var(--a-foot,81px) - 60px - env(safe-area-inset-bottom,0px));min-height:0}}
+/* the adults' home is exactly one screen, never scrolled (owner, 28.10.2026): the page is a column the height of the screen —
+   the top bar, the home (takes the rest), the footer (on a phone — none: the tab bar is there); a screen too low — it scrolls */
+html:has(.a-home){height:100%}
+html:has(.a-home) body{height:100%;box-sizing:border-box}
+html:has(.a-home) #root{height:100%;display:flex;flex-direction:column}
+html:has(.a-home) .top{flex:none}
+.a-home{flex:1 0 auto;box-sizing:border-box;width:100%}
+html:has(.a-home) .colophon{flex:none;margin-top:0}
+@media (max-width:640px){html:has(.a-home) .colophon{display:none}}
 
 /* ───── the look (src/core/look.ts, settings in the account): theme, background, text size ─────
    html[data-theme="dark"] — the dark theme (on screen only: printouts stay light); html[data-bg] — the background the

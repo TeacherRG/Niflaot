@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { useI18n } from '../i18n';
 import { Slogan } from './Slogan';
 import { LESSONS, LESSON_GROUPS, cardsOnly, type Lesson } from '../lessons';
@@ -104,32 +104,55 @@ function AdultsHome() {
 
 /**
  * «Гематрии» on the adults' home: every equality of the lessons («פרצוף + גאוה = 471 = זנב + תאוה», src/core/facts.ts)
- * running slowly upwards in a closed loop (the list twice, the animation moves it by one list); a tap opens it in
- * «Знаете ли вы?» (#/facts/<id>); it stops under the mouse or focus; «reduce motion» — a still list to scroll.
+ * with its words translated under it (the lesson's glossary), running slowly upwards in a closed loop (the list twice,
+ * the animation moves it by one list); ⏸ stops it (moving content needs a pause — WCAG 2.2.2; on a phone there is no hover),
+ * so does the mouse or focus; a tap opens the equality in «Знаете ли вы?» (#/facts/<id>); «reduce motion» — a still list.
  */
 function GematriaTicker() {
-  const { t } = useI18n();
+  const { t, pick } = useI18n();
+  const [paused, setPaused] = useState(false);
   const facts = useMemo(() => collectFacts(LESSONS).filter((f): f is Extract<Fact, { kind: 'eq' }> => f.kind === 'eq'), []);
   if (!facts.length) return null;
-  const row = (f: Extract<Fact, { kind: 'eq' }>, copy: boolean) => (
-    <li key={`${copy ? 'b' : 'a'}${f.id}`} aria-hidden={copy || undefined}>
-      <a href={`#/facts/${f.id}`} tabIndex={copy ? -1 : undefined} dir="rtl">
-        {[f.q, ...f.rest].map((p, i) => (
-          <Fragment key={i}>
-            {i > 0 && <span className="a-tick-eq"> = </span>}
-            {NUMS.test(p) ? <b className="a-tick-n">{p}</b> : <span className="he">{displayNames(p)}</span>}
-          </Fragment>
-        ))}
-      </a>
-    </li>
-  );
+  const gloss = (f: Extract<Fact, { kind: 'eq' }>) => {
+    const words = pick(f.lesson.texts).value.glossary;
+    const tr = (h: string) =>
+      h
+        .split(' + ')
+        .map((w) => words[w])
+        .filter(Boolean)
+        .join(' + ');
+    return [f.q, ...f.rest.filter((p) => !NUMS.test(p))].map(tr).filter(Boolean).join(' = ');
+  };
+  const row = (f: Extract<Fact, { kind: 'eq' }>, copy: boolean) => {
+    const g = gloss(f);
+    return (
+      <li key={`${copy ? 'b' : 'a'}${f.id}`} aria-hidden={copy || undefined}>
+        <a href={`#/facts/${f.id}`} tabIndex={copy ? -1 : undefined}>
+          <span dir="rtl">
+            {[f.q, ...f.rest].map((p, i) => (
+              <Fragment key={i}>
+                {i > 0 && <span className="a-tick-eq"> = </span>}
+                {NUMS.test(p) ? <b className="a-tick-n">{p}</b> : <span className="he">{displayNames(p)}</span>}
+              </Fragment>
+            ))}
+          </span>
+          {g && <span className="a-tick-g">{g}</span>}
+        </a>
+      </li>
+    );
+  };
   return (
-    <section className="a-tick" aria-labelledby="a-tick-h">
-      <h2 id="a-tick-h">
-        <a href="#/facts">{t('home.gematria')}</a>
-      </h2>
+    <section className={`a-tick${paused ? ' paused' : ''}`} aria-labelledby="a-tick-h">
+      <div className="a-tick-head">
+        <h2 id="a-tick-h">
+          <a href="#/facts">{t('home.gematria')}</a>
+        </h2>
+        <button type="button" className="a-tick-pause" onClick={() => setPaused((x) => !x)} aria-pressed={paused} aria-label={t(paused ? 'reading.resume' : 'reading.pause')} title={t(paused ? 'reading.resume' : 'reading.pause')}>
+          {paused ? '▶' : '❚❚'}
+        </button>
+      </div>
       <div className="a-tick-win">
-        <ul style={{ animationDuration: `${facts.length * 3.5}s` }}>
+        <ul style={{ animationDuration: `${facts.length * 4}s` }}>
           {facts.map((f) => row(f, false))}
           {facts.map((f) => row(f, true))}
         </ul>

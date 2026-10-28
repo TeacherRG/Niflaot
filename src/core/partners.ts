@@ -11,7 +11,8 @@ import type { Locale } from '../i18n';
 
 /**
  * The site's logo — the round seal «נפלאות» (owner, 28.10.2026: one logo everywhere). On light pages, print and the
- * certificate — without the dark background (the gold on transparency, 400 px; the top bar — 128 px); on dark pictures
+ * certificate — without the dark background (the gold on transparency, 400 px); the top bar — the seal's centre, the word and the
+ * book on their night-blue (128 px: the whole seal is a blur at 40 px); on dark pictures
  * (the share card; previews and icons — scripts/og-images.ts) — the seal on its night-blue.
  */
 export const NIFLAOT_LOGO = niflaotLight;
