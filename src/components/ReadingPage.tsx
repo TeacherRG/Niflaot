@@ -81,6 +81,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   const [, rerender] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
   const syncOffset = useRef(0);
+  const paceSpeed = useRef(50);
   const [audioState, setAudioState] = useState<'stopped' | 'playing' | 'paused'>('stopped');
 
   const verses = sections?.flatMap((section) => section.verses) ?? null;
@@ -105,6 +106,17 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
     audioRef.current?.pause();
     setAudioState('paused');
   }, []);
+  const setPaceRate = useCallback(
+    (wordsPerMinute: number) => {
+      paceSpeed.current = wordsPerMinute;
+      const duration = audioRef.current?.duration;
+      const words = toks.reduce((sum, token) => sum + token.w, 0);
+      if (!duration || !Number.isFinite(duration) || words === 0) return;
+      const recordingRate = (words * 60) / duration;
+      setAudioRate(Math.max(0.25, Math.min(4, wordsPerMinute / recordingRate)));
+    },
+    [toks],
+  );
   const stopAudio = useCallback(() => {
     syncOffset.current = 0;
     audioRef.current?.pause();
@@ -243,6 +255,9 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
               src={src_(audio.src)}
               preload="metadata"
               controls={tool === 'listen'}
+              onLoadedMetadata={() => {
+                if (tool === 'pace') setPaceRate(paceSpeed.current);
+              }}
               onTimeUpdate={(e) => {
                 const player = e.currentTarget;
                 if (player.paused && player.currentTime === 0) {
@@ -286,7 +301,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           {verses && (
             <>
               {tool === 'reader' && <Reader key={readingId} c={readingId} toks={toks} total={total} onWord={onWord} setActive={setActive} onStart={playAudio} onStop={stopAudio} adults={mode === 'adults'} done={() => rerender((n) => n + 1)} />}
-              {tool === 'pace' && <Pace key={readingId} c={readingId} toks={toks} setActive={setActive} onStart={playAudio} onPause={pauseAudio} onStop={stopAudio} />}
+              {tool === 'pace' && <Pace key={readingId} c={readingId} toks={toks} setActive={setActive} onStart={playAudio} onPause={pauseAudio} onStop={stopAudio} onRateChange={setPaceRate} audioState={audioState} hasAudio={!!audio} />}
               {tool === 'step' && <Step key={c} toks={toks} active={active} setActive={setActive} onWord={onWord} />}
               {tool === 'listen' && audio && <Listen rate={audioRate} setRate={setAudioRate} estimate={!markedTimes(readingId) && !audio.times} />}
             </>
@@ -505,19 +520,46 @@ function Reader({
 }
 
 /** «Темп»: the light goes word by word at the chosen speed — keep up with it reading aloud. */
-function Pace({ c, toks, setActive, onStart, onPause, onStop }: { c: ReadingId; toks: Tok[]; setActive: (i: number) => void; onStart: (restart?: boolean) => void; onPause: () => void; onStop: () => void }) {
+function Pace({
+  c,
+  toks,
+  setActive,
+  onStart,
+  onPause,
+  onStop,
+  onRateChange,
+  audioState,
+  hasAudio,
+}: {
+  c: ReadingId;
+  toks: Tok[];
+  setActive: (i: number) => void;
+  onStart: (restart?: boolean) => void;
+  onPause: () => void;
+  onStop: () => void;
+  onRateChange: (wordsPerMinute: number) => void;
+  audioState: 'stopped' | 'playing' | 'paused';
+  hasAudio: boolean;
+}) {
   const { t } = useI18n();
   const rec = records()[c];
   const [speed, setSpeed] = useState(() => Math.min(200, Math.max(20, Math.round(((rec?.best ?? 50) * 1.1) / 5) * 5)));
   const [at, setAt] = useState(-1);
   const [run, setRun] = useState(false);
   const end = at >= toks.length;
+  const playing = hasAudio ? audioState === 'playing' : run;
 
   useEffect(() => {
-    setActive(end ? -1 : at);
-  }, [at, end, setActive]);
+    if (!hasAudio) setActive(end ? -1 : at);
+  }, [at, end, hasAudio, setActive]);
   useEffect(() => {
-    if (!run) return;
+    onRateChange(speed);
+  }, [onRateChange, speed]);
+  useEffect(() => {
+    if (hasAudio && audioState === 'stopped') setAt(-1);
+  }, [audioState, hasAudio]);
+  useEffect(() => {
+    if (!run || hasAudio) return;
     if (at >= toks.length) {
       setRun(false);
       onStop();
@@ -527,7 +569,7 @@ function Pace({ c, toks, setActive, onStart, onPause, onStop }: { c: ReadingId; 
     const w = at < 0 ? 1 : toks[at].w;
     const id = setTimeout(() => setAt((i) => i + 1), at < 0 ? 600 : (w * 60000) / speed);
     return () => clearTimeout(id);
-  }, [run, at, speed, toks, onStop]);
+  }, [run, at, speed, toks, onStop, hasAudio]);
 
   return (
     <div className="rd-tool">
@@ -541,15 +583,19 @@ function Pace({ c, toks, setActive, onStart, onPause, onStop }: { c: ReadingId; 
           type="button"
           className="btn rd-big-btn"
           onClick={() => {
-            if (end || at < 0) setAt(-1);
-            if (!run || end) onStart(at < 0 || end);
-            else onPause();
-            setRun(!run || end);
+            if (playing) {
+              onPause();
+              if (!hasAudio) setRun(false);
+            } else {
+              if (end || (!hasAudio && at < 0)) setAt(-1);
+              onStart(hasAudio ? audioState === 'stopped' : at < 0 || end);
+              if (!hasAudio) setRun(true);
+            }
           }}
         >
-          {run && !end ? `⏸ ${t('reading.pause')}` : at < 0 || end ? `▶ ${t('reading.start')}` : `▶ ${t('reading.resume')}`}
+          {playing ? `⏸ ${t('reading.pause')}` : hasAudio ? `▶ ${t(audioState === 'stopped' ? 'reading.start' : 'reading.resume')}` : at < 0 || end ? `▶ ${t('reading.start')}` : `▶ ${t('reading.resume')}`}
         </button>
-        {at >= 0 && !end && (
+        {!hasAudio && at >= 0 && !end && (
           <button
             type="button"
             className="btn ghost"
