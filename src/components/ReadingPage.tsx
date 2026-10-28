@@ -80,7 +80,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   const [audioRate, setAudioRate] = useState(1);
   const [, rerender] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const pendingAudioSeek = useRef<{ index: number; resume: boolean } | null>(null);
+  const syncOffset = useRef(0);
   const [audioState, setAudioState] = useState<'stopped' | 'playing' | 'paused'>('stopped');
 
   const verses = sections?.flatMap((section) => section.verses) ?? null;
@@ -92,7 +92,10 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
     const player = audioRef.current;
     if (!player) return;
     setAudioFailed(false);
-    if (restart) player.currentTime = 0;
+    if (restart) {
+      player.currentTime = 0;
+      syncOffset.current = 0;
+    }
     void player.play().catch(() => {
       setAudioState('paused');
       setAudioFailed(true);
@@ -103,27 +106,24 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
     setAudioState('paused');
   }, []);
   const stopAudio = useCallback(() => {
-    pendingAudioSeek.current = null;
+    syncOffset.current = 0;
     audioRef.current?.pause();
     if (audioRef.current) audioRef.current.currentTime = 0;
     setAudioState('stopped');
     setActive(-1);
   }, []);
+  // Разметки слов нет, а оценка времени неточна: нажатие на слово не перематывает голос,
+  // а сдвигает подсветку, чтобы она шла дальше с этого слова.
   const seekAudioToWord = (i: number) => {
     const player = audioRef.current;
-    if (!audio || !player) {
+    if (!audio || !player || !Number.isFinite(player.duration)) {
       onWord.current(i);
       return;
     }
-    const resume = player.paused || player.ended;
+    const starts = startTimes(toks, player.duration, markedTimes(readingId) ?? audio.times);
+    syncOffset.current = (starts[i] ?? 0) - player.currentTime;
     setActive(i);
-    if (Number.isFinite(player.duration)) {
-      const starts = startTimes(toks, player.duration, markedTimes(readingId) ?? audio.times);
-      player.currentTime = starts[i] ?? 0;
-      if (resume) playAudio(false);
-    } else {
-      pendingAudioSeek.current = { index: i, resume };
-    }
+    if (player.paused || player.ended) playAudio(false);
   };
 
   useEffect(() => {
@@ -243,15 +243,6 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
               src={src_(audio.src)}
               preload="metadata"
               controls={tool === 'listen'}
-              onLoadedMetadata={(e) => {
-                const pending = pendingAudioSeek.current;
-                const player = e.currentTarget;
-                if (!pending || !Number.isFinite(player.duration)) return;
-                const starts = startTimes(toks, player.duration, markedTimes(readingId) ?? audio.times);
-                player.currentTime = starts[pending.index] ?? 0;
-                pendingAudioSeek.current = null;
-                if (pending.resume) playAudio(false);
-              }}
               onTimeUpdate={(e) => {
                 const player = e.currentTarget;
                 if (player.paused && player.currentTime === 0) {
@@ -261,7 +252,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
                 if (!player.duration) return;
                 const starts = startTimes(toks, player.duration, markedTimes(readingId) ?? audio.times);
                 let i = -1;
-                for (let k = 0; k < starts.length; k++) if (starts[k] <= player.currentTime) i = k;
+                for (let k = 0; k < starts.length; k++) if (starts[k] <= player.currentTime + syncOffset.current) i = k;
                 setActive(player.ended ? -1 : i);
               }}
               onEnded={() => {
