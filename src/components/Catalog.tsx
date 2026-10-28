@@ -61,7 +61,7 @@ function TableLink() {
 /**
  * The adults' home («Подростки и взрослые», src/core/mode.ts): four tiles and nothing else (owner, 28.10.2026: «убрать все лишние
  * тексты и повторяющиеся ссылки») — «Сегодня — глава» (the week's portion, opens its first lesson to read), «Мои курсы» (only the
- * names of the chosen courses with their bars — CoursesCard `simple`), «Беглое чтение Теґилим» (#/reading) and the running feed
+ * names of the chosen courses with their bars — CoursesCard `simple`), «Проворное чтение Теґилим» (#/reading) and the running feed
  * of the lessons' gematria (the calendar moved to the top bar — HebrewDay.tsx); under them — the dedication of the week.
  * It all fits one screen, with no scrolling (owner).
  */

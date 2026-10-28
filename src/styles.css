@@ -2316,7 +2316,7 @@ body:has(.k-home){background:var(--warm)}
   .top-in.wide .brand-text{display:block}
 }
 
-/* the adults' home (Catalog.tsx, AdultsHome; owner, 28.10.2026): four tiles — «Сегодня — глава», «Беглое чтение Теґилим»,
+/* the adults' home (Catalog.tsx, AdultsHome; owner, 28.10.2026): four tiles — «Сегодня — глава», «Проворное чтение Теґилим»,
    «Мои курсы» (only names and bars), the calendar — and the dedication under them */
 body:has(.a-home){background:var(--plain)}
 .a-home{max-width:1080px;margin:0 auto;padding:24px 0 12px;display:flex;flex-direction:column;gap:16px}
@@ -2810,7 +2810,7 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .koelet-frame{display:block;width:calc(100% + 32px);margin-inline:-16px;height:70vh;border:0;border-top:1px solid var(--line);background:var(--paper)}
 @media (max-width:640px){.koelet-bar>span{display:none}.koelet-bar{justify-content:flex-end;padding:4px 0}.koelet-bar .add-course{font-size:13px}.koelet-bar .add-course-btn{padding:4px 12px;min-height:0}}
 
-/* «Святое чтение» — беглое чтение Теґилим (ReadingPage.tsx); знаки кантилляции есть только в Noto Serif Hebrew */
+/* «Святое чтение» — проворное чтение Теґилим (ReadingPage.tsx); знаки кантилляции есть только в Noto Serif Hebrew */
 .rd .tk-head h1 .he{font-size:.9em}
 .rd-note{margin:8px 0;padding:8px 12px;border-radius:8px;background:var(--tchelet-soft);color:var(--ink-2);font-size:14.5px}
 .rd-note a{color:var(--tchelet);font-weight:700}
@@ -2825,9 +2825,9 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .rd-tap-hint{margin:0 0 12px}
 .rd-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .rd-text{font-family:"Noto Serif Hebrew",var(--f-he);font-size:24px;line-height:2;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-align:justify}
-.rd-big .rd-text{font-size:34px;line-height:2.05;text-align:right}
+.rd-big .rd-text{font-size:34px;line-height:2.05}
 .rd-ch{margin:0 0 6px;font-family:inherit;font-size:.85em;color:var(--gold);text-align:center}
-.rd-v{margin:0 0 .25em}
+.rd-v{display:inline;margin:0}
 .rd-vn{font-size:.6em;color:var(--muted);font-weight:700}
 .rd-w{border-radius:6px;padding:0 2px;cursor:pointer;transition:background .15s,color .15s}
 .rd-w.rd-paseq{cursor:default;color:var(--muted)}
@@ -2845,7 +2845,7 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .rd-audio-float button:disabled{opacity:.45}
 .rd-rate select{min-height:40px;padding:6px 8px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;font-family:var(--f-num);font-size:15px;font-weight:700;cursor:pointer}
 @media(max-width:640px){
-  .rd-text{font-size:21px;padding:12px}
+  .rd-text{font-size:21px;padding:12px 6px;margin-inline:-16px;border-inline:0;border-radius:0;text-align:justify;text-justify:inter-word}
   .rd-big .rd-text{font-size:27px}
   .rd-audio-float{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
   .rd-audio-float button{padding:7px 14px;font-size:15px}
