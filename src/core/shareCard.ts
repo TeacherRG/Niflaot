@@ -1,5 +1,5 @@
 import { displayNames } from './names';
-import { NIFLAOT_LOGO } from './partners';
+import { NIFLAOT_SEAL } from './partners';
 
 export interface CardData {
   /** e.g. "НИФЛАОТ · БЕРЕЙШИТ 5787" */
@@ -304,7 +304,7 @@ export async function renderTextCard(d: TextCardData): Promise<Blob> {
     const img = new Image();
     img.onload = () => resolve(img);
     img.onerror = () => resolve(null);
-    img.src = NIFLAOT_LOGO;
+    img.src = NIFLAOT_SEAL;
   });
   const c = document.createElement('canvas');
   c.width = W;
@@ -334,7 +334,7 @@ export async function renderTextCard(d: TextCardData): Promise<Blob> {
   };
 
   if (logo) {
-    const lh = 110;
+    const lh = 140;
     const lw = Math.min(360, (logo.naturalWidth / logo.naturalHeight) * lh);
     ctx.drawImage(logo, (W - lw) / 2, 86, lw, lw * (logo.naturalHeight / logo.naturalWidth));
   }

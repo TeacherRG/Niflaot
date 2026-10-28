@@ -2,12 +2,21 @@
  * The site's logo and its partners (Jewish communities of Vienna): the home page, «Партнёры» (`#/partners`)
  * and every printout (`PrintBrand.tsx`). Files — src/assets/logos/ (transparent WebP, prepared from the originals).
  */
-import niflaot from '../assets/logos/niflaot.webp';
+import niflaotLight from '../assets/logos/niflaot-light.webp';
+import niflaotSmall from '../assets/logos/niflaot-128.webp';
+import niflaotSeal from '../assets/logos/niflaot.webp';
 import chabadHaus from '../assets/logos/chabad-haus-vienna.webp';
 import jrcv from '../assets/logos/jrcv-vienna.webp';
 import type { Locale } from '../i18n';
 
-export const NIFLAOT_LOGO = niflaot;
+/**
+ * The site's logo — the round seal «נפלאות» (owner, 28.10.2026: one logo everywhere). On light pages, print and the
+ * certificate — without the dark background (the gold on transparency, 400 px; the top bar — 128 px); on dark pictures
+ * (the share card; previews and icons — scripts/og-images.ts) — the seal on its night-blue.
+ */
+export const NIFLAOT_LOGO = niflaotLight;
+export const NIFLAOT_MARK = niflaotSmall;
+export const NIFLAOT_SEAL = niflaotSeal;
 
 export interface Partner {
   id: string;

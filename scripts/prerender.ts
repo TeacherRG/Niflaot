@@ -218,7 +218,7 @@ const VERIFY = (
   .map(([k, v]) => `\n    <meta name="${k}" content="${v}" />`)
   .join('');
 
-const PUBLISHER = { '@type': 'Organization', name: 'MyChitas', url: 'https://mychitas.app', logo: `${SITE_URL}/icons/icon-512.png` };
+const PUBLISHER = { '@type': 'Organization', name: 'MyChitas', url: 'https://mychitas.app', logo: `${SITE_URL}/icons/icon-512.png?v=2` };
 const SITE = { '@type': 'WebSite', name: 'Нифлаот', url: `${SITE_URL}/` };
 
 /* ───── catalog ───── */
@@ -1148,15 +1148,16 @@ for (const { lang, ui } of LANGS) {
     background_color: '#141A33',
     theme_color: '#141A33',
     categories: ['education', 'books', 'kids'],
+    // ?v=2 — the round seal «נפלאות» (28.10.2026): a new address makes installed apps fetch the new icon
     icons: [
-      { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
-      { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
-      { src: '/icons/maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+      { src: '/icons/icon-192.png?v=2', sizes: '192x192', type: 'image/png', purpose: 'any' },
+      { src: '/icons/icon-512.png?v=2', sizes: '512x512', type: 'image/png', purpose: 'any' },
+      { src: '/icons/maskable-512.png?v=2', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
     ],
     shortcuts: [
-      { name: s(ui, 'daily.title'), url: start(staticPath('daily', lang)), icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }] },
-      { name: s(ui, 'facts.title'), url: start(staticPath('facts', lang)), icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }] },
-      { name: s(ui, 'abc.title'), url: start(staticPath('letters', lang)), icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }] },
+      { name: s(ui, 'daily.title'), url: start(staticPath('daily', lang)), icons: [{ src: '/icons/icon-192.png?v=2', sizes: '192x192' }] },
+      { name: s(ui, 'facts.title'), url: start(staticPath('facts', lang)), icons: [{ src: '/icons/icon-192.png?v=2', sizes: '192x192' }] },
+      { name: s(ui, 'abc.title'), url: start(staticPath('letters', lang)), icons: [{ src: '/icons/icon-192.png?v=2', sizes: '192x192' }] },
     ],
   };
   writeFileSync(`${DIST}/manifest${lang === 'ru' ? '' : `-${lang}`}.webmanifest`, `${JSON.stringify(manifest, null, 2)}\n`);
@@ -1166,7 +1167,7 @@ for (const { lang, ui } of LANGS) {
 
 // offline: the app's code, styles and fonts, the icons and manifests (the Memo pictures are kept when first seen)
 const assets = readdirSync(`${DIST}/assets`).filter((f) => /\.(js|css|woff2)$/.test(f)).map((f) => `/assets/${f}`);
-const precache = [...assets, '/look.js', '/icons/icon-192.png', '/manifest.webmanifest', '/manifest-en.webmanifest', '/manifest-de.webmanifest'];
+const precache = [...assets, '/look.js', '/icons/icon-192.png?v=2', '/manifest.webmanifest', '/manifest-en.webmanifest', '/manifest-de.webmanifest'];
 const version = createHash('sha256').update(assets.join('\n')).update(readFileSync(`${DIST}/index.html`)).digest('hex').slice(0, 12);
 const sw = readFileSync(`${DIST}/sw.js`, 'utf8');
 if (!sw.includes("/*__VERSION__*/ 'dev'") || !sw.includes('/*__PRECACHE__*/ []')) throw new Error('public/sw.js: no build placeholders');

@@ -322,6 +322,7 @@ const de: Messages = {
   'courses.skip': "Kursauswahl überspringen — Kurse kannst du später hinzufügen",
   'home.riddle': "Rätsel {n} von {total}",
   'home.week': "Wochenabschnitt",
+  'home.todayParsha': "Heute — Wochenabschnitt",
   'calendar.title': "Schabbat-Kalender",
   'calendar.city': "Zeiten für: {city}",
   'calendar.locationUnavailable': "Aus der Zeitzone des Geräts konnte keine Stadt bestimmt werden.",

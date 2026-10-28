@@ -61,7 +61,7 @@ export function ModePicker() {
       {/* the language and «Войти» are needed before the choice too: a visitor may read another language, or come back on a new device */}
       <TopBar title={t('app.title')} wide />
       <main className="mode-pick">
-        <img className="h-logo" src={NIFLAOT_LOGO} alt="Niflaot" width={760} height={298} fetchPriority="high" />
+        <img className="h-logo" src={NIFLAOT_LOGO} alt="Niflaot" width={512} height={512} fetchPriority="high" />
         <p className="mode-brand">
           {t('mode.brand')} · <span className="mode-promise">{t('home.promise')}</span>
         </p>

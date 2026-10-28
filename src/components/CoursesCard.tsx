@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
 import { useMode } from '../core/mode';
 import { COURSES, toggleCourse, useCourses } from '../core/courses';
-import { useHabit } from '../core/habit';
 import type { CourseRow } from '../core/myCourses';
 
 /** the bar: of the book being read (the Prophets, the Writings — a book is a step one sees), else of the whole course */
@@ -16,12 +15,10 @@ const pct = (r: CourseRow) => (r.book ? Math.round((r.book.done / r.book.parts) 
  * how far along it is (done of the whole course; the Prophets and Writings — the bar of the book being read), what comes next
  * and its link; under them — the other courses: the name opens the course to try it, «＋» adds it. The weekly Torah portion is not here: it is the same for everyone and has its own card. «Изменить» opens
  * the choice in the account window. The progress (src/core/myCourses.ts) is loaded only here.
- * `lead` — the main block of the adults' home (owner, 26.10.2026): bigger, «N дней подряд · сегодня N из M» (the daily courses:
- * the Prophets, the Writings, Chassidut once it has started, «Святой язык»), and the first course not done today gets «Читать».
+ * `simple` — the adults' home (owner, 28.10.2026): only the names of the chosen courses with their bars, no other words.
  */
-export function CoursesCard({ lead = false }: { lead?: boolean }) {
+export function CoursesCard({ simple = false }: { simple?: boolean }) {
   const { t, locale } = useI18n();
-  const h = useHabit();
   const mode = useMode();
   const choice = useCourses(mode);
   const { c, pace, years } = choice;
@@ -43,29 +40,36 @@ export function CoursesCard({ lead = false }: { lead?: boolean }) {
     if (r.id === 'koelet') return r.finished ? t('courses.koeletAll') : r.done ? t('courses.koeletSub', { n: r.done, total: r.total }) : t('courses.koeletStart');
     return r.finished ? t('courses.nigunAll') : `${t('courses.next')}: ${r.next}`;
   };
-  // today: the daily courses (a niggun has no part of the day); the first one not done today — the one action of the home
-  const daily = (rows ?? []).filter((r) => r.id !== 'nigun' && r.id !== 'koelet' && !r.starts);
-  const doneToday = daily.filter((r) => r.today).length;
-  const go = lead ? (rows ?? []).find((r) => !r.starts && !(r.id === 'nigun' || r.id === 'koelet' ? r.finished : r.today)) : undefined;
-  const goLabel = (r: CourseRow) => t(r.id === 'lashon' ? 'words.homeCta' : r.id === 'nigun' || r.id === 'koelet' ? 'home.continue' : 'read.tab');
   const count = (r: CourseRow) =>
     r.id === 'lashon' || r.id === 'koelet' ? `${r.done}/${r.total}` : r.id === 'nigun' ? `🎓 ${r.done}/${r.total}` : t('courses.of', { n: r.done, total: r.total });
 
+  if (simple)
+    return (
+      <section className="courses adults simple" aria-labelledby="courses-h">
+        <h2 id="courses-h">{t('courses.title')}</h2>
+        <ul>
+          {(rows ?? []).map((r) => (
+            <li key={r.id}>
+              <a className={`courses-row${r.finished ? ' done' : ''}`} href={r.href}>
+                <span className="courses-t">{t(`courses.${r.id}`)}</span>
+                <span className="a-bar" aria-hidden="true">
+                  <span style={{ width: `${pct(r)}%` }} />
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+
   return (
-    <section className={`courses ${mode === 'adults' ? 'adults' : 'kids'}${lead ? ' lead' : ''}`} aria-labelledby="courses-h">
+    <section className={`courses ${mode === 'adults' ? 'adults' : 'kids'}`} aria-labelledby="courses-h">
       <div className="courses-head">
         <h2 id="courses-h">{t('courses.title')}</h2>
         <a href="#/account" className="courses-edit">
           {t('acc.change')}
         </a>
       </div>
-      {lead && rows && (h.streak > 0 || daily.length > 0) && (
-        <p className="courses-status">
-          {h.streak > 0 && <b>{t('habit.streak', { n: h.streak })}</b>}
-          {h.streak > 0 && daily.length > 0 && ' · '}
-          {daily.length > 0 && t('courses.todayDone', { n: doneToday, total: daily.length })}
-        </p>
-      )}
       {c.length === 0 ? (
         <p className="courses-empty">
           {t('courses.empty')}
@@ -74,13 +78,12 @@ export function CoursesCard({ lead = false }: { lead?: boolean }) {
         <ul>
           {(rows ?? []).map((r) => (
             <li key={r.id}>
-              <a className={`courses-row${r.finished ? ' done' : ''}${lead && r.today ? ' today' : ''}${r === go ? ' go' : ''}`} href={r.href}>
+              <a className={`courses-row${r.finished ? ' done' : ''}`} href={r.href}>
                 <span className="courses-t">
                   {t(`courses.${r.id}`)}
                   {(r.id === 'neviim' || r.id === 'ketuvim') && <small> · {t(`courses.pace.${pace}.short`)}{pace === 'own' ? ` · ${t(years === 1 ? 'courses.years.1.short' : 'courses.years.3.short')}` : ''}</small>}
                 </span>
                 <span className="courses-n">
-                  {lead && r.today && <span className="courses-tick" aria-label={t('menu.doneToday')}>✓ </span>}
                   {count(r)}
                 </span>
                 <span className="courses-s">
@@ -90,7 +93,6 @@ export function CoursesCard({ lead = false }: { lead?: boolean }) {
                 <span className="a-bar" aria-hidden="true">
                   <span style={{ width: `${pct(r)}%` }} />
                 </span>
-                {r === go && <span className="courses-go">{goLabel(r)}</span>}
               </a>
             </li>
           ))}

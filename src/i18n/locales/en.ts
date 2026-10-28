@@ -322,6 +322,7 @@ const en: Messages = {
   'courses.skip': "Skip course selection — you can add courses later",
   'home.riddle': "riddle {n} of {total}",
   'home.week': "This week’s portion",
+  'home.todayParsha': "Today — Torah portion",
   'calendar.title': "Shabbat calendar",
   'calendar.city': "Times for: {city}",
   'calendar.locationUnavailable': "Could not identify a city from the device time zone.",
