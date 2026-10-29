@@ -24,6 +24,56 @@ export interface PsalmAudioTrack {
   markId: string;
 }
 
+export interface PersonalPsalm {
+  chapter: number;
+  name: string;
+}
+
+const PERSONAL_PSALMS_KEY = 'niflaot:reading-my-psalms';
+
+export function personalPsalms(): PersonalPsalm[] {
+  try {
+    const saved: unknown = JSON.parse(localStorage.getItem(PERSONAL_PSALMS_KEY) ?? '[]');
+    if (!Array.isArray(saved)) return [];
+    return saved.filter(
+      (item): item is PersonalPsalm =>
+        item !== null &&
+        typeof item === 'object' &&
+        Number.isInteger(item.chapter) &&
+        item.chapter >= 1 &&
+        item.chapter <= CHAPTERS &&
+        typeof item.name === 'string',
+    );
+  } catch {
+    return [];
+  }
+}
+
+export function savePersonalPsalms(psalms: PersonalPsalm[]): boolean {
+  try {
+    localStorage.setItem(PERSONAL_PSALMS_KEY, JSON.stringify(psalms));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+const WEEKLY_PORTIONS: [number, number][] = [
+  [1, 29],
+  [30, 50],
+  [51, 72],
+  [73, 89],
+  [90, 106],
+  [107, 119],
+  [120, 150],
+];
+
+export function weekdayPsalms(iso: string): number[] {
+  const date = new Date(`${iso}T12:00:00`);
+  const [from, to] = WEEKLY_PORTIONS[date.getDay()];
+  return Array.from({ length: to - from + 1 }, (_, i) => from + i);
+}
+
 const psalms = (from: number, to: number): PsalmPortion[] =>
   Array.from({ length: to - from + 1 }, (_, i) => ({ chapter: from + i }));
 
