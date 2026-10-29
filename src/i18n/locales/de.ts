@@ -275,7 +275,7 @@ const de: Messages = {
   'reading.haazinuLead': "In den Büchern unserer Rebbeim wird im Namen des Maharal von Prag als Segula (geistige Hilfe) gebracht, dass das Auswendiglernen des „Lieds Haasinu“ eine Segula für Wohlstand ist.",
   'reading.haazinuAbout': "Unsere Rebbeim betonten den besonderen Vorzug des „Lieds Haasinu“, das die ganze Tora umfasst. Bei Chassidim war es üblich, dieses Lied auswendig zu lernen und es von Zeit zu Zeit zu wiederholen. Ein Ausdruck der zentralen Bedeutung dieses Abschnitts ist, dass aus ihm die Pflicht zum Schreiben einer Tora-Rolle gelernt wird, die auch die letzte positive Mizwa ist, die die 613 Mizwot abschließt.",
   'reading.haazinuMark': "Haasinu · Devarim 32",
-  'reading.lead': "Lies den täglichen Abschnitt aus Tehillim nach dem jüdischen Kalender. Die Vokalzeichen sind immer da, Kantillationszeichen und große Schrift – wie du willst.",
+  'reading.lead': "Lies den täglichen Abschnitt aus Tehillim nach dem jüdischen Kalender. Die Vokalzeichen sind immer da, Kantillationszeichen und große Schrift – wie du willst. Das ganze Buch Tehillim mit der Aufnahme dauert etwa 5 Std. 40 Min. bei 1×, 2 Std. 50 Min. bei 2× und unter 2 Stunden bei 3×: ein Abschnitt am Tag – und in einem Monat hast du das ganze Buch gelesen.",
   'reading.noLetters': "Kennst du die Buchstaben noch nicht? Fang an mit",
   'reading.pick': "Kapitel Tehillim",
   'reading.day': "Monatstag",

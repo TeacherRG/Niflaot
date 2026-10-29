@@ -275,7 +275,7 @@ const en: Messages = {
   'reading.haazinuLead': "In the books of our Rebbeim, in the name of the Maharal of Prague, it is brought as a segulah (a spiritual aid) that learning the “Song of Haazinu” by heart is a segulah for prosperity.",
   'reading.haazinuAbout': "Our Rebbeim emphasized the special merit of the “Song of Haazinu”, which contains the whole Torah. Among chassidim it was customary to try to learn this song by heart and review it from time to time. A sign of the central place of this chapter is that from it we derive the mitzvah of writing a Torah scroll, the final positive mitzvah that completes the 613 mitzvot.",
   'reading.haazinuMark': "Haazinu · Deuteronomy 32",
-  'reading.lead': "Read the daily portion of Tehillim according to the Hebrew calendar. The vowels are always there; the cantillation marks and a large font are up to you.",
+  'reading.lead': "Read the daily portion of Tehillim according to the Hebrew calendar. The vowels are always there; the cantillation marks and a large font are up to you. The whole book of Tehillim with the recording takes about 5 h 40 min at 1×, 2 h 50 min at 2× and under 2 hours at 3×: a portion a day, and the whole book is yours in a month.",
   'reading.noLetters': "Not sure of the letters yet? Start with",
   'reading.pick': "Chapter of Tehillim",
   'reading.day': "Day",

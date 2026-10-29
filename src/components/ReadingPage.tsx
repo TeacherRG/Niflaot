@@ -7,6 +7,7 @@ import { NotFound, PageLoading } from './PageStates';
 import { hebrewNumber } from '../core/hebrewDate';
 import { markStudied } from '../core/habit';
 import { useHebrewLevel } from '../core/hebrewLevel';
+import { resumeVoice, setVoicePitch } from '../core/voicePitch';
 import {
   CHAPTERS,
   chapterAudioTracks,
@@ -113,6 +114,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
       player.currentTime = 0;
       syncOffset.current = 0;
     }
+    resumeVoice();
     void player.play().catch(() => {
       setAudioState('paused');
       setAudioFailed(true);
@@ -177,6 +179,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   }, [t, haazinu, daily, dailyDay, c]);
   useEffect(() => {
     if (audioRef.current) audioRef.current.playbackRate = audioRate;
+    void setVoicePitch(audioRef.current, audioRate);
   }, [audioRate, audio]);
   useEffect(() => {
     if (!valid) return;
