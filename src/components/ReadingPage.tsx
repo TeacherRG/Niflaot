@@ -4,6 +4,7 @@ import { useI18n } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { NotFound, PageLoading } from './PageStates';
+import { Sheet } from './ui';
 import { hebrewNumber } from '../core/hebrewDate';
 import { markStudied } from '../core/habit';
 import { useHebrewLevel } from '../core/hebrewLevel';
@@ -18,15 +19,19 @@ import {
   loadIndex,
   loadView,
   markedTimes,
+  personalPsalms,
   saveTimes,
+  savePersonalPsalms,
   saveView,
   shortHebrewMonth,
   startTimes,
   stripTaamim,
   todayISO,
   tokens,
+  weekdayPsalms,
   type ReadingIndex,
   type ReadingId,
+  type PersonalPsalm,
   type PsalmPortion,
   type Token,
   type View,
@@ -49,7 +54,7 @@ interface TextSection {
  * (`#/reading/<глава>`). Аудио порции: подсветка идёт за голосом, нажатие на слово — подсветка с него, скорость 0.5–3.5×. Данные — src/core/reading.ts.
  */
 export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }) {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const level = useHebrewLevel();
   const haazinu = chapter === 'haazinu';
   const daily = chapter === undefined;
@@ -78,6 +83,10 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   const [source, setSource] = useState<{ title: string; url: string } | null>(null);
   const [failed, setFailed] = useState(false);
   const [view, setView] = useState<View>(loadView);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuSection, setMenuSection] = useState<'home' | 'all' | 'today' | 'weekday' | 'mine' | 'edit'>('home');
+  const [myPsalms, setMyPsalms] = useState<PersonalPsalm[]>(personalPsalms);
+  const [saveError, setSaveError] = useState(false);
   const [active, setActive] = useState(-1);
   const [trackIndex, setTrackIndex] = useState(0);
   const [audioFailed, setAudioFailed] = useState(false);
@@ -224,6 +233,14 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
     setView(v);
     saveView(v);
   };
+  const updateMyPsalms = (next: PersonalPsalm[]) => {
+    setMyPsalms(next);
+    setSaveError(!savePersonalPsalms(next));
+  };
+  const openPsalms = (n: number) => {
+    setMenuOpen(false);
+    location.hash = `#/reading/${n}`;
+  };
   const go = (n: number) => {
     location.hash = `#/reading/${n}`;
   };
@@ -236,6 +253,19 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
       return `119:${ps[0].fromVerse}–${ps[0].toVerse}`;
     }
     return ps.length > 1 ? `${ps[0].chapter}–${ps[ps.length - 1].chapter}` : String(ps[0]?.chapter ?? '');
+  };
+  const todayDate = new Date(`${todayISO()}T12:00:00`);
+  const hebrewDate = new Intl.DateTimeFormat(`${locale}-u-ca-hebrew`, { day: 'numeric', month: 'long' }).format(todayDate);
+  const weekdayName = new Intl.DateTimeFormat(locale, { weekday: 'long' }).format(todayDate);
+  const todayChapters = dailyPortion(dailyDay, dailyDay === 29 && shortMonth).map(({ chapter: n }) => n);
+  const weekdayChapters = weekdayPsalms(todayISO());
+  const menuTitles = {
+    home: t('reading.myTehillim'),
+    all: t('reading.allTehillim'),
+    today: t('reading.forDate', { date: hebrewDate }),
+    weekday: t('reading.forWeekday', { day: weekdayName }),
+    mine: t('reading.myChapters'),
+    edit: t('reading.editChapters'),
   };
 
   // the word in the light stays in sight
@@ -269,6 +299,10 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
         </header>
 
         {!haazinu && (
+          <>
+          <button type="button" className="btn ghost rd-menu-open no-print" onClick={() => { setMenuSection('home'); setMenuOpen(true); }}>
+            ☰ {t('reading.myTehillim')}
+          </button>
           <nav className="rd-nav" aria-label={t(daily ? 'reading.dayPick' : 'reading.pick')}>
             <button type="button" className="rd-arrow" onClick={() => (daily ? goDay(dailyDay - 1) : go(c - 1))} disabled={daily ? dailyDay <= 1 : c <= 1} aria-label={t('reading.prev')}>
               ‹
@@ -287,7 +321,80 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
               ›
             </button>
           </nav>
+          </>
         )}
+
+        <Sheet open={menuOpen} onClose={() => setMenuOpen(false)} title={menuTitles[menuSection]} closeLabel={t('menu.close')}>
+          {menuSection === 'home' ? (
+            <div className="rd-menu-list">
+              <button type="button" className="rd-menu-choice" onClick={() => setMenuSection('all')}>{t('reading.allTehillim')}</button>
+              <button type="button" className="rd-menu-choice" onClick={() => setMenuSection('today')}>{t('reading.forDate', { date: hebrewDate })}</button>
+              <button type="button" className="rd-menu-choice" onClick={() => setMenuSection('weekday')}>{t('reading.forWeekday', { day: weekdayName })}</button>
+              <button type="button" className="rd-menu-choice rd-menu-mine" onClick={() => setMenuSection('mine')}>
+                <span>{t('reading.myChapters')}</span>
+                <span className="rd-menu-count">{myPsalms.length}</span>
+              </button>
+              <button type="button" className="btn ghost" onClick={() => setMenuSection('edit')}>{t('reading.editChapters')}</button>
+            </div>
+          ) : menuSection === 'edit' ? (
+            <div className="rd-menu-edit">
+              <p className="rd-hint">{t('reading.savedOnDevice')}</p>
+              {saveError && <p className="rd-note" role="alert">{t('reading.saveFailed')}</p>}
+              {myPsalms.map((item, index) => (
+                <div className="rd-person-row" key={index}>
+                  <label>
+                    <span>{t('reading.chapterNumber')}</span>
+                    <select
+                      value={item.chapter}
+                      onChange={(e) => updateMyPsalms(myPsalms.map((row, i) => i === index ? { ...row, chapter: Number(e.target.value) } : row))}
+                    >
+                      {Array.from({ length: CHAPTERS }, (_, i) => i + 1).map((n) => <option key={n} value={n}>{n}</option>)}
+                    </select>
+                  </label>
+                  <label className="rd-person-name">
+                    <span>{t('reading.forWhom')}</span>
+                    <input
+                      type="text"
+                      maxLength={80}
+                      value={item.name}
+                      placeholder={t('reading.namePlaceholder')}
+                      onChange={(e) => updateMyPsalms(myPsalms.map((row, i) => i === index ? { ...row, name: e.target.value } : row))}
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    className="icon-btn rd-person-remove"
+                    aria-label={t('reading.removeChapter')}
+                    onClick={() => updateMyPsalms(myPsalms.filter((_, i) => i !== index))}
+                  >×</button>
+                </div>
+              ))}
+              <button type="button" className="btn ghost" onClick={() => updateMyPsalms([...myPsalms, { chapter: 1, name: '' }])}>
+                + {t('reading.addChapter')}
+              </button>
+              <button type="button" className="btn rd-menu-done" onClick={() => setMenuSection('mine')}>{t('menu.close')}</button>
+            </div>
+          ) : (
+            <div className="rd-menu-chapters">
+              <button type="button" className="btn ghost rd-menu-back" onClick={() => setMenuSection('home')}>‹ {t('reading.backToMenu')}</button>
+              {menuSection === 'mine' ? (
+                myPsalms.length ? myPsalms.map((item, index) => (
+                  <button type="button" className="rd-menu-chapter" key={`${item.chapter}-${index}`} onClick={() => openPsalms(item.chapter)}>
+                    <strong>{t('reading.book')} {item.chapter}</strong>
+                    <span>{item.name.trim() || t('reading.nameNotSet')}</span>
+                  </button>
+                )) : <p className="rd-note">{t('reading.noChapters')} <button type="button" className="rd-inline-button" onClick={() => setMenuSection('edit')}>{t('reading.editChapters')}</button></p>
+              ) : (
+                (menuSection === 'all' ? Array.from({ length: CHAPTERS }, (_, i) => i + 1) : menuSection === 'today' ? todayChapters : weekdayChapters)
+                  .map((n) => (
+                    <button type="button" className="rd-menu-chapter" key={n} onClick={() => openPsalms(n)}>
+                      <strong>{t('reading.book')} {n}</strong>
+                    </button>
+                  ))
+              )}
+            </div>
+          )}
+        </Sheet>
 
         <div className="rd-opts no-print">
           <label>
