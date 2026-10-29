@@ -2833,6 +2833,13 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .rd-w.rd-paseq{cursor:default;color:var(--muted)}
 .rd-w.rd-past{color:var(--muted)}
 .rd-w.rd-on{background:var(--gold-soft);color:var(--ink);box-shadow:0 0 0 2px var(--gold-line)}
+.shn{text-align:right}
+.shn-v{margin:0 0 .55em}
+.shn-l{margin:0}
+.shn-m2{color:var(--ink-2)}
+.shn-t{font-family:var(--f-he);font-size:.82em;line-height:1.9;color:var(--tchelet);border-inline-start:3px solid var(--tchelet-soft);padding-inline-start:.45em;margin-top:.1em}
+.shn-t .rd-w.rd-past{color:var(--muted)}
+.shn-tag{font-size:.62em;font-weight:700;color:var(--tchelet);opacity:.75}
 .rd-mark{margin:14px 0;border:1px dashed var(--line);border-radius:12px;padding:10px 14px}
 .rd-mark summary{cursor:pointer;font-weight:700}
 .rd-mark[open]>*+*{margin-top:8px}

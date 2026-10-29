@@ -287,6 +287,7 @@ export function Panels() {
             <>
               {link('#/reading', num('ת', true), t('reading.menuItem'), t('reading.menuItemSub'))}
               {link('#/reading/haazinu', num('ש', true), t('reading.menuHaazinu'), t('reading.menuHaazinuSub'))}
+              {link('#/reading/shnayim', num('ת״א', true), t('reading.menuShnayim'), t('reading.menuShnayimSub'))}
             </>
           ))}
           {link('#/nigun', <Icon name="music" />, t('nigun.title'), t('nigun.menuSub'))}
