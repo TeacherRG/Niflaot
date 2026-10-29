@@ -48,6 +48,7 @@ const WordsPage = page(() => import('./components/WordsPage'), 'WordsPage');
 const TorahWordsPage = page(() => import('./components/TorahWordsPage'), 'TorahWordsPage');
 const LashonPage = page(() => import('./components/LashonPage'), 'LashonPage');
 const ReadingPage = page(() => import('./components/ReadingPage'), 'ReadingPage');
+const ShnayimPage = page(() => import('./components/ShnayimPage'), 'ShnayimPage');
 const TanakhQuizPage = page(() => import('./components/TanakhQuizPage'), 'TanakhQuizPage');
 const HemshechPage = page(() => import('./components/HemshechPage'), 'HemshechPage');
 const AcademyPage = page(() => import('./components/AcademyPage'), 'AcademyPage');
@@ -66,7 +67,7 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©mychitas.app`;
  * `#/daily` — «Знаете ли вы?» opened on «Гематрия дня», its first card; `#/math/<op>` — «Устный счёт».
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson; `/mental-math/` and `/daily/` (also under `/en/`, `/de/`) — those pages.
- * `#/reading` opens the Tehillim portion for today's Hebrew date; `#/reading/day/<day>` selects another date, `#/reading/<chapter>` opens one chapter, and `#/reading/haazinu` opens Deuteronomy 32 («Песнь Аазину»).
+ * `#/reading` opens the Tehillim portion for today's Hebrew date; `#/reading/day/<day>` selects another date, `#/reading/<chapter>` opens one chapter, `#/reading/haazinu` opens Deuteronomy 32 («Песнь Аазину»), and `#/reading/shnayim[/<1–7>]` — «Шнаим микра ве-эхад таргум»: today's portion of the weekly parshah.
  */
 function readRoute() {
   if (location.hash) return location.hash.replace(/^#\/?/, '').split('?')[0];
@@ -193,6 +194,8 @@ function Site() {
             <WordsPage />
           ) : slug === 'lashon' ? (
             <LashonPage />
+          ) : slug === 'reading' && view === 'shnayim' ? (
+            <ShnayimPage key={route} aliyah={variant || undefined} />
           ) : slug === 'reading' ? (
             <ReadingPage key={route} chapter={view === 'day' ? undefined : view || undefined} day={view === 'day' ? variant : undefined} />
           ) : slug === 'torah-words' ? (

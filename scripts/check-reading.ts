@@ -3,6 +3,7 @@
  * читается кери (нет ктива в скобках), Имена — как во всём проекте (нет יהוה и אלהים).
  */
 import { existsSync, readFileSync } from 'node:fs';
+import { ALIYOT, SHNAYIM, aliyahOfDay, shnayimParsha, type ShnayimText } from '../src/core/shnayim';
 import { CHAPTERS, chapterAudioTracks, dailyPortion, hebrewDayForDate, shortHebrewMonth, stripTaamim, tokens } from '../src/core/reading';
 
 const dir = new URL('../public/reading/tehillim/', import.meta.url);
@@ -78,8 +79,35 @@ haazinu.v.forEach((s, i) => {
   if (/[[\]()]/.test(s)) errors.push(`Аазину ${i + 1}: скобки (ктив / кери)`);
   if (/יהוה|(^|[\s־])[והבכלמש]*אלהים/.test(plain)) errors.push(`Аазину ${i + 1}: Имя не заменено`);
 });
+// «Шнаим микра»: у каждой главы — 7 отрывков стих за стихом, у стиха — Тора и Таргум, обе — общественное достояние, Имена
+let shnVerses = 0;
+for (const p of SHNAYIM) {
+  const d = JSON.parse(readFileSync(new URL(`shnayim-${p}.json`, torahDir), 'utf8')) as ShnayimText;
+  if (d.parsha !== p) errors.push(`шнаим ${p}: в файле глава ${d.parsha}`);
+  if (d.aliyot.length !== ALIYOT) errors.push(`шнаим ${p}: ${d.aliyot.length} отрывков вместо ${ALIYOT}`);
+  for (const lic of [d.torah.license, d.targum.license]) if (lic !== 'Public Domain') errors.push(`шнаим ${p}: лицензия ${lic}`);
+  let last: [number, number] | null = null;
+  d.aliyot.forEach((a, k) => {
+    if (a.v[0]?.r !== a.from || a.v[a.v.length - 1]?.r !== a.to) errors.push(`шнаим ${p} ${k + 1}: стихи не совпадают с ${a.from}–${a.to}`);
+    for (const v of a.v) {
+      shnVerses++;
+      const [c, n] = v.r.split(':').map(Number);
+      if (last && !((c === last[0] && n === last[1] + 1) || (c === last[0] + 1 && n === 1))) errors.push(`шнаим ${p}: после ${last.join(':')} — ${v.r}`);
+      last = [c, n];
+      for (const s of [v.m, v.t]) {
+        const plain = stripTaamim(s).replace(/[ְ-ׇ]/g, '');
+        if (!plain.trim()) errors.push(`шнаим ${p} ${v.r}: пустой текст`);
+        if (/[[\](){}<>]/.test(s)) errors.push(`шнаим ${p} ${v.r}: скобки или пометки издания`);
+        if (/יהוה|(^|[\s־])[והבכלמש]*אלהים|(^|\s)[ו]?ייי?(\s|׃|$)/.test(plain)) errors.push(`шнаим ${p} ${v.r}: Имя не заменено`);
+      }
+    }
+  });
+}
+if (aliyahOfDay('2026-10-29') !== 5 || aliyahOfDay('2026-10-25') !== 1 || aliyahOfDay('2026-10-31') !== 7) errors.push('шнаим: отрывок дня — вс 1-й … Шабат 7-й');
+if (shnayimParsha('2026-10-29') !== 'vayera') errors.push('шнаим: 29.10.2026 — глава Вайера');
+
 if (errors.length) {
   console.error(errors.slice(0, 20).join('\n'));
   process.exit(1);
 }
-console.log(`✓ Святое чтение: Теґилим — ${CHAPTERS} глав, ${total} слов, кери, Имена; Аазину — ${haazinu.v.length} стихов`);
+console.log(`✓ Святое чтение: Теґилим — ${CHAPTERS} глав, ${total} слов, кери, Имена; Аазину — ${haazinu.v.length} стихов; шнаим микра — ${SHNAYIM.length} гл., ${shnVerses} стихов`);
