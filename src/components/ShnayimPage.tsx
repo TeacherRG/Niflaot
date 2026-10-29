@@ -21,6 +21,7 @@ interface Tok extends Token {
 
 /** воскресенье, с которого считаются отрывки (для названий дней недели) */
 const SUNDAY = '2026-11-01';
+const HIGHLIGHT_RATES = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5];
 const addDays = (iso: string, n: number) => {
   const d = new Date(`${iso}T12:00:00Z`);
   d.setUTCDate(d.getUTCDate() + n);
@@ -44,6 +45,10 @@ export function ShnayimPage({ aliyah }: { aliyah?: string }) {
   const [failed, setFailed] = useState(false);
   const [view, setView] = useState<View>(loadView);
   const [active, setActive] = useState(-1);
+  const [highlightState, setHighlightState] = useState<'stopped' | 'playing' | 'paused'>('stopped');
+  const [highlightRate, setHighlightRate] = useState(1);
+  const remainingMs = useRef<number | null>(null);
+  const deadline = useRef(0);
 
   useEffect(() => {
     let live = true;
@@ -54,7 +59,11 @@ export function ShnayimPage({ aliyah }: { aliyah?: string }) {
       live = false;
     };
   }, [parsha]);
-  useEffect(() => setActive(-1), [n]);
+  useEffect(() => {
+    setActive(-1);
+    setHighlightState('stopped');
+    remainingMs.current = null;
+  }, [n]);
 
   const portion = valid ? data?.aliyot[n - 1] : undefined;
   const toks = useMemo<Tok[]>(
@@ -64,6 +73,28 @@ export function ShnayimPage({ aliyah }: { aliyah?: string }) {
       ),
     [portion],
   );
+  const wordIndices = useMemo(() => toks.flatMap((x, i) => (x.w ? [i] : [])), [toks]);
+
+  useEffect(() => {
+    if (highlightState !== 'playing' || active < 0) return;
+    const token = toks[active];
+    if (!token?.w) return;
+    const letters = token.s.replace(/[^א-ת]/g, '').length;
+    const duration = remainingMs.current ?? (220 + Math.max(1, letters) * 90) / highlightRate;
+    remainingMs.current = null;
+    deadline.current = Date.now() + duration;
+    const timer = window.setTimeout(() => {
+      const position = wordIndices.indexOf(active);
+      const next = wordIndices[position + 1];
+      if (next === undefined) {
+        setHighlightState('stopped');
+        markStudied();
+        return;
+      }
+      setActive(next);
+    }, duration);
+    return () => window.clearTimeout(timer);
+  }, [active, highlightRate, highlightState, toks, wordIndices]);
 
   const dayName = (k: number) =>
     k === 7 ? t('shn.shabbat') : new Intl.DateTimeFormat(locale, { weekday: 'long', timeZone: 'UTC' }).format(new Date(`${addDays(SUNDAY, k - 1)}T12:00:00Z`));
@@ -89,8 +120,30 @@ export function ShnayimPage({ aliyah }: { aliyah?: string }) {
   }, [active]);
 
   const tap = (i: number) => {
+    remainingMs.current = null;
     setActive(i);
     if (toks.slice(i + 1).every((x) => !x.w)) markStudied(); // дошли до последнего слова Таргума
+  };
+  const playHighlight = () => {
+    if (highlightState === 'playing') {
+      remainingMs.current = Math.max(0, deadline.current - Date.now());
+      setHighlightState('paused');
+      return;
+    }
+    if (highlightState === 'paused') {
+      setHighlightState('playing');
+      return;
+    }
+    const position = wordIndices.indexOf(active);
+    const start = position < 0 || position === wordIndices.length - 1 ? wordIndices[0] : active;
+    remainingMs.current = null;
+    if (start !== undefined) setActive(start);
+    setHighlightState('playing');
+  };
+  const stopHighlight = () => {
+    remainingMs.current = null;
+    setHighlightState('stopped');
+    setActive(-1);
   };
   const setV = (v: View) => {
     setView(v);
@@ -162,6 +215,7 @@ export function ShnayimPage({ aliyah }: { aliyah?: string }) {
           </label>
         </div>
         <p className="rd-hint rd-tap-hint no-print">{t('shn.tap')}</p>
+        <p className="rd-hint rd-tap-hint no-print">{t('shn.highlightHint')}</p>
 
         {failed ? (
           <p className="rd-note">{t('reading.failed')}</p>
@@ -206,6 +260,62 @@ export function ShnayimPage({ aliyah }: { aliyah?: string }) {
               );
             })}
           </article>
+        )}
+
+        {portion && wordIndices.length > 0 && (
+          <div className="rd-audio-float no-print" role="group" aria-label={t('shn.highlightControls')}>
+            <button
+              type="button"
+              className="btn"
+              onClick={playHighlight}
+              aria-label={t(
+                highlightState === 'playing'
+                  ? 'shn.pauseHighlight'
+                  : highlightState === 'paused'
+                    ? 'shn.resumeHighlight'
+                    : 'shn.startHighlight',
+              )}
+              title={t(
+                highlightState === 'playing'
+                  ? 'shn.pauseHighlight'
+                  : highlightState === 'paused'
+                    ? 'shn.resumeHighlight'
+                    : 'shn.startHighlight',
+              )}
+            >
+              {highlightState === 'playing' ? '⏸' : '▶'}
+              <span className="rd-lbl">
+                {' '}
+                {t(
+                  highlightState === 'playing'
+                    ? 'shn.pauseHighlight'
+                    : highlightState === 'paused'
+                      ? 'shn.resumeHighlight'
+                      : 'shn.startHighlight',
+                )}
+              </span>
+            </button>
+            <button
+              type="button"
+              className="btn ghost"
+              onClick={stopHighlight}
+              disabled={highlightState === 'stopped' && active < 0}
+              aria-label={t('reading.stop')}
+              title={t('reading.stop')}
+            >
+              ■<span className="rd-lbl"> {t('reading.stop')}</span>
+            </button>
+            <label className="rd-rate" title={t('reading.speed')}>
+              <span className="sr-only">{t('reading.speed')}</span>
+              <select value={highlightRate} onChange={(e) => setHighlightRate(Number(e.target.value))}>
+                {HIGHLIGHT_RATES.map((rate) => (
+                  <option key={rate} value={rate}>
+                    {rate}×
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
         )}
 
         {data && (
