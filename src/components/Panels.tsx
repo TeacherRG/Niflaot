@@ -285,8 +285,8 @@ export function Panels() {
           {/* «Святое чтение» — fluent reading of Tehillim and «Песнь Аазину» aloud, with trainers */}
           {group(<Icon name="book" />, t('reading.title'), t('reading.menuSub'), starts('#/reading'), (
             <>
-              {link('#/reading', num('ת', true), t('reading.menuItem'), t('reading.menuItemSub'))}
-              {link('#/reading/haazinu', num('ש', true), t('reading.menuHaazinu'), t('reading.menuHaazinuSub'))}
+              {link('#/reading', num('ת', true), t('reading.menuItem'))}
+              {link('#/reading/haazinu', num('ש', true), t('reading.menuHaazinu'))}
               {link('#/reading/shnayim', num('ת״א', true), t('reading.menuShnayim'), t('reading.menuShnayimSub'))}
             </>
           ))}

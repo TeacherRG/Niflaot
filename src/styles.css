@@ -2824,6 +2824,9 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .rd-menu-choice{display:flex;align-items:center;justify-content:center;min-height:68px;padding:14px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2,var(--paper));color:var(--ink);font:inherit;font-size:20px;font-weight:600;cursor:pointer}
 .rd-menu-choice:hover,.rd-menu-chapter:hover{border-color:var(--tchelet);background:var(--tchelet-soft)}
 .rd-menu-mine{justify-content:space-between}
+.rd-menu-on{border-color:var(--tchelet);background:var(--tchelet-soft);box-shadow:inset 0 0 0 1px var(--tchelet)}
+.rd-for{margin:14px 0 2px;font-family:var(--f-ui,inherit);font-size:.55em;font-weight:700;color:var(--tchelet);text-align:center;line-height:1.4}
+.rd-text section:first-child .rd-for{margin-top:0}
 .rd-menu-count{min-width:34px;padding:3px 9px;border-radius:20px;background:var(--tchelet-soft);color:var(--tchelet);font-size:15px;text-align:center}
 .rd-menu-chapters{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;max-height:min(65vh,620px);overflow:auto}
 .rd-menu-chapter{display:flex;flex-direction:column;gap:3px;min-height:52px;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit;text-align:start;cursor:pointer}
