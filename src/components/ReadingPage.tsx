@@ -24,11 +24,13 @@ import {
   savePersonalPsalms,
   saveView,
   shortHebrewMonth,
+  splitLong,
   startTimes,
   stripTaamim,
   todayISO,
   tokens,
-  weekdayPsalms,
+  weekdayOf,
+  weekdayPortion,
   type ReadingIndex,
   type ReadingId,
   type PersonalPsalm,
@@ -47,7 +49,15 @@ interface TextSection {
   chapter: number;
   verses: string[];
   firstVerse: number;
+  /** «Мои главы»: для кого читается глава */
+  label?: string;
 }
+/** часть подборки: глава (или её часть) и, в «Моих главах», имя */
+type Part = PsalmPortion & { label?: string };
+
+/** воскресенье — для названий дней недели */
+const SUNDAY = '2026-11-01';
+const WEEK_DAYS = 7;
 
 /**
  * «Святое чтение»: порция Теґилим на день еврейского месяца (`#/reading[/day/<день>]`) или отдельная глава
@@ -56,36 +66,56 @@ interface TextSection {
 export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }) {
   const { t, locale } = useI18n();
   const level = useHebrewLevel();
+  /** 1 — воскресенье … 7 — Шабат */
+  const dayName = (n: number) =>
+    n === WEEK_DAYS
+      ? t('shn.shabbat')
+      : new Intl.DateTimeFormat(locale, { weekday: 'long', timeZone: 'UTC' }).format(new Date(Date.parse(`${SUNDAY}T12:00:00Z`) + (n - 1) * 864e5));
   const haazinu = chapter === 'haazinu';
+  const week = chapter === 'week';
+  const mine = chapter === 'mine';
   const daily = chapter === undefined;
+  const single = !haazinu && !week && !mine && !daily;
   const currentDay = currentHebrewDay();
   const dailyDay = day === undefined ? currentDay : Number(day);
-  const c = haazinu ? 32 : daily ? dailyPortion(dailyDay)[0]?.chapter ?? 1 : Number(chapter);
+  const weekDay = week ? (day === undefined ? weekdayOf(todayISO()) : Number(day)) : 0;
+  const c = haazinu ? 32 : daily ? dailyPortion(dailyDay)[0]?.chapter ?? 1 : single ? Number(chapter) : 0;
   const shortMonth = shortHebrewMonth(todayISO());
   const maxDailyDay = shortMonth ? 29 : 30;
-  const portions: PsalmPortion[] = useMemo(
-    () => (daily ? dailyPortion(dailyDay, dailyDay === 29 && shortMonth) : haazinu ? [] : [{ chapter: c }]),
-    [daily, dailyDay, shortMonth, haazinu, c],
-  );
-  const readingId: ReadingId = haazinu ? 'haazinu' : daily ? `day-${dailyDay}` : c;
-  const tracks = useMemo(
+  const [myPsalms, setMyPsalms] = useState<PersonalPsalm[]>(personalPsalms);
+  const portions: Part[] = useMemo(
     () =>
-      haazinu
-        ? [{ chapter: 32, src: 'reading/Audio/tora_53.mp3', markId: 'haazinu' }]
-        : daily
-          ? chapterAudioTracks(portions, readingId)
-          : [],
-    [haazinu, daily, portions, readingId],
+      daily
+        ? dailyPortion(dailyDay, dailyDay === 29 && shortMonth)
+        : week
+          ? weekdayPortion(weekDay)
+          : mine
+            ? myPsalms.flatMap(({ chapter: n, name }) => splitLong([{ chapter: n }]).map((p) => ({ ...p, label: name.trim() })))
+            : haazinu
+              ? []
+              : splitLong([{ chapter: c }]),
+    [daily, dailyDay, shortMonth, week, weekDay, mine, myPsalms, haazinu, c],
   );
-  const valid = haazinu || (daily ? Number.isInteger(dailyDay) && dailyDay >= 1 && dailyDay <= maxDailyDay : Number.isInteger(c) && c >= 1 && c <= CHAPTERS);
+  const readingId: ReadingId = haazinu ? 'haazinu' : daily ? `day-${dailyDay}` : week ? `week-${weekDay}` : mine ? 'mine' : c;
+  const tracks = useMemo(
+    () => (haazinu ? [{ chapter: 32, src: 'reading/Audio/tora_53.mp3', markId: 'haazinu' }] : chapterAudioTracks(portions, readingId)),
+    [haazinu, portions, readingId],
+  );
+  const valid =
+    haazinu ||
+    mine ||
+    (week
+      ? Number.isInteger(weekDay) && weekDay >= 1 && weekDay <= WEEK_DAYS
+      : daily
+        ? Number.isInteger(dailyDay) && dailyDay >= 1 && dailyDay <= maxDailyDay
+        : Number.isInteger(c) && c >= 1 && c <= CHAPTERS);
   const [idx, setIdx] = useState<ReadingIndex | null>(null);
   const [sections, setSections] = useState<TextSection[] | null>(null);
   const [source, setSource] = useState<{ title: string; url: string } | null>(null);
   const [failed, setFailed] = useState(false);
   const [view, setView] = useState<View>(loadView);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [menuSection, setMenuSection] = useState<'home' | 'all' | 'today' | 'weekday' | 'mine' | 'edit'>('home');
-  const [myPsalms, setMyPsalms] = useState<PersonalPsalm[]>(personalPsalms);
+  const [menuSection, setMenuSection] = useState<'home' | 'all' | 'edit'>('home');
   const [saveError, setSaveError] = useState(false);
   const [active, setActive] = useState(-1);
   const [trackIndex, setTrackIndex] = useState(0);
@@ -183,9 +213,17 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   };
 
   useEffect(() => {
-    const unit = haazinu ? t('reading.haazinuTitle') : daily ? `${t('reading.day')} ${dailyDay}` : `${t('reading.book')} ${c}`;
+    const unit = haazinu
+      ? t('reading.haazinuTitle')
+      : daily
+        ? `${t('reading.day')} ${dailyDay}`
+        : week
+          ? t('reading.forWeekday', { day: dayName(weekDay) })
+          : mine
+            ? t('reading.myChapters')
+            : `${t('reading.book')} ${c}`;
     document.title = `${t('reading.title')} · ${unit} · ${t('app.title')}`;
-  }, [t, haazinu, daily, dailyDay, c]);
+  }, [t, haazinu, daily, dailyDay, week, weekDay, mine, c]);
   useEffect(() => {
     if (audioRef.current) audioRef.current.playbackRate = audioRate;
     void setVoicePitch(audioRef.current, audioRate);
@@ -216,7 +254,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
             const all = loaded[index] as string[];
             const from = portion.fromVerse ?? 1;
             const to = portion.toVerse ?? all.length;
-            return { chapter: portion.chapter, firstVerse: from, verses: all.slice(from - 1, to) };
+            return { chapter: portion.chapter, firstVerse: from, verses: all.slice(from - 1, to), label: portion.label };
           });
           setIdx(i as ReadingIndex);
           setSource({ title: i.version.title, url: i.version.source });
@@ -237,9 +275,14 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
     setMyPsalms(next);
     setSaveError(!savePersonalPsalms(next));
   };
-  const openPsalms = (n: number) => {
+  /** выбор в меню «Мои Теґилим» сразу меняет то, что показано в окне чтения */
+  const show = (hash: string) => {
     setMenuOpen(false);
-    location.hash = `#/reading/${n}`;
+    if (location.hash !== hash) location.hash = hash;
+  };
+  const openPsalms = (n: number) => show(`#/reading/${n}`);
+  const goWeek = (n: number) => {
+    location.hash = `#/reading/week/${n}`;
   };
   const go = (n: number) => {
     location.hash = `#/reading/${n}`;
@@ -256,17 +299,18 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   };
   const todayDate = new Date(`${todayISO()}T12:00:00`);
   const hebrewDate = new Intl.DateTimeFormat(`${locale}-u-ca-hebrew`, { day: 'numeric', month: 'long' }).format(todayDate);
-  const weekdayName = new Intl.DateTimeFormat(locale, { weekday: 'long' }).format(todayDate);
-  const todayChapters = dailyPortion(dailyDay, dailyDay === 29 && shortMonth).map(({ chapter: n }) => n);
-  const weekdayChapters = weekdayPsalms(todayISO());
+  const todayWeekDay = weekdayOf(todayISO());
+  const weekPortionLabel = (n: number) => {
+    const ps = weekdayPortion(n);
+    return ps.length ? `${ps[0].chapter}–${ps[ps.length - 1].chapter}` : '';
+  };
   const menuTitles = {
     home: t('reading.myTehillim'),
     all: t('reading.allTehillim'),
-    today: t('reading.forDate', { date: hebrewDate }),
-    weekday: t('reading.forWeekday', { day: weekdayName }),
-    mine: t('reading.myChapters'),
     edit: t('reading.editChapters'),
   };
+  /** что сейчас в окне — этот пункт меню отмечен */
+  const current = (on: boolean) => (on ? { className: 'rd-menu-choice rd-menu-on', 'aria-current': 'page' as const } : { className: 'rd-menu-choice' });
 
   // the word in the light stays in sight
   const textRef = useRef<HTMLDivElement>(null);
@@ -291,6 +335,8 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           <p className="ac-lead">{t(haazinu ? 'reading.haazinuLead' : 'reading.lead')}</p>
           {haazinu && <p className="ac-lead">{t('reading.haazinuAbout')}</p>}
           {daily && <p className="ac-lead">{t('reading.dayHeader', { day: dailyDay, psalms: dailyPortionLabel(dailyDay) })}</p>}
+          {week && <p className="ac-lead">{t('reading.weekHeader', { day: dayName(weekDay), psalms: weekPortionLabel(weekDay) })}</p>}
+          {mine && <p className="ac-lead">{t('reading.mineHeader', { n: myPsalms.length })}</p>}
           {level === 'none' && (
             <p className="rd-note">
               {t('reading.noLetters')} <a href="#/letters">{t('abc.title')}</a>
@@ -303,34 +349,66 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           <button type="button" className="btn ghost rd-menu-open no-print" onClick={() => { setMenuSection('home'); setMenuOpen(true); }}>
             ☰ {t('reading.myTehillim')}
           </button>
-          <nav className="rd-nav" aria-label={t(daily ? 'reading.dayPick' : 'reading.pick')}>
-            <button type="button" className="rd-arrow" onClick={() => (daily ? goDay(dailyDay - 1) : go(c - 1))} disabled={daily ? dailyDay <= 1 : c <= 1} aria-label={t('reading.prev')}>
+          {!mine && (
+          <nav className="rd-nav" aria-label={t(daily ? 'reading.dayPick' : week ? 'reading.weekPick' : 'reading.pick')}>
+            <button
+              type="button"
+              className="rd-arrow"
+              onClick={() => (daily ? goDay(dailyDay - 1) : week ? goWeek(weekDay - 1) : go(c - 1))}
+              disabled={daily ? dailyDay <= 1 : week ? weekDay <= 1 : c <= 1}
+              aria-label={t('reading.prev')}
+            >
               ‹
             </button>
             <label className="rd-pick">
-              <span className="sr-only">{t(daily ? 'reading.dayPick' : 'reading.pick')}</span>
-              <select value={daily ? dailyDay : c} onChange={(e) => (daily ? goDay(Number(e.target.value)) : go(Number(e.target.value)))}>
-                {Array.from({ length: daily ? maxDailyDay : CHAPTERS }, (_, i) => i + 1).map((n) => (
+              <span className="sr-only">{t(daily ? 'reading.dayPick' : week ? 'reading.weekPick' : 'reading.pick')}</span>
+              <select
+                value={daily ? dailyDay : week ? weekDay : c}
+                onChange={(e) => (daily ? goDay(Number(e.target.value)) : week ? goWeek(Number(e.target.value)) : go(Number(e.target.value)))}
+              >
+                {Array.from({ length: daily ? maxDailyDay : week ? WEEK_DAYS : CHAPTERS }, (_, i) => i + 1).map((n) => (
                   <option key={n} value={n}>
-                    {daily ? `${t('reading.day')} ${n} · ${dailyPortionLabel(n)}` : `${t('reading.book')} ${n}${idx ? ` — ${t('reading.words', { n: idx.words[n - 1] })}` : ''}`}
+                    {daily
+                      ? `${t('reading.day')} ${n} · ${dailyPortionLabel(n)}`
+                      : week
+                        ? `${dayName(n)} · ${weekPortionLabel(n)}${n === todayWeekDay ? ` · ${t('shn.today')}` : ''}`
+                        : `${t('reading.book')} ${n}${idx ? ` — ${t('reading.words', { n: idx.words[n - 1] })}` : ''}`}
                   </option>
                 ))}
               </select>
             </label>
-            <button type="button" className="rd-arrow" onClick={() => (daily ? goDay(dailyDay + 1) : go(c + 1))} disabled={daily ? dailyDay >= maxDailyDay : c >= CHAPTERS} aria-label={t('reading.next')}>
+            <button
+              type="button"
+              className="rd-arrow"
+              onClick={() => (daily ? goDay(dailyDay + 1) : week ? goWeek(weekDay + 1) : go(c + 1))}
+              disabled={daily ? dailyDay >= maxDailyDay : week ? weekDay >= WEEK_DAYS : c >= CHAPTERS}
+              aria-label={t('reading.next')}
+            >
               ›
             </button>
           </nav>
+          )}
           </>
         )}
 
         <Sheet open={menuOpen} onClose={() => setMenuOpen(false)} title={menuTitles[menuSection]} closeLabel={t('menu.close')}>
           {menuSection === 'home' ? (
             <div className="rd-menu-list">
-              <button type="button" className="rd-menu-choice" onClick={() => setMenuSection('all')}>{t('reading.allTehillim')}</button>
-              <button type="button" className="rd-menu-choice" onClick={() => setMenuSection('today')}>{t('reading.forDate', { date: hebrewDate })}</button>
-              <button type="button" className="rd-menu-choice" onClick={() => setMenuSection('weekday')}>{t('reading.forWeekday', { day: weekdayName })}</button>
-              <button type="button" className="rd-menu-choice rd-menu-mine" onClick={() => setMenuSection('mine')}>
+              <button type="button" {...current(single)} onClick={() => setMenuSection('all')}>
+                {t('reading.allTehillim')}
+              </button>
+              <button type="button" {...current(daily && dailyDay === currentDay)} onClick={() => show('#/reading')}>
+                {t('reading.forDate', { date: hebrewDate })}
+              </button>
+              <button type="button" {...current(week && weekDay === todayWeekDay)} onClick={() => show('#/reading/week')}>
+                {t('reading.forWeekday', { day: dayName(todayWeekDay) })}
+              </button>
+              <button
+                type="button"
+                {...current(mine)}
+                className={`${current(mine).className} rd-menu-mine`}
+                onClick={() => (myPsalms.length ? show('#/reading/mine') : setMenuSection('edit'))}
+              >
                 <span>{t('reading.myChapters')}</span>
                 <span className="rd-menu-count">{myPsalms.length}</span>
               </button>
@@ -372,26 +450,28 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
               <button type="button" className="btn ghost" onClick={() => updateMyPsalms([...myPsalms, { chapter: 1, name: '' }])}>
                 + {t('reading.addChapter')}
               </button>
-              <button type="button" className="btn rd-menu-done" onClick={() => setMenuSection('mine')}>{t('menu.close')}</button>
+              <button
+                type="button"
+                className="btn rd-menu-done"
+                onClick={() => (myPsalms.length ? show('#/reading/mine') : setMenuSection('home'))}
+              >
+                {myPsalms.length ? t('reading.showMine') : t('reading.backToMenu')}
+              </button>
             </div>
           ) : (
             <div className="rd-menu-chapters">
               <button type="button" className="btn ghost rd-menu-back" onClick={() => setMenuSection('home')}>‹ {t('reading.backToMenu')}</button>
-              {menuSection === 'mine' ? (
-                myPsalms.length ? myPsalms.map((item, index) => (
-                  <button type="button" className="rd-menu-chapter" key={`${item.chapter}-${index}`} onClick={() => openPsalms(item.chapter)}>
-                    <strong>{t('reading.book')} {item.chapter}</strong>
-                    <span>{item.name.trim() || t('reading.nameNotSet')}</span>
-                  </button>
-                )) : <p className="rd-note">{t('reading.noChapters')} <button type="button" className="rd-inline-button" onClick={() => setMenuSection('edit')}>{t('reading.editChapters')}</button></p>
-              ) : (
-                (menuSection === 'all' ? Array.from({ length: CHAPTERS }, (_, i) => i + 1) : menuSection === 'today' ? todayChapters : weekdayChapters)
-                  .map((n) => (
-                    <button type="button" className="rd-menu-chapter" key={n} onClick={() => openPsalms(n)}>
-                      <strong>{t('reading.book')} {n}</strong>
-                    </button>
-                  ))
-              )}
+              {Array.from({ length: CHAPTERS }, (_, i) => i + 1).map((n) => (
+                <button
+                  type="button"
+                  className={`rd-menu-chapter${single && n === c ? ' rd-menu-on' : ''}`}
+                  aria-current={single && n === c ? 'page' : undefined}
+                  key={n}
+                  onClick={() => openPsalms(n)}
+                >
+                  <strong>{t('reading.book')} {n}</strong>
+                </button>
+              ))}
             </div>
           )}
         </Sheet>
@@ -493,6 +573,13 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
 
         {failed ? (
           <p className="rd-note">{t('reading.failed')}</p>
+        ) : mine && !myPsalms.length ? (
+          <p className="rd-note">
+            {t('reading.noChapters')}{' '}
+            <button type="button" className="rd-inline-button" onClick={() => { setMenuSection('edit'); setMenuOpen(true); }}>
+              {t('reading.editChapters')}
+            </button>
+          </p>
         ) : !verses ? (
           <PageLoading />
         ) : (
@@ -500,8 +587,17 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
             {sections?.map((section, si) => {
               const verseOffset = sections.slice(0, si).reduce((sum, previous) => sum + previous.verses.length, 0);
               return (
-                <section key={`${section.chapter}-${section.firstVerse}`}>
-                  <h2 className="rd-ch">פֶּרֶק {hebrewNumber(section.chapter)}</h2>
+                <section key={`${si}-${section.chapter}-${section.firstVerse}`}>
+                  {(si === 0 || sections[si - 1].chapter !== section.chapter || section.firstVerse === 1) && (
+                    <>
+                      {mine && (
+                        <p className="rd-for" dir="auto">
+                          {section.label ? t('reading.readFor', { name: section.label }) : t('reading.nameNotSet')}
+                        </p>
+                      )}
+                      <h2 className="rd-ch">פֶּרֶק {hebrewNumber(section.chapter)}</h2>
+                    </>
+                  )}
                   {section.verses.map((_, vi) => {
                     const globalVerse = verseOffset + vi;
                     return (
@@ -536,7 +632,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
             const indices = trackTokenIndices[i] ?? [];
             return (
               <Marking
-                key={track.markId}
+                key={`${i}-${track.markId}`}
                 c={track.markId}
                 label={haazinu ? t('reading.haazinuMark') : `${t('reading.book')} ${track.chapter}`}
                 toks={indices.map((tokenIndex) => toks[tokenIndex])}

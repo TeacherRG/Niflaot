@@ -4,7 +4,7 @@
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { ALIYOT, SHNAYIM, aliyahOfDay, shnayimParsha, type ShnayimText } from '../src/core/shnayim';
-import { CHAPTERS, chapterAudioTracks, dailyPortion, hebrewDayForDate, shortHebrewMonth, stripTaamim, tokens } from '../src/core/reading';
+import { CHAPTERS, chapterAudioTracks, weekdayOf, weekdayPortion, dailyPortion, hebrewDayForDate, shortHebrewMonth, stripTaamim, tokens } from '../src/core/reading';
 
 const dir = new URL('../public/reading/tehillim/', import.meta.url);
 const torahDir = new URL('../public/reading/torah/', import.meta.url);
@@ -13,7 +13,7 @@ const index = JSON.parse(readFileSync(new URL('index.json', dir), 'utf8'));
 const errors: string[] = [];
 if (index.words.length !== CHAPTERS) errors.push(`index.json: ${index.words.length} глав вместо ${CHAPTERS}`);
 if (index.version?.license !== 'Public Domain') errors.push(`текст — не общественное достояние: ${index.version?.license}`);
-for (let c = 59; c <= CHAPTERS; c++) {
+for (let c = 1; c <= CHAPTERS; c++) {
   const file = `${c}.mp3`;
   if (!existsSync(new URL(file, audioDir))) errors.push(`нет аудио главы ${c}: ${file}`);
 }
@@ -26,9 +26,17 @@ const day18Tracks = chapterAudioTracks(dailyPortion(18), 'day-18').map((track) =
 if (day18Tracks.join(',') !== 'reading/Audio/88.mp3,reading/Audio/89.mp3') {
   errors.push(`аудио 18-го дня: ожидались главы 88 и 89, получено ${day18Tracks.join(',')}`);
 }
-if (chapterAudioTracks(dailyPortion(10), 'day-10').length) {
-  errors.push('аудио 10-го дня не должно показываться без записей всех глав порции');
+if (chapterAudioTracks(dailyPortion(10), 'day-10').map((track) => track.src).join(',') !== 'reading/Audio/55.mp3,reading/Audio/56.mp3,reading/Audio/57.mp3,reading/Audio/58.mp3,reading/Audio/59.mp3') {
+  errors.push('аудио 10-го дня: ожидались главы 55–59');
 }
+// по дням недели: вс 1–29 … Шабат 120–150, вся книга ровно раз; глава 119 — двумя записями
+const week = Array.from({ length: 7 }, (_, i) => weekdayPortion(i + 1));
+const weekChapters = week.flat().filter((p) => p.fromVerse === undefined || p.fromVerse === 1).map((p) => p.chapter);
+if (weekChapters.length !== CHAPTERS || weekChapters.some((c, i) => c !== i + 1)) errors.push('порции по дням недели: должны пройти главы 1–150 по одному разу');
+if (week[0][0]?.chapter !== 1 || week[6][week[6].length - 1]?.chapter !== 150) errors.push('порции по дням недели: вс — с главы 1, Шабат — до 150');
+const w119 = chapterAudioTracks(week[5], 'week-6').filter((x) => x.chapter === 119).map((x) => x.src);
+if (w119.join(',') !== 'reading/Audio/119.mp3,reading/Audio/119.2.mp3') errors.push(`глава 119 в пятницу: ожидались две записи, получено ${w119.join(',')}`);
+if (weekdayOf('2026-10-29') !== 5) errors.push('день недели: 29.10.2026 — четверг (5)');
 const day19Tracks = chapterAudioTracks(dailyPortion(19), 'day-19').map((track) => track.src);
 if (day19Tracks.join(',') !== 'reading/Audio/90.mp3,reading/Audio/91.mp3,reading/Audio/92.mp3,reading/Audio/93.mp3,reading/Audio/94.mp3,reading/Audio/95.mp3,reading/Audio/96.mp3') {
   errors.push(`аудио 19-го дня: ожидались главы 90–96, получено ${day19Tracks.join(',')}`);

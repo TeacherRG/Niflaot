@@ -74,6 +74,23 @@ export function weekdayPsalms(iso: string): number[] {
   return Array.from({ length: to - from + 1 }, (_, i) => from + i);
 }
 
+/** день недели (1 — воскресенье … 7 — Шабат) для даты */
+export const weekdayOf = (iso: string) => new Date(`${iso}T12:00:00`).getDay() + 1;
+
+/** порция Теґилим по дням недели: 1 — воскресенье (1–29) … 7 — Шабат (120–150) */
+export function weekdayPortion(n: number): PsalmPortion[] {
+  const p = WEEKLY_PORTIONS[n - 1];
+  return p ? splitLong(psalms(p[0], p[1])) : [];
+}
+
+/** глава 119 целиком — две записи (119.mp3 — стихи 1–96, 119.2.mp3 — 97–176), поэтому и две части текста */
+export const splitLong = (ps: PsalmPortion[]): PsalmPortion[] =>
+  ps.flatMap((p) =>
+    p.chapter === 119 && p.fromVerse === undefined
+      ? [{ chapter: 119, fromVerse: 1, toVerse: 96 }, { chapter: 119, fromVerse: 97, toVerse: 176 }]
+      : [p],
+  );
+
 const psalms = (from: number, to: number): PsalmPortion[] =>
   Array.from({ length: to - from + 1 }, (_, i) => ({ chapter: from + i }));
 
@@ -95,9 +112,9 @@ export function dailyPortion(day: number, combineLastDay = false): PsalmPortion[
   return portion.map((p) => ({ ...p }));
 }
 
-/** Chapter recordings currently available in public/reading/Audio. */
+/** Chapter recordings in public/reading/Audio — one per chapter (1–150), chapter 119 in two parts. */
 export function chapterAudioTracks(portions: PsalmPortion[], readingId: ReadingId): PsalmAudioTrack[] {
-  if (!portions.length || portions.some(({ chapter }) => chapter < 59 || chapter > CHAPTERS)) return [];
+  if (!portions.length || portions.some(({ chapter }) => chapter < 1 || chapter > CHAPTERS)) return [];
   return portions.map((portion) => {
     const secondHalf = portion.chapter === 119 && (portion.fromVerse ?? 1) > 96;
     const suffix = secondHalf ? '.2' : '';
