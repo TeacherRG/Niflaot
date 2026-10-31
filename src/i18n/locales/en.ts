@@ -377,6 +377,8 @@ const en: Messages = {
   'home.todayParsha': "Today",
   'home.readingK': "Reading",
   'home.gematria': "Gematria",
+  'home.tickerChoose': "What runs in the feed",
+  'home.tickerNew': "Nothing to review yet — here are the most frequent new words. Tap to start learning.",
   'calendar.title': "Shabbat calendar",
   'calendar.hebrewDay': "Jewish date",
   'calendar.city': "Times for: {city}",
