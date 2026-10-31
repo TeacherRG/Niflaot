@@ -993,7 +993,7 @@ const en: Messages = {
   'helper.q.finals': 'Why are final letters equal to regular ones?',
   'helper.a.finals': '<p>The games use standard gematria: final letters <span class="he">ך ם ן ף ץ</span> equal regular <span class="he">כ מ נ פ צ</span>. There is another system in which final letters count as 500–900, but our lessons don’t use it.</p>',
   'helper.q.names': 'Why is it written אלקים?',
-  'helper.a.names': '<p>Out of respect for G-d’s Name, on screen and in print we write <span class="he">אלקים</span> instead of the full spelling, and the Four-Letter Name as <span class="he">ה׳</span>. Gematria is still computed from the real spelling.</p>',
+  'helper.a.names': '<p>Out of respect for G-d’s Name, on screen and in print we write <span class="he">אלקים</span> instead of the full spelling, and the Four-Letter Name as <span class="he">ה׳</span>. Gematria is still computed from the real spelling. In the Tanakh text itself — Prophets, Writings, Tehillim, Haazinu, Shnayim Mikra — the Names are written in full, as in the original (Sefaria).</p>',
   'helper.q.sources': 'Where do the primary sources come from and how do I read them?',
   'helper.a.sources': '<p>The Torah verses, Talmud, midrashim and commentaries a lesson rests on come from the open Sefaria library. After you solve a riddle, a “Primary sources” block opens under its lesson: the Hebrew original and a translation side by side, with a link to Sefaria.</p>',
   'helper.q.progress': 'Is my progress saved?',

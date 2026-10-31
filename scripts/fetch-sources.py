@@ -456,7 +456,8 @@ def respect_names(s):
                         break
     return ''.join(words)
 
-def clean(s, lang):
+def clean(s, lang, names=True):
+    """names=False — иврит стиха Танаха как на Sefaria: Имена в полном написании (יְהֹוָה, אֱלֹהִים), без замен."""
     # a footnote: its marker and text (the marker must not reach over the verse to the next footnote)
     s = re.sub(r'<sup[^>]*>[^<]*</sup>\s*<i class="footnote">.*?</i>', '', s, flags=re.S)
     s = re.sub(r'<sup(?: class="endFootnote")?>-[a-z]</sup>', '', s)  # JPS 1985: «-a» closing a footnoted phrase
@@ -464,7 +465,7 @@ def clean(s, lang):
     s = re.sub(r'<br\s*/?>', ' ', s)
     s = re.sub(r'<(?!/?(b|i)>)[^>]+>', '', s)          # keep only <b> and <i>
     s = re.sub(r'\s+', ' ', s).strip()
-    if lang == 'he':
+    if lang == 'he' and names:
         s = respect_names(s)
         # the Name Adnut, marked in the Tanach text with a joiner (א‍דני): written with a hyphen, like ה׳
         s = s.replace('א\u200dדני', 'אד-ני')

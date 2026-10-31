@@ -6,7 +6,7 @@
 
 Текст — «Tanach with Ta'amei Hamikra» (огласовки и знаки кантилляции, tanach.us, Public Domain) из открытой выгрузки Sefaria.
 Читается кери: ктив без огласовок перед [кери] убирается, скобки — тоже; перевёрнутая нун (׆) не нужна чтецу.
-Имена Всевышнего — как во всём проекте (ה׳, אלקים, אד-ני: respect_names из scripts/fetch-sources.py).
+Имена Всевышнего — в полном написании, как на Sefaria (יְהֹוָה, אֱלֹהִים; clean(…, names=False)).
 """
 import importlib.util, json, re, sys
 from pathlib import Path
@@ -40,7 +40,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     counts = []
     for c, ch in enumerate(d['text'], 1):
-        verses = [fs.clean(qere(v), 'he') for v in ch]
+        verses = [fs.clean(qere(v), 'he', names=False) for v in ch]
         assert all(v and '[' not in v and '(' not in v for v in verses), c
         (OUT / f'{c}.json').write_text(json.dumps({'c': c, 'v': verses}, ensure_ascii=False) + '\n', encoding='utf-8')
         counts.append(sum(len(words(v)) for v in verses))

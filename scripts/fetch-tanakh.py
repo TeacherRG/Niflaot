@@ -17,7 +17,8 @@
   rashi — Раши: he — оригинал (Public Domain), en — Metsudah / Judaica Press (CC-BY), ru/de — перевод проекта;
   ru, de — перевод стиха проекта (src/tanakh/ru|de/<книга>.json), где он уже есть.
 Комментарий — список: на стих несколько комментариев, в начале каждого слова стиха — <b>.
-Имена Всевышнего — как во всём проекте (ה׳, אלקים, G-d, L-rd; Б-г, Г-сподь; G-tt, der Ewige).
+Имена Всевышнего: в иврите стиха — полное написание, как на Sefaria (יְהֹוָה, אֱלֹהִים); в комментариях на иврите —
+ה׳, как в оригинале; в переводах — как во всём проекте (G-d, L-rd; Б-г, Г-сподь; G-tt, der Ewige).
 Рав Штейнзальц (© Steinsaltz Center) на сайте не показывается — только ссылка на Sefaria.
 """
 import importlib.util, json, re, sys, urllib.parse
@@ -210,7 +211,7 @@ def section_day(books, section, a, z):
         versions['he'] = fs.meta(he); versions['en'] = fs.meta(en)
         en_ch = en['text'][ch - 1] if ch - 1 < len(en['text']) else []
         verse = {'b': b['slug'], 'c': ch, 'v': v,
-                 'he': fs.clean(he['text'][ch - 1][v - 1], 'he'),
+                 'he': fs.clean(he['text'][ch - 1][v - 1], 'he', names=False),  # стих — Имена как на Sefaria
                  # the page shows the verse as plain text: no <i> (JPS italicizes «Selah», transliterations)
                  'en': re.sub(r'</?i>', '', fs.clean(en_ch[v - 1], 'en')) if v - 1 < len(en_ch) else ''}
         if not verse['en']:
