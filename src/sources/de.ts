@@ -231,4 +231,15 @@ export const PROJECT_DE: Record<string, string[]> = {
   'bht-24-60-1': ['<b>Du — werde [at haji]</b> — „haji“ ist in Gematria „ko“ [so]: Das heißt: Mögest du das verdienen, was gesagt ist: „So [ko] wird deine Nachkommenschaft sein.“'],
   'bht-24-63-1': ['<b>Um auf dem Feld zu sprechen [lassuach ba-sade]</b> — das heißt: Jizchak hat das Mincha-Gebet eingeführt, und da begegnete ihm Riwka. Und das steht geschrieben: „Darum soll jeder Fromme zu Dir beten zur Zeit des Findens“ [Tehillim 32,6] — das heißt: [wenn er] eine Frau [findet], wie geschrieben steht: „Wer eine Frau gefunden hat, hat Gutes gefunden“ [Mischle 18,22].'],
   'bht-24-67-1': ['<b>Und er brachte sie [wajewieha]</b> — zwei [Mal] in der Massora im Buch Bereschit; [hier] ist es unvollständig geschrieben und ergibt vierundzwanzig: Das lehrt, dass man sie mit vierundzwanzig Schmuckstücken schmückte.'],
+  // «Nifla'ot des Rebben» · Chaje Sara
+  'rambam-vessels-1-7': ['Für alle Generationen salbt man damit [mit dem Salböl] nur Hohepriester, den Priester, der für den Krieg gesalbt wird, und die Könige aus dem Haus Davids. Sogar einen Priester, den Sohn [eines Hohepriesters], salbt man, denn es heißt: »Und der Priester, der an seiner Stelle aus seinen Söhnen gesalbt wird …« [Wajikra 6,15].'],
+  'rambam-vessels-1-11': ['Man salbt den König nur an einer Quelle. Und man salbt keinen König, der Sohn eines Königs ist, denn das Königtum ist ein Erbe für den König für immer, denn es heißt: »Er und seine Söhne inmitten Israels« [Dewarim 17,20]. Gab es aber einen Streit, salbt man ihn, um den Streit zu beenden und allen bekannt zu machen, dass er allein der König ist — so wie man Schlomo wegen des Streits mit Adonijahu salbte, Joasch wegen Atalja und Jehoachas wegen Jehojakim, seines Bruders. Und als Elischa Jehu salbte, salbte er ihn nicht mit dem Salböl, sondern mit Balsamöl. Und das ist eine Überlieferung in der Hand der Weisen.'],
+  'chron1-22-9': [
+    'Siehe, dir wird ein Sohn geboren werden, der wird ein Mann der Ruhe sein, und Ich werde ihm Ruhe geben vor all seinen Feinden ringsum; denn Schlomo wird sein Name sein, und Frieden [schalom] und Ruhe werde Ich Israel in seinen Tagen geben.',
+    'Er wird ein Haus für Meinen Namen bauen; er wird Mir ein Sohn sein und Ich ihm ein Vater, und Ich werde den Thron seines Königtums über Israel festigen für immer.',
+  ],
+  'chron1-28-4': [
+    'Der Ewige, der G-tt Israels, hat mich aus dem ganzen Haus meines Vaters erwählt, König über Israel zu sein für immer; denn Jehuda hat Er zum Fürsten erwählt, und im Haus Jehuda das Haus meines Vaters, und unter den Söhnen meines Vaters hat Er an mir Gefallen gefunden, mich zum König über ganz Israel zu machen.',
+    'Und von allen meinen Söhnen — denn viele Söhne hat mir der Ewige gegeben — hat Er Schlomo, meinen Sohn, erwählt, auf dem Thron des Königtums des Ewigen über Israel zu sitzen.',
+  ],
 };
