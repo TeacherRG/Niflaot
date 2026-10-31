@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 9:23",
+   "q": {
+    "ru": "Для чего гивонитяне навсегда стали дровосеками и водоносами?",
+    "en": "For what did the Gibeonites become hewers of wood and drawers of water forever?",
+    "de": "Wofür wurden die Giwoniter für immer Holzhauer und Wasserschöpfer?"
+   },
+   "o": [
+    {
+     "ru": "Для дома Б-га",
+     "en": "For the House of G-d",
+     "de": "Für das Haus G-ttes"
+    },
+    {
+     "ru": "Для царя Йерушалаима",
+     "en": "For the king of Jerusalem",
+     "de": "Für den König von Jeruschalajim"
+    },
+    {
+     "ru": "Для египтян",
+     "en": "For the Egyptians",
+     "de": "Für die Ägypter"
+    },
+    {
+     "ru": "Только для Йеґошуа",
+     "en": "For Joshua alone",
+     "de": "Nur für Jehoschua"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 9:24",
+   "q": {
+    "ru": "Почему, по словам гивонитян, они пошли на хитрость?",
+    "en": "Why, the Gibeonites said, had they used a trick?",
+    "de": "Warum griffen die Giwoniter nach ihren Worten zu der List?"
+   },
+   "o": [
+    {
+     "ru": "Они очень испугались за свою жизнь",
+     "en": "They greatly feared for their lives",
+     "de": "Sie hatten große Angst um ihr Leben"
+    },
+    {
+     "ru": "Они хотели захватить Гилгал",
+     "en": "They wanted to capture Gilgal",
+     "de": "Sie wollten Gilgal erobern"
+    },
+    {
+     "ru": "Их заставил Адони-Цедек",
+     "en": "Adoni-zedek forced them",
+     "de": "Adoni-Zedek zwang sie dazu"
+    },
+    {
+     "ru": "Они хотели получить золото",
+     "en": "They wanted gold",
+     "de": "Sie wollten Gold bekommen"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 10:2",
+   "q": {
+    "ru": "Почему испугался Адони-Цедек?",
+    "en": "Why was Adoni-zedek frightened?",
+    "de": "Warum bekam Adoni-Zedek Angst?"
+   },
+   "o": [
+    {
+     "ru": "Большой Гивон с храбрыми воинами заключил мир с Израилем",
+     "en": "The great city of Gibeon with its warriors had made peace with Israel",
+     "de": "Die große Stadt Giwon mit ihren Helden hatte mit Israel Frieden geschlossen"
+    },
+    {
+     "ru": "Его город сгорел",
+     "en": "His city had burned",
+     "de": "Seine Stadt war abgebrannt"
+    },
+    {
+     "ru": "Ему приснился страшный сон",
+     "en": "He had a frightening dream",
+     "de": "Er hatte einen schrecklichen Traum"
+    },
+    {
+     "ru": "Ушла вода из его колодцев",
+     "en": "His wells had run dry",
+     "de": "Seine Brunnen waren ausgetrocknet"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 10:4",
+   "q": {
+    "ru": "Что Адони-Цедек предложил другим царям?",
+    "en": "What did Adoni-zedek propose to the other kings?",
+    "de": "Was schlug Adoni-Zedek den anderen Königen vor?"
+   },
+   "o": [
+    {
+     "ru": "Вместе разбить Гивон",
+     "en": "To defeat Gibeon together",
+     "de": "Gemeinsam Giwon zu schlagen"
+    },
+    {
+     "ru": "Заключить мир с Израилем",
+     "en": "To make peace with Israel",
+     "de": "Mit Israel Frieden zu schließen"
+    },
+    {
+     "ru": "Бежать в Египет",
+     "en": "To flee to Egypt",
+     "de": "Nach Ägypten zu fliehen"
+    },
+    {
+     "ru": "Построить новую стену",
+     "en": "To build a new wall",
+     "de": "Eine neue Mauer zu bauen"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 17:10",
+   "q": {
+    "ru": "Как Давид описывает врагов?",
+    "en": "How does David describe his enemies?",
+    "de": "Wie beschreibt David seine Feinde?"
+   },
+   "o": [
+    {
+     "ru": "Их сердце заплыло жиром, уста говорят надменно",
+     "en": "Their hearts are closed, they mouth arrogance",
+     "de": "Ihr Herz ist verfettet, ihr Mund redet hochmütig"
+    },
+    {
+     "ru": "Они бедны и голодны",
+     "en": "They are poor and hungry",
+     "de": "Sie sind arm und hungrig"
+    },
+    {
+     "ru": "Они молчат и плачут",
+     "en": "They are silent and weep",
+     "de": "Sie schweigen und weinen"
+    },
+    {
+     "ru": "Они мудры и скромны",
+     "en": "They are wise and humble",
+     "de": "Sie sind weise und bescheiden"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 17:12",
+   "q": {
+    "ru": "С кем Давид сравнивает врага?",
+    "en": "To what does David compare the enemy?",
+    "de": "Womit vergleicht David den Feind?"
+   },
+   "o": [
+    {
+     "ru": "Со львом, жаждущим растерзать",
+     "en": "A lion eager for prey",
+     "de": "Mit einem Löwen, der gierig nach Beute ist"
+    },
+    {
+     "ru": "С орлом в небе",
+     "en": "An eagle in the sky",
+     "de": "Mit einem Adler am Himmel"
+    },
+    {
+     "ru": "Со змеёй в траве",
+     "en": "A snake in the grass",
+     "de": "Mit einer Schlange im Gras"
+    },
+    {
+     "ru": "С волком в лесу",
+     "en": "A wolf in the forest",
+     "de": "Mit einem Wolf im Wald"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 17:15",
+   "q": {
+    "ru": "Что увидит Давид в праведности?",
+    "en": "What will David behold in righteousness?",
+    "de": "Was wird David in Gerechtigkeit schauen?"
+   },
+   "o": [
+    {
+     "ru": "Лик Б-га",
+     "en": "G-d’s face",
+     "de": "G-ttes Angesicht"
+    },
+    {
+     "ru": "Свои сокровища",
+     "en": "His treasures",
+     "de": "Seine Schätze"
+    },
+    {
+     "ru": "Поражение врагов",
+     "en": "The defeat of his enemies",
+     "de": "Die Niederlage seiner Feinde"
+    },
+    {
+     "ru": "Новый дворец",
+     "en": "A new palace",
+     "de": "Einen neuen Palast"
+    }
+   ]
+  }
+ ]
+}

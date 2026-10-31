@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 10:5",
+   "q": {
+    "ru": "Сколько царей эмореев пошли войной на Гивон?",
+    "en": "How many Amorite kings attacked Gibeon?",
+    "de": "Wie viele Könige der Emoriter griffen Giwon an?"
+   },
+   "o": [
+    {
+     "ru": "Пять",
+     "en": "Five",
+     "de": "Fünf"
+    },
+    {
+     "ru": "Два",
+     "en": "Two",
+     "de": "Zwei"
+    },
+    {
+     "ru": "Семь",
+     "en": "Seven",
+     "de": "Sieben"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 10:9",
+   "q": {
+    "ru": "Как Йеґошуа застал врагов врасплох?",
+    "en": "How did Joshua take the enemies by surprise?",
+    "de": "Wie überraschte Jehoschua die Feinde?"
+   },
+   "o": [
+    {
+     "ru": "Шёл из Гилгала всю ночь",
+     "en": "He marched all night from Gilgal",
+     "de": "Er zog die ganze Nacht von Gilgal herauf"
+    },
+    {
+     "ru": "Спрятался в пещере",
+     "en": "He hid in a cave",
+     "de": "Er versteckte sich in einer Höhle"
+    },
+    {
+     "ru": "Пришёл по морю на кораблях",
+     "en": "He came by sea in ships",
+     "de": "Er kam mit Schiffen über das Meer"
+    },
+    {
+     "ru": "Переоделся гивонитянином",
+     "en": "He disguised himself as a Gibeonite",
+     "de": "Er verkleidete sich als Giwoniter"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 10:11",
+   "q": {
+    "ru": "Что Г-сподь бросал с неба на бегущих врагов?",
+    "en": "What did the L-rd hurl from the sky on the fleeing enemies?",
+    "de": "Was warf der Ewige vom Himmel auf die fliehenden Feinde?"
+   },
+   "o": [
+    {
+     "ru": "Большие камни — град",
+     "en": "Huge stones — hailstones",
+     "de": "Große Steine – Hagel"
+    },
+    {
+     "ru": "Огонь и серу",
+     "en": "Fire and brimstone",
+     "de": "Feuer und Schwefel"
+    },
+    {
+     "ru": "Ман",
+     "en": "Manna",
+     "de": "Manna"
+    },
+    {
+     "ru": "Стрелы",
+     "en": "Arrows",
+     "de": "Pfeile"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 10:12",
+   "q": {
+    "ru": "Что сказал Йеґошуа солнцу?",
+    "en": "What did Joshua say to the sun?",
+    "de": "Was sagte Jehoschua zur Sonne?"
+   },
+   "o": [
+    {
+     "ru": "Остановись над Гивоном",
+     "en": "Stand still at Gibeon",
+     "de": "Steh still über Giwon"
+    },
+    {
+     "ru": "Скорее зайди",
+     "en": "Set quickly",
+     "de": "Geh schnell unter"
+    },
+    {
+     "ru": "Свети ярче",
+     "en": "Shine brighter",
+     "de": "Scheine heller"
+    },
+    {
+     "ru": "Спрячься за тучу",
+     "en": "Hide behind a cloud",
+     "de": "Versteck dich hinter einer Wolke"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 18:1",
+   "q": {
+    "ru": "Когда Давид сказал эту песнь?",
+    "en": "When did David say this song?",
+    "de": "Wann sprach David dieses Lied?"
+   },
+   "o": [
+    {
+     "ru": "Когда Г-сподь спас его от всех врагов и от Шауля",
+     "en": "When the L-rd saved him from all his enemies and from Saul",
+     "de": "Als der Ewige ihn vor allen Feinden und vor Schaul gerettet hatte"
+    },
+    {
+     "ru": "Когда построили Храм",
+     "en": "When the Temple was built",
+     "de": "Als das Heiligtum gebaut wurde"
+    },
+    {
+     "ru": "Когда он был пастухом",
+     "en": "When he was a shepherd",
+     "de": "Als er Hirte war"
+    },
+    {
+     "ru": "Когда родился его сын",
+     "en": "When his son was born",
+     "de": "Als sein Sohn geboren wurde"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 18:3",
+   "q": {
+    "ru": "Как Давид называет Г-спода в начале песни?",
+    "en": "What does David call the L-rd at the beginning of the song?",
+    "de": "Wie nennt David den Ewigen am Anfang des Liedes?"
+   },
+   "o": [
+    {
+     "ru": "Моя скала, моя крепость и мой избавитель",
+     "en": "My crag, my fortress, my rescuer",
+     "de": "Mein Fels, meine Burg und mein Retter"
+    },
+    {
+     "ru": "Мой царь и мой судья",
+     "en": "My king and my judge",
+     "de": "Mein König und mein Richter"
+    },
+    {
+     "ru": "Мой пастух и мой отец",
+     "en": "My shepherd and my father",
+     "de": "Mein Hirte und mein Vater"
+    },
+    {
+     "ru": "Мой свет и моя песнь",
+     "en": "My light and my song",
+     "de": "Mein Licht und mein Lied"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 18:11",
+   "q": {
+    "ru": "На чём, по песне, летел Б-г?",
+    "en": "On what, according to the song, did G-d fly?",
+    "de": "Worauf flog G-tt nach dem Lied?"
+   },
+   "o": [
+    {
+     "ru": "На херуве, на крыльях ветра",
+     "en": "On a cherub, on the wings of the wind",
+     "de": "Auf einem Keruw, auf den Flügeln des Windes"
+    },
+    {
+     "ru": "На огненной колеснице",
+     "en": "On a chariot of fire",
+     "de": "Auf einem feurigen Wagen"
+    },
+    {
+     "ru": "На облаке дыма",
+     "en": "On a cloud of smoke",
+     "de": "Auf einer Rauchwolke"
+    },
+    {
+     "ru": "На орле",
+     "en": "On an eagle",
+     "de": "Auf einem Adler"
+    }
+   ]
+  }
+ ]
+}

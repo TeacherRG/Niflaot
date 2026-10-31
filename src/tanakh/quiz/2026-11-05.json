@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 10:16",
+   "q": {
+    "ru": "Где спрятались пять царей?",
+    "en": "Where did the five kings hide?",
+    "de": "Wo versteckten sich die fünf Könige?"
+   },
+   "o": [
+    {
+     "ru": "В пещере в Македе",
+     "en": "In a cave at Makkedah",
+     "de": "In einer Höhle bei Makeda"
+    },
+    {
+     "ru": "В Храме Йерушалаима",
+     "en": "In the Temple of Jerusalem",
+     "de": "Im Heiligtum von Jeruschalajim"
+    },
+    {
+     "ru": "В лесу у Ярдена",
+     "en": "In a forest by the Jordan",
+     "de": "In einem Wald am Jarden"
+    },
+    {
+     "ru": "В башне Гивона",
+     "en": "In the tower of Gibeon",
+     "de": "Im Turm von Giwon"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 10:18",
+   "q": {
+    "ru": "Что Йеґошуа велел сделать со входом в пещеру?",
+    "en": "What did Joshua order done with the mouth of the cave?",
+    "de": "Was ließ Jehoschua mit dem Eingang der Höhle tun?"
+   },
+   "o": [
+    {
+     "ru": "Привалить большие камни и поставить стражу",
+     "en": "Roll large stones against it and post guards",
+     "de": "Große Steine davorwälzen und Wachen aufstellen"
+    },
+    {
+     "ru": "Поджечь его",
+     "en": "Set it on fire",
+     "de": "Ihn anzünden"
+    },
+    {
+     "ru": "Залить водой",
+     "en": "Flood it with water",
+     "de": "Ihn mit Wasser fluten"
+    },
+    {
+     "ru": "Оставить открытым",
+     "en": "Leave it open",
+     "de": "Ihn offen lassen"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 10:21",
+   "q": {
+    "ru": "Что случилось, когда народ вернулся в стан в Македе?",
+    "en": "What happened when the people returned to the camp at Makkedah?",
+    "de": "Was geschah, als das Volk ins Lager nach Makeda zurückkam?"
+   },
+   "o": [
+    {
+     "ru": "Никто не смел и языком шевельнуть против Израиля",
+     "en": "No one so much as snarled at the Israelites",
+     "de": "Keiner wagte es, gegen Israel auch nur die Zunge zu bewegen"
+    },
+    {
+     "ru": "Началась новая война",
+     "en": "A new war began",
+     "de": "Ein neuer Krieg begann"
+    },
+    {
+     "ru": "Пошёл сильный дождь",
+     "en": "Heavy rain fell",
+     "de": "Es regnete stark"
+    },
+    {
+     "ru": "Гивонитяне ушли домой",
+     "en": "The Gibeonites went home",
+     "de": "Die Giwoniter gingen nach Hause"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 10:24",
+   "q": {
+    "ru": "Что Йеґошуа велел сделать военачальникам с царями?",
+    "en": "What did Joshua tell the officers to do to the kings?",
+    "de": "Was sollten die Anführer nach Jehoschuas Befehl mit den Königen tun?"
+   },
+   "o": [
+    {
+     "ru": "Поставить ноги им на шеи",
+     "en": "Place their feet on their necks",
+     "de": "Ihre Füße auf ihren Nacken setzen"
+    },
+    {
+     "ru": "Отпустить их домой",
+     "en": "Let them go home",
+     "de": "Sie nach Hause gehen lassen"
+    },
+    {
+     "ru": "Сделать их дровосеками",
+     "en": "Make them hewers of wood",
+     "de": "Sie zu Holzhauern machen"
+    },
+    {
+     "ru": "Взять их в Гилгал",
+     "en": "Take them to Gilgal",
+     "de": "Sie nach Gilgal bringen"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 18:13",
+   "q": {
+    "ru": "Что вышло из сияния перед Б-гом?",
+    "en": "What came out of the brilliance before G-d?",
+    "de": "Was kam aus dem Glanz vor G-tt hervor?"
+   },
+   "o": [
+    {
+     "ru": "Град и огненные угли",
+     "en": "Hail and fiery coals",
+     "de": "Hagel und Feuerkohlen"
+    },
+    {
+     "ru": "Радуга",
+     "en": "A rainbow",
+     "de": "Ein Regenbogen"
+    },
+    {
+     "ru": "Ман",
+     "en": "Manna",
+     "de": "Manna"
+    },
+    {
+     "ru": "Звёзды",
+     "en": "Stars",
+     "de": "Sterne"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 18:16",
+   "q": {
+    "ru": "Что обнажилось от грозного окрика Б-га?",
+    "en": "What was laid bare by G-d’s mighty roaring?",
+    "de": "Was wurde durch G-ttes Drohen aufgedeckt?"
+   },
+   "o": [
+    {
+     "ru": "Дно вод и основания вселенной",
+     "en": "The ocean bed and the foundations of the world",
+     "de": "Der Grund der Wasser und die Grundfesten der Welt"
+    },
+    {
+     "ru": "Вершины гор",
+     "en": "The mountaintops",
+     "de": "Die Gipfel der Berge"
+    },
+    {
+     "ru": "Сокровища царей",
+     "en": "The treasures of kings",
+     "de": "Die Schätze der Könige"
+    },
+    {
+     "ru": "Звёзды на небе",
+     "en": "The stars in the sky",
+     "de": "Die Sterne am Himmel"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 18:20",
+   "q": {
+    "ru": "Почему Б-г вывел Давида на простор?",
+    "en": "Why did G-d bring David out to freedom?",
+    "de": "Warum führte G-tt David ins Weite?"
+   },
+   "o": [
+    {
+     "ru": "Потому что благоволит к нему",
+     "en": "Because He was pleased with him",
+     "de": "Weil Er Gefallen an ihm hat"
+    },
+    {
+     "ru": "Потому что Давид заплатил выкуп",
+     "en": "Because David paid a ransom",
+     "de": "Weil David ein Lösegeld bezahlte"
+    },
+    {
+     "ru": "Потому что враги ушли сами",
+     "en": "Because the enemies left on their own",
+     "de": "Weil die Feinde von selbst weggingen"
+    },
+    {
+     "ru": "Потому что так решил Шаул",
+     "en": "Because Saul decided so",
+     "de": "Weil Schaul es so entschied"
+    }
+   ]
+  }
+ ]
+}
