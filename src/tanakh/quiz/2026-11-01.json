@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 9:3",
+   "q": {
+    "ru": "О чём услышали жители Гивона?",
+    "en": "What did the inhabitants of Gibeon hear about?",
+    "de": "Wovon hörten die Bewohner von Giwon?"
+   },
+   "o": [
+    {
+     "ru": "Что Йеґошуа сделал с Йерихо и Аем",
+     "en": "What Joshua had done to Jericho and Ai",
+     "de": "Was Jehoschua mit Jericho und Ai gemacht hatte"
+    },
+    {
+     "ru": "Что Моше умер",
+     "en": "That Moshe had died",
+     "de": "Dass Mosche gestorben war"
+    },
+    {
+     "ru": "Что Израиль вернулся в Египет",
+     "en": "That Israel had returned to Egypt",
+     "de": "Dass Israel nach Ägypten zurückgekehrt war"
+    },
+    {
+     "ru": "Что пала стена Гивона",
+     "en": "That the wall of Gibeon had fallen",
+     "de": "Dass die Mauer von Giwon gefallen war"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 9:5",
+   "q": {
+    "ru": "Каким был хлеб, который принесли гивонитяне?",
+    "en": "What was the bread the Gibeonites brought like?",
+    "de": "Wie war das Brot, das die Giwoniter mitbrachten?"
+   },
+   "o": [
+    {
+     "ru": "Сухим и заплесневелым",
+     "en": "Dry and crumbly",
+     "de": "Trocken und schimmelig"
+    },
+    {
+     "ru": "Свежим и горячим",
+     "en": "Fresh and hot",
+     "de": "Frisch und warm"
+    },
+    {
+     "ru": "Это была маца",
+     "en": "It was matzah",
+     "de": "Es war Mazza"
+    },
+    {
+     "ru": "Хлеба у них не было",
+     "en": "They had no bread",
+     "de": "Sie hatten kein Brot"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 9:6",
+   "q": {
+    "ru": "Что гивонитяне сказали о себе в Гилгале?",
+    "en": "What did the Gibeonites say about themselves at Gilgal?",
+    "de": "Was sagten die Giwoniter in Gilgal über sich?"
+   },
+   "o": [
+    {
+     "ru": "Что пришли из далёкой страны",
+     "en": "That they came from a distant land",
+     "de": "Dass sie aus einem fernen Land kämen"
+    },
+    {
+     "ru": "Что они жители Йерихо",
+     "en": "That they were from Jericho",
+     "de": "Dass sie aus Jericho seien"
+    },
+    {
+     "ru": "Что они потомки Моше",
+     "en": "That they were descendants of Moshe",
+     "de": "Dass sie Nachkommen von Mosche seien"
+    },
+    {
+     "ru": "Что их послал царь Египта",
+     "en": "That the king of Egypt had sent them",
+     "de": "Dass der König von Ägypten sie geschickt habe"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 9:10",
+   "q": {
+    "ru": "О каких двух царях за Ярденом упомянули гивонитяне?",
+    "en": "Which two kings across the Jordan did the Gibeonites mention?",
+    "de": "Welche zwei Könige jenseits des Jarden erwähnten die Giwoniter?"
+   },
+   "o": [
+    {
+     "ru": "Сихон и Ог",
+     "en": "Sihon and Og",
+     "de": "Sichon und Og"
+    },
+    {
+     "ru": "Адони-Цедек и Ґоґам",
+     "en": "Adoni-zedek and Hoham",
+     "de": "Adoni-Zedek und Hoham"
+    },
+    {
+     "ru": "Фараон и Амалек",
+     "en": "Pharaoh and Amalek",
+     "de": "Pharao und Amalek"
+    },
+    {
+     "ru": "Царь Йерихо и царь Ая",
+     "en": "The king of Jericho and the king of Ai",
+     "de": "Der König von Jericho und der König von Ai"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 16:1",
+   "q": {
+    "ru": "С какой просьбой начинается Теґилим 16?",
+    "en": "With what request does Psalm 16 open?",
+    "de": "Mit welcher Bitte beginnt Tehillim 16?"
+   },
+   "o": [
+    {
+     "ru": "Храни меня, Б-же, ведь я укрываюсь в Тебе",
+     "en": "Protect me, O G-d, for I seek refuge in You",
+     "de": "Behüte mich, G-tt, denn bei Dir suche ich Zuflucht"
+    },
+    {
+     "ru": "Дай мне богатство и долгую жизнь",
+     "en": "Give me wealth and long life",
+     "de": "Gib mir Reichtum und ein langes Leben"
+    },
+    {
+     "ru": "Накажи моих врагов сегодня",
+     "en": "Punish my enemies today",
+     "de": "Bestrafe heute meine Feinde"
+    },
+    {
+     "ru": "Построй Храм в мои дни",
+     "en": "Build the Temple in my days",
+     "de": "Bau das Heiligtum in meinen Tagen"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 16:5",
+   "q": {
+    "ru": "Кто, по словам Давида, его доля и чаша?",
+    "en": "Who, David says, is his share and portion?",
+    "de": "Wer ist nach Davids Worten sein Anteil und sein Becher?"
+   },
+   "o": [
+    {
+     "ru": "Г-сподь",
+     "en": "The L-rd",
+     "de": "Der Ewige"
+    },
+    {
+     "ru": "Его сыновья",
+     "en": "His sons",
+     "de": "Seine Söhne"
+    },
+    {
+     "ru": "Его войско",
+     "en": "His army",
+     "de": "Sein Heer"
+    },
+    {
+     "ru": "Земля Израиля",
+     "en": "The Land of Israel",
+     "de": "Das Land Israel"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 16:8",
+   "q": {
+    "ru": "Где, по словам Давида, всегда находится Г-сподь?",
+    "en": "Where, David says, is the L-rd always?",
+    "de": "Wo ist der Ewige nach Davids Worten immer?"
+   },
+   "o": [
+    {
+     "ru": "Перед ним, по правую руку",
+     "en": "Before him, at his right hand",
+     "de": "Vor ihm, zu seiner Rechten"
+    },
+    {
+     "ru": "Далеко на небесах",
+     "en": "Far away in heaven",
+     "de": "Weit weg im Himmel"
+    },
+    {
+     "ru": "Только в Храме",
+     "en": "Only in the Temple",
+     "de": "Nur im Heiligtum"
+    },
+    {
+     "ru": "Позади него",
+     "en": "Behind him",
+     "de": "Hinter ihm"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 16:11",
+   "q": {
+    "ru": "Что Б-г укажет Давиду?",
+    "en": "What will G-d show David?",
+    "de": "Was wird G-tt David zeigen?"
+   },
+   "o": [
+    {
+     "ru": "Путь жизни",
+     "en": "The path of life",
+     "de": "Den Weg des Lebens"
+    },
+    {
+     "ru": "Дорогу в Египет",
+     "en": "The road to Egypt",
+     "de": "Den Weg nach Ägypten"
+    },
+    {
+     "ru": "Где спрятано сокровище",
+     "en": "Where a treasure is hidden",
+     "de": "Wo ein Schatz versteckt ist"
+    },
+    {
+     "ru": "День его смерти",
+     "en": "The day of his death",
+     "de": "Den Tag seines Todes"
+    }
+   ]
+  }
+ ]
+}
