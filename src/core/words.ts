@@ -219,6 +219,14 @@ export function coverage(day: DayWords[Section], known: WordStore): number {
 /** Следующие самые частые переведённые слова, которых нет в «Моих словах». */
 export const nextWords = (dict: Dict, s: WordStore, n = PER_DAY) => dict.words.filter((w) => dict.tr[w.id] && !inDeck(s, w.id)).slice(0, n);
 
+/** Words of «Мои слова» not learned yet («учу», boxes 1–2): due today first, then the rest by the day of their review. */
+export function unlearnedWords(dict: Dict, s: WordStore): string[] {
+  const due = new Set(dueWords(s));
+  return Object.keys(s)
+    .filter((id) => s[id][1] > 0 && s[id][1] < KNOWN_BOX && dict.tr[id] && dict.rank.has(id))
+    .sort((a, b) => Number(due.has(b)) - Number(due.has(a)) || s[a][2] - s[b][2] || dict.rank.get(a)! - dict.rank.get(b)!);
+}
+
 /** Сколько переведённых слов словаря игрок знает. */
 export const knownCount = (dict: Dict, known: WordStore) => Object.keys(dict.tr).filter((id) => isKnown(known, id)).length;
 

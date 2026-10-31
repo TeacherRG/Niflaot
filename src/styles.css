@@ -2905,3 +2905,10 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
   .dedication.line .ded-short{font-size:12px}
   .dedication.line .ded-name{font-size:15px}
 }
+/* the feed on the adults' home: «Гематрии | Мои слова» (HomeTicker in Catalog.tsx) */
+.a-tick-switch{display:inline-flex;gap:2px;padding:2px;border-radius:999px;background:var(--tchelet-bg);min-width:0}
+.a-tick-switch button{border:0;border-radius:999px;padding:5px 12px;background:transparent;color:var(--muted);font:600 15px/1.2 var(--f-body);cursor:pointer;white-space:nowrap}
+.a-tick-switch button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.a-tick-switch button:hover{color:var(--ink)}
+.a-tick-note{margin:6px 0 0;font-size:12.5px;line-height:1.35;color:var(--muted);text-align:center}
+.a-tick-due{color:var(--gold-deep);font-weight:600}

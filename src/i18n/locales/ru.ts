@@ -386,6 +386,8 @@ const ru = {
   'home.todayParsha': "Сегодня",
   'home.readingK': "Чтение",
   'home.gematria': "Гематрии",
+  'home.tickerChoose': "Что показывать в ленте",
+  'home.tickerNew': "Пока нечего повторять — вот самые частые новые слова. Нажмите, чтобы начать учить.",
   'calendar.title': "Календарь Шабата",
   'calendar.hebrewDay': "Еврейская дата",
   'calendar.city': "Время для города: {city}",

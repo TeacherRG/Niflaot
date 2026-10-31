@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useI18n } from '../i18n';
 import { Slogan } from './Slogan';
 import { LESSONS, LESSON_GROUPS, cardsOnly, type Lesson } from '../lessons';
@@ -19,6 +19,7 @@ import { Dedication } from './Dedication';
 import { ShabbatCalendar } from './ShabbatCalendar';
 import { NUMS, collectFacts, type Fact } from '../core/facts';
 import { displayNames } from '../core/names';
+import { loadDict, nextWords, today, unlearnedWords, useWordStore, type Dict, type WordLang } from '../core/words';
 
 /** «Гематрия дня» on the home screen: today's number, or the result when today's word is solved. */
 function DailyLink() {
@@ -93,7 +94,7 @@ function AdultsHome() {
             <span className="a-tile-he he">תְּהִלִּים</span>
           </a>
           <CoursesCard simple />
-          <GematriaTicker />
+          <HomeTicker />
         </div>
         <Dedication line />
       </main>
@@ -108,8 +109,124 @@ function AdultsHome() {
  * the animation moves it by one list); ⏸ stops it (moving content needs a pause — WCAG 2.2.2; on a phone there is no hover),
  * so does the mouse or focus; a tap opens the equality in «Знаете ли вы?» (#/facts/<id>); «reduce motion» — a still list.
  */
-function GematriaTicker() {
-  const { t, pick } = useI18n();
+type TickerKind = 'gematria' | 'words';
+const TICKER_KEY = 'niflaot:home-ticker';
+const readTicker = (): TickerKind => {
+  try {
+    return localStorage.getItem(TICKER_KEY) === 'words' ? 'words' : 'gematria';
+  } catch {
+    return 'gematria';
+  }
+};
+
+/**
+ * The running feed on the adults' home — the player chooses what runs in it (owner, 31.10.2026): «Гематрии» (the lessons'
+ * equalities) or «Мои слова» (the words of Tanakh the player is learning and hasn't learned yet). The choice —
+ * `niflaot:home-ticker`, only on this device.
+ */
+function HomeTicker() {
+  const { t } = useI18n();
+  const [kind, setKind] = useState<TickerKind>(readTicker);
+  const choose = (k: TickerKind) => {
+    setKind(k);
+    try {
+      localStorage.setItem(TICKER_KEY, k);
+    } catch {}
+  };
+  const head = (
+    <>
+      <h2 id="a-tick-h" className="sr-only">
+        {t(kind === 'words' ? 'words.mine' : 'home.gematria')}
+      </h2>
+      <div className="a-tick-switch" role="group" aria-label={t('home.tickerChoose')}>
+        {(['gematria', 'words'] as const).map((k) => (
+          <button key={k} type="button" aria-pressed={kind === k} onClick={() => choose(k)}>
+            {t(k === 'words' ? 'words.mine' : 'home.gematria')}
+          </button>
+        ))}
+      </div>
+    </>
+  );
+  return kind === 'words' ? <WordsTicker head={head} /> : <GematriaTicker head={head} />;
+}
+
+/** The head of a feed: the switch (or the title) and ⏸ / ▶. */
+function TickHead({ paused, setPaused, children }: { paused: boolean; setPaused: (f: (x: boolean) => boolean) => void; children: ReactNode }) {
+  const { t } = useI18n();
+  return (
+    <div className="a-tick-head">
+      {children}
+      <button type="button" className="a-tick-pause" onClick={() => setPaused((x) => !x)} aria-pressed={paused} aria-label={t(paused ? 'reading.resume' : 'reading.pause')} title={t(paused ? 'reading.resume' : 'reading.pause')}>
+        {paused ? '▶' : '❚❚'}
+      </button>
+    </div>
+  );
+}
+
+/**
+ * «Мои слова» as a feed: each word the player is learning — Hebrew, its translation (and «повторить сегодня»), running like
+ * the gematria; a tap opens «Мои слова» (#/words). Nothing to learn yet — the most frequent words not in «Мои слова»
+ * (a line says so). The dictionary is loaded only when this feed is chosen.
+ */
+const NEW_IN_TICKER = 20;
+const MIN_IN_LOOP = 8;
+function WordsTicker({ head }: { head: ReactNode }) {
+  const { t, locale } = useI18n();
+  const store = useWordStore();
+  const [dict, setDict] = useState<Dict | null>(null);
+  const [paused, setPaused] = useState(false);
+  useEffect(() => {
+    let live = true;
+    loadDict(locale as WordLang).then((d) => live && setDict(d), () => {});
+    return () => {
+      live = false;
+    };
+  }, [locale]);
+  const { ids, fresh } = useMemo(() => {
+    if (!dict) return { ids: [] as string[], fresh: false };
+    const mine = unlearnedWords(dict, store);
+    return mine.length ? { ids: mine, fresh: false } : { ids: nextWords(dict, store, NEW_IN_TICKER).map((w) => w.id), fresh: true };
+  }, [dict, store]);
+  const day = today();
+  // a short list — repeated, so the loop fills the window (the second copy below moves it by exactly one list)
+  const loop = ids.length ? Array.from({ length: Math.ceil(MIN_IN_LOOP / ids.length) }, () => ids).flat() : [];
+  const row = (id: string, copy: boolean, k: number) => {
+    const w = dict!.words[dict!.rank.get(id)! - 1];
+    const due = !fresh && store[id][2] <= day;
+    return (
+      <li key={`${copy ? 'b' : 'a'}${k}`} aria-hidden={copy || k >= ids.length || undefined}>
+        <a href="#/words" tabIndex={copy || k >= ids.length ? -1 : undefined}>
+          <span className="he" dir="rtl">
+            {w.he}
+          </span>
+          <span className="a-tick-g">
+            {dict!.tr[id]}
+            {due && <span className="a-tick-due"> · {t('words.statDue')}</span>}
+          </span>
+        </a>
+      </li>
+    );
+  };
+  return (
+    <section className={`a-tick${paused ? ' paused' : ''}`} aria-labelledby="a-tick-h">
+      <TickHead paused={paused} setPaused={setPaused}>
+        {head}
+      </TickHead>
+      {fresh && dict && <p className="a-tick-note">{t('home.tickerNew')}</p>}
+      <div className="a-tick-win">
+        {dict && ids.length > 0 && (
+          <ul style={{ animationDuration: `${loop.length * 4}s` }}>
+            {loop.map((id, k) => row(id, false, k))}
+            {loop.map((id, k) => row(id, true, k))}
+          </ul>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function GematriaTicker({ head }: { head: ReactNode }) {
+  const { pick } = useI18n();
   const [paused, setPaused] = useState(false);
   const facts = useMemo(() => collectFacts(LESSONS).filter((f): f is Extract<Fact, { kind: 'eq' }> => f.kind === 'eq'), []);
   if (!facts.length) return null;
@@ -143,14 +260,9 @@ function GematriaTicker() {
   };
   return (
     <section className={`a-tick${paused ? ' paused' : ''}`} aria-labelledby="a-tick-h">
-      <div className="a-tick-head">
-        <h2 id="a-tick-h">
-          <a href="#/facts">{t('home.gematria')}</a>
-        </h2>
-        <button type="button" className="a-tick-pause" onClick={() => setPaused((x) => !x)} aria-pressed={paused} aria-label={t(paused ? 'reading.resume' : 'reading.pause')} title={t(paused ? 'reading.resume' : 'reading.pause')}>
-          {paused ? '▶' : '❚❚'}
-        </button>
-      </div>
+      <TickHead paused={paused} setPaused={setPaused}>
+        {head}
+      </TickHead>
       <div className="a-tick-win">
         <ul style={{ animationDuration: `${facts.length * 4}s` }}>
           {facts.map((f) => row(f, false))}
