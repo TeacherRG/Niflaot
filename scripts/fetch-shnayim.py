@@ -6,7 +6,7 @@
     python3 scripts/fetch-shnayim.py [глава…]     # → public/reading/torah/shnayim-<глава>.json (по умолчанию — все из PARSHIOT)
 
 Тора — «Tanach with Ta'amei Hamikra» (tanach.us, Public Domain), Таргум — «Onkelos Genesis…» (toratemetfreeware.com, Public Domain),
-оба из открытой выгрузки Sefaria. Читается кери; Имена — как во всём проекте (clean из scripts/fetch-sources.py).
+оба из открытой выгрузки Sefaria. Читается кери; Имена — в полном написании, как на Sefaria (в Таргуме — יְיָ).
 Новая глава — строка в PARSHIOT: книга и границы семи отрывков (по Хумашу «Тора Менахем» / chabad.org).
 """
 import importlib.util, json, re, sys
@@ -59,10 +59,9 @@ def build(slug):
         b = marks[k + 1] if k == 6 else prev(torah['text'], marks[k + 1])
         vs = []
         for (r, m), (_, t) in zip(verses(torah['text'], a, b), verses(targum['text'], a, b)):
-            m = re.sub(r'\s*[({][פס][)}]\s*$', '', fs.clean(fr.qere(m), 'he'))  # знак открытого / закрытого раздела
-            t = re.sub(r'\s*\([^)]*\)', '', fs.clean(t, 'he'))  # «(נ״י …)», «(גי׳ …)» — пометки издания, чтецу не нужны
+            m = re.sub(r'\s*[({][פס][)}]\s*$', '', fs.clean(fr.qere(m), 'he', names=False))  # знак открытого / закрытого раздела
+            t = re.sub(r'\s*\([^)]*\)', '', fs.clean(t, 'he', names=False))  # «(נ״י …)», «(גי׳ …)» — пометки издания, чтецу не нужны
             t = re.sub(r'\s+', ' ', t).strip()
-            t = re.sub(r'(?<![א-ת])י[ְ]?יָ?(?![א-ת\u0591-\u05C7])', 'ה׳', t)  # Имя в Таргуме (יְיָ) — как во всём проекте
             t = t.rstrip(':׃') + '׃'
             assert m and t and not re.search(r'[\[\](){}<>]', m + t), r
             vs.append({'r': r, 'm': m, 't': t})

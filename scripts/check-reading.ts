@@ -1,6 +1,6 @@
 /**
  * «Святое чтение» (src/core/reading.ts): в public/reading/tehillim — все 150 глав, число слов совпадает с index.json,
- * читается кери (нет ктива в скобках), Имена — как во всём проекте (нет יהוה и אלהים).
+ * читается кери (нет ктива в скобках), Имена — в полном написании, как на Sefaria (нет замен проекта ה׳, אלקים).
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { ALIYOT, SHNAYIM, aliyahOfDay, shnayimParsha, type ShnayimText } from '../src/core/shnayim';
@@ -11,6 +11,8 @@ const torahDir = new URL('../public/reading/torah/', import.meta.url);
 const audioDir = new URL('../public/reading/Audio/', import.meta.url);
 const index = JSON.parse(readFileSync(new URL('index.json', dir), 'utf8'));
 const errors: string[] = [];
+// Имена в тексте Танаха — как на Sefaria (יְהוָה, אֱלֹהִים, в Таргуме — יְיָ); замены проекта — ошибка
+const SUBSTITUTED = /ה׳|(^|[^א-ת])[והבכלמש]*אלק(ים|יכם|יכן|ינו|יך|יו|יה|יהם|י)(?![א-ת])|צב-אות|אד-ני/;
 if (index.words.length !== CHAPTERS) errors.push(`index.json: ${index.words.length} глав вместо ${CHAPTERS}`);
 if (index.version?.license !== 'Public Domain') errors.push(`текст — не общественное достояние: ${index.version?.license}`);
 for (let c = 1; c <= CHAPTERS; c++) {
@@ -75,7 +77,7 @@ for (let c = 1; c <= CHAPTERS; c++) {
   v.forEach((s, i) => {
     const plain = stripTaamim(s).replace(/[ְ-ׇ]/g, '');
     if (/[[\]()]/.test(s)) errors.push(`${c}:${i + 1}: скобки (ктив / кери)`);
-    if (/יהוה|(^|[\s־])[והבכלמש]*אלהים/.test(plain)) errors.push(`${c}:${i + 1}: Имя не заменено`);
+    if (SUBSTITUTED.test(plain)) errors.push(`${c}:${i + 1}: Имя заменено — нужно полное написание, как на Sefaria`);
   });
 }
 const haazinu = JSON.parse(readFileSync(new URL('haazinu.json', torahDir), 'utf8')) as { chapter: number; source: string; v: string[] };
@@ -85,7 +87,7 @@ if (!/sefaria\.org\/Deuteronomy\.32/.test(haazinu.source ?? '')) errors.push('А
 haazinu.v.forEach((s, i) => {
   const plain = stripTaamim(s).replace(/[ְ-ׇ]/g, '');
   if (/[[\]()]/.test(s)) errors.push(`Аазину ${i + 1}: скобки (ктив / кери)`);
-  if (/יהוה|(^|[\s־])[והבכלמש]*אלהים/.test(plain)) errors.push(`Аазину ${i + 1}: Имя не заменено`);
+  if (SUBSTITUTED.test(plain)) errors.push(`Аазину ${i + 1}: Имя заменено — нужно полное написание, как на Sefaria`);
 });
 // «Шнаим микра»: у каждой главы — 7 отрывков стих за стихом, у стиха — Тора и Таргум, обе — общественное достояние, Имена
 let shnVerses = 0;
@@ -106,7 +108,7 @@ for (const p of SHNAYIM) {
         const plain = stripTaamim(s).replace(/[ְ-ׇ]/g, '');
         if (!plain.trim()) errors.push(`шнаим ${p} ${v.r}: пустой текст`);
         if (/[[\](){}<>]/.test(s)) errors.push(`шнаим ${p} ${v.r}: скобки или пометки издания`);
-        if (/יהוה|(^|[\s־])[והבכלמש]*אלהים|(^|\s)[ו]?ייי?(\s|׃|$)/.test(plain)) errors.push(`шнаим ${p} ${v.r}: Имя не заменено`);
+        if (SUBSTITUTED.test(plain)) errors.push(`шнаим ${p} ${v.r}: Имя заменено — нужно полное написание, как на Sefaria`);
       }
     }
   });

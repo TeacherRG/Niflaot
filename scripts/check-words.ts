@@ -181,6 +181,9 @@ for (const lang of ['ru', 'en', 'de'] as Lang[]) {
     ['רוּחַ', 'руах', 'ruach', 'ruach'],
     ['עָלָיו', 'алав', 'alav', 'alaw'],
     ['ה׳', 'Ашем', 'Hashem', 'Haschem'],
+    ['יְהוָה', 'Ашем', 'Hashem', 'Haschem'],
+    ['וַיהוָה', 'ва-Ашем', 'va-Hashem', 'wa-Haschem'],
+    ['אֱלֹהִים', 'элоким', 'elokim', 'elokim'],
   ];
   for (const [he, ...want] of READ)
     (['ru', 'en', 'de'] as const).forEach((l, i) => {

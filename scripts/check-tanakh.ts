@@ -89,6 +89,8 @@ for (const lang of LANGS) {
 }
 const ALLOWED = ['<b>', '</b>', '<small class="fn">', '</small>'];
 const badTags = (html: string) => (html.match(/<[^>]*>/g) ?? []).some((tg) => !ALLOWED.includes(tg));
+// Имена в иврите стиха — как на Sefaria; замены проекта (ה׳, אלקים, צב-אות, אד-ני) — ошибка
+const SUBSTITUTED = /ה׳|(^|[^א-ת])[והבכלמש]*אלק(ים|יכם|יכן|ינו|יך|יו|יה|יהם|י)(?![א-ת])|צב-אות|אד-ני/;
 // Имена — как в scripts/fetch-sources.py: Б-г, Г-сподь; G-d, L-rd; по-немецки G-tt, der Ewige (Herr — только «мой господин», אדני)
 const badName: Record<Lang, (s: string) => string[]> = {
   ru: (s) => (/(^|[^\p{L}-])(Бог|Господ|Бож)/u.test(s) ? ['Имена по-русски — Б-г, Г-сподь'] : []),
@@ -144,11 +146,13 @@ for (const f of files) {
       if (!v.he || !v.en) err(`${where}: нет иврита или английского`);
       if ('st' in v || 'intro' in v) err(`${where}: Штейнзальц (© Steinsaltz Center) на сайте не приводится`);
       const comms = [v.md, v.rashi].filter(Boolean) as Comm[];
-      const he = [v.he, ...comms.flatMap((x) => x.he ?? [])].join(' ');
+      const he = comms.flatMap((x) => x.he ?? []).join(' ');
       const en = [v.en, ...comms.flatMap((x) => x.en ?? [])].join(' ');
       // по словам: макаф разделяет слова («דִּי־הֲוָה» — не Имя)
       const plain = he.replace(/\u05BE/g, ' ').replace(/[\u0591-\u05C7]/g, '');
-      if (/(^|[^א-ת])[והבכלמש]*יהוה(?![א-ת])|(^|[^א-ת])[והבכלמש]?ה'(?![א-ת])/.test(plain)) err(`${where}: Имя не по правилам проекта (ה׳)`);
+      if (/(^|[^א-ת])[והבכלמש]*יהוה(?![א-ת])|(^|[^א-ת])[והבכלמש]?ה'(?![א-ת])/.test(plain)) err(`${where}: Имя в комментарии не по правилам проекта (ה׳)`);
+      // the verse itself — as on Sefaria: the Names in full spelling (יְהוָה, אֱלֹהִים), not the project's ה׳ / אלקים
+      if (SUBSTITUTED.test(` ${v.he.replace(/\u05BE/g, ' ').replace(/[\u0591-\u05C7\u200d]/g, '')} `)) err(`${where}: Имя в стихе заменено — нужно полное написание, как на Sefaria`);
       if (/\b(God|LORD|Lord)\b/.test(en)) err(`${where}: G-d / L-rd`);
       for (const x of comms) if (badTags(Object.values(x).flat().join(' '))) err(`${where}: в HTML комментария лишние теги`);
       // переводы проекта: как в src/tanakh/<язык>, и целиком
