@@ -8,7 +8,7 @@
 import { gematria, letters } from './gematria';
 import { asWord, letterStepError, plainWord } from './letterPuzzle';
 import { displayNames } from './names';
-import type { Lesson } from '../lessons/types';
+import type { Lesson, LessonText } from '../lessons/types';
 
 export type Take = 'first' | 'last' | 'all';
 
@@ -86,6 +86,24 @@ const stableId = (slug: string, s: string) => {
 export const hebrewParts = (f: Extract<Fact, { kind: 'eq' }>) =>
   [f.q, ...f.rest].filter((p) => !NUMS.test(p)).flatMap((p) => p.split(' + '));
 
+/** The words of `he` stand in `verse` as whole words (ויהיו in «ויהיו חיי שרה»). */
+function inVerse(he: string, verse: string) {
+  const w = verse.split(/[\s־]+/).map(plainWord).join(' ');
+  return ` ${w} `.includes(` ${he.split(/[\s־+]+/).filter(Boolean).map(plainWord).join(' ')} `);
+}
+
+/** The Memo pair with the same gematria (value and words) or the same letter hint. */
+function memoOf(l: Lesson, f: Fact): number | undefined {
+  const he = f.kind === 'eq' ? f.q : f.from;
+  const k = l.memo?.items.findIndex(
+    (it) =>
+      f.kind === 'eq'
+        ? it.gematria?.some((g) => g.v === f.v && key(g.a) === key(he))
+        : it.letters?.some((x) => key(x.from) === key(he)),
+  );
+  return k === undefined || k < 0 ? undefined : k;
+}
+
 /** The riddle whose equations or «Собери слово» steps contain the fact's words, if any. */
 function riddleOf(l: Lesson, f: Fact): number | undefined {
   const want = key(f.kind === 'eq' ? f.q.split(' + ')[0] : f.from);
@@ -130,7 +148,7 @@ export function collectFacts(lessons: Lesson[]): Fact[] {
     l.memo?.items.forEach((it, mi) => {
       // a number alone is a teaser only for the Torah words of the pair (not e.g. «תריג = 613»)
       for (const g of it.gematria ?? [])
-        if (gematria(g.a) === g.v && (!g.b || gematria(g.b) === g.v) && (g.b || g.a === it.verse)) addEq(g.a, answerParts(g.b ? [g.b] : [], g.v), g.v, { mi });
+        if (gematria(g.a) === g.v && (!g.b || gematria(g.b) === g.v) && (g.b || inVerse(g.a, it.verse))) addEq(g.a, answerParts(g.b ? [g.b] : [], g.v), g.v, { mi });
       for (const x of it.letters ?? []) addLt(x.from, x.take, x.word, { mi });
     });
     l.riddles.forEach((r, ri) => {
@@ -154,9 +172,39 @@ export function collectFacts(lessons: Lesson[]): Fact[] {
     }
         // a Memo pair is also explained in a riddle of the lesson: link there too
     for (const f of out.slice(first)) if (f.ri === undefined) f.ri = riddleOf(l, f);
+    // a riddle fact whose words are those of a Memo pair: the pair tells what it means
+    for (const f of out.slice(first)) if (f.mi === undefined) f.mi = memoOf(l, f);
   }
   return out;
 }
 
 /** The Hebrew strings of a fact that need a translation on the page. */
 export const factHebrew = (f: Fact) => (f.kind === 'eq' ? hebrewParts(f) : [f.from, f.word]);
+
+/** What a fact means, in the language of `text`: the Memo pair's explanation and lesson, else the riddle's conclusion. */
+export interface Meaning {
+  title?: string;
+  /** what the number / the hidden word tells (plain text, Hebrew is auto-styled) */
+  text?: string;
+  /** «Чему это учит?» */
+  moral?: string;
+}
+
+export function factMeaning(f: Fact, text: LessonText): Meaning {
+  const memo = f.mi !== undefined ? text.memo?.items[f.mi] : undefined;
+  if (memo) return { title: memo.title, text: memo.explain, moral: memo.moral };
+  if (f.ri === undefined) return {};
+  const r = text.riddles[f.ri];
+  if (!r) return {};
+  // the riddle's takeaway about these words: «ויהיו = 37 = 127 − 90: главные годы Сары — с рождения Ицхака»
+  const he = plainWord(f.kind === 'eq' ? f.q : f.from);
+  let best: string | undefined;
+  let score = 0;
+  for (const tk of r.takeaways ?? []) {
+    if (!plainWord(tk).includes(he) || !tk.includes(': ')) continue;
+    const sc = 1 + (f.kind === 'eq' && tk.includes(String(f.v)) ? 1 : 0) + (f.kind === 'lt' && plainWord(tk).includes(plainWord(f.word)) ? 1 : 0);
+    if (sc > score) [best, score] = [tk, sc];
+  }
+  const said = best?.slice(best.indexOf(': ') + 2).trim();
+  return { title: r.title, text: said && said[0].toLocaleUpperCase() + said.slice(1) };
+}
