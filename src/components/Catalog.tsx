@@ -456,7 +456,8 @@ function KidsHome() {
             <CoursesCard />
             <DailyLink />
             <TableLink />
-            <ShabbatCalendar />
+            {/* on the kids home only the Shabbat (the date is beside it, in WeekCountdown; the full calendar — in the top bar) */}
+            <ShabbatCalendar shabbatOnly />
             <WeekCountdown />
             <PhoneOffer />
           </div>

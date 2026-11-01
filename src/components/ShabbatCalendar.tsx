@@ -33,7 +33,7 @@ function shabbatTimes(now: Date, place: NonNullable<ReturnType<typeof placeOf>>,
 const plainHe = (iso: string) => hebrewDateText(iso).replace(/[\u0591-\u05C7]/g, '');
 
 /** Home-page calendar and local Shabbat times; location is the city associated with the device time zone. */
-export function ShabbatCalendar({ bare = false }: { bare?: boolean }) {
+export function ShabbatCalendar({ bare = false, shabbatOnly = false }: { bare?: boolean; shabbatOnly?: boolean }) {
   const { t, locale } = useI18n();
   const [now, setNow] = useState(() => new Date());
   useEffect(() => {
@@ -86,7 +86,7 @@ export function ShabbatCalendar({ bare = false }: { bare?: boolean }) {
     <section className={`shabbat-calendar${bare ? ' bare' : ''}`} aria-labelledby={bare ? undefined : 'shabbat-calendar-title'}>
       {!bare && <h2 id="shabbat-calendar-title">{t('calendar.title')}</h2>}
       <p className="shabbat-calendar-city">{t('calendar.city', { city })}</p>
-      {block(t('calendar.today'), dateFormatter.format(now), hebrewToday, [
+      {!shabbatOnly && block(t('calendar.today'), dateFormatter.format(now), hebrewToday, [
         ['calendar.sunrise', today.sunrise],
         ['calendar.sunset', today.sunset],
       ], evening ? t('calendar.evening') : undefined)}
