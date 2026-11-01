@@ -1136,6 +1136,7 @@ const en: Messages = {
   'words.reviewNone': "Everything is reviewed for today.",
   'words.reviewEmpty': "Nothing to review yet — mark words below or under the passage of the day.",
   'words.reviewTomorrow': "Tomorrow: {n} words.",
+  'words.reviewMore': "{n} more “known” words (waiting for review: {left})",
   'words.show': "Show the translation",
   'words.remember': "I remember",
   'words.forgot': "I forgot",

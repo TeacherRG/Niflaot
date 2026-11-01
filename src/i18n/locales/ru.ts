@@ -1157,6 +1157,7 @@ const ru = {
   'words.reviewNone': "На сегодня всё повторено.",
   'words.reviewEmpty': "Пока нечего повторять — отметьте слова ниже или под отрывком дня.",
   'words.reviewTomorrow': "Завтра — слов: {n}.",
+  'words.reviewMore': "Ещё {n} слов из «знаю» (ждут повторения: {left})",
   'words.show': "Показать перевод",
   'words.remember': "Помню",
   'words.forgot': "Не помню",

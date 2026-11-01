@@ -9,7 +9,7 @@ import { rangeLabel, type Section } from './tanakhCycle';
 import { isDone, type DoneStore } from './academy';
 import { readDoneStore } from './tanakhDone';
 import { allPassages, hsIsDone, hsLang, passageDate, passageMinutes, readHsDone, todayIndex } from './hemshech';
-import { dueWords, inDeck, isKnown, readWordStore } from './words';
+import { dueWords, inDeck, isKnown, readWordStore, todaysReview } from './words';
 import { bookRoadmap } from './milestones';
 import { civilDate } from './hebrewDate';
 import type { Course, CourseChoice } from './courses';
@@ -84,7 +84,7 @@ export function todayStudy(locale: string, choice: Pick<CourseChoice, 'pace' | '
     neviim: passage('neviim'),
     ketuvim: passage('ketuvim'),
     hs: p ? { id: p.id, title: p.title[hsLang(locale)], done: hsIsDone(readHsDone(), p.id), min: passageMinutes(p, hsLang(locale)) } : { starts: civilDate(passageDate(0), lang) },
-    words: { due: dueWords(s).length, known: ids.filter((id) => isKnown(s, id)).length, any: ids.some((id) => inDeck(s, id)) },
+    words: { due: todaysReview(s, dueWords(s)).ids.length, known: ids.filter((id) => isKnown(s, id)).length, any: ids.some((id) => inDeck(s, id)) },
     book: book && { name: book.book.name[lang], done: book.done, parts: book.days.length },
     plan,
   };

@@ -72,7 +72,7 @@ async function api(path: string, body: object) {
  */
 async function savePrefs(lang: Locale) {
   const c = await caches.open('niflaot-prefs');
-  await c.put(PREFS, new Response(JSON.stringify({ lang, mode: currentMode(), wordsDue: wordsDue(), anchor: saved()?.anchor }), { headers: { 'Content-Type': 'application/json' } }));
+  await c.put(PREFS, new Response(JSON.stringify({ lang, mode: currentMode(), wordsDue: wordsDue(), wordsKnownDue: wordsDue(true), anchor: saved()?.anchor }), { headers: { 'Content-Type': 'application/json' } }));
 }
 
 /**
@@ -80,12 +80,13 @@ async function savePrefs(lang: Locale) {
  * those already due on the day of the message and adds «Слова: повторить N» to the adults' message. Read straight
  * from localStorage (the words module and its dictionary stay out of this bundle).
  */
-function wordsDue(): number[] {
+function wordsDue(known = false): number[] {
   try {
     const raw = JSON.parse(localStorage.getItem('niflaot:words') ?? '{}') ?? {};
+    // «учу» (коробки 1–2) — `wordsDue`, «знаю» (3+) — `wordsKnownDue`: их в день не больше 25 (`DAILY_KNOWN` в words.ts)
     return Object.values(raw)
       .map(normWord)
-      .filter((e) => e[1] > 0)
+      .filter((e) => (known ? e[1] >= 3 : e[1] > 0 && e[1] < 3))
       .map((e) => e[2]);
   } catch {
     return [];
