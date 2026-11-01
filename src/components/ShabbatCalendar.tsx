@@ -61,8 +61,8 @@ export function ShabbatCalendar({ bare = false, shabbatOnly = false }: { bare?: 
   const dateFormatter = new Intl.DateTimeFormat(locale, { weekday: 'long', day: 'numeric', month: 'long', timeZone: zone });
   const city = place.name[locale as keyof typeof place.name] ?? place.name.en;
   const time = (d: Date | null) => (d ? timeFormatter.format(d) : t('calendar.noSun'));
-  const block = (title: string, date: string, he: string, rows: [Parameters<typeof t>[0], Date | null][], sub?: string) => (
-    <div className="shabbat-calendar-block">
+  const block = (kind: 'today' | 'shabbat', title: string, date: string, he: string, rows: [Parameters<typeof t>[0], Date | null][], sub?: string) => (
+    <div className={`shabbat-calendar-block ${kind}`}>
       <div className="shabbat-calendar-head">
         <h3>{title}</h3>
         <div className="shabbat-calendar-date">
@@ -86,11 +86,11 @@ export function ShabbatCalendar({ bare = false, shabbatOnly = false }: { bare?: 
     <section className={`shabbat-calendar${bare ? ' bare' : ''}`} aria-labelledby={bare ? undefined : 'shabbat-calendar-title'}>
       {!bare && <h2 id="shabbat-calendar-title">{t('calendar.title')}</h2>}
       <p className="shabbat-calendar-city">{t('calendar.city', { city })}</p>
-      {!shabbatOnly && block(t('calendar.today'), dateFormatter.format(now), hebrewToday, [
+      {!shabbatOnly && block('today', t('calendar.today'), dateFormatter.format(now), hebrewToday, [
         ['calendar.sunrise', today.sunrise],
         ['calendar.sunset', today.sunset],
       ], evening ? t('calendar.evening') : undefined)}
-      {block(t('calendar.shabbat'), dateFormatter.format(times.saturday), plainHe(dateIso(times.saturday)), [
+      {block('shabbat', t('calendar.shabbat'), dateFormatter.format(times.saturday), plainHe(dateIso(times.saturday)), [
         ['calendar.lighting', times.lighting],
         ['calendar.havdalah', times.havdalah],
       ])}
