@@ -1021,6 +1021,9 @@ p.calc .he{font-family:var(--f-he);font-size:1.2em;font-weight:700;color:var(--i
 .fact-a{background:var(--tc-soft);border-radius:8px;padding:10px 12px;display:grid;justify-items:center;gap:6px}
 .fact-ans{flex-direction:column;align-items:center;gap:4px}
 .fact-point{margin:0;font-weight:600;color:var(--ink);text-align:center;line-height:1.35}
+.fact-mean{margin:0;color:var(--ink);line-height:1.5;text-align:start;justify-self:stretch}
+.fact-moral{margin:0;line-height:1.45;text-align:start;justify-self:stretch;border-top:1px solid var(--line-soft);padding-top:6px}
+.fact-moral b{color:var(--tchelet-deep)}
 .fact-a b.num{font-family:var(--f-num);font-size:26px;color:var(--ok);line-height:1.3}
 .fact-show{justify-self:center}
 .fact-share{font-size:14px;padding:4px 10px}

@@ -638,7 +638,7 @@ const en: Messages = {
   'facts.qLt.all': "Do you know which word the same letters make",
   'facts.show': "Show the answer",
   'facts.where': "Where it is in the lesson: riddle {n}",
-  'facts.ask.eq': "What is its gematria?",
+  'facts.ask.eq': "What number is hidden here — and what does it mean?",
   'facts.ask.first': "Which word is in the first letters?",
   'facts.ask.last': "Which word is in the last letters?",
   'facts.ask.all': "Which word do the same letters make?",

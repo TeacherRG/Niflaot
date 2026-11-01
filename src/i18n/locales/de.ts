@@ -638,7 +638,7 @@ const de: Messages = {
   'facts.qLt.all': "Weißt du, welches Wort dieselben Buchstaben ergeben",
   'facts.show': "Antwort zeigen",
   'facts.where': "Wo es in der Lektion steht: Rätsel {n}",
-  'facts.ask.eq': "Wie viel ist die Gematria?",
+  'facts.ask.eq': "Welche Zahl steckt hier — und was bedeutet sie?",
   'facts.ask.first': "Welches Wort steckt in den Anfangsbuchstaben?",
   'facts.ask.last': "Welches Wort steckt in den Endbuchstaben?",
   'facts.ask.all': "Welches Wort ergeben dieselben Buchstaben?",
