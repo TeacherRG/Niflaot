@@ -4,7 +4,8 @@ import { renderFactCard, shareOrSave, type FactAnswerPart } from '../core/shareC
 import { useI18n } from '../i18n';
 import { LESSONS, lessonsByNearness } from '../lessons';
 import { TEACHERS, teacherOf } from '../lessons/teachers';
-import { NUMS, collectFacts, type Fact } from '../core/facts';
+import { NUMS, collectFacts, factMeaning, type Fact } from '../core/facts';
+import { HebrewRuns } from './Hebrew';
 import { displayNames } from '../core/names';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
@@ -42,10 +43,8 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
   const [card, setCard] = useState<'idle' | 'making' | 'saved'>('idle');
   const question = t(`facts.ask.${f.kind === 'eq' ? 'eq' : f.take}`);
   const he = f.kind === 'eq' ? f.q : f.from;
-  const memo = f.mi !== undefined ? text.memo?.items[f.mi] : undefined;
-  // one short line on what the answer means: what a bare number stands for, else the name of the comment
-  const bare = f.kind === 'eq' && f.rest.every((p) => NUMS.test(p));
-  const point = (bare && memo?.note) || memo?.title || (f.ri !== undefined ? text.riddles[f.ri].title : undefined);
+  // what the answer means — not just the number: the pair's explanation and «Чему это учит?» (owner, 01.11.2026)
+  const meaning = factMeaning(f, text);
   const why = f.ri !== undefined ? `${base}/read/${f.ri + 1}` : f.mi !== undefined ? `${base}/memo/${f.mi + 1}` : base;
 
   /** «Поделиться загадкой»: the riddle and its answer as a picture signed with the site; why it is so — behind the link. */
@@ -111,7 +110,17 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
               </span>
             )}
           </div>
-          {point && <p className="fact-point">{point}</p>}
+          {meaning.title && <p className="fact-point">{meaning.title}</p>}
+          {meaning.text && (
+            <p className="fact-mean">
+              <HebrewRuns text={meaning.text} />
+            </p>
+          )}
+          {meaning.moral && (
+            <p className="fact-moral">
+              <b>{meaning.moralLabel ?? t('memo.learn')}</b> <HebrewRuns text={meaning.moral} />
+            </p>
+          )}
         </div>
       ) : (
         <button className="btn fact-show" onClick={() => setOpen(true)}>
