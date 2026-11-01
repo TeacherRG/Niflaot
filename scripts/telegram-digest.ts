@@ -23,6 +23,7 @@ import { BOOKS, rangeLabel, type Section } from '../src/core/tanakhCycle';
 import { CYCLE } from '../src/core/tanakh';
 import { HEMSHECH } from '../src/core/hemshech';
 import { firstSentence, quoteSentence, quoteVerse, retell, weekDays, weekNigun, weekPassages, weekStart } from '../src/core/weekDigest';
+import { NIGUN_PUBLIC } from '../src/nigun/public';
 import { routeLink, SITE_URL } from '../src/core/site';
 import { miniAppLink } from '../src/core/telegram';
 import { civilDate } from '../src/core/hebrewDate';
@@ -128,8 +129,7 @@ function post(loc: Loc): string {
       ...sectionLines('neviim', '📖', loc),
       ...sectionLines('ketuvim', '📜', loc),
       ...hemshechLines(loc),
-      '',
-      `🎵 <b>${html(t(loc, 'digest.nigun'))}:</b> ${html(nigun.title[loc])} — ${html(routeLink(`nigun/${nigun.id}`, 'channel', loc))}`,
+      ...(NIGUN_PUBLIC ? ['', `🎵 <b>${html(t(loc, 'digest.nigun'))}:</b> ${html(nigun.title[loc])} — ${html(routeLink(`nigun/${nigun.id}`, 'channel', loc))}`] : []),
       '',
       `👉 ${html(t(loc, 'digest.post.all'))} ${html(routeLink(route, 'channel', loc))}`,
     ].join('\n');

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
 import { useMode } from '../core/mode';
-import { COURSES, toggleCourse, useCourses } from '../core/courses';
+import { shownCourses, toggleCourse, useCourses } from '../core/courses';
 import type { CourseRow } from '../core/myCourses';
 
 /** the bar: of the book being read (the Prophets, the Writings — a book is a step one sees), else of the whole course */
@@ -99,10 +99,10 @@ export function CoursesCard({ simple = false }: { simple?: boolean }) {
         </ul>
       )}
       {/* the others — one tap adds a course, without the account window; or open it first and look around */}
-      {c.length < COURSES.length && (
+      {c.length < shownCourses().length && (
         <div className="courses-more">
           <span>{t('courses.more')}</span>
-          {COURSES.filter((x) => !c.includes(x)).map((x) => (
+          {shownCourses().filter((x) => !c.includes(x)).map((x) => (
             <span key={x} className="courses-chip">
               <a href={COURSE_HREF[x]}>{t(`courses.${x}`)}</a>
               <button type="button" onClick={() => toggleCourse(mode, x, true)} aria-label={`${t('courses.add')}: ${t(`courses.${x}`)}`} title={t('courses.add')}>

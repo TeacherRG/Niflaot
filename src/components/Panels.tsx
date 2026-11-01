@@ -11,6 +11,7 @@ import { lessonGames } from './lessonGames';
 import { DailyReminder } from './DailyReminder';
 import { canInstall, install, subscribeInstall } from '../core/install';
 import { useToday } from '../core/useToday';
+import { isAdmin } from '../admin/github';
 
 /** Gematria step by step, sources and FAQ (with all the primary sources) load when «Как играть» opens. */
 const HelperContent = lazy(() => import('./Helper').then((m) => ({ default: m.HelperContent })));
@@ -118,6 +119,7 @@ export function Panels() {
   const installable = useSyncExternalStore(subscribeInstall, canInstall, () => false);
   const mode = useMode();
   const kids = mode === 'kids';
+  const admin = isAdmin();
   const { pace, years, startDate } = useCourses(mode);
   const today = useToday(locale, panel === 'menu', { pace, years, startDate });
   // at one's own pace (src/core/courses.ts) — the first passage not read, on its own day
@@ -287,10 +289,11 @@ export function Panels() {
             <>
               {link('#/reading', num('ת', true), t('reading.menuItem'))}
               {link('#/reading/haazinu', num('ש', true), t('reading.menuHaazinu'))}
-              {link('#/reading/shnayim', num('ת״א', true), t('reading.menuShnayim'), t('reading.menuShnayimSub'))}
+              {/* «Шнаим микра» и «Святая музыка» — пока только у администратора (владелец, 01.11.2026) */}
+              {admin && link('#/reading/shnayim', num('ת״א', true), t('reading.menuShnayim'), t('reading.menuShnayimSub'))}
             </>
           ))}
-          {link('#/nigun', <Icon name="music" />, t('nigun.title'), t('nigun.menuSub'))}
+          {admin && link('#/nigun', <Icon name="music" />, t('nigun.title'), t('nigun.menuSub'))}
           {/* «Курсы Академии» — the academy's own courses (owner, 27.10.2026): «Тайна Коэлета» so far */}
           {group(<Icon name="award" />, t('menu.courses'), t('menu.coursesSub'), starts('#/koelet'), (
             link('#/koelet', num('ק', true), t('koelet.title'), t('koelet.menuSub'))
