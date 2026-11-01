@@ -728,6 +728,8 @@ article.m-card{border-top:3px solid var(--gold-2)}
 .chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 12px;font-size:13.5px;text-align:start;transition:border-color .15s,color .15s}
 .chip:hover{border-color:var(--gold);color:var(--gold)}
 .ai-msg{max-width:92%;padding:10px 13px;border-radius:12px;line-height:1.55;font-size:15px;overflow-wrap:anywhere}
+/* a verse the AI teacher cites (src/core/citations.ts) — a link */
+.ai-cite{color:var(--tchelet);font-weight:600;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;white-space:nowrap}
 .ai-user{align-self:flex-end;background:var(--night);color:#fff;border-end-end-radius:4px;white-space:pre-wrap}
 .ai-bot{align-self:flex-start;background:var(--gold-soft);border:1px solid var(--gold-line);border-end-start-radius:4px}
 .ai-bot p{margin:0 0 8px}.ai-bot p:last-child,.ai-bot ul:last-child{margin-bottom:0}

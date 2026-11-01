@@ -18,9 +18,20 @@ import { BOOKS, oneYearCycle, restReason, track, SECTIONS, splitTrack, studyDays
 import cycleJson from '../src/tanakh/cycle.json';
 import { styleErrors } from './style-rules';
 import { tanakhLang, tanakhNarration } from '../src/core/tanakhNarration';
+import { dayOfVerse, resolveCite } from '../src/core/citations';
+import { CYCLE } from '../src/core/tanakh';
 
 const errors: string[] = [];
 const err = (m: string) => errors.push(m);
+
+// ссылки ИИ-учителя на стихи (src/core/citations.ts): каждая книга Пророков и Писаний по имени Sefaria — на сайт, Тора — на Sefaria
+for (const b of BOOKS) {
+  const c = resolveCite(`${b.sefaria} 1:1`, 'ru');
+  if (!c || c.href !== `#/verse/${b.slug}-1-1`) err(`citations: «${b.sefaria} 1:1» is not a link to the site`);
+  const last = b.verses.length;
+  if (!dayOfVerse(b.slug, last, b.verses[last - 1], CYCLE)) err(`citations: ${b.slug} ${last}:${b.verses[last - 1]} has no day in the cycle`);
+}
+if (!resolveCite('Genesis 12:1', 'en')?.external || resolveCite('Psalms 151:1', 'ru') || resolveCite('Berakhot 5a', 'ru')) err('citations: Torah → Sefaria; a verse that does not exist or a non-verse → plain text');
 
 const built = buildCycle();
 if (JSON.stringify(built.days) !== JSON.stringify(cycleJson.days) || built.end !== cycleJson.end)
