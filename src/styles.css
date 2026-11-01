@@ -728,6 +728,8 @@ article.m-card{border-top:3px solid var(--gold-2)}
 .chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 12px;font-size:13.5px;text-align:start;transition:border-color .15s,color .15s}
 .chip:hover{border-color:var(--gold);color:var(--gold)}
 .ai-msg{max-width:92%;padding:10px 13px;border-radius:12px;line-height:1.55;font-size:15px;overflow-wrap:anywhere}
+/* a verse the AI teacher cites (src/core/citations.ts) — a link */
+.ai-cite{color:var(--tchelet);font-weight:600;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;white-space:nowrap}
 .ai-user{align-self:flex-end;background:var(--night);color:#fff;border-end-end-radius:4px;white-space:pre-wrap}
 .ai-bot{align-self:flex-start;background:var(--gold-soft);border:1px solid var(--gold-line);border-end-start-radius:4px}
 .ai-bot p{margin:0 0 8px}.ai-bot p:last-child,.ai-bot ul:last-child{margin-bottom:0}
@@ -1794,6 +1796,38 @@ p.ln-hint .he{font-family:var(--f-he);font-size:18px;color:var(--ink)}
 .tk-st p.he{font-family:var(--f-he);font-size:18px;line-height:1.75;text-align:right}
 .tk-st b{font-weight:700;color:var(--ink)}
 .tk-st + .tk-st{margin-top:6px}
+/* «Мои закладки» (src/core/notes.ts): закладка и заметка справа над стихом, своя заметка под стихом */
+.tk-vtools{position:absolute;top:6px;inset-inline-end:0;display:flex;gap:2px}
+.tk-vbtn{display:inline-grid;place-items:center;width:34px;height:34px;border:0;border-radius:50%;background:none;color:var(--muted);cursor:pointer;opacity:.55}
+.tk-vbtn:hover,.tk-vbtn:focus-visible{opacity:1;background:var(--tchelet-soft);color:var(--tchelet)}
+.tk-vbtn.on{opacity:1;color:var(--gold-deep)}
+.tk-vbtn:disabled{cursor:wait;opacity:.3}
+.tk-vsaved{align-self:center;margin-inline-end:4px;padding:3px 8px;border-radius:999px;background:var(--ok-soft);color:var(--ok-deep);font-size:12px;white-space:nowrap}
+.tk-vbtn.on svg{fill:currentColor;fill-opacity:.25}
+.tk-verse.cols>.tk-vnote{grid-column:1/-1}
+.tk-vnote{display:block;width:100%;margin-top:10px;padding:8px 12px;border:1px solid var(--gold-line);border-inline-start:4px solid var(--gold);border-radius:10px;background:var(--gold-soft);color:var(--ink);text-align:start;font:inherit;cursor:pointer}
+.tk-vnote-head{display:block;margin-bottom:2px;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep)}
+.tk-vnote-text{display:block;font-size:15px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+.tk-vnote.edit{cursor:default}
+.tk-vnote textarea{display:block;width:100%;box-sizing:border-box;margin:4px 0 8px;padding:8px 10px;border:1px solid var(--gold-line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit;font-size:15px;line-height:1.5;resize:vertical}
+.tk-vnote-btns{display:flex;flex-wrap:wrap;gap:8px}
+.tk-vnote-del{margin-inline-start:auto}
+/* «Мои закладки» — страница #/bookmarks */
+.bm-filter{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.bm-chip{padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink-2);font:inherit;font-size:14px;cursor:pointer}
+.bm-chip.on{border-color:var(--tchelet);background:var(--tchelet-soft);color:var(--tchelet-deep);font-weight:600}
+.bm-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.bm-item{padding:12px 14px;border:1px solid var(--line-soft);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
+.bm-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.bm-ref{font-weight:700;color:var(--tchelet-deep);text-decoration:none}
+.bm-ref:hover{text-decoration:underline}
+.bm-ref .he{margin-inline-start:8px;font-family:var(--f-he);font-weight:400;color:var(--gold-deep)}
+.tk-verse{scroll-margin-top:84px}
+.bm-date{color:var(--muted);font-size:12px}
+.bm-text{margin:6px 0 0;font-size:15px;line-height:1.5;color:var(--ink-2)}
+.bm-note{margin:8px 0 0;padding:6px 10px;border-inline-start:3px solid var(--gold);background:var(--gold-soft);border-radius:6px;font-size:15px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+.bm-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bm-actions .btn{padding:4px 10px;font-size:13px}
 .tk-st-by small{font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
 .tk .fn{font-size:.78em;color:var(--muted)}
 .tk-sources{margin-top:18px;font-size:12.5px;color:var(--muted)}
@@ -2932,3 +2966,20 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .a-tick-switch button:hover{color:var(--ink)}
 .a-tick-note{margin:6px 0 0;font-size:12.5px;line-height:1.35;color:var(--muted);text-align:center}
 .a-tick-due{color:var(--gold-deep);font-weight:600}
+
+/* «Всё бесплатно» (#/free, FreePage.tsx) */
+.free{padding:16px 16px 8px}
+.free-head h1{margin:8px 0 6px;font-family:var(--f-display);font-size:36px;line-height:1.1}
+.free-lead{margin:0;font-size:17px;line-height:1.5;color:var(--ink-2)}
+.free-badges{display:inline-block;margin:12px 0 4px;padding:6px 12px;border-radius:999px;background:var(--ok-soft);color:var(--ok-deep);font-size:13px;font-weight:700}
+.free-grid{list-style:none;margin:18px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.free-card{position:relative;display:flex;flex-direction:column;gap:6px;height:100%;box-sizing:border-box;padding:14px 16px;border:1px solid var(--line-soft);border-radius:16px;background:var(--surface);box-shadow:var(--shadow);color:var(--ink);text-decoration:none}
+.free-card:hover{border-color:var(--tchelet-line)}
+.free-card b{font-size:17px;padding-inline-end:70px}
+.free-card span:not(.free-he){font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.free-card small{margin-top:auto;padding-top:4px;color:var(--tchelet);font-weight:600}
+.free-he{position:absolute;top:12px;right:14px;font-family:var(--f-he);font-size:18px;color:var(--gold-deep)}
+.free-why{margin:26px 0 8px;padding:16px 18px;border:1px solid var(--gold-line);border-radius:16px;background:var(--gold-soft)}
+.free-why h2{margin:0 0 6px;font-family:var(--f-display);font-size:24px}
+.free-why p{margin:0;line-height:1.55}
+.free-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px!important}

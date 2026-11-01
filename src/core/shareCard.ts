@@ -1,5 +1,6 @@
 import { displayNames } from './names';
 import { NIFLAOT_SEAL } from './partners';
+import qrcode from 'qrcode-generator';
 
 export interface CardData {
   /** e.g. "НИФЛАОТ · БЕРЕЙШИТ 5787" */
@@ -67,7 +68,7 @@ function drawTokens(ctx: CanvasRenderingContext2D, tokens: string[], y: number, 
 export async function renderCard(d: CardData): Promise<Blob> {
   await Promise.all(
     [`700 80px ${FONTS.he}`, `700 60px ${FONTS.display}`, `600 40px ${FONTS.num}`, `600 30px ${FONTS.body}`].map((f) =>
-      document.fonts.load(f).catch(() => undefined),
+      document.fonts.load(f, 'Aa Ая Ää אבְּ').catch(() => undefined),
     ),
   );
   const c = document.createElement('canvas');
@@ -109,7 +110,7 @@ export async function renderCard(d: CardData): Promise<Blob> {
   // ornament
   center('✦  ✦  ✦', 430, `400 28px ${FONTS.body}`, GOLD_DEEP);
 
-  center(d.found, 520, `italic 600 44px ${FONTS.display}`, MUTED);
+  center(d.found, 520, `italic 500 44px ${FONTS.display}`, MUTED);
 
   // highlighted equation
   const size = d.highlight.some((l) => l.join(' ').length > 22) ? 70 : 84;
@@ -121,7 +122,7 @@ export async function renderCard(d: CardData): Promise<Blob> {
   wrap(ctx, d.caption, W - 260).forEach((l, i) => center(l, capY + i * 48, `500 34px ${FONTS.body}`, '#E6E9F3'));
 
   center(d.score, H - 290, `600 38px ${FONTS.num}`, GOLD);
-  if (d.extra) center(d.extra, H - 225, `italic 600 38px ${FONTS.display}`, MUTED);
+  if (d.extra) center(d.extra, H - 225, `italic 500 38px ${FONTS.display}`, MUTED);
   center(d.site, H - 120, `700 34px ${FONTS.body}`, '#FFFFFF');
 
   return new Promise((resolve, reject) => c.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png'));
@@ -163,8 +164,8 @@ export interface FactCardData {
  */
 export async function renderFactCard(d: FactCardData): Promise<Blob> {
   await Promise.all(
-    [`700 100px ${FONTS.he}`, `italic 600 54px ${FONTS.display}`, `700 30px ${FONTS.body}`, `600 60px ${FONTS.num}`].map((f) =>
-      document.fonts.load(f).catch(() => undefined),
+    [`700 100px ${FONTS.he}`, `italic 500 54px ${FONTS.display}`, `700 30px ${FONTS.body}`, `600 60px ${FONTS.num}`].map((f) =>
+      document.fonts.load(f, 'Aa Ая Ää אבְּ').catch(() => undefined),
     ),
   );
   const c = document.createElement('canvas');
@@ -218,7 +219,7 @@ export async function renderFactCard(d: FactCardData): Promise<Blob> {
     };
     const he = (size: number) => `700 ${Math.round(size)}px ${FONTS.he}`;
     const body = (size: number) => `500 ${Math.round(size)}px ${FONTS.body}`;
-    if (!add(d.question, `italic 600 ${Math.round(52 * k)}px ${FONTS.display}`, '#E6E9F3', 64 * k)) return null;
+    if (!add(d.question, `italic 500 ${Math.round(52 * k)}px ${FONTS.display}`, '#E6E9F3', 64 * k)) return null;
     lines[lines.length - 1].h += 14 * k;
     // the Hebrew of the riddle; the «?» stays with its last word (never alone on a line)
     ctx.font = he(104 * k);
@@ -274,8 +275,145 @@ export async function renderFactCard(d: FactCardData): Promise<Blob> {
   // why — on the site; the signature
   center(d.why, H - 250, `600 36px ${FONTS.body}`, GOLD);
   center(d.site, H - 180, `700 44px ${FONTS.body}`, '#FFFFFF');
-  center(d.tagline, H - 124, `italic 600 34px ${FONTS.display}`, MUTED);
+  center(d.tagline, H - 124, `italic 500 34px ${FONTS.display}`, MUTED);
 
+  return new Promise((resolve, reject) => c.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png'));
+}
+
+export interface VerseCardData {
+  /** «Нифлаот · Пророки» */
+  eyebrow: string;
+  /** «Йеґошуа 1:8 · יהושע» */
+  source: string;
+  /** стих на иврите (может не быть — только перевод) */
+  hebrew?: string;
+  /** перевод стиха */
+  translation?: string;
+  /** подпись над QR-кодом: «Весь отрывок — с переводом и комментариями» */
+  cta: string;
+  /** ссылка на день цикла — QR-кодом на картинке */
+  link: string;
+  site: string;
+  tagline: string;
+}
+
+/**
+ * «Поделиться стихом» (Пророки и Писания, `VerseTools`): картинка 1080×1350 — стих на иврите и перевод (помещаются масштабом),
+ * внизу под чертой — QR-код на день цикла на сайте и адрес сайта (владелец, 01.11.2026: «не комментарий — ссылка на проект»).
+ */
+export async function renderVerseCard(d: VerseCardData): Promise<Blob> {
+  await Promise.all(
+    // with a sample of every script: a font's Cyrillic and Hebrew are separate files (unicode-range), loaded only on demand
+    [`700 64px ${FONTS.he}`, `italic 500 44px ${FONTS.display}`, `500 34px ${FONTS.body}`, `700 26px ${FONTS.body}`, `600 34px ${FONTS.body}`].map((f) =>
+      document.fonts.load(f, 'Aa Ая Ää אבְּ').catch(() => undefined),
+    ),
+  );
+  const c = document.createElement('canvas');
+  c.width = W;
+  c.height = H;
+  const ctx = c.getContext('2d')!;
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = INK;
+  ctx.fillRect(0, 0, W, H);
+  const glow = ctx.createRadialGradient(W / 2, H * 0.4, 40, W / 2, H * 0.4, 760);
+  glow.addColorStop(0, '#2E3870');
+  glow.addColorStop(1, 'rgba(20,26,51,0)');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = GOLD_DEEP;
+  ctx.lineWidth = 3;
+  ctx.strokeRect(48, 48, W - 96, H - 96);
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(64, 64, W - 128, H - 128);
+  const center = (text: string, y: number, font: string, color: string, dir: CanvasDirection = 'ltr') => {
+    ctx.font = font;
+    ctx.fillStyle = color;
+    ctx.direction = dir;
+    ctx.textAlign = 'center';
+    ctx.fillText(text, W / 2, y);
+    ctx.direction = 'ltr';
+  };
+  const maxW = W - 220;
+  ctx.letterSpacing = '6px';
+  center(d.eyebrow.toUpperCase(), 150, `700 26px ${FONTS.body}`, GOLD);
+  ctx.letterSpacing = '0px';
+  center(d.source, 206, `600 34px ${FONTS.body}`, '#FFFFFF');
+
+  type Line = { text: string; font: string; color: string; dir?: CanvasDirection; h: number };
+  const build = (k: number): Line[] | null => {
+    const lines: Line[] = [];
+    const add = (text: string, font: string, color: string, h: number, dir?: CanvasDirection) => {
+      ctx.font = font;
+      for (const l of wrap(ctx, text, maxW)) {
+        if (ctx.measureText(l).width > maxW) return false;
+        lines.push({ text: l, font, color, dir, h });
+      }
+      return true;
+    };
+    if (d.hebrew && !add(d.hebrew, `700 ${Math.round(70 * k)}px ${FONTS.he}`, '#FFFFFF', 98 * k, 'rtl')) return null;
+    if (d.hebrew && d.translation) lines.push({ text: '', font: '', color: '', h: 40 * k });
+    if (d.translation && !add(d.translation, `italic 500 ${Math.round(50 * k)}px ${FONTS.display}`, '#E6E9F3', 64 * k)) return null;
+    return lines;
+  };
+  // the verse between the header and the link block at the bottom
+  const TOP = 250;
+  const BOTTOM = H - 470;
+  const fits = (ls: Line[] | null) => !!ls && ls.reduce((a, l) => a + l.h, 0) <= BOTTOM - TOP;
+  let k = 1;
+  let lines = build(k);
+  while (!fits(lines) && k > 0.4) {
+    k -= 0.04;
+    lines = build(k);
+  }
+  const all = lines ?? [];
+  let y = TOP + (BOTTOM - TOP - all.reduce((a, l) => a + l.h, 0)) / 2;
+  for (const l of all) {
+    y += l.h;
+    if (l.text) center(l.text, y - l.h * 0.22, l.font, l.color, l.dir);
+  }
+
+  // «— Весь отрывок — с переводом и комментариями —», under it the QR code of the day on the site, the address, the tagline
+  const ruleY = H - 425;
+  const cta = d.cta.toUpperCase();
+  ctx.letterSpacing = '3px';
+  // a long caption (German) gets a smaller font, never wider than the frame
+  let size = 22;
+  ctx.font = `700 ${size}px ${FONTS.body}`;
+  while (ctx.measureText(cta).width > W - 200 && size > 14) ctx.font = `700 ${--size}px ${FONTS.body}`;
+  const ctaFont = ctx.font;
+  const cw = ctx.measureText(cta).width;
+  center(cta, ruleY + 8, ctaFont, GOLD);
+  ctx.letterSpacing = '0px';
+  // the short gold lines on both sides — only where they fit inside the frame
+  const room = (W - 160 - cw) / 2 - 24;
+  if (room > 30) {
+    const len = Math.min(110, room);
+    ctx.strokeStyle = GOLD_DEEP;
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(W / 2 - cw / 2 - 24 - len, ruleY);
+    ctx.lineTo(W / 2 - cw / 2 - 24, ruleY);
+    ctx.moveTo(W / 2 + cw / 2 + 24, ruleY);
+    ctx.lineTo(W / 2 + cw / 2 + 24 + len, ruleY);
+    ctx.stroke();
+  }
+  const qr = qrcode(0, 'M');
+  qr.addData(d.link);
+  qr.make();
+  const n = qr.getModuleCount();
+  const box = 190;
+  const cell = Math.floor((box - 24) / n);
+  const side = cell * n + 24;
+  const qx = Math.round(W / 2 - side / 2);
+  const qy = H - 390;
+  ctx.fillStyle = '#FFFFFF';
+  ctx.beginPath();
+  ctx.roundRect(qx, qy, side, side, 14);
+  ctx.fill();
+  ctx.fillStyle = '#000000';
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (qr.isDark(r, c)) ctx.fillRect(qx + 12 + c * cell, qy + 12 + r * cell, cell, cell);
+  center(d.site, H - 132, `700 44px ${FONTS.body}`, '#FFFFFF');
+  center(d.tagline, H - 84, `italic 500 30px ${FONTS.display}`, MUTED);
   return new Promise((resolve, reject) => c.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png'));
 }
 
@@ -297,7 +435,7 @@ export interface TextCardData {
 export async function renderTextCard(d: TextCardData): Promise<Blob> {
   await Promise.all(
     [`700 64px ${FONTS.display}`, `700 32px ${FONTS.body}`, `500 38px ${FONTS.body}`, `700 54px ${FONTS.he}`].map((f) =>
-      document.fonts.load(f).catch(() => undefined),
+      document.fonts.load(f, 'Aa Ая Ää אבְּ').catch(() => undefined),
     ),
   );
   const logo = await new Promise<HTMLImageElement | null>((resolve) => {

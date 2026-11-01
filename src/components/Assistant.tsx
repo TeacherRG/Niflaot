@@ -5,6 +5,7 @@ import { ASSISTANT_URL, askAssistant, pageKind, subscribePageState, type ChatTur
 import { HebrewRuns } from './Hebrew';
 import { Icon, Sheet, useUI } from './ui';
 import { PageLoading } from './PageStates';
+import { resolveCite } from '../core/citations';
 
 /** The offline helper (with all the primary sources) loads when it is first opened, not with the site. */
 const Helper = lazy(() => import('./Helper').then((m) => ({ default: m.Helper })));
@@ -37,21 +38,43 @@ function forModel(turns: Turn[]): ChatTurn[] {
   return out;
 }
 
+/** «[[Joshua 1:8]]» — a source the teacher cites (src/core/citations.ts): a link to the verse; anything else stays text */
+function Cites({ text, locale }: { text: string; locale: string }) {
+  const { open } = useUI();
+  const parts = text.split(/(\[\[[^\]\n]{2,60}\]\])/g);
+  return (
+    <>
+      {parts.map((p, i) => {
+        const ref = p.startsWith('[[') && p.endsWith(']]') ? p.slice(2, -2) : null;
+        const c = ref ? resolveCite(ref, locale) : null;
+        if (ref && c)
+          return (
+            <a key={i} className="ai-cite" href={c.href} {...(c.external ? { target: '_blank', rel: 'noopener' } : { onClick: () => open(null) })}>
+              {c.label}
+            </a>
+          );
+        return <HebrewRuns key={i} text={ref ?? p} />;
+      })}
+    </>
+  );
+}
+
 /** **bold** inside a line; Hebrew runs are isolated so "ש = 300" keeps its order. */
-function inline(s: string): ReactNode[] {
+function inline(s: string, locale: string): ReactNode[] {
   return s.split(/(\*\*[^*]+\*\*)/g).map((p, i) =>
     p.startsWith('**') && p.endsWith('**') ? (
       <b key={i}>
-        <HebrewRuns text={p.slice(2, -2)} />
+        <Cites text={p.slice(2, -2)} locale={locale} />
       </b>
     ) : (
-      <HebrewRuns key={i} text={p} />
+      <Cites key={i} text={p} locale={locale} />
     ),
   );
 }
 
 /** Minimal, safe rendering of the assistant's plain-text answer: paragraphs, "-" lists and bold. */
 function Answer({ text }: { text: string }) {
+  const { locale } = useI18n();
   const blocks = text.trim().split(/\n{2,}/);
   return (
     <>
@@ -61,7 +84,7 @@ function Answer({ text }: { text: string }) {
           return (
             <ul key={i}>
               {lines.map((l, k) => (
-                <li key={k}>{inline(l.replace(/^\s*[-•*]\s/, ''))}</li>
+                <li key={k}>{inline(l.replace(/^\s*[-•*]\s/, ''), locale)}</li>
               ))}
             </ul>
           );
@@ -70,7 +93,7 @@ function Answer({ text }: { text: string }) {
             {lines.map((l, k) => (
               <Fragment key={k}>
                 {k > 0 && <br />}
-                {inline(l)}
+                {inline(l, locale)}
               </Fragment>
             ))}
           </p>

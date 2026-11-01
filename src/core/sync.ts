@@ -6,7 +6,7 @@
  */
 
 /** the synced localStorage keys: exact names, and `niflaot:lesson:<slug>` */
-export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:nigun', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:words', 'niflaot:torah-words', 'niflaot:torah-read', 'niflaot:lashon', 'niflaot:study-days', 'niflaot:mode', 'niflaot:courses', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
+export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:nigun', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:words', 'niflaot:notes', 'niflaot:torah-words', 'niflaot:torah-read', 'niflaot:lashon', 'niflaot:study-days', 'niflaot:mode', 'niflaot:courses', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
 export const LESSON_PREFIX = 'niflaot:lesson:';
 export const isSynced = (k: string) => SYNC_KEYS.includes(k) || k.startsWith(LESSON_PREFIX);
 
@@ -115,6 +115,18 @@ function mergeWords(a: string, b: string): string {
   return JSON.stringify(out);
 }
 
+/** «Мои закладки» (src/core/notes.ts): every verse from both; the same verse — the later change (an unmarked one stays, so the removal reaches the other device) */
+function mergeNotes(a: string, b: string): string {
+  const x = parse(a) ?? {};
+  const y = parse(b) ?? {};
+  const out: Record<string, unknown> = {};
+  for (const k of new Set([...Object.keys(x), ...Object.keys(y)])) {
+    const [p, q] = [x[k], y[k]];
+    out[k] = (Number(p?.t) || 0) >= (Number(q?.t) || 0) ? (p ?? q) : q;
+  }
+  return JSON.stringify(out);
+}
+
 /** «Святой язык — уроки» (src/core/lashon.ts): every item met, unit and day from both — the more reviews / points */
 function mergeCourse(a: string, b: string): string {
   const x = parse(a) ?? {};
@@ -149,6 +161,7 @@ export function mergeSnapshots(local: Snapshot, remote: Snapshot): Snapshot {
     else if (k === 'niflaot:tanakh-quiz' || k === 'niflaot:hemshech' || k === 'niflaot:nigun') out[k] = mergeQuiz(a, b);
     else if (k === 'niflaot:torah-read') out[k] = mergeRead(a, b);
     else if (k === 'niflaot:words' || k === 'niflaot:torah-words') out[k] = mergeWords(a, b);
+    else if (k === 'niflaot:notes') out[k] = mergeNotes(a, b);
     else if (k === 'niflaot:study-days') out[k] = mergeStudy(a, b);
     else if (k === 'niflaot:lashon') out[k] = mergeCourse(a, b);
     else if (k === 'niflaot:tanakh-done' || k === 'niflaot:hemshech-done') out[k] = mergeDone(a, b);

@@ -44,6 +44,14 @@ const q = JSON.parse(qz['niflaot:tanakh-quiz'] ?? '{}');
 if (q['d1:neviim']?.best !== 3 || !q['d2:neviim'] || !q['d3:ketuvim']) err('sync: «Вопросы к отрывку» — a day or the better result is lost');
 const best = mergeSnapshots({ 'niflaot:lesson:a': JSON.stringify({ ...JSON.parse(lesson([0, 1], 20)), best: 40 }) }, { 'niflaot:lesson:a': lesson([0, 1, 2], 25) });
 if (JSON.parse(best['niflaot:lesson:a']).best !== 40 || JSON.parse(best['niflaot:lesson:a']).done.length !== 3) err('sync: a lesson\'s best earlier score is lost');
+// «Мои закладки»: every verse from both; the same verse — the later change (a removal reaches the other device)
+const nt = JSON.parse(
+  mergeSnapshots(
+    { 'niflaot:notes': JSON.stringify({ 'psalms 16:7': { t: 300, m: 1, n: 'почки', d: '2026-11-01', s: 'ketuvim', x: '' }, 'joshua 1:8': { t: 100, m: 1, n: '', d: '2026-10-11', s: 'neviim', x: '' } }) },
+    { 'niflaot:notes': JSON.stringify({ 'psalms 16:7': { t: 200, m: 0, n: '', d: '2026-11-01', s: 'ketuvim', x: '' }, 'joshua 1:8': { t: 400, m: 0, n: '', d: '2026-10-11', s: 'neviim', x: '' }, 'psalms 1:1': { t: 50, m: 1, n: '', d: '2026-10-11', s: 'ketuvim', x: '' } }) },
+  )['niflaot:notes'] ?? '{}',
+);
+if (nt['psalms 16:7']?.n !== 'почки' || nt['joshua 1:8']?.m !== 0 || !nt['psalms 1:1']) err('sync: «Мои закладки» — a verse, a note or a removal is lost');
 // «Мои слова»: the later change of a word wins; an early number entry (only «Знаю») reads as known (box 3) / removed (box 0)
 const wd = mergeSnapshots(
   { 'niflaot:words': JSON.stringify({ '1961': [200, 4, 30], '559': [100, 1, 10], '853': 150 }) },

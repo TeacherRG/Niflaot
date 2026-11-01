@@ -7,7 +7,7 @@
  *    JSON-LD with breadcrumbs, dates (git) and «free»; lesson titles say what people search for («гематрии недельной главы»);
  *  - «Святая музыка» dist/nigun/ (and en/de): the niggunim, their words and the source;
  *  - «Устный счёт», «Гематрия дня», «Знаете ли вы?» and «Буквы за 5 минут» for search engines: dist/mental-math/,
- *    dist/daily/, dist/facts/, dist/letters/, dist/hebrew-words/, dist/learn-hebrew/ (ru) and the same under dist/en/, dist/de/ — with hreflang alternates;
+ *    dist/daily/, dist/facts/, dist/letters/, dist/hebrew-words/, dist/learn-hebrew/, dist/free/ (ru) and the same under dist/en/, dist/de/ — with hreflang alternates;
  *    the app opens the trainer / the game / the feed / the letters on them;
  *  - web app manifests (install on the phone): dist/manifest.webmanifest (ru), manifest-en / manifest-de.webmanifest;
  *  - the service worker dist/sw.js (public/sw.js with this build's version and files to keep for offline use) and
@@ -30,6 +30,7 @@ import { NIGUNIM, NIGUN_PUBLIC } from '../src/nigun';
 import { torahWords } from '../src/core/torahWords';
 import { LESSONS, LESSON_GROUPS, type Lesson } from '../src/lessons';
 import { SITE_URL, staticPath, type StaticPage } from '../src/core/site';
+import { FREE_FEATURES } from '../src/core/freeFeatures';
 import { EXAMPLES, OPS, SIGN, answer, solve } from '../src/core/mentalMath';
 import { KEYBOARD, VALUES } from '../src/core/gematria';
 import { ALEPH_BET, FINAL_FORMS, LOOKALIKES, letterName, letterSound } from '../src/core/letterNames';
@@ -327,7 +328,7 @@ ${LESSON_GROUPS.map((g) => {
 <ul><li><a href="${page('neviim')}">${t('tanakh.neviim')}</a></li><li><a href="${page('ketuvim')}">${t('tanakh.ketuvim')}</a></li><li><a href="${page('hemshech')}">${t('hs.menuLbl')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li></ul>
 <p>${t('menu.torahRead')}: ${lessons.map((l) => `<a href="${root}#/${l.slug}/read">${esc(tx(l).title)}</a>`).join(' · ')}</p>
 <h2>${t('seo.more')}</h2>
-<ul><li><a href="${page('facts')}">${t('facts.title')}</a></li><li><a href="${page('daily')}">${t('daily.title')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li><li><a href="${page('letters')}">${t('abc.title')}</a></li><li><a href="${page('mental-math')}">${t('math.title')}</a></li>${NIGUN_PUBLIC ? `<li><a href="${page('nigun')}">${t('nigun.title')}</a></li>` : ''}<li><a href="${page('quiz')}">${t('lq.title')}</a></li></ul>
+<ul><li><a href="${page('facts')}">${t('facts.title')}</a></li><li><a href="${page('daily')}">${t('daily.title')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li><li><a href="${page('letters')}">${t('abc.title')}</a></li><li><a href="${page('mental-math')}">${t('math.title')}</a></li>${NIGUN_PUBLIC ? `<li><a href="${page('nigun')}">${t('nigun.title')}</a></li>` : ''}<li><a href="${page('quiz')}">${t('lq.title')}</a></li><li><a href="${page('free')}">${t('free.title')}</a></li></ul>
 ${others
   .map(
     (o) => `<h2 lang="${o}">${OTHER[o]}</h2><ul lang="${o}"><li><a href="${homeUrl(o)}">${esc(String({ ru, en, de }[o]['catalog.seoTitle']))}</a></li>${LESSONS.filter((l) => l.texts[o])
@@ -830,6 +831,45 @@ ${torah}</section>
   };
 }
 
+/**
+ * «Всё бесплатно» for search and sharing (`/free/`): what the academy gives without a subscription — the same list as the
+ * app's page `#/free` (src/core/freeFeatures.ts), each feature with a link into the app.
+ */
+function freePage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
+  const root = lang === 'ru' ? '../' : '../../';
+  const url = `${SITE_URL}${staticPath('free', lang)}`;
+  const title = s(ui, 'free.seoTitle');
+  const lead = s(ui, 'free.lead');
+  const items = FREE_FEATURES.map((f) => ({ f, h: s(ui, `free.${f.id}.h` as keyof Ui), p: s(ui, `free.${f.id}.p` as keyof Ui) }));
+  return {
+    title,
+    description: lead,
+    url,
+    type: 'website',
+    root,
+    lang,
+    alternates: alternatesOf('free'),
+    image: 'free',
+    imageAlt: s(ui, 'free.title'),
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        { '@type': 'WebPage', name: title, description: lead, url, inLanguage: lang, isAccessibleForFree: true, publisher: PUBLISHER, isPartOf: SITE },
+        {
+          '@type': 'ItemList',
+          name: s(ui, 'free.title'),
+          itemListElement: items.map((x, i) => ({ '@type': 'ListItem', position: i + 1, name: x.h, description: x.p, url: `${SITE_URL}/${x.f.href}` })),
+        },
+      ],
+    },
+    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'free.title'))}</p>
+<h1>${esc(s(ui, 'free.title'))}</h1><p>${esc(lead)}</p><p><b>${esc(s(ui, 'free.badges'))}</b></p></header>
+${items.map((x) => `<section><h2>${esc(x.h)} <span class="he">${x.f.he}</span></h2><p>${esc(x.p)}</p><p><a href="${root}${x.f.href}">${esc(s(ui, 'free.open'))} →</a></p></section>`).join('\n')}
+<section><h2>${esc(s(ui, 'free.whyH'))}</h2><p>${esc(s(ui, 'free.whyP'))}</p><p><a href="${root}">${esc(s(ui, 'free.start'))} →</a> · <a href="https://mychitas.app/donate">${esc(s(ui, 'free.donate'))}</a></p></section>
+</article>`,
+  };
+}
+
 /** the day of the build: what is already open (passages of «Хасидут», weeks of the quiz) */
 const today = new Date().toISOString().slice(0, 10);
 // «Викторина вместе»: the decks — the quiz server takes a deck from here, never from the host
@@ -1006,6 +1046,7 @@ const STATIC_OUT: [string, Page][] = LANGS.flatMap(({ lang, ui }) => [
   [staticPath('quiz', lang), quizPage(lang, ui)] as [string, Page],
   ...(NIGUN_PUBLIC ? [[staticPath('nigun', lang), nigunPage(lang, ui)] as [string, Page]] : []),
   [staticPath('learn-hebrew', lang), lashonPage(lang, ui)] as [string, Page],
+  [staticPath('free', lang), freePage(lang, ui)] as [string, Page],
 ]);
 // lastmod: pages that change every day (the passage of the day, the opened passages, the quiz sets of the week) — today;
 // the facts — from the lessons; the rest — when their texts or this script changed

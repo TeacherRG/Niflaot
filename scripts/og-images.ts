@@ -187,6 +187,16 @@ const shots: [string, string][] = [
     }),
   ],
   [
+    'free',
+    page({
+      eyebrow: 'Niflaot · a Torah academy',
+      he: 'חִנָּם',
+      title: 'All free',
+      sub: 'Tanakh, commentaries, Hebrew, an AI teacher — no subscription, no ads',
+      letters: ['ח', 'נ'],
+    }),
+  ],
+  [
     'hemshech',
     page({
       eyebrow: 'Niflaot · Chassidut',

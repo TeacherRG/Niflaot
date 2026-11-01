@@ -46,6 +46,9 @@ const LettersPage = page(() => import('./components/LettersPage'), 'LettersPage'
 const RebbePage = page(() => import('./components/RebbePage'), 'RebbePage');
 const TanakhPage = page(() => import('./components/TanakhPage'), 'TanakhPage');
 const WordsPage = page(() => import('./components/WordsPage'), 'WordsPage');
+const BookmarksPage = page(() => import('./components/BookmarksPage'), 'BookmarksPage');
+const VersePage = page(() => import('./components/VersePage'), 'VersePage');
+const FreePage = page(() => import('./components/FreePage'), 'FreePage');
 const TorahWordsPage = page(() => import('./components/TorahWordsPage'), 'TorahWordsPage');
 const LashonPage = page(() => import('./components/LashonPage'), 'LashonPage');
 const ReadingPage = page(() => import('./components/ReadingPage'), 'ReadingPage');
@@ -193,6 +196,12 @@ function Site() {
             <HemshechPage key={route} passage={view || undefined} />
           ) : slug === 'words' ? (
             <WordsPage />
+          ) : slug === 'bookmarks' && !view ? (
+            <BookmarksPage />
+          ) : slug === 'free' && !view ? (
+            <FreePage />
+          ) : slug === 'verse' && view && !variant ? (
+            <VersePage id={view} />
           ) : slug === 'lashon' ? (
             <LashonPage />
           ) : slug === 'reading' && view === 'shnayim' ? (
