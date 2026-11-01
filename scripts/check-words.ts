@@ -14,6 +14,7 @@ import { styleErrors } from './style-rules';
 import { LESSONS } from '../src/lessons';
 import { makeRound, torahWords, torahWordsCertificates } from '../src/core/torahWords';
 import { readHebrew } from '../src/core/translit';
+import { MERGED } from '../src/core/words';
 
 type Lang = 'ru' | 'en' | 'de';
 const errors: string[] = [];
@@ -71,6 +72,16 @@ for (const id of Object.keys(tr.ru)) {
 }
 
 const known = new Set(ids);
+// слитые номера (`MERGE`, `ARAM_MERGE` в scripts/fetch-words.py) — те же, что читает «Мои слова» (MERGED в src/core/words.ts):
+// старые отметки арамейского номера засчитываются ивритскому слову
+{
+  const py = readFileSync(new URL('./fetch-words.py', import.meta.url), 'utf8');
+  const pairs = (re: RegExp) => [...(py.match(re)?.[1] ?? '').matchAll(/'(\d+)': '(\d+)'/g)].map((m) => [m[1], m[2]]);
+  const want = Object.fromEntries([...pairs(/^MERGE = (\{[^}]*\})/m), ...pairs(/^ARAM_MERGE = (\{[\s\S]*?\n\})/m)]);
+  if (JSON.stringify(Object.entries(want).sort()) !== JSON.stringify(Object.entries(MERGED).sort()))
+    err('MERGED в src/core/words.ts не совпадает с MERGE + ARAM_MERGE в scripts/fetch-words.py');
+  for (const a of Object.keys(MERGED)) if (known.has(a)) err(`слитый номер ${a} остался в словаре`);
+}
 for (const [date] of cycleJson.days as [string, ...number[]][]) {
   const url = new URL(`../public/tanakh/words/${date}.json`, import.meta.url);
   if (!existsSync(url)) {
