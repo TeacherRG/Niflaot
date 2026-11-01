@@ -67,7 +67,7 @@ function drawTokens(ctx: CanvasRenderingContext2D, tokens: string[], y: number, 
 export async function renderCard(d: CardData): Promise<Blob> {
   await Promise.all(
     [`700 80px ${FONTS.he}`, `700 60px ${FONTS.display}`, `600 40px ${FONTS.num}`, `600 30px ${FONTS.body}`].map((f) =>
-      document.fonts.load(f).catch(() => undefined),
+      document.fonts.load(f, 'Aa Ая Ää אבְּ').catch(() => undefined),
     ),
   );
   const c = document.createElement('canvas');
@@ -109,7 +109,7 @@ export async function renderCard(d: CardData): Promise<Blob> {
   // ornament
   center('✦  ✦  ✦', 430, `400 28px ${FONTS.body}`, GOLD_DEEP);
 
-  center(d.found, 520, `italic 600 44px ${FONTS.display}`, MUTED);
+  center(d.found, 520, `italic 500 44px ${FONTS.display}`, MUTED);
 
   // highlighted equation
   const size = d.highlight.some((l) => l.join(' ').length > 22) ? 70 : 84;
@@ -121,7 +121,7 @@ export async function renderCard(d: CardData): Promise<Blob> {
   wrap(ctx, d.caption, W - 260).forEach((l, i) => center(l, capY + i * 48, `500 34px ${FONTS.body}`, '#E6E9F3'));
 
   center(d.score, H - 290, `600 38px ${FONTS.num}`, GOLD);
-  if (d.extra) center(d.extra, H - 225, `italic 600 38px ${FONTS.display}`, MUTED);
+  if (d.extra) center(d.extra, H - 225, `italic 500 38px ${FONTS.display}`, MUTED);
   center(d.site, H - 120, `700 34px ${FONTS.body}`, '#FFFFFF');
 
   return new Promise((resolve, reject) => c.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png'));
@@ -163,8 +163,8 @@ export interface FactCardData {
  */
 export async function renderFactCard(d: FactCardData): Promise<Blob> {
   await Promise.all(
-    [`700 100px ${FONTS.he}`, `italic 600 54px ${FONTS.display}`, `700 30px ${FONTS.body}`, `600 60px ${FONTS.num}`].map((f) =>
-      document.fonts.load(f).catch(() => undefined),
+    [`700 100px ${FONTS.he}`, `italic 500 54px ${FONTS.display}`, `700 30px ${FONTS.body}`, `600 60px ${FONTS.num}`].map((f) =>
+      document.fonts.load(f, 'Aa Ая Ää אבְּ').catch(() => undefined),
     ),
   );
   const c = document.createElement('canvas');
@@ -218,7 +218,7 @@ export async function renderFactCard(d: FactCardData): Promise<Blob> {
     };
     const he = (size: number) => `700 ${Math.round(size)}px ${FONTS.he}`;
     const body = (size: number) => `500 ${Math.round(size)}px ${FONTS.body}`;
-    if (!add(d.question, `italic 600 ${Math.round(52 * k)}px ${FONTS.display}`, '#E6E9F3', 64 * k)) return null;
+    if (!add(d.question, `italic 500 ${Math.round(52 * k)}px ${FONTS.display}`, '#E6E9F3', 64 * k)) return null;
     lines[lines.length - 1].h += 14 * k;
     // the Hebrew of the riddle; the «?» stays with its last word (never alone on a line)
     ctx.font = he(104 * k);
@@ -274,8 +274,130 @@ export async function renderFactCard(d: FactCardData): Promise<Blob> {
   // why — on the site; the signature
   center(d.why, H - 250, `600 36px ${FONTS.body}`, GOLD);
   center(d.site, H - 180, `700 44px ${FONTS.body}`, '#FFFFFF');
-  center(d.tagline, H - 124, `italic 600 34px ${FONTS.display}`, MUTED);
+  center(d.tagline, H - 124, `italic 500 34px ${FONTS.display}`, MUTED);
 
+  return new Promise((resolve, reject) => c.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png'));
+}
+
+export interface VerseCardData {
+  /** «Нифлаот · Пророки» */
+  eyebrow: string;
+  /** «Йеґошуа 1:8 · יהושע» */
+  source: string;
+  /** стих на иврите (может не быть — только перевод) */
+  hebrew?: string;
+  /** перевод стиха */
+  translation?: string;
+  /** «Мецудат Давид» */
+  commentLabel?: string;
+  comment?: string;
+  site: string;
+  tagline: string;
+}
+
+/**
+ * «Поделиться стихом» (Пророки и Писания, `VerseTools`): картинка 1080×1350 — стих на иврите, перевод и под чертой
+ * объяснение Мецудат Давид; всё помещается масштабом, длинное объяснение сокращается по словам («…»).
+ */
+export async function renderVerseCard(d: VerseCardData): Promise<Blob> {
+  await Promise.all(
+    // with a sample of every script: a font's Cyrillic and Hebrew are separate files (unicode-range), loaded only on demand
+    [`700 64px ${FONTS.he}`, `italic 500 44px ${FONTS.display}`, `500 34px ${FONTS.body}`, `700 26px ${FONTS.body}`, `600 34px ${FONTS.body}`].map((f) =>
+      document.fonts.load(f, 'Aa Ая Ää אבְּ').catch(() => undefined),
+    ),
+  );
+  const c = document.createElement('canvas');
+  c.width = W;
+  c.height = H;
+  const ctx = c.getContext('2d')!;
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = INK;
+  ctx.fillRect(0, 0, W, H);
+  const glow = ctx.createRadialGradient(W / 2, H * 0.4, 40, W / 2, H * 0.4, 760);
+  glow.addColorStop(0, '#2E3870');
+  glow.addColorStop(1, 'rgba(20,26,51,0)');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = GOLD_DEEP;
+  ctx.lineWidth = 3;
+  ctx.strokeRect(48, 48, W - 96, H - 96);
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(64, 64, W - 128, H - 128);
+  const center = (text: string, y: number, font: string, color: string, dir: CanvasDirection = 'ltr') => {
+    ctx.font = font;
+    ctx.fillStyle = color;
+    ctx.direction = dir;
+    ctx.textAlign = 'center';
+    ctx.fillText(text, W / 2, y);
+    ctx.direction = 'ltr';
+  };
+  const maxW = W - 220;
+  ctx.letterSpacing = '6px';
+  center(d.eyebrow.toUpperCase(), 150, `700 26px ${FONTS.body}`, GOLD);
+  ctx.letterSpacing = '0px';
+  center(d.source, 206, `600 34px ${FONTS.body}`, '#FFFFFF');
+
+  type Line = { text: string; font: string; color: string; dir?: CanvasDirection; h: number; rule?: boolean };
+  const build = (k: number, comment: string): Line[] | null => {
+    const lines: Line[] = [];
+    const add = (text: string, font: string, color: string, h: number, dir?: CanvasDirection) => {
+      ctx.font = font;
+      for (const l of wrap(ctx, text, maxW)) {
+        if (ctx.measureText(l).width > maxW) return false;
+        lines.push({ text: l, font, color, dir, h });
+      }
+      return true;
+    };
+    if (d.hebrew && !add(d.hebrew, `700 ${Math.round(66 * k)}px ${FONTS.he}`, '#FFFFFF', 92 * k, 'rtl')) return null;
+    if (d.hebrew && d.translation) lines.push({ text: '', font: '', color: '', h: 36 * k });
+    if (d.translation && !add(d.translation, `italic 500 ${Math.round(46 * k)}px ${FONTS.display}`, '#E6E9F3', 60 * k)) return null;
+    if (comment && d.commentLabel) {
+      lines.push({ text: d.commentLabel.toUpperCase(), font: `700 ${Math.round(24 * k)}px ${FONTS.body}`, color: GOLD, h: 96 * k, rule: true });
+      if (!add(comment, `500 ${Math.round(32 * k)}px ${FONTS.body}`, MUTED, 46 * k)) return null;
+    }
+    return lines;
+  };
+  const TOP = 250;
+  const BOTTOM = H - 230;
+  const fits = (ls: Line[] | null) => !!ls && ls.reduce((a, l) => a + l.h, 0) <= BOTTOM - TOP;
+  let comment = (d.comment ?? '').trim();
+  let k = 1;
+  let lines = build(k, comment);
+  while (!fits(lines)) {
+    if (k > 0.62) k -= 0.04;
+    else if (comment) {
+      // the explanation is shortened word by word; at the smallest scale without it — only the verse
+      const words = comment.replace(/…$/, '').split(' ');
+      comment = words.length > 8 ? `${words.slice(0, Math.floor(words.length * 0.8)).join(' ')}…` : '';
+    } else if (k > 0.4) k -= 0.04;
+    else break;
+    lines = build(k, comment);
+  }
+  const all = lines ?? [];
+  let y = TOP + (BOTTOM - TOP - all.reduce((a, l) => a + l.h, 0)) / 2;
+  for (const l of all) {
+    y += l.h;
+    if (l.rule) {
+      const yy = y - l.h * 0.55;
+      ctx.font = l.font;
+      ctx.letterSpacing = '6px';
+      const w = ctx.measureText(l.text).width;
+      center(l.text, yy + 9, l.font, l.color);
+      ctx.letterSpacing = '0px';
+      ctx.strokeStyle = GOLD_DEEP;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(W / 2 - w / 2 - 150, yy);
+      ctx.lineTo(W / 2 - w / 2 - 24, yy);
+      ctx.moveTo(W / 2 + w / 2 + 24, yy);
+      ctx.lineTo(W / 2 + w / 2 + 150, yy);
+      ctx.stroke();
+      continue;
+    }
+    center(l.text, y - l.h * 0.22, l.font, l.color, l.dir);
+  }
+  center(d.site, H - 160, `700 44px ${FONTS.body}`, '#FFFFFF');
+  center(d.tagline, H - 106, `italic 500 34px ${FONTS.display}`, MUTED);
   return new Promise((resolve, reject) => c.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png'));
 }
 
@@ -297,7 +419,7 @@ export interface TextCardData {
 export async function renderTextCard(d: TextCardData): Promise<Blob> {
   await Promise.all(
     [`700 64px ${FONTS.display}`, `700 32px ${FONTS.body}`, `500 38px ${FONTS.body}`, `700 54px ${FONTS.he}`].map((f) =>
-      document.fonts.load(f).catch(() => undefined),
+      document.fonts.load(f, 'Aa Ая Ää אבְּ').catch(() => undefined),
     ),
   );
   const logo = await new Promise<HTMLImageElement | null>((resolve) => {

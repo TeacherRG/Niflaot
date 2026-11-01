@@ -1154,6 +1154,8 @@ const de: Messages = {
   'notes.delete': "Notiz löschen",
   'notes.menuSub': "Verse mit Lesezeichen und Notizen",
   'notes.menuCount': "Verse: {n}",
+  'notes.share': "Vers teilen",
+  'notes.shareSaved': "Bild gespeichert, Text kopiert",
   'words.show': "Übersetzung zeigen",
   'words.remember': "Weiß ich",
   'words.forgot': "Vergessen",

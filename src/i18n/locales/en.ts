@@ -1154,6 +1154,8 @@ const en: Messages = {
   'notes.delete': "Delete the note",
   'notes.menuSub': "verses with bookmarks and notes",
   'notes.menuCount': "verses: {n}",
+  'notes.share': "Share this verse",
+  'notes.shareSaved': "Image saved, text copied",
   'words.show': "Show the translation",
   'words.remember': "I remember",
   'words.forgot': "I forgot",

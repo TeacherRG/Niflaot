@@ -1799,6 +1799,8 @@ p.ln-hint .he{font-family:var(--f-he);font-size:18px;color:var(--ink)}
 .tk-vbtn{display:inline-grid;place-items:center;width:34px;height:34px;border:0;border-radius:50%;background:none;color:var(--muted);cursor:pointer;opacity:.55}
 .tk-vbtn:hover,.tk-vbtn:focus-visible{opacity:1;background:var(--tchelet-soft);color:var(--tchelet)}
 .tk-vbtn.on{opacity:1;color:var(--gold-deep)}
+.tk-vbtn:disabled{cursor:wait;opacity:.3}
+.tk-vsaved{align-self:center;margin-inline-end:4px;padding:3px 8px;border-radius:999px;background:var(--ok-soft);color:var(--ok-deep);font-size:12px;white-space:nowrap}
 .tk-vbtn.on svg{fill:currentColor;fill-opacity:.25}
 .tk-verse.cols>.tk-vnote{grid-column:1/-1}
 .tk-vnote{display:block;width:100%;margin-top:10px;padding:8px 12px;border:1px solid var(--gold-line);border-inline-start:4px solid var(--gold);border-radius:10px;background:var(--gold-soft);color:var(--ink);text-align:start;font:inherit;cursor:pointer}

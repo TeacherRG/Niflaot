@@ -1175,6 +1175,8 @@ const ru = {
   'notes.delete': "Удалить заметку",
   'notes.menuSub': "стихи с закладками и заметками",
   'notes.menuCount': "стихов: {n}",
+  'notes.share': "Поделиться стихом",
+  'notes.shareSaved': "Картинка сохранена, текст скопирован",
   'words.show': "Показать перевод",
   'words.remember': "Помню",
   'words.forgot': "Не помню",
