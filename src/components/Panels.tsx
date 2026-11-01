@@ -371,6 +371,10 @@ export function Panels() {
             <Icon name="info" />
             <span>{t('about.title')}</span>
           </button>
+          <a href="#/free" onClick={close} className="menu-item" aria-current={location.hash === '#/free' ? 'page' : undefined}>
+            <Icon name="spark" />
+            <span>{t('free.menu')}</span>
+          </a>
           <div className="menu-sep" />
           <a className="menu-item" href="https://mychitas.app/donate" target="_blank" rel="noopener">
             <Icon name="heart" />

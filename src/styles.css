@@ -2966,3 +2966,20 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .a-tick-switch button:hover{color:var(--ink)}
 .a-tick-note{margin:6px 0 0;font-size:12.5px;line-height:1.35;color:var(--muted);text-align:center}
 .a-tick-due{color:var(--gold-deep);font-weight:600}
+
+/* «Всё бесплатно» (#/free, FreePage.tsx) */
+.free{padding:16px 16px 8px}
+.free-head h1{margin:8px 0 6px;font-family:var(--f-display);font-size:36px;line-height:1.1}
+.free-lead{margin:0;font-size:17px;line-height:1.5;color:var(--ink-2)}
+.free-badges{display:inline-block;margin:12px 0 4px;padding:6px 12px;border-radius:999px;background:var(--ok-soft);color:var(--ok-deep);font-size:13px;font-weight:700}
+.free-grid{list-style:none;margin:18px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.free-card{position:relative;display:flex;flex-direction:column;gap:6px;height:100%;box-sizing:border-box;padding:14px 16px;border:1px solid var(--line-soft);border-radius:16px;background:var(--surface);box-shadow:var(--shadow);color:var(--ink);text-decoration:none}
+.free-card:hover{border-color:var(--tchelet-line)}
+.free-card b{font-size:17px;padding-inline-end:70px}
+.free-card span:not(.free-he){font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.free-card small{margin-top:auto;padding-top:4px;color:var(--tchelet);font-weight:600}
+.free-he{position:absolute;top:12px;right:14px;font-family:var(--f-he);font-size:18px;color:var(--gold-deep)}
+.free-why{margin:26px 0 8px;padding:16px 18px;border:1px solid var(--gold-line);border-radius:16px;background:var(--gold-soft)}
+.free-why h2{margin:0 0 6px;font-family:var(--f-display);font-size:24px}
+.free-why p{margin:0;line-height:1.55}
+.free-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px!important}
