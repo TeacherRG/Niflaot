@@ -3,7 +3,7 @@ import { useI18n } from '../i18n';
 import { NIFLAOT_LOGO } from '../core/partners';
 import { HEBREW_LEVELS, savedHebrewLevel, setHebrewLevel, type HebrewLevel } from '../core/hebrewLevel';
 import { setMode, useSavedMode, type Mode } from '../core/mode';
-import { COURSES, PACES, PLAN_YEARS, defaultCourses, savedCourses, setCourses, type Course, type Pace, type PlanYears } from '../core/courses';
+import { shownCourses, PACES, PLAN_YEARS, defaultCourses, savedCourses, setCourses, type Course, type Pace, type PlanYears } from '../core/courses';
 import { Colophon } from './Colophon';
 import { TopBar } from './TopBar';
 
@@ -101,7 +101,7 @@ export function ModePicker() {
         </h2>
         <p className="mode-sub">{t('courses.qSub')}</p>
         <div className="mode-courses" aria-labelledby="mode-q3">
-          {COURSES.map((c) => (
+          {shownCourses().map((c) => (
             <label key={c} className={`mode-course${courses.includes(c) ? ' on' : ''}`}>
               <span className="mode-course-label">
                 <b>{t(`courses.${c}`)}</b>

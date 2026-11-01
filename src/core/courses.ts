@@ -13,9 +13,13 @@
  */
 import { useEffect, useState } from 'react';
 import type { Mode } from './mode';
+import { isAdmin } from '../admin/github';
 
 export type Course = 'neviim' | 'ketuvim' | 'hemshech' | 'lashon' | 'nigun' | 'koelet';
 export const COURSES: Course[] = ['neviim', 'ketuvim', 'hemshech', 'lashon', 'nigun', 'koelet'];
+/** The courses offered to choose: «Святая музыка» (nigun) only in the admin's browser for now (owner, 01.11.2026). */
+export const shownCourses = (): Course[] => (isAdmin() ? COURSES : COURSES.filter((c) => c !== 'nigun'));
+const shown = (v: CourseChoice): CourseChoice => (isAdmin() ? v : { ...v, c: v.c.filter((c) => c !== 'nigun') });
 export type Pace = 'own' | 'cycle';
 export const PACES: Pace[] = ['own', 'cycle'];
 export type PlanYears = 1 | 3;
@@ -71,10 +75,10 @@ export function setCourses(choice: CourseChoice) {
 
 /** The courses in effect for this mode; every component using it re-renders when they change. */
 export function useCourses(mode: Mode): CourseChoice {
-  const [v, set] = useState(() => coursesOf(mode));
+  const [v, set] = useState(() => shown(coursesOf(mode)));
   useEffect(() => {
-    set(coursesOf(mode));
-    const on = () => set(coursesOf(mode));
+    set(shown(coursesOf(mode)));
+    const on = () => set(shown(coursesOf(mode)));
     window.addEventListener(EVENT, on);
     window.addEventListener('storage', on);
     return () => {

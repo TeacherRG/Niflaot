@@ -3,7 +3,7 @@ import { Html, useI18n } from '../i18n';
 import { MODES, savedMode, setMode, useMode } from '../core/mode';
 import { HEBREW_LEVELS, savedHebrewLevel, setHebrewLevel, useHebrewLevel } from '../core/hebrewLevel';
 import { BGS, SIZES, THEMES, setLook, useLook } from '../core/look';
-import { COURSES, PACES, PLAN_YEARS, coursesChosen, setCourses, useCourses } from '../core/courses';
+import { shownCourses, PACES, PLAN_YEARS, coursesChosen, setCourses, useCourses } from '../core/courses';
 import { BookProgress } from './BookProgress';
 import { DailyReminder } from './DailyReminder';
 import type { MessageKey } from '../i18n/locales/ru';
@@ -370,7 +370,7 @@ function CoursesPicker() {
       </summary>
       <p className="acc-courses-note">{t('courses.qSub')}</p>
       <div className="acc-modes" role="group" aria-labelledby="acc-courses">
-        {COURSES.map((x) => {
+        {shownCourses().map((x) => {
           const on = c.includes(x);
           return (
             <button key={x} role="checkbox" aria-checked={on} className={`acc-mode${on ? ' on' : ''}`} onClick={() => setCourses({ ...choice, c: on ? c.filter((y) => y !== x) : [...c, x] })}>

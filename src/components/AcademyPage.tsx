@@ -12,6 +12,7 @@ import { readScore, readStore } from '../core/readCheck';
 import { useMode } from '../core/mode';
 import { localToday, readingPlan } from '../core/tanakh';
 import { useCourses } from '../core/courses';
+import { isAdmin } from '../admin/github';
 import { readQuizStore, quizReady } from '../core/quiz';
 import { readDoneStore } from '../core/tanakhDone';
 import { readWordStore, wordsCertificates } from '../core/words';
@@ -135,7 +136,8 @@ export function useCertificates() {
     // children: «Знаток слов главы» — every word of a portion's lessons on three stars («Слова Торы», src/core/torahWords.ts)
     const torahWordsCerts = torahWordsCertificates(torahWords(LESSONS, 'ru'), readStars());
     // «Святая музыка»: «Знаток нигуна» — the karaoke game on points (src/core/nigunGame.ts)
-    const nigun = nigunCertificates(NIGUNIM, readNigunStore());
+    // only in the admin's browser for now (owner, 01.11.2026)
+    const nigun = isAdmin() ? nigunCertificates(NIGUNIM, readNigunStore()) : [];
     return { torah, tanakh, tracker, hemshech, hsTracker, words, torahWords: torahWordsCerts, nigun };
   }, [plan]);
 }
@@ -699,7 +701,7 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
         </section>
       );
     });
-  const facs = adults ? FACULTIES.adults : FACULTIES.kids;
+  const facs = (adults ? FACULTIES.adults : FACULTIES.kids).filter((f) => f !== 'nigun' || isAdmin());
   const certsOf = (f: FacultyId) =>
     f === 'lashon'
       ? adults
