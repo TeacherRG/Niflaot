@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 13:1",
+   "q": {
+    "ru": "Что Г-сподь сказал Йеґошуа, когда тот состарился?",
+    "en": "What did the L-rd tell Joshua when he grew old?",
+    "de": "Was sagte der Ewige zu Jehoschua, als er alt geworden war?"
+   },
+   "o": [
+    {
+     "ru": "Земли осталось очень много",
+     "en": "Very much of the land still remains",
+     "de": "Vom Land ist noch sehr viel übrig"
+    },
+    {
+     "ru": "Вся земля уже захвачена",
+     "en": "All the land is already conquered",
+     "de": "Das ganze Land ist schon erobert"
+    },
+    {
+     "ru": "Пора вернуться в Египет",
+     "en": "It is time to return to Egypt",
+     "de": "Es ist Zeit, nach Ägypten zurückzukehren"
+    },
+    {
+     "ru": "Надо построить Храм",
+     "en": "The Temple must be built",
+     "de": "Der Tempel muss gebaut werden"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 13:3",
+   "q": {
+    "ru": "Сколько правителей у филистимлян?",
+    "en": "How many lords did the Philistines have?",
+    "de": "Wie viele Fürsten hatten die Philister?"
+   },
+   "o": [
+    {
+     "ru": "Пять",
+     "en": "Five",
+     "de": "Fünf"
+    },
+    {
+     "ru": "Три",
+     "en": "Three",
+     "de": "Drei"
+    },
+    {
+     "ru": "Семь",
+     "en": "Seven",
+     "de": "Sieben"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 13:6",
+   "q": {
+    "ru": "Что Г-сподь велел Йеґошуа сделать с ещё не захваченной землёй?",
+    "en": "What did the L-rd tell Joshua to do with the land not yet taken?",
+    "de": "Was sollte Jehoschua mit dem noch nicht eroberten Land tun?"
+   },
+   "o": [
+    {
+     "ru": "Разделить её по жребию Израилю",
+     "en": "Apportion it by lot among Israel",
+     "de": "Es durch das Los an Israel verteilen"
+    },
+    {
+     "ru": "Оставить её народам",
+     "en": "Leave it to the nations",
+     "de": "Es den Völkern lassen"
+    },
+    {
+     "ru": "Захватить её за один день",
+     "en": "Conquer it in one day",
+     "de": "Es an einem Tag erobern"
+    },
+    {
+     "ru": "Продать её",
+     "en": "Sell it",
+     "de": "Es verkaufen"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 13:7",
+   "q": {
+    "ru": "Между кем Йеґошуа должен разделить землю?",
+    "en": "Among whom must Joshua divide the land?",
+    "de": "Unter wem soll Jehoschua das Land verteilen?"
+   },
+   "o": [
+    {
+     "ru": "Девятью коленами и половиной колена Менаше",
+     "en": "The nine tribes and the half-tribe of Manasseh",
+     "de": "Den neun Stämmen und dem halben Stamm Menasche"
+    },
+    {
+     "ru": "Двенадцатью коленами",
+     "en": "All twelve tribes",
+     "de": "Allen zwölf Stämmen"
+    },
+    {
+     "ru": "Коэнами и левитами",
+     "en": "The kohanim and the Levites",
+     "de": "Den Kohanim und den Lewiten"
+    },
+    {
+     "ru": "Реувеном и Гадом",
+     "en": "Reuben and Gad",
+     "de": "Reuwen und Gad"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 21:2",
+   "q": {
+    "ru": "Чему радуется царь?",
+    "en": "What does the king rejoice in?",
+    "de": "Worüber freut sich der König?"
+   },
+   "o": [
+    {
+     "ru": "Силе Г-спода",
+     "en": "The L-rd’s strength",
+     "de": "Über die Kraft des Ewigen"
+    },
+    {
+     "ru": "Своему богатству",
+     "en": "His wealth",
+     "de": "Über seinen Reichtum"
+    },
+    {
+     "ru": "Своему войску",
+     "en": "His army",
+     "de": "Über sein Heer"
+    },
+    {
+     "ru": "Своему дворцу",
+     "en": "His palace",
+     "de": "Über seinen Palast"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 21:4",
+   "q": {
+    "ru": "Что Г-сподь возлагает на голову царя?",
+    "en": "What has the L-rd set upon the king’s head?",
+    "de": "Was setzt der Ewige dem König auf den Kopf?"
+   },
+   "o": [
+    {
+     "ru": "Венец из чистого золота",
+     "en": "A crown of fine gold",
+     "de": "Eine Krone aus reinem Gold"
+    },
+    {
+     "ru": "Шлем из меди",
+     "en": "A helmet of bronze",
+     "de": "Einen Helm aus Kupfer"
+    },
+    {
+     "ru": "Масло помазания",
+     "en": "Anointing oil",
+     "de": "Salböl"
+    },
+    {
+     "ru": "Венок из цветов",
+     "en": "A wreath of flowers",
+     "de": "Einen Blumenkranz"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 21:5",
+   "q": {
+    "ru": "О чём царь просил Г-спода?",
+    "en": "What did the king ask the L-rd for?",
+    "de": "Worum bat der König den Ewigen?"
+   },
+   "o": [
+    {
+     "ru": "О жизни",
+     "en": "Life",
+     "de": "Um Leben"
+    },
+    {
+     "ru": "О богатстве",
+     "en": "Wealth",
+     "de": "Um Reichtum"
+    },
+    {
+     "ru": "О мести врагам",
+     "en": "Revenge on his enemies",
+     "de": "Um Rache an seinen Feinden"
+    },
+    {
+     "ru": "О новом дворце",
+     "en": "A new palace",
+     "de": "Um einen neuen Palast"
+    }
+   ]
+  }
+ ]
+}

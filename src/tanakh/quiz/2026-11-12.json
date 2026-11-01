@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 12:19",
+   "q": {
+    "ru": "Царь какого города назван в списке рядом с царём Мадона?",
+    "en": "Which king is listed next to the king of Madon?",
+    "de": "Welcher König steht in der Liste neben dem König von Madon?"
+   },
+   "o": [
+    {
+     "ru": "Царь Хацора",
+     "en": "The king of Hazor",
+     "de": "Der König von Chazor"
+    },
+    {
+     "ru": "Царь Йерихо",
+     "en": "The king of Jericho",
+     "de": "Der König von Jericho"
+    },
+    {
+     "ru": "Царь Цидона",
+     "en": "The king of Sidon",
+     "de": "Der König von Zidon"
+    },
+    {
+     "ru": "Царь Хешбона",
+     "en": "The king of Heshbon",
+     "de": "Der König von Cheschbon"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 12:22",
+   "q": {
+    "ru": "У какой горы был Йокнеам?",
+    "en": "Near which mountain was Jokneam?",
+    "de": "An welchem Berg lag Jokneam?"
+   },
+   "o": [
+    {
+     "ru": "У Кармеля",
+     "en": "The Carmel",
+     "de": "Am Karmel"
+    },
+    {
+     "ru": "У Хермона",
+     "en": "Hermon",
+     "de": "Am Chermon"
+    },
+    {
+     "ru": "У Сеира",
+     "en": "Seir",
+     "de": "Am Se’ir"
+    },
+    {
+     "ru": "У Писги",
+     "en": "Pisgah",
+     "de": "Am Pisga"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 12:24",
+   "q": {
+    "ru": "Сколько всего царей разбили Йеґошуа и сыны Израиля по эту сторону Ярдена?",
+    "en": "How many kings in all did Joshua and the Israelites defeat west of the Jordan?",
+    "de": "Wie viele Könige schlugen Jehoschua und die Kinder Israels diesseits des Jarden insgesamt?"
+   },
+   "o": [
+    {
+     "ru": "Тридцать одного",
+     "en": "Thirty-one",
+     "de": "Einunddreißig"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    },
+    {
+     "ru": "Семь",
+     "en": "Seven",
+     "de": "Sieben"
+    },
+    {
+     "ru": "Сорок",
+     "en": "Forty",
+     "de": "Vierzig"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 20:2",
+   "q": {
+    "ru": "Имя чьего Б-га укрепит царя?",
+    "en": "The name of whose G-d will keep the king safe?",
+    "de": "Der Name wessen G-ttes soll den König stark machen?"
+   },
+   "o": [
+    {
+     "ru": "Б-га Яакова",
+     "en": "The G-d of Yaakov",
+     "de": "Des G-ttes Jaakows"
+    },
+    {
+     "ru": "Б-га Моше",
+     "en": "The G-d of Moshe",
+     "de": "Des G-ttes Mosches"
+    },
+    {
+     "ru": "Б-га Шмуэля",
+     "en": "The G-d of Shmuel",
+     "de": "Des G-ttes Schmuels"
+    },
+    {
+     "ru": "Б-га Йоава",
+     "en": "The G-d of Joab",
+     "de": "Des G-ttes Joaws"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 20:3",
+   "q": {
+    "ru": "Откуда Г-сподь пошлёт помощь?",
+    "en": "From where will the L-rd send help?",
+    "de": "Woher wird der Ewige Hilfe schicken?"
+   },
+   "o": [
+    {
+     "ru": "Из святилища и из Циона",
+     "en": "From the sanctuary and from Zion",
+     "de": "Aus dem Heiligtum und aus Zion"
+    },
+    {
+     "ru": "Из Египта",
+     "en": "From Egypt",
+     "de": "Aus Ägypten"
+    },
+    {
+     "ru": "От соседних царей",
+     "en": "From the neighboring kings",
+     "de": "Von den Nachbarkönigen"
+    },
+    {
+     "ru": "Из пустыни",
+     "en": "From the desert",
+     "de": "Aus der Wüste"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 20:8",
+   "q": {
+    "ru": "На что полагаются «эти» и «те», а на что — мы?",
+    "en": "They call on chariots and horses — and on what do we call?",
+    "de": "Diese mit Wagen, jene mit Pferden — und was rufen wir an?"
+   },
+   "o": [
+    {
+     "ru": "На Имя Г-спода, нашего Б-га",
+     "en": "The name of the L-rd our G-d",
+     "de": "Den Namen des Ewigen, unseres G-ttes"
+    },
+    {
+     "ru": "На крепкие стены",
+     "en": "Strong walls",
+     "de": "Starke Mauern"
+    },
+    {
+     "ru": "На множество воинов",
+     "en": "Many soldiers",
+     "de": "Viele Krieger"
+    },
+    {
+     "ru": "На союзников",
+     "en": "Allies",
+     "de": "Verbündete"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 20:9",
+   "q": {
+    "ru": "Что случилось с теми, кто полагался на колесницы и коней?",
+    "en": "What happened to those who trusted in chariots and horses?",
+    "de": "Was geschah mit denen, die auf Wagen und Pferde vertrauten?"
+   },
+   "o": [
+    {
+     "ru": "Склонились и пали",
+     "en": "They collapsed and lay fallen",
+     "de": "Sie knickten ein und fielen"
+    },
+    {
+     "ru": "Победили",
+     "en": "They won",
+     "de": "Sie siegten"
+    },
+    {
+     "ru": "Убежали за море",
+     "en": "They fled across the sea",
+     "de": "Sie flohen über das Meer"
+    },
+    {
+     "ru": "Заключили мир",
+     "en": "They made peace",
+     "de": "Sie schlossen Frieden"
+    }
+   ]
+  }
+ ]
+}
