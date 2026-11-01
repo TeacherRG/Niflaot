@@ -1,5 +1,6 @@
 import { displayNames } from './names';
 import { NIFLAOT_SEAL } from './partners';
+import qrcode from 'qrcode-generator';
 
 export interface CardData {
   /** e.g. "НИФЛАОТ · БЕРЕЙШИТ 5787" */
@@ -288,16 +289,17 @@ export interface VerseCardData {
   hebrew?: string;
   /** перевод стиха */
   translation?: string;
-  /** «Мецудат Давид» */
-  commentLabel?: string;
-  comment?: string;
+  /** подпись над QR-кодом: «Весь отрывок — с переводом и комментариями» */
+  cta: string;
+  /** ссылка на день цикла — QR-кодом на картинке */
+  link: string;
   site: string;
   tagline: string;
 }
 
 /**
- * «Поделиться стихом» (Пророки и Писания, `VerseTools`): картинка 1080×1350 — стих на иврите, перевод и под чертой
- * объяснение Мецудат Давид; всё помещается масштабом, длинное объяснение сокращается по словам («…»).
+ * «Поделиться стихом» (Пророки и Писания, `VerseTools`): картинка 1080×1350 — стих на иврите и перевод (помещаются масштабом),
+ * внизу под чертой — QR-код на день цикла на сайте и адрес сайта (владелец, 01.11.2026: «не комментарий — ссылка на проект»).
  */
 export async function renderVerseCard(d: VerseCardData): Promise<Blob> {
   await Promise.all(
@@ -337,8 +339,8 @@ export async function renderVerseCard(d: VerseCardData): Promise<Blob> {
   ctx.letterSpacing = '0px';
   center(d.source, 206, `600 34px ${FONTS.body}`, '#FFFFFF');
 
-  type Line = { text: string; font: string; color: string; dir?: CanvasDirection; h: number; rule?: boolean };
-  const build = (k: number, comment: string): Line[] | null => {
+  type Line = { text: string; font: string; color: string; dir?: CanvasDirection; h: number };
+  const build = (k: number): Line[] | null => {
     const lines: Line[] = [];
     const add = (text: string, font: string, color: string, h: number, dir?: CanvasDirection) => {
       ctx.font = font;
@@ -348,56 +350,70 @@ export async function renderVerseCard(d: VerseCardData): Promise<Blob> {
       }
       return true;
     };
-    if (d.hebrew && !add(d.hebrew, `700 ${Math.round(66 * k)}px ${FONTS.he}`, '#FFFFFF', 92 * k, 'rtl')) return null;
-    if (d.hebrew && d.translation) lines.push({ text: '', font: '', color: '', h: 36 * k });
-    if (d.translation && !add(d.translation, `italic 500 ${Math.round(46 * k)}px ${FONTS.display}`, '#E6E9F3', 60 * k)) return null;
-    if (comment && d.commentLabel) {
-      lines.push({ text: d.commentLabel.toUpperCase(), font: `700 ${Math.round(24 * k)}px ${FONTS.body}`, color: GOLD, h: 96 * k, rule: true });
-      if (!add(comment, `500 ${Math.round(32 * k)}px ${FONTS.body}`, MUTED, 46 * k)) return null;
-    }
+    if (d.hebrew && !add(d.hebrew, `700 ${Math.round(70 * k)}px ${FONTS.he}`, '#FFFFFF', 98 * k, 'rtl')) return null;
+    if (d.hebrew && d.translation) lines.push({ text: '', font: '', color: '', h: 40 * k });
+    if (d.translation && !add(d.translation, `italic 500 ${Math.round(50 * k)}px ${FONTS.display}`, '#E6E9F3', 64 * k)) return null;
     return lines;
   };
+  // the verse between the header and the link block at the bottom
   const TOP = 250;
-  const BOTTOM = H - 230;
+  const BOTTOM = H - 470;
   const fits = (ls: Line[] | null) => !!ls && ls.reduce((a, l) => a + l.h, 0) <= BOTTOM - TOP;
-  let comment = (d.comment ?? '').trim();
   let k = 1;
-  let lines = build(k, comment);
-  while (!fits(lines)) {
-    if (k > 0.62) k -= 0.04;
-    else if (comment) {
-      // the explanation is shortened word by word; at the smallest scale without it — only the verse
-      const words = comment.replace(/…$/, '').split(' ');
-      comment = words.length > 8 ? `${words.slice(0, Math.floor(words.length * 0.8)).join(' ')}…` : '';
-    } else if (k > 0.4) k -= 0.04;
-    else break;
-    lines = build(k, comment);
+  let lines = build(k);
+  while (!fits(lines) && k > 0.4) {
+    k -= 0.04;
+    lines = build(k);
   }
   const all = lines ?? [];
   let y = TOP + (BOTTOM - TOP - all.reduce((a, l) => a + l.h, 0)) / 2;
   for (const l of all) {
     y += l.h;
-    if (l.rule) {
-      const yy = y - l.h * 0.55;
-      ctx.font = l.font;
-      ctx.letterSpacing = '6px';
-      const w = ctx.measureText(l.text).width;
-      center(l.text, yy + 9, l.font, l.color);
-      ctx.letterSpacing = '0px';
-      ctx.strokeStyle = GOLD_DEEP;
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.moveTo(W / 2 - w / 2 - 150, yy);
-      ctx.lineTo(W / 2 - w / 2 - 24, yy);
-      ctx.moveTo(W / 2 + w / 2 + 24, yy);
-      ctx.lineTo(W / 2 + w / 2 + 150, yy);
-      ctx.stroke();
-      continue;
-    }
-    center(l.text, y - l.h * 0.22, l.font, l.color, l.dir);
+    if (l.text) center(l.text, y - l.h * 0.22, l.font, l.color, l.dir);
   }
-  center(d.site, H - 160, `700 44px ${FONTS.body}`, '#FFFFFF');
-  center(d.tagline, H - 106, `italic 500 34px ${FONTS.display}`, MUTED);
+
+  // «— Весь отрывок — с переводом и комментариями —», under it the QR code of the day on the site, the address, the tagline
+  const ruleY = H - 425;
+  const cta = d.cta.toUpperCase();
+  ctx.letterSpacing = '3px';
+  // a long caption (German) gets a smaller font, never wider than the frame
+  let size = 22;
+  ctx.font = `700 ${size}px ${FONTS.body}`;
+  while (ctx.measureText(cta).width > W - 200 && size > 14) ctx.font = `700 ${--size}px ${FONTS.body}`;
+  const ctaFont = ctx.font;
+  const cw = ctx.measureText(cta).width;
+  center(cta, ruleY + 8, ctaFont, GOLD);
+  ctx.letterSpacing = '0px';
+  // the short gold lines on both sides — only where they fit inside the frame
+  const room = (W - 160 - cw) / 2 - 24;
+  if (room > 30) {
+    const len = Math.min(110, room);
+    ctx.strokeStyle = GOLD_DEEP;
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(W / 2 - cw / 2 - 24 - len, ruleY);
+    ctx.lineTo(W / 2 - cw / 2 - 24, ruleY);
+    ctx.moveTo(W / 2 + cw / 2 + 24, ruleY);
+    ctx.lineTo(W / 2 + cw / 2 + 24 + len, ruleY);
+    ctx.stroke();
+  }
+  const qr = qrcode(0, 'M');
+  qr.addData(d.link);
+  qr.make();
+  const n = qr.getModuleCount();
+  const box = 190;
+  const cell = Math.floor((box - 24) / n);
+  const side = cell * n + 24;
+  const qx = Math.round(W / 2 - side / 2);
+  const qy = H - 390;
+  ctx.fillStyle = '#FFFFFF';
+  ctx.beginPath();
+  ctx.roundRect(qx, qy, side, side, 14);
+  ctx.fill();
+  ctx.fillStyle = '#000000';
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (qr.isDark(r, c)) ctx.fillRect(qx + 12 + c * cell, qy + 12 + r * cell, cell, cell);
+  center(d.site, H - 132, `700 44px ${FONTS.body}`, '#FFFFFF');
+  center(d.tagline, H - 84, `italic 500 30px ${FONTS.display}`, MUTED);
   return new Promise((resolve, reject) => c.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png'));
 }
 

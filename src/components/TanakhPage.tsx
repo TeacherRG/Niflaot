@@ -198,14 +198,14 @@ const bookOf = (slug: string) => BOOKS.find((b) => b.slug === slug)!;
 const labelLang = (locale: string) => (locale === 'en' || locale === 'de' ? locale : 'ru');
 
 /**
- * «Поделиться стихом»: картинка (стих, перевод, Мецудат Давид) и текст со ссылкой на день — через «Отправить…» телефона;
+ * «Поделиться стихом»: картинка (стих, перевод, QR-код на день) и текст со ссылкой на день — через «Отправить…» телефона;
  * где делиться файлом нельзя (компьютер), картинка сохраняется, а текст копируется в буфер обмена. Код картинки
  * грузится только по нажатию.
  */
-async function shareVerse(d: import('../core/shareCard').VerseCardData & { file: string; link: string }): Promise<'shared' | 'saved'> {
+async function shareVerse(d: import('../core/shareCard').VerseCardData & { file: string }): Promise<'shared' | 'saved'> {
   const { renderVerseCard, shareOrSave } = await import('../core/shareCard');
   const blob = await renderVerseCard(d);
-  const text = [d.source, d.hebrew, d.translation, d.comment && d.commentLabel ? `${d.commentLabel}: ${d.comment}` : '', `👉 ${d.link}`].filter(Boolean).join('\n');
+  const text = [d.source, d.hebrew, d.translation, `${d.cta} 👉 ${d.link}`].filter(Boolean).join('\n');
   const r = await shareOrSave(blob, d.file, text);
   if (r === 'saved') await navigator.clipboard?.writeText(text).catch(() => undefined);
   return r;
@@ -295,23 +295,19 @@ function Verses({ verses, he, tr, md, rashi, parse, notes }: { verses: DayVerse[
                   vref={vref}
                   entry={store[key]}
                   onNote={() => setEditing(editing === key ? null : key)}
-                  onShare={() => {
-                    const own = tr ? v.md?.[tr] : undefined;
-                    const comment = own ? own.map((x) => x.replace(/<[^>]*>/g, '')).join(' ') : undefined;
-                    const ref = `${book.name[labelLang(locale)]} ${v.c}:${v.v}`;
-                    return shareVerse({
+                  onShare={() =>
+                    shareVerse({
                       eyebrow: `${t('app.title')} · ${t(`tanakh.${notes!.section}`)}`,
-                      source: `${ref} · ${book.he}`,
+                      source: `${book.name[labelLang(locale)]} ${v.c}:${v.v} · ${book.he}`,
                       hebrew: he ? v.he : undefined,
                       translation: text,
-                      commentLabel: t('tanakh.md'),
-                      comment,
+                      cta: t('notes.cardCta'),
                       site: SITE_HOST,
                       tagline: t('facts.cardTagline'),
                       file: `niflaot-${v.b}-${v.c}-${v.v}.png`,
                       link: routeLink(`${notes!.section}/${notes!.date}`, 'card', locale),
-                    });
-                  }}
+                    })
+                  }
                 />
               )}
               {he && (

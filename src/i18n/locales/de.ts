@@ -1156,6 +1156,7 @@ const de: Messages = {
   'notes.menuCount': "Verse: {n}",
   'notes.share': "Vers teilen",
   'notes.shareSaved': "Bild gespeichert, Text kopiert",
+  'notes.cardCta': "Der ganze Abschnitt — mit Übersetzung und Kommentaren",
   'free.title': "Alles kostenlos",
   'free.seoTitle': "Niflaot — Tanach, Kommentare, Hebräisch und KI-Lehrer kostenlos",
   'free.lead': "Niflaot ist eine Online-Tora-Akademie „von 8 bis 120“. Alles hier ist für alle offen: ohne Abo, ohne Werbung und ohne Anmeldung.",

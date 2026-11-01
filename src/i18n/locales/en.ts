@@ -1156,6 +1156,7 @@ const en: Messages = {
   'notes.menuCount': "verses: {n}",
   'notes.share': "Share this verse",
   'notes.shareSaved': "Image saved, text copied",
+  'notes.cardCta': "The whole passage — with translation and commentaries",
   'free.title': "All free",
   'free.seoTitle': "Niflaot — Tanakh, commentaries, Hebrew and an AI teacher for free",
   'free.lead': "Niflaot is an online Torah academy \"from 8 to 120\". Everything here is open to everyone: no subscription, no ads and no sign-up.",
