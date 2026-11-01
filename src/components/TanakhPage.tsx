@@ -18,6 +18,8 @@ import { loadDayWords, type DayWords } from '../core/words';
 import { setOtherPage } from '../core/assistant';
 import { tanakhContext } from '../core/assistantPages';
 import { useDone, useDoneStore } from '../core/tanakhDone';
+import { takeGoto, useNotes, verseKey, type VerseRef } from '../core/notes';
+import { VerseNoteBox, VerseTools } from './VerseNote';
 import { isDone } from '../core/academy';
 
 export const SECTION_HE: Record<Section, string> = { neviim: 'נביאים', ketuvim: 'כתובים' };
@@ -245,8 +247,11 @@ function Comm({ c, by, he, tr }: { c: Commentary; by: string; he: boolean; tr: T
  * The verses of one section of one day: a heading at each new chapter, then verse by verse with the chosen commentaries.
  * `parse` — the words of the verses parsed (public/tanakh/words/<date>.json): each Hebrew word opens WordPop.
  */
-function Verses({ verses, he, tr, md, rashi, parse }: { verses: DayVerse[]; he: boolean; tr: Tr | null; md: boolean; rashi: boolean; parse?: DayWords[Section]['v'] }) {
+function Verses({ verses, he, tr, md, rashi, parse, notes }: { verses: DayVerse[]; he: boolean; tr: Tr | null; md: boolean; rashi: boolean; parse?: DayWords[Section]['v']; notes?: { section: Section; date: string } }) {
   const { t, locale } = useI18n();
+  // «Мои закладки»: закладка и заметка у каждого стиха (только у раздела на экране, не у второго раздела для печати)
+  const store = useNotes();
+  const [editing, setEditing] = useState<string | null>(null);
   return (
     <>
       {verses.map((v, i) => {
@@ -254,6 +259,8 @@ function Verses({ verses, he, tr, md, rashi, parse }: { verses: DayVerse[]; he: 
         const book = bookOf(v.b);
         const newChapter = !prev || prev.b !== v.b || prev.c !== v.c;
         const text = tr ? nb(tr, v[tr]) : undefined;
+        const key = verseKey(v.b, v.c, v.v);
+        const vref: VerseRef | null = notes ? { key, date: notes.date, section: notes.section, text: text ?? v.en ?? '' } : null;
         return (
           <Fragment key={`${v.b}-${v.c}-${v.v}`}>
             {newChapter && (
@@ -268,6 +275,7 @@ function Verses({ verses, he, tr, md, rashi, parse }: { verses: DayVerse[]; he: 
               <span className="tk-num num" aria-label={`${v.c}:${v.v}`}>
                 {v.c}:{v.v}
               </span>
+              {vref && <VerseTools vref={vref} entry={store[key]} onNote={() => setEditing(editing === key ? null : key)} />}
               {he && (
                 <p className="tk-he he" lang="he" dir="rtl">
                   {parse ? <HeVerse text={v.he} parse={parse[`${v.b} ${v.c}:${v.v}`]} /> : v.he}
@@ -279,6 +287,7 @@ function Verses({ verses, he, tr, md, rashi, parse }: { verses: DayVerse[]; he: 
                   {tr === 'en' && v.enFrom && <small className="fn"> ({v.enFrom})</small>}
                 </p>
               )}
+              {vref && <VerseNoteBox key={`${key}-${editing === key}`} vref={vref} entry={store[key]} editing={editing === key} onDone={(edit) => setEditing(edit ? key : null)} />}
               {md && v.md && <Comm c={v.md} by={t('tanakh.md')} he={he} tr={tr} />}
               {rashi && v.rashi && <Comm c={v.rashi} by={t('tanakh.rashi')} he={he} tr={tr} />}
             </section>
@@ -446,6 +455,12 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
   const prev = cycle[index - 1];
   const next = cycle[index + 1];
   const sec = content?.[section];
+  // из «Моих закладок»: к стиху, когда текст дня загрузился
+  useEffect(() => {
+    if (!sec) return;
+    const id = takeGoto();
+    if (id) requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ block: 'start' }));
+  }, [sec]);
   // the project's translation is shown where the whole day is translated (both sections); otherwise English stands in, with a note
   const ready = (l: OwnLang) => !!content && (['neviim', 'ketuvim'] as const).every((s) => content[s].verses.every((v) => v[l]));
   const soon = { ru: !!content && !ready('ru'), de: !!content && !ready('de') };
@@ -533,7 +548,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
           ) : (
             <>
               {he && parsed?.[section].v && <p className="tk-hint no-print">{t('wp.hint')}</p>}
-              <Verses verses={sec.verses} he={he} tr={tr} md={view.md} rashi={view.rashi} parse={parsed?.[section].v} />
+              <Verses verses={sec.verses} he={he} tr={tr} md={view.md} rashi={view.rashi} parse={parsed?.[section].v} notes={{ section, date: day.date }} />
               {he && parsed?.[section].v && <WordPop />}
             </>
           )}
