@@ -14,11 +14,24 @@ import { styleErrors } from './style-rules';
 import { LESSONS } from '../src/lessons';
 import { makeRound, torahWords, torahWordsCertificates } from '../src/core/torahWords';
 import { readHebrew } from '../src/core/translit';
-import { MERGED } from '../src/core/words';
+import { DAILY_KNOWN, MERGED, todaysReview, type WordStore } from '../src/core/words';
 
 type Lang = 'ru' | 'en' | 'de';
 const errors: string[] = [];
 const err = (s: string) => errors.push(s);
+
+// повторение на сегодня: все «учу» и не больше DAILY_KNOWN «знаю» (сначала — ждущие дольше)
+{
+  const st: WordStore = {};
+  const due: string[] = [];
+  for (let i = 0; i < 300; i++) (st[`k${i}`] = [0, 3 + (i % 3), 100 + i]), due.push(`k${i}`);
+  for (let i = 0; i < 37; i++) (st[`l${i}`] = [0, 1 + (i % 2), 500]), due.push(`l${i}`);
+  const r = todaysReview(st, due, 600, 0);
+  if (r.ids.length !== 37 + DAILY_KNOWN || r.ids.filter((id) => id[0] === 'l').length !== 37 || r.ids.at(-1) !== `k${DAILY_KNOWN - 1}`)
+    err(`words: today's review — all learning words and ${DAILY_KNOWN} known (${r.ids.length})`);
+  if (r.more.length !== 300 - DAILY_KNOWN) err('words: the rest of the known words wait');
+  if (todaysReview(st, due, 600, DAILY_KNOWN).ids.length !== 37) err('words: the daily known portion is done — only learning words');
+}
 const read = (path: string) => JSON.parse(readFileSync(new URL(path, import.meta.url), 'utf8'));
 
 // Имена Всевышнего среди слов: номер Стронга → как писать (אֵל «к» и אַל «не» — не Имена, поэтому по номерам)

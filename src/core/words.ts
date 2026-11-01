@@ -144,6 +144,29 @@ export const dueWords = (s: WordStore, day = today()) =>
     .filter((id) => s[id][1] > 0 && s[id][2] <= day)
     .sort((a, b) => s[a][2] - s[b][2]);
 
+/**
+ * Повторение на сегодня (владелец, 01.11.2026: «повторять нужно слова „учу“ и следующие 20–30»): все «учу» (коробки 1–2),
+ * которые пора повторить, и не больше `DAILY_KNOWN` «знаю» за день (сначала — те, что ждут дольше); остальные «знаю»
+ * ждут следующих дней (их день повтора не меняется). Сколько «знаю» уже повторено сегодня — `niflaot:words-day`
+ * (только на устройстве). `more` — сколько «знаю» ещё ждёт сверх дневной порции (кнопка «Ещё»).
+ */
+export const DAILY_KNOWN = 25;
+const DAY_KEY = 'niflaot:words-day';
+export function knownReviewedToday(day = today()): number {
+  try {
+    const [d, n] = JSON.parse(localStorage.getItem(DAY_KEY) ?? '[]');
+    return d === day && typeof n === 'number' ? n : 0;
+  } catch {
+    return 0;
+  }
+}
+export function todaysReview(s: WordStore, due: string[], day = today(), reviewed = knownReviewedToday(day)) {
+  const learn = due.filter((id) => s[id][1] < KNOWN_BOX);
+  const known = due.filter((id) => s[id][1] >= KNOWN_BOX);
+  const n = Math.max(0, DAILY_KNOWN - reviewed);
+  return { ids: [...learn, ...known.slice(0, n)], more: known.slice(n) };
+}
+
 /** номера Стронга, слитые в словаре с другим (`MERGE` и `ARAM_MERGE` в scripts/fetch-words.py): יָלַךְ — это הָלַךְ;
  * арамейские номера слов, которые есть и в иврите (כֹּל, מֶלֶךְ, יוֹם…), — ивритский номер. Проверяет scripts/check-words.ts */
 export const MERGED: Record<string, string> = {
@@ -198,6 +221,12 @@ export const unmark = (id: string) => put(id, 0, 0);
 /** итог повторения слова: вспомнил — следующая коробка, нет — снова коробка 1, завтра */
 export function review(id: string, remembered: boolean) {
   const box = boxOf(readWordStore(), id);
+  if (box >= KNOWN_BOX) {
+    const day = today();
+    try {
+      localStorage.setItem(DAY_KEY, JSON.stringify([day, knownReviewedToday(day) + 1]));
+    } catch {}
+  }
   if (remembered) {
     const next = Math.min(box + 1, INTERVALS.length - 1);
     put(id, next, today() + INTERVALS[next]);

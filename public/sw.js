@@ -180,7 +180,9 @@ self.addEventListener('push', (e) => {
       const p = await prefs();
       const lang = ['ru', 'en', 'de'].includes(p.lang) ? p.lang : 'ru';
       const m = await todaysMessage(lang, p.mode);
-      const due = p.mode === 'adults' && Array.isArray(p.wordsDue) ? p.wordsDue.filter((d) => d <= dayNumber()).length : 0;
+      // «учу» — все, что пора; «знаю» — не больше 25 в день (DAILY_KNOWN в src/core/words.ts)
+      const dueOf = (a) => (Array.isArray(a) ? a.filter((d) => d <= dayNumber()).length : 0);
+      const due = p.mode === 'adults' ? dueOf(p.wordsDue) + Math.min(25, dueOf(p.wordsKnownDue)) : 0;
       const anchor = ANCHOR_LINE[lang][p.anchor];
       const body = due ? `${m.body}\n${(WORDS_LINE[lang] || WORDS_LINE.ru).replace('{n}', due)}` : m.body;
       await self.registration.showNotification(m.title, {

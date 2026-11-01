@@ -1136,6 +1136,7 @@ const de: Messages = {
   'words.reviewNone': "Für heute ist alles wiederholt.",
   'words.reviewEmpty': "Noch nichts zu wiederholen — markiere Wörter unten oder unter dem Abschnitt des Tages.",
   'words.reviewTomorrow': "Morgen: {n} Wörter.",
+  'words.reviewMore': "Noch {n} Wörter aus „Kenne ich“ (warten auf Wiederholung: {left})",
   'words.show': "Übersetzung zeigen",
   'words.remember': "Weiß ich",
   'words.forgot': "Vergessen",
