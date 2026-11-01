@@ -2232,6 +2232,10 @@ body:has(.k-home){background:var(--warm)}
 .shabbat-calendar-times dt{font-size:12px;color:var(--muted);line-height:1.25}
 .shabbat-calendar-times dd{margin:0;font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
 .shabbat-calendar-note{font-size:10px}
+.shabbat-calendar-city{margin:2px 0 0;color:var(--muted);font-size:12px}
+.shabbat-calendar-block{margin-top:12px}
+.shabbat-calendar-block h3{margin:0;font-family:var(--f-display);font-size:17px;line-height:1.2}
+.shabbat-calendar-date small{color:var(--muted);font-size:11px}
 .k-sec{display:grid;gap:12px}
 .k-sec h2{margin:0;font-family:var(--f-display);font-weight:700;font-size:26px;line-height:1.1}
 .k-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
@@ -2297,10 +2301,13 @@ body:has(.k-home){background:var(--warm)}
   .k-side .shabbat-calendar h2{font-size:15px}
   .k-side .shabbat-calendar-head p,.k-side .shabbat-calendar-date{font-size:10px}
   .k-side .shabbat-calendar-date .he{font-size:11px}
-  .k-side .shabbat-calendar-times{margin-top:5px;gap:4px 8px}
+  .k-side .shabbat-calendar-times{margin-top:5px;gap:4px 8px;grid-template-columns:1fr}
   .k-side .shabbat-calendar-times dt{font-size:10px}
   .k-side .shabbat-calendar-times dd{font-size:12px}
   .k-side .shabbat-calendar-note{font-size:9px}
+  .k-side .shabbat-calendar-block{margin-top:6px}
+  .k-side .shabbat-calendar-block h3{font-size:13px}
+  .k-side .shabbat-calendar-city{font-size:10px}
   .k-sec{gap:6px}
   .k-sec h2{font-size:17px}
   /* the tiles: a small picture beside the name, two at a time sideways */
