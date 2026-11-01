@@ -50,6 +50,7 @@
 | Отец множества народов — [/rebbe-lech-lecha/](https://niflaot.mychitas.app/rebbe-lech-lecha/) | Ребе | 11+ | Лех леха 5787 |
 | Бааль ґа-Турим: Вайера — [/baal-haturim-vayera/](https://niflaot.mychitas.app/baal-haturim-vayera/) | Бааль ґа-Турим | 8+ | Вайера 5787 |
 | Союз навечно — [/rebbe-vayera/](https://niflaot.mychitas.app/rebbe-vayera/) | Ребе | 11+ | Вайера 5787 |
+| Избран навечно — [/rebbe-chayei-sarah/](https://niflaot.mychitas.app/rebbe-chayei-sarah/) | Ребе | 11+ | Хаей Сара 5787 |
 
 Каждое число в уроках проверено кодом: гематрия, которая не сходится, в урок не попадает (а в тексте честно сказано,
 что она не сходится). Пересказ — без добавлений от имени автора, выводы проекта подписаны «Пояснение».

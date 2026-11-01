@@ -74,12 +74,14 @@ BOOK = {
     'II Samuel': ('Tanakh/Prophets/II Samuel/', 'Шмуэль II', 'Prophets'),
     'I Kings': ('Tanakh/Prophets/I Kings/', 'Млахим I', 'Prophets'),
     'II Kings': ('Tanakh/Prophets/II Kings/', 'Млахим II', 'Prophets'),
+    'I Samuel': ('Tanakh/Prophets/I Samuel/', 'Шмуэль I', 'Prophets'),
     'Isaiah': ('Tanakh/Prophets/Isaiah/', 'Йешаяґу', 'Prophets'),
     'Micah': ('Tanakh/Prophets/Micah/', 'Миха', 'Prophets'),
     'Psalms': ('Tanakh/Writings/Psalms/', 'Теґилим', 'Writings'),
     'Job': ('Tanakh/Writings/Job/', 'Иов', 'Writings'),
     'Proverbs': ('Tanakh/Writings/Proverbs/', 'Мишлей', 'Writings'),
     'Ecclesiastes': ('Tanakh/Writings/Ecclesiastes/', 'Коґелет', 'Writings'),
+    'Nehemiah': ('Tanakh/Writings/Nehemiah/', 'Нехемья', 'Writings'),
     'Berakhot': ('Talmud/Bavli/Seder Zeraim/Berakhot/', 'Брахот', 'Talmud'),
     'Shabbat': ('Talmud/Bavli/Seder Moed/Shabbat/', 'Шабат', 'Talmud'),
     'Yevamot': ('Talmud/Bavli/Seder Nashim/Yevamot/', 'Йевамот', 'Talmud'),
@@ -93,6 +95,7 @@ BOOK = {
     'Nedarim': ('Talmud/Bavli/Seder Nashim/Nedarim/', 'Недарим', 'Talmud'),
     'Bava Metzia': ('Talmud/Bavli/Seder Nezikin/Bava Metzia/', 'Бава Мециа', 'Talmud'),
     'Sanhedrin': ('Talmud/Bavli/Seder Nezikin/Sanhedrin/', 'Санедрин', 'Talmud'),
+    'Horayot': ('Talmud/Bavli/Seder Nezikin/Horayot/', 'Ґорайот', 'Talmud'),
     'Niddah': ('Talmud/Bavli/Seder Tahorot/Niddah/', 'Нида', 'Talmud'),
 }
 
@@ -103,6 +106,23 @@ def rabbah(book, ru, en, de, ch, p, de_file):
     return ('custom', f'{ru} {ch}:{p}', f'{en} {ch}:{p}', f'{de} {ch},{p}', f'{en} {ch}:{p}', 'Midrash',
             MR + f'{en}/Hebrew/merged.json', MR + f'{en}/English/The Sefaria Midrash Rabbah, 2022.json',
             (MR + f'{en}/English/{de_file}', [ch - 1, p - 1]), [ch - 1, p - 1])
+# Rambam, Mishneh Torah: one halacha (chapter ch, halacha h) — Hebrew Torat Emet (PD), English E. Touger (CC-BY-NC),
+# German — L. Mandelstamm (PD) where Sefaria has it, otherwise the project's own (src/sources/de.ts)
+MT = 'Halakhah/Mishneh Torah/'
+MT_TOUGER = 'Mishneh Torah, trans. by Eliyahu Touger. Jerusalem, Moznaim Pub. c1986-c2007.json'
+def rambam(folder, ru, en, de, ref, ch, h, de_file=None):
+    return ('custom', f'Рамбам, {ru} {ch}:{h}', f'Rambam, {en} {ch}:{h}', f'Rambam, {de} {ch},{h}', f'{ref} {ch}:{h}', 'Halakhah',
+            MT + folder + 'Hebrew/Torat Emet 363.json', MT + folder + 'English/' + MT_TOUGER,
+            (MT + folder + 'English/' + de_file, [ch - 1, h - 1]) if de_file else None, [ch - 1, h - 1])
+MT_KINGS = 'Sefer Shoftim/Mishneh Torah, Kings and Wars/'
+MT_KINGS_DE = 'Jad Haghasakkah, trans. by L. Mandelstamm. St. Petersburg, 1851. Corrected and edited by Igor Itkin - German [de].json'
+MT_VESSELS = 'Sefer Avodah/Mishneh Torah, Vessels of the Sanctuary and Those Who Serve Therein/'
+def kings(h):
+    return rambam(MT_KINGS, 'Законы царей', 'Laws of Kings', 'Gesetze der Könige', 'Mishneh Torah, Kings and Wars', 1, h, MT_KINGS_DE)
+def vessels(h):
+    return rambam(MT_VESSELS, 'Законы о сосудах Храма', 'Laws of the Vessels of the Sanctuary', 'Gesetze der Tempelgeräte',
+                  'Mishneh Torah, Vessels of the Sanctuary and Those Who Serve Therein', 1, h)
+
 BR_DE = 'Der Midrasch Bereschit Rabba. Zum ersten Male ins Deutsche übertragen von Dr. August Wünsche. Leipzig 1881 [de].json'
 SR_DE = 'Der Midrach Schemot Rabba. Zum ersten Male ins Deutsche übertragen von Dr. August Wünsche. Leipzig 1882 [de].json'
 
@@ -392,6 +412,35 @@ SOURCES = {
     'rashi-17-1': rashi(17, 1, 2),
     'yoma-28b': ('Yoma', '28b', 8, 8),
     'nedarim-32a': ('Nedarim', '32a', 17, 17),
+    # «Нифлаот Ребе» · Хаей Сара: «Да живёт царь Давид вовеки» (Ликутей сихот, т. 25, Хаей Сара 3)
+    'kings1-1-1': ('I Kings', 1, 1, 1),
+    'kings1-1-30': ('I Kings', 1, 30, 31),
+    'kings1-1-46': ('I Kings', 1, 46, 46),
+    'kings1-2-12': ('I Kings', 2, 12, 12),
+    'kings1-8-16': ('I Kings', 8, 16, 16),
+    'gen-24-1': ('Genesis', 24, 1, 1),
+    'gen-25-5': ('Genesis', 25, 5, 6),
+    'gen-25-11': ('Genesis', 25, 11, 11),
+    'rashi-25-11': rashi(25, 11, 0),
+    'sanhedrin-89b': ('Sanhedrin', '89b', 13, 13),
+    'horayot-11b': ('Horayot', '11b', 9, 11),
+    'megillah-14a-2': ('Megillah', '14a', 17, 17),
+    'samuel1-2-1': ('I Samuel', 2, 1, 1),
+    'samuel2-7-16': ('II Samuel', 7, 16, 16),
+    'rambam-kings-1-7': kings(7),
+    'rambam-kings-1-8': kings(8),
+    'rambam-kings-1-9': kings(9),
+    'rambam-vessels-1-7': vessels(7),
+    'rambam-vessels-1-11': vessels(11),
+    'ex-30-31': ('Exodus', 30, 31, 31),
+    'chron1-22-9': ('I Chronicles', 22, 9, 10),
+    'chron1-28-4': ('I Chronicles', 28, 4, 5),
+    'ps-78-70': ('Psalms', 78, 70, 70),
+    'ps-89-31': ('Psalms', 89, 31, 34),
+    'neh-9-7': ('Nehemiah', 9, 7, 7),
+    'nedarim-31a': ('Nedarim', '31a', 7, 7),
+    'berakhot-16b': ('Berakhot', '16b', 12, 12),
+    'ps-132-14': ('Psalms', 132, 14, 14),
 }
 
 # Misprints of an edition, corrected in the Hebrew (shown on the site as «исправлена опечатка: X → Y»):
@@ -417,12 +466,13 @@ KIND = {
     'Torah': ('Тора', 'Torah'), 'Prophets': ('Пророки', 'Prophets'), 'Writings': ('Писания', 'Writings'),
     'Talmud': ('Гемара', 'Gemara'), 'Midrash': ('Мидраш', 'Midrash'), 'Chasidut': ('Хасидут', 'Chassidut'), 'Zohar': ('Зоґар', 'Zohar'),
     'Commentary': ('Комментарий', 'Commentary'), 'Targum': ('Таргум', 'Targum'),
+    'Halakhah': ('Ґалаха', 'Halachah'),
 }
 EN_BOOK = {'I Kings': 'I Kings', 'II Kings': 'II Kings'}
-KIND_DE = {'Torah': 'Tora', 'Prophets': 'Propheten', 'Writings': 'Schriften', 'Talmud': 'Gemara', 'Midrash': 'Midrasch', 'Chasidut': 'Chassidut', 'Zohar': 'Sohar', 'Commentary': 'Kommentar', 'Targum': 'Targum'}
+KIND_DE = {'Torah': 'Tora', 'Prophets': 'Propheten', 'Writings': 'Schriften', 'Talmud': 'Gemara', 'Midrash': 'Midrasch', 'Chasidut': 'Chassidut', 'Zohar': 'Sohar', 'Commentary': 'Kommentar', 'Targum': 'Targum', 'Halakhah': 'Halacha'}
 DE_NAME = {
     'Genesis': 'Bereschit', 'Exodus': 'Schemot', 'Leviticus': 'Wajikra', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Dewarim', 'Ezekiel': 'Jecheskel', 'Amos': 'Amos', 'I Chronicles': 'Diwre HaJamim I',
-    'II Samuel': 'Schmuel II', 'I Kings': 'I Könige', 'II Kings': 'Melachim II', 'Isaiah': 'Jeschajahu', 'Micah': 'Micha', 'Psalms': 'Tehillim', 'Job': 'Ijob', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
+    'I Samuel': 'Schmuel I', 'II Samuel': 'Schmuel II', 'Nehemiah': 'Nechemja', 'Horayot': 'Horajot', 'I Kings': 'I Könige', 'II Kings': 'Melachim II', 'Isaiah': 'Jeschajahu', 'Micah': 'Micha', 'Psalms': 'Tehillim', 'Job': 'Ijob', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
     'Berakhot': 'Berachot', 'Shabbat': 'Schabbat', 'Yevamot': 'Jewamot', 'Sotah': 'Sota', 'Chullin': 'Chullin',
     'Sukkah': 'Sukka', 'Chagigah': 'Chagiga', 'Megillah': 'Megilla', 'Ketubot': 'Ketubbot', 'Yoma': 'Joma', 'Nedarim': 'Nedarim', 'Bava Metzia': 'Bawa Mezia', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda',
 }
@@ -475,9 +525,27 @@ def respect_names(s):
                         break
     return ''.join(words)
 
+def strip_notes(t):
+    """Footnotes of an edition (<sup class="footnote-marker">N</sup><i class="footnote">…</i>) — whole, with nested <i>
+    (E. Touger's Rambam: «<i>Horiot</i> 12a explains…»); a plain regex would stop at the first </i>."""
+    out, pos = [], 0
+    for m in re.finditer(r'<sup[^>]*>[^<]*</sup>\s*<i class="footnote">', t):
+        if m.start() < pos: continue
+        out.append(t[pos:m.start()])
+        depth, i = 1, len(t)
+        for tag in re.finditer(r'<(/?)i\b[^>]*>', t[m.end():]):
+            depth += -1 if tag.group(1) else 1
+            if depth == 0:
+                i = m.end() + tag.end()
+                break
+        pos = i
+    out.append(t[pos:])
+    return ''.join(out)
+
 def clean(s, lang, names=True):
     """names=False — иврит стиха Танаха как на Sefaria: Имена в полном написании (יְהֹוָה, אֱלֹהִים), без замен."""
     # a footnote: its marker and text (the marker must not reach over the verse to the next footnote)
+    s = strip_notes(s)
     s = re.sub(r'<sup[^>]*>[^<]*</sup>\s*<i class="footnote">.*?</i>', '', s, flags=re.S)
     s = re.sub(r'<sup(?: class="endFootnote")?>-[a-z]</sup>', '', s)  # JPS 1985: «-a» closing a footnoted phrase
     s = re.sub(r'<i data-overlay[^>]*></i>', '', s)
