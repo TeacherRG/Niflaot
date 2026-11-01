@@ -118,7 +118,7 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
           )}
           {meaning.moral && (
             <p className="fact-moral">
-              <b>{t('memo.learn')}</b> {meaning.moral}
+              <b>{meaning.moralLabel ?? t('memo.learn')}</b> <HebrewRuns text={meaning.moral} />
             </p>
           )}
         </div>
