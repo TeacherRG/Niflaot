@@ -6,6 +6,7 @@ import { isReader, savedMode, useSavedMode } from './core/mode';
 import { savedHebrewLevel } from './core/hebrewLevel';
 import { ShabbatRest, useShabbatRest } from './components/ShabbatRest';
 import { isAdmin } from './admin/github';
+import { NIGUN_PUBLIC } from './nigun/public';
 import { OPS, type Op } from './core/mentalMath';
 import { Panels } from './components/Panels';
 import { TermPopover } from './components/TermPopover';
@@ -202,7 +203,7 @@ function Site() {
             <TorahWordsPage key={route} parsha={view || undefined} />
           ) : slug === 'quiz' ? (
             <QuizPage code={view === 'host' ? variant : view} host={view === 'host'} />
-          ) : slug === 'nigun' ? (
+          ) : slug === 'nigun' && (NIGUN_PUBLIC || isAdmin()) ? (
             <NigunPage key={route} id={view || undefined} />
           ) : slug === 'koelet' ? (
             <KoeletPage />

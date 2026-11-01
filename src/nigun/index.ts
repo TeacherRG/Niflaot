@@ -31,6 +31,8 @@ export interface Nigun {
   source: { name: string; url: string };
 }
 
+export { NIGUN_PUBLIC } from './public';
+
 export const NIGUNIM: Nigun[] = [
   {
     id: 'lubo-bratzi',

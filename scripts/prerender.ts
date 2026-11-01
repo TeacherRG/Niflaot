@@ -26,7 +26,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
-import { NIGUNIM } from '../src/nigun';
+import { NIGUNIM, NIGUN_PUBLIC } from '../src/nigun';
 import { torahWords } from '../src/core/torahWords';
 import { LESSONS, LESSON_GROUPS, type Lesson } from '../src/lessons';
 import { SITE_URL, staticPath, type StaticPage } from '../src/core/site';
@@ -327,7 +327,7 @@ ${LESSON_GROUPS.map((g) => {
 <ul><li><a href="${page('neviim')}">${t('tanakh.neviim')}</a></li><li><a href="${page('ketuvim')}">${t('tanakh.ketuvim')}</a></li><li><a href="${page('hemshech')}">${t('hs.menuLbl')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li></ul>
 <p>${t('menu.torahRead')}: ${lessons.map((l) => `<a href="${root}#/${l.slug}/read">${esc(tx(l).title)}</a>`).join(' · ')}</p>
 <h2>${t('seo.more')}</h2>
-<ul><li><a href="${page('facts')}">${t('facts.title')}</a></li><li><a href="${page('daily')}">${t('daily.title')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li><li><a href="${page('letters')}">${t('abc.title')}</a></li><li><a href="${page('mental-math')}">${t('math.title')}</a></li><li><a href="${page('nigun')}">${t('nigun.title')}</a></li><li><a href="${page('quiz')}">${t('lq.title')}</a></li></ul>
+<ul><li><a href="${page('facts')}">${t('facts.title')}</a></li><li><a href="${page('daily')}">${t('daily.title')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li><li><a href="${page('letters')}">${t('abc.title')}</a></li><li><a href="${page('mental-math')}">${t('math.title')}</a></li>${NIGUN_PUBLIC ? `<li><a href="${page('nigun')}">${t('nigun.title')}</a></li>` : ''}<li><a href="${page('quiz')}">${t('lq.title')}</a></li></ul>
 ${others
   .map(
     (o) => `<h2 lang="${o}">${OTHER[o]}</h2><ul lang="${o}"><li><a href="${homeUrl(o)}">${esc(String({ ru, en, de }[o]['catalog.seoTitle']))}</a></li>${LESSONS.filter((l) => l.texts[o])
@@ -1004,7 +1004,7 @@ const STATIC_OUT: [string, Page][] = LANGS.flatMap(({ lang, ui }) => [
   [staticPath('hebrew-words', lang), wordsPage(lang, ui)] as [string, Page],
   [staticPath('hemshech', lang), hemshechPage(lang, ui)] as [string, Page],
   [staticPath('quiz', lang), quizPage(lang, ui)] as [string, Page],
-  [staticPath('nigun', lang), nigunPage(lang, ui)] as [string, Page],
+  ...(NIGUN_PUBLIC ? [[staticPath('nigun', lang), nigunPage(lang, ui)] as [string, Page]] : []),
   [staticPath('learn-hebrew', lang), lashonPage(lang, ui)] as [string, Page],
 ]);
 // lastmod: pages that change every day (the passage of the day, the opened passages, the quiz sets of the week) — today;
