@@ -13,6 +13,8 @@ import { cycleDayFor, loadDay, localToday, readingPlan, readingMinutes, type Com
 import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
 import { TanakhMasthead } from './PrintBrand';
 import { TanakhWords } from './TanakhWords';
+import { TanakhAtlas } from './TanakhAtlas';
+import { loadAtlasDay, type AtlasDay } from '../core/atlas';
 import { HeVerse, WordPop } from './WordPop';
 import { loadDayWords, type DayWords } from '../core/words';
 import { setOtherPage } from '../core/assistant';
@@ -262,7 +264,7 @@ function Comm({ c, by, he, tr }: { c: Commentary; by: string; he: boolean; tr: T
  * The verses of one section of one day: a heading at each new chapter, then verse by verse with the chosen commentaries.
  * `parse` — the words of the verses parsed (public/tanakh/words/<date>.json): each Hebrew word opens WordPop.
  */
-function Verses({ verses, he, tr, md, rashi, parse, notes }: { verses: DayVerse[]; he: boolean; tr: Tr | null; md: boolean; rashi: boolean; parse?: DayWords[Section]['v']; notes?: { section: Section; date: string } }) {
+function Verses({ verses, he, tr, md, rashi, parse, atlas, notes }: { verses: DayVerse[]; he: boolean; tr: Tr | null; md: boolean; rashi: boolean; parse?: DayWords[Section]['v']; atlas?: AtlasDay['v']; notes?: { section: Section; date: string } }) {
   const { t, locale } = useI18n();
   // «Мои закладки»: закладка и заметка у каждого стиха (только у раздела на экране, не у второго раздела для печати)
   const store = useNotes();
@@ -312,7 +314,7 @@ function Verses({ verses, he, tr, md, rashi, parse, notes }: { verses: DayVerse[
               )}
               {he && (
                 <p className="tk-he he" lang="he" dir="rtl">
-                  {parse ? <HeVerse text={v.he} parse={parse[`${v.b} ${v.c}:${v.v}`]} /> : v.he}
+                  {parse ? <HeVerse text={v.he} parse={parse[`${v.b} ${v.c}:${v.v}`]} atlas={atlas?.[`${v.b} ${v.c}:${v.v}`]} /> : v.he}
                 </p>
               )}
               {text && (
@@ -460,6 +462,16 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
       live = false;
     };
   }, [day.date, plan.annual]);
+  // who and where: the people and places the words of the verses name (public/tanakh/atlas/<date>.json)
+  const [atlas, setAtlas] = useState<AtlasDay | null>(null);
+  useEffect(() => {
+    let live = true;
+    setAtlas(null);
+    if (!plan.annual) loadAtlasDay(day.date).then((a) => live && setAtlas(a));
+    return () => {
+      live = false;
+    };
+  }, [day.date, plan.annual]);
 
   useEffect(() => {
     let live = true;
@@ -582,7 +594,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
           ) : (
             <>
               {he && parsed?.[section].v && <p className="tk-hint no-print">{t('wp.hint')}</p>}
-              <Verses verses={sec.verses} he={he} tr={tr} md={view.md} rashi={view.rashi} parse={parsed?.[section].v} notes={{ section, date: day.date }} />
+              <Verses verses={sec.verses} he={he} tr={tr} md={view.md} rashi={view.rashi} parse={parsed?.[section].v} atlas={atlas?.v} notes={{ section, date: day.date }} />
               {he && parsed?.[section].v && <WordPop />}
             </>
           )}
@@ -595,6 +607,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
               </a>
             </p>
           )}
+          {sec && !plan.annual && <TanakhAtlas section={section} date={day.date} />}
           {sec && !plan.annual && <TanakhWords section={section} date={day.date} />}
           <nav className="tk-pager no-print" aria-label={t('tanakh.navLabel')}>
             {prev ? (

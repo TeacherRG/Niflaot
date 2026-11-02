@@ -4,26 +4,31 @@ import { useI18n } from '../i18n';
 import type { MessageKey } from '../i18n/locales/ru';
 import { boxOf, KNOWN_BOX, loadDict, loadLex, markKnown, markLearn, unmark, useWordStore, type Dict, type WordLang } from '../core/words';
 import { readHebrew } from '../core/translit';
+import { atlasEntity, atlasName, loadAtlasTexts, osmLink, placeSure, useAtlasVersion, type AtlasTexts } from '../core/atlas';
+import { AtlasMap } from './AtlasMap';
+import { Family } from './TanakhAtlas';
 
 /**
  * A verse in Hebrew with every word a target: hovering it (with a mouse) or tapping it (on a phone) opens WordPop — how the
  * word is read, its parts (the prefixes ו ה ב ל מ כ ש, the dictionary form, the ending «his», «our»…), the translation and
  * the root. `parse` — the words of the verse as scripts/fetch-words.py parsed them (Open Scriptures Hebrew Bible):
  * «prefixes|number|ending» for each word of our text, split at spaces and maqaf; 0 — the word didn't match.
+ * `atlas` — who or what the word names ({word number: id}, public/tanakh/atlas/<date>.json): the window shows its note.
  */
-export function HeVerse({ text, parse }: { text: string; parse?: (string | 0)[] }) {
+export function HeVerse({ text, parse, atlas }: { text: string; parse?: (string | 0)[]; atlas?: Record<string, string> }) {
   const parts = text.split(/([ ־]+)/);
   let w = 0;
   return (
     <>
       {parts.map((p, i) => {
         if (!p || /^[ ־]+$/.test(p)) return p;
-        const code = parse?.[w++];
+        const n = w++;
+        const code = parse?.[n];
         // the sof pasuq stays outside the word
         const m = p.match(/^(.*?)(׃?)$/)!;
         return (
           <span key={i}>
-            <span className="tk-hw" data-c={code || ''}>
+            <span className="tk-hw" data-c={code || ''} data-a={atlas?.[n] ?? ''}>
               {m[1]}
             </span>
             {m[2]}
@@ -39,6 +44,8 @@ const PREFIX_HE: Record<string, string> = { b: 'ב', c: 'ו', d: 'ה', i: 'ה', 
 interface Open {
   word: string;
   code: string;
+  /** the person or place the word names (scripts/fetch-atlas.py), or '' */
+  atlas: string;
   /** where the word is on the page (document coordinates) */
   x: number;
   top: number;
@@ -60,11 +67,14 @@ export function WordPop() {
   const box = useRef<HTMLDivElement>(null);
   const leave = useRef<number>(0);
   const store = useWordStore();
+  const [atx, setAtx] = useState<AtlasTexts | null>(null);
+  useAtlasVersion();
 
   useEffect(() => {
     let live = true;
     loadDict(lang).then((d) => live && setDict(d));
     loadLex().then((l) => live && setLex(l));
+    loadAtlasTexts(lang).then((x) => live && setAtx(x));
     return () => {
       live = false;
     };
@@ -73,7 +83,7 @@ export function WordPop() {
   const show = useCallback((el: HTMLElement, pinned: boolean) => {
     clearTimeout(leave.current);
     const r = el.getBoundingClientRect();
-    setOpen({ word: el.textContent ?? '', code: el.dataset.c ?? '', x: r.left + r.width / 2 + scrollX, top: r.top + scrollY, bottom: r.bottom + scrollY, pinned });
+    setOpen({ word: el.textContent ?? '', code: el.dataset.c ?? '', atlas: el.dataset.a ?? '', x: r.left + r.width / 2 + scrollX, top: r.top + scrollY, bottom: r.bottom + scrollY, pinned });
   }, []);
 
   useEffect(() => {
@@ -120,7 +130,7 @@ export function WordPop() {
     const left = Math.max(scrollX + 8, Math.min(open.x - w / 2, scrollX + document.documentElement.clientWidth - w - 8));
     const above = open.top - scrollY > b.height + 14;
     setPos({ left, top: above ? open.top - b.height - 8 : open.bottom + 8 });
-  }, [open, dict, lex]);
+  }, [open, dict, lex, atx]);
 
   if (!open) return null;
   const [raw, id = '', suf = ''] = open.code.split('|');
@@ -137,6 +147,30 @@ export function WordPop() {
   const box_ = id ? boxOf(store, id) : 0;
   const known = box_ >= KNOWN_BOX;
   const learning = box_ > 0 && !known;
+  const ae = open.atlas ? atlasEntity(open.atlas) : undefined;
+  const card = ae && (
+    <div className="wp-atlas">
+      <p className="wp-a-head">
+        <b>{atlasName(open.atlas, ae, atx, lang)}</b> <small className="ta-kind">{t(`atlas.kind.${ae.k}` as MessageKey)}</small>
+      </p>
+      <p className="wp-a-d">{atx?.[open.atlas]?.d ?? t('atlas.noText')}</p>
+      <Family e={ae} get={atlasEntity} tx={atx} lang={lang} />
+      {ae.ll && (
+        <>
+          <div className="wp-a-map">
+            <AtlasMap label={t('atlas.mapLabel')} ratio={0.45} points={[{ id: open.atlas, ll: ae.ll, label: atlasName(open.atlas, ae, atx, lang) }]} />
+          </div>
+          <p className="ta-meta">
+            <span className={`ta-sure s${placeSure(ae.q)}`}>{t(`atlas.sure.${placeSure(ae.q)}` as MessageKey)}</span> ·{' '}
+            <a href={osmLink(ae.ll)} target="_blank" rel="noopener noreferrer">
+              {t('atlas.osm')}
+            </a>
+          </p>
+        </>
+      )}
+      {ae.n ? <small className="wp-meta">{t('atlas.n', { n: ae.n })}</small> : null}
+    </div>
+  );
   // in <body>: the window is placed in page coordinates, not inside the column of the text
   return createPortal(
     <div ref={box} className="wp no-print" role="dialog" aria-label={open.word} style={pos}>
@@ -165,7 +199,7 @@ export function WordPop() {
             </ul>
           )}
           {id === 'n' ? (
-            <p className="wp-tr">{t('wp.name')}</p>
+            card || <p className="wp-tr">{t('wp.name')}</p>
           ) : head ? (
             <div className="wp-main">
               {head !== open.word.replace(/[[\]()]/g, '') && (
@@ -191,6 +225,7 @@ export function WordPop() {
               )}
             </div>
           ) : null}
+          {id !== 'n' && card}
           {suf && (
             <p className="wp-suf">
               {t('wp.suffix')}: <b>{t(`wp.suf.${suf}` as MessageKey)}</b>
