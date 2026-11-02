@@ -293,7 +293,8 @@ def cmd_build():
             if g and g[3] not in AREA:
                 e['ll'], e['q'], e['ty'] = [g[0], g[1]], g[2], g[3]
             elif g: e['ty'] = g[3]
-        vs = sorted({(b, c, v) for b, c, v in r['refs']}, key=lambda x: x)
+        # только Танах: у TIPNR есть и ссылки на христианские книги (Mat, Act, Heb…) — их не считаем
+        vs = sorted({(b, c, v) for b, c, v in r['refs'] if b in BOOKS or b in TORAH})
         e['n'] = len(vs)
         bk = {}
         for b, c, v in vs:
