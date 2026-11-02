@@ -6,6 +6,7 @@ import { LESSONS, PARSHIOT, type ParshaId } from '../lessons';
 import { useHebrewLevel } from '../core/hebrewLevel';
 import { memoImages } from '../core/memo';
 import { celebrate, feedback } from '../core/fx';
+import { noteAnswer } from '../core/lashonStore';
 import { answerWord, makeRound, readStars, STARS, starsOf, torahWords, useStars, type Question, type TorahWord } from '../core/torahWords';
 
 const Stars = ({ n }: { n: number }) => (
@@ -156,6 +157,8 @@ function Game({ round, level, onClose, onAgain }: { round: Question[]; level: st
     setCombo(run);
     feedback(right ? 'right' : 'wrong', run);
     answerWord(q.word.key, right);
+    // and into «Святой язык — уроки»: the same word, answered in the game
+    noteAnswer(q.word.key, right);
     // the last question: a fanfare and confetti, more for all right
     if (i + 1 === round.length) {
       const all = right && ok + 1 === round.length;

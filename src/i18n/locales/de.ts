@@ -1519,6 +1519,7 @@ const de: Messages = {
   'ln.perfect': "Ohne einen einzigen Fehler!",
   'ln.acc': "Beim ersten Mal richtig: {k} von {n}",
   'ln.added': "Wörter zu „Meine Wörter“ hinzugefügt: {n}. Wiederhole sie dort — so zählen sie für das Zertifikat.",
+  'ln.reviewed': "In „Meine Wörter“ wiederholt: {n} — die Antworten der Lektion zählen als Wiederholung der Karten.",
   'words.src': "Grundformen und Häufigkeit der Wörter — Open Scriptures Hebrew Bible Project (CC BY 4.0) und die Wörterbücher von Strong und Brown–Driver–Briggs (gemeinfrei); Übersetzung der Wörter — Projekt Niflaot. Eigennamen werden nicht mitgezählt. Beispielverse — Übersetzung von Niflaot oder Englisch, JPS 1985 (CC BY-NC).",
   'words.exampleEn': "(deutsche Übersetzung folgt bald; bis dahin Englisch)",
   'tanakh.md': 'Mezudat David',

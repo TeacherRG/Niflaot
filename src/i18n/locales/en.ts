@@ -1519,6 +1519,7 @@ const en: Messages = {
   'ln.perfect': "Not a single mistake!",
   'ln.acc': "Right the first time: {k} of {n}",
   'ln.added': "Words added to “My words”: {n}. Review them there — that's how they count for the certificate.",
+  'ln.reviewed': "Reviewed in “My words”: {n} — the lesson's answers count as a review of the cards.",
   'words.src': "Base forms and word frequencies — Open Scriptures Hebrew Bible Project (CC BY 4.0) and the Strong’s and Brown–Driver–Briggs dictionaries (public domain); translations of the words — by the Niflaot project. Proper names are not counted. Example verses — JPS 1985 (CC BY-NC).",
   'words.exampleEn': "",
   'tanakh.md': 'Metzudat David',
