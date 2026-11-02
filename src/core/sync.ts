@@ -6,7 +6,7 @@
  */
 
 /** the synced localStorage keys: exact names, and `niflaot:lesson:<slug>` */
-export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:nigun', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:words', 'niflaot:notes', 'niflaot:torah-words', 'niflaot:torah-read', 'niflaot:lashon', 'niflaot:study-days', 'niflaot:mode', 'niflaot:courses', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
+export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:nigun', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:words', 'niflaot:notes', 'niflaot:torah-words', 'niflaot:torah-read', 'niflaot:lashon', 'niflaot:zip', 'niflaot:study-days', 'niflaot:mode', 'niflaot:courses', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
 export const LESSON_PREFIX = 'niflaot:lesson:';
 export const isSynced = (k: string) => SYNC_KEYS.includes(k) || k.startsWith(LESSON_PREFIX);
 
@@ -136,6 +136,15 @@ function mergeCourse(a: string, b: string): string {
   return JSON.stringify({ s: max(x.s, y.s), r: max(x.r, y.r), xp: max(x.xp, y.xp), w: max(x.w, y.w) });
 }
 
+/** «Zip — стих Торы» (src/core/zip.ts): every solved verse from both (the higher level), the higher level; the current verse — this device's */
+function mergeZip(a: string, b: string): string {
+  const x = parse(a) ?? {};
+  const y = parse(b) ?? {};
+  const d: Record<string, any> = { ...(y.d ?? {}) };
+  for (const [k, v] of Object.entries<any>(x.d ?? {})) if (!d[k] || (Number(v?.[1]) || 0) >= (Number(d[k]?.[1]) || 0)) d[k] = v;
+  return JSON.stringify({ l: Math.max(Number(x.l) || 1, Number(y.l) || 1), d, ...(x.c || y.c ? { c: x.c ?? y.c } : {}) });
+}
+
 /** «Учёба каждый день» (src/core/habit.ts): every day of study from both; a day studied (1) wins over one made up (2) */
 function mergeStudy(a: string, b: string): string {
   const x = parse(a) ?? {};
@@ -164,6 +173,7 @@ export function mergeSnapshots(local: Snapshot, remote: Snapshot): Snapshot {
     else if (k === 'niflaot:notes') out[k] = mergeNotes(a, b);
     else if (k === 'niflaot:study-days') out[k] = mergeStudy(a, b);
     else if (k === 'niflaot:lashon') out[k] = mergeCourse(a, b);
+    else if (k === 'niflaot:zip') out[k] = mergeZip(a, b);
     else if (k === 'niflaot:tanakh-done' || k === 'niflaot:hemshech-done') out[k] = mergeDone(a, b);
     else out[k] = a;
   }

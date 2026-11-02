@@ -107,7 +107,7 @@ function ParshaPicker({ groups, selected, week, onPick }: { groups: Group[]; sel
  *  - «Святой язык» — the course, the words («Слова Торы» / «Мои слова»), the letters; «Святое чтение» — fluent reading of
  *    Tehillim; «Святая музыка»;
  *  - «Курсы Академии» — «Тайна Коэлета»;
- *  - «Разное» — print, «К шабатнему столу», «Викторина вместе», «Знаете ли вы?»;
+ *  - «Разное» — print, «К шабатнему столу», «Викторина вместе», «Zip — стих Торы», «Знаете ли вы?»;
  * then «Помощь и навыки» (children), «Академия», «Учитель», «Партнёры», «О проекте». The lessons: the children's — the games
  * (and «Читать»), the adults' — «Читать» / «Прочитать» only. Today's passages (src/core/todayStudy.ts) show their verses and ✓
  * when done; the data loads when the menu opens.
@@ -300,12 +300,13 @@ export function Panels() {
           {group(<Icon name="award" />, t('menu.courses'), t('menu.coursesSub'), starts('#/koelet'), (
             link('#/koelet', num('ק', true), t('koelet.title'), t('koelet.menuSub'))
           ))}
-          {group(<Icon name="grid" />, t('menu.misc'), t('menu.miscSub'), starts('#/facts', '#/daily', '#/quiz', '#/shabbat-table', '#/digest'), (
+          {group(<Icon name="grid" />, t('menu.misc'), t('menu.miscSub'), starts('#/facts', '#/daily', '#/quiz', '#/shabbat-table', '#/digest', '#/zip'), (
             <>
               {lessonSlug && link(`#/${lessonSlug}/print`, <Icon name="print" />, t('print.button'))}
               {link('#/shabbat-table', <Icon name="print" />, t('table.title'), t('table.menuSub'))}
               {link('#/digest', <Icon name="print" />, t('digest.title'), t('digest.menuSub'))}
               {link('#/quiz', <Icon name="phone" />, t('lq.title'), t('lq.menuSub'))}
+              {link('#/zip', num('ז', true), t('zip.title'), t('zip.menuSub'))}
               {link('#/facts', <Icon name="hash" />, t('facts.title'), t('facts.menuSub'))}
             </>
           ))}

@@ -13,6 +13,7 @@ import { ASSISTANT_URL } from './assistant';
 import type { Locale } from '../i18n';
 import { currentMode, MODE_EVENT } from './mode';
 import { normWord } from './sync';
+import { ZIP_KEY, zipReminder } from './zipReminder';
 
 const STORE = 'niflaot:push';
 const PREFS = '/__niflaot/push-prefs';
@@ -72,7 +73,7 @@ async function api(path: string, body: object) {
  */
 async function savePrefs(lang: Locale) {
   const c = await caches.open('niflaot-prefs');
-  await c.put(PREFS, new Response(JSON.stringify({ lang, mode: currentMode(), wordsDue: wordsDue(), wordsKnownDue: wordsDue(true), anchor: saved()?.anchor }), { headers: { 'Content-Type': 'application/json' } }));
+  await c.put(PREFS, new Response(JSON.stringify({ lang, mode: currentMode(), wordsDue: wordsDue(), wordsKnownDue: wordsDue(true), zip: zipReminder(localStorage.getItem(ZIP_KEY)), anchor: saved()?.anchor }), { headers: { 'Content-Type': 'application/json' } }));
 }
 
 /**
@@ -159,7 +160,7 @@ export async function pushLanguage(lang: Locale) {
 
 // the mode changed («Режим · сменить»), or the words of «Мои слова» did: the next messages know it
 if (typeof window !== 'undefined')
-  for (const ev of [MODE_EVENT, 'niflaot:words'])
+  for (const ev of [MODE_EVENT, 'niflaot:words', ZIP_KEY])
     window.addEventListener(ev, () => {
       if (lastLang) void pushLanguage(lastLang);
     });

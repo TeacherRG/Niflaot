@@ -1243,6 +1243,7 @@ p.calc .he{font-family:var(--f-he);font-size:1.2em;font-weight:700;color:var(--i
 .top-in.wide{max-width:1180px}
 .h-logo{display:block;width:min(100%,170px);height:auto;margin:0 0 6px}
 .h-daily{flex:1 1 100%;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:10px 14px;border-radius:10px;background:var(--night);color:#fff;text-decoration:none}
+.h-daily.h-zip{background:linear-gradient(150deg,var(--ok-deep),var(--tchelet-deep))}
 .h-daily-title{font-family:var(--f-display);font-weight:700;font-size:18px;color:var(--gold-2)}
 .h-daily-sub{font-size:13px;color:#C9CEE0}
 .h-badge{min-width:0;padding:1px 8px;border-radius:999px;background:var(--tc-soft);color:var(--tc);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -2401,6 +2402,18 @@ body:has(.a-home){background:var(--plain)}
 .a-tile-he{align-self:flex-start;font-size:clamp(18px,3vh,24px);opacity:.95}
 .a-tile:hover .a-tile-t{text-decoration:underline;text-underline-offset:4px}
 .a-tiles>.courses{margin:0;min-height:0;overflow:auto}
+/* «Мои курсы» (half) + «Святая игра Zip» side by side (owner, 02.11.2026); the courses that don't fit — pages to swipe */
+.a-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;min-height:0}
+.a-pair>.courses{margin:0;min-height:0;overflow:hidden;display:flex;flex-direction:column}
+.a-pair .cc-pages{flex:1 1 0;min-height:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;touch-action:pan-x pan-y}
+.a-pair .cc-pages::-webkit-scrollbar{display:none}
+.a-pair .courses.simple .cc-page{flex:0 0 100%;min-width:0;list-style:none;margin:0;padding:0;scroll-snap-align:start;display:block}
+.a-pair .cc-page li{display:block}
+.cc-dots{display:flex;justify-content:center;gap:6px;padding-top:6px}
+.cc-dots button{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:var(--line);cursor:pointer}
+.cc-dots button[aria-current]{background:var(--tchelet-deep);width:16px;border-radius:4px}
+.a-zip{background:linear-gradient(150deg,var(--ok-deep),var(--tchelet-deep))}
+.a-zip-s{font-size:13px;font-weight:600;opacity:.92;margin-top:2px}
 /* «Гематрии»: the lessons' equalities running slowly upwards in a closed loop (GematriaTicker in Catalog.tsx) */
 .a-tick{display:flex;flex-direction:column;min-height:0;overflow:hidden;padding:16px 20px 8px;border-radius:16px;background:var(--surface);border:1px solid var(--line-soft);box-shadow:var(--shadow)}
 .a-tick-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:6px;border-bottom:1px solid var(--line-soft)}
@@ -2435,6 +2448,10 @@ body:has(.a-home){background:var(--plain)}
   .a-tiles{gap:10px}
   .a-tiles{grid-template-rows:auto minmax(0,auto) minmax(0,1fr)}
   .a-tiles>.courses,.a-tiles>.a-tick{grid-column:1/-1}
+  .a-tiles>.a-pair{grid-column:1/-1;gap:10px;height:clamp(132px,22svh,190px)}
+  .a-zip-s{font-size:11px}
+  .a-pair .a-tile{padding-right:34px}
+  .a-pair .a-tile::after{right:12px;bottom:10px;font-size:18px}
   .a-tick{padding:10px 14px 4px;border-radius:14px}
   .a-tick h2{font-size:17px}
   .a-tick-head{padding-bottom:3px}
@@ -3118,3 +3135,56 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .free-why h2{margin:0 0 6px;font-family:var(--f-display);font-size:24px}
 .free-why p{margin:0;line-height:1.55}
 .free-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px!important}
+
+/* «Zip — стих Торы» (ZipPage.tsx, src/core/zip.ts) */
+.zip{padding:0 16px 24px}
+.zip-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:6px 0 10px;font-size:14px}
+.zip-level{background:var(--tchelet-soft);color:var(--tchelet);border-radius:999px;padding:4px 12px;font-weight:700}
+.zip-ref{color:var(--muted);font-weight:600}
+.zip-timer{display:flex;flex-direction:column;align-items:center;margin:0 0 10px}
+.zip-clock{font-family:var(--f-num);font-weight:700;font-size:26px;letter-spacing:.02em;color:var(--ink-2)}
+.zip-timer.run .zip-clock{color:var(--tchelet)}
+.zip-timer.done .zip-clock{color:var(--ok)}
+.zip-timer small{color:var(--muted);font-size:12px}
+.zip-record{color:var(--gold);font-weight:700}
+.zip-share{justify-content:center;margin:12px 0 4px}
+.zip-share a.btn{text-decoration:none}
+.zip-win{scroll-margin-top:72px}
+.zip-share .btn.gold{background:linear-gradient(180deg,#E3C47C,#C49A47);color:var(--on-gold);border-color:#C49A47}
+.zip-remind{margin-top:16px;text-align:start}
+.zip-verse{list-style:none;margin:0 0 12px;padding:10px 12px;display:flex;flex-wrap:wrap;gap:6px 10px;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.zip-verse li{display:inline-flex;align-items:baseline;gap:5px;color:var(--muted);border-radius:8px;padding:2px 6px}
+.zip-verse li b{font-family:var(--f-num);font-size:11px;background:var(--line);color:var(--ink-2);border-radius:999px;min-width:18px;height:18px;display:inline-grid;place-items:center}
+.zip-verse li .he{font-family:var(--f-he);font-size:20px;line-height:1.3}
+.zip-verse li.on{color:var(--tchelet)}
+.zip-verse li.on b{background:var(--tchelet-deep);color:#fff}
+.zip-verse li.next{color:var(--ink);outline:2px solid var(--gold-2)}
+.zip-board-wrap{display:flex;justify-content:center}
+.zip-board{width:100%;max-width:440px;aspect-ratio:1;touch-action:none;user-select:none;-webkit-user-select:none;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:6px;box-shadow:var(--shadow)}
+.zip-board:focus-visible{outline:3px solid var(--gold-2)}
+.zip-board .zc{fill:var(--paper)}
+.zip-board .zc.on{fill:var(--tchelet-soft)}
+.zip-line{fill:none;stroke:var(--tchelet);stroke-width:.4;stroke-linecap:round;stroke-linejoin:round;opacity:.9}
+.zip-dot{fill:var(--tchelet)}
+.zip-board.done .zip-line{stroke:var(--ok)}
+.zip-node circle{fill:var(--night)}
+.zip-node.on circle{fill:var(--tchelet-deep)}
+.zip-node.next circle{stroke:var(--gold-2);stroke-width:.07}
+.zip-node text{fill:#fff;font-family:var(--f-body);font-weight:800;font-size:.34px;text-anchor:middle;dominant-baseline:middle;pointer-events:none}
+.zip-board.done .zip-node circle{fill:var(--ok-deep)}
+.zip-how{text-align:center;color:var(--muted);font-size:13px;margin:8px 0}
+.zip-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.zip-actions .btn{background:transparent;color:var(--ink);border-color:var(--line)}
+.zip-actions .btn:hover:not(:disabled){border-color:var(--gold);color:var(--gold);background:transparent}
+.zip-win{margin:18px 0;padding:16px;background:var(--surface);border:1px solid var(--gold-line);border-radius:16px;box-shadow:var(--shadow);text-align:center}
+.zip-win h2{margin:0;font-family:var(--f-display);font-size:28px}
+.zip-win h3{margin:18px 0 8px;text-align:start;font-size:16px}
+.zip-win .read-quote{text-align:start}
+.zip-win-ref{margin:2px 0 8px;color:var(--gold);font-weight:700}
+.zip-win-he{font-family:var(--f-he);font-size:24px;line-height:1.5;margin:0 0 6px}
+.zip-win-tr{margin:0 0 10px;color:var(--ink-2)}
+.zip-win-stats{font-size:14px;color:var(--muted)}
+.zip-win-stats b{color:var(--ink)}
+.btn.zip-next{margin-top:4px;padding:12px 22px;font-size:16px}
+.zip-progress{text-align:center;color:var(--muted);font-size:13px;margin-top:14px}
+@media (max-width:640px){.zip{padding:0 12px 24px}.zip-verse li .he{font-size:18px}}
