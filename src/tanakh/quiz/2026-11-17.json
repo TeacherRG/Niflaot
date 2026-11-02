@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 13:30",
+   "q": {
+    "ru": "Сколько городов было в селениях Яира в Башане?",
+    "en": "How many towns were in Havvoth-jair in Bashan?",
+    "de": "Wie viele Städte gehörten zu den Zeltdörfern Ja’irs im Baschan?"
+   },
+   "o": [
+    {
+     "ru": "Шестьдесят",
+     "en": "Sixty",
+     "de": "Sechzig"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    },
+    {
+     "ru": "Тридцать один",
+     "en": "Thirty-one",
+     "de": "Einunddreißig"
+    },
+    {
+     "ru": "Сто",
+     "en": "A hundred",
+     "de": "Hundert"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 14:1",
+   "q": {
+    "ru": "Кто вместе с Йеґошуа распределял уделы в земле Кнаан?",
+    "en": "Who apportioned the land of Canaan together with Joshua?",
+    "de": "Wer verteilte das Land Kenaan zusammen mit Jehoschua?"
+   },
+   "o": [
+    {
+     "ru": "Элазар-коэн и главы отцовских домов",
+     "en": "The priest Eleazar and the heads of the ancestral houses",
+     "de": "Elasar, der Kohen, und die Häupter der Vaterhäuser"
+    },
+    {
+     "ru": "Калев и Пинхас",
+     "en": "Caleb and Phinehas",
+     "de": "Kalew und Pinchas"
+    },
+    {
+     "ru": "Цари эмореев",
+     "en": "The Amorite kings",
+     "de": "Die Könige der Emoriter"
+    },
+    {
+     "ru": "Старейшины Моава",
+     "en": "The elders of Moab",
+     "de": "Die Ältesten Moaws"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 14:4",
+   "q": {
+    "ru": "Почему колен с уделом было девять с половиной, хотя левиты удела не получили?",
+    "en": "Why were there nine and a half tribes with portions, though the Levites got none?",
+    "de": "Warum gab es neuneinhalb Stämme mit Erbe, obwohl die Lewiten keines bekamen?"
+   },
+   "o": [
+    {
+     "ru": "Сыны Йосефа стали двумя коленами",
+     "en": "The descendants of Joseph were two tribes",
+     "de": "Die Kinder Josefs waren zwei Stämme"
+    },
+    {
+     "ru": "Колено Реувена разделилось",
+     "en": "The tribe of Reuben split",
+     "de": "Der Stamm Reuwen teilte sich"
+    },
+    {
+     "ru": "Пришло новое колено",
+     "en": "A new tribe joined",
+     "de": "Ein neuer Stamm kam hinzu"
+    },
+    {
+     "ru": "Левиты отдали свою долю",
+     "en": "The Levites gave up their share",
+     "de": "Die Lewiten gaben ihren Teil ab"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 14:6",
+   "q": {
+    "ru": "Кто подошёл к Йеґошуа в Гилгале со своей просьбой?",
+    "en": "Who approached Joshua at Gilgal with a request?",
+    "de": "Wer trat in Gilgal mit einer Bitte zu Jehoschua?"
+   },
+   "o": [
+    {
+     "ru": "Калев, сын Йефуне",
+     "en": "Caleb son of Jephunneh",
+     "de": "Kalew, der Sohn Jefunnes"
+    },
+    {
+     "ru": "Элазар-коэн",
+     "en": "The priest Eleazar",
+     "de": "Elasar, der Kohen"
+    },
+    {
+     "ru": "Отниэль, сын Кназа",
+     "en": "Othniel the Kenizzite",
+     "de": "Otniel, der Sohn des Kenas"
+    },
+    {
+     "ru": "Пинхас",
+     "en": "Phinehas",
+     "de": "Pinchas"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 22:13",
+   "q": {
+    "ru": "Кто окружил псалмопевца?",
+    "en": "Who surround the psalmist?",
+    "de": "Wer umgibt den Dichter?"
+   },
+   "o": [
+    {
+     "ru": "Многие быки, могучие быки Башана",
+     "en": "Many bulls, mighty ones of Bashan",
+     "de": "Viele Stiere, die Starken von Baschan"
+    },
+    {
+     "ru": "Стадо овец",
+     "en": "A flock of sheep",
+     "de": "Eine Schafherde"
+    },
+    {
+     "ru": "Ангелы",
+     "en": "Angels",
+     "de": "Engel"
+    },
+    {
+     "ru": "Его братья",
+     "en": "His brothers",
+     "de": "Seine Brüder"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 22:15",
+   "q": {
+    "ru": "С чем сравнивает своё сердце псалмопевец?",
+    "en": "What does the psalmist compare his heart to?",
+    "de": "Womit vergleicht der Dichter sein Herz?"
+   },
+   "o": [
+    {
+     "ru": "С тающим воском",
+     "en": "Melting wax",
+     "de": "Mit schmelzendem Wachs"
+    },
+    {
+     "ru": "С камнем",
+     "en": "A stone",
+     "de": "Mit einem Stein"
+    },
+    {
+     "ru": "С железом",
+     "en": "Iron",
+     "de": "Mit Eisen"
+    },
+    {
+     "ru": "С песком",
+     "en": "Sand",
+     "de": "Mit Sand"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 22:19",
+   "q": {
+    "ru": "О чём враги бросают жребий?",
+    "en": "What do the enemies cast lots for?",
+    "de": "Worüber werfen die Feinde das Los?"
+   },
+   "o": [
+    {
+     "ru": "О его одеждах",
+     "en": "His garments",
+     "de": "Über seine Kleider"
+    },
+    {
+     "ru": "О его доме",
+     "en": "His house",
+     "de": "Über sein Haus"
+    },
+    {
+     "ru": "О его стаде",
+     "en": "His flock",
+     "de": "Über seine Herde"
+    },
+    {
+     "ru": "О его земле",
+     "en": "His land",
+     "de": "Über sein Land"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 15:14",
+   "q": {
+    "ru": "Кого Калев изгнал из Хеврона?",
+    "en": "Whom did Caleb dislodge from Hebron?",
+    "de": "Wen vertrieb Kalew aus Chewron?"
+   },
+   "o": [
+    {
+     "ru": "Трёх сыновей Анака",
+     "en": "The three Anakites",
+     "de": "Die drei Söhne Anaks"
+    },
+    {
+     "ru": "Царя Эдома",
+     "en": "The king of Edom",
+     "de": "Den König von Edom"
+    },
+    {
+     "ru": "Филистимлян",
+     "en": "The Philistines",
+     "de": "Die Philister"
+    },
+    {
+     "ru": "Йевусеев",
+     "en": "The Jebusites",
+     "de": "Die Jewusiter"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:15",
+   "q": {
+    "ru": "Как прежде назывался Двир?",
+    "en": "What was the former name of Debir?",
+    "de": "Wie hieß Dewir früher?"
+   },
+   "o": [
+    {
+     "ru": "Кирьят-Сефер",
+     "en": "Kiriath-sepher",
+     "de": "Kirjat-Sefer"
+    },
+    {
+     "ru": "Кирьят-Арба",
+     "en": "Kiriath-arba",
+     "de": "Kirjat-Arba"
+    },
+    {
+     "ru": "Луз",
+     "en": "Luz",
+     "de": "Lus"
+    },
+    {
+     "ru": "Баала",
+     "en": "Baalah",
+     "de": "Baala"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:17",
+   "q": {
+    "ru": "Кто захватил Кирьят-Сефер и получил в жёны Ахсу?",
+    "en": "Who captured Kiriath-sepher and married Achsah?",
+    "de": "Wer eroberte Kirjat-Sefer und bekam Achsa zur Frau?"
+   },
+   "o": [
+    {
+     "ru": "Отниэль, сын Кназа",
+     "en": "Othniel the Kenizzite",
+     "de": "Otniel, der Sohn des Kenas"
+    },
+    {
+     "ru": "Йеґошуа",
+     "en": "Joshua",
+     "de": "Jehoschua"
+    },
+    {
+     "ru": "Пинхас",
+     "en": "Phinehas",
+     "de": "Pinchas"
+    },
+    {
+     "ru": "Элазар-коэн",
+     "en": "The priest Eleazar",
+     "de": "Elasar, der Kohen"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:19",
+   "q": {
+    "ru": "О чём Ахса попросила своего отца?",
+    "en": "What did Achsah ask her father for?",
+    "de": "Worum bat Achsa ihren Vater?"
+   },
+   "o": [
+    {
+     "ru": "Об источниках воды",
+     "en": "Springs of water",
+     "de": "Um Wasserquellen"
+    },
+    {
+     "ru": "О золоте",
+     "en": "Gold",
+     "de": "Um Gold"
+    },
+    {
+     "ru": "Об осле",
+     "en": "A donkey",
+     "de": "Um einen Esel"
+    },
+    {
+     "ru": "О новом доме",
+     "en": "A new house",
+     "de": "Um ein neues Haus"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 24:1",
+   "q": {
+    "ru": "Кому принадлежит земля и всё, что наполняет её?",
+    "en": "To whom do the earth and all that it holds belong?",
+    "de": "Wem gehört die Erde und was sie erfüllt?"
+   },
+   "o": [
+    {
+     "ru": "Г-споду",
+     "en": "The L-rd",
+     "de": "Dem Ewigen"
+    },
+    {
+     "ru": "Царям",
+     "en": "The kings",
+     "de": "Den Königen"
+    },
+    {
+     "ru": "Земледельцам",
+     "en": "The farmers",
+     "de": "Den Bauern"
+    },
+    {
+     "ru": "Никому",
+     "en": "No one",
+     "de": "Niemandem"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 24:4",
+   "q": {
+    "ru": "Кто взойдёт на гору Г-спода?",
+    "en": "Who may ascend the mountain of the L-rd?",
+    "de": "Wer darf auf den Berg des Ewigen hinaufsteigen?"
+   },
+   "o": [
+    {
+     "ru": "Чистый руками и непорочный сердцем",
+     "en": "He who has clean hands and a pure heart",
+     "de": "Wer reine Hände und ein lauteres Herz hat"
+    },
+    {
+     "ru": "Самый богатый",
+     "en": "The richest",
+     "de": "Der Reichste"
+    },
+    {
+     "ru": "Самый сильный",
+     "en": "The strongest",
+     "de": "Der Stärkste"
+    },
+    {
+     "ru": "Самый старший",
+     "en": "The oldest",
+     "de": "Der Älteste"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 24:7",
+   "q": {
+    "ru": "Кто войдёт, когда ворота поднимут головы?",
+    "en": "Who will come in when the gates lift up their heads?",
+    "de": "Wer zieht ein, wenn die Tore ihre Häupter heben?"
+   },
+   "o": [
+    {
+     "ru": "Царь славы",
+     "en": "The King of glory",
+     "de": "Der König der Ehre"
+    },
+    {
+     "ru": "Царь Шломо",
+     "en": "King Solomon",
+     "de": "König Schlomo"
+    },
+    {
+     "ru": "Коэн гадоль",
+     "en": "The high priest",
+     "de": "Der Kohen Gadol"
+    },
+    {
+     "ru": "Войско Израиля",
+     "en": "The army of Israel",
+     "de": "Das Heer Israels"
+    }
+   ]
+  }
+ ]
+}

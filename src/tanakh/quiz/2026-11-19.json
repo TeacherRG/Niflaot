@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 15:1",
+   "q": {
+    "ru": "У границы какой страны выпал жребий колена Йеґуды?",
+    "en": "The lot of the tribe of Judah lay next to the border of which land?",
+    "de": "An der Grenze welches Landes fiel das Los des Stammes Jehuda?"
+   },
+   "o": [
+    {
+     "ru": "Эдома",
+     "en": "Edom",
+     "de": "Edom"
+    },
+    {
+     "ru": "Моава",
+     "en": "Moab",
+     "de": "Moaw"
+    },
+    {
+     "ru": "Египта",
+     "en": "Egypt",
+     "de": "Ägypten"
+    },
+    {
+     "ru": "Цидона",
+     "en": "Sidon",
+     "de": "Zidon"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:2",
+   "q": {
+    "ru": "Откуда начиналась южная граница Йеґуды?",
+    "en": "Where did Judah’s southern boundary begin?",
+    "de": "Wo begann die Südgrenze Jehudas?"
+   },
+   "o": [
+    {
+     "ru": "От края Солёного моря",
+     "en": "From the tip of the Dead Sea",
+     "de": "Vom Ende des Salzmeeres"
+    },
+    {
+     "ru": "От горы Хермон",
+     "en": "From Mount Hermon",
+     "de": "Vom Berg Chermon"
+    },
+    {
+     "ru": "От Ярдена у Йерихо",
+     "en": "From the Jordan at Jericho",
+     "de": "Vom Jarden bei Jericho"
+    },
+    {
+     "ru": "От Великого моря",
+     "en": "From the Great Sea",
+     "de": "Vom Großen Meer"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:8",
+   "q": {
+    "ru": "Какой город стоял на склоне йевусеев?",
+    "en": "Which city was on the flank of the Jebusites?",
+    "de": "Welche Stadt lag am Abhang der Jewusiter?"
+   },
+   "o": [
+    {
+     "ru": "Йерушалаим",
+     "en": "Jerusalem",
+     "de": "Jeruschalajim"
+    },
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    },
+    {
+     "ru": "Бейт-Шемеш",
+     "en": "Beth-shemesh",
+     "de": "Bet-Schemesch"
+    },
+    {
+     "ru": "Экрон",
+     "en": "Ekron",
+     "de": "Ekron"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 22:29",
+   "q": {
+    "ru": "Кому принадлежит царство?",
+    "en": "Whose is the kingship?",
+    "de": "Wem gehört das Königtum?"
+   },
+   "o": [
+    {
+     "ru": "Г-споду",
+     "en": "The L-rd’s",
+     "de": "Dem Ewigen"
+    },
+    {
+     "ru": "Царям народов",
+     "en": "The kings of the nations",
+     "de": "Den Königen der Völker"
+    },
+    {
+     "ru": "Самому сильному народу",
+     "en": "The strongest nation",
+     "de": "Dem stärksten Volk"
+    },
+    {
+     "ru": "Тем, у кого больше золота",
+     "en": "Those with the most gold",
+     "de": "Denen, die das meiste Gold haben"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 23:1",
+   "q": {
+    "ru": "Кем назван Г-сподь в начале 23-го псалма?",
+    "en": "What is the L-rd called at the beginning of Psalm 23?",
+    "de": "Wie wird der Ewige am Anfang von Tehillim 23 genannt?"
+   },
+   "o": [
+    {
+     "ru": "Мой пастырь",
+     "en": "My shepherd",
+     "de": "Mein Hirte"
+    },
+    {
+     "ru": "Мой царь",
+     "en": "My king",
+     "de": "Mein König"
+    },
+    {
+     "ru": "Мой судья",
+     "en": "My judge",
+     "de": "Mein Richter"
+    },
+    {
+     "ru": "Мой отец",
+     "en": "My father",
+     "de": "Mein Vater"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 23:4",
+   "q": {
+    "ru": "Почему псалмопевец не боится зла даже в долине смертной тени?",
+    "en": "Why does the psalmist fear no harm even in the valley of deepest darkness?",
+    "de": "Warum fürchtet der Dichter auch im Tal tiefster Finsternis kein Unheil?"
+   },
+   "o": [
+    {
+     "ru": "Ведь Г-сподь с ним",
+     "en": "The L-rd is with him",
+     "de": "Denn der Ewige ist bei ihm"
+    },
+    {
+     "ru": "Ведь у него меч",
+     "en": "He has a sword",
+     "de": "Denn er hat ein Schwert"
+    },
+    {
+     "ru": "Ведь с ним друзья",
+     "en": "His friends are with him",
+     "de": "Denn seine Freunde sind bei ihm"
+    },
+    {
+     "ru": "Ведь там светло",
+     "en": "It is bright there",
+     "de": "Denn dort ist es hell"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 23:5",
+   "q": {
+    "ru": "Что Г-сподь накрывает перед псалмопевцем на глазах у врагов?",
+    "en": "What does the L-rd spread for the psalmist in full view of his enemies?",
+    "de": "Was bereitet der Ewige dem Dichter vor den Augen seiner Feinde?"
+   },
+   "o": [
+    {
+     "ru": "Стол",
+     "en": "A table",
+     "de": "Einen Tisch"
+    },
+    {
+     "ru": "Шатёр",
+     "en": "A tent",
+     "de": "Ein Zelt"
+    },
+    {
+     "ru": "Ковёр",
+     "en": "A carpet",
+     "de": "Einen Teppich"
+    },
+    {
+     "ru": "Поле",
+     "en": "A field",
+     "de": "Ein Feld"
+    }
+   ]
+  }
+ ]
+}

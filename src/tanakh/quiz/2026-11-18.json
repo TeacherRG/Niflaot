@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 14:7",
+   "q": {
+    "ru": "Сколько лет было Калеву, когда Моше послал его разведать страну?",
+    "en": "How old was Caleb when Moshe sent him to spy out the land?",
+    "de": "Wie alt war Kalew, als Mosche ihn aussandte, das Land auszukundschaften?"
+   },
+   "o": [
+    {
+     "ru": "Сорок",
+     "en": "Forty",
+     "de": "Vierzig"
+    },
+    {
+     "ru": "Двадцать",
+     "en": "Twenty",
+     "de": "Zwanzig"
+    },
+    {
+     "ru": "Шестьдесят",
+     "en": "Sixty",
+     "de": "Sechzig"
+    },
+    {
+     "ru": "Восемьдесят пять",
+     "en": "Eighty-five",
+     "de": "Fünfundachtzig"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 14:10",
+   "q": {
+    "ru": "Сколько лет было Калеву, когда он пришёл к Йеґошуа?",
+    "en": "How old was Caleb when he came to Joshua?",
+    "de": "Wie alt war Kalew, als er zu Jehoschua kam?"
+   },
+   "o": [
+    {
+     "ru": "Восемьдесят пять",
+     "en": "Eighty-five",
+     "de": "Fünfundachtzig"
+    },
+    {
+     "ru": "Сорок пять",
+     "en": "Forty-five",
+     "de": "Fünfundvierzig"
+    },
+    {
+     "ru": "Семьдесят",
+     "en": "Seventy",
+     "de": "Siebzig"
+    },
+    {
+     "ru": "Сто двадцать",
+     "en": "A hundred and twenty",
+     "de": "Hundertzwanzig"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 14:13",
+   "q": {
+    "ru": "Какой город Йеґошуа дал Калеву в удел?",
+    "en": "Which city did Joshua assign to Caleb as his portion?",
+    "de": "Welche Stadt gab Jehoschua Kalew zum Erbe?"
+   },
+   "o": [
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    },
+    {
+     "ru": "Гилгал",
+     "en": "Gilgal",
+     "de": "Gilgal"
+    },
+    {
+     "ru": "Йерихо",
+     "en": "Jericho",
+     "de": "Jericho"
+    },
+    {
+     "ru": "Шхем",
+     "en": "Shechem",
+     "de": "Schechem"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 14:15",
+   "q": {
+    "ru": "Как прежде назывался Хеврон?",
+    "en": "What was the former name of Hebron?",
+    "de": "Wie hieß Chewron früher?"
+   },
+   "o": [
+    {
+     "ru": "Кирьят-Арба",
+     "en": "Kiriath-arba",
+     "de": "Kirjat-Arba"
+    },
+    {
+     "ru": "Кирьят-Сефер",
+     "en": "Kiriath-sepher",
+     "de": "Kirjat-Sefer"
+    },
+    {
+     "ru": "Кирьят-Йеарим",
+     "en": "Kiriath-jearim",
+     "de": "Kirjat-Jearim"
+    },
+    {
+     "ru": "Луз",
+     "en": "Luz",
+     "de": "Lus"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 22:22",
+   "q": {
+    "ru": "От чего псалмопевец просит спасти его?",
+    "en": "From what does the psalmist ask to be delivered?",
+    "de": "Wovor bittet der Dichter, gerettet zu werden?"
+   },
+   "o": [
+    {
+     "ru": "Из пасти льва",
+     "en": "From a lion’s mouth",
+     "de": "Aus dem Rachen des Löwen"
+    },
+    {
+     "ru": "Из глубокого моря",
+     "en": "From the deep sea",
+     "de": "Aus dem tiefen Meer"
+    },
+    {
+     "ru": "Из огня",
+     "en": "From fire",
+     "de": "Aus dem Feuer"
+    },
+    {
+     "ru": "Из плена",
+     "en": "From captivity",
+     "de": "Aus der Gefangenschaft"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 22:23",
+   "q": {
+    "ru": "Кому псалмопевец будет рассказывать об Имени Г-спода?",
+    "en": "To whom will the psalmist proclaim the L-rd’s fame?",
+    "de": "Wem will der Dichter vom Namen des Ewigen erzählen?"
+   },
+   "o": [
+    {
+     "ru": "Своим братьям",
+     "en": "His brethren",
+     "de": "Seinen Brüdern"
+    },
+    {
+     "ru": "Царям народов",
+     "en": "The kings of the nations",
+     "de": "Den Königen der Völker"
+    },
+    {
+     "ru": "Своим врагам",
+     "en": "His enemies",
+     "de": "Seinen Feinden"
+    },
+    {
+     "ru": "Своим детям",
+     "en": "His children",
+     "de": "Seinen Kindern"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 22:28",
+   "q": {
+    "ru": "Кто вспомнит и вернётся к Г-споду?",
+    "en": "Who will pay heed and turn to the L-rd?",
+    "de": "Wer wird daran denken und zum Ewigen umkehren?"
+   },
+   "o": [
+    {
+     "ru": "Все концы земли",
+     "en": "All the ends of the earth",
+     "de": "Alle Enden der Erde"
+    },
+    {
+     "ru": "Только коэны",
+     "en": "Only the kohanim",
+     "de": "Nur die Kohanim"
+    },
+    {
+     "ru": "Только жители Йерушалаима",
+     "en": "Only the people of Jerusalem",
+     "de": "Nur die Bewohner Jeruschalajims"
+    },
+    {
+     "ru": "Никто",
+     "en": "No one",
+     "de": "Niemand"
+    }
+   ]
+  }
+ ]
+}
