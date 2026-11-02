@@ -46,12 +46,12 @@ jobs:
             ANTHROPIC_API_KEY
           vars: |
             MAIL_FROM
-            GOOGLE_CLIENT_ID
+          # «Войти через Google»: only when the repository variable GOOGLE_CLIENT_ID is set — wrangler-action fails
+          # on an empty value in `vars` (the deploys after PR #250 failed so); without it — no Google button
+          command: deploy${{ vars.GOOGLE_CLIENT_ID && format(' --var GOOGLE_CLIENT_ID:{0}', vars.GOOGLE_CLIENT_ID) || '' }}
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           MAIL_FROM: ${{ vars.MAIL_FROM || 'Нифлаот <noreply@mychitas.app>' }}
-          # «Войти через Google»: the OAuth client id (repository variable); empty — no Google button
-          GOOGLE_CLIENT_ID: ${{ vars.GOOGLE_CLIENT_ID }}
       # registration turns on when the repository has the secret RESEND_API_KEY
       - name: Mail key for login codes
         if: ${{ env.HAS_RESEND == 'true' }}
