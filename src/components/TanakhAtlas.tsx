@@ -101,7 +101,7 @@ export function TanakhAtlas({ section, date }: { section: Section; date: string 
           <h3 className="ta-sub">{t('atlas.places')}</h3>
           {onMap.length > 0 && (
             <div className="ta-map">
-              <AtlasMap label={t('atlas.mapLabel')} points={onMap.map((id) => ({ id, ll: day.e[id].ll!, label: name(id), n: num.get(id) }))} />
+              <AtlasMap label={t('atlas.mapLabel')} points={onMap.map((id) => ({ id, ll: day.e[id].ll!, a: day.e[id].a, label: name(id), n: num.get(id) }))} />
             </div>
           )}
           <ol className="ta-places">
@@ -123,7 +123,11 @@ export function TanakhAtlas({ section, date }: { section: Section; date: string 
                     <p className="ta-d">{tx[id]?.d ?? t('atlas.noText')}</p>
                     {e.ll && (
                       <p className="ta-meta">
-                        <span className={`ta-sure s${placeSure(e)}`}>{t(`atlas.sure.${placeSure(e)}` as MessageKey)}</span> ·{' '}
+                        {!e.a && (
+                          <>
+                            <span className={`ta-sure s${placeSure(e)}`}>{t(`atlas.sure.${placeSure(e)}` as MessageKey)}</span> ·{' '}
+                          </>
+                        )}
                         <a href={osmLink(e.ll)} target="_blank" rel="noopener noreferrer">
                           {t('atlas.osm')}
                         </a>
