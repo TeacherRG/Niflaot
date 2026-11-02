@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 19:9",
+   "q": {
+    "ru": "Почему сыны Шимона получили удел внутри удела Йеґуды?",
+    "en": "Why did the Simeonites receive a portion inside Judah’s portion?",
+    "de": "Warum bekamen die Kinder Schimons ihr Erbe mitten im Erbe Jehudas?"
+   },
+   "o": [
+    {
+     "ru": "Доля Йеґуды была для них слишком велика",
+     "en": "Judah’s share was larger than they needed",
+     "de": "Der Anteil Jehudas war für sie zu groß"
+    },
+    {
+     "ru": "Шимон выиграл спор",
+     "en": "Simeon won a dispute",
+     "de": "Schimon gewann einen Streit"
+    },
+    {
+     "ru": "Так велел Калев",
+     "en": "Caleb ordered it",
+     "de": "Kalew befahl es"
+    },
+    {
+     "ru": "Их земля была на севере",
+     "en": "Their land was in the north",
+     "de": "Ihr Land lag im Norden"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:10",
+   "q": {
+    "ru": "Какому колену выпал третий жребий?",
+    "en": "To which tribe did the third lot fall?",
+    "de": "Für welchen Stamm kam das dritte Los heraus?"
+   },
+   "o": [
+    {
+     "ru": "Звулуну",
+     "en": "Zebulun",
+     "de": "Sewulun"
+    },
+    {
+     "ru": "Иссахару",
+     "en": "Issachar",
+     "de": "Jissachar"
+    },
+    {
+     "ru": "Ашеру",
+     "en": "Asher",
+     "de": "Ascher"
+    },
+    {
+     "ru": "Дану",
+     "en": "Dan",
+     "de": "Dan"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:13",
+   "q": {
+    "ru": "Чей это город — Гат-Хефер, по словам Раши?",
+    "en": "Whose town was Gath-hepher, according to Rashi?",
+    "de": "Wessen Stadt war Gat-Chefer nach Raschi?"
+   },
+   "o": [
+    {
+     "ru": "Пророка Йоны, сына Амитая",
+     "en": "The prophet Jonah son of Amittai",
+     "de": "Des Propheten Jona, des Sohnes Amittajs"
+    },
+    {
+     "ru": "Пророка Шмуэля",
+     "en": "The prophet Samuel",
+     "de": "Des Propheten Schmuel"
+    },
+    {
+     "ru": "Царя Шауля",
+     "en": "King Saul",
+     "de": "König Schauls"
+    },
+    {
+     "ru": "Судьи Гидона",
+     "en": "The judge Gideon",
+     "de": "Des Richters Gidon"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 31:10",
+   "q": {
+    "ru": "Почему псалмопевец просит помиловать его?",
+    "en": "Why does the psalmist ask for mercy?",
+    "de": "Warum bittet der Dichter um Gnade?"
+   },
+   "o": [
+    {
+     "ru": "Ему тесно, он в беде",
+     "en": "He is in distress",
+     "de": "Ihm ist bange, er ist in Not"
+    },
+    {
+     "ru": "Он хочет стать царём",
+     "en": "He wants to become king",
+     "de": "Er will König werden"
+    },
+    {
+     "ru": "Он заблудился",
+     "en": "He is lost",
+     "de": "Er hat sich verirrt"
+    },
+    {
+     "ru": "Он болен лихорадкой",
+     "en": "He has a fever",
+     "de": "Er hat Fieber"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 31:13",
+   "q": {
+    "ru": "С чем сравнивает себя забытый всеми псалмопевец?",
+    "en": "What does the forgotten psalmist compare himself to?",
+    "de": "Womit vergleicht sich der vergessene Dichter?"
+   },
+   "o": [
+    {
+     "ru": "С пропавшим сосудом",
+     "en": "An object given up for lost",
+     "de": "Mit einem verlorenen Gefäß"
+    },
+    {
+     "ru": "С сухим деревом",
+     "en": "A dry tree",
+     "de": "Mit einem trockenen Baum"
+    },
+    {
+     "ru": "С пустым домом",
+     "en": "An empty house",
+     "de": "Mit einem leeren Haus"
+    },
+    {
+     "ru": "С разбитой арфой",
+     "en": "A broken harp",
+     "de": "Mit einer zerbrochenen Harfe"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 31:16",
+   "q": {
+    "ru": "Что, по словам псалмопевца, в руке Г-спода?",
+    "en": "What does the psalmist say is in the L-rd’s hand?",
+    "de": "Was ist nach den Worten des Dichters in der Hand des Ewigen?"
+   },
+   "o": [
+    {
+     "ru": "Его времена",
+     "en": "His fate (his times)",
+     "de": "Seine Zeiten"
+    },
+    {
+     "ru": "Его меч",
+     "en": "His sword",
+     "de": "Sein Schwert"
+    },
+    {
+     "ru": "Его дом",
+     "en": "His house",
+     "de": "Sein Haus"
+    },
+    {
+     "ru": "Его песни",
+     "en": "His songs",
+     "de": "Seine Lieder"
+    }
+   ]
+  }
+ ]
+}

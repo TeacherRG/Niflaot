@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 18:14",
+   "q": {
+    "ru": "Какой город, принадлежавший Йеґуде, был концом западной стороны Биньямина?",
+    "en": "Which town of Judah ended Benjamin’s western rim?",
+    "de": "Welche Stadt Jehudas war das Ende der Westseite Binjamins?"
+   },
+   "o": [
+    {
+     "ru": "Кирьят-Йеарим",
+     "en": "Kiriath-jearim",
+     "de": "Kirjat-Jearim"
+    },
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    },
+    {
+     "ru": "Бейт-Лехем",
+     "en": "Bethlehem",
+     "de": "Bet-Lechem"
+    },
+    {
+     "ru": "Ливна",
+     "en": "Libnah",
+     "de": "Liwna"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 18:20",
+   "q": {
+    "ru": "Что было восточной границей удела Биньямина?",
+    "en": "What was the eastern boundary of Benjamin’s portion?",
+    "de": "Was war die Ostgrenze des Erbes Binjamins?"
+   },
+   "o": [
+    {
+     "ru": "Ярден",
+     "en": "The Jordan",
+     "de": "Der Jarden"
+    },
+    {
+     "ru": "Великое море",
+     "en": "The Mediterranean Sea",
+     "de": "Das Große Meer"
+    },
+    {
+     "ru": "Гора Хермон",
+     "en": "Mount Hermon",
+     "de": "Der Berg Chermon"
+    },
+    {
+     "ru": "Пустыня Цин",
+     "en": "The Wilderness of Zin",
+     "de": "Die Wüste Zin"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 18:21",
+   "q": {
+    "ru": "Какой город назван первым среди городов Биньямина?",
+    "en": "Which town is named first among the towns of Benjamin?",
+    "de": "Welche Stadt wird als erste unter den Städten Binjamins genannt?"
+   },
+   "o": [
+    {
+     "ru": "Йерихо",
+     "en": "Jericho",
+     "de": "Jericho"
+    },
+    {
+     "ru": "Йерушалаим",
+     "en": "Jerusalem",
+     "de": "Jeruschalajim"
+    },
+    {
+     "ru": "Гивон",
+     "en": "Gibeon",
+     "de": "Giwon"
+    },
+    {
+     "ru": "Бейт-Эль",
+     "en": "Bethel",
+     "de": "Bet-El"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 30:1",
+   "q": {
+    "ru": "Для какого события сложен 30-й псалом?",
+    "en": "For what occasion is Psalm 30 composed?",
+    "de": "Für welchen Anlass ist Tehillim 30 gedichtet?"
+   },
+   "o": [
+    {
+     "ru": "Для освящения Дома",
+     "en": "The dedication of the House",
+     "de": "Für die Einweihung des Hauses"
+    },
+    {
+     "ru": "Для коронации царя",
+     "en": "A king’s coronation",
+     "de": "Für die Krönung eines Königs"
+    },
+    {
+     "ru": "Для победы на войне",
+     "en": "A victory in war",
+     "de": "Für einen Sieg im Krieg"
+    },
+    {
+     "ru": "Для свадьбы",
+     "en": "A wedding",
+     "de": "Für eine Hochzeit"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 30:3",
+   "q": {
+    "ru": "Что сделал Г-сподь, когда Давид воззвал к Нему?",
+    "en": "What did the L-rd do when David cried out to Him?",
+    "de": "Was tat der Ewige, als David zu Ihm schrie?"
+   },
+   "o": [
+    {
+     "ru": "Исцелил его",
+     "en": "He healed him",
+     "de": "Er heilte ihn"
+    },
+    {
+     "ru": "Дал ему войско",
+     "en": "He gave him an army",
+     "de": "Er gab ihm ein Heer"
+    },
+    {
+     "ru": "Наказал его",
+     "en": "He punished him",
+     "de": "Er bestrafte ihn"
+    },
+    {
+     "ru": "Промолчал",
+     "en": "He was silent",
+     "de": "Er schwieg"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 30:6",
+   "q": {
+    "ru": "Что приходит утром после вечернего плача?",
+    "en": "What comes at dawn after weeping at nightfall?",
+    "de": "Was kommt am Morgen nach dem Weinen am Abend?"
+   },
+   "o": [
+    {
+     "ru": "Ликование",
+     "en": "Shouts of joy",
+     "de": "Jubel"
+    },
+    {
+     "ru": "Новая беда",
+     "en": "New trouble",
+     "de": "Neues Unglück"
+    },
+    {
+     "ru": "Тишина",
+     "en": "Silence",
+     "de": "Stille"
+    },
+    {
+     "ru": "Сон",
+     "en": "Sleep",
+     "de": "Schlaf"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 30:12",
+   "q": {
+    "ru": "Во что Г-сподь обратил плач псалмопевца?",
+    "en": "What did the L-rd turn the psalmist’s lament into?",
+    "de": "Worin verwandelte der Ewige die Klage des Dichters?"
+   },
+   "o": [
+    {
+     "ru": "В пляску",
+     "en": "Dancing",
+     "de": "In Tanz"
+    },
+    {
+     "ru": "В тишину",
+     "en": "Silence",
+     "de": "In Stille"
+    },
+    {
+     "ru": "В молитву",
+     "en": "Prayer",
+     "de": "In Gebet"
+    },
+    {
+     "ru": "В сон",
+     "en": "Sleep",
+     "de": "In Schlaf"
+    }
+   ]
+  }
+ ]
+}

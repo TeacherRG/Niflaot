@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 18:1",
+   "q": {
+    "ru": "Где сыны Израиля поставили Шатёр Встречи?",
+    "en": "Where did the Israelites set up the Tent of Meeting?",
+    "de": "Wo stellten die Kinder Israels das Zelt der Begegnung auf?"
+   },
+   "o": [
+    {
+     "ru": "В Шило",
+     "en": "At Shiloh",
+     "de": "In Schilo"
+    },
+    {
+     "ru": "В Гилгале",
+     "en": "At Gilgal",
+     "de": "In Gilgal"
+    },
+    {
+     "ru": "В Хевроне",
+     "en": "At Hebron",
+     "de": "In Chewron"
+    },
+    {
+     "ru": "В Йерихо",
+     "en": "At Jericho",
+     "de": "In Jericho"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 18:2",
+   "q": {
+    "ru": "Сколько колен ещё не получили удела?",
+    "en": "How many tribes had not yet received their portions?",
+    "de": "Wie viele Stämme hatten ihr Erbe noch nicht bekommen?"
+   },
+   "o": [
+    {
+     "ru": "Семь",
+     "en": "Seven",
+     "de": "Sieben"
+    },
+    {
+     "ru": "Пять",
+     "en": "Five",
+     "de": "Fünf"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    },
+    {
+     "ru": "Три",
+     "en": "Three",
+     "de": "Drei"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 18:4",
+   "q": {
+    "ru": "Сколько человек от каждого колена послал Йеґошуа описать страну?",
+    "en": "How many men from each tribe did Joshua send to describe the land?",
+    "de": "Wie viele Männer aus jedem Stamm schickte Jehoschua, um das Land aufzuschreiben?"
+   },
+   "o": [
+    {
+     "ru": "Трёх",
+     "en": "Three",
+     "de": "Drei"
+    },
+    {
+     "ru": "Одного",
+     "en": "One",
+     "de": "Einen"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    },
+    {
+     "ru": "Десять",
+     "en": "Ten",
+     "de": "Zehn"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 18:11",
+   "q": {
+    "ru": "Между уделами каких колен выпал жребий Биньямина?",
+    "en": "Between which tribes did Benjamin’s lot lie?",
+    "de": "Zwischen welchen Stämmen lag das Los Binjamins?"
+   },
+   "o": [
+    {
+     "ru": "Между Йеґудой и сынами Йосефа",
+     "en": "Between the Judites and the Josephites",
+     "de": "Zwischen Jehuda und den Kindern Josefs"
+    },
+    {
+     "ru": "Между Реувеном и Гадом",
+     "en": "Between Reuben and Gad",
+     "de": "Zwischen Reuwen und Gad"
+    },
+    {
+     "ru": "Между Ашером и Звулуном",
+     "en": "Between Asher and Zebulun",
+     "de": "Zwischen Ascher und Sewulun"
+    },
+    {
+     "ru": "Между Шимоном и Даном",
+     "en": "Between Simeon and Dan",
+     "de": "Zwischen Schimon und Dan"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 29:5",
+   "q": {
+    "ru": "Что ломает голос Г-спода?",
+    "en": "What does the voice of the L-rd break?",
+    "de": "Was zerbricht die Stimme des Ewigen?"
+   },
+   "o": [
+    {
+     "ru": "Кедры Леванона",
+     "en": "The cedars of Lebanon",
+     "de": "Die Zedern des Libanon"
+    },
+    {
+     "ru": "Скалы моря",
+     "en": "The rocks of the sea",
+     "de": "Die Felsen des Meeres"
+    },
+    {
+     "ru": "Стены городов",
+     "en": "The walls of cities",
+     "de": "Die Mauern der Städte"
+    },
+    {
+     "ru": "Колесницы",
+     "en": "Chariots",
+     "de": "Wagen"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 29:10",
+   "q": {
+    "ru": "Где восседал Г-сподь, согласно 29-му псалму?",
+    "en": "Where did the L-rd sit enthroned, according to Psalm 29?",
+    "de": "Wo saß der Ewige nach Tehillim 29 auf dem Thron?"
+   },
+   "o": [
+    {
+     "ru": "При потопе",
+     "en": "At the Flood",
+     "de": "Bei der Flut"
+    },
+    {
+     "ru": "На горе Хермон",
+     "en": "On Mount Hermon",
+     "de": "Auf dem Berg Chermon"
+    },
+    {
+     "ru": "В пустыне",
+     "en": "In the wilderness",
+     "de": "In der Wüste"
+    },
+    {
+     "ru": "У моря",
+     "en": "By the sea",
+     "de": "Am Meer"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 29:11",
+   "q": {
+    "ru": "Чем Г-сподь благословит Свой народ?",
+    "en": "With what will the L-rd bless His people?",
+    "de": "Womit wird der Ewige Sein Volk segnen?"
+   },
+   "o": [
+    {
+     "ru": "Миром",
+     "en": "Wellbeing (peace)",
+     "de": "Mit Frieden"
+    },
+    {
+     "ru": "Золотом",
+     "en": "Gold",
+     "de": "Mit Gold"
+    },
+    {
+     "ru": "Победой в войне",
+     "en": "Victory in war",
+     "de": "Mit Sieg im Krieg"
+    },
+    {
+     "ru": "Долгим летом",
+     "en": "A long summer",
+     "de": "Mit einem langen Sommer"
+    }
+   ]
+  }
+ ]
+}

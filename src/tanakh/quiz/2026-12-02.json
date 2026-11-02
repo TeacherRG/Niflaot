@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 18:28",
+   "q": {
+    "ru": "Какой город в уделе Биньямина назван «Йевус»?",
+    "en": "Which city in Benjamin’s portion is called “Jebus”?",
+    "de": "Welche Stadt im Erbe Binjamins heißt „Jewus“?"
+   },
+   "o": [
+    {
+     "ru": "Йерушалаим",
+     "en": "Jerusalem",
+     "de": "Jeruschalajim"
+    },
+    {
+     "ru": "Гивон",
+     "en": "Gibeon",
+     "de": "Giwon"
+    },
+    {
+     "ru": "Йерихо",
+     "en": "Jericho",
+     "de": "Jericho"
+    },
+    {
+     "ru": "Ґа-Рама",
+     "en": "Ramah",
+     "de": "Ha-Rama"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:1",
+   "q": {
+    "ru": "Где был удел колена Шимона?",
+    "en": "Where was the portion of the tribe of Simeon?",
+    "de": "Wo lag das Erbe des Stammes Schimon?"
+   },
+   "o": [
+    {
+     "ru": "Внутри удела сынов Йеґуды",
+     "en": "Inside the portion of the Judites",
+     "de": "Mitten im Erbe der Kinder Jehudas"
+    },
+    {
+     "ru": "За Ярденом",
+     "en": "East of the Jordan",
+     "de": "Jenseits des Jarden"
+    },
+    {
+     "ru": "На севере у Хермона",
+     "en": "In the north by Hermon",
+     "de": "Im Norden am Chermon"
+    },
+    {
+     "ru": "Между Эфраимом и Менаше",
+     "en": "Between Ephraim and Manasseh",
+     "de": "Zwischen Efrajim und Menasche"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:2",
+   "q": {
+    "ru": "Какой город назван первым в уделе Шимона?",
+    "en": "Which town is named first in Simeon’s portion?",
+    "de": "Welche Stadt wird im Erbe Schimons als erste genannt?"
+   },
+   "o": [
+    {
+     "ru": "Беэр-Шева",
+     "en": "Beer-sheba",
+     "de": "Be’er-Schewa"
+    },
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    },
+    {
+     "ru": "Йерихо",
+     "en": "Jericho",
+     "de": "Jericho"
+    },
+    {
+     "ru": "Шило",
+     "en": "Shiloh",
+     "de": "Schilo"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 31:2",
+   "q": {
+    "ru": "Где укрывается псалмопевец?",
+    "en": "Where does the psalmist seek refuge?",
+    "de": "Wo sucht der Dichter Zuflucht?"
+   },
+   "o": [
+    {
+     "ru": "В Г-споде",
+     "en": "In the L-rd",
+     "de": "Beim Ewigen"
+    },
+    {
+     "ru": "В пещере",
+     "en": "In a cave",
+     "de": "In einer Höhle"
+    },
+    {
+     "ru": "В крепости царя",
+     "en": "In the king’s fortress",
+     "de": "In der Burg des Königs"
+    },
+    {
+     "ru": "У друзей",
+     "en": "With friends",
+     "de": "Bei Freunden"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 31:5",
+   "q": {
+    "ru": "Из чего Г-сподь выведет псалмопевца?",
+    "en": "From what will the L-rd free the psalmist?",
+    "de": "Woraus wird der Ewige den Dichter herausholen?"
+   },
+   "o": [
+    {
+     "ru": "Из сети, что для него спрятали",
+     "en": "From the net laid for him",
+     "de": "Aus dem Netz, das man ihm gelegt hat"
+    },
+    {
+     "ru": "Из реки",
+     "en": "From a river",
+     "de": "Aus einem Fluss"
+    },
+    {
+     "ru": "Из темницы",
+     "en": "From prison",
+     "de": "Aus dem Gefängnis"
+    },
+    {
+     "ru": "Из пустыни",
+     "en": "From the desert",
+     "de": "Aus der Wüste"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 31:6",
+   "q": {
+    "ru": "Что псалмопевец отдаёт в руку Г-спода?",
+    "en": "What does the psalmist entrust into the L-rd’s hand?",
+    "de": "Was gibt der Dichter in die Hand des Ewigen?"
+   },
+   "o": [
+    {
+     "ru": "Свой дух",
+     "en": "His spirit",
+     "de": "Seinen Geist"
+    },
+    {
+     "ru": "Своё богатство",
+     "en": "His wealth",
+     "de": "Seinen Reichtum"
+    },
+    {
+     "ru": "Свой меч",
+     "en": "His sword",
+     "de": "Sein Schwert"
+    },
+    {
+     "ru": "Своих детей",
+     "en": "His children",
+     "de": "Seine Kinder"
+    }
+   ]
+  }
+ ]
+}

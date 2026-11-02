@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 17:13",
+   "q": {
+    "ru": "Что сделали сыны Израиля с кнаанеями, когда окрепли?",
+    "en": "What did the Israelites do to the Canaanites when they became stronger?",
+    "de": "Was taten die Kinder Israels mit den Kenaanitern, als sie stärker wurden?"
+   },
+   "o": [
+    {
+     "ru": "Обложили их данью",
+     "en": "They imposed tribute on them",
+     "de": "Sie machten sie abgabepflichtig"
+    },
+    {
+     "ru": "Изгнали их всех",
+     "en": "They drove them all out",
+     "de": "Sie vertrieben sie alle"
+    },
+    {
+     "ru": "Заключили с ними союз",
+     "en": "They made a covenant with them",
+     "de": "Sie schlossen einen Bund mit ihnen"
+    },
+    {
+     "ru": "Ушли от них",
+     "en": "They left them",
+     "de": "Sie zogen von ihnen weg"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 17:14",
+   "q": {
+    "ru": "На что жаловались сыны Йосефа Йеґошуа?",
+    "en": "What did the Josephites complain about to Joshua?",
+    "de": "Worüber beklagten sich die Kinder Josefs bei Jehoschua?"
+   },
+   "o": [
+    {
+     "ru": "Им дали только один жребий, а их много",
+     "en": "They got a single allotment though they were numerous",
+     "de": "Sie bekamen nur ein Los, obwohl sie viele waren"
+    },
+    {
+     "ru": "Их земля слишком далеко",
+     "en": "Their land was too far away",
+     "de": "Ihr Land lag zu weit weg"
+    },
+    {
+     "ru": "У них нет воды",
+     "en": "They had no water",
+     "de": "Sie hatten kein Wasser"
+    },
+    {
+     "ru": "Им не дали Шило",
+     "en": "They were not given Shiloh",
+     "de": "Sie bekamen Schilo nicht"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 17:15",
+   "q": {
+    "ru": "Что Йеґошуа предложил сделать многочисленным сынам Йосефа?",
+    "en": "What did Joshua suggest to the numerous Josephites?",
+    "de": "Was schlug Jehoschua den zahlreichen Kindern Josefs vor?"
+   },
+   "o": [
+    {
+     "ru": "Подняться в лес и расчистить себе место",
+     "en": "Go up to the forest and clear an area",
+     "de": "In den Wald hinaufzuziehen und Platz zu roden"
+    },
+    {
+     "ru": "Уйти за Ярден",
+     "en": "Move across the Jordan",
+     "de": "Über den Jarden zu ziehen"
+    },
+    {
+     "ru": "Поменяться уделом с Йеґудой",
+     "en": "Swap portions with Judah",
+     "de": "Das Erbe mit Jehuda zu tauschen"
+    },
+    {
+     "ru": "Подождать нового жребия",
+     "en": "Wait for a new lot",
+     "de": "Auf ein neues Los zu warten"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 28:7",
+   "q": {
+    "ru": "Кем назван Г-сподь в 28-м псалме?",
+    "en": "What is the L-rd called in Psalm 28?",
+    "de": "Wie wird der Ewige in Tehillim 28 genannt?"
+   },
+   "o": [
+    {
+     "ru": "Моя сила и мой щит",
+     "en": "My strength and my shield",
+     "de": "Meine Kraft und mein Schild"
+    },
+    {
+     "ru": "Мой пастырь",
+     "en": "My shepherd",
+     "de": "Mein Hirte"
+    },
+    {
+     "ru": "Мой свет",
+     "en": "My light",
+     "de": "Mein Licht"
+    },
+    {
+     "ru": "Мой судья",
+     "en": "My judge",
+     "de": "Mein Richter"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 28:9",
+   "q": {
+    "ru": "О чём просит псалмопевец в конце 28-го псалма?",
+    "en": "What does the psalmist ask at the end of Psalm 28?",
+    "de": "Worum bittet der Dichter am Ende von Tehillim 28?"
+   },
+   "o": [
+    {
+     "ru": "Спасти и благословить народ Г-спода",
+     "en": "To deliver and bless the L-rd’s people",
+     "de": "Das Volk des Ewigen zu retten und zu segnen"
+    },
+    {
+     "ru": "Наказать всех врагов",
+     "en": "To punish all enemies",
+     "de": "Alle Feinde zu bestrafen"
+    },
+    {
+     "ru": "Построить Храм",
+     "en": "To build the Temple",
+     "de": "Den Tempel zu bauen"
+    },
+    {
+     "ru": "Дать дождь",
+     "en": "To give rain",
+     "de": "Regen zu geben"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 29:3",
+   "q": {
+    "ru": "Где звучит голос Г-спода в начале 29-го псалма?",
+    "en": "Where is the voice of the L-rd at the beginning of Psalm 29?",
+    "de": "Wo ist die Stimme des Ewigen am Anfang von Tehillim 29?"
+   },
+   "o": [
+    {
+     "ru": "Над водами",
+     "en": "Over the waters",
+     "de": "Über den Wassern"
+    },
+    {
+     "ru": "В пустыне",
+     "en": "In the wilderness",
+     "de": "In der Wüste"
+    },
+    {
+     "ru": "В горах",
+     "en": "In the mountains",
+     "de": "In den Bergen"
+    },
+    {
+     "ru": "В городе",
+     "en": "In the city",
+     "de": "In der Stadt"
+    }
+   ]
+  }
+ ]
+}

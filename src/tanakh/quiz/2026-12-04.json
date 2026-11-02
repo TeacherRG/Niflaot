@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 19:18",
+   "q": {
+    "ru": "С какого города начинается описание удела Иссахара?",
+    "en": "With which town does the description of Issachar’s territory begin?",
+    "de": "Mit welcher Stadt beginnt die Beschreibung des Gebiets Jissachars?"
+   },
+   "o": [
+    {
+     "ru": "С Изреэля",
+     "en": "Jezreel",
+     "de": "Mit Jisre’el"
+    },
+    {
+     "ru": "С Шило",
+     "en": "Shiloh",
+     "de": "Mit Schilo"
+    },
+    {
+     "ru": "С Хеврона",
+     "en": "Hebron",
+     "de": "Mit Chewron"
+    },
+    {
+     "ru": "С Йерихо",
+     "en": "Jericho",
+     "de": "Mit Jericho"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:22",
+   "q": {
+    "ru": "Какой горы касалась граница Иссахара?",
+    "en": "Which mountain did Issachar’s boundary touch?",
+    "de": "Welchen Berg berührte die Grenze Jissachars?"
+   },
+   "o": [
+    {
+     "ru": "Тавора",
+     "en": "Tabor",
+     "de": "Den Tawor"
+    },
+    {
+     "ru": "Кармеля",
+     "en": "Carmel",
+     "de": "Den Karmel"
+    },
+    {
+     "ru": "Хермона",
+     "en": "Hermon",
+     "de": "Den Chermon"
+    },
+    {
+     "ru": "Гризим",
+     "en": "Gerizim",
+     "de": "Den Grisim"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:24",
+   "q": {
+    "ru": "Какому колену выпал пятый жребий?",
+    "en": "To which tribe did the fifth lot fall?",
+    "de": "Für welchen Stamm kam das fünfte Los heraus?"
+   },
+   "o": [
+    {
+     "ru": "Ашеру",
+     "en": "Asher",
+     "de": "Ascher"
+    },
+    {
+     "ru": "Дану",
+     "en": "Dan",
+     "de": "Dan"
+    },
+    {
+     "ru": "Звулуну",
+     "en": "Zebulun",
+     "de": "Sewulun"
+    },
+    {
+     "ru": "Биньямину",
+     "en": "Benjamin",
+     "de": "Binjamin"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:26",
+   "q": {
+    "ru": "Какой горы на западе касалась граница Ашера?",
+    "en": "Which mountain in the west did Asher’s boundary touch?",
+    "de": "Welchen Berg im Westen berührte die Grenze Aschers?"
+   },
+   "o": [
+    {
+     "ru": "Кармеля",
+     "en": "Carmel",
+     "de": "Den Karmel"
+    },
+    {
+     "ru": "Тавора",
+     "en": "Tabor",
+     "de": "Den Tawor"
+    },
+    {
+     "ru": "Хермона",
+     "en": "Hermon",
+     "de": "Den Chermon"
+    },
+    {
+     "ru": "Эйваля",
+     "en": "Ebal",
+     "de": "Den Ewal"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 31:20",
+   "q": {
+    "ru": "Для кого Г-сподь сберёг великое благо?",
+    "en": "For whom has the L-rd stored up abundant good?",
+    "de": "Für wen hat der Ewige großes Gutes aufbewahrt?"
+   },
+   "o": [
+    {
+     "ru": "Для боящихся Его",
+     "en": "For those who fear Him",
+     "de": "Für die, die Ihn fürchten"
+    },
+    {
+     "ru": "Для богатых",
+     "en": "For the rich",
+     "de": "Für die Reichen"
+    },
+    {
+     "ru": "Для царей",
+     "en": "For kings",
+     "de": "Für die Könige"
+    },
+    {
+     "ru": "Для воинов",
+     "en": "For warriors",
+     "de": "Für die Krieger"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 31:22",
+   "q": {
+    "ru": "Где, по словам Раши, Г-сподь чудесно явил Давиду милость?",
+    "en": "Where, according to Rashi, was the L-rd wondrously faithful to David?",
+    "de": "Wo hat der Ewige David nach Raschi wunderbar Güte erwiesen?"
+   },
+   "o": [
+    {
+     "ru": "В Кеиле",
+     "en": "In Keilah",
+     "de": "In Ke’ila"
+    },
+    {
+     "ru": "В Хевроне",
+     "en": "In Hebron",
+     "de": "In Chewron"
+    },
+    {
+     "ru": "В Йерушалаиме",
+     "en": "In Jerusalem",
+     "de": "In Jeruschalajim"
+    },
+    {
+     "ru": "В Бейт-Лехеме",
+     "en": "In Bethlehem",
+     "de": "In Bet-Lechem"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 31:25",
+   "q": {
+    "ru": "Кого псалмопевец призывает крепиться в конце 31-го псалма?",
+    "en": "Whom does the psalmist call on to be strong at the end of Psalm 31?",
+    "de": "Wen ruft der Dichter am Ende von Tehillim 31 auf, stark zu sein?"
+   },
+   "o": [
+    {
+     "ru": "Всех надеющихся на Г-спода",
+     "en": "All who wait for the L-rd",
+     "de": "Alle, die auf den Ewigen hoffen"
+    },
+    {
+     "ru": "Только воинов",
+     "en": "Only the warriors",
+     "de": "Nur die Krieger"
+    },
+    {
+     "ru": "Своих сыновей",
+     "en": "His sons",
+     "de": "Seine Söhne"
+    },
+    {
+     "ru": "Жителей Кеилы",
+     "en": "The people of Keilah",
+     "de": "Die Bewohner von Ke’ila"
+    }
+   ]
+  }
+ ]
+}
