@@ -19,6 +19,7 @@ import {
   type AtlasTexts,
   type Timeline,
   type TimelineEvent,
+  type TimelineKing,
 } from '../core/atlas';
 import { BOOKS, track } from '../core/tanakhCycle';
 import { CYCLE, cycleDayFor, localToday } from '../core/tanakh';
@@ -217,10 +218,89 @@ function hereIndex(events: TimelineEvent[]): number {
   return best;
 }
 
+/**
+ * «Цари и пророки по годам» — таблица: год (от сотворения мира, по «Седер ґа-дорот») · цари Йеґуды · цари Израиля · пророки.
+ * Строка — год, в который кто-то воцарился или начал пророчествовать; царь объединённого царства — на оба столбца.
+ */
+function ReignTable({ data, lang }: { data: { all: AtlasAll; tx: AtlasTexts; tl: Timeline }; lang: AtlasLang }) {
+  const { t } = useI18n();
+  const { kings, prophets } = data.tl;
+  const years = [...new Set([...kings.map((k) => k.y!), ...prophets.map((p) => p.y)])].sort((a, b) => a - b);
+  const king = (k: TimelineKing) => {
+    const r = refLink(k.ref, lang);
+    return (
+      <div key={k.t.ru} className="rt-k">
+        <b>{k.who && data.tx[k.who]?.d ? <a href={`#/atlas/${k.who}`}>{k.t[lang]}</a> : k.t[lang]}</b>{' '}
+        <span className="he" lang="he">
+          {k.he}
+        </span>
+        <small>
+          {k.r[lang]} · <a href={r.href}>{r.label}</a>
+        </small>
+      </div>
+    );
+  };
+  return (
+    <div className="rt-wrap">
+      <table className="rt">
+        <thead>
+          <tr>
+            <th scope="col">{t('atlas.year')}</th>
+            <th scope="col">{t('atlas.kingsJudah')}</th>
+            <th scope="col">{t('atlas.kingsIsrael')}</th>
+            <th scope="col">{t('atlas.prophets')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {years.map((y) => {
+            const united = kings.filter((k) => k.y === y && k.lane === 'united');
+            const ps = prophets.filter((p) => p.y === y);
+            return (
+              <tr key={y}>
+                <th scope="row">
+                  {y}
+                  <small>{t('atlas.bce', { n: bce(y) })}</small>
+                </th>
+                {united.length ? (
+                  <td colSpan={2} className="rt-united">
+                    {united.map(king)}
+                  </td>
+                ) : (
+                  <>
+                    <td>{kings.filter((k) => k.y === y && k.lane === 'judah').map(king)}</td>
+                    <td>{kings.filter((k) => k.y === y && k.lane === 'israel').map(king)}</td>
+                  </>
+                )}
+                <td>
+                  {ps.map((p) => {
+                    const r = refLink(p.ref, lang);
+                    return (
+                      <div key={p.t.ru} className="rt-p">
+                        <b>{p.t[lang]}</b>{' '}
+                        <span className="he" lang="he">
+                          {p.he}
+                        </span>
+                        <small>
+                          {p.w[lang]} · <a href={r.href}>{r.label}</a>
+                        </small>
+                      </div>
+                    );
+                  })}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 function TimelineView({ data, lang }: { data: { all: AtlasAll; tx: AtlasTexts; tl: Timeline }; lang: AtlasLang }) {
   const { t } = useI18n();
   const { eras, events } = data.tl;
   const here = useMemo(() => hereIndex(events), [events]);
+  const [view, setView] = useState<'table' | 'events'>('table');
   const span = eras[eras.length - 1].to - eras[0].from;
   return (
     <>
@@ -235,14 +315,22 @@ function TimelineView({ data, lang }: { data: { all: AtlasAll; tx: AtlasTexts; t
           </a>
         ))}
       </div>
-      {here >= 0 && (
+      <div className="bm-filter" role="group" aria-label={t('atlas.timeline')}>
+        {(['table', 'events'] as const).map((v) => (
+          <button key={v} type="button" className={`bm-chip${view === v ? ' on' : ''}`} aria-pressed={view === v} onClick={() => setView(v)}>
+            {t(v === 'table' ? 'atlas.viewTable' : 'atlas.viewEvents')}
+          </button>
+        ))}
+      </div>
+      {view === 'table' && <ReignTable data={data} lang={lang} />}
+      {view === 'events' && here >= 0 && (
         <p className="at-now">
           <a href="#/atlas/timeline" onClick={(ev) => (ev.preventDefault(), document.getElementById('at-here')?.scrollIntoView({ behavior: 'smooth', block: 'center' }))}>
             {t('atlas.nowLine', { t: events[here].t[lang], y: events[here].y })} ↓
           </a>
         </p>
       )}
-      {eras.map((era, k) => {
+      {view === 'events' && eras.map((era, k) => {
         const evs = events.map((ev, i) => [ev, i] as const).filter(([ev]) => ev.y >= era.from && (ev.y < era.to || (k === eras.length - 1 && ev.y <= era.to)));
         return (
           <section key={era.id} className="at-era-sec" id={`era-${era.id}`}>

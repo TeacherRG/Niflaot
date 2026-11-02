@@ -105,6 +105,38 @@ tl.events.forEach((ev, i) => {
   }
 });
 
+// цари и пророки: эпоха есть, стих — настоящий, три языка, Имена и стиль; годы внутри одной линии — по порядку
+const eraIds = new Set(tl.eras.map((e) => e.id));
+const verseOk = (ref: string) => {
+  const m = ref.match(/^([a-z-]+) (\d+):(\d+)$/);
+  const ch = m && chapters.get(m[1]);
+  return !!m && !!ch && +m[2] <= ch.length && +m[3] <= ch[+m[2] - 1];
+};
+const lastY: Record<string, number> = {};
+for (const k of tl.kings) {
+  const at = `timeline: царь ${k.t.ru}`;
+  if (!eraIds.has(k.era) || !['united', 'judah', 'israel'].includes(k.lane)) err(`${at}: эпоха / линия`);
+  if (!verseOk(k.ref)) err(`${at}: стих ${k.ref}`);
+  if (k.who && !ents[k.who]) err(`${at}: нет записи ${k.who}`);
+  if (!k.y || k.y < (lastY[k.lane] ?? 0)) err(`${at}: нет года или год раньше предыдущего царя`);
+  lastY[k.lane] = k.y;
+  for (const l of LANGS) {
+    if (!k.t[l] || !k.r[l]) err(`${at}: нет текста ${l}`);
+    for (const e of NAMES[l](k.t[l])) err(`${at} (${l}): ${e}`);
+  }
+}
+for (const p of tl.prophets) {
+  const at = `timeline: пророк ${p.t.ru}`;
+  if (!eraIds.has(p.era)) err(`${at}: эпоха`);
+  const era = tl.eras.find((e) => e.id === p.era);
+  if (!p.y || (era && p.y < era.from - 1) || p.y > tl.eras.at(-1)!.to) err(`${at}: год`);
+  if (!verseOk(p.ref)) err(`${at}: стих ${p.ref}`);
+  for (const l of LANGS) {
+    if (!p.t[l] || !p.w[l]) err(`${at}: нет текста ${l}`);
+    for (const e of NAMES[l](`${p.t[l]} ${p.w[l]}`)) err(`${at} (${l}): ${e}`);
+  }
+}
+
 const cycle = (cycleJson.days as [string, ...number[]][]).map(([date]) => date);
 const until = Object.keys(retell).sort().at(-1)!;
 const need = new Map<string, string>();
@@ -154,5 +186,5 @@ if (errors.length) {
   console.error(`check-atlas: ${errors.length} ошибок\n` + errors.join('\n'));
   process.exit(1);
 }
-console.log(`✓ Кто и где: ${Object.keys(ents).length} записей проекта, ${words} имён в стихах; справки готовы до ${ready}; хронология — ${tl.events.length} событий`);
+console.log(`✓ Кто и где: ${Object.keys(ents).length} записей проекта, ${words} имён в стихах; справки готовы до ${ready}; хронология — ${tl.events.length} событий, ${tl.kings.length} царей, ${tl.prophets.length} пророков`);
 if (ahead < 6) console.warn(`check-atlas: справки «Кто и где» готовы только на ${ahead} учебных дней вперёд — python3 scripts/fetch-atlas.py todo ru`);

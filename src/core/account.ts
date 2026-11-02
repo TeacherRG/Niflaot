@@ -44,13 +44,14 @@ export interface ClassView {
 
 /** the last exchange of progress with the account (this tab only): when, and whether it went through */
 export type SyncStatus = { at: number; ok: boolean } | null;
-type State = { token: string | null; me: Me | null; mail: boolean | null; sync: SyncStatus };
+/** `google` — the OAuth client id when «Войти через Google» is on; `googleBusy` / `googleErr` — the sign-in coming back from Google */
+type State = { token: string | null; me: Me | null; mail: boolean | null; google: string | null; googleBusy: boolean; googleErr: string | null; sync: SyncStatus };
 let state: State = (() => {
   try {
     const s = JSON.parse(localStorage.getItem(STORE) ?? 'null');
-    return { token: s?.token ?? null, me: s?.me ?? null, mail: null, sync: null };
+    return { token: s?.token ?? null, me: s?.me ?? null, mail: null, google: null, googleBusy: false, googleErr: null, sync: null };
   } catch {
-    return { token: null, me: null, mail: null, sync: null };
+    return { token: null, me: null, mail: null, google: null, googleBusy: false, googleErr: null, sync: null };
   }
 })();
 const listeners = new Set<() => void>();
@@ -98,7 +99,8 @@ export async function loadConfig() {
   if (!BASE) return set({ mail: false });
   if (state.mail !== null) return;
   try {
-    set({ mail: (await api<{ mail: boolean }>('/config')).mail });
+    const c = await api<{ mail: boolean; google?: string | null }>('/config');
+    set({ mail: c.mail, google: c.google || null });
   } catch {
     set({ mail: false });
   }
@@ -112,6 +114,60 @@ export async function login(email: string, code: string, lang: Locale) {
   set({ token: r.token, me: { user: r.user, classes: r.classes, ai: r.ai } });
   if (r.user.active) await firstSync();
   return r;
+}
+
+/* ───── «Войти через Google» (server: assistant/src/google.ts) ─────
+ * OpenID Connect without Google's script on the site: the page goes to Google (`response_type=id_token`, scope
+ * `openid email` — only the email) and comes back to `/` with the token in the hash; `takeGoogleReturn` (main.tsx,
+ * before anything reads the address) puts the address back to the page the person was on and sends the token to the
+ * server, which checks it and signs in by the email — the same account as with the code. `nonce` and `state` — made
+ * here for this one sign-in (sessionStorage), so a token from somewhere else is not accepted. */
+const GOOGLE_FLOW = 'niflaot:google-flow';
+const rnd = () => Array.from(crypto.getRandomValues(new Uint8Array(16)), (b) => b.toString(16).padStart(2, '0')).join('');
+
+export function startGoogle(lang: Locale) {
+  if (!state.google) return;
+  const flow = { nonce: rnd(), state: rnd(), back: location.hash || '#/', lang };
+  try {
+    sessionStorage.setItem(GOOGLE_FLOW, JSON.stringify(flow));
+  } catch {
+    return set({ googleErr: 'google' });
+  }
+  const u = new URL('https://accounts.google.com/o/oauth2/v2/auth');
+  u.search = new URLSearchParams({
+    client_id: state.google,
+    redirect_uri: `${location.origin}/`,
+    response_type: 'id_token',
+    scope: 'openid email',
+    nonce: flow.nonce,
+    state: flow.state,
+    prompt: 'select_account',
+  }).toString();
+  location.assign(u.toString());
+}
+
+/** Back from Google: `#id_token=…&state=…` (or `#error=…`) → the page the person was on, and the sign-in. */
+export function takeGoogleReturn() {
+  const p = new URLSearchParams(location.hash.slice(1));
+  if (!p.has('state') || !(p.has('id_token') || p.has('error'))) return;
+  let flow: { nonce: string; state: string; back: string; lang: Locale } | null = null;
+  try {
+    flow = JSON.parse(sessionStorage.getItem(GOOGLE_FLOW) ?? 'null');
+    sessionStorage.removeItem(GOOGLE_FLOW);
+  } catch {}
+  // the token never stays in the address (history, statistics, «поделиться»)
+  const back = flow && /^#\/[^#]*$/.test(flow.back) ? flow.back : '#/';
+  history.replaceState(null, '', location.pathname + location.search + back);
+  if (!flow || p.get('state') !== flow.state) return set({ googleErr: 'google' });
+  const idToken = p.get('id_token');
+  if (!idToken) return; // the person closed Google's page or said no: nothing to say
+  set({ googleBusy: true, googleErr: null });
+  api<Me & { token: string }>('/google', { body: { idToken, nonce: flow.nonce, lang: flow.lang } })
+    .then(async (r) => {
+      set({ token: r.token, me: { user: r.user, classes: r.classes, ai: r.ai }, googleBusy: false });
+      if (r.user.active) await firstSync();
+    })
+    .catch((e) => set({ googleBusy: false, googleErr: e instanceof AccountError ? e.code : 'failed' }));
 }
 
 export async function saveProfile(p: { nick: string; age?: 'adult' | 'child'; parentEmail?: string; board: boolean; lang: Locale }) {
