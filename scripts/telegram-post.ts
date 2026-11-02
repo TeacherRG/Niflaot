@@ -102,7 +102,7 @@ function post(f: Fact, loc: Loc): string {
     `📖 ${html(t(loc, 'facts.cardLesson'))} 👉 ${html(routeLink(`facts/${f.id}`, 'channel', loc))}`,
     `<i>${html(source)}</i>`,
   ]
-    .filter((x) => x !== undefined && x !== false)
+    .filter((x) => x !== undefined)
     .join('\n');
 }
 
