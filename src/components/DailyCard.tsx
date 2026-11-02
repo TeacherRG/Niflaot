@@ -197,7 +197,7 @@ export function DailyCard() {
           </p>
         </>
       )}
-      <DailyReminder />
+      <DailyReminder compact />
       <details className="daily-rules">
         <summary>{t('daily.howPlay')}</summary>
         <Html as="div" className="prose" html={t('daily.rules')} />

@@ -3173,6 +3173,7 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .zip-node text{fill:#fff;font-family:var(--f-body);font-weight:800;font-size:.34px;text-anchor:middle;dominant-baseline:middle;pointer-events:none}
 .zip-board.done .zip-node circle{fill:var(--ok-deep)}
 .zip-how{text-align:center;color:var(--muted);font-size:13px;margin:8px 0}
+.zip-how.zip-warn{color:var(--bad);font-weight:600}
 .zip-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .zip-actions .btn{background:transparent;color:var(--ink);border-color:var(--line)}
 .zip-actions .btn:hover:not(:disabled){border-color:var(--gold);color:var(--gold);background:transparent}
@@ -3188,3 +3189,20 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .btn.zip-next{margin-top:4px;padding:12px 22px;font-size:16px}
 .zip-progress{text-align:center;color:var(--muted);font-size:13px;margin-top:14px}
 @media (max-width:640px){.zip{padding:0 12px 24px}.zip-verse li .he{font-size:18px}}
+
+/* «Напоминать» after the choice (DailyReminder compact; owner, 02.11.2026): one line and a switch — green ✓ / red ✗ drawing itself */
+.reminder.reminder-mini{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;padding:10px 16px}
+.reminder-mini-t{font-weight:700;font-size:16px}
+.reminder-switch{display:grid;place-items:center;width:40px;height:40px;padding:0;border-radius:10px;border:2px solid;cursor:pointer;background:var(--surface);transition:background .2s,border-color .2s}
+.reminder-switch svg{width:24px;height:24px;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.reminder-switch path{stroke-dasharray:24;stroke-dashoffset:24;animation:rem-draw .35s ease-out forwards}
+.reminder-switch.no path+path{animation-delay:.18s}
+.reminder-switch.on{border-color:var(--ok);background:var(--ok-soft)}
+.reminder-switch.on svg{stroke:var(--ok)}
+.reminder-switch.no{border-color:var(--bad);background:var(--bad-soft);animation:rem-shake .45s .45s ease-in-out}
+.reminder-switch.no svg{stroke:var(--bad)}
+.reminder-switch:disabled{opacity:.5}
+.reminder-mini .reminder-note{flex-basis:100%;text-align:center;margin:0}
+@keyframes rem-draw{to{stroke-dashoffset:0}}
+@keyframes rem-shake{20%,60%{transform:translateX(-3px)}40%,80%{transform:translateX(3px)}}
+@media (prefers-reduced-motion:reduce){.reminder-switch path{animation:none;stroke-dashoffset:0}.reminder-switch.no{animation:none}}

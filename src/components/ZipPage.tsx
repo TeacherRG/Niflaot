@@ -15,6 +15,7 @@ import {
   adjacent,
   bestTime,
   canStep,
+  stepBlock,
   hintLine,
   loadZip,
   makeBoard,
@@ -51,6 +52,8 @@ export function ZipPage() {
   const [sec, setSec] = useState(0);
   const [won, setWon] = useState<{ sec: number; hints: number; from: number; to: number; record: boolean } | null>(null);
   const [copied, setCopied] = useState(false);
+  // the line tried the last number before the other cells were filled — say why it stops
+  const [lastWarn, setLastWarn] = useState(false);
   const svg = useRef<SVGSVGElement>(null);
   const drag = useRef(false);
 
@@ -93,6 +96,7 @@ export function ZipPage() {
   const solvedCount = pool.filter((z) => state.d[z.ref]).length;
 
   const update = (next: Cell[], used = hints) => {
+    if (next.length !== line.length) setLastWarn(false);
     if (won) return;
     const before = reachedCount(board, line);
     const after = reachedCount(board, next);
@@ -128,7 +132,10 @@ export function ZipPage() {
       if (Math.abs(tr - hr) >= Math.abs(tc - hc)) tries.push(...[rowStep, colStep].filter((x): x is number => x !== null));
       else tries.push(...[colStep, rowStep].filter((x): x is number => x !== null));
       const step = tries.find((c) => (path.length > 1 && path[path.length - 2] === c) || canStep(board, path, c));
-      if (step === undefined) break;
+      if (step === undefined) {
+        if (tries.some((c) => stepBlock(board, path, c) === 'last')) setLastWarn(true);
+        break;
+      }
       path = path.length > 1 && path[path.length - 2] === step ? path.slice(0, -1) : [...path, step];
     }
     return path;
@@ -172,6 +179,7 @@ export function ZipPage() {
     if (to < 0 || to >= n * n || !adjacent(head, to, n)) return;
     if (line.length > 1 && line[line.length - 2] === to) update(line.slice(0, -1));
     else if (canStep(board, line, to)) update([...line, to]);
+    else if (stepBlock(board, line, to) === 'last') setLastWarn(true);
   };
 
   const restart = () => {
@@ -285,7 +293,14 @@ export function ZipPage() {
             })}
           </svg>
         </div>
-        {!won && <p className="zip-how">{line.length ? t('zip.howGo', { k: n * n - line.length }) : t('zip.howStart')}</p>}
+        {!won &&
+          (lastWarn ? (
+            <p className="zip-how zip-warn" role="status">
+              {t('zip.lastWarn', { n: board.nodes.length, k: n * n - line.length - 1 })}
+            </p>
+          ) : (
+            <p className="zip-how">{line.length ? t('zip.howGo', { k: n * n - line.length }) : t('zip.howStart')}</p>
+          ))}
 
         <div className="zip-actions">
           <button className="btn" onClick={() => update(line.slice(0, -1))} disabled={!line.length || !!won}>
@@ -342,8 +357,7 @@ export function ZipPage() {
               </a>
             </div>
             <div className="zip-remind">
-              <DailyReminder />
-              <p className="reminder-note">{t('zip.remindLead')}</p>
+              <DailyReminder compact note={t('zip.remindLead')} />
             </div>
             <h3>{t('zip.bht')}</h3>
             {verse.bht.map((id) => (

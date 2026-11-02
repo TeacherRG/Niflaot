@@ -244,14 +244,24 @@ export function makeBoard(z: ZipVerse, level: number): ZipBoard {
 }
 
 /**
- * Can the line go on to `cell`? Next to its end, not on the line yet, and a numbered cell only when it is the next number.
- * `reached` — how many numbers the line has passed.
+ * Can the line go on to `cell`? Next to its end, not on the line yet, and a numbered cell only when it is the next number;
+ * the last number — only as the very last cell of the board (owner, 02.11.2026: the line went through it and on, and the
+ * full board was not counted). From the last number the line goes nowhere.
  */
 export function canStep(b: ZipBoard, line: Cell[], cell: Cell): boolean {
+  return stepBlock(b, line, cell) === null;
+}
+
+/** Why the line can't go to `cell` (null — it can): `last` — the last number before all the other cells are filled. */
+export function stepBlock(b: ZipBoard, line: Cell[], cell: Cell): 'no' | 'last' | null {
   const head = line[line.length - 1];
-  if (head === undefined || !adjacent(head, cell, b.n) || line.includes(cell)) return false;
+  if (head === undefined || !adjacent(head, cell, b.n) || line.includes(cell)) return 'no';
+  const last = b.nodes[b.nodes.length - 1].cell;
+  if (head === last) return 'no';
   const node = b.nodes.findIndex((x) => x.cell === cell);
-  return node < 0 || node === reachedCount(b, line);
+  if (node < 0) return null;
+  if (node !== reachedCount(b, line)) return 'no';
+  return cell === last && line.length !== b.n * b.n - 1 ? 'last' : null;
 }
 
 export const reachedCount = (b: ZipBoard, line: Cell[]) => b.nodes.filter((x) => line.includes(x.cell)).length;

@@ -7,7 +7,7 @@
  *  - выбор стиха: каждый следующий — другой, пока не собраны все; уровни: без подсказок — выше, с 3+ — ниже;
  *  - слияние (src/core/sync.ts): все собранные стихи, уровень — больший.
  */
-import { LEVELS, MAX_LEVEL, adjacent, canStep, hintLine, makeBoard, nextLevel, pickVerse, recordWin, solved, verseTranslation, zipPool, type ZipState } from '../src/core/zip';
+import { LEVELS, MAX_LEVEL, adjacent, canStep, stepBlock, reachedCount, hintLine, makeBoard, nextLevel, pickVerse, recordWin, solved, verseTranslation, zipPool, type ZipState } from '../src/core/zip';
 import { mergeSnapshots } from '../src/core/sync';
 
 const errors: string[] = [];
@@ -44,6 +44,14 @@ for (const z of pool) {
       line = [...line, c];
     }
     if (!solved(b, line)) err(`${at}: решение не засчитано`);
+    // the last number — only as the last cell: a line with all the other numbers, next to it, with cells left — can't enter
+    const last = b.nodes[b.nodes.length - 1].cell;
+    for (let k = 1; k < b.path.length - 2; k++) {
+      const pre = b.path.slice(0, k + 1);
+      if (adjacent(pre[pre.length - 1], last, n) && reachedCount(b, pre) === b.nodes.length - 1 && stepBlock(b, pre, last) !== 'last')
+        err(`${at}: в последнее число можно войти раньше конца`);
+    }
+    if (stepBlock(b, b.path.slice(0, -1), last) !== null) err(`${at}: последним шагом в последнее число не войти`);
     let h = [] as number[];
     for (let i = 0; i < n * n; i++) h = hintLine(b, h);
     if (!solved(b, h)) err(`${at}: подсказки не доводят до конца`);
