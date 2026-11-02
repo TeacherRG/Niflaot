@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 21:21",
+   "q": {
+    "ru": "Какой город-убежище дали остальным сынам Кеґата?",
+    "en": "Which city of refuge was given to the remaining Kohathites?",
+    "de": "Welche Zufluchtsstadt bekamen die übrigen Kinder Kehats?"
+   },
+   "o": [
+    {
+     "ru": "Шхем",
+     "en": "Shechem",
+     "de": "Schechem"
+    },
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    },
+    {
+     "ru": "Бецер",
+     "en": "Bezer",
+     "de": "Bezer"
+    },
+    {
+     "ru": "Рамот",
+     "en": "Ramoth",
+     "de": "Ramot"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 21:26",
+   "q": {
+    "ru": "Сколько городов получили остальные семьи сынов Кеґата?",
+    "en": "How many towns did the remaining Kohathite clans receive?",
+    "de": "Wie viele Städte bekamen die übrigen Familien der Kinder Kehats?"
+   },
+   "o": [
+    {
+     "ru": "Десять",
+     "en": "Ten",
+     "de": "Zehn"
+    },
+    {
+     "ru": "Тринадцать",
+     "en": "Thirteen",
+     "de": "Dreizehn"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    },
+    {
+     "ru": "Два",
+     "en": "Two",
+     "de": "Zwei"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 21:27",
+   "q": {
+    "ru": "Какой город-убежище в Башане дали сынам Гершона?",
+    "en": "Which city of refuge in Bashan was given to the Gershonites?",
+    "de": "Welche Zufluchtsstadt in Baschan bekamen die Kinder Gerschons?"
+   },
+   "o": [
+    {
+     "ru": "Голан",
+     "en": "Golan",
+     "de": "Golan"
+    },
+    {
+     "ru": "Шхем",
+     "en": "Shechem",
+     "de": "Schechem"
+    },
+    {
+     "ru": "Кедеш",
+     "en": "Kedesh",
+     "de": "Kedesch"
+    },
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 34:14",
+   "q": {
+    "ru": "От чего нужно беречь свой язык?",
+    "en": "From what should you guard your tongue?",
+    "de": "Wovor sollst du deine Zunge hüten?"
+   },
+   "o": [
+    {
+     "ru": "От зла",
+     "en": "From evil",
+     "de": "Vor Bösem"
+    },
+    {
+     "ru": "От молитвы",
+     "en": "From prayer",
+     "de": "Vor dem Gebet"
+    },
+    {
+     "ru": "От песни",
+     "en": "From song",
+     "de": "Vor dem Lied"
+    },
+    {
+     "ru": "От учёбы",
+     "en": "From study",
+     "de": "Vor dem Lernen"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 34:15",
+   "q": {
+    "ru": "Где искать мира и где стремиться к нему, по Раши?",
+    "en": "Where should one seek peace and where pursue it, according to Rashi?",
+    "de": "Wo soll man nach Raschi Frieden suchen und wo ihm nachjagen?"
+   },
+   "o": [
+    {
+     "ru": "Искать — на своём месте, стремиться — в другом месте",
+     "en": "Seek it in your place, pursue it elsewhere",
+     "de": "Suchen an deinem Ort, nachjagen an einem anderen Ort"
+    },
+    {
+     "ru": "Только в Храме",
+     "en": "Only in the Temple",
+     "de": "Nur im Tempel"
+    },
+    {
+     "ru": "Только дома",
+     "en": "Only at home",
+     "de": "Nur zu Hause"
+    },
+    {
+     "ru": "Только на войне",
+     "en": "Only in war",
+     "de": "Nur im Krieg"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 34:19",
+   "q": {
+    "ru": "К кому близок Г-сподь?",
+    "en": "To whom is the L-rd close?",
+    "de": "Wem ist der Ewige nahe?"
+   },
+   "o": [
+    {
+     "ru": "К сокрушённым сердцем",
+     "en": "To the brokenhearted",
+     "de": "Denen, die gebrochenen Herzens sind"
+    },
+    {
+     "ru": "К гордым",
+     "en": "To the proud",
+     "de": "Den Stolzen"
+    },
+    {
+     "ru": "К богатым",
+     "en": "To the rich",
+     "de": "Den Reichen"
+    },
+    {
+     "ru": "К сильным",
+     "en": "To the strong",
+     "de": "Den Starken"
+    }
+   ]
+  }
+ ]
+}

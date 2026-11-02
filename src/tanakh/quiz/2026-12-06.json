@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 19:28",
+   "q": {
+    "ru": "До какого большого города доходила граница Ашера?",
+    "en": "Up to which great city did Asher’s boundary reach?",
+    "de": "Bis zu welcher großen Stadt reichte die Grenze Aschers?"
+   },
+   "o": [
+    {
+     "ru": "До Великого Цидона",
+     "en": "Great Sidon",
+     "de": "Bis Groß-Zidon"
+    },
+    {
+     "ru": "До Йерушалаима",
+     "en": "Jerusalem",
+     "de": "Bis Jeruschalajim"
+    },
+    {
+     "ru": "До Дамаска",
+     "en": "Damascus",
+     "de": "Bis Damaskus"
+    },
+    {
+     "ru": "До Беэр-Шевы",
+     "en": "Beer-sheba",
+     "de": "Bis Be’er-Schewa"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:30",
+   "q": {
+    "ru": "Сколько городов было у колена Ашера?",
+    "en": "How many towns did the tribe of Asher have?",
+    "de": "Wie viele Städte hatte der Stamm Ascher?"
+   },
+   "o": [
+    {
+     "ru": "Двадцать два",
+     "en": "Twenty-two",
+     "de": "Zweiundzwanzig"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    },
+    {
+     "ru": "Девять",
+     "en": "Nine",
+     "de": "Neun"
+    },
+    {
+     "ru": "Сорок",
+     "en": "Forty",
+     "de": "Vierzig"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:32",
+   "q": {
+    "ru": "Какой по счёту жребий выпал Нафтали?",
+    "en": "Which lot fell to Naphtali?",
+    "de": "Das wievielte Los kam für Naftali heraus?"
+   },
+   "o": [
+    {
+     "ru": "Шестой",
+     "en": "The sixth",
+     "de": "Das sechste"
+    },
+    {
+     "ru": "Первый",
+     "en": "The first",
+     "de": "Das erste"
+    },
+    {
+     "ru": "Третий",
+     "en": "The third",
+     "de": "Das dritte"
+    },
+    {
+     "ru": "Седьмой",
+     "en": "The seventh",
+     "de": "Das siebte"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 32:1",
+   "q": {
+    "ru": "Кто назван счастливым в начале 32-го псалма?",
+    "en": "Who is called happy at the beginning of Psalm 32?",
+    "de": "Wer wird am Anfang von Tehillim 32 glücklich genannt?"
+   },
+   "o": [
+    {
+     "ru": "Тот, чьё преступление прощено",
+     "en": "He whose transgression is forgiven",
+     "de": "Wessen Vergehen vergeben ist"
+    },
+    {
+     "ru": "Тот, кто богат",
+     "en": "He who is rich",
+     "de": "Wer reich ist"
+    },
+    {
+     "ru": "Тот, кто силён",
+     "en": "He who is strong",
+     "de": "Wer stark ist"
+    },
+    {
+     "ru": "Тот, у кого много друзей",
+     "en": "He who has many friends",
+     "de": "Wer viele Freunde hat"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 32:5",
+   "q": {
+    "ru": "Что сделал Г-сподь, когда Давид признался в своих преступлениях?",
+    "en": "What did the L-rd do when David confessed his transgressions?",
+    "de": "Was tat der Ewige, als David seine Vergehen bekannte?"
+   },
+   "o": [
+    {
+     "ru": "Простил вину его греха",
+     "en": "Forgave the guilt of his sin",
+     "de": "Er vergab die Schuld seiner Sünde"
+    },
+    {
+     "ru": "Наказал его",
+     "en": "Punished him",
+     "de": "Er bestrafte ihn"
+    },
+    {
+     "ru": "Отвернулся от него",
+     "en": "Turned away from him",
+     "de": "Er wandte Sich von ihm ab"
+    },
+    {
+     "ru": "Промолчал",
+     "en": "Remained silent",
+     "de": "Er schwieg"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 32:9",
+   "q": {
+    "ru": "Какими не следует быть, согласно 32-му псалму?",
+    "en": "What should we not be like, according to Psalm 32?",
+    "de": "Wie sollen wir nach Tehillim 32 nicht sein?"
+   },
+   "o": [
+    {
+     "ru": "Как конь и мул без понимания",
+     "en": "Like a senseless horse or mule",
+     "de": "Wie ein Pferd und ein Maultier ohne Verstand"
+    },
+    {
+     "ru": "Как лев в лесу",
+     "en": "Like a lion in the forest",
+     "de": "Wie ein Löwe im Wald"
+    },
+    {
+     "ru": "Как птица в небе",
+     "en": "Like a bird in the sky",
+     "de": "Wie ein Vogel am Himmel"
+    },
+    {
+     "ru": "Как рыба в море",
+     "en": "Like a fish in the sea",
+     "de": "Wie ein Fisch im Meer"
+    }
+   ]
+  }
+ ]
+}

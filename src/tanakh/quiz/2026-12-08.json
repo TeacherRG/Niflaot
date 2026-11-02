@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 20:3",
+   "q": {
+    "ru": "Кто должен был бежать в город-убежище?",
+    "en": "Who was to flee to a city of refuge?",
+    "de": "Wer sollte in eine Zufluchtsstadt fliehen?"
+   },
+   "o": [
+    {
+     "ru": "Тот, кто убил человека по ошибке",
+     "en": "One who killed a person by mistake",
+     "de": "Wer einen Menschen aus Versehen getötet hat"
+    },
+    {
+     "ru": "Вор",
+     "en": "A thief",
+     "de": "Ein Dieb"
+    },
+    {
+     "ru": "Беглый раб",
+     "en": "A runaway slave",
+     "de": "Ein entlaufener Sklave"
+    },
+    {
+     "ru": "Тот, кто задолжал",
+     "en": "A debtor",
+     "de": "Ein Schuldner"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 20:4",
+   "q": {
+    "ru": "Где беглец должен был изложить своё дело?",
+    "en": "Where was the fugitive to plead his case?",
+    "de": "Wo sollte der Flüchtling seine Sache vortragen?"
+   },
+   "o": [
+    {
+     "ru": "У входа в ворота города, перед старейшинами",
+     "en": "At the city gate, before the elders",
+     "de": "Am Eingang des Stadttores vor den Ältesten"
+    },
+    {
+     "ru": "В Храме",
+     "en": "In the Temple",
+     "de": "Im Tempel"
+    },
+    {
+     "ru": "Перед царём",
+     "en": "Before the king",
+     "de": "Vor dem König"
+    },
+    {
+     "ru": "На рынке",
+     "en": "In the market",
+     "de": "Auf dem Markt"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 20:6",
+   "q": {
+    "ru": "До какого момента убийца по ошибке жил в городе-убежище?",
+    "en": "Until when did the manslayer live in the city of refuge?",
+    "de": "Bis wann wohnte der Totschläger in der Zufluchtsstadt?"
+   },
+   "o": [
+    {
+     "ru": "До смерти первосвященника",
+     "en": "Until the death of the high priest",
+     "de": "Bis zum Tod des Kohen Gadol"
+    },
+    {
+     "ru": "Семь лет",
+     "en": "Seven years",
+     "de": "Sieben Jahre"
+    },
+    {
+     "ru": "До Йом Кипура",
+     "en": "Until Yom Kippur",
+     "de": "Bis Jom Kippur"
+    },
+    {
+     "ru": "До конца жизни",
+     "en": "For the rest of his life",
+     "de": "Bis an sein Lebensende"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 20:7",
+   "q": {
+    "ru": "Какой город-убежище был на горе Эфраима?",
+    "en": "Which city of refuge was in the hill country of Ephraim?",
+    "de": "Welche Zufluchtsstadt lag auf dem Gebirge Efrajim?"
+   },
+   "o": [
+    {
+     "ru": "Шхем",
+     "en": "Shechem",
+     "de": "Schechem"
+    },
+    {
+     "ru": "Кедеш",
+     "en": "Kedesh",
+     "de": "Kedesch"
+    },
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    },
+    {
+     "ru": "Голан",
+     "en": "Golan",
+     "de": "Golan"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 33:9",
+   "q": {
+    "ru": "Что происходило, когда Г-сподь говорил?",
+    "en": "What happened when the L-rd spoke?",
+    "de": "Was geschah, als der Ewige sprach?"
+   },
+   "o": [
+    {
+     "ru": "Становилось так, как Он сказал",
+     "en": "It came to be",
+     "de": "Es wurde, wie Er sprach"
+    },
+    {
+     "ru": "Ничего",
+     "en": "Nothing",
+     "de": "Nichts"
+    },
+    {
+     "ru": "Начиналась война",
+     "en": "A war began",
+     "de": "Ein Krieg begann"
+    },
+    {
+     "ru": "Шёл дождь",
+     "en": "It rained",
+     "de": "Es regnete"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 33:12",
+   "q": {
+    "ru": "Какой народ назван счастливым?",
+    "en": "Which nation is called happy?",
+    "de": "Welches Volk wird glücklich genannt?"
+   },
+   "o": [
+    {
+     "ru": "Народ, у которого Г-сподь — его Б-г",
+     "en": "The nation whose G-d is the L-rd",
+     "de": "Das Volk, dessen G-tt der Ewige ist"
+    },
+    {
+     "ru": "Самый большой народ",
+     "en": "The largest nation",
+     "de": "Das größte Volk"
+    },
+    {
+     "ru": "Самый богатый народ",
+     "en": "The richest nation",
+     "de": "Das reichste Volk"
+    },
+    {
+     "ru": "Народ с сильным войском",
+     "en": "The nation with a strong army",
+     "de": "Das Volk mit einem starken Heer"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 33:16",
+   "q": {
+    "ru": "Что, по словам псалма, не спасает царя?",
+    "en": "What, according to the psalm, does not save a king?",
+    "de": "Was rettet nach dem Lied einen König nicht?"
+   },
+   "o": [
+    {
+     "ru": "Большое войско",
+     "en": "A large force",
+     "de": "Ein großes Heer"
+    },
+    {
+     "ru": "Молитва",
+     "en": "Prayer",
+     "de": "Das Gebet"
+    },
+    {
+     "ru": "Г-сподь",
+     "en": "The L-rd",
+     "de": "Der Ewige"
+    },
+    {
+     "ru": "Праведность",
+     "en": "Righteousness",
+     "de": "Die Gerechtigkeit"
+    }
+   ]
+  }
+ ]
+}

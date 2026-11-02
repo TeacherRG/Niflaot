@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 19:40",
+   "q": {
+    "ru": "Какому колену выпал седьмой жребий?",
+    "en": "To which tribe did the seventh lot fall?",
+    "de": "Für welchen Stamm kam das siebte Los heraus?"
+   },
+   "o": [
+    {
+     "ru": "Дану",
+     "en": "Dan",
+     "de": "Dan"
+    },
+    {
+     "ru": "Нафтали",
+     "en": "Naphtali",
+     "de": "Naftali"
+    },
+    {
+     "ru": "Ашеру",
+     "en": "Asher",
+     "de": "Ascher"
+    },
+    {
+     "ru": "Биньямину",
+     "en": "Benjamin",
+     "de": "Binjamin"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:47",
+   "q": {
+    "ru": "Как сыны Дана назвали захваченный город Лешем?",
+    "en": "What did the Danites rename the captured town of Leshem?",
+    "de": "Wie nannten die Kinder Dans die eroberte Stadt Leschem?"
+   },
+   "o": [
+    {
+     "ru": "Дан",
+     "en": "Dan",
+     "de": "Dan"
+    },
+    {
+     "ru": "Шило",
+     "en": "Shiloh",
+     "de": "Schilo"
+    },
+    {
+     "ru": "Цор",
+     "en": "Tyre",
+     "de": "Zor"
+    },
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:50",
+   "q": {
+    "ru": "Какой город получил Йеґошуа?",
+    "en": "Which town did Joshua receive?",
+    "de": "Welche Stadt bekam Jehoschua?"
+   },
+   "o": [
+    {
+     "ru": "Тимнат-Серах",
+     "en": "Timnath-serah",
+     "de": "Timnat-Serach"
+    },
+    {
+     "ru": "Йерихо",
+     "en": "Jericho",
+     "de": "Jericho"
+    },
+    {
+     "ru": "Шхем",
+     "en": "Shechem",
+     "de": "Schechem"
+    },
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:51",
+   "q": {
+    "ru": "Где делили землю по жребию?",
+    "en": "Where was the land divided by lot?",
+    "de": "Wo wurde das Land durch das Los geteilt?"
+   },
+   "o": [
+    {
+     "ru": "В Шило, у входа в Шатёр Встречи",
+     "en": "At Shiloh, at the entrance of the Tent of Meeting",
+     "de": "In Schilo, am Eingang des Zeltes der Begegnung"
+    },
+    {
+     "ru": "В Гилгале",
+     "en": "At Gilgal",
+     "de": "In Gilgal"
+    },
+    {
+     "ru": "В Йерушалаиме",
+     "en": "In Jerusalem",
+     "de": "In Jeruschalajim"
+    },
+    {
+     "ru": "На горе Эйваль",
+     "en": "On Mount Ebal",
+     "de": "Auf dem Berg Ewal"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 33:3",
+   "q": {
+    "ru": "Какую песнь псалом велит петь Г-споду?",
+    "en": "What kind of song does the psalm call to sing to the L-rd?",
+    "de": "Was für ein Lied soll man nach dem Lied dem Ewigen singen?"
+   },
+   "o": [
+    {
+     "ru": "Новую песнь",
+     "en": "A new song",
+     "de": "Ein neues Lied"
+    },
+    {
+     "ru": "Песнь плача",
+     "en": "A lament",
+     "de": "Ein Klagelied"
+    },
+    {
+     "ru": "Песнь войны",
+     "en": "A war song",
+     "de": "Ein Kriegslied"
+    },
+    {
+     "ru": "Колыбельную",
+     "en": "A lullaby",
+     "de": "Ein Wiegenlied"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 33:6",
+   "q": {
+    "ru": "Чем были сотворены небеса, согласно 33-му псалму?",
+    "en": "By what were the heavens made, according to Psalm 33?",
+    "de": "Wodurch wurden die Himmel nach Tehillim 33 gemacht?"
+   },
+   "o": [
+    {
+     "ru": "Словом Г-спода",
+     "en": "By the word of the L-rd",
+     "de": "Durch das Wort des Ewigen"
+    },
+    {
+     "ru": "Руками ангелов",
+     "en": "By the hands of angels",
+     "de": "Durch die Hände der Engel"
+    },
+    {
+     "ru": "Из воды моря",
+     "en": "From the waters of the sea",
+     "de": "Aus dem Wasser des Meeres"
+    },
+    {
+     "ru": "Из огня",
+     "en": "From fire",
+     "de": "Aus Feuer"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 33:7",
+   "q": {
+    "ru": "Куда Г-сподь кладёт бездны?",
+    "en": "Where does the L-rd store the deep?",
+    "de": "Wohin legt der Ewige die Tiefen?"
+   },
+   "o": [
+    {
+     "ru": "В хранилища",
+     "en": "In vaults",
+     "de": "In Schatzkammern"
+    },
+    {
+     "ru": "В облака",
+     "en": "In the clouds",
+     "de": "In die Wolken"
+    },
+    {
+     "ru": "В реки",
+     "en": "In rivers",
+     "de": "In die Flüsse"
+    },
+    {
+     "ru": "В пустыню",
+     "en": "In the desert",
+     "de": "In die Wüste"
+    }
+   ]
+  }
+ ]
+}

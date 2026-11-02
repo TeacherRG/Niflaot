@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 21:2",
+   "q": {
+    "ru": "Чего просили левиты в Шило?",
+    "en": "What did the Levites ask for at Shiloh?",
+    "de": "Worum baten die Lewiten in Schilo?"
+   },
+   "o": [
+    {
+     "ru": "Городов для жилья и пастбищ для скота",
+     "en": "Towns to live in and pastures for their livestock",
+     "de": "Um Städte zum Wohnen und Weideflächen für ihr Vieh"
+    },
+    {
+     "ru": "Отдельного удела, как у других колен",
+     "en": "A territory like the other tribes",
+     "de": "Um ein eigenes Erbe wie die anderen Stämme"
+    },
+    {
+     "ru": "Золота для Шатра",
+     "en": "Gold for the Tent",
+     "de": "Um Gold für das Zelt"
+    },
+    {
+     "ru": "Оружия",
+     "en": "Weapons",
+     "de": "Um Waffen"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 21:4",
+   "q": {
+    "ru": "Чьим потомкам дали тринадцать городов от Йеґуды, Шимона и Биньямина?",
+    "en": "Whose descendants received 13 towns from Judah, Simeon and Benjamin?",
+    "de": "Wessen Nachkommen bekamen dreizehn Städte von Jehuda, Schimon und Binjamin?"
+   },
+   "o": [
+    {
+     "ru": "Аґарона-коэна",
+     "en": "The priest Aharon",
+     "de": "Aharons, des Kohen"
+    },
+    {
+     "ru": "Мерари",
+     "en": "Merari",
+     "de": "Meraris"
+    },
+    {
+     "ru": "Гершона",
+     "en": "Gershon",
+     "de": "Gerschons"
+    },
+    {
+     "ru": "Моше",
+     "en": "Moshe",
+     "de": "Mosches"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 21:7",
+   "q": {
+    "ru": "Сколько городов получили сыны Мерари?",
+    "en": "How many towns did the Merarites receive?",
+    "de": "Wie viele Städte bekamen die Kinder Meraris?"
+   },
+   "o": [
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    },
+    {
+     "ru": "Тринадцать",
+     "en": "Thirteen",
+     "de": "Dreizehn"
+    },
+    {
+     "ru": "Десять",
+     "en": "Ten",
+     "de": "Zehn"
+    },
+    {
+     "ru": "Четыре",
+     "en": "Four",
+     "de": "Vier"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 33:17",
+   "q": {
+    "ru": "Что названо обманом для спасения?",
+    "en": "What is called a false hope for deliverance?",
+    "de": "Was wird ein Trug zur Rettung genannt?"
+   },
+   "o": [
+    {
+     "ru": "Конь",
+     "en": "The horse",
+     "de": "Das Pferd"
+    },
+    {
+     "ru": "Молитва",
+     "en": "Prayer",
+     "de": "Das Gebet"
+    },
+    {
+     "ru": "Надежда на Г-спода",
+     "en": "Hope in the L-rd",
+     "de": "Die Hoffnung auf den Ewigen"
+    },
+    {
+     "ru": "Мир",
+     "en": "Peace",
+     "de": "Der Frieden"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 33:18",
+   "q": {
+    "ru": "На кого смотрит глаз Г-спода?",
+    "en": "On whom is the eye of the L-rd?",
+    "de": "Auf wem ist das Auge des Ewigen?"
+   },
+   "o": [
+    {
+     "ru": "На боящихся Его",
+     "en": "On those who fear Him",
+     "de": "Auf denen, die Ihn fürchten"
+    },
+    {
+     "ru": "На царей",
+     "en": "On kings",
+     "de": "Auf den Königen"
+    },
+    {
+     "ru": "На богатых",
+     "en": "On the wealthy",
+     "de": "Auf den Wohlhabenden"
+    },
+    {
+     "ru": "На воинов",
+     "en": "On warriors",
+     "de": "Auf den Kriegern"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 33:20",
+   "q": {
+    "ru": "Кем назван Г-сподь в 33:20?",
+    "en": "What is the L-rd called in 33:20?",
+    "de": "Wie wird der Ewige in 33,20 genannt?"
+   },
+   "o": [
+    {
+     "ru": "Нашей помощью и нашим щитом",
+     "en": "Our help and shield",
+     "de": "Unsere Hilfe und unser Schild"
+    },
+    {
+     "ru": "Нашим царём и судьёй",
+     "en": "Our king and judge",
+     "de": "Unser König und Richter"
+    },
+    {
+     "ru": "Нашим светом",
+     "en": "Our light",
+     "de": "Unser Licht"
+    },
+    {
+     "ru": "Нашим пастырем",
+     "en": "Our shepherd",
+     "de": "Unser Hirte"
+    }
+   ]
+  }
+ ]
+}
