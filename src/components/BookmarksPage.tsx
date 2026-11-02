@@ -107,3 +107,51 @@ export function BookmarksPage() {
     </>
   );
 }
+
+/**
+ * Карточка «Мои закладки и заметки» в окне аккаунта (`#/account`; владелец, 02.11.2026: «закладки и заметки — в окне
+ * аккаунта»): сколько закладок и заметок, три последних стиха (по времени изменения) и ссылка на весь список `#/bookmarks`.
+ */
+export function NotesCard() {
+  const { t, locale } = useI18n();
+  const store = useNotes();
+  const lang = locale === 'en' || locale === 'de' ? locale : 'ru';
+  const all = Object.entries(store).filter((e): e is [string, VerseNote] => isLive(e[1]));
+  const marks = all.filter(([, e]) => e.m === 1).length;
+  const notes = all.filter(([, e]) => e.n).length;
+  const last = [...all].sort(([, a], [, b]) => b.t - a.t).slice(0, 3);
+  return (
+    <section className="acc-card acc-notes">
+      <h2>🔖 {t('notes.accTitle')}</h2>
+      {all.length === 0 ? (
+        <p className="acc-note">
+          {t('notes.empty')} <a href="#/neviim">{t('tanakh.neviim')}</a> · <a href="#/ketuvim">{t('tanakh.ketuvim')}</a>
+        </p>
+      ) : (
+        <>
+          <p className="acc-note">{t('notes.accCount', { m: marks, n: notes })}</p>
+          <ul className="bm-list">
+            {last.map(([k, e]) => {
+              const [b, cv] = k.split(' ');
+              const [c, v] = cv.split(':');
+              const book = BOOKS.find((x) => x.slug === b);
+              return (
+                <li key={k} className="bm-item">
+                  <a className="bm-ref" href={e.d ? `#/${e.s}/${e.d}` : `#/${e.s}`} onClick={() => gotoVerse(`v-${b}-${c}-${v}`)}>
+                    {book ? `${book.name[lang]} ${cv}` : k}
+                  </a>
+                  {e.n ? <p className="bm-note">{e.n}</p> : e.x && <p className="bm-text">{e.x}</p>}
+                </li>
+              );
+            })}
+          </ul>
+          <p>
+            <a className="btn ghost" href="#/bookmarks">
+              {t('notes.accAll', { n: all.length })} →
+            </a>
+          </p>
+        </>
+      )}
+    </section>
+  );
+}

@@ -47,6 +47,7 @@ const RebbePage = page(() => import('./components/RebbePage'), 'RebbePage');
 const TanakhPage = page(() => import('./components/TanakhPage'), 'TanakhPage');
 const WordsPage = page(() => import('./components/WordsPage'), 'WordsPage');
 const BookmarksPage = page(() => import('./components/BookmarksPage'), 'BookmarksPage');
+const AtlasPage = page(() => import('./components/AtlasPage'), 'AtlasPage');
 const VersePage = page(() => import('./components/VersePage'), 'VersePage');
 const FreePage = page(() => import('./components/FreePage'), 'FreePage');
 const TorahWordsPage = page(() => import('./components/TorahWordsPage'), 'TorahWordsPage');
@@ -198,6 +199,8 @@ function Site() {
             <WordsPage />
           ) : slug === 'bookmarks' && !view ? (
             <BookmarksPage />
+          ) : slug === 'atlas' && !variant ? (
+            <AtlasPage key={route} id={view || undefined} />
           ) : slug === 'free' && !view ? (
             <FreePage />
           ) : slug === 'verse' && view && !variant ? (

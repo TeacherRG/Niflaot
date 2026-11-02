@@ -6,6 +6,7 @@ import { BGS, SIZES, THEMES, setLook, useLook } from '../core/look';
 import { shownCourses, PACES, PLAN_YEARS, coursesChosen, setCourses, useCourses } from '../core/courses';
 import { BookProgress } from './BookProgress';
 import { DailyReminder } from './DailyReminder';
+import { NotesCard } from './BookmarksPage';
 import type { MessageKey } from '../i18n/locales/ru';
 import {
   AccountError,
@@ -444,7 +445,7 @@ function LookPicker() {
 /** «Классы» are hidden for now (the server and `#/class/<id>` stay); true brings the section back to the profile. */
 const SHOW_CLASSES = false;
 
-/** `#/account`: guest mode and sign-in, the settings, «Напоминать каждый день», «Мой путь по книгам» (progress and milestones), the profile, the parent's consent, classes, sign out, delete. */
+/** `#/account`: guest mode and sign-in, the settings, «Напоминать каждый день», «Мой путь по книгам» (progress and milestones), «Мои закладки и заметки», the profile, the parent's consent, classes, sign out, delete. */
 export function AccountPage() {
   const { t } = useI18n();
   const { token, me, mail } = useAccount();
@@ -474,6 +475,7 @@ export function AccountPage() {
             <DailyReminder sheet />
           </section>
           <BookProgress />
+          <NotesCard />
           {!token && mail === false && (
             <section className="acc-card">
               <h2>👤 {t('acc.guest')}</h2>
