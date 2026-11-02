@@ -2878,6 +2878,59 @@ a.wd-sing{font-weight:800;text-decoration:none}
 .ta-sure.s0{color:var(--gold-deep)}
 .ta-map{margin:0 0 10px;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
 .ta-credit{margin:12px 0 0;font-size:11.5px;color:var(--muted)}
+/* «Кто и где» — справочник и хронология (AtlasPage) */
+.at{max-width:760px}
+.at-tabs{display:flex;gap:6px;padding:4px;margin:12px 0 4px;background:var(--tchelet-soft);border-radius:12px;width:max-content;max-width:100%}
+.at-tabs a{padding:8px 14px;border-radius:9px;font-weight:600;font-size:14px;color:var(--tchelet);text-decoration:none}
+.at-tabs a.on{background:var(--tchelet-deep);color:#fff}
+.at-head{margin:14px 0 8px}
+.at-head h1{margin:0;font-family:var(--f-display);font-size:30px}
+.at-head h1 .he{font-family:var(--f-he);font-size:.7em;color:var(--gold)}
+.at-he{margin:0;font-family:var(--f-he);font-size:32px;color:var(--ink)}
+.at-search input{width:100%;box-sizing:border-box;padding:11px 14px;font-size:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink)}
+.at-abc{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0}
+.at-abc a{min-width:30px;padding:5px 0;text-align:center;border-radius:8px;background:var(--surface);border:1px solid var(--line);font-weight:600;color:var(--tchelet);text-decoration:none}
+.at-count{font-size:13px;color:var(--muted);margin:8px 0}
+.at-letter{margin:18px 0 6px;font-family:var(--f-display);font-size:24px;color:var(--gold-deep);border-bottom:1px solid var(--line)}
+.at-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.at-list a{display:block;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);text-decoration:none}
+.at-list a:hover{border-color:var(--tchelet)}
+.at-list .he{font-family:var(--f-he);color:var(--muted)}
+.at-d{display:block;font-size:13px;color:var(--ink-2);margin-top:2px}
+.at-back{margin:12px 0 0}
+.at-desc{font-size:16px;line-height:1.6}
+.at-fam{font-size:14px}
+.at-fam a{color:var(--tchelet)}
+.at-sec{margin:18px 0}
+.at-sec h2,.at-era-sec h2{font-family:var(--f-display);font-size:22px;margin:0 0 8px}
+.at-era-sec h2 small{font-family:var(--f-body);font-size:13px;color:var(--muted);font-weight:500}
+.at-where{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0}
+.at-where b{margin-right:4px}
+.at-where a{min-width:30px;padding:4px 8px;text-align:center;border:1px solid var(--line);border-radius:8px;background:var(--surface);font-size:14px;color:var(--tchelet);text-decoration:none}
+.at-bar{display:flex;height:34px;border-radius:9px;overflow:hidden;margin:12px 0 6px}
+.at-era{display:flex;align-items:center;justify-content:center;min-width:0;padding:0 3px;font-size:11px;font-weight:600;text-decoration:none;white-space:nowrap;overflow:hidden}
+.at-era span{overflow:hidden;text-overflow:ellipsis}
+.at-era.e0{background:var(--tchelet-deep);color:#fff}
+.at-era.e1{background:var(--tchelet-soft);color:var(--tchelet)}
+.at-era.e2{background:var(--gold-soft);color:var(--gold-deep)}
+.at-now a{display:inline-block;padding:7px 12px;border-radius:99px;background:var(--gold-deep);color:#fff;font-size:13px;font-weight:600;text-decoration:none}
+.at-era-sec{margin:22px 0}
+.at-events{list-style:none;margin:0;padding:0;border-left:2px solid var(--gold-line);margin-left:6px}
+.at-ev{display:grid;grid-template-columns:86px 1fr;gap:10px;padding:8px 0 12px 12px;position:relative}
+.at-ev::before{content:"";position:absolute;left:-7px;top:13px;width:12px;height:12px;border-radius:50%;background:var(--gold-2);border:2px solid var(--paper)}
+.at-ev.here::before{background:var(--tchelet-deep)}
+.at-ev.here{background:var(--tchelet-soft);border-radius:0 12px 12px 0}
+.at-y{font-weight:700;color:var(--gold-deep);font-size:14px}
+.at-y small{display:block;font-weight:500;color:var(--muted);font-size:11px}
+.at-ev p{margin:0}
+.at-ev-t b{font-size:15px}
+.at-here{margin-left:8px;font-size:11px;font-weight:700;color:#fff;background:var(--tchelet-deep);padding:2px 8px;border-radius:99px;white-space:nowrap}
+.at-ev-d{font-size:14px;color:var(--ink-2);margin-top:2px!important}
+.at-ev-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px!important;font-size:13px}
+.at-ev-links a{color:var(--tchelet)}
+.at-chip{padding:2px 9px;border-radius:99px;background:var(--gold-soft);color:var(--gold-deep)!important;text-decoration:none}
+.acc-notes .bm-list{margin:8px 0}
+@media (max-width:640px){.at-ev{grid-template-columns:64px 1fr}.at-head h1{font-size:26px}}
 .am-box{width:100%;line-height:0}
 .am{display:block;max-width:100%;background:var(--tchelet-soft)}
 .am-sea{fill:var(--tchelet-soft)}

@@ -12,7 +12,6 @@ import { DailyReminder } from './DailyReminder';
 import { canInstall, install, subscribeInstall } from '../core/install';
 import { useToday } from '../core/useToday';
 import { isAdmin } from '../admin/github';
-import { isLive, useNotes } from '../core/notes';
 
 /** Gematria step by step, sources and FAQ (with all the primary sources) load when «Как играть» opens. */
 const HelperContent = lazy(() => import('./Helper').then((m) => ({ default: m.HelperContent })));
@@ -115,8 +114,6 @@ function ParshaPicker({ groups, selected, week, onPick }: { groups: Group[]; sel
  */
 export function Panels() {
   const { t, pick, locale } = useI18n();
-  const notesStore = useNotes();
-  const marks = Object.values(notesStore).filter(isLive).length;
   const { panel, open, lessonSlug } = useUI();
   const level = useHebrewLevel();
   const installable = useSyncExternalStore(subscribeInstall, canInstall, () => false);
@@ -260,7 +257,7 @@ export function Panels() {
               {link('#/hemshech', <Icon name="book" />, t('menu.hemshech'), today && 'title' in today.hs ? today.hs.title : t('hs.short'), !!today && 'title' in today.hs && today.hs.done)}
             </>
           ))}
-          {group(<Icon name="book" />, t('menu.tanakh'), t('menu.tanakhSub'), inTorah || starts('#/neviim', '#/ketuvim', '#/bookmarks'), (
+          {group(<Icon name="book" />, t('menu.tanakh'), t('menu.tanakhSub'), inTorah || starts('#/neviim', '#/ketuvim', '#/atlas'), (
             <>
               {torahGroups.length > 0 && (
                 <details className="menu-group" open={inTorah}>
@@ -276,7 +273,8 @@ export function Panels() {
               )}
               {link(tk('neviim'), num('נ', true), t('menu.neviim'), today?.neviim.range ?? t('tanakh.daySub'), today?.neviim.done)}
               {link(tk('ketuvim'), num('כ', true), t('menu.ketuvim'), today?.ketuvim.range ?? t('tanakh.daySub'), today?.ketuvim.done)}
-              {link('#/bookmarks', <Icon name="bookmark" />, t('notes.title'), marks ? t('notes.menuCount', { n: marks }) : t('notes.menuSub'))}
+              {link('#/atlas', num('מ', true), t('atlas.menu'), t('atlas.menuSub'))}
+              {link('#/atlas/timeline', num('ז', true), t('atlas.timeline'), t('atlas.timelineSub'))}
             </>
           ))}
           {group(<Icon name="chat" />, t('academy.fac.lashon'), t('menu.lashonSub'), starts('#/lashon', '#/torah-words', '#/words', '#/letters'), (

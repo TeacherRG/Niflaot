@@ -25,7 +25,8 @@
 
 Файл дня `public/tanakh/atlas/<дата>.json`: `v` — {«книга глава:стих»: {номер слова нашего текста (через пробел и
 макаф, как в HeVerse): id}}; `o` — {neviim|ketuvim: [id по порядку]}; `e` — {id: {k, he, fa?, mo?, sp?, ch?, ll?, sure?, a?}}
-(и семья — {k, he}). `map.json` — суша, озёра, реки (Natural Earth, PD) и ориентиры `towns` [id, широта, долгота, иврит].
+(и семья — {k, he}). `all.json` — для справочника `#/atlas`: `e` — все записи, `r` — {id: [стихов в цикле,
+[[дата, раздел, «книга глава:стих»] — первый стих каждой главы, до 150 глав]]}. `map.json` — суша, озёра, реки (Natural Earth, PD) и ориентиры `towns` [id, широта, долгота, иврит].
 Справки — src/tanakh/atlas/<ru|en|de>.json ({id: {n: имя, d: описание}}); проверка — scripts/check-atlas.ts.
 """
 import importlib.util, json, math, re, sys, urllib.request
@@ -131,6 +132,7 @@ def cmd_build():
     words = oshb()
     OUT.mkdir(parents=True, exist_ok=True)
     tot = days = 0
+    refs = {}  # id → [(дата, раздел, «книга глава:стих»)] — где имя встречается в цикле (для справочника)
     for f in sorted(DAYS.glob('????-??-??.json')):
         day = json.loads(f.read_text(encoding='utf-8'))
         vmap, order, out = {}, {}, {}
@@ -144,6 +146,9 @@ def cmd_build():
                     if i.startswith('AMBIGUOUS'): raise SystemExit(f"{f.name} {v['b']} {v['c']}:{v['v']}: {i} — уточните `in`")
                     row[str(k)] = i
                     tot += 1
+                    ref = f"{v['b']} {v['c']}:{v['v']}"
+                    r = refs.setdefault(i, [])
+                    if not r or r[-1][2] != ref: r.append((f.stem, s, ref))
                     if i not in order[s]: order[s].append(i)
                 if row: vmap[f"{v['b']} {v['c']}:{v['v']}"] = row
         keep = ('k', 'he', 'fa', 'mo', 'sp', 'ch', 'll', 'sure', 'a')
@@ -155,6 +160,18 @@ def cmd_build():
                 if j and j not in out: out[j] = {'k': ents[j]['k'], 'he': ents[j]['he']}
         (OUT / f.name).write_text(json.dumps({'v': vmap, 'o': order, 'e': out}, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
         days += 1
+    # справочник (`#/atlas`): все записи и где они в цикле — сколько стихов и первые 40
+    keep = ('k', 'he', 'fa', 'mo', 'sp', 'ch', 'll', 'sure', 'a')
+    every = {i: {k: e[k] for k in keep if k in e} for i, e in ents.items()}
+    # по главам: [дата первого стиха главы, раздел, «книга глава:стих»] — глава один раз, не больше 150
+    def chapters(r):
+        out, seen = [], set()
+        for date, sec, ref in r:
+            ch = ref.split(':')[0]
+            if ch not in seen: seen.add(ch); out.append([date, sec, ref])
+        return out[:150]
+    where = {i: [len(r), chapters(r)] for i, r in refs.items()}
+    (OUT / 'all.json').write_text(json.dumps({'e': every, 'r': where}, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
     print(f'build: {days} days, {tot} names in the text linked to {len(ents)} records')
     cmd_map([[i, *e['ll'], e['he']] for i, e in ents.items() if e.get('t')])
 

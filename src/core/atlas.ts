@@ -112,3 +112,48 @@ export function sectionEntities(d: AtlasDay, section: 'neviim' | 'ketuvim') {
     places: ids.filter((i) => d.e[i] && isPlace(d.e[i])),
   };
 }
+
+/** Справочник `#/atlas`: все записи и где они в цикле (`all.json` — scripts/fetch-atlas.py build). */
+export interface AtlasAll {
+  e: Record<string, AtlasEntity>;
+  /** id → [стихов в цикле, [[дата, раздел, «книга глава:стих»] — первый стих каждой главы]] */
+  r: Record<string, [number, [string, 'neviim' | 'ketuvim', string][]]>;
+}
+let all: Promise<AtlasAll | null> | undefined;
+export const loadAtlasAll = () => (all ??= json<AtlasAll>('tanakh/atlas/all.json'));
+
+/** Хронология (src/tanakh/atlas/timeline.json) — годы от сотворения мира по «Седер олам». */
+export interface TimelineEra {
+  id: string;
+  from: number;
+  to: number;
+  t: Record<AtlasLang, string>;
+}
+export interface TimelineEvent {
+  y: number;
+  y2?: number;
+  /** «книга глава[:стих]» Пророков и Писаний — ссылка на стих; Тора — `src` текстом */
+  ref?: string;
+  src?: Record<AtlasLang, string>;
+  who?: string[];
+  t: Record<AtlasLang, string>;
+  d: Record<AtlasLang, string>;
+}
+export interface Timeline {
+  eras: TimelineEra[];
+  events: TimelineEvent[];
+}
+let timeline: Promise<Timeline> | undefined;
+export const loadTimeline = () => (timeline ??= import('../tanakh/atlas/timeline.json').then((m) => m.default as unknown as Timeline));
+
+/** «2488» → «≈ 1273 до н. э.» (традиционный счёт: год от сотворения − 3760) */
+export const bce = (y: number) => 3761 - y;
+
+/** Для поиска: строчные, без огласовок и знаков, ё → е, ґ → г */
+export const fold = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/[֑-ׇ]/g, '')
+    .replace(/ё/g, 'е')
+    .replace(/ґ/g, 'г')
+    .replace(/[״׳"'’«»()]/g, '');
