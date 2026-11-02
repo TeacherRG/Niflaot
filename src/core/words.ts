@@ -16,6 +16,7 @@ import { localToday, root } from './tanakh';
 import { normWord, type WordEntry } from './sync';
 import type { Certificate, Progress } from './academy';
 import { markStudied } from './habit';
+import { noteAnswer } from './lashonStore';
 
 export interface Word {
   /** номер Стронга */
@@ -218,8 +219,13 @@ function put(id: string, box: number, due: number) {
 export const markKnown = (id: string) => put(id, KNOWN_BOX, today() + INTERVALS[KNOWN_BOX]);
 export const markLearn = (id: string) => put(id, 1, today());
 export const unmark = (id: string) => put(id, 0, 0);
-/** итог повторения слова: вспомнил — следующая коробка, нет — снова коробка 1, завтра */
-export function review(id: string, remembered: boolean) {
+/**
+ * итог повторения слова: вспомнил — следующая коробка, нет — снова коробка 1, завтра. `course` — и в «Святой язык — уроки»
+ * (вспомнил — слово встречено сегодня, «Повторим» не спросит его раньше времени; нет — оно в «Трудных»); из самого курса — false:
+ * курс записывает свои ответы сам.
+ */
+export function review(id: string, remembered: boolean, course = true) {
+  if (course) noteAnswer(id, remembered);
   const box = boxOf(readWordStore(), id);
   if (box >= KNOWN_BOX) {
     const day = today();
@@ -245,6 +251,24 @@ export function useWordStore(): WordStore {
     };
   }, []);
   return s;
+}
+
+/**
+ * Ответы урока «Святого языка» — в «Мои слова» (владелец, 02.11.2026: «синхронизация святой язык уроки и мои слова»): слово, которое
+ * уже было в колоде, — повторение: пора повторять — «вспомнил» / «забыл»; ещё не пора — засчитывается только ошибка (вспомнить
+ * раньше срока — не повторение). Возвращает, сколько слов повторено.
+ */
+export function reviewFromCourse(answers: Record<string, boolean>, s: WordStore = readWordStore()): number {
+  let n = 0;
+  const day = today();
+  for (const [id, right] of Object.entries(answers)) {
+    if (!inDeck(s, id)) continue;
+    const due = s[id][2] <= day;
+    if (!due && right) continue;
+    review(id, right, false);
+    n++;
+  }
+  return n;
 }
 
 /** Слова дня: самые частые переведённые слова отрывка, которых нет в «Моих словах». */
