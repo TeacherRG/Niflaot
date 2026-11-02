@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useRef, type KeyboardEvent as ReactKeyboardEvent, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
-export type Panel = 'menu' | 'help' | 'about' | 'assistant' | 'reminder' | null;
+export type Panel = 'menu' | 'help' | 'assistant' | 'reminder' | null;
 
 export const UIContext = createContext<{ panel: Panel; open: (p: Panel) => void; lessonSlug?: string }>({
   panel: null,

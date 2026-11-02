@@ -1,11 +1,9 @@
 import { useI18n } from '../i18n';
 import { SITE_URL } from '../core/site';
-import { useUI } from './ui';
 
 /** The footer of every page: the lesson's source (if any), then a band with the site, the year and MyChitas. */
 export function Colophon({ source }: { source?: string }) {
   const { t } = useI18n();
-  const { open } = useUI();
   return (
     <footer className="colophon">
       {source && <p className="colophon-source">{source}</p>}
@@ -27,9 +25,9 @@ export function Colophon({ source }: { source?: string }) {
             </a>{' '}
             <span className="site-foot-more">· © 2026</span>
           </span>
-          <button type="button" className="site-foot-more" onClick={() => open('about')}>
+          <a className="site-foot-more" href="#/about">
             {t('about.title')}
-          </button>
+          </a>
           <a className="site-foot-more" href="#/privacy">
             {t('privacy.title')}
           </a>

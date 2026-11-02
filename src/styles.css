@@ -579,9 +579,9 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .p-year{font-family:var(--f-body);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#7a5b1e;margin-bottom:6px}
 .p-year .he{letter-spacing:0;font-size:13px}
 /* print: about the project at the very end, on its own page */
-.p-about{break-before:page;margin-top:28px;padding-top:16px;border-top:2px solid #111}
+.p-about{break-inside:avoid;margin-top:28px;padding-top:16px;border-top:2px solid #111}
 .p-about>h2{font-size:24px;font-weight:700;margin-bottom:10px}
-.p-about .prose{font-size:12px;line-height:1.45;color:#222}
+.p-about .prose{font-size:12px;line-height:1.45;color:#222;margin:0 0 6px}
 .p-about .prose h4{margin:10px 0 2px}
 .p-about .prose ul{margin:2px 0;padding-inline-start:18px}
 .p-about .prose li{margin:1px 0}
@@ -3135,6 +3135,26 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .free-why h2{margin:0 0 6px;font-family:var(--f-display);font-size:24px}
 .free-why p{margin:0;line-height:1.55}
 .free-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px!important}
+.about-head{text-align:center}
+.about-head .about-mark{font-size:56px;margin:8px 0 0}
+.about-head .free-lead{max-width:680px;margin:0 auto}
+.about-sec{margin-top:26px}
+.about-sec h2{margin:0 0 10px;font-family:var(--f-display);font-size:26px;line-height:1.15;color:var(--ink)}
+.about-modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.about-mode{display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:16px;border:1px solid var(--line-soft);box-shadow:var(--shadow)}
+.about-mode b{font-size:18px;color:var(--ink)}
+.about-mode span{font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.about-mode.kids{background:var(--gold-soft);border-color:var(--gold-line)}
+.about-mode.adults{background:var(--tchelet-soft);border-color:var(--tchelet-line)}
+.about-note{margin:10px 0 0;font-size:14px;color:var(--muted)}
+.about-sec .free-grid{margin-top:0}
+.about-two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 28px}
+.about-two ul{margin:0;padding-inline-start:20px;display:grid;gap:8px;line-height:1.5}
+.about-texts{margin-top:26px;padding:12px 16px;border:1px solid var(--line-soft);border-radius:16px;background:var(--surface)}
+.about-texts summary{cursor:pointer;font-family:var(--f-display);font-size:22px;font-weight:600;color:var(--ink)}
+.about-texts ul{margin:10px 0;padding-inline-start:20px;display:grid;gap:8px;font-size:14px;line-height:1.5}
+.about-contact p{margin:0 0 8px}
+@media (max-width:640px){.about-two{grid-template-columns:1fr}.about-head .about-mark{font-size:44px}.about-sec h2{font-size:23px}}
 
 /* «Zip — стих Торы» (ZipPage.tsx, src/core/zip.ts) */
 .zip{padding:0 16px 24px}

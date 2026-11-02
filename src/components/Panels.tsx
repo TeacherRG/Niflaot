@@ -366,10 +366,10 @@ export function Panels() {
             <Icon name="heart" />
             <span>{t('partners.title')}</span>
           </a>
-          <button className="menu-item" onClick={() => open('about')}>
+          <a href="#/about" onClick={close} className="menu-item" aria-current={location.hash === '#/about' ? 'page' : undefined}>
             <Icon name="info" />
             <span>{t('about.title')}</span>
-          </button>
+          </a>
           <a href="#/free" onClick={close} className="menu-item" aria-current={location.hash === '#/free' ? 'page' : undefined}>
             <Icon name="spark" />
             <span>{t('free.menu')}</span>
@@ -427,19 +427,6 @@ export function Panels() {
         {panel === 'reminder' && <DailyReminder sheet />}
       </Sheet>
 
-      <Sheet open={panel === 'about'} onClose={close} title={t('about.title')} closeLabel={t('menu.close')}>
-        <div className="about-mark he">נפלאות</div>
-        <Html as="div" className="prose" html={t('about.body')} />
-        <Html as="p" className="prose" html={t('about.partners')} />
-        <div className="about-links">
-          <a className="btn" href="https://mychitas.app/donate" target="_blank" rel="noopener">
-            {t('footer.donate')}
-          </a>
-          <a className="btn ghost" href="mailto:Office@mychitas.app">
-            Office@mychitas.app
-          </a>
-        </div>
-      </Sheet>
     </>
   );
 }
