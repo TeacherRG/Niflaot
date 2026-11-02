@@ -4,7 +4,8 @@
  * classes, and counts the questions to the AI teacher.
  *
  * One Durable Object `Accounts` (SQLite). Login: a 6-digit code to the email (Resend, secret RESEND_API_KEY;
- * without it registration is off — `/account/config` says so). Codes and session tokens are kept only as SHA-256
+ * without it registration is off — `/account/config` says so) or «Войти через Google» (`/google`, src/google.ts;
+ * variable GOOGLE_CLIENT_ID) — the same account by the same email. Codes and session tokens are kept only as SHA-256
  * hashes. A child under 14 (Austria / GDPR art. 8): the account stays **pending** — nothing synced, not on the
  * boards, not in classes — until a parent confirms by the link sent to the parent's email.
  * Kept per account: email, nickname, age group (14+ / under 14), parent's email (under 14), language, the synced
@@ -12,6 +13,7 @@
  */
 import { DurableObject } from 'cloudflare:workers';
 import { methodsFor, validEmail, validNick } from './rules';
+import { verifyGoogleToken } from './google';
 import { mergeSnapshots, summarize, type Snapshot } from '../../src/core/sync';
 
 export interface MailEnv {
@@ -20,6 +22,8 @@ export interface MailEnv {
   MAIL_FROM?: string;
   /** the site, for links in the emails */
   SITE_URL?: string;
+  /** «Войти через Google»: the OAuth client id (Google Cloud → Credentials; public). Without it — no Google button */
+  GOOGLE_CLIENT_ID?: string;
   /** local development only (`wrangler dev --var DEV_CODES:1`): codes go to the log instead of an email */
   DEV_CODES?: string;
 }
@@ -214,6 +218,19 @@ export class Accounts extends DurableObject<MailEnv> {
     this.sql.exec('DELETE FROM users WHERE id = ?', id);
   }
 
+  /** a session for the account of this email (made on the first sign-in) */
+  private async signIn(email: string, l: unknown) {
+    let u = this.one<User>('SELECT * FROM users WHERE email = ?', email);
+    if (!u) {
+      const id = random(12);
+      this.sql.exec('INSERT INTO users (id, email, lang, created, last) VALUES (?, ?, ?, ?, ?)', id, email, lang(l), Date.now(), Date.now());
+      u = this.one<User>('SELECT * FROM users WHERE id = ?', id)!;
+    }
+    const token = random(32);
+    this.sql.exec('INSERT INTO sessions (hash, user, expires) VALUES (?, ?, ?)', await sha(token), u.id, Date.now() + SESSION_TTL);
+    return json({ token, ...this.me(u) });
+  }
+
   async fetch(req: Request): Promise<Response> {
     if (!(await this.ctx.storage.getAlarm())) await this.ctx.storage.setAlarm(Date.now() + 864e5);
     const url = new URL(req.url);
@@ -228,7 +245,7 @@ export class Accounts extends DurableObject<MailEnv> {
     const body = req.method === 'POST' || req.method === 'PUT' ? ((await req.json().catch(() => null)) as Record<string, any> | null) : null;
     if ((req.method === 'POST' || req.method === 'PUT') && !body) return fail('bad json');
 
-    if (path === '/config') return json({ mail: !!this.env.RESEND_API_KEY || this.env.DEV_CODES === '1' });
+    if (path === '/config') return json({ mail: !!this.env.RESEND_API_KEY || this.env.DEV_CODES === '1', google: this.env.GOOGLE_CLIENT_ID || null });
     if (path === '/chat-quota') return this.chatQuota(req);
 
     /* ── login ── */
@@ -264,15 +281,21 @@ export class Accounts extends DurableObject<MailEnv> {
         return fail('code', 401);
       }
       this.sql.exec('DELETE FROM codes WHERE email = ?', email);
-      let u = this.one<User>('SELECT * FROM users WHERE email = ?', email);
-      if (!u) {
-        const id = random(12);
-        this.sql.exec('INSERT INTO users (id, email, lang, created, last) VALUES (?, ?, ?, ?, ?)', id, email, lang(body!.lang), Date.now(), Date.now());
-        u = this.one<User>('SELECT * FROM users WHERE id = ?', id)!;
+      return this.signIn(email, body!.lang);
+    }
+    if (path === '/google') {
+      const clientId = this.env.GOOGLE_CLIENT_ID;
+      if (!clientId) return fail('google', 404);
+      let r: Awaited<ReturnType<typeof verifyGoogleToken>>;
+      try {
+        r = await verifyGoogleToken(String(body!.idToken ?? ''), { clientId, nonce: String(body!.nonce ?? '') });
+      } catch (e) {
+        console.error(e);
+        return fail('failed', 503);
       }
-      const token = random(32);
-      this.sql.exec('INSERT INTO sessions (hash, user, expires) VALUES (?, ?, ?)', await sha(token), u.id, Date.now() + SESSION_TTL);
-      return json({ token, ...this.me(u) });
+      if (!r.ok) return fail('google', 401);
+      if (!validEmail(r.email)) return fail('email');
+      return this.signIn(r.email, body!.lang);
     }
     if (path === '/consent') {
       const token = String(body!.token ?? '');

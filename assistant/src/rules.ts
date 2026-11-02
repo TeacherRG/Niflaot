@@ -64,6 +64,7 @@ const ROUTES: Record<string, string[]> = {
   '/chat-quota': ['POST'],
   '/code': ['POST'],
   '/login': ['POST'],
+  '/google': ['POST'],
   '/consent': ['POST'],
   '/consent/resend': ['POST'],
   '/leaders': ['GET'],

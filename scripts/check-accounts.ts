@@ -6,6 +6,7 @@
 import { mergeSnapshots, summarize } from '../src/core/sync';
 import { methodsFor, validEmail, validNick } from '../assistant/src/rules';
 import { sanitizeHtml } from '../src/core/sanitize';
+import { verifyGoogleToken } from '../assistant/src/google';
 
 const errors: string[] = [];
 const err = (s: string) => errors.push(s);
@@ -67,6 +68,42 @@ for (const e of ['a@b', 'a b@c.de', '@c.de', 'x'.repeat(250) + '@a.de']) if (val
 for (const n of ['Мойше', 'tzadik_7', 'Leah K', 'דוד123']) if (!validNick(n)) err(`accounts: nickname refused: ${n}`);
 for (const n of ['ab', '12345', ' lead', 'x'.repeat(21), '<script>', 'a@b']) if (validNick(n)) err(`accounts: bad nickname accepted: ${n}`);
 
+// «Войти через Google»: a token signed by our own test key — accepted only when everything holds
+{
+  const pair = (await crypto.subtle.generateKey(
+    { name: 'RSASSA-PKCS1-v1_5', modulusLength: 2048, publicExponent: new Uint8Array([1, 0, 1]), hash: 'SHA-256' },
+    true, ['sign', 'verify'],
+  )) as CryptoKeyPair;
+  const jwk = { ...(await crypto.subtle.exportKey('jwk', pair.publicKey)), kid: 'k1' };
+  const b64 = (s: string | Uint8Array) =>
+    Buffer.from(typeof s === 'string' ? s : s).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  const now = 1_800_000_000;
+  const good = { iss: 'https://accounts.google.com', aud: 'cid', exp: now + 600, iat: now, email: 'A@Example.com', email_verified: true, nonce: 'n1' };
+  const sign = async (c: object, kid = 'k1') => {
+    const head = `${b64(JSON.stringify({ alg: 'RS256', kid }))}.${b64(JSON.stringify(c))}`;
+    const sig = new Uint8Array(await crypto.subtle.sign('RSASSA-PKCS1-v1_5', pair.privateKey, new TextEncoder().encode(head)));
+    return `${head}.${b64(sig)}`;
+  };
+  const check = (t: string, nonce = 'n1') => verifyGoogleToken(t, { clientId: 'cid', nonce, keys: [jwk], now });
+  const ok = await check(await sign(good));
+  if (!ok.ok || ok.email !== 'a@example.com') err(`google: a valid token must sign in a@example.com: ${JSON.stringify(ok)}`);
+  const bad: [string, string][] = [
+    ['aud', await sign({ ...good, aud: 'other' })],
+    ['iss', await sign({ ...good, iss: 'https://evil.example' })],
+    ['expired', await sign({ ...good, exp: now - 3600 })],
+    ['email', await sign({ ...good, email_verified: false })],
+    ['key', await sign(good, 'k2')],
+    ['signature', (await sign(good)).replace(/\.[^.]+\./, `.${b64(JSON.stringify({ ...good, email: 'x@evil.example' }))}.`)],
+  ];
+  for (const [why, t] of bad) {
+    const r = await check(t);
+    if (r.ok || r.error !== why) err(`google: a token with a wrong ${why} must be refused: ${JSON.stringify(r)}`);
+  }
+  const n = await check(await sign(good), 'n2');
+  if (n.ok || n.error !== 'nonce') err('google: a token for another sign-in (nonce) must be refused');
+  if (!methodsFor('/google')?.includes('POST')) err('accounts: POST /google must be allowed');
+}
+
 if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));
   process.exit(1);
@@ -100,4 +137,4 @@ for (const e of evil) {
 const fine = '<p class="expl" dir="rtl" lang="he"><b>Пояснение.</b> <span class="he">א</span><sup data-src="bht-1"></sup> <a href="#/privacy">x</a> <a href="https://www.neirot.com" target="_blank" rel="noopener">y</a></p>';
 if (sanitizeHtml(fine) !== fine) err(`sanitize: the site's own markup must stay: ${sanitizeHtml(fine)}`);
 
-console.log('✓ accounts: progress merge, synced keys, emails, nicknames, routes and methods; editor sanitizer');
+console.log('✓ accounts: Google sign-in token, progress merge, synced keys, emails, nicknames, routes and methods; editor sanitizer');

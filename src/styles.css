@@ -1415,6 +1415,11 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .acc-card p{margin:0 0 10px}
 .acc-card .prose ul{margin:0 0 12px;padding-inline-start:20px}
 .acc-form{display:grid;gap:12px;margin:8px 0}
+.acc-google{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:44px;margin:12px 0 4px;padding:10px 16px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font-weight:600;font-size:15px;font-family:inherit;cursor:pointer}
+.acc-google:hover{background:var(--paper)}
+.acc-google:disabled{opacity:.6;cursor:default}
+.acc-or{display:flex;align-items:center;gap:10px;margin:8px 0;color:var(--muted);font-size:13px}
+.acc-or::before,.acc-or::after{content:'';flex:1;border-top:1px solid var(--line)}
 .acc-form label{display:grid;gap:4px;font-weight:600;font-size:14px}
 .acc-form label small{font-weight:400;color:var(--muted)}
 .acc-form input[type=email],.acc-form input:not([type]),.acc-form input[inputmode]{font:inherit;font-weight:400;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);min-width:0}

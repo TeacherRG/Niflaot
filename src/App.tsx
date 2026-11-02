@@ -13,7 +13,7 @@ import { TermPopover } from './components/TermPopover';
 import { Assistant } from './components/Assistant';
 import { setPageState } from './core/assistant';
 import { loadConfig, onPulled, useAccount } from './core/account';
-import { isOpenRoute } from './core/gate';
+import { inTrial, isOpenRoute } from './core/gate';
 import { installFootnoteNavigation } from './sources/footnotes';
 import { installLangMarkup } from './core/langMarkup';
 import { installTitleSync } from './core/pageMeta';
@@ -157,9 +157,13 @@ function Site() {
   const [slug, view, variant] = route.split('/');
   const lesson = slug ? findLesson(slug) : undefined;
   // only signed in (src/core/gate.ts): without an account — the Tehillim and what signing in needs
-  const { token, mail } = useAccount();
+  const { token, me, mail } = useAccount();
   useEffect(() => void loadConfig(), []);
-  const gated = !token && mail !== false && !isReader() && !isOpenRoute(slug, view);
+  // the first month (TRIAL_DAYS) on a device — without signing in (inTrial starts the trial on the first visit)
+  const trial = useMemo(() => !isReader() && inTrial(), [route]);
+  // signed in without the first step (nickname, age) — the profile first: without it nothing is synced
+  const noProfile = !!token && !!me?.user && !me.user.nick;
+  const gated = (noProfile || (!token && !trial)) && mail !== false && !isReader() && !isOpenRoute(slug, view);
   useFirstVisitHelp(open, !!lesson && !gated);
   // who is learning: asked on the home page until chosen (not of machines), and at #/mode
   const mode = useSavedMode();
