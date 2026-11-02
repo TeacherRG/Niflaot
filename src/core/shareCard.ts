@@ -130,8 +130,9 @@ export async function renderCard(d: CardData): Promise<Blob> {
 
 /** One part of the answer: `= 471`, `= זנב + תאוה` (with its translation) or `→ אמת`. */
 export interface FactAnswerPart {
-  op: '=' | '→';
-  /** numbers, e.g. "456 + 15" */
+  /** the sign before the part; none — the first part (the words of the Torah themselves) */
+  op?: '=';
+  /** numbers, e.g. "37" */
   num?: string;
   /** Hebrew (Names of G-d as on screen) */
   he?: string;
@@ -143,28 +144,31 @@ export interface FactCardData {
   eyebrow: string;
   /** whose lesson: "Бааль ґа-Турим · Берешит" */
   source: string;
-  /** "А вы знаете, чему равно" */
-  question: string;
-  /** the Hebrew the question is about (Names of G-d as on screen) */
-  hebrew: string;
-  /** its translation */
-  gloss: string;
-  /** "Ответ" */
-  answerLabel: string;
+  /** the answer at once: «ויהיו = 37» or the hidden word «משה» */
   answer: FactAnswerPart[];
-  /** where the explanation is: "Почему так — на сайте" */
+  /** «Последние буквы слов עם האיש הזה» — when the meaning doesn't say it */
+  from?: string;
+  /** «По закону Моше» */
+  title?: string;
+  /** what it means (plain text) */
+  text?: string;
+  /** «Чему это учит?» and its text */
+  moralLabel?: string;
+  moral?: string;
+  /** where the lesson is: "Весь урок — на сайте" */
   why: string;
   site: string;
   tagline: string;
 }
 
 /**
- * «Поделиться загадкой»: a card of the feed «Знаете ли вы?» as a picture — the riddle (the question, the Hebrew words
- * with their translation) and its answer; why it is so — on the site, signed at the bottom.
+ * «Поделиться»: a card of the feed «Знаете ли вы?» as a picture, as on the screen — the answer at once (the hidden word or
+ * the equality, with translation), its title, what it means and «Чему это учит?» (owner, 02.11.2026: «вопрос непонятен
+ * и неинтересен — сразу ответ»); the lesson — on the site, signed at the bottom.
  */
 export async function renderFactCard(d: FactCardData): Promise<Blob> {
   await Promise.all(
-    [`700 100px ${FONTS.he}`, `italic 500 54px ${FONTS.display}`, `700 30px ${FONTS.body}`, `600 60px ${FONTS.num}`].map((f) =>
+    [`700 100px ${FONTS.he}`, `italic 500 54px ${FONTS.display}`, `700 30px ${FONTS.body}`, `500 30px ${FONTS.body}`, `600 60px ${FONTS.num}`].map((f) =>
       document.fonts.load(f, 'Aa Ая Ää אבְּ').catch(() => undefined),
     ),
   );
@@ -219,31 +223,34 @@ export async function renderFactCard(d: FactCardData): Promise<Blob> {
     };
     const he = (size: number) => `700 ${Math.round(size)}px ${FONTS.he}`;
     const body = (size: number) => `500 ${Math.round(size)}px ${FONTS.body}`;
-    if (!add(d.question, `italic 500 ${Math.round(52 * k)}px ${FONTS.display}`, '#E6E9F3', 64 * k)) return null;
-    lines[lines.length - 1].h += 14 * k;
-    // the Hebrew of the riddle; the «?» stays with its last word (never alone on a line)
-    ctx.font = he(104 * k);
-    const heLines = wrap(ctx, d.hebrew, maxW);
-    heLines[heLines.length - 1] += ' ?';
-    if (heLines.some((l) => ctx.measureText(l).width > maxW)) return null;
-    heLines.forEach((l) => lines.push({ text: l, font: he(104 * k), color: '#FFFFFF', dir: 'rtl', h: 120 * k }));
-    if (d.gloss && !add(d.gloss, body(32 * k), MUTED, 52 * k)) return null;
-    lines.push({ text: d.answerLabel.toUpperCase(), font: `700 ${Math.round(24 * k)}px ${FONTS.body}`, color: GOLD, h: 96 * k, rule: true });
     for (const p of d.answer) {
-      if (p.num && !add(`${p.op} ${p.num}`, `600 ${Math.round(66 * k)}px ${FONTS.num}`, GOLD, 84 * k)) return null;
+      if (p.num && !add(`${p.op ?? ''} ${p.num}`.trim(), `600 ${Math.round(80 * k)}px ${FONTS.num}`, GOLD, 96 * k)) return null;
       if (p.he) {
         // «= זנב + תאוה»: the sign on the left, the Hebrew read right to left
-        if (!add(`${p.he} ${p.op}`, he(84 * k), '#FFFFFF', 98 * k, 'rtl')) return null;
-        if (p.gloss && !add(p.gloss, body(30 * k), MUTED, 50 * k)) return null;
+        if (!add(p.op ? `${p.he} ${p.op}` : p.he, he(104 * k), '#FFFFFF', 118 * k, 'rtl')) return null;
+        if (p.gloss && !add(p.gloss, body(30 * k), MUTED, 48 * k)) return null;
       }
+    }
+    if (d.from && !add(d.from, body(30 * k), MUTED, 48 * k)) return null;
+    if (d.title) {
+      lines.push({ text: '', font: '', color: '', h: 56 * k, rule: true });
+      if (!add(d.title, `italic 500 ${Math.round(56 * k)}px ${FONTS.display}`, '#FFFFFF', 68 * k)) return null;
+      lines[lines.length - 1].h += 12 * k;
+    }
+    if (d.text && !add(d.text, body(34 * k), '#E6E9F3', 48 * k)) return null;
+    if (d.moral) {
+      if (d.moralLabel) {
+        if (!add(d.moralLabel, `700 ${Math.round(32 * k)}px ${FONTS.body}`, GOLD, 64 * k)) return null;
+      }
+      if (!add(d.moral, body(34 * k), '#E6E9F3', 48 * k)) return null;
     }
     return lines;
   };
-  const TOP = 290;
-  const BOTTOM = H - 290;
+  const TOP = 270;
+  const BOTTOM = H - 300;
   let k = 1;
   let lines = build(k);
-  while ((!lines || lines.reduce((a, l) => a + l.h, 0) > BOTTOM - TOP) && k > 0.5) {
+  while ((!lines || lines.reduce((a, l) => a + l.h, 0) > BOTTOM - TOP) && k > 0.4) {
     k -= 0.05;
     lines = build(k);
   }
@@ -252,27 +259,20 @@ export async function renderFactCard(d: FactCardData): Promise<Blob> {
   for (const l of all) {
     y += l.h;
     if (l.rule) {
-      // «— ОТВЕТ —» between the riddle and its answer
-      const yy = y - l.h * 0.55;
-      ctx.font = l.font;
-      ctx.letterSpacing = '6px';
-      const w = ctx.measureText(l.text).width;
-      center(l.text, yy + 9, l.font, l.color);
-      ctx.letterSpacing = '0px';
+      // a short gold line between the answer and what it means
+      const yy = y - l.h * 0.5;
       ctx.strokeStyle = GOLD_DEEP;
-      ctx.lineWidth = 1.5;
+      ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(W / 2 - w / 2 - 150, yy);
-      ctx.lineTo(W / 2 - w / 2 - 24, yy);
-      ctx.moveTo(W / 2 + w / 2 + 24, yy);
-      ctx.lineTo(W / 2 + w / 2 + 150, yy);
+      ctx.moveTo(W / 2 - 120, yy);
+      ctx.lineTo(W / 2 + 120, yy);
       ctx.stroke();
       continue;
     }
     center(l.text, y - l.h * 0.22, l.font, l.color, l.dir);
   }
 
-  // why — on the site; the signature
+  // the lesson — on the site; the signature
   center(d.why, H - 250, `600 36px ${FONTS.body}`, GOLD);
   center(d.site, H - 180, `700 44px ${FONTS.body}`, '#FFFFFF');
   center(d.tagline, H - 124, `italic 500 34px ${FONTS.display}`, MUTED);

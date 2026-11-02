@@ -39,10 +39,10 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
   const who = teacherOf(f.lesson);
   const base = `#/${f.lesson.slug}`;
   const [card, setCard] = useState<'idle' | 'making' | 'saved'>('idle');
-  const question = t(`facts.ask.${f.kind === 'eq' ? 'eq' : f.take}`);
-  const he = f.kind === 'eq' ? f.q : f.from;
   // what the answer means — not just the number: the pair's explanation and «Чему это учит?» (owner, 01.11.2026)
   const meaning = factMeaning(f, text);
+  // «Последние буквы слов עם האיש הזה» — when the meaning doesn't say where the word was taken from
+  const fromLine = f.kind !== 'eq' && !meaning.text?.includes(f.from) ? `${t(`facts.from.${f.take}`)} ${displayNames(f.from)}` : undefined;
   const why = f.ri !== undefined ? `${base}/read/${f.ri + 1}` : f.mi !== undefined ? `${base}/memo/${f.mi + 1}` : base;
 
   /** «Поделиться загадкой»: the riddle and its answer as a picture signed with the site; why it is so — behind the link. */
@@ -57,26 +57,41 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
           .join(' · ');
       const answer: FactAnswerPart[] =
         f.kind === 'eq'
-          ? f.rest.map((p) => (NUMS.test(p) ? { op: '=', num: p } : { op: '=', he: displayNames(p), gloss: gloss(p) }))
-          : [{ op: '→', he: displayNames(f.word), gloss: gloss(f.word) }];
+          ? [
+              { he: displayNames(f.q), gloss: gloss(f.q) },
+              ...f.rest.map((p): FactAnswerPart => (NUMS.test(p) ? { op: '=', num: p } : { op: '=', he: displayNames(p), gloss: gloss(p) })),
+            ]
+          : [{ he: displayNames(f.word), gloss: gloss(f.word) }];
+      // plain text; each run of Hebrew words isolated right-to-left (U+2067…U+2069), as <HebrewRuns> on the screen —
+      // else the canvas reorders «ם, ש, ה — משה» together with the punctuation around it
+      const plain = (h?: string) =>
+        h &&
+        displayNames(h.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()).replace(
+          /[א-ת][א-ת׳״־]*(?:\s[א-ת][א-ת׳״־]*)*/g,
+          (m) => `\u2067${m}\u2069`,
+        );
+      const moralLabel = meaning.moral ? (meaning.moralLabel ?? t('memo.learn')) : undefined;
       const blob = await renderFactCard({
         eyebrow: `${t('app.title')} · ${t('facts.title')}`,
         // «Бааль ґа-Турим · Бааль ґа-Турим: Берешит» — the teacher only when the title doesn't name him
         source: text.title.includes(t(`teacher.${who}.short`)) ? text.title : `${t(`teacher.${who}.short`)} · ${text.title}`,
-        question,
-        hebrew: displayNames(he),
-        gloss: gloss(he),
-        answerLabel: t('facts.cardAnswerLabel'),
         answer,
-        why: t('facts.cardWhy'),
+        from: fromLine,
+        title: meaning.title,
+        text: plain(meaning.text),
+        moralLabel,
+        moral: plain(meaning.moral),
+        why: t('facts.cardLesson'),
         site: SITE_HOST,
         tagline: t('facts.cardTagline'),
       });
-      const said = answer.map((p) => `${p.op} ${p.num ?? p.he}`).join(' ');
+      const said = answer.map((p) => `${p.op ?? ''} ${p.num ?? p.he}`.trim()).join(' ');
       const res = await shareOrSave(
         blob,
         `niflaot-${f.id}.png`,
-        `${question}\n${displayNames(he)}\n${t('facts.answer')}: ${said}\n${t('facts.shareText')} 👉 ${routeLink(`facts/${f.id}`, 'card', locale)}`,
+        [said, meaning.title, moralLabel && `${moralLabel} ${plain(meaning.moral)}`, `${t('facts.shareText')} 👉 ${routeLink(`facts/${f.id}`, 'card', locale)}`]
+          .filter(Boolean)
+          .join('\n'),
       );
       setCard(res === 'saved' ? 'saved' : 'idle');
       if (res === 'saved') setTimeout(() => setCard('idle'), 2500);
@@ -104,7 +119,7 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
         )}
       </div>
       {meaning.title && <h3 className="fact-point">{meaning.title}</h3>}
-      {f.kind !== 'eq' && !meaning.text?.includes(f.from) && (
+      {fromLine && f.kind !== 'eq' && (
         <p className="fact-from">
           {t(`facts.from.${f.take}`)} <span className="he" lang="he">{displayNames(f.from)}</span>
         </p>
