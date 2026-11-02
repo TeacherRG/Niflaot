@@ -140,7 +140,7 @@ export interface TimelineEvent {
   d: Record<AtlasLang, string>;
 }
 /** Цари: объединённого царства, Йеґуды и Израиля — по порядку; `r` — сколько правил, `ref` — стих начала царствования,
- * `y` — год начала по «Седер олам», только где он твёрдо известен */
+ * `y` — год воцарения от сотворения мира по «Седер ґа-дорот» (на основе «Седер олам») */
 export interface TimelineKing {
   lane: 'united' | 'judah' | 'israel';
   era: string;
@@ -148,12 +148,14 @@ export interface TimelineKing {
   t: Record<AtlasLang, string>;
   r: Record<AtlasLang, string>;
   ref: string;
-  y?: number;
+  y: number;
   who?: string;
 }
-/** Пророки — по эпохам; `w` — при каких царях (по первому стиху книги или «Седер олам»), `ref` — стих */
+/** Пророки — по эпохам; `y` — год, когда начал пророчествовать (по «Седер ґа-дорот», иначе — год царя, при котором он
+ * назван); `w` — при каких царях (по первому стиху книги или «Седер олам»), `ref` — стих */
 export interface TimelineProphet {
   era: string;
+  y: number;
   he: string;
   t: Record<AtlasLang, string>;
   w: Record<AtlasLang, string>;

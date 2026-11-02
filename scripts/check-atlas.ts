@@ -118,10 +118,8 @@ for (const k of tl.kings) {
   if (!eraIds.has(k.era) || !['united', 'judah', 'israel'].includes(k.lane)) err(`${at}: эпоха / линия`);
   if (!verseOk(k.ref)) err(`${at}: стих ${k.ref}`);
   if (k.who && !ents[k.who]) err(`${at}: нет записи ${k.who}`);
-  if (k.y) {
-    if (k.y < (lastY[k.lane] ?? 0)) err(`${at}: год раньше предыдущего царя`);
-    lastY[k.lane] = k.y;
-  }
+  if (!k.y || k.y < (lastY[k.lane] ?? 0)) err(`${at}: нет года или год раньше предыдущего царя`);
+  lastY[k.lane] = k.y;
   for (const l of LANGS) {
     if (!k.t[l] || !k.r[l]) err(`${at}: нет текста ${l}`);
     for (const e of NAMES[l](k.t[l])) err(`${at} (${l}): ${e}`);
@@ -130,6 +128,8 @@ for (const k of tl.kings) {
 for (const p of tl.prophets) {
   const at = `timeline: пророк ${p.t.ru}`;
   if (!eraIds.has(p.era)) err(`${at}: эпоха`);
+  const era = tl.eras.find((e) => e.id === p.era);
+  if (!p.y || (era && p.y < era.from - 1) || p.y > tl.eras.at(-1)!.to) err(`${at}: год`);
   if (!verseOk(p.ref)) err(`${at}: стих ${p.ref}`);
   for (const l of LANGS) {
     if (!p.t[l] || !p.w[l]) err(`${at}: нет текста ${l}`);
