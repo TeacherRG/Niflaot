@@ -13,7 +13,7 @@ import { TermPopover } from './components/TermPopover';
 import { Assistant } from './components/Assistant';
 import { setPageState } from './core/assistant';
 import { loadConfig, onPulled, useAccount } from './core/account';
-import { isOpenRoute } from './core/gate';
+import { inTrial, isOpenRoute } from './core/gate';
 import { installFootnoteNavigation } from './sources/footnotes';
 import { installLangMarkup } from './core/langMarkup';
 import { installTitleSync } from './core/pageMeta';
@@ -158,7 +158,9 @@ function Site() {
   // only signed in (src/core/gate.ts): without an account — the Tehillim and what signing in needs
   const { token, mail } = useAccount();
   useEffect(() => void loadConfig(), []);
-  const gated = !token && mail !== false && !isReader() && !isOpenRoute(slug, view);
+  // the first 3 days on a device — without signing in (inTrial starts the trial on the first visit)
+  const trial = useMemo(() => !isReader() && inTrial(), [route]);
+  const gated = !token && mail !== false && !isReader() && !trial && !isOpenRoute(slug, view);
   useFirstVisitHelp(open, !!lesson && !gated);
   // who is learning: asked on the home page until chosen (not of machines), and at #/mode
   const mode = useSavedMode();

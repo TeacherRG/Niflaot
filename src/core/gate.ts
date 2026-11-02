@@ -9,3 +9,25 @@
 const OPEN = new Set(['account', 'consent', 'privacy', 'admin']);
 
 export const isOpenRoute = (slug: string, view?: string) => OPEN.has(slug) || (slug === 'reading' && view !== 'shnayim');
+
+/**
+ * «3 дня без входа» (owner, 02.11.2026): the first visit of a person starts a trial on this device — for 3 days
+ * everything is open, then sign in. Counted per browser (`niflaot:trial` — the start, ms; not synced), not per IP:
+ * a class, a family or a mobile network share one IP, and an IP is personal data the site doesn't keep.
+ * Clearing the browser starts a new trial — the gate is gentle on purpose. No storage at all — no trial.
+ */
+export const TRIAL_DAYS = 3;
+const TRIAL_KEY = 'niflaot:trial';
+
+/** When the trial of this device ends (ms); starts it on the first call. null — no storage. */
+export function trialEnd(now = Date.now()): number | null {
+  try {
+    let start = Number(localStorage.getItem(TRIAL_KEY));
+    if (!start || start > now) localStorage.setItem(TRIAL_KEY, String((start = now)));
+    return start + TRIAL_DAYS * 864e5;
+  } catch {
+    return null;
+  }
+}
+
+export const inTrial = (now = Date.now()) => (trialEnd(now) ?? 0) > now;

@@ -24,6 +24,7 @@ import {
   useAccount,
 } from '../core/account';
 import { TopBar } from './TopBar';
+import { TRIAL_DAYS, trialEnd } from '../core/gate';
 import { Colophon } from './Colophon';
 
 /** the server's error code → the text for the player */
@@ -59,6 +60,8 @@ function useAction() {
 /** Guest: what an account gives; email → the 6-digit code → signed in. */
 function SignIn() {
   const { t, locale } = useI18n();
+  const end = trialEnd();
+  const open = end !== null && end > Date.now();
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
   const [code, setCode] = useState('');
@@ -79,6 +82,13 @@ function SignIn() {
   return (
     <section className="acc-card">
       <h2>👤 {t('acc.guest')}</h2>
+      {end !== null && (
+        <p className="acc-note">
+          {open
+            ? t('acc.trialLeft', { date: new Date(end).toLocaleDateString(locale, { day: 'numeric', month: 'long' }) })
+            : t('acc.trialOver', { n: TRIAL_DAYS })}
+        </p>
+      )}
       <p>{t('acc.guestLead')}</p>
       <Html as="div" className="prose" html={t('acc.benefits')} />
       {!sent ? (
