@@ -4,27 +4,23 @@ import { readHebrew } from './translit';
 
 /**
  * «Кто и где» — люди и места отрывка дня Пророков и Писаний (scripts/fetch-atlas.py): окошко над именем в стихе (WordPop) и
- * блок под отрывком (TanakhAtlas). Данные дня — public/tanakh/atlas/<дата>.json (связи слов стиха с людьми и местами —
- * STEPBible, CC BY 4.0; координаты — OpenBible.info, CC BY 4.0); справки — проекта, src/tanakh/atlas/<язык>.json.
+ * блок под отрывком (TanakhAtlas). Всё — проекта: кто есть кто, семья и где места — src/tanakh/atlas/entities.json (по Раши,
+ * Мецудат Давид, «Седер олам»; места — принятые в Израиле отождествления), справки — src/tanakh/atlas/<язык>.json; данные
+ * дня — public/tanakh/atlas/<дата>.json (какое слово стиха кого называет — по разбору Open Scriptures).
  */
 export type AtlasLang = 'ru' | 'en' | 'de';
 export type AtlasKind = 'm' | 'f' | 'g' | 'p' | 'x';
 export interface AtlasEntity {
   k: AtlasKind;
   he: string;
-  en: string;
   fa?: string;
   mo?: string;
   sp?: string[];
   sib?: string[];
   ch?: string[];
-  /** место: [широта, долгота], уверенность 0–1000, вид (settlement, river…) */
+  /** место: [широта, долгота]; насколько известно, где оно: 2 — известно, 1 — вероятно, 0 — предположительно */
   ll?: [number, number];
-  q?: number;
-  ty?: string;
-  /** в скольких стихах Танаха, по книгам */
-  n?: number;
-  bk?: Record<string, number>;
+  sure?: 0 | 1 | 2;
 }
 export interface AtlasDay {
   /** «книга глава:стих» → {номер слова нашего текста: id} */
@@ -32,15 +28,16 @@ export interface AtlasDay {
   o: { neviim: string[]; ketuvim: string[] };
   e: Record<string, AtlasEntity>;
 }
-export type AtlasTexts = Record<string, { n: string; d: string }>;
+/** справки проекта: имя и описание (у записей только для семьи и ориентиров — одно имя) */
+export type AtlasTexts = Record<string, { n: string; d?: string }>;
 export interface AtlasMap {
   bbox: [number, number, number, number];
   /** суша — многоугольники, обрезанные по окну карты */
   land: [number, number][][];
   lakes: [number, number][][];
   rivers: [number, number][][];
-  /** ориентиры: [id, широта, долгота, иврит, английский, упоминаний] */
-  towns: [string, number, number, string, string, number][];
+  /** ориентиры: [id, широта, долгота, иврит] */
+  towns: [string, number, number, string][];
 }
 
 const json = <T>(path: string): Promise<T | null> =>
@@ -53,7 +50,7 @@ const known = new Map<string, AtlasEntity>();
 const subs = new Set<() => void>();
 let version = 0;
 const register = (d: AtlasDay) => {
-  for (const [id, e] of Object.entries(d.e)) if (!known.has(id) || e.n !== undefined) known.set(id, e);
+  for (const [id, e] of Object.entries(d.e)) if (!known.has(id) || Object.keys(e).length > Object.keys(known.get(id)!).length) known.set(id, e);
   version++;
   subs.forEach((f) => f());
 };
@@ -88,20 +85,19 @@ export function loadAtlasTexts(lang: AtlasLang): Promise<AtlasTexts> {
 let map: Promise<AtlasMap | null> | undefined;
 export const loadAtlasMap = () => (map ??= json<AtlasMap>('tanakh/atlas/map.json'));
 
-/** Имя на языке сайта: из справки проекта; нет — по-английски (en) или чтение иврита (ru, de). */
+/** Имя на языке сайта: из справки проекта; нет — чтение иврита. */
 export function atlasName(id: string, e: AtlasEntity | undefined, tx: AtlasTexts | null, lang: AtlasLang): string {
   const own = tx?.[id]?.n;
   if (own) return own;
-  if (!e) return '';
-  if (lang === 'en' || !e.he) return e.en;
+  if (!e?.he) return '';
   const r = readHebrew(e.he, lang);
   return r.charAt(0).toUpperCase() + r.slice(1);
 }
 
 export const isPlace = (e: AtlasEntity) => e.k === 'p';
 
-/** Насколько известно, где место: 2 — надёжно, 1 — вероятно, 0 — предположительно (OpenBible). */
-export const placeSure = (q = 0): 0 | 1 | 2 => (q >= 800 ? 2 : q >= 450 ? 1 : 0);
+/** Насколько известно, где место (`sure` записи): 2 — известно, 1 — вероятно, 0 — предположительно. */
+export const placeSure = (e: AtlasEntity): 0 | 1 | 2 => e.sure ?? 0;
 
 /** Ссылка на место в OpenStreetMap (открывается в новой вкладке; на сайте карта — своя). */
 export const osmLink = ([lat, lon]: [number, number]) => `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=12/${lat}/${lon}`;

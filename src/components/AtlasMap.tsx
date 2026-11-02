@@ -14,7 +14,8 @@ const KM = [1, 2, 5, 10, 20, 50, 100, 200];
 type Box = [number, number, number, number];
 
 /**
- * Своя карта Земли Израиля на SVG: суша, озёра и реки (Natural Earth, PD), места отрывка и серым — известные города рядом
+ * Своя карта Земли Израиля на SVG: суша, озёра и реки (Natural Earth, PD), места отрывка (точки — проекта,
+ * src/tanakh/atlas/entities.json) и серым — известные города рядом
  * для ориентира (Йерушалаим, Йерихо…). Без чужих тайлов — работает офлайн, печатается и никого не отслеживает. Окно — по
  * местам, с запасом (одно место — с окрестностями ~30 км); масштаб 1:1 с экраном (подписи — настоящего размера и на телефоне).
  */
@@ -111,7 +112,7 @@ export function AtlasMap({ points, ratio, label }: { points: MapPoint[]; ratio?:
     const ids = new Set(points.map((p) => p.id));
     const towns = (data?.towns ?? [])
       .filter(([id]) => !ids.has(id))
-      .map(([id, lat, lon, he, en]) => ({ id, x: view.px(lon), y: view.py(lat), name: atlasName(id, { k: 'p', he, en }, tx, lang) }))
+      .map(([id, lat, lon, he]) => ({ id, x: view.px(lon), y: view.py(lat), name: atlasName(id, { k: 'p', he }, tx, lang) }))
       .filter(({ x, y }) => x > 8 && x < W - 8 && y > 8 && y < H - 28)
       .slice(0, 8)
       .map((tw) => {

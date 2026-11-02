@@ -161,14 +161,13 @@ export function WordPop() {
             <AtlasMap label={t('atlas.mapLabel')} ratio={0.45} points={[{ id: open.atlas, ll: ae.ll, label: atlasName(open.atlas, ae, atx, lang) }]} />
           </div>
           <p className="ta-meta">
-            <span className={`ta-sure s${placeSure(ae.q)}`}>{t(`atlas.sure.${placeSure(ae.q)}` as MessageKey)}</span> ·{' '}
+            <span className={`ta-sure s${placeSure(ae)}`}>{t(`atlas.sure.${placeSure(ae)}` as MessageKey)}</span> ·{' '}
             <a href={osmLink(ae.ll)} target="_blank" rel="noopener noreferrer">
               {t('atlas.osm')}
             </a>
           </p>
         </>
       )}
-      {ae.n ? <small className="wp-meta">{t('atlas.n', { n: ae.n })}</small> : null}
     </div>
   );
   // in <body>: the window is placed in page coordinates, not inside the column of the text
