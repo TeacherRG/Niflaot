@@ -84,6 +84,9 @@ function fitTitle(t: string, max = 65) {
   if (t.length <= max) return t;
   const brand = t.match(BRAND)?.[0] ?? '';
   const bare = t.slice(0, t.length - brand.length);
+  // the words people search for («— gematria of the weekly portion») matter more than the brand: Google shows the site's
+  // name beside the result anyway
+  if (bare.length <= max) return bare;
   const heads = [bare, ...[...bare.matchAll(/ [—–] |: /g)].map((m) => bare.slice(0, m.index)).reverse()].filter((h) => h.length >= 25);
   const fitting = heads.map((h) => h + brand).find((x) => x.length <= max);
   if (fitting) return fitting;
