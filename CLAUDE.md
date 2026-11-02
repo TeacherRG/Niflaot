@@ -297,6 +297,7 @@
   (`seo.otherLessons`: сначала эта глава); `sitemap.xml` — `lastmod` по git (`changed()`; страницы дня — сегодня) и
   `xhtml:link` hreflang — поэтому в `deploy.yml` checkout с `fetch-depth: 0`. «Святая музыка» — `/nigun/` (и en/de;
   `STATIC_PAGES.nigun`): о нигуне, слова (на en/de — чтение и перевод), m770.org. Превью `og/hemshech|quiz|nigun.png`.
+- **Поисковым роботам — статическая страница, без приложения** (`crawlerPage` в `src/main.tsx`, 02.11.2026; владелец: «сайта нет в Google»): `isSearchBot()` (Googlebot, Google-InspectionTool, Bingbot, Яндекс…) на странице `prerender.ts` без `#` — React не запускается, остаётся `.static` (`html.crawler`: сразу видна, без проявления). Раньше приложение брало язык из браузера робота (Googlebot — английский): на `/`, `/<slug>/` был английский текст — копия `/en/…`, hreflang не сходился, `?lang=en` в адресе, вместо пересказа (≈ 16 000 знаков) — кнопки игры (≈ 2 800), заголовок без SEO. Людям — как было. Проверка «глазами Googlebot» — Playwright с его UA: язык, `<title>`, canonical, длина текста, ширина 360 px (таблицы `.static` прокручиваются сами).
 - **Уроки — на трёх языках:** `scripts/prerender.ts` пишет `/<slug>/` (ru), `/en/<slug>/`, `/de/<slug>/` — свой `<html lang>`,
   заголовок, описание, JSON-LD (`inLanguage`), весь пересказ и hreflang между ними (`lessonPage(l, lang)`, `LESSON_OUT`);
   все — в `sitemap.xml`, ленты en/de ссылаются на свои страницы; со статической главной — «In English» / «Auf Deutsch».
