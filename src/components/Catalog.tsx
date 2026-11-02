@@ -42,6 +42,24 @@ function DailyLink() {
   );
 }
 
+/** «Святая игра Zip» on the kids' home (#/zip): the level of the next verse, or ✓ when a verse is solved today. */
+function ZipLink() {
+  const { t } = useI18n();
+  let raw: string | null = null;
+  try {
+    raw = localStorage.getItem(ZIP_KEY);
+  } catch {}
+  const z = zipTile(raw, todayIso());
+  return (
+    <a className="h-daily h-zip" href="#/zip">
+      <span className="h-daily-title">
+        🧩 {t('home.zipK')} <span className="num">Zip</span>
+      </span>
+      <span className="h-daily-sub">{t(z.today ? 'home.zipDone' : 'home.zipNew', { n: z.l })} →</span>
+    </a>
+  );
+}
+
 /**
  * «К шабатнему столу»: the Friday sheet of the week's portion, to print before Shabbat; under it, in the same card,
  * «Неделя в Академии» — the digest of the week (WeekDigest.tsx), the rest of what was learnt.
@@ -477,6 +495,7 @@ function KidsHome() {
 
           <div className="k-side">
             <HabitCard compact />
+            <ZipLink />
             <CoursesCard />
             <DailyLink />
             <TableLink />

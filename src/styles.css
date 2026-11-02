@@ -1243,6 +1243,7 @@ p.calc .he{font-family:var(--f-he);font-size:1.2em;font-weight:700;color:var(--i
 .top-in.wide{max-width:1180px}
 .h-logo{display:block;width:min(100%,170px);height:auto;margin:0 0 6px}
 .h-daily{flex:1 1 100%;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:10px 14px;border-radius:10px;background:var(--night);color:#fff;text-decoration:none}
+.h-daily.h-zip{background:linear-gradient(150deg,var(--ok-deep),var(--tchelet-deep))}
 .h-daily-title{font-family:var(--f-display);font-weight:700;font-size:18px;color:var(--gold-2)}
 .h-daily-sub{font-size:13px;color:#C9CEE0}
 .h-badge{min-width:0;padding:1px 8px;border-radius:999px;background:var(--tc-soft);color:var(--tc);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
