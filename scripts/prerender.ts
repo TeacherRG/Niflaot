@@ -85,6 +85,9 @@ function fitTitle(t: string, max = 65) {
   if (t.length <= max) return t;
   const brand = t.match(BRAND)?.[0] ?? '';
   const bare = t.slice(0, t.length - brand.length);
+  // the words people search for («— gematria of the weekly portion») matter more than the brand: Google shows the site's
+  // name beside the result anyway
+  if (bare.length <= max) return bare;
   const heads = [bare, ...[...bare.matchAll(/ [—–] |: /g)].map((m) => bare.slice(0, m.index)).reverse()].filter((h) => h.length >= 25);
   const fitting = heads.map((h) => h + brand).find((x) => x.length <= max);
   if (fitting) return fitting;
@@ -328,6 +331,12 @@ ${LESSON_GROUPS.map((g) => {
 <p>${t('wing.adultsSub')}.</p>
 <ul><li><a href="${page('neviim')}">${t('tanakh.neviim')}</a></li><li><a href="${page('ketuvim')}">${t('tanakh.ketuvim')}</a></li><li><a href="${page('hemshech')}">${t('hs.menuLbl')}</a></li><li><a href="${page('tehillim')}">${t('reading.seoShort')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li></ul>
 <p>${t('menu.torahRead')}: ${lessons.map((l) => `<a href="${root}#/${l.slug}/read">${esc(tx(l).title)}</a>`).join(' · ')}</p>
+<h2>${t('academy.fac.lashon')} · <span class="he">לשון הקודש</span></h2>
+<p>${t('ln.seoLead')}</p>
+<ul><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li><li><a href="${page('letters')}">${t('abc.title')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li></ul>
+<h2>${t('reading.title')} · <span class="he">תהילים</span></h2>
+<p>${t('reading.seoLead')}</p>
+<ul><li><a href="${page('tehillim')}">${t('reading.seoTitle')}</a></li>${String(u['reading.seoHomeLinks']).split(' · ').map((x, i) => `<li><a href="${[`${root}#/reading`, `${root}#/reading/week`, `${page('tehillim')}#chapters`][i]}">${esc(x)}</a></li>`).join('')}</ul>
 <h2>${t('seo.more')}</h2>
 <ul><li><a href="${page('facts')}">${t('facts.title')}</a></li><li><a href="${page('daily')}">${t('daily.title')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li><li><a href="${page('letters')}">${t('abc.title')}</a></li><li><a href="${page('mental-math')}">${t('math.title')}</a></li>${NIGUN_PUBLIC ? `<li><a href="${page('nigun')}">${t('nigun.title')}</a></li>` : ''}<li><a href="${page('quiz')}">${t('lq.title')}</a></li><li><a href="${page('free')}">${t('free.title')}</a></li></ul>
 ${others
@@ -750,6 +759,107 @@ ${levels.join('\n')}
 }
 
 /**
+ * «Святое чтение» for search (`/tehillim/`): «Прочитай с нами всю книгу Теґилим за 102 минуты» — the recordings of all 150
+ * chapters, the word lit up after the voice, the speeds, the ways to divide the book, every chapter with its opening words,
+ * questions people ask (FAQPage). The app opens the reading of the day (`#/reading`).
+ */
+// all 150 chapters in public/reading/Audio (ffprobe, 02.11.2026: 357.2 min; 119 in two files) — the «102 minutes» at 3.5×;
+// new recordings → measure again and fix the texts `reading.seo*`, `reading.lead`
+const TEHILLIM_AUDIO_SEC = 21431;
+const TEHILLIM_RATES = [1, 1.5, 2, 2.5, 3, 3.5];
+const tehillimIndex = JSON.parse(readFileSync('public/reading/tehillim/index.json', 'utf8')) as {
+  words: number[];
+  version: { title: string; source: string };
+};
+const firstVerse = (n: number) =>
+  stripTaamim((JSON.parse(readFileSync(`public/reading/tehillim/${n}.json`, 'utf8')) as { v: string[] }).v[0])
+    .replace(/[׀]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+function tehillimPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
+  const root = lang === 'ru' ? '../' : '../../';
+  const url = `${SITE_URL}${staticPath('tehillim', lang)}`;
+  const fill = (key: string, vars: Record<string, string | number>) => s(ui, key as keyof Ui).replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''));
+  const title = s(ui, 'reading.seoTitle');
+  const lead = s(ui, 'reading.seoLead');
+  const U = { ru: ['ч', 'мин'], en: ['h', 'min'], de: ['Std.', 'Min.'] }[lang];
+  const num = (x: number) => (lang === 'en' ? String(x) : String(x).replace('.', ','));
+  const dur = (sec: number) => {
+    const m = Math.round(sec / 60);
+    return `${Math.floor(m / 60)} ${U[0]} ${String(m % 60).padStart(2, '0')} ${U[1]}`;
+  };
+  const words = tehillimIndex.words.reduce((a, b) => a + b, 0);
+  const span = (ps: { chapter: number; fromVerse?: number; toVerse?: number }[]) =>
+    ps[0]?.chapter === 119 && ps.length === 1 ? `119:${ps[0].fromVerse}–${ps[0].toVerse}` : ps.length > 1 ? `${ps[0].chapter}–${ps[ps.length - 1].chapter}` : String(ps[0]?.chapter ?? '');
+  const days = Array.from({ length: 30 }, (_, i) => i + 1)
+    .map((d) => `<tr><td><a href="${root}#/reading/day/${d}">${d}</a></td><td>${span(dailyPortion(d))}</td></tr>`)
+    .join('');
+  const weekday = (n: number) =>
+    n === 7 ? s(ui, 'shn.shabbat') : new Intl.DateTimeFormat(lang, { weekday: 'long', timeZone: 'UTC' }).format(new Date(Date.parse('2026-11-01T12:00:00Z') + (n - 1) * 864e5));
+  const week = Array.from({ length: 7 }, (_, i) => i + 1)
+    .map((n) => `<li><a href="${root}#/reading/week/${n}">${esc(weekday(n))}</a> — ${span(weekdayPortion(n))}</li>`)
+    .join('');
+  const rows = TEHILLIM_RATES.map((r) => {
+    const sec = TEHILLIM_AUDIO_SEC / r;
+    const row = esc(fill('reading.seoTimeRow', { rate: `${num(r)}×`, time: dur(sec) }));
+    return `<li>${r === 3.5 ? `<b>${row} (${Math.round(sec / 60)} ${U[1]})</b>` : row}</li>`;
+  }).join('');
+  const chapters = Array.from({ length: CHAPTERS }, (_, i) => i + 1)
+    .map((n) => `<li><a href="${root}#/reading/${n}">${esc(s(ui, 'reading.docChapter').replace('{n}', String(n)))}</a> <span class="he">(${hebrewNumber(n)})</span> · ${esc(s(ui, 'reading.seoWords').replace('{n}', String(tehillimIndex.words[n - 1])))}<br><span class="he">${esc(firstVerse(n))}</span></li>`)
+    .join('');
+  const faq = [1, 2, 3, 4].map((n) => [s(ui, `reading.seoQ${n}` as keyof Ui), s(ui, `reading.seoA${n}` as keyof Ui)]);
+  const [lDay, lWeek, lAll] = s(ui, 'reading.seoHomeLinks').split(' · ');
+  return {
+    title: `${title} · ${s(ui, 'app.title')}`,
+    description: lead,
+    url,
+    type: 'article',
+    root,
+    lang,
+    alternates: alternatesOf('tehillim'),
+    image: 'tehillim',
+    imageAlt: title,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'LearningResource',
+          name: title,
+          description: lead,
+          url,
+          inLanguage: [lang, 'he'],
+          learningResourceType: ['text', 'reading', 'audio', 'reading plan'],
+          interactivityType: 'mixed',
+          isAccessibleForFree: true,
+          typicalAgeRange: '8-',
+          teaches: s(ui, 'reading.seoShort'),
+          timeRequired: `PT${Math.round(TEHILLIM_AUDIO_SEC / 3.5 / 60)}M`,
+          about: { '@type': 'Book', name: 'Tehillim', alternateName: ['תהילים', 'Psalms', 'Теґилим'] },
+          publisher: PUBLISHER,
+          isPartOf: SITE,
+        },
+        {
+          '@type': 'FAQPage',
+          inLanguage: lang,
+          mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+        },
+      ],
+    },
+    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'reading.title'))} · <span class="he">תהילים</span></p>
+<h1>${esc(title)}</h1><p>${esc(lead)}</p><p>${esc(s(ui, 'reading.seoHow'))}</p>
+<p><a href="${root}#/reading">${esc(s(ui, 'reading.seoStart'))} →</a> · <a href="${root}#/reading/week">${esc(lWeek)} →</a> · <a href="${root}${staticPath('learn-hebrew', lang).slice(1)}">${esc(s(ui, 'ln.seoShort'))} →</a></p></header>
+<section><h2>${esc(s(ui, 'reading.seoTimeH'))}</h2><p>${esc(fill('reading.seoTimeP', { words: words.toLocaleString(lang === 'en' ? 'en-US' : lang === 'de' ? 'de-DE' : 'ru-RU'), total: dur(TEHILLIM_AUDIO_SEC) }))}</p><ul>${rows}</ul></section>
+<section><h2>${esc(s(ui, 'reading.seoWaysH'))}</h2><ul>${[1, 2, 3, 4].map((k) => `<li>${esc(s(ui, `reading.seoHow${k}` as keyof Ui))}</li>`).join('')}</ul><p><a href="${root}#/reading">${esc(lDay)} →</a> · <a href="${root}#/reading/week">${esc(lWeek)} →</a></p></section>
+<section><h2>${esc(s(ui, 'reading.seoDays'))}</h2><table><thead><tr><th>${esc(s(ui, 'reading.day'))}</th><th>${esc(s(ui, 'reading.seoColChapters'))}</th></tr></thead><tbody>${days}</tbody></table></section>
+<section><h2>${esc(s(ui, 'reading.seoWeek'))}</h2><ul>${week}</ul></section>
+<section id="chapters"><h2>${esc(s(ui, 'reading.seoChaptersH'))}</h2><p>${esc(lAll)}</p><ol class="tehillim-list">${chapters}</ol></section>
+<section><h2>${esc(s(ui, 'reading.seoFaqH'))}</h2>${faq.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}</section>
+<p><small>${esc(s(ui, 'reading.credit'))} <a href="${tehillimIndex.version.source}">${esc(tehillimIndex.version.title)}</a> · ${esc(s(ui, 'reading.pd'))}</small></p>
+</article>`,
+  };
+}
+
+/**
  * «Учить иврит — язык Торы и язык Пророков» for search (`/learn-hebrew/`): the course «Святой язык — уроки»
  * (src/core/lashon.ts) — how it works, the letters, the Torah words by portion, the levels of 50 words of Tanakh — and
  * the questions people ask (FAQPage). The app opens the course.
@@ -867,76 +977,6 @@ function freePage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
 <h1>${esc(s(ui, 'free.title'))}</h1><p>${esc(lead)}</p><p><b>${esc(s(ui, 'free.badges'))}</b></p></header>
 ${items.map((x) => `<section><h2>${esc(x.h)} <span class="he">${x.f.he}</span></h2><p>${esc(x.p)}</p><p><a href="${root}${x.f.href}">${esc(s(ui, 'free.open'))} →</a></p></section>`).join('\n')}
 <section><h2>${esc(s(ui, 'free.whyH'))}</h2><p>${esc(s(ui, 'free.whyP'))}</p><p><a href="${root}">${esc(s(ui, 'free.start'))} →</a> · <a href="https://mychitas.app/donate">${esc(s(ui, 'free.donate'))}</a></p></section>
-</article>`,
-  };
-}
-
-/**
- * «Теґилим онлайн» for search (`/tehillim/`): how the site reads Tehillim (the portion of the day of the Hebrew month, by
- * weekday, «Мои главы», the recording with voice / highlight and the speeds), the portion of every day of the month and all
- * 150 chapters — each with its first verse in Hebrew (vowels, no cantillation; the Names in full, as on Sefaria) and a link.
- */
-const TEHILLIM_INDEX = JSON.parse(readFileSync('public/reading/tehillim/index.json', 'utf8')) as { words: number[]; version: { title: string; source: string } };
-const firstVerse = (n: number) => stripTaamim((JSON.parse(readFileSync(`public/reading/tehillim/${n}.json`, 'utf8')) as { v: string[] }).v[0]).replace(/[׀]/g, '').replace(/\s+/g, ' ').trim();
-function tehillimPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
-  const root = lang === 'ru' ? '../' : '../../';
-  const url = `${SITE_URL}${staticPath('tehillim', lang)}`;
-  const title = s(ui, 'reading.seoTitle');
-  const lead = s(ui, 'reading.seoLead');
-  const span = (ps: { chapter: number; fromVerse?: number; toVerse?: number }[]) =>
-    ps[0]?.chapter === 119 && ps.length === 1 ? `119:${ps[0].fromVerse}–${ps[0].toVerse}` : ps.length > 1 ? `${ps[0].chapter}–${ps[ps.length - 1].chapter}` : String(ps[0]?.chapter ?? '');
-  const days = Array.from({ length: 30 }, (_, i) => i + 1)
-    .map((d) => `<tr><td><a href="${root}#/reading/day/${d}">${d}</a></td><td>${span(dailyPortion(d))}</td></tr>`)
-    .join('');
-  const weekday = (n: number) =>
-    n === 7 ? s(ui, 'shn.shabbat') : new Intl.DateTimeFormat(lang, { weekday: 'long', timeZone: 'UTC' }).format(new Date(Date.parse('2026-11-01T12:00:00Z') + (n - 1) * 864e5));
-  const week = Array.from({ length: 7 }, (_, i) => i + 1)
-    .map((n) => `<li><a href="${root}#/reading/week/${n}">${esc(weekday(n))}</a> — ${span(weekdayPortion(n))}</li>`)
-    .join('');
-  const chapters = Array.from({ length: CHAPTERS }, (_, i) => i + 1)
-    .map(
-      (n) =>
-        `<li><a href="${root}#/reading/${n}">${esc(s(ui, 'reading.docChapter').replace('{n}', String(n)))}</a> <span class="he">(${hebrewNumber(n)})</span> · ${esc(
-          s(ui, 'reading.seoWords').replace('{n}', String(TEHILLIM_INDEX.words[n - 1])),
-        )}<br><span class="he">${esc(firstVerse(n))}</span></li>`,
-    )
-    .join('');
-  return {
-    title: `${title} · ${s(ui, 'app.title')}`,
-    description: lead,
-    url,
-    type: 'article',
-    root,
-    lang,
-    alternates: alternatesOf('tehillim'),
-    image: 'tehillim',
-    imageAlt: title,
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'LearningResource',
-          name: title,
-          description: lead,
-          url,
-          inLanguage: [lang, 'he'],
-          learningResourceType: ['text', 'audio', 'reading plan'],
-          isAccessibleForFree: true,
-          about: { '@type': 'Book', name: 'Tehillim', alternateName: ['תהלים', 'Psalms'] },
-          publisher: PUBLISHER,
-          isPartOf: SITE,
-        },
-        crumbs(lang, s(ui, 'reading.book'), url),
-      ],
-    },
-    body: `<article><header><p><a href="${root}${lang === 'ru' ? '' : `${lang}/`}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'reading.title'))}</p>
-<h1>${esc(title)}</h1><p>${esc(lead)}</p>
-<p><a href="${root}#/reading">${esc(s(ui, 'reading.seoOpen'))} →</a> · <a href="${root}#/reading/week">${esc(s(ui, 'reading.allWeek'))} →</a></p></header>
-<section><h2>${esc(s(ui, 'reading.seoHow'))}</h2><ul>${[1, 2, 3, 4].map((k) => `<li>${esc(s(ui, `reading.seoHow${k}` as keyof Ui))}</li>`).join('')}</ul></section>
-<section><h2>${esc(s(ui, 'reading.seoDays'))}</h2><table><thead><tr><th>${esc(s(ui, 'reading.day'))}</th><th>${esc(s(ui, 'reading.seoColChapters'))}</th></tr></thead><tbody>${days}</tbody></table></section>
-<section><h2>${esc(s(ui, 'reading.seoWeek'))}</h2><ul>${week}</ul></section>
-<section><h2>${esc(s(ui, 'reading.seoAll'))}</h2><ol>${chapters}</ol></section>
-<p><small>${esc(s(ui, 'reading.credit'))} <a href="${TEHILLIM_INDEX.version.source}">${esc(TEHILLIM_INDEX.version.title)}</a> · ${esc(s(ui, 'reading.pd'))}</small></p>
 </article>`,
   };
 }
@@ -1117,8 +1157,8 @@ const STATIC_OUT: [string, Page][] = LANGS.flatMap(({ lang, ui }) => [
   [staticPath('quiz', lang), quizPage(lang, ui)] as [string, Page],
   ...(NIGUN_PUBLIC ? [[staticPath('nigun', lang), nigunPage(lang, ui)] as [string, Page]] : []),
   [staticPath('learn-hebrew', lang), lashonPage(lang, ui)] as [string, Page],
-  [staticPath('free', lang), freePage(lang, ui)] as [string, Page],
   [staticPath('tehillim', lang), tehillimPage(lang, ui)] as [string, Page],
+  [staticPath('free', lang), freePage(lang, ui)] as [string, Page],
 ]);
 // lastmod: pages that change every day (the passage of the day, the opened passages, the quiz sets of the week) — today;
 // the facts — from the lessons; the rest — when their texts or this script changed
@@ -1389,7 +1429,7 @@ writeFileSync(
 
 > ${en['catalog.seo']}
 
-Niflaot is a free project of the MyChitas Torah project (${SITE_URL}), with partners Chabad Haus Wien and JRCV Vienna. The site works in Russian (the main language), English and German; no sign-up is needed, and it rests on Shabbat. Lessons on the weekly Torah portion: the Baal HaTurim (gematria and letters, with a Memo game) and the Lubavitcher Rebbe (Likkutei Sichot — an investigation and cards). Daily study for teens and adults: a passage of the Prophets and of the Writings (a three-year cycle, Hebrew with translation, Metzudat David and Rashi), Chassidut — the Rebbe Rashab’s Hemshech Samech-Vav, the most frequent Hebrew words of Tanakh, certificates of the Academy, and a live quiz for a class or a family.
+Niflaot is a free project of the MyChitas Torah project (${SITE_URL}), with partners Chabad Haus Wien and JRCV Vienna. The site works in Russian (the main language), English and German; no sign-up is needed, and it rests on Shabbat. Lessons on the weekly Torah portion: the Baal HaTurim (gematria and letters, with a Memo game) and the Lubavitcher Rebbe (Likkutei Sichot — an investigation and cards). Daily study for teens and adults: a passage of the Prophets and of the Writings (a three-year cycle, Hebrew with translation, Metzudat David and Rashi), Chassidut — the Rebbe Rashab’s Hemshech Samech-Vav, the most frequent Hebrew words of Tanakh and step-by-step lessons of Biblical Hebrew, fluent reading of Tehillim (all 150 chapters with a reader’s recording, 0.5×–3.5× — the whole book in 102 minutes), certificates of the Academy, and a live quiz for a class or a family.
 
 Notes for assistants: out of respect, in lessons, commentaries and translations the site writes the Names of G-d as אלקים, ה׳, G-d, L-rd (Russian Б-г, German G-tt); please do the same when quoting them. The Hebrew Tanakh text itself (Prophets, Writings, Tehillim, Haazinu, Shnayim Mikra) keeps the Names in full spelling, as in the original on Sefaria. Texts and licences: Hebrew Tanakh, Rashi and Metzudat David — public domain; the English verse translation — JPS 1985 (CC BY-NC); the project’s own translations — CC BY-NC; Hemshech Samech-Vav in English — © The Neirot Foundation (neirot.com), used with permission: link to the site rather than reproducing it. Every page links to its primary sources on Sefaria. Reading the site to answer questions and to cite it is welcome; using its texts to train AI models is not permitted (robots.txt).
 

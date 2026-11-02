@@ -858,6 +858,9 @@ sup.fn a:hover,sup.fn a:focus-visible{background:var(--tchelet-soft);outline:non
 @media (max-width:480px){.puzzle{margin-left:16px;margin-right:16px;padding:14px 12px}.pz-slot{flex-basis:130px}.pz-body{font-size:13.5px;padding:9px 16px 9px 18px}}
 /* static outline for search engines (scripts/prerender.ts); the app replaces it on start, so it only shows if scripts are off or slow */
 .static{max-width:780px;margin:40px auto;opacity:0;animation:static-in .3s 1s forwards}
+/* search engines get the static page at once (src/main.tsx): no fade-in, never seen at opacity 0 */
+html.crawler .static{opacity:1;animation:none;padding:0 16px}
+.static table{display:block;max-width:100%;overflow-x:auto}
 .static h1{font-family:var(--f-display);font-size:32px;line-height:1.15}
 .static a{color:var(--gold)}
 @keyframes static-in{to{opacity:1}}

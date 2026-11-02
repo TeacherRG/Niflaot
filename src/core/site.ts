@@ -35,10 +35,10 @@ export const STATIC_PAGES: Record<StaticPage, string> = {
   nigun: 'nigun',
   // «Учить иврит — язык Торы и Пророков»: the app opens the course «Святой язык — уроки»
   'learn-hebrew': 'lashon',
+  // «Святое чтение»: «вся книга Теґилим за 102 минуты»; the app opens the portion of the day
+  tehillim: 'reading',
   // «Всё бесплатно»: what the academy gives without a subscription; the app opens the same page
   free: 'free',
-  // «Теґилим онлайн»: the portion of the day, by weekday and all 150 chapters; the app opens today's portion
-  tehillim: 'reading',
 };
 export const staticPath = (page: StaticPage, lang: string) => `/${lang === 'ru' ? '' : `${lang}/`}${page}/`;
 export const pageLink = (page: StaticPage, lang: string, ref?: Ref) => `${SITE_URL}${staticPath(page, lang)}${ref ? `?ref=${ref}` : ''}`;
