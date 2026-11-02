@@ -6,10 +6,14 @@ import { Quote } from './Quote';
 import { useMode } from '../core/mode';
 import { markStudied, todayIso } from '../core/habit';
 import { celebrate, feedback } from '../core/fx';
+import { copyText } from '../core/format';
+import { routeLink, type Ref } from '../core/site';
+import { DailyReminder } from './DailyReminder';
 import {
   LEVELS,
   MAX_LEVEL,
   adjacent,
+  bestTime,
   canStep,
   hintLine,
   loadZip,
@@ -45,7 +49,8 @@ export function ZipPage() {
   const [line, setLine] = useState<Cell[]>([]);
   const [hints, setHints] = useState(0);
   const [sec, setSec] = useState(0);
-  const [won, setWon] = useState<{ sec: number; hints: number; from: number; to: number } | null>(null);
+  const [won, setWon] = useState<{ sec: number; hints: number; from: number; to: number; record: boolean } | null>(null);
+  const [copied, setCopied] = useState(false);
   const svg = useRef<SVGSVGElement>(null);
   const drag = useRef(false);
 
@@ -98,11 +103,13 @@ export function ZipPage() {
 
   const win = (used: number) => {
     const from = level;
+    const best = bestTime(state, level);
     const rec = recordWin(state, verse.ref, todayIso(), sec, used);
     saveZip(rec);
     setState(rec);
-    setWon({ sec, hints: used, from, to: rec.l });
+    setWon({ sec, hints: used, from, to: rec.l, record: !used && best !== undefined && sec < best });
     markStudied();
+    // every right finish — confetti; without hints — the grand one, two waves
     feedback(used ? 'finish' : 'perfect');
     celebrate(used ? 'big' : 'grand', adults);
   };
@@ -188,6 +195,28 @@ export function ZipPage() {
     window.scrollTo(0, 0);
   };
 
+  const best = bestTime(state, level);
+  const shareText = (ref: Ref) =>
+    t('zip.shareText', {
+      ref: title,
+      level: won?.from ?? level,
+      size: size(won?.from ?? level),
+      time: clock(won?.sec ?? sec),
+      hints: won?.hints ? t('zip.shareHints', { n: won.hints }) : t('zip.shareClean'),
+      link: routeLink('zip', ref, locale),
+    });
+  const shareNative = async () => {
+    try {
+      if (navigator.share) return await navigator.share({ text: shareText('share') });
+    } catch (e) {
+      if ((e as Error).name === 'AbortError') return;
+    }
+    if (await copyText(shareText('copy'))) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
   const center = (cell: Cell) => [(cell % n) + 0.5, Math.floor(cell / n) + 0.5] as const;
   const size = (lv: number) => `${LEVELS[lv - 1].n}×${LEVELS[lv - 1].n}`;
 
@@ -210,9 +239,10 @@ export function ZipPage() {
             {t('zip.level', { k: level, n: MAX_LEVEL })} · {size(level)}
           </span>
           <span className="zip-ref">{title}</span>
-          <span className="zip-clock" aria-label={t('zip.time')}>
-            ⏱ {clock(won ? won.sec : sec)}
-          </span>
+        </div>
+        <div className={`zip-timer${line.length && !won ? ' run' : ''}${won ? ' done' : ''}`} role="timer" aria-label={t('zip.time')}>
+          <span className="zip-clock">⏱ {clock(won ? won.sec : sec)}</span>
+          {best !== undefined && <small>{t('zip.best', { time: clock(best) })}</small>}
         </div>
 
         <ol className="zip-verse" dir="rtl" lang="he" aria-label={t('zip.verse')}>
@@ -280,6 +310,7 @@ export function ZipPage() {
             <p className="zip-win-tr">{verseTranslation(verse, locale)}</p>
             <p className="zip-win-stats">
               {t('zip.stats', { time: clock(won.sec), hints: won.hints })}
+              {won.record && <span className="zip-record"> · {t('zip.record')}</span>}
               <br />
               <b>
                 {won.to > won.from
@@ -294,6 +325,26 @@ export function ZipPage() {
             <button className="btn zip-next" onClick={nextVerse}>
               {t('zip.next')} →
             </button>
+            <div className="share-btns zip-share">
+              <button className="btn gold" onClick={shareNative}>
+                {copied ? t('final.copied') : `📤 ${t('zip.share')}`}
+              </button>
+              <a className="btn ghost" href={`https://wa.me/?text=${encodeURIComponent(shareText('wa'))}`} target="_blank" rel="noopener">
+                WhatsApp
+              </a>
+              <a
+                className="btn ghost"
+                href={`https://t.me/share/url?url=${encodeURIComponent(routeLink('zip', 'tg', locale))}&text=${encodeURIComponent(shareText('tg').replace(/\s*\S+$/, ''))}`}
+                target="_blank"
+                rel="noopener"
+              >
+                Telegram
+              </a>
+            </div>
+            <div className="zip-remind">
+              <DailyReminder />
+              <p className="reminder-note">{t('zip.remindLead')}</p>
+            </div>
             <h3>{t('zip.bht')}</h3>
             {verse.bht.map((id) => (
               <Quote key={id} q={{ id }} />

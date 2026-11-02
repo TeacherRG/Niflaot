@@ -12,7 +12,8 @@ import { SOURCES, translation } from '../sources';
 import { lessonsByNearness } from '../lessons';
 import type { Locale } from '../i18n';
 
-export const ZIP_KEY = 'niflaot:zip';
+import { ZIP_KEY } from './zipReminder';
+export { ZIP_KEY };
 
 /** level → grid side `n` and how many numbered circles `k` (fewer numbers on a bigger grid — harder) */
 export const LEVELS: { n: number; k: number }[] = [
@@ -118,6 +119,14 @@ export function saveZip(s: ZipState) {
   try {
     localStorage.setItem(ZIP_KEY, JSON.stringify(s));
   } catch {}
+  // the daily reminder (src/core/push.ts) learns that today's verse is solved
+  if (typeof window !== 'undefined') window.dispatchEvent(new Event(ZIP_KEY));
+}
+
+/** The best time (seconds) among verses solved at this level, if any. */
+export function bestTime(s: ZipState, level: number): number | undefined {
+  const t = Object.values(s.d).filter((r) => r[1] === level).map((r) => r[2]);
+  return t.length ? Math.min(...t) : undefined;
 }
 
 const clampLevel = (l: unknown) => Math.min(MAX_LEVEL, Math.max(1, Math.round(Number(l) || 1)));

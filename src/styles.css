@@ -3104,7 +3104,17 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .zip-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:6px 0 10px;font-size:14px}
 .zip-level{background:var(--tchelet-soft);color:var(--tchelet);border-radius:999px;padding:4px 12px;font-weight:700}
 .zip-ref{color:var(--muted);font-weight:600}
-.zip-clock{font-family:var(--f-num);font-weight:600}
+.zip-timer{display:flex;flex-direction:column;align-items:center;margin:0 0 10px}
+.zip-clock{font-family:var(--f-num);font-weight:700;font-size:26px;letter-spacing:.02em;color:var(--ink-2)}
+.zip-timer.run .zip-clock{color:var(--tchelet)}
+.zip-timer.done .zip-clock{color:var(--ok)}
+.zip-timer small{color:var(--muted);font-size:12px}
+.zip-record{color:var(--gold);font-weight:700}
+.zip-share{justify-content:center;margin:12px 0 4px}
+.zip-share a.btn{text-decoration:none}
+.zip-win{scroll-margin-top:72px}
+.zip-share .btn.gold{background:linear-gradient(180deg,#E3C47C,#C49A47);color:var(--on-gold);border-color:#C49A47}
+.zip-remind{margin-top:16px;text-align:start}
 .zip-verse{list-style:none;margin:0 0 12px;padding:10px 12px;display:flex;flex-wrap:wrap;gap:6px 10px;background:var(--surface);border:1px solid var(--line);border-radius:14px}
 .zip-verse li{display:inline-flex;align-items:baseline;gap:5px;color:var(--muted);border-radius:8px;padding:2px 6px}
 .zip-verse li b{font-family:var(--f-num);font-size:11px;background:var(--line);color:var(--ink-2);border-radius:999px;min-width:18px;height:18px;display:inline-grid;place-items:center}
