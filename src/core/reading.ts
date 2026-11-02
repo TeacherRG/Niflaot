@@ -5,7 +5,7 @@
  * Имена — как во всём проекте). «Песнь Аазину» — public/reading/torah/haazinu.json (Sefaria, Deuteronomy 32).
  * Записи чтения — только на этом устройстве:
  *   `niflaot:reading` = {"<ключ чтения>": {best, last — слов в минуту; n — попыток}};
- *   `niflaot:reading-view` = {taamim, big};
+ *   `niflaot:reading-view` = {taamim, big, play: 'both' | 'voice' | 'light'};
  *   `niflaot:reading-times:<ключ чтения>` — разметка аудио учителем (начало каждого слова, с).
  */
 import { addDays, hebrewParts } from './restDays';
@@ -269,11 +269,19 @@ export function saveAttempt(c: ReadingId, value: number): boolean {
   return best;
 }
 
+/** what the player does: voice and highlight, the voice alone (no highlight), or the highlight alone (muted — a pace to read by) */
+export type PlayMode = 'both' | 'voice' | 'light';
+export const PLAY_MODES: PlayMode[] = ['both', 'voice', 'light'];
 export interface View {
   taamim: boolean;
   big: boolean;
+  play: PlayMode;
 }
-export const loadView = (): View => ({ taamim: false, big: false, ...read<Partial<View>>('niflaot:reading-view', {}) });
+export const loadView = (): View => {
+  const v: View = { taamim: false, big: false, play: 'both', ...read<Partial<View>>('niflaot:reading-view', {}) };
+  if (!PLAY_MODES.includes(v.play)) v.play = 'both';
+  return v;
+};
 export const saveView = (v: View) => write('niflaot:reading-view', v);
 
 const TIMES = (c: ReadingId) => `niflaot:reading-times:${c}`;

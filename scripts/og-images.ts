@@ -2,7 +2,7 @@
  * Link-preview pictures (Open Graph, 1200×630) in the style of the share card:
  * public/og/site.png for the catalog, public/og/<slug>.png for every lesson, mental-math.png, daily.png, facts.png and
  * letters.png for «Устный счёт», «Гематрия дня», «Знаете ли вы?» and «Буквы за 5 минут»; neviim, ketuvim, hebrew-words,
- * hemshech, quiz and nigun.png for the pages of the daily study, «Викторина вместе» and «Святая музыка».
+ * hemshech, quiz, nigun and tehillim.png for the pages of the daily study, «Викторина вместе» and «Святая музыка».
  * Every picture carries the site's logo — the round seal «נפלאות» (src/assets/logos/niflaot.webp; the big one for the covers —
  * scripts/assets/niflaot-logo.webp). Also the app icons for «install on the phone» (manifest — scripts/prerender.ts):
  * public/icons/icon-192.png, icon-512.png, maskable-512.png (the seal inside the safe zone) and apple-touch-icon.png (180).
@@ -11,6 +11,8 @@
  * The PNGs are committed; re-run after adding a lesson or changing its title or key equation:
  *
  *   npm i --no-save playwright && npx tsx scripts/og-images.ts
+ *
+ * `OG_ONLY=tehillim,quiz` — only these previews (no icons, no covers), so the other files stay untouched.
  *
  * Uses the pre-installed Chromium (/opt/pw-browsers) and the site's Google Fonts.
  */
@@ -226,13 +228,30 @@ const shots: [string, string][] = [
       letters: ['נ', 'ג'],
     }),
   ],
+  [
+    'tehillim',
+    page({
+      eyebrow: 'Niflaot · holy reading',
+      he: 'תהלים',
+      title: 'Tehillim online',
+      sub: 'Every day of the month · Hebrew with vowels · all 150 chapters with audio',
+      letters: ['ת', 'ה'],
+    }),
+  ],
   ...LESSONS.map((l) => [l.slug, lessonPage(l)] as [string, string]),
 ];
+const ONLY = process.env.OG_ONLY?.split(',');
 for (const [name, html] of shots) {
+  if (ONLY && !ONLY.includes(name)) continue;
   await p.setContent(html, { waitUntil: 'networkidle' });
   await p.evaluate(() => document.fonts.ready);
   await p.screenshot({ path: `${OUT}/${name}.png` });
   console.log(`${OUT}/${name}.png`);
+}
+
+if (ONLY) {
+  await browser.close();
+  process.exit(0);
 }
 
 /* app icons: the seal on its night-blue; maskable — inside the safe zone (a circle of 80 %) */

@@ -7,7 +7,7 @@
  *    JSON-LD with breadcrumbs, dates (git) and «free»; lesson titles say what people search for («гематрии недельной главы»);
  *  - «Святая музыка» dist/nigun/ (and en/de): the niggunim, their words and the source;
  *  - «Устный счёт», «Гематрия дня», «Знаете ли вы?» and «Буквы за 5 минут» for search engines: dist/mental-math/,
- *    dist/daily/, dist/facts/, dist/letters/, dist/hebrew-words/, dist/learn-hebrew/, dist/free/ (ru) and the same under dist/en/, dist/de/ — with hreflang alternates;
+ *    dist/daily/, dist/facts/, dist/letters/, dist/hebrew-words/, dist/learn-hebrew/, dist/free/, dist/tehillim/ (ru) and the same under dist/en/, dist/de/ — with hreflang alternates;
  *    the app opens the trainer / the game / the feed / the letters on them;
  *  - web app manifests (install on the phone): dist/manifest.webmanifest (ru), manifest-en / manifest-de.webmanifest;
  *  - the service worker dist/sw.js (public/sw.js with this build's version and files to keep for offline use) and
@@ -49,7 +49,8 @@ import { narration } from '../src/core/narration';
 import { PODCAST_FEEDS, PODCAST_RELEASE, episodeTitle, type PodcastEpisodes } from '../src/core/podcast';
 import { BOOKS, track, type Section } from '../src/core/tanakhCycle';
 import { readingMinutes, type DayVerse } from '../src/core/tanakh';
-import { civilDate } from '../src/core/hebrewDate';
+import { civilDate, hebrewNumber } from '../src/core/hebrewDate';
+import { CHAPTERS, dailyPortion, stripTaamim, weekdayPortion } from '../src/core/reading';
 import { HEMSHECH, allPassages, passageDate } from '../src/core/hemshech';
 import { buildDecks, deckProblems, QUIZ_LANGS, type DayQuiz } from '../src/core/quizDecks';
 import cycleJson from '../src/tanakh/cycle.json';
@@ -325,7 +326,7 @@ ${LESSON_GROUPS.map((g) => {
 }).join('\n')}
 <h2>${t('wing.adults')}: ${t('home.adultsTitle')}</h2>
 <p>${t('wing.adultsSub')}.</p>
-<ul><li><a href="${page('neviim')}">${t('tanakh.neviim')}</a></li><li><a href="${page('ketuvim')}">${t('tanakh.ketuvim')}</a></li><li><a href="${page('hemshech')}">${t('hs.menuLbl')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li></ul>
+<ul><li><a href="${page('neviim')}">${t('tanakh.neviim')}</a></li><li><a href="${page('ketuvim')}">${t('tanakh.ketuvim')}</a></li><li><a href="${page('hemshech')}">${t('hs.menuLbl')}</a></li><li><a href="${page('tehillim')}">${t('reading.seoShort')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li></ul>
 <p>${t('menu.torahRead')}: ${lessons.map((l) => `<a href="${root}#/${l.slug}/read">${esc(tx(l).title)}</a>`).join(' · ')}</p>
 <h2>${t('seo.more')}</h2>
 <ul><li><a href="${page('facts')}">${t('facts.title')}</a></li><li><a href="${page('daily')}">${t('daily.title')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li><li><a href="${page('letters')}">${t('abc.title')}</a></li><li><a href="${page('mental-math')}">${t('math.title')}</a></li>${NIGUN_PUBLIC ? `<li><a href="${page('nigun')}">${t('nigun.title')}</a></li>` : ''}<li><a href="${page('quiz')}">${t('lq.title')}</a></li><li><a href="${page('free')}">${t('free.title')}</a></li></ul>
@@ -870,6 +871,76 @@ ${items.map((x) => `<section><h2>${esc(x.h)} <span class="he">${x.f.he}</span></
   };
 }
 
+/**
+ * «Теґилим онлайн» for search (`/tehillim/`): how the site reads Tehillim (the portion of the day of the Hebrew month, by
+ * weekday, «Мои главы», the recording with voice / highlight and the speeds), the portion of every day of the month and all
+ * 150 chapters — each with its first verse in Hebrew (vowels, no cantillation; the Names in full, as on Sefaria) and a link.
+ */
+const TEHILLIM_INDEX = JSON.parse(readFileSync('public/reading/tehillim/index.json', 'utf8')) as { words: number[]; version: { title: string; source: string } };
+const firstVerse = (n: number) => stripTaamim((JSON.parse(readFileSync(`public/reading/tehillim/${n}.json`, 'utf8')) as { v: string[] }).v[0]).replace(/[׀]/g, '').replace(/\s+/g, ' ').trim();
+function tehillimPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
+  const root = lang === 'ru' ? '../' : '../../';
+  const url = `${SITE_URL}${staticPath('tehillim', lang)}`;
+  const title = s(ui, 'reading.seoTitle');
+  const lead = s(ui, 'reading.seoLead');
+  const span = (ps: { chapter: number; fromVerse?: number; toVerse?: number }[]) =>
+    ps[0]?.chapter === 119 && ps.length === 1 ? `119:${ps[0].fromVerse}–${ps[0].toVerse}` : ps.length > 1 ? `${ps[0].chapter}–${ps[ps.length - 1].chapter}` : String(ps[0]?.chapter ?? '');
+  const days = Array.from({ length: 30 }, (_, i) => i + 1)
+    .map((d) => `<tr><td><a href="${root}#/reading/day/${d}">${d}</a></td><td>${span(dailyPortion(d))}</td></tr>`)
+    .join('');
+  const weekday = (n: number) =>
+    n === 7 ? s(ui, 'shn.shabbat') : new Intl.DateTimeFormat(lang, { weekday: 'long', timeZone: 'UTC' }).format(new Date(Date.parse('2026-11-01T12:00:00Z') + (n - 1) * 864e5));
+  const week = Array.from({ length: 7 }, (_, i) => i + 1)
+    .map((n) => `<li><a href="${root}#/reading/week/${n}">${esc(weekday(n))}</a> — ${span(weekdayPortion(n))}</li>`)
+    .join('');
+  const chapters = Array.from({ length: CHAPTERS }, (_, i) => i + 1)
+    .map(
+      (n) =>
+        `<li><a href="${root}#/reading/${n}">${esc(s(ui, 'reading.docChapter').replace('{n}', String(n)))}</a> <span class="he">(${hebrewNumber(n)})</span> · ${esc(
+          s(ui, 'reading.seoWords').replace('{n}', String(TEHILLIM_INDEX.words[n - 1])),
+        )}<br><span class="he">${esc(firstVerse(n))}</span></li>`,
+    )
+    .join('');
+  return {
+    title: `${title} · ${s(ui, 'app.title')}`,
+    description: lead,
+    url,
+    type: 'article',
+    root,
+    lang,
+    alternates: alternatesOf('tehillim'),
+    image: 'tehillim',
+    imageAlt: title,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'LearningResource',
+          name: title,
+          description: lead,
+          url,
+          inLanguage: [lang, 'he'],
+          learningResourceType: ['text', 'audio', 'reading plan'],
+          isAccessibleForFree: true,
+          about: { '@type': 'Book', name: 'Tehillim', alternateName: ['תהלים', 'Psalms'] },
+          publisher: PUBLISHER,
+          isPartOf: SITE,
+        },
+        crumbs(lang, s(ui, 'reading.book'), url),
+      ],
+    },
+    body: `<article><header><p><a href="${root}${lang === 'ru' ? '' : `${lang}/`}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'reading.title'))}</p>
+<h1>${esc(title)}</h1><p>${esc(lead)}</p>
+<p><a href="${root}#/reading">${esc(s(ui, 'reading.seoOpen'))} →</a> · <a href="${root}#/reading/week">${esc(s(ui, 'reading.allWeek'))} →</a></p></header>
+<section><h2>${esc(s(ui, 'reading.seoHow'))}</h2><ul>${[1, 2, 3, 4].map((k) => `<li>${esc(s(ui, `reading.seoHow${k}` as keyof Ui))}</li>`).join('')}</ul></section>
+<section><h2>${esc(s(ui, 'reading.seoDays'))}</h2><table><thead><tr><th>${esc(s(ui, 'reading.day'))}</th><th>${esc(s(ui, 'reading.seoColChapters'))}</th></tr></thead><tbody>${days}</tbody></table></section>
+<section><h2>${esc(s(ui, 'reading.seoWeek'))}</h2><ul>${week}</ul></section>
+<section><h2>${esc(s(ui, 'reading.seoAll'))}</h2><ol>${chapters}</ol></section>
+<p><small>${esc(s(ui, 'reading.credit'))} <a href="${TEHILLIM_INDEX.version.source}">${esc(TEHILLIM_INDEX.version.title)}</a> · ${esc(s(ui, 'reading.pd'))}</small></p>
+</article>`,
+  };
+}
+
 /** the day of the build: what is already open (passages of «Хасидут», weeks of the quiz) */
 const today = new Date().toISOString().slice(0, 10);
 // «Викторина вместе»: the decks — the quiz server takes a deck from here, never from the host
@@ -1047,6 +1118,7 @@ const STATIC_OUT: [string, Page][] = LANGS.flatMap(({ lang, ui }) => [
   ...(NIGUN_PUBLIC ? [[staticPath('nigun', lang), nigunPage(lang, ui)] as [string, Page]] : []),
   [staticPath('learn-hebrew', lang), lashonPage(lang, ui)] as [string, Page],
   [staticPath('free', lang), freePage(lang, ui)] as [string, Page],
+  [staticPath('tehillim', lang), tehillimPage(lang, ui)] as [string, Page],
 ]);
 // lastmod: pages that change every day (the passage of the day, the opened passages, the quiz sets of the week) — today;
 // the facts — from the lessons; the rest — when their texts or this script changed
