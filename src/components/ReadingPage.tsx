@@ -9,8 +9,10 @@ import { hebrewNumber } from '../core/hebrewDate';
 import { markStudied } from '../core/habit';
 import { useHebrewLevel } from '../core/hebrewLevel';
 import { resumeVoice, setVoicePitch } from '../core/voicePitch';
+import { isAdmin } from '../admin/github';
 import {
   CHAPTERS,
+  PLAY_MODES,
   chapterAudioTracks,
   currentHebrewDay,
   dailyPortion,
@@ -61,7 +63,8 @@ const WEEK_DAYS = 7;
 
 /**
  * «Святое чтение»: порция Теґилим на день еврейского месяца (`#/reading[/day/<день>]`) или отдельная глава
- * (`#/reading/<глава>`). Аудио порции: подсветка идёт за голосом, нажатие на слово — подсветка с него, скорость 0.5–3.5×. Данные — src/core/reading.ts.
+ * (`#/reading/<глава>`). Аудио порции: подсветка идёт за голосом, нажатие на слово — подсветка с него, скорость 0.5–3.5×;
+ * режим — «Голос и подсветка», «Только голос» или «Только подсветка» (без звука). «Разметка аудио» — только у админа. Данные — src/core/reading.ts.
  */
 export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }) {
   const { t, locale } = useI18n();
@@ -127,6 +130,8 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   const pendingWord = useRef<number | null>(null);
   const [audioState, setAudioState] = useState<'stopped' | 'playing' | 'paused'>('stopped');
 
+  /** «Только голос» — без подсветки; «Только подсветка» — запись идёт без звука, подсветка задаёт темп (владелец, 02.11.2026) */
+  const light = view.play !== 'voice';
   const verses = sections?.flatMap((section) => section.verses) ?? null;
   const toks = useMemo<Tok[]>(() => (verses ?? []).flatMap((v, i) => tokens(v).map((x) => ({ ...x, v: i }))), [verses]);
   const trackTokenIndices = useMemo(() => {
@@ -213,21 +218,26 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   };
 
   useEffect(() => {
+    // what people search: «Теґилим 23», «Теґилим на сегодня»
     const unit = haazinu
       ? t('reading.haazinuTitle')
       : daily
-        ? `${t('reading.day')} ${dailyDay}`
+        ? t('reading.docDay', { psalms: dailyPortionLabel(dailyDay) })
         : week
           ? t('reading.forWeekday', { day: dayName(weekDay) })
           : mine
-            ? t('reading.myChapters')
-            : `${t('reading.book')} ${c}`;
-    document.title = `${t('reading.title')} · ${unit} · ${t('app.title')}`;
+            ? `${t('reading.book')} · ${t('reading.myChapters')}`
+            : t('reading.docChapter', { n: c });
+    document.title = `${unit} · ${t('app.title')}`;
   }, [t, haazinu, daily, dailyDay, week, weekDay, mine, c]);
   useEffect(() => {
     if (audioRef.current) audioRef.current.playbackRate = audioRate;
     void setVoicePitch(audioRef.current, audioRate);
   }, [audioRate, audio]);
+  // «Только подсветка»: the recording runs silently and only paces the highlight
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.muted = view.play === 'light';
+  }, [view.play, audio]);
   useEffect(() => {
     if (!valid) return;
     stopAudio();
@@ -315,9 +325,9 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   // the word in the light stays in sight
   const textRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (active < 0) return;
+    if (active < 0 || !light) return;
     textRef.current?.querySelector(`[data-i="${active}"]`)?.scrollIntoView({ block: 'center', behavior: 'smooth' });
-  }, [active]);
+  }, [active, light]);
 
   if (!valid) return <NotFound />;
 
@@ -327,16 +337,15 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
       <div className={`wrap rd${view.big ? ' rd-big' : ''}`}>
         <header className="tk-head">
           <p className="tk-kicker">
-            📖 {t('reading.title')} · <span className="he">קְרִיאָה</span>
+            📖 {t('reading.title')} · {t('reading.h1')}
           </p>
           <h1>
-            {t('reading.h1')} <span className="he">{haazinu ? 'הַאֲזִינוּ' : 'תְּהִלִּים'}</span>
+            {haazinu ? t('reading.haazinuTitle') : single ? t('reading.docChapter', { n: c }) : t('reading.book')}{' '}
+            <span className="he">{haazinu ? 'הַאֲזִינוּ' : single ? `תְּהִלִּים ${hebrewNumber(c)}` : 'תְּהִלִּים'}</span>
           </h1>
+          {mine && <p className="rd-now">{t('reading.mineHeader', { n: myPsalms.length })}</p>}
           <p className="ac-lead">{t(haazinu ? 'reading.haazinuLead' : 'reading.lead')}</p>
           {haazinu && <p className="ac-lead">{t('reading.haazinuAbout')}</p>}
-          {daily && <p className="ac-lead">{t('reading.dayHeader', { day: dailyDay, psalms: dailyPortionLabel(dailyDay) })}</p>}
-          {week && <p className="ac-lead">{t('reading.weekHeader', { day: dayName(weekDay), psalms: weekPortionLabel(weekDay) })}</p>}
-          {mine && <p className="ac-lead">{t('reading.mineHeader', { n: myPsalms.length })}</p>}
           {level === 'none' && (
             <p className="rd-note">
               {t('reading.noLetters')} <a href="#/letters">{t('abc.title')}</a>
@@ -346,8 +355,15 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
 
         {!haazinu && (
           <>
-          <button type="button" className="btn ghost rd-menu-open no-print" onClick={() => { setMenuSection('home'); setMenuOpen(true); }}>
-            ☰ {t('reading.myTehillim')}
+          <div className="rd-bar no-print">
+          <button
+            type="button"
+            className="btn ghost rd-menu-open"
+            onClick={() => { setMenuSection('home'); setMenuOpen(true); }}
+            aria-label={t('reading.myTehillim')}
+            title={t('reading.myTehillim')}
+          >
+            ☰<span className="rd-menu-lbl"> {t('reading.myTehillim')}</span>
           </button>
           {!mine && (
           <nav className="rd-nav" aria-label={t(daily ? 'reading.dayPick' : week ? 'reading.weekPick' : 'reading.pick')}>
@@ -388,6 +404,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
             </button>
           </nav>
           )}
+          </div>
           </>
         )}
 
@@ -477,6 +494,24 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
         </Sheet>
 
         <div className="rd-opts no-print">
+          {tracks.length > 0 && (
+            <div className="rd-mode" role="radiogroup" aria-label={t('reading.mode')}>
+              {PLAY_MODES.map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  role="radio"
+                  aria-checked={view.play === m}
+                  className={view.play === m ? 'on' : undefined}
+                  onClick={() => setV({ ...view, play: m })}
+                  title={t(`reading.mode.${m}`)}
+                >
+                  <span className="rd-mode-full">{t(`reading.mode.${m}`)}</span>
+                  <span className="rd-mode-short" aria-hidden="true">{t(`reading.mode.${m}.s`)}</span>
+                </button>
+              ))}
+            </div>
+          )}
           <label>
             <input type="checkbox" checked={view.taamim} onChange={(e) => setV({ ...view, taamim: e.target.checked })} /> {t('reading.taamim')}
           </label>
@@ -534,7 +569,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           />
         )}
         {audioFailed && <p className="rd-note" role="alert">{t('reading.audioFailed')}</p>}
-        {audio && <p className="rd-hint rd-tap-hint no-print">{t('reading.tapSync')}</p>}
+        {audio && light && audioState !== 'stopped' && <p className="rd-hint rd-tap-hint no-print">{t('reading.tapSync')}</p>}
 
         {audio && (
           <div className="rd-audio-float no-print" role="group" aria-label={t('reading.audioControls')}>
@@ -610,8 +645,8 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
                             <span key={i}>
                               <span
                                 data-i={i}
-                                className={`rd-w${i === active ? ' rd-on' : active > i ? ' rd-past' : ''}${x.w ? '' : ' rd-paseq'}`}
-                                onClick={() => x.w && seekAudioToWord(i)}
+                                className={`rd-w${!light ? '' : i === active ? ' rd-on' : active > i ? ' rd-past' : ''}${x.w ? '' : ' rd-paseq'}`}
+                                onClick={() => light && x.w && seekAudioToWord(i)}
                               >
                                 {view.taamim ? x.s : stripTaamim(x.s)}
                               </span>{' '}
@@ -628,6 +663,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
         )}
 
         {verses &&
+          isAdmin() &&
           tracks.map((track, i) => {
             const indices = trackTokenIndices[i] ?? [];
             return (

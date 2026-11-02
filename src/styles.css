@@ -2875,12 +2875,20 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .rd .tk-head h1 .he{font-size:.9em}
 .rd-note{margin:8px 0;padding:8px 12px;border-radius:8px;background:var(--tchelet-soft);color:var(--ink-2);font-size:14.5px}
 .rd-note a{color:var(--tchelet);font-weight:700}
+.rd-bar{display:flex;align-items:center;gap:8px;margin:14px 0 8px}
+.rd-bar .rd-nav{flex:1;min-width:0;margin:0}
+.rd-now{margin:4px 0 0;font-weight:600;color:var(--ink)}
+.rd-mode{display:inline-flex;flex-wrap:wrap;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+.rd-mode button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:14px;font-weight:600;padding:6px 12px;border-radius:999px;cursor:pointer}
+.rd-mode-short{display:none}
+.rd-mode button.on{background:var(--tchelet-deep);color:#fff}
+.rd-mode button:focus-visible{outline:3px solid var(--gold-2);outline-offset:1px}
 .rd-nav{display:flex;align-items:center;gap:8px;margin:14px 0 8px}
 .rd-pick{flex:1;min-width:0}
 .rd-pick select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit;font-size:15px}
 .rd-arrow{flex:none;width:40px;height:40px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:22px;line-height:1}
 .rd-arrow:disabled{opacity:.35}
-.rd-menu-open{margin:8px 0 4px}
+.rd-menu-open{flex:none;margin:0;min-height:40px;padding:8px 12px;white-space:nowrap}
 .rd-menu-list{display:grid;gap:12px}
 .rd-menu-choice{display:flex;align-items:center;justify-content:center;min-height:68px;padding:14px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2,var(--paper));color:var(--ink);font:inherit;font-size:20px;font-weight:600;cursor:pointer}
 .rd-menu-choice:hover,.rd-menu-chapter:hover{border-color:var(--tchelet);background:var(--tchelet-soft)}
@@ -2900,7 +2908,7 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .rd-person-remove{width:40px;height:40px;color:var(--bad)}
 .rd-menu-done{justify-self:end}
 .rd-inline-button{padding:0;border:0;background:none;color:var(--tchelet);font:inherit;font-weight:700;text-decoration:underline;cursor:pointer}
-.rd-opts{display:flex;flex-wrap:wrap;gap:6px 18px;margin:6px 0 14px;font-size:15px}
+.rd-opts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;margin:6px 0 14px;font-size:15px}
 .rd-opts label,.rd-check{display:inline-flex;align-items:center;gap:6px;cursor:pointer}
 .rd-hint{margin:0;font-size:14px;color:var(--ink-2);line-height:1.45}
 .rd-tap-hint{margin:0 0 12px}
@@ -2940,7 +2948,11 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
   .rd-big .rd-text{font-size:27px}
   .rd-audio-float{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
   .rd-audio-float button{padding:7px 14px;font-size:15px}
-  .rd-lbl{display:none}
+  .rd-lbl,.rd-menu-lbl{display:none}
+  .rd-mode{width:100%}
+  .rd-mode button{flex:1;padding:7px 8px}
+  .rd-mode-full{display:none}
+  .rd-mode-short{display:inline}
 }
 @media print{.rd-nav,.rd-opts{display:none}.rd-text{border:0;padding:0}}
 .a-home>.dedication{flex:none;margin-top:0}
