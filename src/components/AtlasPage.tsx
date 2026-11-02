@@ -19,6 +19,7 @@ import {
   type AtlasTexts,
   type Timeline,
   type TimelineEvent,
+  type TimelineKing,
 } from '../core/atlas';
 import { BOOKS, track } from '../core/tanakhCycle';
 import { CYCLE, cycleDayFor, localToday } from '../core/tanakh';
@@ -217,9 +218,37 @@ function hereIndex(events: TimelineEvent[]): number {
   return best;
 }
 
+function Kings({ list, title, data, lang }: { list: TimelineKing[]; title: string; data: { all: AtlasAll; tx: AtlasTexts }; lang: AtlasLang }) {
+  const { t } = useI18n();
+  return (
+    <div className="at-kings">
+      <h3>{title}</h3>
+      <ol>
+        {list.map((k, i) => {
+          const r = refLink(k.ref, lang);
+          return (
+            <li key={i}>
+              <p>
+                <b>{k.who && data.tx[k.who]?.d ? <a href={`#/atlas/${k.who}`}>{k.t[lang]}</a> : k.t[lang]}</b>{' '}
+                <span className="he" lang="he">
+                  {k.he}
+                </span>
+              </p>
+              <small>
+                {k.r[lang]}
+                {k.y ? ` · ${t('atlas.from', { y: k.y })}` : ''} · <a href={r.href}>{r.label}</a>
+              </small>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  );
+}
+
 function TimelineView({ data, lang }: { data: { all: AtlasAll; tx: AtlasTexts; tl: Timeline }; lang: AtlasLang }) {
   const { t } = useI18n();
-  const { eras, events } = data.tl;
+  const { eras, events, kings, prophets } = data.tl;
   const here = useMemo(() => hereIndex(events), [events]);
   const span = eras[eras.length - 1].to - eras[0].from;
   return (
@@ -255,6 +284,38 @@ function TimelineView({ data, lang }: { data: { all: AtlasAll; tx: AtlasTexts; t
                   <EventItem key={i} ev={ev} here={i === here} data={data} lang={lang} />
                 ))}
               </ol>
+            )}
+            {kings.some((k) => k.era === era.id) &&
+              (era.id === 'melachim' ? (
+                <div className="at-lanes">
+                  <Kings list={kings.filter((k) => k.era === era.id && k.lane === 'judah')} title={t('atlas.kingsJudah')} data={data} lang={lang} />
+                  <Kings list={kings.filter((k) => k.era === era.id && k.lane === 'israel')} title={t('atlas.kingsIsrael')} data={data} lang={lang} />
+                </div>
+              ) : (
+                <Kings list={kings.filter((k) => k.era === era.id)} title={t('atlas.kings')} data={data} lang={lang} />
+              ))}
+            {prophets.some((p) => p.era === era.id) && (
+              <div className="at-prophets">
+                <h3>{t('atlas.prophets')}</h3>
+                <ul>
+                  {prophets
+                    .filter((p) => p.era === era.id)
+                    .map((p, i) => {
+                      const r = refLink(p.ref, lang);
+                      return (
+                        <li key={i}>
+                          <b>{p.t[lang]}</b>{' '}
+                          <span className="he" lang="he">
+                            {p.he}
+                          </span>
+                          <small>
+                            {p.w[lang]} · <a href={r.href}>{r.label}</a>
+                          </small>
+                        </li>
+                      );
+                    })}
+                </ul>
+              </div>
             )}
           </section>
         );

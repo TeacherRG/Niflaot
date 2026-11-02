@@ -2924,6 +2924,17 @@ a.wd-sing{font-weight:800;text-decoration:none}
 .at-ev-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px!important;font-size:13px}
 .at-ev-links a{color:var(--tchelet)}
 .at-chip{padding:2px 9px;border-radius:99px;background:var(--gold-soft);color:var(--gold-deep)!important;text-decoration:none}
+.at-lanes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.at-kings,.at-prophets{margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.at-kings h3,.at-prophets h3{margin:0 0 8px;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--gold-deep)}
+.at-kings ol{margin:0;padding-left:22px;display:grid;gap:6px}
+.at-kings li p{margin:0;font-size:14px}
+.at-kings .he,.at-prophets .he{font-family:var(--f-he);color:var(--muted)}
+.at-kings small,.at-prophets small{display:block;font-size:12px;color:var(--muted)}
+.at-kings a,.at-prophets a{color:var(--tchelet)}
+.at-prophets ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.at-prophets li{font-size:14px}
+@media (max-width:640px){.at-lanes{grid-template-columns:minmax(0,1fr)}}
 .acc-notes .bm-list{margin:8px 0}
 @media (max-width:640px){.at-ev{grid-template-columns:64px 1fr}.at-head h1{font-size:26px}}
 .am-box{width:100%;line-height:0}

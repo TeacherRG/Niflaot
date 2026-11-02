@@ -139,9 +139,31 @@ export interface TimelineEvent {
   t: Record<AtlasLang, string>;
   d: Record<AtlasLang, string>;
 }
+/** Цари: объединённого царства, Йеґуды и Израиля — по порядку; `r` — сколько правил, `ref` — стих начала царствования,
+ * `y` — год начала по «Седер олам», только где он твёрдо известен */
+export interface TimelineKing {
+  lane: 'united' | 'judah' | 'israel';
+  era: string;
+  he: string;
+  t: Record<AtlasLang, string>;
+  r: Record<AtlasLang, string>;
+  ref: string;
+  y?: number;
+  who?: string;
+}
+/** Пророки — по эпохам; `w` — при каких царях (по первому стиху книги или «Седер олам»), `ref` — стих */
+export interface TimelineProphet {
+  era: string;
+  he: string;
+  t: Record<AtlasLang, string>;
+  w: Record<AtlasLang, string>;
+  ref: string;
+}
 export interface Timeline {
   eras: TimelineEra[];
   events: TimelineEvent[];
+  kings: TimelineKing[];
+  prophets: TimelineProphet[];
 }
 let timeline: Promise<Timeline> | undefined;
 export const loadTimeline = () => (timeline ??= import('../tanakh/atlas/timeline.json').then((m) => m.default as unknown as Timeline));
