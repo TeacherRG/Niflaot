@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 11:1",
+   "q": {
+    "ru": "Кто был царём Хацора, собравшим царей севера?",
+    "en": "Who was the king of Hazor who gathered the kings of the north?",
+    "de": "Wer war der König von Chazor, der die Könige des Nordens sammelte?"
+   },
+   "o": [
+    {
+     "ru": "Явин",
+     "en": "Jabin",
+     "de": "Jawin"
+    },
+    {
+     "ru": "Адони-Цедек",
+     "en": "Adoni-zedek",
+     "de": "Adoni-Zedek"
+    },
+    {
+     "ru": "Сихон",
+     "en": "Sihon",
+     "de": "Sichon"
+    },
+    {
+     "ru": "Ґорам",
+     "en": "Horam",
+     "de": "Horam"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 11:4",
+   "q": {
+    "ru": "С чем сравнивается войско царей севера?",
+    "en": "What is the army of the northern kings compared to?",
+    "de": "Womit wird das Heer der Könige des Nordens verglichen?"
+   },
+   "o": [
+    {
+     "ru": "С песком на берегу моря",
+     "en": "The sands on the seashore",
+     "de": "Mit dem Sand am Ufer des Meeres"
+    },
+    {
+     "ru": "Со звёздами неба",
+     "en": "The stars of the sky",
+     "de": "Mit den Sternen des Himmels"
+    },
+    {
+     "ru": "С саранчой",
+     "en": "Locusts",
+     "de": "Mit Heuschrecken"
+    },
+    {
+     "ru": "С пылью земли",
+     "en": "The dust of the earth",
+     "de": "Mit dem Staub der Erde"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 11:6",
+   "q": {
+    "ru": "Что Г-сподь велел сделать с колесницами врагов?",
+    "en": "What did the L-rd tell Joshua to do with the enemy chariots?",
+    "de": "Was sollte Jehoschua nach dem Wort des Ewigen mit den Wagen der Feinde tun?"
+   },
+   "o": [
+    {
+     "ru": "Сжечь огнём",
+     "en": "Burn them",
+     "de": "Mit Feuer verbrennen"
+    },
+    {
+     "ru": "Забрать себе",
+     "en": "Keep them",
+     "de": "Für sich behalten"
+    },
+    {
+     "ru": "Отдать коэнам",
+     "en": "Give them to the kohanim",
+     "de": "Den Kohanim geben"
+    },
+    {
+     "ru": "Утопить в море",
+     "en": "Sink them in the sea",
+     "de": "Im Meer versenken"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 11:13",
+   "q": {
+    "ru": "Какой город Йеґошуа сжёг, хотя другие города на холмах не сжигали?",
+    "en": "Which city did Joshua burn, while the towns on their mounds were not burned?",
+    "de": "Welche Stadt verbrannte Jehoschua, obwohl die Städte auf ihren Hügeln nicht verbrannt wurden?"
+   },
+   "o": [
+    {
+     "ru": "Хацор",
+     "en": "Hazor",
+     "de": "Chazor"
+    },
+    {
+     "ru": "Мадон",
+     "en": "Madon",
+     "de": "Madon"
+    },
+    {
+     "ru": "Ахшаф",
+     "en": "Achshaph",
+     "de": "Achschaf"
+    },
+    {
+     "ru": "Цидон",
+     "en": "Sidon",
+     "de": "Zidon"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 18:38",
+   "q": {
+    "ru": "Когда Давид перестаёт гнать врагов?",
+    "en": "When does David stop pursuing his enemies?",
+    "de": "Wann hört David auf, seine Feinde zu verfolgen?"
+   },
+   "o": [
+    {
+     "ru": "Когда истребит их",
+     "en": "When he has destroyed them",
+     "de": "Wenn er sie vernichtet hat"
+    },
+    {
+     "ru": "Когда наступит ночь",
+     "en": "When night falls",
+     "de": "Wenn die Nacht kommt"
+    },
+    {
+     "ru": "Когда они попросят мира",
+     "en": "When they ask for peace",
+     "de": "Wenn sie um Frieden bitten"
+    },
+    {
+     "ru": "Когда устанут кони",
+     "en": "When the horses tire",
+     "de": "Wenn die Pferde müde werden"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 18:43",
+   "q": {
+    "ru": "Как прах по чему Давид растирает врагов?",
+    "en": "Like dust before what did David grind his enemies?",
+    "de": "Wie Staub vor was zerreibt David seine Feinde?"
+   },
+   "o": [
+    {
+     "ru": "По ветру",
+     "en": "Windswept dust",
+     "de": "Vor dem Wind"
+    },
+    {
+     "ru": "По воде",
+     "en": "Dust on water",
+     "de": "Auf dem Wasser"
+    },
+    {
+     "ru": "По дороге",
+     "en": "Dust on the road",
+     "de": "Auf dem Weg"
+    },
+    {
+     "ru": "По пустыне",
+     "en": "Dust of the desert",
+     "de": "In der Wüste"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 18:44",
+   "q": {
+    "ru": "Кем Г-сподь поставил Давида?",
+    "en": "What did the L-rd set David as?",
+    "de": "Wozu hat der Ewige David gemacht?"
+   },
+   "o": [
+    {
+     "ru": "Главой народов",
+     "en": "The head of nations",
+     "de": "Zur Spitze der Völker"
+    },
+    {
+     "ru": "Судьёй над коэнами",
+     "en": "A judge over the kohanim",
+     "de": "Zum Richter über die Kohanim"
+    },
+    {
+     "ru": "Пастухом стад",
+     "en": "A shepherd of flocks",
+     "de": "Zum Hirten der Herden"
+    },
+    {
+     "ru": "Пророком для народов",
+     "en": "A prophet to the nations",
+     "de": "Zum Propheten der Völker"
+    }
+   ]
+  }
+ ]
+}
