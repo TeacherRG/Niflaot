@@ -882,6 +882,18 @@ ru/en/de), на карточках слов — как читается слов
 - Маршруты сервера аккаунтов — таблица метод+путь (`ROUTES` в `assistant/src/rules.ts`, другое — 405 / 404; проверка — `scripts/check-accounts.ts`).
   В аккаунте — строка синхронизации (время последней, ошибка, «Синхронизировать сейчас»); прогресс с другого устройства
   перерисовывает главную без перезагрузки (`onPulled`).
+- **«Войти через Google»** (владелец, 02.11.2026): кнопка над формой кода (`SignIn` в `AccountPage.tsx`; нет во встроенных браузерах
+  Telegram / Instagram / Facebook — Google там не пускает). **Без скрипта Google на сайте:** OpenID Connect с переходом — `startGoogle`
+  (`src/core/account.ts`) ведёт на accounts.google.com (`response_type=id_token`, scope `openid email` — только email; `nonce` и `state`
+  на этот вход — sessionStorage `niflaot:google-flow`), Google возвращает на `<сайт>/#state=…&id_token=…`; `takeGoogleReturn` (в `main.tsx`
+  до всего) сразу убирает токен из адреса, возвращает на страницу, с которой ушли, и шлёт `POST /account/google {idToken, nonce}`;
+  сервер (`assistant/src/google.ts`: подпись RS256 по ключам Google, `iss`, `aud`, срок, `email_verified`, `nonce`) входит **по тому же
+  email** — тот же аккаунт, что по коду. После первого входа (по коду или Google) без ника — сначала профиль (ворота `App.tsx`,
+  `SignInPage`), потом та же страница. Включается **variable репозитория `GOOGLE_CLIENT_ID`** (`assistant.yml` → var воркера →
+  `/account/config` `google`); без неё кнопки нет. Настройка (владелец): Google Cloud Console → APIs & Services → OAuth consent
+  screen (External, scope email) → Credentials → OAuth client ID «Web application»: Authorized JavaScript origins и **Authorized
+  redirect URIs — `https://niflaot.mychitas.app/`** (с косой чертой; для проверки — `http://localhost:5173/`). Проверка токена — в
+  `scripts/check-accounts.ts`. В «Конфиденциальности» — абзац о входе через Google (`privacy.body`).
 - **Вход** — 6-значный код на email, без пароля (`src/core/account.ts` ↔ `assistant/src/accounts.ts`, Durable Object
   `Accounts` на SQLite; письма — Resend, secret `RESEND_API_KEY`, отправитель `MAIL_FROM`). Без ключа `/account/config`
   отвечает `mail: false` — «Войти» не показывается. Коды (10 мин, 5 попыток, не чаще раза в минуту и 5 в час) и

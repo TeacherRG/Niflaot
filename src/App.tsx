@@ -156,11 +156,13 @@ function Site() {
   const [slug, view, variant] = route.split('/');
   const lesson = slug ? findLesson(slug) : undefined;
   // only signed in (src/core/gate.ts): without an account — the Tehillim and what signing in needs
-  const { token, mail } = useAccount();
+  const { token, me, mail } = useAccount();
   useEffect(() => void loadConfig(), []);
   // the first 3 days on a device — without signing in (inTrial starts the trial on the first visit)
   const trial = useMemo(() => !isReader() && inTrial(), [route]);
-  const gated = !token && mail !== false && !isReader() && !trial && !isOpenRoute(slug, view);
+  // signed in without the first step (nickname, age) — the profile first: without it nothing is synced
+  const noProfile = !!token && !!me?.user && !me.user.nick;
+  const gated = (noProfile || (!token && !trial)) && mail !== false && !isReader() && !isOpenRoute(slug, view);
   useFirstVisitHelp(open, !!lesson && !gated);
   // who is learning: asked on the home page until chosen (not of machines), and at #/mode
   const mode = useSavedMode();

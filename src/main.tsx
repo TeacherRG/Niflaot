@@ -21,7 +21,7 @@ import '@fontsource/ibm-plex-mono/500.css';
 import '@fontsource/ibm-plex-mono/600.css';
 import { installAnalytics } from './core/analytics';
 import { installPrompt } from './core/install';
-import { startAccountSync } from './core/account';
+import { startAccountSync, takeGoogleReturn } from './core/account';
 import { initTelegram } from './core/telegram';
 import { installServiceWorker } from './core/appUpdate';
 import { isSearchBot } from './core/shabbat';
@@ -38,6 +38,8 @@ if (crawlerPage) {
 } else {
   // opened as a Telegram Mini App: Telegram's address → ours, before anything reads it (src/core/telegram.ts)
   initTelegram();
+  // back from «Войти через Google»: the token out of the address, the page the person was on (src/core/account.ts)
+  takeGoogleReturn();
   // the admin's unpublished text edits are shown on the site in their browser
   applyDraft();
   // visit statistics (GoatCounter, no cookies)
