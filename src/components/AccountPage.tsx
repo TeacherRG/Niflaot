@@ -26,7 +26,7 @@ import {
   useAccount,
 } from '../core/account';
 import { TopBar } from './TopBar';
-import { TRIAL_DAYS, trialEnd } from '../core/gate';
+import { trialEnd } from '../core/gate';
 import { inTelegram } from '../core/telegram';
 import { Colophon } from './Colophon';
 
@@ -103,7 +103,7 @@ function SignIn() {
         <p className="acc-note">
           {open
             ? t('acc.trialLeft', { date: new Date(end).toLocaleDateString(locale, { day: 'numeric', month: 'long' }) })
-            : t('acc.trialOver', { n: TRIAL_DAYS })}
+            : t('acc.trialOver')}
         </p>
       )}
       <p>{t('acc.guestLead')}</p>

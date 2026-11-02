@@ -159,7 +159,7 @@ function Site() {
   // only signed in (src/core/gate.ts): without an account — the Tehillim and what signing in needs
   const { token, me, mail } = useAccount();
   useEffect(() => void loadConfig(), []);
-  // the first 3 days on a device — without signing in (inTrial starts the trial on the first visit)
+  // the first month (TRIAL_DAYS) on a device — without signing in (inTrial starts the trial on the first visit)
   const trial = useMemo(() => !isReader() && inTrial(), [route]);
   // signed in without the first step (nickname, age) — the profile first: without it nothing is synced
   const noProfile = !!token && !!me?.user && !me.user.nick;
