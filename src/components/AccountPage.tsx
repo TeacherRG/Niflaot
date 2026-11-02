@@ -116,7 +116,7 @@ function SignIn() {
       )}
       {err && <p className="acc-err" role="alert">{err}</p>}
       <p>
-        <a href="#/">← {t('acc.guestGo')}</a>
+        <a href="#/reading">{t('acc.guestGo')} →</a>
       </p>
     </section>
   );
@@ -439,6 +439,28 @@ function LookPicker() {
       {row('acc-bg', t('look.bg'), BGS[look.theme], look.bg, (v) => t(`look.bg.${v}`), (bg) => setLook({ bg }), true)}
       <p className="acc-look-note">{t('look.note')}</p>
     </div>
+  );
+}
+
+/** Instead of any page but the Tehillim, until signed in (src/core/gate.ts): the email → the code → the page itself. */
+export function SignInPage() {
+  const { t } = useI18n();
+  useEffect(() => {
+    document.title = `${t('acc.guest')} · ${t('app.title')}`;
+  }, [t]);
+  return (
+    <>
+      <TopBar title={t('acc.title')} />
+      <div className="wrap acc">
+        <main>
+          <SignIn />
+          <p className="acc-note">
+            <a href="#/privacy">{t('privacy.title')}</a>
+          </p>
+        </main>
+      </div>
+      <Colophon />
+    </>
   );
 }
 

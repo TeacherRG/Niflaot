@@ -12,7 +12,8 @@ import { Panels } from './components/Panels';
 import { TermPopover } from './components/TermPopover';
 import { Assistant } from './components/Assistant';
 import { setPageState } from './core/assistant';
-import { onPulled } from './core/account';
+import { loadConfig, onPulled, useAccount } from './core/account';
+import { isOpenRoute } from './core/gate';
 import { installFootnoteNavigation } from './sources/footnotes';
 import { installLangMarkup } from './core/langMarkup';
 import { installTitleSync } from './core/pageMeta';
@@ -37,6 +38,7 @@ const FactsPage = page(() => import('./components/FactsPage'), 'FactsPage');
 const PartnersPage = page(() => import('./components/PartnersPage'), 'PartnersPage');
 const TeacherPage = page(() => import('./components/TeacherPage'), 'TeacherPage');
 const AccountPage = page(() => import('./components/AccountPage'), 'AccountPage');
+const SignInPage = page(() => import('./components/AccountPage'), 'SignInPage');
 const ClassPage = page<'ClassPage', { id: string }>(() => import('./components/CommunityPages'), 'ClassPage');
 const ConsentPage = page<'ConsentPage', { token: string }>(() => import('./components/CommunityPages'), 'ConsentPage');
 const PrivacyPage = page<'PrivacyPage', object>(() => import('./components/CommunityPages'), 'PrivacyPage');
@@ -154,7 +156,11 @@ function Site() {
   const [panel, open] = useState<Panel>(null);
   const [slug, view, variant] = route.split('/');
   const lesson = slug ? findLesson(slug) : undefined;
-  useFirstVisitHelp(open, !!lesson);
+  // only signed in (src/core/gate.ts): without an account — the Tehillim and what signing in needs
+  const { token, mail } = useAccount();
+  useEffect(() => void loadConfig(), []);
+  const gated = !token && mail !== false && !isReader() && !isOpenRoute(slug, view);
+  useFirstVisitHelp(open, !!lesson && !gated);
   // who is learning: asked on the home page until chosen (not of machines), and at #/mode
   const mode = useSavedMode();
   // the account brought progress from another device: the home page is drawn again from it
@@ -169,7 +175,9 @@ function Site() {
     <UIContext.Provider value={ui}>
       <PageBoundary key={route}>
         <Suspense fallback={<PageLoading />}>
-          {slug === 'mode' || (!slug && mode === null && !isReader()) ? (
+          {gated ? (
+            mail === null ? <PageLoading /> : <SignInPage />
+          ) : slug === 'mode' || (!slug && mode === null && !isReader()) ? (
             <ModePicker />
           ) : slug === 'admin' ? (
             <Admin slug={view} leaders={variant} />
@@ -270,7 +278,7 @@ function Site() {
       <Panels />
       <TermPopover />
       {/* «Тайна Коэлета» has its own guide (the Keeper) and buttons at the bottom of the game */}
-      {slug !== 'koelet' && <Assistant />}
+      {slug !== 'koelet' && !gated && <Assistant />}
       {slug !== 'koelet' && <DonateFab label={t('footer.donate')} />}
       <TabBar slug={slug} view={view} />
       {isAdmin() && slug !== 'admin' && view !== 'print' && (

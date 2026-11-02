@@ -1,5 +1,6 @@
 /**
- * «Войти» — the optional account (server: assistant/src/accounts.ts). Without it the player is a **guest**: everything
+ * «Войти» — the account (server: assistant/src/accounts.ts). Since 02.11.2026 the site opens only signed in (src/core/gate.ts:
+ * without it — the Tehillim only); a **guest** (no server to send emails, offline): everything
  * works, the progress lives in this browser only. Signed in (a 6-digit code to the email, no password), the progress
  * is the same on every device (src/core/sync.ts merges it), the nickname can be on the leaderboards and in classes,
  * and the questions to the AI teacher are counted.
