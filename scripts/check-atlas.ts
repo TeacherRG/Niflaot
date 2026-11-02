@@ -6,6 +6,7 @@
  *    номер слова — внутри стиха (как HeVerse делит иврит), `o` — те же записи, что в `v`, семья — тоже в файле;
  *  - справки: у каждой записи — имя на ru / en / de; у записей, которые называют слова стиха, — и описание; Имена —
  *    Б-г, Г-сподь / G-d / G-tt (английский и немецкий — scripts/style-rules.ts), без HTML;
+ *  - хронология (timeline.json): эпохи подряд, события по годам, ссылки на стихи, записи, три языка, Имена и стиль;
  *  - у всех, кто встречается в отрывках до последнего дня с пересказом недели (src/tanakh/retell.json — он пишется
  *    вместе с переводом дня), есть справка; предупреждение — если справок меньше чем на неделю вперёд.
  */
@@ -13,7 +14,8 @@ import { existsSync, readFileSync } from 'node:fs';
 import cycleJson from '../src/tanakh/cycle.json';
 import retell from '../src/tanakh/retell.json';
 import { styleErrors } from './style-rules';
-import type { AtlasDay, AtlasMap, AtlasTexts } from '../src/core/atlas';
+import type { AtlasDay, AtlasMap, AtlasTexts, Timeline } from '../src/core/atlas';
+import booksJson from '../src/tanakh/books.json';
 
 interface Entity {
   k: string;
@@ -80,6 +82,29 @@ for (const l of LANGS) {
   for (const id of Object.keys(ents)) if (!texts[l][id]) err(`atlas/${l}.json: нет имени ${id}`);
 }
 
+// хронология: эпохи подряд, события — по годам, внутри эпох; ссылки — на стих Пророков или Писаний, записи — есть; три языка
+const tl = read<Timeline>('../src/tanakh/atlas/timeline.json');
+const chapters = new Map((booksJson as { books: { slug: string; verses: number[] }[] }).books.map((b) => [b.slug, b.verses]));
+tl.eras.forEach((e, i) => {
+  if (e.from >= e.to || (i && tl.eras[i - 1].to !== e.from)) err(`timeline: эпоха ${e.id} — годы`);
+  for (const l of LANGS) if (!e.t[l]) err(`timeline: эпоха ${e.id} без ${l}`);
+});
+tl.events.forEach((ev, i) => {
+  const at = `timeline: ${ev.t.ru ?? i}`;
+  if (i && ev.y < tl.events[i - 1].y) err(`${at}: год раньше предыдущего`);
+  if (ev.y < tl.eras[0].from || ev.y > tl.eras.at(-1)!.to || (ev.y2 && ev.y2 <= ev.y)) err(`${at}: год`);
+  if (ev.ref) {
+    const m = ev.ref.match(/^([a-z-]+) (\d+)(?::(\d+))?$/);
+    const ch = m && chapters.get(m[1]);
+    if (!m || !ch || +m[2] > ch.length || (m[3] && +m[3] > ch[+m[2] - 1])) err(`${at}: ссылка ${ev.ref}`);
+  } else if (!ev.src) err(`${at}: нет ни ссылки, ни источника`);
+  for (const w of ev.who ?? []) if (!ents[w]) err(`${at}: нет записи ${w}`);
+  for (const l of LANGS) {
+    if (!ev.t[l] || !ev.d[l] || (ev.src && !ev.src[l])) err(`${at}: нет текста ${l}`);
+    for (const e of NAMES[l](`${ev.t[l]} ${ev.d[l]}`)) err(`${at} (${l}): ${e}`);
+  }
+});
+
 const cycle = (cycleJson.days as [string, ...number[]][]).map(([date]) => date);
 const until = Object.keys(retell).sort().at(-1)!;
 const need = new Map<string, string>();
@@ -129,5 +154,5 @@ if (errors.length) {
   console.error(`check-atlas: ${errors.length} ошибок\n` + errors.join('\n'));
   process.exit(1);
 }
-console.log(`✓ Кто и где: ${Object.keys(ents).length} записей проекта, ${words} имён в стихах; справки готовы до ${ready}`);
+console.log(`✓ Кто и где: ${Object.keys(ents).length} записей проекта, ${words} имён в стихах; справки готовы до ${ready}; хронология — ${tl.events.length} событий`);
 if (ahead < 6) console.warn(`check-atlas: справки «Кто и где» готовы только на ${ahead} учебных дней вперёд — python3 scripts/fetch-atlas.py todo ru`);

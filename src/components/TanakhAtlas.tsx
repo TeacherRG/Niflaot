@@ -80,7 +80,7 @@ export function TanakhAtlas({ section, date }: { section: Section; date: string 
                   </span>
                   <div>
                     <p className="ta-name">
-                      <b>{name(id)}</b>{' '}
+                      <b>{tx[id]?.d ? <a href={`#/atlas/${id}`}>{name(id)}</a> : name(id)}</b>{' '}
                       <span className="he" lang="he">
                         {e.he}
                       </span>{' '}
@@ -115,7 +115,7 @@ export function TanakhAtlas({ section, date }: { section: Section; date: string 
                   </span>
                   <div>
                     <p className="ta-name">
-                      <b>{name(id)}</b>{' '}
+                      <b>{tx[id]?.d ? <a href={`#/atlas/${id}`}>{name(id)}</a> : name(id)}</b>{' '}
                       <span className="he" lang="he">
                         {e.he}
                       </span>

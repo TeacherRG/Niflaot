@@ -153,7 +153,10 @@ export function WordPop() {
       <p className="wp-a-head">
         <b>{atlasName(open.atlas, ae, atx, lang)}</b> <small className="ta-kind">{t(`atlas.kind.${ae.k}` as MessageKey)}</small>
       </p>
-      <p className="wp-a-d">{atx?.[open.atlas]?.d ?? t('atlas.noText')}</p>
+      <p className="wp-a-d">
+        {atx?.[open.atlas]?.d ?? t('atlas.noText')}{' '}
+        {atx?.[open.atlas]?.d && <a href={`#/atlas/${open.atlas}`}>{t('atlas.more1')} →</a>}
+      </p>
       <Family e={ae} get={atlasEntity} tx={atx} lang={lang} />
       {ae.ll && (
         <>
