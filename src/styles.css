@@ -887,8 +887,6 @@ html.crawler .static{opacity:1;animation:none;padding:0 16px}
 .memo-cta span{font-size:28px}
 .memo-cta p{margin:0;flex:1 1 220px;font-size:16px;color:var(--ink)}
 .memo-cta .btn{text-decoration:none}
-.subscribe{margin-top:16px;padding:18px;background:var(--surface);border:1px solid var(--gold-line);border-radius:10px;box-shadow:var(--shadow)}
-.subscribe h2{margin:0 0 4px;font-family:var(--f-display);font-size:24px;line-height:1.2}
 .subscribe p{margin:0 0 12px;color:var(--ink-2)}
 .subscribe-form{display:flex;flex-wrap:wrap;gap:8px}
 .subscribe-form input[type=email]{flex:1 1 200px;min-width:0;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}
@@ -910,6 +908,13 @@ html.crawler .static{opacity:1;animation:none;padding:0 16px}
 .reminder-on{font-weight:600;flex:1 1 100%}
 .reminder .reminder-note{margin:10px 0 0;font-size:13px;color:var(--muted)}
 .subscribe .subscribe-note{margin:10px 0 0;font-size:13px;color:var(--muted)}
+/* «Новые уроки — на почту»: the card in the account (next to «Напоминать») and one line under the reminder in the lesson's final */
+.subscribe .subscribe-ok{margin:0 0 12px;color:var(--ok);font-weight:600}
+.subscribe.subscribe-mini{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 12px;margin-top:10px;padding:10px 16px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.subscribe-mini-t{font-weight:700;font-size:16px}
+.subscribe-mini .subscribe-form{flex:0 1 auto;justify-content:center}
+.subscribe-mini .subscribe-form input[type=email]{flex:1 1 180px;padding:8px 10px}
+.subscribe-mini .subscribe-ok{margin:0;flex-basis:100%;text-align:center}
 /* «Читать»: the lesson with ready answers */
 .les-read{display:block;margin-top:6px;color:var(--tchelet);font-weight:600;text-decoration:none}
 .les-read:hover{text-decoration:underline}

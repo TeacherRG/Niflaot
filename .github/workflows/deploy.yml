@@ -34,7 +34,7 @@ jobs:
           VITE_ASSISTANT_URL: ${{ vars.ASSISTANT_URL }}
           # newsletter sign-up form (src/components/Subscribe.tsx), e.g. https://buttondown.com/api/emails/embed-subscribe/<name>;
           # empty → the form is hidden
-          VITE_SUBSCRIBE_URL: ${{ vars.SUBSCRIBE_URL }}
+          VITE_SUBSCRIBE_URL: ${{ vars.SUBSCRIBE_URL || secrets.SUBSCRIBE_URL }}
           # webmaster tools: the code of the «HTML tag» confirmation (scripts/prerender.ts); empty → no tag
           GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
           BING_SITE_VERIFICATION: ${{ vars.BING_SITE_VERIFICATION }}

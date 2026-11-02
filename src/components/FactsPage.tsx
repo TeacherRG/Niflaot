@@ -10,7 +10,6 @@ import { displayNames } from '../core/names';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { DailyCard } from './DailyCard';
-import { Subscribe } from './Subscribe';
 import { CardFeed } from './CardFeed';
 
 /** Hebrew words in large type with their translations under them (each term of a sum separately). */
@@ -200,7 +199,6 @@ export function FactsPage({ at }: { at?: string }) {
             </main>
           </>
         )}
-        <Subscribe />
       </div>
       <Colophon />
     </>

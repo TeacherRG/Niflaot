@@ -6,6 +6,7 @@ import { BGS, SIZES, THEMES, setLook, useLook } from '../core/look';
 import { shownCourses, PACES, PLAN_YEARS, coursesChosen, setCourses, useCourses } from '../core/courses';
 import { BookProgress } from './BookProgress';
 import { DailyReminder } from './DailyReminder';
+import { Subscribe } from './Subscribe';
 import { NotesCard } from './BookmarksPage';
 import type { MessageKey } from '../i18n/locales/ru';
 import {
@@ -546,6 +547,7 @@ export function AccountPage() {
             <h2>🔔 {t('push.title')}</h2>
             <DailyReminder sheet />
           </section>
+          <Subscribe />
           <BookProgress />
           <NotesCard />
           {!token && mail === false && (
