@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useI18n } from '../i18n';
 import { useMode } from '../core/mode';
 import { shownCourses, toggleCourse, useCourses } from '../core/courses';
@@ -43,24 +43,7 @@ export function CoursesCard({ simple = false }: { simple?: boolean }) {
   const count = (r: CourseRow) =>
     r.id === 'lashon' || r.id === 'koelet' ? `${r.done}/${r.total}` : r.id === 'nigun' ? `🎓 ${r.done}/${r.total}` : t('courses.of', { n: r.done, total: r.total });
 
-  if (simple)
-    return (
-      <section className="courses adults simple" aria-labelledby="courses-h">
-        <h2 id="courses-h">{t('courses.title')}</h2>
-        <ul>
-          {(rows ?? []).map((r) => (
-            <li key={r.id}>
-              <a className={`courses-row${r.finished ? ' done' : ''}${!r.done && !r.book?.done ? ' zero' : ''}`} href={r.href}>
-                <span className="courses-t">{t(`courses.${r.id}`)}</span>
-                <span className="a-bar" aria-hidden="true">
-                  <span style={{ width: `${pct(r)}%` }} />
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-    );
+  if (simple) return <SimpleCourses rows={rows ?? []} />;
 
   return (
     <section className={`courses ${mode === 'adults' ? 'adults' : 'kids'}`} aria-labelledby="courses-h">
@@ -113,6 +96,65 @@ export function CoursesCard({ simple = false }: { simple?: boolean }) {
         </div>
       )}
       <p className="courses-torah">{t('courses.torahNote')}</p>
+    </section>
+  );
+}
+
+/**
+ * «Мои курсы» on the adults' home — half a tile, next to «Святая игра Zip» (owner, 02.11.2026): as many courses as fit
+ * the tile's height make a page; the other pages are a swipe away (scroll-snap, the dots under them go to a page).
+ */
+function SimpleCourses({ rows }: { rows: CourseRow[] }) {
+  const { t } = useI18n();
+  const box = useRef<HTMLDivElement>(null);
+  const [per, setPer] = useState(rows.length || 1);
+  const [page, setPage] = useState(0);
+  useLayoutEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const fit = () => {
+      const row = el.querySelector<HTMLElement>('.courses-row');
+      const h = row?.parentElement?.offsetHeight ?? 0;
+      if (!h || !el.clientHeight) return;
+      setPer(Math.max(1, Math.floor((el.clientHeight + 1) / h)));
+    };
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [rows.length]);
+  const pages = Array.from({ length: Math.ceil(rows.length / per) || 1 }, (_, i) => rows.slice(i * per, (i + 1) * per));
+  const go = (i: number) => box.current?.scrollTo({ left: i * box.current.clientWidth, behavior: 'smooth' });
+  return (
+    <section className="courses adults simple" aria-labelledby="courses-h">
+      <h2 id="courses-h">{t('courses.title')}</h2>
+      <div
+        className="cc-pages"
+        ref={box}
+        onScroll={(e) => setPage(Math.round(e.currentTarget.scrollLeft / Math.max(1, e.currentTarget.clientWidth)))}
+      >
+        {pages.map((p, i) => (
+          <ul key={i} className="cc-page">
+            {p.map((r) => (
+              <li key={r.id}>
+                <a className={`courses-row${r.finished ? ' done' : ''}${!r.done && !r.book?.done ? ' zero' : ''}`} href={r.href}>
+                  <span className="courses-t">{t(`courses.${r.id}`)}</span>
+                  <span className="a-bar" aria-hidden="true">
+                    <span style={{ width: `${pct(r)}%` }} />
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
+      {pages.length > 1 && (
+        <div className="cc-dots">
+          {pages.map((_, i) => (
+            <button key={i} type="button" aria-current={i === page ? 'true' : undefined} aria-label={t('courses.page', { n: i + 1, total: pages.length })} onClick={() => go(i)} />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

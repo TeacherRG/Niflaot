@@ -15,6 +15,8 @@ import { lessonGames } from './lessonGames';
 import { lessonArt } from '../core/art';
 import { useMode } from '../core/mode';
 import { CoursesCard } from './CoursesCard';
+import { ZIP_KEY, zipTile } from '../core/zipReminder';
+import { todayIso } from '../core/habit';
 import { Dedication } from './Dedication';
 import { ShabbatCalendar } from './ShabbatCalendar';
 import { NUMS, collectFacts, type Fact } from '../core/facts';
@@ -93,13 +95,35 @@ function AdultsHome() {
             <span className="a-tile-t">{t('reading.h1')}</span>
             <span className="a-tile-he he">תְּהִלִּים</span>
           </a>
-          <CoursesCard simple />
+          {/* «Мои курсы» — half the tile, «Святая игра Zip» next to it (owner, 02.11.2026) */}
+          <div className="a-pair">
+            <CoursesCard simple />
+            <ZipTile />
+          </div>
           <HomeTicker />
         </div>
         <Dedication line />
       </main>
       <Colophon />
     </>
+  );
+}
+
+/** «Святая игра Zip» (#/zip, src/core/zip.ts): the level of the next verse, or ✓ when a verse is solved today. */
+function ZipTile() {
+  const { t } = useI18n();
+  let raw: string | null = null;
+  try {
+    raw = localStorage.getItem(ZIP_KEY);
+  } catch {}
+  const z = zipTile(raw, todayIso());
+  return (
+    <a className="a-tile a-zip" href="#/zip">
+      <span className="a-tile-k">{t('home.zipK')}</span>
+      <span className="a-tile-t">Zip</span>
+      <span className="a-tile-he he">פָּסוּק</span>
+      <span className="a-zip-s">{t(z.today ? 'home.zipDone' : 'home.zipNew', { n: z.l })}</span>
+    </a>
   );
 }
 

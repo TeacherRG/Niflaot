@@ -16,3 +16,10 @@ export function zipReminder(raw: string | null): { l: number; w: string } | unde
     return undefined;
   }
 }
+
+/** The tile on the adults' home: the level of the next puzzle and whether a verse was solved today (no zip.ts import). */
+export function zipTile(raw: string | null, today: string): { l: number; today: boolean } {
+  const z = zipReminder(raw);
+  if (!z) return { l: 1, today: false };
+  return { l: z.l, today: z.w === today };
+}

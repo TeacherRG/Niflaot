@@ -2396,6 +2396,18 @@ body:has(.a-home){background:var(--plain)}
 .a-tile-he{align-self:flex-start;font-size:clamp(18px,3vh,24px);opacity:.95}
 .a-tile:hover .a-tile-t{text-decoration:underline;text-underline-offset:4px}
 .a-tiles>.courses{margin:0;min-height:0;overflow:auto}
+/* «Мои курсы» (half) + «Святая игра Zip» side by side (owner, 02.11.2026); the courses that don't fit — pages to swipe */
+.a-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;min-height:0}
+.a-pair>.courses{margin:0;min-height:0;overflow:hidden;display:flex;flex-direction:column}
+.a-pair .cc-pages{flex:1 1 0;min-height:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;touch-action:pan-x pan-y}
+.a-pair .cc-pages::-webkit-scrollbar{display:none}
+.a-pair .courses.simple .cc-page{flex:0 0 100%;min-width:0;list-style:none;margin:0;padding:0;scroll-snap-align:start;display:block}
+.a-pair .cc-page li{display:block}
+.cc-dots{display:flex;justify-content:center;gap:6px;padding-top:6px}
+.cc-dots button{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:var(--line);cursor:pointer}
+.cc-dots button[aria-current]{background:var(--tchelet-deep);width:16px;border-radius:4px}
+.a-zip{background:linear-gradient(150deg,var(--ok-deep),var(--tchelet-deep))}
+.a-zip-s{font-size:13px;font-weight:600;opacity:.92;margin-top:2px}
 /* «Гематрии»: the lessons' equalities running slowly upwards in a closed loop (GematriaTicker in Catalog.tsx) */
 .a-tick{display:flex;flex-direction:column;min-height:0;overflow:hidden;padding:16px 20px 8px;border-radius:16px;background:var(--surface);border:1px solid var(--line-soft);box-shadow:var(--shadow)}
 .a-tick-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:6px;border-bottom:1px solid var(--line-soft)}
@@ -2430,6 +2442,10 @@ body:has(.a-home){background:var(--plain)}
   .a-tiles{gap:10px}
   .a-tiles{grid-template-rows:auto minmax(0,auto) minmax(0,1fr)}
   .a-tiles>.courses,.a-tiles>.a-tick{grid-column:1/-1}
+  .a-tiles>.a-pair{grid-column:1/-1;gap:10px;height:clamp(132px,22svh,190px)}
+  .a-zip-s{font-size:11px}
+  .a-pair .a-tile{padding-right:34px}
+  .a-pair .a-tile::after{right:12px;bottom:10px;font-size:18px}
   .a-tick{padding:10px 14px 4px;border-radius:14px}
   .a-tick h2{font-size:17px}
   .a-tick-head{padding-bottom:3px}
