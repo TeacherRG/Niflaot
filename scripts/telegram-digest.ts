@@ -18,7 +18,7 @@
  * браузер; нужен playwright: `npm i --no-save playwright`).
  */
 import { readFileSync, writeFileSync } from 'node:fs';
-import type { DayContent, DayVerse } from '../src/core/tanakh';
+import type { DayContent } from '../src/core/tanakh';
 import { BOOKS, rangeLabel, type Section } from '../src/core/tanakhCycle';
 import { CYCLE } from '../src/core/tanakh';
 import { HEMSHECH } from '../src/core/hemshech';

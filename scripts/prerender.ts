@@ -111,7 +111,6 @@ function changed(...paths: string[]): string {
 }
 const latest = (...dates: string[]) => dates.sort().pop()!;
 const plain = (html: string) => displayNames(html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim());
-const text = (l: Lesson) => l.texts[LOCALE]!;
 /** «Урок 2», or «Нифлаот Ребе · Урок 1» for a lesson of the Rebbe's section */
 const lessonLabel = (l: Lesson, u: Record<string, unknown> = ui) =>
   `${l.series === 'rebbe' ? `${u['rebbe.section']} · ` : ''}${String(u['catalog.lesson']).replace('{n}', String(l.number))}`;

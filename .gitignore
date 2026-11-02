@@ -3,3 +3,5 @@ dist
 .wrangler
 __pycache__/
 .cache
+*.tsbuildinfo
+/*.png
