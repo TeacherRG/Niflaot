@@ -235,7 +235,7 @@ export function Final({
         {t('academy.title')} →
       </a>
     </section>
-    <DailyReminder />
+    <DailyReminder compact />
     <Subscribe />
     <a className="mychitas pop" href="https://mychitas.app" target="_blank" rel="noopener">
       <span className="mc-mark">MyChitas</span>
