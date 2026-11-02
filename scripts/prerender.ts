@@ -48,6 +48,7 @@ import { quoteView, sectionQuotes } from '../src/core/quotes';
 import { narration } from '../src/core/narration';
 import { PODCAST_FEEDS, PODCAST_RELEASE, episodeTitle, type PodcastEpisodes } from '../src/core/podcast';
 import { BOOKS, track, type Section } from '../src/core/tanakhCycle';
+import { TORAH_BOOKS } from '../src/core/academy';
 import { readingMinutes, type DayVerse } from '../src/core/tanakh';
 import { civilDate, hebrewNumber } from '../src/core/hebrewDate';
 import { CHAPTERS, dailyPortion, stripTaamim, weekdayPortion } from '../src/core/reading';
@@ -169,6 +170,8 @@ function setMeta(html: string, attr: 'name' | 'property', key: string, value: st
   return html.replace(re, () => `<meta ${attr}="${key}" content="${esc(value)}" />`);
 }
 
+/** the static pages people can read without signing in (src/core/gate.ts: only «Святое чтение» — the Tehillim) */
+const OPEN_PAGES = /\/tehillim\/$/;
 function render(p: Page): string {
   let html = shell
     .replace(/<title>[^<]*<\/title>/, () => `<title>${esc(fitTitle(p.title))}</title>`)
@@ -224,6 +227,20 @@ function render(p: Page): string {
   const lang = p.lang ?? 'ru';
   if (!hasBreadcrumbs && p.url !== homeUrl(lang))
     graph.push(crumbs(lang, p.title.replace(/ · (Нифлаот|Niflaot|MyChitas)$/, ''), p.url));
+  // «Только по входу» (src/core/gate.ts): people get «Войдите, чтобы учиться» on every page but the Tehillim, search engines get
+  // the page itself — Google's markup for content behind a registration wall says so, so it is not taken for cloaking
+  // (isAccessibleForFree: false + hasPart with the selector of the walled text, here the whole static page `.static`)
+  if (!OPEN_PAGES.test(p.url)) {
+    const wall = { '@type': 'WebPageElement', isAccessibleForFree: false, cssSelector: '.static' };
+    let marked = false;
+    graph.forEach((entity, i) => {
+      if (entity && typeof entity === 'object' && 'isAccessibleForFree' in (entity as object)) {
+        graph[i] = { ...(entity as Record<string, unknown>), isAccessibleForFree: false, hasPart: wall };
+        marked = true;
+      }
+    });
+    if (!marked) graph.push({ '@type': 'WebPage', url: p.url, name: p.title, inLanguage: lang, isAccessibleForFree: false, hasPart: wall });
+  }
   const ld = JSON.stringify({ '@context': data['@context'] ?? 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
   html = html.replace(
     '<meta charset="utf-8" />',
@@ -329,7 +346,7 @@ ${LESSON_GROUPS.map((g) => {
 }).join('\n')}
 <h2>${t('wing.adults')}: ${t('home.adultsTitle')}</h2>
 <p>${t('wing.adultsSub')}.</p>
-<ul><li><a href="${page('neviim')}">${t('tanakh.neviim')}</a></li><li><a href="${page('ketuvim')}">${t('tanakh.ketuvim')}</a></li><li><a href="${page('hemshech')}">${t('hs.menuLbl')}</a></li><li><a href="${page('tehillim')}">${t('reading.seoShort')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li></ul>
+<ul><li><a href="${page('learn-tanakh')}">${t('tanakh.seo.hubLink')}</a></li><li><a href="${page('neviim')}">${t('tanakh.neviim')}</a></li><li><a href="${page('ketuvim')}">${t('tanakh.ketuvim')}</a></li><li><a href="${page('hemshech')}">${t('hs.menuLbl')}</a></li><li><a href="${page('tehillim')}">${t('reading.seoShort')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li></ul>
 <p>${t('menu.torahRead')}: ${lessons.map((l) => `<a href="${root}#/${l.slug}/read">${esc(tx(l).title)}</a>`).join(' · ')}</p>
 <h2>${t('academy.fac.lashon')} · <span class="he">לשון הקודש</span></h2>
 <p>${t('ln.seoLead')}</p>
@@ -647,6 +664,53 @@ function bookPlan(section: Section) {
  * «Пророки» / «Писания» for search: the three-year reading plan — what the daily passage gives, the dates of the cycle
  * and a table of the books (Hebrew name, chapters, first and last day, days); the app opens today's passage.
  */
+/** a day of the cycle as written by `fetch-tanakh.py days` (public/tanakh/<date>.json) */
+type DayFile = Record<Section, { verses: (DayVerse & { c: number; v: number; ru?: string; de?: string; md?: Record<string, string[]> })[] }>;
+const dayFile = (iso: string) => JSON.parse(readFileSync(`public/tanakh/${iso}.json`, 'utf8')) as DayFile;
+/** how long the passages of a day take, on average over the whole cycle: with the translation and Metzudat David, and with the Hebrew too */
+const TANAKH_PACE = (() => {
+  let tr = 0;
+  let he = 0;
+  let verses = 0;
+  for (const [iso] of CYCLE_DAYS) {
+    const d = dayFile(iso);
+    for (const sec of ['neviim', 'ketuvim'] as const) {
+      tr += readingMinutes(d[sec].verses, false, 'en', { md: true, rashi: false });
+      he += readingMinutes(d[sec].verses, true, 'en', { md: true, rashi: false });
+      verses += d[sec].verses.length;
+    }
+  }
+  const n = CYCLE_DAYS.length;
+  return { tr: Math.round(tr / n), he: Math.round(he / n), verses: Math.round(verses / n) };
+})();
+/** the sample of the passage of the day: a verse of the first day — «Let not this Book of the Teaching cease from your lips» (Joshua 1:8), «his delight is in the Teaching of the L-rd» (Tehillim 1:2) */
+const TANAKH_SAMPLE: Record<Section, { day: string; c: number; v: number }> = {
+  neviim: { day: CYCLE_DAYS[0][0], c: 1, v: 8 },
+  ketuvim: { day: CYCLE_DAYS[0][0], c: 1, v: 2 },
+};
+function tanakhSample(section: Section, lang: 'ru' | 'en' | 'de', ui: Ui) {
+  const { day, c, v } = TANAKH_SAMPLE[section];
+  const verse = dayFile(day)[section].verses.find((x) => x.c === c && x.v === v);
+  if (!verse) throw new Error(`tanakh sample: no ${section} ${c}:${v} on ${day}`);
+  const book = BOOKS.find((b) => b.section === section)!;
+  const tr = lang === 'en' ? verse.en : (verse[lang] ?? verse.en);
+  const md = verse.md?.[lang] ?? [];
+  return `<section><h2>${esc(s(ui, 'tanakh.seo.sampleH'))}</h2><p><b>${esc(book.name[lang])} ${c}:${v}</b></p>
+<p class="he">${verse.he}</p><p>${esc(tr)}</p>${md.length ? `<p><b>${esc(s(ui, 'tanakh.seo.sampleMd'))}:</b></p><ul>${md.map((x) => `<li>${x}</li>`).join('')}</ul>` : ''}</section>`;
+}
+const tanakhFill = (ui: Ui, key: string) =>
+  s(ui, key as keyof Ui)
+    .replace('{tr}', String(TANAKH_PACE.tr))
+    .replace('{he}', String(TANAKH_PACE.he))
+    .replace('{verses}', String(TANAKH_PACE.verses));
+const tanakhFaq = (ui: Ui) => [1, 2, 3, 4, 5].map((n) => [tanakhFill(ui, `tanakh.seo.q${n}`), tanakhFill(ui, `tanakh.seo.a${n}`)]);
+const faqHtml = (h: string, faq: string[][]) => `<section><h2>${esc(h)}</h2>${faq.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}</section>`;
+const faqLd = (lang: string, faq: string[][]) => ({
+  '@type': 'FAQPage',
+  inLanguage: lang,
+  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+});
+
 function tanakhPage(section: Section, lang: 'ru' | 'en' | 'de', ui: Ui): Page {
   const root = lang === 'ru' ? '../' : '../../';
   const url = `${SITE_URL}${staticPath(section, lang)}`;
@@ -676,6 +740,7 @@ function tanakhPage(section: Section, lang: 'ru' | 'en' | 'de', ui: Ui): Page {
     imageAlt: title,
     jsonLd: {
       '@context': 'https://schema.org',
+      '@graph': [{
       '@type': 'LearningResource',
       name: `${s(ui, `tanakh.${section}` as keyof Ui)} — ${s(ui, 'tanakh.daySub')}`,
       description: lead,
@@ -686,11 +751,90 @@ function tanakhPage(section: Section, lang: 'ru' | 'en' | 'de', ui: Ui): Page {
       isAccessibleForFree: true,
       publisher: PUBLISHER,
       isPartOf: SITE,
+    }, faqLd(lang, tanakhFaq(ui))],
     },
     body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'wing.adults'))} · ${esc(s(ui, `tanakh.${section}` as keyof Ui))}</p>
 <h1>${esc(title)}</h1><p>${esc(lead)}</p><p>${esc(s(ui, 'tanakh.seo.what'))}</p><p>${esc(cycle)}</p>
 <p><a href="${root}#/${section}">${esc(s(ui, 'tanakh.seo.open'))} →</a> · <a href="${root}#/${section}/quiz">${esc(s(ui, 'quiz.title'))} →</a> · <a href="${root}${staticPath(other, lang).slice(1)}">${esc(s(ui, `tanakh.${other}` as keyof Ui))} →</a> · <a href="${root}${staticPath('hebrew-words', lang).slice(1)}">${esc(s(ui, 'words.seoShort'))} →</a></p></header>
+<section><h2>${esc(s(ui, 'tanakh.seo.howH'))}</h2><ul>${[1, 2, 3, 4, 5].map((n) => `<li>${esc(tanakhFill(ui, `tanakh.seo.how${n}`))}</li>`).join('')}</ul><p><a href="${root}${staticPath('learn-tanakh', lang).slice(1)}">${esc(s(ui, 'tanakh.seo.hubLink'))} →</a></p></section>
+${tanakhSample(section, lang, ui)}
 <section><h2>${esc(s(ui, 'tanakh.seo.books'))}</h2><table><thead><tr><th>${esc(s(ui, 'tanakh.seo.colBook'))}</th><th></th><th>${esc(s(ui, 'tanakh.seo.colChapters'))}</th><th>${esc(s(ui, 'tanakh.seo.colFrom'))}</th><th>${esc(s(ui, 'tanakh.seo.colTo'))}</th><th>${esc(s(ui, 'tanakh.seo.colDays'))}</th></tr></thead><tbody>${rows}</tbody></table></section>
+${faqHtml(s(ui, 'tanakh.seo.faqH'), tanakhFaq(ui))}
+</article>`,
+  };
+}
+
+/**
+ * «Учить Танах онлайн» for search (`/learn-tanakh/`): what Tanakh is, how each part is learnt on the site — the weekly Torah portion
+ * (the lessons), the Prophets and Writings (the passage of the day), Tehillim, the Hebrew of Tanakh — every book of Tanakh
+ * and the questions people ask. The app opens the passage of the day of the Prophets.
+ */
+function tanakhHubPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
+  const root = lang === 'ru' ? '../' : '../../';
+  const url = `${SITE_URL}${staticPath('learn-tanakh', lang)}`;
+  const title = s(ui, 'tanakh.hub.title');
+  const lead = s(ui, 'tanakh.hub.lead');
+  const date = (iso: string) => civilDate(iso, lang);
+  const link = (p: StaticPage, label: string) => `<a href="${root}${staticPath(p, lang).slice(1)}">${esc(label)} →</a>`;
+  const lessons = LESSONS.filter((l) => l.texts[lang]);
+  const books = (section: Section) =>
+    BOOKS.filter((b) => b.section === section)
+      .map((b) => `<li>${esc(b.name[lang])} · <span class="he">${b.he}</span></li>`)
+      .join('');
+  const faq = [
+    ...[1, 2, 3].map((n) => [
+      s(ui, `tanakh.hub.q${n}` as keyof Ui),
+      s(ui, `tanakh.hub.a${n}` as keyof Ui)
+        .replace('{tr}', String(TANAKH_PACE.tr))
+        .replace('{days}', String(CYCLE_DAYS.length))
+        .replace('{start}', date(CYCLE_DAYS[0][0]))
+        .replace('{end}', date(CYCLE_DAYS[CYCLE_DAYS.length - 1][0])),
+    ]),
+    ...tanakhFaq(ui).slice(1, 2),
+    ...tanakhFaq(ui).slice(3),
+  ];
+  return {
+    title,
+    description: lead,
+    url,
+    type: 'article',
+    root,
+    lang,
+    alternates: alternatesOf('learn-tanakh'),
+    image: 'learn-tanakh',
+    imageAlt: title,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'LearningResource',
+          name: title,
+          description: lead,
+          url,
+          inLanguage: lang,
+          learningResourceType: ['reading plan', 'lesson', 'quiz'],
+          isAccessibleForFree: true,
+          about: { '@type': 'Book', name: 'Tanakh', alternateName: ['תנ״ך', 'Танах', 'Tanach', 'Hebrew Bible'] },
+          publisher: PUBLISHER,
+          isPartOf: SITE,
+        },
+        faqLd(lang, faq),
+      ],
+    },
+    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · <span class="he">תנ״ך</span></p>
+<h1>${esc(title)}</h1><p>${esc(lead)}</p>
+<p>${link('neviim', s(ui, 'tanakh.neviim'))} · ${link('ketuvim', s(ui, 'tanakh.ketuvim'))} · ${link('tehillim', s(ui, 'reading.seoShort'))} · ${link('learn-hebrew', s(ui, 'ln.seoShort'))}</p></header>
+<section><h2>${esc(s(ui, 'tanakh.hub.whatH'))}</h2><p>${esc(s(ui, 'tanakh.hub.whatP'))}</p></section>
+<section><h2>${esc(s(ui, 'tanakh.hub.torahH'))}</h2><p>${esc(s(ui, 'tanakh.hub.torahP'))}</p><ul>${lessons.map((l) => `<li><a href="${lessonUrl(l, lang)}">${esc(l.texts[lang]!.title)}</a></li>`).join('')}</ul></section>
+<section><h2>${esc(s(ui, 'tanakh.seo.neviim.title'))}</h2><p>${esc(s(ui, 'tanakh.hub.neviimP'))} ${esc(tanakhFill(ui, 'tanakh.seo.how1'))}</p><p>${link('neviim', s(ui, 'tanakh.seo.open'))}</p></section>
+<section><h2>${esc(s(ui, 'tanakh.seo.ketuvim.title'))}</h2><p>${esc(s(ui, 'tanakh.hub.ketuvimP'))}</p><p>${link('ketuvim', s(ui, 'tanakh.seo.open'))}</p></section>
+<section><h2>${esc(s(ui, 'reading.seoTitle'))}</h2><p>${esc(s(ui, 'tanakh.hub.tehillimP'))}</p><p>${link('tehillim', s(ui, 'reading.seoStart'))}</p></section>
+<section><h2>${esc(s(ui, 'tanakh.hub.hebrewH'))}</h2><p>${esc(s(ui, 'tanakh.hub.hebrewP'))}</p><p>${link('learn-hebrew', s(ui, 'ln.seoShort'))} · ${link('hebrew-words', s(ui, 'words.seoShort'))}</p></section>
+<section><h2>${esc(s(ui, 'tanakh.hub.booksH'))}</h2>
+<h3>${esc(s(ui, 'tanakh.hub.torah'))} · <span class="he">תורה</span></h3><ul>${TORAH_BOOKS.map((b) => `<li>${esc(b.name[lang])} · <span class="he">${b.he}</span></li>`).join('')}</ul>
+<h3>${esc(s(ui, 'tanakh.neviim'))} · <span class="he">נביאים</span></h3><ul>${books('neviim')}</ul>
+<h3>${esc(s(ui, 'tanakh.ketuvim'))} · <span class="he">כתובים</span></h3><ul>${books('ketuvim')}</ul></section>
+${faqHtml(s(ui, 'tanakh.seo.faqH'), faq)}
 </article>`,
   };
 }
@@ -1152,6 +1296,7 @@ const STATIC_OUT: [string, Page][] = LANGS.flatMap(({ lang, ui }) => [
   [staticPath('letters', lang), lettersPage(lang, ui)] as [string, Page],
   [staticPath('neviim', lang), tanakhPage('neviim', lang, ui)] as [string, Page],
   [staticPath('ketuvim', lang), tanakhPage('ketuvim', lang, ui)] as [string, Page],
+  [staticPath('learn-tanakh', lang), tanakhHubPage(lang, ui)] as [string, Page],
   [staticPath('hebrew-words', lang), wordsPage(lang, ui)] as [string, Page],
   [staticPath('hemshech', lang), hemshechPage(lang, ui)] as [string, Page],
   [staticPath('quiz', lang), quizPage(lang, ui)] as [string, Page],

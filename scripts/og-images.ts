@@ -189,6 +189,16 @@ const shots: [string, string][] = [
     }),
   ],
   [
+    'learn-tanakh',
+    page({
+      eyebrow: 'Niflaot · learn Tanakh',
+      he: 'תנ״ך',
+      title: 'Learn Tanakh online',
+      sub: 'Torah · Prophets · Writings — with translation and commentary',
+      letters: ['ת', 'נ'],
+    }),
+  ],
+  [
     'tehillim',
     page({
       eyebrow: 'Niflaot · holy reading',
