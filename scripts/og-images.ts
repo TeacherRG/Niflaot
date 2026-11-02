@@ -187,6 +187,16 @@ const shots: [string, string][] = [
     }),
   ],
   [
+    'tehillim',
+    page({
+      eyebrow: 'Niflaot · holy reading',
+      he: 'תהילים',
+      title: 'All of Tehillim in 102 minutes',
+      sub: '150 chapters in Hebrew · a recording for each · 0.5× to 3.5×',
+      letters: ['ת', 'ה'],
+    }),
+  ],
+  [
     'free',
     page({
       eyebrow: 'Niflaot · a Torah academy',
