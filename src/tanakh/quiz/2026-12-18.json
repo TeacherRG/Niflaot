@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 23:2",
+   "q": {
+    "ru": "Кого созвал состарившийся Йеґошуа?",
+    "en": "Whom did the aged Joshua summon?",
+    "de": "Wen rief der alte Jehoschua zusammen?"
+   },
+   "o": [
+    {
+     "ru": "Весь Израиль — старейшин, глав, судей и надзирателей",
+     "en": "All Israel — elders, commanders, magistrates and officials",
+     "de": "Ganz Israel – Älteste, Häupter, Richter und Aufseher"
+    },
+    {
+     "ru": "Только левитов",
+     "en": "Only the Levites",
+     "de": "Nur die Lewiten"
+    },
+    {
+     "ru": "Только своё колено",
+     "en": "Only his own tribe",
+     "de": "Nur seinen eigenen Stamm"
+    },
+    {
+     "ru": "Царей Кнаана",
+     "en": "The kings of Canaan",
+     "de": "Die Könige Kenaans"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 23:6",
+   "q": {
+    "ru": "От чего Йеґошуа велит не отклоняться ни вправо, ни влево?",
+    "en": "From what does Joshua say not to turn right or left?",
+    "de": "Wovon sollen sie nach Jehoschua weder nach rechts noch nach links abweichen?"
+   },
+   "o": [
+    {
+     "ru": "От написанного в книге Торы Моше",
+     "en": "From what is written in the Book of the Teaching of Moshe",
+     "de": "Von dem, was im Buch der Tora Mosches geschrieben steht"
+    },
+    {
+     "ru": "От дороги в Шило",
+     "en": "From the road to Shiloh",
+     "de": "Vom Weg nach Schilo"
+    },
+    {
+     "ru": "От границ уделов",
+     "en": "From the borders of the portions",
+     "de": "Von den Grenzen der Erbteile"
+    },
+    {
+     "ru": "От берега Ярдена",
+     "en": "From the bank of the Jordan",
+     "de": "Vom Ufer des Jarden"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 23:10",
+   "q": {
+    "ru": "Сколько врагов гонит один человек из Израиля?",
+    "en": "How many enemies does one man of Israel put to flight?",
+    "de": "Wie viele Feinde jagt ein einziger Mann aus Israel?"
+   },
+   "o": [
+    {
+     "ru": "Тысячу",
+     "en": "A thousand",
+     "de": "Tausend"
+    },
+    {
+     "ru": "Десять",
+     "en": "Ten",
+     "de": "Zehn"
+    },
+    {
+     "ru": "Сто",
+     "en": "A hundred",
+     "de": "Hundert"
+    },
+    {
+     "ru": "Двоих",
+     "en": "Two",
+     "de": "Zwei"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 37:1",
+   "q": {
+    "ru": "Чего не следует делать, по началу 37-го псалма?",
+    "en": "What should one not do, according to the start of Psalm 37?",
+    "de": "Was soll man nach dem Anfang von Tehillim 37 nicht tun?"
+   },
+   "o": [
+    {
+     "ru": "Завидовать творящим неправду",
+     "en": "Envy wrongdoers",
+     "de": "Die beneiden, die Unrecht tun"
+    },
+    {
+     "ru": "Помогать бедным",
+     "en": "Help the poor",
+     "de": "Den Armen helfen"
+    },
+    {
+     "ru": "Молиться",
+     "en": "Pray",
+     "de": "Beten"
+    },
+    {
+     "ru": "Работать",
+     "en": "Work",
+     "de": "Arbeiten"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 37:2",
+   "q": {
+    "ru": "С чем сравниваются злодеи в 37:2?",
+    "en": "What are evildoers compared to in 37:2?",
+    "de": "Womit werden die Übeltäter in 37,2 verglichen?"
+   },
+   "o": [
+    {
+     "ru": "С травой, которую быстро срезают",
+     "en": "Grass that soon withers",
+     "de": "Mit Gras, das schnell abgeschnitten wird"
+    },
+    {
+     "ru": "С кедрами",
+     "en": "Cedars",
+     "de": "Mit Zedern"
+    },
+    {
+     "ru": "С камнями",
+     "en": "Stones",
+     "de": "Mit Steinen"
+    },
+    {
+     "ru": "С реками",
+     "en": "Rivers",
+     "de": "Mit Flüssen"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 37:11",
+   "q": {
+    "ru": "Кто унаследует землю, по 37:11?",
+    "en": "Who will inherit the land, according to 37:11?",
+    "de": "Wer wird nach 37,11 das Land erben?"
+   },
+   "o": [
+    {
+     "ru": "Смиренные",
+     "en": "The lowly",
+     "de": "Die Demütigen"
+    },
+    {
+     "ru": "Сильные",
+     "en": "The strong",
+     "de": "Die Starken"
+    },
+    {
+     "ru": "Знатные",
+     "en": "The rich",
+     "de": "Die Reichen"
+    },
+    {
+     "ru": "Гордые",
+     "en": "The proud",
+     "de": "Die Stolzen"
+    }
+   ]
+  }
+ ]
+}

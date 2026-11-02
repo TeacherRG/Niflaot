@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 21:32",
+   "q": {
+    "ru": "Какой город-убежище в Галиле получили сыны Гершона от Нафтали?",
+    "en": "Which city of refuge in Galilee did the Gershonites receive from Naphtali?",
+    "de": "Welche Zufluchtsstadt in Galil bekamen die Gerschoniter von Naftali?"
+   },
+   "o": [
+    {
+     "ru": "Кедеш",
+     "en": "Kedesh",
+     "de": "Kedesch"
+    },
+    {
+     "ru": "Шхем",
+     "en": "Shechem",
+     "de": "Schechem"
+    },
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    },
+    {
+     "ru": "Бецер",
+     "en": "Bezer",
+     "de": "Bezer"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 21:33",
+   "q": {
+    "ru": "Сколько всего городов получили сыны Гершона?",
+    "en": "How many towns did the Gershonites receive in all?",
+    "de": "Wie viele Städte bekamen die Gerschoniter insgesamt?"
+   },
+   "o": [
+    {
+     "ru": "Тринадцать",
+     "en": "Thirteen",
+     "de": "Dreizehn"
+    },
+    {
+     "ru": "Десять",
+     "en": "Ten",
+     "de": "Zehn"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    },
+    {
+     "ru": "Сорок восемь",
+     "en": "Forty-eight",
+     "de": "Achtundvierzig"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 21:38",
+   "q": {
+    "ru": "Какой город-убежище был в уделе Гада?",
+    "en": "Which city of refuge was in the territory of Gad?",
+    "de": "Welche Zufluchtsstadt lag im Gebiet Gads?"
+   },
+   "o": [
+    {
+     "ru": "Рамот в Гиладе",
+     "en": "Ramoth in Gilead",
+     "de": "Ramot in Gilad"
+    },
+    {
+     "ru": "Голан в Башане",
+     "en": "Golan in Bashan",
+     "de": "Golan in Baschan"
+    },
+    {
+     "ru": "Кедеш в Галиле",
+     "en": "Kedesh in Galilee",
+     "de": "Kedesch in Galil"
+    },
+    {
+     "ru": "Шхем",
+     "en": "Shechem",
+     "de": "Schechem"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 35:1",
+   "q": {
+    "ru": "О чём просит Давид в начале 35-го псалма?",
+    "en": "What does David ask at the beginning of Psalm 35?",
+    "de": "Worum bittet David am Anfang von Tehillim 35?"
+   },
+   "o": [
+    {
+     "ru": "Чтобы Г-сподь спорил с теми, кто спорит с ним",
+     "en": "That the L-rd strive with those who strive with him",
+     "de": "Dass der Ewige mit denen streitet, die mit ihm streiten"
+    },
+    {
+     "ru": "Чтобы ему дали войско",
+     "en": "To be given an army",
+     "de": "Dass man ihm ein Heer gibt"
+    },
+    {
+     "ru": "Чтобы его сделали царём",
+     "en": "To be made king",
+     "de": "Dass man ihn zum König macht"
+    },
+    {
+     "ru": "Чтобы враги простили его",
+     "en": "That his enemies forgive him",
+     "de": "Dass seine Feinde ihm vergeben"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 35:5",
+   "q": {
+    "ru": "С чем Давид сравнивает своих врагов?",
+    "en": "What does David compare his enemies to?",
+    "de": "Womit vergleicht David seine Feinde?"
+   },
+   "o": [
+    {
+     "ru": "С мякиной на ветру",
+     "en": "Chaff in the wind",
+     "de": "Mit Spreu vor dem Wind"
+    },
+    {
+     "ru": "Со львами",
+     "en": "Lions",
+     "de": "Mit Löwen"
+    },
+    {
+     "ru": "С камнями",
+     "en": "Stones",
+     "de": "Mit Steinen"
+    },
+    {
+     "ru": "С горами",
+     "en": "Mountains",
+     "de": "Mit Bergen"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 35:7",
+   "q": {
+    "ru": "Что враги спрятали для Давида?",
+    "en": "What did the enemies hide for David?",
+    "de": "Was haben die Feinde für David versteckt?"
+   },
+   "o": [
+    {
+     "ru": "Сеть в яме",
+     "en": "A net in a pit",
+     "de": "Ein Netz in einer Grube"
+    },
+    {
+     "ru": "Меч",
+     "en": "A sword",
+     "de": "Ein Schwert"
+    },
+    {
+     "ru": "Яд",
+     "en": "Poison",
+     "de": "Gift"
+    },
+    {
+     "ru": "Золото",
+     "en": "Gold",
+     "de": "Gold"
+    }
+   ]
+  }
+ ]
+}

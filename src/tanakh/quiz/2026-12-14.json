@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 21:41",
+   "q": {
+    "ru": "Сколько всего городов получили левиты?",
+    "en": "How many towns did the Levites receive in all?",
+    "de": "Wie viele Städte bekamen die Lewiten insgesamt?"
+   },
+   "o": [
+    {
+     "ru": "Сорок восемь",
+     "en": "Forty-eight",
+     "de": "Achtundvierzig"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    },
+    {
+     "ru": "Шесть",
+     "en": "Six",
+     "de": "Sechs"
+    },
+    {
+     "ru": "Семьдесят",
+     "en": "Seventy",
+     "de": "Siebzig"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 21:45",
+   "q": {
+    "ru": "Что сказано в конце главы 21 о добрых обещаниях Г-спода?",
+    "en": "What does the end of chapter 21 say about the L-rd’s good promises?",
+    "de": "Was sagt das Ende von Kapitel 21 über die guten Versprechen des Ewigen?"
+   },
+   "o": [
+    {
+     "ru": "Всё сбылось, ничего не пропало",
+     "en": "Everything was fulfilled, nothing was lacking",
+     "de": "Alles traf ein, nichts fiel aus"
+    },
+    {
+     "ru": "Половина сбылась",
+     "en": "Half were fulfilled",
+     "de": "Die Hälfte traf ein"
+    },
+    {
+     "ru": "Они сбудутся только при Машиахе",
+     "en": "They will be fulfilled only with Moshiach",
+     "de": "Sie erfüllen sich erst mit dem Moschiach"
+    },
+    {
+     "ru": "Их забыли",
+     "en": "They were forgotten",
+     "de": "Sie wurden vergessen"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 22:4",
+   "q": {
+    "ru": "Куда Йеґошуа отпустил колена Реувена, Гада и половину Менаше?",
+    "en": "Where did Joshua send the Reubenites, Gadites and half of Manasseh?",
+    "de": "Wohin entließ Jehoschua Reuwen, Gad und den halben Stamm Menasche?"
+   },
+   "o": [
+    {
+     "ru": "Домой, за Ярден",
+     "en": "Home, across the Jordan",
+     "de": "Nach Hause, jenseits des Jarden"
+    },
+    {
+     "ru": "На новую войну",
+     "en": "To a new war",
+     "de": "In einen neuen Krieg"
+    },
+    {
+     "ru": "В Египет",
+     "en": "To Egypt",
+     "de": "Nach Ägypten"
+    },
+    {
+     "ru": "В Шило навсегда",
+     "en": "To Shiloh forever",
+     "de": "Für immer nach Schilo"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 35:10",
+   "q": {
+    "ru": "Что скажут все кости Давида?",
+    "en": "What will all of David’s bones say?",
+    "de": "Was werden alle Knochen Davids sagen?"
+   },
+   "o": [
+    {
+     "ru": "«Г-споди, кто подобен Тебе?»",
+     "en": "“L-rd, who is like You?”",
+     "de": "„Ewiger, wer ist wie Du?“"
+    },
+    {
+     "ru": "«Я устал»",
+     "en": "“I am tired”",
+     "de": "„Ich bin müde“"
+    },
+    {
+     "ru": "«Мы сломаны»",
+     "en": "“We are broken”",
+     "de": "„Wir sind gebrochen“"
+    },
+    {
+     "ru": "«Нам страшно»",
+     "en": "“We are afraid”",
+     "de": "„Wir haben Angst“"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 35:12",
+   "q": {
+    "ru": "Чем враги платят Давиду за добро?",
+    "en": "How do the enemies repay David for good?",
+    "de": "Womit vergelten die Feinde David das Gute?"
+   },
+   "o": [
+    {
+     "ru": "Злом",
+     "en": "With evil",
+     "de": "Mit Bösem"
+    },
+    {
+     "ru": "Добром",
+     "en": "With good",
+     "de": "Mit Gutem"
+    },
+    {
+     "ru": "Золотом",
+     "en": "With gold",
+     "de": "Mit Gold"
+    },
+    {
+     "ru": "Песней",
+     "en": "With a song",
+     "de": "Mit einem Lied"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 35:13",
+   "q": {
+    "ru": "Что делал Давид, когда его будущие враги болели?",
+    "en": "What did David do when his future enemies were ill?",
+    "de": "Was tat David, als seine späteren Feinde krank waren?"
+   },
+   "o": [
+    {
+     "ru": "Надевал вретище и постился",
+     "en": "Wore sackcloth and fasted",
+     "de": "Er trug ein Trauergewand und fastete"
+    },
+    {
+     "ru": "Радовался",
+     "en": "Rejoiced",
+     "de": "Er freute sich"
+    },
+    {
+     "ru": "Устраивал пир",
+     "en": "Held a feast",
+     "de": "Er gab ein Festmahl"
+    },
+    {
+     "ru": "Уходил на войну",
+     "en": "Went to war",
+     "de": "Er zog in den Krieg"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 22:27",
+   "q": {
+    "ru": "Для чего, по словам колен, построен жертвенник?",
+    "en": "What, according to the tribes, was the altar built for?",
+    "de": "Wofür wurde der Altar nach den Worten der Stämme gebaut?"
+   },
+   "o": [
+    {
+     "ru": "Как свидетель между ними и Израилем",
+     "en": "As a witness between them and Israel",
+     "de": "Als Zeuge zwischen ihnen und Israel"
+    },
+    {
+     "ru": "Для всесожжений",
+     "en": "For burnt offerings",
+     "de": "Für Ganzopfer"
+    },
+    {
+     "ru": "Для нового Мишкана",
+     "en": "For a new Tabernacle",
+     "de": "Für ein neues Mischkan"
+    },
+    {
+     "ru": "Как граница",
+     "en": "As a border marker",
+     "de": "Als Grenzzeichen"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 22:31",
+   "q": {
+    "ru": "Что сказал Пинхас, выслушав ответ?",
+    "en": "What did Phinehas say after hearing the answer?",
+    "de": "Was sagte Pinchas, nachdem er die Antwort gehört hatte?"
+   },
+   "o": [
+    {
+     "ru": "«Сегодня мы узнали, что Г-сподь среди нас»",
+     "en": "“Now we know that the L-rd is in our midst”",
+     "de": "„Heute wissen wir, dass der Ewige in unserer Mitte ist“"
+    },
+    {
+     "ru": "«Вы будете наказаны»",
+     "en": "“You will be punished”",
+     "de": "„Ihr werdet bestraft“"
+    },
+    {
+     "ru": "«Разрушьте жертвенник»",
+     "en": "“Destroy the altar”",
+     "de": "„Reißt den Altar nieder“"
+    },
+    {
+     "ru": "«Идите с нами в Шило»",
+     "en": "“Come with us to Shiloh”",
+     "de": "„Kommt mit uns nach Schilo“"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 22:34",
+   "q": {
+    "ru": "Как назвали жертвенник сыны Реувена и Гада?",
+    "en": "What did the Reubenites and Gadites name the altar?",
+    "de": "Wie nannten Reuwen und Gad den Altar?"
+   },
+   "o": [
+    {
+     "ru": "«Свидетель»",
+     "en": "“Witness”",
+     "de": "„Zeuge“"
+    },
+    {
+     "ru": "«Мир»",
+     "en": "“Peace”",
+     "de": "„Frieden“"
+    },
+    {
+     "ru": "«Ярден»",
+     "en": "“Jordan”",
+     "de": "„Jarden“"
+    },
+    {
+     "ru": "«Победа»",
+     "en": "“Victory”",
+     "de": "„Sieg“"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 36:8",
+   "q": {
+    "ru": "Где укрываются люди, по 36-му псалму?",
+    "en": "Where do people take shelter, according to Psalm 36?",
+    "de": "Wo suchen die Menschen nach Tehillim 36 Zuflucht?"
+   },
+   "o": [
+    {
+     "ru": "В тени крыльев Г-спода",
+     "en": "In the shadow of the L-rd’s wings",
+     "de": "Im Schatten der Flügel des Ewigen"
+    },
+    {
+     "ru": "В пещерах",
+     "en": "In caves",
+     "de": "In Höhlen"
+    },
+    {
+     "ru": "В крепостях",
+     "en": "In fortresses",
+     "de": "In Festungen"
+    },
+    {
+     "ru": "В лесу",
+     "en": "In the forest",
+     "de": "Im Wald"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 36:10",
+   "q": {
+    "ru": "Что у Г-спода, согласно 36:10?",
+    "en": "What is with the L-rd, according to 36:10?",
+    "de": "Was ist nach 36,10 beim Ewigen?"
+   },
+   "o": [
+    {
+     "ru": "Источник жизни",
+     "en": "The fountain of life",
+     "de": "Die Quelle des Lebens"
+    },
+    {
+     "ru": "Ключи от Храма",
+     "en": "The keys to the Temple",
+     "de": "Die Schlüssel zum Tempel"
+    },
+    {
+     "ru": "Книга законов",
+     "en": "A book of laws",
+     "de": "Ein Buch der Gesetze"
+    },
+    {
+     "ru": "Меч правосудия",
+     "en": "A sword of justice",
+     "de": "Ein Schwert des Gerichts"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 36:12",
+   "q": {
+    "ru": "О чём просит Давид в 36:12?",
+    "en": "What does David ask in 36:12?",
+    "de": "Worum bittet David in 36,12?"
+   },
+   "o": [
+    {
+     "ru": "Чтобы нога гордыни не пришла на него",
+     "en": "That the foot of the arrogant not tread on him",
+     "de": "Dass der Fuß des Hochmuts nicht über ihn kommt"
+    },
+    {
+     "ru": "Чтобы ему дали богатство",
+     "en": "To be given wealth",
+     "de": "Dass man ihm Reichtum gibt"
+    },
+    {
+     "ru": "Чтобы враги стали друзьями",
+     "en": "That his enemies become friends",
+     "de": "Dass seine Feinde Freunde werden"
+    },
+    {
+     "ru": "Чтобы прошёл дождь",
+     "en": "That it would rain",
+     "de": "Dass es regnet"
+    }
+   ]
+  }
+ ]
+}

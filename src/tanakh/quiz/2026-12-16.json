@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 22:17",
+   "q": {
+    "ru": "Какой прошлый грех вспоминают посланцы?",
+    "en": "Which past sin do the envoys recall?",
+    "de": "An welche frühere Sünde erinnern die Gesandten?"
+   },
+   "o": [
+    {
+     "ru": "Грех Пеора",
+     "en": "The sin of Peor",
+     "de": "Die Sünde von Peor"
+    },
+    {
+     "ru": "Грех золотого тельца",
+     "en": "The golden calf",
+     "de": "Das goldene Kalb"
+    },
+    {
+     "ru": "Грех разведчиков",
+     "en": "The sin of the spies",
+     "de": "Die Sünde der Kundschafter"
+    },
+    {
+     "ru": "Грех Каина",
+     "en": "The sin of Kayin",
+     "de": "Die Sünde Kains"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 22:20",
+   "q": {
+    "ru": "Кого посланцы приводят в пример: из-за одного человека гнев пришёл на всех?",
+    "en": "Whom do the envoys cite: because of one man anger came upon all?",
+    "de": "Wen führen die Gesandten an: wegen eines Mannes kam Zorn über alle?"
+   },
+   "o": [
+    {
+     "ru": "Ахана бен Зераха",
+     "en": "Achan son of Zerah",
+     "de": "Achan, den Sohn Serachs"
+    },
+    {
+     "ru": "Кораха",
+     "en": "Korah",
+     "de": "Korach"
+    },
+    {
+     "ru": "Билама",
+     "en": "Balaam",
+     "de": "Bilam"
+    },
+    {
+     "ru": "Паро",
+     "en": "Pharaoh",
+     "de": "Pharao"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 22:24",
+   "q": {
+    "ru": "Чего боялись колена Реувена и Гада, по их ответу?",
+    "en": "What did the Reubenites and Gadites fear, according to their answer?",
+    "de": "Wovor hatten Reuwen und Gad nach ihrer Antwort Angst?"
+   },
+   "o": [
+    {
+     "ru": "Что их детям скажут: «Нет у вас доли в Г-споде»",
+     "en": "That their children would be told, “You have no share in the L-rd”",
+     "de": "Dass man ihren Kindern sagt: „Ihr habt keinen Anteil am Ewigen“"
+    },
+    {
+     "ru": "Что придут враги с востока",
+     "en": "That enemies would come from the east",
+     "de": "Dass Feinde aus dem Osten kommen"
+    },
+    {
+     "ru": "Что Ярден разольётся",
+     "en": "That the Jordan would flood",
+     "de": "Dass der Jarden über die Ufer tritt"
+    },
+    {
+     "ru": "Что не хватит воды",
+     "en": "That there would not be enough water",
+     "de": "Dass das Wasser nicht reicht"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 36:2",
+   "q": {
+    "ru": "Чего, по 36-му псалму, нет перед глазами нечестивого?",
+    "en": "According to Psalm 36, what is not before the eyes of the wicked?",
+    "de": "Was ist nach Tehillim 36 nicht vor den Augen des Bösen?"
+   },
+   "o": [
+    {
+     "ru": "Страха Б-жьего",
+     "en": "The dread of G-d",
+     "de": "Die Furcht vor G-tt"
+    },
+    {
+     "ru": "Денег",
+     "en": "Money",
+     "de": "Geld"
+    },
+    {
+     "ru": "Друзей",
+     "en": "Friends",
+     "de": "Freunde"
+    },
+    {
+     "ru": "Света",
+     "en": "Light",
+     "de": "Licht"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 36:5",
+   "q": {
+    "ru": "Где нечестивый замышляет зло?",
+    "en": "Where does the wicked man plot mischief?",
+    "de": "Wo plant der Böse Unrecht?"
+   },
+   "o": [
+    {
+     "ru": "На своём ложе",
+     "en": "In bed",
+     "de": "Auf seinem Lager"
+    },
+    {
+     "ru": "В Храме",
+     "en": "In the Temple",
+     "de": "Im Tempel"
+    },
+    {
+     "ru": "На рынке",
+     "en": "In the market",
+     "de": "Auf dem Markt"
+    },
+    {
+     "ru": "В поле",
+     "en": "In the field",
+     "de": "Auf dem Feld"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 36:6",
+   "q": {
+    "ru": "До чего доходит милость Г-спода?",
+    "en": "How far does the L-rd’s kindness reach?",
+    "de": "Wie weit reicht die Güte des Ewigen?"
+   },
+   "o": [
+    {
+     "ru": "До небес",
+     "en": "To heaven",
+     "de": "Bis an den Himmel"
+    },
+    {
+     "ru": "До Ярдена",
+     "en": "To the Jordan",
+     "de": "Bis zum Jarden"
+    },
+    {
+     "ru": "До порога дома",
+     "en": "To the doorstep",
+     "de": "Bis zur Haustür"
+    },
+    {
+     "ru": "Только до Храма",
+     "en": "Only to the Temple",
+     "de": "Nur bis zum Tempel"
+    }
+   ]
+  }
+ ]
+}
