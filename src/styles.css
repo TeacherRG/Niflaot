@@ -2876,6 +2876,7 @@ a.wd-sing{font-weight:800;text-decoration:none}
 .am-land{fill:var(--paper);stroke:var(--tchelet-line);stroke-width:1}
 .am-lake{fill:var(--tchelet-soft);stroke:var(--tchelet-line);stroke-width:1}
 .am-river{fill:none;stroke:var(--tchelet);stroke-opacity:.45;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.am-area{fill:var(--tchelet);fill-opacity:.12;stroke:var(--tchelet);stroke-opacity:.45;stroke-width:1.5;stroke-dasharray:5 4}
 .am-pt circle{fill:var(--tchelet-deep);stroke:var(--surface);stroke-width:2.5}
 .am-pt.dim circle{fill:var(--muted-2)}
 .am-n{fill:#fff;font:700 12px var(--f-body,system-ui)}

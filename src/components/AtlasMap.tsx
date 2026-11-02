@@ -8,6 +8,8 @@ export interface MapPoint {
   label: string;
   /** номер на кружке (блок «Кто и где»); без номера — точка */
   n?: number;
+  /** область / река / море: радиус в км — пятно с подписью */
+  a?: number;
 }
 
 const KM = [1, 2, 5, 10, 20, 50, 100, 200];
@@ -44,23 +46,28 @@ export function AtlasMap({ points, ratio, label }: { points: MapPoint[]; ratio?:
     return () => ro.disconnect();
   }, []);
   // высота — по тому, как лежат места: длинный список с севера на юг (цари гл. 12) — карта выше
+  // края: точка, а у области — её круг
+  const ext = useMemo(() => {
+    const k0 = Math.cos((points[0].ll[0] * Math.PI) / 180);
+    const lats = points.flatMap((p) => [p.ll[0] - (p.a ?? 0) / 111, p.ll[0] + (p.a ?? 0) / 111]);
+    const lons = points.flatMap((p) => [p.ll[1] - (p.a ?? 0) / (111 * k0), p.ll[1] + (p.a ?? 0) / (111 * k0)]);
+    return { lats, lons };
+  }, [points]);
   const auto = useMemo(() => {
-    const lats = points.map((p) => p.ll[0]);
-    const lons = points.map((p) => p.ll[1]);
+    const { lats, lons } = ext;
     const k = Math.cos((((Math.min(...lats) + Math.max(...lats)) / 2) * Math.PI) / 180);
     const dy = Math.max(...lats) - Math.min(...lats);
     const dx = (Math.max(...lons) - Math.min(...lons)) * k;
     return Math.min(1.5, Math.max(0.6, (dy + 0.05) / (dx + 0.05)));
-  }, [points]);
+  }, [ext]);
   const H = Math.round(W * (ratio ?? auto));
 
   const view = useMemo(() => {
-    const lats = points.map((p) => p.ll[0]);
-    const lons = points.map((p) => p.ll[1]);
+    const { lats, lons } = ext;
     const mid = (Math.min(...lats) + Math.max(...lats)) / 2;
     const k = Math.cos((mid * Math.PI) / 180);
     // одно место — с окрестностями (~30 км); несколько — крупнее, чтобы близкие города (2–4 км) не слились
-    const min = points.length > 1 ? 0.09 : 0.3;
+    const min = points.length > 1 || points[0]?.a ? 0.09 : 0.3;
     const cx = ((Math.min(...lons) + Math.max(...lons)) / 2) * k;
     const cy = (Math.min(...lats) + Math.max(...lats)) / 2;
     let sx = Math.max((Math.max(...lons) - Math.min(...lons)) * k, min) * 1.5;
@@ -74,7 +81,7 @@ export function AtlasMap({ points, ratio, label }: { points: MapPoint[]; ratio?:
     const km = s / 111; // пикселей в километре
     const bar = KM.find((d) => d * km >= 50) ?? 200;
     return { px, py, km, bar };
-  }, [points, W, H]);
+  }, [ext, points, W, H]);
 
   // подписи: справа от точки, если занято — слева, выше или ниже; ориентир без места для подписи не показываем
   const placed = useMemo(() => {
@@ -102,13 +109,15 @@ export function AtlasMap({ points, ratio, label }: { points: MapPoint[]; ratio?:
     const pts = points.map((p) => {
       const x = view.px(p.ll[1]);
       const y = view.py(p.ll[0]);
+      // область без номера — подпись в её середине (место под подпись занято)
       const r = p.n ? 12 : 7;
-      boxes.push([x - r, y - r, x + r, y + r]);
+      if (p.a && !p.n) boxes.push([x - p.label.length * 4.5, y - 10, x + p.label.length * 4.5, y + 8]);
+      else boxes.push([x - r, y - r, x + r, y + r]);
       return { p, x, y, r };
     });
     // много мест — подпись, только где есть место (номер на кружке и список под картой всё равно скажут, что это)
     const many = points.length > 8;
-    const main = pts.map(({ p, x, y, r }) => ({ p, x, y, r, lb: place(x, y, p.label, r, many ? 12 : 14, !many) }));
+    const main = pts.map(({ p, x, y, r }) => ({ p, x, y, r, lb: p.a && !p.n ? { tx: x, ty: y + 5, a: 'middle' as const } : place(x, y, p.label, r, many ? 12 : 14, !many) }));
     const ids = new Set(points.map((p) => p.id));
     const towns = (data?.towns ?? [])
       .filter(([id]) => !ids.has(id))
@@ -142,9 +151,12 @@ export function AtlasMap({ points, ratio, label }: { points: MapPoint[]; ratio?:
             </text>
           </g>
         ))}
+        {points.map((p) =>
+          p.a ? <circle key={`a-${p.id}`} className="am-area" cx={view.px(p.ll[1])} cy={view.py(p.ll[0])} r={Math.max(10, p.a * view.km)} /> : null,
+        )}
         {placed.main.map(({ p, x, y, lb }) => (
           <g key={p.id} className="am-pt">
-            {p.n ? (
+            {p.a && !p.n ? null : p.n ? (
               <>
                 <circle cx={x} cy={y} r={11} />
                 <text x={x} y={y + 4.5} textAnchor="middle" className="am-n">

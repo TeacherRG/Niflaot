@@ -27,6 +27,7 @@ interface Entity {
   ch?: string[];
   ll?: [number, number];
   sure?: number;
+  a?: number;
   t?: number;
 }
 
@@ -62,8 +63,10 @@ for (const [id, e] of Object.entries(ents)) {
     const [lat, lon] = e.ll;
     if (e.k !== 'p') err(`entities.json ${id}: точка — только у места`);
     if (lat < y0 || lat > y1 || lon < x0 || lon > x1) err(`entities.json ${id}: точка за окном карты (${lat}, ${lon})`);
-    if (![0, 1, 2].includes(e.sure as number)) err(`entities.json ${id}: \`sure\` — 0, 1 или 2`);
-  } else if (e.sure !== undefined || e.t) err(`entities.json ${id}: \`sure\` / \`t\` без точки`);
+    if (e.a !== undefined) {
+      if (!(e.a > 0 && e.a <= 120) || e.sure !== undefined || e.t) err(`entities.json ${id}: область — радиус 1–120 км, без \`sure\` и \`t\``);
+    } else if (![0, 1, 2].includes(e.sure as number)) err(`entities.json ${id}: \`sure\` — 0, 1 или 2`);
+  } else if (e.sure !== undefined || e.t || e.a) err(`entities.json ${id}: \`sure\` / \`t\` / \`a\` без точки`);
 }
 
 const texts = Object.fromEntries(LANGS.map((l) => [l, read<AtlasTexts>(`../src/tanakh/atlas/${l}.json`)])) as Record<(typeof LANGS)[number], AtlasTexts>;

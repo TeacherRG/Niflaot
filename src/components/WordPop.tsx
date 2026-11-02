@@ -158,10 +158,14 @@ export function WordPop() {
       {ae.ll && (
         <>
           <div className="wp-a-map">
-            <AtlasMap label={t('atlas.mapLabel')} ratio={0.45} points={[{ id: open.atlas, ll: ae.ll, label: atlasName(open.atlas, ae, atx, lang) }]} />
+            <AtlasMap label={t('atlas.mapLabel')} ratio={0.45} points={[{ id: open.atlas, ll: ae.ll, a: ae.a, label: atlasName(open.atlas, ae, atx, lang) }]} />
           </div>
           <p className="ta-meta">
-            <span className={`ta-sure s${placeSure(ae)}`}>{t(`atlas.sure.${placeSure(ae)}` as MessageKey)}</span> ·{' '}
+            {!ae.a && (
+              <>
+                <span className={`ta-sure s${placeSure(ae)}`}>{t(`atlas.sure.${placeSure(ae)}` as MessageKey)}</span> ·{' '}
+              </>
+            )}
             <a href={osmLink(ae.ll)} target="_blank" rel="noopener noreferrer">
               {t('atlas.osm')}
             </a>
