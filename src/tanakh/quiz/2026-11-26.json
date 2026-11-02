@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 16:1",
+   "q": {
+    "ru": "Для кого выпал жребий в начале 16-й главы?",
+    "en": "For whom did the lot fall at the beginning of chapter 16?",
+    "de": "Für wen fiel das Los am Anfang von Kapitel 16?"
+   },
+   "o": [
+    {
+     "ru": "Для сынов Йосефа",
+     "en": "The Josephites",
+     "de": "Für die Kinder Josefs"
+    },
+    {
+     "ru": "Для сынов Йеґуды",
+     "en": "The Judites",
+     "de": "Für die Kinder Jehudas"
+    },
+    {
+     "ru": "Для левитов",
+     "en": "The Levites",
+     "de": "Für die Lewiten"
+    },
+    {
+     "ru": "Для сынов Реувена",
+     "en": "The Reubenites",
+     "de": "Für die Kinder Reuwens"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 16:4",
+   "q": {
+    "ru": "Какие два колена — сыны Йосефа?",
+    "en": "Which two tribes are the Josephites?",
+    "de": "Welche zwei Stämme sind die Kinder Josefs?"
+   },
+   "o": [
+    {
+     "ru": "Менаше и Эфраим",
+     "en": "Manasseh and Ephraim",
+     "de": "Menasche und Efrajim"
+    },
+    {
+     "ru": "Реувен и Гад",
+     "en": "Reuben and Gad",
+     "de": "Reuwen und Gad"
+    },
+    {
+     "ru": "Йеґуда и Биньямин",
+     "en": "Judah and Benjamin",
+     "de": "Jehuda und Binjamin"
+    },
+    {
+     "ru": "Леви и Шимон",
+     "en": "Levi and Simeon",
+     "de": "Levi und Schimon"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 16:10",
+   "q": {
+    "ru": "Кого сыны Эфраима не изгнали?",
+    "en": "Whom did the Ephraimites fail to dispossess?",
+    "de": "Wen vertrieben die Kinder Efrajims nicht?"
+   },
+   "o": [
+    {
+     "ru": "Кнаанеев в Гезере",
+     "en": "The Canaanites in Gezer",
+     "de": "Die Kenaaniter in Geser"
+    },
+    {
+     "ru": "Йевусеев в Йерушалаиме",
+     "en": "The Jebusites in Jerusalem",
+     "de": "Die Jewusiter in Jeruschalajim"
+    },
+    {
+     "ru": "Анакеев в Хевроне",
+     "en": "The Anakites in Hebron",
+     "de": "Die Anakiter in Chewron"
+    },
+    {
+     "ru": "Филистимлян в Экроне",
+     "en": "The Philistines in Ekron",
+     "de": "Die Philister in Ekron"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 27:1",
+   "q": {
+    "ru": "Кем назван Г-сподь в начале 27-го псалма?",
+    "en": "What is the L-rd called at the beginning of Psalm 27?",
+    "de": "Wie wird der Ewige am Anfang von Tehillim 27 genannt?"
+   },
+   "o": [
+    {
+     "ru": "Мой свет и моё спасение",
+     "en": "My light and my help",
+     "de": "Mein Licht und meine Rettung"
+    },
+    {
+     "ru": "Мой пастырь",
+     "en": "My shepherd",
+     "de": "Mein Hirte"
+    },
+    {
+     "ru": "Мой судья",
+     "en": "My judge",
+     "de": "Mein Richter"
+    },
+    {
+     "ru": "Мой щит и мой меч",
+     "en": "My shield and my sword",
+     "de": "Mein Schild und mein Schwert"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 27:4",
+   "q": {
+    "ru": "Какую одну просьбу Давид просит у Г-спода?",
+    "en": "What one thing does David ask of the L-rd?",
+    "de": "Um welches eine Ding bittet David den Ewigen?"
+   },
+   "o": [
+    {
+     "ru": "Пребывать в доме Г-спода всю жизнь",
+     "en": "To live in the house of the L-rd all his life",
+     "de": "Sein Leben lang im Haus des Ewigen zu wohnen"
+    },
+    {
+     "ru": "Победить всех врагов",
+     "en": "To defeat all his enemies",
+     "de": "Alle Feinde zu besiegen"
+    },
+    {
+     "ru": "Стать богатым",
+     "en": "To become rich",
+     "de": "Reich zu werden"
+    },
+    {
+     "ru": "Построить город",
+     "en": "To build a city",
+     "de": "Eine Stadt zu bauen"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 27:5",
+   "q": {
+    "ru": "Где Г-сподь укроет Давида в день беды?",
+    "en": "Where will the L-rd shelter David on an evil day?",
+    "de": "Wo birgt der Ewige David am Tag des Unheils?"
+   },
+   "o": [
+    {
+     "ru": "В Своём шалаше",
+     "en": "In His pavilion",
+     "de": "In Seiner Hütte"
+    },
+    {
+     "ru": "В пещере",
+     "en": "In a cave",
+     "de": "In einer Höhle"
+    },
+    {
+     "ru": "В крепости",
+     "en": "In a fortress",
+     "de": "In einer Festung"
+    },
+    {
+     "ru": "За морем",
+     "en": "Beyond the sea",
+     "de": "Jenseits des Meeres"
+    }
+   ]
+  }
+ ]
+}

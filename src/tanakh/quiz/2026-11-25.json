@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 15:54",
+   "q": {
+    "ru": "Какой город в списке назван «Кирьят-Арба»?",
+    "en": "Which town in the list is called “Kiriath-arba”?",
+    "de": "Welche Stadt in der Liste heißt „Kirjat-Arba“?"
+   },
+   "o": [
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    },
+    {
+     "ru": "Двир",
+     "en": "Debir",
+     "de": "Dewir"
+    },
+    {
+     "ru": "Йерушалаим",
+     "en": "Jerusalem",
+     "de": "Jeruschalajim"
+    },
+    {
+     "ru": "Бейт-Лехем",
+     "en": "Bethlehem",
+     "de": "Bet-Lechem"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:62",
+   "q": {
+    "ru": "Какой город у источника назван среди городов пустыни?",
+    "en": "Which town by a spring is named among the towns of the wilderness?",
+    "de": "Welche Stadt an einer Quelle wird unter den Städten der Wüste genannt?"
+   },
+   "o": [
+    {
+     "ru": "Эйн-Геди",
+     "en": "En-gedi",
+     "de": "En-Gedi"
+    },
+    {
+     "ru": "Эйн-Рогель",
+     "en": "En-rogel",
+     "de": "En-Rogel"
+    },
+    {
+     "ru": "Эйн-Шемеш",
+     "en": "En-shemesh",
+     "de": "En-Schemesch"
+    },
+    {
+     "ru": "Эйн-Дор",
+     "en": "En-dor",
+     "de": "En-Dor"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:63",
+   "q": {
+    "ru": "Кого сыны Йеґуды не смогли изгнать из Йерушалаима?",
+    "en": "Whom could the Judites not dispossess from Jerusalem?",
+    "de": "Wen konnten die Kinder Jehudas nicht aus Jeruschalajim vertreiben?"
+   },
+   "o": [
+    {
+     "ru": "Йевусеев",
+     "en": "The Jebusites",
+     "de": "Die Jewusiter"
+    },
+    {
+     "ru": "Филистимлян",
+     "en": "The Philistines",
+     "de": "Die Philister"
+    },
+    {
+     "ru": "Анакеев",
+     "en": "The Anakites",
+     "de": "Die Anakiter"
+    },
+    {
+     "ru": "Эмореев",
+     "en": "The Amorites",
+     "de": "Die Emoriter"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 26:2",
+   "q": {
+    "ru": "О чём просит Давид в начале 26-го псалма?",
+    "en": "What does David ask at the beginning of Psalm 26?",
+    "de": "Worum bittet David am Anfang von Tehillim 26?"
+   },
+   "o": [
+    {
+     "ru": "Испытать его и проверить его сердце",
+     "en": "To probe him and test his heart",
+     "de": "Ihn zu prüfen und sein Herz zu erproben"
+    },
+    {
+     "ru": "Дать ему победу",
+     "en": "To give him victory",
+     "de": "Ihm den Sieg zu geben"
+    },
+    {
+     "ru": "Наказать его врагов",
+     "en": "To punish his enemies",
+     "de": "Seine Feinde zu bestrafen"
+    },
+    {
+     "ru": "Дать ему долгую жизнь",
+     "en": "To give him long life",
+     "de": "Ihm ein langes Leben zu geben"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 26:6",
+   "q": {
+    "ru": "Что Давид делает, прежде чем обойти жертвенник?",
+    "en": "What does David do before walking around the altar?",
+    "de": "Was tut David, bevor er um den Altar geht?"
+   },
+   "o": [
+    {
+     "ru": "Омывает в чистоте руки",
+     "en": "He washes his hands in innocence",
+     "de": "Er wäscht seine Hände in Unschuld"
+    },
+    {
+     "ru": "Надевает новые одежды",
+     "en": "He puts on new clothes",
+     "de": "Er zieht neue Kleider an"
+    },
+    {
+     "ru": "Трубит в шофар",
+     "en": "He blows the shofar",
+     "de": "Er bläst den Schofar"
+    },
+    {
+     "ru": "Постится три дня",
+     "en": "He fasts three days",
+     "de": "Er fastet drei Tage"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 26:8",
+   "q": {
+    "ru": "Что любит Давид?",
+    "en": "What does David love?",
+    "de": "Was liebt David?"
+   },
+   "o": [
+    {
+     "ru": "Обитель дома Г-спода",
+     "en": "The L-rd’s temple abode",
+     "de": "Die Wohnung des Hauses des Ewigen"
+    },
+    {
+     "ru": "Свой дворец",
+     "en": "His palace",
+     "de": "Seinen Palast"
+    },
+    {
+     "ru": "Войну",
+     "en": "War",
+     "de": "Den Krieg"
+    },
+    {
+     "ru": "Пустыню",
+     "en": "The desert",
+     "de": "Die Wüste"
+    }
+   ]
+  }
+ ]
+}

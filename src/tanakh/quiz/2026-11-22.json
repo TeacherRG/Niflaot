@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 15:28",
+   "q": {
+    "ru": "Какой известный город назван в списке городов Йеґуды на юге?",
+    "en": "Which well-known town is named in the list of Judah’s southern towns?",
+    "de": "Welche bekannte Stadt steht in der Liste der Städte Jehudas im Süden?"
+   },
+   "o": [
+    {
+     "ru": "Беэр-Шева",
+     "en": "Beer-sheba",
+     "de": "Be’er-Schewa"
+    },
+    {
+     "ru": "Шхем",
+     "en": "Shechem",
+     "de": "Schechem"
+    },
+    {
+     "ru": "Йерихо",
+     "en": "Jericho",
+     "de": "Jericho"
+    },
+    {
+     "ru": "Шило",
+     "en": "Shiloh",
+     "de": "Schilo"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:31",
+   "q": {
+    "ru": "Какой город, позже связанный с Давидом, есть в этом списке?",
+    "en": "Which town, later linked with David, is on this list?",
+    "de": "Welche Stadt, die später mit David verbunden ist, steht in dieser Liste?"
+   },
+   "o": [
+    {
+     "ru": "Циклаг",
+     "en": "Ziklag",
+     "de": "Ziklag"
+    },
+    {
+     "ru": "Бейт-Эль",
+     "en": "Bethel",
+     "de": "Bet-El"
+    },
+    {
+     "ru": "Гилгал",
+     "en": "Gilgal",
+     "de": "Gilgal"
+    },
+    {
+     "ru": "Мицпа",
+     "en": "Mizpah",
+     "de": "Mizpa"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:32",
+   "q": {
+    "ru": "Сколько всего городов названо в итоге этого списка?",
+    "en": "How many towns are given as the total of this list?",
+    "de": "Wie viele Städte werden am Ende dieser Liste insgesamt genannt?"
+   },
+   "o": [
+    {
+     "ru": "Двадцать девять",
+     "en": "Twenty-nine",
+     "de": "Neunundzwanzig"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    },
+    {
+     "ru": "Сорок восемь",
+     "en": "Forty-eight",
+     "de": "Achtundvierzig"
+    },
+    {
+     "ru": "Семь",
+     "en": "Seven",
+     "de": "Sieben"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 25:2",
+   "q": {
+    "ru": "О чём просит Давид, полагаясь на Б-га?",
+    "en": "What does David ask, trusting in G-d?",
+    "de": "Worum bittet David, der auf G-tt vertraut?"
+   },
+   "o": [
+    {
+     "ru": "Чтобы враги не ликовали над ним",
+     "en": "That his enemies not exult over him",
+     "de": "Dass seine Feinde nicht über ihn jubeln"
+    },
+    {
+     "ru": "Чтобы стать богатым",
+     "en": "To become rich",
+     "de": "Reich zu werden"
+    },
+    {
+     "ru": "Чтобы построить Храм",
+     "en": "To build the Temple",
+     "de": "Den Tempel zu bauen"
+    },
+    {
+     "ru": "Чтобы прожить сто лет",
+     "en": "To live a hundred years",
+     "de": "Hundert Jahre zu leben"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 25:4",
+   "q": {
+    "ru": "Чему просит научить его Давид?",
+    "en": "What does David ask to be taught?",
+    "de": "Was soll man David lehren?"
+   },
+   "o": [
+    {
+     "ru": "Путям Г-спода",
+     "en": "The L-rd’s ways",
+     "de": "Die Wege des Ewigen"
+    },
+    {
+     "ru": "Военным хитростям",
+     "en": "The tricks of war",
+     "de": "Die Listen des Krieges"
+    },
+    {
+     "ru": "Игре на арфе",
+     "en": "Playing the harp",
+     "de": "Das Harfenspiel"
+    },
+    {
+     "ru": "Языкам народов",
+     "en": "The languages of the nations",
+     "de": "Die Sprachen der Völker"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 25:7",
+   "q": {
+    "ru": "Чего Давид просит не вспоминать?",
+    "en": "What does David ask G-d not to remember?",
+    "de": "Woran soll G-tt nach Davids Bitte nicht denken?"
+   },
+   "o": [
+    {
+     "ru": "Грехов его юности",
+     "en": "His youthful sins",
+     "de": "An die Sünden seiner Jugend"
+    },
+    {
+     "ru": "Его побед",
+     "en": "His victories",
+     "de": "An seine Siege"
+    },
+    {
+     "ru": "Его песен",
+     "en": "His songs",
+     "de": "An seine Lieder"
+    },
+    {
+     "ru": "Его клятв",
+     "en": "His oaths",
+     "de": "An seine Schwüre"
+    }
+   ]
+  }
+ ]
+}

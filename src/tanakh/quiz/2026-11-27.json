@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 17:1",
+   "q": {
+    "ru": "Что получил Махир, первенец Менаше, потому что был воином?",
+    "en": "What did Machir, Manasseh’s first-born, receive because he was a warrior?",
+    "de": "Was bekam Machir, der Erstgeborene Menasches, weil er ein Krieger war?"
+   },
+   "o": [
+    {
+     "ru": "Гилад и Башан",
+     "en": "Gilead and Bashan",
+     "de": "Den Gilad und den Baschan"
+    },
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    },
+    {
+     "ru": "Йерихо",
+     "en": "Jericho",
+     "de": "Jericho"
+    },
+    {
+     "ru": "Шфелу",
+     "en": "The Lowland",
+     "de": "Die Schefela"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 17:3",
+   "q": {
+    "ru": "Сколько дочерей было у Целофхада?",
+    "en": "How many daughters did Zelophehad have?",
+    "de": "Wie viele Töchter hatte Zelofchad?"
+   },
+   "o": [
+    {
+     "ru": "Пять",
+     "en": "Five",
+     "de": "Fünf"
+    },
+    {
+     "ru": "Три",
+     "en": "Three",
+     "de": "Drei"
+    },
+    {
+     "ru": "Семь",
+     "en": "Seven",
+     "de": "Sieben"
+    },
+    {
+     "ru": "Две",
+     "en": "Two",
+     "de": "Zwei"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 17:4",
+   "q": {
+    "ru": "Что получили дочери Целофхада по слову Г-спода?",
+    "en": "What did Zelophehad’s daughters receive by the L-rd’s word?",
+    "de": "Was bekamen die Töchter Zelofchads nach dem Wort des Ewigen?"
+   },
+   "o": [
+    {
+     "ru": "Удел среди братьев их отца",
+     "en": "A portion among their father’s kinsmen",
+     "de": "Ein Erbe unter den Brüdern ihres Vaters"
+    },
+    {
+     "ru": "Золото и серебро",
+     "en": "Gold and silver",
+     "de": "Gold und Silber"
+    },
+    {
+     "ru": "Место у Храма",
+     "en": "A place near the Temple",
+     "de": "Einen Platz beim Tempel"
+    },
+    {
+     "ru": "Ничего",
+     "en": "Nothing",
+     "de": "Nichts"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 17:10",
+   "q": {
+    "ru": "Как сыны Йосефа разделили свою полосу земли?",
+    "en": "How did the Josephites divide their strip of land?",
+    "de": "Wie teilten die Kinder Josefs ihren Landstreifen?"
+   },
+   "o": [
+    {
+     "ru": "На юге — Эфраим, на севере — Менаше",
+     "en": "Ephraim to the south, Manasseh to the north",
+     "de": "Im Süden Efrajim, im Norden Menasche"
+    },
+    {
+     "ru": "На юге — Менаше, на севере — Эфраим",
+     "en": "Manasseh to the south, Ephraim to the north",
+     "de": "Im Süden Menasche, im Norden Efrajim"
+    },
+    {
+     "ru": "На востоке — Эфраим, на западе — Менаше",
+     "en": "Ephraim to the east, Manasseh to the west",
+     "de": "Im Osten Efrajim, im Westen Menasche"
+    },
+    {
+     "ru": "Поровну по жребию каждый год",
+     "en": "Equally by lot each year",
+     "de": "Jedes Jahr gleich durch das Los"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 27:10",
+   "q": {
+    "ru": "Кто примет Давида, если его оставят отец и мать?",
+    "en": "Who will take David in, though his father and mother abandon him?",
+    "de": "Wer nimmt David auf, wenn Vater und Mutter ihn verlassen?"
+   },
+   "o": [
+    {
+     "ru": "Г-сподь",
+     "en": "The L-rd",
+     "de": "Der Ewige"
+    },
+    {
+     "ru": "Его братья",
+     "en": "His brothers",
+     "de": "Seine Brüder"
+    },
+    {
+     "ru": "Царь Шауль",
+     "en": "King Shaul",
+     "de": "König Schaul"
+    },
+    {
+     "ru": "Пророк Шмуэль",
+     "en": "The prophet Shmuel",
+     "de": "Der Prophet Schmuel"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 27:14",
+   "q": {
+    "ru": "Какой совет даёт себе Давид в конце 27-го псалма?",
+    "en": "What advice does David give at the end of Psalm 27?",
+    "de": "Welchen Rat gibt David am Ende von Tehillim 27?"
+   },
+   "o": [
+    {
+     "ru": "Надеяться на Г-спода и крепиться",
+     "en": "Look to the L-rd and be strong",
+     "de": "Auf den Ewigen hoffen und stark sein"
+    },
+    {
+     "ru": "Бежать в пустыню",
+     "en": "Flee to the desert",
+     "de": "In die Wüste fliehen"
+    },
+    {
+     "ru": "Собрать войско",
+     "en": "Gather an army",
+     "de": "Ein Heer sammeln"
+    },
+    {
+     "ru": "Молчать",
+     "en": "Keep silent",
+     "de": "Schweigen"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 28:3",
+   "q": {
+    "ru": "Что говорят нечестивые, хотя в сердце у них зло?",
+    "en": "What do the wicked profess, though malice is in their heart?",
+    "de": "Was reden die Bösen, obwohl Böses in ihrem Herzen ist?"
+   },
+   "o": [
+    {
+     "ru": "Говорят ближним о мире",
+     "en": "Goodwill toward their fellows",
+     "de": "Sie reden mit ihren Nächsten von Frieden"
+    },
+    {
+     "ru": "Ругают всех открыто",
+     "en": "They curse everyone openly",
+     "de": "Sie beschimpfen alle offen"
+    },
+    {
+     "ru": "Молчат",
+     "en": "They keep silent",
+     "de": "Sie schweigen"
+    },
+    {
+     "ru": "Хвалят Г-спода",
+     "en": "They praise the L-rd",
+     "de": "Sie loben den Ewigen"
+    }
+   ]
+  }
+ ]
+}

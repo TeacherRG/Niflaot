@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 15:33",
+   "q": {
+    "ru": "В какой области стояли Эштаоль и Цора?",
+    "en": "In which region were Eshtaol and Zorah?",
+    "de": "In welcher Gegend lagen Eschtaol und Zora?"
+   },
+   "o": [
+    {
+     "ru": "В Шфеле",
+     "en": "In the Lowland",
+     "de": "In der Schefela"
+    },
+    {
+     "ru": "В горах",
+     "en": "In the hill country",
+     "de": "Im Bergland"
+    },
+    {
+     "ru": "В пустыне",
+     "en": "In the wilderness",
+     "de": "In der Wüste"
+    },
+    {
+     "ru": "За Ярденом",
+     "en": "Across the Jordan",
+     "de": "Jenseits des Jarden"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:36",
+   "q": {
+    "ru": "Сколько городов в этой части Шфелы?",
+    "en": "How many towns are in this part of the Lowland?",
+    "de": "Wie viele Städte gehören zu diesem Teil der Schefela?"
+   },
+   "o": [
+    {
+     "ru": "Четырнадцать",
+     "en": "Fourteen",
+     "de": "Vierzehn"
+    },
+    {
+     "ru": "Девять",
+     "en": "Nine",
+     "de": "Neun"
+    },
+    {
+     "ru": "Тридцать",
+     "en": "Thirty",
+     "de": "Dreißig"
+    },
+    {
+     "ru": "Шесть",
+     "en": "Six",
+     "de": "Sechs"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:39",
+   "q": {
+    "ru": "Какие уже знакомые нам города названы среди городов Шфелы?",
+    "en": "Which towns we already know are named among the towns of the Lowland?",
+    "de": "Welche Städte, die wir schon kennen, werden unter den Städten der Schefela genannt?"
+   },
+   "o": [
+    {
+     "ru": "Лахиш и Эглон",
+     "en": "Lachish and Eglon",
+     "de": "Lachisch und Eglon"
+    },
+    {
+     "ru": "Йерихо и Ай",
+     "en": "Jericho and Ai",
+     "de": "Jericho und Ai"
+    },
+    {
+     "ru": "Хацор и Мадон",
+     "en": "Hazor and Madon",
+     "de": "Chazor und Madon"
+    },
+    {
+     "ru": "Хешбон и Дивон",
+     "en": "Heshbon and Dibon",
+     "de": "Cheschbon und Diwon"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 25:8",
+   "q": {
+    "ru": "Кому Г-сподь указывает путь, потому что Он добр и прям?",
+    "en": "Whom does the L-rd show the way, because He is good and upright?",
+    "de": "Wem weist der Ewige den Weg, weil Er gut und gerade ist?"
+   },
+   "o": [
+    {
+     "ru": "Грешникам",
+     "en": "Sinners",
+     "de": "Den Sündern"
+    },
+    {
+     "ru": "Только праведникам",
+     "en": "Only the righteous",
+     "de": "Nur den Gerechten"
+    },
+    {
+     "ru": "Царям",
+     "en": "Kings",
+     "de": "Den Königen"
+    },
+    {
+     "ru": "Коэнам",
+     "en": "The kohanim",
+     "de": "Den Kohanim"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 25:12",
+   "q": {
+    "ru": "Кому Г-сподь укажет путь, который тот выберет?",
+    "en": "Who will be shown the path to choose?",
+    "de": "Wem zeigt der Ewige den Weg, den er wählen soll?"
+   },
+   "o": [
+    {
+     "ru": "Человеку, который боится Г-спода",
+     "en": "Whoever fears the L-rd",
+     "de": "Dem Menschen, der den Ewigen fürchtet"
+    },
+    {
+     "ru": "Самому сильному",
+     "en": "The strongest",
+     "de": "Dem Stärksten"
+    },
+    {
+     "ru": "Самому богатому",
+     "en": "The richest",
+     "de": "Dem Reichsten"
+    },
+    {
+     "ru": "Тому, кто много путешествует",
+     "en": "One who travels a lot",
+     "de": "Dem, der viel reist"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 25:16",
+   "q": {
+    "ru": "Почему Давид просит Г-спода обратиться к нему?",
+    "en": "Why does David ask the L-rd to turn to him?",
+    "de": "Warum bittet David den Ewigen, sich ihm zuzuwenden?"
+   },
+   "o": [
+    {
+     "ru": "Он одинок и беден",
+     "en": "He is alone and afflicted",
+     "de": "Er ist einsam und arm"
+    },
+    {
+     "ru": "Он устал от войны",
+     "en": "He is tired of war",
+     "de": "Er ist müde vom Krieg"
+    },
+    {
+     "ru": "Он хочет стать царём",
+     "en": "He wants to become king",
+     "de": "Er will König werden"
+    },
+    {
+     "ru": "Он заблудился в пустыне",
+     "en": "He is lost in the desert",
+     "de": "Er hat sich in der Wüste verirrt"
+    }
+   ]
+  }
+ ]
+}

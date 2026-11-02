@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 15:44",
+   "q": {
+    "ru": "Сколько городов в группе Кеилы, Ахзива и Мареши?",
+    "en": "How many towns are in the group of Keilah, Achzib, and Mareshah?",
+    "de": "Wie viele Städte gehören zur Gruppe von Ke’ila, Achsiw und Marescha?"
+   },
+   "o": [
+    {
+     "ru": "Девять",
+     "en": "Nine",
+     "de": "Neun"
+    },
+    {
+     "ru": "Четырнадцать",
+     "en": "Fourteen",
+     "de": "Vierzehn"
+    },
+    {
+     "ru": "Двадцать девять",
+     "en": "Twenty-nine",
+     "de": "Neunundzwanzig"
+    },
+    {
+     "ru": "Три",
+     "en": "Three",
+     "de": "Drei"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:47",
+   "q": {
+    "ru": "До какого потока доходил удел Йеґуды на юго-западе?",
+    "en": "Up to which wadi did Judah’s portion reach in the southwest?",
+    "de": "Bis zu welchem Bach reichte das Erbe Jehudas im Südwesten?"
+   },
+   "o": [
+    {
+     "ru": "До потока Египта",
+     "en": "The Wadi of Egypt",
+     "de": "Bis zum Bach Ägyptens"
+    },
+    {
+     "ru": "До Арнона",
+     "en": "The Wadi Arnon",
+     "de": "Bis zum Arnon"
+    },
+    {
+     "ru": "До Ябока",
+     "en": "The Wadi Jabbok",
+     "de": "Bis zum Jabbok"
+    },
+    {
+     "ru": "До потока Кана",
+     "en": "The Wadi Kanah",
+     "de": "Bis zum Bach Kana"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:49",
+   "q": {
+    "ru": "Как ещё назывался Двир в этом списке?",
+    "en": "What other name does Debir have in this list?",
+    "de": "Welchen anderen Namen hat Dewir in dieser Liste?"
+   },
+   "o": [
+    {
+     "ru": "Кирьят-Сана",
+     "en": "Kiriath-sannah",
+     "de": "Kirjat-Sanna"
+    },
+    {
+     "ru": "Кирьят-Арба",
+     "en": "Kiriath-arba",
+     "de": "Kirjat-Arba"
+    },
+    {
+     "ru": "Кирьят-Йеарим",
+     "en": "Kiriath-jearim",
+     "de": "Kirjat-Jearim"
+    },
+    {
+     "ru": "Луз",
+     "en": "Luz",
+     "de": "Lus"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 25:18",
+   "q": {
+    "ru": "О чём просит Давид, глядя на свою беду и труд?",
+    "en": "What does David ask, pointing to his affliction and suffering?",
+    "de": "Worum bittet David mit Blick auf sein Elend und seine Mühe?"
+   },
+   "o": [
+    {
+     "ru": "Простить все его грехи",
+     "en": "To forgive all his sins",
+     "de": "Alle seine Sünden zu vergeben"
+    },
+    {
+     "ru": "Дать ему войско",
+     "en": "To give him an army",
+     "de": "Ihm ein Heer zu geben"
+    },
+    {
+     "ru": "Наказать его братьев",
+     "en": "To punish his brothers",
+     "de": "Seine Brüder zu bestrafen"
+    },
+    {
+     "ru": "Дать ему отдых",
+     "en": "To give him rest",
+     "de": "Ihm Ruhe zu geben"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 25:21",
+   "q": {
+    "ru": "Что, по словам Давида, будет хранить его?",
+    "en": "What does David say will watch over him?",
+    "de": "Was wird David nach seinen Worten behüten?"
+   },
+   "o": [
+    {
+     "ru": "Непорочность и прямота",
+     "en": "Integrity and uprightness",
+     "de": "Lauterkeit und Geradheit"
+    },
+    {
+     "ru": "Стены города",
+     "en": "The city walls",
+     "de": "Die Mauern der Stadt"
+    },
+    {
+     "ru": "Его стража",
+     "en": "His guards",
+     "de": "Seine Wächter"
+    },
+    {
+     "ru": "Его богатство",
+     "en": "His wealth",
+     "de": "Sein Reichtum"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 25:22",
+   "q": {
+    "ru": "О ком Давид молится в конце псалма?",
+    "en": "For whom does David pray at the end of the psalm?",
+    "de": "Für wen betet David am Ende des Liedes?"
+   },
+   "o": [
+    {
+     "ru": "Обо всём Израиле",
+     "en": "All Israel",
+     "de": "Für ganz Israel"
+    },
+    {
+     "ru": "Только о себе",
+     "en": "Only himself",
+     "de": "Nur für sich"
+    },
+    {
+     "ru": "О своих врагах",
+     "en": "His enemies",
+     "de": "Für seine Feinde"
+    },
+    {
+     "ru": "О царе Шауле",
+     "en": "King Shaul",
+     "de": "Für König Schaul"
+    }
+   ]
+  }
+ ]
+}
