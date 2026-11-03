@@ -3089,6 +3089,7 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .rd-big .rd-text.rd-tr{font-size:26px}
 .rd-tr .rd-ch .he{font-family:"Noto Serif Hebrew",var(--f-he)}
 .rd-tr .rd-paseq{display:none}
+.rd-tr .rd-w{white-space:nowrap}
 .rd-tr-duo .rd-w{display:inline-flex;flex-direction:column;align-items:center;vertical-align:top;line-height:1.25;padding:2px 3px;margin-bottom:6px}
 .rd-tr-w{font-weight:600}
 .rd-tr-h{font-family:"Noto Serif Hebrew",var(--f-he);font-size:.8em;color:var(--muted)}
