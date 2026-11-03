@@ -146,8 +146,30 @@ for (const [name, [c, want]] of Object.entries(SAMPLE)) {
 if (aliyahOfDay('2026-10-29') !== 5 || aliyahOfDay('2026-10-25') !== 1 || aliyahOfDay('2026-10-31') !== 7) errors.push('шнаим: отрывок дня — вс 1-й … Шабат 7-й');
 if (shnayimParsha('2026-10-29') !== 'vayera') errors.push('шнаим: 29.10.2026 — глава Вайера');
 
+// разметка записей по паузам чтеца (scripts/reading-times.py): по времени на кусок со словами, по порядку
+const timesDir = new URL('../public/reading/times/', import.meta.url);
+let timed = 0;
+const audioText = (name: string): string[] => {
+  if (name === 'tora_53') return haazinu.v;
+  const [ch, part] = name.split('.');
+  const v: string[] = JSON.parse(readFileSync(new URL(`${Number(ch)}.json`, dir), 'utf8')).v;
+  return Number(ch) === 119 ? (part === '2' ? v.slice(96) : v.slice(0, 96)) : v;
+};
+for (const name of [...Array.from({ length: CHAPTERS }, (_, i) => String(i + 1)), '119.2', 'tora_53']) {
+  const file = new URL(`${name}.json`, timesDir);
+  if (!existsSync(file)) {
+    errors.push(`нет разметки записи ${name}: python3 scripts/reading-times.py ${name}`);
+    continue;
+  }
+  const times: number[] = JSON.parse(readFileSync(file, 'utf8'));
+  const words = audioText(name).flatMap((v) => tokens(v)).filter((x) => x.w).length;
+  if (times.length !== words) errors.push(`разметка ${name}: ${times.length} времён, а кусков со словами ${words} — python3 scripts/reading-times.py ${name}`);
+  else if (times.some((x, i) => !Number.isFinite(x) || x < 0 || (i > 0 && x < times[i - 1]))) errors.push(`разметка ${name}: времена не по порядку`);
+  else timed++;
+}
+
 if (errors.length) {
   console.error(errors.slice(0, 20).join('\n'));
   process.exit(1);
 }
-console.log(`✓ Святое чтение: Теґилим — ${CHAPTERS} глав, ${total} слов, кери, Имена; Аазину — ${haazinu.v.length} стихов; шнаим микра — ${SHNAYIM.length} гл., ${shnVerses} стихов; транслит — ${trWords} слов`);
+console.log(`✓ Святое чтение: Теґилим — ${CHAPTERS} глав, ${total} слов, кери, Имена; Аазину — ${haazinu.v.length} стихов; шнаим микра — ${SHNAYIM.length} гл., ${shnVerses} стихов; транслит — ${trWords} слов; разметка по паузам — ${timed} записей`);

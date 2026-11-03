@@ -3289,3 +3289,9 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .rd-set-list .code{min-width:2.6em;font-family:var(--f-he),var(--f-num)}
 .rd-set .tk-view-btn{max-width:100%}
 .rd-set .tk-view-btn>span:nth-child(2){min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rd-more-btn{display:none;border:0;background:none;padding:0;margin:0 0 8px;font:inherit;font-size:15px;font-weight:600;color:var(--tchelet);text-decoration:underline;cursor:pointer}
+@media (max-width:640px){
+  .rd-lead-more:not(.open){display:none}
+  .rd-more-btn{display:inline-block}
+}
+@media print{.rd-lead-more{display:block!important}}

@@ -22,6 +22,7 @@ import {
   loadIndex,
   loadView,
   markedTimes,
+  loadAutoTimes,
   personalPsalms,
   saveTimes,
   savePersonalPsalms,
@@ -119,6 +120,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   const [failed, setFailed] = useState(false);
   const [view, setView] = useState<View>(loadView);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [leadOpen, setLeadOpen] = useState(false);
   const [menuSection, setMenuSection] = useState<'home' | 'all' | 'edit'>('home');
   const [saveError, setSaveError] = useState(false);
   const [active, setActive] = useState(-1);
@@ -157,6 +159,25 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
     });
   }, [sections, toks]);
   const audio = sections ? tracks[trackIndex] ?? null : null;
+  // разметка по паузам чтеца; своя разметка учителя важнее
+  const [autoTimes, setAutoTimes] = useState<Record<string, number[] | null>>({});
+  useEffect(() => {
+    let live = true;
+    for (const tr of tracks)
+      void loadAutoTimes(tr.src).then((times) => live && setAutoTimes((m) => (tr.src in m ? m : { ...m, [tr.src]: times })));
+    return () => {
+      live = false;
+    };
+  }, [tracks]);
+  const timesOf = (tr: { markId: string; src: string }) => markedTimes(tr.markId) ?? autoTimes[tr.src] ?? null;
+  // следующая запись подборки грузится заранее — без паузы между главами
+  useEffect(() => {
+    const next = tracks[trackIndex + 1];
+    if (!next || audioState !== 'playing') return;
+    const a = new Audio();
+    a.preload = 'auto';
+    a.src = src_(next.src);
+  }, [tracks, trackIndex, audioState]);
   const playAudio = useCallback((restart = true) => {
     if (!tracks.length) return;
     setAudioFailed(false);
@@ -201,8 +222,36 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
       setAudioFailed(true);
     });
   }, [trackIndex]);
-  // Разметки слов нет, а оценка времени неточна: нажатие на слово не перематывает голос,
-  // а сдвигает подсветку, чтобы она шла дальше с этого слова.
+  // подсветка — за временем записи; timeupdate приходит лишь ~4 раза в секунду (на 3,5× короткие слова
+  // проскакивали), поэтому, пока играет, — ещё и каждый кадр
+  const syncHighlight = (player: HTMLAudioElement) => {
+    if (player.paused && player.currentTime === 0) {
+      setActive(-1);
+      return;
+    }
+    if (!player.duration || !audio) return;
+    const indices = trackTokenIndices[trackIndex] ?? [];
+    const localTokens = indices.map((tokenIndex) => toks[tokenIndex]);
+    const starts = startTimes(localTokens, player.duration, timesOf(audio));
+    let i = -1;
+    for (let k = 0; k < starts.length; k++) if (localTokens[k].w && starts[k] <= player.currentTime + syncOffset.current) i = k;
+    setActive(player.ended || i < 0 ? -1 : indices[i]);
+  };
+  const syncRef = useRef(syncHighlight);
+  syncRef.current = syncHighlight;
+  useEffect(() => {
+    if (audioState !== 'playing' || !light) return;
+    let raf = 0;
+    const tick = () => {
+      if (audioRef.current) syncRef.current(audioRef.current);
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [audioState, light]);
+
+  // Нажатие на слово: есть разметка (по паузам чтеца или учителя) — запись перематывается к нему;
+  // нет — подсветка сдвигается и идёт дальше с этого слова.
   const seekAudioToWord = (i: number) => {
     const player = audioRef.current;
     const nextTrackIndex = trackTokenIndices.findIndex((indices) => indices.includes(i));
@@ -225,8 +274,13 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
     const indices = trackTokenIndices[trackIndex] ?? [];
     const localIndex = indices.indexOf(i);
     const localTokens = indices.map((tokenIndex) => toks[tokenIndex]);
-    const starts = startTimes(localTokens, player.duration, markedTimes(audio.markId));
-    syncOffset.current = (starts[localIndex] ?? 0) - player.currentTime;
+    const times = timesOf(audio);
+    const starts = startTimes(localTokens, player.duration, times);
+    if (exact(times, localTokens)) {
+      // слова размечены — запись перематывается к слову
+      syncOffset.current = 0;
+      player.currentTime = starts[localIndex] ?? 0;
+    } else syncOffset.current = (starts[localIndex] ?? 0) - player.currentTime;
     setActive(i);
     if (player.paused || player.ended) playAudio(false);
   };
@@ -361,11 +415,17 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           {haazinu ? (
             <p className="ac-lead">{t('reading.haazinuLead')}</p>
           ) : (
-            (['why', 'zriz', 'so'] as const).map((k) => (
-              <p key={k} className="ac-lead rd-lead">
-                <b>{t(`reading.${k}H`)}</b> {t(`reading.${k}`)}
-              </p>
-            ))
+            <>
+              {(['why', 'zriz', 'so'] as const).map((k, n) => (
+                <p key={k} id={n ? `rd-lead-${k}` : undefined} className={`ac-lead rd-lead${n ? ` rd-lead-more${leadOpen ? ' open' : ''}` : ''}`}>
+                  <b>{t(`reading.${k}H`)}</b> {t(`reading.${k}`)}
+                </p>
+              ))}
+              {/* на телефоне виден только первый абзац — остальные по «Подробнее» */}
+              <button type="button" className="rd-more-btn no-print" aria-expanded={leadOpen} aria-controls="rd-lead-zriz rd-lead-so" onClick={() => setLeadOpen((o) => !o)}>
+                {t(leadOpen ? 'reading.less' : 'reading.more')}
+              </button>
+            </>
           )}
           {haazinu && <p className="ac-lead">{t('reading.haazinuAbout')}</p>}
           {level === 'none' && (
@@ -531,24 +591,15 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
               const localIndex = indices.indexOf(word);
               if (localIndex < 0) return;
               const localTokens = indices.map((tokenIndex) => toks[tokenIndex]);
-              const starts = startTimes(localTokens, e.currentTarget.duration, markedTimes(audio.markId));
-              syncOffset.current = starts[localIndex] ?? 0;
+              const times = timesOf(audio);
+              const starts = startTimes(localTokens, e.currentTarget.duration, times);
+              if (exact(times, localTokens)) {
+                syncOffset.current = 0;
+                e.currentTarget.currentTime = starts[localIndex] ?? 0;
+              } else syncOffset.current = starts[localIndex] ?? 0;
               setActive(word);
             }}
-            onTimeUpdate={(e) => {
-              const player = e.currentTarget;
-              if (player.paused && player.currentTime === 0) {
-                setActive(-1);
-                return;
-              }
-              if (!player.duration) return;
-              const indices = trackTokenIndices[trackIndex] ?? [];
-              const localTokens = indices.map((tokenIndex) => toks[tokenIndex]);
-              const starts = startTimes(localTokens, player.duration, markedTimes(audio.markId));
-              let i = -1;
-              for (let k = 0; k < starts.length; k++) if (starts[k] <= player.currentTime + syncOffset.current) i = k;
-              setActive(player.ended || i < 0 ? -1 : indices[i]);
-            }}
+            onTimeUpdate={(e) => syncHighlight(e.currentTarget)}
             onEnded={() => {
               if (trackIndex + 1 < tracks.length) {
                 syncOffset.current = 0;
@@ -696,6 +747,14 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
             );
           })}
 
+        {!haazinu && tracks.length > 0 && (
+          <p className="rd-credit">
+            {t('reading.audioCredit')}{' '}
+            <a href="https://talkingtehillim.com/" target="_blank" rel="noopener">
+              talkingtehillim.com
+            </a>
+          </p>
+        )}
         {source && (
           <p className="rd-credit">
             {t('reading.credit')}{' '}
@@ -710,6 +769,9 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
     </>
   );
 }
+
+/** разметка подходит к тексту записи — по куску со словами на время */
+const exact = (times: number[] | null, toks: { w: number }[]) => !!times && times.length === toks.filter((x) => x.w).length;
 
 const src_ = (src: string) => (/^https?:/.test(src) ? src : `${import.meta.env.BASE_URL}${src}`);
 

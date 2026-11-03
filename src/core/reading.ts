@@ -288,6 +288,24 @@ export const loadView = (): View => {
 };
 export const saveView = (v: View) => write('niflaot:reading-view', v);
 
+/**
+ * Разметка записи по паузам чтеца (`scripts/reading-times.py` → public/reading/times/<запись>.json):
+ * начало каждого куска со словами, с. Нет файла — null, подсветка — по оценке.
+ */
+const autoCache = new Map<string, Promise<number[] | null>>();
+export function loadAutoTimes(src: string): Promise<number[] | null> {
+  const name = src.replace(/^.*\//, '').replace(/\.mp3$/, '');
+  let p = autoCache.get(name);
+  if (!p) {
+    p = fetch(`${root()}reading/times/${name}.json`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((t) => (Array.isArray(t) ? (t as number[]) : null))
+      .catch(() => null);
+    autoCache.set(name, p);
+  }
+  return p;
+}
+
 const TIMES = (c: ReadingId) => `niflaot:reading-times:${c}`;
 export const markedTimes = (c: ReadingId): number[] | null => read<number[] | null>(TIMES(c), null);
 export const saveTimes = (c: ReadingId, t: number[]) => write(TIMES(c), t);
