@@ -55,6 +55,7 @@ export function ZipPage() {
   // the line tried the last number before the other cells were filled — say why it stops
   const [lastWarn, setLastWarn] = useState(false);
   const svg = useRef<SVGSVGElement>(null);
+  const winCard = useRef<HTMLElement>(null);
   const drag = useRef(false);
 
   useEffect(() => {
@@ -261,7 +262,7 @@ export function ZipPage() {
           ))}
         </ol>
 
-        <div className="zip-board-wrap">
+        <div className={`zip-board-wrap${won ? ' won' : ''}`}>
           <svg
             ref={svg}
             className={`zip-board${won ? ' done' : ''}`}
@@ -292,6 +293,15 @@ export function ZipPage() {
               );
             })}
           </svg>
+          {won && (
+            <VerseAssemble
+              key={verse.ref}
+              board={svg.current}
+              n={n}
+              groups={board.nodes.map((x) => ({ cell: x.cell, text: x.words.join(' ') }))}
+              onDone={() => winCard.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            />
+          )}
         </div>
         {!won &&
           (lastWarn ? (
@@ -316,7 +326,7 @@ export function ZipPage() {
         </div>
 
         {won && (
-          <section className="zip-win" aria-live="polite" ref={(el) => el?.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
+          <section className="zip-win" aria-live="polite" ref={winCard}>
             <h2>{t('zip.won')}</h2>
             <p className="zip-win-ref">{title}</p>
             <p className="zip-win-he he" dir="rtl" lang="he">
@@ -373,5 +383,91 @@ export function ZipPage() {
       </div>
       <Colophon />
     </>
+  );
+}
+
+/**
+ * The verse comes together (owner, 03.11.2026: «слова пасука как бы передвинулись по кругу и образовали пасук, уже без цифр»):
+ * every word group starts at its numbered circle, goes round the centre of the board and lands in its place in the verse —
+ * one line of Hebrew from right to left over the faded board. FLIP: the words stand in their final places, a Web Animation
+ * carries each from its circle along the circle to there (one after another). «Reduce motion» — the verse at once.
+ */
+function VerseAssemble({ board, n, groups, onDone }: { board: SVGSVGElement | null; n: number; groups: { cell: number; text: string }[]; onDone: () => void }) {
+  const box = useRef<HTMLDivElement>(null);
+  const [landed, setLanded] = useState(false);
+  useEffect(() => {
+    const el = box.current;
+    const spans = el ? [...el.querySelectorAll<HTMLElement>('.zv-w')] : [];
+    const still = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!el || !board || still || typeof el.animate !== 'function') {
+      setLanded(true);
+      const id = setTimeout(onDone, 300);
+      return () => clearTimeout(id);
+    }
+    // the board in the middle of the screen (on a phone its bottom may be under the tab bar); all is measured in the
+    // overlay's own coordinates, so the scrolling doesn't move the flight
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const wrap = el.getBoundingClientRect();
+    const b = board.getBoundingClientRect();
+    // the board's content box (border 1 + padding 6) in the overlay's coordinates; a cell's centre
+    const inset = 7;
+    const side = (b.width - 2 * inset) / n;
+    const cellAt = (c: number) => ({ x: b.left - wrap.left + inset + ((c % n) + 0.5) * side, y: b.top - wrap.top + inset + (Math.floor(c / n) + 0.5) * side });
+    const C = { x: b.left - wrap.left + b.width / 2, y: b.top - wrap.top + b.height / 2 };
+    const STEPS = 24;
+    const DUR = 2200;
+    const GAP = Math.min(140, 1100 / spans.length);
+    const anims = spans.map((s, i) => {
+      const r = s.getBoundingClientRect();
+      const end = { x: r.left - wrap.left + r.width / 2, y: r.top - wrap.top + r.height / 2 };
+      const start = cellAt(groups[i].cell);
+      const a0 = Math.atan2(start.y - C.y, start.x - C.x);
+      let a1 = Math.atan2(end.y - C.y, end.x - C.x);
+      // one whole turn around the centre, the same way for all, then into place
+      while (a1 <= a0) a1 += 2 * Math.PI;
+      a1 += 2 * Math.PI;
+      const r0 = Math.hypot(start.x - C.x, start.y - C.y);
+      const r1 = Math.hypot(end.x - C.x, end.y - C.y);
+      const ring = Math.max(r0, (b.width / 2) * 0.62);
+      const frames: Keyframe[] = [];
+      for (let k = 0; k <= STEPS; k++) {
+        const t = k / STEPS;
+        // out to the ring, round it, and in to the place
+        const rad = t < 0.2 ? r0 + (ring - r0) * (t / 0.2) : t < 0.75 ? ring : ring + (r1 - ring) * ((t - 0.75) / 0.25);
+        const a = a0 + (a1 - a0) * t;
+        const x = C.x + rad * Math.cos(a) - end.x;
+        const y = C.y + rad * Math.sin(a) - end.y;
+        const scale = t < 0.15 ? 0.55 + t * 3 : 1;
+        frames.push({ transform: `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${scale.toFixed(2)})`, opacity: t < 0.08 ? t / 0.08 : 1, offset: t });
+      }
+      frames[frames.length - 1].transform = 'translate(0px, 0px) scale(1)';
+      return s.animate(frames, { duration: DUR, delay: i * GAP, easing: 'cubic-bezier(.45,.05,.3,1)', fill: 'backwards' });
+    });
+    const last = anims[anims.length - 1];
+    let live = true;
+    const finish = () => {
+      if (!live) return;
+      setLanded(true);
+      // the whole verse stays on the screen a moment before the page goes on to the result
+      setTimeout(onDone, 1600);
+    };
+    if (last) last.finished.then(finish, finish);
+    else finish();
+    return () => {
+      live = false;
+      anims.forEach((a) => a.cancel());
+    };
+  }, []);
+  const words = groups.reduce((a, g) => a + g.text.split(' ').length, 0);
+  return (
+    <div ref={box} className={`zip-verse-fly${landed ? ' landed' : ''}${words > 16 ? ' long' : ''}`} dir="rtl" lang="he" aria-hidden="true">
+      <p>
+        {groups.map((g, i) => (
+          <span key={i} className="zv-w he">
+            {g.text}
+          </span>
+        ))}
+      </p>
+    </div>
   );
 }
