@@ -3084,6 +3084,16 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .rd-w.rd-paseq{cursor:default;color:var(--muted)}
 .rd-w.rd-past{color:var(--muted)}
 .rd-w.rd-on{background:var(--gold-soft);color:var(--ink);box-shadow:0 0 0 2px var(--gold-line)}
+/* транслит (tehillimTranslit.ts): «Аа» — только транслит, «Аа + אב» — слово транслитом, под ним мелко иврит */
+.rd-text.rd-tr{font-family:var(--f-body);font-size:19px;line-height:1.8;text-align:left}
+.rd-big .rd-text.rd-tr{font-size:26px}
+.rd-tr .rd-ch .he{font-family:"Noto Serif Hebrew",var(--f-he)}
+.rd-tr .rd-paseq{display:none}
+.rd-tr-duo .rd-w{display:inline-flex;flex-direction:column;align-items:center;vertical-align:top;line-height:1.25;padding:2px 3px;margin-bottom:6px}
+.rd-tr-w{font-weight:600}
+.rd-tr-h{font-family:"Noto Serif Hebrew",var(--f-he);font-size:.8em;color:var(--muted)}
+.rd-w.rd-on .rd-tr-h{color:var(--ink-2)}
+.rd-trmode .he{font-family:var(--f-he);font-size:16px;line-height:1}
 .shn{text-align:right}
 .shn-v{margin:0 0 .55em}
 .shn-l{margin:0}
@@ -3107,6 +3117,8 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
   .rd-person-row{grid-template-columns:76px minmax(0,1fr) 36px;gap:6px;padding:8px}
   .rd-person-remove{width:36px;height:40px}
   .rd-text{font-size:21px;padding:12px 6px;margin-inline:-16px;border-inline:0;border-radius:0;text-align:justify;text-justify:inter-word}
+  .rd-text.rd-tr{font-size:18px;padding-inline:12px;text-align:left}
+  .rd-big .rd-text.rd-tr{font-size:23px}
   .rd-big .rd-text{font-size:27px}
   .rd-audio-float{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
   .rd-audio-float button{padding:7px 14px;font-size:15px}
