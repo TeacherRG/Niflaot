@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { ChapterDone } from './ChapterDone';
 import { Html, useI18n } from '../i18n';
 import { withTerms } from '../i18n/glossary';
 import type { Lesson, LessonText, RebbeCardsData } from '../lessons/types';
@@ -62,6 +63,7 @@ function TalkChapter({ lesson, text, ri }: { lesson: Lesson; text: LessonText; r
         </div>
         <p>{rt.reflection}</p>
       </div>
+      <ChapterDone lesson={lesson} ri={ri} />
     </section>
   );
 }
@@ -72,7 +74,7 @@ function TalkChapter({ lesson, text, ri }: { lesson: Lesson; text: LessonText; r
  * explanation, in a row; `#/<slug>/read/poem` — «Запомнить в стихах»: the same pairs as short rhymed poems. A switch at the top.
  * A lesson without cards yet has only «Беседа» (no switch).
  */
-export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards?: RebbeCardsData; mode: CardsReadMode }) {
+export function CardsReadPage({ lesson, cards, mode, at }: { lesson: Lesson; cards?: RebbeCardsData; mode: CardsReadMode; at?: number }) {
   const { t, pick, locale } = useI18n();
   const { value: text, locale: textLocale } = pick(lesson.texts);
   const adults = useMode() === 'adults';
@@ -81,6 +83,13 @@ export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards?:
   useEffect(() => {
     document.title = `${t(mode === 'poem' ? 'cards.modePoem' : mode === 'talk' ? 'cards.modeTalk' : 'cards.tabRead')} · ${text.title} · ${t('app.title')}`;
   }, [mode, text.title, t]);
+
+  // `#/<slug>/read/N` — a chapter of the talk (from «Тора на каждый день»): the page opens there
+  useEffect(() => {
+    if (!at || mode !== 'talk') return;
+    const id = requestAnimationFrame(() => document.getElementById(`riddle-${at}`)?.scrollIntoView({ block: 'start' }));
+    return () => cancelAnimationFrame(id);
+  }, [at, mode]);
 
   return (
     <>

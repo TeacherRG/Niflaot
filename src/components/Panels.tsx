@@ -2,6 +2,8 @@ import { Suspense, lazy, useEffect, useRef, useState, useSyncExternalStore } fro
 import { Html, useI18n } from '../i18n';
 import { LESSON_GROUPS, findLesson, weekParsha, type Lesson } from '../lessons';
 import { teacherOf } from '../lessons/teachers';
+import { torahToday } from '../core/torahDaily';
+import { torahLine } from './ChapterDone';
 import { useMode } from '../core/mode';
 import { useCourses } from '../core/courses';
 import { VALUES } from '../core/gematria';
@@ -232,6 +234,8 @@ export function Panels() {
     </>
   );
   const w = today?.words;
+  // computed when the menu opens: the marks may have changed since
+  const tt = panel === 'menu' ? torahToday() : undefined;
 
   return (
     <>
@@ -241,6 +245,8 @@ export function Panels() {
             <Icon name="home" />
             <span>{t('menu.home')}</span>
           </a>
+          {/* «Тора на каждый день»: the week's lessons, chapter by chapter, Sunday to Friday (src/core/torahDaily.ts) */}
+          {tt && link('#/torah', <Icon name="calendar" />, t('td.title'), torahLine(tt, t) || t('td.menuSub'), tt.chapters.length > 0 && tt.done >= tt.chapters.length)}
           {group(<Icon name="spark" />, t('menu.chassidut'), t('menu.chassidutSub'), inRebbe || starts('#/hemshech'), (
             <>
               {rebbeGroups.length > 0 && (

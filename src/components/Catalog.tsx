@@ -18,6 +18,8 @@ import { CoursesCard } from './CoursesCard';
 import { ZIP_KEY, zipTile } from '../core/zipReminder';
 import { todayIso } from '../core/habit';
 import { Dedication } from './Dedication';
+import { partDone, partHref, torahToday } from '../core/torahDaily';
+import { torahLine } from './ChapterDone';
 import { ShabbatCalendar } from './ShabbatCalendar';
 import { NUMS, collectFacts, type Fact } from '../core/facts';
 import { displayNames } from '../core/names';
@@ -94,6 +96,9 @@ function AdultsHome() {
   const week = LESSON_GROUPS[LESSON_GROUPS.length - 1];
   const reads = [...week.lessons, ...week.rebbe];
   const art = reads.map((l) => lessonArt(l, 'hero')).find(Boolean);
+  // «Тора на каждый день»: the tile opens today's first chapter not read yet (all read — the week's plan)
+  const tt = torahToday();
+  const nextCh = tt?.chapters.find((p) => !partDone(p));
 
   return (
     <>
@@ -102,10 +107,15 @@ function AdultsHome() {
         <h1 className="sr-only">{t('home.adultsH1')}</h1>
         <div className="a-tiles">
           {reads.length > 0 && (
-            <a className={`a-tile a-parsha${art ? ' a-art' : ''}`} href={`#/${reads[0].slug}/read`} style={art ? { backgroundImage: `url(${art})` } : undefined}>
+            <a
+              className={`a-tile a-parsha${art ? ' a-art' : ''}`}
+              href={nextCh ? partHref(nextCh, true) : tt ? '#/torah' : `#/${reads[0].slug}/read`}
+              style={art ? { backgroundImage: `url(${art})` } : undefined}
+            >
               <span className="a-tile-k">{t('home.todayParsha')}</span>
               <span className="a-tile-t">{week.name[locale as keyof typeof week.name] ?? week.name.ru}</span>
               <span className="a-tile-he he">{week.he}</span>
+              {tt && tt.chapters.length > 0 && <span className="a-tile-sub">{torahLine(tt, t)}</span>}
             </a>
           )}
           <a className="a-tile a-reading" href="#/reading">
@@ -455,6 +465,7 @@ function KidsHome() {
   const others = lessons.filter((l) => l !== next);
   const past = LESSON_GROUPS.filter((g) => g !== week).reverse();
   const weekName = week.name[locale as keyof typeof week.name] ?? week.name.ru;
+  const tt = torahToday();
 
   return (
     <>
@@ -491,6 +502,12 @@ function KidsHome() {
               </a>
               <span className="k-go-n">{t('home.riddle', { n: Math.min(nextDone + 1, next.riddles.length), total: next.riddles.length })}</span>
             </span>
+            {/* «Тора на каждый день»: today's chapters of the week's lessons (src/core/torahDaily.ts) */}
+            {tt && tt.chapters.length > 0 && (
+              <a className="k-go-today" href="#/torah">
+                📅 {t('td.today')}: {torahLine(tt, t)} →
+              </a>
+            )}
           </section>
 
           <div className="k-side">

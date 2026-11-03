@@ -33,7 +33,8 @@
  *    docs/TRANSLATION-GUIDE.md): G-d / G-tt, Shabbat / Schabbat, Moshiach / Moschiach, Avraham / Awraham…
  */
 import { MAX_PART, narration } from '../src/core/narration';
-import { LESSONS, cardsOnly } from '../src/lessons';
+import { LESSONS, LESSON_GROUPS, cardsOnly } from '../src/lessons';
+import { STUDY_DAYS, dayDate, studyDay, weekPlan } from '../src/core/torahDaily';
 import { dropouts, MAX_DROPOUTS } from '../src/core/speech';
 import { PUBLISHED, entries, staleOverrides } from '../src/content';
 import { sanitizeHtml } from '../src/core/sanitize';
@@ -493,6 +494,24 @@ for (const l of LESSONS)
   gap.fill(0, 9 * rate, 9.8 * rate);
   if (dropouts(gap, rate) !== 0) err('dropouts(): a long pause is taken for a hole');
   if (MAX_DROPOUTS < 2) err('MAX_DROPOUTS: a clean recording has up to 2 holes');
+}
+
+// «Тора на каждый день» (src/core/torahDaily.ts): Sunday to Friday, every chapter of every lesson of the portion exactly once,
+// in its order, every day with something to learn, Friday — «К шабатнему столу»
+for (const g of LESSON_GROUPS) {
+  const plan = weekPlan(g);
+  if (plan.length !== STUDY_DAYS) err(`torah daily · ${g.id}: ${plan.length} days, ${STUDY_DAYS} expected`);
+  plan.forEach((d, k) => {
+    if (!d.some((p) => p.kind !== 'table')) err(`torah daily · ${g.id}: day ${k} has nothing to learn`);
+  });
+  if (!plan[STUDY_DAYS - 1].some((p) => p.kind === 'table')) err(`torah daily · ${g.id}: no «К шабатнему столу» on Friday`);
+  for (const l of [...g.lessons, ...g.rebbe]) {
+    if (cardsOnly(l)) continue;
+    const order = plan.flatMap((d) => d.flatMap((p) => (p.kind === 'chapter' && p.lesson === l ? [p.ri] : [])));
+    if (order.join() !== l.riddles.map((_, i) => i).join()) err(`torah daily · ${l.slug}: chapters ${order.join()} in the plan`);
+  }
+  if (studyDay(g, dayDate(g, 0)) !== 0 || studyDay(g, dayDate(g, 5)) !== 5 || studyDay(g, g.shabbat) !== 6 || new Date(`${dayDate(g, 0)}T12:00:00Z`).getUTCDay() !== 0)
+    err(`torah daily · ${g.id}: the week does not start on Sunday`);
 }
 
 if (errors.length) {

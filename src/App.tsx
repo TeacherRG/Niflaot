@@ -58,6 +58,7 @@ const ReadingPage = page(() => import('./components/ReadingPage'), 'ReadingPage'
 const ShnayimPage = page(() => import('./components/ShnayimPage'), 'ShnayimPage');
 const TanakhQuizPage = page(() => import('./components/TanakhQuizPage'), 'TanakhQuizPage');
 const HemshechPage = page(() => import('./components/HemshechPage'), 'HemshechPage');
+const TorahDayPage = page(() => import('./components/TorahDayPage'), 'TorahDayPage');
 const AcademyPage = page(() => import('./components/AcademyPage'), 'AcademyPage');
 const QuizPage = page(() => import('./components/QuizPage'), 'QuizPage');
 const NigunPage = page(() => import('./components/NigunPage'), 'NigunPage');
@@ -208,6 +209,8 @@ function Site() {
             <MathPage op={(view as Op) || 'add'} />
           ) : slug === 'hemshech' ? (
             <HemshechPage key={route} passage={view || undefined} />
+          ) : slug === 'torah' && (!view || view in PARSHIOT) && !variant ? (
+            <TorahDayPage key={route} parsha={view || undefined} />
           ) : slug === 'words' ? (
             <WordsPage />
           ) : slug === 'bookmarks' && !view ? (
@@ -272,6 +275,7 @@ function Site() {
               lesson={lesson}
               cards={lesson.cards}
               mode={!lesson.cards ? ('talk' as const) : variant === 'poem' ? ('poem' as const) : variant === 'cards' || !lesson.riddles.length ? ('read' as const) : ('talk' as const)}
+              at={Number(variant) || undefined}
             />
           ) : view === 'read' && lesson.kind !== 'sicha' ? (
             <ReadPage key={lesson.slug} lesson={lesson} at={Number(variant) || undefined} />

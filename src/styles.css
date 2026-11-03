@@ -3221,3 +3221,43 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 @keyframes rem-draw{to{stroke-dashoffset:0}}
 @keyframes rem-shake{20%,60%{transform:translateX(-3px)}40%,80%{transform:translateX(3px)}}
 @media (prefers-reduced-motion:reduce){.reminder-switch path{animation:none;stroke-dashoffset:0}.reminder-switch.no{animation:none}}
+
+/* «Тора на каждый день» (#/torah, TorahDayPage.tsx): the week's lessons, chapter by chapter, Sunday to Friday */
+.td{max-width:760px;margin:0 auto;padding:8px 0 32px}
+.td-head{text-align:center;margin:8px 0 18px}
+.td-head .heb{font-size:30px;line-height:1.2}
+.td-head h1{margin:4px 0 6px}
+.td-week{margin:0;font-weight:700;color:var(--tchelet-deep)}
+.td-lead{margin:10px auto 0;max-width:600px;color:var(--muted);font-size:15px}
+.td-stat{margin:10px 0 0;font-weight:700}
+.td-note{margin:8px auto 0;max-width:600px;padding:8px 12px;border-radius:10px;background:var(--gold-soft);font-size:15px}
+.td-days{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.td-day{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:12px 14px}
+.td-day.today{border:2px solid var(--tchelet);box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.td-day.past{opacity:.85}
+.td-day h2{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin:0 0 8px;font-size:18px}
+.td-dname{text-transform:capitalize}
+.td-date{font-size:14px;font-weight:400;color:var(--muted)}
+.td-today{margin-left:auto;padding:2px 10px;border-radius:999px;background:var(--tchelet-deep);color:#fff;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.td-day ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.td-part{display:flex;align-items:center;gap:10px}
+.td-mark{flex:none;display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;border:2px solid var(--line);font-weight:700;font-size:14px;color:var(--muted)}
+.td-part.on .td-mark{border-color:var(--ok-deep);background:var(--ok-deep);color:#fff}
+.td-body{flex:1;min-width:0;display:flex;flex-direction:column}
+.td-who{font-size:12px;font-weight:700;letter-spacing:.03em;color:var(--muted);text-transform:uppercase}
+.td-t{font-weight:700;font-size:16px;line-height:1.3}
+.td-sub{font-size:13px;color:var(--muted)}
+.td-read{flex:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:14px;text-decoration:none}
+.td-extra a{font-size:15px}
+.td-extra .td-mark{border-style:dashed}
+.td-others{display:flex;flex-wrap:wrap;gap:6px 12px;margin:20px 0 0;font-size:14px;color:var(--muted)}
+.td-done p a{white-space:nowrap}
+.a-tile-sub{font-size:14px;font-weight:600;opacity:.95;overflow-wrap:anywhere}
+.k-go-today{display:inline-block;margin-top:10px;font-size:14px;font-weight:600;color:#fff;text-decoration:underline;text-underline-offset:3px}
+@media (max-width:640px){
+  .a-tile-sub{font-size:11.5px}
+  .k-go-today{margin-top:6px;font-size:12.5px}
+  .td-part{gap:8px}
+  .td-t{font-size:15px}
+}
+@media print{.td-read,.td-others{display:none}}

@@ -13,6 +13,7 @@ import { HebrewRuns } from './Hebrew';
 import { Sources } from './Sources';
 import { sectionQuotes } from '../core/quotes';
 import { Quote } from './Quote';
+import { ChapterDone } from './ChapterDone';
 import { markCalcs } from '../core/calcLines';
 import { firstLetters } from '../core/gematriaMethods';
 import { useLetterHelp } from './letterHelp';
@@ -233,6 +234,7 @@ function ReadRiddle({ lesson, text, ri, here }: { lesson: Lesson; text: LessonTe
         </div>
         <p>{rt.reflection}</p>
       </div>
+      <ChapterDone lesson={lesson} ri={ri} />
     </section>
   );
 }
