@@ -271,7 +271,7 @@ for (const lesson of LESSONS) {
   if (!c) continue;
   const where = (k: number) => `${lesson.slug} · cards ${k + 1}`;
   if (c.items.length !== 12) err(`${lesson.slug} · cards: ${c.items.length} pairs, 12 expected`);
-  const plain = (x: string) => x.replace(/[\u0591-\u05C7]/g, '').replace(/[^א-ת׳ ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  const plain = (x: string) => x.replace(/\u05BE/g, ' ').replace(/[\u0591-\u05C7]/g, '').replace(/[^א-ת׳ ]+/g, ' ').replace(/\s+/g, ' ').trim();
   c.items.forEach((it, k) => {
     const src = SOURCES[it.source];
     if (!src) err(`${where(k)}: source ${it.source} is not in sefaria.json`);

@@ -158,6 +158,9 @@ export function abcUnits(locale: Locale): Unit[] {
 
 // ——— the words ———
 
+/** the verse has the word — letters only: the verse of the Torah is with vowel points, a word of the deck may be without; maqaf parts are words */
+export const bareHe = (s: string) => s.replace(/[\u0591-\u05BD\u05BF-\u05C7]/g, '').replace(/\u05BE/g, ' ');
+export const verseHas = (v: Verse, he: string) => ` ${bareHe(v.words.join(' '))} `.includes(` ${bareHe(he)} `);
 /**
  * children: a unit — the Torah words of one portion's lessons; a lesson — up to 6 new words. `verses` — the portion's short
  * verses (`torahVerses`): each goes to a word of the unit that stands in it (the longest first), for «Составьте стих».
@@ -166,7 +169,7 @@ export function torahUnits(words: TorahWord[], verses: Map<string, Verse[]> = ne
   const items = words.map((w): Item & { parsha: string } => ({ key: w.key, he: w.he, tr: w.tr, translit: w.translit, img: w.img, parsha: w.parsha }));
   return [...new Set(items.map((w) => w.parsha))].map((p, i) => {
     const ws = items.filter((w) => w.parsha === p);
-    const inVerse = (it: Item, v: Verse) => ` ${v.words.join(' ')} `.includes(` ${it.he} `);
+    const inVerse = (it: Item, v: Verse) => verseHas(v, it.he);
     for (const v of verses.get(p) ?? []) {
       const it = [...ws].sort((a, b) => b.he.length - a.he.length).find((x) => !x.verse && inVerse(x, v));
       if (it) it.verse = v;

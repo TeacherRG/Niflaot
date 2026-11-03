@@ -10,7 +10,7 @@
  */
 import { LESSONS } from '../src/lessons';
 import { torahWords } from '../src/core/torahWords';
-import { abcUnits, alike, clusters, core, isRight, nearlyRight, finishLesson, isDone, isOpen, makeExam, makeLesson, newItems, nextPart, passExam, readCourse, EXAM_ITEMS, dueItems, weakItems, weakUnit, dayNo, SPACING, WARM, type CourseStore, torahVerses, verseOf, VERSE_MAX, VERSE_MAX_KIDS, VERSE_MIN, type Item, type Known, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
+import { abcUnits, alike, clusters, core, isRight, nearlyRight, finishLesson, isDone, isOpen, makeExam, makeLesson, newItems, nextPart, passExam, readCourse, EXAM_ITEMS, dueItems, weakItems, weakUnit, dayNo, SPACING, WARM, type CourseStore, torahVerses, verseHas, verseOf, VERSE_MAX, VERSE_MAX_KIDS, VERSE_MIN, type Item, type Known, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
 import { exampleOf, type Dict, type Word } from '../src/core/words';
 import { readFileSync } from 'node:fs';
 import { mergeSnapshots } from '../src/core/sync';
@@ -137,7 +137,7 @@ for (const locale of ['ru', 'en', 'de'] as const) {
     const v = it.verse!;
     if (v.words.length < VERSE_MIN || v.words.length > VERSE_MAX_KIDS || !v.tr.trim() || /</.test(v.tr) || !/\d[:,]\d/.test(v.ref))
       err(`слова Торы ${locale}: стих ${v.ref} к ${it.he} — не тот`);
-    if (!` ${v.words.join(' ')} `.includes(` ${it.he} `)) err(`слова Торы ${locale}: в стихе ${v.ref} нет слова ${it.he}`);
+    if (!verseHas(v, it.he)) err(`слова Торы ${locale}: в стихе ${v.ref} нет слова ${it.he}`);
   }
   // every lesson of a portion with verses — the new words', a review, the exam — has one «Составьте стих»
   const hasVerse = (l: Exercise[]) => l.some((x) => x.t === 'build' && x.verse);

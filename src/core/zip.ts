@@ -74,7 +74,7 @@ export function zipPool(): ZipVerse[] {
         const ref = `Genesis ${m[1]}:${m[2]}`;
         const t = text.get(ref);
         if (!t) continue;
-        const words = SOURCES[t[0]].he[t[1]].replace(/<[^>]+>/g, '').split(/\s+/).filter(Boolean);
+        const words = SOURCES[t[0]].he[t[1]].replace(/<[^>]+>/g, '').replace(/[׃׀]/g, ' ').split(/\s+/).filter(Boolean);
         if (words.length < 4) continue;
         const have = out.get(ref);
         if (have) {

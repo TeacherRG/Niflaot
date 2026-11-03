@@ -28,7 +28,7 @@ from pathlib import Path
 BASE = 'https://storage.googleapis.com/sefaria-export/json/'
 OUT = Path(__file__).resolve().parent.parent / 'src' / 'sources' / 'sefaria.json'
 
-TANAKH_HE = 'Hebrew/Tanach with Text Only.json'
+TANAKH_HE = 'Hebrew/Tanach with Nikkud.json'  # стихи Танаха в уроках — с огласовками
 TANAKH_EN = 'English/The Holy Scriptures A New Translation JPS 1917.json'
 TORAH_RU = 'English/Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru].json'
 # German: Sefaria's public-domain versions where they exist; the rest are the project's own (src/sources/de.ts)
