@@ -3042,7 +3042,6 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .rd-now{margin:4px 0 0;font-weight:600;color:var(--ink)}
 .rd-mode{display:inline-flex;flex-wrap:wrap;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
 .rd-mode button{border:0;background:none;color:var(--ink-2);font:inherit;font-size:14px;font-weight:600;padding:6px 12px;border-radius:999px;cursor:pointer}
-.rd-mode-short{display:none}
 .rd-mode button.on{background:var(--tchelet-deep);color:#fff}
 .rd-mode button:focus-visible{outline:3px solid var(--gold-2);outline-offset:1px}
 .rd-nav{display:flex;align-items:center;gap:8px;margin:14px 0 8px}
@@ -3126,8 +3125,6 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
   .rd-lbl,.rd-menu-lbl{display:none}
   .rd-mode{width:100%}
   .rd-mode button{flex:1;padding:7px 8px}
-  .rd-mode-full{display:none}
-  .rd-mode-short{display:inline}
 }
 @media print{.rd-nav,.rd-opts{display:none}.rd-text{border:0;padding:0}}
 .a-home>.dedication{flex:none;margin-top:0}
@@ -3282,3 +3279,13 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 @keyframes rem-draw{to{stroke-dashoffset:0}}
 @keyframes rem-shake{20%,60%{transform:translateX(-3px)}40%,80%{transform:translateX(3px)}}
 @media (prefers-reduced-motion:reduce){.reminder-switch path{animation:none;stroke-dashoffset:0}.reminder-switch.no{animation:none}}
+/* «Святое чтение»: шапка (сила Теґилим · зризут · вывод) и одно меню настроек */
+.rd-lead{margin:0 0 8px}
+.rd-lead b{color:var(--tchelet)}
+.rd-set{margin:6px 0 14px}
+.rd-set-list{min-width:min(340px,calc(100vw - 32px))}
+.rd-set-list .name{display:flex;flex-direction:column;align-items:flex-start;text-align:start}
+.rd-set-d{display:block;margin-top:1px;font-size:12px;font-weight:400;color:var(--muted)}
+.rd-set-list .code{min-width:2.6em;font-family:var(--f-he),var(--f-num)}
+.rd-set .tk-view-btn{max-width:100%}
+.rd-set .tk-view-btn>span:nth-child(2){min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}

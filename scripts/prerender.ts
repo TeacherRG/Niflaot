@@ -763,7 +763,7 @@ ${levels.join('\n')}
  * questions people ask (FAQPage). The app opens the reading of the day (`#/reading`).
  */
 // all 150 chapters in public/reading/Audio (ffprobe, 02.11.2026: 357.2 min; 119 in two files) — the «102 minutes» at 3.5×;
-// new recordings → measure again and fix the texts `reading.seo*`, `reading.lead`
+// new recordings → measure again and fix the texts `reading.seo*`, `reading.so`
 const TEHILLIM_AUDIO_SEC = 21431;
 const TEHILLIM_RATES = [1, 1.5, 2, 2.5, 3, 3.5];
 const tehillimIndex = JSON.parse(readFileSync('public/reading/tehillim/index.json', 'utf8')) as {

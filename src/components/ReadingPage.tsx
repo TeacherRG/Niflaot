@@ -4,7 +4,7 @@ import { useI18n } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { NotFound, PageLoading } from './PageStates';
-import { Sheet } from './ui';
+import { Icon, Sheet, useDismiss } from './ui';
 import { hebrewNumber } from '../core/hebrewDate';
 import { markStudied, todayIso, useHabit } from '../core/habit';
 import { useHebrewLevel } from '../core/hebrewLevel';
@@ -358,7 +358,15 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
             <span className="he">{haazinu ? 'הַאֲזִינוּ' : single ? `תְּהִלִּים ${hebrewNumber(c)}` : 'תְּהִלִּים'}</span>
           </h1>
           {mine && <p className="rd-now">{t('reading.mineHeader', { n: myPsalms.length })}</p>}
-          <p className="ac-lead">{t(haazinu ? 'reading.haazinuLead' : 'reading.lead')}</p>
+          {haazinu ? (
+            <p className="ac-lead">{t('reading.haazinuLead')}</p>
+          ) : (
+            (['why', 'zriz', 'so'] as const).map((k) => (
+              <p key={k} className="ac-lead rd-lead">
+                <b>{t(`reading.${k}H`)}</b> {t(`reading.${k}`)}
+              </p>
+            ))
+          )}
           {haazinu && <p className="ac-lead">{t('reading.haazinuAbout')}</p>}
           {level === 'none' && (
             <p className="rd-note">
@@ -507,50 +515,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           )}
         </Sheet>
 
-        <div className="rd-opts no-print">
-          {tracks.length > 0 && (
-            <div className="rd-mode" role="radiogroup" aria-label={t('reading.mode')}>
-              {PLAY_MODES.map((m) => (
-                <button
-                  key={m}
-                  type="button"
-                  role="radio"
-                  aria-checked={view.play === m}
-                  className={view.play === m ? 'on' : undefined}
-                  onClick={() => setV({ ...view, play: m })}
-                  title={t(`reading.mode.${m}`)}
-                >
-                  <span className="rd-mode-full">{t(`reading.mode.${m}`)}</span>
-                  <span className="rd-mode-short" aria-hidden="true">{t(`reading.mode.${m}.s`)}</span>
-                </button>
-              ))}
-            </div>
-          )}
-          <div className="rd-mode rd-trmode" role="radiogroup" aria-label={t('reading.tr')}>
-            {TR_MODES.map((m) => (
-              <button
-                key={m}
-                type="button"
-                role="radio"
-                aria-checked={view.tr === m}
-                className={view.tr === m ? 'on' : undefined}
-                onClick={() => setV({ ...view, tr: m })}
-                title={t(`reading.tr.${m}`)}
-              >
-                {m !== 'he' && <span className="rd-tr-ab">{t('reading.tr.ab')}</span>}
-                {m === 'duo' && <span aria-hidden="true"> + </span>}
-                {m !== 'tr' && <span className="he rd-tr-he">אב</span>}
-                <span className="sr-only"> {t(`reading.tr.${m}`)}</span>
-              </button>
-            ))}
-          </div>
-          <label>
-            <input type="checkbox" checked={view.taamim} onChange={(e) => setV({ ...view, taamim: e.target.checked })} /> {t('reading.taamim')}
-          </label>
-          <label>
-            <input type="checkbox" checked={view.big} onChange={(e) => setV({ ...view, big: e.target.checked })} /> {t('reading.big')}
-          </label>
-        </div>
+        <ReadingSettings view={view} setV={setV} audio={tracks.length > 0} />
 
         {audio && (
           <audio
@@ -749,6 +714,62 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
 const src_ = (src: string) => (/^https?:/.test(src) ? src : `${import.meta.env.BASE_URL}${src}`);
 
 /** «Разметка аудио (для учителя)»: the recording slowly from the start; a press at the start of every word. */
+/** One labelled menu instead of three unlabelled bars: reading help, how to show the text, the look. */
+function ReadingSettings({ view, setV, audio }: { view: View; setV: (v: View) => void; audio: boolean }) {
+  const { t } = useI18n();
+  const [open, setOpen] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
+  const close = useCallback(() => setOpen(false), []);
+  useDismiss(open, root, close);
+  const item = (on: boolean, code: string, name: string, desc: string, onClick: () => void, role = 'menuitemradio') => (
+    <button key={name} type="button" role={role} aria-checked={on} onClick={onClick}>
+      <span className="code">{code}</span>
+      <span className="name">
+        {name}
+        <small className="rd-set-d">{desc}</small>
+      </span>
+      {on && <Icon name="check" size={16} />}
+    </button>
+  );
+  return (
+    <div className="tk-view rd-set no-print no-speak" ref={root}>
+      <button type="button" className="lang-btn tk-view-btn" aria-haspopup="true" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+        <span aria-hidden="true">⚙</span>
+        <span>
+          {t('reading.view')}
+          <small>
+            {' · '}
+            {audio && <>{t(`reading.mode.${view.play}`)} · </>}
+            {t(`reading.tr.${view.tr}`)}
+          </small>
+        </span>
+        <Icon name="chevron" size={14} />
+      </button>
+      {open && (
+        <div className="lang-list tk-view-list rd-set-list" role="menu" aria-label={t('reading.view')}>
+          {audio && (
+            <>
+              <div className="tk-view-head">{t('reading.help')}</div>
+              {PLAY_MODES.map((m) =>
+                item(view.play === m, m === 'both' ? '♪✦' : m === 'voice' ? '♪' : '✦', t(`reading.mode.${m}`), t(`reading.mode.${m}.d`), () => setV({ ...view, play: m })),
+              )}
+              <div className="tk-view-sep" />
+            </>
+          )}
+          <div className="tk-view-head">{t('reading.tr')}</div>
+          {TR_MODES.map((m) =>
+            item(view.tr === m, m === 'he' ? 'אב' : m === 'duo' ? `${t('reading.tr.ab')}+אב` : t('reading.tr.ab'), t(`reading.tr.${m}`), t(`reading.tr.${m}.d`), () => setV({ ...view, tr: m })),
+          )}
+          <div className="tk-view-sep" />
+          <div className="tk-view-head">{t('reading.look')}</div>
+          {item(view.taamim, '♫', t('reading.v.taamim'), t('reading.v.taamim.d'), () => setV({ ...view, taamim: !view.taamim }), 'menuitemcheckbox')}
+          {item(view.big, 'A+', t('reading.v.big'), t('reading.v.big.d'), () => setV({ ...view, big: !view.big }), 'menuitemcheckbox')}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Marking({ c, label, toks, src, setActive }: { c: ReadingId; label: string; toks: Tok[]; src: string; setActive: (i: number) => void }) {
   const { t } = useI18n();
   const ref = useRef<HTMLAudioElement>(null);
