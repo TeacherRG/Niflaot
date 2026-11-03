@@ -9,6 +9,7 @@ import { OPS, SIGN } from '../core/mentalMath';
 import { Icon, Sheet, useUI } from './ui';
 import { lessonGames } from './lessonGames';
 import { DailyReminder } from './DailyReminder';
+import { AboutBody } from './AboutBody';
 import { canInstall, install, subscribeInstall } from '../core/install';
 import { useToday } from '../core/useToday';
 import { isAdmin } from '../admin/github';
@@ -429,7 +430,7 @@ export function Panels() {
 
       <Sheet open={panel === 'about'} onClose={close} title={t('about.title')} closeLabel={t('menu.close')}>
         <div className="about-mark he">נפלאות</div>
-        <Html as="div" className="prose" html={t('about.body')} />
+        <AboutBody />
         <Html as="p" className="prose" html={t('about.partners')} />
         <div className="about-links">
           <a className="btn" href="https://mychitas.app/donate" target="_blank" rel="noopener">

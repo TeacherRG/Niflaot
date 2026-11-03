@@ -2966,6 +2966,16 @@ a.wd-sing{font-weight:800;text-decoration:none}
 .rt thead th:first-child{z-index:2;background:var(--tchelet-soft)}
 .rt-united{background:var(--gold-soft)}
 .rt td:last-child{background:color-mix(in srgb,var(--tchelet-soft) 45%,transparent)}
+/* «О проекте»: содержание с переходами (AboutBody) */
+.about-toc{margin:14px 0 18px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--tchelet-soft)}
+.about-toc-h{margin:0 0 8px;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--tchelet)}
+.about-toc-g{margin-top:8px}
+.about-toc-g b{display:block;font-size:14px;color:var(--ink)}
+.about-toc ul{list-style:none;margin:4px 0 0;padding:0 0 0 10px;border-left:2px solid var(--tchelet-line);display:grid;gap:2px}
+.about-toc .link-btn{text-align:left;font-size:14px;padding:3px 0;color:var(--tchelet);white-space:normal}
+.about-group-h{margin:26px 0 4px;padding-bottom:6px;border-bottom:2px solid var(--gold-line);font-family:var(--f-display);font-size:24px;color:var(--gold-deep)}
+.about-sec{scroll-margin-top:12px}
+.about-top{display:inline-block;margin-top:4px;font-size:12.5px;color:var(--muted)}
 .acc-notes .bm-list{margin:8px 0}
 @media (max-width:640px){.at-ev{grid-template-columns:64px 1fr}.at-head h1{font-size:26px}}
 .am-box{width:100%;line-height:0}
