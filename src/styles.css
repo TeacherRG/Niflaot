@@ -3295,3 +3295,11 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
   .rd-more-btn{display:inline-block}
 }
 @media print{.rd-lead-more{display:block!important}}
+/* подсказка «нажмите слово, которое слышите» — над плеером */
+.rd-tip{position:fixed;z-index:60;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;align-items:flex-start;gap:10px;width:min(440px,calc(100vw - 32px));padding:12px 12px 12px 14px;border-radius:14px;background:var(--night);color:#fff;box-shadow:0 8px 28px rgba(0,0,0,.28);animation:rd-tip-in .25s ease-out}
+.rd-tip p{margin:0;flex:1;font-size:15px;line-height:1.4}
+.rd-tip span{font-size:20px;line-height:1.2}
+.rd-tip button{border:0;background:none;color:#fff;font-size:22px;line-height:1;padding:0 4px;cursor:pointer;opacity:.8}
+html.tabbed .rd-tip{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
+@keyframes rd-tip-in{from{opacity:0;transform:translate(-50%,8px)}}
+@media (prefers-reduced-motion:reduce){.rd-tip{animation:none}}

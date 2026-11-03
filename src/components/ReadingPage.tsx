@@ -121,6 +121,13 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   const [view, setView] = useState<View>(loadView);
   const [menuOpen, setMenuOpen] = useState(false);
   const [leadOpen, setLeadOpen] = useState(false);
+  // подсказка «нажмите слово, которое слышите» — при выборе «Голос и подсветка» и один раз при первом запуске
+  const [tip, setTip] = useState(false);
+  useEffect(() => {
+    if (!tip) return;
+    const id = setTimeout(() => setTip(false), 9000);
+    return () => clearTimeout(id);
+  }, [tip]);
   const [menuSection, setMenuSection] = useState<'home' | 'all' | 'edit'>('home');
   const [saveError, setSaveError] = useState(false);
   const [active, setActive] = useState(-1);
@@ -194,11 +201,21 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
       syncOffset.current = 0;
     }
     resumeVoice();
+    if (view.play === 'both') {
+      try {
+        if (!localStorage.getItem('niflaot:reading-tip')) {
+          localStorage.setItem('niflaot:reading-tip', '1');
+          setTip(true);
+        }
+      } catch {
+        /* private mode */
+      }
+    }
     void player.play().catch(() => {
       setAudioState('paused');
       setAudioFailed(true);
     });
-  }, [tracks.length, trackIndex]);
+  }, [tracks.length, trackIndex, view.play]);
   const pauseAudio = useCallback(() => {
     pendingPlay.current = false;
     audioRef.current?.pause();
@@ -575,7 +592,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           )}
         </Sheet>
 
-        <ReadingSettings view={view} setV={setV} audio={tracks.length > 0} />
+        <ReadingSettings view={view} setV={setV} audio={tracks.length > 0} onBoth={() => setTip(true)} />
 
         {audio && (
           <audio
@@ -617,7 +634,16 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           />
         )}
         {audioFailed && <p className="rd-note" role="alert">{t('reading.audioFailed')}</p>}
-        {audio && light && audioState !== 'stopped' && <p className="rd-hint rd-tap-hint no-print">{t('reading.tapSync')}</p>}
+        {audio && light && !tip && audioState !== 'stopped' && <p className="rd-hint rd-tap-hint no-print">{t('reading.tapSync')}</p>}
+        {tip && tracks.length > 0 && view.play === 'both' && (
+          <div className="rd-tip no-print" role="status">
+            <span aria-hidden="true">👆</span>
+            <p>{t('reading.tapSync')}</p>
+            <button type="button" aria-label={t('reading.tipClose')} onClick={() => setTip(false)}>
+              ×
+            </button>
+          </div>
+        )}
 
         {audio && (
           <div className="rd-audio-float no-print" role="group" aria-label={t('reading.audioControls')}>
@@ -777,7 +803,7 @@ const src_ = (src: string) => (/^https?:/.test(src) ? src : `${import.meta.env.B
 
 /** «Разметка аудио (для учителя)»: the recording slowly from the start; a press at the start of every word. */
 /** One labelled menu instead of three unlabelled bars: reading help, how to show the text, the look. */
-function ReadingSettings({ view, setV, audio }: { view: View; setV: (v: View) => void; audio: boolean }) {
+function ReadingSettings({ view, setV, audio, onBoth }: { view: View; setV: (v: View) => void; audio: boolean; onBoth: () => void }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
@@ -813,7 +839,13 @@ function ReadingSettings({ view, setV, audio }: { view: View; setV: (v: View) =>
             <>
               <div className="tk-view-head">{t('reading.help')}</div>
               {PLAY_MODES.map((m) =>
-                item(view.play === m, m === 'both' ? '♪✦' : m === 'voice' ? '♪' : '✦', t(`reading.mode.${m}`), t(`reading.mode.${m}.d`), () => setV({ ...view, play: m })),
+                item(view.play === m, m === 'both' ? '♪✦' : m === 'voice' ? '♪' : '✦', t(`reading.mode.${m}`), t(`reading.mode.${m}.d`), () => {
+                  setV({ ...view, play: m });
+                  if (m === 'both') {
+                    onBoth();
+                    close();
+                  }
+                }),
               )}
               <div className="tk-view-sep" />
             </>
