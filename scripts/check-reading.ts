@@ -4,6 +4,7 @@
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { ALIYOT, SHNAYIM, aliyahOfDay, shnayimParsha, type ShnayimText } from '../src/core/shnayim';
+import { translitToken, translitTokens } from '../src/core/tehillimTranslit';
 import { CHAPTERS, chapterAudioTracks, weekdayOf, weekdayPortion, dailyPortion, hebrewDayForDate, shortHebrewMonth, stripTaamim, tokens } from '../src/core/reading';
 
 const dir = new URL('../public/reading/tehillim/', import.meta.url);
@@ -113,6 +114,35 @@ for (const p of SHNAYIM) {
     }
   });
 }
+// транслит (tehillimTranslit.ts): у каждого слова Теґилим и «Аазину» на ru / en / de — непустой, без букв иврита,
+// Имена — только заменными формами; образцовые стихи — слово в слово
+const LANGS = ['ru', 'en', 'de'] as const;
+const FULL_NAME = /(^|[^a-zа-яё])(adonai|elohim|yahweh|jahwe|адонай|элохим|ягве)([^a-zа-яё]|$)/i;
+let trWords = 0;
+const allVerses = [...Array.from({ length: CHAPTERS }, (_, k) => JSON.parse(readFileSync(new URL(`${k + 1}.json`, dir), 'utf8')).v as string[]).flat(), ...haazinu.v];
+for (const verse of allVerses) {
+  for (const x of tokens(verse)) {
+    if (!x.w) continue;
+    for (const lang of LANGS) {
+      trWords++;
+      const r = translitToken(x.s, lang);
+      if (!r) errors.push(`транслит (${lang}): пусто у «${x.s}»`);
+      else if (/[֐-׿]/.test(r)) errors.push(`транслит (${lang}): иврит в «${r}» (${x.s})`);
+      else if (FULL_NAME.test(r)) errors.push(`транслит (${lang}): Имя полностью в «${r}» (${x.s})`);
+    }
+  }
+}
+const SAMPLE: Record<string, [number, Record<(typeof LANGS)[number], string>]> = {
+  'Теґилим 23:1': [23, { ru: 'Мизмойр ледовид Адо-ной ройи лой эхсор', en: 'Mizmor ledovid Ado-noi ro\'i lo echsor', de: 'Mismor ledowid Ado-noj ro\'i lo echsor' }],
+  'Теґилим 150:1': [150, { ru: 'Ґалелу Ка ґалелу-Кейл бекодшой ґалелуґу биркиа узой', en: 'Halelu Kah halelu-Keil bekodsho haleluhu birkia uzo', de: 'Halelu Kah halelu-Kejl bekodscho haleluhu birkia uso' }],
+};
+for (const [name, [c, want]] of Object.entries(SAMPLE)) {
+  const first: string = JSON.parse(readFileSync(new URL(`${c}.json`, dir), 'utf8')).v[0];
+  for (const lang of LANGS) {
+    const got = translitTokens(tokens(first).map((x) => x.s), lang).filter(Boolean).join(' ');
+    if (got !== want[lang]) errors.push(`транслит ${name} (${lang}): «${got}», а нужно «${want[lang]}»`);
+  }
+}
 if (aliyahOfDay('2026-10-29') !== 5 || aliyahOfDay('2026-10-25') !== 1 || aliyahOfDay('2026-10-31') !== 7) errors.push('шнаим: отрывок дня — вс 1-й … Шабат 7-й');
 if (shnayimParsha('2026-10-29') !== 'vayera') errors.push('шнаим: 29.10.2026 — глава Вайера');
 
@@ -120,4 +150,4 @@ if (errors.length) {
   console.error(errors.slice(0, 20).join('\n'));
   process.exit(1);
 }
-console.log(`✓ Святое чтение: Теґилим — ${CHAPTERS} глав, ${total} слов, кери, Имена; Аазину — ${haazinu.v.length} стихов; шнаим микра — ${SHNAYIM.length} гл., ${shnVerses} стихов`);
+console.log(`✓ Святое чтение: Теґилим — ${CHAPTERS} глав, ${total} слов, кери, Имена; Аазину — ${haazinu.v.length} стихов; шнаим микра — ${SHNAYIM.length} гл., ${shnVerses} стихов; транслит — ${trWords} слов`);

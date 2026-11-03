@@ -10,6 +10,7 @@ import { markStudied, todayIso, useHabit } from '../core/habit';
 import { useHebrewLevel } from '../core/hebrewLevel';
 import { resumeVoice, setVoicePitch } from '../core/voicePitch';
 import { isAdmin } from '../admin/github';
+import { TR_MODES, translitToken } from '../core/tehillimTranslit';
 import {
   CHAPTERS,
   PLAY_MODES,
@@ -134,6 +135,19 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   const light = view.play !== 'voice';
   const verses = sections?.flatMap((section) => section.verses) ?? null;
   const toks = useMemo<Tok[]>(() => (verses ?? []).flatMap((v, i) => tokens(v).map((x) => ({ ...x, v: i }))), [verses]);
+  // транслит каждого куска — на языке сайта; первое слово стиха — с большой буквы
+  const trLang = locale === 'en' || locale === 'de' ? locale : 'ru';
+  const trs = useMemo(() => {
+    if (view.tr === 'he') return [];
+    let verse = -1;
+    return toks.map((x) => {
+      const r = translitToken(x.s, trLang);
+      if (!r || x.v === verse) return r;
+      verse = x.v;
+      return r.charAt(0).toUpperCase() + r.slice(1);
+    });
+  }, [toks, trLang, view.tr]);
+  const trOn = view.tr !== 'he';
   const trackTokenIndices = useMemo(() => {
     let firstVerse = 0;
     return (sections ?? []).map((section) => {
@@ -512,6 +526,24 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
               ))}
             </div>
           )}
+          <div className="rd-mode rd-trmode" role="radiogroup" aria-label={t('reading.tr')}>
+            {TR_MODES.map((m) => (
+              <button
+                key={m}
+                type="button"
+                role="radio"
+                aria-checked={view.tr === m}
+                className={view.tr === m ? 'on' : undefined}
+                onClick={() => setV({ ...view, tr: m })}
+                title={t(`reading.tr.${m}`)}
+              >
+                {m !== 'he' && <span className="rd-tr-ab">{t('reading.tr.ab')}</span>}
+                {m === 'duo' && <span aria-hidden="true"> + </span>}
+                {m !== 'tr' && <span className="he rd-tr-he">אב</span>}
+                <span className="sr-only"> {t(`reading.tr.${m}`)}</span>
+              </button>
+            ))}
+          </div>
           <label>
             <input type="checkbox" checked={view.taamim} onChange={(e) => setV({ ...view, taamim: e.target.checked })} /> {t('reading.taamim')}
           </label>
@@ -618,7 +650,12 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
         ) : !verses ? (
           <PageLoading />
         ) : (
-          <article className="rd-text he" lang="he" dir="rtl" ref={textRef}>
+          <article
+            className={trOn ? `rd-text rd-tr rd-tr-${view.tr}` : 'rd-text he'}
+            lang={trOn ? locale : 'he'}
+            dir={trOn ? 'ltr' : 'rtl'}
+            ref={textRef}
+          >
             {sections?.map((section, si) => {
               const verseOffset = sections.slice(0, si).reduce((sum, previous) => sum + previous.verses.length, 0);
               return (
@@ -630,7 +667,10 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
                           {section.label ? t('reading.readFor', { name: section.label }) : t('reading.nameNotSet')}
                         </p>
                       )}
-                      <h2 className="rd-ch">פֶּרֶק {hebrewNumber(section.chapter)}</h2>
+                      <h2 className="rd-ch">
+                        {trOn ? `${t('reading.book')} ${section.chapter} · ` : ''}
+                        <span className="he" lang="he">פֶּרֶק {hebrewNumber(section.chapter)}</span>
+                      </h2>
                     </>
                   )}
                   {section.verses.map((_, vi) => {
@@ -638,7 +678,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
                     return (
                       <p key={globalVerse} className="rd-v">
                         <span className="rd-vn" aria-hidden="true">
-                          {hebrewNumber(section.firstVerse + vi).replace(/[׳״]/g, '')}
+                          {trOn ? section.firstVerse + vi : hebrewNumber(section.firstVerse + vi).replace(/[׳״]/g, '')}
                         </span>{' '}
                         {toks.map((x, i) =>
                           x.v !== globalVerse ? null : (
@@ -648,7 +688,18 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
                                 className={`rd-w${!light ? '' : i === active ? ' rd-on' : active > i ? ' rd-past' : ''}${x.w ? '' : ' rd-paseq'}`}
                                 onClick={() => light && x.w && seekAudioToWord(i)}
                               >
-                                {view.taamim ? x.s : stripTaamim(x.s)}
+                                {!trOn ? (
+                                  view.taamim ? x.s : stripTaamim(x.s)
+                                ) : view.tr === 'tr' ? (
+                                  trs[i]
+                                ) : (
+                                  <>
+                                    <span className="rd-tr-w">{trs[i]}</span>
+                                    <span className="rd-tr-h he" lang="he" dir="rtl">
+                                      {view.taamim ? x.s : stripTaamim(x.s)}
+                                    </span>
+                                  </>
+                                )}
                               </span>{' '}
                             </span>
                           ),

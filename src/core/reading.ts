@@ -9,6 +9,7 @@
  *   `niflaot:reading-times:<ключ чтения>` — разметка аудио учителем (начало каждого слова, с).
  */
 import { addDays, hebrewParts } from './restDays';
+import { TR_MODES, type TrMode } from './tehillimTranslit';
 
 export const CHAPTERS = 150;
 
@@ -276,10 +277,13 @@ export interface View {
   taamim: boolean;
   big: boolean;
   play: PlayMode;
+  /** иврит (по умолчанию) / транслит крупно и иврит мелко / только транслит — `tehillimTranslit.ts` */
+  tr: TrMode;
 }
 export const loadView = (): View => {
-  const v: View = { taamim: false, big: false, play: 'both', ...read<Partial<View>>('niflaot:reading-view', {}) };
+  const v: View = { taamim: false, big: false, play: 'both', tr: 'he', ...read<Partial<View>>('niflaot:reading-view', {}) };
   if (!PLAY_MODES.includes(v.play)) v.play = 'both';
+  if (!TR_MODES.includes(v.tr)) v.tr = 'he';
   return v;
 };
 export const saveView = (v: View) => write('niflaot:reading-view', v);
