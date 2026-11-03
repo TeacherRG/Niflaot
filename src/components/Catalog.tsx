@@ -22,6 +22,7 @@ import { ShabbatCalendar } from './ShabbatCalendar';
 import { NUMS, collectFacts, type Fact } from '../core/facts';
 import { displayNames } from '../core/names';
 import { loadDict, nextWords, today, unlearnedWords, useWordStore, type Dict, type WordLang } from '../core/words';
+import { certName, hebFinals, hebGuess, hebOnly, readMyName, saveMyName, SEFARIA_BOOKS, versesFor, type MyName, type MyVerses, type Verse } from '../core/myVerse';
 
 /** «Гематрия дня» on the home screen: today's number, or the result when today's word is solved. */
 function DailyLink() {
@@ -151,11 +152,13 @@ function ZipTile() {
  * the animation moves it by one list); ⏸ stops it (moving content needs a pause — WCAG 2.2.2; on a phone there is no hover),
  * so does the mouse or focus; a tap opens the equality in «Знаете ли вы?» (#/facts/<id>); «reduce motion» — a still list.
  */
-type TickerKind = 'gematria' | 'words';
+type TickerKind = 'gematria' | 'words' | 'verse';
 const TICKER_KEY = 'niflaot:home-ticker';
+const TICKER_LABEL = { gematria: 'home.gematria', words: 'words.mine', verse: 'home.myVerse' } as const;
 const readTicker = (): TickerKind => {
   try {
-    return localStorage.getItem(TICKER_KEY) === 'words' ? 'words' : 'gematria';
+    const k = localStorage.getItem(TICKER_KEY);
+    return k === 'words' || k === 'verse' ? k : 'gematria';
   } catch {
     return 'gematria';
   }
@@ -178,18 +181,18 @@ function HomeTicker() {
   const head = (
     <>
       <h2 id="a-tick-h" className="sr-only">
-        {t(kind === 'words' ? 'words.mine' : 'home.gematria')}
+        {t(TICKER_LABEL[kind])}
       </h2>
       <div className="a-tick-switch" role="group" aria-label={t('home.tickerChoose')}>
-        {(['gematria', 'words'] as const).map((k) => (
+        {(['gematria', 'words', 'verse'] as const).map((k) => (
           <button key={k} type="button" aria-pressed={kind === k} onClick={() => choose(k)}>
-            {t(k === 'words' ? 'words.mine' : 'home.gematria')}
+            {t(TICKER_LABEL[k])}
           </button>
         ))}
       </div>
     </>
   );
-  return kind === 'words' ? <WordsTicker head={head} /> : <GematriaTicker head={head} />;
+  return kind === 'words' ? <WordsTicker head={head} /> : kind === 'verse' ? <VerseTicker head={head} /> : <GematriaTicker head={head} />;
 }
 
 /** The head of a feed: the switch (or the title) and ⏸ / ▶. */
@@ -264,6 +267,194 @@ function WordsTicker({ head }: { head: ReactNode }) {
         )}
       </div>
     </section>
+  );
+}
+
+/**
+ * «Мой стих Торы» (owner, 03.11.2026): the verse of the player's name — it begins with the first letter of the name in
+ * Hebrew and ends with the last (said at the end of the Amidah), the verse with the name itself and the other verses on
+ * these letters, running like the other feeds. The first time — «Как вас зовут?»: the name, its Hebrew spelling guessed
+ * as in «Стих имени» of «Тайна Коэлета» (src/core/myVerse.ts, data koelet/data/pesukim/) and editable. The name stays on
+ * this device (`niflaot:my-verse`). A tap opens the verse: Prophets and Writings — the day of the cycle, Torah — Sefaria.
+ */
+const MORE_IN_TICKER = 24;
+type Cite = { label: string; href: string; external: boolean } | null;
+function VerseTicker({ head }: { head: ReactNode }) {
+  const { t, locale } = useI18n();
+  const [me, setMe] = useState<MyName | null>(readMyName);
+  const [paused, setPaused] = useState(false);
+  const [data, setData] = useState<{ v: MyVerses; cite: (ref: string) => Cite } | null>(null);
+  const [err, setErr] = useState(false);
+  const [tryN, setTryN] = useState(0);
+  useEffect(() => {
+    if (!me) return;
+    let live = true;
+    setData(null);
+    setErr(false);
+    Promise.all([versesFor(me.he), import('../core/citations')]).then(
+      ([v, c]) => live && setData({ v, cite: (ref) => c.resolveCite(ref, locale) }),
+      () => live && setErr(true),
+    );
+    return () => {
+      live = false;
+    };
+  }, [me, locale, tryN]);
+
+  if (!me)
+    return (
+      <section className="a-tick" aria-labelledby="a-tick-h">
+        <TickHead paused={paused} setPaused={setPaused}>
+          {head}
+        </TickHead>
+        <MyNameForm
+          onDone={(v) => {
+            saveMyName(v);
+            setMe(v);
+          }}
+        />
+      </section>
+    );
+
+  type Item = { v: Verse; tag?: string; first?: boolean };
+  const items: Item[] = [];
+  for (const n of data?.v.names ?? []) {
+    const [mine, ...more] = n.pair;
+    if (mine) items.push({ v: mine, tag: t('home.myVerseMine'), first: true });
+    if (n.withName) items.push({ v: n.withName, tag: t('home.myVerseWithName') });
+    for (const v of more.slice(0, MORE_IN_TICKER)) items.push({ v, tag: t('home.myVerseMore'), first: true });
+  }
+  const loop = items.length ? Array.from({ length: Math.ceil(4 / items.length) }, () => items).flat() : [];
+  const verse = (v: Verse, first?: boolean) => {
+    const txt = v[3];
+    if (!first) return txt;
+    // the first and the last letters — the letters of the name
+    const a = txt.search(/[א-ת]/),
+      b = txt.search(/[א-ת][^א-ת]*$/);
+    if (a < 0 || b <= a) return txt;
+    return (
+      <>
+        {txt.slice(0, a)}
+        <mark>{txt[a]}</mark>
+        {txt.slice(a + 1, b)}
+        <mark>{txt[b]}</mark>
+        {txt.slice(b + 1)}
+      </>
+    );
+  };
+  const row = (it: Item, copy: boolean, k: number) => {
+    const hide = copy || k >= items.length;
+    const c = data!.cite(`${SEFARIA_BOOKS[it.v[0]]} ${it.v[1]}:${it.v[2]}`);
+    const ref = c?.label ?? `${data!.v.books[it.v[0]]} ${it.v[1]}:${it.v[2]}`;
+    const body = (
+      <>
+        <span className="he a-tick-v" dir="rtl">
+          {verse(it.v, it.first)}
+        </span>
+        <span className="a-tick-g">
+          {it.tag && <span className="a-tick-due">{it.tag} · </span>}
+          {ref}
+        </span>
+      </>
+    );
+    return (
+      <li key={`${copy ? 'b' : 'a'}${k}`} aria-hidden={hide || undefined}>
+        {c ? (
+          <a href={c.href} tabIndex={hide ? -1 : undefined} {...(c.external ? { target: '_blank', rel: 'noopener' } : {})}>
+            {body}
+          </a>
+        ) : (
+          <span className="a-tick-item">{body}</span>
+        )}
+      </li>
+    );
+  };
+  return (
+    <section className={`a-tick${paused ? ' paused' : ''}`} aria-labelledby="a-tick-h">
+      <TickHead paused={paused} setPaused={setPaused}>
+        {head}
+      </TickHead>
+      <p className="a-tick-note a-tick-me">
+        <span className="he">{me.he}</span>
+        {me.name && me.name !== me.he && <> · {me.name}</>}
+        {' · '}
+        <button type="button" className="a-tick-edit" onClick={() => setMe(null)}>
+          {t('home.myVerseEdit')}
+        </button>
+      </p>
+      {err ? (
+        <p className="a-tick-note">
+          {t('home.myVerseError')}{' '}
+          <button type="button" className="a-tick-edit" onClick={() => setTryN((n) => n + 1)}>
+            ↻
+          </button>
+        </p>
+      ) : !data ? (
+        <p className="a-tick-note">{t('home.myVerseLoading')}</p>
+      ) : !items.length ? (
+        <p className="a-tick-note">{t('home.myVerseNone')}</p>
+      ) : (
+        <div className="a-tick-win">
+          <ul style={{ animationDuration: `${loop.length * 6}s` }}>
+            {loop.map((it, k) => row(it, false, k))}
+            {loop.map((it, k) => row(it, true, k))}
+          </ul>
+        </div>
+      )}
+    </section>
+  );
+}
+
+/** «Как вас зовут?»: the name and its Hebrew spelling (guessed, editable — the first and the last letters matter). */
+function MyNameForm({ onDone }: { onDone: (v: MyName) => void }) {
+  const { t } = useI18n();
+  const prev = readMyName();
+  const [name, setName] = useState(prev?.name ?? certName());
+  const [he, setHe] = useState(prev?.he ?? hebGuess(name));
+  const [heTouched, setHeTouched] = useState(!!prev);
+  const ok = hebFinals(he).trim().length >= 2;
+  return (
+    <form
+      className="a-myname"
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (ok) onDone({ name: name.trim(), he: hebFinals(he).trim() });
+      }}
+    >
+      <p className="a-tick-note">{t('home.myVerseAsk')}</p>
+      <div className="a-myname-row">
+      <label>
+        <span>{t('home.myVerseName')}</span>
+        <input
+          value={name}
+          maxLength={40}
+          autoComplete="given-name"
+          onChange={(e) => {
+            setName(e.target.value);
+            if (!heTouched) setHe(hebGuess(e.target.value));
+          }}
+        />
+      </label>
+      <label>
+        <span>{t('home.myVerseHe')}</span>
+        <input
+          className="he"
+          lang="he"
+          dir="rtl"
+          value={he}
+          maxLength={24}
+          autoComplete="off"
+          spellCheck={false}
+          onChange={(e) => {
+            setHeTouched(true);
+            setHe(hebFinals(hebOnly(e.target.value)));
+          }}
+        />
+      </label>
+      </div>
+      <button type="submit" className="btn" disabled={!ok}>
+        {t('home.myVerseGo')}
+      </button>
+    </form>
   );
 }
 
