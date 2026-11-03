@@ -9,6 +9,7 @@ import { routeLink, SITE_HOST } from '../core/site';
 import { GAME_SIZES, validCode, type View } from '../core/quizGame';
 import type { DeckInfo, DeckKind, QuizLang } from '../core/quizDecks';
 import { createRoom, hostKey, loadDecks, playerId, quizAvailable, rememberName, useCountdown, useRoom } from '../core/liveQuiz';
+import { markStudied } from '../core/habit';
 
 /**
  * «Викторина вместе» (`#/quiz`): ведущий выбирает вопросы (главу Торы; взрослым — и неделю Пророков и Писаний, маамар
@@ -485,7 +486,7 @@ function Player({ code }: { code: string }) {
           <h2 className="quiz-q small">
             <Text s={v.q.q} />
           </h2>
-          <Options v={v} pick={m.pick} onPick={(c) => send({ t: 'answer', i: v.i, c })} />
+          <Options v={v} pick={m.pick} onPick={(c) => (send({ t: 'answer', i: v.i, c }), markStudied())} />
           {v.phase === 'question' && m.pick !== undefined && <p className="quiz-wait">{t('lq.sent')}</p>}
           {v.phase === 'reveal' && (
             <p className={`quiz-result ${m.got ? 'ok' : 'bad'}`}>

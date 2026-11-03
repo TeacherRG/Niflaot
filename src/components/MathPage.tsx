@@ -6,6 +6,7 @@ import { MathCoach } from './MathCoach';
 import type { CoachAction } from '../core/coach';
 import { HebrewRuns } from './Hebrew';
 import { Colophon } from './Colophon';
+import { markStudied } from '../core/habit';
 
 const LEVEL_KEY = 'niflaot:math-level';
 
@@ -65,6 +66,7 @@ function Trainer({ op }: { op: Op }) {
     if (isNaN(v)) return input.current?.focus();
     if (v === answer(p)) {
       setState('ok');
+      markStudied();
       setStreak((s) => (state === 'shown' ? s : s + 1));
     } else {
       setState('no');

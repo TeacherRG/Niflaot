@@ -5,6 +5,7 @@ import { loadConfig, useAccount } from '../core/account';
 import { currentLink, noShare, type Ref } from '../core/site';
 import { NIFLAOT_MARK } from '../core/partners';
 import { HebrewDay } from './HebrewDay';
+import { useHabit } from '../core/habit';
 import { findLesson } from '../lessons';
 
 /** One button showing the current language; opens a list of all languages in their own names. */
@@ -64,11 +65,34 @@ function AccountChip() {
     loadConfig();
   }, []);
   const nick = me?.user.nick ?? (token || mail ? undefined : t('acc.title'));
+  const h = useHabit();
+  // the study streak by the avatar: lit — studied today; dim — the streak still holds, today not yet; out — broken / not started
+  const state = h.today ? 'on' : h.streak > 0 ? 'wait' : 'out';
+  const streak = h.streak > 0 ? t('habit.streak', { n: h.streak }) : '';
+  const how = t(h.today ? 'habit.today' : h.streak > 0 ? 'habit.notYet' : h.back ? 'habit.back' : 'habit.first');
+  const label = [nick ?? t('acc.chipGuest'), streak, how].filter(Boolean).join(' · ');
   return (
-    <a className={`acc-chip${token ? ' in' : ''}`} href="#/account" aria-label={nick ?? t('acc.chipGuest')} title={nick ?? t('acc.chipGuest')}>
+    <a className={`acc-chip${token ? ' in' : ''}`} href="#/account" aria-label={label} title={label}>
+      <span className={`streak-badge ${state}`} aria-hidden="true">
+        <Flame />
+        {h.streak > 0 && <b>{h.streak}</b>}
+      </span>
       <Icon name="user" size={18} />
-      <span>{token ? (nick ?? '…') : t('acc.chipGuest')}</span>
+      <span className="acc-chip-name">{token ? (nick ?? '…') : t('acc.chipGuest')}</span>
     </a>
+  );
+}
+
+/** The flame of the study streak (src/core/habit.ts): its colour comes from `.streak-badge.on | wait | out`. */
+function Flame() {
+  return (
+    <svg className="flame" viewBox="0 0 24 24" width="17" height="17">
+      <path
+        className="flame-outer"
+        d="M12 2.5c.6 3.3 4.4 5.3 5.6 8.9 1.4 4.2-1.5 9.1-5.6 9.1s-7-3.7-6.1-7.9c.4-1.9 1.6-3.2 2.6-4.3.2 1.4.9 2.5 2 3-.6-3.4.4-6.4 1.5-8.8z"
+      />
+      <path className="flame-inner" d="M12 12.2c.4 1.6 2.4 2.6 2.4 4.6 0 1.6-1.1 2.8-2.4 2.8s-2.5-1.1-2.4-2.7c.1-1.6 1.6-2.5 2.4-4.7z" />
+    </svg>
   );
 }
 
