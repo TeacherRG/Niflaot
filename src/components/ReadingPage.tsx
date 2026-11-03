@@ -6,7 +6,7 @@ import { Colophon } from './Colophon';
 import { NotFound, PageLoading } from './PageStates';
 import { Sheet } from './ui';
 import { hebrewNumber } from '../core/hebrewDate';
-import { markStudied } from '../core/habit';
+import { markStudied, todayIso, useHabit } from '../core/habit';
 import { useHebrewLevel } from '../core/hebrewLevel';
 import { resumeVoice, setVoicePitch } from '../core/voicePitch';
 import { isAdmin } from '../admin/github';
@@ -560,7 +560,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
               } else {
                 setActive(-1);
                 setAudioState('stopped');
-                markStudied();
+                setReadDone(readingId, true);
               }
             }}
             onPlay={() => setAudioState('playing')}
@@ -661,6 +661,8 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
             })}
           </article>
         )}
+
+        {verses && <ReadDone id={readingId} />}
 
         {verses &&
           isAdmin() &&
@@ -786,5 +788,61 @@ function Marking({ c, label, toks, src, setActive }: { c: ReadingId; label: stri
         </>
       )}
     </details>
+  );
+}
+
+/**
+ * «Я прочитал(а)» под Теґилим (владелец, 03.11.2026): день засчитывается в учебную серию (src/core/habit.ts), как галочка
+ * у Пророков и Писаний. Теґилим читают каждый день заново — отметка только на сегодня, по подборке (`ReadingId`: глава,
+ * порция дня, день недели, «Мои главы»); дослушанная запись ставит её сама. `niflaot:reading-done` = { "<дата>": [подборки] },
+ * последние 60 дней, только на этом устройстве (серия сама синхронизируется с аккаунтом).
+ */
+const DONE_KEY = 'niflaot:reading-done';
+const DONE_EVENT = 'niflaot:reading-done';
+const readDoneLog = (): Record<string, string[]> => {
+  try {
+    const v = JSON.parse(localStorage.getItem(DONE_KEY) ?? '{}');
+    return v && typeof v === 'object' ? v : {};
+  } catch {
+    return {};
+  }
+};
+const isReadDone = (id: ReadingId) => (readDoneLog()[todayIso()] ?? []).includes(String(id));
+function setReadDone(id: ReadingId, on: boolean) {
+  const today = todayIso();
+  const log = readDoneLog();
+  const day = new Set(log[today] ?? []);
+  if (on) day.add(String(id));
+  else day.delete(String(id));
+  log[today] = [...day];
+  for (const d of Object.keys(log)) if (d < new Date(Date.now() - 60 * 864e5).toISOString().slice(0, 10)) delete log[d];
+  try {
+    localStorage.setItem(DONE_KEY, JSON.stringify(log));
+  } catch {}
+  if (on) markStudied();
+  window.dispatchEvent(new Event(DONE_EVENT));
+}
+
+function ReadDone({ id }: { id: ReadingId }) {
+  const { t } = useI18n();
+  const h = useHabit();
+  const [done, setDone] = useState(() => isReadDone(id));
+  useEffect(() => {
+    const on = () => setDone(isReadDone(id));
+    on();
+    window.addEventListener(DONE_EVENT, on);
+    return () => window.removeEventListener(DONE_EVENT, on);
+  }, [id]);
+  return (
+    <div className={`tk-done rd-done no-print${done ? ' on' : ''}`}>
+      <label>
+        <input type="checkbox" checked={done} onChange={(e) => setReadDone(id, e.target.checked)} />
+        <span>{t('reading.doneCheck')}</span>
+      </label>
+      <p>
+        {done ? t('reading.doneOn') : t('reading.doneOff')}
+        {h.streak > 0 && ` · 🔥 ${t('habit.streak', { n: h.streak })}`}
+      </p>
+    </div>
   );
 }

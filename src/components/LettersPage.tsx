@@ -4,6 +4,7 @@ import { VALUES } from '../core/gematria';
 import { ALEPH_BET, FINAL_FORMS, LOOKALIKES, letterName, letterSound } from '../core/letterNames';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
+import { markStudied } from '../core/habit';
 
 const GROUPS = [
   { key: 'abc.units', letters: ALEPH_BET.slice(0, 9) },
@@ -62,6 +63,7 @@ export function LettersPage() {
   const answer = (c: string) => {
     if (pick) return;
     setPick(c);
+    markStudied();
     if (c === q.c) setScore((n) => n + 1);
   };
   const next = () => {
