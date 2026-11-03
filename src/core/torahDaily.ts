@@ -15,12 +15,16 @@ import { readQuestions, readStore, type ReadStore } from './readCheck';
 import { markStudied, todayIso } from './habit';
 
 export const STUDY_DAYS = 6;
+/** Memo pairs of Baal HaTurim on a day without his chapter */
+export const MAX_PAIRS = 3;
 export const TORAH_DONE_KEY = 'niflaot:torah-done';
 const EVENT = 'niflaot:torah-done';
 
 export type Group = (typeof LESSON_GROUPS)[number];
 export type DayPart =
   | { kind: 'chapter'; lesson: Lesson; ri: number }
+  /** Baal HaTurim on a day without his chapter: pairs of the lesson's Memo (0-based) — his comments with the gematria and «Чему это учит?» */
+  | { kind: 'pairs'; lesson: Lesson; pairs: number[] }
   /** a day without a new chapter of the lesson: its review (Memo, the cards, or the lesson again) */
   | { kind: 'review'; lesson: Lesson }
   /** Friday: the sheet for the Shabbat table */
@@ -40,6 +44,25 @@ export function weekPlan(g: Group): DayPart[][] {
   };
   g.lessons.forEach((l) => place(l, true));
   g.rebbe.forEach((l) => place(l, false));
+  // Baal HaTurim every day (owner, 03.11.2026): a day without his chapter gets pairs of his Memo — first the comments the chapters
+  // do not quote (new to the reader), else the pairs in order; up to MAX_PAIRS a day
+  for (const l of g.lessons) {
+    if (!l.memo) continue;
+    const gaps = days.map((d, k) => (d.some((p) => p.kind === 'chapter' && p.lesson === l) ? -1 : k)).filter((k) => k >= 0);
+    if (!gaps.length) continue;
+    const quoted = new Set(l.riddles.flatMap((r) => [...(r.sources ?? []), ...(r.quotes ?? []).flat().map((q) => q.split(':')[0])]));
+    const all = l.memo.items.map((_, i) => i);
+    const fresh = all.filter((i) => !quoted.has(l.memo!.items[i].source));
+    const pool = fresh.length >= gaps.length ? fresh : all;
+    const per = Math.min(MAX_PAIRS, Math.ceil(pool.length / gaps.length));
+    gaps.forEach((k, j) => {
+      const pairs = pool.slice(j * per, (j + 1) * per);
+      if (pairs.length) days[k].push({ kind: 'pairs', lesson: l, pairs });
+    });
+  }
+  // in a day: Baal HaTurim first, then the Rebbe
+  const rank = (p: DayPart) => (p.kind === 'table' ? 3 : p.kind === 'review' ? 2 : g.lessons.includes(p.lesson) ? 0 : 1);
+  days.forEach((d) => d.sort((a, b) => rank(a) - rank(b)));
   // a day without a new chapter — the review of a lesson that has a game to repeat (Memo, the cards), else the first lesson
   const all = [...g.lessons, ...g.rebbe];
   const review = all.find((l) => l.memo) ?? all.find((l) => l.cards) ?? all[0];
@@ -126,6 +149,8 @@ export interface TorahToday {
   show: number;
   /** today's chapters (the parts to count) and how many are done */
   chapters: Extract<DayPart, { kind: 'chapter' }>[];
+  /** today's Memo pairs of Baal HaTurim (a day without his chapter) */
+  pairs: Extract<DayPart, { kind: 'pairs' }>[];
   done: number;
 }
 
@@ -138,13 +163,15 @@ export function torahToday(date = todayIso(), s: DoneStore = readTorahDone(), re
   const isCh = (p: DayPart): p is Extract<DayPart, { kind: 'chapter' }> => p.kind === 'chapter';
   const show = day >= 0 && day < STUDY_DAYS ? day : day < 0 ? 0 : plan.findIndex((d) => d.some((p) => isCh(p) && !partDone(p, s, read)));
   const chapters = show >= 0 ? plan[show].filter(isCh) : [];
-  return { group, plan, day, show, chapters, done: chapters.filter((p) => partDone(p, s, read)).length };
+  const pairs = show >= 0 ? plan[show].filter((p): p is Extract<DayPart, { kind: 'pairs' }> => p.kind === 'pairs') : [];
+  return { group, plan, day, show, chapters, pairs, done: chapters.filter((p) => partDone(p, s, read)).length };
 }
 
 /** Where a part opens: the chapter — in «Читать» (adults; children — the riddle in the game), the review — its game. */
 export function partHref(p: DayPart, adults: boolean): string {
   if (p.kind === 'table') return '#/shabbat-table';
   const l = p.lesson;
+  if (p.kind === 'pairs') return `#/${l.slug}/memo/${p.pairs[0] + 1}`;
   if (p.kind === 'review') return adults ? `#/${l.slug}/read` : l.memo ? `#/${l.slug}/memo` : l.cards ? `#/${l.slug}/cards` : `#/${l.slug}`;
   return adults ? `#/${l.slug}/read/${p.ri + 1}` : `#/${l.slug}/r/${p.ri + 1}`;
 }

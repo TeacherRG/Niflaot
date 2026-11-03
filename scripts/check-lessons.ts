@@ -503,6 +503,9 @@ for (const g of LESSON_GROUPS) {
   if (plan.length !== STUDY_DAYS) err(`torah daily · ${g.id}: ${plan.length} days, ${STUDY_DAYS} expected`);
   plan.forEach((d, k) => {
     if (!d.some((p) => p.kind !== 'table')) err(`torah daily · ${g.id}: day ${k} has nothing to learn`);
+    // Baal HaTurim every day: his chapter or pairs of his Memo
+    if (g.lessons.length && !d.some((p) => (p.kind === 'chapter' || p.kind === 'pairs') && g.lessons.includes(p.lesson)))
+      err(`torah daily · ${g.id}: no Baal HaTurim on day ${k}`);
   });
   if (!plan[STUDY_DAYS - 1].some((p) => p.kind === 'table')) err(`torah daily · ${g.id}: no «К шабатнему столу» on Friday`);
   for (const l of [...g.lessons, ...g.rebbe]) {

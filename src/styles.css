@@ -3250,6 +3250,7 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .td-read{flex:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:14px;text-decoration:none}
 .td-extra a{font-size:15px}
 .td-extra .td-mark{border-style:dashed}
+.td-memo{border-color:var(--gold);color:var(--gold-deep)}
 .td-others{display:flex;flex-wrap:wrap;gap:6px 12px;margin:20px 0 0;font-size:14px;color:var(--muted)}
 .td-done p a{white-space:nowrap}
 .a-tile-sub{font-size:14px;font-weight:600;opacity:.95;overflow-wrap:anywhere}

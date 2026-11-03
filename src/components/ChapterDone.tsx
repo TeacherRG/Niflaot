@@ -33,5 +33,10 @@ export function ChapterDone({ lesson, ri }: { lesson: Lesson; ri: number }) {
 /** Today's chapters in one line — «Бааль ґа-Турим · гл. 2, Нифлаот Ребе · гл. 1» — or ✓ when they are all done. */
 export function torahLine(tt: TorahToday, t: ReturnType<typeof useI18n>['t']): string {
   if (tt.chapters.length && tt.done >= tt.chapters.length) return t('td.homeDone');
-  return tt.chapters.map((p) => t('td.homeSub', { who: t(`teacher.${teacherOf(p.lesson)}.short`), n: p.ri + 1 })).join(', ');
+  // in the order of the day: Baal HaTurim (his chapter or his Memo pairs) first
+  const parts = [
+    ...tt.pairs.map((p) => t('td.homePairs', { who: t(`teacher.${teacherOf(p.lesson)}.short`), list: p.pairs.map((i) => i + 1).join(', ') })),
+    ...tt.chapters.map((p) => t('td.homeSub', { who: t(`teacher.${teacherOf(p.lesson)}.short`), n: p.ri + 1 })),
+  ];
+  return parts.join(', ');
 }

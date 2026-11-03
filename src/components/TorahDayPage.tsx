@@ -25,6 +25,25 @@ function Part({ p, adults, done }: { p: DayPart; adults: boolean; done: boolean 
   const l = p.lesson;
   const text = pick(l.texts).value;
   const who = t(`teacher.${teacherOf(l)}.short`);
+  if (p.kind === 'pairs') {
+    const items = text.memo?.items ?? [];
+    return (
+      <li className="td-part">
+        <span className="td-mark td-memo" aria-hidden="true">
+          M
+        </span>
+        <span className="td-body">
+          <span className="td-who">
+            {who} · {t('td.pairs', { list: p.pairs.map((i) => i + 1).join(', ') })}
+          </span>
+          <a className="td-t" href={partHref(p, adults)}>
+            {p.pairs.map((i) => items[i]?.title).filter(Boolean).join(' · ')}
+          </a>
+          <span className="td-sub">{text.title}</span>
+        </span>
+      </li>
+    );
+  }
   if (p.kind === 'review')
     return (
       <li className="td-part td-extra">
