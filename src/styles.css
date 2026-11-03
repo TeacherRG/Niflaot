@@ -3147,6 +3147,29 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .a-tick-switch button:hover{color:var(--ink)}
 .a-tick-note{margin:6px 0 0;font-size:12.5px;line-height:1.35;color:var(--muted);text-align:center}
 .a-tick-due{color:var(--gold-deep);font-weight:600}
+.a-tick li .a-tick-item{display:grid;gap:1px;padding:8px 0;border-bottom:1px solid var(--line-soft);text-align:center;color:var(--ink)}
+.a-tick .a-tick-v{font-weight:600;font-size:18px;line-height:1.45}
+.a-tick-v mark{background:none;color:var(--gold-deep);font-weight:800}
+.a-tick-me{margin-bottom:2px}
+.a-tick-me .he{font-family:var(--f-he);font-weight:700;color:var(--ink)}
+.a-tick-edit{border:0;background:none;padding:0;color:var(--tchelet);font:inherit;text-decoration:underline;cursor:pointer}
+.a-myname{display:grid;gap:8px;padding:8px 0 10px;overflow:auto;min-height:0}
+.a-myname .a-tick-note{margin:0}
+.a-myname-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.a-myname input{min-width:0;width:100%;box-sizing:border-box}
+.a-myname label{display:grid;min-width:0;gap:3px;font-size:13px;color:var(--muted)}
+.a-myname input{font:16px/1.3 var(--f-body);padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink)}
+.a-myname input.he{font-family:var(--f-he);font-size:20px;font-weight:700}
+.a-myname .btn{justify-self:center}
+.a-myname .btn:disabled{opacity:.5;cursor:default}
+@media (max-width:640px){
+  .a-tick-switch button{padding:4px 7px;font-size:12px}
+  .a-tick-switch{flex:1 1 auto;overflow-x:auto;scrollbar-width:none}
+  .a-myname .a-tick-note{font-size:11.5px}
+  .a-tick .a-tick-v{font-size:15px}
+  .a-myname{gap:5px;padding:4px 0 6px}
+  .a-myname input{padding:6px 8px}
+}
 
 /* «Всё бесплатно» (#/free, FreePage.tsx) */
 .free{padding:16px 16px 8px}
