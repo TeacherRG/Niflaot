@@ -60,7 +60,7 @@ const PROFILES: Record<ReadLang, Profile> = {
 
 const SHEVA = 'ְ', HSEGOL = 'ֱ', HPATAH = 'ֲ', HQAMATS = 'ֳ', HIRIQ = 'ִ', TSERE = 'ֵ', SEGOL = 'ֶ',
   PATAH = 'ַ', QAMATS = 'ָ', HOLAM = 'ֹ', HOLAM_VAV = 'ֺ', QUBUTS = 'ֻ', DAGESH = 'ּ', METEG = 'ֽ',
-  MAQAF = '־', SHIN_DOT = 'ׁ', SIN_DOT = 'ׂ', QAMATS_QATAN = 'ׇ';
+  MAQAF = '־', SIN_DOT = 'ׂ', QAMATS_QATAN = 'ׇ';
 const VOWELS = new Set([SHEVA, HSEGOL, HPATAH, HQAMATS, HIRIQ, TSERE, SEGOL, PATAH, QAMATS, HOLAM, HOLAM_VAV, QUBUTS, QAMATS_QATAN]);
 const FINAL: Record<string, string> = { ך: 'כ', ם: 'מ', ן: 'נ', ף: 'פ', ץ: 'צ' };
 const BEGADKEFAT = 'בגדכפת';
