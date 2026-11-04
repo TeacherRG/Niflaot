@@ -10,7 +10,7 @@ import { markStudied, todayIso, useHabit } from '../core/habit';
 import { useHebrewLevel } from '../core/hebrewLevel';
 import { resumeVoice, setVoicePitch } from '../core/voicePitch';
 import { isAdmin } from '../admin/github';
-import { TR_MODES, translitToken } from '../core/tehillimTranslit';
+import { PRONS, TR_MODES, translitToken } from '../core/tehillimTranslit';
 import {
   CHAPTERS,
   PLAY_MODES,
@@ -150,12 +150,12 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
     if (view.tr === 'he') return [];
     let verse = -1;
     return toks.map((x) => {
-      const r = translitToken(x.s, trLang);
+      const r = translitToken(x.s, trLang, view.pron);
       if (!r || x.v === verse) return r;
       verse = x.v;
       return r.charAt(0).toUpperCase() + r.slice(1);
     });
-  }, [toks, trLang, view.tr]);
+  }, [toks, trLang, view.tr, view.pron]);
   const trOn = view.tr !== 'he';
   const trackTokenIndices = useMemo(() => {
     let firstVerse = 0;
@@ -829,6 +829,7 @@ function ReadingSettings({ view, setV, audio, onBoth }: { view: View; setV: (v: 
             {' · '}
             {audio && <>{t(`reading.mode.${view.play}`)} · </>}
             {t(`reading.tr.${view.tr}`)}
+            {view.tr !== 'he' && <> · {t(`reading.pron.${view.pron}`)}</>}
           </small>
         </span>
         <Icon name="chevron" size={14} />
@@ -853,6 +854,15 @@ function ReadingSettings({ view, setV, audio, onBoth }: { view: View; setV: (v: 
           <div className="tk-view-head">{t('reading.tr')}</div>
           {TR_MODES.map((m) =>
             item(view.tr === m, m === 'he' ? 'אב' : m === 'duo' ? `${t('reading.tr.ab')}+אב` : t('reading.tr.ab'), t(`reading.tr.${m}`), t(`reading.tr.${m}.d`), () => setV({ ...view, tr: m })),
+          )}
+          {view.tr !== 'he' && (
+            <>
+              <div className="tk-view-sep" />
+              <div className="tk-view-head">{t('reading.pron')}</div>
+              {PRONS.map((p) =>
+                item(view.pron === p, p === 'ash' ? 'אָ=o' : 'אָ=a', t(`reading.pron.${p}`), t(`reading.pron.${p}.d`), () => setV({ ...view, pron: p })),
+              )}
+            </>
           )}
           <div className="tk-view-sep" />
           <div className="tk-view-head">{t('reading.look')}</div>
