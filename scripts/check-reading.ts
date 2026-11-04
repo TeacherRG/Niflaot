@@ -115,7 +115,7 @@ for (const p of SHNAYIM) {
   });
 }
 // транслит (tehillimTranslit.ts): у каждого слова Теґилим и «Аазину» на ru / en / de — непустой, без букв иврита,
-// Имена — как их произносят, читая Теґилим (Адоной, Элоґим, Йо…): ни заменных форм (Адо-ной, Элоким, Ка), ни чтения יהוה по буквам;
+// Имена — как их произносят, читая Теґилим (Адойной, Элоґим, Йо…): ни заменных форм (Адо-ной, Элоким, Ка), ни чтения יהוה по буквам;
 // образцовые стихи — слово в слово
 const LANGS = ['ru', 'en', 'de'] as const;
 const BAD_NAME = /(^|[^a-zа-яёґ])(ado-no[ij]|адо-ной|elokim|элоким|keil|kejl|кейл|kah|ка(?=$)|sha-dai|scha-daj|ша-дай|yahweh|jahwe|ягве|yehovah?|jehowa|йеґова)([^a-zа-яёґ]|$)/i;
@@ -134,9 +134,9 @@ for (const verse of allVerses) {
   }
 }
 const SAMPLE: Record<string, [number, Record<(typeof LANGS)[number], string>]> = {
-  'Теґилим 23:1': [23, { ru: 'Мизмойр ледовид Адоной ройи лой эхсор', en: 'Mizmor ledovid Adonoi ro\'i lo echsor', de: 'Mismor ledowid Adonoj ro\'i lo echsor' }],
+  'Теґилим 23:1': [23, { ru: 'Мизмойр ледовид Адойной ройи лой эхсор', en: 'Mizmor ledovid Adonoi ro\'i lo echsor', de: 'Mismor ledowid Adonoj ro\'i lo echsor' }],
   'Теґилим 150:1': [150, { ru: 'Ґалелу Йо ґалелу-Эйл бекодшой ґалелуґу биркиа узой', en: 'Halelu Yo halelu-Eil bekodsho haleluhu birkia uzo', de: 'Halelu Jo halelu-Ejl bekodscho haleluhu birkia uso' }],
-  'Теґилим 113:1': [113, { ru: 'Ґалелу Йо ґалелу авдей Адоной ґалелу эс-шейм Адоной', en: 'Halelu Yo halelu avdei Adonoi halelu es-sheim Adonoi', de: 'Halelu Jo halelu awdej Adonoj halelu es-schejm Adonoj' }],
+  'Теґилим 113:1': [113, { ru: 'Ґалелу Йо ґалелу авдей Адойной ґалелу эс-шейм Адойной', en: 'Halelu Yo halelu avdei Adonoi halelu es-sheim Adonoi', de: 'Halelu Jo halelu awdej Adonoj halelu es-schejm Adonoj' }],
 };
 for (const [name, [c, want]] of Object.entries(SAMPLE)) {
   const first: string = JSON.parse(readFileSync(new URL(`${c}.json`, dir), 'utf8')).v[0];
