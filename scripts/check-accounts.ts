@@ -116,7 +116,7 @@ const routes: [string, string, boolean][] = [
   ['/delete', 'POST', true], ['/delete', 'GET', false], ['/delete', 'DELETE', false],
   ['/consent', 'POST', true], ['/consent', 'GET', false],
   ['/progress', 'GET', true], ['/progress', 'PUT', true], ['/progress', 'POST', false],
-  ['/leaders', 'GET', true], ['/class/join', 'POST', true], ['/class/abc_DEF-12', 'GET', true], ['/class/abc', 'POST', false],
+  ['/leaders', 'GET', true], ['/stats', 'GET', true], ['/stats', 'POST', false], ['/class/join', 'POST', true], ['/class/abc_DEF-12', 'GET', true], ['/class/abc', 'POST', false],
 ];
 for (const [path, method, ok] of routes)
   if ((methodsFor(path)?.includes(method) ?? false) !== ok) err(`accounts: ${method} ${path} must be ${ok ? 'allowed' : 'refused'}`);
