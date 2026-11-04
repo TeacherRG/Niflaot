@@ -202,6 +202,28 @@ export async function deleteAccount() {
   set({ token: null, me: null });
 }
 
+export interface UserStats {
+  total: number;
+  unfinished: number;
+  adults: number;
+  children: number;
+  pending: number;
+  withProgress: number;
+  active: Record<'1' | '7' | '30', number>;
+  joined: Record<'1' | '7' | '30', number>;
+  langs: Record<string, number>;
+  daily: Record<string, { joined: number; active: number }>;
+}
+
+/** «Пользователи» in the admin: the admin's GitHub token (src/admin/github.ts), not an account's session */
+export async function userStats(githubToken: string): Promise<UserStats> {
+  if (!BASE) throw new AccountError('no server', 0);
+  const res = await fetch(`${BASE}/account/stats`, { headers: { Authorization: `Bearer ${githubToken}` } });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new AccountError(data.error ?? 'failed', res.status);
+  return data as UserStats;
+}
+
 export const leaders = (cls?: string) => api<Leaders>(`/leaders${cls ? `?class=${encodeURIComponent(cls)}` : ''}`);
 export const createClass = async (name: string) => set({ me: await api<Me>('/class', { body: { name } }) });
 export const joinClass = async (code: string) => set({ me: await api<Me>('/class/join', { body: { code } }) });

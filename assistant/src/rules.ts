@@ -68,6 +68,7 @@ const ROUTES: Record<string, string[]> = {
   '/consent': ['POST'],
   '/consent/resend': ['POST'],
   '/leaders': ['GET'],
+  '/stats': ['GET'],
   '/me': ['GET'],
   '/profile': ['POST'],
   '/logout': ['POST'],

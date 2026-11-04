@@ -35,6 +35,8 @@ const MAX_PROGRESS = 256 * 1024;
 /** the parent's consent email: not more often than once in 2 minutes and 5 times a day per account */
 const CONSENT_GAP = 2 * 60_000;
 const CONSENT_PER_DAY = 5;
+/** «Пользователи» in the admin: the GitHub token must be able to push here (src/admin/github.ts — the same repo) */
+const ADMIN_REPO = 'TeacherRG/Niflaot';
 const CODE_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
 const LANGS = ['ru', 'en', 'de'] as const;
 type Lang = (typeof LANGS)[number];
@@ -306,6 +308,10 @@ export class Accounts extends DurableObject<MailEnv> {
       return json({ ok: true, nick: u.nick });
     }
     if (path === '/leaders' && !url.searchParams.get('class')) return json(this.leaders(null));
+    if (path === '/stats') {
+      if (!(await this.admin(req))) return fail('admin', 403);
+      return json(this.stats());
+    }
 
     /* ── signed in ── */
     const u = await this.user(req);
@@ -452,6 +458,57 @@ export class Accounts extends DurableObject<MailEnv> {
       return json({ class: c, members });
     }
     return fail('not found', 404);
+  }
+
+  /**
+   * The admin (`#/admin/users`): the same GitHub token the text editor signs in with — its owner may push to the
+   * site's repository. Checked at GitHub; a token that passed is remembered (as a hash) for 10 minutes.
+   */
+  private admins = new Map<string, number>();
+  private async admin(req: Request): Promise<boolean> {
+    const token = (req.headers.get('Authorization') ?? '').replace(/^Bearer /, '');
+    if (!token || token.length > 300) return false;
+    const h = await sha(token);
+    if ((this.admins.get(h) ?? 0) > Date.now()) return true;
+    const gh = (p: string) =>
+      fetch(`https://api.github.com${p}`, {
+        headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'User-Agent': 'niflaot-assistant' },
+      }).then((r) => (r.ok ? (r.json() as Promise<any>) : null), () => null);
+    const repo = await gh(`/repos/${ADMIN_REPO}`);
+    let ok = !!(repo?.permissions?.push || repo?.permissions?.admin);
+    // a fine-grained token may not report permissions: then — the owner of the repository
+    if (!ok && repo) ok = String((await gh('/user'))?.login ?? '').toLowerCase() === ADMIN_REPO.split('/')[0].toLowerCase();
+    if (ok) this.admins.set(h, Date.now() + 10 * 60_000);
+    return ok;
+  }
+
+  /** «Пользователи» in the admin: how many accounts, how many came lately — numbers only, no emails or nicknames */
+  private stats() {
+    const now = Date.now();
+    const n = (q: string, ...b: unknown[]) => this.one<{ n: number }>(q, ...b)?.n ?? 0;
+    const since = (days: number) => now - days * 864e5;
+    const periods = [1, 7, 30] as const;
+    const day = (ms: number) => new Date(ms).toISOString().slice(0, 10);
+    const daily: Record<string, { joined: number; active: number }> = {};
+    for (let i = 29; i >= 0; i--) daily[day(now - i * 864e5)] = { joined: 0, active: 0 };
+    for (const r of this.sql.exec<{ created: number; last: number }>('SELECT created, last FROM users WHERE nick IS NOT NULL AND (created >= ? OR last >= ?)', since(30), since(30)).toArray()) {
+      if (daily[day(r.created)]) daily[day(r.created)].joined++;
+      if (daily[day(r.last)]) daily[day(r.last)].active++;
+    }
+    return {
+      total: n('SELECT COUNT(*) AS n FROM users WHERE nick IS NOT NULL'),
+      unfinished: n('SELECT COUNT(*) AS n FROM users WHERE nick IS NULL'),
+      adults: n("SELECT COUNT(*) AS n FROM users WHERE nick IS NOT NULL AND age = 'adult'"),
+      children: n("SELECT COUNT(*) AS n FROM users WHERE nick IS NOT NULL AND age = 'child' AND parent_ok = 1"),
+      pending: n("SELECT COUNT(*) AS n FROM users WHERE nick IS NOT NULL AND age = 'child' AND parent_ok = 0"),
+      withProgress: n('SELECT COUNT(*) AS n FROM progress'),
+      active: Object.fromEntries(periods.map((d) => [d, n('SELECT COUNT(*) AS n FROM users WHERE nick IS NOT NULL AND last >= ?', since(d))])),
+      joined: Object.fromEntries(periods.map((d) => [d, n('SELECT COUNT(*) AS n FROM users WHERE nick IS NOT NULL AND created >= ?', since(d))])),
+      langs: Object.fromEntries(
+        this.sql.exec<{ lang: string; n: number }>('SELECT lang, COUNT(*) AS n FROM users WHERE nick IS NOT NULL GROUP BY lang').toArray().map((r) => [r.lang, r.n]),
+      ),
+      daily,
+    };
   }
 
   /** top 20 by points and by «Гематрия дня» streak; only active accounts that agreed to be shown (or a class's members) */
