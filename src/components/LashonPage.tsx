@@ -299,7 +299,7 @@ export function LashonPage() {
               <WordSearch units={words} title={unitTitle} met={(k) => !!store.s[k]} onOpen={(unit, mark) => setDict({ unit, mark })} />
               {weak(words)}
               {adults && words.some((u) => u.stage === 2)
-                ? [1, 2, 3, 4].map((st) => {
+                ? [1, 2, 3, 4, 5].map((st) => {
                     const list = words.filter((u) => u.stage === st);
                     if (!list.length) return null;
                     const a = (list[0].n - 1) * TANAKH_GROUP + 1;
@@ -307,7 +307,7 @@ export function LashonPage() {
                     return (
                       <div key={st} className="ln-stage">
                         <h3>
-                          {t(`ln.stage${st as 1 | 2 | 3 | 4}`, { a, b })} <small>{t(`ln.stage${st as 1 | 2 | 3 | 4}Sub`)}</small>
+                          {t(`ln.stage${st as 1 | 2 | 3 | 4 | 5}`, { a, b })} <small>{t(`ln.stage${st as 1 | 2 | 3 | 4 | 5}Sub`)}</small>
                         </h3>
                         {blocks(list)}
                       </div>
