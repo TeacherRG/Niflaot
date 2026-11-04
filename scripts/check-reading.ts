@@ -115,9 +115,10 @@ for (const p of SHNAYIM) {
   });
 }
 // транслит (tehillimTranslit.ts): у каждого слова Теґилим и «Аазину» на ru / en / de — непустой, без букв иврита,
-// Имена — только заменными формами; образцовые стихи — слово в слово
+// Имена — как их произносят, читая Теґилим (Адоной, Элоґим, Йо…): ни заменных форм (Адо-ной, Элоким, Ка), ни чтения יהוה по буквам;
+// образцовые стихи — слово в слово
 const LANGS = ['ru', 'en', 'de'] as const;
-const FULL_NAME = /(^|[^a-zа-яё])(adonai|elohim|yahweh|jahwe|адонай|элохим|ягве)([^a-zа-яё]|$)/i;
+const BAD_NAME = /(^|[^a-zа-яёґ])(ado-no[ij]|адо-ной|elokim|элоким|keil|kejl|кейл|kah|ка(?=$)|sha-dai|scha-daj|ша-дай|yahweh|jahwe|ягве|yehovah?|jehowa|йеґова)([^a-zа-яёґ]|$)/i;
 let trWords = 0;
 const allVerses = [...Array.from({ length: CHAPTERS }, (_, k) => JSON.parse(readFileSync(new URL(`${k + 1}.json`, dir), 'utf8')).v as string[]).flat(), ...haazinu.v];
 for (const verse of allVerses) {
@@ -128,13 +129,14 @@ for (const verse of allVerses) {
       const r = translitToken(x.s, lang);
       if (!r) errors.push(`транслит (${lang}): пусто у «${x.s}»`);
       else if (/[֐-׿]/.test(r)) errors.push(`транслит (${lang}): иврит в «${r}» (${x.s})`);
-      else if (FULL_NAME.test(r)) errors.push(`транслит (${lang}): Имя полностью в «${r}» (${x.s})`);
+      else if (BAD_NAME.test(r)) errors.push(`транслит (${lang}): Имя не так, как произносят, в «${r}» (${x.s})`);
     }
   }
 }
 const SAMPLE: Record<string, [number, Record<(typeof LANGS)[number], string>]> = {
-  'Теґилим 23:1': [23, { ru: 'Мизмойр ледовид Адо-ной ройи лой эхсор', en: 'Mizmor ledovid Ado-noi ro\'i lo echsor', de: 'Mismor ledowid Ado-noj ro\'i lo echsor' }],
-  'Теґилим 150:1': [150, { ru: 'Ґалелу Ка ґалелу-Кейл бекодшой ґалелуґу биркиа узой', en: 'Halelu Kah halelu-Keil bekodsho haleluhu birkia uzo', de: 'Halelu Kah halelu-Kejl bekodscho haleluhu birkia uso' }],
+  'Теґилим 23:1': [23, { ru: 'Мизмойр ледовид Адоной ройи лой эхсор', en: 'Mizmor ledovid Adonoi ro\'i lo echsor', de: 'Mismor ledowid Adonoj ro\'i lo echsor' }],
+  'Теґилим 150:1': [150, { ru: 'Ґалелу Йо ґалелу-Эйл бекодшой ґалелуґу биркиа узой', en: 'Halelu Yo halelu-Eil bekodsho haleluhu birkia uzo', de: 'Halelu Jo halelu-Ejl bekodscho haleluhu birkia uso' }],
+  'Теґилим 113:1': [113, { ru: 'Ґалелу Йо ґалелу авдей Адоной ґалелу эс-шейм Адоной', en: 'Halelu Yo halelu avdei Adonoi halelu es-sheim Adonoi', de: 'Halelu Jo halelu awdej Adonoj halelu es-schejm Adonoj' }],
 };
 for (const [name, [c, want]] of Object.entries(SAMPLE)) {
   const first: string = JSON.parse(readFileSync(new URL(`${c}.json`, dir), 'utf8')).v[0];
