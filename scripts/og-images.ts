@@ -184,7 +184,7 @@ const shots: [string, string][] = [
       eyebrow: 'Niflaot · the holy tongue',
       he: 'לשון הקודש',
       title: 'Learn Hebrew — the language of the Torah',
-      sub: 'Letters, words of the Torah and 2500 words of Tanakh · 5-minute lessons',
+      sub: 'Letters, words of the Torah and 3000 words of Tanakh · 5-minute lessons',
       letters: ['ל', 'ש'],
     }),
   ],
