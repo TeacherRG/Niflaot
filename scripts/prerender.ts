@@ -328,7 +328,7 @@ ${LESSON_GROUPS.map((g) => {
 }).join('\n')}
 <h2>${t('wing.adults')}: ${t('home.adultsTitle')}</h2>
 <p>${t('wing.adultsSub')}.</p>
-<ul><li><a href="${page('neviim')}">${t('tanakh.neviim')}</a></li><li><a href="${page('ketuvim')}">${t('tanakh.ketuvim')}</a></li><li><a href="${page('hemshech')}">${t('hs.menuLbl')}</a></li><li><a href="${page('tehillim')}">${t('reading.seoShort')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li></ul>
+<ul><li><a href="${page('neviim')}">${t('tanakh.seo.neviim.title')}</a>: ${t('tanakh.seo.neviim.lead')}</li><li><a href="${page('ketuvim')}">${t('tanakh.seo.ketuvim.title')}</a>: ${t('tanakh.seo.ketuvim.lead')}</li><li><a href="${page('hemshech')}">${t('hs.menuLbl')}</a></li><li><a href="${page('tehillim')}">${t('reading.seoShort')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li></ul>
 <p>${t('menu.torahRead')}: ${lessons.map((l) => `<a href="${root}#/${l.slug}/read">${esc(tx(l).title)}</a>`).join(' · ')}</p>
 <h2>${t('academy.fac.lashon')} · <span class="he">לשון הקודש</span></h2>
 <p>${t('ln.seoLead')}</p>

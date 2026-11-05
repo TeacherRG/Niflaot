@@ -1334,7 +1334,7 @@ const de: Messages = {
   'free.lead': "Niflaot ist eine Online-Tora-Akademie „von 8 bis 120“. Alles hier ist für alle offen: ohne Abo und ohne Werbung. Der erste Monat ohne Anmeldung, danach brauchst du nur eine Anmeldung mit deiner E-Mail – ohne Passwort, ein Code kommt per E-Mail.",
   'free.badges': "Ohne Abo · Ohne Werbung · Anmeldung per E-Mail · ru / en / de",
   'free.tanakh.h': "Propheten und Schriften in drei Jahren",
-  'free.tanakh.p': "Ein Abschnitt für jeden Tag: Hebräisch mit Vokalen, eine Übersetzung auf Deutsch, Englisch oder Russisch, Mezudat David und Raschi. Du kannst ihn drucken, anhören und Fragen beantworten.",
+  'free.tanakh.p': "Ein Abschnitt für jeden Tag: Hebräisch mit Vokalen, die englische JPS-Übersetzung und Raschi (Hebräisch und Englisch) – in allen Büchern; der Vers, Mezudat David und Raschi auf Deutsch – die Übersetzung des Projekts, eine Woche im Voraus. Du kannst ihn drucken, anhören und Fragen beantworten.",
   'free.words.h': "Jedes hebräische Wort",
   'free.words.p': "Tipp auf ein Wort des Verses — Übersetzung, Aussprache, Wurzel, Vorsilben und Endungen. „Meine Wörter“ — die 3000 häufigsten Wörter des Tanach, mit Wiederholung auf Karten.",
   'free.teacher.h': "KI-Lehrer",

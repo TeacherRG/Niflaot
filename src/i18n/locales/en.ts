@@ -1334,7 +1334,7 @@ const en: Messages = {
   'free.lead': "Niflaot is an online Torah academy \"from 8 to 120\". Everything here is open to everyone: no subscription and no ads. The first month needs no sign-in; after that you only need to sign in with your email — no password, a code comes by email.",
   'free.badges': "No subscription · No ads · Sign in by email · ru / en / de",
   'free.tanakh.h': "The Prophets and Writings in three years",
-  'free.tanakh.p': "A passage for every day: Hebrew with vowels, a translation in English, Russian or German, Metzudat David and Rashi. Print it, listen to it and answer the questions.",
+  'free.tanakh.p': "A passage for every day: Hebrew with vowels, the English JPS translation and Rashi in English — in every book; Metzudat David in English — the project’s translation, a week ahead. Print it, listen to it and answer the questions.",
   'free.words.h': "Every Hebrew word",
   'free.words.p': "Tap a word of the verse — translation, reading, root, prefixes and endings. \"My words\" — the 3000 most frequent words of Tanakh, reviewed on cards.",
   'free.teacher.h': "AI teacher",
