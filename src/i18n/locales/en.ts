@@ -783,6 +783,8 @@ const en: Messages = {
   'facts.seoPlay': "Open the riddle feed",
   'catalog.seoTitle': "Niflaot — an online Torah academy for all ages, from 8 to 120",
   'catalog.seo': "An online Torah academy for all ages. Play & solve — gematria games and investigations from the Baal HaTurim’s commentary and the Lubavitcher Rebbe’s talks, for kids 8+ and the whole family, no Hebrew needed. Learn every day — the same Torah lessons just to read, without games or counting, and the Prophets and Writings with Metzudat David and Rashi, for teens and adults. Chassidut — the Rebbe Rashab’s “Hemshech Samech-Vav” in 10-minute passages. Holy Tongue — learn Hebrew, the language of the Torah and the Prophets, step by step: letters, Torah words and 3000 words of Tanakh. Holy reading — the whole book of Tehillim with a reader’s recording in 102 minutes. Free.",
+  'catalog.teachersH': "Teachers and texts",
+  'catalog.teachers': "The weekly portion lessons follow the commentary of the Baal HaTurim (Rabbeinu Yaakov ben Asher) and the talks of the Lubavitcher Rebbe (Likkutei Sichot). The Prophets and Writings — the Masoretic text with vowels, with the commentaries of Metzudat David and Rashi. The course “The Secret of Kohelet” — a quest based on Rabbi Shneor Ashkenazi’s lesson. Chassidut — the Rebbe Rashab’s “Hemshech Samech-Vav” (English translation © The Neirot Foundation, with permission). Primary sources come from the open library of Sefaria, with links. The project’s own conclusions are always marked “Explanation” and kept apart from the words of the Sages.",
   'install.button': "Install on your phone",
   'install.sub': "as an app — the Gematria of the Day always at hand",
   'subscribe.title': "New lessons by email",
