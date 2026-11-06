@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 10:27",
+   "q": {
+    "ru": "Что сделали с пещерой в Македе в конце?",
+    "en": "What was done to the cave at Makkedah in the end?",
+    "de": "Was geschah am Ende mit der Höhle bei Makeda?"
+   },
+   "o": [
+    {
+     "ru": "Её вход завалили большими камнями",
+     "en": "Large stones were placed over its mouth",
+     "de": "Man legte große Steine vor ihren Eingang"
+    },
+    {
+     "ru": "В ней построили жертвенник",
+     "en": "An altar was built in it",
+     "de": "Man baute darin einen Altar"
+    },
+    {
+     "ru": "Её засыпали солью",
+     "en": "It was filled with salt",
+     "de": "Man füllte sie mit Salz"
+    },
+    {
+     "ru": "В ней поселились гивонитяне",
+     "en": "The Gibeonites settled in it",
+     "de": "Die Giwoniter wohnten darin"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 10:32",
+   "q": {
+    "ru": "На какой день Израиль захватил Лахиш?",
+    "en": "On which day did Israel capture Lachish?",
+    "de": "An welchem Tag eroberte Israel Lachisch?"
+   },
+   "o": [
+    {
+     "ru": "На второй",
+     "en": "On the second day",
+     "de": "Am zweiten Tag"
+    },
+    {
+     "ru": "На седьмой",
+     "en": "On the seventh day",
+     "de": "Am siebten Tag"
+    },
+    {
+     "ru": "В первый же час",
+     "en": "In the very first hour",
+     "de": "Gleich in der ersten Stunde"
+    },
+    {
+     "ru": "Через месяц",
+     "en": "After a month",
+     "de": "Nach einem Monat"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 10:33",
+   "q": {
+    "ru": "Кто пришёл на помощь Лахишу?",
+    "en": "Who came to the help of Lachish?",
+    "de": "Wer kam Lachisch zu Hilfe?"
+   },
+   "o": [
+    {
+     "ru": "Ґорам, царь Гезера",
+     "en": "King Horam of Gezer",
+     "de": "Horam, der König von Geser"
+    },
+    {
+     "ru": "Адони-Цедек, царь Йерушалаима",
+     "en": "King Adoni-zedek of Jerusalem",
+     "de": "Adoni-Zedek, der König von Jeruschalajim"
+    },
+    {
+     "ru": "Ог, царь Башана",
+     "en": "King Og of Bashan",
+     "de": "Og, der König von Baschan"
+    },
+    {
+     "ru": "Царь Египта",
+     "en": "The king of Egypt",
+     "de": "Der König von Ägypten"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 10:34",
+   "q": {
+    "ru": "Куда пошёл Йеґошуа из Лахиша?",
+    "en": "Where did Joshua go from Lachish?",
+    "de": "Wohin zog Jehoschua von Lachisch?"
+   },
+   "o": [
+    {
+     "ru": "К Эглону",
+     "en": "To Eglon",
+     "de": "Nach Eglon"
+    },
+    {
+     "ru": "Обратно в Гилгал",
+     "en": "Back to Gilgal",
+     "de": "Zurück nach Gilgal"
+    },
+    {
+     "ru": "К Йерихо",
+     "en": "To Jericho",
+     "de": "Nach Jericho"
+    },
+    {
+     "ru": "К Ярдену",
+     "en": "To the Jordan",
+     "de": "Zum Jarden"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 18:21",
+   "q": {
+    "ru": "По чему Г-сподь воздал Давиду?",
+    "en": "According to what did the L-rd reward David?",
+    "de": "Wonach hat der Ewige David vergolten?"
+   },
+   "o": [
+    {
+     "ru": "По его праведности и чистоте рук",
+     "en": "According to his merit and the cleanness of his hands",
+     "de": "Nach seiner Gerechtigkeit und der Reinheit seiner Hände"
+    },
+    {
+     "ru": "По его богатству",
+     "en": "According to his wealth",
+     "de": "Nach seinem Reichtum"
+    },
+    {
+     "ru": "По числу его воинов",
+     "en": "According to the number of his soldiers",
+     "de": "Nach der Zahl seiner Krieger"
+    },
+    {
+     "ru": "По его возрасту",
+     "en": "According to his age",
+     "de": "Nach seinem Alter"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 18:28",
+   "q": {
+    "ru": "Кого, по словам Давида, Б-г спасает, а кого унижает?",
+    "en": "Whom, David says, does G-d save and whom does He humble?",
+    "de": "Wen rettet G-tt nach Davids Worten, und wen erniedrigt Er?"
+   },
+   "o": [
+    {
+     "ru": "Спасает смиренных, унижает надменных",
+     "en": "He saves the lowly and humbles the haughty",
+     "de": "Er rettet die Demütigen und erniedrigt die Hochmütigen"
+    },
+    {
+     "ru": "Спасает сильных, унижает слабых",
+     "en": "He saves the strong and humbles the weak",
+     "de": "Er rettet die Starken und erniedrigt die Schwachen"
+    },
+    {
+     "ru": "Спасает богатых, унижает бедных",
+     "en": "He saves the rich and humbles the poor",
+     "de": "Er rettet die Reichen und erniedrigt die Armen"
+    },
+    {
+     "ru": "Спасает всех одинаково",
+     "en": "He saves everyone alike",
+     "de": "Er rettet alle gleich"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 18:29",
+   "q": {
+    "ru": "Что, по словам Давида, зажигает Б-г?",
+    "en": "What, David says, does G-d light?",
+    "de": "Was lässt G-tt nach Davids Worten leuchten?"
+   },
+   "o": [
+    {
+     "ru": "Его светильник",
+     "en": "His lamp",
+     "de": "Seine Lampe"
+    },
+    {
+     "ru": "Жертвенник",
+     "en": "The altar",
+     "de": "Den Altar"
+    },
+    {
+     "ru": "Звёзды",
+     "en": "The stars",
+     "de": "Die Sterne"
+    },
+    {
+     "ru": "Костёр в стане",
+     "en": "A campfire",
+     "de": "Ein Lagerfeuer"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 10:36",
+   "q": {
+    "ru": "Куда Йеґошуа поднялся из Эглона?",
+    "en": "Where did Joshua march from Eglon?",
+    "de": "Wohin zog Jehoschua von Eglon hinauf?"
+   },
+   "o": [
+    {
+     "ru": "В Хеврон",
+     "en": "To Hebron",
+     "de": "Nach Chewron"
+    },
+    {
+     "ru": "В Йерихо",
+     "en": "To Jericho",
+     "de": "Nach Jericho"
+    },
+    {
+     "ru": "В Шхем",
+     "en": "To Shechem",
+     "de": "Nach Schechem"
+    },
+    {
+     "ru": "В Бейт-Эль",
+     "en": "To Bethel",
+     "de": "Nach Bet-El"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 10:38",
+   "q": {
+    "ru": "К какому городу повернул Йеґошуа после Хеврона?",
+    "en": "Which town did Joshua turn to after Hebron?",
+    "de": "Zu welcher Stadt wandte sich Jehoschua nach Chewron?"
+   },
+   "o": [
+    {
+     "ru": "К Двиру",
+     "en": "To Debir",
+     "de": "Nach Dewir"
+    },
+    {
+     "ru": "К Аю",
+     "en": "To Ai",
+     "de": "Nach Ai"
+    },
+    {
+     "ru": "К Гивону",
+     "en": "To Gibeon",
+     "de": "Nach Giwon"
+    },
+    {
+     "ru": "К Хацору",
+     "en": "To Hazor",
+     "de": "Nach Chazor"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 10:42",
+   "q": {
+    "ru": "Почему Йеґошуа смог захватить всех этих царей за один раз?",
+    "en": "Why could Joshua conquer all those kings at a single stroke?",
+    "de": "Warum konnte Jehoschua alle diese Könige auf einmal erobern?"
+   },
+   "o": [
+    {
+     "ru": "Г-сподь, Б-г Израиля, воевал за Израиль",
+     "en": "The L-rd, the G-d of Israel, fought for Israel",
+     "de": "Der Ewige, der G-tt Israels, kämpfte für Israel"
+    },
+    {
+     "ru": "Цари сами сдались",
+     "en": "The kings surrendered on their own",
+     "de": "Die Könige ergaben sich von selbst"
+    },
+    {
+     "ru": "У Израиля было больше колесниц",
+     "en": "Israel had more chariots",
+     "de": "Israel hatte mehr Wagen"
+    },
+    {
+     "ru": "Города были без стен",
+     "en": "The towns had no walls",
+     "de": "Die Städte hatten keine Mauern"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 10:43",
+   "q": {
+    "ru": "Куда вернулся Йеґошуа со всем Израилем?",
+    "en": "Where did Joshua return with all Israel?",
+    "de": "Wohin kehrte Jehoschua mit ganz Israel zurück?"
+   },
+   "o": [
+    {
+     "ru": "В стан в Гилгале",
+     "en": "To the camp at Gilgal",
+     "de": "Ins Lager nach Gilgal"
+    },
+    {
+     "ru": "В Йерушалаим",
+     "en": "To Jerusalem",
+     "de": "Nach Jeruschalajim"
+    },
+    {
+     "ru": "В Шило",
+     "en": "To Shiloh",
+     "de": "Nach Schilo"
+    },
+    {
+     "ru": "За Ярден",
+     "en": "Across the Jordan",
+     "de": "Über den Jarden"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 18:30",
+   "q": {
+    "ru": "Что Давид может сделать со своим Б-гом?",
+    "en": "What can David do with his G-d?",
+    "de": "Was kann David mit seinem G-tt tun?"
+   },
+   "o": [
+    {
+     "ru": "Перепрыгнуть стену",
+     "en": "Scale a wall",
+     "de": "Über eine Mauer springen"
+    },
+    {
+     "ru": "Перейти море",
+     "en": "Cross the sea",
+     "de": "Das Meer durchqueren"
+    },
+    {
+     "ru": "Сдвинуть гору",
+     "en": "Move a mountain",
+     "de": "Einen Berg versetzen"
+    },
+    {
+     "ru": "Остановить солнце",
+     "en": "Stop the sun",
+     "de": "Die Sonne anhalten"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 18:31",
+   "q": {
+    "ru": "Каким названо слово Г-спода?",
+    "en": "How is the word of the L-rd described?",
+    "de": "Wie wird das Wort des Ewigen beschrieben?"
+   },
+   "o": [
+    {
+     "ru": "Чистым",
+     "en": "Pure",
+     "de": "Geläutert"
+    },
+    {
+     "ru": "Тайным",
+     "en": "Secret",
+     "de": "Geheim"
+    },
+    {
+     "ru": "Тяжёлым",
+     "en": "Heavy",
+     "de": "Schwer"
+    },
+    {
+     "ru": "Новым",
+     "en": "New",
+     "de": "Neu"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 18:34",
+   "q": {
+    "ru": "Какими Г-сподь сделал ноги Давида?",
+    "en": "What did the L-rd make David’s legs like?",
+    "de": "Wie machte der Ewige Davids Füße?"
+   },
+   "o": [
+    {
+     "ru": "Как у ланей",
+     "en": "Like a deer’s",
+     "de": "Wie die der Hirschkühe"
+    },
+    {
+     "ru": "Как у льва",
+     "en": "Like a lion’s",
+     "de": "Wie die eines Löwen"
+    },
+    {
+     "ru": "Как у орла",
+     "en": "Like an eagle’s",
+     "de": "Wie die eines Adlers"
+    },
+    {
+     "ru": "Как у коня",
+     "en": "Like a horse’s",
+     "de": "Wie die eines Pferdes"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 18:35",
+   "q": {
+    "ru": "Какой лук сгибают руки Давида?",
+    "en": "What kind of bow can David’s arms bend?",
+    "de": "Was für einen Bogen spannen Davids Arme?"
+   },
+   "o": [
+    {
+     "ru": "Медный",
+     "en": "A bow of bronze",
+     "de": "Einen Bogen aus Kupfer"
+    },
+    {
+     "ru": "Золотой",
+     "en": "A bow of gold",
+     "de": "Einen Bogen aus Gold"
+    },
+    {
+     "ru": "Деревянный",
+     "en": "A bow of wood",
+     "de": "Einen Bogen aus Holz"
+    },
+    {
+     "ru": "Каменный",
+     "en": "A bow of stone",
+     "de": "Einen Bogen aus Stein"
+    }
+   ]
+  }
+ ]
+}

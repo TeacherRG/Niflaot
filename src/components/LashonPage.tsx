@@ -13,7 +13,7 @@ import { canVibe, celebrate, feedback, setSound as saveSound, setVibe as saveVib
 import { memoImages } from '../core/memo';
 import { FINALS, letterName } from '../core/letterNames';
 import { answerWord, torahWords, useStars } from '../core/torahWords';
-import { exampleOf, inDeck, loadDict, loadExamples, markKnown, markLearn, readWordStore, useWordStore, type WordLang } from '../core/words';
+import { exampleOf, inDeck, loadDict, loadExamples, markKnown, markLearn, readWordStore, reviewFromCourse, useWordStore, type WordLang } from '../core/words';
 import {
   GOAL,
   TANAKH_GROUP,
@@ -299,7 +299,7 @@ export function LashonPage() {
               <WordSearch units={words} title={unitTitle} met={(k) => !!store.s[k]} onOpen={(unit, mark) => setDict({ unit, mark })} />
               {weak(words)}
               {adults && words.some((u) => u.stage === 2)
-                ? [1, 2, 3].map((st) => {
+                ? [1, 2, 3, 4, 5].map((st) => {
                     const list = words.filter((u) => u.stage === st);
                     if (!list.length) return null;
                     const a = (list[0].n - 1) * TANAKH_GROUP + 1;
@@ -307,7 +307,7 @@ export function LashonPage() {
                     return (
                       <div key={st} className="ln-stage">
                         <h3>
-                          {t(`ln.stage${st as 1 | 2 | 3}`, { a, b })} <small>{t(`ln.stage${st as 1 | 2 | 3}Sub`)}</small>
+                          {t(`ln.stage${st as 1 | 2 | 3 | 4 | 5}`, { a, b })} <small>{t(`ln.stage${st as 1 | 2 | 3 | 4 | 5}Sub`)}</small>
                         </h3>
                         {blocks(list)}
                       </div>
@@ -474,7 +474,7 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
   const [sound, setSound] = useState(soundOn);
   const [vibe, setVibe] = useState(vibeOn);
   /** `goal` — this lesson reached the goal of the day */
-  const [done, setDone] = useState<{ xp: number; added: number; goal: boolean } | null>(null);
+  const [done, setDone] = useState<{ xp: number; added: number; reviewed: number; goal: boolean } | null>(null);
   const habit = useHabit();
   const [requeued, setRequeued] = useState(false);
   const retried = useRef(new Set<Exercise>());
@@ -508,22 +508,28 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
       passExam(unit, answers.current);
       // adults: the words of a unit passed at once — «Знаю» in «Мои слова» (the review there confirms them)
       let added = 0;
+      let reviewed = 0;
       if (adults && unit.track === 'words') {
         const s = readWordStore();
+        // the words already in «Мои слова» — the exam's answers are their review
+        reviewed = reviewFromCourse(answers.current, s);
         for (const it of unit.items) if (!inDeck(s, it.key)) (markKnown(it.key), added++);
       }
-      setDone({ xp: XP_EXAM, added, goal: before < GOAL && before + XP_EXAM >= GOAL });
+      setDone({ xp: XP_EXAM, added, reviewed, goal: before < GOAL && before + XP_EXAM >= GOAL });
     } else {
       const xp = mistakes ? XP : XP_PERFECT;
       const before = xpToday(readCourse());
       finishLesson(unit, part, xp, answers.current);
       // adults: the new words of the lesson go to «Мои слова» — the review there counts for the certificate
       let added = 0;
-      if (adults && unit.track === 'words' && part) {
+      let reviewed = 0;
+      if (adults && unit.track === 'words') {
         const s = readWordStore();
-        for (const it of part) if (!inDeck(s, it.key)) (markLearn(it.key), added++);
+        // the words already in «Мои слова» (reviews, «Повторим», «Трудные») — the lesson's answers are their review
+        reviewed = reviewFromCourse(answers.current, s);
+        if (part) for (const it of part) if (!inDeck(s, it.key)) (markLearn(it.key), added++);
       }
-      setDone({ xp, added, goal: before < GOAL && before + xp >= GOAL });
+      setDone({ xp, added, reviewed, goal: before < GOAL && before + xp >= GOAL });
     }
   };
   // «Найдите пары»: a pair found without a slip is a right answer too — else the word comes back in «Повторим» at once
@@ -641,6 +647,7 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
             <Bar k={progressOf(unit, readCourse(), known)} n={1} />
           </p>
           {done.added > 0 && <p className="ln-note">{t(exam ? 'ln.addedKnown' : 'ln.added', { n: done.added })}</p>}
+          {done.reviewed > 0 && <p className="ln-note">{t('ln.reviewed', { n: done.reviewed })}</p>}
           {/* the mistakes once more, quietly: what to remember — they come back in the next lessons («Повторим») */}
           {missed.current.length > 0 && (
             <div className="ln-missed">

@@ -8,6 +8,8 @@ import { wordsContext } from '../core/assistantPages';
 import { celebrate, feedback } from '../core/fx';
 import {
   dueWords,
+  DAILY_KNOWN,
+  todaysReview,
   exampleOf,
   INTERVALS,
   inDeck,
@@ -88,7 +90,11 @@ export function WordsPage() {
   }, [dict]);
 
   const day = today();
-  const due = useMemo(() => (dict ? dueWords(store, day).filter((id) => dict.tr[id]) : []), [store, dict, day]);
+  // сегодняшняя порция: все «учу» и до DAILY_KNOWN «знаю» (`todaysReview`); `more` — «знаю» сверх неё
+  const { ids: due, more } = useMemo(
+    () => (dict ? todaysReview(store, dueWords(store, day).filter((id) => dict.tr[id]), day) : { ids: [], more: [] }),
+    [store, dict, day],
+  );
   if (!dict) return <TopBar title={t('words.mine')} />;
 
   const translated = Object.keys(dict.tr).length;
@@ -96,7 +102,7 @@ export function WordsPage() {
   const learning = Object.keys(dict.tr).filter((id) => inDeck(store, id) && !isKnown(store, id)).length;
   const cov = textCoverage(dict, store);
   const goal = WORD_GOALS.find((g) => g > known);
-  const tomorrow = dueWords(store, day + 1).filter((id) => dict.tr[id] && !due.includes(id)).length;
+  const tomorrow = todaysReview(store, dueWords(store, day + 1).filter((id) => dict.tr[id]), day + 1, 0).ids.length;
   const levels = Array.from({ length: Math.ceil(translated / LEVEL) }, (_, i) => dict.words.slice(i * LEVEL, Math.min((i + 1) * LEVEL, translated)));
 
   return (
@@ -148,6 +154,11 @@ export function WordsPage() {
             <p className="ws-note">
               {Object.keys(store).some((id) => inDeck(store, id)) ? t('words.reviewNone') : t('words.reviewEmpty')}
               {tomorrow > 0 && <> {t('words.reviewTomorrow', { n: tomorrow })}</>}
+              {more.length > 0 && (
+                <button type="button" className="btn ghost ws-more" onClick={() => setSession(more.slice(0, DAILY_KNOWN))}>
+                  {t('words.reviewMore', { n: Math.min(DAILY_KNOWN, more.length), left: more.length })}
+                </button>
+              )}
             </p>
           )}
         </section>

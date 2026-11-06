@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useI18n } from '../i18n';
 import { Slogan } from './Slogan';
 import { LESSONS, LESSON_GROUPS, cardsOnly, type Lesson } from '../lessons';
@@ -8,15 +8,21 @@ import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { WeekCountdown } from './WeekCountdown';
 import { PhoneOffer } from './PhoneOffer';
-import { HabitCard, Repair } from './HabitCard';
-import { useHabit } from '../core/habit';
+import { HabitCard } from './HabitCard';
 import { dailyNumber, grid, loadResults, streak } from '../core/daily';
 import { Icon } from './ui';
 import { lessonGames } from './lessonGames';
 import { lessonArt } from '../core/art';
 import { useMode } from '../core/mode';
 import { CoursesCard } from './CoursesCard';
+import { ZIP_KEY, zipTile } from '../core/zipReminder';
+import { todayIso } from '../core/habit';
 import { Dedication } from './Dedication';
+import { ShabbatCalendar } from './ShabbatCalendar';
+import { NUMS, collectFacts, type Fact } from '../core/facts';
+import { displayNames } from '../core/names';
+import { loadDict, nextWords, today, unlearnedWords, useWordStore, type Dict, type WordLang } from '../core/words';
+import { certName, hebFinals, hebGuess, hebOnly, readMyName, saveMyName, SEFARIA_BOOKS, versesFor, type MyName, type MyVerses, type Verse } from '../core/myVerse';
 
 /** «Гематрия дня» on the home screen: today's number, or the result when today's word is solved. */
 function DailyLink() {
@@ -33,6 +39,24 @@ function DailyLink() {
       <span className="h-daily-sub">
         {r?.done ? `${grid(r) || '🟥🟥🟥'}${series > 1 ? ` · 🔥 ${series}` : ''}` : t('daily.menuSub')} →
       </span>
+    </a>
+  );
+}
+
+/** «Святая игра Zip» on the kids' home (#/zip): the level of the next verse, or ✓ when a verse is solved today. */
+function ZipLink() {
+  const { t } = useI18n();
+  let raw: string | null = null;
+  try {
+    raw = localStorage.getItem(ZIP_KEY);
+  } catch {}
+  const z = zipTile(raw, todayIso());
+  return (
+    <a className="h-daily h-zip" href="#/zip">
+      <span className="h-daily-title">
+        🧩 {t('home.zipK')} <span className="num">Zip</span>
+      </span>
+      <span className="h-daily-sub">{t(z.today ? 'home.zipDone' : 'home.zipNew', { n: z.l })} →</span>
     </a>
   );
 }
@@ -57,64 +81,428 @@ function TableLink() {
 }
 
 /**
- * The adults' home («Подростки и взрослые», src/core/mode.ts): bookish and quiet. The main block — «Мои курсы» (CoursesCard.tsx,
- * `lead`; owner, 26.10.2026, instead of the plan of the day «Сегодня учим в Академии»): the streak and «сегодня N из M», each course
- * with ✓ for today, «Читать» on the first one not done; under it «Восполнить пропуск» and «Мало времени? 2 минуты — «Гематрия дня»».
- * Beside it — the week's Torah lessons to read (the same for everyone), «Знаете ли вы?», «Викторина вместе», the phone offer. No games or ages.
+ * The adults' home («Подростки и взрослые», src/core/mode.ts): four tiles and nothing else (owner, 28.10.2026: «убрать все лишние
+ * тексты и повторяющиеся ссылки») — «Сегодня — глава» (the week's portion, opens its first lesson to read), «Мои курсы» (only the
+ * names of the chosen courses with their bars — CoursesCard `simple`), «Проворное чтение Теґилим» (#/reading) and the running feed
+ * of the lessons' gematria (the calendar moved to the top bar — HebrewDay.tsx); under them — the dedication of the week.
+ * It all fits one screen, with no scrolling (owner).
  */
 function AdultsHome() {
-  const { t, pick, locale } = useI18n();
+  const { t, locale } = useI18n();
   useEffect(() => {
     document.title = `${t('home.adultsH1')} · ${t('app.title')} · MyChitas`;
   }, [t]);
-  const h = useHabit();
   const week = LESSON_GROUPS[LESSON_GROUPS.length - 1];
   const reads = [...week.lessons, ...week.rebbe];
+  const art = reads.map((l) => lessonArt(l, 'hero')).find(Boolean);
 
   return (
     <>
       <TopBar title={t('app.title')} wide />
       <main className="a-home">
         <h1 className="sr-only">{t('home.adultsH1')}</h1>
-        <div className="a-main">
-          <CoursesCard lead />
-          {h.repair && <Repair day={h.repair.day} streak={h.repair.streak} pending={h.pending === h.repair.day} adults locale={locale} />}
-          <p className="a-short">
-            {t('habit.short')} <a href="#/daily">{t('habit.shortDaily')}</a>
-          </p>
-        </div>
-        <aside className="a-side">
+        <div className="a-tiles">
           {reads.length > 0 && (
-            <section aria-labelledby="a-week">
-              <h2 id="a-week">
-                {t('home.week')} · {week.name[locale as keyof typeof week.name] ?? week.name.ru} <span className="he">{week.he}</span>
-              </h2>
-              <ul className="a-week">
-                {reads.map((l) => {
-                  const who = teacherOf(l);
-                  return (
-                    <li key={l.slug}>
-                      <a className={`t-${TEACHERS[who].color}`} href={`#/${l.slug}/read`}>
-                        <span className="a-week-k">{t(`teacher.${who}.short`)}</span>
-                        <span className="a-week-t">{pick(l.texts).value.title} →</span>
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
+            <a className={`a-tile a-parsha${art ? ' a-art' : ''}`} href={`#/${reads[0].slug}/read`} style={art ? { backgroundImage: `url(${art})` } : undefined}>
+              <span className="a-tile-k">{t('home.todayParsha')}</span>
+              <span className="a-tile-t">{week.name[locale as keyof typeof week.name] ?? week.name.ru}</span>
+              <span className="a-tile-he he">{week.he}</span>
+            </a>
           )}
-          <PhoneOffer />
-          <p className="a-links">
-            <a href="#/facts">{t('facts.title')} →</a>
-            <a href="#/quiz">{t('lq.title')} →</a>
-            <a href="#/digest">{t('digest.title')} →</a>
-          </p>
-        </aside>
-        <Dedication />
+          <a className="a-tile a-reading" href="#/reading">
+            <span className="a-tile-k">{t('home.readingK')}</span>
+            <span className="a-tile-t">{t('reading.h1')}</span>
+            <span className="a-tile-he he">תְּהִלִּים</span>
+          </a>
+          {/* «Мои курсы» — half the tile, «Святая игра Zip» next to it (owner, 02.11.2026) */}
+          <div className="a-pair">
+            <CoursesCard simple />
+            <ZipTile />
+          </div>
+          <HomeTicker />
+        </div>
+        <Dedication line />
       </main>
       <Colophon />
     </>
+  );
+}
+
+/** «Святая игра Zip» (#/zip, src/core/zip.ts): the level of the next verse, or ✓ when a verse is solved today. */
+function ZipTile() {
+  const { t } = useI18n();
+  let raw: string | null = null;
+  try {
+    raw = localStorage.getItem(ZIP_KEY);
+  } catch {}
+  const z = zipTile(raw, todayIso());
+  return (
+    <a className="a-tile a-zip" href="#/zip">
+      <span className="a-tile-k">{t('home.zipK')}</span>
+      <span className="a-tile-t">Zip</span>
+      <span className="a-tile-he he">פָּסוּק</span>
+      <span className="a-zip-s">{t(z.today ? 'home.zipDone' : 'home.zipNew', { n: z.l })}</span>
+    </a>
+  );
+}
+
+/**
+ * «Гематрии» on the adults' home: every equality of the lessons («פרצוף + גאוה = 471 = זנב + תאוה», src/core/facts.ts)
+ * with its words translated under it (the lesson's glossary), running slowly upwards in a closed loop (the list twice,
+ * the animation moves it by one list); ⏸ stops it (moving content needs a pause — WCAG 2.2.2; on a phone there is no hover),
+ * so does the mouse or focus; a tap opens the equality in «Знаете ли вы?» (#/facts/<id>); «reduce motion» — a still list.
+ */
+type TickerKind = 'gematria' | 'words' | 'verse';
+const TICKER_KEY = 'niflaot:home-ticker';
+const TICKER_LABEL = { gematria: 'home.gematria', words: 'words.mine', verse: 'home.myVerse' } as const;
+const readTicker = (): TickerKind => {
+  try {
+    const k = localStorage.getItem(TICKER_KEY);
+    return k === 'words' || k === 'verse' ? k : 'gematria';
+  } catch {
+    return 'gematria';
+  }
+};
+
+/**
+ * The running feed on the adults' home — the player chooses what runs in it (owner, 31.10.2026): «Гематрии» (the lessons'
+ * equalities) or «Мои слова» (the words of Tanakh the player is learning and hasn't learned yet). The choice —
+ * `niflaot:home-ticker`, only on this device.
+ */
+function HomeTicker() {
+  const { t } = useI18n();
+  const [kind, setKind] = useState<TickerKind>(readTicker);
+  const choose = (k: TickerKind) => {
+    setKind(k);
+    try {
+      localStorage.setItem(TICKER_KEY, k);
+    } catch {}
+  };
+  const head = (
+    <>
+      <h2 id="a-tick-h" className="sr-only">
+        {t(TICKER_LABEL[kind])}
+      </h2>
+      <div className="a-tick-switch" role="group" aria-label={t('home.tickerChoose')}>
+        {(['gematria', 'words', 'verse'] as const).map((k) => (
+          <button key={k} type="button" aria-pressed={kind === k} onClick={() => choose(k)}>
+            {t(TICKER_LABEL[k])}
+          </button>
+        ))}
+      </div>
+    </>
+  );
+  return kind === 'words' ? <WordsTicker head={head} /> : kind === 'verse' ? <VerseTicker head={head} /> : <GematriaTicker head={head} />;
+}
+
+/** The head of a feed: the switch (or the title) and ⏸ / ▶. */
+function TickHead({ paused, setPaused, children }: { paused: boolean; setPaused: (f: (x: boolean) => boolean) => void; children: ReactNode }) {
+  const { t } = useI18n();
+  return (
+    <div className="a-tick-head">
+      {children}
+      <button type="button" className="a-tick-pause" onClick={() => setPaused((x) => !x)} aria-pressed={paused} aria-label={t(paused ? 'reading.resume' : 'reading.pause')} title={t(paused ? 'reading.resume' : 'reading.pause')}>
+        {paused ? '▶' : '❚❚'}
+      </button>
+    </div>
+  );
+}
+
+/**
+ * «Мои слова» as a feed: each word the player is learning — Hebrew, its translation (and «повторить сегодня»), running like
+ * the gematria; a tap opens «Мои слова» (#/words). Nothing to learn yet — the most frequent words not in «Мои слова»
+ * (a line says so). The dictionary is loaded only when this feed is chosen.
+ */
+const NEW_IN_TICKER = 20;
+const MIN_IN_LOOP = 8;
+function WordsTicker({ head }: { head: ReactNode }) {
+  const { t, locale } = useI18n();
+  const store = useWordStore();
+  const [dict, setDict] = useState<Dict | null>(null);
+  const [paused, setPaused] = useState(false);
+  useEffect(() => {
+    let live = true;
+    loadDict(locale as WordLang).then((d) => live && setDict(d), () => {});
+    return () => {
+      live = false;
+    };
+  }, [locale]);
+  const { ids, fresh } = useMemo(() => {
+    if (!dict) return { ids: [] as string[], fresh: false };
+    const mine = unlearnedWords(dict, store);
+    return mine.length ? { ids: mine, fresh: false } : { ids: nextWords(dict, store, NEW_IN_TICKER).map((w) => w.id), fresh: true };
+  }, [dict, store]);
+  const day = today();
+  // a short list — repeated, so the loop fills the window (the second copy below moves it by exactly one list)
+  const loop = ids.length ? Array.from({ length: Math.ceil(MIN_IN_LOOP / ids.length) }, () => ids).flat() : [];
+  const row = (id: string, copy: boolean, k: number) => {
+    const w = dict!.words[dict!.rank.get(id)! - 1];
+    const due = !fresh && store[id][2] <= day;
+    return (
+      <li key={`${copy ? 'b' : 'a'}${k}`} aria-hidden={copy || k >= ids.length || undefined}>
+        <a href="#/words" tabIndex={copy || k >= ids.length ? -1 : undefined}>
+          <span className="he" dir="rtl">
+            {w.he}
+          </span>
+          <span className="a-tick-g">
+            {dict!.tr[id]}
+            {due && <span className="a-tick-due"> · {t('words.statDue')}</span>}
+          </span>
+        </a>
+      </li>
+    );
+  };
+  return (
+    <section className={`a-tick${paused ? ' paused' : ''}`} aria-labelledby="a-tick-h">
+      <TickHead paused={paused} setPaused={setPaused}>
+        {head}
+      </TickHead>
+      {fresh && dict && <p className="a-tick-note">{t('home.tickerNew')}</p>}
+      <div className="a-tick-win">
+        {dict && ids.length > 0 && (
+          <ul style={{ animationDuration: `${loop.length * 4}s` }}>
+            {loop.map((id, k) => row(id, false, k))}
+            {loop.map((id, k) => row(id, true, k))}
+          </ul>
+        )}
+      </div>
+    </section>
+  );
+}
+
+/**
+ * «Мой стих Торы» (owner, 03.11.2026): the verse of the player's name — it begins with the first letter of the name in
+ * Hebrew and ends with the last (said at the end of the Amidah), the verse with the name itself and the other verses on
+ * these letters, running like the other feeds. The first time — «Как вас зовут?»: the name, its Hebrew spelling guessed
+ * as in «Стих имени» of «Тайна Коэлета» (src/core/myVerse.ts, data koelet/data/pesukim/) and editable. The name stays on
+ * this device (`niflaot:my-verse`). A tap opens the verse: Prophets and Writings — the day of the cycle, Torah — Sefaria.
+ */
+const MORE_IN_TICKER = 24;
+type Cite = { label: string; href: string; external: boolean } | null;
+function VerseTicker({ head }: { head: ReactNode }) {
+  const { t, locale } = useI18n();
+  const [me, setMe] = useState<MyName | null>(readMyName);
+  const [paused, setPaused] = useState(false);
+  const [data, setData] = useState<{ v: MyVerses; cite: (ref: string) => Cite } | null>(null);
+  const [err, setErr] = useState(false);
+  const [tryN, setTryN] = useState(0);
+  useEffect(() => {
+    if (!me) return;
+    let live = true;
+    setData(null);
+    setErr(false);
+    Promise.all([versesFor(me.he), import('../core/citations')]).then(
+      ([v, c]) => live && setData({ v, cite: (ref) => c.resolveCite(ref, locale) }),
+      () => live && setErr(true),
+    );
+    return () => {
+      live = false;
+    };
+  }, [me, locale, tryN]);
+
+  if (!me)
+    return (
+      <section className="a-tick" aria-labelledby="a-tick-h">
+        <TickHead paused={paused} setPaused={setPaused}>
+          {head}
+        </TickHead>
+        <MyNameForm
+          onDone={(v) => {
+            saveMyName(v);
+            setMe(v);
+          }}
+        />
+      </section>
+    );
+
+  type Item = { v: Verse; tag?: string; first?: boolean };
+  const items: Item[] = [];
+  for (const n of data?.v.names ?? []) {
+    const [mine, ...more] = n.pair;
+    if (mine) items.push({ v: mine, tag: t('home.myVerseMine'), first: true });
+    if (n.withName) items.push({ v: n.withName, tag: t('home.myVerseWithName') });
+    for (const v of more.slice(0, MORE_IN_TICKER)) items.push({ v, tag: t('home.myVerseMore'), first: true });
+  }
+  const loop = items.length ? Array.from({ length: Math.ceil(4 / items.length) }, () => items).flat() : [];
+  const verse = (v: Verse, first?: boolean) => {
+    const txt = v[3];
+    if (!first) return txt;
+    // the first and the last letters — the letters of the name
+    const a = txt.search(/[א-ת]/),
+      b = txt.search(/[א-ת][^א-ת]*$/);
+    if (a < 0 || b <= a) return txt;
+    return (
+      <>
+        {txt.slice(0, a)}
+        <mark>{txt[a]}</mark>
+        {txt.slice(a + 1, b)}
+        <mark>{txt[b]}</mark>
+        {txt.slice(b + 1)}
+      </>
+    );
+  };
+  const row = (it: Item, copy: boolean, k: number) => {
+    const hide = copy || k >= items.length;
+    const c = data!.cite(`${SEFARIA_BOOKS[it.v[0]]} ${it.v[1]}:${it.v[2]}`);
+    const ref = c?.label ?? `${data!.v.books[it.v[0]]} ${it.v[1]}:${it.v[2]}`;
+    const body = (
+      <>
+        <span className="he a-tick-v" dir="rtl">
+          {verse(it.v, it.first)}
+        </span>
+        <span className="a-tick-g">
+          {it.tag && <span className="a-tick-due">{it.tag} · </span>}
+          {ref}
+        </span>
+      </>
+    );
+    return (
+      <li key={`${copy ? 'b' : 'a'}${k}`} aria-hidden={hide || undefined}>
+        {c ? (
+          <a href={c.href} tabIndex={hide ? -1 : undefined} {...(c.external ? { target: '_blank', rel: 'noopener' } : {})}>
+            {body}
+          </a>
+        ) : (
+          <span className="a-tick-item">{body}</span>
+        )}
+      </li>
+    );
+  };
+  return (
+    <section className={`a-tick${paused ? ' paused' : ''}`} aria-labelledby="a-tick-h">
+      <TickHead paused={paused} setPaused={setPaused}>
+        {head}
+      </TickHead>
+      <p className="a-tick-note a-tick-me">
+        <span className="he">{me.he}</span>
+        {me.name && me.name !== me.he && <> · {me.name}</>}
+        {' · '}
+        <button type="button" className="a-tick-edit" onClick={() => setMe(null)}>
+          {t('home.myVerseEdit')}
+        </button>
+      </p>
+      {err ? (
+        <p className="a-tick-note">
+          {t('home.myVerseError')}{' '}
+          <button type="button" className="a-tick-edit" onClick={() => setTryN((n) => n + 1)}>
+            ↻
+          </button>
+        </p>
+      ) : !data ? (
+        <p className="a-tick-note">{t('home.myVerseLoading')}</p>
+      ) : !items.length ? (
+        <p className="a-tick-note">{t('home.myVerseNone')}</p>
+      ) : (
+        <div className="a-tick-win">
+          <ul style={{ animationDuration: `${loop.length * 6}s` }}>
+            {loop.map((it, k) => row(it, false, k))}
+            {loop.map((it, k) => row(it, true, k))}
+          </ul>
+        </div>
+      )}
+    </section>
+  );
+}
+
+/** «Как вас зовут?»: the name and its Hebrew spelling (guessed, editable — the first and the last letters matter). */
+function MyNameForm({ onDone }: { onDone: (v: MyName) => void }) {
+  const { t } = useI18n();
+  const prev = readMyName();
+  const [name, setName] = useState(prev?.name ?? certName());
+  const [he, setHe] = useState(prev?.he ?? hebGuess(name));
+  const [heTouched, setHeTouched] = useState(!!prev);
+  const ok = hebFinals(he).trim().length >= 2;
+  return (
+    <form
+      className="a-myname"
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (ok) onDone({ name: name.trim(), he: hebFinals(he).trim() });
+      }}
+    >
+      <p className="a-tick-note">{t('home.myVerseAsk')}</p>
+      <div className="a-myname-row">
+      <label>
+        <span>{t('home.myVerseName')}</span>
+        <input
+          value={name}
+          maxLength={40}
+          autoComplete="given-name"
+          onChange={(e) => {
+            setName(e.target.value);
+            if (!heTouched) setHe(hebGuess(e.target.value));
+          }}
+        />
+      </label>
+      <label>
+        <span>{t('home.myVerseHe')}</span>
+        <input
+          className="he"
+          lang="he"
+          dir="rtl"
+          value={he}
+          maxLength={24}
+          autoComplete="off"
+          spellCheck={false}
+          onChange={(e) => {
+            setHeTouched(true);
+            setHe(hebFinals(hebOnly(e.target.value)));
+          }}
+        />
+      </label>
+      </div>
+      <button type="submit" className="btn" disabled={!ok}>
+        {t('home.myVerseGo')}
+      </button>
+    </form>
+  );
+}
+
+function GematriaTicker({ head }: { head: ReactNode }) {
+  const { pick } = useI18n();
+  const [paused, setPaused] = useState(false);
+  const facts = useMemo(() => collectFacts(LESSONS).filter((f): f is Extract<Fact, { kind: 'eq' }> => f.kind === 'eq'), []);
+  if (!facts.length) return null;
+  const gloss = (f: Extract<Fact, { kind: 'eq' }>) => {
+    const words = pick(f.lesson.texts).value.glossary;
+    const tr = (h: string) =>
+      h
+        .split(' + ')
+        .map((w) => words[w])
+        .filter(Boolean)
+        .join(' + ');
+    return [f.q, ...f.rest.filter((p) => !NUMS.test(p))].map(tr).filter(Boolean).join(' = ');
+  };
+  const row = (f: Extract<Fact, { kind: 'eq' }>, copy: boolean) => {
+    const g = gloss(f);
+    return (
+      <li key={`${copy ? 'b' : 'a'}${f.id}`} aria-hidden={copy || undefined}>
+        <a href={`#/facts/${f.id}`} tabIndex={copy ? -1 : undefined}>
+          <span dir="rtl">
+            {[f.q, ...f.rest].map((p, i) => (
+              <Fragment key={i}>
+                {i > 0 && <span className="a-tick-eq"> = </span>}
+                {NUMS.test(p) ? <b className="a-tick-n">{p}</b> : <span className="he">{displayNames(p)}</span>}
+              </Fragment>
+            ))}
+          </span>
+          {g && <span className="a-tick-g">{g}</span>}
+        </a>
+      </li>
+    );
+  };
+  return (
+    <section className={`a-tick${paused ? ' paused' : ''}`} aria-labelledby="a-tick-h">
+      <TickHead paused={paused} setPaused={setPaused}>
+        {head}
+      </TickHead>
+      <div className="a-tick-win">
+        <ul style={{ animationDuration: `${facts.length * 4}s` }}>
+          {facts.map((f) => row(f, false))}
+          {facts.map((f) => row(f, true))}
+        </ul>
+      </div>
+    </section>
   );
 }
 
@@ -298,9 +686,12 @@ function KidsHome() {
 
           <div className="k-side">
             <HabitCard compact />
+            <ZipLink />
             <CoursesCard />
             <DailyLink />
             <TableLink />
+            {/* on the kids home only the Shabbat (the date is beside it, in WeekCountdown; the full calendar — in the top bar) */}
+            <ShabbatCalendar shabbatOnly />
             <WeekCountdown />
             <PhoneOffer />
           </div>

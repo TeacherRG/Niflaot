@@ -1,0 +1,213 @@
+{
+  "name": "Ein Teil",
+  "desc": "Finale. Dein Platz im Bild",
+  "steps": [
+    {
+      "type": "talk",
+      "who": "mentor",
+      "text": {
+        "__ag": 1,
+        "y": "Du hast einen langen Weg hinter dir. Du musst nicht die ganze Welt sammeln. Du musst dein Teil finden.",
+        "t": "Du hast einen langen Weg hinter dir. Das habe ich verstanden, während ich dieses Buch gehütet habe: Du musst nicht die ganze Welt sammeln. Du musst dein Teil finden."
+      }
+    },
+    {
+      "type": "card",
+      "kicker": "Eine wahre Geschichte",
+      "title": "Eine Nacht",
+      "pic": {
+        "__ag": 1,
+        "y": "moon hospital",
+        "t": ""
+      },
+      "body": {
+        "__ag": 1,
+        "y": "<p>Ein Arzt wollte bald in Rente gehen. Eines Nachts blieb er länger im Krankenhaus. Genau da brauchten eine Mutter und ihr Baby seine Hilfe. Er blieb und half.</p><p>Der Baal Schem Tow sagte: Manchmal kommt eine Seele für eine einzige gute Tat im richtigen Moment auf die Welt.</p>",
+        "t": "<p>In der israelischen Stadt Rischon LeZion arbeitete ein Arzt. Bis zur Rente hatte er noch ein halbes Jahr. Eines Tages blieb er bis tief in die Nacht im Krankenhaus. Und genau dann brauchte eine Mutter, deren Baby zur Welt kam, die Hilfe eines erfahrenen Arztes. Er blieb und half beiden.</p><p>Der Baal Schem Tow, ein großer Lehrer, sagte: Manchmal kommt eine Seele für viele Jahre auf die Welt – wegen einer einzigen guten Tat, im richtigen Moment und am richtigen Ort.</p>"
+      }
+    },
+    {
+      "type": "quote",
+      "he": "אֵיזֶהוּ עָשִׁיר? הַשָּׂמֵחַ בְּחֶלְקוֹ",
+      "src": "Pirkej Awot 4:1",
+      "tr": "„Wer ist reich? Wer sich über seinen Anteil freut.“",
+      "plain": {
+        "__ag": 1,
+        "y": "Wieder unser Wort „Chelek“. Sich über seinen Anteil freuen heißt: sich über seine Rolle im Puzzle freuen und sie entwickeln.",
+        "t": "Hier ist wieder unser Wort „Chelek“. Sich über seinen Anteil zu freuen heißt nicht, herumzusitzen und nichts zu tun. Es heißt, sich über seine Rolle im Puzzle zu freuen und sie voll zu entfalten, ohne andere um ihre Rollen zu beneiden."
+      },
+      "q": "Was bedeutet „sich über seinen Anteil freuen“ für dich?",
+      "options": [
+        "Andere nicht beneiden",
+        "Das Meine entwickeln",
+        "Schätzen, was ich schon habe",
+        "Alles zusammen"
+      ],
+      "r": "Das ist die Antwort von König Schlomo. Nicht „Alles ist Hauch“, sondern „Finde deinen Anteil und freu dich daran“."
+    },
+    {
+      "age": "a",
+      "type": "card",
+      "kicker": "Raw Aschkenasi erzählt",
+      "title": "Der Rebbe und der Botschafter",
+      "body": "<p>1972 sprach der Lubawitscher Rebbe mit dem israelischen Botschafter Jitzchak Rabin über die Mischna „Wer ist reich? Wer sich über seinen Anteil freut.“</p><p>Der Kern der Erklärung: Sich über seinen Anteil zu freuen heißt nicht, sich mit wenig zufriedenzugeben und stehen zu bleiben. Es heißt, sich über die eigene besondere Rolle im Puzzle zu freuen, die eigenen Kräfte ganz zu entfalten und andere nicht um ihre Rollen zu beneiden.</p>"
+    },
+    {
+      "type": "card",
+      "kicker": "Kohelet 12:13 · Die letzten Worte des Buches",
+      "title": "Eine Grundlage, jeder hat seinen Anteil",
+      "body": {
+        "__ag": 1,
+        "y": "<p class=\"quote-he\" lang=\"he\">סוֹף דָּבָר הַכֹּל נִשְׁמָע אֶת הָאֱלֹקִים יְרָא וְאֶת מִצְוֹתָיו שְׁמוֹר כִּי זֶה כָּל הָאָדָם</p><p>„Fürchte G-tt und halte Seine Gebote, denn das ist der ganze Mensch.“</p><p>Die Grundlage ist für alle gleich. Aber das Teil ist bei jedem anders.</p>",
+        "t": "<p class=\"quote-he\" lang=\"he\">סוֹף דָּבָר הַכֹּל נִשְׁמָע אֶת הָאֱלֹקִים יְרָא וְאֶת מִצְוֹתָיו שְׁמוֹר כִּי זֶה כָּל הָאָדָם</p><p>„Das Ende der Rede, nachdem alles gehört ist: Fürchte G-tt und halte Seine Gebote, denn das ist der ganze Mensch.“</p><p>So endet das Buch. Die gemeinsame Grundlage ist für alle gleich: die Tora und die Gebote. Aber jeder hat seinen eigenen Anteil. Wie an Sukkot: Etrog und Arawa erfüllen dasselbe Gebot, aber jede auf ihre Weise.</p>"
+      }
+    },
+    {
+      "type": "quote",
+      "he": "כָּל יִשְׂרָאֵל יֵשׁ לָהֶם חֵלֶק לָעוֹלָם הַבָּא",
+      "src": "Sanhedrin 90a",
+      "tr": "„Ganz Israel hat einen Anteil an der kommenden Welt.“",
+      "plain": {
+        "__ag": 1,
+        "y": "Wieder unser Wort חֵלֶק. Jeder hat einen Anteil. Niemand ist überflüssig.",
+        "t": "Wieder dasselbe Wort – חֵלֶק. Mit diesen Worten beginnt man das Lesen jedes Kapitels der Pirkej Awot. Der Kreis schließt sich: Jeder hat einen Anteil in dieser Welt – sein Teil im Puzzle – und jeder hat einen Anteil an der kommenden Welt."
+      },
+      "q": "Was fühlst du, wenn du das liest?",
+      "options": [
+        "Auch für mich gibt es einen Platz",
+        "Niemand ist überflüssig",
+        "Ich will meinen Anteil hüten"
+      ],
+      "r": "So ist es: In G-ttes Plan gibt es keine überflüssigen Teile."
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "Die letzte Aufgabe. Was möchtest du diese Woche ausprobieren?",
+      "key": "weekly",
+      "neutral": true,
+      "compact": true,
+      "own": {
+        "label": "Oder denk dir deinen eigenen Schritt aus",
+        "ph": "Zum Beispiel: Opa anrufen",
+        "r": "Ein toller Schritt. Klein, aber echt. Und du hast ihn dir selbst ausgedacht."
+      },
+      "options": {
+        "__ag": 1,
+        "y": [
+          {
+            "ic": "helphand",
+            "t": "Jemandem helfen",
+            "v": "Jemandem helfen",
+            "r": "Ein toller Schritt. Klein, aber echt.",
+            "help": true
+          },
+          {
+            "ic": "sparkle",
+            "t": "Etwas Neues ausprobieren",
+            "v": "Etwas Neues ausprobieren",
+            "r": "Ein toller Schritt. Klein, aber echt.",
+            "help": false
+          },
+          {
+            "ic": "target",
+            "t": "Meine Gabe entwickeln",
+            "v": "Meine Gabe entwickeln",
+            "r": "Ein toller Schritt. Klein, aber echt.",
+            "help": false
+          },
+          {
+            "ic": "friends",
+            "t": "Einen Freund unterstützen",
+            "v": "Einen Freund unterstützen",
+            "r": "Ein toller Schritt. Klein, aber echt.",
+            "help": true
+          },
+          {
+            "ic": "letter",
+            "t": "Mich bei jemandem bedanken, der mir geholfen hat",
+            "v": "Mich bei jemandem bedanken, der mir geholfen hat",
+            "r": "Ein toller Schritt. Klein, aber echt.",
+            "help": false
+          },
+          {
+            "ic": "party",
+            "t": "Mich für den Erfolg anderer freuen",
+            "v": "Mich für den Erfolg anderer freuen",
+            "r": "Ein toller Schritt. Klein, aber echt.",
+            "help": false
+          }
+        ],
+        "t": [
+          {
+            "ic": "helphand",
+            "t": "Jemandem helfen",
+            "v": "Jemandem helfen",
+            "r": "Ein toller Schritt. Klein, aber echt.",
+            "help": true
+          },
+          {
+            "ic": "sparkle",
+            "t": "Etwas Neues ausprobieren",
+            "v": "Etwas Neues ausprobieren",
+            "r": "Ein toller Schritt. Klein, aber echt.",
+            "help": false
+          },
+          {
+            "ic": "target",
+            "t": "Meine Gabe entwickeln",
+            "v": "Meine Gabe entwickeln",
+            "r": "Ein toller Schritt. Klein, aber echt.",
+            "help": false
+          },
+          {
+            "ic": "clock",
+            "t": "Etwas tun, das ich lange aufgeschoben habe",
+            "v": "Etwas tun, das ich lange aufgeschoben habe",
+            "r": "Ein toller Schritt. Klein, aber echt.",
+            "help": false
+          },
+          {
+            "ic": "friends",
+            "t": "Einen Freund unterstützen",
+            "v": "Einen Freund unterstützen",
+            "r": "Ein toller Schritt. Klein, aber echt.",
+            "help": true
+          },
+          {
+            "ic": "book",
+            "t": "Etwas lernen",
+            "v": "Etwas lernen",
+            "r": "Ein toller Schritt. Klein, aber echt.",
+            "help": false
+          },
+          {
+            "ic": "mirror",
+            "t": "Aufhören, mich mit anderen zu vergleichen",
+            "v": "Aufhören, mich mit anderen zu vergleichen",
+            "r": "Ein toller Schritt. Klein, aber echt.",
+            "help": false
+          },
+          {
+            "ic": "letter",
+            "t": "Mich bei jemandem bedanken, der mir geholfen hat",
+            "v": "Mich bei jemandem bedanken, der mir geholfen hat",
+            "r": "Ein toller Schritt. Klein, aber echt.",
+            "help": false
+          },
+          {
+            "ic": "party",
+            "t": "Mich für den Erfolg anderer freuen",
+            "v": "Mich für den Erfolg anderer freuen",
+            "r": "Ein toller Schritt. Klein, aber echt.",
+            "help": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "mini",
+      "game": "final"
+    }
+  ]
+}

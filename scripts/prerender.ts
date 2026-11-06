@@ -7,7 +7,7 @@
  *    JSON-LD with breadcrumbs, dates (git) and «free»; lesson titles say what people search for («гематрии недельной главы»);
  *  - «Святая музыка» dist/nigun/ (and en/de): the niggunim, their words and the source;
  *  - «Устный счёт», «Гематрия дня», «Знаете ли вы?» and «Буквы за 5 минут» for search engines: dist/mental-math/,
- *    dist/daily/, dist/facts/, dist/letters/, dist/hebrew-words/, dist/learn-hebrew/ (ru) and the same under dist/en/, dist/de/ — with hreflang alternates;
+ *    dist/daily/, dist/facts/, dist/letters/, dist/hebrew-words/, dist/learn-hebrew/, dist/free/, dist/tehillim/ (ru) and the same under dist/en/, dist/de/ — with hreflang alternates;
  *    the app opens the trainer / the game / the feed / the letters on them;
  *  - web app manifests (install on the phone): dist/manifest.webmanifest (ru), manifest-en / manifest-de.webmanifest;
  *  - the service worker dist/sw.js (public/sw.js with this build's version and files to keep for offline use) and
@@ -26,10 +26,11 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
-import { NIGUNIM } from '../src/nigun';
+import { NIGUNIM, NIGUN_PUBLIC } from '../src/nigun';
 import { torahWords } from '../src/core/torahWords';
 import { LESSONS, LESSON_GROUPS, type Lesson } from '../src/lessons';
 import { SITE_URL, staticPath, type StaticPage } from '../src/core/site';
+import { FREE_FEATURES } from '../src/core/freeFeatures';
 import { EXAMPLES, OPS, SIGN, answer, solve } from '../src/core/mentalMath';
 import { KEYBOARD, VALUES } from '../src/core/gematria';
 import { ALEPH_BET, FINAL_FORMS, LOOKALIKES, letterName, letterSound } from '../src/core/letterNames';
@@ -48,7 +49,8 @@ import { narration } from '../src/core/narration';
 import { PODCAST_FEEDS, PODCAST_RELEASE, episodeTitle, type PodcastEpisodes } from '../src/core/podcast';
 import { BOOKS, track, type Section } from '../src/core/tanakhCycle';
 import { readingMinutes, type DayVerse } from '../src/core/tanakh';
-import { civilDate } from '../src/core/hebrewDate';
+import { civilDate, hebrewNumber } from '../src/core/hebrewDate';
+import { CHAPTERS, dailyPortion, stripTaamim, weekdayPortion } from '../src/core/reading';
 import { HEMSHECH, allPassages, passageDate } from '../src/core/hemshech';
 import { buildDecks, deckProblems, QUIZ_LANGS, type DayQuiz } from '../src/core/quizDecks';
 import cycleJson from '../src/tanakh/cycle.json';
@@ -83,8 +85,16 @@ function fitTitle(t: string, max = 65) {
   if (t.length <= max) return t;
   const brand = t.match(BRAND)?.[0] ?? '';
   const bare = t.slice(0, t.length - brand.length);
+  // the words people search for («— gematria of the weekly portion») matter more than the brand: Google shows the site's
+  // name beside the result anyway
+  if (bare.length <= max) return bare;
   const heads = [bare, ...[...bare.matchAll(/ [—–] |: /g)].map((m) => bare.slice(0, m.index)).reverse()].filter((h) => h.length >= 25);
-  return heads.map((h) => h + brand).find((x) => x.length <= max) ?? heads.find((h) => h.length <= max) ?? bare;
+  const fitting = heads.map((h) => h + brand).find((x) => x.length <= max);
+  if (fitting) return fitting;
+  const cut = bare.slice(0, Math.max(1, max - brand.length - 1));
+  const boundary = cut.lastIndexOf(' ');
+  const head = boundary >= cut.length * 0.55 ? cut.slice(0, boundary) : cut;
+  return `${head.replace(/[\s,;:.—–-]+$/, '')}…${brand}`;
 }
 /** the day a file or folder last changed (git), for sitemap `lastmod` and JSON-LD `dateModified`; not in git — today */
 const gitDates = new Map<string, string>();
@@ -101,7 +111,6 @@ function changed(...paths: string[]): string {
 }
 const latest = (...dates: string[]) => dates.sort().pop()!;
 const plain = (html: string) => displayNames(html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim());
-const text = (l: Lesson) => l.texts[LOCALE]!;
 /** «Урок 2», or «Нифлаот Ребе · Урок 1» for a lesson of the Rebbe's section */
 const lessonLabel = (l: Lesson, u: Record<string, unknown> = ui) =>
   `${l.series === 'rebbe' ? `${u['rebbe.section']} · ` : ''}${String(u['catalog.lesson']).replace('{n}', String(l.number))}`;
@@ -171,12 +180,25 @@ function render(p: Page): string {
   const image = existsSync(`${DIST}/og/${p.image}.png`) ? p.image : 'site';
   // ?v=<hash of the picture>: Telegram, WhatsApp… cache previews by URL — a new picture gets a new address
   const v = createHash('sha256').update(readFileSync(`${DIST}/og/${image}.png`)).digest('hex').slice(0, 8);
-  html = setMeta(html, 'property', 'og:image', `${SITE_URL}/og/${image}.png?v=${v}`);
+  const imageUrl = `${SITE_URL}/og/${image}.png?v=${v}`;
+  html = setMeta(html, 'property', 'og:image', imageUrl);
   html = setMeta(html, 'property', 'og:image:alt', p.imageAlt);
+  html = setMeta(html, 'name', 'twitter:title', p.title);
+  html = setMeta(html, 'name', 'twitter:description', snippet(p.description, 200));
+  html = setMeta(html, 'name', 'twitter:image', imageUrl);
+  html = setMeta(html, 'name', 'twitter:image:alt', p.imageAlt);
   if (p.lang && p.lang !== 'ru') {
     html = html.replace('<html lang="ru">', `<html lang="${p.lang}">`);
     html = html.replace('href="/manifest.webmanifest"', `href="/manifest-${p.lang}.webmanifest"`);
     html = setMeta(html, 'property', 'og:locale', p.lang === 'en' ? 'en_US' : 'de_DE');
+  }
+  const locale = { ru: 'ru_RU', en: 'en_US', de: 'de_DE' } as const;
+  for (const alternate of p.alternates ?? []) {
+    if (alternate.lang !== p.lang && alternate.lang in locale)
+      html = html.replace(
+        '</head>',
+        `    <meta property="og:locale:alternate" content="${locale[alternate.lang as keyof typeof locale]}" />\n  </head>`,
+      );
   }
   if (p.alternates)
     html = html.replace(
@@ -187,7 +209,21 @@ function render(p: Page): string {
           .join('\n')}`,
     );
   // `<` escaped so text can never close the <script> element
-  const ld = JSON.stringify(p.jsonLd).replace(/</g, '\\u003c');
+  const data = p.jsonLd as Record<string, unknown>;
+  const graph: unknown[] = Array.isArray(data['@graph'])
+    ? [...data['@graph']]
+    : (() => {
+        const entity = { ...data };
+        delete entity['@context'];
+        return [entity];
+      })();
+  const hasBreadcrumbs = graph.some(
+    (entity) => !!entity && typeof entity === 'object' && !Array.isArray(entity) && (entity as Record<string, unknown>)['@type'] === 'BreadcrumbList',
+  );
+  const lang = p.lang ?? 'ru';
+  if (!hasBreadcrumbs && p.url !== homeUrl(lang))
+    graph.push(crumbs(lang, p.title.replace(/ · (Нифлаот|Niflaot|MyChitas)$/, ''), p.url));
+  const ld = JSON.stringify({ '@context': data['@context'] ?? 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
   html = html.replace(
     '<meta charset="utf-8" />',
     `<meta charset="utf-8" />\n    <meta http-equiv="Content-Security-Policy" content="${CSP}" />${VERIFY}`,
@@ -218,7 +254,7 @@ const VERIFY = (
   .map(([k, v]) => `\n    <meta name="${k}" content="${v}" />`)
   .join('');
 
-const PUBLISHER = { '@type': 'Organization', name: 'MyChitas', url: 'https://mychitas.app', logo: `${SITE_URL}/icons/icon-512.png` };
+const PUBLISHER = { '@type': 'Organization', name: 'MyChitas', url: 'https://mychitas.app', logo: `${SITE_URL}/icons/icon-512.png?v=2` };
 const SITE = { '@type': 'WebSite', name: 'Нифлаот', url: `${SITE_URL}/` };
 
 /* ───── catalog ───── */
@@ -281,6 +317,7 @@ function homePage(lang: 'ru' | 'en' | 'de'): Page {
       ],
     },
     body: `<header><p class="he">נפלאות</p><h1>${t('app.title')} — ${t('catalog.uvp')}</h1><p>${esc(plain(String(u['catalog.intro'])))}</p></header>
+<section><h2>${t('catalog.teachersH')}</h2><p>${t('catalog.teachers')}</p></section>
 <h2>${t('wing.kids')}: ${t('catalog.heading')}</h2>
 ${LESSON_GROUPS.map((g) => {
   const ls = [...g.lessons, ...g.rebbe].filter((l) => l.texts[lang]);
@@ -292,10 +329,16 @@ ${LESSON_GROUPS.map((g) => {
 }).join('\n')}
 <h2>${t('wing.adults')}: ${t('home.adultsTitle')}</h2>
 <p>${t('wing.adultsSub')}.</p>
-<ul><li><a href="${page('neviim')}">${t('tanakh.neviim')}</a></li><li><a href="${page('ketuvim')}">${t('tanakh.ketuvim')}</a></li><li><a href="${page('hemshech')}">${t('hs.menuLbl')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li></ul>
+<ul><li><a href="${page('neviim')}">${t('tanakh.seo.neviim.title')}</a>: ${t('tanakh.seo.neviim.lead')}</li><li><a href="${page('ketuvim')}">${t('tanakh.seo.ketuvim.title')}</a>: ${t('tanakh.seo.ketuvim.lead')}</li><li><a href="${page('hemshech')}">${t('hs.menuLbl')}</a></li><li><a href="${page('tehillim')}">${t('reading.seoShort')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li></ul>
 <p>${t('menu.torahRead')}: ${lessons.map((l) => `<a href="${root}#/${l.slug}/read">${esc(tx(l).title)}</a>`).join(' · ')}</p>
+<h2>${t('academy.fac.lashon')} · <span class="he">לשון הקודש</span></h2>
+<p>${t('ln.seoLead')}</p>
+<ul><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li><li><a href="${page('letters')}">${t('abc.title')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li></ul>
+<h2>${t('reading.title')} · <span class="he">תהילים</span></h2>
+<p>${t('reading.seoLead')}</p>
+<ul><li><a href="${page('tehillim')}">${t('reading.seoTitle')}</a></li>${String(u['reading.seoHomeLinks']).split(' · ').map((x, i) => `<li><a href="${[`${root}#/reading`, `${root}#/reading/week`, `${page('tehillim')}#chapters`][i]}">${esc(x)}</a></li>`).join('')}</ul>
 <h2>${t('seo.more')}</h2>
-<ul><li><a href="${page('facts')}">${t('facts.title')}</a></li><li><a href="${page('daily')}">${t('daily.title')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li><li><a href="${page('letters')}">${t('abc.title')}</a></li><li><a href="${page('mental-math')}">${t('math.title')}</a></li><li><a href="${page('nigun')}">${t('nigun.title')}</a></li><li><a href="${page('quiz')}">${t('lq.title')}</a></li></ul>
+<ul><li><a href="${page('facts')}">${t('facts.title')}</a></li><li><a href="${page('daily')}">${t('daily.title')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li><li><a href="${page('letters')}">${t('abc.title')}</a></li><li><a href="${page('mental-math')}">${t('math.title')}</a></li>${NIGUN_PUBLIC ? `<li><a href="${page('nigun')}">${t('nigun.title')}</a></li>` : ''}<li><a href="${page('quiz')}">${t('lq.title')}</a></li><li><a href="${page('free')}">${t('free.title')}</a></li></ul>
 ${others
   .map(
     (o) => `<h2 lang="${o}">${OTHER[o]}</h2><ul lang="${o}"><li><a href="${homeUrl(o)}">${esc(String({ ru, en, de }[o]['catalog.seoTitle']))}</a></li>${LESSONS.filter((l) => l.texts[o])
@@ -601,8 +644,41 @@ function bookPlan(section: Section) {
 }
 
 /**
- * «Пророки» / «Писания» for search: the three-year reading plan — what the daily passage gives, the dates of the cycle
- * and a table of the books (Hebrew name, chapters, first and last day, days); the app opens today's passage.
+ * How far the project's translations go (read from the day files at build time): the last day of the cycle up to which
+ * every day is translated in full — the verse and Rashi in Russian and German, Metzudat David in Russian, English and German.
+ * The English verse (JPS) and the English Rashi are in every day already. And the usual reading time of a day of
+ * each section (Hebrew + English + Metzudat David, the median) — for the pages for search.
+ */
+const TANAKH_STATS = (() => {
+  let until: string | undefined;
+  let open = true;
+  const mins: Record<Section, number[]> = { neviim: [], ketuvim: [] };
+  for (const [date] of CYCLE_DAYS) {
+    const file = `public/tanakh/${date}.json`;
+    if (!existsSync(file)) {
+      open = false;
+      continue;
+    }
+    const c = JSON.parse(readFileSync(file, 'utf8')) as Record<Section, { verses: DayVerse[] }>;
+    const all = [...c.neviim.verses, ...c.ketuvim.verses];
+    const done = all.every((v) => v.ru && v.de && (!v.md || (v.md.ru && v.md.en && v.md.de)) && (!v.rashi || (v.rashi.ru && v.rashi.de)));
+    if (open && done) until = date;
+    else open = false;
+    for (const sec of ['neviim', 'ketuvim'] as const) mins[sec].push(readingMinutes(c[sec].verses, true, 'en', { md: true, rashi: false }));
+  }
+  const median = (xs: number[]) => [...xs].sort((a, b) => a - b)[Math.floor(xs.length / 2)] ?? 10;
+  return { until, minutes: { neviim: median(mins.neviim), ketuvim: median(mins.ketuvim) } };
+})();
+
+const SECTION_NAMES: Record<Section, string[]> = {
+  neviim: ['נביאים', "Nevi'im", 'Neviim', 'Prophets', 'Невиим', 'Пророки', 'Newiim', 'Propheten'],
+  ketuvim: ['כתובים', 'Ketuvim', 'Writings', 'Hagiographa', 'Ктувим', 'Писания', 'Ketuwim', 'Schriften'],
+};
+
+/**
+ * «Пророки» / «Писания» for search: the three-year reading plan — what is in each passage and what is translated so far
+ * (the English verse and Rashi — every book; the project's translations — up to `TANAKH_STATS.until`), the dates of the
+ * cycle, a table of the books and the questions people ask (FAQPage); the app opens today's passage.
  */
 function tanakhPage(section: Section, lang: 'ru' | 'en' | 'de', ui: Ui): Page {
   const root = lang === 'ru' ? '../' : '../../';
@@ -611,11 +687,26 @@ function tanakhPage(section: Section, lang: 'ru' | 'en' | 'de', ui: Ui): Page {
   const title = s(ui, `tanakh.seo.${section}.title` as keyof Ui);
   const lead = s(ui, `tanakh.seo.${section}.lead` as keyof Ui);
   const date = (iso: string) => civilDate(iso, lang);
-  const cycle = s(ui, 'tanakh.cycle')
-    .replace('{start}', date(CYCLE_DAYS[0][0]))
-    .replace('{end}', date(CYCLE_DAYS[CYCLE_DAYS.length - 1][0]))
-    .replace('{days}', String(CYCLE_DAYS.length));
-  const rows = bookPlan(section)
+  const plan = bookPlan(section);
+  const vars: Record<string, string | number> = {
+    start: date(CYCLE_DAYS[0][0]),
+    end: date(CYCLE_DAYS[CYCLE_DAYS.length - 1][0]),
+    days: CYCLE_DAYS.length,
+    books: plan.length,
+    chapters: plan.reduce((n, r) => n + r.book.verses.length, 0),
+    min: TANAKH_STATS.minutes[section],
+    until: TANAKH_STATS.until ? date(TANAKH_STATS.until) : '—',
+    first: plan[0].book.name[lang],
+    last: plan[plan.length - 1].book.name[lang],
+  };
+  const fill = (key: string) => s(ui, key as keyof Ui).replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''));
+  const cycle = fill('tanakh.cycle');
+  const have = [1, 2, 3, 4, 5].map((k) => `<li>${esc(fill(`tanakh.seo.have${k}`))}</li>`).join('');
+  const faq = [1, 2, 3, 4, 5, 6].map((k) => {
+    const sec = k === 1 ? `${section}.` : '';
+    return [fill(`tanakh.seo.${sec}q${k}`), fill(`tanakh.seo.${sec}a${k}`)];
+  });
+  const rows = plan
     .map(
       (r) =>
         `<tr><td>${esc(r.book.name[lang])}</td><td class="he">${r.book.he}</td><td>${r.book.verses.length}</td><td>${esc(date(r.from))}</td><td>${esc(date(r.to))}</td><td>${r.days}</td></tr>`,
@@ -633,21 +724,38 @@ function tanakhPage(section: Section, lang: 'ru' | 'en' | 'de', ui: Ui): Page {
     imageAlt: title,
     jsonLd: {
       '@context': 'https://schema.org',
-      '@type': 'LearningResource',
-      name: `${s(ui, `tanakh.${section}` as keyof Ui)} — ${s(ui, 'tanakh.daySub')}`,
-      description: lead,
-      url,
-      inLanguage: lang,
-      learningResourceType: ['reading plan', 'quiz'],
-      educationalLevel: 'adult',
-      isAccessibleForFree: true,
-      publisher: PUBLISHER,
-      isPartOf: SITE,
+      '@graph': [
+        {
+          '@type': 'LearningResource',
+          name: title,
+          alternateName: `${s(ui, `tanakh.${section}` as keyof Ui)} — ${s(ui, 'tanakh.daySub')}`,
+          description: lead,
+          url,
+          inLanguage: [lang, 'he'],
+          learningResourceType: ['reading plan', 'text', 'quiz'],
+          educationalLevel: 'adult',
+          typicalAgeRange: '13-',
+          isAccessibleForFree: true,
+          timeRequired: `PT${TANAKH_STATS.minutes[section]}M`,
+          about: { '@type': 'Book', name: SECTION_NAMES[section][1], alternateName: SECTION_NAMES[section] },
+          hasPart: plan.map((r) => ({ '@type': 'Book', name: r.book.name[lang], alternateName: r.book.he })),
+          publisher: PUBLISHER,
+          isPartOf: SITE,
+        },
+        {
+          '@type': 'FAQPage',
+          inLanguage: lang,
+          mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+        },
+        crumbs(lang, title, url),
+      ],
     },
-    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'wing.adults'))} · ${esc(s(ui, `tanakh.${section}` as keyof Ui))}</p>
+    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'wing.adults'))} · ${esc(s(ui, `tanakh.${section}` as keyof Ui))} · <span class="he">${SECTION_NAMES[section][0]}</span></p>
 <h1>${esc(title)}</h1><p>${esc(lead)}</p><p>${esc(s(ui, 'tanakh.seo.what'))}</p><p>${esc(cycle)}</p>
 <p><a href="${root}#/${section}">${esc(s(ui, 'tanakh.seo.open'))} →</a> · <a href="${root}#/${section}/quiz">${esc(s(ui, 'quiz.title'))} →</a> · <a href="${root}${staticPath(other, lang).slice(1)}">${esc(s(ui, `tanakh.${other}` as keyof Ui))} →</a> · <a href="${root}${staticPath('hebrew-words', lang).slice(1)}">${esc(s(ui, 'words.seoShort'))} →</a></p></header>
-<section><h2>${esc(s(ui, 'tanakh.seo.books'))}</h2><table><thead><tr><th>${esc(s(ui, 'tanakh.seo.colBook'))}</th><th></th><th>${esc(s(ui, 'tanakh.seo.colChapters'))}</th><th>${esc(s(ui, 'tanakh.seo.colFrom'))}</th><th>${esc(s(ui, 'tanakh.seo.colTo'))}</th><th>${esc(s(ui, 'tanakh.seo.colDays'))}</th></tr></thead><tbody>${rows}</tbody></table></section>
+<section><h2>${esc(fill('tanakh.seo.haveH'))}</h2><ul>${have}</ul></section>
+<section><h2>${esc(fill(`tanakh.seo.${section}.booksH`))}</h2><table><thead><tr><th>${esc(s(ui, 'tanakh.seo.colBook'))}</th><th></th><th>${esc(s(ui, 'tanakh.seo.colChapters'))}</th><th>${esc(s(ui, 'tanakh.seo.colFrom'))}</th><th>${esc(s(ui, 'tanakh.seo.colTo'))}</th><th>${esc(s(ui, 'tanakh.seo.colDays'))}</th></tr></thead><tbody>${rows}</tbody></table></section>
+<section><h2>${esc(s(ui, 'tanakh.seo.faqH'))}</h2>${faq.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}</section>
 </article>`,
   };
 }
@@ -666,7 +774,7 @@ function wordsPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
   const learn = WORDS.words.filter((w) => tr[w.id]);
   const fill = (key: string, vars: Record<string, string | number>) => s(ui, key as keyof Ui).replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''));
   const pctAt = (n: number) => Math.round(WORDS.words[n - 1].cov);
-  const cov = [100, 300, 500, 1000, 1500, 2000].map((n) => `<li>${esc(fill('words.seoCov', { n, p: pctAt(n) }))}</li>`).join('');
+  const cov = [100, 300, 500, 1000, 1500, 2000, 2500, 3000].map((n) => `<li>${esc(fill('words.seoCov', { n, p: pctAt(n) }))}</li>`).join('');
   const levels: string[] = [];
   for (let i = 0; i < learn.length; i += 50) {
     const ws = learn.slice(i, i + 50);
@@ -711,6 +819,107 @@ function wordsPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
 <p><a href="${root}#/words">${esc(s(ui, 'words.seoStart'))} →</a> · <a href="${root}${staticPath('neviim', lang).slice(1)}">${esc(s(ui, 'tanakh.neviim'))} →</a> · <a href="${root}${staticPath('ketuvim', lang).slice(1)}">${esc(s(ui, 'tanakh.ketuvim'))} →</a> · <a href="${root}${staticPath('learn-hebrew', lang).slice(1)}">${esc(s(ui, 'ln.seoShort'))} →</a></p></header>
 ${levels.join('\n')}
 <p><small>${esc(s(ui, 'words.src'))}</small></p>
+</article>`,
+  };
+}
+
+/**
+ * «Святое чтение» for search (`/tehillim/`): «Прочитай с нами всю книгу Теґилим за 102 минуты» — the recordings of all 150
+ * chapters, the word lit up after the voice, the speeds, the ways to divide the book, every chapter with its opening words,
+ * questions people ask (FAQPage). The app opens the reading of the day (`#/reading`).
+ */
+// all 150 chapters in public/reading/Audio (ffprobe, 02.11.2026: 357.2 min; 119 in two files) — the «102 minutes» at 3.5×;
+// new recordings → measure again and fix the texts `reading.seo*`, `reading.so`
+const TEHILLIM_AUDIO_SEC = 21431;
+const TEHILLIM_RATES = [1, 1.5, 2, 2.5, 3, 3.5];
+const tehillimIndex = JSON.parse(readFileSync('public/reading/tehillim/index.json', 'utf8')) as {
+  words: number[];
+  version: { title: string; source: string };
+};
+const firstVerse = (n: number) =>
+  stripTaamim((JSON.parse(readFileSync(`public/reading/tehillim/${n}.json`, 'utf8')) as { v: string[] }).v[0])
+    .replace(/[׀]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+function tehillimPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
+  const root = lang === 'ru' ? '../' : '../../';
+  const url = `${SITE_URL}${staticPath('tehillim', lang)}`;
+  const fill = (key: string, vars: Record<string, string | number>) => s(ui, key as keyof Ui).replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''));
+  const title = s(ui, 'reading.seoTitle');
+  const lead = s(ui, 'reading.seoLead');
+  const U = { ru: ['ч', 'мин'], en: ['h', 'min'], de: ['Std.', 'Min.'] }[lang];
+  const num = (x: number) => (lang === 'en' ? String(x) : String(x).replace('.', ','));
+  const dur = (sec: number) => {
+    const m = Math.round(sec / 60);
+    return `${Math.floor(m / 60)} ${U[0]} ${String(m % 60).padStart(2, '0')} ${U[1]}`;
+  };
+  const words = tehillimIndex.words.reduce((a, b) => a + b, 0);
+  const span = (ps: { chapter: number; fromVerse?: number; toVerse?: number }[]) =>
+    ps[0]?.chapter === 119 && ps.length === 1 ? `119:${ps[0].fromVerse}–${ps[0].toVerse}` : ps.length > 1 ? `${ps[0].chapter}–${ps[ps.length - 1].chapter}` : String(ps[0]?.chapter ?? '');
+  const days = Array.from({ length: 30 }, (_, i) => i + 1)
+    .map((d) => `<tr><td><a href="${root}#/reading/day/${d}">${d}</a></td><td>${span(dailyPortion(d))}</td></tr>`)
+    .join('');
+  const weekday = (n: number) =>
+    n === 7 ? s(ui, 'shn.shabbat') : new Intl.DateTimeFormat(lang, { weekday: 'long', timeZone: 'UTC' }).format(new Date(Date.parse('2026-11-01T12:00:00Z') + (n - 1) * 864e5));
+  const week = Array.from({ length: 7 }, (_, i) => i + 1)
+    .map((n) => `<li><a href="${root}#/reading/week/${n}">${esc(weekday(n))}</a> — ${span(weekdayPortion(n))}</li>`)
+    .join('');
+  const rows = TEHILLIM_RATES.map((r) => {
+    const sec = TEHILLIM_AUDIO_SEC / r;
+    const row = esc(fill('reading.seoTimeRow', { rate: `${num(r)}×`, time: dur(sec) }));
+    return `<li>${r === 3.5 ? `<b>${row} (${Math.round(sec / 60)} ${U[1]})</b>` : row}</li>`;
+  }).join('');
+  const chapters = Array.from({ length: CHAPTERS }, (_, i) => i + 1)
+    .map((n) => `<li><a href="${root}#/reading/${n}">${esc(s(ui, 'reading.docChapter').replace('{n}', String(n)))}</a> <span class="he">(${hebrewNumber(n)})</span> · ${esc(s(ui, 'reading.seoWords').replace('{n}', String(tehillimIndex.words[n - 1])))}<br><span class="he">${esc(firstVerse(n))}</span></li>`)
+    .join('');
+  const faq = [1, 2, 3, 4].map((n) => [s(ui, `reading.seoQ${n}` as keyof Ui), s(ui, `reading.seoA${n}` as keyof Ui)]);
+  const [lDay, lWeek, lAll] = s(ui, 'reading.seoHomeLinks').split(' · ');
+  return {
+    title: `${title} · ${s(ui, 'app.title')}`,
+    description: lead,
+    url,
+    type: 'article',
+    root,
+    lang,
+    alternates: alternatesOf('tehillim'),
+    image: 'tehillim',
+    imageAlt: title,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'LearningResource',
+          name: title,
+          description: lead,
+          url,
+          inLanguage: [lang, 'he'],
+          learningResourceType: ['text', 'reading', 'audio', 'reading plan'],
+          interactivityType: 'mixed',
+          isAccessibleForFree: true,
+          typicalAgeRange: '8-',
+          teaches: s(ui, 'reading.seoShort'),
+          timeRequired: `PT${Math.round(TEHILLIM_AUDIO_SEC / 3.5 / 60)}M`,
+          about: { '@type': 'Book', name: 'Tehillim', alternateName: ['תהילים', 'Psalms', 'Теґилим'] },
+          publisher: PUBLISHER,
+          isPartOf: SITE,
+        },
+        {
+          '@type': 'FAQPage',
+          inLanguage: lang,
+          mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+        },
+      ],
+    },
+    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'reading.title'))} · <span class="he">תהילים</span></p>
+<h1>${esc(title)}</h1><p>${esc(lead)}</p><p>${esc(s(ui, 'reading.seoHow'))}</p>
+<p><a href="${root}#/reading">${esc(s(ui, 'reading.seoStart'))} →</a> · <a href="${root}#/reading/week">${esc(lWeek)} →</a> · <a href="${root}${staticPath('learn-hebrew', lang).slice(1)}">${esc(s(ui, 'ln.seoShort'))} →</a></p></header>
+<section><h2>${esc(s(ui, 'reading.seoTimeH'))}</h2><p>${esc(fill('reading.seoTimeP', { words: words.toLocaleString(lang === 'en' ? 'en-US' : lang === 'de' ? 'de-DE' : 'ru-RU'), total: dur(TEHILLIM_AUDIO_SEC) }))}</p><ul>${rows}</ul></section>
+<section><h2>${esc(s(ui, 'reading.seoWaysH'))}</h2><ul>${[1, 2, 3, 4].map((k) => `<li>${esc(s(ui, `reading.seoHow${k}` as keyof Ui))}</li>`).join('')}</ul><p><a href="${root}#/reading">${esc(lDay)} →</a> · <a href="${root}#/reading/week">${esc(lWeek)} →</a></p></section>
+<section><h2>${esc(s(ui, 'reading.seoDays'))}</h2><table><thead><tr><th>${esc(s(ui, 'reading.day'))}</th><th>${esc(s(ui, 'reading.seoColChapters'))}</th></tr></thead><tbody>${days}</tbody></table></section>
+<section><h2>${esc(s(ui, 'reading.seoWeek'))}</h2><ul>${week}</ul></section>
+<section id="chapters"><h2>${esc(s(ui, 'reading.seoChaptersH'))}</h2><p>${esc(lAll)}</p><ol class="tehillim-list">${chapters}</ol></section>
+<section><h2>${esc(s(ui, 'reading.seoFaqH'))}</h2>${faq.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}</section>
+<p><small>${esc(s(ui, 'reading.credit'))} <a href="${tehillimIndex.version.source}">${esc(tehillimIndex.version.title)}</a> · ${esc(s(ui, 'reading.pd'))}</small></p>
 </article>`,
   };
 }
@@ -794,6 +1003,45 @@ ${torah}</section>
 <section><h2>${esc(s(ui, 'ln.seoTanakhH'))}</h2><p>${esc(s(ui, 'ln.seoTanakhP'))}</p><ul>${levels.join('')}</ul></section>
 <section><h2>${esc(s(ui, 'ln.seoFaqH'))}</h2>${faq.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('\n')}</section>
 <p><small>${esc(s(ui, 'words.src'))}</small></p>
+</article>`,
+  };
+}
+
+/**
+ * «Всё бесплатно» for search and sharing (`/free/`): what the academy gives without a subscription — the same list as the
+ * app's page `#/free` (src/core/freeFeatures.ts), each feature with a link into the app.
+ */
+function freePage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
+  const root = lang === 'ru' ? '../' : '../../';
+  const url = `${SITE_URL}${staticPath('free', lang)}`;
+  const title = s(ui, 'free.seoTitle');
+  const lead = s(ui, 'free.lead');
+  const items = FREE_FEATURES.map((f) => ({ f, h: s(ui, `free.${f.id}.h` as keyof Ui), p: s(ui, `free.${f.id}.p` as keyof Ui) }));
+  return {
+    title,
+    description: lead,
+    url,
+    type: 'website',
+    root,
+    lang,
+    alternates: alternatesOf('free'),
+    image: 'free',
+    imageAlt: s(ui, 'free.title'),
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        { '@type': 'WebPage', name: title, description: lead, url, inLanguage: lang, isAccessibleForFree: true, publisher: PUBLISHER, isPartOf: SITE },
+        {
+          '@type': 'ItemList',
+          name: s(ui, 'free.title'),
+          itemListElement: items.map((x, i) => ({ '@type': 'ListItem', position: i + 1, name: x.h, description: x.p, url: `${SITE_URL}/${x.f.href}` })),
+        },
+      ],
+    },
+    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'free.title'))}</p>
+<h1>${esc(s(ui, 'free.title'))}</h1><p>${esc(lead)}</p><p><b>${esc(s(ui, 'free.badges'))}</b></p></header>
+${items.map((x) => `<section><h2>${esc(x.h)} <span class="he">${x.f.he}</span></h2><p>${esc(x.p)}</p><p><a href="${root}${x.f.href}">${esc(s(ui, 'free.open'))} →</a></p></section>`).join('\n')}
+<section><h2>${esc(s(ui, 'free.whyH'))}</h2><p>${esc(s(ui, 'free.whyP'))}</p><p><a href="${root}">${esc(s(ui, 'free.start'))} →</a> · <a href="https://mychitas.app/donate">${esc(s(ui, 'free.donate'))}</a></p></section>
 </article>`,
   };
 }
@@ -972,8 +1220,10 @@ const STATIC_OUT: [string, Page][] = LANGS.flatMap(({ lang, ui }) => [
   [staticPath('hebrew-words', lang), wordsPage(lang, ui)] as [string, Page],
   [staticPath('hemshech', lang), hemshechPage(lang, ui)] as [string, Page],
   [staticPath('quiz', lang), quizPage(lang, ui)] as [string, Page],
-  [staticPath('nigun', lang), nigunPage(lang, ui)] as [string, Page],
+  ...(NIGUN_PUBLIC ? [[staticPath('nigun', lang), nigunPage(lang, ui)] as [string, Page]] : []),
   [staticPath('learn-hebrew', lang), lashonPage(lang, ui)] as [string, Page],
+  [staticPath('tehillim', lang), tehillimPage(lang, ui)] as [string, Page],
+  [staticPath('free', lang), freePage(lang, ui)] as [string, Page],
 ]);
 // lastmod: pages that change every day (the passage of the day, the opened passages, the quiz sets of the week) — today;
 // the facts — from the lessons; the rest — when their texts or this script changed
@@ -1148,15 +1398,16 @@ for (const { lang, ui } of LANGS) {
     background_color: '#141A33',
     theme_color: '#141A33',
     categories: ['education', 'books', 'kids'],
+    // ?v=2 — the round seal «נפלאות» (28.10.2026): a new address makes installed apps fetch the new icon
     icons: [
-      { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
-      { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
-      { src: '/icons/maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+      { src: '/icons/icon-192.png?v=2', sizes: '192x192', type: 'image/png', purpose: 'any' },
+      { src: '/icons/icon-512.png?v=2', sizes: '512x512', type: 'image/png', purpose: 'any' },
+      { src: '/icons/maskable-512.png?v=2', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
     ],
     shortcuts: [
-      { name: s(ui, 'daily.title'), url: start(staticPath('daily', lang)), icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }] },
-      { name: s(ui, 'facts.title'), url: start(staticPath('facts', lang)), icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }] },
-      { name: s(ui, 'abc.title'), url: start(staticPath('letters', lang)), icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }] },
+      { name: s(ui, 'daily.title'), url: start(staticPath('daily', lang)), icons: [{ src: '/icons/icon-192.png?v=2', sizes: '192x192' }] },
+      { name: s(ui, 'facts.title'), url: start(staticPath('facts', lang)), icons: [{ src: '/icons/icon-192.png?v=2', sizes: '192x192' }] },
+      { name: s(ui, 'abc.title'), url: start(staticPath('letters', lang)), icons: [{ src: '/icons/icon-192.png?v=2', sizes: '192x192' }] },
     ],
   };
   writeFileSync(`${DIST}/manifest${lang === 'ru' ? '' : `-${lang}`}.webmanifest`, `${JSON.stringify(manifest, null, 2)}\n`);
@@ -1166,7 +1417,7 @@ for (const { lang, ui } of LANGS) {
 
 // offline: the app's code, styles and fonts, the icons and manifests (the Memo pictures are kept when first seen)
 const assets = readdirSync(`${DIST}/assets`).filter((f) => /\.(js|css|woff2)$/.test(f)).map((f) => `/assets/${f}`);
-const precache = [...assets, '/look.js', '/icons/icon-192.png', '/manifest.webmanifest', '/manifest-en.webmanifest', '/manifest-de.webmanifest'];
+const precache = [...assets, '/look.js', '/icons/icon-192.png?v=2', '/manifest.webmanifest', '/manifest-en.webmanifest', '/manifest-de.webmanifest'];
 const version = createHash('sha256').update(assets.join('\n')).update(readFileSync(`${DIST}/index.html`)).digest('hex').slice(0, 12);
 const sw = readFileSync(`${DIST}/sw.js`, 'utf8');
 if (!sw.includes("/*__VERSION__*/ 'dev'") || !sw.includes('/*__PRECACHE__*/ []')) throw new Error('public/sw.js: no build placeholders');
@@ -1243,9 +1494,9 @@ writeFileSync(
 
 > ${en['catalog.seo']}
 
-Niflaot is a free project of the MyChitas Torah project (${SITE_URL}), with partners Chabad Haus Wien and JRCV Vienna. The site works in Russian (the main language), English and German; no sign-up is needed, and it rests on Shabbat. Lessons on the weekly Torah portion: the Baal HaTurim (gematria and letters, with a Memo game) and the Lubavitcher Rebbe (Likkutei Sichot — an investigation and cards). Daily study for teens and adults: a passage of the Prophets and of the Writings (a three-year cycle, Hebrew with translation, Metzudat David and Rashi), Chassidut — the Rebbe Rashab’s Hemshech Samech-Vav, the most frequent Hebrew words of Tanakh, certificates of the Academy, and a live quiz for a class or a family.
+Niflaot is a free project of the MyChitas Torah project (${SITE_URL}), with partners Chabad Haus Wien and JRCV Vienna. The site works in Russian (the main language), English and German; signing in with an email code (no password) opens everything — only Tehillim (“Holy reading”) is open without it; the site rests on Shabbat. Lessons on the weekly Torah portion: the Baal HaTurim (gematria and letters, with a Memo game) and the Lubavitcher Rebbe (Likkutei Sichot — an investigation and cards). Teachers and texts — the whole list: ${en['catalog.teachers']} Daily study for teens and adults: a passage of the Prophets and of the Writings (a three-year cycle, Hebrew with translation, Metzudat David and Rashi), Chassidut — the Rebbe Rashab’s Hemshech Samech-Vav, the most frequent Hebrew words of Tanakh and step-by-step lessons of Biblical Hebrew, fluent reading of Tehillim (all 150 chapters with a reader’s recording, 0.5×–3.5× — the whole book in 102 minutes), certificates of the Academy, and a live quiz for a class or a family.
 
-Notes for assistants: out of respect, the site writes the Names of G-d as אלקים, ה׳, G-d, L-rd (Russian Б-г, German G-tt); please do the same when quoting. Texts and licences: Hebrew Tanakh, Rashi and Metzudat David — public domain; the English verse translation — JPS 1985 (CC BY-NC); the project’s own translations — CC BY-NC; Hemshech Samech-Vav in English — © The Neirot Foundation (neirot.com), used with permission: link to the site rather than reproducing it. Every page links to its primary sources on Sefaria. Reading the site to answer questions and to cite it is welcome; using its texts to train AI models is not permitted (robots.txt).
+Notes for assistants: out of respect, in lessons, commentaries and translations the site writes the Names of G-d as אלקים, ה׳, G-d, L-rd (Russian Б-г, German G-tt); please do the same when quoting them. The Hebrew Tanakh text itself (Prophets, Writings, Tehillim, Haazinu, Shnayim Mikra) keeps the Names in full spelling, as in the original on Sefaria. Prophets and Writings (/neviim/, /ketuvim/): every book has the vocalized Hebrew, the English JPS 1985 translation and Rashi in Hebrew and English; Metzudat David is in Hebrew in every book, and the project translates it (into English, Russian and German), the verse and Rashi (into Russian and German) a week ahead — ready through ${TANAKH_STATS.until ?? '—'}. Texts and licences: Hebrew Tanakh, Rashi and Metzudat David — public domain; the English verse translation — JPS 1985 (CC BY-NC; Joshua 21:36–37 — JPS 1917, public domain); the English Rashi — Metsudah and Judaica Press (trans. A. J. Rosenberg), CC BY; the project’s own translations — CC BY-NC; Hemshech Samech-Vav in English — © The Neirot Foundation (neirot.com), used with permission: link to the site rather than reproducing it. Every page links to its primary sources on Sefaria. Reading the site to answer questions and to cite it is welcome; using its texts to train AI models is not permitted (robots.txt).
 
 ${LESSON_LANGS.map(
   (lang) => `## ${LANG_NAME[lang]}

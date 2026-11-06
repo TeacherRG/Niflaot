@@ -1,0 +1,163 @@
+{
+  "name": "City of Success",
+  "desc": "Take whatever you want. But will it be enough?",
+  "steps": [
+    {
+      "type": "talk",
+      "who": "mentor",
+      "text": {
+        "__ag": 1,
+        "y": "Welcome to the City of Success! The townspeople have prepared a gift for you. You may take only one.",
+        "t": "Welcome to the City of Success! Here everyone is in a hurry to become successful. The townspeople have prepared a gift for you, but you may take only one."
+      }
+    },
+    {
+      "type": "choice",
+      "who": {
+        "name": "The townspeople",
+        "av": {
+          "look": 2,
+          "outfit": 1
+        }
+      },
+      "text": "What would you like to have?",
+      "key": "city",
+      "whatif": false,
+      "hint": "Choose honestly: what do you really want?",
+      "options": [
+        {
+          "v": "wealth",
+          "ic": "coin",
+          "t": "Wealth",
+          "s": "Baruch the merchant opens a chest",
+          "r": "The chest is yours. The key is heavy and shiny."
+        },
+        {
+          "v": "fame",
+          "ic": "star",
+          "t": "Popularity",
+          "s": "Liora the blogger holds out a microphone",
+          "r": "Your name is already trending."
+        },
+        {
+          "v": "mind",
+          "ic": "bulb",
+          "t": "Brains",
+          "s": "Professor Ze'ev gives you magic glasses",
+          "r": "Now you understand any problem at first glance."
+        },
+        {
+          "v": "power",
+          "ic": "crown",
+          "t": "Power",
+          "s": "Gad the counsellor hands you the city seal",
+          "r": "Your word is law."
+        },
+        {
+          "v": "beauty",
+          "ic": "castle",
+          "t": "A beautiful life",
+          "s": "Miri the architect shows you the plans of a palace",
+          "r": "Gardens, fountains and a celebration every day."
+        },
+        {
+          "v": "adventure",
+          "ic": "sail",
+          "t": "Adventures",
+          "s": "Captain Eli invites you aboard his ship",
+          "r": "The sails are up. New lands lie ahead."
+        }
+      ],
+      "neutral": true
+    },
+    {
+      "__dynamic": "city-year"
+    },
+    {
+      "type": "mini",
+      "game": {
+        "__ag": 1,
+        "y": "treasure",
+        "t": "treasure",
+        "a": "maslow"
+      }
+    },
+    {
+      "__dynamic": "city-evening"
+    },
+    {
+      "type": "card",
+      "kicker": "From the library archive",
+      "title": "The man who had everything",
+      "art": "solomon",
+      "body": {
+        "__ag": 1,
+        "y": "<p>King Shlomo reigned for 40 years. He was the wisest of all, he built palaces and gardens. They say he even understood the language of the birds.</p><p>He had everything. And this is what he wrote:</p>",
+        "t": "<p>His name was King Shlomo. He reigned for 40 years, and all those years there was peace in the land. He was the wisest of all people, he built palaces and gardens, and rulers from all over the world came to hear him. They say he even understood the language of animals and birds.</p><p>Almost everyone in history has been busy just surviving: getting food, defending themselves from enemies. But Shlomo had the time to ask the most important question. And this is what he wrote:</p>"
+      }
+    },
+    {
+      "type": "quote",
+      "he": "הֲבֵל הֲבָלִים הַכֹּל הָבֶל",
+      "src": "Kohelet 1:2",
+      "tr": "“Futility of futilities, all is futile.”",
+      "plain": {
+        "__ag": 1,
+        "y": "“Hevel” means “vapour.” Like the little cloud of your breath on a frosty day: here it is, and it has already melted away.",
+        "t": "The word “hevel,” which is translated as “futility,” means “vapour.” Like the little cloud of your breath on a frosty day: here it is, and it has already melted away."
+      },
+      "q": "Why do you think it all seemed like vapour to a man who had everything?",
+      "options": [
+        "Because all of it can be lost",
+        "Things don't answer the question “what am I here for?”",
+        "He just got bored",
+        "I don't know. I want to find out more"
+      ],
+      "r": "A good thought. Shlomo was also looking for the answer, and he found it. But not right away."
+    },
+    {
+      "type": "card",
+      "kicker": "Did you know?",
+      "title": "Why Kohelet is read on Sukkot",
+      "pic": {
+        "__ag": 1,
+        "y": "wheat fruit sukkah",
+        "t": ""
+      },
+      "body": {
+        "__ag": 1,
+        "y": "<p>Sukkot is the harvest festival. The barns are full, everyone is counting how much they have gathered. And just then we read a book that asks: <b>is this enough?</b></p><p>And on Sukkot we also bind four kinds of plants together. Soon you will find out why.</p>",
+        "t": "<p>Sukkot is the autumn harvest festival. People gather in the fruit and count up how much they have earned during the year. Exactly then, when the barns are full, we read a book that asks: <b>is this enough?</b></p><p>On Sukkot people from many nations came to Jerusalem. Shlomo spoke to all of them, because this question concerns every person on earth.</p><p>And on Sukkot we also bind four kinds of plants together. You will find out why in the Puzzle world.</p>",
+        "a": "<p>Sukkot is the harvest festival: a person sums up the year and counts the income. Precisely at the moment of greatest material success we read a book that asks: <b>does wealth by itself bring fulfilment?</b></p><p>Rav Ashkenazi brings two more explanations. According to the Midrash, Shlomo spoke these words before the whole people in the Temple, at the gathering of the people (Hakhel) on Sukkot after the Sabbatical year. And the Netziv of Volozhin points out: on Sukkot 70 bulls were offered in the Temple for the 70 nations of the world, and their representatives came to Jerusalem. Shlomo spoke about what concerns every person on earth.</p><p>And on Sukkot we also bind four kinds of plants together. You will find out why in the Puzzle world.</p>"
+      }
+    },
+    {
+      "age": "a",
+      "type": "card",
+      "kicker": "Rav Ashkenazi explains",
+      "title": "Why Shlomo, of all people?",
+      "body": "<p>Shlomo is the only king of Israel who reigned forty years in complete peace and plenty. When a person is busy surviving, there is no room for questions about meaning. About the generation of the Egyptian slavery the Torah says: they did not listen to Moshe “because of shortness of spirit and hard labour” (Shemot 6:9).</p><p>The psychologist Abraham Maslow described this as a pyramid of needs: first food, sleep and a roof over one's head, then safety, and only after that belonging, self-realisation and the search for meaning. For almost all of its history the Jewish people fought to survive. Shlomo was the first to receive complete security and could honestly ask: <b>and what comes next?</b></p>"
+    },
+    {
+      "age": "a",
+      "type": "quote",
+      "he": "וְיוֹסִיף דַּעַת יוֹסִיף מַכְאוֹב",
+      "src": "Kohelet 1:18",
+      "tr": "“He who increases knowledge increases pain.”",
+      "plain": "Shlomo, the wisest of men, tested wisdom, wealth and beauty one after another: he built palaces, planted gardens, gathered treasures (Kohelet 2:4–11). The conclusion is the same every time: by itself it does not fulfil. The more deeply a person sees the world, the more clearly he sees his own imperfection. And everything he has built may pass to someone who does not value it.",
+      "q": "Which of Shlomo's experiences is closest to you?",
+      "options": [
+        "Knowledge that doesn't make you happier",
+        "Success that leaves you empty",
+        "Fear of losing what you have built",
+        "None of them yet"
+      ],
+      "r": "Shlomo rejects neither wisdom nor wealth. He is looking for what gives them meaning. The answer is a word that appears in the book eight times: “chelek,” portion."
+    },
+    {
+      "type": "reveal",
+      "text": "Or maybe success is something else?",
+      "sub": "The Keeper closes the city gates. Ahead lies the Puzzle world."
+    }
+  ]
+}

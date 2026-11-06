@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 12:1",
+   "q": {
+    "ru": "Где были земли царей, разбитых в дни Моше?",
+    "en": "Where were the lands of the kings defeated in Moshe’s days?",
+    "de": "Wo lagen die Länder der Könige, die in den Tagen Mosches geschlagen wurden?"
+   },
+   "o": [
+    {
+     "ru": "По ту сторону Ярдена, на востоке",
+     "en": "East of the Jordan",
+     "de": "Jenseits des Jarden, im Osten"
+    },
+    {
+     "ru": "На берегу Великого моря",
+     "en": "On the coast of the Great Sea",
+     "de": "An der Küste des Großen Meeres"
+    },
+    {
+     "ru": "В Негеве",
+     "en": "In the Negeb",
+     "de": "Im Negew"
+    },
+    {
+     "ru": "В Египте",
+     "en": "In Egypt",
+     "de": "In Ägypten"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 12:2",
+   "q": {
+    "ru": "Где жил Сихон, царь эмореев?",
+    "en": "Where did King Sihon of the Amorites reside?",
+    "de": "Wo wohnte Sichon, der König der Emoriter?"
+   },
+   "o": [
+    {
+     "ru": "В Хешбоне",
+     "en": "In Heshbon",
+     "de": "In Cheschbon"
+    },
+    {
+     "ru": "В Аштароте",
+     "en": "In Ashtaroth",
+     "de": "In Aschtarot"
+    },
+    {
+     "ru": "В Хацоре",
+     "en": "In Hazor",
+     "de": "In Chazor"
+    },
+    {
+     "ru": "В Двире",
+     "en": "In Debir",
+     "de": "In Dewir"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 12:4",
+   "q": {
+    "ru": "Из кого был Ог, царь Башана?",
+    "en": "Whom was King Og of Bashan one of the last of?",
+    "de": "Zu wem gehörte Og, der König von Baschan?"
+   },
+   "o": [
+    {
+     "ru": "Из оставшихся рефаим",
+     "en": "The Rephaim",
+     "de": "Zu den Letzten der Refaim"
+    },
+    {
+     "ru": "Из филистимлян",
+     "en": "The Philistines",
+     "de": "Zu den Philistern"
+    },
+    {
+     "ru": "Из анакеев Хеврона",
+     "en": "The Anakites of Hebron",
+     "de": "Zu den Anakitern von Chewron"
+    },
+    {
+     "ru": "Из хивеев",
+     "en": "The Hivites",
+     "de": "Zu den Chiwitern"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 12:6",
+   "q": {
+    "ru": "Кому Моше отдал земли за Ярденом?",
+    "en": "To whom did Moshe assign the land east of the Jordan?",
+    "de": "Wem gab Mosche das Land jenseits des Jarden?"
+   },
+   "o": [
+    {
+     "ru": "Реувену, Гаду и половине колена Менаше",
+     "en": "The Reubenites, the Gadites, and the half-tribe of Manasseh",
+     "de": "Reuwen, Gad und dem halben Stamm Menasche"
+    },
+    {
+     "ru": "Йеґуде и Биньямину",
+     "en": "Judah and Benjamin",
+     "de": "Jehuda und Binjamin"
+    },
+    {
+     "ru": "Левитам",
+     "en": "The Levites",
+     "de": "Den Lewiten"
+    },
+    {
+     "ru": "Эфраиму",
+     "en": "Ephraim",
+     "de": "Efrajim"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 19:6",
+   "q": {
+    "ru": "С кем сравнивается солнце, выходящее утром?",
+    "en": "What is the sun compared to when it comes forth?",
+    "de": "Womit wird die Sonne verglichen, wenn sie hervorkommt?"
+   },
+   "o": [
+    {
+     "ru": "С женихом и храбрецом",
+     "en": "A groom and a hero",
+     "de": "Mit einem Bräutigam und einem Helden"
+    },
+    {
+     "ru": "С царём и судьёй",
+     "en": "A king and a judge",
+     "de": "Mit einem König und einem Richter"
+    },
+    {
+     "ru": "С пастухом",
+     "en": "A shepherd",
+     "de": "Mit einem Hirten"
+    },
+    {
+     "ru": "Со стражем",
+     "en": "A watchman",
+     "de": "Mit einem Wächter"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 19:8",
+   "q": {
+    "ru": "Что делает Тора Г-спода, которая совершенна?",
+    "en": "What does the perfect teaching of the L-rd do?",
+    "de": "Was tut die vollkommene Tora des Ewigen?"
+   },
+   "o": [
+    {
+     "ru": "Возвращает душу",
+     "en": "It renews life",
+     "de": "Sie bringt die Seele zurück"
+    },
+    {
+     "ru": "Наказывает нечестивых",
+     "en": "It punishes the wicked",
+     "de": "Sie bestraft die Bösen"
+    },
+    {
+     "ru": "Даёт богатство",
+     "en": "It brings wealth",
+     "de": "Sie bringt Reichtum"
+    },
+    {
+     "ru": "Сжигает, как солнце",
+     "en": "It burns like the sun",
+     "de": "Sie brennt wie die Sonne"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 19:11",
+   "q": {
+    "ru": "Чего слаще законы Г-спода?",
+    "en": "What are the judgments of the L-rd sweeter than?",
+    "de": "Wovon sind die Rechtssätze des Ewigen süßer?"
+   },
+   "o": [
+    {
+     "ru": "Мёда и сотового мёда",
+     "en": "Honey and drippings of the comb",
+     "de": "Honig und Wabenhonig"
+    },
+    {
+     "ru": "Вина",
+     "en": "Wine",
+     "de": "Wein"
+    },
+    {
+     "ru": "Молока",
+     "en": "Milk",
+     "de": "Milch"
+    },
+    {
+     "ru": "Фиников",
+     "en": "Dates",
+     "de": "Datteln"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 19:15",
+   "q": {
+    "ru": "Что, кроме слов уст, Давид просит сделать угодным Г-споду?",
+    "en": "Besides the words of his mouth, what does David ask to be acceptable?",
+    "de": "Was soll außer den Worten seines Mundes dem Ewigen gefallen?"
+   },
+   "o": [
+    {
+     "ru": "Думы сердца",
+     "en": "The prayer of his heart",
+     "de": "Das Sinnen seines Herzens"
+    },
+    {
+     "ru": "Его жертвы",
+     "en": "His offerings",
+     "de": "Seine Opfer"
+    },
+    {
+     "ru": "Его песни на арфе",
+     "en": "His songs on the harp",
+     "de": "Seine Lieder auf der Harfe"
+    },
+    {
+     "ru": "Его победы",
+     "en": "His victories",
+     "de": "Seine Siege"
+    }
+   ]
+  }
+ ]
+}

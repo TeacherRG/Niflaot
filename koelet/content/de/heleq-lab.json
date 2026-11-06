@@ -1,0 +1,184 @@
+{
+  "name": "Chelek-Labor",
+  "desc": "Wir sammeln Hinweise über dich",
+  "steps": [
+    {
+      "type": "talk",
+      "who": "mentor",
+      "text": "Das ist das Labor. Hier sagt dir niemand, wer du sein sollst. Wir sammeln nur Hinweise auf das Teil, das dir gegeben wurde."
+    },
+    {
+      "type": "card",
+      "kicker": "Rätsel",
+      "title": "Warum sind alle so verschieden?",
+      "pic": {
+        "__ag": 1,
+        "y": "twins",
+        "t": ""
+      },
+      "body": {
+        "__ag": 1,
+        "y": "<p>Sogar Zwillinge, die im selben Haus aufwachsen, sind oft ganz verschieden. Die Weisen sagen: Jede Seele kommt mit ihrem eigenen Anteil auf die Welt. Lass uns deinen suchen.</p>",
+        "t": "<p>Kein Kind gleicht ganz seinen Eltern oder Geschwistern. Es gab sogar Zwillinge, die zusammen aufwuchsen, im selben Haus, unter denselben Bedingungen, und trotzdem ganz verschieden wurden: Die eine träumte davon, Juristin zu werden, die andere davon, Bücher zu schreiben.</p><p>Die Weisen sagen: Jede Seele kommt mit ihrem eigenen Anteil auf die Welt. Lass uns deinen suchen.</p>"
+      }
+    },
+    {
+      "type": "mini",
+      "game": "circles"
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "Erster Hinweis. Denk an eine Beschäftigung, bei der die Zeit wie im Flug vergeht. Was ist das?",
+      "key": "flow",
+      "neutral": true,
+      "compact": true,
+      "own": {
+        "label": "Oder schreib deine eigene Beschäftigung",
+        "ph": "Zum Beispiel: Ich baue Modelle",
+        "r": "Merk dir das. Wenn die Zeit verfliegt und dich etwas auch ohne Belohnung freut, ist das ein wichtiger Hinweis."
+      },
+      "options": {
+        "__ag": 1,
+        "y": [
+          {
+            "ic": "palette",
+            "t": "Ich male oder bastle",
+            "v": "Ich male oder bastle",
+            "r": "Merk dir das. Wenn die Zeit verfliegt und dich etwas auch ohne Belohnung freut, ist das ein wichtiger Hinweis."
+          },
+          {
+            "ic": "ball",
+            "t": "Ich mache Sport",
+            "v": "Ich mache Sport",
+            "r": "Merk dir das. Wenn die Zeit verfliegt und dich etwas auch ohne Belohnung freut, ist das ein wichtiger Hinweis."
+          },
+          {
+            "ic": "book",
+            "t": "Ich lese oder schreibe",
+            "v": "Ich lese oder schreibe",
+            "r": "Merk dir das. Wenn die Zeit verfliegt und dich etwas auch ohne Belohnung freut, ist das ein wichtiger Hinweis."
+          },
+          {
+            "ic": "numbers",
+            "t": "Ich löse Aufgaben",
+            "v": "Ich löse Aufgaben",
+            "r": "Merk dir das. Wenn die Zeit verfliegt und dich etwas auch ohne Belohnung freut, ist das ein wichtiger Hinweis."
+          },
+          {
+            "ic": "chat",
+            "t": "Ich rede mit Freunden",
+            "v": "Ich rede mit Freunden",
+            "r": "Merk dir das. Wenn die Zeit verfliegt und dich etwas auch ohne Belohnung freut, ist das ein wichtiger Hinweis."
+          },
+          {
+            "ic": "helphand",
+            "t": "Ich helfe jemandem",
+            "v": "Ich helfe jemandem",
+            "r": "Merk dir das. Wenn die Zeit verfliegt und dich etwas auch ohne Belohnung freut, ist das ein wichtiger Hinweis."
+          }
+        ],
+        "t": [
+          {
+            "ic": "palette",
+            "t": "Ich male oder bastle",
+            "v": "Ich male oder bastle",
+            "r": "Merk dir das. Wenn die Zeit verfliegt und dich etwas auch ohne Belohnung freut, ist das ein wichtiger Hinweis."
+          },
+          {
+            "ic": "ball",
+            "t": "Ich mache Sport",
+            "v": "Ich mache Sport",
+            "r": "Merk dir das. Wenn die Zeit verfliegt und dich etwas auch ohne Belohnung freut, ist das ein wichtiger Hinweis."
+          },
+          {
+            "ic": "book",
+            "t": "Ich lese oder schreibe",
+            "v": "Ich lese oder schreibe",
+            "r": "Merk dir das. Wenn die Zeit verfliegt und dich etwas auch ohne Belohnung freut, ist das ein wichtiger Hinweis."
+          },
+          {
+            "ic": "numbers",
+            "t": "Ich löse Aufgaben",
+            "v": "Ich löse Aufgaben",
+            "r": "Merk dir das. Wenn die Zeit verfliegt und dich etwas auch ohne Belohnung freut, ist das ein wichtiger Hinweis."
+          },
+          {
+            "ic": "chat",
+            "t": "Ich rede mit Freunden",
+            "v": "Ich rede mit Freunden",
+            "r": "Merk dir das. Wenn die Zeit verfliegt und dich etwas auch ohne Belohnung freut, ist das ein wichtiger Hinweis."
+          },
+          {
+            "ic": "helphand",
+            "t": "Ich helfe jemandem",
+            "v": "Ich helfe jemandem",
+            "r": "Merk dir das. Wenn die Zeit verfliegt und dich etwas auch ohne Belohnung freut, ist das ein wichtiger Hinweis."
+          },
+          {
+            "ic": "bulb",
+            "t": "Ich erfinde etwas Neues",
+            "v": "Ich erfinde etwas Neues",
+            "r": "Merk dir das. Wenn die Zeit verfliegt und dich etwas auch ohne Belohnung freut, ist das ein wichtiger Hinweis."
+          },
+          {
+            "ic": "note",
+            "t": "Ich mache Musik",
+            "v": "Ich mache Musik",
+            "r": "Merk dir das. Wenn die Zeit verfliegt und dich etwas auch ohne Belohnung freut, ist das ein wichtiger Hinweis."
+          },
+          {
+            "ic": "paw",
+            "t": "Ich beschäftige mich mit Tieren",
+            "v": "Ich beschäftige mich mit Tieren",
+            "r": "Merk dir das. Wenn die Zeit verfliegt und dich etwas auch ohne Belohnung freut, ist das ein wichtiger Hinweis."
+          },
+          {
+            "ic": "pot",
+            "t": "Ich koche",
+            "v": "Ich koche",
+            "r": "Merk dir das. Wenn die Zeit verfliegt und dich etwas auch ohne Belohnung freut, ist das ein wichtiger Hinweis."
+          }
+        ]
+      }
+    },
+    {
+      "type": "quote",
+      "he": "וּמִי יוֹדֵעַ אִם לְעֵת כָּזֹאת הִגַּעַתְּ לַמַּלְכוּת",
+      "src": "Megillat Esther 4:14",
+      "tr": "„Und wer weiß, ob du nicht gerade für eine Zeit wie diese zum Königtum gelangt bist?“",
+      "plain": {
+        "__ag": 1,
+        "y": "Zweiter Hinweis. Das sagte Mordechai zu Königin Esther, als ihrem Volk Gefahr drohte. Vielleicht bist du hier, um genau jetzt zu helfen.",
+        "t": "Zweiter Hinweis. Das sagte Mordechai zu Königin Esther, als ihrem Volk Gefahr drohte. Vielleicht bist du genau hier, um genau jetzt zu helfen. Wenn jemand braucht, was du kannst, ist das ein Zeichen."
+      },
+      "q": "Warst du schon einmal am richtigen Ort, um zu helfen?",
+      "options": [
+        "Ja, schon oft",
+        "Ich glaube, ja",
+        "Noch nicht, aber ich möchte es"
+      ],
+      "r": "Schau aufmerksam um dich. Solche Momente kommen oft ganz leise."
+    },
+    {
+      "type": "card",
+      "kicker": "Dritter Hinweis",
+      "title": "Eine gute Sache, die schwerfällt",
+      "body": {
+        "__ag": 1,
+        "y": "<p>Manchmal fällt eine gute Sache schwer: Man möchte sie auf später verschieben. Das heißt nicht, dass sie nicht deine ist. Fang mit einem kleinen Schritt an.</p><p class=\"muted\">Und wenn es dir wirklich schwer geht, erzähl es einem Erwachsenen, dem du vertraust.</p>",
+        "t": "<p>Manchmal fällt eine gute Sache schwer: Faulheit, Angst, „mach ich später“ stehen im Weg. Die Weisen haben bemerkt: Manchmal steckt gerade hinter so einer Sache etwas, das dir sehr wichtig ist. Fang mit einem kleinen Schritt an.</p><p class=\"muted\">Das heißt nicht, dass es dir schlecht gehen muss oder dass Schwierigkeiten deine Bestimmung sind. Wenn es dir wirklich schwer geht, erzähl es einem Erwachsenen, dem du vertraust.</p>"
+      }
+    },
+    {
+      "type": "card",
+      "kicker": "Ergebnis des Labors",
+      "title": "Meine Karte der Stärken",
+      "art": "map",
+      "body": {
+        "__dynamic": "strength-map"
+      },
+      "btn": "Weiter"
+    }
+  ]
+}

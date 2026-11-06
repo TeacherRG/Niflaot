@@ -5,6 +5,8 @@ import { CYCLE, localToday, loadDay, type DayContent, type DayVerse } from '../c
 import { BOOKS, SECTIONS, addDays, rangeLabel, type Section } from '../core/tanakhCycle';
 import { HEMSHECH, hsLang } from '../core/hemshech';
 import { HS_SENTENCES, digestWeek, digestWeeks, firstLines, firstSentences, quoteSentence, quoteVerse, retell, weekDays, weekNigun, weekPassages } from '../core/weekDigest';
+import { NIGUN_PUBLIC } from '../nigun/public';
+import { isAdmin } from '../admin/github';
 import { SITE_HOST } from '../core/site';
 import { civilDate, jewishDate } from '../core/hebrewDate';
 import { Icon } from './ui';
@@ -217,6 +219,7 @@ export function WeekDigest({ week }: { week?: string }) {
           </section>
         )}
 
+        {(NIGUN_PUBLIC || isAdmin()) && (
         <section className="wd-sec wd-nigun">
           <SectionHead icon="♫" title={t('digest.nigun')} sub={nigun.title[nl] ?? nigun.title.ru} he="ניגון" />
           <p className="wd-about no-print">{nigun.about[nl] ?? nigun.about.ru}</p>
@@ -243,6 +246,7 @@ export function WeekDigest({ week }: { week?: string }) {
             · {t('nigun.credit')} <a href={nigun.source.url}>{nigun.source.name}</a>
           </p>
         </section>
+        )}
 
         <footer className="p-foot">
           <span className="he" lang="he">

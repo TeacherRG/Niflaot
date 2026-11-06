@@ -1,0 +1,163 @@
+{
+  "name": "Stadt des Erfolgs",
+  "desc": "Nimm, was du willst. Aber reicht es?",
+  "steps": [
+    {
+      "type": "talk",
+      "who": "mentor",
+      "text": {
+        "__ag": 1,
+        "y": "Willkommen in der Stadt des Erfolgs! Die Bewohner haben ein Geschenk für dich. Du darfst nur eines nehmen.",
+        "t": "Willkommen in der Stadt des Erfolgs! Hier haben es alle eilig, erfolgreich zu werden. Die Bewohner haben ein Geschenk für dich, aber du darfst nur eines nehmen."
+      }
+    },
+    {
+      "type": "choice",
+      "who": {
+        "name": "Bewohner der Stadt",
+        "av": {
+          "look": 2,
+          "outfit": 1
+        }
+      },
+      "text": "Was möchtest du haben?",
+      "key": "city",
+      "whatif": false,
+      "hint": "Wähle ehrlich: Was wünschst du dir wirklich?",
+      "options": [
+        {
+          "v": "wealth",
+          "ic": "coin",
+          "t": "Reichtum",
+          "s": "Händler Baruch öffnet eine Truhe",
+          "r": "Die Truhe gehört dir. Der Schlüssel ist schwer und glänzt."
+        },
+        {
+          "v": "fame",
+          "ic": "star",
+          "t": "Beliebtheit",
+          "s": "Bloggerin Liora reicht dir ein Mikrofon",
+          "r": "Dein Name ist schon in den Trends."
+        },
+        {
+          "v": "mind",
+          "ic": "bulb",
+          "t": "Klugheit",
+          "s": "Professor Seew schenkt dir eine Zauberbrille",
+          "r": "Jetzt verstehst du jede Aufgabe auf den ersten Blick."
+        },
+        {
+          "v": "power",
+          "ic": "crown",
+          "t": "Macht",
+          "s": "Ratgeber Gad überreicht dir das Stadtsiegel",
+          "r": "Dein Wort ist Gesetz."
+        },
+        {
+          "v": "beauty",
+          "ic": "castle",
+          "t": "Ein schönes Leben",
+          "s": "Architektin Miri zeigt dir den Plan eines Palastes",
+          "r": "Gärten, Brunnen und jeden Tag ein Fest."
+        },
+        {
+          "v": "adventure",
+          "ic": "sail",
+          "t": "Abenteuer",
+          "s": "Kapitän Eli ruft dich auf sein Schiff",
+          "r": "Die Segel sind gesetzt. Vor dir liegen neue Länder."
+        }
+      ],
+      "neutral": true
+    },
+    {
+      "__dynamic": "city-year"
+    },
+    {
+      "type": "mini",
+      "game": {
+        "__ag": 1,
+        "y": "treasure",
+        "t": "treasure",
+        "a": "maslow"
+      }
+    },
+    {
+      "__dynamic": "city-evening"
+    },
+    {
+      "type": "card",
+      "kicker": "Aus dem Archiv der Bibliothek",
+      "title": "Der Mensch, der alles hatte",
+      "art": "solomon",
+      "body": {
+        "__ag": 1,
+        "y": "<p>König Schlomo regierte 40 Jahre. Er war weiser als alle, baute Paläste und Gärten. Man sagt, er verstand sogar die Sprache der Vögel.</p><p>Er hatte alles. Und das hat er geschrieben:</p>",
+        "t": "<p>Er hieß König Schlomo. Er regierte 40 Jahre, und all diese Jahre herrschte Frieden im Land. Er war weiser als alle Menschen, baute Paläste und Gärten, und Herrscher aus aller Welt kamen, um ihm zuzuhören. Man sagt, er verstand sogar die Sprache der Tiere und Vögel.</p><p>Fast alle Menschen in der Geschichte waren damit beschäftigt zu überleben: Essen zu finden, sich vor Feinden zu schützen. Schlomo aber hatte Zeit, die wichtigste Frage zu stellen. Und das hat er geschrieben:</p>"
+      }
+    },
+    {
+      "type": "quote",
+      "he": "הֲבֵל הֲבָלִים הַכֹּל הָבֶל",
+      "src": "Kohelet 1:2",
+      "tr": "„Hauch der Hauche, alles ist Hauch.“",
+      "plain": {
+        "__ag": 1,
+        "y": "„Hewel“ bedeutet „Hauch“. Wie das Wölkchen deines Atems im Frost: Eben ist es noch da – und schon verschwunden.",
+        "t": "Das Wort „Hewel“, oft mit „Nichtigkeit“ übersetzt, bedeutet „Hauch“ oder „Dampf“. Wie das Wölkchen deines Atems im Frost: Eben ist es noch da – und schon verschwunden."
+      },
+      "q": "Was meinst du: Warum kam das einem Menschen, der alles hatte, wie ein Hauch vor?",
+      "options": [
+        "Weil man das alles verlieren kann",
+        "Dinge beantworten nicht die Frage „Wozu bin ich da?“",
+        "Ihm war einfach langweilig",
+        "Weiß ich nicht. Ich will es herausfinden"
+      ],
+      "r": "Guter Gedanke. Auch Schlomo hat eine Antwort gesucht – und sie gefunden. Aber nicht sofort."
+    },
+    {
+      "type": "card",
+      "kicker": "Wusstest du?",
+      "title": "Warum man Kohelet an Sukkot liest",
+      "pic": {
+        "__ag": 1,
+        "y": "wheat fruit sukkah",
+        "t": ""
+      },
+      "body": {
+        "__ag": 1,
+        "y": "<p>Sukkot ist das Erntefest. Die Scheunen sind voll, alle zählen, wie viel sie geerntet haben. Und genau dann liest man ein Buch, das fragt: <b>Reicht das?</b></p><p>Außerdem bindet man an Sukkot vier Pflanzenarten zusammen. Bald erfährst du, warum.</p>",
+        "t": "<p>Sukkot ist das Erntefest im Herbst. Die Menschen bringen die Früchte ein und zählen, wie viel sie im Jahr verdient haben. Genau dann, wenn die Scheunen voll sind, liest man ein Buch, das fragt: <b>Reicht das?</b></p><p>An Sukkot kamen Menschen aus vielen Völkern nach Jerusalem. Schlomo sprach mit allen, denn diese Frage betrifft jeden Menschen auf der Welt.</p><p>Außerdem bindet man an Sukkot vier Pflanzenarten zusammen. Warum – das erfährst du in der Welt „Puzzle“.</p>",
+        "a": "<p>Sukkot ist das Erntefest: Man zieht Bilanz über das Jahr und rechnet die Einnahmen zusammen. Genau im Moment des größten materiellen Erfolgs liest man ein Buch, das fragt: <b>Macht Reichtum allein ein Leben erfüllt?</b></p><p>Raw Aschkenasi nennt zwei weitere Erklärungen. Nach dem Midrasch sprach Schlomo diese Worte vor dem ganzen Volk im Tempel, bei der Versammlung des Volkes an Sukkot nach dem Schmitta-Jahr. Und der Netziw aus Woloschin weist darauf hin: An Sukkot brachte man im Tempel 70 Stiere für die 70 Völker der Welt dar, und ihre Vertreter kamen nach Jerusalem. Schlomo sprach über etwas, das jeden Menschen auf der Welt betrifft.</p><p>Außerdem bindet man an Sukkot vier Pflanzenarten zusammen. Warum – das erfährst du in der Welt „Puzzle“.</p>"
+      }
+    },
+    {
+      "age": "a",
+      "type": "card",
+      "kicker": "Raw Aschkenasi erklärt",
+      "title": "Warum gerade Schlomo?",
+      "body": "<p>Schlomo ist der einzige König Israels, der vierzig Jahre in vollem Frieden und Wohlstand regierte. Wer ums Überleben kämpft, hat keinen Kopf für Fragen nach dem Sinn. Über die Generation der Sklaverei in Ägypten sagt die Tora: Sie hörten nicht auf Mosche „aus Kleinmut und wegen der harten Arbeit“ (Schemot 6:9).</p><p>Der Psychologe Abraham Maslow beschrieb das als Bedürfnispyramide: zuerst Essen, Schlaf und ein Dach über dem Kopf, dann Sicherheit, und erst danach Zugehörigkeit, Selbstverwirklichung und die Suche nach Sinn. Fast seine ganze Geschichte lang kämpfte das jüdische Volk ums Überleben. Schlomo hatte als Erster volle Sicherheit und konnte ehrlich fragen: <b>Und was jetzt?</b></p>"
+    },
+    {
+      "age": "a",
+      "type": "quote",
+      "he": "וְיוֹסִיף דַּעַת יוֹסִיף מַכְאוֹב",
+      "src": "Kohelet 1:18",
+      "tr": "„Wer das Wissen mehrt, der mehrt den Schmerz.“",
+      "plain": "Schlomo, der weiseste aller Menschen, erprobte nacheinander Weisheit, Reichtum und Schönheit: Er baute Paläste, pflanzte Gärten, sammelte Schätze (Kohelet 2:4–11). Das Ergebnis war jedes Mal gleich: Das allein erfüllt nicht. Je tiefer man die Welt sieht, desto klarer sieht man die eigene Unvollkommenheit. Und alles Gebaute kann an jemanden fallen, der es nicht schätzt.",
+      "q": "Welche dieser Erfahrungen Schlomos kennst du am ehesten?",
+      "options": [
+        "Wissen, das nicht glücklicher macht",
+        "Erfolg, nach dem es leer ist",
+        "Angst, das Aufgebaute zu verlieren",
+        "Noch keine davon"
+      ],
+      "r": "Schlomo verwirft weder Weisheit noch Reichtum. Er sucht, was ihnen Sinn gibt. Die Antwort ist ein Wort, das im Buch achtmal vorkommt: „Chelek“, Anteil."
+    },
+    {
+      "type": "reveal",
+      "text": "Und vielleicht ist Erfolg etwas ganz anderes?",
+      "sub": "Der Hüter schließt die Tore der Stadt. Als Nächstes kommt die Welt „Puzzle“."
+    }
+  ]
+}

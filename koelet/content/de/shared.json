@@ -1,0 +1,356 @@
+{
+  "M": "mentor",
+  "LOOKS": [
+    {
+      "skin": "#f3d2b0",
+      "hair": "#3b2a20",
+      "style": 0
+    },
+    {
+      "skin": "#e2ae86",
+      "hair": "#17130f",
+      "style": 1
+    },
+    {
+      "skin": "#c68b5f",
+      "hair": "#5a321d",
+      "style": 2
+    },
+    {
+      "skin": "#f1c9a4",
+      "hair": "#c3782f",
+      "style": 3
+    },
+    {
+      "skin": "#8d5a3b",
+      "hair": "#141010",
+      "style": 1
+    },
+    {
+      "skin": "#f6dcc5",
+      "hair": "#d9b36a",
+      "style": 2
+    }
+  ],
+  "OUTFITS": [
+    "#3f9a5f",
+    "#d9566c",
+    "#4f86c0",
+    "#eab53a",
+    "#8a6cc2",
+    "#e07b39"
+  ],
+  "ARCHS": [
+    {
+      "name": "{Forscher|Forscherin}"
+    },
+    {
+      "name": "{Erfinder|Erfinderin}"
+    },
+    {
+      "name": "{Chronist|Chronistin}"
+    },
+    {
+      "name": "{Reisender|Reisende}"
+    },
+    {
+      "name": "{Künstler|Künstlerin}"
+    },
+    {
+      "name": "{Musiker|Musikerin}"
+    }
+  ],
+  "LEVELS": [
+    "Neuling",
+    "{Sucher|Sucherin}",
+    "{Spurenleser|Spurenleserin}",
+    "{Forscher|Forscherin}",
+    "{Hüter|Hüterin} der Teile",
+    "{Puzzlemeister|Puzzlemeisterin}"
+  ],
+  "TOOLS": {
+    "book": [
+      "book",
+      "Buch"
+    ],
+    "heart": [
+      "heart",
+      "Hilfe"
+    ],
+    "compass": [
+      "compass",
+      "Kompass"
+    ],
+    "brush": [
+      "brush",
+      "Pinsel"
+    ],
+    "hammer": [
+      "hammer",
+      "Hammer"
+    ],
+    "puzzle": [
+      "puzzle",
+      "Puzzle"
+    ],
+    "lens": [
+      "lens",
+      "Lupe"
+    ],
+    "mic": [
+      "mic",
+      "Mikrofon"
+    ]
+  },
+  "ACHS": {
+    "piece": [
+      "puzzle",
+      "Mein Teil gefunden",
+      "Das Puzzle in der Welt „Puzzle“ gelegt"
+    ],
+    "mirror": [
+      "mirror",
+      "Ich vergleiche mich nicht",
+      "Die Welt „Spiegel“ geschafft"
+    ],
+    "friend": [
+      "heart",
+      "Ein Freund ist da",
+      "Dreimal Hilfe für andere gewählt"
+    ],
+    "tools": [
+      "wrench",
+      "Meister der eigenen Werkzeuge",
+      "Die Werkstatt geschafft"
+    ],
+    "explorer": [
+      "lens",
+      "{Forscher|Forscherin}",
+      "Alle sieben Welten geschafft"
+    ],
+    "path": [
+      "compass",
+      "Ich suche meinen Weg",
+      "Das ganze Spiel beendet"
+    ]
+  },
+  "PHRASES": [
+    "Ich muss niemand anderem gleichen. Ich kann das Meine entwickeln.",
+    "G-tt hat jedem sein eigenes Teil des großen Puzzles gegeben.",
+    "Meine Aufgabe ist nicht, in allem der Beste zu sein, sondern die Gabe zu entfalten, die mir gegeben wurde."
+  ],
+  "CITY": {
+    "wealth": {
+      "item": "coin",
+      "what": "Münzen",
+      "year": "Ein Jahr ist vergangen. Du hast einen Palast, Gärten mit Teichen und eine Schatzkammer bis unter die Decke. Man kann noch mehr Schätze sammeln. Los!",
+      "evening": "Abend. Du stehst mitten in deinem riesigen Palast. Die Diener schlafen schon. Was fühlst du?"
+    },
+    "fame": {
+      "item": "star",
+      "what": "Likes",
+      "year": "Ein Jahr ist vergangen. Man erkennt dich auf der Straße, du hast Millionen Follower. Und man kann noch mehr Likes sammeln. Los!",
+      "evening": "Abend. Dein Handy explodiert fast vor Benachrichtigungen. Du sitzt allein in deinem Zimmer. Was fühlst du?"
+    },
+    "mind": {
+      "item": "bulb",
+      "what": "Ideen",
+      "year": "Ein Jahr ist vergangen. Du löst jede Aufgabe, Wissenschaftler bitten dich um Rat. Aber man kann noch mehr wissen. Los!",
+      "evening": "Abend. Du hast alle Bücher der Stadt gelesen. Du weißt fast alles. Was fühlst du?"
+    },
+    "power": {
+      "item": "crown",
+      "what": "Befehle",
+      "year": "Ein Jahr ist vergangen. Die ganze Stadt gehorcht dir. Man kann noch mehr Befehle geben. Los!",
+      "evening": "Abend. Alle führen deine Befehle aus, aber niemand redet einfach so mit dir. Was fühlst du?"
+    },
+    "adventure": {
+      "item": "map",
+      "what": "Entdeckungen",
+      "year": "Ein Jahr ist vergangen. Du hast neue Inseln, Berge und Höhlen entdeckt. Es kann noch mehr Entdeckungen geben. Los!",
+      "evening": "Abend. Du bist wieder in einem neuen Hafen. Hier kennt dich niemand. Was fühlst du?"
+    },
+    "beauty": {
+      "item": "gift",
+      "what": "Feste",
+      "year": "Ein Jahr ist vergangen. Du feierst jeden Tag, hast die schönsten Sachen und machst Reisen. Man kann noch mehr Feste feiern. Los!",
+      "evening": "Abend. Das Fest ist vorbei, die Gäste sind gegangen. Morgen wird es genauso. Was fühlst du?"
+    }
+  },
+  "QUALITIES": [
+    "kann gut zuhören",
+    "kann gut erklären",
+    "habe Ideen",
+    "kann gut Freundschaft schließen",
+    "gebe nicht auf",
+    "helfe gern",
+    "kann gut organisieren",
+    "sehe, was andere übersehen",
+    "bringe andere zum Lachen",
+    "kann warten und bin geduldig",
+    "probiere Neues aus",
+    "baue gern mit den Händen"
+  ],
+  "QUALITIES_Y": [
+    "kann gut zuhören",
+    "kann gut erklären",
+    "habe Ideen",
+    "kann gut Freundschaft schließen",
+    "gebe nicht auf",
+    "helfe gern"
+  ],
+  "LAB_Y": {
+    "can": 6,
+    "like": 6,
+    "need": 6,
+    "help": 6
+  },
+  "LAB": {
+    "can": {
+      "title": "Was kann ich gut?",
+      "opts": [
+        "Ideen haben",
+        "erklären",
+        "malen und gestalten",
+        "Aufgaben lösen",
+        "organisieren",
+        "zuhören",
+        "Sport und Bewegung",
+        "basteln und reparieren",
+        "schreiben und erzählen",
+        "Details bemerken",
+        "Witze machen und aufheitern",
+        "mich um Tiere kümmern"
+      ]
+    },
+    "like": {
+      "title": "Was mag ich?",
+      "opts": [
+        "Musik",
+        "Natur und Tiere",
+        "Technik und Computer",
+        "Bücher und Geschichten",
+        "Spiele mit Freunden",
+        "bauen und basteln",
+        "Sport",
+        "Malen",
+        "Naturwissenschaft und Experimente",
+        "mit kleinen Kindern spielen",
+        "kochen",
+        "Reisen"
+      ]
+    },
+    "need": {
+      "title": "Was brauchen andere?",
+      "opts": [
+        "dass jemand zuhört",
+        "Hilfe beim Lernen",
+        "dass jemand aufheitert",
+        "Ordnung und einen Plan",
+        "neue Ideen",
+        "dass sich jemand für sie einsetzt",
+        "Hilfe im Haushalt",
+        "nicht allein zu sein",
+        "dass jemand etwas beibringt",
+        "Unterstützung an einem schweren Tag"
+      ]
+    },
+    "help": {
+      "title": "Wo kann ich helfen?",
+      "opts": [
+        "zu Hause, in der Familie",
+        "in der Klasse",
+        "bei Freunden",
+        "in der Gemeinde",
+        "bei kleinen Kindern",
+        "bei Oma und Opa",
+        "bei Tieren",
+        "im Internet",
+        "bei Schulprojekten",
+        "bei Festen"
+      ]
+    }
+  },
+  "BOARD": [
+    [
+      "Schlomo",
+      "#ecc865"
+    ],
+    [
+      "Mond",
+      "#d8d1b8"
+    ],
+    [
+      "Menasche",
+      "#72b182"
+    ],
+    [
+      "Mäuschen",
+      "#a3b9b4"
+    ],
+    [
+      "Esther",
+      "#e36b7f"
+    ],
+    [
+      "Dein Teil",
+      null
+    ],
+    [
+      "Blechschmied",
+      "#86b9da"
+    ],
+    [
+      "Arzt",
+      "#e2ae86"
+    ],
+    [
+      "Rachel",
+      "#b99ad8"
+    ],
+    [
+      "Efraim",
+      "#8fcf9e"
+    ],
+    [
+      "Freund",
+      "#f2a25c"
+    ],
+    [
+      "Jehoschua",
+      "#f6d98a"
+    ]
+  ],
+  "SPECIES": [
+    {
+      "ic": "etrog",
+      "name": "Etrog",
+      "he": "אֶתְרוֹג",
+      "y": "Der Etrog hat Geschmack und Duft. Er ist wie ein Mensch, der Tora lernt und Gutes tut.",
+      "t": "Geschmack und Duft. Der Midrasch sagt: Das ist ein Mensch, der Tora und gute Taten hat."
+    },
+    {
+      "ic": "lulav",
+      "name": "Lulaw",
+      "he": "לוּלָב",
+      "y": "Datteln von der Palme schmecken gut, aber sie duften nicht. Das ist ein Mensch, der viel Tora lernt.",
+      "t": "Die Früchte der Dattelpalme schmecken, aber duften nicht. Das ist ein Mensch mit Tora, aber weniger guten Taten."
+    },
+    {
+      "ic": "hadas",
+      "name": "Myrte",
+      "he": "הֲדַס",
+      "y": "Die Myrte duftet schön, aber man isst sie nicht. Das ist ein Mensch, der viel Gutes tut.",
+      "t": "Duft ohne Geschmack. Das ist ein Mensch mit vielen guten Taten, aber weniger Tora."
+    },
+    {
+      "ic": "arava",
+      "name": "Bachweide",
+      "he": "עֲרָבָה",
+      "y": "Die Weide hat weder Geschmack noch Duft. Aber ohne sie kann man das Gebot nicht erfüllen!",
+      "t": "Weder Geschmack noch Duft. Und doch ist das Gebot ohne die Arawa nicht erfüllt: Ohne sie taugt der ganze Strauß nicht."
+    }
+  ],
+  "DEF_HINT": "Hier gibt es nicht die eine richtige Antwort. Wähle, was dir näher ist, und schau, was passiert.",
+  "OWN_NOTE": "Freiwillig. Das siehst nur du: Der Text bleibt auf diesem Gerät."
+}

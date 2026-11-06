@@ -49,6 +49,13 @@ export function studyDays(): string[] {
   return out;
 }
 
+/** Учебные дни личного плана в диапазоне [start, end), без Шабата, праздников и 9 ава. */
+export function studyDaysBetween(start: string, end: string): string[] {
+  const out: string[] = [];
+  for (let d = start; d < end; d = addDays(d, 1)) if (!restReason(d)) out.push(d);
+  return out;
+}
+
 /** Стих раздела по номеру в разделе (0 — первый стих первой книги). */
 export interface VerseRef {
   book: TanakhBook;
@@ -91,6 +98,17 @@ export function splitTrack(section: Section, days: number): number[] {
   }
   b.push(total);
   return b;
+}
+
+/** Личный годовой план: весь раздел равномерно распределён по учебным дням года. */
+export function oneYearCycle(start: string): CycleDay[] {
+  const endDate = new Date(`${start}T12:00:00Z`);
+  endDate.setUTCFullYear(endDate.getUTCFullYear() + 1);
+  const end = endDate.toISOString().slice(0, 10);
+  const dates = studyDaysBetween(start, end);
+  const neviim = splitTrack('neviim', dates.length);
+  const ketuvim = splitTrack('ketuvim', dates.length);
+  return dates.map((date, i) => ({ date, neviim: [neviim[i], neviim[i + 1]], ketuvim: [ketuvim[i], ketuvim[i + 1]] }));
 }
 
 /** Один день цикла (из src/tanakh/cycle.json): дата и стихи каждого раздела [с, до). */

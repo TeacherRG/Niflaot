@@ -17,7 +17,8 @@
   rashi — Раши: he — оригинал (Public Domain), en — Metsudah / Judaica Press (CC-BY), ru/de — перевод проекта;
   ru, de — перевод стиха проекта (src/tanakh/ru|de/<книга>.json), где он уже есть.
 Комментарий — список: на стих несколько комментариев, в начале каждого слова стиха — <b>.
-Имена Всевышнего — как во всём проекте (ה׳, אלקים, G-d, L-rd; Б-г, Г-сподь; G-tt, der Ewige).
+Имена Всевышнего: в иврите стиха — полное написание, как на Sefaria (יְהֹוָה, אֱלֹהִים); в комментариях на иврите —
+ה׳, как в оригинале; в переводах — как во всём проекте (G-d, L-rd; Б-г, Г-сподь; G-tt, der Ewige).
 Рав Штейнзальц (© Steinsaltz Center) на сайте не показывается — только ссылка на Sefaria.
 """
 import importlib.util, json, re, sys, urllib.parse
@@ -108,6 +109,13 @@ def strip_footnotes(t):
         pos = i
     return ''.join(out) + t[pos:]
 
+# города Земли Израиля — как на иврите, а не как их называют сегодня: עזה — Azzah, не «Gaza» (решил владелец, 02.11.2026);
+# правится и английский стих JPS, и английский Раши
+EN_PLACES = [(r'\bGazites\b', 'Azzathites'), (r'\bGaza\b', 'Azzah')]
+def en_places(t):
+    for a, b in EN_PLACES: t = re.sub(a, b, t)
+    return t
+
 def comm_html(t, lang):
     """clean() проекта; только <b> (слова стиха); на иврите ה' → ה׳, «יי» → ה׳, без невидимых знаков направления."""
     t = re.sub(r'</?i>', '', fs.clean(strip_footnotes(t.replace('\u200e', '').replace('\u200f', '')), lang)).strip()
@@ -115,6 +123,7 @@ def comm_html(t, lang):
         t = re.sub(r"(?<![\u05B0-\u05BD\u05BF-\u05C7א-ת])((?:[ובכלמש])?)ה'(?![א-ת])", r'\1ה׳', t)
         t = re.sub(r"(?<![א-ת])((?:[ובכלמש])?)יי'?(?![א-ת])", r'\1ה׳', t)
         t = re.sub(r':(?=[א-ת])', ': ', t)
+    t = en_places(t) if lang == 'en' else t
     return t.replace('<b> ', ' <b>').replace(' </b>', '</b> ')
 
 def verse_comm(kind, b, ch, v, lang):
@@ -210,13 +219,13 @@ def section_day(books, section, a, z):
         versions['he'] = fs.meta(he); versions['en'] = fs.meta(en)
         en_ch = en['text'][ch - 1] if ch - 1 < len(en['text']) else []
         verse = {'b': b['slug'], 'c': ch, 'v': v,
-                 'he': fs.clean(he['text'][ch - 1][v - 1], 'he'),
+                 'he': fs.clean(he['text'][ch - 1][v - 1], 'he', names=False),  # стих — Имена как на Sefaria
                  # the page shows the verse as plain text: no <i> (JPS italicizes «Selah», transliterations)
-                 'en': re.sub(r'</?i>', '', fs.clean(en_ch[v - 1], 'en')) if v - 1 < len(en_ch) else ''}
+                 'en': en_places(re.sub(r'</?i>', '', fs.clean(en_ch[v - 1], 'en'))) if v - 1 < len(en_ch) else ''}
         if not verse['en']:
             old = fs.load(book_file(b, EN_FALLBACK))['text'][ch - 1]
             if v - 1 < len(old) and old[v - 1].strip():
-                verse['en'] = re.sub(r'</?i>', '', fs.clean(old[v - 1], 'en'))
+                verse['en'] = en_places(re.sub(r'</?i>', '', fs.clean(old[v - 1], 'en')))
                 verse['enFrom'] = 'JPS 1917'
         md = verse_comm('md', b, ch, v, 'Hebrew')
         if md:

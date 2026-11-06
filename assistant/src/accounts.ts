@@ -4,7 +4,8 @@
  * classes, and counts the questions to the AI teacher.
  *
  * One Durable Object `Accounts` (SQLite). Login: a 6-digit code to the email (Resend, secret RESEND_API_KEY;
- * without it registration is off — `/account/config` says so). Codes and session tokens are kept only as SHA-256
+ * without it registration is off — `/account/config` says so) or «Войти через Google» (`/google`, src/google.ts;
+ * variable GOOGLE_CLIENT_ID) — the same account by the same email. Codes and session tokens are kept only as SHA-256
  * hashes. A child under 14 (Austria / GDPR art. 8): the account stays **pending** — nothing synced, not on the
  * boards, not in classes — until a parent confirms by the link sent to the parent's email.
  * Kept per account: email, nickname, age group (14+ / under 14), parent's email (under 14), language, the synced
@@ -12,6 +13,7 @@
  */
 import { DurableObject } from 'cloudflare:workers';
 import { methodsFor, validEmail, validNick } from './rules';
+import { verifyGoogleToken } from './google';
 import { mergeSnapshots, summarize, type Snapshot } from '../../src/core/sync';
 
 export interface MailEnv {
@@ -20,6 +22,8 @@ export interface MailEnv {
   MAIL_FROM?: string;
   /** the site, for links in the emails */
   SITE_URL?: string;
+  /** «Войти через Google»: the OAuth client id (Google Cloud → Credentials; public). Without it — no Google button */
+  GOOGLE_CLIENT_ID?: string;
   /** local development only (`wrangler dev --var DEV_CODES:1`): codes go to the log instead of an email */
   DEV_CODES?: string;
 }
@@ -31,6 +35,8 @@ const MAX_PROGRESS = 256 * 1024;
 /** the parent's consent email: not more often than once in 2 minutes and 5 times a day per account */
 const CONSENT_GAP = 2 * 60_000;
 const CONSENT_PER_DAY = 5;
+/** «Пользователи» in the admin: the GitHub token must be able to push here (src/admin/github.ts — the same repo) */
+const ADMIN_REPO = 'TeacherRG/Niflaot';
 const CODE_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
 const LANGS = ['ru', 'en', 'de'] as const;
 type Lang = (typeof LANGS)[number];
@@ -214,6 +220,19 @@ export class Accounts extends DurableObject<MailEnv> {
     this.sql.exec('DELETE FROM users WHERE id = ?', id);
   }
 
+  /** a session for the account of this email (made on the first sign-in) */
+  private async signIn(email: string, l: unknown) {
+    let u = this.one<User>('SELECT * FROM users WHERE email = ?', email);
+    if (!u) {
+      const id = random(12);
+      this.sql.exec('INSERT INTO users (id, email, lang, created, last) VALUES (?, ?, ?, ?, ?)', id, email, lang(l), Date.now(), Date.now());
+      u = this.one<User>('SELECT * FROM users WHERE id = ?', id)!;
+    }
+    const token = random(32);
+    this.sql.exec('INSERT INTO sessions (hash, user, expires) VALUES (?, ?, ?)', await sha(token), u.id, Date.now() + SESSION_TTL);
+    return json({ token, ...this.me(u) });
+  }
+
   async fetch(req: Request): Promise<Response> {
     if (!(await this.ctx.storage.getAlarm())) await this.ctx.storage.setAlarm(Date.now() + 864e5);
     const url = new URL(req.url);
@@ -228,7 +247,7 @@ export class Accounts extends DurableObject<MailEnv> {
     const body = req.method === 'POST' || req.method === 'PUT' ? ((await req.json().catch(() => null)) as Record<string, any> | null) : null;
     if ((req.method === 'POST' || req.method === 'PUT') && !body) return fail('bad json');
 
-    if (path === '/config') return json({ mail: !!this.env.RESEND_API_KEY || this.env.DEV_CODES === '1' });
+    if (path === '/config') return json({ mail: !!this.env.RESEND_API_KEY || this.env.DEV_CODES === '1', google: this.env.GOOGLE_CLIENT_ID || null });
     if (path === '/chat-quota') return this.chatQuota(req);
 
     /* ── login ── */
@@ -264,15 +283,21 @@ export class Accounts extends DurableObject<MailEnv> {
         return fail('code', 401);
       }
       this.sql.exec('DELETE FROM codes WHERE email = ?', email);
-      let u = this.one<User>('SELECT * FROM users WHERE email = ?', email);
-      if (!u) {
-        const id = random(12);
-        this.sql.exec('INSERT INTO users (id, email, lang, created, last) VALUES (?, ?, ?, ?, ?)', id, email, lang(body!.lang), Date.now(), Date.now());
-        u = this.one<User>('SELECT * FROM users WHERE id = ?', id)!;
+      return this.signIn(email, body!.lang);
+    }
+    if (path === '/google') {
+      const clientId = this.env.GOOGLE_CLIENT_ID;
+      if (!clientId) return fail('google', 404);
+      let r: Awaited<ReturnType<typeof verifyGoogleToken>>;
+      try {
+        r = await verifyGoogleToken(String(body!.idToken ?? ''), { clientId, nonce: String(body!.nonce ?? '') });
+      } catch (e) {
+        console.error(e);
+        return fail('failed', 503);
       }
-      const token = random(32);
-      this.sql.exec('INSERT INTO sessions (hash, user, expires) VALUES (?, ?, ?)', await sha(token), u.id, Date.now() + SESSION_TTL);
-      return json({ token, ...this.me(u) });
+      if (!r.ok) return fail('google', 401);
+      if (!validEmail(r.email)) return fail('email');
+      return this.signIn(r.email, body!.lang);
     }
     if (path === '/consent') {
       const token = String(body!.token ?? '');
@@ -283,6 +308,10 @@ export class Accounts extends DurableObject<MailEnv> {
       return json({ ok: true, nick: u.nick });
     }
     if (path === '/leaders' && !url.searchParams.get('class')) return json(this.leaders(null));
+    if (path === '/stats') {
+      if (!(await this.admin(req))) return fail('admin', 403);
+      return json(this.stats());
+    }
 
     /* ── signed in ── */
     const u = await this.user(req);
@@ -351,7 +380,7 @@ export class Accounts extends DurableObject<MailEnv> {
       if (!data || typeof data !== 'object' || Array.isArray(data)) return fail('data');
       const clean: Record<string, string> = {};
       for (const [k, v] of Object.entries(data))
-        if (typeof v === 'string' && /^niflaot:(lesson:[a-z0-9-]{1,60}|daily|tanakh-quiz|hemshech|nigun|hemshech-done|tanakh-done|words|torah-words|torah-read|lashon|study-days|mode|courses|hebrew|lang|math-level)$/.test(k)) clean[k] = v;
+        if (typeof v === 'string' && /^niflaot:(lesson:[a-z0-9-]{1,60}|daily|tanakh-quiz|hemshech|nigun|hemshech-done|tanakh-done|words|notes|torah-words|torah-read|lashon|study-days|mode|courses|hebrew|lang|math-level)$/.test(k)) clean[k] = v;
       // merged with what the account already has: a second device that hasn't seen the first one's progress
       // must not overwrite it (each device sends its whole copy)
       const stored = this.one<{ data: string }>('SELECT data FROM progress WHERE user = ?', u.id);
@@ -429,6 +458,57 @@ export class Accounts extends DurableObject<MailEnv> {
       return json({ class: c, members });
     }
     return fail('not found', 404);
+  }
+
+  /**
+   * The admin (`#/admin/users`): the same GitHub token the text editor signs in with — its owner may push to the
+   * site's repository. Checked at GitHub; a token that passed is remembered (as a hash) for 10 minutes.
+   */
+  private admins = new Map<string, number>();
+  private async admin(req: Request): Promise<boolean> {
+    const token = (req.headers.get('Authorization') ?? '').replace(/^Bearer /, '');
+    if (!token || token.length > 300) return false;
+    const h = await sha(token);
+    if ((this.admins.get(h) ?? 0) > Date.now()) return true;
+    const gh = (p: string) =>
+      fetch(`https://api.github.com${p}`, {
+        headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'User-Agent': 'niflaot-assistant' },
+      }).then((r) => (r.ok ? (r.json() as Promise<any>) : null), () => null);
+    const repo = await gh(`/repos/${ADMIN_REPO}`);
+    let ok = !!(repo?.permissions?.push || repo?.permissions?.admin);
+    // a fine-grained token may not report permissions: then — the owner of the repository
+    if (!ok && repo) ok = String((await gh('/user'))?.login ?? '').toLowerCase() === ADMIN_REPO.split('/')[0].toLowerCase();
+    if (ok) this.admins.set(h, Date.now() + 10 * 60_000);
+    return ok;
+  }
+
+  /** «Пользователи» in the admin: how many accounts, how many came lately — numbers only, no emails or nicknames */
+  private stats() {
+    const now = Date.now();
+    const n = (q: string, ...b: unknown[]) => this.one<{ n: number }>(q, ...b)?.n ?? 0;
+    const since = (days: number) => now - days * 864e5;
+    const periods = [1, 7, 30] as const;
+    const day = (ms: number) => new Date(ms).toISOString().slice(0, 10);
+    const daily: Record<string, { joined: number; active: number }> = {};
+    for (let i = 29; i >= 0; i--) daily[day(now - i * 864e5)] = { joined: 0, active: 0 };
+    for (const r of this.sql.exec<{ created: number; last: number }>('SELECT created, last FROM users WHERE nick IS NOT NULL AND (created >= ? OR last >= ?)', since(30), since(30)).toArray()) {
+      if (daily[day(r.created)]) daily[day(r.created)].joined++;
+      if (daily[day(r.last)]) daily[day(r.last)].active++;
+    }
+    return {
+      total: n('SELECT COUNT(*) AS n FROM users WHERE nick IS NOT NULL'),
+      unfinished: n('SELECT COUNT(*) AS n FROM users WHERE nick IS NULL'),
+      adults: n("SELECT COUNT(*) AS n FROM users WHERE nick IS NOT NULL AND age = 'adult'"),
+      children: n("SELECT COUNT(*) AS n FROM users WHERE nick IS NOT NULL AND age = 'child' AND parent_ok = 1"),
+      pending: n("SELECT COUNT(*) AS n FROM users WHERE nick IS NOT NULL AND age = 'child' AND parent_ok = 0"),
+      withProgress: n('SELECT COUNT(*) AS n FROM progress'),
+      active: Object.fromEntries(periods.map((d) => [d, n('SELECT COUNT(*) AS n FROM users WHERE nick IS NOT NULL AND last >= ?', since(d))])),
+      joined: Object.fromEntries(periods.map((d) => [d, n('SELECT COUNT(*) AS n FROM users WHERE nick IS NOT NULL AND created >= ?', since(d))])),
+      langs: Object.fromEntries(
+        this.sql.exec<{ lang: string; n: number }>('SELECT lang, COUNT(*) AS n FROM users WHERE nick IS NOT NULL GROUP BY lang').toArray().map((r) => [r.lang, r.n]),
+      ),
+      daily,
+    };
   }
 
   /** top 20 by points and by «Гематрия дня» streak; only active accounts that agreed to be shown (or a class's members) */

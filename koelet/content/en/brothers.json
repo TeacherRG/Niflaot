@@ -1,0 +1,254 @@
+{
+  "name": "Ephraim and Menashe",
+  "desc": "Two brothers and one blessing",
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "A very long time ago",
+      "title": "Two brothers",
+      "art": "brothers",
+      "body": {
+        "__ag": 1,
+        "y": "<p>Yosef had two sons: the elder, <b>Menashe</b>, and the younger, <b>Ephraim</b>. Yosef brought them to their grandfather Yaakov for a blessing. The elder was supposed to be blessed with the right hand…</p>",
+        "t": "<p>Yosef, the son of our forefather Yaakov, had two sons: the elder, <b>Menashe</b>, and the younger, <b>Ephraim</b>. One day Yosef brought them to their grandfather Yaakov for a blessing.</p><p>The elder was supposed to be blessed with the right hand. Yosef placed Menashe right under his grandfather's right hand…</p>"
+      }
+    },
+    {
+      "type": "mini",
+      "game": "hands"
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "What do you think Menashe might have felt?",
+      "key": "manasheFeel",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Hurt",
+          "r": "An understandable feeling. After all, he is the elder."
+        },
+        {
+          "t": "Anger at his brother",
+          "r": "That happens. Ephraim did nothing wrong, but you still feel like being angry."
+        },
+        {
+          "t": "Confusion",
+          "r": "Honest. Everything went differently from what everyone expected."
+        },
+        {
+          "t": "Calm",
+          "r": "Interesting. The Torah is silent about Menashe's feelings. See how Rav Ashkenazi explains it."
+        }
+      ]
+    },
+    {
+      "age": "y",
+      "type": "card",
+      "kicker": "Rav Ashkenazi explains",
+      "title": "Menashe did not argue",
+      "pic": "friends",
+      "body": "<p>Earlier in the Torah, brothers often argued about who was more important. In the Torah only Yosef objected, and nothing is said about Menashe. Rav Ashkenazi explains: Menashe did not argue. He understood: <b>my brother has his blessing, and I have mine</b>.</p>"
+    },
+    {
+      "age": "y",
+      "type": "choice",
+      "who": "mentor",
+      "text": "Do you think it is easy to act like that?",
+      "key": "manasheEasy",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Very hard",
+          "r": "Yes, it is hard. That is why Menashe has been remembered for thousands of years."
+        },
+        {
+          "t": "Easy, if you love your brother",
+          "r": "Love really does help. But even people who love can feel hurt."
+        },
+        {
+          "t": "It depends",
+          "r": "Honest. Sometimes it is easy, and sometimes very hard."
+        }
+      ]
+    },
+    {
+      "age": "y",
+      "type": "card",
+      "kicker": "To this day",
+      "title": "The Friday night blessing",
+      "pic": "candles",
+      "body": "<p>On Friday night parents bless their sons:</p><p class=\"quote-he\" lang=\"he\">יְשִׂמְךָ אֱלֹקִים כְּאֶפְרַיִם וְכִמְנַשֶּׁה</p><p>“May the Almighty make you like Ephraim and Menashe.” Like two brothers who did not envy each other.</p>"
+    },
+    {
+      "age": "t",
+      "type": "card",
+      "kicker": "Rav Ashkenazi explains",
+      "title": "The first who did not fight",
+      "body": "<p>Before this, brothers in the Torah competed more than once over who was more important: Kayin and Hevel, Yishmael and Yitzchak, Esav and Yaakov. The rivalry led to disaster.</p><p>The Torah says that Yosef objected to Yaakov. About Menashe's feelings the text is silent. Rav Ashkenazi sees a lesson in this silence: Menashe was the first who did not fight. He understood: <b>my brother has his blessing, and I have mine</b>. And my worth does not become any smaller because of it.</p><p>That is why for thousands of years parents have blessed their sons on Friday night:</p><p class=\"quote-he\" lang=\"he\">יְשִׂמְךָ אֱלֹקִים כְּאֶפְרַיִם וְכִמְנַשֶּׁה</p><p>“May the Almighty make you like Ephraim and Menashe.” Like two brothers who did not envy each other.</p>"
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "And now you. Your friend won the prize in a competition that you had dreamed of. What do you feel?",
+      "key": "awardFeel",
+      "neutral": true,
+      "options": [
+        {
+          "t": "It hurts",
+          "r": "That's normal. Feelings are never “wrong.” What matters is what you do next."
+        },
+        {
+          "t": "I'm happy for him",
+          "r": "Great. And if it hurts a tiny bit inside, that's normal too."
+        },
+        {
+          "t": "Both at once",
+          "r": "An honest answer. Almost everyone feels that way. What matters is what you do next."
+        },
+        {
+          "t": "I feel like giving it all up",
+          "r": "Understandable. But let's see what else can be done."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "What will you do next?",
+      "key": "awardAct",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Congratulate him, even though it hurts a little",
+          "r": "Your friend beams: “Thank you! It means a lot that it was you who said it.” The hurt hasn't gone away completely yet. It needs time.",
+          "help": 1
+        },
+        {
+          "t": "Pretend I don't care",
+          "r": "Nobody noticed anything, and there was no quarrel. But inside, the hurt stays and doesn't go anywhere."
+        },
+        {
+          "t": "Ask how he prepared and try again",
+          "r": "He told you his secrets. You will have to prepare for a whole year, but you will come to the competition with your own idea.",
+          "insight": 1
+        },
+        {
+          "t": "Tell everyone he was just lucky",
+          "r": "For a minute it felt easier. But your friend heard. The prize stayed with him, and the friendship cracked."
+        },
+        {
+          "t": "Ask him to teach me",
+          "r": "He gladly showed you how he worked. Now you are preparing for the next competition together.",
+          "help": 1,
+          "insight": 1
+        }
+      ]
+    },
+    {
+      "age": "t",
+      "type": "card",
+      "kicker": "Another story · Shmuel I, 18",
+      "title": "Shaul and David",
+      "body": "<p>Young David defeated the giant Golyat. When the army was returning home, the women sang: “Shaul has slain his thousands, and David his tens of thousands.”</p><p>King Shaul heard and became angry. From that day, the book says, he “eyed David with suspicion.” Shaul remained king, he had everything. But he could no longer rejoice in what was his: all his attention went to someone else's success.</p>"
+    },
+    {
+      "age": "t",
+      "type": "choice",
+      "who": "mentor",
+      "text": "Shaul was the king. Why do you think one song hurt him so much?",
+      "key": "shaul",
+      "neutral": true,
+      "options": [
+        {
+          "t": "He was afraid of losing the throne",
+          "r": "Possibly. Envy often begins with fear: “if he has more, I will have less.”"
+        },
+        {
+          "t": "It mattered to him what people thought of him",
+          "r": "That sounds true. When your worth depends on other people's opinions, any song about someone else wounds."
+        },
+        {
+          "t": "He compared himself with David",
+          "r": "Yes. And the comparison was unfair: David has his role, Shaul has his."
+        },
+        {
+          "t": "It would hurt anyone",
+          "r": "Honest. It can hurt anyone. The question is what to do with that feeling next."
+        }
+      ]
+    },
+    {
+      "age": "a",
+      "type": "card",
+      "kicker": "Talmud, Yoma 22b",
+      "title": "One misstep and two",
+      "body": "<p>The Talmud asks a hard question. Shaul stumbled once and lost the kingdom. David stumbled twice, in the matter of Uriah and with the census of the people, and remained king.</p><p>Rav Ashkenazi brings the explanation of the Lubavitcher Rebbe. By sparing Agag, king of Amalek, Shaul departed from the very essence of the mission for which he had become king. David's errors were grave personal transgressions, and he bore a severe punishment for them. But he did not betray his mission as king.</p><p>Rav Ashkenazi's conclusion: <b>as long as a person stays faithful to their main purpose, the Almighty preserves their place in the world.</b></p>"
+    },
+    {
+      "age": "a",
+      "type": "choice",
+      "who": "mentor",
+      "text": "And for you, what does it mean “to stay faithful to your mission”?",
+      "key": "missionTrue",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Not to abandon the main work, even when it is hard",
+          "r": "A hard path. But then difficulties stop deciding for you what you should do."
+        },
+        {
+          "t": "To admit mistakes and not give up",
+          "r": "The path of David: grave mistakes, real teshuvah and faithfulness to his work."
+        },
+        {
+          "t": "Not to swap my own work for what others expect",
+          "r": "Shaul himself admitted: “I feared the people and listened to their voice” (Shmuel I 15:24). Other people's expectations led him away from his task."
+        },
+        {
+          "t": "I don't know yet what my mission is",
+          "r": "Honest. That is exactly what the Chelek Lab is for: it has three signs by which you can recognise it."
+        }
+      ]
+    },
+    {
+      "type": "quote",
+      "he": "וַתְּקַנֵּא רָחֵל בַּאֲחֹתָהּ",
+      "src": "Bereishit 30:1",
+      "tr": "“And Rachel envied her sister.”",
+      "plain": {
+        "__ag": 1,
+        "y": "Rachel envied not her sister's things, but her good deeds. And she herself began to try harder. Envy can work like an alarm clock: to wake yourself up.",
+        "t": "The sages explain: Rachel envied not Leah's things, but her good deeds. And this envy made her pray and grow. Envy can work like an alarm clock: not to take away what belongs to someone else, but to wake yourself up."
+      },
+      "q": "What can envy awaken in you?",
+      "options": [
+        "The wish to learn something new",
+        "The wish to try harder",
+        "The wish to understand what I really want"
+      ],
+      "r": "So it turns out: even envy can become a tool, if you direct it at yourself and not at someone else."
+    },
+    {
+      "age": "t",
+      "type": "quote",
+      "he": "קִנְאַת סוֹפְרִים תַּרְבֶּה חָכְמָה",
+      "src": "Bava Batra 21a",
+      "tr": "“The envy of scholars increases wisdom.”",
+      "plain": "Literally: “the envy of scribes.” The Talmud allows a new school to be opened next to an old one: the rivalry will make both teachers teach better. This is constructive envy. Shaul wanted David to have less. Rachel wanted to have more good herself.",
+      "q": "How can you tell which kind of envy lives in you right now?",
+      "options": [
+        "Ask myself: do I want him to have less?",
+        "Ask myself: what can I learn from him?",
+        "Look at what I do after this feeling",
+        "I don't know yet"
+      ],
+      "r": "A good way to check. The same flash of feeling can make you a Shaul or a Rachel. The difference is where you direct it."
+    },
+    {
+      "type": "reveal",
+      "text": "If someone else has their own gift, yours does not disappear.",
+      "sub": "You can be happy for someone else and remember your own worth."
+    }
+  ]
+}

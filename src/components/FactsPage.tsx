@@ -4,16 +4,16 @@ import { renderFactCard, shareOrSave, type FactAnswerPart } from '../core/shareC
 import { useI18n } from '../i18n';
 import { LESSONS, lessonsByNearness } from '../lessons';
 import { TEACHERS, teacherOf } from '../lessons/teachers';
-import { NUMS, collectFacts, type Fact } from '../core/facts';
+import { NUMS, collectFacts, factMeaning, type Fact } from '../core/facts';
+import { HebrewRuns } from './Hebrew';
 import { displayNames } from '../core/names';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { DailyCard } from './DailyCard';
-import { Subscribe } from './Subscribe';
 import { CardFeed } from './CardFeed';
 
-/** Hebrew words in large type with their translations under them (each term of a sum separately); `ask` — ends with «?». */
-function Words({ he, gloss, ask }: { he: string; gloss: Record<string, string>; ask?: boolean }) {
+/** Hebrew words in large type with their translations under them (each term of a sum separately). */
+function Words({ he, gloss }: { he: string; gloss: Record<string, string> }) {
   const terms = he.split(' + ');
   return (
     <span className="fact-words">
@@ -23,7 +23,6 @@ function Words({ he, gloss, ask }: { he: string; gloss: Record<string, string>; 
           <span className="fact-w">
             <span className="he" lang="he">
               {displayNames(w)}
-              {ask && k === terms.length - 1 && <span className="fact-mark"> ?</span>}
             </span>
             <small>{gloss[w]}</small>
           </span>
@@ -35,17 +34,14 @@ function Words({ he, gloss, ask }: { he: string; gloss: Record<string, string>; 
 
 function FactCard({ f, here }: { f: Fact; here?: boolean }) {
   const { t, pick, locale } = useI18n();
-  const [open, setOpen] = useState(false);
   const text = pick(f.lesson.texts).value;
   const who = teacherOf(f.lesson);
   const base = `#/${f.lesson.slug}`;
   const [card, setCard] = useState<'idle' | 'making' | 'saved'>('idle');
-  const question = t(`facts.ask.${f.kind === 'eq' ? 'eq' : f.take}`);
-  const he = f.kind === 'eq' ? f.q : f.from;
-  const memo = f.mi !== undefined ? text.memo?.items[f.mi] : undefined;
-  // one short line on what the answer means: what a bare number stands for, else the name of the comment
-  const bare = f.kind === 'eq' && f.rest.every((p) => NUMS.test(p));
-  const point = (bare && memo?.note) || memo?.title || (f.ri !== undefined ? text.riddles[f.ri].title : undefined);
+  // what the answer means — not just the number: the pair's explanation and «Чему это учит?» (owner, 01.11.2026)
+  const meaning = factMeaning(f, text);
+  // «Последние буквы слов עם האיש הזה» — when the meaning doesn't say where the word was taken from
+  const fromLine = f.kind !== 'eq' && !meaning.text?.includes(f.from) ? `${t(`facts.from.${f.take}`)} ${displayNames(f.from)}` : undefined;
   const why = f.ri !== undefined ? `${base}/read/${f.ri + 1}` : f.mi !== undefined ? `${base}/memo/${f.mi + 1}` : base;
 
   /** «Поделиться загадкой»: the riddle and its answer as a picture signed with the site; why it is so — behind the link. */
@@ -60,26 +56,41 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
           .join(' · ');
       const answer: FactAnswerPart[] =
         f.kind === 'eq'
-          ? f.rest.map((p) => (NUMS.test(p) ? { op: '=', num: p } : { op: '=', he: displayNames(p), gloss: gloss(p) }))
-          : [{ op: '→', he: displayNames(f.word), gloss: gloss(f.word) }];
+          ? [
+              { he: displayNames(f.q), gloss: gloss(f.q) },
+              ...f.rest.map((p): FactAnswerPart => (NUMS.test(p) ? { op: '=', num: p } : { op: '=', he: displayNames(p), gloss: gloss(p) })),
+            ]
+          : [{ he: displayNames(f.word), gloss: gloss(f.word) }];
+      // plain text; each run of Hebrew words isolated right-to-left (U+2067…U+2069), as <HebrewRuns> on the screen —
+      // else the canvas reorders «ם, ש, ה — משה» together with the punctuation around it
+      const plain = (h?: string) =>
+        h &&
+        displayNames(h.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()).replace(
+          /[א-ת][א-ת׳״־]*(?:\s[א-ת][א-ת׳״־]*)*/g,
+          (m) => `\u2067${m}\u2069`,
+        );
+      const moralLabel = meaning.moral ? (meaning.moralLabel ?? t('memo.learn')) : undefined;
       const blob = await renderFactCard({
         eyebrow: `${t('app.title')} · ${t('facts.title')}`,
         // «Бааль ґа-Турим · Бааль ґа-Турим: Берешит» — the teacher only when the title doesn't name him
         source: text.title.includes(t(`teacher.${who}.short`)) ? text.title : `${t(`teacher.${who}.short`)} · ${text.title}`,
-        question,
-        hebrew: displayNames(he),
-        gloss: gloss(he),
-        answerLabel: t('facts.cardAnswerLabel'),
         answer,
-        why: t('facts.cardWhy'),
+        from: fromLine,
+        title: meaning.title,
+        text: plain(meaning.text),
+        moralLabel,
+        moral: plain(meaning.moral),
+        why: t('facts.cardLesson'),
         site: SITE_HOST,
         tagline: t('facts.cardTagline'),
       });
-      const said = answer.map((p) => `${p.op} ${p.num ?? p.he}`).join(' ');
+      const said = answer.map((p) => `${p.op ?? ''} ${p.num ?? p.he}`.trim()).join(' ');
       const res = await shareOrSave(
         blob,
         `niflaot-${f.id}.png`,
-        `${question}\n${displayNames(he)}\n${t('facts.answer')}: ${said}\n${t('facts.shareText')} 👉 ${routeLink(`facts/${f.id}`, 'card', locale)}`,
+        [said, meaning.title, moralLabel && `${moralLabel} ${plain(meaning.moral)}`, `${t('facts.shareText')} 👉 ${routeLink(`facts/${f.id}`, 'card', locale)}`]
+          .filter(Boolean)
+          .join('\n'),
       );
       setCard(res === 'saved' ? 'saved' : 'idle');
       if (res === 'saved') setTimeout(() => setCard('idle'), 2500);
@@ -90,33 +101,37 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
 
   return (
     <article className={`fact t-${TEACHERS[who].color}${here ? ' here' : ''}`} id={f.id}>
-      <p className="fact-q">{question}</p>
-      <div className="fact-he">
-        <Words he={he} gloss={text.glossary} ask />
-      </div>
-      {open ? (
-        <div className="fact-a pop">
-          <div className="fact-ans">
-            {f.kind === 'eq' ? (
-              f.rest.map((p, k) => (
-                <span key={k} className="fact-part">
-                  <span className="fact-op">=</span>
-                  {NUMS.test(p) ? <b className="num">{p}</b> : <Words he={p} gloss={text.glossary} />}
-                </span>
-              ))
-            ) : (
-              <span className="fact-part">
-                <span className="fact-op">→</span>
-                <Words he={f.word} gloss={text.glossary} />
+      {/* the answer at once — a question card was unclear and dull (owner, 02.11.2026) */}
+      <div className="fact-ans">
+        {f.kind === 'eq' ? (
+          <span className="fact-part">
+            <Words he={f.q} gloss={text.glossary} />
+            {f.rest.map((p, k) => (
+              <span key={k} className="fact-part">
+                <span className="fact-op">=</span>
+                {NUMS.test(p) ? <b className="num">{p}</b> : <Words he={p} gloss={text.glossary} />}
               </span>
-            )}
-          </div>
-          {point && <p className="fact-point">{point}</p>}
-        </div>
-      ) : (
-        <button className="btn fact-show" onClick={() => setOpen(true)}>
-          {t('facts.show')}
-        </button>
+            ))}
+          </span>
+        ) : (
+          <Words he={f.word} gloss={text.glossary} />
+        )}
+      </div>
+      {meaning.title && <h3 className="fact-point">{meaning.title}</h3>}
+      {fromLine && f.kind !== 'eq' && (
+        <p className="fact-from">
+          {t(`facts.from.${f.take}`)} <span className="he" lang="he">{displayNames(f.from)}</span>
+        </p>
+      )}
+      {meaning.text && (
+        <p className="fact-mean">
+          <HebrewRuns text={meaning.text} />
+        </p>
+      )}
+      {meaning.moral && (
+        <p className="fact-moral">
+          <b>{meaning.moralLabel ?? t('memo.learn')}</b> <HebrewRuns text={meaning.moral} />
+        </p>
       )}
       <div className="fact-foot">
         <a href={why}>{t('facts.why')} →</a>
@@ -136,8 +151,8 @@ function FactCard({ f, here }: { f: Fact; here?: boolean }) {
 }
 
 /**
- * «Знаете ли вы?» — every equality and letter hint of the lessons as a feed of short questions, without explanations:
- * the answer opens on a tap with one line on what it means, «Почему так?» leads to the lesson where it is explained.
+ * «Знаете ли вы?» — every equality and letter hint of the lessons as a feed: the answer at once (the word or the equality),
+ * what it means and «Чему это учит?»; «Почему так?» leads to the lesson where it is explained.
  */
 /** `at` — the fact a shared link points to (`#/facts/<id>`), or `daily` («Гематрия дня», `#/daily`): the feed opens on it. */
 export function FactsPage({ at }: { at?: string }) {
@@ -184,7 +199,6 @@ export function FactsPage({ at }: { at?: string }) {
             </main>
           </>
         )}
-        <Subscribe />
       </div>
       <Colophon />
     </>

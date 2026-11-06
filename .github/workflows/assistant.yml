@@ -11,8 +11,8 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    # the worker also bundles these files of the site
-    paths: ['assistant/**', 'src/core/gematria.ts', 'src/core/sync.ts', 'src/core/quizGame.ts', 'src/core/speech.ts', 'src/core/tanakhNarration.ts', 'src/core/names.ts', 'src/core/tanakhCycle.ts', 'src/tanakh/books.json']
+    # the worker also bundles these files of the site; a change of this workflow redeploys too
+    paths: ['assistant/**', '.github/workflows/assistant.yml', 'src/core/gematria.ts', 'src/core/sync.ts', 'src/core/quizGame.ts', 'src/core/speech.ts', 'src/core/tanakhNarration.ts', 'src/core/names.ts', 'src/core/tanakhCycle.ts', 'src/tanakh/books.json']
 
 concurrency:
   group: assistant
@@ -46,6 +46,9 @@ jobs:
             ANTHROPIC_API_KEY
           vars: |
             MAIL_FROM
+          # «Войти через Google»: only when the repository variable GOOGLE_CLIENT_ID is set — wrangler-action fails
+          # on an empty value in `vars` (the deploys after PR #250 failed so); without it — no Google button
+          command: deploy${{ vars.GOOGLE_CLIENT_ID && format(' --var GOOGLE_CLIENT_ID:{0}', vars.GOOGLE_CLIENT_ID) || '' }}
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           MAIL_FROM: ${{ vars.MAIL_FROM || 'Нифлаот <noreply@mychitas.app>' }}

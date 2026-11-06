@@ -3,7 +3,7 @@
  * (CoursesCard.tsx): how much is done of the whole course, what to open next and its link. Loaded only by the tile
  * (the cycle's data and the Chassidut texts are not in the main bundle).
  */
-import { CYCLE, localToday } from './tanakh';
+import { localToday, readingPlan } from './tanakh';
 import { rangeLabel, type Section } from './tanakhCycle';
 import { isDone } from './academy';
 import { readDoneStore } from './tanakhDone';
@@ -14,7 +14,8 @@ import { nigunCertificates, readNigunStore } from './nigunGame';
 import { bookRoadmap } from './milestones';
 import { civilDate } from './hebrewDate';
 import { hsNextIndex, nextIndex } from './todayStudy';
-import type { Course, Pace } from './courses';
+import { koeletProgress } from './koelet';
+import type { Course, CourseChoice, Pace } from './courses';
 
 export interface CourseRow {
   id: Course;
@@ -43,15 +44,17 @@ const markedOn = (t: number, today: string) => {
 };
 const langOf = (locale: string): Lang => (locale === 'en' || locale === 'de' ? locale : 'ru');
 
-function tanakh(sec: Section, pace: Pace, lang: Lang, today: string): CourseRow {
-  const store = readDoneStore();
-  const i = nextIndex(sec, pace, store, today);
-  const day = CYCLE[i];
-  const book = bookRoadmap(sec, store, CYCLE, today).find((b) => b.days.some((d) => d.date === day.date));
+function tanakh(sec: Section, choice: CourseChoice, lang: Lang, today: string): CourseRow {
+  const plan = readingPlan(choice);
+  const cycle = plan.days;
+  const store = readDoneStore(plan.id);
+  const i = nextIndex(sec, choice.pace, store, today, cycle);
+  const day = cycle[i];
+  const book = bookRoadmap(sec, store, cycle, today).find((b) => b.days.some((d) => d.date === day.date));
   return {
     id: sec,
-    done: CYCLE.filter((d) => isDone(store, d.date, sec)).length,
-    total: CYCLE.length,
+    done: cycle.filter((d) => isDone(store, d.date, sec)).length,
+    total: cycle.length,
     next: rangeLabel(sec, day[sec], lang),
     book: book && { name: book.book.name[lang], done: book.done, parts: book.days.length },
     finished: isDone(store, day.date, sec),
@@ -91,11 +94,17 @@ function nigun(locale: string): CourseRow {
   };
 }
 
+/** «Тайна Коэлета»: the worlds done of seven (the game's own progress in this browser, src/core/koelet.ts) */
+function koelet(): CourseRow {
+  const p = koeletProgress();
+  return { id: 'koelet', done: p.done, total: p.total, finished: p.finished, href: '#/koelet' };
+}
+
 /** The rows of the chosen courses, in the order of COURSES. */
-export function myCourses(courses: Course[], pace: Pace, locale: string): CourseRow[] {
+export function myCourses(courses: Course[], choice: CourseChoice, locale: string): CourseRow[] {
   const lang = langOf(locale);
   const today = localToday();
   return courses.map((c) =>
-    c === 'neviim' || c === 'ketuvim' ? tanakh(c, pace, lang, today) : c === 'hemshech' ? hemshech(pace, locale, lang, today) : c === 'lashon' ? lashon() : nigun(locale),
+    c === 'neviim' || c === 'ketuvim' ? tanakh(c, choice, lang, today) : c === 'hemshech' ? hemshech(choice.pace, locale, lang, today) : c === 'lashon' ? lashon() : c === 'koelet' ? koelet() : nigun(locale),
   );
 }

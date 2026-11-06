@@ -1,0 +1,24 @@
+{
+  "name": "koelet",
+  "private": true,
+  "description": "«Тайна Коэлета» — интерактивное приключение для детей 8–15 лет",
+  "scripts": {
+    "start": "node tools/serve.mjs",
+    "lint": "node tools/lint.mjs",
+    "test": "node tools/lint.mjs && node tests/check-data.mjs && node tests/parsha.mjs && node tests/playthrough.mjs",
+    "test:data": "node tests/check-data.mjs",
+    "test:play": "node tests/playthrough.mjs",
+    "test:quick": "node tests/playthrough.mjs --quick",
+    "voice": "node tools/tts.mjs",
+    "voice:dry": "node tools/tts.mjs --dry",
+    "guide": "node tools/guide.mjs",
+    "test:parsha": "node tests/parsha.mjs",
+    "parsha": "node tools/build-parsha.mjs",
+    "art": "node tools/build-art.mjs"
+  },
+  "devDependencies": {
+    "@hebcal/core": "^6.11.0",
+    "@hebcal/leyning": "^10.0.2",
+    "playwright": "1.56.1"
+  }
+}

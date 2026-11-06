@@ -1,0 +1,222 @@
+{
+  "name": "Mirror",
+  "desc": "A hall where everyone looks at others",
+  "steps": [
+    {
+      "type": "talk",
+      "who": "mentor",
+      "text": {
+        "__ag": 1,
+        "y": "This is the Hall of Mirrors. Here the children look not at themselves, but at others. Help them.",
+        "t": "This is the Hall of Mirrors. The children who live here look not at themselves, but at others. Every mirror shows someone “better.” Help them."
+      }
+    },
+    {
+      "type": "choice",
+      "who": {
+        "name": "Dani",
+        "av": {
+          "look": 0,
+          "outfit": 2
+        }
+      },
+      "text": "“Ari plays football better than me. Why should I even go out on the pitch?”",
+      "q": "What can Dani do?",
+      "key": "mirror0",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Copy every one of Ari's tricks",
+          "r": "Dani learned a couple of Ari's tricks, and one really came in handy. But playing entirely “like Ari” didn't work: it's someone else's style. After a week Dani was worn out.",
+          "insight": false
+        },
+        {
+          "t": "Get upset and give up football",
+          "r": "For the first few days Dani even felt better: nobody to compare himself with. And then he started missing the ball. Maybe it was just a break?",
+          "insight": false
+        },
+        {
+          "t": "Notice what he has himself",
+          "r": "Dani realised: he sees the field better than anyone and makes precise passes. The coach put him in the centre, and Ari scored from his pass.",
+          "insight": true
+        },
+        {
+          "t": "Prove that he is better",
+          "r": "Dani started training twice as much and really did improve. Only now he never passes to anyone, and the team finds it harder to play with him.",
+          "insight": false
+        },
+        {
+          "t": "Talk to the coach",
+          "r": "The coach said: “I don't need two Aris. I need Dani.” And he gave him a list of exercises. It turned out to be a lot of work, and the first weeks were not easy.",
+          "insight": true
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": {
+        "name": "Mira",
+        "av": {
+          "look": 3,
+          "outfit": 1
+        }
+      },
+      "text": "“Shira is smarter than me. For her all the problems just solve themselves.”",
+      "q": "What can Mira do?",
+      "key": "mirror1",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Study late into the night, exactly like Shira",
+          "r": "Mira's marks went up a little. But she doesn't get enough sleep, and she is bored. It seems she has a different way of learning.",
+          "insight": false
+        },
+        {
+          "t": "Decide that she is stupid and stop trying",
+          "r": "Mira felt calmer: she doesn't have to compete with anyone. But nobody ever heard her excellent questions.",
+          "insight": false
+        },
+        {
+          "t": "Find what she herself is strong at",
+          "r": "Mira noticed: she explains things better than anyone. When she retells a topic, the whole class understands. Even Shira asks her for help with history.",
+          "insight": true
+        },
+        {
+          "t": "Look for Shira's mistakes and laugh at them",
+          "r": "Mira found a mistake and laughed. For a minute it felt nice, then awkward for both of them. And her own problems didn't get solved that way.",
+          "insight": false
+        },
+        {
+          "t": "Ask Shira how she studies",
+          "r": "Shira shared her methods. Half of them didn't suit Mira. But she took one and understood: you can learn in your own way.",
+          "insight": true
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": {
+        "name": "Levi",
+        "av": {
+          "look": 1,
+          "outfit": 3
+        }
+      },
+      "text": "“Eli has loads of friends, and I have only two.”",
+      "q": "What can Levi do?",
+      "key": "mirror2",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Act like Eli: joke louder than everyone",
+          "r": "People really did laugh at a couple of jokes, and that felt good. But Levi feels he is playing a part. That wears you out quickly.",
+          "insight": false
+        },
+        {
+          "t": "Sit alone: nothing will work out anyway",
+          "r": "Being alone is sometimes useful. But his friends have invited Levi three times already, and he didn't go. Now they invite him less often.",
+          "insight": false
+        },
+        {
+          "t": "Remember what kind of friend he is",
+          "r": "Levi realised: he has few friends, but very close ones. He knows how to keep secrets and comes when things are bad. Many people look for a friend like that.",
+          "insight": true
+        },
+        {
+          "t": "Tell everyone that Eli is a show-off",
+          "r": "Someone agreed with him, and for a minute Levi was the centre of attention. Then the rumour reached Eli. And Levi did not become any closer to his friends.",
+          "insight": false
+        },
+        {
+          "t": "Invite his two friends to do something new",
+          "r": "The three of them went on a hike. It was cold and there were mosquitoes, but they talked by the campfire half the night. It turned out friendship isn't about numbers.",
+          "insight": true
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": {
+        "name": "Chana",
+        "av": {
+          "look": 2,
+          "outfit": 0
+        }
+      },
+      "text": "“Tali draws like a real artist. And nothing I do comes out right.”",
+      "q": "What can Chana do?",
+      "key": "mirror3",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Draw the same pictures as Tali",
+          "r": "By copying, Chana learned a lot: her lines became more confident. But at the exhibition you can't tell whose work is whose. Chana herself isn't there yet.",
+          "insight": false
+        },
+        {
+          "t": "Throw away her paints",
+          "r": "The paints are in the bin. At first she felt relieved. But in the evening Chana remembered how she loved making up stories for her drawings.",
+          "insight": false
+        },
+        {
+          "t": "Notice that she has something of her own",
+          "r": "Chana realised: her strength is making up stories. Together with Tali she made a comic: Tali draws, Chana writes. The whole school reads it.",
+          "insight": true
+        },
+        {
+          "t": "Say that drawing is nonsense",
+          "r": "Someone agreed with Chana. But it didn't feel any better: inside it still hurts.",
+          "insight": false
+        },
+        {
+          "t": "Ask Tali what she likes about Chana",
+          "r": "Tali was surprised: “But you're the best at coming up with plots!” Chana had never even thought about it.",
+          "insight": true
+        }
+      ]
+    },
+    {
+      "type": "mini",
+      "game": "sky"
+    },
+    {
+      "type": "mini",
+      "game": "selfmirror"
+    },
+    {
+      "type": "mini",
+      "game": "pasuk"
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "What did you notice in the Hall of Mirrors?",
+      "key": "mirrorNote",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Comparing takes away your strength",
+          "r": "Yes. While you look into someone else's mirror, your own work stands still."
+        },
+        {
+          "t": "Everyone found something of their own",
+          "r": "Yes. And it was found only when the hero stopped looking at someone else."
+        },
+        {
+          "t": "Someone else's success takes nothing away from you",
+          "r": "Yes. Ari scored the goal, but it was Dani who gave the pass."
+        },
+        {
+          "t": "It's not all so simple",
+          "r": "Exactly. Almost every choice had both pluses and minuses. That's how it is in life too."
+        }
+      ]
+    },
+    {
+      "type": "reveal",
+      "text": "Someone else's strength does not make yours weaker.",
+      "sub": "The mirrors go dark. One after another they begin to show the children themselves."
+    }
+  ],
+  "ach": "mirror"
+}

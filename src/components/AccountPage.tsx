@@ -3,9 +3,11 @@ import { Html, useI18n } from '../i18n';
 import { MODES, savedMode, setMode, useMode } from '../core/mode';
 import { HEBREW_LEVELS, savedHebrewLevel, setHebrewLevel, useHebrewLevel } from '../core/hebrewLevel';
 import { BGS, SIZES, THEMES, setLook, useLook } from '../core/look';
-import { COURSES, PACES, coursesChosen, setCourses, useCourses } from '../core/courses';
+import { shownCourses, PACES, PLAN_YEARS, coursesChosen, setCourses, useCourses } from '../core/courses';
 import { BookProgress } from './BookProgress';
 import { DailyReminder } from './DailyReminder';
+import { Subscribe } from './Subscribe';
+import { NotesCard } from './BookmarksPage';
 import type { MessageKey } from '../i18n/locales/ru';
 import {
   AccountError,
@@ -20,10 +22,13 @@ import {
   resendConsent,
   saveProfile,
   sendCode,
+  startGoogle,
   syncNow,
   useAccount,
 } from '../core/account';
 import { TopBar } from './TopBar';
+import { trialEnd } from '../core/gate';
+import { inTelegram } from '../core/telegram';
 import { Colophon } from './Colophon';
 
 /** the server's error code → the text for the player */
@@ -56,13 +61,29 @@ function useAction() {
   return { busy, err, setErr, run };
 }
 
-/** Guest: what an account gives; email → the 6-digit code → signed in. */
+/** Google's «G» (the sign-in button by Google's branding rules: the mark, «Войти через Google», a light button) */
+const GoogleMark = () => (
+  <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
+    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
+  </svg>
+);
+
+/** Guest: what an account gives; Google, or email → the 6-digit code → signed in. */
 function SignIn() {
   const { t, locale } = useI18n();
+  const end = trialEnd();
+  const open = end !== null && end > Date.now();
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
   const [code, setCode] = useState('');
   const { busy, err, run } = useAction();
+  const { google, googleBusy, googleErr } = useAccount();
+  const errText = useErr();
+  // Google doesn't sign in inside apps' own browsers (Telegram, WhatsApp…): there — only the code
+  const withGoogle = !!google && !inTelegram() && !/Telegram|Instagram|FBAN|FBAV|Line\/|; wv\)/.test(navigator.userAgent);
 
   const ask = (e: FormEvent) => {
     e.preventDefault();
@@ -79,8 +100,29 @@ function SignIn() {
   return (
     <section className="acc-card">
       <h2>👤 {t('acc.guest')}</h2>
+      {end !== null && (
+        <p className="acc-note">
+          {open
+            ? t('acc.trialLeft', { date: new Date(end).toLocaleDateString(locale, { day: 'numeric', month: 'long' }) })
+            : t('acc.trialOver')}
+        </p>
+      )}
       <p>{t('acc.guestLead')}</p>
       <Html as="div" className="prose" html={t('acc.benefits')} />
+      {withGoogle && !sent && (
+        <>
+          <button type="button" className="acc-google" disabled={googleBusy} onClick={() => startGoogle(locale)}>
+            <GoogleMark />
+            {googleBusy ? t('acc.googleBusy') : t('acc.google')}
+          </button>
+          {googleErr && (
+            <p className="acc-err" role="alert">
+              {errText(new AccountError(googleErr, 401))}
+            </p>
+          )}
+          <p className="acc-or">{t('acc.or')}</p>
+        </>
+      )}
       {!sent ? (
         <form className="acc-form" onSubmit={ask}>
           <label>
@@ -115,14 +157,14 @@ function SignIn() {
       )}
       {err && <p className="acc-err" role="alert">{err}</p>}
       <p>
-        <a href="#/">← {t('acc.guestGo')}</a>
+        <a href="#/reading">{t('acc.guestGo')} →</a>
       </p>
     </section>
   );
 }
 
 /** Nickname, age group (once), a parent's email for a child, the leaderboard choice, the privacy policy. */
-function ProfileForm({ first }: { first: boolean }) {
+function ProfileForm({ first, stay }: { first: boolean; stay?: boolean }) {
   const { t, locale } = useI18n();
   const { me } = useAccount();
   const u = me!.user;
@@ -140,7 +182,7 @@ function ProfileForm({ first }: { first: boolean }) {
     run(async () => {
       const me = await saveProfile({ nick, age, parentEmail: age === 'child' ? parent : undefined, board, lang: locale });
       // saved: the profile closes (a child waiting for the parent's consent stays — the page says what to do next)
-      if (me.user.active) location.hash = '#/';
+      if (me.user.active && !stay) location.hash = '#/';
     });
   };
 
@@ -358,7 +400,8 @@ function ModeCard() {
  */
 function CoursesPicker() {
   const { t } = useI18n();
-  const { c, pace } = useCourses(useMode());
+  const choice = useCourses(useMode());
+  const { c, pace, years } = choice;
   const chosen = coursesChosen();
   return (
     <details className="acc-pick" open={!chosen}>
@@ -369,10 +412,10 @@ function CoursesPicker() {
       </summary>
       <p className="acc-courses-note">{t('courses.qSub')}</p>
       <div className="acc-modes" role="group" aria-labelledby="acc-courses">
-        {COURSES.map((x) => {
+        {shownCourses().map((x) => {
           const on = c.includes(x);
           return (
-            <button key={x} role="checkbox" aria-checked={on} className={`acc-mode${on ? ' on' : ''}`} onClick={() => setCourses({ c: on ? c.filter((y) => y !== x) : [...c, x], pace })}>
+            <button key={x} role="checkbox" aria-checked={on} className={`acc-mode${on ? ' on' : ''}`} onClick={() => setCourses({ ...choice, c: on ? c.filter((y) => y !== x) : [...c, x] })}>
               <b>
                 {on ? '✓' : '+'} {t(`courses.${x}`)}
               </b>
@@ -385,9 +428,20 @@ function CoursesPicker() {
         <div className="acc-modes acc-pace" role="radiogroup" aria-label={t('courses.paceQ')}>
           <span className="acc-pick-q">{t('courses.paceQ')}</span>
           {PACES.map((p) => (
-            <button key={p} role="radio" aria-checked={pace === p} className={`acc-mode${pace === p ? ' on' : ''}`} onClick={() => setCourses({ c, pace: p })}>
+            <button key={p} role="radio" aria-checked={pace === p} className={`acc-mode${pace === p ? ' on' : ''}`} onClick={() => setCourses({ ...choice, pace: p })}>
               <b>{t(`courses.pace.${p}`)}</b>
               <small>{t(`courses.pace.${p}.sub`)}</small>
+            </button>
+          ))}
+        </div>
+      )}
+      {(c.includes('neviim') || c.includes('ketuvim')) && pace === 'own' && (
+        <div className="acc-modes acc-pace" role="radiogroup" aria-label={t('courses.yearsQ')}>
+          <span className="acc-pick-q">{t('courses.yearsQ')}</span>
+          {PLAN_YEARS.map((y) => (
+            <button key={y} role="radio" aria-checked={years === y} className={`acc-mode${years === y ? ' on' : ''}`} onClick={() => setCourses({ ...choice, years: y })}>
+              <b>{t(`courses.years.${y}`)}</b>
+              <small>{t(`courses.years.${y}.sub`)}</small>
             </button>
           ))}
         </div>
@@ -429,10 +483,42 @@ function LookPicker() {
   );
 }
 
+/** Instead of any page but the Tehillim, until signed in (src/core/gate.ts): the email → the code → the page itself. */
+export function SignInPage() {
+  const { t } = useI18n();
+  const { token, me } = useAccount();
+  // signed in, but the first step isn't done (nickname, age): the profile here, then the page itself
+  const profile = !!token && !!me?.user && !me.user.nick;
+  useEffect(() => {
+    document.title = `${t('acc.guest')} · ${t('app.title')}`;
+  }, [t]);
+  return (
+    <>
+      <TopBar title={t('acc.title')} />
+      <div className="wrap acc">
+        <main>
+          {profile ? (
+            <section className="acc-card">
+              <h2>{t('acc.profile')}</h2>
+              <ProfileForm first stay />
+            </section>
+          ) : (
+            <SignIn />
+          )}
+          <p className="acc-note">
+            <a href="#/privacy">{t('privacy.title')}</a>
+          </p>
+        </main>
+      </div>
+      <Colophon />
+    </>
+  );
+}
+
 /** «Классы» are hidden for now (the server and `#/class/<id>` stay); true brings the section back to the profile. */
 const SHOW_CLASSES = false;
 
-/** `#/account`: guest mode and sign-in, the settings, «Напоминать каждый день», «Мой путь по книгам» (progress and milestones), the profile, the parent's consent, classes, sign out, delete. */
+/** `#/account`: guest mode and sign-in, the settings, «Напоминать каждый день», «Мой путь по книгам» (progress and milestones), «Мои закладки и заметки», the profile, the parent's consent, classes, sign out, delete. */
 export function AccountPage() {
   const { t } = useI18n();
   const { token, me, mail } = useAccount();
@@ -461,7 +547,9 @@ export function AccountPage() {
             <h2>🔔 {t('push.title')}</h2>
             <DailyReminder sheet />
           </section>
+          <Subscribe />
           <BookProgress />
+          <NotesCard />
           {!token && mail === false && (
             <section className="acc-card">
               <h2>👤 {t('acc.guest')}</h2>

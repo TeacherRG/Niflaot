@@ -4,18 +4,25 @@ import { tanakhLang, tanakhNarration, tanakhSlug } from '../core/tanakhNarration
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { Icon, useDismiss } from './ui';
 import { useI18n } from '../i18n';
+import { useMode } from '../core/mode';
+import { useCourses } from '../core/courses';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { BOOKS, rangeLabel, type Section } from '../core/tanakhCycle';
-import { CYCLE, cycleDayFor, loadDay, localToday, readingMinutes, type Commentary, type DayContent, type SectionDay, type DayVerse, type Tr } from '../core/tanakh';
+import { cycleDayFor, loadDay, localToday, readingPlan, readingMinutes, type Commentary, type DayContent, type ReadingPlan, type SectionDay, type DayVerse, type Tr } from '../core/tanakh';
 import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
 import { TanakhMasthead } from './PrintBrand';
 import { TanakhWords } from './TanakhWords';
+import { TanakhAtlas } from './TanakhAtlas';
+import { loadAtlasDay, type AtlasDay } from '../core/atlas';
 import { HeVerse, WordPop } from './WordPop';
 import { loadDayWords, type DayWords } from '../core/words';
 import { setOtherPage } from '../core/assistant';
 import { tanakhContext } from '../core/assistantPages';
 import { useDone, useDoneStore } from '../core/tanakhDone';
+import { takeGoto, useNotes, verseKey, type VerseRef } from '../core/notes';
+import { VerseNoteBox, VerseTools } from './VerseNote';
+import { routeLink, SITE_HOST } from '../core/site';
 import { isDone } from '../core/academy';
 
 export const SECTION_HE: Record<Section, string> = { neviim: 'נביאים', ketuvim: 'כתובים' };
@@ -192,6 +199,20 @@ function usePrintBoth(): [boolean, (v: boolean) => void] {
 const bookOf = (slug: string) => BOOKS.find((b) => b.slug === slug)!;
 const labelLang = (locale: string) => (locale === 'en' || locale === 'de' ? locale : 'ru');
 
+/**
+ * «Поделиться стихом»: картинка (стих, перевод, QR-код на день) и текст со ссылкой на день — через «Отправить…» телефона;
+ * где делиться файлом нельзя (компьютер), картинка сохраняется, а текст копируется в буфер обмена. Код картинки
+ * грузится только по нажатию.
+ */
+async function shareVerse(d: import('../core/shareCard').VerseCardData & { file: string }): Promise<'shared' | 'saved'> {
+  const { renderVerseCard, shareOrSave } = await import('../core/shareCard');
+  const blob = await renderVerseCard(d);
+  const text = [d.source, d.hebrew, d.translation, `${d.cta} 👉 ${d.link}`].filter(Boolean).join('\n');
+  const r = await shareOrSave(blob, d.file, text);
+  if (r === 'saved') await navigator.clipboard?.writeText(text).catch(() => undefined);
+  return r;
+}
+
 /** the translation with the Names' hyphen unbroken on screen (Б‑г / Г‑сподь / G‑tt: a non-breaking hyphen) */
 const nb = (tr: Tr | null, x?: string) =>
   x && (tr === 'ru' ? x.replace(/([БГ])-(?=г|спод)/g, '$1\u2011') : tr === 'de' ? x.replace(/([Gg])-(?=tt)/g, '$1\u2011') : x);
@@ -243,8 +264,11 @@ function Comm({ c, by, he, tr }: { c: Commentary; by: string; he: boolean; tr: T
  * The verses of one section of one day: a heading at each new chapter, then verse by verse with the chosen commentaries.
  * `parse` — the words of the verses parsed (public/tanakh/words/<date>.json): each Hebrew word opens WordPop.
  */
-function Verses({ verses, he, tr, md, rashi, parse }: { verses: DayVerse[]; he: boolean; tr: Tr | null; md: boolean; rashi: boolean; parse?: DayWords[Section]['v'] }) {
+function Verses({ verses, he, tr, md, rashi, parse, atlas, notes }: { verses: DayVerse[]; he: boolean; tr: Tr | null; md: boolean; rashi: boolean; parse?: DayWords[Section]['v']; atlas?: AtlasDay['v']; notes?: { section: Section; date: string } }) {
   const { t, locale } = useI18n();
+  // «Мои закладки»: закладка и заметка у каждого стиха (только у раздела на экране, не у второго раздела для печати)
+  const store = useNotes();
+  const [editing, setEditing] = useState<string | null>(null);
   return (
     <>
       {verses.map((v, i) => {
@@ -252,6 +276,8 @@ function Verses({ verses, he, tr, md, rashi, parse }: { verses: DayVerse[]; he: 
         const book = bookOf(v.b);
         const newChapter = !prev || prev.b !== v.b || prev.c !== v.c;
         const text = tr ? nb(tr, v[tr]) : undefined;
+        const key = verseKey(v.b, v.c, v.v);
+        const vref: VerseRef | null = notes ? { key, date: notes.date, section: notes.section, text: text ?? v.en ?? '' } : null;
         return (
           <Fragment key={`${v.b}-${v.c}-${v.v}`}>
             {newChapter && (
@@ -266,9 +292,29 @@ function Verses({ verses, he, tr, md, rashi, parse }: { verses: DayVerse[]; he: 
               <span className="tk-num num" aria-label={`${v.c}:${v.v}`}>
                 {v.c}:{v.v}
               </span>
+              {vref && (
+                <VerseTools
+                  vref={vref}
+                  entry={store[key]}
+                  onNote={() => setEditing(editing === key ? null : key)}
+                  onShare={() =>
+                    shareVerse({
+                      eyebrow: `${t('app.title')} · ${t(`tanakh.${notes!.section}`)}`,
+                      source: `${book.name[labelLang(locale)]} ${v.c}:${v.v} · ${book.he}`,
+                      hebrew: he ? v.he : undefined,
+                      translation: text,
+                      cta: t('notes.cardCta'),
+                      site: SITE_HOST,
+                      tagline: t('facts.cardTagline'),
+                      file: `niflaot-${v.b}-${v.c}-${v.v}.png`,
+                      link: routeLink(`${notes!.section}/${notes!.date}`, 'card', locale),
+                    })
+                  }
+                />
+              )}
               {he && (
                 <p className="tk-he he" lang="he" dir="rtl">
-                  {parse ? <HeVerse text={v.he} parse={parse[`${v.b} ${v.c}:${v.v}`]} /> : v.he}
+                  {parse ? <HeVerse text={v.he} parse={parse[`${v.b} ${v.c}:${v.v}`]} atlas={atlas?.[`${v.b} ${v.c}:${v.v}`]} /> : v.he}
                 </p>
               )}
               {text && (
@@ -277,6 +323,7 @@ function Verses({ verses, he, tr, md, rashi, parse }: { verses: DayVerse[]; he: 
                   {tr === 'en' && v.enFrom && <small className="fn"> ({v.enFrom})</small>}
                 </p>
               )}
+              {vref && <VerseNoteBox key={`${key}-${editing === key}`} vref={vref} entry={store[key]} editing={editing === key} onDone={(edit) => setEditing(edit ? key : null)} />}
               {md && v.md && <Comm c={v.md} by={t('tanakh.md')} he={he} tr={tr} />}
               {rashi && v.rashi && <Comm c={v.rashi} by={t('tanakh.rashi')} he={he} tr={tr} />}
             </section>
@@ -291,14 +338,14 @@ function Verses({ verses, he, tr, md, rashi, parse }: { verses: DayVerse[]; he: 
  * «Я прочитал(а)» under the passage, and the reader's tracker of this section: how many passages of the cycle are read,
  * and the first earlier day left unread. The marks make the certificates of «Академия» (100 % of a book's passages).
  */
-function DoneCheck({ section, date, today }: { section: Section; date: string; today: string }) {
+function DoneCheck({ section, date, today, plan }: { section: Section; date: string; today: string; plan: ReadingPlan }) {
   const { t, locale } = useI18n();
-  const [done, setDone] = useDone(date, section);
-  const store = useDoneStore();
+  const [done, setDone] = useDone(date, section, plan.id);
+  const store = useDoneStore(plan.id);
   let read = 0;
   let missed = 0;
   let first: string | undefined;
-  for (const d of CYCLE) {
+  for (const d of plan.days) {
     if (isDone(store, d.date, section)) read++;
     else if (d.date < today) {
       missed++;
@@ -312,7 +359,7 @@ function DoneCheck({ section, date, today }: { section: Section; date: string; t
         <span>{t('tanakh.doneCheck')}</span>
       </label>
       <p>
-        {t('tanakh.doneStat', { n: read, total: CYCLE.length, section: t(`tanakh.${section}`) })}
+        {t('tanakh.doneStat', { n: read, total: plan.days.length, section: t(`tanakh.${section}`) })}
         {first && first !== date && (
           <>
             {' · '}
@@ -386,11 +433,20 @@ function PrintMenu({ other, both, setBoth }: { other: Section; both: boolean; se
  */
 export function TanakhPage({ section, date }: { section: Section; date?: string }) {
   const { t, locale } = useI18n();
+  const choice = useCourses(useMode());
+  const plan = readingPlan(choice);
+  const cycle = plan.days;
+  const marks = useDoneStore(plan.id);
   const [view, setView] = useView(locale);
   const [printBoth, setPrintBoth] = usePrintBoth();
   const today = localToday();
-  const { index, exact } = cycleDayFor(date ?? today);
-  const day = CYCLE[index];
+  const firstUnread = choice.pace === 'own' ? cycle.findIndex((d) => !isDone(marks, d.date, section)) : -1;
+  const { index, exact } = date
+    ? cycleDayFor(date, cycle)
+    : choice.pace === 'own'
+      ? { index: firstUnread >= 0 ? firstUnread : cycle.length - 1, exact: firstUnread >= 0 && cycle[firstUnread].date === today }
+      : cycleDayFor(today, cycle);
+  const day = cycle[index];
   const lang = labelLang(locale);
   const title = t(`tanakh.${section}`);
   const range = rangeLabel(section, day[section], lang);
@@ -400,24 +456,35 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
   useEffect(() => {
     let live = true;
     setParsed(null);
-    loadDayWords(day.date).then((w) => live && setParsed(w));
+    if (!plan.annual) loadDayWords(day.date).then((w) => live && setParsed(w));
+    else setParsed(null);
     return () => {
       live = false;
     };
-  }, [day.date]);
+  }, [day.date, plan.annual]);
+  // who and where: the people and places the words of the verses name (public/tanakh/atlas/<date>.json)
+  const [atlas, setAtlas] = useState<AtlasDay | null>(null);
+  useEffect(() => {
+    let live = true;
+    setAtlas(null);
+    if (!plan.annual) loadAtlasDay(day.date).then((a) => live && setAtlas(a));
+    return () => {
+      live = false;
+    };
+  }, [day.date, plan.annual]);
 
   useEffect(() => {
     let live = true;
     setContent(undefined);
-    loadDay(day.date).then((c) => live && setContent(c));
+    loadDay(day.date, plan).then((c) => live && setContent(c));
     // the day didn't load without network: when the network is back, it loads by itself
-    const retry = () => loadDay(day.date).then((c) => live && c && setContent(c));
+    const retry = () => loadDay(day.date, plan).then((c) => live && c && setContent(c));
     addEventListener('online', retry);
     return () => {
       live = false;
       removeEventListener('online', retry);
     };
-  }, [day.date]);
+  }, [day.date, plan]);
 
   useEffect(() => {
     document.title = `${title}: ${range} · ${t('app.title')}`;
@@ -426,14 +493,20 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
   // the AI assistant (✦) knows the passage on screen
   useEffect(() => {
     const lang = locale === 'en' || locale === 'de' ? locale : 'ru';
-    setOtherPage({ kind: 'tanakh', context: () => tanakhContext(section, day.date, lang) });
+    setOtherPage({ kind: 'tanakh', context: () => tanakhContext(section, day.date, lang, plan) });
     return () => setOtherPage(null);
-  }, [section, day.date, locale]);
+  }, [section, day.date, locale, plan]);
 
   const other: Section = section === 'neviim' ? 'ketuvim' : 'neviim';
-  const prev = CYCLE[index - 1];
-  const next = CYCLE[index + 1];
+  const prev = cycle[index - 1];
+  const next = cycle[index + 1];
   const sec = content?.[section];
+  // из «Моих закладок»: к стиху, когда текст дня загрузился
+  useEffect(() => {
+    if (!sec) return;
+    const id = takeGoto();
+    if (id) requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ block: 'start' }));
+  }, [sec]);
   // the project's translation is shown where the whole day is translated (both sections); otherwise English stands in, with a note
   const ready = (l: OwnLang) => !!content && (['neviim', 'ketuvim'] as const).every((s) => content[s].verses.every((v) => v[l]));
   const soon = { ru: !!content && !ready('ru'), de: !!content && !ready('de') };
@@ -490,7 +563,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
             </h1>
             <p className="tk-range">{range}</p>
             <p className="tk-day">
-              {t('tanakh.day', { n: index + 1, total: CYCLE.length })}
+              {t('tanakh.day', { n: index + 1, total: cycle.length })}
               {sec && <> · {t('tanakh.readingTime', { n: readingMinutes(sec.verses, he, tr, view) })}</>}
             </p>
             {!date && !exact && <p className="tk-note">{t('tanakh.restToday')}</p>}
@@ -521,20 +594,21 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
           ) : (
             <>
               {he && parsed?.[section].v && <p className="tk-hint no-print">{t('wp.hint')}</p>}
-              <Verses verses={sec.verses} he={he} tr={tr} md={view.md} rashi={view.rashi} parse={parsed?.[section].v} />
+              <Verses verses={sec.verses} he={he} tr={tr} md={view.md} rashi={view.rashi} parse={parsed?.[section].v} atlas={atlas?.v} notes={{ section, date: day.date }} />
               {he && parsed?.[section].v && <WordPop />}
             </>
           )}
 
-          {sec && <DoneCheck section={section} date={day.date} today={today} />}
-          {sec && (
+          {sec && <DoneCheck section={section} date={day.date} today={today} plan={plan} />}
+          {sec && !plan.annual && (
             <p className="tk-quiz no-print">
               <a className="btn" href={`#/${section}/${day.date}/quiz`}>
                 ✓ {t('quiz.cta')}
               </a>
             </p>
           )}
-          {sec && <TanakhWords section={section} date={day.date} />}
+          {sec && !plan.annual && <TanakhAtlas section={section} date={day.date} />}
+          {sec && !plan.annual && <TanakhWords section={section} date={day.date} />}
           <nav className="tk-pager no-print" aria-label={t('tanakh.navLabel')}>
             {prev ? (
               <a className="prev" href={`#/${section}/${prev.date}`}>
@@ -570,7 +644,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
             </section>
           )}
           <p className="tk-cycle no-print">
-            {t('tanakh.cycle', { start: civilDate(CYCLE[0].date, locale), end: civilDate(CYCLE[CYCLE.length - 1].date, locale), days: CYCLE.length })}
+            {t(plan.annual ? 'tanakh.personalCycle' : 'tanakh.cycle', { start: civilDate(cycle[0].date, locale), end: civilDate(cycle[cycle.length - 1].date, locale), days: cycle.length })}
           </p>
         </article>
       </div>

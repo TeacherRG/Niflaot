@@ -235,8 +235,8 @@ export function Final({
         {t('academy.title')} →
       </a>
     </section>
-    <DailyReminder />
-    <Subscribe />
+    <DailyReminder compact />
+    <Subscribe mini />
     <a className="mychitas pop" href="https://mychitas.app" target="_blank" rel="noopener">
       <span className="mc-mark">MyChitas</span>
       <span className="mc-text">{t('final.mychitas')}</span>

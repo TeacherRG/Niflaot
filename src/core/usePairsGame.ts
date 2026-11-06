@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import confetti from 'canvas-confetti';
+import { markStudied } from './habit';
 
 /**
  * The board of a pairs game (Memo of a commentary lesson, «Карточки» of a «Нифлаот Ребе» lesson):
@@ -79,6 +80,7 @@ export function usePairsGame(total: number, initial: Screen = 'home') {
     if (a.p === b.p) {
       const id = setTimeout(() => {
         setFound((f) => [...f, a.p]);
+        markStudied();
         setOpen([]);
         setShown(a.p);
       }, 500);

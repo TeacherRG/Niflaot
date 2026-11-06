@@ -72,6 +72,17 @@ for (const [a, h] of Object.entries(anchors)) {
     if (!new RegExp(`${lang}: \\{[^}]*\\b${a}: '`).test(sw)) err(`public/sw.js: ANCHOR_LINE.${lang}.${a} missing`);
 }
 
+// «Zip — стих Торы»: a line in every language; the reminder knows the level and the last solved day, nothing without a game
+const zipLines = sw.match(/ZIP_LINE = \{([\s\S]*?)\n\};/)?.[1] ?? '';
+for (const lang of ['ru', 'en', 'de'])
+  if (!new RegExp(`\\b${lang}: '[^']*\\{n\\}`).test(zipLines)) err(`public/sw.js: ZIP_LINE.${lang} missing`);
+{
+  const { zipReminder } = await import('../src/core/zipReminder');
+  const z = zipReminder(JSON.stringify({ l: 4, d: { 'Genesis 1:1': ['2026-10-30', 3, 50, 0], 'Genesis 2:3': ['2026-11-01', 4, 70, 1] } }));
+  if (z?.l !== 4 || z.w !== '2026-11-01') err(`zip reminder: ${JSON.stringify(z)}`);
+  if (zipReminder(null) || zipReminder('{"l":2,"d":{}}') || zipReminder('oops')) err('zip reminder: without a game there must be no line');
+}
+
 // «Учёба каждый день» (src/core/habit.ts): Shabbat doesn't break the streak, a missed weekday does
 const { habitStats } = await import('../src/core/habit');
 const st = (days: string[], today: string) => habitStats(new Set(days), today);

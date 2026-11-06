@@ -6,6 +6,7 @@
 import { mergeSnapshots, summarize } from '../src/core/sync';
 import { methodsFor, validEmail, validNick } from '../assistant/src/rules';
 import { sanitizeHtml } from '../src/core/sanitize';
+import { verifyGoogleToken } from '../assistant/src/google';
 
 const errors: string[] = [];
 const err = (s: string) => errors.push(s);
@@ -44,6 +45,14 @@ const q = JSON.parse(qz['niflaot:tanakh-quiz'] ?? '{}');
 if (q['d1:neviim']?.best !== 3 || !q['d2:neviim'] || !q['d3:ketuvim']) err('sync: «Вопросы к отрывку» — a day or the better result is lost');
 const best = mergeSnapshots({ 'niflaot:lesson:a': JSON.stringify({ ...JSON.parse(lesson([0, 1], 20)), best: 40 }) }, { 'niflaot:lesson:a': lesson([0, 1, 2], 25) });
 if (JSON.parse(best['niflaot:lesson:a']).best !== 40 || JSON.parse(best['niflaot:lesson:a']).done.length !== 3) err('sync: a lesson\'s best earlier score is lost');
+// «Мои закладки»: every verse from both; the same verse — the later change (a removal reaches the other device)
+const nt = JSON.parse(
+  mergeSnapshots(
+    { 'niflaot:notes': JSON.stringify({ 'psalms 16:7': { t: 300, m: 1, n: 'почки', d: '2026-11-01', s: 'ketuvim', x: '' }, 'joshua 1:8': { t: 100, m: 1, n: '', d: '2026-10-11', s: 'neviim', x: '' } }) },
+    { 'niflaot:notes': JSON.stringify({ 'psalms 16:7': { t: 200, m: 0, n: '', d: '2026-11-01', s: 'ketuvim', x: '' }, 'joshua 1:8': { t: 400, m: 0, n: '', d: '2026-10-11', s: 'neviim', x: '' }, 'psalms 1:1': { t: 50, m: 1, n: '', d: '2026-10-11', s: 'ketuvim', x: '' } }) },
+  )['niflaot:notes'] ?? '{}',
+);
+if (nt['psalms 16:7']?.n !== 'почки' || nt['joshua 1:8']?.m !== 0 || !nt['psalms 1:1']) err('sync: «Мои закладки» — a verse, a note or a removal is lost');
 // «Мои слова»: the later change of a word wins; an early number entry (only «Знаю») reads as known (box 3) / removed (box 0)
 const wd = mergeSnapshots(
   { 'niflaot:words': JSON.stringify({ '1961': [200, 4, 30], '559': [100, 1, 10], '853': 150 }) },
@@ -59,6 +68,42 @@ for (const e of ['a@b', 'a b@c.de', '@c.de', 'x'.repeat(250) + '@a.de']) if (val
 for (const n of ['Мойше', 'tzadik_7', 'Leah K', 'דוד123']) if (!validNick(n)) err(`accounts: nickname refused: ${n}`);
 for (const n of ['ab', '12345', ' lead', 'x'.repeat(21), '<script>', 'a@b']) if (validNick(n)) err(`accounts: bad nickname accepted: ${n}`);
 
+// «Войти через Google»: a token signed by our own test key — accepted only when everything holds
+{
+  const pair = (await crypto.subtle.generateKey(
+    { name: 'RSASSA-PKCS1-v1_5', modulusLength: 2048, publicExponent: new Uint8Array([1, 0, 1]), hash: 'SHA-256' },
+    true, ['sign', 'verify'],
+  )) as CryptoKeyPair;
+  const jwk = { ...(await crypto.subtle.exportKey('jwk', pair.publicKey)), kid: 'k1' };
+  const b64 = (s: string | Uint8Array) =>
+    Buffer.from(typeof s === 'string' ? s : s).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  const now = 1_800_000_000;
+  const good = { iss: 'https://accounts.google.com', aud: 'cid', exp: now + 600, iat: now, email: 'A@Example.com', email_verified: true, nonce: 'n1' };
+  const sign = async (c: object, kid = 'k1') => {
+    const head = `${b64(JSON.stringify({ alg: 'RS256', kid }))}.${b64(JSON.stringify(c))}`;
+    const sig = new Uint8Array(await crypto.subtle.sign('RSASSA-PKCS1-v1_5', pair.privateKey, new TextEncoder().encode(head)));
+    return `${head}.${b64(sig)}`;
+  };
+  const check = (t: string, nonce = 'n1') => verifyGoogleToken(t, { clientId: 'cid', nonce, keys: [jwk], now });
+  const ok = await check(await sign(good));
+  if (!ok.ok || ok.email !== 'a@example.com') err(`google: a valid token must sign in a@example.com: ${JSON.stringify(ok)}`);
+  const bad: [string, string][] = [
+    ['aud', await sign({ ...good, aud: 'other' })],
+    ['iss', await sign({ ...good, iss: 'https://evil.example' })],
+    ['expired', await sign({ ...good, exp: now - 3600 })],
+    ['email', await sign({ ...good, email_verified: false })],
+    ['key', await sign(good, 'k2')],
+    ['signature', (await sign(good)).replace(/\.[^.]+\./, `.${b64(JSON.stringify({ ...good, email: 'x@evil.example' }))}.`)],
+  ];
+  for (const [why, t] of bad) {
+    const r = await check(t);
+    if (r.ok || r.error !== why) err(`google: a token with a wrong ${why} must be refused: ${JSON.stringify(r)}`);
+  }
+  const n = await check(await sign(good), 'n2');
+  if (n.ok || n.error !== 'nonce') err('google: a token for another sign-in (nonce) must be refused');
+  if (!methodsFor('/google')?.includes('POST')) err('accounts: POST /google must be allowed');
+}
+
 if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));
   process.exit(1);
@@ -71,7 +116,7 @@ const routes: [string, string, boolean][] = [
   ['/delete', 'POST', true], ['/delete', 'GET', false], ['/delete', 'DELETE', false],
   ['/consent', 'POST', true], ['/consent', 'GET', false],
   ['/progress', 'GET', true], ['/progress', 'PUT', true], ['/progress', 'POST', false],
-  ['/leaders', 'GET', true], ['/class/join', 'POST', true], ['/class/abc_DEF-12', 'GET', true], ['/class/abc', 'POST', false],
+  ['/leaders', 'GET', true], ['/stats', 'GET', true], ['/stats', 'POST', false], ['/class/join', 'POST', true], ['/class/abc_DEF-12', 'GET', true], ['/class/abc', 'POST', false],
 ];
 for (const [path, method, ok] of routes)
   if ((methodsFor(path)?.includes(method) ?? false) !== ok) err(`accounts: ${method} ${path} must be ${ok ? 'allowed' : 'refused'}`);
@@ -92,4 +137,4 @@ for (const e of evil) {
 const fine = '<p class="expl" dir="rtl" lang="he"><b>Пояснение.</b> <span class="he">א</span><sup data-src="bht-1"></sup> <a href="#/privacy">x</a> <a href="https://www.neirot.com" target="_blank" rel="noopener">y</a></p>';
 if (sanitizeHtml(fine) !== fine) err(`sanitize: the site's own markup must stay: ${sanitizeHtml(fine)}`);
 
-console.log('✓ accounts: progress merge, synced keys, emails, nicknames, routes and methods; editor sanitizer');
+console.log('✓ accounts: Google sign-in token, progress merge, synced keys, emails, nicknames, routes and methods; editor sanitizer');

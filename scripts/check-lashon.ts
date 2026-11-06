@@ -226,6 +226,32 @@ if (m['niflaot:lashon'] !== JSON.stringify({ s: { 'א': 1, 'ב': 20752, '559': 1
   if (s.w[a.key] || s.r[u.id] || Object.keys(s.r).length) err(`«Трудные»: верный ответ не снял ошибку или урок засчитан как повторение юнита: ${JSON.stringify(s)}`);
 }
 
+// связь «Святой язык — уроки» ↔ «Мои слова» (владелец, 02.11.2026): ответы курса — повторение слов колоды (пора — вспомнил / забыл;
+// не пора — только ошибка), повторение карточки — ответ курса (вспомнил — встречено сегодня, забыл — в «Трудных»)
+{
+  const mem = new Map<string, string>();
+  Object.assign(globalThis, {
+    localStorage: { getItem: (k: string) => mem.get(k) ?? null, setItem: (k: string, v: string) => mem.set(k, v), removeItem: (k: string) => mem.delete(k) },
+    window: { dispatchEvent: () => true },
+  });
+  const { markLearn, markKnown, readWordStore, review, reviewFromCourse } = await import('../src/core/words');
+  markLearn('1961'); // «учу» — повторить сегодня
+  markKnown('559'); // «знаю» — проверка через неделю
+  const n = reviewFromCourse({ '1961': true, '559': true, '3068': true });
+  let w = readWordStore();
+  if (n !== 1 || w['1961'][1] !== 2 || w['559'][1] !== 3 || w['3068']) err(`курс → «Мои слова»: верные ответы ${JSON.stringify(w)}`);
+  if (readCourse().s['1961']) err('курс → «Мои слова»: повторение из курса записано в курс второй раз');
+  reviewFromCourse({ '559': false });
+  w = readWordStore();
+  if (w['559'][1] !== 1) err(`курс → «Мои слова»: ошибка в слове «знаю» не вернула его в «учу» ${JSON.stringify(w)}`);
+  review('1961', true);
+  let c = readCourse();
+  if (c.s['1961'] !== dayNo() || c.w['1961']) err(`«Мои слова» → курс: «помню» не записано ${JSON.stringify(c)}`);
+  review('1961', false);
+  c = readCourse();
+  if (c.w['1961'] !== 1) err(`«Мои слова» → курс: «не помню» не попало в «Трудные» ${JSON.stringify(c)}`);
+}
+
 // «Составьте стих»: все слова стиха и не меньше половины — по порядку — засчитано (Теґилим 3:9 со скриншота владельца)
 {
   const answer = ['לַה׳', 'הַיְשׁוּעָה', 'עַל־עַמְּךָ', 'בִרְכָתֶךָ', 'סֶּלָה'];

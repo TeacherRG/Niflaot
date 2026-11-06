@@ -9,8 +9,10 @@ import { OPS, SIGN } from '../core/mentalMath';
 import { Icon, Sheet, useUI } from './ui';
 import { lessonGames } from './lessonGames';
 import { DailyReminder } from './DailyReminder';
+import { AboutBody } from './AboutBody';
 import { canInstall, install, subscribeInstall } from '../core/install';
 import { useToday } from '../core/useToday';
+import { isAdmin } from '../admin/github';
 
 /** Gematria step by step, sources and FAQ (with all the primary sources) load when «Как играть» opens. */
 const HelperContent = lazy(() => import('./Helper').then((m) => ({ default: m.HelperContent })));
@@ -103,8 +105,10 @@ function ParshaPicker({ groups, selected, week, onPick }: { groups: Group[]; sel
  * The menu, by sections (both modes; a section holding the open page is unfolded):
  *  - «Хасидут» — «Сихот Ребе» (the «Нифлаот Ребе» lessons of a portion) and «Ґемшех Ребе Рашаба»;
  *  - «Танах» — «Тора с Бааль ґа-Турим» (the lessons of a portion), «Невиим», «Ктувим» (the passage of the day);
- *  - «Святой язык» — the course, the words («Слова Торы» / «Мои слова»), the letters; «Святая музыка»;
- *  - «Разное» — print, «К шабатнему столу», «Викторина вместе», «Знаете ли вы?»;
+ *  - «Святой язык» — the course, the words («Слова Торы» / «Мои слова»), the letters; «Святое чтение» — fluent reading of
+ *    Tehillim; «Святая музыка»;
+ *  - «Курсы Академии» — «Тайна Коэлета»;
+ *  - «Разное» — print, «К шабатнему столу», «Викторина вместе», «Zip — стих Торы», «Знаете ли вы?»;
  * then «Помощь и навыки» (children), «Академия», «Учитель», «Партнёры», «О проекте». The lessons: the children's — the games
  * (and «Читать»), the adults' — «Читать» / «Прочитать» only. Today's passages (src/core/todayStudy.ts) show their verses and ✓
  * when done; the data loads when the menu opens.
@@ -116,8 +120,9 @@ export function Panels() {
   const installable = useSyncExternalStore(subscribeInstall, canInstall, () => false);
   const mode = useMode();
   const kids = mode === 'kids';
-  const pace = useCourses(mode).pace;
-  const today = useToday(locale, panel === 'menu', pace);
+  const admin = isAdmin();
+  const { pace, years, startDate } = useCourses(mode);
+  const today = useToday(locale, panel === 'menu', { pace, years, startDate });
   // at one's own pace (src/core/courses.ts) — the first passage not read, on its own day
   const tk = (sec: 'neviim' | 'ketuvim') => (pace === 'own' && today ? `#/${sec}/${today[sec].date}` : `#/${sec}`);
   const close = () => open(null);
@@ -253,7 +258,7 @@ export function Panels() {
               {link('#/hemshech', <Icon name="book" />, t('menu.hemshech'), today && 'title' in today.hs ? today.hs.title : t('hs.short'), !!today && 'title' in today.hs && today.hs.done)}
             </>
           ))}
-          {group(<Icon name="book" />, t('menu.tanakh'), t('menu.tanakhSub'), inTorah || starts('#/neviim', '#/ketuvim'), (
+          {group(<Icon name="book" />, t('menu.tanakh'), t('menu.tanakhSub'), inTorah || starts('#/neviim', '#/ketuvim', '#/atlas'), (
             <>
               {torahGroups.length > 0 && (
                 <details className="menu-group" open={inTorah}>
@@ -269,6 +274,8 @@ export function Panels() {
               )}
               {link(tk('neviim'), num('נ', true), t('menu.neviim'), today?.neviim.range ?? t('tanakh.daySub'), today?.neviim.done)}
               {link(tk('ketuvim'), num('כ', true), t('menu.ketuvim'), today?.ketuvim.range ?? t('tanakh.daySub'), today?.ketuvim.done)}
+              {link('#/atlas', num('מ', true), t('atlas.menu'), t('atlas.menuSub'))}
+              {link('#/atlas/timeline', num('ז', true), t('atlas.timeline'), t('atlas.timelineSub'))}
             </>
           ))}
           {group(<Icon name="chat" />, t('academy.fac.lashon'), t('menu.lashonSub'), starts('#/lashon', '#/torah-words', '#/words', '#/letters'), (
@@ -280,13 +287,27 @@ export function Panels() {
               {level !== 'reads' && link('#/letters', num('א', true), t('abc.title'), t('abc.menuSub'))}
             </>
           ))}
-          {link('#/nigun', <Icon name="music" />, t('nigun.title'), t('nigun.menuSub'))}
-          {group(<Icon name="grid" />, t('menu.misc'), t('menu.miscSub'), starts('#/facts', '#/daily', '#/quiz', '#/shabbat-table', '#/digest'), (
+          {/* «Святое чтение» — fluent reading of Tehillim and «Песнь Аазину» aloud, with trainers */}
+          {group(<Icon name="book" />, t('reading.title'), t('reading.menuSub'), starts('#/reading'), (
+            <>
+              {link('#/reading', num('ת', true), t('reading.menuItem'))}
+              {link('#/reading/haazinu', num('ש', true), t('reading.menuHaazinu'))}
+              {/* «Шнаим микра» и «Святая музыка» — пока только у администратора (владелец, 01.11.2026) */}
+              {admin && link('#/reading/shnayim', num('ת״א', true), t('reading.menuShnayim'), t('reading.menuShnayimSub'))}
+            </>
+          ))}
+          {admin && link('#/nigun', <Icon name="music" />, t('nigun.title'), t('nigun.menuSub'))}
+          {/* «Курсы Академии» — the academy's own courses (owner, 27.10.2026): «Тайна Коэлета» so far */}
+          {group(<Icon name="award" />, t('menu.courses'), t('menu.coursesSub'), starts('#/koelet'), (
+            link('#/koelet', num('ק', true), t('koelet.title'), t('koelet.menuSub'))
+          ))}
+          {group(<Icon name="grid" />, t('menu.misc'), t('menu.miscSub'), starts('#/facts', '#/daily', '#/quiz', '#/shabbat-table', '#/digest', '#/zip'), (
             <>
               {lessonSlug && link(`#/${lessonSlug}/print`, <Icon name="print" />, t('print.button'))}
               {link('#/shabbat-table', <Icon name="print" />, t('table.title'), t('table.menuSub'))}
               {link('#/digest', <Icon name="print" />, t('digest.title'), t('digest.menuSub'))}
               {link('#/quiz', <Icon name="phone" />, t('lq.title'), t('lq.menuSub'))}
+              {link('#/zip', num('ז', true), t('zip.title'), t('zip.menuSub'))}
               {link('#/facts', <Icon name="hash" />, t('facts.title'), t('facts.menuSub'))}
             </>
           ))}
@@ -350,6 +371,10 @@ export function Panels() {
             <Icon name="info" />
             <span>{t('about.title')}</span>
           </button>
+          <a href="#/free" onClick={close} className="menu-item" aria-current={location.hash === '#/free' ? 'page' : undefined}>
+            <Icon name="spark" />
+            <span>{t('free.menu')}</span>
+          </a>
           <div className="menu-sep" />
           <a className="menu-item" href="https://mychitas.app/donate" target="_blank" rel="noopener">
             <Icon name="heart" />
@@ -405,14 +430,10 @@ export function Panels() {
 
       <Sheet open={panel === 'about'} onClose={close} title={t('about.title')} closeLabel={t('menu.close')}>
         <div className="about-mark he">נפלאות</div>
-        <Html as="div" className="prose" html={t('about.body')} />
-        <Html as="p" className="prose" html={t('about.partners')} />
+        <AboutBody />
         <div className="about-links">
           <a className="btn" href="https://mychitas.app/donate" target="_blank" rel="noopener">
             {t('footer.donate')}
-          </a>
-          <a className="btn ghost" href="mailto:Office@mychitas.app">
-            Office@mychitas.app
           </a>
         </div>
       </Sheet>

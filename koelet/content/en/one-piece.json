@@ -1,0 +1,213 @@
+{
+  "name": "One Piece",
+  "desc": "The finale. Your place in the picture",
+  "steps": [
+    {
+      "type": "talk",
+      "who": "mentor",
+      "text": {
+        "__ag": 1,
+        "y": "You have come a long way. You don't need to put together the whole world. You need to find your piece.",
+        "t": "You have come a long way. Here is what I understood while I was keeping this book: you don't need to put together the whole world. You need to find your piece."
+      }
+    },
+    {
+      "type": "card",
+      "kicker": "A true story",
+      "title": "One night",
+      "pic": {
+        "__ag": 1,
+        "y": "moon hospital",
+        "t": ""
+      },
+      "body": {
+        "__ag": 1,
+        "y": "<p>A doctor was about to retire. One night he stayed late at the hospital. And just then a mother and her baby needed his help. He stayed and helped.</p><p>The Baal Shem Tov said: sometimes a soul comes into the world for the sake of one good deed at the right moment.</p>",
+        "t": "<p>In the Israeli city of Rishon LeZion there was a doctor. He had half a year left before retirement. One day he stayed at the hospital until late at night. And exactly then a mother who was giving birth needed the help of an experienced doctor. He stayed and helped them both.</p><p>The Baal Shem Tov, the great teacher, said: sometimes a soul comes into the world for many years for the sake of one good deed, done at the right moment and in the right place.</p>"
+      }
+    },
+    {
+      "type": "quote",
+      "he": "אֵיזֶהוּ עָשִׁיר? הַשָּׂמֵחַ בְּחֶלְקוֹ",
+      "src": "Pirkei Avot 4:1",
+      "tr": "“Who is rich? One who rejoices in his portion.”",
+      "plain": {
+        "__ag": 1,
+        "y": "Here is our word “chelek” again. To rejoice in your portion means to rejoice in your role in the puzzle and to develop it.",
+        "t": "Here is our word “chelek” again. Rejoicing in your portion does not mean sitting and doing nothing. It means rejoicing in your role in the puzzle and developing it to the full, without envying other people's roles."
+      },
+      "q": "What does “rejoicing in your portion” mean to you?",
+      "options": [
+        "Not envying what belongs to others",
+        "Developing what is mine",
+        "Valuing what I already have",
+        "All of these together"
+      ],
+      "r": "Here is King Shlomo's answer. Not “all is vapour,” but “find your portion and rejoice in it.”"
+    },
+    {
+      "age": "a",
+      "type": "card",
+      "kicker": "Rav Ashkenazi tells",
+      "title": "The Rebbe and the ambassador",
+      "body": "<p>In 1972 the Lubavitcher Rebbe spoke with Israel's ambassador Yitzchak Rabin and brought up the mishnah “Who is rich? One who rejoices in his portion.”</p><p>The essence of the explanation: rejoicing in your portion does not mean being content with little and stopping. It means rejoicing in your special role in the puzzle, unfolding your strengths to the full and not envying other people's roles.</p>"
+    },
+    {
+      "type": "card",
+      "kicker": "Kohelet 12:13 · The last words of the book",
+      "title": "One foundation, a portion for each",
+      "body": {
+        "__ag": 1,
+        "y": "<p class=\"quote-he\" lang=\"he\">סוֹף דָּבָר הַכֹּל נִשְׁמָע אֶת הָאֱלֹקִים יְרָא וְאֶת מִצְוֹתָיו שְׁמוֹר כִּי זֶה כָּל הָאָדָם</p><p>“Fear the Almighty and keep His commandments, for this is the whole of man.”</p><p>The foundation is the same for everyone. But each person has their own piece.</p>",
+        "t": "<p class=\"quote-he\" lang=\"he\">סוֹף דָּבָר הַכֹּל נִשְׁמָע אֶת הָאֱלֹקִים יְרָא וְאֶת מִצְוֹתָיו שְׁמוֹר כִּי זֶה כָּל הָאָדָם</p><p>“The sum of the matter, when all has been heard: fear the Almighty and keep His commandments, for this is the whole of man.”</p><p>This is how the book ends. The common foundation is the same for everyone: the Torah and the mitzvot. But each person has their own portion. Just like on Sukkot: the etrog and the aravah fulfil one mitzvah, but each in its own way.</p>"
+      }
+    },
+    {
+      "type": "quote",
+      "he": "כָּל יִשְׂרָאֵל יֵשׁ לָהֶם חֵלֶק לָעוֹלָם הַבָּא",
+      "src": "Sanhedrin 90a",
+      "tr": "“All Israel have a portion in the World to Come.”",
+      "plain": {
+        "__ag": 1,
+        "y": "Here is our word חֵלֶק again. Everyone has a portion. Nobody is superfluous.",
+        "t": "The same word again: חֵלֶק. These words open the reading of every chapter of Pirkei Avot. The chain comes full circle: everyone has a portion in this world, their own piece of the puzzle, and everyone has a portion in the World to Come."
+      },
+      "q": "What do you feel when you read this?",
+      "options": [
+        "There is a place for me too",
+        "Nobody is superfluous",
+        "I want to take care of my portion"
+      ],
+      "r": "That's how it is: in the Almighty's plan there are no superfluous pieces."
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "The last task. What would you like to try to do this week?",
+      "key": "weekly",
+      "neutral": true,
+      "compact": true,
+      "own": {
+        "label": "Or come up with your own step",
+        "ph": "For example: call Grandpa",
+        "r": "A great step. Small, but real. And you came up with it yourself."
+      },
+      "options": {
+        "__ag": 1,
+        "y": [
+          {
+            "ic": "helphand",
+            "t": "Help someone",
+            "v": "Help someone",
+            "r": "A great step. Small, but real.",
+            "help": true
+          },
+          {
+            "ic": "sparkle",
+            "t": "Try something new",
+            "v": "Try something new",
+            "r": "A great step. Small, but real.",
+            "help": false
+          },
+          {
+            "ic": "target",
+            "t": "Develop my gift",
+            "v": "Develop my gift",
+            "r": "A great step. Small, but real.",
+            "help": false
+          },
+          {
+            "ic": "friends",
+            "t": "Support a friend",
+            "v": "Support a friend",
+            "r": "A great step. Small, but real.",
+            "help": true
+          },
+          {
+            "ic": "letter",
+            "t": "Say thank you to someone who helped me",
+            "v": "Say thank you to someone who helped me",
+            "r": "A great step. Small, but real.",
+            "help": false
+          },
+          {
+            "ic": "party",
+            "t": "Be happy about someone else's success",
+            "v": "Be happy about someone else's success",
+            "r": "A great step. Small, but real.",
+            "help": false
+          }
+        ],
+        "t": [
+          {
+            "ic": "helphand",
+            "t": "Help someone",
+            "v": "Help someone",
+            "r": "A great step. Small, but real.",
+            "help": true
+          },
+          {
+            "ic": "sparkle",
+            "t": "Try something new",
+            "v": "Try something new",
+            "r": "A great step. Small, but real.",
+            "help": false
+          },
+          {
+            "ic": "target",
+            "t": "Develop my gift",
+            "v": "Develop my gift",
+            "r": "A great step. Small, but real.",
+            "help": false
+          },
+          {
+            "ic": "clock",
+            "t": "Do something I have been putting off for a long time",
+            "v": "Do something I have been putting off for a long time",
+            "r": "A great step. Small, but real.",
+            "help": false
+          },
+          {
+            "ic": "friends",
+            "t": "Support a friend",
+            "v": "Support a friend",
+            "r": "A great step. Small, but real.",
+            "help": true
+          },
+          {
+            "ic": "book",
+            "t": "Learn something",
+            "v": "Learn something",
+            "r": "A great step. Small, but real.",
+            "help": false
+          },
+          {
+            "ic": "mirror",
+            "t": "Stop comparing myself with others",
+            "v": "Stop comparing myself with others",
+            "r": "A great step. Small, but real.",
+            "help": false
+          },
+          {
+            "ic": "letter",
+            "t": "Say thank you to someone who helped me",
+            "v": "Say thank you to someone who helped me",
+            "r": "A great step. Small, but real.",
+            "help": false
+          },
+          {
+            "ic": "party",
+            "t": "Be happy about someone else's success",
+            "v": "Be happy about someone else's success",
+            "r": "A great step. Small, but real.",
+            "help": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "mini",
+      "game": "final"
+    }
+  ]
+}

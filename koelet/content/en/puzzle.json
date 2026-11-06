@@ -1,0 +1,180 @@
+{
+  "name": "Puzzle",
+  "desc": "A huge picture and one empty space",
+  "steps": [
+    {
+      "type": "talk",
+      "who": "mentor",
+      "text": "In front of you is a huge picture. Every person receives their own piece. But nobody receives the whole puzzle. I wonder who hands them out?"
+    },
+    {
+      "type": "talk",
+      "who": "mentor",
+      "text": {
+        "__ag": 1,
+        "y": "First, a riddle. A secret word is hidden in the book of Kohelet. It appears there 8 times. Can you find all eight?",
+        "t": "First, a riddle. In the book of Kohelet, besides “futility,” there is one more secret word. It appears there 8 times. Can you find all eight?"
+      }
+    },
+    {
+      "type": "mini",
+      "game": "find"
+    },
+    {
+      "type": "card",
+      "kicker": "The word is found",
+      "title": "Chelek: portion, part",
+      "heb": "חֵלֶק",
+      "body": {
+        "__ag": 1,
+        "y": "<p>“Chelek” means “portion,” “part.” Shlomo writes: rejoice in your deeds, this is your portion.</p><p>Your chelek is your piece of the great puzzle. It was given to you.</p>",
+        "t": "<p>“Chelek” means “portion,” “part.” Shlomo writes: “There is nothing better than for a person to rejoice in his deeds, for that is his portion” (Kohelet 3:22).</p><p>Your chelek is your piece of the great puzzle of life. Not the one you chose for yourself, but the one you were given. Let's put the picture together and see what the pieces are made of.</p>"
+      }
+    },
+    {
+      "type": "mini",
+      "game": "puzzle"
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "The picture is made up of pieces. And who do you think hands out the pieces?",
+      "key": "giver",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Chance: whoever gets whatever",
+          "r": "Many people think so. But if the pieces are handed out by chance, how does each one have such an exact place in the picture?"
+        },
+        {
+          "t": "Parents and teachers",
+          "r": "They really do help you find and polish your piece. But they are not the ones who give the piece itself."
+        },
+        {
+          "t": "I choose it myself",
+          "r": "You choose what to do with your piece. But the piece itself is a gift."
+        },
+        {
+          "t": "The One who designed the whole picture",
+          "r": "That sounds true. The One who sees the whole picture knows where each piece is needed."
+        }
+      ]
+    },
+    {
+      "type": "card",
+      "kicker": "Rav Ashkenazi explains",
+      "title": "Your portion is a gift",
+      "pic": {
+        "__ag": 1,
+        "y": "gift puzzle",
+        "t": ""
+      },
+      "body": {
+        "__ag": 1,
+        "y": "<p>The Almighty hands out the pieces. He designed the whole picture and gave each person their own piece.</p><p>Your portion is not just what you are good at. It is a gift, and the whole picture needs it.</p>",
+        "t": "<p>Chelek is not just “my strengths.” Rav Ashkenazi explains: a portion is part of the Almighty's plan. The Creator designed the whole picture and gave each person their own piece: abilities, character, family, the time and place where you live.</p><p>That is why the main question is not only “what can I do?” but also “what was this given to me for?”</p>"
+      }
+    },
+    {
+      "type": "mini",
+      "game": "species"
+    },
+    {
+      "type": "card",
+      "kicker": "One more image",
+      "title": "A letter in the Torah scroll",
+      "pic": "scroll",
+      "body": {
+        "__ag": 1,
+        "y": "<p>It is said that every Jew has their own letter in the Torah scroll. If even one letter is missing from a scroll, it may not be read from.</p><p>Every letter is needed. Yours too.</p>",
+        "t": "<p>The sages of Kabbalah teach: every Jewish soul has its own letter in the Torah scroll. And according to halachah, if even one letter is missing from a scroll, the whole scroll is invalid (Rambam, Laws of the Torah Scroll 10:1).</p><p>Big letters and small ones, at the beginning and at the end: not a single one may be left out. It is the same with people.</p>"
+      }
+    },
+    {
+      "type": "talk",
+      "who": "mentor",
+      "text": "The picture is almost ready. But look at the centre: there is an empty space there. What piece could you, and only you, add?"
+    },
+    {
+      "type": "multi",
+      "key": "qualities",
+      "text": {
+        "__ag": 1,
+        "y": "What gifts were you given? Choose two qualities that you have:",
+        "t": "What gifts were you given? Choose three qualities that you have:"
+      },
+      "options": {
+        "__ag": 1,
+        "y": [
+          "I know how to listen",
+          "I explain things well",
+          "I come up with ideas",
+          "I know how to be a friend",
+          "I don't give up",
+          "I love to help"
+        ],
+        "t": [
+          "I know how to listen",
+          "I explain things well",
+          "I come up with ideas",
+          "I know how to be a friend",
+          "I don't give up",
+          "I love to help",
+          "I know how to organise",
+          "I notice what others don't see",
+          "I lift people's spirits",
+          "I can wait and not rush",
+          "I try new things",
+          "I make things with my hands"
+        ]
+      },
+      "min": {
+        "__ag": 1,
+        "y": 2,
+        "t": 3
+      },
+      "max": {
+        "__ag": 1,
+        "y": 2,
+        "t": 3
+      },
+      "hint": "Think about what your friends or family thank you for. Often that is exactly your gift.",
+      "own": {
+        "key": "quality",
+        "label": "My own quality, if yours isn't on the list",
+        "ph": "For example: I can make peace between friends"
+      }
+    },
+    {
+      "type": "quote",
+      "he": "לֹא עָלֶיךָ הַמְּלָאכָה לִגְמוֹר",
+      "src": "Pirkei Avot 2:16",
+      "tr": "“It is not your duty to finish all the work, but neither are you free to withdraw from it.”",
+      "plain": {
+        "__ag": 1,
+        "y": "You don't have to do everything in the world. But nobody else will do your part for you.",
+        "t": "Pirkei Avot, “Ethics of the Fathers,” is a collection of the sages' advice. It says here: you don't have to do everything in the world. But nobody else will do your part for you."
+      },
+      "q": "What do you feel when you read this?",
+      "options": [
+        "Relief: I don't have to do everything",
+        "Importance: my part is needed",
+        "Both at once"
+      ],
+      "r": "It seems the sages meant it exactly that way: one sentence lifts the burden and at the same time gives you a task."
+    },
+    {
+      "age": "a",
+      "type": "card",
+      "kicker": "Bava Batra 75a · Rav Ashkenazi explains",
+      "title": "The sun and the moon",
+      "body": "<p>The Talmud says: the face of Moshe was like the sun, and the face of Yehoshua like the moon. The sages say this with bitterness: the generations are growing smaller.</p><p>Rav Ashkenazi suggests reading it another way too. The moon does not need to try to become the sun. When night falls, the world needs precisely its light. Moshe has his task, Yehoshua has his.</p>"
+    },
+    {
+      "age": "a",
+      "type": "mini",
+      "game": "timeline"
+    }
+  ],
+  "ach": "piece"
+}

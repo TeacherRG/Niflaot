@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Html, useI18n } from '../i18n';
 import { LESSONS } from '../lessons';
-import { classView, confirmConsent, leaders, removeFromClass, useAccount, type ClassView, type Leaders } from '../core/account';
+import { classView, confirmConsent, leaders, removeFromClass, useAccount, userStats, type ClassView, type Leaders, type UserStats } from '../core/account';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 
@@ -58,6 +58,83 @@ export function LeadersPage({ cls }: { cls?: string }) {
           )}
           <p className="acc-row">
             {cls && <a href="#/admin/leaders">{t('leaders.all')} →</a>}
+            <a href="#/admin">← Редактор текстов</a>
+          </p>
+        </main>
+      </div>
+      <Colophon />
+    </>
+  );
+}
+
+/**
+ * «Пользователи» — only in the admin (`#/admin/users`): how many people have accounts and how many came lately.
+ * Accounts are people (GoatCounter counts visits and devices). Numbers only; the admin's GitHub token signs the request.
+ */
+export function UsersPage({ token }: { token: string }) {
+  const [data, setData] = useState<UserStats | null>(null);
+  const [err, setErr] = useState('');
+  useTitle('Пользователи');
+  useEffect(() => {
+    userStats(token).then(setData, (e) => setErr(e?.status === 403 ? 'Этот токен GitHub не даёт доступа к сводке.' : 'Не удалось загрузить сводку.'));
+  }, [token]);
+  const days = data ? Object.entries(data.daily).reverse() : [];
+  const max = Math.max(1, ...days.map(([, d]) => d.active));
+  const LANG: Record<string, string> = { ru: 'русский', en: 'English', de: 'Deutsch' };
+  return (
+    <>
+      <div className="wrap acc">
+        <header className="partners-head">
+          <h1>Пользователи</h1>
+          <p>Аккаунты — это люди (вход по email или Google; одно и то же на всех устройствах). Гости в пробный месяц здесь не видны — их устройства считает GoatCounter: событие «new-device».</p>
+        </header>
+        <main className="acc-card">
+          {err && <p className="acc-err">{err}</p>}
+          {!data && !err && <p className="acc-note">Загрузка…</p>}
+          {data && (
+            <>
+              <div className="us-tiles">
+                <div><b className="num">{data.total}</b><span>всего аккаунтов</span></div>
+                <div><b className="num">{data.active[1]}</b><span>заходили за сутки</span></div>
+                <div><b className="num">{data.active[7]}</b><span>за 7 дней</span></div>
+                <div><b className="num">{data.active[30]}</b><span>за 30 дней</span></div>
+              </div>
+              <ul className="us-list">
+                <li>Новых: за сутки — <b>{data.joined[1]}</b>, за 7 дней — <b>{data.joined[7]}</b>, за 30 дней — <b>{data.joined[30]}</b></li>
+                <li>14+ — <b>{data.adults}</b>, дети с согласием родителя — <b>{data.children}</b>, ждут согласия — <b>{data.pending}</b></li>
+                <li>Сохраняют прогресс на сервере — <b>{data.withProgress}</b></li>
+                <li>Не закончили регистрацию (нет ника, удаляются через 7 дней) — <b>{data.unfinished}</b></li>
+                <li>
+                  Язык:{' '}
+                  {Object.entries(data.langs)
+                    .sort((a, b) => b[1] - a[1])
+                    .map(([l, n]) => `${LANG[l] ?? l} — ${n}`)
+                    .join(', ') || '—'}
+                </li>
+              </ul>
+              <h2 className="us-h">По дням (30 дней)</h2>
+              <p className="acc-note">«Заходили» — по последнему заходу: человек, который был и вчера, и сегодня, виден только сегодня.</p>
+              <table className="us-days">
+                <thead>
+                  <tr><th>День</th><th>Новые</th><th>Последний заход</th></tr>
+                </thead>
+                <tbody>
+                  {days.map(([d, v]) => (
+                    <tr key={d}>
+                      <td>{new Date(d).toLocaleDateString('ru', { day: 'numeric', month: 'short' })}</td>
+                      <td className="num">{v.joined || ''}</td>
+                      <td>
+                        <span className="us-bar" style={{ width: `${(v.active / max) * 70}%` }} />
+                        <span className="num">{v.active || ''}</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          )}
+          <p className="acc-row">
+            <a href="https://niflaot.goatcounter.com" target="_blank" rel="noopener">GoatCounter ↗</a>
             <a href="#/admin">← Редактор текстов</a>
           </p>
         </main>

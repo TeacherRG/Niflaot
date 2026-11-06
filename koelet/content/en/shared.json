@@ -1,0 +1,356 @@
+{
+  "M": "mentor",
+  "LOOKS": [
+    {
+      "skin": "#f3d2b0",
+      "hair": "#3b2a20",
+      "style": 0
+    },
+    {
+      "skin": "#e2ae86",
+      "hair": "#17130f",
+      "style": 1
+    },
+    {
+      "skin": "#c68b5f",
+      "hair": "#5a321d",
+      "style": 2
+    },
+    {
+      "skin": "#f1c9a4",
+      "hair": "#c3782f",
+      "style": 3
+    },
+    {
+      "skin": "#8d5a3b",
+      "hair": "#141010",
+      "style": 1
+    },
+    {
+      "skin": "#f6dcc5",
+      "hair": "#d9b36a",
+      "style": 2
+    }
+  ],
+  "OUTFITS": [
+    "#3f9a5f",
+    "#d9566c",
+    "#4f86c0",
+    "#eab53a",
+    "#8a6cc2",
+    "#e07b39"
+  ],
+  "ARCHS": [
+    {
+      "name": "Explorer"
+    },
+    {
+      "name": "Inventor"
+    },
+    {
+      "name": "Chronicler"
+    },
+    {
+      "name": "Traveller"
+    },
+    {
+      "name": "Artist"
+    },
+    {
+      "name": "Musician"
+    }
+  ],
+  "LEVELS": [
+    "Beginner",
+    "Seeker",
+    "Pathfinder",
+    "Explorer",
+    "Keeper of Pieces",
+    "Puzzle Master"
+  ],
+  "TOOLS": {
+    "book": [
+      "book",
+      "Book"
+    ],
+    "heart": [
+      "heart",
+      "Help"
+    ],
+    "compass": [
+      "compass",
+      "Compass"
+    ],
+    "brush": [
+      "brush",
+      "Brush"
+    ],
+    "hammer": [
+      "hammer",
+      "Hammer"
+    ],
+    "puzzle": [
+      "puzzle",
+      "Puzzle"
+    ],
+    "lens": [
+      "lens",
+      "Magnifying glass"
+    ],
+    "mic": [
+      "mic",
+      "Microphone"
+    ]
+  },
+  "ACHS": {
+    "piece": [
+      "puzzle",
+      "Found my piece",
+      "Put together the puzzle in the Puzzle world"
+    ],
+    "mirror": [
+      "mirror",
+      "I don't compare myself",
+      "Went through the Mirror world"
+    ],
+    "friend": [
+      "heart",
+      "A friend nearby",
+      "Chose to help others three times"
+    ],
+    "tools": [
+      "wrench",
+      "Master of my tools",
+      "Went through the Workshop"
+    ],
+    "explorer": [
+      "lens",
+      "Explorer",
+      "Went through all seven worlds"
+    ],
+    "path": [
+      "compass",
+      "Seeking my path",
+      "Finished the whole game"
+    ]
+  },
+  "PHRASES": [
+    "I don't need to be like someone else. I can develop what is mine.",
+    "The Almighty gave everyone their own piece of the great puzzle.",
+    "My task is not to be the best at everything, but to unfold the gift I was given."
+  ],
+  "CITY": {
+    "wealth": {
+      "item": "coin",
+      "what": "coins",
+      "year": "A year has passed. You have a palace, gardens with ponds and a treasury full to the ceiling. You can gather even more treasure. Go on!",
+      "evening": "Evening. You are standing in the middle of a huge palace. The servants have gone to bed. What do you feel?"
+    },
+    "fame": {
+      "item": "star",
+      "what": "likes",
+      "year": "A year has passed. People recognise you in the street, you have millions of followers. And you can collect even more likes. Go on!",
+      "evening": "Evening. Your phone won't stop buzzing with notifications. You are sitting in your room alone. What do you feel?"
+    },
+    "mind": {
+      "item": "bulb",
+      "what": "ideas",
+      "year": "A year has passed. You can solve any problem, scientists ask you for advice. But you can learn even more. Go on!",
+      "evening": "Evening. You have read every book in the city. You know almost everything. What do you feel?"
+    },
+    "power": {
+      "item": "crown",
+      "what": "orders",
+      "year": "A year has passed. The whole city obeys you. You can give even more orders. Go on!",
+      "evening": "Evening. Everyone carries out your orders, but nobody talks to you just like that. What do you feel?"
+    },
+    "adventure": {
+      "item": "map",
+      "what": "discoveries",
+      "year": "A year has passed. You have discovered new islands, mountains and caves. There can be even more discoveries. Go on!",
+      "evening": "Evening. You are in yet another new port. Nobody knows you here. What do you feel?"
+    },
+    "beauty": {
+      "item": "gift",
+      "what": "celebrations",
+      "year": "A year has passed. Every day is a celebration for you, the finest things, journeys. You can throw even more celebrations. Go on!",
+      "evening": "Evening. The party is over, the guests have gone home. Tomorrow will be just the same. What do you feel?"
+    }
+  },
+  "QUALITIES": [
+    "I know how to listen",
+    "I explain things well",
+    "I come up with ideas",
+    "I know how to be a friend",
+    "I don't give up",
+    "I love to help",
+    "I know how to organise",
+    "I notice what others don't see",
+    "I lift people's spirits",
+    "I can wait and not rush",
+    "I try new things",
+    "I make things with my hands"
+  ],
+  "QUALITIES_Y": [
+    "I know how to listen",
+    "I explain things well",
+    "I come up with ideas",
+    "I know how to be a friend",
+    "I don't give up",
+    "I love to help"
+  ],
+  "LAB_Y": {
+    "can": 6,
+    "like": 6,
+    "need": 6,
+    "help": 6
+  },
+  "LAB": {
+    "can": {
+      "title": "What am I good at?",
+      "opts": [
+        "coming up with ideas",
+        "explaining",
+        "drawing and creating",
+        "solving problems",
+        "organising",
+        "listening",
+        "sport and movement",
+        "making and fixing things",
+        "writing and telling stories",
+        "noticing details",
+        "joking and cheering people up",
+        "caring for animals"
+      ]
+    },
+    "like": {
+      "title": "What do I like?",
+      "opts": [
+        "music",
+        "nature and animals",
+        "technology and computers",
+        "books and stories",
+        "games with friends",
+        "building and making things",
+        "sport",
+        "drawing",
+        "science and experiments",
+        "playing with little children",
+        "cooking",
+        "travelling"
+      ]
+    },
+    "need": {
+      "title": "What do others need?",
+      "opts": [
+        "someone to listen to them",
+        "help with schoolwork",
+        "someone to cheer them up",
+        "order and a plan",
+        "new ideas",
+        "someone to stand up for them",
+        "help around the house",
+        "not to feel lonely",
+        "someone to teach them",
+        "someone to support them on a hard day"
+      ]
+    },
+    "help": {
+      "title": "Where can I help?",
+      "opts": [
+        "at home, in my family",
+        "in my class",
+        "my friends",
+        "in the community",
+        "little children",
+        "grandmothers and grandfathers",
+        "animals",
+        "online",
+        "in school projects",
+        "at celebrations"
+      ]
+    }
+  },
+  "BOARD": [
+    [
+      "Shlomo",
+      "#ecc865"
+    ],
+    [
+      "Moon",
+      "#d8d1b8"
+    ],
+    [
+      "Menashe",
+      "#72b182"
+    ],
+    [
+      "Little Mouse",
+      "#a3b9b4"
+    ],
+    [
+      "Esther",
+      "#e36b7f"
+    ],
+    [
+      "Your piece",
+      null
+    ],
+    [
+      "Tinsmith",
+      "#86b9da"
+    ],
+    [
+      "Doctor",
+      "#e2ae86"
+    ],
+    [
+      "Rachel",
+      "#b99ad8"
+    ],
+    [
+      "Ephraim",
+      "#8fcf9e"
+    ],
+    [
+      "Friend",
+      "#f2a25c"
+    ],
+    [
+      "Yehoshua",
+      "#f6d98a"
+    ]
+  ],
+  "SPECIES": [
+    {
+      "ic": "etrog",
+      "name": "Etrog",
+      "he": "אֶתְרוֹג",
+      "y": "The etrog has both taste and fragrance. It is like a person who both learns Torah and does good deeds.",
+      "t": "It has both taste and fragrance. The Midrash says: this is a person who has both Torah and good deeds."
+    },
+    {
+      "ic": "lulav",
+      "name": "Lulav",
+      "he": "לוּלָב",
+      "y": "Dates from the palm tree are tasty, but have no fragrance. This is a person who learns a lot of Torah.",
+      "t": "The fruit of the date palm is tasty but has no fragrance. This is a person who has Torah, but fewer good deeds."
+    },
+    {
+      "ic": "hadas",
+      "name": "Myrtle",
+      "he": "הֲדַס",
+      "y": "Myrtle smells good, but nobody eats it. This is a person who does many good deeds.",
+      "t": "It has fragrance but no taste. This is a person who has many good deeds, but less Torah."
+    },
+    {
+      "ic": "arava",
+      "name": "Willow",
+      "he": "עֲרָבָה",
+      "y": "The willow has neither taste nor fragrance. But without it the mitzvah cannot be done!",
+      "t": "Neither taste nor fragrance. And yet without the aravah the mitzvah is not fulfilled: without it the whole bundle is invalid."
+    }
+  ],
+  "DEF_HINT": "There is no single right answer here. Choose what feels closest to you and see what happens.",
+  "OWN_NOTE": "Optional. Only you can see this: the text is stored on this device."
+}

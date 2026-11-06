@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
-import { isShabbatRest, shabbatPreview, shabbatWindow } from '../core/shabbat';
+import { isSearchBot, isShabbatRest, shabbatPreview, shabbatWindow } from '../core/shabbat';
 import { LanguagePicker } from './TopBar';
 
 /** True from an hour before sunset on Friday to an hour after sunset on Saturday (src/core/shabbat.ts); re-checked every 30 s. */
 export function useShabbatRest() {
-  const [rest, setRest] = useState(() => shabbatPreview() || isShabbatRest());
+  const [rest, setRest] = useState(() => shabbatPreview() || (!isSearchBot() && isShabbatRest()));
   useEffect(() => {
-    if (shabbatPreview()) return;
+    if (shabbatPreview() || isSearchBot()) return;
     const id = setInterval(() => setRest(isShabbatRest()), 30_000);
     return () => clearInterval(id);
   }, []);

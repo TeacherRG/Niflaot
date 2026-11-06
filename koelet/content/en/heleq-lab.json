@@ -1,0 +1,184 @@
+{
+  "name": "Chelek Lab",
+  "desc": "Gathering clues about you",
+  "steps": [
+    {
+      "type": "talk",
+      "who": "mentor",
+      "text": "This is the laboratory. Here nobody will tell you who to be. We will only gather clues about the piece you were given."
+    },
+    {
+      "type": "card",
+      "kicker": "A riddle",
+      "title": "Why is everyone so different?",
+      "pic": {
+        "__ag": 1,
+        "y": "twins",
+        "t": ""
+      },
+      "body": {
+        "__ag": 1,
+        "y": "<p>Even twins who grow up in the same home can be completely different. The sages say: every soul comes into the world with its own portion. Let's look for yours.</p>",
+        "t": "<p>No child is completely like their parents or their brothers and sisters. There have even been twins who grew up together, in the same home, in the same conditions, and still turned out completely different: one dreamed of becoming a lawyer, the other of writing books.</p><p>The sages say: every soul comes into the world with its own portion. Let's look for yours.</p>"
+      }
+    },
+    {
+      "type": "mini",
+      "game": "circles"
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "The first clue. Think of an activity during which time flies by unnoticed. What is it?",
+      "key": "flow",
+      "neutral": true,
+      "compact": true,
+      "own": {
+        "label": "Or write your own activity",
+        "ph": "For example: I build models",
+        "r": "Remember this. When time flies by unnoticed and the activity brings joy even without a reward, that is an important clue."
+      },
+      "options": {
+        "__ag": 1,
+        "y": [
+          {
+            "ic": "palette",
+            "t": "I draw or make things",
+            "v": "I draw or make things",
+            "r": "Remember this. When time flies by unnoticed and the activity brings joy even without a reward, that is an important clue."
+          },
+          {
+            "ic": "ball",
+            "t": "I play sports",
+            "v": "I play sports",
+            "r": "Remember this. When time flies by unnoticed and the activity brings joy even without a reward, that is an important clue."
+          },
+          {
+            "ic": "book",
+            "t": "I read or write",
+            "v": "I read or write",
+            "r": "Remember this. When time flies by unnoticed and the activity brings joy even without a reward, that is an important clue."
+          },
+          {
+            "ic": "numbers",
+            "t": "I solve problems",
+            "v": "I solve problems",
+            "r": "Remember this. When time flies by unnoticed and the activity brings joy even without a reward, that is an important clue."
+          },
+          {
+            "ic": "chat",
+            "t": "I spend time with friends",
+            "v": "I spend time with friends",
+            "r": "Remember this. When time flies by unnoticed and the activity brings joy even without a reward, that is an important clue."
+          },
+          {
+            "ic": "helphand",
+            "t": "I help someone",
+            "v": "I help someone",
+            "r": "Remember this. When time flies by unnoticed and the activity brings joy even without a reward, that is an important clue."
+          }
+        ],
+        "t": [
+          {
+            "ic": "palette",
+            "t": "I draw or make things",
+            "v": "I draw or make things",
+            "r": "Remember this. When time flies by unnoticed and the activity brings joy even without a reward, that is an important clue."
+          },
+          {
+            "ic": "ball",
+            "t": "I play sports",
+            "v": "I play sports",
+            "r": "Remember this. When time flies by unnoticed and the activity brings joy even without a reward, that is an important clue."
+          },
+          {
+            "ic": "book",
+            "t": "I read or write",
+            "v": "I read or write",
+            "r": "Remember this. When time flies by unnoticed and the activity brings joy even without a reward, that is an important clue."
+          },
+          {
+            "ic": "numbers",
+            "t": "I solve problems",
+            "v": "I solve problems",
+            "r": "Remember this. When time flies by unnoticed and the activity brings joy even without a reward, that is an important clue."
+          },
+          {
+            "ic": "chat",
+            "t": "I spend time with friends",
+            "v": "I spend time with friends",
+            "r": "Remember this. When time flies by unnoticed and the activity brings joy even without a reward, that is an important clue."
+          },
+          {
+            "ic": "helphand",
+            "t": "I help someone",
+            "v": "I help someone",
+            "r": "Remember this. When time flies by unnoticed and the activity brings joy even without a reward, that is an important clue."
+          },
+          {
+            "ic": "bulb",
+            "t": "I invent something new",
+            "v": "I invent something new",
+            "r": "Remember this. When time flies by unnoticed and the activity brings joy even without a reward, that is an important clue."
+          },
+          {
+            "ic": "note",
+            "t": "I play music",
+            "v": "I play music",
+            "r": "Remember this. When time flies by unnoticed and the activity brings joy even without a reward, that is an important clue."
+          },
+          {
+            "ic": "paw",
+            "t": "I look after animals",
+            "v": "I look after animals",
+            "r": "Remember this. When time flies by unnoticed and the activity brings joy even without a reward, that is an important clue."
+          },
+          {
+            "ic": "pot",
+            "t": "I cook",
+            "v": "I cook",
+            "r": "Remember this. When time flies by unnoticed and the activity brings joy even without a reward, that is an important clue."
+          }
+        ]
+      }
+    },
+    {
+      "type": "quote",
+      "he": "וּמִי יוֹדֵעַ אִם לְעֵת כָּזֹאת הִגַּעַתְּ לַמַּלְכוּת",
+      "src": "Megillat Esther 4:14",
+      "tr": "“And who knows whether it was not for a time like this that you attained royalty?”",
+      "plain": {
+        "__ag": 1,
+        "y": "The second clue. This is what Mordechai said to Queen Esther when her people were threatened with disaster. Maybe you are here to help right now.",
+        "t": "The second clue. This is what Mordechai said to Queen Esther when her people were threatened with disaster. Maybe you ended up exactly here in order to help exactly now. When someone needs what you are able to do, that is a sign."
+      },
+      "q": "Has it ever happened that you were in the right place to help?",
+      "options": [
+        "Yes, it has",
+        "I think so",
+        "Not yet, but I'd like it to"
+      ],
+      "r": "Look carefully around you. Such moments often come quietly."
+    },
+    {
+      "type": "card",
+      "kicker": "The third clue",
+      "title": "A good deed that comes with difficulty",
+      "body": {
+        "__ag": 1,
+        "y": "<p>Sometimes a good deed comes with difficulty: you want to put it off until later. That doesn't mean it isn't yours. Try starting with a small step.</p><p class=\"muted\">And if things are really hard for you, tell an adult you trust about it.</p>",
+        "t": "<p>Sometimes a good deed comes with difficulty: laziness gets in the way, or fear, or “I'll do it later.” The sages noticed: sometimes something important for you is hiding behind exactly such a deed. Try starting with a small step.</p><p class=\"muted\">This does not mean that you are supposed to feel bad, or that difficulties are your purpose. If things are really hard for you, tell an adult you trust about it.</p>"
+      }
+    },
+    {
+      "type": "card",
+      "kicker": "The laboratory's result",
+      "title": "My map of strengths",
+      "art": "map",
+      "body": {
+        "__dynamic": "strength-map"
+      },
+      "btn": "Next"
+    }
+  ]
+}

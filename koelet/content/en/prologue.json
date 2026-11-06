@@ -1,0 +1,164 @@
+[
+  {
+    "type": "mini",
+    "game": "book"
+  },
+  {
+    "type": "talk",
+    "who": "mentor",
+    "text": "You managed to open it! That means this riddle was waiting for you. I am the Keeper of this library."
+  },
+  {
+    "type": "choice",
+    "who": "mentor",
+    "text": {
+      "__ag": 1,
+      "y": "What is real success? What do you think?",
+      "t": "Many people spend their whole lives trying to become successful. But what is real success? What do you think?"
+    },
+    "key": "success",
+    "compact": true,
+    "neutral": true,
+    "options": {
+      "__ag": 1,
+      "y": [
+        {
+          "ic": "coin",
+          "t": "Wealth",
+          "v": "Wealth",
+          "r": "An interesting choice. Let's check whether it is really enough.",
+          "help": false
+        },
+        {
+          "ic": "star",
+          "t": "Popularity",
+          "v": "Popularity",
+          "r": "An interesting choice. Let's check whether it is really enough.",
+          "help": false
+        },
+        {
+          "ic": "book",
+          "t": "Knowledge",
+          "v": "Knowledge",
+          "r": "An interesting choice. Let's check whether it is really enough.",
+          "help": false
+        },
+        {
+          "ic": "friends",
+          "t": "Friends",
+          "v": "Friends",
+          "r": "An interesting choice. Let's check whether it is really enough.",
+          "help": false
+        },
+        {
+          "ic": "heart",
+          "t": "Helping others",
+          "v": "Helping others",
+          "r": "An interesting choice. Let's check whether it is really enough.",
+          "help": true
+        },
+        {
+          "ic": "smile",
+          "t": "Joy every day",
+          "v": "Joy every day",
+          "r": "An interesting choice. Let's check whether it is really enough.",
+          "help": false
+        }
+      ],
+      "t": [
+        {
+          "ic": "coin",
+          "t": "Wealth",
+          "v": "Wealth",
+          "r": "An interesting choice. Let's check whether it is really enough.",
+          "help": false
+        },
+        {
+          "ic": "star",
+          "t": "Popularity",
+          "v": "Popularity",
+          "r": "An interesting choice. Let's check whether it is really enough.",
+          "help": false
+        },
+        {
+          "ic": "book",
+          "t": "Knowledge",
+          "v": "Knowledge",
+          "r": "An interesting choice. Let's check whether it is really enough.",
+          "help": false
+        },
+        {
+          "ic": "friends",
+          "t": "Friends",
+          "v": "Friends",
+          "r": "An interesting choice. Let's check whether it is really enough.",
+          "help": false
+        },
+        {
+          "ic": "home",
+          "t": "Family",
+          "v": "Family",
+          "r": "An interesting choice. Let's check whether it is really enough.",
+          "help": false
+        },
+        {
+          "ic": "dove",
+          "t": "Freedom",
+          "v": "Freedom",
+          "r": "An interesting choice. Let's check whether it is really enough.",
+          "help": false
+        },
+        {
+          "ic": "heart",
+          "t": "Helping others",
+          "v": "Helping others",
+          "r": "An interesting choice. Let's check whether it is really enough.",
+          "help": true
+        },
+        {
+          "ic": "trophy",
+          "t": "Achievements",
+          "v": "Achievements",
+          "r": "An interesting choice. Let's check whether it is really enough.",
+          "help": false
+        },
+        {
+          "ic": "smile",
+          "t": "Joy every day",
+          "v": "Joy every day",
+          "r": "An interesting choice. Let's check whether it is really enough.",
+          "help": false
+        },
+        {
+          "ic": "globe",
+          "t": "Changing the world",
+          "v": "Changing the world",
+          "r": "An interesting choice. Let's check whether it is really enough.",
+          "help": false
+        }
+      ]
+    },
+    "own": {
+      "label": "My own answer",
+      "ph": "For example: peace in the family",
+      "r": "An interesting choice. Let's check whether it is really enough."
+    }
+  },
+  {
+    "type": "card",
+    "kicker": "Page one",
+    "title": "What is this book?",
+    "heb": "קֹהֶלֶת",
+    "pic": {
+      "__ag": 1,
+      "y": "crown scroll key",
+      "t": ""
+    },
+    "body": {
+      "__ag": 1,
+      "y": "<p><b>Kohelet</b> is the book of King Shlomo. He honestly tested what makes a person happy.</p><p>The book begins with the words “All is futile.” But at the end there is an answer. It is hidden in seven worlds.</p>",
+      "t": "<p><b>Kohelet</b> is one of the books of the Tanach (the Hebrew Bible). These are the words of King Shlomo (in English, Solomon), his reflections on life: he honestly tested what makes a person happy.</p><p>The book opens with words that frighten many people: “All is futile.” And it ends with an answer. That answer is hidden in seven worlds.</p>"
+    },
+    "btn": "Open the map"
+  }
+]

@@ -4,7 +4,8 @@
  * are «х» (Йеґошуа, Ярден); en — as chabad.org (ch, tz, sh); de — as de.chabad.org (ch, z, sch, w, j). Rules, kept simple:
  * a sheva is read at the start of a word and after another sheva, otherwise it is silent; א and ע and a vowel letter
  * (י after i / e — after a tsere it is «ei», ו with a dot as u / o, final ה) are not read; a patach under a final ח / ע is read before it (רוּחַ — ruach);
- * כָּל is «kol». No stress, no doubling. The Name ה׳ is read Hashem.
+ * כָּל is «kol». No stress, no doubling. The Name — ה׳ or in full spelling (יְהוָה, as the Tanakh text on the page) — is read
+ * Hashem; אֱלֹהִים — with ק (Elokim), as one says it outside prayer.
  */
 export type ReadLang = 'ru' | 'en' | 'de';
 
@@ -151,8 +152,23 @@ const Y: Record<ReadLang, string> = { ru: 'й', en: 'i', de: 'j' };
 
 /** How a Hebrew word (with vowels) is read in the letters of `lang`. */
 export function readHebrew(word: string, lang: ReadLang): string {
-  const plain = word.replace(/[[\]()]/g, '');
-  if (/^ה׳$/.test(plain.replace(/[֑-ׇ]/g, ''))) return lang === 'ru' ? 'Ашем' : lang === 'de' ? 'Haschem' : 'Hashem';
+  // the zero-width joiner of the Tanakh text (Sefaria) only places a vowel: not a letter, not read
+  let plain = word.replace(/[[\]()\u200d]/g, '');
+  const bare = plain.replace(/[֑-ׇ]/g, '');
+  const hashem = lang === 'ru' ? 'Ашем' : lang === 'de' ? 'Haschem' : 'Hashem';
+  if (/^ה׳$/.test(bare)) return hashem;
+  // the Name in full spelling (יְהֹוָה, as on Sefaria) is never read as written: Hashem, after a prefix — «ва-Ашем»
+  const name = bare.replace(/[-־]/g, '').match(/^([והבכלמש]*)יהוה$/);
+  if (name) {
+    if (!name[1]) return hashem;
+    const k = [...plain].findIndex((ch, i) => ch === 'י' && plain.slice(0, i).replace(/[^א-ת]/g, '') === name[1]);
+    return `${readHebrew(plain.slice(0, k), lang)}-${hashem}`;
+  }
+  // אֱלֹהִים and its forms (and צְבָאוֹת after it is read as written): outside prayer — with ק, as the project writes (Элоким)
+  if (/^[והבכלמש]*אלה(ים|יכם|יכן|ינו|יך|יו|יה|יהם|י)$/.test(bare.replace(/[-־]/g, ''))) {
+    const at = [...plain].findIndex((ch, i) => ch === 'ה' && plain.slice(0, i).replace(/[^א-ת]/g, '').endsWith('אל'));
+    if (at > 0) plain = plain.slice(0, at) + 'ק' + plain.slice(at + 1);
+  }
   const letters = plain.replace(/[^א-ת]/g, '');
   // כָּל (kol) — a kamatz katan the rules above can't tell
   if (letters === 'כל' && plain.includes(V.kamatz)) return lang === 'ru' ? 'коль' : 'kol';

@@ -1,0 +1,254 @@
+{
+  "name": "Efraim und Menasche",
+  "desc": "Zwei Brüder und ein Segen",
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "Vor sehr langer Zeit",
+      "title": "Zwei Brüder",
+      "art": "brothers",
+      "body": {
+        "__ag": 1,
+        "y": "<p>Josef hatte zwei Söhne: den älteren, <b>Menasche</b>, und den jüngeren, <b>Efraim</b>. Josef brachte sie zu ihrem Großvater Jaakow, damit er sie segnet. Den Älteren sollte man mit der rechten Hand segnen …</p>",
+        "t": "<p>Josef, der Sohn unseres Vorvaters Jaakow, hatte zwei Söhne: den älteren, <b>Menasche</b>, und den jüngeren, <b>Efraim</b>. Eines Tages brachte Josef sie zu ihrem Großvater Jaakow, damit er sie segnet.</p><p>Den Älteren sollte man mit der rechten Hand segnen. Josef stellte Menasche genau unter die rechte Hand des Großvaters …</p>"
+      }
+    },
+    {
+      "type": "mini",
+      "game": "hands"
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "Was meinst du: Was könnte Menasche gefühlt haben?",
+      "key": "manasheFeel",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Kränkung",
+          "r": "Ein verständliches Gefühl. Er ist ja der Ältere."
+        },
+        {
+          "t": "Wut auf den Bruder",
+          "r": "Das kommt vor. Efraim kann nichts dafür, aber man möchte trotzdem wütend sein."
+        },
+        {
+          "t": "Verwirrung",
+          "r": "Ehrlich. Alles lief anders, als alle erwartet hatten."
+        },
+        {
+          "t": "Ruhe",
+          "r": "Interessant. Die Tora schweigt über Menasches Gefühle. Schau, wie Raw Aschkenasi es erklärt."
+        }
+      ]
+    },
+    {
+      "age": "y",
+      "type": "card",
+      "kicker": "Raw Aschkenasi erklärt",
+      "title": "Menasche stritt nicht",
+      "pic": "friends",
+      "body": "<p>Früher stritten Brüder in der Tora oft darüber, wer wichtiger ist. Hier widersprach nur Josef, über Menasche wird nichts gesagt. Raw Aschkenasi erklärt: Menasche stritt nicht. Er verstand: <b>Mein Bruder hat seinen Segen, ich habe meinen</b>.</p>"
+    },
+    {
+      "age": "y",
+      "type": "choice",
+      "who": "mentor",
+      "text": "Was meinst du: Ist es leicht, so zu handeln?",
+      "key": "manasheEasy",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Sehr schwer",
+          "r": "Ja, das ist schwer. Darum erinnert man sich schon seit Tausenden von Jahren an Menasche."
+        },
+        {
+          "t": "Leicht, wenn man seinen Bruder liebt",
+          "r": "Liebe hilft wirklich. Aber auch wer liebt, ist manchmal gekränkt."
+        },
+        {
+          "t": "Kommt darauf an",
+          "r": "Ehrlich. Manchmal ist es leicht, manchmal sehr schwer."
+        }
+      ]
+    },
+    {
+      "age": "y",
+      "type": "card",
+      "kicker": "Bis heute",
+      "title": "Der Segen am Freitagabend",
+      "pic": "candles",
+      "body": "<p>Am Freitagabend segnen Eltern ihre Söhne:</p><p class=\"quote-he\" lang=\"he\">יְשִׂמְךָ אֱלֹקִים כְּאֶפְרַיִם וְכִמְנַשֶּׁה</p><p>„G-tt mache dich wie Efraim und Menasche.“ Wie zwei Brüder, die einander nicht beneideten.</p>"
+    },
+    {
+      "age": "t",
+      "type": "card",
+      "kicker": "Raw Aschkenasi erklärt",
+      "title": "Der Erste, der nicht kämpfte",
+      "body": "<p>Vorher rivalisierten Brüder in der Tora immer wieder darum, wer wichtiger ist: Kain und Hewel, Jischmael und Jizchak, Esaw und Jaakow. Die Rivalität führte bis ins Unglück.</p><p>In der Tora steht, dass Josef Jaakow widersprach. Über Menasches Gefühle schweigt der Text. Raw Aschkenasi sieht in diesem Schweigen eine Lehre: Menasche war der Erste, der nicht kämpfte. Er verstand: <b>Mein Bruder hat seinen Segen, ich habe meinen</b>. Und mein Wert wird dadurch nicht kleiner.</p><p>Darum segnen Eltern ihre Söhne seit Tausenden von Jahren am Freitagabend:</p><p class=\"quote-he\" lang=\"he\">יְשִׂמְךָ אֱלֹקִים כְּאֶפְרַיִם וְכִמְנַשֶּׁה</p><p>„G-tt mache dich wie Efraim und Menasche.“ Wie zwei Brüder, die einander nicht beneideten.</p>"
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "Und jetzt du. Dein Freund hat bei einem Wettbewerb den Preis gewonnen, von dem du geträumt hast. Was fühlst du?",
+      "key": "awardFeel",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Es tut weh",
+          "r": "Das ist normal. Gefühle sind nie „falsch“. Wichtig ist, was du als Nächstes tust."
+        },
+        {
+          "t": "Ich freue mich für ihn",
+          "r": "Toll. Und wenn es innen ein bisschen wehtut, ist das auch normal."
+        },
+        {
+          "t": "Beides zugleich",
+          "r": "Ehrliche Antwort. Fast jeder fühlt so. Wichtig ist, was du als Nächstes tust."
+        },
+        {
+          "t": "Ich möchte alles hinwerfen",
+          "r": "Verständlich. Aber lass uns schauen, was man noch tun kann."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "who": "mentor",
+      "text": "Was tust du als Nächstes?",
+      "key": "awardAct",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Ich gratuliere, auch wenn es etwas wehtut",
+          "r": "Dein Freund strahlt: „Danke! Es bedeutet mir viel, dass du das sagst.“ Die Kränkung ist noch nicht ganz weg. Sie braucht Zeit.",
+          "help": 1
+        },
+        {
+          "t": "Ich tue so, als wäre es mir egal",
+          "r": "Niemand hat etwas gemerkt, und es gab keinen Streit. Aber innen sitzt die Kränkung fest und geht nicht weg."
+        },
+        {
+          "t": "Ich frage, wie er sich vorbereitet hat, und versuche es noch mal",
+          "r": "Er hat dir seine Geheimnisse verraten. Du musst ein ganzes Jahr üben, aber dann kommst du mit deiner eigenen Idee zum Wettbewerb.",
+          "insight": 1
+        },
+        {
+          "t": "Ich sage allen, dass er einfach Glück hatte",
+          "r": "Eine Minute lang wurde es leichter. Aber dein Freund hat es gehört. Der Preis blieb bei ihm, und die Freundschaft bekam einen Riss."
+        },
+        {
+          "t": "Ich bitte ihn, es mir beizubringen",
+          "r": "Er zeigte dir gern, wie er gearbeitet hat. Jetzt bereitet ihr euch gemeinsam auf den nächsten Wettbewerb vor.",
+          "help": 1,
+          "insight": 1
+        }
+      ]
+    },
+    {
+      "age": "t",
+      "type": "card",
+      "kicker": "Eine andere Geschichte · Schmuel I, 18",
+      "title": "Schaul und David",
+      "body": "<p>Der junge David besiegte den Riesen Goliath. Als das Heer heimkehrte, sangen die Frauen: „Schaul hat Tausende geschlagen, David aber Zehntausende.“</p><p>König Schaul hörte es und wurde zornig. Von diesem Tag an, heißt es im Buch, „sah er David scheel an“. Schaul blieb König und hatte alles. Aber er konnte sich nicht mehr an dem Seinen freuen: Seine ganze Aufmerksamkeit galt dem Erfolg eines anderen.</p>"
+    },
+    {
+      "age": "t",
+      "type": "choice",
+      "who": "mentor",
+      "text": "Schaul war König. Was meinst du: Warum hat ihn ein einziges Lied so getroffen?",
+      "key": "shaul",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Er hatte Angst, den Thron zu verlieren",
+          "r": "Möglich. Neid beginnt oft mit Angst: „Wenn er mehr hat, habe ich weniger.“"
+        },
+        {
+          "t": "Ihm war wichtig, was andere über ihn denken",
+          "r": "Das klingt richtig. Wenn dein Wert von der Meinung anderer abhängt, tut jedes Lied über jemand anderen weh."
+        },
+        {
+          "t": "Er hat sich mit David verglichen",
+          "r": "Ja. Und der Vergleich war unfair: David hatte seine Rolle, Schaul seine."
+        },
+        {
+          "t": "Das hätte jeden getroffen",
+          "r": "Ehrlich. Es kann jeden treffen. Die Frage ist, was man danach mit dem Gefühl macht."
+        }
+      ]
+    },
+    {
+      "age": "a",
+      "type": "card",
+      "kicker": "Talmud, Joma 22b",
+      "title": "Ein Fehltritt und zwei",
+      "body": "<p>Der Talmud stellt eine schwere Frage. Schaul fehlte einmal und verlor das Königtum. David fehlte zweimal, in der Geschichte mit Urija und bei der Volkszählung, und blieb König.</p><p>Raw Aschkenasi bringt die Erklärung des Lubawitscher Rebbe. Als Schaul Agag, den König Amaleks, verschonte, wich er vom Kern des Auftrags ab, für den er König geworden war. Davids Fehler waren schwere persönliche Vergehen, und er wurde dafür hart bestraft. Seiner Aufgabe als König aber blieb er treu.</p><p>Raw Aschkenasis Folgerung: <b>Solange ein Mensch seiner wichtigsten Bestimmung treu bleibt, bewahrt G-tt ihm seinen Platz in der Welt.</b></p>"
+    },
+    {
+      "age": "a",
+      "type": "choice",
+      "who": "mentor",
+      "text": "Und was heißt für dich, „seiner Aufgabe treu zu bleiben“?",
+      "key": "missionTrue",
+      "neutral": true,
+      "options": [
+        {
+          "t": "Das Wichtigste nicht aufgeben, auch wenn es schwer ist",
+          "r": "Ein schwerer Weg. Dafür entscheiden Schwierigkeiten nicht mehr darüber, womit du dich beschäftigst."
+        },
+        {
+          "t": "Fehler zugeben und nicht aufgeben",
+          "r": "Davids Weg: schwere Fehler, echte Umkehr und Treue zur eigenen Aufgabe."
+        },
+        {
+          "t": "Die eigene Aufgabe nicht gegen fremde Erwartungen tauschen",
+          "r": "Schaul gab es selbst zu: „Ich fürchtete das Volk und hörte auf sie“ (Schmuel I 15:24). Fremde Erwartungen brachten ihn von seiner Aufgabe ab."
+        },
+        {
+          "t": "Ich weiß noch nicht, was meine Aufgabe ist",
+          "r": "Ehrlich. Genau dafür gibt es das Chelek-Labor: Dort findest du drei Zeichen, an denen man sie erkennt."
+        }
+      ]
+    },
+    {
+      "type": "quote",
+      "he": "וַתְּקַנֵּא רָחֵל בַּאֲחֹתָהּ",
+      "src": "Bereschit 30:1",
+      "tr": "„Und Rachel beneidete ihre Schwester.“",
+      "plain": {
+        "__ag": 1,
+        "y": "Rachel beneidete ihre Schwester nicht um Dinge, sondern um ihre guten Taten. Und sie strengte sich selbst mehr an. Neid kann wie ein Wecker sein: damit man selbst aufwacht.",
+        "t": "Die Weisen erklären: Rachel beneidete Lea nicht um Dinge, sondern um ihre guten Taten. Und dieser Neid brachte sie dazu, zu beten und zu wachsen. Neid kann wie ein Wecker sein: nicht um anderen etwas wegzunehmen, sondern um selbst aufzuwachen."
+      },
+      "q": "Was kann Neid in dir wecken?",
+      "options": [
+        "Den Wunsch, Neues zu lernen",
+        "Den Wunsch, mich mehr anzustrengen",
+        "Den Wunsch zu verstehen, was ich wirklich will"
+      ],
+      "r": "So ist es: Sogar Neid kann ein Werkzeug werden, wenn du ihn auf dich selbst richtest und nicht auf den anderen."
+    },
+    {
+      "age": "t",
+      "type": "quote",
+      "he": "קִנְאַת סוֹפְרִים תַּרְבֶּה חָכְמָה",
+      "src": "Bawa Batra 21a",
+      "tr": "„Der Neid der Gelehrten vermehrt die Weisheit.“",
+      "plain": "Wörtlich: „der Neid der Schreiber“. Der Talmud erlaubt, eine neue Schule neben einer alten zu eröffnen: Der Wettbewerb bringt beide Lehrer dazu, besser zu unterrichten. Das ist konstruktiver Neid. Schaul wollte, dass David weniger hat. Rachel wollte, dass sie selbst mehr Gutes hat.",
+      "q": "Wie erkennst du, welcher Neid gerade in dir lebt?",
+      "options": [
+        "Mich fragen: Will ich, dass er weniger hat?",
+        "Mich fragen: Was kann ich von ihm lernen?",
+        "Schauen, was ich nach diesem Gefühl tue",
+        "Weiß ich noch nicht"
+      ],
+      "r": "Eine gute Probe. Derselbe Funke kann dich zu Schaul oder zu Rachel machen. Der Unterschied ist, wohin du ihn lenkst."
+    },
+    {
+      "type": "reveal",
+      "text": "Wenn ein anderer seine Gabe hat, verschwindet deine dadurch nicht.",
+      "sub": "Man kann sich für andere freuen und den eigenen Wert nicht vergessen."
+    }
+  ]
+}

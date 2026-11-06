@@ -17,7 +17,7 @@ export const routeLink = (route: string, ref: Ref, lang?: string) =>
   `${SITE_URL}/?${lang ? `lang=${lang}&` : ''}ref=${ref}#/${route}`;
 
 /** Static pages for search engines (scripts/prerender.ts): Russian at the root, other languages under /<lang>/. */
-export type StaticPage = 'mental-math' | 'daily' | 'facts' | 'letters' | 'neviim' | 'ketuvim' | 'hebrew-words' | 'hemshech' | 'quiz' | 'nigun' | 'learn-hebrew';
+export type StaticPage = 'mental-math' | 'daily' | 'facts' | 'letters' | 'neviim' | 'ketuvim' | 'hebrew-words' | 'hemshech' | 'quiz' | 'nigun' | 'learn-hebrew' | 'free' | 'tehillim';
 export const STATIC_PAGES: Record<StaticPage, string> = {
   'mental-math': 'math/add',
   daily: 'daily',
@@ -35,6 +35,10 @@ export const STATIC_PAGES: Record<StaticPage, string> = {
   nigun: 'nigun',
   // «Учить иврит — язык Торы и Пророков»: the app opens the course «Святой язык — уроки»
   'learn-hebrew': 'lashon',
+  // «Святое чтение»: «вся книга Теґилим за 102 минуты»; the app opens the portion of the day
+  tehillim: 'reading',
+  // «Всё бесплатно»: what the academy gives without a subscription; the app opens the same page
+  free: 'free',
 };
 export const staticPath = (page: StaticPage, lang: string) => `/${lang === 'ru' ? '' : `${lang}/`}${page}/`;
 export const pageLink = (page: StaticPage, lang: string, ref?: Ref) => `${SITE_URL}${staticPath(page, lang)}${ref ? `?ref=${ref}` : ''}`;

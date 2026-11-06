@@ -14,17 +14,48 @@
  */
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { buildCycle } from './tanakh-cycle';
-import { BOOKS, restReason, track, SECTIONS } from '../src/core/tanakhCycle';
+import { BOOKS, oneYearCycle, restReason, track, SECTIONS, splitTrack, studyDaysBetween } from '../src/core/tanakhCycle';
 import cycleJson from '../src/tanakh/cycle.json';
 import { styleErrors } from './style-rules';
 import { tanakhLang, tanakhNarration } from '../src/core/tanakhNarration';
+import { dayOfVerse, resolveCite } from '../src/core/citations';
+import { CYCLE } from '../src/core/tanakh';
 
 const errors: string[] = [];
 const err = (m: string) => errors.push(m);
 
+// ссылки ИИ-учителя на стихи (src/core/citations.ts): каждая книга Пророков и Писаний по имени Sefaria — на сайт, Тора — на Sefaria
+for (const b of BOOKS) {
+  const c = resolveCite(`${b.sefaria} 1:1`, 'ru');
+  if (!c || c.href !== `#/verse/${b.slug}-1-1`) err(`citations: «${b.sefaria} 1:1» is not a link to the site`);
+  const last = b.verses.length;
+  if (!dayOfVerse(b.slug, last, b.verses[last - 1], CYCLE)) err(`citations: ${b.slug} ${last}:${b.verses[last - 1]} has no day in the cycle`);
+}
+if (!resolveCite('Genesis 12:1', 'en')?.external || resolveCite('Psalms 151:1', 'ru') || resolveCite('Berakhot 5a', 'ru')) err('citations: Torah → Sefaria; a verse that does not exist or a non-verse → plain text');
+
 const built = buildCycle();
 if (JSON.stringify(built.days) !== JSON.stringify(cycleJson.days) || built.end !== cycleJson.end)
   err('src/tanakh/cycle.json устарел — запустите npx tsx scripts/tanakh-cycle.ts');
+
+const annual = oneYearCycle('2026-10-27');
+const annualEnd = '2027-10-27';
+const annualDates = studyDaysBetween('2026-10-27', annualEnd);
+if (annual.length !== annualDates.length || annual.some((d, i) => d.date !== annualDates[i]))
+  err('личный годовой план: даты не совпадают с учебными днями года');
+for (const section of SECTIONS) {
+  const total = track(section).length;
+  let at = 0;
+  for (const d of annual) {
+    if (restReason(d.date)) err(`личный годовой план: ${d.date} — день отдыха`);
+    const [from, to] = d[section];
+    if (from !== at || to <= from) err(`личный годовой план ${section}: граница нарушена в ${d.date}`);
+    at = to;
+  }
+  if (at !== total) err(`личный годовой план ${section}: пройдено ${at} стихов из ${total}`);
+  const even = splitTrack(section, annual.length);
+  if (JSON.stringify(annual.map((d) => d[section][0]).concat(total)) !== JSON.stringify(even))
+    err(`личный годовой план ${section}: отрывки распределены неравномерно`);
+}
 
 const days = cycleJson.days as [string, number, number, number, number][];
 days.forEach(([d], i) => {
@@ -69,6 +100,8 @@ for (const lang of LANGS) {
 }
 const ALLOWED = ['<b>', '</b>', '<small class="fn">', '</small>'];
 const badTags = (html: string) => (html.match(/<[^>]*>/g) ?? []).some((tg) => !ALLOWED.includes(tg));
+// Имена в иврите стиха — как на Sefaria; замены проекта (ה׳, אלקים, צב-אות, אד-ני) — ошибка
+const SUBSTITUTED = /ה׳|(^|[^א-ת])[והבכלמש]*אלק(ים|יכם|יכן|ינו|יך|יו|יה|יהם|י)(?![א-ת])|צב-אות|אד-ני/;
 // Имена — как в scripts/fetch-sources.py: Б-г, Г-сподь; G-d, L-rd; по-немецки G-tt, der Ewige (Herr — только «мой господин», אדני)
 const badName: Record<Lang, (s: string) => string[]> = {
   ru: (s) => (/(^|[^\p{L}-])(Бог|Господ|Бож)/u.test(s) ? ['Имена по-русски — Б-г, Г-сподь'] : []),
@@ -124,11 +157,13 @@ for (const f of files) {
       if (!v.he || !v.en) err(`${where}: нет иврита или английского`);
       if ('st' in v || 'intro' in v) err(`${where}: Штейнзальц (© Steinsaltz Center) на сайте не приводится`);
       const comms = [v.md, v.rashi].filter(Boolean) as Comm[];
-      const he = [v.he, ...comms.flatMap((x) => x.he ?? [])].join(' ');
+      const he = comms.flatMap((x) => x.he ?? []).join(' ');
       const en = [v.en, ...comms.flatMap((x) => x.en ?? [])].join(' ');
       // по словам: макаф разделяет слова («דִּי־הֲוָה» — не Имя)
       const plain = he.replace(/\u05BE/g, ' ').replace(/[\u0591-\u05C7]/g, '');
-      if (/(^|[^א-ת])[והבכלמש]*יהוה(?![א-ת])|(^|[^א-ת])[והבכלמש]?ה'(?![א-ת])/.test(plain)) err(`${where}: Имя не по правилам проекта (ה׳)`);
+      if (/(^|[^א-ת])[והבכלמש]*יהוה(?![א-ת])|(^|[^א-ת])[והבכלמש]?ה'(?![א-ת])/.test(plain)) err(`${where}: Имя в комментарии не по правилам проекта (ה׳)`);
+      // the verse itself — as on Sefaria: the Names in full spelling (יְהוָה, אֱלֹהִים), not the project's ה׳ / אלקים
+      if (SUBSTITUTED.test(` ${v.he.replace(/\u05BE/g, ' ').replace(/[\u0591-\u05C7\u200d]/g, '')} `)) err(`${where}: Имя в стихе заменено — нужно полное написание, как на Sefaria`);
       if (/\b(God|LORD|Lord)\b/.test(en)) err(`${where}: G-d / L-rd`);
       for (const x of comms) if (badTags(Object.values(x).flat().join(' '))) err(`${where}: в HTML комментария лишние теги`);
       // переводы проекта: как в src/tanakh/<язык>, и целиком

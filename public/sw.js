@@ -53,7 +53,8 @@ const offline = (html) =>
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   const url = new URL(req.url);
-  if (req.method !== 'GET' || url.origin !== location.origin || url.pathname.startsWith('/__niflaot/')) return;
+  // «Тайна Коэлета» (koelet/) — its own files, music and pictures: not cached, the browser fetches them
+  if (req.method !== 'GET' || url.origin !== location.origin || url.pathname.startsWith('/__niflaot/') || url.pathname.startsWith('/koelet/')) return;
   if (req.mode === 'navigate') {
     e.respondWith(
       fetch(req)
@@ -126,6 +127,12 @@ const WORDS_LINE = {
   en: 'Words to review: {n} — “My words”',
   de: 'Wörter wiederholen: {n} — „Meine Wörter“',
 };
+// «Zip — стих Торы» (src/core/zip.ts): to those who play it and haven't solved today's verse — a line under the message
+const ZIP_LINE = {
+  ru: 'Zip — стих Торы: новый стих ждёт · уровень {n}',
+  en: 'Zip — a Torah verse: a new verse is waiting · level {n}',
+  de: 'Zip — ein Vers der Tora: ein neuer Vers wartet · Stufe {n}',
+};
 // «После чего вы будете учиться?» (src/core/push.ts, ANCHORS): the first line of the message
 const ANCHOR_LINE = {
   ru: { prayer: 'После утренней молитвы — время учиться', breakfast: 'После завтрака — время учиться', lunch: 'В обед — время учиться', school: 'После школы — время учиться', work: 'После работы — время учиться', dinner: 'После ужина — время учиться' },
@@ -179,14 +186,17 @@ self.addEventListener('push', (e) => {
       const p = await prefs();
       const lang = ['ru', 'en', 'de'].includes(p.lang) ? p.lang : 'ru';
       const m = await todaysMessage(lang, p.mode);
-      const due = p.mode === 'adults' && Array.isArray(p.wordsDue) ? p.wordsDue.filter((d) => d <= dayNumber()).length : 0;
+      // «учу» — все, что пора; «знаю» — не больше 25 в день (DAILY_KNOWN в src/core/words.ts)
+      const dueOf = (a) => (Array.isArray(a) ? a.filter((d) => d <= dayNumber()).length : 0);
+      const due = p.mode === 'adults' ? dueOf(p.wordsDue) + Math.min(25, dueOf(p.wordsKnownDue)) : 0;
       const anchor = ANCHOR_LINE[lang][p.anchor];
-      const body = due ? `${m.body}\n${(WORDS_LINE[lang] || WORDS_LINE.ru).replace('{n}', due)}` : m.body;
+      let body = due ? `${m.body}\n${(WORDS_LINE[lang] || WORDS_LINE.ru).replace('{n}', due)}` : m.body;
+      if (p.zip && p.zip.w !== localDate()) body += `\n${(ZIP_LINE[lang] || ZIP_LINE.ru).replace('{n}', p.zip.l)}`;
       await self.registration.showNotification(m.title, {
         body: anchor ? `${anchor}\n${body}` : body,
         lang,
-        icon: '/icons/icon-192.png',
-        badge: '/icons/icon-192.png',
+        icon: '/icons/icon-192.png?v=2',
+        badge: '/icons/icon-192.png?v=2',
         tag: 'niflaot-daily',
         data: { url: m.url },
       });
