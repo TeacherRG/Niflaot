@@ -35,7 +35,7 @@ export function TabBar({ slug, view }: { slug: string; view?: string }) {
       ]
     : [
         { href: '#/', label: t('menu.home'), icon: <Icon name="home" />, here: !slug },
-        { href: '#/lashon', label: t('tab.words'), icon: he('אב'), here: slug === 'lashon' || slug === 'torah-words' || slug === 'letters' },
+        { href: '#/lashon', label: t('tab.words'), icon: he('אב'), here: slug === 'lashon' || slug === 'pics' || slug === 'torah-words' || slug === 'letters' },
         { href: '#/facts', label: t('tab.facts'), icon: <Icon name="hash" />, here: slug === 'facts' || slug === 'daily' },
         { href: '#/academy', label: t('academy.title'), icon: <Icon name="award" />, here: slug === 'academy' },
       ];

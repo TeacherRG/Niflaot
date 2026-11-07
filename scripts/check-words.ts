@@ -15,6 +15,7 @@ import { LESSONS } from '../src/lessons';
 import { makeRound, torahWords, torahWordsCertificates } from '../src/core/torahWords';
 import { readHebrew } from '../src/core/translit';
 import { DAILY_KNOWN, MERGED, todaysReview, type WordStore } from '../src/core/words';
+import { apart, makePicRound, PIC_WORDS } from '../src/core/picWords';
 
 type Lang = 'ru' | 'en' | 'de';
 const errors: string[] = [];
@@ -214,9 +215,24 @@ for (const lang of ['ru', 'en', 'de'] as Lang[]) {
       if (readHebrew(he, l) !== want[i]) err(`чтение слова ${he} (${l}): «${readHebrew(he, l)}», а нужно «${want[i]}»`);
     });
 }
+// «Слово — картинка»: у каждого слова игры — картинка, перевод на трёх языках; в вопросе — 4 картинки, которые не путаются
+{
+  if (new Set(PIC_WORDS).size !== PIC_WORDS.length) err('«Слово — картинка»: слово дважды');
+  for (const id of PIC_WORDS) {
+    if (!existsSync(`public/lashon/pics/${id}.webp`)) err(`«Слово — картинка»: нет картинки public/lashon/pics/${id}.webp`);
+    for (const l of ['ru', 'en', 'de'] as const) if (!tr[l][id]) err(`«Слово — картинка»: у ${id} нет перевода (${l})`);
+  }
+  let seed = 1;
+  const rnd = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+  for (let k = 0; k < 200; k++)
+    for (const q of makePicRound(PIC_WORDS, {}, 10, rnd)) {
+      if (q.options.length !== 4 || !q.options.includes(q.id)) err(`«Слово — картинка»: вопрос ${q.id} — не 4 варианта`);
+      for (const a of q.options) for (const b of q.options) if (a < b && !apart(a, b)) err(`«Слово — картинка»: ${a} и ${b} в одном вопросе`);
+    }
+}
 if (errors.length) {
   console.error(`✗ Слова отрывка: ${errors.length} ошибок\n  ${errors.slice(0, 40).join('\n  ')}`);
   process.exit(1);
 }
 const learn = Object.keys(tr.ru).length;
-console.log(`✓ Слова отрывка: словарь ${ids.length} слов, переведено ${learn} (${dict.words[learn - 1].cov}% текста) на ru/en/de, файлы всех ${cycleJson.days.length} дней; «Слова Торы» для детей — ${deck} слов из уроков`);
+console.log(`✓ Слова отрывка: словарь ${ids.length} слов, переведено ${learn} (${dict.words[learn - 1].cov}% текста) на ru/en/de, файлы всех ${cycleJson.days.length} дней; «Слова Торы» для детей — ${deck} слов из уроков; «Слово — картинка» — ${PIC_WORDS.length} слов`);
