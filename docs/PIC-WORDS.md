@@ -96,11 +96,81 @@ tunics and cloaks; women in long dresses with a head covering; men with beards. 
 | 48 | 68 | אֶבֶן | камень | one large rough stone | 6 |
 | 49 | 5612 | סֵפֶר | книга | a closed thick old book with a ribbon bookmark, blank cover | 1 |
 | 50 | 3915 | לַיְלָה | ночь | a dark night sky with a crescent moon and stars over a sleeping village | 2 |
-| 51 | 702 | אַרְבַּע | четыре | exactly FOUR pomegranates, two above two | 2 |
-| 52 | 3627 | כְּלִי | сосуд | an ancient clay jar with two handles | 3 |
-| 53 | 639 | אַף | нос | a human nose, close-up, side view | 5 |
 
 ---
+
+## 2а. Следующие 50 картинок (51–100)
+
+51–55 — пять, которых ещё нет («четыре», «сосуд», «нос» и заново «семь», «хлеб»), 56–100 — следующие по частоте слова, которые
+можно нарисовать. Отвлечённые слова, Имена, ангелы, ковчег, идолы, кровь и Мишкан пропущены.
+
+**Добавить к общему стилю** (прошлая партия пришла коллажем, рисунки обрезаны):
+
+```
+ONE single image per request. Full square canvas, the background colour fills the whole canvas edge to edge.
+No grid, no panels, no frames, no borders, no white margins, nothing from other pictures.
+The whole object is inside the frame with empty space on every side — nothing touches or is cut by the edge.
+```
+
+Файлы — по номеру таблицы: `51.png` … `100.png`.
+
+| № | Стронг | Слово | Перевод | Что нарисовать | Фон |
+|---|---|---|---|---|---|
+| 51 | 702 | אַרְבַּע | четыре | exactly FOUR pomegranates, two above two, all four whole and well inside the frame | 2 |
+| 52 | 3627 | כְּלִי | сосуд | an ancient clay jar with two handles | 3 |
+| 53 | 639 | אַף | нос | a human nose, close-up, side view | 5 |
+| 54 | 7651 | שֶׁבַע | семь | exactly SEVEN pomegranates: a row of four above a row of three, every one whole, well inside the frame | 4 |
+| 55 | 3899 | לֶחֶם | хлеб | a round loaf of bread, whole, centred, with space on all sides | 6 |
+| 56 | 4196 | מִזְבֵּחַ | жертвенник | a square altar of rough stones with four small horn-shaped corners, nothing on it | 1 |
+| 57 | 4057 | מִדְבָּר | пустыня | desert: sand dunes under a hot sky, one small acacia tree | 2 |
+| 58 | 517 | אֵם | мать | a mother in a long dress and head covering holding a small child by the hand; a coral-pink arrow points at the mother | 3 |
+| 59 | 241 | אֹזֶן | ухо | one human ear, close-up, side view | 5 |
+| 60 | 8337 | שֵׁשׁ | шесть | exactly SIX pomegranates: two rows of three, every one whole | 4 |
+| 61 | 1242 | בֹּקֶר | утро | morning: the sun just rising over hills, rooster on a fence | 6 |
+| 62 | 6235 | עֶשֶׂר | десять | exactly TEN pomegranates: two rows of five, small, every one whole | 1 |
+| 63 | 168 | אֹהֶל | шатёр | a goat-hair tent of the desert, open flap, tent pegs and ropes | 2 |
+| 64 | 3678 | כִּסֵּא | престол, трон | an empty golden throne with lions carved on the armrests, nobody on it | 3 |
+| 65 | 5483 | סוּס | конь | a horse standing, side view | 5 |
+| 66 | 2346 | חוֹמָה | стена (городская) | a long city wall of big stone blocks with battlements, no gate | 4 |
+| 67 | 2205 | זָקֵן | старый, старейшина | an old man with a long white beard leaning on a walking stick | 6 |
+| 68 | 5104 | נָהָר | река | a wide river flowing between green banks with reeds | 1 |
+| 69 | 3196 | יַיִן | вино | a clay wine jar and a goblet filled with dark red wine, no grapes | 2 |
+| 70 | 8121 | שֶׁמֶשׁ | солнце | a big bright sun with rays, nothing else | 3 |
+| 71 | 4294 | מַטֶּה | посох | a single wooden shepherd’s staff with a curved top, standing upright | 5 |
+| 72 | 7393 | רֶכֶב | колесница | an ancient two-wheeled chariot pulled by two horses, empty | 4 |
+| 73 | 899 | בֶּגֶד | одежда | a folded long tunic and a striped cloak lying on a chest | 6 |
+| 74 | 3671 | כָּנָף | крыло | one large bird wing with long feathers | 1 |
+| 75 | 5178 | נְחֹשֶׁת | медь | a shiny copper pot and copper bowl (reddish copper colour, not gold, not silver) | 2 |
+| 76 | 8083 | שְׁמֹנֶה | восемь | exactly EIGHT pomegranates: two rows of four, every one whole | 3 |
+| 77 | 8081 | שֶׁמֶן | масло (оливковое) | a small clay jug of golden olive oil with a few green olives beside it | 5 |
+| 78 | 738 | אַרְיֵה | лев | a lion standing, side view, with a big mane | 4 |
+| 79 | 1817 | דֶּלֶת | дверь | one closed wooden door with iron studs, in a stone frame, no house around | 6 |
+| 80 | 7892 | שִׁיר | песня | three children singing together, mouths open, a few floating musical notes | 1 |
+| 81 | 6529 | פְּרִי | плод | a basket of fruits: figs and dates (no pomegranates, no grapes) | 2 |
+| 82 | 3754 | כֶּרֶם | виноградник | a vineyard: neat rows of grapevines on a hillside | 3 |
+| 83 | 7198 | קֶשֶׁת | лук (для стрельбы); радуга | a hunting bow without an arrow, drawn large | 5 |
+| 84 | 352 | אַיִל | баран | a ram with big curled horns, standing | 4 |
+| 85 | 269 | אָחוֹת | сестра | two girls holding hands; a coral-pink arrow points at one of them | 6 |
+| 86 | 7782 | שׁוֹפָר | шофар | one ram’s-horn shofar, curved | 1 |
+| 87 | 730 | אֶרֶז | кедр | a tall cedar tree of Lebanon with wide flat layers of branches | 2 |
+| 88 | 6697 | צוּר | скала | a tall steep rocky cliff | 3 |
+| 89 | 1270 | בַּרְזֶל | железо | an iron axe head and an iron chain (dark grey metal) | 5 |
+| 90 | 7676 | שַׁבָּת | Шабат | two lit Shabbat candles in candlesticks and a covered challah on a table | 4 |
+| 91 | 4043 | מָגֵן | щит | a round ancient shield, front view | 6 |
+| 92 | 3206 | יֶלֶד | ребёнок | a small child (about 4 years old) standing and smiling, full figure | 1 |
+| 93 | 6153 | עֶרֶב | вечер | evening: the sun setting behind hills, orange-pink sky | 2 |
+| 94 | 2543 | חֲמוֹר | осёл | a donkey standing, side view | 3 |
+| 95 | 7979 | שֻׁלְחָן | стол | an empty wooden table, side view | 5 |
+| 96 | 4026 | מִגְדָּל | башня | one tall stone watchtower, alone on a hill | 4 |
+| 97 | 8127 | שֵׁן | зуб | one big white tooth | 6 |
+| 98 | 3658 | כִּנּוֹר | арфа, лира | an ancient wooden lyre (David’s harp) with strings | 1 |
+| 99 | 5775 | עוֹף | птица | one small bird sitting on a branch | 2 |
+| 100 | 1706 | דְּבַשׁ | мёд | a clay pot of honey with a honey dipper and one honeycomb | 3 |
+
+**Не встретятся в одном вопросе** (похожие): числа (все гранаты); люди (мать, сестра, ребёнок, старик — с мужчиной, отцом, сыном…);
+утро / вечер / солнце / день / ночь; река / море / вода; кедр / дерево; скала / камень / гора; стена / город / ворота / башня; дверь / дом;
+трон / царь; лев, конь, осёл, баран — с коровой и овцой; медь / железо / серебро / золото; вино / вода; виноградник / виноград / поле;
+Шабат / хлеб; посох / юноша; лира / песня.
 
 ## 3. Что проверить в каждой картинке
 
