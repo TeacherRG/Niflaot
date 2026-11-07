@@ -10342,6 +10342,1534 @@
    }
   }
  },
+ "gen-25-19": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 25:19",
+   "en": "Genesis 25:19",
+   "de": "Bereschit 25,19"
+  },
+  "ref": "Genesis 25:19",
+  "url": "https://www.sefaria.org/Genesis_25.19",
+  "he": [
+   "ואלה תולדת יצחק בן אברהם אברהם הוליד את יצחק"
+  ],
+  "en": [
+   "And these are the generations of Isaac, Abraham’s son: Abraham begot Isaac."
+  ],
+  "ru": [
+   "А вот порождения Йицхака, сына Авраама — Авраам породил Йицхака."
+  ],
+  "de": [
+   "Und dieses sind nun die Nachkommen Jizchaks, Sohn Abrahams; Abraham hatte Jizchak erzeugt."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-25-19": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 25:19",
+   "en": "Rashi, Genesis 25:19",
+   "de": "Raschi, Bereschit 25,19"
+  },
+  "ref": "Rashi on Genesis 25:19:2",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_25.19.2",
+  "he": [
+   "<b>אברהם הוליד את יצחק.</b> עַל יְדֵי שֶׁכָּתַב הַכָּתוּב יִצְחָק בֶּן אַבְרָהָם הֻזְקַק לוֹמַר אַבְרָהָם הוֹלִיד אֶת יִצְחָק; לְפִי שֶׁהָיוּ לֵיצָנֵי הַדּוֹר אוֹמְרִים מֵאֲבִימֶלֶךְ נִתְעַבְּרָה שָׂרָה, שֶׁהֲרֵי כַּמָּה שָׁנִים שָׁהֲתָה עִם אַבְרָהָם וְלֹא נִתְעַבְּרָה הֵימֶנּוּ; מֶה עָשָׂה הַקָּבָּ\"ה? צָר קְלַסְתֵּר פָּנָיו שֶׁל יִצְחָק דּוֹמֶה לְאַבְרָהָם, וְהֵעִידוּ הַכֹּל אַבְרָהָם הוֹלִיד אֶת יִצְחָק, וְזֶהוּ שֶׁכָּתוּב כָּאן יִצְחָק בֶּן אַבְרָהָם, שֶׁהֲרֵי עֵדוּת יֵשׁ שֶׁאַבְרָהָם הוֹלִיד אֶת יִצְחָק:"
+  ],
+  "en": [
+   "אברהם הוליד את יצחק ABRAHAM BEGAT ISAAC — Just because Scripture wrote, “Isaac, son of Abraham” it felt compelled to say “Abraham begat Isaac”, because the cynics of that time said, “Sarah became with child of Abimelech. See how many years she lived with Abraham without becoming with child”. What did the Holy One, blessed be He, do? He shaped Isaac’s facial features exactly similar to those of Abraham’s, so that everyone had to admit that Abraham begat Isaac. This is what is stated here: that Isaac was the son of Abraham, for there is evidence that Abraham begat Isaac (Midrash Tanchuma, Toldot 1)."
+  ],
+  "de": [
+   "<b>Abraham zeugte Jizchak</b> nachdem der Heilige, gelobt sei Er, ihm den Namen Abraham gegeben, zeugte er Jizchak; andere Erklärung, dadurch, dass der Vers geschrieben hat, Jizchaks, des Sohnes von Abraham, musste er sagen, Abraham zeugte Jizchak, weil die Spötter jenes Zeitalters sagten, durch Abimelech ist Sara Mutter geworden; denn so viele Jahre wohnte sie mit Abraham zusammen und wurde nicht Mutter durch ihn; was tat der Heilige, gelobt sei Er? Er formte die Gesichtszüge Jizchaks gleich denen Abrhams, so dass jeder bezeugte, Abraham ist der Vater von Jizchak; und das bedeuten hier die Worte: Jizchak war der Sohn Abrahams; denn es wird bezeugt, dass Abraham der Vater von Jizchak war (Tanchuma)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "gen-25-20": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 25:20",
+   "en": "Genesis 25:20",
+   "de": "Bereschit 25,20"
+  },
+  "ref": "Genesis 25:20",
+  "url": "https://www.sefaria.org/Genesis_25.20",
+  "he": [
+   "ויהי יצחק בן ארבעים שנה בקחתו את רבקה בת בתואל הארמי מפדן ארם אחות לבן הארמי לו לאשה"
+  ],
+  "en": [
+   "And Isaac was forty years old when he took Rebekah, the daughter of Bethuel the Aramean, of Paddan-aram, the sister of Laban the Aramean, to be his wife."
+  ],
+  "ru": [
+   "И было Йицхаку сорок лет, когда взял он Ривку, дочь Бетуэля Арами из Паддан Арама, сестру Лавана Арами, себе в жены."
+  ],
+  "de": [
+   "Jizchak war vierzig Jahre alt, als er Ribka, eine Tochter des Aramiten Betuel aus Padan- Aram, eine Schwester des Aramiten Laban, sich zur Frau nahm."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-25-21": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 25:21",
+   "en": "Genesis 25:21",
+   "de": "Bereschit 25,21"
+  },
+  "ref": "Genesis 25:21",
+  "url": "https://www.sefaria.org/Genesis_25.21",
+  "he": [
+   "ויעתר יצחק לה׳ לנכח אשתו כי עקרה הוא ויעתר לו ה׳ ותהר רבקה אשתו"
+  ],
+  "en": [
+   "And Isaac entreated the L-rd for his wife, because she was barren; and the L-rd let Himself be entreated of him, and Rebekah his wife conceived."
+  ],
+  "ru": [
+   "И попросил Йицхак Г-спода за Ривку, жену свою, потому что она (была) бесплодна, и внял Г-сподь, и зачала Ривка, жена его."
+  ],
+  "de": [
+   "Da flehte Jizchak zu <i>G-tt</i> in betreff seiner Frau, denn sie war unfruchtbar; da wurde ihm <i>G-tt</i> erfleht, seine Frau Ribka empfing."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "obadiah-1-18": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Овадья 1:18",
+   "en": "Obadiah 1:18",
+   "de": "Owadja 1,18"
+  },
+  "ref": "Obadiah 1:18",
+  "url": "https://www.sefaria.org/Obadiah_1.18",
+  "he": [
+   "והיה בית יעקב אש ובית יוסף להבה ובית עשו לקש ודלקו בהם ואכלום ולא יהיה שריד לבית עשו כי ה׳ דבר"
+  ],
+  "en": [
+   "And the house of Jacob shall be a fire, And the house of Joseph a flame, And the house of Esau for stubble, And they shall kindle in them, and devour them; And there shall not be any remaining of the house of Esau; For the L-rd hath spoken."
+  ],
+  "de": [
+   "Das Haus Jakob wird wie Feuer und das Haus Josef eine Flamme, aber das Haus Esau zu Stoppeln, und jene zünden sie an und verzehren sie, und es bleibt keiner übrig dem Hause Esau, denn der Herr hat es verheißen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/  "
+   }
+  }
+ },
+ "gen-25-26": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 25:26",
+   "en": "Genesis 25:26",
+   "de": "Bereschit 25,26"
+  },
+  "ref": "Genesis 25:26",
+  "url": "https://www.sefaria.org/Genesis_25.26",
+  "he": [
+   "ואחרי כן יצא אחיו וידו אחזת בעקב עשו ויקרא שמו יעקב ויצחק בן ששים שנה בלדת אתם"
+  ],
+  "en": [
+   "And after that came forth his brother, and his hand had hold on Esau’s heel; and his name was called Jacob. And Isaac was threescore years old when she bore them."
+  ],
+  "ru": [
+   "А потом вышел его брат, и рука его держалась за пятку Эсава, и назвали его Йааков. А Йицхаку было шестьдесят лет, когда они родились."
+  ],
+  "de": [
+   "Nachher kam sein Bruder hervor, seine Händ Esaws Ferse haltend, den nannte er Jaakob; Jizchak war sechzig Jahre alt, als sie sie gebar."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-25-27": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 25:27",
+   "en": "Genesis 25:27",
+   "de": "Bereschit 25,27"
+  },
+  "ref": "Genesis 25:27",
+  "url": "https://www.sefaria.org/Genesis_25.27",
+  "he": [
+   "ויגדלו הנערים ויהי עשו איש ידע ציד איש שדה ויעקב איש תם ישב אהלים"
+  ],
+  "en": [
+   "And the boys grew; and Esau was a cunning hunter, a man of the field; and Jacob was a quiet man, dwelling in tents."
+  ],
+  "ru": [
+   "И выросли отроки, и стал Эсав человеком, искусным в охоте, человеком поля, а Йааков — человеком простым, живущим в шатрах."
+  ],
+  "de": [
+   "Als nun die Knaben heranwuchsen, da war Esaw ein Mann, der den Fang versteht, ein Mann des Feldes; und Jaakob ein sich ganz hingebender Mann, der in Zelten wohnt."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-25-27": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 25:27",
+   "en": "Rashi, Genesis 25:27",
+   "de": "Raschi, Bereschit 25,27"
+  },
+  "ref": "Rashi on Genesis 25:27:5",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_25.27.5",
+  "he": [
+   "<b>ישב אהלים.</b> אָהֳלוֹ שֶׁל שֵׁם וְאָהֳלוֹ שֶׁל עֵבֶר:"
+  ],
+  "en": [
+   "יושב אהלים DWELLING IN TENTS — the tent of Shem and the tent of Eber (Genesis Rabbah 63:10)."
+  ],
+  "de": [
+   "<b>Der in Zelten wohnte,</b> im Zelte von Schem und im Zelte von Eber (Bereschit Rabbah 63:10)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "kings1-6-1": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Млахим I 6:1",
+   "en": "I Kings 6:1",
+   "de": "I Könige 6,1"
+  },
+  "ref": "I Kings 6:1",
+  "url": "https://www.sefaria.org/I_Kings_6.1",
+  "he": [
+   "ויהי בשמונים שנה וארבע מאות שנה לצאת בני ישראל מארץ מצרים בשנה הרביעית בחדש זו הוא החדש השני למלך שלמה על ישראל ויבן הבית לה׳"
+  ],
+  "en": [
+   "And it came to pass in the four hundred and eightieth year after the children of Israel were come out of the land of Egypt, in the fourth year of Solomon’s reign over Israel, in the month Ziv, which is the second month, that he began to build the house of the L-rd."
+  ],
+  "de": [
+   "Im vierhundert und achtzigsten Jahre nach dem Auszug der Kinder Israel aus dem Lande Ägypten, im vierten Jahre im Monat Siv — das ist der zweite Monat — der Regierung Salomos über Israel, baute er das Haus des Herrn."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-25-30": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 25:30",
+   "en": "Genesis 25:30",
+   "de": "Bereschit 25,30"
+  },
+  "ref": "Genesis 25:30",
+  "url": "https://www.sefaria.org/Genesis_25.30",
+  "he": [
+   "ויאמר עשו אל יעקב הלעיטני נא מן האדם האדם הזה כי עיף אנכי על כן קרא שמו אדום"
+  ],
+  "en": [
+   "And Esau said to Jacob: ‘Let me swallow, I pray thee, some of this red, red pottage; for I am faint.’ Therefore was his name called Edom."
+  ],
+  "ru": [
+   "И сказал Эсав Йаакову: влей мне этого красного, красного, а то голоден я! Потому и назвали его Эдом."
+  ],
+  "de": [
+   "Da sprach Esaw zu Jaakob: Laß mich doch von diesem so Roten da schlingen, denn ich bin matt! Darum nannte er sich Edom."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-26-3": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 26:3",
+   "en": "Genesis 26:3",
+   "de": "Bereschit 26,3"
+  },
+  "ref": "Genesis 26:3",
+  "url": "https://www.sefaria.org/Genesis_26.3",
+  "he": [
+   "גור בארץ הזאת ואהיה עמך ואברכך כי לך ולזרעך אתן את כל הארצת האל והקמתי את השבעה אשר נשבעתי לאברהם אביך"
+  ],
+  "en": [
+   "Sojourn in this land, and I will be with thee, and will bless thee; for unto thee, and unto thy seed, I will give all these lands, and I will establish the oath which I swore unto Abraham thy father;"
+  ],
+  "ru": [
+   "Поселись в этой земле, и я буду с тобой и благословлю тебя, ибо тебе и твоему потомству отдам я все эти земли и исполню клятву, что дал я Аврааму, отцу твоему."
+  ],
+  "de": [
+   "Halte dich in diesem Lande auf, so werde ich mit dir sein und dich segnen; denn dir und deinem Samen gebe ich alle diese Länder und halte den Schwur aufrecht, den ich deinem Vater Abraham geschworen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-26-5": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 26:5",
+   "en": "Genesis 26:5",
+   "de": "Bereschit 26,5"
+  },
+  "ref": "Genesis 26:5",
+  "url": "https://www.sefaria.org/Genesis_26.5",
+  "he": [
+   "עקב אשר שמע אברהם בקלי וישמר משמרתי מצותי חקותי ותורתי"
+  ],
+  "en": [
+   "because that Abraham hearkened to My voice, and kept My charge, My commandments, My statutes, and My laws.’"
+  ],
+  "ru": [
+   "потому что слушался меня Авраам и соблюдал мои уставы, заповеди, законы и учения."
+  ],
+  "de": [
+   "als Folge davon, daß Abraham auf meine Stimme gehört und was ich ihm zur Hut übergab, gehütet: meine Gebote, meine Gesetze und meine Lehren."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "ex-20-2": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Шмот 20:2–14",
+   "en": "Exodus 20:2–14",
+   "de": "Schemot 20,2–14"
+  },
+  "ref": "Exodus 20:2-14",
+  "url": "https://www.sefaria.org/Exodus_20.2-14",
+  "he": [
+   "אנכי ה׳ אלקיך אשר הוצאתיך מארץ מצרים מבית עבדים",
+   "לא יהיה לך אלקים אחרים על פני",
+   "לא תעשה לך פסל וכל תמונה אשר בשמים ממעל ואשר בארץ מתחת ואשר במים מתחת לארץ",
+   "לא תשתחוה להם ולא תעבדם כי אנכי ה׳ אלקיך אל קנא פקד עון אבת על בנים על שלשים ועל רבעים לשנאי",
+   "ועשה חסד לאלפים לאהבי ולשמרי מצותי",
+   "לא תשא את שם ה׳ אלקיך לשוא כי לא ינקה ה׳ את אשר ישא את שמו לשוא",
+   "זכור את יום השבת לקדשו",
+   "ששת ימים תעבד ועשית כל מלאכתך",
+   "ויום השביעי שבת לה׳ אלקיך לא תעשה כל מלאכה אתה ובנך ובתך עבדך ואמתך ובהמתך וגרך אשר בשעריך",
+   "כי ששת ימים עשה ה׳ את השמים ואת הארץ את הים ואת כל אשר בם וינח ביום השביעי על כן ברך ה׳ את יום השבת ויקדשהו",
+   "כבד את אביך ואת אמך למען יארכון ימיך על האדמה אשר ה׳ אלקיך נתן לך",
+   "לא תרצח לא תנאף לא תגנב לא תענה ברעך עד שקר",
+   "לא תחמד בית רעך לא תחמד אשת רעך ועבדו ואמתו ושורו וחמרו וכל אשר לרעך"
+  ],
+  "en": [
+   "I am the L-rd thy G-d, who brought thee out of the land of Egypt, out of the house of bondage.",
+   "Thou shalt have no other gods before Me.",
+   "Thou shalt not make unto thee a graven image, nor any manner of likeness, of any thing that is in heaven above, or that is in the earth beneath, or that is in the water under the earth;",
+   "thou shalt not bow down unto them, nor serve them; for I the L-rd thy G-d am a jealous G-d, visiting the iniquity of the fathers upon the children unto the third and fourth generation of them that hate Me;",
+   "and showing mercy unto the thousandth generation of them that love Me and keep My commandments.",
+   "Thou shalt not take the name of the L-rd thy G-d in vain; for the L-rd will not hold him guiltless that taketh His name in vain.",
+   "Remember the sabbath day, to keep it holy.",
+   "Six days shalt thou labour, and do all thy work;",
+   "but the seventh day is a sabbath unto the L-rd thy G-d, in it thou shalt not do any manner of work, thou, nor thy son, nor thy daughter, nor thy man-servant, nor thy maid-servant, nor thy cattle, nor thy stranger that is within thy gates;",
+   "for in six days the L-rd made heaven and earth, the sea, and all that in them is, and rested on the seventh day; wherefore the L-rd blessed the sabbath day, and hallowed it.",
+   "Honour thy father and thy mother, that thy days may be long upon the land which the L-rd thy G-d giveth thee.",
+   "Thou shalt not murder. Thou shalt not commit adultery. Thou shalt not steal. Thou shalt not bear false witness against thy neighbour.",
+   "Thou shalt not covet thy neighbour’s house; thou shalt not covet thy neighbour’s wife, nor his man-servant, nor his maid-servant, nor his ox, nor his ass, nor any thing that is thy neighbour’s."
+  ],
+  "ru": [
+   "Я Г-сподь, Б-г твой, что вывел тебя из земли египетской, из дома рабства.",
+   "Да не будет у тебя других богов, кроме меня.",
+   "Не делай себе статуй, изображений (того, что) на небесах вверху, на земле внизу или в водах, что под землей.",
+   "Не поклоняйся им и не служи им, ибо я Г-сподь, Б-г твой, бог ревнивый, спрашивающий за грехи отцов с детей до третьего и четвертого поколения",
+   "и оказывающий милость до тысячного поколения любящим меня и соблюдающим мои заповеди.",
+   "Не произноси имени Г-спода, Б-га твоего, напрасно; не прощает Г-сподь тех, кто произносит имя его напрасно.",
+   "Помни день субботний и освящай его.",
+   "Шесть дней работай и занимайся всеми своими делами.",
+   "А седьмой день — суббота для Г-спода, Б-га твоего; не делай никаких дел ни ты (сам), ни раб твой, ни служанка твоя, ни скот твой, ни пришелец, (живущий) в твоих пределах.",
+   "Ибо за шесть дней сотворил Г-сподь небеса, землю, море и все, что в них, и отдохнул на седьмой день. Потому благословил Г-сподь седьмой день и освятил его.",
+   "Почитай отца своего и мать свою, дабы продлились дни твои на земле, которую Г-сподь, Б-г твой, дает тебе.",
+   "Не убивай. Не прелюбодействуй. Не кради. Не лжесвидетельствуй против ближнего.",
+   "Не желай (отнять) дом ближнего, не желай (отнять) жену ближнего, раба и служанку его, вола и осла его и все, что (принадлежит) твоему ближнему."
+  ],
+  "de": [
+   "Ich, ד׳, sei dein G-tt, der ich dich aus dem Lande Mizrajim, aus dem Sklavenhause hinausgeführt.",
+   "Es soll dir nicht ein anderer G-tt sein vor meinem Angesichte.",
+   "Mache dir nicht in Bild, noch in irgend einer Darstellung, was im Himmel in der Höhe, was auf Erden in der Tiefe, oder was im Wasser ist tief unter der Erde,",
+   "wirf dich ihnen nicht hin und diene ihnen nicht; denn ich, ד׳, dein G-tt, bin ein sein ausschließendes Recht fordernder G-tt, denke die Sünde von Eltern an Kindern, an dritten und an vierten Geschlechtern, denen, die mich hassen,",
+   "und übe Liebe Tausenden, denen die mich lieben, und denen, die meine Gebote hüten.",
+   "Nimm nicht den Namen ד׳ deines <i>G-ttes</i> zum Gleichgültigen auf dich; denn es läßt <i>G-tt</i> den nicht frei, der seinen Namen zum Gleichgültigen auf sich nimmt.",
+   "Denke des Schabbattages ihn zu heiligen.",
+   "Sechs Tage diene und schaffe all dein Werk,",
+   "und der siebte Tag ist Schabbat <i>G-tt</i>, deinem G-tte. Keinerlei Werk sollst du schaffen, du und dein Sohn und deine Tochter, dein Knecht und deine Magd, und dein Vieh, und dein Fremder, der in deinen Toren;",
+   "denn sechs Tage hatte <i>G-tt</i> den Himmel und die Erde, das Meer und alles, was in ihnen ist, gebildet, als er mit dem siebten Tage ruhte; darum hat <i>G-tt</i> den Tag des Schabbats gesegnet, da er ihn heiligte.",
+   "Ehre deinen Vater und deine Mutter; damit lange deine Tage dauern auf dem Boden, den <i>G-tt</i>, dein G-tt, dir gibt.",
+   "Du sollst nicht morden; du sollst nicht ehebrechen; du sollst nicht stehlen; du sollst nicht als Lügenzeuge wider deinen Nächsten aussagen.",
+   "Du sollst nicht erlüsten das Haus deines Nächsten; du sollst nicht erlüsten das Weib deines Nächsten, seinen Knecht, seine Magd, seinen Ochsen, seinen Esel, noch irgend was deinem Nächsten gehört."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-26-20": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 26:20–22",
+   "en": "Genesis 26:20–22",
+   "de": "Bereschit 26,20–22"
+  },
+  "ref": "Genesis 26:20-22",
+  "url": "https://www.sefaria.org/Genesis_26.20-22",
+  "he": [
+   "ויריבו רעי גרר עם רעי יצחק לאמר לנו המים ויקרא שם הבאר עשק כי התעשקו עמו",
+   "ויחפרו באר אחרת ויריבו גם עליה ויקרא שמה שטנה",
+   "ויעתק משם ויחפר באר אחרת ולא רבו עליה ויקרא שמה רחבות ויאמר כי עתה הרחיב ה׳ לנו ופרינו בארץ"
+  ],
+  "en": [
+   "And the herdmen of Gerar strove with Isaac’s herdmen, saying: ‘The water is ours.’ And he called the name of the well Esek; because they contended with him.",
+   "And they digged another well, and they strove for that also. And he called the name of it Sitnah.",
+   "And he removed from thence, and digged another well; and for that they strove not. And he called the name of it Rehoboth; and he said: ‘For now the L-rd hath made room for us, and we shall be fruitful in the land.’"
+  ],
+  "ru": [
+   "И пререкались герарские пастухи с пастухами Йицхака, мол, наша это вода, и назвали колодец Эсек, потому что спорили они с ним.",
+   "И вырыли другой колодец, и пререкались о нем тоже, и назвал его Ситна.",
+   "И он двинулся оттуда, и вырыл другой колодец, и не пререкались о нем, и назвал его Реховот, и сказал: ведь сейчас Г-сподь дал нам простор, и размножимся мы в стране."
+  ],
+  "de": [
+   "Da stritten die Hirten von Gerar mit Jizchaks Hirten und sagten: Unser ist das Wasser! Darum nannte er den Brunnen Eßek (Händel); denn sie hatten Händel mit ihm gesucht.",
+   "Sie gruben einen anderen Brunnen, auch über den stritten sie, da nannte er ihn Sitna (Hinderung).",
+   "Er rückte von dort fort und grub einen anderen Brunnen, über den stritten sie nicht, da nannte er ihn Rechobot (Räumlichkeit) und sprach: Denn jetzt hat <i>G-tt</i> uns Raum geschafft, nun können wir in dem Lande gedeihen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-27-5": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 27:5",
+   "en": "Genesis 27:5",
+   "de": "Bereschit 27,5"
+  },
+  "ref": "Genesis 27:5",
+  "url": "https://www.sefaria.org/Genesis_27.5",
+  "he": [
+   "ורבקה שמעת בדבר יצחק אל עשו בנו וילך עשו השדה לצוד ציד להביא"
+  ],
+  "en": [
+   "And Rebekah heard when Isaac spoke to Esau his son. And Esau went to the field to hunt for venison, and to bring it."
+  ],
+  "ru": [
+   "А Ривка слышала то, что говорил Йицхак своему сыну Эсаву, и пошел Эсав в поле наловить дичи, чтобы принести (домой)."
+  ],
+  "de": [
+   "Ribka aber hörte, als Jizchak zu seinem Sohne Esaw sprach, und Esaw ging aufs Feld, Wild zu jagen, um es heimzubringen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-27-9": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 27:9",
+   "en": "Genesis 27:9",
+   "de": "Bereschit 27,9"
+  },
+  "ref": "Genesis 27:9",
+  "url": "https://www.sefaria.org/Genesis_27.9",
+  "he": [
+   "לך נא אל הצאן וקח לי משם שני גדיי עזים טבים ואעשה אתם מטעמים לאביך כאשר אהב"
+  ],
+  "en": [
+   "Go now to the flock, and fetch me from thence two good kids of the goats; and I will make them savoury food for thy father, such as he loveth;"
+  ],
+  "ru": [
+   "Иди к стаду и возьми там двух хороших козлят, а я приготовлю кушанье твоему отцу, как он любит."
+  ],
+  "de": [
+   "Gehe doch zu den Schafen und nimm mir von dort zwei gute Ziegenböckchen, damit ich sie wohlschmeckend deinem Vater bereite, wie er es liebt,"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-27-9": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 27:9",
+   "en": "Rashi, Genesis 27:9",
+   "de": "Raschi, Bereschit 27,9"
+  },
+  "ref": "Rashi on Genesis 27:9:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_27.9.1",
+  "he": [
+   "<b>וקח לי.</b> מִשֶּׁלִּי הֵם וְאֵינָם גֶּזֶל, שֶׁכָּךְ כָּתַב לָהּ יִצְחָק בִּכְתֻבָּתָהּ לִטֹּל שְׁנֵי גְּדָיֵי עִזִּים בְּכָל יוֹם (בראשית רבה):"
+  ],
+  "en": [
+   "וקח לי AND TAKE FOR ME — (The words may mean “Take that which belongs to me”) — these are mine and not the proceeds of theft. Isaac had made provision in her marriage contract that she should receive daily two kids of the goats (Genesis Rabbah 65:14)."
+  ],
+  "de": [
+   "<b>Hole mir וקח לי,</b> sie gehören mir und sind nicht geraubt; denn so hatte ihr Jizchak in ihrer Ketuba geschrieben, dass sie täglich zwei Ziegenböckchen nehmen dürfe (Bereschit Rabbah 65:14)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "gen-27-27": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 27:27",
+   "en": "Genesis 27:27",
+   "de": "Bereschit 27,27"
+  },
+  "ref": "Genesis 27:27",
+  "url": "https://www.sefaria.org/Genesis_27.27",
+  "he": [
+   "ויגש וישק לו וירח את ריח בגדיו ויברכהו ויאמר ראה ריח בני כריח שדה אשר ברכו ה׳"
+  ],
+  "en": [
+   "And he came near, and kissed him. And he smelled the smell of his raiment, and blessed him, and said: See, the smell of my son Is as the smell of a field which the L-rd hath blessed."
+  ],
+  "ru": [
+   "И подошел, и (тот) поцеловал его, и ощутил запах его одежды, и благословил его, и сказал: вот ведь, запах сына моего — как запах поля, которое благословил Г-сподь."
+  ],
+  "de": [
+   "Da trat er hin und küßte ihn, da roch er den Duft seiner Kleider und segnete ihn, und sprach: Siehe, der Duft meines Sohnes ist wie der Duft eines Feldes, welches <i>G-tt</i> gesegnet!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-27-28": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 27:28–29",
+   "en": "Genesis 27:28–29",
+   "de": "Bereschit 27,28–29"
+  },
+  "ref": "Genesis 27:28-29",
+  "url": "https://www.sefaria.org/Genesis_27.28-29",
+  "he": [
+   "ויתן לך האלקים מטל השמים ומשמני הארץ ורב דגן ותירש",
+   "יעבדוך עמים וישתחו [וישתחוו] לך לאמים הוה גביר לאחיך וישתחוו לך בני אמך ארריך ארור ומברכיך ברוך"
+  ],
+  "en": [
+   "So G-d give thee of the dew of heaven, And of the fat places of the earth, And plenty of corn and wine.",
+   "Let peoples serve thee, And nations bow down to thee. Be lord over thy brethren, And let thy mother’s sons bow down to thee. Cursed be every one that curseth thee, And blessed be every one that blesseth thee."
+  ],
+  "ru": [
+   "И пусть даст тебе Б-г от росы небесной и от туков земных и обилие хлеба и вина.",
+   "Да послужат тебе племена и да поклонятся тебе народы! Властвуй над своими братьями, И да поклонятся тебе сыновья твоей матери! Проклинающий тебя (да будет) проклят, а благословляющий тебя (да будет) благословен!"
+  ],
+  "de": [
+   "So gebe dir G-tt von dem Tau des Himmels und von den Fettigkeiten der Erde und eine Fülle von Korn und Most.",
+   "Völker werden dir dienen und Nationen sich dir beugen — werde aber ein Mann deinen Brüdern, daß deiner Mutter Söhne dir sich beugen! Wer dir flucht, dem wird dann geflucht, wer dich segnet, wird gesegnet!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-27-33": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 27:33",
+   "en": "Genesis 27:33",
+   "de": "Bereschit 27,33"
+  },
+  "ref": "Genesis 27:33",
+  "url": "https://www.sefaria.org/Genesis_27.33",
+  "he": [
+   "ויחרד יצחק חרדה גדלה עד מאד ויאמר מי אפוא הוא הצד ציד ויבא לי ואכל מכל בטרם תבוא ואברכהו גם ברוך יהיה"
+  ],
+  "en": [
+   "And Isaac trembled very exceedingly, and said: ‘Who then is he that hath taken venison, and brought it me, and I have eaten of all before thou camest, and have blessed him? yea, and he shall be blessed.’"
+  ],
+  "ru": [
+   "И затрепетал Йицхак превеликим трепетом, и сказал: кто же тогда наловил дичи и принес мне, и я поел всего прежде, чем пришел ты, и благословил его? Он и будет благословен!"
+  ],
+  "de": [
+   "Da erfaßte Jizchak ein überaus großer Schrecken und er sprach: Wer ist denn jener, der bereits Wildpret gejagt, mir es gebracht, und ich aß auch von allem, bevor du kamst, und ich segnete ihn? — Er soll auch gesegnet sein!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "bht-25-19": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 25:19",
+   "en": "Ba'al HaTurim, Genesis 25:19",
+   "de": "Baal HaTurim, Bereschit 25,19"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 25:19",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_25.19",
+  "he": [
+   "<b>הוליד</b> בגימטריא דומה שהיה זיו איקונין של יצחק דומה לאברהם:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-25-27": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 25:27",
+   "en": "Ba'al HaTurim, Genesis 25:27",
+   "de": "Baal HaTurim, Bereschit 25,27"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 25:27",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_25.27",
+  "he": [
+   "<b>איש תם</b> ס\"ת שם שישב באהלי שם ללמוד. ת\"ם שנים [יושב] משנכנסו לארץ עד שנבנה הבית רמז לאחר ת\"ם שנים יושב אהלים של שכינה:",
+   "… <b>יעקב</b> בגימטריא מלאך האלקים ובגימטריא הגן עדן:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  },
+  "fixes": [
+   [
+    "משכנכנסו",
+    "משנכנסו"
+   ]
+  ]
+ },
+ "bht-25-30": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 25:30",
+   "en": "Ba'al HaTurim, Genesis 25:30",
+   "de": "Baal HaTurim, Bereschit 25,30"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 25:30",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_25.30",
+  "he": [
+   "<b>הלעיטני נא מן</b> ר\"ת המן לומר כשם שיעקב קנה מעשו בכורתו בלחם ועדשים כך קנה מרדכי את המן לעבד בפת לחם:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-26-20": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 26:20",
+   "en": "Ba'al HaTurim, Genesis 26:20",
+   "de": "Baal HaTurim, Bereschit 26,20"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 26:20",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_26.20",
+  "he": [
+   "<b>עשק</b> כנגד בבל שעשקו את בית יהודה ומיד עושקיהם כח:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-26-21": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 26:21",
+   "en": "Ba'al HaTurim, Genesis 26:21",
+   "de": "Baal HaTurim, Bereschit 26,21"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 26:21",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_26.21",
+  "he": [
+   "<b>שטנה</b> כנגד המן שכתב שטנה על ירושלים ולכן שטנה ב' הכא וההיא דהתם:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-26-22": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 26:22",
+   "en": "Ba'al HaTurim, Genesis 26:22",
+   "de": "Baal HaTurim, Bereschit 26,22"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 26:22",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_26.22",
+  "he": [
+   "<b>רחובות</b> כנגד יון שגזרו שלא יטבלו כדי למונעם מפריה ורביה. ונעשה להם נס ונזדמן להם מקוה לכל אחד ואחד וזהו ופרינו בארץ:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-27-9": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 27:9",
+   "en": "Ba'al HaTurim, Genesis 27:9",
+   "de": "Baal HaTurim, Bereschit 27,9"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 27:9",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_27.9",
+  "he": [
+   "<b>לך נא אל הצאן</b> ר\"ת נאה לך. פירוש נאה לך ונאה לבניך כי פסח היה ולקח ב' אחד לפסח וא' לחגיגה:",
+   "<b> וקח לי משם שני</b> ר\"ת משלו. משם. בגימטריא משלי שכן כתב לה בכתובתה:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-27-28": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 27:28",
+   "en": "Ba'al HaTurim, Genesis 27:28",
+   "de": "Baal HaTurim, Bereschit 27,28"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 27:28",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_27.28",
+  "he": [
+   "<b>ויתן לך</b> י' תיבות בפסוק וי\"ב ברכות נתברך כנגד עשרת הדברות שעתידין י\"ב בניו לקבל:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-25-20-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 25:20",
+   "en": "Ba'al HaTurim, Genesis 25:20",
+   "de": "Baal HaTurim, Bereschit 25,20"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 25:20:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_25.20.2",
+  "he": [
+   "<b> לבן הארמי</b> אותיות הרמאי:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-25-21-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 25:21",
+   "en": "Ba'al HaTurim, Genesis 25:21",
+   "de": "Baal HaTurim, Bereschit 25,21"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 25:21:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_25.21.2",
+  "he": [
+   "<b> ותהר רבקה אשתו</b> אשתו בגימטריא קש ואש והיה בית יעקב אש ובית עשו לקש:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-25-26-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 25:26",
+   "en": "Ba'al HaTurim, Genesis 25:26",
+   "de": "Baal HaTurim, Bereschit 25,26"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 25:26:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_25.26.1",
+  "he": [
+   "<b>ואחרי כן יצא אחיו</b> כ\"ן עולה ע' שע' אומות הן חוץ מיעקב:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-26-3-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 26:3",
+   "en": "Ba'al HaTurim, Genesis 26:3",
+   "de": "Baal HaTurim, Bereschit 26,3"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 26:3:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_26.3.2",
+  "he": [
+   "<b> הארצת</b> חסר וי\"ו שיתננה לו אחר ו' דורות והם יצחק יעקב לוי קהת עמרם משה:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-26-5-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 26:5",
+   "en": "Ba'al HaTurim, Genesis 26:5",
+   "de": "Baal HaTurim, Bereschit 26,5"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 26:5:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_26.5.1",
+  "he": [
+   "<b>עקב אשר שמע וגו'</b> יש בפסוק יו\"ד תיבות כנגד יו\"ד הדברות שבהם עק\"ב תיבות וכנגדם נתנסה יו\"ד נסיונות וקיים עולם שנברא בי' מאמרות: עק\"ב שנים שמע בקולי בן ג' שנים הכיר בוראו ושנותיו קע\"ה:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-27-5-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 27:5",
+   "en": "Ba'al HaTurim, Genesis 27:5",
+   "de": "Baal HaTurim, Bereschit 27,5"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 27:5:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_27.5.2",
+  "he": [
+   "<b> לצוד</b> בגימטריא מן גזל:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-27-27-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 27:27",
+   "en": "Ba'al HaTurim, Genesis 27:27",
+   "de": "Baal HaTurim, Bereschit 27,27"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 27:27:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_27.27.2",
+  "he": [
+   "<b> וירח</b> בגימטריא יום פסח היה:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-27-27-3": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 27:27",
+   "en": "Ba'al HaTurim, Genesis 27:27",
+   "de": "Baal HaTurim, Bereschit 27,27"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 27:27:3",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_27.27.3",
+  "he": [
+   "<b> ריח</b> בגימטריא ליל פסח:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-27-29-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 27:29",
+   "en": "Ba'al HaTurim, Genesis 27:29",
+   "de": "Baal HaTurim, Bereschit 27,29"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 27:29:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_27.29.1",
+  "he": [
+   "<b>וישתחו לך</b> חסר וי\"ו כנגד ו' דורות שמדוד עד יורם שעבדו אדום את ישראל ומכאן ואילך פשע בו ויש בזו הברכה כ\"ו תיבות לומר לך שברכו בשם הנכבד שעולה כ\"ו:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-27-33-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 27:33",
+   "en": "Ba'al HaTurim, Genesis 27:33",
+   "de": "Baal HaTurim, Bereschit 27,33"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 27:33:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_27.33.1",
+  "he": [
+   "<b>ויאמר מי איפוא</b> ר\"ת אמו מי נעשה סרסור בדבר רבקה:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
  "gen-8-13": {
   "kind": {
    "ru": "Тора",
