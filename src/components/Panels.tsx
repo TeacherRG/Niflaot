@@ -228,7 +228,16 @@ export function Panels() {
               </div>
             );
           })
-        : torahSel.lessons.map(readLink)}
+        : torahSel.lessons.flatMap((l) => [
+            readLink(l),
+            // «на каждый день»: the lesson read over the portion's week, two comments a day
+            l.daily && (
+              <a key={`${l.slug}/day`} href={`#/${l.slug}/day`} onClick={close} className="menu-item menu-game" aria-current={isHere(`#/${l.slug}/day`) ? 'page' : undefined}>
+                {num('📅')}
+                <span>{t('turim.menu')}</span>
+              </a>
+            ),
+          ])}
     </>
   );
   const w = today?.words;

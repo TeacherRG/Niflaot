@@ -77,6 +77,7 @@ BOOK = {
     'I Samuel': ('Tanakh/Prophets/I Samuel/', 'Шмуэль I', 'Prophets'),
     'Isaiah': ('Tanakh/Prophets/Isaiah/', 'Йешаяґу', 'Prophets'),
     'Micah': ('Tanakh/Prophets/Micah/', 'Миха', 'Prophets'),
+    'Obadiah': ('Tanakh/Prophets/Obadiah/', 'Овадья', 'Prophets'),
     'Psalms': ('Tanakh/Writings/Psalms/', 'Теґилим', 'Writings'),
     'Job': ('Tanakh/Writings/Job/', 'Иов', 'Writings'),
     'Proverbs': ('Tanakh/Writings/Proverbs/', 'Мишлей', 'Writings'),
@@ -338,6 +339,29 @@ SOURCES = {
     'rashi-24-67': rashi(24, 67, 0),
     **{f'bht-{c}-{v}': bht(c, v) for c, v in [(23, 1), (23, 16), (23, 17), (24, 12), (24, 14), (24, 58)]},
     **{f'bht-{c}-{v}-{k + 1}': bht_one(c, v, k) for c, v, k in [(23, 1, 0), (23, 1, 1), (23, 1, 2), (24, 2, 1), (24, 60, 0), (24, 63, 0), (24, 67, 0)]},
+    # Бааль ґа-Турим · Толдот
+    'gen-25-19': ('Genesis', 25, 19, 19),
+    'rashi-25-19': rashi(25, 19, 1),
+    'gen-25-20': ('Genesis', 25, 20, 20),
+    'gen-25-21': ('Genesis', 25, 21, 21),
+    'obadiah-1-18': ('Obadiah', 1, 18, 18),
+    'gen-25-26': ('Genesis', 25, 26, 26),
+    'gen-25-27': ('Genesis', 25, 27, 27),
+    'rashi-25-27': rashi(25, 27, 4),
+    'kings1-6-1': ('I Kings', 6, 1, 1),
+    'gen-25-30': ('Genesis', 25, 30, 30),
+    'gen-26-3': ('Genesis', 26, 3, 3),
+    'gen-26-5': ('Genesis', 26, 5, 5),
+    'ex-20-2': ('Exodus', 20, 2, 14),
+    'gen-26-20': ('Genesis', 26, 20, 22),
+    'gen-27-5': ('Genesis', 27, 5, 5),
+    'gen-27-9': ('Genesis', 27, 9, 9),
+    'rashi-27-9': rashi(27, 9, 0),
+    'gen-27-27': ('Genesis', 27, 27, 27),
+    'gen-27-28': ('Genesis', 27, 28, 29),
+    'gen-27-33': ('Genesis', 27, 33, 33),
+    **{f'bht-{c}-{v}': bht(c, v) for c, v in [(25, 19), (25, 27), (25, 30), (26, 20), (26, 21), (26, 22), (27, 9), (27, 28)]},
+    **{f'bht-{c}-{v}-{k + 1}': bht_one(c, v, k) for c, v, k in [(25, 20, 1), (25, 21, 1), (25, 26, 0), (26, 3, 1), (26, 5, 0), (27, 5, 1), (27, 27, 1), (27, 27, 2), (27, 29, 0), (27, 33, 0)]},
     # «Нифлаот Ребе» · Ноах: «Выйди из ковчега» (Ликутей сихот, т. 25, Ноах 3)
     'gen-8-13': ('Genesis', 8, 13, 14),
     'gen-8-16-17': ('Genesis', 8, 16, 17),
@@ -447,6 +471,7 @@ SOURCES = {
 # only an obvious letter slip that the commentary itself contradicts (חמם — the word of the verse is חמס).
 FIXES = {
     'bht-6-11-2': [('חמם', 'חמס')],
+    'bht-25-27': [('משכנכנסו', 'משנכנסו')],
 }
 
 # Gematriot of a comment that don't add up in our spelling are not quoted (CLAUDE.md: a number that doesn't add up
@@ -459,6 +484,7 @@ CUTS = {
     'bht-15-5-1': [('<b>ויוצא אתו החוצה</b> בגימטריא איצטגנינותך: כה יהיה זרעך', '… <b>כה יהיה זרעך</b>')],
     'bht-18-7-2': [(' ואל הבקר רץ. בגימטריא רץ למערה:', ' …')],
     'bht-18-18-2': [(' וזה שנאמר ס"י כ"ן יבורך גבר:', ' …')],
+    'bht-25-27': [('<b> יושב אוהלים</b> עולה ת"י שכך שרתה שכינה באהל: יעקב', '… <b>יעקב</b>'), (' ובגימטריא [וירחך] לא יאסף', '')],
     'bht-18-19': [('אשר יצוה בגימטריא תורה ובגימטריא ברית', 'אשר יצוה … בגימטריא ברית')],
 }
 
@@ -472,7 +498,7 @@ EN_BOOK = {'I Kings': 'I Kings', 'II Kings': 'II Kings'}
 KIND_DE = {'Torah': 'Tora', 'Prophets': 'Propheten', 'Writings': 'Schriften', 'Talmud': 'Gemara', 'Midrash': 'Midrasch', 'Chasidut': 'Chassidut', 'Zohar': 'Sohar', 'Commentary': 'Kommentar', 'Targum': 'Targum', 'Halakhah': 'Halacha'}
 DE_NAME = {
     'Genesis': 'Bereschit', 'Exodus': 'Schemot', 'Leviticus': 'Wajikra', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Dewarim', 'Ezekiel': 'Jecheskel', 'Amos': 'Amos', 'I Chronicles': 'Diwre HaJamim I',
-    'I Samuel': 'Schmuel I', 'II Samuel': 'Schmuel II', 'Nehemiah': 'Nechemja', 'Horayot': 'Horajot', 'I Kings': 'I Könige', 'II Kings': 'Melachim II', 'Isaiah': 'Jeschajahu', 'Micah': 'Micha', 'Psalms': 'Tehillim', 'Job': 'Ijob', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
+    'I Samuel': 'Schmuel I', 'II Samuel': 'Schmuel II', 'Nehemiah': 'Nechemja', 'Horayot': 'Horajot', 'I Kings': 'I Könige', 'II Kings': 'Melachim II', 'Isaiah': 'Jeschajahu', 'Micah': 'Micha', 'Obadiah': 'Owadja', 'Psalms': 'Tehillim', 'Job': 'Ijob', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
     'Berakhot': 'Berachot', 'Shabbat': 'Schabbat', 'Yevamot': 'Jewamot', 'Sotah': 'Sota', 'Chullin': 'Chullin',
     'Sukkah': 'Sukka', 'Chagigah': 'Chagiga', 'Megillah': 'Megilla', 'Ketubot': 'Ketubbot', 'Yoma': 'Joma', 'Nedarim': 'Nedarim', 'Bava Metzia': 'Bawa Mezia', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda',
 }
