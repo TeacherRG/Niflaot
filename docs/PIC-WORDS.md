@@ -4,7 +4,7 @@
 Картинки — для первых 50 **слов, которые можно нарисовать**, по частоте в Пророках и Писаниях (`src/tanakh/words.json`).
 Служебные и отвлечённые слова пропущены: אֵת, עַל, אָמַר, כֹּל, לֹא, אֲשֶׁר, כִּי, דָּבָר, שֵׁם, נֶפֶשׁ, Имена Всевышнего и др.
 
-Игра — `#/pics` (`src/components/PicWordsPage.tsx`, логика — `src/core/picWords.ts`). **Готовы картинки 1–20** (07.11.2026).
+Игра — `#/pics` (`src/components/PicWordsPage.tsx`, логика — `src/core/picWords.ts`). **Готовы картинки 1–40** (07.11.2026; в 38–40 вместо «четыре», «сосуд», «нос» пришли корова, овца и виноград — они в таблице, а те три слова — в конце, 51–53).
 
 **Новая картинка:** генератор иногда кладёт картинку поверх фона с тонкой рамкой (светлая вертикальная линия ≈ 10 % от края) —
 её обрезать, дополнить до квадрата цветом фона, сжать: 512×512, WebP q80 → `public/lashon/pics/<номер Стронга>.webp`;
@@ -83,9 +83,9 @@ tunics and cloaks; women in long dresses with a head covering; men with beards. 
 | 35 | 784 | אֵשׁ | огонь | a campfire: flames over a few logs | 4 |
 | 36 | 3701 | כֶּסֶף | серебро | a small pile of shiny SILVER coins and a silver bar (silver-grey, not gold) | 6 |
 | 37 | 2091 | זָהָב | золото | a small pile of shiny GOLD bars and a gold ring (bright gold) | 1 |
-| 38 | 702 | אַרְבַּע | четыре | exactly FOUR pomegranates, two above two | 2 |
-| 39 | 3627 | כְּלִי | сосуд | an ancient clay jar with two handles | 3 |
-| 40 | 639 | אַף | нос | a human nose, close-up, side view | 5 |
+| 38 | 1241 | בָּקָר | крупный скот, коровы | a cow standing, side view | 2 |
+| 39 | 6629 | צֹאן | мелкий скот, овцы | a fluffy sheep standing, side view | 3 |
+| 40 | 6025 | עֵנָב | виноградина, виноград | a bunch of grapes with a vine leaf | 5 |
 | 41 | 6086 | עֵץ | дерево | a single olive tree with a thick twisted trunk | 4 |
 | 42 | 7704 | שָׂדֶה | поле | a field of ripe wheat with a low horizon | 6 |
 | 43 | 7651 | שֶׁבַע | семь | exactly SEVEN pomegranates in two rows (four and three) | 1 |
@@ -96,6 +96,9 @@ tunics and cloaks; women in long dresses with a head covering; men with beards. 
 | 48 | 68 | אֶבֶן | камень | one large rough stone | 6 |
 | 49 | 5612 | סֵפֶר | книга | a closed thick old book with a ribbon bookmark, blank cover | 1 |
 | 50 | 3915 | לַיְלָה | ночь | a dark night sky with a crescent moon and stars over a sleeping village | 2 |
+| 51 | 702 | אַרְבַּע | четыре | exactly FOUR pomegranates, two above two | 2 |
+| 52 | 3627 | כְּלִי | сосуд | an ancient clay jar with two handles | 3 |
+| 53 | 639 | אַף | нос | a human nose, close-up, side view | 5 |
 
 ---
 

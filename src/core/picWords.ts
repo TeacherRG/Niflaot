@@ -10,14 +10,16 @@ import { root } from './tanakh';
 export const PIC_WORDS = [
   '1121', '4428', '1004', '776', '3117', '376', '6440', '5971', '3027', '5892',
   '1', '5869', '5650', '1870', '259', '3820', '8141', '802', '7218', '3548',
+  '8147', '1419', '6963', '2022', '1323', '2719', '6310', '4325', '7307', '251',
+  '8064', '8179', '7969', '3220', '784', '3701', '2091', '1241', '6629', '6025',
 ];
 
 /**
- * Pictures that are easy to mix up are never shown together in one question: man / father / son / kohen (one bearded man on all
+ * Pictures that are easy to mix up are never shown together in one question: man / father / son / kohen / woman / daughter / «voice» (one bearded man on all
  * of them), face / head / eye, sky / day / night, water / sea, land / field, silver / gold, the numbers (pomegranates).
  */
 export const PIC_GROUPS: string[][] = [
-  ['1121', '1', '376', '3548', '251', '5288', '1323'],
+  ['1121', '1', '376', '3548', '251', '5288', '1323', '802', '6963'],
   ['6440', '7218', '5869', '6310', '639'],
   ['3117', '8064', '3915'],
   ['4325', '3220'],
