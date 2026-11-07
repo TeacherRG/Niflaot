@@ -148,5 +148,32 @@ export function dropouts(pcm: Int16Array, rate: number): number {
   return holes;
 }
 
+/**
+ * Gemini's audio goes bad after about a minute of speech (holes, clicks — see `dropouts`), and the clicks are not
+ * always exact silence, so the check does not catch them all. The worker therefore never asks for more than this:
+ * a part (≤ MAX_PART, ≈ 1.5 min) is recorded in pieces of ≈ 35–40 s and joined (assistant/src/tts.ts).
+ */
+export const MAX_TAKE = 450;
+
+/** a part's text in pieces of ≤ max: by paragraphs, a long one by sentences, a too long sentence by commas / words */
+export function takesOf(text: string, max = MAX_TAKE): string[] {
+  const split = (s: string, re: RegExp): string[] => s.match(re) ?? [s];
+  const units = text
+    .split(/\n\n+/)
+    .flatMap((p) => (p.length <= max ? [p] : split(p, /[^.!?…]+[.!?…]+["»”)]*\s*|[^.!?…]+$/g)))
+    .flatMap((s) => (s.length <= max ? [s] : split(s, /[^,;:—]+[,;:—]+\s*|[^,;:—]+$/g)))
+    .flatMap((s) => (s.length <= max ? [s] : split(s, new RegExp(`.{1,${max}}(?:\\s|$)`, 'gs'))))
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const out: string[] = [];
+  let cur = '';
+  for (const u of units) {
+    if (cur && cur.length + u.length + 1 > max) out.push(cur), (cur = '');
+    cur = cur ? `${cur} ${u}` : u;
+  }
+  if (cur) out.push(cur);
+  return out;
+}
+
 /** more holes than this — the recording is made again (a clean one has 0–2) */
 export const MAX_DROPOUTS = 5;

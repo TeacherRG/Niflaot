@@ -11,7 +11,7 @@
  */
 import { DurableObject } from 'cloudflare:workers';
 import { parseTanakhSlug, tanakhLang, tanakhNarration, type SpokenDay } from '../../src/core/tanakhNarration';
-import { dropouts, MAX_DROPOUTS } from '../../src/core/speech';
+import { dropouts, MAX_DROPOUTS, takesOf } from '../../src/core/speech';
 
 export interface TtsEnv {
   SITE_URL?: string;
@@ -44,7 +44,10 @@ const STYLE: Record<string, string> = {
   de: 'Lies auf Deutsch vor, ruhig und warm:',
 };
 // 3: the parts recorded by a fallback model when the quota ran out (they clicked) are recorded anew
-const STYLE_VERSION = 3;
+// 4: a part is recorded in pieces of ≤ MAX_TAKE (≈ 40 s): whole parts (≈ 1.5 min) clicked after the first minute
+const STYLE_VERSION = 4;
+/** the pause between the joined pieces of a part, seconds */
+const JOIN_PAUSE = 0.35;
 
 interface Part {
   h: string;
@@ -182,13 +185,25 @@ export class Narrator extends DurableObject<TtsEnv> {
     } else parts = (await json<{ parts?: Part[] }>(`/tts/${lang}/${slug}.json`))?.parts;
     const part = parts?.find((p) => p.h === hash);
     if (!part || typeof part.text !== 'string' || part.text.length > MAX_TEXT) throw new NotFound();
-    // Gemini's audio is now and then cut by dropouts (clicks, breaks): only clean takes may be stored.
+    // Gemini's audio goes bad after about a minute (clicks, breaks): the part is recorded in short pieces, joined
+    const pieces = await Promise.all(takesOf(part.text).map((t, i) => this.piece(lang, t, voice, `${slug} ${hash} #${i + 1}`)));
+    const rate = pieces[0].rate;
+    const gap = new Int16Array(Math.round(rate * JOIN_PAUSE));
+    const all = pieces.flatMap((p, i) => (i ? [gap, trim(p.pcm)] : [trim(p.pcm)]));
+    const out = new Int16Array(all.reduce((n, x) => n + x.length, 0));
+    let o = 0;
+    for (const x of all) out.set(x, o), (o += x.length);
+    return wav(new Uint8Array(out.buffer), rate);
+  }
+
+  /** one piece of a part; Gemini's audio is now and then cut by dropouts — only a clean take is used */
+  private async piece(lang: string, text: string, voice: string, what: string): Promise<Pcm> {
     let fewestHoles = Infinity;
     for (let take = 1; take <= TAKES; take++) {
-      const wav = await speak(this.env, lang, part.text, voice);
-      const holes = holesOf(wav);
-      if (holes <= MAX_DROPOUTS) return wav;
-      console.error('tts', slug, hash, 'take', take, 'dropouts', holes);
+      const p = await speak(this.env, lang, text, voice);
+      const holes = dropouts(p.pcm, p.rate);
+      if (holes <= MAX_DROPOUTS) return p;
+      console.error('tts', what, 'take', take, 'dropouts', holes);
       fewestHoles = Math.min(fewestHoles, holes);
     }
     throw new Error(`gemini audio quality: all ${TAKES} takes exceeded ${MAX_DROPOUTS} dropouts (fewest: ${fewestHoles})`);
@@ -240,8 +255,22 @@ function quotaOf(body: string): Quota {
  * tier has a small daily limit) does not: the 2.5 models' audio clicks every few words, and a part recorded by another
  * model would be kept under this one for good — the part waits for the quota instead. An answer without audio (the model's stream broke off —
  * `finishReason` SAFETY / OTHER, «please retry») is asked again once. The audio may come in several pieces: all are joined.
+ * Returns 16-bit mono PCM.
  */
-async function speak(env: TtsEnv, lang: string, text: string, voice: string): Promise<Uint8Array> {
+interface Pcm {
+  pcm: Int16Array;
+  rate: number;
+}
+
+/** the silence at the start and the end of a piece cut off (the pause between pieces is JOIN_PAUSE) */
+function trim(pcm: Int16Array): Int16Array {
+  let a = 0, b = pcm.length;
+  while (a < b && Math.abs(pcm[a]) <= 3) a++;
+  while (b > a && Math.abs(pcm[b - 1]) <= 3) b--;
+  return pcm.subarray(a, b);
+}
+
+async function speak(env: TtsEnv, lang: string, text: string, voice: string): Promise<Pcm> {
   const models = [env.TTS_MODEL || DEFAULT_MODEL, ...FALLBACK_MODELS.filter((x) => x !== env.TTS_MODEL)];
   let rateWaits = 0;
   for (const model of models)
@@ -291,7 +320,7 @@ async function speak(env: TtsEnv, lang: string, text: string, voice: string): Pr
         all.set(x, o);
         o += x.length;
       }
-      return wav(all, rate);
+      return { pcm: new Int16Array(all.buffer, 0, all.length >> 1), rate };
     }
   throw new Error('gemini: no audio from any TTS model');
 }
