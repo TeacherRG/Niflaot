@@ -13,27 +13,35 @@ export const PIC_WORDS = [
   '8147', '1419', '6963', '2022', '1323', '2719', '6310', '4325', '7307', '251',
   '8064', '8179', '7969', '3220', '784', '3701', '2091', '1241', '6629', '6025',
   '6086', '7704', '5288', '2568', '7272', '68', '5612', '3915',
+  '702', '3627', '639', '5795', '4264', '6780', '8384', '5175', '738', '6083',
+  '3123', '1709', '7134', '591', '1503', '3394', '3556', '1653', '5929', '6975',
+  '4294', '875', '4196', '4609',
 ];
 
 /**
  * Pictures that are easy to mix up are never shown together in one question: man / father / son / kohen / woman / daughter / «voice» (one bearded man on all
- * of them), face / head / eye, sky / day / night, water / sea, land / field, silver / gold, the numbers (pomegranates).
+ * of them), face / head / eye, sky / day / night / moon / star / rain, water / sea / boat / vessel, land / field, silver / gold,
+ * the numbers (pomegranates), tree / fig tree / stump, sprouts / leaf, fire / altar (fire on stones), staff / youth (with a staff).
+ * A word may be in more than one group.
  */
 export const PIC_GROUPS: string[][] = [
   ['1121', '1', '376', '3548', '251', '5288', '1323', '802', '6963'],
   ['6440', '7218', '5869', '6310', '639'],
-  ['3117', '8064', '3915'],
-  ['4325', '3220'],
+  ['3117', '8064', '3915', '3394', '3556', '1653'],
+  ['4325', '3220', '591', '3627'],
   ['776', '7704'],
   ['3701', '2091'],
   ['259', '8147', '7969', '702', '2568', '7651'],
+  ['6086', '8384', '1503'],
+  ['6780', '5929', '7704'],
+  ['784', '4196'],
+  ['4294', '5288'],
 ];
 
 export const picSrc = (id: string) => `${root()}lashon/pics/${id}.webp`;
 
-const groupOf = (id: string) => PIC_GROUPS.find((g) => g.includes(id));
-/** may `a` and `b` stand side by side in one question */
-export const apart = (a: string, b: string) => a !== b && !groupOf(a)?.includes(b);
+/** may `a` and `b` stand side by side in one question: no group has them both */
+export const apart = (a: string, b: string) => a !== b && !PIC_GROUPS.some((g) => g.includes(a) && g.includes(b));
 
 export interface PicQuestion {
   id: string;
