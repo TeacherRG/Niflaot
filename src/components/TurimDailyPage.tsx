@@ -1,18 +1,95 @@
-import { useEffect } from 'react';
-import { Html, useI18n } from '../i18n';
+import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import { useI18n, type Locale } from '../i18n';
 import { withTerms } from '../i18n/glossary';
 import { PARSHIOT } from '../lessons';
 import type { Lesson } from '../lessons/types';
-import { parseQuote } from '../sources';
+import { SOURCES, parseQuote, translation } from '../sources';
 import { markCalcs } from '../core/calcLines';
+import { displayNames } from '../core/names';
 import { localToday } from '../core/tanakh';
-import { civilDate, jewishDate } from '../core/hebrewDate';
-import { PER_DAY, TURIM_DAYS, dayItems, doneKey, turimDate, turimDays, turimIsDone, useTurimDone } from '../core/turimDaily';
+import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
+import { PER_DAY, TURIM_DAYS, dayEntries, doneKey, turimDate, turimDays, turimIsDone, useTurimDone, type DayEntry } from '../core/turimDaily';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
+import { TanakhMasthead } from './PrintBrand';
+import { Icon, useDismiss } from './ui';
 import { HebrewRuns } from './Hebrew';
-import { Quote } from './Quote';
-import { Icon } from './ui';
+
+/**
+ * «Тора с Бааль ґа-Турим» по дням — как отрывок дня «Пророков и Писаний» (TanakhPage.tsx): полоса дат ‹ ›, заголовок,
+ * одна кнопка языка и «Распечатать», стих за стихом — иврит справа, перевод слева, под стихом плашкой — слова Бааль ґа-Турима
+ * (иврит и перевод в два столбца) и объяснение; «Я прочитал(а)», карточки «Предыдущий / Следующий день». Два комментария в день,
+ * воскресенье — пятница (src/core/turimDaily.ts).
+ */
+
+type TextLang = 'he-ru' | 'he-en' | 'he-de' | 'ru' | 'en' | 'de' | 'he';
+const TEXT_LANGS: TextLang[] = ['he-ru', 'he-en', 'he-de', 'ru', 'en', 'de', 'he'];
+type Tr = 'ru' | 'en' | 'de';
+const trOf = (l: TextLang): Tr | null => (l === 'he' ? null : (l.replace('he-', '') as Tr));
+const VIEW_KEY = 'niflaot:turim-view';
+const inLocale = (text: TextLang, locale: string): TextLang => {
+  const tr: Tr = locale === 'ru' || locale === 'de' ? locale : 'en';
+  return text === 'he' ? 'he' : text.startsWith('he-') ? `he-${tr}` : tr;
+};
+
+/** The language choice — remembered with the site's language it was made in, like the Tanakh page's. */
+function useView(locale: string): [TextLang, (v: TextLang) => void] {
+  const [saved, set] = useState<{ text: TextLang; loc?: string }>(() => {
+    try {
+      const v = JSON.parse(localStorage.getItem(VIEW_KEY) ?? 'null');
+      if (v && TEXT_LANGS.includes(v.text)) return { text: v.text, loc: v.loc };
+    } catch {}
+    return { text: 'he-en' };
+  });
+  return [
+    saved.loc === locale ? saved.text : inLocale(saved.text, locale),
+    (text) => {
+      const next = { text, loc: locale };
+      set(next);
+      try {
+        localStorage.setItem(VIEW_KEY, JSON.stringify(next));
+      } catch {}
+    },
+  ];
+}
+
+function ViewMenu({ text, setText }: { text: TextLang; setText: (v: TextLang) => void }) {
+  const { t } = useI18n();
+  const [open, setOpen] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
+  const close = useCallback(() => setOpen(false), []);
+  useDismiss(open, root, close);
+  return (
+    <div className="tk-view no-speak" ref={root}>
+      <button type="button" className="lang-btn tk-view-btn" aria-haspopup="true" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+        <Icon name="globe" size={17} />
+        <span>{t(`tanakh.view.${text}`)}</span>
+        <Icon name="chevron" size={14} />
+      </button>
+      {open && (
+        <div className="lang-list tk-view-list" role="menu" aria-label={t('tanakh.viewLabel')}>
+          <div className="tk-view-head">{t('tanakh.viewLabel')}</div>
+          {TEXT_LANGS.map((l) => (
+            <button
+              key={l}
+              type="button"
+              role="menuitemradio"
+              aria-checked={text === l}
+              onClick={() => {
+                setText(l);
+                close();
+              }}
+            >
+              <span className="code">{l === 'he' ? 'עב' : trOf(l)!.toUpperCase()}</span>
+              <span className="name">{t(`tanakh.view.${l}`)}</span>
+              {text === l && <Icon name="check" size={16} />}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 const weekday = (iso: string, locale: string) => {
   const w = new Intl.DateTimeFormat(locale, { weekday: 'long', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
@@ -20,6 +97,8 @@ const weekday = (iso: string, locale: string) => {
 };
 const shortDate = (iso: string, locale: string) =>
   new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+const BOOK = { ru: 'Берешит', en: 'Bereishit', de: 'Bereschit' } as const;
+const bookName = (locale: string) => BOOK[(locale in BOOK ? locale : 'en') as keyof typeof BOOK];
 
 /** ‹ / › at the corners of the date bar: the previous / next day (across portions). */
 function Step({ to, dir }: { to?: { href: string; date: string }; dir: 'prev' | 'next' }) {
@@ -62,36 +141,152 @@ function DoneCheck({ lesson, n, today }: { lesson: Lesson; n: number; today: str
   );
 }
 
+/** the Names' hyphen unbroken on screen (Б‑г / Г‑сподь / G‑tt) */
+const nb = (x: string) => x.replace(/([БГ])-(?=г|спод)/g, '$1‑').replace(/([Gg])-(?=tt)/g, '$1‑');
+
+/** The commentator's words under the verse: Hebrew and translation side by side, comment by comment (as `.tk-st` on the Tanakh page). */
+function Comment({ he, tr, trLang, by }: { he: string[] | null; tr: string[] | null; trLang: Tr | null; by: string }) {
+  const heP = (x: string, k: number) => <p key={`h${k}`} className="he" lang="he" dir="rtl" dangerouslySetInnerHTML={{ __html: x }} />;
+  const trP = (x: string, k: number) => <p key={`t${k}`} lang={trLang ?? undefined} dangerouslySetInnerHTML={{ __html: nb(x) }} />;
+  const pairs = he && tr;
+  return (
+    <div className={`tk-st turim-st${pairs ? ' cols' : ''}`}>
+      <span className="tk-st-by">{by}</span>
+      {pairs ? (
+        <div className="tk-cols">
+          {Array.from({ length: Math.max(he.length, tr.length) }, (_, k) => (
+            <Fragment key={k}>
+              {tr[k] !== undefined ? trP(tr[k], k) : <span />}
+              {he[k] !== undefined ? heP(he[k], k) : <span />}
+            </Fragment>
+          ))}
+        </div>
+      ) : (
+        <>
+          {he?.map(heP)}
+          {tr?.map(trP)}
+        </>
+      )}
+    </div>
+  );
+}
+
+/** One comment of the day, as a verse of the Tanakh page: the verse, the commentator's words, the explanation. */
+function Entry({ lesson, e, num, text, tr, chapter, same }: { lesson: Lesson; e: DayEntry; num: number; text: TextLang; tr: Tr | null; chapter: boolean; same: boolean }) {
+  const { t, pick, locale } = useI18n();
+  const { value: lt, locale: lessonLocale } = pick(lesson.texts);
+  const he = text.startsWith('he');
+  const v = SOURCES[e.verse];
+  const vTr = tr && v ? translation(v, e.verse, tr as Locale).lines : null;
+  const [ch, vs] = e.ref.split(':').map(Number);
+  // the commentator's words: the lesson's passages from Sefaria, or the Memo pair's (Hebrew + the lesson's translation)
+  let cHe: string[] = [];
+  let cTr: string[] = [];
+  if (e.quotes)
+    for (const q of e.quotes) {
+      const { id, segs } = parseQuote(q);
+      const s = SOURCES[id];
+      if (!s) continue;
+      const keep = (i: number) => !segs || segs.includes(i);
+      cHe.push(...s.he.filter((_, i) => keep(i)));
+      if (tr) cTr.push(...translation(s, id, tr as Locale).lines.filter((_, i) => keep(i)));
+    }
+  else if (e.memo !== undefined) {
+    const it = lesson.memo!.items[e.memo];
+    cHe = [displayNames(it.quote)];
+    const mt = tr ? lesson.texts[tr as Locale]?.memo?.items[e.memo] : undefined;
+    if (mt) cTr = [mt.quote];
+  }
+  // the explanation — in the site's language: the lesson's text of the day, or the Memo pair's «Знаете ли вы?» and «Чему это учит?»
+  const title = e.text !== undefined ? lt.daily?.items[e.text]?.h : e.memo !== undefined ? lt.memo?.items[e.memo]?.title : undefined;
+  const body = e.text !== undefined ? lt.daily?.items[e.text]?.b ?? '' : '';
+  const mi = e.memo !== undefined ? lt.memo?.items[e.memo] : undefined;
+  return (
+    <>
+      {chapter && (
+        <h2 className="tk-chapter">
+          {bookName(locale)} · {t('tanakh.chapter', { n: ch })}{' '}
+          <span className="he" lang="he">
+            בראשית {hebrewNumber(ch).replace(/[׳״]/g, '')}
+          </span>
+        </h2>
+      )}
+      <section className={`tk-verse${he && vTr && !same ? ' cols' : ''}`} id={`turim-${num}`} data-v={vs}>
+        <span className="tk-num num" aria-label={e.ref}>
+          {e.ref}
+        </span>
+        {/* the next comment on the same verse: the verse is not repeated */}
+        {he && v && !same && (
+          <p className="tk-he he" lang="he" dir="rtl">
+            {v.he.join(' ')}
+          </p>
+        )}
+        {vTr && !same && (
+          <p className="tk-en" lang={tr!}>
+            {nb(vTr.join(' '))}
+          </p>
+        )}
+        <Comment he={he ? cHe : null} tr={tr && cTr.length ? cTr : null} trLang={tr} by={t('teacher.baal-haturim.short')} />
+        {(body || mi) && (
+          <div className="turim-expl" lang={lessonLocale}>
+            {title && (
+              <h3>
+                <HebrewRuns text={title} />
+              </h3>
+            )}
+            {body ? (
+              <div className="les-b" dangerouslySetInnerHTML={{ __html: withTerms(markCalcs(body), lessonLocale) }} />
+            ) : (
+              mi && (
+                <div className="les-b">
+                  <p>
+                    <HebrewRuns text={mi.explain} />
+                  </p>
+                  <p className="expl">
+                    <b>{t('memo.learn')}</b> <HebrewRuns text={mi.moral} />
+                  </p>
+                </div>
+              )
+            )}
+          </div>
+        )}
+      </section>
+    </>
+  );
+}
+
 /**
- * «Бааль ґа-Турим на каждый день» — a commentary lesson read over the week of its portion, like the day's passage of
- * «Пророки и Писания»: two comments a day, Sunday to Friday — the verse, the commentator's words (original + translation,
- * in two columns) and the explanation; «Я прочитал(а)» at the end, then the next day.
+ * `#/<slug>/day[/<1–6>]`, `#/turim` — «Тора с Бааль ґа-Турим» по дням: два комментария в день с воскресенья по пятницу.
  */
 export function TurimDailyPage({ lesson, n }: { lesson: Lesson; n: number }) {
   const { t, pick, locale } = useI18n();
-  const { value: text, locale: textLocale } = pick(lesson.texts);
+  const { value: text } = pick(lesson.texts);
   const today = localToday();
   const date = turimDate(lesson, n);
   const parsha = PARSHIOT[lesson.parsha];
   const parshaName = (parsha.name as Record<string, string>)[locale] ?? parsha.name.ru;
   const all = turimDays();
   const i = all.findIndex((d) => d.lesson.slug === lesson.slug && d.n === n);
-  const link = (d?: (typeof all)[number]) => d && { href: `#/${d.lesson.slug}/day/${d.n}`, date: d.date };
+  const link = (d?: (typeof all)[number]) => d && { href: `#/${d.lesson.slug}/day/${d.n}`, date: d.date, lesson: d.lesson, n: d.n };
   const prev = link(all[i - 1]);
   const next = link(all[i + 1]);
-  const items = dayItems(lesson, n);
-  const texts = text.daily?.items.slice((n - 1) * PER_DAY, n * PER_DAY) ?? [];
+  const entries = dayEntries(lesson, n);
+  const [view, setView] = useView(locale);
+  const tr = trOf(view);
   const isToday = date === today;
-  const title = t('turim.title');
+  const title = t('turim.h1');
+  const refs = (l: Lesson, d: number) => `${bookName(locale)} ${[...new Set(dayEntries(l, d).map((e) => e.ref))].join(', ')}`;
 
   useEffect(() => {
     document.title = `${title} · ${parshaName} · ${weekday(date, locale)} · ${t('app.title')}`;
   }, [title, parshaName, date, locale, t]);
+
   return (
     <>
       <TopBar title={title} />
       <div className="wrap tk turim">
-        <article lang={textLocale}>
+        <article>
+          <TanakhMasthead title={`${title} · ${parshaName}`} he={parsha.he} route={`${lesson.slug}/day/${n}`} date={date} />
           <nav className="tk-dates no-print" aria-label={title}>
             <Step to={prev} dir="prev" />
             <div className="tk-date">
@@ -110,7 +305,6 @@ export function TurimDailyPage({ lesson, n }: { lesson: Lesson; n: number }) {
           </nav>
 
           <header className="tk-head">
-            <p className="eyebrow">{t('turim.eyebrow', { parsha: parshaName, n, total: TURIM_DAYS })}</p>
             <h1>
               {title}{' '}
               <span className="he" lang="he">
@@ -118,26 +312,24 @@ export function TurimDailyPage({ lesson, n }: { lesson: Lesson; n: number }) {
               </span>
             </h1>
             <p className="tk-range">
-              {texts.map((x) => x.h).join(' · ')} · {t('turim.minutes')}
+              {t('turim.parsha', { parsha: parshaName })} · {refs(lesson, n)}
+            </p>
+            <p className="tk-day">
+              {t('tanakh.day', { n, total: TURIM_DAYS })} · {t('turim.minutes')}
             </p>
             {date > today && <p className="tk-note">{t('turim.ahead')}</p>}
           </header>
-          {n === 1 && text.daily?.intro && <p className="read-intro no-speak">{text.daily.intro}</p>}
 
-          {items.map((it, k) => (
-            <section key={k} className="riddle read-riddle turim-item" id={`turim-${k + 1}`}>
-              <div className="r-head">
-                <span className="eyebrow">{t('turim.item', { n: (n - 1) * PER_DAY + k + 1, total: lesson.daily!.length })}</span>
-                <h2>
-                  <HebrewRuns text={texts[k]?.h ?? ''} />
-                </h2>
-              </div>
-              <Quote q={{ id: it.verse }} />
-              {it.quotes.map((q) => (
-                <Quote key={q} q={parseQuote(q)} />
-              ))}
-              {texts[k] && <Html as="div" className="les-b" html={withTerms(markCalcs(texts[k].b), textLocale)} />}
-            </section>
+          <div className="tk-tools no-print">
+            <ViewMenu text={view} setText={setView} />
+            <button type="button" className="lang-btn tk-print-btn" onClick={() => window.print()}>
+              <Icon name="print" size={17} />
+              <span>{t('print.button')}</span>
+            </button>
+          </div>
+
+          {entries.map((e, k) => (
+            <Entry key={k} lesson={lesson} e={e} num={(n - 1) * PER_DAY + k + 1} text={view} tr={tr} chapter={k === 0 || entries[k - 1].ref.split(':')[0] !== e.ref.split(':')[0]} same={k > 0 && entries[k - 1].verse === e.verse} />
           ))}
 
           <DoneCheck lesson={lesson} n={n} today={today} />
@@ -146,8 +338,10 @@ export function TurimDailyPage({ lesson, n }: { lesson: Lesson; n: number }) {
             {prev ? (
               <a className="prev" href={prev.href}>
                 <small>← {t('turim.prev')}</small>
-                <b>{weekday(prev.date, locale)}</b>
-                <span>{civilDate(prev.date, locale)}</span>
+                <b>{refs(prev.lesson, prev.n)}</b>
+                <span>
+                  {weekday(prev.date, locale)}, {civilDate(prev.date, locale)}
+                </span>
               </a>
             ) : (
               <span />
@@ -155,24 +349,20 @@ export function TurimDailyPage({ lesson, n }: { lesson: Lesson; n: number }) {
             {next && (
               <a className="next" href={next.href}>
                 <small>{t('turim.next')} →</small>
-                <b>{weekday(next.date, locale)}</b>
-                <span>{civilDate(next.date, locale)}</span>
+                <b>{refs(next.lesson, next.n)}</b>
+                <span>
+                  {weekday(next.date, locale)}, {civilDate(next.date, locale)}
+                </span>
               </a>
             )}
           </nav>
 
-          <section className="memo-cta no-print">
-            <span aria-hidden="true">📖</span>
-            <p>
-              {t('turim.lesson')}: <b>{text.title}</b>
-            </p>
-            <a className="btn" href={`#/${lesson.slug}/read`}>
-              {t('turim.lessonRead')} →
-            </a>
-            <a className="btn ghost" href={`#/${lesson.slug}`}>
-              🔢 {t('turim.lessonPlay')}
-            </a>
-          </section>
+          <p className="turim-more no-print">
+            {t('turim.lesson')}: <a href={`#/${lesson.slug}/read`}>{text.title}</a> · <a href={`#/${lesson.slug}`}>{t('turim.lessonPlay')}</a>
+          </p>
+          <footer className="tk-sources">
+            <p>{t('turim.sources')}</p>
+          </footer>
         </article>
       </div>
       <Colophon source={text.source} />

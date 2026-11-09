@@ -1832,6 +1832,11 @@ p.ln-hint .he{font-family:var(--f-he);font-size:18px;color:var(--ink)}
 .tk-en{margin:4px 0 0;font-size:16px;line-height:1.55}
 .tk-st-by{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tchelet)}
 /* комментарии — отдельной плашкой под стихом: тон тхелет, черта слева, текст мельче и мягче стиха */
+.turim .tk-verse>.turim-st,.turim .tk-verse>.turim-expl{grid-column:1/-1}
+.turim-expl{margin-top:12px;padding:10px 14px 6px;border-radius:10px;border:1px solid var(--line);border-inline-start:4px solid var(--gold);background:var(--surface)}
+.turim-expl h3{margin:0 0 4px;font-size:16px}
+.turim-expl .les-b p{font-size:15px;line-height:1.6;margin:6px 0}
+.turim-more{margin-top:18px;font-size:14px}
 .tk-st{margin-top:12px;padding:8px 12px 6px;border-radius:10px;background:var(--tchelet-soft);border:1px solid var(--tchelet-line);border-inline-start:4px solid var(--tchelet);color:var(--ink-2)}
 .tk-st-by{display:inline-block;margin-bottom:2px}
 .tk-st p{margin:4px 0;font-size:15px;line-height:1.6}

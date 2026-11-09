@@ -8,6 +8,7 @@ import { VALUES } from '../core/gematria';
 import { OPS, SIGN } from '../core/mentalMath';
 import { Icon, Sheet, useUI } from './ui';
 import { lessonGames } from './lessonGames';
+import { hasDaily } from '../core/turimDaily';
 import { DailyReminder } from './DailyReminder';
 import { AboutBody } from './AboutBody';
 import { canInstall, install, subscribeInstall } from '../core/install';
@@ -229,14 +230,14 @@ export function Panels() {
             );
           })
         : torahSel.lessons.flatMap((l) => [
-            readLink(l),
-            // «на каждый день»: the lesson read over the portion's week, two comments a day
-            l.daily && (
+            // «Тора с Бааль ґа-Турим» по дням — как отрывок дня Пророков и Писаний; весь урок — ниже
+            hasDaily(l) && (
               <a key={`${l.slug}/day`} href={`#/${l.slug}/day`} onClick={close} className="menu-item menu-game" aria-current={isHere(`#/${l.slug}/day`) ? 'page' : undefined}>
                 {num('📅')}
                 <span>{t('turim.menu')}</span>
               </a>
             ),
+            readLink(l),
           ])}
     </>
   );

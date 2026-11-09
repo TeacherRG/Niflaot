@@ -29,6 +29,7 @@ BASE = 'https://storage.googleapis.com/sefaria-export/json/'
 OUT = Path(__file__).resolve().parent.parent / 'src' / 'sources' / 'sefaria.json'
 
 TANAKH_HE = 'Hebrew/Tanach with Text Only.json'
+TANAKH_NIKKUD = 'Hebrew/Tanach with Nikkud.json'
 TANAKH_EN = 'English/The Holy Scriptures A New Translation JPS 1917.json'
 TORAH_RU = 'English/Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru].json'
 # German: Sefaria's public-domain versions where they exist; the rest are the project's own (src/sources/de.ts)
@@ -467,6 +468,13 @@ SOURCES = {
     'ps-132-14': ('Psalms', 132, 14, 14),
 }
 
+# «Бааль ґа-Турим по дням» (src/core/turimDaily.ts): the verse of every Baal HaTurim comment, one verse each — `torah-<ch>-<v>`,
+# with vowel points (Tanach with Nikkud) and the Names as on Sefaria
+SOURCES['torah-26-20-22'] = ('Genesis', 26, 20, 22)
+for _id in [k for k in SOURCES if k.startswith('bht-')]:
+    _c, _v = map(int, _id.split('-')[1:3])
+    SOURCES.setdefault(f'torah-{_c}-{_v}', ('Genesis', _c, _v, _v))
+
 # Misprints of an edition, corrected in the Hebrew (shown on the site as «исправлена опечатка: X → Y»):
 # only an obvious letter slip that the commentary itself contradicts (חמם — the word of the verse is חמס).
 FIXES = {
@@ -704,6 +712,8 @@ if __name__ == '__main__':
             he, en, ru, de, versions, t_ru, t_en, t_de, ref_parts = [], [], [], [], {}, [], [], [], []
             for (book, sec, a, b) in pieces:
                 kind, ru_name, he_d, en_d, ru_d, de_d, pick = tanakh_or_talmud(book, sec, a, b)
+                if sid.startswith('torah-'):  # «по дням»: стих с огласовками, как на странице Невиим и Ктувим
+                    he_d = load(BOOK[book][0] + TANAKH_NIKKUD)
                 he += pick(he_d); en += pick(en_d)
                 if ru_d is not None: ru += pick(ru_d)
                 if de is not None:
@@ -727,7 +737,8 @@ if __name__ == '__main__':
             'title': {'ru': titles[0], 'en': titles[1], 'de': titles[2]},
             'ref': ref,
             'url': 'https://www.sefaria.org/' + urllib.parse.quote(ref.replace(' ', '_').replace(':', '.'), safe='_.,;-'),
-            'he': [clean(s, 'he') for s in he if s],
+            # `torah-*` — текст Танаха: Имена в полном написании, как на Sefaria (CLAUDE.md)
+            'he': [clean(s, 'he', names=not sid.startswith('torah-')) for s in he if s],
             'en': [clean(s, 'en') for s in en if s],
             **({'ru': [clean(s, 'ru') for s in ru if s]} if ru else {}),
             # German keeps empty segments, so that line i stays next to Hebrew line i

@@ -1,5 +1,6 @@
 import type { Lesson } from '../lessons/types';
 import { cardsOnly } from '../lessons';
+import { hasDaily } from '../core/turimDaily';
 
 /**
  * The games of a lesson for the menu and the catalog cards; none when the lesson has only one.
@@ -21,7 +22,7 @@ export function lessonGames(lesson: Lesson) {
       { href: `#/${lesson.slug}/memo`, icon: '🃏', label: 'memo.tabMemo' },
       read,
       // «на каждый день»: the lesson read over the portion's week, two comments a day (src/core/turimDaily.ts)
-      ...(lesson.daily ? [{ href: `#/${lesson.slug}/day`, icon: '📅', label: 'turim.tab' } as const] : []),
+      ...(hasDaily(lesson) ? [{ href: `#/${lesson.slug}/day`, icon: '📅', label: 'turim.tab' } as const] : []),
     ] as const;
   // a «Нифлаот Ребе» lesson without cards yet: the investigation and «Прочитать» (the talk)
   if (lesson.kind === 'sicha')
