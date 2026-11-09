@@ -4507,6 +4507,893 @@
      ]
     }
    ]
+  },
+  {
+   "id": "m4",
+   "title": {
+    "ru": "«Лулав ве-арава»",
+    "en": "“Lulav v’Aravah”",
+    "de": "„Lulaw weArawa“"
+   },
+   "date": {
+    "ru": "2-я ночь Суккот 5666 (1905)",
+    "en": "Second night of Sukkot 5666 (1905)",
+    "de": "Zweite Nacht von Sukkot 5666 (1905)"
+   },
+   "passages": [
+    {
+     "id": "m4-1",
+     "title": {
+      "ru": "Лулав в Шабат и сукка: вопросы; наслаждение — выше желания",
+      "en": "The Lulav on Shabbat and the Sukkah: questions; pleasure transcends desire",
+      "de": "Der Lulaw am Schabbat und die Sukka: Fragen; das Vergnügen steht über dem Wunsch"
+     },
+     "summary": {
+      "ru": "Мишна: лулав брали шесть или семь дней — в Храме первый день Суккот отменял Шабат; после разрушения Храма — нет, «чтобы человек не понёс его четыре локтя в общественном владении». Почему мудрецы отменили заповедь Торы из-за опасения? Почему сукка — «окружающий свет» (макиф), и как «жить» в ней, если макифим не «оседают» внутри? Ответ начинается со стиха «Каждому концу я видел начало»: «Иггерет ґа-кодеш» и Мидраш объясняют — у всякого наслаждения есть предел, кроме одного — Торы и заповедей. Наслаждение — самый высокий из окружающих светов души: оно причина желания, и от него зависят все силы души, но в них светит лишь его отблеск.",
+      "en": "The Mishnah: the Lulav was taken six or seven days — in the Temple the first day of Sukkot overrode Shabbat; after the destruction it does not, “lest a person carry it four cubits in the public domain.” Why did the sages uproot a Torah mitzvah because of a concern? Why is the Sukkah an “encompassing light” (Makif), and how can one “dwell” in it if Makifim do not settle within? The answer begins with “To every end I have seen a beginning”: Iggeret HaKodesh and the Midrash explain — every pleasure has a limit except one, Torah and mitzvot. Pleasure is the loftiest encompassing light of the soul: it is the cause of desire, and all the soul’s powers depend on it, yet only a glimmer of it shines in them.",
+      "de": "Die Mischna: Den Lulaw nahm man sechs oder sieben Tage – im Tempel verdrängte der erste Tag von Sukkot den Schabbat; nach der Zerstörung nicht mehr, „damit man ihn nicht vier Ellen im öffentlichen Bereich trägt“. Warum hoben die Weisen ein Tora-Gebot wegen einer Befürchtung auf? Warum ist die Sukka ein „umgebendes Licht“ (Makif), und wie kann man in ihr „wohnen“, wenn Makifim sich nicht innen niederlassen? Die Antwort beginnt mit „Allem Ende habe ich einen Anfang gesehen“: Iggeret Hakodesch und der Midrasch erklären – jedes Vergnügen hat eine Grenze außer einem, Tora und Mizwot. Das Vergnügen ist das höchste umgebende Licht der Seele: Es ist die Ursache des Wunsches, und alle Kräfte der Seele hängen davon ab, doch in ihnen scheint nur ein Schimmer davon."
+     },
+     "en": [
+      "The Mishnah states, “The waving of the Lulav and willow was performed for six or seven days. Now, how was the Lulav waved for seven days? If the first day of the festival fell on Shabbat, the Lulav was waved for seven days; however, if it fell on a different day of the week it was waved for only six.” In other words, on the first day of the festival the commandment of Lulav superseded the Shabbat within the borders of Israel, but if it fell on a different day, it did not supersede the Shabbat. Now, the above was only true during the time of the Holy Temple.",
+      "However, after the destruction of the Holy Temple, even if the first day of the festival falls out on Shabbat it does not supersede the Shabbat. The Talmud provides the reason for this prohibition; that it is because of the decree of Rabbah, who said, “It is a restrictive measure lest a person takes his Lulav in his hand and goes to an expert to learn, thereby carrying it four cubits in the public domain.”",
+      "Now, we must understand why the sages saw fit to uproot a positive Torah commandment because of a concern of this kind. Regarding the Lulav, the matter itself contains no inherent concern for [Torah] transgression, for it concerns only the [aforementioned] carrying. This is also unlike the Shofar, which involves a skill [i.e., giving further justification for refrain].",
+      "The Lulav involves no forbidden work (melachah) prohibition, but carrying alone, as discussed by Tosefot in Tractate Rosh HaShanah. This being the case, why did they uproot a Torah mitzvah based on mere concern?",
+      "Now, as known, the Sukkah represents the aspect of the encompassing lights (Makifim), as the verse states, “And the Sukkah shall be for shade in the daytime etc.” It similarly states, “If the walls extend up to twenty cubits high, a person is sitting in the shade of the Sukkah.” We therefore must understand the matter of the encompassing aspect (Makif) of the Sukkah.",
+      "Additionally, as known, optimally, the rite of Lulav should specifically be done in the Sukkah. We therefore must understand the relationship between the Lulav and the Sukkah. Additionally, the verse states about the Sukkah, “You shall dwell (Teishvu) in Sukkot for seven days.” However, as known, the encompassing lights (Makifim) do not dwell or become inwardly settled (Hityashvut). If so, what is the meaning of, “You shall dwell (Teishvu) in Sukkot?",
+      "Now, to understand this, we must first preface with what was previously explained about the verse, “To every end I have seen a beginning,” referring to the revelations within the order of the chaining down of the worlds (Seder Hishtalshelut), which are limited. That is, there is a cessation and end to their being drawing down. The automatic outcome of this is, “I have seen a Keitz” – meaning “a beginning.” This is because their beginning follows the first constriction (Tzimtzum). They therefore are in the category of “until and including.” This being the case, from whatever level of consciousness a person has attained, he can perceive the next, higher level and grasp that it too is limited and has an end.",
+      "Now, Ibn Yichia explains this verse as follows, “To every end I have seen a beginning,” that this means, “to every pleasure and delight etc.” Iggeret HaKodesh, Epistle 17, similarly explains, “To every end-Tichlah refers to the expiry of the soul - Kallot HaNefesh.” In other words, I have seen a beginning, end and limitation to the expiry and yearning of the soul. However, the continuation of the verse, “Your mitzvah is exceedingly broad” means that the pleasure inherent in the mitzvot is unlimited.",
+      "In Midrash Rabbah Bereishit, chapter ten, it states, “To every end – everything is limited, the heavens and earth are limited, (that is, all the pleasures in the heavens and earth are limited), except for one thing that has no limits. What is that one thing? It is Torah.”",
+      "As known, the explanation of the matter is that the faculty of “pleasure” is the loftiest of all the encompassing lights of the soul. This is in accordance with the statement, “There is nothing loftier than pleasure,” because pleasure (Taanug) even transcends the power of desire (Ratzon). It is clearly observable that pleasure (Taanug) is the cause of desire (Ratzon) and that the reason a person has a desire for any given thing is because of the pleasure in it. Without the pleasure in the thing itself, there is no desire for it. This being the case, pleasure transcends desire and is its cause.",
+      "The same principle applies to all the powers of the soul, such as the soul-power of Wisdom-Chochmah. It too is dependent on pleasure, as in the dictum, “A person should always study what his heart desires (Chafetz),” and as known, the word Chafetz (desire), specifically refers to a desire that is pleasurable. Specifically as a result of the pleasure, he will have insight and bring forth novel ideas on the subject, as explained elsewhere. Similarly, we observe that a person will have an essential delight in something (such as building his home etc.) especially when it follows the dictates of his wisdom (Chochmah). This is because his wisdom goes according to the pleasure he has in it, as explained elsewhere. In the same way, all the soul-powers depend on the pleasure in them and the pleasure is automatically drawn out to illuminate them etc. Nevertheless, the light of the pleasure that illuminates all the soul-powers is only a glimmer of the pleasure. Because of this, there are changes and varying degrees of it."
+     ],
+     "ru": [
+      "Мишна говорит: «Лулав и ива — шесть или семь [дней]. Как лулав — семь? Если первый день праздника выпал на Шабат, лулав — семь дней; а если на другой день недели — только шесть». Иначе говоря, в первый день праздника заповедь лулава в границах Земли Израиля отменяла запрет Шабата, а если [Шабат] выпадал на другой день — не отменяла. Но всё это было только во времена Храма.",
+      "После разрушения Храма, даже если первый день праздника выпадает на Шабат, [лулав] не отменяет Шабат. Талмуд объясняет причину запрета — это постановление Рабы, который сказал: «Это ограждение: как бы человек не взял лулав в руку и не пошёл к знатоку учиться, и не пронёс его четыре локтя в общественном владении».",
+      "Нужно понять, почему мудрецы сочли нужным отменить положительную заповедь Торы из-за такого опасения. Ведь в самом лулаве нет опасения [нарушить закон Торы] — речь только о [названном] переносе. И это не как шофар, где нужно умение [что дало бы ещё одну причину воздержаться].",
+      "В лулаве нет запрета работы (мелаха) — только перенос, как обсуждают Тосафот в трактате Рош ґа-Шана. Раз так, почему отменили заповедь Торы только из-за опасения?",
+      "Как известно, сукка — это окружающие света (макифим), как говорит стих: «И сукка будет тенью днём и т. д.». И сказано также: «Если стены выше двадцати локтей, человек сидит в тени сукки». Поэтому надо понять, что такое окружающее (макиф) сукки.",
+      "Кроме того, как известно, лучше всего исполнять заповедь лулава именно в сукке. Поэтому надо понять, как связаны лулав и сукка. И ещё: о сукке стих говорит: «В шалашах живите (тешву) семь дней». Но, как известно, окружающие света (макифим) не «живут» и не оседают внутри (ґитъяшвут). Если так, что значит «в шалашах живите»?",
+      "Чтобы понять это, сначала вспомним объяснённое раньше о стихе «Каждому концу я видел начало»: это о раскрытиях в порядке цепи миров (седер ґиштальшелут), которые ограничены. То есть их притяжение прекращается и кончается. Отсюда само собой — «я видел кец», то есть «начало»: ведь их начало — после первого сокращения (цимцум). Поэтому они в категории «до и включая». А раз так, с какой бы ступени понимания человек ни стоял, он может воспринять следующую, высшую ступень и понять, что и она ограничена и у неё есть конец.",
+      "Ибн Яхья объясняет этот стих — «Каждому концу я видел начало» — так: «всякому наслаждению и удовольствию и т. д.». Так же объясняет «Иггерет ґа-кодеш», послание 17: «„Каждому концу (тихла)“ — это о томлении души (калот ґа-нефеш)». Иначе говоря, я видел начало, конец и предел у томления и стремления души. Но продолжение стиха — «Твоя заповедь безмерно широка» — значит, что наслаждение в заповедях безгранично.",
+      "В Мидраше (Берешит Раба, глава 10) сказано: «„Каждому концу“ — всему есть предел, у неба и земли есть предел (то есть у всех наслаждений неба и земли есть предел), кроме одного, у которого нет предела. Что это? Это Тора».",
+      "Как известно, смысл таков: способность «наслаждения» — самая высокая из всех окружающих светов души, как говорится: «Нет ничего выше наслаждения». Ведь наслаждение (таануг) выше даже силы желания (рацон). Ясно видно, что наслаждение — причина желания: человек хочет чего-то из-за наслаждения в этом. Без наслаждения в самой вещи нет и желания её. Раз так, наслаждение выше желания и его причина.",
+      "Тот же принцип — во всех силах души, например в силе Мудрости (Хохма). Она тоже зависит от наслаждения, как говорится: «Пусть человек всегда учит то, чего желает (хафец) его сердце», — а слово «хафец», как известно, значит именно желание с наслаждением. Именно благодаря наслаждению он будет понимать и находить новое в предмете, как объяснено в другом месте. Так же мы видим: человек особенно радуется чему-то (например, постройке своего дома и т. п.), когда это сделано по его мудрости (Хохма). Ведь его мудрость идёт за наслаждением, которое у него в этом, как объяснено в другом месте. Так все силы души зависят от наслаждения в них, и наслаждение само собой притягивается и светит в них и т. д. И всё же свет наслаждения, который светит во всех силах души, — лишь отблеск наслаждения. Поэтому в нём есть перемены и разные степени."
+     ],
+     "de": [
+      "Die Mischna sagt: „Lulaw und Weide – sechs oder sieben [Tage]. Wie ist der Lulaw sieben? Fiel der erste Festtag auf Schabbat, dann sieben Tage; fiel er auf einen anderen Wochentag, nur sechs.“ Das heißt: Am ersten Festtag verdrängte die Mizwa des Lulaw im Land Israel den Schabbat, fiel er aber auf einen anderen Tag, verdrängte er den Schabbat nicht. Doch all das galt nur zur Zeit des Tempels.",
+      "Nach der Zerstörung des Tempels verdrängt [der Lulaw] den Schabbat nicht mehr, auch wenn der erste Festtag auf Schabbat fällt. Der Talmud nennt den Grund für das Verbot – eine Verordnung von Raba, der sagte: „Es ist ein Schutzzaun: Ein Mensch könnte den Lulaw in die Hand nehmen und zu einem Kundigen gehen, um zu lernen, und ihn so vier Ellen im öffentlichen Bereich tragen.“",
+      "Wir müssen verstehen, warum die Weisen es für richtig hielten, ein Gebot der Tora wegen so einer Befürchtung aufzuheben. Denn im Lulaw selbst liegt keine Befürchtung [einer Übertretung der Tora] – es geht nur um das [genannte] Tragen. Und es ist nicht wie beim Schofar, wo man Geschick braucht [was ein weiterer Grund wäre, darauf zu verzichten].",
+      "Beim Lulaw gibt es kein Arbeitsverbot (Melacha), sondern nur das Tragen, wie Tosafot im Traktat Rosch Haschana besprechen. Wenn es so ist, warum hob man eine Mizwa der Tora nur wegen einer Befürchtung auf?",
+      "Wie bekannt ist die Sukka das umgebende Licht (Makifim), wie der Vers sagt: „Und die Sukka wird zum Schatten am Tag sein usw.“ Und es heißt auch: „Wenn die Wände höher als zwanzig Ellen sind, sitzt der Mensch im Schatten der Sukka.“ Darum müssen wir verstehen, was das Umgebende (Makif) der Sukka ist.",
+      "Außerdem ist es, wie bekannt, am besten, die Mizwa des Lulaw gerade in der Sukka zu erfüllen. Darum müssen wir verstehen, wie Lulaw und Sukka zusammenhängen. Und noch etwas: Über die Sukka sagt der Vers: „In Hütten sollt ihr wohnen (Teschwu) sieben Tage.“ Doch wie bekannt „wohnen“ die umgebenden Lichter (Makifim) nicht und lassen sich nicht innen nieder (Hitjaschwut). Wenn es so ist, was bedeutet „In Hütten sollt ihr wohnen“?",
+      "Um das zu verstehen, erinnern wir zuerst an das, was über den Vers „Allem Ende habe ich einen Anfang gesehen“ erklärt wurde: Er spricht von den Offenbarungen in der Ordnung der Kette der Welten (Seder Hischtalschelut), die begrenzt sind. Das heißt, ihr Herabziehen hört auf und endet. Daraus folgt von selbst: „Ich habe einen Kez gesehen“ – also einen „Anfang“. Denn ihr Anfang ist nach der ersten Zusammenziehung (Zimzum). Darum gehören sie zum „bis einschließlich“. Wenn es so ist, kann ein Mensch, auf welcher Stufe des Verstehens er auch steht, die nächste, höhere Stufe wahrnehmen und verstehen, dass auch sie begrenzt ist und ein Ende hat.",
+      "Ibn Jachja erklärt diesen Vers – „Allem Ende habe ich einen Anfang gesehen“ – so: „jedem Vergnügen und jeder Wonne usw.“. Ebenso erklärt die Iggeret Hakodesch, Brief 17: „‚Allem Ende (Tichla)‘ meint das Vergehen der Seele (Kalot Hanefesch).“ Das heißt: Ich habe einen Anfang, ein Ende und eine Grenze im Vergehen und Sehnen der Seele gesehen. Doch die Fortsetzung des Verses – „Dein Gebot ist überaus weit“ – bedeutet, dass das Vergnügen in den Mizwot unbegrenzt ist.",
+      "Im Midrasch (Bereschit Raba, Kapitel 10) heißt es: „‚Allem Ende‘ – alles hat eine Grenze, Himmel und Erde haben eine Grenze (das heißt, alle Vergnügen von Himmel und Erde haben eine Grenze), außer einem, das keine Grenze hat. Was ist das? Das ist die Tora.“",
+      "Wie bekannt ist der Sinn: Die Fähigkeit des „Vergnügens“ ist das höchste aller umgebenden Lichter der Seele, wie es heißt: „Es gibt nichts Höheres als das Vergnügen.“ Denn das Vergnügen (Taanug) steht sogar über der Kraft des Wunsches (Razon). Man sieht deutlich, dass das Vergnügen die Ursache des Wunsches ist: Ein Mensch wünscht sich etwas wegen des Vergnügens daran. Ohne Vergnügen an der Sache selbst gibt es keinen Wunsch nach ihr. Wenn es so ist, steht das Vergnügen über dem Wunsch und ist seine Ursache.",
+      "Dasselbe gilt für alle Kräfte der Seele, zum Beispiel für die Kraft der Weisheit (Chochma). Auch sie hängt vom Vergnügen ab, wie es heißt: „Ein Mensch soll immer lernen, was sein Herz begehrt (Chafez)“ – und das Wort „Chafez“ bedeutet, wie bekannt, gerade einen Wunsch mit Vergnügen. Gerade durch das Vergnügen wird er die Sache verstehen und Neues darin finden, wie an anderer Stelle erklärt wird. Ebenso sehen wir: Ein Mensch freut sich besonders an etwas (zum Beispiel am Bau seines Hauses usw.), wenn es nach seiner Weisheit (Chochma) gemacht ist. Denn seine Weisheit folgt dem Vergnügen, das er daran hat, wie an anderer Stelle erklärt wird. So hängen alle Kräfte der Seele vom Vergnügen in ihnen ab, und das Vergnügen wird von selbst herabgezogen und leuchtet in ihnen usw. Und doch ist das Licht des Vergnügens, das in allen Kräften der Seele leuchtet, nur ein Schimmer des Vergnügens. Darum gibt es darin Veränderungen und verschiedene Stufen."
+     ],
+     "questions": [
+      {
+       "q": {
+        "ru": "Почему после разрушения Храма лулав не отменяет Шабат?",
+        "en": "Why, after the destruction of the Temple, does the Lulav not override Shabbat?",
+        "de": "Warum verdrängt der Lulaw nach der Zerstörung des Tempels den Schabbat nicht?"
+       },
+       "o": [
+        {
+         "ru": "Постановление Рабы: чтобы не пронести его четыре локтя в общественном владении",
+         "en": "Rabbah’s decree: lest one carry it four cubits in the public domain",
+         "de": "Rabas Verordnung: damit man ihn nicht vier Ellen im öffentlichen Bereich trägt"
+        },
+        {
+         "ru": "Лулав — это работа (мелаха)",
+         "en": "Taking the Lulav is forbidden work (melachah)",
+         "de": "Der Lulaw ist eine verbotene Arbeit (Melacha)"
+        },
+        {
+         "ru": "Лулав нужен только в Храме",
+         "en": "The Lulav is needed only in the Temple",
+         "de": "Den Lulaw braucht man nur im Tempel"
+        },
+        {
+         "ru": "Так было всегда",
+         "en": "It was always so",
+         "de": "Das war immer so"
+        }
+       ]
+      },
+      {
+       "q": {
+        "ru": "Что, по Мидрашу, не имеет предела, хотя у неба и земли есть предел?",
+        "en": "According to the Midrash, what has no limit, though heaven and earth are limited?",
+        "de": "Was hat laut Midrasch keine Grenze, obwohl Himmel und Erde begrenzt sind?"
+       },
+       "o": [
+        {
+         "ru": "Тора",
+         "en": "Torah",
+         "de": "Die Tora"
+        },
+        {
+         "ru": "Солнце",
+         "en": "The sun",
+         "de": "Die Sonne"
+        },
+        {
+         "ru": "Время",
+         "en": "Time",
+         "de": "Die Zeit"
+        },
+        {
+         "ru": "Мир Ацилут",
+         "en": "The world of Atzilut",
+         "de": "Die Welt Azilut"
+        }
+       ]
+      },
+      {
+       "q": {
+        "ru": "Как наслаждение связано с желанием?",
+        "en": "How is pleasure related to desire?",
+        "de": "Wie hängt das Vergnügen mit dem Wunsch zusammen?"
+       },
+       "o": [
+        {
+         "ru": "Наслаждение выше желания и его причина",
+         "en": "Pleasure transcends desire and is its cause",
+         "de": "Das Vergnügen steht über dem Wunsch und ist seine Ursache"
+        },
+        {
+         "ru": "Желание — причина наслаждения",
+         "en": "Desire is the cause of pleasure",
+         "de": "Der Wunsch ist die Ursache des Vergnügens"
+        },
+        {
+         "ru": "Они никак не связаны",
+         "en": "They are unrelated",
+         "de": "Sie hängen nicht zusammen"
+        },
+        {
+         "ru": "Наслаждение ниже всех сил души",
+         "en": "Pleasure is the lowest power of the soul",
+         "de": "Das Vergnügen ist die niedrigste Kraft der Seele"
+        }
+       ]
+      },
+      {
+       "q": {
+        "ru": "Какой вопрос маамар задаёт о сукке?",
+        "en": "What question does the discourse ask about the Sukkah?",
+        "de": "Welche Frage stellt die Abhandlung über die Sukka?"
+       },
+       "o": [
+        {
+         "ru": "Как «жить» в сукке, если окружающие света не оседают внутри",
+         "en": "How one can “dwell” in the Sukkah if encompassing lights do not settle within",
+         "de": "Wie man in der Sukka „wohnen“ kann, wenn umgebende Lichter sich nicht innen niederlassen"
+        },
+        {
+         "ru": "Какой высоты должна быть сукка",
+         "en": "How tall the Sukkah must be",
+         "de": "Wie hoch die Sukka sein muss"
+        },
+        {
+         "ru": "Сколько дней строят сукку",
+         "en": "How many days the Sukkah is built",
+         "de": "Wie viele Tage man die Sukka baut"
+        },
+        {
+         "ru": "Почему сукка без крыши",
+         "en": "Why the Sukkah has no roof",
+         "de": "Warum die Sukka kein Dach hat"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "m4-2",
+     "title": {
+      "ru": "Суть души светит во всех силах одинаково: большая радость и тшува",
+      "en": "The essence of the soul shines equally in all powers: great joy and Teshuvah",
+      "de": "Das Wesen der Seele leuchtet in allen Kräften gleich: große Freude und Tschuwa"
+     },
+     "summary": {
+      "ru": "Суть неделима и не растекается по частям; если она раскрывается, то светит во всех силах одинаково. Так бывает в большой радости — на свадьбе единственного ребёнка: раскрывается ступень души йехида, и сокрытые силы облекаются в явные — человек понимает удивительные вещи и говорит с особой силой. Так и в настоящей тшуве: в служении умом и сердцем раскрываются лишь явные силы Б-жественной души, а тшува будит саму суть души. В десять дней тшувы, когда «Светоч близок к искре», человек чувствует, как далёк от Б-жественного, и горечь трогает его до глубины — и суть души сама собой тянется к Б-гу, «до истечения души», даже если он этого не осознаёт.",
+      "en": "An essence is indivisible and does not spread into parts; when it is revealed, it shines equally in all the powers. So it is in great joy — at the wedding of an only child: the Yechidah of the soul is revealed, and the hidden powers manifest in the revealed ones — a person grasps wondrous things and speaks with special strength. So too in true Teshuvah: in the service of mind and heart only the revealed powers of the G-dly soul are revealed, but Teshuvah arouses the very essence of the soul. In the ten days of repentance, when “the Luminary is close to the spark,” a person feels how distant he is from G-dliness, and the bitterness touches him to the depths — and the essence of the soul is drawn to G-d, “to the point of expiring,” even if he is not aware of it.",
+      "de": "Ein Wesen ist unteilbar und breitet sich nicht in Teile aus; wenn es offenbart wird, leuchtet es in allen Kräften gleich. So ist es bei großer Freude – bei der Hochzeit eines einzigen Kindes: Die Jechida der Seele wird offenbart, und die verborgenen Kräfte kleiden sich in die offenen – der Mensch versteht wunderbare Dinge und spricht mit besonderer Kraft. So auch bei wahrer Tschuwa: Im Dienst von Verstand und Herz zeigen sich nur die offenen Kräfte der g-ttlichen Seele, doch die Tschuwa weckt das Wesen der Seele selbst. In den zehn Tagen der Umkehr, wenn „das Licht dem Funken nah ist“, fühlt der Mensch, wie fern er der G-ttlichkeit ist, und die Bitterkeit trifft ihn in der Tiefe – und das Wesen der Seele wird zu G-tt gezogen, „bis zum Vergehen“, auch wenn er es nicht merkt."
+     },
+     "en": [
+      "For, as known, an essence is indivisible and does not spread out of its essential self. Hence, the essential self of the soul, as it is essentially, does not spread forth or divide into its individual powers. Now, if there is a drawing forth from the essence of the soul, it is drawn out and illuminates as it essentially is – equally in all its particular powers. For example, when at a time of great joy there is a revelation of the aspect of the Yechidah level of the soul, such as on the wedding of an only child or the like; at such a time, the aspect of the Yechidah of the soul, including all its powers and faculties, from the intellectual powers, to the powers of speech and action, become revealed and the soul radiates equally in all of them, with great strength and revelation, as discussed elsewhere.",
+      "Now, although this is a revelation of the hidden powers of the soul, as described elsewhere, nevertheless, at such a time, these hidden powers manifest within the revealed powers, because even then, he conceptualizes with the essential power of his intellect, specifically according to the light of the intellect in his brain. This is because the power of intellect concealed in the soul is not in a state of intellect at all, as known and discussed elsewhere.",
+      "In contrast, in the above-mentioned revelation, it indeed is in a state of the existence of revealed intellect, only that in the strength of its flow, there is an illumination and revelation of the essential light of the soul, thus giving him the capability of conceptualizing hidden and wondrous matters, which he would not have otherwise been capable of conceptualizing.",
+      "In addition, everything he conceptualizes at such a time comes in a way of actual comprehension of the essential brilliance of the concept, as it is. This is as explained elsewhere in the discourse entitled \"V'Chol HaAm Ro'im\" of the year 5665.",
+      "This same principle applies to all the other powers, including the power of speech. It manifests within the revealed power of speech and so he speaks etc. In other words, the concealed powers manifest in the revealed powers, except that the power and strength of the soul illuminates in them equally.",
+      "It is similarly so regarding true repentance (Teshuvah) from the depths of one’s heart, at which time the essential light of the soul radiates in a revealed way. For as known, regarding the service of the mind and heart, the revelations that come forth from the powers of the G-dly soul are only the aspect of the revealed powers of intellect and emotions. That is, he will conceptualize and contemplate in his intellect and will arouse love and fear of HaShem, which is the revelation of the powers of the G-dly soul, but only the revealed powers.",
+      "However, the matter of repentance (Teshuvah) arouses the essential self of the soul, and he is “moved from his place” because of the constrictions caused by the sins and transgressions that soiled his soul over the course of the year, Heaven forbid.",
+      "Additionally, in the ten days of repentance, which is a time when the “Luminary comes close to the sparks,” he considers his great distance in his heart, in that he has removed himself from G-dliness, which touches him to the depth of his soul. (In other words, he is touched both by his great distance, in that he finds himself entrenched in the external husks (Kelipot) and the side opposite holiness (Sitra Acharah) that are “despised by HaShem,” Heaven forbid, and by the blemish he has caused, both Above in the spiritual realm, and below in his soul, as explained elsewhere.)",
+      "(This is especially so during the ten days of repentance, at which time the Luminary is close. At this time the matter touches him to a greater degree in the innerness of his heart. This is similarly so at other auspicious times, such as during the midnight prayer of Tikkun Chatzot, or before prayer etc.)",
+      "He becomes embittered by this in his soul, to the point that his very essence is greatly moved by a powerful bitterness. This can be compared to very deep internal physical pain, G-d forbid, which causes the essential self of the soul to be stirred and moved. The same is so of a true penitent, that when the matter touches him to the inner depth of his heart, the essential self of his soul is stirred and moved by great bitterness. The result is that there is an automatic drawing and desire to come close to G-dliness, in that his whole being is moved, literally to the point of expiring.",
+      "Now, he is not necessarily even conscious of this “drawing forth of the soul,” because, at this point, he only is aware of the bitterness and anguish he feels from his sense of distance. Therefore, he is not necessarily aware of being drawn close to G-dliness (since this is the aspect of the “inner, unheard voice”, which also is called “the cry of the heart” as discussed elsewhere)."
+     ],
+     "ru": [
+      "Ведь, как известно, суть неделима и не растекается за пределы самой себя. Поэтому суть души, как она есть, не растекается и не делится на свои отдельные силы. А если от сути души что-то притягивается, то притягивается и светит так, как она есть, — одинаково во всех её силах. Например, когда в большой радости раскрывается ступень души йехида — скажем, на свадьбе единственного ребёнка и т. п., — в такое время раскрывается йехида души со всеми её силами и способностями, от сил разума до сил речи и действия, и душа светит во всех них одинаково, с большой силой и раскрытием, как объяснено в другом месте.",
+      "Хотя это раскрытие сокрытых сил души, как описано в другом месте, всё же в такое время эти сокрытые силы облекаются в явные силы. Ведь и тогда человек понимает сущностной силой своего разума — именно по свету разума в его мозгу. Ведь сила разума, сокрытая в душе, сама вовсе не в состоянии разума, как известно и как объяснено в другом месте.",
+      "Напротив, при названном раскрытии она действительно в состоянии явного разума, только в силе её потока светит и раскрывается сущностный свет души. Это даёт человеку способность понимать сокрытые и удивительные вещи, которые иначе он не смог бы понять.",
+      "Кроме того, всё, что он понимает в такое время, приходит как настоящее постижение самого сияния идеи, как она есть. Как объяснено в другом месте, в маамаре «Ве-холь ґа-ам роим» 5665 года.",
+      "Тот же принцип — во всех остальных силах, и в силе речи. Она облекается в явную силу речи — и он говорит и т. д. Иначе говоря, сокрытые силы облекаются в явные силы, только мощь и сила души светит в них одинаково.",
+      "Так же и в настоящей тшуве из глубины сердца: тогда сущностный свет души светит раскрыто. Ведь, как известно, в служении умом и сердцем раскрытия, которые исходят от сил Б-жественной души, — это только явные силы разума и чувств. То есть человек понимает и размышляет своим разумом и пробуждает любовь и трепет перед Г-сподом — это раскрытие сил Б-жественной души, но только явных сил.",
+      "Но тшува будит саму суть души, и человек «сдвигается со своего места» из-за сокращений, которые вызвали грехи и проступки, запачкавшие его душу за год, упаси Б-г.",
+      "Кроме того, в десять дней тшувы, когда «Светоч близок к искрам», человек размышляет в сердце о том, как он далёк, — как он удалился от Б-жественного, и это трогает его до глубины души. (Иначе говоря, его трогает и то, как он далёк — что он погряз в оболочках (клипот) и в «другой стороне» (ситра ахра), которые «ненавистны Г-споду», упаси Б-г, — и изъян, который он причинил и наверху, в духовном, и внизу, в своей душе, как объяснено в другом месте.)",
+      "(Особенно в десять дней тшувы, когда Светоч близок. Тогда это трогает его больше, в глубине сердца. Так же и в другие благоприятные времена — в полночной молитве «Тикун хацот», перед молитвой и т. д.)",
+      "Он ожесточается от этого в душе, так что самая его суть сильно движется от мощной горечи. Это можно сравнить с очень глубокой внутренней телесной болью, упаси Б-г, от которой движется и вздрагивает сама суть души. Так и настоящий баал тшува: когда это трогает его до внутренней глубины сердца, суть его души вздрагивает и движется от великой горечи. И отсюда сама собой — тяга и желание приблизиться к Б-жественному: всё его существо движется, буквально до истечения души.",
+      "Он даже не обязательно осознаёт это «влечение души»: в этот момент он чувствует только горечь и боль от того, как он далёк. Поэтому он не обязательно знает, что его тянет к Б-жественному (ведь это «внутренний, неслышный голос», который называется и «криком сердца», как объяснено в другом месте)."
+     ],
+     "de": [
+      "Denn wie bekannt ist ein Wesen unteilbar und breitet sich nicht über sich selbst hinaus aus. Darum breitet sich das Wesen der Seele, wie es ist, nicht aus und teilt sich nicht in seine einzelnen Kräfte. Wird aber etwas vom Wesen der Seele herabgezogen, dann so, wie es ist – gleich in allen ihren Kräften. Zum Beispiel: Wenn bei großer Freude die Stufe Jechida der Seele offenbart wird – etwa bei der Hochzeit eines einzigen Kindes oder Ähnlichem –, dann wird die Jechida der Seele mit allen ihren Kräften und Fähigkeiten offenbart, von den Kräften des Verstandes bis zu den Kräften von Sprechen und Tun, und die Seele leuchtet in ihnen allen gleich, mit großer Kraft und Offenbarung, wie an anderer Stelle erklärt wird.",
+      "Obwohl das eine Offenbarung der verborgenen Kräfte der Seele ist, wie an anderer Stelle beschrieben, kleiden sich diese verborgenen Kräfte in solcher Zeit doch in die offenen Kräfte. Denn auch dann versteht der Mensch mit der wesentlichen Kraft seines Verstandes – gerade nach dem Licht des Verstandes in seinem Gehirn. Denn die in der Seele verborgene Kraft des Verstandes ist selbst überhaupt nicht im Zustand von Verstand, wie bekannt und an anderer Stelle erklärt.",
+      "In der genannten Offenbarung dagegen ist sie wirklich im Zustand des offenen Verstandes, nur leuchtet und offenbart sich in der Kraft ihres Flusses das wesentliche Licht der Seele. Das gibt ihm die Fähigkeit, verborgene und wunderbare Dinge zu verstehen, die er sonst nicht verstehen könnte.",
+      "Außerdem kommt alles, was er in solcher Zeit versteht, als wirkliches Erfassen des Glanzes der Idee selbst, so wie sie ist. So wird es an anderer Stelle erklärt, in der Abhandlung „Wechol Ha’am Ro’im“ aus dem Jahr 5665.",
+      "Dasselbe gilt für alle anderen Kräfte, auch für die Kraft des Sprechens. Sie kleidet sich in die offene Kraft des Sprechens – und er spricht usw. Das heißt: Die verborgenen Kräfte kleiden sich in die offenen Kräfte, nur leuchtet die Macht und Kraft der Seele in ihnen gleich.",
+      "Ebenso ist es bei wahrer Tschuwa aus der Tiefe des Herzens: Dann leuchtet das wesentliche Licht der Seele offen. Denn wie bekannt sind im Dienst von Verstand und Herz die Offenbarungen, die von den Kräften der g-ttlichen Seele kommen, nur die offenen Kräfte von Verstand und Gefühl. Das heißt: Er versteht und denkt mit seinem Verstand nach und weckt Liebe und Ehrfurcht vor Haschem – das ist die Offenbarung der Kräfte der g-ttlichen Seele, aber nur der offenen Kräfte.",
+      "Die Tschuwa aber weckt das Wesen der Seele selbst, und der Mensch wird „von seinem Platz bewegt“ – wegen der Zusammenziehungen, die die Sünden und Übertretungen bewirkt haben, die seine Seele im Lauf des Jahres beschmutzt haben, das sei fern.",
+      "Außerdem denkt er in den zehn Tagen der Umkehr, wenn „das Licht den Funken nah ist“, in seinem Herzen darüber nach, wie fern er ist – wie er sich von der G-ttlichkeit entfernt hat, und das trifft ihn in der Tiefe der Seele. (Das heißt: Ihn trifft beides – wie fern er ist, dass er in den Schalen (Klipot) und der „anderen Seite“ (Sitra Achra) steckt, die „Haschem verhasst“ sind, das sei fern, und der Makel, den er verursacht hat, oben im Geistigen und unten in seiner Seele, wie an anderer Stelle erklärt wird.)",
+      "(Besonders in den zehn Tagen der Umkehr, wenn das Licht nah ist. Dann trifft es ihn stärker, im Inneren des Herzens. Ebenso zu anderen günstigen Zeiten – beim Mitternachtsgebet Tikkun Chazot, vor dem Gebet usw.)",
+      "Er wird darüber in seiner Seele bitter, sodass sein Wesen selbst von starker Bitterkeit tief bewegt wird. Man kann es mit einem sehr tiefen inneren körperlichen Schmerz vergleichen, das sei fern, durch den das Wesen der Seele selbst aufgewühlt wird. So ist es auch bei einem wahren Baal Tschuwa: Wenn es ihn in der inneren Tiefe des Herzens trifft, wird das Wesen seiner Seele von großer Bitterkeit aufgewühlt. Daraus kommt von selbst ein Ziehen und ein Wunsch, der G-ttlichkeit nahe zu kommen: Sein ganzes Wesen wird bewegt, buchstäblich bis zum Vergehen der Seele.",
+      "Er merkt dieses „Ziehen der Seele“ nicht unbedingt: In diesem Moment fühlt er nur die Bitterkeit und den Schmerz, weil er so fern ist. Darum weiß er nicht unbedingt, dass er zur G-ttlichkeit gezogen wird (denn das ist die „innere, unhörbare Stimme“, die auch „Schrei des Herzens“ heißt, wie an anderer Stelle erklärt wird)."
+     ],
+     "questions": [
+      {
+       "q": {
+        "ru": "Как светит суть души, когда она раскрывается?",
+        "en": "How does the essence of the soul shine when it is revealed?",
+        "de": "Wie leuchtet das Wesen der Seele, wenn es offenbart wird?"
+       },
+       "o": [
+        {
+         "ru": "Одинаково во всех силах",
+         "en": "Equally in all the powers",
+         "de": "Gleich in allen Kräften"
+        },
+        {
+         "ru": "Только в разуме",
+         "en": "Only in the intellect",
+         "de": "Nur im Verstand"
+        },
+        {
+         "ru": "Только в речи",
+         "en": "Only in speech",
+         "de": "Nur im Sprechen"
+        },
+        {
+         "ru": "Никак не светит",
+         "en": "It does not shine at all",
+         "de": "Es leuchtet gar nicht"
+        }
+       ]
+      },
+      {
+       "q": {
+        "ru": "Какой пример большой радости приводит маамар?",
+        "en": "What example of great joy does the discourse give?",
+        "de": "Welches Beispiel großer Freude bringt die Abhandlung?"
+       },
+       "o": [
+        {
+         "ru": "Свадьба единственного ребёнка",
+         "en": "The wedding of an only child",
+         "de": "Die Hochzeit eines einzigen Kindes"
+        },
+        {
+         "ru": "Покупка дома",
+         "en": "Buying a house",
+         "de": "Der Kauf eines Hauses"
+        },
+        {
+         "ru": "Победа в споре",
+         "en": "Winning an argument",
+         "de": "Ein gewonnener Streit"
+        },
+        {
+         "ru": "Новый урок",
+         "en": "A new lesson",
+         "de": "Eine neue Lektion"
+        }
+       ]
+      },
+      {
+       "q": {
+        "ru": "Чем тшува отличается от служения умом и сердцем?",
+        "en": "How does Teshuvah differ from the service of mind and heart?",
+        "de": "Wie unterscheidet sich die Tschuwa vom Dienst von Verstand und Herz?"
+       },
+       "o": [
+        {
+         "ru": "Тшува будит саму суть души, а не только явные силы",
+         "en": "Teshuvah arouses the very essence of the soul, not only the revealed powers",
+         "de": "Die Tschuwa weckt das Wesen der Seele selbst, nicht nur die offenen Kräfte"
+        },
+        {
+         "ru": "Тшува — только словами",
+         "en": "Teshuvah is only in words",
+         "de": "Die Tschuwa ist nur mit Worten"
+        },
+        {
+         "ru": "Ничем",
+         "en": "In nothing",
+         "de": "In nichts"
+        },
+        {
+         "ru": "Тшува слабее",
+         "en": "Teshuvah is weaker",
+         "de": "Die Tschuwa ist schwächer"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "m4-3",
+     "title": {
+      "ru": "Тяга, которую не чувствуешь: отчаяние, близость Светоча и перемена баал тшувы",
+      "en": "An unfelt drawing: despair, the closeness of the Luminary and the change of a Baal Teshuvah",
+      "de": "Ein ungespürtes Ziehen: Verzweiflung, die Nähe des Lichts und die Wandlung eines Baal Tschuwa"
+     },
+     "summary": {
+      "ru": "Б-жественная душа сильно тянется к Б-гу, но человек этого не чувствует: он бежит от зла и смерти — и сам собой к жизни. Бывает отчаяние от величия света, а здесь — от собственной низости: «как мне вообще приблизиться?» — и это ещё сильнее тянет. Бывает и пробуждение не от грехов, а от близости Светоча к искре — выше разума, не «желание сердца» по пониманию (перед Сутью все считаются грешниками: «согрешили мы…»). Когда раскрывается суть души, она меняет все силы: баал тшува говорит «не хочу» прежнему, чувствует всё Б-жественное, у его разума другие основы, и даже заповеди он исполняет с новой силой — как каждый еврей в Рош ґа-Шана и Йом Кипур.",
+      "en": "The G-dly soul is strongly drawn to G-d, but the person does not feel it: he flees from evil and death — and automatically toward life. There is despair from the greatness of the light, but here it is from one’s own lowliness: “how could I ever come close?” — which draws him even more strongly. There is also an arousal not from sins but from the closeness of the Luminary to the spark — above intellect, not the “desire of the heart” born of understanding (before the Essential Self all are counted as sinners: “We have sinned…”). When the essence of the soul is revealed it transforms all the powers: a Baal Teshuvah says “I do not want” to the past, is sensitive to everything G-dly, his intellect has new foundations, and he even fulfills the mitzvot with new strength — as every Jew does on Rosh HaShanah and Yom Kippur.",
+      "de": "Die g-ttliche Seele wird stark zu G-tt gezogen, doch der Mensch fühlt es nicht: Er flieht vor dem Bösen und dem Tod – und von selbst zum Leben. Es gibt Verzweiflung wegen der Größe des Lichts, hier aber wegen der eigenen Niedrigkeit: „Wie könnte ich je nahe kommen?“ – und das zieht ihn noch stärker. Es gibt auch ein Erwachen nicht wegen der Sünden, sondern wegen der Nähe des Lichts zum Funken – über dem Verstand, nicht der „Wunsch des Herzens“ aus Verstehen (vor dem Wesen gelten alle als Sünder: „Wir haben gesündigt …“). Wenn das Wesen der Seele offenbart wird, verwandelt es alle Kräfte: Ein Baal Tschuwa sagt „Ich will nicht“ zum Früheren, spürt alles G-ttliche, sein Verstand hat neue Grundlagen, und selbst die Mizwot erfüllt er mit neuer Kraft – wie jeder Jude an Rosch Haschana und Jom Kippur."
+     },
+     "en": [
+      "Nonetheless, in truth, his G-dly soul is very strongly drawn to G-dliness, but it is unfelt. This is because this “drawing” is caused by his great sense of distance, in that his current condition brings him great anguish. This causes him to flee from evil and death. The automatic result is that he flees to the place of life. However, the main thrust here is fleeing from evil and death.",
+      "In addition, his being drawn to G-dliness is like a person who despairs in his soul, which makes this all the stronger. Now there are two matters in this, however only one applies here. This is because at times, a person despairs specifically because of his sensitivity to the G-dly light. He feels its greatness, which causes him to almost despair at the impossibility of attaining such a lofty level.",
+      "However, here, the opposite is true. He does not feel the greatness of G-dliness at all. Rather, he only is aware of his own lowliness and how he altogether is disconnected from G-dliness. For his despair is that he questions how closeness to G-dliness could at all be possible for him, since he realizes his lowly state and that he has no relation to this altogether.",
+      "This causes him great anguish, which moves him to be drawn to G-dliness with even greater strength. However, it [specifically] is the despair itself over his distance that causes the great and overpowering anguish, and because of this, he is unaware that, in actuality, he is being drawn to G-dliness.",
+      "Now, there is an aspect of arousal to repentance akin to this that is not because of the constrictions of one’s sins but is rather because of closeness to the limitless light of the Unlimited One (Ohr Ein Sof), that is, “the closeness of the Luminary.” This [closeness] arouses the soul to draw close to G-dliness.",
+      "Now, this too, is not because he feels the limitless light of the Unlimited One and is therefore drawn to it, because then it would be a drawing forth and yearning known as the “desire of the heart” (Re’uta d’Leeba) - a level of service attained through intellect and reason.",
+      "That is, because [through intellect and reasoning] he feels the limitless light of the Unlimited One (Ohr Ein Sof) he therefore is drawn to it. Here however, one does not feel the revelation of the limitless light of the Unlimited One, because this is an arousal of the soul as it transcends intellect and reason and is rather caused by the closeness of the Luminary to the spark.",
+      "(In reality, relative to the true exaltedness of the Essential Self of the Singular Preexistent Intrinsic and Unlimited One, all are considered to be sinners and transgressors, as explained elsewhere. This is why in the ten days of repentance, all of us, regardless of our spiritual standing, confess, “We have sinned, we have betrayed etc.”)",
+      "Now, in the above-mentioned revelation of the essential self of the soul, the essence illuminates all the faculties equally. Proof of this is the fact that when the essential light is revealed, all the various faculties and emotions literally undergo a transformation of their essential nature. As clearly observable in a true penitent (Baal Teshuvah), his very being changes from one extreme to the other, and he no longer desires all the things he previously lusted for altogether.",
+      "As known, a Baal Teshuvah must be one who says, “I do not want,” and indeed, this is how he is; he does not want anything at all, but his only desire is for G-dliness, and this desire is at full strength, so that he is sensitive to all G-dly matters. This is because this greatly touches him on a very personal level, and as known, one is sensitive to whatever touches him personally. He thus becomes sensitive to all G-dly matters, which previously he had no feelings for.",
+      "Similarly, his intellectual powers undergo an essential transformation, because the foundations and basis of his intellectual makeup take on a different form. In other words, besides the changes to his reasoning and grasp, there also are foundational principles, such as primary axioms, that he now accepts as intellectually true. The foundational principles from the side of holiness and the foundational principles from the side of the external husks (Kelipah) and the side opposite holiness (Sitra Achara) are different, and therefore, in a true Baal Teshuvah, the foundational principles of his intellect undergo profound transformation.",
+      "We therefore find that all his various faculties undergo essential change and each becomes imbued with great strength and vitality. Even the physical manifestation of his faculties will be different, so that the mitzvot he performs will also be with great strength and much vitality. This is like how it is, that on Rosh HaShanah and Yom Kippur, every Jew fulfills the mitzvot differently than how he may fulfill them during the rest of the year. This is because, on such occasions, the essential light of his soul even illuminates his physical actions."
+     ],
+     "ru": [
+      "И всё же на самом деле его Б-жественная душа очень сильно тянется к Б-жественному, только это не ощущается. Ведь эта «тяга» вызвана тем, как сильно он чувствует свою отдалённость: его нынешнее состояние причиняет ему большую боль. Это заставляет его бежать от зла и смерти, и отсюда сама собой — он бежит к месту жизни. Но главное здесь — бегство от зла и смерти.",
+      "Кроме того, его тяга к Б-жественному подобна тому, как человек отчаивается в душе, и от этого она ещё сильнее. Тут есть две вещи, но здесь — только одна. Ведь иногда человек отчаивается как раз потому, что чувствует Б-жественный свет: он ощущает его величие и почти отчаивается, что невозможно достичь такой высокой ступени.",
+      "Но здесь наоборот. Он вовсе не чувствует величия Б-жественного. Он видит только свою низость и то, как он совершенно оторван от Б-жественного. Его отчаяние в том, что он спрашивает себя: как вообще для него возможна близость к Б-гу, если он понимает своё низкое состояние и что он к этому совсем не имеет отношения?",
+      "Это причиняет ему большую боль, и она ещё сильнее тянет его к Б-жественному. Но [именно] само отчаяние от своей отдалённости вызывает великую и всепоглощающую боль, и поэтому он не замечает, что на самом деле его тянет к Б-жественному.",
+      "Есть и пробуждение к тшуве, подобное этому, которое вызвано не сокращениями от грехов, а близостью бесконечного света Бесконечного (Ор Эйн Соф) — «близостью Светоча». Эта [близость] пробуждает душу приблизиться к Б-жественному.",
+      "Но и это не потому, что человек чувствует бесконечный свет Бесконечного и поэтому тянется к нему. Иначе это была бы тяга и стремление, которые называются «желанием сердца» (реута де-либа), — ступень служения, к которой приходят разумом и пониманием.",
+      "То есть [разумом и пониманием] он чувствует бесконечный свет Бесконечного (Ор Эйн Соф) и поэтому тянется к нему. Здесь же человек не чувствует раскрытия бесконечного света Бесконечного: это пробуждение души, как она выше разума и понимания, и оно вызвано близостью Светоча к искре.",
+      "(На самом деле перед подлинной возвышенностью Сути Единственного, Предвечного, Сущностного и Бесконечного все считаются грешниками и преступниками, как объяснено в другом месте. Поэтому в десять дней тшувы все мы, на какой бы духовной ступени ни были, говорим: «Согрешили мы, изменили мы и т. д.».)",
+      "При упомянутом раскрытии сути души суть светит во всех силах одинаково. Доказательство: когда раскрывается сущностный свет, все силы и чувства буквально меняют свою природу. Как ясно видно у настоящего баал тшувы (вернувшегося): само его существо меняется от одной крайности до другой, и он больше совсем не хочет всего, чего раньше жаждал.",
+      "Как известно, баал тшува должен быть тем, кто говорит «не хочу», — и он действительно таков: он совсем ничего не хочет, его единственное желание — Б-жественное, и это желание в полную силу, так что он чувствует всё Б-жественное. Ведь это трогает его очень лично, а, как известно, человек чувствует то, что касается его лично. Поэтому он начинает чувствовать всё Б-жественное, к чему раньше был равнодушен.",
+      "Так же сущностно меняются и силы его разума: основы и фундамент его мышления принимают другой вид. Иначе говоря, кроме перемен в рассуждении и понимании, есть и основные принципы — первые аксиомы, — которые он теперь принимает разумом как истину. Основные принципы со стороны святости и основные принципы со стороны оболочек (клипа) и «другой стороны» (ситра ахра) различны, и поэтому у настоящего баал тшувы основы его разума глубоко меняются.",
+      "Итак, все его силы сущностно меняются, и каждая наполняется большой силой и жизнью. Даже их проявление в теле будет другим, так что и заповеди, которые он исполняет, будут с большой силой и жизнью. Так в Рош ґа-Шана и Йом Кипур каждый еврей исполняет заповеди иначе, чем, может быть, в остальные дни года. Ведь в такие дни сущностный свет его души светит даже в его телесных действиях."
+     ],
+     "de": [
+      "Und doch wird seine g-ttliche Seele in Wahrheit sehr stark zur G-ttlichkeit gezogen, nur wird es nicht gefühlt. Denn dieses „Ziehen“ kommt daher, wie stark er seine Ferne spürt: Sein jetziger Zustand bereitet ihm großen Schmerz. Das lässt ihn vor dem Bösen und dem Tod fliehen, und daraus folgt von selbst: Er flieht zum Ort des Lebens. Doch die Hauptsache hier ist die Flucht vor dem Bösen und dem Tod.",
+      "Außerdem ist sein Ziehen zur G-ttlichkeit wie bei einem Menschen, der in seiner Seele verzweifelt, und darum ist es noch stärker. Darin gibt es zwei Dinge, doch hier gilt nur eines. Denn manchmal verzweifelt ein Mensch gerade, weil er das g-ttliche Licht spürt: Er fühlt seine Größe und verzweifelt fast daran, dass man eine so hohe Stufe nicht erreichen kann.",
+      "Hier aber ist es umgekehrt. Er fühlt die Größe der G-ttlichkeit überhaupt nicht. Er sieht nur seine eigene Niedrigkeit und wie er ganz von der G-ttlichkeit getrennt ist. Seine Verzweiflung ist, dass er sich fragt: Wie ist Nähe zu G-tt für ihn überhaupt möglich, wenn er seinen niedrigen Zustand erkennt und dass er damit gar nichts zu tun hat?",
+      "Das bereitet ihm großen Schmerz, und er zieht ihn noch stärker zur G-ttlichkeit. Doch [gerade] die Verzweiflung über seine Ferne selbst verursacht den großen, überwältigenden Schmerz, und darum merkt er nicht, dass er in Wahrheit zur G-ttlichkeit gezogen wird.",
+      "Es gibt auch ein ähnliches Erwachen zur Tschuwa, das nicht von den Zusammenziehungen durch die Sünden kommt, sondern von der Nähe des unendlichen Lichts des Unendlichen (Or Ejn Sof) – „der Nähe des Lichts“. Diese [Nähe] weckt die Seele, der G-ttlichkeit nahe zu kommen.",
+      "Doch auch das ist nicht, weil er das unendliche Licht des Unendlichen fühlt und darum zu ihm gezogen wird. Sonst wäre es ein Ziehen und Sehnen, das „Wunsch des Herzens“ (Re’uta deLiba) heißt – eine Stufe des Dienstes, zu der man durch Verstand und Begreifen kommt.",
+      "Das heißt: [Durch Verstand und Begreifen] fühlt er das unendliche Licht des Unendlichen (Or Ejn Sof) und wird darum zu ihm gezogen. Hier aber fühlt man die Offenbarung des unendlichen Lichts nicht: Es ist ein Erwachen der Seele, wie sie über Verstand und Begreifen steht, und es kommt von der Nähe des Lichts zum Funken.",
+      "(In Wahrheit gelten vor der wahren Erhabenheit des Wesens des Einzigen, Urewigen, Wesenhaften und Unendlichen alle als Sünder und Übertreter, wie an anderer Stelle erklärt wird. Darum sagen in den zehn Tagen der Umkehr wir alle, auf welcher geistigen Stufe wir auch stehen: „Wir haben gesündigt, wir haben verraten usw.“)",
+      "Bei der genannten Offenbarung des Wesens der Seele leuchtet das Wesen in allen Kräften gleich. Der Beweis: Wenn das wesentliche Licht offenbart wird, ändern alle Kräfte und Gefühle buchstäblich ihre Natur. Wie man deutlich bei einem wahren Baal Tschuwa (Umkehrenden) sieht: Sein ganzes Wesen ändert sich von einem Extrem zum anderen, und er will gar nichts mehr von dem, wonach er sich früher sehnte.",
+      "Wie bekannt muss ein Baal Tschuwa einer sein, der sagt: „Ich will nicht“ – und so ist er wirklich: Er will gar nichts, sein einziger Wunsch ist die G-ttlichkeit, und dieser Wunsch ist voller Kraft, sodass er alles G-ttliche spürt. Denn es trifft ihn sehr persönlich, und wie bekannt spürt man, was einen persönlich betrifft. So wird er empfindsam für alles G-ttliche, für das er früher kein Gefühl hatte.",
+      "Ebenso ändern sich auch die Kräfte seines Verstandes im Wesen: Die Grundlagen seines Denkens bekommen eine andere Form. Das heißt: Außer den Änderungen im Überlegen und Begreifen gibt es auch Grundsätze – erste Axiome –, die er jetzt mit dem Verstand als wahr annimmt. Die Grundsätze von der Seite der Heiligkeit und die Grundsätze von der Seite der Schalen (Klipa) und der „anderen Seite“ (Sitra Achra) sind verschieden, und darum ändern sich bei einem wahren Baal Tschuwa die Grundlagen seines Verstandes tief.",
+      "So finden wir: Alle seine Kräfte ändern sich im Wesen, und jede wird mit großer Kraft und Lebendigkeit erfüllt. Selbst ihr körperlicher Ausdruck wird anders, sodass auch die Mizwot, die er erfüllt, mit großer Kraft und viel Lebendigkeit sind. So erfüllt an Rosch Haschana und Jom Kippur jeder Jude die Mizwot anders als vielleicht im übrigen Jahr. Denn an solchen Tagen leuchtet das wesentliche Licht seiner Seele sogar in seinen körperlichen Taten."
+     ],
+     "questions": [
+      {
+       "q": {
+        "ru": "Почему человек в тшуве может не чувствовать, что его тянет к Б-гу?",
+        "en": "Why might a penitent not feel that he is drawn to G-d?",
+        "de": "Warum fühlt ein Umkehrender vielleicht nicht, dass er zu G-tt gezogen wird?"
+       },
+       "o": [
+        {
+         "ru": "Он чувствует только горечь от своей отдалённости",
+         "en": "He feels only the bitterness of his distance",
+         "de": "Er fühlt nur die Bitterkeit seiner Ferne"
+        },
+        {
+         "ru": "Его совсем не тянет",
+         "en": "He is not drawn at all",
+         "de": "Er wird gar nicht gezogen"
+        },
+        {
+         "ru": "Он об этом забыл",
+         "en": "He has forgotten it",
+         "de": "Er hat es vergessen"
+        },
+        {
+         "ru": "Ему это запрещено",
+         "en": "It is forbidden to him",
+         "de": "Es ist ihm verboten"
+        }
+       ]
+      },
+      {
+       "q": {
+        "ru": "Отчего здесь отчаяние человека?",
+        "en": "What is the person’s despair here caused by?",
+        "de": "Woher kommt hier die Verzweiflung des Menschen?"
+       },
+       "o": [
+        {
+         "ru": "От собственной низости и оторванности от Б-жественного",
+         "en": "From his own lowliness and disconnection from G-dliness",
+         "de": "Von der eigenen Niedrigkeit und Trennung von der G-ttlichkeit"
+        },
+        {
+         "ru": "От величия света, которое он чувствует",
+         "en": "From the greatness of the light that he feels",
+         "de": "Von der Größe des Lichts, die er fühlt"
+        },
+        {
+         "ru": "От бедности",
+         "en": "From poverty",
+         "de": "Von Armut"
+        },
+        {
+         "ru": "От болезни",
+         "en": "From illness",
+         "de": "Von Krankheit"
+        }
+       ]
+      },
+      {
+       "q": {
+        "ru": "Как меняются силы настоящего баал тшувы?",
+        "en": "How do the powers of a true Baal Teshuvah change?",
+        "de": "Wie ändern sich die Kräfte eines wahren Baal Tschuwa?"
+       },
+       "o": [
+        {
+         "ru": "Сущностно: желания, основы разума и даже исполнение заповедей",
+         "en": "Essentially: desires, the foundations of intellect and even the fulfillment of mitzvot",
+         "de": "Im Wesen: Wünsche, Grundlagen des Verstandes und sogar das Erfüllen der Mizwot"
+        },
+        {
+         "ru": "Не меняются",
+         "en": "They do not change",
+         "de": "Sie ändern sich nicht"
+        },
+        {
+         "ru": "Меняется только речь",
+         "en": "Only speech changes",
+         "de": "Nur das Sprechen ändert sich"
+        },
+        {
+         "ru": "Становятся слабее",
+         "en": "They become weaker",
+         "de": "Sie werden schwächer"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "m4-4",
+     "title": {
+      "ru": "Вспышка мысли и её отблеск: почему понятое наслаждает меньше",
+      "en": "A flash of insight and its glimmer: why what is grasped delights less",
+      "de": "Ein Geistesblitz und sein Schimmer: warum das Erfasste weniger erfreut"
+     },
+     "summary": {
+      "ru": "В явных силах светит лишь отблеск сути души, и чем больше его постигают, тем больше он скрывается. Новая мысль приходит из силы постигать как «вспышка молнии»: это свет разума, его ещё не выразить буквами; когда идею понимают, свет скрывается, а разум ощущается. Так и наслаждение: в миг открытия оно сильнее всего — «лицо рабби Элазара светилось, когда он нашёл новую Тосефту», — а потом идея «стареет». То же в служении: наслаждение от постижения Б-жественного — лишь отблеск, ведь «никакая мысль не постигает Его». Даже Моше, ступень самоотмены Хохмы, услышал: «Лица Моего не увидишь».",
+      "en": "Only a glimmer of the soul’s essence shines in the revealed powers, and the more it is grasped, the more it is concealed. A new insight comes from the power to conceptualize as a “flash of lightning”: it is the light of the intellect, not yet expressible in letters; once the idea is understood, the light is concealed and the intellect is felt. So too pleasure: at the moment of discovery it is greatest — “Rabbi Elazar’s face shone when he discovered a new Tosefta” — and then the idea “ages.” The same in divine service: the delight in grasping G-dliness is only a glimmer, for “no thought can grasp Him.” Even Moshe, the level of the self-nullification of Chochmah, was told: “My face shall not be seen.”",
+      "de": "In den offenen Kräften leuchtet nur ein Schimmer des Wesens der Seele, und je mehr man ihn erfasst, desto mehr wird er verborgen. Eine neue Einsicht kommt aus der Kraft des Begreifens wie ein „Blitz“: Es ist das Licht des Verstandes, noch nicht in Buchstaben fassbar; wenn man die Idee versteht, verbirgt sich das Licht, und der Verstand wird spürbar. So auch das Vergnügen: Im Moment der Entdeckung ist es am größten – „das Gesicht von Rabbi Elasar leuchtete, als er eine neue Tosefta fand“ –, und dann „altert“ die Idee. Ebenso im Dienst: Die Freude am Erfassen der G-ttlichkeit ist nur ein Schimmer, denn „kein Gedanke erfasst Ihn“. Selbst Mosche, die Stufe der Selbstaufhebung der Chochma, hörte: „Mein Antlitz wird nicht gesehen.“"
+     },
+     "en": [
+      "Now, all the above is the result of the illumination and revelation of the light of the essential self (Etzem) of the soul. However, regarding the aspect of revelations (Giluyim) of the soul as they radiate in the revealed powers, it only is a glimmer of the essential self (Etzem) of the soul. Regarding this glimmer, the more it is drawn down and grasped in the revealed powers, the more concealed it becomes, and thus does not radiate in such a revealed way.",
+      "This may be understood by something that is clearly observable. When a person has insight into any given subject, his initial grasp of it comes from the power to conceptualize in his soul (Koach HaMaskeel). At that level, it does not yet bear the characteristics of intellect altogether, as explained before. Nevertheless, it is from there that the insight of wisdom (Chochmah) is revealed.",
+      "This is the first revelation of light in the revealed intellect. This may be compared to a “flash of lightning” because at this point it has not yet settled in the vessel of his mind. Rather, it only hovers above his mind in a state that is not yet fully grasped. Though he already knows it, he only knows it generally, rather than truly grasping it in the vessel of his mind.",
+      "The reason is because the illumination of the insight of Wisdom-Chochmah comes primarily from the light (Ohr) of the intellect, rather than the intellect itself. Because of this, he cannot fully grasp or express it in letters, whereas it is specifically through the letters that the matter can be grasped. This is because this primary revelation is of the light (Ohr), rather than the intellect, and it is impossible for light to be grasped through letters. Only afterwards does the conceptual point come to be grasped and understood. This happens specifically when the light becomes concealed. Only then can the intellect be felt and grasped, and all the details of the concept can be expanded and comprehended in and of themselves.",
+      "The same is true of the concept as a whole; it comes to be actually grasped in the vessel of the mind. However, we clearly observe that when the concept becomes grasped and comprehended, the light of the concept becomes concealed, whereas the intellect of the concept becomes felt and apparent to a greater degree. The more the concept is grasped, the more the light becomes concealed.",
+      "The same is true of the light of pleasure that illuminates the intellect. At the initial point of insight, which comes like a flash of lightning, there is a much greater radiance and revelation of the pleasure. This is like the statement, “The face of Rabbi Elazar shone when he discovered a new Tosefta.” This pleasure comes from the essence of the concept, which is not so once it is grasped in a way of comprehension.",
+      "This is because although the revelation of the Ancient One-Atik is in Understanding-Binah, this is only because in Understanding-Binah it becomes more pronounced and felt. Nevertheless, the primary revelation of pleasure is in Wisdom-Chochmah, and within Wisdom-Chochmah itself, the primary pleasure is from the essential light that radiates, whereas in the Understanding-Binah, the pleasure is only from the aspect of the intellect.",
+      "We therefore find that regarding the general revelation of the light of the soul, particularly the revelation of pleasure; it is not equal throughout all the various faculties of the soul. In the faculty of Wisdom-Chochmah there is greater revelation than in the faculty of Understanding-Binah. In addition, the revelation of pleasure in Wisdom-Chochmah, which flashes like a lightning bolt, only takes place during the actual moment of insight. However, with the slightest passage of time, the concept “ages” for him, so to speak, and the pleasure dissipates. This is all the more so in regard to the pleasure of comprehension and grasp. It too dissipates shortly. From this, we understand that the pleasure drawn into the faculties is only a glimmer of the essential pleasure.",
+      "This likewise is so the service of HaShem (Avodah). That is, when a person contemplates (Hitbonenut) G-dliness and the greatness of the limitless light of the Unlimited One, blessed is He, and he is aroused with love and fear of HaShem in his heart in revealed manner, or whether his love and fear of HaShem may remain hidden in the contemplation itself, for he delights in the G-dliness that he grasps.",
+      "Nevertheless, this is only a glimmer of the limitless light of the Unlimited One, for as known, whatever comes into grasp is distant from the Essential Self, because about the Essential Self of the limitless light of the Unlimited One it states, “No thought at all can grasp Him.” Therefore, whatever illumination there is in a way of comprehension is only the aspect of a glimmer.",
+      "Even in the aspect of the “sight” of Wisdom-Chochmah, there is not truly an illumination from the Essential Self of the limitless light of the Unlimited One. Proof of this is from Moshe, who corresponds to the aspect of Ma\"H of Wisdom-Chochmah, as he stated, “And what are we-V'Nachnu Mah.” For as the verse states, “And the man Moshe was very humble, more than any man on the surface of the earth,” because he was in the state of the essential negation of self (Bittul) of Wisdom-Chochmah. Nevertheless, he requested of HaShem, “Please show me Your glory,” to which he was answered, “You cannot see My face... you shall see My back, but My face shall not be seen.” This is because whatever is revealed in the aspect of the “sight” of Wisdom-Chochmah is not the aspect of the Essential Self of HaShem, as He is, in and of Himself."
+     ],
+     "ru": [
+      "Всё сказанное выше — от свечения и раскрытия света сути (эцем) души. Но раскрытия (гилуим) души, как они светят в явных силах, — лишь отблеск сути души. И чем больше этот отблеск притягивается и постигается в явных силах, тем больше он скрывается и светит не так раскрыто.",
+      "Это можно понять из того, что ясно видно. Когда человеку открывается понимание какого-то предмета, первое его понимание приходит от силы постигать в его душе (коах ґа-маскиль). На этой ступени у него ещё совсем нет признаков разума, как объяснено раньше. И всё же именно оттуда раскрывается озарение мудрости (Хохма).",
+      "Это первое раскрытие света в явном разуме. Его можно сравнить со «вспышкой молнии»: на этом этапе оно ещё не осело в сосуде его разума, а только парит над разумом, ещё не полностью постигнутое. Хотя он уже это знает, он знает это лишь в общем, а не постиг по-настоящему в сосуде разума.",
+      "Причина в том, что озарение Мудрости (Хохма) приходит главным образом от света (ор) разума, а не от самого разума. Поэтому его нельзя полностью постичь и выразить буквами, а постигают предмет именно через буквы. Ведь это первое раскрытие — света (ор), а не разума, а свет невозможно постичь через буквы. Только потом суть идеи постигают и понимают. Это происходит именно тогда, когда свет скрывается. Только тогда разум можно почувствовать и постичь, и все подробности идеи могут развернуться и быть поняты сами по себе.",
+      "То же и с идеей в целом: она приходит к настоящему постижению в сосуде разума. Но мы ясно видим: когда идею постигают и понимают, свет идеи скрывается, а разум идеи ощущается и виден сильнее. Чем больше постигают идею, тем больше скрывается свет.",
+      "То же и со светом наслаждения, который светит в разуме. В первой точке озарения, которая приходит как вспышка молнии, свечение и раскрытие наслаждения гораздо больше. Как говорится: «Лицо рабби Элазара светилось, когда он нашёл новую Тосефту». Это наслаждение — от самой сути идеи, и так уже не бывает, когда её постигают пониманием.",
+      "Ведь хотя раскрытие Древнего (Атик) — в Понимании (Бина), это лишь потому, что в Бине оно ощущается и проявляется сильнее. Но главное раскрытие наслаждения — в Мудрости (Хохма), а в самой Хохме главное наслаждение — от сущностного света, который светит; а в Понимании (Бина) наслаждение только от стороны разума.",
+      "Итак, общее раскрытие света души, особенно раскрытие наслаждения, неодинаково во всех силах души. В силе Мудрости (Хохма) раскрытия больше, чем в силе Понимания (Бина). Кроме того, раскрытие наслаждения в Хохме, вспыхивающее как молния, бывает только в самый миг озарения. А стоит пройти немного времени — идея для него как бы «стареет», и наслаждение уходит. Тем более наслаждение понимания и постижения: оно тоже быстро уходит. Отсюда понятно, что наслаждение, притянутое в силы, — лишь отблеск сущностного наслаждения.",
+      "Так и в служении Г-споду (авода). Когда человек размышляет (ґитбонанут) о Б-жественном и о величии бесконечного света Бесконечного, благословен Он, и в его сердце раскрыто пробуждаются любовь и трепет перед Г-сподом — или его любовь и трепет остаются скрытыми в самом размышлении, потому что он наслаждается Б-жественным, которое постигает.",
+      "И всё же это лишь отблеск бесконечного света Бесконечного. Ведь, как известно, всё, что постигается, далеко от Сути, ибо о Сути бесконечного света Бесконечного сказано: «Никакая мысль совсем не постигает Его». Поэтому всякое свечение путём постижения — лишь отблеск.",
+      "Даже в «видении» Мудрости (Хохма) нет настоящего свечения Сути бесконечного света Бесконечного. Доказательство — Моше, который соответствует ступени «ма» (что) Мудрости (Хохма), как он сказал: «А мы — что (ве-нахну ма)». Как говорит стих: «А человек Моше был очень скромен, больше всех людей на лице земли», — ведь он был в состоянии сущностной самоотмены (битуль) Хохмы. И всё же он попросил Г-спода: «Покажи мне славу Твою», — и ему ответили: «Ты не сможешь увидеть лица Моего… увидишь Меня сзади, а лица Моего не увидят». Ведь всё, что раскрывается в «видении» Мудрости (Хохма), — не Суть Г-спода, как Он есть Сам по Себе."
+     ],
+     "de": [
+      "All das oben Gesagte kommt vom Leuchten und von der Offenbarung des Lichts des Wesens (Ezem) der Seele. Doch die Offenbarungen (Gilujim) der Seele, wie sie in den offenen Kräften leuchten, sind nur ein Schimmer des Wesens der Seele. Und je mehr dieser Schimmer herabgezogen und in den offenen Kräften erfasst wird, desto mehr verbirgt er sich und leuchtet nicht so offen.",
+      "Das kann man an etwas verstehen, das man deutlich sieht. Wenn einem Menschen eine Einsicht in eine Sache aufgeht, kommt sein erstes Verstehen aus der Kraft des Begreifens in seiner Seele (Koach Hamaskil). Auf dieser Stufe hat es noch gar keine Merkmale des Verstandes, wie vorher erklärt. Und doch wird gerade von dort die Einsicht der Weisheit (Chochma) offenbart.",
+      "Das ist die erste Offenbarung des Lichts im offenen Verstand. Man kann sie mit einem „Blitz“ vergleichen: In diesem Moment hat sie sich noch nicht im Gefäß seines Verstandes niedergelassen, sondern schwebt nur über dem Verstand, noch nicht ganz erfasst. Obwohl er es schon weiß, weiß er es nur allgemein und hat es noch nicht wirklich im Gefäß des Verstandes erfasst.",
+      "Der Grund: Die Einsicht der Weisheit (Chochma) kommt vor allem vom Licht (Or) des Verstandes, nicht vom Verstand selbst. Darum kann man sie nicht ganz erfassen und in Buchstaben ausdrücken, und erfasst wird eine Sache gerade durch die Buchstaben. Denn diese erste Offenbarung ist die des Lichts (Or), nicht des Verstandes, und Licht kann man nicht durch Buchstaben erfassen. Erst danach wird der Kern der Idee erfasst und verstanden. Das geschieht gerade dann, wenn das Licht sich verbirgt. Erst dann kann man den Verstand spüren und erfassen, und alle Einzelheiten der Idee können sich entfalten und für sich verstanden werden.",
+      "Dasselbe gilt für die Idee als Ganzes: Sie kommt zum wirklichen Erfassen im Gefäß des Verstandes. Doch wir sehen deutlich: Wenn man die Idee erfasst und versteht, verbirgt sich das Licht der Idee, und der Verstand der Idee wird stärker spürbar und sichtbar. Je mehr man die Idee erfasst, desto mehr verbirgt sich das Licht.",
+      "Dasselbe gilt für das Licht des Vergnügens, das im Verstand leuchtet. Im ersten Punkt der Einsicht, der wie ein Blitz kommt, ist das Leuchten und die Offenbarung des Vergnügens viel größer. Wie es heißt: „Das Gesicht von Rabbi Elasar leuchtete, als er eine neue Tosefta fand.“ Dieses Vergnügen kommt vom Wesen der Idee selbst, und so ist es nicht mehr, wenn man sie mit Verstehen erfasst.",
+      "Denn obwohl die Offenbarung des Uralten (Atik) im Verstehen (Bina) ist, ist das nur, weil sie in Bina stärker spürbar und sichtbar wird. Doch die Hauptoffenbarung des Vergnügens ist in der Weisheit (Chochma), und in der Chochma selbst kommt das Hauptvergnügen vom wesentlichen Licht, das leuchtet; im Verstehen (Bina) dagegen kommt das Vergnügen nur von der Seite des Verstandes.",
+      "So finden wir: Die allgemeine Offenbarung des Lichts der Seele, besonders die Offenbarung des Vergnügens, ist nicht in allen Kräften der Seele gleich. In der Kraft der Weisheit (Chochma) gibt es mehr Offenbarung als in der Kraft des Verstehens (Bina). Außerdem gibt es die Offenbarung des Vergnügens in der Chochma, die wie ein Blitz aufleuchtet, nur im Moment der Einsicht selbst. Vergeht nur ein wenig Zeit, „altert“ die Idee für ihn gleichsam, und das Vergnügen vergeht. Erst recht das Vergnügen des Verstehens und Erfassens: Auch es vergeht schnell. Daraus versteht man, dass das Vergnügen, das in die Kräfte herabgezogen wird, nur ein Schimmer des wesentlichen Vergnügens ist.",
+      "Ebenso ist es im Dienst für Haschem (Awoda). Wenn ein Mensch über die G-ttlichkeit und die Größe des unendlichen Lichts des Unendlichen, gesegnet sei Er, nachdenkt (Hitbonenut) und in seinem Herzen offen Liebe und Ehrfurcht vor Haschem erwachen – oder seine Liebe und Ehrfurcht im Nachdenken selbst verborgen bleiben, weil er sich an der G-ttlichkeit freut, die er erfasst.",
+      "Und doch ist das nur ein Schimmer des unendlichen Lichts des Unendlichen. Denn wie bekannt ist alles, was erfasst wird, fern vom Wesen, denn über das Wesen des unendlichen Lichts des Unendlichen heißt es: „Kein Gedanke kann Ihn überhaupt erfassen.“ Darum ist jedes Leuchten auf dem Weg des Erfassens nur ein Schimmer.",
+      "Selbst im „Sehen“ der Weisheit (Chochma) gibt es kein wirkliches Leuchten vom Wesen des unendlichen Lichts des Unendlichen. Der Beweis ist Mosche, der der Stufe „Ma“ (was) der Weisheit (Chochma) entspricht, wie er sagte: „Und was sind wir (Wenachnu Ma)?“ Wie der Vers sagt: „Und der Mann Mosche war sehr bescheiden, mehr als alle Menschen auf der Erde“ – denn er war im Zustand der wesentlichen Selbstaufhebung (Bittul) der Chochma. Und doch bat er Haschem: „Zeige mir doch Deine Herrlichkeit“, und ihm wurde geantwortet: „Du kannst Mein Antlitz nicht sehen … du wirst Mich von hinten sehen, aber Mein Antlitz wird nicht gesehen.“ Denn alles, was im „Sehen“ der Weisheit (Chochma) offenbart wird, ist nicht das Wesen Haschems, wie Er an und für Sich ist."
+     ],
+     "questions": [
+      {
+       "q": {
+        "ru": "Почему первое озарение мысли нельзя сразу выразить буквами?",
+        "en": "Why can the first flash of insight not be expressed in letters right away?",
+        "de": "Warum kann man den ersten Geistesblitz nicht gleich in Buchstaben ausdrücken?"
+       },
+       "o": [
+        {
+         "ru": "Это свет разума, а не сам разум",
+         "en": "It is the light of the intellect, not the intellect itself",
+         "de": "Es ist das Licht des Verstandes, nicht der Verstand selbst"
+        },
+        {
+         "ru": "Человек ещё не выучил слов",
+         "en": "The person has not yet learned the words",
+         "de": "Der Mensch kennt die Worte noch nicht"
+        },
+        {
+         "ru": "Оно слишком простое",
+         "en": "It is too simple",
+         "de": "Sie ist zu einfach"
+        },
+        {
+         "ru": "Его нельзя понять никогда",
+         "en": "It can never be understood",
+         "de": "Man kann sie nie verstehen"
+        }
+       ]
+      },
+      {
+       "q": {
+        "ru": "Когда наслаждение от идеи сильнее всего?",
+        "en": "When is the pleasure of an idea greatest?",
+        "de": "Wann ist das Vergnügen an einer Idee am größten?"
+       },
+       "o": [
+        {
+         "ru": "В миг озарения, как вспышка молнии",
+         "en": "At the moment of insight, like a flash of lightning",
+         "de": "Im Moment der Einsicht, wie ein Blitz"
+        },
+        {
+         "ru": "Через год после него",
+         "en": "A year later",
+         "de": "Ein Jahr danach"
+        },
+        {
+         "ru": "Когда её забыли",
+         "en": "When it is forgotten",
+         "de": "Wenn man sie vergessen hat"
+        },
+        {
+         "ru": "Когда её объясняют другим",
+         "en": "When explaining it to others",
+         "de": "Wenn man sie anderen erklärt"
+        }
+       ]
+      },
+      {
+       "q": {
+        "ru": "Что ответили Моше на просьбу «Покажи мне славу Твою»?",
+        "en": "What was Moshe answered when he asked, “Please show me Your glory”?",
+        "de": "Was wurde Mosche geantwortet, als er bat: „Zeige mir doch Deine Herrlichkeit“?"
+       },
+       "o": [
+        {
+         "ru": "«Лица Моего не увидят»",
+         "en": "“My face shall not be seen”",
+         "de": "„Mein Antlitz wird nicht gesehen“"
+        },
+        {
+         "ru": "«Увидишь всё»",
+         "en": "“You shall see everything”",
+         "de": "„Du wirst alles sehen“"
+        },
+        {
+         "ru": "«Спроси Аарона»",
+         "en": "“Ask Aharon”",
+         "de": "„Frag Aharon“"
+        },
+        {
+         "ru": "Ему ничего не ответили",
+         "en": "He received no answer",
+         "de": "Er bekam keine Antwort"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "m4-5",
+     "title": {
+      "ru": "У всех наслаждений творения — предел; в заповедях — сущностное наслаждение",
+      "en": "All the pleasures of creation are limited; in the mitzvot is the essential pleasure",
+      "de": "Alle Vergnügen der Schöpfung sind begrenzt; in den Mizwot ist das wesentliche Vergnügen"
+     },
+     "summary": {
+      "ru": "Так и наверху: свет, светящий в десяти сфирот Ацилута, — лишь отблеск; потому Хохма и Бина и различаются, а Суть светила бы во всех одинаково — как раскроется в будущем. «Каждому концу я видел начало» — это о всех наслаждениях творения: миры от Хохмы, и всё в них — в мере, отблеск высшего наслаждения. И само желание создать мир — лишь внешняя сторона Его воли, а внутренняя — ради Торы и Израиля («Берешит» — два «решит»). Поэтому «Твоя заповедь безмерно широка»: в желании заповедей — Его внутреннее сущностное наслаждение, особенно в исполнении на деле («Мне в радость, что Я сказал и воля Моя исполнена»); раскроется это в будущем, внизу.",
+      "en": "So too Above: the light shining in the ten Sefirot of Atzilut is only a glimmer; that is why Chochmah and Binah differ, while the Essential Self would shine equally in all — as will be revealed in the future. “To every end I have seen a beginning” refers to all the pleasures of creation: the worlds come from Chochmah, and everything in them is measured, a glimmer of the supernal pleasure. Even the desire to create the world is only the outer side of His will, while the inner one is for Torah and Israel (“Bereishit” — two things called “Reishit”). Hence “Your commandment is exceedingly broad”: in the desire for mitzvot is His inner essential pleasure, especially in their actual fulfillment (“It brings Me satisfaction that I commanded and My will is fulfilled”); this will be revealed in the future, here below.",
+      "de": "So auch oben: Das Licht, das in den zehn Sefirot von Azilut leuchtet, ist nur ein Schimmer; darum unterscheiden sich Chochma und Bina, während das Wesen in allen gleich leuchten würde – wie es in der Zukunft offenbart wird. „Allem Ende habe ich einen Anfang gesehen“ meint alle Vergnügen der Schöpfung: Die Welten kommen aus Chochma, und alles in ihnen ist gemessen, ein Schimmer des oberen Vergnügens. Selbst der Wunsch, die Welt zu erschaffen, ist nur die äußere Seite Seines Willens, die innere ist für Tora und Israel („Bereschit“ – zwei Dinge, die „Reschit“ heißen). Darum „Dein Gebot ist überaus weit“: Im Wunsch nach den Mizwot ist Sein inneres wesentliches Vergnügen, besonders im wirklichen Erfüllen („Es ist Mir eine Freude, dass Ich geboten habe und Mein Wille getan wird“); das wird in der Zukunft offenbart, hier unten."
+     },
+     "en": [
+      "From this we can understand how it is Above in G-dliness, in that the aspect of the radiance of the Unlimited Light (Ohr Ein Sof) that radiates in the ten Sefirot of the world of Emanation (Atzilut) is only a mere glimmer. For although it states in Etz Chayim that in Wisdom-Chochmah there is a radiance of the limitless light of the Unlimited One (Ohr Ein Sof) in a way of closeness, this only refers to the fact that the limitless light radiates in Wisdom-Chochmah more than how it radiates in Understanding-Binah.",
+      "Nevertheless, it is not an illumination of the aspect of the Essential Self. This is why there are differences between the revelations in Wisdom-Chochmah and the revelations in Understanding-Binah. For, when there is an illumination from the Essential Self of His Unlimited Light (Atzmut Ohr Ein Sof), He illuminates them all equally.",
+      "This accords with the explanation above in the analogy of the soul, and it is similarly so Above in G-dliness. For example, in the “coming future” when there will be a revelation of HaShem’s Essential Self, the revelation will be equal throughout all the chaining down of the worlds.",
+      "This then, it the meaning of the verse, “I have seen a beginning to every end,” which refers to all the pleasures throughout creation. For the source of the worlds is from the aspect of Wisdom-Chochmah, as the verse states, “You have made them all with Wisdom-Chochmah,” and it is the beginning of the chaining down of the worlds. This is as stated in Zohar about the verse “And G-d said, let us make man,” “In the entire act of creation, Father-Abba (Wisdom-Chochmah) said to Mother-Imma (Understanding-Binah) etc.” About all this, “I have seen a beginning,” meaning that it all is in a way of measure and limitation. This is because it only is a glimmer from the aspect of the Supernal pleasure that manifests in the chaining down of the worlds (Hishtalshelut).",
+      "Similarly, the general desire for all of creation is only the aspect of the externality of His will, blessed is He, because, as known, the entire matter of the inner desire for creation is solely for the purpose of Torah and mitzvot. This is like the statement, “The word ‘In the beginning-Bereishit’ refers to two things that are called “primary-Reishit.” These are the Jewish people who are called “first-Reishit” and Torah, which is called “the beginning-Reishit.”",
+      "This refers to HaShem’s primary, inner intention for creation, whereas the desire for the creation itself is external to this. It therefore is readily understood that the aspect of the pleasure in His desire for creation is only a glimmer of the essential pleasure. This is not so of the desire for Torah and mitzvot, which is His inner essential desire. Therefore, within this desire is a manifestation of the aspect of His essential Supernal pleasure.",
+      "This then, is the meaning of “I have seen a beginning to every end.” That is, every aspect of pleasure and expiry, referring even to the G-dly pleasure experienced by the souls, comes with measure and limit. This is true whether it is the G-dly delight of the souls in the garden of Eden in their countless ascents from level to level, as discussed before, or whether it is the delight of the souls here below, which is achieved through serving HaShem, blessed is He, through contemplation (Hitbonenut) of His G-dliness and the “sight” of Wisdom-Chochmah. The same is true of the revelation of pleasure that radiates in the chaining down of the worlds (Hishtalshelut). They all are in an aspect of measure and limit, for they merely are a glimmer of the pleasure.",
+      "However, the verse continues, “Your commandment is exceedingly broad.” This is because the pleasure in His desire for the mitzvot is from His inner essential pleasure, which completely transcends His pleasure and desire for the chaining down of the worlds. This is especially so regarding the physical performance or “actualization” of the mitzvot, since “the end action arose first in thought.”",
+      "It is specifically this desire for the actual fulfillment of mitzvot that is the ultimate, inner intention in HaShem’s inner Essential Self, blessed is He. It is therefore specifically through this, that His inner essential pleasure is drawn forth, as it states, “It brings satisfaction of spirit before Me that I commanded and My will is fulfilled.” This “satisfaction of spirit (Nachat Ru’ach) before Me,” refers to His inner, essential pleasure and comes about specifically when “My will is fulfilled” in actuality.",
+      "This is why in the coming future there will be a true revelation of that which is drawn down, which currently is accomplished by our service when we fulfill the mitzvot. Moreover, this revelation will specifically be here below. In truth, the actual fulfillment of the mitzvot creates a vessel for G-dliness even in our times. However, its revelation will be in the coming future. This is because there then will be a revelation here below of the Essential Self of the limitless light of the Unlimited One (Atzmut Ohr Ein Sof). In other words, there will be a revelation of His simple essential pleasure that is manifest in the fulfillment of the mitzvot."
+     ],
+     "ru": [
+      "Отсюда можно понять, как это наверху, в Б-жественном: свечение бесконечного света (Ор Эйн Соф), которое светит в десяти сфирот мира Ацилут, — лишь отблеск. Ведь хотя в «Эц Хаим» сказано, что в Мудрости (Хохма) свет Бесконечного светит путём близости, это значит лишь, что бесконечный свет светит в Хохме больше, чем в Понимании (Бина).",
+      "И всё же это не свечение Сути. Поэтому и есть разница между раскрытиями в Мудрости (Хохма) и раскрытиями в Понимании (Бина). Ведь когда светит Суть Его бесконечного света (Ацмут Ор Эйн Соф), Он светит во всех них одинаково.",
+      "Это согласуется с объяснённым выше на примере души, и так же наверху, в Б-жественном. Например, в «будущем», когда раскроется Суть Г-спода, раскрытие будет одинаковым во всей цепи миров.",
+      "Таков смысл стиха «Каждому концу я видел начало»: это о всех наслаждениях во всём творении. Ведь источник миров — от Мудрости (Хохма), как говорит стих: «Всё Ты сделал мудростью (Хохма)», — и она начало цепи миров. Как сказано в Зоаре о стихе «И сказал Б-г: сделаем человека»: «Во всём деле творения Отец (Аба — Хохма) сказал Матери (Има — Бина) и т. д.». Обо всём этом — «я видел начало», то есть всё это в мере и границе. Ведь это лишь отблеск высшего наслаждения, которое облекается в цепь миров (ґиштальшелут).",
+      "Так же общее желание всего творения — лишь внешняя сторона Его воли, благословен Он. Ведь, как известно, вся внутренняя воля к творению — только ради Торы и заповедей. Как говорится: «„Берешит“ (В начале) — ради двух вещей, которые называются „решит“ (первое): ради Израиля, который называется „первым“ (решит), и ради Торы, которая называется „началом“ (решит)».",
+      "Это главное, внутреннее намерение Г-спода в творении, а желание самого творения внешне по отношению к нему. Поэтому легко понять, что наслаждение в Его желании творения — лишь отблеск сущностного наслаждения. Не так желание Торы и заповедей — это Его внутреннее сущностное желание. Поэтому в этом желании облекается Его сущностное высшее наслаждение.",
+      "Таков смысл слов «Каждому концу я видел начало». То есть всякое наслаждение и томление — даже Б-жественное наслаждение душ — приходит в мере и границе. Это верно и о Б-жественном наслаждении душ в Ган Эдене, в их бесчисленных подъёмах со ступени на ступень, как сказано раньше, и о наслаждении душ здесь, внизу, которого достигают служением Г-споду, благословен Он, — размышлением (ґитбонанут) о Его Б-жественности и «видением» Мудрости (Хохма). То же и о раскрытии наслаждения, которое светит в цепи миров (ґиштальшелут). Всё это в мере и границе, ведь это лишь отблеск наслаждения.",
+      "Но стих продолжает: «Твоя заповедь безмерно широка». Ведь наслаждение в Его желании заповедей — от Его внутреннего сущностного наслаждения, которое совершенно выше Его наслаждения и желания цепи миров. Тем более — исполнение заповедей на деле, в материальном, ведь «конец действия возник в мысли первым».",
+      "Именно это желание — исполнить заповеди на деле — есть высшее, внутреннее намерение во внутренней Сути Г-спода, благословен Он. Поэтому именно через это притягивается Его внутреннее сущностное наслаждение, как сказано: «Мне в радость, что Я повелел и воля Моя исполнена». Эта «радость духа (нахат руах) предо Мной» — Его внутреннее сущностное наслаждение, и она приходит именно тогда, когда «воля Моя исполнена» на деле.",
+      "Поэтому в будущем по-настоящему раскроется то, что притягивается сейчас нашим служением, когда мы исполняем заповеди. Более того, это раскрытие будет именно здесь, внизу. На самом деле исполнение заповедей на деле уже и в наше время создаёт сосуд для Б-жественного, но раскроется это в будущем. Ведь тогда здесь, внизу, раскроется Суть бесконечного света Бесконечного (Ацмут Ор Эйн Соф). Иначе говоря, раскроется Его простое сущностное наслаждение, которое облечено в исполнение заповедей."
+     ],
+     "de": [
+      "Daraus kann man verstehen, wie es oben in der G-ttlichkeit ist: Das Leuchten des unendlichen Lichts (Or Ejn Sof), das in den zehn Sefirot der Welt Azilut leuchtet, ist nur ein Schimmer. Denn obwohl in Ez Chajim steht, dass in der Weisheit (Chochma) das Licht des Unendlichen auf dem Weg der Nähe leuchtet, bedeutet das nur, dass das unendliche Licht in der Chochma mehr leuchtet als im Verstehen (Bina).",
+      "Und doch ist das kein Leuchten des Wesens. Darum gibt es einen Unterschied zwischen den Offenbarungen in der Weisheit (Chochma) und den Offenbarungen im Verstehen (Bina). Denn wenn das Wesen Seines unendlichen Lichts (Azmut Or Ejn Sof) leuchtet, leuchtet Er in allen gleich.",
+      "Das passt zu dem, was oben am Beispiel der Seele erklärt wurde, und ebenso ist es oben in der G-ttlichkeit. Zum Beispiel wird in der „Zukunft“, wenn das Wesen Haschems offenbart wird, die Offenbarung in der ganzen Kette der Welten gleich sein.",
+      "Das ist der Sinn des Verses „Allem Ende habe ich einen Anfang gesehen“: Er spricht von allen Vergnügen in der ganzen Schöpfung. Denn die Quelle der Welten ist die Weisheit (Chochma), wie der Vers sagt: „Alles hast Du mit Weisheit (Chochma) gemacht“, und sie ist der Anfang der Kette der Welten. Wie im Sohar zum Vers „Und G-tt sprach: Lasst uns den Menschen machen“ steht: „Im ganzen Werk der Schöpfung sagte der Vater (Aba – Chochma) zur Mutter (Ima – Bina) usw.“ Über all das gilt: „Ich habe einen Anfang gesehen“ – das heißt, all das ist in Maß und Grenze. Denn es ist nur ein Schimmer des oberen Vergnügens, das sich in die Kette der Welten (Hischtalschelut) kleidet.",
+      "Ebenso ist der allgemeine Wunsch nach der ganzen Schöpfung nur die äußere Seite Seines Willens, gesegnet sei Er. Denn wie bekannt ist der ganze innere Wille zur Schöpfung nur für Tora und Mizwot. Wie es heißt: „‚Bereschit‘ (Im Anfang) – wegen zweier Dinge, die ‚Reschit‘ (das Erste) heißen: wegen Israel, das ‚das Erste‘ (Reschit) heißt, und wegen der Tora, die ‚der Anfang‘ (Reschit) heißt.“",
+      "Das ist Haschems wichtigste, innere Absicht in der Schöpfung, und der Wunsch nach der Schöpfung selbst ist im Vergleich dazu äußerlich. Darum versteht man leicht, dass das Vergnügen in Seinem Wunsch nach der Schöpfung nur ein Schimmer des wesentlichen Vergnügens ist. Anders ist es mit dem Wunsch nach Tora und Mizwot – das ist Sein innerer, wesentlicher Wunsch. Darum kleidet sich in diesen Wunsch Sein wesentliches oberes Vergnügen.",
+      "Das ist der Sinn von „Allem Ende habe ich einen Anfang gesehen“. Das heißt: Jedes Vergnügen und Vergehen – auch das g-ttliche Vergnügen der Seelen – kommt mit Maß und Grenze. Das gilt für das g-ttliche Vergnügen der Seelen im Gan Eden in ihren unzähligen Aufstiegen von Stufe zu Stufe, wie vorher gesagt, und für das Vergnügen der Seelen hier unten, das man durch den Dienst für Haschem, gesegnet sei Er, erreicht – durch Nachdenken (Hitbonenut) über Seine G-ttlichkeit und das „Sehen“ der Weisheit (Chochma). Ebenso gilt es für die Offenbarung des Vergnügens, das in der Kette der Welten (Hischtalschelut) leuchtet. Das alles ist in Maß und Grenze, denn es ist nur ein Schimmer des Vergnügens.",
+      "Doch der Vers geht weiter: „Dein Gebot ist überaus weit.“ Denn das Vergnügen in Seinem Wunsch nach den Mizwot kommt von Seinem inneren, wesentlichen Vergnügen, das ganz über Seinem Vergnügen und Wunsch nach der Kette der Welten steht. Erst recht das körperliche Tun der Mizwot, denn „das Ende der Tat stieg zuerst im Gedanken auf“.",
+      "Gerade dieser Wunsch nach dem wirklichen Erfüllen der Mizwot ist die höchste, innere Absicht im inneren Wesen Haschems, gesegnet sei Er. Darum wird gerade dadurch Sein inneres, wesentliches Vergnügen herabgezogen, wie es heißt: „Es ist Mir eine Freude, dass Ich geboten habe und Mein Wille getan wird.“ Diese „Freude des Geistes (Nachat Ruach) vor Mir“ ist Sein inneres, wesentliches Vergnügen, und sie kommt gerade dann, wenn „Mein Wille getan wird“ – in Wirklichkeit.",
+      "Darum wird in der Zukunft wirklich offenbart werden, was jetzt durch unseren Dienst herabgezogen wird, wenn wir die Mizwot erfüllen. Mehr noch: Diese Offenbarung wird gerade hier unten sein. In Wahrheit schafft das wirkliche Erfüllen der Mizwot schon in unserer Zeit ein Gefäß für die G-ttlichkeit, doch offenbart wird es in der Zukunft. Denn dann wird hier unten das Wesen des unendlichen Lichts des Unendlichen (Azmut Or Ejn Sof) offenbart. Das heißt: Sein einfaches, wesentliches Vergnügen, das im Erfüllen der Mizwot steckt, wird offenbart."
+     ],
+     "questions": [
+      {
+       "q": {
+        "ru": "Почему раскрытия в Хохме и Бине различны?",
+        "en": "Why do the revelations in Chochmah and Binah differ?",
+        "de": "Warum sind die Offenbarungen in Chochma und Bina verschieden?"
+       },
+       "o": [
+        {
+         "ru": "В них светит лишь отблеск, а не Суть, которая светила бы одинаково",
+         "en": "Only a glimmer shines in them, not the Essential Self, which would shine equally",
+         "de": "In ihnen leuchtet nur ein Schimmer, nicht das Wesen, das gleich leuchten würde"
+        },
+        {
+         "ru": "Бина выше Хохмы",
+         "en": "Binah is higher than Chochmah",
+         "de": "Bina steht über Chochma"
+        },
+        {
+         "ru": "В Хохме нет света",
+         "en": "Chochmah has no light",
+         "de": "In Chochma gibt es kein Licht"
+        },
+        {
+         "ru": "Они не различны",
+         "en": "They do not differ",
+         "de": "Sie sind nicht verschieden"
+        }
+       ]
+      },
+      {
+       "q": {
+        "ru": "Ради чего, по маамару, внутренняя воля к творению?",
+        "en": "According to the discourse, what is the inner will for creation for?",
+        "de": "Wofür ist laut der Abhandlung der innere Wille zur Schöpfung?"
+       },
+       "o": [
+        {
+         "ru": "Ради Торы и Израиля — двух «решит»",
+         "en": "For Torah and Israel — the two things called “Reishit”",
+         "de": "Für Tora und Israel – die zwei, die „Reschit“ heißen"
+        },
+        {
+         "ru": "Ради ангелов",
+         "en": "For the angels",
+         "de": "Für die Engel"
+        },
+        {
+         "ru": "Ради небес",
+         "en": "For the heavens",
+         "de": "Für die Himmel"
+        },
+        {
+         "ru": "Ни ради чего",
+         "en": "For nothing",
+         "de": "Für nichts"
+        }
+       ]
+      },
+      {
+       "q": {
+        "ru": "Когда приходит «радость духа» (нахат руах) перед Г-сподом?",
+        "en": "When does the “satisfaction of spirit” (Nachat Ruach) before HaShem come about?",
+        "de": "Wann entsteht die „Freude des Geistes“ (Nachat Ruach) vor Haschem?"
+       },
+       "o": [
+        {
+         "ru": "Когда «воля Моя исполнена» на деле",
+         "en": "When “My will is fulfilled” in actuality",
+         "de": "Wenn „Mein Wille getan wird“ – in Wirklichkeit"
+        },
+        {
+         "ru": "Когда о заповедях только думают",
+         "en": "When one only thinks about the mitzvot",
+         "de": "Wenn man nur an die Mizwot denkt"
+        },
+        {
+         "ru": "Когда сотворены миры",
+         "en": "When the worlds were created",
+         "de": "Als die Welten erschaffen wurden"
+        },
+        {
+         "ru": "Только в Ган Эдене",
+         "en": "Only in Gan Eden",
+         "de": "Nur im Gan Eden"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "m4-6",
+     "title": {
+      "ru": "«Исполняющие волю Вездесущего»: воля творить обновляется каждый миг",
+      "en": "“Those who actualize the will of the Ever Present One”: the will to create is renewed every moment",
+      "de": "„Die den Willen des Allgegenwärtigen tun“: Der Wille zu erschaffen wird jeden Augenblick erneuert"
+     },
+     "summary": {
+      "ru": "Почему исполняющих заповеди называют «исполняющими волю Вездесущего», если Его воля уже притянута в сотворении миров («Берешит» — «в древности сотворил», Кетер — желание; «Сказал: мир милостью построится»)? И зачем перед заповедью говорить «ради единения Святого, благословен Он, и Его Шхины», если единение «окружающего» и «наполняющего» уже было при творении? Ответ: и сейчас желание творить надо притягивать нашим пробуждением снизу. Суть бесконечного света выше всех сфирот и даже выше желания: «желание» (рацон) — те же буквы, что «трубка» (цинор), — это уже сокращение, нечто новое для Бесконечного. Поэтому «Он по доброте Своей каждый день постоянно обновляет дело творения», и нам нужно всё время притягивать это желание заново.",
+      "en": "Why are those who perform mitzvot called “those who actualize the will of the Ever Present One,” if His will was already drawn forth in the creation of the worlds (“Bereishit” — “with the primordial He created,” Keter is desire; “I said, the world will be built with kindness”)? And why say before a mitzvah “for the sake of the unification of the Holy One, blessed is He, and His Shechinah,” if the unification of “transcending” and “filling” already took place at creation? The answer: even now the desire to create must be drawn forth by our arousal from below. The Essential Self of the Unlimited Light transcends all Sefirot and even desire: “desire” (Ratzon) has the letters of “pipe” (Tzinor) — it is already a constriction, something novel for the Unlimited One. Therefore “in His kindness He renews the act of creation every day, constantly,” and we must constantly draw this desire forth anew.",
+      "de": "Warum heißen die, die Mizwot erfüllen, „die den Willen des Allgegenwärtigen tun“, wenn Sein Wille schon bei der Erschaffung der Welten herabgezogen wurde („Bereschit“ – „in der Urzeit erschuf Er“, Keter ist der Wunsch; „Ich sagte: Die Welt wird mit Güte gebaut“)? Und warum sagt man vor einer Mizwa „zur Vereinigung des Heiligen, gesegnet sei Er, und Seiner Schechina“, wenn die Vereinigung von „Umgeben“ und „Erfüllen“ schon bei der Schöpfung war? Die Antwort: Auch jetzt muss der Wunsch zu erschaffen durch unser Erwachen von unten herabgezogen werden. Das Wesen des unendlichen Lichts steht über allen Sefirot und sogar über dem Wunsch: „Wunsch“ (Razon) hat die Buchstaben von „Röhre“ (Zinor) – er ist schon eine Zusammenziehung, etwas Neues für den Unendlichen. Darum „erneuert Er in Seiner Güte jeden Tag ständig das Werk der Schöpfung“, und wir müssen diesen Wunsch ständig neu herabziehen."
+     },
+     "en": [
+      "Now, from the above, we can understand why those who perform the mitzvot are called “Those who actualize the will of the Ever Present One.” At first glance, this statement is not understood. Why are they called “those who actualize the will of the Ever-Present One?” Even before the Torah was given, was there not already a drawing forth and actualization of the will of the Supernal One through the creation and coming into being of the worlds?",
+      "This is as stated, “In the beginning G-d created-Bereishit Bara etc.,” which Onkelos translated as, “with the primordial He created-Bekadmin Bara,” which refers to the aspect of the Crown-Keter. And as known, the Crown-Keter refers to the aspect of desire (Ratzon), as in the verse, “You crown him with desire (Ratzon), like a shield.” Another verse similarly states, “I have said (Amarti), ‘The world will be built with kindness,’” which refers to a “saying” (Amirah) in His will, as stated elsewhere. We likewise say, “Blessed is He who said (Amar), and the world came into being etc.,” or in the words of the Zohar, “When it arose in His will to create the worlds,” or, “in the beginning of the arousal of the will of the King to rule etc.” Similarly, Etz Chayim states, “When it arose in His simple will (Retzono) etc.”",
+      "From all the above verses and references we see that there already was a drawing forth of His will (Ratzon) with the creation of the worlds. This being so, why then are Jews referred to as “those who actualize the will of the Ever Present One” through their fulfillment of the mitzvot?",
+      "An additional question that arises from the above statement, is that immediately before performing the mitzvot we say, “This is with the intent of unifying the Holy One blessed is He and His Indwelling Presence (Shechinah).”",
+      "Now, it was explained before that this refers to the unification of how HaShem transcends all worlds (Sovev Kol Almin), with how He fills all worlds (Memaleh Kol Almin), which is accomplished through fulfilling His mitzvot. However, since there already was a drawing forth of His desire to bring about worlds, and since desire corresponds to the aspect of His transcendence (Sovev), there already was a unification of the Holy One, blessed is He, and His Indwelling Presence (Shechinah), at the time of creation. (This is the meaning of “Father-Abba (Wisdom-Chochmah) said to Mother-Imma (Understanding-Binah),” or alternately, the unification of Zeir Anpin and Malchut, all of which refer to the unification of the Holy One, blessed is He, and His Indwelling Presence (Shechinah).",
+      "Moreover, although it is known that the actualization of creation is brought about by the aspect of how HaShem fills the worlds (Memaleh), nevertheless, this is specifically brought about by the power of how He transcends the worlds (Sovev), which is what dictates and gives power to the inner manifest lights (Ohr Pnimi), as explained elsewhere.) This being so, what then is this matter of the unification of the Holy One, blessed is He, and His Indwelling Presence (Shechinah) accomplished by fulfilling the mitzvot specifically?",
+      "Rather, the explanation is that, in truth, even now we need to draw forth His desire to create the worlds, through our arousal from below. This is as stated in Etz Chayim, that at first, the arousal was “because He delights in kindness,” but afterwards, it depends on arousal from below. This is because the Essential Self of the limitless light of the Unlimited One transcends all Sefirot and qualities, as stated, “He is One, but not a numerical one of the ten Sefirot whatsoever... He is wise but not with a knowable wisdom...” to the point that “He is not of any of these qualities at all etc.” (As explained elsewhere, when we call Him wise, blessed is He, it is only to remove the notion that He is lacking wisdom, but this is not to say the He is wise in a way of actual wisdom, called a “knowable wisdom.”)",
+      "Now, just as He is completely removed and transcends the aspects of Wisdom-Chochmah, Understanding-Binah, or the emotional qualities (Midot), He likewise is removed from the aspect of desire (Ratzon). For even the arousal of His desire to create, only comes about through constriction (Tzimtzum). For, as we see, the word “desire-Ratzon” shares the same letters as the word “pipe-Tzinor,” [which constricts the flow]. Hence, it too is a completely novel creation relative to the limitless light of the Unlimited One (Ohr Ein Sof).",
+      "This is akin to the words of the prayer, “In His kindness He renews the act of creation every day, constantly.” That is, the drawing forth of His desire to create and bring the worlds into being at every moment is a matter of novelty and renewal, because relative the Essential Self of the limitless light of the Unlimited One, it is novel and requires renewal, being that it has no relation to Him whatsoever.",
+      "This accords to the explanation in the discourse entitled, “And the entire nation saw,” of the year 5665. It therefore is necessary for us to constantly draw forth this aspect of His desire anew, that He should constrict Himself, as it were, and desire to create the worlds and bring them into existence."
+     ],
+     "ru": [
+      "Из сказанного можно понять, почему исполняющих заповеди называют «исполняющими волю Вездесущего». На первый взгляд это непонятно. Почему их называют «исполняющими волю Вездесущего»? Разве ещё до дарования Торы воля Всевышнего не была притянута и исполнена через сотворение и появление миров?",
+      "Как сказано: «В начале сотворил (Берешит бара) и т. д.», — а Онкелос перевёл: «в древности сотворил (бе-кадмин бара)», — и это ступень Венца (Кетер). А Кетер, как известно, — это желание (рацон), как в стихе: «Как щитом, венчаешь его желанием (рацон)». И в другом стихе: «Я сказал (амарти): мир милостью построится», — это «речение» (амира) в Его воле, как сказано в другом месте. Так же мы говорим: «Благословен Тот, Кто сказал (амар) — и возник мир и т. д.»; или словами Зоара: «Когда возникло в Его желании сотворить миры», или: «в начале пробуждения воли Царя царствовать и т. д.». Так же в «Эц Хаим» сказано: «Когда возникло в Его простой воле и т. д.».",
+      "Из всех этих стихов и мест видно, что Его воля (рацон) была притянута уже при сотворении миров. Если так, почему евреев называют «исполняющими волю Вездесущего» за исполнение заповедей?",
+      "Из сказанного возникает и ещё один вопрос: прямо перед исполнением заповеди мы говорим: «Ради единения Святого, благословен Он, и Его Шхины».",
+      "Раньше объяснялось, что это единение того, как Г-сподь окружает все миры (Совев коль альмин), с тем, как Он наполняет все миры (Мемале коль альмин), — и оно совершается исполнением Его заповедей. Но раз уже было притяжение Его желания создать миры, а желание соответствует ступени «окружающего» (Совев), то единение Святого, благословен Он, и Его Шхины уже было при творении. (Это смысл слов «Отец (Аба — Хохма) сказал Матери (Има — Бина)», или единения Зеир Анпина и Малхут, — всё это единение Святого, благословен Он, и Его Шхины.",
+      "Более того, хотя известно, что творение совершается ступенью «наполняющего» (Мемале) миры, это происходит именно силой «окружающего» (Совев) миры — оно управляет внутренним светом (ор пними) и даёт ему силу, как объяснено в другом месте.) Если так, что за единение Святого, благословен Он, и Его Шхины совершается именно исполнением заповедей?",
+      "Объяснение в том, что на самом деле и сейчас нужно притягивать Его желание создавать миры — нашим пробуждением снизу. Как сказано в «Эц Хаим»: сначала пробуждение было «потому что Он желает милости», а потом это зависит от пробуждения снизу. Ведь Суть бесконечного света Бесконечного выше всех сфирот и качеств, как сказано: «Он Один, но не Один по счёту десяти сфирот… Он мудр, но не познаваемой мудростью…» — вплоть до того, что «Он вообще не из этих качеств и т. д.». (Как объяснено в другом месте, когда мы называем Его, благословен Он, мудрым, это лишь чтобы отрицать, что Ему недостаёт мудрости, но не чтобы сказать, что Он мудр настоящей мудростью, которая называется «познаваемой мудростью».)",
+      "И как Он совершенно далёк от Мудрости (Хохма), Понимания (Бина) и чувств (мидот) и выше их, так Он далёк и от желания (рацон). Ведь даже пробуждение Его желания творить приходит только через сокращение (цимцум). Как мы видим, слово «желание» (рацон) состоит из тех же букв, что и слово «трубка» (цинор) [которая сужает поток]. Поэтому и оно — совершенно новое творение по отношению к бесконечному свету Бесконечного (Ор Эйн Соф).",
+      "Это как в словах молитвы: «По доброте Своей Он каждый день постоянно обновляет дело творения». То есть притяжение Его желания творить и приводить миры в бытие в каждый миг — это новое и обновление: ведь по отношению к Сути бесконечного света Бесконечного это ново и требует обновления, поскольку не имеет к Нему никакого отношения.",
+      "Это согласуется с объяснением в маамаре «Ве-холь ґа-ам роим» 5665 года. Поэтому нам нужно всё время заново притягивать это Его желание — чтобы Он как бы сократил Себя и пожелал создавать миры и приводить их в бытие."
+     ],
+     "de": [
+      "Aus dem Gesagten kann man verstehen, warum die, die die Mizwot erfüllen, „die den Willen des Allgegenwärtigen tun“ heißen. Auf den ersten Blick ist das unverständlich. Warum heißen sie „die den Willen des Allgegenwärtigen tun“? Gab es nicht schon vor der Gabe der Tora ein Herabziehen und Tun des Willens des Höchsten durch die Erschaffung und Entstehung der Welten?",
+      "Wie es heißt: „Im Anfang erschuf (Bereschit Bara) usw.“, und Onkelos übersetzte: „in der Urzeit erschuf Er (Bekadmin Bara)“ – das ist die Stufe der Krone (Keter). Und Keter ist, wie bekannt, der Wunsch (Razon), wie im Vers: „Wie mit einem Schild krönst Du ihn mit Wohlgefallen (Razon).“ Und ein anderer Vers: „Ich sagte (Amarti): Die Welt wird mit Güte gebaut“ – das ist ein „Sagen“ (Amira) in Seinem Willen, wie an anderer Stelle steht. Ebenso sagen wir: „Gesegnet ist Er, der sprach (Amar), und die Welt entstand usw.“, oder mit den Worten des Sohar: „Als es in Seinem Willen aufstieg, die Welten zu erschaffen“, oder: „am Anfang des Erwachens des Willens des Königs zu herrschen usw.“. Ebenso steht in Ez Chajim: „Als es in Seinem einfachen Willen aufstieg usw.“",
+      "Aus all diesen Versen und Stellen sehen wir, dass Sein Wille (Razon) schon bei der Erschaffung der Welten herabgezogen wurde. Wenn es so ist, warum heißen Juden „die den Willen des Allgegenwärtigen tun“, weil sie die Mizwot erfüllen?",
+      "Daraus ergibt sich noch eine Frage: Direkt vor dem Erfüllen einer Mizwa sagen wir: „Zur Vereinigung des Heiligen, gesegnet sei Er, und Seiner Schechina.“",
+      "Vorher wurde erklärt, dass das die Vereinigung dessen ist, wie Haschem alle Welten umgibt (Sowew Kol Almin), mit dem, wie Er alle Welten erfüllt (Memale Kol Almin) – und sie geschieht durch das Erfüllen Seiner Mizwot. Doch wenn Sein Wunsch, Welten zu schaffen, schon herabgezogen wurde und der Wunsch der Stufe des „Umgebens“ (Sowew) entspricht, dann gab es die Vereinigung des Heiligen, gesegnet sei Er, und Seiner Schechina schon bei der Schöpfung. (Das ist der Sinn von „der Vater (Aba – Chochma) sagte zur Mutter (Ima – Bina)“ oder der Vereinigung von Seir Anpin und Malchut – all das ist die Vereinigung des Heiligen, gesegnet sei Er, und Seiner Schechina.",
+      "Mehr noch: Obwohl bekannt ist, dass die Schöpfung durch die Stufe des „Erfüllens“ (Memale) der Welten geschieht, geschieht das gerade durch die Kraft des „Umgebens“ (Sowew) der Welten – sie lenkt das innere Licht (Or Pnimi) und gibt ihm Kraft, wie an anderer Stelle erklärt wird.) Wenn es so ist, was ist dann die Vereinigung des Heiligen, gesegnet sei Er, und Seiner Schechina, die gerade durch das Erfüllen der Mizwot geschieht?",
+      "Die Erklärung ist: In Wahrheit muss man auch jetzt Seinen Wunsch, die Welten zu erschaffen, durch unser Erwachen von unten herabziehen. Wie in Ez Chajim steht: Zuerst war das Erwachen, „weil Er Güte liebt“, doch danach hängt es vom Erwachen von unten ab. Denn das Wesen des unendlichen Lichts des Unendlichen steht über allen Sefirot und Eigenschaften, wie es heißt: „Er ist Einer, aber nicht einer in der Zahl der zehn Sefirot … Er ist weise, aber nicht mit erkennbarer Weisheit …“ – bis dahin, dass „Er überhaupt nicht von diesen Eigenschaften ist usw.“. (Wie an anderer Stelle erklärt, sagen wir, Er, gesegnet sei Er, sei weise, nur um zu verneinen, dass Ihm Weisheit fehlt, aber nicht, um zu sagen, dass Er mit wirklicher Weisheit weise ist, die „erkennbare Weisheit“ heißt.)",
+      "Und so wie Er ganz fern von Weisheit (Chochma), Verstehen (Bina) und Gefühlen (Midot) ist und über ihnen steht, so ist Er auch fern vom Wunsch (Razon). Denn selbst das Erwachen Seines Wunsches zu erschaffen kommt nur durch Zusammenziehung (Zimzum). Wie wir sehen, hat das Wort „Wunsch“ (Razon) dieselben Buchstaben wie das Wort „Röhre“ (Zinor) [die den Fluss verengt]. Darum ist auch er im Vergleich zum unendlichen Licht des Unendlichen (Or Ejn Sof) eine ganz neue Schöpfung.",
+      "Das ist wie in den Worten des Gebets: „In Seiner Güte erneuert Er jeden Tag ständig das Werk der Schöpfung.“ Das heißt: Das Herabziehen Seines Wunsches, in jedem Augenblick zu erschaffen und die Welten ins Dasein zu bringen, ist etwas Neues und eine Erneuerung – denn im Vergleich zum Wesen des unendlichen Lichts des Unendlichen ist es neu und braucht Erneuerung, weil es überhaupt keine Beziehung zu Ihm hat.",
+      "Das passt zur Erklärung in der Abhandlung „Wechol Ha’am Ro’im“ aus dem Jahr 5665. Darum müssen wir diesen Seinen Wunsch ständig neu herabziehen – dass Er Sich gleichsam zusammenzieht und wünscht, die Welten zu erschaffen und ins Dasein zu bringen."
+     ],
+     "questions": [
+      {
+       "q": {
+        "ru": "Какой вопрос задаёт маамар о словах «исполняющие волю Вездесущего»?",
+        "en": "What question does the discourse ask about the words “those who actualize the will of the Ever Present One”?",
+        "de": "Welche Frage stellt die Abhandlung zu den Worten „die den Willen des Allgegenwärtigen tun“?"
+       },
+       "o": [
+        {
+         "ru": "Разве Его воля не была притянута уже при сотворении миров?",
+         "en": "Was His will not already drawn forth at the creation of the worlds?",
+         "de": "Wurde Sein Wille nicht schon bei der Erschaffung der Welten herabgezogen?"
+        },
+        {
+         "ru": "Кто такой Вездесущий?",
+         "en": "Who is the Ever Present One?",
+         "de": "Wer ist der Allgegenwärtige?"
+        },
+        {
+         "ru": "Сколько всего заповедей?",
+         "en": "How many mitzvot are there?",
+         "de": "Wie viele Mizwot gibt es?"
+        },
+        {
+         "ru": "Почему заповеди трудны?",
+         "en": "Why are mitzvot difficult?",
+         "de": "Warum sind Mizwot schwer?"
+        }
+       ]
+      },
+      {
+       "q": {
+        "ru": "Какие два слова, по маамару, состоят из одних и тех же букв?",
+        "en": "According to the discourse, which two words share the same letters?",
+        "de": "Welche zwei Wörter haben laut der Abhandlung dieselben Buchstaben?"
+       },
+       "o": [
+        {
+         "ru": "«Рацон» (желание) и «цинор» (трубка)",
+         "en": "“Ratzon” (desire) and “Tzinor” (pipe)",
+         "de": "„Razon“ (Wunsch) und „Zinor“ (Röhre)"
+        },
+        {
+         "ru": "«Кетер» и «Хохма»",
+         "en": "“Keter” and “Chochmah”",
+         "de": "„Keter“ und „Chochma“"
+        },
+        {
+         "ru": "«Ор» и «Эйн Соф»",
+         "en": "“Or” and “Ein Sof”",
+         "de": "„Or“ und „Ejn Sof“"
+        },
+        {
+         "ru": "«Бина» и «Мидот»",
+         "en": "“Binah” and “Midot”",
+         "de": "„Bina“ und „Midot“"
+        }
+       ]
+      },
+      {
+       "q": {
+        "ru": "Почему желание творить нужно притягивать постоянно?",
+        "en": "Why must the desire to create be drawn forth constantly?",
+        "de": "Warum muss der Wunsch zu erschaffen ständig herabgezogen werden?"
+       },
+       "o": [
+        {
+         "ru": "Для Сути Бесконечного оно ново и требует обновления каждый миг",
+         "en": "For the Essential Self of the Unlimited One it is novel and needs renewal every moment",
+         "de": "Für das Wesen des Unendlichen ist er neu und braucht jeden Augenblick Erneuerung"
+        },
+        {
+         "ru": "Мир сотворён один раз навсегда",
+         "en": "The world was created once and for all",
+         "de": "Die Welt wurde ein für alle Mal erschaffen"
+        },
+        {
+         "ru": "Желание само растёт",
+         "en": "The desire grows by itself",
+         "de": "Der Wunsch wächst von selbst"
+        },
+        {
+         "ru": "Так решили мудрецы",
+         "en": "The sages decided so",
+         "de": "Die Weisen haben es so bestimmt"
+        }
+       ]
+      }
+     ]
+    }
+   ]
   }
  ]
 }
