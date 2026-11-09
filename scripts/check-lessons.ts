@@ -50,6 +50,7 @@ import { displayNames } from '../src/core/names';
 import { collectFacts, factHebrew } from '../src/core/facts';
 import { fromStartParam, miniAppLink } from '../src/core/telegram';
 import { dailyPool } from '../src/core/daily';
+import { dailyEntries, hasDaily } from '../src/core/turimDaily';
 import type { PuzzleText } from '../src/lessons/types';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import ruUi from '../src/i18n/locales/ru';
@@ -294,6 +295,60 @@ for (const lesson of LESSONS) {
     if (!tx?.cards) err(`${lesson.slug} · cards [${lang}]: no texts (cards in i18n/${lang}.ts)`);
     else if (tx.cards.items.length !== c.items.length) err(`${lesson.slug} · cards [${lang}]: ${tx.cards.items.length} texts for ${c.items.length} pairs`);
   }
+}
+
+// «на каждый день» (src/core/turimDaily.ts): 12 items — two a day, Sunday to Friday; a Torah verse and the commentator's words,
+// translated into every language; the texts in every language; every «слово = число» in them is computed
+for (const lesson of LESSONS) {
+  const d = lesson.daily;
+  if (!d) continue;
+  const where = (k: number) => `${lesson.slug} · daily ${k + 1}`;
+  if (d.length !== 12) err(`${lesson.slug} · daily: ${d.length} items, 12 expected (two a day, Sunday to Friday)`);
+  if (new Date(`${PARSHIOT[lesson.parsha].shabbat}T12:00:00Z`).getUTCDay() !== 6) err(`${lesson.slug} · daily: the portion's Shabbat is not a Saturday`);
+  d.forEach((it, k) => {
+    const v = SOURCES[it.verse];
+    if (!v) err(`${where(k)}: verse ${it.verse} is not in sefaria.json`);
+    else if (v.kind.en !== 'Torah') err(`${where(k)}: ${it.verse} is not a Torah verse`);
+    if (!it.quotes.length) err(`${where(k)}: no commentary`);
+    for (const q of it.quotes) {
+      const { id, segs } = parseQuote(q);
+      const src = SOURCES[id];
+      if (!src) { err(`${where(k)}: ${id} is not in sefaria.json`); continue; }
+      if (src.kind.en !== 'Commentary') err(`${where(k)}: ${id} is not a commentary`);
+      if (segs?.some((i) => i >= src.he.length)) err(`${where(k)}: ${q} — ${id} has ${src.he.length} comments`);
+      if (!src.ru && !PROJECT_RU[id]) err(`${where(k)}: ${id} has no Russian translation (src/sources/ru.ts)`);
+      if (!src.de && !PROJECT_DE[id]) err(`${where(k)}: ${id} has no German translation (src/sources/de.ts)`);
+      if (!src.en.some((x) => x.trim()) && !PROJECT_EN[id]) err(`${where(k)}: ${id} has no English translation (src/sources/en.ts)`);
+    }
+  });
+  for (const [lang, tx] of Object.entries(lesson.texts)) {
+    const items = tx?.daily?.items;
+    if (!tx?.daily?.intro?.trim() || !items) { err(`${lesson.slug} · daily [${lang}]: no texts (daily in i18n/${lang}.ts)`); continue; }
+    if (items.length !== d.length) err(`${lesson.slug} · daily [${lang}]: ${items.length} texts for ${d.length} items`);
+    items.forEach((x, k) => {
+      if (!x.h.trim() || !x.b.trim()) err(`${where(k)} [${lang}]: empty text`);
+      // «<span class="he">W</span> = 5 + 6 = 11 = <span class="he">V</span>»: every word equals the result
+      for (const m of x.b.matchAll(/<span class="he">([^<]+)<\/span> = ((?:\d+ [+−] )*\d+)((?: = \d+)?)((?: = <span class="he">[^<]+<\/span>)*)/g)) {
+        const terms = m[2].split(' ');
+        let sum = Number(terms[0]);
+        for (let i = 1; i < terms.length; i += 2) sum += (terms[i] === '+' ? 1 : -1) * Number(terms[i + 1]);
+        const res = m[3] ? Number(m[3].slice(3)) : sum;
+        if (sum !== res) err(`${where(k)} [${lang}]: ${m[2]} is ${sum}, not ${res}`);
+        const words = [m[1], ...[...m[4].matchAll(/<span class="he">([^<]+)<\/span>/g)].map((w) => w[1])];
+        for (const w of words) if (gematria(w) !== res) err(`${where(k)} [${lang}]: ${w} = ${gematria(w)}, not ${res}`);
+      }
+    });
+  }
+}
+
+// every lesson read day by day: 12 comments, each with its Torah verse in sefaria.json, in the order of the verses
+for (const lesson of LESSONS) {
+  const es = dailyEntries(lesson);
+  if (lesson.kind === 'commentary' && lesson.memo && !hasDaily(lesson)) err(`${lesson.slug} · day by day: ${es.length} comments, 12 expected`);
+  es.forEach((e, k) => {
+    if (!SOURCES[e.verse]) err(`${lesson.slug} · day by day ${k + 1}: verse ${e.verse} is not in sefaria.json — run scripts/fetch-sources.py`);
+    else if (!SOURCES[e.verse].ref.endsWith(` ${e.ref}`) && !SOURCES[e.verse].ref.includes(` ${e.ref}-`)) err(`${lesson.slug} · day by day ${k + 1}: ${e.verse} is ${SOURCES[e.verse].ref}, not ${e.ref}`);
+  });
 }
 
 // a «Нифлаот Ребе» talk has no gematria calculator and no word cards to count

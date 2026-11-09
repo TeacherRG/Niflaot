@@ -1,7 +1,8 @@
 import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
-import { cpSync, createReadStream, existsSync, readdirSync, statSync } from 'node:fs';
+import { cpSync, createReadStream, existsSync, mkdirSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { extname, join, normalize, resolve } from 'node:path';
+import { SEARCH_LANGS, buildSearchIndex, type SearchLang } from './scripts/tanakh-search-index';
 
 /**
  * «Тайна Коэлета» — a course of the academy (src/components/KoeletPage.tsx): the game is plain HTML/JS without a build
@@ -48,8 +49,34 @@ function koelet(): Plugin {
   };
 }
 
+/**
+ * «Поиск по Пророкам и Писаниям»: the index of all verses (scripts/tanakh-search-index.ts) — in `npm run dev` built on
+ * the first request, in the build written to dist/tanakh/search/<he|en|ru|de>.json.
+ */
+function tanakhSearch(): Plugin {
+  let cache: ReturnType<typeof buildSearchIndex> | null = null;
+  return {
+    name: 'tanakh-search',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const m = (req.url ?? '').split('?')[0].match(/\/tanakh\/search\/(he|en|ru|de)\.json$/);
+        if (!m) return next();
+        cache ??= buildSearchIndex();
+        res.setHeader('Content-Type', TYPES['.json']);
+        res.end(JSON.stringify(cache[m[1] as SearchLang]));
+      });
+    },
+    writeBundle(options) {
+      const out = join(options.dir ?? 'dist', 'tanakh', 'search');
+      mkdirSync(out, { recursive: true });
+      const index = buildSearchIndex();
+      for (const l of SEARCH_LANGS) writeFileSync(join(out, `${l}.json`), JSON.stringify(index[l]));
+    },
+  };
+}
+
 // base: './' — so the build works from any sub-path (GitHub Pages, mychitas.app/niflaot/…)
 export default defineConfig({
   base: './',
-  plugins: [react(), koelet()],
+  plugins: [react(), koelet(), tanakhSearch()],
 });

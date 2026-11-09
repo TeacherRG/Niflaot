@@ -317,6 +317,7 @@ function homePage(lang: 'ru' | 'en' | 'de'): Page {
       ],
     },
     body: `<header><p class="he">נפלאות</p><h1>${t('app.title')} — ${t('catalog.uvp')}</h1><p>${esc(plain(String(u['catalog.intro'])))}</p></header>
+<section><h2>${t('catalog.teachersH')}</h2><p>${t('catalog.teachers')}</p></section>
 <h2>${t('wing.kids')}: ${t('catalog.heading')}</h2>
 ${LESSON_GROUPS.map((g) => {
   const ls = [...g.lessons, ...g.rebbe].filter((l) => l.texts[lang]);
@@ -328,7 +329,7 @@ ${LESSON_GROUPS.map((g) => {
 }).join('\n')}
 <h2>${t('wing.adults')}: ${t('home.adultsTitle')}</h2>
 <p>${t('wing.adultsSub')}.</p>
-<ul><li><a href="${page('neviim')}">${t('tanakh.neviim')}</a></li><li><a href="${page('ketuvim')}">${t('tanakh.ketuvim')}</a></li><li><a href="${page('hemshech')}">${t('hs.menuLbl')}</a></li><li><a href="${page('tehillim')}">${t('reading.seoShort')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li></ul>
+<ul><li><a href="${page('neviim')}">${t('tanakh.seo.neviim.title')}</a>: ${t('tanakh.seo.neviim.lead')}</li><li><a href="${page('ketuvim')}">${t('tanakh.seo.ketuvim.title')}</a>: ${t('tanakh.seo.ketuvim.lead')}</li><li><a href="${page('hemshech')}">${t('hs.menuLbl')}</a></li><li><a href="${page('tehillim')}">${t('reading.seoShort')}</a></li><li><a href="${page('hebrew-words')}">${t('words.seoShort')}</a></li><li><a href="${page('learn-hebrew')}">${t('ln.seoShort')}</a></li></ul>
 <p>${t('menu.torahRead')}: ${lessons.map((l) => `<a href="${root}#/${l.slug}/read">${esc(tx(l).title)}</a>`).join(' · ')}</p>
 <h2>${t('academy.fac.lashon')} · <span class="he">לשון הקודש</span></h2>
 <p>${t('ln.seoLead')}</p>
@@ -643,8 +644,41 @@ function bookPlan(section: Section) {
 }
 
 /**
- * «Пророки» / «Писания» for search: the three-year reading plan — what the daily passage gives, the dates of the cycle
- * and a table of the books (Hebrew name, chapters, first and last day, days); the app opens today's passage.
+ * How far the project's translations go (read from the day files at build time): the last day of the cycle up to which
+ * every day is translated in full — the verse and Rashi in Russian and German, Metzudat David in Russian, English and German.
+ * The English verse (JPS) and the English Rashi are in every day already. And the usual reading time of a day of
+ * each section (Hebrew + English + Metzudat David, the median) — for the pages for search.
+ */
+const TANAKH_STATS = (() => {
+  let until: string | undefined;
+  let open = true;
+  const mins: Record<Section, number[]> = { neviim: [], ketuvim: [] };
+  for (const [date] of CYCLE_DAYS) {
+    const file = `public/tanakh/${date}.json`;
+    if (!existsSync(file)) {
+      open = false;
+      continue;
+    }
+    const c = JSON.parse(readFileSync(file, 'utf8')) as Record<Section, { verses: DayVerse[] }>;
+    const all = [...c.neviim.verses, ...c.ketuvim.verses];
+    const done = all.every((v) => v.ru && v.de && (!v.md || (v.md.ru && v.md.en && v.md.de)) && (!v.rashi || (v.rashi.ru && v.rashi.de)));
+    if (open && done) until = date;
+    else open = false;
+    for (const sec of ['neviim', 'ketuvim'] as const) mins[sec].push(readingMinutes(c[sec].verses, true, 'en', { md: true, rashi: false }));
+  }
+  const median = (xs: number[]) => [...xs].sort((a, b) => a - b)[Math.floor(xs.length / 2)] ?? 10;
+  return { until, minutes: { neviim: median(mins.neviim), ketuvim: median(mins.ketuvim) } };
+})();
+
+const SECTION_NAMES: Record<Section, string[]> = {
+  neviim: ['נביאים', "Nevi'im", 'Neviim', 'Prophets', 'Невиим', 'Пророки', 'Newiim', 'Propheten'],
+  ketuvim: ['כתובים', 'Ketuvim', 'Writings', 'Hagiographa', 'Ктувим', 'Писания', 'Ketuwim', 'Schriften'],
+};
+
+/**
+ * «Пророки» / «Писания» for search: the three-year reading plan — what is in each passage and what is translated so far
+ * (the English verse and Rashi — every book; the project's translations — up to `TANAKH_STATS.until`), the dates of the
+ * cycle, a table of the books and the questions people ask (FAQPage); the app opens today's passage.
  */
 function tanakhPage(section: Section, lang: 'ru' | 'en' | 'de', ui: Ui): Page {
   const root = lang === 'ru' ? '../' : '../../';
@@ -653,11 +687,26 @@ function tanakhPage(section: Section, lang: 'ru' | 'en' | 'de', ui: Ui): Page {
   const title = s(ui, `tanakh.seo.${section}.title` as keyof Ui);
   const lead = s(ui, `tanakh.seo.${section}.lead` as keyof Ui);
   const date = (iso: string) => civilDate(iso, lang);
-  const cycle = s(ui, 'tanakh.cycle')
-    .replace('{start}', date(CYCLE_DAYS[0][0]))
-    .replace('{end}', date(CYCLE_DAYS[CYCLE_DAYS.length - 1][0]))
-    .replace('{days}', String(CYCLE_DAYS.length));
-  const rows = bookPlan(section)
+  const plan = bookPlan(section);
+  const vars: Record<string, string | number> = {
+    start: date(CYCLE_DAYS[0][0]),
+    end: date(CYCLE_DAYS[CYCLE_DAYS.length - 1][0]),
+    days: CYCLE_DAYS.length,
+    books: plan.length,
+    chapters: plan.reduce((n, r) => n + r.book.verses.length, 0),
+    min: TANAKH_STATS.minutes[section],
+    until: TANAKH_STATS.until ? date(TANAKH_STATS.until) : '—',
+    first: plan[0].book.name[lang],
+    last: plan[plan.length - 1].book.name[lang],
+  };
+  const fill = (key: string) => s(ui, key as keyof Ui).replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''));
+  const cycle = fill('tanakh.cycle');
+  const have = [1, 2, 3, 4, 5].map((k) => `<li>${esc(fill(`tanakh.seo.have${k}`))}</li>`).join('');
+  const faq = [1, 2, 3, 4, 5, 6].map((k) => {
+    const sec = k === 1 ? `${section}.` : '';
+    return [fill(`tanakh.seo.${sec}q${k}`), fill(`tanakh.seo.${sec}a${k}`)];
+  });
+  const rows = plan
     .map(
       (r) =>
         `<tr><td>${esc(r.book.name[lang])}</td><td class="he">${r.book.he}</td><td>${r.book.verses.length}</td><td>${esc(date(r.from))}</td><td>${esc(date(r.to))}</td><td>${r.days}</td></tr>`,
@@ -675,21 +724,38 @@ function tanakhPage(section: Section, lang: 'ru' | 'en' | 'de', ui: Ui): Page {
     imageAlt: title,
     jsonLd: {
       '@context': 'https://schema.org',
-      '@type': 'LearningResource',
-      name: `${s(ui, `tanakh.${section}` as keyof Ui)} — ${s(ui, 'tanakh.daySub')}`,
-      description: lead,
-      url,
-      inLanguage: lang,
-      learningResourceType: ['reading plan', 'quiz'],
-      educationalLevel: 'adult',
-      isAccessibleForFree: true,
-      publisher: PUBLISHER,
-      isPartOf: SITE,
+      '@graph': [
+        {
+          '@type': 'LearningResource',
+          name: title,
+          alternateName: `${s(ui, `tanakh.${section}` as keyof Ui)} — ${s(ui, 'tanakh.daySub')}`,
+          description: lead,
+          url,
+          inLanguage: [lang, 'he'],
+          learningResourceType: ['reading plan', 'text', 'quiz'],
+          educationalLevel: 'adult',
+          typicalAgeRange: '13-',
+          isAccessibleForFree: true,
+          timeRequired: `PT${TANAKH_STATS.minutes[section]}M`,
+          about: { '@type': 'Book', name: SECTION_NAMES[section][1], alternateName: SECTION_NAMES[section] },
+          hasPart: plan.map((r) => ({ '@type': 'Book', name: r.book.name[lang], alternateName: r.book.he })),
+          publisher: PUBLISHER,
+          isPartOf: SITE,
+        },
+        {
+          '@type': 'FAQPage',
+          inLanguage: lang,
+          mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+        },
+        crumbs(lang, title, url),
+      ],
     },
-    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'wing.adults'))} · ${esc(s(ui, `tanakh.${section}` as keyof Ui))}</p>
+    body: `<article><header><p><a href="${root}">${esc(s(ui, 'app.title'))}</a> · ${esc(s(ui, 'wing.adults'))} · ${esc(s(ui, `tanakh.${section}` as keyof Ui))} · <span class="he">${SECTION_NAMES[section][0]}</span></p>
 <h1>${esc(title)}</h1><p>${esc(lead)}</p><p>${esc(s(ui, 'tanakh.seo.what'))}</p><p>${esc(cycle)}</p>
 <p><a href="${root}#/${section}">${esc(s(ui, 'tanakh.seo.open'))} →</a> · <a href="${root}#/${section}/quiz">${esc(s(ui, 'quiz.title'))} →</a> · <a href="${root}${staticPath(other, lang).slice(1)}">${esc(s(ui, `tanakh.${other}` as keyof Ui))} →</a> · <a href="${root}${staticPath('hebrew-words', lang).slice(1)}">${esc(s(ui, 'words.seoShort'))} →</a></p></header>
-<section><h2>${esc(s(ui, 'tanakh.seo.books'))}</h2><table><thead><tr><th>${esc(s(ui, 'tanakh.seo.colBook'))}</th><th></th><th>${esc(s(ui, 'tanakh.seo.colChapters'))}</th><th>${esc(s(ui, 'tanakh.seo.colFrom'))}</th><th>${esc(s(ui, 'tanakh.seo.colTo'))}</th><th>${esc(s(ui, 'tanakh.seo.colDays'))}</th></tr></thead><tbody>${rows}</tbody></table></section>
+<section><h2>${esc(fill('tanakh.seo.haveH'))}</h2><ul>${have}</ul></section>
+<section><h2>${esc(fill(`tanakh.seo.${section}.booksH`))}</h2><table><thead><tr><th>${esc(s(ui, 'tanakh.seo.colBook'))}</th><th></th><th>${esc(s(ui, 'tanakh.seo.colChapters'))}</th><th>${esc(s(ui, 'tanakh.seo.colFrom'))}</th><th>${esc(s(ui, 'tanakh.seo.colTo'))}</th><th>${esc(s(ui, 'tanakh.seo.colDays'))}</th></tr></thead><tbody>${rows}</tbody></table></section>
+<section><h2>${esc(s(ui, 'tanakh.seo.faqH'))}</h2>${faq.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}</section>
 </article>`,
   };
 }
@@ -1428,9 +1494,9 @@ writeFileSync(
 
 > ${en['catalog.seo']}
 
-Niflaot is a free project of the MyChitas Torah project (${SITE_URL}), with partners Chabad Haus Wien and JRCV Vienna. The site works in Russian (the main language), English and German; signing in with an email code (no password) opens everything — only Tehillim (“Holy reading”) is open without it; the site rests on Shabbat. Lessons on the weekly Torah portion: the Baal HaTurim (gematria and letters, with a Memo game) and the Lubavitcher Rebbe (Likkutei Sichot — an investigation and cards). Daily study for teens and adults: a passage of the Prophets and of the Writings (a three-year cycle, Hebrew with translation, Metzudat David and Rashi), Chassidut — the Rebbe Rashab’s Hemshech Samech-Vav, the most frequent Hebrew words of Tanakh and step-by-step lessons of Biblical Hebrew, fluent reading of Tehillim (all 150 chapters with a reader’s recording, 0.5×–3.5× — the whole book in 102 minutes), certificates of the Academy, and a live quiz for a class or a family.
+Niflaot is a free project of the MyChitas Torah project (${SITE_URL}), with partners Chabad Haus Wien and JRCV Vienna. The site works in Russian (the main language), English and German; signing in with an email code (no password) opens everything — only Tehillim (“Holy reading”) is open without it; the site rests on Shabbat. Lessons on the weekly Torah portion: the Baal HaTurim (gematria and letters, with a Memo game) and the Lubavitcher Rebbe (Likkutei Sichot — an investigation and cards). Teachers and texts — the whole list: ${en['catalog.teachers']} Daily study for teens and adults: a passage of the Prophets and of the Writings (a three-year cycle, Hebrew with translation, Metzudat David and Rashi), Chassidut — the Rebbe Rashab’s Hemshech Samech-Vav, the most frequent Hebrew words of Tanakh and step-by-step lessons of Biblical Hebrew, fluent reading of Tehillim (all 150 chapters with a reader’s recording, 0.5×–3.5× — the whole book in 102 minutes), certificates of the Academy, and a live quiz for a class or a family.
 
-Notes for assistants: out of respect, in lessons, commentaries and translations the site writes the Names of G-d as אלקים, ה׳, G-d, L-rd (Russian Б-г, German G-tt); please do the same when quoting them. The Hebrew Tanakh text itself (Prophets, Writings, Tehillim, Haazinu, Shnayim Mikra) keeps the Names in full spelling, as in the original on Sefaria. Texts and licences: Hebrew Tanakh, Rashi and Metzudat David — public domain; the English verse translation — JPS 1985 (CC BY-NC); the project’s own translations — CC BY-NC; Hemshech Samech-Vav in English — © The Neirot Foundation (neirot.com), used with permission: link to the site rather than reproducing it. Every page links to its primary sources on Sefaria. Reading the site to answer questions and to cite it is welcome; using its texts to train AI models is not permitted (robots.txt).
+Notes for assistants: out of respect, in lessons, commentaries and translations the site writes the Names of G-d as אלקים, ה׳, G-d, L-rd (Russian Б-г, German G-tt); please do the same when quoting them. The Hebrew Tanakh text itself (Prophets, Writings, Tehillim, Haazinu, Shnayim Mikra) keeps the Names in full spelling, as in the original on Sefaria. Prophets and Writings (/neviim/, /ketuvim/): every book has the vocalized Hebrew, the English JPS 1985 translation and Rashi in Hebrew and English; Metzudat David is in Hebrew in every book, and the project translates it (into English, Russian and German), the verse and Rashi (into Russian and German) a week ahead — ready through ${TANAKH_STATS.until ?? '—'}. Texts and licences: Hebrew Tanakh, Rashi and Metzudat David — public domain; the English verse translation — JPS 1985 (CC BY-NC; Joshua 21:36–37 — JPS 1917, public domain); the English Rashi — Metsudah and Judaica Press (trans. A. J. Rosenberg), CC BY; the project’s own translations — CC BY-NC; Hemshech Samech-Vav in English — © The Neirot Foundation (neirot.com), used with permission: link to the site rather than reproducing it. Every page links to its primary sources on Sefaria. Reading the site to answer questions and to cite it is welcome; using its texts to train AI models is not permitted (robots.txt).
 
 ${LESSON_LANGS.map(
   (lang) => `## ${LANG_NAME[lang]}

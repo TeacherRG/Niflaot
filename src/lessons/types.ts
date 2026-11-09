@@ -172,6 +172,8 @@ export interface LessonText {
   memo?: MemoText;
   /** texts of the «Карточки» game of a «Нифлаот Ребе» lesson */
   cards?: RebbeCardsText;
+  /** texts of «на каждый день», when the lesson has it */
+  daily?: DailyText;
   /** final «Собери смысл»: the path of the whole lesson; none in a `commentary` lesson */
   puzzle?: PuzzleText;
   /** who the lesson suits and why (a methodical note next to the age, one short sentence); plain text */
@@ -301,6 +303,27 @@ export interface RebbeCardsText {
   items: RebbeCardText[];
 }
 
+/* ───────────── «на каждый день» (a commentary lesson, read over the week of its portion) ───────────── */
+
+/**
+ * One day's portion of a commentary lesson read day by day (#/<slug>/day/N): the Torah verse and the commentator's words on it.
+ * `Lesson.daily` has two items a day, Sunday to Friday of the portion's week (12); the texts are in `LessonText.daily.items`.
+ */
+export interface DailyItem {
+  /** the verse (id in src/sources/sefaria.json) */
+  verse: string;
+  /** the commentator's words on it (ids in sefaria.json, or 'id:k' — its comment k, 1-based) */
+  quotes: string[];
+}
+
+/** Texts of «на каждый день»: an explanation of each item, same order. */
+export interface DailyText {
+  /** one or two sentences above the day: what this is */
+  intro: string;
+  /** `h` — a short title, `b` — HTML: the calculation (`<span class="he">…</span> = …`) and «Пояснение» (`<p class="expl">`) */
+  items: { h: string; b: string }[];
+}
+
 export interface Lesson {
   /** stable id used in URLs and storage */
   slug: string;
@@ -340,6 +363,8 @@ export interface Lesson {
   memo?: MemoData;
   /** «Карточки» — the second game of a «Нифлаот Ребе» lesson (#/<slug>/cards): verse — the Rebbe's explanation */
   cards?: RebbeCardsData;
+  /** «на каждый день» (#/<slug>/day/N): two items a day, Sunday to Friday of the portion's week — 12 */
+  daily?: DailyItem[];
   /** localStorage key used by the old single-file version, migrated once */
   legacyStorageKey?: string;
 }

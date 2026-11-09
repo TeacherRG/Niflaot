@@ -124,24 +124,26 @@ const allVerses = [...Array.from({ length: CHAPTERS }, (_, k) => JSON.parse(read
 for (const verse of allVerses) {
   for (const x of tokens(verse)) {
     if (!x.w) continue;
-    for (const lang of LANGS) {
+    for (const lang of LANGS) for (const pron of ['ash', 'sef'] as const) {
       trWords++;
-      const r = translitToken(x.s, lang);
+      const r = translitToken(x.s, lang, pron);
       if (!r) errors.push(`транслит (${lang}): пусто у «${x.s}»`);
       else if (/[֐-׿]/.test(r)) errors.push(`транслит (${lang}): иврит в «${r}» (${x.s})`);
       else if (BAD_NAME.test(r)) errors.push(`транслит (${lang}): Имя не так, как произносят, в «${r}» (${x.s})`);
     }
   }
 }
-const SAMPLE: Record<string, [number, Record<(typeof LANGS)[number], string>]> = {
+const SAMPLE: Record<string, [number, Record<(typeof LANGS)[number], string>, ('ash' | 'sef')?]> = {
   'Теґилим 23:1': [23, { ru: 'Мизмойр ледовид Адойной ройи лой эхсор', en: 'Mizmor ledovid Adonoi ro\'i lo echsor', de: 'Mismor ledowid Adonoj ro\'i lo echsor' }],
   'Теґилим 150:1': [150, { ru: 'Ґалелу Йо ґалелу-Эйл бекодшой ґалелуґу биркиа узой', en: 'Halelu Yo halelu-Eil bekodsho haleluhu birkia uzo', de: 'Halelu Jo halelu-Ejl bekodscho haleluhu birkia uso' }],
   'Теґилим 113:1': [113, { ru: 'Ґалелу Йо ґалелу авдей Адойной ґалелу эс-шейм Адойной', en: 'Halelu Yo halelu avdei Adonoi halelu es-sheim Adonoi', de: 'Halelu Jo halelu awdej Adonoj halelu es-schejm Adonoj' }],
+  'Теґилим 23:1 (сефардское)': [23, { ru: 'Мизмор ледавид Адонай рои ло эхсар', en: 'Mizmor ledavid Adonai ro\'i lo echsar', de: 'Mismor ledawid Adonai ro\'i lo echsar' }, 'sef'],
+  'Теґилим 113:1 (сефардское)': [113, { ru: 'Ґалелу Йа ґалелу авде Адонай ґалелу эт-шем Адонай', en: 'Halelu Yah halelu avde Adonai halelu et-shem Adonai', de: 'Halelu Jah halelu awde Adonai halelu et-schem Adonai' }, 'sef'],
 };
-for (const [name, [c, want]] of Object.entries(SAMPLE)) {
+for (const [name, [c, want, pron]] of Object.entries(SAMPLE)) {
   const first: string = JSON.parse(readFileSync(new URL(`${c}.json`, dir), 'utf8')).v[0];
   for (const lang of LANGS) {
-    const got = translitTokens(tokens(first).map((x) => x.s), lang).filter(Boolean).join(' ');
+    const got = translitTokens(tokens(first).map((x) => x.s), lang, pron).filter(Boolean).join(' ');
     if (got !== want[lang]) errors.push(`транслит ${name} (${lang}): «${got}», а нужно «${want[lang]}»`);
   }
 }

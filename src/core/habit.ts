@@ -77,7 +77,7 @@ export function studyDates(): Set<string> {
     const n = Number(s);
     if (n > 0) out.add(iso(new Date(n * 1000)));
   };
-  for (const k of ['niflaot:tanakh-done', 'niflaot:hemshech-done']) Object.values(parse(k) ?? {}).forEach(at);
+  for (const k of ['niflaot:tanakh-done', 'niflaot:hemshech-done', 'niflaot:turim-done']) Object.values(parse(k) ?? {}).forEach(at);
   for (const k of ['niflaot:words', 'niflaot:torah-words'])
     for (const v of Object.values<any>(parse(k) ?? {})) at(Array.isArray(v) ? v[0] : v);
   for (const [n, r] of Object.entries<any>(parse('niflaot:daily') ?? {})) if (r?.done) out.add(addDays(DAILY_START, Number(n) - 1));

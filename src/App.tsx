@@ -1,5 +1,7 @@
 import { Suspense, lazy, useEffect, useMemo, useState, type ComponentType } from 'react';
 import { PARSHIOT, cardsOnly, findLesson, type ParshaId } from './lessons';
+import { TURIM_DAYS, hasDaily, turimDayFor } from './core/turimDaily';
+import { localToday } from './core/tanakh';
 import { Catalog } from './components/Catalog';
 import { ModePicker } from './components/ModePicker';
 import { isReader, savedMode, useSavedMode } from './core/mode';
@@ -34,6 +36,7 @@ const PrintCards = page(() => import('./components/PrintCards'), 'PrintCards');
 const MemoPage = page(() => import('./components/MemoPage'), 'MemoPage');
 const CardsPage = page(() => import('./components/CardsPage'), 'CardsPage');
 const ReadPage = page(() => import('./components/ReadPage'), 'ReadPage');
+const TurimDailyPage = page(() => import('./components/TurimDailyPage'), 'TurimDailyPage');
 const FactsPage = page(() => import('./components/FactsPage'), 'FactsPage');
 const PartnersPage = page(() => import('./components/PartnersPage'), 'PartnersPage');
 const TeacherPage = page(() => import('./components/TeacherPage'), 'TeacherPage');
@@ -51,6 +54,7 @@ const WordsPage = page(() => import('./components/WordsPage'), 'WordsPage');
 const BookmarksPage = page(() => import('./components/BookmarksPage'), 'BookmarksPage');
 const AtlasPage = page(() => import('./components/AtlasPage'), 'AtlasPage');
 const VersePage = page(() => import('./components/VersePage'), 'VersePage');
+const TanakhSearchPage = page(() => import('./components/TanakhSearchPage'), 'TanakhSearchPage');
 const FreePage = page(() => import('./components/FreePage'), 'FreePage');
 const TorahWordsPage = page(() => import('./components/TorahWordsPage'), 'TorahWordsPage');
 const PicWordsPage = page(() => import('./components/PicWordsPage'), 'PicWordsPage');
@@ -72,7 +76,7 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©mychitas.app`;
 
 /**
  * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version,
- * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers (`/read/<n>`, `/memo/<n>`, `/r/<n>` — opened at riddle or Memo pair n), `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/partners` — «Партнёры», `#/teacher` — «Учитель» (ИИ или человек), `#/account` — аккаунт (гость / вход по коду / профиль, классы), `#/admin/leaders[/<class>]` — таблица лидеров (только в админке), `#/class/<id>` — класс для учителя, `#/consent/<token>` — согласие родителя, `#/privacy` — конфиденциальность, `#/facts` — «Знаете ли вы?», the equalities of all lessons (`#/facts/<id>` — opened at one of them), `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper, `#/letters` — «Буквы за 5 минут», `#/neviim[/<date>]`, `#/ketuvim[/<date>]` — «Пророки», «Писания»: отрывок дня трёхлетнего цикла (`/<date>/quiz`, `/quiz` — «Вопросы к отрывку»), `#/academy[/<id>]` — «Академия»: сертификаты за книги, `#/words` — «Мои слова»: слова Танаха с повторением, `#/torah-words[/<глава>]` — «Слова Торы»: детская игра со словами уроков, `#/lashon` — «Святой язык — уроки»: курс иврита по шагам (буквы и слова), `#/pics` — «Слово — картинка»: четыре картинки и слово на иврите, `#/mode` — «Кто будет учиться?» (режим сайта; без выбора — вместо главной), `#/quiz` — «Викторина вместе» (`#/quiz/<код>` — игрок, `#/quiz/host/<код>` — ведущий), `#/shabbat-table[/<глава>]` — «К шабатнему столу»: лист главы для печати, `#/digest[/<воскресенье>]` — «Неделя в Академии»: Пророки, Писания, Хасидут и нигун недели короткими цитатами, `#/nigun[/<id>]` — «Святая музыка»: нигуны и караоке, `#/koelet` — «Тайна Коэлета»: квест по книге Коэлет (koelet/, в iframe), `#/zip` — «Zip — стих Торы»: путь через все клетки по словам стиха с комментарием Бааль ґа-Турима,  `#/reading[/<глава>]` — «Святое чтение»: проворное чтение Теґилим.
+ * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers (`/read/<n>`, `/memo/<n>`, `/r/<n>` — opened at riddle or Memo pair n), `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/partners` — «Партнёры», `#/teacher` — «Учитель» (ИИ или человек), `#/account` — аккаунт (гость / вход по коду / профиль, классы), `#/admin/leaders[/<class>]` — таблица лидеров (только в админке), `#/class/<id>` — класс для учителя, `#/consent/<token>` — согласие родителя, `#/privacy` — конфиденциальность, `#/facts` — «Знаете ли вы?», the equalities of all lessons (`#/facts/<id>` — opened at one of them), `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper, `#/letters` — «Буквы за 5 минут», `#/neviim[/<date>]`, `#/ketuvim[/<date>]` — «Пророки», «Писания»: отрывок дня трёхлетнего цикла (`/<date>/quiz`, `/quiz` — «Вопросы к отрывку»), `#/academy[/<id>]` — «Академия»: сертификаты за книги, `#/words` — «Мои слова»: слова Танаха с повторением, `#/torah-words[/<глава>]` — «Слова Торы»: детская игра со словами уроков, `#/lashon` — «Святой язык — уроки»: курс иврита по шагам (буквы и слова), `#/pics` — «Слово — картинка»: четыре картинки и слово на иврите, `#/mode` — «Кто будет учиться?» (режим сайта; без выбора — вместо главной), `#/quiz` — «Викторина вместе» (`#/quiz/<код>` — игрок, `#/quiz/host/<код>` — ведущий), `#/shabbat-table[/<глава>]` — «К шабатнему столу»: лист главы для печати, `#/digest[/<воскресенье>]` — «Неделя в Академии»: Пророки, Писания, Хасидут и нигун недели короткими цитатами, `#/nigun[/<id>]` — «Святая музыка»: нигуны и караоке, `#/koelet` — «Тайна Коэлета»: квест по книге Коэлет (koelet/, в iframe), `#/turim` — «Бааль ґа-Турим на каждый день»: два комментария урока главы в день, вс–пт (`#/<lesson-slug>/day[/<1–6>]` — день N), `#/search[?q=…]` — «Поиск по Пророкам и Писаниям», `#/zip` — «Zip — стих Торы»: путь через все клетки по словам стиха с комментарием Бааль ґа-Турима,  `#/reading[/<глава>]` — «Святое чтение»: проворное чтение Теґилим.
  * `#/daily` — «Знаете ли вы?» opened on «Гематрия дня», its first card; `#/math/<op>` — «Устный счёт».
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson; `/mental-math/` and `/daily/` (also under `/en/`, `/de/`) — those pages.
@@ -143,6 +147,18 @@ function useFirstVisitHelp(open: (p: Panel) => void, onLesson: boolean) {
   }, [open, onLesson]);
 }
 
+/** «Бааль ґа-Турим на каждый день» (#/turim): today's day, else the next one ahead, else the last (src/core/turimDaily.ts). */
+function TurimToday() {
+  const d = turimDayFor(localToday());
+  return d ? <TurimDailyPage lesson={d.lesson} n={d.n} /> : <NotFound />;
+}
+
+/** #/<slug>/day without a day: today's day of that lesson's week, else Sunday. */
+function turimDayIn(lesson: NonNullable<ReturnType<typeof findLesson>>) {
+  const d = turimDayFor(localToday());
+  return d?.lesson.slug === lesson.slug ? d.n : 1;
+}
+
 /** The site rests on Shabbat (candle lighting – end of Shabbat in the user's city): nothing but the greeting. */
 export function App() {
   return useShabbatRest() ? <ShabbatRest /> : <Site />;
@@ -174,7 +190,7 @@ function Site() {
   useEffect(() => onPulled(() => setPulled((n) => n + 1)), []);
   // outside a lesson the helper knows no lesson (the lesson page sets its own state)
   useEffect(() => {
-    if (!lesson || view === 'print' || view === 'memo' || view === 'cards' || view === 'read') setPageState(null);
+    if (!lesson || view === 'print' || view === 'memo' || view === 'cards' || view === 'read' || view === 'day') setPageState(null);
   }, [lesson, view]);
   const ui = useMemo(() => ({ panel, open, lessonSlug: lesson?.slug }), [panel, lesson]);
   return (
@@ -217,6 +233,8 @@ function Site() {
             <AtlasPage key={route} id={view || undefined} />
           ) : slug === 'free' && !view ? (
             <FreePage />
+          ) : slug === 'search' && !view ? (
+            <TanakhSearchPage />
           ) : slug === 'verse' && view && !variant ? (
             <VersePage id={view} />
           ) : slug === 'lashon' ? (
@@ -247,6 +265,8 @@ function Site() {
             <TanakhQuizPage key={route} section={slug} date={/^\d{4}-\d{2}-\d{2}$/.test(view ?? '') ? view : undefined} />
           ) : slug === 'neviim' || slug === 'ketuvim' ? (
             <TanakhPage key={`${slug}/${view}`} section={slug} date={/^\d{4}-\d{2}-\d{2}$/.test(view ?? '') ? view : undefined} />
+          ) : slug === 'turim' && !view ? (
+            <TurimToday />
           ) : slug === 'rebbe' && view in PARSHIOT ? (
             <RebbePage parsha={view as ParshaId} />
           ) : !slug ? (
@@ -254,6 +274,8 @@ function Site() {
           ) : !lesson ? (
             // a mistyped or outdated link (and #/math/<unknown>): say so, not the home page
             <NotFound />
+          ) : view === 'day' && hasDaily(lesson) && (!variant || (Number(variant) >= 1 && Number(variant) <= TURIM_DAYS)) ? (
+            <TurimDailyPage key={route} lesson={lesson} n={Number(variant) || turimDayIn(lesson)} />
           ) : view === 'print' && variant === 'memo' && lesson.memo ? (
             <PrintMemo key={lesson.slug} lesson={lesson} memo={lesson.memo} />
           ) : cardsOnly(lesson) && (view === 'print' ? variant !== 'memo' : view !== 'cards' && view !== 'read') ? (

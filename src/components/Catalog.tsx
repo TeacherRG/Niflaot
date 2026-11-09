@@ -12,6 +12,7 @@ import { HabitCard } from './HabitCard';
 import { dailyNumber, grid, loadResults, streak } from '../core/daily';
 import { Icon } from './ui';
 import { lessonGames } from './lessonGames';
+import { parshaDaily } from '../core/turimDaily';
 import { lessonArt } from '../core/art';
 import { useMode } from '../core/mode';
 import { CoursesCard } from './CoursesCard';
@@ -103,7 +104,7 @@ function AdultsHome() {
         <h1 className="sr-only">{t('home.adultsH1')}</h1>
         <div className="a-tiles">
           {reads.length > 0 && (
-            <a className={`a-tile a-parsha${art ? ' a-art' : ''}`} href={`#/${reads[0].slug}/read`} style={art ? { backgroundImage: `url(${art})` } : undefined}>
+            <a className={`a-tile a-parsha${art ? ' a-art' : ''}`} href={parshaDaily(week.id) ? `#/${parshaDaily(week.id)!.slug}/day` : `#/${reads[0].slug}/read`} style={art ? { backgroundImage: `url(${art})` } : undefined}>
               <span className="a-tile-k">{t('home.todayParsha')}</span>
               <span className="a-tile-t">{week.name[locale as keyof typeof week.name] ?? week.name.ru}</span>
               <span className="a-tile-he he">{week.he}</span>
