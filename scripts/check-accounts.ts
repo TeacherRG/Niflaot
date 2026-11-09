@@ -3,7 +3,8 @@
  * never loses a solved riddle or a «Гематрия дня» day (src/core/sync.ts), only the synced keys travel, and the
  * server's rules for emails and nicknames (assistant/src/rules.ts).
  */
-import { mergeSnapshots, summarize } from '../src/core/sync';
+import { mergeSnapshots, summarize, SYNC_KEYS } from '../src/core/sync';
+import { readFileSync } from 'node:fs';
 import { methodsFor, validEmail, validNick } from '../assistant/src/rules';
 import { sanitizeHtml } from '../src/core/sanitize';
 import { verifyGoogleToken } from '../assistant/src/google';
@@ -37,6 +38,23 @@ if (daily[3]?.done !== 'lose') err('sync: a finished day must win over an unfini
 if (m['niflaot:lang'] !== 'de') err('sync: this device\'s settings must win');
 if ('niflaot:admin-token' in m) err('sync: a key that must stay on the device travels (admin token)');
 if (JSON.stringify(mergeSnapshots(m, m)) !== JSON.stringify(m)) err('sync: merging a copy with itself changes it');
+// every synced key is kept by the server (assistant/src/accounts.ts — the allowlist of keys)
+{
+  const src = readFileSync(new URL('../assistant/src/accounts.ts', import.meta.url), 'utf8');
+  const re = /\/\^niflaot:\((lesson:[^/]+)\)\$\/\.test\(k\)/.exec(src);
+  if (!re) err('sync: the server allowlist of keys is not found');
+  else {
+    const allow = new RegExp(`^niflaot:(${re[1]})$`);
+    for (const k of SYNC_KEYS) if (!allow.test(k)) err(`sync: the server drops ${k}`);
+  }
+}
+// «Лоскуты гематрии»: the copy with more boards leads, best times — the faster
+{
+  const pm = JSON.parse(
+    mergeSnapshots({ 'niflaot:patches': JSON.stringify({ l: 3, g: 5, b: { 1: 40, 2: 90 }, w: '2026-11-09' }) }, { 'niflaot:patches': JSON.stringify({ l: 6, g: 9, b: { 2: 70, 5: 200 } }) })['niflaot:patches'],
+  );
+  if (pm.l !== 6 || pm.g !== 9 || pm.b[1] !== 40 || pm.b[2] !== 70 || pm.b[5] !== 200 || pm.w !== '2026-11-09') err(`sync: patches merge ${JSON.stringify(pm)}`);
+}
 const qz = mergeSnapshots(
   { 'niflaot:tanakh-quiz': JSON.stringify({ 'd1:neviim': { p: [0, 1, 0], best: 2, n: 3 }, 'd2:neviim': { p: [0, -1, -1], best: -1, n: 3 } }) },
   { 'niflaot:tanakh-quiz': JSON.stringify({ 'd1:neviim': { p: [0, 0, 0], best: 3, n: 3 }, 'd3:ketuvim': { p: [1, 1, 1], best: 0, n: 3 } }) },

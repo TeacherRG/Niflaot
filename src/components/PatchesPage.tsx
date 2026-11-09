@@ -3,7 +3,7 @@ import { useI18n } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { useMode } from '../core/mode';
-import { markStudied } from '../core/habit';
+import { markStudied, todayIso } from '../core/habit';
 import { celebrate, feedback } from '../core/fx';
 import {
   LEVELS,
@@ -124,7 +124,7 @@ export function PatchesPage() {
   };
 
   const win = (usedHints: number) => {
-    const rec = recordWin(state, level, sec, mistakes, usedHints);
+    const rec = recordWin(state, level, sec, mistakes, usedHints, todayIso());
     const best = state.b[level];
     savePatches(rec);
     setState(rec);

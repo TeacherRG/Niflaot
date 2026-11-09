@@ -8,10 +8,12 @@
  * The level follows the player (owner: «когда проходит — усложнять, когда много раз ошибается — останавливаться или
  * снижать сложность»): solved with few mistakes and no hints — the next board is harder; with many mistakes or hints —
  * the same or easier. Every board has exactly one solution (the generator checks it with a solver).
- * `niflaot:patches` = {l: level 1–10, g: boards solved, b: {<level>: best seconds}} — on this device only.
+ * `niflaot:patches` = {l: level 1–10, g: boards solved, b: {<level>: best seconds}, w: day of the last win} — synced with
+ * the account (src/core/sync.ts, mergePatches: the copy with more boards leads).
  */
 
-export const PATCHES_KEY = 'niflaot:patches';
+import { PATCHES_KEY } from './zipReminder';
+export { PATCHES_KEY };
 
 export type Shape = 'square' | 'tall' | 'wide' | 'any';
 
@@ -301,11 +303,13 @@ export interface PatchesState {
   g: number;
   /** best time per level, s */
   b: Record<string, number>;
+  /** the day of the last win (YYYY-MM-DD) — for the «Игры» tile on the home page */
+  w?: string;
 }
 export function loadPatches(): PatchesState {
   try {
     const s = JSON.parse(localStorage.getItem(PATCHES_KEY) || 'null');
-    if (s && typeof s.l === 'number') return { l: Math.min(Math.max(1, s.l), MAX_LEVEL), g: s.g | 0, b: s.b ?? {} };
+    if (s && typeof s.l === 'number') return { l: Math.min(Math.max(1, s.l), MAX_LEVEL), g: s.g | 0, b: s.b ?? {}, ...(s.w ? { w: String(s.w) } : {}) };
   } catch {
     /* private mode */
   }
@@ -318,11 +322,12 @@ export function savePatches(s: PatchesState) {
     /* private mode */
   }
 }
-export function recordWin(s: PatchesState, level: number, sec: number, mistakes: number, hints: number): PatchesState {
+export function recordWin(s: PatchesState, level: number, sec: number, mistakes: number, hints: number, today?: string): PatchesState {
   const best = s.b[level];
   return {
     l: nextLevel(level, mistakes, hints),
     g: s.g + 1,
     b: !hints && (best === undefined || sec < best) ? { ...s.b, [level]: sec } : s.b,
+    ...(today ?? s.w ? { w: today ?? s.w } : {}),
   };
 }

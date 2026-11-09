@@ -3432,3 +3432,16 @@ html.tabbed .rd-tip{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
 .pt-values li small{font-family:var(--f-num);color:var(--muted)}
 .pt-values p{font-size:13px;color:var(--muted);margin:0}
 @media (prefers-reduced-motion:reduce){.pt-bad,.pt-hint{animation:none}}
+/* «Игры» on both home pages (GamesTile in Catalog.tsx): the games side by side — swipe or the dots */
+.games{position:relative;min-width:0;min-height:0;display:flex;flex-direction:column}
+.g-pages{flex:1 1 auto;min-height:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;border-radius:16px}
+.g-pages::-webkit-scrollbar{display:none}
+.g-slide{flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always}
+.g-dots{position:absolute;top:10px;right:12px;display:flex;gap:6px;z-index:1}
+.g-dots button{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.45);cursor:pointer}
+.g-dots button[aria-current]{background:#fff;width:18px;border-radius:4px}
+.h-games{flex:1 1 100%}
+.h-games .g-pages{border-radius:10px}
+.h-games .g-slide{border-radius:0}
+.h-games .h-daily-title{padding-right:40px}
+.a-games .g-slide{border-radius:0}

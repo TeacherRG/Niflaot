@@ -319,8 +319,20 @@ export function Panels() {
               {link('#/shabbat-table', <Icon name="print" />, t('table.title'), t('table.menuSub'))}
               {link('#/digest', <Icon name="print" />, t('digest.title'), t('digest.menuSub'))}
               {link('#/quiz', <Icon name="phone" />, t('lq.title'), t('lq.menuSub'))}
-              {link('#/zip', num('ז', true), t('zip.title'), t('zip.menuSub'))}
-              {link('#/patches', num('י״ב', true), t('patches.title'), t('patches.menuSub'))}
+              {/* «Игры» — the games of the site in one sub-menu (owner, 09.11.2026) */}
+              <details className="menu-group" open={starts('#/zip', '#/patches')}>
+                <summary className="menu-item">
+                  <Icon name="grid" />
+                  <span>
+                    {t('menu.games')}
+                    <small>{t('menu.gamesSub')}</small>
+                  </span>
+                </summary>
+                <div className="menu-sub">
+                  {link('#/zip', num('ז', true), t('zip.title'), t('zip.menuSub'))}
+                  {link('#/patches', num('י״ב', true), t('patches.title'), t('patches.menuSub'))}
+                </div>
+              </details>
               {link('#/facts', <Icon name="hash" />, t('facts.title'), t('facts.menuSub'))}
             </>
           ))}
