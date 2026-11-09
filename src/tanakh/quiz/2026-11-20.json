@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 15:14",
+   "q": {
+    "ru": "Кого Калев изгнал из Хеврона?",
+    "en": "Whom did Caleb drive out of Hebron?",
+    "de": "Wen vertrieb Kalew aus Chewron?"
+   },
+   "o": [
+    {
+     "ru": "Трёх сыновей Анака",
+     "en": "The three sons of Anak",
+     "de": "Die drei Söhne Anaks"
+    },
+    {
+     "ru": "Гивонитян",
+     "en": "The Gibeonites",
+     "de": "Die Giwoniter"
+    },
+    {
+     "ru": "Пять царей эмореев",
+     "en": "Five Amorite kings",
+     "de": "Fünf Könige der Emoriter"
+    },
+    {
+     "ru": "Филистимлян",
+     "en": "The Philistines",
+     "de": "Die Philister"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:17",
+   "q": {
+    "ru": "Кто захватил Кирьят-Сефер?",
+    "en": "Who captured Kiriath-sepher?",
+    "de": "Wer eroberte Kirjat-Sefer?"
+   },
+   "o": [
+    {
+     "ru": "Отниэль, сын Кназа",
+     "en": "Othniel son of Kenaz",
+     "de": "Otniel, der Sohn Kenas’"
+    },
+    {
+     "ru": "Йеґошуа",
+     "en": "Joshua",
+     "de": "Jehoschua"
+    },
+    {
+     "ru": "Калев",
+     "en": "Caleb",
+     "de": "Kalew"
+    },
+    {
+     "ru": "Эльазар",
+     "en": "Eleazar",
+     "de": "Elasar"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:19",
+   "q": {
+    "ru": "О чём Ахса попросила отца?",
+    "en": "What did Achsah ask her father for?",
+    "de": "Worum bat Achsa ihren Vater?"
+   },
+   "o": [
+    {
+     "ru": "Об источниках воды",
+     "en": "Springs of water",
+     "de": "Um Wasserquellen"
+    },
+    {
+     "ru": "О золоте",
+     "en": "Gold",
+     "de": "Um Gold"
+    },
+    {
+     "ru": "О новом доме",
+     "en": "A new house",
+     "de": "Um ein neues Haus"
+    },
+    {
+     "ru": "О стаде овец",
+     "en": "A flock of sheep",
+     "de": "Um eine Schafherde"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 24:1",
+   "q": {
+    "ru": "Кому принадлежит земля и всё, что её наполняет?",
+    "en": "To whom do the earth and all that it holds belong?",
+    "de": "Wem gehören die Erde und was sie erfüllt?"
+   },
+   "o": [
+    {
+     "ru": "Г-споду",
+     "en": "The L-rd",
+     "de": "Dem Ewigen"
+    },
+    {
+     "ru": "Царям",
+     "en": "Kings",
+     "de": "Den Königen"
+    },
+    {
+     "ru": "Людям",
+     "en": "People",
+     "de": "Den Menschen"
+    },
+    {
+     "ru": "Морям",
+     "en": "The seas",
+     "de": "Den Meeren"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 24:4",
+   "q": {
+    "ru": "Кто может взойти на гору Г-спода?",
+    "en": "Who may ascend the mountain of the L-rd?",
+    "de": "Wer darf auf den Berg des Ewigen steigen?"
+   },
+   "o": [
+    {
+     "ru": "У кого чисты руки и непорочно сердце",
+     "en": "One with clean hands and a pure heart",
+     "de": "Wer reine Hände und ein lauteres Herz hat"
+    },
+    {
+     "ru": "Самый сильный",
+     "en": "The strongest",
+     "de": "Der Stärkste"
+    },
+    {
+     "ru": "Самый богатый",
+     "en": "The richest",
+     "de": "Der Reichste"
+    },
+    {
+     "ru": "Самый старший",
+     "en": "The oldest",
+     "de": "Der Älteste"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 24:7",
+   "q": {
+    "ru": "Кто войдёт, когда ворота поднимут головы?",
+    "en": "Who will come in when the gates lift up their heads?",
+    "de": "Wer zieht ein, wenn die Tore ihre Häupter heben?"
+   },
+   "o": [
+    {
+     "ru": "Царь славы",
+     "en": "The King of glory",
+     "de": "Der König der Ehre"
+    },
+    {
+     "ru": "Царь Шломо",
+     "en": "King Solomon",
+     "de": "König Schlomo"
+    },
+    {
+     "ru": "Коэн гадоль",
+     "en": "The High Priest",
+     "de": "Der Hohepriester"
+    },
+    {
+     "ru": "Войско Израиля",
+     "en": "Israel’s army",
+     "de": "Das Heer Israels"
+    }
+   ]
+  }
+ ]
+}
