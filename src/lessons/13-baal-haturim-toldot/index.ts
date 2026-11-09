@@ -128,23 +128,23 @@ const lesson: Lesson = {
   },
   daily: [
     // воскресенье
-    { verse: 'gen-25-19', quotes: ['bht-25-19'] },
-    { verse: 'gen-25-21', quotes: ['bht-25-21-2'] },
+    { verse: 'torah-25-19', quotes: ['bht-25-19'] },
+    { verse: 'torah-25-21', quotes: ['bht-25-21-2'] },
     // понедельник
-    { verse: 'gen-25-26', quotes: ['bht-25-26-1'] },
-    { verse: 'gen-25-27', quotes: ['bht-25-27'] },
+    { verse: 'torah-25-26', quotes: ['bht-25-26-1'] },
+    { verse: 'torah-25-27', quotes: ['bht-25-27'] },
     // вторник
-    { verse: 'gen-25-30', quotes: ['bht-25-30'] },
-    { verse: 'gen-26-3', quotes: ['bht-26-3-2'] },
+    { verse: 'torah-25-30', quotes: ['bht-25-30'] },
+    { verse: 'torah-26-3', quotes: ['bht-26-3-2'] },
     // среда
-    { verse: 'gen-26-5', quotes: ['bht-26-5-1'] },
-    { verse: 'gen-26-20', quotes: ['bht-26-20', 'bht-26-21', 'bht-26-22'] },
+    { verse: 'torah-26-5', quotes: ['bht-26-5-1'] },
+    { verse: 'torah-26-20-22', quotes: ['bht-26-20', 'bht-26-21', 'bht-26-22'] },
     // четверг
-    { verse: 'gen-27-5', quotes: ['bht-27-5-2'] },
-    { verse: 'gen-27-9', quotes: ['bht-27-9'] },
+    { verse: 'torah-27-5', quotes: ['bht-27-5-2'] },
+    { verse: 'torah-27-9', quotes: ['bht-27-9'] },
     // пятница
-    { verse: 'gen-27-27', quotes: ['bht-27-27-2', 'bht-27-27-3'] },
-    { verse: 'gen-27-33', quotes: ['bht-27-33-1'] },
+    { verse: 'torah-27-27', quotes: ['bht-27-27-2', 'bht-27-27-3'] },
+    { verse: 'torah-27-33', quotes: ['bht-27-33-1'] },
   ],
   texts: { ru, en, de },
   memo,

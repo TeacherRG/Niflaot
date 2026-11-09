@@ -15638,6 +15638,62 @@
    }
   }
  },
+ "torah-26-20-22": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 26:20–22",
+   "en": "Genesis 26:20–22",
+   "de": "Bereschit 26,20–22"
+  },
+  "ref": "Genesis 26:20-22",
+  "url": "https://www.sefaria.org/Genesis_26.20-22",
+  "he": [
+   "וַיָּרִיבוּ רֹעֵי גְרָר עִם־רֹעֵי יִצְחָק לֵאמֹר לָנוּ הַמָּיִם וַיִּקְרָא שֵׁם־הַבְּאֵר עֵשֶׂק כִּי הִתְעַשְּׂקוּ עִמּוֹ׃",
+   "וַיַּחְפְּרוּ בְּאֵר אַחֶרֶת וַיָּרִיבוּ גַּם־עָלֶיהָ וַיִּקְרָא שְׁמָהּ שִׂטְנָה׃",
+   "וַיַּעְתֵּק מִשָּׁם וַיַּחְפֹּר בְּאֵר אַחֶרֶת וְלֹא רָבוּ עָלֶיהָ וַיִּקְרָא שְׁמָהּ רְחֹבוֹת וַיֹּאמֶר כִּי־עַתָּה הִרְחִיב יְהוָה לָנוּ וּפָרִינוּ בָאָרֶץ׃"
+  ],
+  "en": [
+   "And the herdmen of Gerar strove with Isaac’s herdmen, saying: ‘The water is ours.’ And he called the name of the well Esek; because they contended with him.",
+   "And they digged another well, and they strove for that also. And he called the name of it Sitnah.",
+   "And he removed from thence, and digged another well; and for that they strove not. And he called the name of it Rehoboth; and he said: ‘For now the L-rd hath made room for us, and we shall be fruitful in the land.’"
+  ],
+  "ru": [
+   "И пререкались герарские пастухи с пастухами Йицхака, мол, наша это вода, и назвали колодец Эсек, потому что спорили они с ним.",
+   "И вырыли другой колодец, и пререкались о нем тоже, и назвал его Ситна.",
+   "И он двинулся оттуда, и вырыл другой колодец, и не пререкались о нем, и назвал его Реховот, и сказал: ведь сейчас Г-сподь дал нам простор, и размножимся мы в стране."
+  ],
+  "de": [
+   "Da stritten die Hirten von Gerar mit Jizchaks Hirten und sagten: Unser ist das Wasser! Darum nannte er den Brunnen Eßek (Händel); denn sie hatten Händel mit ihm gesucht.",
+   "Sie gruben einen anderen Brunnen, auch über den stritten sie, da nannte er ihn Sitna (Hinderung).",
+   "Er rückte von dort fort und grub einen anderen Brunnen, über den stritten sie nicht, da nannte er ihn Rechobot (Räumlichkeit) und sprach: Denn jetzt hat <i>G-tt</i> uns Raum geschafft, nun können wir in dem Lande gedeihen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
  "torah-1-1": {
   "kind": {
    "ru": "Тора",
@@ -15652,7 +15708,7 @@
   "ref": "Genesis 1:1",
   "url": "https://www.sefaria.org/Genesis_1.1",
   "he": [
-   "בראשית ברא אלקים את השמים ואת הארץ"
+   "בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ׃"
   ],
   "en": [
    "In the beginning G-d created the heaven and the earth."
@@ -15665,7 +15721,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -15700,7 +15756,7 @@
   "ref": "Genesis 1:4",
   "url": "https://www.sefaria.org/Genesis_1.4",
   "he": [
-   "וירא אלקים את האור כי טוב ויבדל אלקים בין האור ובין החשך"
+   "וַיַּרְא אֱלֹהִים אֶת־הָאוֹר כִּי־טוֹב וַיַּבְדֵּל אֱלֹהִים בֵּין הָאוֹר וּבֵין הַחֹשֶׁךְ׃"
   ],
   "en": [
    "And G-d saw the light, that it was good; and G-d divided the light from the darkness."
@@ -15713,7 +15769,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -15748,7 +15804,7 @@
   "ref": "Genesis 1:7",
   "url": "https://www.sefaria.org/Genesis_1.7",
   "he": [
-   "ויעש אלקים את הרקיע ויבדל בין המים אשר מתחת לרקיע ובין המים אשר מעל לרקיע ויהי כן"
+   "וַיַּעַשׂ אֱלֹהִים אֶת־הָרָקִיעַ וַיַּבְדֵּל בֵּין הַמַּיִם אֲשֶׁר מִתַּחַת לָרָקִיעַ וּבֵין הַמַּיִם אֲשֶׁר מֵעַל לָרָקִיעַ וַיְהִי־כֵן׃"
   ],
   "en": [
    "And G-d made the firmament, and divided the waters which were under the firmament from the waters which were above the firmament; and it was so."
@@ -15761,7 +15817,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -15796,7 +15852,7 @@
   "ref": "Genesis 1:12",
   "url": "https://www.sefaria.org/Genesis_1.12",
   "he": [
-   "ותוצא הארץ דשא עשב מזריע זרע למינהו ועץ עשה פרי אשר זרעו בו למינהו וירא אלקים כי טוב"
+   "וַתּוֹצֵא הָאָרֶץ דֶּשֶׁא עֵשֶׂב מַזְרִיעַ זֶרַע לְמִינֵהוּ וְעֵץ עֹשֶׂה־פְּרִי אֲשֶׁר זַרְעוֹ־בוֹ לְמִינֵהוּ וַיַּרְא אֱלֹהִים כִּי־טוֹב׃"
   ],
   "en": [
    "And the earth brought forth grass, herb yielding seed after its kind, and tree bearing fruit, wherein is the seed thereof, after its kind; and G-d saw that it was good."
@@ -15809,7 +15865,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -15844,7 +15900,7 @@
   "ref": "Genesis 1:14",
   "url": "https://www.sefaria.org/Genesis_1.14",
   "he": [
-   "ויאמר אלקים יהי מארת ברקיע השמים להבדיל בין היום ובין הלילה והיו לאתת ולמועדים ולימים ושנים"
+   "וַיֹּאמֶר אֱלֹהִים יְהִי מְאֹרֹת בִּרְקִיעַ הַשָּׁמַיִם לְהַבְדִּיל בֵּין הַיּוֹם וּבֵין הַלָּיְלָה וְהָיוּ לְאֹתֹת וּלְמוֹעֲדִים וּלְיָמִים וְשָׁנִים׃"
   ],
   "en": [
    "And G-d said: ‘Let there be lights in the firmament of the heaven to divide the day from the night; and let them be for signs, and for seasons, and for days and years;"
@@ -15857,7 +15913,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -15892,7 +15948,7 @@
   "ref": "Genesis 1:27",
   "url": "https://www.sefaria.org/Genesis_1.27",
   "he": [
-   "ויברא אלקים את האדם בצלמו בצלם אלקים ברא אתו זכר ונקבה ברא אתם"
+   "וַיִּבְרָא אֱלֹהִים אֶת־הָאָדָם בְּצַלְמוֹ בְּצֶלֶם אֱלֹהִים בָּרָא אֹתוֹ זָכָר וּנְקֵבָה בָּרָא אֹתָם׃"
   ],
   "en": [
    "And G-d created man in His own image, in the image of G-d created He him; male and female created He them."
@@ -15905,7 +15961,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -15940,7 +15996,7 @@
   "ref": "Genesis 1:31",
   "url": "https://www.sefaria.org/Genesis_1.31",
   "he": [
-   "וירא אלקים את כל אשר עשה והנה טוב מאד ויהי ערב ויהי בקר יום הששי"
+   "וַיַּרְא אֱלֹהִים אֶת־כָּל־אֲשֶׁר עָשָׂה וְהִנֵּה־טוֹב מְאֹד וַיְהִי־עֶרֶב וַיְהִי־בֹקֶר יוֹם הַשִּׁשִּׁי׃"
   ],
   "en": [
    "And G-d saw every thing that He had made, and, behold, it was very good. And there was evening and there was morning, the sixth day."
@@ -15953,7 +16009,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -15988,7 +16044,7 @@
   "ref": "Genesis 2:2",
   "url": "https://www.sefaria.org/Genesis_2.2",
   "he": [
-   "ויכל אלקים ביום השביעי מלאכתו אשר עשה וישבת ביום השביעי מכל מלאכתו אשר עשה"
+   "וַיְכַל אֱלֹהִים בַּיּוֹם הַשְּׁבִיעִי מְלַאכְתּוֹ אֲשֶׁר עָשָׂה וַיִּשְׁבֹּת בַּיּוֹם הַשְּׁבִיעִי מִכָּל־מְלַאכְתּוֹ אֲשֶׁר עָשָׂה׃"
   ],
   "en": [
    "And on the seventh day G-d finished His work which He had made; and He rested on the seventh day from all His work which He had made."
@@ -16001,7 +16057,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16036,7 +16092,7 @@
   "ref": "Genesis 2:3",
   "url": "https://www.sefaria.org/Genesis_2.3",
   "he": [
-   "ויברך אלקים את יום השביעי ויקדש אתו כי בו שבת מכל מלאכתו אשר ברא אלקים לעשות"
+   "וַיְבָרֶךְ אֱלֹהִים אֶת־יוֹם הַשְּׁבִיעִי וַיְקַדֵּשׁ אֹתוֹ כִּי בוֹ שָׁבַת מִכָּל־מְלַאכְתּוֹ אֲשֶׁר־בָּרָא אֱלֹהִים לַעֲשׂוֹת׃"
   ],
   "en": [
    "And G-d blessed the seventh day, and hallowed it; because that in it He rested from all His work which G-d in creating had made."
@@ -16049,7 +16105,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16084,7 +16140,7 @@
   "ref": "Genesis 2:4",
   "url": "https://www.sefaria.org/Genesis_2.4",
   "he": [
-   "אלה תולדות השמים והארץ בהבראם ביום עשות ה׳ אלקים ארץ ושמים"
+   "אֵלֶּה תוֹלְדוֹת הַשָּׁמַיִם וְהָאָרֶץ בְּהִבָּרְאָם בְּיוֹם עֲשׂוֹת יְהוָה אֱלֹהִים אֶרֶץ וְשָׁמָיִם׃"
   ],
   "en": [
    "These are the generations of the heaven and of the earth when they were created, in the day that the L-rd G-d made earth and heaven."
@@ -16097,7 +16153,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16132,7 +16188,7 @@
   "ref": "Genesis 2:7",
   "url": "https://www.sefaria.org/Genesis_2.7",
   "he": [
-   "וייצר ה׳ אלקים את האדם עפר מן האדמה ויפח באפיו נשמת חיים ויהי האדם לנפש חיה"
+   "וַיִּיצֶר יְהוָה אֱלֹהִים אֶת־הָאָדָם עָפָר מִן־הָאֲדָמָה וַיִּפַּח בְּאַפָּיו נִשְׁמַת חַיִּים וַיְהִי הָאָדָם לְנֶפֶשׁ חַיָּה׃"
   ],
   "en": [
    "Then the L-rd G-d formed man of the dust of the ground, and breathed into his nostrils the breath of life; and man became a living soul."
@@ -16145,7 +16201,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16180,7 +16236,7 @@
   "ref": "Genesis 2:22",
   "url": "https://www.sefaria.org/Genesis_2.22",
   "he": [
-   "ויבן ה׳ אלקים את הצלע אשר לקח מן האדם לאשה ויבאה אל האדם"
+   "וַיִּבֶן יְהוָה אֱלֹהִים אֶת־הַצֵּלָע אֲשֶׁר־לָקַח מִן־הָאָדָם לְאִשָּׁה וַיְבִאֶהָ אֶל־הָאָדָם׃"
   ],
   "en": [
    "And the rib, which the L-rd G-d had taken from the man, made He a woman, and brought her unto the man."
@@ -16193,7 +16249,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16228,7 +16284,7 @@
   "ref": "Genesis 3:11",
   "url": "https://www.sefaria.org/Genesis_3.11",
   "he": [
-   "ויאמר מי הגיד לך כי עירם אתה המן העץ אשר צויתיך לבלתי אכל ממנו אכלת"
+   "וַיֹּאמֶר מִי הִגִּיד לְךָ כִּי עֵירֹם אָתָּה הֲמִן־הָעֵץ אֲשֶׁר צִוִּיתִיךָ לְבִלְתִּי אֲכָל־מִמֶּנּוּ אָכָלְתָּ׃"
   ],
   "en": [
    "And He said: ‘Who told thee that thou wast naked? Hast thou eaten of the tree, whereof I commanded thee that thou shouldest not eat?’"
@@ -16241,7 +16297,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16276,7 +16332,7 @@
   "ref": "Genesis 3:12",
   "url": "https://www.sefaria.org/Genesis_3.12",
   "he": [
-   "ויאמר האדם האשה אשר נתתה עמדי הוא נתנה לי מן העץ ואכל"
+   "וַיֹּאמֶר הָאָדָם הָאִשָּׁה אֲשֶׁר נָתַתָּה עִמָּדִי הִוא נָתְנָה־לִּי מִן־הָעֵץ וָאֹכֵל׃"
   ],
   "en": [
    "And the man said: ‘The woman whom Thou gavest to be with me, she gave me of the tree, and I did eat.’"
@@ -16289,7 +16345,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16324,7 +16380,7 @@
   "ref": "Genesis 3:21",
   "url": "https://www.sefaria.org/Genesis_3.21",
   "he": [
-   "ויעש ה׳ אלקים לאדם ולאשתו כתנות עור וילבשם"
+   "וַיַּעַשׂ יְהוָה אֱלֹהִים לְאָדָם וּלְאִשְׁתּוֹ כָּתְנוֹת עוֹר וַיַּלְבִּשֵׁם׃"
   ],
   "en": [
    "And the L-rd G-d made for Adam and for his wife garments of skins, and clothed them."
@@ -16337,7 +16393,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16372,7 +16428,7 @@
   "ref": "Genesis 3:24",
   "url": "https://www.sefaria.org/Genesis_3.24",
   "he": [
-   "ויגרש את האדם וישכן מקדם לגן עדן את הכרבים ואת להט החרב המתהפכת לשמר את דרך עץ החיים"
+   "וַיְגָרֶשׁ אֶת־הָאָדָם וַיַּשְׁכֵּן מִקֶּדֶם לְגַן־עֵדֶן אֶת־הַכְּרֻבִים וְאֵת לַהַט הַחֶרֶב הַמִּתְהַפֶּכֶת לִשְׁמֹר אֶת־דֶּרֶךְ עֵץ הַחַיִּים׃"
   ],
   "en": [
    "So He drove out the man; and He placed at the east of the garden of Eden the cherubim, and the flaming sword which turned every way, to keep the way to the tree of life."
@@ -16385,7 +16441,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16420,7 +16476,7 @@
   "ref": "Genesis 4:7",
   "url": "https://www.sefaria.org/Genesis_4.7",
   "he": [
-   "הלוא אם תיטיב שאת ואם לא תיטיב לפתח חטאת רבץ ואליך תשוקתו ואתה תמשל בו"
+   "הֲלוֹא אִם־תֵּיטִיב שְׂאֵת וְאִם לֹא תֵיטִיב לַפֶּתַח חַטָּאת רֹבֵץ וְאֵלֶיךָ תְּשׁוּקָתוֹ וְאַתָּה תִּמְשָׁל־בּוֹ׃"
   ],
   "en": [
    "If thou doest well, shall it not be lifted up? and if thou doest not well, sin coucheth at the door; and unto thee is its desire, but thou mayest rule over it.’"
@@ -16433,7 +16489,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16468,7 +16524,7 @@
   "ref": "Genesis 4:18",
   "url": "https://www.sefaria.org/Genesis_4.18",
   "he": [
-   "ויולד לחנוך את עירד ועירד ילד את מחויאל ומחייאל ילד את מתושאל ומתושאל ילד את למך"
+   "וַיִּוָּלֵד לַחֲנוֹךְ אֶת־עִירָד וְעִירָד יָלַד אֶת־מְחוּיָאֵל וּמְחִיּיָאֵל יָלַד אֶת־מְתוּשָׁאֵל וּמְתוּשָׁאֵל יָלַד אֶת־לָמֶךְ׃"
   ],
   "en": [
    "And unto Enoch was born Irad; and Irad begot Mehujael; and Mehujael begot Methushael; and Methushael begot Lamech."
@@ -16481,7 +16537,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16516,7 +16572,7 @@
   "ref": "Genesis 6:9",
   "url": "https://www.sefaria.org/Genesis_6.9",
   "he": [
-   "אלה תולדת נח נח איש צדיק תמים היה בדרתיו את האלקים התהלך נח"
+   "אֵלֶּה תּוֹלְדֹת נֹחַ נֹחַ אִישׁ צַדִּיק תָּמִים הָיָה בְּדֹרֹתָיו אֶת־הָאֱלֹהִים הִתְהַלֶּךְ־נֹחַ׃"
   ],
   "en": [
    "These are the generations of Noah. Noah was in his generations a man righteous and wholehearted; Noah walked with G-d."
@@ -16529,7 +16585,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16564,7 +16620,7 @@
   "ref": "Genesis 7:4",
   "url": "https://www.sefaria.org/Genesis_7.4",
   "he": [
-   "כי לימים עוד שבעה אנכי ממטיר על הארץ ארבעים יום וארבעים לילה ומחיתי את כל היקום אשר עשיתי מעל פני האדמה"
+   "כִּי לְיָמִים עוֹד שִׁבְעָה אָנֹכִי מַמְטִיר עַל־הָאָרֶץ אַרְבָּעִים יוֹם וְאַרְבָּעִים לָיְלָה וּמָחִיתִי אֶת־כָּל־הַיְקוּם אֲשֶׁר עָשִׂיתִי מֵעַל פְּנֵי הָאֲדָמָה׃"
   ],
   "en": [
    "For yet seven days, and I will cause it to rain upon the earth forty days and forty nights; and every living substance that I have made will I blot out from off the face of the earth.’"
@@ -16577,7 +16633,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16612,7 +16668,7 @@
   "ref": "Genesis 7:10",
   "url": "https://www.sefaria.org/Genesis_7.10",
   "he": [
-   "ויהי לשבעת הימים ומי המבול היו על הארץ"
+   "וַיְהִי לְשִׁבְעַת הַיָּמִים וּמֵי הַמַּבּוּל הָיוּ עַל־הָאָרֶץ׃"
   ],
   "en": [
    "And it came to pass after the seven days, that the waters of the flood were upon the earth."
@@ -16625,7 +16681,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16660,7 +16716,7 @@
   "ref": "Genesis 7:11",
   "url": "https://www.sefaria.org/Genesis_7.11",
   "he": [
-   "בשנת שש מאות שנה לחיי נח בחדש השני בשבעה עשר יום לחדש ביום הזה נבקעו כל מעינת תהום רבה וארבת השמים נפתחו"
+   "בִּשְׁנַת שֵׁשׁ־מֵאוֹת שָׁנָה לְחַיֵּי־נֹחַ בַּחֹדֶשׁ הַשֵּׁנִי בְּשִׁבְעָה־עָשָׂר יוֹם לַחֹדֶשׁ בַּיּוֹם הַזֶּה נִבְקְעוּ כָּל־מַעְיְנֹת תְּהוֹם רַבָּה וַאֲרֻבֹּת הַשָּׁמַיִם נִפְתָּחוּ׃"
   ],
   "en": [
    "In the six hundredth year of Noah’s life, in the second month, on the seventeenth day of the month, on the same day were all the fountains of the great deep broken up, and the windows of heaven were opened."
@@ -16673,7 +16729,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16708,7 +16764,7 @@
   "ref": "Genesis 7:23",
   "url": "https://www.sefaria.org/Genesis_7.23",
   "he": [
-   "וימח את כל היקום אשר על פני האדמה מאדם עד בהמה עד רמש ועד עוף השמים וימחו מן הארץ וישאר אך נח ואשר אתו בתבה"
+   "וַיִּמַח אֶת־כָּל־הַיְקוּם אֲשֶׁר עַל־פְּנֵי הָאֲדָמָה מֵאָדָם עַד־בְּהֵמָה עַד־רֶמֶשׂ וְעַד־עוֹף הַשָּׁמַיִם וַיִּמָּחוּ מִן־הָאָרֶץ וַיִשָּׁאֶר אַךְ־נֹחַ וַאֲשֶׁר אִתּוֹ בַּתֵּבָה׃"
   ],
   "en": [
    "And He blotted out every living substance which was upon the face of the ground, both man, and cattle, and creeping thing, and fowl of the heaven; and they were blotted out from the earth; and Noah only was left, and they that were with him in the ark."
@@ -16721,7 +16777,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16756,7 +16812,7 @@
   "ref": "Genesis 9:9",
   "url": "https://www.sefaria.org/Genesis_9.9",
   "he": [
-   "ואני הנני מקים את בריתי אתכם ואת זרעכם אחריכם"
+   "וַאֲנִי הִנְנִי מֵקִים אֶת־בְּרִיתִי אִתְּכֶם וְאֶת־זַרְעֲכֶם אַחֲרֵיכֶם׃"
   ],
   "en": [
    "’As for Me, behold, I establish My covenant with you, and with your seed after you;"
@@ -16769,7 +16825,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16804,7 +16860,7 @@
   "ref": "Genesis 9:21",
   "url": "https://www.sefaria.org/Genesis_9.21",
   "he": [
-   "וישת מן היין וישכר ויתגל בתוך אהלה"
+   "וַיֵּשְׁתְּ מִן־הַיַּיִן וַיִּשְׁכָּר וַיִּתְגַּל בְּתוֹךְ אָהֳלֹה׃"
   ],
   "en": [
    "And he drank of the wine, and was drunken; and he was uncovered within his tent."
@@ -16817,7 +16873,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16852,7 +16908,7 @@
   "ref": "Genesis 9:25",
   "url": "https://www.sefaria.org/Genesis_9.25",
   "he": [
-   "ויאמר ארור כנען עבד עבדים יהיה לאחיו"
+   "וַיֹּאמֶר אָרוּר כְּנָעַן עֶבֶד עֲבָדִים יִהְיֶה לְאֶחָיו׃"
   ],
   "en": [
    "And he said: Cursed be Canaan; a servant of servants shall he be unto his brethren."
@@ -16865,7 +16921,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16900,7 +16956,7 @@
   "ref": "Genesis 11:29",
   "url": "https://www.sefaria.org/Genesis_11.29",
   "he": [
-   "ויקח אברם ונחור להם נשים שם אשת אברם שרי ושם אשת נחור מלכה בת הרן אבי מלכה ואבי יסכה"
+   "וַיִּקַּח אַבְרָם וְנָחוֹר לָהֶם נָשִׁים שֵׁם אֵשֶׁת־אַבְרָם שָׂרָי וְשֵׁם אֵשֶׁת־נָחוֹר מִלְכָּה בַּת־הָרָן אֲבִי־מִלְכָּה וַאֲבִי יִסְכָּה׃"
   ],
   "en": [
    "And Abram and Nahor took them wives: the name of Abram’s wife was Sarai; and the name of Nahor’s wife, Milcah, the daughter of Haran, the father of Milcah, and the father of Iscah."
@@ -16913,7 +16969,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16948,7 +17004,7 @@
   "ref": "Genesis 6:11",
   "url": "https://www.sefaria.org/Genesis_6.11",
   "he": [
-   "ותשחת הארץ לפני האלקים ותמלא הארץ חמס"
+   "וַתִּשָּׁחֵת הָאָרֶץ לִפְנֵי הָאֱלֹהִים וַתִּמָּלֵא הָאָרֶץ חָמָס׃"
   ],
   "en": [
    "And the earth was corrupt before G-d, and the earth was filled with violence."
@@ -16961,7 +17017,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -16996,7 +17052,7 @@
   "ref": "Genesis 6:13",
   "url": "https://www.sefaria.org/Genesis_6.13",
   "he": [
-   "ויאמר אלקים לנח קץ כל בשר בא לפני כי מלאה הארץ חמס מפניהם והנני משחיתם את הארץ"
+   "וַיֹּאמֶר אֱלֹהִים לְנֹחַ קֵץ כָּל־בָּשָׂר בָּא לְפָנַי כִּי־מָלְאָה הָאָרֶץ חָמָס מִפְּנֵיהֶם וְהִנְנִי מַשְׁחִיתָם אֶת־הָאָרֶץ׃"
   ],
   "en": [
    "And G-d said unto Noah: ‘The end of all flesh is come before Me; for the earth is filled with violence through them; and, behold, I will destroy them with the earth."
@@ -17009,7 +17065,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17044,7 +17100,7 @@
   "ref": "Genesis 6:16",
   "url": "https://www.sefaria.org/Genesis_6.16",
   "he": [
-   "צהר תעשה לתבה ואל אמה תכלנה מלמעלה ופתח התבה בצדה תשים תחתים שנים ושלשים תעשה"
+   "צֹהַר תַּעֲשֶׂה לַתֵּבָה וְאֶל־אַמָּה תְּכַלֶנָּה מִלְמַעְלָה וּפֶתַח הַתֵּבָה בְּצִדָּהּ תָּשִׂים תַּחְתִּיִּם שְׁנִיִּם וּשְׁלִשִׁים תַּעֲשֶׂהָ׃"
   ],
   "en": [
    "A light shalt thou make to the ark, and to a cubit shalt thou finish it upward; and the door of the ark shalt thou set in the side thereof; with lower, second, and third stories shalt thou make it."
@@ -17057,7 +17113,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17092,7 +17148,7 @@
   "ref": "Genesis 11:1",
   "url": "https://www.sefaria.org/Genesis_11.1",
   "he": [
-   "ויהי כל הארץ שפה אחת ודברים אחדים"
+   "וַיְהִי כָל־הָאָרֶץ שָׂפָה אֶחָת וּדְבָרִים אֲחָדִים׃"
   ],
   "en": [
    "And the whole earth was of one language and of one speech."
@@ -17105,7 +17161,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17140,7 +17196,7 @@
   "ref": "Genesis 11:3",
   "url": "https://www.sefaria.org/Genesis_11.3",
   "he": [
-   "ויאמרו איש אל רעהו הבה נלבנה לבנים ונשרפה לשרפה ותהי להם הלבנה לאבן והחמר היה להם לחמר"
+   "וַיֹּאמְרוּ אִישׁ אֶל־רֵעֵהוּ הָבָה נִלְבְּנָה לְבֵנִים וְנִשְׂרְפָה לִשְׂרֵפָה וַתְּהִי לָהֶם הַלְּבֵנָה לְאָבֶן וְהַחֵמָר הָיָה לָהֶם לַחֹמֶר׃"
   ],
   "en": [
    "And they said one to another: ‘Come, let us make brick, and burn them thoroughly.’ And they had brick for stone, and slime had they for mortar."
@@ -17153,7 +17209,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17188,7 +17244,7 @@
   "ref": "Genesis 12:1",
   "url": "https://www.sefaria.org/Genesis_12.1",
   "he": [
-   "ויאמר ה׳ אל אברם לך לך מארצך וממולדתך ומבית אביך אל הארץ אשר אראך"
+   "וַיֹּאמֶר יְהוָה אֶל־אַבְרָם לֶךְ־לְךָ מֵאַרְצְךָ וּמִמּוֹלַדְתְּךָ וּמִבֵּית אָבִיךָ אֶל־הָאָרֶץ אֲשֶׁר אַרְאֶךָּ׃"
   ],
   "en": [
    "Now the L-rd said unto Abram: ‘Get thee out of thy country, and from thy kindred, and from thy father’s house, unto the land that I will show thee."
@@ -17201,7 +17257,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17236,7 +17292,7 @@
   "ref": "Genesis 13:11",
   "url": "https://www.sefaria.org/Genesis_13.11",
   "he": [
-   "ויבחר לו לוט את כל ככר הירדן ויסע לוט מקדם ויפרדו איש מעל אחיו"
+   "וַיִּבְחַר־לוֹ לוֹט אֵת כָּל־כִּכַּר הַיַּרְדֵּן וַיִּסַּע לוֹט מִקֶּדֶם וַיִּפָּרְדוּ אִישׁ מֵעַל אָחִיו׃"
   ],
   "en": [
    "So Lot chose him all the plain of the Jordan; and Lot journeyed east; and they separated themselves the one from the other."
@@ -17249,7 +17305,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17284,7 +17340,7 @@
   "ref": "Genesis 14:18",
   "url": "https://www.sefaria.org/Genesis_14.18",
   "he": [
-   "ומלכי צדק מלך שלם הוציא לחם ויין והוא כהן לאל עליון"
+   "וּמַלְכִּי־צֶדֶק מֶלֶךְ שָׁלֵם הוֹצִיא לֶחֶם וָיָיִן וְהוּא כֹהֵן לְאֵל עֶלְיוֹן׃"
   ],
   "en": [
    "And Melchizedek king of Salem brought forth bread and wine; and he was priest of G-d the Most High."
@@ -17297,7 +17353,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17332,7 +17388,7 @@
   "ref": "Genesis 15:8",
   "url": "https://www.sefaria.org/Genesis_15.8",
   "he": [
-   "ויאמר אדני ה׳ במה אדע כי אירשנה"
+   "וַיֹּאמַר אֲדֹנָי יֱהוִה בַּמָּה אֵדַע כִּי אִירָשֶׁנָּה׃"
   ],
   "en": [
    "And he said: ‘O L-rd GOD, whereby shall I know that I shall inherit it?’"
@@ -17345,7 +17401,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17380,7 +17436,7 @@
   "ref": "Genesis 15:13",
   "url": "https://www.sefaria.org/Genesis_15.13",
   "he": [
-   "ויאמר לאברם ידע תדע כי גר יהיה זרעך בארץ לא להם ועבדום וענו אתם ארבע מאות שנה"
+   "וַיֹּאמֶר לְאַבְרָם יָדֹעַ תֵּדַע כִּי־גֵר יִהְיֶה זַרְעֲךָ בְּאֶרֶץ לֹא לָהֶם וַעֲבָדוּם וְעִנּוּ אֹתָם אַרְבַּע מֵאוֹת שָׁנָה׃"
   ],
   "en": [
    "And He said unto Abram: ‘Know of a surety that thy seed shall be a stranger in a land that is not theirs, and shall serve them; and they shall afflict them four hundred years;"
@@ -17393,7 +17449,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17428,7 +17484,7 @@
   "ref": "Genesis 15:17",
   "url": "https://www.sefaria.org/Genesis_15.17",
   "he": [
-   "ויהי השמש באה ועלטה היה והנה תנור עשן ולפיד אש אשר עבר בין הגזרים האלה"
+   "וַיְהִי הַשֶּׁמֶשׁ בָּאָה וַעֲלָטָה הָיָה וְהִנֵּה תַנּוּר עָשָׁן וְלַפִּיד אֵשׁ אֲשֶׁר עָבַר בֵּין הַגְּזָרִים הָאֵלֶּה׃"
   ],
   "en": [
    "And it came to pass, that, when the sun went down, and there was thick darkness, behold a smoking furnace, and a flaming torch that passed between these pieces."
@@ -17441,7 +17497,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17476,7 +17532,7 @@
   "ref": "Genesis 17:4",
   "url": "https://www.sefaria.org/Genesis_17.4",
   "he": [
-   "אני הנה בריתי אתך והיית לאב המון גוים"
+   "אֲנִי הִנֵּה בְרִיתִי אִתָּךְ וְהָיִיתָ לְאַב הֲמוֹן גּוֹיִם׃"
   ],
   "en": [
    "’As for Me, behold, My covenant is with thee, and thou shalt be the father of a multitude of nations."
@@ -17489,7 +17545,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17524,7 +17580,7 @@
   "ref": "Genesis 17:21",
   "url": "https://www.sefaria.org/Genesis_17.21",
   "he": [
-   "ואת בריתי אקים את יצחק אשר תלד לך שרה למועד הזה בשנה האחרת"
+   "וְאֶת־בְּרִיתִי אָקִים אֶת־יִצְחָק אֲשֶׁר תֵּלֵד לְךָ שָׂרָה לַמּוֹעֵד הַזֶּה בַּשָּׁנָה הָאַחֶרֶת׃"
   ],
   "en": [
    "But My covenant will I establish with Isaac, whom Sarah shall bear unto thee at this set time in the next year.’"
@@ -17537,7 +17593,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17572,7 +17628,7 @@
   "ref": "Genesis 12:19",
   "url": "https://www.sefaria.org/Genesis_12.19",
   "he": [
-   "למה אמרת אחתי הוא ואקח אתה לי לאשה ועתה הנה אשתך קח ולך"
+   "לָמָה אָמַרְתָּ אֲחֹתִי הִוא וָאֶקַּח אֹתָהּ לִי לְאִשָּׁה וְעַתָּה הִנֵּה אִשְׁתְּךָ קַח וָלֵךְ׃"
   ],
   "en": [
    "Why saidst thou: She is my sister? so that I took her to be my wife; now therefore behold thy wife, take her, and go thy way.’"
@@ -17585,7 +17641,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17620,7 +17676,7 @@
   "ref": "Genesis 14:5",
   "url": "https://www.sefaria.org/Genesis_14.5",
   "he": [
-   "ובארבע עשרה שנה בא כדרלעמר והמלכים אשר אתו ויכו את רפאים בעשתרת קרנים ואת הזוזים בהם ואת האימים בשוה קריתים"
+   "וּבְאַרְבַּע עֶשְׂרֵה שָׁנָה בָּא כְדָרְלָעֹמֶר וְהַמְּלָכִים אֲשֶׁר אִתּוֹ וַיַּכּוּ אֶת־רְפָאִים בְּעַשְׁתְּרֹת קַרְנַיִם וְאֶת־הַזּוּזִים בְּהָם וְאֵת הָאֵימִים בְּשָׁוֵה קִרְיָתָיִם׃"
   ],
   "en": [
    "And in the fourteenth year came Chedorlaomer and the kings that were with him, and smote the Rephaim in Ashteroth-karnaim, and the Zuzim in Ham, and the Emim in Shaveh-kiriathaim,"
@@ -17633,7 +17689,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17668,7 +17724,7 @@
   "ref": "Genesis 16:7",
   "url": "https://www.sefaria.org/Genesis_16.7",
   "he": [
-   "וימצאה מלאך ה׳ על עין המים במדבר על העין בדרך שור"
+   "וַיִּמְצָאָהּ מַלְאַךְ יְהוָה עַל־עֵין הַמַּיִם בַּמִּדְבָּר עַל־הָעַיִן בְּדֶרֶךְ שׁוּר׃"
   ],
   "en": [
    "And the angel of the L-rd found her by a fountain of water in the wilderness, by the fountain in the way to Shur."
@@ -17681,7 +17737,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17716,7 +17772,7 @@
   "ref": "Genesis 12:2",
   "url": "https://www.sefaria.org/Genesis_12.2",
   "he": [
-   "ואעשך לגוי גדול ואברכך ואגדלה שמך והיה ברכה"
+   "וְאֶעֶשְׂךָ לְגוֹי גָּדוֹל וַאֲבָרֶכְךָ וַאֲגַדְּלָה שְׁמֶךָ וֶהְיֵה בְּרָכָה׃"
   ],
   "en": [
    "And I will make of thee a great nation, and I will bless thee, and make thy name great; and be thou a blessing."
@@ -17729,7 +17785,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17764,7 +17820,7 @@
   "ref": "Genesis 15:5",
   "url": "https://www.sefaria.org/Genesis_15.5",
   "he": [
-   "ויוצא אתו החוצה ויאמר הבט נא השמימה וספר הכוכבים אם תוכל לספר אתם ויאמר לו כה יהיה זרעך"
+   "וַיּוֹצֵא אֹתוֹ הַחוּצָה וַיֹּאמֶר הַבֶּט־נָא הַשָּׁמַיְמָה וּסְפֹר הַכּוֹכָבִים אִם־תּוּכַל לִסְפֹּר אֹתָם וַיֹּאמֶר לוֹ כֹּה יִהְיֶה זַרְעֶךָ׃"
   ],
   "en": [
    "And He brought him forth abroad, and said: ‘Look now toward heaven, and count the stars, if thou be able to count them’; and He said unto him: ‘So shall thy seed be.’"
@@ -17777,7 +17833,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17812,7 +17868,7 @@
   "ref": "Genesis 18:2",
   "url": "https://www.sefaria.org/Genesis_18.2",
   "he": [
-   "וישא עיניו וירא והנה שלשה אנשים נצבים עליו וירא וירץ לקראתם מפתח האהל וישתחו ארצה"
+   "וַיִּשָּׂא עֵינָיו וַיַּרְא וְהִנֵּה שְׁלֹשָׁה אֲנָשִׁים נִצָּבִים עָלָיו וַיַּרְא וַיָּרָץ לִקְרָאתָם מִפֶּתַח הָאֹהֶל וַיִּשְׁתַּחוּ אָרְצָה׃"
   ],
   "en": [
    "and he lifted up his eyes and looked, and, lo, three men stood over against him; and when he saw them, he ran to meet them from the tent door, and bowed down to the earth,"
@@ -17825,7 +17881,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17860,7 +17916,7 @@
   "ref": "Genesis 18:9",
   "url": "https://www.sefaria.org/Genesis_18.9",
   "he": [
-   "ויאמרו אליו איה שרה אשתך ויאמר הנה באהל"
+   "וַיֹּאמְרוּ אֵלָיו אַיֵּה שָׂרָה אִשְׁתֶּךָ וַיֹּאמֶר הִנֵּה בָאֹהֶל׃"
   ],
   "en": [
    "And they said unto him: ‘Where is Sarah thy wife?’ And he said: ‘Behold, in the tent.’"
@@ -17873,7 +17929,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17908,7 +17964,7 @@
   "ref": "Genesis 18:19",
   "url": "https://www.sefaria.org/Genesis_18.19",
   "he": [
-   "כי ידעתיו למען אשר יצוה את בניו ואת ביתו אחריו ושמרו דרך ה׳ לעשות צדקה ומשפט למען הביא ה׳ על אברהם את אשר דבר עליו"
+   "כִּי יְדַעְתִּיו לְמַעַן אֲשֶׁר יְצַוֶּה אֶת־בָּנָיו וְאֶת־בֵּיתוֹ אַחֲרָיו וְשָׁמְרוּ דֶּרֶךְ יְהוָה לַעֲשׂוֹת צְדָקָה וּמִשְׁפָּט לְמַעַן הָבִיא יְהוָה עַל־אַבְרָהָם אֵת אֲשֶׁר־דִּבֶּר עָלָיו׃"
   ],
   "en": [
    "For I have known him, to the end that he may command his children and his household after him, that they may keep the way of the L-rd, to do righteousness and justice; to the end that the L-rd may bring upon Abraham that which He hath spoken of him.’"
@@ -17921,7 +17977,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -17956,7 +18012,7 @@
   "ref": "Genesis 18:27",
   "url": "https://www.sefaria.org/Genesis_18.27",
   "he": [
-   "ויען אברהם ויאמר הנה נא הואלתי לדבר אל אדני ואנכי עפר ואפר"
+   "וַיַּעַן אַבְרָהָם וַיֹּאמַר הִנֵּה־נָא הוֹאַלְתִּי לְדַבֵּר אֶל־אֲדֹנָי וְאָנֹכִי עָפָר וָאֵפֶר׃"
   ],
   "en": [
    "And Abraham answered and said: ‘Behold now, I have taken upon me to speak unto the L-rd, who am but dust and ashes."
@@ -17969,7 +18025,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18004,7 +18060,7 @@
   "ref": "Genesis 21:23",
   "url": "https://www.sefaria.org/Genesis_21.23",
   "he": [
-   "ועתה השבעה לי באלקים הנה אם תשקר לי ולניני ולנכדי כחסד אשר עשיתי עמך תעשה עמדי ועם הארץ אשר גרתה בה"
+   "וְעַתָּה הִשָּׁבְעָה לִּי בֵאלֹהִים הֵנָּה אִם־תִּשְׁקֹר לִי וּלְנִינִי וּלְנֶכְדִּי כַּחֶסֶד אֲשֶׁר־עָשִׂיתִי עִמְּךָ תַּעֲשֶׂה עִמָּדִי וְעִם־הָאָרֶץ אֲשֶׁר־גַּרְתָּה בָּהּ׃"
   ],
   "en": [
    "Now therefore swear unto me here by G-d that thou wilt not deal falsely with me, nor with my son, nor with my son’s son; but according to the kindness that I have done unto thee, thou shalt do unto me, and to the land wherein thou hast sojourned.’"
@@ -18017,7 +18073,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18052,7 +18108,7 @@
   "ref": "Genesis 22:5",
   "url": "https://www.sefaria.org/Genesis_22.5",
   "he": [
-   "ויאמר אברהם אל נעריו שבו לכם פה עם החמור ואני והנער נלכה עד כה ונשתחוה ונשובה אליכם"
+   "וַיֹּאמֶר אַבְרָהָם אֶל־נְעָרָיו שְׁבוּ־לָכֶם פֹּה עִם־הַחֲמוֹר וַאֲנִי וְהַנַּעַר נֵלְכָה עַד־כֹּה וְנִשְׁתַּחֲוֶה וְנָשׁוּבָה אֲלֵיכֶם׃"
   ],
   "en": [
    "And Abraham said unto his young men: ‘Abide ye here with the ass, and I and the lad will go yonder; and we will worship, and come back to you.’"
@@ -18065,7 +18121,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18100,7 +18156,7 @@
   "ref": "Genesis 22:18",
   "url": "https://www.sefaria.org/Genesis_22.18",
   "he": [
-   "והתברכו בזרעך כל גויי הארץ עקב אשר שמעת בקלי"
+   "וְהִתְבָּרֲכוּ בְזַרְעֲךָ כֹּל גּוֹיֵי הָאָרֶץ עֵקֶב אֲשֶׁר שָׁמַעְתָּ בְּקֹלִי׃"
   ],
   "en": [
    "and in thy seed shall all the nations of the earth be blessed; because thou hast hearkened to My voice.’"
@@ -18113,7 +18169,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18148,7 +18204,7 @@
   "ref": "Genesis 18:1",
   "url": "https://www.sefaria.org/Genesis_18.1",
   "he": [
-   "וירא אליו ה׳ באלני ממרא והוא ישב פתח האהל כחם היום"
+   "וַיֵּרָא אֵלָיו יְהוָה בְּאֵלֹנֵי מַמְרֵא וְהוּא יֹשֵׁב פֶּתַח־הָאֹהֶל כְּחֹם הַיּוֹם׃"
   ],
   "en": [
    "And the L-rd appeared unto him by the terebinths of Mamre, as he sat in the tent door in the heat of the day;"
@@ -18161,7 +18217,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18196,7 +18252,7 @@
   "ref": "Genesis 18:5",
   "url": "https://www.sefaria.org/Genesis_18.5",
   "he": [
-   "ואקחה פת לחם וסעדו לבכם אחר תעברו כי על כן עברתם על עבדכם ויאמרו כן תעשה כאשר דברת"
+   "וְאֶקְחָה פַת־לֶחֶם וְסַעֲדוּ לִבְּכֶם אַחַר תַּעֲבֹרוּ כִּי־עַל־כֵּן עֲבַרְתֶּם עַל־עַבְדְּכֶם וַיֹּאמְרוּ כֵּן תַּעֲשֶׂה כַּאֲשֶׁר דִּבַּרְתָּ׃"
   ],
   "en": [
    "And I will fetch a morsel of bread, and stay ye your heart; after that ye shall pass on; forasmuch as ye are come to your servant.’ And they said: ‘So do, as thou hast said.’"
@@ -18209,7 +18265,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18244,7 +18300,7 @@
   "ref": "Genesis 18:7",
   "url": "https://www.sefaria.org/Genesis_18.7",
   "he": [
-   "ואל הבקר רץ אברהם ויקח בן בקר רך וטוב ויתן אל הנער וימהר לעשות אתו"
+   "וְאֶל־הַבָּקָר רָץ אַבְרָהָם וַיִּקַּח בֶּן־בָּקָר רַךְ וָטוֹב וַיִּתֵּן אֶל־הַנַּעַר וַיְמַהֵר לַעֲשׂוֹת אֹתוֹ׃"
   ],
   "en": [
    "And Abraham ran unto the herd, and fetched a calf tender and good, and gave it unto the servant; and he hastened to dress it."
@@ -18257,7 +18313,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18292,7 +18348,7 @@
   "ref": "Genesis 18:16",
   "url": "https://www.sefaria.org/Genesis_18.16",
   "he": [
-   "ויקמו משם האנשים וישקפו על פני סדם ואברהם הלך עמם לשלחם"
+   "וַיָּקֻמוּ מִשָּׁם הָאֲנָשִׁים וַיַּשְׁקִפוּ עַל־פְּנֵי סְדֹם וְאַבְרָהָם הֹלֵךְ עִמָּם לְשַׁלְּחָם׃"
   ],
   "en": [
    "And the men rose up from thence, and looked out toward Sodom; and Abraham went with them to bring them on the way."
@@ -18305,7 +18361,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18340,7 +18396,7 @@
   "ref": "Genesis 18:18",
   "url": "https://www.sefaria.org/Genesis_18.18",
   "he": [
-   "ואברהם היו יהיה לגוי גדול ועצום ונברכו בו כל גויי הארץ"
+   "וְאַבְרָהָם הָיוֹ יִהְיֶה לְגוֹי גָּדוֹל וְעָצוּם וְנִבְרְכוּ בוֹ כֹּל גּוֹיֵי הָאָרֶץ׃"
   ],
   "en": [
    "seeing that Abraham shall surely become a great and mighty nation, and all the nations of the earth shall be blessed in him?"
@@ -18353,7 +18409,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18388,7 +18444,7 @@
   "ref": "Genesis 21:7",
   "url": "https://www.sefaria.org/Genesis_21.7",
   "he": [
-   "ותאמר מי מלל לאברהם היניקה בנים שרה כי ילדתי בן לזקניו"
+   "וַתֹּאמֶר מִי מִלֵּל לְאַבְרָהָם הֵינִיקָה בָנִים שָׂרָה כִּי־יָלַדְתִּי בֵן לִזְקֻנָיו׃"
   ],
   "en": [
    "And she said: ‘Who would have said unto Abraham, that Sarah should give children suck? for I have borne him a son in his old age.’"
@@ -18401,7 +18457,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18436,7 +18492,7 @@
   "ref": "Genesis 22:4",
   "url": "https://www.sefaria.org/Genesis_22.4",
   "he": [
-   "ביום השלישי וישא אברהם את עיניו וירא את המקום מרחק"
+   "בַּיּוֹם הַשְּׁלִישִׁי וַיִּשָּׂא אַבְרָהָם אֶת־עֵינָיו וַיַּרְא אֶת־הַמָּקוֹם מֵרָחֹק׃"
   ],
   "en": [
    "On the third day Abraham lifted up his eyes, and saw the place afar off."
@@ -18449,7 +18505,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18484,7 +18540,7 @@
   "ref": "Genesis 22:14",
   "url": "https://www.sefaria.org/Genesis_22.14",
   "he": [
-   "ויקרא אברהם שם המקום ההוא ה׳ יראה אשר יאמר היום בהר ה׳ יראה"
+   "וַיִּקְרָא אַבְרָהָם שֵׁם־הַמָּקוֹם הַהוּא יְהוָה יִרְאֶה אֲשֶׁר יֵאָמֵר הַיּוֹם בְּהַר יְהוָה יֵרָאֶה׃"
   ],
   "en": [
    "And Abraham called the name of that place Adonai-jireh; as it is said to this day: ‘In the mount where the L-rd is seen.’"
@@ -18497,7 +18553,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18532,7 +18588,7 @@
   "ref": "Genesis 23:1",
   "url": "https://www.sefaria.org/Genesis_23.1",
   "he": [
-   "ויהיו חיי שרה מאה שנה ועשרים שנה ושבע שנים שני חיי שרה"
+   "וַיִּהְיוּ חַיֵּי שָׂרָה מֵאָה שָׁנָה וְעֶשְׂרִים שָׁנָה וְשֶׁבַע שָׁנִים שְׁנֵי חַיֵּי שָׂרָה׃"
   ],
   "en": [
    "And the life of Sarah was a hundred and seven and twenty years; these were the years of the life of Sarah."
@@ -18545,7 +18601,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18580,7 +18636,7 @@
   "ref": "Genesis 23:16",
   "url": "https://www.sefaria.org/Genesis_23.16",
   "he": [
-   "וישמע אברהם אל עפרון וישקל אברהם לעפרן את הכסף אשר דבר באזני בני חת ארבע מאות שקל כסף עבר לסחר"
+   "וַיִּשְׁמַע אַבְרָהָם אֶל־עֶפְרוֹן וַיִּשְׁקֹל אַבְרָהָם לְעֶפְרֹן אֶת־הַכֶּסֶף אֲשֶׁר דִּבֶּר בְּאָזְנֵי בְנֵי־חֵת אַרְבַּע מֵאוֹת שֶׁקֶל כֶּסֶף עֹבֵר לַסֹּחֵר׃"
   ],
   "en": [
    "And Abraham hearkened unto Ephron; and Abraham weighed to Ephron the silver, which he had named in the hearing of the children of Heth, four hundred shekels of silver, current money with the merchant."
@@ -18593,7 +18649,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18628,7 +18684,7 @@
   "ref": "Genesis 23:17",
   "url": "https://www.sefaria.org/Genesis_23.17",
   "he": [
-   "ויקם שדה עפרון אשר במכפלה אשר לפני ממרא השדה והמערה אשר בו וכל העץ אשר בשדה אשר בכל גבלו סביב"
+   "וַיָּקָם שְׂדֵה עֶפְרוֹן אֲשֶׁר בַּמַּכְפֵּלָה אֲשֶׁר לִפְנֵי מַמְרֵא הַשָּׂדֶה וְהַמְּעָרָה אֲשֶׁר־בּוֹ וְכָל־הָעֵץ אֲשֶׁר בַּשָּׂדֶה אֲשֶׁר בְּכָל־גְּבֻלוֹ סָבִיב׃"
   ],
   "en": [
    "So the field of Ephron, which was in Machpelah, which was before Mamre, the field, and the cave which was therein, and all the trees that were in the field, that were in all the border thereof round about, were made sure"
@@ -18641,7 +18697,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18676,7 +18732,7 @@
   "ref": "Genesis 24:12",
   "url": "https://www.sefaria.org/Genesis_24.12",
   "he": [
-   "ויאמר ה׳ אלקי אדני אברהם הקרה נא לפני היום ועשה חסד עם אדני אברהם"
+   "וַיֹּאמַר יְהוָה אֱלֹהֵי אֲדֹנִי אַבְרָהָם הַקְרֵה־נָא לְפָנַי הַיּוֹם וַעֲשֵׂה־חֶסֶד עִם אֲדֹנִי אַבְרָהָם׃"
   ],
   "en": [
    "And he said: ‘O L-rd, the G-d of my master Abraham, send me, I pray Thee, good speed this day, and show kindness unto my master Abraham."
@@ -18689,7 +18745,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18724,7 +18780,7 @@
   "ref": "Genesis 24:14",
   "url": "https://www.sefaria.org/Genesis_24.14",
   "he": [
-   "והיה הנער אשר אמר אליה הטי נא כדך ואשתה ואמרה שתה וגם גמליך אשקה אתה הכחת לעבדך ליצחק ובה אדע כי עשית חסד עם אדני"
+   "וְהָיָה הַנַּעֲרָ אֲשֶׁר אֹמַר אֵלֶיהָ הַטִּי־נָא כַדֵּךְ וְאֶשְׁתֶּה וְאָמְרָה שְׁתֵה וְגַם־גְּמַלֶּיךָ אַשְׁקֶה אֹתָהּ הֹכַחְתָּ לְעַבְדְּךָ לְיִצְחָק וּבָהּ אֵדַע כִּי־עָשִׂיתָ חֶסֶד עִם־אֲדֹנִי׃"
   ],
   "en": [
    "So let it come to pass, that the damsel to whom I shall say: Let down thy pitcher, I pray thee, that I may drink; and she shall say: Drink, and I will give thy camels drink also; let the same be she that Thou hast appointed for Thy servant, even for Isaac; and thereby shall I know that Thou hast shown kindness unto my master.’"
@@ -18737,7 +18793,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18772,7 +18828,7 @@
   "ref": "Genesis 24:58",
   "url": "https://www.sefaria.org/Genesis_24.58",
   "he": [
-   "ויקראו לרבקה ויאמרו אליה התלכי עם האיש הזה ותאמר אלך"
+   "וַיִּקְרְאוּ לְרִבְקָה וַיֹּאמְרוּ אֵלֶיהָ הֲתֵלְכִי עִם־הָאִישׁ הַזֶּה וַתֹּאמֶר אֵלֵךְ׃"
   ],
   "en": [
    "And they called Rebekah, and said unto her: ‘Wilt thou go with this man?’ And she said: ‘I will go.’"
@@ -18785,7 +18841,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18820,7 +18876,7 @@
   "ref": "Genesis 24:2",
   "url": "https://www.sefaria.org/Genesis_24.2",
   "he": [
-   "ויאמר אברהם אל עבדו זקן ביתו המשל בכל אשר לו שים נא ידך תחת ירכי"
+   "וַיֹּאמֶר אַבְרָהָם אֶל־עַבְדּוֹ זְקַן בֵּיתוֹ הַמֹּשֵׁל בְּכָל־אֲשֶׁר־לוֹ שִׂים־נָא יָדְךָ תַּחַת יְרֵכִי׃"
   ],
   "en": [
    "And Abraham said unto his servant, the elder of his house, that ruled over all that he had: ‘Put, I pray thee, thy hand under my thigh."
@@ -18833,7 +18889,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18868,7 +18924,7 @@
   "ref": "Genesis 24:60",
   "url": "https://www.sefaria.org/Genesis_24.60",
   "he": [
-   "ויברכו את רבקה ויאמרו לה אחתנו את היי לאלפי רבבה ויירש זרעך את שער שנאיו"
+   "וַיְבָרֲכוּ אֶת־רִבְקָה וַיֹּאמְרוּ לָהּ אֲחֹתֵנוּ אַתְּ הֲיִי לְאַלְפֵי רְבָבָה וְיִירַשׁ זַרְעֵךְ אֵת שַׁעַר שֹׂנְאָיו׃"
   ],
   "en": [
    "And they blessed Rebekah, and said unto her: ‘Our sister, be thou the mother of thousands of ten thousands, and let thy seed possess the gate of those that hate them.’"
@@ -18881,7 +18937,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18916,7 +18972,7 @@
   "ref": "Genesis 24:63",
   "url": "https://www.sefaria.org/Genesis_24.63",
   "he": [
-   "ויצא יצחק לשוח בשדה לפנות ערב וישא עיניו וירא והנה גמלים באים"
+   "וַיֵּצֵא יִצְחָק לָשׂוּחַ בַּשָּׂדֶה לִפְנוֹת עָרֶב וַיִּשָּׂא עֵינָיו וַיַּרְא וְהִנֵּה גְמַלִּים בָּאִים׃"
   ],
   "en": [
    "And Isaac went out to meditate in the field at the eventide; and he lifted up his eyes, and saw, and, behold, there were camels coming."
@@ -18929,7 +18985,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -18964,7 +19020,7 @@
   "ref": "Genesis 24:67",
   "url": "https://www.sefaria.org/Genesis_24.67",
   "he": [
-   "ויבאה יצחק האהלה שרה אמו ויקח את רבקה ותהי לו לאשה ויאהבה וינחם יצחק אחרי אמו"
+   "וַיְבִאֶהָ יִצְחָק הָאֹהֱלָה שָׂרָה אִמּוֹ וַיִּקַּח אֶת־רִבְקָה וַתְּהִי־לוֹ לְאִשָּׁה וַיֶּאֱהָבֶהָ וַיִּנָּחֵם יִצְחָק אַחֲרֵי אִמּוֹ׃"
   ],
   "en": [
    "And Isaac brought her into his mother Sarah’s tent, and took Rebekah, and she became his wife; and he loved her. And Isaac was comforted for his mother."
@@ -18977,7 +19033,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -19012,7 +19068,7 @@
   "ref": "Genesis 25:19",
   "url": "https://www.sefaria.org/Genesis_25.19",
   "he": [
-   "ואלה תולדת יצחק בן אברהם אברהם הוליד את יצחק"
+   "וְאֵלֶּה תּוֹלְדֹת יִצְחָק בֶּן־אַבְרָהָם אַבְרָהָם הוֹלִיד אֶת־יִצְחָק׃"
   ],
   "en": [
    "And these are the generations of Isaac, Abraham’s son: Abraham begot Isaac."
@@ -19025,7 +19081,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -19060,7 +19116,7 @@
   "ref": "Genesis 25:27",
   "url": "https://www.sefaria.org/Genesis_25.27",
   "he": [
-   "ויגדלו הנערים ויהי עשו איש ידע ציד איש שדה ויעקב איש תם ישב אהלים"
+   "וַיִּגְדְּלוּ הַנְּעָרִים וַיְהִי עֵשָׂו אִישׁ יֹדֵעַ צַיִד אִישׁ שָׂדֶה וְיַעֲקֹב אִישׁ תָּם יֹשֵׁב אֹהָלִים׃"
   ],
   "en": [
    "And the boys grew; and Esau was a cunning hunter, a man of the field; and Jacob was a quiet man, dwelling in tents."
@@ -19073,7 +19129,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -19108,7 +19164,7 @@
   "ref": "Genesis 25:30",
   "url": "https://www.sefaria.org/Genesis_25.30",
   "he": [
-   "ויאמר עשו אל יעקב הלעיטני נא מן האדם האדם הזה כי עיף אנכי על כן קרא שמו אדום"
+   "וַיֹּאמֶר עֵשָׂו אֶל־יַעֲקֹב הַלְעִיטֵנִי נָא מִן־הָאָדֹם הָאָדֹם הַזֶּה כִּי עָיֵף אָנֹכִי עַל־כֵּן קָרָא־שְׁמוֹ אֱדוֹם׃"
   ],
   "en": [
    "And Esau said to Jacob: ‘Let me swallow, I pray thee, some of this red, red pottage; for I am faint.’ Therefore was his name called Edom."
@@ -19121,7 +19177,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -19156,7 +19212,7 @@
   "ref": "Genesis 26:20",
   "url": "https://www.sefaria.org/Genesis_26.20",
   "he": [
-   "ויריבו רעי גרר עם רעי יצחק לאמר לנו המים ויקרא שם הבאר עשק כי התעשקו עמו"
+   "וַיָּרִיבוּ רֹעֵי גְרָר עִם־רֹעֵי יִצְחָק לֵאמֹר לָנוּ הַמָּיִם וַיִּקְרָא שֵׁם־הַבְּאֵר עֵשֶׂק כִּי הִתְעַשְּׂקוּ עִמּוֹ׃"
   ],
   "en": [
    "And the herdmen of Gerar strove with Isaac’s herdmen, saying: ‘The water is ours.’ And he called the name of the well Esek; because they contended with him."
@@ -19169,7 +19225,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -19204,7 +19260,7 @@
   "ref": "Genesis 26:21",
   "url": "https://www.sefaria.org/Genesis_26.21",
   "he": [
-   "ויחפרו באר אחרת ויריבו גם עליה ויקרא שמה שטנה"
+   "וַיַּחְפְּרוּ בְּאֵר אַחֶרֶת וַיָּרִיבוּ גַּם־עָלֶיהָ וַיִּקְרָא שְׁמָהּ שִׂטְנָה׃"
   ],
   "en": [
    "And they digged another well, and they strove for that also. And he called the name of it Sitnah."
@@ -19217,7 +19273,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -19252,7 +19308,7 @@
   "ref": "Genesis 26:22",
   "url": "https://www.sefaria.org/Genesis_26.22",
   "he": [
-   "ויעתק משם ויחפר באר אחרת ולא רבו עליה ויקרא שמה רחבות ויאמר כי עתה הרחיב ה׳ לנו ופרינו בארץ"
+   "וַיַּעְתֵּק מִשָּׁם וַיַּחְפֹּר בְּאֵר אַחֶרֶת וְלֹא רָבוּ עָלֶיהָ וַיִּקְרָא שְׁמָהּ רְחֹבוֹת וַיֹּאמֶר כִּי־עַתָּה הִרְחִיב יְהוָה לָנוּ וּפָרִינוּ בָאָרֶץ׃"
   ],
   "en": [
    "And he removed from thence, and digged another well; and for that they strove not. And he called the name of it Rehoboth; and he said: ‘For now the L-rd hath made room for us, and we shall be fruitful in the land.’"
@@ -19265,7 +19321,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -19300,7 +19356,7 @@
   "ref": "Genesis 27:9",
   "url": "https://www.sefaria.org/Genesis_27.9",
   "he": [
-   "לך נא אל הצאן וקח לי משם שני גדיי עזים טבים ואעשה אתם מטעמים לאביך כאשר אהב"
+   "לֶךְ־נָא אֶל־הַצֹּאן וְקַח־לִי מִשָּׁם שְׁנֵי גְּדָיֵי עִזִּים טֹבִים וְאֶעֱשֶׂה אֹתָם מַטְעַמִּים לְאָבִיךָ כַּאֲשֶׁר אָהֵב׃"
   ],
   "en": [
    "Go now to the flock, and fetch me from thence two good kids of the goats; and I will make them savoury food for thy father, such as he loveth;"
@@ -19313,7 +19369,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -19348,7 +19404,7 @@
   "ref": "Genesis 27:28",
   "url": "https://www.sefaria.org/Genesis_27.28",
   "he": [
-   "ויתן לך האלקים מטל השמים ומשמני הארץ ורב דגן ותירש"
+   "וְיִתֶּן־לְךָ הָאֱלֹהִים מִטַּל הַשָּׁמַיִם וּמִשְׁמַנֵּי הָאָרֶץ וְרֹב דָּגָן וְתִירֹשׁ׃"
   ],
   "en": [
    "So G-d give thee of the dew of heaven, And of the fat places of the earth, And plenty of corn and wine."
@@ -19361,7 +19417,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -19396,7 +19452,7 @@
   "ref": "Genesis 25:20",
   "url": "https://www.sefaria.org/Genesis_25.20",
   "he": [
-   "ויהי יצחק בן ארבעים שנה בקחתו את רבקה בת בתואל הארמי מפדן ארם אחות לבן הארמי לו לאשה"
+   "וַיְהִי יִצְחָק בֶּן־אַרְבָּעִים שָׁנָה בְּקַחְתּוֹ אֶת־רִבְקָה בַּת־בְּתוּאֵל הָאֲרַמִּי מִפַּדַּן אֲרָם אֲחוֹת לָבָן הָאֲרַמִּי לוֹ לְאִשָּׁה׃"
   ],
   "en": [
    "And Isaac was forty years old when he took Rebekah, the daughter of Bethuel the Aramean, of Paddan-aram, the sister of Laban the Aramean, to be his wife."
@@ -19409,7 +19465,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -19444,7 +19500,7 @@
   "ref": "Genesis 25:21",
   "url": "https://www.sefaria.org/Genesis_25.21",
   "he": [
-   "ויעתר יצחק לה׳ לנכח אשתו כי עקרה הוא ויעתר לו ה׳ ותהר רבקה אשתו"
+   "וַיֶּעְתַּר יִצְחָק לַיהוָה לְנֹכַח אִשְׁתּוֹ כִּי עֲקָרָה הִוא וַיֵּעָתֶר לוֹ יְהוָה וַתַּהַר רִבְקָה אִשְׁתּוֹ׃"
   ],
   "en": [
    "And Isaac entreated the L-rd for his wife, because she was barren; and the L-rd let Himself be entreated of him, and Rebekah his wife conceived."
@@ -19457,7 +19513,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -19492,7 +19548,7 @@
   "ref": "Genesis 25:26",
   "url": "https://www.sefaria.org/Genesis_25.26",
   "he": [
-   "ואחרי כן יצא אחיו וידו אחזת בעקב עשו ויקרא שמו יעקב ויצחק בן ששים שנה בלדת אתם"
+   "וְאַחֲרֵי־כֵן יָצָא אָחִיו וְיָדוֹ אֹחֶזֶת בַּעֲקֵב עֵשָׂו וַיִּקְרָא שְׁמוֹ יַעֲקֹב וְיִצְחָק בֶּן־שִׁשִּׁים שָׁנָה בְּלֶדֶת אֹתָם׃"
   ],
   "en": [
    "And after that came forth his brother, and his hand had hold on Esau’s heel; and his name was called Jacob. And Isaac was threescore years old when she bore them."
@@ -19505,7 +19561,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -19540,7 +19596,7 @@
   "ref": "Genesis 26:3",
   "url": "https://www.sefaria.org/Genesis_26.3",
   "he": [
-   "גור בארץ הזאת ואהיה עמך ואברכך כי לך ולזרעך אתן את כל הארצת האל והקמתי את השבעה אשר נשבעתי לאברהם אביך"
+   "גּוּר בָּאָרֶץ הַזֹּאת וְאֶהְיֶה עִמְּךָ וַאֲבָרְכֶךָּ כִּי־לְךָ וּלְזַרְעֲךָ אֶתֵּן אֶת־כָּל־הָאֲרָצֹת הָאֵל וַהֲקִמֹתִי אֶת־הַשְּׁבֻעָה אֲשֶׁר נִשְׁבַּעְתִּי לְאַבְרָהָם אָבִיךָ׃"
   ],
   "en": [
    "Sojourn in this land, and I will be with thee, and will bless thee; for unto thee, and unto thy seed, I will give all these lands, and I will establish the oath which I swore unto Abraham thy father;"
@@ -19553,7 +19609,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -19588,7 +19644,7 @@
   "ref": "Genesis 26:5",
   "url": "https://www.sefaria.org/Genesis_26.5",
   "he": [
-   "עקב אשר שמע אברהם בקלי וישמר משמרתי מצותי חקותי ותורתי"
+   "עֵקֶב אֲשֶׁר־שָׁמַע אַבְרָהָם בְּקֹלִי וַיִּשְׁמֹר מִשְׁמַרְתִּי מִצְוֺתַי חֻקּוֹתַי וְתוֹרֹתָי׃"
   ],
   "en": [
    "because that Abraham hearkened to My voice, and kept My charge, My commandments, My statutes, and My laws.’"
@@ -19601,7 +19657,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -19636,7 +19692,7 @@
   "ref": "Genesis 27:5",
   "url": "https://www.sefaria.org/Genesis_27.5",
   "he": [
-   "ורבקה שמעת בדבר יצחק אל עשו בנו וילך עשו השדה לצוד ציד להביא"
+   "וְרִבְקָה שֹׁמַעַת בְּדַבֵּר יִצְחָק אֶל־עֵשָׂו בְּנוֹ וַיֵּלֶךְ עֵשָׂו הַשָּׂדֶה לָצוּד צַיִד לְהָבִיא׃"
   ],
   "en": [
    "And Rebekah heard when Isaac spoke to Esau his son. And Esau went to the field to hunt for venison, and to bring it."
@@ -19649,7 +19705,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -19684,7 +19740,7 @@
   "ref": "Genesis 27:27",
   "url": "https://www.sefaria.org/Genesis_27.27",
   "he": [
-   "ויגש וישק לו וירח את ריח בגדיו ויברכהו ויאמר ראה ריח בני כריח שדה אשר ברכו ה׳"
+   "וַיִּגַּשׁ וַיִּשַּׁק־לוֹ וַיָּרַח אֶת־רֵיחַ בְּגָדָיו וַיְבָרֲכֵהוּ וַיֹּאמֶר רְאֵה רֵיחַ בְּנִי כְּרֵיחַ שָׂדֶה אֲשֶׁר בֵּרֲכוֹ יְהוָה׃"
   ],
   "en": [
    "And he came near, and kissed him. And he smelled the smell of his raiment, and blessed him, and said: See, the smell of my son Is as the smell of a field which the L-rd hath blessed."
@@ -19697,7 +19753,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -19732,7 +19788,7 @@
   "ref": "Genesis 27:29",
   "url": "https://www.sefaria.org/Genesis_27.29",
   "he": [
-   "יעבדוך עמים וישתחו [וישתחוו] לך לאמים הוה גביר לאחיך וישתחוו לך בני אמך ארריך ארור ומברכיך ברוך"
+   "יַעַבְדוּךָ עַמִּים וישתחו [וְיִשְׁתַּחֲווּ] לְךָ לְאֻמִּים הֱוֵה גְבִיר לְאַחֶיךָ וְיִשְׁתַּחֲוּוּ לְךָ בְּנֵי אִמֶּךָ אֹרְרֶיךָ אָרוּר וּמְבָרֲכֶיךָ בָּרוּךְ׃"
   ],
   "en": [
    "Let peoples serve thee, And nations bow down to thee. Be lord over thy brethren, And let thy mother’s sons bow down to thee. Cursed be every one that curseth thee, And blessed be every one that blesseth thee."
@@ -19745,7 +19801,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
@@ -19780,7 +19836,7 @@
   "ref": "Genesis 27:33",
   "url": "https://www.sefaria.org/Genesis_27.33",
   "he": [
-   "ויחרד יצחק חרדה גדלה עד מאד ויאמר מי אפוא הוא הצד ציד ויבא לי ואכל מכל בטרם תבוא ואברכהו גם ברוך יהיה"
+   "וַיֶּחֱרַד יִצְחָק חֲרָדָה גְּדֹלָה עַד־מְאֹד וַיֹּאמֶר מִי־אֵפוֹא הוּא הַצָּד־צַיִד וַיָּבֵא לִי וָאֹכַל מִכֹּל בְּטֶרֶם תָּבוֹא וָאֲבָרֲכֵהוּ גַּם־בָּרוּךְ יִהְיֶה׃"
   ],
   "en": [
    "And Isaac trembled very exceedingly, and said: ‘Who then is he that hath taken venison, and brought it me, and I have eaten of all before thou camest, and have blessed him? yea, and he shall be blessed.’"
@@ -19793,7 +19849,7 @@
   ],
   "versions": {
    "he": {
-    "title": "Tanach with Text Only",
+    "title": "Tanach with Nikkud",
     "license": "Public Domain",
     "source": "http://www.tanach.us/Tanach.xml"
    },
