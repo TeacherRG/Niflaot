@@ -505,7 +505,14 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
   useEffect(() => {
     if (!sec) return;
     const id = takeGoto();
-    if (id) requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ block: 'start' }));
+    // переход к стиху (поиск, закладки, ссылки ИИ-учителя): прокрутка и золотая подсветка стиха на несколько секунд
+    if (id)
+      requestAnimationFrame(() => {
+        const el = document.getElementById(id);
+        el?.scrollIntoView({ block: 'start' });
+        el?.classList.add('tk-goto');
+        setTimeout(() => el?.classList.remove('tk-goto'), 4000);
+      });
   }, [sec]);
   // the project's translation is shown where the whole day is translated (both sections); otherwise English stands in, with a note
   const ready = (l: OwnLang) => !!content && (['neviim', 'ketuvim'] as const).every((s) => content[s].verses.every((v) => v[l]));

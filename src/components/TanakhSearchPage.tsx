@@ -3,13 +3,93 @@ import { useI18n } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { Icon } from './ui';
-import { BOOKS, type Section } from '../core/tanakhCycle';
+import { BOOKS, SECTIONS, type Section, type TanakhBook } from '../core/tanakhCycle';
 import { fold, highlight, isCyrillic, isHebrew, loadIndex, parseRef, search, terms, type SearchIndex, type SearchLang } from '../core/tanakhSearch';
 
 const PAGE = 50;
 type Filter = 'all' | Section | string; // string — slug книги
 
 /** Запрос в адресе: `#/search?q=…` — ссылкой можно поделиться, «назад» возвращает к результатам. */
+/**
+ * «Перейти к месту»: книга, глава, стих — списками, «Открыть» ведёт на день цикла читателя с этим стихом (`#/verse/…`).
+ * Если в поле поиска набрано место («Теилим 4 стих 5»), списки встают на него.
+ */
+function TanakhNav({ at }: { at: { book: TanakhBook; chapter: number; verse: number } | null }) {
+  const { t, locale } = useI18n();
+  const lang = locale === 'en' || locale === 'de' ? locale : 'ru';
+  const [slug, setSlug] = useState(at?.book.slug ?? 'psalms');
+  const [chapter, setChapter] = useState(at?.chapter ?? 1);
+  const [verse, setVerse] = useState(at?.verse ?? 1);
+  useEffect(() => {
+    if (!at) return;
+    setSlug(at.book.slug);
+    setChapter(at.chapter);
+    setVerse(at.verse);
+  }, [at?.book.slug, at?.chapter, at?.verse]);
+  const book = BOOKS.find((b) => b.slug === slug) ?? BOOKS[0];
+  const chapters = book.verses.length;
+  const verses = book.verses[Math.min(chapter, chapters) - 1];
+  const range = (n: number) => Array.from({ length: n }, (_, k) => k + 1);
+  return (
+    <form
+      className="ts-nav"
+      aria-label={t('search.navTitle')}
+      onSubmit={(e) => {
+        e.preventDefault();
+        location.hash = `#/verse/${book.slug}-${chapter}-${verse}`;
+      }}
+    >
+      <h2>{t('search.navTitle')}</h2>
+      <div className="ts-nav-row">
+        <label className="ts-nav-book">
+          <span>{t('search.navBook')}</span>
+          <select
+            value={slug}
+            onChange={(e) => {
+              setSlug(e.target.value);
+              setChapter(1);
+              setVerse(1);
+            }}
+          >
+            {SECTIONS.map((s) => (
+              <optgroup key={s} label={t(`tanakh.${s}`)}>
+                {BOOKS.filter((b) => b.section === s).map((b) => (
+                  <option key={b.slug} value={b.slug}>
+                    {b.name[lang]} · {b.he}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>{t('search.navChapter')}</span>
+          <select value={chapter} onChange={(e) => (setChapter(Number(e.target.value)), setVerse(1))}>
+            {range(chapters).map((n) => (
+              <option key={n} value={n}>
+                {n}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>{t('search.navVerse')}</span>
+          <select value={Math.min(verse, verses)} onChange={(e) => setVerse(Number(e.target.value))}>
+            {range(verses).map((n) => (
+              <option key={n} value={n}>
+                {n}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button type="submit" className="btn">
+          {t('search.navOpen')} →
+        </button>
+      </div>
+    </form>
+  );
+}
+
 const queryFromHash = () => new URLSearchParams(location.hash.split('?')[1] ?? '').get('q') ?? '';
 
 function Marked({ text, words, on }: { text: string; words: string[]; on: boolean }) {
@@ -96,7 +176,16 @@ export function TanakhSearchPage() {
           <p className="ws-lead">{t('search.lead')}</p>
         </header>
 
-        <form className="ts-form" role="search" onSubmit={(e) => (e.preventDefault(), setQuery(input))}>
+        <TanakhNav at={ref} />
+
+        <h2 className="ts-h">{t('search.searchH')}</h2>
+        <form className="ts-form" role="search" onSubmit={(e) => {
+            e.preventDefault();
+            // набрано место с главой («Теилим 4 стих 5») — Enter сразу открывает его
+            const at = parseRef(input);
+            if (at && input.trim().split(/\s+/).length > 1) location.hash = `#/verse/${at.book.slug}-${at.chapter}-${at.verse}`;
+            else setQuery(input);
+          }}>
           <Icon name="search" size={18} />
           <input
             type="search"

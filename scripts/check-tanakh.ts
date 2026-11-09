@@ -21,7 +21,7 @@ import { tanakhLang, tanakhNarration } from '../src/core/tanakhNarration';
 import { dayOfVerse, resolveCite } from '../src/core/citations';
 import { CYCLE } from '../src/core/tanakh';
 import { buildSearchIndex } from './tanakh-search-index';
-import { fold, highlight, parseRef, search, terms } from '../src/core/tanakhSearch';
+import { bookCollisions, fold, highlight, parseRef, search, terms } from '../src/core/tanakhSearch';
 
 const errors: string[] = [];
 const err = (m: string) => errors.push(m);
@@ -203,11 +203,13 @@ for (const f of files) {
   if (first('Jericho', 'en')?.book.slug !== 'joshua') err('поиск: «Jericho» — нет Йеґошуа');
   if (!first('Йерихо', 'ru')) err('поиск: «Йерихо» по-русски ничего не нашёл');
   if (highlight('וַיֹּאמֶר לְמֶלֶךְ', terms('מלך')).filter(([, on]) => on).map(([x]) => fold(x)).join() !== 'מלכ') err('поиск: подсветка ивритского слова');
-  for (const [q, ref] of [['Теґилим 23', 'psalms 23:1'], ['Тегилим 23:4', 'psalms 23:4'], ['Joshua 2:5', 'joshua 2:5'], ['Jehoschua 2,5', 'joshua 2:5'], ['תהלים 1', 'psalms 1:1']] as const) {
+  for (const [q, ref] of [['Теґилим 23', 'psalms 23:1'], ['Тегилим 23:4', 'psalms 23:4'], ['Joshua 2:5', 'joshua 2:5'], ['Jehoschua 2,5', 'joshua 2:5'], ['תהלים 1', 'psalms 1:1'], ['Теилим 4 стих 5', 'psalms 4:5'], ['Tehilim 4,5', 'psalms 4:5'], ['תהלים ד ה', 'psalms 4:5'], ['תהילים כג', 'psalms 23:1'], ['Тег 4:5', 'psalms 4:5'], ['Шмуэль 1 3:5', 'i-samuel 3:5'], ['שמואל א ג ה', 'i-samuel 3:5'], ['Млахим II 2:11', 'ii-kings 2:11'], ['Коэлет 1:2', 'ecclesiastes 1:2'], ['Псалом 119:176', 'psalms 119:176']] as const) {
     const r = parseRef(q);
     if (`${r?.book.slug} ${r?.chapter}:${r?.verse}` !== ref) err(`поиск: «${q}» — не ${ref}`);
   }
   if (parseRef('Joshua 99')) err('поиск: «Joshua 99» — такой главы нет');
+  if (parseRef('Шмуэль 3:5')) err('поиск: «Шмуэль 3:5» — книга не указана (I или II)');
+  for (const c of bookCollisions()) err(`поиск: названия книг совпали — ${c}`);
 }
 
 if (errors.length) {
