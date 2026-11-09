@@ -3381,3 +3381,41 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 html.tabbed .rd-tip{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
 @keyframes rd-tip-in{from{opacity:0;transform:translate(-50%,8px)}}
 @media (prefers-reduced-motion:reduce){.rd-tip{animation:none}}
+/* «Лоскуты гематрии» (#/patches, PatchesPage.tsx) — the board and the result share the Zip layout (.zip-*) */
+.pt-board{cursor:crosshair}
+.pt-board .pt-cell{fill:var(--paper);stroke:var(--line);stroke-width:.02;stroke-dasharray:.06 .05}
+.pt-piece{fill-opacity:.82;stroke-width:.07}
+.pt-preview{fill:var(--bad);fill-opacity:.12;stroke:var(--bad);stroke-width:.05;stroke-dasharray:.12 .08}
+.pt-preview.ok{fill:var(--tchelet);fill-opacity:.2;stroke:var(--tchelet)}
+.pt-bad{fill:var(--bad);fill-opacity:.35;stroke:var(--bad);stroke-width:.07;animation:pt-shake .35s}
+@keyframes pt-shake{25%{transform:translateX(-.06px)}75%{transform:translateX(.06px)}}
+.pt-count{fill:var(--ink);font-family:var(--f-num);font-weight:800;font-size:30px;text-anchor:middle;dominant-baseline:middle;pointer-events:none;opacity:.55}
+.pt-clue{pointer-events:none}
+.pt-letter{fill:var(--ink);font-family:var(--f-he);font-weight:700;font-size:46px;text-anchor:middle;dominant-baseline:middle}
+.pt-num{fill:var(--muted);font-family:var(--f-num);font-weight:700;font-size:20px;text-anchor:middle;dominant-baseline:middle}
+.pt-clue.on .pt-letter{fill:#fff}
+.pt-clue.on .pt-num{fill:#fff;opacity:.85}
+.pt-shape{fill:var(--muted);fill-opacity:.35;stroke:var(--ink-2);stroke-width:.025}
+.pt-shape.any{fill:var(--muted);fill-opacity:.2;stroke-dasharray:.04 .03}
+.pt-clue.on .pt-shape{fill:#fff;fill-opacity:.5;stroke:#fff}
+.pt-cursor{fill:none;stroke:var(--gold-2);stroke-width:.06}
+.pt-board:not(:focus-visible) .pt-cursor{display:none}
+.pt-easier{text-align:center;font-size:14px;color:var(--ink-2);margin:12px 0}
+.pt-easier .btn{margin-top:6px}
+.pt-sums{list-style:none;padding:0;margin:0 0 14px;display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center}
+.pt-sums li{background:var(--tchelet-soft);border-radius:10px;padding:4px 10px;font-size:15px}
+.pt-sums .he{font-family:var(--f-he);font-size:20px}
+.pt-sums small{color:var(--muted)}
+.pt-legend{margin:18px 0 8px}
+.pt-legend h2{font-size:15px;margin:0 0 6px}
+.pt-legend ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 14px}
+.pt-legend li{display:flex;align-items:center;gap:8px;font-size:14px}
+.pt-legend .pt-shape{stroke-width:.06}
+.pt-values{margin:8px 0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px 12px}
+.pt-values summary{cursor:pointer;font-weight:700}
+.pt-values ul{list-style:none;padding:0;margin:10px 0;display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.pt-values li{display:flex;flex-direction:column;align-items:center;background:var(--paper);border-radius:8px;padding:4px 0}
+.pt-values li .he{font-family:var(--f-he);font-size:22px;line-height:1.2}
+.pt-values li small{font-family:var(--f-num);color:var(--muted)}
+.pt-values p{font-size:13px;color:var(--muted);margin:0}
+@media (prefers-reduced-motion:reduce){.pt-bad{animation:none}}
