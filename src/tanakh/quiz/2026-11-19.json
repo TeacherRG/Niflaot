@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 15:1",
+   "q": {
+    "ru": "У границы какого народа лежал удел Йеґуды на юге?",
+    "en": "On whose border did Judah’s portion lie in the south?",
+    "de": "An wessen Grenze lag das Erbe Jehudas im Süden?"
+   },
+   "o": [
+    {
+     "ru": "Эдома",
+     "en": "Edom",
+     "de": "Edom"
+    },
+    {
+     "ru": "Моава",
+     "en": "Moab",
+     "de": "Moaw"
+    },
+    {
+     "ru": "Амона",
+     "en": "Ammon",
+     "de": "Ammon"
+    },
+    {
+     "ru": "Филистимлян",
+     "en": "The Philistines",
+     "de": "Der Philister"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:5",
+   "q": {
+    "ru": "Что было восточной границей Йеґуды?",
+    "en": "What was Judah’s eastern boundary?",
+    "de": "Was war die Ostgrenze Jehudas?"
+   },
+   "o": [
+    {
+     "ru": "Мёртвое море",
+     "en": "The Dead Sea",
+     "de": "Das Tote Meer"
+    },
+    {
+     "ru": "Великое море",
+     "en": "The Great Sea",
+     "de": "Das Große Meer"
+    },
+    {
+     "ru": "Поток Египетский",
+     "en": "The Wadi of Egypt",
+     "de": "Der Bach Ägyptens"
+    },
+    {
+     "ru": "Гора Хермон",
+     "en": "Mount Hermon",
+     "de": "Der Berg Chermon"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:8",
+   "q": {
+    "ru": "Мимо какого города с юга шла северная граница Йеґуды через долину Бен-Ґином?",
+    "en": "Which city did Judah’s northern border pass on its southern flank through the Valley of Ben-hinnom?",
+    "de": "An welcher Stadt zog die Nordgrenze Jehudas durch das Tal Ben-Hinnom im Süden vorbei?"
+   },
+   "o": [
+    {
+     "ru": "Йерушалаим",
+     "en": "Jerusalem",
+     "de": "Jeruschalajim"
+    },
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    },
+    {
+     "ru": "Йерихо",
+     "en": "Jericho",
+     "de": "Jericho"
+    },
+    {
+     "ru": "Шхем",
+     "en": "Shechem",
+     "de": "Schechem"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 22:29",
+   "q": {
+    "ru": "Кому, по словам Давида, принадлежит царство?",
+    "en": "To whom, David says, does kingship belong?",
+    "de": "Wem gehört nach Davids Worten das Königtum?"
+   },
+   "o": [
+    {
+     "ru": "Г-споду",
+     "en": "To the L-rd",
+     "de": "Dem Ewigen"
+    },
+    {
+     "ru": "Давиду",
+     "en": "To David",
+     "de": "David"
+    },
+    {
+     "ru": "Египту",
+     "en": "To Egypt",
+     "de": "Ägypten"
+    },
+    {
+     "ru": "Сильным народам",
+     "en": "To the strong nations",
+     "de": "Den starken Völkern"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 23:1",
+   "q": {
+    "ru": "Кем называет Давид Г-спода в Теґилим 23?",
+    "en": "What does David call the L-rd in Psalm 23?",
+    "de": "Wie nennt David den Ewigen in Tehillim 23?"
+   },
+   "o": [
+    {
+     "ru": "Моим пастырем",
+     "en": "My shepherd",
+     "de": "Meinen Hirten"
+    },
+    {
+     "ru": "Моим царём",
+     "en": "My king",
+     "de": "Meinen König"
+    },
+    {
+     "ru": "Моим судьёй",
+     "en": "My judge",
+     "de": "Meinen Richter"
+    },
+    {
+     "ru": "Моим отцом",
+     "en": "My father",
+     "de": "Meinen Vater"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 23:2",
+   "q": {
+    "ru": "Куда ведёт Пастырь?",
+    "en": "Where does the Shepherd lead?",
+    "de": "Wohin führt der Hirte?"
+   },
+   "o": [
+    {
+     "ru": "К тихим водам",
+     "en": "To still waters",
+     "de": "Zu ruhigen Wassern"
+    },
+    {
+     "ru": "На высокие горы",
+     "en": "To high mountains",
+     "de": "Auf hohe Berge"
+    },
+    {
+     "ru": "В город",
+     "en": "Into the city",
+     "de": "In die Stadt"
+    },
+    {
+     "ru": "К морю",
+     "en": "To the sea",
+     "de": "Zum Meer"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 23:4",
+   "q": {
+    "ru": "Почему Давид не боится зла даже в долине смертной тени?",
+    "en": "Why does David fear no harm even in the valley of deepest darkness?",
+    "de": "Warum fürchtet David sogar im Tal tiefster Finsternis kein Unglück?"
+   },
+   "o": [
+    {
+     "ru": "Ведь Б-г с ним",
+     "en": "Because G-d is with him",
+     "de": "Weil G-tt bei ihm ist"
+    },
+    {
+     "ru": "У него меч",
+     "en": "He has a sword",
+     "de": "Er hat ein Schwert"
+    },
+    {
+     "ru": "С ним друзья",
+     "en": "His friends are with him",
+     "de": "Seine Freunde sind bei ihm"
+    },
+    {
+     "ru": "Там светло",
+     "en": "It is light there",
+     "de": "Es ist dort hell"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 13:22",
+   "q": {
+    "ru": "Кого из врагов сыны Израиля убили вместе с вождями Мидьяна?",
+    "en": "Whom did the Israelites kill together with the chiefs of Midian?",
+    "de": "Wen töteten die Kinder Israels zusammen mit den Fürsten Midjans?"
+   },
+   "o": [
+    {
+     "ru": "Кудесника Билама, сына Беора",
+     "en": "Balaam son of Beor, the augur",
+     "de": "Den Wahrsager Bilam, den Sohn Beors"
+    },
+    {
+     "ru": "Царя Ога",
+     "en": "King Og",
+     "de": "König Og"
+    },
+    {
+     "ru": "Великана Анака",
+     "en": "The giant Anak",
+     "de": "Den Riesen Anak"
+    },
+    {
+     "ru": "Царя Египта",
+     "en": "The king of Egypt",
+     "de": "Den König von Ägypten"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 13:23",
+   "q": {
+    "ru": "Что было границей колена Реувена?",
+    "en": "What was the boundary of the Reubenites?",
+    "de": "Was war die Grenze der Reuweniter?"
+   },
+   "o": [
+    {
+     "ru": "Ярден",
+     "en": "The Jordan",
+     "de": "Der Jarden"
+    },
+    {
+     "ru": "Великое море",
+     "en": "The Great Sea",
+     "de": "Das Große Meer"
+    },
+    {
+     "ru": "Гора Хермон",
+     "en": "Mount Hermon",
+     "de": "Der Berg Chermon"
+    },
+    {
+     "ru": "Поток Египетский",
+     "en": "The Wadi of Egypt",
+     "de": "Der Bach Ägyptens"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 13:27",
+   "q": {
+    "ru": "До какого моря дошёл удел Гада?",
+    "en": "Up to which sea did Gad’s portion reach?",
+    "de": "Bis zu welchem See reichte das Erbe Gads?"
+   },
+   "o": [
+    {
+     "ru": "До моря Кинерет",
+     "en": "To the Sea of Chinnereth",
+     "de": "Bis zum See Kinneret"
+    },
+    {
+     "ru": "До Мёртвого моря",
+     "en": "To the Dead Sea",
+     "de": "Bis zum Toten Meer"
+    },
+    {
+     "ru": "До Ям Суф",
+     "en": "To the Sea of Reeds",
+     "de": "Bis zum Schilfmeer"
+    },
+    {
+     "ru": "До Великого моря",
+     "en": "To the Great Sea",
+     "de": "Bis zum Großen Meer"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 22:2",
+   "q": {
+    "ru": "С каких слов начинается молитва Теґилим 22?",
+    "en": "With what words does the prayer of Psalm 22 begin?",
+    "de": "Mit welchen Worten beginnt das Gebet von Tehillim 22?"
+   },
+   "o": [
+    {
+     "ru": "«Б-же мой, Б-же мой, зачем Ты оставил меня?»",
+     "en": "“My G-d, my G-d, why have You abandoned me?”",
+     "de": "„Mein G-tt, mein G-tt, warum hast Du mich verlassen?“"
+    },
+    {
+     "ru": "«Г-сподь — мой пастырь»",
+     "en": "“The L-rd is my shepherd”",
+     "de": "„Der Ewige ist mein Hirte“"
+    },
+    {
+     "ru": "«Г-споду — земля»",
+     "en": "“The earth is the L-rd’s”",
+     "de": "„Dem Ewigen gehört die Erde“"
+    },
+    {
+     "ru": "«Счастлив человек»",
+     "en": "“Happy is the man”",
+     "de": "„Glücklich der Mensch“"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 22:5",
+   "q": {
+    "ru": "Что было с отцами, которые надеялись на Б-га?",
+    "en": "What happened to the fathers who trusted in G-d?",
+    "de": "Was geschah mit den Vätern, die auf G-tt vertrauten?"
+   },
+   "o": [
+    {
+     "ru": "Он спасал их",
+     "en": "He rescued them",
+     "de": "Er rettete sie"
+    },
+    {
+     "ru": "Они остались в Египте",
+     "en": "They stayed in Egypt",
+     "de": "Sie blieben in Ägypten"
+    },
+    {
+     "ru": "Они забыли Его",
+     "en": "They forgot Him",
+     "de": "Sie vergaßen Ihn"
+    },
+    {
+     "ru": "Они ушли в изгнание",
+     "en": "They went into exile",
+     "de": "Sie gingen ins Exil"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 22:7",
+   "q": {
+    "ru": "Кем называет себя Давид в беде?",
+    "en": "What does David call himself in his distress?",
+    "de": "Wie nennt sich David in seiner Not?"
+   },
+   "o": [
+    {
+     "ru": "Червём, а не человеком",
+     "en": "A worm, less than human",
+     "de": "Einen Wurm und keinen Menschen"
+    },
+    {
+     "ru": "Львом",
+     "en": "A lion",
+     "de": "Einen Löwen"
+    },
+    {
+     "ru": "Царём",
+     "en": "A king",
+     "de": "Einen König"
+    },
+    {
+     "ru": "Пастухом",
+     "en": "A shepherd",
+     "de": "Einen Hirten"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 22:10",
+   "q": {
+    "ru": "Откуда, по словам Давида, Б-г вывел его?",
+    "en": "From where, David says, did G-d draw him?",
+    "de": "Woraus hat G-tt David nach seinen Worten gezogen?"
+   },
+   "o": [
+    {
+     "ru": "Из чрева матери",
+     "en": "From the womb",
+     "de": "Aus dem Mutterleib"
+    },
+    {
+     "ru": "Из ямы",
+     "en": "From a pit",
+     "de": "Aus einer Grube"
+    },
+    {
+     "ru": "Из пещеры",
+     "en": "From a cave",
+     "de": "Aus einer Höhle"
+    },
+    {
+     "ru": "Из моря",
+     "en": "From the sea",
+     "de": "Aus dem Meer"
+    }
+   ]
+  }
+ ]
+}
