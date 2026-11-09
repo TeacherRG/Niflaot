@@ -695,8 +695,8 @@ function tanakhPage(section: Section, lang: 'ru' | 'en' | 'de', ui: Ui): Page {
 }
 
 /**
- * «500 слов Танаха» for search: the most frequent words of the Prophets and Writings (src/core/words.ts) — how much of
- * the text 100 / 300 / 500 words cover, and every translated word by levels of 50: form, translation, root, how often.
+ * «Все слова Танаха» (/hebrew-words/) for search: all the words of the Prophets and Writings (src/core/words.ts) — how much of
+ * the text 100 / 300 / 500 … words cover, and all 5215 words by levels of 50: form, translation, root, how often.
  * The app opens «Мои слова» (the review). The source (Open Scriptures Hebrew Bible, CC BY 4.0) is credited.
  */
 const WORDS = wordsJson as { words: { id: string; he: string; n: number; root?: string; cov: number }[] };
@@ -708,7 +708,7 @@ function wordsPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
   const learn = WORDS.words.filter((w) => tr[w.id]);
   const fill = (key: string, vars: Record<string, string | number>) => s(ui, key as keyof Ui).replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''));
   const pctAt = (n: number) => Math.round(WORDS.words[n - 1].cov);
-  const cov = [100, 300, 500, 1000, 1500, 2000, 2500, 3000].map((n) => `<li>${esc(fill('words.seoCov', { n, p: pctAt(n) }))}</li>`).join('');
+  const cov = [100, 300, 500, 1000, 1500, 2000, 2500, 3000].map((n) => `<li>${esc(fill('words.seoCov', { n, p: pctAt(n) }))}</li>`).join('') + `<li>${esc(s(ui, 'words.seoAll'))}</li>`;
   const levels: string[] = [];
   for (let i = 0; i < learn.length; i += 50) {
     const ws = learn.slice(i, i + 50);

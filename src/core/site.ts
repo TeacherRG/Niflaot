@@ -26,7 +26,7 @@ export const STATIC_PAGES: Record<StaticPage, string> = {
   // «Пророки» / «Писания»: the three-year reading plan; the app opens today's passage
   neviim: 'neviim',
   ketuvim: 'ketuvim',
-  // «500 слов Танаха»: the most frequent words of the Prophets and Writings; the app opens «Мои слова»
+  // «Все слова Танаха» (5215): all the words of the Prophets and Writings; the app opens «Мои слова»
   'hebrew-words': 'words',
   // «Хасидут»: the app opens today's passage; «Викторина вместе»: the start page of the quiz
   hemshech: 'hemshech',
