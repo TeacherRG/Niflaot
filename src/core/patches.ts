@@ -1,9 +1,9 @@
 /**
  * «Лоскуты гематрии» (`#/patches`, меню → «Разное»): a grid puzzle of the rectangle-division kind (owner, 09.11.2026).
- * The board is a square grid; some cells hold a Hebrew letter-number — its gematria is the area of the rectangle around it
- * (ה = 5 cells, י״ב = 12). Next to the letter — the shape: square, tall, wide or «any». The player draws rectangles so that
- * every cell is covered and every rectangle holds exactly one letter of its value and shape — and so learns the values of
- * the letters by counting cells.
+ * The board is a square grid with clue cells. A clue may show a Hebrew letter-number — its gematria is the area of the
+ * rectangle around it (ה = 5 cells, י״ב = 12) — and/or the shape (square, tall, wide, «any»); or neither — then the player
+ * finds both. The rules (owner, 09.11.2026): fill the whole grid, shapes don't overlap, every shape holds exactly one clue
+ * cell, every cell belongs to exactly one shape. So the player learns the values of the letters by counting cells.
  *
  * The level follows the player (owner: «когда проходит — усложнять, когда много раз ошибается — останавливаться или
  * снижать сложность»): solved with few mistakes and no hints — the next board is harder; with many mistakes or hints —
@@ -16,20 +16,21 @@ export const PATCHES_KEY = 'niflaot:patches';
 export type Shape = 'square' | 'tall' | 'wide' | 'any';
 
 /**
- * level → grid side `n`, the biggest rectangle `max`, the smallest `min`, how many clues show their shape `shapes` (0–1)
- * and whether the number is written under the letter `num` (the first boards teach the values).
+ * level → grid side `n`, the biggest rectangle `max`, the smallest `min`, how many clues show their letter `letters` and
+ * their shape `shapes` (0–1; more is revealed if the board would have two solutions) and whether the number is written
+ * under the letter `num` (the first boards teach the values).
  */
-export const LEVELS: { n: number; min: number; max: number; shapes: number; num: boolean }[] = [
-  { n: 4, min: 2, max: 6, shapes: 1, num: true },
-  { n: 5, min: 2, max: 8, shapes: 1, num: true },
-  { n: 5, min: 2, max: 10, shapes: 0.8, num: false },
-  { n: 6, min: 2, max: 10, shapes: 0.7, num: false },
-  { n: 6, min: 3, max: 12, shapes: 0.5, num: false },
-  { n: 7, min: 3, max: 14, shapes: 0.5, num: false },
-  { n: 7, min: 3, max: 16, shapes: 0.35, num: false },
-  { n: 8, min: 3, max: 18, shapes: 0.3, num: false },
-  { n: 8, min: 4, max: 20, shapes: 0.2, num: false },
-  { n: 9, min: 4, max: 24, shapes: 0.1, num: false },
+export const LEVELS: { n: number; min: number; max: number; letters: number; shapes: number; num: boolean }[] = [
+  { n: 4, min: 2, max: 6, letters: 1, shapes: 1, num: true },
+  { n: 5, min: 2, max: 8, letters: 1, shapes: 0.8, num: true },
+  { n: 5, min: 2, max: 10, letters: 1, shapes: 0.6, num: false },
+  { n: 6, min: 2, max: 10, letters: 0.9, shapes: 0.5, num: false },
+  { n: 6, min: 3, max: 12, letters: 0.85, shapes: 0.45, num: false },
+  { n: 7, min: 3, max: 14, letters: 0.8, shapes: 0.4, num: false },
+  { n: 7, min: 3, max: 16, letters: 0.75, shapes: 0.35, num: false },
+  { n: 8, min: 3, max: 18, letters: 0.7, shapes: 0.3, num: false },
+  { n: 8, min: 4, max: 20, letters: 0.65, shapes: 0.25, num: false },
+  { n: 9, min: 4, max: 24, letters: 0.6, shapes: 0.2, num: false },
 ];
 export const MAX_LEVEL = LEVELS.length;
 
@@ -42,7 +43,11 @@ export interface Rect {
 }
 export interface Clue {
   cell: number;
+  /** the area of its shape in the solution (the letter, when shown) */
   value: number;
+  /** the letter is shown */
+  letter: boolean;
+  /** 'any' — the shape is not shown */
   shape: Shape;
 }
 export interface Board {
@@ -149,10 +154,10 @@ export function candidates(board: Pick<Board, 'n' | 'clues'>, i: number): Rect[]
   const out: Rect[] = [];
   const kr = Math.floor(k.cell / n);
   const kc = k.cell % n;
-  for (let h = 1; h <= Math.min(n, k.value); h++) {
-    if (k.value % h) continue;
-    const w = k.value / h;
-    if (w > n) continue;
+  const sizes: [number, number][] = [];
+  for (let h = 1; h <= n; h++)
+    for (let w = 1; w <= n; w++) if (k.letter ? h * w === k.value : true) sizes.push([h, w]);
+  for (const [h, w] of sizes) {
     const x0: Rect = { r: 0, c: 0, h, w };
     if (!fits(x0, k.shape)) continue;
     for (let r = Math.max(0, kr - h + 1); r <= Math.min(kr, n - h); r++)
@@ -164,41 +169,49 @@ export function candidates(board: Pick<Board, 'n' | 'clues'>, i: number): Rect[]
   return out;
 }
 
-/** How many solutions (up to `limit`): exact cover, the clue with the fewest free options first. */
+/**
+ * How many solutions (up to `limit`): exact cover over the cells — the free cell with the fewest shapes that can still
+ * cover it first (a cell nothing can cover ends the branch at once), every clue used once.
+ */
 export function countSolutions(board: Pick<Board, 'n' | 'clues'>, limit = 2): number {
   const { n, clues } = board;
-  const cand = clues.map((_, i) => candidates(board, i).map((x) => cellsOf(x, n)));
-  const used = new Array(n * n).fill(false);
-  const done = new Array(clues.length).fill(false);
+  const N = n * n;
+  // options: [clue, cells]; byCell[c] — the options covering cell c
+  const opts: { k: number; cells: number[] }[] = [];
+  clues.forEach((_, i) => candidates(board, i).forEach((x) => opts.push({ k: i, cells: cellsOf(x, n) })));
+  const byCell: number[][] = Array.from({ length: N }, () => []);
+  opts.forEach((o, j) => o.cells.forEach((c) => byCell[c].push(j)));
+  const used = new Uint8Array(N);
+  const done = new Uint8Array(clues.length);
+  const live = (j: number) => !done[opts[j].k] && opts[j].cells.every((c) => !used[c]);
   let found = 0;
-  const go = (left: number) => {
+  const go = (free: number) => {
     if (found >= limit) return;
-    if (!left) {
-      if (used.every(Boolean)) found++;
+    if (!free) {
+      if (done.every(Boolean)) found++;
       return;
     }
-    let best = -1;
-    let opts: number[][] = [];
-    for (let i = 0; i < clues.length; i++) {
-      if (done[i]) continue;
-      const o = cand[i].filter((cs) => cs.every((x) => !used[x]));
+    let best: number[] | null = null;
+    for (let c = 0; c < N; c++) {
+      if (used[c]) continue;
+      const o = byCell[c].filter(live);
       if (!o.length) return;
-      if (best < 0 || o.length < opts.length) {
-        best = i;
-        opts = o;
+      if (!best || o.length < best.length) {
+        best = o;
         if (o.length === 1) break;
       }
     }
-    done[best] = true;
-    for (const cs of opts) {
-      for (const x of cs) used[x] = true;
-      go(left - 1);
-      for (const x of cs) used[x] = false;
+    for (const j of best!) {
+      const o = opts[j];
+      done[o.k] = 1;
+      for (const c of o.cells) used[c] = 1;
+      go(free - o.cells.length);
+      for (const c of o.cells) used[c] = 0;
+      done[o.k] = 0;
       if (found >= limit) break;
     }
-    done[best] = false;
   };
-  go(clues.length);
+  go(N);
   return found;
 }
 
@@ -211,13 +224,21 @@ export function makeBoard(level: number, seed: number): Board {
     if (!parts || parts.length < 3) continue;
     const clues: Clue[] = parts.map((x) => {
       const cs = cellsOf(x, L.n);
-      return { cell: cs[Math.floor(rand() * cs.length)], value: area(x), shape: rand() < L.shapes ? shapeOf(x) : 'any' };
+      return { cell: cs[Math.floor(rand() * cs.length)], value: area(x), letter: rand() < L.letters, shape: rand() < L.shapes ? shapeOf(x) : 'any' };
     });
-    // reveal shapes until the solution is the only one
-    const hidden = clues.map((_, i) => i).filter((i) => clues[i].shape === 'any');
+    // reveal letters and shapes until the solution is the only one (a letter first: the game teaches the letters)
+    const hidden: [number, 'letter' | 'shape'][] = [];
+    clues.forEach((k, i) => {
+      if (!k.letter) hidden.push([i, 'letter']);
+      if (k.shape === 'any') hidden.push([i, 'shape']);
+    });
     while (countSolutions({ n: L.n, clues }) > 1 && hidden.length) {
-      const i = hidden.splice(Math.floor(rand() * hidden.length), 1)[0];
-      clues[i] = { ...clues[i], shape: shapeOf(parts[i]) };
+      const letters = hidden.filter(([, w]) => w === 'letter');
+      const from = letters.length && rand() < 0.65 ? letters : hidden;
+      const pick = from[Math.floor(rand() * from.length)];
+      hidden.splice(hidden.indexOf(pick), 1);
+      const [i, what] = pick;
+      clues[i] = what === 'letter' ? { ...clues[i], letter: true } : { ...clues[i], shape: shapeOf(parts[i]) };
     }
     if (countSolutions({ n: L.n, clues }) !== 1) continue;
     return { n: L.n, clues, solution: parts };
@@ -232,12 +253,12 @@ export function check(board: Board, x: Rect): Wrong | null {
   if (!ins.length) return { why: 'none' };
   if (ins.length > 1) return { why: 'two' };
   const k = ins[0];
-  if (area(x) !== k.value) return { why: 'area', clue: k, got: area(x) };
+  if (k.letter && area(x) !== k.value) return { why: 'area', clue: k, got: area(x) };
   if (!fits(x, k.shape)) return { why: 'shape', clue: k };
   return null;
 }
 
-/** All cells covered by right rectangles — solved (any such cover is right, and there is only one). */
+/** All cells covered by allowed rectangles — solved (any such cover is right, and there is only one). */
 export function solved(board: Board, rects: Rect[]) {
   const cover = new Array(board.n * board.n).fill(0);
   for (const x of rects) {
@@ -247,10 +268,16 @@ export function solved(board: Board, rects: Rect[]) {
   return cover.every((v) => v === 1);
 }
 
-/** The hint: a rectangle of the solution the player hasn't placed yet (the one of the clue with fewest options first). */
+/**
+ * The hint — the next step: a shape of the solution the player hasn't drawn yet; first one that a wrong shape of the
+ * player stands on (that one has to go), else the clue with the fewest options (the easiest next step).
+ */
 export function hintRect(board: Board, rects: Rect[]): Rect | null {
   const missing = board.solution.map((x, i) => [x, i] as const).filter(([x]) => !rects.some((y) => sameRect(x, y)));
   if (!missing.length) return null;
+  const wrong = rects.filter((y) => !board.solution.some((x) => sameRect(x, y)));
+  const blocked = missing.find(([x]) => wrong.some((y) => overlaps(x, y)));
+  if (blocked) return blocked[0];
   missing.sort((a, b) => candidates(board, a[1]).length - candidates(board, b[1]).length);
   return missing[0][0];
 }

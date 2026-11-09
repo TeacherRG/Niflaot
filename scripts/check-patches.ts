@@ -1,20 +1,27 @@
 /**
  * «Лоскуты гематрии» (src/core/patches.ts; часть npm run check):
- *  - на каждом уровне поля (по 60 зёрен) — решение одно; скрытое решение закрывает все клетки ровно раз,
+ *  - подсказки четырёх видов: буква и форма, только буква, только форма, ничего (на старших уровнях есть все);
+ *  - на каждом уровне поля (по 60 зёрен) — решение одно (решатель перебирает и фигуры скрытых букв любого размера); скрытое решение закрывает все клетки ровно раз,
  *    у каждой буквы свой прямоугольник её гематрии и формы, внутри — ни одной другой буквы; размеры — по правилам уровня;
- *  - «Подсказка» ведёт к решению; буквы-числа — как пишут (ט״ו, ט״ז), их сумма = число;
+ *  - «Подсказка» ведёт к решению — и мимо чужой фигуры игрока; «Отменить» — на странице; буквы-числа — как пишут (ט״ו, ט״ז), их сумма = число;
  *  - уровень: без подсказок и ≤ 1 ошибки — выше, 5 ошибок или 2 подсказки — ниже, иначе тот же; границы 1…MAX_LEVEL.
  */
-import { LEVELS, MAX_LEVEL, area, check, countSolutions, hintRect, inside, letterOf, lettersOf, makeBoard, nextLevel, recordWin, shapeOf, solved, type Rect } from '../src/core/patches';
+import { LEVELS, MAX_LEVEL, area, check, overlaps, sameRect, countSolutions, hintRect, inside, letterOf, lettersOf, makeBoard, nextLevel, recordWin, shapeOf, solved, type Rect } from '../src/core/patches';
 
 const errors: string[] = [];
 const err = (m: string) => errors.push(m);
 
+const kinds = new Set<string>();
 for (let level = 1; level <= MAX_LEVEL; level++) {
   const L = LEVELS[level - 1];
+  let hiddenLetters = 0;
   for (let seed = 0; seed < 60; seed++) {
     const at = `уровень ${level}, поле ${seed}`;
     const b = makeBoard(level, seed);
+    for (const k of b.clues) {
+      if (!k.letter) hiddenLetters++;
+      if (level >= 6) kinds.add(`${k.letter}-${k.shape !== 'any'}`);
+    }
     if (b.n !== L.n) err(`${at}: размер ${b.n}`);
     if (b.clues.length !== b.solution.length) err(`${at}: букв ${b.clues.length}, прямоугольников ${b.solution.length}`);
     const cover = new Array(b.n * b.n).fill(0);
@@ -39,8 +46,18 @@ for (let level = 1; level <= MAX_LEVEL; level++) {
     }
     if (!solved(b, rects)) err(`${at}: подсказки не доводят до решения`);
     if (JSON.stringify(makeBoard(level, seed)) !== JSON.stringify(b)) err(`${at}: «Заново» даёт другое поле`);
+    // a wrong shape of the player: the hint shows the place it stands on
+    const sol0 = b.solution[0];
+    const wrongs = [sol0.w > 1 ? { ...sol0, w: sol0.w - 1 } : sol0.h > 1 ? { ...sol0, h: sol0.h - 1 } : null].filter((x): x is Rect => !!x);
+    for (const w of wrongs) {
+      const h = hintRect(b, [w]);
+      if (!h || !overlaps(h, w) || sameRect(h, w)) err(`${at}: подсказка не показывает место чужой фигуры`);
+    }
   }
+  if (level <= 3 && hiddenLetters) err(`уровень ${level}: скрытые буквы (${hiddenLetters}) — на первых уровнях все буквы видны`);
+  if (level >= 6 && !hiddenLetters) err(`уровень ${level}: нет скрытых букв`);
 }
+for (const k of ['true-true', 'true-false', 'false-true', 'false-false']) if (!kinds.has(k)) err(`нет подсказки вида ${k} (буква-форма)`);
 
 for (let v = 1; v <= 99; v++) {
   if (lettersOf(v).reduce((s, [, x]) => s + x, 0) !== v) err(`${v}: буквы ${letterOf(v)} не дают число`);
