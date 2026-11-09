@@ -268,7 +268,7 @@ export function Panels() {
               {link('#/hemshech', <Icon name="book" />, t('menu.hemshech'), today && 'title' in today.hs ? today.hs.title : t('hs.short'), !!today && 'title' in today.hs && today.hs.done)}
             </>
           ))}
-          {group(<Icon name="book" />, t('menu.tanakh'), t('menu.tanakhSub'), inTorah || starts('#/neviim', '#/ketuvim', '#/atlas'), (
+          {group(<Icon name="book" />, t('menu.tanakh'), t('menu.tanakhSub'), inTorah || starts('#/neviim', '#/ketuvim', '#/atlas', '#/search'), (
             <>
               {torahGroups.length > 0 && (
                 <details className="menu-group" open={inTorah}>
@@ -284,6 +284,7 @@ export function Panels() {
               )}
               {link(tk('neviim'), num('נ', true), t('menu.neviim'), today?.neviim.range ?? t('tanakh.daySub'), today?.neviim.done)}
               {link(tk('ketuvim'), num('כ', true), t('menu.ketuvim'), today?.ketuvim.range ?? t('tanakh.daySub'), today?.ketuvim.done)}
+              {link('#/search', <Icon name="search" />, t('search.menu'), t('search.menuSub'))}
               {link('#/atlas', num('מ', true), t('atlas.menu'), t('atlas.menuSub'))}
               {link('#/atlas/timeline', num('ז', true), t('atlas.timeline'), t('atlas.timelineSub'))}
             </>

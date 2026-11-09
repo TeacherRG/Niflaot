@@ -20,6 +20,8 @@ import { styleErrors } from './style-rules';
 import { tanakhLang, tanakhNarration } from '../src/core/tanakhNarration';
 import { dayOfVerse, resolveCite } from '../src/core/citations';
 import { CYCLE } from '../src/core/tanakh';
+import { buildSearchIndex } from './tanakh-search-index';
+import { fold, highlight, parseRef, search, terms } from '../src/core/tanakhSearch';
 
 const errors: string[] = [];
 const err = (m: string) => errors.push(m);
@@ -184,6 +186,28 @@ for (const f of files) {
       }
     }
   });
+}
+
+// «Поиск по Пророкам и Писаниям» (#/search): индекс — по стиху на каждый стих раздела, иврит и английский — у всех готовых дней
+{
+  const ix = buildSearchIndex();
+  for (const s of SECTIONS) {
+    const n = track(s).length;
+    for (const l of ['he', 'en', 'ru', 'de'] as const) if (ix[l][s].length !== n) err(`поиск: ${l}/${s} — ${ix[l][s].length} стихов, в разделе ${n}`);
+    if (files.length >= days.length) ix.he[s].forEach((x, i) => !x && err(`поиск: нет иврита у ${track(s)[i].book.slug} ${track(s)[i].chapter}:${track(s)[i].verse}`));
+  }
+  const first = (q: string, l: 'he' | 'en' | 'ru') => search(ix[l], terms(q))[0];
+  const h = first('יהושע בן נון', 'he');
+  if (!h || h.book.slug !== 'joshua' || h.chapter !== 1 || h.verse !== 1) err('поиск: «יהושע בן נון» — первым должен быть Йеґошуа 1:1');
+  if (!search(ix.he, terms('מלך')).some((x) => x.book.slug === 'joshua' && x.chapter === 2 && x.verse === 2)) err('поиск: «מלך» не находит למלך (Йеґошуа 2:2)');
+  if (first('Jericho', 'en')?.book.slug !== 'joshua') err('поиск: «Jericho» — нет Йеґошуа');
+  if (!first('Йерихо', 'ru')) err('поиск: «Йерихо» по-русски ничего не нашёл');
+  if (highlight('וַיֹּאמֶר לְמֶלֶךְ', terms('מלך')).filter(([, on]) => on).map(([x]) => fold(x)).join() !== 'מלכ') err('поиск: подсветка ивритского слова');
+  for (const [q, ref] of [['Теґилим 23', 'psalms 23:1'], ['Тегилим 23:4', 'psalms 23:4'], ['Joshua 2:5', 'joshua 2:5'], ['Jehoschua 2,5', 'joshua 2:5'], ['תהלים 1', 'psalms 1:1']] as const) {
+    const r = parseRef(q);
+    if (`${r?.book.slug} ${r?.chapter}:${r?.verse}` !== ref) err(`поиск: «${q}» — не ${ref}`);
+  }
+  if (parseRef('Joshua 99')) err('поиск: «Joshua 99» — такой главы нет');
 }
 
 if (errors.length) {

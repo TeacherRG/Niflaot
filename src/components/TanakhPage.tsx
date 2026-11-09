@@ -572,6 +572,10 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
 
           <div className="tk-tools no-print">
             <ViewMenu view={view} setView={setView} soon={soon} />
+            <a className="lang-btn tk-print-btn tk-search-btn" href="#/search" aria-label={t('search.title')} title={t('search.title')}>
+              <Icon name="search" size={17} />
+              <span>{t('search.short')}</span>
+            </a>
             {sec && <PrintMenu other={other} both={printBoth} setBoth={setPrintBoth} />}
           </div>
           {missing && <p className="tk-note">{t(want === 'de' ? 'tanakh.deMissing' : 'tanakh.ruMissing')}</p>}
