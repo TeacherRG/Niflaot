@@ -148,7 +148,7 @@ function certTitle(c: Certificate, t: ReturnType<typeof useI18n>['t']) {
     : c.kind === 'hemshech'
       ? t('academy.master.hemshech')
       : c.kind === 'words'
-        ? t('academy.master.words')
+        ? t(c.id === 'w-all' ? 'academy.master.wordsAll' : 'academy.master.words')
         : c.kind === 'torahWords'
           ? t('academy.master.torahWords')
           : c.kind === 'nigun'

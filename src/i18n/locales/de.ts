@@ -1379,6 +1379,7 @@ const de: Messages = {
   'words.homeReview': "Wiederholen",
   'words.bpLine': "Wörter des Tanach: {k} von {n} bekannt · {p} % des Textes",
   'academy.master.words': "Kenner des Hebräischen im Tanach",
+  'academy.master.wordsAll': "Rabbi der Sprache des Tanach",
   'academy.words': "Hebräisch des Tanach",
   'academy.wordsNote': "Zertifikate für die 100, 300, 500, 1000, 1500, 2000, 2500 und 3000 häufigsten Wörter der Propheten und Schriften. Es zählen nur Wörter, die beim Wiederholen in „Meine Wörter“ bestätigt sind: auf einer Karte gewusst, nicht nur markiert.",
   'academy.wordsMeta': "Beim Wiederholen bestätigt: {got} von {max} · als „Kenne ich“ markiert: {known}",

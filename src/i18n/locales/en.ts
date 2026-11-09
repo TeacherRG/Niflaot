@@ -1379,6 +1379,7 @@ const en: Messages = {
   'words.homeReview': "Review",
   'words.bpLine': "Words of Tanakh: {k} of {n} known · {p}% of the text",
   'academy.master.words': "Expert in the Hebrew of Tanakh",
+  'academy.master.wordsAll': "Rabbi of the Language of Tanakh",
   'academy.words': "Hebrew of Tanakh",
   'academy.wordsNote': "Certificates for the 100, 300, 500, 1000, 1500, 2000, 2500 and 3000 most frequent words of the Prophets and Writings. Only words confirmed by the review in “My words” count: remembered on a card, not just marked.",
   'academy.wordsMeta': "Confirmed by the review: {got} of {max} · marked “I know it”: {known}",

@@ -315,22 +315,30 @@ export const knownCount = (dict: Dict, known: WordStore) => Object.keys(dict.tr)
 export const textCoverage = (dict: Dict, s: WordStore) =>
   Math.round((dict.words.reduce((a, w) => a + (isKnown(s, w.id) ? w.n : 0), 0) / dict.total) * 100);
 
+/**
+ * Все слова Пророков и Писаний (без имён, мест и надписей) — `all` в src/tanakh/words.json (`fetch-words.py build`; сверяет
+ * `check-words.ts`): последняя веха и сертификат «Раввин языка Танаха» (`w-all`). Пока словарь не дописан до всех слов, его не получить.
+ */
+export const WORDS_ALL = 5610;
 /** Вехи «Моих слов» — по ним и сертификаты «Академии» (следующий этап). */
-export const WORD_GOALS = [100, 300, 500, 1000, 1500, 2000, 2500, 3000];
+export const WORD_GOALS = [100, 300, 500, 1000, 1500, 2000, 2500, 3000, WORDS_ALL];
 
 /**
- * Сертификаты «Академии» «100 / 300 / 500 / 1000 / 1500 / 2000 / 2500 / 3000 слов Танаха» (`w-<число>`): засчитываются только слова, **подтверждённые
+ * Сертификаты «Академии» «100 / 300 / 500 / 1000 / 1500 / 2000 / 2500 / 3000 слов Танаха» (`w-<число>`) и «Раввин языка Танаха» — все слова (`w-all`): засчитываются только слова, **подтверждённые
  * повторением** — вспомненные на карточке хотя бы раз после «Знаю» / выученные (коробка `VERIFIED_BOX` и выше), а не
  * просто отмеченные. got — подтверждено (не больше вехи), done — «знаю» всего.
  */
 export const VERIFIED_BOX = 4;
 export const verifiedCount = (s: WordStore) => Object.values(s).filter((e) => e[1] >= VERIFIED_BOX).length;
-const W_NAME = (n: number) => ({ ru: `${n} слов Танаха`, en: `${n} words of Tanakh`, de: `${n} Wörter des Tanach` });
+const W_NAME = (n: number) =>
+  n === WORDS_ALL
+    ? { ru: `все ${n} слов Пророков и Писаний`, en: `all ${n} words of the Prophets and Writings`, de: `alle ${n} Wörter der Propheten und Schriften` }
+    : { ru: `${n} слов Танаха`, en: `${n} words of Tanakh`, de: `${n} Wörter des Tanach` };
 export function wordsCertificates(s: WordStore): (Certificate & { goal: number; progress: Progress })[] {
   const verified = verifiedCount(s);
   const known = Object.values(s).filter((e) => e[1] >= KNOWN_BOX).length;
   return WORD_GOALS.map((goal) => ({
-    id: `w-${goal}`,
+    id: goal === WORDS_ALL ? 'w-all' : `w-${goal}`,
     kind: 'words' as const,
     goal,
     book: { id: String(goal), he: 'מִלִּים', name: W_NAME(goal) },

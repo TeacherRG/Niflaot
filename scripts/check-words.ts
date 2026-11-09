@@ -14,7 +14,7 @@ import { styleErrors } from './style-rules';
 import { LESSONS } from '../src/lessons';
 import { makeRound, torahWords, torahWordsCertificates } from '../src/core/torahWords';
 import { readHebrew } from '../src/core/translit';
-import { DAILY_KNOWN, MERGED, todaysReview, type WordStore } from '../src/core/words';
+import { DAILY_KNOWN, MERGED, todaysReview, WORDS_ALL, wordsCertificates, type WordStore } from '../src/core/words';
 import { apart, makePicRound, PIC_WORDS } from '../src/core/picWords';
 
 type Lang = 'ru' | 'en' | 'de';
@@ -37,8 +37,11 @@ const read = (path: string) => JSON.parse(readFileSync(new URL(path, import.meta
 
 // Имена Всевышнего среди слов: номер Стронга → как писать (אֵל «к» и אַל «не» — не Имена, поэтому по номерам)
 const NAMES: Record<string, string> = { '430': 'אֱלֹקִים', '433': 'אֱלוֹקַּ', '410': 'אֵ-ל', '136': 'אֲדֹ-נָי', '7706': 'שַׁ-דַּי' };
-const dict = read('../src/tanakh/words.json') as { words: { id: string; he: string; n: number; root?: string; cov: number }[] };
+const dict = read('../src/tanakh/words.json') as { all: number; words: { id: string; he: string; n: number; root?: string; cov: number }[] };
 const ids = dict.words.map((w) => w.id);
+// «Раввин языка Танаха» — все слова Пророков и Писаний: порог = `all` из words.json
+if (WORDS_ALL !== dict.all) err(`WORDS_ALL в src/core/words.ts = ${WORDS_ALL}, а слов в Пророках и Писаниях — ${dict.all} (all в words.json)`);
+if (wordsCertificates({}).at(-1)?.id !== 'w-all') err('последний сертификат слов — не «w-all»');
 if (new Set(ids).size !== ids.length) err('words.json: номера слов повторяются');
 dict.words.forEach((w, i) => {
   const prev = dict.words[i - 1];
