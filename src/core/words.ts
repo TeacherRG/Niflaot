@@ -319,7 +319,7 @@ export const textCoverage = (dict: Dict, s: WordStore) =>
  * Все слова Пророков и Писаний (без имён, мест и надписей) — `all` в src/tanakh/words.json (`fetch-words.py build`; сверяет
  * `check-words.ts`): последняя веха и сертификат «Раввин языка Танаха» (`w-all`). Пока словарь не дописан до всех слов, его не получить.
  */
-export const WORDS_ALL = 5576;
+export const WORDS_ALL = 5567;
 /** Вехи «Моих слов» — по ним и сертификаты «Академии» (следующий этап). */
 export const WORD_GOALS = [100, 300, 500, 1000, 1500, 2000, 2500, 3000, WORDS_ALL];
 
