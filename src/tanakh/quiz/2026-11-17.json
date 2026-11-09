@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 13:30",
+   "q": {
+    "ru": "Сколько городов было в селениях Яира?",
+    "en": "How many towns were in Havvoth-jair?",
+    "de": "Wie viele Städte gehörten zu den Zeltdörfern Jairs?"
+   },
+   "o": [
+    {
+     "ru": "Шестьдесят",
+     "en": "Sixty",
+     "de": "Sechzig"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    },
+    {
+     "ru": "Сорок",
+     "en": "Forty",
+     "de": "Vierzig"
+    },
+    {
+     "ru": "Сто",
+     "en": "A hundred",
+     "de": "Hundert"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 14:2",
+   "q": {
+    "ru": "Как делили удел девяти коленам и половине?",
+    "en": "How was the portion of the nine and a half tribes divided?",
+    "de": "Wie wurde das Erbe der neuneinhalb Stämme verteilt?"
+   },
+   "o": [
+    {
+     "ru": "По жребию",
+     "en": "By lot",
+     "de": "Durch das Los"
+    },
+    {
+     "ru": "По силе колена",
+     "en": "By the strength of the tribe",
+     "de": "Nach der Stärke des Stammes"
+    },
+    {
+     "ru": "По выбору Йеґошуа",
+     "en": "By Joshua’s choice",
+     "de": "Nach Jehoschuas Wahl"
+    },
+    {
+     "ru": "За серебро",
+     "en": "For silver",
+     "de": "Für Silber"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 14:4",
+   "q": {
+    "ru": "Что дали левитам вместо удела?",
+    "en": "What were the Levites given instead of a portion?",
+    "de": "Was bekamen die Leviten anstelle eines Erbes?"
+   },
+   "o": [
+    {
+     "ru": "Города для жилья и пастбища",
+     "en": "Towns to live in and pastures",
+     "de": "Städte zum Wohnen und Weideplätze"
+    },
+    {
+     "ru": "Целую область",
+     "en": "A whole region",
+     "de": "Ein ganzes Gebiet"
+    },
+    {
+     "ru": "Ничего",
+     "en": "Nothing at all",
+     "de": "Gar nichts"
+    },
+    {
+     "ru": "Золото",
+     "en": "Gold",
+     "de": "Gold"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 14:6",
+   "q": {
+    "ru": "Кто пришёл к Йеґошуа в Гилгал с сынами Йеґуды?",
+    "en": "Who came to Joshua at Gilgal with the Judites?",
+    "de": "Wer kam mit den Kindern Jehudas zu Jehoschua nach Gilgal?"
+   },
+   "o": [
+    {
+     "ru": "Калев, сын Йефуне",
+     "en": "Caleb son of Jephunneh",
+     "de": "Kalew, der Sohn Jefunnes"
+    },
+    {
+     "ru": "Отниэль, сын Кназа",
+     "en": "Othniel son of Kenaz",
+     "de": "Otniel, der Sohn Kenas’"
+    },
+    {
+     "ru": "Эльазар-коэн",
+     "en": "Eleazar the priest",
+     "de": "Elasar der Kohen"
+    },
+    {
+     "ru": "Билам",
+     "en": "Balaam",
+     "de": "Bilam"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 22:12",
+   "q": {
+    "ru": "Почему Давид просит Б-га не быть далёким?",
+    "en": "Why does David ask G-d not to be far?",
+    "de": "Warum bittet David G-tt, nicht fern zu sein?"
+   },
+   "o": [
+    {
+     "ru": "Беда близка, а помощника нет",
+     "en": "Trouble is near and there is none to help",
+     "de": "Die Not ist nah, und es gibt keinen Helfer"
+    },
+    {
+     "ru": "Он хочет стать царём",
+     "en": "He wants to become king",
+     "de": "Er will König werden"
+    },
+    {
+     "ru": "Он боится темноты",
+     "en": "He is afraid of the dark",
+     "de": "Er hat Angst vor der Dunkelheit"
+    },
+    {
+     "ru": "Он заблудился в пустыне",
+     "en": "He is lost in the desert",
+     "de": "Er hat sich in der Wüste verirrt"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 22:13",
+   "q": {
+    "ru": "С кем Давид сравнивает врагов, окруживших его?",
+    "en": "To what does David compare the enemies surrounding him?",
+    "de": "Womit vergleicht David die Feinde, die ihn umgeben?"
+   },
+   "o": [
+    {
+     "ru": "С быками Башана",
+     "en": "The bulls of Bashan",
+     "de": "Mit den Stieren von Baschan"
+    },
+    {
+     "ru": "С орлами",
+     "en": "Eagles",
+     "de": "Mit Adlern"
+    },
+    {
+     "ru": "Со змеями",
+     "en": "Snakes",
+     "de": "Mit Schlangen"
+    },
+    {
+     "ru": "С волнами",
+     "en": "Waves",
+     "de": "Mit Wellen"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 22:15",
+   "q": {
+    "ru": "Каким стало сердце Давида?",
+    "en": "What did David’s heart become like?",
+    "de": "Wie wurde Davids Herz?"
+   },
+   "o": [
+    {
+     "ru": "Как воск, тающий внутри",
+     "en": "Like wax melting within",
+     "de": "Wie Wachs, das im Inneren schmilzt"
+    },
+    {
+     "ru": "Как камень",
+     "en": "Like stone",
+     "de": "Wie Stein"
+    },
+    {
+     "ru": "Как железо",
+     "en": "Like iron",
+     "de": "Wie Eisen"
+    },
+    {
+     "ru": "Как огонь",
+     "en": "Like fire",
+     "de": "Wie Feuer"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 22:19",
+   "q": {
+    "ru": "Что враги делают с одеждами Давида?",
+    "en": "What do the enemies do with David’s clothes?",
+    "de": "Was machen die Feinde mit Davids Kleidern?"
+   },
+   "o": [
+    {
+     "ru": "Делят и бросают о них жребий",
+     "en": "Divide them and cast lots for them",
+     "de": "Sie verteilen sie und werfen das Los darum"
+    },
+    {
+     "ru": "Сжигают",
+     "en": "Burn them",
+     "de": "Sie verbrennen sie"
+    },
+    {
+     "ru": "Возвращают ему",
+     "en": "Return them to him",
+     "de": "Sie geben sie ihm zurück"
+    },
+    {
+     "ru": "Хоронят",
+     "en": "Bury them",
+     "de": "Sie vergraben sie"
+    }
+   ]
+  }
+ ]
+}

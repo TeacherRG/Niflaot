@@ -1,0 +1,216 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 13:12",
+   "q": {
+    "ru": "Кто был «из последних рефаим»?",
+    "en": "Who was “the last of the remaining Rephaim”?",
+    "de": "Wer war „von den Letzten der Refaim“?"
+   },
+   "o": [
+    {
+     "ru": "Ог, царь Башана",
+     "en": "Og, king of Bashan",
+     "de": "Og, der König von Baschan"
+    },
+    {
+     "ru": "Сихон, царь Хешбона",
+     "en": "Sihon, king of Heshbon",
+     "de": "Sichon, der König von Cheschbon"
+    },
+    {
+     "ru": "Билам, сын Беора",
+     "en": "Balaam son of Beor",
+     "de": "Bilam, der Sohn Beors"
+    },
+    {
+     "ru": "Адони-Цедек",
+     "en": "Adoni-zedek",
+     "de": "Adoni-Zedek"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 13:13",
+   "q": {
+    "ru": "Кого сыны Израиля не изгнали?",
+    "en": "Whom did the Israelites fail to dispossess?",
+    "de": "Wen vertrieben die Kinder Israels nicht?"
+   },
+   "o": [
+    {
+     "ru": "Гешуреев и маахатеев",
+     "en": "The Geshurites and the Maacathites",
+     "de": "Die Geschuriter und die Maachatiter"
+    },
+    {
+     "ru": "Гивонитян",
+     "en": "The Gibeonites",
+     "de": "Die Giwoniter"
+    },
+    {
+     "ru": "Амалека",
+     "en": "Amalek",
+     "de": "Amalek"
+    },
+    {
+     "ru": "Моавитян",
+     "en": "The Moabites",
+     "de": "Die Moawiter"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 13:14",
+   "q": {
+    "ru": "Что стало уделом колена Леви?",
+    "en": "What became the portion of the tribe of Levi?",
+    "de": "Was wurde das Erbe des Stammes Levi?"
+   },
+   "o": [
+    {
+     "ru": "Огнепалимые жертвы Г-спода",
+     "en": "The fire offerings of the L-rd",
+     "de": "Die Feueropfer des Ewigen"
+    },
+    {
+     "ru": "Гора Хермон",
+     "en": "Mount Hermon",
+     "de": "Der Berg Chermon"
+    },
+    {
+     "ru": "Город Хешбон",
+     "en": "The town of Heshbon",
+     "de": "Die Stadt Cheschbon"
+    },
+    {
+     "ru": "Половина Гилада",
+     "en": "Half of Gilead",
+     "de": "Die Hälfte des Gilad"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 13:15",
+   "q": {
+    "ru": "Как Моше разделил землю колену Реувена?",
+    "en": "How did Moshe divide the land for the tribe of Reuben?",
+    "de": "Wie verteilte Mosche das Land an den Stamm Reuwen?"
+   },
+   "o": [
+    {
+     "ru": "По семействам",
+     "en": "By their clans",
+     "de": "Nach ihren Familien"
+    },
+    {
+     "ru": "Поровну каждому человеку",
+     "en": "Equally to every man",
+     "de": "Gleich an jeden Mann"
+    },
+    {
+     "ru": "Только старейшинам",
+     "en": "Only to the elders",
+     "de": "Nur an die Ältesten"
+    },
+    {
+     "ru": "По возрасту",
+     "en": "By age",
+     "de": "Nach dem Alter"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 21:7",
+   "q": {
+    "ru": "Чем Б-г обрадовал царя?",
+    "en": "With what did G-d gladden the king?",
+    "de": "Womit hat G-tt den König erfreut?"
+   },
+   "o": [
+    {
+     "ru": "Радостью перед Своим ликом",
+     "en": "With the joy of His presence",
+     "de": "Mit Freude vor Seinem Angesicht"
+    },
+    {
+     "ru": "Большой добычей",
+     "en": "With great spoil",
+     "de": "Mit großer Beute"
+    },
+    {
+     "ru": "Новым дворцом",
+     "en": "With a new palace",
+     "de": "Mit einem neuen Palast"
+    },
+    {
+     "ru": "Долгим сном",
+     "en": "With long sleep",
+     "de": "Mit langem Schlaf"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 21:8",
+   "q": {
+    "ru": "Почему царь не пошатнётся?",
+    "en": "Why will the king not be shaken?",
+    "de": "Warum wankt der König nicht?"
+   },
+   "o": [
+    {
+     "ru": "Он надеется на Г-спода",
+     "en": "He trusts in the L-rd",
+     "de": "Er vertraut auf den Ewigen"
+    },
+    {
+     "ru": "У него большое войско",
+     "en": "He has a large army",
+     "de": "Er hat ein großes Heer"
+    },
+    {
+     "ru": "У него крепкие стены",
+     "en": "He has strong walls",
+     "de": "Er hat starke Mauern"
+    },
+    {
+     "ru": "Он очень богат",
+     "en": "He is very rich",
+     "de": "Er ist sehr reich"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 21:14",
+   "q": {
+    "ru": "Чем кончается Теґилим 21?",
+    "en": "How does Psalm 21 end?",
+    "de": "Wie endet Tehillim 21?"
+   },
+   "o": [
+    {
+     "ru": "«Будем петь и воспевать Твоё могущество»",
+     "en": "“We will sing and chant the praises of Your mighty deeds”",
+     "de": "„Wir wollen singen und Deine Macht besingen“"
+    },
+    {
+     "ru": "«Г-сподь — мой пастырь»",
+     "en": "“The L-rd is my shepherd”",
+     "de": "„Der Ewige ist mein Hirte“"
+    },
+    {
+     "ru": "«Б-же мой, Б-же мой»",
+     "en": "“My G-d, my G-d”",
+     "de": "„Mein G-tt, mein G-tt“"
+    },
+    {
+     "ru": "«Храни меня, Б-же»",
+     "en": "“Protect me, O G-d”",
+     "de": "„Behüte mich, G-tt“"
+    }
+   ]
+  }
+ ]
+}

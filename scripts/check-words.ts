@@ -14,7 +14,8 @@ import { styleErrors } from './style-rules';
 import { LESSONS } from '../src/lessons';
 import { makeRound, torahWords, torahWordsCertificates } from '../src/core/torahWords';
 import { readHebrew } from '../src/core/translit';
-import { DAILY_KNOWN, MERGED, todaysReview, type WordStore } from '../src/core/words';
+import { DAILY_KNOWN, MERGED, todaysReview, WORDS_ALL, wordsCertificates, type WordStore } from '../src/core/words';
+import { apart, makePicRound, PIC_WORDS } from '../src/core/picWords';
 
 type Lang = 'ru' | 'en' | 'de';
 const errors: string[] = [];
@@ -36,8 +37,11 @@ const read = (path: string) => JSON.parse(readFileSync(new URL(path, import.meta
 
 // Имена Всевышнего среди слов: номер Стронга → как писать (אֵל «к» и אַל «не» — не Имена, поэтому по номерам)
 const NAMES: Record<string, string> = { '430': 'אֱלֹקִים', '433': 'אֱלוֹקַּ', '410': 'אֵ-ל', '136': 'אֲדֹ-נָי', '7706': 'שַׁ-דַּי' };
-const dict = read('../src/tanakh/words.json') as { words: { id: string; he: string; n: number; root?: string; cov: number }[] };
+const dict = read('../src/tanakh/words.json') as { all: number; words: { id: string; he: string; n: number; root?: string; cov: number }[] };
 const ids = dict.words.map((w) => w.id);
+// «Раввин языка Танаха» — все слова Пророков и Писаний: порог = `all` из words.json
+if (WORDS_ALL !== dict.all) err(`WORDS_ALL в src/core/words.ts = ${WORDS_ALL}, а слов в Пророках и Писаниях — ${dict.all} (all в words.json)`);
+if (wordsCertificates({}).at(-1)?.id !== 'w-all') err('последний сертификат слов — не «w-all»');
 if (new Set(ids).size !== ids.length) err('words.json: номера слов повторяются');
 dict.words.forEach((w, i) => {
   const prev = dict.words[i - 1];
@@ -214,9 +218,24 @@ for (const lang of ['ru', 'en', 'de'] as Lang[]) {
       if (readHebrew(he, l) !== want[i]) err(`чтение слова ${he} (${l}): «${readHebrew(he, l)}», а нужно «${want[i]}»`);
     });
 }
+// «Слово — картинка»: у каждого слова игры — картинка, перевод на трёх языках; в вопросе — 4 картинки, которые не путаются
+{
+  if (new Set(PIC_WORDS).size !== PIC_WORDS.length) err('«Слово — картинка»: слово дважды');
+  for (const id of PIC_WORDS) {
+    if (!existsSync(`public/lashon/pics/${id}.webp`)) err(`«Слово — картинка»: нет картинки public/lashon/pics/${id}.webp`);
+    for (const l of ['ru', 'en', 'de'] as const) if (!tr[l][id]) err(`«Слово — картинка»: у ${id} нет перевода (${l})`);
+  }
+  let seed = 1;
+  const rnd = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+  for (let k = 0; k < 200; k++)
+    for (const q of makePicRound(PIC_WORDS, {}, 10, rnd)) {
+      if (q.options.length !== 4 || !q.options.includes(q.id)) err(`«Слово — картинка»: вопрос ${q.id} — не 4 варианта`);
+      for (const a of q.options) for (const b of q.options) if (a < b && !apart(a, b)) err(`«Слово — картинка»: ${a} и ${b} в одном вопросе`);
+    }
+}
 if (errors.length) {
   console.error(`✗ Слова отрывка: ${errors.length} ошибок\n  ${errors.slice(0, 40).join('\n  ')}`);
   process.exit(1);
 }
 const learn = Object.keys(tr.ru).length;
-console.log(`✓ Слова отрывка: словарь ${ids.length} слов, переведено ${learn} (${dict.words[learn - 1].cov}% текста) на ru/en/de, файлы всех ${cycleJson.days.length} дней; «Слова Торы» для детей — ${deck} слов из уроков`);
+console.log(`✓ Слова отрывка: словарь ${ids.length} слов, переведено ${learn} (${dict.words[learn - 1].cov}% текста) на ru/en/de, файлы всех ${cycleJson.days.length} дней; «Слова Торы» для детей — ${deck} слов из уроков; «Слово — картинка» — ${PIC_WORDS.length} слов`);
