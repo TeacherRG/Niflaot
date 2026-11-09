@@ -15637,5 +15637,4181 @@
     "source": "https://www.talmud.de/tlmd/tanach/  "
    }
   }
+ },
+ "torah-1-1": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 1:1",
+   "en": "Genesis 1:1",
+   "de": "Bereschit 1,1"
+  },
+  "ref": "Genesis 1:1",
+  "url": "https://www.sefaria.org/Genesis_1.1",
+  "he": [
+   "בראשית ברא אלקים את השמים ואת הארץ"
+  ],
+  "en": [
+   "In the beginning G-d created the heaven and the earth."
+  ],
+  "ru": [
+   "Вначале, когда творил Б-г небеса и землю,"
+  ],
+  "de": [
+   "Von Anfang hat G-tt den Himmel und die Erde erschaffen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-1-4": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 1:4",
+   "en": "Genesis 1:4",
+   "de": "Bereschit 1,4"
+  },
+  "ref": "Genesis 1:4",
+  "url": "https://www.sefaria.org/Genesis_1.4",
+  "he": [
+   "וירא אלקים את האור כי טוב ויבדל אלקים בין האור ובין החשך"
+  ],
+  "en": [
+   "And G-d saw the light, that it was good; and G-d divided the light from the darkness."
+  ],
+  "ru": [
+   "И увидел Б-г, что свет хорош, и отделил Б-г свет от тьмы."
+  ],
+  "de": [
+   "G-tt schaute das Licht an, daß es gut sei, und es schied G-tt zwischen dem Lichte und der Finsternis."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-1-7": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 1:7",
+   "en": "Genesis 1:7",
+   "de": "Bereschit 1,7"
+  },
+  "ref": "Genesis 1:7",
+  "url": "https://www.sefaria.org/Genesis_1.7",
+  "he": [
+   "ויעש אלקים את הרקיע ויבדל בין המים אשר מתחת לרקיע ובין המים אשר מעל לרקיע ויהי כן"
+  ],
+  "en": [
+   "And G-d made the firmament, and divided the waters which were under the firmament from the waters which were above the firmament; and it was so."
+  ],
+  "ru": [
+   "И сделал Б-г поверхность, и отделил воды, которые под поверхностью, от вод, которые над поверхностью, и стало так."
+  ],
+  "de": [
+   "Es machte G-tt die Wölbung und schied zwischen den Wassern, die unter der Wölbung, und den Wassern, die über der Wölbung sind, und da ward es also."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-1-12": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 1:12",
+   "en": "Genesis 1:12",
+   "de": "Bereschit 1,12"
+  },
+  "ref": "Genesis 1:12",
+  "url": "https://www.sefaria.org/Genesis_1.12",
+  "he": [
+   "ותוצא הארץ דשא עשב מזריע זרע למינהו ועץ עשה פרי אשר זרעו בו למינהו וירא אלקים כי טוב"
+  ],
+  "en": [
+   "And the earth brought forth grass, herb yielding seed after its kind, and tree bearing fruit, wherein is the seed thereof, after its kind; and G-d saw that it was good."
+  ],
+  "ru": [
+   "И извлекла земля поросль, траву, приносящую семя по виду его, и дерево, дающее плод, в котором семя его, по виду его, и увидел Б-г, что (это) хорошо."
+  ],
+  "de": [
+   "Die Erde setzte Getriebe hinaus, für seine Gattung Samen streuendes Kraut, und Frucht bildenden Baum, in welcher sein Samen liegt für seine Gattung; und G-tt sah, daß es gut sei."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-1-14": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 1:14",
+   "en": "Genesis 1:14",
+   "de": "Bereschit 1,14"
+  },
+  "ref": "Genesis 1:14",
+  "url": "https://www.sefaria.org/Genesis_1.14",
+  "he": [
+   "ויאמר אלקים יהי מארת ברקיע השמים להבדיל בין היום ובין הלילה והיו לאתת ולמועדים ולימים ושנים"
+  ],
+  "en": [
+   "And G-d said: ‘Let there be lights in the firmament of the heaven to divide the day from the night; and let them be for signs, and for seasons, and for days and years;"
+  ],
+  "ru": [
+   "И сказал Б-г: да будут светила на небесной поверхности, чтобы отделять день от ночи, и да будут они для знамений, и для сроков, и для дней и лет."
+  ],
+  "de": [
+   "G-tt sprach: Es werde eine Einheit von Lichtträgern an dem Gewölbe des Himmels, zu unterscheiden zwischen dem Tage und der Nacht; und sie sollen auch dienen zu Zeichen und zu Festzeiten, und für Tages- und Jahreszeiten."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-1-27": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 1:27",
+   "en": "Genesis 1:27",
+   "de": "Bereschit 1,27"
+  },
+  "ref": "Genesis 1:27",
+  "url": "https://www.sefaria.org/Genesis_1.27",
+  "he": [
+   "ויברא אלקים את האדם בצלמו בצלם אלקים ברא אתו זכר ונקבה ברא אתם"
+  ],
+  "en": [
+   "And G-d created man in His own image, in the image of G-d created He him; male and female created He them."
+  ],
+  "ru": [
+   "И сотворил Б-г человека по образу своему: по образу Б-жьему сотворил его, мужчиной и женщиной сотворил их."
+  ],
+  "de": [
+   "Da schuf G-tt den Menschen in einer seiner würdigen Hülle; in G-ttes würdiger Hülle hat er ihn geschaffen; männlich und weiblich hat er sie geschaffen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-1-31": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 1:31",
+   "en": "Genesis 1:31",
+   "de": "Bereschit 1,31"
+  },
+  "ref": "Genesis 1:31",
+  "url": "https://www.sefaria.org/Genesis_1.31",
+  "he": [
+   "וירא אלקים את כל אשר עשה והנה טוב מאד ויהי ערב ויהי בקר יום הששי"
+  ],
+  "en": [
+   "And G-d saw every thing that He had made, and, behold, it was very good. And there was evening and there was morning, the sixth day."
+  ],
+  "ru": [
+   "И увидел Б-г все, что сделал — и вот, очень хорошо. И был вечер, и было утро, шестой день."
+  ],
+  "de": [
+   "G-tt sah was er geschaffen hatte insgesamt, und siehe da, es war sehr gut. Es ward Abend, es ward Morgen: der sechste Tag."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-2-2": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 2:2",
+   "en": "Genesis 2:2",
+   "de": "Bereschit 2,2"
+  },
+  "ref": "Genesis 2:2",
+  "url": "https://www.sefaria.org/Genesis_2.2",
+  "he": [
+   "ויכל אלקים ביום השביעי מלאכתו אשר עשה וישבת ביום השביעי מכל מלאכתו אשר עשה"
+  ],
+  "en": [
+   "And on the seventh day G-d finished His work which He had made; and He rested on the seventh day from all His work which He had made."
+  ],
+  "ru": [
+   "И завершил Б-г к седьмому дню всю свою работу, которую делал, и отдохнул в седьмой день от всей своей работы, которую делал."
+  ],
+  "de": [
+   "Da vollendete G-tt mit dem siebten Tage sein Werk, das er gemacht hatte, und hörte mit dem siebten Tage von jeglichem seinem Werke, das er gemacht hatte, auf."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-2-3": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 2:3",
+   "en": "Genesis 2:3",
+   "de": "Bereschit 2,3"
+  },
+  "ref": "Genesis 2:3",
+  "url": "https://www.sefaria.org/Genesis_2.3",
+  "he": [
+   "ויברך אלקים את יום השביעי ויקדש אתו כי בו שבת מכל מלאכתו אשר ברא אלקים לעשות"
+  ],
+  "en": [
+   "And G-d blessed the seventh day, and hallowed it; because that in it He rested from all His work which G-d in creating had made."
+  ],
+  "ru": [
+   "И благословил Б-г седьмой день, и освятил его, ибо тогда отдохнул от всей своей работы, которую творил Б-г и делал."
+  ],
+  "de": [
+   "G-tt segnete den siebten Tag und heiligte ihn; denn mit ihm hatte er von allem seinem Werke aufgehört, welches Er, G-tt, ins Dasein gesetzt hatte, es fort zu gestalten."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-2-4": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 2:4",
+   "en": "Genesis 2:4",
+   "de": "Bereschit 2,4"
+  },
+  "ref": "Genesis 2:4",
+  "url": "https://www.sefaria.org/Genesis_2.4",
+  "he": [
+   "אלה תולדות השמים והארץ בהבראם ביום עשות ה׳ אלקים ארץ ושמים"
+  ],
+  "en": [
+   "These are the generations of the heaven and of the earth when they were created, in the day that the L-rd G-d made earth and heaven."
+  ],
+  "ru": [
+   "Это порождения небес и земли при их сотворении. Когда делал Г-сподь Б-г небеса и землю,"
+  ],
+  "de": [
+   "Dies sind die Erzeugnisse des Himmels und der Erde, die bereits in ihrer Erschaffung mit dem Tage, an welchem G-tt Erde und Himmel gestaltete, gegeben waren."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-2-7": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 2:7",
+   "en": "Genesis 2:7",
+   "de": "Bereschit 2,7"
+  },
+  "ref": "Genesis 2:7",
+  "url": "https://www.sefaria.org/Genesis_2.7",
+  "he": [
+   "וייצר ה׳ אלקים את האדם עפר מן האדמה ויפח באפיו נשמת חיים ויהי האדם לנפש חיה"
+  ],
+  "en": [
+   "Then the L-rd G-d formed man of the dust of the ground, and breathed into his nostrils the breath of life; and man became a living soul."
+  ],
+  "ru": [
+   "И образовал Г-сподь Б-г человека, прах из земли, и вдохнул в ноздри его дыхание жизни, и стал человек живым существом."
+  ],
+  "de": [
+   "Da bildete <i>G-tt</i> den Menschen, Staub von dem Menschen-Boden, und hauchte in sein Antlitz Odem des Lebens, und so ward der Mensch zu einer lebendigen Persönlichkeit."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-2-22": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 2:22",
+   "en": "Genesis 2:22",
+   "de": "Bereschit 2,22"
+  },
+  "ref": "Genesis 2:22",
+  "url": "https://www.sefaria.org/Genesis_2.22",
+  "he": [
+   "ויבן ה׳ אלקים את הצלע אשר לקח מן האדם לאשה ויבאה אל האדם"
+  ],
+  "en": [
+   "And the rib, which the L-rd G-d had taken from the man, made He a woman, and brought her unto the man."
+  ],
+  "ru": [
+   "И построил Г-сподь из ребра, которое взял у человека, жену, и привел ее к человеку."
+  ],
+  "de": [
+   "Sodann gestaltete <i>G-tt</i> die Seite, die er von dem Menschen genommen hatte, zum Weibe und brachte sie zum Menschen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-3-11": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 3:11",
+   "en": "Genesis 3:11",
+   "de": "Bereschit 3,11"
+  },
+  "ref": "Genesis 3:11",
+  "url": "https://www.sefaria.org/Genesis_3.11",
+  "he": [
+   "ויאמר מי הגיד לך כי עירם אתה המן העץ אשר צויתיך לבלתי אכל ממנו אכלת"
+  ],
+  "en": [
+   "And He said: ‘Who told thee that thou wast naked? Hast thou eaten of the tree, whereof I commanded thee that thou shouldest not eat?’"
+  ],
+  "ru": [
+   "И сказал он: Кто рассказал тебе, что ты наг? Неужто поел ты от дерева, от которого я не велел тебе есть?"
+  ],
+  "de": [
+   "Er sprach: Wer hat dir denn zum Bewusstsein gebracht, daß du nackt seiest? Hast du von dem Baume, von dem ich dir geboten nicht zu essen, gegessen?"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-3-12": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 3:12",
+   "en": "Genesis 3:12",
+   "de": "Bereschit 3,12"
+  },
+  "ref": "Genesis 3:12",
+  "url": "https://www.sefaria.org/Genesis_3.12",
+  "he": [
+   "ויאמר האדם האשה אשר נתתה עמדי הוא נתנה לי מן העץ ואכל"
+  ],
+  "en": [
+   "And the man said: ‘The woman whom Thou gavest to be with me, she gave me of the tree, and I did eat.’"
+  ],
+  "ru": [
+   "И сказал человек: Жена, которую ты дал, (чтоб была) при мне — она дала мне от дерева, и я поел."
+  ],
+  "de": [
+   "Da sprach der Mensch: Die Frau, die du mir ja zur Seite gegeben, sie gab mir von dem Baume und ich aß."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-3-21": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 3:21",
+   "en": "Genesis 3:21",
+   "de": "Bereschit 3,21"
+  },
+  "ref": "Genesis 3:21",
+  "url": "https://www.sefaria.org/Genesis_3.21",
+  "he": [
+   "ויעש ה׳ אלקים לאדם ולאשתו כתנות עור וילבשם"
+  ],
+  "en": [
+   "And the L-rd G-d made for Adam and for his wife garments of skins, and clothed them."
+  ],
+  "ru": [
+   "И сделал Г-сподь Б-г человеку и его жене кожаные одежды, и одел их."
+  ],
+  "de": [
+   "Und <i>G-tt</i> machte Adam und seinem Weibe Röcke von Fellen und bekleidete sie."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-3-24": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 3:24",
+   "en": "Genesis 3:24",
+   "de": "Bereschit 3,24"
+  },
+  "ref": "Genesis 3:24",
+  "url": "https://www.sefaria.org/Genesis_3.24",
+  "he": [
+   "ויגרש את האדם וישכן מקדם לגן עדן את הכרבים ואת להט החרב המתהפכת לשמר את דרך עץ החיים"
+  ],
+  "en": [
+   "So He drove out the man; and He placed at the east of the garden of Eden the cherubim, and the flaming sword which turned every way, to keep the way to the tree of life."
+  ],
+  "ru": [
+   "И изгнал человека из Эденского сада, и поставил к востоку от Эденского сада херувимов и вращающийся пламенный меч, чтобы охранять дорогу к дереву жизни."
+  ],
+  "de": [
+   "Und er vertrieb den Menschen; und lagerte ostwärts zum Garten Eden die Cherubim und die Flamme des sich umwälzenden Schwertes, den Weg zum Baume des Lebens zu wahren."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-4-7": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 4:7",
+   "en": "Genesis 4:7",
+   "de": "Bereschit 4,7"
+  },
+  "ref": "Genesis 4:7",
+  "url": "https://www.sefaria.org/Genesis_4.7",
+  "he": [
+   "הלוא אם תיטיב שאת ואם לא תיטיב לפתח חטאת רבץ ואליך תשוקתו ואתה תמשל בו"
+  ],
+  "en": [
+   "If thou doest well, shall it not be lifted up? and if thou doest not well, sin coucheth at the door; and unto thee is its desire, but thou mayest rule over it.’"
+  ],
+  "ru": [
+   "Ведь хорошо приносишь ты (жертву) или нет, у ворот грех возлежит, и к тебе вожделение его, а ты властвуй над ним."
+  ],
+  "de": [
+   "Siehe, ob du deinen Vorzug zum Guten verwenden, oder nicht zum Guten verwenden wirst, dazu ruht die Sünde vor der Tür; ja zu dir geht ihr Sehnen, daß du sie beherrschest."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-4-18": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 4:18",
+   "en": "Genesis 4:18",
+   "de": "Bereschit 4,18"
+  },
+  "ref": "Genesis 4:18",
+  "url": "https://www.sefaria.org/Genesis_4.18",
+  "he": [
+   "ויולד לחנוך את עירד ועירד ילד את מחויאל ומחייאל ילד את מתושאל ומתושאל ילד את למך"
+  ],
+  "en": [
+   "And unto Enoch was born Irad; and Irad begot Mehujael; and Mehujael begot Methushael; and Methushael begot Lamech."
+  ],
+  "ru": [
+   "И родился у Ханоха Ирад, а Ирад родил Мехияэля, а Мехияэль родил Метушаэля, а Метушаэль родил Лемеха."
+  ],
+  "de": [
+   "Dem Chanoch wurde Irad geboren, Irad erzeugte Mechujael, Mechijael Metuschael, Metuschael erzeugte Lemech."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-6-9": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 6:9",
+   "en": "Genesis 6:9",
+   "de": "Bereschit 6,9"
+  },
+  "ref": "Genesis 6:9",
+  "url": "https://www.sefaria.org/Genesis_6.9",
+  "he": [
+   "אלה תולדת נח נח איש צדיק תמים היה בדרתיו את האלקים התהלך נח"
+  ],
+  "en": [
+   "These are the generations of Noah. Noah was in his generations a man righteous and wholehearted; Noah walked with G-d."
+  ],
+  "ru": [
+   "Вот порождения Ноаха. Ноах (был) муж праведный, непорочный в поколении своем; с Б-гом ходил Ноах."
+  ],
+  "de": [
+   "Dies sind die Erzeugnisse Noach's. Noach, ein gerechter Mann, war in seinen Zeiten sittenrein; mit G-tt führte sich Noach."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-7-4": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 7:4",
+   "en": "Genesis 7:4",
+   "de": "Bereschit 7,4"
+  },
+  "ref": "Genesis 7:4",
+  "url": "https://www.sefaria.org/Genesis_7.4",
+  "he": [
+   "כי לימים עוד שבעה אנכי ממטיר על הארץ ארבעים יום וארבעים לילה ומחיתי את כל היקום אשר עשיתי מעל פני האדמה"
+  ],
+  "en": [
+   "For yet seven days, and I will cause it to rain upon the earth forty days and forty nights; and every living substance that I have made will I blot out from off the face of the earth.’"
+  ],
+  "ru": [
+   "Ибо спустя еще семь дней пролью я дождь на землю, сорок дней и сорок ночей, и сотру все сущее, что создал, с лица земли."
+  ],
+  "de": [
+   "Denn der Tage sind noch sieben, dann lasse Ich auf die Erde vierzig Tage und vierzig Nächte niederregnen, und lösche alles Bestehende, das ich gestaltet habe, weg von der Fläche des Erdbodens."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-7-10": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 7:10",
+   "en": "Genesis 7:10",
+   "de": "Bereschit 7,10"
+  },
+  "ref": "Genesis 7:10",
+  "url": "https://www.sefaria.org/Genesis_7.10",
+  "he": [
+   "ויהי לשבעת הימים ומי המבול היו על הארץ"
+  ],
+  "en": [
+   "And it came to pass after the seven days, that the waters of the flood were upon the earth."
+  ],
+  "ru": [
+   "И было спустя семь дней: воды потопа были на земле."
+  ],
+  "de": [
+   "Es war nach den sieben Tagen, da waren die Wasser der Entseelung auf der Erde."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-7-11": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 7:11",
+   "en": "Genesis 7:11",
+   "de": "Bereschit 7,11"
+  },
+  "ref": "Genesis 7:11",
+  "url": "https://www.sefaria.org/Genesis_7.11",
+  "he": [
+   "בשנת שש מאות שנה לחיי נח בחדש השני בשבעה עשר יום לחדש ביום הזה נבקעו כל מעינת תהום רבה וארבת השמים נפתחו"
+  ],
+  "en": [
+   "In the six hundredth year of Noah’s life, in the second month, on the seventeenth day of the month, on the same day were all the fountains of the great deep broken up, and the windows of heaven were opened."
+  ],
+  "ru": [
+   "На шестисотый год жизни Ноаха, на второй месяц, на семнадцатый день месяца — в этот день забили все родники великой пучины, и окна небес отворились."
+  ],
+  "de": [
+   "Im sechshundertsten Jahre des Lebens Noach's, im zweiten Monate, am 17. Tage des Monates, an diesem Tage wurden alle Quellen der großen Flut aufgerissen und die Schleusen des Himmels geöffnet."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-7-23": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 7:23",
+   "en": "Genesis 7:23",
+   "de": "Bereschit 7,23"
+  },
+  "ref": "Genesis 7:23",
+  "url": "https://www.sefaria.org/Genesis_7.23",
+  "he": [
+   "וימח את כל היקום אשר על פני האדמה מאדם עד בהמה עד רמש ועד עוף השמים וימחו מן הארץ וישאר אך נח ואשר אתו בתבה"
+  ],
+  "en": [
+   "And He blotted out every living substance which was upon the face of the ground, both man, and cattle, and creeping thing, and fowl of the heaven; and they were blotted out from the earth; and Noah only was left, and they that were with him in the ark."
+  ],
+  "ru": [
+   "И стер (Б-г) все сущее, что на земле — от человека до скота, и до гада, и до птиц небесных, стерты были они с земли, и остался Ноах, и те, кто с ним в ковчеге."
+  ],
+  "de": [
+   "Und es löste alles Selbständige auf, das auf der Fläche des Erdbodens war, vom Menschen bis Vieh, Gewürm und Vogel des Himmels; sie wurden von der Erde weggelöscht, und nur Noach und was bei ihm in der Arche war blieb übrig."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-9-9": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 9:9",
+   "en": "Genesis 9:9",
+   "de": "Bereschit 9,9"
+  },
+  "ref": "Genesis 9:9",
+  "url": "https://www.sefaria.org/Genesis_9.9",
+  "he": [
+   "ואני הנני מקים את בריתי אתכם ואת זרעכם אחריכם"
+  ],
+  "en": [
+   "’As for Me, behold, I establish My covenant with you, and with your seed after you;"
+  ],
+  "ru": [
+   "Вот, я устанавливаю свой завет с вами и с вашим потомством, (что будет) после вас."
+  ],
+  "de": [
+   "Und Ich, siehe ich errichte meinen Bund mit euch und mit euren Nachkommen nach euch,"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-9-21": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 9:21",
+   "en": "Genesis 9:21",
+   "de": "Bereschit 9,21"
+  },
+  "ref": "Genesis 9:21",
+  "url": "https://www.sefaria.org/Genesis_9.21",
+  "he": [
+   "וישת מן היין וישכר ויתגל בתוך אהלה"
+  ],
+  "en": [
+   "And he drank of the wine, and was drunken; and he was uncovered within his tent."
+  ],
+  "ru": [
+   "И выпил вина, и опьянел, и обнажился в своем шатре."
+  ],
+  "de": [
+   "und er trank von dem Weine und wurde berauscht, und entblößte sich im Innern seines Zeltes."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-9-25": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 9:25",
+   "en": "Genesis 9:25",
+   "de": "Bereschit 9,25"
+  },
+  "ref": "Genesis 9:25",
+  "url": "https://www.sefaria.org/Genesis_9.25",
+  "he": [
+   "ויאמר ארור כנען עבד עבדים יהיה לאחיו"
+  ],
+  "en": [
+   "And he said: Cursed be Canaan; a servant of servants shall he be unto his brethren."
+  ],
+  "ru": [
+   "И сказал: проклят Кенаан, рабом рабов будет у братьев своих."
+  ],
+  "de": [
+   "Da sprach er: Fluchgetroffen wird Kenaan, Knecht von Knechten wird er seinen Brüdern sein."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-11-29": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 11:29",
+   "en": "Genesis 11:29",
+   "de": "Bereschit 11,29"
+  },
+  "ref": "Genesis 11:29",
+  "url": "https://www.sefaria.org/Genesis_11.29",
+  "he": [
+   "ויקח אברם ונחור להם נשים שם אשת אברם שרי ושם אשת נחור מלכה בת הרן אבי מלכה ואבי יסכה"
+  ],
+  "en": [
+   "And Abram and Nahor took them wives: the name of Abram’s wife was Sarai; and the name of Nahor’s wife, Milcah, the daughter of Haran, the father of Milcah, and the father of Iscah."
+  ],
+  "ru": [
+   "И взяли Аврам и Нахор себе жен: имя жены Аврама — Сарай, а имя жены Нахора — Милка, дочь Арана, отца Милки и отца Йиски."
+  ],
+  "de": [
+   "Abram und Nachor nahmen sich Frauen, Abrams Frau hieß Sarai, Nachors Frau Milka, die Tochter Harans, des Vaters Milkas und der Jiska."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-6-11": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 6:11",
+   "en": "Genesis 6:11",
+   "de": "Bereschit 6,11"
+  },
+  "ref": "Genesis 6:11",
+  "url": "https://www.sefaria.org/Genesis_6.11",
+  "he": [
+   "ותשחת הארץ לפני האלקים ותמלא הארץ חמס"
+  ],
+  "en": [
+   "And the earth was corrupt before G-d, and the earth was filled with violence."
+  ],
+  "ru": [
+   "И извратилась земля перед Б-гом, и наполнилась земля беззаконием."
+  ],
+  "de": [
+   "Es ward aber die Erde vor dem Angesichte G-ttes verderbt, und da ward die Erde des Unrechts voll."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-6-13": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 6:13",
+   "en": "Genesis 6:13",
+   "de": "Bereschit 6,13"
+  },
+  "ref": "Genesis 6:13",
+  "url": "https://www.sefaria.org/Genesis_6.13",
+  "he": [
+   "ויאמר אלקים לנח קץ כל בשר בא לפני כי מלאה הארץ חמס מפניהם והנני משחיתם את הארץ"
+  ],
+  "en": [
+   "And G-d said unto Noah: ‘The end of all flesh is come before Me; for the earth is filled with violence through them; and, behold, I will destroy them with the earth."
+  ],
+  "ru": [
+   "И сказал Б-г Ноаху: вот, конец приходит всякой плоти предо мной, ибо наполнилась земля беззаконием из-за них, и вот — уничтожаю я их вместе с землей."
+  ],
+  "de": [
+   "Da sprach G-tt zu Noach: Das Ende alles Fleisches ist vor mich gekommen, denn die Erde ist voller Unrecht vor ihnen geworden, und so bin ich im Begriff, sie mit der Erde zu verderben."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-6-16": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 6:16",
+   "en": "Genesis 6:16",
+   "de": "Bereschit 6,16"
+  },
+  "ref": "Genesis 6:16",
+  "url": "https://www.sefaria.org/Genesis_6.16",
+  "he": [
+   "צהר תעשה לתבה ואל אמה תכלנה מלמעלה ופתח התבה בצדה תשים תחתים שנים ושלשים תעשה"
+  ],
+  "en": [
+   "A light shalt thou make to the ark, and to a cubit shalt thou finish it upward; and the door of the ark shalt thou set in the side thereof; with lower, second, and third stories shalt thou make it."
+  ],
+  "ru": [
+   "Окошко сделай в ковчеге и в локоть сведи его сверху, а дверь ковчега помести сбоку; (с) нижним, вторым и третьим ярусом сделай его."
+  ],
+  "de": [
+   "Eine Beleuchtung machst du dem Kasten, und lässest sie obwärts bis zu einer Elle abnehmen; die Türe des Kastens bringst du an die Seite an; mit unterstem, zweitem und drittem Stockwerk machst du sie."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-11-1": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 11:1",
+   "en": "Genesis 11:1",
+   "de": "Bereschit 11,1"
+  },
+  "ref": "Genesis 11:1",
+  "url": "https://www.sefaria.org/Genesis_11.1",
+  "he": [
+   "ויהי כל הארץ שפה אחת ודברים אחדים"
+  ],
+  "en": [
+   "And the whole earth was of one language and of one speech."
+  ],
+  "ru": [
+   "И был у всей земли один язык и одни слова."
+  ],
+  "de": [
+   "Es war die ganze Erde eine Sprache und einheitliche Worte."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-11-3": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 11:3",
+   "en": "Genesis 11:3",
+   "de": "Bereschit 11,3"
+  },
+  "ref": "Genesis 11:3",
+  "url": "https://www.sefaria.org/Genesis_11.3",
+  "he": [
+   "ויאמרו איש אל רעהו הבה נלבנה לבנים ונשרפה לשרפה ותהי להם הלבנה לאבן והחמר היה להם לחמר"
+  ],
+  "en": [
+   "And they said one to another: ‘Come, let us make brick, and burn them thoroughly.’ And they had brick for stone, and slime had they for mortar."
+  ],
+  "ru": [
+   "И сказали друг другу: ну-ка, будем делать кирпичи и обжигать в печи, и был у них кирпич камнем, а горная смола была им глиной."
+  ],
+  "de": [
+   "Da sprachen sie einer zu dem andern: Gib her, wir wollen Ziegel schaffen, und was immer zum Brande verbrennen; da ward ihnen der Ziegel zum Steine und der Mörtel ward ihnen zum Ton."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-12-1": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 12:1",
+   "en": "Genesis 12:1",
+   "de": "Bereschit 12,1"
+  },
+  "ref": "Genesis 12:1",
+  "url": "https://www.sefaria.org/Genesis_12.1",
+  "he": [
+   "ויאמר ה׳ אל אברם לך לך מארצך וממולדתך ומבית אביך אל הארץ אשר אראך"
+  ],
+  "en": [
+   "Now the L-rd said unto Abram: ‘Get thee out of thy country, and from thy kindred, and from thy father’s house, unto the land that I will show thee."
+  ],
+  "ru": [
+   "И сказал Г-сподь Авраму: иди себе из страны своей, и от родни своей, и из дома отца своего в страну, которую я покажу тебе."
+  ],
+  "de": [
+   "Zu Abram aber sprach <i>G-tt</i>: Gehe für dich allein von deinem Lande, deinem Geburtsorte und dem Hause deines Vaters, zu dem Lande hin, das ich dir zeigen werde."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-13-11": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 13:11",
+   "en": "Genesis 13:11",
+   "de": "Bereschit 13,11"
+  },
+  "ref": "Genesis 13:11",
+  "url": "https://www.sefaria.org/Genesis_13.11",
+  "he": [
+   "ויבחר לו לוט את כל ככר הירדן ויסע לוט מקדם ויפרדו איש מעל אחיו"
+  ],
+  "en": [
+   "So Lot chose him all the plain of the Jordan; and Lot journeyed east; and they separated themselves the one from the other."
+  ],
+  "ru": [
+   "И избрал себе Лот всю равнину Йардена, и двинулся Лот с востока, и разделились они."
+  ],
+  "de": [
+   "und es wählte sich Lot die ganze Talebene des Jardens, und es zog Lot von Osten ab; so trennten sie sich einer von dem andern."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-14-18": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 14:18",
+   "en": "Genesis 14:18",
+   "de": "Bereschit 14,18"
+  },
+  "ref": "Genesis 14:18",
+  "url": "https://www.sefaria.org/Genesis_14.18",
+  "he": [
+   "ומלכי צדק מלך שלם הוציא לחם ויין והוא כהן לאל עליון"
+  ],
+  "en": [
+   "And Melchizedek king of Salem brought forth bread and wine; and he was priest of G-d the Most High."
+  ],
+  "ru": [
+   "А Малки-Цедек, царь Шалема, принес хлеб и вино, а он священник Б-га Вышнего."
+  ],
+  "de": [
+   "Malki Zedek hingegen, König von Schalem, hatte Brot und Wein hinausgebracht; er war aber auch Priester dem höchsten G-tte."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-15-8": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 15:8",
+   "en": "Genesis 15:8",
+   "de": "Bereschit 15,8"
+  },
+  "ref": "Genesis 15:8",
+  "url": "https://www.sefaria.org/Genesis_15.8",
+  "he": [
+   "ויאמר אדני ה׳ במה אדע כי אירשנה"
+  ],
+  "en": [
+   "And he said: ‘O L-rd GOD, whereby shall I know that I shall inherit it?’"
+  ],
+  "ru": [
+   "И сказал: Господин мой, Г-споди, как мне знать, что буду владеть ею?"
+  ],
+  "de": [
+   "Da sprach er: G-tt, mein Herr, wodurch werde ich wissen, daß ich es in Besitz nehmen soll?"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-15-13": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 15:13",
+   "en": "Genesis 15:13",
+   "de": "Bereschit 15,13"
+  },
+  "ref": "Genesis 15:13",
+  "url": "https://www.sefaria.org/Genesis_15.13",
+  "he": [
+   "ויאמר לאברם ידע תדע כי גר יהיה זרעך בארץ לא להם ועבדום וענו אתם ארבע מאות שנה"
+  ],
+  "en": [
+   "And He said unto Abram: ‘Know of a surety that thy seed shall be a stranger in a land that is not theirs, and shall serve them; and they shall afflict them four hundred years;"
+  ],
+  "ru": [
+   "И сказал (Г-сподь) Авраму: знай, что пришельцами будут твои потомки в чужой стране, и в рабстве будут, и угнетать их будут четыреста лет."
+  ],
+  "de": [
+   "Da sprach Er zu Abram: Wissen, wissen sollst du, daß Fremdling dein Same sein wird in ihnen nicht gehörendem Lande, sie werden ihnen dienen und sie werden sie peinigen, vierhundert Jahre."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-15-17": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 15:17",
+   "en": "Genesis 15:17",
+   "de": "Bereschit 15,17"
+  },
+  "ref": "Genesis 15:17",
+  "url": "https://www.sefaria.org/Genesis_15.17",
+  "he": [
+   "ויהי השמש באה ועלטה היה והנה תנור עשן ולפיד אש אשר עבר בין הגזרים האלה"
+  ],
+  "en": [
+   "And it came to pass, that, when the sun went down, and there was thick darkness, behold a smoking furnace, and a flaming torch that passed between these pieces."
+  ],
+  "ru": [
+   "И заходило солнце, и надвигалась тьма, и вот дымящаяся печь и огненный факел, что прошел между тех частей."
+  ],
+  "de": [
+   "Als nun die Sonne untergegangen und Finsternis geworden war: siehe, da war es ein rauchender Ofen und eine Feuerfackel, was zwischen diese Stücke durchgefahren war."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-17-4": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 17:4",
+   "en": "Genesis 17:4",
+   "de": "Bereschit 17,4"
+  },
+  "ref": "Genesis 17:4",
+  "url": "https://www.sefaria.org/Genesis_17.4",
+  "he": [
+   "אני הנה בריתי אתך והיית לאב המון גוים"
+  ],
+  "en": [
+   "’As for Me, behold, My covenant is with thee, and thou shalt be the father of a multitude of nations."
+  ],
+  "ru": [
+   "Вот, я (заключаю) свой завет с тобой, и будешь ты отцом множества народов."
+  ],
+  "de": [
+   "ich, was mich betrifft, siehe mein Bund ist nun mit dir und du wirst zum Vater der wogenden Menge der Völker,"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-17-21": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 17:21",
+   "en": "Genesis 17:21",
+   "de": "Bereschit 17,21"
+  },
+  "ref": "Genesis 17:21",
+  "url": "https://www.sefaria.org/Genesis_17.21",
+  "he": [
+   "ואת בריתי אקים את יצחק אשר תלד לך שרה למועד הזה בשנה האחרת"
+  ],
+  "en": [
+   "But My covenant will I establish with Isaac, whom Sarah shall bear unto thee at this set time in the next year.’"
+  ],
+  "ru": [
+   "Завет же мой установлю с Йицхаком, которого родит тебе Сара к этому сроку на будущий год."
+  ],
+  "de": [
+   "Meinen Bund jedoch werde ich mit Jizchak aufrechthalten, den dir Sara zu dieser Zeit im nächsten Jahre gebären wird."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-12-19": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 12:19",
+   "en": "Genesis 12:19",
+   "de": "Bereschit 12,19"
+  },
+  "ref": "Genesis 12:19",
+  "url": "https://www.sefaria.org/Genesis_12.19",
+  "he": [
+   "למה אמרת אחתי הוא ואקח אתה לי לאשה ועתה הנה אשתך קח ולך"
+  ],
+  "en": [
+   "Why saidst thou: She is my sister? so that I took her to be my wife; now therefore behold thy wife, take her, and go thy way.’"
+  ],
+  "ru": [
+   "Почему сказал: она моя сестра, и я взял ее себе в жены, а теперь — вот твоя жена, забирай и уходи!"
+  ],
+  "de": [
+   "Warum hast du noch gesagt: sie ist meine Schwester, selbst als ich sie mir zur Frau nahm? Und nun! Hier ist deine Frau, nimm sie und gehe!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-14-5": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 14:5",
+   "en": "Genesis 14:5",
+   "de": "Bereschit 14,5"
+  },
+  "ref": "Genesis 14:5",
+  "url": "https://www.sefaria.org/Genesis_14.5",
+  "he": [
+   "ובארבע עשרה שנה בא כדרלעמר והמלכים אשר אתו ויכו את רפאים בעשתרת קרנים ואת הזוזים בהם ואת האימים בשוה קריתים"
+  ],
+  "en": [
+   "And in the fourteenth year came Chedorlaomer and the kings that were with him, and smote the Rephaim in Ashteroth-karnaim, and the Zuzim in Ham, and the Emim in Shaveh-kiriathaim,"
+  ],
+  "ru": [
+   "А на четырнадцатый год пришел Кедар-Лаомер и цари, что с ним, и побили рефаим, что в Аштерот (и) Карнайим, и зузим в Аме, и эмим в Шаве Кирьятайим,"
+  ],
+  "de": [
+   "Im vierzehnten Jahre war nun Kedarlaomer und die mit ihm verbündeten Könige gekommen, sie schlugen die Rephaer in Asterot Karnajim, die Suser in Ham, die Emer in Schawe Kirjatajim,"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-16-7": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 16:7",
+   "en": "Genesis 16:7",
+   "de": "Bereschit 16,7"
+  },
+  "ref": "Genesis 16:7",
+  "url": "https://www.sefaria.org/Genesis_16.7",
+  "he": [
+   "וימצאה מלאך ה׳ על עין המים במדבר על העין בדרך שור"
+  ],
+  "en": [
+   "And the angel of the L-rd found her by a fountain of water in the wilderness, by the fountain in the way to Shur."
+  ],
+  "ru": [
+   "И нашел ее посланник Г-спода у источника водного в пустыне, у источника по дороге в Шур."
+  ],
+  "de": [
+   "Da fand sie ein Engel <i>G-ttes</i> am Wasserquell in der Wüste, an dem Quell auf dem Wege nach Schur,"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-12-2": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 12:2",
+   "en": "Genesis 12:2",
+   "de": "Bereschit 12,2"
+  },
+  "ref": "Genesis 12:2",
+  "url": "https://www.sefaria.org/Genesis_12.2",
+  "he": [
+   "ואעשך לגוי גדול ואברכך ואגדלה שמך והיה ברכה"
+  ],
+  "en": [
+   "And I will make of thee a great nation, and I will bless thee, and make thy name great; and be thou a blessing."
+  ],
+  "ru": [
+   "И сделаю тебя великим народом, и благословлю тебя, и возвеличу твое имя, и будешь благословением."
+  ],
+  "de": [
+   "Ich werde dich zu einem großen Volke machen, Ich werde dich segnen, und Ich möchte deinen Namen groß werden lassen; werde du ein Segen!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-15-5": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 15:5",
+   "en": "Genesis 15:5",
+   "de": "Bereschit 15,5"
+  },
+  "ref": "Genesis 15:5",
+  "url": "https://www.sefaria.org/Genesis_15.5",
+  "he": [
+   "ויוצא אתו החוצה ויאמר הבט נא השמימה וספר הכוכבים אם תוכל לספר אתם ויאמר לו כה יהיה זרעך"
+  ],
+  "en": [
+   "And He brought him forth abroad, and said: ‘Look now toward heaven, and count the stars, if thou be able to count them’; and He said unto him: ‘So shall thy seed be.’"
+  ],
+  "ru": [
+   "И вывел (Г-сподь) его наружу, и сказал: взгляни на небо и пересчитай звезды — сможешь ли их пересчитать; таково будет твое потомство."
+  ],
+  "de": [
+   "Er führte ihn hinaus und sprach: Schau doch gen Himmel, und zähle die Sterne, wenn du sie zählen kannst! Er sagte ihm: So wird dein Same!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-18-2": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 18:2",
+   "en": "Genesis 18:2",
+   "de": "Bereschit 18,2"
+  },
+  "ref": "Genesis 18:2",
+  "url": "https://www.sefaria.org/Genesis_18.2",
+  "he": [
+   "וישא עיניו וירא והנה שלשה אנשים נצבים עליו וירא וירץ לקראתם מפתח האהל וישתחו ארצה"
+  ],
+  "en": [
+   "and he lifted up his eyes and looked, and, lo, three men stood over against him; and when he saw them, he ran to meet them from the tent door, and bowed down to the earth,"
+  ],
+  "ru": [
+   "И поднял глаза, и увидел: вот три мужа стоят рядом с ним, и увидел, и побежал к ним навстречу от входа в шатер, и поклонился до земли."
+  ],
+  "de": [
+   "Er hub aber seine Augen auf und sah, und siehe da, drei Männer, auf ihn gerichtet stille stehend; und als er es sah, lief er ihnen vom Eingang des Zeltes entgegen und bückte sich zur Erde —\""
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-18-9": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 18:9",
+   "en": "Genesis 18:9",
+   "de": "Bereschit 18,9"
+  },
+  "ref": "Genesis 18:9",
+  "url": "https://www.sefaria.org/Genesis_18.9",
+  "he": [
+   "ויאמרו אליו איה שרה אשתך ויאמר הנה באהל"
+  ],
+  "en": [
+   "And they said unto him: ‘Where is Sarah thy wife?’ And he said: ‘Behold, in the tent.’"
+  ],
+  "ru": [
+   "И сказали ему: где Сара, жена твоя? И сказал: вот, в шатре."
+  ],
+  "de": [
+   "Da sprachen sie zu ihm: Wo ist Sara, deine Frau? Er erwiderte: Natürlich im Zelte."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-18-19": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 18:19",
+   "en": "Genesis 18:19",
+   "de": "Bereschit 18,19"
+  },
+  "ref": "Genesis 18:19",
+  "url": "https://www.sefaria.org/Genesis_18.19",
+  "he": [
+   "כי ידעתיו למען אשר יצוה את בניו ואת ביתו אחריו ושמרו דרך ה׳ לעשות צדקה ומשפט למען הביא ה׳ על אברהם את אשר דבר עליו"
+  ],
+  "en": [
+   "For I have known him, to the end that he may command his children and his household after him, that they may keep the way of the L-rd, to do righteousness and justice; to the end that the L-rd may bring upon Abraham that which He hath spoken of him.’"
+  ],
+  "ru": [
+   "Потому что избрал я его, чтобы он заповедал сыновьям своим и дому своему после себя следовать путем Г-спода, творить справедливость и правосудие, дабы исполнил Г-сподь Аврааму то, что говорил о нем."
+  ],
+  "de": [
+   "Denn ich habe ja nur deshalb mein besonderes Augenmerk auf ihn gerichtet, damit er seine Kinder und sein Haus nach sich verpflichte, daß sie den Weg <i>G-ttes</i> hüten, Pflichtmilde und Recht zu üben, damit <i>G-tt</i> über Abraham bringe, was er über ihn ausgesprochen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-18-27": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 18:27",
+   "en": "Genesis 18:27",
+   "de": "Bereschit 18,27"
+  },
+  "ref": "Genesis 18:27",
+  "url": "https://www.sefaria.org/Genesis_18.27",
+  "he": [
+   "ויען אברהם ויאמר הנה נא הואלתי לדבר אל אדני ואנכי עפר ואפר"
+  ],
+  "en": [
+   "And Abraham answered and said: ‘Behold now, I have taken upon me to speak unto the L-rd, who am but dust and ashes."
+  ],
+  "ru": [
+   "И отвечал Авраам, и сказал: решаюсь я говорить с господином моим, (сам) же я прах и пепел."
+  ],
+  "de": [
+   "Abraham aber begann wieder und sprach: Siehe, ich habe nun einmal angefangen zu meinem Herrn zu reden, und ich bin doch Staub und Asche."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-21-23": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 21:23",
+   "en": "Genesis 21:23",
+   "de": "Bereschit 21,23"
+  },
+  "ref": "Genesis 21:23",
+  "url": "https://www.sefaria.org/Genesis_21.23",
+  "he": [
+   "ועתה השבעה לי באלקים הנה אם תשקר לי ולניני ולנכדי כחסד אשר עשיתי עמך תעשה עמדי ועם הארץ אשר גרתה בה"
+  ],
+  "en": [
+   "Now therefore swear unto me here by G-d that thou wilt not deal falsely with me, nor with my son, nor with my son’s son; but according to the kindness that I have done unto thee, thou shalt do unto me, and to the land wherein thou hast sojourned.’"
+  ],
+  "ru": [
+   "Поклянись же мне Б-гом: Если обманешь меня, сына моего или внука… Как я добром с тобой поступил, поступай со мной и с землей, в которой ты живешь."
+  ],
+  "de": [
+   "und nun schwöre mir bei G-tt hierher, daß du mir, meinem Nachkommen und meinem Enkel nicht falsch werden wollest; wie die Güte, die ich an dir geübt, wollest du an mir und an dem Lande üben, in welchem du geweilt."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-22-5": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 22:5",
+   "en": "Genesis 22:5",
+   "de": "Bereschit 22,5"
+  },
+  "ref": "Genesis 22:5",
+  "url": "https://www.sefaria.org/Genesis_22.5",
+  "he": [
+   "ויאמר אברהם אל נעריו שבו לכם פה עם החמור ואני והנער נלכה עד כה ונשתחוה ונשובה אליכם"
+  ],
+  "en": [
+   "And Abraham said unto his young men: ‘Abide ye here with the ass, and I and the lad will go yonder; and we will worship, and come back to you.’"
+  ],
+  "ru": [
+   "И сказал Авраам своим слугам: сидите здесь с ослом, а я с мальчиком пойду туда, и мы поклонимся и вернемся к вам."
+  ],
+  "de": [
+   "Da sprach Abraham zu seinen Leuten: Bleibet ihr hier bei dem Esel, ich und der Knabe, wir wollen etwa bis dahin gehen; wir bücken uns dort und kehren dann zu euch zurück."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-22-18": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 22:18",
+   "en": "Genesis 22:18",
+   "de": "Bereschit 22,18"
+  },
+  "ref": "Genesis 22:18",
+  "url": "https://www.sefaria.org/Genesis_22.18",
+  "he": [
+   "והתברכו בזרעך כל גויי הארץ עקב אשר שמעת בקלי"
+  ],
+  "en": [
+   "and in thy seed shall all the nations of the earth be blessed; because thou hast hearkened to My voice.’"
+  ],
+  "ru": [
+   "И благословятся в потомстве твоем все народы земли, потому что послушал ты меня."
+  ],
+  "de": [
+   "und es werden sich durch deinen Samen alle Völker der Erde segnen, als Folge dessen, daß du meiner Stimme gehorcht hast."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-18-1": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 18:1",
+   "en": "Genesis 18:1",
+   "de": "Bereschit 18,1"
+  },
+  "ref": "Genesis 18:1",
+  "url": "https://www.sefaria.org/Genesis_18.1",
+  "he": [
+   "וירא אליו ה׳ באלני ממרא והוא ישב פתח האהל כחם היום"
+  ],
+  "en": [
+   "And the L-rd appeared unto him by the terebinths of Mamre, as he sat in the tent door in the heat of the day;"
+  ],
+  "ru": [
+   "И явился к нему Г-сподь в дубраве Мамре, а он сидел у входа в шатер в дневную жару."
+  ],
+  "de": [
+   "Da ward <i>G-tt</i> ihm sichtbar unter den Bäumen Mamres; während er vor der Türe seines Zeltes saß, als der Tag glühte"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-18-5": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 18:5",
+   "en": "Genesis 18:5",
+   "de": "Bereschit 18,5"
+  },
+  "ref": "Genesis 18:5",
+  "url": "https://www.sefaria.org/Genesis_18.5",
+  "he": [
+   "ואקחה פת לחם וסעדו לבכם אחר תעברו כי על כן עברתם על עבדכם ויאמרו כן תעשה כאשר דברת"
+  ],
+  "en": [
+   "And I will fetch a morsel of bread, and stay ye your heart; after that ye shall pass on; forasmuch as ye are come to your servant.’ And they said: ‘So do, as thou hast said.’"
+  ],
+  "ru": [
+   "А я возьму ломоть хлеба, и подкрепитесь, и идите дальше, потому что проходили вы мимо раба вашего; и сказали они: так и делай, как ты говоришь."
+  ],
+  "de": [
+   "Ich möchte ein Stückchen Brot bringen, damit erquicket euer Herz, dann möget ihr weiter ziehen; denn (ich bitte nur) darum, weil ihr bei eurem Diener vorüber gekommen. Sie antworteten: Tue also, wie du gesprochen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-18-7": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 18:7",
+   "en": "Genesis 18:7",
+   "de": "Bereschit 18,7"
+  },
+  "ref": "Genesis 18:7",
+  "url": "https://www.sefaria.org/Genesis_18.7",
+  "he": [
+   "ואל הבקר רץ אברהם ויקח בן בקר רך וטוב ויתן אל הנער וימהר לעשות אתו"
+  ],
+  "en": [
+   "And Abraham ran unto the herd, and fetched a calf tender and good, and gave it unto the servant; and he hastened to dress it."
+  ],
+  "ru": [
+   "И к стаду побежал Авраам, и взял теленка нежного и хорошего, и отдал отроку, и тот поспешил приготовить его."
+  ],
+  "de": [
+   "Zum Rinde aber lief Abraham selbst, nahm ein junges Rind, zart und gut, und gab es dem Knaben, und eilte es zuzurichten."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-18-16": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 18:16",
+   "en": "Genesis 18:16",
+   "de": "Bereschit 18,16"
+  },
+  "ref": "Genesis 18:16",
+  "url": "https://www.sefaria.org/Genesis_18.16",
+  "he": [
+   "ויקמו משם האנשים וישקפו על פני סדם ואברהם הלך עמם לשלחם"
+  ],
+  "en": [
+   "And the men rose up from thence, and looked out toward Sodom; and Abraham went with them to bring them on the way."
+  ],
+  "ru": [
+   "И поднялись оттуда те мужи, и устремили взгляд на Седом, а Авраам пошел с ними их проводить."
+  ],
+  "de": [
+   "Da erhuben sich die Männer von dort und senkten ihren Blick auf die Gegend von Sedom; Abraham aber ging noch mit ihnen, sie zu geleiten."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-18-18": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 18:18",
+   "en": "Genesis 18:18",
+   "de": "Bereschit 18,18"
+  },
+  "ref": "Genesis 18:18",
+  "url": "https://www.sefaria.org/Genesis_18.18",
+  "he": [
+   "ואברהם היו יהיה לגוי גדול ועצום ונברכו בו כל גויי הארץ"
+  ],
+  "en": [
+   "seeing that Abraham shall surely become a great and mighty nation, and all the nations of the earth shall be blessed in him?"
+  ],
+  "ru": [
+   "Ведь Авраам станет народом великим и мощным, и благословятся в нем все народы земли."
+  ],
+  "de": [
+   "Abraham soll ja auch zu einem großen und mächtigen Volke und durch dieses alle Völker der Erde gesegnet werden!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-21-7": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 21:7",
+   "en": "Genesis 21:7",
+   "de": "Bereschit 21,7"
+  },
+  "ref": "Genesis 21:7",
+  "url": "https://www.sefaria.org/Genesis_21.7",
+  "he": [
+   "ותאמר מי מלל לאברהם היניקה בנים שרה כי ילדתי בן לזקניו"
+  ],
+  "en": [
+   "And she said: ‘Who would have said unto Abraham, that Sarah should give children suck? for I have borne him a son in his old age.’"
+  ],
+  "ru": [
+   "И сказала: Кто бы рассказал Аврааму, что Сара сыновей кормить будет, ведь родила я сына в старости его!"
+  ],
+  "de": [
+   "Sie fügte jedoch hinzu: Wer hat aber Abraham <i>davon</i> ein Wort gesagt: es hat Sara <i>Söhne</i> gesäugt! denn ich habe ihm einen Sohn für sein Alter geboren."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-22-4": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 22:4",
+   "en": "Genesis 22:4",
+   "de": "Bereschit 22,4"
+  },
+  "ref": "Genesis 22:4",
+  "url": "https://www.sefaria.org/Genesis_22.4",
+  "he": [
+   "ביום השלישי וישא אברהם את עיניו וירא את המקום מרחק"
+  ],
+  "en": [
+   "On the third day Abraham lifted up his eyes, and saw the place afar off."
+  ],
+  "ru": [
+   "На третий день поднял Авраам глаза и увидел (то) место издали."
+  ],
+  "de": [
+   "Am dritten Tage, als Abraham seine Augen aufhub, sah er den Ort von ferne."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-22-14": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 22:14",
+   "en": "Genesis 22:14",
+   "de": "Bereschit 22,14"
+  },
+  "ref": "Genesis 22:14",
+  "url": "https://www.sefaria.org/Genesis_22.14",
+  "he": [
+   "ויקרא אברהם שם המקום ההוא ה׳ יראה אשר יאמר היום בהר ה׳ יראה"
+  ],
+  "en": [
+   "And Abraham called the name of that place Adonai-jireh; as it is said to this day: ‘In the mount where the L-rd is seen.’"
+  ],
+  "ru": [
+   "И назвал Авраам это место «Г-сподь усмотрит», как говорят сегодня «на горе Господней будет видно»."
+  ],
+  "de": [
+   "Da nannte Abraham den Namen dieses Ortes: <i>G-tt</i> schaut! welches heute also auszusprechen ist: Auf <i>G-ttes</i> Berg wird man geschaut."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-23-1": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 23:1",
+   "en": "Genesis 23:1",
+   "de": "Bereschit 23,1"
+  },
+  "ref": "Genesis 23:1",
+  "url": "https://www.sefaria.org/Genesis_23.1",
+  "he": [
+   "ויהיו חיי שרה מאה שנה ועשרים שנה ושבע שנים שני חיי שרה"
+  ],
+  "en": [
+   "And the life of Sarah was a hundred and seven and twenty years; these were the years of the life of Sarah."
+  ],
+  "ru": [
+   "И было жизни Сары сто лет, и двадцать лет, и семь лет, лет жизни Сары."
+  ],
+  "de": [
+   "Es war das Leben Saras hundert Jahre und zwanzig Jahre und sieben Jahre: Jahre des Lebens Saras."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-23-16": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 23:16",
+   "en": "Genesis 23:16",
+   "de": "Bereschit 23,16"
+  },
+  "ref": "Genesis 23:16",
+  "url": "https://www.sefaria.org/Genesis_23.16",
+  "he": [
+   "וישמע אברהם אל עפרון וישקל אברהם לעפרן את הכסף אשר דבר באזני בני חת ארבע מאות שקל כסף עבר לסחר"
+  ],
+  "en": [
+   "And Abraham hearkened unto Ephron; and Abraham weighed to Ephron the silver, which he had named in the hearing of the children of Heth, four hundred shekels of silver, current money with the merchant."
+  ],
+  "ru": [
+   "И послушал Авраам Эфрона, и отвесил Авраам Эфрону серебро, о котором говорил в присутствии сынов Хета — четыреста шекелей серебра, какое ходит у купцов."
+  ],
+  "de": [
+   "Da hörte Abraham auf Efron und es wog Abraham dem Efron das Silber zu, welches er vor den Ohren der Söhne Chets ausgesprochen hatte: vierhundert Schekel Silbers, gangbar beim Kaufmann."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-23-17": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 23:17",
+   "en": "Genesis 23:17",
+   "de": "Bereschit 23,17"
+  },
+  "ref": "Genesis 23:17",
+  "url": "https://www.sefaria.org/Genesis_23.17",
+  "he": [
+   "ויקם שדה עפרון אשר במכפלה אשר לפני ממרא השדה והמערה אשר בו וכל העץ אשר בשדה אשר בכל גבלו סביב"
+  ],
+  "en": [
+   "So the field of Ephron, which was in Machpelah, which was before Mamre, the field, and the cave which was therein, and all the trees that were in the field, that were in all the border thereof round about, were made sure"
+  ],
+  "ru": [
+   "И перешло поле Эфрона, что в Махпеле, что перед Мамре — поле и пещера, что в нем, и все деревья, что в поле, во всех пределах его вокруг,"
+  ],
+  "de": [
+   "So erstand Efrons Feld, welches in der vor Mamre liegenden Machpela war, das Feld und die darin befindliche Höhle, alle Bäume im Felde in dem ganzen umgrenzenden Gebiete,"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-24-12": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 24:12",
+   "en": "Genesis 24:12",
+   "de": "Bereschit 24,12"
+  },
+  "ref": "Genesis 24:12",
+  "url": "https://www.sefaria.org/Genesis_24.12",
+  "he": [
+   "ויאמר ה׳ אלקי אדני אברהם הקרה נא לפני היום ועשה חסד עם אדני אברהם"
+  ],
+  "en": [
+   "And he said: ‘O L-rd, the G-d of my master Abraham, send me, I pray Thee, good speed this day, and show kindness unto my master Abraham."
+  ],
+  "ru": [
+   "И сказал: Г-споди, Боже господина моего Авраама, дай мне удачу сегодня и сотвори милость с господином моим Авраамом!"
+  ],
+  "de": [
+   "und sprach: <i>G-tt</i>, G-tt meines Herrn Abraham, füge doch heute vor mir und übe an meinem Herrn Abraham Liebe."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-24-14": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 24:14",
+   "en": "Genesis 24:14",
+   "de": "Bereschit 24,14"
+  },
+  "ref": "Genesis 24:14",
+  "url": "https://www.sefaria.org/Genesis_24.14",
+  "he": [
+   "והיה הנער אשר אמר אליה הטי נא כדך ואשתה ואמרה שתה וגם גמליך אשקה אתה הכחת לעבדך ליצחק ובה אדע כי עשית חסד עם אדני"
+  ],
+  "en": [
+   "So let it come to pass, that the damsel to whom I shall say: Let down thy pitcher, I pray thee, that I may drink; and she shall say: Drink, and I will give thy camels drink also; let the same be she that Thou hast appointed for Thy servant, even for Isaac; and thereby shall I know that Thou hast shown kindness unto my master.’"
+  ],
+  "ru": [
+   "Да будет (так): девица, которой я скажу: наклони кувшин твой, а я напьюсь, а она скажет: пей, а я и верблюдов твоих напою — ее предназначил ты рабу твоему Йицхаку. Так я узнаю, что сотворил ты милость с господином моим."
+  ],
+  "de": [
+   "So sei denn das Mädchen, zu welchem ich sagen werde: Neige doch deinen Krug, damit ich trinke, und sie sagt: Trinke und auch deine Kamele will ich tränken, die hast du deinem Diener, dem Jizchak, zugewiesen, und an ihr will ich erkennen, daß du an meinem Herrn Liebe geübt."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-24-58": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 24:58",
+   "en": "Genesis 24:58",
+   "de": "Bereschit 24,58"
+  },
+  "ref": "Genesis 24:58",
+  "url": "https://www.sefaria.org/Genesis_24.58",
+  "he": [
+   "ויקראו לרבקה ויאמרו אליה התלכי עם האיש הזה ותאמר אלך"
+  ],
+  "en": [
+   "And they called Rebekah, and said unto her: ‘Wilt thou go with this man?’ And she said: ‘I will go.’"
+  ],
+  "ru": [
+   "И позвали Ривку, и спросили ее: пойдешь с этим человеком? И сказала: пойду."
+  ],
+  "de": [
+   "Da riefen sie Ribka und sagten zu ihr: Willst du mit diesem Manne gehen? Sie antwortete: Ich will gehen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-24-2": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 24:2",
+   "en": "Genesis 24:2",
+   "de": "Bereschit 24,2"
+  },
+  "ref": "Genesis 24:2",
+  "url": "https://www.sefaria.org/Genesis_24.2",
+  "he": [
+   "ויאמר אברהם אל עבדו זקן ביתו המשל בכל אשר לו שים נא ידך תחת ירכי"
+  ],
+  "en": [
+   "And Abraham said unto his servant, the elder of his house, that ruled over all that he had: ‘Put, I pray thee, thy hand under my thigh."
+  ],
+  "ru": [
+   "И сказал Авраам своему слуге, старшему в доме, управляющему всем его имуществом: Положи мне руку под бедро,"
+  ],
+  "de": [
+   "Da sprach Abraham zu seinem Knechte, dem ältesten seines Hauses, der über alles Seine waltete: Lege doch deine Hand unter meine Hüfte."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-24-60": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 24:60",
+   "en": "Genesis 24:60",
+   "de": "Bereschit 24,60"
+  },
+  "ref": "Genesis 24:60",
+  "url": "https://www.sefaria.org/Genesis_24.60",
+  "he": [
+   "ויברכו את רבקה ויאמרו לה אחתנו את היי לאלפי רבבה ויירש זרעך את שער שנאיו"
+  ],
+  "en": [
+   "And they blessed Rebekah, and said unto her: ‘Our sister, be thou the mother of thousands of ten thousands, and let thy seed possess the gate of those that hate them.’"
+  ],
+  "ru": [
+   "И благословили они Ривку, и сказали ей: сестра наша, да породишь ты тысячи и мириады, и да овладеет твое потомство вратами своих неприятелей."
+  ],
+  "de": [
+   "und segneten Ribka und sprachen zu ihr: Unsere Schwester! Werde du zu tausend Zehntausenden, und es erbe dein Same das Tor seiner Hasser."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-24-63": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 24:63",
+   "en": "Genesis 24:63",
+   "de": "Bereschit 24,63"
+  },
+  "ref": "Genesis 24:63",
+  "url": "https://www.sefaria.org/Genesis_24.63",
+  "he": [
+   "ויצא יצחק לשוח בשדה לפנות ערב וישא עיניו וירא והנה גמלים באים"
+  ],
+  "en": [
+   "And Isaac went out to meditate in the field at the eventide; and he lifted up his eyes, and saw, and, behold, there were camels coming."
+  ],
+  "ru": [
+   "И вышел Йицхак погулять в поле под вечер, и поднял глаза, и увидел — вот идут верблюды."
+  ],
+  "de": [
+   "Da ging Jizchak hinaus zu sinnen in dem Felde zur Abendwende, da hub er seine Augen auf und sah, siehe da kommende Kamele!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-24-67": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 24:67",
+   "en": "Genesis 24:67",
+   "de": "Bereschit 24,67"
+  },
+  "ref": "Genesis 24:67",
+  "url": "https://www.sefaria.org/Genesis_24.67",
+  "he": [
+   "ויבאה יצחק האהלה שרה אמו ויקח את רבקה ותהי לו לאשה ויאהבה וינחם יצחק אחרי אמו"
+  ],
+  "en": [
+   "And Isaac brought her into his mother Sarah’s tent, and took Rebekah, and she became his wife; and he loved her. And Isaac was comforted for his mother."
+  ],
+  "ru": [
+   "И привел ее Йицхак в шатер Сары, матери своей, и взял Ривку, и стала она ему женой, и утешился (Йицхак) после смерти своей матери."
+  ],
+  "de": [
+   "da brachte sie Jizchak ins Zelt als seine Mutter Sara. Er heiratete Ribka, sie ward ihm zum Weibe und er liebte sie, und da erst tröstete sich Jizchak um seine Mutter."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-25-19": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 25:19",
+   "en": "Genesis 25:19",
+   "de": "Bereschit 25,19"
+  },
+  "ref": "Genesis 25:19",
+  "url": "https://www.sefaria.org/Genesis_25.19",
+  "he": [
+   "ואלה תולדת יצחק בן אברהם אברהם הוליד את יצחק"
+  ],
+  "en": [
+   "And these are the generations of Isaac, Abraham’s son: Abraham begot Isaac."
+  ],
+  "ru": [
+   "А вот порождения Йицхака, сына Авраама — Авраам породил Йицхака."
+  ],
+  "de": [
+   "Und dieses sind nun die Nachkommen Jizchaks, Sohn Abrahams; Abraham hatte Jizchak erzeugt."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-25-27": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 25:27",
+   "en": "Genesis 25:27",
+   "de": "Bereschit 25,27"
+  },
+  "ref": "Genesis 25:27",
+  "url": "https://www.sefaria.org/Genesis_25.27",
+  "he": [
+   "ויגדלו הנערים ויהי עשו איש ידע ציד איש שדה ויעקב איש תם ישב אהלים"
+  ],
+  "en": [
+   "And the boys grew; and Esau was a cunning hunter, a man of the field; and Jacob was a quiet man, dwelling in tents."
+  ],
+  "ru": [
+   "И выросли отроки, и стал Эсав человеком, искусным в охоте, человеком поля, а Йааков — человеком простым, живущим в шатрах."
+  ],
+  "de": [
+   "Als nun die Knaben heranwuchsen, da war Esaw ein Mann, der den Fang versteht, ein Mann des Feldes; und Jaakob ein sich ganz hingebender Mann, der in Zelten wohnt."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-25-30": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 25:30",
+   "en": "Genesis 25:30",
+   "de": "Bereschit 25,30"
+  },
+  "ref": "Genesis 25:30",
+  "url": "https://www.sefaria.org/Genesis_25.30",
+  "he": [
+   "ויאמר עשו אל יעקב הלעיטני נא מן האדם האדם הזה כי עיף אנכי על כן קרא שמו אדום"
+  ],
+  "en": [
+   "And Esau said to Jacob: ‘Let me swallow, I pray thee, some of this red, red pottage; for I am faint.’ Therefore was his name called Edom."
+  ],
+  "ru": [
+   "И сказал Эсав Йаакову: влей мне этого красного, красного, а то голоден я! Потому и назвали его Эдом."
+  ],
+  "de": [
+   "Da sprach Esaw zu Jaakob: Laß mich doch von diesem so Roten da schlingen, denn ich bin matt! Darum nannte er sich Edom."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-26-20": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 26:20",
+   "en": "Genesis 26:20",
+   "de": "Bereschit 26,20"
+  },
+  "ref": "Genesis 26:20",
+  "url": "https://www.sefaria.org/Genesis_26.20",
+  "he": [
+   "ויריבו רעי גרר עם רעי יצחק לאמר לנו המים ויקרא שם הבאר עשק כי התעשקו עמו"
+  ],
+  "en": [
+   "And the herdmen of Gerar strove with Isaac’s herdmen, saying: ‘The water is ours.’ And he called the name of the well Esek; because they contended with him."
+  ],
+  "ru": [
+   "И пререкались герарские пастухи с пастухами Йицхака, мол, наша это вода, и назвали колодец Эсек, потому что спорили они с ним."
+  ],
+  "de": [
+   "Da stritten die Hirten von Gerar mit Jizchaks Hirten und sagten: Unser ist das Wasser! Darum nannte er den Brunnen Eßek (Händel); denn sie hatten Händel mit ihm gesucht."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-26-21": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 26:21",
+   "en": "Genesis 26:21",
+   "de": "Bereschit 26,21"
+  },
+  "ref": "Genesis 26:21",
+  "url": "https://www.sefaria.org/Genesis_26.21",
+  "he": [
+   "ויחפרו באר אחרת ויריבו גם עליה ויקרא שמה שטנה"
+  ],
+  "en": [
+   "And they digged another well, and they strove for that also. And he called the name of it Sitnah."
+  ],
+  "ru": [
+   "И вырыли другой колодец, и пререкались о нем тоже, и назвал его Ситна."
+  ],
+  "de": [
+   "Sie gruben einen anderen Brunnen, auch über den stritten sie, da nannte er ihn Sitna (Hinderung)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-26-22": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 26:22",
+   "en": "Genesis 26:22",
+   "de": "Bereschit 26,22"
+  },
+  "ref": "Genesis 26:22",
+  "url": "https://www.sefaria.org/Genesis_26.22",
+  "he": [
+   "ויעתק משם ויחפר באר אחרת ולא רבו עליה ויקרא שמה רחבות ויאמר כי עתה הרחיב ה׳ לנו ופרינו בארץ"
+  ],
+  "en": [
+   "And he removed from thence, and digged another well; and for that they strove not. And he called the name of it Rehoboth; and he said: ‘For now the L-rd hath made room for us, and we shall be fruitful in the land.’"
+  ],
+  "ru": [
+   "И он двинулся оттуда, и вырыл другой колодец, и не пререкались о нем, и назвал его Реховот, и сказал: ведь сейчас Г-сподь дал нам простор, и размножимся мы в стране."
+  ],
+  "de": [
+   "Er rückte von dort fort und grub einen anderen Brunnen, über den stritten sie nicht, da nannte er ihn Rechobot (Räumlichkeit) und sprach: Denn jetzt hat <i>G-tt</i> uns Raum geschafft, nun können wir in dem Lande gedeihen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-27-9": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 27:9",
+   "en": "Genesis 27:9",
+   "de": "Bereschit 27,9"
+  },
+  "ref": "Genesis 27:9",
+  "url": "https://www.sefaria.org/Genesis_27.9",
+  "he": [
+   "לך נא אל הצאן וקח לי משם שני גדיי עזים טבים ואעשה אתם מטעמים לאביך כאשר אהב"
+  ],
+  "en": [
+   "Go now to the flock, and fetch me from thence two good kids of the goats; and I will make them savoury food for thy father, such as he loveth;"
+  ],
+  "ru": [
+   "Иди к стаду и возьми там двух хороших козлят, а я приготовлю кушанье твоему отцу, как он любит."
+  ],
+  "de": [
+   "Gehe doch zu den Schafen und nimm mir von dort zwei gute Ziegenböckchen, damit ich sie wohlschmeckend deinem Vater bereite, wie er es liebt,"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-27-28": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 27:28",
+   "en": "Genesis 27:28",
+   "de": "Bereschit 27,28"
+  },
+  "ref": "Genesis 27:28",
+  "url": "https://www.sefaria.org/Genesis_27.28",
+  "he": [
+   "ויתן לך האלקים מטל השמים ומשמני הארץ ורב דגן ותירש"
+  ],
+  "en": [
+   "So G-d give thee of the dew of heaven, And of the fat places of the earth, And plenty of corn and wine."
+  ],
+  "ru": [
+   "И пусть даст тебе Б-г от росы небесной и от туков земных и обилие хлеба и вина."
+  ],
+  "de": [
+   "So gebe dir G-tt von dem Tau des Himmels und von den Fettigkeiten der Erde und eine Fülle von Korn und Most."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-25-20": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 25:20",
+   "en": "Genesis 25:20",
+   "de": "Bereschit 25,20"
+  },
+  "ref": "Genesis 25:20",
+  "url": "https://www.sefaria.org/Genesis_25.20",
+  "he": [
+   "ויהי יצחק בן ארבעים שנה בקחתו את רבקה בת בתואל הארמי מפדן ארם אחות לבן הארמי לו לאשה"
+  ],
+  "en": [
+   "And Isaac was forty years old when he took Rebekah, the daughter of Bethuel the Aramean, of Paddan-aram, the sister of Laban the Aramean, to be his wife."
+  ],
+  "ru": [
+   "И было Йицхаку сорок лет, когда взял он Ривку, дочь Бетуэля Арами из Паддан Арама, сестру Лавана Арами, себе в жены."
+  ],
+  "de": [
+   "Jizchak war vierzig Jahre alt, als er Ribka, eine Tochter des Aramiten Betuel aus Padan- Aram, eine Schwester des Aramiten Laban, sich zur Frau nahm."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-25-21": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 25:21",
+   "en": "Genesis 25:21",
+   "de": "Bereschit 25,21"
+  },
+  "ref": "Genesis 25:21",
+  "url": "https://www.sefaria.org/Genesis_25.21",
+  "he": [
+   "ויעתר יצחק לה׳ לנכח אשתו כי עקרה הוא ויעתר לו ה׳ ותהר רבקה אשתו"
+  ],
+  "en": [
+   "And Isaac entreated the L-rd for his wife, because she was barren; and the L-rd let Himself be entreated of him, and Rebekah his wife conceived."
+  ],
+  "ru": [
+   "И попросил Йицхак Г-спода за Ривку, жену свою, потому что она (была) бесплодна, и внял Г-сподь, и зачала Ривка, жена его."
+  ],
+  "de": [
+   "Da flehte Jizchak zu <i>G-tt</i> in betreff seiner Frau, denn sie war unfruchtbar; da wurde ihm <i>G-tt</i> erfleht, seine Frau Ribka empfing."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-25-26": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 25:26",
+   "en": "Genesis 25:26",
+   "de": "Bereschit 25,26"
+  },
+  "ref": "Genesis 25:26",
+  "url": "https://www.sefaria.org/Genesis_25.26",
+  "he": [
+   "ואחרי כן יצא אחיו וידו אחזת בעקב עשו ויקרא שמו יעקב ויצחק בן ששים שנה בלדת אתם"
+  ],
+  "en": [
+   "And after that came forth his brother, and his hand had hold on Esau’s heel; and his name was called Jacob. And Isaac was threescore years old when she bore them."
+  ],
+  "ru": [
+   "А потом вышел его брат, и рука его держалась за пятку Эсава, и назвали его Йааков. А Йицхаку было шестьдесят лет, когда они родились."
+  ],
+  "de": [
+   "Nachher kam sein Bruder hervor, seine Händ Esaws Ferse haltend, den nannte er Jaakob; Jizchak war sechzig Jahre alt, als sie sie gebar."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-26-3": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 26:3",
+   "en": "Genesis 26:3",
+   "de": "Bereschit 26,3"
+  },
+  "ref": "Genesis 26:3",
+  "url": "https://www.sefaria.org/Genesis_26.3",
+  "he": [
+   "גור בארץ הזאת ואהיה עמך ואברכך כי לך ולזרעך אתן את כל הארצת האל והקמתי את השבעה אשר נשבעתי לאברהם אביך"
+  ],
+  "en": [
+   "Sojourn in this land, and I will be with thee, and will bless thee; for unto thee, and unto thy seed, I will give all these lands, and I will establish the oath which I swore unto Abraham thy father;"
+  ],
+  "ru": [
+   "Поселись в этой земле, и я буду с тобой и благословлю тебя, ибо тебе и твоему потомству отдам я все эти земли и исполню клятву, что дал я Аврааму, отцу твоему."
+  ],
+  "de": [
+   "Halte dich in diesem Lande auf, so werde ich mit dir sein und dich segnen; denn dir und deinem Samen gebe ich alle diese Länder und halte den Schwur aufrecht, den ich deinem Vater Abraham geschworen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-26-5": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 26:5",
+   "en": "Genesis 26:5",
+   "de": "Bereschit 26,5"
+  },
+  "ref": "Genesis 26:5",
+  "url": "https://www.sefaria.org/Genesis_26.5",
+  "he": [
+   "עקב אשר שמע אברהם בקלי וישמר משמרתי מצותי חקותי ותורתי"
+  ],
+  "en": [
+   "because that Abraham hearkened to My voice, and kept My charge, My commandments, My statutes, and My laws.’"
+  ],
+  "ru": [
+   "потому что слушался меня Авраам и соблюдал мои уставы, заповеди, законы и учения."
+  ],
+  "de": [
+   "als Folge davon, daß Abraham auf meine Stimme gehört und was ich ihm zur Hut übergab, gehütet: meine Gebote, meine Gesetze und meine Lehren."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-27-5": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 27:5",
+   "en": "Genesis 27:5",
+   "de": "Bereschit 27,5"
+  },
+  "ref": "Genesis 27:5",
+  "url": "https://www.sefaria.org/Genesis_27.5",
+  "he": [
+   "ורבקה שמעת בדבר יצחק אל עשו בנו וילך עשו השדה לצוד ציד להביא"
+  ],
+  "en": [
+   "And Rebekah heard when Isaac spoke to Esau his son. And Esau went to the field to hunt for venison, and to bring it."
+  ],
+  "ru": [
+   "А Ривка слышала то, что говорил Йицхак своему сыну Эсаву, и пошел Эсав в поле наловить дичи, чтобы принести (домой)."
+  ],
+  "de": [
+   "Ribka aber hörte, als Jizchak zu seinem Sohne Esaw sprach, und Esaw ging aufs Feld, Wild zu jagen, um es heimzubringen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-27-27": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 27:27",
+   "en": "Genesis 27:27",
+   "de": "Bereschit 27,27"
+  },
+  "ref": "Genesis 27:27",
+  "url": "https://www.sefaria.org/Genesis_27.27",
+  "he": [
+   "ויגש וישק לו וירח את ריח בגדיו ויברכהו ויאמר ראה ריח בני כריח שדה אשר ברכו ה׳"
+  ],
+  "en": [
+   "And he came near, and kissed him. And he smelled the smell of his raiment, and blessed him, and said: See, the smell of my son Is as the smell of a field which the L-rd hath blessed."
+  ],
+  "ru": [
+   "И подошел, и (тот) поцеловал его, и ощутил запах его одежды, и благословил его, и сказал: вот ведь, запах сына моего — как запах поля, которое благословил Г-сподь."
+  ],
+  "de": [
+   "Da trat er hin und küßte ihn, da roch er den Duft seiner Kleider und segnete ihn, und sprach: Siehe, der Duft meines Sohnes ist wie der Duft eines Feldes, welches <i>G-tt</i> gesegnet!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-27-29": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 27:29",
+   "en": "Genesis 27:29",
+   "de": "Bereschit 27,29"
+  },
+  "ref": "Genesis 27:29",
+  "url": "https://www.sefaria.org/Genesis_27.29",
+  "he": [
+   "יעבדוך עמים וישתחו [וישתחוו] לך לאמים הוה גביר לאחיך וישתחוו לך בני אמך ארריך ארור ומברכיך ברוך"
+  ],
+  "en": [
+   "Let peoples serve thee, And nations bow down to thee. Be lord over thy brethren, And let thy mother’s sons bow down to thee. Cursed be every one that curseth thee, And blessed be every one that blesseth thee."
+  ],
+  "ru": [
+   "Да послужат тебе племена и да поклонятся тебе народы! Властвуй над своими братьями, И да поклонятся тебе сыновья твоей матери! Проклинающий тебя (да будет) проклят, а благословляющий тебя (да будет) благословен!"
+  ],
+  "de": [
+   "Völker werden dir dienen und Nationen sich dir beugen — werde aber ein Mann deinen Brüdern, daß deiner Mutter Söhne dir sich beugen! Wer dir flucht, dem wird dann geflucht, wer dich segnet, wird gesegnet!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-27-33": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 27:33",
+   "en": "Genesis 27:33",
+   "de": "Bereschit 27,33"
+  },
+  "ref": "Genesis 27:33",
+  "url": "https://www.sefaria.org/Genesis_27.33",
+  "he": [
+   "ויחרד יצחק חרדה גדלה עד מאד ויאמר מי אפוא הוא הצד ציד ויבא לי ואכל מכל בטרם תבוא ואברכהו גם ברוך יהיה"
+  ],
+  "en": [
+   "And Isaac trembled very exceedingly, and said: ‘Who then is he that hath taken venison, and brought it me, and I have eaten of all before thou camest, and have blessed him? yea, and he shall be blessed.’"
+  ],
+  "ru": [
+   "И затрепетал Йицхак превеликим трепетом, и сказал: кто же тогда наловил дичи и принес мне, и я поел всего прежде, чем пришел ты, и благословил его? Он и будет благословен!"
+  ],
+  "de": [
+   "Da erfaßte Jizchak ein überaus großer Schrecken und er sprach: Wer ist denn jener, der bereits Wildpret gejagt, mir es gebracht, und ich aß auch von allem, bevor du kamst, und ich segnete ihn? — Er soll auch gesegnet sein!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
  }
 }

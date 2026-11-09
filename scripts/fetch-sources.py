@@ -467,6 +467,11 @@ SOURCES = {
     'ps-132-14': ('Psalms', 132, 14, 14),
 }
 
+# «Бааль ґа-Турим на каждый день» (src/core/turimDaily.ts): the verse of every Baal HaTurim comment, one verse each — `torah-<ch>-<v>`
+for _id in [k for k in SOURCES if k.startswith('bht-')]:
+    _c, _v = map(int, _id.split('-')[1:3])
+    SOURCES.setdefault(f'torah-{_c}-{_v}', ('Genesis', _c, _v, _v))
+
 # Misprints of an edition, corrected in the Hebrew (shown on the site as «исправлена опечатка: X → Y»):
 # only an obvious letter slip that the commentary itself contradicts (חמם — the word of the verse is חמס).
 FIXES = {

@@ -50,6 +50,7 @@ import { displayNames } from '../src/core/names';
 import { collectFacts, factHebrew } from '../src/core/facts';
 import { fromStartParam, miniAppLink } from '../src/core/telegram';
 import { dailyPool } from '../src/core/daily';
+import { dailyEntries, hasDaily } from '../src/core/turimDaily';
 import type { PuzzleText } from '../src/lessons/types';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import ruUi from '../src/i18n/locales/ru';
@@ -338,6 +339,16 @@ for (const lesson of LESSONS) {
       }
     });
   }
+}
+
+// every lesson read day by day: 12 comments, each with its Torah verse in sefaria.json, in the order of the verses
+for (const lesson of LESSONS) {
+  const es = dailyEntries(lesson);
+  if (lesson.kind === 'commentary' && lesson.memo && !hasDaily(lesson)) err(`${lesson.slug} · day by day: ${es.length} comments, 12 expected`);
+  es.forEach((e, k) => {
+    if (!SOURCES[e.verse]) err(`${lesson.slug} · day by day ${k + 1}: verse ${e.verse} is not in sefaria.json — run scripts/fetch-sources.py`);
+    else if (!SOURCES[e.verse].ref.endsWith(` ${e.ref}`) && !SOURCES[e.verse].ref.includes(` ${e.ref}-`)) err(`${lesson.slug} · day by day ${k + 1}: ${e.verse} is ${SOURCES[e.verse].ref}, not ${e.ref}`);
+  });
 }
 
 // a «Нифлаот Ребе» talk has no gematria calculator and no word cards to count

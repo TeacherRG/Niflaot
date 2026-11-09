@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect, useMemo, useState, type ComponentType } from 'react';
 import { PARSHIOT, cardsOnly, findLesson, type ParshaId } from './lessons';
-import { TURIM_DAYS, turimDayFor } from './core/turimDaily';
+import { TURIM_DAYS, hasDaily, turimDayFor } from './core/turimDaily';
 import { localToday } from './core/tanakh';
 import { Catalog } from './components/Catalog';
 import { ModePicker } from './components/ModePicker';
@@ -268,7 +268,7 @@ function Site() {
           ) : !lesson ? (
             // a mistyped or outdated link (and #/math/<unknown>): say so, not the home page
             <NotFound />
-          ) : view === 'day' && lesson.daily && (!variant || (Number(variant) >= 1 && Number(variant) <= TURIM_DAYS)) ? (
+          ) : view === 'day' && hasDaily(lesson) && (!variant || (Number(variant) >= 1 && Number(variant) <= TURIM_DAYS)) ? (
             <TurimDailyPage key={route} lesson={lesson} n={Number(variant) || turimDayIn(lesson)} />
           ) : view === 'print' && variant === 'memo' && lesson.memo ? (
             <PrintMemo key={lesson.slug} lesson={lesson} memo={lesson.memo} />
