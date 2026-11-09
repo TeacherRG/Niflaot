@@ -267,4 +267,20 @@ export const PROJECT_DE: Record<string, string[]> = {
   'bht-27-28': ['<b>G-tt gebe dir [wejiten lecha]</b> — zehn Wörter im Vers, und er wurde mit zwölf Segen gesegnet — entsprechend den Zehn Geboten, die seine zwölf Söhne empfangen sollten.'],
   'bht-27-29-1': ['<b>Und [Völker] sollen sich vor dir verneigen [wejischtachawu lecha]</b> — ohne [das zweite] Waw geschrieben: entsprechend den sechs Generationen von David bis Joram, in denen Edom Israel diente, und von da an fiel es von ihm ab. Und dieser Segen hat 26 Wörter — um dir zu sagen, dass er ihn mit dem verehrten Namen segnete, der 26 ergibt.'],
   'bht-27-33-1': ['<b>Und er sagte: Wer denn [wajomer mi efo]</b> — die ersten Buchstaben [ergeben] „imo“ [seine Mutter]: Wer war in dieser Sache der Vermittler? Riwka.'],
+  // «Нифлаот Ребе» · Толдот: «Пепел Ицхака»
+  "rashi-lev-26-42": [
+    "<b>Und Ich werde an Meinen Bund mit Jaakow denken.</b> Warum werden sie in umgekehrter Reihenfolge genannt? Das heißt: Jaakow, der Jüngste, ist dessen würdig; und wenn er nicht würdig ist — da ist Jizchak mit ihm; und wenn auch er nicht würdig ist — da ist Awraham mit ihm, der würdig ist. Und warum ist bei Jizchak kein „Gedenken“ gesagt? Weil die Asche Jizchaks vor Mir erscheint, aufgehäuft und liegend auf dem Altar (Sifra).",
+  ],
+  "rashi-lev-6-4": [
+    "<b>Und er soll die Asche hinaustragen.</b> Die Asche, die im „Tapuach“ [dem Haufen in der Mitte des Altars] gesammelt ist: Wenn es viel ist und kein Platz für die Maaracha [den Holzstoß] ist, trägt er sie von dort hinaus. Das ist keine Pflicht für jeden Tag; das Abheben [der Asche] aber ist eine Pflicht für jeden Tag (Tamid 28b).",
+  ],
+  "prov-3-6": [
+    "Auf all deinen Wegen erkenne Ihn, und Er wird deine Pfade gerade machen.",
+  ],
+  "pdre-31": [
+    "Rabbi Jehuda sagt: Als das Messer seinen Hals berührte, flog die Seele Jizchaks davon und ging hinaus. Und als Er Seine Stimme zwischen den Keruwim hören ließ und ihm sagte: „Leg deine Hand nicht an den Knaben“ [Bereschit 22,12], kehrte seine Seele in seinen Körper zurück, und Jizchak stand auf seinen Füßen. Und Jizchak wusste, dass so die Toten in der Zukunft wieder lebendig werden, und er begann und sagte: „Gelobt seist Du, Ewiger, der die Toten belebt.“",
+  ],
+  "pdre-33": [
+    "„Und Jizchak säte in jenem Land“ [Bereschit 26,12]. Rabbi Elieser sagt: Hat Jizchak etwa Getreide gesät? G-tt behüte! Nein, er nahm den Zehnten seines ganzen Reichtums und säte Zedaka für die Armen und Bedürftigen, wie es heißt: „Sät euch zur Gerechtigkeit, erntet nach der Güte“ [Hoschea 10,12]. Und für jedes Ding, von dem er den Zehnten gab, öffnete ihm der Heilige, gelobt sei Er, hundert Tore von allerlei Segen, wie es heißt: „Und er erntete in jenem Jahr hundertfach“ [Bereschit 26,12].",
+  ],
 };

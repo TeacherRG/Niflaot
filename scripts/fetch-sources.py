@@ -38,6 +38,7 @@ BERNFELD_DE = 'English/Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1
 BOOK_DE = {
     'Ezekiel': 'English/Das Buch Jecheskel, übersetzt und erläutert von Dr. Joseph Breuer, Frankfurt a.M, 1921 [de].json',
     'Proverbs': None,
+    'Hosea': 'English/Die vier und zwanzig Bücher der Heiligen Schrift. Unter der Redaction von Dr. Zunz übersetzt von H. Arnheim, Dr. Julius Fürst, Dr. M. Sachs. Berlin 1838 [de].json',
     'I Chronicles': None,
 }
 BAVLI_DE = 'English/Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de].json'
@@ -99,6 +100,9 @@ BOOK = {
     'Sanhedrin': ('Talmud/Bavli/Seder Nezikin/Sanhedrin/', 'Санедрин', 'Talmud'),
     'Horayot': ('Talmud/Bavli/Seder Nezikin/Horayot/', 'Ґорайот', 'Talmud'),
     'Niddah': ('Talmud/Bavli/Seder Tahorot/Niddah/', 'Нида', 'Talmud'),
+    'Zevachim': ('Talmud/Bavli/Seder Kodashim/Zevachim/', 'Зевахим', 'Talmud'),
+    'Menachot': ('Talmud/Bavli/Seder Kodashim/Menachot/', 'Менахот', 'Talmud'),
+    'Hosea': ('Tanakh/Prophets/Hosea/', 'Ґошеа', 'Prophets'),
 }
 
 
@@ -125,6 +129,9 @@ def vessels(h):
     return rambam(MT_VESSELS, 'Законы о сосудах Храма', 'Laws of the Vessels of the Sanctuary', 'Gesetze der Tempelgeräte',
                   'Mishneh Torah, Vessels of the Sanctuary and Those Who Serve Therein', 1, h)
 
+RASHI_LEV = 'Tanakh/Rishonim on Tanakh/Rashi/Torah/Rashi on Leviticus/'
+AVOT = 'Mishnah/Seder Nezikin/Pirkei Avot/'
+PDRE = 'Midrash/Aggadah/Pirkei DeRabbi Eliezer/'
 BR_DE = 'Der Midrasch Bereschit Rabba. Zum ersten Male ins Deutsche übertragen von Dr. August Wünsche. Leipzig 1881 [de].json'
 SR_DE = 'Der Midrach Schemot Rabba. Zum ersten Male ins Deutsche übertragen von Dr. August Wünsche. Leipzig 1882 [de].json'
 
@@ -466,6 +473,33 @@ SOURCES = {
     'nedarim-31a': ('Nedarim', '31a', 7, 7),
     'berakhot-16b': ('Berakhot', '16b', 12, 12),
     'ps-132-14': ('Psalms', 132, 14, 14),
+    # «Нифлаот Ребе» · Толдот: «Пепел Ицхака» (Ликутей сихот, т. 25, Толдот 3)
+    'gen-26-2': ('Genesis', 26, 2, 3),
+    'rashi-26-2': rashi(26, 2, 0),
+    'bereshit-rabbah-64-3': rabbah('Bereshit Rabbah', 'Берешит Раба', 'Bereshit Rabbah', 'Bereschit Rabba', 64, 3, BR_DE),
+    'gen-22-13': ('Genesis', 22, 13, 13),
+    'rashi-22-13': rashi(22, 13, 4),
+    'rashi-lev-26-42': ('custom', 'Раши, Ваикра 26:42', 'Rashi, Leviticus 26:42', 'Raschi, Wajikra 26,42', 'Rashi on Leviticus 26:42:2', 'Commentary',
+                        RASHI_LEV + 'Hebrew/' + RASHI_ED, RASHI_LEV + 'English/' + RASHI_ED, None, [25, 41, 1]),
+    'zevachim-62a': ('Zevachim', '62a', 4, 4),
+    'lev-6-3': ('Leviticus', 6, 3, 4),
+    'rashi-lev-6-4': ('custom', 'Раши, Ваикра 6:4', 'Rashi, Leviticus 6:4', 'Raschi, Wajikra 6,4', 'Rashi on Leviticus 6:4:2', 'Commentary',
+                      RASHI_LEV + 'Hebrew/' + RASHI_ED, RASHI_LEV + 'English/' + RASHI_ED, None, [5, 3, 1]),
+    'ex-29-37': ('Exodus', 29, 37, 37),
+    'gen-8-21': ('Genesis', 8, 21, 21),
+    'menachot-43b': ('Menachot', '43b', 10, 10),
+    'avot-2-12': ('custom', 'Пиркей авот 2:12', 'Pirkei Avot 2:12', 'Pirke Awot 2,12', 'Pirkei Avot 2:12', 'Mishnah',
+                  AVOT + 'Hebrew/Torat Emet 357.json', AVOT + 'English/The Mishna with Obadiah Bartenura by Rabbi Shraga Silverstein.json',
+                  (AVOT + 'English/Mischnajot mit deutscher Übersetzung und Erklärung. Berlin 1887-1933 [de].json', [1, 11]), [1, 11]),
+    'prov-3-6': ('Proverbs', 3, 6, 6),
+    'pdre-31': ('custom', 'Пиркей де-рабби Элиэзер, гл. 31', 'Pirkei DeRabbi Eliezer 31', 'Pirke de-Rabbi Elieser, Kap. 31', 'Pirkei DeRabbi Eliezer 31:10', 'Midrash',
+                PDRE + 'Hebrew/Pirke DeRabbi Eliezer, Sefaria Vocalized Edition.json', PDRE + 'English/Pirke de Rabbi Eliezer, trans. Rabbi Gerald Friedlander, London, 1916.json', None, [30, 9]),
+    'pdre-33': ('custom', 'Пиркей де-рабби Элиэзер, гл. 33', 'Pirkei DeRabbi Eliezer 33', 'Pirke de-Rabbi Elieser, Kap. 33', 'Pirkei DeRabbi Eliezer 33:1', 'Midrash',
+                PDRE + 'Hebrew/Pirke DeRabbi Eliezer, Sefaria Vocalized Edition.json', PDRE + 'English/Pirke de Rabbi Eliezer, trans. Rabbi Gerald Friedlander, London, 1916.json', None, [32, 0]),
+    'gen-26-12': ('Genesis', 26, 12, 12),
+    'hosea-10-12': ('Hosea', 10, 12, 12),
+    'berakhot-26b': ('Berakhot', '26b', 3, 3),
+    'rambam-kings-9-1': rambam(MT_KINGS, 'Законы царей', 'Laws of Kings', 'Gesetze der Könige', 'Mishneh Torah, Kings and Wars', 9, 1, MT_KINGS_DE),
 }
 
 # «Бааль ґа-Турим по дням» (src/core/turimDaily.ts): the verse of every Baal HaTurim comment, one verse each — `torah-<ch>-<v>`,
@@ -496,19 +530,24 @@ CUTS = {
     'bht-18-19': [('אשר יצוה בגימטריא תורה ובגימטריא ברית', 'אשר יצוה … בגימטריא ברית')],
 }
 
+# Chapter headings of an English edition that sit inside the quoted paragraph (Friedlander's PdRE 33) are cut
+EN_CUTS = {
+    'pdre-33': ['<b>ELISHA AND THE SHUNAMMITE WOMAN </b> '],
+}
+
 KIND = {
     'Torah': ('Тора', 'Torah'), 'Prophets': ('Пророки', 'Prophets'), 'Writings': ('Писания', 'Writings'),
     'Talmud': ('Гемара', 'Gemara'), 'Midrash': ('Мидраш', 'Midrash'), 'Chasidut': ('Хасидут', 'Chassidut'), 'Zohar': ('Зоґар', 'Zohar'),
     'Commentary': ('Комментарий', 'Commentary'), 'Targum': ('Таргум', 'Targum'),
-    'Halakhah': ('Ґалаха', 'Halachah'),
+    'Halakhah': ('Ґалаха', 'Halachah'), 'Mishnah': ('Мишна', 'Mishnah'),
 }
 EN_BOOK = {'I Kings': 'I Kings', 'II Kings': 'II Kings'}
-KIND_DE = {'Torah': 'Tora', 'Prophets': 'Propheten', 'Writings': 'Schriften', 'Talmud': 'Gemara', 'Midrash': 'Midrasch', 'Chasidut': 'Chassidut', 'Zohar': 'Sohar', 'Commentary': 'Kommentar', 'Targum': 'Targum', 'Halakhah': 'Halacha'}
+KIND_DE = {'Torah': 'Tora', 'Prophets': 'Propheten', 'Writings': 'Schriften', 'Talmud': 'Gemara', 'Midrash': 'Midrasch', 'Chasidut': 'Chassidut', 'Zohar': 'Sohar', 'Commentary': 'Kommentar', 'Targum': 'Targum', 'Halakhah': 'Halacha', 'Mishnah': 'Mischna'}
 DE_NAME = {
     'Genesis': 'Bereschit', 'Exodus': 'Schemot', 'Leviticus': 'Wajikra', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Dewarim', 'Ezekiel': 'Jecheskel', 'Amos': 'Amos', 'I Chronicles': 'Diwre HaJamim I',
     'I Samuel': 'Schmuel I', 'II Samuel': 'Schmuel II', 'Nehemiah': 'Nechemja', 'Horayot': 'Horajot', 'I Kings': 'I Könige', 'II Kings': 'Melachim II', 'Isaiah': 'Jeschajahu', 'Micah': 'Micha', 'Obadiah': 'Owadja', 'Psalms': 'Tehillim', 'Job': 'Ijob', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
     'Berakhot': 'Berachot', 'Shabbat': 'Schabbat', 'Yevamot': 'Jewamot', 'Sotah': 'Sota', 'Chullin': 'Chullin',
-    'Sukkah': 'Sukka', 'Chagigah': 'Chagiga', 'Megillah': 'Megilla', 'Ketubot': 'Ketubbot', 'Yoma': 'Joma', 'Nedarim': 'Nedarim', 'Bava Metzia': 'Bawa Mezia', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda',
+    'Sukkah': 'Sukka', 'Chagigah': 'Chagiga', 'Megillah': 'Megilla', 'Ketubot': 'Ketubbot', 'Yoma': 'Joma', 'Nedarim': 'Nedarim', 'Bava Metzia': 'Bawa Mezia', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda', 'Zevachim': 'Sewachim', 'Menachot': 'Menachot', 'Hosea': 'Hoschea',
 }
 
 _cache = {}
@@ -750,6 +789,9 @@ if __name__ == '__main__':
             assert any(wrong in h for h in out[sid]['he']), f'{sid}: misprint {wrong} not found'
             out[sid]['he'] = [h.replace(wrong, right) for h in out[sid]['he']]
             out[sid].setdefault('fixes', []).append([wrong, right])
+        for cut in EN_CUTS.get(sid, []):
+            assert sum(cut in e for e in out[sid]['en']) == 1, f'{sid}: English cut {cut} not found'
+            out[sid]['en'] = [e.replace(cut, '') for e in out[sid]['en']]
         for cut, rest in CUTS.get(sid, []):
             assert sum(cut in h for h in out[sid]['he']) == 1, f'{sid}: cut {cut} not found'
             out[sid]['he'] = [h.replace(cut, rest) for h in out[sid]['he']]
