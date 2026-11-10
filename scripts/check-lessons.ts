@@ -51,6 +51,7 @@ import { collectFacts, factHebrew } from '../src/core/facts';
 import { fromStartParam, miniAppLink } from '../src/core/telegram';
 import { dailyPool } from '../src/core/daily';
 import { dailyEntries, hasDaily } from '../src/core/turimDaily';
+import { entryFacts, gemThought } from '../src/core/turimGems';
 import type { PuzzleText } from '../src/lessons/types';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import ruUi from '../src/i18n/locales/ru';
@@ -550,8 +551,18 @@ for (const l of LESSONS)
   if (MAX_DROPOUTS < 2) err('MAX_DROPOUTS: a clean recording has up to 2 holes');
 }
 
+// маячки гематрий в «Бааль ґа-Турим по дням» (src/core/turimGems.ts): у каждой гематрии дня — мысль на всех языках
+let gemCount = 0;
+for (const l of LESSONS.filter(hasDaily)) {
+  const he = (e: ReturnType<typeof dailyEntries>[number]) => [SOURCES[e.verse]?.he.join(' ') ?? '', ...(e.quotes ?? []).flatMap((q) => SOURCES[parseQuote(q).id]?.he ?? [])];
+  for (const f of entryFacts(l, dailyEntries(l), he).flat()) {
+    gemCount++;
+    for (const loc of Object.keys(LOCALES) as (keyof typeof LOCALES)[]) if (!gemThought(f, l.texts[loc])) err(`${l.slug}: у гематрии ${f.q} = ${f.v} нет мысли (${loc}) — «Чему это учит?» пары Memo или вывод загадки`);
+  }
+}
+
 if (errors.length) {
   console.error(errors.map((e) => '✗ ' + e).join('\n'));
   process.exit(1);
 }
-console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, memo, ${facts.length} facts, ${daily.length} daily words, safe HTML, no permission prompts, daily messages, texts to listen to, en/de style`);
+console.log(`✓ ${LESSONS.length} lessons checked: coaches, option values, footnotes, sources, puzzles, memo, ${facts.length} facts, ${daily.length} daily words, ${gemCount} gematria beacons with a thought, safe HTML, no permission prompts, daily messages, texts to listen to, en/de style`);

@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useI18n, type Locale } from '../i18n';
 import { withTerms } from '../i18n/glossary';
 import { PARSHIOT } from '../lessons';
@@ -8,12 +8,14 @@ import { markCalcs } from '../core/calcLines';
 import { displayNames } from '../core/names';
 import { localToday } from '../core/tanakh';
 import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
-import { PER_DAY, TURIM_DAYS, dayEntries, doneKey, turimDate, turimDays, turimIsDone, useTurimDone, type DayEntry } from '../core/turimDaily';
+import { PER_DAY, TURIM_DAYS, dailyEntries, dayEntries, doneKey, turimDate, turimDays, turimIsDone, useTurimDone, type DayEntry } from '../core/turimDaily';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { TanakhMasthead } from './PrintBrand';
 import { Icon, useDismiss } from './ui';
 import { HebrewRuns } from './Hebrew';
+import { GemPop, GemRow, GemVerse, placeGems } from './GemPop';
+import { entryFacts, type EqFact } from '../core/turimGems';
 
 /**
  * «Тора с Бааль ґа-Турим» по дням — как отрывок дня «Пророков и Писаний» (TanakhPage.tsx): полоса дат ‹ ›, заголовок,
@@ -171,8 +173,18 @@ function Comment({ he, tr, trLang, by }: { he: string[] | null; tr: string[] | n
   );
 }
 
+/** the Hebrew of a comment: the verse and the commentator's words (where an equality of the lesson stands) */
+function entryHebrew(e: DayEntry): string[] {
+  const out = [SOURCES[e.verse]?.he.join(' ') ?? ''];
+  for (const q of e.quotes ?? []) {
+    const { id } = parseQuote(q);
+    out.push(...(SOURCES[id]?.he ?? []).map((h) => h.replace(/<[^>]+>/g, ' ')));
+  }
+  return out;
+}
+
 /** One comment of the day, as a verse of the Tanakh page: the verse, the commentator's words, the explanation. */
-function Entry({ lesson, e, num, text, tr, chapter, same }: { lesson: Lesson; e: DayEntry; num: number; text: TextLang; tr: Tr | null; chapter: boolean; same: boolean }) {
+function Entry({ lesson, e, num, text, tr, chapter, same, gems }: { lesson: Lesson; e: DayEntry; num: number; text: TextLang; tr: Tr | null; chapter: boolean; same: boolean; gems: EqFact[] }) {
   const { t, pick, locale } = useI18n();
   const { value: lt, locale: lessonLocale } = pick(lesson.texts);
   const he = text.startsWith('he');
@@ -201,6 +213,8 @@ function Entry({ lesson, e, num, text, tr, chapter, same }: { lesson: Lesson; e:
   const title = e.text !== undefined ? lt.daily?.items[e.text]?.h : e.memo !== undefined ? lt.memo?.items[e.memo]?.title : undefined;
   const body = e.text !== undefined ? lt.daily?.items[e.text]?.b ?? '' : '';
   const mi = e.memo !== undefined ? lt.memo?.items[e.memo] : undefined;
+  // маячки гематрий: в стихе — у его слов, остальные — строкой над словами комментатора
+  const { marks, rest } = placeGems(he && v && !same ? v.he.join(' ') : null, gems);
   return (
     <>
       {chapter && (
@@ -218,7 +232,7 @@ function Entry({ lesson, e, num, text, tr, chapter, same }: { lesson: Lesson; e:
         {/* the next comment on the same verse: the verse is not repeated */}
         {he && v && !same && (
           <p className="tk-he he" lang="he" dir="rtl">
-            {v.he.join(' ')}
+            <GemVerse text={v.he.join(' ')} marks={marks} />
           </p>
         )}
         {vTr && !same && (
@@ -226,6 +240,7 @@ function Entry({ lesson, e, num, text, tr, chapter, same }: { lesson: Lesson; e:
             {nb(vTr.join(' '))}
           </p>
         )}
+        <GemRow facts={rest} />
         <Comment he={he ? cHe : null} tr={tr && cTr.length ? cTr : null} trLang={tr} by={t('teacher.baal-haturim.short')} />
         {(body || mi) && (
           <div className="turim-expl" lang={lessonLocale}>
@@ -271,6 +286,8 @@ export function TurimDailyPage({ lesson, n }: { lesson: Lesson; n: number }) {
   const prev = link(all[i - 1]);
   const next = link(all[i + 1]);
   const entries = dayEntries(lesson, n);
+  // the equalities of the week's comments (each once, at its first comment) — the beacons of GemPop
+  const gems = useMemo(() => entryFacts(lesson, dailyEntries(lesson), entryHebrew).slice((n - 1) * PER_DAY, n * PER_DAY), [lesson, n]);
   const [view, setView] = useView(locale);
   const tr = trOf(view);
   const isToday = date === today;
@@ -328,8 +345,14 @@ export function TurimDailyPage({ lesson, n }: { lesson: Lesson; n: number }) {
             </button>
           </div>
 
+          {gems.some((g) => g.length > 0) && (
+            <p className="tk-hint kp-hint no-print">
+              <span className="kp-dot" aria-hidden="true" /> {t('gem.hint')}
+            </p>
+          )}
+          <GemPop />
           {entries.map((e, k) => (
-            <Entry key={k} lesson={lesson} e={e} num={(n - 1) * PER_DAY + k + 1} text={view} tr={tr} chapter={k === 0 || entries[k - 1].ref.split(':')[0] !== e.ref.split(':')[0]} same={k > 0 && entries[k - 1].verse === e.verse} />
+            <Entry key={k} lesson={lesson} e={e} num={(n - 1) * PER_DAY + k + 1} text={view} tr={tr} chapter={k === 0 || entries[k - 1].ref.split(':')[0] !== e.ref.split(':')[0]} same={k > 0 && entries[k - 1].verse === e.verse} gems={gems[k] ?? []} />
           ))}
 
           <DoneCheck lesson={lesson} n={n} today={today} />

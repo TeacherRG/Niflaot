@@ -48,9 +48,9 @@ export interface Beacon {
   range: [number, number];
   label: string;
 }
-/** a pulsing gold light; KeyPop listens to the page for `.tk-beacon` */
-export const BeaconButton = ({ k, label }: { k: string; label: string }) => (
-  <button type="button" className="tk-beacon no-print" data-k={k} aria-label={label} title={label}>
+/** a pulsing gold light; KeyPop listens to the page for `.tk-beacon[data-k]`, GemPop (Baal HaTurim) — for `[data-g]` */
+export const BeaconButton = ({ k, label, g }: { k: string; label: string; g?: boolean }) => (
+  <button type="button" className="tk-beacon no-print" data-k={g ? undefined : k} data-g={g ? k : undefined} aria-label={label} title={label}>
     <span aria-hidden="true" />
   </button>
 );

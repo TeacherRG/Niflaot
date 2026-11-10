@@ -59,7 +59,7 @@ export function KeyPop() {
 
   useEffect(() => {
     const hover = matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const beacon = (e: Event) => (e.target as HTMLElement | null)?.closest?.('.tk-beacon') as HTMLElement | null;
+    const beacon = (e: Event) => (e.target as HTMLElement | null)?.closest?.('.tk-beacon[data-k]') as HTMLElement | null;
     const onOver = (e: MouseEvent) => {
       const el = beacon(e);
       if (el) show(el, false);
