@@ -6,7 +6,7 @@
  */
 
 /** the synced localStorage keys: exact names, and `niflaot:lesson:<slug>` */
-export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:nigun', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:turim-done', 'niflaot:words', 'niflaot:notes', 'niflaot:torah-words', 'niflaot:torah-read', 'niflaot:lashon', 'niflaot:zip', 'niflaot:study-days', 'niflaot:mode', 'niflaot:courses', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
+export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:nigun', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:turim-done', 'niflaot:words', 'niflaot:notes', 'niflaot:torah-words', 'niflaot:torah-read', 'niflaot:lashon', 'niflaot:zip', 'niflaot:patches', 'niflaot:study-days', 'niflaot:mode', 'niflaot:courses', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
 export const LESSON_PREFIX = 'niflaot:lesson:';
 export const isSynced = (k: string) => SYNC_KEYS.includes(k) || k.startsWith(LESSON_PREFIX);
 
@@ -145,6 +145,19 @@ function mergeZip(a: string, b: string): string {
   return JSON.stringify({ l: Math.max(Number(x.l) || 1, Number(y.l) || 1), d, ...(x.c || y.c ? { c: x.c ?? y.c } : {}) });
 }
 
+/**
+ * «Лоскуты гематрии» (src/core/patches.ts): the copy with more boards solved leads (its level and day of the last win);
+ * the best time of each level — the faster of the two.
+ */
+function mergePatches(a: string, b: string): string {
+  const x = parse(a) ?? {};
+  const y = parse(b) ?? {};
+  const [hi, lo] = (Number(x.g) || 0) >= (Number(y.g) || 0) ? [x, y] : [y, x];
+  const best: Record<string, number> = { ...(lo.b ?? {}) };
+  for (const [k, v] of Object.entries<any>(hi.b ?? {})) if (!(best[k] <= Number(v))) best[k] = Number(v);
+  return JSON.stringify({ l: Number(hi.l) || 1, g: Number(hi.g) || 0, b: best, ...(hi.w || lo.w ? { w: hi.w ?? lo.w } : {}) });
+}
+
 /** «Учёба каждый день» (src/core/habit.ts): every day of study from both; a day studied (1) wins over one made up (2) */
 function mergeStudy(a: string, b: string): string {
   const x = parse(a) ?? {};
@@ -174,6 +187,7 @@ export function mergeSnapshots(local: Snapshot, remote: Snapshot): Snapshot {
     else if (k === 'niflaot:study-days') out[k] = mergeStudy(a, b);
     else if (k === 'niflaot:lashon') out[k] = mergeCourse(a, b);
     else if (k === 'niflaot:zip') out[k] = mergeZip(a, b);
+    else if (k === 'niflaot:patches') out[k] = mergePatches(a, b);
     else if (k === 'niflaot:tanakh-done' || k === 'niflaot:hemshech-done' || k === 'niflaot:turim-done') out[k] = mergeDone(a, b);
     else out[k] = a;
   }

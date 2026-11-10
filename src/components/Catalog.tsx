@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useI18n } from '../i18n';
 import { Slogan } from './Slogan';
 import { LESSONS, LESSON_GROUPS, cardsOnly, type Lesson } from '../lessons';
@@ -16,7 +16,7 @@ import { parshaDaily } from '../core/turimDaily';
 import { lessonArt } from '../core/art';
 import { useMode } from '../core/mode';
 import { CoursesCard } from './CoursesCard';
-import { ZIP_KEY, zipTile } from '../core/zipReminder';
+import { PATCHES_KEY, ZIP_KEY, patchesTile, zipTile } from '../core/zipReminder';
 import { todayIso } from '../core/habit';
 import { Dedication } from './Dedication';
 import { ShabbatCalendar } from './ShabbatCalendar';
@@ -44,21 +44,61 @@ function DailyLink() {
   );
 }
 
-/** «Святая игра Zip» on the kids' home (#/zip): the level of the next verse, or ✓ when a verse is solved today. */
-function ZipLink() {
+/**
+ * «Игры» (owner, 09.11.2026: «плитку переименуй в игры и свайпом сделай выбор игры»): one tile, the games side by side —
+ * swipe (scroll-snap) or the dots; «Zip — стих Торы» (#/zip) and «Лоскуты гематрии» (#/patches), each with the level of the
+ * next puzzle or ✓ for today. It opens on the first game not played today. `adults` — the book-like tile of the adults' home.
+ */
+function GamesTile({ adults = false }: { adults?: boolean }) {
   const { t } = useI18n();
-  let raw: string | null = null;
-  try {
-    raw = localStorage.getItem(ZIP_KEY);
-  } catch {}
-  const z = zipTile(raw, todayIso());
+  const read = (k: string) => {
+    try {
+      return localStorage.getItem(k);
+    } catch {
+      return null;
+    }
+  };
+  const today = todayIso();
+  const z = zipTile(read(ZIP_KEY), today);
+  const p = patchesTile(read(PATCHES_KEY), today);
+  const games = [
+    { href: '#/zip', name: 'Zip', he: 'פָּסוּק', icon: '🧩', sub: t(z.today ? 'home.zipDone' : 'home.zipNew', { n: z.l }), done: z.today },
+    { href: '#/patches', name: t('patches.short'), he: 'טְלָאִים', icon: '🟩', sub: t(p.today ? 'home.patchesDone' : 'home.patchesNew', { n: p.l }), done: p.today },
+  ];
+  const start = Math.max(0, games.findIndex((g) => !g.done));
+  const [page, setPage] = useState(start);
+  const box = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (start && box.current) box.current.scrollLeft = start * box.current.clientWidth;
+  }, []);
+  const go = (i: number) => box.current?.scrollTo({ left: i * box.current.clientWidth, behavior: 'smooth' });
   return (
-    <a className="h-daily h-zip" href="#/zip">
-      <span className="h-daily-title">
-        🧩 {t('home.zipK')} <span className="num">Zip</span>
-      </span>
-      <span className="h-daily-sub">{t(z.today ? 'home.zipDone' : 'home.zipNew', { n: z.l })} →</span>
-    </a>
+    <div className={`games ${adults ? 'a-games' : 'h-games'}`} role="group" aria-roledescription="carousel" aria-label={t('home.games')}>
+      <div className="g-pages" ref={box} onScroll={(e) => setPage(Math.round(e.currentTarget.scrollLeft / Math.max(1, e.currentTarget.clientWidth)))}>
+        {games.map((g, i) =>
+          adults ? (
+            <a key={g.href} className="a-tile a-zip g-slide" href={g.href} aria-label={`${t('home.games')}: ${g.name}. ${g.sub}`} tabIndex={i === page ? 0 : -1}>
+              <span className="a-tile-k">{t('home.games')}</span>
+              <span className="a-tile-t">{g.name}</span>
+              <span className="a-tile-he he">{g.he}</span>
+              <span className="a-zip-s">{g.sub}</span>
+            </a>
+          ) : (
+            <a key={g.href} className="h-daily h-zip g-slide" href={g.href} tabIndex={i === page ? 0 : -1}>
+              <span className="h-daily-title">
+                {g.icon} {t('home.games')} · <span className={g.name === 'Zip' ? 'num' : undefined}>{g.name}</span>
+              </span>
+              <span className="h-daily-sub">{g.sub} →</span>
+            </a>
+          ),
+        )}
+      </div>
+      <div className="g-dots">
+        {games.map((g, i) => (
+          <button key={g.href} type="button" aria-current={i === page ? 'true' : undefined} aria-label={t('home.gamesPick', { name: g.name })} onClick={() => go(i)} />
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -115,10 +155,10 @@ function AdultsHome() {
             <span className="a-tile-t">{t('reading.h1')}</span>
             <span className="a-tile-he he">תְּהִלִּים</span>
           </a>
-          {/* «Мои курсы» — half the tile, «Святая игра Zip» next to it (owner, 02.11.2026) */}
+          {/* «Мои курсы» — half the tile, «Игры» (Zip, «Лоскуты гематрии») next to it (owner, 02.11 and 09.11.2026) */}
           <div className="a-pair">
             <CoursesCard simple />
-            <ZipTile />
+            <GamesTile adults />
           </div>
           <HomeTicker />
         </div>
@@ -126,24 +166,6 @@ function AdultsHome() {
       </main>
       <Colophon />
     </>
-  );
-}
-
-/** «Святая игра Zip» (#/zip, src/core/zip.ts): the level of the next verse, or ✓ when a verse is solved today. */
-function ZipTile() {
-  const { t } = useI18n();
-  let raw: string | null = null;
-  try {
-    raw = localStorage.getItem(ZIP_KEY);
-  } catch {}
-  const z = zipTile(raw, todayIso());
-  return (
-    <a className="a-tile a-zip" href="#/zip">
-      <span className="a-tile-k">{t('home.zipK')}</span>
-      <span className="a-tile-t">Zip</span>
-      <span className="a-tile-he he">פָּסוּק</span>
-      <span className="a-zip-s">{t(z.today ? 'home.zipDone' : 'home.zipNew', { n: z.l })}</span>
-    </a>
   );
 }
 
@@ -687,7 +709,7 @@ function KidsHome() {
 
           <div className="k-side">
             <HabitCard compact />
-            <ZipLink />
+            <GamesTile />
             <CoursesCard />
             <DailyLink />
             <TableLink />
