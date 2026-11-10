@@ -1,0 +1,28 @@
+name: One-time Memo email test
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: Type SEND_MEMO_TEST to email the current subscriber
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  send:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+      - name: Send the fixed one-time test email
+        run: node scripts/send-memo-test.mjs
+        env:
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+          SEND_CONFIRMATION: ${{ inputs.confirm }}
