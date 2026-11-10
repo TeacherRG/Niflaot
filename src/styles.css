@@ -1764,6 +1764,8 @@ a.tk-step:hover{background:var(--tchelet-soft)}
 .ln-he.big{font-size:54px}
 .ln-tr-big{margin:0;padding:12px 14px;border:2px solid var(--line);border-radius:14px;font-size:19px;font-weight:700;text-align:center}
 .ln-intro-tr{margin:0;font-size:22px;font-weight:700;text-align:center}
+/* «Чтение»: the word split into its syllables */
+.ln-syl-split{margin:0 0 4px;font-size:30px;text-align:center;color:var(--tchelet-deep);letter-spacing:.02em}
 .ln-intro-meta{margin:0;color:var(--muted);text-align:center}
 .ln-intro-meta .he{font-family:var(--f-he);font-size:20px}
 .ln-intro-verse{display:grid;gap:4px;max-width:520px;margin:6px auto 0;padding:10px 14px;border-left:3px solid var(--gold-2);background:var(--gold-soft);border-radius:0 10px 10px 0;font-size:14px;color:var(--ink-3)}
