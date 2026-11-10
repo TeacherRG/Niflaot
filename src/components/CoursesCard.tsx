@@ -36,7 +36,7 @@ export function CoursesCard({ simple = false }: { simple?: boolean }) {
   const sub = (r: CourseRow) => {
     if (r.starts) return t('courses.starts', { date: r.starts });
     if (r.id === 'neviim' || r.id === 'ketuvim' || r.id === 'hemshech') return r.finished ? `✓ ${r.next}` : `${t('courses.next')}: ${r.next}`;
-    if (r.id === 'lashon') return t('courses.lashonSub', { n: r.next ?? 0, xp: r.done, goal: r.total });
+    if (r.id === 'lashon') return t('courses.lashonSub', { n: r.next ?? 0, xp: r.xp ?? 0, goal: r.goal ?? 0 });
     if (r.id === 'koelet') return r.finished ? t('courses.koeletAll') : r.done ? t('courses.koeletSub', { n: r.done, total: r.total }) : t('courses.koeletStart');
     return r.finished ? t('courses.nigunAll') : `${t('courses.next')}: ${r.next}`;
   };
