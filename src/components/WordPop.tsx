@@ -15,7 +15,7 @@ import { Family } from './TanakhAtlas';
  * «prefixes|number|ending» for each word of our text, split at spaces and maqaf; 0 — the word didn't match.
  * `atlas` — who or what the word names ({word number: id}, public/tanakh/atlas/<date>.json): the window shows its note.
  */
-export function HeVerse({ text, parse, atlas }: { text: string; parse?: (string | 0)[]; atlas?: Record<string, string> }) {
+export function HeVerse({ text, parse, atlas, beacon }: { text: string; parse?: (string | 0)[]; atlas?: Record<string, string>; beacon?: Beacon }) {
   const parts = text.split(/([ ־]+)/);
   let w = 0;
   return (
@@ -26,9 +26,12 @@ export function HeVerse({ text, parse, atlas }: { text: string; parse?: (string 
         const code = parse?.[n];
         // the sof pasuq stays outside the word
         const m = p.match(/^(.*?)(׃?)$/)!;
+        // «Ключевое место»: the words of the phrase are underlined, the beacon stands before the first of them
+        const key = beacon && n >= beacon.range[0] && n <= beacon.range[1];
         return (
           <span key={i}>
-            <span className="tk-hw" data-c={code || ''} data-a={atlas?.[n] ?? ''}>
+            {key && n === beacon.range[0] && <BeaconButton k={beacon.k} label={beacon.label} />}
+            <span className={key ? 'tk-hw tk-key' : 'tk-hw'} data-c={code || ''} data-a={atlas?.[n] ?? ''} data-k={key ? beacon.k : undefined}>
               {m[1]}
             </span>
             {m[2]}
@@ -38,6 +41,19 @@ export function HeVerse({ text, parse, atlas }: { text: string; parse?: (string 
     </>
   );
 }
+
+/** the beacon of a key phrase (src/core/atlasKeys.ts): the verse, where its words are, the button's label */
+export interface Beacon {
+  k: string;
+  range: [number, number];
+  label: string;
+}
+/** a pulsing gold light; KeyPop listens to the page for `.tk-beacon[data-k]`, GemPop (Baal HaTurim) — for `[data-g]` */
+export const BeaconButton = ({ k, label, g }: { k: string; label: string; g?: boolean }) => (
+  <button type="button" className="tk-beacon no-print" data-k={g ? undefined : k} data-g={g ? k : undefined} aria-label={label} title={label}>
+    <span aria-hidden="true" />
+  </button>
+);
 
 const PREFIX_HE: Record<string, string> = { b: 'ב', c: 'ו', d: 'ה', i: 'ה', k: 'כ', l: 'ל', m: 'מ', s: 'ש' };
 

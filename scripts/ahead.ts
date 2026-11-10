@@ -64,6 +64,14 @@ const atlasReady = (d: string) => {
   return [...a.o.neviim, ...a.o.ketuvim].every((id) => LANGS.every((l) => atlasTexts[l][id]?.d));
 };
 
+// «Ключевые места» Невиим — маячок шана · нефеш · олам у отрывка дня (src/tanakh/atlas/keys.json)
+const akeys = read<Record<string, unknown>>('src/tanakh/atlas/keys.json');
+const keyReady = (d: string) => {
+  const p = `public/tanakh/${d}.json`;
+  if (!existsSync(p)) return false;
+  return read<{ neviim: { verses: { b: string; c: number; v: number }[] } }>(p).neviim.verses.some((v) => `${v.b} ${v.c}:${v.v}` in akeys);
+};
+
 const quizDays = new Set(readdirSync('src/tanakh/quiz').map((f) => f.replace(/\.json$/, '')));
 const RETELL = retell as Record<string, unknown>;
 
@@ -76,6 +84,7 @@ const rows: [string, string, string][] = [
   ['Пересказ дней («Неделя в Академии»)', lastOk((d) => d in RETELL), 'src/tanakh/retell.json'],
   ['Вопросы к отрывку', lastOk((d) => quizDays.has(d)), 'src/tanakh/quiz/<дата>.json'],
   ['«Кто и где» — справки', atlasUntil, 'вместе с переводом: fetch-atlas.py todo ru <до-даты>'],
+  ['«Ключевые места» Невиим (шана · нефеш · олам)', lastOk(keyReady), 'src/tanakh/atlas/keys.json — по одному на день'],
   ['Хасидут — отрывки дня', passageDate(allPassages().length - 1), 'src/hemshech/5666.json'],
 ];
 

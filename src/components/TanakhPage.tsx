@@ -14,8 +14,12 @@ import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
 import { TanakhMasthead } from './PrintBrand';
 import { TanakhWords } from './TanakhWords';
 import { TanakhAtlas } from './TanakhAtlas';
+import { VersesGraph } from './PassageGraph';
+import { Fold } from './Fold';
 import { loadAtlasDay, type AtlasDay } from '../core/atlas';
-import { HeVerse, WordPop } from './WordPop';
+import { BeaconButton, HeVerse, WordPop, type Beacon } from './WordPop';
+import { KeyPop } from './KeyPop';
+import { keyRange, loadAtlasKeys, type AtlasKeys } from '../core/atlasKeys';
 import { loadDayWords, type DayWords } from '../core/words';
 import { setOtherPage } from '../core/assistant';
 import { tanakhContext } from '../core/assistantPages';
@@ -264,7 +268,7 @@ function Comm({ c, by, he, tr }: { c: Commentary; by: string; he: boolean; tr: T
  * The verses of one section of one day: a heading at each new chapter, then verse by verse with the chosen commentaries.
  * `parse` — the words of the verses parsed (public/tanakh/words/<date>.json): each Hebrew word opens WordPop.
  */
-function Verses({ verses, he, tr, md, rashi, parse, atlas, notes }: { verses: DayVerse[]; he: boolean; tr: Tr | null; md: boolean; rashi: boolean; parse?: DayWords[Section]['v']; atlas?: AtlasDay['v']; notes?: { section: Section; date: string } }) {
+function Verses({ verses, he, tr, md, rashi, parse, atlas, keys, notes }: { verses: DayVerse[]; he: boolean; tr: Tr | null; md: boolean; rashi: boolean; parse?: DayWords[Section]['v']; atlas?: AtlasDay['v']; keys?: AtlasKeys | null; notes?: { section: Section; date: string } }) {
   const { t, locale } = useI18n();
   // «Мои закладки»: закладка и заметка у каждого стиха (только у раздела на экране, не у второго раздела для печати)
   const store = useNotes();
@@ -277,6 +281,11 @@ function Verses({ verses, he, tr, md, rashi, parse, atlas, notes }: { verses: Da
         const newChapter = !prev || prev.b !== v.b || prev.c !== v.c;
         const text = tr ? nb(tr, v[tr]) : undefined;
         const key = verseKey(v.b, v.c, v.v);
+        // «Ключевое место» (src/core/atlasKeys.ts): the beacon — in the Hebrew phrase, or by the verse number when Hebrew isn't shown
+        const ak = notes ? keys?.[`${v.b} ${v.c}:${v.v}`] : undefined;
+        const range = ak && keyRange(v.he, ak.w);
+        const beacon: Beacon | undefined = ak && range ? { k: `${v.b} ${v.c}:${v.v}`, range, label: `${t('keys.title')}: ${ak.t[labelLang(locale)]}` } : undefined;
+        const inHebrew = he && !!parse;
         const vref: VerseRef | null = notes ? { key, date: notes.date, section: notes.section, text: text ?? v.en ?? '' } : null;
         return (
           <Fragment key={`${v.b}-${v.c}-${v.v}`}>
@@ -292,6 +301,7 @@ function Verses({ verses, he, tr, md, rashi, parse, atlas, notes }: { verses: Da
               <span className="tk-num num" aria-label={`${v.c}:${v.v}`}>
                 {v.c}:{v.v}
               </span>
+              {beacon && !inHebrew && <BeaconButton k={beacon.k} label={beacon.label} />}
               {vref && (
                 <VerseTools
                   vref={vref}
@@ -314,7 +324,7 @@ function Verses({ verses, he, tr, md, rashi, parse, atlas, notes }: { verses: Da
               )}
               {he && (
                 <p className="tk-he he" lang="he" dir="rtl">
-                  {parse ? <HeVerse text={v.he} parse={parse[`${v.b} ${v.c}:${v.v}`]} atlas={atlas?.[`${v.b} ${v.c}:${v.v}`]} /> : v.he}
+                  {parse ? <HeVerse text={v.he} parse={parse[`${v.b} ${v.c}:${v.v}`]} atlas={atlas?.[`${v.b} ${v.c}:${v.v}`]} beacon={beacon} /> : v.he}
                 </p>
               )}
               {text && (
@@ -462,6 +472,15 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
       live = false;
     };
   }, [day.date, plan.annual]);
+  // «Ключевые места» — маячки шана · нефеш · олам (src/tanakh/atlas/keys.json, грузятся отдельно от бандла страницы)
+  const [keys, setKeys] = useState<AtlasKeys | null>(null);
+  useEffect(() => {
+    let live = true;
+    loadAtlasKeys().then((k) => live && setKeys(k));
+    return () => {
+      live = false;
+    };
+  }, []);
   // who and where: the people and places the words of the verses name (public/tanakh/atlas/<date>.json)
   const [atlas, setAtlas] = useState<AtlasDay | null>(null);
   useEffect(() => {
@@ -605,21 +624,40 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
           ) : (
             <>
               {he && parsed?.[section].v && <p className="tk-hint no-print">{t(touchOnly() ? 'wp.hintTouch' : 'wp.hint')}</p>}
-              <Verses verses={sec.verses} he={he} tr={tr} md={view.md} rashi={view.rashi} parse={parsed?.[section].v} atlas={atlas?.v} notes={{ section, date: day.date }} />
+              {keys && sec.verses.some((v) => keys[`${v.b} ${v.c}:${v.v}`]) && (
+                <p className="tk-hint kp-hint no-print">
+                  <span className="kp-dot" aria-hidden="true" /> {t('keys.hint')}
+                </p>
+              )}
+              <Verses verses={sec.verses} he={he} tr={tr} md={view.md} rashi={view.rashi} parse={parsed?.[section].v} atlas={atlas?.v} keys={keys} notes={{ section, date: day.date }} />
               {he && parsed?.[section].v && <WordPop />}
+              {keys && <KeyPop />}
             </>
           )}
 
           {sec && <DoneCheck section={section} date={day.date} today={today} plan={plan} />}
+          {/* под отрывком — блоки, которые раскрываются по нажатию: граф раскрыт, остальное свёрнуто (выбор помнится) */}
           {sec && !plan.annual && (
-            <p className="tk-quiz no-print">
-              <a className="btn" href={`#/${section}/${day.date}/quiz`}>
-                ✓ {t('quiz.cta')}
-              </a>
-            </p>
+            <div className="tk-folds">
+              <Fold id="graph" title={t('graph.title')} open>
+                <VersesGraph verses={sec.verses} atlas={atlas} keys={keys} />
+              </Fold>
+              <Fold id="atlas" title={t('atlas.title')} he="מִי וְאֵיפֹה" open={false}>
+                <TanakhAtlas section={section} date={day.date} />
+              </Fold>
+              <Fold id="words" title={t('words.title')} he="מִלִּים" open={false}>
+                <TanakhWords section={section} date={day.date} />
+              </Fold>
+              <Fold id="quiz" title={t('fold.quiz')} open={false}>
+                <p className="tk-quiz">
+                  <span>{t('fold.quizLead')}</span>
+                  <a className="btn" href={`#/${section}/${day.date}/quiz`}>
+                    ✓ {t('quiz.cta')}
+                  </a>
+                </p>
+              </Fold>
+            </div>
           )}
-          {sec && !plan.annual && <TanakhAtlas section={section} date={day.date} />}
-          {sec && !plan.annual && <TanakhWords section={section} date={day.date} />}
           <nav className="tk-pager no-print" aria-label={t('tanakh.navLabel')}>
             {prev ? (
               <a className="prev" href={`#/${section}/${prev.date}`}>
