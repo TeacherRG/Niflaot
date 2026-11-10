@@ -243,7 +243,11 @@ if (m['niflaot:lashon'] !== JSON.stringify({ s: { 'א': 1, 'ב': 20752, '559': 1
   if (readCourse().s['1961']) err('курс → «Мои слова»: повторение из курса записано в курс второй раз');
   reviewFromCourse({ '559': false });
   w = readWordStore();
-  if (w['559'][1] !== 1) err(`курс → «Мои слова»: ошибка в слове «знаю» не вернула его в «учу» ${JSON.stringify(w)}`);
+  if (w['559'][1] !== 3 || w['559'][2] !== dayNo()) err(`курс → «Мои слова»: ошибка в слове «знаю» — оно остаётся «знаю» и проверяется сегодня ${JSON.stringify(w)}`);
+  reviewFromCourse({ '1961': false });
+  w = readWordStore();
+  if (w['1961'][1] !== 1) err(`курс → «Мои слова»: ошибка в слове «учу» не вернула его в коробку 1 ${JSON.stringify(w)}`);
+  markLearn('1961');
   review('1961', true);
   let c = readCourse();
   if (c.s['1961'] !== dayNo() || c.w['1961']) err(`«Мои слова» → курс: «помню» не записано ${JSON.stringify(c)}`);
