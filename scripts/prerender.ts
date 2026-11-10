@@ -1386,8 +1386,10 @@ for (const { lang, ui } of LANGS) {
   const start = (path: string) => `${path}?lang=${lang}&ref=app`;
   const manifest = {
     id: '/',
-    name: `${s(ui, 'app.title')} — ${s(ui, 'catalog.uvp')}`,
-    short_name: s(ui, 'app.title'),
+    // the name under the icon — one for every language, «Niflaot» (owner, 10.11.2026: «название должно быть niflaot, ведь сайт
+    // многоязычный»; the phone's search then finds it by «niflaot» in Latin letters too)
+    name: `Niflaot — ${s(ui, 'catalog.uvp')}`,
+    short_name: 'Niflaot',
     description: s(ui, 'catalog.seo'),
     lang,
     dir: 'ltr',
