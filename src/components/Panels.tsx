@@ -289,7 +289,7 @@ export function Panels() {
               {link('#/atlas/timeline', num('ז', true), t('atlas.timeline'), t('atlas.timelineSub'))}
             </>
           ))}
-          {group(<Icon name="chat" />, t('academy.fac.lashon'), t('menu.lashonSub'), starts('#/lashon', '#/pics', '#/torah-words', '#/words', '#/letters'), (
+          {group(<Icon name="chat" />, t('academy.fac.lashon'), t('menu.lashonSub'), starts('#/lashon', '#/pics', '#/torah-words', '#/words', '#/letters', '#/english'), (
             <>
               {link('#/lashon', num('ל', true), t('ln.title'), t('ln.menuSub'))}
               {link('#/pics', num('ת', true), t('pic.title'), t('pic.menuSub'))}
@@ -297,6 +297,7 @@ export function Panels() {
                 ? link('#/torah-words', <Icon name="cards" />, t('tw.title'), t('tw.menuSub'))
                 : link('#/words', <Icon name="cards" />, t('words.mine'), w?.any ? (w.due ? t('words.homeSub', { d: w.due, k: w.known }) : t('words.homeSubDone', { k: w.known })) : t('words.menuSub'), !!w?.any && !w.due)}
               {level !== 'reads' && link('#/letters', num('א', true), t('abc.title'), t('abc.menuSub'))}
+              {link('#/english', num('E'), t('enc.menu'), t('enc.menuSub'))}
             </>
           ))}
           {/* «Святое чтение» — fluent reading of Tehillim and «Песнь Аазину» aloud, with trainers */}

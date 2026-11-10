@@ -1550,6 +1550,8 @@ const en: Messages = {
   'tw.again': "Play again",
   'pic.title': "Word & Picture",
   'pic.menuSub': "find the picture for a Hebrew word",
+  'enc.menu': "English for Hebrew speakers",
+  'enc.menuSub': "אנגלית דרך התנ״ך — a course in Hebrew",
   'pic.lead': "The most frequent words of Tanakh — in pictures. In the middle is a Hebrew word: tap its picture! Sometimes the other way round: a picture and four words.",
   'pic.leadA': "The most frequent words of the Prophets and Writings — in pictures: a Hebrew word and four pictures, sometimes the other way round. Answers count in “Holy Tongue” and “My words”.",
   'pic.known': "Words I know: {k} of {n}",
