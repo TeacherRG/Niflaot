@@ -12,6 +12,7 @@ import { LESSONS } from '../src/lessons';
 import { torahWords } from '../src/core/torahWords';
 import { abcUnits, alike, clusters, core, isRight, nearlyRight, finishLesson, isDone, isOpen, makeExam, makeLesson, newItems, nextPart, passExam, readCourse, EXAM_ITEMS, dueItems, weakItems, weakUnit, dayNo, SPACING, WARM, type CourseStore, torahVerses, verseOf, VERSE_MAX, VERSE_MAX_KIDS, VERSE_MIN, type Item, type Known, tanakhUnits, torahUnits, type Exercise, type Unit } from '../src/core/lashon';
 import { exampleOf, type Dict, type Word } from '../src/core/words';
+import { readWordUnits, syllableUnits, syllables, vowelUnits, TRANSLIT_WORDS } from '../src/core/lashonRead';
 import { readFileSync } from 'node:fs';
 import { mergeSnapshots } from '../src/core/sync';
 import { SOURCES, translation } from '../src/sources';
@@ -35,6 +36,8 @@ function checkEx(u: Unit, ex: Exercise, where: string) {
       const lbl = ex.options.map((o) => (ex.ask === 'tr' ? core(o.tr) : ex.ask === 'he' ? core(o.he) : ex.ask === 'value' ? String(o.value) : o.sound));
       if (ex.options.length !== 4 || new Set(keys).size !== 4 || new Set(lbl).size !== 4) err(`${where}: «выбрать» (${ex.ask}) ${ex.item.he} — не 4 разных варианта: ${lbl.join(' | ')}`);
       if (keys.filter((k) => k === ex.item.key).length !== 1 || !isRight(ex, ex.item.key)) err(`${where}: «выбрать» ${ex.item.he} — верный не один`);
+      // reading: no two options read the same (or are called the same) — both would be right
+      if (u.track === 'read' && new Set(ex.options.map((o) => core(o.tr))).size !== 4) err(`${where}: «выбрать» ${ex.item.he} — два варианта читаются одинаково: ${ex.options.map((o) => o.tr).join(' | ')}`);
       if (w)
         for (const o of ex.options) if (o.key !== ex.item.key && alike(o, ex.item)) err(`${where}: «выбрать» ${ex.item.he} — похожий вариант ${o.he} «${o.tr}»`);
       return;
@@ -166,7 +169,37 @@ for (const locale of ['ru', 'en', 'de'] as const) {
   if (!verses) err(`слова Танаха ${locale}: в повторениях нет «Составьте стих»`);
   if (tu.reduce((a, u) => a + u.items.length, 0) !== Object.keys(TR[locale]).length) err(`слова Танаха ${locale}: не все переведённые слова в юнитах`);
   checkUnits(tu, `слова Танаха ${locale}`);
+  // транслит: у первых TRANSLIT_WORDS слов Танаха — чтение (кроме Имён), латиницей / кириллицей, без иврита
+  const tl = tanakhUnits(dict, undefined, locale).flatMap((u) => u.items);
+  const withTr = tl.slice(0, TRANSLIT_WORDS).filter((x) => x.translit);
+  if (withTr.length < TRANSLIT_WORDS - 10) err(`слова Танаха ${locale}: чтение у ${withTr.length} из ${TRANSLIT_WORDS}`);
+  if (withTr.some((x) => /[\u0590-\u05FF]/.test(x.translit!))) err(`слова Танаха ${locale}: в чтении — иврит`);
+  if (tl.slice(TRANSLIT_WORDS).some((x) => x.translit)) err(`слова Танаха ${locale}: чтение дальше ${TRANSLIT_WORDS}-го слова`);
+
+  // «Чтение»: огласовки (2), слоги (5), слова по слогам (3) — у каждого элемента чтение / название
+  const nk = vowelUnits(locale);
+  const sy = syllableUnits(locale);
+  const rw = readWordUnits(dict, locale);
+  if (nk.length !== 2 || sy.length !== 5 || rw.length !== 3) err(`чтение ${locale}: юнитов ${nk.length} + ${sy.length} + ${rw.length}`);
+  for (const it of [...nk, ...sy, ...rw].flatMap((u) => u.items)) if (!it.tr || /[\u0590-\u05FF]/.test(it.tr)) err(`чтение ${locale}: ${it.he} — нет чтения «${it.tr}»`);
+  for (const it of nk.flatMap((u) => u.items)) if (!it.sound || !it.examples) err(`чтение ${locale}: огласовка ${it.he} — без звука или примеров`);
+  for (const it of rw.flatMap((u) => u.items)) {
+    if (!it.mean) err(`чтение ${locale}: слово ${it.he} — без перевода`);
+    if (syllables(it.he).join('') !== it.he || syllables(it.he).length < 2) err(`чтение ${locale}: слово ${it.he} — слоги ${syllables(it.he).join(' | ')}`);
+  }
+  checkUnits([...nk, ...sy, ...rw], `чтение ${locale}`);
 }
+
+// слоги: шва в начале — к следующему слогу, в конце слога — молчит; холам и шурук на ו — огласовка буквы перед ним
+for (const [w, want] of [
+  ['בְּרֵאשִׁית', 'בְּרֵא|שִׁית'],
+  ['מִדְבָּר', 'מִדְ|בָּר'],
+  ['שָׁלוֹם', 'שָׁ|לוֹם'],
+  ['מֶלֶךְ', 'מֶ|לֶךְ'],
+  ['דְּבָרִים', 'דְּבָ|רִים'],
+  ['יִשְׂרָאֵל', 'יִשְׂ|רָ|אֵל'],
+] as const)
+  if (syllables(w).join('|') !== want) err(`слоги ${w}: ${syllables(w).join('|')}, ожидалось ${want}`);
 
 // «Экзамен» сдан: юнит пройден целиком — следующий открыт (localStorage и события — заглушки)
 {

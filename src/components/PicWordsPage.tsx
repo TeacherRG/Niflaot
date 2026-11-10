@@ -9,12 +9,13 @@ import { noteAnswer } from '../core/lashonStore';
 import { markStudied } from '../core/habit';
 import { loadDict, reviewFromCourse, type Dict, type WordLang } from '../core/words';
 import { readHebrew } from '../core/translit';
-import { makePicRound, notePic, PIC_KNOWN, PIC_WORDS, picSrc, readPicScore, type PicQuestion } from '../core/picWords';
+import { makePicRound, notePic, notePicBest, PIC_KNOWN, PIC_WORDS, picPoints, picSrc, picTime, readPicBest, readPicScore, type PicQuestion } from '../core/picWords';
 
 /**
  * `#/pics` — «Слово — картинка» (src/core/picWords.ts): four pictures and a word in Hebrew in the middle — tap the right picture;
- * sometimes the other way — a picture and four words. 10 questions; the least known words first. Below — all the words with
- * their pictures, to look at first.
+ * sometimes the other way — a picture and four words. 10 questions; the least known words first. Every question has a
+ * shrinking time bar (`picTime`): the quicker the answer, the more points (`picPoints`); a run of right answers makes it faster;
+ * time out — the answer is shown, as after a mistake. Below — all the words with their pictures, to look at first.
  */
 export function PicWordsPage() {
   const { t, locale } = useI18n();
@@ -66,6 +67,7 @@ export function PicWordsPage() {
             he={he}
             tr={tr}
             read={read}
+            spelled={level === 'none'}
             onClose={() => (setRound(null), setScore(readPicScore()))}
             onAgain={() => (setScore(readPicScore()), start())}
           />
@@ -80,6 +82,10 @@ export function PicWordsPage() {
             <button type="button" className="btn tw-play" onClick={start}>
               ▶ {t('pic.play', { n: Math.min(10, ids.length) })}
             </button>
+            <p className="pw-note">
+              ⏱ {t('pic.timerNote')}
+              {readPicBest() > 0 && <> · {t('pic.best', { p: readPicBest() })}</>}
+            </p>
           </>
         )}
 
@@ -106,11 +112,15 @@ export function PicWordsPage() {
   );
 }
 
+/** `picked` when the time ran out (no picture or word has this id) */
+const TIME_UP = 'time-up';
+
 function Game({
   round,
   he,
   tr,
   read,
+  spelled,
   onClose,
   onAgain,
 }: {
@@ -118,6 +128,7 @@ function Game({
   he: (id: string) => string;
   tr: (id: string) => string;
   read: (id: string) => string;
+  spelled: boolean;
   onClose: () => void;
   onAgain: () => void;
 }) {
@@ -126,6 +137,9 @@ function Game({
   const [picked, setPicked] = useState<string | null>(null);
   const [ok, setOk] = useState(0);
   const [combo, setCombo] = useState(0);
+  const [points, setPoints] = useState(0);
+  const [gain, setGain] = useState(0);
+  const [record, setRecord] = useState(false);
   const timer = useRef<number | undefined>(undefined);
   useEffect(() => () => window.clearTimeout(timer.current), []);
   // the pictures of the next question — ahead of time
@@ -133,10 +147,44 @@ function Game({
     for (const id of round[i + 1]?.options ?? []) new Image().src = picSrc(id);
   }, [round, i]);
 
-  if (i >= round.length)
+  // the time of each question is fixed when it opens (the run of right answers before it)
+  const limits = useRef<Record<number, number>>({});
+  const q = round[i] as PicQuestion | undefined;
+  const limit = q ? (limits.current[i] ??= picTime(q.reverse, combo, spelled)) : 0;
+  const bar = useRef<HTMLSpanElement>(null);
+  const used = useRef(0);
+  const answerRef = useRef<(id: string | null) => void>(() => {});
+  useEffect(() => {
+    if (!limit || picked) return;
+    used.current = 0;
+    let last = performance.now();
+    let raf = 0;
+    const tick = (now: number) => {
+      const dt = now - last;
+      last = now;
+      // a hidden tab or a long freeze is a pause, not lost time
+      if (dt < 250) used.current += dt;
+      const share = Math.max(0, 1 - used.current / limit);
+      const el = bar.current;
+      if (el) {
+        el.style.transform = `scaleX(${share})`;
+        el.dataset.level = share < 0.25 ? 'low' : share < 0.5 ? 'mid' : 'hi';
+      }
+      if (share <= 0) return answerRef.current(null);
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [i, limit, picked]);
+
+  if (!q)
     return (
       <div className="ws-card tw-card ws-done">
         <p>{t('pic.done', { ok, n: round.length })}</p>
+        <p className="pw-final">
+          <b>{t('pic.points', { p: points })}</b>
+          {record ? <em>{t('pic.record')}</em> : readPicBest() > 0 && <small>{t('pic.best', { p: readPicBest() })}</small>}
+        </p>
         <span className="ws-btns">
           <button type="button" className="btn ghost" onClick={onClose}>
             {t('words.close')}
@@ -148,16 +196,21 @@ function Game({
       </div>
     );
 
-  const q = round[i];
   const next = () => {
     window.clearTimeout(timer.current);
     setPicked(null);
+    setGain(0);
     setI((n) => n + 1);
   };
-  const pick = (id: string) => {
+  /** an answer: a picture / word, or `null` — the time is up */
+  const answer = (id: string | null) => {
     if (picked) return;
-    setPicked(id);
+    setPicked(id ?? TIME_UP);
     const right = id === q.id;
+    const got = picPoints(right, 1 - used.current / limit);
+    const total = points + got;
+    setPoints(total);
+    setGain(got);
     if (right) setOk((n) => n + 1);
     const run = right ? combo + 1 : 0;
     setCombo(run);
@@ -169,10 +222,13 @@ function Game({
     markStudied();
     if (i + 1 === round.length) {
       const all = right && ok + 1 === round.length;
+      setRecord(notePicBest(total));
       window.setTimeout(() => (feedback(all ? 'perfect' : 'finish'), celebrate(all ? 'grand' : 'big')), 450);
     }
     if (right) timer.current = window.setTimeout(next, 1100);
   };
+  answerRef.current = answer;
+  const pick = (id: string) => answer(id);
   const state = (id: string) => (picked ? (id === q.id ? ' right' : id === picked ? ' wrong' : ' off') : '');
   const word = (
     <span className="pw-word">
@@ -188,7 +244,17 @@ function Game({
     <div className="pw-game" aria-live="polite">
       <div className="pw-top">
         <small>{t('words.progress', { i: i + 1, n: round.length })}</small>
-        <b>{ok}</b>
+        <b>
+          {gain > 0 && (
+            <em key={i} className="pw-plus">
+              +{gain}
+            </em>
+          )}
+          {points}
+        </b>
+      </div>
+      <div className={`pw-time${picked ? ' stop' : ''}`} role="timer" aria-label={t('pic.timeLeft')}>
+        <span key={i} ref={bar} data-level="hi" />
       </div>
       <p className="tw-ask">{t(q.reverse ? 'pic.askWord' : 'pic.askPic')}</p>
       {q.reverse ? (
@@ -228,7 +294,7 @@ function Game({
       {picked && picked !== q.id && (
         <>
           <p className="tw-fb wrong">
-            {t('tw.wrong')}{' '}
+            {t(picked === TIME_UP ? 'pic.timeUp' : 'tw.wrong')}{' '}
             <span className="he" lang="he">
               {he(q.id)}
             </span>{' '}

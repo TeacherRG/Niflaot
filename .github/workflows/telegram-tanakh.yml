@@ -32,6 +32,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      ASSISTANT_URL: ${{ vars.ASSISTANT_URL }}
+      NEWSLETTER_SECRET: ${{ secrets.NEWSLETTER_SECRET }}
       TELEGRAM_CHAT_RU: ${{ vars.TELEGRAM_CHAT_RU || secrets.TELEGRAM_CHAT_RU }}
       # optional: the Mini App from @BotFather (<bot>/<app>) — a button «open in Telegram» under the post
       TELEGRAM_APP: ${{ vars.TELEGRAM_APP }}

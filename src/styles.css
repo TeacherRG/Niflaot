@@ -308,6 +308,10 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .lang-list .code{font-family:var(--f-num);font-size:11.5px;font-weight:600;color:var(--gold)}
 .lang-list .name{font-weight:600;font-size:14.5px}
 .lang-list svg{color:var(--gold)}
+.lang-list .lang-he{margin-top:4px;padding-top:4px;border-top:1px solid var(--line-soft)}
+.lang-list .lang-he a{display:grid;grid-template-columns:30px 1fr;align-items:center;gap:8px;padding:9px 10px;border-radius:8px;color:var(--ink);text-decoration:none;text-align:start}
+.lang-list .lang-he a:hover{background:var(--paper)}
+.lang-list .lang-he small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
 .share-list{text-align:start;z-index:70}
 .share-list a{width:100%;box-sizing:border-box;display:grid;grid-template-columns:30px 1fr auto;align-items:center;gap:8px;padding:9px 10px;border-radius:8px;color:var(--ink);text-decoration:none}
 .share-list a:hover{background:var(--paper)}
@@ -898,8 +902,13 @@ html.crawler .static{opacity:1;animation:none;padding:0 16px}
 .memo-cta .btn{text-decoration:none}
 .subscribe p{margin:0 0 12px;color:var(--ink-2)}
 .subscribe-form{display:flex;flex-wrap:wrap;gap:8px}
-.subscribe-form input[type=email]{flex:1 1 200px;min-width:0;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}
+.subscribe-form input[type=email],.subscribe-form input[inputmode=numeric],.subscribe-frequency select{min-width:0;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}
+.subscribe-form input[type=email]{flex:1 1 200px}
+.subscribe-form input[inputmode=numeric]{flex:0 1 150px}
 .subscribe-form input[type=email]:focus{outline:2px solid var(--gold);outline-offset:1px}
+.subscribe-frequency{display:flex;align-items:center;gap:6px;color:var(--ink-2);font-size:14px}
+.subscribe-frequency select{padding:9px 10px}
+.subscribe-error{flex-basis:100%;color:var(--bad);font-size:14px}
 .reminder{margin-top:16px;padding:16px 18px;text-align:center;border:1px solid var(--gold-line);border-radius:10px;background:var(--gold-soft)}
 .reminder-sheet{margin-top:0;background:none;border:0;padding:0;text-align:start}
 .reminder-sheet .reminder-row{justify-content:flex-start}
@@ -923,6 +932,8 @@ html.crawler .static{opacity:1;animation:none;padding:0 16px}
 .subscribe-mini-t{font-weight:700;font-size:16px}
 .subscribe-mini .subscribe-form{flex:0 1 auto;justify-content:center}
 .subscribe-mini .subscribe-form input[type=email]{flex:1 1 180px;padding:8px 10px}
+.subscribe-mini .subscribe-frequency{font-size:13px}
+.subscribe-mini .subscribe-frequency select{padding:7px 8px}
 .subscribe-mini .subscribe-ok{margin:0;flex-basis:100%;text-align:center}
 /* «Читать»: the lesson with ready answers */
 .les-read{display:block;margin-top:6px;color:var(--tchelet);font-weight:600;text-decoration:none}
@@ -1640,6 +1651,26 @@ a.tk-step:hover{background:var(--tchelet-soft)}
 .pw-game{display:grid;justify-items:center;gap:10px;max-width:520px;margin:0 auto}
 .pw-top{display:flex;justify-content:space-between;align-items:center;width:100%;color:var(--muted);font-size:14px}
 .pw-top b{font-family:var(--f-display);font-size:28px;color:var(--gold)}
+.pw-top b{position:relative}
+.pw-plus{position:absolute;right:100%;top:2px;margin-right:6px;font-style:normal;font-size:15px;color:var(--ok);white-space:nowrap}
+.pw-time{width:100%;height:10px;border-radius:999px;background:var(--line-soft);overflow:hidden}
+.pw-time span{display:block;height:100%;border-radius:inherit;background:var(--ok);transform-origin:left center;transition:background-color .4s}
+.pw-time span[data-level="mid"]{background:var(--gold)}
+.pw-time span[data-level="low"]{background:var(--fire)}
+.pw-time.stop span{opacity:.45}
+.pw-note{margin:8px 0 0;color:var(--muted);font-size:14px;text-align:center}
+.pw-final{display:grid;justify-items:center;gap:2px;margin:0 0 12px}
+.pw-final b{font-family:var(--f-display);font-size:26px;color:var(--gold)}
+.pw-final em{font-style:normal;font-weight:700;color:var(--ok)}
+.pw-final small{color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){
+  .pw-plus{animation:pw-plus .9s ease-out both}
+  .pw-time:not(.stop) span[data-level="low"]{animation:pw-pulse .5s ease-in-out infinite alternate}
+}
+@keyframes pw-plus{from{opacity:0;transform:translateY(6px)}20%{opacity:1}to{opacity:0;transform:translateY(-14px)}}
+@keyframes pw-pulse{to{opacity:.55}}
+.print-sheet{display:grid;gap:2px}
+.print-sheet-note{margin:10px 12px 0;color:var(--muted);font-size:13px}
 .pw-game .tw-ask{margin:0}
 .pw-grid{position:relative;display:grid;grid-template-columns:1fr 1fr;width:100%;border-radius:18px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.12)}
 .pw-tile{display:block;padding:0;border:0;background:none;cursor:pointer;position:relative}
@@ -1744,6 +1775,8 @@ a.tk-step:hover{background:var(--tchelet-soft)}
 .ln-he.big{font-size:54px}
 .ln-tr-big{margin:0;padding:12px 14px;border:2px solid var(--line);border-radius:14px;font-size:19px;font-weight:700;text-align:center}
 .ln-intro-tr{margin:0;font-size:22px;font-weight:700;text-align:center}
+/* «Чтение»: the word split into its syllables */
+.ln-syl-split{margin:0 0 4px;font-size:30px;text-align:center;color:var(--tchelet-deep);letter-spacing:.02em}
 .ln-intro-meta{margin:0;color:var(--muted);text-align:center}
 .ln-intro-meta .he{font-family:var(--f-he);font-size:20px}
 .ln-intro-verse{display:grid;gap:4px;max-width:520px;margin:6px auto 0;padding:10px 14px;border-left:3px solid var(--gold-2);background:var(--gold-soft);border-radius:0 10px 10px 0;font-size:14px;color:var(--ink-3)}

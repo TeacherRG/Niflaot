@@ -107,6 +107,7 @@ export async function loadConfig() {
 }
 
 export const sendCode = (email: string, lang: Locale) => api('/code', { body: { email, lang } });
+export const newsletterApi = <T>(path: string, body: unknown) => api<T>(`/newsletter/${path}`, { body });
 
 /** The code from the email: signed in; the progress of this device and of the account become one. */
 export async function login(email: string, code: string, lang: Locale) {

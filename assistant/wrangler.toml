@@ -5,6 +5,7 @@ compatibility_date = "2026-09-01"
 [vars]
 ALLOWED_ORIGINS = "https://niflaot.mychitas.app"
 SITE_URL = "https://niflaot.mychitas.app"
+ASSISTANT_URL = "https://niflaot-assistant.niflaot.workers.dev"
 # sender of the login codes; the domain must be verified at Resend (resend.com → Domains)
 MAIL_FROM = "Нифлаот <noreply@mychitas.app>"
 # questions to the AI assistant a day from everyone together (UTC day); above it the chat says «come back tomorrow».
@@ -15,9 +16,8 @@ CHAT_DAILY_LIMIT = "1000"
 TTS_MODEL = "gemini-3.1-flash-tts-preview"
 TTS_VOICE = "Charon"
 
-# Secrets (not stored here): npx wrangler secret put ANTHROPIC_API_KEY, RESEND_API_KEY (login codes by email;
-# without it registration is off and the site shows only the guest mode), GEMINI_API_KEY (Google AI Studio —
-# «Слушать»; without it the site hides the button)
+# Secrets (not stored here): ANTHROPIC_API_KEY, RESEND_API_KEY (login codes and newsletter), NEWSLETTER_SECRET
+# (same value as the GitHub Actions secret), GEMINI_API_KEY (Google AI Studio — «Слушать»).
 
 # Rate limit for /push and the account's changes: 20 requests per minute from one IP (the worker answers 429 above it).
 [[ratelimits]]

@@ -293,20 +293,33 @@ async function accountRoute(req: Request, env: Env, path: string, headers: Recor
   const out = (r: Response) =>
     new Response(r.body, { status: r.status, headers: { ...headers, 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
   if (path === '/ai-use' || path === '/chat-quota') return new Response('Not found', { status: 404, headers });
-  if (!originOk(req.headers.get('Origin'), env)) return new Response('Forbidden', { status: 403, headers });
+  const url = new URL(req.url);
+  const newsletterDelivery = path === '/newsletter/deliver';
+  const oneClickUnsubscribe =
+    path === '/newsletter/unsubscribe' &&
+    req.method === 'POST' &&
+    req.headers.get('Content-Type')?.startsWith('application/x-www-form-urlencoded') &&
+    !!url.searchParams.get('token');
+  if (!newsletterDelivery && !oneClickUnsubscribe && !originOk(req.headers.get('Origin'), env))
+    return new Response('Forbidden', { status: 403, headers });
   // sending a code costs an email: those go through the rate limit; reading the profile and the boards don't
-  if (env.LIMITER && req.method !== 'GET') {
+  if (env.LIMITER && req.method !== 'GET' && !newsletterDelivery && !oneClickUnsubscribe) {
     const ip = req.headers.get('CF-Connecting-IP') ?? 'unknown';
     if (!(await env.LIMITER.limit({ key: `acc:${ip}` })).success)
       return new Response(JSON.stringify({ error: 'wait' }), { status: 429, headers: { ...headers, 'Retry-After': '60' } });
   }
   const raw = req.method === 'GET' ? undefined : await req.text().catch(() => '');
-  if (raw && raw.length > 300 * 1024) return new Response('Too large', { status: 413, headers });
-  const url = new URL(req.url);
+  const maxBody = newsletterDelivery ? 16 * 1024 * 1024 : 300 * 1024;
+  if (raw && raw.length > maxBody) return new Response('Too large', { status: 413, headers });
+  if (oneClickUnsubscribe && raw !== 'List-Unsubscribe=One-Click') return new Response('Bad request', { status: 400, headers });
   const fwd: Record<string, string> = {};
   const auth = req.headers.get('Authorization');
   if (auth) fwd.Authorization = auth;
-  return out(await accounts(env).fetch(`https://accounts${path}${url.search}`, { method: req.method, headers: fwd, body: raw }));
+  return out(await accounts(env).fetch(`https://accounts${path}${url.search}`, {
+    method: req.method,
+    headers: fwd,
+    body: oneClickUnsubscribe ? JSON.stringify({ token: url.searchParams.get('token') }) : raw,
+  }));
 }
 
 async function pushRoute(req: Request, env: Env, path: string, headers: Record<string, string>): Promise<Response> {
