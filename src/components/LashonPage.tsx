@@ -13,6 +13,7 @@ import { canVibe, celebrate, feedback, setSound as saveSound, setVibe as saveVib
 import { memoImages } from '../core/memo';
 import { FINALS, letterName } from '../core/letterNames';
 import { answerWord, torahWords, useStars } from '../core/torahWords';
+import { readKind, readWordUnits, syllableUnits, syllables, vowelUnits } from '../core/lashonRead';
 import { exampleOf, inDeck, loadDict, loadExamples, markKnown, markLearn, readWordStore, reviewFromCourse, useWordStore, type WordLang } from '../core/words';
 import {
   GOAL,
@@ -103,18 +104,25 @@ export function LashonPage() {
   }, [adults, locale]);
   const torah = useMemo(() => (adults ? [] : torahUnits(torahWords(LESSONS, locale, memoImages), verses)), [adults, locale, verses]);
   const [tanakh, setTanakh] = useState<Unit[] | null>(adults ? null : []);
+  // «Читаем слова» — the frequent words of Tanakh read by syllables (both modes)
+  const [readWords, setReadWords] = useState<Unit[]>([]);
   useEffect(() => {
-    if (!adults) return;
     let live = true;
     const lang = (locale === 'en' || locale === 'de' ? locale : 'ru') as WordLang;
-    // the words and their example verses (for «Составьте стих»)
-    Promise.all([loadDict(lang), loadExamples(lang)]).then(([d, ex]) => live && setTanakh(tanakhUnits(d, (id) => verseOf(exampleOf(ex, id), lang))));
+    loadDict(lang).then((d) => live && setReadWords(readWordUnits(d, locale)));
+    if (adults)
+      // the words and their example verses (for «Составьте стих»); the first 500 — with how they are read
+      Promise.all([loadDict(lang), loadExamples(lang)]).then(([d, ex]) => live && setTanakh(tanakhUnits(d, (id) => verseOf(exampleOf(ex, id), lang), locale)));
     return () => {
       live = false;
     };
   }, [adults, locale]);
+  const vowels = useMemo(() => vowelUnits(locale), [locale]);
+  const syls = useMemo(() => syllableUnits(locale), [locale]);
+  // «Чтение»: the vowel points, the syllables, the words read by syllables — not for a player who reads Hebrew
+  const read = useMemo(() => (reads ? [] : [...vowels, ...syls, ...readWords]), [reads, vowels, syls, readWords]);
   const words = adults ? tanakh ?? [] : torah;
-  const units = useMemo(() => [...abc, ...words], [abc, words]);
+  const units = useMemo(() => [...abc, ...read, ...words], [abc, read, words]);
   const [run, setRun] = useState<{ unit: Unit; part: Item[] | null; hard?: boolean; exam?: boolean; warm?: Item[] } | null>(null);
   /** «Словарь урока»: the words of a unit (and the one found by the search — marked) */
   const [dict, setDict] = useState<{ unit: Unit; mark?: string } | null>(null);
@@ -122,7 +130,7 @@ export function LashonPage() {
   const deck = useWordStore();
   const stars = useStars();
   const known: Known = (key) => (adults ? inDeck(deck, key) : key in stars);
-  const knownOf = (u: Unit): Known => (u.track === 'abc' ? () => false : known);
+  const knownOf = (u: Unit): Known => (u.track === 'words' ? known : () => false);
 
   useEffect(() => {
     document.title = `${t('ln.title')} · ${t('app.title')}`;
@@ -132,7 +140,8 @@ export function LashonPage() {
   // the next new items; none — «Повторение» (the second one, and a finished unit played again, harder)
   // before it — «Повторим»: the hard and the longest not seen of the earlier lessons of the track (spaced, mixed retrieval);
   // a review starts with the hard and the old ones of the unit itself
-  const trackItems = (u: Unit) => (u.track === 'abc' ? abc : words).flatMap((x) => x.items);
+  // «Чтение»: only the same kind — the vowel points, the syllables or the words (a name of a sign is not «how it is read»)
+  const trackItems = (u: Unit) => (u.track === 'abc' ? abc : u.track === 'read' ? read.filter((x) => readKind(x) === readKind(u)) : words).flatMap((x) => x.items);
   const start = (unit: Unit) => {
     const part = nextPart(unit, store, knownOf(unit));
     const warm = dueItems(trackItems(unit), store, WARM, part.length ? part : unit.items);
@@ -145,7 +154,7 @@ export function LashonPage() {
     if (items.length < 3 || !list.length) return null;
     return (
       <p className="ln-weak">
-        <span>{t(list[0].track === 'abc' ? 'ln.weakLetters' : 'ln.weakWords', { n: items.length })}</span>
+        <span>{t(list[0].track === 'abc' ? 'ln.weakLetters' : list[0].track === 'read' ? 'ln.weakRead' : 'ln.weakWords', { n: items.length })}</span>
         <button type="button" className="btn ghost" onClick={() => setRun({ unit: weakUnit(list[0].track, items, list.flatMap((u) => u.items)), part: null })}>
           {t('ln.weakBtn')}
         </button>
@@ -153,7 +162,13 @@ export function LashonPage() {
     );
   };
   const unitTitle = (u: Unit) =>
-    u.track === 'abc'
+    u.track === 'read'
+      ? readKind(u) === 'nk'
+        ? t(u.n === 1 ? 'ln.nk1' : 'ln.nk2')
+        : readKind(u) === 'sy'
+          ? u.items.filter((_, k) => k % 5 === 0).map((x) => x.he.slice(0, -1)).join(' ')
+          : t('ln.rwUnit', { n: u.n })
+      : u.track === 'abc'
       ? `${u.items[0].he}–${u.items.filter((x) => !FINALS[x.key]).at(-1)!.he}${u.items.some((x) => FINALS[x.key]) ? ' · ךםןףץ' : ''}`
       : adults
         ? t('ln.group', { n: u.n, a: (u.n - 1) * TANAKH_GROUP + 1, b: (u.n - 1) * TANAKH_GROUP + u.items.length })
@@ -164,14 +179,14 @@ export function LashonPage() {
     return isDone(u, store, knownOf(u))
       ? t('ln.unitDone')
       : left
-        ? t(u.track === 'abc' ? 'ln.newLetters' : 'ln.newWords', { n: left, k: Math.ceil(left / u.size) })
+        ? t(u.track === 'abc' ? 'ln.newLetters' : u.track === 'read' ? 'ln.newRead' : 'ln.newWords', { n: left, k: Math.ceil(left / u.size) })
         : t('ln.review');
   };
   /** «Уже знакомо по «Моим словам»: 12» */
-  const metOutside = (u: Unit) => (u.track === 'abc' ? 0 : u.items.filter((it) => !store.s[it.key] && known(it.key)).length);
+  const metOutside = (u: Unit) => (u.track !== 'words' ? 0 : u.items.filter((it) => !store.s[it.key] && known(it.key)).length);
 
   // on the circle: the first letter, or the shortest word of the unit
-  const sym = (u: Unit) => (u.track === 'abc' ? u.items[0].he : [...u.items.flatMap((x) => x.he.split(' '))].sort((a, b) => a.length - b.length)[0]);
+  const sym = (u: Unit) => (u.track === 'abc' || (u.track === 'read' && readKind(u) !== 'rw') ? u.items[0].he : [...u.items.flatMap((x) => x.he.split(' '))].sort((a, b) => a.length - b.length)[0]);
   /** a long path in blocks of 10 units, folded; the block with the unit to go on with is open */
   // the unit being learnt: the last one begun and not finished, else the first to go on with — only its block is unfolded
   const active = (() => {
@@ -210,14 +225,14 @@ export function LashonPage() {
         return (
           <li key={u.id} className={`ln-node${cur ? ' cur' : ''}${full ? ' full' : ''}${open ? '' : ' locked'}`} style={{ ['--off' as string]: [0, 1, 2, 1, 0, -1, -2, -1][i % 8] }}>
             <button type="button" className="ln-dot" disabled={!open} onClick={() => start(u)} aria-label={`${unitTitle(u)} · ${stepLabel(u)}`}>
-              <span className={`he${u.track === 'abc' ? '' : ' w'}`} lang="he" data-len={Math.min(6, sym(u).length)}>
+              <span className={`he${u.track === 'abc' || (u.track === 'read' && readKind(u) !== 'rw') ? '' : ' w'}`} lang="he" data-len={Math.min(6, sym(u).length)}>
                 {sym(u)}
               </span>
               {full && <i className="ln-crown">✓</i>}
             </button>
             {cur && <span className="ln-go">{t(p > 0 ? 'ln.continue' : 'ln.start')}</span>}
             <span className="ln-lbl">
-              <b className={u.track === 'abc' ? 'he' : undefined} lang={u.track === 'abc' ? 'he' : undefined}>
+              <b className={u.track === 'abc' || (u.track === 'read' && readKind(u) === 'sy') ? 'he' : undefined} lang={u.track === 'abc' || (u.track === 'read' && readKind(u) === 'sy') ? 'he' : undefined}>
                 {unitTitle(u)}
               </b>
               {open ? (
@@ -287,6 +302,27 @@ export function LashonPage() {
             </h2>
             {weak(abc)}
             {path(abc)}
+          </section>
+        )}
+
+        {!reads && (
+          <section className="ln-track">
+            <h2 className="tw-h2">
+              {t('ln.read')} <small>{t('ln.readSub')}</small>
+            </h2>
+            {(['nk', 'sy', 'rw'] as const).map((k) => {
+              const list = read.filter((u) => readKind(u) === k);
+              return list.length ? (
+                <div key={k} className="ln-stage">
+                  <h3>
+                    {t(`ln.${k}H`)} <small>{t(`ln.${k}Sub`)}</small>
+                  </h3>
+                  {/* «Трудные» — of one kind: the signs, the syllables or the words */}
+                  {weak(list)}
+                  {path(list)}
+                </div>
+              ) : null;
+            })}
           </section>
         )}
 
@@ -662,7 +698,7 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
                   </li>
                 ))}
               </ul>
-              <small>{t(unit.track === 'abc' ? 'ln.missedNoteLetters' : 'ln.missedNote')}</small>
+              <small>{t(unit.track === 'abc' ? 'ln.missedNoteLetters' : unit.track === 'read' ? 'ln.missedNoteRead' : 'ln.missedNote')}</small>
             </div>
           )}
           <button type="button" className="btn ln-big" onClick={onClose}>
@@ -723,8 +759,8 @@ function Lesson({ unit, part, hard, exam, warm, known, adults, onClose }: { unit
       </div>
 
       <div className="ln-body" aria-live="polite">
-        {ex.t === 'intro' && <Intro item={ex.item} letter={unit.track === 'abc'} />}
-        {ex.t === 'pick' && <Pick ex={ex} letter={unit.track === 'abc'} sel={sel} state={state} onPick={setSel} />}
+        {ex.t === 'intro' && <Intro item={ex.item} letter={unit.track === 'abc'} read={unit.track === 'read' ? readKind(unit) : undefined} />}
+        {ex.t === 'pick' && <Pick ex={ex} letter={unit.track === 'abc'} read={unit.track === 'read' ? readKind(unit) : undefined} sel={sel} state={state} onPick={setSel} />}
         {ex.t === 'match' && <Match key={i} pairs={ex.pairs} onMiss={() => (!exam && setMistakes((n) => n + 1), feedback('wrong'))} onPair={() => feedback('pair')} onDone={(miss) => (pairsAnswered(ex.pairs, miss), answer(true))} />}
         {ex.t === 'build' && <Build ex={ex} built={built} state={state} onBuilt={setBuilt} />}
         {ex.t === 'gap' && <Gap ex={ex} sel={sel} state={state} onPick={setSel} />}
@@ -803,13 +839,43 @@ function Prompt({ item, letter, big }: { item: Item; letter: boolean; big?: bool
       <span className={`he ln-he${big || letter ? ' big' : ''}`} lang="he">
         {item.he}
       </span>
-      {level === 'none' && item.translit && <small className="tw-translit">{item.translit}</small>}
+      {/* how the word is read: the Torah words and the first 500 words of Tanakh — for everyone who doesn't read Hebrew yet */}
+      {level !== 'reads' && item.translit && <small className="tw-translit">{item.translit}</small>}
     </div>
   );
 }
 
-function Intro({ item, letter }: { item: Item; letter: boolean }) {
+type ReadKind = ReturnType<typeof readKind>;
+
+function Intro({ item, letter, read }: { item: Item; letter: boolean; read?: ReadKind }) {
   const { t } = useI18n();
+  if (read)
+    return (
+      <>
+        <p className="ln-ask">
+          <span className="ln-new">{t(read === 'nk' ? 'ln.newVowel' : read === 'sy' ? 'ln.newSyl' : 'ln.newReadWord')}</span>
+        </p>
+        <Prompt item={item} letter big />
+        {/* a word: its syllables apart, then the reading */}
+        {read === 'rw' && (
+          <p className="ln-syl-split he" lang="he">
+            {syllables(item.he).join(' · ')}
+          </p>
+        )}
+        <p className="ln-intro-tr">{item.tr}</p>
+        {read === 'nk' && <p className="ln-intro-meta">{t('ln.soundIs', { s: item.sound ?? '' })}</p>}
+        {item.examples && (
+          <p className="ln-intro-meta">
+            <span className="he" lang="he">
+              {item.examples[0]}
+            </span>{' '}
+            — {item.examples[1]}
+          </p>
+        )}
+        {item.note && <p className="ln-hint">{item.note}</p>}
+        {item.mean && <p className="ln-intro-meta">{t('ln.means', { s: item.mean })}</p>}
+      </>
+    );
   return (
     <>
       <p className="ln-ask">
@@ -847,16 +913,20 @@ function Intro({ item, letter }: { item: Item; letter: boolean }) {
 
 const ASK: Record<string, MessageKey> = { tr: 'ln.q.tr', he: 'ln.q.he', value: 'ln.q.value', sound: 'ln.q.sound' };
 
-function Pick({ ex, letter, sel, state, onPick }: { ex: Extract<Exercise, { t: 'pick' }>; letter: boolean; sel: string | null; state: State; onPick: (k: string) => void }) {
+/** «Чтение»: the questions — a vowel point (its name, where it is, its sound), a syllable or a word (how it is read, where it is written) */
+const READ_ASK: Record<string, MessageKey> = { 'nk-tr': 'ln.q.vname', 'nk-he': 'ln.q.vhe', 'nk-sound': 'ln.q.vsound', tr: 'ln.q.read', he: 'ln.q.findRead' };
+
+function Pick({ ex, letter, read, sel, state, onPick }: { ex: Extract<Exercise, { t: 'pick' }>; letter: boolean; read?: ReadKind; sel: string | null; state: State; onPick: (k: string) => void }) {
   const { t } = useI18n();
   const he = ex.ask === 'he';
+  const q = read ? (READ_ASK[`${read === 'nk' ? 'nk-' : ''}${ex.ask}`] ?? ASK[ex.ask]) : letter && ex.ask === 'tr' ? 'ln.q.name' : ASK[ex.ask];
   return (
     <>
       <p className="ln-ask">
         {ex.warm && <span className="ln-new ln-warm">{t('ln.warm')}</span>}
-        {t(letter && ex.ask === 'tr' ? 'ln.q.name' : ASK[ex.ask])}
+        {t(q)}
       </p>
-      {he ? <p className="ln-tr-big">{ex.item.tr}</p> : <Prompt item={ex.item} letter={letter} />}
+      {he ? <p className="ln-tr-big">{ex.item.tr}</p> : <Prompt item={ex.item} letter={letter || !!read} />}
       <div className={`ln-opts${he ? ' he-opts' : ''}`}>
         {ex.options.map((o) => {
           const mark = state === 'answer' ? (sel === o.key ? ' sel' : '') : o.key === ex.item.key ? ' right' : sel === o.key ? ' wrong' : '';
@@ -948,14 +1018,15 @@ function Build({ ex, built, state, onBuilt }: { ex: Extract<Exercise, { t: 'buil
       <span className="he" lang="he">
         {ex.tiles[k]}
       </span>
-      {level === 'none' && !ex.words && <small>{letterName(ex.tiles[k][0], locale)}</small>}
+      {level === 'none' && !ex.words && !ex.syl && <small>{letterName(ex.tiles[k][0], locale)}</small>}
     </>
   );
   return (
     <>
-      <p className="ln-ask">{t(ex.verse ? 'ln.q.verse' : ex.words ? 'ln.q.order' : 'ln.q.build')}</p>
+      <p className="ln-ask">{t(ex.verse ? 'ln.q.verse' : ex.syl ? 'ln.q.syl' : ex.words ? 'ln.q.order' : 'ln.q.build')}</p>
       <p className="ln-tr-big">
         {ex.item.tr}
+        {ex.item.mean && <small className="ln-ref">{ex.item.mean}</small>}
         {ex.verse && (
           <small className="ln-ref">
             {ex.verse.ref}

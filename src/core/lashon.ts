@@ -30,6 +30,7 @@ import { VALUES } from './gematria';
 import { ALEPH_BET, FINAL_FORMS, FINALS, LOOKALIKES, letterName, letterSound } from './letterNames';
 import { markStudied } from './habit';
 import { localToday } from './tanakh';
+import { syllables, TRANSLIT_WORDS, wordTranslit } from './lashonRead';
 import { LASHON_EVENT as EVENT, dayNo, readCourse, remember, writeCourse, type Answers, type CourseStore } from './lashonStore';
 
 /** Одно, что учим: буква или слово (фраза). */
@@ -45,6 +46,11 @@ export interface Item {
   sound?: string;
   /** короткий стих с этим словом — для «Составьте стих»: взрослым — Пророков / Писаний, детям — Торы из уроков главы */
   verse?: Verse;
+  /** «Чтение» (src/core/lashonRead.ts): перевод слова, которое учимся читать */
+  mean?: string;
+  /** огласовка: примечание и примеры — слоги с ней и как они читаются */
+  note?: string;
+  examples?: [string, string];
 }
 export interface Verse {
   /** слова стиха на иврите (слова через макаф — одна плитка), без ׃ */
@@ -105,7 +111,8 @@ export function torahVerses(lessons: Lesson[], source: (id: string) => TorahSour
   }
   return out;
 }
-export type Track = 'abc' | 'words';
+/** abc — буквы, read — огласовки, слоги, чтение слов (src/core/lashonRead.ts), words — слова */
+export type Track = 'abc' | 'read' | 'words';
 export interface Unit {
   id: string;
   track: Track;
@@ -191,8 +198,11 @@ export const UNIT_BLOCK = 10;
  * adults: a unit («уровень») — 50 translated words of Tanakh by frequency, as in «Мои слова»; a lesson — 5 new words.
  * `verse` — the word's example verse (src/core/words.ts, `exampleOf`) for «Составьте стих».
  */
-export function tanakhUnits(dict: Dict, verse: (id: string) => Verse | undefined = () => undefined): Unit[] {
-  const items = dict.words.filter((w) => dict.tr[w.id]).map((w): Item => ({ key: w.id, he: w.he, tr: dict.tr[w.id], root: w.root, verse: verse(w.id) }));
+export function tanakhUnits(dict: Dict, verse: (id: string) => Verse | undefined = () => undefined, locale?: Locale): Unit[] {
+  // the first `TRANSLIT_WORDS` words — with how they are read (shown in the lesson unless the player reads Hebrew)
+  const items = dict.words
+    .filter((w) => dict.tr[w.id])
+    .map((w, i): Item => ({ key: w.id, he: w.he, tr: dict.tr[w.id], root: w.root, verse: verse(w.id), translit: locale && i < TRANSLIT_WORDS ? wordTranslit(w.he, locale) : undefined }));
   const out: Unit[] = [];
   for (let g = 0; g * TANAKH_GROUP < items.length; g++) {
     const level = items.slice(g * TANAKH_GROUP, (g + 1) * TANAKH_GROUP);
@@ -241,8 +251,8 @@ export type Exercise =
   | { t: 'pick'; item: Item; ask: Ask; options: Item[]; warm?: boolean }
   /** tap the pairs: Hebrew ↔ translation */
   | { t: 'match'; pairs: Item[] }
-  /** put the letters (or the words of a phrase / of a verse — `verse`) in order; `tiles` — shuffled, with one or two extra */
-  | { t: 'build'; item: Item; words: boolean; answer: string[]; tiles: string[]; verse?: Verse; word?: Item }
+  /** put the letters (or the words of a phrase / of a verse — `verse`; the syllables of a word — `syl`) in order; `tiles` — shuffled, with one or two extra */
+  | { t: 'build'; item: Item; words: boolean; answer: string[]; tiles: string[]; verse?: Verse; word?: Item; syl?: boolean }
   /** one letter of the word hidden — pick it */
   | { t: 'gap'; item: Item; at: number; parts: string[]; options: string[] }
   /** adults: the root of the word */
@@ -265,6 +275,8 @@ function pick(item: Item, unit: Unit, ask: Ask): Exercise | null {
     if (others.length === 3) break;
     if (w.key === item.key || label(w, ask) === lbl || others.some((o) => o.key === w.key || label(o, ask) === label(w, ask))) continue;
     if (unit.track === 'words' && (alike(w, item) || others.some((o) => alike(o, w)))) continue;
+    // reading: two options read the same (תָ and טָ — «та») would both be right
+    if (unit.track === 'read' && (core(w.tr) === core(item.tr) || others.some((o) => core(o.tr) === core(w.tr)))) continue;
     others.push(w);
   }
   return others.length === 3 ? { t: 'pick', item, ask, options: shuffle([item, ...others]) } : null;
@@ -280,6 +292,13 @@ function match(unit: Unit): Exercise | null {
 }
 
 function build(item: Item, unit: Unit): Exercise | null {
+  if (unit.track === 'read') {
+    // «Соберите слово из слогов»: the syllables of the word and two of the other words
+    const answer = syllables(item.he);
+    if (answer.length < 2) return null;
+    const extra = [...new Set(shuffle(unit.pool.flatMap((w) => syllables(w.he))).filter((x) => !answer.includes(x)))].slice(0, 2);
+    return { t: 'build', item, words: false, answer, tiles: shuffle([...answer, ...extra]), syl: true };
+  }
   const words = phrase(item.he);
   if (words.length >= 2 && words.length <= 6) {
     const extra = shuffle(unit.pool.flatMap((w) => phrase(w.he)).filter((x) => !words.includes(x))).slice(0, words.length > 3 ? 1 : 2);
@@ -394,17 +413,27 @@ export function makeExam(unit: Unit): Exercise[] {
 function drill(unit: Unit, level: number): Exercise[] {
   const items = unit.items;
   const out: (Exercise | null)[] = [];
-  const abc = unit.track === 'abc';
+  const abc = unit.track === 'abc' || unit.track === 'read';
+  // reading: the vowel points (nk), the syllables (sy), the words read by syllables (rw)
+  const kind = unit.track === 'read' ? unit.items[0]?.key.slice(0, 2) : '';
   if (level <= 1) {
     items.forEach((it, i) => {
       out.push({ t: 'intro', item: it }, pick(it, unit, 'tr'));
+      if (kind === 'rw' && i % 2) out.push(build(it, unit));
       if (i === 2) out.push(match(unit));
     });
     out.push(abc ? pick(items[items.length - 1], unit, 'he') : match(unit));
     return out.filter((x): x is Exercise => !!x);
   }
   const hard = level >= 3;
-  const kinds: ((it: Item) => Exercise | null)[] = abc
+  const kinds: ((it: Item) => Exercise | null)[] =
+    kind === 'nk'
+      ? [(it) => pick(it, unit, 'tr'), (it) => pick(it, unit, 'he'), (it) => pick(it, unit, 'sound')]
+      : kind === 'sy'
+        ? [(it) => pick(it, unit, 'tr'), (it) => pick(it, unit, 'he')]
+        : kind === 'rw'
+          ? [(it) => pick(it, unit, 'tr'), (it) => build(it, unit), (it) => pick(it, unit, 'he')]
+          : abc
     ? [(it) => pick(it, unit, 'tr'), (it) => pick(it, unit, 'he'), (it) => pick(it, unit, 'value'), (it) => pick(it, unit, 'sound')]
     : [
         (it) => pick(it, unit, 'tr'),
