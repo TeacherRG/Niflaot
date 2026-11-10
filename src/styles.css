@@ -898,8 +898,13 @@ html.crawler .static{opacity:1;animation:none;padding:0 16px}
 .memo-cta .btn{text-decoration:none}
 .subscribe p{margin:0 0 12px;color:var(--ink-2)}
 .subscribe-form{display:flex;flex-wrap:wrap;gap:8px}
-.subscribe-form input[type=email]{flex:1 1 200px;min-width:0;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}
+.subscribe-form input[type=email],.subscribe-form input[inputmode=numeric],.subscribe-frequency select{min-width:0;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}
+.subscribe-form input[type=email]{flex:1 1 200px}
+.subscribe-form input[inputmode=numeric]{flex:0 1 150px}
 .subscribe-form input[type=email]:focus{outline:2px solid var(--gold);outline-offset:1px}
+.subscribe-frequency{display:flex;align-items:center;gap:6px;color:var(--ink-2);font-size:14px}
+.subscribe-frequency select{padding:9px 10px}
+.subscribe-error{flex-basis:100%;color:var(--bad);font-size:14px}
 .reminder{margin-top:16px;padding:16px 18px;text-align:center;border:1px solid var(--gold-line);border-radius:10px;background:var(--gold-soft)}
 .reminder-sheet{margin-top:0;background:none;border:0;padding:0;text-align:start}
 .reminder-sheet .reminder-row{justify-content:flex-start}
@@ -923,6 +928,8 @@ html.crawler .static{opacity:1;animation:none;padding:0 16px}
 .subscribe-mini-t{font-weight:700;font-size:16px}
 .subscribe-mini .subscribe-form{flex:0 1 auto;justify-content:center}
 .subscribe-mini .subscribe-form input[type=email]{flex:1 1 180px;padding:8px 10px}
+.subscribe-mini .subscribe-frequency{font-size:13px}
+.subscribe-mini .subscribe-frequency select{padding:7px 8px}
 .subscribe-mini .subscribe-ok{margin:0;flex-basis:100%;text-align:center}
 /* «Читать»: the lesson with ready answers */
 .les-read{display:block;margin-top:6px;color:var(--tchelet);font-weight:600;text-decoration:none}

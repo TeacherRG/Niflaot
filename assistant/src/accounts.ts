@@ -3,7 +3,7 @@
  * without an account; an account keeps the progress on every device, puts the player on the leaderboards, into
  * classes, and counts the questions to the AI teacher.
  *
- * One Durable Object `Accounts` (SQLite). Login: a 6-digit code to the email (Resend, secret RESEND_API_KEY;
+ * One Durable Object `Accounts` (SQLite). Login and newsletter confirmation: a 6-digit code to the email (Resend, secret RESEND_API_KEY;
  * without it registration is off — `/account/config` says so) or «Войти через Google» (`/google`, src/google.ts;
  * variable GOOGLE_CLIENT_ID) — the same account by the same email. Codes and session tokens are kept only as SHA-256
  * hashes. A child under 14 (Austria / GDPR art. 8): the account stays **pending** — nothing synced, not on the
@@ -22,10 +22,14 @@ export interface MailEnv {
   MAIL_FROM?: string;
   /** the site, for links in the emails */
   SITE_URL?: string;
+  /** public URL of this Worker; used for RFC 8058 one-click unsubscribe */
+  ASSISTANT_URL?: string;
   /** «Войти через Google»: the OAuth client id (Google Cloud → Credentials; public). Without it — no Google button */
   GOOGLE_CLIENT_ID?: string;
   /** local development only (`wrangler dev --var DEV_CODES:1`): codes go to the log instead of an email */
   DEV_CODES?: string;
+  /** Shared secret used only by scheduled GitHub Actions to deliver newsletter issues */
+  NEWSLETTER_SECRET?: string;
 }
 
 const CODE_TTL = 10 * 60_000;
@@ -71,6 +75,11 @@ const MAIL = {
     ru: (c: string) => ({ subject: `Нифлаот: код для входа ${c}`, text: `Ваш код для входа на Нифлаот: ${c}\n\nОн действует 10 минут. Если вы не входили на сайт — просто не обращайте внимания на это письмо.` }),
     en: (c: string) => ({ subject: `Niflaot: your sign-in code ${c}`, text: `Your Niflaot sign-in code: ${c}\n\nIt is valid for 10 minutes. If you didn't try to sign in, just ignore this email.` }),
     de: (c: string) => ({ subject: `Niflaot: dein Anmeldecode ${c}`, text: `Dein Anmeldecode für Niflaot: ${c}\n\nEr gilt 10 Minuten. Wenn du dich nicht anmelden wolltest, beachte diese E-Mail einfach nicht.` }),
+  },
+  newsletterCode: {
+    ru: (c: string) => ({ subject: `Нифлаот: код подтверждения подписки ${c}`, text: `Код подтверждения подписки на рассылку Нифлаот: ${c}\n\nОн действует 10 минут. Если вы не подписывались, просто не обращайте внимания на это письмо.` }),
+    en: (c: string) => ({ subject: `Niflaot: newsletter confirmation code ${c}`, text: `Your Niflaot newsletter confirmation code: ${c}\n\nIt is valid for 10 minutes. If you did not subscribe, ignore this email.` }),
+    de: (c: string) => ({ subject: `Niflaot: Bestätigungscode für den Newsletter ${c}`, text: `Dein Niflaot-Newsletter-Bestätigungscode: ${c}\n\nEr gilt 10 Minuten. Wenn du dich nicht angemeldet hast, kannst du diese E-Mail ignorieren.` }),
   },
   consent: {
     ru: (nick: string, link: string) => ({
@@ -119,6 +128,14 @@ export class Accounts extends DurableObject<MailEnv> {
       CREATE TABLE IF NOT EXISTS ai (user TEXT NOT NULL, day TEXT NOT NULL, n INTEGER NOT NULL, PRIMARY KEY (user, day));
       CREATE TABLE IF NOT EXISTS chat_day (day TEXT PRIMARY KEY, n INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS consent_mail (user TEXT PRIMARY KEY, sent INTEGER NOT NULL, day TEXT NOT NULL, n INTEGER NOT NULL);
+      CREATE TABLE IF NOT EXISTS newsletter_codes (email TEXT PRIMARY KEY, hash TEXT NOT NULL, expires INTEGER NOT NULL,
+        tries INTEGER NOT NULL DEFAULT 0, sent INTEGER NOT NULL, sent_hour INTEGER NOT NULL DEFAULT 1,
+        frequency TEXT NOT NULL, lang TEXT NOT NULL);
+      CREATE TABLE IF NOT EXISTS newsletter_subscribers (email TEXT PRIMARY KEY, frequency TEXT NOT NULL, lang TEXT NOT NULL,
+        active INTEGER NOT NULL DEFAULT 1, created INTEGER NOT NULL, updated INTEGER NOT NULL);
+      CREATE TABLE IF NOT EXISTS newsletter_unsub_tokens (hash TEXT PRIMARY KEY, email TEXT NOT NULL, created INTEGER NOT NULL);
+      CREATE TABLE IF NOT EXISTS newsletter_deliveries (email TEXT NOT NULL, frequency TEXT NOT NULL, issue TEXT NOT NULL,
+        sent INTEGER NOT NULL, PRIMARY KEY(email, frequency, issue));
     `);
   }
 
@@ -187,6 +204,98 @@ export class Accounts extends DurableObject<MailEnv> {
     return json({ ok: true });
   }
 
+  private async newsletterCode(body: Record<string, any>) {
+    const email = String(body.email ?? '').trim().toLowerCase();
+    const frequency = body.frequency;
+    if (!validEmail(email)) return fail('email');
+    if (frequency !== 'daily' && frequency !== 'weekly') return fail('frequency');
+    const now = Date.now();
+    const prev = this.one<{ sent: number; sent_hour: number }>('SELECT sent, sent_hour FROM newsletter_codes WHERE email = ?', email);
+    if (prev && now - prev.sent < 60_000) return fail('wait', 429);
+    const sentHour = prev && now - prev.sent < 3600_000 ? prev.sent_hour + 1 : 1;
+    if (sentHour > 5) return fail('wait', 429);
+    const code = String(crypto.getRandomValues(new Uint32Array(1))[0] % 1_000_000).padStart(6, '0');
+    const locale = lang(body.lang);
+    this.sql.exec(
+      `INSERT INTO newsletter_codes (email, hash, expires, tries, sent, sent_hour, frequency, lang) VALUES (?, ?, ?, 0, ?, ?, ?, ?)
+       ON CONFLICT(email) DO UPDATE SET hash = excluded.hash, expires = excluded.expires, tries = 0,
+       sent = excluded.sent, sent_hour = excluded.sent_hour, frequency = excluded.frequency, lang = excluded.lang`,
+      email, await sha(`${email}:${code}:newsletter`), now + CODE_TTL, now, sentHour, frequency, locale,
+    );
+    try {
+      await sendMail(this.env, email, MAIL.newsletterCode[locale](code));
+    } catch (e) {
+      console.error(e);
+      return fail('mail', 503);
+    }
+    return json({ ok: true });
+  }
+
+  private async confirmNewsletter(body: Record<string, any>) {
+    const email = String(body.email ?? '').trim().toLowerCase();
+    const code = String(body.code ?? '').replace(/\D/g, '');
+    const row = this.one<{ hash: string; expires: number; tries: number; frequency: string; lang: string }>(
+      'SELECT hash, expires, tries, frequency, lang FROM newsletter_codes WHERE email = ?', email,
+    );
+    if (!row || row.expires < Date.now() || row.tries >= CODE_TRIES) return fail('expired', 401);
+    if (row.hash !== (await sha(`${email}:${code}:newsletter`))) {
+      this.sql.exec('UPDATE newsletter_codes SET tries = tries + 1 WHERE email = ?', email);
+      return fail('code', 401);
+    }
+    const now = Date.now();
+    this.sql.exec(
+      `INSERT INTO newsletter_subscribers (email, frequency, lang, active, created, updated) VALUES (?, ?, ?, 1, ?, ?)
+       ON CONFLICT(email) DO UPDATE SET frequency = excluded.frequency, lang = excluded.lang, active = 1, updated = excluded.updated`,
+      email, row.frequency, row.lang, now, now,
+    );
+    this.sql.exec('DELETE FROM newsletter_codes WHERE email = ?', email);
+    return json({ ok: true });
+  }
+
+  private async deliverNewsletter(req: Request, body: Record<string, any>) {
+    const secret = this.env.NEWSLETTER_SECRET;
+    if (!secret || (await sha(req.headers.get('Authorization') ?? '')) !== (await sha(`Bearer ${secret}`))) return fail('auth', 401);
+    const { frequency, issue, lang: locale, subject, text, attachments } = body;
+    if ((frequency !== 'daily' && frequency !== 'weekly') || !/^\d{4}-\d{2}-\d{2}$/.test(String(issue)) ||
+        !LANGS.includes(locale) || typeof subject !== 'string' || subject.length < 1 || subject.length > 200 ||
+        typeof text !== 'string' || text.length > 20_000 || !Array.isArray(attachments) || attachments.length > 3 ||
+        attachments.some((a) => !a || typeof a.filename !== 'string' || !/^[\w.-]{1,100}\.pdf$/i.test(a.filename) ||
+          typeof a.content !== 'string' || a.content.length > 10 * 1024 * 1024 || !/^[A-Za-z0-9+/]+={0,2}$/.test(a.content)))
+      return fail('data');
+    if (!this.env.RESEND_API_KEY) return fail('mail', 503);
+
+    const recipients = this.sql.exec<{ email: string }>(
+      `SELECT s.email FROM newsletter_subscribers s
+       WHERE s.active = 1 AND s.frequency = ? AND s.lang = ?
+       AND NOT EXISTS (SELECT 1 FROM newsletter_deliveries d WHERE d.email = s.email AND d.frequency = ? AND d.issue = ?)`,
+      frequency, locale, frequency, issue,
+    ).toArray();
+    let sent = 0;
+    for (const { email } of recipients) {
+      const token = random(24);
+      this.sql.exec('INSERT INTO newsletter_unsub_tokens (hash, email, created) VALUES (?, ?, ?)', await sha(token), email, Date.now());
+      const site = this.env.SITE_URL || 'https://niflaot.mychitas.app';
+      const unsubscribe = `${site}/?lang=${locale}#/newsletter/unsubscribe?token=${encodeURIComponent(token)}`;
+      const unsubscribeApi = `${this.env.ASSISTANT_URL || 'https://niflaot-assistant.niflaot.workers.dev'}/account/newsletter/unsubscribe?token=${encodeURIComponent(token)}`;
+      const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${this.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          from: this.env.MAIL_FROM || 'Niflaot <onboarding@resend.dev>',
+          to: [email],
+          subject,
+          text: `${text}\n\n${unsubscribe}`,
+          attachments: attachments.map((a: { filename: string; content: string }) => ({ filename: a.filename, content: a.content })),
+          headers: { 'List-Unsubscribe': `<${unsubscribeApi}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' },
+        }),
+      });
+      if (!response.ok) throw new Error(`resend ${response.status}: ${await response.text().catch(() => '')}`);
+      this.sql.exec('INSERT INTO newsletter_deliveries (email, frequency, issue, sent) VALUES (?, ?, ?, ?)', email, frequency, issue, Date.now());
+      sent++;
+    }
+    return json({ ok: true, sent });
+  }
+
   /** the AI teacher was asked a question by this session's account (from /chat) */
   private async aiUse(req: Request) {
     const u = await this.user(req);
@@ -206,8 +315,11 @@ export class Accounts extends DurableObject<MailEnv> {
     // never finished the profile in a week
     for (const u of this.sql.exec<{ id: string }>('SELECT id FROM users WHERE nick IS NULL AND created < ?', now - 7 * 864e5).toArray()) this.deleteUser(u.id);
     this.sql.exec('DELETE FROM codes WHERE expires < ?', now - 864e5);
+    this.sql.exec('DELETE FROM newsletter_codes WHERE expires < ?', now - 864e5);
     this.sql.exec('DELETE FROM sessions WHERE expires < ?', now);
     this.sql.exec('DELETE FROM chat_day WHERE day < ?', new Date(now - 90 * 864e5).toISOString().slice(0, 10));
+    this.sql.exec('DELETE FROM newsletter_unsub_tokens WHERE created < ?', now - 365 * 864e5);
+    this.sql.exec('DELETE FROM newsletter_deliveries WHERE sent < ?', now - 2 * 365 * 864e5);
     await this.ctx.storage.setAlarm(now + 864e5);
   }
 
@@ -249,6 +361,19 @@ export class Accounts extends DurableObject<MailEnv> {
 
     if (path === '/config') return json({ mail: !!this.env.RESEND_API_KEY || this.env.DEV_CODES === '1', google: this.env.GOOGLE_CLIENT_ID || null });
     if (path === '/chat-quota') return this.chatQuota(req);
+    if (path === '/newsletter/code') return this.newsletterCode(body!);
+    if (path === '/newsletter/confirm') return this.confirmNewsletter(body!);
+    if (path === '/newsletter/deliver') return this.deliverNewsletter(req, body!);
+    if (path === '/newsletter/unsubscribe') {
+      const token = String(body!.token ?? '');
+      if (!token || token.length > 64) return fail('token');
+      const row = this.one<{ email: string }>('SELECT email FROM newsletter_unsub_tokens WHERE hash = ?', await sha(token));
+      if (!row) return fail('token', 404);
+      this.sql.exec('DELETE FROM newsletter_subscribers WHERE email = ?', row.email);
+      this.sql.exec('DELETE FROM newsletter_unsub_tokens WHERE email = ?', row.email);
+      this.sql.exec('DELETE FROM newsletter_deliveries WHERE email = ?', row.email);
+      return json({ ok: true });
+    }
 
     /* ── login ── */
     if (path === '/code') {

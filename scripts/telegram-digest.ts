@@ -29,6 +29,8 @@ import { routeLink, SITE_URL } from '../src/core/site';
 import { miniAppLink } from '../src/core/telegram';
 import { civilDate } from '../src/core/hebrewDate';
 import { PARSHIOT } from '../src/lessons/parshiot';
+import { LESSON_GROUPS, weekParsha } from '../src/lessons';
+import { deliverNewsletter, newsletterEnabled, plainNewsletterText } from './newsletter';
 import ru from '../src/i18n/locales/ru';
 import en from '../src/i18n/locales/en';
 import de from '../src/i18n/locales/de';
@@ -75,6 +77,8 @@ const date = dateArg >= 0 ? args[dateArg + 1] : now.toISOString().slice(0, 10);
 const sunday = weekStart(date);
 // the whole week, Sunday to Friday — posted on Wednesday, it tells the days ahead too
 const friday = weekEnd(sunday);
+const parsha = weekParsha(sunday);
+const memoLesson = LESSON_GROUPS.find((g) => g.id === parsha)?.lessons.find((l) => l.kind === 'commentary' && l.memo);
 const days = weekDays(sunday, friday).map((d) => JSON.parse(readFileSync(`public/tanakh/${d.date}.json`, 'utf8')) as DayContent);
 const passages = weekPassages(sunday, friday);
 if (!days.length && !passages.length) {
@@ -184,6 +188,27 @@ async function digestPdf(loc: Loc): Promise<Uint8Array> {
   }
 }
 
+async function memoPdf(loc: Loc): Promise<Uint8Array> {
+  if (!memoLesson) throw new Error(`Нет Memo-игры для недельной главы ${parsha ?? 'unknown'}`);
+  const { chromium } = await import('playwright');
+  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
+  try {
+    const page = await browser.newPage();
+    await page.route(/goatcounter/, (r) => r.abort());
+    await page.addInitScript(() => localStorage.setItem('niflaot:mode', 'kids'));
+    await page.goto(`${process.env.PDF_SITE || SITE_URL}/?lang=${loc}#/${memoLesson.slug}/print/memo`, { waitUntil: 'load' });
+    await page.waitForSelector('.pm-head', { timeout: 60_000 });
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+      await Promise.all([...document.images].map((i) => (i.complete ? null : new Promise((r) => ((i.onload = r), (i.onerror = r))))));
+    });
+    await page.emulateMedia({ media: 'print' });
+    return await page.pdf({ format: 'A4', printBackground: true, preferCSSPageSize: true });
+  } finally {
+    await browser.close();
+  }
+}
+
 async function tg(method: string, body: object) {
   const res = await fetch(`https://api.telegram.org/bot${TOKEN}/${method}`, {
     method: 'POST',
@@ -204,7 +229,7 @@ async function tgFile(chat: string, pdf: Uint8Array, name: string, caption: stri
   if (!json.ok) throw new Error(`sendDocument: ${json.description}`);
 }
 
-if (!DRY && !Object.values(CHATS).some(Boolean)) throw new Error('no channel: set TELEGRAM_CHAT_RU / _EN / _DE (Variables or Secrets)');
+if (!DRY && !Object.values(CHATS).some(Boolean) && !newsletterEnabled()) throw new Error('no channel or newsletter: set TELEGRAM_CHAT_RU / _EN / _DE or configure email delivery');
 let failed = false;
 for (const loc of Object.keys(UI) as Loc[]) {
   const text = post(loc);
@@ -214,27 +239,50 @@ for (const loc of Object.keys(UI) as Loc[]) {
       const file = `digest-${sunday}-${loc}.pdf`;
       writeFileSync(file, await digestPdf(loc));
       console.log(`PDF: ${file}`);
+      if (memoLesson) {
+        const memoFile = `memo-${parsha}-${loc}.pdf`;
+        writeFileSync(memoFile, await memoPdf(loc));
+        console.log(`PDF: ${memoFile}`);
+      }
     }
     continue;
   }
   const chat = CHATS[loc];
-  if (!chat) continue;
-  if (!TOKEN) throw new Error('TELEGRAM_BOT_TOKEN is not set');
-  try {
-    await tg('sendMessage', { chat_id: chat, text, parse_mode: 'HTML', link_preview_options: { is_disabled: true }, ...buttons(loc) });
-    console.log(`${loc}: posted ${sunday} to ${chat}`);
-    markDone('posted');
-  } catch (e) {
-    console.error(`${loc}: ${(e as Error).message}`);
-    failed = true;
-    continue;
+  const mail = newsletterEnabled();
+  if (!chat && !mail) continue;
+  if (chat) {
+    if (!TOKEN) throw new Error('TELEGRAM_BOT_TOKEN is not set');
+    try {
+      await tg('sendMessage', { chat_id: chat, text, parse_mode: 'HTML', link_preview_options: { is_disabled: true }, ...buttons(loc) });
+      console.log(`${loc}: posted ${sunday} to ${chat}`);
+      markDone('posted');
+    } catch (e) {
+      console.error(`${loc}: ${(e as Error).message}`);
+      failed = true;
+    }
   }
   try {
     const pdf = await digestPdf(loc);
-    await tgFile(chat, pdf, `niflaot-week-${sunday}-${loc}.pdf`, t(loc, 'digest.post.pdf'));
-    console.log(`${loc}: PDF ${Math.round(pdf.length / 1024)} KB sent`);
+    if (chat) {
+      await tgFile(chat, pdf, `niflaot-week-${sunday}-${loc}.pdf`, t(loc, 'digest.post.pdf'));
+      console.log(`${loc}: PDF ${Math.round(pdf.length / 1024)} KB sent to Telegram`);
+    }
+    if (mail) {
+      const memo = await memoPdf(loc);
+      await deliverNewsletter({
+        frequency: 'weekly',
+        date: sunday,
+        lang: loc,
+        subject: `${t(loc, 'digest.title')} · ${dayMonth(sunday, loc)} – ${civilDate(friday, loc)}`,
+        text: plainNewsletterText(text),
+        attachments: [
+          { filename: `niflaot-week-${sunday}-${loc}.pdf`, content: Buffer.from(pdf).toString('base64') },
+          { filename: `niflaot-memo-${parsha}-${loc}.pdf`, content: Buffer.from(memo).toString('base64') },
+        ],
+      });
+    }
   } catch (e) {
-    console.error(`${loc}: PDF — ${(e as Error).message}`);
+    console.error(`${loc}: PDF / email — ${(e as Error).message}`);
     failed = true;
   }
 }

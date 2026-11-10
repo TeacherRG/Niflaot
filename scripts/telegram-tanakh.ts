@@ -25,6 +25,7 @@ import { rangeLabel, SECTIONS, type Section } from '../src/core/tanakhCycle';
 import { civilDate, jewishDate } from '../src/core/hebrewDate';
 import { routeLink, SITE_URL } from '../src/core/site';
 import { miniAppLink } from '../src/core/telegram';
+import { deliverNewsletter, newsletterEnabled, plainNewsletterText } from './newsletter';
 import { wordOfDay, type DayWords, type Word } from '../src/core/words';
 import WORDS from '../src/tanakh/words.json';
 import ru from '../src/i18n/locales/ru';
@@ -173,7 +174,7 @@ async function tg(method: string, body: object) {
   if (!json.ok) throw new Error(`${method}: ${json.description}`);
 }
 
-if (!DRY && !Object.values(CHATS).some(Boolean)) throw new Error('no channel: set TELEGRAM_CHAT_RU / _EN / _DE (Variables or Secrets)');
+if (!DRY && !Object.values(CHATS).some(Boolean) && !newsletterEnabled()) throw new Error('no channel or newsletter: set TELEGRAM_CHAT_RU / _EN / _DE or configure email delivery');
 let failed = false;
 for (const loc of Object.keys(UI) as Loc[]) {
   const text = post(loc);
@@ -187,23 +188,37 @@ for (const loc of Object.keys(UI) as Loc[]) {
     continue;
   }
   const chat = CHATS[loc];
-  if (!chat) continue;
-  if (!TOKEN) throw new Error('TELEGRAM_BOT_TOKEN is not set');
-  try {
-    await tg('sendMessage', { chat_id: chat, text, parse_mode: 'HTML', link_preview_options: { is_disabled: true }, ...buttons(loc) });
-    console.log(`${loc}: posted ${date} to ${chat}`);
-    markDone('posted');
-  } catch (e) {
-    console.error(`${loc}: ${(e as Error).message}`);
-    failed = true;
-    continue;
+  const mail = newsletterEnabled();
+  if (!chat && !mail) continue;
+  if (chat) {
+    if (!TOKEN) throw new Error('TELEGRAM_BOT_TOKEN is not set');
+    try {
+      await tg('sendMessage', { chat_id: chat, text, parse_mode: 'HTML', link_preview_options: { is_disabled: true }, ...buttons(loc) });
+      console.log(`${loc}: posted ${date} to ${chat}`);
+      markDone('posted');
+    } catch (e) {
+      console.error(`${loc}: ${(e as Error).message}`);
+      failed = true;
+    }
   }
   try {
     const pdf = await dayPdf(loc);
-    await tgFile(chat, pdf, `niflaot-${date}.pdf`, t(loc, 'tanakh.post.pdf', { date: civilDate(date, loc) }));
-    console.log(`${loc}: PDF ${Math.round(pdf.length / 1024)} KB sent`);
+    if (chat) {
+      await tgFile(chat, pdf, `niflaot-${date}.pdf`, t(loc, 'tanakh.post.pdf', { date: civilDate(date, loc) }));
+      console.log(`${loc}: PDF ${Math.round(pdf.length / 1024)} KB sent to Telegram`);
+    }
+    if (mail) {
+      await deliverNewsletter({
+        frequency: 'daily',
+        date,
+        lang: loc,
+        subject: `${t(loc, 'tanakh.post.title')} · ${civilDate(date, loc)}`,
+        text: plainNewsletterText(text),
+        attachments: [{ filename: `niflaot-${date}.pdf`, content: Buffer.from(pdf).toString('base64') }],
+      });
+    }
   } catch (e) {
-    console.error(`${loc}: PDF — ${(e as Error).message}`);
+    console.error(`${loc}: PDF / email — ${(e as Error).message}`);
     failed = true;
   }
 }
