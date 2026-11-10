@@ -1,7 +1,8 @@
 # Рассылка «Новые уроки — на почту» (Buttondown)
 
-Форма — `src/components/Subscribe.tsx` (в итоге урока и под лентой «Знаете ли вы?»), включается variable репозитория
+Форма — `src/components/Subscribe.tsx` (в аккаунте и в итоге урока), включается variable репозитория
 `SUBSCRIBE_URL` = `https://buttondown.com/api/emails/embed-subscribe/niflaot`. Язык сайта уходит тегом (`ru`, `en`, `de`).
+Каждая отправка открывает Buttondown в новой вкладке; форма остаётся доступной для повтора, пока адрес не подтверждён.
 
 ## Настройка
 
