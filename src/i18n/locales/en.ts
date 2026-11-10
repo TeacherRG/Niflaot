@@ -430,6 +430,7 @@ const en: Messages = {
   'home.gematria': "Gematria",
   'home.tickerChoose': "What runs in the feed",
   'home.tickerNew': "Nothing to review yet — here are the most frequent new words. Tap to start learning.",
+  'home.tickerNewTag': "new",
   'home.myVerse': "My Torah verse",
   'home.myVerseAsk': "What is your name? Let's find your verse — it begins with the first letter of your Hebrew name and ends with the last (check them). By custom it is said at the end of the Amidah.",
   'home.myVerseName': "Your name",

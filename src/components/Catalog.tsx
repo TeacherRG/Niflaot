@@ -232,9 +232,9 @@ function TickHead({ paused, setPaused, children }: { paused: boolean; setPaused:
 }
 
 /**
- * «Мои слова» as a feed: each word the player is learning — Hebrew, its translation (and «повторить сегодня»), running like
- * the gematria; a tap opens «Мои слова» (#/words). Nothing to learn yet — the most frequent words not in «Мои слова»
- * (a line says so). The dictionary is loaded only when this feed is chosen.
+ * «Мои слова» as a feed: each word the player is learning — Hebrew, its translation (and «повторить сегодня»), then the most
+ * frequent words not yet in «Мои слова» («новое»), running like the gematria; a tap opens «Мои слова» (#/words). Nothing to
+ * learn yet — only the new words (a line says so). The dictionary is loaded only when this feed is chosen.
  */
 const NEW_IN_TICKER = 20;
 const MIN_IN_LOOP = 8;
@@ -250,17 +250,21 @@ function WordsTicker({ head }: { head: ReactNode }) {
       live = false;
     };
   }, [locale]);
-  const { ids, fresh } = useMemo(() => {
-    if (!dict) return { ids: [] as string[], fresh: false };
+  // the words being learned (due first), then the most frequent words not yet in «Мои слова» (owner, 10.11.2026: «слова одни и те
+  // же крутятся, а должны быть неизвестные») — marked «новое»; mark one «Знаю» / «Учу» and the next unknown word takes its place
+  const { ids, fresh, isNew } = useMemo(() => {
+    if (!dict) return { ids: [] as string[], fresh: false, isNew: new Set<string>() };
     const mine = unlearnedWords(dict, store);
-    return mine.length ? { ids: mine, fresh: false } : { ids: nextWords(dict, store, NEW_IN_TICKER).map((w) => w.id), fresh: true };
+    const unknown = nextWords(dict, store, NEW_IN_TICKER).map((w) => w.id);
+    return { ids: [...mine, ...unknown], fresh: !mine.length, isNew: new Set(unknown) };
   }, [dict, store]);
   const day = today();
   // a short list — repeated, so the loop fills the window (the second copy below moves it by exactly one list)
   const loop = ids.length ? Array.from({ length: Math.ceil(MIN_IN_LOOP / ids.length) }, () => ids).flat() : [];
   const row = (id: string, copy: boolean, k: number) => {
     const w = dict!.words[dict!.rank.get(id)! - 1];
-    const due = !fresh && store[id][2] <= day;
+    const fresh1 = isNew.has(id);
+    const due = !fresh1 && store[id][2] <= day;
     return (
       <li key={`${copy ? 'b' : 'a'}${k}`} aria-hidden={copy || k >= ids.length || undefined}>
         <a href="#/words" tabIndex={copy || k >= ids.length ? -1 : undefined}>
@@ -270,6 +274,7 @@ function WordsTicker({ head }: { head: ReactNode }) {
           <span className="a-tick-g">
             {dict!.tr[id]}
             {due && <span className="a-tick-due"> · {t('words.statDue')}</span>}
+            {fresh1 && <span className="a-tick-due"> · {t('home.tickerNewTag')}</span>}
           </span>
         </a>
       </li>
