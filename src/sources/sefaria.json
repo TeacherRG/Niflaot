@@ -11870,6 +11870,1036 @@
    }
   }
  },
+ "gen-28-10": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 28:10",
+   "en": "Genesis 28:10",
+   "de": "Bereschit 28,10"
+  },
+  "ref": "Genesis 28:10",
+  "url": "https://www.sefaria.org/Genesis_28.10",
+  "he": [
+   "ויצא יעקב מבאר שבע וילך חרנה"
+  ],
+  "en": [
+   "And Jacob went out from Beer-sheba, and went toward Haran."
+  ],
+  "ru": [
+   "И вышел Йааков из Беэр-Шевы, и пошел в Харан."
+  ],
+  "de": [
+   "So ging Jaakob fort von Beer Scheba und ging gen Charan."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-28-11": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 28:11",
+   "en": "Genesis 28:11",
+   "de": "Bereschit 28,11"
+  },
+  "ref": "Genesis 28:11",
+  "url": "https://www.sefaria.org/Genesis_28.11",
+  "he": [
+   "ויפגע במקום וילן שם כי בא השמש ויקח מאבני המקום וישם מראשתיו וישכב במקום ההוא"
+  ],
+  "en": [
+   "And he lighted upon the place, and tarried there all night, because the sun was set; and he took one of the stones of the place, and put it under his head, and lay down in that place to sleep."
+  ],
+  "ru": [
+   "И попал на (какое-то) место, и заночевал там, потому что зашло солнце, и взял (один) из камней того места, и положил себе в изголовье, и лег (спать) на том месте."
+  ],
+  "de": [
+   "Da traf er den Ort und übernachtete dort, weil die Sonne untergegangen war, nahm von den Steinen des Ortes, stellte seine Kopfumgebung zurechte und schlief an diesem Ort."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-28-12": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 28:12",
+   "en": "Genesis 28:12",
+   "de": "Bereschit 28,12"
+  },
+  "ref": "Genesis 28:12",
+  "url": "https://www.sefaria.org/Genesis_28.12",
+  "he": [
+   "ויחלם והנה סלם מצב ארצה וראשו מגיע השמימה והנה מלאכי אלקים עלים וירדים בו"
+  ],
+  "en": [
+   "And he dreamed, and behold a ladder set up on the earth, and the top of it reached to heaven; and behold the angels of G-d ascending and descending on it."
+  ],
+  "ru": [
+   "И увидел сон: и вот лестница стоит на земле, а вершина ее касается небес, и вот посланники Б-жьи ходят вверх и вниз."
+  ],
+  "de": [
+   "Er träumte und siehe da, eine Leiter — gestellt zur Erde — und ihre Spitze reicht in den Himmel; und siehe da, Engel G-ttes — steigen hinauf und steigen hinab wider ihn;"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-28-16": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 28:16",
+   "en": "Genesis 28:16",
+   "de": "Bereschit 28,16"
+  },
+  "ref": "Genesis 28:16",
+  "url": "https://www.sefaria.org/Genesis_28.16",
+  "he": [
+   "וייקץ יעקב משנתו ויאמר אכן יש ה׳ במקום הזה ואנכי לא ידעתי"
+  ],
+  "en": [
+   "And Jacob awaked out of his sleep, and he said: ‘Surely the L-rd is in this place; and I knew it not.’"
+  ],
+  "ru": [
+   "И пробудился Йааков от сна, и сказал: воистину есть Г-сподь на этом месте, а я не знал!"
+  ],
+  "de": [
+   "Da erwachte Jaakob von seinem Schlafe und sprach: In Wahrheit, <i>G-tt</i> ist an diesem Orte! Und ich habe es nicht gewußt!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-29-2": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 29:2",
+   "en": "Genesis 29:2",
+   "de": "Bereschit 29,2"
+  },
+  "ref": "Genesis 29:2",
+  "url": "https://www.sefaria.org/Genesis_29.2",
+  "he": [
+   "וירא והנה באר בשדה והנה שם שלשה עדרי צאן רבצים עליה כי מן הבאר ההוא ישקו העדרים והאבן גדלה על פי הבאר"
+  ],
+  "en": [
+   "And he looked, and behold a well in the field, and, lo, three flocks of sheep lying there by it.—For out of that well they watered the flocks. And the stone upon the well’s mouth was great."
+  ],
+  "ru": [
+   "И увидел колодец в поле, и лежат подле него три овечьих стада, ибо из того колодца поят овец, а устье колодца закрыто большим камнем."
+  ],
+  "de": [
+   "Da sah er, und siehe da, ein Brunnen auf dem Felde, und siehe da, drei Schafherden lagern daneben; denn aus diesem Brunnen wollten sie die Herden tränken, und der Stein war groß, der auf der Mündung des Brunnens lag,"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-30-14": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 30:14–15",
+   "en": "Genesis 30:14–15",
+   "de": "Bereschit 30,14–15"
+  },
+  "ref": "Genesis 30:14-15",
+  "url": "https://www.sefaria.org/Genesis_30.14-15",
+  "he": [
+   "וילך ראובן בימי קציר חטים וימצא דודאים בשדה ויבא אתם אל לאה אמו ותאמר רחל אל לאה תני נא לי מדודאי בנך",
+   "ותאמר לה המעט קחתך את אישי ולקחת גם את דודאי בני ותאמר רחל לכן ישכב עמך הלילה תחת דודאי בנך"
+  ],
+  "en": [
+   "And Reuben went in the days of wheat harvest, and found mandrakes in the field, and brought them unto his mother Leah. Then Rachel said to Leah: ‘Give me, I pray thee, of thy son’s mandrakes.’",
+   "And she said unto her: ‘Is it a small matter that thou hast taken away my husband? and wouldest thou take away my son’s mandrakes also?’ And Rachel said: ‘Therefore he shall lie with thee to-night for thy son’s mandrakes.’"
+  ],
+  "ru": [
+   "И пошел Реувен во время жатвы пшеницы, и нашел мандрагоры в поле, и принес их матери своей Лее. И сказала Рахель Лее: Дай мне мандрагоры твоего сына!",
+   "И сказала (Леа): Мало (тебе), что ты отняла у меня мужа, так и мандрагоры моего сына забираешь? И сказала Рахель: Пусть тогда этой ночью (муж) спит с тобой в обмен на мандрагоры твоего сына!"
+  ],
+  "de": [
+   "Da ging Reuben in den Tagen der Weizenernte, fand Dudaim auf dem Felde und brachte sie seiner Mutter Lea heim. Da sagte Rachel zu Lea: Gib mir doch von den Dudaim deines Sohnes.",
+   "Da sprach sie zu ihr: Ist es ein Geringes, daß du meinen Mann hast? Nun noch gar die Dudaim meines Sohnes haben zu wollen! Nun, sprach Rachel, so soll er denn diese Nacht zu dir kommen für die Dudaim deines Sohnes."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-31-22": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 31:22",
+   "en": "Genesis 31:22",
+   "de": "Bereschit 31,22"
+  },
+  "ref": "Genesis 31:22",
+  "url": "https://www.sefaria.org/Genesis_31.22",
+  "he": [
+   "ויגד ללבן ביום השלישי כי ברח יעקב"
+  ],
+  "en": [
+   "And it was told Laban on the third day that Jacob was fled."
+  ],
+  "ru": [
+   "И сказали Лавану на третий день, что Йааков бежал."
+  ],
+  "de": [
+   "Am dritten Tage wurde es Laban berichtet, daß Jaakob entflohen war."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-28-11-3": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 28:11",
+   "en": "Rashi, Genesis 28:11",
+   "de": "Raschi, Bereschit 28,11"
+  },
+  "ref": "Rashi on Genesis 28:11:3",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_28.11.3",
+  "he": [
+   "<b>כי בא השמש.</b> הָיָה לוֹ לִכְתֹּב וַיָּבֹא הַשֶּׁמֶשׁ וַיָּלֶן שָׁם, כִּי בָא הַשֶּׁמֶשׁ מַשְׁמַע שֶׁשָּׁקְעָה לוֹ חַמָּה פִּתְאוֹם, שֶׁלֹּא בְּעוֹנָתָהּ, כְּדֵי שֶׁיָּלִין שָׁם:"
+  ],
+  "en": [
+   "כי בא השמש BECAUSE THE SUN WAS SET — It should have written, “The sun set and he tarried there all night”, but the words “he tarried there all night because the sun set”, imply that the sun set unexpectedly — not at its proper time — just in order that he should tarry there over night)."
+  ],
+  "de": [
+   "<b>Weil die Sonne untergegangen war;</b> er hätte schreiben müssen, »die Sonne ging unter«, und er übernachtete dort; aber die Sonne war untergegangen, lehrt, dass ihm die Sonne plötzlich unterging, vor der Zeit, damit er dort übernachte."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-28-11-5": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 28:11",
+   "en": "Rashi, Genesis 28:11",
+   "de": "Raschi, Bereschit 28,11"
+  },
+  "ref": "Rashi on Genesis 28:11:5",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_28.11.5",
+  "he": [
+   "<b>וישכב במקום ההוא.</b> לְשׁוֹן מִעוּט; בְּאוֹתוֹ מָקוֹם שָׁכַב אֲבָל י\"ד שָׁנִים שֶׁשִּׁמֵּשׁ בְּבֵית עֵבֶר לֹא שָׁכַב בַּלַּיְלָה, שֶׁהָיָה עוֹסֵק בַּתּוֹרָה:"
+  ],
+  "en": [
+   "וישכב במקום ההוא AND [HE] LAY DOWN IN THAT PLACE —The word ההוא, that, has a limitative force: in that place he lay down to sleep, but during the previous fourteen years when he sat under his teachers in the School of Eber he never slept at night for he was incessantly engaged in the study of the Torah (Genesis Rabbah 68:11)."
+  ],
+  "de": [
+   "<b>Und legte sich an jenem Orte zur Ruhe nieder,</b> הַהוּא ist die Form eines ausschließenden Gegensatzes, an jenem Orte legte er sich nieder, aber während der 14 Jahre, die er im Hause Ebers lernend sich betätigt hatte, hatte er sich in der Nacht nicht niedergelegt, sondern mit Torah beschäftigt (Bereschit Rabbah 68:11)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-30-14-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 30:14",
+   "en": "Rashi, Genesis 30:14",
+   "de": "Raschi, Bereschit 30,14"
+  },
+  "ref": "Rashi on Genesis 30:14:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_30.14.1",
+  "he": [
+   "<b>בימי קציר חטים.</b> לְהַגִּיד שִׁבְחָן שֶׁל שְׁבָטִים; שְׁעַת הַקָּצִיר הָיָה וְלֹא פָשַׁט יָדוֹ בַגֶּזֶל לְהָבִיא חִטִּים וּשְׂעוֹרִים, אֶלָּא דְּבַר הַהֶפְקֵר, שֶׁאֵין אָדָם מַקְפִּיד בּוֹ:"
+  ],
+  "en": [
+   "בימי קציר חטים IN THE DAYS OF WHEAT HARVEST — This is stated in praise of the tribes (שבטים a common term for Jacob’s twelve sons, the ancestors of the Tribes of Israel): it was harvest-time, yet he (Reuben) did not put forth his hand upon private property (literally, that which is stolen) by bringing home wheat or barley, but he brought home only ownerless things (such as were free for all to take) about which no one is particular (Genesis Rabbah 72:2)."
+  ],
+  "de": [
+   "<b>In den Tagen der Weizenernte,</b> das verkündet das Lob der Stämme (Söhne Jaakobs); es war die Zeit der Ernte, und doch streckte er seine Hand nicht nach Raub aus, Weizen oder Gerste nach Hause zu bringen, sondern eine herrenlose Sache, auf die kein Mensch Wert legte (Bereschit Rabbah 72:2)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "bht-28-17": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 28:17",
+   "en": "Ba'al HaTurim, Genesis 28:17",
+   "de": "Baal HaTurim, Bereschit 28,17"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 28:17",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_28.17",
+  "he": [
+   "<b>וזה שער השמים וישכם</b> לומר שבעלות השחר פותחין שער השמים והוא זמן טוב לתפלה:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-30-14": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 30:14",
+   "en": "Ba'al HaTurim, Genesis 30:14",
+   "de": "Baal HaTurim, Bereschit 30,14"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 30:14",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_30.14",
+  "he": [
+   "<b>דודאים</b> בגימטריא כאדם. בכל שמות השבטים אין סמ\"ך אלא ביוסף רמז שהוא שטנו של עשו ובכולם אין עי\"ן אלא בשמעון על שם ועין נואף שמרה נשף משום מעשה דזמרי:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-32-3": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 32:3",
+   "en": "Ba'al HaTurim, Genesis 32:3",
+   "de": "Baal HaTurim, Bereschit 32,3"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 32:3",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_32.3",
+  "he": [
+   "<b>מחנים</b> נוטריקון מאותם חיילים נטל יעקב מלאכים:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-28-10-3": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 28:10",
+   "en": "Ba'al HaTurim, Genesis 28:10",
+   "de": "Baal HaTurim, Bereschit 28,10"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 28:10:3",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_28.10.3",
+  "he": [
+   "<b> יעקב מבאר שבע</b> ס\"ת עבר שנטמן בבית עבר:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-28-10-6": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 28:10",
+   "en": "Ba'al HaTurim, Genesis 28:10",
+   "de": "Baal HaTurim, Bereschit 28,10"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 28:10:6",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_28.10.6",
+  "he": [
+   "<b> מבאר שבע</b> ר\"ת שם שגם נטמן בבית שם:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-28-10-7": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 28:10",
+   "en": "Ba'al HaTurim, Genesis 28:10",
+   "de": "Baal HaTurim, Bereschit 28,10"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 28:10:7",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_28.10.7",
+  "he": [
+   "<b> וילך</b> בגימטריא בו ביום:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-28-11-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 28:11",
+   "en": "Ba'al HaTurim, Genesis 28:11",
+   "de": "Baal HaTurim, Bereschit 28,11"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 28:11:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_28.11.1",
+  "he": [
+   "<b>ויפגע במקום</b> ג\"פ כתיב מקום בפסוק רמז לג' רגלים שיעלו בניו למקום ההוא:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-28-11-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 28:11",
+   "en": "Ba'al HaTurim, Genesis 28:11",
+   "de": "Baal HaTurim, Bereschit 28,11"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 28:11:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_28.11.2",
+  "he": [
+   "<b> כי בא השמש</b> ר\"ת כבה שכבה מאור השמש שלא בעונתו:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-28-12-5": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 28:12",
+   "en": "Ba'al HaTurim, Genesis 28:12",
+   "de": "Baal HaTurim, Bereschit 28,12"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 28:12:5",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_28.12.5",
+  "he": [
+   "<b> והנה סלם</b> בגימטריא וקץ שהראהו קיצי הגליות:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-28-12-6": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 28:12",
+   "en": "Ba'al HaTurim, Genesis 28:12",
+   "de": "Baal HaTurim, Bereschit 28,12"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 28:12:6",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_28.12.6",
+  "he": [
+   "<b> סלם</b> בגימטריא סיני שהראהו מעמד הר סיני:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-28-16-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 28:16",
+   "en": "Ba'al HaTurim, Genesis 28:16",
+   "de": "Baal HaTurim, Bereschit 28,16"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 28:16:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_28.16.1",
+  "he": [
+   "<b>וייקץ יעקב משנתו ויאמר</b> ס\"ת צבור לומר שאין תפלתו של אדם נשמעת אלא בצבור:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-28-16-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 28:16",
+   "en": "Ba'al HaTurim, Genesis 28:16",
+   "de": "Baal HaTurim, Bereschit 28,16"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 28:16:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_28.16.2",
+  "he": [
+   "<b> משנתו</b> קרי ביה ממשנתו מתוך שהוא הוגה בתורה ביום גם בלילה לא שכב לבו מלהגות בה בחלומו:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-28-20-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 28:20",
+   "en": "Ba'al HaTurim, Genesis 28:20",
+   "de": "Baal HaTurim, Bereschit 28,20"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 28:20:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_28.20.1",
+  "he": [
+   "<b>וידר</b> ג' במסורה וידר יעקב. וידר ישראל. וידר יפתח. לומר שהצדיקים היו נודרין והראשון שנדר היה יעקב וזהו אשר נשבע לה' נדר לאביר יעקב למה אמר אביר יעקב לפי שהוא פתח בנדרים תחלה:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-29-2-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 29:2",
+   "en": "Ba'al HaTurim, Genesis 29:2",
+   "de": "Baal HaTurim, Bereschit 29,2"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 29:2:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_29.2.2",
+  "he": [
+   "<b> והנה באר בשדה</b> רמז לבאר שהיה לישראל במדבר:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-29-2-4": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 29:2",
+   "en": "Ba'al HaTurim, Genesis 29:2",
+   "de": "Baal HaTurim, Bereschit 29,2"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 29:2:4",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_29.2.4",
+  "he": [
+   "<b> כי מן הבאר ההוא</b> בגימטריא משה:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-29-13-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 29:13",
+   "en": "Ba'al HaTurim, Genesis 29:13",
+   "de": "Baal HaTurim, Bereschit 29,13"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 29:13:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_29.13.2",
+  "he": [
+   "<b> ויחבק לו וינשק לו</b> תחלה חבקו לראות אם הוא חגור מעות במתניו וכשלא מצא נשקו לראות אם יש אבן טובה בפיו:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-30-15-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 30:15",
+   "en": "Ba'al HaTurim, Genesis 30:15",
+   "de": "Baal HaTurim, Bereschit 30,15"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 30:15:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_30.15.2",
+  "he": [
+   "<b> לכן</b> בגימטריא מדה במדה. בלוי כתיב כי ילדתי לו ג' ובזבולון כתיב כי ילדתי לו ו' כשילדה ג' אמרה הרי ילדתי ג' שהם חלקי וכשילדה עוד ג' אמרה הרי ילדתי ו' ב' חלקים:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-31-22-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 31:22",
+   "en": "Ba'al HaTurim, Genesis 31:22",
+   "de": "Baal HaTurim, Bereschit 31,22"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 31:22:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_31.22.1",
+  "he": [
+   "<b>כי ברח</b> ב' במסורה כי ברח יעקב. כי ברח העם. איתא במדרש שעמלק הגיד ללבן על בריחת יעקב וגם לפרעה על בריחת ישראל:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-31-22-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 31:22",
+   "en": "Ba'al HaTurim, Genesis 31:22",
+   "de": "Baal HaTurim, Bereschit 31,22"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 31:22:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_31.22.2",
+  "he": [
+   "<b> כי ברח</b> בגימטריא עמלק:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
  "gen-8-13": {
   "kind": {
    "ru": "Тора",
@@ -20662,6 +21692,582 @@
   ],
   "de": [
    "Da erfaßte Jizchak ein überaus großer Schrecken und er sprach: Wer ist denn jener, der bereits Wildpret gejagt, mir es gebracht, und ich aß auch von allem, bevor du kamst, und ich segnete ihn? — Er soll auch gesegnet sein!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-28-17": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 28:17",
+   "en": "Genesis 28:17",
+   "de": "Bereschit 28,17"
+  },
+  "ref": "Genesis 28:17",
+  "url": "https://www.sefaria.org/Genesis_28.17",
+  "he": [
+   "וַיִּירָא וַיֹּאמַר מַה־נּוֹרָא הַמָּקוֹם הַזֶּה אֵין זֶה כִּי אִם־בֵּית אֱלֹהִים וְזֶה שַׁעַר הַשָּׁמָיִם׃"
+  ],
+  "en": [
+   "And he was afraid, and said: ‘How full of awe is this place! this is none other than the house of G-d, and this is the gate of heaven.’"
+  ],
+  "ru": [
+   "И затрепетал, и молвил: Как страшно это место! Не иначе, это дом Б-жий и врата небес."
+  ],
+  "de": [
+   "Da fürchtete er und sprach: Wie furchtbar ist dieser Ort! Nichts anders ist dies, als: G-ttes Haus! Und dies eine Pforte zum Himmel!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-30-14": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 30:14",
+   "en": "Genesis 30:14",
+   "de": "Bereschit 30,14"
+  },
+  "ref": "Genesis 30:14",
+  "url": "https://www.sefaria.org/Genesis_30.14",
+  "he": [
+   "וַיֵּלֶךְ רְאוּבֵן בִּימֵי קְצִיר־חִטִּים וַיִּמְצָא דוּדָאִים בַּשָּׂדֶה וַיָּבֵא אֹתָם אֶל־לֵאָה אִמּוֹ וַתֹּאמֶר רָחֵל אֶל־לֵאָה תְּנִי־נָא לִי מִדּוּדָאֵי בְּנֵךְ׃"
+  ],
+  "en": [
+   "And Reuben went in the days of wheat harvest, and found mandrakes in the field, and brought them unto his mother Leah. Then Rachel said to Leah: ‘Give me, I pray thee, of thy son’s mandrakes.’"
+  ],
+  "ru": [
+   "И пошел Реувен во время жатвы пшеницы, и нашел мандрагоры в поле, и принес их матери своей Лее. И сказала Рахель Лее: Дай мне мандрагоры твоего сына!"
+  ],
+  "de": [
+   "Da ging Reuben in den Tagen der Weizenernte, fand Dudaim auf dem Felde und brachte sie seiner Mutter Lea heim. Da sagte Rachel zu Lea: Gib mir doch von den Dudaim deines Sohnes."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-32-3": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:3",
+   "en": "Genesis 32:3",
+   "de": "Bereschit 32,3"
+  },
+  "ref": "Genesis 32:3",
+  "url": "https://www.sefaria.org/Genesis_32.3",
+  "he": [
+   "וַיֹּאמֶר יַעֲקֹב כַּאֲשֶׁר רָאָם מַחֲנֵה אֱלֹהִים זֶה וַיִּקְרָא שֵׁם־הַמָּקוֹם הַהוּא מַחֲנָיִם׃"
+  ],
+  "en": [
+   "And Jacob said when he saw them: ‘This is G-d’s camp.’ And he called the name of that place Mahanaim."
+  ],
+  "ru": [
+   "И сказал Йааков, когда их увидел: Это стан Б-жий, — и назвал то место Маханайим."
+  ],
+  "de": [
+   "Als er sie sah, sprach Jaakob: Ein G-tteslager ist dies, und nannte den Ort Machnajim."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-28-10": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 28:10",
+   "en": "Genesis 28:10",
+   "de": "Bereschit 28,10"
+  },
+  "ref": "Genesis 28:10",
+  "url": "https://www.sefaria.org/Genesis_28.10",
+  "he": [
+   "וַיֵּצֵא יַעֲקֹב מִבְּאֵר שָׁבַע וַיֵּלֶךְ חָרָנָה׃"
+  ],
+  "en": [
+   "And Jacob went out from Beer-sheba, and went toward Haran."
+  ],
+  "ru": [
+   "И вышел Йааков из Беэр-Шевы, и пошел в Харан."
+  ],
+  "de": [
+   "So ging Jaakob fort von Beer Scheba und ging gen Charan."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-28-11": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 28:11",
+   "en": "Genesis 28:11",
+   "de": "Bereschit 28,11"
+  },
+  "ref": "Genesis 28:11",
+  "url": "https://www.sefaria.org/Genesis_28.11",
+  "he": [
+   "וַיִּפְגַּע בַּמָּקוֹם וַיָּלֶן שָׁם כִּי־בָא הַשֶּׁמֶשׁ וַיִּקַּח מֵאַבְנֵי הַמָּקוֹם וַיָּשֶׂם מְרַאֲשֹׁתָיו וַיִּשְׁכַּב בַּמָּקוֹם הַהוּא׃"
+  ],
+  "en": [
+   "And he lighted upon the place, and tarried there all night, because the sun was set; and he took one of the stones of the place, and put it under his head, and lay down in that place to sleep."
+  ],
+  "ru": [
+   "И попал на (какое-то) место, и заночевал там, потому что зашло солнце, и взял (один) из камней того места, и положил себе в изголовье, и лег (спать) на том месте."
+  ],
+  "de": [
+   "Da traf er den Ort und übernachtete dort, weil die Sonne untergegangen war, nahm von den Steinen des Ortes, stellte seine Kopfumgebung zurechte und schlief an diesem Ort."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-28-12": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 28:12",
+   "en": "Genesis 28:12",
+   "de": "Bereschit 28,12"
+  },
+  "ref": "Genesis 28:12",
+  "url": "https://www.sefaria.org/Genesis_28.12",
+  "he": [
+   "וַיַּחֲלֹם וְהִנֵּה סֻלָּם מֻצָּב אַרְצָה וְרֹאשׁוֹ מַגִּיעַ הַשָּׁמָיְמָה וְהִנֵּה מַלְאֲכֵי אֱלֹהִים עֹלִים וְיֹרְדִים בּוֹ׃"
+  ],
+  "en": [
+   "And he dreamed, and behold a ladder set up on the earth, and the top of it reached to heaven; and behold the angels of G-d ascending and descending on it."
+  ],
+  "ru": [
+   "И увидел сон: и вот лестница стоит на земле, а вершина ее касается небес, и вот посланники Б-жьи ходят вверх и вниз."
+  ],
+  "de": [
+   "Er träumte und siehe da, eine Leiter — gestellt zur Erde — und ihre Spitze reicht in den Himmel; und siehe da, Engel G-ttes — steigen hinauf und steigen hinab wider ihn;"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-28-16": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 28:16",
+   "en": "Genesis 28:16",
+   "de": "Bereschit 28,16"
+  },
+  "ref": "Genesis 28:16",
+  "url": "https://www.sefaria.org/Genesis_28.16",
+  "he": [
+   "וַיִּיקַץ יַעֲקֹב מִשְּׁנָתוֹ וַיֹּאמֶר אָכֵן יֵשׁ יְהוָה בַּמָּקוֹם הַזֶּה וְאָנֹכִי לֹא יָדָעְתִּי׃"
+  ],
+  "en": [
+   "And Jacob awaked out of his sleep, and he said: ‘Surely the L-rd is in this place; and I knew it not.’"
+  ],
+  "ru": [
+   "И пробудился Йааков от сна, и сказал: воистину есть Г-сподь на этом месте, а я не знал!"
+  ],
+  "de": [
+   "Da erwachte Jaakob von seinem Schlafe und sprach: In Wahrheit, <i>G-tt</i> ist an diesem Orte! Und ich habe es nicht gewußt!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-28-20": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 28:20",
+   "en": "Genesis 28:20",
+   "de": "Bereschit 28,20"
+  },
+  "ref": "Genesis 28:20",
+  "url": "https://www.sefaria.org/Genesis_28.20",
+  "he": [
+   "וַיִּדַּר יַעֲקֹב נֶדֶר לֵאמֹר אִם־יִהְיֶה אֱלֹהִים עִמָּדִי וּשְׁמָרַנִי בַּדֶּרֶךְ הַזֶּה אֲשֶׁר אָנֹכִי הוֹלֵךְ וְנָתַן־לִי לֶחֶם לֶאֱכֹל וּבֶגֶד לִלְבֹּשׁ׃"
+  ],
+  "en": [
+   "And Jacob vowed a vow, saying: ‘If G-d will be with me, and will keep me in this way that I go, and will give me bread to eat, and raiment to put on,"
+  ],
+  "ru": [
+   "И дал Йааков зарок, говоря: если Б-г будет со мной, и будет охранять меня в пути, и даст мне хлеба для еды и одежду одеться,"
+  ],
+  "de": [
+   "Da tat Jaakob ein Gelübde, also: Wenn G-tt mit mir sein wird und mich auf diesem Wege, den ich gehe, bewahren, und mir Brot zu essen und Gewand zur Bekleidung geben wird,"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-29-2": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 29:2",
+   "en": "Genesis 29:2",
+   "de": "Bereschit 29,2"
+  },
+  "ref": "Genesis 29:2",
+  "url": "https://www.sefaria.org/Genesis_29.2",
+  "he": [
+   "וַיַּרְא וְהִנֵּה בְאֵר בַּשָּׂדֶה וְהִנֵּה־שָׁם שְׁלֹשָׁה עֶדְרֵי־צֹאן רֹבְצִים עָלֶיהָ כִּי מִן־הַבְּאֵר הַהִוא יַשְׁקוּ הָעֲדָרִים וְהָאֶבֶן גְּדֹלָה עַל־פִּי הַבְּאֵר׃"
+  ],
+  "en": [
+   "And he looked, and behold a well in the field, and, lo, three flocks of sheep lying there by it.—For out of that well they watered the flocks. And the stone upon the well’s mouth was great."
+  ],
+  "ru": [
+   "И увидел колодец в поле, и лежат подле него три овечьих стада, ибо из того колодца поят овец, а устье колодца закрыто большим камнем."
+  ],
+  "de": [
+   "Da sah er, und siehe da, ein Brunnen auf dem Felde, und siehe da, drei Schafherden lagern daneben; denn aus diesem Brunnen wollten sie die Herden tränken, und der Stein war groß, der auf der Mündung des Brunnens lag,"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-29-13": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 29:13",
+   "en": "Genesis 29:13",
+   "de": "Bereschit 29,13"
+  },
+  "ref": "Genesis 29:13",
+  "url": "https://www.sefaria.org/Genesis_29.13",
+  "he": [
+   "וַיְהִי כִשְׁמֹעַ לָבָן אֶת־שֵׁמַע יַעֲקֹב בֶּן־אֲחֹתוֹ וַיָּרָץ לִקְרָאתוֹ וַיְחַבֶּק־לוֹ וַיְנַשֶּׁק־לוֹ וַיְבִיאֵהוּ אֶל־בֵּיתוֹ וַיְסַפֵּר לְלָבָן אֵת כָּל־הַדְּבָרִים הָאֵלֶּה׃"
+  ],
+  "en": [
+   "And it came to pass, when Laban heard the tidings of Jacob his sister’s son, that he ran to meet him, and embraced him, and kissed him, and brought him to his house. And he told Laban all these things."
+  ],
+  "ru": [
+   "Когда услышал Лаван, (что пришел) Йааков, сын сестры его, побежал он навстречу ему, и обнял его, и поцеловал его, и привел его к себе домой. И рассказал ему Йааков обо всем."
+  ],
+  "de": [
+   "Als Laban nun die Nachricht von Jaakob, seinem Schwestersohne, hörte, lief er ihm entgegen, umarmte ihn und küßte ihn und brachte ihn in sein Haus. Er erzählte Laban alle diese Begebenheiten."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-30-15": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 30:15",
+   "en": "Genesis 30:15",
+   "de": "Bereschit 30,15"
+  },
+  "ref": "Genesis 30:15",
+  "url": "https://www.sefaria.org/Genesis_30.15",
+  "he": [
+   "וַתֹּאמֶר לָהּ הַמְעַט קַחְתֵּךְ אֶת־אִישִׁי וְלָקַחַת גַּם אֶת־דּוּדָאֵי בְּנִי וַתֹּאמֶר רָחֵל לָכֵן יִשְׁכַּב עִמָּךְ הַלַּיְלָה תַּחַת דּוּדָאֵי בְנֵךְ׃"
+  ],
+  "en": [
+   "And she said unto her: ‘Is it a small matter that thou hast taken away my husband? and wouldest thou take away my son’s mandrakes also?’ And Rachel said: ‘Therefore he shall lie with thee to-night for thy son’s mandrakes.’"
+  ],
+  "ru": [
+   "И сказала (Леа): Мало (тебе), что ты отняла у меня мужа, так и мандрагоры моего сына забираешь? И сказала Рахель: Пусть тогда этой ночью (муж) спит с тобой в обмен на мандрагоры твоего сына!"
+  ],
+  "de": [
+   "Da sprach sie zu ihr: Ist es ein Geringes, daß du meinen Mann hast? Nun noch gar die Dudaim meines Sohnes haben zu wollen! Nun, sprach Rachel, so soll er denn diese Nacht zu dir kommen für die Dudaim deines Sohnes."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-31-22": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 31:22",
+   "en": "Genesis 31:22",
+   "de": "Bereschit 31,22"
+  },
+  "ref": "Genesis 31:22",
+  "url": "https://www.sefaria.org/Genesis_31.22",
+  "he": [
+   "וַיֻּגַּד לְלָבָן בַּיּוֹם הַשְּׁלִישִׁי כִּי בָרַח יַעֲקֹב׃"
+  ],
+  "en": [
+   "And it was told Laban on the third day that Jacob was fled."
+  ],
+  "ru": [
+   "И сказали Лавану на третий день, что Йааков бежал."
+  ],
+  "de": [
+   "Am dritten Tage wurde es Laban berichtet, daß Jaakob entflohen war."
   ],
   "versions": {
    "he": {
