@@ -3722,3 +3722,16 @@ button.dedication:hover .ded-name{text-decoration:underline;text-decoration-colo
 @keyframes gr-beacon{0%{transform:scale(.7);opacity:.8}80%,100%{transform:scale(1.7);opacity:0}}
 @media (prefers-reduced-motion:reduce){.gr-beacon-ring{animation:none;opacity:.5}}
 .gr-beacon:focus-visible{outline:2px solid var(--tchelet)}
+/* Под отрывком дня — раскрывающиеся блоки (Fold): граф, «Кто и где», «Слова отрывка», самопроверка */
+.tk-folds{display:grid;gap:10px;margin:24px 0 8px}
+.tk-fold{border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.tk-fold>summary{display:flex;align-items:baseline;gap:10px;padding:14px 16px;cursor:pointer;list-style:none;font-family:var(--f-display);font-size:21px;font-weight:600}
+.tk-fold>summary::-webkit-details-marker{display:none}
+.tk-fold>summary::before{content:"";flex:none;align-self:center;width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(-45deg);transition:transform .15s;margin-inline-end:4px}
+.tk-fold[open]>summary::before{transform:rotate(45deg)}
+.tk-fold>summary .he{font-family:var(--f-he);font-size:.8em;color:var(--gold);font-weight:400}
+.tk-fold>summary:focus-visible{outline:2px solid var(--tchelet);outline-offset:-2px;border-radius:14px}
+.tk-fold-body>section{margin:0;border:0;background:none;padding-top:0}
+.tk-fold-body>section>h2:first-child{display:none}
+.tk-fold .tk-quiz{margin:0;padding:0 16px 16px;display:grid;gap:10px;justify-items:center;text-align:center;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.tk-fold>summary::before{transition:none}}

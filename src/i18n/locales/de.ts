@@ -1362,6 +1362,8 @@ const de: Messages = {
   'graph.gemTitle': "Netz der Gematria des Tages",
   'graph.gemLead': "Jede Zahl ist ein Knoten: oben die Gematria des Tages mit ihrem Gedanken, unten dieselbe Zahl in anderen Wochenabschnitten. Tippe auf das Leuchtfeuer.",
   'graph.sameNumber': "dieselbe Zahl",
+  'fold.quiz': "Selbsttest",
+  'fold.quizLead': "3–4 Fragen zum Abschnitt des Tages — die Antwort sofort, mit dem Vers.",
   'atlas.year': "Jahr",
   'atlas.viewTable': "Könige und Propheten nach Jahren",
   'atlas.viewEvents': "Ereignisse",

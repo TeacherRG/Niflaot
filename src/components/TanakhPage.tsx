@@ -15,6 +15,7 @@ import { TanakhMasthead } from './PrintBrand';
 import { TanakhWords } from './TanakhWords';
 import { TanakhAtlas } from './TanakhAtlas';
 import { VersesGraph } from './PassageGraph';
+import { Fold } from './Fold';
 import { loadAtlasDay, type AtlasDay } from '../core/atlas';
 import { BeaconButton, HeVerse, WordPop, type Beacon } from './WordPop';
 import { KeyPop } from './KeyPop';
@@ -635,16 +636,28 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
           )}
 
           {sec && <DoneCheck section={section} date={day.date} today={today} plan={plan} />}
+          {/* под отрывком — блоки, которые раскрываются по нажатию: граф раскрыт, остальное свёрнуто (выбор помнится) */}
           {sec && !plan.annual && (
-            <p className="tk-quiz no-print">
-              <a className="btn" href={`#/${section}/${day.date}/quiz`}>
-                ✓ {t('quiz.cta')}
-              </a>
-            </p>
+            <div className="tk-folds">
+              <Fold id="graph" title={t('graph.title')} open>
+                <VersesGraph verses={sec.verses} atlas={atlas} keys={keys} />
+              </Fold>
+              <Fold id="atlas" title={t('atlas.title')} he="מִי וְאֵיפֹה" open={false}>
+                <TanakhAtlas section={section} date={day.date} />
+              </Fold>
+              <Fold id="words" title={t('words.title')} he="מִלִּים" open={false}>
+                <TanakhWords section={section} date={day.date} />
+              </Fold>
+              <Fold id="quiz" title={t('fold.quiz')} open={false}>
+                <p className="tk-quiz">
+                  <span>{t('fold.quizLead')}</span>
+                  <a className="btn" href={`#/${section}/${day.date}/quiz`}>
+                    ✓ {t('quiz.cta')}
+                  </a>
+                </p>
+              </Fold>
+            </div>
           )}
-          {sec && !plan.annual && <VersesGraph verses={sec.verses} atlas={atlas} keys={keys} />}
-          {sec && !plan.annual && <TanakhAtlas section={section} date={day.date} />}
-          {sec && !plan.annual && <TanakhWords section={section} date={day.date} />}
           <nav className="tk-pager no-print" aria-label={t('tanakh.navLabel')}>
             {prev ? (
               <a className="prev" href={`#/${section}/${prev.date}`}>

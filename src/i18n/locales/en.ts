@@ -1362,6 +1362,8 @@ const en: Messages = {
   'graph.gemTitle': "Today's gematria map",
   'graph.gemLead': "Each number is a node: today's gematria with its thought above, the same number in other portions below. Tap the beacon.",
   'graph.sameNumber': "same number",
+  'fold.quiz': "Check yourself",
+  'fold.quizLead': "3–4 questions on today's passage — the answer right away, with the verse.",
   'atlas.year': "Year",
   'atlas.viewTable': "Kings and prophets by year",
   'atlas.viewEvents': "Events",
