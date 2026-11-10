@@ -3694,3 +3694,31 @@ button.dedication:hover .ded-name{text-decoration:underline;text-decoration-colo
 .gp-parsha{color:var(--muted)}
 .gp-o-thought{display:block;color:var(--ink-2)}
 .tk-key[data-g]{cursor:pointer}
+/* Общий граф отрывка внизу страницы дня (PassageGraph: Невиим — стихи, люди, места; Бааль ґа-Турим — числа и гематрии) */
+.gr{margin:28px 0 8px;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);display:grid;gap:8px}
+.gr-h{margin:0;font-size:20px}
+.gr-lead{margin:0;font-size:13.5px;color:var(--muted)}
+.gr-lead .kp-dot{width:9px;height:9px;vertical-align:1px}
+.gr-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px}
+.gr-scroll svg{display:block}
+.gr-t{fill:var(--ink);font-family:inherit}
+.gr-sub{fill:var(--muted)}
+.gr-he{font-family:var(--f-he)}
+.gr-edge{fill:none;stroke:var(--line);stroke-width:1.4}
+.gr-verse{fill:var(--surface);stroke:var(--muted);stroke-width:1.2}
+.gr-verse.is-key{fill:var(--gold-soft);stroke:var(--gold);stroke-width:2}
+.gr-node{stroke-width:1.4}
+.gr-node.k-m,.gr-node.k-f{fill:var(--tchelet-soft);stroke:var(--tchelet)}
+.gr-node.k-g,.gr-node.k-x{fill:var(--surface);stroke:var(--muted)}
+.gr-node.k-p{fill:var(--ok-soft);stroke:var(--ok)}
+.gr-node.in-key{stroke:var(--gold);stroke-width:2.4}
+.gr-node.gem{fill:var(--surface);stroke:var(--line)}
+.gr-node.gem.own{fill:var(--gold-soft);stroke:var(--gold);stroke-width:1.8}
+.gr-hub{fill:var(--surface);stroke:var(--ink);stroke-width:1.6}
+.gr-link,.gr-gem,.gr-beacon{cursor:pointer}
+.gr-link:hover rect,.gr-gem:hover rect{filter:brightness(.96)}
+.gr-beacon-dot{fill:var(--gold)}
+.gr-beacon-ring{fill:none;stroke:var(--gold);stroke-width:2;transform-box:fill-box;transform-origin:center;animation:gr-beacon 2.4s ease-out infinite}
+@keyframes gr-beacon{0%{transform:scale(.7);opacity:.8}80%,100%{transform:scale(1.7);opacity:0}}
+@media (prefers-reduced-motion:reduce){.gr-beacon-ring{animation:none;opacity:.5}}
+.gr-beacon:focus-visible{outline:2px solid var(--tchelet)}

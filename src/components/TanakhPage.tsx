@@ -14,6 +14,7 @@ import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
 import { TanakhMasthead } from './PrintBrand';
 import { TanakhWords } from './TanakhWords';
 import { TanakhAtlas } from './TanakhAtlas';
+import { VersesGraph } from './PassageGraph';
 import { loadAtlasDay, type AtlasDay } from '../core/atlas';
 import { BeaconButton, HeVerse, WordPop, type Beacon } from './WordPop';
 import { KeyPop } from './KeyPop';
@@ -641,6 +642,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
               </a>
             </p>
           )}
+          {sec && !plan.annual && <VersesGraph verses={sec.verses} atlas={atlas} keys={keys} />}
           {sec && !plan.annual && <TanakhAtlas section={section} date={day.date} />}
           {sec && !plan.annual && <TanakhWords section={section} date={day.date} />}
           <nav className="tk-pager no-print" aria-label={t('tanakh.navLabel')}>

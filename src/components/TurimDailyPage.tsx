@@ -15,6 +15,7 @@ import { TanakhMasthead } from './PrintBrand';
 import { Icon, useDismiss } from './ui';
 import { HebrewRuns } from './Hebrew';
 import { GemPop, GemRow, GemVerse, placeGems } from './GemPop';
+import { GemGraph } from './PassageGraph';
 import { entryFacts, type EqFact } from '../core/turimGems';
 
 /**
@@ -355,6 +356,7 @@ export function TurimDailyPage({ lesson, n }: { lesson: Lesson; n: number }) {
             <Entry key={k} lesson={lesson} e={e} num={(n - 1) * PER_DAY + k + 1} text={view} tr={tr} chapter={k === 0 || entries[k - 1].ref.split(':')[0] !== e.ref.split(':')[0]} same={k > 0 && entries[k - 1].verse === e.verse} gems={gems[k] ?? []} />
           ))}
 
+          <GemGraph facts={gems.flat()} />
           <DoneCheck lesson={lesson} n={n} today={today} />
 
           <nav className="tk-pager no-print" aria-label={title}>

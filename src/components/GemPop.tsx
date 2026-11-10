@@ -88,7 +88,7 @@ export function GemPop() {
 
   useEffect(() => {
     const hover = matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const beacon = (e: Event) => (e.target as HTMLElement | null)?.closest?.('.tk-beacon[data-g], .tk-key[data-g]') as HTMLElement | null;
+    const beacon = (e: Event) => (e.target as HTMLElement | null)?.closest?.('.tk-beacon[data-g], .tk-key[data-g], .gr-gem[data-g]') as HTMLElement | null;
     const onOver = (e: MouseEvent) => {
       const el = beacon(e);
       if (el) show(el, false);
