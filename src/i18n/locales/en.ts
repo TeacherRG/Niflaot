@@ -2,6 +2,11 @@ import type { Messages } from './ru';
 
 const en: Messages = {
   'app.title': 'Niflaot',
+  'app.sc.neviim': "Prophets and Writings",
+  'app.sc.reading': "Tehillim for today",
+  'app.sc.hemshech': "Chassidut of the day",
+  'app.sc.words': "Words for today",
+  'app.sc.game': "Game of the day — Zip",
   'app.brandSub': 'MyChitas',
   'app.language': 'Language',
 

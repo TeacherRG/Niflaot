@@ -1404,11 +1404,18 @@ for (const { lang, ui } of LANGS) {
       { src: '/icons/icon-512.png?v=2', sizes: '512x512', type: 'image/png', purpose: 'any' },
       { src: '/icons/maskable-512.png?v=2', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
     ],
-    shortcuts: [
-      { name: s(ui, 'daily.title'), url: start(staticPath('daily', lang)), icons: [{ src: '/icons/icon-192.png?v=2', sizes: '192x192' }] },
-      { name: s(ui, 'facts.title'), url: start(staticPath('facts', lang)), icons: [{ src: '/icons/icon-192.png?v=2', sizes: '192x192' }] },
-      { name: s(ui, 'abc.title'), url: start(staticPath('letters', lang)), icons: [{ src: '/icons/icon-192.png?v=2', sizes: '192x192' }] },
-    ],
+    // a long press on the app icon — the most visited daily pages first (owner, 10.11.2026, GoatCounter for a month: Пророки 113,
+    // Теґилим 74, «Мои слова» 74, Хасидут 50, Zip 28; «Гематрия дня», «Знаете ли вы?», «Буквы» — fewer, removed); Android shows
+    // the first 3–4, «Настройки сайтов» is added by Chrome itself
+    shortcuts: (
+      [
+        ['app.sc.neviim', start('/') + '#/neviim'],
+        ['app.sc.reading', start(staticPath('tehillim', lang))],
+        ['app.sc.words', start('/') + '#/words'],
+        ['app.sc.hemshech', start('/') + '#/hemshech'],
+        ['app.sc.game', start('/') + '#/zip'],
+      ] as const
+    ).map(([k, url]) => ({ name: s(ui, k as keyof Ui), url, icons: [{ src: '/icons/icon-192.png?v=2', sizes: '192x192' }] })),
   };
   writeFileSync(`${DIST}/manifest${lang === 'ru' ? '' : `-${lang}`}.webmanifest`, `${JSON.stringify(manifest, null, 2)}\n`);
 }
