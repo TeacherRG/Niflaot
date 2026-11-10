@@ -1,4 +1,7 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { Sheet } from './ui';
+
+const ShabbatCalendar = lazy(() => import('./ShabbatCalendar').then((m) => ({ default: m.ShabbatCalendar })));
 import { useI18n } from '../i18n';
 import { shabbatWindow } from '../core/shabbat';
 import { jewishDate } from '../core/hebrewDate';
@@ -60,5 +63,41 @@ export function WeekCountdown() {
         {t('countdown.m')}
       </span>
     </div>
+  );
+}
+
+/**
+ * The same countdown as a tile of the kids' home (QA, 10.11.2026: one kind of tile, one screen): the time left, today's date
+ * (civil and Jewish); a tap opens the calendar (the Shabbat card that stood on the home before — city, «Изменить», times).
+ */
+export function CountdownTile() {
+  const { t, locale } = useI18n();
+  const { days, hours, mins, now } = useLeft();
+  const [open, setOpen] = useState(false);
+  const iso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const civilShort = now.toLocaleDateString(locale, { weekday: 'short', day: 'numeric', month: 'short' });
+  const pad = (n: number) => String(n).padStart(2, '0');
+  const label = `${t('countdown.title')}: ${t('countdown.days', { n: days })} ${t('countdown.hours', { n: hours })} ${t('countdown.mins', { n: mins })}. ${t('calendar.title')}`;
+  return (
+    <>
+      <button type="button" className="a-tile kt kt-sky" onClick={() => setOpen(true)} aria-label={label}>
+        <span className="a-tile-k">{t('home.ktLeft')}</span>
+        <span className="a-tile-t num kt-time" role="timer">
+          {days}
+          {t('countdown.d')} {hours}
+          {t('countdown.h')} {pad(mins)}
+          {t('countdown.m')}
+        </span>
+        <span className="a-zip-s">
+          {civilShort} ·{' '}
+          <span className="he" lang="he">
+            {jewishDate(iso)}
+          </span>
+        </span>
+      </button>
+      <Sheet open={open} onClose={() => setOpen(false)} title={t('calendar.title')} closeLabel={t('menu.close')}>
+        <Suspense fallback={null}>{open && <ShabbatCalendar bare />}</Suspense>
+      </Sheet>
+    </>
   );
 }
