@@ -14,6 +14,7 @@ import type { Locale } from '../i18n';
 import { currentMode, MODE_EVENT } from './mode';
 import { normWord } from './sync';
 import { ZIP_KEY, zipReminder } from './zipReminder';
+import { STUDY_EVENT, streakForReminder } from './habit';
 
 const STORE = 'niflaot:push';
 const PREFS = '/__niflaot/push-prefs';
@@ -69,11 +70,12 @@ async function api(path: string, body: object) {
 
 /**
  * the language and the mode of the message — for the service worker, which can't read localStorage: the adults'
- * mode gets the passage of the day of the Prophets and Writings (src/core/dailyMessage.ts)
+ * mode gets the passage of the day of the Prophets and Writings (src/core/dailyMessage.ts); `study` — the streak
+ * (src/core/habit.ts): the first line of the message — «✓ вы уже учились сегодня», «🔥 N дней подряд — не прервите» or a motto
  */
 async function savePrefs(lang: Locale) {
   const c = await caches.open('niflaot-prefs');
-  await c.put(PREFS, new Response(JSON.stringify({ lang, mode: currentMode(), wordsDue: wordsDue(), wordsKnownDue: wordsDue(true), zip: zipReminder(localStorage.getItem(ZIP_KEY)), anchor: saved()?.anchor }), { headers: { 'Content-Type': 'application/json' } }));
+  await c.put(PREFS, new Response(JSON.stringify({ lang, mode: currentMode(), wordsDue: wordsDue(), wordsKnownDue: wordsDue(true), zip: zipReminder(localStorage.getItem(ZIP_KEY)), anchor: saved()?.anchor, study: streakForReminder() }), { headers: { 'Content-Type': 'application/json' } }));
 }
 
 /**
@@ -160,7 +162,7 @@ export async function pushLanguage(lang: Locale) {
 
 // the mode changed («Режим · сменить»), or the words of «Мои слова» did: the next messages know it
 if (typeof window !== 'undefined')
-  for (const ev of [MODE_EVENT, 'niflaot:words', ZIP_KEY])
+  for (const ev of [MODE_EVENT, 'niflaot:words', ZIP_KEY, STUDY_EVENT])
     window.addEventListener(ev, () => {
       if (lastLang) void pushLanguage(lastLang);
     });

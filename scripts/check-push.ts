@@ -83,6 +83,38 @@ for (const lang of ['ru', 'en', 'de'])
   if (zipReminder(null) || zipReminder('{"l":2,"d":{}}') || zipReminder('oops')) err('zip reminder: without a game there must be no line');
 }
 
+// the hook of the message (public/sw.js): praise when already learnt today, «don't break the streak» while it is alive
+// (Shabbat between doesn't break it), else a motto — the same number of mottos in every language
+{
+  const code = sw.slice(sw.indexOf('const STREAK_LINE'), sw.indexOf('const dayNumber'));
+  const { hookLine, MOTTO } = new Function(`${code}; return { hookLine, MOTTO };`)() as {
+    hookLine: (lang: string, st: unknown, today: string, n: number) => string;
+    MOTTO: Record<string, string[]>;
+  };
+  if (!(MOTTO.ru.length >= 7 && MOTTO.en.length === MOTTO.ru.length && MOTTO.de.length === MOTTO.ru.length)) err('sw.js: MOTTO — the same number in every language');
+  for (const lang of ['ru', 'en', 'de']) for (const m of MOTTO[lang]) if (m.length > 80) err(`sw.js: MOTTO too long: ${m}`);
+  const cases: [unknown, string, RegExp][] = [
+    [{ s: 5, d: '2026-11-10', keep: '2026-11-11' }, '2026-11-10', /уже учились · серия 5/],
+    [{ s: 5, d: '2026-11-09', keep: '2026-11-10' }, '2026-11-10', /5 дн\. подряд/],
+    [{ s: 1, d: '2026-11-09', keep: '2026-11-10' }, '2026-11-10', /второй день/],
+    [{ s: 5, d: '2026-11-08', keep: '2026-11-09' }, '2026-11-10', /^(?!.*подряд)/],
+    [null, '2026-11-10', /^(?!.*серия)/],
+  ];
+  for (const [st, today, re] of cases) if (!re.test(hookLine('ru', st, today, 0))) err(`sw.js hook ${JSON.stringify(st)} ${today}: ${hookLine('ru', st, today, 0)}`);
+  // the streak for the reminder: learnt Fri 6.11 and Sun 8.11 (Shabbat between) — 2 days, continues on Mon 9.11
+  const store: Record<string, string> = { 'niflaot:study-days': JSON.stringify({ '2026-11-06': 1, '2026-11-08': 1 }) };
+  const g = globalThis as { localStorage?: unknown };
+  const had = g.localStorage;
+  g.localStorage = { getItem: (k: string) => store[k] ?? null, setItem: (k: string, v: string) => void (store[k] = v), removeItem: (k: string) => void delete store[k] };
+  const { streakForReminder } = await import('../src/core/habit');
+  const r = streakForReminder('2026-11-08');
+  if (r?.s !== 2 || r.d !== '2026-11-08' || r.keep !== '2026-11-09') err(`streakForReminder: ${JSON.stringify(r)}`);
+  store['niflaot:study-days'] = JSON.stringify({ '2026-11-05': 1, '2026-11-06': 1 });
+  const f = streakForReminder('2026-11-06');
+  if (f?.keep !== '2026-11-08') err(`streakForReminder over Shabbat: ${JSON.stringify(f)}`);
+  g.localStorage = had;
+}
+
 // «Учёба каждый день» (src/core/habit.ts): Shabbat doesn't break the streak, a missed weekday does
 const { habitStats } = await import('../src/core/habit');
 const st = (days: string[], today: string) => habitStats(new Set(days), today);

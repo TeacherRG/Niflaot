@@ -139,6 +139,71 @@ const ANCHOR_LINE = {
   en: { prayer: 'After the morning prayer — time to learn', breakfast: 'After breakfast — time to learn', lunch: 'At lunch — time to learn', school: 'After school — time to learn', work: 'After work — time to learn', dinner: 'After dinner — time to learn' },
   de: { prayer: 'Nach dem Morgengebet — Zeit zum Lernen', breakfast: 'Nach dem Frühstück — Zeit zum Lernen', lunch: 'In der Mittagspause — Zeit zum Lernen', school: 'Nach der Schule — Zeit zum Lernen', work: 'Nach der Arbeit — Zeit zum Lernen', dinner: 'Nach dem Abendessen — Zeit zum Lernen' },
 };
+// The first line — the hook (owner, 10.11.2026: «короткие мотивационные сообщения — учись каждый Б-жий день»):
+// studied today — praise and the streak; a streak still alive — «don't break it»; otherwise — a motto of the day, in turn.
+// The streak comes from src/core/push.ts (`study`: s — days in a row through the day d, keep — the last day that continues it).
+const STREAK_LINE = {
+  ru: { done: '✓ Сегодня вы уже учились · серия {n} 🔥 Ещё минутку?', keep: '🔥 {n} дн. подряд — не прервите серию сегодня!', first: '🔥 Вчера начали — сегодня второй день серии!' },
+  en: { done: '✓ You already learned today · streak {n} 🔥 One more minute?', keep: '🔥 {n} days in a row — keep your streak today!', first: '🔥 You started yesterday — make today day two!' },
+  de: { done: '✓ Heute hast du schon gelernt · Serie {n} 🔥 Noch eine Minute?', keep: '🔥 {n} Tage am Stück — halte deine Serie heute!', first: '🔥 Gestern angefangen — heute ist Tag zwei!' },
+};
+const MOTTO = {
+  ru: [
+    'Учитесь каждый Б-жий день — хоть одну минуту.',
+    'Одна минута Торы — и день уже другой.',
+    'Капля за каплей камень точит — слово за словом учит.',
+    'Сделайте Тору постоянной (Авот 1:15) — начните с минуты.',
+    'Сегодняшний день не повторится — выучите в нём что-то новое.',
+    'Маленький шаг каждый день сильнее большого раз в месяц.',
+    'Тора ждёт вас — пять минут, и вы на шаг ближе.',
+    '«И повторяй их детям твоим, и говори о них» — начните с себя.',
+    'Не «когда будет время», а сейчас: одна загадка.',
+    'Каждый день — новая буква, новое слово, новое чудо.',
+    'Учиться можно в автобусе, в очереди, за чаем.',
+    'Кто учится каждый день — тот растёт каждый день.',
+  ],
+  en: [
+    'Learn every single day — even just one minute.',
+    'One minute of Torah — and the day is different.',
+    'Drop by drop the stone wears away — word by word you learn.',
+    'Make your Torah study fixed (Avot 1:15) — start with a minute.',
+    'Today won’t come again — learn something new in it.',
+    'A small step every day beats a big one once a month.',
+    'The Torah is waiting — five minutes, one step closer.',
+    '“Teach them to your children and speak of them” — start with yourself.',
+    'Not “when I have time” — now: one riddle.',
+    'Every day — a new letter, a new word, a new wonder.',
+    'You can learn on the bus, in a queue, over tea.',
+    'Learn every day — grow every day.',
+  ],
+  de: [
+    'Lerne jeden Tag — und sei es nur eine Minute.',
+    'Eine Minute Tora — und der Tag ist ein anderer.',
+    'Tropfen für Tropfen höhlt den Stein — Wort für Wort lernst du.',
+    'Mach dein Tora-Lernen fest (Awot 1,15) — fang mit einer Minute an.',
+    'Heute kommt nicht wieder — lerne heute etwas Neues.',
+    'Ein kleiner Schritt jeden Tag ist mehr als ein großer einmal im Monat.',
+    'Die Tora wartet — fünf Minuten, ein Schritt näher.',
+    '„Schärfe sie deinen Kindern ein und rede von ihnen“ — fang bei dir an.',
+    'Nicht „wenn ich Zeit habe“ — jetzt: ein Rätsel.',
+    'Jeden Tag — ein neuer Buchstabe, ein neues Wort, ein neues Wunder.',
+    'Lernen geht im Bus, in der Schlange, beim Tee.',
+    'Wer jeden Tag lernt, wächst jeden Tag.',
+  ],
+};
+/** the hook line: `st` — the streak from the site (src/core/habit.ts, streakForReminder), `today` — the device's date */
+function hookLine(lang, st, today, n) {
+  const L = STREAK_LINE[lang] || STREAK_LINE.ru;
+  if (st && typeof st.d === 'string') {
+    if (st.d === today && st.s > 0) return L.done.replace('{n}', st.s);
+    if (st.d < today && today <= st.keep) {
+      if (st.s >= 2) return L.keep.replace('{n}', st.s);
+      if (st.s === 1) return L.first;
+    }
+  }
+  const m = MOTTO[lang] || MOTTO.ru;
+  return m[n % m.length];
+}
 const dayNumber = () => {
   const d = new Date();
   return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5);
@@ -189,11 +254,13 @@ self.addEventListener('push', (e) => {
       // «учу» — все, что пора; «знаю» — не больше 25 в день (DAILY_KNOWN в src/core/words.ts)
       const dueOf = (a) => (Array.isArray(a) ? a.filter((d) => d <= dayNumber()).length : 0);
       const due = p.mode === 'adults' ? dueOf(p.wordsDue) + Math.min(25, dueOf(p.wordsKnownDue)) : 0;
-      const anchor = ANCHOR_LINE[lang][p.anchor];
+      // already learnt today — no «время учиться»: the praise alone
+      const anchor = p.study?.d === localDate() ? undefined : ANCHOR_LINE[lang][p.anchor];
+      const hook = hookLine(lang, p.study, localDate(), dayNumber());
       let body = due ? `${m.body}\n${(WORDS_LINE[lang] || WORDS_LINE.ru).replace('{n}', due)}` : m.body;
       if (p.zip && p.zip.w !== localDate()) body += `\n${(ZIP_LINE[lang] || ZIP_LINE.ru).replace('{n}', p.zip.l)}`;
       await self.registration.showNotification(m.title, {
-        body: anchor ? `${anchor}\n${body}` : body,
+        body: [hook, anchor, body].filter(Boolean).join('\n'),
         lang,
         icon: '/icons/icon-192.png?v=2',
         badge: '/icons/icon-192.png?v=2',
@@ -209,8 +276,14 @@ self.addEventListener('notificationclick', (e) => {
   const url = e.notification.data?.url || '/';
   e.waitUntil(
     self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
-      const open = list.find((c) => new URL(c.url).origin === location.origin);
-      if (open) return open.navigate(url).then((c) => (c || open).focus());
+      // a tab of the site is open: take it there; a tab this worker doesn't control can't be navigated (navigate()
+      // rejects) — then a new window, so the tap never does nothing
+      const open = list.find((c) => new URL(c.url).origin === location.origin && 'navigate' in c);
+      if (open)
+        return open
+          .navigate(url)
+          .then((c) => (c || open).focus())
+          .catch(() => self.clients.openWindow(url));
       return self.clients.openWindow(url);
     }),
   );

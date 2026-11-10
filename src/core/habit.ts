@@ -16,7 +16,8 @@ import { useEffect, useState } from 'react';
 import { addDays, restReason } from './restDays';
 
 export const STUDY_KEY = 'niflaot:study-days';
-const EVENT = 'niflaot:study';
+export const STUDY_EVENT = 'niflaot:study';
+const EVENT = STUDY_EVENT;
 /** «Гематрия дня» №1 (src/core/daily.ts) */
 export const DAILY_START = '2026-10-11';
 
@@ -152,4 +153,19 @@ export function useHabit(): Habit & { pending: string | null } {
     };
   }, []);
   return h;
+}
+
+/**
+ * For the daily reminder (src/core/push.ts → public/sw.js, which can't read localStorage nor the rest days): the streak
+ * through the last day of study `d`, and `keep` — the last day on which studying still continues it (the first ordinary
+ * day after `d`: Shabbat and holidays between don't break it). Nothing studied yet — null.
+ */
+export function streakForReminder(today = todayIso()): { s: number; d: string; keep: string } | null {
+  const dates = studyDates();
+  const days = [...dates].filter((x) => x <= today).sort();
+  const d = days[days.length - 1];
+  if (!d) return null;
+  let keep = addDays(d, 1);
+  while (isRest(keep)) keep = addDays(keep, 1);
+  return { s: habitStats(dates, d).streak, d, keep };
 }
