@@ -23,9 +23,8 @@ const isoOf = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padSta
 async function todayHebrewDay(): Promise<string | null> {
   const now = new Date();
   try {
-    const [{ sunTimes }, { placeOf, timeZone }] = await Promise.all([import('../core/hebcal'), import('../core/places')]);
-    const zone = timeZone();
-    const place = placeOf(zone);
+    const [{ sunTimes }, { currentPlace }] = await Promise.all([import('../core/hebcal'), import('../core/places')]);
+    const { place, zone } = currentPlace();
     const sunset = place && sunTimes(isoOf(now), place.lat, place.lon, zone).sunset;
     if (sunset && now >= sunset) return hebrewDay(new Date(now.getTime() + 86_400_000));
   } catch {
@@ -47,9 +46,12 @@ export function HebrewDay() {
     const tick = () => void todayHebrewDay().then((d) => live && setDay(d));
     tick();
     const id = setInterval(tick, 60_000);
+    // another city chosen in the calendar — its sunset
+    window.addEventListener('niflaot:place', tick);
     return () => {
       live = false;
       clearInterval(id);
+      window.removeEventListener('niflaot:place', tick);
     };
   }, []);
   if (!day) return null;

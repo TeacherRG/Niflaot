@@ -3449,3 +3449,56 @@ html.tabbed .rd-tip{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
 .h-games .g-slide{border-radius:0}
 .h-games .h-daily-title{padding-right:40px}
 .a-games .g-slide{border-radius:0}
+
+/* «Мои курсы» on the adults' home — a coloured tile like its three neighbours (owner, 10.11.2026): deep violet, the
+   academy's colour of the Baal HaTurim («Неделя в Академии»), white names, golden progress bars on a light track */
+:root{--plum-deep:#5B3A8C}
+.a-pair>.courses.simple{background:linear-gradient(150deg,var(--plum-deep),#33285E);border:0;color:#fff}
+.a-pair>.courses.simple h2{font-family:var(--f-body);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.9;line-height:1.3}
+.a-pair>.courses.simple .courses-row{color:#fff}
+.a-pair>.courses.simple .courses-row:hover .courses-t{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.a-pair>.courses.simple .a-bar{background:rgba(255,255,255,.2)}
+.a-pair>.courses.simple .a-bar>span{background:var(--gold-2)}
+.a-pair>.courses.simple .courses-row.done .a-bar>span{background:#8FD3A6}
+.a-pair>.courses.simple .cc-dots button{background:rgba(255,255,255,.35)}
+.a-pair>.courses.simple .cc-dots button[aria-current]{background:#fff}
+.a-pair>.courses.simple :focus-visible{outline-color:var(--gold-2)}
+@media (max-width:640px){.a-pair>.courses.simple h2{font-size:10.5px}}
+
+/* the dedication — a button: a candle (the elevation of a soul) and «Посвятить учёбу» (owner, 10.11.2026) */
+button.dedication{font:inherit;color:inherit;cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .15s}
+button.dedication:hover{border-color:var(--gold-2);box-shadow:0 10px 30px -14px rgba(164,124,47,.55)}
+button.dedication:hover .ded-name{text-decoration:underline;text-decoration-color:var(--gold-2);text-underline-offset:4px}
+.ded-candle{font-size:1em;line-height:1;margin-inline-end:6px}
+.dedication.line .ded-candle{font-size:16px;margin-inline-end:0}
+.ded-more{margin-top:4px;font-size:12.5px;font-weight:700;color:var(--gold);letter-spacing:.02em}
+.ded-sheet{display:grid;gap:12px}
+.ded-sheet-now{display:grid;justify-items:center;gap:2px;text-align:center;padding:16px;border-radius:14px;background:linear-gradient(180deg,var(--gold-soft),var(--surface));border:1px solid var(--gold-line)}
+.ded-sheet-candle{font-size:34px;line-height:1.1}
+.ded-sheet-now .ded-name{font-size:24px}
+.ded-sheet-lead{margin:4px 0 0;font-weight:700}
+.ded-sheet-kinds{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.ded-sheet-kinds li{padding:8px 12px;border-radius:10px;background:var(--tchelet-bg)}
+.ded-sheet-how{margin:0;font-size:14px;color:var(--muted)}
+.ded-sheet-btn{justify-self:start;text-decoration:none;background:var(--gold-deep);border-color:var(--gold-deep)}
+.ded-sheet-mail{margin:-6px 0 0;font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){button.dedication{transition:none}}
+
+/* the calendar: «Изменить» next to the city and the city picker (owner, 10.11.2026) */
+.sc-edit{margin-inline-start:4px;padding:1px 10px;border:1px solid var(--tchelet-line);border-radius:999px;background:var(--surface);color:var(--tchelet-deep);font-size:12px;font-weight:700;cursor:pointer}
+.sc-edit:hover{border-color:var(--tchelet);background:var(--tchelet-soft)}
+.sc-pick{display:grid;gap:8px;margin-top:10px;padding:12px;border:1px solid var(--tchelet-line);border-radius:12px;background:var(--tchelet-bg)}
+.sc-pick-l,.sc-own label{display:grid;gap:3px;font-size:12px;font-weight:700;color:var(--ink-3)}
+.sc-pick-in,.sc-own input{width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit;font-size:15px}
+.sc-pick-in:focus,.sc-own input:focus{outline:2px solid var(--tchelet);outline-offset:0;border-color:transparent}
+.sc-pick-list{margin:0;padding:0;list-style:none;display:grid;gap:4px;max-height:240px;overflow:auto}
+.sc-pick-list button{display:flex;width:100%;align-items:baseline;justify-content:space-between;gap:8px;padding:8px 12px;border:1px solid var(--line-soft);border-radius:10px;background:var(--surface);color:var(--ink);text-align:start;cursor:pointer}
+.sc-pick-list button:hover,.sc-pick-list button:focus-visible{border-color:var(--tchelet);background:var(--tchelet-soft)}
+.sc-pick-none{font-size:13px;color:var(--muted)}
+.sc-link{justify-self:start;padding:0;border:0;background:none;color:var(--tchelet-deep);font-size:13px;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.sc-own{display:grid;gap:8px}
+.sc-own-hint{margin:0;font-size:12px;color:var(--muted);line-height:1.4}
+.sc-own-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sc-own-save{justify-self:start}
+.sc-own-save:disabled{opacity:.45;cursor:not-allowed}
+.sc-pick-foot{display:flex;flex-wrap:wrap;gap:6px 16px}
