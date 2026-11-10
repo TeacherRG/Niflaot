@@ -37,9 +37,14 @@ export const plainNewsletterText = (html: string) =>
     .replace(/<br\s*\/?>/gi, '\n')
     .replace(/<\/(?:p|div|li)>/gi, '\n')
     .replace(/<[^>]+>/g, '')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
+    .replace(/&(amp|quot|#39);/gi, (entity) => {
+      switch (entity.toLowerCase()) {
+        case '&amp;':
+          return '&';
+        case '&quot;':
+          return '"';
+        default:
+          return "'";
+      }
+    })
     .trim();
