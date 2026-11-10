@@ -122,27 +122,29 @@ export function WordsPage({ focus }: { focus?: string }) {
           <p className="ws-lead">{t('words.mineLead')}</p>
         </header>
 
-        <section className="ws-stats" aria-label={t('words.mine')}>
-          <div className="ws-nums">
-            <span>
-              <b>{known}</b>
-              <small>{t('words.statKnown')}</small>
+        {!focusWord && (
+          <section className="ws-stats" aria-label={t('words.mine')}>
+            <div className="ws-nums">
+              <span>
+                <b>{known}</b>
+                <small>{t('words.statKnown')}</small>
+              </span>
+              <span>
+                <b>{learning}</b>
+                <small>{t('words.statLearn')}</small>
+              </span>
+              <span>
+                <b>{due.length}</b>
+                <small>{t('words.statDue')}</small>
+              </span>
+            </div>
+            <b className="ws-cov">{t('words.textCov', { p: cov })}</b>
+            <span className="tk-words-bar" role="img" aria-label={`${cov}%`}>
+              <span style={{ width: `${cov}%` }} />
             </span>
-            <span>
-              <b>{learning}</b>
-              <small>{t('words.statLearn')}</small>
-            </span>
-            <span>
-              <b>{due.length}</b>
-              <small>{t('words.statDue')}</small>
-            </span>
-          </div>
-          <b className="ws-cov">{t('words.textCov', { p: cov })}</b>
-          <span className="tk-words-bar" role="img" aria-label={`${cov}%`}>
-            <span style={{ width: `${cov}%` }} />
-          </span>
-          <small className="ws-goal">{goal ? t('words.goal', { goal, n: goal - known }) : t('words.goalDone', { n: translated })}</small>
-        </section>
+            <small className="ws-goal">{goal ? t('words.goal', { goal, n: goal - known }) : t('words.goalDone', { n: translated })}</small>
+          </section>
+        )}
 
         {focusWord && (
           <section className="ws-sec ws-focus" aria-labelledby="ws-focus">
@@ -153,58 +155,69 @@ export function WordsPage({ focus }: { focus?: string }) {
             <p className="ws-note">{t(isKnown(store, focusWord.id) ? 'words.focusKnown' : inDeck(store, focusWord.id) ? 'words.focusLearn' : 'words.focusNew')}</p>
           </section>
         )}
+        {focusWord && (
+          <p className="ws-note">
+            <a className="btn ghost" href="#/words">
+              ← {t('words.toMine')}
+            </a>
+          </p>
+        )}
 
-        <section className="ws-sec" aria-labelledby="ws-review">
-          <h2 id="ws-review">{t('words.reviewH')}</h2>
-          {session ? (
-            <Review dict={dict} ids={session} exs={exs} onClose={() => setSession(null)} />
-          ) : due.length ? (
-            <button type="button" className="btn ws-start" onClick={() => setSession(due)}>
-              {t('words.reviewBtn', { n: due.length })}
-            </button>
-          ) : (
-            <p className="ws-note">
-              {Object.keys(store).some((id) => inDeck(store, id)) ? t('words.reviewNone') : t('words.reviewEmpty')}
-              {tomorrow > 0 && <> {t('words.reviewTomorrow', { n: tomorrow })}</>}
-              {more.length > 0 && (
-                <button type="button" className="btn ghost ws-more" onClick={() => setSession(more.slice(0, DAILY_KNOWN))}>
-                  {t('words.reviewMore', { n: Math.min(DAILY_KNOWN, more.length), left: more.length })}
+        {!focusWord && (
+          <>
+            <section className="ws-sec" aria-labelledby="ws-review">
+              <h2 id="ws-review">{t('words.reviewH')}</h2>
+              {session ? (
+                <Review dict={dict} ids={session} exs={exs} onClose={() => setSession(null)} />
+              ) : due.length ? (
+                <button type="button" className="btn ws-start" onClick={() => setSession(due)}>
+                  {t('words.reviewBtn', { n: due.length })}
                 </button>
+              ) : (
+                <p className="ws-note">
+                  {Object.keys(store).some((id) => inDeck(store, id)) ? t('words.reviewNone') : t('words.reviewEmpty')}
+                  {tomorrow > 0 && <> {t('words.reviewTomorrow', { n: tomorrow })}</>}
+                  {more.length > 0 && (
+                    <button type="button" className="btn ghost ws-more" onClick={() => setSession(more.slice(0, DAILY_KNOWN))}>
+                      {t('words.reviewMore', { n: Math.min(DAILY_KNOWN, more.length), left: more.length })}
+                    </button>
+                  )}
+                </p>
               )}
+            </section>
+
+            <section className="ws-sec" aria-labelledby="ws-new">
+              <h2 id="ws-new">{t('words.newH')}</h2>
+              <p className="ws-note">{t('words.newLead')}</p>
+              {fresh && fresh.length ? (
+                <>
+                  <ul className="tk-words-list">
+                    {fresh.map((w) => (
+                      <WordRow key={w.id} w={w} dict={dict} store={store} ex={exs[w.id]} />
+                    ))}
+                  </ul>
+                  <button type="button" className="btn ghost ws-more" onClick={() => setFresh(nextWords(dict, readWordStore()))}>
+                    {t('words.moreNew')}
+                  </button>
+                </>
+              ) : (
+                <p className="ws-note">{t('words.goalDone', { n: translated })}</p>
+              )}
+            </section>
+
+            <section className="ws-sec" aria-labelledby="ws-all">
+              <h2 id="ws-all">{t('words.allH')}</h2>
+              {levels.map((ws, i) => (
+                <Level key={i} words={ws} from={i * LEVEL + 1} dict={dict} />
+              ))}
+            </section>
+
+            <p className="ws-note">
+              {t('words.readToday')} <a href="#/neviim">{t('tanakh.neviim')}</a> · <a href="#/ketuvim">{t('tanakh.ketuvim')}</a>
             </p>
-          )}
-        </section>
-
-        <section className="ws-sec" aria-labelledby="ws-new">
-          <h2 id="ws-new">{t('words.newH')}</h2>
-          <p className="ws-note">{t('words.newLead')}</p>
-          {fresh && fresh.length ? (
-            <>
-              <ul className="tk-words-list">
-                {fresh.map((w) => (
-                  <WordRow key={w.id} w={w} dict={dict} store={store} ex={exs[w.id]} />
-                ))}
-              </ul>
-              <button type="button" className="btn ghost ws-more" onClick={() => setFresh(nextWords(dict, readWordStore()))}>
-                {t('words.moreNew')}
-              </button>
-            </>
-          ) : (
-            <p className="ws-note">{t('words.goalDone', { n: translated })}</p>
-          )}
-        </section>
-
-        <section className="ws-sec" aria-labelledby="ws-all">
-          <h2 id="ws-all">{t('words.allH')}</h2>
-          {levels.map((ws, i) => (
-            <Level key={i} words={ws} from={i * LEVEL + 1} dict={dict} />
-          ))}
-        </section>
-
-        <p className="ws-note">
-          {t('words.readToday')} <a href="#/neviim">{t('tanakh.neviim')}</a> · <a href="#/ketuvim">{t('tanakh.ketuvim')}</a>
-        </p>
-        <p className="tk-words-src">{t('words.src')}</p>
+            <p className="tk-words-src">{t('words.src')}</p>
+          </>
+        )}
       </div>
       <Colophon />
     </>
