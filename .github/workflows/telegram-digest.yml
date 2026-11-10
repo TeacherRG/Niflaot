@@ -1,10 +1,11 @@
 name: Неделя в Академии в Telegram
 
-# Every Wednesday evening — the digest of the week «Неделя в Академии» (scripts/telegram-digest.ts): a post with a verse of
-# the Prophets, a verse of the Writings, a sentence of Chassidut and the niggun of the week, and the PDF of the digest, in
-# each channel's language. GitHub starts scheduled runs late and sometimes drops them, so there is an attempt every 10
-# minutes 15:00–18:50 UTC on Wednesdays (17:00–20:50 Vienna in summer, 16:00–19:50 in winter); attempts before 17:00 Vienna
-# stop at once. The first attempt that gets through posts and saves a mark for the day in the Actions cache (key
+# Every Wednesday morning — the digest of the week «Неделя в Академии» (scripts/telegram-digest.ts): the whole week,
+# Sunday to Friday — the Prophets, the Writings, the Baal HaTurim of the portion and Chassidut, briefly — and the PDF of the
+# digest, in each channel's language (owner, 10.11.2026: it came late at night — «с утра или хотя бы днём»). GitHub starts
+# scheduled runs late and sometimes drops them, so there is an attempt every 10 minutes 07:00–14:50 UTC on Wednesdays
+# (9:00–16:50 Vienna in summer, 8:00–15:50 in winter); attempts before 9:00 Vienna stop at once, and one GitHub starts after
+# 20:00 Vienna doesn't post at night. The first attempt that gets through posts and saves a mark for the day in the Actions cache (key
 # digest-posted-<date>) — also when there is nothing to post (a week without learning); the later attempts see it and stop
 # before installing anything. On Shabbat — nothing, even by hand.
 # Manual run (Run workflow): posts the digest of this week so far right away, unless today is already done; «force» —
@@ -12,7 +13,7 @@ name: Неделя в Академии в Telegram
 # «К шабатнему столу»; a language without a channel is skipped.
 on:
   schedule:
-    - cron: '*/10 15-18 * * 3'
+    - cron: '*/10 7-14 * * 3'
   workflow_dispatch:
     inputs:
       force:
@@ -41,13 +42,14 @@ jobs:
       TELEGRAM_SCHEDULE: ${{ github.event.schedule }}
       DIGEST_POSTED_FILE: .digest-posted
     steps:
-      # «go» — this attempt should work: it is not before 17:00 Vienna (a scheduled run) and today is not done yet
+      # «go» — this attempt should work: it is 9:00–19:59 Vienna (a scheduled run) and today is not done yet
       - name: Today
         id: day
         run: |
           echo "date=$(date -u +%F)" >> "$GITHUB_OUTPUT"
           hour=$(TZ=Europe/Vienna date +%-H)
-          if [ -n "$TELEGRAM_SCHEDULE" ] && [ "$hour" -lt 17 ]; then echo "early=true" >> "$GITHUB_OUTPUT"; echo "В Вене $hour ч — до 17:00 не публикуем."; fi
+          if [ -n "$TELEGRAM_SCHEDULE" ] && [ "$hour" -lt 9 ]; then echo "early=true" >> "$GITHUB_OUTPUT"; echo "В Вене $hour ч — до 9:00 не публикуем."; fi
+          if [ -n "$TELEGRAM_SCHEDULE" ] && [ "$hour" -ge 20 ]; then echo "early=true" >> "$GITHUB_OUTPUT"; echo "В Вене $hour ч — поздно, ночью не публикуем."; fi
       # has today's post already gone out? (lookup only — nothing to download)
       - name: Already done today?
         id: posted

@@ -1,14 +1,15 @@
 /**
- * «Неделя в Академии» в Telegram — каждую среду вечером: пост с тем, что учили с воскресенья, коротко пересказанным —
- * Пророки и Писания по дням (пересказ проекта, src/tanakh/retell.json) с одним стихом недели в каждом разделе, отрывки
- * Хасидута с одной фразой, нигун недели — и вторым сообщением PDF дайджеста недели
+ * «Неделя в Академии» в Telegram — каждую среду утром (владелец, 10.11.2026: пришёл поздно ночью — «с утра или хотя бы днём»):
+ * пост со всей учёбой недели **с воскресенья по пятницу** (владелец: «обрезано только до среды — неправильно»), коротко —
+ * Пророки и Писания по дням (пересказ проекта, src/tanakh/retell.json) с одним стихом недели в каждом разделе, Бааль ґа-Турим
+ * на главу недели (по дням — заголовки комментариев), отрывки Хасидута с одной фразой — и вторым сообщением PDF дайджеста недели
  * (`#/digest/<воскресенье>`, WeekDigest.tsx, src/core/weekDigest.ts) на языке канала — тот же лист, что даёт «Печать» на
  * сайте. Стих недели выбирает тот же `quoteVerse`, что и страница, по всем дням недели (`public/tanakh/<дата>.json`).
  * Пост — коротко: у дня Пророков и Писаний — первое предложение пересказа, у Хасидута — названия отрывков; весь пересказ
  * и «Коротко» Хасидута — на листе (PDF). Не длиннее 4096 знаков (лимит Telegram). На неделе без учёбы — ничего.
  *
- * Запускает `.github/workflows/telegram-digest.yml`: по средам, попытки каждые 10 минут с 17:00 по Вене (GitHub опаздывает
- * и пропускает запуски); первая дошедшая публикует и оставляет метку дня в кэше Actions (`DIGEST_POSTED_FILE`, ключ
+ * Запускает `.github/workflows/telegram-digest.yml`: по средам, попытки каждые 10 минут с 9:00 по Вене (GitHub опаздывает
+ * и пропускает запуски); позже 20:00 по Вене расписание уже не публикует (не ночью), ручной запуск — в любое время; первая дошедшая публикует и оставляет метку дня в кэше Actions (`DIGEST_POSTED_FILE`, ключ
  * `digest-posted-<дата>`) — остальные попытки ничего не делают. Каналы и бот — те же, что у «К шабатнему столу»: secret
  * `TELEGRAM_BOT_TOKEN`, variables `TELEGRAM_CHAT_RU/EN/DE`; язык без канала пропускается; с variable `TELEGRAM_APP` — кнопка
  * «открыть внутри Telegram». В Шабат — даже при ручном запуске ничего.
@@ -22,11 +23,12 @@ import type { DayContent } from '../src/core/tanakh';
 import { BOOKS, rangeLabel, type Section } from '../src/core/tanakhCycle';
 import { CYCLE } from '../src/core/tanakh';
 import { HEMSHECH } from '../src/core/hemshech';
-import { firstSentence, quoteSentence, quoteVerse, retell, weekDays, weekNigun, weekPassages, weekStart } from '../src/core/weekDigest';
+import { firstSentence, quoteSentence, quoteVerse, retell, turimWeek, weekDays, weekEnd, weekNigun, weekPassages, weekStart } from '../src/core/weekDigest';
 import { NIGUN_PUBLIC } from '../src/nigun/public';
 import { routeLink, SITE_URL } from '../src/core/site';
 import { miniAppLink } from '../src/core/telegram';
 import { civilDate } from '../src/core/hebrewDate';
+import { PARSHIOT } from '../src/lessons/parshiot';
 import ru from '../src/i18n/locales/ru';
 import en from '../src/i18n/locales/en';
 import de from '../src/i18n/locales/de';
@@ -49,12 +51,17 @@ const now = new Date();
 const markDone = (why: string) => {
   if (process.env.DIGEST_POSTED_FILE && !DRY) writeFileSync(process.env.DIGEST_POSTED_FILE, `${now.toISOString().slice(0, 10)} ${why}\n`);
 };
-// a scheduled run posts from 17:00 Vienna time on (the workflow skips earlier attempts too)
+// a scheduled run posts from 9:00 to 20:00 Vienna time (the workflow skips earlier attempts too); a run GitHub started
+// very late doesn't post at night — a manual run can
 const fired = process.env.TELEGRAM_SCHEDULE;
 if (fired && !DRY) {
   const viennaHour = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Vienna', hour: 'numeric', hourCycle: 'h23' }).format(now));
-  if (viennaHour < 17) {
+  if (viennaHour < 9) {
     console.log(`cron «${fired}»: в Вене ${viennaHour} ч — рано, публикует следующая попытка.`);
+    process.exit(0);
+  }
+  if (viennaHour >= 20) {
+    console.log(`cron «${fired}»: в Вене ${viennaHour} ч — поздно, ночью не публикуем (можно запустить вручную).`);
     process.exit(0);
   }
 }
@@ -66,8 +73,10 @@ if (!DRY && (now.getUTCDay() === 6 || (now.getUTCDay() === 5 && now.getUTCHours(
 
 const date = dateArg >= 0 ? args[dateArg + 1] : now.toISOString().slice(0, 10);
 const sunday = weekStart(date);
-const days = weekDays(sunday, date).map((d) => JSON.parse(readFileSync(`public/tanakh/${d.date}.json`, 'utf8')) as DayContent);
-const passages = weekPassages(sunday, date);
+// the whole week, Sunday to Friday — posted on Wednesday, it tells the days ahead too
+const friday = weekEnd(sunday);
+const days = weekDays(sunday, friday).map((d) => JSON.parse(readFileSync(`public/tanakh/${d.date}.json`, 'utf8')) as DayContent);
+const passages = weekPassages(sunday, friday);
 if (!days.length && !passages.length) {
   console.log(`${date}: на этой неделе ещё не учились — дайджеста нет, не публикуем.`);
   markDone('nothing');
@@ -107,6 +116,15 @@ function sectionLines(section: Section, icon: string, loc: Loc): string[] {
   return lines;
 }
 
+/** Baal HaTurim on the portion of the week: each day the titles of its two comments. */
+function turimLines(loc: Loc): string[] {
+  const tw = turimWeek(sunday, loc);
+  if (!tw) return [];
+  const lines = ['', `✡ <b>${html(t(loc, 'turim.h1'))}</b> · ${html(t(loc, 'digest.turimSub', { parsha: PARSHIOT[tw.parsha].name[loc] ?? PARSHIOT[tw.parsha].name.ru }))}`];
+  for (const d of tw.days) lines.push(`<b>${html(weekday(d.date, loc))}:</b> ${d.notes.map((x) => html(x.title)).join(' · ')}`);
+  return lines;
+}
+
 /** The passages of Chassidut: their titles, and a sentence of the last. */
 function hemshechLines(loc: Loc): string[] {
   if (!passages.length) return [];
@@ -122,12 +140,13 @@ const LIMIT = 4096;
 /** The length Telegram counts: the text without the tags, the entities decoded. */
 const shown = (s: string) => s.replace(/<[^>]+>/g, '').replace(/&(amp|lt|gt);/g, '_').length;
 function post(loc: Loc): string {
-  const last = [...days.map((d) => d.date), ...passages.map((p) => p.date)].sort().pop()!;
+  const last = friday;
   const text = [
       `📰 <b>${html(t(loc, 'digest.title'))}</b> · ${html(dayMonth(sunday, loc))} – ${html(civilDate(last, loc))}`,
       html(t(loc, 'digest.post.lead')),
       ...sectionLines('neviim', '📖', loc),
       ...sectionLines('ketuvim', '📜', loc),
+      ...turimLines(loc),
       ...hemshechLines(loc),
       ...(NIGUN_PUBLIC ? ['', `🎵 <b>${html(t(loc, 'digest.nigun'))}:</b> ${html(nigun.title[loc])} — ${html(routeLink(`nigun/${nigun.id}`, 'channel', loc))}`] : []),
       '',

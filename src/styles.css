@@ -2852,6 +2852,7 @@ html:has(.a-home) .colophon{flex:none;margin-top:0}
 .wd-empty{text-align:center;color:#555}
 .wd-sec{--wd-c:#1F4E79;--wd-soft:#EEF3F9;--wd-line:#C9D7E8;margin:0 0 22px;break-inside:auto}
 .wd-ketuvim{--wd-c:#8A6516;--wd-soft:#FBF5E6;--wd-line:#E8D7AE}
+.wd-turim{--wd-c:#5B3A8C;--wd-soft:#F3EFF9;--wd-line:#D8CCEA}
 .wd-hemshech{--wd-c:#1F5A38;--wd-soft:#EEF6F0;--wd-line:#C3DCCB}
 .wd-nigun{--wd-c:#7A2E3B;--wd-soft:#F8EEF0;--wd-line:#E6C9CF}
 .wd-sec-h{display:flex;align-items:center;gap:12px;padding:8px 14px;margin:0 0 10px;border-radius:12px;background:var(--wd-soft);border-inline-start:5px solid var(--wd-c);break-after:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -2928,7 +2929,7 @@ a.wd-sing{font-weight:800;text-decoration:none}
   .wd-badge b{font-size:9pt}
   .wd-badge span{font-size:7pt}
   .wd-range{font-size:8pt}
-  .wd-retell{font-size:8.8pt;line-height:1.27;margin:0}
+  .wd-retell{font-size:8.5pt;line-height:1.25;margin:0}
   .wd-verse{padding:5px 14px 5px;border-radius:9px}
   .wd-verse::before{font-size:34px;top:-4px}
   .wd-verse .he{font-size:13.5px;line-height:1.35}
