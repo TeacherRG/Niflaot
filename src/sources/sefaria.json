@@ -12570,6 +12570,36 @@
    }
   }
  },
+ "bht-28-12-3": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 28:12",
+   "en": "Ba'al HaTurim, Genesis 28:12",
+   "de": "Baal HaTurim, Bereschit 28,12"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 28:12:3",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_28.12.3",
+  "he": [
+   "<b> סולם</b> בגימטריא קול שקול תפלת הצדיקים הוא סולם למלאכים לעלות בו וכן עלה המלאך בלהב הקרבן, והתפלה היא העבודה לכך כל מי שמכוון בתפלתו הסולם שלם בשליבותיו ויכולים לעלות בו: סולם: בגימטריא ממון ובגימטריא עוני כי זה ישפיל וזה ירים:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
  "bht-28-12-5": {
   "kind": {
    "ru": "Комментарий",

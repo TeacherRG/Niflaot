@@ -36,6 +36,10 @@ const de: LessonText = {
     'הר': '„Berg“',
     'ירושלים': 'Jeruschalajim',
     'וקץ': '„und das Ende“',
+    'סולם': '„Leiter“ — in voller Schreibung, mit ו, wie man das Wort ausspricht: „sulam“',
+    'קול': '„Stimme“',
+    'ממון': '„Geld“',
+    'עוני': '„Armut“',
     'גלות': '„Exil“',
     'שלום': '„Frieden“',
     'משיח': 'Moschiach',
@@ -162,7 +166,7 @@ const de: LessonText = {
         },
         {
           h: 'Leiter — Sinai',
-          b: `<p><span class="he">סלם</span> = 60 + 30 + 40 = 130; <span class="he">סיני</span> = 60 + 10 + 50 + 10 = 130.<sup data-src="bht-28-12-6"></sup></p><p class="expl"><b>Erklärung.</b> Die Leiter steht auf der Erde, und ihre Spitze reicht bis zum Himmel. So ist auch die Tora vom Sinai: Sie lebt auf der Erde, in ganz normalen Dingen — und hebt den Menschen bis zum Himmel.</p>`,
+          b: `<p><span class="he">סלם</span> = 60 + 30 + 40 = 130; <span class="he">סיני</span> = 60 + 10 + 50 + 10 = 130.<sup data-src="bht-28-12-6"></sup></p><p>Der Baal HaTurim zählt „Leiter“ auch so, wie man es ausspricht — in voller Schreibung, mit ו: <span class="he">סולם</span> = 60 + 6 + 30 + 40 = 136 = <span class="he">קול</span> = 100 + 6 + 30 = <span class="he">ממון</span> = 40 + 40 + 6 + 50 = <span class="he">עוני</span> = 70 + 6 + 50 + 10.<sup data-src="bht-28-12-3"></sup> In der Tora selbst steht das Wort ohne ו (130).</p><p class="expl"><b>Erklärung.</b> Ein Gebet mit gesammeltem Herzen ist eine ganze Leiter, jede Sprosse an ihrem Platz. Auch Geld und Armut sind eine Leiter: Reichtum kann einen Menschen erniedrigen, und Armut kann ihn erhöhen. Die Leiter steht auf der Erde, und ihre Spitze reicht bis zum Himmel. So ist auch die Tora vom Sinai: Sie lebt auf der Erde, in ganz normalen Dingen — und hebt den Menschen bis zum Himmel.</p>`,
         },
         {
           h: 'Und das Ende',
@@ -173,6 +177,7 @@ const de: LessonText = {
       takeaways: [
         '„Ort“ dreimal im Vers: die drei Feste, an denen man zum Tempel hinaufzieht.',
         'סלם = 130 = סיני: Auf der Leiter sah Jaakow, wie man am Berg Sinai stehen wird.',
+        'סולם (mit ו) = 136 = קול = ממון = עוני: Das Gebet ist eine Leiter; Geld und Armut erniedrigen und erhöhen.',
         'והנה סלם = 196 = וקץ: G-tt zeigte ihm das Ende der Exile.',
       ],
     },
@@ -392,7 +397,7 @@ const de: LessonText = {
       },
       {
         h: 'Die Leiter: Sinai und das Ende der Exile',
-        b: '<p><span class="he">סלם</span> = 60 + 30 + 40 = 130 = <span class="he">סיני</span>. <span class="he">והנה סלם</span> = 66 + 130 = 196 = <span class="he">וקץ</span>.</p><p>G-tt zeigte Jaakow, wie man am Berg Sinai stehen wird — und das Ende der Exile. In der Tora steht das Wort „Leiter“ ohne ו — so stimmt die Rechnung.</p><p class="expl"><b>Erklärung.</b> Die Leiter steht auf der Erde und reicht bis zum Himmel: Die Tora lebt in ganz normalen Dingen und hebt den Menschen nach oben. Und jedes Exil hat ein Ende.</p>',
+        b: '<p><span class="he">סלם</span> = 60 + 30 + 40 = 130 = <span class="he">סיני</span>. <span class="he">והנה סלם</span> = 66 + 130 = 196 = <span class="he">וקץ</span>.</p><p>G-tt zeigte Jaakow, wie man am Berg Sinai stehen wird — und das Ende der Exile. In der Tora steht „Leiter“ ohne ו. In voller Schreibung, wie man das Wort ausspricht, ist <span class="he">סולם</span> = 136 = <span class="he">קול</span>, „Stimme“: Die Stimme des Gebets ist eine Leiter zum Hinaufsteigen; = <span class="he">ממון</span>, „Geld“, = <span class="he">עוני</span>, „Armut“: Das eine erniedrigt, das andere erhöht.</p><p class="expl"><b>Erklärung.</b> Die Leiter steht auf der Erde und reicht bis zum Himmel: Die Tora lebt in ganz normalen Dingen und hebt den Menschen nach oben. Und jedes Exil hat ein Ende.</p>',
       },
       {
         h: 'Die Gemeinde und Lernen im Traum',

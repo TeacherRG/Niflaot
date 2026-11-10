@@ -36,6 +36,10 @@ const en: LessonText = {
     'הר': '“mountain”',
     'ירושלים': 'Yerushalayim',
     'וקץ': '“and the end”',
+    'סולם': '“ladder” — in full spelling, with ו, as the word is pronounced: “sulam”',
+    'קול': '“voice”',
+    'ממון': '“money”',
+    'עוני': '“poverty”',
     'גלות': '“exile”',
     'שלום': '“peace”',
     'משיח': 'Moshiach',
@@ -162,7 +166,7 @@ const en: LessonText = {
         },
         {
           h: 'Ladder — Sinai',
-          b: `<p><span class="he">סלם</span> = 60 + 30 + 40 = 130; <span class="he">סיני</span> = 60 + 10 + 50 + 10 = 130.<sup data-src="bht-28-12-6"></sup></p><p class="expl"><b>Explanation.</b> The ladder stands on the ground, and its top reaches heaven. So does the Torah given at Sinai: it lives on earth, in everyday things — and lifts a person up to heaven.</p>`,
+          b: `<p><span class="he">סלם</span> = 60 + 30 + 40 = 130; <span class="he">סיני</span> = 60 + 10 + 50 + 10 = 130.<sup data-src="bht-28-12-6"></sup></p><p>The Baal HaTurim also counts “ladder” the way it is pronounced — in full spelling, with ו: <span class="he">סולם</span> = 60 + 6 + 30 + 40 = 136 = <span class="he">קול</span> = 100 + 6 + 30 = <span class="he">ממון</span> = 40 + 40 + 6 + 50 = <span class="he">עוני</span> = 70 + 6 + 50 + 10.<sup data-src="bht-28-12-3"></sup> In the Torah itself the word is written without ו (130).</p><p class="expl"><b>Explanation.</b> Prayer with a focused heart is a whole ladder, every rung in place. Money and poverty are a ladder too: wealth can bring a person low, and poverty can raise him up. The ladder stands on the ground, and its top reaches heaven. So does the Torah given at Sinai: it lives on earth, in everyday things — and lifts a person up to heaven.</p>`,
         },
         {
           h: 'And the end',
@@ -173,6 +177,7 @@ const en: LessonText = {
       takeaways: [
         '“Place” three times in the verse: the three festivals of going up to the Temple.',
         'סלם = 130 = סיני: on the ladder Yaakov saw the standing at Mount Sinai.',
+        'סולם (with ו) = 136 = קול = ממון = עוני: prayer is a ladder; money and poverty bring low and raise up.',
         'והנה סלם = 196 = וקץ: G-d showed him the end of the exiles.',
       ],
     },
@@ -392,7 +397,7 @@ const en: LessonText = {
       },
       {
         h: 'The ladder: Sinai and the end of the exiles',
-        b: '<p><span class="he">סלם</span> = 60 + 30 + 40 = 130 = <span class="he">סיני</span>. <span class="he">והנה סלם</span> = 66 + 130 = 196 = <span class="he">וקץ</span>.</p><p>G-d showed Yaakov the standing at Mount Sinai — and the ends of the exiles. In the Torah the word “ladder” is written without ו — and so the count works out.</p><p class="expl"><b>Explanation.</b> The ladder stands on the ground and reaches heaven: the Torah lives in everyday things and lifts a person up. And every exile has an end.</p>',
+        b: '<p><span class="he">סלם</span> = 60 + 30 + 40 = 130 = <span class="he">סיני</span>. <span class="he">והנה סלם</span> = 66 + 130 = 196 = <span class="he">וקץ</span>.</p><p>G-d showed Yaakov the standing at Mount Sinai — and the ends of the exiles. In the Torah “ladder” is written without ו. In full spelling, as the word is pronounced, <span class="he">סולם</span> = 136 = <span class="he">קול</span>, “voice”: the voice of prayer is a ladder to go up on; = <span class="he">ממון</span>, “money”, = <span class="he">עוני</span>, “poverty”: one brings low, the other raises up.</p><p class="expl"><b>Explanation.</b> The ladder stands on the ground and reaches heaven: the Torah lives in everyday things and lifts a person up. And every exile has an end.</p>',
       },
       {
         h: 'A congregation and learning in a dream',

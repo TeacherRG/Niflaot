@@ -234,6 +234,7 @@ export const PROJECT_EN: Record<string, string[]> = {
   "bht-28-10-7": ["<b>And he went [vayelech]</b> — in gematria “bo ba-yom” [on that very day]."],
   "bht-28-11-1": ["<b>And he came upon the place [vayifga bamakom]</b> — “place” is written three times in the verse: a hint to the three festivals on which his children would go up to that place."],
   "bht-28-11-2": ["<b>For the sun had set [ki va hashemesh]</b> — the first letters [form] “kavah” [it went out]: the light of the sun went out before its time."],
+  "bht-28-12-3": ["<b>A ladder [sulam]</b> — in gematria “kol” [voice]: the voice of the prayer of the righteous is a ladder for the angels to go up on; and so the angel went up in the flame of the offering, and prayer is the service. Therefore whoever concentrates in his prayer — the ladder is whole in all its rungs, and one can go up on it. “Sulam” — in gematria “mamon” [money] and in gematria “oni” [poverty]: for this one brings low, and that one raises up."],
   "bht-28-12-5": ["<b>And behold, a ladder [vehineh sulam]</b> — in gematria “vakeitz” [and the end]: He showed him the ends of the exiles."],
   "bht-28-12-6": ["<b>A ladder [sulam]</b> — in gematria “Sinai”: He showed him the standing at Mount Sinai."],
   "bht-28-16-1": ["<b>And Yaakov awoke from his sleep and said [vayikatz Yaakov mishnato vayomer]</b> — the last letters [form] “tzibbur” [congregation]: to say that a person’s prayer is heard only [best] with a congregation."],

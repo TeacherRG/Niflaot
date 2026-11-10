@@ -289,6 +289,7 @@ export const PROJECT_DE: Record<string, string[]> = {
   "bht-28-10-7": ["<b>Und er ging [wajelech]</b> — in Gematria „bo ba-jom“ [am selben Tag]."],
   "bht-28-11-1": ["<b>Und er traf auf den Ort [wajifga bamakom]</b> — dreimal steht im Vers „Ort“: ein Hinweis auf die drei Feste, an denen seine Kinder zu diesem Ort hinaufziehen werden."],
   "bht-28-11-2": ["<b>Denn die Sonne war untergegangen [ki wa haschemesch]</b> — die ersten Buchstaben [ergeben] „kawa“ [erlosch]: Das Licht der Sonne erlosch vor seiner Zeit."],
+  "bht-28-12-3": ["<b>Eine Leiter [sulam]</b> — in Gematria „kol“ [Stimme]: Die Stimme des Gebets der Gerechten ist eine Leiter für die Engel, um auf ihr hinaufzusteigen; und so stieg der Engel in der Flamme des Opfers hinauf, und das Gebet ist der Dienst. Darum: Wer sich in seinem Gebet konzentriert, bei dem ist die Leiter ganz, mit allen Sprossen, und man kann auf ihr hinaufsteigen. „Sulam“ — in Gematria „mamon“ [Geld] und in Gematria „oni“ [Armut]: denn das eine erniedrigt, und das andere erhöht."],
   "bht-28-12-5": ["<b>Und siehe, eine Leiter [wehine sulam]</b> — in Gematria „wakez“ [und das Ende]: Er zeigte ihm das Ende der Exile."],
   "bht-28-12-6": ["<b>Eine Leiter [sulam]</b> — in Gematria „Sinai“: Er zeigte ihm, wie man am Berg Sinai stehen wird."],
   "bht-28-16-1": ["<b>Und Jaakow erwachte aus seinem Schlaf und sagte [wajikaz Jaakow mischnato wajomer]</b> — die letzten Buchstaben [ergeben] „zibur“ [Gemeinde]: um zu sagen, dass das Gebet eines Menschen nur [am besten] in der Gemeinde erhört wird."],
