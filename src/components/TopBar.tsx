@@ -48,6 +48,15 @@ export function LanguagePicker() {
               </button>
             </li>
           ))}
+          {/* the site has no Hebrew interface yet — Hebrew speakers get their own section: languages through Tanakh (`#/english`) */}
+          <li className="lang-he">
+            <a href="#/english" lang="he" onClick={close}>
+              <span className="code">HE</span>
+              <span className="name" dir="rtl">
+                עברית <small>לימוד אנגלית, רוסית וגרמנית דרך התנ״ך</small>
+              </span>
+            </a>
+          </li>
         </ul>
       )}
     </div>
