@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 16:4",
+   "q": {
+    "ru": "Кто такие сыны Йосефа?",
+    "en": "Who are the children of Joseph?",
+    "de": "Wer sind die Kinder Josefs?"
+   },
+   "o": [
+    {
+     "ru": "Менаше и Эфраим",
+     "en": "Manasseh and Ephraim",
+     "de": "Menasche und Efrajim"
+    },
+    {
+     "ru": "Реувен и Гад",
+     "en": "Reuben and Gad",
+     "de": "Reuwen und Gad"
+    },
+    {
+     "ru": "Шимон и Леви",
+     "en": "Shimon and Levi",
+     "de": "Schimon und Lewi"
+    },
+    {
+     "ru": "Дан и Нафтали",
+     "en": "Dan and Naphtali",
+     "de": "Dan und Naftali"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 16:10",
+   "q": {
+    "ru": "Кого Эфраим не изгнал из Гезера?",
+    "en": "Whom did Ephraim not drive out of Gezer?",
+    "de": "Wen vertrieb Efrajim nicht aus Geser?"
+   },
+   "o": [
+    {
+     "ru": "Кнаанеев",
+     "en": "The Canaanites",
+     "de": "Die Kenaaniter"
+    },
+    {
+     "ru": "Филистимлян",
+     "en": "The Philistines",
+     "de": "Die Philister"
+    },
+    {
+     "ru": "Йевусеев",
+     "en": "The Jebusites",
+     "de": "Die Jewusiter"
+    },
+    {
+     "ru": "Анакеев",
+     "en": "The Anakites",
+     "de": "Die Anakiter"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 16:9",
+   "q": {
+    "ru": "Где были отделённые города Эфраима?",
+    "en": "Where were Ephraim’s separate towns?",
+    "de": "Wo lagen die abgesonderten Städte Efrajims?"
+   },
+   "o": [
+    {
+     "ru": "Внутри удела Менаше",
+     "en": "Inside Manasseh’s portion",
+     "de": "Mitten im Erbe Menasches"
+    },
+    {
+     "ru": "За Ярденом",
+     "en": "Across the Jordan",
+     "de": "Jenseits des Jarden"
+    },
+    {
+     "ru": "В уделе Йеґуды",
+     "en": "In Judah’s portion",
+     "de": "Im Erbe Jehudas"
+    },
+    {
+     "ru": "На островах",
+     "en": "On the islands",
+     "de": "Auf den Inseln"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 27:1",
+   "q": {
+    "ru": "Каким словом Давид называет Г-спода в начале псалма?",
+    "en": "What does David call the L-rd at the start of the psalm?",
+    "de": "Wie nennt David den Ewigen am Anfang dieses Liedes?"
+   },
+   "o": [
+    {
+     "ru": "Мой свет",
+     "en": "My light",
+     "de": "Mein Licht"
+    },
+    {
+     "ru": "Мой щит",
+     "en": "My shield",
+     "de": "Mein Schild"
+    },
+    {
+     "ru": "Мой пастырь",
+     "en": "My shepherd",
+     "de": "Mein Hirte"
+    },
+    {
+     "ru": "Мой царь",
+     "en": "My king",
+     "de": "Mein König"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 27:4",
+   "q": {
+    "ru": "Одного Давид просит у Г-спода — чего?",
+    "en": "David asks one thing of the L-rd — what?",
+    "de": "Eines erbittet David vom Ewigen – was?"
+   },
+   "o": [
+    {
+     "ru": "Жить в доме Г-спода все дни жизни",
+     "en": "To live in the L-rd’s house all his days",
+     "de": "Im Haus des Ewigen zu wohnen alle Tage"
+    },
+    {
+     "ru": "Победить всех врагов",
+     "en": "To defeat all his enemies",
+     "de": "Alle Feinde zu besiegen"
+    },
+    {
+     "ru": "Стать богатым",
+     "en": "To become rich",
+     "de": "Reich zu werden"
+    },
+    {
+     "ru": "Жить в Египте",
+     "en": "To live in Egypt",
+     "de": "In Ägypten zu wohnen"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 27:5",
+   "q": {
+    "ru": "О ком, по «Седер олам» у Раши, сказан стих «Он укроет меня в Своём шатре»?",
+    "en": "According to Seder Olam in Rashi, about whom is “He will shelter me in His pavilion” said?",
+    "de": "Über wen ist nach dem Seder Olam bei Raschi „Er birgt mich in Seiner Hütte“ gesagt?"
+   },
+   "o": [
+    {
+     "ru": "О Йоаше, сыне Ахазьяґу",
+     "en": "About Joash son of Ahaziah",
+     "de": "Über Joasch, den Sohn Achasjahus"
+    },
+    {
+     "ru": "О Моше",
+     "en": "About Moshe",
+     "de": "Über Mosche"
+    },
+    {
+     "ru": "О Шломо",
+     "en": "About Solomon",
+     "de": "Über Schlomo"
+    },
+    {
+     "ru": "О Йеґошуа",
+     "en": "About Joshua",
+     "de": "Über Jehoschua"
+    }
+   ]
+  }
+ ]
+}

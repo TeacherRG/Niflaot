@@ -1561,6 +1561,8 @@ const de: Messages = {
   'tw.again': "Noch einmal",
   'pic.title': "Wort & Bild",
   'pic.menuSub': "finde das Bild zum hebräischen Wort",
+  'enc.menu': "Englisch für Hebräischsprachige",
+  'enc.menuSub': "אנגלית דרך התנ״ך — ein Kurs auf Hebräisch",
   'pic.lead': "Die häufigsten Wörter des Tanach — in Bildern. In der Mitte steht ein hebräisches Wort: Tippe auf sein Bild! Manchmal andersherum: ein Bild und vier Wörter.",
   'pic.leadA': "Die häufigsten Wörter der Propheten und Schriften — in Bildern: ein hebräisches Wort und vier Bilder, manchmal andersherum. Die Antworten zählen in „Heilige Sprache“ und „Meine Wörter“.",
   'pic.known': "Wörter, die ich kenne: {k} von {n}",

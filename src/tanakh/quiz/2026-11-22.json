@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 15:32",
+   "q": {
+    "ru": "Сколько городов Йеґуды на юге насчитано в итоге стиха?",
+    "en": "How many southern towns of Judah does the verse give as the total?",
+    "de": "Wie viele Städte Jehudas im Süden nennt der Vers zusammen?"
+   },
+   "o": [
+    {
+     "ru": "Двадцать девять",
+     "en": "Twenty-nine",
+     "de": "Neunundzwanzig"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    },
+    {
+     "ru": "Сорок",
+     "en": "Forty",
+     "de": "Vierzig"
+    },
+    {
+     "ru": "Семь",
+     "en": "Seven",
+     "de": "Sieben"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:28",
+   "q": {
+    "ru": "Какой известный город назван в этом списке?",
+    "en": "Which well-known town is named in this list?",
+    "de": "Welche bekannte Stadt wird in dieser Liste genannt?"
+   },
+   "o": [
+    {
+     "ru": "Беэр-Шева",
+     "en": "Beer-sheba",
+     "de": "Be’er-Scheva"
+    },
+    {
+     "ru": "Йерихо",
+     "en": "Jericho",
+     "de": "Jericho"
+    },
+    {
+     "ru": "Шхем",
+     "en": "Shechem",
+     "de": "Schechem"
+    },
+    {
+     "ru": "Гивон",
+     "en": "Gibeon",
+     "de": "Giwon"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:32",
+   "q": {
+    "ru": "Почему, по Раши, названо больше городов, чем в итоге?",
+    "en": "According to Rashi, why are more towns named than in the total?",
+    "de": "Warum werden nach Raschi mehr Städte genannt als in der Summe?"
+   },
+   "o": [
+    {
+     "ru": "Девять из них взяли сыны Шимона",
+     "en": "The children of Shimon took nine of them",
+     "de": "Neun davon nahmen die Kinder Schimons"
+    },
+    {
+     "ru": "Девять городов были разрушены",
+     "en": "Nine towns were destroyed",
+     "de": "Neun Städte wurden zerstört"
+    },
+    {
+     "ru": "Это ошибка переписчика",
+     "en": "It is a copyist’s error",
+     "de": "Das ist ein Fehler des Schreibers"
+    },
+    {
+     "ru": "Девять городов отдали левитам",
+     "en": "Nine towns were given to the Levites",
+     "de": "Neun Städte bekamen die Lewiten"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 25:4",
+   "q": {
+    "ru": "О чём Давид просит в этом стихе?",
+    "en": "What does David ask for in this verse?",
+    "de": "Worum bittet David in diesem Vers?"
+   },
+   "o": [
+    {
+     "ru": "Узнать пути Г-спода",
+     "en": "To know the L-rd’s paths",
+     "de": "Die Wege des Ewigen zu erkennen"
+    },
+    {
+     "ru": "Долгой жизни",
+     "en": "A long life",
+     "de": "Um ein langes Leben"
+    },
+    {
+     "ru": "Победы над соседями",
+     "en": "Victory over neighbors",
+     "de": "Um Sieg über die Nachbarn"
+    },
+    {
+     "ru": "Золота",
+     "en": "Gold",
+     "de": "Um Gold"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 25:7",
+   "q": {
+    "ru": "Чего Давид просит не вспоминать?",
+    "en": "What does David ask G-d not to remember?",
+    "de": "Woran soll G-tt nach Davids Bitte nicht denken?"
+   },
+   "o": [
+    {
+     "ru": "Грехов своей юности",
+     "en": "The sins of his youth",
+     "de": "An die Sünden seiner Jugend"
+    },
+    {
+     "ru": "Своих врагов",
+     "en": "His enemies",
+     "de": "An seine Feinde"
+    },
+    {
+     "ru": "Свои победы",
+     "en": "His victories",
+     "de": "An seine Siege"
+    },
+    {
+     "ru": "Свои клятвы",
+     "en": "His oaths",
+     "de": "An seine Schwüre"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 25:2",
+   "q": {
+    "ru": "На кого полагается Давид?",
+    "en": "In whom does David trust?",
+    "de": "Auf wen vertraut David?"
+   },
+   "o": [
+    {
+     "ru": "На Б-га",
+     "en": "On G-d",
+     "de": "Auf G-tt"
+    },
+    {
+     "ru": "На своё войско",
+     "en": "On his army",
+     "de": "Auf sein Heer"
+    },
+    {
+     "ru": "На друзей",
+     "en": "On his friends",
+     "de": "Auf seine Freunde"
+    },
+    {
+     "ru": "На своё богатство",
+     "en": "On his wealth",
+     "de": "Auf seinen Reichtum"
+    }
+   ]
+  }
+ ]
+}

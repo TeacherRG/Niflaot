@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 15:47",
+   "q": {
+    "ru": "До какой воды доходит удел Йеґуды на западе?",
+    "en": "What water does Judah’s portion reach in the west?",
+    "de": "Bis zu welchem Wasser reicht Jehudas Erbe im Westen?"
+   },
+   "o": [
+    {
+     "ru": "До Великого моря",
+     "en": "The Great Sea",
+     "de": "Bis zum Großen Meer"
+    },
+    {
+     "ru": "До Кинерета",
+     "en": "The Kinneret",
+     "de": "Bis zum Kinneret"
+    },
+    {
+     "ru": "До Ярдена",
+     "en": "The Jordan",
+     "de": "Bis zum Jarden"
+    },
+    {
+     "ru": "До Солёного моря",
+     "en": "The Dead Sea",
+     "de": "Bis zum Salzmeer"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:47",
+   "q": {
+    "ru": "Что, по Раши, значат слова «и пределы» моря?",
+    "en": "According to Rashi, what do the words “and the edge” of the sea mean?",
+    "de": "Was bedeutet nach Raschi „mit seinem Gebiet“ beim Meer?"
+   },
+   "o": [
+    {
+     "ru": "Острова в море",
+     "en": "The islands in the sea",
+     "de": "Die Inseln im Meer"
+    },
+    {
+     "ru": "Рыбу в море",
+     "en": "The fish in the sea",
+     "de": "Die Fische im Meer"
+    },
+    {
+     "ru": "Корабли",
+     "en": "The ships",
+     "de": "Die Schiffe"
+    },
+    {
+     "ru": "Песок берега",
+     "en": "The sand of the shore",
+     "de": "Den Sand am Ufer"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:49",
+   "q": {
+    "ru": "Как ещё называется Кирьят-Сана?",
+    "en": "What is another name for Kiriath-sannah?",
+    "de": "Wie heißt Kirjat-Sanna noch?"
+   },
+   "o": [
+    {
+     "ru": "Двир",
+     "en": "Debir",
+     "de": "Dewir"
+    },
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    },
+    {
+     "ru": "Гезер",
+     "en": "Gezer",
+     "de": "Geser"
+    },
+    {
+     "ru": "Ай",
+     "en": "Ai",
+     "de": "Ai"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 25:19",
+   "q": {
+    "ru": "Как враги ненавидят Давида?",
+    "en": "How do the enemies hate David?",
+    "de": "Wie hassen die Feinde David?"
+   },
+   "o": [
+    {
+     "ru": "Несправедливо, без причины",
+     "en": "Unjustly, without cause",
+     "de": "Ungerecht, ohne Grund"
+    },
+    {
+     "ru": "Тайно, но с причиной",
+     "en": "Secretly, but with cause",
+     "de": "Heimlich, aber mit Grund"
+    },
+    {
+     "ru": "Только иногда",
+     "en": "Only sometimes",
+     "de": "Nur manchmal"
+    },
+    {
+     "ru": "Только на словах",
+     "en": "Only in words",
+     "de": "Nur mit Worten"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 25:21",
+   "q": {
+    "ru": "Что, по просьбе Давида, будет его хранить?",
+    "en": "What, David asks, will watch over him?",
+    "de": "Was soll David nach seiner Bitte behüten?"
+   },
+   "o": [
+    {
+     "ru": "Непорочность и прямота",
+     "en": "Integrity and uprightness",
+     "de": "Unschuld und Geradheit"
+    },
+    {
+     "ru": "Стены и башни",
+     "en": "Walls and towers",
+     "de": "Mauern und Türme"
+    },
+    {
+     "ru": "Воины и кони",
+     "en": "Warriors and horses",
+     "de": "Krieger und Pferde"
+    },
+    {
+     "ru": "Золото и серебро",
+     "en": "Gold and silver",
+     "de": "Gold und Silber"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 25:22",
+   "q": {
+    "ru": "За кого молится Давид в последнем стихе?",
+    "en": "For whom does David pray in the last verse?",
+    "de": "Für wen betet David im letzten Vers?"
+   },
+   "o": [
+    {
+     "ru": "За весь Израиль",
+     "en": "For all Israel",
+     "de": "Für ganz Israel"
+    },
+    {
+     "ru": "Только за себя",
+     "en": "Only for himself",
+     "de": "Nur für sich selbst"
+    },
+    {
+     "ru": "За своих сыновей",
+     "en": "For his sons",
+     "de": "Für seine Söhne"
+    },
+    {
+     "ru": "За своих врагов",
+     "en": "For his enemies",
+     "de": "Für seine Feinde"
+    }
+   ]
+  }
+ ]
+}

@@ -15,6 +15,15 @@ import { TopBar } from './TopBar';
  *    the Prophets and Writings — at one's own pace or with the Academy;
  * «Начать» saves the answers and opens the home page. All are changed later in the account window (👤).
  */
+/** a browser in Hebrew: the course «אנגלית דרך התנ״ך» (`#/english`) is offered above the questions — the site itself is not in Hebrew */
+const hebrewBrowser = () => {
+  try {
+    return (navigator.languages ?? [navigator.language]).some((l) => /^(he|iw)\b/i.test(l ?? ''));
+  } catch {
+    return false;
+  }
+};
+
 export function ModePicker() {
   const { t } = useI18n();
   const saved = useSavedMode();
@@ -65,6 +74,11 @@ export function ModePicker() {
         <p className="mode-brand">
           {t('mode.brand')} · <span className="mode-promise">{t('home.promise')}</span>
         </p>
+        {hebrewBrowser() && (
+          <a className="mode-he" href="#/english" dir="rtl" lang="he">
+            <b>דוברי עברית?</b> לומדים אנגלית דרך התנ״ך — האותיות והמילים השכיחות בנביאים ובכתובים ←
+          </a>
+        )}
         <h1 id="mode-q1" className="mode-q">
           <span className="mode-n">1</span>
           {t('mode.title')}

@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 15:33",
+   "q": {
+    "ru": "В какой части земли стоят эти города?",
+    "en": "In which part of the land do these towns stand?",
+    "de": "In welchem Teil des Landes liegen diese Städte?"
+   },
+   "o": [
+    {
+     "ru": "В Шфеле",
+     "en": "In the Lowland",
+     "de": "In der Schefela"
+    },
+    {
+     "ru": "В пустыне",
+     "en": "In the wilderness",
+     "de": "In der Wüste"
+    },
+    {
+     "ru": "За Ярденом",
+     "en": "Across the Jordan",
+     "de": "Jenseits des Jarden"
+    },
+    {
+     "ru": "В Галилее",
+     "en": "In the Galilee",
+     "de": "In Galiläa"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:36",
+   "q": {
+    "ru": "Как Раши объясняет, что названо пятнадцать городов, а сказано «четырнадцать»?",
+    "en": "How does Rashi explain fifteen towns named but “fourteen” stated?",
+    "de": "Wie erklärt Raschi, dass fünfzehn Städte genannt, aber „vierzehn“ gesagt werden?"
+   },
+   "o": [
+    {
+     "ru": "Тапуах и Эйнам — один город",
+     "en": "Tappuah and Enam are one town",
+     "de": "Tapuach und Enam sind eine Stadt"
+    },
+    {
+     "ru": "Один город разрушили",
+     "en": "One town was destroyed",
+     "de": "Eine Stadt wurde zerstört"
+    },
+    {
+     "ru": "Один город отдали Шимону",
+     "en": "One town went to Shimon",
+     "de": "Eine Stadt bekam Schimon"
+    },
+    {
+     "ru": "Один город был за Ярденом",
+     "en": "One town was across the Jordan",
+     "de": "Eine Stadt lag jenseits des Jarden"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:39",
+   "q": {
+    "ru": "Какой город назван вместе с Боцкатом и Эглоном?",
+    "en": "Which town is named together with Bozkath and Eglon?",
+    "de": "Welche Stadt wird zusammen mit Bozkat und Eglon genannt?"
+   },
+   "o": [
+    {
+     "ru": "Лахиш",
+     "en": "Lachish",
+     "de": "Lachisch"
+    },
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    },
+    {
+     "ru": "Шило",
+     "en": "Shiloh",
+     "de": "Schilo"
+    },
+    {
+     "ru": "Йерихо",
+     "en": "Jericho",
+     "de": "Jericho"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 25:8",
+   "q": {
+    "ru": "Почему Г-сподь указывает грешникам путь?",
+    "en": "Why does the L-rd show sinners the way?",
+    "de": "Warum zeigt der Ewige den Sündern den Weg?"
+   },
+   "o": [
+    {
+     "ru": "Потому что Он добр и прям",
+     "en": "Because He is good and upright",
+     "de": "Weil Er gut und gerade ist"
+    },
+    {
+     "ru": "Потому что они сильны",
+     "en": "Because they are strong",
+     "de": "Weil sie stark sind"
+    },
+    {
+     "ru": "Потому что они богаты",
+     "en": "Because they are rich",
+     "de": "Weil sie reich sind"
+    },
+    {
+     "ru": "Потому что они просили царя",
+     "en": "Because they asked the king",
+     "de": "Weil sie den König gebeten haben"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 25:11",
+   "q": {
+    "ru": "О чём Давид просит «ради Твоего имени»?",
+    "en": "What does David ask “as befits Your name”?",
+    "de": "Worum bittet David „um Deines Namens willen“?"
+   },
+   "o": [
+    {
+     "ru": "Простить его грех",
+     "en": "To pardon his sin",
+     "de": "Seine Schuld zu vergeben"
+    },
+    {
+     "ru": "Построить Храм",
+     "en": "To build the Temple",
+     "de": "Den Tempel zu bauen"
+    },
+    {
+     "ru": "Дать ему сына",
+     "en": "To give him a son",
+     "de": "Ihm einen Sohn zu geben"
+    },
+    {
+     "ru": "Наказать врагов",
+     "en": "To punish his enemies",
+     "de": "Seine Feinde zu bestrafen"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 25:15",
+   "q": {
+    "ru": "Куда всегда обращены глаза Давида?",
+    "en": "Where are David’s eyes ever turned?",
+    "de": "Wohin sind Davids Augen immer gerichtet?"
+   },
+   "o": [
+    {
+     "ru": "К Г-споду",
+     "en": "Toward the L-rd",
+     "de": "Auf den Ewigen"
+    },
+    {
+     "ru": "К горам",
+     "en": "Toward the mountains",
+     "de": "Auf die Berge"
+    },
+    {
+     "ru": "К морю",
+     "en": "Toward the sea",
+     "de": "Auf das Meer"
+    },
+    {
+     "ru": "К его войску",
+     "en": "Toward his army",
+     "de": "Auf sein Heer"
+    }
+   ]
+  }
+ ]
+}
