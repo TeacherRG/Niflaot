@@ -17,7 +17,7 @@ interface Open {
 
 /**
  * «Ключевое место» (src/core/atlasKeys.ts): the window over a beacon `.tk-beacon` (one per page, like WordPop) —
- * שָׁנָה when (the year from Creation, the era of the timeline, the day), נֶפֶשׁ who and מָקוֹם where (notes of «Кто и где»,
+ * שָׁנָה time — when (the year from Creation, the era of the timeline, the day), נֶפֶשׁ soul — who and עוֹלָם space — where (notes of «Кто и где»,
  * the map), and how the verse ties them together. With a mouse — opens on hover; a tap pins it until a tap elsewhere or Esc.
  */
 export function KeyPop() {
@@ -161,10 +161,10 @@ export function KeyPop() {
               </div>
             )}
             {key.where.length > 0 && (
-              <div className="kp-row kp-makom">
+              <div className="kp-row kp-olam">
                 <dt>
                   <span className="he" lang="he">
-                    מָקוֹם
+                    עוֹלָם
                   </span>{' '}
                   {t('keys.where')}
                 </dt>

@@ -470,7 +470,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
       live = false;
     };
   }, [day.date, plan.annual]);
-  // «Ключевые места» — маячки шана · нефеш · маком (src/tanakh/atlas/keys.json, грузятся отдельно от бандла страницы)
+  // «Ключевые места» — маячки шана · нефеш · олам (src/tanakh/atlas/keys.json, грузятся отдельно от бандла страницы)
   const [keys, setKeys] = useState<AtlasKeys | null>(null);
   useEffect(() => {
     let live = true;

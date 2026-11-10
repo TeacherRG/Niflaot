@@ -3016,7 +3016,7 @@ a.wd-sing{font-weight:800;text-decoration:none}
 .wp-a-head b{font-size:16px}
 .wp-a-d{font-size:13.5px;color:var(--ink-2)}
 .wp-a-map{border-radius:10px;overflow:hidden;border:1px solid var(--line)}
-/* «Ключевое место» Невиим: маячок в стихе и окно шана · нефеш · маком (KeyPop, src/core/atlasKeys.ts) */
+/* «Ключевое место» Невиим: маячок в стихе и окно шана · нефеш · олам (KeyPop, src/core/atlasKeys.ts) */
 .tk-key{text-decoration:underline 2px var(--gold);text-underline-offset:6px;text-decoration-skip-ink:none}
 .tk-beacon{position:relative;display:inline-grid;place-items:center;width:1.15em;height:1.15em;margin:0 .1em;padding:0;border:0;border-radius:50%;background:none;cursor:pointer;vertical-align:-.1em}
 .tk-beacon span,.kp-dot{display:inline-block;width:.62em;height:.62em;border-radius:50%;background:var(--gold);box-shadow:0 0 0 2px var(--gold-soft)}
@@ -3033,12 +3033,12 @@ a.wd-sing{font-weight:800;text-decoration:none}
 .kp-phrase{font-size:21px;line-height:1.35}
 .kp-t{font-weight:700;font-size:16px}
 .kp-rows{margin:0;display:grid;gap:6px}
-.kp-row{display:grid;grid-template-columns:5.6em 1fr;gap:8px;align-items:baseline;padding:6px 8px;border-radius:9px;background:var(--gold-soft)}
+.kp-row{display:grid;grid-template-columns:6.8em 1fr;gap:8px;align-items:baseline;padding:6px 8px;border-radius:9px;background:var(--gold-soft)}
 .kp-row dt{font-size:12px;color:var(--muted);line-height:1.25}
 .kp-row dt .he{display:block;font-size:17px;color:var(--ink)}
 .kp-row dd{margin:0;font-size:13.5px;min-width:0}
 .kp-nefesh{background:var(--tchelet-soft)}
-.kp-makom{background:var(--ok-soft)}
+.kp-olam{background:var(--ok-soft)}
 .kp-era{color:var(--muted)}
 .kp-d{font-size:13.5px;color:var(--ink-2)}
 .kp-more{font-size:13px}
