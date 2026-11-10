@@ -6,11 +6,15 @@
  */
 import { readFileSync } from 'node:fs';
 import words from '../src/tanakh/words.json';
-import tr from '../src/tanakh/words/en.json';
+import trEn from '../src/tanakh/words/en.json';
+import trRu from '../src/tanakh/words/ru.json';
+import trDe from '../src/tanakh/words/de.json';
 import {
   abcUnits,
   freshOf,
+  ALPHABETS,
   LETTERS,
+  TARGETS,
   mainMeaning,
   makeLesson,
   NEW_PER_LESSON,
@@ -22,6 +26,7 @@ import {
   type EnStore,
   type EnUnit,
   type EnVerse,
+  type Target,
 } from '../src/core/enCourse';
 
 const errors: string[] = [];
@@ -32,30 +37,44 @@ for (const [l, name, sound, w, wHe] of LETTERS) {
   if (!/[א-ת]/.test(name) || !/[א-ת]/.test(sound) || !/[א-ת]/.test(wHe)) err(`${l}: the name, sound and word need Hebrew`);
   if (!w.toLowerCase().includes(l.toLowerCase())) err(`${l}: the word «${w}» has no ${l}`);
 }
-const abc = abcUnits();
-if (abc.reduce((a, u) => a + u.items.length, 0) !== 26) err('abcUnits: not 26 letters');
+const SIZE: Record<Target, number> = { en: 26, ru: 33, de: 30 };
+for (const t of TARGETS) {
+  const rows = ALPHABETS[t];
+  if (rows.length !== SIZE[t] || new Set(rows.map((l) => l[0])).size !== rows.length) err(`${t}: not the ${SIZE[t]} letters`);
+  for (const [l, name, sound, w, wHe] of rows) {
+    if (!/[\u05D0-\u05EA]/.test(name) || !/[\u05D0-\u05EA]/.test(sound) || !/[\u05D0-\u05EA]/.test(wHe)) err(`${t} ${l}: the name, sound and word need Hebrew`);
+    if (!w.toLowerCase().includes(l.toLowerCase())) err(`${t} ${l}: the word «${w}» has no ${l}`);
+  }
+  if (abcUnits(t).reduce((a, u) => a + u.items.length, 0) !== SIZE[t]) err(`${t} abcUnits: not all the letters`);
+}
 
 if (mainMeaning('to say, speak') !== 'say') err('mainMeaning: «to say, speak» → say');
 if (mainMeaning('(marks the direct object)') !== null) err('mainMeaning: a note is not a word');
 
+if (mainMeaning('сказать, говорить') !== 'сказать' || mainMeaning('sagen, sprechen') !== 'sagen') err('mainMeaning: ru / de');
 const W = (words as { words: { id: string; he: string }[] }).words;
-const units = wordUnits(W, tr as Record<string, string>);
-if (units.length < 50) err(`wordUnits: only ${units.length} levels`);
-for (const u of units) {
-  const mains = u.items.map((x) => x.main.toLowerCase());
-  if (new Set(mains).size !== mains.length) err(`${u.id}: two words with the same meaning`);
-  if (u !== units.at(-1) && u.items.length < 25) err(`${u.id}: only ${u.items.length} words`);
+const TR: Record<Target, Record<string, string>> = { en: trEn, ru: trRu, de: trDe };
+const byTarget = Object.fromEntries(TARGETS.map((t) => [t, wordUnits(W, TR[t])])) as Record<Target, EnUnit[]>;
+const units = byTarget.en;
+for (const t of TARGETS) {
+  const us = byTarget[t];
+  if (us.length < 50) err(`${t} wordUnits: only ${us.length} levels`);
+  for (const u of us) {
+    const mains = u.items.map((x) => x.main.toLowerCase());
+    if (new Set(mains).size !== mains.length) err(`${t} ${u.id}: two words with the same meaning`);
+    if (u !== us.at(-1) && u.items.length < 25) err(`${t} ${u.id}: only ${u.items.length} words`);
+  }
 }
 
 // a fake verse for every third word: the lesson must take it
 const verse = (k: string): EnVerse | undefined => (Number(k) % 3 ? undefined : { he: 'בְּרֵאשִׁית בָּרָא', words: verseWords('In the beginning G-d created'), ref: 'test' });
 let lessons = 0;
-const play = (u: EnUnit) => {
+const play = (u: EnUnit, target: Target) => {
   const s: EnStore = { s: {}, xp: {} };
   for (let round = 0; round < 30; round++) {
     const fresh = freshOf(u, s).slice(0, NEW_PER_LESSON);
     const old = u.items.filter((it) => s.s[it.key]);
-    const ex = makeLesson(u, fresh, fresh.length ? old : u.items, round * 31 + 1, { verse: (it) => verse(it.key), hear: true });
+    const ex = makeLesson(u, fresh, fresh.length ? old : u.items, round * 31 + 1, { verse: (it) => verse(it.key), hear: true, target });
     lessons++;
     if (ex.length < 4) err(`${u.id} lesson ${round}: only ${ex.length} exercises`);
     for (const e of ex) {
@@ -79,7 +98,7 @@ const play = (u: EnUnit) => {
   }
   if (freshOf(u, s).length) err(`${u.id}: the lessons never finish the level`);
 };
-for (const u of [...abc, ...units]) play(u);
+for (const t of TARGETS) for (const u of [...abcUnits(t), ...byTarget[t]]) play(u, t);
 
 const want = ['In', 'the', 'beginning', 'G-d', 'created'];
 if (!verseRight(want, [...want])) err('verseRight');
@@ -96,8 +115,8 @@ for (const m of he.matchAll(/^\s+(\w+):\s*(?:\([^)]*\)\s*=>\s*)?['`](.*)['`],?$/
 }
 
 if (errors.length) {
-  console.error(`✗ Английский для ивритоязычных: ${errors.length} ошибок`);
+  console.error(`✗ Языки для ивритоязычных: ${errors.length} ошибок`);
   for (const e of [...new Set(errors)].slice(0, 30)) console.error('  ' + e);
   process.exit(1);
 }
-console.log(`✓ Английский для ивритоязычных: 26 букв, ${units.length} уровней слов (${units.reduce((a, u) => a + u.items.length, 0)} слов), ${lessons} уроков проверено`);
+console.log(`✓ Языки для ивритоязычных: ${TARGETS.map((t) => `${t} — ${SIZE[t]} букв, ${byTarget[t].length} уровней (${byTarget[t].reduce((a, u) => a + u.items.length, 0)} слов)`).join('; ')}; ${lessons} уроков проверено`);

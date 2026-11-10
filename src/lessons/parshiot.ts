@@ -12,6 +12,7 @@ export const PARSHIOT = {
   vayera: { he: 'וירא', name: { ru: 'Вайера', en: 'Vayeira', de: 'Wajera' }, year: 5787, heYear: 'ה׳תשפ״ז', shabbat: '2026-10-31' },
   'chayei-sarah': { he: 'חיי שרה', name: { ru: 'Хаей Сара', en: 'Chayei Sarah', de: 'Chaje Sara' }, year: 5787, heYear: 'ה׳תשפ״ז', shabbat: '2026-11-07' },
   toldot: { he: 'תולדות', name: { ru: 'Толдот', en: 'Toldot', de: 'Toldot' }, year: 5787, heYear: 'ה׳תשפ״ז', shabbat: '2026-11-14' },
+  vayetze: { he: 'ויצא', name: { ru: 'Ваеце', en: 'Vayetzei', de: 'Wajeze' }, year: 5787, heYear: 'ה׳תשפ״ז', shabbat: '2026-11-21' },
 } satisfies Record<
   string,
   { he: string; name: Partial<Record<Locale, string>> & { ru: string }; year: number; heYear: string; shabbat: string }

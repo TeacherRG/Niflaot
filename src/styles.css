@@ -3617,3 +3617,6 @@ button.dedication:hover .ded-name{text-decoration:underline;text-decoration-colo
 .enc-tiles b{color:var(--ink);font-size:26px}
 .mode-he{display:block;max-width:560px;margin:0 auto 14px;padding:10px 14px;border:2px solid var(--gold-line);border-radius:14px;background:var(--gold-soft);color:var(--ink);font-size:15px;text-align:right;text-decoration:none}
 .mode-he b{color:var(--gold-deep)}
+.enc-langs{display:flex;gap:8px;margin:0 0 14px;flex-wrap:wrap}
+.enc-langs a{padding:6px 16px;border:2px solid var(--line);border-radius:99px;color:var(--ink);font-weight:700;text-decoration:none}
+.enc-langs a.on{border-color:var(--tchelet);background:var(--tchelet-soft);color:var(--tchelet)}

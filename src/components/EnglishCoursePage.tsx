@@ -30,17 +30,33 @@ import {
   type EnStore,
   type EnUnit,
   type EnVerse,
+  type Target,
 } from '../core/enCourse';
 
 /**
  * `#/english` — «אנגלית דרך התנ״ך»: English for Hebrew speakers (src/core/enCourse.ts). The whole page is in Hebrew, right to
  * left (`HE` — its texts; the site's languages ru/en/de are not used here), open without signing in (src/core/gate.ts).
+ * The same page teaches Russian (`#/russian`) and German (`#/german`): `target`; the texts that name the language — getters by `TG`.
  */
+/** the language being learned on the page now (one course page at a time) */
+let TG: Target = 'en';
+const LANG: Record<Target, { title: string; abc: string; in: string; tab: string; route: string }> = {
+  en: { title: 'אנגלית דרך התנ״ך', abc: 'האותיות האנגליות', in: 'באנגלית', tab: 'אנגלית', route: 'english' },
+  ru: { title: 'רוסית דרך התנ״ך', abc: 'האותיות הרוסיות', in: 'ברוסית', tab: 'רוסית', route: 'russian' },
+  de: { title: 'גרמנית דרך התנ״ך', abc: 'האותיות הגרמניות', in: 'בגרמנית', tab: 'גרמנית', route: 'german' },
+};
 export const HE = {
-  title: 'אנגלית דרך התנ״ך',
+  get title() {
+    return LANG[TG].title;
+  },
   sub: 'לדוברי עברית',
-  lead: 'המילים שאתם מכירים מהתנ״ך — עכשיו באנגלית. מתחילים באותיות, ממשיכים למילים השכיחות ביותר בנביאים ובכתובים: 50 מילים בכל רמה. שיעור קצר — עד 5 מילים חדשות, תרגול ופסוק באנגלית.',
-  abcH: 'האותיות האנגליות',
+  get lead() {
+    return `המילים שאתם מכירים מהתנ״ך — עכשיו ${LANG[TG].in}. מתחילים באותיות, ממשיכים למילים השכיחות ביותר בנביאים ובכתובים: 50 מילים בכל רמה. שיעור קצר — עד 5 מילים חדשות, תרגול ופסוק ${LANG[TG].in}.`;
+  },
+  get abcH() {
+    return LANG[TG].abc;
+  },
+  choose: 'מה לומדים?',
   abcUnit: (a: string, b: string) => `אותיות ${a}–${b}`,
   wordsH: 'מילים מהתנ״ך',
   wordsUnit: (n: number) => `רמה ${n}`,
@@ -57,19 +73,27 @@ export const HE = {
   newWord: 'מילה חדשה',
   newLetter: 'אות חדשה',
   listen: 'להשמיע',
-  noVoice: 'בדפדפן הזה אין קול באנגלית',
+  get noVoice() {
+    return `בדפדפן הזה אין קול ${LANG[TG].in}`;
+  },
   name: 'שם האות:',
   sounds: 'נשמעת כמו:',
   asIn: 'כמו במילה',
-  askHe: 'איך אומרים באנגלית?',
+  get askHe() {
+    return `איך אומרים ${LANG[TG].in}?`;
+  },
   askEn: 'מה פירוש המילה?',
   askHear: 'הקשיבו: מה שמעתם?',
   askLetterHe: 'איזו אות זו?',
   askLetterEn: 'איך קוראים לאות?',
   askLetterHear: 'הקשיבו: איזו אות שמעתם?',
   pairs: 'התאימו את הזוגות',
-  spell: 'הרכיבו את המילה באנגלית',
-  verse: 'סדרו את הפסוק באנגלית',
+  get spell() {
+    return `הרכיבו את המילה ${LANG[TG].in}`;
+  },
+  get verse() {
+    return `סדרו את הפסוק ${LANG[TG].in}`;
+  },
   verseWord: 'בפסוק — המילה',
   check: 'בדיקה',
   next: 'המשך',
@@ -85,8 +109,11 @@ export const HE = {
   perfect: 'בלי טעויות!',
   back: 'חזרה לדרך',
   again: 'שיעור נוסף',
-  credit:
-    'המילים — Open Scriptures Hebrew Bible (CC BY 4.0) ומילון סטרונג (נחלת הכלל); התרגום לאנגלית — של הפרויקט; הפסוקים באנגלית — JPS 1985 (CC BY-NC); הקול — של הדפדפן.',
+  get credit() {
+    return TG === 'en'
+      ? 'המילים — Open Scriptures Hebrew Bible (CC BY 4.0) ומילון סטרונג (נחלת הכלל); התרגום לאנגלית — של הפרויקט; הפסוקים באנגלית — JPS 1985 (CC BY-NC); הקול — של הדפדפן.'
+      : `המילים — Open Scriptures Hebrew Bible (CC BY 4.0) ומילון סטרונג (נחלת הכלל); התרגום והפסוקים ${LANG[TG].in} — של הפרויקט (CC BY-NC); הקול — של הדפדפן.`;
+  },
 };
 
 /** «ii-samuel 3:5» → «II Samuel 3:5» (the English names of the books, as the verse slugs) */
@@ -98,16 +125,17 @@ const he = (s: string) => (
   </span>
 );
 const en = (s: string) => (
-  <span className="enc-en" lang="en" dir="ltr">
+  <span className="enc-en" lang={TG} dir="ltr">
     {s}
   </span>
 );
 
-export function EnglishCoursePage() {
+export function EnglishCoursePage({ target = 'en' }: { target?: Target }) {
+  TG = target;
   const { t } = useI18n();
   const [dict, setDict] = useState<Dict | null>(null);
   const [verses, setVerses] = useState<Map<string, EnVerse>>(new Map());
-  const [store, setStore] = useState<EnStore>(readEn);
+  const [store, setStore] = useState<EnStore>(() => readEn(target));
   const [run, setRun] = useState<{ unit: EnUnit; ex: EnExercise[]; seed: number } | null>(null);
 
   useEffect(() => {
@@ -115,32 +143,33 @@ export function EnglishCoursePage() {
   }, [t]);
   useEffect(() => {
     let live = true;
-    loadDict('en').then((d) => live && setDict(d));
-    loadExamples('en').then((all) => {
+    loadDict(target).then((d) => live && setDict(d));
+    loadExamples(target).then((all) => {
       if (!live) return;
       const m = new Map<string, EnVerse>();
       for (const id of Object.keys(all)) {
         const x = exampleOf(all, id);
-        if (x) m.set(id, { he: x.he.join(''), words: verseWords(x.tr), ref: refName(x.ref) });
+        // Russian and German: only the project's own translation (an English JPS verse is no help here)
+        if (x && (target === 'en' || !x.en)) m.set(id, { he: x.he.join(''), words: verseWords(x.tr), ref: refName(x.ref) });
       }
       setVerses(m);
     });
     return () => {
       live = false;
     };
-  }, []);
+  }, [target]);
 
-  const units = useMemo(() => [...abcUnits(), ...(dict ? wordUnits(dict.words, dict.tr) : [])], [dict]);
+  const units = useMemo(() => [...abcUnits(target), ...(dict ? wordUnits(dict.words, dict.tr) : [])], [dict, target]);
   const abc = units.filter((u) => u.track === 'abc');
   const words = units.filter((u) => u.track === 'words');
 
   const start = (unit: EnUnit) => {
-    const s = readEn();
+    const s = readEn(target);
     const fresh = freshOf(unit, s).slice(0, NEW_PER_LESSON);
     const old = unit.items.filter((it) => s.s[it.key]);
     const seed = Date.now() % 100000;
     // a unit already done — a review of all its items
-    const ex = makeLesson(unit, fresh, fresh.length ? old : unit.items, seed, { verse: (it) => verses.get(it.key), hear: canSpeak() });
+    const ex = makeLesson(unit, fresh, fresh.length ? old : unit.items, seed, { verse: (it) => verses.get(it.key), hear: canSpeak(), target });
     setRun({ unit, ex, seed });
   };
 
@@ -155,6 +184,13 @@ export function EnglishCoursePage() {
           </h1>
           <p className="ws-lead">{HE.lead}</p>
         </header>
+        <nav className="enc-langs" aria-label={HE.choose}>
+          {(['en', 'ru', 'de'] as const).map((l) => (
+            <a key={l} href={`#/${LANG[l].route}`} className={l === target ? 'on' : undefined} aria-current={l === target ? 'page' : undefined}>
+              {LANG[l].tab}
+            </a>
+          ))}
+        </nav>
         <section className="ws-stats">
           <b className="ws-cov">{x >= GOAL ? HE.goalHit : HE.today(x, GOAL)}</b>
           <span className="tk-words-bar" role="img" aria-label={`${Math.min(100, Math.round((100 * x) / GOAL))}%`}>
@@ -177,9 +213,9 @@ export function EnglishCoursePage() {
           key={run.seed}
           unit={run.unit}
           queue={run.ex}
-          onClose={() => (setRun(null), setStore(readEn()))}
+          onClose={() => (setRun(null), setStore(readEn(target)))}
           onAgain={() => {
-            setStore(readEn());
+            setStore(readEn(target));
             start(run.unit);
           }}
         />
@@ -261,7 +297,7 @@ function Session({ unit, queue: first, onClose, onAgain }: { unit: EnUnit; queue
   // the word is spoken by itself on a new card and on «what did you hear?»
   useEffect(() => {
     if (!ex) return;
-    if (ex.t === 'intro' || (ex.t === 'pick' && ex.ask === 'hear')) speak(ex.item.main);
+    if (ex.t === 'intro' || (ex.t === 'pick' && ex.ask === 'hear')) speak(ex.item.main, TG);
   }, [ex]);
 
   if (done)
@@ -296,7 +332,7 @@ function Session({ unit, queue: first, onClose, onAgain }: { unit: EnUnit; queue
     const keys = new Set(queue.flatMap((e) => (e.t === 'pairs' ? e.items : [e.item])).map((x) => x.key));
     const right = [...keys].filter((k) => !missed.has(k));
     const xp = missed.size ? XP : XP_PERFECT;
-    finishLesson(right, xp);
+    finishLesson(right, xp, TG);
     const acc = Math.round((100 * Math.max(0, n - missed.size)) / Math.max(1, n));
     celebrate(missed.size ? 'small' : 'big', true);
     feedback(missed.size ? 'finish' : 'perfect');
@@ -386,7 +422,7 @@ function Session({ unit, queue: first, onClose, onAgain }: { unit: EnUnit; queue
 function Speak({ text }: { text: string }) {
   if (!canSpeak()) return <small className="ln-hint">{HE.noVoice}</small>;
   return (
-    <button type="button" className="enc-speak" onClick={() => speak(text)} aria-label={`${HE.listen}: ${text}`}>
+    <button type="button" className="enc-speak" onClick={() => speak(text, TG)} aria-label={`${HE.listen}: ${text}`}>
       🔊 {HE.listen}
     </button>
   );
@@ -440,7 +476,7 @@ function Pick({ ex, letter, sel, state, onPick }: { ex: Extract<EnExercise, { t:
         ) : ex.ask === 'en' ? (
           <p className="enc-big">{en(letter ? ex.item.en : ex.item.main)}</p>
         ) : (
-          <button type="button" className="enc-speak big" onClick={() => speak(ex.item.main)} aria-label={HE.listen}>
+          <button type="button" className="enc-speak big" onClick={() => speak(ex.item.main, TG)} aria-label={HE.listen}>
             🔊
           </button>
         )}
@@ -496,7 +532,7 @@ function Pairs({ items, letter, onMiss, onPair, onDone }: { items: EnItem[]; let
         </div>
         <div>
           {right.map((it) => (
-            <button key={it.key} type="button" className={cls(it.key, 'b')} disabled={ok.has(it.key)} onClick={() => (setB(it.key), speak(it.main))}>
+            <button key={it.key} type="button" className={cls(it.key, 'b')} disabled={ok.has(it.key)} onClick={() => (setB(it.key), speak(it.main, TG))}>
               {en(letter ? it.en : it.main)}
             </button>
           ))}
