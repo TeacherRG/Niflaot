@@ -9,6 +9,8 @@ import { isDone } from './academy';
 import { readDoneStore } from './tanakhDone';
 import { allPassages, hsIsDone, hsLang, passageDate, readHsDone } from './hemshech';
 import { GOAL, readCourse, xpToday } from './lashon';
+import { inDeck, readWordStore, WORDS_ALL } from './words';
+import { currentMode } from './mode';
 import { NIGUNIM } from '../nigun';
 import { nigunCertificates, readNigunStore } from './nigunGame';
 import { bookRoadmap } from './milestones';
@@ -29,6 +31,9 @@ export interface CourseRow {
   finished?: boolean;
   /** today's part is done: the passage of the day read, or (at one's own pace) a passage marked today; «Святой язык» — the day's goal */
   today?: boolean;
+  /** «Святой язык»: today's points and the day's goal (the bar is the whole course) */
+  xp?: number;
+  goal?: number;
   /** the Chassidut has not started yet: the day it opens */
   starts?: string;
   href: string;
@@ -74,10 +79,21 @@ function hemshech(pace: Pace, locale: string, lang: Lang, today: string): Course
   return { id: 'hemshech', done, total: all.length, next: p.title[hsLang(locale)], finished: hsIsDone(read, p.id), today: today_, href: `#/hemshech/${p.id}` };
 }
 
+/**
+ * «Святой язык». Adults: the bar — the words of Tanakh one has (met in the course's lessons or in «Мои слова», «Учу» or
+ * «Знаю») of all of them (owner, 10.11.2026: «отметил 500 слов, что знаю, а прогресса нет» — the bar was today's points).
+ * Children: the day's goal, as before (their course — letters and the words of the portions' lessons, not in this bundle).
+ */
 function lashon(): CourseRow {
   const s = readCourse();
   const xp = xpToday(s);
-  return { id: 'lashon', done: Math.min(xp, GOAL), total: GOAL, next: String(Object.keys(s.s).length), finished: xp >= GOAL, today: xp >= GOAL, href: '#/lashon' };
+  const met = Object.keys(s.s).length;
+  const base = { id: 'lashon' as const, next: String(met), xp: Math.min(xp, GOAL), goal: GOAL, today: xp >= GOAL, href: '#/lashon' };
+  if (currentMode() !== 'adults') return { ...base, done: Math.min(xp, GOAL), total: GOAL, finished: xp >= GOAL };
+  const deck = readWordStore();
+  const words = new Set([...Object.keys(s.s).filter((k) => /^\d+$/.test(k)), ...Object.keys(deck).filter((id) => inDeck(deck, id))]);
+  const done = Math.min(words.size, WORDS_ALL);
+  return { ...base, next: String(Math.max(met, words.size)), done, total: WORDS_ALL, finished: done >= WORDS_ALL };
 }
 
 function nigun(locale: string): CourseRow {
