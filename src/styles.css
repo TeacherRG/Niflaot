@@ -1558,6 +1558,7 @@ a.tk-step:hover{background:var(--tchelet-soft)}
 .tk-w-ex-tr small,.tk-w-ex-ref{font-size:12px;color:var(--muted)}
 .tk-w-ex-ref a{color:var(--tchelet);font-weight:600}
 .ws-card .tk-w-meta,.ws-card .tk-w-ex{grid-area:auto}
+.ws-focus{padding:12px 14px;border:2px solid var(--gold);border-radius:16px;background:var(--gold-soft,transparent)}
 .ws-card .tk-w-ex{width:100%;box-sizing:border-box}
 .tk-w-btns{grid-area:btn;display:flex;justify-content:flex-end;gap:6px}
 .tk-w-btns button{min-height:36px;padding:4px 12px;border:1px solid var(--line);border-radius:99px;background:var(--surface);color:var(--ink);font-size:13.5px;font-weight:600;white-space:nowrap}

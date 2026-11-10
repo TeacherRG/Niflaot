@@ -227,7 +227,7 @@ function Site() {
           ) : slug === 'hemshech' ? (
             <HemshechPage key={route} passage={view || undefined} />
           ) : slug === 'words' ? (
-            <WordsPage />
+            <WordsPage key={route} focus={view || undefined} />
           ) : slug === 'bookmarks' && !view ? (
             <BookmarksPage />
           ) : slug === 'atlas' && !variant ? (

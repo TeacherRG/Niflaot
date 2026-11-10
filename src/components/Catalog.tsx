@@ -267,7 +267,7 @@ function WordsTicker({ head }: { head: ReactNode }) {
     const due = !fresh1 && store[id][2] <= day;
     return (
       <li key={`${copy ? 'b' : 'a'}${k}`} aria-hidden={copy || k >= ids.length || undefined}>
-        <a href="#/words" tabIndex={copy || k >= ids.length ? -1 : undefined}>
+        <a href={`#/words/${id}`} tabIndex={copy || k >= ids.length ? -1 : undefined}>
           <span className="he" dir="rtl">
             {w.he}
           </span>

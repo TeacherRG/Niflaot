@@ -37,7 +37,7 @@ const LEVEL = 50;
  * `#/words` — «Мои слова»: how much of the Prophets and Writings the reader recognizes, the review of the day («карточки с
  * коробками», src/core/words.ts), the next most frequent new words and the whole translated list by levels of 50.
  */
-export function WordsPage() {
+export function WordsPage({ focus }: { focus?: string }) {
   const { t, locale } = useI18n();
   const lang: WordLang = locale === 'en' || locale === 'de' ? locale : 'ru';
   const store = useWordStore();
@@ -97,6 +97,8 @@ export function WordsPage() {
   );
   if (!dict) return <TopBar title={t('words.mine')} />;
 
+  // `#/words/<номер>` — слово, на которое нажали в ленте главной: оно — первым, с «Учу» / «Знаю»
+  const focusWord = focus && dict.tr[focus] ? dict.words[dict.rank.get(focus)! - 1] : undefined;
   const translated = Object.keys(dict.tr).length;
   const known = knownCount(dict, store);
   const learning = Object.keys(dict.tr).filter((id) => inDeck(store, id) && !isKnown(store, id)).length;
@@ -141,6 +143,16 @@ export function WordsPage() {
           </span>
           <small className="ws-goal">{goal ? t('words.goal', { goal, n: goal - known }) : t('words.goalDone', { n: translated })}</small>
         </section>
+
+        {focusWord && (
+          <section className="ws-sec ws-focus" aria-labelledby="ws-focus">
+            <h2 id="ws-focus">{t('words.focusH')}</h2>
+            <ul className="tk-words-list">
+              <WordRow w={focusWord} dict={dict} store={store} ex={exs[focusWord.id]} />
+            </ul>
+            <p className="ws-note">{t(isKnown(store, focusWord.id) ? 'words.focusKnown' : inDeck(store, focusWord.id) ? 'words.focusLearn' : 'words.focusNew')}</p>
+          </section>
+        )}
 
         <section className="ws-sec" aria-labelledby="ws-review">
           <h2 id="ws-review">{t('words.reviewH')}</h2>
