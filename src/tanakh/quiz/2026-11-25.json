@@ -1,0 +1,186 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 15:54",
+   "q": {
+    "ru": "Как ещё называется Кирьят-Арба?",
+    "en": "What is another name for Kiriath-arba?",
+    "de": "Wie heißt Kirjat-Arba noch?"
+   },
+   "o": [
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    },
+    {
+     "ru": "Йерушалаим",
+     "en": "Jerusalem",
+     "de": "Jeruschalajim"
+    },
+    {
+     "ru": "Бейт-Эль",
+     "en": "Bethel",
+     "de": "Bet-El"
+    },
+    {
+     "ru": "Гилгаль",
+     "en": "Gilgal",
+     "de": "Gilgal"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:63",
+   "q": {
+    "ru": "Кого сыны Йеґуды не смогли изгнать из Йерушалаима?",
+    "en": "Whom could the Judites not drive out of Jerusalem?",
+    "de": "Wen konnten die Kinder Jehudas nicht aus Jeruschalajim vertreiben?"
+   },
+   "o": [
+    {
+     "ru": "Йевусеев",
+     "en": "The Jebusites",
+     "de": "Die Jewusiter"
+    },
+    {
+     "ru": "Филистимлян",
+     "en": "The Philistines",
+     "de": "Die Philister"
+    },
+    {
+     "ru": "Гивонитян",
+     "en": "The Gibeonites",
+     "de": "Die Giwoniter"
+    },
+    {
+     "ru": "Анакеев",
+     "en": "The Anakites",
+     "de": "Die Anakiter"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 15:63",
+   "q": {
+    "ru": "Почему, по Сифрей у Раши, их не изгнали?",
+    "en": "According to the Sifrei in Rashi, why were they not driven out?",
+    "de": "Warum wurden sie nach dem Sifre bei Raschi nicht vertrieben?"
+   },
+   "o": [
+    {
+     "ru": "Из-за клятвы Авраґама Авимелеху",
+     "en": "Because of Avraham’s oath to Avimelech",
+     "de": "Wegen des Schwurs Awrahams an Awimelech"
+    },
+    {
+     "ru": "Из-за войны с Эдомом",
+     "en": "Because of a war with Edom",
+     "de": "Wegen eines Krieges mit Edom"
+    },
+    {
+     "ru": "Город был слишком высоко",
+     "en": "The city was too high",
+     "de": "Die Stadt lag zu hoch"
+    },
+    {
+     "ru": "Йеґошуа запретил",
+     "en": "Joshua forbade it",
+     "de": "Jehoschua hat es verboten"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 26:4",
+   "q": {
+    "ru": "С кем Давид не сидел?",
+    "en": "With whom did David not sit?",
+    "de": "Bei wem saß David nicht?"
+   },
+   "o": [
+    {
+     "ru": "С лживыми людьми",
+     "en": "With scoundrels",
+     "de": "Bei falschen Leuten"
+    },
+    {
+     "ru": "С мудрецами",
+     "en": "With the wise",
+     "de": "Bei den Weisen"
+    },
+    {
+     "ru": "С коэнами",
+     "en": "With the kohanim",
+     "de": "Bei den Kohanim"
+    },
+    {
+     "ru": "Со своей семьёй",
+     "en": "With his family",
+     "de": "Bei seiner Familie"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 26:6",
+   "q": {
+    "ru": "Что Давид делает в чистоте перед тем, как обойти жертвенник?",
+    "en": "What does David do in innocence before walking around the altar?",
+    "de": "Was tut David in Reinheit, bevor er den Altar umschreitet?"
+   },
+   "o": [
+    {
+     "ru": "Омывает руки",
+     "en": "Washes his hands",
+     "de": "Er wäscht seine Hände"
+    },
+    {
+     "ru": "Надевает новые одежды",
+     "en": "Puts on new clothes",
+     "de": "Er zieht neue Kleider an"
+    },
+    {
+     "ru": "Зажигает свет",
+     "en": "Lights a lamp",
+     "de": "Er zündet ein Licht an"
+    },
+    {
+     "ru": "Трубит в шофар",
+     "en": "Blows the shofar",
+     "de": "Er bläst den Schofar"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 26:7",
+   "q": {
+    "ru": "Что, по Раши, значат «все Твои чудеса»?",
+    "en": "According to Rashi, what are “all Your wonders”?",
+    "de": "Was sind nach Raschi „alle Deine Wunder“?"
+   },
+   "o": [
+    {
+     "ru": "Ґалель",
+     "en": "Hallel",
+     "de": "Das Hallel"
+    },
+    {
+     "ru": "Десять казней",
+     "en": "The ten plagues",
+     "de": "Die zehn Plagen"
+    },
+    {
+     "ru": "Сотворение мира",
+     "en": "The creation of the world",
+     "de": "Die Erschaffung der Welt"
+    },
+    {
+     "ru": "Победы Давида",
+     "en": "David’s victories",
+     "de": "Davids Siege"
+    }
+   ]
+  }
+ ]
+}
