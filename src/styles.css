@@ -3483,3 +3483,22 @@ button.dedication:hover .ded-name{text-decoration:underline;text-decoration-colo
 .ded-sheet-btn{justify-self:start;text-decoration:none;background:var(--gold-deep);border-color:var(--gold-deep)}
 .ded-sheet-mail{margin:-6px 0 0;font-size:13px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){button.dedication{transition:none}}
+
+/* the calendar: «Изменить» next to the city and the city picker (owner, 10.11.2026) */
+.sc-edit{margin-inline-start:4px;padding:1px 10px;border:1px solid var(--tchelet-line);border-radius:999px;background:var(--surface);color:var(--tchelet-deep);font-size:12px;font-weight:700;cursor:pointer}
+.sc-edit:hover{border-color:var(--tchelet);background:var(--tchelet-soft)}
+.sc-pick{display:grid;gap:8px;margin-top:10px;padding:12px;border:1px solid var(--tchelet-line);border-radius:12px;background:var(--tchelet-bg)}
+.sc-pick-l,.sc-own label{display:grid;gap:3px;font-size:12px;font-weight:700;color:var(--ink-3)}
+.sc-pick-in,.sc-own input{width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit;font-size:15px}
+.sc-pick-in:focus,.sc-own input:focus{outline:2px solid var(--tchelet);outline-offset:0;border-color:transparent}
+.sc-pick-list{margin:0;padding:0;list-style:none;display:grid;gap:4px;max-height:240px;overflow:auto}
+.sc-pick-list button{display:flex;width:100%;align-items:baseline;justify-content:space-between;gap:8px;padding:8px 12px;border:1px solid var(--line-soft);border-radius:10px;background:var(--surface);color:var(--ink);text-align:start;cursor:pointer}
+.sc-pick-list button:hover,.sc-pick-list button:focus-visible{border-color:var(--tchelet);background:var(--tchelet-soft)}
+.sc-pick-none{font-size:13px;color:var(--muted)}
+.sc-link{justify-self:start;padding:0;border:0;background:none;color:var(--tchelet-deep);font-size:13px;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.sc-own{display:grid;gap:8px}
+.sc-own-hint{margin:0;font-size:12px;color:var(--muted);line-height:1.4}
+.sc-own-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sc-own-save{justify-self:start}
+.sc-own-save:disabled{opacity:.45;cursor:not-allowed}
+.sc-pick-foot{display:flex;flex-wrap:wrap;gap:6px 16px}
