@@ -42,6 +42,7 @@ const PartnersPage = page(() => import('./components/PartnersPage'), 'PartnersPa
 const TeacherPage = page(() => import('./components/TeacherPage'), 'TeacherPage');
 const AccountPage = page(() => import('./components/AccountPage'), 'AccountPage');
 const SignInPage = page(() => import('./components/AccountPage'), 'SignInPage');
+const NewsletterUnsubscribe = page(() => import('./components/NewsletterUnsubscribe'), 'NewsletterUnsubscribe');
 const ClassPage = page<'ClassPage', { id: string }>(() => import('./components/CommunityPages'), 'ClassPage');
 const ConsentPage = page<'ConsentPage', { token: string }>(() => import('./components/CommunityPages'), 'ConsentPage');
 const PrivacyPage = page<'PrivacyPage', object>(() => import('./components/CommunityPages'), 'PrivacyPage');
@@ -211,6 +212,8 @@ function Site() {
             <TeacherPage />
           ) : slug === 'account' ? (
             <AccountPage />
+          ) : slug === 'newsletter' && view === 'unsubscribe' ? (
+            <NewsletterUnsubscribe />
           ) : slug === 'class' && view ? (
             <ClassPage id={view} />
           ) : slug === 'consent' && view ? (

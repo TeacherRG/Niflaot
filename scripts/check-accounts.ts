@@ -133,6 +133,10 @@ const routes: [string, string, boolean][] = [
   ['/logout', 'POST', true], ['/logout', 'GET', false],
   ['/delete', 'POST', true], ['/delete', 'GET', false], ['/delete', 'DELETE', false],
   ['/consent', 'POST', true], ['/consent', 'GET', false],
+  ['/newsletter/code', 'POST', true], ['/newsletter/code', 'GET', false],
+  ['/newsletter/confirm', 'POST', true], ['/newsletter/confirm', 'GET', false],
+  ['/newsletter/unsubscribe', 'POST', true], ['/newsletter/unsubscribe', 'GET', false],
+  ['/newsletter/deliver', 'POST', true], ['/newsletter/deliver', 'GET', false],
   ['/progress', 'GET', true], ['/progress', 'PUT', true], ['/progress', 'POST', false],
   ['/leaders', 'GET', true], ['/stats', 'GET', true], ['/stats', 'POST', false], ['/class/join', 'POST', true], ['/class/abc_DEF-12', 'GET', true], ['/class/abc', 'POST', false],
 ];

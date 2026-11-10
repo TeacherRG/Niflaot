@@ -1,87 +1,33 @@
-# Рассылка «Новые уроки — на почту» (Buttondown)
+# Email newsletter
 
-Форма — `src/components/Subscribe.tsx` (в итоге урока и под лентой «Знаете ли вы?»), включается variable репозитория
-`SUBSCRIBE_URL` = `https://buttondown.com/api/emails/embed-subscribe/niflaot`. Язык сайта уходит тегом (`ru`, `en`, `de`).
+`src/components/Subscribe.tsx` offers daily or weekly email in Russian, English, or German. A six-digit, one-time code
+sent through the existing Resend setup confirms the address; codes expire after 10 minutes, allow five guesses, and
+are rate-limited per address. The subscriber list and delivery history live in the `Accounts` Durable Object.
 
-## Настройка
+## What is sent
 
-1. buttondown.com, рассылка `niflaot`; Settings → Subscribing — подтверждение адреса (double opt-in) включено.
-2. Subscribers → Tags — теги `ru`, `en`, `de`.
-3. Приветственное письмо (Settings → Emails / Subscribing → Welcome email) — текст ниже: одно письмо на трёх языках
-   (тег при подписке ещё может не дойти до шаблона, поэтому все три языка вместе, свой — найдётся по заголовку).
-4. GitHub → Settings → Secrets and variables → Actions → Variables: `SUBSCRIBE_URL` (адрес выше) → выкладка сайта.
-5. Письма — RSS-to-email по лентам (`feed.xml` → тег `ru`, `feed-en.xml` → `en`, `feed-de.xml` → `de`) или вручную
-   раз в неделю с отбором по тегу.
+- **Daily:** on each study day, the text and printable PDF from the daily Prophets and Writings Telegram post.
+- **Weekly:** on Wednesday, the Academy Week post and its PDF, plus the printable Memo game PDF for that week's Torah
+  portion. Both attachments are rendered from the live site by the existing Playwright jobs.
 
-## Приветственное письмо
+Messages are sent only to confirmed subscribers matching both the requested frequency and site language. A delivery
+record keyed by address, frequency, and issue prevents retries from sending the same issue twice. Shabbat and days
+without a daily reading do not produce a daily email. Every email contains an unsubscribe link and one-click list
+unsubscribe headers.
 
-**Тема:** Добро пожаловать в Нифлаот · Welcome to Niflaot · Willkommen bei Niflaot
+## Setup
 
----
+1. Keep the existing Worker secrets `RESEND_API_KEY` and `MAIL_FROM` configured; the sender domain must be verified
+   with Resend.
+2. Generate a long random secret and set it in both places:
+   - Worker: `cd assistant && npx wrangler secret put NEWSLETTER_SECRET`
+   - Repository: Settings → Secrets and variables → Actions → Secrets → `NEWSLETTER_SECRET`.
+3. Ensure the repository Actions variable `ASSISTANT_URL` points to the deployed Worker. The site already uses this
+   variable for the assistant and account service.
+4. Deploy the site and Worker. The existing `telegram-tanakh` and `telegram-digest` workflows deliver matching email
+   issues as well as their Telegram posts. Missing newsletter secrets disable email delivery in those jobs with a
+   warning; Telegram delivery continues.
 
-### Добро пожаловать в Нифлаот!
-
-Спасибо, что подписались. «Нифлаот» — значит «чудеса»: здесь чудеса Торы открываются глазами разных учителей — Бааль ґа-Турима
-и Любавичского Ребе. Ответ не дают готовым — его находят сами, шаг за шагом.
-
-**Что будет приходить:** раз в неделю, к недельной главе, — новые уроки и загадка недели. Не чаще. В Шабат писем нет.
-
-**С чего начать:**
-
-- [Урок недельной главы](https://niflaot.mychitas.app/?ref=mail&lang=ru) — игра для детей с 8 лет и всей семьи, иврит знать не нужно;
-- [«Знаете ли вы?»](https://niflaot.mychitas.app/?ref=mail&lang=ru#/facts) — чудеса Торы короткими карточками;
-- [«Пророки и Писания»](https://niflaot.mychitas.app/?ref=mail&lang=ru#/neviim) — для подростков и взрослых: понемногу каждый день.
-
-Всё бесплатно, на русском, английском и немецком. Вопросы и пожелания — просто ответьте на это письмо.
-
-Отписаться можно одним нажатием — ссылка внизу каждого письма.
-
-Шалом и до встречи у недельной главы!
-Нифлаот · Тора-проект MyChitas
-
----
-
-### Welcome to Niflaot!
-
-Thank you for subscribing. "Niflaot" means "wonders": here the wonders of the Torah open up through the eyes of different
-teachers — the Baal HaTurim and the Lubavitcher Rebbe. The answer is never handed to you — you find it yourself, step by step.
-
-**What you will get:** once a week, for the weekly portion — new lessons and the riddle of the week. No more than that.
-No emails on Shabbat.
-
-**Where to start:**
-
-- [This week's lesson](https://niflaot.mychitas.app/?ref=mail&lang=en) — a game for children from 8 and the whole family, no Hebrew needed;
-- ["Did you know?"](https://niflaot.mychitas.app/?ref=mail&lang=en#/facts) — wonders of the Torah in short cards;
-- ["Prophets and Writings"](https://niflaot.mychitas.app/?ref=mail&lang=en#/neviim) — for teens and adults: a little every day.
-
-Everything is free, in English, Russian and German. Questions or wishes? Just reply to this email.
-
-You can unsubscribe with one click — the link is at the bottom of every email.
-
-Shalom, and see you at the weekly portion!
-Niflaot · MyChitas Torah project
-
----
-
-### Willkommen bei Niflaot!
-
-Danke, dass du dich angemeldet hast. „Niflaot“ heißt „Wunder“: Hier entdeckst du die Wunder der Tora mit den Augen
-verschiedener Lehrer — des Baal HaTurim und des Lubawitscher Rebben. Die Antwort bekommst du nicht fertig — du findest sie
-selbst, Schritt für Schritt.
-
-**Was du bekommst:** einmal pro Woche, zum Wochenabschnitt — neue Lektionen und das Rätsel der Woche. Nicht öfter.
-Am Schabbat kommen keine E-Mails.
-
-**So fängst du an:**
-
-- [Die Lektion der Woche](https://niflaot.mychitas.app/?ref=mail&lang=de) — ein Spiel für Kinder ab 8 und die ganze Familie, Hebräisch musst du nicht können;
-- [„Wusstest du?“](https://niflaot.mychitas.app/?ref=mail&lang=de#/facts) — Wunder der Tora in kurzen Karten;
-- [„Propheten und Schriften“](https://niflaot.mychitas.app/?ref=mail&lang=de#/neviim) — für Jugendliche und Erwachsene: jeden Tag ein Stück.
-
-Alles ist kostenlos, auf Deutsch, Englisch und Russisch. Fragen oder Wünsche? Antworte einfach auf diese E-Mail.
-
-Abmelden kannst du dich mit einem Klick — der Link steht unten in jeder E-Mail.
-
-Schalom, und bis zum nächsten Wochenabschnitt!
-Niflaot · Tora-Projekt MyChitas
+The shared secret authorizes only the scheduled delivery endpoint; subscriber addresses are never returned to
+GitHub Actions. Confirmation and unsubscribe tokens are stored as hashes. An email address can change its language or
+frequency by subscribing again and confirming the new one-time code.

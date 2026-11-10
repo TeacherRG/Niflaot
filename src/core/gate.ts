@@ -9,7 +9,8 @@
 // `#/english`, `#/russian`, `#/german` — the language courses for Hebrew speakers: their page is in Hebrew, and the sign-in is not (yet)
 const OPEN = new Set(['account', 'consent', 'privacy', 'admin', 'english', 'russian', 'german']);
 
-export const isOpenRoute = (slug: string, view?: string) => OPEN.has(slug) || (slug === 'reading' && view !== 'shnayim');
+export const isOpenRoute = (slug: string, view?: string) =>
+  OPEN.has(slug) || (slug === 'reading' && view !== 'shnayim') || (slug === 'newsletter' && view === 'unsubscribe');
 
 /**
  * «Месяц без входа» (owner, 02.11.2026; first 3 days, then a month): the first visit starts a trial on this device — for 30 days

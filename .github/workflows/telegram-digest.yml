@@ -34,6 +34,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      ASSISTANT_URL: ${{ vars.ASSISTANT_URL }}
+      NEWSLETTER_SECRET: ${{ secrets.NEWSLETTER_SECRET }}
       TELEGRAM_CHAT_RU: ${{ vars.TELEGRAM_CHAT_RU || secrets.TELEGRAM_CHAT_RU }}
       TELEGRAM_CHAT_EN: ${{ vars.TELEGRAM_CHAT_EN || secrets.TELEGRAM_CHAT_EN }}
       TELEGRAM_CHAT_DE: ${{ vars.TELEGRAM_CHAT_DE || secrets.TELEGRAM_CHAT_DE }}
