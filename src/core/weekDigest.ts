@@ -10,6 +10,8 @@ import type { DayVerse } from './tanakh';
 import { addDays } from './tanakhCycle';
 import { allPassages, passageDate } from './hemshech';
 import { NIGUNIM, type Nigun } from '../nigun';
+import { PARSHIOT } from '../lessons/parshiot';
+import { TURIM_DAYS, dayEntries, parshaDaily, turimDate } from './turimDaily';
 import retellJson from '../tanakh/retell.json';
 import type { Section } from './tanakhCycle';
 
@@ -31,7 +33,10 @@ export function digestWeeks(today: string): string[] {
   return out;
 }
 
-/** The study days of the week (Sunday–Friday) that have come by today. */
+/** The last day the digest tells: Friday of the week (owner, 10.11.2026: «все материалы вплоть до пятницы»). */
+export const weekEnd = (sunday: string) => addDays(sunday, 5);
+
+/** The study days of the week (Sunday–Friday) up to `until` (the digest — the whole week: `weekEnd`). */
 export const weekDays = (sunday: string, today: string) => CYCLE.filter((d) => d.date >= sunday && d.date < addDays(sunday, 7) && d.date <= today);
 
 /** The passages of the «Ґемшех» learnt in the week by today, with their day. */
@@ -96,8 +101,10 @@ export function firstSentences(text: string, n: number): string {
   return head.trim();
 }
 
-/** How much of the «Коротко» of a passage of the «Ґемшех» the digest tells: its first two sentences. */
-export const HS_SENTENCES = 2;
+/** How much of the «Коротко» of a passage of the «Ґемшех» the digest tells: its first sentence (the sheet — two pages A4). */
+export const HS_SENTENCES = 1;
+/** How much of a day's retelling of the Prophets / Writings the digest tells: its first two sentences. */
+export const TK_SENTENCES = 2;
 
 /** The niggun of the week: the niggunim by turns, a week each. */
 export const weekNigun = (sunday: string): Nigun =>
@@ -111,4 +118,47 @@ export function firstLines(nigun: Nigun, n = 4) {
     out.push(l);
   }
   return out;
+}
+
+/** A comment of Baal HaTurim in the digest: the verse, its title and what it teaches (one sentence). */
+export interface TurimNote {
+  ref: string;
+  title: string;
+  lesson: string;
+}
+export interface TurimDigestDay {
+  n: number;
+  date: string;
+  notes: TurimNote[];
+}
+
+const stripHtml = (s: string) => s.replace(/<sup[^>]*><\/sup>/g, '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+
+/**
+ * «Тора с Бааль ґа-Турим» of the week (src/core/turimDaily.ts): the lesson of the portion read on Shabbat of this week,
+ * day by day (Sunday–Friday), two comments a day — each with its title and one sentence of what it teaches
+ * (the Memo pair's «Чему это учит?», or the first sentence of the lesson's «Пояснение»). No such lesson — null.
+ */
+export function turimWeek(sunday: string, lang: 'ru' | 'en' | 'de') {
+  const shabbat = addDays(sunday, 6);
+  const parsha = (Object.keys(PARSHIOT) as (keyof typeof PARSHIOT)[]).find((id) => PARSHIOT[id].shabbat === shabbat);
+  const lesson = parsha && parshaDaily(parsha);
+  if (!lesson) return null;
+  const text = lesson.texts[lang] ?? lesson.texts.ru!;
+  const days: TurimDigestDay[] = Array.from({ length: TURIM_DAYS }, (_, k) => {
+    const n = k + 1;
+    const notes = dayEntries(lesson, n).map((e): TurimNote => {
+      if (e.memo !== undefined) {
+        const m = text.memo?.items[e.memo];
+        return { ref: e.ref, title: m?.title ?? '', lesson: firstSentence(stripHtml(m?.moral ?? '')) };
+      }
+      const it = e.text !== undefined ? text.daily?.items[e.text] : undefined;
+      const expl = it?.b.match(/<p class="expl">([\s\S]*?)<\/p>/)?.[1] ?? '';
+      // «Пояснение.» / «Explanation.» / «Erklärung.» — the label, not the sentence
+      const said = stripHtml(expl.replace(/^\s*<b>[^<]*<\/b>\s*/, ''));
+      return { ref: e.ref, title: it?.h ?? '', lesson: firstSentence(said) };
+    });
+    return { n, date: turimDate(lesson, n), notes };
+  });
+  return { lesson, parsha: parsha!, days };
 }

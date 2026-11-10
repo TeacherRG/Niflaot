@@ -4,7 +4,7 @@ import { PARSHIOT, type ParshaId } from '../lessons';
 import { CYCLE, localToday, loadDay, type DayContent, type DayVerse } from '../core/tanakh';
 import { BOOKS, SECTIONS, addDays, rangeLabel, type Section } from '../core/tanakhCycle';
 import { HEMSHECH, hsLang } from '../core/hemshech';
-import { HS_SENTENCES, digestWeek, digestWeeks, firstLines, firstSentences, quoteSentence, quoteVerse, retell, weekDays, weekNigun, weekPassages } from '../core/weekDigest';
+import { HS_SENTENCES, TK_SENTENCES, digestWeek, digestWeeks, firstLines, firstSentences, quoteSentence, quoteVerse, retell, turimWeek, weekDays, weekEnd, weekNigun, weekPassages } from '../core/weekDigest';
 import { NIGUN_PUBLIC } from '../nigun/public';
 import { isAdmin } from '../admin/github';
 import { SITE_HOST } from '../core/site';
@@ -77,6 +77,8 @@ function Quote({ v, lang, label }: { v: DayVerse; lang: Lang; label?: string }) 
   );
 }
 
+/** the book of the portions (all lessons so far are in Bereshit) — as on the day page */
+const TORAH_BOOK: Record<Lang, string> = { ru: 'Берешит', en: 'Bereishit', de: 'Bereschit' };
 const CYCLE_BY_DATE = new Map(CYCLE.map((d) => [d.date, d]));
 const HE_NAME: Record<Section, string> = { neviim: 'נביאים', ketuvim: 'כתובים' };
 
@@ -97,7 +99,7 @@ function TanakhWeek({ section, days, lang }: { section: Section; days: DayConten
           const told = retell(d.date, section, lang);
           return (
             <Day key={d.date} date={d.date} href={`#/${section}/${d.date}`} title={rangeLabelOf(d, section, lang)}>
-              {told ? <p className="wd-retell">{told}</p> : <DayQuote verses={d[section].verses} lang={lang} />}
+              {told ? <p className="wd-retell">{firstSentences(told, TK_SENTENCES)}</p> : <DayQuote verses={d[section].verses} lang={lang} />}
             </Day>
           );
         })}
@@ -114,6 +116,32 @@ function DayQuote({ verses, lang }: { verses: DayVerse[]; lang: Lang }) {
 function rangeLabelOf(d: DayContent, section: Section, lang: Lang) {
   const day = CYCLE_BY_DATE.get(d.date);
   return day ? rangeLabel(section, day[section], lang) : '';
+}
+
+/**
+ * «Тора с Бааль ґа-Турим» of the week: day by day the two comments — the verse, the title and what it teaches in a sentence.
+ */
+function TurimWeek({ sunday, lang }: { sunday: string; lang: Lang }) {
+  const { t } = useI18n();
+  const tw = turimWeek(sunday, lang);
+  if (!tw) return null;
+  const book = TORAH_BOOK[lang];
+  return (
+    <section className="wd-sec wd-turim">
+      <SectionHead icon="✡" title={t('turim.h1')} sub={t('digest.turimSub', { parsha: PARSHIOT[tw.parsha].name[lang] ?? PARSHIOT[tw.parsha].name.ru })} he="בעל הטורים" />
+      <ol className="wd-days">
+        {tw.days.map((d) => (
+          <Day key={d.n} date={d.date} href={`#/${tw.lesson.slug}/day/${d.n}`} title={`${book} ${d.notes.map((x) => x.ref).join(', ')}`}>
+            {d.notes.map((x, i) => (
+              <p key={i} className="wd-retell">
+                <b>{x.title}.</b> {x.lesson}
+              </p>
+            ))}
+          </Day>
+        ))}
+      </ol>
+    </section>
+  );
 }
 
 /**
@@ -136,18 +164,18 @@ export function WeekDigest({ week }: { week?: string }) {
   useEffect(() => {
     if (!known) return;
     let live = true;
-    Promise.all(weekDays(sunday, today).map((d) => loadDay(d.date))).then((all) => live && setDays(all.filter((d): d is DayContent => !!d)));
+    Promise.all(weekDays(sunday, weekEnd(sunday)).map((d) => loadDay(d.date))).then((all) => live && setDays(all.filter((d): d is DayContent => !!d)));
     return () => {
       live = false;
     };
-  }, [sunday, today, known]);
+  }, [sunday, known]);
 
   if (!known) return <NotFound />;
   if (!days) return <PageLoading />;
 
   const shabbat = addDays(sunday, 6);
   const parsha = (Object.keys(PARSHIOT) as ParshaId[]).find((id) => PARSHIOT[id].shabbat === shabbat);
-  const passages = weekPassages(sunday, today);
+  const passages = weekPassages(sunday, weekEnd(sunday));
   const hl = hsLang(locale);
   const nigun = weekNigun(sunday);
   const friday = addDays(sunday, 5);
@@ -198,6 +226,7 @@ export function WeekDigest({ week }: { week?: string }) {
 
         {!days.length && !passages.length && <p className="wd-empty">{t('digest.empty')}</p>}
         {days.length > 0 && SECTIONS.map((s) => <TanakhWeek key={s} section={s} days={days} lang={lang} />)}
+        <TurimWeek sunday={sunday} lang={lang} />
 
         {last && (
           <section className="wd-sec wd-hemshech">
@@ -209,7 +238,8 @@ export function WeekDigest({ week }: { week?: string }) {
                 </Day>
               ))}
             </ol>
-            <figure className="wd-verse">
+            {/* on screen only: on paper the sheet keeps to two pages */}
+            <figure className="wd-verse no-print">
               <p className="wd-tr">«{quoteSentence(last.p[hl])}»</p>
               <cite className="wd-ref">{last.p.title[hl]}</cite>
             </figure>

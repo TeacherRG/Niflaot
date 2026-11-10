@@ -11,7 +11,7 @@ import { CYCLE, type DayContent } from '../src/core/tanakh';
 import { allPassages } from '../src/core/hemshech';
 import { NIGUNIM } from '../src/nigun';
 import { styleErrors } from './style-rules';
-import { RETELL, digestWeek, digestWeeks, firstLines, firstSentence, quoteSentence, quoteVerse, weekDays, weekNigun } from '../src/core/weekDigest';
+import { RETELL, turimWeek, weekEnd, digestWeek, digestWeeks, firstLines, firstSentence, quoteSentence, quoteVerse, weekDays, weekNigun } from '../src/core/weekDigest';
 
 const errors: string[] = [];
 let poor = 0;
@@ -53,6 +53,22 @@ if (digestWeek('2026-10-25') !== '2026-10-18' || digestWeek('2026-10-26') !== '2
   errors.push('digestWeek: wrong week');
 if (digestWeeks('2026-10-26').join() !== '2026-10-25,2026-10-18,2026-10-11') errors.push(`digestWeeks: ${digestWeeks('2026-10-26').join()}`);
 if (weekDays('2026-10-25', '2026-10-27').map((d) => d.date).join() !== '2026-10-25,2026-10-26,2026-10-27') errors.push('weekDays: only the days up to today');
+if (weekEnd('2026-11-08') !== '2026-11-13') errors.push('weekEnd: the digest tells the week up to Friday');
+// «Тора с Бааль ґа-Турим» of the week: every week of a portion read day by day — six days, two comments, a title and a lesson in every language
+{
+  const { turimDays } = await import('../src/core/turimDaily');
+  const sundays = [...new Set(turimDays().map((d) => d.date).filter((d) => new Date(`${d}T12:00:00Z`).getUTCDay() === 0))];
+  if (!sundays.length) errors.push('turimWeek: no weeks');
+  for (const w of sundays)
+    for (const lang of ['ru', 'en', 'de'] as const) {
+      const tw = turimWeek(w, lang);
+      if (!tw || tw.days.length !== 6) errors.push(`turimWeek ${w} ${lang}: not six days`);
+      else
+        for (const d of tw.days)
+          if (d.notes.length !== 2 || d.notes.some((x) => !x.title || !x.lesson || /[<>]/.test(x.lesson)))
+            errors.push(`turimWeek ${w} ${lang} day ${d.n}: ${JSON.stringify(d.notes)}`);
+    }
+}
 
 if (errors.length) {
   console.error(errors.join('\n'));
