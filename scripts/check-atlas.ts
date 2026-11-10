@@ -15,6 +15,7 @@ import cycleJson from '../src/tanakh/cycle.json';
 import retell from '../src/tanakh/retell.json';
 import { styleErrors } from './style-rules';
 import type { AtlasDay, AtlasMap, AtlasTexts, Timeline } from '../src/core/atlas';
+import { atlasMatch } from '../src/core/atlas';
 import booksJson from '../src/tanakh/books.json';
 
 interface Entity {
@@ -178,6 +179,18 @@ for (const date of cycle) {
 }
 for (const [id, date] of need)
   err(`нет справки ${id} (${date}) на ${LANGS.filter((l) => !texts[l][id]?.d).join(', ')} — python3 scripts/fetch-atlas.py todo ru ${until}`);
+
+// поиск в справочнике (#/atlas): иврит без огласовок и в полном / кратком написании, имя на другом языке, без гласных
+for (const [q, names, he, ok] of [
+  ['יריחו', ['Йерихо'], 'יְרִיחוֹ', true],
+  ['ירחו', ['Йерихо'], 'יְרִיחוֹ', true],
+  ['ירושלים', ['Йерушалаим'], 'יְרוּשָׁלַ͏ִם', true],
+  ['Иегошуа', ['Йеґошуа'], 'יְהוֹשֻׁעַ', true],
+  ['Jericho', ['Йерихо', 'Jericho'], 'יְרִיחוֹ', true],
+  ['грар', ['Герар'], 'גְּרָר', true],
+  ['грар', ['Гилгаль'], 'גִּלְגָּל', false],
+] as const)
+  if ((atlasMatch(q, [...names], he, '') >= 0) !== ok) err(`поиск в справочнике: «${q}» ${ok ? 'не находит' : 'находит'} ${names[0]}`);
 
 // предупреждение: справок меньше чем на неделю вперёд (по циклу, начиная с сегодняшнего дня)
 const today = new Date().toISOString().slice(0, 10);

@@ -3004,6 +3004,8 @@ a.wd-sing{font-weight:800;text-decoration:none}
 .at-search input{width:100%;box-sizing:border-box;padding:11px 14px;font-size:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink)}
 .at-abc{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0}
 .at-abc a{min-width:30px;padding:5px 0;text-align:center;border-radius:8px;background:var(--surface);border:1px solid var(--line);font-weight:600;color:var(--tchelet);text-decoration:none}
+.at-more{margin:4px 0 14px;font-size:15px;color:var(--ink-2)}
+.at-more a{font-weight:600}
 .at-count{font-size:13px;color:var(--muted);margin:8px 0}
 .at-letter{margin:18px 0 6px;font-family:var(--f-display);font-size:24px;color:var(--gold-deep);border-bottom:1px solid var(--line)}
 .at-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}

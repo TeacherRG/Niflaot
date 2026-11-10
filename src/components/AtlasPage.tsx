@@ -7,7 +7,7 @@ import { AtlasMap } from './AtlasMap';
 import {
   atlasName,
   bce,
-  fold,
+  atlasMatch,
   loadAtlasAll,
   loadAtlasTexts,
   loadTimeline,
@@ -100,13 +100,28 @@ function Index({ data, lang }: { data: { all: AtlasAll; tx: AtlasTexts }; lang: 
       .map(([i, e]) => ({ id: i, e, name: atlasName(i, e, tx, lang), d: tx[i].d! }))
       .sort((a, b) => coll.compare(a.name, b.name));
   }, [all, tx, lang, locale]);
-  const f = fold(q.trim());
-  const shown = items.filter(
-    (x) => (kind === 'all' || KIND_OF(x.e) === kind) && (!f || fold(x.name).includes(f) || fold(x.e.he).includes(f) || fold(x.d).includes(f)),
-  );
+  // имена на всех трёх языках: на русском сайте находится и «Gerar», на английском — «Герар»
+  const [others, setOthers] = useState<AtlasTexts[]>([]);
+  useEffect(() => {
+    let live = true;
+    Promise.all((['ru', 'en', 'de'] as AtlasLang[]).filter((l) => l !== lang).map(loadAtlasTexts)).then((x) => live && setOthers(x));
+    return () => {
+      live = false;
+    };
+  }, [lang]);
+  const f = q.trim();
+  const shown = useMemo(() => {
+    const ranked = items
+      .filter((x) => kind === 'all' || KIND_OF(x.e) === kind)
+      .map((x) => ({ x, r: atlasMatch(f, [x.name, ...others.map((o) => o[x.id]?.n ?? '')], x.e.he, x.d) }))
+      .filter((y) => y.r >= 0);
+    // с запросом — сначала лучшие совпадения (по алфавиту внутри), без запроса — весь список по алфавиту
+    if (f) ranked.sort((a, b) => a.r - b.r);
+    return ranked.map((y) => y.x);
+  }, [items, others, kind, f]);
   const groups = new Map<string, typeof shown>();
   for (const x of shown) {
-    const L = x.name.charAt(0).toUpperCase();
+    const L = f ? '' : x.name.charAt(0).toUpperCase();
     groups.set(L, [...(groups.get(L) ?? []), x]);
   }
   return (
@@ -121,7 +136,7 @@ function Index({ data, lang }: { data: { all: AtlasAll; tx: AtlasTexts }; lang: 
         <p className="ws-lead">{t('atlas.indexLead')}</p>
       </header>
       <div className="at-search">
-        <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t('atlas.search')} aria-label={t('atlas.search')} />
+        <input type="search" dir="auto" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t('atlas.search')} aria-label={t('atlas.search')} />
       </div>
       <div className="bm-filter" role="group" aria-label={t('atlas.menu')}>
         {(['all', 'people', 'peoples', 'places'] as Kind[]).map((k) => (
@@ -140,9 +155,15 @@ function Index({ data, lang }: { data: { all: AtlasAll; tx: AtlasTexts }; lang: 
         </nav>
       )}
       <p className="at-count">{shown.length ? t('atlas.count', { n: shown.length }) : t('atlas.none')}</p>
+      {f && (
+        <p className="at-more">
+          {!shown.length && <>{t('atlas.growing')} </>}
+          <a href={`#/search?q=${encodeURIComponent(f)}`}>{t('atlas.searchText', { q: f })} →</a>
+        </p>
+      )}
       {[...groups].map(([L, xs]) => (
         <section key={L} className="at-group" id={`at-${L}`}>
-          <h2 className="at-letter">{L}</h2>
+          {L && <h2 className="at-letter">{L}</h2>}
           <ul className="at-list">
             {xs.map((x) => (
               <li key={x.id}>

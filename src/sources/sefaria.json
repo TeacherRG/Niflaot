@@ -15638,6 +15638,822 @@
    }
   }
  },
+ "gen-26-2": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 26:2–3",
+   "en": "Genesis 26:2–3",
+   "de": "Bereschit 26,2–3"
+  },
+  "ref": "Genesis 26:2-3",
+  "url": "https://www.sefaria.org/Genesis_26.2-3",
+  "he": [
+   "וירא אליו ה׳ ויאמר אל תרד מצרימה שכן בארץ אשר אמר אליך",
+   "גור בארץ הזאת ואהיה עמך ואברכך כי לך ולזרעך אתן את כל הארצת האל והקמתי את השבעה אשר נשבעתי לאברהם אביך"
+  ],
+  "en": [
+   "And the L-rd appeared unto him, and said: ‘Go not down unto Egypt; dwell in the land which I shall tell thee of.",
+   "Sojourn in this land, and I will be with thee, and will bless thee; for unto thee, and unto thy seed, I will give all these lands, and I will establish the oath which I swore unto Abraham thy father;"
+  ],
+  "ru": [
+   "И явился ему Г-сподь, и сказал: не спускайся в Египет, живи в земле, о которой я тебе скажу.",
+   "Поселись в этой земле, и я буду с тобой и благословлю тебя, ибо тебе и твоему потомству отдам я все эти земли и исполню клятву, что дал я Аврааму, отцу твоему."
+  ],
+  "de": [
+   "Da erschien ihm <i>G-tt</i> und — sprach: Gehe nicht nach Mizrajim hinab, wohne in dem Lande, das ich dir sagen werde.",
+   "Halte dich in diesem Lande auf, so werde ich mit dir sein und dich segnen; denn dir und deinem Samen gebe ich alle diese Länder und halte den Schwur aufrecht, den ich deinem Vater Abraham geschworen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-26-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 26:2",
+   "en": "Rashi, Genesis 26:2",
+   "de": "Raschi, Bereschit 26,2"
+  },
+  "ref": "Rashi on Genesis 26:2:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_26.2.1",
+  "he": [
+   "<b>אל תרד מצרימה.</b> שֶׁהָיָה דַּעְתּוֹ לָרֶדֶת מִצְרַיְמָה, כְּמוֹ שֶׁיָּרַד אָבִיו בִּימֵי הָרָעָב; אָמַר לוֹ: אַל תֵּרֵד מִצְרָיְמָה, שֶׁאַתָּה עוֹלָה תְמִימָה, וְאֵין חוּצָה לָאָרֶץ כְּדַאי לְךָ:"
+  ],
+  "en": [
+   "אל תרד מצרימה GO NOT DOWN INTO EGYPT — Because he thought of going down to Egypt as his father had gone down in time of famine. He said to him, “Do not go down to Egypt for you are a burnt-offering without blemish and residence outside the Holy Land is not befitting you” (Genesis Rabbah 64:3)."
+  ],
+  "de": [
+   "<b>Ziehe nicht nach Mizraim hinab;</b> denn seine Absicht war, nach Mizraim hinabzuziehen, wie sein Vater in den Tagen der Hungersnot dorthin hinabgegangen war; da sprach Er zu ihm, ziehe nicht nach Mizraim hinab; denn du bist ein fehlerloses Ganzopfer, und das Ausland ist nicht passend für dich (Bereschit Rabbah 64:3)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "bereshit-rabbah-64-3": {
+  "kind": {
+   "ru": "Мидраш",
+   "en": "Midrash",
+   "de": "Midrasch"
+  },
+  "title": {
+   "ru": "Берешит Раба 64:3",
+   "en": "Bereshit Rabbah 64:3",
+   "de": "Bereschit Rabba 64,3"
+  },
+  "ref": "Bereshit Rabbah 64:3",
+  "url": "https://www.sefaria.org/Bereshit_Rabbah_64.3",
+  "he": [
+   "וַיֵּלֶךְ יִצְחָק אֶל אֲבִימֶלֶךְ גְּרָרָה (בראשית כו, א), לְגַרְדִּיקִי. רַבִּי דּוֹסְתָּאי בְּשֵׁם רַבִּי שְׁמוּאֵל בַּר נַחְמָן מִפְּנֵי מָה גָזְרוּ עַל הַנָּוֶה שֶׁבְּגַרְדִּיקִי, מִפְּנֵי שֶׁהוּא נָוֶה רָע. וְעַד הֵיכָן, רַבִּי חָנִין אָמַר עַד נַחַל מִצְרָיִם. (בראשית כו, ב): וַיֵּרָא אֵלָיו ה' וַיֹּאמֶר אַל תֵּרֵד מִצְרָיְמָה שְׁכֹן בָּאָרֶץ, עֲשֵׂה שְׁכוּנָה בְּאֶרֶץ יִשְׂרָאֵל, הֱוֵי נוֹטֵעַ, הֱוֵי זוֹרֵעַ, הֱוֵי נָצִיב. דָּבָר אַחֵר שְׁכֹן בָּאָרֶץ, שַׁכֵּן אֶת הַשְּׁכִינָה בָּאָרֶץ. (בראשית כו, ג): גּוּר בָּאָרֶץ הַזֹּאת, אָמַר רַבִּי הוֹשַׁעְיָה אַתְּ עוֹלָה תְּמִימָה, מָה עוֹלָה אִם יָצָאת חוּץ לַקְּלָעִים הִיא נִפְסֶלֶת, אַף אַתְּ אִם יָצָאת חוּץ לָאָרֶץ נִפְסַלְתָּ. (בראשית כו, ג): כִּי לְךָ וּלְזַרְעֲךָ אֶתֵּן אֶת כָּל הָאֲרָצֹת הָאֵל, קָשׁוֹת, כְּמָה דְאַתְּ אָמַר (יחזקאל יז, יג): וְאֶת אֵילֵי הָאָרֶץ לָקָח. דָּבָר אַחֵר, לָמָּה לֹא נֶאֱמַר הָאֵלֶּה, אֶלָּא הָאֵל, לוֹמַר מִקְצָתָן אֲנִי נוֹתֵן לָךְ, וְאֵימָתַי אֲנִי נוֹתֵן לָךְ אֶת הַשְּׁאָר, לֶעָתִיד לָבוֹא."
+  ],
+  "en": [
+   "“Isaac went to Avimelekh [king of the Philistines], to Gerar” – to Gardiki. Rabbi Dostai in the name of Rabbi Shmuel bar Naḥman: Why did they [not] decree impurity on the abode in Gardiki? It is because it is a poor abode. Until where? It is until the ravine of Egypt. <b>“The L-rd appeared to him, and said: Do not go down to Egypt; dwell in the land that I will tell you” (Genesis 26:2).</b> “The L-rd appeared to him, and said: Do not go down to Egypt; dwell [<i>shekhon</i>] in the land” – establish permanent residence [<i>shekhuna</i>] in the Land of Israel; plant, sow, graft branches on trees. Alternatively, “<i>shekhon</i> in the land” – cause the Divine Presence [<i>haShekhina</i>] to rest in the land. <b>“Reside in this land, and I will be with you, and I will bless you, for I will give all these lands to you, and to your descendants, and I will keep the oath that I took to Abraham your father” (Genesis 26:3).</b> “Reside in this land” – Rabbi Hoshaya said: [G-d said:] ‘You are an unblemished burnt offering; just as a burnt offering, if it goes outside the curtains, it is disqualified, you, too, if you go out of the Land of Israel, you are disqualified.’ “To you, and to your descendants, I will give all these [<i>ha’el</i>] lands – the mighty; just as it says: “He took the mighty of [<i>eilei</i>] the land” (Ezekiel 17:13). Another matter, why does it not state <i>haeleh</i>, but rather, <i>ha’el</i>? It is to say: I will give you some of them. When will I give you the rest? It will be in the future."
+  ],
+  "de": [
+   "Und Jizchak ging zu Awimelech nach Gerar d.i. Gardiki. R. Dustai fragte im Namen des R. Schmuel bar Nachman: Warum haben die Alten das Wohnen in dieser Gebirgsgegend widerraten? Weil es eine ungesunde Gegend ist. Wieweit erstreckt sie sich? R. Chanina sagte: bis zum Strome Ägyptens. V. 2. Der Ewige erschien ihm und sprach zu ihm: Ziehe nicht nach Ägypten hinab, sondern wohne in diesem Lande Israel d.i. pflanze, säe und pfropfe. Oder: Wohne im Lande d.i. und lasse die Schechina in diesem Lande ruhen. V. 3. Wohne in diesem Lande. Nach R. Hosaja (sprach G-tt zu ihm:) Du bist ein fehlerfreies Opfer geworden, sowie nun ein Opfer, wenn es über die Vorhänge hinauskommt, unbrauchbar wird, so würdest auch du, wenn du aus dem Lande zögest, unbrauchbar werden. Denn dir und deinem Samen will ich alle diese Länder geben d.i. diese harten (verhängnisvollen) Länder s. Ezech. 17:13. Warum heißt es nicht האלה, sondern nur האל? Um anzudeuten: ich gebe dir (jetzt) nur einen Teil, das Übrige gebe ich in der Zukunft."
+  ],
+  "versions": {
+   "he": {
+    "title": "merged",
+    "license": null,
+    "source": "https://www.sefaria.org/Bereshit_Rabbah"
+   },
+   "en": {
+    "title": "The Sefaria Midrash Rabbah, 2022",
+    "license": "CC-BY",
+    "source": "https://www.sefaria.org/texts"
+   },
+   "de": {
+    "title": "Der Midrasch Bereschit Rabba. Zum ersten Male ins Deutsche übertragen von Dr. August Wünsche. Leipzig 1881 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH990021066140205171/NLI"
+   }
+  }
+ },
+ "gen-22-13": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 22:13",
+   "en": "Genesis 22:13",
+   "de": "Bereschit 22,13"
+  },
+  "ref": "Genesis 22:13",
+  "url": "https://www.sefaria.org/Genesis_22.13",
+  "he": [
+   "וישא אברהם את עיניו וירא והנה איל אחר נאחז בסבך בקרניו וילך אברהם ויקח את האיל ויעלהו לעלה תחת בנו"
+  ],
+  "en": [
+   "And Abraham lifted up his eyes, and looked, and behold behind him a ram caught in the thicket by his horns. And Abraham went and took the ram, and offered him up for a burnt-offering in the stead of his son."
+  ],
+  "ru": [
+   "И поднял Авраам глаза, и увидел: вот овен запутался в чаще рогами; и пошел Авраам, и взял овна, и принес его в жертву всесожжения вместо своего сына."
+  ],
+  "de": [
+   "Da hub Abraham seine Augen auf und sah, da war ein Widder; darauf wurde er durch das Gehege an seinen Hörnern festgehalten. Da ging Abraham und nahm den Widder und brachte ihn zum Opfer an seines Sohnes Stelle."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-22-13": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 22:13",
+   "en": "Rashi, Genesis 22:13",
+   "de": "Raschi, Bereschit 22,13"
+  },
+  "ref": "Rashi on Genesis 22:13:5",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_22.13.5",
+  "he": [
+   "<b>תחת בנו.</b> מֵאַחַר שֶׁכָּתוּב וַיַּעֲלֵהוּ לְעֹלָה, לֹא חָסֵר הַמִּקְרָא כְּלוּם, מַהוּ תַּחַת בְּנוֹ? עַל כָּל עֲבוֹדָה שֶׁעָשָׂה מִמֶּנּוּ הָיָה מִתְפַּלֵּל וְאוֹמֵר יְהִי רָצוֹן שֶׁתְּהֵא זוֹ כְּאִלּוּ הִיא עֲשׂוּיָה בִּבְנִי, כְּאִלּוּ בְּנִי שָׁחוּט, כְּאִלּוּ דָּמוֹ זָרוּק, כְּאִלּוּ הוּא מֻפְשָׁט, כְּאִלּוּ הוּא נִקְטָר וְנַעֲשֶׂה דֶּשֶׁן:"
+  ],
+  "en": [
+   "תחת בנו IN THE STEAD OF HIS SON — Since it is written, “He offered it up for a burnt offering”, surely nothing is missing in the text; what then is the force of “in the stead of his son”? At every sacrificial act he performed on it he prayed saying, “May it be Thy will that this act may be regarded as having been done to my son — as though my son is being slain; as though his blood is being sprinkled; as though his skin were being flayed; as though he is being burnt and is being reduced to ashes” (Genesis Rabbah 56:9)."
+  ],
+  "de": [
+   "<b>An Stelle seines Sohnes;</b> nachdem es bereits heißt, »er brachte ihn zum Ganzopfer dar«, fehlt nichts mehr im Verse; was bedeutet also noch, »an Stelle seines Sohnes«? Nur, bei jeder Dienstverrichtung, die er mit ihm vollzog, betete und sagte er, möge es Dein Wille sein, dass dies so angerechnet werde, als wäre es an meinem Sohne vollzogen worden, als wäre mein Sohn geschlachtet, als wäre sein Blut gesprengt, (als wäre meinem Sohn die Haut abgezogen worden,) als wäre er verbrannt worden und Asche geworden (Bereschit Rabbah 56:9)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-lev-26-42": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Ваикра 26:42",
+   "en": "Rashi, Leviticus 26:42",
+   "de": "Raschi, Wajikra 26,42"
+  },
+  "ref": "Rashi on Leviticus 26:42:2",
+  "url": "https://www.sefaria.org/Rashi_on_Leviticus_26.42.2",
+  "he": [
+   "<b>וזכרתי את בריתי יעקוב.</b> לָמָּה נִמְנוּ אֲחוֹרַנִּית? כְּלוֹמַר, כְּדַאי הוּא יַעֲקֹב הַקָּטָן לְכָךְ, וְאִם אֵינוֹ כְדַאי, הֲרֵי יִצְחָק עִמּוֹ, וְאִם אֵינוֹ כְדַאי, הֲרֵי אַבְרָהָם עִמּוֹ שֶׁהוּא כְדַאי, וְלָמָּה לֹא נֶאֶמְרָה זְכִירָה בְיִצְחָק? אֶלָּא אֲפָרוֹ שֶׁל יִצְחָק נִרְאֶה לְפָנַי צָבוּר וּמֻנָּח עַל הַמִּזְבֵּחַ (ספרא):"
+  ],
+  "en": [
+   "‎ וזכרתי את בריתי יעקוב‎ THEN I WILL REMEMBER MY COVENANT WITH JACOB [AND ALSO MY COVENANT WITH ISAAC, AND ALSO MY COVENANT WITH ABRAHAM WILL I REMEMBER] — Why are they (the patriarchs) enumerated here in a reverse order (in contrast to e. g., Exodus 32:13, where it states: ‎'לאברהם ליצחק ולישראל וכו‎‎‎זכור ‏)? It is to say: Jacob the youngest among the patriarchs is worthy of this that, through his merits, his children should be redeemed; if he be not sufficiently worthy, behold, the merit of Isaac is with him; if that does not suffice, behold, then there is Abraham with him who is surely worthy enough! And why does Scripture not use the word “remember” in connection with Isaac’s name? Because this is unnecessary, for — says G-d, as it were — the ashes of Isaac (who according to My command to Abraham was to become a burnt offering) are ever visible before Me as though they were heaped up lying upon the altar (Sifra, Bechukotai, Chapter 8 6-7)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   }
+  }
+ },
+ "zevachim-62a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Зевахим 62а",
+   "en": "Zevachim 62a",
+   "de": "Sewachim 62a"
+  },
+  "ref": "Zevachim 62a:5",
+  "url": "https://www.sefaria.org/Zevachim_62a.5",
+  "he": [
+   "אמר רבי אלעזר ראו מזבח בנוי ומיכאל השר הגדול עומד ומקריב עליו ורבי יצחק נפחא אמר אפרו של יצחק ראו שמונח באותו מקום ורבי שמואל בר נחמני אמר מכל הבית כולו הריחו ריח קטרת משם הריחו ריח אברים"
+  ],
+  "en": [
+   "The Gemara answers that <b>Rabbi Elazar says: They saw</b> a vision of the <b>altar</b> already <b>built and Michael the archangel standing and sacrificing</b> offerings <b>upon it. And Rabbi Yitzḥak Nappaḥa says: They saw</b> a vision of <b>the ashes of Isaac</b> that were <b>placed in that location. And Rabbi Shmuel bar Naḥmani says: From the entire House they smelled the scent of incense,</b> yet <b>from there,</b> the location of the altar, <b>they smelled a scent of</b> burned animal <b>limbs.</b>"
+  ],
+  "de": [
+   "R. Elea͑zar erklärte: Sie sahen einen erbauten Altar und neben ihm den Erzfürsten Michaélstehen und Opfer darbringen. R. Jicḥaq der Schmied erklärte : Sie sahen an dieser Stelle die Asche Jiçḥaqsliegen. R. Šemuél b. Naḥmani erklärte: Im ganzen Hause rochen sie den Geruch des Räucherwerkes und an dieser Stelle rochen sie den Geruch der [verbrannten] Opferglieder."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "lev-6-3": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Ваикра 6:3–4",
+   "en": "Leviticus 6:3–4",
+   "de": "Wajikra 6,3–4"
+  },
+  "ref": "Leviticus 6:3-4",
+  "url": "https://www.sefaria.org/Leviticus_6.3-4",
+  "he": [
+   "ולבש הכהן מדו בד ומכנסי בד ילבש על בשרו והרים את הדשן אשר תאכל האש את העלה על המזבח ושמו אצל המזבח",
+   "ופשט את בגדיו ולבש בגדים אחרים והוציא את הדשן אל מחוץ למחנה אל מקום טהור"
+  ],
+  "en": [
+   "And the priest shall put on his linen garment, and his linen breeches shall he put upon his flesh; and he shall take up the ashes whereto the fire hath consumed the burnt-offering on the altar, and he shall put them beside the altar.",
+   "And he shall put off his garments, and put on other garments, and carry forth the ashes without the camp unto a clean place."
+  ],
+  "ru": [
+   "А священник пусть оденется в льняную (верхнюю) одежду и наденет на тело льняное нижнее платье. И снимет жирную золу, сгоревшую на огне всесожжения на жертвеннике, и положит рядом с жертвенником.",
+   "И снимет одежду, и наденет другую, и вынесет жирную золу за пределы стана в чистое место."
+  ],
+  "de": [
+   "Es zieht der Priester seine leinene Bekleidung an und leinene Beinkleider zieht er an auf seinen Leib und hebt die Asche, zu welcher das Feuer das Emporopfer auf dem Altar verzehrt, und legt sie zur Seite des Altars nieder.",
+   "Er zieht sodann seine Kleider aus und bekleidet sich mit anderen Kleidern und bringt die Asche außerhalb des Lagers hinaus an einen reinen Ort."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "unknown",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-lev-6-4": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Ваикра 6:4",
+   "en": "Rashi, Leviticus 6:4",
+   "de": "Raschi, Wajikra 6,4"
+  },
+  "ref": "Rashi on Leviticus 6:4:2",
+  "url": "https://www.sefaria.org/Rashi_on_Leviticus_6.4.2",
+  "he": [
+   "<b>והוציא את הדשן.</b> הַצָּבוּר בַּתַּפּוּחַ, כְּשֶׁהוּא הַרְבֵּה וְאֵין מָקוֹם לַמַּעֲרָכָה, מוֹצִיאוֹ מִשָּׁם; וְאֵין זֶה חוֹבָה לְכָל יוֹם, אֲבָל הַתְּרוּמָה חוֹבָה בְּכָל יוֹם (תמיד כ\"ח):"
+  ],
+  "en": [
+   "והוציא את הדשן AND HE SHALL BRING OUT THE ASHES that were heaped upon the ash-heap (not the ashes mentioned in v. 3). When it accumulated and there was no more room on the wood-pile (מערכה) he carried it out; this was not compulsory every day, whilst the תרומת הדשן (the taking out of the pan of ashes commanded in v. 3) was a daily duty (Yoma 20a)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   }
+  }
+ },
+ "ex-29-37": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Шмот 29:37",
+   "en": "Exodus 29:37",
+   "de": "Schemot 29,37"
+  },
+  "ref": "Exodus 29:37",
+  "url": "https://www.sefaria.org/Exodus_29.37",
+  "he": [
+   "שבעת ימים תכפר על המזבח וקדשת אתו והיה המזבח קדש קדשים כל הנגע במזבח יקדש"
+  ],
+  "en": [
+   "Seven days thou shalt make atonement for the altar, and sanctify it; thus shall the altar be most holy; whatsoever toucheth the altar shall be holy."
+  ],
+  "ru": [
+   "Семь дней очищай жертвенник и освящай его, и он станет святыней из святынь — каждый, кто коснется жертвенника, освятится."
+  ],
+  "de": [
+   "Sieben Tage vollziehst du Sühne auf dem Altar und heiligst ihn. Fortan ist der Altar ein Heiligtum der Heiligtümer, was einmal den Altar berührt, bleibt heilig."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-8-21": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 8:21",
+   "en": "Genesis 8:21",
+   "de": "Bereschit 8,21"
+  },
+  "ref": "Genesis 8:21",
+  "url": "https://www.sefaria.org/Genesis_8.21",
+  "he": [
+   "וירח ה׳ את ריח הניחח ויאמר ה׳ אל לבו לא אסף לקלל עוד את האדמה בעבור האדם כי יצר לב האדם רע מנעריו ולא אסף עוד להכות את כל חי כאשר עשיתי"
+  ],
+  "en": [
+   "And the L-rd smelled the sweet savour; and the L-rd said in His heart: ‘I will not again curse the ground any more for man’s sake; for the imagination of man’s heart is evil from his youth; neither will I again smite any more every thing living, as I have done."
+  ],
+  "ru": [
+   "И обонял Г-сподь благоухание, и сказал Г-сподь в сердце своем: не буду больше проклинать землю из-за человека, за то, что помыслы человека злы от юности его, и не буду больше уничтожать все живое, как я делал."
+  ],
+  "de": [
+   "Da nahm <i>G-tt</i> den Ausdruck der Willfahrung wahr, und es sprach da <i>G-tt</i> zu seinem Herzen: Ich will nicht der Menschenerde um des Menschen willen, wenn das Herzensgebilde des Menschen von seiner Jugend an schlecht ist, wieder Unsegen geben, und will nicht wieder alles Lebendige schlagen wie ich getan;"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "menachot-43b": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Менахот 43б",
+   "en": "Menachot 43b",
+   "de": "Menachot 43b"
+  },
+  "ref": "Menachot 43b:11",
+  "url": "https://www.sefaria.org/Menachot_43b.11",
+  "he": [
+   "ובשעה שנכנס דוד לבית המרחץ וראה עצמו עומד ערום אמר אוי לי שאעמוד ערום בלא מצוה וכיון שנזכר במילה שבבשרו נתיישבה דעתו לאחר שיצא אמר עליה שירה שנאמר למנצח על השמינית מזמור לדוד על מילה שניתנה בשמיני"
+  ],
+  "en": [
+   "<b>And when David entered the bathhouse and saw himself standing naked, he said: Woe to me that that I stand naked without</b> any <b>mitzva. But once he remembered the</b> mitzva of <b>circumcision that was in his flesh his mind was put at ease,</b> as he realized he was still accompanied by this mitzva. <b>After he left</b> the bathhouse, <b>he recited a song about</b> the mitzva of circumcision, <b>as it is stated</b> in the verse: <b>“For the leader, on the <i>Sheminith</i>: A Psalm of David”</b> (Psalms 12:1). This is interpreted as a psalm <b>about circumcision, which was given</b> to be performed <b>on the eighth [<i>bashemini</i>]</b> day of the baby’s life."
+  ],
+  "de": [
+   "Wenn David sich im Bade befand und sich nackt dastehen sah, sprach er: Wehe mir, daß ich nackt ohne Gebote dastehe! Als er sich aber der Beschneidung an seinem Fleische erinnerte, beruhigte er sich. Nachdem er herausgekommen war, sprach er darüber einen Lobgesang, denn es heißt:<i>Dem Musikmeister über das Achte, ein Psalm Davids</i>; über die Beschneidung, die für den achten [Tag] verliehen worden ist."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "avot-2-12": {
+  "kind": {
+   "ru": "Мишна",
+   "en": "Mishnah",
+   "de": "Mischna"
+  },
+  "title": {
+   "ru": "Пиркей авот 2:12",
+   "en": "Pirkei Avot 2:12",
+   "de": "Pirke Awot 2,12"
+  },
+  "ref": "Pirkei Avot 2:12",
+  "url": "https://www.sefaria.org/Pirkei_Avot_2.12",
+  "he": [
+   "רַבִּי יוֹסֵי אוֹמֵר, יְהִי מָמוֹן חֲבֵרְךָ חָבִיב עָלֶיךָ כְּשֶׁלָּךְ, וְהַתְקֵן עַצְמְךָ לִלְמֹד תּוֹרָה, שֶׁאֵינָהּ יְרֻשָּׁה לָךְ. וְכָל מַעֲשֶׂיךָ יִהְיוּ לְשֵׁם שָׁמָיִם:"
+  ],
+  "en": [
+   "R. Yossi says: Let your friend's wealth be as dear to you as yours. And prepare yourself to study Torah. [Do not say: Since my father is a sage and my grandfather is a sage, \"Torah returns to its inn\" and I need not pursue it], for it is not an inheritance to you. And let all of your deeds be for the sake of Heaven. [Even when you engage in eating, drinking, and marital relations, do not be motivated by bodily pleasure, but by a desire to be healthy to do the will of your Master.]"
+  ],
+  "de": [
+   "R. Jose spricht: Es sei das Vermögen deines Nächsten dir so teuer wie das deinige; rüste dich, die Tora zu lernen, denn sie ist dir keine Erbschaft, und alle deine Handlungen seien im Namen G-ttes."
+  ],
+  "versions": {
+   "he": {
+    "title": "Torat Emet 357",
+    "license": "Public Domain",
+    "source": "http://www.toratemetfreeware.com/index.html?downloads"
+   },
+   "en": {
+    "title": "The Mishna with Obadiah Bartenura by Rabbi Shraga Silverstein",
+    "license": "CC-BY",
+    "source": "http://www.sefaria.org/shraga-silverstein"
+   },
+   "de": {
+    "title": "Mischnajot mit deutscher Übersetzung und Erklärung. Berlin 1887-1933 [de]",
+    "license": "unknown",
+    "source": "https://www.talmud.de/tlmd/die-deutsche-mischna-uebersetzung"
+   }
+  }
+ },
+ "prov-3-6": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings",
+   "de": "Schriften"
+  },
+  "title": {
+   "ru": "Мишлей 3:6",
+   "en": "Proverbs 3:6",
+   "de": "Mischle 3,6"
+  },
+  "ref": "Proverbs 3:6",
+  "url": "https://www.sefaria.org/Proverbs_3.6",
+  "he": [
+   "בכל דרכיך דעהו והוא יישר ארחתיך"
+  ],
+  "en": [
+   "In all thy ways acknowledge Him, And He will direct thy paths."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "pdre-31": {
+  "kind": {
+   "ru": "Мидраш",
+   "en": "Midrash",
+   "de": "Midrasch"
+  },
+  "title": {
+   "ru": "Пиркей де-рабби Элиэзер, гл. 31",
+   "en": "Pirkei DeRabbi Eliezer 31",
+   "de": "Pirke de-Rabbi Elieser, Kap. 31"
+  },
+  "ref": "Pirkei DeRabbi Eliezer 31:10",
+  "url": "https://www.sefaria.org/Pirkei_DeRabbi_Eliezer_31.10",
+  "he": [
+   "רַבִּי יְהוּדָה אוֹמֵר: כֵּיוָן שֶׁהִגִּיעַ הַחֶרֶב עַל צַוָּארוֹ, פָּרְחָה וְיָצְאָה נַפְשׁוֹ שֶׁל יִצְחָק. וְכֵיוָן שֶׁהִשְׁמִיעַ קוֹלוֹ מִבֵּין הַכְּרוּבִים וְאָמַר לוֹ ״אַל תִּשְׁלַח יָדְךָ״, נַפְשׁוֹ חָזְרָה לְגוּפוֹ, וְקָם וְעָמַד יִצְחָק עַל רַגְלָיו. וְיָדַע יִצְחָק שֶׁכָּךְ הַמֵּתִים עֲתִידִים לְהֵחָיוֹת, וּפָתַח וְאָמַר: ״בָּרוּךְ אַתָּה ה' מְחַיֵּה הַמֵּתִים״."
+  ],
+  "en": [
+   "Rabbi Jehudah said: When the blade touched his neck, the soul of Isaac fled and departed, (but) when he heard His voice from between the two Cherubim, saying (to Abraham), \"Lay not thine hand upon the lad\" (Gen. 22:12), his soul returned to his body, and (Abraham) set him free, and Isaac stood upon his feet. And Isaac knew that in this manner the dead in the future will be quickened. He opened (his mouth), and said: Blessed art thou, O L-rd, who quickeneth the dead."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pirke DeRabbi Eliezer, Sefaria Vocalized Edition",
+    "license": "Public Domain",
+    "source": "http://sefaria.org.il"
+   },
+   "en": {
+    "title": "Pirke de Rabbi Eliezer, trans. Rabbi Gerald Friedlander, London, 1916",
+    "license": "Public Domain",
+    "source": "https://archive.org/stream/pirkderabbieli00frieuoft/pirkderabbieli00frieuoft_djvu.txt"
+   }
+  }
+ },
+ "pdre-33": {
+  "kind": {
+   "ru": "Мидраш",
+   "en": "Midrash",
+   "de": "Midrasch"
+  },
+  "title": {
+   "ru": "Пиркей де-рабби Элиэзер, гл. 33",
+   "en": "Pirkei DeRabbi Eliezer 33",
+   "de": "Pirke de-Rabbi Elieser, Kap. 33"
+  },
+  "ref": "Pirkei DeRabbi Eliezer 33:1",
+  "url": "https://www.sefaria.org/Pirkei_DeRabbi_Eliezer_33.1",
+  "he": [
+   "״וַיִּזְרַע יִצְחָק בָּאָרֶץ הַהִיא״, רַבִּי אֱלִיעֶזֶר אוֹמֵר: וְכִי זֶרַע דָּגָן זָרַע יִצְחָק? חַס וְשָׁלוֹם! אֶלָּא לָקַח כָּל מַעְשַׂר מָמוֹנוֹ וְזָרַע צְדָקָה לַעֲנִיִּים וְלָאֶבְיוֹנִים, כְּשֵׁם שֶׁאַתָּה אוֹמֵר: ״זִרְעוּ לָכֶם לִצְדָקָה, קִצְרוּ לְפִי חֶסֶד״. וְכָל דָּבָר וְדָבָר שֶׁעִשֵּׂר פָּתַח לוֹ הַקָּדוֹשׁ בָּרוּךְ הוּא מֵאָה שְׁעָרִים שֶׁל מִינֵי בְרָכוֹת, שֶׁנֶּאֱמַר: ״וַיִּמְצָא בַּשָּׁנָה הַהִיא מֵאָה שְׁעָרִים״."
+  ],
+  "en": [
+   "\"AND Isaac sowed in that land\" (Gen. 26 12). Rabbi Eliezer said: Did Isaac sow the seed of corn? Heaven forbid ! But he took all his wealth, and sowed it in charity to the needy, as it is said, \"Sow to yourselves in righteousness, reap according to love\" (Hos. 10:12). Everything which he tithed, the Holy One, blessed be He, sent him (in return) one hundred times (the value) in different kinds of blessings, as it is said, \"And he found in the same year an hundredfold: and the L-rd blessed him\" (Gen. 26:12)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pirke DeRabbi Eliezer, Sefaria Vocalized Edition",
+    "license": "Public Domain",
+    "source": "http://sefaria.org.il"
+   },
+   "en": {
+    "title": "Pirke de Rabbi Eliezer, trans. Rabbi Gerald Friedlander, London, 1916",
+    "license": "Public Domain",
+    "source": "https://archive.org/stream/pirkderabbieli00frieuoft/pirkderabbieli00frieuoft_djvu.txt"
+   }
+  }
+ },
+ "gen-26-12": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 26:12",
+   "en": "Genesis 26:12",
+   "de": "Bereschit 26,12"
+  },
+  "ref": "Genesis 26:12",
+  "url": "https://www.sefaria.org/Genesis_26.12",
+  "he": [
+   "ויזרע יצחק בארץ ההוא וימצא בשנה ההוא מאה שערים ויברכהו ה׳"
+  ],
+  "en": [
+   "And Isaac sowed in that land, and found in the same year a hundred-fold; and the L-rd blessed him."
+  ],
+  "ru": [
+   "И сеял Йицхак на той земле, и собрал в том году стократно, и благословил его Г-сподь."
+  ],
+  "de": [
+   "Da säte Jizchak in diesem Lande und erreichte in diesem Jahre hundert Märkte; da segnete ihn <i>G-tt</i>."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "hosea-10-12": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Ґошеа 10:12",
+   "en": "Hosea 10:12",
+   "de": "Hoschea 10,12"
+  },
+  "ref": "Hosea 10:12",
+  "url": "https://www.sefaria.org/Hosea_10.12",
+  "he": [
+   "זרעו לכם לצדקה קצרו לפי חסד נירו לכם ניר ועת לדרוש את ה׳ עד יבוא וירה צדק לכם"
+  ],
+  "en": [
+   "Sow to yourselves according to righteousness, Reap according to mercy, Break up your fallow ground; For it is time to seek the L-rd, Till He come and cause righteousness to rain upon you."
+  ],
+  "de": [
+   "Säet für Gerechtigkeit, erntet für Liebe, brachet euch die Brache, dann ist es Zeit, den Ewigen zu suchen, bis er komme und euch gewähre den Frühregen der Gnade."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die vier und zwanzig Bücher der Heiligen Schrift. Unter der Redaction von Dr. Zunz übersetzt von H. Arnheim, Dr. Julius Fürst, Dr. M. Sachs. Berlin 1838 [de]",
+    "license": "Public Domain",
+    "source": "https://www.opendata.uni-halle.de/handle/1981185920/89948?locale=de"
+   }
+  }
+ },
+ "berakhot-26b": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Брахот 26б",
+   "en": "Berakhot 26b",
+   "de": "Berachot 26b"
+  },
+  "ref": "Berakhot 26b:4",
+  "url": "https://www.sefaria.org/Berakhot_26b.4",
+  "he": [
+   "איתמר רבי יוסי ברבי חנינא אמר תפלות אבות תקנום רבי יהושע בן לוי אמר תפלות כנגד תמידין תקנום"
+  ],
+  "en": [
+   "The dispute between the Rabbis and Rabbi Yehuda with regard to the times beyond which the different prayers may not be recited is rooted in a profound disagreement, also manifest in a later amoraic dispute. <b>It was stated: Rabbi Yosei, son of Rabbi Ḥanina, said:</b> The practice of praying three times daily is ancient, albeit not in its present form; <b>prayers were instituted by the Patriarchs.</b> However, <b>Rabbi Yehoshua ben Levi said</b> that the <b>prayers were instituted based on the daily offerings</b> sacrificed in the Holy Temple, and the prayers parallel the offerings, in terms of both time and characteristics."
+  ],
+  "de": [
+   "Es wurde gelehrt: R. Jose b. R. Ḥanina sagte: Die Gebete haben die Erzväter angeordnet; R. Jehošua͑ b. Levi sagt, die Gebete habe man den täglichen Opfern entsprechend angeordnet."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://www.korenpub.com/koren_en_usd/koren/talmud/koren-talmud-bavli-no/mskt-brkvt.html"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "rambam-kings-9-1": {
+  "kind": {
+   "ru": "Ґалаха",
+   "en": "Halachah",
+   "de": "Halacha"
+  },
+  "title": {
+   "ru": "Рамбам, Законы царей 9:1",
+   "en": "Rambam, Laws of Kings 9:1",
+   "de": "Rambam, Gesetze der Könige 9,1"
+  },
+  "ref": "Mishneh Torah, Kings and Wars 9:1",
+  "url": "https://www.sefaria.org/Mishneh_Torah,_Kings_and_Wars_9.1",
+  "he": [
+   "עַל שִׁשָּׁה דְּבָרִים נִצְטַוָּה אָדָם הָרִאשׁוֹן. עַל עֲבוֹדָה זָרָה. וְעַל בִּרְכַּת הַשֵּׁם. וְעַל שְׁפִיכוּת דָּמִים. וְעַל גִּלּוּי עֲרָיוֹת. וְעַל הַגֵּזֶל. וְעַל הַדִּינִים. אַף עַל פִּי שֶׁכֻּלָּן הֵן קַבָּלָה בְּיָדֵינוּ מִמּשֶׁה רַבֵּנוּ. וְהַדַּעַת נוֹטָה לָהֶן. מִכְּלַל דִּבְרֵי תּוֹרָה יֵרָאֶה שֶׁעַל אֵלּוּ נִצְטַוָּה. הוֹסִיף לְנֹחַ אֵבֶר מִן הַחַי שֶׁנֶּאֱמַר (בראשית ט, ד) \"אַךְ בָּשָׂר בְּנַפְשׁוֹ דָמוֹ לֹא תֹאכֵלוּ\". נִמְצְאוּ שֶׁבַע מִצְוֹת. וְכֵן הָיָה הַדָּבָר בְּכָל הָעוֹלָם עַד אַבְרָהָם. בָּא אַבְרָהָם וְנִצְטַוָּה יֶתֶר עַל אֵלּוּ בְּמִילָה. וְהוּא הִתְפַּלֵּל שַׁחֲרִית. וְיִּצְחָק הִפְרִישׁ מַעֲשֵׂר וְהוֹסִיף תְּפִלָּה אַחֶרֶת לִפְנוֹת הַיּוֹם. וְיַעֲקֹב הוֹסִיף גִּיד הַנָּשֶׁה וְהִתְפַּלֵּל עַרְבִית. וּבְמִצְרַיִם נִצְטַוָּה עַמְרָם בְּמִצְוֹת יְתֵרוֹת. עַד שֶׁבָּא משֶׁה רַבֵּנוּ וְנִשְׁלְמָה תּוֹרָה עַל יָדוֹ:"
+  ],
+  "en": [
+   "Six precepts were commanded to Adam: a) the prohibition against worship of false gods; b) the prohibition against cursing G-d; c) the prohibition against murder; d) the prohibition against incest and adultery; e) the prohibition against theft; f) the command to establish laws and courts of justice. Even though we have received all of these commands from Moses and, furthermore, they are concepts which intellect itself tends to accept, it appears from the Torah's words that Adam was commanded concerning them. The prohibition against eating flesh from a living animal was added for Noah, as Genesis 9:4 states: 'Nevertheless, you may not eat flesh with its life, which is its blood.' Thus there are seven mitzvot. These matters remained the same throughout the world until Abraham. When Abraham arose, in addition to these, he was commanded regarding circumcision. He also ordained the morning prayers. Isaac separated tithes and ordained an additional prayer service before sunset. Jacob added the prohibition against eating the sciatic nerve. He also ordained the evening prayers. In Egypt, Amram was commanded regarding other mitzvot. Ultimately, Moses came and the Torah was completed by him."
+  ],
+  "de": [
+   "<b>Die sieben noachidischen Gebote</b> Sechs Gesetze wurden Adam mitgeteilt: a) Das Verbot des Götzendienstes, b) das Verbot G-tt zu lästern, c) das Verbot Blut zu vergießen, d) das Verbot der Blutschande (Inzest) e) das Verbot des Raubes, f) das Gebot der Gerichtsbarkeit. Obgleich nun alle diese Gegenstände uns durch unseren Lehrer Moses überkommen, und auch mit unserer Vernunft übereinstimmend sind, so ist dennoch aus den allgemeinen Ausdrücken der Tora zu ersehen, dass bereits dem Adam diese Gesetze mitgeteilt waren; denn Noach wurde noch das Verbot, Glieder von lebendigen Tieren zum Essen wegzuschneiden, hinzugesetzt, denn es heißt (Gen. 9:4): »Aber Fleisch in dessen Blute noch Leben ist, sollt ihr nicht essen«, folglich sind es zusammen sieben Gebote. So verhielten sich die Sachen in gesetzlicher Beziehung in der ganzen Welt bis zu Abraham; diesen wurde noch außerdem das Gebot über die Beschneidung erlassen, auch führte er das Morgengebet ein; Isaak nun führte den Zehnten und noch ein zweites Gebet gegen Abend ein; Jakob setzte noch das Verbot des Genusses der Hüftadern hinzu und führte das Abendgebet ein; in Ägypten erhielt Amram noch verschiedene andere Gebote, bis endlich unser Lehrer Moses kam, durch den die Tora vollkommen gegeben wurde."
+  ],
+  "versions": {
+   "he": {
+    "title": "Torat Emet 363",
+    "license": "Public Domain",
+    "source": "http://www.toratemetfreeware.com/index.html?downloads"
+   },
+   "en": {
+    "title": "Mishneh Torah, trans. by Eliyahu Touger. Jerusalem, Moznaim Pub. c1986-c2007",
+    "license": "CC-BY-NC",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001020101/NLI"
+   },
+   "de": {
+    "title": "Jad Haghasakkah, trans. by L. Mandelstamm. St. Petersburg, 1851. Corrected and edited by Igor Itkin - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/mischne-tora/"
+   }
+  }
+ },
  "torah-26-20-22": {
   "kind": {
    "ru": "Тора",

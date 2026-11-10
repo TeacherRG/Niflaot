@@ -173,11 +173,38 @@ export const loadTimeline = () => (timeline ??= import('../tanakh/atlas/timeline
 /** «2488» → «≈ 1273 до н. э.» (традиционный счёт: год от сотворения − 3760) */
 export const bce = (y: number) => 3761 - y;
 
-/** Для поиска: строчные, без огласовок и знаков, ё → е, ґ → г */
+/** Для поиска: строчные, без огласовок и знаков, ё → е, ґ → г, конечные буквы иврита — как обычные */
 export const fold = (s: string) =>
   s
     .toLowerCase()
-    .replace(/[֑-ׇ]/g, '')
+    .replace(/[\u0591-\u05c7]/g, (c) => (c === '\u05be' ? ' ' : ''))
+    .replace(/[ךםןףץ]/g, (c) => 'כמנפצ'['ךםןףץ'.indexOf(c)])
     .replace(/ё/g, 'е')
     .replace(/ґ/g, 'г')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
     .replace(/[״׳"'’«»()]/g, '');
+
+/** иврит: без ו / י не в начале слова — полное и краткое написание совпадают (ירושלים = ירושלם, יהושוע = יהושע) */
+const plene = (s: string) => s.replace(/(?<=[\u05d0-\u05ea])[וי]/g, '');
+/** согласные остова имени: «грар» = «Герар», «Иегошуа» = «Йеґошуа», «Jehoschua» ≈ «Yehoshua» не обещаем */
+const skeleton = (s: string) => s.replace(/[^\p{L}]/gu, '').replace(/[аеиоуыэюяйьъaeiouyäöü]/g, '');
+
+/**
+ * Насколько запись подходит к запросу: 0 — имя (на любом языке сайта) или иврит начинается с запроса, 1 — содержит его,
+ * 2 — иврит без ו / י, 3 — слово из справки, 4 — совпали согласные имени (запрос без гласных или с другими: «грар» — Герар);
+ * -1 — не подходит.
+ */
+export function atlasMatch(query: string, names: string[], he: string, text: string): number {
+  const f = fold(query.trim()).replace(/\s+/g, ' ');
+  if (!f) return 0;
+  const ns = names.map(fold);
+  const h = fold(he);
+  if (ns.some((n) => n.startsWith(f)) || h.startsWith(f)) return 0;
+  if (ns.some((n) => n.includes(f)) || h.includes(f)) return 1;
+  if (/[\u05d0-\u05ea]/.test(f) && plene(h).includes(plene(f))) return 2;
+  if (fold(text).includes(f)) return 3;
+  const k = skeleton(f);
+  if (f.length >= 3 && k.length >= 2 && ns.some((n) => skeleton(n).includes(k))) return 4;
+  return -1;
+}
