@@ -3502,3 +3502,33 @@ button.dedication:hover .ded-name{text-decoration:underline;text-decoration-colo
 .sc-own-save{justify-self:start}
 .sc-own-save:disabled{opacity:.45;cursor:not-allowed}
 .sc-pick-foot{display:flex;flex-wrap:wrap;gap:6px 16px}
+
+/* «אנגלית דרך התנ״ך» — English for Hebrew speakers (EnglishCoursePage.tsx; the session — the .ln-* of «Святой язык») */
+.enc{text-align:right}
+.enc h1 .enc-sub{display:block;margin-top:4px;color:var(--muted);font-family:var(--f-body);font-size:15px;font-weight:600}
+.enc .ws-stats{display:grid;gap:6px}
+.enc .ws-stats small{color:var(--muted)}
+.enc-en{font-family:var(--f-body);unicode-bidi:isolate}
+.enc-path{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:10px}
+.enc-unit{display:flex;align-items:center;gap:12px;padding:12px 14px;border:2px solid var(--line);border-radius:14px;background:var(--surface)}
+.enc-unit.done{border-color:var(--ok-soft);background:var(--ok-soft)}
+.enc-unit.locked{opacity:.6}
+.enc-unit-h{flex:1;display:grid;gap:3px;min-width:0}
+.enc-unit-h b{font-size:16px}
+.enc-unit-h small{color:var(--muted);font-size:13px}
+.enc-unit-h .he{font-family:var(--f-he);font-size:16px;color:var(--ink)}
+.enc-unit .btn{flex:none;min-width:84px}
+.enc-more{text-align:center}
+.enc-credit{margin:18px 0 0;color:var(--muted);font-size:12.5px;line-height:1.5}
+.enc-big{margin:0;font-size:38px;font-weight:800;line-height:1.2;text-align:center}
+.enc-speak{padding:6px 16px;border:2px solid var(--tchelet-soft);border-radius:99px;background:var(--surface);color:var(--tchelet);font-size:15px;font-weight:700;cursor:pointer}
+.enc-speak:hover{background:var(--tchelet-soft)}
+.enc-speak.big{width:96px;height:96px;border-radius:50%;font-size:40px;padding:0}
+.enc-session .ln-opt .enc-en{font-size:17px}
+.enc-line .ln-tile,.enc-bank .ln-tile{font-size:20px;font-weight:700;font-family:var(--f-body)}
+.enc-end{justify-items:center;text-align:center;align-content:center}
+.enc-tiles{display:flex;gap:12px}
+.enc-tiles span{display:grid;gap:2px;min-width:110px;padding:12px;border:2px solid var(--line);border-radius:14px;color:var(--muted);font-size:13px}
+.enc-tiles b{color:var(--ink);font-size:26px}
+.mode-he{display:block;max-width:560px;margin:0 auto 14px;padding:10px 14px;border:2px solid var(--gold-line);border-radius:14px;background:var(--gold-soft);color:var(--ink);font-size:15px;text-align:right;text-decoration:none}
+.mode-he b{color:var(--gold-deep)}

@@ -6,7 +6,8 @@
  * the Telegram posts) get the page itself; when the server can't send emails (`mail: false` — no server, offline),
  * nobody could sign in, so the site stays open.
  */
-const OPEN = new Set(['account', 'consent', 'privacy', 'admin']);
+// `#/english` — the English course for Hebrew speakers: its whole page is in Hebrew, and the sign-in is not (yet)
+const OPEN = new Set(['account', 'consent', 'privacy', 'admin', 'english']);
 
 export const isOpenRoute = (slug: string, view?: string) => OPEN.has(slug) || (slug === 'reading' && view !== 'shnayim');
 
