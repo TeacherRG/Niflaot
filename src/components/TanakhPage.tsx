@@ -604,7 +604,7 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
             <p className="tk-note">{t('tanakh.notReady')}</p>
           ) : (
             <>
-              {he && parsed?.[section].v && <p className="tk-hint no-print">{t('wp.hint')}</p>}
+              {he && parsed?.[section].v && <p className="tk-hint no-print">{t(touchOnly() ? 'wp.hintTouch' : 'wp.hint')}</p>}
               <Verses verses={sec.verses} he={he} tr={tr} md={view.md} rashi={view.rashi} parse={parsed?.[section].v} atlas={atlas?.v} notes={{ section, date: day.date }} />
               {he && parsed?.[section].v && <WordPop />}
             </>
@@ -662,4 +662,13 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
       <Colophon />
     </>
   );
+}
+
+/** a phone or tablet without a mouse — «наведите» means nothing there (QA, 10.11.2026) */
+function touchOnly() {
+  try {
+    return matchMedia('(hover: none)').matches;
+  } catch {
+    return false;
+  }
 }

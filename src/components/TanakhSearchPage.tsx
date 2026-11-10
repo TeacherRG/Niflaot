@@ -118,6 +118,9 @@ export function TanakhSearchPage() {
 
   // в чём искать: иврит — в тексте, кириллица — в русском переводе, латиница — в английском (и немецком на немецком сайте)
   const words = useMemo(() => terms(query), [query]);
+  useEffect(() => {
+    document.title = `${t('search.title')} · ${t('app.title')}`;
+  }, [t]);
   const hebrew = isHebrew(query);
   const where: SearchLang[] = hebrew ? ['he'] : isCyrillic(query) ? ['ru'] : lang === 'de' ? ['de', 'en'] : ['en'];
   const need: SearchLang[] = [...new Set<SearchLang>(['he', 'en', ...(lang === 'en' ? [] : [lang as SearchLang]), ...where])];

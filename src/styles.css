@@ -1,5 +1,6 @@
 :root{box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+/* the sticky top bar must not cover what a page scrolls to (#/daily, a verse, a section) */
+html{scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
 body{margin:0}
 img{max-width:100%}
 [hidden]:not([hidden=until-found i]){display:none!important}
@@ -43,6 +44,7 @@ a{color:inherit}
 .brand-logo{flex:none;width:38px;height:38px;border-radius:50%;box-shadow:0 0 0 1px var(--gold-line)}
 .brand small{font-family:var(--f-body);font-weight:600;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-inline-start:8px}
 .levels{display:flex;gap:6px}
+.top-game{order:10;flex:1 1 100%;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 12px;padding-top:8px;margin-top:2px;border-top:1px solid var(--line-soft)}
 .lv{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-family:var(--f-num);font-weight:600;font-size:13px;transition:all .2s}
 .lv:hover{border-color:var(--gold)}
 .lv.cur{border-color:var(--gold);color:var(--ink);box-shadow:0 0 0 3px var(--gold-soft)}
@@ -704,6 +706,10 @@ article.m-card{border-top:3px solid var(--gold-2)}
 /* ───────── AI assistant ───────── */
 .ai-fab{position:fixed;z-index:40;inset-inline-end:max(16px,env(safe-area-inset-right,0px));bottom:calc(68px + env(safe-area-inset-bottom,0px));display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--night);border:1px solid var(--night);color:var(--gold-2);box-shadow:0 6px 18px -6px rgba(20,26,51,.45);transition:transform .15s}
 .ai-fab:hover{transform:scale(1.08)}
+/* on a phone ✦ steps aside while scrolling down (useFabAway in Assistant.tsx) — it no longer covers text and buttons */
+.ai-fab{transition:transform .2s,opacity .2s}
+.ai-fab.away{transform:translateY(24px) scale(.6);opacity:0;pointer-events:none}
+@media (prefers-reduced-motion:reduce){.ai-fab{transition:none}}
 .ai-fab svg{fill:currentColor;fill-opacity:.25}
 @media (max-width:640px){.ai-fab{bottom:calc(16px + env(safe-area-inset-bottom,0px))}}
 
@@ -720,6 +726,9 @@ article.m-card{border-top:3px solid var(--gold-2)}
   html.tabbed body{padding-bottom:calc(60px + env(safe-area-inset-bottom,0px))}
   html.tabbed .top .menu-btn{display:none}
   html.tabbed .ai-fab{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+  /* the Tehillim player sits where ✦ was — ✦ goes above it; the one-screen adults' home keeps the dedication clear of it */
+  html.tabbed:has(.rd-audio-float) .ai-fab{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
+  html.tabbed .a-home>.dedication.line{max-width:calc(100% - 54px);margin-inline:0 auto}
 }
 .ai{display:flex;flex-direction:column;gap:12px;min-height:min(60vh,520px)}
 .ai-log{flex:1;display:flex;flex-direction:column;gap:10px;overflow:auto;max-height:min(56vh,520px);padding-inline-end:2px}
@@ -1242,6 +1251,10 @@ p.calc .he{font-family:var(--f-he);font-size:1.2em;font-weight:700;color:var(--i
 .t-green{--tc:var(--ok);--tc-line:var(--ok);--tc-soft:var(--ok-soft);--tc-bg:#1F5A38;--tc-he:#F7F0E1}
 .page-loading{min-height:50vh;display:grid;place-items:center}
 .page-state{padding:48px 16px;text-align:center;display:grid;gap:16px;justify-items:center}
+/* an empty state fills the screen, so the footer stays at the bottom instead of hanging in the middle (QA, 10.11.2026) */
+.page-state,.quiz-off{min-height:calc(100svh - 230px);align-content:center}
+.quiz-off{display:grid;gap:14px;justify-items:center;text-align:center;padding:48px 16px}
+.quiz-off h1{margin:0;font-family:var(--f-display);font-size:30px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* the home pages (kids — .k-*, adults — .a-*, below): the wide top bar, «Гематрия дня», a teacher's badge (also the facts) */
@@ -3502,3 +3515,4 @@ button.dedication:hover .ded-name{text-decoration:underline;text-decoration-colo
 .sc-own-save{justify-self:start}
 .sc-own-save:disabled{opacity:.45;cursor:not-allowed}
 .sc-pick-foot{display:flex;flex-wrap:wrap;gap:6px 16px}
+@media (max-width:380px){html.tabbed .a-home>.dedication.line{padding-inline:10px;gap:0 5px}html.tabbed .a-home>.dedication.line .ded-short{font-size:10.5px}html.tabbed .a-home>.dedication.line .ded-name{font-size:13px}html.tabbed .a-home>.dedication.line .ded-candle{font-size:13px}}
