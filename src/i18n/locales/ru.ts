@@ -5,6 +5,11 @@
  */
 const ru = {
   'app.title': 'Нифлаот',
+  'app.sc.neviim': "Пророки и Писания",
+  'app.sc.reading': "Теґилим на сегодня",
+  'app.sc.hemshech': "Хасидут дня",
+  'app.sc.words': "Слова на сегодня",
+  'app.sc.game': "Игра дня — Zip",
   'app.brandSub': 'MyChitas',
   'app.language': 'Язык',
 

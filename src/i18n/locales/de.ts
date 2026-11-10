@@ -2,6 +2,11 @@ import type { Messages } from './ru';
 
 const de: Messages = {
   'app.title': 'Niflaot',
+  'app.sc.neviim': "Propheten und Schriften",
+  'app.sc.reading': "Tehillim für heute",
+  'app.sc.hemshech': "Chassidut des Tages",
+  'app.sc.words': "Wörter für heute",
+  'app.sc.game': "Spiel des Tages — Zip",
   'app.brandSub': 'MyChitas',
   'app.language': 'Sprache',
 

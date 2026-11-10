@@ -5,7 +5,8 @@ and the three captions on every picture: the portion (top left), the number (top
 
   # 12 separate files 01.png … 12.png (any size, portrait 3:4):
   python3 scripts/memo-frame.py <dir> src/lessons/01-baal-haturim-bereshit/memo Bereshit
-  # or one sheet of 12 panels, 4 columns × 3 rows or 3 columns × 4 rows, each with its own frame line:
+  # or one sheet of 12 panels, 4 columns × 3 rows or 3 columns × 4 rows (or rows of different length, 4 + 5 + 3),
+  # each with its own frame line:
   python3 scripts/memo-frame.py --sheet <sheet.png> src/lessons/01-baal-haturim-bereshit/memo Bereshit
 
 Saved as 32-level grayscale PNG (line art). Needs Pillow and numpy.
@@ -49,18 +50,35 @@ def lines(dark: np.ndarray, axis: int) -> list[int]:
 
 
 def panels(sheet: Path) -> list[Image.Image]:
+    """The 12 panels of a sheet, row by row: the white gutters between the frames — rows across the whole sheet, then the
+    panels inside each row (so rows of different length work too: 4 + 5 + 3); a sheet without gutters — by its frame lines."""
     im = Image.open(sheet).convert('RGB')
     dark = np.array(im.convert('L')) < 100
+    out = [im.crop((x0, y0, x1, y1)) for y0, y1 in gutters(dark, 1) for x0, x1 in gutters(dark[y0:y1], 0)]
+    if len(out) == 12:
+        return out
     xs = lines(dark, 0)
     ys = lines(dark, 1)
     cols, rows = len(xs) // 2, len(ys) // 2
     if len(xs) % 2 or len(ys) % 2 or (cols, rows) not in ((4, 3), (3, 4)):
-        sys.exit(f'expected 4×3 or 3×4 panels, found frame lines x {xs}, y {ys}')
-    out = []
-    for r in range(rows):
-        for c in range(cols):
-            out.append(im.crop((xs[c * 2], ys[r * 2], xs[c * 2 + 1] + 1, ys[r * 2 + 1] + 1)))
-    return out
+        sys.exit(f'expected 12 panels: {len(out)} between white gutters; frame lines x {xs}, y {ys}')
+    return [im.crop((xs[c * 2], ys[r * 2], xs[c * 2 + 1] + 1, ys[r * 2 + 1] + 1)) for r in range(rows) for c in range(cols)]
+
+
+def gutters(dark: np.ndarray, axis: int) -> list[tuple[int, int]]:
+    """The panels along an axis: runs between white gutters (almost no dark pixels across), at least 8 % of the size."""
+    counts = dark.sum(axis=axis)
+    across = dark.shape[axis]
+    ink = counts > across * 0.004
+    runs, start = [], None
+    for i, v in enumerate(list(ink) + [False]):
+        if v and start is None:
+            start = i
+        elif not v and start is not None:
+            if i - start > len(ink) * 0.08:
+                runs.append((start, i))
+            start = None
+    return runs
 
 
 def label(d: ImageDraw.ImageDraw, xy: tuple[float, float], text: str, f, anchor: str, k: float = 1):
