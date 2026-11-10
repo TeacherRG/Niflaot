@@ -214,7 +214,11 @@ export class Accounts extends DurableObject<MailEnv> {
     if (prev && now - prev.sent < 60_000) return fail('wait', 429);
     const sentHour = prev && now - prev.sent < 3600_000 ? prev.sent_hour + 1 : 1;
     if (sentHour > 5) return fail('wait', 429);
-    const code = String(crypto.getRandomValues(new Uint32Array(1))[0] % 1_000_000).padStart(6, '0');
+    let value: number;
+    do {
+      value = crypto.getRandomValues(new Uint32Array(1))[0];
+    } while (value >= 4_294_000_000);
+    const code = String(value % 1_000_000).padStart(6, '0');
     const locale = lang(body.lang);
     this.sql.exec(
       `INSERT INTO newsletter_codes (email, hash, expires, tries, sent, sent_hour, frequency, lang) VALUES (?, ?, ?, 0, ?, ?, ?, ?)
