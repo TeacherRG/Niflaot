@@ -191,7 +191,8 @@ export function TopBar({ title, children, wide, share = true }: { title: string;
             <small>{t('app.brandSub')}</small>
           </span>
         </a>
-        {children}
+        {/* the game's progress (riddle steps, timer, score) — its own row under the brand (QA, 10.11.2026: it wrapped anyhow) */}
+        {children && <div className="top-game">{children}</div>}
         {share && <ShareButton />}
         <AccountChip />
         <HebrewDay />

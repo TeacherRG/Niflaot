@@ -1,5 +1,6 @@
 :root{box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+/* the sticky top bar must not cover what a page scrolls to (#/daily, a verse, a section) */
+html{scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
 body{margin:0}
 img{max-width:100%}
 [hidden]:not([hidden=until-found i]){display:none!important}
@@ -43,6 +44,7 @@ a{color:inherit}
 .brand-logo{flex:none;width:38px;height:38px;border-radius:50%;box-shadow:0 0 0 1px var(--gold-line)}
 .brand small{font-family:var(--f-body);font-weight:600;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-inline-start:8px}
 .levels{display:flex;gap:6px}
+.top-game{order:10;flex:1 1 100%;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 12px;padding-top:8px;margin-top:2px;border-top:1px solid var(--line-soft)}
 .lv{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-family:var(--f-num);font-weight:600;font-size:13px;transition:all .2s}
 .lv:hover{border-color:var(--gold)}
 .lv.cur{border-color:var(--gold);color:var(--ink);box-shadow:0 0 0 3px var(--gold-soft)}
@@ -704,6 +706,10 @@ article.m-card{border-top:3px solid var(--gold-2)}
 /* ───────── AI assistant ───────── */
 .ai-fab{position:fixed;z-index:40;inset-inline-end:max(16px,env(safe-area-inset-right,0px));bottom:calc(68px + env(safe-area-inset-bottom,0px));display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--night);border:1px solid var(--night);color:var(--gold-2);box-shadow:0 6px 18px -6px rgba(20,26,51,.45);transition:transform .15s}
 .ai-fab:hover{transform:scale(1.08)}
+/* on a phone ✦ steps aside while scrolling down (useFabAway in Assistant.tsx) — it no longer covers text and buttons */
+.ai-fab{transition:transform .2s,opacity .2s}
+.ai-fab.away{transform:translateY(24px) scale(.6);opacity:0;pointer-events:none}
+@media (prefers-reduced-motion:reduce){.ai-fab{transition:none}}
 .ai-fab svg{fill:currentColor;fill-opacity:.25}
 @media (max-width:640px){.ai-fab{bottom:calc(16px + env(safe-area-inset-bottom,0px))}}
 
@@ -720,6 +726,9 @@ article.m-card{border-top:3px solid var(--gold-2)}
   html.tabbed body{padding-bottom:calc(60px + env(safe-area-inset-bottom,0px))}
   html.tabbed .top .menu-btn{display:none}
   html.tabbed .ai-fab{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+  /* the Tehillim player sits where ✦ was — ✦ goes above it; the one-screen adults' home keeps the dedication clear of it */
+  html.tabbed:has(.rd-audio-float) .ai-fab{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
+  html.tabbed .a-home>.dedication.line{max-width:calc(100% - 54px);margin-inline:0 auto}
 }
 .ai{display:flex;flex-direction:column;gap:12px;min-height:min(60vh,520px)}
 .ai-log{flex:1;display:flex;flex-direction:column;gap:10px;overflow:auto;max-height:min(56vh,520px);padding-inline-end:2px}
@@ -1242,6 +1251,10 @@ p.calc .he{font-family:var(--f-he);font-size:1.2em;font-weight:700;color:var(--i
 .t-green{--tc:var(--ok);--tc-line:var(--ok);--tc-soft:var(--ok-soft);--tc-bg:#1F5A38;--tc-he:#F7F0E1}
 .page-loading{min-height:50vh;display:grid;place-items:center}
 .page-state{padding:48px 16px;text-align:center;display:grid;gap:16px;justify-items:center}
+/* an empty state fills the screen, so the footer stays at the bottom instead of hanging in the middle (QA, 10.11.2026) */
+.page-state,.quiz-off{min-height:calc(100svh - 230px);align-content:center}
+.quiz-off{display:grid;gap:14px;justify-items:center;text-align:center;padding:48px 16px}
+.quiz-off h1{margin:0;font-family:var(--f-display);font-size:30px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* the home pages (kids — .k-*, adults — .a-*, below): the wide top bar, «Гематрия дня», a teacher's badge (also the facts) */
@@ -2502,11 +2515,11 @@ body:has(.a-home){background:var(--plain)}
 .a-tiles>.courses{margin:0;min-height:0;overflow:auto}
 /* «Мои курсы» (half) + «Святая игра Zip» side by side (owner, 02.11.2026); the courses that don't fit — pages to swipe */
 .a-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;min-height:0}
-.a-pair>.courses{margin:0;min-height:0;overflow:hidden;display:flex;flex-direction:column}
-.a-pair .cc-pages{flex:1 1 0;min-height:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;touch-action:pan-x pan-y}
-.a-pair .cc-pages::-webkit-scrollbar{display:none}
-.a-pair .courses.simple .cc-page{flex:0 0 100%;min-width:0;list-style:none;margin:0;padding:0;scroll-snap-align:start;display:block}
-.a-pair .cc-page li{display:block}
+:is(.a-pair,.k-grid)>.courses{margin:0;min-height:0;overflow:hidden;display:flex;flex-direction:column}
+:is(.a-pair,.k-grid) .cc-pages{flex:1 1 0;min-height:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;touch-action:pan-x pan-y}
+:is(.a-pair,.k-grid) .cc-pages::-webkit-scrollbar{display:none}
+:is(.a-pair,.k-grid) .courses.simple .cc-page{flex:0 0 100%;min-width:0;list-style:none;margin:0;padding:0;scroll-snap-align:start;display:block}
+:is(.a-pair,.k-grid) .cc-page li{display:block}
 .cc-dots{display:flex;justify-content:center;gap:6px;padding-top:6px}
 .cc-dots button{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:var(--line);cursor:pointer}
 .cc-dots button[aria-current]{background:var(--tchelet-deep);width:16px;border-radius:4px}
@@ -3453,17 +3466,17 @@ html.tabbed .rd-tip{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
 /* «Мои курсы» on the adults' home — a coloured tile like its three neighbours (owner, 10.11.2026): deep violet, the
    academy's colour of the Baal HaTurim («Неделя в Академии»), white names, golden progress bars on a light track */
 :root{--plum-deep:#5B3A8C}
-.a-pair>.courses.simple{background:linear-gradient(150deg,var(--plum-deep),#33285E);border:0;color:#fff}
-.a-pair>.courses.simple h2{font-family:var(--f-body);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.9;line-height:1.3}
-.a-pair>.courses.simple .courses-row{color:#fff}
-.a-pair>.courses.simple .courses-row:hover .courses-t{color:#fff;text-decoration:underline;text-underline-offset:3px}
-.a-pair>.courses.simple .a-bar{background:rgba(255,255,255,.2)}
-.a-pair>.courses.simple .a-bar>span{background:var(--gold-2)}
-.a-pair>.courses.simple .courses-row.done .a-bar>span{background:#8FD3A6}
-.a-pair>.courses.simple .cc-dots button{background:rgba(255,255,255,.35)}
-.a-pair>.courses.simple .cc-dots button[aria-current]{background:#fff}
-.a-pair>.courses.simple :focus-visible{outline-color:var(--gold-2)}
-@media (max-width:640px){.a-pair>.courses.simple h2{font-size:10.5px}}
+:is(.a-pair,.k-grid)>.courses.simple{background:linear-gradient(150deg,var(--plum-deep),#33285E);border:0;color:#fff}
+:is(.a-pair,.k-grid)>.courses.simple h2{font-family:var(--f-body);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.9;line-height:1.3}
+:is(.a-pair,.k-grid)>.courses.simple .courses-row{color:#fff}
+:is(.a-pair,.k-grid)>.courses.simple .courses-row:hover .courses-t{color:#fff;text-decoration:underline;text-underline-offset:3px}
+:is(.a-pair,.k-grid)>.courses.simple .a-bar{background:rgba(255,255,255,.2)}
+:is(.a-pair,.k-grid)>.courses.simple .a-bar>span{background:var(--gold-2)}
+:is(.a-pair,.k-grid)>.courses.simple .courses-row.done .a-bar>span{background:#8FD3A6}
+:is(.a-pair,.k-grid)>.courses.simple .cc-dots button{background:rgba(255,255,255,.35)}
+:is(.a-pair,.k-grid)>.courses.simple .cc-dots button[aria-current]{background:#fff}
+:is(.a-pair,.k-grid)>.courses.simple :focus-visible{outline-color:var(--gold-2)}
+@media (max-width:640px){:is(.a-pair,.k-grid)>.courses.simple h2{font-size:10.5px}}
 
 /* the dedication — a button: a candle (the elevation of a soul) and «Посвятить учёбу» (owner, 10.11.2026) */
 button.dedication{font:inherit;color:inherit;cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .15s}
@@ -3502,6 +3515,78 @@ button.dedication:hover .ded-name{text-decoration:underline;text-decoration-colo
 .sc-own-save{justify-self:start}
 .sc-own-save:disabled{opacity:.45;cursor:not-allowed}
 .sc-pick-foot{display:flex;flex-wrap:wrap;gap:6px 16px}
+@media (max-width:380px){html.tabbed .a-home>.dedication.line{padding-inline:10px;gap:0 5px}html.tabbed .a-home>.dedication.line .ded-short{font-size:10.5px}html.tabbed .a-home>.dedication.line .ded-name{font-size:13px}html.tabbed .a-home>.dedication.line .ded-candle{font-size:13px}}
+
+/* the kids' home: six tiles of one kind (QA, 10.11.2026) — beside the lesson 3 × 2, under it on a phone 2 × 3;
+   the look is the adults' a-tile (kicker, title, a line, an arrow), each tile its own colour */
+.k-top{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);align-items:stretch}
+.k-top>.h-phone{grid-column:1/-1;margin:0}
+.k-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(132px,1fr);gap:12px;min-width:0}
+.k-grid>*{min-width:0;min-height:0}
+.k-grid .a-tile{padding:12px 34px 12px 14px;border-radius:16px}
+.k-grid .a-tile::after{right:12px;bottom:10px;font-size:18px}
+.k-grid .a-tile-k{font-size:11px}
+.k-grid .a-tile-t{font-size:21px;line-height:1.1;color:#fff;text-decoration:none}
+.k-grid .a-zip-s{font-size:12px;line-height:1.3}
+.k-grid>.games{position:relative;display:flex;min-height:0}
+.k-grid>.courses.simple h2{font-size:11px}
+.k-grid>.courses.simple .courses-t{font-size:13px}
+.k-grid>.courses.simple ul{grid-template-columns:minmax(0,1fr)}
+.kt-fire{background:linear-gradient(150deg,#C7621F,#8E2F14)}
+.kt-fire.kt-done{background:linear-gradient(150deg,var(--ok-deep),#1B5134)}
+.kt-night{background:var(--night)}
+.kt-night .a-tile-k{color:var(--gold-2);opacity:1}
+.kt-gold{background:var(--gold-deep)}
+.kt-sky{background:linear-gradient(150deg,#3C83AE,#22507A);border:0;font:inherit;text-align:start;cursor:pointer;width:100%}
+.kt-time{font-family:var(--f-num)!important;font-size:22px!important;letter-spacing:-.02em}
+.kt-sky .he{font-family:var(--f-he)}
+/* a tile with several links: the main one covers the tile, the others sit above it */
+.kt-main::before{content:"";position:absolute;inset:0;border-radius:inherit}
+.kt-main:focus-visible{outline:none}
+.kt:has(.kt-main:focus-visible){outline:2px solid var(--gold-2);outline-offset:2px}
+.kt-sub,.kt .habit-repair{position:relative;z-index:1}
+.kt-sub{margin-top:4px;padding-top:4px;border-top:1px solid rgba(255,255,255,.25);font-size:12px;font-weight:700;color:#fff;text-decoration:none}
+.kt-sub:hover{text-decoration:underline}
+.kt .habit-repair{font-size:12px;color:#fff}
+.kt .habit-repair .btn{padding:4px 10px;font-size:12px;background:#fff;color:var(--night);border-color:#fff}
+.kt:hover .a-tile-t{text-decoration:underline;text-underline-offset:3px}
+@media (max-width:900px){
+  .k-top{grid-template-columns:minmax(0,1fr)}
+  .k-grid{grid-auto-rows:minmax(118px,auto)}
+}
+@media (max-width:640px){
+  /* a phone: the lesson and the six tiles fit one screen above the tab bar */
+  .k-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(92px,auto);gap:8px}
+  .k-grid .a-tile{padding:10px 28px 10px 12px;border-radius:14px;min-height:92px}
+  .k-grid .a-tile::after{right:10px;bottom:8px;font-size:16px}
+  .k-grid .a-tile-k{font-size:10px}
+  .k-grid .a-tile-t{font-size:17px}
+  .kt-time{font-size:18px!important}
+  .k-grid .a-zip-s{font-size:11px}
+  .k-grid>.courses.simple{padding:10px 12px}
+  .k-grid>.courses.simple .courses-t{font-size:12px}
+}
+@media (max-width:640px){
+  .k-grid .games .a-tile-he{display:none}
+  .k-grid .a-tile{min-height:84px}
+}
+/* a short phone (360 × 740 and the like): the title line goes, the lesson card gets tighter — the six tiles stay on screen */
+@media (max-width:640px) and (max-height:800px){
+  .k-head h1{display:none}
+  .k-go{gap:6px;padding:12px 14px}
+  .k-go-title{font-size:21px}
+  .k-grid{grid-auto-rows:minmax(80px,auto)}
+  .k-grid .a-tile{min-height:80px}
+}
+/* the smallest phones (iPhone SE, 375 × 667): no motto translation, no «then Memo», tiles — kicker and title only */
+@media (max-width:640px) and (max-height:700px){
+  .k-head .slogan-tr,.k-path-memo{display:none}
+  .k-home{gap:8px}
+  .k-go-btn{min-height:36px}
+  .k-grid .a-zip-s,.k-grid .kt-sub{display:none}
+  .k-grid{grid-auto-rows:minmax(64px,auto);gap:6px}
+  .k-grid .a-tile{min-height:64px;padding-block:8px}
+}
 
 /* «אנגלית דרך התנ״ך» — English for Hebrew speakers (EnglishCoursePage.tsx; the session — the .ln-* of «Святой язык») */
 .enc{text-align:right}

@@ -28,7 +28,13 @@ export function QuizPage({ code, host }: { code?: string; host?: boolean }) {
       <TopBar title={t('lq.title')} />
       <main className={`quiz-page${host ? ' quiz-host' : ''}`}>
         {!quizAvailable() ? (
-          <p className="quiz-note">{t('lq.offline')}</p>
+          <div className="quiz-off">
+            <h1>{t('lq.title')}</h1>
+            <p className="quiz-note">{t('lq.offline')}</p>
+            <a className="btn" href="#/">
+              {t('notFound.home')}
+            </a>
+          </div>
         ) : !code ? (
           <QuizHome />
         ) : !ok ? (

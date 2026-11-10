@@ -6,9 +6,9 @@ import { TEACHERS, teacherOf } from '../lessons/teachers';
 import { lessonProgress } from '../core/progress';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
-import { WeekCountdown } from './WeekCountdown';
+import { CountdownTile } from './WeekCountdown';
 import { PhoneOffer } from './PhoneOffer';
-import { HabitCard } from './HabitCard';
+import { Repair } from './HabitCard';
 import { dailyNumber, grid, loadResults, streak } from '../core/daily';
 import { Icon } from './ui';
 import { lessonGames } from './lessonGames';
@@ -17,32 +17,12 @@ import { lessonArt } from '../core/art';
 import { useMode } from '../core/mode';
 import { CoursesCard } from './CoursesCard';
 import { PATCHES_KEY, ZIP_KEY, patchesTile, zipTile } from '../core/zipReminder';
-import { todayIso } from '../core/habit';
+import { todayIso, useHabit } from '../core/habit';
 import { Dedication } from './Dedication';
-import { ShabbatCalendar } from './ShabbatCalendar';
 import { NUMS, collectFacts, type Fact } from '../core/facts';
 import { displayNames } from '../core/names';
 import { loadDict, nextWords, today, unlearnedWords, useWordStore, type Dict, type WordLang } from '../core/words';
 import { certName, hebFinals, hebGuess, hebOnly, readMyName, saveMyName, SEFARIA_BOOKS, versesFor, type MyName, type MyVerses, type Verse } from '../core/myVerse';
-
-/** «Гематрия дня» on the home screen: today's number, or the result when today's word is solved. */
-function DailyLink() {
-  const { t } = useI18n();
-  const n = dailyNumber();
-  const all = loadResults();
-  const r = all[n];
-  const series = streak(all, n);
-  return (
-    <a className="h-daily" href="#/daily">
-      <span className="h-daily-title">
-        ✦ {t('daily.title')} <span className="num">{t('daily.no', { n })}</span>
-      </span>
-      <span className="h-daily-sub">
-        {r?.done ? `${grid(r) || '🟥🟥🟥'}${series > 1 ? ` · 🔥 ${series}` : ''}` : t('daily.menuSub')} →
-      </span>
-    </a>
-  );
-}
 
 /**
  * «Игры» (owner, 09.11.2026: «плитку переименуй в игры и свайпом сделай выбор игры»): one tile, the games side by side —
@@ -103,18 +83,51 @@ function GamesTile({ adults = false }: { adults?: boolean }) {
 }
 
 /**
- * «К шабатнему столу»: the Friday sheet of the week's portion, to print before Shabbat; under it, in the same card,
- * «Неделя в Академии» — the digest of the week (WeekDigest.tsx), the rest of what was learnt.
+ * The kids' home tiles look like the adults' ones (a-tile: kicker, title, a line, an arrow; QA, 10.11.2026).
+ * A tile with more than one link is a `div`: its main link covers the whole tile (`.kt-main::before`), the others sit above it.
  */
-function TableLink() {
+function StreakTile() {
+  const { t, locale } = useI18n();
+  const h = useHabit();
+  const title = h.today ? `✓ ${t('home.ktToday')}` : h.streak > 0 ? `🔥 ${t('habit.streak', { n: h.streak })}` : t('home.ktStart');
+  return (
+    <div className={`a-tile kt kt-fire${h.today ? ' kt-done' : ''}`}>
+      <span className="a-tile-k">{t('home.ktStreak')}</span>
+      <a className="a-tile-t kt-main" href={h.today ? '#/account' : '#/daily'}>
+        {title}
+      </a>
+      <span className="a-zip-s">{h.today ? (h.streak > 1 ? t('home.ktKeep') : t('home.ktMore')) : t('home.ktMin')}</span>
+      {h.repair && <Repair day={h.repair.day} streak={h.repair.streak} pending={h.pending === h.repair.day} adults={false} locale={locale} />}
+    </div>
+  );
+}
+
+function DailyTile() {
+  const { t } = useI18n();
+  const n = dailyNumber();
+  const all = loadResults();
+  const r = all[n];
+  const series = streak(all, n);
+  return (
+    <a className="a-tile kt kt-night" href="#/daily">
+      <span className="a-tile-k">
+        ✦ {t('home.ktEveryDay')} · <span className="num">{t('daily.no', { n })}</span>
+      </span>
+      <span className="a-tile-t">{t('daily.title')}</span>
+      <span className="a-zip-s">{r?.done ? `${grid(r) || '🟥🟥🟥'}${series > 1 ? ` · 🔥 ${series}` : ''}` : t('home.ktDailySub')}</span>
+    </a>
+  );
+}
+
+function TableTile() {
   const { t } = useI18n();
   return (
-    <div className="h-daily h-table">
-      <a href="#/shabbat-table">
-        <span className="h-daily-title">🖨 {t('table.title')}</span>
-        <span className="h-daily-sub">{t('table.homeSub')} →</span>
+    <div className="a-tile kt kt-gold">
+      <span className="a-tile-k">🖨 {t('home.ktPrint')}</span>
+      <a className="a-tile-t kt-main" href="#/shabbat-table">
+        {t('table.title')}
       </a>
-      <a className="h-digest" href="#/digest">
+      <a className="kt-sub" href="#/digest">
         {t('digest.title')} →
       </a>
     </div>
@@ -712,17 +725,16 @@ function KidsHome() {
             </span>
           </section>
 
-          <div className="k-side">
-            <HabitCard compact />
-            <GamesTile />
-            <CoursesCard />
-            <DailyLink />
-            <TableLink />
-            {/* on the kids home only the Shabbat (the date is beside it, in WeekCountdown; the full calendar — in the top bar) */}
-            <ShabbatCalendar shabbatOnly />
-            <WeekCountdown />
-            <PhoneOffer />
+          {/* six tiles of one kind (QA, 10.11.2026: «все плитки — в общем стиле»): 3 × 2 beside the lesson, 2 × 3 under it on a phone */}
+          <div className="k-grid">
+            <StreakTile />
+            <GamesTile adults />
+            <CoursesCard simple />
+            <DailyTile />
+            <TableTile />
+            <CountdownTile />
           </div>
+          <PhoneOffer />
         </div>
 
         {/* one row of tiles: the week's other lessons, then the earlier portions (each tile says «Прошлая глава») */}

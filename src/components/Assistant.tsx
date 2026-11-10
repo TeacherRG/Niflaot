@@ -104,6 +104,34 @@ function Answer({ text }: { text: string }) {
 }
 
 /**
+ * On a phone the floating ✦ covers text and buttons under it (QA, 10.11.2026): it steps aside while the reader scrolls down
+ * and at the very end of the page, and comes back as soon as they scroll up — the usual «hide on scroll» of mobile apps.
+ */
+function useFabAway() {
+  const [away, setAway] = useState(false);
+  useEffect(() => {
+    let last = window.scrollY;
+    const on = () => {
+      if (window.innerWidth > 640) return setAway(false);
+      const y = window.scrollY;
+      const end = y + window.innerHeight >= document.documentElement.scrollHeight - 48;
+      if (end && y > 80) setAway(true);
+      else if (y > last + 6 && y > 120) setAway(true);
+      else if (y < last - 6 || y < 120) setAway(false);
+      last = y;
+    };
+    window.addEventListener('scroll', on, { passive: true });
+    const off = () => setAway(false);
+    window.addEventListener('hashchange', off);
+    return () => {
+      window.removeEventListener('scroll', on);
+      window.removeEventListener('hashchange', off);
+    };
+  }, []);
+  return away;
+}
+
+/**
  * Floating button + helper sheet. With the AI endpoint configured — a chat with Claude;
  * without it — the offline helper (gematria step by step, sources, answers to common questions).
  */
@@ -113,9 +141,10 @@ export function Assistant() {
   const opened = useRef(false);
   if (panel === 'assistant') opened.current = true;
   const title = t(ASSISTANT_URL ? 'ai.title' : 'helper.title');
+  const away = useFabAway();
   return (
     <>
-      <button className="ai-fab" onClick={() => open('assistant')} aria-label={title} title={title}>
+      <button className={`ai-fab${away ? ' away' : ''}`} onClick={() => open('assistant')} aria-label={title} title={title}>
         <Icon name="spark" size={20} />
       </button>
       {ASSISTANT_URL ? (

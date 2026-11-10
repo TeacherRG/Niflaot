@@ -18,15 +18,43 @@ export function markHebrew(root: ParentNode) {
   root.querySelectorAll(HEBREW).forEach(mark);
 }
 
-/** Keeps the Hebrew of the whole page marked as React renders it. */
+/**
+ * The Names written with a hyphen — Г-сподь, Б-г, Б-жий, G-d, L-rd, G-tt — must not break at the line end
+ * («до Г-» / «спода» in a big heading; QA, 10.11.2026): a word joiner (U+2060, invisible) after the hyphen.
+ */
+const NAME_HYPHEN = /(^|[^\p{L}])([ГБGL])-(?=\p{Ll})/gu;
+export const joinNames = (s: string) => s.replace(NAME_HYPHEN, '$1$2-\u2060');
+
+function joinText(node: Node) {
+  if (node.nodeType === Node.TEXT_NODE) {
+    if (/^(TEXTAREA|SCRIPT|STYLE)$/.test(node.parentElement?.tagName ?? '')) return;
+    const v = node.nodeValue ?? '';
+    if (v.includes('-')) {
+      const j = joinNames(v);
+      if (j !== v) node.nodeValue = j;
+    }
+    return;
+  }
+  if (!(node instanceof Element) || /^(INPUT|TEXTAREA|SCRIPT|STYLE)$/.test(node.tagName) || (node instanceof HTMLElement && node.isContentEditable)) return;
+  const walk = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+  for (let t = walk.nextNode(); t; t = walk.nextNode()) joinText(t);
+}
+
+/** Keeps the Hebrew of the whole page marked as React renders it (and the hyphenated Names unbroken). */
 export function installLangMarkup() {
   markHebrew(document.body);
+  joinText(document.body);
   const mo = new MutationObserver((records) => {
     for (const r of records)
-      if (r.type === 'childList') r.addedNodes.forEach((n) => n instanceof Element && markHebrew(n));
+      if (r.type === 'childList')
+        r.addedNodes.forEach((n) => {
+          if (n instanceof Element) markHebrew(n);
+          joinText(n);
+        });
+      else if (r.type === 'characterData') joinText(r.target);
       else if (r.target instanceof Element && r.target.matches(HEBREW)) mark(r.target);
   });
-  mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
+  mo.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['class'] });
   return () => mo.disconnect();
 }
 

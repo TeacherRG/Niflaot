@@ -417,7 +417,8 @@ function CoursesPicker() {
           return (
             <button key={x} role="checkbox" aria-checked={on} className={`acc-mode${on ? ' on' : ''}`} onClick={() => setCourses({ ...choice, c: on ? c.filter((y) => y !== x) : [...c, x] })}>
               <b>
-                {on ? '✓' : '+'} {t(`courses.${x}`)}
+                {!on && '+ '}
+                {t(`courses.${x}`)}
               </b>
               <small>{t(`courses.${x}.sub`)}</small>
             </button>
