@@ -4,8 +4,12 @@
  * сегодня или позже, `parshaOf` из src/core/dailyMessage.ts): в воскресенье — первую, в среду — вторую (дальше — по очереди);
  * один и тот же факт на всех языках — и публикует его **как карточку ленты: сразу ответ** (владелец, 02.11.2026: «вопрос
  * непонятен и неинтересен»): слово или равенство с переводом, заголовок, смысл и «Чему это учит?» (`factMeaning`), с картинкой
- * урока; весь урок — по ссылке на сайт (`#/facts/<id>`, метка `?ref=channel` для GoatCounter). Подпись к картинке у Telegram —
- * до 1024 знаков: длиннее — текстом, картинка урока — превью над ним.
+ * урока; весь урок — по ссылке на сайт (`#/facts/<id>`, метка `?ref=channel` для GoatCounter).
+ * **Картинка — карточка этого факта** (та же, что «📤 Поделиться» в ленте: слово / равенство, смысл, «Чему это учит?» —
+ * на языке канала): сайт открывается в браузере (Playwright), карточка рисуется кнопкой 📤 и приходит загрузкой. Раньше шла
+ * общая картинка урока (`og/<урок>.png`), и она не совпадала с текстом (владелец, 10.11.2026). Карточки нет (браузер не
+ * запустился) — пост уходит текстом, без чужой картинки. Подпись к картинке у Telegram — до 1024 знаков: длиннее — картинка
+ * и под ней текст отдельным сообщением.
  *
  * Настройка в GitHub (Settings → Secrets and variables → Actions):
  *  - secret `TELEGRAM_BOT_TOKEN` — токен бота от @BotFather; бот — администратор каждого канала;
@@ -16,7 +20,8 @@
  * В Шабат (с полудня пятницы по UTC до конца субботы) ничего не публикуется — даже при ручном запуске.
  *
  * Проверить локально без отправки: `npx tsx scripts/telegram-post.ts --dry [--date 2026-10-21]` (`--slot N` — другой
- * факт главы по очереди).
+ * факт главы по очереди; `--card` — ещё и нарисовать карточки в `telegram-card-<язык>.png`; `PDF_SITE=http://localhost:5173`
+ * — локальная копия сайта, `CHROMIUM_PATH` — свой браузер).
  */
 import { LESSONS } from '../src/lessons';
 import { NUMS, collectFacts, factMeaning, type Fact } from '../src/core/facts';
@@ -41,6 +46,7 @@ const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const APP = process.env.TELEGRAM_APP;
 const args = process.argv.slice(2);
 const DRY = args.includes('--dry');
+const CARD = args.includes('--card');
 const slotArg = args.indexOf('--slot');
 const dateArg = args.indexOf('--date');
 
@@ -123,34 +129,91 @@ async function tg(method: string, body: object) {
 const buttons = (loc: Loc) =>
   APP ? { reply_markup: { inline_keyboard: [[{ text: t(loc, 'tg.open'), url: miniAppLink(APP, `facts/${fact.id}`, loc) }]] } } : {};
 
-const photo = `${SITE_URL}/og/${fact.lesson.slug}.png`;
+/**
+ * The fact's card as «📤 Поделиться» in the feed draws it, in the channel's language: the live site in a headless browser,
+ * `#/facts/<id>`, the share button of this card — on a computer the picture comes as a download.
+ */
+async function factCards(locs: Loc[]): Promise<Partial<Record<Loc, Buffer>>> {
+  const out: Partial<Record<Loc, Buffer>> = {};
+  const { chromium } = await import('playwright');
+  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
+  try {
+    for (const loc of locs) {
+      try {
+        const ctx = await browser.newContext({ acceptDownloads: true, viewport: { width: 1000, height: 900 } });
+        const page = await ctx.newPage();
+        await page.route(/goatcounter/, (r) => r.abort());
+        // a machine: no onboarding; no system share sheet — the card is downloaded
+        await page.addInitScript(() => {
+          localStorage.setItem('niflaot:mode', 'kids');
+          localStorage.setItem('niflaot:hebrew', 'letters');
+          Object.defineProperty(navigator, 'canShare', { value: undefined });
+        });
+        await page.goto(`${process.env.PDF_SITE || SITE_URL}/?lang=${loc}#/facts/${fact.id}`, { waitUntil: 'load' });
+        const btn = page.locator(`article[id="${fact.id}"] .fact-share`);
+        await btn.waitFor({ timeout: 60_000 });
+        await page.evaluate(() => document.fonts.ready);
+        const [dl] = await Promise.all([page.waitForEvent('download', { timeout: 60_000 }), btn.click()]);
+        const file = await dl.path();
+        if (file) out[loc] = await (await import('node:fs/promises')).readFile(file);
+        await ctx.close();
+      } catch (e) {
+        console.warn(`${loc}: no card — ${(e as Error).message}`);
+      }
+    }
+  } finally {
+    await browser.close();
+  }
+  return out;
+}
+
+async function tgPhoto(chat: string, png: Buffer, caption: string | undefined, extra: object) {
+  const form = new FormData();
+  form.append('chat_id', chat);
+  form.append('photo', new Blob([png], { type: 'image/png' }), `niflaot-${fact.id}.png`);
+  if (caption) {
+    form.append('caption', caption);
+    form.append('parse_mode', 'HTML');
+  }
+  for (const [k, v] of Object.entries(extra)) form.append(k, JSON.stringify(v));
+  const res = await fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, { method: 'POST', body: form });
+  const json = (await res.json()) as { ok: boolean; description?: string };
+  if (!json.ok) throw new Error(`sendPhoto: ${json.description}`);
+}
+
 if (!DRY && !Object.values(CHATS).some(Boolean)) throw new Error('no channel: set TELEGRAM_CHAT_RU / _EN / _DE (Variables or Secrets)');
+const locs = (Object.keys(UI) as Loc[]).filter((loc) => (DRY ? CARD : CHATS[loc]));
+const cards = locs.length ? await factCards(locs).catch((e) => (console.warn(`no browser: ${(e as Error).message}`), {})) : {};
 let failed = false;
 for (const loc of Object.keys(UI) as Loc[]) {
   const caption = post(fact, loc);
+  const card = (cards as Partial<Record<Loc, Buffer>>)[loc];
   if (DRY) {
-    console.log(`── ${loc} (${CHATS[loc] ?? 'нет канала'}) · ${photo} · ${visible(caption)} знаков${visible(caption) > 1024 ? ' — текстом' : ''}\n${caption}\n${APP ? `[${t(loc, 'tg.open')}] ${miniAppLink(APP, `facts/${fact.id}`, loc)}\n` : ''}`);
+    if (card) await (await import('node:fs/promises')).writeFile(`telegram-card-${loc}.png`, card);
+    console.log(`── ${loc} (${CHATS[loc] ?? 'нет канала'}) · ${card ? `карточка telegram-card-${loc}.png` : 'без карточки'} · ${visible(caption)} знаков${visible(caption) > 1024 ? ' — текстом под картинкой' : ''}\n${caption}\n${APP ? `[${t(loc, 'tg.open')}] ${miniAppLink(APP, `facts/${fact.id}`, loc)}\n` : ''}`);
     continue;
   }
   const chat = CHATS[loc];
   if (!chat) continue;
   if (!TOKEN) throw new Error('TELEGRAM_BOT_TOKEN is not set');
-  // a caption is up to 1024 characters: a longer post goes as text with the lesson's picture as the preview above it
-  const asText = { chat_id: chat, text: caption, parse_mode: 'HTML', link_preview_options: { url: photo, prefer_large_media: true, show_above_text: true }, ...buttons(loc) };
+  const asText = { chat_id: chat, text: caption, parse_mode: 'HTML', link_preview_options: { is_disabled: true }, ...buttons(loc) };
   try {
-    if (visible(caption) > 1024) await tg('sendMessage', asText);
-    else await tg('sendPhoto', { chat_id: chat, photo, caption, parse_mode: 'HTML', ...buttons(loc) });
+    if (!card) await tg('sendMessage', asText);
+    // a caption is up to 1024 characters: a longer post — the card, then the text under it
+    else if (visible(caption) > 1024) {
+      await tgPhoto(chat, card, undefined, {});
+      await tg('sendMessage', asText);
+    } else await tgPhoto(chat, card, caption, buttons(loc));
   } catch (e) {
-    // no picture for this lesson yet — the text alone
     console.warn(`${loc}: ${(e as Error).message}; sending text`);
     try {
-      await tg('sendMessage', { ...asText, link_preview_options: { is_disabled: true } });
+      await tg('sendMessage', asText);
     } catch (e2) {
       console.error(`${loc}: ${(e2 as Error).message}`);
       failed = true;
       continue;
     }
   }
-  console.log(`${loc}: posted ${fact.id} to ${chat}`);
+  console.log(`${loc}: posted ${fact.id} to ${chat}${card ? ' with its card' : ' as text'}`);
 }
 if (failed) process.exit(1);
