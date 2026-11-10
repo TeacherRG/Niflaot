@@ -289,7 +289,7 @@ export function Panels() {
               {link('#/atlas/timeline', num('ז', true), t('atlas.timeline'), t('atlas.timelineSub'))}
             </>
           ))}
-          {group(<Icon name="chat" />, t('academy.fac.lashon'), t('menu.lashonSub'), starts('#/lashon', '#/pics', '#/torah-words', '#/words', '#/letters', '#/english'), (
+          {group(<Icon name="chat" />, t('academy.fac.lashon'), t('menu.lashonSub'), starts('#/lashon', '#/pics', '#/torah-words', '#/words', '#/letters', '#/english', '#/russian', '#/german'), (
             <>
               {link('#/lashon', num('ל', true), t('ln.title'), t('ln.menuSub'))}
               {link('#/pics', num('ת', true), t('pic.title'), t('pic.menuSub'))}

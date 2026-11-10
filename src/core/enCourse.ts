@@ -12,9 +12,18 @@
  * the example verse of «Мои слова») — a nearly right order counts, as in «Святой язык».
  * Progress — `niflaot:en-course` = {s: {<item>: day of the last right answer}, xp: {<date>: points}}, on this device only
  * (the page is open without signing in). Checked by scripts/check-en-course.ts.
+ *
+ * The same course teaches **Russian and German** too (`Target`; `#/russian`, `#/german`): the alphabet of the language (`ALPHABETS`),
+ * the project's translations of the words (src/tanakh/words/ru.json, de.json), the verse — the project's own translation only, the
+ * browser's voice of that language; progress — `niflaot:ru-course`, `niflaot:de-course`.
  */
 import { localToday } from './tanakh';
 import { markStudied } from './habit';
+
+export type Target = 'en' | 'ru' | 'de';
+export const TARGETS: Target[] = ['en', 'ru', 'de'];
+/** the browser voice of each language */
+export const VOICE: Record<Target, string> = { en: 'en-US', ru: 'ru-RU', de: 'de-DE' };
 
 export interface EnItem {
   /** `abc:A` or the Strong number */
@@ -40,8 +49,9 @@ export interface EnUnit {
   to?: number;
 }
 
+type Row = [string, string, string, string, string];
 /** [letter, name in Hebrew letters, sounds like, a word, its Hebrew] */
-export const LETTERS: [string, string, string, string, string][] = [
+export const LETTERS: Row[] = [
   ['A', 'אֵי', 'אַ / אֵי', 'apple', 'תַּפּוּחַ'],
   ['B', 'בִּי', 'בּ', 'bread', 'לֶחֶם'],
   ['C', 'סִי', 'ק / ס', 'city', 'עִיר'],
@@ -69,11 +79,81 @@ export const LETTERS: [string, string, string, string, string][] = [
   ['Y', 'וַוי', 'י', 'year', 'שָׁנָה'],
   ['Z', 'זִי', 'ז', 'zebra', 'זֶבְּרָה'],
 ];
-const ABC_SPLIT = [7, 7, 6, 6];
-export function abcUnits(): EnUnit[] {
-  const items: EnItem[] = LETTERS.map(([l, name, sound, w, wHe]) => ({ key: `abc:${l}`, he: name, en: `${l} ${l.toLowerCase()}`, main: l, sound, word: [w, wHe] }));
+/** the Russian alphabet: 33 letters */
+const RU: Row[] = [
+  ['А', 'אָ', 'אַ', 'ангел', 'מַלְאָךְ'],
+  ['Б', 'בֶּה', 'בּ', 'брат', 'אָח'],
+  ['В', 'וֶה', 'ו', 'вода', 'מַיִם'],
+  ['Г', 'גֶה', 'ג', 'гора', 'הַר'],
+  ['Д', 'דֶה', 'ד', 'день', 'יוֹם'],
+  ['Е', 'יֶה', 'יֶ / אֶ', 'еда', 'אֹכֶל'],
+  ['Ё', 'יוֹ', 'יוֹ', 'ёж', 'קִפּוֹד'],
+  ['Ж', 'ז׳ֶה', 'ז׳', 'жена', 'אִשָּׁה'],
+  ['З', 'זֶה', 'ז', 'земля', 'אֶרֶץ'],
+  ['И', 'אִי', 'אִי', 'имя', 'שֵׁם'],
+  ['Й', 'אִי קָצָר', 'י', 'мой', 'שֶׁלִּי'],
+  ['К', 'קָא', 'ק', 'книга', 'סֵפֶר'],
+  ['Л', 'אֶל', 'ל', 'лев', 'אַרְיֵה'],
+  ['М', 'אֶם', 'מ', 'мир', 'שָׁלוֹם'],
+  ['Н', 'אֶן', 'נ', 'небо', 'שָׁמַיִם'],
+  ['О', 'אוֹ', 'אוֹ', 'огонь', 'אֵשׁ'],
+  ['П', 'פֶּה', 'פּ', 'песня', 'שִׁיר'],
+  ['Р', 'אֶר', 'ר', 'рука', 'יָד'],
+  ['С', 'אֶס', 'ס', 'солнце', 'שֶׁמֶשׁ'],
+  ['Т', 'טֶה', 'ט / ת', 'Тора', 'תּוֹרָה'],
+  ['У', 'אוּ', 'אוּ', 'утро', 'בֹּקֶר'],
+  ['Ф', 'אֶף', 'פ', 'фрукт', 'פְּרִי'],
+  ['Х', 'חָא', 'ח', 'хлеб', 'לֶחֶם'],
+  ['Ц', 'צֶה', 'צ', 'царь', 'מֶלֶךְ'],
+  ['Ч', 'צ׳ֶה', 'צ׳', 'человек', 'אָדָם'],
+  ['Ш', 'שָׁא', 'שׁ', 'Шабат', 'שַׁבָּת'],
+  ['Щ', 'שְׁצָ׳א', 'שְׁצ׳ רכה', 'щит', 'מָגֵן'],
+  ['Ъ', 'סִימָן קָשֶׁה', 'לא נשמעת — מפרידה', 'подъём', 'עֲלִיָּה'],
+  ['Ы', 'אִי עָבָה', 'אִי עמוקה', 'сын', 'בֵּן'],
+  ['Ь', 'סִימָן רַךְ', 'לא נשמעת — מרככת', 'соль', 'מֶלַח'],
+  ['Э', 'אֶה', 'אֶ', 'эхо', 'הֵד'],
+  ['Ю', 'יוּ', 'יוּ', 'юг', 'דָּרוֹם'],
+  ['Я', 'יָא', 'יָ', 'яблоко', 'תַּפּוּחַ'],
+];
+/** the German alphabet: 26 letters, the umlauts and ß */
+const DE: Row[] = [
+  ['A', 'אָא', 'אַ', 'Apfel', 'תַּפּוּחַ'],
+  ['B', 'בֶּה', 'בּ', 'Brot', 'לֶחֶם'],
+  ['C', 'צֶה', 'ק / צ', 'Licht', 'אוֹר'],
+  ['D', 'דֶה', 'ד', 'Dorf', 'כְּפָר'],
+  ['E', 'אֶה', 'אֶ', 'Erde', 'אֶרֶץ'],
+  ['F', 'אֶף', 'פ', 'Feuer', 'אֵשׁ'],
+  ['G', 'גֶה', 'ג', 'Gold', 'זָהָב'],
+  ['H', 'הָא', 'ה', 'Haus', 'בַּיִת'],
+  ['I', 'אִי', 'אִ', 'Insel', 'אִי'],
+  ['J', 'יוֹט', 'י', 'Jahr', 'שָׁנָה'],
+  ['K', 'קָא', 'ק', 'König', 'מֶלֶךְ'],
+  ['L', 'אֶל', 'ל', 'Löwe', 'אַרְיֵה'],
+  ['M', 'אֶם', 'מ', 'Mann', 'אִישׁ'],
+  ['N', 'אֶן', 'נ', 'Nacht', 'לַיְלָה'],
+  ['O', 'אוֹ', 'אוֹ', 'Olive', 'זַיִת'],
+  ['P', 'פֶּה', 'פּ', 'Pferd', 'סוּס'],
+  ['Q', 'קוּ', 'קו', 'Quelle', 'מַעְיָן'],
+  ['R', 'אֶר', 'ר', 'Regen', 'גֶּשֶׁם'],
+  ['S', 'אֶס', 'ז / ס', 'Sonne', 'שֶׁמֶשׁ'],
+  ['T', 'טֶה', 'ט / ת', 'Tora', 'תּוֹרָה'],
+  ['U', 'אוּ', 'אוּ', 'Uhr', 'שָׁעוֹן'],
+  ['V', 'פָאוּ', 'פ', 'Vater', 'אָב'],
+  ['W', 'וֶה', 'ו', 'Wasser', 'מַיִם'],
+  ['X', 'אִיקְס', 'קס', 'Text', 'טֶקְסְט'],
+  ['Y', 'אִיפְּסִילוֹן', 'אִי (כמו Ü)', 'Pyramide', 'פִּירָמִידָה'],
+  ['Z', 'צֶט', 'צ', 'Zelt', 'אֹהֶל'],
+  ['Ä', 'אַ־אוּמְלָאוּט', 'אֶ', 'Äpfel', 'תַּפּוּחִים'],
+  ['Ö', 'אוֹ־אוּמְלָאוּט', 'אֶ בשפתיים עגולות', 'Öl', 'שֶׁמֶן'],
+  ['Ü', 'אוּ־אוּמְלָאוּט', 'אִי בשפתיים עגולות', 'Tür', 'דֶּלֶת'],
+  ['ß', 'אֶס־צֶט', 'ס', 'groß', 'גָּדוֹל'],
+];
+export const ALPHABETS: Record<Target, Row[]> = { en: LETTERS, ru: RU, de: DE };
+const ABC_SPLIT: Record<Target, number[]> = { en: [7, 7, 6, 6], ru: [9, 8, 8, 8], de: [8, 8, 7, 7] };
+export function abcUnits(target: Target = 'en'): EnUnit[] {
+  const items: EnItem[] = ALPHABETS[target].map(([l, name, sound, w, wHe]) => ({ key: `abc:${l}`, he: name, en: l === 'ß' ? l : `${l} ${l.toLowerCase()}`, main: l, sound, word: [w, wHe] }));
   let at = 0;
-  return ABC_SPLIT.map((n, i) => {
+  return ABC_SPLIT[target].map((n, i) => {
     const u: EnUnit = { id: `abc-${i + 1}`, track: 'abc', n: i + 1, items: items.slice(at, at + n) };
     at += n;
     return u;
@@ -83,7 +163,7 @@ export function abcUnits(): EnUnit[] {
 /** the first meaning, as a plain English word or phrase: «to say, speak» → «say»; null — not a plain word */
 export function mainMeaning(tr: string): string | null {
   const first = tr.split(/[;,]/)[0].replace(/\([^)]*\)/g, '').replace(/^\s*to\s+/i, '').replace(/\s+/g, ' ').trim();
-  return /^[A-Za-z][A-Za-z' -]{0,22}$/.test(first) ? first : null;
+  return /^\p{L}[\p{L}' -]{0,22}$/u.test(first) && !/[\u0590-\u05FF]/.test(first) ? first : null;
 }
 
 export const WORD_LEVEL = 50;
@@ -154,18 +234,19 @@ export function optionsFor(item: EnItem, pool: EnItem[], seed: number, n = 4): E
 }
 
 /** a word to spell: a single English word of 2–9 letters */
-export const spellable = (it: EnItem) => /^[a-z]{2,9}$/i.test(it.main);
-export function spellTiles(item: EnItem, seed: number): string[] {
-  const letters = item.main.toLowerCase().split('');
-  const extra = shuffle('etaoinshrdlu'.split('').filter((c) => !letters.includes(c)), seed).slice(0, 2);
+export const spellable = (it: EnItem) => /^\p{L}{2,9}$/u.test(it.main);
+const COMMON: Record<Target, string> = { en: 'etaoinshrdlu', ru: 'оеаинтсрвлк', de: 'enisratdhulg' };
+export function spellTiles(item: EnItem, seed: number, target: Target = 'en'): string[] {
+  const letters = [...item.main.toLowerCase()];
+  const extra = shuffle([...COMMON[target]].filter((c) => !letters.includes(c)), seed).slice(0, 2);
   return shuffle([...letters, ...extra], seed + 3);
 }
 /** the English verse cut into tiles: words without the end marks; the tiles — the words and one or two more of the lesson */
 export function verseWords(en: string): string[] {
   return en
-    .replace(/[“”"—–…]/g, ' ')
+    .replace(/[“”"„«»—–…]/g, ' ')
     .split(/\s+/)
-    .map((w) => w.replace(/^[^A-Za-z'-]+|[^A-Za-z'-]+$/g, ''))
+    .map((w) => w.replace(/^[^\p{L}'-]+|[^\p{L}'-]+$/gu, ''))
     .filter(Boolean);
 }
 export const verseOk = (v: EnVerse | undefined): v is EnVerse => !!v && v.words.length >= 3 && v.words.length <= VERSE_WORDS;
@@ -197,13 +278,13 @@ export function makeLesson(
   fresh: EnItem[],
   old: EnItem[],
   seed: number,
-  opts: { verse?: (it: EnItem) => EnVerse | undefined; hear?: boolean } = {},
+  opts: { verse?: (it: EnItem) => EnVerse | undefined; hear?: boolean; target?: Target } = {},
 ): EnExercise[] {
   const pool = unit.items;
   const out: EnExercise[] = [];
   const asks = (it: EnItem, k: number): EnExercise => {
     const s = seed + hash(it.key) + k;
-    if (unit.track === 'words' && k % 4 === 2 && spellable(it)) return { t: 'spell', item: it, tiles: spellTiles(it, s) };
+    if (unit.track === 'words' && k % 4 === 2 && spellable(it)) return { t: 'spell', item: it, tiles: spellTiles(it, s, opts.target) };
     const ask: 'he' | 'en' | 'hear' = k % 3 === 0 ? 'he' : k % 3 === 1 ? 'en' : opts.hear ? 'hear' : 'he';
     return { t: 'pick', ask, item: it, options: optionsFor(it, pool, s) };
   };
@@ -226,22 +307,23 @@ export function makeLesson(
 // ───── progress ─────
 
 export const EN_KEY = 'niflaot:en-course';
+const storeKey = (t: Target) => (t === 'en' ? EN_KEY : `niflaot:${t}-course`);
 export interface EnStore {
   s: Record<string, number>;
   xp: Record<string, number>;
 }
 export const dayNo = (d = new Date()) => Math.floor((d.getTime() - d.getTimezoneOffset() * 60000) / 86400000);
-export function readEn(): EnStore {
+export function readEn(target: Target = 'en'): EnStore {
   try {
-    const v = JSON.parse(localStorage.getItem(EN_KEY) || '{}') as Partial<EnStore>;
+    const v = JSON.parse(localStorage.getItem(storeKey(target)) || '{}') as Partial<EnStore>;
     return { s: v.s && typeof v.s === 'object' ? v.s : {}, xp: v.xp && typeof v.xp === 'object' ? v.xp : {} };
   } catch {
     return { s: {}, xp: {} };
   }
 }
-function save(s: EnStore) {
+function save(s: EnStore, target: Target) {
   try {
-    localStorage.setItem(EN_KEY, JSON.stringify(s));
+    localStorage.setItem(storeKey(target), JSON.stringify(s));
   } catch {}
 }
 export const seen = (s: EnStore, it: EnItem) => !!s.s[it.key];
@@ -254,26 +336,26 @@ export const xpToday = (s: EnStore) => Number(s.xp[localToday()]) || 0;
 export const xpTotal = (s: EnStore) => Object.values(s.xp).reduce((a, n) => a + (Number(n) || 0), 0);
 
 /** the end of a lesson: the items answered right are met today; the points of the day */
-export function finishLesson(right: string[], xp: number) {
-  const s = readEn();
+export function finishLesson(right: string[], xp: number, target: Target = 'en') {
+  const s = readEn(target);
   const d = dayNo();
   for (const k of right) s.s[k] = d;
   const t = localToday();
   s.xp[t] = (Number(s.xp[t]) || 0) + xp;
-  save(s);
+  save(s, target);
   markStudied();
 }
 
 /** the English voice of the browser (no permission: speechSynthesis only speaks) */
 export const canSpeak = () => typeof window !== 'undefined' && 'speechSynthesis' in window;
-export function speak(text: string) {
+export function speak(text: string, target: Target = 'en') {
   if (!canSpeak()) return;
   try {
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
-    u.lang = 'en-US';
+    u.lang = VOICE[target];
     u.rate = 0.85;
-    const v = speechSynthesis.getVoices().find((x) => x.lang?.toLowerCase().startsWith('en'));
+    const v = speechSynthesis.getVoices().find((x) => x.lang?.toLowerCase().startsWith(target));
     if (v) u.voice = v;
     speechSynthesis.speak(u);
   } catch {}

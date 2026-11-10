@@ -76,7 +76,7 @@ export function ModePicker() {
         </p>
         {hebrewBrowser() && (
           <a className="mode-he" href="#/english" dir="rtl" lang="he">
-            <b>דוברי עברית?</b> לומדים אנגלית דרך התנ״ך — האותיות והמילים השכיחות בנביאים ובכתובים ←
+            <b>דוברי עברית?</b> לומדים אנגלית, רוסית או גרמנית דרך התנ״ך — האותיות והמילים השכיחות בנביאים ובכתובים ←
           </a>
         )}
         <h1 id="mode-q1" className="mode-q">
