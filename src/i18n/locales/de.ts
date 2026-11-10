@@ -430,6 +430,7 @@ const de: Messages = {
   'home.gematria': "Gematria",
   'home.tickerChoose': "Was im Band läuft",
   'home.tickerNew': "Noch nichts zu wiederholen — hier sind die häufigsten neuen Wörter. Tippe, um anzufangen.",
+  'home.tickerNewTag': "neu",
   'home.myVerse': "Mein Tora-Vers",
   'home.myVerseAsk': "Wie heißt du? Wir finden deinen Vers — er beginnt mit dem ersten Buchstaben deines hebräischen Namens und endet mit dem letzten (prüfe sie). Nach altem Brauch sagt man ihn am Ende der Amida.",
   'home.myVerseName': "Dein Name",
