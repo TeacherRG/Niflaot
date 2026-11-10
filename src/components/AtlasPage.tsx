@@ -71,6 +71,7 @@ export function AtlasPage({ id }: { id?: string }) {
           <a href="#/atlas/timeline" className={id === 'timeline' ? 'on' : ''} aria-current={id === 'timeline' ? 'page' : undefined}>
             {t('atlas.timeline')}
           </a>
+          <a href="#/atlas/3d">{t('sno.tab')}</a>
         </nav>
         {!data ? (
           <p className="tk-note">{t('tanakh.loading')}</p>

@@ -17,6 +17,8 @@ import { styleErrors } from './style-rules';
 import type { AtlasDay, AtlasMap, AtlasTexts, Timeline } from '../src/core/atlas';
 import { atlasMatch } from '../src/core/atlas';
 import { keyRange, type AtlasKeys } from '../src/core/atlasKeys';
+import { buildSnoModel, type SnoData } from '../src/core/sno3d';
+import type { AtlasEntity } from '../src/core/atlas';
 import booksJson from '../src/tanakh/books.json';
 
 interface Entity {
@@ -237,6 +239,55 @@ if (errors.length) {
   console.error(`check-atlas: ${errors.length} ошибок\n` + errors.join('\n'));
   process.exit(1);
 }
+// «Шана · Нефеш · Олам» в объёме (src/tanakh/atlas/sno3d.json, src/core/sno3d.ts): места — с точкой, жизни — годы и путь по
+// порядку, места пути — известные, цари и пророки — из хронологии; модель собирается, у каждого — широта и линия
+{
+  const sno = read<SnoData>('../src/tanakh/atlas/sno3d.json');
+  const hasLl = (id: string) => !!(ents[id]?.ll || sno.places[id]?.ll);
+  for (const [id, pl] of Object.entries(sno.places)) {
+    const at = `sno3d.json место ${id}`;
+    if (ents[id]?.ll) err(`${at}: точка уже есть в entities.json`);
+    if (ents[id] && ents[id].k !== 'p') err(`${at}: в справочнике это не место`);
+    if (!Array.isArray(pl.ll) || Math.abs(pl.ll[0] - 34) > 8 || Math.abs(pl.ll[1] - 40) > 10) err(`${at}: точка`);
+    if (!ents[id]) {
+      if (!/[א-ת]/.test(pl.he ?? '')) err(`${at}: нет иврита`);
+      for (const l of LANGS) if (!pl.t?.[l]) err(`${at}: нет имени ${l}`);
+    }
+  }
+  for (const lf of sno.lives) {
+    const at = `sno3d.json ${lf.id}`;
+    if (lf.who && !ents[lf.who]) err(`${at}: нет записи ${lf.who}`);
+    if (lf.to !== undefined && lf.to <= lf.from) err(`${at}: годы`);
+    lf.path.forEach(([y, p], i) => {
+      if (y < lf.from || (lf.to !== undefined && y > lf.to) || (i && y < lf.path[i - 1][0])) err(`${at}: год пути ${y}`);
+      if (p && !hasLl(p)) err(`${at}: у места ${p} нет точки`);
+    });
+    if (!lf.path.some(([, p]) => p)) err(`${at}: ни одного места`);
+    if (lf.prophet && !tl.prophets.some((p) => p.ref === lf.prophet)) err(`${at}: нет пророка ${lf.prophet}`);
+    for (const l of LANGS) {
+      if (!lf.t[l] || !lf.src[l]) err(`${at}: нет текста ${l}`);
+      for (const e of NAMES[l](`${lf.t[l]} ${lf.src[l]}`)) err(`${at} (${l}): ${e}`);
+    }
+  }
+  for (const [ref, id] of Object.entries(sno.seats)) {
+    if (!tl.kings.some((k) => k.ref === ref)) err(`sno3d.json: столица у ${ref} — нет такого царя`);
+    if (!hasLl(id)) err(`sno3d.json: столица ${id} без точки`);
+  }
+  for (const id of Object.values(sno.seatDefault)) if (!hasLl(id)) err(`sno3d.json: столица ${id} без точки`);
+  const own = new Set(sno.lives.map((l) => l.prophet));
+  for (const p of tl.prophets)
+    if (!own.has(p.ref)) {
+      const x = sno.prophets[p.ref];
+      if (!x) err(`sno3d.json: нет места пророка ${p.t.ru} (${p.ref})`);
+      else if (!hasLl(x.p)) err(`sno3d.json: у места ${x.p} пророка ${p.t.ru} нет точки`);
+    }
+  const all = read<{ e: Record<string, AtlasEntity> }>('../public/tanakh/atlas/all.json');
+  const m = buildSnoModel(sno, tl, akeys, all.e);
+  for (const p of m.persons) if (p.stays.some((s) => !Number.isFinite(s.lat)) || p.lane < 0) err(`sno3d: у ${p.key} нет широты или линии`);
+  for (const k of tl.kings) if (!m.persons.some((p) => p.ref === k.ref)) err(`sno3d: царь ${k.t.ru} не попал в модель`);
+  if (m.lanes > 40) err(`sno3d: линий «нефеш» слишком много (${m.lanes})`);
+}
+
 console.log(`✓ Кто и где: ${Object.keys(ents).length} записей проекта, ${words} имён в стихах; справки готовы до ${ready}; ключевые места — ${Object.keys(akeys).length}, по дням до ${keysReady}; хронология — ${tl.events.length} событий, ${tl.kings.length} царей, ${tl.prophets.length} пророков`);
 if (keysAhead < 6) console.warn(`check-atlas: «Ключевые места» Невиим готовы только на ${keysAhead} учебных дней вперёд (до ${keysReady || '—'}) — src/tanakh/atlas/keys.json`);
 if (ahead < 6) console.warn(`check-atlas: справки «Кто и где» готовы только на ${ahead} учебных дней вперёд — python3 scripts/fetch-atlas.py todo ru`);
