@@ -287,6 +287,7 @@ export function Panels() {
               {link('#/search', <Icon name="search" />, t('search.menu'), t('search.menuSub'))}
               {link('#/atlas', num('מ', true), t('atlas.menu'), t('atlas.menuSub'))}
               {link('#/atlas/timeline', num('ז', true), t('atlas.timeline'), t('atlas.timelineSub'))}
+              {link('#/atlas/3d', num('ש', true), t('sno.menu'), t('sno.menuSub'))}
             </>
           ))}
           {group(<Icon name="chat" />, t('academy.fac.lashon'), t('menu.lashonSub'), starts('#/lashon', '#/pics', '#/torah-words', '#/words', '#/letters', '#/english', '#/russian', '#/german'), (

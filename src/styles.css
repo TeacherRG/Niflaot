@@ -3735,3 +3735,68 @@ button.dedication:hover .ded-name{text-decoration:underline;text-decoration-colo
 .tk-fold-body>section>h2:first-child{display:none}
 .tk-fold .tk-quiz{margin:0;padding:0 16px 16px;display:grid;gap:10px;justify-items:center;text-align:center;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){.tk-fold>summary::before{transition:none}}
+
+/* «Шана · Нефеш · Олам» — объёмная модель (#/atlas/3d, Sno3DPage) */
+.wrap.sno{max-width:1240px}
+.sno-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start;margin-top:8px}
+.sno-stage{min-width:0}
+.sno-tools{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:8px}
+.sno-tools button,.sno-year button{font:inherit;font-size:13px;font-weight:700;padding:6px 11px;border-radius:9px;border:1px solid var(--tchelet-line);background:var(--surface);color:var(--tchelet);cursor:pointer}
+.sno-tools button:hover,.sno-year button:hover{background:var(--tchelet-soft)}
+.sno-sep{width:1px;height:22px;background:var(--line);margin:0 2px}
+.sno-scale{font-size:13px;color:var(--muted)}
+.sno-scale select,.sno-num select,.sno-num input{font:inherit;font-size:13px;padding:5px 6px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.sno-num input{width:72px}
+.sno-canvas{position:relative;height:min(68svh,640px);min-height:320px;border-radius:16px;border:1px solid var(--line);background:linear-gradient(180deg,var(--surface),var(--tchelet-bg));overflow:hidden;box-shadow:var(--shadow)}
+.sno-canvas canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab;outline:none}
+.sno-canvas canvas:active{cursor:grabbing}
+.sno-canvas canvas:focus-visible{box-shadow:inset 0 0 0 2px var(--gold)}
+.sno-tip{position:absolute;pointer-events:none;background:var(--night);color:#fff;font-size:12px;font-weight:700;padding:4px 8px;border-radius:7px;white-space:nowrap;z-index:2}
+.sno-help{margin:6px 2px 0;font-size:12.5px;color:var(--muted)}
+.sno-year{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px}
+.sno-year>label:first-of-type{flex:1 1 200px;display:flex}
+.sno-year input[type=range]{width:100%;accent-color:var(--gold)}
+.sno-num{font-size:13px;color:var(--muted);display:flex;gap:4px;align-items:center}
+.sno-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:10px 0 0;padding:0;list-style:none;font-size:12.5px;color:var(--muted)}
+.sno-legend li::before{content:"";display:inline-block;width:18px;height:4px;border-radius:2px;margin-inline-end:6px;vertical-align:middle;background:var(--c)}
+.sno-legend .l-life{--c:var(--tchelet)}
+.sno-legend .l-judah{--c:var(--gold)}
+.sno-legend .l-israel{--c:var(--plum-deep)}
+.sno-legend .l-prophet::before{width:9px;height:9px;transform:rotate(45deg);border-radius:1px;background:var(--ok)}
+.sno-legend .l-event::before{width:9px;height:9px;border-radius:50%;background:var(--fire)}
+.sno-legend .l-key::before{width:9px;height:9px;border-radius:50%;background:var(--gold)}
+.sno-legend .l-dash::before{background:repeating-linear-gradient(90deg,var(--tchelet) 0 4px,transparent 4px 8px)}
+.sno-panel{display:grid;gap:12px;position:sticky;top:76px;max-height:calc(100svh - 92px);overflow:auto}
+.sno-card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:var(--shadow)}
+.sno-card h2{margin:0 0 6px;font-family:var(--f-display);font-size:24px;line-height:1.15;padding-inline-end:24px}
+.sno-card h2 .he{font-family:var(--f-he);font-size:.8em;color:var(--gold)}
+.sno-card h2 small{font-family:var(--f-body);font-size:13px;color:var(--muted);font-weight:600}
+.sno-card h3{margin:12px 0 6px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.sno-card p{margin:4px 0;font-size:14px;line-height:1.5}
+.sno-x{position:absolute;top:8px;inset-inline-end:8px;border:0;background:none;font-size:22px;line-height:1;color:var(--muted);cursor:pointer;padding:4px 8px}
+.sno-kind{font-size:12px!important;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--gold)}
+.sno-era{color:var(--gold);font-weight:700}
+.sno-note{color:var(--muted);font-size:13px!important}
+.sno-links{display:flex;flex-wrap:wrap;gap:12px;font-weight:700}
+.sno-list{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.sno-list button{all:unset;box-sizing:border-box;display:block;width:100%;cursor:pointer;padding:6px 8px;border-radius:9px;font-size:14px;line-height:1.35;border-inline-start:3px solid var(--c,var(--muted))}
+.sno-list button:hover,.sno-list button:focus-visible{background:var(--tchelet-soft)}
+.sno-list small{color:var(--muted)}
+.sno-list .he{font-family:var(--f-he);color:var(--gold)}
+.sno-k-life{--c:var(--tchelet)}
+.sno-k-king-united,.sno-k-king-judah{--c:var(--gold)}
+.sno-k-king-israel{--c:var(--plum-deep)}
+.sno-k-prophet{--c:var(--ok)}
+.sno-k-point{--c:var(--muted)}
+.sno-e{--c:var(--fire)}
+.sno-e.key{--c:var(--gold)}
+.sno-path{margin:0;padding-inline-start:20px;font-size:14px;display:grid;gap:2px}
+.sno-path button{font:inherit;font-weight:700;font-family:var(--f-num);font-size:12.5px;border:0;background:var(--gold-soft);color:var(--gold);border-radius:6px;padding:1px 6px;cursor:pointer}
+.sno-chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.sno-chips>span{font-weight:700;color:var(--muted);font-size:13px}
+.sno-chips button,.sno-chips a{font:inherit;font-size:13px;font-weight:700;padding:3px 9px;border-radius:999px;border:1px solid var(--gold-line);background:var(--gold-soft);color:var(--gold);text-decoration:none;cursor:pointer}
+.sno-source{margin:18px 0 8px;font-size:12.5px;color:var(--muted);line-height:1.5}
+@media (max-width:900px){.sno-grid{grid-template-columns:1fr}.sno-panel{position:static;max-height:none}.sno-canvas{height:58svh}}
+@media (max-width:640px){.sno-tools button{padding:6px 8px;font-size:12px}.sno-sep{display:none}}
+@media print{.sno-stage{display:none}}
+@media (max-width:640px){.sno .ws-lead{font-size:14px}.sno-canvas{height:min(52svh,440px);min-height:300px}.sno-legend{font-size:11.5px}}

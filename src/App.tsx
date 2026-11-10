@@ -54,6 +54,7 @@ const TanakhPage = page(() => import('./components/TanakhPage'), 'TanakhPage');
 const WordsPage = page(() => import('./components/WordsPage'), 'WordsPage');
 const BookmarksPage = page(() => import('./components/BookmarksPage'), 'BookmarksPage');
 const AtlasPage = page(() => import('./components/AtlasPage'), 'AtlasPage');
+const Sno3DPage = page(() => import('./components/Sno3DPage'), 'Sno3DPage');
 const VersePage = page(() => import('./components/VersePage'), 'VersePage');
 const TanakhSearchPage = page(() => import('./components/TanakhSearchPage'), 'TanakhSearchPage');
 const FreePage = page(() => import('./components/FreePage'), 'FreePage');
@@ -234,6 +235,8 @@ function Site() {
             <WordsPage key={route} focus={view || undefined} />
           ) : slug === 'bookmarks' && !view ? (
             <BookmarksPage />
+          ) : slug === 'atlas' && view === '3d' && !variant ? (
+            <Sno3DPage />
           ) : slug === 'atlas' && !variant ? (
             <AtlasPage key={route} id={view || undefined} />
           ) : slug === 'free' && !view ? (
