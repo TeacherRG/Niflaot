@@ -98,25 +98,25 @@ export function VersesGraph({ verses, atlas, keys }: { verses: { b: string; c: n
     const name = (id: string) => atlasName(id, atlas.e[id], tx, lang);
     const up = [...ids].filter(([id]) => 'mf'.includes(atlas.e[id]?.k ?? 'p'));
     const down = [...ids].filter(([id]) => !'mf'.includes(atlas.e[id]?.k ?? 'p'));
-    // люди: над средним своих стихов, рядами без наложений
-    const placed: Box[] = [];
+    // люди: один ряд над стихами (владелец, 10.11.2026: «Исраэль между Моше и Йеґошуа — визуально неправильно»), каждый — над
+    // средним своих стихов, по порядку; налегает на соседа — сдвигается вправо
     const nodes: { id: string; k: string; label: string; box: Box; refs: string[] }[] = [];
+    const spine = 30 + 30 + 70;
+    let right = 12;
     const ups = up.map(([id, rs]) => ({ id, rs, x: rs.reduce((a, r) => a + X.get(r)!, 0) / rs.length })).sort((a, b) => a.x - b.x);
-    let rows = 1;
-    const upBoxes: { id: string; rs: string[]; label: string; x: number; w: number; row: number }[] = [];
-    for (const p of ups) {
-      const label = name(p.id);
+    // равномерно по ширине отрывка (иначе все, кто есть почти во всех стихах, сбиваются к середине)
+    const x0 = X.get(refs[0])!;
+    const x1 = X.get(refs[refs.length - 1])!;
+    for (const [i, p] of ups.entries()) {
+      // «Исраэль» в книгах Пророков — народ: так и подписан
+      const label = p.id === 'yisrael' ? t('graph.israel') : name(p.id);
       const w = textW(label, 13) + 22;
-      let row = 0;
-      while (upBoxes.some((o) => o.row === row && Math.abs(o.x - p.x) * 2 < o.w + w + 10)) row++;
-      rows = Math.max(rows, row + 1);
-      upBoxes.push({ id: p.id, rs: p.rs, label, x: p.x, w, row });
+      const even = ups.length > 1 ? x0 + ((x1 - x0) * (i + 0.5)) / ups.length : p.x;
+      const x = Math.max((even + p.x) / 2, right + w / 2);
+      right = x + w / 2 + 12;
+      nodes.push({ id: p.id, k: p.id === 'yisrael' ? 'g' : (atlas.e[p.id]?.k ?? 'm'), label, box: { x, y: 30, w, h: 30 }, refs: p.rs });
     }
-    const spine = 30 + rows * 44 + 46;
-    for (const p of upBoxes) {
-      const box = { x: p.x, y: spine - 80 - p.row * 44, w: p.w, h: 30 };
-      nodes.push({ id: p.id, k: atlas.e[p.id]?.k ?? 'm', label: p.label, box, refs: p.rs });
-    }
+    const placed: Box[] = [];
     // места и народы: под своим первым стихом, вниз — пока не перестанут налегать
     for (const [id, rs] of down) {
       const label = name(id);
@@ -127,14 +127,14 @@ export function VersesGraph({ verses, atlas, keys }: { verses: { b: string; c: n
     }
     const width = Math.max(...nodes.map((n) => n.box.x + n.box.w / 2), 70 + (refs.length - 1) * DX + 40) + 24;
     const height = Math.max(...nodes.map((n) => n.box.y + n.box.h / 2)) + 20;
-    const key = refs.find((r) => keys?.[r]);
-    const inKey = new Set(key ? [...keys![key].who, ...keys![key].where] : []);
-    return { refs, X, nodes, spine, width, height, key, inKey };
-  }, [atlas, keys, verses, tx, lang]);
+    // ключевые места отрывка — у каждого свой маячок
+    const keyRefs = new Set(refs.filter((r) => keys?.[r]));
+    return { refs, X, nodes, spine, width, height, keyRefs };
+  }, [atlas, keys, verses, tx, lang, t]);
 
   if (!g) return null;
   return (
-    <Frame title={t('graph.title')} lead={t('graph.lead')} w={g.width} h={g.height} label={t('graph.title')} focus={g.key ? g.X.get(g.key) : undefined}>
+    <Frame title={t('graph.title')} lead={t('graph.lead')} w={g.width} h={g.height} label={t('graph.title')} focus={g.keyRefs.size ? g.X.get([...g.keyRefs][0]) : undefined}>
       {g.nodes.flatMap((n) =>
         n.refs.map((r) => {
           const x = g.X.get(r)!;
@@ -145,7 +145,7 @@ export function VersesGraph({ verses, atlas, keys }: { verses: { b: string; c: n
       {g.refs.map((r) => {
         const x = g.X.get(r)!;
         const label = r.split(' ')[1];
-        const isKey = r === g.key;
+        const isKey = g.keyRefs.has(r);
         return (
           <g key={r}>
             <a href={`#v-${r.replace(/[ :]/g, '-')}`} className="gr-link" onClick={(e) => (e.preventDefault(), document.getElementById(`v-${r.replace(/[ :]/g, '-')}`)?.scrollIntoView({ block: 'start', behavior: 'smooth' }))}>
@@ -159,7 +159,7 @@ export function VersesGraph({ verses, atlas, keys }: { verses: { b: string; c: n
         );
       })}
       {g.nodes.map((n) => {
-        const cls = `gr-node k-${n.k}${g.inKey.has(n.id) ? ' in-key' : ''}`;
+        const cls = `gr-node k-${n.k}`;
         const body = (
           <>
             <rect className={cls} x={n.box.x - n.box.w / 2} y={n.box.y - n.box.h / 2} width={n.box.w} height={n.box.h} rx={8} />
