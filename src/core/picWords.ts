@@ -97,3 +97,35 @@ export function makePicRound(ids: string[], score: PicScore, n = 10, rnd: () => 
     return { id, options: shuffle(options, rnd), reverse: i >= pick.length / 2 && rnd() < 0.5 };
   });
 }
+
+/**
+ * The shrinking time bar of a question (owner, 10.11.2026: «временная уменьшающаяся шкала — чтобы было интереснее»).
+ * The base: 9 s to find a picture for the word, 11 s to find the word for a picture (four Hebrew words to read); when the
+ * words are shown with how they are read (`spelled`, «Не знаю букв») — 3 s more. A run of right answers speeds it up:
+ * −0.5 s for every 2 in a row, but never below 60 % of the base — fast, yet still fair for a child.
+ */
+export const PIC_TIME = { pic: 9000, word: 11000, spelled: 3000, perTwo: 500, floor: 0.6 };
+export function picTime(reverse: boolean, combo: number, spelled = false): number {
+  const base = (reverse ? PIC_TIME.word : PIC_TIME.pic) + (spelled ? PIC_TIME.spelled : 0);
+  return Math.round(Math.max(base * PIC_TIME.floor, base - PIC_TIME.perTwo * Math.floor(combo / 2)));
+}
+/** points of an answer: a wrong one or time out — 0; a right one — 10 and up to 10 more for speed (the share of the bar left) */
+export function picPoints(right: boolean, leftShare: number): number {
+  return right ? 10 + Math.round(10 * Math.min(1, Math.max(0, leftShare))) : 0;
+}
+/** the best round on this device (points) */
+export const PICS_BEST_KEY = 'niflaot:pics-best';
+export function readPicBest(): number {
+  try {
+    return Number(localStorage.getItem(PICS_BEST_KEY)) || 0;
+  } catch {
+    return 0;
+  }
+}
+export function notePicBest(points: number): boolean {
+  if (points <= readPicBest()) return false;
+  try {
+    localStorage.setItem(PICS_BEST_KEY, String(points));
+  } catch {}
+  return true;
+}
