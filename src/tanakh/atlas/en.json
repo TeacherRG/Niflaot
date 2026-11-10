@@ -161,5 +161,9 @@
   "tzor": {"n": "Tyre"},
   "beit-lechem": {"n": "Bethlehem"},
   "shomron": {"n": "Samaria"},
-  "dameshek": {"n": "Damascus"}
+  "dameshek": {"n": "Damascus"},
+  "calev": {"n": "Caleb son of Jephunneh", "d": "Of the tribe of Judah, one of the twelve spies Moshe sent from Kadesh-barnea; with Joshua he spoke no evil of the Land (Numbers 14:6–9, 24). At eighty-five he asked for Hebron and drove out the sons of the giant Anak (ch. 14–15)."},
+  "elazar": {"n": "Elazar the Kohen", "d": "Son of Aharon and High Priest after him. With Joshua and the heads of the tribes he divided the Land by lot (14:1)."},
+  "efraim": {"n": "Ephraim", "d": "The younger son of Yosef, whom Yaakov blessed before the elder, Manasseh (Genesis 48:19–20). His tribe received its portion in the middle of the land; Joshua was from it (Numbers 13:8)."},
+  "tzelofchad": {"n": "Zelophehad", "d": "Of the tribe of Manasseh. He died in the wilderness without sons; his five daughters asked Moshe for their father's portion, and G-d said to give it to them (Numbers 27:1–7). Joshua carried it out when the Land was divided (17:3–6)."}
 }

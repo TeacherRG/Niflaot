@@ -161,5 +161,9 @@
   "tzor": {"n": "Zor"},
   "beit-lechem": {"n": "Bet-Lechem"},
   "shomron": {"n": "Schomron"},
-  "dameshek": {"n": "Damaskus"}
+  "dameshek": {"n": "Damaskus"},
+  "calev": {"n": "Kalew, Sohn von Jefune", "d": "Aus dem Stamm Jehuda, einer der zwölf Kundschafter, die Mosche aus Kadesch-Barnea schickte; mit Jehoschua sagte er nichts Schlechtes über das Land (Bamidbar 14,6–9.24). Mit fünfundachtzig bat er um Chewron und vertrieb dort die Söhne des Riesen Anak (Kap. 14–15)."},
+  "elazar": {"n": "Elasar, der Kohen", "d": "Sohn von Aharon und nach ihm Hohepriester. Mit Jehoschua und den Häuptern der Stämme verteilte er das Land durch das Los (14,1)."},
+  "efraim": {"n": "Efrajim", "d": "Der jüngere Sohn von Josef, den Jaakow vor dem älteren, Menasche, segnete (Bereschit 48,19–20). Sein Stamm bekam sein Erbteil in der Mitte des Landes; aus ihm kam Jehoschua (Bamidbar 13,8)."},
+  "tzelofchad": {"n": "Zelofchad", "d": "Aus dem Stamm Menasche. Er starb in der Wüste ohne Söhne; seine fünf Töchter baten Mosche um das Erbteil ihres Vaters, und G-tt sagte, man soll es ihnen geben (Bamidbar 27,1–7). Jehoschua tat das, als das Land verteilt wurde (17,3–6)."}
 }

@@ -3016,6 +3016,32 @@ a.wd-sing{font-weight:800;text-decoration:none}
 .wp-a-head b{font-size:16px}
 .wp-a-d{font-size:13.5px;color:var(--ink-2)}
 .wp-a-map{border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+/* «Ключевое место» Невиим: маячок в стихе и окно шана · нефеш · маком (KeyPop, src/core/atlasKeys.ts) */
+.tk-key{text-decoration:underline 2px var(--gold);text-underline-offset:6px;text-decoration-skip-ink:none}
+.tk-beacon{position:relative;display:inline-grid;place-items:center;width:1.15em;height:1.15em;margin:0 .1em;padding:0;border:0;border-radius:50%;background:none;cursor:pointer;vertical-align:-.1em}
+.tk-beacon span,.kp-dot{display:inline-block;width:.62em;height:.62em;border-radius:50%;background:var(--gold);box-shadow:0 0 0 2px var(--gold-soft)}
+.tk-beacon::after{content:"";position:absolute;inset:.12em;border-radius:50%;border:2px solid var(--gold);opacity:0;animation:tk-beacon 2.4s ease-out infinite}
+@keyframes tk-beacon{0%{transform:scale(.6);opacity:.8}80%,100%{transform:scale(1.6);opacity:0}}
+.tk-beacon:hover span,.tk-beacon:focus-visible span{background:var(--gold-deep)}
+.tk-beacon:focus-visible{outline:2px solid var(--tchelet);outline-offset:2px}
+.tk-num+.tk-beacon{font-size:18px;margin:0 4px}
+@media (prefers-reduced-motion:reduce){.tk-beacon::after{animation:none;opacity:.5;transform:scale(1.25)}}
+.kp-hint .kp-dot{width:9px;height:9px;margin-inline-end:4px;vertical-align:1px}
+.kp{width:min(340px,calc(100vw - 16px));display:grid;gap:8px}
+.kp-eyebrow{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-deep)}
+.kp-eyebrow .kp-dot{width:8px;height:8px;margin-inline-end:3px;vertical-align:1px}
+.kp-phrase{font-size:21px;line-height:1.35}
+.kp-t{font-weight:700;font-size:16px}
+.kp-rows{margin:0;display:grid;gap:6px}
+.kp-row{display:grid;grid-template-columns:5.6em 1fr;gap:8px;align-items:baseline;padding:6px 8px;border-radius:9px;background:var(--gold-soft)}
+.kp-row dt{font-size:12px;color:var(--muted);line-height:1.25}
+.kp-row dt .he{display:block;font-size:17px;color:var(--ink)}
+.kp-row dd{margin:0;font-size:13.5px;min-width:0}
+.kp-nefesh{background:var(--tchelet-soft)}
+.kp-makom{background:var(--ok-soft)}
+.kp-era{color:var(--muted)}
+.kp-d{font-size:13.5px;color:var(--ink-2)}
+.kp-more{font-size:13px}
 /* «Кто и где в этом отрывке» (TanakhAtlas) и своя карта (AtlasMap) */
 .ta{margin:28px 0 8px;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
 .ta h2{margin:0;font-family:var(--f-display);font-size:24px}

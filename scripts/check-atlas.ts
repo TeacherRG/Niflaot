@@ -16,6 +16,7 @@ import retell from '../src/tanakh/retell.json';
 import { styleErrors } from './style-rules';
 import type { AtlasDay, AtlasMap, AtlasTexts, Timeline } from '../src/core/atlas';
 import { atlasMatch } from '../src/core/atlas';
+import { keyRange, type AtlasKeys } from '../src/core/atlasKeys';
 import booksJson from '../src/tanakh/books.json';
 
 interface Entity {
@@ -138,6 +139,29 @@ for (const p of tl.prophets) {
   }
 }
 
+// «Ключевые места» Невиим (src/tanakh/atlas/keys.json): записи, год внутри хронологии, три языка, Имена и стиль;
+// словосочетание есть в стихе (проверяется ниже, в цикле по дням)
+const akeys = read<AtlasKeys>('../src/tanakh/atlas/keys.json');
+const keyAt = new Map<string, string>();
+for (const [ref, k] of Object.entries(akeys)) {
+  const at = `keys.json ${ref}`;
+  if (!verseOk(ref)) err(`${at}: не стих`);
+  if (!/^[א-ת]+( [א-ת]+)*$/.test(k.w)) err(`${at}: словосочетание — буквы без огласовок, слова через пробел`);
+  for (const id of k.who) if (!ents[id] || ents[id].k === 'p') err(`${at}: «кто» — ${id} не человек и не народ`);
+  for (const id of k.where) if (!ents[id] || ents[id].k !== 'p') err(`${at}: «где» — ${id} не место`);
+  if (!k.who.length && !k.where.length) err(`${at}: нет ни «кто», ни «где»`);
+  if (k.y < tl.eras[0].from || k.y >= tl.eras.at(-1)!.to || (k.y2 !== undefined && k.y2 <= k.y)) err(`${at}: год`);
+  for (const l of LANGS) {
+    if (!k.t[l] || !k.d[l] || (k.when && !k.when[l])) err(`${at}: нет текста ${l}`);
+    const all = `${k.t[l]} ${k.d[l]} ${k.when?.[l] ?? ''}`;
+    if (/[<>]/.test(all)) err(`${at} (${l}): без HTML`);
+    if ((k.t[l] ?? '').length > 70 || (k.d[l] ?? '').length > 420) err(`${at} (${l}): длинно — заголовок ≤ 70, текст ≤ 420`);
+    for (const e of NAMES[l](all)) err(`${at} (${l}): ${e}`);
+  }
+}
+let keysReady = '';
+let keysGap = false;
+
 const cycle = (cycleJson.days as [string, ...number[]][]).map(([date]) => date);
 const until = Object.keys(retell).sort().at(-1)!;
 const need = new Map<string, string>();
@@ -152,6 +176,17 @@ for (const date of cycle) {
   const d = read<AtlasDay>(path);
   const day = read<Record<'neviim' | 'ketuvim', { verses: { b: string; c: number; v: number; he: string }[] }>>(`../public/tanakh/${date}.json`);
   const verses = new Map([...day.neviim.verses, ...day.ketuvim.verses].map((v) => [`${v.b} ${v.c}:${v.v}`, v.he]));
+  for (const v of day.neviim.verses) {
+    const ref = `${v.b} ${v.c}:${v.v}`;
+    const k = akeys[ref];
+    if (!k) continue;
+    keyAt.set(ref, date);
+    if (!keyRange(v.he, k.w)) err(`keys.json ${ref}: «${k.w}» нет в стихе (${date})`);
+  }
+  if (!keysGap) {
+    if (day.neviim.verses.some((v) => akeys[`${v.b} ${v.c}:${v.v}`])) keysReady = date;
+    else keysGap = true;
+  }
   const used = new Set<string>();
   for (const [ref, row] of Object.entries(d.v)) {
     const he = verses.get(ref);
@@ -180,6 +215,8 @@ for (const date of cycle) {
 for (const [id, date] of need)
   err(`нет справки ${id} (${date}) на ${LANGS.filter((l) => !texts[l][id]?.d).join(', ')} — python3 scripts/fetch-atlas.py todo ru ${until}`);
 
+for (const ref of Object.keys(akeys)) if (!keyAt.has(ref)) err(`keys.json ${ref}: этого стиха нет в цикле Невиим`);
+
 // поиск в справочнике (#/atlas): иврит без огласовок и в полном / кратком написании, имя на другом языке, без гласных
 for (const [q, names, he, ok] of [
   ['יריחו', ['Йерихо'], 'יְרִיחוֹ', true],
@@ -195,9 +232,11 @@ for (const [q, names, he, ok] of [
 // предупреждение: справок меньше чем на неделю вперёд (по циклу, начиная с сегодняшнего дня)
 const today = new Date().toISOString().slice(0, 10);
 const ahead = cycle.filter((d) => d >= today && d <= ready).length;
+const keysAhead = cycle.filter((d) => d >= today && d <= keysReady).length;
 if (errors.length) {
   console.error(`check-atlas: ${errors.length} ошибок\n` + errors.join('\n'));
   process.exit(1);
 }
-console.log(`✓ Кто и где: ${Object.keys(ents).length} записей проекта, ${words} имён в стихах; справки готовы до ${ready}; хронология — ${tl.events.length} событий, ${tl.kings.length} царей, ${tl.prophets.length} пророков`);
+console.log(`✓ Кто и где: ${Object.keys(ents).length} записей проекта, ${words} имён в стихах; справки готовы до ${ready}; ключевые места — ${Object.keys(akeys).length}, по дням до ${keysReady}; хронология — ${tl.events.length} событий, ${tl.kings.length} царей, ${tl.prophets.length} пророков`);
+if (keysAhead < 6) console.warn(`check-atlas: «Ключевые места» Невиим готовы только на ${keysAhead} учебных дней вперёд (до ${keysReady || '—'}) — src/tanakh/atlas/keys.json`);
 if (ahead < 6) console.warn(`check-atlas: справки «Кто и где» готовы только на ${ahead} учебных дней вперёд — python3 scripts/fetch-atlas.py todo ru`);
