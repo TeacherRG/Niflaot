@@ -25,7 +25,7 @@ import { rangeLabel, SECTIONS, type Section } from '../src/core/tanakhCycle';
 import { civilDate, jewishDate } from '../src/core/hebrewDate';
 import { routeLink, SITE_URL } from '../src/core/site';
 import { miniAppLink } from '../src/core/telegram';
-import { deliverNewsletter, newsletterEnabled, plainNewsletterText } from './newsletter';
+import { buttondownEnabled, deliverNewsletter, newsletterEnabled, plainNewsletterText, sendButtondown, type MailSection } from './newsletter';
 import { wordOfDay, type DayWords, type Word } from '../src/core/words';
 import WORDS from '../src/tanakh/words.json';
 import ru from '../src/i18n/locales/ru';
@@ -128,6 +128,18 @@ const buttons = (loc: Loc) =>
  * the Hebrew and the translation in the channel's language, with Metzudat David, both sections — saved as A4 PDF.
  */
 const VIEW: Record<Loc, string> = { ru: 'he-ru', en: 'he-en', de: 'he-de' };
+// the email (Buttondown): the post's text with ?ref=mail, and a link to the day's page to read and print instead of the PDF
+const MAIL_KEY = `daily-${date}`;
+const MAIL_SUBJECT = `${t('ru', 'tanakh.post.title')} · ${civilDate(date, 'ru')} · Niflaot`;
+function mailSection(loc: Loc, text: string): MailSection {
+  return {
+    lang: loc,
+    heading: `${t(loc, 'tanakh.post.title')} · ${civilDate(date, loc)}`,
+    text: text.replaceAll('ref=channel', 'ref=mail'),
+    links: [{ label: t(loc, 'tanakh.post.pdf', { date: civilDate(date, loc) }), url: routeLink(`neviim/${date}`, 'mail', loc) }],
+  };
+}
+
 async function dayPdf(loc: Loc): Promise<Uint8Array> {
   const { chromium } = await import('playwright');
   // CHROMIUM_PATH — a browser already on the machine (locally); in GitHub Actions playwright installs its own
@@ -174,10 +186,12 @@ async function tg(method: string, body: object) {
   if (!json.ok) throw new Error(`${method}: ${json.description}`);
 }
 
-if (!DRY && !Object.values(CHATS).some(Boolean) && !newsletterEnabled()) throw new Error('no channel or newsletter: set TELEGRAM_CHAT_RU / _EN / _DE or configure email delivery');
+if (!DRY && !Object.values(CHATS).some(Boolean) && !newsletterEnabled() && !buttondownEnabled()) throw new Error('no channel or newsletter: set TELEGRAM_CHAT_RU / _EN / _DE or configure email delivery');
 let failed = false;
+const mailSections: MailSection[] = [];
 for (const loc of Object.keys(UI) as Loc[]) {
   const text = post(loc);
+  mailSections.push(mailSection(loc, text));
   if (DRY) {
     console.log(`── ${loc} (${CHATS[loc] ?? 'нет канала'})\n${text}\n${APP ? `${JSON.stringify(buttons(loc).reply_markup)}\n` : ''}`);
     if (PDF_ONLY) {
@@ -222,4 +236,13 @@ for (const loc of Object.keys(UI) as Loc[]) {
     failed = true;
   }
 }
+// Buttondown: one issue, all languages (scripts/newsletter.ts); a failure here doesn't undo the posts
+if (!DRY && buttondownEnabled()) {
+  try {
+    await sendButtondown({ key: MAIL_KEY, subject: MAIL_SUBJECT, sections: mailSections });
+  } catch (e) {
+    console.error(`Buttondown — ${(e as Error).message}`);
+    failed = true;
+  }
+} else if (DRY && buttondownEnabled()) console.log(`Buttondown (dry): ${MAIL_SUBJECT}\n${mailSections.map((m) => m.links.map((l) => `${l.label} — ${l.url}`).join('\n')).join('\n')}`);
 if (failed) process.exit(1);

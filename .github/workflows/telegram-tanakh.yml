@@ -34,6 +34,8 @@ jobs:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       ASSISTANT_URL: ${{ vars.ASSISTANT_URL }}
       NEWSLETTER_SECRET: ${{ secrets.NEWSLETTER_SECRET }}
+      # the email newsletter through Buttondown (scripts/newsletter.ts): one issue in three languages, links instead of PDFs
+      BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
       TELEGRAM_CHAT_RU: ${{ vars.TELEGRAM_CHAT_RU || secrets.TELEGRAM_CHAT_RU }}
       # optional: the Mini App from @BotFather (<bot>/<app>) — a button «open in Telegram» under the post
       TELEGRAM_APP: ${{ vars.TELEGRAM_APP }}
@@ -84,9 +86,9 @@ jobs:
             echo "::error::Нет секрета TELEGRAM_BOT_TOKEN: Settings → Secrets and variables → Actions → вкладка Secrets (не Variables) → Repository secrets."
             exit 1
           fi
-          # without it the email newsletter is silently off (11.11.2026: no email came) — say so on the run page
-          if [ -z "$NEWSLETTER_SECRET" ]; then
-            echo "::warning::Нет секрета NEWSLETTER_SECRET — письма рассылки не отправляются: Settings → Secrets and variables → Actions → Secrets → New repository secret NEWSLETTER_SECRET (длинная случайная строка), потом Actions → «Assistant» → Run workflow, чтобы она попала и на сервер."
+          # without it no email goes out (11.11.2026: none came) — say so on the run page
+          if [ -z "$BUTTONDOWN_API_KEY$NEWSLETTER_SECRET" ]; then
+            echo "::warning::Нет секрета BUTTONDOWN_API_KEY — письма рассылки не отправляются: Settings → Secrets and variables → Actions → Secrets."
           fi
           if [ -z "$TELEGRAM_CHAT_RU$TELEGRAM_CHAT_EN$TELEGRAM_CHAT_DE" ]; then
             echo "::error::Не задан ни один канал (TELEGRAM_CHAT_RU): Settings → Secrets and variables → Actions (вкладка Variables или Secrets)."
