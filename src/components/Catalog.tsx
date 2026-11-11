@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useI18n } from '../i18n';
 import { Slogan } from './Slogan';
-import { LESSONS, LESSON_GROUPS, cardsOnly, type Lesson } from '../lessons';
+import { LESSONS, LESSON_GROUPS, cardsOnly, weekParsha, type Lesson } from '../lessons';
 import { TEACHERS, teacherOf } from '../lessons/teachers';
 import { lessonProgress } from '../core/progress';
 import { TopBar } from './TopBar';
@@ -146,7 +146,7 @@ function AdultsHome() {
   useEffect(() => {
     document.title = `${t('home.adultsH1')} · ${t('app.title')} · MyChitas`;
   }, [t]);
-  const week = LESSON_GROUPS[LESSON_GROUPS.length - 1];
+  const week = LESSON_GROUPS.find((g) => g.id === weekParsha()) ?? LESSON_GROUPS[LESSON_GROUPS.length - 1];
   const reads = [...week.lessons, ...week.rebbe];
   const art = reads.map((l) => lessonArt(l, 'hero')).find(Boolean);
 
@@ -669,8 +669,7 @@ function KidsHome() {
     document.title = `${t('app.title')} · MyChitas`;
   }, [t]);
 
-  // the week's portion: the latest one with lessons
-  const week = LESSON_GROUPS[LESSON_GROUPS.length - 1];
+  const week = LESSON_GROUPS.find((g) => g.id === weekParsha()) ?? LESSON_GROUPS[LESSON_GROUPS.length - 1];
   const lessons = [...week.lessons, ...week.rebbe];
   // continue a started lesson, else the first unfinished one of the week (a cards-only lesson has no riddles to continue)
   const playable = lessons.filter((l) => !cardsOnly(l));
