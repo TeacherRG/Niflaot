@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { track } from '../core/analytics';
 import { useI18n } from '../i18n';
 import { formatTime } from '../core/format';
 import { useLessonState } from '../core/useLessonState';
@@ -20,6 +21,10 @@ export function LessonPage({ lesson, at }: { lesson: Lesson; at?: number }) {
   const total = lesson.riddles.length;
   const summary = S.lvl >= total;
   const running = !summary && !!S.started[S.lvl] && !S.done.includes(S.lvl);
+
+  useEffect(() => {
+    if (summary) track('lesson_complete', { key: lesson.slug });
+  }, [summary, lesson.slug]);
 
   useEffect(() => {
     document.title = `${text.title} · ${t('app.title')}`;

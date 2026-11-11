@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
+import { track } from '../core/analytics';
 import { LOCALES, useI18n, type Locale } from '../i18n';
 import { Icon, useDismiss, useUI } from './ui';
 import { loadConfig, useAccount } from '../core/account';
@@ -115,8 +116,8 @@ export function ShareButton({ label, className = '' }: { label?: boolean; classN
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const root = useRef<HTMLDivElement>(null);
-  const close = useCallback(() => setOpen(false), []);
-  useDismiss(open, root, close);
+  const close = useCallback(() => (track('share'), setOpen(false)), []);
+  useDismiss(open, root, () => setOpen(false));
   if (noShare(location.hash)) return null;
   const link = (ref: Ref) => currentLink(location.hash, ref, locale, (slug) => !!findLesson(slug));
   // the page's own title, without the site's name at the end
@@ -125,8 +126,9 @@ export function ShareButton({ label, className = '' }: { label?: boolean; classN
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(link('copy'));
+      track('share');
       setCopied(true);
-      setTimeout(() => (setCopied(false), close()), 1400);
+      setTimeout(() => (setCopied(false), setOpen(false)), 1400);
     } catch {
       window.prompt(t('share.copy'), link('copy'));
     }

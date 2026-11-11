@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { track } from '../core/analytics';
 import { Html, useI18n } from '../i18n';
 import { LESSONS } from '../lessons';
 import { VALUES, letters } from '../core/gematria';
@@ -85,7 +86,7 @@ export function DailyCard() {
   const shareNative = async () => {
     const txt = share('daily');
     try {
-      if (navigator.share) return await navigator.share({ text: txt });
+      if (navigator.share) return await navigator.share({ text: txt }), track('share');
     } catch (e) {
       if ((e as Error).name === 'AbortError') return;
     }

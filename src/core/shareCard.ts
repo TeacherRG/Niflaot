@@ -1,3 +1,4 @@
+import { track } from './analytics';
 import { displayNames } from './names';
 import { NIFLAOT_SEAL } from './partners';
 import qrcode from 'qrcode-generator';
@@ -524,6 +525,7 @@ export async function shareOrSave(blob: Blob, filename: string, text: string): P
   if (navigator.canShare?.({ files: [file] })) {
     try {
       await navigator.share({ files: [file], text });
+      track('share');
       return 'shared';
     } catch (e) {
       if ((e as DOMException).name === 'AbortError') return 'shared';

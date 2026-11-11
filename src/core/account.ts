@@ -1,3 +1,4 @@
+import { track } from './analytics';
 /**
  * «Войти» — the account (server: assistant/src/accounts.ts). Since 02.11.2026 the site opens only signed in (src/core/gate.ts:
  * without it — the Tehillim only); a **guest** (no server to send emails, offline): everything
@@ -173,6 +174,7 @@ export function takeGoogleReturn() {
 
 export async function saveProfile(p: { nick: string; age?: 'adult' | 'child'; parentEmail?: string; board: boolean; lang: Locale }) {
   const me = await api<Me & { mail?: boolean }>('/profile', { body: p });
+  track('signup', { once: true });
   set({ me });
   if (me.user.active) await firstSync();
   return me;

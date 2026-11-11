@@ -69,6 +69,50 @@ function count() {
   }
 }
 
+/* ───── product events (funnel) — one name each, count over a period = how many times ─────
+ * signup · first_lesson · lesson_complete · return_next_day · streak_7 · notification_click · share.
+ * No personal data: only the name. `once` — at most once per device (or per `key`, e.g. per lesson). */
+const EVENT_TITLES: Record<string, string> = {
+  signup: 'Регистрация',
+  first_lesson: 'Первая учёба',
+  lesson_complete: 'Урок закончен',
+  return_next_day: 'Вернулся на следующий день',
+  streak_7: 'Серия 7 дней',
+  notification_click: 'Нажатие на уведомление',
+  share: 'Поделились',
+};
+const EVENTS_KEY = 'niflaot:gc-events';
+const queue: string[] = [];
+let ready = false;
+
+function sendEvent(name: string) {
+  const gc = window.goatcounter;
+  if (!gc?.count) return false;
+  gc.count({ path: name, title: EVENT_TITLES[name] ?? name, event: true });
+  return true;
+}
+
+export function track(name: keyof typeof EVENT_TITLES, opts: { once?: boolean; key?: string } = {}) {
+  try {
+    if (import.meta.env.DEV || isAdmin() || shabbatPreview()) return;
+    if (opts.once || opts.key) {
+      const done: string[] = JSON.parse(localStorage.getItem(EVENTS_KEY) || '[]');
+      const id = opts.key ? `${name}:${opts.key}` : name;
+      if (done.includes(id)) return;
+      localStorage.setItem(EVENTS_KEY, JSON.stringify([...done, id].slice(-200)));
+    }
+  } catch {
+    return;
+  }
+  if (ready && sendEvent(name)) return;
+  queue.push(name);
+}
+
+function flush() {
+  ready = true;
+  for (const n of queue.splice(0)) sendEvent(n);
+}
+
 /** after React has rendered the page and set its title */
 const later = () => setTimeout(count, 500);
 
@@ -83,7 +127,17 @@ export function installAnalytics() {
   s.async = true;
   s.src = SCRIPT;
   s.dataset.goatcounter = ENDPOINT;
-  s.addEventListener('load', later);
+  s.addEventListener('load', () => {
+    later();
+    flush();
+  });
+  // the reminder's link is marked `?ref=push` (public/sw.js): one click per visit
+  try {
+    if (new URLSearchParams(location.search).get('ref') === 'push' && !sessionStorage.getItem('niflaot:gc-push')) {
+      sessionStorage.setItem('niflaot:gc-push', '1');
+      track('notification_click');
+    }
+  } catch {}
   document.head.appendChild(s);
   addEventListener('hashchange', later);
 }
