@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react';
-import { Html, useI18n } from '../i18n';
+import { Html, useI18n, uiLang } from '../i18n';
 import { MODES, savedMode, setMode, useMode } from '../core/mode';
 import { HEBREW_LEVELS, savedHebrewLevel, setHebrewLevel, useHebrewLevel } from '../core/hebrewLevel';
 import { BGS, SIZES, THEMES, setLook, useLook } from '../core/look';
@@ -103,7 +103,7 @@ function SignIn() {
       {end !== null && (
         <p className="acc-note">
           {open
-            ? t('acc.trialLeft', { date: new Date(end).toLocaleDateString(locale, { day: 'numeric', month: 'long' }) })
+            ? t('acc.trialLeft', { date: new Date(end).toLocaleDateString(uiLang(locale), { day: 'numeric', month: 'long' }) })
             : t('acc.trialOver')}
         </p>
       )}
@@ -236,7 +236,7 @@ function SyncLine() {
   const { t, locale } = useI18n();
   const { sync } = useAccount();
   const { busy, run } = useAction();
-  const time = sync && new Date(sync.at).toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
+  const time = sync && new Date(sync.at).toLocaleTimeString(uiLang(locale), { hour: '2-digit', minute: '2-digit' });
   return (
     <>
       {sync && !sync.ok ? (

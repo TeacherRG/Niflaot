@@ -3,7 +3,7 @@ import { AddCourse } from './AddCourse';
 import { tanakhLang, tanakhNarration, tanakhSlug } from '../core/tanakhNarration';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { Icon, useDismiss } from './ui';
-import { useI18n } from '../i18n';
+import { useI18n, uiLang } from '../i18n';
 import { useMode } from '../core/mode';
 import { useCourses } from '../core/courses';
 import { TopBar } from './TopBar';
@@ -382,11 +382,11 @@ function DoneCheck({ section, date, today, plan }: { section: Section; date: str
 }
 
 const weekday = (iso: string, locale: string) => {
-  const w = new Intl.DateTimeFormat(locale, { weekday: 'long', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+  const w = new Intl.DateTimeFormat(uiLang(locale), { weekday: 'long', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
   return w.charAt(0).toUpperCase() + w.slice(1);
 };
 const shortDate = (iso: string, locale: string) =>
-  new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+  new Intl.DateTimeFormat(uiLang(locale), { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
 
 /** ‹ / › at the corners of the date bar: the previous / next study day of the cycle (a day off is skipped). */
 function DayStep({ to, section, dir }: { to?: string; section: Section; dir: 'prev' | 'next' }) {

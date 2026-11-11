@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 import { AddCourse } from './AddCourse';
-import { useI18n } from '../i18n';
+import { useI18n, uiLang } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { optionOrder } from '../core/quiz';
@@ -109,9 +109,9 @@ function Questions({ p, lang }: { p: HsPassage; lang: HsLang }) {
 }
 
 const shortDate = (iso: string, locale: string) =>
-  new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+  new Intl.DateTimeFormat(uiLang(locale), { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
 const weekday = (iso: string, locale: string) => {
-  const w = new Intl.DateTimeFormat(locale, { weekday: 'long', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+  const w = new Intl.DateTimeFormat(uiLang(locale), { weekday: 'long', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
   return w.charAt(0).toUpperCase() + w.slice(1);
 };
 /** A passage is open on its day (the admin sees the coming ones ahead). */

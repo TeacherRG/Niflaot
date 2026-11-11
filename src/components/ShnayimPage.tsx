@@ -1,6 +1,6 @@
 import '@fontsource/noto-serif-hebrew/400.css';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useI18n } from '../i18n';
+import { useI18n, uiLang } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { NotFound, PageLoading } from './PageStates';
@@ -97,7 +97,7 @@ export function ShnayimPage({ aliyah }: { aliyah?: string }) {
   }, [active, highlightRate, highlightState, toks, wordIndices]);
 
   const dayName = (k: number) =>
-    k === 7 ? t('shn.shabbat') : new Intl.DateTimeFormat(locale, { weekday: 'long', timeZone: 'UTC' }).format(new Date(`${addDays(SUNDAY, k - 1)}T12:00:00Z`));
+    k === 7 ? t('shn.shabbat') : new Intl.DateTimeFormat(uiLang(locale), { weekday: 'long', timeZone: 'UTC' }).format(new Date(`${addDays(SUNDAY, k - 1)}T12:00:00Z`));
   const range = (k: number) => {
     const a = data?.aliyot[k - 1];
     if (!a) return '';

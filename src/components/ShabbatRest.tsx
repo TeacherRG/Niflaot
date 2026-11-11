@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useI18n } from '../i18n';
+import { useI18n, uiLang } from '../i18n';
 import { isSearchBot, isShabbatRest, shabbatPreview, shabbatWindow } from '../core/shabbat';
 import { LanguagePicker } from './TopBar';
 
@@ -21,7 +21,7 @@ export function ShabbatRest() {
     document.title = `${t('shabbat.title')} · ${t('app.title')}`;
   }, [t]);
   const w = shabbatWindow();
-  const time = (d: Date) => d.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
+  const time = (d: Date) => d.toLocaleTimeString(uiLang(locale), { hour: '2-digit', minute: '2-digit' });
   return (
     <main className="shabbat-rest">
       <div className="shabbat-lang">

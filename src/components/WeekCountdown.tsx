@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { Sheet } from './ui';
 
 const ShabbatCalendar = lazy(() => import('./ShabbatCalendar').then((m) => ({ default: m.ShabbatCalendar })));
-import { useI18n } from '../i18n';
+import { useI18n, uiLang } from '../i18n';
 import { shabbatWindow } from '../core/shabbat';
 import { jewishDate } from '../core/hebrewDate';
 
@@ -42,7 +42,7 @@ export function WeekCountdown() {
   const { days, hours, mins, now } = useLeft();
   // today's date on the device: the civil one in the site's language and the Jewish one in Hebrew
   const iso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-  const civilShort = now.toLocaleDateString(locale, { weekday: 'short', day: 'numeric', month: 'short' });
+  const civilShort = now.toLocaleDateString(uiLang(locale), { weekday: 'short', day: 'numeric', month: 'short' });
   const pad = (n: number) => String(n).padStart(2, '0');
   const label = `${t('countdown.title')}: ${t('countdown.days', { n: days })} ${t('countdown.hours', { n: hours })} ${t('countdown.mins', { n: mins })}`;
   return (
@@ -75,7 +75,7 @@ export function CountdownTile() {
   const { days, hours, mins, now } = useLeft();
   const [open, setOpen] = useState(false);
   const iso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-  const civilShort = now.toLocaleDateString(locale, { weekday: 'short', day: 'numeric', month: 'short' });
+  const civilShort = now.toLocaleDateString(uiLang(locale), { weekday: 'short', day: 'numeric', month: 'short' });
   const pad = (n: number) => String(n).padStart(2, '0');
   const label = `${t('countdown.title')}: ${t('countdown.days', { n: days })} ${t('countdown.hours', { n: hours })} ${t('countdown.mins', { n: mins })}. ${t('calendar.title')}`;
   return (

@@ -12,7 +12,8 @@ export function Slogan() {
         {SLOGAN_HE}
       </span>
       <span className="slogan-tr">
-        {t('slogan')} ({t('slogan.ref')})
+        {/* in Hebrew the verse needs no translation — only the reference */}
+        {t('slogan') ? `${t('slogan')} (${t('slogan.ref')})` : t('slogan.ref')}
       </span>
     </span>
   );

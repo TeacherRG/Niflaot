@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useI18n } from '../i18n';
+import { useI18n, uiLang } from '../i18n';
 import { useMode } from '../core/mode';
 import { localToday, readingPlan } from '../core/tanakh';
 import { useCourses } from '../core/courses';
@@ -16,7 +16,7 @@ import { HabitCard } from './HabitCard';
 type Lang = 'ru' | 'en' | 'de';
 const langOf = (locale: string): Lang => (locale === 'en' || locale === 'de' ? locale : 'ru');
 const short = (at: number, locale: string) =>
-  new Date(`${markDate(at)}T12:00:00`).toLocaleDateString(locale === 'en' ? 'en-GB' : locale, { day: 'numeric', month: 'short', year: 'numeric' });
+  new Date(`${markDate(at)}T12:00:00`).toLocaleDateString(uiLang(locale === 'en' ? 'en-GB' : locale), { day: 'numeric', month: 'short', year: 'numeric' });
 /** how many upcoming books are shown before «ещё N книг» */
 const AHEAD = 2;
 

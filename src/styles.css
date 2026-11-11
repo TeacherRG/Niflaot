@@ -53,7 +53,7 @@ a{color:inherit}
 
 .timer{font-family:var(--f-num);font-weight:600;font-size:13px;color:var(--ink);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px}
 .timer.run{border-color:var(--gold);color:var(--gold)}
-.r-time{font-family:var(--f-num);font-size:12px;color:var(--muted);letter-spacing:0;text-transform:none;font-weight:500;margin-left:10px}
+.r-time{font-family:var(--f-num);font-size:12px;color:var(--muted);letter-spacing:0;text-transform:none;font-weight:500;margin-inline-start:10px}
 .r-time.run{color:var(--gold)}
 .final .time{font-family:var(--f-num);font-size:18px;color:#D7DCEA}
 /* hero */
@@ -99,7 +99,7 @@ a{color:inherit}
 .step:last-child{border-bottom:0}
 .step.locked{opacity:.4;pointer-events:none}
 .step .q{font-weight:500}
-.step .q .n{font-family:var(--f-display);font-weight:700;font-size:20px;color:var(--gold);margin-right:8px}
+.step .q .n{font-family:var(--f-display);font-weight:700;font-size:20px;color:var(--gold);margin-inline-end:8px}
 .step .q .he{font-size:1.2em;font-weight:700}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .inp{font-family:var(--f-num);font-size:18px;width:130px;padding:9px 14px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}
@@ -308,10 +308,6 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -14px rgba(20,26,
 .lang-list .code{font-family:var(--f-num);font-size:11.5px;font-weight:600;color:var(--gold)}
 .lang-list .name{font-weight:600;font-size:14.5px}
 .lang-list svg{color:var(--gold)}
-.lang-list .lang-he{margin-top:4px;padding-top:4px;border-top:1px solid var(--line-soft)}
-.lang-list .lang-he a{display:grid;grid-template-columns:30px 1fr;align-items:center;gap:8px;padding:9px 10px;border-radius:8px;color:var(--ink);text-decoration:none;text-align:start}
-.lang-list .lang-he a:hover{background:var(--paper)}
-.lang-list .lang-he small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
 .share-list{text-align:start;z-index:70}
 .share-list a{width:100%;box-sizing:border-box;display:grid;grid-template-columns:30px 1fr auto;align-items:center;gap:8px;padding:9px 10px;border-radius:8px;color:var(--ink);text-decoration:none}
 .share-list a:hover{background:var(--paper)}
@@ -946,7 +942,7 @@ html.crawler .static{opacity:1;animation:none;padding:0 16px}
 .listen-ic{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:15px;display:grid;place-items:center;padding:0}
 .listen-ic.main{width:44px;height:44px;background:var(--tchelet-deep);border-color:var(--tchelet-deep);color:#fff;font-size:17px}
 .listen-ic:disabled{opacity:.4}
-.listen-what{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.25;margin-left:4px}
+.listen-what{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.25;margin-inline-start:4px}
 .listen-what b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .listen-what span{font-size:12.5px;color:var(--muted);white-space:nowrap}
 .listen-speed{flex:none;border:1px solid var(--line);background:var(--tchelet-soft);color:var(--tchelet);border-radius:8px;padding:6px 8px;font-size:13px;font-weight:700;min-width:48px}
@@ -1510,7 +1506,7 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .us-tiles div{background:var(--paper);border-radius:10px;padding:10px 12px;display:grid;gap:2px}
 .us-tiles b{font-size:28px;line-height:1.1}
 .us-tiles span{font-size:13px;color:var(--muted)}
-.us-list{margin:0 0 14px;padding-left:18px;display:grid;gap:4px}
+.us-list{margin:0 0 14px;padding-inline-start:18px;display:grid;gap:4px}
 .us-h{font-size:18px;margin:8px 0 4px}
 .us-days{width:100%;border-collapse:collapse;font-size:14px}
 .us-days th,.us-days td{text-align:left;padding:3px 6px;border-bottom:1px solid var(--line-soft)}
@@ -1782,7 +1778,7 @@ a.tk-step:hover{background:var(--tchelet-soft)}
 .ln-intro-verse{display:grid;gap:4px;max-width:520px;margin:6px auto 0;padding:10px 14px;border-left:3px solid var(--gold-2);background:var(--gold-soft);border-radius:0 10px 10px 0;font-size:14px;color:var(--ink-3)}
 .ln-intro-verse .he{font-family:var(--f-he);font-size:20px;color:var(--ink);text-align:right}
 .ln-intro-verse small{color:var(--muted)}
-.ln-warm{margin-right:8px;background:var(--gold-soft);color:var(--gold)}
+.ln-warm{margin-inline-end:8px;background:var(--gold-soft);color:var(--gold)}
 .ln-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .ln-opt{display:grid;place-items:center;gap:2px;min-height:58px;padding:8px 10px;border:2px solid var(--line);border-bottom-width:4px;border-radius:14px;background:var(--surface);color:var(--ink);font-size:16px;font-weight:600;line-height:1.3}
 .ln-opt small{color:var(--muted);font-size:11px;font-weight:500}
@@ -2330,7 +2326,7 @@ button.quiz-opt:disabled{cursor:default}
 .quiz-how li{position:relative;display:grid;gap:4px;justify-items:center;text-align:center;padding:12px 10px;border-radius:10px;background:var(--surface)}
 .quiz-how li b{font-size:15px}
 .quiz-how li span:last-child{font-size:13px;color:var(--muted)}
-.quiz-how .quiz-step{position:absolute;top:8px;left:8px}
+.quiz-how .quiz-step{position:absolute;top:8px;inset-inline-start:8px}
 .quiz-art{width:100%;max-width:150px;height:auto}
 .quiz-step{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--night);color:#fff;font-size:14px;font-weight:700;flex:none}
 .quiz-roles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -2356,7 +2352,7 @@ button.quiz-opt:disabled{cursor:default}
 .quiz-deck{position:relative}
 .quiz-deck:focus-within{outline:2px solid var(--ink);outline-offset:2px}
 .quiz-deck.k-torah{border-left-color:#B4461B}.quiz-deck.k-tanakh{border-left-color:#2B4F95}.quiz-deck.k-hs{border-left-color:#A47C2F}
-.quiz-deck.on::after{content:'✓';position:absolute;top:6px;right:10px;font-weight:700;color:var(--gold)}
+.quiz-deck.on::after{content:'✓';position:absolute;top:6px;inset-inline-end:10px;font-weight:700;color:var(--gold)}
 .quiz-kind{width:26px;height:26px;flex:none}
 .quiz-kind.k-torah{color:#B4461B}.quiz-kind.k-tanakh{color:#2B4F95}.quiz-kind.k-hs{color:#A47C2F}
 .quiz-sizes{display:flex;flex-wrap:wrap;gap:10px}
@@ -2373,7 +2369,7 @@ button.quiz-opt:disabled{cursor:default}
   .quiz-how .quiz-step{left:4px;top:4px}
 }
 .quiz-setup .quiz-create{background:var(--gold-deep);border-color:var(--gold-deep)}
-.quiz-deck{padding-right:28px}
+.quiz-deck{padding-inline-end:28px}
 .quiz-size{flex:1 1 0;min-width:72px}
 @media (max-width:640px){.quiz-setup,.quiz-role{padding:14px}.quiz-how{padding:12px}}
 .quiz-size{padding:10px 6px}.quiz-size small{white-space:nowrap}
@@ -2594,7 +2590,7 @@ body:has(.a-home){background:var(--plain)}
   .a-tiles>.courses,.a-tiles>.a-tick{grid-column:1/-1}
   .a-tiles>.a-pair{grid-column:1/-1;gap:10px;height:clamp(132px,22svh,190px)}
   .a-zip-s{font-size:11px}
-  .a-pair .a-tile{padding-right:34px}
+  .a-pair .a-tile{padding-inline-end:34px}
   .a-pair .a-tile::after{right:12px;bottom:10px;font-size:18px}
   .a-tick{padding:10px 14px 4px;border-radius:14px}
   .a-tick h2{font-size:17px}
@@ -3095,7 +3091,7 @@ a.wd-sing{font-weight:800;text-decoration:none}
 .at-sec h2,.at-era-sec h2{font-family:var(--f-display);font-size:22px;margin:0 0 8px}
 .at-era-sec h2 small{font-family:var(--f-body);font-size:13px;color:var(--muted);font-weight:500}
 .at-where{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0}
-.at-where b{margin-right:4px}
+.at-where b{margin-inline-end:4px}
 .at-where a{min-width:30px;padding:4px 8px;text-align:center;border:1px solid var(--line);border-radius:8px;background:var(--surface);font-size:14px;color:var(--tchelet);text-decoration:none}
 .at-bar{display:flex;height:34px;border-radius:9px;overflow:hidden;margin:12px 0 6px}
 .at-era{display:flex;align-items:center;justify-content:center;min-width:0;padding:0 3px;font-size:11px;font-weight:600;text-decoration:none;white-space:nowrap;overflow:hidden}
@@ -3105,16 +3101,16 @@ a.wd-sing{font-weight:800;text-decoration:none}
 .at-era.e2{background:var(--gold-soft);color:var(--gold-deep)}
 .at-now a{display:inline-block;padding:7px 12px;border-radius:99px;background:var(--gold-deep);color:#fff;font-size:13px;font-weight:600;text-decoration:none}
 .at-era-sec{margin:22px 0}
-.at-events{list-style:none;margin:0;padding:0;border-left:2px solid var(--gold-line);margin-left:6px}
-.at-ev{display:grid;grid-template-columns:86px 1fr;gap:10px;padding:8px 0 12px 12px;position:relative}
-.at-ev::before{content:"";position:absolute;left:-7px;top:13px;width:12px;height:12px;border-radius:50%;background:var(--gold-2);border:2px solid var(--paper)}
+.at-events{list-style:none;margin:0;padding:0;border-inline-start:2px solid var(--gold-line);margin-inline-start:6px}
+.at-ev{display:grid;grid-template-columns:86px 1fr;gap:10px;padding-block:8px 12px;padding-inline:12px 0;position:relative}
+.at-ev::before{content:"";position:absolute;inset-inline-start:-7px;top:13px;width:12px;height:12px;border-radius:50%;background:var(--gold-2);border:2px solid var(--paper)}
 .at-ev.here::before{background:var(--tchelet-deep)}
 .at-ev.here{background:var(--tchelet-soft);border-radius:0 12px 12px 0}
 .at-y{font-weight:700;color:var(--gold-deep);font-size:14px}
 .at-y small{display:block;font-weight:500;color:var(--muted);font-size:11px}
 .at-ev p{margin:0}
 .at-ev-t b{font-size:15px}
-.at-here{margin-left:8px;font-size:11px;font-weight:700;color:#fff;background:var(--tchelet-deep);padding:2px 8px;border-radius:99px;white-space:nowrap}
+.at-here{margin-inline-start:8px;font-size:11px;font-weight:700;color:#fff;background:var(--tchelet-deep);padding:2px 8px;border-radius:99px;white-space:nowrap}
 .at-ev-d{font-size:14px;color:var(--ink-2);margin-top:2px!important}
 .at-ev-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px!important;font-size:13px}
 .at-ev-links a{color:var(--tchelet)}
@@ -3130,7 +3126,7 @@ a.wd-sing{font-weight:800;text-decoration:none}
 .rt .he{font-family:var(--f-he);color:var(--muted)}
 .rt small{display:block;color:var(--muted);font-size:11.5px}
 .rt a{color:var(--tchelet)}
-.rt tbody th,.rt thead th:first-child{position:sticky;left:0;z-index:1;background:var(--surface);box-shadow:1px 0 0 var(--line)}
+.rt tbody th,.rt thead th:first-child{position:sticky;inset-inline-start:0;z-index:1;background:var(--surface);box-shadow:1px 0 0 var(--line)}
 .rt thead th:first-child{z-index:2;background:var(--tchelet-soft)}
 .rt-united{background:var(--gold-soft)}
 .rt td:last-child{background:color-mix(in srgb,var(--tchelet-soft) 45%,transparent)}
@@ -3513,13 +3509,13 @@ html.tabbed .rd-tip{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
 .g-pages{flex:1 1 auto;min-height:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;border-radius:16px}
 .g-pages::-webkit-scrollbar{display:none}
 .g-slide{flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always}
-.g-dots{position:absolute;top:10px;right:12px;display:flex;gap:6px;z-index:1}
+.g-dots{position:absolute;top:10px;inset-inline-end:12px;display:flex;gap:6px;z-index:1}
 .g-dots button{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.45);cursor:pointer}
 .g-dots button[aria-current]{background:#fff;width:18px;border-radius:4px}
 .h-games{flex:1 1 100%}
 .h-games .g-pages{border-radius:10px}
 .h-games .g-slide{border-radius:0}
-.h-games .h-daily-title{padding-right:40px}
+.h-games .h-daily-title{padding-inline-end:40px}
 .a-games .g-slide{border-radius:0}
 
 /* «Мои курсы» on the adults' home — a coloured tile like its three neighbours (owner, 10.11.2026): deep violet, the
@@ -3800,3 +3796,15 @@ button.dedication:hover .ded-name{text-decoration:underline;text-decoration-colo
 @media (max-width:640px){.sno-tools button{padding:6px 8px;font-size:12px}.sno-sep{display:none}}
 @media print{.sno-stage{display:none}}
 @media (max-width:640px){.sno .ws-lead{font-size:14px}.sno-canvas{height:min(52svh,440px);min-height:300px}.sno-legend{font-size:11.5px}}
+
+/* Hebrew interface (dir=rtl, 11.11.2026): the content stays English (CONTENT_OF) — every paragraph takes its direction
+   from its own text, so an English paragraph reads left to right and a Hebrew one right to left */
+html[dir="rtl"] :is(p,li,h1,h2,h3,h4,h5,dd,dt,td,th,blockquote,figcaption,summary,caption){unicode-bidi:plaintext;text-align:start}
+html[dir="rtl"] body :where(div,span,a,button,label,small,b,strong,i,em){unicode-bidi:plaintext}
+html[dir="rtl"] :is(p,li,h1,h2,h3,h4,h5,td,th).he,html[dir="rtl"] [lang="he"]:is(p,li,h1,h2,h3,h4){unicode-bidi:isolate;text-align:right}
+/* the «Hebrew | translation» columns keep the original's side: Hebrew on the right */
+html[dir="rtl"] :is(.p-quote-cols,.rq-seg.cols,.tk-verse.cols,.tk-st.cols){direction:ltr}
+/* arrows of the home tiles point the way of reading */
+html[dir="rtl"] .a-tile::after{content:"←";right:auto;left:20px}
+html[dir="rtl"] .a-tile:hover::after{transform:translateX(-3px)}
+html[dir="rtl"] :is(.a-pair,.k-grid) .a-tile::after{right:auto;left:12px}

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useI18n } from '../i18n';
+import { useI18n, uiLang } from '../i18n';
 import { hebrewDateText, sunTimes } from '../core/hebcal';
 import { currentPlace, findCities, PLACE_EVENT, setPlace, timeZone, type Place } from '../core/places';
 
@@ -77,8 +77,8 @@ export function ShabbatCalendar({ bare = false, shabbatOnly = false }: { bare?: 
   // the Jewish day begins at sunset: after it — already tomorrow's date
   const evening = !!today.sunset && now >= today.sunset;
   const hebrewToday = plainHe(dateIso(evening ? new Date(now.getTime() + DAY) : now));
-  const timeFormatter = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit', timeZone: zone });
-  const dateFormatter = new Intl.DateTimeFormat(locale, { weekday: 'long', day: 'numeric', month: 'long', timeZone: zone });
+  const timeFormatter = new Intl.DateTimeFormat(uiLang(locale), { hour: '2-digit', minute: '2-digit', timeZone: zone });
+  const dateFormatter = new Intl.DateTimeFormat(uiLang(locale), { weekday: 'long', day: 'numeric', month: 'long', timeZone: zone });
   const city = place.name[locale as keyof typeof place.name] ?? place.name.en;
   const time = (d: Date | null) => (d ? timeFormatter.format(d) : t('calendar.noSun'));
   const block = (kind: 'today' | 'shabbat', title: string, date: string, he: string, rows: [Parameters<typeof t>[0], Date | null][], sub?: string) => (

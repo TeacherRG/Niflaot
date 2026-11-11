@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { useI18n } from '../i18n';
+import { useI18n, uiLang } from '../i18n';
 import { PARSHIOT, type ParshaId } from '../lessons';
 import { CYCLE, localToday, loadDay, type DayContent, type DayVerse } from '../core/tanakh';
 import { BOOKS, SECTIONS, addDays, rangeLabel, type Section } from '../core/tanakhCycle';
@@ -16,7 +16,7 @@ import { SLOGAN_HE, Slogan } from './Slogan';
 
 type Lang = 'ru' | 'en' | 'de';
 const fmt = (iso: string, locale: string, o: Intl.DateTimeFormatOptions) =>
-  new Intl.DateTimeFormat(locale, { ...o, timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+  new Intl.DateTimeFormat(uiLang(locale), { ...o, timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
 const dayLabel = (iso: string, locale: string) => fmt(iso, locale, { weekday: 'short', day: 'numeric', month: 'long' });
 const verseRef = (v: DayVerse, lang: Lang) => `${BOOKS.find((b) => b.slug === v.b)?.name[lang] ?? v.b} ${v.c}:${v.v}`;
 const plain = (s: string) => s.replace(/<[^>]+>/g, '');

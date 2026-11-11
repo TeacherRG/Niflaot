@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import { track } from '../core/analytics';
-import { LOCALES, useI18n, type Locale } from '../i18n';
+import { UI_LOCALES, useI18n, type UiLocale } from '../i18n';
 import { Icon, useDismiss, useUI } from './ui';
 import { loadConfig, useAccount } from '../core/account';
 import { currentLink, noShare, type Ref } from '../core/site';
@@ -11,7 +11,7 @@ import { findLesson } from '../lessons';
 
 /** One button showing the current language; opens a list of all languages in their own names. */
 export function LanguagePicker() {
-  const { locale, setLocale, t } = useI18n();
+  const { ui, setLocale, t } = useI18n();
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const close = useCallback(() => setOpen(false), []);
@@ -23,41 +23,32 @@ export function LanguagePicker() {
         className="lang-btn"
         aria-haspopup="listbox"
         aria-expanded={open}
-        aria-label={`${t('lang.choose')}: ${LOCALES[locale].label}`}
+        aria-label={`${t('lang.choose')}: ${UI_LOCALES[ui].label}`}
         onClick={() => setOpen((o) => !o)}
       >
         <Icon name="globe" size={17} />
-        <span>{LOCALES[locale].short}</span>
+        <span>{UI_LOCALES[ui].short}</span>
         <Icon name="chevron" size={14} />
       </button>
       {open && (
         <ul className="lang-list" role="listbox" aria-label={t('lang.choose')}>
-          {(Object.keys(LOCALES) as Locale[]).map((l) => (
+          {(Object.keys(UI_LOCALES) as UiLocale[]).map((l) => (
             <li key={l}>
               <button
                 role="option"
-                aria-selected={l === locale}
+                aria-selected={l === ui}
                 lang={l}
                 onClick={() => {
                   setLocale(l);
                   close();
                 }}
               >
-                <span className="code">{LOCALES[l].short}</span>
-                <span className="name">{LOCALES[l].label}</span>
-                {l === locale && <Icon name="check" size={16} />}
+                <span className="code">{UI_LOCALES[l].short}</span>
+                <span className="name">{UI_LOCALES[l].label}</span>
+                {l === ui && <Icon name="check" size={16} />}
               </button>
             </li>
           ))}
-          {/* the site has no Hebrew interface yet — Hebrew speakers get their own section: languages through Tanakh (`#/english`) */}
-          <li className="lang-he">
-            <a href="#/english" lang="he" onClick={close}>
-              <span className="code">HE</span>
-              <span className="name" dir="rtl">
-                עברית <small>לימוד אנגלית, רוסית וגרמנית דרך התנ״ך</small>
-              </span>
-            </a>
-          </li>
         </ul>
       )}
     </div>

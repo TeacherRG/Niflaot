@@ -3,6 +3,7 @@
  * («כ״ט תשרי ה׳תשפ״ז»), computed by the open-source @hebcal/core — no requests, no dependence on the browser.
  */
 import { hebrewDateText } from './hebcal';
+import { uiLang } from '../i18n/uiLang';
 
 const UNITS = ['', 'א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט'];
 const TENS = ['', 'י', 'כ', 'ל', 'מ', 'נ', 'ס', 'ע', 'פ', 'צ'];
@@ -31,4 +32,4 @@ export function jewishDate(iso: string): string {
 
 /** «10 октября 2026» / «October 10, 2026» / «10. Oktober 2026». */
 export const civilDate = (iso: string, locale: string) =>
-  new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+  new Intl.DateTimeFormat(uiLang(locale), { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
