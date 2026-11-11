@@ -3,7 +3,7 @@
 **Through Buttondown (owner, 11.11.2026).** When the Actions secret `BUTTONDOWN_API_KEY` is set, the
 `telegram-digest` job sends one Buttondown issue a week (Wednesday) to every subscriber of the Buttondown list: the
 Academy Week digest and the portion's Memo game (no daily email — owner, 11.11.2026: links alone every day are spam). All three languages are in one email
-(Russian first), and **links replace the PDF attachments** (the digest, the Memo game and its print view,
+(Russian first; language buttons at the top jump to each section — `mailLangButtons`), and **links replace the PDF attachments** (the digest, the Memo game and its print view,
 `?ref=mail`). `X-Idempotency-Key: niflaot-weekly-<Sunday>` keeps a retried run from sending twice.
 Code: `sendButtondown` in `scripts/newsletter.ts`. The own-list delivery below still works when `NEWSLETTER_SECRET` is set.
 

@@ -70,11 +70,22 @@ export function mailMarkdown(html: string): string {
     .join('  \n');
 }
 
+// language buttons at the top of the email (owner, 11.11.2026: «кнопки переходы на языки, чтобы не листать»)
+const MAIL_LANG = { ru: 'Русский', en: 'English', de: 'Deutsch' } as const;
+const MAIL_TOP = { ru: '↑ К выбору языка', en: '↑ Back to languages', de: '↑ Zur Sprachauswahl' } as const;
+export function mailLangButtons(sections: MailSection[]): string {
+  if (sections.length < 2) return '<a id="lang-top" name="lang-top"></a>';
+  const btn = (l: MailSection['lang']) =>
+    `<a href="#lang-${l}" style="display:inline-block;margin:4px 6px;padding:10px 18px;border-radius:8px;background:#1d4e89;color:#ffffff;text-decoration:none;font-weight:bold">${MAIL_LANG[l]}</a>`;
+  return `<p id="lang-top" style="text-align:center">${sections.map((s) => btn(s.lang)).join(' ')}</p>`;
+}
+
 export async function sendButtondown(issue: { key: string; subject: string; sections: MailSection[] }) {
   const apiKey = process.env.BUTTONDOWN_API_KEY;
   if (!apiKey) throw new Error('BUTTONDOWN_API_KEY is not set');
-  const body = issue.sections
-    .map((s) => [`# ${s.heading}`, '', mailMarkdown(s.text), '', ...s.links.map((l) => `**[${l.label}](${l.url})**  `)].join('\n'))
+  const body = [mailLangButtons(issue.sections), ...issue.sections
+    .map((s) => [`<a id="lang-${s.lang}" name="lang-${s.lang}"></a>`, '', `# ${s.heading}`, '', mailMarkdown(s.text), '', ...s.links.map((l) => `**[${l.label}](${l.url})**  `),
+      ...(issue.sections.length > 1 ? ['', `<a href="#lang-top" style="font-size:13px;color:#6b7280">${MAIL_TOP[s.lang]}</a>`] : [])].join('\n'))]
     .join('\n\n---\n\n');
   const res = await fetch('https://api.buttondown.com/v1/emails', {
     method: 'POST',
