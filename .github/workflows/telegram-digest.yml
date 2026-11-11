@@ -6,14 +6,17 @@ name: Неделя в Академии в Telegram
 # scheduled runs late and sometimes drops them, so there is an attempt every 10 minutes 07:00–14:50 UTC on Wednesdays
 # (9:00–16:50 Vienna in summer, 8:00–15:50 in winter); attempts before 9:00 Vienna stop at once, and one GitHub starts after
 # 20:00 Vienna doesn't post at night. The first attempt that gets through posts and saves a mark for the day in the Actions cache (key
-# digest-posted-<date>) — also when there is nothing to post (a week without learning); the later attempts see it and stop
+# digest-posted-week-<Sunday>; a Thursday catch-up if Wednesday failed) — also when there is nothing to post (a week without learning); the later attempts see it and stop
 # before installing anything. On Shabbat — nothing, even by hand.
 # Manual run (Run workflow): posts the digest of this week so far right away, unless today is already done; «force» —
 # post again anyway. Setup: the same secret TELEGRAM_BOT_TOKEN and variables TELEGRAM_CHAT_RU / _EN / _DE as
 # «К шабатнему столу»; a language without a channel is skipped.
 on:
   schedule:
-    - cron: '*/10 7-14 * * 3'
+    # Wednesday (until 18:50 UTC — GitHub often starts only one of these, late), and Thursday morning to catch up on a
+    # week whose Wednesday failed (11.11.2026: the only Wednesday run failed) — the mark is per week, so it posts once
+    - cron: '*/10 7-17 * * 3'
+    - cron: '*/10 7-12 * * 4'
   workflow_dispatch:
     inputs:
       force:
@@ -49,6 +52,8 @@ jobs:
         id: day
         run: |
           echo "date=$(date -u +%F)" >> "$GITHUB_OUTPUT"
+          # the week's mark: its Sunday — Wednesday and the Thursday catch-up share it
+          echo "week=$(date -u -d "-$(date -u +%w) days" +%F)" >> "$GITHUB_OUTPUT"
           hour=$(TZ=Europe/Vienna date +%-H)
           if [ -n "$TELEGRAM_SCHEDULE" ] && [ "$hour" -lt 9 ]; then echo "early=true" >> "$GITHUB_OUTPUT"; echo "В Вене $hour ч — до 9:00 не публикуем."; fi
           if [ -n "$TELEGRAM_SCHEDULE" ] && [ "$hour" -ge 20 ]; then echo "early=true" >> "$GITHUB_OUTPUT"; echo "В Вене $hour ч — поздно, ночью не публикуем."; fi
@@ -59,11 +64,11 @@ jobs:
         uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: .digest-posted
-          key: digest-posted-${{ steps.day.outputs.date }}
+          key: digest-posted-week-${{ steps.day.outputs.week }}
           lookup-only: true
       - name: Skip
         if: steps.posted.outputs.cache-hit == 'true' && !inputs.force
-        run: echo "За ${{ steps.day.outputs.date }} всё уже сделано (пост вышел или публиковать нечего) — эта попытка ничего не делает."
+        run: echo "За неделю ${{ steps.day.outputs.week }} всё уже сделано (пост вышел или публиковать нечего) — эта попытка ничего не делает."
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
@@ -75,7 +80,12 @@ jobs:
         run: npm ci
       # a browser for the PDF of the digest (scripts/telegram-digest.ts prints the site's page)
       - if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
-        run: npm i --no-save playwright && npx playwright install --with-deps chromium
+        run: |
+          # 11.11.2026 Ubuntu mirrors didn't resolve on the runner and the only Wednesday attempt failed here — three tries,
+          # then the browser alone (the runner already has the libraries headless Chromium needs)
+          npm i --no-save playwright
+          for i in 1 2 3; do npx playwright install --with-deps chromium && exit 0; echo "Попытка $i не удалась — ещё раз через минуту"; sleep 60; done
+          npx playwright install chromium
       # without the token the run is red with a clear message — not green with a silently skipped post
       - name: Check settings
         if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
@@ -83,6 +93,10 @@ jobs:
           if [ -z "$TELEGRAM_BOT_TOKEN" ]; then
             echo "::error::Нет секрета TELEGRAM_BOT_TOKEN: Settings → Secrets and variables → Actions → вкладка Secrets (не Variables) → Repository secrets."
             exit 1
+          fi
+          # without it the email newsletter is silently off (11.11.2026: no email came) — say so on the run page
+          if [ -z "$NEWSLETTER_SECRET" ]; then
+            echo "::warning::Нет секрета NEWSLETTER_SECRET — письма рассылки не отправляются: Settings → Secrets and variables → Actions → Secrets → New repository secret NEWSLETTER_SECRET (длинная случайная строка), потом Actions → «Assistant» → Run workflow, чтобы она попала и на сервер."
           fi
           if [ -z "$TELEGRAM_CHAT_RU$TELEGRAM_CHAT_EN$TELEGRAM_CHAT_DE" ]; then
             echo "::error::Не задан ни один канал (TELEGRAM_CHAT_RU / _EN / _DE): Settings → Secrets and variables → Actions (вкладка Variables или Secrets)."
@@ -98,4 +112,4 @@ jobs:
         uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: .digest-posted
-          key: digest-posted-${{ steps.day.outputs.date }}
+          key: digest-posted-week-${{ steps.day.outputs.week }}
