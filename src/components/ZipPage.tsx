@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent, type KeyboardEvent } from 'react';
+import { track } from '../core/analytics';
 import { useI18n } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
@@ -216,7 +217,7 @@ export function ZipPage() {
     });
   const shareNative = async () => {
     try {
-      if (navigator.share) return await navigator.share({ text: shareText('share') });
+      if (navigator.share) return await navigator.share({ text: shareText('share') }), track('share');
     } catch (e) {
       if ((e as Error).name === 'AbortError') return;
     }

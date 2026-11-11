@@ -13,6 +13,7 @@
  * Модуль без тяжёлых импортов: его вызывают все места, где игрок что-то сделал.
  */
 import { useEffect, useState } from 'react';
+import { track } from './analytics';
 import { addDays, restReason } from './restDays';
 
 export const STUDY_KEY = 'niflaot:study-days';
@@ -42,7 +43,9 @@ export function markStudied() {
   const fix = parse(REPAIR_KEY);
   const repair = fix?.on === today && typeof fix.day === 'string' && !log[fix.day];
   if (log[today] && !repair) return;
+  const firstDay = Object.keys(log).sort()[0];
   log[today] ||= 1;
+  funnel(log, firstDay, today);
   if (repair) {
     log[fix.day] = 2;
     try {
@@ -55,6 +58,13 @@ export function markStudied() {
     localStorage.setItem(STUDY_KEY, JSON.stringify(log));
   } catch {}
   window.dispatchEvent(new Event(EVENT));
+}
+
+/** funnel events (analytics.ts): the first study, the next study after the first day (within 3 days — rest days), a 7-day streak */
+function funnel(log: Record<string, number>, firstDay: string | undefined, today: string) {
+  if (!firstDay) return track('first_lesson', { once: true });
+  if (today > firstDay && today <= addDays(firstDay, 3)) track('return_next_day', { once: true });
+  if (habitStats(new Set(Object.keys(log)), today).streak >= 7) track('streak_7', { once: true });
 }
 
 /** «Восполнить»: следующее дело сегодня засчитается за пропущенный день `day`. */
