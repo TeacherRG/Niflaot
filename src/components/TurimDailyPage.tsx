@@ -1,5 +1,5 @@
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useI18n, type Locale } from '../i18n';
+import { useI18n, type Locale, uiLang } from '../i18n';
 import { withTerms } from '../i18n/glossary';
 import { PARSHIOT } from '../lessons';
 import type { Lesson } from '../lessons/types';
@@ -95,11 +95,11 @@ function ViewMenu({ text, setText }: { text: TextLang; setText: (v: TextLang) =>
 }
 
 const weekday = (iso: string, locale: string) => {
-  const w = new Intl.DateTimeFormat(locale, { weekday: 'long', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+  const w = new Intl.DateTimeFormat(uiLang(locale), { weekday: 'long', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
   return w.charAt(0).toUpperCase() + w.slice(1);
 };
 const shortDate = (iso: string, locale: string) =>
-  new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+  new Intl.DateTimeFormat(uiLang(locale), { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
 const BOOK = { ru: 'Берешит', en: 'Bereishit', de: 'Bereschit' } as const;
 const bookName = (locale: string) => BOOK[(locale in BOOK ? locale : 'en') as keyof typeof BOOK];
 

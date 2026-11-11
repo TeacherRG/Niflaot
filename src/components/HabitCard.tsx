@@ -1,4 +1,4 @@
-import { useI18n } from '../i18n';
+import { useI18n, uiLang } from '../i18n';
 import { startRepair, useHabit } from '../core/habit';
 import { useMode } from '../core/mode';
 
@@ -46,7 +46,7 @@ export function HabitCard({ account = false, compact = false }: { account?: bool
 /** «Восполнить пропуск»: кнопка ведёт к делу на пропущенный день; нажата — подсказка, что следующее дело его восполнит (и под планом дня взрослых). */
 export function Repair({ day, streak, pending, adults, locale }: { day: string; streak: number; pending: boolean; adults: boolean; locale: string }) {
   const { t } = useI18n();
-  const date = new Date(`${day}T12:00:00`).toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long' });
+  const date = new Date(`${day}T12:00:00`).toLocaleDateString(uiLang(locale), { weekday: 'long', day: 'numeric', month: 'long' });
   const href = adults ? `#/neviim/${day}` : '#/torah-words';
   if (pending)
     return (

@@ -1,6 +1,6 @@
 import '@fontsource/noto-serif-hebrew/400.css';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useI18n } from '../i18n';
+import { useI18n, uiLang } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { NotFound, PageLoading } from './PageStates';
@@ -75,7 +75,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   const dayName = (n: number) =>
     n === WEEK_DAYS
       ? t('shn.shabbat')
-      : new Intl.DateTimeFormat(locale, { weekday: 'long', timeZone: 'UTC' }).format(new Date(Date.parse(`${SUNDAY}T12:00:00Z`) + (n - 1) * 864e5));
+      : new Intl.DateTimeFormat(uiLang(locale), { weekday: 'long', timeZone: 'UTC' }).format(new Date(Date.parse(`${SUNDAY}T12:00:00Z`) + (n - 1) * 864e5));
   const haazinu = chapter === 'haazinu';
   const week = chapter === 'week';
   const mine = chapter === 'mine';
@@ -393,7 +393,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
     return ps.length > 1 ? `${ps[0].chapter}–${ps[ps.length - 1].chapter}` : String(ps[0]?.chapter ?? '');
   };
   const todayDate = new Date(`${todayISO()}T12:00:00`);
-  const hebrewDate = new Intl.DateTimeFormat(`${locale}-u-ca-hebrew`, { day: 'numeric', month: 'long' }).format(todayDate);
+  const hebrewDate = new Intl.DateTimeFormat(`${uiLang(locale)}-u-ca-hebrew`, { day: 'numeric', month: 'long' }).format(todayDate);
   const todayWeekDay = weekdayOf(todayISO());
   const weekPortionLabel = (n: number) => {
     const ps = weekdayPortion(n);
