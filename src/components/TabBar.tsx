@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { useI18n } from '../i18n';
 import { useMode } from '../core/mode';
+import { LEARN_ROUTE, useLearnLang } from '../core/learnLang';
 import { LESSON_GROUPS, findLesson, weekParsha } from '../lessons';
 import { Icon, Sheet, useUI } from './ui';
 
@@ -17,6 +18,7 @@ export function TabBar({ slug, view }: { slug: string; view?: string }) {
   const { t } = useI18n();
   const { open, panel } = useUI();
   const adults = useMode() === 'adults';
+  const learn = useLearnLang();
   const [printing, setPrinting] = useState(false);
   const shown = !(slug === 'admin' || slug === 'mode' || view === 'print' || (slug === 'quiz' && view === 'host') || slug === 'koelet');
   useEffect(() => {
@@ -29,15 +31,19 @@ export function TabBar({ slug, view }: { slug: string; view?: string }) {
       {s}
     </span>
   );
+  // «Иврит» leads to the language chosen in the account («Какой язык вы будете учить?»)
+  const learnHref = `#/${LEARN_ROUTE[learn ?? 'he']}`;
+  const learnLabel = learn && learn !== 'he' ? t(`learn.${learn}`) : null;
+  const langHere = slug === 'lashon' || slug === 'words' || slug === 'pics' || slug === 'letters' || slug === 'english' || slug === 'russian' || slug === 'german';
   const tabs: Tab[] = adults
     ? [
         { href: '#/neviim', label: t('tab.tanakh'), icon: <Icon name="book" />, here: slug === 'neviim' || slug === 'ketuvim' },
         { href: '#/hemshech', label: t('hs.menuLbl'), icon: <Icon name="spark" />, here: slug === 'hemshech' },
-        { href: '#/lashon', label: t('tab.lashon'), icon: he('אב'), here: slug === 'lashon' || slug === 'words' || slug === 'pics' || slug === 'letters' || slug === 'english' },
+        { href: learnHref, label: learnLabel ?? t('tab.lashon'), icon: he('אב'), here: langHere },
       ]
     : [
         { href: '#/', label: t('menu.home'), icon: <Icon name="home" />, here: !slug },
-        { href: '#/lashon', label: t('tab.words'), icon: he('אב'), here: slug === 'lashon' || slug === 'pics' || slug === 'torah-words' || slug === 'letters' },
+        { href: learnHref, label: learnLabel ?? t('tab.words'), icon: he('אב'), here: langHere || slug === 'torah-words' },
         { href: '#/facts', label: t('tab.facts'), icon: <Icon name="hash" />, here: slug === 'facts' || slug === 'daily' },
         { href: '#/academy', label: t('academy.title'), icon: <Icon name="award" />, here: slug === 'academy' },
       ];

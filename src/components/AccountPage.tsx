@@ -4,6 +4,7 @@ import { MODES, savedMode, setMode, useMode } from '../core/mode';
 import { HEBREW_LEVELS, savedHebrewLevel, setHebrewLevel, useHebrewLevel } from '../core/hebrewLevel';
 import { BGS, SIZES, THEMES, setLook, useLook } from '../core/look';
 import { shownCourses, PACES, PLAN_YEARS, coursesChosen, setCourses, useCourses } from '../core/courses';
+import { LEARN_LANGS, LEARN_ROUTE, setLearnLang, useLearnLang, type LearnLang } from '../core/learnLang';
 import { BookProgress } from './BookProgress';
 import { DailyReminder } from './DailyReminder';
 import { Subscribe } from './Subscribe';
@@ -389,6 +390,7 @@ function ModeCard() {
         </div>
       </details>
       <CoursesPicker />
+      <LearnLangPicker />
       <LookPicker />
     </section>
   );
@@ -446,6 +448,39 @@ function CoursesPicker() {
             </button>
           ))}
         </div>
+      )}
+    </details>
+  );
+}
+
+/**
+ * «Какой язык вы будете учить?» (src/core/learnLang.ts): the Holy Tongue or, through Tanakh, a foreign language (the course
+ * is in Hebrew); the site's own interface language is not offered. One line with the answer, the choices under «Изменить».
+ */
+function LearnLangPicker() {
+  const { t, ui } = useI18n();
+  const lang = useLearnLang();
+  const langs = LEARN_LANGS.filter((l) => l !== ui || l === 'he');
+  const name = (l: LearnLang) => t(`learn.${l}`);
+  return (
+    <details className="acc-pick" open={!lang}>
+      <summary>
+        <span className="acc-pick-q" id="acc-learn">{t('learn.q')}</span>
+        {lang && <b>{name(lang)}</b>}
+        <span className="acc-pick-edit">{t('acc.change')}</span>
+      </summary>
+      <div className="acc-modes" role="radiogroup" aria-labelledby="acc-learn">
+        {langs.map((l) => (
+          <button key={l} role="radio" aria-checked={lang === l} className={`acc-mode${lang === l ? ' on' : ''}`} onClick={(e) => (setLearnLang(l), close(e))}>
+            <b lang={l === 'he' ? undefined : l}>{name(l)}</b>
+            <small>{t(l === 'he' ? 'learn.he.sub' : 'learn.foreign.sub')}</small>
+          </button>
+        ))}
+      </div>
+      {lang && (
+        <p className="acc-courses-note">
+          <a href={`#/${LEARN_ROUTE[lang]}`}>{t('learn.open')} →</a>
+        </p>
       )}
     </details>
   );
