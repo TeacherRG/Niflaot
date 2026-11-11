@@ -1,5 +1,12 @@
 # Email newsletter
 
+**Through Buttondown (owner, 11.11.2026).** When the Actions secret `BUTTONDOWN_API_KEY` is set, the `telegram-tanakh` and
+`telegram-digest` jobs send one Buttondown issue to every subscriber of the Buttondown list: daily — the passage of the
+day, weekly (Wednesday) — the Academy Week digest and the portion's Memo game. All three languages are in one email
+(Russian first), and **links replace the PDF attachments** (the day's page, the digest, the Memo game and its print view,
+`?ref=mail`). `X-Idempotency-Key: niflaot-daily-<date>` / `niflaot-weekly-<Sunday>` keeps a retried run from sending twice.
+Code: `sendButtondown` in `scripts/newsletter.ts`. The own-list delivery below still works when `NEWSLETTER_SECRET` is set.
+
 `src/components/Subscribe.tsx` offers daily or weekly email in Russian, English, or German. A six-digit, one-time code
 sent through the existing Resend setup confirms the address; codes expire after 10 minutes, allow five guesses, and
 are rate-limited per address. The subscriber list and delivery history live in the `Accounts` Durable Object.

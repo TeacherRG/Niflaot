@@ -34,6 +34,8 @@ jobs:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       ASSISTANT_URL: ${{ vars.ASSISTANT_URL }}
       NEWSLETTER_SECRET: ${{ secrets.NEWSLETTER_SECRET }}
+      # the email newsletter through Buttondown (scripts/newsletter.ts): one issue in three languages, links instead of PDFs
+      BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
       TELEGRAM_CHAT_RU: ${{ vars.TELEGRAM_CHAT_RU || secrets.TELEGRAM_CHAT_RU }}
       # optional: the Mini App from @BotFather (<bot>/<app>) — a button «open in Telegram» under the post
       TELEGRAM_APP: ${{ vars.TELEGRAM_APP }}
@@ -70,7 +72,12 @@ jobs:
         run: npm ci
       # a browser for the day's PDF (scripts/telegram-tanakh.ts prints the site's page of the day)
       - if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
-        run: npm i --no-save playwright && npx playwright install --with-deps chromium
+        run: |
+          # 11.11.2026 Ubuntu mirrors didn't resolve on the runner and the only Wednesday attempt failed here — three tries,
+          # then the browser alone (the runner already has the libraries headless Chromium needs)
+          npm i --no-save playwright
+          for i in 1 2 3; do npx playwright install --with-deps chromium && exit 0; echo "Попытка $i не удалась — ещё раз через минуту"; sleep 60; done
+          npx playwright install chromium
       # without the token the run is red with a clear message — not green with a silently skipped post
       - name: Check settings
         if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
@@ -78,6 +85,10 @@ jobs:
           if [ -z "$TELEGRAM_BOT_TOKEN" ]; then
             echo "::error::Нет секрета TELEGRAM_BOT_TOKEN: Settings → Secrets and variables → Actions → вкладка Secrets (не Variables) → Repository secrets."
             exit 1
+          fi
+          # without it no email goes out (11.11.2026: none came) — say so on the run page
+          if [ -z "$BUTTONDOWN_API_KEY$NEWSLETTER_SECRET" ]; then
+            echo "::warning::Нет секрета BUTTONDOWN_API_KEY — письма рассылки не отправляются: Settings → Secrets and variables → Actions → Secrets."
           fi
           if [ -z "$TELEGRAM_CHAT_RU$TELEGRAM_CHAT_EN$TELEGRAM_CHAT_DE" ]; then
             echo "::error::Не задан ни один канал (TELEGRAM_CHAT_RU): Settings → Secrets and variables → Actions (вкладка Variables или Secrets)."

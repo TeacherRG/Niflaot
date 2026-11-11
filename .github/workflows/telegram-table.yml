@@ -70,7 +70,12 @@ jobs:
         run: npm ci
       # a browser for the PDF of the sheet (scripts/telegram-table.ts prints the site's page)
       - if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)
-        run: npm i --no-save playwright && npx playwright install --with-deps chromium
+        run: |
+          # 11.11.2026 Ubuntu mirrors didn't resolve on the runner and the only Wednesday attempt failed here — three tries,
+          # then the browser alone (the runner already has the libraries headless Chromium needs)
+          npm i --no-save playwright
+          for i in 1 2 3; do npx playwright install --with-deps chromium && exit 0; echo "Попытка $i не удалась — ещё раз через минуту"; sleep 60; done
+          npx playwright install chromium
       # without the token the run is red with a clear message — not green with a silently skipped post
       - name: Check settings
         if: steps.day.outputs.early != 'true' && (steps.posted.outputs.cache-hit != 'true' || inputs.force)

@@ -28,7 +28,12 @@ jobs:
           cache: npm
       - run: npm ci
       # a browser: the post's picture is the fact's card, drawn by the site (scripts/telegram-post.ts)
-      - run: npm i --no-save playwright && npx playwright install --with-deps chromium
+      - run: |
+          # 11.11.2026 Ubuntu mirrors didn't resolve on the runner and the only Wednesday attempt failed here — three tries,
+          # then the browser alone (the runner already has the libraries headless Chromium needs)
+          npm i --no-save playwright
+          for i in 1 2 3; do npx playwright install --with-deps chromium && exit 0; echo "Попытка $i не удалась — ещё раз через минуту"; sleep 60; done
+          npx playwright install chromium
       # without the token the run is red with a clear message — not green with a silently skipped post
       - name: Check settings
         run: |

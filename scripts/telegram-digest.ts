@@ -30,7 +30,7 @@ import { miniAppLink } from '../src/core/telegram';
 import { civilDate } from '../src/core/hebrewDate';
 import { PARSHIOT } from '../src/lessons/parshiot';
 import { LESSON_GROUPS, weekParsha } from '../src/lessons';
-import { deliverNewsletter, newsletterEnabled, plainNewsletterText } from './newsletter';
+import { buttondownEnabled, deliverNewsletter, newsletterEnabled, plainNewsletterText, sendButtondown, type MailSection } from './newsletter';
 import ru from '../src/i18n/locales/ru';
 import en from '../src/i18n/locales/en';
 import de from '../src/i18n/locales/de';
@@ -142,6 +142,19 @@ function hemshechLines(loc: Loc): string[] {
 
 const LIMIT = 4096;
 /** The length Telegram counts: the text without the tags, the entities decoded. */
+// the email (Buttondown): the post's text with ?ref=mail, links to the digest and the portion's Memo game (to play and to print)
+// instead of the PDFs
+const MAIL_KEY = `weekly-${sunday}`;
+const MAIL_SUBJECT = `${t('ru', 'digest.title')} · ${dayMonth(sunday, 'ru')} – ${civilDate(friday, 'ru')} · Niflaot`;
+function mailSection(loc: Loc, text: string): MailSection {
+  const links = [{ label: t(loc, 'digest.post.pdf'), url: routeLink(route, 'mail', loc) }];
+  if (memoLesson) {
+    links.push({ label: t(loc, 'memo.ctaBtn'), url: routeLink(`${memoLesson.slug}/memo`, 'mail', loc) });
+    links.push({ label: t(loc, 'memo.print'), url: routeLink(`${memoLesson.slug}/print/memo`, 'mail', loc) });
+  }
+  return { lang: loc, heading: `${t(loc, 'digest.title')} · ${dayMonth(sunday, loc)} – ${civilDate(friday, loc)}`, text: text.replaceAll('ref=channel', 'ref=mail'), links };
+}
+
 const shown = (s: string) => s.replace(/<[^>]+>/g, '').replace(/&(amp|lt|gt);/g, '_').length;
 function post(loc: Loc): string {
   const last = friday;
@@ -229,10 +242,12 @@ async function tgFile(chat: string, pdf: Uint8Array, name: string, caption: stri
   if (!json.ok) throw new Error(`sendDocument: ${json.description}`);
 }
 
-if (!DRY && !Object.values(CHATS).some(Boolean) && !newsletterEnabled()) throw new Error('no channel or newsletter: set TELEGRAM_CHAT_RU / _EN / _DE or configure email delivery');
+if (!DRY && !Object.values(CHATS).some(Boolean) && !newsletterEnabled() && !buttondownEnabled()) throw new Error('no channel or newsletter: set TELEGRAM_CHAT_RU / _EN / _DE or configure email delivery');
 let failed = false;
+const mailSections: MailSection[] = [];
 for (const loc of Object.keys(UI) as Loc[]) {
   const text = post(loc);
+  mailSections.push(mailSection(loc, text));
   if (DRY) {
     console.log(`── ${loc} (${CHATS[loc] ?? 'нет канала'}) · ${shown(text)} знаков\n${text}\n${APP ? `${JSON.stringify(buttons(loc).reply_markup)}\n` : ''}`);
     if (PDF_ONLY) {
@@ -286,4 +301,13 @@ for (const loc of Object.keys(UI) as Loc[]) {
     failed = true;
   }
 }
+// Buttondown: one issue, all languages (scripts/newsletter.ts); a failure here doesn't undo the posts
+if (!DRY && buttondownEnabled()) {
+  try {
+    await sendButtondown({ key: MAIL_KEY, subject: MAIL_SUBJECT, sections: mailSections });
+  } catch (e) {
+    console.error(`Buttondown — ${(e as Error).message}`);
+    failed = true;
+  }
+} else if (DRY && buttondownEnabled()) console.log(`Buttondown (dry): ${MAIL_SUBJECT}\n${mailSections.map((m) => m.links.map((l) => `${l.label} — ${l.url}`).join('\n')).join('\n')}`);
 if (failed) process.exit(1);
