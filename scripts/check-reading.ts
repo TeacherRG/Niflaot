@@ -5,6 +5,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { ALIYOT, SHNAYIM, aliyahOfDay, shnayimParsha, type ShnayimText } from '../src/core/shnayim';
 import { translitToken, translitTokens } from '../src/core/tehillimTranslit';
+import { hasLiving, type Living } from '../src/core/living';
 import { CHAPTERS, chapterAudioTracks, weekdayOf, weekdayPortion, dailyPortion, hebrewDayForDate, shortHebrewMonth, stripTaamim, tokens } from '../src/core/reading';
 
 const dir = new URL('../public/reading/tehillim/', import.meta.url);
@@ -172,8 +173,31 @@ for (const name of [...Array.from({ length: CHAPTERS }, (_, i) => String(i + 1))
   else timed++;
 }
 
+// «Мысль к стиху» — маячки Living the Mizmor (nafshi.org): глава и стих есть, слова — внутри стиха, текст — без HTML
+const livingDir = new URL('../public/reading/living/', import.meta.url);
+const livingIndex = JSON.parse(readFileSync(new URL('index.json', livingDir), 'utf8'));
+let beacons = 0;
+if (!/nafshi\.org/.test(livingIndex.source) || !/non-commercial/i.test(livingIndex.terms)) errors.push('маячки Теґилим: в index.json нет источника и условий nafshi.org');
+for (let c = 1; c <= CHAPTERS; c++) {
+  const listed = (livingIndex.chapters as number[]).includes(c);
+  if (listed !== hasLiving(c)) errors.push(`маячки Теґилим: глава ${c} — hasLiving() в src/core/living.ts не совпадает с данными`);
+  if (!listed) continue;
+  const l: Living = JSON.parse(readFileSync(new URL(`${c}.json`, livingDir), 'utf8'));
+  const v: string[] = JSON.parse(readFileSync(new URL(`${c}.json`, dir), 'utf8')).v;
+  if (l.c !== c || !l.items.length || !/^https:\/\/nafshi\.org\//.test(l.url)) errors.push(`маячки Теґилим ${c}: нет записей или ссылки на источник`);
+  for (const it of l.items) {
+    beacons++;
+    const at = `маячки Теґилим ${c}:${it.v}`;
+    if (!v[it.v - 1]) errors.push(`${at} — нет такого стиха`);
+    else if (it.r && !(it.r[0] >= 0 && it.r[0] <= it.r[1] && it.r[1] < tokens(v[it.v - 1]).length)) errors.push(`${at} — слова вне стиха`);
+    if (!it.text && !it.quote) errors.push(`${at} — пустая запись`);
+    if (!['lessons', 'tefillos', 'tehillos', 'other'].includes(it.kind)) errors.push(`${at} — вид ${it.kind}`);
+    for (const s of [it.title, it.quote, it.text]) if (s && /[<>]/.test(s)) errors.push(`${at} — в тексте HTML: ${s.slice(0, 40)}`);
+  }
+}
+
 if (errors.length) {
   console.error(errors.slice(0, 20).join('\n'));
   process.exit(1);
 }
-console.log(`✓ Святое чтение: Теґилим — ${CHAPTERS} глав, ${total} слов, кери, Имена; Аазину — ${haazinu.v.length} стихов; шнаим микра — ${SHNAYIM.length} гл., ${shnVerses} стихов; транслит — ${trWords} слов; разметка по паузам — ${timed} записей`);
+console.log(`✓ Святое чтение: Теґилим — ${CHAPTERS} глав, ${total} слов, кери, Имена; Аазину — ${haazinu.v.length} стихов; шнаим микра — ${SHNAYIM.length} гл., ${shnVerses} стихов; транслит — ${trWords} слов; разметка по паузам — ${timed} записей; маячки «Мысль к стиху» — ${beacons}`);

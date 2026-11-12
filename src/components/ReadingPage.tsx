@@ -10,6 +10,8 @@ import { markStudied, todayIso, useHabit } from '../core/habit';
 import { useHebrewLevel } from '../core/hebrewLevel';
 import { resumeVoice, setVoicePitch } from '../core/voicePitch';
 import { isAdmin } from '../admin/github';
+import { LIVING_SITE, hasLiving, loadLiving, rememberLiving, type Living } from '../core/living';
+import { LivingBeacon, LivingPop } from './LivingPop';
 import { PRONS, TR_MODES, translitToken } from '../core/tehillimTranslit';
 import {
   CHAPTERS,
@@ -362,6 +364,41 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
     };
   }, [c, dailyDay, valid, stopAudio, portions, haazinu]);
 
+  // «Мысль к стиху» — маячки Living the Mizmor (nafshi.org) у глав, где они есть; у «Аазину» их нет
+  const [livings, setLivings] = useState<Map<number, Living>>(new Map());
+  const livingChapters = useMemo(
+    () => (haazinu || !view.living ? '' : [...new Set(portions.map((p) => p.chapter))].filter(hasLiving).join(',')),
+    [haazinu, view.living, portions],
+  );
+  useEffect(() => {
+    let live = true;
+    if (!livingChapters) {
+      setLivings(new Map());
+      return;
+    }
+    Promise.all(livingChapters.split(',').map((n) => loadLiving(Number(n)))).then((all) => {
+      if (!live) return;
+      const m = new Map<number, Living>();
+      for (const l of all) {
+        if (!l) continue;
+        rememberLiving(l);
+        m.set(l.c, l);
+      }
+      setLivings(m);
+    });
+    return () => {
+      live = false;
+    };
+  }, [livingChapters]);
+  /** первый кусок каждого стиха в `toks` */
+  const firstTok = useMemo(() => {
+    const first: number[] = [];
+    toks.forEach((x, i) => {
+      if (first[x.v] === undefined) first[x.v] = i;
+    });
+    return first;
+  }, [toks]);
+
   const setV = (v: View) => {
     setView(v);
     saveView(v);
@@ -635,6 +672,11 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
         )}
         {audioFailed && <p className="rd-note" role="alert">{t('reading.audioFailed')}</p>}
         {audio && light && !tip && audioState !== 'stopped' && <p className="rd-hint rd-tap-hint no-print">{t('reading.tapSync')}</p>}
+        {livings.size > 0 && (
+          <p className="rd-hint kp-hint no-print">
+            <span className="kp-dot" aria-hidden="true" /> {t('living.hint')}
+          </p>
+        )}
         {tip && tracks.length > 0 && view.play === 'both' && (
           <div className="rd-tip no-print" role="status">
             <span aria-hidden="true">👆</span>
@@ -717,17 +759,39 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
                   )}
                   {section.verses.map((_, vi) => {
                     const globalVerse = verseOffset + vi;
+                    const verseNo = section.firstVerse + vi;
+                    const living = haazinu ? undefined : livings.get(section.chapter);
+                    const marks = living ? living.items.flatMap((item, n) => (item.v === verseNo ? [{ item, id: `${living.c}:${n}` }] : [])) : [];
+                    const first = firstTok[globalVerse] ?? 0;
+                    const beacon = (m: (typeof marks)[number]) => (
+                      <LivingBeacon
+                        key={m.id}
+                        id={m.id}
+                        label={`${t('living.title')}${m.item.title ? `: ${m.item.title}` : ''}`}
+                        phrase={
+                          m.item.r
+                            ? toks
+                                .slice(first + m.item.r[0], first + m.item.r[1] + 1)
+                                .filter((x) => x.v === globalVerse)
+                                .map((x) => stripTaamim(x.s).replace(/׃$/, ''))
+                                .join(' ')
+                            : ''
+                        }
+                      />
+                    );
                     return (
                       <p key={globalVerse} className="rd-v">
                         <span className="rd-vn" aria-hidden="true">
-                          {trOn ? section.firstVerse + vi : hebrewNumber(section.firstVerse + vi).replace(/[׳״]/g, '')}
+                          {trOn ? verseNo : hebrewNumber(verseNo).replace(/[׳״]/g, '')}
                         </span>{' '}
+                        {marks.filter((m) => !m.item.r).map(beacon)}
                         {toks.map((x, i) =>
                           x.v !== globalVerse ? null : (
-                            <span key={i}>
+                            <span key={i} className={marks.some((m) => m.item.r?.[0] === i - first) ? 'rd-bw' : undefined}>
+                              {marks.filter((m) => m.item.r?.[0] === i - first).map(beacon)}
                               <span
                                 data-i={i}
-                                className={`rd-w${!light ? '' : i === active ? ' rd-on' : active > i ? ' rd-past' : ''}${x.w ? '' : ' rd-paseq'}`}
+                                className={`rd-w${!light ? '' : i === active ? ' rd-on' : active > i ? ' rd-past' : ''}${x.w ? '' : ' rd-paseq'}${marks.some((m) => m.item.r && m.item.r[0] <= i - first && i - first <= m.item.r[1]) ? ' rd-key' : ''}`}
                                 onClick={() => light && x.w && seekAudioToWord(i)}
                               >
                                 {!trOn ? (
@@ -781,6 +845,14 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
             </a>
           </p>
         )}
+        {livings.size > 0 && (
+          <p className="rd-credit">
+            {t('living.credit')}{' '}
+            <a href={LIVING_SITE} target="_blank" rel="noopener">
+              nafshi.org
+            </a>
+          </p>
+        )}
         {source && (
           <p className="rd-credit">
             {t('reading.credit')}{' '}
@@ -792,6 +864,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
         )}
       </div>
       <Colophon />
+      <LivingPop />
     </>
   );
 }
@@ -868,6 +941,7 @@ function ReadingSettings({ view, setV, audio, onBoth }: { view: View; setV: (v: 
           <div className="tk-view-head">{t('reading.look')}</div>
           {item(view.taamim, '♫', t('reading.v.taamim'), t('reading.v.taamim.d'), () => setV({ ...view, taamim: !view.taamim }), 'menuitemcheckbox')}
           {item(view.big, 'A+', t('reading.v.big'), t('reading.v.big.d'), () => setV({ ...view, big: !view.big }), 'menuitemcheckbox')}
+          {item(view.living, '●', t('living.set'), t('living.set.d'), () => setV({ ...view, living: !view.living }), 'menuitemcheckbox')}
         </div>
       )}
     </div>

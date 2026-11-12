@@ -3809,3 +3809,15 @@ html[dir="rtl"] :is(.p-quote-cols,.rq-seg.cols,.tk-verse.cols,.tk-st.cols){direc
 html[dir="rtl"] .a-tile::after{content:"←";right:auto;left:20px}
 html[dir="rtl"] .a-tile:hover::after{transform:translateX(-3px)}
 html[dir="rtl"] :is(.a-pair,.k-grid) .a-tile::after{right:auto;left:12px}
+
+/* «Мысль к стиху» — маячки Living the Mizmor в Теґилим */
+.rd-key{text-decoration:underline 2px var(--gold);text-underline-offset:7px;text-decoration-skip-ink:none}
+.rd-tr-duo .rd-key{text-decoration:none;box-shadow:inset 0 -2px 0 var(--gold)}
+.rd-beacon{font-size:.62em;vertical-align:.25em;margin:0 .15em}
+.rd-tr-duo .rd-beacon{vertical-align:top;margin-top:.5em}
+.lp .lp-topic{font-weight:600;color:var(--muted)}
+.lp-en{display:grid;gap:6px}
+.lp-quote{font-style:italic;color:var(--ink-2);font-size:13.5px}
+.lp-t{font-weight:700;font-size:12.5px;letter-spacing:.05em;color:var(--tchelet)}
+.lp .kp-more{color:var(--muted)}
+.rd-bw{white-space:nowrap}
