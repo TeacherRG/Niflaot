@@ -48,6 +48,13 @@ if (JSON.stringify(mergeSnapshots(m, m)) !== JSON.stringify(m)) err('sync: mergi
     for (const k of SYNC_KEYS) if (!allow.test(k)) err(`sync: the server drops ${k}`);
   }
 }
+// «Напоминание было включено» (src/core/push.ts): the later change wins, from either side
+{
+  const on = JSON.stringify({ on: 1, hour: 8, t: 2000 });
+  const off = JSON.stringify({ on: 0, hour: 8, t: 1000 });
+  if (mergeSnapshots({ 'niflaot:push-want': off }, { 'niflaot:push-want': on })['niflaot:push-want'] !== on) err('sync: push-want — the later «on» lost');
+  if (mergeSnapshots({ 'niflaot:push-want': on }, { 'niflaot:push-want': off })['niflaot:push-want'] !== on) err('sync: push-want — the earlier «off» won');
+}
 // «Лоскуты гематрии»: the copy with more boards leads, best times — the faster
 {
   const pm = JSON.parse(

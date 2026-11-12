@@ -17,6 +17,16 @@ import { ZIP_KEY, zipReminder } from './zipReminder';
 import { STUDY_EVENT, streakForReminder } from './habit';
 
 const STORE = 'niflaot:push';
+/**
+ * «Напоминание было включено» — synced with the account (src/core/sync.ts), unlike STORE (the subscription of this
+ * device): `{on: 1 | 0, hour, anchor?, t}`. After the app is reinstalled (the subscription and STORE are gone) the site
+ * knows the reminder was on: with the permission still granted it turns it back on by itself, otherwise it offers
+ * «Включить снова». The later change wins (`mergePushWant`).
+ */
+export const WANT = 'niflaot:push-want';
+const SYNCED = 'niflaot:push-sync';
+const DECLINED = 'niflaot:push-no';
+const RESYNC_MS = 12 * 3600_000;
 const PREFS = '/__niflaot/push-prefs';
 /** the hours the player can pick (local time); Friday afternoon and Saturday are skipped by the server */
 export const PUSH_HOURS = [7, 8, 13, 16, 17, 19] as const;
@@ -35,7 +45,8 @@ export type PushState =
   /** iPhone / iPad in Safari: push only after «На экран Домой» */
   | { kind: 'ios' }
   | { kind: 'denied' }
-  | { kind: 'off' }
+  /** `again` — the reminder was on (here before a reinstall, or on another device of the account): «Включить снова» */
+  | { kind: 'off'; again?: { hour: number; anchor?: Anchor } }
   | { kind: 'on'; hour: number; anchor?: Anchor };
 
 const ios = () => /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -49,13 +60,51 @@ const saved = (): { hour: number; endpoint: string; anchor?: string } | null => 
   }
 };
 
+type Want = { on: 0 | 1; hour: number; anchor?: string; t: number };
+const want = (): Want | null => {
+  try {
+    const w = JSON.parse(localStorage.getItem(WANT) ?? 'null');
+    return w && (w.on === 0 || w.on === 1) && PUSH_HOURS.includes(w.hour) ? w : null;
+  } catch {
+    return null;
+  }
+};
+const setWant = (on: boolean, hour: number, anchor?: string) => {
+  try {
+    localStorage.setItem(WANT, JSON.stringify({ on: on ? 1 : 0, hour, ...(anchor ? { anchor } : {}), t: Date.now() }));
+  } catch {}
+};
+const declined = () => {
+  try {
+    return localStorage.getItem(DECLINED) === '1';
+  } catch {
+    return false;
+  }
+};
+
+/** what should be on here: this device's subscription, or the account's «было включено» (not after «Не напоминать» here) */
+const plan = (): { hour: number; anchor?: Anchor } | null => {
+  const s = saved();
+  if (s && PUSH_HOURS.includes(s.hour as never)) return { hour: s.hour, anchor: isAnchor(s.anchor) ? s.anchor : undefined };
+  const w = want();
+  return w?.on && !declined() ? { hour: w.hour, anchor: isAnchor(w.anchor) ? w.anchor : undefined } : null;
+};
+
+/** the self-repair of this page load (`syncPush`): pushState waits for it, so the block doesn't show «off» for a moment */
+let healing: Promise<unknown> | null = null;
+
 export async function pushState(): Promise<PushState> {
   if (!supported()) return ios() ? { kind: 'ios' } : { kind: 'unsupported' };
+  if (healing) await timeout(healing, 8000).catch(() => {});
   if (Notification.permission === 'denied') return { kind: 'denied' };
+  const p = plan();
+  // not «granted» (e.g. reset by a reinstall): nothing can be shown, whatever the subscription says
+  if (Notification.permission !== 'granted') return p ? { kind: 'off', again: p } : { kind: 'off' };
   const reg = await navigator.serviceWorker.getRegistration();
   const sub = await reg?.pushManager.getSubscription();
   const s = saved();
-  return sub && s && s.endpoint === sub.endpoint ? { kind: 'on', hour: s.hour, anchor: isAnchor(s.anchor) ? s.anchor : undefined } : { kind: 'off' };
+  if (sub && s && s.endpoint === sub.endpoint) return { kind: 'on', hour: s.hour, anchor: isAnchor(s.anchor) ? s.anchor : undefined };
+  return p ? { kind: 'off', again: p } : { kind: 'off' };
 }
 
 async function api(path: string, body: object) {
@@ -75,7 +124,10 @@ async function api(path: string, body: object) {
  */
 async function savePrefs(lang: Locale) {
   const c = await caches.open('niflaot-prefs');
-  await c.put(PREFS, new Response(JSON.stringify({ lang, mode: currentMode(), wordsDue: wordsDue(), wordsKnownDue: wordsDue(true), zip: zipReminder(localStorage.getItem(ZIP_KEY)), anchor: saved()?.anchor, study: streakForReminder() }), { headers: { 'Content-Type': 'application/json' } }));
+  // hour, tz, api, key — for «pushsubscriptionchange» in public/sw.js: the browser replaced the subscription → the worker tells the server itself
+  const s = saved();
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+  await c.put(PREFS, new Response(JSON.stringify({ lang, hour: s?.hour, tz, api: ASSISTANT_URL, key: serverKey, mode: currentMode(), wordsDue: wordsDue(), wordsKnownDue: wordsDue(true), zip: zipReminder(localStorage.getItem(ZIP_KEY)), anchor: saved()?.anchor, study: streakForReminder() }), { headers: { 'Content-Type': 'application/json' } }));
 }
 
 /**
@@ -105,20 +157,51 @@ const b64 = (s: string) => {
   return Uint8Array.from(raw, (c) => c.charCodeAt(0));
 };
 
+let serverKey = '';
+
+/** subscribe this browser (the permission is already granted — no question) and tell the server the hour */
+async function subscribeHere(hour: number, lang: Locale, anchor?: string): Promise<PushState> {
+  const reg = await timeout(navigator.serviceWorker.ready);
+  serverKey = (await (await fetch(`${ASSISTANT_URL}/push/key`)).json()).key;
+  let sub = await reg.pushManager.getSubscription();
+  if (!sub) sub = await timeout(reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64(serverKey) }));
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+  // the server keeps one row per address (ON CONFLICT … UPDATE): sending it again is harmless
+  await api('subscribe', { subscription: sub.toJSON(), tz, hour, lang });
+  localStorage.setItem(STORE, JSON.stringify({ hour, endpoint: sub.endpoint, anchor }));
+  localStorage.setItem(SYNCED, String(Date.now()));
+  await savePrefs(lang);
+  return { kind: 'on', hour, anchor: isAnchor(anchor) ? anchor : undefined };
+}
+
 /** Ask once (the player tapped the button), subscribe, tell the server the hour; returns the new state. */
 export async function enablePush(hour: number, lang: Locale, anchor?: Anchor): Promise<PushState> {
   if (!supported()) return ios() ? { kind: 'ios' } : { kind: 'unsupported' };
   const permission = await Notification.requestPermission();
   if (permission !== 'granted') return permission === 'denied' ? { kind: 'denied' } : { kind: 'off' };
-  const reg = await timeout(navigator.serviceWorker.ready);
-  const { key } = await (await fetch(`${ASSISTANT_URL}/push/key`)).json();
-  let sub = await reg.pushManager.getSubscription();
-  if (!sub) sub = await timeout(reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64(key) }));
-  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
-  await api('subscribe', { subscription: sub.toJSON(), tz, hour, lang });
-  localStorage.setItem(STORE, JSON.stringify({ hour, endpoint: sub.endpoint, anchor }));
-  await savePrefs(lang);
-  return { kind: 'on', hour, anchor };
+  const next = await subscribeHere(hour, lang, anchor);
+  setWant(true, hour, anchor);
+  return next;
+}
+
+/**
+ * Once a page load (from `pushLanguage`), without asking anything: the reminder should be on here (this device, or the
+ * account after a reinstall) and the browser still allows notifications → make sure the subscription exists and the
+ * server knows it. Repairs a subscription the browser replaced or the server dropped; the server is told again at most
+ * every 12 hours, or at once when the address changed. The permission is never requested here.
+ */
+async function syncPush(lang: Locale) {
+  if (!supported() || Notification.permission !== 'granted') return;
+  const p = plan();
+  if (!p) return;
+  const reg = await navigator.serviceWorker.getRegistration();
+  // no service worker yet (the first load after an install, or `npm run dev`): next time, or «Включить снова»
+  if (!reg) return;
+  const s = saved();
+  const sub = await reg.pushManager.getSubscription();
+  const fresh = Date.now() - Number(localStorage.getItem(SYNCED) ?? 0) < RESYNC_MS;
+  if (sub && s && s.endpoint === sub.endpoint && fresh) return;
+  await subscribeHere(p.hour, lang, p.anchor);
 }
 
 /**
@@ -149,6 +232,7 @@ export async function disablePush(): Promise<PushState> {
     await api('unsubscribe', { endpoint: sub.endpoint }).catch(() => {});
     await sub.unsubscribe();
   }
+  setWant(false, saved()?.hour ?? want()?.hour ?? DEFAULT_HOUR);
   localStorage.removeItem(STORE);
   return { kind: 'off' };
 }
@@ -156,7 +240,9 @@ export async function disablePush(): Promise<PushState> {
 /** The language changed on the site (and on every visit): the next messages in this language and mode. */
 let lastLang: Locale | null = null;
 export async function pushLanguage(lang: Locale) {
+  const first = !lastLang;
   lastLang = lang;
+  if (first && typeof window !== 'undefined') healing = syncPush(lang).catch(() => {});
   if (saved()) await savePrefs(lang).catch(() => {});
 }
 

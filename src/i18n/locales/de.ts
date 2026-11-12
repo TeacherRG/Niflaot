@@ -1048,6 +1048,7 @@ const de: Messages = {
   'push.unsupported': "Dieser Browser kann keine Benachrichtigungen schicken.",
   'push.failed': "Das hat nicht geklappt. Prüfe deine Verbindung und versuch es noch einmal.",
   'push.gone': "Das Abo auf diesem Gerät ist abgelaufen. Schalte die Erinnerung noch einmal ein.",
+  'push.again': "Die Erinnerung war eingeschaltet (um {time}), aber auf diesem Gerät kommt sie gerade nicht an — zum Beispiel, nachdem die App neu installiert wurde. Tippe auf „Erinnerung einschalten“, damit sie wieder kommt.",
   'push.anchor': "Wann lernst du?",
   'push.anchorNone': "Einfach zu dieser Uhrzeit",
   'push.anchor.prayer': "nach dem Morgengebet",
