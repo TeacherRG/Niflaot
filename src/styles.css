@@ -3809,3 +3809,12 @@ html[dir="rtl"] :is(.p-quote-cols,.rq-seg.cols,.tk-verse.cols,.tk-st.cols){direc
 html[dir="rtl"] .a-tile::after{content:"←";right:auto;left:20px}
 html[dir="rtl"] .a-tile:hover::after{transform:translateX(-3px)}
 html[dir="rtl"] :is(.a-pair,.k-grid) .a-tile::after{right:auto;left:12px}
+
+/* «Версия для ПК» on a phone — how to turn it off (DesktopSiteHint.tsx); font-size is set inline (× the shrink factor) */
+.pc-hint{position:fixed;left:.6em;right:.6em;bottom:.6em;z-index:1000;background:var(--night);color:#fff;border-radius:.8em;
+  padding:.8em 2.6em .8em 1em;box-shadow:0 .3em 1.2em rgba(0,0,0,.35);line-height:1.4}
+.pc-hint b{display:block;margin-bottom:.25em}
+.pc-hint p{margin:0}
+.pc-hint button{position:absolute;top:.3em;inset-inline-end:.3em;width:2em;height:2em;border:0;border-radius:50%;
+  background:rgba(255,255,255,.15);color:#fff;font-size:1.1em;line-height:1;cursor:pointer}
+@media print{.pc-hint{display:none}}

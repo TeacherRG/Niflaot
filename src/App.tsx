@@ -21,6 +21,7 @@ import { installLangMarkup } from './core/langMarkup';
 import { installTitleSync } from './core/pageMeta';
 import { DonateFab, UIContext, type Panel } from './components/ui';
 import { TabBar } from './components/TabBar';
+import { DesktopSiteHint } from './components/DesktopSiteHint';
 import { NotFound, PageBoundary, PageLoading } from './components/PageStates';
 import { useI18n } from './i18n';
 
@@ -325,6 +326,7 @@ function Site() {
       {slug !== 'koelet' && !gated && <Assistant />}
       {slug !== 'koelet' && <DonateFab label={t('footer.donate')} />}
       <TabBar slug={slug} view={view} />
+      {view !== 'print' && <DesktopSiteHint />}
       {isAdmin() && slug !== 'admin' && view !== 'print' && (
         <a className="admin-fab" href={lesson ? `#/admin/${lesson.slug}` : '#/admin'} title="Редактор текстов">
           ✎ Править
