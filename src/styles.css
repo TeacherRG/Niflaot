@@ -3810,6 +3810,15 @@ html[dir="rtl"] .a-tile::after{content:"←";right:auto;left:20px}
 html[dir="rtl"] .a-tile:hover::after{transform:translateX(-3px)}
 html[dir="rtl"] :is(.a-pair,.k-grid) .a-tile::after{right:auto;left:12px}
 
+/* «Мысль к стиху» — маячки Living the Mizmor в Теґилим */
+.rd-beacon{font-size:.62em;vertical-align:.25em;margin:0 .15em}
+.rd-tr-duo .rd-beacon{vertical-align:top;margin-top:.5em}
+.lp .lp-topic{font-weight:600;color:var(--muted)}
+.lp-en{display:grid;gap:6px}
+.lp-quote{font-style:italic;color:var(--ink-2);font-size:13.5px}
+.lp-t{font-weight:700;font-size:12.5px;letter-spacing:.05em;color:var(--tchelet)}
+.lp .kp-more{color:var(--muted)}
+.rd-bw{white-space:nowrap}
 /* «Pelecoin» — game coins (CoinsPage.tsx, CoinToast.tsx, the chip in the top bar) */
 .coin-chip{display:inline-flex;align-items:center;gap:4px;height:34px;padding:0 10px 0 6px;border:1px solid var(--gold-line);border-radius:999px;background:var(--gold-soft);color:var(--ink);text-decoration:none;font-family:var(--f-num);font-weight:700;font-size:13.5px;flex:none}
 .coin-chip img{display:block;width:22px;height:22px}

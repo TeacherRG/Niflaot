@@ -152,7 +152,7 @@ export const currentHebrewDay = () => hebrewDayForDate(todayISO());
 
 // the site's root, as in src/core/tanakh.ts (not imported from there: it carries the whole cycle)
 const up = '..';
-const root = () => (import.meta.env.DEV ? import.meta.env.BASE_URL : new URL(up, import.meta.url).href);
+export const root = () => (import.meta.env.DEV ? import.meta.env.BASE_URL : new URL(up, import.meta.url).href);
 
 export interface ReadingIndex {
   book: string;
@@ -281,9 +281,11 @@ export interface View {
   tr: TrMode;
   /** произношение транслита: ашкеназское (Хабад, по умолчанию) / сефардское */
   pron: Pron;
+  /** маячки «Мысль к стиху» (Living the Mizmor, nafshi.org) — по умолчанию включены */
+  living: boolean;
 }
 export const loadView = (): View => {
-  const v: View = { taamim: false, big: false, play: 'both', tr: 'he', pron: 'ash', ...read<Partial<View>>('niflaot:reading-view', {}) };
+  const v: View = { taamim: false, big: false, play: 'both', tr: 'he', pron: 'ash', living: true, ...read<Partial<View>>('niflaot:reading-view', {}) };
   if (!PLAY_MODES.includes(v.play)) v.play = 'both';
   if (!TR_MODES.includes(v.tr)) v.tr = 'he';
   if (!PRONS.includes(v.pron)) v.pron = 'ash';
