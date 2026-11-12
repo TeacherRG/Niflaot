@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { markStudied } from './habit';
+import { earn } from './coins';
 import type { Lesson } from '../lessons/types';
 
 export interface StepState {
@@ -108,12 +109,16 @@ export function useLessonState(lesson: Lesson) {
 
   // a step tried or solved (not a word card opened) counts as a day of study (src/core/habit.ts)
   const tried = useRef(-1);
+  const solved = useRef(new Set<number>());
   useEffect(() => {
     try {
       localStorage.setItem(storageKey(lesson), JSON.stringify(state));
     } catch {}
     const n = Object.values(state.st).reduce((a, s) => a + s.tries + (s.ok ? 1 : 0), 0);
     if (tried.current >= 0 && n > tried.current) markStudied();
+    // a riddle solved now (not the ones solved before this visit): game coins, each riddle once
+    if (tried.current >= 0) for (const r of state.done) if (!solved.current.has(r)) earn('answer', `ls:${lesson.slug}:${r}`);
+    solved.current = new Set(state.done);
     tried.current = n;
   }, [lesson, state]);
 

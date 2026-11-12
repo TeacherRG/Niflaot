@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from 'react';
 import type { Section } from './tanakhCycle';
 import { quizKey, type QuizResult, type QuizStore } from './academy';
 import { markStudied } from './habit';
+import { earn } from './coins';
 
 type Lang = 'ru' | 'en' | 'de';
 export interface QuizQuestion {
@@ -79,6 +80,7 @@ export function useQuizResult(date: string, section: Section, n: number) {
       const finished = p.every((x) => x >= 0);
       const right = p.filter((x) => x === 0).length;
       save({ p, n, best: finished ? Math.max(r.best, right) : r.best });
+      if (opt === 0) earn('answer', `tq:${key}:${i}`);
     },
     [r, n, key],
   );

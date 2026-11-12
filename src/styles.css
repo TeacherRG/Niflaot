@@ -3809,3 +3809,74 @@ html[dir="rtl"] :is(.p-quote-cols,.rq-seg.cols,.tk-verse.cols,.tk-st.cols){direc
 html[dir="rtl"] .a-tile::after{content:"←";right:auto;left:20px}
 html[dir="rtl"] .a-tile:hover::after{transform:translateX(-3px)}
 html[dir="rtl"] :is(.a-pair,.k-grid) .a-tile::after{right:auto;left:12px}
+
+/* «Pelecoin» — game coins (CoinsPage.tsx, CoinToast.tsx, the chip in the top bar) */
+.coin-chip{display:inline-flex;align-items:center;gap:4px;height:34px;padding:0 10px 0 6px;border:1px solid var(--gold-line);border-radius:999px;background:var(--gold-soft);color:var(--ink);text-decoration:none;font-family:var(--f-num);font-weight:700;font-size:13.5px;flex:none}
+.coin-chip img{display:block;width:22px;height:22px}
+.coin-chip:hover{border-color:var(--gold)}
+.coin-toast-live{position:fixed;inset-inline:0;bottom:calc(24px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;pointer-events:none;z-index:60}
+html.tabbed .coin-toast-live{bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+.coin-toast{pointer-events:auto;display:inline-flex;align-items:center;gap:8px;padding:8px 16px 8px 10px;border-radius:999px;background:var(--night);color:#fff;text-decoration:none;box-shadow:0 8px 24px rgba(10,16,40,.28);animation:coin-pop 2.2s ease both}
+.coin-toast.chest{animation-duration:3.6s}
+.coin-toast b{font-family:var(--f-num);font-size:18px;color:#FFD86B}
+.coin-toast span{font-size:13.5px;opacity:.9}
+@keyframes coin-pop{0%{opacity:0;transform:translateY(18px) scale(.9)}10%{opacity:1;transform:translateY(0) scale(1.04)}16%{transform:scale(1)}85%{opacity:1}100%{opacity:0;transform:translateY(-8px)}}
+@media (prefers-reduced-motion:reduce){.coin-toast{animation:none}}
+.coins{max-width:860px}
+.coins h2{margin:0 0 6px;font-family:var(--f-display);font-size:24px}
+.coins h3{margin:16px 0 4px;font-size:15px}
+.coins section{margin-top:22px}
+.coins-head{display:flex;align-items:center;gap:18px;margin-top:10px}
+.coins-head img{flex:none;width:112px;height:112px}
+.coins-head h1{margin:0;font-family:var(--f-display);font-size:30px;line-height:1.15}
+.coins-balance{margin:4px 0 0;font-size:17px;color:var(--gold-deep,var(--gold));font-weight:600}
+.coins-balance b{font-family:var(--f-num);font-size:38px;line-height:1;color:var(--ink)}
+.coins-lead{margin:6px 0 0;line-height:1.5;color:var(--ink-2)}
+.coins-stat,.coins-note,.coins-mine{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
+.coins-note:empty{display:none}
+.coins-today{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.coins-tile{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.coins-tile img{flex:none;width:56px;height:56px}
+.coins-tile div{display:flex;flex-direction:column;gap:3px;min-width:0}
+.coins-tile span{font-size:13.5px;color:var(--ink-2);line-height:1.35}
+.coins-dots{display:flex;gap:5px}
+.coins-dots i{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--gold-line);background:transparent}
+.coins-dots i.on{background:var(--gold-2);border-color:var(--gold)}
+.coins-box{padding:16px 18px;border:1px solid var(--gold-line);border-radius:16px;background:var(--gold-soft)}
+.coins-box-head{display:flex;align-items:center;gap:14px}
+.coins-box-head img{flex:none;width:96px;height:96px}
+.coins-box-head p{margin:0;line-height:1.5}
+.coins-round{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:14px 0 6px}
+.coins-round span{font-family:var(--f-num);font-weight:700}
+.coins-bar{height:14px;border-radius:999px;background:var(--surface);border:1px solid var(--gold-line);overflow:hidden}
+.coins-bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--gold-2))}
+.coins-vote{margin:16px 0 0;padding:0;border:0;display:grid;gap:8px}
+.coins-vote legend{padding:0;margin-bottom:8px;font-weight:700}
+.coins-vote label{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--gold-line);border-radius:12px;background:var(--surface);cursor:pointer}
+.coins-vote label.on{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+.coins-vote label span{flex:1}
+.coins-vote small{font-family:var(--f-num);color:var(--muted)}
+.coins-give{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px}
+.coins-give .btn.ghost{min-width:52px;background:var(--surface);font-family:var(--f-num);font-weight:700}
+.coins-closed{margin:0;padding-inline-start:18px;font-size:14px;line-height:1.6}
+.coins-shop{list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.coins-shop li{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.coins-shop li.open{border-color:var(--gold-line);background:var(--gold-soft)}
+.coins-shop img{width:64px;height:64px}
+.coins-shop p{margin:0;font-size:14.5px;line-height:1.55}
+.coins-shop .btn{margin-top:auto}
+.coins-he{position:absolute;top:14px;inset-inline-end:16px;font-family:var(--f-he);font-size:22px;color:var(--gold)}
+.coins-how ul{margin:0 0 18px;padding-inline-start:20px;line-height:1.6}
+.coins-how li{margin-bottom:6px}
+@media (max-width:640px){
+  .coins-head{gap:12px}
+  .coins-head img{width:76px;height:76px}
+  .coins-head h1{font-size:23px}
+  .coins-today{grid-template-columns:1fr}
+  .coins-box-head img{width:68px;height:68px}
+  .coin-chip{height:32px;padding:0;gap:3px;border:0;background:none;font-size:13px}
+  .coin-chip img{width:24px;height:24px}
+}
+/* the home page shows the name by the seal; with the coins there is no room for it on a narrow phone */
+@media (max-width:430px){.top-in.wide .brand-text{display:none}}
+@media (max-width:350px){.coin-chip{display:none}}

@@ -6,9 +6,11 @@
  */
 
 /** the synced localStorage keys: exact names, and `niflaot:lesson:<slug>` */
-export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:nigun', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:turim-done', 'niflaot:words', 'niflaot:notes', 'niflaot:torah-words', 'niflaot:torah-read', 'niflaot:lashon', 'niflaot:zip', 'niflaot:patches', 'niflaot:study-days', 'niflaot:push-want', 'niflaot:mode', 'niflaot:courses', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
+export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:nigun', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:turim-done', 'niflaot:words', 'niflaot:notes', 'niflaot:torah-words', 'niflaot:torah-read', 'niflaot:lashon', 'niflaot:zip', 'niflaot:patches', 'niflaot:study-days', 'niflaot:coins', 'niflaot:push-want', 'niflaot:mode', 'niflaot:courses', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
 export const LESSON_PREFIX = 'niflaot:lesson:';
 export const isSynced = (k: string) => SYNC_KEYS.includes(k) || k.startsWith(LESSON_PREFIX);
+
+import { mergeCoinStores, normCoins } from './coinsRules';
 
 /** key → the raw localStorage string */
 export type Snapshot = Record<string, string>;
@@ -166,6 +168,9 @@ function mergeStudy(a: string, b: string): string {
   return JSON.stringify(Object.fromEntries(keys.map((k) => [k, x[k] === 1 || y[k] === 1 ? 1 : 2])));
 }
 
+/** «Pelecoin» (src/core/coinsRules.ts): every reward, gift and purchase of both, each once */
+const mergeCoins = (a: string, b: string) => JSON.stringify(mergeCoinStores(normCoins(parse(a)), normCoins(parse(b))));
+
 /** «Напоминание было включено» (src/core/push.ts, WANT): the later change — on another device or before a reinstall — wins */
 function mergePushWant(a: string, b: string): string {
   const x = parse(a);
@@ -195,6 +200,7 @@ export function mergeSnapshots(local: Snapshot, remote: Snapshot): Snapshot {
     else if (k === 'niflaot:lashon') out[k] = mergeCourse(a, b);
     else if (k === 'niflaot:zip') out[k] = mergeZip(a, b);
     else if (k === 'niflaot:patches') out[k] = mergePatches(a, b);
+    else if (k === 'niflaot:coins') out[k] = mergeCoins(a, b);
     else if (k === 'niflaot:push-want') out[k] = mergePushWant(a, b);
     else if (k === 'niflaot:tanakh-done' || k === 'niflaot:hemshech-done' || k === 'niflaot:turim-done') out[k] = mergeDone(a, b);
     else out[k] = a;

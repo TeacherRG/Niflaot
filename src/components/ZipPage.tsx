@@ -6,6 +6,7 @@ import { Colophon } from './Colophon';
 import { Quote } from './Quote';
 import { useMode } from '../core/mode';
 import { markStudied, todayIso } from '../core/habit';
+import { earn } from '../core/coins';
 import { celebrate, feedback } from '../core/fx';
 import { copyText } from '../core/format';
 import { routeLink, type Ref } from '../core/site';
@@ -115,6 +116,7 @@ export function ZipPage() {
     setState(rec);
     setWon({ sec, hints: used, from, to: rec.l, record: !used && best !== undefined && sec < best });
     markStudied();
+    earn('answer', `zip:${verse.ref}`);
     // every right finish — confetti; without hints — the grand one, two waves
     feedback(used ? 'finish' : 'perfect');
     celebrate(used ? 'big' : 'grand', adults);

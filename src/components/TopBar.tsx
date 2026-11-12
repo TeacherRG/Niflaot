@@ -1,3 +1,5 @@
+import { useBalance } from '../core/coins';
+import coinArt from '../assets/coins/coin-72.webp';
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import { track } from '../core/analytics';
 import { UI_LOCALES, useI18n, type UiLocale } from '../i18n';
@@ -80,6 +82,19 @@ function AccountChip() {
       </span>
       <Icon name="user" size={18} />
       <span className="acc-chip-name">{token ? (nick ?? '…') : t('acc.chipGuest')}</span>
+    </a>
+  );
+}
+
+/** The game coins by the account (src/core/coins.ts): the balance, a link to «Pelecoin». */
+function CoinChip() {
+  const { t } = useI18n();
+  const n = useBalance();
+  const label = t('coins.badge', { n });
+  return (
+    <a className="coin-chip" href="#/coins" aria-label={label} title={label}>
+      <img src={coinArt} alt="" width={22} height={22} />
+      <b>{n}</b>
     </a>
   );
 }
@@ -196,6 +211,7 @@ export function TopBar({ title, children, wide, share = true }: { title: string;
         {/* the game's progress (riddle steps, timer, score) — its own row under the brand (QA, 10.11.2026: it wrapped anyhow) */}
         {children && <div className="top-game">{children}</div>}
         {share && <ShareButton />}
+        <CoinChip />
         <AccountChip />
         <HebrewDay />
         <LanguagePicker />
