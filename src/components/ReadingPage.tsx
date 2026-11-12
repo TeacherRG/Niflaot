@@ -367,30 +367,43 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
 
   // «Мысль к стиху» — маячки Living the Mizmor (nafshi.org) у глав, где они есть; у «Аазину» их нет
   const [livings, setLivings] = useState<Map<number, Living>>(new Map());
+  const [livingLoadError, setLivingLoadError] = useState(false);
+  const [livingRetry, setLivingRetry] = useState(0);
+  const livingCoverageGap = !haazinu && view.living && portions.some((p) => !hasLiving(p.chapter));
   const livingChapters = useMemo(
     () => (haazinu || !view.living ? '' : [...new Set(portions.map((p) => p.chapter))].filter(hasLiving).join(',')),
     [haazinu, view.living, portions],
   );
   useEffect(() => {
     let live = true;
+    setLivings(new Map());
+    setLivingLoadError(false);
     if (!livingChapters) {
-      setLivings(new Map());
       return;
     }
-    Promise.all(livingChapters.split(',').map((n) => loadLiving(Number(n)))).then((all) => {
+    Promise.all(
+      livingChapters.split(',').map(async (n) => {
+        try {
+          return { living: await loadLiving(Number(n)), failed: false };
+        } catch {
+          return { living: null, failed: true };
+        }
+      }),
+    ).then((results) => {
       if (!live) return;
       const m = new Map<number, Living>();
-      for (const l of all) {
+      for (const { living: l } of results) {
         if (!l) continue;
         rememberLiving(l);
         m.set(l.c, l);
       }
       setLivings(m);
+      setLivingLoadError(results.some((result) => result.failed));
     });
     return () => {
       live = false;
     };
-  }, [livingChapters]);
+  }, [livingChapters, livingRetry]);
   /** первый кусок каждого стиха в `toks` */
   const firstTok = useMemo(() => {
     const first: number[] = [];
@@ -673,6 +686,15 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
         )}
         {audioFailed && <p className="rd-note" role="alert">{t('reading.audioFailed')}</p>}
         {audio && light && !tip && audioState !== 'stopped' && <p className="rd-hint rd-tap-hint no-print">{t('reading.tapSync')}</p>}
+        {livingCoverageGap && <p className="rd-note no-print">{t('living.coverage')}</p>}
+        {livingLoadError && (
+          <p className="rd-note no-print" role="alert">
+            {t('living.loadError')}{' '}
+            <button type="button" className="rd-inline-button" onClick={() => setLivingRetry((n) => n + 1)}>
+              {t('living.retry')}
+            </button>
+          </p>
+        )}
         {livings.size > 0 && (
           <p className="rd-hint kp-hint no-print">
             <span className="kp-dot" aria-hidden="true" /> {t('living.hint')}

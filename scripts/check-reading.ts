@@ -178,6 +178,11 @@ const livingDir = new URL('../public/reading/living/', import.meta.url);
 const livingIndex = JSON.parse(readFileSync(new URL('index.json', livingDir), 'utf8'));
 let beacons = 0;
 if (!/nafshi\.org/.test(livingIndex.source) || !/non-commercial/i.test(livingIndex.terms)) errors.push('маячки Теґилим: в index.json нет источника и условий nafshi.org');
+const day12Living = dailyPortion(12).map(({ chapter }) => hasLiving(chapter));
+if (day12Living.join(',') !== 'true,true,false') errors.push('маячки Теґилим: 12-й день должен включать главы 66–67 и показывать отсутствие данных для 68-й');
+if (dailyPortion(13).some(({ chapter }) => hasLiving(chapter))) errors.push('маячки Теґилим: у 13-го дня пока нет подготовленных глав');
+if (dailyPortion(26).some(({ chapter }) => hasLiving(chapter))) errors.push('маячки Теґилим: у второй части главы 119 в 26-й день пока нет данных');
+if (dailyPortion(27).some(({ chapter }) => !hasLiving(chapter))) errors.push('маячки Теґилим: главы 120–134 27-го дня должны иметь данные');
 for (let c = 1; c <= CHAPTERS; c++) {
   const listed = (livingIndex.chapters as number[]).includes(c);
   if (listed !== hasLiving(c)) errors.push(`маячки Теґилим: глава ${c} — hasLiving() в src/core/living.ts не совпадает с данными`);
