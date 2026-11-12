@@ -791,7 +791,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
                               {marks.filter((m) => m.item.r?.[0] === i - first).map(beacon)}
                               <span
                                 data-i={i}
-                                className={`rd-w${!light ? '' : i === active ? ' rd-on' : active > i ? ' rd-past' : ''}${x.w ? '' : ' rd-paseq'}${marks.some((m) => m.item.r && m.item.r[0] <= i - first && i - first <= m.item.r[1]) ? ' rd-key' : ''}`}
+                                className={`rd-w${!light ? '' : i === active ? ' rd-on' : active > i ? ' rd-past' : ''}${x.w ? '' : ' rd-paseq'}`}
                                 onClick={() => light && x.w && seekAudioToWord(i)}
                               >
                                 {!trOn ? (
