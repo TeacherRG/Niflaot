@@ -7,6 +7,7 @@ import { NotFound, PageLoading } from './PageStates';
 import { Icon, Sheet, useDismiss } from './ui';
 import { hebrewNumber } from '../core/hebrewDate';
 import { markStudied, todayIso, useHabit } from '../core/habit';
+import { earn } from '../core/coins';
 import { useHebrewLevel } from '../core/hebrewLevel';
 import { resumeVoice, setVoicePitch } from '../core/voicePitch';
 import { isAdmin } from '../admin/github';
@@ -1069,7 +1070,7 @@ function setReadDone(id: ReadingId, on: boolean) {
   try {
     localStorage.setItem(DONE_KEY, JSON.stringify(log));
   } catch {}
-  if (on) markStudied();
+  if (on) (markStudied(), earn('read', `th:${id}:${today}`));
   window.dispatchEvent(new Event(DONE_EVENT));
 }
 

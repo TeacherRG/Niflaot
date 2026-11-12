@@ -13,6 +13,7 @@ import data from '../hemshech/5666.json';
 import { PASS, type Certificate, type Progress, type QuizResult, type QuizStore } from './academy';
 import { CYCLE } from './tanakh';
 import { markStudied } from './habit';
+import { earn } from './coins';
 
 export type HsLang = 'ru' | 'en' | 'de';
 type T = Record<HsLang, string>;
@@ -95,6 +96,7 @@ export function useHsQuiz(id: string, n: number) {
       const p = r.p.map((x, j) => (j === i ? k : x));
       const right = p.filter((x) => x === 0).length;
       save({ p, n, best: p.every((x) => x >= 0) ? Math.max(r.best, right) : r.best });
+      if (k === 0) earn('answer', `hs:${id}:${i}`);
     },
     [r, n, id],
   );
@@ -134,7 +136,7 @@ export function useHsDone(): [Record<string, number>, (id: string, on: boolean) 
       localStorage.setItem(DONE_KEY, JSON.stringify(x));
     } catch {}
     window.dispatchEvent(new Event(DONE_EVENT));
-    if (on) markStudied();
+    if (on) (markStudied(), earn('read', `hs:${id}`));
   }, []);
   return [s, mark];
 }

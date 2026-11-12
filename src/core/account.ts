@@ -283,7 +283,10 @@ export const onPulled = (f: () => void) => {
   pulledListeners.add(f);
   return () => void pulledListeners.delete(f);
 };
-const notifyPulled = () => pulledListeners.forEach((f) => f());
+const notifyPulled = () => {
+  pulledListeners.forEach((f) => f());
+  window.dispatchEvent(new Event('niflaot:coins')); // the coins badge (src/core/coins.ts)
+};
 
 /** The best of this device and the account in both; true when this device got something from the account. */
 async function pull(): Promise<boolean> {

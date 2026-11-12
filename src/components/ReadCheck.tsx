@@ -29,7 +29,7 @@ function Question({ lesson, q, n, children, options }: { lesson: Lesson; q: Read
             key={i}
             className={`qz-opt${done && i === q.c ? ' ok' : ''}${done && i === picked && i !== q.c ? ' bad' : ''}`}
             disabled={done}
-            onClick={() => answerRead(lesson.slug, q.key, i)}
+            onClick={() => answerRead(lesson.slug, q.key, i, i === q.c)}
           >
             {o}
           </button>

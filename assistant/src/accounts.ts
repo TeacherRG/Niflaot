@@ -15,6 +15,7 @@ import { DurableObject } from 'cloudflare:workers';
 import { methodsFor, validEmail, validNick } from './rules';
 import { verifyGoogleToken } from './google';
 import { mergeSnapshots, summarize, type Snapshot } from '../../src/core/sync';
+import { GIFT_DAY, GIFT_MAX, PUSHKA_TARGET, isCause, pushkaAdd, winningCause, type PushkaState } from '../../src/core/coinsRules';
 
 export interface MailEnv {
   RESEND_API_KEY?: string;
@@ -116,6 +117,9 @@ export class Accounts extends DurableObject<MailEnv> {
   constructor(ctx: DurableObjectState, env: MailEnv) {
     super(ctx, env);
     this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS pushka_gifts (id TEXT PRIMARY KEY, user TEXT NOT NULL, round INTEGER NOT NULL, amount INTEGER NOT NULL,
+        cause TEXT NOT NULL, day TEXT NOT NULL, at INTEGER NOT NULL);
+      CREATE TABLE IF NOT EXISTS pushka_rounds (n INTEGER PRIMARY KEY, coins INTEGER NOT NULL, closed INTEGER, cause TEXT);
       CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT UNIQUE NOT NULL, nick TEXT, nick_lc TEXT UNIQUE,
         age TEXT, parent_email TEXT, parent_ok INTEGER NOT NULL DEFAULT 0, consent TEXT, board INTEGER NOT NULL DEFAULT 1,
         lang TEXT NOT NULL DEFAULT 'ru', created INTEGER NOT NULL, last INTEGER NOT NULL);
@@ -327,12 +331,35 @@ export class Accounts extends DurableObject<MailEnv> {
     await this.ctx.storage.setAlarm(now + 864e5);
   }
 
+  /** the round of the common box that is being filled now */
+  private round(): { n: number; coins: number } {
+    const r = this.one<{ n: number; coins: number }>('SELECT n, coins FROM pushka_rounds WHERE closed IS NULL ORDER BY n DESC LIMIT 1');
+    if (r) return r;
+    const n = (this.one<{ n: number }>('SELECT COALESCE(MAX(n), 0) AS n FROM pushka_rounds')?.n ?? 0) + 1;
+    this.sql.exec('INSERT INTO pushka_rounds (n, coins) VALUES (?, 0)', n);
+    return { n, coins: 0 };
+  }
+  private votes(round: number): Record<string, number> {
+    return Object.fromEntries(
+      this.sql.exec<{ cause: string; n: number }>('SELECT cause, SUM(amount) AS n FROM pushka_gifts WHERE round = ? GROUP BY cause', round).toArray().map((r) => [r.cause, r.n]),
+    );
+  }
+  /** the box as everyone sees it: only numbers, no names */
+  private pushka(user?: string): PushkaState {
+    const r = this.round();
+    const closed = this.sql.exec<{ n: number; closed: number; cause: string }>('SELECT n, closed, cause FROM pushka_rounds WHERE closed IS NOT NULL ORDER BY n DESC LIMIT 20').toArray();
+    const mine = user ? this.one<{ n: number }>('SELECT COALESCE(SUM(amount), 0) AS n FROM pushka_gifts WHERE user = ? AND round = ?', user, r.n)!.n : undefined;
+    return { round: r.n, coins: r.coins, target: PUSHKA_TARGET, votes: this.votes(r.n), closed: closed.map((c) => ({ n: c.n, at: c.closed, cause: c.cause })), ...(mine === undefined ? {} : { mine }) };
+  }
+
   private deleteUser(id: string) {
     for (const c of this.sql.exec<{ id: string }>('SELECT id FROM classes WHERE teacher = ?', id).toArray()) {
       this.sql.exec('DELETE FROM members WHERE class = ?', c.id);
       this.sql.exec('DELETE FROM classes WHERE id = ?', c.id);
     }
     for (const t of ['members', 'progress', 'sessions', 'ai', 'consent_mail']) this.sql.exec(`DELETE FROM ${t} WHERE user = ?`, id);
+    // the coins given stay in the common box, without the account
+    this.sql.exec("UPDATE pushka_gifts SET user = '' WHERE user = ?", id);
     this.sql.exec('DELETE FROM users WHERE id = ?', id);
   }
 
@@ -442,9 +469,34 @@ export class Accounts extends DurableObject<MailEnv> {
       return json(this.stats());
     }
 
+    // the common tzedakah box: anyone sees it; a signed-in player also sees their own part of the round
+    if (path === '/pushka' && req.method === 'GET') return json(this.pushka((await this.user(req))?.id));
+
     /* ── signed in ── */
     const u = await this.user(req);
     if (!u) return fail('auth', 401);
+
+    if (path === '/pushka') {
+      // a gift of game coins: taken once by its id; not more than GIFT_DAY coins a day from an account
+      const { id, amount, cause } = body!;
+      if (typeof id !== 'string' || !/^[a-z0-9]{6,24}$/.test(id) || !Number.isInteger(amount) || amount < 1 || amount > GIFT_MAX || !isCause(cause)) return fail('gift');
+      const key = `${u.id}:${id}`;
+      if (!this.one('SELECT id FROM pushka_gifts WHERE id = ?', key)) {
+        const day = new Date().toISOString().slice(0, 10);
+        const today = this.one<{ n: number }>('SELECT COALESCE(SUM(amount), 0) AS n FROM pushka_gifts WHERE user = ? AND day = ?', u.id, day)!.n;
+        if (today + amount > GIFT_DAY) return fail('day', 429);
+        let round = this.round();
+        this.sql.exec('INSERT INTO pushka_gifts (id, user, round, amount, cause, day, at) VALUES (?, ?, ?, ?, ?, ?, ?)', key, u.id, round.n, amount, cause, day, Date.now());
+        const next = pushkaAdd(round.coins, amount);
+        for (let i = 0; i < next.filled; i++) {
+          this.sql.exec('UPDATE pushka_rounds SET coins = ?, closed = ?, cause = ? WHERE n = ?', PUSHKA_TARGET, Date.now(), winningCause(this.votes(round.n)), round.n);
+          this.sql.exec('INSERT INTO pushka_rounds (n, coins) VALUES (?, 0)', round.n + 1);
+          round = { n: round.n + 1, coins: 0 };
+        }
+        this.sql.exec('UPDATE pushka_rounds SET coins = ? WHERE n = ?', next.coins, round.n);
+      }
+      return json({ ok: true, pushka: this.pushka(u.id) });
+    }
 
     if (path === '/me') return json(this.me(u));
     if (path === '/profile') {
@@ -509,7 +561,7 @@ export class Accounts extends DurableObject<MailEnv> {
       if (!data || typeof data !== 'object' || Array.isArray(data)) return fail('data');
       const clean: Record<string, string> = {};
       for (const [k, v] of Object.entries(data))
-        if (typeof v === 'string' && /^niflaot:(lesson:[a-z0-9-]{1,60}|daily|tanakh-quiz|hemshech|nigun|hemshech-done|tanakh-done|turim-done|words|notes|torah-words|torah-read|lashon|zip|patches|study-days|push-want|mode|courses|hebrew|lang|math-level)$/.test(k)) clean[k] = v;
+        if (typeof v === 'string' && /^niflaot:(lesson:[a-z0-9-]{1,60}|daily|tanakh-quiz|hemshech|nigun|hemshech-done|tanakh-done|turim-done|words|notes|torah-words|torah-read|lashon|zip|patches|study-days|coins|push-want|mode|courses|hebrew|lang|math-level)$/.test(k)) clean[k] = v;
       // merged with what the account already has: a second device that hasn't seen the first one's progress
       // must not overwrite it (each device sends its whole copy)
       const stored = this.one<{ data: string }>('SELECT data FROM progress WHERE user = ?', u.id);
