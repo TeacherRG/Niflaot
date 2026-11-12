@@ -14,6 +14,7 @@
  */
 import type { Lesson } from '../lessons/types';
 import { markStudied } from './habit';
+import { earn } from './coins';
 
 export const READ_KEY = 'niflaot:torah-read';
 
@@ -92,7 +93,7 @@ export const subscribeRead = (f: () => void) => {
 };
 
 /** Keep the first answer of a question (it is answered once). */
-export function answerRead(slug: string, key: string, pick: number) {
+export function answerRead(slug: string, key: string, pick: number, right = false) {
   const store = readStore();
   if (store[slug]?.[key] !== undefined) return;
   store[slug] = { ...store[slug], [key]: pick };
@@ -100,6 +101,7 @@ export function answerRead(slug: string, key: string, pick: number) {
     localStorage.setItem(READ_KEY, JSON.stringify(store));
   } catch {}
   markStudied();
+  if (right) earn('answer', `rc:${slug}:${key}`);
   listeners.forEach((f) => f());
 }
 

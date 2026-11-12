@@ -29,6 +29,7 @@ import { BOOKS } from './tanakhCycle';
 import { VALUES } from './gematria';
 import { ALEPH_BET, FINAL_FORMS, FINALS, LOOKALIKES, letterName, letterSound } from './letterNames';
 import { markStudied } from './habit';
+import { earn } from './coins';
 import { localToday } from './tanakh';
 import { syllables, TRANSLIT_WORDS, wordTranslit } from './lashonRead';
 import { LASHON_EVENT as EVENT, dayNo, readCourse, remember, writeCourse, type Answers, type CourseStore } from './lashonStore';
@@ -548,6 +549,8 @@ export function finishLesson(unit: Unit, part: Item[] | null, xp: number, answer
   else if (!unit.id.startsWith(WEAK_ID)) s.r[unit.id] = Math.min(REVIEWS, reviewsOf(s, unit) + 1);
   remember(s, answers);
   save(s, xp);
+  // a lesson with new letters / words — once
+  if (part?.length) earn('answer', `ln:${unit.id}:${part[0].key}`);
 }
 
 /** «Экзамен» сдан: все буквы / слова юнита — встречались, повторения — пройдены (следующий юнит открыт), сегодня — очки. */
@@ -557,6 +560,7 @@ export function passExam(unit: Unit, answers: Answers = {}) {
   s.r[unit.id] = REVIEWS;
   remember(s, answers);
   save(s, XP_EXAM);
+  earn('answer', `lx:${unit.id}`);
 }
 
 function save(s: CourseStore, xp: number) {

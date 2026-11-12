@@ -18,6 +18,7 @@ import type { Certificate, Progress } from './academy';
 import { displayNames } from './names';
 import { normWord, type WordEntry } from './sync';
 import { markStudied } from './habit';
+import { earn } from './coins';
 
 export interface TorahWord {
   /** ключ — слово как в уроке (настоящее написание) */
@@ -91,6 +92,7 @@ export function answerWord(key: string, right: boolean) {
   } catch {}
   window.dispatchEvent(new Event(EVENT));
   markStudied();
+  if (right && n === STARS - 1) earn('answer', `tw:${key}`); // the word is learned
 }
 
 export function useStars(): StarStore {

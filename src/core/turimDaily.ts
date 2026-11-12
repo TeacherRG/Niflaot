@@ -11,6 +11,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { LESSONS, PARSHIOT } from '../lessons';
 import type { Lesson } from '../lessons/types';
 import { markStudied } from './habit';
+import { earn } from './coins';
 import { addDays } from './restDays';
 
 export const TURIM_DAYS = 6;
@@ -118,7 +119,7 @@ export function useTurimDone(): [Record<string, number>, (key: string, on: boole
       localStorage.setItem(KEY, JSON.stringify(x));
     } catch {}
     window.dispatchEvent(new Event(EVENT));
-    if (on) markStudied();
+    if (on) (markStudied(), earn('read', `bt:${key}`));
   }, []);
   return [s, mark];
 }

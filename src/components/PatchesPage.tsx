@@ -4,6 +4,7 @@ import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { useMode } from '../core/mode';
 import { markStudied, todayIso } from '../core/habit';
+import { earn } from '../core/coins';
 import { celebrate, feedback } from '../core/fx';
 import {
   LEVELS,
@@ -131,6 +132,7 @@ export function PatchesPage() {
     setWon({ sec, mistakes, hints: usedHints, from: level, to: rec.l, record: !usedHints && best !== undefined && sec < best });
     setMsg('');
     markStudied();
+    earn('answer', `pt:${rec.g}`);
     const clean = !usedHints && mistakes <= 1;
     feedback(clean ? 'perfect' : 'finish');
     celebrate(clean ? 'grand' : 'big', adults);
