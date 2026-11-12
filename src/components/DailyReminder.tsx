@@ -37,7 +37,17 @@ export function DailyReminder({ sheet = false, compact = false, note: extra }: {
   const [declined, setDecl] = useState(declinedSaved);
 
   useEffect(() => {
-    pushState().then(setState, () => setState({ kind: 'unsupported' }));
+    pushState().then(
+      (st) => {
+        setState(st);
+        // «было включено» (a reinstall, another device): the same hour and anchor are ready to turn on again
+        if (st.kind === 'off' && st.again) {
+          setHour(st.again.hour);
+          setAnchor(st.again.anchor ?? '');
+        }
+      },
+      () => setState({ kind: 'unsupported' }),
+    );
   }, []);
 
   if (!state) return null;
@@ -113,6 +123,11 @@ export function DailyReminder({ sheet = false, compact = false, note: extra }: {
       {state.kind === 'denied' && <p className="reminder-note">{t('push.denied')}</p>}
       {state.kind === 'off' && (
         <>
+          {state.again && (
+            <p className="reminder-note reminder-again" role="status">
+              {t('push.again', { time: time(state.again.hour) })}
+            </p>
+          )}
           <div className="reminder-row">
             <label>
               {t('push.anchor')}{' '}

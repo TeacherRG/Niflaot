@@ -271,6 +271,34 @@ self.addEventListener('push', (e) => {
   );
 });
 
+/**
+ * The browser replaced the push subscription (it expired, was renewed, or the app was reinstalled): subscribe again and
+ * tell the server the new address — with the hour, time zone and language saved by src/core/push.ts (`savePrefs`).
+ * Without it the server kept pushing to the dead address and the reminder stopped silently. The page also repairs it
+ * on the next visit (`syncPush`).
+ */
+self.addEventListener('pushsubscriptionchange', (e) => {
+  e.waitUntil(
+    (async () => {
+      const p = await prefs();
+      if (!p.api || !p.hour) return;
+      const b64 = (s) => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/')), (c) => c.charCodeAt(0));
+      let sub = e.newSubscription || (await self.registration.pushManager.getSubscription());
+      if (!sub) {
+        let key = e.oldSubscription?.options?.applicationServerKey;
+        if (!key) key = b64(p.key || (await (await fetch(`${p.api}/push/key`)).json()).key);
+        sub = await self.registration.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: key });
+      }
+      const post = (path, body) =>
+        fetch(`${p.api}/push/${path}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const old = e.oldSubscription?.endpoint;
+      if (old && old !== sub.endpoint) await post('unsubscribe', { endpoint: old }).catch(() => {});
+      const lang = ['ru', 'en', 'de'].includes(p.lang) ? p.lang : 'ru';
+      await post('subscribe', { subscription: sub.toJSON(), tz: p.tz || 'UTC', hour: p.hour, lang });
+    })().catch(() => {}),
+  );
+});
+
 self.addEventListener('notificationclick', (e) => {
   e.notification.close();
   const url = e.notification.data?.url || '/';

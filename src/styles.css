@@ -921,6 +921,7 @@ html.crawler .static{opacity:1;animation:none;padding:0 16px}
 .reminder-row select{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
 .reminder-on{font-weight:600;flex:1 1 100%}
 .reminder .reminder-note{margin:10px 0 0;font-size:13px;color:var(--muted)}
+.reminder .reminder-again{color:var(--ink);border-inline-start:3px solid var(--gold-deep);padding-inline-start:10px}
 .subscribe .subscribe-note{margin:10px 0 0;font-size:13px;color:var(--muted)}
 /* «Новые уроки — на почту»: the card in the account (next to «Напоминать») and one line under the reminder in the lesson's final */
 .subscribe .subscribe-ok{margin:0 0 12px;color:var(--ok);font-weight:600}

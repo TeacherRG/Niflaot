@@ -1048,6 +1048,7 @@ const en: Messages = {
   'push.unsupported': "This browser can’t send notifications.",
   'push.failed': "That didn’t work. Check your connection and try again.",
   'push.gone': "The subscription on this device has expired. Turn the reminder on again.",
+  'push.again': "The reminder was on (at {time}), but it isn't working on this device now — for example, after the app was reinstalled. Tap “Turn on the reminder” to get it again.",
   'push.anchor': "After what will you learn?",
   'push.anchorNone': "Just at this time",
   'push.anchor.prayer': "after the morning prayer",
