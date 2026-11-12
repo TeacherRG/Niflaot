@@ -3818,3 +3818,4 @@ html[dir="rtl"] :is(.a-pair,.k-grid) .a-tile::after{right:auto;left:12px}
 .pc-hint button{position:absolute;top:.3em;inset-inline-end:.3em;width:2em;height:2em;border:0;border-radius:50%;
   background:rgba(255,255,255,.15);color:#fff;font-size:1.1em;line-height:1;cursor:pointer}
 @media print{.pc-hint{display:none}}
+.pc-hint .pc-diag{display:block;margin-top:.4em;opacity:.6;font-size:.75em}

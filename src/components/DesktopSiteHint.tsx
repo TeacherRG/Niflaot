@@ -46,6 +46,12 @@ export function DesktopSiteHint() {
     <div className="pc-hint" role="alert" style={{ fontSize: `${13 * scale}px` }}>
       <b>{t('pc.title')}</b>
       <p>{t(standalone() ? 'pc.app' : 'pc.browser')}</p>
+      {/* for the owner to tell what switched it on: a desktop user agent (X11 / Linux x86_64) = Chrome's «Версия для ПК» */}
+      <small className="pc-diag">
+        {screen.width}×{screen.height} · {document.documentElement.clientWidth} px ·{' '}
+        {/Android|iPhone|iPad|Mobile/.test(navigator.userAgent) ? 'mobile UA' : 'desktop UA'} ·{' '}
+        {standalone() ? 'app' : 'browser'}
+      </small>
       <button type="button" onClick={close} aria-label={t('pc.close')}>
         ×
       </button>
