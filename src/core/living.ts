@@ -37,10 +37,12 @@ export function loadLiving(c: number): Promise<Living | null> {
   if (!hasLiving(c)) return Promise.resolve(null);
   let p = cache.get(c);
   if (!p) {
-    p = fetch(`${root()}reading/living/${c}.json`)
-      .then((r) => (r.ok ? (r.json() as Promise<Living>) : null))
-      .catch(() => null);
+    p = fetch(`${root()}reading/living/${c}.json`).then((r) => {
+      if (!r.ok) throw new Error(`Unable to load Tehillim ${c} beacons: ${r.status}`);
+      return r.json() as Promise<Living>;
+    });
     cache.set(c, p);
+    void p.catch(() => cache.delete(c));
   }
   return p;
 }
