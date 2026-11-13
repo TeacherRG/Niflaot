@@ -17,7 +17,10 @@ import { TanakhAtlas } from './TanakhAtlas';
 import { VersesGraph } from './PassageGraph';
 import { Fold } from './Fold';
 import { loadAtlasDay, type AtlasDay } from '../core/atlas';
-import { BeaconButton, HeVerse, WordPop, type Beacon } from './WordPop';
+import { BeaconButton, HeVerse, WordPop, type Beacon, type LivingMark } from './WordPop';
+import { LivingBeacon, LivingPop } from './LivingPop';
+import { LIVING_SITE, hasLiving, loadLiving, rememberLiving, type Living } from '../core/living';
+import { verseWords } from '../core/atlasKeys';
 import { KeyPop } from './KeyPop';
 import { keyRange, loadAtlasKeys, type AtlasKeys } from '../core/atlasKeys';
 import { loadDayWords, type DayWords } from '../core/words';
@@ -268,7 +271,7 @@ function Comm({ c, by, he, tr }: { c: Commentary; by: string; he: boolean; tr: T
  * The verses of one section of one day: a heading at each new chapter, then verse by verse with the chosen commentaries.
  * `parse` — the words of the verses parsed (public/tanakh/words/<date>.json): each Hebrew word opens WordPop.
  */
-function Verses({ verses, he, tr, md, rashi, parse, atlas, keys, notes }: { verses: DayVerse[]; he: boolean; tr: Tr | null; md: boolean; rashi: boolean; parse?: DayWords[Section]['v']; atlas?: AtlasDay['v']; keys?: AtlasKeys | null; notes?: { section: Section; date: string } }) {
+function Verses({ verses, he, tr, md, rashi, parse, atlas, keys, living, notes }: { verses: DayVerse[]; he: boolean; tr: Tr | null; md: boolean; rashi: boolean; parse?: DayWords[Section]['v']; atlas?: AtlasDay['v']; keys?: AtlasKeys | null; living?: Map<number, Living>; notes?: { section: Section; date: string } }) {
   const { t, locale } = useI18n();
   // «Мои закладки»: закладка и заметка у каждого стиха (только у раздела на экране, не у второго раздела для печати)
   const store = useNotes();
@@ -286,6 +289,17 @@ function Verses({ verses, he, tr, md, rashi, parse, atlas, keys, notes }: { vers
         const range = ak && keyRange(v.he, ak.w);
         const beacon: Beacon | undefined = ak && range ? { k: `${v.b} ${v.c}:${v.v}`, range, label: `${t('keys.title')}: ${ak.t[labelLang(locale)]}` } : undefined;
         const inHebrew = he && !!parse;
+        // «Мысль к стиху» (Теґилим, Living the Mizmor): маячок перед словами стиха; слов не нашлось или иврит не показан — у номера стиха
+        const lv = notes && v.b === 'psalms' ? living?.get(Number(v.c)) : undefined;
+        const marks: LivingMark[] = [];
+        const loose: LivingMark[] = [];
+        lv?.items.forEach((item, n) => {
+          if (item.v !== Number(v.v)) return;
+          const r = inHebrew && item.w ? keyRange(v.he, item.w) : null;
+          const m = { id: `${lv.c}:${n}`, label: `${t('living.title')}${item.title ? `: ${item.title}` : ''}`, at: r ? r[0] : -1, phrase: '' };
+          if (r) marks.push({ ...m, phrase: verseWords(v.he).slice(r[0], r[1] + 1).join(' ').replace(/׃$/, '') });
+          else loose.push(m);
+        });
         const vref: VerseRef | null = notes ? { key, date: notes.date, section: notes.section, text: text ?? v.en ?? '' } : null;
         return (
           <Fragment key={`${v.b}-${v.c}-${v.v}`}>
@@ -302,6 +316,9 @@ function Verses({ verses, he, tr, md, rashi, parse, atlas, keys, notes }: { vers
                 {v.c}:{v.v}
               </span>
               {beacon && !inHebrew && <BeaconButton k={beacon.k} label={beacon.label} />}
+              {loose.map((m) => (
+                <LivingBeacon key={m.id} id={m.id} label={m.label} phrase={m.phrase} />
+              ))}
               {vref && (
                 <VerseTools
                   vref={vref}
@@ -324,7 +341,7 @@ function Verses({ verses, he, tr, md, rashi, parse, atlas, keys, notes }: { vers
               )}
               {he && (
                 <p className="tk-he he" lang="he" dir="rtl">
-                  {parse ? <HeVerse text={v.he} parse={parse[`${v.b} ${v.c}:${v.v}`]} atlas={atlas?.[`${v.b} ${v.c}:${v.v}`]} beacon={beacon} /> : v.he}
+                  {parse ? <HeVerse text={v.he} parse={parse[`${v.b} ${v.c}:${v.v}`]} atlas={atlas?.[`${v.b} ${v.c}:${v.v}`]} beacon={beacon} marks={marks} /> : v.he}
                 </p>
               )}
               {text && (
@@ -481,6 +498,27 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
       live = false;
     };
   }, []);
+  // «Мысль к стиху» — маячки Living the Mizmor (nafshi.org) у глав Теґилим этого отрывка (src/core/living.ts)
+  const [livings, setLivings] = useState<Map<number, Living>>(new Map());
+  const psalms = content?.[section] ? [...new Set(content[section].verses.filter((v) => v.b === 'psalms').map((v) => Number(v.c)))].filter(hasLiving).join(',') : '';
+  useEffect(() => {
+    let live = true;
+    setLivings(new Map());
+    if (!psalms) return;
+    Promise.all(psalms.split(',').map((n) => loadLiving(Number(n)).catch(() => null))).then((all) => {
+      if (!live) return;
+      const m = new Map<number, Living>();
+      for (const l of all) {
+        if (!l) continue;
+        rememberLiving(l);
+        m.set(l.c, l);
+      }
+      setLivings(m);
+    });
+    return () => {
+      live = false;
+    };
+  }, [psalms]);
   // who and where: the people and places the words of the verses name (public/tanakh/atlas/<date>.json)
   const [atlas, setAtlas] = useState<AtlasDay | null>(null);
   useEffect(() => {
@@ -629,7 +667,13 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
                   <span className="kp-dot" aria-hidden="true" /> {t('keys.hint')}
                 </p>
               )}
-              <Verses verses={sec.verses} he={he} tr={tr} md={view.md} rashi={view.rashi} parse={parsed?.[section].v} atlas={atlas?.v} keys={keys} notes={{ section, date: day.date }} />
+              {livings.size > 0 && (
+                <p className="tk-hint kp-hint no-print">
+                  <span className="kp-dot" aria-hidden="true" /> {t('living.hintDay')}
+                </p>
+              )}
+              <Verses verses={sec.verses} he={he} tr={tr} md={view.md} rashi={view.rashi} parse={parsed?.[section].v} atlas={atlas?.v} keys={keys} living={livings} notes={{ section, date: day.date }} />
+              {livings.size > 0 && <LivingPop />}
               {he && parsed?.[section].v && <WordPop />}
               {keys && <KeyPop />}
             </>
@@ -676,6 +720,14 @@ export function TanakhPage({ section, date }: { section: Section; date?: string 
               </a>
             )}
           </nav>
+          {livings.size > 0 && (
+            <p className="tk-note no-print">
+              {t('living.credit')}{' '}
+              <a href={LIVING_SITE} target="_blank" rel="noopener">
+                nafshi.org
+              </a>
+            </p>
+          )}
           {sec && <Sources sec={sec} tr={tr} />}
           {printBoth && content?.[other] && (
             <section className="tk-print-other print-only">

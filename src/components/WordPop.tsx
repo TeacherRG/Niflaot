@@ -7,6 +7,7 @@ import { readHebrew } from '../core/translit';
 import { atlasEntity, atlasName, loadAtlasTexts, osmLink, placeSure, useAtlasVersion, type AtlasTexts } from '../core/atlas';
 import { AtlasMap } from './AtlasMap';
 import { Family } from './TanakhAtlas';
+import { LivingBeacon } from './LivingPop';
 
 /**
  * A verse in Hebrew with every word a target: hovering it (with a mouse) or tapping it (on a phone) opens WordPop — how the
@@ -15,7 +16,7 @@ import { Family } from './TanakhAtlas';
  * «prefixes|number|ending» for each word of our text, split at spaces and maqaf; 0 — the word didn't match.
  * `atlas` — who or what the word names ({word number: id}, public/tanakh/atlas/<date>.json): the window shows its note.
  */
-export function HeVerse({ text, parse, atlas, beacon }: { text: string; parse?: (string | 0)[]; atlas?: Record<string, string>; beacon?: Beacon }) {
+export function HeVerse({ text, parse, atlas, beacon, marks }: { text: string; parse?: (string | 0)[]; atlas?: Record<string, string>; beacon?: Beacon; marks?: LivingMark[] }) {
   const parts = text.split(/([ ־]+)/);
   let w = 0;
   return (
@@ -31,6 +32,7 @@ export function HeVerse({ text, parse, atlas, beacon }: { text: string; parse?: 
         return (
           <span key={i}>
             {key && n === beacon.range[0] && <BeaconButton k={beacon.k} label={beacon.label} />}
+            {marks?.map((m) => m.at === n && <LivingBeacon key={m.id} id={m.id} label={m.label} phrase={m.phrase} />)}
             <span className={key ? 'tk-hw tk-key' : 'tk-hw'} data-c={code || ''} data-a={atlas?.[n] ?? ''} data-k={key ? beacon.k : undefined}>
               {m[1]}
             </span>
@@ -42,6 +44,13 @@ export function HeVerse({ text, parse, atlas, beacon }: { text: string; parse?: 
   );
 }
 
+/** «Мысль к стиху» (Living the Mizmor, Tehillim): a beacon before word `at` of the verse; no underline */
+export interface LivingMark {
+  id: string;
+  label: string;
+  at: number;
+  phrase: string;
+}
 /** the beacon of a key phrase (src/core/atlasKeys.ts): the verse, where its words are, the button's label */
 export interface Beacon {
   k: string;
