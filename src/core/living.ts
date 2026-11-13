@@ -1,7 +1,8 @@
 /**
  * «Мысль к стиху» — маячки у стихов Теґилим в «Святом чтении»: раздел «Living the Mizmor» сайта nafshi.org
  * (ред. Ицхок Кирзнер; некоммерческое воспроизведение по главам разрешено, подпись и ссылка — под текстом).
- * Данные — `python3 scripts/fetch-nafshi.py build` → public/reading/living/<глава>.json; по-английски.
+ * Данные — `python3 scripts/fetch-nafshi.py build` → public/reading/living/<глава>.json (по-английски)
+ * и `… ru` → reading/living/ru/<глава>.json — русский перевод проекта (на русском сайте в окне — он).
  */
 import { root } from './reading';
 
@@ -45,6 +46,21 @@ export function loadLiving(c: number): Promise<Living | null> {
     });
     cache.set(c, p);
     void p.catch(() => cache.delete(c));
+  }
+  return p;
+}
+/** русский перевод проекта к главе (src/nafshi/ru.json → reading/living/ru/<глава>.json): те же записи по порядку */
+export type LivingText = Pick<LivingItem, 'title' | 'quote' | 'text'>;
+const ruCache = new Map<number, Promise<LivingText[] | null>>();
+export function loadLivingRu(c: number): Promise<LivingText[] | null> {
+  let p = ruCache.get(c);
+  if (!p) {
+    p = fetch(`${root()}reading/living/ru/${c}.json`)
+      .then((r) => (r.ok ? (r.json() as Promise<{ items: LivingText[] }>) : null))
+      .then((d) => d?.items ?? null)
+      .catch(() => null);
+    ruCache.set(c, p);
+    void p.then((d) => d || ruCache.delete(c));
   }
   return p;
 }

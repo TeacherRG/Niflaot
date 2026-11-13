@@ -176,6 +176,10 @@ for (const name of [...Array.from({ length: CHAPTERS }, (_, i) => String(i + 1))
 // «Мысль к стиху» — маячки Living the Mizmor (nafshi.org): глава и стих есть, слова — внутри стиха, текст — без HTML
 const livingDir = new URL('../public/reading/living/', import.meta.url);
 const livingIndex = JSON.parse(readFileSync(new URL('index.json', livingDir), 'utf8'));
+// русский перевод проекта (на русском сайте в окне маячка — он): те же записи, что в источнике
+const livingRu: Record<string, { title: string; items: { title?: string; quote?: string; text?: string }[] }> = JSON.parse(
+  readFileSync(new URL('../src/nafshi/ru.json', import.meta.url), 'utf8'),
+).chapters;
 let beacons = 0;
 if (!/nafshi\.org/.test(livingIndex.source) || !/non-commercial/i.test(livingIndex.terms)) errors.push('маячки Теґилим: в index.json нет источника и условий nafshi.org');
 const day12Living = dailyPortion(12).map(({ chapter }) => hasLiving(chapter));
@@ -190,6 +194,19 @@ for (let c = 1; c <= CHAPTERS; c++) {
   const l: Living = JSON.parse(readFileSync(new URL(`${c}.json`, livingDir), 'utf8'));
   const v: string[] = JSON.parse(readFileSync(new URL(`${c}.json`, dir), 'utf8')).v;
   if (l.c !== c || !l.items.length || !/^https:\/\/nafshi\.org\//.test(l.url)) errors.push(`маячки Теґилим ${c}: нет записей или ссылки на источник`);
+  const ru = livingRu[c];
+  // на сайте — тот же перевод (python3 scripts/fetch-nafshi.py ru)
+  const pub = existsSync(new URL(`ru/${c}.json`, livingDir)) ? readFileSync(new URL(`ru/${c}.json`, livingDir), 'utf8') : '';
+  if (!pub || JSON.stringify(JSON.parse(pub)) !== JSON.stringify(ru)) errors.push(`маячки Теґилим ${c}: public/reading/living/ru/${c}.json не совпадает с src/nafshi/ru.json — запустить fetch-nafshi.py ru`);
+  if (!ru?.title || ru.items.length !== l.items.length) errors.push(`маячки Теґилим ${c}: русский перевод — другое число записей`);
+  else
+    l.items.forEach((it, i) => {
+      for (const k of ['title', 'quote', 'text'] as const) {
+        const r = ru.items[i][k];
+        if (!!it[k] !== !!r) errors.push(`маячки Теґилим ${c}, запись ${i}: русский перевод — поле ${k} не как в источнике`);
+        if (r && (/[<>A-Za-z]/.test(r) || /(^|[^А-Яа-яЁё])(Бог|Господ)(?!ат|ин)/.test(r))) errors.push(`маячки Теґилим ${c}, запись ${i}: русский перевод — латиница, HTML или Имя без дефиса: ${r.slice(0, 40)}`);
+      }
+    });
   for (const it of l.items) {
     beacons++;
     const at = `маячки Теґилим ${c}:${it.v}`;

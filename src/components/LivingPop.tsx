@@ -2,7 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProp
 import { createPortal } from 'react-dom';
 import { useI18n } from '../i18n';
 import type { MessageKey } from '../i18n/locales/ru';
-import { livingItem } from '../core/living';
+import { livingItem, loadLivingRu, type LivingText } from '../core/living';
 
 interface Open {
   id: string;
@@ -23,7 +23,8 @@ export const LivingBeacon = ({ id, label, phrase }: { id: string; label: string;
 
 /**
  * «Мысль к стиху» (src/core/living.ts): the window over a beacon in Tehillim (one per page, like KeyPop in the Prophets) —
- * the words of the verse, their translation and the thought from «Living the Mizmor» (nafshi.org), with the credit and the link.
+ * the words of the verse, their translation and the thought from «Living the Mizmor» (nafshi.org). No credit lines inside the window (the owner: they overload it) —
+ * the credit and the link are under the text of the page and in «О проекте».
  * With a mouse — opens on hover; a tap pins it until a tap elsewhere or Esc.
  */
 export function LivingPop() {
@@ -83,9 +84,23 @@ export function LivingPop() {
     setPos({ left, top: above ? open.top - b.height - 8 : open.bottom + 8 });
   }, [open]);
 
+  // the project's Russian translation of this chapter (Russian site only); until it loads — the English source
+  const [ru, setRu] = useState<{ c: number; items: LivingText[] } | null>(null);
+  const chapter = open && locale === 'ru' ? Number(open.id.split(':')[0]) : 0;
+  useEffect(() => {
+    if (!chapter) return;
+    let alive = true;
+    void loadLivingRu(chapter).then((items) => alive && items && setRu({ c: chapter, items }));
+    return () => {
+      alive = false;
+    };
+  }, [chapter]);
+
   const found = open && livingItem(open.id);
   if (!open || !found) return null;
-  const { living, item } = found;
+  const { item } = found;
+  const tr = ru && ru.c === chapter ? ru.items[Number(open.id.split(':')[1])] : undefined;
+  const shown: LivingText = tr ?? item;
   const topic = item.topic ? t(`living.topic.${item.topic}` as MessageKey) : '';
 
   return createPortal(
@@ -99,18 +114,11 @@ export function LivingPop() {
           {open.phrase}
         </p>
       )}
-      <div lang="en" dir="ltr" className="lp-en">
-        {item.quote && <p className="lp-quote">“{item.quote}”</p>}
-        {item.title && <p className="lp-t">{item.title}</p>}
-        {item.text && <p className="gp-thought">{item.text}</p>}
+      <div lang={tr ? 'ru' : 'en'} dir="ltr" className="lp-en">
+        {shown.quote && <p className="lp-quote">{tr ? `«${shown.quote}»` : `“${shown.quote}”`}</p>}
+        {shown.title && <p className="lp-t">{shown.title}</p>}
+        {shown.text && <p className="gp-thought">{shown.text}</p>}
       </div>
-      {locale !== 'en' && <p className="wp-note">{t('living.english')}</p>}
-      <p className="kp-more">
-        {t('living.from')}{' '}
-        <a href={living.url} target="_blank" rel="noopener">
-          Living the Mizmor · nafshi.org ↗
-        </a>
-      </p>
     </div>,
     document.body,
   );

@@ -3,12 +3,17 @@
 «Living the Mizmor» — практические выводы к главам Теґилим с nafshi.org (ред. Ицхок Кирзнер).
 
     python3 scripts/fetch-nafshi.py fetch    # страницы раздела Tehillim → .cache/nafshi (не в git)
+    python3 scripts/fetch-nafshi.py ru       # src/nafshi/ru.json → public/reading/living/ru/<глава>.json (без сети)
     python3 scripts/fetch-nafshi.py build    # → src/nafshi/living.json и маячки public/reading/living/<глава>.json
 
 Условия сайта (главная nafshi.org, «How Does NAFSHI Work?»): текст отдельных глав можно свободно скачивать и
 копировать; некоммерческое воспроизведение по главам не ограничено; нельзя издавать книгой и использовать
 коммерчески. Это НЕ общественное достояние: подпись и ссылка обязательны, перевод и переработка — лучше с
 письменного согласия редактора. На сайте — маячки у стихов Теґилим («Святое чтение»), по-английски, с подписью и ссылкой.
+
+Русский перевод проекта — src/nafshi/ru.json (те же записи по порядку: {title, quote?, text?}; сверяет
+check-reading.ts); `python3 scripts/fetch-nafshi.py ru` (и build) кладёт его в public/reading/living/ru/<глава>.json —
+окно маячка на русском сайте показывает перевод, со ссылкой на английский оригинал.
 
 Раздел есть не у всех глав (у автора — работа продолжается): 1–67 и 120–134.
 """
@@ -236,6 +241,16 @@ def beacons():
     print(f'маячки: {total} · слова найдены в стихе: {placed} · у номера стиха: {total - placed}')
 
 
+def ru():
+    """src/nafshi/ru.json → public/reading/living/ru/<глава>.json (окно маячка на русском сайте; без сети)."""
+    src = json.loads((ROOT / 'src' / 'nafshi' / 'ru.json').read_text())['chapters']
+    out = PUB / 'ru'
+    out.mkdir(parents=True, exist_ok=True)
+    for c, ch in src.items():
+        (out / f'{c}.json').write_text(json.dumps(ch, ensure_ascii=False, separators=(',', ':')) + '\n')
+    print(f'русский перевод маячков: глав {len(src)}')
+
+
 def ranges(ns):
     out, a = [], None
     for i, n in enumerate(ns):
@@ -254,5 +269,8 @@ if __name__ == '__main__':
     elif cmd == 'build':
         build()
         beacons()
+        ru()
+    elif cmd == 'ru':
+        ru()
     else:
         print(__doc__)
