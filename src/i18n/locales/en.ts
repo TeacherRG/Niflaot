@@ -1366,6 +1366,7 @@ const en: Messages = {
   'living.set': "Beacons — a thought on the verse",
   'living.set.d': "gold beacons at the words: the lesson or prayer of the verse (Living the Mizmor)",
   'living.english': "The text is in English, as in the source.",
+  'living.translated': "The project’s translation from English; the original is at the link below.",
   'living.from': "Source:",
   'living.credit': "Thoughts on the verses (beacons) — the “Living the Mizmor” section, ed. Rabbi Yitzchok Kirzner, reproduced non-commercially as the site permits:",
   'living.kind.lessons': "Lesson for life",

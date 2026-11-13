@@ -1366,6 +1366,7 @@ const de: Messages = {
   'living.set': "Leuchtfeuer — Gedanke zum Vers",
   'living.set.d': "goldene Leuchtfeuer an den Worten: Lehre oder Gebet des Verses (Living the Mizmor, auf Englisch)",
   'living.english': "Der Text ist auf Englisch, wie in der Quelle; die Übersetzung ist in Arbeit.",
+  'living.translated': "Übersetzung des Projekts aus dem Englischen; das Original steht unter dem Link unten.",
   'living.from': "Quelle:",
   'living.credit': "Gedanken zu den Versen (Leuchtfeuer) — Abschnitt „Living the Mizmor“, Hrsg. Rabbi Yitzchok Kirzner, nicht kommerziell wiedergegeben, wie die Seite es erlaubt:",
   'living.kind.lessons': "Lehre fürs Leben",

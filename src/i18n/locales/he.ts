@@ -1328,6 +1328,7 @@ const he: Partial<Messages> = {
   'living.set': "מגדלורים — מחשבה על הפסוק",
   'living.set.d': "מגדלורים זהובים ליד המילים: לקח או תפילה של הפסוק (Living the Mizmor, באנגלית)",
   'living.english': "הטקסט באנגלית, כמו במקור.",
+  'living.translated': "תרגום של המיזם מאנגלית; המקור — בקישור למטה.",
   'living.from': "מקור:",
   'living.credit': "מחשבות על הפסוקים (מגדלורים) — המדור ״Living the Mizmor״, בעריכת הרב יצחק קירזנר, לשימוש לא מסחרי כפי שהאתר מתיר:",
   'living.kind.lessons': "לקח לחיים",
