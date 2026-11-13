@@ -1358,6 +1358,7 @@ const de: Messages = {
   'gem.same': "Dieselbe Zahl {n} in anderen Lektionen",
   'gem.more': "Alle Gematria — „Wusstest du?“",
   'living.title': "Gedanke zum Vers",
+  'living.hintDay': "Die goldenen Leuchtfeuer zeigen einen Gedanken zum Vers: was er lehrt und woran du denken kannst, wenn du ihn als Gebet sagst. Tippe auf ein Leuchtfeuer.",
   'living.hint': "Die goldenen Leuchtfeuer zeigen einen Gedanken zum Vers: was er lehrt und woran du denken kannst, wenn du ihn als Gebet sagst. Tippe auf ein Leuchtfeuer. Ausschalten kannst du sie in den „Leseeinstellungen“.",
   'living.coverage': "Leuchtfeuer gibt es noch nicht für jedes Kapitel. Derzeit sind sie in Tehillim 1–67 und 120–134 verfügbar.",
   'living.loadError': "Die Leuchtfeuer für dieses Kapitel konnten nicht geladen werden.",

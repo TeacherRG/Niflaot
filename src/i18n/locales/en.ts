@@ -1358,6 +1358,7 @@ const en: Messages = {
   'gem.same': "The same number {n} in other lessons",
   'gem.more': "All gematria — “Did you know?”",
   'living.title': "A thought on the verse",
+  'living.hintDay': "The gold beacons hold a thought on the verse: what it teaches and what to have in mind when saying it as a prayer. Tap a beacon.",
   'living.hint': "The gold beacons hold a thought on the verse: what it teaches and what to have in mind when saying it as a prayer. Tap a beacon. You can turn them off in “Reading settings”.",
   'living.coverage': "Beacons are not available for every chapter yet. They are currently available in Tehillim 1–67 and 120–134.",
   'living.loadError': "Could not load the beacons for this chapter.",

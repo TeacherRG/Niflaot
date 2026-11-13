@@ -222,6 +222,9 @@ def beacons():
                 if r:
                     placed += 1
                     out['r'] = r
+                    # те же слова буквами, как в keys.json «Ключевых мест»: по ним маячок встаёт в стихе отрывка дня Ктувим
+                    toks = verses[v - 1].split()[r[0]:r[1] + 1]
+                    out['w'] = ' '.join(x for t in toks for x in (re.sub(r'[^א-ת]', '', part) for part in t.split('\u05be')) if x)
                 out.update(rec)
                 items.append(out)
         items.sort(key=lambda x: (x['v'], x.get('r', [0])[0]))
