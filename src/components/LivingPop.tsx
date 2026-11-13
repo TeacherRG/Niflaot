@@ -23,7 +23,8 @@ export const LivingBeacon = ({ id, label, phrase }: { id: string; label: string;
 
 /**
  * «Мысль к стиху» (src/core/living.ts): the window over a beacon in Tehillim (one per page, like KeyPop in the Prophets) —
- * the words of the verse, their translation and the thought from «Living the Mizmor» (nafshi.org), with the credit and the link.
+ * the words of the verse, their translation and the thought from «Living the Mizmor» (nafshi.org). No credit lines inside the window (the owner: they overload it) —
+ * the credit and the link are under the text of the page and in «О проекте».
  * With a mouse — opens on hover; a tap pins it until a tap elsewhere or Esc.
  */
 export function LivingPop() {
@@ -97,7 +98,7 @@ export function LivingPop() {
 
   const found = open && livingItem(open.id);
   if (!open || !found) return null;
-  const { living, item } = found;
+  const { item } = found;
   const tr = ru && ru.c === chapter ? ru.items[Number(open.id.split(':')[1])] : undefined;
   const shown: LivingText = tr ?? item;
   const topic = item.topic ? t(`living.topic.${item.topic}` as MessageKey) : '';
@@ -118,13 +119,6 @@ export function LivingPop() {
         {shown.title && <p className="lp-t">{shown.title}</p>}
         {shown.text && <p className="gp-thought">{shown.text}</p>}
       </div>
-      {tr ? <p className="wp-note">{t('living.translated')}</p> : locale !== 'en' && <p className="wp-note">{t('living.english')}</p>}
-      <p className="kp-more">
-        {t('living.from')}{' '}
-        <a href={living.url} target="_blank" rel="noopener">
-          Living the Mizmor · nafshi.org ↗
-        </a>
-      </p>
     </div>,
     document.body,
   );
