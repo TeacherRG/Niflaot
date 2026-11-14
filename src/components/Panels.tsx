@@ -1,3 +1,4 @@
+import { useGame } from '../core/coins';
 import { Suspense, lazy, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { Html, useI18n } from '../i18n';
 import { LESSON_GROUPS, findLesson, weekParsha, type Lesson } from '../lessons';
@@ -122,6 +123,7 @@ export function Panels() {
   const mode = useMode();
   const kids = mode === 'kids';
   const admin = isAdmin();
+  const game = useGame();
   const { pace, years, startDate } = useCourses(mode);
   const today = useToday(locale, panel === 'menu', { pace, years, startDate });
   // at one's own pace (src/core/courses.ts) — the first passage not read, on its own day
@@ -336,7 +338,7 @@ export function Panels() {
                 </div>
               </details>
               {link('#/facts', <Icon name="hash" />, t('facts.title'), t('facts.menuSub'))}
-              {link('#/coins', <Icon name="award" />, t('coins.name'), t('coins.menuSub'))}
+              {game && link('#/coins', <Icon name="award" />, t('coins.name'), t('coins.menuSub'))}
             </>
           ))}
           {/* the children: how to play, my Hebrew and mental math */}

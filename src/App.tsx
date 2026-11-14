@@ -21,6 +21,7 @@ import { installLangMarkup } from './core/langMarkup';
 import { installTitleSync } from './core/pageMeta';
 import { DonateFab, UIContext, type Panel } from './components/ui';
 import { CoinToast } from './components/CoinToast';
+import { Tour } from './components/Tour';
 import { TabBar } from './components/TabBar';
 import { NotFound, PageBoundary, PageLoading } from './components/PageStates';
 import { useI18n } from './i18n';
@@ -329,6 +330,8 @@ function Site() {
       {slug !== 'koelet' && !gated && <Assistant />}
       {slug !== 'koelet' && <DonateFab label={t('footer.donate')} />}
       <CoinToast />
+      {/* the tour after the onboarding: only on the home page, once the mode is chosen */}
+      <Tour home={!slug && mode !== null && !gated} />
       <TabBar slug={slug} view={view} />
       {isAdmin() && slug !== 'admin' && view !== 'print' && (
         <a className="admin-fab" href={lesson ? `#/admin/${lesson.slug}` : '#/admin'} title="Редактор текстов">

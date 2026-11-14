@@ -64,7 +64,7 @@ export function CoinsPage() {
   const due = maaserDue(s);
   const chestDays = chestProgress(s, h.streak, today);
   const votes = box?.votes ?? {};
-  const voted = Object.values(votes).reduce((a, n) => a + n, 0);
+  const voted = CAUSES.reduce((a, c) => a + (votes[c] ?? 0), 0);
   const date = (at: number) => new Date(at).toLocaleDateString(uiLang(locale), { day: 'numeric', month: 'long', year: 'numeric' });
 
   return (
@@ -168,7 +168,8 @@ export function CoinsPage() {
               <ul className="coins-closed">
                 {box.closed.map((c) => (
                   <li key={c.n}>
-                    {t('coins.round', { n: c.n })} · {date(c.at)} · {t(`coins.cause.${CAUSES.includes(c.cause as Cause) ? c.cause : CAUSES[0]}` as MessageKey)}
+                    {t('coins.round', { n: c.n })} · {date(c.at)}
+                    {CAUSES.includes(c.cause as Cause) && ` · ${t(`coins.cause.${c.cause}` as MessageKey)}`}
                   </li>
                 ))}
               </ul>
