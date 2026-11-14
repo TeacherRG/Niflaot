@@ -1,4 +1,4 @@
-import { useBalance } from '../core/coins';
+import { useBalance, useGame } from '../core/coins';
 import coinArt from '../assets/coins/coin-72.webp';
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import { track } from '../core/analytics';
@@ -90,7 +90,9 @@ function AccountChip() {
 function CoinChip() {
   const { t } = useI18n();
   const n = useBalance();
+  const on = useGame();
   const label = t('coins.badge', { n });
+  if (!on) return null;
   return (
     <a className="coin-chip" href="#/coins" aria-label={label} title={label}>
       <img src={coinArt} alt="" width={22} height={22} />

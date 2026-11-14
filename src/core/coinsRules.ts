@@ -23,7 +23,8 @@ export const PUSHKA_TARGET = 10_000;
 /** one gift to the box: 1 … GIFT_MAX coins; the server takes not more than GIFT_DAY from an account a day */
 export const GIFT_MAX = 500;
 export const GIFT_DAY = 1000;
-export const CAUSES = ['shabbat', 'books', 'trees'] as const;
+/** the round goes to one of the partner communities (src/core/partners.ts) — the one given more coins */
+export const CAUSES = ['chabad', 'jrcv'] as const;
 export type Cause = (typeof CAUSES)[number];
 export const isCause = (c: unknown): c is Cause => CAUSES.includes(c as Cause);
 

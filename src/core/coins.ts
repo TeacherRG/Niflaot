@@ -21,6 +21,34 @@ const parse = (k: string): unknown => {
     return null;
   }
 };
+/** «Игровой режим» can be switched off in the account (this device only): no coins are given, no badge, no notes */
+const GAME_KEY = 'niflaot:game';
+export const GAME_EVENT = 'niflaot:game';
+export const gameOn = () => {
+  try {
+    return localStorage.getItem(GAME_KEY) !== 'off';
+  } catch {
+    return true;
+  }
+};
+export function setGame(on: boolean) {
+  try {
+    if (on) localStorage.removeItem(GAME_KEY);
+    else localStorage.setItem(GAME_KEY, 'off');
+  } catch {}
+  window.dispatchEvent(new Event(GAME_EVENT));
+}
+export function useGame(): boolean {
+  const [on, set] = useState(gameOn);
+  useEffect(() => {
+    const f = () => set(gameOn());
+    window.addEventListener(GAME_EVENT, f);
+    window.addEventListener('storage', f);
+    return () => (window.removeEventListener(GAME_EVENT, f), window.removeEventListener('storage', f));
+  }, []);
+  return on;
+}
+
 export const readCoins = (): CoinStore => normCoins(parse(COINS_KEY));
 function write(s: CoinStore) {
   try {
@@ -38,6 +66,7 @@ const announce = (news?: CoinNews) => window.dispatchEvent(new CustomEvent<CoinN
 
 /** +1 for a passage read, +3 for a right answer — each `id` once; false — nothing given. */
 export function earn(kind: EarnKind, id: string): boolean {
+  if (!gameOn()) return false;
   const r = addEarn(readCoins(), kind, id, todayIso());
   if (!r) return false;
   write(r.store);
@@ -47,6 +76,7 @@ export function earn(kind: EarnKind, id: string): boolean {
 
 /** the chest of the 7th day of the streak — checked whenever a day of study is counted */
 function openChest() {
+  if (!gameOn()) return;
   const today = todayIso();
   const s = readCoins();
   const h = habitStats(studyDates(), today);

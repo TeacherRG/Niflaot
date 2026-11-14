@@ -1,3 +1,4 @@
+import { startTour } from '../core/tour';
 import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
 import { NIFLAOT_LOGO } from '../core/partners';
@@ -61,8 +62,9 @@ export function ModePicker() {
       localStorage.setItem('niflaot:help-seen', '1');
     } catch {}
     setMode(mode);
-    if (location.hash !== '#/' && location.hash !== '') location.hash = '#/';
     window.scrollTo(0, 0);
+    // the home page opens with the short tour of its controls (src/core/tour.ts)
+    startTour();
   };
 
   return (

@@ -1,3 +1,5 @@
+import { setGame, useGame } from '../core/coins';
+import { startTour } from '../core/tour';
 import { useEffect, useState, type FormEvent } from 'react';
 import { Html, useI18n, uiLang } from '../i18n';
 import { MODES, savedMode, setMode, useMode } from '../core/mode';
@@ -392,6 +394,10 @@ function ModeCard() {
       <CoursesPicker />
       <LearnLangPicker />
       <LookPicker />
+      <GameSwitch />
+      <button className="btn ghost tour-replay" onClick={startTour}>
+        {t('tour.replay')}
+      </button>
     </section>
   );
 }
@@ -490,6 +496,24 @@ function LearnLangPicker() {
  * «Вид» (src/core/look.ts): the theme (light by default, or dark), the text size and the background — three rows of
  * buttons, applied at once; only on this device.
  */
+/** «Игровой режим»: the Pelecoin coins on or off (src/core/coins.ts; this device only) */
+function GameSwitch() {
+  const { t } = useI18n();
+  const on = useGame();
+  return (
+    <div className="acc-game">
+      <label>
+        <input type="checkbox" checked={on} onChange={(e) => setGame(e.target.checked)} />
+        <span>
+          <b>{t('coins.game')}</b>
+          <small>{t('coins.gameSub')}</small>
+        </span>
+      </label>
+      {on && <a href="#/coins">{t('coins.gameOpen')}</a>}
+    </div>
+  );
+}
+
 function LookPicker() {
   const { t } = useI18n();
   const look = useLook();

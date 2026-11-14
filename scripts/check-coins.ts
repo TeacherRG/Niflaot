@@ -35,9 +35,9 @@ const withChest = addChest(s, D);
 ok(earnedTotal(withChest) === earnedTotal(s) + REWARD.chest && !chestDue(withChest, 7, true, D) && !chestDue(withChest, 7, true, '2026-11-15') && chestDue(withChest, 14, true, '2026-11-19'), 'one chest a week');
 
 // gifts, «маасер», purchases
-ok(!give(s, 0, 'books', 'a', D) && !give(s, balance(s) + 1, 'books', 'a', D) && !give(s, 1.5, 'books', 'a', D), 'a gift: a whole number, not more than the balance');
+ok(!give(s, 0, 'jrcv', 'a', D) && !give(s, balance(s) + 1, 'jrcv', 'a', D) && !give(s, 1.5, 'jrcv', 'a', D), 'a gift: a whole number, not more than the balance');
 ok(!maaserKept(s) && maaserDue(s) === 1, 'the tenth of 9 coins is 1');
-s = give(s, maaserDue(s), 'books', 'g1', D)!;
+s = give(s, maaserDue(s), 'jrcv', 'g1', D)!;
 ok(maaserKept(s) && givenTotal(s) === 1 && maaserDue(s) === 0, 'the tenth is given');
 const before = earnedTotal(s);
 const dbl = addEarn(s, 'answer', 'q2', '2026-11-14')!;
@@ -68,7 +68,7 @@ ok(earnedTotal(normCoins(JSON.parse(snap['niflaot:coins']))) === earnedTotal(m),
 
 // the common box
 ok(JSON.stringify(pushkaAdd(9990, 25)) === JSON.stringify({ coins: 15, filled: 1 }) && pushkaAdd(0, 500).filled === 0 && pushkaAdd(PUSHKA_TARGET - 1, 1).filled === 1, 'the box: a round is filled at the target, the rest goes on');
-ok(winningCause({ books: 5, trees: 9 }) === 'trees' && winningCause({}) === CAUSES[0], 'the cause with the most coins wins');
+ok(winningCause({ chabad: 5, jrcv: 9, trees: 99 }) === 'jrcv' && winningCause({}) === CAUSES[0], 'the cause with the most coins wins');
 
 // the texts
 ok(gematria('יוי') === 26 && gematria('חי') === 18, 'the numbers of the scrolls');
