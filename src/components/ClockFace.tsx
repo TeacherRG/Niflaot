@@ -49,8 +49,10 @@ function spread(ys: number[], gap = 17, lo = 2, hi = 198): number[] {
 /**
  * The face: hands by the city's time; each chosen time of the day — a dot on the rim at its place and, beside the face,
  * its time and name (owner, 15.11.2026: «отметки о времени должны быть прямо на циферблате»). A passed time is pale.
- * Inside — the numerals and hour ticks of the ordinary clock; the divisions on the rim are the halachic times of the
- * day (`times`), each in its colour (owner, 15.11.2026: «внутри цифры обычного времени, а деления по кругу — галахическое время»).
+ * Inside the face — the digital time of the city («21:15»), no hands and no numerals; the rim is the ring of the whole
+ * day (24 hours: noon at the top, midnight at the bottom) and its divisions are the halachic times (`times`), each in
+ * its colour; the gold ring on the rim is «now» (owner, 15.11.2026: «внутри циферблата цифры дигитальных часов, а обод —
+ * галахические времена»).
  */
 export function Face({
   now,
@@ -68,14 +70,22 @@ export function Face({
   name: (id: TimeId) => string;
 }) {
   const { h, m, s } = wall(now, zone);
-  const hand = (turn: number, r: number, cls: string) => {
-    const [x, y] = polar(turn, r);
-    return <line className={cls} x1="100" y1="100" x2={x} y2={y} />;
-  };
   const turnOf = (at: Date) => {
     const w = wall(at, zone);
-    return ((w.h % 12) + w.m / 60) / 12;
+    return ((w.h + w.m / 60 + w.s / 3600) / 24 + 0.5) % 1;
   };
+  const nowTurn = ((h + m / 60 + s / 3600) / 24 + 0.5) % 1;
+  const two = (n: number) => String(n).padStart(2, '0');
+  /* the day — from sunrise to sunset — a brighter part of the rim */
+  const day = (() => {
+    const a = times?.sunrise;
+    const b = times?.mincha;
+    if (!a || !b) return null;
+    const [x1, y1] = polar(turnOf(a), 96);
+    const [x2, y2] = polar(turnOf(b), 96);
+    const big = (turnOf(b) - turnOf(a) + 1) % 1 > 0.5 ? 1 : 0;
+    return `M${x1} ${y1} A96 96 0 ${big} 1 ${x2} ${y2}`;
+  })();
   const dots = marks.flatMap(([id, at]) => {
     if (!at) return [];
     const [x, y] = polar(turnOf(at), 96);
@@ -89,19 +99,7 @@ export function Face({
   return (
     <svg className="clk-face" viewBox="-116 -10 432 220" role="img" aria-label={dots.map((d) => `${name(d.id)} ${hm(d.at)}`).join(', ')} direction="ltr">
       <circle className="clk-rim" cx="100" cy="100" r="96" />
-      {Array.from({ length: 12 }, (_, i) => {
-        const [x1, y1] = polar(i / 12, 82);
-        const [x2, y2] = polar(i / 12, 87);
-        const [x, y] = polar(i / 12, 70);
-        return (
-          <g key={i}>
-            <line className="clk-tick big" x1={x1} y1={y1} x2={x2} y2={y2} />
-            <text className="clk-num" x={x} y={y} textAnchor="middle" dominantBaseline="central">
-              {i || 12}
-            </text>
-          </g>
-        );
-      })}
+      {day && <path className="clk-day" d={day} />}
       {TIME_IDS.map((id) => {
         const at = times?.[id];
         if (!at) return null;
@@ -130,12 +128,9 @@ export function Face({
         );
       })}
       {(() => {
-        /* the dots stand where the HOUR hand points at their time: its thin continuation to the rim shows it
-           (owner, 15.11.2026: «написано 16:16, а точка на 16:22» — the dot was read by the minute ticks) */
-        const turn = ((h % 12) + m / 60 + s / 3600) / 12;
-        const [x1, y1] = polar(turn, 46);
-        const [x2, y2] = polar(turn, 89);
-        const [cx, cy] = polar(turn, 96);
+        const [x1, y1] = polar(nowTurn, 80);
+        const [x2, y2] = polar(nowTurn, 89);
+        const [cx, cy] = polar(nowTurn, 96);
         return (
           <g className="clk-reach">
             <line x1={x1} y1={y1} x2={x2} y2={y2} />
@@ -143,10 +138,12 @@ export function Face({
           </g>
         );
       })()}
-      {hand(((h % 12) + m / 60 + s / 3600) / 12, 46, 'clk-hand hour')}
-      {hand((m + s / 60) / 60, 68, 'clk-hand minute')}
-      {hand(s / 60, 76, 'clk-hand second')}
-      <circle className="clk-pin" cx="100" cy="100" r="4" />
+      <text className="clk-time" x="100" y="100" textAnchor="middle" dominantBaseline="central">
+        {two(h)}:{two(m)}
+      </text>
+      <text className="clk-sec" x="100" y="128" textAnchor="middle" dominantBaseline="central">
+        {two(s)}
+      </text>
     </svg>
   );
 }

@@ -227,9 +227,6 @@ export function ClockPage() {
         <div className="clk-top">
           <section className="clk-now" aria-label={t('clock.title')}>
             <Face now={now} zone={zone} times={shown?.times} marks={shown ? marks.map((id) => [id, shown.times[id]]) : []} hm={hm} name={(id) => t(`clock.s.${id}` as MessageKey)} />
-            <p className="clk-digital" role="timer" aria-live="off">
-              {fmt({ hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(now)}
-            </p>
             <p className="clk-date">
               {dayText(now)}
               <span className="he" lang="he">
