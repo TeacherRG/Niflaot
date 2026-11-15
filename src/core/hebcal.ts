@@ -3,7 +3,7 @@
  * no requests, no dependence on the browser's Intl Hebrew calendar. Date, weekly portion (Torah reading) and
  * astronomical sun times for a place.
  */
-import { HDate, Location, Sedra, Zmanim } from '@hebcal/core';
+import { flags, HDate, HebrewCalendar, Location, Sedra, Zmanim } from '@hebcal/core';
 
 const atNoon = (iso: string) => new Date(`${iso}T12:00:00`);
 
@@ -33,4 +33,37 @@ export function sunTimes(iso: string, lat: number, lon: number, tzid: string): {
   const z = new Zmanim(new Location(lat, lon, false, tzid), atNoon(iso), false);
   const ok = (d: Date) => (Number.isNaN(d.getTime()) ? null : d);
   return { sunrise: ok(z.sunrise()), sunset: ok(z.sunset()) };
+}
+
+/**
+ * The times of the day for «Часы» (src/core/clock.ts) — by the opinion of the Alter Rebbe (Baal HaTanya), as in the Chabad
+ * calendars: the day runs from the «true» sunrise to the «true» sunset (the sun 1.583° below the horizon), an hour of the
+ * day is a twelfth of it; the end of the time of Shma — 3 such hours, of the morning prayer — 4. Mincha — until sunset.
+ * Also for the face of the clock: sunrise, midday (chatzot), Mincha Gedola, Plag HaMincha and nightfall (the sun 6° below).
+ * Null where the sun does not rise or set.
+ */
+export function dayTimes(iso: string, lat: number, lon: number, tzid: string) {
+  const z = new Zmanim(new Location(lat, lon, false, tzid), atNoon(iso), false);
+  const ok = (d: Date) => (Number.isNaN(d.getTime()) ? null : d);
+  return {
+    sunrise: ok(z.sunrise()),
+    shma: ok(z.sofZmanShmaBaalHatanya()),
+    tefila: ok(z.sofZmanTfilaBaalHatanya()),
+    chatzot: ok(z.chatzot()),
+    minchaGedola: ok(z.minchaGedolaBaalHatanya()),
+    plag: ok(z.plagHaminchaBaalHatanya()),
+    sunset: ok(z.sunset()),
+    tzeit: ok(z.tzaisBaalHatanya()),
+  };
+}
+
+/**
+ * A day when no work is done — Yom Tov and Yom Kippur («chag») — or Chol HaMoed, by the Jewish date of the calendar day
+ * `iso` (its daytime). `il` — the calendar of the Land of Israel (one day of Yom Tov), else of the diaspora (two).
+ */
+export function festivalKind(iso: string, il = false): 'chag' | 'cholHamoed' | null {
+  const events = HebrewCalendar.getHolidaysOnDate(new HDate(atNoon(iso)), il) ?? [];
+  if (events.some((e) => e.getFlags() & flags.CHAG)) return 'chag';
+  if (events.some((e) => e.getFlags() & flags.CHOL_HAMOED)) return 'cholHamoed';
+  return null;
 }

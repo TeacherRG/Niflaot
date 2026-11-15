@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useI18n, uiLang } from '../i18n';
 import { hebrewDateText, sunTimes } from '../core/hebcal';
+import { CalendarClock } from './ClockFace';
 import { currentPlace, findCities, PLACE_EVENT, setPlace, timeZone, type Place } from '../core/places';
 
 const DAY = 86_400_000;
@@ -115,6 +116,7 @@ export function ShabbatCalendar({ bare = false, shabbatOnly = false }: { bare?: 
         )}
       </p>
       {picker}
+      {!shabbatOnly && <CalendarClock />}
       {!shabbatOnly && block('today', t('calendar.today'), dateFormatter.format(now), hebrewToday, [
         ['calendar.sunrise', today.sunrise],
         ['calendar.sunset', today.sunset],
@@ -133,7 +135,7 @@ export function ShabbatCalendar({ bare = false, shabbatOnly = false }: { bare?: 
  * The choice — `niflaot:place`, only on this device (src/core/places.ts); the calendar, the Jewish date in the top bar and
  * the Shabbat rest of the site follow it. No geolocation and no request anywhere — the list is in the code.
  */
-function CityPicker({ auto, onDone }: { auto: boolean; onDone: () => void }) {
+export function CityPicker({ auto, onDone }: { auto: boolean; onDone: () => void }) {
   const { t, locale } = useI18n();
   const [q, setQ] = useState('');
   const [own, setOwn] = useState(false);
