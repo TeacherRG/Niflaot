@@ -317,7 +317,7 @@ export function Panels() {
           {group(<Icon name="award" />, t('menu.courses'), t('menu.coursesSub'), starts('#/koelet'), (
             link('#/koelet', num('ק', true), t('koelet.title'), t('koelet.menuSub'))
           ))}
-          {group(<Icon name="grid" />, t('menu.misc'), t('menu.miscSub'), starts('#/facts', '#/daily', '#/quiz', '#/shabbat-table', '#/digest', '#/zip', '#/patches', '#/coins'), (
+          {group(<Icon name="grid" />, t('menu.misc'), t('menu.miscSub'), starts('#/facts', '#/daily', '#/quiz', '#/shabbat-table', '#/digest', '#/zip', '#/patches', '#/coins', '#/clock'), (
             <>
               {lessonSlug && link(`#/${lessonSlug}/print`, <Icon name="print" />, t('print.button'))}
               {link('#/shabbat-table', <Icon name="print" />, t('table.title'), t('table.menuSub'))}
@@ -338,6 +338,7 @@ export function Panels() {
                 </div>
               </details>
               {link('#/facts', <Icon name="hash" />, t('facts.title'), t('facts.menuSub'))}
+              {link('#/clock', <Icon name="bell" />, t('clock.title'), t('clock.menuSub'))}
               {game && link('#/coins', <Icon name="award" />, t('coins.name'), t('coins.menuSub'))}
             </>
           ))}

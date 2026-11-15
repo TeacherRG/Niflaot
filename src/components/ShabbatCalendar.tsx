@@ -123,6 +123,11 @@ export function ShabbatCalendar({ bare = false, shabbatOnly = false }: { bare?: 
         ['calendar.lighting', times.lighting],
         ['calendar.havdalah', times.havdalah],
       ])}
+      {!shabbatOnly && (
+        <a className="sc-clock" href="#/clock">
+          {t('clock.link')} →
+        </a>
+      )}
       <p className="shabbat-calendar-note">{t(auto ? 'calendar.note' : 'calendar.noteChosen')}</p>
     </section>
   );
@@ -133,7 +138,7 @@ export function ShabbatCalendar({ bare = false, shabbatOnly = false }: { bare?: 
  * The choice — `niflaot:place`, only on this device (src/core/places.ts); the calendar, the Jewish date in the top bar and
  * the Shabbat rest of the site follow it. No geolocation and no request anywhere — the list is in the code.
  */
-function CityPicker({ auto, onDone }: { auto: boolean; onDone: () => void }) {
+export function CityPicker({ auto, onDone }: { auto: boolean; onDone: () => void }) {
   const { t, locale } = useI18n();
   const [q, setQ] = useState('');
   const [own, setOwn] = useState(false);

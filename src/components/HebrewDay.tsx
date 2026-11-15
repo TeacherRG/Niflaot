@@ -54,6 +54,12 @@ export function HebrewDay() {
       window.removeEventListener('niflaot:place', tick);
     };
   }, []);
+  // a link inside the window (to «Часы») leads away — the window closes
+  useEffect(() => {
+    const close = () => setOpen(false);
+    window.addEventListener('hashchange', close);
+    return () => window.removeEventListener('hashchange', close);
+  }, []);
   if (!day) return null;
   return (
     <>
