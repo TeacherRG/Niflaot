@@ -513,6 +513,37 @@ SOURCES = {
     'hosea-10-12': ('Hosea', 10, 12, 12),
     'berakhot-26b': ('Berakhot', '26b', 3, 3),
     'rambam-kings-9-1': rambam(MT_KINGS, 'Законы царей', 'Laws of Kings', 'Gesetze der Könige', 'Mishneh Torah, Kings and Wars', 9, 1, MT_KINGS_DE),
+    # «Нифлаот Ребе» · Ваеце: «Вернусь с миром» (Ликутей сихот, т. 25, 10 кислева)
+    'gen-28-20': ('Genesis', 28, 20, 21),
+    'gen-31-24': ('Genesis', 31, 24, 24),
+    'gen-31-29': ('Genesis', 31, 29, 29),
+    'gen-31-44': ('Genesis', 31, 44, 44),
+    'gen-32-2': ('Genesis', 32, 2, 2),
+    'rashi-11-32': rashi(11, 32, 1),
+    'ps-55-19': ('Psalms', 55, 19, 19),
+    'sanhedrin-24a': ('Sanhedrin', '24a', 17, 17),
+    'berakhot-58a': ('Berakhot', '58a', 2, 2),
+    'ex-23-2': ('Exodus', 23, 2, 2),
+    'sanhedrin-36a': ('Sanhedrin', '36a', 15, 15),
+    'tanya-ih-26': ('custom', 'Тания, Игерет ґа-кодеш 26', 'Tanya, Iggeret HaKodesh 26', 'Tanja, Iggeret HaKodesch 26', 'Tanya, Part IV; Iggeret HaKodesh 26:2', 'Chasidut',
+                    'Chasidut/Chabad/Tanya/Hebrew/Kehot Publication Society.json',
+                    'Chasidut/Chabad/Tanya/English/Kehot Publication Society English Translation.json', None,
+                    ['Part IV; Iggeret HaKodesh', 25, 1]),
+    # Бааль ґа-Турим · Ваишлах (урок №10)
+    'gen-32-5': ('Genesis', 32, 5, 5),
+    'gen-32-6': ('Genesis', 32, 6, 6),
+    'gen-32-11': ('Genesis', 32, 11, 11),
+    'gen-32-12': ('Genesis', 32, 12, 12),
+    'gen-32-14': ('Genesis', 32, 14, 14),
+    'gen-32-25': ('Genesis', 32, 25, 27),
+    'gen-33-3': ('Genesis', 33, 3, 4),
+    'gen-33-9': ('Genesis', 33, 9, 9),
+    'gen-36-31': ('Genesis', 36, 31, 31),
+    'prov-24-16': ('Proverbs', 24, 16, 16),
+    'rashi-32-5': rashi(32, 5, 0),
+    'rashi-33-4': rashi(33, 4, 1),
+    **{f'bht-{c}-{v}': bht(c, v) for c, v in [(32, 14), (32, 26), (32, 27), (33, 3), (33, 4), (33, 9), (36, 31)]},
+    **{f'bht-{c}-{v}-{k + 1}': bht_one(c, v, k) for c, v, k in [(32, 5, 0), (32, 6, 0), (32, 6, 1), (32, 11, 1), (32, 12, 0), (32, 25, 1), (32, 25, 2)]},
 }
 
 # «Бааль ґа-Турим по дням» (src/core/turimDaily.ts): the verse of every Baal HaTurim comment, one verse each — `torah-<ch>-<v>`,
@@ -541,6 +572,7 @@ CUTS = {
     'bht-18-18-2': [(' וזה שנאמר ס"י כ"ן יבורך גבר:', ' …')],
     'bht-25-27': [('<b> יושב אוהלים</b> עולה ת"י שכך שרתה שכינה באהל: יעקב', '… <b>יעקב</b>'), (' ובגימטריא [וירחך] לא יאסף', '')],
     'bht-18-19': [('אשר יצוה בגימטריא תורה ובגימטריא ברית', 'אשר יצוה … בגימטריא ברית')],
+    'bht-33-4': [(' דור חרבות שני"ו בגימטריא עשו:', ' …')],
 }
 
 # Chapter headings of an English edition that sit inside the quoted paragraph (Friedlander's PdRE 33) are cut

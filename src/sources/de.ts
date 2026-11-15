@@ -304,4 +304,22 @@ export const PROJECT_DE: Record<string, string[]> = {
   "bht-31-22-1": ["<b>Dass er geflohen war [ki warach]</b> — zweimal in der Massora: „dass Jaakow geflohen war“ und „dass das Volk geflohen war“ [Schemot 14,5]. Im Midrasch steht, dass Amalek Lawan von der Flucht Jaakows berichtete und dem Pharao von der Flucht Israels."],
   "bht-31-22-2": ["<b>Dass er geflohen war [ki warach]</b> — in Gematria „Amalek“."],
   "bht-32-3": ["<b>Machanajim</b> — ein Notarikon: „von diesen Kriegern nahm Jaakow Engel“ [me’otam chajalim natal Jaakow malachim]."],
+  // «Нифлаот Ребе» · Ваеце: «Вернусь с миром» (Ликутей сихот, т. 25, 10 кислева)
+  "tanya-ih-26": ["Und der Baum von Gut und Böse — das ist Verbotenes und Erlaubtes, Unreines und Reines — wird nicht mehr über Israel herrschen. Denn ihr Unterhalt wird nur von der Seite des Baumes des Lebens kommen. Dort gibt es keine Frage von der Seite des Bösen und keinen Streit vom Geist der Unreinheit, wie es heißt: „Und den Geist der Unreinheit werde Ich von der Erde entfernen“ [Secharja 13,2]. Dann werden die Toragelehrten nicht von Unwissenden ernährt, sondern von der Seite des Guten — von denen, die Reines, Koscheres, Erlaubtes essen — und nicht vom „gemischten Volk“ [Erew Raw], das Unreines, Untaugliches, Verbotenes isst… Solange aber der Baum von Gut und Böse herrscht…, haben die Weisen, die den Schabbatot und Feiertagen gleichen, nur das, was ihnen die Menschen des „Werktags“ geben — so wie der Schabbat nur das hat, was man am Werktag für ihn vorbereitet hat."],
+  // Baal HaTurim · Wajischlach
+  "prov-24-16": ["Denn siebenmal fällt der Gerechte und steht wieder auf, aber die Bösen stolpern im Unglück."],
+  "bht-32-5-1": ["<b>Bei Lawan habe ich gewohnt [im Lawan garti]</b> — das heißt: Obwohl ich im Haus von Lawan war, habe ich die 613 Mizwot gehalten."],
+  "bht-32-6-1": ["<b>Und ich habe Ochse und Esel</b> — andere Tiere nannte er nicht: Es ist ein Hinweis auf Josef, den Gegner von Esaw, und auf Jissachar — sie beschäftigen sich mit der Tora, damit „die Stimme ist Jaakows Stimme“ in den Lehrhäusern erfüllt wird."],
+  "bht-32-6-2": ["<b>Ich habe einen Ochsen [li schor]</b> — in Gematria „Josef wurde geboren“ [schenolad Josef]. „Ochse“ [schor] — in Gematria „das Horn von Josef“ [keren Josef]."],
+  "bht-32-11-2": ["<b>Mit meinem Stab [bemakli]</b> — in Gematria „Jaakow“; das heißt: ich selbst, allein. Eine andere Erklärung: Im Verdienst von Jaakow zog Israel durch den Jarden."],
+  "bht-32-12-1": ["<b>Rette mich doch aus der Hand [hazileni na mijad]</b> — die Anfangsbuchstaben ergeben „Haman“: ein Hinweis auf Haman, der auszog, um „Mutter samt Kindern“ zu schlagen, wie es heißt: „Kinder und Frauen“ [Esther 3,13]."],
+  "bht-32-14": ["<b>Von dem, was in seine Hand kam, ein Geschenk für Esaw</b> — er schickte ihm Edelsteine, die man in der Hand einbindet.", "<b>Ein Geschenk [mincha]</b> — in Gematria „Steine“ [awanim]."],
+  "bht-32-25-2": ["<b>Ein Mann mit ihm [isch imo]</b> — in Gematria „Esaw — Edom“."],
+  "bht-32-25-3": ["<b>Und ein Mann rang mit ihm [waje’awek isch imo]</b> — die Endbuchstaben ergeben „kascho“ [sein Stroh], nach dem Vers: „und das Haus Esaw zu Stroh“ [Owadja 1,18]."],
+  "bht-32-26": ["<b>Und er berührte sein Hüftgelenk</b> — um zu sehen, ob er ein Engel ist wie er selbst, ob er Gelenke hat. Denn Engel haben keine Gelenke. Oder: um ihn für den Dienst untauglich zu machen, weil er von Esaw das Erstgeburtsrecht gekauft hatte, zu dem der Dienst gehörte.", "<b>Sein Hüftgelenk [bechaf jerecho]</b> — in Gematria „ihn für den Dienst der Kohanim untauglich machen“ [lefoslo mikehuna]."],
+  "bht-32-27": ["<b>Du segnest mich [berachtani]</b> — in Gematria „er erkannte meinen Segen an“ [hoda lewirchati]: Denn er war der Engel von Esaw."],
+  "bht-33-3": ["<b>Und er verneigte sich siebenmal zur Erde</b> — nach dem Vers: „Denn siebenmal fällt der Gerechte und steht wieder auf“ [Mischle 24,16], und um sieben Gräuel aus seinem Herzen zu entfernen."],
+  "bht-33-4": ["<b>Und er küsste ihn</b> — über dem Wort stehen Punkte: Er wollte ihn beißen.", "<b>Und er küsste ihn [wajischakehu]</b> — in Gematria „ihn beißen“ [lenoschchehu]. …"],
+  "bht-33-9": ["<b>Mein Bruder, was dein ist, bleibe dein</b> — in Gematria „das sind die Segnungen“ [se haberachot]."],
+  "bht-36-31": ["<b>Und dies sind die Könige</b> — weil Jaakow zu Esaw achtmal „mein Herr“ sagte, herrschten [von Esaw] acht Könige vor Israel. Und ihnen gegenüber herrschten [in Jehuda] acht Könige bis Jehoram, und in seinen Tagen fiel Edom ab."],
 };
