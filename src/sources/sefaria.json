@@ -18038,6 +18038,985 @@
    }
   }
  },
+ "gen-32-5": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:5",
+   "en": "Genesis 32:5",
+   "de": "Bereschit 32,5"
+  },
+  "ref": "Genesis 32:5",
+  "url": "https://www.sefaria.org/Genesis_32.5",
+  "he": [
+   "ויצו אתם לאמר כה תאמרון לאדני לעשו כה אמר עבדך יעקב עם לבן גרתי ואחר עד עתה"
+  ],
+  "en": [
+   "And he commanded them, saying: ‘Thus shall ye say unto my lord Esau: Thus saith thy servant Jacob: I have sojourned with Laban, and stayed until now."
+  ],
+  "ru": [
+   "И велел им: Скажите так господину моему Эсаву. Так говорит раб твой Йааков: С Лаваном прожил я до сего дня."
+  ],
+  "de": [
+   "und befahl ihnen also: So sollt ihr Esaw, meinem Herrn, sagen: also hat dein Diener Jaakob gesprochen: Bei Laban habe ich als Fremdling geweilt und bin bis jetzt dort zurückgehalten worden."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-32-6": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:6",
+   "en": "Genesis 32:6",
+   "de": "Bereschit 32,6"
+  },
+  "ref": "Genesis 32:6",
+  "url": "https://www.sefaria.org/Genesis_32.6",
+  "he": [
+   "ויהי לי שור וחמור צאן ועבד ושפחה ואשלחה להגיד לאדני למצא חן בעיניך"
+  ],
+  "en": [
+   "And I have oxen, and asses and flocks, and men-servants and maid-servants; and I have sent to tell my lord, that I may find favour in thy sight.’"
+  ],
+  "ru": [
+   "И нажил я волов, и ослов, и мелкий скот, и рабов, и рабынь. И послал я известить моего господина, дабы снискать милость в его очах."
+  ],
+  "de": [
+   "So ward mir Ochs und Esel, Schaf und Knecht und Magd; ich habe gerne geschickt, dies meinem Herrn mitzuteilen, um Gunst in deinen Augen zu finden."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-32-11": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:11",
+   "en": "Genesis 32:11",
+   "de": "Bereschit 32,11"
+  },
+  "ref": "Genesis 32:11",
+  "url": "https://www.sefaria.org/Genesis_32.11",
+  "he": [
+   "קטנתי מכל החסדים ומכל האמת אשר עשית את עבדך כי במקלי עברתי את הירדן הזה ועתה הייתי לשני מחנות"
+  ],
+  "en": [
+   "I am not worthy of all the mercies, and of all the truth, which Thou hast shown unto Thy servant; for with my staff I passed over this Jordan; and now I am become two camps."
+  ],
+  "ru": [
+   "Недостоин я милости и верности, что являешь ты рабу своему. С посохом перешел я Йарден и вот стал двумя станами."
+  ],
+  "de": [
+   "ich bin schon zu geringe gegen alle die Wohltaten und all die Treue, die du bereits an deinem Diener geübt; denn mit meinem Stecken habe ich diesen Jarden überschritten, und jetzt bin ich zu zwei Lagern geworden, —"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-32-12": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:12",
+   "en": "Genesis 32:12",
+   "de": "Bereschit 32,12"
+  },
+  "ref": "Genesis 32:12",
+  "url": "https://www.sefaria.org/Genesis_32.12",
+  "he": [
+   "הצילני נא מיד אחי מיד עשו כי ירא אנכי אתו פן יבוא והכני אם על בנים"
+  ],
+  "en": [
+   "Deliver me, I pray Thee, from the hand of my brother, from the hand of Esau; for I fear him, lest he come and smite me, the mother with the children."
+  ],
+  "ru": [
+   "Спаси меня от брата моего, от Эсава, потому что боюсь я его — чтобы не пришел он и не поубивал матерей с детьми."
+  ],
+  "de": [
+   "rette mich doch von der Hand meines Bruders, von Esaws Hand; denn ich fürchte ihn, daß er nicht komme und mich, die Mutter samt den Kindern erschlage;"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-32-14": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:14",
+   "en": "Genesis 32:14",
+   "de": "Bereschit 32,14"
+  },
+  "ref": "Genesis 32:14",
+  "url": "https://www.sefaria.org/Genesis_32.14",
+  "he": [
+   "וילן שם בלילה ההוא ויקח מן הבא בידו מנחה לעשו אחיו"
+  ],
+  "en": [
+   "And he lodged there that night; and took of that which he had with him a present for Esau his brother:"
+  ],
+  "ru": [
+   "И заночевал там в ту ночь, и взял из того, что у него было, в дар брату своему Эсаву:"
+  ],
+  "de": [
+   "Dort blieb er in dieser Nacht und nahm von dem, was er in Händen hatte, ein Geschenk für seinen Bruder Esaw:"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-32-25": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:25–27",
+   "en": "Genesis 32:25–27",
+   "de": "Bereschit 32,25–27"
+  },
+  "ref": "Genesis 32:25-27",
+  "url": "https://www.sefaria.org/Genesis_32.25-27",
+  "he": [
+   "ויותר יעקב לבדו ויאבק איש עמו עד עלות השחר",
+   "וירא כי לא יכל לו ויגע בכף ירכו ותקע כף ירך יעקב בהאבקו עמו",
+   "ויאמר שלחני כי עלה השחר ויאמר לא אשלחך כי אם ברכתני"
+  ],
+  "en": [
+   "And Jacob was left alone; and there wrestled a man with him until the breaking of the day.",
+   "And when he saw that he prevailed not against him, he touched the hollow of his thigh; and the hollow of Jacob’s thigh was strained, as he wrestled with him.",
+   "And he said: ‘Let me go, for the day breaketh.’ And he said: ‘I will not let thee go, except thou bless me.’"
+  ],
+  "ru": [
+   "И остался Йааков один, и боролся некто с ним до рассвета.",
+   "И увидел, что не может его одолеть, и коснулся его бедренного сустава, и вывихнул Йаакову бедренный сустав, борясь с ним.",
+   "И сказал: Отпусти меня, ведь взошла заря, и сказал: Не отпущу тебя, пока ты меня не благословишь."
+  ],
+  "de": [
+   "Übrig blieb Jaakob allein, da rang jemand mit ihm, bis der Morgen heraufzog.",
+   "Er sah, daß er an ihn nichts vermochte, so griff er an den Ballen seiner Hüfte; da wich Jaakobs Hüftballen, indem er mit ihm rang.",
+   "Da sprach er: Entlasse mich, denn der Morgen ist heraufgezogen. Er aber sprach: Ich entlasse dich nicht, du habest mich denn gesegnet."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-33-3": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 33:3–4",
+   "en": "Genesis 33:3–4",
+   "de": "Bereschit 33,3–4"
+  },
+  "ref": "Genesis 33:3-4",
+  "url": "https://www.sefaria.org/Genesis_33.3-4",
+  "he": [
+   "והוא עבר לפניהם וישתחו ארצה שבע פעמים עד גשתו עד אחיו",
+   "וירץ עשו לקראתו ויחבקהו ויפל על צוארו וישקהו ויבכו"
+  ],
+  "en": [
+   "And he himself passed over before them, and bowed himself to the ground seven times, until he came near to his brother.",
+   "And Esau ran to meet him, and embraced him, and fell on his neck, and kissed him; and they wept."
+  ],
+  "ru": [
+   "(Сам) же он вышел вперед и отвесил семь земных поклонов прежде, чем подошел к брату.",
+   "И побежал Эсав ему навстречу, и обнял его, и бросился ему на шею, и поцеловал его, и они заплакали."
+  ],
+  "de": [
+   "Er aber ging vor ihnen her und bückte sich siebenmal zur Erde, bis er zu seinem Bruder hinangelangte.",
+   "Da lief ihm Esaw entgegen und umarmte ihn, warf sich an seinen Hals und küßte ihn; und sie weinten."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-33-9": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 33:9",
+   "en": "Genesis 33:9",
+   "de": "Bereschit 33,9"
+  },
+  "ref": "Genesis 33:9",
+  "url": "https://www.sefaria.org/Genesis_33.9",
+  "he": [
+   "ויאמר עשו יש לי רב אחי יהי לך אשר לך"
+  ],
+  "en": [
+   "And Esau said: ‘I have enough; my brother, let that which thou hast be thine.’"
+  ],
+  "ru": [
+   "И сказал Эсав: Мне хватает, брат мой, твое пусть остается с тобой."
+  ],
+  "de": [
+   "Da sprach Esaw: Ich habe viel; mein Bruder, bleibe dir, was dein ist."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-36-31": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 36:31",
+   "en": "Genesis 36:31",
+   "de": "Bereschit 36,31"
+  },
+  "ref": "Genesis 36:31",
+  "url": "https://www.sefaria.org/Genesis_36.31",
+  "he": [
+   "ואלה המלכים אשר מלכו בארץ אדום לפני מלך מלך לבני ישראל"
+  ],
+  "en": [
+   "And these are the kings that reigned in the land of Edom, before there reigned any king over the children of Israel."
+  ],
+  "ru": [
+   "А вот цари, которые правили в стране Эдом до того, как воцарились цари у сынов Йисраэля."
+  ],
+  "de": [
+   "Und dies sind die Könige, welche im Lande Edom regierten, bevor noch ein König die Söhne Jisraels regierte."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "prov-24-16": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings",
+   "de": "Schriften"
+  },
+  "title": {
+   "ru": "Мишлей 24:16",
+   "en": "Proverbs 24:16",
+   "de": "Mischle 24,16"
+  },
+  "ref": "Proverbs 24:16",
+  "url": "https://www.sefaria.org/Proverbs_24.16",
+  "he": [
+   "כי שבע יפול צדיק וקם ורשעים יכשלו ברעה"
+  ],
+  "en": [
+   "For a righteous man falleth seven times, and riseth up again, But the wicked stumble under adversity."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "rashi-32-5": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 32:5",
+   "en": "Rashi, Genesis 32:5",
+   "de": "Raschi, Bereschit 32,5"
+  },
+  "ref": "Rashi on Genesis 32:5:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_32.5.1",
+  "he": [
+   "<b>גרתי.</b> לֹא נַעֲשֵׂיתִי שַׂר וְחָשׁוּב אֶלָּא גֵּר, אֵינְךָ כְּדַאי לִשְׂנֹא אוֹתִי עַל בִּרְכַּת אָבִיךָ שֶׁבֵּרְכַנִי הֱוֵה גְבִיר לְאַחֶיךָ, שֶׁהֲרֵי לֹא נִתְקַיְּמָה בִי. דָּ\"אַ גַּרְתִּי בְּגִימַטְרִיָּא תרי\"ג, כְּלוֹמַר, עִם לָבָן גַּרְתִּי וְתַרְיַ\"ג מִצְוֹת שָׁמַרְתִּי וְלֹא לָמַדְתִּי מִמַּעֲשָׂיו הָרָעִים:"
+  ],
+  "en": [
+   "גרתי I HAVE SOJOURNED — I have become neither a prince nor other person of importance but merely a sojourner. It is not worth your while to hate me on account of the blessing of your father who blessed me (27:29) “Be master over thy brethren”, for it has not been fulfilled in me (Tanchuma Yashan 1:8:5). Another explanation: the word גרתי has the numerical value of 613 - תרי״ג - it is as much as to say, “Though I have sojourned with Laban, the wicked, I have observed the תרי״ג מצות, the 613 Divine Commandments, and I have learned naught of his evil ways."
+  ],
+  "de": [
+   "<b>Hielt ich mich als Fremder auf,</b> ich wurde kein Fürst und Vornehmer, sondern ein Fremder; du hast also keinen Grund, mich wegen der Segnungen deines Vaters zu hassen; denn er hat mich gesegnet, sei ein Herr über deine Brüder; und das ist nicht an mir in Erfüllung gegangen (Tanchuma). Eine andere Erklärung: גַרְתִּי ist im Zahlenwert = 613; das heißt, ich hielt mich bei dem Bösewicht Laban auf und hütete doch die 613 Gebote und lernte nicht von seinen bösen Handlungen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-33-4": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 33:4",
+   "en": "Rashi, Genesis 33:4",
+   "de": "Raschi, Bereschit 33,4"
+  },
+  "ref": "Rashi on Genesis 33:4:2",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_33.4.2",
+  "he": [
+   "<b>וישקהו.</b> נָקוּד עָלָיו; וְיֵשׁ חוֹלְקִין בַּדָּבָר הַזֶּה בַּבָּרַיְתָא דְּסִפְרֵי, יֵשׁ שֶׁדָּרְשׁוּ נְקֻדָּה זוֹ שֶׁלֹּא נְשָׁקוֹ בְּכָל לִבּוֹ, אָמַר רַבִּי שִׁמְעוֹן בֶּן יוֹחַאי, הֲלָכָה הִיא בְּיָדוּעַ שֶׁעֵשָׂו שׂוֹנֵא לְיַעֲקֹב, אֶלָּא שֶׁנִּכְמְרוּ רַחֲמָיו בְּאוֹתָהּ שָׁעָה וּנְשָׁקוֹ בְּכָל לִבּוֹ (ספרי במדבר):"
+  ],
+  "en": [
+   "וישקהו AND HE KISSED HIM — Dots are placed above the letters of this word, and a difference of opinion is expressed in the Baraitha of Sifré (בהעלותך) as to what these dots are intended to suggest: some explain the dotting as meaning that he did not kiss him with his whole heart, whereas R Simeon the son of Johai said: Is it not well-known that Esau hated Jacob? But at that moment his pity was really aroused and he kissed him with his whole heart. (Sifrei Bamidbar 69.2)"
+  ],
+  "de": [
+   "<b>Und küsste ihn וַיִּשָּׁקֵהוּ,</b> es stehen Punkte darüber; in der Baraitha des Sifre (zu Bamidbar 69:2) sind darüber zwei Meinungen; manche erklären, diese Punkte sage, er küsste ihn nicht mit ganzem Herzen; R. Schimon b. Jochai sagt, es ist eine Überlieferung, man weiß, dass Esaw Jakob hasst; nur in jener Stunde wurde sein Erbarmen rege, und er küsste ihn mit ganzem Herzen (Bereschit Rabbah)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "bht-32-14": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 32:14",
+   "en": "Ba'al HaTurim, Genesis 32:14",
+   "de": "Baal HaTurim, Bereschit 32,14"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 32:14",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_32.14",
+  "he": [
+   "<b>מן הבא בידו מנחה לעשו</b> ששלח לו אבנים טובות שאדם צוררן בידו:",
+   "<b> מנחה</b> בגימטריא אבנים:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-32-26": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 32:26",
+   "en": "Ba'al HaTurim, Genesis 32:26",
+   "de": "Baal HaTurim, Bereschit 32,26"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 32:26",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_32.26",
+  "he": [
+   "<b>ויגע בכף ירכו</b> לראות אם הוא מלאך כמותו אם היו לו קפיצים שהמלאכים אין להם קפיצים. א\"נ לפוסלו מן העבודה לפי שקנה מעשו הבכורה שבהן העבודה:",
+   "<b> בכף ירכו</b> בגימטריא לפוסלו מכהונה:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-32-27": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 32:27",
+   "en": "Ba'al HaTurim, Genesis 32:27",
+   "de": "Baal HaTurim, Bereschit 32,27"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 32:27",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_32.27",
+  "he": [
+   "<b>ברכתני</b> בגימטריא הודה לברכתי ששרו של עשו היה:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-33-3": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 33:3",
+   "en": "Ba'al HaTurim, Genesis 33:3",
+   "de": "Baal HaTurim, Bereschit 33,3"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 33:3",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_33.3",
+  "he": [
+   "<b>וישתחו ארצה ז' פעמים</b> על שם כי שבע יפול צדיק וקם ולהעביר ז' תועבות מלבו:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-33-4": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 33:4",
+   "en": "Ba'al HaTurim, Genesis 33:4",
+   "de": "Baal HaTurim, Bereschit 33,4"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 33:4",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_33.4",
+  "he": [
+   "<b>וישקהו</b> נקוד למעלה שכיון לנשכו:",
+   "<b> וישקהו</b> בגימטריא לנושכיהו. …"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-33-9": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 33:9",
+   "en": "Ba'al HaTurim, Genesis 33:9",
+   "de": "Baal HaTurim, Bereschit 33,9"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 33:9",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_33.9",
+  "he": [
+   "<b>אחי יהי לך אשר לך</b> בגימטריא זה הברכות:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-36-31": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 36:31",
+   "en": "Ba'al HaTurim, Genesis 36:31",
+   "de": "Baal HaTurim, Bereschit 36,31"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 36:31",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_36.31",
+  "he": [
+   "<b>ואלה המלכים</b> בשביל שאמר יעקב לעשו ח\"פ אדוני מלכו ח' מלכים קודם ישראל, וכנגדם מלכו ח' מלכים עד יהורם ובימיו פשע אדום:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-32-5-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 32:5",
+   "en": "Ba'al HaTurim, Genesis 32:5",
+   "de": "Baal HaTurim, Bereschit 32,5"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 32:5:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_32.5.1",
+  "he": [
+   "<b>עם לבן גרתי</b> כלומר אף על פי שהייתי בבית לבן קיימתי תרי\"ג מצות:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-32-6-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 32:6",
+   "en": "Ba'al HaTurim, Genesis 32:6",
+   "de": "Baal HaTurim, Bereschit 32,6"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 32:6:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_32.6.1",
+  "he": [
+   "<b>ויהי לי שור וחמור</b> ולא הזכיר מינים אחרים אלא רמז ליוסף שהוא שטנו של עשו וליששכר שעוסקין בתורה לקיים הקול קול יעקב בבתי מדרשות:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-32-6-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 32:6",
+   "en": "Ba'al HaTurim, Genesis 32:6",
+   "de": "Baal HaTurim, Bereschit 32,6"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 32:6:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_32.6.2",
+  "he": [
+   "<b> לי שור</b> בגימטריא שנולד יוסף. שור בגימטריא קרן יוסף:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-32-11-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 32:11",
+   "en": "Ba'al HaTurim, Genesis 32:11",
+   "de": "Baal HaTurim, Bereschit 32,11"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 32:11:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_32.11.2",
+  "he": [
+   "<b> במקלי</b> בגימטריא יעקב פירוש בגופי לבדי. ד\"א בזכות יעקב עברו ישראל את הירדן:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-32-12-1": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 32:12",
+   "en": "Ba'al HaTurim, Genesis 32:12",
+   "de": "Baal HaTurim, Bereschit 32,12"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 32:12:1",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_32.12.1",
+  "he": [
+   "<b>הצילני נא מיד</b> ר\"ת המן רמז להמן שיצא להכות אם על בנים כדכתיב טף ונשים:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-32-25-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 32:25",
+   "en": "Ba'al HaTurim, Genesis 32:25",
+   "de": "Baal HaTurim, Bereschit 32,25"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 32:25:2",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_32.25.2",
+  "he": [
+   "<b> איש עמו</b> בגימטריא עשו אדום:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
+ "bht-32-25-3": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Бааль ґа-Турим, Берешит 32:25",
+   "en": "Ba'al HaTurim, Genesis 32:25",
+   "de": "Baal HaTurim, Bereschit 32,25"
+  },
+  "ref": "Kitzur Ba'al HaTurim on Genesis 32:25:3",
+  "url": "https://www.sefaria.org/Kitzur_Ba%27al_HaTurim_on_Genesis_32.25.3",
+  "he": [
+   "<b> ויאבק איש עמו</b> ס\"ת קשו על שם בית עשו לקש:"
+  ],
+  "en": [],
+  "versions": {
+   "he": {
+    "title": "On Your Way",
+    "license": "Public Domain",
+    "source": "http://mobile.tora.ws/"
+   },
+   "en": {
+    "title": "Sefaria Community Translation",
+    "license": "CC0",
+    "source": "https://www.sefaria.org"
+   }
+  }
+ },
  "torah-26-20-22": {
   "kind": {
    "ru": "Тора",
@@ -22822,6 +23801,582 @@
   ],
   "de": [
    "Am dritten Tage wurde es Laban berichtet, daß Jaakob entflohen war."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-32-14": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:14",
+   "en": "Genesis 32:14",
+   "de": "Bereschit 32,14"
+  },
+  "ref": "Genesis 32:14",
+  "url": "https://www.sefaria.org/Genesis_32.14",
+  "he": [
+   "וַיָּלֶן שָׁם בַּלַּיְלָה הַהוּא וַיִּקַּח מִן־הַבָּא בְיָדוֹ מִנְחָה לְעֵשָׂו אָחִיו׃"
+  ],
+  "en": [
+   "And he lodged there that night; and took of that which he had with him a present for Esau his brother:"
+  ],
+  "ru": [
+   "И заночевал там в ту ночь, и взял из того, что у него было, в дар брату своему Эсаву:"
+  ],
+  "de": [
+   "Dort blieb er in dieser Nacht und nahm von dem, was er in Händen hatte, ein Geschenk für seinen Bruder Esaw:"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-32-26": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:26",
+   "en": "Genesis 32:26",
+   "de": "Bereschit 32,26"
+  },
+  "ref": "Genesis 32:26",
+  "url": "https://www.sefaria.org/Genesis_32.26",
+  "he": [
+   "וַיַּרְא כִּי לֹא יָכֹל לוֹ וַיִּגַּע בְּכַף־יְרֵכוֹ וַתֵּקַע כַּף־יֶרֶךְ יַעֲקֹב בְּהֵאָבְקוֹ עִמּוֹ׃"
+  ],
+  "en": [
+   "And when he saw that he prevailed not against him, he touched the hollow of his thigh; and the hollow of Jacob’s thigh was strained, as he wrestled with him."
+  ],
+  "ru": [
+   "И увидел, что не может его одолеть, и коснулся его бедренного сустава, и вывихнул Йаакову бедренный сустав, борясь с ним."
+  ],
+  "de": [
+   "Er sah, daß er an ihn nichts vermochte, so griff er an den Ballen seiner Hüfte; da wich Jaakobs Hüftballen, indem er mit ihm rang."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-32-27": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:27",
+   "en": "Genesis 32:27",
+   "de": "Bereschit 32,27"
+  },
+  "ref": "Genesis 32:27",
+  "url": "https://www.sefaria.org/Genesis_32.27",
+  "he": [
+   "וַיֹּאמֶר שַׁלְּחֵנִי כִּי עָלָה הַשָּׁחַר וַיֹּאמֶר לֹא אֲשַׁלֵּחֲךָ כִּי אִם־בֵּרַכְתָּנִי׃"
+  ],
+  "en": [
+   "And he said: ‘Let me go, for the day breaketh.’ And he said: ‘I will not let thee go, except thou bless me.’"
+  ],
+  "ru": [
+   "И сказал: Отпусти меня, ведь взошла заря, и сказал: Не отпущу тебя, пока ты меня не благословишь."
+  ],
+  "de": [
+   "Da sprach er: Entlasse mich, denn der Morgen ist heraufgezogen. Er aber sprach: Ich entlasse dich nicht, du habest mich denn gesegnet."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-33-3": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 33:3",
+   "en": "Genesis 33:3",
+   "de": "Bereschit 33,3"
+  },
+  "ref": "Genesis 33:3",
+  "url": "https://www.sefaria.org/Genesis_33.3",
+  "he": [
+   "וְהוּא עָבַר לִפְנֵיהֶם וַיִּשְׁתַּחוּ אַרְצָה שֶׁבַע פְּעָמִים עַד־גִּשְׁתּוֹ עַד־אָחִיו׃"
+  ],
+  "en": [
+   "And he himself passed over before them, and bowed himself to the ground seven times, until he came near to his brother."
+  ],
+  "ru": [
+   "(Сам) же он вышел вперед и отвесил семь земных поклонов прежде, чем подошел к брату."
+  ],
+  "de": [
+   "Er aber ging vor ihnen her und bückte sich siebenmal zur Erde, bis er zu seinem Bruder hinangelangte."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-33-4": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 33:4",
+   "en": "Genesis 33:4",
+   "de": "Bereschit 33,4"
+  },
+  "ref": "Genesis 33:4",
+  "url": "https://www.sefaria.org/Genesis_33.4",
+  "he": [
+   "וַיָּרָץ עֵשָׂו לִקְרָאתוֹ וַיְחַבְּקֵהוּ וַיִּפֹּל עַל־צַוָּארָו וַיִּשָּׁקֵהוּ וַיִּבְכּוּ׃"
+  ],
+  "en": [
+   "And Esau ran to meet him, and embraced him, and fell on his neck, and kissed him; and they wept."
+  ],
+  "ru": [
+   "И побежал Эсав ему навстречу, и обнял его, и бросился ему на шею, и поцеловал его, и они заплакали."
+  ],
+  "de": [
+   "Da lief ihm Esaw entgegen und umarmte ihn, warf sich an seinen Hals und küßte ihn; und sie weinten."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-33-9": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 33:9",
+   "en": "Genesis 33:9",
+   "de": "Bereschit 33,9"
+  },
+  "ref": "Genesis 33:9",
+  "url": "https://www.sefaria.org/Genesis_33.9",
+  "he": [
+   "וַיֹּאמֶר עֵשָׂו יֶשׁ־לִי רָב אָחִי יְהִי לְךָ אֲשֶׁר־לָךְ׃"
+  ],
+  "en": [
+   "And Esau said: ‘I have enough; my brother, let that which thou hast be thine.’"
+  ],
+  "ru": [
+   "И сказал Эсав: Мне хватает, брат мой, твое пусть остается с тобой."
+  ],
+  "de": [
+   "Da sprach Esaw: Ich habe viel; mein Bruder, bleibe dir, was dein ist."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-36-31": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 36:31",
+   "en": "Genesis 36:31",
+   "de": "Bereschit 36,31"
+  },
+  "ref": "Genesis 36:31",
+  "url": "https://www.sefaria.org/Genesis_36.31",
+  "he": [
+   "וְאֵלֶּה הַמְּלָכִים אֲשֶׁר מָלְכוּ בְּאֶרֶץ אֱדוֹם לִפְנֵי מְלָךְ־מֶלֶךְ לִבְנֵי יִשְׂרָאֵל׃"
+  ],
+  "en": [
+   "And these are the kings that reigned in the land of Edom, before there reigned any king over the children of Israel."
+  ],
+  "ru": [
+   "А вот цари, которые правили в стране Эдом до того, как воцарились цари у сынов Йисраэля."
+  ],
+  "de": [
+   "Und dies sind die Könige, welche im Lande Edom regierten, bevor noch ein König die Söhne Jisraels regierte."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-32-5": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:5",
+   "en": "Genesis 32:5",
+   "de": "Bereschit 32,5"
+  },
+  "ref": "Genesis 32:5",
+  "url": "https://www.sefaria.org/Genesis_32.5",
+  "he": [
+   "וַיְצַו אֹתָם לֵאמֹר כֹּה תֹאמְרוּן לַאדֹנִי לְעֵשָׂו כֹּה אָמַר עַבְדְּךָ יַעֲקֹב עִם־לָבָן גַּרְתִּי וָאֵחַר עַד־עָתָּה׃"
+  ],
+  "en": [
+   "And he commanded them, saying: ‘Thus shall ye say unto my lord Esau: Thus saith thy servant Jacob: I have sojourned with Laban, and stayed until now."
+  ],
+  "ru": [
+   "И велел им: Скажите так господину моему Эсаву. Так говорит раб твой Йааков: С Лаваном прожил я до сего дня."
+  ],
+  "de": [
+   "und befahl ihnen also: So sollt ihr Esaw, meinem Herrn, sagen: also hat dein Diener Jaakob gesprochen: Bei Laban habe ich als Fremdling geweilt und bin bis jetzt dort zurückgehalten worden."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-32-6": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:6",
+   "en": "Genesis 32:6",
+   "de": "Bereschit 32,6"
+  },
+  "ref": "Genesis 32:6",
+  "url": "https://www.sefaria.org/Genesis_32.6",
+  "he": [
+   "וַיְהִי־לִי שׁוֹר וַחֲמוֹר צֹאן וְעֶבֶד וְשִׁפְחָה וָאֶשְׁלְחָה לְהַגִּיד לַאדֹנִי לִמְצֹא־חֵן בְּעֵינֶיךָ׃"
+  ],
+  "en": [
+   "And I have oxen, and asses and flocks, and men-servants and maid-servants; and I have sent to tell my lord, that I may find favour in thy sight.’"
+  ],
+  "ru": [
+   "И нажил я волов, и ослов, и мелкий скот, и рабов, и рабынь. И послал я известить моего господина, дабы снискать милость в его очах."
+  ],
+  "de": [
+   "So ward mir Ochs und Esel, Schaf und Knecht und Magd; ich habe gerne geschickt, dies meinem Herrn mitzuteilen, um Gunst in deinen Augen zu finden."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-32-11": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:11",
+   "en": "Genesis 32:11",
+   "de": "Bereschit 32,11"
+  },
+  "ref": "Genesis 32:11",
+  "url": "https://www.sefaria.org/Genesis_32.11",
+  "he": [
+   "קָטֹנְתִּי מִכֹּל הַחֲסָדִים וּמִכָּל־הָאֱמֶת אֲשֶׁר עָשִׂיתָ אֶת־עַבְדֶּךָ כִּי בְמַקְלִי עָבַרְתִּי אֶת־הַיַּרְדֵּן הַזֶּה וְעַתָּה הָיִיתִי לִשְׁנֵי מַחֲנוֹת׃"
+  ],
+  "en": [
+   "I am not worthy of all the mercies, and of all the truth, which Thou hast shown unto Thy servant; for with my staff I passed over this Jordan; and now I am become two camps."
+  ],
+  "ru": [
+   "Недостоин я милости и верности, что являешь ты рабу своему. С посохом перешел я Йарден и вот стал двумя станами."
+  ],
+  "de": [
+   "ich bin schon zu geringe gegen alle die Wohltaten und all die Treue, die du bereits an deinem Diener geübt; denn mit meinem Stecken habe ich diesen Jarden überschritten, und jetzt bin ich zu zwei Lagern geworden, —"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-32-12": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:12",
+   "en": "Genesis 32:12",
+   "de": "Bereschit 32,12"
+  },
+  "ref": "Genesis 32:12",
+  "url": "https://www.sefaria.org/Genesis_32.12",
+  "he": [
+   "הַצִּילֵנִי נָא מִיַּד אָחִי מִיַּד עֵשָׂו כִּי־יָרֵא אָנֹכִי אֹתוֹ פֶּן־יָבוֹא וְהִכַּנִי אֵם עַל־בָּנִים׃"
+  ],
+  "en": [
+   "Deliver me, I pray Thee, from the hand of my brother, from the hand of Esau; for I fear him, lest he come and smite me, the mother with the children."
+  ],
+  "ru": [
+   "Спаси меня от брата моего, от Эсава, потому что боюсь я его — чтобы не пришел он и не поубивал матерей с детьми."
+  ],
+  "de": [
+   "rette mich doch von der Hand meines Bruders, von Esaws Hand; denn ich fürchte ihn, daß er nicht komme und mich, die Mutter samt den Kindern erschlage;"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-32-25": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:25",
+   "en": "Genesis 32:25",
+   "de": "Bereschit 32,25"
+  },
+  "ref": "Genesis 32:25",
+  "url": "https://www.sefaria.org/Genesis_32.25",
+  "he": [
+   "וַיִּוָּתֵר יַעֲקֹב לְבַדּוֹ וַיֵּאָבֵק אִישׁ עִמּוֹ עַד עֲלוֹת הַשָּׁחַר׃"
+  ],
+  "en": [
+   "And Jacob was left alone; and there wrestled a man with him until the breaking of the day."
+  ],
+  "ru": [
+   "И остался Йааков один, и боролся некто с ним до рассвета."
+  ],
+  "de": [
+   "Übrig blieb Jaakob allein, da rang jemand mit ihm, bis der Morgen heraufzog."
   ],
   "versions": {
    "he": {

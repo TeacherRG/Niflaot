@@ -529,6 +529,21 @@ SOURCES = {
                     'Chasidut/Chabad/Tanya/Hebrew/Kehot Publication Society.json',
                     'Chasidut/Chabad/Tanya/English/Kehot Publication Society English Translation.json', None,
                     ['Part IV; Iggeret HaKodesh', 25, 1]),
+    # Бааль ґа-Турим · Ваишлах (урок №10)
+    'gen-32-5': ('Genesis', 32, 5, 5),
+    'gen-32-6': ('Genesis', 32, 6, 6),
+    'gen-32-11': ('Genesis', 32, 11, 11),
+    'gen-32-12': ('Genesis', 32, 12, 12),
+    'gen-32-14': ('Genesis', 32, 14, 14),
+    'gen-32-25': ('Genesis', 32, 25, 27),
+    'gen-33-3': ('Genesis', 33, 3, 4),
+    'gen-33-9': ('Genesis', 33, 9, 9),
+    'gen-36-31': ('Genesis', 36, 31, 31),
+    'prov-24-16': ('Proverbs', 24, 16, 16),
+    'rashi-32-5': rashi(32, 5, 0),
+    'rashi-33-4': rashi(33, 4, 1),
+    **{f'bht-{c}-{v}': bht(c, v) for c, v in [(32, 14), (32, 26), (32, 27), (33, 3), (33, 4), (33, 9), (36, 31)]},
+    **{f'bht-{c}-{v}-{k + 1}': bht_one(c, v, k) for c, v, k in [(32, 5, 0), (32, 6, 0), (32, 6, 1), (32, 11, 1), (32, 12, 0), (32, 25, 1), (32, 25, 2)]},
 }
 
 # «Бааль ґа-Турим по дням» (src/core/turimDaily.ts): the verse of every Baal HaTurim comment, one verse each — `torah-<ch>-<v>`,
@@ -557,6 +572,7 @@ CUTS = {
     'bht-18-18-2': [(' וזה שנאמר ס"י כ"ן יבורך גבר:', ' …')],
     'bht-25-27': [('<b> יושב אוהלים</b> עולה ת"י שכך שרתה שכינה באהל: יעקב', '… <b>יעקב</b>'), (' ובגימטריא [וירחך] לא יאסף', '')],
     'bht-18-19': [('אשר יצוה בגימטריא תורה ובגימטריא ברית', 'אשר יצוה … בגימטריא ברית')],
+    'bht-33-4': [(' דור חרבות שני"ו בגימטריא עשו:', ' …')],
 }
 
 # Chapter headings of an English edition that sit inside the quoted paragraph (Friedlander's PdRE 33) are cut
