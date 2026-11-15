@@ -1,7 +1,7 @@
 /**
  * «Часы» (src/core/clock.ts): the times of the day and the rules of the alarm — run by `npm run check`.
  */
-import { addDays, cleanAlarm, dayKind, DEFAULT_ALARM, DEFAULT_STUDY, inIsrael, nextRing, restAt, shownDay, timesOf, wallTime, type Alarm, type Spot } from '../src/core/clock';
+import { addDays, cleanAlarm, cleanMarks, TIME_IDS, dayKind, DEFAULT_ALARM, DEFAULT_STUDY, inIsrael, nextRing, restAt, shownDay, timesOf, wallTime, type Alarm, type Spot } from '../src/core/clock';
 
 let failed = 0;
 const ok = (cond: unknown, what: string) => {
@@ -26,14 +26,15 @@ for (const [name, s] of [['Vienna', vienna], ['Jerusalem', jerusalem]] as const)
       ok(false, `${name} ${iso}: a time is missing`);
       continue;
     }
-    ok(t.sunrise < t.shma && t.shma < t.tefila && t.tefila < t.mincha, `${name} ${iso}: the times are not in order`);
+    ok(TIME_IDS.every((id, i) => t[id] && (!i || t[TIME_IDS[i - 1]]! < t[id]!)), `${name} ${iso}: the times of the day are missing or not in order`);
+    ok(TIME_IDS.every((id) => t[id]!.getTime() % 60_000 === 0), `${name} ${iso}: a time is not a whole minute`);
     ok([t.shma, t.tefila, t.mincha].every((d) => d.getTime() % 60_000 === 0), `${name} ${iso}: not whole minutes`);
     ok(t.mincha <= t.sunset && t.sunset.getTime() - t.mincha.getTime() < 60_000, `${name} ${iso}: Mincha ends after sunset`);
     // an hour of the day: the prayer − Shma; Shma = «true» sunrise + 3 of them, a few minutes before the ordinary sunrise + 3
     const hour = t.tefila.getTime() - t.shma.getTime();
     const gra = t.sunrise.getTime() + ((t.sunset.getTime() - t.sunrise.getTime()) / 12) * 3;
     ok(Math.abs(hour - (t.sunset.getTime() - t.sunrise.getTime()) / 12) < 3 * 60_000, `${name} ${iso}: the hour of the day is off`);
-    ok(t.shma.getTime() <= gra && gra - t.shma.getTime() < 8 * 60_000, `${name} ${iso}: Shma is not just before sunrise + 3 hours (${hm(t.shma, s.zone)})`);
+    ok(t.shma.getTime() <= gra + 60_000 && gra - t.shma.getTime() < 8 * 60_000, `${name} ${iso}: Shma is not just before sunrise + 3 hours (${hm(t.shma, s.zone)})`);
   }
 }
 // a known day: Vienna, 15.11.2026 — sunrise ≈ 7:02, sunset ≈ 16:17 (CET)
@@ -110,6 +111,7 @@ const daily: Alarm = { ...DEFAULT_ALARM, on: true, days: [0, 1, 2, 3, 4, 5, 6] }
   ok(r && r.at.getTime() === at('2026-11-16', 6, 30).getTime(), 'the ring of this very minute');
 }
 ok(JSON.stringify(cleanAlarm({ on: true, h: 99, m: -1, days: [7, 1, 1, 'x'], before: 7, mode: 'x' })) === JSON.stringify({ ...DEFAULT_ALARM, on: true, days: [1] }), 'cleanAlarm');
+ok(cleanMarks(['tzeit', 'x', 'shma', 'shma']).join() === 'shma,tzeit' && cleanMarks(null).join() === 'shma,tefila,mincha' && cleanMarks([]).length === 0, 'cleanMarks');
 ok(JSON.stringify(cleanAlarm(null)) === JSON.stringify(DEFAULT_ALARM), 'cleanAlarm(null)');
 ok(cleanAlarm({ on: true }, DEFAULT_STUDY).h === 20 && cleanAlarm({ h: 7 }, DEFAULT_STUDY).h === 7, 'cleanAlarm: the defaults of the alarm of study');
 

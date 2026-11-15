@@ -39,6 +39,7 @@ export function sunTimes(iso: string, lat: number, lon: number, tzid: string): {
  * The times of the day for «Часы» (src/core/clock.ts) — by the opinion of the Alter Rebbe (Baal HaTanya), as in the Chabad
  * calendars: the day runs from the «true» sunrise to the «true» sunset (the sun 1.583° below the horizon), an hour of the
  * day is a twelfth of it; the end of the time of Shma — 3 such hours, of the morning prayer — 4. Mincha — until sunset.
+ * Also for the face of the clock: sunrise, midday (chatzot), Mincha Gedola, Plag HaMincha and nightfall (the sun 6° below).
  * Null where the sun does not rise or set.
  */
 export function dayTimes(iso: string, lat: number, lon: number, tzid: string) {
@@ -48,7 +49,11 @@ export function dayTimes(iso: string, lat: number, lon: number, tzid: string) {
     sunrise: ok(z.sunrise()),
     shma: ok(z.sofZmanShmaBaalHatanya()),
     tefila: ok(z.sofZmanTfilaBaalHatanya()),
+    chatzot: ok(z.chatzot()),
+    minchaGedola: ok(z.minchaGedolaBaalHatanya()),
+    plag: ok(z.plagHaminchaBaalHatanya()),
     sunset: ok(z.sunset()),
+    tzeit: ok(z.tzaisBaalHatanya()),
   };
 }
 

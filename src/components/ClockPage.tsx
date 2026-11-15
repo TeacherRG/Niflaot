@@ -6,7 +6,7 @@ import { Colophon } from './Colophon';
 import { CityPicker } from './ShabbatCalendar';
 import { hebrewDateText } from '../core/hebcal';
 import { currentPlace, PLACE_EVENT } from '../core/places';
-import { addDays, BEFORE, isoIn, nextRing, restAt, ringOn, shownDay, TIME_IDS, type Alarm, type AlarmKind, type Rest, type Spot, type TimeId } from '../core/clock';
+import { addDays, BEFORE, cleanMarks, DEADLINES, DEFAULT_MARKS, isoIn, nextRing, restAt, ringOn, shownDay, TIME_IDS, type Alarm, type AlarmKind, type Rest, type Spot, type TimeId } from '../core/clock';
 import { armSound, currentSpot, loadAlarm, ring, saveAlarm, soundReady } from '../core/alarm';
 
 const MIN = 60_000;
@@ -18,7 +18,24 @@ const FACE: [number, string][] = [
   [6, 'ו'],
   [9, 'ט'],
 ];
-const COLOR: Record<TimeId, string> = { shma: 'var(--tchelet)', tefila: 'var(--gold)', mincha: 'var(--plum-deep)' };
+const COLOR: Record<TimeId, string> = {
+  sunrise: 'var(--gold)',
+  shma: 'var(--tchelet)',
+  tefila: 'var(--ok)',
+  chatzot: 'var(--muted)',
+  minchaGedola: 'var(--plum-deep)',
+  plag: 'var(--gold-deep)',
+  mincha: 'var(--bad)',
+  tzeit: 'var(--ink-2)',
+};
+const MARKS_KEY = 'niflaot:clock-marks';
+const loadMarks = (): TimeId[] => {
+  try {
+    return cleanMarks(JSON.parse(localStorage.getItem(MARKS_KEY) ?? 'null'));
+  } catch {
+    return DEFAULT_MARKS;
+  }
+};
 
 /** hours, minutes and seconds of a moment on the wall clock of a time zone */
 function wall(at: Date, zone: string) {
@@ -28,38 +45,78 @@ function wall(at: Date, zone: string) {
 }
 const polar = (turn: number, r: number) => [100 + r * Math.sin(turn * 2 * Math.PI), 100 - r * Math.cos(turn * 2 * Math.PI)] as const;
 
-/** The face: hands by the city's time, and on the rim — a dot for each of the three times of the day. */
-function Face({ now, zone, marks }: { now: Date; zone: string; marks: [TimeId, Date | null][] }) {
+/** the labels of one side of the face: each at the height of its dot, moved apart so that none covers another */
+function spread(ys: number[], gap = 17, lo = 2, hi = 198): number[] {
+  const order = ys.map((y, i) => [y, i] as const).sort((a, b) => a[0] - b[0]);
+  const out = order.map(([y]) => y);
+  for (let i = 1; i < out.length; i++) out[i] = Math.max(out[i], out[i - 1] + gap);
+  const over = out.length ? Math.max(0, out[out.length - 1] - hi) : 0;
+  for (let i = out.length - 1; i >= 0; i--) out[i] = Math.max(lo + i * gap, Math.min(out[i] - over, i < out.length - 1 ? out[i + 1] - gap : hi));
+  const res: number[] = [];
+  order.forEach(([, i], k) => (res[i] = out[k]));
+  return res;
+}
+
+/**
+ * The face: hands by the city's time; each chosen time of the day — a dot on the rim at its place and, beside the face,
+ * its time and name (owner, 15.11.2026: «отметки о времени должны быть прямо на циферблате»). A passed time is pale.
+ */
+function Face({ now, zone, marks, hm, name }: { now: Date; zone: string; marks: [TimeId, Date | null][]; hm: (d: Date) => string; name: (id: TimeId) => string }) {
   const { h, m, s } = wall(now, zone);
   const hand = (turn: number, r: number, cls: string) => {
     const [x, y] = polar(turn, r);
     return <line className={cls} x1="100" y1="100" x2={x} y2={y} />;
   };
+  const dots = marks.flatMap(([id, at]) => {
+    if (!at) return [];
+    const w = wall(at, zone);
+    const [x, y] = polar(((w.h % 12) + w.m / 60) / 12, 96);
+    return [{ id, at, x, y, right: x >= 100 }];
+  });
+  const place = (right: boolean) => {
+    const side = dots.filter((d) => d.right === right);
+    const ys = spread(side.map((d) => d.y));
+    return side.map((d, i) => ({ ...d, ly: ys[i] }));
+  };
   return (
-    <svg className="clk-face" viewBox="0 0 200 200" aria-hidden="true">
+    <svg className="clk-face" viewBox="-116 -10 432 220" role="img" aria-label={dots.map((d) => `${name(d.id)} ${hm(d.at)}`).join(', ')} direction="ltr">
       <circle className="clk-rim" cx="100" cy="100" r="96" />
       {Array.from({ length: 60 }, (_, i) => {
-        const [x1, y1] = polar(i / 60, i % 5 ? 91 : 86);
-        const [x2, y2] = polar(i / 60, 94);
+        const [x1, y1] = polar(i / 60, i % 5 ? 90 : 85);
+        const [x2, y2] = polar(i / 60, 93);
         return <line key={i} className={i % 5 ? 'clk-tick' : 'clk-tick big'} x1={x1} y1={y1} x2={x2} y2={y2} />;
       })}
       {FACE.map(([n, he]) => {
-        const [x, y] = polar(n / 12, 72);
+        const [x, y] = polar(n / 12, 70);
         return (
           <text key={n} className="clk-num he" lang="he" x={x} y={y} textAnchor="middle" dominantBaseline="central">
             {he}
           </text>
         );
       })}
-      {marks.map(([id, at]) => {
-        if (!at) return null;
-        const w = wall(at, zone);
-        const [x, y] = polar(((w.h % 12) + w.m / 60) / 12, 94);
-        return <circle key={id} cx={x} cy={y} r="5" fill={COLOR[id]} stroke="var(--surface)" strokeWidth="1.5" />;
+      {[...place(false), ...place(true)].map((d) => {
+        const lx = d.right ? 208 : -8;
+        return (
+          <g key={d.id} className={`clk-mark${d.at <= now ? ' past' : ''}`}>
+            <polyline points={`${d.x},${d.y} ${d.right ? 200 : 0},${d.ly} ${lx - (d.right ? 3 : -3)},${d.ly}`} stroke={COLOR[d.id]} />
+            <circle cx={d.x} cy={d.y} r="5.5" fill={COLOR[d.id]} />
+            <text x={lx} y={d.ly} textAnchor={d.right ? 'start' : 'end'} dominantBaseline="central">
+              {d.right ? (
+                <>
+                  <tspan className="clk-mark-t">{hm(d.at)}</tspan> <tspan>{name(d.id)}</tspan>
+                </>
+              ) : (
+                <>
+                  <tspan>{name(d.id)}</tspan> <tspan className="clk-mark-t">{hm(d.at)}</tspan>
+                </>
+              )}
+            </text>
+          </g>
+        );
       })}
-      {hand(((h % 12) + m / 60) / 12, 48, 'clk-hand hour')}
-      {hand((m + s / 60) / 60, 70, 'clk-hand minute')}
-      {hand(s / 60, 78, 'clk-hand second')}
+      {hand(((h % 12) + m / 60) / 12, 46, 'clk-hand hour')}
+      {hand((m + s / 60) / 60, 68, 'clk-hand minute')}
+      {hand(s / 60, 76, 'clk-hand second')}
       <circle className="clk-pin" cx="100" cy="100" r="4" />
     </svg>
   );
@@ -221,6 +278,14 @@ export function ClockPage() {
   const { t, locale } = useI18n();
   const [now, setNow] = useState(() => new Date());
   const [editing, setEditing] = useState(false);
+  const [marks, setMarks] = useState<TimeId[]>(loadMarks);
+  const toggleMark = (id: TimeId) => {
+    const next = cleanMarks(marks.includes(id) ? marks.filter((x) => x !== id) : [...marks, id]);
+    setMarks(next);
+    try {
+      localStorage.setItem(MARKS_KEY, JSON.stringify(next));
+    } catch {}
+  };
   const [, redraw] = useState(0);
 
   useEffect(() => {
@@ -244,11 +309,13 @@ export function ClockPage() {
   const shown = spot && shownDay(now, spot);
   const todayIso = isoIn(now, zone);
   const hebrew = hebrewDateText(shown?.tomorrow ? addDays(todayIso, 1) : todayIso).replace(/[֑-ׇ]/g, '');
-  const left = (at: Date) => {
+  // a «latest» time: «осталось …»; the others: «через …»
+  const left = (id: TimeId, at: Date) => {
     const mins = Math.max(1, Math.ceil((at.getTime() - now.getTime()) / MIN));
-    return mins >= 60 ? t('clock.leftHm', { h: Math.floor(mins / 60), m: mins % 60 }) : t('clock.leftM', { m: mins });
+    const k = DEADLINES.includes(id) ? 'left' : 'in';
+    return mins >= 60 ? t(`clock.${k}Hm` as MessageKey, { h: Math.floor(mins / 60), m: mins % 60 }) : t(`clock.${k}M` as MessageKey, { m: mins });
   };
-  const nextId = shown && TIME_IDS.find((id) => shown.times[id] && shown.times[id]! > now);
+  const nextId = shown && marks.find((id) => shown.times[id] && shown.times[id]! > now);
 
   return (
     <>
@@ -268,7 +335,7 @@ export function ClockPage() {
 
         <div className="clk-top">
           <section className="clk-now" aria-label={t('clock.title')}>
-            <Face now={now} zone={zone} marks={shown ? TIME_IDS.map((id) => [id, shown.times[id]]) : []} />
+            <Face now={now} zone={zone} marks={shown ? marks.map((id) => [id, shown.times[id]]) : []} hm={hm} name={(id) => t(`clock.s.${id}` as MessageKey)} />
             <p className="clk-digital" role="timer" aria-live="off">
               {fmt({ hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(now)}
             </p>
@@ -279,6 +346,18 @@ export function ClockPage() {
               </span>
               {shown?.tomorrow && <small>{t('calendar.evening')}</small>}
             </p>
+            <div className="clk-pick" role="group" aria-label={t('clock.pick')}>
+              <b>{t('clock.pick')}</b>
+              {TIME_IDS.map((id) => {
+                const on = marks.includes(id);
+                return (
+                  <button key={id} type="button" className={on ? 'on' : ''} aria-pressed={on} title={t(`clock.t.${id}` as MessageKey)} onClick={() => toggleMark(id)}>
+                    <i style={{ background: COLOR[id] }} aria-hidden="true" />
+                    {t(`clock.s.${id}` as MessageKey)}
+                  </button>
+                );
+              })}
+            </div>
           </section>
 
           <section className="clk-times" aria-labelledby="clk-times-h">
@@ -287,7 +366,7 @@ export function ClockPage() {
               <>
                 {shown.tomorrow && <p className="clk-tomorrow">{t('clock.tomorrow', { date: dayText(new Date(now.getTime() + 24 * 60 * MIN)) })}</p>}
                 <ul>
-                  {TIME_IDS.map((id) => {
+                  {marks.map((id) => {
                     const at = shown.times[id];
                     const past = !!at && at <= now;
                     return (
@@ -295,13 +374,14 @@ export function ClockPage() {
                         <i style={{ background: COLOR[id] }} aria-hidden="true" />
                         <span>
                           <b>{t(`clock.t.${id}` as MessageKey)}</b>
-                          <small>{at ? (past ? t('clock.past') : left(at)) : ''}</small>
+                          <small>{at ? (past ? t('clock.past') : left(id, at)) : ''}</small>
                         </span>
                         <time dateTime={at?.toISOString()}>{at ? hm(at) : t('calendar.noSun')}</time>
                       </li>
                     );
                   })}
                 </ul>
+                {!marks.length && <p className="clk-note">{t('clock.pickNone')}</p>}
                 <p className="clk-note">{t('clock.note')}</p>
               </>
             ) : (

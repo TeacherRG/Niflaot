@@ -52,15 +52,36 @@ export function wallTime(iso: string, h: number, m: number, zone: string): Date 
   return new Date(t);
 }
 
-export type TimeId = 'shma' | 'tefila' | 'mincha';
-export const TIME_IDS: TimeId[] = ['shma', 'tefila', 'mincha'];
-export type Times = Record<TimeId, Date | null> & { sunrise: Date | null; sunset: Date | null };
+/** The times of the day the clock can show, in the order of the day; `mincha` — the end of its time, sunset. */
+export type TimeId = 'sunrise' | 'shma' | 'tefila' | 'chatzot' | 'minchaGedola' | 'plag' | 'mincha' | 'tzeit';
+export const TIME_IDS: TimeId[] = ['sunrise', 'shma', 'tefila', 'chatzot', 'minchaGedola', 'plag', 'mincha', 'tzeit'];
+/** «no later than»: rounded down to the minute; the rest — «from»: rounded up */
+export const DEADLINES: TimeId[] = ['shma', 'tefila', 'mincha'];
+/** what the face shows until the reader chooses */
+export const DEFAULT_MARKS: TimeId[] = ['shma', 'tefila', 'mincha'];
+/** `sunset` — the exact moment (the Jewish day turns there) */
+export type Times = Record<TimeId, Date | null> & { sunset: Date | null };
 
-/** The three «latest» times of a calendar day, each rounded down to the minute. */
+const ceilMin = (d: Date | null) => (d ? new Date(Math.ceil(d.getTime() / MIN) * MIN) : null);
+
+/** The times of a calendar day: a «latest» time is rounded down to the minute, an «earliest» one — up. */
 export function timesOf(iso: string, s: Spot): Times {
   const d = dayTimes(iso, s.lat, s.lon, s.zone);
-  return { shma: floorMin(d.shma), tefila: floorMin(d.tefila), mincha: floorMin(d.sunset), sunrise: d.sunrise, sunset: d.sunset };
+  return {
+    sunrise: ceilMin(d.sunrise),
+    shma: floorMin(d.shma),
+    tefila: floorMin(d.tefila),
+    chatzot: ceilMin(d.chatzot),
+    minchaGedola: ceilMin(d.minchaGedola),
+    plag: ceilMin(d.plag),
+    mincha: floorMin(d.sunset),
+    tzeit: ceilMin(d.tzeit),
+    sunset: d.sunset,
+  };
 }
+
+/** The reader's choice of marks made safe: known ids, each once, in the order of the day. */
+export const cleanMarks = (v: unknown): TimeId[] => (Array.isArray(v) ? TIME_IDS.filter((id) => v.includes(id)) : DEFAULT_MARKS);
 
 /** The day whose times the clock shows: today until sunset, after it — tomorrow's. */
 export function shownDay(now: Date, s: Spot): { iso: string; tomorrow: boolean; times: Times } {
