@@ -51,7 +51,9 @@ function spread(ys: number[], gap = 17, lo = 2, hi = 198): number[] {
  * its time and name (owner, 15.11.2026: «отметки о времени должны быть прямо на циферблате»). A passed time is pale.
  * Inside the face — the digital time of the city («21:15»), no hands and no numerals; the rim is the ring of the whole
  * day (24 hours: noon at the top, midnight at the bottom) and its divisions are the halachic times (`times`), each in
- * its colour; the gold ring on the rim is «now» (owner, 15.11.2026: «внутри циферблата цифры дигитальных часов, а обод —
+ * its colour; the band of the rim is dark at night and gold from sunrise to sunset (a sun and a moon inside), and the one hand with
+ * a ring on the band shows «now» among the halachic times (owner: «цифры крупнее, показать день и ночь, одна стрелка»);
+ * the ring is «now» (owner, 15.11.2026: «внутри циферблата цифры дигитальных часов, а обод —
  * галахические времена»).
  */
 export function Face({
@@ -81,10 +83,11 @@ export function Face({
     const a = times?.sunrise;
     const b = times?.mincha;
     if (!a || !b) return null;
-    const [x1, y1] = polar(turnOf(a), 96);
-    const [x2, y2] = polar(turnOf(b), 96);
-    const big = (turnOf(b) - turnOf(a) + 1) % 1 > 0.5 ? 1 : 0;
-    return `M${x1} ${y1} A96 96 0 ${big} 1 ${x2} ${y2}`;
+    const [x1, y1] = polar(turnOf(a), 89);
+    const [x2, y2] = polar(turnOf(b), 89);
+    const len = (turnOf(b) - turnOf(a) + 1) % 1;
+    const noon = (turnOf(a) + len / 2) % 1;
+    return { d: `M${x1} ${y1} A89 89 0 ${len > 0.5 ? 1 : 0} 1 ${x2} ${y2}`, sun: polar(noon, 66), moon: polar((noon + 0.5) % 1, 66) };
   })();
   const dots = marks.flatMap(([id, at]) => {
     if (!at) return [];
@@ -99,12 +102,25 @@ export function Face({
   return (
     <svg className="clk-face" viewBox="-116 -10 432 220" role="img" aria-label={dots.map((d) => `${name(d.id)} ${hm(d.at)}`).join(', ')} direction="ltr">
       <circle className="clk-rim" cx="100" cy="100" r="96" />
-      {day && <path className="clk-day" d={day} />}
+      {day && (
+        <>
+          {/* the band of the day: night — dark, from sunrise to sunset — gold; the sun and the moon mark the halves */}
+          <circle className="clk-night" cx="100" cy="100" r="89" />
+          <path className="clk-day" d={day.d} />
+          <g className="clk-sun" transform={`translate(${day.sun[0]} ${day.sun[1]})`}>
+            <circle r="4.5" />
+            {Array.from({ length: 8 }, (_, i) => (
+              <line key={i} x1="0" y1="-7" x2="0" y2="-9.5" transform={`rotate(${i * 45})`} />
+            ))}
+          </g>
+          <path className="clk-moon" transform={`translate(${day.moon[0]} ${day.moon[1]})`} d="M2 -7 A7 7 0 1 0 7 2 A5.5 5.5 0 0 1 2 -7Z" />
+        </>
+      )}
       {TIME_IDS.map((id) => {
         const at = times?.[id];
         if (!at) return null;
-        const [x1, y1] = polar(turnOf(at), 90);
-        const [x2, y2] = polar(turnOf(at), 102);
+        const [x1, y1] = polar(turnOf(at), 79);
+        const [x2, y2] = polar(turnOf(at), 101);
         return <line key={id} className="clk-zman" x1={x1} y1={y1} x2={x2} y2={y2} stroke={COLOR[id]} />;
       })}
       {[...place(false), ...place(true)].map((d) => {
@@ -128,20 +144,20 @@ export function Face({
         );
       })}
       {(() => {
-        const [x1, y1] = polar(nowTurn, 80);
-        const [x2, y2] = polar(nowTurn, 89);
-        const [cx, cy] = polar(nowTurn, 96);
+        /* the one hand: the halachic time of the day — from the centre to «now» on the band */
+        const [x2, y2] = polar(nowTurn, 80);
+        const [cx, cy] = polar(nowTurn, 89);
         return (
           <g className="clk-reach">
-            <line x1={x1} y1={y1} x2={x2} y2={y2} />
-            <circle cx={cx} cy={cy} r="7" />
+            <line x1="100" y1="100" x2={x2} y2={y2} />
+            <circle cx={cx} cy={cy} r="8" />
           </g>
         );
       })()}
-      <text className="clk-time" x="100" y="100" textAnchor="middle" dominantBaseline="central">
+      <text className="clk-big" x="100" y="100" textAnchor="middle" dominantBaseline="central">
         {two(h)}:{two(m)}
       </text>
-      <text className="clk-sec" x="100" y="128" textAnchor="middle" dominantBaseline="central">
+      <text className="clk-bigs" x="100" y="136" textAnchor="middle" dominantBaseline="central">
         {two(s)}
       </text>
     </svg>
