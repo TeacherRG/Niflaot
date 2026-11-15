@@ -2274,6 +2274,7 @@ const en: Messages = {
   'clock.leftHm': "{h} h {m} min left",
   'clock.leftM': "{m} min left",
   'clock.tomorrow': "After sunset — tomorrow's times: {date}",
+  'clock.tomorrowShort': "after sunset — tomorrow's times",
   'clock.note': "The times follow the opinion of the Alter Rebbe (Baal HaTanya), as in Chabad calendars: an hour of the day is a twelfth of the daylight; the Shema is said by the end of the third hour, the morning prayer by the end of the fourth, Minchah until sunset. They are calculated from the city's coordinates, accurate to 1–2 minutes: do not wait for the last minute, and check your community's calendar.",
   'clock.noCity': "Choose a city — the times are calculated from its coordinates.",
   'clock.alarm': "Alarm",

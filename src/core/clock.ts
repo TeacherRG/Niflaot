@@ -68,7 +68,7 @@ const ceilMin = (d: Date | null) => (d ? new Date(Math.ceil(d.getTime() / MIN) *
 export function timesOf(iso: string, s: Spot): Times {
   const d = dayTimes(iso, s.lat, s.lon, s.zone);
   return {
-    sunrise: ceilMin(d.sunrise),
+    sunrise: floorMin(d.sunrise), // as the «Календарь» shows it
     shma: floorMin(d.shma),
     tefila: floorMin(d.tefila),
     chatzot: ceilMin(d.chatzot),

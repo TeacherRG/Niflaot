@@ -4016,3 +4016,9 @@ html.tabbed .coin-toast-live{bottom:calc(76px + env(safe-area-inset-bottom,0px))
 .alarm-ring-sub{margin:0;font-size:13px;color:var(--muted)}
 .alarm-ring-go{display:grid;gap:1px;text-decoration:none;text-align:center}
 .alarm-ring-go small{font-size:12.5px;font-weight:500;opacity:.85}
+
+/* the face in the «Календарь» window */
+.sc-face{display:grid;justify-items:center;gap:2px;margin-top:10px}
+.sc-face .clk-face{max-width:400px}
+.sc-face small{font-size:11.5px;color:var(--muted)}
+.sc-face .sc-clock{margin-top:4px}

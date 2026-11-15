@@ -2274,6 +2274,7 @@ const de: Messages = {
   'clock.leftHm': "noch {h} Std. {m} Min.",
   'clock.leftM': "noch {m} Min.",
   'clock.tomorrow': "Nach Sonnenuntergang — die Zeiten für morgen: {date}",
+  'clock.tomorrowShort': "nach Sonnenuntergang — die Zeiten für morgen",
   'clock.note': "Die Zeiten folgen der Meinung des Alter Rebbe (Baal HaTanja), wie in den Chabad-Kalendern: Eine Stunde des Tages ist ein Zwölftel des Tageslichts; das Schma sagt man bis zum Ende der dritten Stunde, das Morgengebet bis zum Ende der vierten, Mincha bis Sonnenuntergang. Berechnet aus den Koordinaten der Stadt, auf 1–2 Minuten genau: Warte nicht bis zur letzten Minute und schau in den Kalender deiner Gemeinde.",
   'clock.noCity': "Wähle eine Stadt — die Zeiten werden aus ihren Koordinaten berechnet.",
   'clock.alarm': "Wecker",
