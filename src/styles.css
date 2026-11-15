@@ -3936,9 +3936,9 @@ html.tabbed .coin-toast-live{bottom:calc(76px + env(safe-area-inset-bottom,0px))
 .clk-pick button.on{border-color:var(--ink-2);color:var(--ink)}
 .clk-pick button.on i{opacity:1}
 .clk-rim{fill:var(--surface);stroke:var(--line);stroke-width:2}
-.clk-tick{stroke:var(--line);stroke-width:1}
 .clk-tick.big{stroke:var(--ink-2);stroke-width:2}
-.clk-num{fill:var(--ink-2);font-family:var(--f-he);font-size:17px;font-weight:700}
+.clk-num{fill:var(--ink-2);font-family:var(--f-num);font-size:15px;font-weight:700}
+.clk-zman{stroke-width:3;stroke-linecap:round}
 .clk-hand{stroke:var(--ink);stroke-linecap:round}
 .clk-hand.hour{stroke-width:5}
 .clk-hand.minute{stroke-width:3.2}

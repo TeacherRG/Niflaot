@@ -1,19 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useI18n, uiLang } from '../i18n';
 import type { MessageKey } from '../i18n/locales/ru';
-import { cleanMarks, DEFAULT_MARKS, shownDay, type TimeId } from '../core/clock';
+import { cleanMarks, DEFAULT_MARKS, shownDay, TIME_IDS, type TimeId } from '../core/clock';
 import { currentSpot } from '../core/alarm';
 
 /*
  * The face of «Часы» — on its page (ClockPage.tsx) and in the «Календарь» window (ShabbatCalendar.tsx).
  */
-/** the numerals of the face — Hebrew letters: 12, 3, 6, 9 */
-const FACE: [number, string][] = [
-  [12, 'י״ב'],
-  [3, 'ג'],
-  [6, 'ו'],
-  [9, 'ט'],
-];
 export const COLOR: Record<TimeId, string> = {
   sunrise: 'var(--gold)',
   shma: 'var(--tchelet)',
@@ -56,17 +49,36 @@ function spread(ys: number[], gap = 17, lo = 2, hi = 198): number[] {
 /**
  * The face: hands by the city's time; each chosen time of the day — a dot on the rim at its place and, beside the face,
  * its time and name (owner, 15.11.2026: «отметки о времени должны быть прямо на циферблате»). A passed time is pale.
+ * Inside — the numerals and hour ticks of the ordinary clock; the divisions on the rim are the halachic times of the
+ * day (`times`), each in its colour (owner, 15.11.2026: «внутри цифры обычного времени, а деления по кругу — галахическое время»).
  */
-export function Face({ now, zone, marks, hm, name }: { now: Date; zone: string; marks: [TimeId, Date | null][]; hm: (d: Date) => string; name: (id: TimeId) => string }) {
+export function Face({
+  now,
+  zone,
+  marks,
+  times,
+  hm,
+  name,
+}: {
+  now: Date;
+  zone: string;
+  marks: [TimeId, Date | null][];
+  times?: Partial<Record<TimeId, Date | null>>;
+  hm: (d: Date) => string;
+  name: (id: TimeId) => string;
+}) {
   const { h, m, s } = wall(now, zone);
   const hand = (turn: number, r: number, cls: string) => {
     const [x, y] = polar(turn, r);
     return <line className={cls} x1="100" y1="100" x2={x} y2={y} />;
   };
+  const turnOf = (at: Date) => {
+    const w = wall(at, zone);
+    return ((w.h % 12) + w.m / 60) / 12;
+  };
   const dots = marks.flatMap(([id, at]) => {
     if (!at) return [];
-    const w = wall(at, zone);
-    const [x, y] = polar(((w.h % 12) + w.m / 60) / 12, 96);
+    const [x, y] = polar(turnOf(at), 96);
     return [{ id, at, x, y, right: x >= 100 }];
   });
   const place = (right: boolean) => {
@@ -77,18 +89,25 @@ export function Face({ now, zone, marks, hm, name }: { now: Date; zone: string; 
   return (
     <svg className="clk-face" viewBox="-116 -10 432 220" role="img" aria-label={dots.map((d) => `${name(d.id)} ${hm(d.at)}`).join(', ')} direction="ltr">
       <circle className="clk-rim" cx="100" cy="100" r="96" />
-      {Array.from({ length: 60 }, (_, i) => {
-        const [x1, y1] = polar(i / 60, i % 5 ? 90 : 85);
-        const [x2, y2] = polar(i / 60, 93);
-        return <line key={i} className={i % 5 ? 'clk-tick' : 'clk-tick big'} x1={x1} y1={y1} x2={x2} y2={y2} />;
-      })}
-      {FACE.map(([n, he]) => {
-        const [x, y] = polar(n / 12, 70);
+      {Array.from({ length: 12 }, (_, i) => {
+        const [x1, y1] = polar(i / 12, 82);
+        const [x2, y2] = polar(i / 12, 87);
+        const [x, y] = polar(i / 12, 70);
         return (
-          <text key={n} className="clk-num he" lang="he" x={x} y={y} textAnchor="middle" dominantBaseline="central">
-            {he}
-          </text>
+          <g key={i}>
+            <line className="clk-tick big" x1={x1} y1={y1} x2={x2} y2={y2} />
+            <text className="clk-num" x={x} y={y} textAnchor="middle" dominantBaseline="central">
+              {i || 12}
+            </text>
+          </g>
         );
+      })}
+      {TIME_IDS.map((id) => {
+        const at = times?.[id];
+        if (!at) return null;
+        const [x1, y1] = polar(turnOf(at), 90);
+        const [x2, y2] = polar(turnOf(at), 102);
+        return <line key={id} className="clk-zman" x1={x1} y1={y1} x2={x2} y2={y2} stroke={COLOR[id]} />;
       })}
       {[...place(false), ...place(true)].map((d) => {
         const lx = d.right ? 208 : -8;
@@ -149,7 +168,7 @@ export function CalendarClock() {
   const hm = (d: Date) => new Intl.DateTimeFormat(uiLang(locale), { timeZone: spot.zone, hour: '2-digit', minute: '2-digit' }).format(d);
   return (
     <div className="sc-face">
-      <Face now={now} zone={spot.zone} marks={loadMarks().map((id) => [id, shown.times[id]])} hm={hm} name={(id) => t(`clock.s.${id}` as MessageKey)} />
+      <Face now={now} zone={spot.zone} times={shown.times} marks={loadMarks().map((id) => [id, shown.times[id]])} hm={hm} name={(id) => t(`clock.s.${id}` as MessageKey)} />
       {shown.tomorrow && <small>{t('clock.tomorrowShort')}</small>}
       <a className="sc-clock" href="#/clock">
         {t('clock.link')} →
