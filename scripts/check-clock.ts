@@ -1,7 +1,7 @@
 /**
  * «Часы» (src/core/clock.ts): the times of the day and the rules of the alarm — run by `npm run check`.
  */
-import { addDays, cleanAlarm, dayKind, DEFAULT_ALARM, inIsrael, nextRing, restAt, shownDay, timesOf, wallTime, type Alarm, type Spot } from '../src/core/clock';
+import { addDays, cleanAlarm, dayKind, DEFAULT_ALARM, DEFAULT_STUDY, inIsrael, nextRing, restAt, shownDay, timesOf, wallTime, type Alarm, type Spot } from '../src/core/clock';
 
 let failed = 0;
 const ok = (cond: unknown, what: string) => {
@@ -111,6 +111,7 @@ const daily: Alarm = { ...DEFAULT_ALARM, on: true, days: [0, 1, 2, 3, 4, 5, 6] }
 }
 ok(JSON.stringify(cleanAlarm({ on: true, h: 99, m: -1, days: [7, 1, 1, 'x'], before: 7, mode: 'x' })) === JSON.stringify({ ...DEFAULT_ALARM, on: true, days: [1] }), 'cleanAlarm');
 ok(JSON.stringify(cleanAlarm(null)) === JSON.stringify(DEFAULT_ALARM), 'cleanAlarm(null)');
+ok(cleanAlarm({ on: true }, DEFAULT_STUDY).h === 20 && cleanAlarm({ h: 7 }, DEFAULT_STUDY).h === 7, 'cleanAlarm: the defaults of the alarm of study');
 
 if (failed) {
   console.error(`clock: ${failed} problem(s)`);

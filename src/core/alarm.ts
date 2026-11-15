@@ -6,12 +6,13 @@
  * and a system notification if the reader has already allowed the reminders (no new request here). On Shabbat the site
  * itself is closed (ShabbatRest), on Yom Tov and Yom Kippur the watch keeps quiet (restAt).
  */
-import { ALARM_EVENT, ALARM_KEY } from './alarmStore';
-import { cleanAlarm, inIsrael, nextRing, restAt, type Alarm, type Spot } from './clock';
+import { ALARM_EVENT, ALARM_KEYS } from './alarmStore';
+import { ALARM_KINDS, cleanAlarm, DEFAULT_ALARM, DEFAULT_STUDY, inIsrael, nextRing, restAt, type Alarm, type AlarmKind, type Spot } from './clock';
 import { currentPlace } from './places';
 
-const SINCE_KEY = 'niflaot:alarm-since';
-const DONE_KEY = 'niflaot:alarm-done';
+const sinceKey = (k: AlarmKind) => `${ALARM_KEYS[k]}-since`;
+const doneKey = (k: AlarmKind) => `${ALARM_KEYS[k]}-done`;
+const DEFAULTS: Record<AlarmKind, Alarm> = { wake: DEFAULT_ALARM, study: DEFAULT_STUDY };
 /** the app was opened a little late — the alarm still rings */
 export const LATE_MS = 10 * 60_000;
 export const SNOOZE_MIN = 5;
@@ -32,18 +33,21 @@ const write = (k: string, v: string) => {
   } catch {}
 };
 
-export function loadAlarm(): Alarm {
+export function loadAlarm(kind: AlarmKind = 'wake'): Alarm {
+  let a: Alarm;
   try {
-    return cleanAlarm(JSON.parse(read(ALARM_KEY) ?? 'null'));
+    a = cleanAlarm(JSON.parse(read(ALARM_KEYS[kind]) ?? 'null'), DEFAULTS[kind]);
   } catch {
-    return cleanAlarm(null);
+    a = cleanAlarm(null, DEFAULTS[kind]);
   }
+  // the alarm of study is always by the clock
+  return kind === 'study' ? { ...a, mode: 'clock' } : a;
 }
 
 /** Save the alarm; rings that were due before this moment are not rung (a time set to five minutes ago is tomorrow's). */
-export function saveAlarm(a: Alarm) {
-  write(ALARM_KEY, JSON.stringify(cleanAlarm(a)));
-  write(SINCE_KEY, String(Date.now()));
+export function saveAlarm(a: Alarm, kind: AlarmKind = 'wake') {
+  write(ALARM_KEYS[kind], JSON.stringify(cleanAlarm(a, DEFAULTS[kind])));
+  write(sinceKey(kind), String(Date.now()));
   try {
     window.dispatchEvent(new Event(ALARM_EVENT));
   } catch {}
@@ -114,6 +118,7 @@ function stopSound() {
 // ——— the ring ———
 
 export interface Ring {
+  kind: AlarmKind;
   /** when it was due */
   at: Date;
   /** «Проверить звонок» on the clock page */
@@ -121,7 +126,7 @@ export interface Ring {
 }
 
 let ringing: Ring | null = null;
-let snoozeAt = 0;
+const snoozeAt: Record<AlarmKind, number> = { wake: 0, study: 0 };
 let quiet = 0;
 const listeners = new Set<(r: Ring | null) => void>();
 const tell = () => listeners.forEach((f) => f(ringing));
@@ -132,11 +137,12 @@ export function onRing(f: (r: Ring | null) => void) {
 }
 
 const TAG = 'niflaot-alarm';
-function notify(title: string, body: string) {
+function notify(kind: AlarmKind) {
+  const { title, body } = words[kind];
   try {
     if (typeof Notification === 'undefined' || Notification.permission !== 'granted' || !navigator.serviceWorker) return;
     void navigator.serviceWorker.ready
-      .then((reg) => reg.showNotification(title, { body, tag: TAG, icon: '/icons/icon-192.png', requireInteraction: true, data: { url: '/#/clock' } }))
+      .then((reg) => reg.showNotification(title, { body, tag: TAG, icon: '/icons/icon-192.png', requireInteraction: true, data: { url: kind === 'study' ? '/#/neviim' : '/#/clock' } }))
       .catch(() => {});
   } catch {}
 }
@@ -147,13 +153,13 @@ function unnotify() {
 }
 
 /** the words of the system notification — the page sets them in its language */
-let words = { title: 'Niflaot', body: '' };
-export const setRingWords = (title: string, body: string) => void (words = { title, body });
+const words: Record<AlarmKind, { title: string; body: string }> = { wake: { title: 'Niflaot', body: '' }, study: { title: 'Niflaot', body: '' } };
+export const setRingWords = (kind: AlarmKind, title: string, body: string) => void (words[kind] = { title, body });
 
 export function ring(r: Ring) {
   ringing = r;
   startSound();
-  if (!r.test && document.visibilityState !== 'visible') notify(words.title, words.body);
+  if (!r.test && document.visibilityState !== 'visible') notify(r.kind);
   clearTimeout(quiet);
   quiet = window.setTimeout(stopRing, RING_MS);
   tell();
@@ -166,29 +172,35 @@ export function stopRing() {
   tell();
 }
 export function snooze() {
-  const test = ringing?.test;
+  const r = ringing;
   stopRing();
-  if (!test) snoozeAt = Date.now() + SNOOZE_MIN * 60_000;
+  if (r && !r.test) snoozeAt[r.kind] = Date.now() + SNOOZE_MIN * 60_000;
 }
 
 function tick() {
-  if (ringing) return;
-  const a = loadAlarm();
   const s = currentSpot();
-  if (!a.on || !s) return void (snoozeAt = 0);
-  const now = new Date();
-  if (snoozeAt && now.getTime() >= snoozeAt) {
-    snoozeAt = 0;
-    if (!restAt(now, s, a.chm)) ring({ at: now });
-    return;
+  for (const kind of ALARM_KINDS) {
+    // one ring at a time: the other alarm waits for the next look (its ring is not lost — LATE_MS)
+    if (ringing) return;
+    const a = loadAlarm(kind);
+    if (!a.on || !s) {
+      snoozeAt[kind] = 0;
+      continue;
+    }
+    const now = new Date();
+    if (snoozeAt[kind] && now.getTime() >= snoozeAt[kind]) {
+      snoozeAt[kind] = 0;
+      if (!restAt(now, s, a.chm)) ring({ kind, at: now });
+      continue;
+    }
+    const since = Number(read(sinceKey(kind))) || 0;
+    const r = nextRing(a, new Date(Math.max(now.getTime() - LATE_MS, since)), s, 1);
+    if (!r || r.at > now) continue;
+    const id = String(r.at.getTime());
+    if (read(doneKey(kind)) === id) continue;
+    write(doneKey(kind), id);
+    if (!restAt(now, s, a.chm)) ring({ kind, at: r.at });
   }
-  const since = Number(read(SINCE_KEY)) || 0;
-  const r = nextRing(a, new Date(Math.max(now.getTime() - LATE_MS, since)), s, 1);
-  if (!r || r.at > now) return;
-  const id = String(r.at.getTime());
-  if (read(DONE_KEY) === id) return;
-  write(DONE_KEY, id);
-  if (!restAt(now, s, a.chm)) ring({ at: r.at });
 }
 
 /** Watch the clock while the site is open; returns «stop watching». */

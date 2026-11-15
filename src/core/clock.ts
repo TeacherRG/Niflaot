@@ -124,18 +124,23 @@ export interface Alarm {
 }
 export const BEFORE = [15, 30, 45, 60, 90, 120];
 export const DEFAULT_ALARM: Alarm = { on: false, mode: 'clock', h: 6, m: 30, before: 60, days: [0, 1, 2, 3, 4, 5], chm: false };
+/** the alarm of Torah study — «время учить Тору»: in the evening, always by the clock */
+export const DEFAULT_STUDY: Alarm = { ...DEFAULT_ALARM, h: 20, m: 0 };
+/** `wake` — the alarm clock; `study` — the alarm of Torah study, its ring leads to the passage of the day of the Prophets and Writings */
+export type AlarmKind = 'wake' | 'study';
+export const ALARM_KINDS: AlarmKind[] = ['wake', 'study'];
 
 /** A stored alarm made safe: wrong or missing fields — the defaults. */
-export function cleanAlarm(v: unknown): Alarm {
+export function cleanAlarm(v: unknown, def: Alarm = DEFAULT_ALARM): Alarm {
   const a = (v && typeof v === 'object' ? v : {}) as Partial<Alarm>;
   const int = (x: unknown, lo: number, hi: number, d: number) => (typeof x === 'number' && Number.isInteger(x) && x >= lo && x <= hi ? x : d);
-  const days = Array.isArray(a.days) ? [...new Set(a.days.filter((d) => Number.isInteger(d) && d >= 0 && d <= 6))].sort() : DEFAULT_ALARM.days;
+  const days = Array.isArray(a.days) ? [...new Set(a.days.filter((d) => Number.isInteger(d) && d >= 0 && d <= 6))].sort() : def.days;
   return {
     on: a.on === true,
     mode: a.mode === 'shma' ? 'shma' : 'clock',
-    h: int(a.h, 0, 23, DEFAULT_ALARM.h),
-    m: int(a.m, 0, 59, DEFAULT_ALARM.m),
-    before: BEFORE.includes(a.before as number) ? (a.before as number) : DEFAULT_ALARM.before,
+    h: int(a.h, 0, 23, def.h),
+    m: int(a.m, 0, 59, def.m),
+    before: BEFORE.includes(a.before as number) ? (a.before as number) : def.before,
     days,
     chm: a.chm === true,
   };
