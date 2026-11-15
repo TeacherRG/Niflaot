@@ -110,7 +110,21 @@ export function Face({ now, zone, marks, hm, name }: { now: Date; zone: string; 
           </g>
         );
       })}
-      {hand(((h % 12) + m / 60) / 12, 46, 'clk-hand hour')}
+      {(() => {
+        /* the dots stand where the HOUR hand points at their time: its thin continuation to the rim shows it
+           (owner, 15.11.2026: «написано 16:16, а точка на 16:22» — the dot was read by the minute ticks) */
+        const turn = ((h % 12) + m / 60 + s / 3600) / 12;
+        const [x1, y1] = polar(turn, 46);
+        const [x2, y2] = polar(turn, 89);
+        const [cx, cy] = polar(turn, 96);
+        return (
+          <g className="clk-reach">
+            <line x1={x1} y1={y1} x2={x2} y2={y2} />
+            <circle cx={cx} cy={cy} r="7" />
+          </g>
+        );
+      })()}
+      {hand(((h % 12) + m / 60 + s / 3600) / 12, 46, 'clk-hand hour')}
       {hand((m + s / 60) / 60, 68, 'clk-hand minute')}
       {hand(s / 60, 76, 'clk-hand second')}
       <circle className="clk-pin" cx="100" cy="100" r="4" />

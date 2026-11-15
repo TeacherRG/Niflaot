@@ -3944,6 +3944,8 @@ html.tabbed .coin-toast-live{bottom:calc(76px + env(safe-area-inset-bottom,0px))
 .clk-hand.minute{stroke-width:3.2}
 .clk-hand.second{stroke:var(--gold);stroke-width:1.4}
 .clk-pin{fill:var(--gold)}
+.clk-reach line{stroke:var(--ink);stroke-width:1.2;stroke-dasharray:2 3;opacity:.5}
+.clk-reach circle{fill:none;stroke:var(--ink);stroke-width:1.6}
 .clk-digital{margin:6px 0 0;font-family:var(--f-num);font-weight:700;font-size:34px;line-height:1;letter-spacing:.02em;font-variant-numeric:tabular-nums;direction:ltr}
 .clk-date{margin:4px 0 0;display:grid;gap:1px;font-size:13.5px;color:var(--ink-2)}
 .clk-date .he{font-family:var(--f-he);font-size:15px}
