@@ -17514,6 +17514,530 @@
    }
   }
  },
+ "gen-28-20": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 28:20–21",
+   "en": "Genesis 28:20–21",
+   "de": "Bereschit 28,20–21"
+  },
+  "ref": "Genesis 28:20-21",
+  "url": "https://www.sefaria.org/Genesis_28.20-21",
+  "he": [
+   "וידר יעקב נדר לאמר אם יהיה אלקים עמדי ושמרני בדרך הזה אשר אנכי הולך ונתן לי לחם לאכל ובגד ללבש",
+   "ושבתי בשלום אל בית אבי והיה ה׳ לי לאלקים"
+  ],
+  "en": [
+   "And Jacob vowed a vow, saying: ‘If G-d will be with me, and will keep me in this way that I go, and will give me bread to eat, and raiment to put on,",
+   "so that I come back to my father’s house in peace, then shall the L-rd be my G-d,"
+  ],
+  "ru": [
+   "И дал Йааков зарок, говоря: если Б-г будет со мной, и будет охранять меня в пути, и даст мне хлеба для еды и одежду одеться,",
+   "и благополучно вернусь в отцовский дом, то Г-сподь будет мне Б-гом,"
+  ],
+  "de": [
+   "Da tat Jaakob ein Gelübde, also: Wenn G-tt mit mir sein wird und mich auf diesem Wege, den ich gehe, bewahren, und mir Brot zu essen und Gewand zur Bekleidung geben wird,",
+   "und ich in Frieden zu dem Hause meines Vaters wiederkehren werde: so soll <i>G-tt</i> mir G-tt sein,"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-31-24": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 31:24",
+   "en": "Genesis 31:24",
+   "de": "Bereschit 31,24"
+  },
+  "ref": "Genesis 31:24",
+  "url": "https://www.sefaria.org/Genesis_31.24",
+  "he": [
+   "ויבא אלקים אל לבן הארמי בחלם הלילה ויאמר לו השמר לך פן תדבר עם יעקב מטוב עד רע"
+  ],
+  "en": [
+   "And G-d came to Laban the Aramean in a dream of the night, and said unto him: ‘Take heed to thyself that thou speak not to Jacob either good or bad.’"
+  ],
+  "ru": [
+   "И явился Б-г Лавану в ночном видении, и сказал ему: Берегись, не говори Йаакову ничего!"
+  ],
+  "de": [
+   "G-tt aber kam zu dem Aramiten Laban im Traume der Nacht und sprach zu ihm: Hüte dich, daß du mit Jaakob nichts sprechest von Gutem bis zu Bösem!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-31-29": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 31:29",
+   "en": "Genesis 31:29",
+   "de": "Bereschit 31,29"
+  },
+  "ref": "Genesis 31:29",
+  "url": "https://www.sefaria.org/Genesis_31.29",
+  "he": [
+   "יש לאל ידי לעשות עמכם רע ואלקי אביכם אמש אמר אלי לאמר השמר לך מדבר עם יעקב מטוב עד רע"
+  ],
+  "en": [
+   "It is in the power of my hand to do you hurt; but the G-d of your father spoke unto me yesternight, saying: Take heed to thyself that thou speak not to Jacob either good or bad."
+  ],
+  "ru": [
+   "Я мог бы поступить с вами плохо, но Б-г вашего отца вчера мне сказал: Берегись, не говори Йаакову ничего!"
+  ],
+  "de": [
+   "Meine Hand ist in der Kraft euch Böses zu tun, aber der G-tt eures Vaters hat verwichene Nacht zu mir also gesprochen: Hüte dich, mit Jaakob von Gutem bis zu Bösem zu sprechen!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-31-44": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 31:44",
+   "en": "Genesis 31:44",
+   "de": "Bereschit 31,44"
+  },
+  "ref": "Genesis 31:44",
+  "url": "https://www.sefaria.org/Genesis_31.44",
+  "he": [
+   "ועתה לכה נכרתה ברית אני ואתה והיה לעד ביני ובינך"
+  ],
+  "en": [
+   "And now come, let us make a covenant, I and thou; and let it be for a witness between me and thee.’"
+  ],
+  "ru": [
+   "Так что давай мы с тобой заключим договор, и будет он свидетельством между нами."
+  ],
+  "de": [
+   "Und nun, komme, laß uns einen Bund schließen, ich und du, daß Er Zeuge bleibe zwischen mir und dir!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-32-2": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:2",
+   "en": "Genesis 32:2",
+   "de": "Bereschit 32,2"
+  },
+  "ref": "Genesis 32:2",
+  "url": "https://www.sefaria.org/Genesis_32.2",
+  "he": [
+   "ויעקב הלך לדרכו ויפגעו בו מלאכי אלקים"
+  ],
+  "en": [
+   "And Jacob went on his way, and the angels of G-d met him."
+  ],
+  "ru": [
+   "А Йааков пошел своей дорогой, и повстречались ему посланники Б-жьи."
+  ],
+  "de": [
+   "Jaakob aber war seines Weges gegangen, da trafen ihn Engel G-ttes."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-11-32": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 11:32",
+   "en": "Rashi, Genesis 11:32",
+   "de": "Raschi, Bereschit 11,32"
+  },
+  "ref": "Rashi on Genesis 11:32:2",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_11.32.2",
+  "he": [
+   "(<b>בחרן</b> הַנּוּ\"ן הֲפוּכָה לוֹמַר לְךָ, עַד אַבְרָם חֲרוֹן אַף שֶׁל מָקוֹם):"
+  ],
+  "en": [
+   "בחרן IN HARAN — The נ is inverted to tell you that until the time of Abraham, the fierce anger (חרון) of the Omnipotent was kindled against the world."
+  ],
+  "de": [
+   "<b>In Charan,</b> mit umgewandtem Nun, um dir zu sagen, bis Abram bestand die Zornesglut des Allgegenwärtigen חרן = חרון אף."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "ps-55-19": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings",
+   "de": "Schriften"
+  },
+  "title": {
+   "ru": "Теґилим 55:19",
+   "en": "Psalms 55:19",
+   "de": "Tehillim 55,19"
+  },
+  "ref": "Psalms 55:19",
+  "url": "https://www.sefaria.org/Psalms_55.19",
+  "he": [
+   "פדה בשלום נפשי מקרב לי כי ברבים היו עמדי"
+  ],
+  "en": [
+   "He hath redeemed my soul in peace so that none came nigh me; For they were many that strove with me."
+  ],
+  "de": [
+   "Er erlöste mich und brachte mich heil aus dem Krieg, wo sie in Menge gegen mich auftraten."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/  "
+   }
+  }
+ },
+ "sanhedrin-24a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Санедрин 24а",
+   "en": "Sanhedrin 24a",
+   "de": "Sanhedrin 24a"
+  },
+  "ref": "Sanhedrin 24a:18",
+  "url": "https://www.sefaria.org/Sanhedrin_24a.18",
+  "he": [
+   "מאי בבל אמר רבי יוחנן בלולה במקרא בלולה במשנה בלולה בתלמוד במחשכים הושיבני כמתי עולם אמר רבי ירמיה זה תלמודה של בבל"
+  ],
+  "en": [
+   "The Gemara asks: <b>What</b> is the homiletic interpretation of the word <b>Babylonia? Rabbi Yoḥanan says,</b> as a tribute to the Jewish community of Babylonia and its Torah scholars: It means <b>mixed with Bible, mixed with Mishna,</b> and <b>mixed with Talmud.</b> Other Sages had a different opinion of the Torah in Babylonia: With regard to the verse: <b>“He has made me dwell in dark places, as those that have been long dead”</b> (Lamentations 3:6), <b>Rabbi Yirmeya says: This is the Talmud of Babylonia,</b> which is not as clear as the Talmud of Eretz Yisrael."
+  ],
+  "de": [
+   "Was bedeutet [der Name] Babel? R. Joḥanan erwiderte: Vermengt [balul] mit der Schrift, vermengt mit der Mišna und vermengt mit dem Talmud. <i>Er hat mich in Finsternis versetzt, wie ewig Tote</i>, R. Jirmeja erklärte, daß sei die babylonische Lehrweise."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "berakhot-58a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Брахот 58а",
+   "en": "Berakhot 58a",
+   "de": "Berachot 58a"
+  },
+  "ref": "Berakhot 58a:3",
+  "url": "https://www.sefaria.org/Berakhot_58a.3",
+  "he": [
+   "תנו רבנן הרואה אוכלוסי ישראל אומר ברוך חכם הרזים שאין דעתם דומה זה לזה ואין פרצופיהן דומים זה לזה בן זומא ראה אוכלוסא על גב מעלה בהר הבית אמר ברוך חכם הרזים וברוך שברא כל אלו לשמשני"
+  ],
+  "en": [
+   "<b>The Sages taught</b> in a <i>Tosefta</i>: <b>One who sees multitudes of Israel recites: Blessed…Who knows all secrets.</b> Why is this? He sees a whole nation <b>whose minds are unlike each other and whose faces are unlike each other,</b> and He Who knows all secrets, G-d, knows what is in each of their hearts. The Gemara relates: <b>Ben Zoma once saw a multitude [<i>okhlosa</i>] of Israel</b> while standing <b>on a stair on the Temple Mount.</b> He immediately <b>recited: Blessed…Who knows all secrets and Blessed…Who created all these to serve me.</b>"
+  ],
+  "de": [
+   "Die Rabbanan lehrten: Wer Scharen von Jisraéliten sieht, spreche: ‘Gepriesen sei der Allweise der Geheimnisse’; denn das Wesen des einen gleicht nicht dem des anderen, und das Gesicht des einen gleicht nicht dem des anderen. Ben Zoma sah eine Schar auf der Höhe des Tempelberges, da sprach er: ‘Gepriesen sei der Allweise der Geheimnisse’ und ‘Gepriesen sei er, der sie alle erschaffen hat, um mich zu bedienen’."
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://www.korenpub.com/koren_en_usd/koren/talmud/koren-talmud-bavli-no/mskt-brkvt.html"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "ex-23-2": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Шмот 23:2",
+   "en": "Exodus 23:2",
+   "de": "Schemot 23,2"
+  },
+  "ref": "Exodus 23:2",
+  "url": "https://www.sefaria.org/Exodus_23.2",
+  "he": [
+   "לא תהיה אחרי רבים לרעת ולא תענה על רב לנטת אחרי רבים להטת"
+  ],
+  "en": [
+   "Thou shalt not follow a multitude to do evil; neither shalt thou bear witness in a cause to turn aside after a multitude to pervert justice;"
+  ],
+  "ru": [
+   "Не следуй за большинством в злых делах, не отступай от правды в суде в угоду большинству"
+  ],
+  "de": [
+   "Folge nicht einer einfachen Majorität zu Strafurteilen, und stimme bei streitigen Meinungen nicht also ab, daß einer von seiner Meinung abgehe, damit nach der Majorität der Ausschlag erfolge."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "sanhedrin-36a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Санедрин 36а",
+   "en": "Sanhedrin 36a",
+   "de": "Sanhedrin 36a"
+  },
+  "ref": "Sanhedrin 36a:16",
+  "url": "https://www.sefaria.org/Sanhedrin_36a.16",
+  "he": [
+   "אמר רב שונה אדם לתלמידו ודן עמו בדיני נפשות מיתיבי הטהרות והטמאות האב ובנו הרב ותלמידו מונין להם שנים דיני ממונות ודיני נפשות ודיני מכות קידוש החדש ועיבור שנה אב ובנו הרב ותלמידו אין מונין להן אלא אחד"
+  ],
+  "en": [
+   "<b>Rav says: A person may teach his student</b> the relevant material <b>and</b> then <b>judge</b> cases of <b>capital law with him,</b> and this student can participate in the deliberations and serve as one of the judges. The Gemara <b>raises an objection</b> from a <i>baraita</i> (<i>Tosefta</i> 7:2): In cases of <b>ritual purity and impurity,</b> if two of the judges are <b>a father and his son,</b> or <b>a teacher and his student,</b> the court <b>counts them</b> as <b>two</b> opinions. By inference, in cases of <b>monetary law and</b> cases of <b>capital law, and</b> cases of <b>laws</b> involving the punishment <b>of lashes,</b> as well as court proceedings concerning <b>sanctification of the month and the intercalation of the year,</b> if two of the judges are <b>a father and his son,</b> or <b>a teacher and his student,</b> the court <b>counts them</b> as <b>only one</b> opinion, as it is assumed the son or student will merely echo the opinion of his father or teacher. This contradicts the ruling of Rav."
+  ],
+  "de": [
+   "Rabh sagte: Man darf bei Todesstrafsachen einen Schüler unterrichten und mit ihm diskutieren. Man wandte ein: Bei Verhandlungen über Reinheit und Unreinheit gelten die Stimmen von Vater und Sohn, von Lehrer und Schüler als zwei; bei Verhandlungen über Geldsachen, Todesstrafsachen, Geißelung, Weihung des Neumondes und Interkalation des Jahres gelten die Stimmen von Vater und Sohn, von Lehrer und Schüler als eine!? –"
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "tanya-ih-26": {
+  "kind": {
+   "ru": "Хасидут",
+   "en": "Chassidut",
+   "de": "Chassidut"
+  },
+  "title": {
+   "ru": "Тания, Игерет ґа-кодеш 26",
+   "en": "Tanya, Iggeret HaKodesh 26",
+   "de": "Tanja, Iggeret HaKodesch 26"
+  },
+  "ref": "Tanya, Part IV; Iggeret HaKodesh 26:2",
+  "url": "https://www.sefaria.org/Tanya,_Part_IV;_Iggeret_HaKodesh_26.2",
+  "he": [
+   "וְאִילָנָא דְּטוֹב וָרָע דְּאִיהוּ אִיסּוּר וְהֶיתֵּר טוּמְאָה וְטָהֳרָה – לֹא יִשְׁלְטוּ עַל יִשְׂרָאֵל יַתִּיר, דְּהָא, פַּרְנָסָה דִלְהוֹן לָא לֶהֱוֵי אֶלָּא – מִסִּטְרָא דְּאִילָנָא דְחַיֵּי, דְּלֵית תַּמָּן לֹא קַשְׁיָא מִסִּטְרָא דְרַע וְלֹא מַחֲלוֹקֶת מֵרוּחַ הַטּוּמְאָה, דִּכְתִיב: ״וְאֶת רוּחַ הַטּוּמְאָה אַעֲבִיר מִן הָאָרֶץ״ – דְּלָא יִתְפַּרְנְסוּן תַּלְמִידֵי חֲכָמִים מֵעַמֵּי הָאָרֶץ, אֶלָּא, מִסִּטְרָא דְטוֹב – דְּאָכְלִין טָהֳרָה, כָּשֵׁר, הֶיתֵּר, וְלָא מֵ״עֵרֶב רַב״ דְּאָכְלִין טוּמְאָה, פָּסוּל, אָסוּר כוּ׳, וּבְזִמְנָא דְּאִילָנָא דְטוֹב וָרָע שָׁלְטָא כוּ׳, אִינוּן חֲכָמִים דְּדַמְיָין לְשַׁבָּתוֹת וְיָמִים טוֹבִים, לֵית לְהוֹן, אֶלָּא מַה דְיָהֲבִין לְהוֹן אִינּוּן ״חוּלִּין״, כְּגַוְונָא דְּיוֹם הַשַּׁבָּת, דְּלֵית לֵיהּ אֶלָּא מַה דִמְתַקְּנִין לֵיהּ בְּיוֹמָא דְחוֹל."
+  ],
+  "en": [
+   "And the Tree of Good and Evil, i.e., prohibition and permission, impurity and purity, will no longer domineer over Israel. Their sustenance will be from the side of the Tree of Life alone. There, there is no question from the side of evil and no disagreement from the spirit of impurity, as it is written: ‘And the spirit of impurity I shall remove from the earth.’ Thus the scholars of Torah will no longer be sustained by illiterate persons (<i>amey haaretz</i>), but from the side of the good, by those who consume what is pure, kosher, permitted; nor by the mixed multitude (<i>erev rav</i>)—who consume what is impure, unfit, prohibited…. But while the Tree of Good and Evil domineers…, these Sages, who are compared to Shabbat and Festivals, have nothing save what is given to them by those profane ones, analogous to the day of Shabbat which has but what has been prepared for it on a weekday."
+  ],
+  "versions": {
+   "he": {
+    "title": "Kehot Publication Society",
+    "license": "CC-BY-NC",
+    "source": "http://kehot.com"
+   },
+   "en": {
+    "title": "Kehot Publication Society (English Translation)",
+    "license": "CC-BY-NC",
+    "source": "http://kehot.com"
+   }
+  }
+ },
  "torah-26-20-22": {
   "kind": {
    "ru": "Тора",
