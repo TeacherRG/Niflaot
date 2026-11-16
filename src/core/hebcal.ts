@@ -46,6 +46,7 @@ export function dayTimes(iso: string, lat: number, lon: number, tzid: string) {
   const z = new Zmanim(new Location(lat, lon, false, tzid), atNoon(iso), false);
   const ok = (d: Date) => (Number.isNaN(d.getTime()) ? null : d);
   return {
+    alot: ok(z.alotHaShachar()),
     sunrise: ok(z.sunrise()),
     shma: ok(z.sofZmanShmaBaalHatanya()),
     tefila: ok(z.sofZmanTfilaBaalHatanya()),

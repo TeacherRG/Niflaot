@@ -60,7 +60,7 @@ export const DEADLINES: TimeId[] = ['shma', 'tefila', 'mincha'];
 /** what the face shows until the reader chooses */
 export const DEFAULT_MARKS: TimeId[] = ['shma', 'tefila', 'mincha'];
 /** `sunset` — the exact moment (the Jewish day turns there) */
-export type Times = Record<TimeId, Date | null> & { sunset: Date | null };
+export type Times = Record<TimeId, Date | null> & { sunset: Date | null; alot: Date | null };
 
 const ceilMin = (d: Date | null) => (d ? new Date(Math.ceil(d.getTime() / MIN) * MIN) : null);
 
@@ -77,6 +77,7 @@ export function timesOf(iso: string, s: Spot): Times {
     mincha: floorMin(d.sunset),
     tzeit: ceilMin(d.tzeit),
     sunset: d.sunset,
+    alot: d.alot, // dawn: where the rim of the face begins to turn from night to day
   };
 }
 
