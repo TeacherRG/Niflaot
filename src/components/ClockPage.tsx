@@ -42,7 +42,8 @@ function AlarmCard({ kind, now, spot, zone }: { kind: AlarmKind; now: Date; spot
       const iso = addDays(todayIso, n);
       const at = alarm.days.includes(new Date(`${iso}T12:00:00Z`).getUTCDay()) ? ringOn(alarm, iso, spot) : null;
       const why = at && at >= now ? restAt(at, spot, alarm.chm) : null;
-      if (at && why) skips.push({ at, why });
+      // Shabbat is not listed: the site itself rests then (ShabbatRest), so no word about the alarm on Shabbat
+      if (at && why && why !== 'shabbat') skips.push({ at, why });
     }
   }
   const dayName = (d: number) => new Intl.DateTimeFormat(lang, { weekday: lang === 'he' ? 'narrow' : 'short', timeZone: 'UTC' }).format(new Date(Date.UTC(2026, 10, 15 + d)));
@@ -119,9 +120,6 @@ function AlarmCard({ kind, now, spot, zone }: { kind: AlarmKind; now: Date; spot
       </div>
 
       <div className="clk-rest">
-        <p>
-          <b>{t('clock.restH')}</b> {t('clock.rest')}
-        </p>
         <label>
           <input type="checkbox" checked={alarm.chm} onChange={(e) => change({ chm: e.target.checked })} /> {t('clock.chm')}
         </label>

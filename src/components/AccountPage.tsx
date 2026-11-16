@@ -566,7 +566,7 @@ export function SignInPage() {
             <SignIn />
           )}
           <p className="acc-note">
-            <a href="#/privacy">{t('privacy.title')}</a>
+            <a href="#/privacy">{t('privacy.title')}</a> · <a href="#/terms">{t('terms.title')}</a>
           </p>
         </main>
       </div>
@@ -649,7 +649,7 @@ export function AccountPage() {
           )}
           {err && <p className="acc-err" role="alert">{err}</p>}
           <p className="acc-note">
-            <a href="#/privacy">{t('privacy.title')}</a>
+            <a href="#/privacy">{t('privacy.title')}</a> · <a href="#/terms">{t('terms.title')}</a>
           </p>
         </main>
       </div>
