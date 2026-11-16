@@ -2150,6 +2150,7 @@ const en: Messages = {
   'table.sicha': "A talk of the Rebbe",
   'table.sichaNote': "In simple words: the question and the Rebbe’s answer. The whole talk is in the “Niflaot of the Rebbe” lesson on the site.",
   'table.verses': "The Rebbe’s explanations in verse",
+  'table.versesProse': "The Rebbe’s explanations of verses",
   'table.gematria': "Gematrias of the portion",
   'table.gematriaNote': "From the Baal HaTurim: every letter has a number, and words with the same number are linked in meaning.",
   'academy.h1Kids': "The Academy for children",

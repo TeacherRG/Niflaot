@@ -2020,6 +2020,7 @@ const he: Partial<Messages> = {
   'table.sicha': "שיחה של הרבי",
   'table.sichaNote': "במילים פשוטות: השאלה ותשובת הרבי. כל השיחה — בשיעור ״נפלאות הרבי״ באתר.",
   'table.verses': "הסברי הרבי בחרוזים",
+  'table.versesProse': "הסברי הרבי לפסוקים",
   'table.gematria': "גימטריות הפרשה",
   'table.gematriaNote': "מבעל הטורים: לכל אות מספר, ומילים בעלות אותו מספר קשורות במשמעות.",
   'academy.h1Kids': "האקדמיה לילדים",

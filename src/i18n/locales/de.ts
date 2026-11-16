@@ -2150,6 +2150,7 @@ const de: Messages = {
   'table.sicha': "Ein Gespräch des Rebben",
   'table.sichaNote': "In einfachen Worten: die Frage und die Antwort des Rebben. Das ganze Gespräch steht in der Lektion „Niflaot des Rebben“ auf der Seite.",
   'table.verses': "Erklärungen des Rebben in Reimen",
+  'table.versesProse': "Erklärungen des Rebben zu Versen",
   'table.gematria': "Gematrias des Abschnitts",
   'table.gematriaNote': "Nach dem Baal HaTurim: Jeder Buchstabe hat eine Zahl, und Wörter mit derselben Zahl hängen im Sinn zusammen.",
   'academy.h1Kids': "Die Akademie für Kinder",
