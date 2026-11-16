@@ -72,10 +72,12 @@ function TalkChapter({ lesson, text, ri }: { lesson: Lesson; text: LessonText; r
  * explanation, in a row; `#/<slug>/read/poem` — «Запомнить в стихах»: the same pairs as short rhymed poems. A switch at the top.
  * A lesson without cards yet has only «Беседа» (no switch).
  */
-export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards?: RebbeCardsData; mode: CardsReadMode }) {
+export function CardsReadPage({ lesson, cards, mode: asked }: { lesson: Lesson; cards?: RebbeCardsData; mode: CardsReadMode }) {
   const { t, pick, locale } = useI18n();
   const { value: text, locale: textLocale } = pick(lesson.texts);
   const adults = useMode() === 'adults';
+  // the adults have no poems: `/read/poem` opens the pairs in prose
+  const mode: CardsReadMode = adults && asked === 'poem' ? 'read' : asked;
   const items = text.cards?.items ?? [];
 
   useEffect(() => {
@@ -95,9 +97,9 @@ export function CardsReadPage({ lesson, cards, mode }: { lesson: Lesson; cards?:
               <h1>{text.title}</h1>
               <p className="author">{text.hero.author}</p>
             </div>
-            {cardsReadModes(lesson).length > 1 && (
+            {cardsReadModes(lesson, adults).length > 1 && (
               <nav className="seg no-speak" aria-label={t('cards.tabRead')}>
-                {cardsReadModes(lesson).map((m) => (
+                {cardsReadModes(lesson, adults).map((m) => (
                   <a key={m} href={cardsReadHref(lesson, m)} className={m === mode ? 'on' : undefined} aria-current={m === mode ? 'page' : undefined}>
                     {m === 'talk' ? '📜' : m === 'read' ? '🃏' : '🎵'} {t(m === 'talk' ? 'cards.modeTalk' : m === 'read' ? 'cards.tab' : 'cards.modePoem')}
                   </a>

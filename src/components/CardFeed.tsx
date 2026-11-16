@@ -1,3 +1,4 @@
+import { useMode } from '../core/mode';
 import { useState, type ReactNode } from 'react';
 import { memoImages } from '../core/memo';
 import { displayNames } from '../core/names';
@@ -76,6 +77,8 @@ function FeedCard({
 /** A review feed of the matching pairs from Memo games and the Rebbe's verse cards. */
 export function CardFeed({ lessons }: { lessons: Lesson[] }) {
   const { t, pick } = useI18n();
+  // «Запомнить в стихах» — only in the children's mode
+  const adults = useMode() === 'adults';
 
   return (
     <main className="facts facts-cards">
@@ -158,7 +161,7 @@ export function CardFeed({ lessons }: { lessons: Lesson[] }) {
               />
             );
           }),
-          ...(lesson.cards?.items ?? []).map((item, k) => {
+          ...(adults ? [] : lesson.cards?.items ?? []).map((item, k) => {
             const itemText = text.cards?.items[k];
             if (!itemText) return null;
             return (

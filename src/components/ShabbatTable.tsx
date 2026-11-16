@@ -5,6 +5,7 @@ import { teacherOf } from '../lessons/teachers';
 import { displayNames } from '../core/names';
 import { stripFootnotes } from '../sources/footnotes';
 import { tableSheet } from '../core/shabbatTable';
+import { useMode } from '../core/mode';
 import { SITE_HOST } from '../core/site';
 import { Icon } from './ui';
 import { PrintMasthead } from './PrintBrand';
@@ -47,18 +48,27 @@ function Sicha({ lesson }: { lesson: Lesson }) {
   );
 }
 
-/** The Rebbe's explanation of a verse as a short rhymed poem («Запомнить в стихах» of a «Карточки» pair). */
-function RebbePoem({ lesson, k }: { lesson: Lesson; k: number }) {
+/**
+ * The Rebbe's explanation of a verse: for children — a short rhymed poem («Запомнить в стихах» of a «Карточки» pair),
+ * for adults — in prose: the explanation card and its lesson (owner, 16.11.2026: poems only in the children's mode).
+ */
+function RebbePoem({ lesson, k, adults }: { lesson: Lesson; k: number; adults: boolean }) {
   const { pick } = useI18n();
   const c = pick(lesson.texts).value.cards!.items[k];
   return (
     <li className="st-item">
       <Verse he={lesson.cards!.items[k].verse} tr={c.verse} />
-      <p className="st-poem">
-        {c.poem.map((line, j) => (
-          <span key={j}>{line}</span>
-        ))}
-      </p>
+      {adults ? (
+        <p className="st-prose">
+          <b>{c.card}.</b> {c.horaah}
+        </p>
+      ) : (
+        <p className="st-poem">
+          {c.poem.map((line, j) => (
+            <span key={j}>{line}</span>
+          ))}
+        </p>
+      )}
     </li>
   );
 }
@@ -108,6 +118,7 @@ export function ShabbatTable({ parsha }: { parsha?: string }) {
   const { t, pick, locale } = useI18n();
   const id = (parsha && parsha in PARSHIOT ? parsha : weekParsha()) as ParshaId;
   const sheet = tableSheet(id, locale as Locale);
+  const adults = useMode() === 'adults';
   const p = PARSHIOT[id];
   const name = p.name[locale as keyof typeof p.name] ?? p.name.ru;
 
@@ -164,10 +175,10 @@ export function ShabbatTable({ parsha }: { parsha?: string }) {
 
         {sheet.verses.length > 0 && (
           <section className="p-block">
-            <h2 className="st-h2">📜 {t('table.verses')}</h2>
-            <ol className="st-items poems">
+            <h2 className="st-h2">📜 {t(adults ? 'table.versesProse' : 'table.verses')}</h2>
+            <ol className={`st-items${adults ? '' : ' poems'}`}>
               {sheet.verses.map(({ lesson, k }) => (
-                <RebbePoem key={`${lesson.slug}-${k}`} lesson={lesson} k={k} />
+                <RebbePoem key={`${lesson.slug}-${k}`} lesson={lesson} k={k} adults={adults} />
               ))}
             </ol>
           </section>
