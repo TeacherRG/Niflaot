@@ -2254,6 +2254,8 @@ const de: Messages = {
   'clock.inM': "in {m} Min.",
   'clock.pick': "Was das Zifferblatt zeigt",
   'clock.pickNone': "Wähle unter dem Zifferblatt, welche Zeiten du sehen willst.",
+  'clock.tziruf': "Der Name der Stunde",
+  'clock.tzirufNote': "Jede halachische Stunde hat ihre eigene Buchstabenfolge des vierbuchstabigen Namens (Reschit Chochma, Tor der Ehrfurcht 10).",
   'clock.t.sunrise': "Sonnenaufgang",
   'clock.t.chatzot': "Mittag (Chazot)",
   'clock.t.minchaGedola': "Mincha Gedola — ab jetzt betet man Mincha",

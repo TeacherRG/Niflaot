@@ -2254,6 +2254,8 @@ const en: Messages = {
   'clock.inM': "in {m} min",
   'clock.pick': "What to show on the face",
   'clock.pickNone': "Choose under the face which times to show.",
+  'clock.tziruf': "The Name of the hour",
+  'clock.tzirufNote': "Every halachic hour has its own permutation of the letters of the four-letter Name (Reshit Chokhmah, Gate of Fear 10).",
   'clock.t.sunrise': "Sunrise",
   'clock.t.chatzot': "Midday (chatzot)",
   'clock.t.minchaGedola': "Minchah Gedolah — Minchah may be said from now",

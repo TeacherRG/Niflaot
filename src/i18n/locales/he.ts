@@ -2111,6 +2111,8 @@ const he: Partial<Messages> = {
   'clock.inM': "בעוד {m} דק׳",
   'clock.pick': "מה להציג על לוח השעון",
   'clock.pickNone': "בחרו מתחת ללוח השעון אילו זמנים להציג.",
+  'clock.tziruf': "צירוף השם של השעה",
+  'clock.tzirufNote': "לכל שעה זמנית יש צירוף משלה של אותיות שם בן ארבע (ראשית חכמה, שער היראה י).",
   'clock.t.sunrise': "הנץ החמה",
   'clock.t.chatzot': "חצות היום",
   'clock.t.minchaGedola': "מנחה גדולה",
