@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useI18n, uiLang } from '../i18n';
 import type { MessageKey } from '../i18n/locales/ru';
-import { cleanMarks, DEFAULT_MARKS, shownDay, TIME_IDS, type TimeId } from '../core/clock';
+import { cleanMarks, DEFAULT_MARKS, shownDay, type TimeId } from '../core/clock';
 import { currentSpot } from '../core/alarm';
 
 /*
@@ -50,11 +50,8 @@ function spread(ys: number[], gap = 17, lo = 2, hi = 198): number[] {
  * The face: hands by the city's time; each chosen time of the day — a dot on the rim at its place and, beside the face,
  * its time and name (owner, 15.11.2026: «отметки о времени должны быть прямо на циферблате»). A passed time is pale.
  * Inside the face — the digital time of the city («21:15»), no hands and no numerals; the rim is the ring of the whole
- * day (24 hours: noon at the top, midnight at the bottom) and its divisions are the halachic times (`times`), each in
- * its colour; the band of the rim is dark at night and gold from sunrise to sunset (a sun and a moon inside), and the one hand with
- * a ring on the band shows «now» among the halachic times (owner: «цифры крупнее, показать день и ночь, одна стрелка»);
- * the ring is «now» (owner, 15.11.2026: «внутри циферблата цифры дигитальных часов, а обод —
- * галахические времена»).
+ * day (24 hours: noon at the top, midnight at the bottom) made of dashes — see `ring` below; the chosen times stand
+ * as dots just outside it.
  */
 export function Face({
   now,
@@ -67,7 +64,7 @@ export function Face({
   now: Date;
   zone: string;
   marks: [TimeId, Date | null][];
-  times?: Partial<Record<TimeId, Date | null>>;
+  times?: Partial<Record<TimeId | 'alot', Date | null>>;
   hm: (d: Date) => string;
   name: (id: TimeId) => string;
 }) {
@@ -78,20 +75,47 @@ export function Face({
   };
   const nowTurn = ((h + m / 60 + s / 3600) / 24 + 0.5) % 1;
   const two = (n: number) => String(n).padStart(2, '0');
-  /* the day — from sunrise to sunset — a brighter part of the rim */
-  const day = (() => {
-    const a = times?.sunrise;
-    const b = times?.mincha;
-    if (!a || !b) return null;
-    const [x1, y1] = polar(turnOf(a), 89);
-    const [x2, y2] = polar(turnOf(b), 89);
-    const len = (turnOf(b) - turnOf(a) + 1) % 1;
-    const noon = (turnOf(a) + len / 2) % 1;
-    return { d: `M${x1} ${y1} A89 89 0 ${len > 0.5 ? 1 : 0} 1 ${x2} ${y2}`, sun: polar(noon, 66), moon: polar((noon + 0.5) % 1, 66) };
+  /*
+   * The rim — dashes, as on a watch, but a dash is a quarter of a halachic hour: 48 from sunrise to sunset and 48 from
+   * sunset to sunrise. The ring is the 24 hours of the clock, so the dashes of the shorter half are narrower — as its
+   * hour is shorter. The dashes up to «now» are lit, the dash of «now» stands out; from dawn to sunrise and from
+   * sunset to nightfall the colour passes between night and day (owner, 16.11.2026).
+   */
+  const ring = (() => {
+    const rise = times?.sunrise;
+    const set = times?.mincha;
+    if (!rise || !set) return null;
+    const a = turnOf(rise);
+    const dayLen = (turnOf(set) - a + 1) % 1;
+    if (dayLen < 0.05 || dayLen > 0.95) return null;
+    const nightLen = 1 - dayLen;
+    const off = (at: Date | null | undefined, from: number, len: number, fallback: number) => {
+      if (!at) return fallback;
+      const d = (turnOf(at) - from + 1) % 1;
+      return d > len ? fallback : d / len;
+    };
+    const dusk = off(times?.tzeit, a + dayLen, nightLen, 0.08); // nightfall — a part of the night
+    const dawn = off(times?.alot, a + dayLen, nightLen, 0.9); // dawn
+    const p = (nowTurn - a + 1) % 1;
+    const isDay = p < dayLen;
+    const cur = Math.min(47, Math.floor((isDay ? p / dayLen : (p - dayLen) / nightLen) * 48));
+    const dashes = Array.from({ length: 96 }, (_, k) => {
+      const day = k < 48;
+      const i = k % 48;
+      const f = (i + 0.5) / 48;
+      const turn = (a + (day ? dayLen * f : dayLen + nightLen * f)) % 1;
+      /* how much of the day is in the colour: 1 — day, 0 — night */
+      const light = day ? 1 : f < dusk ? 1 - f / dusk : f > dawn ? (f - dawn) / (1 - dawn) : 0;
+      const slot = (day ? dayLen : nightLen) / 48;
+      const state = day !== isDay ? 'off' : i < cur ? 'lit' : i === cur ? 'now' : 'off';
+      return { k, turn, light, width: slot * 2 * Math.PI * 92 * 0.5, hour: i % 4 === 0, state };
+    });
+    const noon = (a + dayLen / 2) % 1;
+    return { dashes, sun: polar(noon, 62), moon: polar((noon + 0.5) % 1, 62) };
   })();
   const dots = marks.flatMap(([id, at]) => {
     if (!at) return [];
-    const [x, y] = polar(turnOf(at), 96);
+    const [x, y] = polar(turnOf(at), 104);
     return [{ id, at, x, y, right: x >= 100 }];
   });
   const place = (right: boolean) => {
@@ -101,34 +125,40 @@ export function Face({
   };
   return (
     <svg className="clk-face" viewBox="-116 -10 432 220" role="img" aria-label={dots.map((d) => `${name(d.id)} ${hm(d.at)}`).join(', ')} direction="ltr">
-      <circle className="clk-rim" cx="100" cy="100" r="96" />
-      {day && (
+      <circle className="clk-rim" cx="100" cy="100" r="99" />
+      {ring ? (
         <>
-          {/* the band of the day: night — dark, from sunrise to sunset — gold; the sun and the moon mark the halves */}
-          <circle className="clk-night" cx="100" cy="100" r="89" />
-          <path className="clk-day" d={day.d} />
-          <g className="clk-sun" transform={`translate(${day.sun[0]} ${day.sun[1]})`}>
+          {ring.dashes.map((d) => {
+            const [x1, y1] = polar(d.turn, d.hour ? 84 : 87);
+            const [x2, y2] = polar(d.turn, d.state === 'now' ? 99 : 96);
+            return (
+              <line
+                key={d.k}
+                className={`clk-dash ${d.state}`}
+                x1={x1}
+                y1={y1}
+                x2={x2}
+                y2={y2}
+                strokeWidth={d.state === 'now' ? d.width * 1.5 : d.width}
+                stroke={`color-mix(in srgb, var(--gold) ${Math.round(d.light * 100)}%, var(--tchelet))`}
+              />
+            );
+          })}
+          <g className="clk-sun" transform={`translate(${ring.sun[0]} ${ring.sun[1]})`}>
             <circle r="4.5" />
             {Array.from({ length: 8 }, (_, i) => (
               <line key={i} x1="0" y1="-7" x2="0" y2="-9.5" transform={`rotate(${i * 45})`} />
             ))}
           </g>
-          <path className="clk-moon" transform={`translate(${day.moon[0]} ${day.moon[1]})`} d="M2 -7 A7 7 0 1 0 7 2 A5.5 5.5 0 0 1 2 -7Z" />
+          <path className="clk-moon" transform={`translate(${ring.moon[0]} ${ring.moon[1]})`} d="M2 -7 A7 7 0 1 0 7 2 A5.5 5.5 0 0 1 2 -7Z" />
         </>
-      )}
-      {TIME_IDS.map((id) => {
-        const at = times?.[id];
-        if (!at) return null;
-        const [x1, y1] = polar(turnOf(at), 79);
-        const [x2, y2] = polar(turnOf(at), 101);
-        return <line key={id} className="clk-zman" x1={x1} y1={y1} x2={x2} y2={y2} stroke={COLOR[id]} />;
-      })}
+      ) : null}
       {[...place(false), ...place(true)].map((d) => {
         const lx = d.right ? 208 : -8;
         return (
           <g key={d.id} className={`clk-mark${d.at <= now ? ' past' : ''}`}>
             <polyline points={`${d.x},${d.y} ${d.right ? 200 : 0},${d.ly} ${lx - (d.right ? 3 : -3)},${d.ly}`} stroke={COLOR[d.id]} />
-            <circle cx={d.x} cy={d.y} r="5.5" fill={COLOR[d.id]} />
+            <circle cx={d.x} cy={d.y} r="4" fill={COLOR[d.id]} />
             <text x={lx} y={d.ly} textAnchor={d.right ? 'start' : 'end'} dominantBaseline="central">
               {d.right ? (
                 <>
@@ -143,17 +173,6 @@ export function Face({
           </g>
         );
       })}
-      {(() => {
-        /* the one hand: the halachic time of the day — from the centre to «now» on the band */
-        const [x2, y2] = polar(nowTurn, 80);
-        const [cx, cy] = polar(nowTurn, 89);
-        return (
-          <g className="clk-reach">
-            <line x1="100" y1="100" x2={x2} y2={y2} />
-            <circle cx={cx} cy={cy} r="8" />
-          </g>
-        );
-      })()}
       <text className="clk-big" x="100" y="100" textAnchor="middle" dominantBaseline="central">
         {two(h)}:{two(m)}
       </text>
