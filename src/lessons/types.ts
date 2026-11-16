@@ -270,7 +270,8 @@ export interface RebbeCard {
    * known); or, for a talk not in Likkutei Sichot, Torat Menachem (Hitvaaduyot) — year, volume and pages. Exactly one.
    */
   ls?: { vol: number; sicha?: number; pages?: string };
-  tm?: { year: number; vol: number; pages: string };
+  /** Torat Menachem: volume and pages — or, when only the date of the farbrengen is known, `day` (Hebrew: «ט׳ כסלו») */
+  tm?: { year: number; vol?: number; pages?: string; day?: string };
 }
 
 export interface RebbeCardsData {

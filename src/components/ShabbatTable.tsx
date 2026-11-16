@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Html, useI18n } from '../i18n';
+import { Html, useI18n, type Locale } from '../i18n';
 import { LESSON_GROUPS, PARSHIOT, weekParsha, type Lesson, type ParshaId } from '../lessons';
 import { teacherOf } from '../lessons/teachers';
 import { displayNames } from '../core/names';
@@ -107,7 +107,7 @@ function Gematria({ lesson, k }: { lesson: Lesson; k: number }) {
 export function ShabbatTable({ parsha }: { parsha?: string }) {
   const { t, pick, locale } = useI18n();
   const id = (parsha && parsha in PARSHIOT ? parsha : weekParsha()) as ParshaId;
-  const sheet = tableSheet(id);
+  const sheet = tableSheet(id, locale as Locale);
   const p = PARSHIOT[id];
   const name = p.name[locale as keyof typeof p.name] ?? p.name.ru;
 

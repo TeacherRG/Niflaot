@@ -609,6 +609,8 @@ const ru = {
   'cards.ls': "Ликутей сихот, т. {vol}, беседа {n}",
   'cards.lsPages': "Ликутей сихот, т. {vol}, с. {p}",
   'cards.tm': "Торат Менахем, {year}, т. {vol}, с. {p}",
+  'cards.lsVol': "Ликутей сихот, т. {vol}",
+  'cards.tmDay': "Торат Менахем, {year}, {day}",
   'cards.horaah': "Ґораа ле-поаль — вывод для жизни",
   'cards.cardVerse': "Стих: {words}",
   'cards.cardExpl': "Объяснение Ребе: {text}",

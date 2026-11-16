@@ -599,6 +599,8 @@ const en: Messages = {
   'cards.ls': "Likkutei Sichot, vol. {vol}, talk {n}",
   'cards.lsPages': "Likkutei Sichot, vol. {vol}, p. {p}",
   'cards.tm': "Torat Menachem, {year}, vol. {vol}, p. {p}",
+  'cards.lsVol': "Likkutei Sichot, vol. {vol}",
+  'cards.tmDay': "Torat Menachem, {year}, {day}",
   'cards.horaah': "Hora’ah — the lesson for life",
   'cards.cardVerse': "Verse: {words}",
   'cards.cardExpl': "The Rebbe’s explanation: {text}",

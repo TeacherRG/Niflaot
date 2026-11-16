@@ -278,8 +278,9 @@ for (const lesson of LESSONS) {
     const src = SOURCES[it.source];
     if (!src) err(`${where(k)}: source ${it.source} is not in sefaria.json`);
     else if (!plain(src.he.join(' ')).includes(plain(displayNames(it.verse)))) err(`${where(k)}: «${it.verse}» is not in ${src.ref}`);
-    const lsOk = !!it.ls && it.ls.vol > 0 && (!!it.ls.sicha || !!it.ls.pages?.trim());
-    const tmOk = !!it.tm && it.tm.year > 5700 && it.tm.vol > 0 && !!it.tm.pages.trim();
+    // Likkutei Sichot: volume (and the talk or pages, when known); Torat Menachem: year and volume with pages — or the date
+    const lsOk = !!it.ls && it.ls.vol > 0;
+    const tmOk = !!it.tm && it.tm.year > 5700 && ((!!it.tm.vol && !!it.tm.pages?.trim()) || /^[א-ת׳"״ ]+$/.test(it.tm.day ?? ''));
     if (lsOk === tmOk) err(`${where(k)}: where the talk is — Likkutei Sichos (volume and talk or pages) or Torat Menachem, one of them`);
     for (const [lang, tx] of Object.entries(lesson.texts)) {
       const ct = tx?.cards?.items[k];
@@ -350,6 +351,18 @@ for (const lesson of LESSONS) {
   es.forEach((e, k) => {
     if (!SOURCES[e.verse]) err(`${lesson.slug} · day by day ${k + 1}: verse ${e.verse} is not in sefaria.json — run scripts/fetch-sources.py`);
     else if (!SOURCES[e.verse].ref.endsWith(` ${e.ref}`) && !SOURCES[e.verse].ref.includes(` ${e.ref}-`)) err(`${lesson.slug} · day by day ${k + 1}: ${e.verse} is ${SOURCES[e.verse].ref}, not ${e.ref}`);
+  });
+}
+
+// «Беседы Ребе по дням» and «Карточки» — one set of talks (owner, 16.11.2026): a Rebbe lesson read day by day has cards
+// of the same talks — the same number, in the same order, each pair on the verse of its day
+for (const lesson of LESSONS) {
+  if (lesson.series !== 'rebbe' || !lesson.daily) continue;
+  const c = lesson.cards?.items;
+  if (!c) { err(`${lesson.slug}: talks day by day without «Карточки» — make the cards from the same talks (cards.ts)`); continue; }
+  if (c.length !== lesson.daily.length) err(`${lesson.slug}: ${lesson.daily.length} talks day by day, ${c.length} cards — the same talks expected`);
+  lesson.daily.forEach((d, k) => {
+    if (c[k] && c[k].source !== d.verse) err(`${lesson.slug} · card ${k + 1}: verse ${c[k].source}, but the talk of the day is on ${d.verse}`);
   });
 }
 
