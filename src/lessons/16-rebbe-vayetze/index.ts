@@ -188,6 +188,28 @@ const lesson: Lesson = {
   highlight: [['ושבתי בשלום אל בית אבי'], ['פדה בשלום נפשי']],
   // a talk of the Rebbe: no gematria calculator
   calculator: { words: [], secrets: {} },
+  // «Беседы Ребе по дням» (#/rebbe-vayetze/day/N, #/sichot): 12 бесед Ребе на главу Ваеце — по две в день, с воскресенья по пятницу;
+  // стих и, где беседа — о Раши, его слова; пересказ беседы и ссылка — в `daily` текстов (прислал владелец, 16.11.2026)
+  daily: [
+    // воскресенье
+    { verse: 'torah-28-10', quotes: ['rashi-28-10-2'] }, // Ликутей сихот, т. 35, Ваеце 1
+    { verse: 'torah-28-10', quotes: [] }, // т. 10, Ваеце 1 — «колодец клятвы»
+    // понедельник
+    { verse: 'torah-28-10', quotes: [] }, // Торат Менахем 5725, 9 кислева
+    { verse: 'torah-28-11', quotes: ['rashi-28-11-2', 'rashi-32-2'] }, // т. 25, Ваеце 2
+    // вторник
+    { verse: 'torah-28-13', quotes: ['rashi-28-13-3'] }, // т. 20, Ваеце 2
+    { verse: 'torah-28-20-22', quotes: [] }, // т. 15, Ваеце 3
+    // среда
+    { verse: 'torah-29-28', quotes: [] }, // т. 5, Ваеце 2
+    { verse: 'torah-29-32', quotes: ['rashi-29-32'] }, // т. 10, Ваеце 2
+    // четверг
+    { verse: 'torah-30-43', quotes: [] }, // т. 15, Ваеце 4
+    { verse: 'torah-31-6', quotes: [] }, // т. 25, Ваеце
+    // пятница
+    { verse: 'torah-31-17', quotes: ['rashi-31-17'] }, // т. 30, Ваеце 3
+    { verse: 'torah-32-2', quotes: [] }, // т. 15, Ваеце 5
+  ],
   texts: { ru, en, de },
 };
 

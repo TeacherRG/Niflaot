@@ -208,7 +208,18 @@ export function Panels() {
     <>
       <ParshaPicker groups={rebbeGroups} selected={rebbeSel} week={week} onPick={setPicked} />
       {kids && link(`#/rebbe/${rebbeSel.id}`, num('✦'), t('rebbe.title'))}
-      {kids ? rebbeSel.rebbe.flatMap((l) => games(l, true)) : rebbeSel.rebbe.map(readLink)}
+      {kids
+        ? rebbeSel.rebbe.flatMap((l) => games(l, true))
+        : rebbeSel.rebbe.flatMap((l) => [
+            // «Беседы Ребе по дням» — как «Бааль ґа-Турим по дням»
+            hasDaily(l) && (
+              <a key={`${l.slug}/day`} href={`#/${l.slug}/day`} onClick={close} className="menu-item menu-game" aria-current={isHere(`#/${l.slug}/day`) ? 'page' : undefined}>
+                {num('📅')}
+                <span>{t('turim.menuRebbe')}</span>
+              </a>
+            ),
+            readLink(l),
+          ])}
     </>
   );
   /* «Тора с Бааль ґа-Турим»: the lessons of a portion — the children's games (gematria, Memo) right under the lesson */

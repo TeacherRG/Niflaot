@@ -310,7 +310,8 @@ for (const lesson of LESSONS) {
     const v = SOURCES[it.verse];
     if (!v) err(`${where(k)}: verse ${it.verse} is not in sefaria.json`);
     else if (v.kind.en !== 'Torah') err(`${where(k)}: ${it.verse} is not a Torah verse`);
-    if (!it.quotes.length) err(`${where(k)}: no commentary`);
+    // a talk of the Rebbe: Rashi's words only where the talk is about them
+    if (!it.quotes.length && lesson.kind !== 'sicha') err(`${where(k)}: no commentary`);
     for (const q of it.quotes) {
       const { id, segs } = parseQuote(q);
       const src = SOURCES[id];

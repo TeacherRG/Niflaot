@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect, useMemo, useState, type ComponentType } from 'react';
 import { PARSHIOT, cardsOnly, findLesson, type ParshaId } from './lessons';
-import { TURIM_DAYS, hasDaily, turimDayFor } from './core/turimDaily';
+import { TURIM_DAYS, hasDaily, seriesOf, turimDayFor, type DailySeries } from './core/turimDaily';
 import { localToday } from './core/tanakh';
 import { Catalog } from './components/Catalog';
 import { ModePicker } from './components/ModePicker';
@@ -156,15 +156,15 @@ function useFirstVisitHelp(open: (p: Panel) => void, onLesson: boolean) {
   }, [open, onLesson]);
 }
 
-/** «Бааль ґа-Турим на каждый день» (#/turim): today's day, else the next one ahead, else the last (src/core/turimDaily.ts). */
-function TurimToday() {
-  const d = turimDayFor(localToday());
+/** «Бааль ґа-Турим на каждый день» (#/turim) and «Беседы Ребе по дням» (#/sichot): today's day, else the next one ahead, else the last (src/core/turimDaily.ts). */
+function TurimToday({ series = 'turim' }: { series?: DailySeries }) {
+  const d = turimDayFor(localToday(), series);
   return d ? <TurimDailyPage lesson={d.lesson} n={d.n} /> : <NotFound />;
 }
 
 /** #/<slug>/day without a day: today's day of that lesson's week, else Sunday. */
 function turimDayIn(lesson: NonNullable<ReturnType<typeof findLesson>>) {
-  const d = turimDayFor(localToday());
+  const d = turimDayFor(localToday(), seriesOf(lesson));
   return d?.lesson.slug === lesson.slug ? d.n : 1;
 }
 
@@ -288,6 +288,8 @@ function Site() {
             <TanakhPage key={`${slug}/${view}`} section={slug} date={/^\d{4}-\d{2}-\d{2}$/.test(view ?? '') ? view : undefined} />
           ) : slug === 'turim' && !view ? (
             <TurimToday />
+          ) : slug === 'sichot' && !view ? (
+            <TurimToday series="rebbe" />
           ) : slug === 'rebbe' && view in PARSHIOT ? (
             <RebbePage parsha={view as ParshaId} />
           ) : !slug ? (

@@ -48,7 +48,8 @@ const cv = (id: string) => id.split('-').slice(1, 3).map(Number) as [number, num
 export function dailyEntries(lesson: Lesson): DayEntry[] {
   if (lesson.daily?.length)
     return lesson.daily.map((d, k) => {
-      const [c, v] = cv(d.quotes[0].split(':')[0]);
+      // the verse of the day: `torah-<ch>-<v>[-<v2>]`; else — the commentator's first comment
+      const [c, v] = cv(d.verse.startsWith('torah-') || !d.quotes.length ? d.verse : d.quotes[0].split(':')[0]);
       return { verse: d.verse, ref: `${c}:${v}`, quotes: d.quotes, text: k };
     });
   if (lesson.kind !== 'commentary' || lesson.memo?.items.length !== TURIM_DAYS * PER_DAY) return [];
@@ -61,9 +62,16 @@ export function dailyEntries(lesson: Lesson): DayEntry[] {
 /** The lesson is read day by day (a commentary lesson with its own `daily` or 12 Memo pairs). */
 export const hasDaily = (lesson: Lesson) => dailyEntries(lesson).length === TURIM_DAYS * PER_DAY;
 
-/** All days of all lessons read day by day, in order of date. */
-export function turimDays(): TurimDay[] {
-  return LESSONS.filter(hasDaily)
+/**
+ * Two series read day by day, each with its own date bar: «Тора с Бааль ґа-Турим» (`turim`) and the Rebbe's talks on the portion
+ * (`rebbe` — a «Нифлаот Ребе» lesson with its own `daily`: the verse, Rashi where the talk is on Rashi, and the talk retold).
+ */
+export type DailySeries = 'turim' | 'rebbe';
+export const seriesOf = (lesson: Lesson): DailySeries => (lesson.series === 'rebbe' ? 'rebbe' : 'turim');
+
+/** All days of all lessons of a series read day by day, in order of date. */
+export function turimDays(series: DailySeries = 'turim'): TurimDay[] {
+  return LESSONS.filter((l) => seriesOf(l) === series && hasDaily(l))
     .flatMap((lesson) => Array.from({ length: TURIM_DAYS }, (_, k) => ({ lesson, n: k + 1, date: turimDate(lesson, k + 1) })))
     .sort((a, b) => a.date.localeCompare(b.date));
 }
@@ -72,14 +80,14 @@ export function turimDays(): TurimDay[] {
 export const dayEntries = (lesson: Lesson, n: number) => dailyEntries(lesson).slice((n - 1) * PER_DAY, n * PER_DAY);
 
 /** The lesson of the week of a portion read day by day. */
-export const parshaDaily = (parsha: string) => LESSONS.find((l) => l.parsha === parsha && hasDaily(l));
+export const parshaDaily = (parsha: string, series: DailySeries = 'turim') => LESSONS.find((l) => l.parsha === parsha && seriesOf(l) === series && hasDaily(l));
 
 /**
  * The day to open for a date: that very day; on Shabbat or between portions — the next day ahead
  * (on Shabbat the site rests anyway), after the last — the last one.
  */
-export function turimDayFor(today: string): TurimDay | undefined {
-  const all = turimDays();
+export function turimDayFor(today: string, series: DailySeries = 'turim'): TurimDay | undefined {
+  const all = turimDays(series);
   return all.find((d) => d.date === today) ?? all.find((d) => d.date > today) ?? all[all.length - 1];
 }
 
