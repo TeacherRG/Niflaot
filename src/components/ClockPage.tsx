@@ -4,7 +4,7 @@ import type { MessageKey } from '../i18n/locales/ru';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { CityPicker } from './ShabbatCalendar';
-import { COLOR, Face, loadMarks, MARKS_KEY } from './ClockFace';
+import { COLOR, Face, loadMarks, loadTziruf, MARKS_KEY, TZIRUF_KEY } from './ClockFace';
 import { hebrewDateText } from '../core/hebcal';
 import { currentPlace, PLACE_EVENT } from '../core/places';
 import { addDays, BEFORE, cleanMarks, DEADLINES, isoIn, nextRing, restAt, ringOn, shownDay, TIME_IDS, type Alarm, type AlarmKind, type Rest, type Spot, type TimeId } from '../core/clock';
@@ -177,6 +177,13 @@ export function ClockPage() {
       localStorage.setItem(MARKS_KEY, JSON.stringify(next));
     } catch {}
   };
+  const [tziruf, setTziruf] = useState(loadTziruf);
+  const toggleTziruf = () => {
+    setTziruf(!tziruf);
+    try {
+      localStorage.setItem(TZIRUF_KEY, tziruf ? '0' : '1');
+    } catch {}
+  };
   const [, redraw] = useState(0);
 
   useEffect(() => {
@@ -226,7 +233,7 @@ export function ClockPage() {
 
         <div className="clk-top">
           <section className="clk-now" aria-label={t('clock.title')}>
-            <Face now={now} zone={zone} times={shown?.times} marks={shown ? marks.map((id) => [id, shown.times[id]]) : []} hm={hm} name={(id) => t(`clock.s.${id}` as MessageKey)} />
+            <Face now={now} zone={zone} tziruf={tziruf} times={shown?.times} marks={shown ? marks.map((id) => [id, shown.times[id]]) : []} hm={hm} name={(id) => t(`clock.s.${id}` as MessageKey)} />
             <p className="clk-date">
               {dayText(now)}
               <span className="he" lang="he">
@@ -245,6 +252,11 @@ export function ClockPage() {
                   </button>
                 );
               })}
+              <button type="button" className={tziruf ? 'on' : ''} aria-pressed={tziruf} title={t('clock.tzirufNote')} onClick={toggleTziruf}>
+                <i style={{ background: 'var(--gold-deep)' }} aria-hidden="true" />
+                {t('clock.tziruf')}
+              </button>
+              {tziruf && <small className="clk-tziruf-note">{t('clock.tzirufNote')}</small>}
             </div>
           </section>
 

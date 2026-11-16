@@ -18,6 +18,21 @@ export const COLOR: Record<TimeId, string> = {
   tzeit: 'var(--ink-2)',
 };
 export const MARKS_KEY = 'niflaot:clock-marks';
+/**
+ * The twelve permutations of the four-letter Name, one for each halachic hour — of the day and of the night alike —
+ * in the order of «Pardes Rimonim» (gate 13, ch. 3): three beginning with each letter. That every hour has its
+ * permutation — «Reshit Chokhmah» (Gate of Fear, 10) and «Pardes Rimonim» (gate 21, ch. 8); the order by the hours is
+ * the project's choice (owner, 16.11.2026: «как Пардес, имена через дефис, как опция»). Written with hyphens.
+ */
+export const TZIRUFIM = ['יהוה', 'יההו', 'יוהה', 'ההיו', 'ההוי', 'היוה', 'והיה', 'וההי', 'ויהה', 'הויה', 'היהו', 'הוהי'].map((w) => [...w].join('-'));
+export const TZIRUF_KEY = 'niflaot:clock-tziruf';
+export const loadTziruf = (): boolean => {
+  try {
+    return localStorage.getItem(TZIRUF_KEY) === '1';
+  } catch {
+    return false;
+  }
+};
 export const loadMarks = (): TimeId[] => {
   try {
     return cleanMarks(JSON.parse(localStorage.getItem(MARKS_KEY) ?? 'null'));
@@ -60,6 +75,7 @@ export function Face({
   times,
   hm,
   name,
+  tziruf,
 }: {
   now: Date;
   zone: string;
@@ -67,6 +83,8 @@ export function Face({
   times?: Partial<Record<TimeId | 'alot', Date | null>>;
   hm: (d: Date) => string;
   name: (id: TimeId) => string;
+  /** show the permutation of the Name of the current halachic hour */
+  tziruf?: boolean;
 }) {
   const { h, m, s } = wall(now, zone);
   const turnOf = (at: Date) => {
@@ -111,7 +129,7 @@ export function Face({
       return { k, turn, light, width: slot * 2 * Math.PI * 92 * 0.5, hour: i % 4 === 0, state };
     });
     const noon = (a + dayLen / 2) % 1;
-    return { dashes, sun: polar(noon, 62), moon: polar((noon + 0.5) % 1, 62) };
+    return { dashes, hour: Math.floor(cur / 4), sun: polar(noon, 62), moon: polar((noon + 0.5) % 1, 62) };
   })();
   const dots = marks.flatMap(([id, at]) => {
     if (!at) return [];
@@ -179,6 +197,11 @@ export function Face({
       <text className="clk-bigs" x="100" y="136" textAnchor="middle" dominantBaseline="central">
         {two(s)}
       </text>
+      {tziruf && ring && (
+        <text className="clk-tziruf he" lang="he" x="100" y="68" textAnchor="middle" dominantBaseline="central" direction="rtl">
+          {TZIRUFIM[ring.hour]}
+        </text>
+      )}
     </svg>
   );
 }
@@ -200,7 +223,7 @@ export function CalendarClock() {
   const hm = (d: Date) => new Intl.DateTimeFormat(uiLang(locale), { timeZone: spot.zone, hour: '2-digit', minute: '2-digit' }).format(d);
   return (
     <div className="sc-face">
-      <Face now={now} zone={spot.zone} times={shown.times} marks={loadMarks().map((id) => [id, shown.times[id]])} hm={hm} name={(id) => t(`clock.s.${id}` as MessageKey)} />
+      <Face now={now} zone={spot.zone} times={shown.times} marks={loadMarks().map((id) => [id, shown.times[id]])} tziruf={loadTziruf()} hm={hm} name={(id) => t(`clock.s.${id}` as MessageKey)} />
       {shown.tomorrow && <small>{t('clock.tomorrowShort')}</small>}
       <a className="sc-clock" href="#/clock">
         {t('clock.link')} →

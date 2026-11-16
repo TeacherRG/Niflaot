@@ -3939,6 +3939,8 @@ html.tabbed .coin-toast-live{bottom:calc(76px + env(safe-area-inset-bottom,0px))
 .clk-dash{stroke-linecap:butt;opacity:.3}
 .clk-dash.lit{opacity:1}
 .clk-dash.now{opacity:1;stroke:var(--bad)}
+.clk-tziruf{fill:var(--gold-deep);font-family:var(--f-he);font-size:15px;font-weight:700;letter-spacing:.04em;paint-order:stroke;stroke:var(--surface);stroke-width:5;stroke-linejoin:round}
+.clk-tziruf-note{flex-basis:100%;font-size:12px;line-height:1.4;color:var(--muted);text-align:start}
 .clk-sun circle{fill:var(--gold)}
 .clk-sun line{stroke:var(--gold);stroke-width:1.6;stroke-linecap:round}
 .clk-moon{fill:var(--tchelet)}
