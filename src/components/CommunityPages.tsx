@@ -261,6 +261,25 @@ export function ConsentPage({ token }: { token: string }) {
 }
 
 /** `#/privacy` — what the site keeps, where, why and for how long. */
+/** «Правила использования» (`#/terms`): the short terms of the site, the date of their last change on top (`terms.date`). */
+export function TermsPage() {
+  const { t } = useI18n();
+  useTitle(t('terms.title'));
+  return (
+    <>
+      <TopBar title={t('terms.title')} />
+      <div className="wrap acc">
+        <header className="partners-head">
+          <h1>{t('terms.title')}</h1>
+          <p className="terms-date">{t('terms.updated', { date: t('terms.date') })}</p>
+        </header>
+        <Html as="main" className="prose acc-card terms" html={t('terms.body')} />
+      </div>
+      <Colophon />
+    </>
+  );
+}
+
 export function PrivacyPage() {
   const { t } = useI18n();
   useTitle(t('privacy.title'));

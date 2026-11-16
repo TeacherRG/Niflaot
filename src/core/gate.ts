@@ -7,7 +7,7 @@
  * nobody could sign in, so the site stays open.
  */
 // `#/english`, `#/russian`, `#/german` — the language courses for Hebrew speakers: their page is in Hebrew, and the sign-in is not (yet)
-const OPEN = new Set(['account', 'consent', 'privacy', 'admin', 'english', 'russian', 'german']);
+const OPEN = new Set(['account', 'consent', 'privacy', 'terms', 'admin', 'english', 'russian', 'german']);
 
 export const isOpenRoute = (slug: string, view?: string) =>
   OPEN.has(slug) || (slug === 'reading' && view !== 'shnayim') || (slug === 'newsletter' && view === 'unsubscribe');
