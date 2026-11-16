@@ -549,6 +549,18 @@ SOURCES = {
 # «Бааль ґа-Турим по дням» (src/core/turimDaily.ts): the verse of every Baal HaTurim comment, one verse each — `torah-<ch>-<v>`,
 # with vowel points (Tanach with Nikkud) and the Names as on Sefaria
 SOURCES['torah-26-20-22'] = ('Genesis', 26, 20, 22)
+# «Беседы Ребе по дням» · Ваеце (src/lessons/16-rebbe-vayetze, `daily`): стихи бесед и слова Раши, о которых говорит Ребе
+SOURCES['torah-28-20-22'] = ('Genesis', 28, 20, 22)
+for _c, _v in [(28, 13), (29, 28), (29, 32), (30, 43), (31, 6), (31, 17), (32, 2)]:
+    SOURCES.setdefault(f'torah-{_c}-{_v}', ('Genesis', _c, _v, _v))
+SOURCES.update({
+    'rashi-28-10-2': rashi(28, 10, 1),
+    'rashi-28-11-2': rashi(28, 11, 1),
+    'rashi-28-13-3': rashi(28, 13, 2),
+    'rashi-29-32': rashi(29, 32, 0),
+    'rashi-31-17': rashi(31, 17, 0),
+    'rashi-32-2': rashi(32, 2, 0),
+})
 for _id in [k for k in SOURCES if k.startswith('bht-')]:
     _c, _v = map(int, _id.split('-')[1:3])
     SOURCES.setdefault(f'torah-{_c}-{_v}', ('Genesis', _c, _v, _v))

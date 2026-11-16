@@ -8,7 +8,7 @@ import { markCalcs } from '../core/calcLines';
 import { displayNames } from '../core/names';
 import { localToday } from '../core/tanakh';
 import { civilDate, hebrewNumber, jewishDate } from '../core/hebrewDate';
-import { PER_DAY, TURIM_DAYS, dailyEntries, dayEntries, doneKey, turimDate, turimDays, turimIsDone, useTurimDone, type DayEntry } from '../core/turimDaily';
+import { PER_DAY, TURIM_DAYS, dailyEntries, dayEntries, doneKey, seriesOf, turimDate, turimDays, turimIsDone, useTurimDone, type DayEntry } from '../core/turimDaily';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { TanakhMasthead } from './PrintBrand';
@@ -129,7 +129,7 @@ function DoneCheck({ lesson, n, today }: { lesson: Lesson; n: number; today: str
     <div className={`tk-done no-print${done ? ' on' : ''}`}>
       <label>
         <input type="checkbox" checked={done} onChange={(e) => mark(key, e.target.checked)} />
-        <span>{t('turim.done')}</span>
+        <span>{t(seriesOf(lesson) === 'rebbe' ? 'turim.doneRebbe' : 'turim.done')}</span>
       </label>
       <p>
         {t('turim.doneStat', { n: read, total: TURIM_DAYS })}
@@ -214,6 +214,9 @@ function Entry({ lesson, e, num, text, tr, chapter, same, gems }: { lesson: Less
   const title = e.text !== undefined ? lt.daily?.items[e.text]?.h : e.memo !== undefined ? lt.memo?.items[e.memo]?.title : undefined;
   const body = e.text !== undefined ? lt.daily?.items[e.text]?.b ?? '' : '';
   const mi = e.memo !== undefined ? lt.memo?.items[e.memo] : undefined;
+  const rebbe = seriesOf(lesson) === 'rebbe';
+  // the words under the verse: Baal HaTurim's — or, in the Rebbe's talks, Rashi's (the talk is about them)
+  const by = rebbe || e.quotes?.[0]?.startsWith('rashi-') ? t('tanakh.rashi') : t('teacher.baal-haturim.short');
   // маячки гематрий: в стихе — у его слов, остальные — строкой над словами комментатора
   const { marks, rest } = placeGems(he && v && !same ? v.he.join(' ') : null, gems);
   return (
@@ -242,9 +245,10 @@ function Entry({ lesson, e, num, text, tr, chapter, same, gems }: { lesson: Less
           </p>
         )}
         <GemRow facts={rest} />
-        <Comment he={he ? cHe : null} tr={tr && cTr.length ? cTr : null} trLang={tr} by={t('teacher.baal-haturim.short')} />
+        {(cHe.length > 0 || cTr.length > 0) && <Comment he={he ? cHe : null} tr={tr && cTr.length ? cTr : null} trLang={tr} by={by} />}
         {(body || mi) && (
           <div className="turim-expl" lang={lessonLocale}>
+            {rebbe && <span className="tk-st-by">{t('turim.byRebbe')}</span>}
             {title && (
               <h3>
                 <HebrewRuns text={title} />
@@ -281,18 +285,20 @@ export function TurimDailyPage({ lesson, n }: { lesson: Lesson; n: number }) {
   const date = turimDate(lesson, n);
   const parsha = PARSHIOT[lesson.parsha];
   const parshaName = (parsha.name as Record<string, string>)[locale] ?? parsha.name.ru;
-  const all = turimDays();
+  const series = seriesOf(lesson);
+  const rebbe = series === 'rebbe';
+  const all = turimDays(series);
   const i = all.findIndex((d) => d.lesson.slug === lesson.slug && d.n === n);
   const link = (d?: (typeof all)[number]) => d && { href: `#/${d.lesson.slug}/day/${d.n}`, date: d.date, lesson: d.lesson, n: d.n };
   const prev = link(all[i - 1]);
   const next = link(all[i + 1]);
   const entries = dayEntries(lesson, n);
   // the equalities of the week's comments (each once, at its first comment) — the beacons of GemPop
-  const gems = useMemo(() => entryFacts(lesson, dailyEntries(lesson), entryHebrew).slice((n - 1) * PER_DAY, n * PER_DAY), [lesson, n]);
+  const gems = useMemo(() => (rebbe ? [] : entryFacts(lesson, dailyEntries(lesson), entryHebrew).slice((n - 1) * PER_DAY, n * PER_DAY)), [lesson, n, rebbe]);
   const [view, setView] = useView(locale);
   const tr = trOf(view);
   const isToday = date === today;
-  const title = t('turim.h1');
+  const title = t(rebbe ? 'turim.h1Rebbe' : 'turim.h1');
   const refs = (l: Lesson, d: number) => `${bookName(locale)} ${[...new Set(dayEntries(l, d).map((e) => e.ref))].join(', ')}`;
 
   useEffect(() => {
@@ -314,7 +320,7 @@ export function TurimDailyPage({ lesson, n }: { lesson: Lesson; n: number }) {
                 {jewishDate(date)}
               </span>
               {!isToday && all.some((d) => d.date === today) && (
-                <a className="tk-to-today" href="#/turim">
+                <a className="tk-to-today" href={rebbe ? '#/sichot' : '#/turim'}>
                   {t('turim.toToday')}
                 </a>
               )}
@@ -336,6 +342,7 @@ export function TurimDailyPage({ lesson, n }: { lesson: Lesson; n: number }) {
               {t('tanakh.day', { n, total: TURIM_DAYS })} · {t('turim.minutes')}
             </p>
             {date > today && <p className="tk-note">{t('turim.ahead')}</p>}
+            {rebbe && text.daily?.intro && <p className="tk-note">{text.daily.intro}</p>}
           </header>
 
           <div className="tk-tools no-print">
@@ -383,10 +390,10 @@ export function TurimDailyPage({ lesson, n }: { lesson: Lesson; n: number }) {
           </nav>
 
           <p className="turim-more no-print">
-            {t('turim.lesson')}: <a href={`#/${lesson.slug}/read`}>{text.title}</a> · <a href={`#/${lesson.slug}`}>{t('turim.lessonPlay')}</a>
+            {t('turim.lesson')}: <a href={`#/${lesson.slug}/read`}>{text.title}</a> · <a href={`#/${lesson.slug}`}>{t(rebbe ? 'turim.lessonInvest' : 'turim.lessonPlay')}</a>
           </p>
           <footer className="tk-sources">
-            <p>{t('turim.sources')}</p>
+            <p>{t(rebbe ? 'turim.sourcesRebbe' : 'turim.sources')}</p>
           </footer>
         </article>
       </div>

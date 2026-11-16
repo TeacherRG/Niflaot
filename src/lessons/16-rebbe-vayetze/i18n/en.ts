@@ -390,6 +390,60 @@ Four riddles: I will return in peace, the Tree of Life, peace among the many, an
 Play 👉 ${site}
 
 ©mychitas.app`,
+  daily: {
+    intro:
+      'The Rebbe’s talks on Vayetze — two a day, Sunday to Friday: the verse, Rashi’s words when the talk is about them, and the heart of the talk — retold by the project, with its source.',
+    items: [
+      {
+        h: 'A tzaddik’s departure leaves a mark',
+        b: '<p>Rashi: while a tzaddik is in a city, he is its glory, its radiance and its splendor (<span class="he">הוד, זיו, הדר</span>); when he leaves, they leave too. The Rebbe asks: why does Rashi not bring the Midrash’s question — Yitzchak and Rivkah stayed in Be’er Sheva? The answer: for Rashi these words describe the tzaddik’s influence on the people of the city, and Yitzchak did not leave his house.</p><p>In the inner meaning, Be’er Sheva is the root of the soul, and Charan is the world, “the place of anger” (<span class="he">חרון אף</span>). The soul’s leaving its root is self-sacrifice. And it “leaves a mark” not as a loss but as an achievement: the world becomes a dwelling for G-d.</p><p class="expl"><b>The lesson.</b> The soul comes down into the world not to lose — but to make it a home for G-d.</p><p><small>Likkutei Sichot, vol. 35, Vayetze 1</small></p>',
+      },
+      {
+        h: 'The well of the oath',
+        b: '<p>The Midrash reads “Be’er Sheva” as “the well of the oath”: Yaakov left it so as not to give Avimelech the oath that Avraham and Yitzchak had given. They dealt with evil so that it would not disturb holiness: they pushed it away — or made peace with it.</p><p>Yaakov goes to Charan not to make peace with evil but to transform it — “darkness into light.” That is why the place of the Temple, which he called a “house,” is higher than Avraham’s “mountain” and Yitzchak’s “field.”</p><p class="expl"><b>The lesson.</b> It is not enough to shut out darkness or come to terms with it — it has to be turned into light.</p><p><small>Likkutei Sichot, vol. 10, Vayetze 1</small></p>',
+      },
+      {
+        h: 'Glory, radiance, splendor',
+        b: '<p>In the Rebbe’s talk, Rashi’s three words — <span class="he">הוד, זיו, הדר</span> — correspond to three sefirot: Netzach, Hod and Yesod. Every flow of influence downward passes through them, the birth of children too.</p><p>Yaakov goes to Charan to build a “complete bed” (<span class="he">מטתו שלמה</span>) — a family in which all the sons are righteous; that is why “glory, radiance and splendor” leave Be’er Sheva. The descent to Charan brings a new level: through their leaving, the very Essence is drawn down.</p><p class="expl"><b>The lesson.</b> Going down for the sake of the task leads to a level that cannot be reached above.</p><p><small>Torat Menachem, 5725, Vayetze, 9 Kislev</small></p>',
+      },
+      {
+        h: 'Two meetings',
+        b: '<p>The Rebbe distinguishes two meetings. At the start of the journey Yaakov “came upon” (<span class="he">ויפגע</span>) the place — as if by chance, without intent. Help from above is given to him as preparation and strength for his work. The Rebbe writes: a “meeting” without intent comes not only from Yaakov’s side, but, as it were, from above too: everything that flows down from the Infinite (Ein Sof) comes as if by itself.</p><p>At the end, when his work in Lavan’s house is done, “the angels of G-d met him” (<span class="he">ויפגעו בו</span>) — Rashi: the angels of the Land of Israel, to escort him into the Land. This is already a gift from above for what was done.</p><p class="expl"><b>The lesson.</b> At the start of the road strength is given as preparation; at the end — as a gift for the work done.</p><p><small>Likkutei Sichot, vol. 25, Vayetze 2</small></p>',
+      },
+      {
+        h: 'The land on which you lie',
+        b: '<p>Rashi: G-d folded the whole Land of Israel beneath Yaakov. The Rebbe asks: why does the Torah need the words “on which you lie”? They are a sign that the land belongs to Yaakov, like “arise, walk through the land” said to Avraham. But Avraham had to walk through it — and Yaakov receives it lying down.</p><p>That is the novelty: it is enough for Jews to be “lying on it” — and G-d will do everything Himself, as King Chizkiyahu said: “I sleep on my bed, and You act.”</p><p class="expl"><b>The lesson.</b> Some things are given without our effort: our part is to be in our place — G-d will do the rest.</p><p><small>Likkutei Sichot, vol. 20, Vayetze 2</small></p>',
+      },
+      {
+        h: 'A vow with conditions',
+        b: '<p>How could Yaakov make his service depend on conditions — “if G-d will be with me…”? The Rebbe answers: the purpose of the vow is that it be fulfilled, and the “conditions” are the way there. They correspond to two kinds of service: help from above in Torah and mitzvot — and service in permitted, everyday things, which is like teshuvah.</p><p>The stone becomes “a house of G-d,” because the true purpose is that the lowest world become a dwelling for the very Essence. For that, complete self-nullification is needed, like that of a simple servant.</p><p class="expl"><b>The lesson.</b> The everyday is part of the service too: a house for G-d is built from a plain stone.</p><p><small>Likkutei Sichot, vol. 15, Vayetze 3</small></p>',
+      },
+      {
+        h: 'Why Yaakov married sisters',
+        b: '<p>Yaakov kept the whole Torah before it was given — so why did he marry two sisters, and why is Rashi silent about it? The Rebbe explains: before the Torah was given, keeping it was Yaakov’s own adornment — a hiddur. And a hiddur cannot override what is truly required.</p><p>Here there was an obligation that the nations took upon themselves after the Flood: not to deceive. Yaakov had promised Rachel to marry her and given her signs — breaking his word would have been deceit.</p><p class="expl"><b>The lesson.</b> One may not take on hiddurim at the expense of others. Whoever can help a Jew far from Judaism should not put his own growth above what matters most for the other.</p><p><small>Likkutei Sichot, vol. 5, Vayetze 2</small></p>',
+      },
+      {
+        h: 'See the difference',
+        b: '<p>Why does Rashi add to the reason for Reuven’s name in the verse itself (“the L-rd has seen my affliction”) the Sages’ explanation: “see the difference between my son and my father-in-law’s son”? The Rebbe: it does not replace the reason — it grounds it. Leah could not know that her firstborn would be good, and a bad son would have distanced her husband. So Rashi shows Reuven’s merit: he did not sell the birthright, did not contest it, and wanted to save Yosef. From this merit follows “now my husband will love me.”</p><p>The Rebbe then explains why the tribes were named by their mothers, each with its own reason: a name binds the soul to the body and expresses the path of service of each tribe.</p><p class="expl"><b>The lesson.</b> A name is not just a word: it tells how its bearer serves.</p><p><small>Likkutei Sichot, vol. 10, Vayetze 2</small></p>',
+      },
+      {
+        h: 'Why sheep',
+        b: '<p>“And the man grew exceedingly rich, and had many flocks.” Why is Yaakov’s wealth sheep (<span class="he">צאן</span>)? The Rebbe connects the word with “going out” (<span class="he">יציאה</span>): the service of going out into the world to make it a dwelling for G-d. Its core is self-nullification — it is not for one’s own perfection, but to fulfill His will.</p><p>Yet self-nullification needs strength too: “bold as a leopard, mighty as a lion.” And that strength must grow out of self-nullification, not out of ego.</p><p class="expl"><b>The lesson.</b> For our generation: to seek out Jews lost in the darkness of exile is to save lives.</p><p><small>Likkutei Sichot, vol. 15, Vayetze 4</small></p>',
+      },
+      {
+        h: 'With all my strength',
+        b: '<p>From Yaakov’s words “with all my strength I served your father,” the Rambam derives a law: a hired worker must work with all his strength. The Rebbe explains: this is the ordinary duty of every worker, not piety beyond the letter of the law. And Yaakov received his reward for it in this world.</p><p>So too in the service of G-d: below, beyond the “four cubits” of Torah and prayer, we do the work of the Master of the house — and it must be done with all our strength, both inner and “encompassing” (makifim).</p><p class="expl"><b>The lesson.</b> Work in the world is also service of the Master — and it should be done in full strength.</p><p><small>Likkutei Sichot, vol. 25, Vayetze</small></p>',
+      },
+      {
+        h: 'Sons before wives',
+        b: '<p>The order “his sons and his wives” runs against the rule that a wife comes before children. Rashi: Yaakov put the males before the females, while Esav put the females before the males. The Rebbe: Rashi chooses his words to show that for Yaakov the men were the main thing, and for Esav — the opposite.</p><p>In the inner meaning, “man and woman” are mind and heart. Usually the mind rules the heart. But in exile, where concealment is great, service above reason is needed — and it is revealed precisely in the heart. This is “the service of Esav within Yaakov.”</p><p class="expl"><b>The lesson.</b> When concealment is great, the mind alone is not enough — the heart’s devotion, beyond understanding, is needed.</p><p><small>Likkutei Sichot, vol. 30, Vayetze 3</small></p>',
+      },
+      {
+        h: 'And Yaakov went on his way',
+        b: '<p>Where does the strength for a whole year of work in the world come from? Lavan (<span class="he">לבן</span> — “white”) corresponds to the supernal whiteness — the essence of the Infinite, which forgives sins. This cannot be reached by effort from below alone. Lavan’s pursuit revealed it from above and gave Yaakov strength for his meeting with Esav.</p><p>So too the month of Tishrei gives strength for all the weekdays: that every deed be “for the sake of Heaven” and “in all your ways know Him.”</p><p class="expl"><b>The lesson.</b> The strength received on the festivals is for the weekdays: “and Yaakov went on his way.”</p><p><small>Likkutei Sichot, vol. 15, Vayetze 5</small></p>',
+      },
+    ],
+  },
   source:
     'The investigation follows talks of the Lubavitcher Rebbe on 10 Kislev 5744 and 5745 and the maamar “Veshavti beshalom” of 5738 (Likkutei Sichot, vol. 25, 10 Kislev), in Hebrew translation; retold by the project.',
 };

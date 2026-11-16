@@ -390,6 +390,60 @@ Vier Rätsel: Ich kehre in Frieden zurück, der Baum des Lebens, Frieden unter d
 Spiel mit 👉 ${site}
 
 ©mychitas.app`,
+  daily: {
+    intro:
+      'Gespräche des Rebbe zum Wochenabschnitt Wajeze — zwei am Tag, von Sonntag bis Freitag: der Vers, Raschis Worte, wenn das Gespräch von ihnen handelt, und der Kern des Gesprächs — vom Projekt nacherzählt, mit Quelle.',
+    items: [
+      {
+        h: 'Wenn ein Zaddik geht, bleibt eine Spur',
+        b: '<p>Raschi: Solange ein Zaddik in einer Stadt ist, ist er ihre Pracht, ihr Glanz und ihre Schönheit (<span class="he">הוד, זיו, הדר</span>); geht er, gehen auch sie. Der Rebbe fragt: Warum bringt Raschi nicht die Frage des Midrasch — Jizchak und Riwka sind doch in Beer Scheva geblieben? Die Antwort: Bei Raschi sprechen diese Worte vom Einfluss des Zaddik auf die Menschen der Stadt, und Jizchak ging nicht aus seinem Haus.</p><p>Im inneren Sinn ist Beer Scheva die Wurzel der Seele, und Charan ist die Welt, „der Ort des Zorns“ (<span class="he">חרון אף</span>). Wenn die Seele ihre Wurzel verlässt, ist das Selbstaufopferung. Und sie „hinterlässt eine Spur“ nicht als Verlust, sondern als Gewinn: Die Welt wird eine Wohnung für G-tt.</p><p class="expl"><b>Die Lehre.</b> Die Seele kommt nicht in die Welt, um zu verlieren — sondern um sie zu einem Zuhause für G-tt zu machen.</p><p><small>Likkutej Sichot, Bd. 35, Wajeze 1</small></p>',
+      },
+      {
+        h: 'Der Brunnen des Schwurs',
+        b: '<p>Der Midrasch liest „Beer Scheva“ als „Brunnen des Schwurs“: Jaakow ging von dort weg, um Awimelech nicht den Schwur zu geben, den Awraham und Jizchak gegeben hatten. Sie gingen mit dem Bösen so um, dass es die Heiligkeit nicht stört: Sie stießen es weg — oder schlossen mit ihm Frieden.</p><p>Jaakow geht nach Charan, nicht um mit dem Bösen Frieden zu schließen, sondern um es zu verwandeln — „Dunkelheit in Licht“. Darum ist der Ort des Tempels, den er „Haus“ nannte, höher als Awrahams „Berg“ und Jizchaks „Feld“.</p><p class="expl"><b>Die Lehre.</b> Es reicht nicht, sich von der Dunkelheit abzugrenzen oder sich mit ihr zu einigen — man muss sie in Licht verwandeln.</p><p><small>Likkutej Sichot, Bd. 10, Wajeze 1</small></p>',
+      },
+      {
+        h: 'Pracht, Glanz, Schönheit',
+        b: '<p>Im Gespräch des Rebbe entsprechen Raschis drei Worte — <span class="he">הוד, זיו, הדר</span> — drei Sefirot: Nezach, Hod und Jessod. Durch sie fließt jeder Einfluss nach unten, auch die Geburt von Kindern.</p><p>Jaakow geht nach Charan, um ein „vollständiges Bett“ (<span class="he">מטתו שלמה</span>) zu bauen — eine Familie, in der alle Söhne gerecht sind; darum verlassen „Pracht, Glanz und Schönheit“ Beer Scheva. Der Abstieg nach Charan bringt eine neue Stufe: Durch ihren Weggang wird das Wesen selbst herabgezogen.</p><p class="expl"><b>Die Lehre.</b> Ein Abstieg für die Aufgabe führt zu einer Stufe, die man oben nicht erreicht.</p><p><small>Torat Menachem, 5725, Wajeze, 9. Kislew</small></p>',
+      },
+      {
+        h: 'Zwei Begegnungen',
+        b: '<p>Der Rebbe unterscheidet zwei Begegnungen. Am Anfang des Weges „traf“ (<span class="he">ויפגע</span>) Jaakow auf den Ort — wie zufällig, ohne Absicht. Hilfe von oben bekommt er als Vorbereitung und Kraft für seine Arbeit. Der Rebbe schreibt: Eine „Begegnung“ ohne Absicht kommt nicht nur von Jaakows Seite, sondern gleichsam auch von oben: Alles, was vom Unendlichen (Ejn Sof) herabkommt, kommt wie von selbst.</p><p>Am Ende, als seine Arbeit im Haus Lawans getan ist, „begegneten ihm“ (<span class="he">ויפגעו בו</span>) Engel G-ttes — nach Raschi die Engel des Landes Israel, um ihn ins Land zu begleiten. Das ist schon ein Geschenk von oben für das Getane.</p><p class="expl"><b>Die Lehre.</b> Am Anfang des Weges bekommt man Kraft als Vorbereitung, am Ende — als Geschenk für die getane Arbeit.</p><p><small>Likkutej Sichot, Bd. 25, Wajeze 2</small></p>',
+      },
+      {
+        h: 'Das Land, auf dem du liegst',
+        b: '<p>Raschi: G-tt faltete das ganze Land Israel unter Jaakow zusammen. Der Rebbe fragt: Wozu braucht die Tora die Worte „auf dem du liegst“? Sie sind ein Zeichen, dass das Land Jaakow gehört — wie „steh auf, geh durch das Land“ bei Awraham. Aber Awraham musste es durchwandern, Jaakow bekommt es im Liegen.</p><p>Das ist das Neue: Es reicht, dass Juden „auf ihm liegen“ — und G-tt tut alles selbst, wie König Chiskijahu sagte: „Ich schlafe auf meinem Bett, und Du handelst.“</p><p class="expl"><b>Die Lehre.</b> Manches wird ohne unsere Mühe gegeben: Unsere Aufgabe ist, an unserem Platz zu sein — den Rest tut G-tt.</p><p><small>Likkutej Sichot, Bd. 20, Wajeze 2</small></p>',
+      },
+      {
+        h: 'Ein Gelübde mit Bedingungen',
+        b: '<p>Wie konnte Jaakow seinen Dienst von Bedingungen abhängig machen — „wenn G-tt mit mir ist…“? Der Rebbe antwortet: Das Ziel des Gelübdes ist, dass es erfüllt wird, und die „Bedingungen“ sind der Weg dorthin. Sie entsprechen zwei Arten des Dienstes: Hilfe von oben in Tora und Mizwot — und dem Dienst im Erlaubten, im Alltag, der der Teschuwa gleicht.</p><p>Der Stein wird zum „Haus G-ttes“, denn das wahre Ziel ist, dass die untere Welt eine Wohnung für das Wesen selbst wird. Dafür braucht man völlige Selbstaufgabe, wie ein einfacher Diener.</p><p class="expl"><b>Die Lehre.</b> Auch der Alltag ist Teil des Dienstes: Aus einem einfachen Stein wird ein Haus für G-tt gebaut.</p><p><small>Likkutej Sichot, Bd. 15, Wajeze 3</small></p>',
+      },
+      {
+        h: 'Warum Jaakow Schwestern heiratete',
+        b: '<p>Jaakow hielt die ganze Tora schon, bevor sie gegeben wurde — warum heiratete er dann zwei Schwestern, und warum schweigt Raschi darüber? Der Rebbe erklärt: Vor der Gabe der Tora war ihr Einhalten für Jaakow sein eigener Schmuck — ein Hiddur. Und ein Hiddur kann nicht aufheben, was wirklich Pflicht ist.</p><p>Hier gab es eine Pflicht, die die Völker nach der Sintflut auf sich genommen hatten: nicht zu betrügen. Jaakow hatte Rachel versprochen, sie zu heiraten, und ihr Zeichen gegeben — sein Wort zu brechen wäre Betrug gewesen.</p><p class="expl"><b>Die Lehre.</b> Man darf keine Hiddurim auf Kosten anderer auf sich nehmen. Wer einem Juden helfen kann, der dem Judentum fern ist, soll sein eigenes Wachstum nicht über das Wichtigste für den anderen stellen.</p><p><small>Likkutej Sichot, Bd. 5, Wajeze 2</small></p>',
+      },
+      {
+        h: 'Seht den Unterschied',
+        b: '<p>Warum fügt Raschi zum Grund für den Namen Reuwen im Vers selbst („der Ewige hat mein Leid gesehen“) die Erklärung der Weisen hinzu: „Seht den Unterschied zwischen meinem Sohn und dem Sohn meines Schwiegervaters“? Der Rebbe: Sie ersetzt den Grund nicht — sie begründet ihn. Lea konnte nicht wissen, dass ihr Erstgeborener gut sein würde, und ein schlechter Sohn hätte ihren Mann entfernt. Darum zeigt Raschi Reuwens Verdienst: Er verkaufte die Erstgeburt nicht, stritt nicht um sie und wollte Josef retten. Aus diesem Verdienst folgt: „Jetzt wird mein Mann mich lieben.“</p><p>Dann erklärt der Rebbe, warum die Stämme von ihren Müttern benannt wurden, jeder mit eigenem Grund: Der Name verbindet die Seele mit dem Körper und drückt den Weg des Dienstes jedes Stammes aus.</p><p class="expl"><b>Die Lehre.</b> Ein Name ist nicht nur ein Wort: Er sagt, wie sein Träger dient.</p><p><small>Likkutej Sichot, Bd. 10, Wajeze 2</small></p>',
+      },
+      {
+        h: 'Warum gerade Schafe',
+        b: '<p>„Und der Mann wurde überaus reich und hatte viele Schafe.“ Warum besteht Jaakows Reichtum gerade aus Schafen (<span class="he">צאן</span>)? Der Rebbe verbindet das Wort mit „Hinausgehen“ (<span class="he">יציאה</span>): dem Dienst des Hinausgehens in die Welt, um sie zu einer Wohnung für G-tt zu machen. Das Wichtigste dabei ist Selbstaufgabe — denn es geht nicht um die eigene Vollkommenheit, sondern darum, Seinen Willen zu erfüllen.</p><p>Doch Selbstaufgabe braucht auch Kraft: „kühn wie ein Leopard, stark wie ein Löwe“. Und diese Kraft muss aus der Selbstaufgabe wachsen, nicht aus dem Ego.</p><p class="expl"><b>Die Lehre.</b> Für unsere Generation: Juden zu suchen, die in der Dunkelheit des Exils verloren sind, heißt Leben retten.</p><p><small>Likkutej Sichot, Bd. 15, Wajeze 4</small></p>',
+      },
+      {
+        h: 'Mit aller Kraft',
+        b: '<p>Aus Jaakows Worten „mit all meiner Kraft habe ich eurem Vater gedient“ leitet der Rambam ein Gesetz ab: Ein Arbeiter muss mit aller Kraft arbeiten. Der Rebbe erklärt: Das ist die gewöhnliche Pflicht jedes Arbeiters, keine Frömmigkeit über das Gesetz hinaus. Und Jaakow bekam dafür seinen Lohn in dieser Welt.</p><p>So auch im Dienst G-ttes: Unten, außerhalb der „vier Ellen“ von Tora und Gebet, tun wir die Arbeit des Hausherrn — und sie muss mit aller Kraft getan werden, mit den inneren und den „umgebenden“ Kräften (Makifim).</p><p class="expl"><b>Die Lehre.</b> Auch die Arbeit in der Welt ist Dienst für den Hausherrn — und man soll sie mit voller Kraft tun.</p><p><small>Likkutej Sichot, Bd. 25, Wajeze</small></p>',
+      },
+      {
+        h: 'Söhne vor den Frauen',
+        b: '<p>Die Reihenfolge „seine Söhne und seine Frauen“ widerspricht der Regel, dass die Frau vor den Kindern kommt. Raschi: Jaakow stellte die Männlichen vor die Frauen, Esaw dagegen die Frauen vor die Männlichen. Der Rebbe: Raschi wählt seine Worte so, dass man sieht: Für Jaakow waren die Männer die Hauptsache, bei Esaw umgekehrt.</p><p>Im inneren Sinn sind „Mann und Frau“ Verstand und Herz. Gewöhnlich regiert der Verstand das Herz. Doch im Exil, wo die Verborgenheit groß ist, braucht man einen Dienst über dem Verstand — und er zeigt sich gerade im Herzen. Das ist „der Dienst Esaws in Jaakow“.</p><p class="expl"><b>Die Lehre.</b> Wenn die Verborgenheit groß ist, reicht der Verstand allein nicht — man braucht die Hingabe des Herzens, über das Verstehen hinaus.</p><p><small>Likkutej Sichot, Bd. 30, Wajeze 3</small></p>',
+      },
+      {
+        h: 'Und Jaakow ging seines Weges',
+        b: '<p>Woher kommt die Kraft für ein ganzes Jahr Arbeit in der Welt? Lawan (<span class="he">לבן</span> — „weiß“) entspricht dem höchsten Weiß — dem Wesen des Unendlichen, das Sünden vergibt. Das erreicht man nicht allein durch Mühe von unten. Lawans Verfolgung enthüllte es von oben und gab Jaakow Kraft für die Begegnung mit Esaw.</p><p>So gibt auch der Monat Tischri Kraft für alle Werktage: dass jede Tat „um des Himmels willen“ geschieht und „auf all deinen Wegen erkenne Ihn“.</p><p class="expl"><b>Die Lehre.</b> Die Kraft aus den Feiertagen ist für die Werktage: „und Jaakow ging seines Weges“.</p><p><small>Likkutej Sichot, Bd. 15, Wajeze 5</small></p>',
+      },
+    ],
+  },
   source:
     'Die Ermittlung folgt Reden des Lubawitscher Rebben am 10. Kislew 5744 und 5745 und dem Maamar „Weschawti beschalom“ von 5738 (Likkutej Sichot, Bd. 25, 10. Kislew), in hebräischer Übersetzung; Nacherzählung des Projekts.',
 };

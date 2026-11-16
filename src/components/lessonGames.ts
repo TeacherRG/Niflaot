@@ -29,6 +29,8 @@ export function lessonGames(lesson: Lesson) {
     return [
       { href: `#/${lesson.slug}`, icon: '🔎', label: 'cards.tabLesson' },
       { href: `#/${lesson.slug}/read`, icon: '📖', label: 'cards.tabRead' },
+      // «Беседы Ребе по дням»: беседы на главу, по две в день (src/core/turimDaily.ts)
+      ...(hasDaily(lesson) ? [{ href: `#/${lesson.slug}/day`, icon: '📅', label: 'turim.tab' } as const] : []),
     ] as const;
   return [{ href: `#/${lesson.slug}`, icon: '🔢', label: 'memo.tabGematria' }, read] as const;
 }

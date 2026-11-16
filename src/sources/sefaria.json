@@ -19073,6 +19073,638 @@
    }
   }
  },
+ "torah-28-20-22": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 28:20–22",
+   "en": "Genesis 28:20–22",
+   "de": "Bereschit 28,20–22"
+  },
+  "ref": "Genesis 28:20-22",
+  "url": "https://www.sefaria.org/Genesis_28.20-22",
+  "he": [
+   "וַיִּדַּר יַעֲקֹב נֶדֶר לֵאמֹר אִם־יִהְיֶה אֱלֹהִים עִמָּדִי וּשְׁמָרַנִי בַּדֶּרֶךְ הַזֶּה אֲשֶׁר אָנֹכִי הוֹלֵךְ וְנָתַן־לִי לֶחֶם לֶאֱכֹל וּבֶגֶד לִלְבֹּשׁ׃",
+   "וְשַׁבְתִּי בְשָׁלוֹם אֶל־בֵּית אָבִי וְהָיָה יְהוָה לִי לֵאלֹהִים׃",
+   "וְהָאֶבֶן הַזֹּאת אֲשֶׁר־שַׂמְתִּי מַצֵּבָה יִהְיֶה בֵּית אֱלֹהִים וְכֹל אֲשֶׁר תִּתֶּן־לִי עַשֵּׂר אֲעַשְּׂרֶנּוּ לָךְ׃"
+  ],
+  "en": [
+   "And Jacob vowed a vow, saying: ‘If G-d will be with me, and will keep me in this way that I go, and will give me bread to eat, and raiment to put on,",
+   "so that I come back to my father’s house in peace, then shall the L-rd be my G-d,",
+   "and this stone, which I have set up for a pillar, shall be G-d’s house; and of all that Thou shalt give me I will surely give the tenth unto Thee.’"
+  ],
+  "ru": [
+   "И дал Йааков зарок, говоря: если Б-г будет со мной, и будет охранять меня в пути, и даст мне хлеба для еды и одежду одеться,",
+   "и благополучно вернусь в отцовский дом, то Г-сподь будет мне Б-гом,",
+   "и камень этот будет домом Б-жьим, и от всего, что дашь ты мне, (Боже), десятину отделю для тебя."
+  ],
+  "de": [
+   "Da tat Jaakob ein Gelübde, also: Wenn G-tt mit mir sein wird und mich auf diesem Wege, den ich gehe, bewahren, und mir Brot zu essen und Gewand zur Bekleidung geben wird,",
+   "und ich in Frieden zu dem Hause meines Vaters wiederkehren werde: so soll <i>G-tt</i> mir G-tt sein,",
+   "und dieser Stein, den ich zum Denkstein gesetzt, soll zu einem Hause G-ttes werden, und alles, was du mir geben wirst, werde ich dir wiederholt verzehnten."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-28-13": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 28:13",
+   "en": "Genesis 28:13",
+   "de": "Bereschit 28,13"
+  },
+  "ref": "Genesis 28:13",
+  "url": "https://www.sefaria.org/Genesis_28.13",
+  "he": [
+   "וְהִנֵּה יְהוָה נִצָּב עָלָיו וַיֹּאמַר אֲנִי יְהוָה אֱלֹהֵי אַבְרָהָם אָבִיךָ וֵאלֹהֵי יִצְחָק הָאָרֶץ אֲשֶׁר אַתָּה שֹׁכֵב עָלֶיהָ לְךָ אֶתְּנֶנָּה וּלְזַרְעֶךָ׃"
+  ],
+  "en": [
+   "And, behold, the L-rd stood beside him, and said: ‘I am the L-rd, the G-d of Abraham thy father, and the G-d of Isaac. The land whereon thou liest, to thee will I give it, and to thy seed."
+  ],
+  "ru": [
+   "И вот, Г-сподь стоит на ней и говорит: Я, Г-сподь, Б-г Авраама, отца твоего, и Б-г Йицхака. Землю, на которой ты лежишь, тебе даю и твоему потомству."
+  ],
+  "de": [
+   "und siehe da, <i>G-tt</i> — steht bei ihm und spricht: Ich bin <i>G-tt</i>, der G-tt deines Vaters Abraham und der G-tt Jizchaks; das Land, auf dem du schläfst, gebe ich dir und deinem Samen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-29-28": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 29:28",
+   "en": "Genesis 29:28",
+   "de": "Bereschit 29,28"
+  },
+  "ref": "Genesis 29:28",
+  "url": "https://www.sefaria.org/Genesis_29.28",
+  "he": [
+   "וַיַּעַשׂ יַעֲקֹב כֵּן וַיְמַלֵּא שְׁבֻעַ זֹאת וַיִּתֶּן־לוֹ אֶת־רָחֵל בִּתּוֹ לוֹ לְאִשָּׁה׃"
+  ],
+  "en": [
+   "And Jacob did so, and fulfilled her week; and he gave him Rachel his daughter to wife."
+  ],
+  "ru": [
+   "Так Йааков и поступил; закончилась неделя, и дал ему (Лаван) свою дочь Рахель в жены."
+  ],
+  "de": [
+   "Jaakob tat also und vollbrachte die Hochzeitwoche der einen, darauf gab er ihm seine Tochter Rachel ihm zur Frau."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-29-32": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 29:32",
+   "en": "Genesis 29:32",
+   "de": "Bereschit 29,32"
+  },
+  "ref": "Genesis 29:32",
+  "url": "https://www.sefaria.org/Genesis_29.32",
+  "he": [
+   "וַתַּהַר לֵאָה וַתֵּלֶד בֵּן וַתִּקְרָא שְׁמוֹ רְאוּבֵן כִּי אָמְרָה כִּי־רָאָה יְהוָה בְּעָנְיִי כִּי עַתָּה יֶאֱהָבַנִי אִישִׁי׃"
+  ],
+  "en": [
+   "And Leah conceived, and bore a son, and she called his name Reuben; for she said: ‘Because the L-rd hath looked upon my affliction; for now my husband will love me.’"
+  ],
+  "ru": [
+   "И зачала Леа, и родила сына, и назвала его Реувен, ибо сказала: Потому что увидел Г-сподь мое несчастье и потому что ныне полюбит меня муж мой."
+  ],
+  "de": [
+   "Da empfing Lea und gebar einen Sohn und nannte ihn Reuben; denn sie hatte gesagt: <i>G-tt</i> hat in mein Leiden geschaut! Jetzt wird mein Mann mich lieben!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-30-43": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 30:43",
+   "en": "Genesis 30:43",
+   "de": "Bereschit 30,43"
+  },
+  "ref": "Genesis 30:43",
+  "url": "https://www.sefaria.org/Genesis_30.43",
+  "he": [
+   "וַיִּפְרֹץ הָאִישׁ מְאֹד מְאֹד וַיְהִי־לוֹ צֹאן רַבּוֹת וּשְׁפָחוֹת וַעֲבָדִים וּגְמַלִּים וַחֲמֹרִים׃"
+  ],
+  "en": [
+   "And the man increased exceedingly, and had large flocks, and maid-servants and men-servants, and camels and asses."
+  ],
+  "ru": [
+   "И очень разбогател он, и было у него много скота, и рабынь, и рабов, и верблюдов, и ослов."
+  ],
+  "de": [
+   "Der Mann wurde nun ungemein reich, es wurden ihm Schafe in Menge, Mägde und Knechte, Kamele und Esel."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-31-6": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 31:6",
+   "en": "Genesis 31:6",
+   "de": "Bereschit 31,6"
+  },
+  "ref": "Genesis 31:6",
+  "url": "https://www.sefaria.org/Genesis_31.6",
+  "he": [
+   "וְאַתֵּנָה יְדַעְתֶּן כִּי בְּכָל־כֹּחִי עָבַדְתִּי אֶת־אֲבִיכֶן׃"
+  ],
+  "en": [
+   "And ye know that with all my power I have served your father."
+  ],
+  "ru": [
+   "Вы же знаете, что я работал на вашего отца, не жалея сил."
+  ],
+  "de": [
+   "Ihr doch wisset es, daß ich mit meiner ganzen Kraft eurem Vater gedient."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-31-17": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 31:17",
+   "en": "Genesis 31:17",
+   "de": "Bereschit 31,17"
+  },
+  "ref": "Genesis 31:17",
+  "url": "https://www.sefaria.org/Genesis_31.17",
+  "he": [
+   "וַיָּקָם יַעֲקֹב וַיִּשָּׂא אֶת־בָּנָיו וְאֶת־נָשָׁיו עַל־הַגְּמַלִּים׃"
+  ],
+  "en": [
+   "Then Jacob rose up, and set his sons and his wives upon the camels;"
+  ],
+  "ru": [
+   "И встал Йааков, и посадил детей и жен на верблюдов."
+  ],
+  "de": [
+   "Da machte sich Jaakob auf, hub seine Kinder und seine Frauen auf die Kamele,"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "torah-32-2": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:2",
+   "en": "Genesis 32:2",
+   "de": "Bereschit 32,2"
+  },
+  "ref": "Genesis 32:2",
+  "url": "https://www.sefaria.org/Genesis_32.2",
+  "he": [
+   "וְיַעֲקֹב הָלַךְ לְדַרְכּוֹ וַיִּפְגְּעוּ־בוֹ מַלְאֲכֵי אֱלֹהִים׃"
+  ],
+  "en": [
+   "And Jacob went on his way, and the angels of G-d met him."
+  ],
+  "ru": [
+   "А Йааков пошел своей дорогой, и повстречались ему посланники Б-жьи."
+  ],
+  "de": [
+   "Jaakob aber war seines Weges gegangen, da trafen ihn Engel G-ttes."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rashi-28-10-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 28:10",
+   "en": "Rashi, Genesis 28:10",
+   "de": "Raschi, Bereschit 28,10"
+  },
+  "ref": "Rashi on Genesis 28:10:2",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_28.10.2",
+  "he": [
+   "<b>ויצא.</b> לֹא הָיָה צָרִיךְ לִכְתֹּב אֶלָּא וַיֵּלֶךְ יַעֲקֹב חָרָנָה, וְלָמָּה הִזְכִּיר יְצִיאָתוֹ? אֶלָּא מַגִּיד שֶׁיְּצִיאַת צַדִּיק מִן הַמָּקוֹם עוֹשָׂה רֹשֶׁם, שֶׁבִּזְמַן שֶׁהַצַּדִּיק בָּעִיר, הוּא הוֹדָהּ הוּא זִיוָהּ הוּא הֲדָרָהּ; יָצָא מִשָּׁם, פָּנָה הוֹדָהּ פָּנָה זִיוָהּ פָּנָה הֲדָרָהּ. וְכֵן וַתֵּצֵא מִן הַמָּקוֹם הָאָמוּר בְּנָעֳמִי וְרוּת (רות א'):"
+  ],
+  "en": [
+   "ויצא [AND JACOB] WENT OUT—It need have written simply “And Jacob went to Haran’’; why then does it mention his departure from Beersheba? But it intends to tell us that the departure of a righteous person from his city makes an impression. As long as a righteous man is in his city he is its glory and splendour and beauty; when he leaves it, there depart also its glory, its splendour and its beauty. This, too, is the meaning of (Ruth 1:7) “And she went forth out of the place”, stated in reference to Naomi and Ruth (Genesis Rabbah 68:6)."
+  ],
+  "de": [
+   "<b>Zog aus ויצא,</b> er hätte nur nötig gehabt, zu schreiben, Jaakob ging nach Charan, und warum erwähnt er seinen Auszug? Nur, er berichtet damit, dass der Auszug eines Gerechten aus einem Ort eine Spur zurücklässt; denn, solange der Gerechte in der Stadt ist, ist er ihre Pracht, ihr Glanz und ihre Schönheit; wenn er aber von dort weggeht, so weicht ihre Pracht, ihr Glanz und ihre Schönheit (Bereschit Rabbah 68:6); ebenso, sie verließ den Ort, das bei Noemi und Rut steht (Rut 1, 7)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-28-11-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 28:11",
+   "en": "Rashi, Genesis 28:11",
+   "de": "Raschi, Bereschit 28,11"
+  },
+  "ref": "Rashi on Genesis 28:11:2",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_28.11.2",
+  "he": [
+   "<b>ויפגע.</b> כְּמוֹ וּפָגַע בִּירִיחוֹ וּפָגַע בְּדַבָּשֶׁת (יהושע ט\"ז וי\"ט) וְרַבּוֹתֵינוּ פֵּרְשׁוּ לְשׁוֹן תְּפִלָּה (ברכות כ\"ו), כְּמוֹ וְאַל תִּפְגַּע בִּי (ירמיהו ז'), וְלָמַדְנוּ שֶׁתִּקֵּן תְּפִלַּת עַרְבִית. וְשִׁנָּה הַכָּתוּב וְלֹא כָּתַב וַיִּתְפַּלֵּל, לְלַמֶּדְךָ שֶׁקָּפְצָה לוֹ הָאָרֶץ, כְּמוֹ שֶׁמְּפֹרָשׁ בְּפֶרֶק גִּיד הַנָּשֶׁה (חולין צ\"א):"
+  ],
+  "en": [
+   "ויפגע AND HE LIGHTED — similar are (Joshua 16:7) “and it reached (ופגע) unto Jericho”, and (Joshua 19:11) “and reached (ופגע) to Dabesheth”. Our Rabbis explained it in the sense of “praying”, just as (Jeremiah 7:16) “Neither make intercession (תפגע) to me”. Thus we may learn that Jacob originated the custom of Evening Prayer. Scripture purposely changed the usual word for “praying”, not writing יתפלל, “And he prayed” (which would have been the more appropriate word, but ויפגע which means to hit upon a place unexpectedly), to teach you also that the ground shrunk before him (the journey was miraculously shortened) as it is explained in the Chapter גיד הנשה (Chullin 91b)."
+  ],
+  "de": [
+   "<b>Er traf ויפגע,</b> wie (Jos. 16, 7), »und stößt auf Jericho ופגע«, (dort 19,11) »und stößt auf Dabeschet«; unsere Lehrer erklären es als Ausdruck für Gebet (Berach. 26b), wie (Jer. 7, 16), »und dringe nicht in mich תפגע«; und wir lernen davon, dass er das Abendgebet עַרְבִית anordnete; der Vers änderte aber den Ausdruck und schrieb nicht, er betete וַיִתְפַּלֵל, um dich zu lehren, dass sich die Erde unter ihm zusammenzog (den Weg abkürzte), wie dies im Abschnitt גיד הנשה (Chullin 91b), erklärt wird."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-28-13-3": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 28:13",
+   "en": "Rashi, Genesis 28:13",
+   "de": "Raschi, Bereschit 28,13"
+  },
+  "ref": "Rashi on Genesis 28:13:3",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_28.13.3",
+  "he": [
+   "<b>שכב עליה.</b> קִפֵּל הַקָּבָּ\"ה כָּל אֶרֶץ יִשְׂרָאֵל תַּחְתָּיו, רָמַז לוֹ שֶׁתְּהֵא נוֹחָה לִכָּבֵשׁ לְבָנָיו כְּד' אַמּוֹת שֶׁזֶּה מְקוֹמוֹ שֶׁל אָדָם (חולין שם):"
+  ],
+  "en": [
+   "שכב עליה THE LAND WHEREON THOU LIEST — The Holy One, blessed be He, rolled together the entire Land of Israel under him, thus intimating to him that it would be as easily conquered by his descendants (Chullin 91b) as a piece of land four cubits in length, which is the space covered by a person lying down (see Rashi, Chullin 91b, and the note of the ב\"ח thereon)."
+  ],
+  "de": [
+   "<b>Auf dem du liegst,</b> der Heilige, gelobt sei Er, faltete das ganze Land Israel unter ihm zusammen und deutete ihm an, dass es von seinen Kindern so leicht eingenommen würde (Chull. 91b) (wie 4 Ellen; denn soviel beträgt der Ort, den ein Mensch einnimmt)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-29-32": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 29:32",
+   "en": "Rashi, Genesis 29:32",
+   "de": "Raschi, Bereschit 29,32"
+  },
+  "ref": "Rashi on Genesis 29:32:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_29.32.1",
+  "he": [
+   "(<b>ותקרא שמו ראובן</b> רַבּוֹתֵינוּ פֵּרְשׁוּ, אָמְרָה רְאוּ מַה בֵּין בְּנִי לְבֶן חָמִי שֶׁמָּכַר הַבְּכוֹרָה לְיַעֲקֹב, וְזֶה לֹא מְכָרָהּ לְיוֹסֵף וְלֹא עִרְעֵר עָלָיו, וְלֹא עוֹד שֶׁלֹּא עִרְעֵר עָלָיו אֶלָּא שֶׁבִּקֵּשׁ לְהוֹצִיאוֹ מִן הַבּוֹר) (ברכות ז'):"
+  ],
+  "en": [
+   "ותקרא שמו ראובן AND SHE CALLED HIS NAME REUBEN — Our Rabbis explained it thus: she said, “See (ראו) the difference between (בין) my son and my father-in-law’s son who himself sold the birthright to Jacob and yet wished to kill him afterwards. This (my son) did not sell it (his birthright) to Joseph (it must be remembered that Joseph being the founder of two tribes was regarded as the first-born of Jacob’s sons since the eldest son took a double portion in the father’s property), yet he did not raise any protest to him being regarded as the first-born and not only did he not raise a protest but he even wished to take him out of the pit and so rescue him from death (Berakhot 7b)."
+  ],
+  "de": [
+   "<b>Sie nannte ihn Ruben רְאוּבֵן,</b> unsere Weisen erklären, sie sagte, seht den Unterschied zwischen meinem Sohne und dem Sohne meines Schwiegervaters, der noch die Erstgeburt Jaakob verkauft hatte, während dieser sie Joseph nicht verkauft hat und dich doch nicht gegen ihn aufgelehnt hat; und nicht nur das allein, dass er sich nicht gegen ihn auflehnte, suchte er vielmehr noch, ihn aus der Grube herauszuholen (Berach. 7b)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-31-17": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 31:17",
+   "en": "Rashi, Genesis 31:17",
+   "de": "Raschi, Bereschit 31,17"
+  },
+  "ref": "Rashi on Genesis 31:17:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_31.17.1",
+  "he": [
+   "<b>את בניו ואת נשיו.</b> הִקְדִּים זְכָרִים לִנְקֵבוֹת, וְעֵשָׂו הִקְדִּים נְקֵבוֹת לִזְכָרִים, שֶׁנֶּאֱמַר וַיִּקַּח עֵשָׂו אֶת נָשָׁיו וְאֶת בָּנָיו וְגוֹמֵר:"
+  ],
+  "en": [
+   "את בניו ואת נשיו HIS SONS AND HIS WIVES — He took the males before the females whereas Esau took the females before the males, as it is said (Genesis 36:6) “And Esau took his wives and his sons etc.” (Genesis Rabbah 74:5)"
+  ],
+  "de": [
+   "<b>Seine Söhne und seine Frauen,</b> er ließ die Männlichen den Frauen vorangehen; Esaw aber ließ die Frauen vor den Männern gehen; so heißt es (36, 6), »Esaw nahm seine Frauen und seine Söhne … «(Bereschit Rabbah 74:5)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
+ "rashi-32-2": {
+  "kind": {
+   "ru": "Комментарий",
+   "en": "Commentary",
+   "de": "Kommentar"
+  },
+  "title": {
+   "ru": "Раши, Берешит 32:2",
+   "en": "Rashi, Genesis 32:2",
+   "de": "Raschi, Bereschit 32,2"
+  },
+  "ref": "Rashi on Genesis 32:2:1",
+  "url": "https://www.sefaria.org/Rashi_on_Genesis_32.2.1",
+  "he": [
+   "<b>ויפגעו בו מלאכי אלקים.</b> מַלְאָכִים שֶׁל אֶרֶץ יִשְׂרָאֵל בָּאוּ לִקְרָאתוֹ לְלַוּוֹתוֹ לָאָרֶץ:"
+  ],
+  "en": [
+   "ויפגעו בו מלאכי אלהים AND THE ANGELS OF GOD MET HIM — The angels who minister in the Land of Israel came to meet him in order to escort him into the Holy Land (see Genesis Rabbah 74:17)."
+  ],
+  "de": [
+   "<b>Da begegneten ihm Engel G-ttes,</b> Engel des Landes Israel kamen ihm entgegen, ihn zu begleiten (Bereschit Rabbah 74:17)."
+  ],
+  "versions": {
+   "he": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "en": {
+    "title": "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001969084"
+   },
+   "de": {
+    "title": "Raschis Pentateuchkommentar, trans. Rabb. Dr. Selig Bamberger, Hamburg, 1922. Edited by Igor Itkin [de]",
+    "license": "Public Domain",
+    "source": "http://sammlungen.ub.uni-frankfurt.de/freimann/content/titleinfo/7716358"
+   }
+  }
+ },
  "torah-1-1": {
   "kind": {
    "ru": "Тора",
