@@ -40,6 +40,9 @@ const PATHS = {
   chat: 'M4 5h16v11H9l-5 4z',
   grid: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
   calendar: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4',
+  candle: 'M9.5 11h5v10h-5zM12 3.5c1.6 1.9 1.7 3.5 0 5-1.7-1.5-1.6-3.1 0-5zM12 8.5V11',
+  pin: 'M12 21s-6-5.5-6-11a6 6 0 1112 0c0 5.5-6 11-6 11zM12 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z',
+  list: 'M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01',
   bookmark: 'M6 3h12v18l-6-4.5L6 21z',
   pen: 'M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4',
 } as const;

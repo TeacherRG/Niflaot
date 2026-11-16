@@ -8,6 +8,7 @@ import { currentSpot } from '../core/alarm';
  * The face of «Часы» — on its page (ClockPage.tsx) and in the «Календарь» window (ShabbatCalendar.tsx).
  */
 export const COLOR: Record<TimeId, string> = {
+  alot: 'var(--tchelet-deep)',
   sunrise: 'var(--gold)',
   shma: 'var(--tchelet)',
   tefila: 'var(--ok)',
@@ -61,38 +62,14 @@ function spread(ys: number[], gap = 17, lo = 2, hi = 198): number[] {
   return res;
 }
 
-/**
- * The face: hands by the city's time; each chosen time of the day — a dot on the rim at its place and, beside the face,
- * its time and name (owner, 15.11.2026: «отметки о времени должны быть прямо на циферблате»). A passed time is pale.
- * Inside the face — the digital time of the city («21:15»), no hands and no numerals; the rim is the ring of the whole
- * day (24 hours: noon at the top, midnight at the bottom) made of dashes — see `ring` below; the chosen times stand
- * as dots just outside it.
- */
-export function Face({
-  now,
-  zone,
-  marks,
-  times,
-  hm,
-  name,
-  tziruf,
-}: {
-  now: Date;
-  zone: string;
-  marks: [TimeId, Date | null][];
-  times?: Partial<Record<TimeId | 'alot', Date | null>>;
-  hm: (d: Date) => string;
-  name: (id: TimeId) => string;
-  /** show the permutation of the Name of the current halachic hour */
-  tziruf?: boolean;
-}) {
+/** The time of the city and the ring of the day's dashes — for both faces. */
+export function dial(now: Date, zone: string, times?: Partial<Record<TimeId, Date | null>>) {
   const { h, m, s } = wall(now, zone);
   const turnOf = (at: Date) => {
     const w = wall(at, zone);
     return ((w.h + w.m / 60 + w.s / 3600) / 24 + 0.5) % 1;
   };
   const nowTurn = ((h + m / 60 + s / 3600) / 24 + 0.5) % 1;
-  const two = (n: number) => String(n).padStart(2, '0');
   /*
    * The rim — dashes, as on a watch, but a dash is a quarter of a halachic hour: 48 from sunrise to sunset and 48 from
    * sunset to sunrise. The ring is the 24 hours of the clock, so the dashes of the shorter half are narrower — as its
@@ -129,8 +106,38 @@ export function Face({
       return { k, turn, light, width: slot * 2 * Math.PI * 92 * 0.5, hour: i % 4 === 0, state };
     });
     const noon = (a + dayLen / 2) % 1;
-    return { dashes, hour: Math.floor(cur / 4), sun: polar(noon, 62), moon: polar((noon + 0.5) % 1, 62) };
+    return { dashes, noon, hour: Math.floor(cur / 4), sun: polar(noon, 62), moon: polar((noon + 0.5) % 1, 62) };
   })();
+  return { h, m, s, turnOf, nowTurn, ring };
+}
+
+/**
+ * The face: hands by the city's time; each chosen time of the day — a dot on the rim at its place and, beside the face,
+ * its time and name (owner, 15.11.2026: «отметки о времени должны быть прямо на циферблате»). A passed time is pale.
+ * Inside the face — the digital time of the city («21:15»), no hands and no numerals; the rim is the ring of the whole
+ * day (24 hours: noon at the top, midnight at the bottom) made of dashes — see `ring` below; the chosen times stand
+ * as dots just outside it.
+ */
+export function Face({
+  now,
+  zone,
+  marks,
+  times,
+  hm,
+  name,
+  tziruf,
+}: {
+  now: Date;
+  zone: string;
+  marks: [TimeId, Date | null][];
+  times?: Partial<Record<TimeId, Date | null>>;
+  hm: (d: Date) => string;
+  name: (id: TimeId) => string;
+  /** show the permutation of the Name of the current halachic hour */
+  tziruf?: boolean;
+}) {
+  const { h, m, s, turnOf, ring } = dial(now, zone, times);
+  const two = (n: number) => String(n).padStart(2, '0');
   const dots = marks.flatMap(([id, at]) => {
     if (!at) return [];
     const [x, y] = polar(turnOf(at), 104);
@@ -229,5 +236,141 @@ export function CalendarClock() {
         {t('clock.link')} →
       </a>
     </div>
+  );
+}
+
+/** a time of the day on the big face: a zman, or candle lighting / the end of Shabbat */
+export type FaceId = TimeId | 'candles' | 'havdalah';
+export interface FaceEvent {
+  id: FaceId;
+  at: Date;
+  color: string;
+  /** its time written beside the dot (the reader's choice) */
+  label: boolean;
+}
+/** the box of the big face's SVG — the popover is placed by it */
+export const BIG_BOX = { x: -4, y: -4, w: 208, h: 208 };
+
+/**
+ * The big face of the page «Часы» (owner, 16.11.2026: «циферблат на весь экран… всплывающими интерактивными подсказками»):
+ * the ring of the day, every time of the day a dot on the rim — a button: a tap (or the mouse) opens its popover
+ * (ClockPage.tsx); the times the reader chose are written beside their dots. Inside — the city's time and the next time
+ * — only digits: the time of the city and, beside the chosen dots, their times (owner, 16.11.2026: «убери другие слова с циферблата»).
+ */
+export function BigFace({
+  now,
+  zone,
+  times,
+  events,
+  active,
+  onPick,
+  onHover,
+  tziruf,
+  hm,
+  short = hm,
+  name,
+}: {
+  now: Date;
+  zone: string;
+  times?: Partial<Record<TimeId, Date | null>>;
+  events: FaceEvent[];
+  /** the time written beside a dot — without AM / PM, the rim says day or night */
+  short?: (d: Date) => string;
+  active: FaceId | null;
+  /** a dot chosen: its place as a fraction of the box (0–1) */
+  onPick: (id: FaceId, fx: number, fy: number) => void;
+  onHover?: (id: FaceId | null, fx: number, fy: number) => void;
+  tziruf?: boolean;
+  hm: (d: Date) => string;
+  name: (id: FaceId) => string;
+}) {
+  const { h, m, s, turnOf, ring } = dial(now, zone, times);
+  const two = (n: number) => String(n).padStart(2, '0');
+  const dots = events.map((e) => {
+    const turn = turnOf(e.at);
+    const [x, y] = polar(turn, 91.5);
+    return { ...e, turn, x, y, hit: 11 };
+  });
+  // the area a tap reaches: no more than half the way to the nearest dot — close times (sunset and nightfall) stay apart
+  for (const d of dots) for (const o of dots) if (o !== d) d.hit = Math.max(4.5, Math.min(d.hit, Math.hypot(d.x - o.x, d.y - o.y) / 2));
+  // the written times: moved apart along the rim so that none covers another
+  const labelled = dots.filter((d) => d.label).sort((a, b) => a.turn - b.turn);
+  const GAP = 0.045;
+  const turns = labelled.map((d) => d.turn);
+  for (let i = 1; i < turns.length; i++) turns[i] = Math.max(turns[i], turns[i - 1] + GAP);
+  const frac = (x: number, y: number) => [(x - BIG_BOX.x) / BIG_BOX.w, (y - BIG_BOX.y) / BIG_BOX.h] as const;
+  const pick = (d: (typeof dots)[number]) => onPick(d.id, ...frac(d.x, d.y));
+  return (
+    <svg className="clk-bigface" viewBox={`${BIG_BOX.x} ${BIG_BOX.y} ${BIG_BOX.w} ${BIG_BOX.h}`} role="group" aria-label={dots.map((d) => `${name(d.id)} ${hm(d.at)}`).join(', ')} direction="ltr">
+      <circle className="clk-rim" cx="100" cy="100" r="99" />
+      {ring && (
+        <>
+          {ring.dashes.map((d) => {
+            const [x1, y1] = polar(d.turn, d.hour ? 84 : 87);
+            const [x2, y2] = polar(d.turn, d.state === 'now' ? 99 : 96);
+            return (
+              <line
+                key={d.k}
+                className={`clk-dash ${d.state}`}
+                x1={x1}
+                y1={y1}
+                x2={x2}
+                y2={y2}
+                strokeWidth={d.state === 'now' ? d.width * 1.5 : d.width}
+                stroke={`color-mix(in srgb, var(--gold) ${Math.round(d.light * 100)}%, var(--tchelet))`}
+              />
+            );
+          })}
+          <g className="clk-sun" transform={`translate(${polar(ring.noon, 77).join(' ')}) scale(.72)`}>
+            <circle r="4.5" />
+            {Array.from({ length: 8 }, (_, i) => (
+              <line key={i} x1="0" y1="-7" x2="0" y2="-9.5" transform={`rotate(${i * 45})`} />
+            ))}
+          </g>
+          <path
+            className="clk-moon"
+            transform={`translate(${polar((ring.noon + 0.5) % 1, 77).join(' ')}) scale(.72)`}
+            d="M2 -7 A7 7 0 1 0 7 2 A5.5 5.5 0 0 1 2 -7Z"
+          />
+        </>
+      )}
+      {labelled.map((d, i) => {
+        const [x, y] = polar(turns[i], 68);
+        return (
+          <text key={`l-${d.id}`} className={`clk-blabel${d.at <= now ? ' past' : ''}`} x={x} y={y} textAnchor="middle" dominantBaseline="central" fill={d.color}>
+            {short(d.at)}
+          </text>
+        );
+      })}
+      {dots.map((d) => (
+        <g
+          key={d.id}
+          className={`clk-bdot${d.at <= now ? ' past' : ''}${active === d.id ? ' on' : ''}${d.id === 'candles' || d.id === 'havdalah' ? ' shabbat' : ''}`}
+          role="button"
+          tabIndex={0}
+          aria-label={`${name(d.id)} ${hm(d.at)}`}
+          aria-expanded={active === d.id}
+          onClick={() => pick(d)}
+          onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), pick(d))}
+          onPointerEnter={(e) => e.pointerType === 'mouse' && onHover?.(d.id, ...frac(d.x, d.y))}
+          onPointerLeave={(e) => e.pointerType === 'mouse' && onHover?.(null, 0, 0)}
+        >
+          <circle className="hit" cx={d.x} cy={d.y} r={d.hit} />
+          {active === d.id && <circle className="halo" cx={d.x} cy={d.y} r="8.5" stroke={d.color} />}
+          <circle className="dot" cx={d.x} cy={d.y} r={d.label ? 5 : 3.6} fill={d.color} />
+        </g>
+      ))}
+      {tziruf && ring && (
+        <text className="clk-tziruf he" lang="he" x="100" y="148" textAnchor="middle" dominantBaseline="central" direction="rtl">
+          {TZIRUFIM[ring.hour]}
+        </text>
+      )}
+      <text className="clk-big" x="100" y="94" textAnchor="middle" dominantBaseline="central">
+        {two(h)}:{two(m)}
+      </text>
+      <text className="clk-bigs" x="100" y="119" textAnchor="middle" dominantBaseline="central">
+        {two(s)}
+      </text>
+    </svg>
   );
 }
