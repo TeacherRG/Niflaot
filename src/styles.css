@@ -4089,6 +4089,17 @@ html:has(.clk2) .top{flex:none}
   html:has(.clk2) .ai-fab{display:none}
 }
 @media (max-height:700px){.clk2-hint{display:none}}
+/* «Часы» on the night sky (owner, 16.11.2026: «добавь фон»): the page is always dark, in either theme; the sheets keep the theme */
+html:has(.clk2) body{background:#0B1532 url(./assets/clock-bg.webp) center/cover no-repeat fixed}
+@media (max-width:900px){html:has(.clk2) body{background-image:url(./assets/clock-bg-900.webp)}}
+.clk2{--ink:#EEF0F7;--ink-2:#C9CFE3;--muted:#9AA4C4;--surface:rgba(12,20,48,.62);--line-soft:rgba(214,190,130,.22);--line:rgba(214,190,130,.4);--paper:#0B1532;--tchelet:#8FB3E8;--tchelet-deep:#9CC0F0;--gold-deep:#E2BF72;--gold-soft:rgba(214,170,80,.16);--gold-line:rgba(214,170,80,.5);--shadow:0 8px 24px rgba(0,0,0,.35);color:var(--ink)}
+.clk2 .clk-bigface .clk-rim{fill:rgba(8,14,36,.55);stroke:rgba(214,190,130,.35);stroke-width:.5;filter:drop-shadow(0 0 22px rgba(214,180,110,.18))}
+.clk2 .clk2-chip,.clk2 .clk2-tool,.clk2 .clk2-pop{-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.clk2 .clk2-pop{background:rgba(14,22,52,.92)}
+.clk2 .clk-bdot .dot{stroke:#0B1532}
+.clk2 .clk-big{fill:#F4F1E8;stroke:none}
+.clk2 .clk-bigs{fill:#B9C2DE;stroke:none}
+.clk2 .clk-tziruf{fill:#E8C97E;stroke:none;font-size:22px;letter-spacing:.06em}
 .alarm-ring{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:16px;background:rgba(10,16,40,.72);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 .alarm-ring-card{width:min(100%,340px);display:grid;justify-items:center;gap:6px;padding:26px 22px 22px;border-radius:22px;background:var(--surface);color:var(--ink);box-shadow:0 24px 60px rgba(10,16,40,.5);text-align:center}
 .alarm-ring-bell{color:var(--gold-deep);animation:alarm-swing .5s ease-in-out infinite alternate;transform-origin:50% 10%}

@@ -320,7 +320,6 @@ export function ClockPage() {
               events={events}
               active={pop?.id ?? null}
               tziruf={tziruf}
-              next={next}
               hm={hm}
               short={hmShort}
               name={nameOf}

@@ -255,7 +255,7 @@ export const BIG_BOX = { x: -4, y: -4, w: 208, h: 208 };
  * The big face of the page «Часы» (owner, 16.11.2026: «циферблат на весь экран… всплывающими интерактивными подсказками»):
  * the ring of the day, every time of the day a dot on the rim — a button: a tap (or the mouse) opens its popover
  * (ClockPage.tsx); the times the reader chose are written beside their dots. Inside — the city's time and the next time
- * of the day with what is left until it.
+ * — only digits: the time of the city and, beside the chosen dots, their times (owner, 16.11.2026: «убери другие слова с циферблата»).
  */
 export function BigFace({
   now,
@@ -266,7 +266,6 @@ export function BigFace({
   onPick,
   onHover,
   tziruf,
-  next,
   hm,
   short = hm,
   name,
@@ -282,7 +281,6 @@ export function BigFace({
   onPick: (id: FaceId, fx: number, fy: number) => void;
   onHover?: (id: FaceId | null, fx: number, fy: number) => void;
   tziruf?: boolean;
-  next?: { id: FaceId; at: Date; left: string } | null;
   hm: (d: Date) => string;
   name: (id: FaceId) => string;
 }) {
@@ -323,7 +321,7 @@ export function BigFace({
               />
             );
           })}
-          <g className="clk-sun" transform={`translate(${polar(ring.noon, 56).join(' ')}) scale(.8)`}>
+          <g className="clk-sun" transform={`translate(${polar(ring.noon, 77).join(' ')}) scale(.72)`}>
             <circle r="4.5" />
             {Array.from({ length: 8 }, (_, i) => (
               <line key={i} x1="0" y1="-7" x2="0" y2="-9.5" transform={`rotate(${i * 45})`} />
@@ -331,13 +329,13 @@ export function BigFace({
           </g>
           <path
             className="clk-moon"
-            transform={`translate(${polar((ring.noon + 0.5) % 1, 56).join(' ')}) scale(.8)`}
+            transform={`translate(${polar((ring.noon + 0.5) % 1, 77).join(' ')}) scale(.72)`}
             d="M2 -7 A7 7 0 1 0 7 2 A5.5 5.5 0 0 1 2 -7Z"
           />
         </>
       )}
       {labelled.map((d, i) => {
-        const [x, y] = polar(turns[i], 75.5);
+        const [x, y] = polar(turns[i], 68);
         return (
           <text key={`l-${d.id}`} className={`clk-blabel${d.at <= now ? ' past' : ''}`} x={x} y={y} textAnchor="middle" dominantBaseline="central" fill={d.color}>
             {short(d.at)}
@@ -363,38 +361,16 @@ export function BigFace({
         </g>
       ))}
       {tziruf && ring && (
-        <text className="clk-tziruf he" lang="he" x="100" y="58" textAnchor="middle" dominantBaseline="central" direction="rtl">
+        <text className="clk-tziruf he" lang="he" x="100" y="148" textAnchor="middle" dominantBaseline="central" direction="rtl">
           {TZIRUFIM[ring.hour]}
         </text>
       )}
       <text className="clk-big" x="100" y="94" textAnchor="middle" dominantBaseline="central">
         {two(h)}:{two(m)}
       </text>
-      <text className="clk-bigs" x="100" y="116" textAnchor="middle" dominantBaseline="central">
+      <text className="clk-bigs" x="100" y="119" textAnchor="middle" dominantBaseline="central">
         {two(s)}
       </text>
-      {next && (
-        <g
-          className="clk-next-zman"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
-            const d = dots.find((x) => x.id === next.id);
-            if (d) pick(d);
-          }}
-          onKeyDown={(e) => {
-            const d = dots.find((x) => x.id === next.id);
-            if (d && (e.key === 'Enter' || e.key === ' ')) (e.preventDefault(), pick(d));
-          }}
-        >
-          <text x="100" y="133" textAnchor="middle" dominantBaseline="central">
-            {name(next.id)} · <tspan className="t">{hm(next.at)}</tspan>
-          </text>
-          <text className="left" x="100" y="144" textAnchor="middle" dominantBaseline="central">
-            {next.left}
-          </text>
-        </g>
-      )}
     </svg>
   );
 }
