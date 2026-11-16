@@ -52,15 +52,15 @@ export function wallTime(iso: string, h: number, m: number, zone: string): Date 
   return new Date(t);
 }
 
-/** The times of the day the clock can show, in the order of the day; `mincha` — the end of its time, sunset. */
-export type TimeId = 'sunrise' | 'shma' | 'tefila' | 'chatzot' | 'minchaGedola' | 'plag' | 'mincha' | 'tzeit';
-export const TIME_IDS: TimeId[] = ['sunrise', 'shma', 'tefila', 'chatzot', 'minchaGedola', 'plag', 'mincha', 'tzeit'];
+/** The times of the day the clock can show, in the order of the day; `alot` — dawn (the sun 16.1° below); `mincha` — the end of its time, sunset. */
+export type TimeId = 'alot' | 'sunrise' | 'shma' | 'tefila' | 'chatzot' | 'minchaGedola' | 'plag' | 'mincha' | 'tzeit';
+export const TIME_IDS: TimeId[] = ['alot', 'sunrise', 'shma', 'tefila', 'chatzot', 'minchaGedola', 'plag', 'mincha', 'tzeit'];
 /** «no later than»: rounded down to the minute; the rest — «from»: rounded up */
 export const DEADLINES: TimeId[] = ['shma', 'tefila', 'mincha'];
 /** what the face shows until the reader chooses */
 export const DEFAULT_MARKS: TimeId[] = ['shma', 'tefila', 'mincha'];
 /** `sunset` — the exact moment (the Jewish day turns there) */
-export type Times = Record<TimeId, Date | null> & { sunset: Date | null; alot: Date | null };
+export type Times = Record<TimeId, Date | null> & { sunset: Date | null };
 
 const ceilMin = (d: Date | null) => (d ? new Date(Math.ceil(d.getTime() / MIN) * MIN) : null);
 
@@ -77,7 +77,7 @@ export function timesOf(iso: string, s: Spot): Times {
     mincha: floorMin(d.sunset),
     tzeit: ceilMin(d.tzeit),
     sunset: d.sunset,
-    alot: d.alot, // dawn: where the rim of the face begins to turn from night to day
+    alot: ceilMin(d.alot), // dawn: also where the rim of the face begins to turn from night to day
   };
 }
 
