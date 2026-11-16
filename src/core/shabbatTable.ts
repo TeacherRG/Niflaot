@@ -6,11 +6,25 @@
  * two gematrias of the Baal HaTurim with their explanation and lesson (the Memo pairs), questions to talk over and
  * «Ґораа ле-поаль». No letter table, no riddles to count. A new lesson gets onto the sheet by itself.
  */
+import type { Locale } from '../i18n';
 import { LESSONS, PARSHIOT, type Lesson, type ParshaId } from '../lessons';
 import { stripFootnotes } from '../sources/footnotes';
 
 /** How many of each kind fit on two pages of A4. */
 export const TABLE_LIMITS = { verses: 3, gematria: 2, questions: 2 } as const;
+/**
+ * A long talk (its question, answers and practice — characters in the sheet's language) leaves room for fewer poems:
+ * longer than LONG_TALK — two, longer than VERY_LONG_TALK — none, so the sheet stays on 2 pages A4
+ * (Ваеце, 16.11.2026: en 6009 — two poems fit, de 6275 — even two make a third page).
+ */
+export const LONG_TALK = 5600;
+export const VERY_LONG_TALK = 6100;
+const talkLength = (l: Lesson, lang?: Locale) =>
+  Math.max(
+    ...Object.entries(l.texts)
+      .filter(([k]) => !lang || k === lang)
+      .map(([, t]) => JSON.stringify([t!.hero, t!.practice, t!.riddles.map((r) => [r.cond, r.reveal])]).replace(/<[^>]+>/g, '').length),
+  );
 
 export interface TableSheet {
   parsha: ParshaId;
@@ -45,14 +59,14 @@ const letters = (s: string) => s.replace(/[^א-ת]/g, '');
  * The Rebbe's verses for the sheet: the pairs whose verse is not on the sheet already — neither quoted in the talk (told
  * above) nor the verse of a gematria (`taken`: their letters) — spread over the portion.
  */
-function sichaVerses(l: Lesson, taken: string[]): number[] {
+function sichaVerses(l: Lesson, taken: string[], n: number): number[] {
   const talk = letters(l.texts.ru!.riddles.map((r) => plain(r.cond)).join(' '));
   const items = (l.cards?.items ?? []).map((c, k) => ({
     v: letters(c.verse),
     k,
   }));
   const fresh = items.filter(({ v }) => !talk.includes(v) && !taken.some((g) => g.includes(v) || v.includes(g)));
-  return spread(fresh.length >= TABLE_LIMITS.verses ? fresh : items, TABLE_LIMITS.verses).map((x) => x.k);
+  return spread(fresh.length >= n ? fresh : items, n).map((x) => x.k);
 }
 
 /** The Memo pairs with a gematria; first those whose number equals other words («a = b»), spread over the lesson. */
@@ -67,7 +81,7 @@ function memoGematria(l: Lesson): number[] {
 }
 
 /** The sheet of a portion, or null when it has no lessons. */
-export function tableSheet(parsha: ParshaId): TableSheet | null {
+export function tableSheet(parsha: ParshaId, lang?: Locale): TableSheet | null {
   if (!(parsha in PARSHIOT)) return null;
   const lessons = LESSONS.filter((l) => l.parsha === parsha);
   if (!lessons.length) return null;
@@ -79,9 +93,11 @@ export function tableSheet(parsha: ParshaId): TableSheet | null {
     TABLE_LIMITS.gematria,
   );
   const taken = gematria.map(({ lesson, k }) => letters(lesson.memo!.items[k].verse));
+  const talk = sicha ? talkLength(sicha, lang) : 0;
+  const nVerses = talk > VERY_LONG_TALK ? 0 : talk > LONG_TALK ? TABLE_LIMITS.verses - 1 : TABLE_LIMITS.verses;
   const verses = interleave(
-    rebbe.filter((l) => l.cards).map((l) => sichaVerses(l, taken).map((k) => ({ lesson: l, k }))),
-    TABLE_LIMITS.verses,
+    rebbe.filter((l) => l.cards).map((l) => sichaVerses(l, taken, nVerses).map((k) => ({ lesson: l, k }))),
+    nVerses,
   );
   // the last riddle's question of each lesson: the talk and the lesson for life come at the end
   const questions = interleave(

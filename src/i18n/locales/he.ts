@@ -584,6 +584,8 @@ const he: Partial<Messages> = {
   'cards.ls': "לקוטי שיחות, חלק {vol}, שיחה {n}",
   'cards.lsPages': "לקוטי שיחות, חלק {vol}, עמ׳ {p}",
   'cards.tm': "תורת מנחם, {year}, חלק {vol}, עמ׳ {p}",
+  'cards.lsVol': "לקוטי שיחות, חלק {vol}",
+  'cards.tmDay': "תורת מנחם, {year}, {day}",
   'cards.horaah': "הוראה — הלימוד לחיים",
   'cards.cardVerse': "פסוק: {words}",
   'cards.cardExpl': "הסבר הרבי: {text}",

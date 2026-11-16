@@ -14,6 +14,8 @@ export function lessonGames(lesson: Lesson) {
       ...(cardsOnly(lesson) ? [] : [{ href: `#/${lesson.slug}`, icon: '🔎', label: 'cards.tabLesson' } as const]),
       { href: `#/${lesson.slug}/cards`, icon: '🃏', label: 'cards.tab' },
       { href: `#/${lesson.slug}/read`, icon: '📖', label: 'cards.tabRead' },
+      // «Беседы Ребе по дням» — те же беседы, что в карточках (src/core/turimDaily.ts)
+      ...(hasDaily(lesson) ? [{ href: `#/${lesson.slug}/day`, icon: '📅', label: 'turim.tab' } as const] : []),
     ] as const;
   const read = { href: `#/${lesson.slug}/read`, icon: '📖', label: 'read.tab' } as const;
   if (lesson.memo)

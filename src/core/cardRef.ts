@@ -5,7 +5,11 @@ type Vars = Record<string, string | number>;
 
 /** Where the talk of a «Карточки» pair is: «Ликутей сихот, т. 25, беседа 3» / «…, с. 83–85» / «Торат Менахем, 5743, т. 3, с. 1223». */
 export function cardRef(card: RebbeCard, t: (key: MessageKey, vars?: Vars) => string): string {
-  if (card.tm) return t('cards.tm', { year: card.tm.year, vol: card.tm.vol, p: card.tm.pages });
+  if (card.tm)
+    return card.tm.vol && card.tm.pages
+      ? t('cards.tm', { year: card.tm.year, vol: card.tm.vol, p: card.tm.pages })
+      : t('cards.tmDay', { year: card.tm.year, day: card.tm.day ?? '' });
   const ls = card.ls!;
-  return ls.sicha ? t('cards.ls', { vol: ls.vol, n: ls.sicha }) : t('cards.lsPages', { vol: ls.vol, p: ls.pages ?? '' });
+  // only the volume is known (a talk on the portion without its number)
+  return ls.sicha ? t('cards.ls', { vol: ls.vol, n: ls.sicha }) : ls.pages ? t('cards.lsPages', { vol: ls.vol, p: ls.pages }) : t('cards.lsVol', { vol: ls.vol });
 }

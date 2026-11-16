@@ -390,6 +390,167 @@ Four riddles: I will return in peace, the Tree of Life, peace among the many, an
 Play 👉 ${site}
 
 ©mychitas.app`,
+  cards: {
+    "intro": "Twelve talks of the Rebbe on Vayetze: for each phrase of the verse — one explanation. Find which explanation belongs to which verse.",
+    "items": [
+      {
+        "title": "A tzaddik’s departure leaves a mark",
+        "verse": "“And Yaakov went out”",
+        "card": "A tzaddik’s leaving is no loss — the world becomes G-d’s home",
+        "explain": "Rashi: while a tzaddik is in a city, he is its glory, its radiance and its splendor (הוד, זיו, הדר); when he leaves, they leave too. The Rebbe asks: why does Rashi not bring the Midrash’s question — Yitzchak and Rivkah stayed in Be’er Sheva? The answer: for Rashi these words describe the tzaddik’s influence on the people of the city, and Yitzchak did not leave his house. In the inner meaning, Be’er Sheva is the root of the soul, and Charan is the world, “the place of anger” (חרון אף). The soul’s leaving its root is self-sacrifice. And it “leaves a mark” not as a loss but as an achievement: the world becomes a dwelling for G-d.",
+        "horaah": "The soul comes down into the world not to lose — but to make it a home for G-d.",
+        "poem": [
+          "And Yaakov went out — the city lost its light,",
+          "Its glory left with him, its splendor bright.",
+          "Yet the soul comes down not to lose, but to build:",
+          "A home for G-d, with holiness filled."
+        ]
+      },
+      {
+        "title": "The well of the oath",
+        "verse": "“from Be’er Sheva”",
+        "card": "Not peace with evil — turn darkness into light",
+        "explain": "The Midrash reads “Be’er Sheva” as “the well of the oath”: Yaakov left it so as not to give Avimelech the oath that Avraham and Yitzchak had given. They dealt with evil so that it would not disturb holiness: they pushed it away — or made peace with it. Yaakov goes to Charan not to make peace with evil but to transform it — “darkness into light.” That is why the place of the Temple, which he called a “house,” is higher than Avraham’s “mountain” and Yitzchak’s “field.”",
+        "horaah": "It is not enough to shut out darkness or come to terms with it — it has to be turned into light.",
+        "poem": [
+          "He left the “well of the oath” behind,",
+          "No peace with evil was on his mind.",
+          "Not just to push it off or make a pact —",
+          "But turn the dark to light: that is the act."
+        ]
+      },
+      {
+        "title": "Glory, radiance, splendor",
+        "verse": "“and went to Charan”",
+        "card": "The descent to Charan draws down the very Essence",
+        "explain": "In the Rebbe’s talk, Rashi’s three words — הוד, זיו, הדר — correspond to three sefirot: Netzach, Hod and Yesod. Every flow of influence downward passes through them, the birth of children too. Yaakov goes to Charan to build a “complete bed” (מטתו שלמה) — a family in which all the sons are righteous; that is why “glory, radiance and splendor” leave Be’er Sheva. The descent to Charan brings a new level: through their leaving, the very Essence is drawn down.",
+        "horaah": "Going down for the sake of the task leads to a level that cannot be reached above.",
+        "poem": [
+          "Three words of Rashi are three sefirot, it shows:",
+          "Netzach, Hod, Yesod — through them all blessing flows.",
+          "Their light departs — to Charan Yaakov goes,",
+          "And through descent the very Essence glows."
+        ]
+      },
+      {
+        "title": "Two meetings",
+        "verse": "“He came upon the place”",
+        "card": "Strength first as preparation, at the end as a gift",
+        "explain": "The Rebbe distinguishes two meetings. At the start of the journey Yaakov “came upon” (ויפגע) the place — as if by chance, without intent. Help from above is given to him as preparation and strength for his work. The Rebbe writes: a “meeting” without intent comes not only from Yaakov’s side, but, as it were, from above too: everything that flows down from the Infinite (Ein Sof) comes as if by itself. At the end, when his work in Lavan’s house is done, “the angels of G-d met him” (ויפגעו בו) — Rashi: the angels of the Land of Israel, to escort him into the Land. This is already a gift from above for what was done.",
+        "horaah": "At the start of the road strength is given as preparation; at the end — as a gift for the work done.",
+        "poem": [
+          "“He came upon” the place — as if by chance:",
+          "So strength is given first, to help him advance.",
+          "And at the end, when all his work is done,",
+          "G-d’s angels come to meet him, every one."
+        ]
+      },
+      {
+        "title": "The land on which you lie",
+        "verse": "“The land on which you lie”",
+        "card": "Just “lie” in your place — G-d will do the rest",
+        "explain": "Rashi: G-d folded the whole Land of Israel beneath Yaakov. The Rebbe asks: why does the Torah need the words “on which you lie”? They are a sign that the land belongs to Yaakov, like “arise, walk through the land” said to Avraham. But Avraham had to walk through it — and Yaakov receives it lying down. That is the novelty: it is enough for Jews to be “lying on it” — and G-d will do everything Himself, as King Chizkiyahu said: “I sleep on my bed, and You act.”",
+        "horaah": "Some things are given without our effort: our part is to be in our place — G-d will do the rest.",
+        "poem": [
+          "“The land you lie on — it is yours,” He said.",
+          "Avraham walked it; Yaakov lay instead.",
+          "Be in your place — and G-d will do the rest:",
+          "“I sleep, and You act,” the king confessed."
+        ]
+      },
+      {
+        "title": "A vow with conditions",
+        "verse": "“And Yaakov made a vow”",
+        "card": "The everyday too builds a house for G-d",
+        "explain": "How could Yaakov make his service depend on conditions — “if G-d will be with me…”? The Rebbe answers: the purpose of the vow is that it be fulfilled, and the “conditions” are the way there. They correspond to two kinds of service: help from above in Torah and mitzvot — and service in permitted, everyday things, which is like teshuvah. The stone becomes “a house of G-d,” because the true purpose is that the lowest world become a dwelling for the very Essence. For that, complete self-nullification is needed, like that of a simple servant.",
+        "horaah": "The everyday is part of the service too: a house for G-d is built from a plain stone.",
+        "poem": [
+          "A vow with terms — not bargaining, but a way:",
+          "In Torah, and in the plain everyday.",
+          "A simple stone becomes G-d’s house, if we",
+          "Give all ourselves, as servants, faithfully."
+        ]
+      },
+      {
+        "title": "Why Yaakov married sisters",
+        "verse": "“…Rachel his daughter”",
+        "card": "A hiddur never cancels a duty: do not deceive",
+        "explain": "Yaakov kept the whole Torah before it was given — so why did he marry two sisters, and why is Rashi silent about it? The Rebbe explains: before the Torah was given, keeping it was Yaakov’s own adornment — a hiddur. And a hiddur cannot override what is truly required. Here there was an obligation that the nations took upon themselves after the Flood: not to deceive. Yaakov had promised Rachel to marry her and given her signs — breaking his word would have been deceit.",
+        "horaah": "One may not take on hiddurim at the expense of others. Whoever can help a Jew far from Judaism should not put his own growth above what matters most for the other.",
+        "poem": [
+          "Two sisters? Yaakov kept the Torah long before —",
+          "As his own adornment, not as law, no more.",
+          "His word to Rachel was a duty plain:",
+          "No hiddur may be bought at another’s pain."
+        ]
+      },
+      {
+        "title": "See the difference",
+        "verse": "“And she named him Reuven”",
+        "card": "A name shows the path of service: Reuven’s merit",
+        "explain": "Why does Rashi add to the reason for Reuven’s name in the verse itself (“the L-rd has seen my affliction”) the Sages’ explanation: “see the difference between my son and my father-in-law’s son”? The Rebbe: it does not replace the reason — it grounds it. Leah could not know that her firstborn would be good, and a bad son would have distanced her husband. So Rashi shows Reuven’s merit: he did not sell the birthright, did not contest it, and wanted to save Yosef. From this merit follows “now my husband will love me.” The Rebbe then explains why the tribes were named by their mothers, each with its own reason: a name binds the soul to the body and expresses the path of service of each tribe.",
+        "horaah": "A name is not just a word: it tells how its bearer serves.",
+        "poem": [
+          "“See the difference!” — Leah named her son,",
+          "For Reuven’s merit: Yosef’s life he’d have won.",
+          "A name is not just a word we say:",
+          "It shows each soul its own service way."
+        ]
+      },
+      {
+        "title": "Why sheep",
+        "verse": "“The man grew exceedingly rich”",
+        "card": "Sheep: going out to the world, with humility and strength",
+        "explain": "“And the man grew exceedingly rich, and had many flocks.” Why is Yaakov’s wealth sheep (צאן)? The Rebbe connects the word with “going out” (יציאה): the service of going out into the world to make it a dwelling for G-d. Its core is self-nullification — it is not for one’s own perfection, but to fulfill His will. Yet self-nullification needs strength too: “bold as a leopard, mighty as a lion.” And that strength must grow out of self-nullification, not out of ego.",
+        "horaah": "For our generation: to seek out Jews lost in the darkness of exile is to save lives.",
+        "poem": [
+          "“Exceedingly rich” — with flocks, with sheep:",
+          "Going out to the world, G-d’s will to keep.",
+          "Bold as a leopard, as a lion strong,",
+          "To seek lost Jews — to save lives all along."
+        ]
+      },
+      {
+        "title": "With all my strength",
+        "verse": "“With all my strength I served your father”",
+        "card": "Do the Master’s work with all your strength",
+        "explain": "From Yaakov’s words “with all my strength I served your father,” the Rambam derives a law: a hired worker must work with all his strength. The Rebbe explains: this is the ordinary duty of every worker, not piety beyond the letter of the law. And Yaakov received his reward for it in this world. So too in the service of G-d: below, beyond the “four cubits” of Torah and prayer, we do the work of the Master of the house — and it must be done with all our strength, both inner and “encompassing” (makifim).",
+        "horaah": "Work in the world is also service of the Master — and it should be done in full strength.",
+        "poem": [
+          "“With all my strength I served,” he said,",
+          "And from it the Rambam a law has read.",
+          "So we, beyond the four cubits of prayer,",
+          "Do the Master’s work with all our strength there."
+        ]
+      },
+      {
+        "title": "Sons before wives",
+        "verse": "“He set his sons and his wives”",
+        "card": "In exile the heart’s devotion goes beyond the mind",
+        "explain": "The order “his sons and his wives” runs against the rule that a wife comes before children. Rashi: Yaakov put the males before the females, while Esav put the females before the males. The Rebbe: Rashi chooses his words to show that for Yaakov the men were the main thing, and for Esav — the opposite. In the inner meaning, “man and woman” are mind and heart. Usually the mind rules the heart. But in exile, where concealment is great, service above reason is needed — and it is revealed precisely in the heart. This is “the service of Esav within Yaakov.”",
+        "horaah": "When concealment is great, the mind alone is not enough — the heart’s devotion, beyond understanding, is needed.",
+        "poem": [
+          "His sons before his wives he set,",
+          "Esav the opposite — don’t forget.",
+          "Man is the mind, and woman — heart:",
+          "In exile, love above the mind must play its part."
+        ]
+      },
+      {
+        "title": "And Yaakov went on his way",
+        "verse": "“And Yaakov went on his way”",
+        "card": "The strength of the festivals is for all the weekdays",
+        "explain": "Where does the strength for a whole year of work in the world come from? Lavan (לבן — “white”) corresponds to the supernal whiteness — the essence of the Infinite, which forgives sins. This cannot be reached by effort from below alone. Lavan’s pursuit revealed it from above and gave Yaakov strength for his meeting with Esav. So too the month of Tishrei gives strength for all the weekdays: that every deed be “for the sake of Heaven” and “in all your ways know Him.”",
+        "horaah": "The strength received on the festivals is for the weekdays: “and Yaakov went on his way.”",
+        "poem": [
+          "“And Yaakov went his way” — Lavan gave chase,",
+          "Lavan, the “white,” the highest grace.",
+          "That chase gave strength from above to go on,",
+          "As Tishrei strengthens every weekday’s dawn."
+        ]
+      }
+    ]
+  },
   daily: {
     intro:
       'The Rebbe’s talks on Vayetze — two a day, Sunday to Friday: the verse, Rashi’s words when the talk is about them, and the heart of the talk — retold by the project, with its source.',
