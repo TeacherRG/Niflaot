@@ -2316,6 +2316,8 @@ const de: Messages = {
   'clock.t.shma': "Ende der Zeit für das Schma",
   'clock.t.tefila': "Ende der Zeit für das Morgengebet",
   'clock.t.mincha': "Ende der Zeit für Mincha (Sonnenuntergang)",
+  'clock.hourDay': "{n}. Stunde des Tages",
+  'clock.hourNight': "{n}. Stunde der Nacht",
   'clock.past': "die Zeit ist vorbei",
   'clock.leftHm': "noch {h} Std. {m} Min.",
   'clock.leftM': "noch {m} Min.",

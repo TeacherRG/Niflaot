@@ -1,7 +1,8 @@
 /**
  * «Часы» (src/core/clock.ts): the times of the day and the rules of the alarm — run by `npm run check`.
  */
-import { addDays, cleanAlarm, cleanMarks, TIME_IDS, dayKind, DEFAULT_ALARM, DEFAULT_STUDY, inIsrael, nextRing, restAt, shownDay, timesOf, wallTime, type Alarm, type Spot } from '../src/core/clock';
+import { addDays, cleanAlarm, cleanMarks, fracOf, halfOf, halfTimes, hourOf, TIME_IDS, dayKind, DEFAULT_ALARM, DEFAULT_STUDY, inIsrael, nextRing, restAt, shownDay, timesOf, wallTime, type Alarm, type Spot } from '../src/core/clock';
+import { hebrewDayMonth } from '../src/core/hebcal';
 
 let failed = 0;
 const ok = (cond: unknown, what: string) => {
@@ -115,8 +116,47 @@ ok(cleanMarks(['tzeit', 'x', 'shma', 'shma']).join() === 'shma,tzeit' && cleanMa
 ok(JSON.stringify(cleanAlarm(null)) === JSON.stringify(DEFAULT_ALARM), 'cleanAlarm(null)');
 ok(cleanAlarm({ on: true }, DEFAULT_STUDY).h === 20 && cleanAlarm({ h: 7 }, DEFAULT_STUDY).h === 7, 'cleanAlarm: the defaults of the alarm of study');
 
+// the face shows one half of the day — 12 halachic hours of the day or of the night (owner, 17.11.2026)
+for (const [name, s] of [['Vienna', vienna], ['Jerusalem', jerusalem]] as const) {
+  let iso = '2026-01-01';
+  for (let n = 0; n < 366; n++, iso = addDays(iso, 1)) {
+    for (const [h, m] of [[0, 30], [5, 0], [7, 0], [10, 0], [12, 0], [15, 30], [17, 0], [20, 0], [23, 59]] as const) {
+      const now = wallTime(iso, h, m, s.zone);
+      const half = halfOf(now, s);
+      if (!half) { ok(false, `${name} ${iso} ${h}:${m}: no half`); continue; }
+      const f = fracOf(now, half);
+      ok(half.start <= now && now < half.end && f >= 0 && f < 1, `${name} ${iso} ${h}:${m}: «now» is not inside its half`);
+      const len = (half.end.getTime() - half.start.getTime()) / 3600_000;
+      ok(len > 6 && len < 18, `${name} ${iso} ${h}:${m}: a half of ${len.toFixed(1)} h`);
+      ok(hourOf(now, half) >= 1 && hourOf(now, half) <= 12, `${name} ${iso}: hour of the half`);
+      const t = halfTimes(half, s);
+      for (const [id, at] of Object.entries(t)) ok(at! > half.start && at! <= half.end, `${name} ${iso} ${h}:${m}: ${id} outside the half`);
+      if (half.day) ok(t.shma && t.tefila && t.chatzot && t.mincha && !t.sunrise && !t.tzeit, `${name} ${iso} ${h}:${m}: the day half — Shma, prayer, midday, sunset; not sunrise, not nightfall`);
+      else ok(t.tzeit && t.sunrise && !t.mincha && !t.shma, `${name} ${iso} ${h}:${m}: the night half — nightfall and the next sunrise, not sunset`);
+    }
+  }
+}
+{
+  // Vienna, 17.11.2026, 10:00 — the day; Shma at the end of the 3rd hour, so at 10:00 it is the 4th hour
+  const now = wallTime('2026-11-17', 10, 0, vienna.zone);
+  const half = halfOf(now, vienna)!;
+  ok(half.day && hourOf(now, half) === 4, `Vienna 10:00 — the 4th hour of the day (got ${hourOf(now, half)})`);
+  const t = halfTimes(half, vienna);
+  ok(Math.abs(fracOf(t.shma!, half) - 0.25) < 0.02 && Math.abs(fracOf(t.chatzot!, half) - 0.5) < 0.01, 'Shma — at a quarter of the day, midday — at half');
+  const night = halfOf(wallTime('2026-11-17', 22, 0, vienna.zone), vienna)!;
+  ok(!night.day && night.alot && night.tzeit && night.tzeit > night.start && night.alot < night.end, 'the night: nightfall and dawn inside');
+}
+{
+  const ru = hebrewDayMonth('2026-11-17', 'ru');
+  ok(ru.day === 7 && ru.month === 'кислева' && ru.year === 5787, `the Jewish day as a number: ${ru.day} ${ru.month} ${ru.year}`);
+  ok(hebrewDayMonth('2026-11-17', 'de').month === 'Kislew' && hebrewDayMonth('2026-11-17', 'he').month === 'בכסלו', 'month names de / he');
+  // every month of a leap year (5787) has a name in every language
+  let d = '2026-09-12';
+  for (let n = 0; n < 390; n++, d = addDays(d, 1)) for (const l of ['ru', 'en', 'de', 'he']) ok(!/[A-Z]'?[a-z]+/.test(hebrewDayMonth(d, l).month) || l !== 'ru', `${d}: no Russian month name`);
+}
+
 if (failed) {
   console.error(`clock: ${failed} problem(s)`);
   process.exit(1);
 }
-console.log('✓ «Часы»: времена дня (Вена, Йерушалаим — каждый день года), покой будильника в Шабат и праздники, следующий звонок');
+console.log('✓ «Часы»: времена дня (Вена, Йерушалаим — каждый день года), половина суток на циферблате, еврейская дата числом, покой будильника в Шабат и праздники, следующий звонок');

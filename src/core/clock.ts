@@ -95,6 +95,56 @@ export function shownDay(now: Date, s: Spot): { iso: string; tomorrow: boolean; 
   return { iso: today, tomorrow: false, times: t };
 }
 
+/**
+ * The half of the day the face shows (owner, 17.11.2026: «12 часов — или дня, или ночи; горит луна или солнце»): the day — from
+ * sunrise to sunset, the night — from sunset to the next sunrise; each is 12 halachic hours. `alot`, `tzeit` — dawn and nightfall
+ * of this night (the colour of the rim turns between day and night there). Null where the sun does not rise or set.
+ */
+export interface Half {
+  day: boolean;
+  start: Date;
+  end: Date;
+  alot: Date | null;
+  tzeit: Date | null;
+}
+
+export function halfOf(now: Date, s: Spot): Half | null {
+  const today = isoIn(now, s.zone);
+  const t = dayTimes(today, s.lat, s.lon, s.zone);
+  if (!t.sunrise || !t.sunset) return null;
+  if (now >= t.sunrise && now < t.sunset) return { day: true, start: t.sunrise, end: t.sunset, alot: null, tzeit: null };
+  if (now < t.sunrise) {
+    const y = dayTimes(addDays(today, -1), s.lat, s.lon, s.zone);
+    return y.sunset ? { day: false, start: y.sunset, end: t.sunrise, alot: t.alot, tzeit: y.tzeit } : null;
+  }
+  const n = dayTimes(addDays(today, 1), s.lat, s.lon, s.zone);
+  return n.sunrise ? { day: false, start: t.sunset, end: n.sunrise, alot: n.alot, tzeit: t.tzeit } : null;
+}
+
+/** Where a moment stands in the half: 0 — its start, 1 — its end (the top of the face for both). */
+export const fracOf = (at: Date, h: Half) => (at.getTime() - h.start.getTime()) / (h.end.getTime() - h.start.getTime());
+
+/** The halachic hour of the half now: 1…12. */
+export const hourOf = (now: Date, h: Half) => Math.min(12, Math.max(1, Math.floor(fracOf(now, h) * 12) + 1));
+
+/**
+ * The times of the day that fall in this half — from the calendar days around it (a night holds nightfall of one day and dawn
+ * and sunrise of the next). The time at the half's start (sunrise of the day, sunset of the night) is left out: it is the end
+ * of the half before, and stands at the top of the face, where the end of this half is.
+ */
+export function halfTimes(h: Half, s: Spot): Partial<Record<TimeId, Date>> {
+  const out: Partial<Record<TimeId, Date>> = {};
+  const mid = isoIn(new Date((h.start.getTime() + h.end.getTime()) / 2), s.zone);
+  for (const n of [-1, 0, 1]) {
+    const t = timesOf(addDays(mid, n), s);
+    for (const id of TIME_IDS) {
+      const at = t[id];
+      if (at && at > h.start && at <= h.end) out[id] = at;
+    }
+  }
+  return out;
+}
+
 export type Rest = 'shabbat' | 'chag' | 'cholHamoed';
 
 /** What kind of day the calendar day is (its daytime): Shabbat, Yom Tov / Yom Kippur, Chol HaMoed — or an ordinary one. */

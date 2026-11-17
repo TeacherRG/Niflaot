@@ -2316,6 +2316,8 @@ const en: Messages = {
   'clock.t.shma': "Latest time for the Shema",
   'clock.t.tefila': "Latest time for the morning prayer",
   'clock.t.mincha': "Latest time for Minchah (sunset)",
+  'clock.hourDay': "hour {n} of the day",
+  'clock.hourNight': "hour {n} of the night",
   'clock.past': "the time has passed",
   'clock.leftHm': "{h} h {m} min left",
   'clock.leftM': "{m} min left",

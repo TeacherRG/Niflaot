@@ -17,6 +17,24 @@ export function hebrewDateParts(iso: string): { year: number; month: string; day
   return { year: h.getFullYear(), month: h.getMonthName(), day: h.getDate() };
 }
 
+/** Months as hebcal names them (`getMonthName`) → the name to write after the day number, in the language of the page. */
+const MONTH_NAMES: Record<'ru' | 'en' | 'de' | 'he', Record<string, string>> = {
+  ru: { Nisan: 'нисана', Iyyar: 'ияра', Sivan: 'сивана', Tamuz: 'тамуза', Av: 'ава', Elul: 'элула', Tishrei: 'тишрея', Cheshvan: 'хешвана', Kislev: 'кислева', Tevet: 'тевета', "Sh'vat": 'швата', Adar: 'адара', 'Adar I': 'адара I', 'Adar II': 'адара II' },
+  en: { Nisan: 'Nisan', Iyyar: 'Iyar', Sivan: 'Sivan', Tamuz: 'Tammuz', Av: 'Av', Elul: 'Elul', Tishrei: 'Tishrei', Cheshvan: 'Cheshvan', Kislev: 'Kislev', Tevet: 'Tevet', "Sh'vat": 'Shevat', Adar: 'Adar', 'Adar I': 'Adar I', 'Adar II': 'Adar II' },
+  de: { Nisan: 'Nissan', Iyyar: 'Ijar', Sivan: 'Siwan', Tamuz: 'Tammus', Av: 'Aw', Elul: 'Elul', Tishrei: 'Tischri', Cheshvan: 'Cheschwan', Kislev: 'Kislew', Tevet: 'Tewet', "Sh'vat": 'Schwat', Adar: 'Adar', 'Adar I': 'Adar I', 'Adar II': 'Adar II' },
+  he: { Nisan: 'בניסן', Iyyar: 'באייר', Sivan: 'בסיון', Tamuz: 'בתמוז', Av: 'באב', Elul: 'באלול', Tishrei: 'בתשרי', Cheshvan: 'בחשוון', Kislev: 'בכסלו', Tevet: 'בטבת', "Sh'vat": 'בשבט', Adar: 'באדר', 'Adar I': 'באדר א׳', 'Adar II': 'באדר ב׳' },
+};
+
+/**
+ * The Jewish day and month with the day as an ordinary number (owner, 17.11.2026: «не все знают гематрию — день обычным числом»):
+ * «6 кислева», «6 Kislev», «6. Kislew», «6 בכסלו»; and the year, «5787».
+ */
+export function hebrewDayMonth(iso: string, lang: string): { day: number; month: string; year: number } {
+  const p = hebrewDateParts(iso);
+  const names = MONTH_NAMES[(lang in MONTH_NAMES ? lang : 'en') as keyof typeof MONTH_NAMES];
+  return { day: p.day, month: names[p.month] ?? p.month, year: p.year };
+}
+
 /**
  * Weekly portion read on the Shabbat on or after `iso` (hebcal English names, e.g. «Vayera», «Vayakhel-Pekudei»
  * as two entries); null when that Shabbat is a festival with its own reading. `il` — Israel schedule.
