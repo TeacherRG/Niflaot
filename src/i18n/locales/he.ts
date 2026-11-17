@@ -14,6 +14,16 @@ const he: Partial<Messages> = {
   'app.brandSub': "MyChitas",
   'app.language': "שפה",
 
+  'reading.siddur': "סידור",
+  'reading.siddurSub': "תפילות",
+  'reading.shacharit': "שחרית",
+  'reading.shacharitChecking': "טקסט התפילה נטען…",
+  'reading.shacharitMissing': "נוסח שחרית עדיין לא נוסף.",
+  'reading.shacharitError': "לא ניתן לטעון את הטקסט. יש לרענן את הדף ולנסות שוב.",
+  'reading.shacharitContents': "חלקי תפילת שחרית",
+  'reading.shacharitBack': "↑ חזרה לחלקים",
+  'reading.shacharitSource': "תרגום: {source}. מקור:",
+
   'menu.open': "פתיחת התפריט",
   'menu.close': "סגירה",
   'menu.lessons': "תורה",
