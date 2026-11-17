@@ -478,6 +478,7 @@ export function ClockPage() {
               {t('clock.tziruf')}
             </label>
             {tziruf && <p className="clk-note">{t('clock.tzirufNote')}</p>}
+            <TzirufMore />
           </div>
         ) : (
           <p className="clk-note">{t('clock.noCity')}</p>
@@ -488,7 +489,21 @@ export function ClockPage() {
         <p className="clk-note">{t('clock.note')}</p>
         <p className="clk-note">{t('clock.shabbatNote')}</p>
         <p className="clk-note">{t('clock.limits')}</p>
+        <TzirufMore />
       </Sheet>
     </>
+  );
+}
+
+/** «Что такое сочетание Имени?» — свёрнутое объяснение: число сочетаний, источники, порядок на часах, как смотреть. */
+function TzirufMore() {
+  const { t } = useI18n();
+  return (
+    <details className="clk-tz-more">
+      <summary>{t('clock.tzirufMore')}</summary>
+      {t('clock.tzirufMoreBody').split('\n\n').map((p, i) => (
+        <p key={i}>{p}</p>
+      ))}
+    </details>
   );
 }
