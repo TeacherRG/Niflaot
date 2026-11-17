@@ -29,9 +29,9 @@ export const TZIRUFIM = ['יהוה', 'יההו', 'יוהה', 'ההיו', 'ההו
 export const TZIRUF_KEY = 'niflaot:clock-tziruf';
 export const loadTziruf = (): boolean => {
   try {
-    return localStorage.getItem(TZIRUF_KEY) === '1';
+    return localStorage.getItem(TZIRUF_KEY) !== '0';
   } catch {
-    return false;
+    return true;
   }
 };
 export const loadMarks = (): TimeId[] => {

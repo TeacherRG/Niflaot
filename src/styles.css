@@ -3968,6 +3968,9 @@ html.tabbed .coin-toast-live{bottom:calc(76px + env(safe-area-inset-bottom,0px))
 .clk-times li.past time{text-decoration:line-through;text-decoration-thickness:1px}
 .clk-tomorrow{margin:6px 0 0;font-size:13px;color:var(--tchelet-deep);font-weight:600}
 .clk-note{margin:10px 0 0;font-size:12px;line-height:1.45;color:var(--muted)}
+.clk-tz-more{margin:10px 0 0;font-size:13px;line-height:1.5}
+.clk-tz-more summary{cursor:pointer;color:var(--gold-deep);font-weight:600}
+.clk-tz-more p{margin:8px 0 0}
 .clk-alarm{margin-top:18px;display:grid;gap:12px}
 .clk-alarm.on{border-color:var(--tchelet-line)}
 .clk-alarm-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
