@@ -7,6 +7,7 @@ import niflaotSmall from '../assets/logos/niflaot-128.webp';
 import niflaotSeal from '../assets/logos/niflaot.webp';
 import chabadHaus from '../assets/logos/chabad-haus-vienna.webp';
 import jrcv from '../assets/logos/jrcv-vienna.webp';
+import vkj from '../assets/logos/vkj-vienna.webp';
 import type { Locale } from '../i18n';
 
 /**
@@ -56,4 +57,13 @@ export const PARTNERS: Partner[] = [
       de: 'JRCV ist ein jüdisches Zentrum in Wien, das die russischsprachige Gemeinde mit Bildungs- und Gemeinschaftsangeboten unterstützt.',
     },
   },
+];
+
+/**
+ * Logos only on paper — the masthead of every printout and the certificate (owner, 17.11.2026: «добавь в печать лого
+ * партнёра» — Beit Juhuro Vienna, VKJ). Not on «Партнёры»: no description and site yet.
+ */
+export const PRINT_PARTNERS: { id: string; name: string; logo: string }[] = [
+  ...PARTNERS,
+  { id: 'vkj-vienna', name: 'Beit Juhuro Vienna (VKJ)', logo: vkj },
 ];
