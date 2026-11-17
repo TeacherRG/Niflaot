@@ -319,6 +319,16 @@ export function Panels() {
             <>
               {link('#/reading', num('ת', true), t('reading.menuItem'))}
               {link('#/reading/haazinu', num('ש', true), t('reading.menuHaazinu'))}
+              <details className="menu-group" open={starts('#/reading/siddur')}>
+                <summary className="menu-item">
+                  {num('ס', true)}
+                  <span>
+                    {t('reading.siddur')}
+                    <small>{t('reading.siddurSub')}</small>
+                  </span>
+                </summary>
+                <div className="menu-sub">{link('#/reading/siddur/shacharit', num('ש', true), t('reading.shacharit'))}</div>
+              </details>
               {/* «Шнаим микра» и «Святая музыка» — пока только у администратора (владелец, 01.11.2026) */}
               {admin && link('#/reading/shnayim', num('ת״א', true), t('reading.menuShnayim'), t('reading.menuShnayimSub'))}
             </>

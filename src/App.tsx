@@ -67,6 +67,7 @@ const PicWordsPage = page(() => import('./components/PicWordsPage'), 'PicWordsPa
 const EnglishCoursePage = page(() => import('./components/EnglishCoursePage'), 'EnglishCoursePage');
 const LashonPage = page(() => import('./components/LashonPage'), 'LashonPage');
 const ReadingPage = page(() => import('./components/ReadingPage'), 'ReadingPage');
+const ShacharitPage = page(() => import('./components/ShacharitPage'), 'ShacharitPage');
 const ShnayimPage = page(() => import('./components/ShnayimPage'), 'ShnayimPage');
 const TanakhQuizPage = page(() => import('./components/TanakhQuizPage'), 'TanakhQuizPage');
 const HemshechPage = page(() => import('./components/HemshechPage'), 'HemshechPage');
@@ -90,7 +91,7 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©mychitas.app`;
  * `#/daily` — «Знаете ли вы?» opened on «Гематрия дня», its first card; `#/math/<op>` — «Устный счёт».
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson; `/mental-math/` and `/daily/` (also under `/en/`, `/de/`) — those pages.
- * `#/reading` opens the Tehillim portion for today's Hebrew date; `#/reading/day/<day>` selects another date, `#/reading/<chapter>` opens one chapter, `#/reading/week[/<1–7>]` — Tehillim of the day of the week, `#/reading/mine` — «Мои главы» (chapters with names, this browser only), `#/reading/haazinu` opens Deuteronomy 32 («Песнь Аазину»), and `#/reading/shnayim[/<1–7>]` — «Шнаим микра ве-эхад таргум»: today's portion of the weekly parshah.
+ * `#/reading` opens the Tehillim portion for today's Hebrew date; `#/reading/day/<day>` selects another date, `#/reading/<chapter>` opens one chapter, `#/reading/week[/<1–7>]` — Tehillim of the day of the week, `#/reading/mine` — «Мои главы» (chapters with names, this browser only), `#/reading/haazinu` opens Deuteronomy 32 («Песнь Аазину»), `#/reading/siddur/shacharit` opens the Shacharit siddur PDF, and `#/reading/shnayim[/<1–7>]` — «Шнаим микра ве-эхад таргум»: today's portion of the weekly parshah.
  */
 function readRoute() {
   if (location.hash) return location.hash.replace(/^#\/?/, '').split('?')[0];
@@ -257,6 +258,8 @@ function Site() {
             <LashonPage />
           ) : slug === 'reading' && view === 'shnayim' ? (
             <ShnayimPage key={route} aliyah={variant || undefined} />
+          ) : slug === 'reading' && view === 'siddur' && variant === 'shacharit' ? (
+            <ShacharitPage />
           ) : slug === 'reading' ? (
             <ReadingPage key={route} chapter={view === 'day' ? undefined : view || undefined} day={view === 'day' || view === 'week' ? variant : undefined} />
           ) : slug === 'pics' && !view ? (

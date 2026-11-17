@@ -3186,6 +3186,18 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .koelet-bar .add-course{margin:0}
 .koelet-frame{display:block;width:calc(100% + 32px);margin-inline:-16px;height:70vh;border:0;border-top:1px solid var(--line);background:var(--paper)}
 @media (max-width:640px){.koelet-bar>span{display:none}.koelet-bar{justify-content:flex-end;padding:4px 0}.koelet-bar .add-course{font-size:13px}.koelet-bar .add-course-btn{padding:4px 12px;min-height:0}}
+.shacharit-toc{scroll-margin-top:calc(90px + env(safe-area-inset-top,0px));margin:12px 0 24px;padding:14px 18px;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:0 4px 16px #18243812}
+.shacharit-toc h2{margin:0 0 10px;font-size:1.05rem}
+.shacharit-toc>div{display:flex;flex-wrap:wrap;gap:8px}
+.shacharit-toc a{padding:7px 11px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink);text-decoration:none;font-size:.92rem}
+.shacharit-toc a:hover,.shacharit-toc a:focus-visible{border-color:var(--tchelet);background:var(--tchelet-soft)}
+.shacharit-section{scroll-margin-top:calc(90px + env(safe-area-inset-top,0px));margin:28px 0;padding:20px 24px;border:1px solid var(--line);border-radius:16px;background:var(--plain)}
+.shacharit-section h2{margin:0 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line);font-size:1.35rem}
+.shacharit-line{margin:14px 0;line-height:1.85;unicode-bidi:plaintext;text-align:start}
+.shacharit-line[lang="he"]{font-family:"Noto Serif Hebrew",serif;font-size:1.35em;line-height:2}
+.shacharit-back{display:inline-block;margin-top:8px;color:var(--tchelet);font-size:.9rem}
+.shacharit-credit{margin:28px auto;text-align:center;color:var(--ink-2);font-size:.9rem}
+@media(max-width:640px){.shacharit-toc{padding:12px}.shacharit-toc>div{gap:6px}.shacharit-section{padding:16px}.shacharit-line[lang="he"]{font-size:1.2em}}
 
 /* «Святое чтение» — проворное чтение Теґилим (ReadingPage.tsx); знаки кантилляции есть только в Noto Serif Hebrew */
 .rd .tk-head h1 .he{font-size:.9em}
