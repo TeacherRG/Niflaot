@@ -128,7 +128,7 @@
   "beit-choron": {"n": "Beth-horon", "d": "A town on the ascent from the Aijalon valley into the hills of Benjamin; along this road Israel pursued the five kings (10:10–11)."},
   "kadesh-barnea": {"n": "Kadesh-barnea", "d": "An oasis in the south, in the wilderness of Zin, from which Moshe sent the spies (Numbers 13:26); the southern limit of Joshua's conquest (10:41)."},
   "kineret": {"n": "Kinneret", "d": "The lake in the north through which the Jordan flows (the Sea of Kinneret), and the region around it (11:2; 12:3)."},
-  "chermon": {"n": "Mount Hermon", "d": "The highest mountain in the north, at the sources of the Jordan — the northern limit of Israel's lands (11:3; 11:17; 12:5)."},
+  "chermon": {"n": "Mount Hermon", "d": "The highest mountain in the north, at the sources of the Jordan — the northern limit of Israel's lands (11:3; 11:17; 12:5). The Sidonians call it Sirion (Deuteronomy 3:9)."},
   "baal-gad": {"n": "Baal-gad", "d": "A place in the Valley of Lebanon at the foot of Hermon — the northern limit of Joshua's conquest (11:17; 12:7; 13:5)."},
   "mitzpe-north": {"n": "Valley of Mizpeh", "d": "A valley in the north, at the foot of Hermon, as far as which the northern kings were pursued (11:8); nearby is “the land of Mizpah” (11:3)."},
   "geshur": {"n": "Geshur", "d": "A small kingdom east of the Kinneret, on the border of Bashan (12:5; 13:2). Maacah, Absalom's mother, came from there (II Samuel 3:3)."},
@@ -157,7 +157,7 @@
   "shlomo": {"n": "Shlomo"},
   "shchem": {"n": "Shechem"},
   "beer-sheva": {"n": "Beersheba"},
-  "shilo": {"n": "Shiloh"},
+  "shilo": {"n": "Shiloh", "d": "A town in Ephraim's portion where Joshua set up the Tent of Meeting (18:1). The lots for the seven tribes were cast there; the Mishkan stood at Shiloh for 369 years (Zevachim 118b)."},
   "tzor": {"n": "Tyre"},
   "beit-lechem": {"n": "Bethlehem"},
   "shomron": {"n": "Samaria"},
@@ -165,5 +165,8 @@
   "calev": {"n": "Caleb son of Jephunneh", "d": "Of the tribe of Judah, one of the twelve spies Moshe sent from Kadesh-barnea; with Joshua he spoke no evil of the Land (Numbers 14:6–9, 24). At eighty-five he asked for Hebron and drove out the sons of the giant Anak (ch. 14–15)."},
   "elazar": {"n": "Elazar the Kohen", "d": "Son of Aharon and High Priest after him. With Joshua and the heads of the tribes he divided the Land by lot (14:1)."},
   "efraim": {"n": "Ephraim", "d": "The younger son of Yosef, whom Yaakov blessed before the elder, Manasseh (Genesis 48:19–20). His tribe received its portion in the middle of the land; Joshua was from it (Numbers 13:8)."},
-  "tzelofchad": {"n": "Zelophehad", "d": "Of the tribe of Manasseh. He died in the wilderness without sons; his five daughters asked Moshe for their father's portion, and G-d said to give it to them (Numbers 27:1–7). Joshua carried it out when the Land was divided (17:3–6)."}
+  "tzelofchad": {"n": "Zelophehad", "d": "Of the tribe of Manasseh. He died in the wilderness without sons; his five daughters asked Moshe for their father's portion, and G-d said to give it to them (Numbers 27:1–7). Joshua carried it out when the Land was divided (17:3–6)."},
+  "beit-shean": {"n": "Beth-shean", "d": "A town where the Jezreel Valley opens to the Jordan. It went to Manasseh (17:11), but the Canaanites stayed there, and they had iron chariots (17:16)."},
+  "emek-yizreel": {"n": "Valley of Jezreel", "d": "A wide plain between the hills of Ephraim and the Galilee. The Josephites feared the valley's Canaanites with their iron chariots (17:16)."},
+  "midbar-kadesh": {"n": "Wilderness of Kadesh", "d": "According to Rashi (Psalms 29:8), this is the wilderness of Sinai: it has five names, and “Kadesh” because Israel was sanctified there by receiving the Torah (Shabbat 89a)."}
 }

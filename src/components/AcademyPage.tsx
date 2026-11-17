@@ -18,7 +18,7 @@ import { readDoneStore } from '../core/tanakhDone';
 import { readWordStore, wordsCertificates } from '../core/words';
 import { readStars, torahWords, torahWordsCertificates } from '../core/torahWords';
 import { HEMSHECH, allPassages, hsCertificates, hsIsDone, passageDate, readHsDone, todayIndex } from '../core/hemshech';
-import { NIFLAOT_LOGO, PARTNERS } from '../core/partners';
+import { NIFLAOT_LOGO, PRINT_PARTNERS } from '../core/partners';
 import { NIGUNIM } from '../nigun';
 import { nigunCertificates, readNigunStore } from '../core/nigunGame';
 import { civilDate, jewishDate } from '../core/hebrewDate';
@@ -584,7 +584,7 @@ function CertificateView({ c, p, sample }: { c: Certificate; p: Progress; sample
         <div className="cert-logos">
           <img src={NIFLAOT_LOGO} alt="Niflaot" />
           <span>
-            {PARTNERS.map((x) => (
+            {PRINT_PARTNERS.map((x) => (
               <img key={x.id} src={x.logo} alt={x.name} />
             ))}
           </span>

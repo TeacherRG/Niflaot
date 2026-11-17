@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 18:1",
+   "q": {
+    "ru": "Где община поставила Шатёр Откровения?",
+    "en": "Where did the community set up the Tent of Meeting?",
+    "de": "Wo stellte die Gemeinde das Zelt der Begegnung auf?"
+   },
+   "o": [
+    {
+     "ru": "В Шило",
+     "en": "At Shiloh",
+     "de": "In Schilo"
+    },
+    {
+     "ru": "В Гилгале",
+     "en": "At Gilgal",
+     "de": "In Gilgal"
+    },
+    {
+     "ru": "В Хевроне",
+     "en": "At Hebron",
+     "de": "In Chewron"
+    },
+    {
+     "ru": "В Йерихо",
+     "en": "At Jericho",
+     "de": "In Jericho"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 18:2",
+   "q": {
+    "ru": "Сколько колен ещё не получили удела?",
+    "en": "How many tribes had not yet received their portions?",
+    "de": "Wie viele Stämme hatten ihr Erbe noch nicht bekommen?"
+   },
+   "o": [
+    {
+     "ru": "Семь",
+     "en": "Seven",
+     "de": "Sieben"
+    },
+    {
+     "ru": "Пять",
+     "en": "Five",
+     "de": "Fünf"
+    },
+    {
+     "ru": "Три",
+     "en": "Three",
+     "de": "Drei"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 18:4",
+   "q": {
+    "ru": "Сколько человек от каждого колена послали описать землю?",
+    "en": "How many men from each tribe were sent to describe the land?",
+    "de": "Wie viele Männer aus jedem Stamm wurden geschickt, um das Land zu beschreiben?"
+   },
+   "o": [
+    {
+     "ru": "Три",
+     "en": "Three",
+     "de": "Drei"
+    },
+    {
+     "ru": "Один",
+     "en": "One",
+     "de": "Einen"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    },
+    {
+     "ru": "Десять",
+     "en": "Ten",
+     "de": "Zehn"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 18:11",
+   "q": {
+    "ru": "Чей жребий вышел первым из семи колен?",
+    "en": "Whose lot of the seven tribes came out first?",
+    "de": "Wessen Los kam von den sieben Stämmen zuerst heraus?"
+   },
+   "o": [
+    {
+     "ru": "Биньямина",
+     "en": "Benjamin’s",
+     "de": "Binjamins"
+    },
+    {
+     "ru": "Дана",
+     "en": "Dan’s",
+     "de": "Dans"
+    },
+    {
+     "ru": "Шимона",
+     "en": "Simeon’s",
+     "de": "Schimons"
+    },
+    {
+     "ru": "Ашера",
+     "en": "Asher’s",
+     "de": "Aschers"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 29:5",
+   "q": {
+    "ru": "Что ломает голос Г-спода в стихе 29:5?",
+    "en": "What does the voice of the L-rd break in verse 29:5?",
+    "de": "Was zerbricht die Stimme des Ewigen in Vers 29,5?"
+   },
+   "o": [
+    {
+     "ru": "Кедры Леванона",
+     "en": "The cedars of Lebanon",
+     "de": "Die Zedern des Libanon"
+    },
+    {
+     "ru": "Стены городов",
+     "en": "The walls of towns",
+     "de": "Die Mauern der Städte"
+    },
+    {
+     "ru": "Скалы пустыни",
+     "en": "The rocks of the wilderness",
+     "de": "Die Felsen der Wüste"
+    },
+    {
+     "ru": "Корабли",
+     "en": "Ships",
+     "de": "Die Schiffe"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 29:7",
+   "q": {
+    "ru": "Что высекает голос Г-спода?",
+    "en": "What does the voice of the L-rd kindle?",
+    "de": "Was haut die Stimme des Ewigen aus?"
+   },
+   "o": [
+    {
+     "ru": "Языки огня",
+     "en": "Flames of fire",
+     "de": "Feuerflammen"
+    },
+    {
+     "ru": "Источники воды",
+     "en": "Springs of water",
+     "de": "Wasserquellen"
+    },
+    {
+     "ru": "Камни",
+     "en": "Stones",
+     "de": "Steine"
+    },
+    {
+     "ru": "Звёзды",
+     "en": "Stars",
+     "de": "Sterne"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 29:10",
+   "q": {
+    "ru": "При каком событии, по псалму 29, «восседал Г-сподь»?",
+    "en": "At what event, according to Psalm 29, did “the L-rd sit enthroned”?",
+    "de": "Bei welchem Ereignis „thronte der Ewige“ nach Tehillim 29?"
+   },
+   "o": [
+    {
+     "ru": "При Потопе",
+     "en": "At the Flood",
+     "de": "Bei der Flut"
+    },
+    {
+     "ru": "При исходе из Египта",
+     "en": "At the Exodus",
+     "de": "Beim Auszug aus Ägypten"
+    },
+    {
+     "ru": "При постройке Храма",
+     "en": "At the building of the Temple",
+     "de": "Beim Bau des Tempels"
+    },
+    {
+     "ru": "При переходе Ярдена",
+     "en": "At the crossing of the Jordan",
+     "de": "Beim Zug über den Jarden"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 29:11",
+   "q": {
+    "ru": "Чем Г-сподь благословит Свой народ в конце псалма 29?",
+    "en": "With what will the L-rd bless His people at the end of Psalm 29?",
+    "de": "Womit segnet der Ewige Sein Volk am Ende von Tehillim 29?"
+   },
+   "o": [
+    {
+     "ru": "Миром",
+     "en": "With peace",
+     "de": "Mit Frieden"
+    },
+    {
+     "ru": "Достатком",
+     "en": "With wealth",
+     "de": "Mit Reichtum"
+    },
+    {
+     "ru": "Долголетием",
+     "en": "With long life",
+     "de": "Mit langem Leben"
+    },
+    {
+     "ru": "Дождём",
+     "en": "With rain",
+     "de": "Mit Regen"
+    }
+   ]
+  }
+ ]
+}

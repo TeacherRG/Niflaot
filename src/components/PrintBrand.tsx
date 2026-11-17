@@ -1,5 +1,5 @@
 import { useI18n } from '../i18n';
-import { NIFLAOT_LOGO, PARTNERS } from '../core/partners';
+import { NIFLAOT_LOGO, PRINT_PARTNERS } from '../core/partners';
 import { PARSHIOT, type ParshaId } from '../lessons/parshiot';
 import { civilDate, jewishDate } from '../core/hebrewDate';
 import type { Lesson } from '../lessons/types';
@@ -16,7 +16,7 @@ function PrintLogos() {
     <div className="p-logos">
       <img className="p-logo-main" src={NIFLAOT_LOGO} alt="Niflaot" />
       <span className="p-logos-partners">
-        {PARTNERS.map((p) => (
+        {PRINT_PARTNERS.map((p) => (
           <img key={p.id} src={p.logo} alt={p.name} />
         ))}
       </span>

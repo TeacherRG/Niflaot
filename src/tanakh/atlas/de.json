@@ -128,7 +128,7 @@
   "beit-choron": {"n": "Bet-Choron", "d": "Eine Stadt am Aufstieg vom Tal Ajalon ins Bergland Binjamins; auf diesem Weg verfolgte Israel die fünf Könige (10,10–11)."},
   "kadesh-barnea": {"n": "Kadesch-Barnea", "d": "Eine Oase im Süden, in der Wüste Zin, von wo Mosche die Kundschafter schickte (Bamidbar 13,26); die südliche Grenze von Jehoschuas Eroberung (10,41)."},
   "kineret": {"n": "Kinneret", "d": "Der See im Norden, durch den der Jarden fließt (das Meer Kinneret), und die Gegend um ihn (11,2; 12,3)."},
-  "chermon": {"n": "Berg Chermon", "d": "Der höchste Berg im Norden, an den Quellen des Jarden – die nördliche Grenze der Gebiete Israels (11,3; 11,17; 12,5)."},
+  "chermon": {"n": "Berg Chermon", "d": "Der höchste Berg im Norden, an den Quellen des Jarden – die nördliche Grenze der Gebiete Israels (11,3; 11,17; 12,5). Die Sidonier nennen ihn Sirjon (Dewarim 3,9)."},
   "baal-gad": {"n": "Baal-Gad", "d": "Ein Ort im Tal des Libanon am Fuß des Chermon – die nördliche Grenze von Jehoschuas Eroberung (11,17; 12,7; 13,5)."},
   "mitzpe-north": {"n": "Tal von Mizpe", "d": "Ein Tal im Norden, am Fuß des Chermon, bis zu dem die Könige des Nordens verfolgt wurden (11,8); in der Nähe liegt „das Land Mizpa“ (11,3)."},
   "geshur": {"n": "Geschur", "d": "Ein kleines Königreich östlich des Kinneret, an der Grenze des Baschan (12,5; 13,2). Von dort stammte Maacha, die Mutter von Awschalom (Schmuel II 3,3)."},
@@ -157,7 +157,7 @@
   "shlomo": {"n": "Schlomo"},
   "shchem": {"n": "Schechem"},
   "beer-sheva": {"n": "Be’er-Scheva"},
-  "shilo": {"n": "Schilo"},
+  "shilo": {"n": "Schilo", "d": "Eine Stadt im Erbe Efrajims, wo Jehoschua das Zelt der Begegnung aufstellte (18,1). Dort wurde das Los für die sieben Stämme geworfen; der Mischkan stand 369 Jahre in Schilo (Sewachim 118b)."},
   "tzor": {"n": "Zor"},
   "beit-lechem": {"n": "Bet-Lechem"},
   "shomron": {"n": "Schomron"},
@@ -165,5 +165,8 @@
   "calev": {"n": "Kalew, Sohn von Jefune", "d": "Aus dem Stamm Jehuda, einer der zwölf Kundschafter, die Mosche aus Kadesch-Barnea schickte; mit Jehoschua sagte er nichts Schlechtes über das Land (Bamidbar 14,6–9.24). Mit fünfundachtzig bat er um Chewron und vertrieb dort die Söhne des Riesen Anak (Kap. 14–15)."},
   "elazar": {"n": "Elasar, der Kohen", "d": "Sohn von Aharon und nach ihm Hohepriester. Mit Jehoschua und den Häuptern der Stämme verteilte er das Land durch das Los (14,1)."},
   "efraim": {"n": "Efrajim", "d": "Der jüngere Sohn von Josef, den Jaakow vor dem älteren, Menasche, segnete (Bereschit 48,19–20). Sein Stamm bekam sein Erbteil in der Mitte des Landes; aus ihm kam Jehoschua (Bamidbar 13,8)."},
-  "tzelofchad": {"n": "Zelofchad", "d": "Aus dem Stamm Menasche. Er starb in der Wüste ohne Söhne; seine fünf Töchter baten Mosche um das Erbteil ihres Vaters, und G-tt sagte, man soll es ihnen geben (Bamidbar 27,1–7). Jehoschua tat das, als das Land verteilt wurde (17,3–6)."}
+  "tzelofchad": {"n": "Zelofchad", "d": "Aus dem Stamm Menasche. Er starb in der Wüste ohne Söhne; seine fünf Töchter baten Mosche um das Erbteil ihres Vaters, und G-tt sagte, man soll es ihnen geben (Bamidbar 27,1–7). Jehoschua tat das, als das Land verteilt wurde (17,3–6)."},
+  "beit-shean": {"n": "Bet-Schean", "d": "Eine Stadt, wo sich die Ebene Jisreel zum Jarden öffnet. Sie kam zu Menasche (17,11), aber die Kenaaniter blieben dort, und sie hatten eiserne Wagen (17,16)."},
+  "emek-yizreel": {"n": "Ebene Jisreel", "d": "Eine weite Ebene zwischen dem Bergland Efrajim und Galiläa. Die Söhne Josefs fürchteten die Kenaaniter der Ebene mit ihren eisernen Wagen (17,16)."},
+  "midbar-kadesh": {"n": "Wüste Kadesch", "d": "Nach Raschi (Tehillim 29,8) ist das die Wüste Sinai: Sie hat fünf Namen, und „Kadesch“, weil Israel dort geheiligt wurde, als es die Tora bekam (Schabbat 89a)."}
 }
