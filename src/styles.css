@@ -3939,9 +3939,12 @@ html.tabbed .coin-toast-live{bottom:calc(76px + env(safe-area-inset-bottom,0px))
 .clk-pick button.on{border-color:var(--ink-2);color:var(--ink)}
 .clk-pick button.on i{opacity:1}
 .clk-rim{fill:var(--surface);stroke:none}
-.clk-dash{stroke-linecap:butt;opacity:.3}
+.clk-dash{stroke-linecap:butt;opacity:.16}
 .clk-dash.lit{opacity:1}
 .clk-dash.now{opacity:1;stroke:var(--bad)}
+/* the short hand of «now» — owner, 17.11.2026: «сколько прошло — непонятно: контраст или очень короткая стрелка» */
+.clk-hand{stroke:var(--bad);stroke-width:2.6;stroke-linecap:round}
+.clk-hour{fill:var(--muted);font-size:9px;font-weight:700;letter-spacing:.02em}
 .clk-tziruf{fill:var(--gold-deep);font-family:var(--f-he);font-size:15px;font-weight:700;letter-spacing:.04em;paint-order:stroke;stroke:var(--surface);stroke-width:5;stroke-linejoin:round}
 .clk-tziruf-note{flex-basis:100%;font-size:12px;line-height:1.4;color:var(--muted);text-align:start}
 .clk-sun circle{fill:var(--gold)}
@@ -4016,6 +4019,13 @@ html:has(.clk2) .top{flex:none}
 .clk2-date{margin:0;min-width:0;display:grid;justify-items:center;text-align:center;font-size:13.5px;color:var(--ink-2);line-height:1.3}
 .clk2-date .he{font-family:var(--f-he);font-size:15px;color:var(--ink)}
 .clk2-date small{color:var(--muted);font-size:11px}
+/* the Jewish date large, the day as an ordinary number (owner, 17.11.2026) */
+.clk2-date .clk2-hday{display:block;font-size:20px;line-height:1.15;color:var(--gold-deep);font-weight:800;white-space:nowrap}
+.clk2-date .clk2-hnum{font-size:30px;font-variant-numeric:tabular-nums}
+.clk2-date .clk2-hday small{font-size:13px;color:var(--ink-2);font-weight:700}
+.clk2-date .clk2-hsub{font-size:12px;color:var(--ink-2)}
+.clk2-date .clk2-hsub .he{font-size:13px}
+@media (max-width:420px){.clk2-date .clk2-hday{font-size:17px}.clk2-date .clk2-hnum{font-size:25px}.clk2-date .clk2-hsub{font-size:11px}}
 .clk2-stage{position:relative;flex:1 1 0;min-height:260px;width:100%;container-type:size;display:grid;place-items:center}
 .clk-bigface{width:min(100cqw,100cqh);height:min(100cqw,100cqh);display:block;overflow:visible}
 .clk-bigface .clk-rim{filter:drop-shadow(0 6px 18px rgba(10,16,40,.08))}
@@ -4092,7 +4102,7 @@ html:has(.clk2) .top{flex:none}
 /* «Часы» on the night sky (owner, 16.11.2026: «добавь фон»): the page is always dark, in either theme; the sheets keep the theme */
 html:has(.clk2) body{background:#0B1532 url(./assets/clock-bg.webp) center/cover no-repeat fixed}
 @media (max-width:900px){html:has(.clk2) body{background-image:url(./assets/clock-bg-900.webp)}}
-.clk2{--ink:#EEF0F7;--ink-2:#C9CFE3;--muted:#9AA4C4;--surface:rgba(12,20,48,.62);--line-soft:rgba(214,190,130,.22);--line:rgba(214,190,130,.4);--paper:#0B1532;--tchelet:#8FB3E8;--tchelet-deep:#9CC0F0;--gold-deep:#E2BF72;--gold-soft:rgba(214,170,80,.16);--gold-line:rgba(214,170,80,.5);--shadow:0 8px 24px rgba(0,0,0,.35);color:var(--ink)}
+.clk2{--bad:#FF7A6E;--ink:#EEF0F7;--ink-2:#C9CFE3;--muted:#9AA4C4;--surface:rgba(12,20,48,.62);--line-soft:rgba(214,190,130,.22);--line:rgba(214,190,130,.4);--paper:#0B1532;--tchelet:#8FB3E8;--tchelet-deep:#9CC0F0;--gold-deep:#E2BF72;--gold-soft:rgba(214,170,80,.16);--gold-line:rgba(214,170,80,.5);--shadow:0 8px 24px rgba(0,0,0,.35);color:var(--ink)}
 .clk2 .clk-bigface .clk-rim{fill:rgba(8,14,36,.55);stroke:rgba(214,190,130,.35);stroke-width:.5;filter:drop-shadow(0 0 22px rgba(214,180,110,.18))}
 .clk2 .clk2-chip,.clk2 .clk2-tool,.clk2 .clk2-pop{-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .clk2 .clk2-pop{background:rgba(14,22,52,.92)}

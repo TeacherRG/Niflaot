@@ -2173,6 +2173,8 @@ const he: Partial<Messages> = {
   'clock.t.shma': "סוף זמן קריאת שמע",
   'clock.t.tefila': "סוף זמן תפילה",
   'clock.t.mincha': "סוף זמן מנחה (שקיעה)",
+  'clock.hourDay': "השעה ה־{n} ביום",
+  'clock.hourNight': "השעה ה־{n} בלילה",
   'clock.past': "הזמן עבר",
   'clock.leftHm': "נותרו {h} ש׳ {m} דק׳",
   'clock.leftM': "נותרו {m} דק׳",

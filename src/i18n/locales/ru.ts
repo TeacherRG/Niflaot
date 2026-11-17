@@ -2337,6 +2337,8 @@ const ru = {
   'clock.t.shma': "Конец времени чтения «Шма»",
   'clock.t.tefila': "Конец времени утренней молитвы",
   'clock.t.mincha': "Конец времени Минхи (закат)",
+  'clock.hourDay': "{n}-й час дня",
+  'clock.hourNight': "{n}-й час ночи",
   'clock.past': "время прошло",
   'clock.leftHm': "осталось {h} ч {m} мин",
   'clock.leftM': "осталось {m} мин",

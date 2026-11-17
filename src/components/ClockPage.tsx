@@ -5,9 +5,9 @@ import { TopBar } from './TopBar';
 import { Icon, Sheet, useDismiss } from './ui';
 import { CityPicker } from './ShabbatCalendar';
 import { BigFace, COLOR, loadMarks, loadTziruf, MARKS_KEY, TZIRUF_KEY, type FaceEvent, type FaceId } from './ClockFace';
-import { dayTimes, hebrewDateText } from '../core/hebcal';
+import { dayTimes, hebrewDateText, hebrewDayMonth } from '../core/hebcal';
 import { currentPlace, PLACE_EVENT } from '../core/places';
-import { addDays, BEFORE, CANDLE_MIN, cleanMarks, END_MIN, DEADLINES, isoIn, nextRing, restAt, ringOn, shownDay, TIME_IDS, type Alarm, type AlarmKind, type Rest, type Spot, type TimeId } from '../core/clock';
+import { addDays, BEFORE, CANDLE_MIN, cleanMarks, END_MIN, DEADLINES, halfOf, halfTimes, hourOf, isoIn, nextRing, restAt, ringOn, shownDay, TIME_IDS, type Alarm, type AlarmKind, type Rest, type Spot, type TimeId } from '../core/clock';
 import { armSound, currentSpot, loadAlarm, ring, saveAlarm, soundReady } from '../core/alarm';
 
 const MIN = 60_000;
@@ -184,7 +184,7 @@ function shabbatOf(now: Date, spot: Spot) {
 type Panel = 'shabbat' | 'wake' | 'study' | 'times' | 'info' | 'city' | null;
 
 export function ClockPage() {
-  const { t, locale } = useI18n();
+  const { t, locale, ui } = useI18n();
   const [now, setNow] = useState(() => new Date());
   const [panel, setPanel] = useState<Panel>(null);
   const [marks, setMarks] = useState<TimeId[]>(loadMarks);
@@ -236,8 +236,15 @@ export function ClockPage() {
 
   const shown = spot && shownDay(now, spot);
   const todayIso = isoIn(now, zone);
-  const hebrew = hebrewDateText(shown?.tomorrow ? addDays(todayIso, 1) : todayIso).replace(/[֑-ׇ]/g, '');
+  const hebIso = shown?.tomorrow ? addDays(todayIso, 1) : todayIso;
+  const hebrew = hebrewDateText(hebIso).replace(/[֑-ׇ]/g, '');
+  // the day as an ordinary number — not everyone reads the letters as numbers (owner, 17.11.2026)
+  const hd = hebrewDayMonth(hebIso, ui);
   const sh = spot && shabbatOf(now, spot);
+  // the half of the day on the rim (day or night, 12 halachic hours) and the times that fall in it
+  const half = spot && halfOf(now, spot);
+  const inHalf = half && spot ? halfTimes(half, spot) : {};
+  const hourLabel = half ? t(half.day ? 'clock.hourDay' : 'clock.hourNight', { n: hourOf(now, half) }) : undefined;
 
   const nameOf = (id: FaceId) => t(`clock.s.${id}` as MessageKey);
   const fullName = (id: FaceId) => (id === 'candles' ? t('calendar.lighting') : id === 'havdalah' ? t('calendar.havdalah') : t(`clock.t.${id}` as MessageKey));
@@ -250,12 +257,12 @@ export function ClockPage() {
     return mins >= 60 ? t(`clock.${k}Hm` as MessageKey, { h: Math.floor(mins / 60), m: mins % 60 }) : t(`clock.${k}M` as MessageKey, { m: mins });
   };
 
-  // the dots of the face: every time of the shown day; candle lighting and the end of Shabbat — when they are within the day ahead
+  // the dots of the face: the times of the day that fall in this half; candle lighting and the end of Shabbat — when they are in it too
   const events: FaceEvent[] = [];
-  if (shown) for (const id of TIME_IDS) { const at = shown.times[id]; if (at) events.push({ id, at, color: COLOR[id], label: marks.includes(id) }); }
-  if (sh) for (const id of ['candles', 'havdalah'] as const) {
+  for (const id of TIME_IDS) { const at = inHalf[id]; if (at) events.push({ id, at, color: COLOR[id], label: marks.includes(id) }); }
+  if (sh && half) for (const id of ['candles', 'havdalah'] as const) {
     const at = sh[id];
-    if (at && at.getTime() - now.getTime() < 22 * 3600_000 && at.getTime() > now.getTime() - 2 * 3600_000) events.push({ id, at, color: colorOf(id), label: true });
+    if (at && at > half.start && at <= half.end) events.push({ id, at, color: colorOf(id), label: true });
   }
   const upcoming = events.filter((e) => e.at > now).sort((a, b) => a.at.getTime() - b.at.getTime())[0];
   const next = upcoming ? { id: upcoming.id, at: upcoming.at, left: until(upcoming.at, isDeadline(upcoming.id)) } : null;
@@ -300,9 +307,14 @@ export function ClockPage() {
             <Icon name="chevron" size={14} />
           </button>
           <p className="clk2-date">
-            <span>{dayText(now)}</span>
-            <span className="he" lang="he" dir="rtl">
-              {hebrew}
+            <b className="clk2-hday">
+              <span className="clk2-hnum">{hd.day}</span> {hd.month} <small>{hd.year}</small>
+            </b>
+            <span className="clk2-hsub">
+              <span className="he" lang="he" dir="rtl">
+                {hebrew}
+              </span>{' '}
+              · {fmt({ weekday: 'short', day: 'numeric', month: 'long' }).format(now)}
             </span>
             {shown?.tomorrow && <small>{t('calendar.evening')}</small>}
           </p>
@@ -316,7 +328,8 @@ export function ClockPage() {
             <BigFace
               now={now}
               zone={zone}
-              times={shown.times}
+              half={half}
+              hourLabel={hourLabel}
               events={events}
               active={pop?.id ?? null}
               tziruf={tziruf}
