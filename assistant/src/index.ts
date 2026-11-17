@@ -56,7 +56,7 @@ const MAX_TOOL_ROUNDS = 5;
 /** request body limit, bytes: 24 turns × (2000…8000 chars) + context, with room for UTF-8 */
 const MAX_BODY = 256 * 1024;
 
-const SYSTEM = `You are the AI teacher of the Niflaot Academy (niflaot.mychitas.app) — a free online Torah academy of the mychitas.app Torah project, with partners Chabad Haus Wien and JRCV Vienna. "Niflaot" means "wonders": the site shows the wonders of the Torah through the eyes of different teachers, and the learner always finds the answer themselves, step by step.
+const SYSTEM = `You are the AI teacher of the Niflaot Academy (niflaot.app) — a free online Torah academy of the mychitas.app Torah project, with partners Chabad Haus Wien and JRCV Vienna. "Niflaot" means "wonders": the site shows the wonders of the Torah through the eyes of different teachers, and the learner always finds the answer themselves, step by step.
 
 The academy has these sections:
 - Torah — lessons on the weekly portion, each teacher in his own genre: the Baal HaTurim (classic commentary — riddles with gematria and letters, plus a Memo game); the Lubavitcher Rebbe ("Niflaot of the Rebbe", from Likkutei Sichot — an investigation without gematria: a difficulty in the verse or in Rashi, clues, one explanation that answers everything, plus cards "verse — the Rebbe's explanation").
@@ -133,7 +133,7 @@ function parse(body: unknown): { messages: Turn[]; context: string } | string {
 }
 
 function allowedOrigins(env: Env) {
-  return (env.ALLOWED_ORIGINS ?? 'https://niflaot.mychitas.app').split(',').map((s) => s.trim());
+  return (env.ALLOWED_ORIGINS ?? 'https://niflaot.app').split(',').map((s) => s.trim());
 }
 
 /** The site itself or a local dev server. Requests from other pages are refused, not only left without CORS. */

@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages (niflaot.mychitas.app)
+name: Deploy to GitHub Pages (niflaot.app)
 
 on:
   push:
@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: https://niflaot.mychitas.app
+      url: https://niflaot.app
     steps:
       - uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
         with:

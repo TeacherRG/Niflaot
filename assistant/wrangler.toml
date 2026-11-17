@@ -3,8 +3,8 @@ main = "src/index.ts"
 compatibility_date = "2026-09-01"
 
 [vars]
-ALLOWED_ORIGINS = "https://niflaot.mychitas.app"
-SITE_URL = "https://niflaot.mychitas.app"
+ALLOWED_ORIGINS = "https://niflaot.app,https://niflaot.mychitas.app"
+SITE_URL = "https://niflaot.app"
 ASSISTANT_URL = "https://niflaot-assistant.niflaot.workers.dev"
 # sender of the login codes; the domain must be verified at Resend (resend.com → Domains)
 MAIL_FROM = "Нифлаот <noreply@mychitas.app>"

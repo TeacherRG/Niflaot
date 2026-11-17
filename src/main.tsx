@@ -25,6 +25,7 @@ import { startAccountSync, takeGoogleReturn } from './core/account';
 import { initTelegram } from './core/telegram';
 import { installServiceWorker } from './core/appUpdate';
 import { isSearchBot } from './core/shabbat';
+import { takeMovedProgress } from './core/migrate';
 import './styles.css';
 
 // Search engines' crawlers on a page written for them (scripts/prerender.ts: `/`, `/<slug>/`, `/en/…`, `/de/…`) get that
@@ -36,6 +37,8 @@ const crawlerPage = isSearchBot() && !location.hash && !!document.querySelector(
 if (crawlerPage) {
   document.documentElement.classList.add('crawler');
 } else {
+  // came from the old address niflaot.mychitas.app with its progress (src/core/migrate.ts) — before anything reads it
+  takeMovedProgress();
   // opened as a Telegram Mini App: Telegram's address → ours, before anything reads it (src/core/telegram.ts)
   initTelegram();
   // back from «Войти через Google»: the token out of the address, the page the person was on (src/core/account.ts)

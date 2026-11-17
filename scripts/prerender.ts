@@ -1358,9 +1358,10 @@ for (const f of FEEDS) {
     <title>${esc(u['podcast.title'])}</title>
     <link>${SITE_URL}/?lang=${lang}&amp;ref=podcast</link>
     <atom:link href="${self}" rel="self" type="application/rss+xml" />
+    <itunes:new-feed-url>${self}</itunes:new-feed-url>
     <language>${lang}</language>
     <description>${esc(u['podcast.desc'])}</description>
-    <copyright>© MyChitas · niflaot.mychitas.app</copyright>
+    <copyright>© MyChitas · niflaot.app</copyright>
     <podcast:locked>no</podcast:locked>
     <podcast:guid>${createHash('sha256').update(self).digest('hex').replace(/^(.{8})(.{4})(.{4})(.{4})(.{12}).*$/, '$1-$2-$3-$4-$5')}</podcast:guid>
     <itunes:author>Niflaot · MyChitas</itunes:author>

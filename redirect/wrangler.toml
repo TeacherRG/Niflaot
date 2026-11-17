@@ -1,0 +1,11 @@
+# The old address niflaot.mychitas.app after the move to niflaot.app (17.11.2026): see src/index.ts.
+# Deploy — .github/workflows/redirect.yml (by hand). The zone mychitas.app must be in the same Cloudflare account, and
+# the old DNS record of niflaot.mychitas.app (CNAME to GitHub Pages) removed first: the custom domain makes its own.
+name = "niflaot-old-address"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+workers_dev = false
+routes = [{ pattern = "niflaot.mychitas.app", custom_domain = true }]
+
+[vars]
+NEW_SITE = "https://niflaot.app"

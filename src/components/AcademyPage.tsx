@@ -624,7 +624,7 @@ function CertificateView({ c, p, sample }: { c: Certificate; p: Progress; sample
           </div>
           <div className="cert-qr">
             <QrCode value={routeLink('', 'qr', locale)} size={72} title={t('cert.qr')} />
-            <span>niflaot.mychitas.app</span>
+            <span>niflaot.app</span>
           </div>
           <div className="cert-sign">
             <span className="cert-sign-v">

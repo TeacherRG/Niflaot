@@ -24,7 +24,7 @@ const email = {
 
 Вспомните слова и идеи недельной главы, собирая пары карточек.
 
-[Открыть Memo-игру по главе Толдот](https://niflaot.mychitas.app/?lang=ru#/13-baal-haturim-toldot/memo)
+[Открыть Memo-игру по главе Толдот](https://niflaot.app/?lang=ru#/13-baal-haturim-toldot/memo)
 
 ---
 
@@ -32,7 +32,7 @@ const email = {
 
 Match the cards and revisit the words and ideas of this week's Torah portion.
 
-[Open the Toldot Memo game](https://niflaot.mychitas.app/?lang=en#/13-baal-haturim-toldot/memo)
+[Open the Toldot Memo game](https://niflaot.app/?lang=en#/13-baal-haturim-toldot/memo)
 
 ---
 
@@ -40,7 +40,7 @@ Match the cards and revisit the words and ideas of this week's Torah portion.
 
 Finde die passenden Kartenpaare und entdecke Wörter und Gedanken zum Wochenabschnitt.
 
-[Memo-Spiel zu Toldot öffnen](https://niflaot.mychitas.app/?lang=de#/13-baal-haturim-toldot/memo)`,
+[Memo-Spiel zu Toldot öffnen](https://niflaot.app/?lang=de#/13-baal-haturim-toldot/memo)`,
   status: 'about_to_send',
 };
 

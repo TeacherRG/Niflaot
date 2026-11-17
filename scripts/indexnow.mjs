@@ -4,7 +4,7 @@
  * (IndexNow checks that the key file is on the site). Google doesn't take IndexNow: it reads sitemap.xml.
  * A failure is only printed — publishing the site never depends on it.
  */
-const SITE = 'https://niflaot.mychitas.app';
+const SITE = 'https://niflaot.app';
 const KEY = '3f4a50ac64c99e0e8b01df04b1ab9777';
 
 const xml = await (await fetch(`${SITE}/sitemap.xml`)).text();

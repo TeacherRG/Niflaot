@@ -1,0 +1,29 @@
+# The old address niflaot.mychitas.app → niflaot.app (redirect/, Cloudflare Worker) — by hand from the Actions tab.
+# Before the first run: the zone mychitas.app is in the same Cloudflare account, the old DNS record of
+# niflaot.mychitas.app (CNAME to GitHub Pages) is removed, and the token CLOUDFLARE_API_TOKEN may edit Workers routes
+# and DNS of that zone (Zone → Workers Routes: Edit, Zone → DNS: Edit). The worker then answers on the old address.
+name: Deploy old-address redirect
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: redirect
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+      - name: Deploy
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3.15.0
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: redirect
+          wranglerVersion: '4.148.0'
+          command: deploy

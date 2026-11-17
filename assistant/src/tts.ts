@@ -170,7 +170,7 @@ export class Narrator extends DurableObject<TtsEnv> {
   }
 
   private async record(lang: string, slug: string, hash: string, voice: string): Promise<Uint8Array> {
-    const site = (this.env.SITE_URL ?? 'https://niflaot.mychitas.app').replace(/\/$/, '');
+    const site = (this.env.SITE_URL ?? 'https://niflaot.app').replace(/\/$/, '');
     const json = <T>(path: string) =>
       fetch(`${site}${path}`)
         .then((r) => (r.ok ? r.json<T>() : null))

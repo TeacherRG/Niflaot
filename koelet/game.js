@@ -286,7 +286,7 @@ function wireLangPicker(root,after){
 
 /* ---------- О приложении ---------- */
 const PROJECT_URL='https://mychitas.app';
-const APP_URL='https://niflaot.mychitas.app';   // игра — курс «Нифлаот» (#/koelet); отдельный сайт был mylot.mychitas.app
+const APP_URL='https://niflaot.app';   // игра — курс «Нифлаот» (#/koelet); отдельный сайт был mylot.mychitas.app
 const COPYRIGHT='©mychitas.app 5787';
 const DONATE_URL='https://mychitas.app/donate';
 function donateBtn(){

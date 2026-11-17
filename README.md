@@ -1,6 +1,6 @@
 # Нифлаот · Niflaot
 
-**Сайт: https://niflaot.mychitas.app**
+**Сайт: https://niflaot.app**
 
 **Нифлаот** — «чудеса». Онлайн-академия Торы «от 8 до 120»: чудеса Торы глазами разных учителей, Пророки и Писания
 каждый день, Хасидут, **учить иврит — святой язык, язык Торы и язык Пророков** — по шагам, и сертификаты за пройденные книги. Тора-проект [MyChitas](https://mychitas.app).
@@ -43,21 +43,21 @@
 
 | Урок | Учитель | Возраст | Глава |
 |------|---------|---------|-------|
-| Бааль ґа-Турим: Берешит — [/baal-haturim-bereshit/](https://niflaot.mychitas.app/baal-haturim-bereshit/) | Бааль ґа-Турим | 8+ | Берейшит 5787 |
-| Три часа · שלש שעות — [/shalosh-shaot/](https://niflaot.mychitas.app/shalosh-shaot/) | Ребе | 11+ | Берейшит 5787 |
-| Бааль ґа-Турим: Ноах — [/baal-haturim-noach/](https://niflaot.mychitas.app/baal-haturim-noach/) | Бааль ґа-Турим | 8+ | Ноах 5787 |
-| Выйди из ковчега — [/rebbe-noach/](https://niflaot.mychitas.app/rebbe-noach/) | Ребе | 11+ | Ноах 5787 |
-| Бааль ґа-Турим: Лех леха — [/baal-haturim-lech-lecha/](https://niflaot.mychitas.app/baal-haturim-lech-lecha/) | Бааль ґа-Турим | 8+ | Лех леха 5787 |
-| Отец множества народов — [/rebbe-lech-lecha/](https://niflaot.mychitas.app/rebbe-lech-lecha/) | Ребе | 11+ | Лех леха 5787 |
-| Бааль ґа-Турим: Вайера — [/baal-haturim-vayera/](https://niflaot.mychitas.app/baal-haturim-vayera/) | Бааль ґа-Турим | 8+ | Вайера 5787 |
-| Союз навечно — [/rebbe-vayera/](https://niflaot.mychitas.app/rebbe-vayera/) | Ребе | 11+ | Вайера 5787 |
-| Бааль ґа-Турим: Хаей Сара — [/baal-haturim-chayei-sarah/](https://niflaot.mychitas.app/baal-haturim-chayei-sarah/) | Бааль ґа-Турим | 8+ | Хаей Сара 5787 |
-| Избран навечно — [/rebbe-chayei-sarah/](https://niflaot.mychitas.app/rebbe-chayei-sarah/) | Ребе | 11+ | Хаей Сара 5787 |
-| Бааль ґа-Турим: Толдот — [/baal-haturim-toldot/](https://niflaot.mychitas.app/baal-haturim-toldot/) | Бааль ґа-Турим | 8+ | Толдот 5787 |
-| Пепел Ицхака — [/rebbe-toldot/](https://niflaot.mychitas.app/rebbe-toldot/) | Ребе | 11+ | Толдот 5787 |
-| Бааль ґа-Турим: Ваеце — [/baal-haturim-vayetze/](https://niflaot.mychitas.app/baal-haturim-vayetze/) | Бааль ґа-Турим | 8+ | Ваеце 5787 |
-| Вернусь с миром — [/rebbe-vayetze/](https://niflaot.mychitas.app/rebbe-vayetze/) | Ребе | 11+ | Ваеце 5787 |
-| Бааль ґа-Турим: Ваишлах — [/baal-haturim-vayishlach/](https://niflaot.mychitas.app/baal-haturim-vayishlach/) | Бааль ґа-Турим | 8+ | Ваишлах 5787 |
+| Бааль ґа-Турим: Берешит — [/baal-haturim-bereshit/](https://niflaot.app/baal-haturim-bereshit/) | Бааль ґа-Турим | 8+ | Берейшит 5787 |
+| Три часа · שלש שעות — [/shalosh-shaot/](https://niflaot.app/shalosh-shaot/) | Ребе | 11+ | Берейшит 5787 |
+| Бааль ґа-Турим: Ноах — [/baal-haturim-noach/](https://niflaot.app/baal-haturim-noach/) | Бааль ґа-Турим | 8+ | Ноах 5787 |
+| Выйди из ковчега — [/rebbe-noach/](https://niflaot.app/rebbe-noach/) | Ребе | 11+ | Ноах 5787 |
+| Бааль ґа-Турим: Лех леха — [/baal-haturim-lech-lecha/](https://niflaot.app/baal-haturim-lech-lecha/) | Бааль ґа-Турим | 8+ | Лех леха 5787 |
+| Отец множества народов — [/rebbe-lech-lecha/](https://niflaot.app/rebbe-lech-lecha/) | Ребе | 11+ | Лех леха 5787 |
+| Бааль ґа-Турим: Вайера — [/baal-haturim-vayera/](https://niflaot.app/baal-haturim-vayera/) | Бааль ґа-Турим | 8+ | Вайера 5787 |
+| Союз навечно — [/rebbe-vayera/](https://niflaot.app/rebbe-vayera/) | Ребе | 11+ | Вайера 5787 |
+| Бааль ґа-Турим: Хаей Сара — [/baal-haturim-chayei-sarah/](https://niflaot.app/baal-haturim-chayei-sarah/) | Бааль ґа-Турим | 8+ | Хаей Сара 5787 |
+| Избран навечно — [/rebbe-chayei-sarah/](https://niflaot.app/rebbe-chayei-sarah/) | Ребе | 11+ | Хаей Сара 5787 |
+| Бааль ґа-Турим: Толдот — [/baal-haturim-toldot/](https://niflaot.app/baal-haturim-toldot/) | Бааль ґа-Турим | 8+ | Толдот 5787 |
+| Пепел Ицхака — [/rebbe-toldot/](https://niflaot.app/rebbe-toldot/) | Ребе | 11+ | Толдот 5787 |
+| Бааль ґа-Турим: Ваеце — [/baal-haturim-vayetze/](https://niflaot.app/baal-haturim-vayetze/) | Бааль ґа-Турим | 8+ | Ваеце 5787 |
+| Вернусь с миром — [/rebbe-vayetze/](https://niflaot.app/rebbe-vayetze/) | Ребе | 11+ | Ваеце 5787 |
+| Бааль ґа-Турим: Ваишлах — [/baal-haturim-vayishlach/](https://niflaot.app/baal-haturim-vayishlach/) | Бааль ґа-Турим | 8+ | Ваишлах 5787 |
 
 Каждое число в уроках проверено кодом: гематрия, которая не сходится, в урок не попадает (а в тексте честно сказано,
 что она не сходится). Пересказ — без добавлений от имени автора, выводы проекта подписаны «Пояснение».
@@ -104,7 +104,7 @@
 - **Поиск и переход к стиху** (`#/search`): слово на иврите (без огласовок), русском, английском или немецком, место
   («Теґилим 23», «תהלים ד ה») — и сразу к стиху в дне цикла.
 - **Граф отрывка** — стихи, люди и места дня одной схемой; блоки «Кто и где», «Слова отрывка» и «Самопроверка» — свёрнуты.
-- Страницы для поиска [/neviim/](https://niflaot.mychitas.app/neviim/) и [/ketuvim/](https://niflaot.mychitas.app/ketuvim/) — план цикла и таблица книг.
+- Страницы для поиска [/neviim/](https://niflaot.app/neviim/) и [/ketuvim/](https://niflaot.app/ketuvim/) — план цикла и таблица книг.
 
 ## «Кто и где» — справочник и хронология
 
@@ -131,7 +131,7 @@
 за 102 минуты»), порция дня месяца, по дням недели и «Мои главы» — свой список глав «для» близких. Открыто и без входа.
 Транслит — по ашкеназскому (как читают в Хабаде) или сефардскому произношению; золотые маячки у стихов — «Мысль к стиху»
 («Living the Mizmor», nafshi.org; на русском — перевод проекта), и в отрывке дня Писаний тоже.
-Страница для поиска [/tehillim/](https://niflaot.mychitas.app/tehillim/).
+Страница для поиска [/tehillim/](https://niflaot.app/tehillim/).
 
 ## «Слова отрывка» и «Иврит Танаха»
 
@@ -144,7 +144,7 @@
   словарям; корни — по словарю Брауна — Драйвера — Бриггса с фильтром. Леммы — Open Scriptures Hebrew Bible (CC BY 4.0).
 - Детям — **«Слова Торы»**: колода сама собирается из уроков (слова Memo и карточек загадок), игра на 10 вопросов,
   звёздочки, сертификат «Знаток слов главы».
-- Страница для поиска [/hebrew-words/](https://niflaot.mychitas.app/hebrew-words/) — «Все 5215 слов Танаха: 500 — уже 80 % текста».
+- Страница для поиска [/hebrew-words/](https://niflaot.app/hebrew-words/) — «Все 5215 слов Танаха: 500 — уже 80 % текста».
 
 ## «Святой язык — уроки»: учить иврит — язык Торы и язык Пророков
 
@@ -162,8 +162,8 @@
   слова Танаха, страница на иврите, без входа.
 - **Знакомые слова не учатся заново:** «Мои слова» (взрослые) и «Слова Торы» (дети) — уже знакомы; кто читает на иврите,
   букв не видит.
-- Страница для поиска [/learn-hebrew/](https://niflaot.mychitas.app/learn-hebrew/) (и
-  [/en/](https://niflaot.mychitas.app/en/learn-hebrew/), [/de/](https://niflaot.mychitas.app/de/learn-hebrew/)) —
+- Страница для поиска [/learn-hebrew/](https://niflaot.app/learn-hebrew/) (и
+  [/en/](https://niflaot.app/en/learn-hebrew/), [/de/](https://niflaot.app/de/learn-hebrew/)) —
   «Учить иврит — язык Торы и Пророков» / «Learn Hebrew — the language of the Torah and Prophets» / «Hebräisch lernen —
   Sprache der Tora und der Propheten»: как устроен курс, слова Торы по главам, уровни слов Танаха и частые вопросы
   (Schema.org `FAQPage`).
@@ -423,7 +423,7 @@ python3 scripts/fetch-atlas.py todo ru <до-даты>                          
 
 ## Публикация
 
-Сайт — **https://niflaot.mychitas.app** (GitHub Pages). При пуше в `main` `.github/workflows/deploy.yml` проверяет,
+Сайт — **https://niflaot.app** (GitHub Pages). При пуше в `main` `.github/workflows/deploy.yml` проверяет,
 собирает и публикует `dist/`; сервер — `.github/workflows/assistant.yml` (secrets `CLOUDFLARE_API_TOKEN`,
 `CLOUDFLARE_ACCOUNT_ID`, `ANTHROPIC_API_KEY`; вход по email — `RESEND_API_KEY`). Пошагово — в
 [assistant/README.md](assistant/README.md). Telegram — secret `TELEGRAM_BOT_TOKEN`, variables `TELEGRAM_CHAT_RU/EN/DE`,

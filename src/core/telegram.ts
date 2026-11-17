@@ -1,7 +1,7 @@
 /**
  * Telegram Mini App: the same site, opened inside Telegram by the button under a channel post
  * (`https://t.me/<bot>/<app>?startapp=<param>` — a channel cannot have a `web_app` button, only such a link).
- * The app is registered in @BotFather (`/newapp`, address `https://niflaot.mychitas.app/?ref=tgapp`); the scripts
+ * The app is registered in @BotFather (`/newapp`, address `https://niflaot.app/?ref=tgapp`); the scripts
  * that post to the channels add the button when the variable `TELEGRAM_APP` (`<bot>/<app>`) is set.
  *
  * Telegram opens the address with its own data in the hash (`#tgWebAppData=…&tgWebAppPlatform=…`) and the start

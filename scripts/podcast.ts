@@ -29,7 +29,7 @@ const arg = (name: string) => {
 };
 const dry = process.argv.includes('--dry');
 const LANGS = (arg('lang') ? [arg('lang')] : ['ru', 'en', 'de']) as ('ru' | 'en' | 'de')[];
-const SITE = (process.env.SITE_URL ?? 'https://niflaot.mychitas.app').replace(/\/$/, '');
+const SITE = (process.env.SITE_URL ?? 'https://niflaot.app').replace(/\/$/, '');
 const WORKER = (process.env.ASSISTANT_URL ?? '').replace(/\/$/, '');
 if (!WORKER) throw new Error('ASSISTANT_URL is not set');
 
