@@ -18,7 +18,7 @@ import { LANGS, PUSH_HOURS, localTime, restDay, validEndpoint, validTz } from '.
 
 const BATCH = 40;
 const MAX_SUBS = 100_000;
-const CONTACT = 'mailto:Office@mychitas.app';
+const CONTACT = 'mailto:office@niflaot.app';
 
 
 type Sub = { endpoint: string; tz: string; hour: number; lang: string; last: string | null; test: number | null };

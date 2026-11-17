@@ -136,7 +136,7 @@ Interactive adventure for children aged 8–15 and adults (16+) based on Rabbi S
 ## About window
 
 - «О приложении» (`showAbout()` in `game.js`) opens from the menu and from the title footer: project link `PROJECT_URL` (https://mychitas.app), short description, rights to the lesson and the music, open-source libraries, privacy. Texts are `about.*` in the locales — update them when the lesson source, music or libraries change.
-- «Провести урок онлайн» (`showLesson()` in `game.js`) opens from the menu (after «О приложении») and the title settings popover: the project author offers a live online lesson on the game (one or two sessions, any age, one-to-one or group), contact `LESSON_EMAIL` (office@mychitas.app). Texts are `lesson.*` in the locales (not spoken, in `SKIP_UI`). Both windows are built with `infoModal()`.
+- «Провести урок онлайн» (`showLesson()` in `game.js`) opens from the menu (after «О приложении») and the title settings popover: the project author offers a live online lesson on the game (one or two sessions, any age, one-to-one or group), contact `LESSON_EMAIL` (office@niflaot.app). Texts are `lesson.*` in the locales (not spoken, in `SKIP_UI`). Both windows are built with `infoModal()`.
 
 ## Site, search and security
 

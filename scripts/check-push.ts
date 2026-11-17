@@ -14,7 +14,7 @@ const unb64 = (s: string) => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/
 
 // VAPID: header format, claims, signature
 const keys = await makeVapidKeys();
-const auth = await vapidAuth('https://fcm.googleapis.com/fcm/send/abc', keys, 'mailto:Office@mychitas.app', Date.parse('2026-10-11T10:00:00Z'));
+const auth = await vapidAuth('https://fcm.googleapis.com/fcm/send/abc', keys, 'mailto:office@niflaot.app', Date.parse('2026-10-11T10:00:00Z'));
 const m = auth.match(/^vapid t=([\w-]+)\.([\w-]+)\.([\w-]+), k=([\w-]+)$/);
 if (!m) err(`vapid: header «${auth.slice(0, 40)}…» has the wrong form`);
 else {

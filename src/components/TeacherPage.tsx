@@ -5,7 +5,7 @@ import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { Icon, useUI } from './ui';
 
-const AUTHOR_MAIL = 'Office@mychitas.app';
+const AUTHOR_MAIL = 'office@niflaot.app';
 
 /** `#/teacher` — «Учитель»: the AI teacher (the assistant chat, symbolic price) or a human one (write to the site's author). */
 export function TeacherPage() {

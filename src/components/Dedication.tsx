@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useI18n } from '../i18n';
 import { Sheet } from './ui';
 
-const MAIL = 'Office@mychitas.app';
+const MAIL = 'office@niflaot.app';
 
 /**
  * The week's dedication (לעילוי נשמת) at the bottom of both homes; texts — `dedication.*`; empty name — no plaque.

@@ -308,7 +308,7 @@ function showAbout(){
   const ad=$('#admabout');if(ad)ad.onclick=()=>{const m=ad.closest('.modal');if(m)m.remove();adminEntry()};
 }
 /* ---------- Провести урок онлайн: предложение автора проекта ---------- */
-const LESSON_EMAIL='office@mychitas.app';
+const LESSON_EMAIL='office@niflaot.app';
 function showLesson(){
   const mail=`<a href="mailto:${LESSON_EMAIL}">${LESSON_EMAIL}</a>`;
   const sec=(h,txt,v)=>`<section class="about-sec"><h3>${t(h)}</h3><p>${t(txt,v)}</p></section>`;
