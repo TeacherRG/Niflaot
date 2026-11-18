@@ -1,0 +1,258 @@
+{
+ "shacharit": [
+  {
+   "title": "השכמת הבוקר",
+   "t": {
+    "ru": "При пробуждении · Модэ ани",
+    "en": "Upon Arising · Modeh Ani",
+    "de": "Beim Aufstehen · Mode ani"
+   }
+  },
+  {
+   "title": "ברכות השחר",
+   "t": {
+    "ru": "Утренние благословения",
+    "en": "Morning Blessings",
+    "de": "Morgensegen"
+   }
+  },
+  {
+   "title": "תפילת שחרית",
+   "t": {
+    "ru": "Перед молитвой · Корбанот",
+    "en": "Before Prayer · Korbanot",
+    "de": "Vor dem Gebet · Korbanot"
+   }
+  },
+  {
+   "title": "קדיש דרבנן",
+   "t": {
+    "ru": "Кадиш де-Рабанан",
+    "en": "Kaddish deRabbanan",
+    "de": "Kaddisch de-Rabbanan"
+   }
+  },
+  {
+   "title": "הודו",
+   "t": {
+    "ru": "Ґоду",
+    "en": "Hodu",
+    "de": "Hodu"
+   }
+  },
+  {
+   "title": "פסוקי דזמרה",
+   "t": {
+    "ru": "Псукей де-зимра",
+    "en": "Pesukei deZimra",
+    "de": "Pessukej de-Simra"
+   }
+  },
+  {
+   "title": "ברכות קריאת שמע",
+   "t": {
+    "ru": "Благословения Шма",
+    "en": "Blessings of the Shema",
+    "de": "Segenssprüche des Schma"
+   }
+  },
+  {
+   "title": "תפילת העמידה",
+   "t": {
+    "ru": "Амида",
+    "en": "Amidah",
+    "de": "Amida"
+   }
+  },
+  {
+   "title": "תחנון",
+   "t": {
+    "ru": "Таханун",
+    "en": "Tachanun",
+    "de": "Tachanun"
+   }
+  },
+  {
+   "title": "קריאת התורה",
+   "t": {
+    "ru": "Чтение Торы",
+    "en": "Torah Reading",
+    "de": "Toralesung"
+   }
+  },
+  {
+   "title": "אשרי ובא לציון",
+   "t": {
+    "ru": "Ашрей и «У-ва ле-Цион»",
+    "en": "Ashrei and Uva LeZion",
+    "de": "Aschrej und Uwa le-Zion"
+   }
+  },
+  {
+   "title": "שיר של יום",
+   "t": {
+    "ru": "Песнь дня",
+    "en": "Song of the Day",
+    "de": "Lied des Tages"
+   }
+  },
+  {
+   "title": "קדיש יתום",
+   "t": {
+    "ru": "Кадиш скорбящих",
+    "en": "Mourner's Kaddish",
+    "de": "Kaddisch der Trauernden"
+   }
+  },
+  {
+   "title": "קווה",
+   "t": {
+    "ru": "Кавэ",
+    "en": "Kaveh",
+    "de": "Kawe"
+   }
+  },
+  {
+   "title": "עלינו לשבח",
+   "t": {
+    "ru": "Алейну",
+    "en": "Aleinu",
+    "de": "Alejnu"
+   }
+  }
+ ],
+ "mincha": [
+  {
+   "title": "קרבנות",
+   "t": {
+    "ru": "Корбанот",
+    "en": "Korbanot",
+    "de": "Korbanot"
+   }
+  },
+  {
+   "title": "אשרי",
+   "t": {
+    "ru": "Ашрей",
+    "en": "Ashrei",
+    "de": "Aschrej"
+   }
+  },
+  {
+   "title": "תפילת העמידה",
+   "t": {
+    "ru": "Амида",
+    "en": "Amidah",
+    "de": "Amida"
+   }
+  },
+  {
+   "title": "תחנון",
+   "t": {
+    "ru": "Таханун",
+    "en": "Tachanun",
+    "de": "Tachanun"
+   }
+  },
+  {
+   "title": "עלינו לשבח",
+   "t": {
+    "ru": "Алейну",
+    "en": "Aleinu",
+    "de": "Alejnu"
+   }
+  }
+ ],
+ "maariv": [
+  {
+   "title": "והוא רחום",
+   "t": {
+    "ru": "Ве-ґу рахум",
+    "en": "Vehu Rachum",
+    "de": "We-hu rachum"
+   }
+  },
+  {
+   "title": "ברכות קריאת שמע",
+   "t": {
+    "ru": "Благословения Шма",
+    "en": "Blessings of the Shema",
+    "de": "Segenssprüche des Schma"
+   }
+  },
+  {
+   "title": "תפילת העמידה",
+   "t": {
+    "ru": "Амида",
+    "en": "Amidah",
+    "de": "Amida"
+   }
+  },
+  {
+   "title": "קדיש שלם",
+   "t": {
+    "ru": "Полный кадиш",
+    "en": "Full Kaddish",
+    "de": "Ganzer Kaddisch"
+   }
+  },
+  {
+   "title": "ויהי נועם",
+   "t": {
+    "ru": "Ви-ґи ноам",
+    "en": "Vihi Noam",
+    "de": "Wihi noam"
+   }
+  },
+  {
+   "title": "עלינו לשבח",
+   "t": {
+    "ru": "Алейну",
+    "en": "Aleinu",
+    "de": "Alejnu"
+   }
+  }
+ ],
+ "birkat-hamazon": [
+  {
+   "title": "על נהרות בבל",
+   "t": {
+    "ru": "«Ал наґарот Бавель» — в дни Тахануна",
+    "en": "Al Naharot Bavel — on days with Tachanun",
+    "de": "Al naharot Bawel — an Tagen mit Tachanun"
+   }
+  },
+  {
+   "title": "שיר המעלות",
+   "t": {
+    "ru": "«Шир ґа-маалот» — в дни без Тахануна",
+    "en": "Shir Hamaalot — on days without Tachanun",
+    "de": "Schir ha-maalot — an Tagen ohne Tachanun"
+   }
+  },
+  {
+   "title": "מים אחרונים",
+   "t": {
+    "ru": "Маим ахроним",
+    "en": "Mayim Acharonim",
+    "de": "Majim acharonim"
+   }
+  },
+  {
+   "title": "זימון",
+   "t": {
+    "ru": "Зимун",
+    "en": "Zimun",
+    "de": "Simun"
+   }
+  },
+  {
+   "title": "ברכת המזון",
+   "t": {
+    "ru": "Биркат ґа-мазон",
+    "en": "Birkat Hamazon",
+    "de": "Birkat ha-Mason"
+   }
+  }
+ ]
+}

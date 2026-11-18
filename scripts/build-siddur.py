@@ -60,6 +60,34 @@ BIRKAT = [(('Blessings', 'Birkat HaMazon'), t, a, b) for t, a, b in [
     ('זימון', 11, 17),
     ('ברכת המזון', 17, 33),
 ]]
+# названия разделов на языках сайта (меню «Разделы» и подзаголовок раздела); иврит — сам заголовок
+TITLES = {
+    'השכמת הבוקר': ('При пробуждении · Модэ ани', 'Upon Arising · Modeh Ani', 'Beim Aufstehen · Mode ani'),
+    'ברכות השחר': ('Утренние благословения', 'Morning Blessings', 'Morgensegen'),
+    'תפילת שחרית': ('Перед молитвой · Корбанот', 'Before Prayer · Korbanot', 'Vor dem Gebet · Korbanot'),
+    'קדיש דרבנן': ('Кадиш де-Рабанан', 'Kaddish deRabbanan', 'Kaddisch de-Rabbanan'),
+    'הודו': ('Ґоду', 'Hodu', 'Hodu'),
+    'פסוקי דזמרה': ('Псукей де-зимра', 'Pesukei deZimra', 'Pessukej de-Simra'),
+    'ברכות קריאת שמע': ('Благословения Шма', 'Blessings of the Shema', 'Segenssprüche des Schma'),
+    'תפילת העמידה': ('Амида', 'Amidah', 'Amida'),
+    'תחנון': ('Таханун', 'Tachanun', 'Tachanun'),
+    'קריאת התורה': ('Чтение Торы', 'Torah Reading', 'Toralesung'),
+    'אשרי ובא לציון': ('Ашрей и «У-ва ле-Цион»', 'Ashrei and Uva LeZion', 'Aschrej und Uwa le-Zion'),
+    'שיר של יום': ('Песнь дня', 'Song of the Day', 'Lied des Tages'),
+    'קדיש יתום': ('Кадиш скорбящих', "Mourner's Kaddish", 'Kaddisch der Trauernden'),
+    'קווה': ('Кавэ', 'Kaveh', 'Kawe'),
+    'עלינו לשבח': ('Алейну', 'Aleinu', 'Alejnu'),
+    'קרבנות': ('Корбанот', 'Korbanot', 'Korbanot'),
+    'אשרי': ('Ашрей', 'Ashrei', 'Aschrej'),
+    'והוא רחום': ('Ве-ґу рахум', 'Vehu Rachum', 'We-hu rachum'),
+    'קדיש שלם': ('Полный кадиш', 'Full Kaddish', 'Ganzer Kaddisch'),
+    'ויהי נועם': ('Ви-ґи ноам', 'Vihi Noam', 'Wihi noam'),
+    'על נהרות בבל': ('«Ал наґарот Бавель» — в дни Тахануна', 'Al Naharot Bavel — on days with Tachanun', 'Al naharot Bawel — an Tagen mit Tachanun'),
+    'שיר המעלות': ('«Шир ґа-маалот» — в дни без Тахануна', 'Shir Hamaalot — on days without Tachanun', 'Schir ha-maalot — an Tagen ohne Tachanun'),
+    'מים אחרונים': ('Маим ахроним', 'Mayim Acharonim', 'Majim acharonim'),
+    'זימון': ('Зимун', 'Zimun', 'Simun'),
+    'ברכת המזון': ('Биркат ґа-мазон', 'Birkat Hamazon', 'Birkat ha-Mason'),
+}
 PRAYERS = {'shacharit': SHACHARIT, 'mincha': MINCHA, 'maariv': MAARIV, 'birkat-hamazon': BIRKAT}
 # сокращения без огласовок, которые произносят
 KEEP_BARE = {'י״ה', 'בו״ה'}
@@ -116,6 +144,7 @@ def clean_line(text: str) -> str:
 
 def main() -> None:
     data = json.loads(SRC.read_text(encoding='utf-8'))
+    index = {}
     for name, plan in PRAYERS.items():
         sections = []
         for path, title, start, end in plan:
@@ -130,7 +159,9 @@ def main() -> None:
                     if line:
                         lines.append(line)
             if lines:
-                sections.append({'key': '/'.join(path) + (f':{start}' if start is not None else ''), 'title': title, 'lines': lines})
+                ru, en, de = TITLES[title]
+                sections.append({'key': '/'.join(path) + (f':{start}' if start is not None else ''), 'title': title,
+                                 't': {'ru': ru, 'en': en, 'de': de}, 'lines': lines})
         out = {
             'title': data['title'],
             'heTitle': data['heTitle'],
@@ -141,6 +172,9 @@ def main() -> None:
         path = OUT_DIR / f'{name}-he.json'
         path.write_text(json.dumps(out, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
         print(f'{path.relative_to(ROOT)}: {len(sections)} sections, {sum(len(s["lines"]) for s in sections)} lines')
+        index[name] = [{'title': s['title'], 't': s['t']} for s in sections]
+    # меню «Разделы» — все молитвы сразу, без загрузки их текстов
+    (OUT_DIR / 'index.json').write_text(json.dumps(index, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
 
 
 if __name__ == '__main__':
