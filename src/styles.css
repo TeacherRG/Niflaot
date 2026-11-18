@@ -3200,9 +3200,13 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .shacharit-word{display:inline-flex;flex-direction:column;align-items:center;vertical-align:top;line-height:1.25;padding:2px 3px;margin-bottom:6px}
 .shacharit-word-tr{font-family:var(--f-body);font-size:1em;font-weight:600;direction:ltr;unicode-bidi:isolate}
 .shacharit-word-he{font-family:"Noto Serif Hebrew",serif;font-size:.8em;color:var(--muted)}
+.shacharit-tr .shacharit-word{padding:0 2px;margin-bottom:0}
+.shacharit-tr .shacharit-word-tr{font-weight:500}
+.rd-big .shacharit-line[lang="he"]{font-size:1.8em;line-height:2.05}
+.rd-big .shacharit-line.shacharit-duo{font-size:1.45em}
 .shacharit-back{display:inline-block;margin-top:8px;color:var(--tchelet);font-size:.9rem}
 .shacharit-credit{margin:28px auto;text-align:center;color:var(--ink-2);font-size:.9rem}
-@media(max-width:640px){.shacharit-toc{padding:12px}.shacharit-toc>div{gap:6px}.shacharit-section{padding:16px}.shacharit-line[lang="he"]{font-size:1.2em}}
+@media(max-width:640px){.shacharit-toc{padding:12px}.shacharit-toc>div{gap:6px}.shacharit-section{padding:16px}.shacharit-line[lang="he"]{font-size:1.2em}.rd-big .shacharit-line[lang="he"]{font-size:1.55em}.rd-big .shacharit-line.shacharit-duo{font-size:1.3em}}
 
 /* «Святое чтение» — проворное чтение Теґилим (ReadingPage.tsx); знаки кантилляции есть только в Noto Serif Hebrew */
 .rd .tk-head h1 .he{font-size:.9em}

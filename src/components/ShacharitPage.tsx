@@ -1,17 +1,16 @@
 import '@fontsource/noto-serif-hebrew/400.css';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { loadView, saveView, type View } from '../core/reading';
+import { useEffect, useState } from 'react';
+import { loadView, saveView, stripTaamim, type View } from '../core/reading';
 import { translitSiddurToken } from '../core/tehillimTranslit';
 import { useI18n } from '../i18n';
 import { Colophon } from './Colophon';
 import { TopBar } from './TopBar';
-import { Icon, useDismiss } from './ui';
+import { ReadingSettings } from './ReadingSettings';
 
 /** Только слова молитвы — собирает `scripts/build-shacharit.py` из JSON сидура (без указаний и пояснений). */
 const TEXT_URL = '/reading/siddur/shacharit-he.json';
 const SOURCE_URL = 'https://www.sefaria.org/Weekday_Siddur_Chabad';
 const HEBREW_WORD = /[\u05D0-\u05EA\uFB1D-\uFB4F][\u05D0-\u05EA\u05BE\uFB1D-\uFB4F\u0591-\u05C7\u05F0-\u05F4'"]*/gu;
-const SHACHARIT_TR_MODES = ['he', 'duo'] as const;
 
 interface ShacharitText {
   version: string;
@@ -42,10 +41,10 @@ const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (char) => (
 ));
 
 /**
- * Транслит слева направо (как «Святое чтение» Теґилим): слово крупно, под ним иврит; знаки препинания — за словом,
+ * Транслит слева направо (как «Святое чтение» Теґилим): слово крупно, под ним иврит (`withHe`; «только транслит» — без него); знаки препинания — за словом,
  * начало строки и каждой фразы (после «:» и «.») — с большой буквы.
  */
-function transliterateWordsHtml(line: string, lang: 'ru' | 'en' | 'de', pron: View['pron']) {
+function transliterateWordsHtml(line: string, lang: 'ru' | 'en' | 'de', pron: View['pron'], withHe = true) {
   const words = [...line.matchAll(HEBREW_WORD)];
   const cap = (x: string) => x.charAt(0).toUpperCase() + x.slice(1);
   let start = true;
@@ -60,7 +59,8 @@ function transliterateWordsHtml(line: string, lang: 'ru' | 'en' | 'de', pron: Vi
     out +=
       `${i ? ' ' : ''}<span class="shacharit-word"><span class="shacharit-word-tr" lang="${lang}">` +
       `${escapeHtml(tr + gap)}</span>` +
-      `<span class="shacharit-word-he he" dir="rtl" lang="he">${escapeHtml(word)}</span></span>`;
+      (withHe ? `<span class="shacharit-word-he he" dir="rtl" lang="he">${escapeHtml(word)}</span>` : '') +
+      '</span>';
   });
   return out;
 }
@@ -69,14 +69,8 @@ export function ShacharitPage() {
   const { t, locale } = useI18n();
   const [status, setStatus] = useState<TextStatus>('loading');
   const [data, setData] = useState<ShacharitText | null>(null);
-  const [view, setView] = useState<View>(() => {
-    const saved = loadView();
-    return saved.tr === 'tr' ? { ...saved, tr: 'he' } : saved;
-  });
-  const [viewOpen, setViewOpen] = useState(false);
-  const viewRef = useRef<HTMLDivElement>(null);
-  const closeView = useCallback(() => setViewOpen(false), []);
-  useDismiss(viewOpen, viewRef, closeView);
+  // те же настройки, что у Теґилим (`niflaot:reading-view`); звука пока нет
+  const [view, setView] = useState<View>(loadView);
 
   useEffect(() => {
     let active = true;
@@ -122,7 +116,7 @@ export function ShacharitPage() {
   return (
     <>
       <TopBar title={t('reading.title')} />
-      <main className="wrap rd shacharit-page">
+      <main className={`wrap rd shacharit-page${view.big ? ' rd-big' : ''}`}>
         <header className="tk-head">
           <p className="tk-kicker">{t('reading.siddur')}</p>
           <h1>{t('reading.shacharit')}</h1>
@@ -132,46 +126,7 @@ export function ShacharitPage() {
         </header>
         {status === 'ready' && data && (
           <>
-            <div className="tk-view rd-set no-print no-speak" ref={viewRef}>
-              <button
-                type="button"
-                className="lang-btn tk-view-btn"
-                aria-haspopup="true"
-                aria-expanded={viewOpen}
-                onClick={() => setViewOpen((open) => !open)}
-              >
-                <span aria-hidden="true">⚙</span>
-                <span>
-                  {t('reading.view')}
-                  <small>{` · ${t(`reading.tr.${view.tr}`)}`}</small>
-                </span>
-                <Icon name="chevron" size={14} />
-              </button>
-              {viewOpen && (
-                <div className="lang-list tk-view-list rd-set-list" role="menu" aria-label={t('reading.view')}>
-                  <div className="tk-view-head">{t('reading.tr')}</div>
-                  {SHACHARIT_TR_MODES.map((mode) => (
-                    <button
-                      key={mode}
-                      type="button"
-                      role="menuitemradio"
-                      aria-checked={view.tr === mode}
-                      onClick={() => {
-                        setV({ ...view, tr: mode });
-                        setViewOpen(false);
-                      }}
-                    >
-                      <span className="code">{mode === 'he' ? 'אב' : `${t('reading.tr.ab')}+אב`}</span>
-                      <span className="name">
-                        {t(`reading.tr.${mode}`)}
-                        <small className="rd-set-d">{t(`reading.tr.${mode}.d`)}</small>
-                      </span>
-                      {view.tr === mode && <Icon name="check" size={16} />}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+            <ReadingSettings view={view} setV={setV} audio={false} living={false} />
             <nav id="shacharit-contents" className="shacharit-toc" aria-label={t('reading.shacharitContents')}>
               <h2>{t('reading.shacharitContents')}</h2>
               <div>
@@ -198,15 +153,17 @@ export function ShacharitPage() {
                   {section.lines.map((line, index) => {
                     return (
                       <div key={index} className="shacharit-prayer">
-                        {view.tr === 'duo' ? (
+                        {view.tr === 'he' ? (
+                          <div className="shacharit-line he" dir="rtl" lang="he">{view.taamim ? line : stripTaamim(line)}</div>
+                        ) : (
                           <div
-                            className="shacharit-line shacharit-duo"
+                            className={`shacharit-line shacharit-duo${view.tr === 'tr' ? ' shacharit-tr' : ''}`}
                             dir="ltr"
                             lang={translitLang}
-                            dangerouslySetInnerHTML={{ __html: transliterateWordsHtml(line, translitLang, view.pron) }}
+                            dangerouslySetInnerHTML={{
+                              __html: transliterateWordsHtml(view.taamim ? line : stripTaamim(line), translitLang, view.pron, view.tr === 'duo'),
+                            }}
                           />
-                        ) : (
-                          <div className="shacharit-line he" dir="rtl" lang="he">{line}</div>
                         )}
                       </div>
                     );
