@@ -14,6 +14,7 @@ export function ReadingSettings({
   audio,
   onBoth,
   living = true,
+  layout = false,
 }: {
   view: View;
   setV: (v: View) => void;
@@ -21,6 +22,8 @@ export function ReadingSettings({
   onBoth?: () => void;
   /** пункт «Маячки — мысль к стиху» (у Теґилим; в Шахарите маячков нет) */
   living?: boolean;
+  /** с транслитом — направление строк и что крупнее (Шахарит) */
+  layout?: boolean;
 }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
@@ -79,6 +82,24 @@ export function ReadingSettings({
               <div className="tk-view-head">{t('reading.pron')}</div>
               {PRONS.map((p) =>
                 item(view.pron === p, p === 'ash' ? 'אָ=o' : 'אָ=a', t(`reading.pron.${p}`), t(`reading.pron.${p}.d`), () => setV({ ...view, pron: p })),
+              )}
+              {layout && (
+                <>
+                  <div className="tk-view-sep" />
+                  <div className="tk-view-head">{t('reading.trDir')}</div>
+                  {(['rtl', 'ltr'] as const).map((d) =>
+                    item(view.trDir === d, d === 'rtl' ? '←' : '→', t(`reading.trDir.${d}`), t(`reading.trDir.${d}.d`), () => setV({ ...view, trDir: d })),
+                  )}
+                  {view.tr === 'duo' && (
+                    <>
+                      <div className="tk-view-sep" />
+                      <div className="tk-view-head">{t('reading.trBig')}</div>
+                      {(['tr', 'he'] as const).map((b) =>
+                        item(view.trBig === b, b === 'tr' ? `${t('reading.tr.ab')}+` : 'אב+', t(`reading.trBig.${b}`), t(`reading.trBig.${b}.d`), () => setV({ ...view, trBig: b })),
+                      )}
+                    </>
+                  )}
+                </>
               )}
             </>
           )}

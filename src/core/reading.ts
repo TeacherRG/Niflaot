@@ -283,12 +283,18 @@ export interface View {
   pron: Pron;
   /** маячки «Мысль к стиху» (Living the Mizmor, nafshi.org) — по умолчанию включены */
   living: boolean;
+  /** с транслитом (Шахарит): строки справа налево, как оригинал, или слева направо, как транслит */
+  trDir: 'rtl' | 'ltr';
+  /** «транслит и иврит»: что крупнее — транслит или иврит */
+  trBig: 'tr' | 'he';
 }
 export const loadView = (): View => {
-  const v: View = { taamim: false, big: false, play: 'both', tr: 'he', pron: 'ash', living: true, ...read<Partial<View>>('niflaot:reading-view', {}) };
+  const v: View = { taamim: false, big: false, play: 'both', tr: 'he', pron: 'ash', living: true, trDir: 'ltr', trBig: 'tr', ...read<Partial<View>>('niflaot:reading-view', {}) };
   if (!PLAY_MODES.includes(v.play)) v.play = 'both';
   if (!TR_MODES.includes(v.tr)) v.tr = 'he';
   if (!PRONS.includes(v.pron)) v.pron = 'ash';
+  if (v.trDir !== 'rtl') v.trDir = 'ltr';
+  if (v.trBig !== 'he') v.trBig = 'tr';
   return v;
 };
 export const saveView = (v: View) => write('niflaot:reading-view', v);
