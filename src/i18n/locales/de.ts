@@ -285,7 +285,7 @@ const de: Messages = {
   'reading.doneOn': "Heute in deiner Lernserie gezählt",
   'reading.doneOff': "Hak es ab — dann zählt der Tag in deiner Lernserie",
   'reading.menuShnayimSub': "der Abschnitt des Wochenabschnitts für heute",
-  'reading.siddur': "Siddur",
+  'reading.siddur': "Siddur Tehillat Hashem",
   'reading.siddurSub': "Gebete",
   'reading.shacharit': "Schacharit",
   'reading.shacharitChecking': "Der Gebetstext wird geladen…",

@@ -294,7 +294,7 @@ const ru = {
   'reading.doneOn': "Сегодня засчитано в серию учёбы",
   'reading.doneOff': "Отметьте — и день засчитается в серию учёбы",
   'reading.menuShnayimSub': "отрывок недельной главы на сегодня",
-  'reading.siddur': "Сидур",
+  'reading.siddur': "Сидур «Теилат Ашем»",
   'reading.siddurSub': "молитвы",
   'reading.shacharit': "Шахарит",
   'reading.shacharitChecking': "Загружаем текст молитвы…",

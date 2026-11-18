@@ -14,7 +14,7 @@ const he: Partial<Messages> = {
   'app.brandSub': "MyChitas",
   'app.language': "שפה",
 
-  'reading.siddur': "סידור",
+  'reading.siddur': "סידור תהילת ה׳",
   'reading.siddurSub': "תפילות",
   'reading.shacharit': "שחרית",
   'reading.shacharitChecking': "טקסט התפילה נטען…",
