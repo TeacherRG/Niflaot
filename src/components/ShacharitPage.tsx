@@ -3,14 +3,16 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { loadView, saveView, stripTaamim, type View } from '../core/reading';
 import { translitSiddurToken } from '../core/tehillimTranslit';
 import { markStudied } from '../core/habit';
+import type { Prayer } from '../core/siddur';
 import { useI18n } from '../i18n';
 import { Colophon } from './Colophon';
 import { TopBar } from './TopBar';
 import { ReadingSettings } from './ReadingSettings';
 import { Icon, useDismiss } from './ui';
 
-/** Только слова молитвы — собирает `scripts/build-shacharit.py` из JSON сидура (без указаний и пояснений). */
-const TEXT_URL = '/reading/siddur/shacharit-he.json';
+/** Только слова молитвы — собирает `scripts/build-siddur.py` из JSON сидура (без указаний и пояснений). */
+const PRAYER_KEY = { shacharit: 'reading.shacharit', mincha: 'reading.mincha', maariv: 'reading.maariv', 'birkat-hamazon': 'reading.birkat' } as const;
+const textUrl = (prayer: Prayer) => `/reading/siddur/${prayer}-he.json`;
 const SOURCE_URL = 'https://www.sefaria.org/Weekday_Siddur_Chabad';
 const HEBREW_WORD = /[\u05D0-\u05EA\uFB1D-\uFB4F][\u05D0-\u05EA\u05BE\uFB1D-\uFB4F\u0591-\u05C7\u05F0-\u05F4'"]*/gu;
 
@@ -162,7 +164,7 @@ function SectionsMenu({ sections, onGo }: { sections: { id: string; title: strin
       <button type="button" className="lang-btn tk-view-btn" aria-haspopup="true" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
         <span aria-hidden="true">☰</span>
         <span>
-          {t('reading.shacharitContents')}
+          {t('reading.siddurContents')}
           {now && (
             <small>
               {' · '}
@@ -173,7 +175,7 @@ function SectionsMenu({ sections, onGo }: { sections: { id: string; title: strin
         <Icon name="chevron" size={14} />
       </button>
       {open && (
-        <div className="lang-list tk-view-list rd-set-list shacharit-menu-list" role="menu" aria-label={t('reading.shacharitContents')}>
+        <div className="lang-list tk-view-list rd-set-list shacharit-menu-list" role="menu" aria-label={t('reading.siddurContents')}>
           {sections.map((s) => (
             <button
               key={s.id}
@@ -195,7 +197,7 @@ function SectionsMenu({ sections, onGo }: { sections: { id: string; title: strin
   );
 }
 
-export function ShacharitPage() {
+export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
   const { t, locale } = useI18n();
   const [status, setStatus] = useState<TextStatus>('loading');
   const [data, setData] = useState<ShacharitText | null>(null);
@@ -204,7 +206,7 @@ export function ShacharitPage() {
 
   useEffect(() => {
     let active = true;
-    fetch(TEXT_URL)
+    fetch(textUrl(prayer))
       .then(async (response) => {
         if (response.status === 404) {
           if (active) setStatus('missing');
@@ -227,8 +229,8 @@ export function ShacharitPage() {
   }, []);
 
   useEffect(() => {
-    document.title = `${t('reading.shacharit')} · ${t('reading.siddur')} · ${t('app.title')}`;
-  }, [t]);
+    document.title = `${t(PRAYER_KEY[prayer])} · ${t('reading.siddur')} · ${t('app.title')}`;
+  }, [t, prayer]);
 
   const sections = data
     ? data.sections.map((section, index) => ({ ...section, id: `shacharit-section-${index + 1}` }))
@@ -303,7 +305,7 @@ export function ShacharitPage() {
       <main className={`wrap rd shacharit-page${view.big ? ' rd-big' : ''}${view.tr === 'duo' && view.trBig === 'he' ? ' shacharit-hebig' : ''}`}>
         <header className="tk-head">
           <p className="tk-kicker">{t('reading.siddur')}</p>
-          <h1>{t('reading.shacharit')}</h1>
+          <h1>{t(PRAYER_KEY[prayer])}</h1>
           {status === 'loading' && <p className="rd-note" role="status">{t('reading.shacharitChecking')}</p>}
           {status === 'missing' && <p className="rd-note" role="status">{t('reading.shacharitMissing')}</p>}
           {status === 'error' && <p className="rd-note" role="alert">{t('reading.shacharitError')}</p>}

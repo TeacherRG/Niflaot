@@ -1,3 +1,4 @@
+import { isPrayer } from './core/siddur';
 import { Suspense, lazy, useEffect, useMemo, useState, type ComponentType } from 'react';
 import { PARSHIOT, cardsOnly, findLesson, type ParshaId } from './lessons';
 import { TURIM_DAYS, hasDaily, seriesOf, turimDayFor, type DailySeries } from './core/turimDaily';
@@ -258,8 +259,8 @@ function Site() {
             <LashonPage />
           ) : slug === 'reading' && view === 'shnayim' ? (
             <ShnayimPage key={route} aliyah={variant || undefined} />
-          ) : slug === 'reading' && view === 'siddur' && variant === 'shacharit' ? (
-            <ShacharitPage />
+          ) : slug === 'reading' && view === 'siddur' && isPrayer(variant) ? (
+            <ShacharitPage key={variant} prayer={variant} />
           ) : slug === 'reading' ? (
             <ReadingPage key={route} chapter={view === 'day' ? undefined : view || undefined} day={view === 'day' || view === 'week' ? variant : undefined} />
           ) : slug === 'pics' && !view ? (
