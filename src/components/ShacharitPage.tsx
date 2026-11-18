@@ -1,10 +1,12 @@
 import '@fontsource/noto-serif-hebrew/400.css';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { loadView, saveView, type View } from '../core/reading';
 import { sanitizeHtml } from '../core/sanitize';
 import { translitSiddurToken } from '../core/tehillimTranslit';
 import { useI18n } from '../i18n';
 import { Colophon } from './Colophon';
 import { TopBar } from './TopBar';
+import { Icon, useDismiss } from './ui';
 
 const TEXT_URL = '/reading/siddur/Weekday%20Siddur%20Chabad%20-%20he%20-%20merged.json';
 const SOURCE_URL = 'https://www.sefaria.org/Weekday_Siddur_Chabad';
@@ -30,6 +32,23 @@ const SECTION_TITLES: Record<string, string> = {
   'Rabbenu Tam': 'תפילין דרבנו תם',
   'Six Remembrances': 'שש זכירות',
 };
+const PRAYER_SECTIONS = new Set([
+  'Morning Blessings',
+  'Morning Prayer',
+  'Kaddish DeRabbanan',
+  'Hodu',
+  'Pesukei Dezimra',
+  'Blessings of the Shema',
+  'The Amidah',
+  'Tachnun',
+  'Torah Reading',
+  'Ashrei Uva LeZion',
+  'Song of the Day',
+  "Mourner's Kaddish",
+  'Kaveh',
+  'Aleinu',
+]);
+const SHACHARIT_TR_MODES = ['he', 'duo'] as const;
 
 interface ShacharitText {
   versionSource: string;
@@ -58,17 +77,37 @@ function isShacharitText(value: unknown): value is ShacharitText {
   );
 }
 
-function transliterateHtml(html: string, lang: 'ru' | 'en' | 'de') {
-  const template = document.createElement('template');
-  template.innerHTML = sanitizeHtml(html).replace(/<br\s*\/?>/gi, ' ');
-  const text = template.content.textContent ?? '';
-  return text.replace(HEBREW_WORD, (word) => translitSiddurToken(word, lang));
+function transliterateWordsHtml(html: string, lang: 'ru' | 'en' | 'de', pron: View['pron']) {
+  const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (char) => {
+    switch (char) {
+      case '&': return '&amp;';
+      case '<': return '&lt;';
+      case '>': return '&gt;';
+      case '"': return '&quot;';
+      default: return '&#39;';
+    }
+  });
+  return sanitizeHtml(html)
+    .replace(/<br\s*\/?>/gi, ' ')
+    .replace(HEBREW_WORD, (word) => (
+      `<span class="shacharit-word"><span class="shacharit-word-tr" dir="ltr" lang="${lang}">` +
+      `${escapeHtml(translitSiddurToken(word, lang, pron))}</span>` +
+      `<span class="shacharit-word-he he" dir="rtl" lang="he">${escapeHtml(word)}</span></span>`
+    ));
 }
 
 export function ShacharitPage() {
   const { t, locale } = useI18n();
   const [status, setStatus] = useState<TextStatus>('loading');
   const [data, setData] = useState<ShacharitText | null>(null);
+  const [view, setView] = useState<View>(() => {
+    const saved = loadView();
+    return saved.tr === 'tr' ? { ...saved, tr: 'he' } : saved;
+  });
+  const [viewOpen, setViewOpen] = useState(false);
+  const viewRef = useRef<HTMLDivElement>(null);
+  const closeView = useCallback(() => setViewOpen(false), []);
+  useDismiss(viewOpen, viewRef, closeView);
 
   useEffect(() => {
     let active = true;
@@ -100,6 +139,7 @@ export function ShacharitPage() {
 
   const sections = data
     ? Object.entries(data.text.Shacharit)
+        .filter(([sourceTitle]) => PRAYER_SECTIONS.has(sourceTitle))
         .map(([sourceTitle, lines], index) => ({
           title: SECTION_TITLES[sourceTitle] ?? 'תפילה',
           id: `shacharit-section-${index + 1}`,
@@ -108,6 +148,10 @@ export function ShacharitPage() {
         .filter((section) => section.lines.length > 0)
     : [];
   const translitLang = locale === 'ru' || locale === 'de' ? locale : 'en';
+  const setV = (next: View) => {
+    setView(next);
+    saveView(next);
+  };
   const scrollTo = (id: string) => {
     const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
     document.getElementById(id)?.scrollIntoView({ behavior, block: 'start' });
@@ -126,6 +170,46 @@ export function ShacharitPage() {
         </header>
         {status === 'ready' && data && (
           <>
+            <div className="tk-view rd-set no-print no-speak" ref={viewRef}>
+              <button
+                type="button"
+                className="lang-btn tk-view-btn"
+                aria-haspopup="true"
+                aria-expanded={viewOpen}
+                onClick={() => setViewOpen((open) => !open)}
+              >
+                <span aria-hidden="true">⚙</span>
+                <span>
+                  {t('reading.view')}
+                  <small>{` · ${t(`reading.tr.${view.tr}`)}`}</small>
+                </span>
+                <Icon name="chevron" size={14} />
+              </button>
+              {viewOpen && (
+                <div className="lang-list tk-view-list rd-set-list" role="menu" aria-label={t('reading.view')}>
+                  <div className="tk-view-head">{t('reading.tr')}</div>
+                  {SHACHARIT_TR_MODES.map((mode) => (
+                    <button
+                      key={mode}
+                      type="button"
+                      role="menuitemradio"
+                      aria-checked={view.tr === mode}
+                      onClick={() => {
+                        setV({ ...view, tr: mode });
+                        setViewOpen(false);
+                      }}
+                    >
+                      <span className="code">{mode === 'he' ? 'אב' : `${t('reading.tr.ab')}+אב`}</span>
+                      <span className="name">
+                        {t(`reading.tr.${mode}`)}
+                        <small className="rd-set-d">{t(`reading.tr.${mode}.d`)}</small>
+                      </span>
+                      {view.tr === mode && <Icon name="check" size={16} />}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
             <nav id="shacharit-contents" className="shacharit-toc" aria-label={t('reading.shacharitContents')}>
               <h2>{t('reading.shacharitContents')}</h2>
               <div>
@@ -153,14 +237,15 @@ export function ShacharitPage() {
                     return (
                       <div key={index} className="shacharit-prayer">
                         <div
-                          className="shacharit-line he"
+                          className={`shacharit-line he${view.tr === 'duo' ? ' shacharit-duo' : ''}`}
                           dir="rtl"
                           lang="he"
-                          dangerouslySetInnerHTML={{ __html: sanitizeHtml(line) }}
+                          dangerouslySetInnerHTML={{
+                            __html: view.tr === 'duo'
+                              ? transliterateWordsHtml(line, translitLang, view.pron)
+                              : sanitizeHtml(line),
+                          }}
                         />
-                        <div className="shacharit-translit" dir="ltr" lang={translitLang}>
-                          {transliterateHtml(line, translitLang)}
-                        </div>
                       </div>
                     );
                   })}

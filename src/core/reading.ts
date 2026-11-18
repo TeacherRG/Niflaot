@@ -5,7 +5,7 @@
  * Имена — как во всём проекте). «Песнь Аазину» — public/reading/torah/haazinu.json (Sefaria, Deuteronomy 32).
  * Записи чтения — только на этом устройстве:
  *   `niflaot:reading` = {"<ключ чтения>": {best, last — слов в минуту; n — попыток}};
- *   `niflaot:reading-view` = {taamim, big, play: 'both' | 'voice' | 'light'};
+ *   `niflaot:reading-view` = {taamim, big, play, tr, pron, living};
  *   `niflaot:reading-times:<ключ чтения>` — разметка аудио учителем (начало каждого слова, с).
  */
 import { addDays, hebrewParts } from './restDays';

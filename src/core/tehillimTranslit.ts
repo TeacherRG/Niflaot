@@ -293,7 +293,7 @@ export function translitToken(token: string, lang: ReadLang, pron: Pron = 'ash')
 }
 
 /** Expand the siddur abbreviation for the Name in each maqaf-separated part before normal transliteration. */
-export function translitSiddurToken(token: string, lang: ReadLang): string {
+export function translitSiddurToken(token: string, lang: ReadLang, pron: Pron = 'ash'): string {
   const normalized = token
     .split(MAQAF)
     .map((part) => {
@@ -302,7 +302,7 @@ export function translitSiddurToken(token: string, lang: ReadLang): string {
       return part.replace(/י[\u0591-\u05C7]*י(?=[\u0591-\u05C7]*$)/u, 'יהוה');
     })
     .join(MAQAF);
-  return translitToken(normalized, lang);
+  return translitToken(normalized, lang, pron);
 }
 
 /** Стих по кускам: первое слово — с большой буквы. */
