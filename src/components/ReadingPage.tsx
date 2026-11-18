@@ -503,19 +503,26 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           )}
         </header>
 
-        {!haazinu && (
+        {/* меню Теґилим — всегда в левом верхнем углу, настройки чтения — в правом (владелец, 18.11.2026) */}
+        <div className="rd-corner no-print">
+          {!haazinu ? (
+            <button
+              type="button"
+              className="btn ghost rd-menu-open"
+              onClick={() => { setMenuSection('home'); setMenuOpen(true); }}
+              aria-label={t('reading.myTehillim')}
+              title={t('reading.myTehillim')}
+            >
+              ☰<span className="rd-menu-lbl"> {t('reading.myTehillim')}</span>
+            </button>
+          ) : <span />}
+          <ReadingSettings view={view} setV={setV} audio={tracks.length > 0} onBoth={() => setTip(true)} layout />
+        </div>
+
+        {!haazinu && !mine && (
           <>
           <div className="rd-bar no-print">
-          <button
-            type="button"
-            className="btn ghost rd-menu-open"
-            onClick={() => { setMenuSection('home'); setMenuOpen(true); }}
-            aria-label={t('reading.myTehillim')}
-            title={t('reading.myTehillim')}
-          >
-            ☰<span className="rd-menu-lbl"> {t('reading.myTehillim')}</span>
-          </button>
-          {!mine && (
+          {(
           <nav className="rd-nav" aria-label={t(daily ? 'reading.dayPick' : week ? 'reading.weekPick' : 'reading.pick')}>
             <button
               type="button"
@@ -643,7 +650,6 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           )}
         </Sheet>
 
-        <ReadingSettings view={view} setV={setV} audio={tracks.length > 0} onBoth={() => setTip(true)} layout />
 
         {audio && (
           <audio
@@ -730,7 +736,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
               aria-label={t('reading.stop')}
               title={t('reading.stop')}
             >
-              ■<span className="rd-lbl"> {t('reading.stop')}</span>
+              <span className="rd-stop-sq" aria-hidden="true" /><span className="rd-lbl"> {t('reading.stop')}</span>
             </button>
             <label className="rd-rate" title={t('reading.speed')}>
               <span className="sr-only">{t('reading.speed')}</span>

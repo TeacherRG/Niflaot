@@ -303,7 +303,7 @@ export function ShnayimPage({ aliyah }: { aliyah?: string }) {
               aria-label={t('reading.stop')}
               title={t('reading.stop')}
             >
-              ■<span className="rd-lbl"> {t('reading.stop')}</span>
+              <span className="rd-stop-sq" aria-hidden="true" /><span className="rd-lbl"> {t('reading.stop')}</span>
             </button>
             <label className="rd-rate" title={t('reading.speed')}>
               <span className="sr-only">{t('reading.speed')}</span>

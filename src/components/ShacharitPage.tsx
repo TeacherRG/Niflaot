@@ -7,6 +7,7 @@ import { useI18n } from '../i18n';
 import { Colophon } from './Colophon';
 import { TopBar } from './TopBar';
 import { ReadingSettings } from './ReadingSettings';
+import { Icon, useDismiss } from './ui';
 
 /** Только слова молитвы — собирает `scripts/build-shacharit.py` из JSON сидура (без указаний и пояснений). */
 const TEXT_URL = '/reading/siddur/shacharit-he.json';
@@ -134,6 +135,66 @@ const PrayerLine = memo(function PrayerLine({ line, tr, lang, pron, taamim, dir,
   );
 });
 
+/** Разделы Шахарита — выпадающий список из кнопки «☰» в левом верхнем углу; текущий раздел отмечен. */
+function SectionsMenu({ sections, onGo }: { sections: { id: string; title: string }[]; onGo: (id: string) => void }) {
+  const { t } = useI18n();
+  const [open, setOpen] = useState(false);
+  const [current, setCurrent] = useState(sections[0]?.id ?? '');
+  const root = useRef<HTMLDivElement>(null);
+  const close = useCallback(() => setOpen(false), []);
+  useDismiss(open, root, close);
+  useEffect(() => {
+    const onScroll = () => {
+      let id = sections[0]?.id ?? '';
+      for (const s of sections) {
+        const el = document.getElementById(s.id);
+        if (el && el.getBoundingClientRect().top < 160) id = s.id;
+      }
+      setCurrent(id);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [sections]);
+  const now = sections.find((s) => s.id === current);
+  return (
+    <div className="tk-view rd-set shacharit-menu" ref={root}>
+      <button type="button" className="lang-btn tk-view-btn" aria-haspopup="true" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+        <span aria-hidden="true">☰</span>
+        <span>
+          {t('reading.shacharitContents')}
+          {now && (
+            <small>
+              {' · '}
+              <bdi className="he" dir="rtl" lang="he">{now.title}</bdi>
+            </small>
+          )}
+        </span>
+        <Icon name="chevron" size={14} />
+      </button>
+      {open && (
+        <div className="lang-list tk-view-list rd-set-list shacharit-menu-list" role="menu" aria-label={t('reading.shacharitContents')}>
+          {sections.map((s) => (
+            <button
+              key={s.id}
+              type="button"
+              role="menuitemradio"
+              aria-checked={s.id === current}
+              onClick={() => {
+                close();
+                onGo(s.id);
+              }}
+            >
+              <span className="name he" dir="rtl" lang="he">{s.title}</span>
+              {s.id === current && <Icon name="check" size={16} />}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function ShacharitPage() {
   const { t, locale } = useI18n();
   const [status, setStatus] = useState<TextStatus>('loading');
@@ -249,26 +310,11 @@ export function ShacharitPage() {
         </header>
         {status === 'ready' && data && (
           <>
-            <ReadingSettings view={view} setV={setV} audio={false} living={false} layout />
-            <nav id="shacharit-contents" className="shacharit-toc" aria-label={t('reading.shacharitContents')}>
-              <h2>{t('reading.shacharitContents')}</h2>
-              <div>
-                {sections.map((section) => (
-                  <a
-                    key={section.id}
-                    href={`#${section.id}`}
-                    dir="rtl"
-                    lang="he"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      scrollTo(section.id);
-                    }}
-                  >
-                    {section.title}
-                  </a>
-                ))}
-              </div>
-            </nav>
+            {/* меню сидура — всегда в левом верхнем углу, настройки чтения — в правом (владелец, 18.11.2026) */}
+            <div className="rd-corner no-print">
+              <SectionsMenu sections={sections} onGo={scrollTo} />
+              <ReadingSettings view={view} setV={setV} audio={false} living={false} layout />
+            </div>
             <p className="rd-hint no-print">{t('shn.tap')}</p>
             <article className="shacharit-text">
               {sections.map((section, si) => (
@@ -289,16 +335,6 @@ export function ShacharitPage() {
                       />
                     </div>
                   ))}
-                  <a
-                    className="shacharit-back"
-                    href="#shacharit-contents"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      scrollTo('shacharit-contents');
-                    }}
-                  >
-                    {t('reading.shacharitBack')}
-                  </a>
                 </section>
               ))}
             </article>
@@ -316,7 +352,7 @@ export function ShacharitPage() {
                   aria-label={t('reading.stop')}
                   title={t('reading.stop')}
                 >
-                  ■<span className="rd-lbl"> {t('reading.stop')}</span>
+                  <span className="rd-stop-sq" aria-hidden="true" /><span className="rd-lbl"> {t('reading.stop')}</span>
                 </button>
                 <label className="rd-rate" title={t('reading.speed')}>
                   <span className="sr-only">{t('reading.speed')}</span>
