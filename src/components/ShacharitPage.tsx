@@ -10,7 +10,7 @@ import { TopBar } from './TopBar';
 import { ReadingSettings } from './ReadingSettings';
 import { Icon, useDismiss } from './ui';
 
-/** Только слова молитвы — собирает `scripts/build-shacharit.py` из JSON сидура (без указаний и пояснений). */
+/** Только слова молитвы — собирает `scripts/build-siddur.py` из JSON сидура (без указаний и пояснений). */
 const PRAYER_KEY = { shacharit: 'reading.shacharit', mincha: 'reading.mincha', maariv: 'reading.maariv', 'birkat-hamazon': 'reading.birkat' } as const;
 const textUrl = (prayer: Prayer) => `/reading/siddur/${prayer}-he.json`;
 const SOURCE_URL = 'https://www.sefaria.org/Weekday_Siddur_Chabad';
