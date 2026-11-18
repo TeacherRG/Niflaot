@@ -30,6 +30,7 @@ img{max-width:100%}
 *{box-sizing:border-box}
 body{background:var(--paper);background-image:radial-gradient(1200px 500px at 50% -120px,#E9ECF5 0,transparent 70%);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;padding-inline:16px;padding-block:0 0}
 .wrap{max-width:780px;margin:0 auto}
+.wrap.rd{max-width:1200px}
 .he{font-family:var(--f-he);direction:rtl;unicode-bidi:isolate}
 .num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
 button{font:inherit;cursor:pointer}
@@ -3264,7 +3265,7 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .rd-w.rd-past{color:var(--muted)}
 .rd-w.rd-on{background:var(--gold-soft);color:var(--ink);box-shadow:0 0 0 2px var(--gold-line)}
 /* транслит (tehillimTranslit.ts): «Аа» — только транслит, «Аа + אב» — слово транслитом, под ним мелко иврит */
-.rd-text.rd-tr{font-family:var(--f-body);font-size:19px;line-height:1.8;text-align:left}
+.rd-text.rd-tr{font-family:var(--f-body);font-size:19px;line-height:1.8;text-align:justify;text-align-last:start}
 .rd-big .rd-text.rd-tr{font-size:26px}
 .rd-tr .rd-ch .he{font-family:"Noto Serif Hebrew",var(--f-he)}
 .rd-tr .rd-paseq{display:none}
@@ -3273,6 +3274,8 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .rd-tr-w{font-weight:600}
 .rd-tr-h{font-family:"Noto Serif Hebrew",var(--f-he);font-size:.8em;color:var(--muted)}
 .rd-w.rd-on .rd-tr-h{color:var(--ink-2)}
+.rd-hebig .rd-tr-w{font-size:.72em;font-weight:500;color:var(--ink-2)}
+.rd-hebig .rd-tr-h{font-size:1.3em;color:var(--ink)}
 .rd-trmode .he{font-family:var(--f-he);font-size:16px;line-height:1}
 .shn{text-align:right}
 .shn-v{margin:0 0 .55em}
@@ -3297,7 +3300,7 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
   .rd-person-row{grid-template-columns:76px minmax(0,1fr) 36px;gap:6px;padding:8px}
   .rd-person-remove{width:36px;height:40px}
   .rd-text{font-size:21px;padding:12px 6px;margin-inline:-16px;border-inline:0;border-radius:0;text-align:justify;text-justify:inter-word}
-  .rd-text.rd-tr{font-size:18px;padding-inline:12px;text-align:left}
+  .rd-text.rd-tr{font-size:18px;padding-inline:12px;text-align:justify;text-align-last:start}
   .rd-big .rd-text.rd-tr{font-size:23px}
   .rd-big .rd-text{font-size:27px}
   .rd-audio-float{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
