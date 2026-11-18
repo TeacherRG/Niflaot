@@ -41,20 +41,28 @@ const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (char) => (
   { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[char] ?? '&#39;'
 ));
 
-/** Под каждым словом молитвы — его чтение; текст строки — простой текст без тегов. */
+/**
+ * Транслит слева направо (как «Святое чтение» Теґилим): слово крупно, под ним иврит; знаки препинания — за словом,
+ * начало строки и каждой фразы (после «:» и «.») — с большой буквы.
+ */
 function transliterateWordsHtml(line: string, lang: 'ru' | 'en' | 'de', pron: View['pron']) {
-  let out = '';
-  let last = 0;
-  for (const m of line.matchAll(HEBREW_WORD)) {
+  const words = [...line.matchAll(HEBREW_WORD)];
+  const cap = (x: string) => x.charAt(0).toUpperCase() + x.slice(1);
+  let start = true;
+  let out = escapeHtml(line.slice(0, words[0]?.index ?? line.length).trim());
+  words.forEach((m, i) => {
     const word = m[0];
-    out += escapeHtml(line.slice(last, m.index));
+    const end = (m.index ?? 0) + word.length;
+    const gap = line.slice(end, words[i + 1]?.index ?? line.length).trim();
+    let tr = translitSiddurToken(word, lang, pron);
+    if (start) tr = cap(tr);
+    start = /[:.]/.test(gap);
     out +=
-      `<span class="shacharit-word"><span class="shacharit-word-tr" dir="ltr" lang="${lang}">` +
-      `${escapeHtml(translitSiddurToken(word, lang, pron))}</span>` +
+      `${i ? ' ' : ''}<span class="shacharit-word"><span class="shacharit-word-tr" lang="${lang}">` +
+      `${escapeHtml(tr + gap)}</span>` +
       `<span class="shacharit-word-he he" dir="rtl" lang="he">${escapeHtml(word)}</span></span>`;
-    last = (m.index ?? 0) + word.length;
-  }
-  return out + escapeHtml(line.slice(last));
+  });
+  return out;
 }
 
 export function ShacharitPage() {
@@ -192,9 +200,9 @@ export function ShacharitPage() {
                       <div key={index} className="shacharit-prayer">
                         {view.tr === 'duo' ? (
                           <div
-                            className="shacharit-line he shacharit-duo"
-                            dir="rtl"
-                            lang="he"
+                            className="shacharit-line shacharit-duo"
+                            dir="ltr"
+                            lang={translitLang}
                             dangerouslySetInnerHTML={{ __html: transliterateWordsHtml(line, translitLang, view.pron) }}
                           />
                         ) : (

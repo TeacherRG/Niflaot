@@ -3196,9 +3196,9 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .shacharit-prayer{margin:14px 0}
 .shacharit-line{line-height:1.85;unicode-bidi:plaintext;text-align:start}
 .shacharit-line[lang="he"]{font-family:"Noto Serif Hebrew",serif;font-size:1.35em;line-height:2}
-.shacharit-line[lang="he"].shacharit-duo{font-family:var(--f-body);font-size:1.08em;line-height:1.9;text-align:right}
+.shacharit-line.shacharit-duo{direction:ltr;unicode-bidi:isolate;text-align:left;font-family:var(--f-body);font-size:1.08em;line-height:1.9}
 .shacharit-word{display:inline-flex;flex-direction:column;align-items:center;vertical-align:top;line-height:1.25;padding:2px 3px;margin-bottom:6px}
-.shacharit-word-tr{font-family:var(--f-body);font-size:1em;font-weight:600;direction:ltr;unicode-bidi:plaintext}
+.shacharit-word-tr{font-family:var(--f-body);font-size:1em;font-weight:600;direction:ltr;unicode-bidi:isolate}
 .shacharit-word-he{font-family:"Noto Serif Hebrew",serif;font-size:.8em;color:var(--muted)}
 .shacharit-back{display:inline-block;margin-top:8px;color:var(--tchelet);font-size:.9rem}
 .shacharit-credit{margin:28px auto;text-align:center;color:var(--ink-2);font-size:.9rem}
