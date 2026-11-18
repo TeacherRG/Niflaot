@@ -285,7 +285,7 @@ const en: Messages = {
   'reading.doneOn': "Counted in today’s study streak",
   'reading.doneOff': "Tick it — and today counts in your study streak",
   'reading.menuShnayimSub': "today's portion of the weekly parshah",
-  'reading.siddur': "Siddur",
+  'reading.siddur': "Siddur Tehillat Hashem",
   'reading.siddurSub': "prayers",
   'reading.shacharit': "Shacharit",
   'reading.shacharitChecking': "Loading the prayer text…",
