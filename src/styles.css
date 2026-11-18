@@ -4170,15 +4170,17 @@ html:has(.clk2) body{background:#0B1532 url(./assets/clock-bg.webp) center/cover
 /* «Святое чтение»: меню текста — в левом верхнем углу, «Настройки чтения» — в правом; при прокрутке остаются под верхней панелью (владелец, 18.11.2026) */
 .rd-corner{position:sticky;top:var(--rd-corner-top,calc(62px + env(safe-area-inset-top,0px)));z-index:4;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin:10px 0 12px;pointer-events:none}
 .rd-corner>*{pointer-events:auto}
+.rd-corner:has([aria-expanded="true"]){z-index:40}
 .rd-corner .tk-view,.rd-corner .rd-set{margin:0;min-width:0}
 .rd-corner .tk-view-btn,.rd-corner .rd-menu-open{background:var(--surface);box-shadow:0 4px 14px -6px rgba(20,26,51,.35)}
 .rd-corner>:last-child .tk-view-list{inset-inline-start:auto;inset-inline-end:0}
-.rd-corner .tk-view-list{max-height:calc(100svh - 150px);overflow-y:auto}
+.rd-corner .tk-view-list{max-height:calc(100svh - 210px - env(safe-area-inset-bottom,0px));overflow-y:auto;overscroll-behavior:contain}
 .rd-corner>.rd-set:last-child .tk-view-btn{max-width:min(60vw,420px)}
 .shacharit-menu .tk-view-btn{max-width:min(48vw,360px)}
 .shacharit-menu .tk-view-btn small .he{font-family:"Noto Serif Hebrew",var(--f-he);font-size:13px}
-.shacharit-menu-list .name.he{font-family:"Noto Serif Hebrew",var(--f-he);font-size:17px;text-align:start}
-@media (max-width:640px){.rd-corner .tk-view-btn small{display:none}.rd-corner{--rd-corner-top:calc(58px + env(safe-area-inset-top,0px))}}
+@media (max-width:640px){.rd-corner .tk-view-btn small{display:none}.rd-corner{--rd-corner-top:calc(58px + env(safe-area-inset-top,0px))}
+  /* список заканчивается над плеером и нижней панелью: верх ≈ 110 px, плеер и панель ≈ 140 px */
+  .rd-corner .tk-view-list{max-height:calc(100svh - 270px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}}
 /* меню «Настройки чтения»: заголовки групп — тёмные, группы разделены ясной чертой */
 .rd-set-list .tk-view-head{color:var(--ink);font-size:12px;letter-spacing:.08em;padding:10px 10px 4px}
 .rd-set-list .tk-view-sep{height:2px;margin:8px 0;background:var(--line);opacity:1}
@@ -4187,4 +4189,7 @@ html:has(.clk2) body{background:#0B1532 url(./assets/clock-bg.webp) center/cover
 .rd-stop-sq{display:inline-block;width:14px;height:14px;border-radius:2px;background:currentColor;flex:none}
 .shacharit-menu-list{min-width:min(260px,calc(100vw - 32px))}
 .shacharit-menu-list button{grid-template-columns:1fr 18px}
-.shacharit-menu-list .name.he{white-space:nowrap;text-align:right}
+.shacharit-menu-list .rd-set-d.he{font-family:"Noto Serif Hebrew",var(--f-he);font-size:13px}
+.shacharit-menu-list .shacharit-menu-now{color:var(--gold-deep)}
+.shacharit-h{display:flex;flex-direction:row-reverse;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 12px}
+.shacharit-h small{font-family:var(--f-body);font-size:.62em;font-weight:500;color:var(--muted)}

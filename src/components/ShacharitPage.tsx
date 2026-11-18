@@ -3,7 +3,7 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { loadView, saveView, stripTaamim, type View } from '../core/reading';
 import { translitSiddurToken } from '../core/tehillimTranslit';
 import { markStudied } from '../core/habit';
-import type { Prayer } from '../core/siddur';
+import { PRAYERS, type Prayer } from '../core/siddur';
 import { useI18n } from '../i18n';
 import { Colophon } from './Colophon';
 import { TopBar } from './TopBar';
@@ -16,9 +16,10 @@ const textUrl = (prayer: Prayer) => `/reading/siddur/${prayer}-he.json`;
 const SOURCE_URL = 'https://www.sefaria.org/Weekday_Siddur_Chabad';
 const HEBREW_WORD = /[\u05D0-\u05EA\uFB1D-\uFB4F][\u05D0-\u05EA\u05BE\uFB1D-\uFB4F\u0591-\u05C7\u05F0-\u05F4'"]*/gu;
 
+type SectionName = { title: string; t?: Partial<Record<TrLang, string>> };
 interface ShacharitText {
   version: string;
-  sections: { key: string; title: string; lines: string[] }[];
+  sections: ({ key: string; lines: string[] } & SectionName)[];
 }
 
 type TextStatus = 'loading' | 'ready' | 'missing' | 'error';
@@ -42,6 +43,15 @@ function isShacharitText(value: unknown): value is ShacharitText {
 
 const HIGHLIGHT_RATES = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5];
 type TrLang = 'ru' | 'en' | 'de';
+/** раздел, к которому прокрутить после перехода на другую молитву из меню «Разделы» */
+const GO_KEY = 'niflaot:siddur-go';
+const sectionId = (i: number) => `shacharit-section-${i + 1}`;
+/** названия разделов всех молитв для меню — `index.json` (`build-siddur.py`) */
+let indexLoad: Promise<Record<string, SectionName[]>> | null = null;
+const loadIndex = () =>
+  (indexLoad ??= fetch('/reading/siddur/index.json')
+    .then((r) => (r.ok ? r.json() : {}))
+    .catch(() => ({}))) as Promise<Record<string, SectionName[]>>;
 
 /** Слово молитвы: номер по всему Шахариту (для подсветки), иврит, знаки после него, начинает ли фразу. */
 interface Word {
@@ -137,14 +147,25 @@ const PrayerLine = memo(function PrayerLine({ line, tr, lang, pron, taamim, dir,
   );
 });
 
-/** Разделы Шахарита — выпадающий список из кнопки «☰» в левом верхнем углу; текущий раздел отмечен. */
-function SectionsMenu({ sections, onGo }: { sections: { id: string; title: string }[]; onGo: (id: string) => void }) {
-  const { t } = useI18n();
+/**
+ * Меню сидура (левый верхний угол): все молитвы и их разделы — на языке сайта, мелко иврит (владелец, 18.11.2026: «меню сидура
+ * на языке пользователя и полное, чтобы перейти на любую молитву»); раздел этой молитвы — прокрутка, другой — её страница на этом месте.
+ */
+function SectionsMenu({ prayer, sections, onGo }: { prayer: Prayer; sections: ({ id: string } & SectionName)[]; onGo: (id: string) => void }) {
+  const { t, locale, ui } = useI18n();
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(sections[0]?.id ?? '');
+  const [index, setIndex] = useState<Record<string, SectionName[]>>({});
   const root = useRef<HTMLDivElement>(null);
   const close = useCallback(() => setOpen(false), []);
   useDismiss(open, root, close);
+  useEffect(() => {
+    let live = true;
+    void loadIndex().then((x) => live && setIndex(x));
+    return () => {
+      live = false;
+    };
+  }, []);
   useEffect(() => {
     const onScroll = () => {
       let id = sections[0]?.id ?? '';
@@ -158,39 +179,66 @@ function SectionsMenu({ sections, onGo }: { sections: { id: string; title: strin
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, [sections]);
+  // открыли меню — список сразу на этой молитве
+  const listRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const list = listRef.current;
+    const head = list?.querySelector<HTMLElement>('.shacharit-menu-now');
+    if (list && head) list.scrollTop = head.offsetTop - 6;
+  }, [open]);
+  const lang: TrLang = locale === 'ru' || locale === 'de' ? locale : 'en';
+  const nameOf = (s: SectionName) => (ui === 'he' ? s.title : s.t?.[lang] ?? s.title);
   const now = sections.find((s) => s.id === current);
+  const go = (p: Prayer, i: number) => {
+    close();
+    if (p === prayer) onGo(sectionId(i));
+    else {
+      try {
+        sessionStorage.setItem(GO_KEY, String(i));
+      } catch {
+        /* без хранилища — откроется начало молитвы */
+      }
+      location.hash = `#/reading/siddur/${p}`;
+    }
+  };
   return (
     <div className="tk-view rd-set shacharit-menu" ref={root}>
       <button type="button" className="lang-btn tk-view-btn" aria-haspopup="true" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
         <span aria-hidden="true">☰</span>
         <span>
           {t('reading.siddurContents')}
-          {now && (
-            <small>
-              {' · '}
-              <bdi className="he" dir="rtl" lang="he">{now.title}</bdi>
-            </small>
-          )}
+          {now && <small>{` · ${nameOf(now)}`}</small>}
         </span>
         <Icon name="chevron" size={14} />
       </button>
       {open && (
-        <div className="lang-list tk-view-list rd-set-list shacharit-menu-list" role="menu" aria-label={t('reading.siddurContents')}>
-          {sections.map((s) => (
-            <button
-              key={s.id}
-              type="button"
-              role="menuitemradio"
-              aria-checked={s.id === current}
-              onClick={() => {
-                close();
-                onGo(s.id);
-              }}
-            >
-              <span className="name he" dir="rtl" lang="he">{s.title}</span>
-              {s.id === current && <Icon name="check" size={16} />}
-            </button>
-          ))}
+        <div ref={listRef} className="lang-list tk-view-list rd-set-list shacharit-menu-list" role="menu" aria-label={t('reading.siddurContents')}>
+          {PRAYERS.map((p, pi) => {
+            const list: SectionName[] = p === prayer ? sections : index[p] ?? [];
+            return (
+              <div key={p} role="group" aria-label={t(PRAYER_KEY[p])}>
+                {pi > 0 && <div className="tk-view-sep" />}
+                <div className={`tk-view-head${p === prayer ? ' shacharit-menu-now' : ''}`}>{t(PRAYER_KEY[p])}</div>
+                {list.map((s, i) => {
+                  const on = p === prayer && sectionId(i) === current;
+                  return (
+                    <button key={i} type="button" role="menuitemradio" aria-checked={on} onClick={() => go(p, i)}>
+                      <span className="name">
+                        {nameOf(s)}
+                        {ui !== 'he' && (
+                          <small className="rd-set-d he" dir="rtl" lang="he">
+                            {s.title}
+                          </small>
+                        )}
+                      </span>
+                      {on && <Icon name="check" size={16} />}
+                    </button>
+                  );
+                })}
+              </div>
+            );
+          })}
         </div>
       )}
     </div>
@@ -198,7 +246,7 @@ function SectionsMenu({ sections, onGo }: { sections: { id: string; title: strin
 }
 
 export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
-  const { t, locale } = useI18n();
+  const { t, locale, ui } = useI18n();
   const [status, setStatus] = useState<TextStatus>('loading');
   const [data, setData] = useState<ShacharitText | null>(null);
   // те же настройки, что у Теґилим (`niflaot:reading-view`); звука пока нет
@@ -228,12 +276,28 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
     };
   }, []);
 
+  // переход из меню «Разделы» другой молитвы: прокрутить к выбранному разделу, иначе — к началу
+  useEffect(() => {
+    if (status !== 'ready') return;
+    let go: string | null = null;
+    try {
+      go = sessionStorage.getItem(GO_KEY);
+      sessionStorage.removeItem(GO_KEY);
+    } catch {
+      /* нет хранилища */
+    }
+    requestAnimationFrame(() => {
+      if (go !== null) document.getElementById(sectionId(Number(go)))?.scrollIntoView({ block: 'start' });
+      else window.scrollTo(0, 0);
+    });
+  }, [status]);
+
   useEffect(() => {
     document.title = `${t(PRAYER_KEY[prayer])} · ${t('reading.siddur')} · ${t('app.title')}`;
   }, [t, prayer]);
 
   const sections = data
-    ? data.sections.map((section, index) => ({ ...section, id: `shacharit-section-${index + 1}` }))
+    ? data.sections.map((section, index) => ({ ...section, id: sectionId(index) }))
     : [];
   const lines = useMemo(() => (data ? splitLines(data.sections) : []), [data]);
   const words = useMemo(() => lines.flat().flatMap((l) => l.words), [lines]);
@@ -314,14 +378,17 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
           <>
             {/* меню сидура — всегда в левом верхнем углу, настройки чтения — в правом (владелец, 18.11.2026) */}
             <div className="rd-corner no-print">
-              <SectionsMenu sections={sections} onGo={scrollTo} />
+              <SectionsMenu prayer={prayer} sections={sections} onGo={scrollTo} />
               <ReadingSettings view={view} setV={setV} audio={false} living={false} layout />
             </div>
             <p className="rd-hint no-print">{t('shn.tap')}</p>
             <article className="shacharit-text">
               {sections.map((section, si) => (
                 <section className="shacharit-section" id={section.id} key={section.id}>
-                  <h2 dir="rtl" lang="he">{section.title}</h2>
+                  <h2 className="shacharit-h">
+                    <span dir="rtl" lang="he">{section.title}</span>
+                    {ui !== 'he' && section.t?.[translitLang] && <small>{section.t[translitLang]}</small>}
+                  </h2>
                   {lines[si].map((line, index) => (
                     <div key={index} className="shacharit-prayer">
                       <PrayerLine
