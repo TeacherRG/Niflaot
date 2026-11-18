@@ -19,6 +19,7 @@ SRC = ROOT / 'public/reading/siddur/Weekday Siddur Chabad - he - merged.json'
 OUT = ROOT / 'public/reading/siddur/shacharit-he.json'
 
 SECTIONS = [
+    ('Upon Arising', 'השכמת הבוקר'),
     ('Morning Blessings', 'ברכות השחר'),
     ('Morning Prayer', 'תפילת שחרית'),
     ('Kaddish DeRabbanan', 'קדיש דרבנן'),
