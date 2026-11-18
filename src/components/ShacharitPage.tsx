@@ -1,16 +1,40 @@
 import '@fontsource/noto-serif-hebrew/400.css';
 import { useEffect, useState } from 'react';
 import { sanitizeHtml } from '../core/sanitize';
+import { translitSiddurToken } from '../core/tehillimTranslit';
 import { useI18n } from '../i18n';
 import { Colophon } from './Colophon';
 import { TopBar } from './TopBar';
 
-const TEXT_URL = '/reading/siddur/shacharit.json';
+const TEXT_URL = '/reading/siddur/Weekday%20Siddur%20Chabad%20-%20he%20-%20merged.json';
 const SOURCE_URL = 'https://www.sefaria.org/Weekday_Siddur_Chabad';
+const HEBREW_WORD = /[\u05D0-\u05EA\uFB1D-\uFB4F][\u05D0-\u05EA\u05BE\uFB1D-\uFB4F\u0591-\u05C7\u05F0-\u05F4'"]*/gu;
+const SECTION_TITLES: Record<string, string> = {
+  'Upon Arising': 'בקימה',
+  'Morning Blessings': 'ברכות השחר',
+  'Tzitzit and Tallit': 'ציצית וטלית',
+  Tefillin: 'תפילין',
+  'Morning Prayer': 'תפילת שחרית',
+  'Kaddish DeRabbanan': 'קדיש דרבנן',
+  Hodu: 'הודו',
+  'Pesukei Dezimra': 'פסוקי דזמרה',
+  'Blessings of the Shema': 'ברכות קריאת שמע',
+  'The Amidah': 'תפילת העמידה',
+  Tachnun: 'תחנון',
+  'Torah Reading': 'קריאת התורה',
+  'Ashrei Uva LeZion': 'אשרי ובא לציון',
+  'Song of the Day': 'שיר של יום',
+  "Mourner's Kaddish": 'קדיש יתום',
+  Kaveh: 'קווה',
+  Aleinu: 'עלינו לשבח',
+  'Rabbenu Tam': 'תפילין דרבנו תם',
+  'Six Remembrances': 'שש זכירות',
+};
 
 interface ShacharitText {
   versionSource: string;
   versions?: string[][];
+  language: 'he';
   text: { Shacharit: Record<string, string[]> };
 }
 
@@ -20,17 +44,29 @@ function isShacharitText(value: unknown): value is ShacharitText {
   if (!value || typeof value !== 'object') return false;
   const record = value as Record<string, unknown>;
   const text = record.text;
-  if (typeof record.versionSource !== 'string' || !text || typeof text !== 'object') return false;
+  if (record.language !== 'he' || typeof record.versionSource !== 'string' || !text || typeof text !== 'object') return false;
   const shacharit = (text as Record<string, unknown>).Shacharit;
   return (
     !!shacharit &&
     typeof shacharit === 'object' &&
-    Object.values(shacharit).every((lines) => Array.isArray(lines) && lines.every((line) => typeof line === 'string'))
+    Object.entries(shacharit).every(
+      ([title, lines]) =>
+        Object.prototype.hasOwnProperty.call(SECTION_TITLES, title) &&
+        Array.isArray(lines) &&
+        lines.every((line) => typeof line === 'string'),
+    )
   );
 }
 
+function transliterateHtml(html: string, lang: 'ru' | 'en' | 'de') {
+  const template = document.createElement('template');
+  template.innerHTML = sanitizeHtml(html).replace(/<br\s*\/?>/gi, ' ');
+  const text = template.content.textContent ?? '';
+  return text.replace(HEBREW_WORD, (word) => translitSiddurToken(word, lang));
+}
+
 export function ShacharitPage() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const [status, setStatus] = useState<TextStatus>('loading');
   const [data, setData] = useState<ShacharitText | null>(null);
 
@@ -64,13 +100,14 @@ export function ShacharitPage() {
 
   const sections = data
     ? Object.entries(data.text.Shacharit)
-        .map(([title, lines], index) => ({
-          title,
+        .map(([sourceTitle, lines], index) => ({
+          title: SECTION_TITLES[sourceTitle] ?? 'תפילה',
           id: `shacharit-section-${index + 1}`,
           lines: lines.filter((line) => line.trim() && line.trim() !== ':'),
         }))
         .filter((section) => section.lines.length > 0)
     : [];
+  const translitLang = locale === 'ru' || locale === 'de' ? locale : 'en';
   const scrollTo = (id: string) => {
     const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
     document.getElementById(id)?.scrollIntoView({ behavior, block: 'start' });
@@ -96,6 +133,8 @@ export function ShacharitPage() {
                   <a
                     key={section.id}
                     href={`#${section.id}`}
+                    dir="rtl"
+                    lang="he"
                     onClick={(event) => {
                       event.preventDefault();
                       scrollTo(section.id);
@@ -109,17 +148,20 @@ export function ShacharitPage() {
             <article className="shacharit-text">
               {sections.map((section) => (
                 <section className="shacharit-section" id={section.id} key={section.id}>
-                  <h2 dir="ltr" lang="en">{section.title}</h2>
+                  <h2 dir="rtl" lang="he">{section.title}</h2>
                   {section.lines.map((line, index) => {
-                    const hebrewOnly = /[\u0590-\u05ff]/.test(line) && !/[A-Za-z]/.test(line);
                     return (
-                      <div
-                        key={index}
-                        className={`shacharit-line${hebrewOnly ? ' he' : ''}`}
-                        dir="auto"
-                        lang={hebrewOnly ? 'he' : 'en'}
-                        dangerouslySetInnerHTML={{ __html: sanitizeHtml(line) }}
-                      />
+                      <div key={index} className="shacharit-prayer">
+                        <div
+                          className="shacharit-line he"
+                          dir="rtl"
+                          lang="he"
+                          dangerouslySetInnerHTML={{ __html: sanitizeHtml(line) }}
+                        />
+                        <div className="shacharit-translit" dir="ltr" lang={translitLang}>
+                          {transliterateHtml(line, translitLang)}
+                        </div>
+                      </div>
                     );
                   })}
                   <a

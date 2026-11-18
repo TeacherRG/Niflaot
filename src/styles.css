@@ -3193,8 +3193,10 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .shacharit-toc a:hover,.shacharit-toc a:focus-visible{border-color:var(--tchelet);background:var(--tchelet-soft)}
 .shacharit-section{scroll-margin-top:calc(90px + env(safe-area-inset-top,0px));margin:28px 0;padding:20px 24px;border:1px solid var(--line);border-radius:16px;background:var(--plain)}
 .shacharit-section h2{margin:0 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line);font-size:1.35rem}
-.shacharit-line{margin:14px 0;line-height:1.85;unicode-bidi:plaintext;text-align:start}
+.shacharit-prayer{margin:14px 0}
+.shacharit-line{line-height:1.85;unicode-bidi:plaintext;text-align:start}
 .shacharit-line[lang="he"]{font-family:"Noto Serif Hebrew",serif;font-size:1.35em;line-height:2}
+.shacharit-translit{margin:2px 0 0;color:var(--ink-2);font-size:.98em;line-height:1.7;text-align:left;unicode-bidi:plaintext}
 .shacharit-back{display:inline-block;margin-top:8px;color:var(--tchelet);font-size:.9rem}
 .shacharit-credit{margin:28px auto;text-align:center;color:var(--ink-2);font-size:.9rem}
 @media(max-width:640px){.shacharit-toc{padding:12px}.shacharit-toc>div{gap:6px}.shacharit-section{padding:16px}.shacharit-line[lang="he"]{font-size:1.2em}}

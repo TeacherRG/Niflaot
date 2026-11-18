@@ -292,6 +292,19 @@ export function translitToken(token: string, lang: ReadLang, pron: Pron = 'ash')
     .join('-');
 }
 
+/** Expand the siddur abbreviation for the Name in each maqaf-separated part before normal transliteration. */
+export function translitSiddurToken(token: string, lang: ReadLang): string {
+  const normalized = token
+    .split(MAQAF)
+    .map((part) => {
+      const consonants = part.replace(/[\u0591-\u05C7]/gu, '');
+      if (!/^[והבכלמש]*יי$/u.test(consonants)) return part;
+      return part.replace(/י[\u0591-\u05C7]*י(?=[\u0591-\u05C7]*$)/u, 'יהוה');
+    })
+    .join(MAQAF);
+  return translitToken(normalized, lang);
+}
+
 /** Стих по кускам: первое слово — с большой буквы. */
 export function translitTokens(toks: string[], lang: ReadLang, pron: Pron = 'ash'): string[] {
   const out = toks.map((x) => translitToken(x, lang, pron));
