@@ -22,7 +22,7 @@ const he: Partial<Messages> = {
   'reading.shacharitError': "לא ניתן לטעון את הטקסט. יש לרענן את הדף ולנסות שוב.",
   'reading.shacharitContents': "חלקי תפילת שחרית",
   'reading.shacharitBack': "↑ חזרה לחלקים",
-  'reading.shacharitSource': "תרגום: {source}. מקור:",
+  'reading.shacharitSource': "נוסח: {source}. מקור:",
 
   'menu.open': "פתיחת התפריט",
   'menu.close': "סגירה",

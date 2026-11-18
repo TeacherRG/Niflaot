@@ -1,60 +1,21 @@
 import '@fontsource/noto-serif-hebrew/400.css';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { loadView, saveView, type View } from '../core/reading';
-import { sanitizeHtml } from '../core/sanitize';
 import { translitSiddurToken } from '../core/tehillimTranslit';
 import { useI18n } from '../i18n';
 import { Colophon } from './Colophon';
 import { TopBar } from './TopBar';
 import { Icon, useDismiss } from './ui';
 
-const TEXT_URL = '/reading/siddur/Weekday%20Siddur%20Chabad%20-%20he%20-%20merged.json';
+/** Только слова молитвы — собирает `scripts/build-shacharit.py` из JSON сидура (без указаний и пояснений). */
+const TEXT_URL = '/reading/siddur/shacharit-he.json';
 const SOURCE_URL = 'https://www.sefaria.org/Weekday_Siddur_Chabad';
 const HEBREW_WORD = /[\u05D0-\u05EA\uFB1D-\uFB4F][\u05D0-\u05EA\u05BE\uFB1D-\uFB4F\u0591-\u05C7\u05F0-\u05F4'"]*/gu;
-const SECTION_TITLES: Record<string, string> = {
-  'Upon Arising': 'בקימה',
-  'Morning Blessings': 'ברכות השחר',
-  'Tzitzit and Tallit': 'ציצית וטלית',
-  Tefillin: 'תפילין',
-  'Morning Prayer': 'תפילת שחרית',
-  'Kaddish DeRabbanan': 'קדיש דרבנן',
-  Hodu: 'הודו',
-  'Pesukei Dezimra': 'פסוקי דזמרה',
-  'Blessings of the Shema': 'ברכות קריאת שמע',
-  'The Amidah': 'תפילת העמידה',
-  Tachnun: 'תחנון',
-  'Torah Reading': 'קריאת התורה',
-  'Ashrei Uva LeZion': 'אשרי ובא לציון',
-  'Song of the Day': 'שיר של יום',
-  "Mourner's Kaddish": 'קדיש יתום',
-  Kaveh: 'קווה',
-  Aleinu: 'עלינו לשבח',
-  'Rabbenu Tam': 'תפילין דרבנו תם',
-  'Six Remembrances': 'שש זכירות',
-};
-const PRAYER_SECTIONS = new Set([
-  'Morning Blessings',
-  'Morning Prayer',
-  'Kaddish DeRabbanan',
-  'Hodu',
-  'Pesukei Dezimra',
-  'Blessings of the Shema',
-  'The Amidah',
-  'Tachnun',
-  'Torah Reading',
-  'Ashrei Uva LeZion',
-  'Song of the Day',
-  "Mourner's Kaddish",
-  'Kaveh',
-  'Aleinu',
-]);
 const SHACHARIT_TR_MODES = ['he', 'duo'] as const;
 
 interface ShacharitText {
-  versionSource: string;
-  versions?: string[][];
-  language: 'he';
-  text: { Shacharit: Record<string, string[]> };
+  version: string;
+  sections: { key: string; title: string; lines: string[] }[];
 }
 
 type TextStatus = 'loading' | 'ready' | 'missing' | 'error';
@@ -62,38 +23,38 @@ type TextStatus = 'loading' | 'ready' | 'missing' | 'error';
 function isShacharitText(value: unknown): value is ShacharitText {
   if (!value || typeof value !== 'object') return false;
   const record = value as Record<string, unknown>;
-  const text = record.text;
-  if (record.language !== 'he' || typeof record.versionSource !== 'string' || !text || typeof text !== 'object') return false;
-  const shacharit = (text as Record<string, unknown>).Shacharit;
   return (
-    !!shacharit &&
-    typeof shacharit === 'object' &&
-    Object.entries(shacharit).every(
-      ([title, lines]) =>
-        Object.prototype.hasOwnProperty.call(SECTION_TITLES, title) &&
-        Array.isArray(lines) &&
-        lines.every((line) => typeof line === 'string'),
+    typeof record.version === 'string' &&
+    Array.isArray(record.sections) &&
+    record.sections.every(
+      (s) =>
+        !!s &&
+        typeof s === 'object' &&
+        typeof (s as Record<string, unknown>).title === 'string' &&
+        Array.isArray((s as Record<string, unknown>).lines) &&
+        ((s as Record<string, unknown>).lines as unknown[]).every((line) => typeof line === 'string'),
     )
   );
 }
 
-function transliterateWordsHtml(html: string, lang: 'ru' | 'en' | 'de', pron: View['pron']) {
-  const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (char) => {
-    switch (char) {
-      case '&': return '&amp;';
-      case '<': return '&lt;';
-      case '>': return '&gt;';
-      case '"': return '&quot;';
-      default: return '&#39;';
-    }
-  });
-  return sanitizeHtml(html)
-    .replace(/<br\s*\/?>/gi, ' ')
-    .replace(HEBREW_WORD, (word) => (
+const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (char) => (
+  { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[char] ?? '&#39;'
+));
+
+/** Под каждым словом молитвы — его чтение; текст строки — простой текст без тегов. */
+function transliterateWordsHtml(line: string, lang: 'ru' | 'en' | 'de', pron: View['pron']) {
+  let out = '';
+  let last = 0;
+  for (const m of line.matchAll(HEBREW_WORD)) {
+    const word = m[0];
+    out += escapeHtml(line.slice(last, m.index));
+    out +=
       `<span class="shacharit-word"><span class="shacharit-word-tr" dir="ltr" lang="${lang}">` +
       `${escapeHtml(translitSiddurToken(word, lang, pron))}</span>` +
-      `<span class="shacharit-word-he he" dir="rtl" lang="he">${escapeHtml(word)}</span></span>`
-    ));
+      `<span class="shacharit-word-he he" dir="rtl" lang="he">${escapeHtml(word)}</span></span>`;
+    last = (m.index ?? 0) + word.length;
+  }
+  return out + escapeHtml(line.slice(last));
 }
 
 export function ShacharitPage() {
@@ -138,14 +99,7 @@ export function ShacharitPage() {
   }, [t]);
 
   const sections = data
-    ? Object.entries(data.text.Shacharit)
-        .filter(([sourceTitle]) => PRAYER_SECTIONS.has(sourceTitle))
-        .map(([sourceTitle, lines], index) => ({
-          title: SECTION_TITLES[sourceTitle] ?? 'תפילה',
-          id: `shacharit-section-${index + 1}`,
-          lines: lines.filter((line) => line.trim() && line.trim() !== ':'),
-        }))
-        .filter((section) => section.lines.length > 0)
+    ? data.sections.map((section, index) => ({ ...section, id: `shacharit-section-${index + 1}` }))
     : [];
   const translitLang = locale === 'ru' || locale === 'de' ? locale : 'en';
   const setV = (next: View) => {
@@ -236,16 +190,16 @@ export function ShacharitPage() {
                   {section.lines.map((line, index) => {
                     return (
                       <div key={index} className="shacharit-prayer">
-                        <div
-                          className={`shacharit-line he${view.tr === 'duo' ? ' shacharit-duo' : ''}`}
-                          dir="rtl"
-                          lang="he"
-                          dangerouslySetInnerHTML={{
-                            __html: view.tr === 'duo'
-                              ? transliterateWordsHtml(line, translitLang, view.pron)
-                              : sanitizeHtml(line),
-                          }}
-                        />
+                        {view.tr === 'duo' ? (
+                          <div
+                            className="shacharit-line he shacharit-duo"
+                            dir="rtl"
+                            lang="he"
+                            dangerouslySetInnerHTML={{ __html: transliterateWordsHtml(line, translitLang, view.pron) }}
+                          />
+                        ) : (
+                          <div className="shacharit-line he" dir="rtl" lang="he">{line}</div>
+                        )}
                       </div>
                     );
                   })}
@@ -263,7 +217,7 @@ export function ShacharitPage() {
               ))}
             </article>
             <p className="shacharit-credit">
-              {t('reading.shacharitSource', { source: data.versions?.[0]?.[0] ?? 'Sefaria' })}{' '}
+              {t('reading.shacharitSource', { source: data.version })}{' '}
               <a href={SOURCE_URL} target="_blank" rel="noopener noreferrer">Sefaria</a>
             </p>
           </>

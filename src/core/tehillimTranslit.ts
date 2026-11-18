@@ -82,7 +82,7 @@ const SEF: Record<ReadLang, Profile> = {
 
 const SHEVA = 'ְ', HSEGOL = 'ֱ', HPATAH = 'ֲ', HQAMATS = 'ֳ', HIRIQ = 'ִ', TSERE = 'ֵ', SEGOL = 'ֶ',
   PATAH = 'ַ', QAMATS = 'ָ', HOLAM = 'ֹ', HOLAM_VAV = 'ֺ', QUBUTS = 'ֻ', DAGESH = 'ּ', METEG = 'ֽ',
-  MAQAF = '־', SIN_DOT = 'ׂ', QAMATS_QATAN = 'ׇ';
+  MAQAF = '־', SIN_DOT = 'ׂ', SHIN_DOT = 'ׁ', QAMATS_QATAN = 'ׇ';
 const VOWELS = new Set([SHEVA, HSEGOL, HPATAH, HQAMATS, HIRIQ, TSERE, SEGOL, PATAH, QAMATS, HOLAM, HOLAM_VAV, QUBUTS, QAMATS_QATAN]);
 const FINAL: Record<string, string> = { ך: 'כ', ם: 'מ', ן: 'נ', ף: 'פ', ץ: 'צ' };
 const BEGADKEFAT = 'בגדכפת';
@@ -93,6 +93,9 @@ interface Cl {
   dagesh: boolean;
   sin: boolean;
   meteg: boolean;
+  /** холам при другой гласной у ש — в сидуре так ставят точку син (שָֹ, שִֹֽיחַ) */
+  holamDot?: boolean;
+  shinDot?: boolean;
 }
 
 function parse(word: string): Cl[] {
@@ -102,13 +105,16 @@ function parse(word: string): Cl[] {
     else if (!out.length) continue;
     else {
       const cl = out[out.length - 1];
-      if (VOWELS.has(c)) cl.vowel = c;
+      if (c === HOLAM && cl.ch === 'ש' && cl.vowel && cl.vowel !== HOLAM) cl.holamDot = true;
+      else if (VOWELS.has(c)) cl.vowel = c;
+      else if (c === SHIN_DOT) cl.shinDot = true;
       else if (c === DAGESH) cl.dagesh = true;
       else if (c === SIN_DOT) cl.sin = true;
       else if (c === METEG) cl.meteg = true;
-      // знаки кантилляции и точка шин — не нужны
+      // знаки кантилляции — не нужны
     }
   }
+  for (const cl of out) if (cl.holamDot && !cl.shinDot) cl.sin = true;
   return out;
 }
 
@@ -292,8 +298,22 @@ export function translitToken(token: string, lang: ReadLang, pron: Pron = 'ash')
     .join('-');
 }
 
-/** Expand the siddur abbreviation for the Name in each maqaf-separated part before normal transliteration. */
+/** Сокращения сидура, которые произносят буквами («Ле-шем ихуд»: שֵׁם י״ה בו״ה). */
+const SIDDUR_ABBR: Record<string, Record<Pron, Record<ReadLang, string>>> = {
+  'י״ה': {
+    ash: { ru: 'Йуд-Кей', en: 'Yud-Kei', de: 'Jud-Kej' },
+    sef: { ru: 'Йуд-Хе', en: 'Yud-He', de: 'Jud-He' },
+  },
+  'בו״ה': {
+    ash: { ru: 'бе-Вов-Кей', en: 'be-Vov-Kei', de: 'be-Wow-Kej' },
+    sef: { ru: 'бе-Вав-Хе', en: 'be-Vav-He', de: 'be-Waw-He' },
+  },
+};
+
+/** Слово сидура: יְיָ (так в сидуре пишут Имя) — как יהוה, «Адойной»; сокращения — буквами; дальше — как в Теґилим. */
 export function translitSiddurToken(token: string, lang: ReadLang, pron: Pron = 'ash'): string {
+  const abbr = SIDDUR_ABBR[token.replace(/["\u05F4]/gu, '\u05F4')];
+  if (abbr) return abbr[pron][lang];
   const normalized = token
     .split(MAQAF)
     .map((part) => {

@@ -293,7 +293,7 @@ const de: Messages = {
   'reading.shacharitError': "Der Text konnte nicht geladen werden. Lade die Seite neu und versuche es noch einmal.",
   'reading.shacharitContents': "Abschnitte von Schacharit",
   'reading.shacharitBack': "↑ Zurück zu den Abschnitten",
-  'reading.shacharitSource': "Übersetzung: {source}. Quelle:",
+  'reading.shacharitSource': "Text: {source}. Quelle:",
   'shn.title': "Schnajim Mikra",
   'shn.h1': "Schnajim Mikra we-Echad Targum",
   'shn.lead': "Jede Woche liest man den Wochenabschnitt: jeden Vers der Tora zweimal und einmal die aramäische Übersetzung von Onkelos. Ein Abschnitt am Tag: am Sonntag der erste, am Schabbat der siebte. Der Toravers steht zweimal in einer Schrift, der Targum (ת״א) in einer anderen.",

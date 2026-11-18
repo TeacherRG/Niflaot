@@ -4,7 +4,7 @@
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { ALIYOT, SHNAYIM, aliyahOfDay, shnayimParsha, type ShnayimText } from '../src/core/shnayim';
-import { translitToken, translitTokens } from '../src/core/tehillimTranslit';
+import { translitSiddurToken, translitToken, translitTokens } from '../src/core/tehillimTranslit';
 import { hasLiving, type Living } from '../src/core/living';
 import { CHAPTERS, chapterAudioTracks, weekdayOf, weekdayPortion, dailyPortion, hebrewDayForDate, shortHebrewMonth, stripTaamim, tokens } from '../src/core/reading';
 
@@ -218,8 +218,31 @@ for (let c = 1; c <= CHAPTERS; c++) {
   }
 }
 
+// Шахарит сидура «Теилат Ашем»: только слова молитвы (без указаний `<small>` и подписей без огласовок) и их транслит
+const siddur = JSON.parse(readFileSync(new URL('../public/reading/siddur/shacharit-he.json', import.meta.url), 'utf8')) as {
+  sections: { title: string; lines: string[] }[];
+};
+const SIDDUR_WORD = /[\u05D0-\u05EA][\u05D0-\u05EA\u05BE\u0591-\u05C7\u05F0-\u05F4'"]*/gu;
+let siddurWords = 0;
+if (siddur.sections.length < 10) errors.push(`Шахарит: ${siddur.sections.length} разделов`);
+for (const sec of siddur.sections)
+  for (const line of sec.lines) {
+    if (/[<>A-Za-z|]/.test(line)) errors.push(`Шахарит, ${sec.title}: теги, латиница или «|»: ${line.slice(0, 40)}`);
+    for (const w of line.match(SIDDUR_WORD) ?? []) {
+      siddurWords++;
+      if (!/[\u05B0-\u05BC\u05C7]/.test(w) && !['י״ה', 'בו״ה'].includes(w)) errors.push(`Шахарит, ${sec.title}: слово без огласовок (пояснение?): ${w}`);
+      for (const lang of ['ru', 'en', 'de'] as const)
+        for (const pron of ['ash', 'sef'] as const) {
+          const t = translitSiddurToken(w, lang, pron);
+          if (!t || /[\u0590-\u05FF]/.test(t)) errors.push(`Шахарит: транслит ${lang}/${pron} слова ${w} — «${t}»`);
+        }
+    }
+  }
+const sidSample: [string, string][] = [['בְּשָֹפָה', 'бесофо'], ['שִֹֽיחַ', 'сиах'], ['י״ה', 'Йуд-Кей'], ['בו״ה', 'бе-Вов-Кей'], ['לַייָ', 'ла-Адойной'], ['מֶֽלֶךְ', 'мелех']];
+for (const [w, want] of sidSample) if (translitSiddurToken(w, 'ru') !== want) errors.push(`Шахарит: ${w} — «${translitSiddurToken(w, 'ru')}», нужно «${want}»`);
+
 if (errors.length) {
   console.error(errors.slice(0, 20).join('\n'));
   process.exit(1);
 }
-console.log(`✓ Святое чтение: Теґилим — ${CHAPTERS} глав, ${total} слов, кери, Имена; Аазину — ${haazinu.v.length} стихов; шнаим микра — ${SHNAYIM.length} гл., ${shnVerses} стихов; транслит — ${trWords} слов; разметка по паузам — ${timed} записей; маячки «Мысль к стиху» — ${beacons}`);
+console.log(`✓ Святое чтение: Теґилим — ${CHAPTERS} глав, ${total} слов, кери, Имена; Аазину — ${haazinu.v.length} стихов; шнаим микра — ${SHNAYIM.length} гл., ${shnVerses} стихов; транслит — ${trWords} слов; разметка по паузам — ${timed} записей; маячки «Мысль к стиху» — ${beacons}; Шахарит — ${siddur.sections.length} разделов, ${siddurWords} слов`);
