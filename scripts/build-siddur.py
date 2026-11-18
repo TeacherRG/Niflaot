@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Шахарит сидура «Теилат Ашем» — только слова молитвы.
+"""Сидур «Теилат Ашем» — Шахарит, Минха, Маарив и Биркат ґа-мазон: только слова молитвы.
 
 Источник — выгрузка Sefaria «Weekday Siddur Chabad» (Wikisource), `public/reading/siddur/Weekday Siddur Chabad - he - merged.json`.
 В ней в строки молитвы вписаны указания мелким шрифтом (`<small>`: законы, «בעשי״ת», «אמן», «חזן:», номера), заголовки без огласовок
@@ -8,7 +8,9 @@
 - вне `<small>` — слова с огласовками (и «י״ה בו״ה» в «Ле-шем ихуд»);
 - `<br>` — новая строка, без тегов, без «|», лишних пробелов и пустых скобок.
 
-Запуск: python3 scripts/build-shacharit.py → public/reading/siddur/shacharit-he.json
+Маарив в выгрузке — один список без разделов: разделы — по началу молитв (`MAARIV`, номера строк выгрузки).
+
+Запуск: python3 scripts/build-siddur.py → public/reading/siddur/<молитва>-he.json (shacharit, mincha, maariv, birkat-hamazon)
 """
 import json
 import re
@@ -16,9 +18,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / 'public/reading/siddur/Weekday Siddur Chabad - he - merged.json'
-OUT = ROOT / 'public/reading/siddur/shacharit-he.json'
+OUT_DIR = ROOT / 'public/reading/siddur'
 
-SECTIONS = [
+# раздел: (путь в выгрузке, название, первая строка, конец — строки выгрузки [от, до); без них — весь список)
+SHACHARIT = [(('Shacharit', k), t, None, None) for k, t in [
     ('Upon Arising', 'השכמת הבוקר'),
     ('Morning Blessings', 'ברכות השחר'),
     ('Morning Prayer', 'תפילת שחרית'),
@@ -34,7 +37,30 @@ SECTIONS = [
     ("Mourner's Kaddish", 'קדיש יתום'),
     ('Kaveh', 'קווה'),
     ('Aleinu', 'עלינו לשבח'),
-]
+]]
+MINCHA = [(('Mincha', k), t, None, None) for k, t in [
+    ('Korbanot', 'קרבנות'),
+    ('Ashrei', 'אשרי'),
+    ('Amidah', 'תפילת העמידה'),
+    ('Tachanun', 'תחנון'),
+    ('Aleinu', 'עלינו לשבח'),
+]]
+MAARIV = [(('Maariv',), t, a, b) for t, a, b in [
+    ('והוא רחום', 0, 3),
+    ('ברכות קריאת שמע', 3, 16),
+    ('תפילת העמידה', 16, 58),
+    ('קדיש שלם', 58, 63),
+    ('ויהי נועם', 63, 67),
+    ('עלינו לשבח', 67, 74),
+]]
+BIRKAT = [(('Blessings', 'Birkat HaMazon'), t, a, b) for t, a, b in [
+    ('על נהרות בבל', 0, 3),
+    ('שיר המעלות', 3, 7),
+    ('מים אחרונים', 7, 11),
+    ('זימון', 11, 17),
+    ('ברכת המזון', 17, 33),
+]]
+PRAYERS = {'shacharit': SHACHARIT, 'mincha': MINCHA, 'maariv': MAARIV, 'birkat-hamazon': BIRKAT}
 # сокращения без огласовок, которые произносят
 KEEP_BARE = {'י״ה', 'בו״ה'}
 MIN_SMALL_RUN = 4
@@ -90,27 +116,31 @@ def clean_line(text: str) -> str:
 
 def main() -> None:
     data = json.loads(SRC.read_text(encoding='utf-8'))
-    shacharit = data['text']['Shacharit']
-    sections = []
-    for key, title in SECTIONS:
-        lines = []
-        for raw in shacharit[key]:
-            raw = re.sub(r'<small>(.*?)</small>', lambda m: ' ' + small_runs(m.group(1)) + ' ', raw, flags=re.S)
-            for part in re.split(r'<br\s*/?>', raw):
-                line = clean_line(split_glued(part) if '<' not in part else part)
-                if line:
-                    lines.append(line)
-        if lines:
-            sections.append({'key': key, 'title': title, 'lines': lines})
-    out = {
-        'title': data['title'],
-        'heTitle': data['heTitle'],
-        'source': data['versionSource'],
-        'version': (data.get('versions') or [['Wikisource']])[0][0],
-        'sections': sections,
-    }
-    OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
-    print(f'{OUT.relative_to(ROOT)}: {len(sections)} sections, {sum(len(s["lines"]) for s in sections)} lines')
+    for name, plan in PRAYERS.items():
+        sections = []
+        for path, title, start, end in plan:
+            node = data['text']
+            for k in path:
+                node = node[k]
+            lines = []
+            for raw in node[start:end]:
+                raw = re.sub(r'<small>(.*?)</small>', lambda m: ' ' + small_runs(m.group(1)) + ' ', raw, flags=re.S)
+                for part in re.split(r'<br\s*/?>', raw):
+                    line = clean_line(split_glued(part) if '<' not in part else part)
+                    if line:
+                        lines.append(line)
+            if lines:
+                sections.append({'key': '/'.join(path) + (f':{start}' if start is not None else ''), 'title': title, 'lines': lines})
+        out = {
+            'title': data['title'],
+            'heTitle': data['heTitle'],
+            'source': data['versionSource'],
+            'version': (data.get('versions') or [['Wikisource']])[0][0],
+            'sections': sections,
+        }
+        path = OUT_DIR / f'{name}-he.json'
+        path.write_text(json.dumps(out, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+        print(f'{path.relative_to(ROOT)}: {len(sections)} sections, {sum(len(s["lines"]) for s in sections)} lines')
 
 
 if __name__ == '__main__':
