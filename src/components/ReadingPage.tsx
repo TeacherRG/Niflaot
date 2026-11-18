@@ -643,7 +643,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           )}
         </Sheet>
 
-        <ReadingSettings view={view} setV={setV} audio={tracks.length > 0} onBoth={() => setTip(true)} />
+        <ReadingSettings view={view} setV={setV} audio={tracks.length > 0} onBoth={() => setTip(true)} layout />
 
         {audio && (
           <audio
@@ -758,9 +758,9 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           <PageLoading />
         ) : (
           <article
-            className={trOn ? `rd-text rd-tr rd-tr-${view.tr}` : 'rd-text he'}
+            className={trOn ? `rd-text rd-tr rd-tr-${view.tr}${view.tr === 'duo' && view.trBig === 'he' ? ' rd-hebig' : ''}` : 'rd-text he'}
             lang={trOn ? locale : 'he'}
-            dir={trOn ? 'ltr' : 'rtl'}
+            dir={trOn ? view.trDir : 'rtl'}
             ref={textRef}
           >
             {sections?.map((section, si) => {
