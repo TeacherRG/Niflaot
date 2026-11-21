@@ -139,8 +139,8 @@ const SAMPLE: Record<string, [number, Record<(typeof LANGS)[number], string>, ('
   'Теґилим 23:1': [23, { ru: 'Мизмойр ледовид Адойной ройи лой эхсор', en: 'Mizmor ledovid Adonoi ro\'i lo echsor', de: 'Mismor ledowid Adonoj ro\'i lo echsor' }],
   'Теґилим 150:1': [150, { ru: 'Ґалелу Йо ґалелу-Эйл бекодшой ґалелуґу биркиа узой', en: 'Halelu Yo halelu-Eil bekodsho haleluhu birkia uzo', de: 'Halelu Jo halelu-Ejl bekodscho haleluhu birkia uso' }],
   'Теґилим 113:1': [113, { ru: 'Ґалелу Йо ґалелу авдей Адойной ґалелу эс-шейм Адойной', en: 'Halelu Yo halelu avdei Adonoi halelu es-sheim Adonoi', de: 'Halelu Jo halelu awdej Adonoj halelu es-schejm Adonoj' }],
-  'Теґилим 23:1 (сефардское)': [23, { ru: 'Мизмор ледавид Адонай рои ло эхсар', en: 'Mizmor ledavid Adonai ro\'i lo echsar', de: 'Mismor ledawid Adonai ro\'i lo echsar' }, 'sef'],
-  'Теґилим 113:1 (сефардское)': [113, { ru: 'Ґалелу Йа ґалелу авде Адонай ґалелу эт-шем Адонай', en: 'Halelu Yah halelu avde Adonai halelu et-shem Adonai', de: 'Halelu Jah halelu awde Adonai halelu et-schem Adonai' }, 'sef'],
+  'Теґилим 23:1 (сефардское)': [23, { ru: 'Мизмор лэдавид Адонай рои ло эхсар', en: 'Mizmor ledavid Adonai ro\'i lo echsar', de: 'Mismor ledawid Adonai ro\'i lo echsar' }, 'sef'],
+  'Теґилим 113:1 (сефардское)': [113, { ru: 'Ґалэлу Йа ґалэлу авдэй Адонай ґалэлу эт-шэм Адонай', en: 'Halelu Yah halelu avdei Adonai halelu et-shem Adonai', de: 'Halelu Jah halelu awdej Adonai halelu et-schem Adonai' }, 'sef'],
 };
 for (const [name, [c, want, pron]] of Object.entries(SAMPLE)) {
   const first: string = JSON.parse(readFileSync(new URL(`${c}.json`, dir), 'utf8')).v[0];
@@ -246,6 +246,16 @@ for (const prayer of PRAYERS) {
 }
 const sidSample: [string, string][] = [['בְּשָֹפָה', 'бесофо'], ['שִֹֽיחַ', 'сиах'], ['י״ה', 'Йуд-Кей'], ['בו״ה', 'бе-Вов-Кей'], ['לַייָ', 'ла-Адойной'], ['מֶֽלֶךְ', 'мелех']];
 for (const [w, want] of sidSample) if (translitSiddurToken(w, 'ru') !== want) errors.push(`Шахарит: ${w} — «${translitSiddurToken(w, 'ru')}», нужно «${want}»`);
+// правила транслита (владелец, 19.11.2026, по образцу сефардской Амиды): ה на конце не читается — и с мапиком, в обоих
+// произношениях; сефардское ru — цере, сеголь, шва-на «э», цере с йудом «эй», ל на конце и перед י — «ль», «я / е / ю / и»
+// в начале и после гласной; приставка перед Именем — «вэ-Элоґэй»
+const sefSample: [string, string, 'ash' | 'sef'][] = [
+  ['בְּתוֹכָהּ', 'бэтоха', 'sef'], ['לָהּ', 'ло', 'ash'], ['אֱלֹהֵינוּ', 'Элоґэйну', 'sef'], ['וֵאלֹהֵי', 'вэ-Элоґэй', 'sef'], ['וֵאלֹהֵי', 'вей-Элоґей', 'ash'],
+  ['לֵאלֹהֵינוּ', 'лэ-Элоґэйну', 'sef'], ['הַגָּדוֹל', 'ґагадоль', 'sef'], ['עֶלְיוֹן', 'эльйон', 'sef'], ['יִשְׂרָאֵל', 'исраэль', 'sef'], ['יַעֲקֹב', 'яаков', 'sef'],
+  ['יְשׁוּעָה', 'ешуа', 'sef'], ['חַיִּים', 'хаим', 'sef'], ['זָכְרֵנוּ', 'зохрэну', 'sef'], ['וְכָתְבֵנוּ', 'вэхотвэну', 'sef'], ['מֶֽלֶךְ', 'мэлэх', 'sef'],
+  ['הַלְלוּיָהּ', 'ґалэлуя', 'sef'], ['רוּחַ', 'руах', 'sef'],
+];
+for (const [w, want, pron] of sefSample) if (translitSiddurToken(w, 'ru', pron) !== want) errors.push(`транслит ${pron}: ${w} — «${translitSiddurToken(w, 'ru', pron)}», нужно «${want}»`);
 
 if (errors.length) {
   console.error(errors.slice(0, 20).join('\n'));

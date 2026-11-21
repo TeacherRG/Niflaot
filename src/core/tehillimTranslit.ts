@@ -11,8 +11,12 @@
  * спорные места — в `shevaAfterKamatz` (для проверки). Шва после приставки וּ — нах («увдерех»), как читают.
  *
  * **Сефардское чтение** (`pron = 'sef'`, владелец, 04.11.2026): камац — «а», а камац катан (закрытый безударный слог:
- * перед шва-нах без метега, перед хатаф-камацем, כָּל־) — «о»; холам — «о», цере — «е» / «e», ת без дагеша — «т»;
- * Имена — Адонай, Элоґим / Элоґену, Эль, Йа, Шадай.
+ * перед шва-нах без метега, перед хатаф-камацем, כָּל־, повелительное זָכְרֵנוּ) — «о»; холам — «о», цере — «е» / «e», ת без дагеша — «т»;
+ * Имена — Адонай, Элоґим / Элоґэйну, Эль, Йа, Шадай. По образцу сефардской Амиды (владелец, 19.11.2026): в ru цере, сеголь
+ * и шва-на — «э» (мэлэх, вэ-, лэ-), цере с йудом — «эй» (Элоґэйну; en, de — «ei» / «ej»), ל на конце и перед י — «ль»
+ * (ґагадоль, Эль, эльйон), «йа», «йэ», «йу», «йи» в начале слова и после гласной — «я», «е», «ю», «и» (Яаков, ешуа, Ицхак, хаим).
+ * В обоих произношениях: ה на конце не читается, и с мапиком (בְּתוֹכָהּ — бэтоха); приставка перед Именем с א без гласной —
+ * Имя целиком (וֵאלֹהֵי — «вэ-Элоґэй», а не «ве-Лоґе»).
  */
 import type { ReadLang } from './translit';
 
@@ -37,6 +41,10 @@ type Profile = {
   finalYod: string;
   /** апостроф между гласными на месте א / ע */
   apostrophe: boolean;
+  /** йуд после цере: в ашкеназском он уже в цере («ей»), в сефардском — «Элоґэйну», «Eloheinu» */
+  tsereYod?: string;
+  /** ru, сефардское: ל на конце и перед י — мягкая («гадоль», «Эль», «эльйон»); «йа», «йэ», «йу» после гласной и в начале — «я», «е», «ю» */
+  ruSef?: boolean;
   names: { adonai: string; elokim: string; kel: string; keli: string; kah: string; shaddai: string };
 };
 
@@ -69,13 +77,13 @@ export type Pron = 'ash' | 'sef';
 export const PRONS: Pron[] = ['ash', 'sef'];
 
 const SEF: Record<ReadLang, Profile> = {
-  ru: { ...PROFILES.ru, qamats: 'а', qamatsQatan: 'о', holam: 'о', namesHolam: 'о', tsere: 'е',
+  ru: { ...PROFILES.ru, qamats: 'а', qamatsQatan: 'о', holam: 'о', namesHolam: 'о', tsere: 'э', segol: 'э', shevaNa: 'э', tsereYod: 'й', ruSef: true,
     cons: { ...PROFILES.ru.cons, ת: ['т', 'т'] },
     names: { adonai: 'Адонай', elokim: 'Элоґим', kel: 'Эль', keli: 'Эли', kah: 'Йа', shaddai: 'Шадай' } },
-  en: { ...PROFILES.en, qamats: 'a', qamatsQatan: 'o', holam: 'o', namesHolam: 'o', tsere: 'e',
+  en: { ...PROFILES.en, qamats: 'a', qamatsQatan: 'o', holam: 'o', namesHolam: 'o', tsere: 'e', tsereYod: 'i',
     cons: { ...PROFILES.en.cons, ת: ['t', 't'] },
     names: { adonai: 'Adonai', elokim: 'Elohim', kel: 'El', keli: 'Eli', kah: 'Yah', shaddai: 'Shadai' } },
-  de: { ...PROFILES.de, qamats: 'a', qamatsQatan: 'o', holam: 'o', namesHolam: 'o', tsere: 'e',
+  de: { ...PROFILES.de, qamats: 'a', qamatsQatan: 'o', holam: 'o', namesHolam: 'o', tsere: 'e', tsereYod: 'j',
     cons: { ...PROFILES.de.cons, ת: ['t', 't'] },
     names: { adonai: 'Adonai', elokim: 'Elohim', kel: 'El', keli: 'Eli', kah: 'Jah', shaddai: 'Schadai' } },
 };
@@ -122,7 +130,8 @@ const skeleton = (cls: Cl[]) => cls.map((c) => c.ch).join('');
 
 function consonant(cl: Cl, i: number, cls: Cl[], o: Profile): string {
   if (cl.ch === 'א' || cl.ch === 'ע') return '';
-  if (cl.ch === 'ה' && i === cls.length - 1 && !cl.dagesh && !cl.vowel) return '';
+  // ה на конце не читается — и с точкой (мапик): בְּתוֹכָהּ — «бетоха» (владелец, 19.11.2026: так в обоих произношениях)
+  if (cl.ch === 'ה' && i === cls.length - 1 && (!cl.vowel || cl.vowel === PATAH)) return '';
   const v = o.cons[cl.ch === 'ש' ? (cl.sin ? 'שׂ' : 'שׁ') : cl.ch];
   if (Array.isArray(v)) return cl.dagesh ? v[0] : v[1];
   return v ?? '';
@@ -176,6 +185,11 @@ function qatan(i: number, cls: Cl[], word: string, kol?: boolean): boolean {
   if (next.ch === 'ו') return false; // שָׁוְא — «шав», הַמָּוְתָה
   if (cl.dagesh && cls[i - 1]?.vowel) return false; // нифаль: יִכָּלְמוּ, בְּהִשָּׁפְטוֹ — «йикалму»
   const shuruq = (c?: Cl) => c?.ch === 'ו' && c.dagesh && !c.vowel;
+  // повелительное с ־ֵנוּ: זָכְרֵנוּ, וְכָתְבֵנוּ — «зохрэну», «вэхотвэну» (камац катан)
+  if (after?.vowel === TSERE && cls[i + 3]?.ch === 'נ' && i + 4 === cls.length - 1 && shuruq(end) && next.vowel === SHEVA) {
+    qatanWords.add(word);
+    return true;
+  }
   if (shuruq(end) || (end.ch === 'נ' && shuruq(cls[cls.length - 2]))) return false; // אָמְרוּ «амру», יֵחָלְצוּן
   if (end.ch === 'ה' && !end.vowel && !end.dagesh && cls[cls.length - 2]?.vowel === QAMATS && !sk.includes('חכמ')) return false; // שָׁמְרָה «шамра», но חָכְמָה «хохма»
   if (after?.ch === 'ת' && after.dagesh && !sk.includes('בשת')) return false; // אָמָרְתִּי «амарти», но בָּשְׁתִּי «бошти»
@@ -191,7 +205,7 @@ function qatan(i: number, cls: Cl[], word: string, kol?: boolean): boolean {
 /** что заметить проверке: слова, где камац прочитан как катан («о») по правилу закрытого слога */
 export const qatanWords = new Set<string>();
 
-function plain(cls: Cl[], o: Profile, word: string, opts: { holam?: string; kol?: boolean } = {}): string {
+function plain(cls: Cl[], o: Profile, word: string, opts: { holam?: string; kol?: boolean; prefix?: boolean } = {}): string {
   let s = '';
   const vowelOf = (v: string | null): string => {
     switch (v) {
@@ -222,7 +236,11 @@ function plain(cls: Cl[], o: Profile, word: string, opts: { holam?: string; kol?
     }
     // йуд без гласной — буква-гласная
     if (cl.ch === 'י' && !cl.vowel && !cl.dagesh && prev) {
-      if (prev.vowel === HIRIQ || prev.vowel === TSERE) continue;
+      if (prev.vowel === HIRIQ) continue;
+      if (prev.vowel === TSERE) {
+        s += o.tsereYod ?? '';
+        continue;
+      }
       if (prev.vowel === SEGOL) {
         s += o.tsere.slice(o.segol.length);
         continue;
@@ -244,6 +262,7 @@ function plain(cls: Cl[], o: Profile, word: string, opts: { holam?: string; kol?
       continue;
     }
     let cons = consonant(cl, i, cls, o);
+    if (o.ruSef && cl.ch === 'ל' && ((last && !opts.prefix) || (next?.ch === 'י' && (!cl.vowel || (cl.vowel === SHEVA && !shevaIsNa(i, cls, word)))))) cons = 'ль';
     if (cons && cons === o.cons['י'] && s.endsWith(cons)) cons = ''; // גּוֹיִם — гойим, не гоййим
     if (cons === 'y' && /[oe]i$/.test(s)) s = s.slice(0, -1);
     let vow = cl.vowel === SHEVA ? (shevaIsNa(i, cls, word) ? o.shevaNa : '') : vowelOf(cl.vowel);
@@ -252,15 +271,19 @@ function plain(cls: Cl[], o: Profile, word: string, opts: { holam?: string; kol?
     if (!o.apostrophe && !cons && /^е/.test(vow) && (s === '' || vowelEnd(s))) vow = vow.replace(/^е/, 'э');
     s += cons + vow;
   }
-  return s;
+  return o.ruSef ? ruSefSounds(s) : s;
 }
+
+/** ru, сефардское: «йа», «йэ», «йу», «йи» в начале слова и после гласной — «я», «е», «ю», «и» (Яаков, ешуа, Ицхак, хаим) */
+const ruSefSounds = (s: string) =>
+  s.replace(/(^|[аэиоуяею])й([аэуи])/g, (_, a: string, v: string) => a + ({ а: 'я', э: 'е', у: 'ю', и: 'и' } as Record<string, string>)[v]);
 
 const cap = (x: string) => x.charAt(0).toUpperCase() + x.slice(1);
 
 /** Имена Всевышнего — как их произносят, читая Теґилим (владелец, 04.11.2026: «можно и нужно произносить»): יהוה — Адойной, יָהּ — Йо, אֱלֹהֵינוּ — Элоґейну; не Имя — null */
 function divineName(cls: Cl[], o: Profile, word: string): string | null {
   const sk = skeleton(cls);
-  const prefix = (n: number) => (n ? plain(cls.slice(0, n), o, word) + (cls[n - 1].vowel === SHEVA ? o.shevaNa : '') : '');
+  const prefix = (n: number) => (n ? plain(cls.slice(0, n), o, word, { prefix: true }) + (cls[n - 1].vowel === SHEVA ? o.shevaNa : '') : '');
   const join = (p: string, name: string) => (p ? `${p}-${name}` : name);
   let m: RegExpMatchArray | null;
   if ((m = sk.match(/^([והבכלמש]{0,3})יהוה$/))) {
@@ -273,14 +296,19 @@ function divineName(cls: Cl[], o: Profile, word: string): string | null {
     const n = m[1].length;
     const plene = m[2].length;
     const ok = plene ? !cls[n + 1].vowel && cls[n + 2].vowel === HOLAM : cls[n + 1].vowel === HOLAM;
-    if (ok) return join(prefix(n), cap(plain(cls.slice(n), o, word, { holam: o.namesHolam })));
+    // וֵאלֹהֵי, לֵאלֹהֵינוּ: гласная — у приставки, א без гласной; Имя всё равно целиком — «ве-Элоґей», как «ла-Адойной»
+    const name = cls.slice(n).map((c, k) => (k === 0 && !c.vowel ? { ...c, vowel: HSEGOL } : c));
+    if (ok) return join(prefix(n), cap(plain(name, o, word, { holam: o.namesHolam })));
   }
   if ((m = sk.match(/^([והבכלמש]{0,2})אל(י?)$/)) && cls[m[1].length].vowel === TSERE) {
     const n = m[1].length;
     if (!m[2] || cls[n + 1].vowel === HIRIQ) return join(prefix(n), m[2] ? o.names.keli : o.names.kel);
   }
   if ((m = sk.match(/^([והבכלמש]{0,2})יה$/)) && cls[cls.length - 1].dagesh) return join(prefix(m[1].length), o.names.kah);
-  if (sk === 'הללויה' && cls[cls.length - 1].dagesh) return `${plain(cls.slice(0, 4), o, word)}${o.names.kah.toLowerCase()}`;
+  if (sk === 'הללויה' && cls[cls.length - 1].dagesh) {
+    const w = `${plain(cls.slice(0, 4), o, word)}${o.names.kah.toLowerCase()}`;
+    return o.ruSef ? ruSefSounds(w) : w; // «ґалэлуя»
+  }
   if (sk === 'שדי' && (cls[1].vowel === PATAH || cls[1].vowel === QAMATS)) return o.names.shaddai;
   return null;
 }
