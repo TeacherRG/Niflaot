@@ -7,6 +7,10 @@ on:
       - "src/lessons/**"
       - "src/i18n/**"
       - "src/core/site.ts"
+      - "src/App.tsx"
+      - "src/components/DailyPage.tsx"
+      - "src/components/DailyCard.tsx"
+      - "src/components/FactsPage.tsx"
       - "public/robots.txt"
       - ".github/workflows/seo-check.yml"
   workflow_dispatch:
