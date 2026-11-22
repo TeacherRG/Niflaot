@@ -1,0 +1,42 @@
+name: Validate prerendered SEO output
+
+on:
+  pull_request:
+    paths:
+      - "scripts/prerender.ts"
+      - "src/lessons/**"
+      - "src/i18n/**"
+      - "src/core/site.ts"
+      - "public/robots.txt"
+      - ".github/workflows/seo-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run build
+        env:
+          VITE_ASSISTANT_URL: ${{ vars.ASSISTANT_URL }}
+          GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
+          BING_SITE_VERIFICATION: ${{ vars.BING_SITE_VERIFICATION }}
+          YANDEX_VERIFICATION: ${{ vars.YANDEX_VERIFICATION }}
+      - name: Verify crawler entry points
+        run: |
+          test -s dist/robots.txt
+          test -s dist/sitemap.xml
+          grep -q 'Sitemap: https://niflaot.mychitas.app/sitemap.xml' dist/robots.txt
+          grep -q '<urlset ' dist/sitemap.xml
+          grep -q 'rel="canonical"' dist/index.html
