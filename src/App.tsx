@@ -42,6 +42,7 @@ const CardsPage = page(() => import('./components/CardsPage'), 'CardsPage');
 const ReadPage = page(() => import('./components/ReadPage'), 'ReadPage');
 const TurimDailyPage = page(() => import('./components/TurimDailyPage'), 'TurimDailyPage');
 const FactsPage = page(() => import('./components/FactsPage'), 'FactsPage');
+const DailyPage = page(() => import('./components/DailyPage'), 'DailyPage');
 const PartnersPage = page(() => import('./components/PartnersPage'), 'PartnersPage');
 const TeacherPage = page(() => import('./components/TeacherPage'), 'TeacherPage');
 const AccountPage = page(() => import('./components/AccountPage'), 'AccountPage');
@@ -233,8 +234,8 @@ function Site() {
             <TermsPage />
           ) : slug === 'facts' ? (
             <FactsPage at={view || undefined} />
-          ) : slug === 'daily' ? (
-            <FactsPage at="daily" />
+          ) : slug === 'daily' && !view ? (
+            <DailyPage />
           ) : slug === 'letters' ? (
             <LettersPage />
           ) : slug === 'math' && (!view || OPS.includes(view as Op)) ? (
