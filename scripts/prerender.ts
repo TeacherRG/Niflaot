@@ -1580,7 +1580,7 @@ if (!robotsTxt.includes(`Sitemap: ${SITE_URL}/sitemap.xml`))
   throw new Error('robots.txt must advertise the canonical sitemap URL');
 if (!sitemapXml.startsWith('<?xml') || !sitemapXml.includes('<urlset ') || !sitemapXml.includes('</urlset>'))
   throw new Error('sitemap.xml is not a valid sitemap urlset');
-const sitemapUrls = [...sitemapXml.matchAll(/<loc>([^<]+)<\\/loc>/g)].map((m) => m[1]);
+const sitemapUrls = [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
 if (!sitemapUrls.length) throw new Error('sitemap.xml contains no URLs');
 for (const url of sitemapUrls) {
   if (!url.startsWith(`${SITE_URL}/`) || url.includes('#') || url.includes('?'))
