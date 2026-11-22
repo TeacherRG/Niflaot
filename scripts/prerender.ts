@@ -114,14 +114,14 @@ const plain = (html: string) =>
   displayNames(
     html
       // Preserve word boundaries between paragraphs and other block elements before removing markup.
-      .replace(/<\\s*br\\b[^>]*\\/?>/gi, ' ')
+      .replace(/<\s*br\b[^>]*\/?>/gi, ' ')
       .replace(
-        /<\\s*\\/?\\s*(?:address|article|aside|blockquote|dd|div|dl|dt|fieldset|figcaption|figure|footer|form|h[1-6]|header|hr|li|main|nav|ol|p|pre|section|table|tbody|td|tfoot|th|thead|tr|ul)\\b[^>]*>/gi,
+        /<\s*\/?\s*(?:address|article|aside|blockquote|dd|div|dl|dt|fieldset|figcaption|figure|footer|form|h[1-6]|header|hr|li|main|nav|ol|p|pre|section|table|tbody|td|tfoot|th|thead|tr|ul)\b[^>]*>/gi,
         ' ',
       )
       .replace(/<[^>]+>/g, '')
       .replace(/&nbsp;/gi, ' ')
-      .replace(/\\s+/g, ' ')
+      .replace(/\s+/g, ' ')
       .trim(),
   );
 
