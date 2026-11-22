@@ -44,13 +44,6 @@ jobs:
           grep -q 'Sitemap: https://niflaot.mychitas.app/sitemap.xml' dist/robots.txt
           grep -q '<urlset ' dist/sitemap.xml
           grep -q 'rel=\"canonical\"' dist/index.html
-        env:
-          # URL of the AI assistant worker (assistant/); empty → the assistant is hidden
-          VITE_ASSISTANT_URL: ${{ vars.ASSISTANT_URL }}
-          # webmaster tools: the code of the «HTML tag» confirmation (scripts/prerender.ts); empty → no tag
-          GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
-          BING_SITE_VERIFICATION: ${{ vars.BING_SITE_VERIFICATION }}
-          YANDEX_VERIFICATION: ${{ vars.YANDEX_VERIFICATION }}
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
           path: dist
