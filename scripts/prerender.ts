@@ -110,7 +110,26 @@ function changed(...paths: string[]): string {
   return gitDates.get(key)!;
 }
 const latest = (...dates: string[]) => dates.sort().pop()!;
-const plain = (html: string) => displayNames(html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim());
+const plain = (html: string) =>
+  displayNames(
+    html
+      // Preserve word boundaries between paragraphs and other block elements before removing markup.
+      .replace(/<\\s*br\\b[^>]*\\/?>/gi, ' ')
+      .replace(
+        /<\\s*\\/?\\s*(?:address|article|aside|blockquote|dd|div|dl|dt|fieldset|figcaption|figure|footer|form|h[1-6]|header|hr|li|main|nav|ol|p|pre|section|table|tbody|td|tfoot|th|thead|tr|ul)\\b[^>]*>/gi,
+        ' ',
+      )
+      .replace(/<[^>]+>/g, '')
+      .replace(/&nbsp;/gi, ' ')
+      .replace(/\\s+/g, ' ')
+      .trim(),
+  );
+
+// Keep this regression check close to the normalizer: paragraph boundaries must not collapse into words.
+if (plain('<p>first paragraph</p><p>second paragraph</p>') !== 'first paragraph second paragraph')
+  throw new Error('SEO plain-text extraction must preserve paragraph boundaries');
+if (plain('light<br>dark') !== 'light dark')
+  throw new Error('SEO plain-text extraction must preserve line breaks');
 /** «Урок 2», or «Нифлаот Ребе · Урок 1» for a lesson of the Rebbe's section */
 const lessonLabel = (l: Lesson, u: Record<string, unknown> = ui) =>
   `${l.series === 'rebbe' ? `${u['rebbe.section']} · ` : ''}${String(u['catalog.lesson']).replace('{n}', String(l.number))}`;
