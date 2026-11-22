@@ -39,6 +39,7 @@ BOOK_DE = {
     'Ezekiel': 'English/Das Buch Jecheskel, übersetzt und erläutert von Dr. Joseph Breuer, Frankfurt a.M, 1921 [de].json',
     'Proverbs': None,
     'Hosea': 'English/Die vier und zwanzig Bücher der Heiligen Schrift. Unter der Redaction von Dr. Zunz übersetzt von H. Arnheim, Dr. Julius Fürst, Dr. M. Sachs. Berlin 1838 [de].json',
+    'Zephaniah': 'English/Die vier und zwanzig Bücher der Heiligen Schrift. Unter der Redaction von Dr. Zunz übersetzt von H. Arnheim, Dr. Julius Fürst, Dr. M. Sachs. Berlin 1838 [de].json',
     'I Chronicles': None,
 }
 BAVLI_DE = 'English/Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de].json'
@@ -103,6 +104,8 @@ BOOK = {
     'Zevachim': ('Talmud/Bavli/Seder Kodashim/Zevachim/', 'Зевахим', 'Talmud'),
     'Menachot': ('Talmud/Bavli/Seder Kodashim/Menachot/', 'Менахот', 'Talmud'),
     'Hosea': ('Tanakh/Prophets/Hosea/', 'Ґошеа', 'Prophets'),
+    'Judges': ('Tanakh/Prophets/Judges/', 'Шофтим', 'Prophets'),
+    'Zephaniah': ('Tanakh/Prophets/Zephaniah/', 'Цфанья', 'Prophets'),
 }
 
 
@@ -122,6 +125,7 @@ def rambam(folder, ru, en, de, ref, ch, h, de_file=None):
             (MT + folder + 'English/' + de_file, [ch - 1, h - 1]) if de_file else None, [ch - 1, h - 1])
 MT_KINGS = 'Sefer Shoftim/Mishneh Torah, Kings and Wars/'
 MT_KINGS_DE = 'Jad Haghasakkah, trans. by L. Mandelstamm. St. Petersburg, 1851. Corrected and edited by Igor Itkin - German [de].json'
+MT_YESODEI = 'Sefer Madda/Mishneh Torah, Foundations of the Torah/'
 MT_VESSELS = 'Sefer Avodah/Mishneh Torah, Vessels of the Sanctuary and Those Who Serve Therein/'
 def kings(h):
     return rambam(MT_KINGS, 'Законы царей', 'Laws of Kings', 'Gesetze der Könige', 'Mishneh Torah, Kings and Wars', 1, h, MT_KINGS_DE)
@@ -544,6 +548,25 @@ SOURCES = {
     'rashi-33-4': rashi(33, 4, 1),
     **{f'bht-{c}-{v}': bht(c, v) for c, v in [(32, 14), (32, 26), (32, 27), (33, 3), (33, 4), (33, 9), (36, 31)]},
     **{f'bht-{c}-{v}-{k + 1}': bht_one(c, v, k) for c, v, k in [(32, 5, 0), (32, 6, 0), (32, 6, 1), (32, 11, 1), (32, 12, 0), (32, 25, 1), (32, 25, 2)]},
+    # «Нифлаот Ребе» · Ваишлах: «Чудо в глазах народов» (Ликутей сихот, т. 25, 19 кислева)
+    'gen-32-29': ('Genesis', 32, 29, 29),
+    'gen-34-25': ('Genesis', 34, 25, 25),
+    'rambam-kings-9-14': rambam(MT_KINGS, 'Законы царей', 'Laws of Kings', 'Gesetze der Könige', 'Mishneh Torah, Kings and Wars', 9, 14, MT_KINGS_DE),
+    'ps-118-23': ('Psalms', 118, 23, 23),
+    'prov-5-16': ('Proverbs', 5, 16, 16),
+    'megillah-29a': ('Megillah', '29a', 3, 3),
+    'micah-7-15': ('Micah', 7, 15, 15),
+    'deut-4-20': ('Deuteronomy', 4, 20, 20),
+    'ex-5-2': ('Exodus', 5, 2, 2),
+    'ex-7-5': ('Exodus', 7, 5, 5),
+    'gen-41-16': ('Genesis', 41, 16, 16),
+    'judges-8-16': ('Judges', 8, 16, 16),
+    'zeph-3-9': ('Zephaniah', 3, 9, 9),
+    'isaiah-40-5': ('Isaiah', 40, 5, 5),
+    'isaiah-61-5': ('Isaiah', 61, 5, 5),
+    'deut-4-35': ('Deuteronomy', 4, 35, 35),
+    'rambam-yesodei-1-1': rambam(MT_YESODEI, 'Основы Торы', 'Foundations of the Torah', 'Grundlagen der Tora', 'Mishneh Torah, Foundations of the Torah', 1, 1, MT_KINGS_DE),
+    'rambam-yesodei-1-4': rambam(MT_YESODEI, 'Основы Торы', 'Foundations of the Torah', 'Grundlagen der Tora', 'Mishneh Torah, Foundations of the Torah', 1, 4, MT_KINGS_DE),
 }
 
 # «Бааль ґа-Турим по дням» (src/core/turimDaily.ts): the verse of every Baal HaTurim comment, one verse each — `torah-<ch>-<v>`,
@@ -604,7 +627,7 @@ DE_NAME = {
     'Genesis': 'Bereschit', 'Exodus': 'Schemot', 'Leviticus': 'Wajikra', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Dewarim', 'Ezekiel': 'Jecheskel', 'Amos': 'Amos', 'I Chronicles': 'Diwre HaJamim I',
     'I Samuel': 'Schmuel I', 'II Samuel': 'Schmuel II', 'Nehemiah': 'Nechemja', 'Horayot': 'Horajot', 'I Kings': 'I Könige', 'II Kings': 'Melachim II', 'Isaiah': 'Jeschajahu', 'Micah': 'Micha', 'Obadiah': 'Owadja', 'Psalms': 'Tehillim', 'Job': 'Ijob', 'Proverbs': 'Mischle', 'Ecclesiastes': 'Kohelet',
     'Berakhot': 'Berachot', 'Shabbat': 'Schabbat', 'Yevamot': 'Jewamot', 'Sotah': 'Sota', 'Chullin': 'Chullin',
-    'Sukkah': 'Sukka', 'Chagigah': 'Chagiga', 'Megillah': 'Megilla', 'Ketubot': 'Ketubbot', 'Yoma': 'Joma', 'Nedarim': 'Nedarim', 'Bava Metzia': 'Bawa Mezia', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda', 'Zevachim': 'Sewachim', 'Menachot': 'Menachot', 'Hosea': 'Hoschea',
+    'Sukkah': 'Sukka', 'Chagigah': 'Chagiga', 'Megillah': 'Megilla', 'Ketubot': 'Ketubbot', 'Yoma': 'Joma', 'Nedarim': 'Nedarim', 'Bava Metzia': 'Bawa Mezia', 'Sanhedrin': 'Sanhedrin', 'Niddah': 'Nidda', 'Zevachim': 'Sewachim', 'Menachot': 'Menachot', 'Hosea': 'Hoschea', 'Judges': 'Schoftim', 'Zephaniah': 'Zefanja',
 }
 
 _cache = {}
