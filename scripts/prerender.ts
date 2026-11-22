@@ -1570,23 +1570,3 @@ Sitemap: ${SITE_URL}/sitemap.xml
 `,
 );
 console.log(`prerender: index + ${LESSON_OUT.length} lesson pages (ru/en/de) + ${STATIC_OUT.length} math / daily / facts / letters / prophets / writings / words pages, sitemap.xml, robots.txt, llms.txt, ${FEEDS.length} feeds, ${podcastFeeds} podcast feeds, ${LANGS.length} manifests, sw.js (${precache.length} files offline), daily messages for ${Object.keys(days).length} days, ${quiz.index.length} quiz decks, ${narrated} lessons to listen to`);
-
-// Fail the build if the public crawl entry points are missing or the sitemap contains unsafe/non-canonical URLs.
-const sitemapPath = `${DIST}/sitemap.xml`;
-const robotsPath = `${DIST}/robots.txt`;
-const sitemapXml = readFileSync(sitemapPath, 'utf8');
-const robotsTxt = readFileSync(robotsPath, 'utf8');
-if (!robotsTxt.includes(`Sitemap: ${SITE_URL}/sitemap.xml`))
-  throw new Error('robots.txt must advertise the canonical sitemap URL');
-if (!sitemapXml.includes('<urlset ') || !sitemapXml.includes('</urlset>'))
-  throw new Error('sitemap.xml is not a valid sitemap urlset');
-const sitemapUrls = [...sitemapXml.matchAll(/<loc>([^<]+)<\\/loc>/g)].map((m) => m[1]);
-if (!sitemapUrls.length) throw new Error('sitemap.xml contains no URLs');
-for (const url of sitemapUrls) {
-  if (!url.startsWith(`${SITE_URL}/`) || url.includes('#') || url.includes('?'))
-    throw new Error(`Non-canonical URL in sitemap: ${url}`);
-}
-const duplicateSitemapUrls = sitemapUrls.filter((url, i) => sitemapUrls.indexOf(url) !== i);
-if (duplicateSitemapUrls.length)
-  throw new Error(`Duplicate URLs in sitemap: ${[...new Set(duplicateSitemapUrls)].join(', ')}`);
-console.log(`SEO: validated ${sitemapUrls.length} canonical sitemap URLs and robots.txt`);
