@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap is generated during the build by scripts/prerender.ts.
-Sitemap: https://niflaot.mychitas.app/sitemap.xml
+Sitemap: https://niflaot.app/sitemap.xml
