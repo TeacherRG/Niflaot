@@ -9,6 +9,8 @@
  */
 
 const PREFIX = '#nfmig=';
+/** came from the app installed on the old address (`&app=1`) — when; MovedApp.tsx asks to install it again */
+export const MOVED_APP = 'niflaot:moved-app';
 
 /** keys that may come: the site's and «Тайна Коэлета»'s (koelet/), never the login or the admin's token */
 export const movable = (key: string) =>
@@ -27,9 +29,16 @@ export function takeMovedProgress(): number {
   const params = new URLSearchParams(location.hash.slice(1));
   const to = params.get('to') || '';
   history.replaceState(null, '', location.pathname + location.search + (to.startsWith('#') ? to : ''));
+  if (params.get('app') === '1') {
+    try {
+      localStorage.setItem(MOVED_APP, String(Date.now()));
+    } catch {}
+  }
   let n = 0;
+  const raw = params.get('nfmig') || '';
+  if (!raw) return 0;
   try {
-    const data = JSON.parse(fromBase64Url(params.get('nfmig') || '')) as Record<string, unknown>;
+    const data = JSON.parse(fromBase64Url(raw)) as Record<string, unknown>;
     for (const [key, value] of Object.entries(data)) {
       if (!movable(key) || typeof value !== 'string') continue;
       try {

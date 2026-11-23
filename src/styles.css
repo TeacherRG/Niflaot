@@ -915,6 +915,9 @@ html.crawler .static{opacity:1;animation:none;padding:0 16px}
 .h-phone .h-phone-note{font-size:13px;color:var(--muted)}
 .h-phone-btns{display:flex;flex-wrap:wrap;gap:8px}
 .h-phone-btns:empty{display:none}
+.moved-app p{margin:0 0 10px}
+.moved-app ol{margin:0 0 10px;padding-inline-start:22px;display:grid;gap:6px}
+.moved-app .moved-note{font-size:14px;color:var(--muted)}
 .h-phone-x{position:absolute;top:6px;inset-inline-end:8px;border:0;background:none;font-size:22px;line-height:1;color:var(--muted);cursor:pointer;padding:4px}
 .reminder h3{margin:0 0 4px;font-size:17px}
 .reminder p{margin:0 0 10px;font-size:15px;color:var(--ink-2)}

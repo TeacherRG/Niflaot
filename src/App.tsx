@@ -24,6 +24,7 @@ import { DonateFab, UIContext, type Panel } from './components/ui';
 import { CoinToast } from './components/CoinToast';
 import { AlarmRinger } from './components/AlarmRinger';
 import { Tour } from './components/Tour';
+import { MovedApp } from './components/MovedApp';
 import { TabBar } from './components/TabBar';
 import { NotFound, PageBoundary, PageLoading } from './components/PageStates';
 import { useI18n } from './i18n';
@@ -345,6 +346,8 @@ function Site() {
       {slug !== 'koelet' && <DonateFab label={t('footer.donate')} />}
       <CoinToast />
       <AlarmRinger />
+      {/* the app installed on the old address (niflaot.mychitas.app): once, how to install it again */}
+      <MovedApp off={view === 'print' || slug === 'admin'} />
       {/* the tour after the onboarding: only on the home page, once the mode is chosen */}
       <Tour home={!slug && mode !== null && !gated} />
       <TabBar slug={slug} view={view} />

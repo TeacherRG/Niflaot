@@ -8,7 +8,9 @@
  * - People's browsers opening a page: a tiny page that takes the progress kept in this browser for the old address
  *   (the browser keeps it per address — on niflaot.app a guest would start from nothing), puts it into the fragment of
  *   the new address and goes there; src/core/migrate.ts on the site writes it in. The fragment never reaches a server.
- *   It also removes the old service worker, so the installed app stops showing the old offline copy.
+ *   It also removes the old service worker, so the installed app stops showing the old offline copy. Opened from the
+ *   app installed on the old address (display-mode standalone) — `&app=1`: the new site tells how to install it again
+ *   (src/components/MovedApp.tsx); the old app cannot be moved, it shows niflaot.app as a foreign page with a bar on top.
  * - /sw.js: a service worker that removes itself — the installed app asks for it when it checks for an update.
  */
 
@@ -41,7 +43,11 @@ function page(target: string) {
 </head><body><p>Нифлаот переехал — <a id="go" href="${target.replace(/"/g, '&quot;')}">niflaot.app</a><br>Niflaot has moved · Niflaot ist umgezogen</p>
 <script>
 (function () {
-  var target = ${t}, url = target + (location.hash || '');
+  var target = ${t}, url = target + (location.hash || ''), base = target.split('#')[0];
+  // opened from the app installed on the old address: the new site shows once how to install it again
+  var app = false;
+  try { app = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; } catch (e) {}
+  if (app) url = base + '#nfmig=&app=1&to=' + encodeURIComponent(location.hash || '');
   try {
     var data = {}, n = 0;
     for (var i = 0; i < localStorage.length; i++) {
@@ -54,9 +60,8 @@ function page(target: string) {
       var bytes = new TextEncoder().encode(JSON.stringify(data)), bin = '';
       for (var j = 0; j < bytes.length; j += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(j, j + 0x8000));
       var b64 = btoa(bin).replace(/\\+/g, '-').replace(/\\//g, '_').replace(/=+$/, '');
-      var base = target.split('#')[0];
       // browsers take addresses of a few megabytes; above 1.5 MB the progress stays behind rather than break the move
-      if (b64.length < 1500000) url = base + '#nfmig=' + b64 + '&to=' + encodeURIComponent(location.hash || '');
+      if (b64.length < 1500000) url = base + '#nfmig=' + b64 + (app ? '&app=1' : '') + '&to=' + encodeURIComponent(location.hash || '');
     }
   } catch (e) {}
   var go = function () { location.replace(url); };
