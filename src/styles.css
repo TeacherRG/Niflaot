@@ -4202,7 +4202,8 @@ html:has(.clk2) body{background:#0B1532 url(./assets/clock-bg.webp) center/cover
 .rm-he{margin:0 0 6px;font-size:20px;color:var(--ink-2)}
 .rm-rotate{display:none;margin:0 0 10px;padding:8px 12px;border-radius:10px;background:var(--tchelet-soft);color:var(--tchelet-deep);font-size:14px}
 @media (max-width:640px) and (orientation:portrait){.rm-rotate{display:block}}
-.rm-split{display:grid;gap:14px}
+.rm-split{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+.rm-split>*{min-width:0}
 .rm-slides{position:sticky;top:60px;z-index:2;background:var(--bg,var(--paper));padding-bottom:6px}
 .rm-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:12px;border:1px solid var(--line);background:#fff}
 .rm-track::-webkit-scrollbar{display:none}
