@@ -145,7 +145,7 @@ export interface ShareParams {
   time: string;
   grid: string;
   allSolved: boolean;
-  /** site host (niflaot.mychitas.app) on the page; the lesson's link with ?ref= in the text sent away */
+  /** site host (niflaot.app) on the page; the lesson's link with ?ref= in the text sent away */
   site: string;
 }
 

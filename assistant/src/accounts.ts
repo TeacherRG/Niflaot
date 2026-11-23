@@ -85,15 +85,15 @@ const MAIL = {
   consent: {
     ru: (nick: string, link: string) => ({
       subject: `Нифлаот: ваш ребёнок просит разрешения — ${nick}`,
-      text: `Здравствуйте!\n\nВаш ребёнок зарегистрировался на сайте Нифлаот (niflaot.mychitas.app) — уроки-игры по Торе — под ником «${nick}» и указал ваш адрес как адрес родителя.\n\nДетям до 14 лет нужно согласие родителя. С согласием сайт будет хранить: email ребёнка, ник, прогресс в уроках; ник и очки видны учителю класса, если ребёнок вступит в класс. Подробно — ${'{site}'}/#/privacy\n\nЧтобы разрешить, откройте ссылку и нажмите «Разрешаю»:\n${link}\n\nЕсли вы не согласны или не знаете, о чём речь, — ничего не делайте: без вашего согласия прогресс не сохраняется, а через 30 дней запись удаляется.`,
+      text: `Здравствуйте!\n\nВаш ребёнок зарегистрировался на сайте Нифлаот (niflaot.app) — уроки-игры по Торе — под ником «${nick}» и указал ваш адрес как адрес родителя.\n\nДетям до 14 лет нужно согласие родителя. С согласием сайт будет хранить: email ребёнка, ник, прогресс в уроках; ник и очки видны учителю класса, если ребёнок вступит в класс. Подробно — ${'{site}'}/#/privacy\n\nЧтобы разрешить, откройте ссылку и нажмите «Разрешаю»:\n${link}\n\nЕсли вы не согласны или не знаете, о чём речь, — ничего не делайте: без вашего согласия прогресс не сохраняется, а через 30 дней запись удаляется.`,
     }),
     en: (nick: string, link: string) => ({
       subject: `Niflaot: your child asks for permission — ${nick}`,
-      text: `Hello!\n\nYour child has signed up on Niflaot (niflaot.mychitas.app) — Torah lessons as games — as “${nick}” and gave your address as the parent's.\n\nChildren under 14 need a parent's consent. With it, the site keeps: the child's email, nickname and lesson progress; the nickname and points are shown to the teacher of a class the child joins. Details — ${'{site}'}/#/privacy\n\nTo allow it, open the link and tap “I allow”:\n${link}\n\nIf you don't agree or don't know what this is about, do nothing: without your consent no progress is kept, and after 30 days the record is deleted.`,
+      text: `Hello!\n\nYour child has signed up on Niflaot (niflaot.app) — Torah lessons as games — as “${nick}” and gave your address as the parent's.\n\nChildren under 14 need a parent's consent. With it, the site keeps: the child's email, nickname and lesson progress; the nickname and points are shown to the teacher of a class the child joins. Details — ${'{site}'}/#/privacy\n\nTo allow it, open the link and tap “I allow”:\n${link}\n\nIf you don't agree or don't know what this is about, do nothing: without your consent no progress is kept, and after 30 days the record is deleted.`,
     }),
     de: (nick: string, link: string) => ({
       subject: `Niflaot: Dein Kind bittet um Erlaubnis — ${nick}`,
-      text: `Hallo!\n\nDein Kind hat sich auf Niflaot (niflaot.mychitas.app) — Tora-Lektionen als Spiele — als „${nick}“ angemeldet und deine Adresse als Adresse eines Elternteils angegeben.\n\nKinder unter 14 brauchen die Zustimmung eines Elternteils. Damit speichert die Seite: die E-Mail des Kindes, den Spitznamen und den Lernfortschritt; Spitzname und Punkte sind für die Lehrkraft einer Klasse sichtbar, der das Kind beitritt. Mehr dazu — ${'{site}'}/#/privacy\n\nUm es zu erlauben, öffne den Link und tippe auf „Ich erlaube es“:\n${link}\n\nWenn du nicht einverstanden bist oder nicht weißt, worum es geht, tu nichts: Ohne deine Zustimmung wird kein Fortschritt gespeichert, und nach 30 Tagen wird der Eintrag gelöscht.`,
+      text: `Hallo!\n\nDein Kind hat sich auf Niflaot (niflaot.app) — Tora-Lektionen als Spiele — als „${nick}“ angemeldet und deine Adresse als Adresse eines Elternteils angegeben.\n\nKinder unter 14 brauchen die Zustimmung eines Elternteils. Damit speichert die Seite: die E-Mail des Kindes, den Spitznamen und den Lernfortschritt; Spitzname und Punkte sind für die Lehrkraft einer Klasse sichtbar, der das Kind beitritt. Mehr dazu — ${'{site}'}/#/privacy\n\nUm es zu erlauben, öffne den Link und tippe auf „Ich erlaube es“:\n${link}\n\nWenn du nicht einverstanden bist oder nicht weißt, worum es geht, tu nichts: Ohne deine Zustimmung wird kein Fortschritt gespeichert, und nach 30 Tagen wird der Eintrag gelöscht.`,
     }),
   },
 };
@@ -192,7 +192,7 @@ export class Accounts extends DurableObject<MailEnv> {
     );
     const token = random(24);
     this.sql.exec('UPDATE users SET consent = ? WHERE id = ?', await sha(token), u.id);
-    const site = this.env.SITE_URL || 'https://niflaot.mychitas.app';
+    const site = this.env.SITE_URL || 'https://niflaot.app';
     const m = MAIL.consent[lang(u.lang)](u.nick!, `${site}/?lang=${u.lang}#/consent/${token}`);
     await sendMail(this.env, u.parent_email!, { subject: m.subject, text: m.text.replace('{site}', site) });
   }
@@ -282,7 +282,7 @@ export class Accounts extends DurableObject<MailEnv> {
     for (const { email } of recipients) {
       const token = random(24);
       this.sql.exec('INSERT INTO newsletter_unsub_tokens (hash, email, created) VALUES (?, ?, ?)', await sha(token), email, Date.now());
-      const site = this.env.SITE_URL || 'https://niflaot.mychitas.app';
+      const site = this.env.SITE_URL || 'https://niflaot.app';
       const unsubscribe = `${site}/?lang=${locale}#/newsletter/unsubscribe?token=${encodeURIComponent(token)}`;
       const unsubscribeApi = `${this.env.ASSISTANT_URL || 'https://niflaot-assistant.niflaot.workers.dev'}/account/newsletter/unsubscribe?token=${encodeURIComponent(token)}`;
       const response = await fetch('https://api.resend.com/emails', {

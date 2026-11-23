@@ -233,7 +233,7 @@ async function run(browser, base, sc) {
     const lesson = await page.evaluate(() => { const d = document.querySelector('.sheet.lesson'); return d && {text: d.innerText, href: (d.querySelector('a[href^="mailto:"]') || {}).href, secs: d.querySelectorAll('.about-sec').length}; });
     if (!lesson) add('«Online lesson» window did not open');
     else {
-      if (lesson.href !== 'mailto:office@mychitas.app') add(`«Online lesson»: mail link is "${lesson.href}"`);
+      if (lesson.href !== 'mailto:office@niflaot.app') add(`«Online lesson»: mail link is "${lesson.href}"`);
       if (lesson.secs !== 3) add(`«Online lesson»: ${lesson.secs} sections instead of 3`);
       for (const p of textProblems(lesson.text, sc.lang)) add(`[lesson] ${p}`);
       await snap('lesson');

@@ -41,6 +41,6 @@ jobs:
         run: |
           test -s dist/robots.txt
           test -s dist/sitemap.xml
-          grep -q 'Sitemap: https://niflaot.mychitas.app/sitemap.xml' dist/robots.txt
+          grep -q 'Sitemap: https://niflaot.app/sitemap.xml' dist/robots.txt
           grep -q '<urlset ' dist/sitemap.xml
           grep -q 'rel="canonical"' dist/index.html

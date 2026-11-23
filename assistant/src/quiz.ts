@@ -176,7 +176,7 @@ export async function quizRoute(req: Request, env: QuizEnv, path: string): Promi
   }
   const lang = LANGS.includes(body.lang as string) ? (body.lang as string) : 'ru';
   if (!validDeckId(body.deck)) return new Response('Bad deck', { status: 400 });
-  const res = await fetch(`${(env.SITE_URL ?? 'https://niflaot.mychitas.app').replace(/\/$/, '')}/quiz/${lang}/${body.deck}.json`, {
+  const res = await fetch(`${(env.SITE_URL ?? 'https://niflaot.app').replace(/\/$/, '')}/quiz/${lang}/${body.deck}.json`, {
     cf: { cacheTtl: 300 },
   } as RequestInit);
   const deck = res.ok ? validDeck(await res.json().catch(() => null)) : null;

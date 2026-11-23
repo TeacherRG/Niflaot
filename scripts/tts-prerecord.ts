@@ -9,7 +9,7 @@
  * failed parts in a row the rest of that lesson / day is left for the next run (failures spend the limit too).
  *
  *   npx tsx scripts/tts-prerecord.ts [--lang ru] [--days 14] [--lessons-only] [--dry]
- * Needs ASSISTANT_URL (the worker); the site — SITE_URL (default https://niflaot.mychitas.app).
+ * Needs ASSISTANT_URL (the worker); the site — SITE_URL (default https://niflaot.app).
  * Run by .github/workflows/tts-prerecord.yml.
  */
 import { readFileSync, existsSync } from 'node:fs';
@@ -24,7 +24,7 @@ const arg = (name: string, def: string) => {
 const flag = (name: string) => process.argv.includes(`--${name}`);
 const lang = arg('lang', 'ru') as 'ru' | 'en' | 'de';
 const days = Number(arg('days', '14'));
-const SITE = (process.env.SITE_URL ?? 'https://niflaot.mychitas.app').replace(/\/$/, '');
+const SITE = (process.env.SITE_URL ?? 'https://niflaot.app').replace(/\/$/, '');
 const WORKER = (process.env.ASSISTANT_URL ?? '').replace(/\/$/, '');
 if (!WORKER && !flag('dry')) throw new Error('ASSISTANT_URL is not set');
 

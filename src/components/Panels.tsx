@@ -437,7 +437,7 @@ export function Panels() {
             <Icon name="heart" />
             <span>{t('footer.donate')}</span>
           </a>
-          <a className="menu-item" href="mailto:Office@mychitas.app">
+          <a className="menu-item" href="mailto:office@niflaot.app">
             <Icon name="mail" />
             <span>{t('footer.contact')}</span>
           </a>

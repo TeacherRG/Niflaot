@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages (niflaot.mychitas.app)
+name: Deploy to GitHub Pages (niflaot.app)
 
 on:
   push:
@@ -41,7 +41,7 @@ jobs:
         run: |
           test -s dist/robots.txt
           test -s dist/sitemap.xml
-          grep -q 'Sitemap: https://niflaot.mychitas.app/sitemap.xml' dist/robots.txt
+          grep -q 'Sitemap: https://niflaot.app/sitemap.xml' dist/robots.txt
           grep -q '<urlset ' dist/sitemap.xml
           grep -q 'rel=\"canonical\"' dist/index.html
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: https://niflaot.mychitas.app
+      url: https://niflaot.app
     steps:
       - uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
         with:

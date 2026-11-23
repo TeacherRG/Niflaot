@@ -2,8 +2,8 @@
   "name": "niflaot",
   "private": true,
   "version": "0.1.0",
-  "description": "Онлайн-академия Торы для всех возрастов, от 8 до 120: игры-гематрии по Бааль ґа-Туриму, беседы Ребе, Пророки и Писания, Хасидут — niflaot.mychitas.app",
-  "homepage": "https://niflaot.mychitas.app",
+  "description": "Онлайн-академия Торы для всех возрастов, от 8 до 120: игры-гематрии по Бааль ґа-Туриму, беседы Ребе, Пророки и Писания, Хасидут — niflaot.app",
+  "homepage": "https://niflaot.app",
   "type": "module",
   "scripts": {
     "dev": "vite",
