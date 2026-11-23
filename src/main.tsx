@@ -45,6 +45,10 @@ if (crawlerPage) {
   takeGoogleReturn();
   // the admin's unpublished text edits are shown on the site in their browser
   applyDraft();
+  // the installed app may turn on every page (manifest «any», 24.11.2026); an app installed earlier keeps the old manifest
+  // («portrait») for days — the lock is lifted at once (Chrome allows it in an installed app; elsewhere nothing happens)
+  if (matchMedia('(display-mode: standalone)').matches)
+    (screen.orientation as ScreenOrientation & { lock?: (o: string) => Promise<void> })?.lock?.('any').catch(() => {});
   // visit statistics (GoatCounter, no cookies)
   installAnalytics();
   // «Установить на телефон» in the menu, when the browser can install the site
