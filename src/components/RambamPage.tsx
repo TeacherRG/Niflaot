@@ -9,6 +9,7 @@ import { civilDate, jewishDate } from '../core/hebrewDate';
 import { localToday } from '../core/tanakh';
 import { readHebrew, type ReadLang } from '../core/translit';
 import { setOtherPage } from '../core/assistant';
+import { boxOf, KNOWN_BOX, markKnown, markLearn, unmark, useWordStore } from '../core/words';
 import {
   addDays,
   chapterOn,
@@ -85,19 +86,28 @@ export function RambamPage({ date: asked }: { date?: string }) {
     return () => setOtherPage(null);
   }, [text, slides, day]);
 
-  // the halachot of the slide in view
+  // the halachot of the slide in view; the two halves follow each other both ways — turning a slide scrolls the text to its
+  // halachot, scrolling the text turns the slide; the side that moved first leads for a moment (no ping-pong)
   const lit = slides?.[active]?.hl ?? null;
-  const fromText = useRef(false);
+  const lead = useRef<{ by: 'text' | 'slide'; until: number }>({ by: 'slide', until: 0 });
+  const aside = useRef<HTMLElement>(null);
+  const led = (by: 'text' | 'slide') => lead.current.by === by && Date.now() < lead.current.until;
+  /** the text scrolls in its own column (side by side) or with the page (a phone upright, the slide stuck above) */
+  const ownColumn = () => {
+    const box = textBox.current;
+    return !!box && box.scrollHeight > box.clientHeight + 4;
+  };
   useEffect(() => {
-    if (!lit || fromText.current) {
-      fromText.current = false;
-      return;
-    }
+    if (!lit || led('text')) return;
     const box = textBox.current;
     const el = box?.querySelector<HTMLElement>(`[data-h="${lit[0]}"]`);
     if (!box || !el) return;
-    // inside its own column when the halves stand side by side, else the page doesn't jump
-    if (box.scrollHeight > box.clientHeight + 4) box.scrollTo({ top: el.offsetTop - box.offsetTop - 8, behavior: 'smooth' });
+    lead.current = { by: 'slide', until: Date.now() + 900 };
+    if (ownColumn()) box.scrollTo({ top: el.offsetTop - box.offsetTop - 8, behavior: 'smooth' });
+    else {
+      const under = aside.current?.getBoundingClientRect().bottom ?? 60;
+      scrollTo({ top: scrollY + el.getBoundingClientRect().top - under - 8, behavior: 'smooth' });
+    }
   }, [lit]);
 
   const goSlide = useCallback((k: number) => {
@@ -105,18 +115,56 @@ export function RambamPage({ date: asked }: { date?: string }) {
     if (!el) return;
     el.scrollTo({ left: el.clientWidth * k * (document.dir === 'rtl' ? -1 : 1), behavior: 'smooth' });
   }, []);
+  // the slide counts once the strip has stopped: a smooth turn over several slides must not drag the text through each of them
+  const settle = useRef(0);
   const onTrack = () => {
-    const el = track.current;
-    if (!el) return;
-    setActive(Math.round(Math.abs(el.scrollLeft) / el.clientWidth));
+    clearTimeout(settle.current);
+    settle.current = window.setTimeout(() => {
+      const el = track.current;
+      if (el) setActive(Math.round(Math.abs(el.scrollLeft) / el.clientWidth));
+    }, 120);
   };
+  const slideOf = (n: number) => slides?.findIndex((s) => s.hl && n >= s.hl[0] && n <= s.hl[1]) ?? -1;
   const openHalacha = (n: number) => {
-    const k = slides?.findIndex((s) => s.hl && n >= s.hl[0] && n <= s.hl[1]) ?? -1;
+    const k = slideOf(n);
     if (k >= 0) {
-      fromText.current = true;
+      lead.current = { by: 'text', until: Date.now() + 1500 };
       goSlide(k);
     }
   };
+  // scrolling the text: the first halacha at the top of the reading place — its slide, if the slide in view isn't one of its
+  const activeRef = useRef(active);
+  activeRef.current = active;
+  useEffect(() => {
+    if (!slides) return;
+    const box = textBox.current;
+    if (!box) return;
+    let frame = 0;
+    const check = () => {
+      frame = 0;
+      if (led('slide')) return;
+      const top = ownColumn() ? box.getBoundingClientRect().top + 24 : (aside.current?.getBoundingClientRect().bottom ?? 60) + 24;
+      const first = [...box.querySelectorAll<HTMLElement>('[data-h]')].find((h) => h.getBoundingClientRect().bottom > top);
+      if (!first) return;
+      const n = Number(first.dataset.h);
+      const cur = slides[activeRef.current]?.hl;
+      if (cur && n >= cur[0] && n <= cur[1]) return;
+      const k = slideOf(n);
+      if (k < 0 || k === activeRef.current) return;
+      lead.current = { by: 'text', until: Date.now() + 1500 };
+      goSlide(k);
+    };
+    const on = () => {
+      if (!frame) frame = requestAnimationFrame(check);
+    };
+    box.addEventListener('scroll', on, { passive: true });
+    addEventListener('scroll', on, { passive: true });
+    return () => {
+      box.removeEventListener('scroll', on);
+      removeEventListener('scroll', on);
+      cancelAnimationFrame(frame);
+    };
+  }, [slides, goSlide]);
 
   const isDone = (done[day.id] ?? 0) > 0;
   const bar = (
@@ -168,7 +216,7 @@ export function RambamPage({ date: asked }: { date?: string }) {
             </p>
             <div className={slides ? 'rm-split' : 'rm-split solo'}>
               {slides && (
-                <aside className="rm-slides" aria-label={t('rm.slides')}>
+                <aside className="rm-slides" aria-label={t('rm.slides')} ref={aside}>
                   <div className="rm-track" ref={track} onScroll={onTrack} dir="ltr">
                     {slides.map((s, k) => (
                       <figure key={s.img} className="rm-slide">
@@ -276,6 +324,28 @@ function Words({ text }: { text: string }) {
   );
 }
 
+/** the word is in the Tanakh dictionary: «Учу» / «Знаю» put it into «Мои слова» (as the window over a word of the Prophets) */
+function TanakhButtons({ id }: { id: string }) {
+  const { t } = useI18n();
+  const store = useWordStore();
+  const box = boxOf(store, id);
+  const known = box >= KNOWN_BOX;
+  const learning = box > 0 && !known;
+  return (
+    <>
+      <p className="wp-meta">{t('rm.inTanakh')}</p>
+      <p className="wp-btns tk-w-btns">
+        <button type="button" className="tk-w-learn" aria-pressed={learning} onClick={() => (learning ? unmark(id) : markLearn(id))}>
+          {learning ? `● ${t('words.learn')}` : t('words.learn')}
+        </button>
+        <button type="button" className="tk-w-know" aria-pressed={known} onClick={() => (known ? unmark(id) : markKnown(id))}>
+          {known ? `✓ ${t('words.know')}` : t('words.know')}
+        </button>
+      </p>
+    </>
+  );
+}
+
 interface Open {
   word: string;
   x: number;
@@ -342,6 +412,7 @@ function RambamWord({ dict, box }: { dict: RambamDict | null; box: React.RefObje
         ) : (
           <p className="wp-meta">{dict ? t('rm.noWord') : t('rm.loading')}</p>
         )}
+        {entry?.[2] && <TanakhButtons id={entry[2]} />}
         <p className="wp-meta">{t('rm.wordCredit')}</p>
       </div>
     </div>,

@@ -1426,7 +1426,7 @@ for (const { lang, ui } of LANGS) {
     start_url: start('/'),
     scope: '/',
     display: 'standalone',
-    orientation: 'portrait',
+    orientation: 'any', // the phone may turn on every page (owner, 24.11.2026: «поворот во всём приложении»)
     background_color: '#141A33',
     theme_color: '#141A33',
     categories: ['education', 'books', 'kids'],

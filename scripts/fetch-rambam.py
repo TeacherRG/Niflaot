@@ -6,6 +6,7 @@
     python3 scripts/fetch-rambam.py text  <from> [<to>]       # public/rambam/text/<id>.json for the chapters of these dates
     python3 scripts/fetch-rambam.py slides <id> <file.pdf>    # the presentation → rambam-slides/<id>/NN.webp (→ R2) + public/rambam/slides/<id>/slides.json
     python3 scripts/fetch-rambam.py words [ru]                # src/rambam/words/ru-*.txt → public/rambam/words/ru.json
+    python3 scripts/fetch-rambam.py draft <id>                # a draft for the words of a chapter: suggestions of the Tanakh dictionary — check each
     python3 scripts/fetch-rambam.py todo  [<to>]              # words of the chapters (till that date) without a translation
 
 The cycle (src/core/rambam.ts): from Sunday 27 Nisan 5744 (29.04.1984), one chapter a day, 1017 days, then again — the order
@@ -146,7 +147,7 @@ KEEP = re.compile(r'[א-ת״׳]')
 def key(word):
     """a word of the text → its key in the dictionary: letters (and ״ ׳ of abbreviations), no vowel points"""
     w = re.sub(r'[֑-ׇ]', '', word)
-    w = re.sub(r'[^א-ת״׳]', '', w)
+    w = re.sub(r'[^א-ת״׳]', '', w).strip('״')  # ״ at the edges — quotation marks of a verse; inside — an abbreviation
     return w.strip('׳') if not re.search('[א-ת]׳$', w) else w
 
 SRC_WORDS = ROOT / 'src' / 'rambam' / 'words'
@@ -164,16 +165,83 @@ def read_words(lang):
             if k in d and d[k][0] != parts[1].strip():
                 print(f'  {f.name}:{n}: {k} — второй перевод, остаётся первый', file=sys.stderr)
                 continue
-            d[k] = [parts[1].strip(), parts[2].strip()] if parts[2].strip() else [parts[1].strip()]
+            d[k] = [parts[1].strip(), parts[2].strip(), parts[0].strip()]
     return d
+
+def tanakh_lemmas():
+    """the Tanakh dictionary (src/tanakh/words.json, with the project's translation): vocalized form → id; letters → [ids]"""
+    words = json.loads((ROOT / 'src' / 'tanakh' / 'words.json').read_text())['words']
+    tr = json.loads((ROOT / 'src' / 'tanakh' / 'words' / 'ru.json').read_text())
+    cant = lambda s: re.sub(r'[\u0591-\u05AF\u05BC\u05BD\u05C0\u05C3]', '', s)
+    voc, let = {}, {}
+    for w in words:
+        if w['id'] in tr and w.get('pos') != 'np' and not w.get('aram'):
+            # two words of the same spelling and vowels (אַף «нос» / «даже», חָמֵץ «квасное» / «грабить») — not linked
+            voc[cant(w['he'])] = '' if cant(w['he']) in voc else w['id']
+            let.setdefault(key(w['he']), []).append(w['id'])
+    return cant, voc, let
+
+def link(entry, lemmas):
+    """the word's dictionary form (or the word itself) → its id in the Tanakh dictionary: the same vowels, or the only word
+    with these letters; '' — not there (then the window has no «Учу / Знаю»)"""
+    cant, voc, let = lemmas
+    base = entry[1] or re.sub(r'[.:,;]', '', entry[2])
+    # only the same vowels (the dagesh aside): by letters alone אִסּוּר «запрет» met אֵסוּר «оковы», דָּר «живёт» — דַּר «перламутр»
+    return '' if key(base) in NO_LINK else voc.get(cant(base), '')
+NO_LINK = {'הן'}  # homographs: הֵן «они» (Рамбам) — הֵן «вот» (Танах)
 
 def cmd_words():
     """the project's dictionary → public/rambam/words/<lang>.json (what the page loads)"""
     lang = sys.argv[2] if len(sys.argv) > 2 else 'ru'
     d = read_words(lang)
+    lemmas = tanakh_lemmas()
+    out = {}
+    for k, e in d.items():
+        s = link(e, lemmas)
+        out[k] = [e[0], e[1], s] if s else ([e[0], e[1]] if e[1] else [e[0]])
     WORDS.mkdir(parents=True, exist_ok=True)
-    (WORDS / f'{lang}.json').write_text(json.dumps(d, ensure_ascii=False, separators=(',', ':')) + '\n')
-    print(lang, len(d), 'words')
+    (WORDS / f'{lang}.json').write_text(json.dumps(out, ensure_ascii=False, separators=(',', ':')) + '\n')
+    print(lang, len(out), 'words;', sum(len(v) == 3 for v in out.values()), 'linked to the Tanakh dictionary («Мои слова»)')
+
+PRE = sorted({a + b for a in ['', 'ו'] for b in ['', 'ה', 'ב', 'ל', 'מ', 'כ', 'ש', 'שה', 'שב', 'של', 'שמ', 'מה', 'כש', 'מש', 'כה', 'לה']}, key=len, reverse=True)
+SUF = ['', 'ים', 'ות', 'ה', 'ת', 'ו', 'ם', 'ן', 'י', 'ך', 'נו', 'יו', 'יה', 'הם', 'הן', 'יהם', 'יהן', 'כם', 'תי', 'תם', 'ין']
+def cmd_draft():
+    """the words of a chapter without a translation, with a suggestion from the Tanakh dictionary (prefixes and endings cut
+    by letters — often wrong: כַּמָּה «томиться», תַּעֲרֹבֶת «заложник»): a draft to check word by word, never to use as is"""
+    cid = sys.argv[2]
+    d = read_words('ru')
+    words = json.loads((ROOT / 'src' / 'tanakh' / 'words.json').read_text())['words']
+    tr = json.loads((ROOT / 'src' / 'tanakh' / 'words' / 'ru.json').read_text())
+    fin = str.maketrans('ךםןףץ', 'כמנפצ')
+    lem = {}
+    for i, w in enumerate(words):
+        if w['id'] in tr and not w.get('aram'):
+            lem.setdefault(key(w['he']).translate(fin), (i, w))
+    seen = set()
+    for h in json.loads((TEXT / f'{cid}.json').read_text())['he']:
+        for raw in h.split():
+            k = key(raw)
+            if not k or k in d or k in seen:
+                continue
+            seen.add(k)
+            best = None
+            kk = k.translate(fin)
+            for p in PRE:
+                if not kk.startswith(p):
+                    continue
+                r = kk[len(p):]
+                for s in SUF:
+                    if s and not r.endswith(s):
+                        continue
+                    st = r[:len(r) - len(s)] if s else r
+                    for v in (st, st + 'ה' if s else None):
+                        if v and len(v) >= 2 and v in lem:
+                            i, w = lem[v]
+                            sc = (len(v) * 2 - len(s), -i)
+                            if not best or sc > best[0]:
+                                best = (sc, w)
+            word = re.sub(r'[.:,;]', '', raw)
+            print(f'{word}|{tr[best[1]["id"]] if best else ""}|{best[1]["he"] if best else ""}')
 
 def cmd_todo():
     lang = 'ru'
@@ -200,4 +268,4 @@ def cmd_todo():
     print(len(miss), 'words without a translation', file=sys.stderr)
 
 if __name__ == '__main__':
-    {'books': cmd_books, 'text': cmd_text, 'slides': cmd_slides, 'words': cmd_words, 'todo': cmd_todo}[sys.argv[1]]()
+    {'books': cmd_books, 'text': cmd_text, 'slides': cmd_slides, 'words': cmd_words, 'draft': cmd_draft, 'todo': cmd_todo}[sys.argv[1]]()

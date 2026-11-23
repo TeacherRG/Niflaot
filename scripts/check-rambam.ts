@@ -40,7 +40,8 @@ if (existsSync(new URL('slides/', PUB)))
     const t = read<RambamText>(`text/${id}.json`);
     const s = read<{ slides: Slide[] }>(`slides/${id}/slides.json`)?.slides ?? [];
     if (!t) errors.push(`slides ${id}: no text of the chapter`);
-    let last = 0;
+    // a slide may cover several halachot and overlap its neighbours (NotebookLM groups them) — its label is kept as it is
+    const covered = new Set<number>();
     s.forEach((x, k) => {
       const at = `slides ${id} #${k + 1}`;
       if (!x.title || !x.text) errors.push(`${at}: no title / text (the alt of the image, the AI teacher)`);
@@ -48,10 +49,10 @@ if (existsSync(new URL('slides/', PUB)))
       if (!x.hl) return;
       const [a, b] = x.hl;
       if (!(a >= 1 && b >= a && (!t || b <= t.he.length))) errors.push(`${at}: halachot ${a}–${b} outside the chapter`);
-      if (a <= last) errors.push(`${at}: halachot ${a}–${b} overlap the slide before (to ${last})`);
-      last = b;
+      for (let n = a; n <= b; n++) covered.add(n);
     });
-    if (t && last && last !== t.he.length) errors.push(`slides ${id}: the last slide ends at halacha ${last} of ${t.he.length}`);
+    const missed = t && covered.size ? t.he.map((_, i) => i + 1).filter((n) => !covered.has(n)) : [];
+    if (missed.length) errors.push(`slides ${id}: no slide for halachot ${missed.join(', ')}`);
   }
 if (errors.length) {
   console.error(errors.join('\n'));

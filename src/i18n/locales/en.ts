@@ -271,6 +271,7 @@ const en: Messages = {
   'rm.onlyRu': "Word translations are in Russian only for now.",
   'rm.noWord': "No translation of this word yet.",
   'rm.wordCredit': "The project’s translation — by the meaning in this halachah.",
+  'rm.inTanakh': "This word is in the Tanakh dictionary — add it to “My words”:",
   'courses.rambam': "Mishneh Torah",
   'courses.rambam.sub': "the Rambam, a chapter a day — text and explanatory slides",
   'courses.lashon': "Holy Tongue",
