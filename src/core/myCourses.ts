@@ -17,6 +17,7 @@ import { bookRoadmap } from './milestones';
 import { civilDate } from './hebrewDate';
 import { hsNextIndex, nextIndex } from './todayStudy';
 import { koeletProgress } from './koelet';
+import { chapterOn, readRambamDone } from './rambam';
 import type { Course, CourseChoice, Pace } from './courses';
 
 export interface CourseRow {
@@ -116,11 +117,18 @@ function koelet(): CourseRow {
   return { id: 'koelet', done: p.done, total: p.total, finished: p.finished, href: '#/koelet' };
 }
 
+/** «Мишне Тора»: chapters read («Я прочитал(а)») of the 1017 of the cycle; next — today's chapter */
+function rambam(locale: string, today: string): CourseRow {
+  const d = chapterOn(today);
+  const done = Object.values(readRambamDone()).filter((v) => v > 0).length;
+  return { id: 'rambam', done, total: 1017, next: `${locale === 'ru' && d.book.ru ? d.book.ru.split(' — ')[0] : d.book.en} ${d.perek}`, finished: false, href: '#/rambam' };
+}
+
 /** The rows of the chosen courses, in the order of COURSES. */
 export function myCourses(courses: Course[], choice: CourseChoice, locale: string): CourseRow[] {
   const lang = langOf(locale);
   const today = localToday();
   return courses.map((c) =>
-    c === 'neviim' || c === 'ketuvim' ? tanakh(c, choice, lang, today) : c === 'hemshech' ? hemshech(choice.pace, locale, lang, today) : c === 'lashon' ? lashon() : c === 'koelet' ? koelet() : nigun(locale),
+    c === 'neviim' || c === 'ketuvim' ? tanakh(c, choice, lang, today) : c === 'hemshech' ? hemshech(choice.pace, locale, lang, today) : c === 'lashon' ? lashon() : c === 'koelet' ? koelet() : c === 'rambam' ? rambam(locale, today) : nigun(locale),
   );
 }

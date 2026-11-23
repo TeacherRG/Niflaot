@@ -1,0 +1,534 @@
+[
+ {
+  "id": "transmission-of-the-oral-law",
+  "en": "Transmission of the Oral Law",
+  "ch": 3,
+  "path": null
+ },
+ {
+  "id": "positive-mitzvot",
+  "en": "Positive Mitzvot",
+  "ch": 3,
+  "path": null
+ },
+ {
+  "id": "negative-mitzvot",
+  "en": "Negative Mitzvot",
+  "ch": 3,
+  "path": null
+ },
+ {
+  "id": "overview-of-mishneh-torah-contents",
+  "en": "Overview of Mishneh Torah Contents",
+  "ch": 3,
+  "path": null
+ },
+ {
+  "id": "foundations-of-the-torah",
+  "en": "Foundations of the Torah",
+  "ch": 10,
+  "path": "Sefer Madda/Mishneh Torah, Foundations of the Torah"
+ },
+ {
+  "id": "human-dispositions",
+  "en": "Human Dispositions",
+  "ch": 7,
+  "path": "Sefer Madda/Mishneh Torah, Human Dispositions"
+ },
+ {
+  "id": "torah-study",
+  "en": "Torah Study",
+  "ch": 7,
+  "path": "Sefer Madda/Mishneh Torah, Torah Study"
+ },
+ {
+  "id": "foreign-worship-and-customs-of-the-nations",
+  "en": "Foreign Worship and Customs of the Nations",
+  "ch": 12,
+  "path": "Sefer Madda/Mishneh Torah, Foreign Worship and Customs of the Nations"
+ },
+ {
+  "id": "repentance",
+  "en": "Repentance",
+  "ch": 10,
+  "path": "Sefer Madda/Mishneh Torah, Repentance"
+ },
+ {
+  "id": "reading-the-shema",
+  "en": "Reading the Shema",
+  "ch": 4,
+  "path": "Sefer Ahavah/Mishneh Torah, Reading the Shema"
+ },
+ {
+  "id": "prayer-and-the-priestly-blessing",
+  "en": "Prayer and the Priestly Blessing",
+  "ch": 15,
+  "path": "Sefer Ahavah/Mishneh Torah, Prayer and the Priestly Blessing"
+ },
+ {
+  "id": "tefillin-mezuzah-and-the-torah-scroll",
+  "en": "Tefillin, Mezuzah and the Torah Scroll",
+  "ch": 10,
+  "path": "Sefer Ahavah/Mishneh Torah, Tefillin, Mezuzah and the Torah Scroll"
+ },
+ {
+  "id": "fringes",
+  "en": "Fringes",
+  "ch": 3,
+  "path": "Sefer Ahavah/Mishneh Torah, Fringes"
+ },
+ {
+  "id": "blessings",
+  "en": "Blessings",
+  "ch": 11,
+  "path": "Sefer Ahavah/Mishneh Torah, Blessings"
+ },
+ {
+  "id": "circumcision",
+  "en": "Circumcision",
+  "ch": 3,
+  "path": "Sefer Ahavah/Mishneh Torah, Circumcision"
+ },
+ {
+  "id": "the-order-of-prayer",
+  "en": "The Order of Prayer",
+  "ch": 4,
+  "path": "Sefer Ahavah/Mishneh Torah, The Order of Prayer"
+ },
+ {
+  "id": "sabbath",
+  "en": "Sabbath",
+  "ch": 30,
+  "path": "Sefer Zemanim/Mishneh Torah, Sabbath"
+ },
+ {
+  "id": "eruvin",
+  "en": "Eruvin",
+  "ch": 8,
+  "path": "Sefer Zemanim/Mishneh Torah, Eruvin"
+ },
+ {
+  "id": "rest-on-the-tenth-of-tishrei",
+  "en": "Rest on the Tenth of Tishrei",
+  "ch": 3,
+  "path": "Sefer Zemanim/Mishneh Torah, Rest on the Tenth of Tishrei"
+ },
+ {
+  "id": "rest-on-a-holiday",
+  "en": "Rest on a Holiday",
+  "ch": 8,
+  "path": "Sefer Zemanim/Mishneh Torah, Rest on a Holiday"
+ },
+ {
+  "id": "leavened-and-unleavened-bread",
+  "en": "Leavened and Unleavened Bread",
+  "ch": 9,
+  "path": "Sefer Zemanim/Mishneh Torah, Leavened and Unleavened Bread"
+ },
+ {
+  "id": "shofar-sukkah-and-lulav",
+  "en": "Shofar, Sukkah and Lulav",
+  "ch": 8,
+  "path": "Sefer Zemanim/Mishneh Torah, Shofar, Sukkah and Lulav"
+ },
+ {
+  "id": "sheqel-dues",
+  "en": "Sheqel Dues",
+  "ch": 4,
+  "path": "Sefer Zemanim/Mishneh Torah, Sheqel Dues"
+ },
+ {
+  "id": "sanctification-of-the-new-month",
+  "en": "Sanctification of the New Month",
+  "ch": 19,
+  "path": "Sefer Zemanim/Mishneh Torah, Sanctification of the New Month"
+ },
+ {
+  "id": "fasts",
+  "en": "Fasts",
+  "ch": 5,
+  "path": "Sefer Zemanim/Mishneh Torah, Fasts"
+ },
+ {
+  "id": "scroll-of-esther-and-hanukkah",
+  "en": "Scroll of Esther and Hanukkah",
+  "ch": 4,
+  "path": "Sefer Zemanim/Mishneh Torah, Scroll of Esther and Hanukkah"
+ },
+ {
+  "id": "marriage",
+  "en": "Marriage",
+  "ch": 25,
+  "path": "Sefer Nashim/Mishneh Torah, Marriage"
+ },
+ {
+  "id": "divorce",
+  "en": "Divorce",
+  "ch": 13,
+  "path": "Sefer Nashim/Mishneh Torah, Divorce"
+ },
+ {
+  "id": "levirate-marriage-and-release",
+  "en": "Levirate Marriage and Release",
+  "ch": 8,
+  "path": "Sefer Nashim/Mishneh Torah, Levirate Marriage and Release"
+ },
+ {
+  "id": "virgin-maiden",
+  "en": "Virgin Maiden",
+  "ch": 3,
+  "path": "Sefer Nashim/Mishneh Torah, Virgin Maiden"
+ },
+ {
+  "id": "woman-suspected-of-infidelity",
+  "en": "Woman Suspected of Infidelity",
+  "ch": 4,
+  "path": "Sefer Nashim/Mishneh Torah, Woman Suspected of Infidelity"
+ },
+ {
+  "id": "forbidden-intercourse",
+  "en": "Forbidden Intercourse",
+  "ch": 22,
+  "path": "Sefer Kedushah/Mishneh Torah, Forbidden Intercourse"
+ },
+ {
+  "id": "forbidden-foods",
+  "en": "Forbidden Foods",
+  "ch": 17,
+  "path": "Sefer Kedushah/Mishneh Torah, Forbidden Foods",
+  "he": "הלכות מאכלות אסורות",
+  "ru": "Маахалот асурот — запрещённая пища"
+ },
+ {
+  "id": "ritual-slaughter",
+  "en": "Ritual Slaughter",
+  "ch": 14,
+  "path": "Sefer Kedushah/Mishneh Torah, Ritual Slaughter",
+  "he": "הלכות שחיטה",
+  "ru": "Шхита — убой скота"
+ },
+ {
+  "id": "oaths",
+  "en": "Oaths",
+  "ch": 12,
+  "path": "Sefer Haflaah/Mishneh Torah, Oaths"
+ },
+ {
+  "id": "vows",
+  "en": "Vows",
+  "ch": 13,
+  "path": "Sefer Haflaah/Mishneh Torah, Vows"
+ },
+ {
+  "id": "nazariteship",
+  "en": "Nazariteship",
+  "ch": 10,
+  "path": "Sefer Haflaah/Mishneh Torah, Nazariteship"
+ },
+ {
+  "id": "appraisals-and-devoted-property",
+  "en": "Appraisals and Devoted Property",
+  "ch": 8,
+  "path": "Sefer Haflaah/Mishneh Torah, Appraisals and Devoted Property"
+ },
+ {
+  "id": "diverse-species",
+  "en": "Diverse Species",
+  "ch": 10,
+  "path": "Sefer Zeraim/Mishneh Torah, Diverse Species"
+ },
+ {
+  "id": "gifts-to-the-poor",
+  "en": "Gifts to the Poor",
+  "ch": 10,
+  "path": "Sefer Zeraim/Mishneh Torah, Gifts to the Poor"
+ },
+ {
+  "id": "heave-offerings",
+  "en": "Heave Offerings",
+  "ch": 15,
+  "path": "Sefer Zeraim/Mishneh Torah, Heave Offerings"
+ },
+ {
+  "id": "tithes",
+  "en": "Tithes",
+  "ch": 14,
+  "path": "Sefer Zeraim/Mishneh Torah, Tithes"
+ },
+ {
+  "id": "second-tithes-and-fourth-year-s-fruit",
+  "en": "Second Tithes and Fourth Year's Fruit",
+  "ch": 11,
+  "path": "Sefer Zeraim/Mishneh Torah, Second Tithes and Fourth Year's Fruit"
+ },
+ {
+  "id": "first-fruits-and-other-gifts-to-priests-outside-the-sanctuary",
+  "en": "First Fruits and other Gifts to Priests Outside the Sanctuary",
+  "ch": 12,
+  "path": "Sefer Zeraim/Mishneh Torah, First Fruits and other Gifts to Priests Outside the Sanctuary"
+ },
+ {
+  "id": "sabbatical-year-and-the-jubilee",
+  "en": "Sabbatical Year and the Jubilee",
+  "ch": 13,
+  "path": "Sefer Zeraim/Mishneh Torah, Sabbatical Year and the Jubilee"
+ },
+ {
+  "id": "the-chosen-temple",
+  "en": "The Chosen Temple",
+  "ch": 8,
+  "path": "Sefer Avodah/Mishneh Torah, The Chosen Temple"
+ },
+ {
+  "id": "vessels-of-the-sanctuary-and-those-who-serve-therein",
+  "en": "Vessels of the Sanctuary and Those who Serve Therein",
+  "ch": 10,
+  "path": "Sefer Avodah/Mishneh Torah, Vessels of the Sanctuary and Those Who Serve Therein"
+ },
+ {
+  "id": "admission-into-the-sanctuary",
+  "en": "Admission into the Sanctuary",
+  "ch": 9,
+  "path": "Sefer Avodah/Mishneh Torah, Admission into the Sanctuary"
+ },
+ {
+  "id": "things-forbidden-on-the-altar",
+  "en": "Things Forbidden on the Altar",
+  "ch": 7,
+  "path": "Sefer Avodah/Mishneh Torah, Things Forbidden on the Altar"
+ },
+ {
+  "id": "sacrificial-procedure",
+  "en": "Sacrificial Procedure",
+  "ch": 19,
+  "path": "Sefer Avodah/Mishneh Torah, Sacrificial Procedure"
+ },
+ {
+  "id": "daily-offerings-and-additional-offerings",
+  "en": "Daily Offerings and Additional Offerings",
+  "ch": 10,
+  "path": "Sefer Avodah/Mishneh Torah, Daily Offerings and Additional Offerings"
+ },
+ {
+  "id": "sacrifices-rendered-unfit",
+  "en": "Sacrifices Rendered Unfit",
+  "ch": 19,
+  "path": "Sefer Avodah/Mishneh Torah, Sacrifices Rendered Unfit"
+ },
+ {
+  "id": "service-on-the-day-of-atonement",
+  "en": "Service on the Day of Atonement",
+  "ch": 5,
+  "path": "Sefer Avodah/Mishneh Torah, Service on the Day of Atonement"
+ },
+ {
+  "id": "trespass",
+  "en": "Trespass",
+  "ch": 8,
+  "path": "Sefer Avodah/Mishneh Torah, Trespass"
+ },
+ {
+  "id": "paschal-offering",
+  "en": "Paschal Offering",
+  "ch": 10,
+  "path": "Sefer Korbanot/Mishneh Torah, Paschal Offering"
+ },
+ {
+  "id": "festival-offering",
+  "en": "Festival Offering",
+  "ch": 3,
+  "path": "Sefer Korbanot/Mishneh Torah, Festival Offering"
+ },
+ {
+  "id": "firstlings",
+  "en": "Firstlings",
+  "ch": 8,
+  "path": "Sefer Korbanot/Mishneh Torah, Firstlings"
+ },
+ {
+  "id": "offerings-for-unintentional-transgressions",
+  "en": "Offerings for Unintentional Transgressions",
+  "ch": 15,
+  "path": "Sefer Korbanot/Mishneh Torah, Offerings for Unintentional Transgressions"
+ },
+ {
+  "id": "offerings-for-those-with-incomplete-atonement",
+  "en": "Offerings for Those with Incomplete Atonement",
+  "ch": 5,
+  "path": "Sefer Korbanot/Mishneh Torah, Offerings for Those with Incomplete Atonement"
+ },
+ {
+  "id": "substitution",
+  "en": "Substitution",
+  "ch": 4,
+  "path": "Sefer Korbanot/Mishneh Torah, Substitution"
+ },
+ {
+  "id": "defilement-by-a-corpse",
+  "en": "Defilement by a Corpse",
+  "ch": 25,
+  "path": "Sefer Taharah/Mishneh Torah, Defilement by a Corpse"
+ },
+ {
+  "id": "red-heifer",
+  "en": "Red Heifer",
+  "ch": 15,
+  "path": "Sefer Taharah/Mishneh Torah, Red Heifer"
+ },
+ {
+  "id": "defilement-by-leprosy",
+  "en": "Defilement by Leprosy",
+  "ch": 16,
+  "path": "Sefer Taharah/Mishneh Torah, Defilement by Leprosy"
+ },
+ {
+  "id": "those-who-defile-bed-or-seat",
+  "en": "Those Who Defile Bed or Seat",
+  "ch": 13,
+  "path": "Sefer Taharah/Mishneh Torah, Those Who Defile Bed or Seat"
+ },
+ {
+  "id": "other-sources-of-defilement",
+  "en": "Other Sources of Defilement",
+  "ch": 20,
+  "path": "Sefer Taharah/Mishneh Torah, Other Sources of Defilement"
+ },
+ {
+  "id": "defilement-of-foods",
+  "en": "Defilement of Foods",
+  "ch": 16,
+  "path": "Sefer Taharah/Mishneh Torah, Defilement of Foods"
+ },
+ {
+  "id": "vessels",
+  "en": "Vessels",
+  "ch": 28,
+  "path": "Sefer Taharah/Mishneh Torah, Vessels"
+ },
+ {
+  "id": "immersion-pools",
+  "en": "Immersion Pools",
+  "ch": 11,
+  "path": "Sefer Taharah/Mishneh Torah, Immersion Pools"
+ },
+ {
+  "id": "damages-to-property",
+  "en": "Damages to Property",
+  "ch": 14,
+  "path": "Sefer Nezikim/Mishneh Torah, Damages to Property"
+ },
+ {
+  "id": "theft",
+  "en": "Theft",
+  "ch": 9,
+  "path": "Sefer Nezikim/Mishneh Torah, Theft"
+ },
+ {
+  "id": "robbery-and-lost-property",
+  "en": "Robbery and Lost Property",
+  "ch": 18,
+  "path": "Sefer Nezikim/Mishneh Torah, Robbery and Lost Property"
+ },
+ {
+  "id": "one-who-injures-a-person-or-property",
+  "en": "One Who Injures a Person or Property",
+  "ch": 8,
+  "path": "Sefer Nezikim/Mishneh Torah, One Who Injures a Person or Property"
+ },
+ {
+  "id": "murderer-and-the-preservation-of-life",
+  "en": "Murderer and the Preservation of Life",
+  "ch": 13,
+  "path": "Sefer Nezikim/Mishneh Torah, Murderer and the Preservation of Life"
+ },
+ {
+  "id": "sales",
+  "en": "Sales",
+  "ch": 30,
+  "path": "Sefer Kinyan/Mishneh Torah, Sales"
+ },
+ {
+  "id": "ownerless-property-and-gifts",
+  "en": "Ownerless Property and Gifts",
+  "ch": 12,
+  "path": "Sefer Kinyan/Mishneh Torah, Ownerless Property and Gifts"
+ },
+ {
+  "id": "neighbors",
+  "en": "Neighbors",
+  "ch": 14,
+  "path": "Sefer Kinyan/Mishneh Torah, Neighbors"
+ },
+ {
+  "id": "agents-and-partners",
+  "en": "Agents and Partners",
+  "ch": 10,
+  "path": "Sefer Kinyan/Mishneh Torah, Agents and Partners"
+ },
+ {
+  "id": "slaves",
+  "en": "Slaves",
+  "ch": 9,
+  "path": "Sefer Kinyan/Mishneh Torah, Slaves"
+ },
+ {
+  "id": "hiring",
+  "en": "Hiring",
+  "ch": 13,
+  "path": "Sefer Mishpatim/Mishneh Torah, Hiring"
+ },
+ {
+  "id": "borrowing-and-deposit",
+  "en": "Borrowing and Deposit",
+  "ch": 8,
+  "path": "Sefer Mishpatim/Mishneh Torah, Borrowing and Deposit"
+ },
+ {
+  "id": "creditor-and-debtor",
+  "en": "Creditor and Debtor",
+  "ch": 27,
+  "path": "Sefer Mishpatim/Mishneh Torah, Creditor and Debtor"
+ },
+ {
+  "id": "plaintiff-and-defendant",
+  "en": "Plaintiff and Defendant",
+  "ch": 16,
+  "path": "Sefer Mishpatim/Mishneh Torah, Plaintiff and Defendant"
+ },
+ {
+  "id": "inheritances",
+  "en": "Inheritances",
+  "ch": 11,
+  "path": "Sefer Mishpatim/Mishneh Torah, Inheritances"
+ },
+ {
+  "id": "the-sanhedrin-and-the-penalties-within-their-jurisdiction",
+  "en": "The Sanhedrin and the Penalties within their Jurisdiction",
+  "ch": 26,
+  "path": "Sefer Shoftim/Mishneh Torah, The Sanhedrin and the Penalties within Their Jurisdiction"
+ },
+ {
+  "id": "testimony",
+  "en": "Testimony",
+  "ch": 22,
+  "path": "Sefer Shoftim/Mishneh Torah, Testimony"
+ },
+ {
+  "id": "rebels",
+  "en": "Rebels",
+  "ch": 7,
+  "path": "Sefer Shoftim/Mishneh Torah, Rebels"
+ },
+ {
+  "id": "mourning",
+  "en": "Mourning",
+  "ch": 14,
+  "path": "Sefer Shoftim/Mishneh Torah, Mourning"
+ },
+ {
+  "id": "kings-and-wars",
+  "en": "Kings and Wars",
+  "ch": 12,
+  "path": "Sefer Shoftim/Mishneh Torah, Kings and Wars"
+ }
+]

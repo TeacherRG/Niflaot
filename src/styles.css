@@ -4196,3 +4196,51 @@ html:has(.clk2) body{background:#0B1532 url(./assets/clock-bg.webp) center/cover
 .shacharit-menu-list .shacharit-menu-now{color:var(--gold-deep)}
 .shacharit-h{display:flex;flex-direction:row-reverse;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 12px}
 .shacharit-h small{font-family:var(--f-body);font-size:.62em;font-weight:500;color:var(--muted)}
+
+/* «Мишне Тора — глава в день» (RambamPage.tsx): слайды объяснения слева, текст Рамбама справа; телефон вертикально — слайд над текстом */
+.rm .rm-head h1{margin-bottom:2px}
+.rm-he{margin:0 0 6px;font-size:20px;color:var(--ink-2)}
+.rm-rotate{display:none;margin:0 0 10px;padding:8px 12px;border-radius:10px;background:var(--tchelet-soft);color:var(--tchelet-deep);font-size:14px}
+@media (max-width:640px) and (orientation:portrait){.rm-rotate{display:block}}
+.rm-split{display:grid;gap:14px}
+.rm-slides{position:sticky;top:60px;z-index:2;background:var(--bg,var(--paper));padding-bottom:6px}
+.rm-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:12px;border:1px solid var(--line);background:#fff}
+.rm-track::-webkit-scrollbar{display:none}
+.rm-slide{flex:0 0 100%;margin:0;scroll-snap-align:start}
+.rm-slide img{display:block;width:100%;height:auto}
+.rm-ctl{display:flex;align-items:center;gap:8px;margin-top:6px}
+.rm-cap{flex:1;text-align:center;font-size:13.5px;color:var(--muted)}
+.rm-cap b{color:var(--ink)}
+.rm-arrow,.rm-full{display:grid;place-items:center;min-width:40px;height:36px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--tchelet);font-size:22px;line-height:1;text-decoration:none;cursor:pointer}
+.rm-full{font-size:18px}
+.rm-arrow:disabled{opacity:.35;cursor:default}
+.rm-text{min-width:0}
+.rm-tools{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 14px;margin-bottom:8px;font-size:14px;color:var(--muted)}
+.rm-tools label{display:inline-flex;gap:6px;align-items:center;color:var(--ink);cursor:pointer}
+.rm-h{padding:6px 10px;margin:0 -10px;border-radius:10px;transition:background .3s}
+.rm-h.on{background:var(--gold-soft)}
+.rm-h p.he{margin:0;font-size:21px;line-height:1.75;text-align:justify}
+.rm-n{display:inline-grid;place-items:center;min-width:1.7em;height:1.5em;padding:0 .2em;border:1px solid var(--gold);border-radius:8px;background:var(--surface);color:var(--gold-deep);font:inherit;font-size:.8em;font-weight:700;cursor:pointer;vertical-align:.1em}
+.rm-n:hover{background:var(--gold-soft)}
+.rm-w{cursor:pointer;border-radius:4px}
+.rm-w:hover{background:var(--tchelet-soft)}
+.rm-en{margin:4px 0 6px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.rm-credit{margin:16px 0 0;font-size:12.5px;color:var(--muted)}
+.rm-done{display:flex;justify-content:center;gap:10px;align-items:center;font-size:17px;font-weight:700;cursor:pointer}
+.rm-done input{width:22px;height:22px;accent-color:var(--tchelet)}
+/* рядом: компьютер или телефон боком — каждая половина со своей прокруткой */
+@media (min-width:900px),(orientation:landscape) and (min-width:560px){
+  .rm .wrap,.wrap.rm{max-width:1400px}
+  .rm-split:not(.solo){grid-template-columns:minmax(0,1fr) minmax(0,1fr);height:calc(100svh - 70px);align-items:start}
+  .rm-split:not(.solo) .rm-slides{position:static;align-self:start}
+  .rm-split:not(.solo) .rm-text{height:100%;overflow-y:auto;overscroll-behavior:contain;padding:0 12px 0 4px}
+}
+/* телефон боком: экран низкий — шапка короче */
+@media (orientation:landscape) and (max-height:500px){
+  .rm .tk-dates{margin-bottom:6px}
+  .rm .tk-kicker,.rm .add-course{display:none}
+  .rm .rm-head h1{font-size:20px}
+  .rm-he{font-size:16px}
+  .rm-split:not(.solo){height:calc(100svh - 58px)}
+  .rm-h p.he{font-size:18px}
+}

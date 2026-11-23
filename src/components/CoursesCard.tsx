@@ -6,7 +6,7 @@ import type { CourseRow } from '../core/myCourses';
 
 /** the bar: of the book being read (the Prophets, the Writings — a book is a step one sees), else of the whole course */
 /** where to look at a course before adding it */
-const COURSE_HREF = { neviim: '#/neviim', ketuvim: '#/ketuvim', hemshech: '#/hemshech', lashon: '#/lashon', nigun: '#/nigun', koelet: '#/koelet' } as const;
+const COURSE_HREF = { neviim: '#/neviim', ketuvim: '#/ketuvim', hemshech: '#/hemshech', rambam: '#/rambam', lashon: '#/lashon', nigun: '#/nigun', koelet: '#/koelet' } as const;
 
 const pct = (r: CourseRow) => (r.book ? Math.round((r.book.done / r.book.parts) * 100) : r.total ? Math.round((r.done / r.total) * 100) : 0);
 
@@ -35,7 +35,7 @@ export function CoursesCard({ simple = false }: { simple?: boolean }) {
 
   const sub = (r: CourseRow) => {
     if (r.starts) return t('courses.starts', { date: r.starts });
-    if (r.id === 'neviim' || r.id === 'ketuvim' || r.id === 'hemshech') return r.finished ? `✓ ${r.next}` : `${t('courses.next')}: ${r.next}`;
+    if (r.id === 'neviim' || r.id === 'ketuvim' || r.id === 'hemshech' || r.id === 'rambam') return r.finished ? `✓ ${r.next}` : `${t('courses.next')}: ${r.next}`;
     if (r.id === 'lashon') return t('courses.lashonSub', { n: r.next ?? 0, xp: r.xp ?? 0, goal: r.goal ?? 0 });
     if (r.id === 'koelet') return r.finished ? t('courses.koeletAll') : r.done ? t('courses.koeletSub', { n: r.done, total: r.total }) : t('courses.koeletStart');
     return r.finished ? t('courses.nigunAll') : `${t('courses.next')}: ${r.next}`;

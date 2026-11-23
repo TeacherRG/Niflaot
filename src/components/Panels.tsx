@@ -15,6 +15,13 @@ import { AboutBody } from './AboutBody';
 import { canInstall, install, subscribeInstall } from '../core/install';
 import { useToday } from '../core/useToday';
 import { isAdmin } from '../admin/github';
+import { todayChapter } from '../core/rambam';
+
+/** «Маахалот асурот 13» — today's chapter of the Rambam cycle, the menu line under «Мишне Тора» */
+const rambamToday = (locale: string) => {
+  const d = todayChapter();
+  return `${locale === 'ru' && d.book.ru ? d.book.ru.split(' — ')[0] : d.book.en} ${d.perek}`;
+};
 
 /** Gematria step by step, sources and FAQ (with all the primary sources) load when «Как играть» opens. */
 const HelperContent = lazy(() => import('./Helper').then((m) => ({ default: m.HelperContent })));
@@ -302,6 +309,9 @@ export function Panels() {
               {link('#/atlas/timeline', num('ז', true), t('atlas.timeline'), t('atlas.timelineSub'))}
               {link('#/atlas/3d', num('ש', true), t('sno.menu'), t('sno.menuSub'))}
             </>
+          ))}
+          {group(<Icon name="book" />, t('menu.halacha'), t('menu.halachaSub'), starts('#/rambam'), (
+            <>{link('#/rambam', num('ר', true), t('rm.menu'), rambamToday(locale))}</>
           ))}
           {group(<Icon name="chat" />, t('academy.fac.lashon'), t('menu.lashonSub'), starts('#/lashon', '#/pics', '#/torah-words', '#/words', '#/letters', '#/english', '#/russian', '#/german'), (
             <>

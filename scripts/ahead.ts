@@ -9,6 +9,7 @@ import cycleJson from '../src/tanakh/cycle.json';
 import retell from '../src/tanakh/retell.json';
 import { allPassages, passageDate } from '../src/core/hemshech';
 import { LESSONS, PARSHIOT } from '../src/lessons';
+import { rambamAhead } from './check-rambam';
 
 /** две недели — 12 учебных дней (вс–пт) */
 const TARGET = 12;
@@ -109,6 +110,18 @@ for (const [name, pick] of [
   const ok = days >= 7;
   if (!ok) behind++;
   out.push(`  ${ok ? '✓' : '⚠'} Уроки главы — ${name}: последний — к Шабату ${last} (${days >= 0 ? `через ${days} дн.` : 'уже прошёл'})${ok ? '' : '  → нужен урок следующей главы'}`);
+}
+// «Мишне Тора» — глава в день, каждый день (и в Шабат): 14 календарных дней
+const rm = rambamAhead(today);
+for (const [name, until, how] of [
+  ['Мишне Тора — текст глав', rm.text, 'fetch-rambam.py text <с> <по>'],
+  ['Мишне Тора — перевод слов', rm.words, 'src/rambam/words/ru-*.txt → fetch-rambam.py words (что нет — todo <до-даты>)'],
+  ['Мишне Тора — слайды (присылает владелец)', rm.slides, 'fetch-rambam.py slides <глава> <pdf>, разметить галахот'],
+] as const) {
+  const n = until === '—' ? 0 : Math.round((Date.parse(until) - Date.parse(today)) / 864e5);
+  const ok = n >= 13;
+  if (!ok) behind++;
+  out.push(`  ${ok ? '✓' : '⚠'} ${name}: до ${until} — ${n} дн. вперёд${ok ? '' : `  → готовить: ${how}`}`);
 }
 if (lastShabbat < today) out.push(`  ⚠ В src/lessons/parshiot.ts нет главы этой недели — добавить следующую.`);
 out.push(behind ? `Отстаёт: ${behind}. Скажи владельцу и предложи подготовить (сначала то, что кончается раньше).` : 'Всё готово на 2 недели вперёд.');
