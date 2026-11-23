@@ -64,8 +64,8 @@ export interface Slide {
   title: string;
   text: string;
 }
-/** {word key: [translation, base form?]} */
-export type RambamDict = Record<string, [string, string?]>;
+/** {word key: [translation, base form?, id in the Tanakh dictionary («Мои слова»)?]} */
+export type RambamDict = Record<string, [string, string?, string?]>;
 
 const loads = new Map<string, Promise<unknown>>();
 function load<T>(path: string): Promise<T | null> {
@@ -73,7 +73,8 @@ function load<T>(path: string): Promise<T | null> {
     loads.set(
       path,
       fetch(root() + path).then(
-        (r) => (r.ok ? r.json() : null),
+        // not ready — 404 (the dev server answers index.html: not JSON — the same)
+        (r) => (r.ok ? r.json().catch(() => null) : null),
         () => (loads.delete(path), null),
       ),
     );
@@ -91,7 +92,8 @@ export const slideSrc = (id: string, img: string) => `${SLIDES_URL}${id}/${img}`
 
 /** a word of the text → its key in the dictionary (as `key` in scripts/fetch-rambam.py) */
 export function wordKey(w: string) {
-  const k = w.replace(/[֑-ׇ]/g, '').replace(/[^א-ת״׳]/g, '');
+  // ״ at the edges — quotation marks of a verse; inside — an abbreviation (עכו״ם)
+  const k = w.replace(/[֑-ׇ]/g, '').replace(/[^א-ת״׳]/g, '').replace(/^״+|״+$/g, '');
   return /[א-ת]׳$/.test(k) ? k : k.replace(/^׳+|׳+$/g, '');
 }
 

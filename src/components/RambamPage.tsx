@@ -9,6 +9,7 @@ import { civilDate, jewishDate } from '../core/hebrewDate';
 import { localToday } from '../core/tanakh';
 import { readHebrew, type ReadLang } from '../core/translit';
 import { setOtherPage } from '../core/assistant';
+import { boxOf, KNOWN_BOX, markKnown, markLearn, unmark, useWordStore } from '../core/words';
 import {
   addDays,
   chapterOn,
@@ -276,6 +277,28 @@ function Words({ text }: { text: string }) {
   );
 }
 
+/** the word is in the Tanakh dictionary: «Учу» / «Знаю» put it into «Мои слова» (as the window over a word of the Prophets) */
+function TanakhButtons({ id }: { id: string }) {
+  const { t } = useI18n();
+  const store = useWordStore();
+  const box = boxOf(store, id);
+  const known = box >= KNOWN_BOX;
+  const learning = box > 0 && !known;
+  return (
+    <>
+      <p className="wp-meta">{t('rm.inTanakh')}</p>
+      <p className="wp-btns tk-w-btns">
+        <button type="button" className="tk-w-learn" aria-pressed={learning} onClick={() => (learning ? unmark(id) : markLearn(id))}>
+          {learning ? `● ${t('words.learn')}` : t('words.learn')}
+        </button>
+        <button type="button" className="tk-w-know" aria-pressed={known} onClick={() => (known ? unmark(id) : markKnown(id))}>
+          {known ? `✓ ${t('words.know')}` : t('words.know')}
+        </button>
+      </p>
+    </>
+  );
+}
+
 interface Open {
   word: string;
   x: number;
@@ -342,6 +365,7 @@ function RambamWord({ dict, box }: { dict: RambamDict | null; box: React.RefObje
         ) : (
           <p className="wp-meta">{dict ? t('rm.noWord') : t('rm.loading')}</p>
         )}
+        {entry?.[2] && <TanakhButtons id={entry[2]} />}
         <p className="wp-meta">{t('rm.wordCredit')}</p>
       </div>
     </div>,

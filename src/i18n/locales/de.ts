@@ -271,6 +271,7 @@ const de: Messages = {
   'rm.onlyRu': "Die Wörter sind vorerst nur auf Russisch übersetzt.",
   'rm.noWord': "Für dieses Wort gibt es noch keine Übersetzung.",
   'rm.wordCredit': "Übersetzung des Projekts — nach dem Sinn in dieser Halacha.",
+  'rm.inTanakh': "Dieses Wort steht im Tanach-Wörterbuch — zu „Meine Wörter“ hinzufügen:",
   'courses.rambam': "Mischne Tora",
   'courses.rambam.sub': "der Rambam, ein Kapitel am Tag — Text und Folien mit Erklärung",
   'courses.lashon': "Heilige Sprache",
