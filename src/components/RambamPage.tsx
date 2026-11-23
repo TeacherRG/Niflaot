@@ -166,17 +166,6 @@ export function RambamPage({ date: asked }: { date?: string }) {
     };
   }, [slides, goSlide]);
 
-  // the installed app is held upright (manifest «portrait»); here it may turn — the text and the slides side by side
-  useEffect(() => {
-    const o = (screen as Screen & { orientation?: ScreenOrientation & { lock?: (o: string) => Promise<void> } }).orientation;
-    o?.lock?.('any').catch(() => {});
-    return () => {
-      try {
-        o?.unlock?.();
-      } catch {}
-    };
-  }, []);
-
   const isDone = (done[day.id] ?? 0) > 0;
   const bar = (
     <nav className="tk-dates no-print" aria-label={t('rm.nav')}>
