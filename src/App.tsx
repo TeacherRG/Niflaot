@@ -1,3 +1,4 @@
+import { isPrayer } from './core/siddur';
 import { Suspense, lazy, useEffect, useMemo, useState, type ComponentType } from 'react';
 import { PARSHIOT, cardsOnly, findLesson, type ParshaId } from './lessons';
 import { TURIM_DAYS, hasDaily, seriesOf, turimDayFor, type DailySeries } from './core/turimDaily';
@@ -41,6 +42,7 @@ const CardsPage = page(() => import('./components/CardsPage'), 'CardsPage');
 const ReadPage = page(() => import('./components/ReadPage'), 'ReadPage');
 const TurimDailyPage = page(() => import('./components/TurimDailyPage'), 'TurimDailyPage');
 const FactsPage = page(() => import('./components/FactsPage'), 'FactsPage');
+const DailyPage = page(() => import('./components/DailyPage'), 'DailyPage');
 const PartnersPage = page(() => import('./components/PartnersPage'), 'PartnersPage');
 const TeacherPage = page(() => import('./components/TeacherPage'), 'TeacherPage');
 const AccountPage = page(() => import('./components/AccountPage'), 'AccountPage');
@@ -67,6 +69,7 @@ const PicWordsPage = page(() => import('./components/PicWordsPage'), 'PicWordsPa
 const EnglishCoursePage = page(() => import('./components/EnglishCoursePage'), 'EnglishCoursePage');
 const LashonPage = page(() => import('./components/LashonPage'), 'LashonPage');
 const ReadingPage = page(() => import('./components/ReadingPage'), 'ReadingPage');
+const ShacharitPage = page(() => import('./components/ShacharitPage'), 'ShacharitPage');
 const ShnayimPage = page(() => import('./components/ShnayimPage'), 'ShnayimPage');
 const TanakhQuizPage = page(() => import('./components/TanakhQuizPage'), 'TanakhQuizPage');
 const HemshechPage = page(() => import('./components/HemshechPage'), 'HemshechPage');
@@ -87,10 +90,10 @@ const SIGNATURE = `\n\n${SITE_HOST}\n©mychitas.app`;
 /**
  * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version,
  * `#/<lesson-slug>/memo` — the lesson's Memo game, `#/<lesson-slug>/read` — the lesson to read with ready answers (`/read/<n>`, `/memo/<n>`, `/r/<n>` — opened at riddle or Memo pair n), `#/<lesson-slug>/cards` — the «Карточки» of a «Нифлаот Ребе» lesson, `#/rebbe/<parsha>` — «Нифлаот Ребе» of a portion, `#/partners` — «Партнёры», `#/teacher` — «Учитель» (ИИ или человек), `#/account` — аккаунт (гость / вход по коду / профиль, классы), `#/admin/leaders[/<class>]` — таблица лидеров (только в админке), `#/class/<id>` — класс для учителя, `#/consent/<token>` — согласие родителя, `#/privacy` — конфиденциальность, `#/terms` — правила использования, `#/facts` — «Знаете ли вы?», the equalities of all lessons (`#/facts/<id>` — opened at one of them), `#/<lesson-slug>/print/memo` — the Memo on paper, `#/<lesson-slug>/print/cards` — the «Карточки» on paper, `#/letters` — «Буквы за 5 минут», `#/neviim[/<date>]`, `#/ketuvim[/<date>]` — «Пророки», «Писания»: отрывок дня трёхлетнего цикла (`/<date>/quiz`, `/quiz` — «Вопросы к отрывку»), `#/academy[/<id>]` — «Академия»: сертификаты за книги, `#/words` — «Мои слова»: слова Танаха с повторением, `#/torah-words[/<глава>]` — «Слова Торы»: детская игра со словами уроков, `#/lashon` — «Святой язык — уроки»: курс иврита по шагам (буквы и слова), `#/pics` — «Слово — картинка»: четыре картинки и слово на иврите, `#/english`, `#/russian`, `#/german` — «אנגלית / רוסית / גרמנית דרך התנ״ך»: английский, русский и немецкий для ивритоязычных (страница на иврите, без входа), `#/mode` — «Кто будет учиться?» (режим сайта; без выбора — вместо главной), `#/quiz` — «Викторина вместе» (`#/quiz/<код>` — игрок, `#/quiz/host/<код>` — ведущий), `#/shabbat-table[/<глава>]` — «К шабатнему столу»: лист главы для печати, `#/digest[/<воскресенье>]` — «Неделя в Академии»: Пророки, Писания, Хасидут и нигун недели короткими цитатами, `#/nigun[/<id>]` — «Святая музыка»: нигуны и караоке, `#/koelet` — «Тайна Коэлета»: квест по книге Коэлет (koelet/, в iframe), `#/turim` — «Бааль ґа-Турим на каждый день»: два комментария урока главы в день, вс–пт (`#/<lesson-slug>/day[/<1–6>]` — день N), `#/search[?q=…]` — «Поиск по Пророкам и Писаниям», `#/zip` — «Zip — стих Торы»: путь через все клетки по словам стиха с комментарием Бааль ґа-Турима, `#/patches` — «Лоскуты гематрии»: поле из прямоугольников, буква — число клеток, `#/coins` — «Pelecoin»: игровые монеты за учёбу и общая копилка цдаки, `#/clock` — «Часы»: времена Шма, молитвы и Минхи и будильник, `#/reading[/<глава>]` — «Святое чтение»: проворное чтение Теґилим.
- * `#/daily` — «Знаете ли вы?» opened on «Гематрия дня», its first card; `#/math/<op>` — «Устный счёт».
+ * `#/daily` — standalone «Гематрия дня» puzzle; `#/facts` — the separate «Знаете ли вы?» feed; `#/math/<op>` — «Устный счёт».
  * Works on any static host. Without a hash, `/<lesson-slug>/` (the static page for search engines,
  * written by scripts/prerender.ts) opens that lesson; `/mental-math/` and `/daily/` (also under `/en/`, `/de/`) — those pages.
- * `#/reading` opens the Tehillim portion for today's Hebrew date; `#/reading/day/<day>` selects another date, `#/reading/<chapter>` opens one chapter, `#/reading/week[/<1–7>]` — Tehillim of the day of the week, `#/reading/mine` — «Мои главы» (chapters with names, this browser only), `#/reading/haazinu` opens Deuteronomy 32 («Песнь Аазину»), and `#/reading/shnayim[/<1–7>]` — «Шнаим микра ве-эхад таргум»: today's portion of the weekly parshah.
+ * `#/reading` opens the Tehillim portion for today's Hebrew date; `#/reading/day/<day>` selects another date, `#/reading/<chapter>` opens one chapter, `#/reading/week[/<1–7>]` — Tehillim of the day of the week, `#/reading/mine` — «Мои главы» (chapters with names, this browser only), `#/reading/haazinu` opens Deuteronomy 32 («Песнь Аазину»), `#/reading/siddur/shacharit` opens the Shacharit siddur PDF, and `#/reading/shnayim[/<1–7>]` — «Шнаим микра ве-эхад таргум»: today's portion of the weekly parshah.
  */
 function readRoute() {
   if (location.hash) return location.hash.replace(/^#\/?/, '').split('?')[0];
@@ -231,8 +234,8 @@ function Site() {
             <TermsPage />
           ) : slug === 'facts' ? (
             <FactsPage at={view || undefined} />
-          ) : slug === 'daily' ? (
-            <FactsPage at="daily" />
+          ) : slug === 'daily' && !view ? (
+            <DailyPage />
           ) : slug === 'letters' ? (
             <LettersPage />
           ) : slug === 'math' && (!view || OPS.includes(view as Op)) ? (
@@ -257,6 +260,8 @@ function Site() {
             <LashonPage />
           ) : slug === 'reading' && view === 'shnayim' ? (
             <ShnayimPage key={route} aliyah={variant || undefined} />
+          ) : slug === 'reading' && view === 'siddur' && isPrayer(variant) ? (
+            <ShacharitPage key={variant} prayer={variant} />
           ) : slug === 'reading' ? (
             <ReadingPage key={route} chapter={view === 'day' ? undefined : view || undefined} day={view === 'day' || view === 'week' ? variant : undefined} />
           ) : slug === 'pics' && !view ? (

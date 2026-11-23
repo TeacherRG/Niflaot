@@ -4,7 +4,7 @@ import { useI18n, uiLang } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { NotFound, PageLoading } from './PageStates';
-import { Icon, Sheet, useDismiss } from './ui';
+import { Sheet } from './ui';
 import { hebrewNumber } from '../core/hebrewDate';
 import { markStudied, todayIso, useHabit } from '../core/habit';
 import { earn } from '../core/coins';
@@ -13,10 +13,10 @@ import { resumeVoice, setVoicePitch } from '../core/voicePitch';
 import { isAdmin } from '../admin/github';
 import { LIVING_SITE, hasLiving, loadLiving, rememberLiving, type Living } from '../core/living';
 import { LivingBeacon, LivingPop } from './LivingPop';
-import { PRONS, TR_MODES, translitToken } from '../core/tehillimTranslit';
+import { ReadingSettings } from './ReadingSettings';
+import { translitToken } from '../core/tehillimTranslit';
 import {
   CHAPTERS,
-  PLAY_MODES,
   chapterAudioTracks,
   currentHebrewDay,
   dailyPortion,
@@ -503,19 +503,26 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           )}
         </header>
 
-        {!haazinu && (
+        {/* меню Теґилим — всегда в левом верхнем углу, настройки чтения — в правом (владелец, 18.11.2026) */}
+        <div className="rd-corner no-print">
+          {!haazinu ? (
+            <button
+              type="button"
+              className="btn ghost rd-menu-open"
+              onClick={() => { setMenuSection('home'); setMenuOpen(true); }}
+              aria-label={t('reading.myTehillim')}
+              title={t('reading.myTehillim')}
+            >
+              ☰<span className="rd-menu-lbl"> {t('reading.myTehillim')}</span>
+            </button>
+          ) : <span />}
+          <ReadingSettings view={view} setV={setV} audio={tracks.length > 0} onBoth={() => setTip(true)} layout />
+        </div>
+
+        {!haazinu && !mine && (
           <>
           <div className="rd-bar no-print">
-          <button
-            type="button"
-            className="btn ghost rd-menu-open"
-            onClick={() => { setMenuSection('home'); setMenuOpen(true); }}
-            aria-label={t('reading.myTehillim')}
-            title={t('reading.myTehillim')}
-          >
-            ☰<span className="rd-menu-lbl"> {t('reading.myTehillim')}</span>
-          </button>
-          {!mine && (
+          {(
           <nav className="rd-nav" aria-label={t(daily ? 'reading.dayPick' : week ? 'reading.weekPick' : 'reading.pick')}>
             <button
               type="button"
@@ -643,7 +650,6 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           )}
         </Sheet>
 
-        <ReadingSettings view={view} setV={setV} audio={tracks.length > 0} onBoth={() => setTip(true)} />
 
         {audio && (
           <audio
@@ -730,7 +736,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
               aria-label={t('reading.stop')}
               title={t('reading.stop')}
             >
-              ■<span className="rd-lbl"> {t('reading.stop')}</span>
+              <span className="rd-stop-sq" aria-hidden="true" /><span className="rd-lbl"> {t('reading.stop')}</span>
             </button>
             <label className="rd-rate" title={t('reading.speed')}>
               <span className="sr-only">{t('reading.speed')}</span>
@@ -758,9 +764,9 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
           <PageLoading />
         ) : (
           <article
-            className={trOn ? `rd-text rd-tr rd-tr-${view.tr}` : 'rd-text he'}
+            className={trOn ? `rd-text rd-tr rd-tr-${view.tr}${view.tr === 'duo' && view.trBig === 'he' ? ' rd-hebig' : ''}` : 'rd-text he'}
             lang={trOn ? locale : 'he'}
-            dir={trOn ? 'ltr' : 'rtl'}
+            dir={trOn ? view.trDir : 'rtl'}
             ref={textRef}
           >
             {sections?.map((section, si) => {
@@ -899,78 +905,6 @@ const src_ = (src: string) => (/^https?:/.test(src) ? src : `${import.meta.env.B
 
 /** «Разметка аудио (для учителя)»: the recording slowly from the start; a press at the start of every word. */
 /** One labelled menu instead of three unlabelled bars: reading help, how to show the text, the look. */
-function ReadingSettings({ view, setV, audio, onBoth }: { view: View; setV: (v: View) => void; audio: boolean; onBoth: () => void }) {
-  const { t } = useI18n();
-  const [open, setOpen] = useState(false);
-  const root = useRef<HTMLDivElement>(null);
-  const close = useCallback(() => setOpen(false), []);
-  useDismiss(open, root, close);
-  const item = (on: boolean, code: string, name: string, desc: string, onClick: () => void, role = 'menuitemradio') => (
-    <button key={name} type="button" role={role} aria-checked={on} onClick={onClick}>
-      <span className="code">{code}</span>
-      <span className="name">
-        {name}
-        <small className="rd-set-d">{desc}</small>
-      </span>
-      {on && <Icon name="check" size={16} />}
-    </button>
-  );
-  return (
-    <div className="tk-view rd-set no-print no-speak" ref={root}>
-      <button type="button" className="lang-btn tk-view-btn" aria-haspopup="true" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
-        <span aria-hidden="true">⚙</span>
-        <span>
-          {t('reading.view')}
-          <small>
-            {' · '}
-            {audio && <>{t(`reading.mode.${view.play}`)} · </>}
-            {t(`reading.tr.${view.tr}`)}
-            {view.tr !== 'he' && <> · {t(`reading.pron.${view.pron}`)}</>}
-          </small>
-        </span>
-        <Icon name="chevron" size={14} />
-      </button>
-      {open && (
-        <div className="lang-list tk-view-list rd-set-list" role="menu" aria-label={t('reading.view')}>
-          {audio && (
-            <>
-              <div className="tk-view-head">{t('reading.help')}</div>
-              {PLAY_MODES.map((m) =>
-                item(view.play === m, m === 'both' ? '♪✦' : m === 'voice' ? '♪' : '✦', t(`reading.mode.${m}`), t(`reading.mode.${m}.d`), () => {
-                  setV({ ...view, play: m });
-                  if (m === 'both') {
-                    onBoth();
-                    close();
-                  }
-                }),
-              )}
-              <div className="tk-view-sep" />
-            </>
-          )}
-          <div className="tk-view-head">{t('reading.tr')}</div>
-          {TR_MODES.map((m) =>
-            item(view.tr === m, m === 'he' ? 'אב' : m === 'duo' ? `${t('reading.tr.ab')}+אב` : t('reading.tr.ab'), t(`reading.tr.${m}`), t(`reading.tr.${m}.d`), () => setV({ ...view, tr: m })),
-          )}
-          {view.tr !== 'he' && (
-            <>
-              <div className="tk-view-sep" />
-              <div className="tk-view-head">{t('reading.pron')}</div>
-              {PRONS.map((p) =>
-                item(view.pron === p, p === 'ash' ? 'אָ=o' : 'אָ=a', t(`reading.pron.${p}`), t(`reading.pron.${p}.d`), () => setV({ ...view, pron: p })),
-              )}
-            </>
-          )}
-          <div className="tk-view-sep" />
-          <div className="tk-view-head">{t('reading.look')}</div>
-          {item(view.taamim, '♫', t('reading.v.taamim'), t('reading.v.taamim.d'), () => setV({ ...view, taamim: !view.taamim }), 'menuitemcheckbox')}
-          {item(view.big, 'A+', t('reading.v.big'), t('reading.v.big.d'), () => setV({ ...view, big: !view.big }), 'menuitemcheckbox')}
-          {item(view.living, '●', t('living.set'), t('living.set.d'), () => setV({ ...view, living: !view.living }), 'menuitemcheckbox')}
-        </div>
-      )}
-    </div>
-  );
-}
-
 function Marking({ c, label, toks, src, setActive }: { c: ReadingId; label: string; toks: Tok[]; src: string; setActive: (i: number) => void }) {
   const { t } = useI18n();
   const ref = useRef<HTMLAudioElement>(null);

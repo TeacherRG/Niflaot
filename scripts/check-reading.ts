@@ -4,7 +4,8 @@
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { ALIYOT, SHNAYIM, aliyahOfDay, shnayimParsha, type ShnayimText } from '../src/core/shnayim';
-import { translitToken, translitTokens } from '../src/core/tehillimTranslit';
+import { PRAYERS } from '../src/core/siddur';
+import { translitSiddurToken, translitToken, translitTokens } from '../src/core/tehillimTranslit';
 import { hasLiving, type Living } from '../src/core/living';
 import { CHAPTERS, chapterAudioTracks, weekdayOf, weekdayPortion, dailyPortion, hebrewDayForDate, shortHebrewMonth, stripTaamim, tokens } from '../src/core/reading';
 
@@ -138,8 +139,8 @@ const SAMPLE: Record<string, [number, Record<(typeof LANGS)[number], string>, ('
   'Теґилим 23:1': [23, { ru: 'Мизмойр ледовид Адойной ройи лой эхсор', en: 'Mizmor ledovid Adonoi ro\'i lo echsor', de: 'Mismor ledowid Adonoj ro\'i lo echsor' }],
   'Теґилим 150:1': [150, { ru: 'Ґалелу Йо ґалелу-Эйл бекодшой ґалелуґу биркиа узой', en: 'Halelu Yo halelu-Eil bekodsho haleluhu birkia uzo', de: 'Halelu Jo halelu-Ejl bekodscho haleluhu birkia uso' }],
   'Теґилим 113:1': [113, { ru: 'Ґалелу Йо ґалелу авдей Адойной ґалелу эс-шейм Адойной', en: 'Halelu Yo halelu avdei Adonoi halelu es-sheim Adonoi', de: 'Halelu Jo halelu awdej Adonoj halelu es-schejm Adonoj' }],
-  'Теґилим 23:1 (сефардское)': [23, { ru: 'Мизмор ледавид Адонай рои ло эхсар', en: 'Mizmor ledavid Adonai ro\'i lo echsar', de: 'Mismor ledawid Adonai ro\'i lo echsar' }, 'sef'],
-  'Теґилим 113:1 (сефардское)': [113, { ru: 'Ґалелу Йа ґалелу авде Адонай ґалелу эт-шем Адонай', en: 'Halelu Yah halelu avde Adonai halelu et-shem Adonai', de: 'Halelu Jah halelu awde Adonai halelu et-schem Adonai' }, 'sef'],
+  'Теґилим 23:1 (сефардское)': [23, { ru: 'Мизмор лэдавид Адонай рои ло эхсар', en: 'Mizmor ledavid Adonai ro\'i lo echsar', de: 'Mismor ledawid Adonai ro\'i lo echsar' }, 'sef'],
+  'Теґилим 113:1 (сефардское)': [113, { ru: 'Ґалэлу Йа ґалэлу авдэй Адонай ґалэлу эт-шэм Адонай', en: 'Halelu Yah halelu avdei Adonai halelu et-shem Adonai', de: 'Halelu Jah halelu awdej Adonai halelu et-schem Adonai' }, 'sef'],
 };
 for (const [name, [c, want, pron]] of Object.entries(SAMPLE)) {
   const first: string = JSON.parse(readFileSync(new URL(`${c}.json`, dir), 'utf8')).v[0];
@@ -218,8 +219,46 @@ for (let c = 1; c <= CHAPTERS; c++) {
   }
 }
 
+// Сидур «Теилат Ашем» (Шахарит, Минха, Маарив, Биркат ґа-мазон): только слова молитвы (без указаний `<small>` и подписей
+// без огласовок) и их транслит; молитвы — те же, что в `src/core/siddur.ts`
+const SIDDUR_WORD = /[\u05D0-\u05EA][\u05D0-\u05EA\u05BE\u0591-\u05C7\u05F0-\u05F4'"]*/gu;
+let siddurWords = 0;
+const siddurSections: string[] = [];
+for (const prayer of PRAYERS) {
+  const siddur = JSON.parse(readFileSync(new URL(`../public/reading/siddur/${prayer}-he.json`, import.meta.url), 'utf8')) as {
+    sections: { title: string; lines: string[] }[];
+  };
+  if (siddur.sections.length < (prayer === 'shacharit' ? 10 : 3)) errors.push(`${prayer}: ${siddur.sections.length} разделов`);
+  siddurSections.push(`${prayer} ${siddur.sections.length}`);
+  for (const sec of siddur.sections)
+    for (const line of sec.lines) {
+      if (/[<>A-Za-z|]/.test(line)) errors.push(`${prayer}, ${sec.title}: теги, латиница или «|»: ${line.slice(0, 40)}`);
+      for (const w of line.match(SIDDUR_WORD) ?? []) {
+        siddurWords++;
+        if (!/[\u05B0-\u05BC\u05C7]/.test(w) && !['י״ה', 'בו״ה'].includes(w)) errors.push(`${prayer}, ${sec.title}: слово без огласовок (пояснение?): ${w}`);
+        for (const lang of ['ru', 'en', 'de'] as const)
+          for (const pron of ['ash', 'sef'] as const) {
+            const t = translitSiddurToken(w, lang, pron);
+            if (!t || /[\u0590-\u05FF]/.test(t)) errors.push(`${prayer}: транслит ${lang}/${pron} слова ${w} — «${t}»`);
+          }
+      }
+    }
+}
+const sidSample: [string, string][] = [['בְּשָֹפָה', 'бесофо'], ['שִֹֽיחַ', 'сиах'], ['י״ה', 'Йуд-Кей'], ['בו״ה', 'бе-Вов-Кей'], ['לַייָ', 'ла-Адойной'], ['מֶֽלֶךְ', 'мелех']];
+for (const [w, want] of sidSample) if (translitSiddurToken(w, 'ru') !== want) errors.push(`Шахарит: ${w} — «${translitSiddurToken(w, 'ru')}», нужно «${want}»`);
+// правила транслита (владелец, 19.11.2026, по образцу сефардской Амиды): ה на конце не читается — и с мапиком, в обоих
+// произношениях; сефардское ru — цере, сеголь, шва-на «э», цере с йудом «эй», ל на конце и перед י — «ль», «я / е / ю / и»
+// в начале и после гласной; приставка перед Именем — «вэ-Элоґэй»
+const sefSample: [string, string, 'ash' | 'sef'][] = [
+  ['בְּתוֹכָהּ', 'бэтоха', 'sef'], ['לָהּ', 'ло', 'ash'], ['אֱלֹהֵינוּ', 'Элоґэйну', 'sef'], ['וֵאלֹהֵי', 'вэ-Элоґэй', 'sef'], ['וֵאלֹהֵי', 'вей-Элоґей', 'ash'],
+  ['לֵאלֹהֵינוּ', 'лэ-Элоґэйну', 'sef'], ['הַגָּדוֹל', 'ґагадоль', 'sef'], ['עֶלְיוֹן', 'эльйон', 'sef'], ['יִשְׂרָאֵל', 'исраэль', 'sef'], ['יַעֲקֹב', 'яаков', 'sef'],
+  ['יְשׁוּעָה', 'ешуа', 'sef'], ['חַיִּים', 'хаим', 'sef'], ['זָכְרֵנוּ', 'зохрэну', 'sef'], ['וְכָתְבֵנוּ', 'вэхотвэну', 'sef'], ['מֶֽלֶךְ', 'мэлэх', 'sef'],
+  ['הַלְלוּיָהּ', 'ґалэлуя', 'sef'], ['רוּחַ', 'руах', 'sef'],
+];
+for (const [w, want, pron] of sefSample) if (translitSiddurToken(w, 'ru', pron) !== want) errors.push(`транслит ${pron}: ${w} — «${translitSiddurToken(w, 'ru', pron)}», нужно «${want}»`);
+
 if (errors.length) {
   console.error(errors.slice(0, 20).join('\n'));
   process.exit(1);
 }
-console.log(`✓ Святое чтение: Теґилим — ${CHAPTERS} глав, ${total} слов, кери, Имена; Аазину — ${haazinu.v.length} стихов; шнаим микра — ${SHNAYIM.length} гл., ${shnVerses} стихов; транслит — ${trWords} слов; разметка по паузам — ${timed} записей; маячки «Мысль к стиху» — ${beacons}`);
+console.log(`✓ Святое чтение: Теґилим — ${CHAPTERS} глав, ${total} слов, кери, Имена; Аазину — ${haazinu.v.length} стихов; шнаим микра — ${SHNAYIM.length} гл., ${shnVerses} стихов; транслит — ${trWords} слов; разметка по паузам — ${timed} записей; маячки «Мысль к стиху» — ${beacons}; сидур — ${siddurSections.join(', ')} разделов, ${siddurWords} слов`);

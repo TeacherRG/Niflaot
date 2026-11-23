@@ -322,4 +322,6 @@ export const PROJECT_DE: Record<string, string[]> = {
   "bht-33-4": ["<b>Und er küsste ihn</b> — über dem Wort stehen Punkte: Er wollte ihn beißen.", "<b>Und er küsste ihn [wajischakehu]</b> — in Gematria „ihn beißen“ [lenoschchehu]. …"],
   "bht-33-9": ["<b>Mein Bruder, was dein ist, bleibe dein</b> — in Gematria „das sind die Segnungen“ [se haberachot]."],
   "bht-36-31": ["<b>Und dies sind die Könige</b> — weil Jaakow zu Esaw achtmal „mein Herr“ sagte, herrschten [von Esaw] acht Könige vor Israel. Und ihnen gegenüber herrschten [in Jehuda] acht Könige bis Jehoram, und in seinen Tagen fiel Edom ab."],
+  // «Нифлаот Ребе» · Ваишлах: «Чудо в глазах народов» (Ликутей сихот, т. 25, 19 кислева)
+  "prov-5-16": ["Deine Quellen werden sich nach draußen verbreiten, Wasserbäche auf die Plätze."],
 };

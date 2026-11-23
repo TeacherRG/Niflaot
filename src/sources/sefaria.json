@@ -19017,6 +19017,774 @@
    }
   }
  },
+ "gen-32-29": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 32:29",
+   "en": "Genesis 32:29",
+   "de": "Bereschit 32,29"
+  },
+  "ref": "Genesis 32:29",
+  "url": "https://www.sefaria.org/Genesis_32.29",
+  "he": [
+   "ויאמר לא יעקב יאמר עוד שמך כי אם ישראל כי שרית עם אלקים ועם אנשים ותוכל"
+  ],
+  "en": [
+   "And he said: ‘Thy name shall be called no more Jacob, but Israel; for thou hast striven with G-d and with men, and hast prevailed.’"
+  ],
+  "ru": [
+   "И сказал: Не Йааков будет теперь твое имя, но Йисраэль, ибо с богами и людьми сражался ты и одолел."
+  ],
+  "de": [
+   "Da sprach er: Nicht Jaakob soll mehr dein Name gesprochen werden, sondern Jisrael; denn du bist bei G-tt und bei Menschen der Überragende geworden, da du vermocht hast."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-34-25": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 34:25",
+   "en": "Genesis 34:25",
+   "de": "Bereschit 34,25"
+  },
+  "ref": "Genesis 34:25",
+  "url": "https://www.sefaria.org/Genesis_34.25",
+  "he": [
+   "ויהי ביום השלישי בהיותם כאבים ויקחו שני בני יעקב שמעון ולוי אחי דינה איש חרבו ויבאו על העיר בטח ויהרגו כל זכר"
+  ],
+  "en": [
+   "And it came to pass on the third day, when they were in pain, that two of the sons of Jacob, Simeon and Levi, Dinah’s brethren, took each man his sword, and came upon the city unawares, and slew all the males."
+  ],
+  "ru": [
+   "А на третий день, когда они еще болели, двое сыновей Йаакова — Шимон и Леви, братья Дины — взяли по мечу, беспрепятственно вошли в город и поубивали всех мужчин."
+  ],
+  "de": [
+   "Da war es, am dritten Tage, während diese leidend waren, nahmen zwei der Söhne Jaakobs, Schimeon und Levi, Dinas Brüder, jeder sein Schwert, kamen über die in Sicherheit ruhende Stadt und erschlugen alle Männlichen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rambam-kings-9-14": {
+  "kind": {
+   "ru": "Ґалаха",
+   "en": "Halachah",
+   "de": "Halacha"
+  },
+  "title": {
+   "ru": "Рамбам, Законы царей 9:14",
+   "en": "Rambam, Laws of Kings 9:14",
+   "de": "Rambam, Gesetze der Könige 9,14"
+  },
+  "ref": "Mishneh Torah, Kings and Wars 9:14",
+  "url": "https://www.sefaria.org/Mishneh_Torah,_Kings_and_Wars_9.14",
+  "he": [
+   "וְכֵיצַד מְצֻוִּין הֵן עַל הַדִּינִין. חַיָּבִין לְהוֹשִׁיב דַּיָּנִין וְשׁוֹפְטִים בְּכָל פֶּלֶךְ וּפֶלֶךְ לָדוּן בְּשֵׁשׁ מִצְוֹת אֵלּוּ. וּלְהַזְהִיר אֶת הָעָם. וּבֶן נֹחַ שֶׁעָבַר עַל אַחַת מִשֶּׁבַע מִצְוֹת אֵלּוּ יֵהָרֵג בְּסַיִף. וּמִפְּנֵי זֶה נִתְחַיְּבוּ כָּל בַּעֲלֵי שְׁכֶם הֲרִיגָה. שֶׁהֲרֵי שְׁכֶם גָּזַל וְהֵם רָאוּ וְיָדְעוּ וְלֹא דָּנוּהוּ. וּבֶן נֹחַ נֶהֱרָג בְּעֵד אֶחָד וּבְדַיָּן אֶחָד בְּלֹא הַתְרָאָה וְעַל פִּי קְרוֹבִין. אֲבָל לֹא בְּעֵדוּת אִשָּׁה. וְלֹא תָּדוּן אִשָּׁה לָהֶם:"
+  ],
+  "en": [
+   "How must the Noachides fulfill the commandment to establish laws and courts? They are obligated to set up judges and magistrates in every major city to render judgement concerning these six mitzvot and to admonish the people regarding their observance. A Noachide who transgresses these seven commands shall be executed by decapitation. For this reason, all the inhabitants of Shechem were obligated to die. Shechem kidnapped. They observed and were aware of his deeds, but did not judge him. A Noachide is executed on the basis of the testimony of one witness and the verdict of a single judge. No warning is required. Relatives may serve as witnesses. However, a woman may not serve as a witness or a judge for them."
+  ],
+  "de": [
+   "Das Gebot wegen der Gerichtsbarkeit besteht nur darin, dass die Noachiden für jeden Bezirk Richter und Beamte ernennen, damit diese in den vorigen sechs Geboten entscheiden und das Volk warnen; wenn nun ein Noachide eins dieser sieben Gebote übertrat, wird er mit dem Schwert hingerichtet. Ein Noachide, der das Verbot von Götzendienst übertritt oder G-tt lästert oder Blut vergießt oder eine der sechs Arten von Blutschande begeht oder etwas stiehlt, sogar weniger als einer Peruta, oder ein wenig vom lebendigen Tier isst oder Jemanden sieht, der eines von diesen Verboten übertritt und ihn nicht vor Gericht bringt, das ihn nicht tötet, wird durch das Schwert hingerichtet. So wurden auch alle Einwohner Sichems (Gen. 34), mit dem Schwerte getötet, weil Sichem einen Menschenraub beging, die Stadteinwohner dies gesehen und gewusst, ihn aber nicht gerichtet. Ein Noachide wird durch einen Richter und durch die Zeugenaussage eines Zeugen getötet; er braucht keine Vorwarnung. Die Zeugenaussage von Verwandten ist zulässig aber nicht die Zeugenaussage einer Frau. Auch darf eine Frau nicht richten."
+  ],
+  "versions": {
+   "he": {
+    "title": "Torat Emet 363",
+    "license": "Public Domain",
+    "source": "http://www.toratemetfreeware.com/index.html?downloads"
+   },
+   "en": {
+    "title": "Mishneh Torah, trans. by Eliyahu Touger. Jerusalem, Moznaim Pub. c1986-c2007",
+    "license": "CC-BY-NC",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001020101/NLI"
+   },
+   "de": {
+    "title": "Jad Haghasakkah, trans. by L. Mandelstamm. St. Petersburg, 1851. Corrected and edited by Igor Itkin - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/mischne-tora/"
+   }
+  }
+ },
+ "ps-118-23": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings",
+   "de": "Schriften"
+  },
+  "title": {
+   "ru": "Теґилим 118:23",
+   "en": "Psalms 118:23",
+   "de": "Tehillim 118,23"
+  },
+  "ref": "Psalms 118:23",
+  "url": "https://www.sefaria.org/Psalms_118.23",
+  "he": [
+   "מאת ה׳ היתה זאת היא נפלאת בעינינו"
+  ],
+  "en": [
+   "This is the L-rd’S doing; It is marvellous in our eyes."
+  ],
+  "de": [
+   "Von dem Herrn ist dies geschehen, das in unseren Augen so wunderbar ist."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/  "
+   }
+  }
+ },
+ "prov-5-16": {
+  "kind": {
+   "ru": "Писания",
+   "en": "Writings",
+   "de": "Schriften"
+  },
+  "title": {
+   "ru": "Мишлей 5:16",
+   "en": "Proverbs 5:16",
+   "de": "Mischle 5,16"
+  },
+  "ref": "Proverbs 5:16",
+  "url": "https://www.sefaria.org/Proverbs_5.16",
+  "he": [
+   "יפוצו מעינתיך חוצה ברחבות פלגי מים"
+  ],
+  "en": [
+   "Let thy springs be dispersed abroad, And courses of water in the streets."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   }
+  }
+ },
+ "megillah-29a": {
+  "kind": {
+   "ru": "Гемара",
+   "en": "Gemara",
+   "de": "Gemara"
+  },
+  "title": {
+   "ru": "Мегила 29а",
+   "en": "Megillah 29a",
+   "de": "Megilla 29a"
+  },
+  "ref": "Megillah 29a:4",
+  "url": "https://www.sefaria.org/Megillah_29a.4",
+  "he": [
+   "תניא רבי שמעון בן יוחי אומר בוא וראה כמה חביבין ישראל לפני הקדוש ברוך הוא שבכל מקום שגלו שכינה עמהן גלו למצרים שכינה עמהן שנאמר הנגלה נגליתי לבית אביך בהיותם במצרים וגו׳ גלו לבבל שכינה עמהן שנאמר למענכם שלחתי בבלה ואף כשהן עתידין ליגאל שכינה עמהן שנאמר ושב ה׳ אלקיך את שבותך והשיב לא נאמר אלא ושב מלמד שהקדוש ברוך הוא שב עמהן מבין הגליות"
+  ],
+  "en": [
+   "§ <b>It is taught</b> in a <i>baraita</i>: <b>Rabbi Shimon ben Yoḥai says: Come and see how beloved the Jewish people are before the Holy One, Blessed be He. As every place they were exiled, the Divine Presence</b> went <b>with them. They were exiled to Egypt,</b> and <b>the Divine Presence</b> went <b>with them, as it is stated: “Did I reveal myself to the house of your father when they were in Egypt?”</b> (I Samuel 2:27). <b>They were exiled to Babylonia,</b> and <b>the Divine Presence</b> went <b>with them, as it is stated: “For your sake I have sent to Babylonia”</b> (Isaiah 43:14). <b>So too, when, in the future, they will be redeemed, the Divine Presence will be with them, as it is stated: “Then the L-rd your G-d will return with your captivity”</b> (Deuteronomy 30:3). <b>It does not state: He will bring back,</b> i.e., He will cause the Jewish people to return, <b>but rather</b> it says: <b>“He will return,”</b> which <b>teaches that the Holy One, Blessed be He, will return</b> together <b>with them from among the</b> various <b>exiles.</b>"
+  ],
+  "de": [
+   "Es wird gelehrt: R. Šimo͑n b. Joḥaj sagte: Komm und sieh, wie beliebt die Jisraéliten sind beim Heiligen, gepriesen sei er, denn wohin sie auch verbannt wurden, war die G-ttlichkeit immer bei ihnen. Wurden sie nach Miçrajim verbannt, war die G-ttlichkeit bei ihnen, denn es heißt: <i>ich habe mich deinem Vaterhause offenbart, als sie in Miçrajim waren &amp;c</i>. Wurden sie nach Babylonien verbannt, war die G-ttlichkeit bei ihnen, denn es heißt: <i>um euretwillen habe ich nach Babel entsendet</i>. Wurden sie nach Edom verbannt, war die G-ttlichkeit bei ihnen, denn es heißt: <i>wer kommt da aus Edom, in hochroten Kleidern aus Boçra</i>? <i>Dieser da, prächtig geschmückt &amp;c</i>. Und auch wenn sie dereinst erlöst werden, wird die G-ttlichkeit bei ihnen sein, denn es heißt: <i>der Herr, dein G-tt wird deine Gefangenschaft zurückkehren</i>; es heißt nicht <i>zurückbringen</i>, sondern <i>zurückkehren</i>, und dies lehrt, daß der Heilige, gepriesen sei er, mit ihnen aus dem Exil zurückkehren wird. –"
+  ],
+  "versions": {
+   "he": {
+    "title": "William Davidson Edition - Aramaic",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.co.il/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "en": {
+    "title": "William Davidson Edition - English",
+    "license": "CC-BY-NC",
+    "source": "https://korenpub.com/collections/the-noe-edition-koren-talmud-bavli-1"
+   },
+   "de": {
+    "title": "Talmud Bavli. German trans. by Lazarus Goldschmidt, 1929 [de]",
+    "license": "Public Domain",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001042448/NLI"
+   }
+  }
+ },
+ "micah-7-15": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Миха 7:15",
+   "en": "Micah 7:15",
+   "de": "Micha 7,15"
+  },
+  "ref": "Micah 7:15",
+  "url": "https://www.sefaria.org/Micah_7.15",
+  "he": [
+   "כימי צאתך מארץ מצרים אראנו נפלאות"
+  ],
+  "en": [
+   "’As in the days of thy coming forth out of the land of Egypt Will I show unto him marvellous things.’"
+  ],
+  "de": [
+   "Wie in den Tagen deines Auszuges aus Ägypten werde ich dich Wunder sehen lassen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/  "
+   }
+  }
+ },
+ "deut-4-20": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Дварим 4:20",
+   "en": "Deuteronomy 4:20",
+   "de": "Dewarim 4,20"
+  },
+  "ref": "Deuteronomy 4:20",
+  "url": "https://www.sefaria.org/Deuteronomy_4.20",
+  "he": [
+   "ואתכם לקח ה׳ ויוצא אתכם מכור הברזל ממצרים להיות לו לעם נחלה כיום הזה"
+  ],
+  "en": [
+   "But you hath the L-rd taken and brought forth out of the iron furnace, out of Egypt, to be unto Him a people of inheritance, as ye are this day."
+  ],
+  "ru": [
+   "Но вас Г-сподь взял и вывел из железной печи, из Египта, чтобы вы стали для него народом — его наделом, как теперь."
+  ],
+  "de": [
+   "euch aber hat <i>G-tt</i> genommen, da er euch aus dem Eisentiegel, aus Mizrajim, führte, daß ihr ihm zu einer Erbnation angehörig bleibet, wie am heutigen Tage."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "unknown",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "ex-5-2": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Шмот 5:2",
+   "en": "Exodus 5:2",
+   "de": "Schemot 5,2"
+  },
+  "ref": "Exodus 5:2",
+  "url": "https://www.sefaria.org/Exodus_5.2",
+  "he": [
+   "ויאמר פרעה מי ה׳ אשר אשמע בקלו לשלח את ישראל לא ידעתי את ה׳ וגם את ישראל לא אשלח"
+  ],
+  "en": [
+   "And Pharaoh said: ‘Who is the L-rd, that I should hearken unto His voice to let Israel go? I know not the L-rd, and moreover I will not let Israel go.’"
+  ],
+  "ru": [
+   "И сказал фараон: Кто такой Г-сподь, чтобы я его послушался и отпустил Израиль? Не знаю я Г-спода, и Израиль не отпущу!"
+  ],
+  "de": [
+   "Pharao erwiderte: Wer ist <i>G-tt</i>, dessen Stimme ich zu gehorchen hätte, Jisrael frei zu lassen? Ich kenne <i>G-tt</i> nicht, und auch Jisrael lasse ich nicht frei."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "ex-7-5": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Шмот 7:5",
+   "en": "Exodus 7:5",
+   "de": "Schemot 7,5"
+  },
+  "ref": "Exodus 7:5",
+  "url": "https://www.sefaria.org/Exodus_7.5",
+  "he": [
+   "וידעו מצרים כי אני ה׳ בנטתי את ידי על מצרים והוצאתי את בני ישראל מתוכם"
+  ],
+  "en": [
+   "And the Egyptians shall know that I am the L-rd, when I stretch forth My hand upon Egypt, and bring out the children of Israel from among them.’"
+  ],
+  "ru": [
+   "И будут знать египтяне, что я Г-сподь, когда протяну я руку свою над Египтом и выведу сынов Израиля из их среды."
+  ],
+  "de": [
+   "Die Mizrer werden es inne werden, daß ich <i>G-tt</i> bin, indem ich meine Hand über Mizrajim strecke und Jisraels Söhne aus ihrer Mitte herausführe."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "gen-41-16": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Берешит 41:16",
+   "en": "Genesis 41:16",
+   "de": "Bereschit 41,16"
+  },
+  "ref": "Genesis 41:16",
+  "url": "https://www.sefaria.org/Genesis_41.16",
+  "he": [
+   "ויען יוסף את פרעה לאמר בלעדי אלקים יענה את שלום פרעה"
+  ],
+  "en": [
+   "And Joseph answered Pharaoh, saying: ‘It is not in me; G-d will give Pharaoh an answer of peace.’"
+  ],
+  "ru": [
+   "И отвечал Йосеф фараону: Не во мне дело; о фараоне позаботится Г-сподь."
+  ],
+  "de": [
+   "Josef erwiderte dem Pharao: Nicht bei mir! G-tt möge, was zu Pharaos Heil gereicht, erwidern lassen!"
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "judges-8-16": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Шофтим 8:16",
+   "en": "Judges 8:16",
+   "de": "Schoftim 8,16"
+  },
+  "ref": "Judges 8:16",
+  "url": "https://www.sefaria.org/Judges_8.16",
+  "he": [
+   "ויקח את זקני העיר ואת קוצי המדבר ואת הברקנים וידע בהם את אנשי סכות"
+  ],
+  "en": [
+   "And he took the elders of the city, and thorns of the wilderness and briers, and with them he taught the men of Succoth."
+  ],
+  "de": [
+   "Er nahm hierauf die Ältesten der Stadt und die Dornen der Wüste und die Stechdisteln, und züchtigte mit ihnen die Leute von Sukkot."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/  "
+   }
+  }
+ },
+ "zeph-3-9": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Цфанья 3:9",
+   "en": "Zephaniah 3:9",
+   "de": "Zefanja 3,9"
+  },
+  "ref": "Zephaniah 3:9",
+  "url": "https://www.sefaria.org/Zephaniah_3.9",
+  "he": [
+   "כי אז אהפך אל עמים שפה ברורה לקרא כלם בשם ה׳ לעבדו שכם אחד"
+  ],
+  "en": [
+   "For then will I turn to the peoples A pure language, That they may all call upon the name of the L-rd, To serve Him with one consent."
+  ],
+  "de": [
+   "Ja, dann wandle ich den Völkern ihre Lippe zu einer lauteren um, daß sie alle anrufen den Namen des Ewigen, daß sie ihm dienen einmüthig."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die vier und zwanzig Bücher der Heiligen Schrift. Unter der Redaction von Dr. Zunz übersetzt von H. Arnheim, Dr. Julius Fürst, Dr. M. Sachs. Berlin 1838 [de]",
+    "license": "Public Domain",
+    "source": "https://www.opendata.uni-halle.de/handle/1981185920/89948?locale=de"
+   }
+  }
+ },
+ "isaiah-40-5": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Йешаяґу 40:5",
+   "en": "Isaiah 40:5",
+   "de": "Jeschajahu 40,5"
+  },
+  "ref": "Isaiah 40:5",
+  "url": "https://www.sefaria.org/Isaiah_40.5",
+  "he": [
+   "ונגלה כבוד ה׳ וראו כל בשר יחדו כי פי ה׳ דבר"
+  ],
+  "en": [
+   "And the glory of the L-rd shall be revealed, and all flesh shall see it together; for the mouth of the L-rd hath spoken it.’"
+  ],
+  "de": [
+   "Damit sich die Herrlichkeit des Herrn zeige, damit alle Geschöpfe bekennen, dass also der Herr verheißen hat."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/jeschajahu-das-buch-jesaja/"
+   }
+  }
+ },
+ "isaiah-61-5": {
+  "kind": {
+   "ru": "Пророки",
+   "en": "Prophets",
+   "de": "Propheten"
+  },
+  "title": {
+   "ru": "Йешаяґу 61:5",
+   "en": "Isaiah 61:5",
+   "de": "Jeschajahu 61,5"
+  },
+  "ref": "Isaiah 61:5",
+  "url": "https://www.sefaria.org/Isaiah_61.5",
+  "he": [
+   "ועמדו זרים ורעו צאנכם ובני נכר אכריכם וכרמיכם"
+  ],
+  "en": [
+   "And strangers shall stand and feed your flocks, And aliens shall be your plowmen and your vinedressers."
+  ],
+  "de": [
+   "Fremde kommen und weiden eure Herden, und der Fremden Söhne sind eure Ackerleute und eure Winzer."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "de": {
+    "title": "Die Heilige Schrift, trans. Dr. Simon Bernfeld, Berlin, 1902 - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/tanach/jeschajahu-das-buch-jesaja/"
+   }
+  }
+ },
+ "deut-4-35": {
+  "kind": {
+   "ru": "Тора",
+   "en": "Torah",
+   "de": "Tora"
+  },
+  "title": {
+   "ru": "Дварим 4:35",
+   "en": "Deuteronomy 4:35",
+   "de": "Dewarim 4,35"
+  },
+  "ref": "Deuteronomy 4:35",
+  "url": "https://www.sefaria.org/Deuteronomy_4.35",
+  "he": [
+   "אתה הראת לדעת כי ה׳ הוא האלקים אין עוד מלבדו"
+  ],
+  "en": [
+   "Unto thee it was shown, that thou mightiest know that the L-rd, He is G-d; there is none else beside Him."
+  ],
+  "ru": [
+   "Ты сам видел, что Г-сподь есть Б-г, и нет больше (богов), кроме него."
+  ],
+  "de": [
+   "Du bist durch Sehen zum Wissen gebracht worden, daß <i>G-tt</i> allein G-tt ist, nichts sonst außer Ihm."
+  ],
+  "versions": {
+   "he": {
+    "title": "Tanach with Text Only",
+    "license": "Public Domain",
+    "source": "http://www.tanach.us/Tanach.xml"
+   },
+   "en": {
+    "title": "The Holy Scriptures: A New Translation (JPS 1917)",
+    "license": "Public Domain",
+    "source": "http://opensiddur.org/2010/08/%D7%AA%D7%A0%D7%B4%D7%9A-the-holy-scriptures-a-new-translation-jps-1917/"
+   },
+   "ru": {
+    "title": "Russian Torah translation, by Dmitri Slivniak, Ph.D., edited by Dr. Itzhak Streshinsky. Da Project, 2011 [ru]",
+    "license": "CC-BY-NC",
+    "source": "https://dadada.live/books"
+   },
+   "de": {
+    "title": "Der Pentateuch, übersetzt und erläutert von Samson Raphael Hirsch. Frankfurt am Main, 1867-1878 [de]",
+    "license": "unknown",
+    "source": "https://www.talmud.de/tlmd/tanach/"
+   }
+  }
+ },
+ "rambam-yesodei-1-1": {
+  "kind": {
+   "ru": "Ґалаха",
+   "en": "Halachah",
+   "de": "Halacha"
+  },
+  "title": {
+   "ru": "Рамбам, Основы Торы 1:1",
+   "en": "Rambam, Foundations of the Torah 1:1",
+   "de": "Rambam, Grundlagen der Tora 1,1"
+  },
+  "ref": "Mishneh Torah, Foundations of the Torah 1:1",
+  "url": "https://www.sefaria.org/Mishneh_Torah,_Foundations_of_the_Torah_1.1",
+  "he": [
+   "יְסוֹד הַיְסוֹדוֹת וְעַמּוּד הַחָכְמוֹת לֵידַע שֶׁיֵּשׁ שָׁם מָצוּי רִאשׁוֹן. וְהוּא מַמְצִיא כָּל נִמְצָא. וְכָל הַנִּמְצָאִים מִשָּׁמַיִם וָאָרֶץ וּמַה שֶּׁבֵּינֵיהֶם לֹא נִמְצְאוּ אֶלָּא מֵאֲמִתַּת הִמָּצְאוֹ:"
+  ],
+  "en": [
+   "The foundation of all foundations and the pillar of wisdom is to know that there is a Primary Being who brought into being all existence. All the beings of the heavens, the earth, and what is between them came into existence only from the truth of His being."
+  ],
+  "de": [
+   "1) Der Grund aller Grundsätze und die Stütze alles Wissens besteht in der Überzeugung, dass es ein Urwesen gibt, welches alle Geschöpfe hervorbringt, und dass bloß durch die Wahrheit seines Daseins die Existenz aller Geschöpfe im Himmel und auf der Erde, und derjenigen zwischen Himmel und Erde, möglich ist."
+  ],
+  "versions": {
+   "he": {
+    "title": "Torat Emet 363",
+    "license": "Public Domain",
+    "source": "http://www.toratemetfreeware.com/index.html?downloads"
+   },
+   "en": {
+    "title": "Mishneh Torah, trans. by Eliyahu Touger. Jerusalem, Moznaim Pub. c1986-c2007",
+    "license": "CC-BY-NC",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001020101/NLI"
+   },
+   "de": {
+    "title": "Jad Haghasakkah, trans. by L. Mandelstamm. St. Petersburg, 1851. Corrected and edited by Igor Itkin - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/mischne-tora/"
+   }
+  }
+ },
+ "rambam-yesodei-1-4": {
+  "kind": {
+   "ru": "Ґалаха",
+   "en": "Halachah",
+   "de": "Halacha"
+  },
+  "title": {
+   "ru": "Рамбам, Основы Торы 1:4",
+   "en": "Rambam, Foundations of the Torah 1:4",
+   "de": "Rambam, Grundlagen der Tora 1,4"
+  },
+  "ref": "Mishneh Torah, Foundations of the Torah 1:4",
+  "url": "https://www.sefaria.org/Mishneh_Torah,_Foundations_of_the_Torah_1.4",
+  "he": [
+   "הוּא שֶׁהַנָּבִיא אוֹמֵר (ירמיה י י) \"וַה' אֱלֹקִים אֱמֶת\". הוּא לְבַדּוֹ הָאֱמֶת וְאֵין לְאַחֵר אֱמֶת כַּאֲמִתָּתוֹ. וְהוּא שֶׁהַתּוֹרָה אוֹמֶרֶת (דברים ד לה) \"אֵין עוֹד מִלְּבַדּוֹ\". כְּלוֹמַר אֵין שָׁם מָצוּי אֱמֶת מִלְּבַדּוֹ כְּמוֹתוֹ:"
+  ],
+  "en": [
+   "This is implied by the prophet's statement [Jeremiah 10:10]: \"And G-d, your L-rd, is true\" - i.e., He alone is true and no other entity possesses truth that compares to His truth. This is what [is meant by] the Torah's statement [Deuteronomy 4:35]: \"There is nothing else aside from Him\" - i.e., aside from Him, there is no true existence like His."
+  ],
+  "de": [
+   "4) Dies ist der Sinn der Worte des Propheten «der Ewige, G-tt, ist wahrhaft« (Jer. 10:10), d.h. G-tt allein ist unbedingt wahr. Die Wahrhaftigkeit alles Andern aber gleicht der Seinen nicht; dies lehren auch die Worte der Schrift: »Außer Ihm ist Keiner« (Deut. 4:39), d.h. es gibt außer Ihm kein Ihm gleich wahrhaftes, unbedingt existierendes Wesen."
+  ],
+  "versions": {
+   "he": {
+    "title": "Torat Emet 363",
+    "license": "Public Domain",
+    "source": "http://www.toratemetfreeware.com/index.html?downloads"
+   },
+   "en": {
+    "title": "Mishneh Torah, trans. by Eliyahu Touger. Jerusalem, Moznaim Pub. c1986-c2007",
+    "license": "CC-BY-NC",
+    "source": "https://www.nli.org.il/he/books/NNL_ALEPH001020101/NLI"
+   },
+   "de": {
+    "title": "Jad Haghasakkah, trans. by L. Mandelstamm. St. Petersburg, 1851. Corrected and edited by Igor Itkin - German [de]",
+    "license": "Public Domain",
+    "source": "https://www.talmud.de/tlmd/mischne-tora/"
+   }
+  }
+ },
  "torah-26-20-22": {
   "kind": {
    "ru": "Тора",

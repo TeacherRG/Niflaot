@@ -110,7 +110,36 @@ function changed(...paths: string[]): string {
   return gitDates.get(key)!;
 }
 const latest = (...dates: string[]) => dates.sort().pop()!;
-const plain = (html: string) => displayNames(html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim());
+/**
+ * Plain text for metadata and crawler-visible HTML.
+ * Insert separators before dropping block tags: otherwise adjacent paragraphs, headings and list items
+ * collapse into one word stream (for example an English sentence runs into the following Hebrew verse).
+ */
+const plain = (html: string) =>
+  displayNames(
+    html
+      .replace(/<\s*br\b[^>]*\/?>/gi, ' ')
+      .replace(
+        /<\s*\/?\s*(?:address|article|aside|blockquote|dd|div|dl|dt|fieldset|figcaption|figure|footer|form|h[1-6]|header|hr|li|main|nav|ol|p|pre|section|table|tbody|td|tfoot|th|thead|tr|ul)\b[^>]*>/gi,
+        ' ',
+      )
+      .replace(/<[^>]+>/g, '')
+      .replace(/&nbsp;|&#160;/gi, ' ')
+      .replace(/\s+/g, ' ')
+      .trim(),
+  );
+
+// Regression checks for the exact HTML-to-text failure found in Google's rendered-page inspection.
+const plainTextCases: [string, string, string][] = [
+  ['paragraph boundaries', '<p>first paragraph</p><p>second paragraph</p>', 'first paragraph second paragraph'],
+  ['inline formatting', '<p>first <strong>bold</strong> phrase</p>', 'first bold phrase'],
+  ['line breaks', 'light<br>dark', 'light dark'],
+  ['list boundaries', '<ul><li>one</li><li>two</li></ul>', 'one two'],
+];
+for (const [name, input, expected] of plainTextCases) {
+  const actual = plain(input);
+  if (actual !== expected) throw new Error(`SEO plain-text extraction failed (${name}): "${actual}"`);
+}
 /** «Урок 2», or «Нифлаот Ребе · Урок 1» for a lesson of the Rebbe's section */
 const lessonLabel = (l: Lesson, u: Record<string, unknown> = ui) =>
   `${l.series === 'rebbe' ? `${u['rebbe.section']} · ` : ''}${String(u['catalog.lesson']).replace('{n}', String(l.number))}`;
@@ -1571,3 +1600,22 @@ Sitemap: ${SITE_URL}/sitemap.xml
 `,
 );
 console.log(`prerender: index + ${LESSON_OUT.length} lesson pages (ru/en/de) + ${STATIC_OUT.length} math / daily / facts / letters / prophets / writings / words pages, sitemap.xml, robots.txt, llms.txt, ${FEEDS.length} feeds, ${podcastFeeds} podcast feeds, ${LANGS.length} manifests, sw.js (${precache.length} files offline), daily messages for ${Object.keys(days).length} days, ${quiz.index.length} quiz decks, ${narrated} lessons to listen to`);
+
+/* ───── SEO output checks ─────
+ * Keep the crawl entry points explicit and fail a build that would publish a broken sitemap.
+ */
+const sitemapXml = readFileSync(`${DIST}/sitemap.xml`, 'utf8');
+const robotsTxt = readFileSync(`${DIST}/robots.txt`, 'utf8');
+if (!robotsTxt.includes(`Sitemap: ${SITE_URL}/sitemap.xml`))
+  throw new Error('robots.txt must advertise the canonical sitemap URL');
+if (!sitemapXml.startsWith('<?xml') || !sitemapXml.includes('<urlset ') || !sitemapXml.includes('</urlset>'))
+  throw new Error('sitemap.xml is not a valid sitemap urlset');
+const sitemapUrls = [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+if (!sitemapUrls.length) throw new Error('sitemap.xml contains no URLs');
+for (const url of sitemapUrls) {
+  if (!url.startsWith(`${SITE_URL}/`) || url.includes('#') || url.includes('?'))
+    throw new Error(`Non-canonical URL in sitemap: ${url}`);
+}
+if (new Set(sitemapUrls).size !== sitemapUrls.length)
+  throw new Error('sitemap.xml contains duplicate URLs');
+console.log(`SEO: validated ${sitemapUrls.length} canonical sitemap URLs and robots.txt`);
