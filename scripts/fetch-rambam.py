@@ -4,7 +4,7 @@
 
     python3 scripts/fetch-rambam.py books                     # src/rambam/books.json — the 88 parts of the cycle (once)
     python3 scripts/fetch-rambam.py text  <from> [<to>]       # public/rambam/text/<id>.json for the chapters of these dates
-    python3 scripts/fetch-rambam.py slides <id> <file.pdf>    # the presentation → public/rambam/slides/<id>/NN.webp + skeleton
+    python3 scripts/fetch-rambam.py slides <id> <file.pdf>    # the presentation → rambam-slides/<id>/NN.webp (→ R2) + public/rambam/slides/<id>/slides.json
     python3 scripts/fetch-rambam.py words [ru]                # src/rambam/words/ru-*.txt → public/rambam/words/ru.json
     python3 scripts/fetch-rambam.py todo  [<to>]              # words of the chapters (till that date) without a translation
 
@@ -22,7 +22,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 BOOKS = ROOT / 'src' / 'rambam' / 'books.json'
 TEXT = ROOT / 'public' / 'rambam' / 'text'
-SLIDES = ROOT / 'public' / 'rambam' / 'slides'
+SLIDES = ROOT / 'public' / 'rambam' / 'slides'      # slides.json — on the site
+IMAGES = ROOT / 'rambam-slides'                    # NN.webp — not on the site: rambam-slides.yml puts them in Cloudflare R2
 WORDS = ROOT / 'public' / 'rambam' / 'words'
 BASE = 'https://storage.googleapis.com/sefaria-export/json/Halakhah/Mishneh Torah/'
 HE = 'Hebrew/Torat Emet 363.json'
@@ -121,6 +122,8 @@ def cmd_slides():
     cid, pdf = sys.argv[2], Path(sys.argv[3])
     out = SLIDES / cid
     out.mkdir(parents=True, exist_ok=True)
+    imgs = IMAGES / cid
+    imgs.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as tmp:
         subprocess.run(['pdfimages', '-png', str(pdf), f'{tmp}/s'], check=True)
         from PIL import Image
@@ -132,11 +135,11 @@ def cmd_slides():
             if img.width > 1600:
                 img = img.resize((1600, round(img.height * 1600 / img.width)))
             name = f'{i + 1:02d}.webp'
-            img.save(out / name, 'WEBP', quality=80, method=6)
+            img.save(imgs / name, 'WEBP', quality=80, method=6)
             prev = old['slides'][i] if i < len(old['slides']) else {}
             slides.append({'img': name, 'w': img.width, 'h': img.height, 'hl': prev.get('hl'), 'title': prev.get('title', ''), 'text': prev.get('text', '')})
     (out / 'slides.json').write_text(json.dumps({'slides': slides}, ensure_ascii=False, indent=1) + '\n')
-    size = sum(f.stat().st_size for f in out.glob('*.webp'))
+    size = sum(f.stat().st_size for f in imgs.glob('*.webp'))
     print(cid, len(slides), 'slides,', size // 1024, 'KB — write «hl», «title», «text» of each in', out / 'slides.json')
 
 KEEP = re.compile(r'[א-ת״׳]')

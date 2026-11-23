@@ -44,7 +44,7 @@ if (existsSync(new URL('slides/', PUB)))
     s.forEach((x, k) => {
       const at = `slides ${id} #${k + 1}`;
       if (!x.title || !x.text) errors.push(`${at}: no title / text (the alt of the image, the AI teacher)`);
-      if (!existsSync(new URL(`slides/${id}/${x.img}`, PUB)) && !process.env.VITE_RAMBAM_SLIDES) errors.push(`${at}: no image ${x.img}`);
+      if (!existsSync(new URL(`../../rambam-slides/${id}/${x.img}`, PUB))) errors.push(`${at}: no image rambam-slides/${id}/${x.img}`);
       if (!x.hl) return;
       const [a, b] = x.hl;
       if (!(a >= 1 && b >= a && (!t || b <= t.he.length))) errors.push(`${at}: halachot ${a}–${b} outside the chapter`);

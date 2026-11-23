@@ -82,8 +82,12 @@ function load<T>(path: string): Promise<T | null> {
 export const loadText = (id: string) => load<RambamText>(`rambam/text/${id}.json`);
 export const loadSlides = (id: string) => load<{ slides: Slide[] }>(`rambam/slides/${id}/slides.json`).then((x) => x?.slides ?? null);
 export const loadDict = () => load<RambamDict>('rambam/words/ru.json');
-/** where the slide images are: Cloudflare R2 when VITE_RAMBAM_SLIDES is set, else next to slides.json */
-export const slideSrc = (id: string, img: string) => `${import.meta.env.VITE_RAMBAM_SLIDES || root() + 'rambam/slides/'}${id}/${img}`;
+/**
+ * The slide images live in Cloudflare R2 (bucket `niflaot-rambam`, public URL): ≈ 1 MB a chapter, ≈ 1 GB a cycle — too much for
+ * GitHub Pages. In git they wait in rambam-slides/<id>/ (not on the site); .github/workflows/rambam-slides.yml puts them in R2.
+ */
+export const SLIDES_URL = 'https://pub-17bc5757762c4b4d98f8017e0fba2220.r2.dev/';
+export const slideSrc = (id: string, img: string) => `${SLIDES_URL}${id}/${img}`;
 
 /** a word of the text → its key in the dictionary (as `key` in scripts/fetch-rambam.py) */
 export function wordKey(w: string) {

@@ -160,7 +160,7 @@ const CSP = [
   "script-src 'self' https://gc.zgo.at",
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",
-  "img-src 'self' data: blob: https://niflaot.goatcounter.com",
+  "img-src 'self' data: blob: https://niflaot.goatcounter.com https://pub-17bc5757762c4b4d98f8017e0fba2220.r2.dev",
   // the assistant also over WebSocket — «Викторина вместе» (src/core/liveQuiz.ts)
   // «Слушать»: the recorded parts are fetched from the assistant and played as blob: (src/components/ListenBar.tsx)
   "media-src 'self' blob:",

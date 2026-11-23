@@ -793,14 +793,16 @@
   Тугера под каждой галахой. «Я прочитал(а)» — `niflaot:rambam-done` (синхронизируется, `mergeDone`; ключ — и в `accounts.ts`).
 - **Данные** — `python3 scripts/fetch-rambam.py`: `text <с> <по>` → `public/rambam/text/<часть>-<глава>.json` (иврит «Torat Emet 363»
   с огласовками, PD; английский — р. Элияґу Тугер, Moznaim, CC BY-NC, из выгрузки Sefaria; Имена — как в уроках); `slides <глава> <pdf>`
-  → `public/rambam/slides/<глава>/NN.webp` (WebP 80, ≈ 80 КБ слайд) и `slides.json` — у слайда `hl` (галахот [с, по]; титул и итог —
+  → `rambam-slides/<глава>/NN.webp` (WebP 80, ≈ 80 КБ слайд) и `public/rambam/slides/<глава>/slides.json` — у слайда `hl` (галахот [с, по]; титул и итог —
   null), `title` и `text` (переписан со слайда: alt, ИИ-учитель) — **размечать вручную по надписи «הלכה א-ד» на слайде**; номера
   на слайдах бывают с ошибкой (гл. 13, слайд 11 — «כא-כו», надо «כה-כו»), `check-rambam.ts` ловит перекрытия и пропуски. Слова —
   `src/rambam/words/ru-*.txt` («слово|перевод|основная форма», ключ — буквы без огласовок) → `words` → `public/rambam/words/ru.json`;
   `todo <до-даты>` — слова без перевода. Готово: текст — до 08.12.2026, слова — главы 13–14 (857), слайды — гл. 13.
-- **Слайды присылает владелец** (PDF из Gemini Notebook, © niflaot.app; картинки без текстового слоя). **Хранилище — Cloudflare R2**
-  (решил владелец): пока бакета нет, картинки лежат в `public/rambam/slides/` (≈ 1 МБ на главу; за цикл ≈ 1 ГБ — для GitHub Pages
-  много); с R2 — `VITE_RAMBAM_SLIDES` = адрес бакета (`slideSrc`), хост — в CSP `img-src` (`scripts/prerender.ts`), `slides.json` остаётся в git.
+- **Слайды присылает владелец** (PDF из Gemini Notebook, © niflaot.app; картинки без текстового слоя). **Картинки — в Cloudflare R2**
+  (решил владелец, 23.11.2026): бакет `niflaot-rambam`, публичный адрес — `SLIDES_URL` в `src/core/rambam.ts` (и в CSP `img-src`,
+  `scripts/prerender.ts`). В git они ждут в `rambam-slides/<глава>/NN.webp` (на сайт не идут, ≈ 1 МБ на главу); при пуше в `main`
+  `.github/workflows/rambam-slides.yml` кладёт новые в R2 (вручную — все или одну главу; токену `CLOUDFLARE_API_TOKEN` нужно
+  «Workers R2 Storage: Edit»). `slides.json` — на сайте, `public/rambam/slides/<глава>/`.
 - Проверка — `scripts/check-rambam.ts` (в `npm run check`); `ahead.ts` считает запас текста, слов и слайдов (14 дней).
 
 ## «Хасидут» — «Ґемшех Самех-Вав» Ребе Рашаба
