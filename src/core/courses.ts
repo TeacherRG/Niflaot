@@ -15,8 +15,8 @@ import { useEffect, useState } from 'react';
 import type { Mode } from './mode';
 import { isAdmin } from '../admin/github';
 
-export type Course = 'neviim' | 'ketuvim' | 'hemshech' | 'lashon' | 'nigun' | 'koelet';
-export const COURSES: Course[] = ['neviim', 'ketuvim', 'hemshech', 'lashon', 'nigun', 'koelet'];
+export type Course = 'neviim' | 'ketuvim' | 'hemshech' | 'rambam' | 'lashon' | 'nigun' | 'koelet';
+export const COURSES: Course[] = ['neviim', 'ketuvim', 'hemshech', 'rambam', 'lashon', 'nigun', 'koelet'];
 /** The courses offered to choose: «Святая музыка» (nigun) only in the admin's browser for now (owner, 01.11.2026). */
 export const shownCourses = (): Course[] => (isAdmin() ? COURSES : COURSES.filter((c) => c !== 'nigun'));
 const shown = (v: CourseChoice): CourseChoice => (isAdmin() ? v : { ...v, c: v.c.filter((c) => c !== 'nigun') });

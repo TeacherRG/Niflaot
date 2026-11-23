@@ -6,7 +6,7 @@
  */
 
 /** the synced localStorage keys: exact names, and `niflaot:lesson:<slug>` */
-export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:nigun', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:turim-done', 'niflaot:words', 'niflaot:notes', 'niflaot:torah-words', 'niflaot:torah-read', 'niflaot:lashon', 'niflaot:zip', 'niflaot:patches', 'niflaot:study-days', 'niflaot:coins', 'niflaot:push-want', 'niflaot:mode', 'niflaot:courses', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
+export const SYNC_KEYS = ['niflaot:daily', 'niflaot:tanakh-quiz', 'niflaot:hemshech', 'niflaot:nigun', 'niflaot:hemshech-done', 'niflaot:tanakh-done', 'niflaot:turim-done', 'niflaot:rambam-done', 'niflaot:words', 'niflaot:notes', 'niflaot:torah-words', 'niflaot:torah-read', 'niflaot:lashon', 'niflaot:zip', 'niflaot:patches', 'niflaot:study-days', 'niflaot:coins', 'niflaot:push-want', 'niflaot:mode', 'niflaot:courses', 'niflaot:hebrew', 'niflaot:lang', 'niflaot:math-level'];
 export const LESSON_PREFIX = 'niflaot:lesson:';
 export const isSynced = (k: string) => SYNC_KEYS.includes(k) || k.startsWith(LESSON_PREFIX);
 
@@ -202,7 +202,7 @@ export function mergeSnapshots(local: Snapshot, remote: Snapshot): Snapshot {
     else if (k === 'niflaot:patches') out[k] = mergePatches(a, b);
     else if (k === 'niflaot:coins') out[k] = mergeCoins(a, b);
     else if (k === 'niflaot:push-want') out[k] = mergePushWant(a, b);
-    else if (k === 'niflaot:tanakh-done' || k === 'niflaot:hemshech-done' || k === 'niflaot:turim-done') out[k] = mergeDone(a, b);
+    else if (k === 'niflaot:tanakh-done' || k === 'niflaot:hemshech-done' || k === 'niflaot:turim-done' || k === 'niflaot:rambam-done') out[k] = mergeDone(a, b);
     else out[k] = a;
   }
   return out;
