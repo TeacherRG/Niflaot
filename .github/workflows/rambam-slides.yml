@@ -1,6 +1,6 @@
 # «Мишне Тора — глава в день»: the slide images (rambam-slides/<chapter>/NN.webp) → Cloudflare R2, bucket niflaot-rambam
 # (public URL — SLIDES_URL in src/core/rambam.ts). On a push to main — the new and changed files; by hand — all of them
-# (or one chapter). Needs the secrets CLOUDFLARE_API_TOKEN (with «Workers R2 Storage: Edit») and CLOUDFLARE_ACCOUNT_ID.
+# (or one chapter). Needs the secrets R2_API_TOKEN (a token with only «Workers R2 Storage: Edit») and CLOUDFLARE_ACCOUNT_ID.
 name: Rambam slides → R2
 
 on:
@@ -48,7 +48,7 @@ jobs:
           grep -c . files.txt || true
       - name: Upload to R2
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.R2_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           npm i --no-save wrangler@4 >/dev/null

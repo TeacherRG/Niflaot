@@ -801,8 +801,8 @@
 - **Слайды присылает владелец** (PDF из Gemini Notebook, © niflaot.app; картинки без текстового слоя). **Картинки — в Cloudflare R2**
   (решил владелец, 23.11.2026): бакет `niflaot-rambam`, публичный адрес — `SLIDES_URL` в `src/core/rambam.ts` (и в CSP `img-src`,
   `scripts/prerender.ts`). В git они ждут в `rambam-slides/<глава>/NN.webp` (на сайт не идут, ≈ 1 МБ на главу); при пуше в `main`
-  `.github/workflows/rambam-slides.yml` кладёт новые в R2 (вручную — все или одну главу; токену `CLOUDFLARE_API_TOKEN` нужно
-  «Workers R2 Storage: Edit»). `slides.json` — на сайте, `public/rambam/slides/<глава>/`.
+  `.github/workflows/rambam-slides.yml` кладёт новые в R2 (вручную — все или одну главу; secret `R2_API_TOKEN` — отдельный токен
+  только с «Workers R2 Storage: Edit», 24.11.2026). `slides.json` — на сайте, `public/rambam/slides/<глава>/`.
 - Проверка — `scripts/check-rambam.ts` (в `npm run check`); `ahead.ts` считает запас текста, слов и слайдов (14 дней).
 
 ## «Хасидут» — «Ґемшех Самех-Вав» Ребе Рашаба
