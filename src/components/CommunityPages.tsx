@@ -289,8 +289,9 @@ export function PrivacyPage() {
       <div className="wrap acc">
         <header className="partners-head">
           <h1>{t('privacy.title')}</h1>
+          <p className="terms-date">{t('privacy.updated', { date: t('privacy.date') })}</p>
         </header>
-        <Html as="main" className="prose acc-card" html={t('privacy.body')} />
+        <Html as="main" className="prose acc-card" html={t('privacy.body') + t('privacy.app')} />
       </div>
       <Colophon />
     </>
