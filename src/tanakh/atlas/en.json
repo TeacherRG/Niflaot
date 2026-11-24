@@ -145,8 +145,8 @@
   "bilhah": {"n": "Bilhah"},
   "zilpah": {"n": "Zilpah"},
   "shimon": {"n": "Shimon", "d": "Yaakov’s second son, by Leah. His tribe received its portion inside the portion of Judah (Joshua 19:1) — so Yaakov’s words came true: “I will divide them in Yaakov” (Genesis 49:7)."},
-  "yissachar": {"n": "Yissachar"},
-  "zevulun": {"n": "Zevulun"},
+  "yissachar": {"n": "Yissachar", "d": "Yaakov’s son by Leah. His tribe received the fourth lot (Joshua 19:17). Rashi (Genesis 49:14): the tribe of Issachar bore the yoke of Torah."},
+  "zevulun": {"n": "Zevulun", "d": "Yaakov’s son by Leah. His tribe received the third lot — a portion in the north, from Sarid to the Valley of Iphtah-el (Joshua 19:10–16)."},
   "dan": {"n": "Dan"},
   "naftali": {"n": "Naftali"},
   "asher": {"n": "Asher"},
@@ -168,5 +168,6 @@
   "tzelofchad": {"n": "Zelophehad", "d": "Of the tribe of Manasseh. He died in the wilderness without sons; his five daughters asked Moshe for their father's portion, and G-d said to give it to them (Numbers 27:1–7). Joshua carried it out when the Land was divided (17:3–6)."},
   "beit-shean": {"n": "Beth-shean", "d": "A town where the Jezreel Valley opens to the Jordan. It went to Manasseh (17:11), but the Canaanites stayed there, and they had iron chariots (17:16)."},
   "emek-yizreel": {"n": "Valley of Jezreel", "d": "A wide plain between the hills of Ephraim and the Galilee. The Josephites feared the valley's Canaanites with their iron chariots (17:16)."},
-  "midbar-kadesh": {"n": "Wilderness of Kadesh", "d": "According to Rashi (Psalms 29:8), this is the wilderness of Sinai: it has five names, and “Kadesh” because Israel was sanctified there by receiving the Torah (Shabbat 89a)."}
+  "midbar-kadesh": {"n": "Wilderness of Kadesh", "d": "According to Rashi (Psalms 29:8), this is the wilderness of Sinai: it has five names, and “Kadesh” because Israel was sanctified there by receiving the Torah (Shabbat 89a)."},
+  "gat-hefer": {"n": "Gath-hepher", "d": "A town in the portion of Zebulun; the boundary passed east of it. Rashi: it is the town of the prophet Jonah son of Amittai (II Kings 14:25)."}
 }
