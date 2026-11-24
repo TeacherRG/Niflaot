@@ -387,9 +387,7 @@ Ich ermittle zusammen mit dem Lubawitscher Rebben — „Niflaot des Rebben“, 
 ${grid}
 
 Vier Rätsel: Ich kehre in Frieden zurück, der Baum des Lebens, Frieden unter den Vielen und „Schalom alejchem“.
-Spiel mit 👉 ${site}
-
-©mychitas.app`,
+Spiel mit 👉 ${site}`,
   cards: {
     "intro": "Zwölf Gespräche des Rebbe zu Wajeze: zu jedem Versteil eine Erklärung. Finde, welche Erklärung zu welchem Vers gehört.",
     "items": [

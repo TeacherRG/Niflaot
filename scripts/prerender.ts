@@ -81,7 +81,7 @@ const snippet = (t: string, max = 160) => {
  * <title> within 65 characters: the brand stays if it fits — a long title first loses its tail after « — », « – » or
  * «: » (the h1 and og:title keep the whole); a title that still doesn't fit loses the brand.
  */
-const BRAND = / · (Нифлаот|Niflaot|MyChitas)$/;
+const BRAND = / · (Нифлаот|Niflaot)$/;
 function fitTitle(t: string, max = 65) {
   if (t.length <= max) return t;
   const brand = t.match(BRAND)?.[0] ?? '';
@@ -252,7 +252,7 @@ function render(p: Page): string {
   );
   const lang = p.lang ?? 'ru';
   if (!hasBreadcrumbs && p.url !== homeUrl(lang))
-    graph.push(crumbs(lang, p.title.replace(/ · (Нифлаот|Niflaot|MyChitas)$/, ''), p.url));
+    graph.push(crumbs(lang, p.title.replace(/ · (Нифлаот|Niflaot)$/, ''), p.url));
   const ld = JSON.stringify({ '@context': data['@context'] ?? 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
   html = html.replace(
     '<meta charset="utf-8" />',
@@ -284,7 +284,7 @@ const VERIFY = (
   .map(([k, v]) => `\n    <meta name="${k}" content="${v}" />`)
   .join('');
 
-const PUBLISHER = { '@type': 'Organization', name: 'MyChitas', url: 'https://mychitas.app', logo: `${SITE_URL}/icons/icon-512.png?v=3` };
+const PUBLISHER = { '@type': 'Organization', name: 'Niflaot', url: `${SITE_URL}/`, logo: `${SITE_URL}/icons/icon-512.png?v=3` };
 const SITE = { '@type': 'WebSite', name: 'Нифлаот', url: `${SITE_URL}/` };
 
 /* ───── catalog ───── */
@@ -324,7 +324,7 @@ function homePage(lang: 'ru' | 'en' | 'de'): Page {
   const others = LESSON_LANGS.filter((x) => x !== lang);
   const OTHER = { ru: 'По-русски', en: 'In English', de: 'Auf Deutsch' } as const;
   return {
-    title: `${u['catalog.seoTitle']} · MyChitas`,
+    title: String(u['catalog.seoTitle']),
     description: String(u['catalog.seo']),
     url: homeUrl(lang),
     type: 'website',
@@ -338,7 +338,7 @@ function homePage(lang: 'ru' | 'en' | 'de'): Page {
       '@context': 'https://schema.org',
       '@graph': [
         { ...SITE, name: String(u['app.title']), alternateName: ['נפלאות', 'Niflaot', 'Нифлаот'], inLanguage: lang, description: String(u['catalog.seo']), publisher: PUBLISHER },
-        { ...PUBLISHER, '@type': 'EducationalOrganization', name: `${u['app.title']} · MyChitas`, url: homeUrl(lang), parentOrganization: PUBLISHER },
+        { ...PUBLISHER, '@type': 'EducationalOrganization', name: String(u['app.title']), url: homeUrl(lang) },
         {
           '@type': 'ItemList',
           name: String(u['catalog.heading']),
@@ -1339,7 +1339,7 @@ for (const f of FEEDS) {
   <link rel="self" href="${SITE_URL}/${f.file}" />
   <link rel="alternate" href="${SITE_URL}/?lang=${f.locale}&amp;ref=rss" />
   <updated>${items.length ? published(items[0]) : `${today}T00:00:00Z`}</updated>
-  <author><name>MyChitas</name><uri>https://mychitas.app</uri></author>
+  <author><name>Niflaot</name><uri>${SITE_URL}/</uri></author>
 ${entries.join('\n')}
 </feed>
 `,
@@ -1391,11 +1391,11 @@ for (const f of FEEDS) {
     <itunes:new-feed-url>${self}</itunes:new-feed-url>
     <language>${lang}</language>
     <description>${esc(u['podcast.desc'])}</description>
-    <copyright>© MyChitas · niflaot.app</copyright>
+    <copyright>© niflaot.app</copyright>
     <podcast:locked>no</podcast:locked>
     <podcast:guid>${createHash('sha256').update(self).digest('hex').replace(/^(.{8})(.{4})(.{4})(.{4})(.{12}).*$/, '$1-$2-$3-$4-$5')}</podcast:guid>
-    <itunes:author>Niflaot · MyChitas</itunes:author>
-    <itunes:owner><itunes:name>MyChitas</itunes:name><itunes:email>office@niflaot.app</itunes:email></itunes:owner>
+    <itunes:author>Niflaot</itunes:author>
+    <itunes:owner><itunes:name>Niflaot</itunes:name><itunes:email>office@niflaot.app</itunes:email></itunes:owner>
     <itunes:image href="${SITE_URL}/podcast/cover-${lang}.jpg" />
     <image><url>${SITE_URL}/podcast/cover-${lang}.jpg</url><title>${esc(u['podcast.title'])}</title><link>${SITE_URL}/</link></image>
     <itunes:category text="Religion &amp; Spirituality"><itunes:category text="Judaism" /></itunes:category>
@@ -1620,7 +1620,7 @@ const pageText = (html: string) =>
       .trim(),
   );
 const LANG_NAME = { ru: 'Русский', en: 'English', de: 'Deutsch' } as const;
-const link = (p: Page) => `- [${p.title.replace(/ · (Нифлаот|Niflaot|MyChitas).*$/, '')}](${p.url}): ${p.description}`;
+const link = (p: Page) => `- [${p.title.replace(/ · (Нифлаот|Niflaot).*$/, '')}](${p.url}): ${p.description}`;
 const staticOf = (lang: string) => STATIC_OUT.filter(([, p]) => (p.lang ?? 'ru') === lang).map(([, p]) => p);
 writeFileSync(
   `${DIST}/llms.txt`,
@@ -1628,7 +1628,7 @@ writeFileSync(
 
 > ${en['catalog.seo']}
 
-Niflaot is a free project of the MyChitas Torah project (${SITE_URL}), with partners Chabad Haus Wien and JRCV Vienna. The site works in Russian (the main language), English and German; signing in with an email code (no password) opens everything — only Tehillim (“Holy reading”) is open without it; the site rests on Shabbat. Lessons on the weekly Torah portion: the Baal HaTurim (gematria and letters, with a Memo game) and the Lubavitcher Rebbe (Likkutei Sichot — an investigation and cards). Teachers and texts — the whole list: ${en['catalog.teachers']} Daily study for teens and adults: a passage of the Prophets and of the Writings (a three-year cycle, Hebrew with translation, Metzudat David and Rashi), Chassidut — the Rebbe Rashab’s Hemshech Samech-Vav, the most frequent Hebrew words of Tanakh and step-by-step lessons of Biblical Hebrew, fluent reading of Tehillim (all 150 chapters with a reader’s recording, 0.5×–3.5× — the whole book in 102 minutes), certificates of the Academy, and a live quiz for a class or a family.
+Niflaot (${SITE_URL}) is a free online Torah academy, with partners Chabad Haus Wien and JRCV Vienna. The site works in Russian (the main language), English and German; signing in with an email code (no password) opens everything — only Tehillim (“Holy reading”) is open without it; the site rests on Shabbat. Lessons on the weekly Torah portion: the Baal HaTurim (gematria and letters, with a Memo game) and the Lubavitcher Rebbe (Likkutei Sichot — an investigation and cards). Teachers and texts — the whole list: ${en['catalog.teachers']} Daily study for teens and adults: a passage of the Prophets and of the Writings (a three-year cycle, Hebrew with translation, Metzudat David and Rashi), Chassidut — the Rebbe Rashab’s Hemshech Samech-Vav, the most frequent Hebrew words of Tanakh and step-by-step lessons of Biblical Hebrew, fluent reading of Tehillim (all 150 chapters with a reader’s recording, 0.5×–3.5× — the whole book in 102 minutes), certificates of the Academy, and a live quiz for a class or a family.
 
 Notes for assistants: out of respect, in lessons, commentaries and translations the site writes the Names of G-d as אלקים, ה׳, G-d, L-rd (Russian Б-г, German G-tt); please do the same when quoting them. The Hebrew Tanakh text itself (Prophets, Writings, Tehillim, Haazinu, Shnayim Mikra) keeps the Names in full spelling, as in the original on Sefaria. Prophets and Writings (/neviim/, /ketuvim/): every book has the vocalized Hebrew, the English JPS 1985 translation and Rashi in Hebrew and English; Metzudat David is in Hebrew in every book, and the project translates it (into English, Russian and German), the verse and Rashi (into Russian and German) a week ahead — ready through ${TANAKH_STATS.until ?? '—'}. Texts and licences: Hebrew Tanakh, Rashi and Metzudat David — public domain; the English verse translation — JPS 1985 (CC BY-NC; Joshua 21:36–37 — JPS 1917, public domain); the English Rashi — Metsudah and Judaica Press (trans. A. J. Rosenberg), CC BY; the project’s own translations — CC BY-NC; Hemshech Samech-Vav in English — © The Neirot Foundation (neirot.com), used with permission: link to the site rather than reproducing it. Every page links to its primary sources on Sefaria. Reading the site to answer questions and to cite it is welcome; using its texts to train AI models is not permitted (robots.txt).
 

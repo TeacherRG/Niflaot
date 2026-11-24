@@ -387,9 +387,7 @@ I’m investigating with the Lubavitcher Rebbe — “Niflaot of the Rebbe,” P
 ${grid}
 
 Four riddles: I will return in peace, the Tree of Life, peace among the many, and “Shalom aleichem.”
-Play 👉 ${site}
-
-©mychitas.app`,
+Play 👉 ${site}`,
   cards: {
     "intro": "Twelve talks of the Rebbe on Vayetze: for each phrase of the verse — one explanation. Find which explanation belongs to which verse.",
     "items": [

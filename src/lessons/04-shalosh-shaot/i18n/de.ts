@@ -378,9 +378,7 @@ Ich ermittle mit dem Lubawitscher Rebben — „Niflaot des Rebben“, Abschnitt
 ${grid}
 
 Drei Rätsel: die drei Stunden des sechsten Tages, „größer als sein Gefährte“ und warum Mosche am Sinai zuerst zu den Frauen sprach. Danach — die Karten: 12 Verse des Abschnitts und die Erklärungen des Rebben.
-Spiel 👉 ${site}
-
-©mychitas.app`,
+Spiel 👉 ${site}`,
   source:
     'Nach einer Rede des Lubawitscher Rebben (Simchat Tora 5723; Likkutej Sichot, Bd. 3, Bereschit), englische Übersetzung von E. Touger (Sichos in English); nacherzählt vom Projekt. Karten — nach der Wochentabelle der Reden des Rebben „Nischmat Ephraim“ (parshapages.com).',
 };

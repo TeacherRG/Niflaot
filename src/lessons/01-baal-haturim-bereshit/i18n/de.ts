@@ -425,9 +425,7 @@ Ich suche sie in einem Gematria-Spiel nach dem Kommentar des Baal HaTurim. ${all
 ${grid}
 
 Vier Rätsel: über „Bereschit bara“ und die Wahrheit, über das Licht, das der Tora gleicht, über den Menschen aus Erde und über den siebten Tag und die siebte Generation. Schaffst du es besser?
-Spiel mit 👉 ${site}
-
-©mychitas.app`,
+Spiel mit 👉 ${site}`,
   source:
     'Nach dem Kommentar des Baal HaTurim (Rabbi Jaakow ben Ascher, 14. Jh.) zu den Kapiteln 1–4 von Bereschit, Kurzfassung („Kizur Baal HaTurim“). Hebräischer Text — Sefaria.',
 };

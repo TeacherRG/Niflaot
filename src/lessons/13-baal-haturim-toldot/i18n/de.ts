@@ -461,9 +461,7 @@ Ich spiele ein Gematria-Spiel nach dem Kommentar des Baal HaTurim zum Wochenabsc
 ${grid}
 
 Vier Rätsel: wem Jizchak ähnlich sah und was „Stroh und Feuer“ bedeutet, wie viele Völker nach Jaakow kamen und in wessen Zelten er lernte, die 172 Jahre Awrahams und an welchem Fest Jizchak Jaakow segnete. Schaffst du es besser?
-Spiel mit 👉 ${site}
-
-©mychitas.app`,
+Spiel mit 👉 ${site}`,
   source:
     'Nach dem Kommentar des Baal HaTurim (Rabbi Jaakow ben Ascher, 14. Jh.) zum Wochenabschnitt Toldot (Bereschit 25,19–28,9), Kurzfassung („Kizur Baal HaTurim“). Hebräischer Text — Sefaria.',
 };

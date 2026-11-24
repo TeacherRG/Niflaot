@@ -58,7 +58,7 @@ jobs:
           # PKCS12: one password for the store and the key
           keytool -genkeypair -v -storetype PKCS12 -keystore key/niflaot-upload.keystore -alias "$KEY_ALIAS" \
             -keyalg RSA -keysize 4096 -validity 10000 -storepass "$PASS" -keypass "$PASS" \
-            -dname "CN=Niflaot, O=MyChitas, C=AT"
+            -dname "CN=Niflaot, O=Niflaot, C=AT"
           base64 -w0 key/niflaot-upload.keystore > key/niflaot-upload.keystore.base64.txt
           SHA=$(keytool -list -v -keystore key/niflaot-upload.keystore -alias "$KEY_ALIAS" -storepass "$PASS" | grep -m1 'SHA256:' | sed 's/.*SHA256: *//')
           {

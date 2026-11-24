@@ -463,9 +463,7 @@ Ich ermittle zusammen mit dem Lubawitscher Rebben — „Niflaot des Rebben“, 
 ${grid}
 
 Vier Rätsel: wozu der Befehl hinauszugehen, der Wolf beim Lamm in der Arche, „füllt die Erde“ und wie man aus der eigenen Arche geht. Und danach — Karten: 12 Verse des Abschnitts und die Erklärungen des Rebben.
-Spiel mit 👉 ${site}
-
-©mychitas.app`,
+Spiel mit 👉 ${site}`,
   source:
     'Die Ermittlung folgt einer Rede des Lubawitscher Rebben (Schabbat Noach 5741 und 5743, Schabbat Chaje Sara 5743; Likkutej Sichot, Bd. 25, Noach, Rede 3, in hebräischer Übersetzung); Nacherzählung des Projekts. Die Karten folgen Reden zum Abschnitt Noach (Likkutej Sichot, Bd. 1, 5, 10, 15, 25).',
 };

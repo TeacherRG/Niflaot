@@ -221,7 +221,7 @@ async function run(browser, base, sc) {
     const about = await page.evaluate(() => { const d = document.querySelector('.sheet.about'); return d && {text: d.innerText, href: (d.querySelector('a') || {}).href, secs: d.querySelectorAll('.about-sec').length}; });
     if (!about) add('«About» window did not open');
     else {
-      if (!/^https:\/\/mychitas\.app\/?$/.test(about.href || '')) add('«About»: no link to mychitas.app');
+      if (!/^https:\/\/niflaot\.app\/?$/.test(about.href || '')) add('«About»: no link to niflaot.app');
       if (about.secs !== 4) add(`«About»: ${about.secs} sections instead of 4`);
       for (const p of textProblems(about.text, sc.lang)) add(`[about] ${p}`);
       await snap('about');

@@ -480,9 +480,7 @@ I’m playing a gematria game based on the Baal HaTurim’s commentary on Parsha
 ${grid}
 
 Five riddles: why G-d came to Avraham and who the three guests were, how to welcome and escort guests, what Sarah was asked and what a hundred years mean, what Avraham taught his children and what “dust and ashes” means, what is hidden in the words on Mount Moriah. Can you do better?
-Play 👉 ${site}
-
-©mychitas.app`,
+Play 👉 ${site}`,
   source:
     'Based on the commentary of the Baal HaTurim (Rabbi Yaakov ben Asher, 14th century) on Parshat Vayeira (Genesis 18:1–22:24), short version (“Kitzur Baal HaTurim”). Hebrew text — Sefaria.',
 };

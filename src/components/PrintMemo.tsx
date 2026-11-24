@@ -140,7 +140,7 @@ export function PrintMemo({ lesson, memo }: { lesson: Lesson; memo: MemoData }) 
 
         <footer className="p-foot">
           <p className="p-holy">{t('print.holy')}</p>
-          {SITE_HOST} · {t('memo.shabbat')} · © mychitas.app 2026
+          {SITE_HOST} · {t('memo.shabbat')} · © 5787
         </footer>
       </article>
     </div>

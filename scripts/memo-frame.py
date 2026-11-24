@@ -101,7 +101,7 @@ def frame(pic: Image.Image, n: int, parsha: str, k: float = 1) -> Image.Image:
     m = round(64 * k)
     label(d, (m, m), parsha, font(FONT_I, round(40 * k)), 'lt', k)
     label(d, (W - m, m), str(n), font(FONT, round(44 * k)), 'rt', k)
-    label(d, (W - m, H - m), '© mychitas.app 5787', font(FONT_I, round(30 * k)), 'rb', k)
+    label(d, (W - m, H - m), '© niflaot.app 5787', font(FONT_I, round(30 * k)), 'rb', k)
     return out
 
 

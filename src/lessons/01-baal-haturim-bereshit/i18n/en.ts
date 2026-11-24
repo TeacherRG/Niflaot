@@ -425,9 +425,7 @@ I’m searching for it in a gematria game based on the commentary of the Baal Ha
 ${grid}
 
 Four riddles: on “Bereishit bara” and truth, on the light that equals Torah, on man from the earth, and on the seventh day and the seventh generation. Can you do better?
-Play 👉 ${site}
-
-©mychitas.app`,
+Play 👉 ${site}`,
   source:
     'Based on the commentary of the Baal HaTurim (Rabbi Yaakov ben Asher, 14th c.) on chapters 1–4 of Bereishit, short version (“Kitzur Baal HaTurim”). Hebrew text — Sefaria.',
 };

@@ -443,9 +443,7 @@ I’m playing a gematria game based on the Baal HaTurim’s commentary on Parsha
 ${grid}
 
 Five riddles: “go for yourself” and the clouds on the way, peace with Lot and Malki-Tzedek, the stars and thirty righteous people, the Covenant between the Pieces and atbash, Avraham’s name and Yitzchak. Can you do better?
-Play 👉 ${site}
-
-©mychitas.app`,
+Play 👉 ${site}`,
   source:
     'Based on the commentary of the Baal HaTurim (Rabbi Yaakov ben Asher, 14th century) on Parshat Lech Lecha (Genesis 12:1–17:27), short version (“Kitzur Baal HaTurim”). Hebrew text — Sefaria.',
 };

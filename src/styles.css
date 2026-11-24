@@ -655,16 +655,11 @@ article.m-card{border-top:3px solid var(--gold-2)}
 @media (prefers-reduced-motion:no-preference){.term-pop{animation:fade .15s ease-out}}
 @media print{.term{border:0}.term-pop{display:none}}
 
-/* practical takeaway, share card button, MyChitas */
+/* practical takeaway, share card button */
 .practice{margin-top:16px;border-radius:8px;background:var(--ok-soft);border:1px solid #BFE0CB;border-inline-start:4px solid var(--ok);padding:16px 18px;display:grid;gap:6px}
 .practice-lbl{margin:0;font-family:inherit;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ok);font-weight:700}
 .practice p{margin:0;font-family:var(--f-display);font-size:20px;line-height:1.35;color:var(--ink)}
 .share-btns .btn{display:inline-flex;align-items:center;gap:8px}
-.mychitas{margin-top:16px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;padding:16px 18px;border-radius:10px;background:var(--surface);border:1px solid var(--gold-line);box-shadow:var(--shadow);text-decoration:none;color:var(--ink);transition:transform .15s}
-.mychitas:hover{transform:translateY(-1px)}
-.mc-mark{grid-row:span 2;font-family:var(--f-display);font-weight:700;font-size:20px;color:#fff;background:var(--night);border-radius:8px;padding:10px 12px}
-.mc-text{font-size:14.5px;color:var(--ink-2)}
-.mc-cta{font-weight:700;color:var(--gold);font-size:14px}
 
 /* home: value proposition + call to action */
 .hero h1.uvp{font-size:clamp(30px,6vw,44px);max-width:18ch}
@@ -1279,7 +1274,7 @@ p.calc .he{font-family:var(--f-he);font-size:1.2em;font-weight:700;color:var(--i
 .h-badge{min-width:0;padding:1px 8px;border-radius:999px;background:var(--tc-soft);color:var(--tc);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 
-/* footer of every page: the site, the year, MyChitas */
+/* footer of every page: the site, the year, the links */
 .colophon{max-width:none;margin:28px -16px 0;padding:0;border:0;display:block;text-align:start;font-size:13px;color:inherit}
 .colophon .colophon-source{max-width:780px;margin:0 auto 14px;padding:0 16px;text-align:center;font-size:12px;color:var(--muted)}
 .site-foot{background:var(--night);color:#C9CEE0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
@@ -1292,7 +1287,7 @@ p.calc .he{font-family:var(--f-he);font-size:1.2em;font-weight:700;color:var(--i
 .site-foot button{background:none;border:0;padding:0;color:#fff;font-weight:600;font-size:13px}
 
 @media (max-width:899px){
-  /* one line on a phone: the site, the year, MyChitas (about and donation are in the menu) */
+  /* one line on a phone: the site, the year (about and donation are in the menu) */
   .site-foot .site-foot-more{display:none}
   .site-foot-in{flex-wrap:nowrap;gap:10px}
   .site-foot .site-foot-brand{font-size:16px}

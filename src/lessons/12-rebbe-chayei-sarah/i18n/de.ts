@@ -343,9 +343,7 @@ Ich ermittle zusammen mit dem Lubawitscher Rebben — „Niflaot des Rebben“, 
 ${grid}
 
 Vier Rätsel: die Haftara als Spiegel des Abschnitts, gesalbt wegen eines Streits, ein Horn und kein Krug, und für immer erwählt.
-Spiel mit 👉 ${site}
-
-©mychitas.app`,
+Spiel mit 👉 ${site}`,
   source:
     'Die Ermittlung folgt einer Rede des Lubawitscher Rebben an den Schabbatot Wajera und Chaje Sara 5743 (Likkutej Sichot, Bd. 25, Chaje Sara, Rede 3), in hebräischer Übersetzung; Nacherzählung des Projekts.',
 };

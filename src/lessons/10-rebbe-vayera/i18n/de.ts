@@ -238,9 +238,7 @@ Ich ermittle zusammen mit dem Lubawitscher Rebben — „Niflaot des Rebben“, 
 ${grid}
 
 Drei Rätsel: acht Tage oder dreizehn Jahre, ein ewiger Bund und warum ein Baby.
-Spiel mit 👉 ${site}
-
-©mychitas.app`,
+Spiel mit 👉 ${site}`,
   source:
     'Die Ermittlung folgt einer Rede des Lubawitscher Rebben am letzten Tag von Pessach 5741 (Likkutej Sichot, Bd. 25, Wajera, Rede 3), in hebräischer Übersetzung; Nacherzählung des Projekts.',
 };

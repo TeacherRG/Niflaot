@@ -225,7 +225,7 @@ export function ShabbatTable({ parsha }: { parsha?: string }) {
           <span className="he" lang="he">
             {SLOGAN_HE}
           </span>{' '}
-          · {t('app.title')} · {SITE_HOST} · © mychitas.app 5787
+          · {t('app.title')} · {SITE_HOST} · © 5787
         </footer>
       </article>
     </div>

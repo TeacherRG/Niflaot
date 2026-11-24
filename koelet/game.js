@@ -285,9 +285,9 @@ function wireLangPicker(root,after){
 }
 
 /* ---------- О приложении ---------- */
-const PROJECT_URL='https://mychitas.app';
+const PROJECT_URL='https://niflaot.app';
 const APP_URL='https://niflaot.app';   // игра — курс «Нифлаот» (#/koelet); отдельный сайт был mylot.mychitas.app
-const COPYRIGHT='©mychitas.app 5787';
+const COPYRIGHT='©niflaot.app 5787';
 const DONATE_URL='https://mychitas.app/donate';
 function donateBtn(){
   let a=document.getElementById('donate');
@@ -298,7 +298,7 @@ function donateBtn(){
   a.hidden=S.screen==='title'||!!(st&&st.type==='mini');
 }
 function showAbout(){
-  const link=`<a href="${PROJECT_URL}" target="_blank" rel="noopener">mychitas.app</a>`;
+  const link=`<a href="${PROJECT_URL}" target="_blank" rel="noopener">niflaot.app</a>`;
   const sec=(h,txt)=>`<section class="about-sec"><h3>${t(h)}</h3><p>${t(txt)}</p></section>`;
   infoModal('about',`<div class="about-head"><div class="about-m">${mentorSvg('smile')}</div><div><span class="kicker">${t('about.title')}</span>
     <h2 class="h2" id="about-h">${t('title.h1a')} ${t('title.h1b')}</h2><p class="about-made">${t('about.made',{link})}</p></div></div>
@@ -436,7 +436,7 @@ function renderTitle(){
       <button class="linkbtn shablink" id="lessonbtn">${icon('chat')} ${t('lesson.title')}</button></div></div>
     <p class="foot">${t('title.foot')} <button class="linkbtn" id="aboutbtn">${icon('info')} ${t('about.title')}</button></p>
     ${adm?`<p class="foot"><button class="linkbtn" id="admbtn">${icon('key')} ${t(isAdmin()?'adm.menu':'adm.open')}</button></p>`:''}
-    <p class="copy"><a href="${PROJECT_URL}" target="_blank" rel="noopener">©mychitas.app</a> 5787</p>
+    <p class="copy"><a href="${PROJECT_URL}" target="_blank" rel="noopener">©niflaot.app</a> 5787</p>
   </section>`;
   $('#setbtn').onclick=()=>quickMenu();
   $('#aboutbtn').onclick=showAbout;

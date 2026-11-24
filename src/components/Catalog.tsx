@@ -144,7 +144,7 @@ function TableTile() {
 function AdultsHome() {
   const { t, locale } = useI18n();
   useEffect(() => {
-    document.title = `${t('home.adultsH1')} · ${t('app.title')} · MyChitas`;
+    document.title = `${t('home.adultsH1')} · ${t('app.title')}`;
   }, [t]);
   const week = LESSON_GROUPS.find((g) => g.id === weekParsha()) ?? LESSON_GROUPS[LESSON_GROUPS.length - 1];
   const reads = [...week.lessons, ...week.rebbe];
@@ -666,7 +666,7 @@ function KidsHome() {
   const { t, pick, locale } = useI18n();
 
   useEffect(() => {
-    document.title = `${t('app.title')} · MyChitas`;
+    document.title = t('catalog.seoTitle');
   }, [t]);
 
   const week = LESSON_GROUPS.find((g) => g.id === weekParsha()) ?? LESSON_GROUPS[LESSON_GROUPS.length - 1];

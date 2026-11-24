@@ -371,9 +371,7 @@ Ich ermittle zusammen mit dem Lubawitscher Rebben — „Niflaot des Rebben“, 
 ${grid}
 
 Vier Rätsel: Ola Temima, die Akeda jetzt, Asche ist der Alltag, und ganz auf dem Altar.
-Spiel mit 👉 ${site}
-
-©mychitas.app`,
+Spiel mit 👉 ${site}`,
   source:
     'Die Ermittlung folgt einer Rede des Lubawitscher Rebben am Schabbat Behar-Bechukotai 5728 (Likkutej Sichot, Bd. 25, Toldot, Rede 3), in hebräischer Übersetzung; Nacherzählung des Projekts.',
 };

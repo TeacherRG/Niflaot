@@ -336,7 +336,7 @@ export function Memo({ lesson, memo, text, at }: { lesson: Lesson; memo: MemoDat
               {t('memo.toGematria')}
             </a>
           </div>
-          <div className="memo-copy">© mychitas.app 2026</div>
+          <div className="memo-copy">© niflaot.app 5787</div>
         </div>
       )}
 

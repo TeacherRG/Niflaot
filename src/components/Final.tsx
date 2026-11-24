@@ -237,11 +237,6 @@ export function Final({
     </section>
     <DailyReminder compact />
     <Subscribe mini />
-    <a className="mychitas pop" href="https://mychitas.app" target="_blank" rel="noopener">
-      <span className="mc-mark">MyChitas</span>
-      <span className="mc-text">{t('final.mychitas')}</span>
-      <span className="mc-cta">{t('final.mychitasCta')}</span>
-    </a>
     </>
   );
 }

@@ -38,7 +38,7 @@ export function ShabbatRest() {
       {!w.place && <p>{t('shabbat.fixed')}</p>}
       <p className="shabbat-back">{t('shabbat.back', { time: time(w.to) })}</p>
       <div className="shabbat-brand">
-        {t('app.title')} · MyChitas
+        {t('app.title')} · <span className="he">נפלאות</span>
       </div>
     </main>
   );

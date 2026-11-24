@@ -372,9 +372,7 @@ Ich spiele ein Gematria-Spiel nach dem Kommentar des Baal HaTurim zum Wochenabsc
 ${grid}
 
 Vier Rätsel: Saras Sonne und ihre wichtigsten Jahre, was die Höhle Machpela kostete und was ein „böses Auge“ ist, worauf Awrahams Diener schwor und worum er am Brunnen bat, wie Riwka in Saras Zelt kam. Schaffst du es besser?
-Spiel mit 👉 ${site}
-
-©mychitas.app`,
+Spiel mit 👉 ${site}`,
   source:
     'Nach dem Kommentar des Baal HaTurim (Rabbi Jaakow ben Ascher, 14. Jahrhundert) zum Wochenabschnitt Chaje Sara (Bereschit 23,1–25,18), kurze Fassung („Kizur Baal HaTurim“). Hebräischer Text — Sefaria.',
 };
