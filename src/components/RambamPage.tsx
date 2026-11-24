@@ -413,7 +413,6 @@ function RambamWord({ dict, box }: { dict: RambamDict | null; box: React.RefObje
           <p className="wp-meta">{dict ? t('rm.noWord') : t('rm.loading')}</p>
         )}
         {entry?.[2] && <TanakhButtons id={entry[2]} />}
-        <p className="wp-meta">{t('rm.wordCredit')}</p>
       </div>
     </div>,
     document.body,
