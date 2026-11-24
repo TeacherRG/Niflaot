@@ -207,7 +207,6 @@ export function TopBar({ title, children, wide, share = true }: { title: string;
           <img className="brand-logo" src={NIFLAOT_MARK} alt="" width={36} height={36} />
           <span className="brand-text">
             {title}
-            <small>{t('app.brandSub')}</small>
           </span>
         </a>
         {/* the game's progress (riddle steps, timer, score) — its own row under the brand (QA, 10.11.2026: it wrapped anyhow) */}

@@ -21,10 +21,10 @@ on:
         default: build
       version_code:
         description: 'versionCode — a whole number, larger than the last upload to Play'
-        default: '1'
+        default: '2'
       version_name:
         description: 'versionName — what people see in Play'
-        default: '1.0.0'
+        default: '1.0.1'
 
 permissions:
   contents: read
