@@ -4264,3 +4264,47 @@ html:has(.clk2) body{background:#0B1532 url(./assets/clock-bg.webp) center/cover
 .rm-term b{color:var(--gold-deep)}
 .hw-term{display:block;margin-top:3px;font-size:12.5px;color:var(--ink-2)}
 .hw-term b{color:var(--gold-deep)}
+
+
+/* Rambam landscape: keep the date navigation on one compact line and give the reading area the saved height. */
+@media (orientation:landscape) and (max-height:500px) {
+  .rm .tk-dates {
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 3px;
+    padding: 3px 5px;
+    margin-bottom: 5px;
+  }
+  .rm .tk-step {
+    min-height: 34px;
+    padding: 1px 0;
+  }
+  .rm .tk-step small {
+    font-size: 10px;
+  }
+  .rm .tk-date {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 4px 9px;
+    min-width: 0;
+    white-space: nowrap;
+  }
+  .rm .tk-date b {
+    font-size: 10px;
+    letter-spacing: .04em;
+  }
+  .rm .tk-date > span,
+  .rm .tk-date > span.he {
+    font-size: 12px;
+  }
+  .rm .tk-to-today {
+    margin: 0;
+    font-size: 11px;
+  }
+  /* The floating assistant obscures the Rambam text/slides on a short landscape screen. */
+  body:has(.rm) .ai-fab {
+    display: none;
+  }
+}
