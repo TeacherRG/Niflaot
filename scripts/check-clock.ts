@@ -1,8 +1,8 @@
 /**
  * «Часы» (src/core/clock.ts): the times of the day and the rules of the alarm — run by `npm run check`.
  */
-import { addDays, cleanAlarm, cleanMarks, fracOf, halfOf, halfTimes, hourOf, TIME_IDS, dayKind, DEFAULT_ALARM, DEFAULT_STUDY, inIsrael, nextRing, restAt, shownDay, timesOf, wallTime, type Alarm, type Spot } from '../src/core/clock';
-import { hebrewDayMonth } from '../src/core/hebcal';
+import { addDays, cleanAlarm, cleanMarks, fracOf, halfOf, halfTimes, hourOf, TIME_IDS, dayKind, DEFAULT_ALARM, DEFAULT_STUDY, inIsrael, nextRing, restAt, shabbatSpan, shownDay, timesOf, candleMinutes, wallTime, type Alarm, type Spot } from '../src/core/clock';
+import { dayTimes, hebrewDayMonth, isErevPesach } from '../src/core/hebcal';
 
 let failed = 0;
 const ok = (cond: unknown, what: string) => {
@@ -153,6 +153,26 @@ for (const [name, s] of [['Vienna', vienna], ['Jerusalem', jerusalem]] as const)
   // every month of a leap year (5787) has a name in every language
   let d = '2026-09-12';
   for (let n = 0; n < 390; n++, d = addDays(d, 1)) for (const l of ['ru', 'en', 'de', 'he']) ok(!/[A-Z]'?[a-z]+/.test(hebrewDayMonth(d, l).month) || l !== 'ru', `${d}: no Russian month name`);
+}
+
+{
+  const near = (d: Date | null, want: string, by: number) => Math.abs(mins(hm(d, vienna.zone)) - mins(want)) <= by;
+  // the Chabad profile of the app «Пеле Шаон» (synced 24.11.2026): dawn 16.9° (a white night — solar midnight), midday between the
+  // true sunrise and sunset, nightfall 6°, the end of Shabbat 8.5° (after nightfall), candles by the city's custom
+  ok(candleMinutes('Asia/Jerusalem') === 40 && candleMinutes('haifa') === 30 && candleMinutes('Asia/Tel_Aviv') === 22 && candleMinutes('Europe/Vienna') === 18 && candleMinutes() === 18, 'candle minutes by city');
+  const v = dayTimes('2026-11-24', vienna.lat, vienna.lon, vienna.zone);
+  ok(near(v.alot!, '05:30', 3) && near(v.misheyakir!, '06:12', 3) && near(v.chatzot!, '11:41', 2) && near(v.shabbatEnd!, '16:59', 3), `Vienna 24.11: alot ${hm(v.alot, vienna.zone)}, misheyakir ${hm(v.misheyakir, vienna.zone)}, chatzot ${hm(v.chatzot, vienna.zone)}, 8.5° ${hm(v.shabbatEnd, vienna.zone)}`);
+  ok(v.tzeit! < v.shabbatEnd! && v.minchaGedola! < v.minchaKetana! && v.minchaKetana! < v.plag!, 'Vienna 24.11: the order of the times');
+  const sh = shabbatSpan('2026-11-27', '2026-11-28', { ...jerusalem, candle: 40 });
+  const js = dayTimes('2026-11-27', jerusalem.lat, jerusalem.lon, jerusalem.zone).sunset!;
+  ok(sh.candles && js.getTime() - sh.candles.getTime() === 40 * 60_000 && sh.end, 'Jerusalem: candles 40 minutes before sunset');
+  const spb: Spot = { lat: 59.94, lon: 30.31, zone: 'Europe/Moscow', il: false };
+  const w = dayTimes('2026-06-20', spb.lat, spb.lon, spb.zone);
+  ok(w.alot && w.alot < w.sunrise! && !w.shabbatEnd, 'St Petersburg, white night: dawn — solar midnight; no 8.5°');
+  ok(restAt(wallTime('2026-06-20', 23, 30, spb.zone), spb) === 'shabbat' && !restAt(wallTime('2026-06-21', 3, 0, spb.zone), spb), 'St Petersburg, white night: quiet until solar midnight');
+  ok(isErevPesach('2027-04-21') && !isErevPesach('2027-04-22'), 'Erev Pesach 5787');
+  const b = dayTimes('2027-04-21', jerusalem.lat, jerusalem.lon, jerusalem.zone).biurChametz!;
+  ok(b > timesOf('2027-04-21', jerusalem).tefila! && b < timesOf('2027-04-21', jerusalem).chatzot!, 'the burning of chametz: after the morning prayer, before midday');
 }
 
 if (failed) {

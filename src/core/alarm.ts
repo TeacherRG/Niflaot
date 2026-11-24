@@ -7,7 +7,7 @@
  * itself is closed (ShabbatRest), on Yom Tov and Yom Kippur the watch keeps quiet (restAt).
  */
 import { ALARM_EVENT, ALARM_KEYS } from './alarmStore';
-import { ALARM_KINDS, cleanAlarm, DEFAULT_ALARM, DEFAULT_STUDY, inIsrael, nextRing, restAt, type Alarm, type AlarmKind, type Spot } from './clock';
+import { ALARM_KINDS, candleMinutes, cleanAlarm, DEFAULT_ALARM, DEFAULT_STUDY, inIsrael, nextRing, restAt, type Alarm, type AlarmKind, type Spot } from './clock';
 import { currentPlace } from './places';
 
 const sinceKey = (k: AlarmKind) => `${ALARM_KEYS[k]}-since`;
@@ -56,7 +56,7 @@ export function saveAlarm(a: Alarm, kind: AlarmKind = 'wake') {
 /** The reader's city as the clock needs it; null — no city (the calendar offers to choose one). */
 export function currentSpot(): Spot | null {
   const { place, zone } = currentPlace();
-  return place ? { lat: place.lat, lon: place.lon, zone, il: inIsrael(zone) } : null;
+  return place ? { lat: place.lat, lon: place.lon, zone, il: inIsrael(zone), candle: candleMinutes(place.id) } : null;
 }
 
 // ——— the sound ———

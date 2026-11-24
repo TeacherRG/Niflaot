@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { useI18n, uiLang } from '../i18n';
-import { hebrewDateText, sunTimes } from '../core/hebcal';
+import { dayTimes, hebrewDateText, isErevPesach, sunTimes } from '../core/hebcal';
+import { candleMinutes, inIsrael, shabbatSpan } from '../core/clock';
 import { CalendarClock } from './ClockFace';
 import { currentPlace, findCities, PLACE_EVENT, setPlace, timeZone, type Place } from '../core/places';
 
 const DAY = 86_400_000;
-const CANDLE_MINUTES = 18;
-const HAVDALAH_MINUTES = 50;
 
 const dateIso = (date: Date) =>
   `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
@@ -17,18 +16,15 @@ function shabbatTimes(now: Date, place: Place, zone: string) {
   const untilFriday = today.getDay() === 6 ? -1 : (5 - today.getDay() + 7) % 7;
   let friday = new Date(today.getTime() + untilFriday * DAY);
   let saturday = new Date(friday.getTime() + DAY);
-  let saturdaySun = sunTimes(dateIso(saturday), place.lat, place.lon, zone);
-  if (saturdaySun.sunset && now.getTime() >= saturdaySun.sunset.getTime() + HAVDALAH_MINUTES * 60_000) {
+  // candle lighting by the city's custom (Jerusalem 40 min, Haifa 30, Tel Aviv 22, else 18), the end — the sun 8.5° below
+  const spot = { lat: place.lat, lon: place.lon, zone, il: inIsrael(zone), candle: candleMinutes(place.id) };
+  let span = shabbatSpan(dateIso(friday), dateIso(saturday), spot);
+  if (span.end && now >= span.end) {
     friday = new Date(friday.getTime() + 7 * DAY);
     saturday = new Date(friday.getTime() + DAY);
-    saturdaySun = sunTimes(dateIso(saturday), place.lat, place.lon, zone);
+    span = shabbatSpan(dateIso(friday), dateIso(saturday), spot);
   }
-  const fridaySun = sunTimes(dateIso(friday), place.lat, place.lon, zone);
-  return {
-    saturday,
-    lighting: fridaySun.sunset ? new Date(fridaySun.sunset.getTime() - CANDLE_MINUTES * 60_000) : null,
-    havdalah: saturdaySun.sunset ? new Date(saturdaySun.sunset.getTime() + HAVDALAH_MINUTES * 60_000) : null,
-  };
+  return { saturday, lighting: span.candles, havdalah: span.end, candle: spot.candle };
 }
 
 const plainHe = (iso: string) => hebrewDateText(iso).replace(/[\u0591-\u05C7]/g, '');
@@ -120,12 +116,13 @@ export function ShabbatCalendar({ bare = false, shabbatOnly = false }: { bare?: 
       {!shabbatOnly && block('today', t('calendar.today'), dateFormatter.format(now), hebrewToday, [
         ['calendar.sunrise', today.sunrise],
         ['calendar.sunset', today.sunset],
+        ...(isErevPesach(dateIso(now)) ? [['clock.t.biurChametz', dayTimes(dateIso(now), place.lat, place.lon, zone).biurChametz] as [Parameters<typeof t>[0], Date | null]] : []),
       ], evening ? t('calendar.evening') : undefined)}
       {block('shabbat', t('calendar.shabbat'), dateFormatter.format(times.saturday), plainHe(dateIso(times.saturday)), [
         ['calendar.lighting', times.lighting],
         ['calendar.havdalah', times.havdalah],
       ])}
-      <p className="shabbat-calendar-note">{t(auto ? 'calendar.note' : 'calendar.noteChosen')}</p>
+      <p className="shabbat-calendar-note">{t(auto ? 'calendar.note' : 'calendar.noteChosen', { n: times.candle })}</p>
     </section>
   );
 }

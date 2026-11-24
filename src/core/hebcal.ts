@@ -3,7 +3,7 @@
  * no requests, no dependence on the browser's Intl Hebrew calendar. Date, weekly portion (Torah reading) and
  * astronomical sun times for a place.
  */
-import { flags, HDate, HebrewCalendar, Location, Sedra, Zmanim } from '@hebcal/core';
+import { flags, HDate, HebrewCalendar, Location, months, Sedra, Zmanim } from '@hebcal/core';
 
 const atNoon = (iso: string) => new Date(`${iso}T12:00:00`);
 
@@ -55,25 +55,51 @@ export function sunTimes(iso: string, lat: number, lon: number, tzid: string): {
 
 /**
  * The times of the day for «Часы» (src/core/clock.ts) — by the opinion of the Alter Rebbe (Baal HaTanya), as in the Chabad
- * calendars: the day runs from the «true» sunrise to the «true» sunset (the sun 1.583° below the horizon), an hour of the
- * day is a twelfth of it; the end of the time of Shma — 3 such hours, of the morning prayer — 4. Mincha — until sunset.
- * Also for the face of the clock: sunrise, midday (chatzot), Mincha Gedola, Plag HaMincha and nightfall (the sun 6° below).
- * Null where the sun does not rise or set.
+ * calendars and in the app «Пеле Шаон» (its `ZmanimService`, KosherJava 3.1; synced 24.11.2026): the day runs from the «true»
+ * sunrise to the «true» sunset (the sun 1.583° below the horizon), an hour of the day is a twelfth of it; the end of the time
+ * of Shma — 3 such hours, of the morning prayer — 4, Mincha Ketana — 9½, the burning of chametz — 5. Midday — halfway between
+ * the true sunrise and sunset. Dawn — the sun 16.9° below; a summer night where it never gets that low — the lowest point of
+ * the night (solar midnight). Misheyakir — 10.2°, nightfall — 6°, the end of Shabbat and Yom Tov — 8.5°.
+ * Null where the sun does not rise, set or reach the angle — never a made-up time.
  */
 export function dayTimes(iso: string, lat: number, lon: number, tzid: string) {
-  const z = new Zmanim(new Location(lat, lon, false, tzid), atNoon(iso), false);
+  const loc = new Location(lat, lon, false, tzid);
+  const z = new Zmanim(loc, atNoon(iso), false);
   const ok = (d: Date) => (Number.isNaN(d.getTime()) ? null : d);
+  const trueRise = ok(z.timeAtAngle(1.583, true));
+  const trueSet = ok(z.timeAtAngle(1.583, false));
+  const hour = trueRise && trueSet && trueSet > trueRise ? (trueSet.getTime() - trueRise.getTime()) / 12 : null;
+  const at = (hours: number) => (trueRise && hour ? new Date(trueRise.getTime() + hours * hour) : null);
+  const sunrise = ok(z.sunrise());
+  let alot = ok(z.alosBaalHatanya());
+  if (!alot && sunrise) {
+    // a summer night that never gets 16.9° dark: dawn is the darkest moment of the night before — solar midnight
+    const y = new Zmanim(loc, new Date(atNoon(iso).getTime() - 86_400_000), false);
+    const noonY = ok(y.chatzot());
+    const midnight = noonY && new Date(noonY.getTime() + 12 * 3_600_000);
+    if (midnight && midnight < sunrise) alot = midnight;
+  }
   return {
-    alot: ok(z.alotHaShachar()),
-    sunrise: ok(z.sunrise()),
+    alot,
+    misheyakir: ok(z.timeAtAngle(10.2, true)),
+    sunrise,
     shma: ok(z.sofZmanShmaBaalHatanya()),
     tefila: ok(z.sofZmanTfilaBaalHatanya()),
-    chatzot: ok(z.chatzot()),
+    biurChametz: at(5),
+    chatzot: at(6),
     minchaGedola: ok(z.minchaGedolaBaalHatanya()),
+    minchaKetana: ok(z.minchaKetanaBaalHatanya()),
     plag: ok(z.plagHaminchaBaalHatanya()),
     sunset: ok(z.sunset()),
     tzeit: ok(z.tzaisBaalHatanya()),
+    shabbatEnd: ok(z.timeAtAngle(8.5, false)),
   };
+}
+
+/** Is the calendar day `iso` Erev Pesach (14 Nisan) — the day the time of burning chametz is shown. */
+export function isErevPesach(iso: string): boolean {
+  const d = new HDate(atNoon(iso));
+  return d.getMonth() === months.NISAN && d.getDate() === 14;
 }
 
 /**

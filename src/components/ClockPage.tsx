@@ -5,9 +5,9 @@ import { TopBar } from './TopBar';
 import { Icon, Sheet, useDismiss } from './ui';
 import { CityPicker } from './ShabbatCalendar';
 import { BigFace, COLOR, loadMarks, loadTziruf, MARKS_KEY, TZIRUF_KEY, type FaceEvent, type FaceId } from './ClockFace';
-import { dayTimes, hebrewDateText, hebrewDayMonth } from '../core/hebcal';
+import { dayTimes, hebrewDateText, hebrewDayMonth, isErevPesach } from '../core/hebcal';
 import { currentPlace, PLACE_EVENT } from '../core/places';
-import { addDays, BEFORE, CANDLE_MIN, cleanMarks, END_MIN, DEADLINES, halfOf, halfTimes, hourOf, isoIn, nextRing, restAt, ringOn, shownDay, TIME_IDS, type Alarm, type AlarmKind, type Rest, type Spot, type TimeId } from '../core/clock';
+import { addDays, BEFORE, cleanMarks, DEADLINES, halfOf, halfTimes, hourOf, isoIn, nextRing, restAt, ringOn, shabbatSpan, shownDay, TIME_IDS, type Alarm, type AlarmKind, type Rest, type Spot, type TimeId } from '../core/clock';
 import { armSound, currentSpot, loadAlarm, ring, saveAlarm, soundReady } from '../core/alarm';
 
 const MIN = 60_000;
@@ -166,9 +166,8 @@ function shabbatOf(now: Date, spot: Spot) {
   const wd = new Date(`${today}T12:00:00Z`).getUTCDay();
   let fri = addDays(today, wd === 6 ? -1 : (5 - wd + 7) % 7);
   const span = (f: string) => {
-    const a = dayTimes(f, spot.lat, spot.lon, spot.zone).sunset;
-    const b = dayTimes(addDays(f, 1), spot.lat, spot.lon, spot.zone).sunset;
-    return { fri: f, candles: a && new Date(a.getTime() - CANDLE_MIN * MIN), havdalah: b && new Date(b.getTime() + END_MIN * MIN) };
+    const { candles, end } = shabbatSpan(f, addDays(f, 1), spot);
+    return { fri: f, candles, havdalah: end };
   };
   let sh = span(fri);
   if (sh.havdalah && now >= sh.havdalah) sh = span((fri = addDays(fri, 7)));
@@ -241,6 +240,9 @@ export function ClockPage() {
   // the day as an ordinary number — not everyone reads the letters as numbers (owner, 17.11.2026)
   const hd = hebrewDayMonth(hebIso, ui);
   const sh = spot && shabbatOf(now, spot);
+  // Erev Pesach: the last time to burn chametz (5 hours of the day, by the Alter Rebbe), floored to the minute
+  const chametzAt = shown && spot && isErevPesach(shown.iso) ? dayTimes(shown.iso, spot.lat, spot.lon, spot.zone).biurChametz : null;
+  const chametz = chametzAt && new Date(Math.floor(chametzAt.getTime() / MIN) * MIN);
   // the half of the day on the rim (day or night, 12 halachic hours) and the times that fall in it
   const half = spot && halfOf(now, spot);
   const inHalf = half && spot ? halfTimes(half, spot) : {};
@@ -472,6 +474,17 @@ export function ClockPage() {
                   </li>
                 );
               })}
+              {chametz && (
+                <li className={chametz <= now ? 'past' : ''}>
+                  <i style={{ background: 'var(--bad-deep)' }} aria-hidden="true" />
+                  <span>
+                    <b>{t('clock.t.biurChametz')}</b>
+                    <small>{chametz <= now ? t('clock.past') : until(chametz, true)}</small>
+                  </span>
+                  <time dateTime={chametz.toISOString()}>{hm(chametz)}</time>
+                  <span />
+                </li>
+              )}
             </ul>
             <label className="clk2-pop-toggle clk2-tz">
               <input type="checkbox" checked={tziruf} onChange={toggleTziruf} />

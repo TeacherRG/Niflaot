@@ -9,11 +9,13 @@ import { currentSpot } from '../core/alarm';
  */
 export const COLOR: Record<TimeId, string> = {
   alot: 'var(--tchelet-deep)',
+  misheyakir: 'var(--tchelet-deep)',
   sunrise: 'var(--gold)',
   shma: 'var(--tchelet)',
   tefila: 'var(--ok)',
   chatzot: 'var(--muted)',
   minchaGedola: 'var(--plum-deep)',
+  minchaKetana: 'var(--plum-deep)',
   plag: 'var(--gold-deep)',
   mincha: 'var(--bad)',
   tzeit: 'var(--ink-2)',
