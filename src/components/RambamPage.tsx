@@ -16,6 +16,7 @@ import {
   chapterOn,
   heNum,
   loadDict,
+  loadTerms,
   loadSlides,
   loadText,
   slideSrc,
@@ -23,6 +24,7 @@ import {
   wordKey,
   type RambamDay,
   type RambamDict,
+  type RambamTerms,
   type RambamText,
   type Slide,
 } from '../core/rambam';
@@ -358,6 +360,10 @@ function RambamWord({ dict, box }: { dict: RambamDict | null; box: React.RefObje
   const { t, locale } = useI18n();
   const [open, setOpen] = useState<Open | null>(null);
   const pop = useRef<HTMLDivElement>(null);
+  const [terms, setTerms] = useState<RambamTerms | null>(null);
+  useEffect(() => {
+    loadTerms().then(setTerms);
+  }, []);
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       const el = (e.target as HTMLElement | null)?.closest?.('.rm-w') as HTMLElement | null;
@@ -388,6 +394,7 @@ function RambamWord({ dict, box }: { dict: RambamDict | null; box: React.RefObje
   }, [open, dict]);
   if (!open) return null;
   const entry = dict?.[wordKey(open.word)];
+  const term = locale === 'ru' && terms ? terms.t[terms.w[wordKey(open.word)]] : undefined;
   const ru = locale === 'ru';
   return createPortal(
     <div className="wp rm-pop" ref={pop} style={pos} role="dialog" aria-label={open.word}>
@@ -401,6 +408,11 @@ function RambamWord({ dict, box }: { dict: RambamDict | null; box: React.RefObje
         {entry ? (
           <>
             {ru ? <p className="wp-tr">{entry[0]}</p> : <p className="wp-meta">{t('rm.onlyRu')}</p>}
+            {term && (
+              <p className="rm-term">
+                <b>{term[0]}</b> — {term[1]}
+              </p>
+            )}
             {entry[1] && (
               <p className="wp-meta">
                 {t('rm.base')}{' '}

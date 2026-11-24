@@ -4,6 +4,7 @@ import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { readHebrew } from '../core/translit';
 import { KNOWN_BOX } from '../core/words';
+import { loadTerms, type RambamTerms } from '../core/rambam';
 import { hBox, hDue, hMarkKnown, hMarkLearn, hReview, hUnmark, loadLexicon, useHalachaStore, type Lexicon } from '../core/halachaWords';
 
 const readLang = (l: string) => (l === 'en' || l === 'de' ? l : 'ru');
@@ -38,6 +39,11 @@ export function HalachaWordsPage() {
   const [lex, setLex] = useState<Lexicon | null>(null);
   const [shown, setShown] = useState(false);
   const [q, setQ] = useState('');
+  const [terms, setTerms] = useState<RambamTerms | null>(null);
+  useEffect(() => {
+    loadTerms().then(setTerms);
+  }, []);
+  const term = (id: string) => (locale === 'ru' ? terms?.t[id] : undefined);
   useEffect(() => {
     let live = true;
     loadLexicon().then((x) => live && setLex(x));
@@ -67,7 +73,14 @@ export function HalachaWordsPage() {
         <span className="he hw-he" lang="he">
           {lex[id][0]}
         </span>
-        <span className="hw-tr">{lex[id][1]}</span>
+        <span className="hw-tr">
+          {lex[id][1]}
+          {term(id) && (
+            <small className="hw-term">
+              <b>{term(id)![0]}</b> — {term(id)![1]}
+            </small>
+          )}
+        </span>
         <HalachaButtons id={id} />
       </li>
     );
@@ -95,6 +108,11 @@ export function HalachaWordsPage() {
             {shown ? (
               <>
                 <p className="hw-card-tr">{lex[card][1]}</p>
+                {term(card) && (
+                  <p className="rm-term">
+                    <b>{term(card)![0]}</b> — {term(card)![1]}
+                  </p>
+                )}
                 <p className="hw-card-btns">
                   <button type="button" className="btn" onClick={() => hReview(card, true)}>
                     {t('hw.remember')}

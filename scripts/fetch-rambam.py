@@ -219,8 +219,32 @@ def cmd_words():
             else:
                 missing.append(base)
         out[k] = [e[0], e[1], s] if s else ([e[0], e[1]] if e[1] else [e[0]])
+    # terms of halachah — one short line (owner, 24.11.2026: «термины ґалахи надо объяснять лаконично»): by the word's
+    # dictionary form or the word itself; the window over a word shows «name — what it means»
+    terms = {}
+    cant = lemmas[0]
+    for line in (SRC_WORDS / f'terms-{lang}.txt').read_text().splitlines():
+        if line.strip() and not line.startswith('#'):
+            he, name, what = line.split('|')
+            terms[cant(he.strip())] = [key(he), name.strip(), what.strip()]
+    # by vowels, not letters: חֵלֶב «запрещённый жир» ≠ חָלָב «молоко», טַעַם «вкус» ≠ טָעַם «попробовать»
+    def clusters(w):
+        return re.findall(r'[\u05D0-\u05EA][\u0591-\u05C7]*', w)
+    term_of = {}
+    for k, e in d.items():
+        word = cant(re.sub(r'[.:,;״]', '', e[2]))
+        cs = clusters(word)
+        # the dictionary form, the word, the word without one or two prefix letters (וְנוֹלָד → נוֹלָד)
+        cands = [cant(e[1]) if e[1] else '', word] + [''.join(cs[n:]) for n in (1, 2) if len(cs) - n >= 2 and all(c[0] in 'והבלמכש' for c in cs[:n])]
+        for c in cands:
+            if c in terms:
+                term_of[k] = terms[c][0]
+                break
+    terms = {v[0]: v[1:] for v in terms.values()}
     WORDS.mkdir(parents=True, exist_ok=True)
     (WORDS / f'{lang}.json').write_text(json.dumps(out, ensure_ascii=False, separators=(',', ':')) + '\n')
+    (WORDS / f'terms-{lang}.json').write_text(json.dumps({'t': terms, 'w': term_of}, ensure_ascii=False, separators=(',', ':')) + '\n')
+    print(f'  terms: {len(terms)}, words that show one: {len(term_of)}', file=sys.stderr)
     (WORDS / f'lexicon-{lang}.json').write_text(json.dumps(lexicon, ensure_ascii=False, separators=(',', ':')) + '\n')
     tanakh = sum(len(v) == 3 and not v[2].startswith('h:') for v in out.values())
     print(lang, len(out), 'words;', tanakh, 'in the Tanakh dictionary («Мои слова»),', len(out) - tanakh - len(missing), 'in «Словарь ґалахи»',

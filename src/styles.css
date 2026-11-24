@@ -4264,3 +4264,8 @@ html:has(.clk2) body{background:#0B1532 url(./assets/clock-bg.webp) center/cover
 .hw-all{margin:22px 0 0}
 .hw-all summary{cursor:pointer;font-weight:700}
 .hw-search{width:100%;margin:10px 0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit}
+/* термин ґалахи в окне над словом — одной строкой */
+.rm-term{margin:4px 0 2px!important;padding:6px 9px;border-radius:8px;background:var(--gold-soft);font-size:13.5px;line-height:1.4}
+.rm-term b{color:var(--gold-deep)}
+.hw-term{display:block;margin-top:3px;font-size:12.5px;color:var(--ink-2)}
+.hw-term b{color:var(--gold-deep)}

@@ -31,6 +31,9 @@ for (const [k, e] of Object.entries(dict as Record<string, string[]>)) {
   if (!e[2]) errors.push(`word ${k}: neither in the Tanakh dictionary nor in «Слова ґалахи» (lexicon-ru.txt)`);
   else if (e[2].startsWith('h:') && !lexicon[e[2].slice(2)]?.[1]) errors.push(`word ${k}: «Слова ґалахи» has no ${e[2]}`);
 }
+const terms: { t: Record<string, [string, string]>; w: Record<string, string> } = read('words/terms-ru.json') ?? { t: {}, w: {} };
+for (const [k, [name, what]] of Object.entries(terms.t)) if (!name || !what || what.length > 90) errors.push(`term ${k}: name and one short line (≤ 90)`);
+for (const [w, k] of Object.entries(terms.w)) if (!terms.t[k] || !(w in dict)) errors.push(`term of ${w}: ${k}`);
 if (BOOKS.reduce((a, b) => a + b.ch, 0) !== 1017) errors.push('the cycle is not 1017 days');
 // 13–14 Kislev 5787 — chapters 13 and 14 of Forbidden Foods (as chabad.org, hebcal)
 if (chapterOn('2026-11-23').id !== 'forbidden-foods-13' || chapterOn('2026-11-24').id !== 'forbidden-foods-14') errors.push('the cycle: 23.11.2026 must be Forbidden Foods 13');
