@@ -4264,3 +4264,78 @@ html:has(.clk2) body{background:#0B1532 url(./assets/clock-bg.webp) center/cover
 .rm-term b{color:var(--gold-deep)}
 .hw-term{display:block;margin-top:3px;font-size:12.5px;color:var(--ink-2)}
 .hw-term b{color:var(--gold-deep)}
+
+
+/* Rambam landscape: keep the date navigation on one compact line and give the reading area the saved height. */
+@media (orientation:landscape) and (max-height:500px) {
+  .rm .tk-dates {
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 3px;
+    padding: 3px 5px;
+    margin-bottom: 5px;
+  }
+  .rm .tk-step {
+    min-height: 34px;
+    padding: 1px 0;
+  }
+  .rm .tk-step small {
+    font-size: 10px;
+  }
+  .rm .tk-date {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 4px 9px;
+    min-width: 0;
+    white-space: nowrap;
+  }
+  .rm .tk-date b {
+    font-size: 10px;
+    letter-spacing: .04em;
+  }
+  .rm .tk-date > span,
+  .rm .tk-date > span.he {
+    font-size: 12px;
+  }
+  .rm .tk-to-today {
+    margin: 0;
+    font-size: 11px;
+  }
+  /* The floating assistant obscures the Rambam text/slides on a short landscape screen. */
+  body:has(.rm) .ai-fab {
+    display: none;
+  }
+}
+
+/* «Мишне Тора»: режим «На весь экран» (html.rm-focus, useFocus в RambamPage.tsx) — телефон боком включает его сам.
+   Прячется всё, кроме слайда и текста; боком — слайд по высоте экрана слева, текст — всё остальное справа, без пустот. */
+.rm-where{display:none;font-weight:700;color:var(--ink)}
+.rm-focus-btn{display:inline-flex;align-items:center;gap:6px;margin-inline-start:auto;padding:4px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--tchelet);font:inherit;font-size:13.5px;font-weight:700;cursor:pointer}
+.rm-focus-btn span[aria-hidden]{font-size:16px;line-height:1}
+html.rm-focus body{padding-bottom:0}
+html.rm-focus .top,html.rm-focus .tabbar,html.rm-focus .ai-fab,html.rm-focus .donate-fab,html.rm-focus .colophon,
+html.rm-focus .rm .tk-dates,html.rm-focus .rm-head,html.rm-focus .rm-rotate,html.rm-focus .rm .tk-pager{display:none!important}
+html.rm-focus .wrap.rm{max-width:none;padding-top:env(safe-area-inset-top,0px)}
+html.rm-focus .rm-where{display:inline}
+html.rm-focus .rm-slides{top:0}
+html.rm-focus .rm-tools{position:sticky;top:0;z-index:1;align-items:center;margin:0 0 4px;padding:4px 0;background:var(--bg,var(--paper))}
+@media (orientation:landscape) and (min-width:560px){
+  html.rm-focus .wrap.rm{padding-inline:max(8px,env(safe-area-inset-left,0px)) max(8px,env(safe-area-inset-right,0px))}
+  html.rm-focus .rm-split:not(.solo){
+    --rm-ctl:44px;
+    grid-template-columns:min(62vw,calc((100svh - var(--rm-ctl) - 12px - env(safe-area-inset-top,0px)) * (var(--rm-ar,16 / 9)))) minmax(0,1fr);
+    gap:10px;height:calc(100svh - env(safe-area-inset-top,0px));padding:4px 0;box-sizing:border-box}
+  html.rm-focus .rm-split.solo{height:calc(100svh - env(safe-area-inset-top,0px))}
+  html.rm-focus .rm-split.solo .rm-text{height:100%;overflow-y:auto;max-width:900px;margin:0 auto}
+  html.rm-focus .rm-split:not(.solo) .rm-slides{padding:0;align-self:center}
+  html.rm-focus .rm-ctl{margin-top:4px;height:36px}
+  html.rm-focus .rm-arrow,html.rm-focus .rm-full{height:34px}
+  html.rm-focus .rm-split:not(.solo) .rm-text{padding:0 6px 0 2px}
+}
+@media (orientation:landscape) and (max-height:500px){
+  html.rm-focus .rm-tap,html.rm-focus .rm-focus-l{display:none}
+  html.rm-focus .rm-tools{font-size:13px;gap:4px 12px}
+  html.rm-focus .rm-h p.he{font-size:19px;line-height:1.65}
+}

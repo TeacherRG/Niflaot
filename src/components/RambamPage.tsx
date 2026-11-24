@@ -59,6 +59,7 @@ export function RambamPage({ date: asked }: { date?: string }) {
   const textBox = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const [done, mark] = useRambamDone();
+  const focus = useFocus();
 
   useEffect(() => {
     let live = true;
@@ -217,7 +218,10 @@ export function RambamPage({ date: asked }: { date?: string }) {
             <p className="rm-rotate no-print">
               <span aria-hidden="true">⟲</span> {t('rm.rotate')}
             </p>
-            <div className={slides ? 'rm-split' : 'rm-split solo'}>
+            <div
+              className={slides ? 'rm-split' : 'rm-split solo'}
+              style={slides?.[0] ? ({ '--rm-ar': `${slides[0].w} / ${slides[0].h}` } as CSSProperties) : undefined}
+            >
               {slides && (
                 <aside className="rm-slides" aria-label={t('rm.slides')} ref={aside}>
                   <div className="rm-track" ref={track} onScroll={onTrack} dir="ltr">
@@ -257,10 +261,17 @@ export function RambamPage({ date: asked }: { date?: string }) {
               )}
               <section className="rm-text" ref={textBox}>
                 <div className="rm-tools no-print">
+                  <span className="rm-where">
+                    {name} {day.perek}
+                  </span>
                   <label>
                     <input type="checkbox" checked={en} onChange={(e) => setEn(e.target.checked)} /> {t('rm.showEn')}
                   </label>
                   <span className="rm-tap">{t('rm.tapHint')}</span>
+                  <button type="button" className="rm-focus-btn" onClick={focus.toggle} aria-pressed={focus.on} title={focus.on ? t('rm.focusExit') : t('rm.focus')}>
+                    <span aria-hidden="true">{focus.on ? '✕' : '⛶'}</span>
+                    <span className="rm-focus-l">{focus.on ? t('rm.focusExit') : t('rm.focus')}</span>
+                  </button>
                 </div>
                 {text.he.map((h, i) => {
                   const n = i + 1;
@@ -307,6 +318,42 @@ export function RambamPage({ date: asked }: { date?: string }) {
       <Colophon />
     </>
   );
+}
+
+const SHORT_LANDSCAPE = '(orientation: landscape) and (max-height: 500px)';
+/**
+ * The reading mode «на весь экран»: `html.rm-focus` hides the top bar, the dates, the heading, the bottom bar and the
+ * floating buttons, so the slide and the text take the whole screen. A phone turned sideways enters it by itself (the
+ * screen is low); the button also asks the browser for the real full screen (on a tap — no prompt; iPhone has none).
+ */
+function useFocus() {
+  const [on, setOn] = useState(() => typeof matchMedia === 'function' && matchMedia(SHORT_LANDSCAPE).matches);
+  useEffect(() => {
+    const mq = matchMedia(SHORT_LANDSCAPE);
+    const change = () => {
+      setOn(mq.matches);
+      if (!mq.matches && document.fullscreenElement) document.exitFullscreen?.().catch(() => {});
+    };
+    mq.addEventListener('change', change);
+    return () => mq.removeEventListener('change', change);
+  }, []);
+  useEffect(() => {
+    const html = document.documentElement;
+    html.classList.toggle('rm-focus', on);
+    return () => html.classList.remove('rm-focus');
+  }, [on]);
+  // leaving the page leaves the browser's full screen too
+  useEffect(() => () => void (document.fullscreenElement && document.exitFullscreen?.().catch(() => {})), []);
+  const toggle = () => {
+    if (on) {
+      setOn(false);
+      if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {});
+    } else {
+      setOn(true);
+      document.documentElement.requestFullscreen?.({ navigationUI: 'hide' }).catch(() => {});
+    }
+  };
+  return { on, toggle };
 }
 
 /** the words of a halacha — each a target for RambamWord (punctuation stays outside) */
