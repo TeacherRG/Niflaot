@@ -31,6 +31,24 @@ export interface MailEnv {
   DEV_CODES?: string;
   /** Shared secret used only by scheduled GitHub Actions to deliver newsletter issues */
   NEWSLETTER_SECRET?: string;
+  /** Buttondown (the weekly email): a confirmed subscriber goes onto the Buttondown list — the one the emails are sent to */
+  BUTTONDOWN_API_KEY?: string;
+}
+
+/**
+ * Puts a subscriber onto the Buttondown list. The address is already confirmed by our own code, so Buttondown doesn't ask
+ * again (`type: regular`); the site language is the tag. Already on the list — fine. Throws on any other answer.
+ */
+async function toButtondown(key: string, email: string, locale: Lang) {
+  const res = await fetch('https://api.buttondown.com/v1/subscribers', {
+    method: 'POST',
+    headers: { Authorization: `Token ${key}`, 'Content-Type': 'application/json', 'X-Buttondown-Collision-Behavior': 'add' },
+    body: JSON.stringify({ email_address: email, tags: [locale], type: 'regular', referrer_url: 'https://niflaot.app/' }),
+  });
+  if (res.ok) return;
+  const text = await res.text().catch(() => '');
+  if (res.status === 400 && /already|exists/i.test(text)) return;
+  throw new Error(`buttondown ${res.status}: ${text.slice(0, 300)}`);
 }
 
 const CODE_TTL = 10 * 60_000;
@@ -213,6 +231,7 @@ export class Accounts extends DurableObject<MailEnv> {
     const frequency = body.frequency;
     if (!validEmail(email)) return fail('email');
     if (frequency !== 'daily' && frequency !== 'weekly') return fail('frequency');
+    if (!this.env.BUTTONDOWN_API_KEY && !this.env.NEWSLETTER_SECRET) return fail('mail', 503);
     const now = Date.now();
     const prev = this.one<{ sent: number; sent_hour: number }>('SELECT sent, sent_hour FROM newsletter_codes WHERE email = ?', email);
     if (prev && now - prev.sent < 60_000) return fail('wait', 429);
@@ -251,11 +270,21 @@ export class Accounts extends DurableObject<MailEnv> {
       return fail('code', 401);
     }
     const now = Date.now();
-    this.sql.exec(
-      `INSERT INTO newsletter_subscribers (email, frequency, lang, active, created, updated) VALUES (?, ?, ?, 1, ?, ?)
-       ON CONFLICT(email) DO UPDATE SET frequency = excluded.frequency, lang = excluded.lang, active = 1, updated = excluded.updated`,
-      email, row.frequency, row.lang, now, now,
-    );
+    if (this.env.BUTTONDOWN_API_KEY) {
+      // the weekly email goes out through Buttondown (scripts/newsletter.ts) — the subscriber goes onto its list
+      try {
+        await toButtondown(this.env.BUTTONDOWN_API_KEY, email, lang(row.lang));
+      } catch (e) {
+        console.error(e);
+        return fail('mail', 503);
+      }
+      this.sql.exec('DELETE FROM newsletter_subscribers WHERE email = ?', email);
+    } else
+      this.sql.exec(
+        `INSERT INTO newsletter_subscribers (email, frequency, lang, active, created, updated) VALUES (?, 'weekly', ?, 1, ?, ?)
+         ON CONFLICT(email) DO UPDATE SET frequency = 'weekly', lang = excluded.lang, active = 1, updated = excluded.updated`,
+        email, row.lang, now, now,
+      );
     this.sql.exec('DELETE FROM newsletter_codes WHERE email = ?', email);
     return json({ ok: true });
   }
@@ -328,6 +357,17 @@ export class Accounts extends DurableObject<MailEnv> {
     this.sql.exec('DELETE FROM chat_day WHERE day < ?', new Date(now - 90 * 864e5).toISOString().slice(0, 10));
     this.sql.exec('DELETE FROM newsletter_unsub_tokens WHERE created < ?', now - 365 * 864e5);
     this.sql.exec('DELETE FROM newsletter_deliveries WHERE sent < ?', now - 2 * 365 * 864e5);
+    // the site's own list (before 25.11.2026) moves onto Buttondown — they confirmed by our code; one that fails waits for tomorrow
+    if (this.env.BUTTONDOWN_API_KEY)
+      for (const s of this.sql.exec<{ email: string; lang: string }>('SELECT email, lang FROM newsletter_subscribers WHERE active = 1 LIMIT 200').toArray()) {
+        try {
+          await toButtondown(this.env.BUTTONDOWN_API_KEY, s.email, lang(s.lang));
+          this.sql.exec('DELETE FROM newsletter_subscribers WHERE email = ?', s.email);
+        } catch (e) {
+          console.error(e);
+          break;
+        }
+      }
     await this.ctx.storage.setAlarm(now + 864e5);
   }
 

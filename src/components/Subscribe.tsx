@@ -3,7 +3,6 @@ import { useI18n } from '../i18n';
 import { AccountError, newsletterApi, useAccount } from '../core/account';
 import { ASSISTANT_URL } from '../core/assistant';
 
-type Frequency = 'daily' | 'weekly';
 type ErrorKey =
   | 'subscribe.error.email'
   | 'subscribe.error.frequency'
@@ -27,7 +26,6 @@ export function Subscribe({ mini = false }: { mini?: boolean }) {
   const known = me?.user.age === 'adult' ? me.user.email : '';
   const parentRequired = me?.user.age === 'child';
   const [email, setEmail] = useState(known);
-  const [frequency, setFrequency] = useState<Frequency>('weekly');
   const [codeSent, setCodeSent] = useState(false);
   const [code, setCode] = useState('');
   const [done, setDone] = useState(false);
@@ -45,7 +43,7 @@ export function Subscribe({ mini = false }: { mini?: boolean }) {
         await newsletterApi('confirm', { email, code });
         setDone(true);
       } else {
-        await newsletterApi('code', { email, frequency, lang: locale });
+        await newsletterApi('code', { email, frequency: 'weekly', lang: locale });
         setCodeSent(true);
       }
     } catch (e) {
@@ -72,15 +70,6 @@ export function Subscribe({ mini = false }: { mini?: boolean }) {
           onChange={(e) => setEmail(e.target.value)}
           disabled={codeSent}
         />
-      )}
-      {!codeSent && (
-        <label className="subscribe-frequency">
-          <span>{t('subscribe.frequency')}</span>
-          <select value={frequency} onChange={(e) => setFrequency(e.target.value as Frequency)}>
-            <option value="daily">{t('subscribe.daily')}</option>
-            <option value="weekly">{t('subscribe.weekly')}</option>
-          </select>
-        </label>
       )}
       {codeSent && (
         <input

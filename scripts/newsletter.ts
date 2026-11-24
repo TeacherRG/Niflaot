@@ -1,6 +1,7 @@
 export type NewsletterFile = { filename: string; content: string };
 
-export const newsletterEnabled = () => !!(process.env.ASSISTANT_URL && process.env.NEWSLETTER_SECRET);
+/** the site's own list — only while Buttondown isn't set up (otherwise its subscribers are moved there: no double emails) */
+export const newsletterEnabled = () => !!(process.env.ASSISTANT_URL && process.env.NEWSLETTER_SECRET && !process.env.BUTTONDOWN_API_KEY);
 
 export async function deliverNewsletter(issue: {
   frequency: 'daily' | 'weekly';
