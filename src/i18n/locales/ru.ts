@@ -270,6 +270,8 @@ const ru = {
   'rm.slidePrev': "Предыдущий слайд",
   'rm.slideNext': "Следующий слайд",
   'rm.full': "Открыть слайд целиком",
+  'rm.focus': "На весь экран",
+  'rm.focusExit': "Выйти",
   'rm.halachot': "галахот",
   'rm.halachaN': "Галаха {n}: открыть её слайд",
   'rm.showEn': "English (Touger)",

@@ -281,6 +281,8 @@ const he: Partial<Messages> = {
   'rm.slidePrev': "השקופית הקודמת",
   'rm.slideNext': "השקופית הבאה",
   'rm.full': "לפתוח את השקופית במלואה",
+  'rm.focus': "מסך מלא",
+  'rm.focusExit': "יציאה",
   'rm.halachot': "הלכות",
   'rm.halachaN': "הלכה {n}: לפתוח את השקופית שלה",
   'rm.showEn': "English (Touger)",

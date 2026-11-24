@@ -261,6 +261,8 @@ const de: Messages = {
   'rm.slidePrev': "Vorige Folie",
   'rm.slideNext': "Nächste Folie",
   'rm.full': "Folie ganz öffnen",
+  'rm.focus': "Vollbild",
+  'rm.focusExit': "Beenden",
   'rm.halachot': "Halachot",
   'rm.halachaN': "Halacha {n}: ihre Folie öffnen",
   'rm.showEn': "English (Touger)",

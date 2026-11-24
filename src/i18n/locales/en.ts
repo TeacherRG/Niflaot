@@ -261,6 +261,8 @@ const en: Messages = {
   'rm.slidePrev': "Previous slide",
   'rm.slideNext': "Next slide",
   'rm.full': "Open the whole slide",
+  'rm.focus': "Full screen",
+  'rm.focusExit': "Exit",
   'rm.halachot': "halachot",
   'rm.halachaN': "Halachah {n}: open its slide",
   'rm.showEn': "English (Touger)",
