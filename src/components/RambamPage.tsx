@@ -9,6 +9,7 @@ import { civilDate, jewishDate } from '../core/hebrewDate';
 import { localToday } from '../core/tanakh';
 import { readHebrew, type ReadLang } from '../core/translit';
 import { setOtherPage } from '../core/assistant';
+import { HalachaButtons } from './HalachaWordsPage';
 import { boxOf, KNOWN_BOX, markKnown, markLearn, unmark, useWordStore } from '../core/words';
 import {
   addDays,
@@ -412,7 +413,17 @@ function RambamWord({ dict, box }: { dict: RambamDict | null; box: React.RefObje
         ) : (
           <p className="wp-meta">{dict ? t('rm.noWord') : t('rm.loading')}</p>
         )}
-        {entry?.[2] && <TanakhButtons id={entry[2]} />}
+        {entry?.[2] &&
+          (entry[2].startsWith('h:') ? (
+            <>
+              <p className="wp-meta">
+                {t('rm.inHalacha')} <a href="#/halacha-words">{t('hw.title')} →</a>
+              </p>
+              <HalachaButtons id={entry[2].slice(2)} />
+            </>
+          ) : (
+            <TanakhButtons id={entry[2]} />
+          ))}
       </div>
     </div>,
     document.body,

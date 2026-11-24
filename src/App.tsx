@@ -75,6 +75,7 @@ const ShnayimPage = page(() => import('./components/ShnayimPage'), 'ShnayimPage'
 const TanakhQuizPage = page(() => import('./components/TanakhQuizPage'), 'TanakhQuizPage');
 const HemshechPage = page(() => import('./components/HemshechPage'), 'HemshechPage');
 const RambamPage = page(() => import('./components/RambamPage'), 'RambamPage');
+const HalachaWordsPage = page<'HalachaWordsPage', object>(() => import('./components/HalachaWordsPage'), 'HalachaWordsPage');
 const AcademyPage = page(() => import('./components/AcademyPage'), 'AcademyPage');
 const QuizPage = page(() => import('./components/QuizPage'), 'QuizPage');
 const NigunPage = page(() => import('./components/NigunPage'), 'NigunPage');
@@ -246,6 +247,8 @@ function Site() {
             <HemshechPage key={route} passage={view || undefined} />
           ) : slug === 'rambam' && (!view || /^\d{4}-\d{2}-\d{2}$/.test(view)) && !variant ? (
             <RambamPage key={route} date={view || undefined} />
+          ) : slug === 'halacha-words' && !view ? (
+            <HalachaWordsPage />
           ) : slug === 'words' ? (
             <WordsPage key={route} focus={view || undefined} />
           ) : slug === 'bookmarks' && !view ? (
