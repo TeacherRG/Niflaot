@@ -6,15 +6,19 @@
  * Mincha — until sunset. A «latest» time is rounded down to the minute: never later than the real one.
  *
  * The alarm rests on a day of rest — Shabbat, Yom Tov, Yom Kippur — from candle lighting (18 min before the sunset of
- * the eve) to its end (50 min after its sunset), as in the «Календарь»; where the sun does not set — from 14:00 of the
- * eve to 23:00 of the day (as the site's own Shabbat rest). Chol HaMoed — by the reader's choice.
+ * the eve; Jerusalem 40, Haifa 30, Tel Aviv 22 — `candleMinutes`) to its end (the sun 8.5° below the horizon, as the Chabad
+ * calendars and the app «Пеле Шаон»; a summer night where the sun never gets that low — until solar midnight), as in the
+ * «Календарь»; where the sun does not set — from 14:00 of the eve to 23:00 of the day. Chol HaMoed — by the reader's choice.
  */
 import { dayTimes, festivalKind } from './hebcal';
 
 const DAY = 86_400_000;
 const MIN = 60_000;
+/** candle lighting: minutes before sunset — 18 in most places */
 export const CANDLE_MIN = 18;
-export const END_MIN = 50;
+/** the local custom of candle lighting by the city (as «Пеле Шаон»: Jerusalem 40, Haifa 30, Tel Aviv 22) */
+const CITY_CANDLES: Record<string, number> = { 'Asia/Jerusalem': 40, haifa: 30, 'Asia/Tel_Aviv': 22 };
+export const candleMinutes = (placeId?: string) => (placeId && CITY_CANDLES[placeId]) || CANDLE_MIN;
 
 export interface Spot {
   lat: number;
@@ -23,6 +27,14 @@ export interface Spot {
   zone: string;
   /** the calendar of the Land of Israel: one day of Yom Tov */
   il: boolean;
+  /** candle lighting: minutes before sunset (`candleMinutes`); none — 18 */
+  candle?: number;
+}
+
+/** Candle lighting on the eve `eveIso` and the end of the day of rest `iso` (the sun 8.5° below) for the place; null — not defined there. */
+export function shabbatSpan(eveIso: string, iso: string, s: Spot): { candles: Date | null; end: Date | null } {
+  const eve = dayTimes(eveIso, s.lat, s.lon, s.zone).sunset;
+  return { candles: eve && new Date(eve.getTime() - (s.candle ?? CANDLE_MIN) * MIN), end: dayTimes(iso, s.lat, s.lon, s.zone).shabbatEnd };
 }
 
 const IL_ZONES = new Set(['Asia/Jerusalem', 'Asia/Tel_Aviv', 'Asia/Hebron', 'Asia/Gaza', 'Israel']);
@@ -52,9 +64,12 @@ export function wallTime(iso: string, h: number, m: number, zone: string): Date 
   return new Date(t);
 }
 
-/** The times of the day the clock can show, in the order of the day; `alot` — dawn (the sun 16.1° below); `mincha` — the end of its time, sunset. */
-export type TimeId = 'alot' | 'sunrise' | 'shma' | 'tefila' | 'chatzot' | 'minchaGedola' | 'plag' | 'mincha' | 'tzeit';
-export const TIME_IDS: TimeId[] = ['alot', 'sunrise', 'shma', 'tefila', 'chatzot', 'minchaGedola', 'plag', 'mincha', 'tzeit'];
+/**
+ * The times of the day the clock can show, in the order of the day; `alot` — dawn (the sun 16.9° below), `misheyakir` — the
+ * earliest tallit and tefillin (10.2°), `minchaKetana` — 9½ hours of the day; `mincha` — the end of its time, sunset.
+ */
+export type TimeId = 'alot' | 'misheyakir' | 'sunrise' | 'shma' | 'tefila' | 'chatzot' | 'minchaGedola' | 'minchaKetana' | 'plag' | 'mincha' | 'tzeit';
+export const TIME_IDS: TimeId[] = ['alot', 'misheyakir', 'sunrise', 'shma', 'tefila', 'chatzot', 'minchaGedola', 'minchaKetana', 'plag', 'mincha', 'tzeit'];
 /** «no later than»: rounded down to the minute; the rest — «from»: rounded up */
 export const DEADLINES: TimeId[] = ['shma', 'tefila', 'mincha'];
 /** what the face shows until the reader chooses */
@@ -73,6 +88,8 @@ export function timesOf(iso: string, s: Spot): Times {
     tefila: floorMin(d.tefila),
     chatzot: ceilMin(d.chatzot),
     minchaGedola: ceilMin(d.minchaGedola),
+    minchaKetana: ceilMin(d.minchaKetana),
+    misheyakir: ceilMin(d.misheyakir),
     plag: ceilMin(d.plag),
     mincha: floorMin(d.sunset),
     tzeit: ceilMin(d.tzeit),
@@ -157,11 +174,12 @@ export function dayKind(iso: string, il: boolean): Rest | null {
 
 /** From when to when the Jewish day of the calendar day `iso` keeps the alarm quiet (with the margins of the calendar). */
 function restSpan(iso: string, s: Spot): [number, number] {
-  const eve = dayTimes(addDays(iso, -1), s.lat, s.lon, s.zone).sunset;
-  const end = dayTimes(iso, s.lat, s.lon, s.zone).sunset;
+  const { candles, end } = shabbatSpan(addDays(iso, -1), iso, s);
+  // the sun sets, but never gets 8.5° low (a white night): quiet until the darkest moment of the night — solar midnight
+  const noon = !end && dayTimes(iso, s.lat, s.lon, s.zone).sunset ? dayTimes(iso, s.lat, s.lon, s.zone).chatzot : null;
   return [
-    eve ? eve.getTime() - CANDLE_MIN * MIN : wallTime(addDays(iso, -1), 14, 0, s.zone).getTime(),
-    end ? end.getTime() + END_MIN * MIN : wallTime(iso, 23, 0, s.zone).getTime(),
+    candles ? candles.getTime() : wallTime(addDays(iso, -1), 14, 0, s.zone).getTime(),
+    end ? end.getTime() : noon ? noon.getTime() + 12 * 3_600_000 : wallTime(iso, 23, 0, s.zone).getTime(),
   ];
 }
 
