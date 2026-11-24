@@ -41,6 +41,7 @@ import { buildTags } from '../src/core/tags';
 import ru from '../src/i18n/locales/ru';
 import en from '../src/i18n/locales/en';
 import de from '../src/i18n/locales/de';
+import he from '../src/i18n/locales/he';
 import { PARSHIOT } from '../src/lessons/parshiot';
 import { markHebrewHtml } from '../src/core/langMarkup';
 import { stripFootnotes } from '../src/sources/footnotes';
@@ -1450,6 +1451,100 @@ for (const { lang, ui } of LANGS) {
     ).map(([k, url]) => ({ name: s(ui, k as keyof Ui), url, icons: [{ src: '/icons/icon-192.png?v=3', sizes: '192x192' }] })),
   };
   writeFileSync(`${DIST}/manifest${lang === 'ru' ? '' : `-${lang}`}.webmanifest`, `${JSON.stringify(manifest, null, 2)}\n`);
+}
+
+/* ───── the privacy policy as a plain page: /privacy/ (Google Play, the Android app) ───── */
+
+// One page, four languages, no app on it: Play's reviewers and the store listing must read it any day — the app would show
+// «Шабат шалом» on Shabbat, and #/privacy is not a page of its own. The texts — the same as #/privacy (`privacy.*`).
+{
+  const SECTIONS = [
+    { lang: 'ru', name: 'Русский', ui: ru as Partial<Ui> },
+    { lang: 'en', name: 'English', ui: en as Partial<Ui> },
+    { lang: 'de', name: 'Deutsch', ui: de as Partial<Ui> },
+    { lang: 'he', name: 'עברית', ui: he as Partial<Ui> },
+  ];
+  const back: Record<string, string> = { ru: '↑ К выбору языка', en: '↑ Choose a language', de: '↑ Sprache wählen', he: '↑ לבחירת שפה' };
+  const pick = (ui: Partial<Ui>, k: keyof Ui) => String(ui[k] ?? en[k]);
+  // links of the app (#/account…) lead to the site
+  const abs = (html: string) => html.replace(/href="#\//g, `href="${SITE_URL}/#/`);
+  const sections = SECTIONS.map(({ lang, ui }) => {
+    const date = pick(ui, 'privacy.updated').replace('{date}', pick(ui, 'privacy.date'));
+    return `<section id="${lang}" lang="${lang}" dir="${lang === 'he' ? 'rtl' : 'ltr'}">
+<h1>Niflaot — ${esc(pick(ui, 'privacy.title'))}</h1>
+<p class="date">${esc(date)}</p>
+${abs(pick(ui, 'privacy.body'))}
+${abs(pick(ui, 'privacy.app'))}
+<p class="back"><a href="#top">${back[lang]}</a></p>
+</section>`;
+  }).join('\n');
+  const html = `<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'none'; style-src 'unsafe-inline'; img-src 'self'" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Niflaot — Конфиденциальность · Privacy · Datenschutz · פרטיות</title>
+<meta name="description" content="Niflaot (niflaot.app and the Android app): what is kept, where, why and for how long. Политика конфиденциальности · Privacy policy · Datenschutzerklärung · מדיניות פרטיות." />
+<link rel="canonical" href="${SITE_URL}/privacy/" />
+<link rel="icon" href="/icons/favicon-48.png?v=3" />
+<style>
+:root{--bg:#F6F4EE;--card:#FFFFFF;--ink:#1D2433;--muted:#5B6478;--gold:#A47C2F;--line:#E4DFD2;--link:#1F5FA8}
+@media (prefers-color-scheme:dark){:root{--bg:#0B1532;--card:#111C3D;--ink:#EEF0F7;--muted:#9AA4C4;--gold:#D9B66A;--line:#2A3558;--link:#9CC0F0}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Hebrew",sans-serif}
+main{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+header{text-align:center;margin-bottom:8px}
+header img{width:72px;height:72px}
+nav{text-align:center;font-weight:700;margin:8px 0 24px}
+nav a{display:inline-block;padding:6px 10px}
+section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 20px 12px;margin:0 0 24px;overflow-wrap:anywhere}
+h1{font-size:24px;line-height:1.3;margin:0 0 4px}
+h3{font-size:17px;margin:20px 0 4px;color:var(--gold)}
+p,ul{margin:0 0 8px}
+ul{padding-inline-start:22px}
+li{margin:4px 0}
+.date{color:var(--muted);font-size:14px}
+.back{font-size:14px;margin-top:16px}
+a{color:var(--link)}
+footer{text-align:center;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<main id="top">
+<header><img src="/icons/icon-192.png?v=3" alt="" width="72" height="72" /></header>
+<nav>${SECTIONS.map((x) => `<a href="#${x.lang}" lang="${x.lang}">${x.name}</a>`).join(' · ')}</nav>
+${sections}
+<footer><a href="${SITE_URL}/">niflaot.app</a> · <a href="mailto:office@niflaot.app">office@niflaot.app</a> · <a href="${SITE_URL}/peleshaon/privacy/">Pele Shaon</a></footer>
+</main>
+</body>
+</html>
+`;
+  if (/<script|\son\w+=|javascript:/i.test(html)) throw new Error('privacy/index.html: scripts are not allowed on this page');
+  mkdirSync(`${DIST}/privacy`, { recursive: true });
+  writeFileSync(`${DIST}/privacy/index.html`, html);
+}
+
+/* ───── the Android app (TWA): Digital Asset Links ───── */
+
+// /.well-known/assetlinks.json — the proof that niflaot.app and the Play app are one owner: without it the app shows an
+// address bar on top. ANDROID_SHA256 (deploy.yml) — the upload key and the key Google Play signs with (repository
+// variables ANDROID_UPLOAD_SHA256, ANDROID_PLAY_SHA256), comma-separated; none — no file. The package — android/twa-manifest.json.
+{
+  const raw = (process.env.ANDROID_SHA256 ?? '').split(',').map((x) => x.trim().toUpperCase()).filter(Boolean);
+  const good = raw.filter((x) => /^([0-9A-F]{2}:){31}[0-9A-F]{2}$/.test(x));
+  for (const x of raw) if (!good.includes(x)) console.warn(`assetlinks: not a SHA-256 fingerprint, skipped: ${x}`);
+  if (good.length) {
+    const { packageId } = JSON.parse(readFileSync('android/twa-manifest.json', 'utf8')) as { packageId: string };
+    const links = [
+      {
+        relation: ['delegate_permission/common.handle_all_urls'],
+        target: { namespace: 'android_app', package_name: packageId, sha256_cert_fingerprints: [...new Set(good)] },
+      },
+    ];
+    mkdirSync(`${DIST}/.well-known`, { recursive: true });
+    writeFileSync(`${DIST}/.well-known/assetlinks.json`, `${JSON.stringify(links, null, 2)}\n`);
+  }
 }
 
 /* ───── service worker and the daily message ───── */

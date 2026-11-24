@@ -37,6 +37,9 @@ jobs:
           GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
           BING_SITE_VERIFICATION: ${{ vars.BING_SITE_VERIFICATION }}
           YANDEX_VERIFICATION: ${{ vars.YANDEX_VERIFICATION }}
+          # the Android app (TWA, android-twa.yml): /.well-known/assetlinks.json — the fingerprints of the upload key and of
+          # Google Play app signing (Play Console → App integrity); empty → no file
+          ANDROID_SHA256: ${{ vars.ANDROID_UPLOAD_SHA256 }},${{ vars.ANDROID_PLAY_SHA256 }}
       - name: Verify crawl files and homepage SEO output
         run: |
           test -s dist/robots.txt
