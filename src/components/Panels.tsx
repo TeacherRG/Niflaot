@@ -310,8 +310,11 @@ export function Panels() {
               {link('#/atlas/3d', num('ש', true), t('sno.menu'), t('sno.menuSub'))}
             </>
           ))}
-          {group(<Icon name="book" />, t('menu.halacha'), t('menu.halachaSub'), starts('#/rambam'), (
-            <>{link('#/rambam', num('ר', true), t('rm.menu'), rambamToday(locale))}</>
+          {group(<Icon name="book" />, t('menu.halacha'), t('menu.halachaSub'), starts('#/rambam', '#/halacha-words'), (
+            <>
+              {link('#/rambam', num('ר', true), t('rm.menu'), rambamToday(locale))}
+              {link('#/halacha-words', <Icon name="cards" />, t('hw.title'), t('hw.menuSub'))}
+            </>
           ))}
           {group(<Icon name="chat" />, t('academy.fac.lashon'), t('menu.lashonSub'), starts('#/lashon', '#/pics', '#/torah-words', '#/words', '#/letters', '#/english', '#/russian', '#/german'), (
             <>

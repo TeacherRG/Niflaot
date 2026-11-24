@@ -4245,3 +4245,27 @@ html:has(.clk2) body{background:#0B1532 url(./assets/clock-bg.webp) center/cover
   .rm-split:not(.solo){height:calc(100svh - 58px)}
   .rm-h p.he{font-size:18px}
 }
+
+/* «Слова ґалахи» (HalachaWordsPage.tsx): повторение карточкой, «Учу» / «Знаю», весь словарь */
+.hw-stats{margin:4px 0 0;font-size:14px;color:var(--muted)}
+.hw-card{display:grid;justify-items:center;gap:8px;margin:16px 0;padding:22px 16px;border:1px solid var(--line);border-radius:16px;background:var(--surface);text-align:center}
+.hw-card-k{margin:0;font-size:13px;font-weight:700;color:var(--gold-deep);letter-spacing:.04em}
+.hw-card-he{margin:0;font-size:40px;line-height:1.3}
+.hw-card-read{margin:0;color:var(--tchelet);font-weight:700}
+.hw-card-tr{margin:4px 0;font-size:18px;font-weight:600}
+.hw-card-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:4px 0 0}
+.hw-h{margin:20px 0 6px;font-size:18px}
+.hw-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.hw-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:6px 12px;padding:8px 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.hw-he{font-size:22px}
+.hw-tr{font-size:14.5px}
+.hw-row .wp-btns{margin:0}
+@media (max-width:520px){.hw-row{grid-template-columns:auto 1fr}.hw-row .wp-btns{grid-column:1/-1}}
+.hw-all{margin:22px 0 0}
+.hw-all summary{cursor:pointer;font-weight:700}
+.hw-search{width:100%;margin:10px 0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit}
+/* термин ґалахи в окне над словом — одной строкой */
+.rm-term{margin:4px 0 2px!important;padding:6px 9px;border-radius:8px;background:var(--gold-soft);font-size:13.5px;line-height:1.4}
+.rm-term b{color:var(--gold-deep)}
+.hw-term{display:block;margin-top:3px;font-size:12.5px;color:var(--ink-2)}
+.hw-term b{color:var(--gold-deep)}

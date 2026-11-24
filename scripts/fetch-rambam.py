@@ -17,7 +17,7 @@ Moznaim (CC BY-NC). Divine Names in Hebrew — as in the lessons (ה׳), like sc
 Slides — the project's own presentations (© niflaot.app), one WebP per page; the halachot each explains and its text are
 written by hand in public/rambam/slides/<id>/slides.json (the skeleton has the halachot read from nothing — fill them).
 """
-import datetime, importlib.util, json, re, subprocess, sys, tempfile, urllib.parse, urllib.request
+import datetime, importlib.util, json, re, subprocess, sys, tempfile, unicodedata, urllib.parse, urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -172,13 +172,17 @@ def tanakh_lemmas():
     """the Tanakh dictionary (src/tanakh/words.json, with the project's translation): vocalized form → id; letters → [ids]"""
     words = json.loads((ROOT / 'src' / 'tanakh' / 'words.json').read_text())['words']
     tr = json.loads((ROOT / 'src' / 'tanakh' / 'words' / 'ru.json').read_text())
-    cant = lambda s: re.sub(r'[\u0591-\u05AF\u05BC\u05BD\u05C0\u05C3]', '', s)
+    cant = lambda s: unicodedata.normalize('NFD', re.sub(r'[\u0591-\u05AF\u05BC\u05BD\u05C0\u05C3]', '', s))  # marks in one order: בָּשָׂר = בָּשָׂר
     voc, let = {}, {}
     for w in words:
         if w['id'] in tr and w.get('pos') != 'np' and not w.get('aram'):
-            # two words of the same spelling and vowels (אַף «нос» / «даже», חָמֵץ «квасное» / «грабить») — not linked
-            voc[cant(w['he'])] = '' if cant(w['he']) in voc else w['id']
+            voc.setdefault(cant(w['he']), []).append((w['n'], w['id']))
             let.setdefault(key(w['he']), []).append(w['id'])
+    # two words of the same spelling and vowels: the much more frequent one (עָמַד «стоять», not the rare «трястись» of Strong);
+    # close in frequency (אַף «нос» / «даже») — not linked
+    for v, ids in voc.items():
+        ids.sort(reverse=True)
+        voc[v] = ids[0][1] if len(ids) == 1 or ids[0][0] >= 5 * ids[1][0] else ''
     return cant, voc, let
 
 def link(entry, lemmas):
@@ -195,13 +199,58 @@ def cmd_words():
     lang = sys.argv[2] if len(sys.argv) > 2 else 'ru'
     d = read_words(lang)
     lemmas = tanakh_lemmas()
-    out = {}
+    # «Словарь ґалахи»: the dictionary forms that the Tanakh dictionary hasn't — their general meaning from lexicon-<lang>.txt,
+    # or the translation of the form itself where it stands in the text unchanged
+    gloss = {}
+    for line in (SRC_WORDS / f'lexicon-{lang}.txt').read_text().splitlines():
+        if line.strip() and not line.startswith('#'):
+            he, t = line.split('|')
+            gloss[key(he)] = [he.strip(), t.strip()]
+    out, lexicon, missing = {}, {}, []
     for k, e in d.items():
         s = link(e, lemmas)
+        if not s:
+            base = e[1] or re.sub(r'[.:,;]', '', e[2])
+            lk = key(base)
+            g = gloss.get(lk) or ([base, d[lk][0]] if lk in d and not d[lk][1] else None)
+            if g:
+                lexicon[lk] = g
+                s = 'h:' + lk
+            else:
+                missing.append(base)
         out[k] = [e[0], e[1], s] if s else ([e[0], e[1]] if e[1] else [e[0]])
+    # terms of halachah — one short line (owner, 24.11.2026: «термины ґалахи надо объяснять лаконично»): by the word's
+    # dictionary form or the word itself; the window over a word shows «name — what it means»
+    terms = {}
+    cant = lemmas[0]
+    for line in (SRC_WORDS / f'terms-{lang}.txt').read_text().splitlines():
+        if line.strip() and not line.startswith('#'):
+            he, name, what = line.split('|')
+            terms[cant(he.strip())] = [key(he), name.strip(), what.strip()]
+    # by vowels, not letters: חֵלֶב «запрещённый жир» ≠ חָלָב «молоко», טַעַם «вкус» ≠ טָעַם «попробовать»
+    def clusters(w):
+        return re.findall(r'[\u05D0-\u05EA][\u0591-\u05C7]*', w)
+    term_of = {}
+    for k, e in d.items():
+        word = cant(re.sub(r'[.:,;״]', '', e[2]))
+        cs = clusters(word)
+        # the dictionary form, the word, the word without one or two prefix letters (וְנוֹלָד → נוֹלָד)
+        cands = [cant(e[1]) if e[1] else '', word] + [''.join(cs[n:]) for n in (1, 2) if len(cs) - n >= 2 and all(c[0] in 'והבלמכש' for c in cs[:n])]
+        for c in cands:
+            if c in terms:
+                term_of[k] = terms[c][0]
+                break
+    terms = {v[0]: v[1:] for v in terms.values()}
     WORDS.mkdir(parents=True, exist_ok=True)
     (WORDS / f'{lang}.json').write_text(json.dumps(out, ensure_ascii=False, separators=(',', ':')) + '\n')
-    print(lang, len(out), 'words;', sum(len(v) == 3 for v in out.values()), 'linked to the Tanakh dictionary («Мои слова»)')
+    (WORDS / f'terms-{lang}.json').write_text(json.dumps({'t': terms, 'w': term_of}, ensure_ascii=False, separators=(',', ':')) + '\n')
+    print(f'  terms: {len(terms)}, words that show one: {len(term_of)}', file=sys.stderr)
+    (WORDS / f'lexicon-{lang}.json').write_text(json.dumps(lexicon, ensure_ascii=False, separators=(',', ':')) + '\n')
+    tanakh = sum(len(v) == 3 and not v[2].startswith('h:') for v in out.values())
+    print(lang, len(out), 'words;', tanakh, 'in the Tanakh dictionary («Мои слова»),', len(out) - tanakh - len(missing), 'in «Словарь ґалахи»',
+          f'({len(lexicon)} dictionary forms)')
+    if missing:
+        print('  no general meaning — add to lexicon-%s.txt:' % lang, ' '.join(sorted(set(missing))))
 
 PRE = sorted({a + b for a in ['', 'ו'] for b in ['', 'ה', 'ב', 'ל', 'מ', 'כ', 'ש', 'שה', 'שב', 'של', 'שמ', 'מה', 'כש', 'מש', 'כה', 'לה']}, key=len, reverse=True)
 SUF = ['', 'ים', 'ות', 'ה', 'ת', 'ו', 'ם', 'ן', 'י', 'ך', 'נו', 'יו', 'יה', 'הם', 'הן', 'יהם', 'יהן', 'כם', 'תי', 'תם', 'ין']

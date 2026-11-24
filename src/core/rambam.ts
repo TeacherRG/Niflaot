@@ -83,6 +83,9 @@ function load<T>(path: string): Promise<T | null> {
 export const loadText = (id: string) => load<RambamText>(`rambam/text/${id}.json`);
 export const loadSlides = (id: string) => load<{ slides: Slide[] }>(`rambam/slides/${id}/slides.json`).then((x) => x?.slides ?? null);
 export const loadDict = () => load<RambamDict>('rambam/words/ru.json');
+/** terms of halachah, one short line each: t — {term key: [name, what it means]}, w — {word key: term key} */
+export type RambamTerms = { t: Record<string, [string, string]>; w: Record<string, string> };
+export const loadTerms = () => load<RambamTerms>('rambam/words/terms-ru.json');
 /**
  * The slide images live in Cloudflare R2 (bucket `niflaot-rambam`, public URL): ≈ 1 MB a chapter, ≈ 1 GB a cycle — too much for
  * GitHub Pages. In git they wait in rambam-slides/<id>/ (not on the site); .github/workflows/rambam-slides.yml puts them in R2.
