@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 18:14",
+   "q": {
+    "ru": "Какой город был на западной стороне границы Биньямина?",
+    "en": "Which town was on the western side of Benjamin’s boundary?",
+    "de": "Welche Stadt lag an der Westseite der Grenze Binjamins?"
+   },
+   "o": [
+    {
+     "ru": "Кирьят-Йеарим",
+     "en": "Kiriath-jearim",
+     "de": "Kirjat-Jearim"
+    },
+    {
+     "ru": "Шило",
+     "en": "Shiloh",
+     "de": "Schilo"
+    },
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    },
+    {
+     "ru": "Шхем",
+     "en": "Shechem",
+     "de": "Schechem"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 18:16",
+   "q": {
+    "ru": "Склон чего проходила южная граница долиной Ґином?",
+    "en": "Whose flank did the southern boundary pass along the Valley of Hinnom?",
+    "de": "An wessen Abhang zog die Südgrenze durch das Tal Hinnom?"
+   },
+   "o": [
+    {
+     "ru": "Склон йевусея — Йерушалаима",
+     "en": "The flank of the Jebusites — Jerusalem",
+     "de": "Den Abhang des Jewusiters – Jeruschalajim"
+    },
+    {
+     "ru": "Склон горы Кармель",
+     "en": "The flank of Mount Carmel",
+     "de": "Den Abhang des Berges Karmel"
+    },
+    {
+     "ru": "Склон горы Тавор",
+     "en": "The flank of Mount Tabor",
+     "de": "Den Abhang des Berges Tawor"
+    },
+    {
+     "ru": "Склон Хеврона",
+     "en": "The flank of Hebron",
+     "de": "Den Abhang von Chewron"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 18:20",
+   "q": {
+    "ru": "Что было границей Биньямина с востока?",
+    "en": "What was Benjamin’s border on the east?",
+    "de": "Was war Binjamins Grenze im Osten?"
+   },
+   "o": [
+    {
+     "ru": "Ярден",
+     "en": "The Jordan",
+     "de": "Der Jarden"
+    },
+    {
+     "ru": "Великое море",
+     "en": "The Great Sea",
+     "de": "Das Große Meer"
+    },
+    {
+     "ru": "Пустыня",
+     "en": "The wilderness",
+     "de": "Die Wüste"
+    },
+    {
+     "ru": "Гора Эфраима",
+     "en": "The hill country of Ephraim",
+     "de": "Das Bergland Efrajim"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 18:24",
+   "q": {
+    "ru": "Сколько городов перечислено в первом списке городов Биньямина?",
+    "en": "How many towns are listed in the first list of Benjamin’s towns?",
+    "de": "Wie viele Städte werden in der ersten Liste der Städte Binjamins aufgezählt?"
+   },
+   "o": [
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    },
+    {
+     "ru": "Семь",
+     "en": "Seven",
+     "de": "Sieben"
+    },
+    {
+     "ru": "Десять",
+     "en": "Ten",
+     "de": "Zehn"
+    },
+    {
+     "ru": "Двадцать",
+     "en": "Twenty",
+     "de": "Zwanzig"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 30:1",
+   "q": {
+    "ru": "Для чего написан этот псалом Давида?",
+    "en": "For what occasion is this psalm of David?",
+    "de": "Für welchen Anlass ist dieses Lied von David?"
+   },
+   "o": [
+    {
+     "ru": "Для освящения Дома",
+     "en": "For the dedication of the House",
+     "de": "Zur Einweihung des Hauses"
+    },
+    {
+     "ru": "Для коронации",
+     "en": "For a coronation",
+     "de": "Zur Krönung"
+    },
+    {
+     "ru": "Для свадьбы",
+     "en": "For a wedding",
+     "de": "Zu einer Hochzeit"
+    },
+    {
+     "ru": "Для войны",
+     "en": "For a war",
+     "de": "Für einen Krieg"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 30:6",
+   "q": {
+    "ru": "Что приходит утром после вечернего плача?",
+    "en": "What comes at dawn after weeping at nightfall?",
+    "de": "Was kommt am Morgen nach dem Weinen am Abend?"
+   },
+   "o": [
+    {
+     "ru": "Песнь радости",
+     "en": "Shouts of joy",
+     "de": "Jubel"
+    },
+    {
+     "ru": "Новый плач",
+     "en": "More weeping",
+     "de": "Neues Weinen"
+    },
+    {
+     "ru": "Тишина",
+     "en": "Silence",
+     "de": "Stille"
+    },
+    {
+     "ru": "Сон",
+     "en": "Sleep",
+     "de": "Schlaf"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 30:10",
+   "q": {
+    "ru": "Что спрашивает Давид: может ли прах…?",
+    "en": "What does David ask: can dust…?",
+    "de": "Was fragt David: Kann der Staub…?"
+   },
+   "o": [
+    {
+     "ru": "Благодарить Г-спода",
+     "en": "Praise the L-rd",
+     "de": "Dem Ewigen danken"
+    },
+    {
+     "ru": "Строить Храм",
+     "en": "Build the Temple",
+     "de": "Das Heiligtum bauen"
+    },
+    {
+     "ru": "Воевать",
+     "en": "Go to war",
+     "de": "Krieg führen"
+    },
+    {
+     "ru": "Петь песни",
+     "en": "Sing songs",
+     "de": "Lieder singen"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 30:12",
+   "q": {
+    "ru": "Во что Г-сподь обратил плач Давида?",
+    "en": "Into what did the L-rd turn David’s lament?",
+    "de": "Worin verwandelte der Ewige Davids Klage?"
+   },
+   "o": [
+    {
+     "ru": "В пляску",
+     "en": "Into dancing",
+     "de": "In Tanz"
+    },
+    {
+     "ru": "В молчание",
+     "en": "Into silence",
+     "de": "In Schweigen"
+    },
+    {
+     "ru": "В песню войны",
+     "en": "Into a war song",
+     "de": "In ein Kriegslied"
+    },
+    {
+     "ru": "В сон",
+     "en": "Into sleep",
+     "de": "In Schlaf"
+    }
+   ]
+  }
+ ]
+}
