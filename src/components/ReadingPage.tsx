@@ -1,4 +1,5 @@
 import '@fontsource/noto-serif-hebrew/400.css';
+import { useKeepAwake } from '../core/keepAwake';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useI18n, uiLang } from '../i18n';
 import { TopBar } from './TopBar';
@@ -142,6 +143,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   const pendingPlay = useRef(false);
   const pendingWord = useRef<number | null>(null);
   const [audioState, setAudioState] = useState<'stopped' | 'playing' | 'paused'>('stopped');
+  useKeepAwake(audioState === 'playing');
 
   /** «Только голос» — без подсветки; «Только подсветка» — запись идёт без звука, подсветка задаёт темп (владелец, 02.11.2026) */
   const light = view.play !== 'voice';

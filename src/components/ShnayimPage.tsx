@@ -1,4 +1,5 @@
 import '@fontsource/noto-serif-hebrew/400.css';
+import { useKeepAwake } from '../core/keepAwake';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useI18n, uiLang } from '../i18n';
 import { TopBar } from './TopBar';
@@ -46,6 +47,7 @@ export function ShnayimPage({ aliyah }: { aliyah?: string }) {
   const [view, setView] = useState<View>(loadView);
   const [active, setActive] = useState(-1);
   const [highlightState, setHighlightState] = useState<'stopped' | 'playing' | 'paused'>('stopped');
+  useKeepAwake(highlightState === 'playing');
   const [highlightRate, setHighlightRate] = useState(1);
   const remainingMs = useRef<number | null>(null);
   const deadline = useRef(0);
