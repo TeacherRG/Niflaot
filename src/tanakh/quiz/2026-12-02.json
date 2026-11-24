@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 18:28",
+   "q": {
+    "ru": "Какой город в списке Биньямина назван «это Йерушалаим»?",
+    "en": "Which town in Benjamin’s list is called “that is, Jerusalem”?",
+    "de": "Welche Stadt in der Liste Binjamins heißt „das ist Jeruschalajim“?"
+   },
+   "o": [
+    {
+     "ru": "Йевус",
+     "en": "Jebus",
+     "de": "Jewus"
+    },
+    {
+     "ru": "Гивон",
+     "en": "Gibeon",
+     "de": "Giwon"
+    },
+    {
+     "ru": "Рама",
+     "en": "Ramah",
+     "de": "Rama"
+    },
+    {
+     "ru": "Мицпе",
+     "en": "Mizpeh",
+     "de": "Mizpe"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:1",
+   "q": {
+    "ru": "Где был удел колена Шимона?",
+    "en": "Where was the portion of the tribe of Simeon?",
+    "de": "Wo lag das Erbe des Stammes Schimon?"
+   },
+   "o": [
+    {
+     "ru": "Внутри удела Йеґуды",
+     "en": "Inside the portion of Judah",
+     "de": "Mitten im Erbe Jehudas"
+    },
+    {
+     "ru": "Внутри удела Биньямина",
+     "en": "Inside the portion of Benjamin",
+     "de": "Mitten im Erbe Binjamins"
+    },
+    {
+     "ru": "За Ярденом",
+     "en": "Beyond the Jordan",
+     "de": "Jenseits des Jarden"
+    },
+    {
+     "ru": "У Великого моря на севере",
+     "en": "By the Great Sea in the north",
+     "de": "Am Großen Meer im Norden"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:1",
+   "q": {
+    "ru": "Какой по счёту жребий вышел Шимону?",
+    "en": "Which lot fell to Simeon?",
+    "de": "Das wievielte Los kam für Schimon heraus?"
+   },
+   "o": [
+    {
+     "ru": "Второй",
+     "en": "The second",
+     "de": "Das zweite"
+    },
+    {
+     "ru": "Первый",
+     "en": "The first",
+     "de": "Das erste"
+    },
+    {
+     "ru": "Третий",
+     "en": "The third",
+     "de": "Das dritte"
+    },
+    {
+     "ru": "Седьмой",
+     "en": "The seventh",
+     "de": "Das siebte"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:2",
+   "q": {
+    "ru": "Какой город Шимона, по Мецудат Давид, назывался двумя именами?",
+    "en": "Which town of Simeon, according to Metzudat David, had two names?",
+    "de": "Welche Stadt Schimons hatte nach Mezudat David zwei Namen?"
+   },
+   "o": [
+    {
+     "ru": "Беэр-Шева",
+     "en": "Beer-sheba",
+     "de": "Be’er-Scheva"
+    },
+    {
+     "ru": "Циклаг",
+     "en": "Ziklag",
+     "de": "Ziklag"
+    },
+    {
+     "ru": "Хорма",
+     "en": "Hormah",
+     "de": "Chorma"
+    },
+    {
+     "ru": "Молада",
+     "en": "Moladah",
+     "de": "Molada"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 31:4",
+   "q": {
+    "ru": "Как Давид называет Г-спода в этом псалме?",
+    "en": "What does David call the L-rd in this psalm?",
+    "de": "Wie nennt David den Ewigen in diesem Lied?"
+   },
+   "o": [
+    {
+     "ru": "Моя скала и моя крепость",
+     "en": "My rock and my fortress",
+     "de": "Mein Fels und meine Burg"
+    },
+    {
+     "ru": "Мой пастырь",
+     "en": "My shepherd",
+     "de": "Mein Hirte"
+    },
+    {
+     "ru": "Мой щит и меч",
+     "en": "My shield and sword",
+     "de": "Mein Schild und Schwert"
+    },
+    {
+     "ru": "Мой свет",
+     "en": "My light",
+     "de": "Mein Licht"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 31:5",
+   "q": {
+    "ru": "Из чего Г-сподь выведет Давида?",
+    "en": "From what will the L-rd free David?",
+    "de": "Woraus befreit der Ewige David?"
+   },
+   "o": [
+    {
+     "ru": "Из тайно расставленной сети",
+     "en": "From a net laid in secret",
+     "de": "Aus einem heimlich gelegten Netz"
+    },
+    {
+     "ru": "Из пещеры",
+     "en": "From a cave",
+     "de": "Aus einer Höhle"
+    },
+    {
+     "ru": "Из моря",
+     "en": "From the sea",
+     "de": "Aus dem Meer"
+    },
+    {
+     "ru": "Из темницы",
+     "en": "From prison",
+     "de": "Aus dem Gefängnis"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 31:6",
+   "q": {
+    "ru": "Что Давид вверяет в руку Г-спода?",
+    "en": "What does David entrust into the L-rd’s hand?",
+    "de": "Was vertraut David der Hand des Ewigen an?"
+   },
+   "o": [
+    {
+     "ru": "Свой дух",
+     "en": "His spirit",
+     "de": "Seinen Geist"
+    },
+    {
+     "ru": "Свой меч",
+     "en": "His sword",
+     "de": "Sein Schwert"
+    },
+    {
+     "ru": "Своё царство",
+     "en": "His kingdom",
+     "de": "Sein Königreich"
+    },
+    {
+     "ru": "Свою арфу",
+     "en": "His harp",
+     "de": "Seine Harfe"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 31:7",
+   "q": {
+    "ru": "Кого ненавидит Давид?",
+    "en": "Whom does David detest?",
+    "de": "Wen hasst David?"
+   },
+   "o": [
+    {
+     "ru": "Тех, кто полагается на пустую суету",
+     "en": "Those who rely on empty folly",
+     "de": "Die, die sich auf leere Nichtigkeiten verlassen"
+    },
+    {
+     "ru": "Своих соседей",
+     "en": "His neighbors",
+     "de": "Seine Nachbarn"
+    },
+    {
+     "ru": "Тех, кто беден",
+     "en": "Those who are poor",
+     "de": "Die Armen"
+    },
+    {
+     "ru": "Чужеземцев",
+     "en": "Foreigners",
+     "de": "Fremde"
+    }
+   ]
+  }
+ ]
+}
