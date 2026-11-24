@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 19:22",
+   "q": {
+    "ru": "Какой горы касалась граница Иссахара?",
+    "en": "Which mountain did Issachar’s boundary touch?",
+    "de": "Welchen Berg berührte die Grenze Jissachars?"
+   },
+   "o": [
+    {
+     "ru": "Тавора",
+     "en": "Tabor",
+     "de": "Den Tawor"
+    },
+    {
+     "ru": "Кармеля",
+     "en": "Carmel",
+     "de": "Den Karmel"
+    },
+    {
+     "ru": "Хермона",
+     "en": "Hermon",
+     "de": "Den Chermon"
+    },
+    {
+     "ru": "Гильбоа",
+     "en": "Gilboa",
+     "de": "Den Gilboa"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:22",
+   "q": {
+    "ru": "Сколько городов было в уделе Иссахара?",
+    "en": "How many towns were in Issachar’s portion?",
+    "de": "Wie viele Städte lagen im Erbe Jissachars?"
+   },
+   "o": [
+    {
+     "ru": "Шестнадцать",
+     "en": "Sixteen",
+     "de": "Sechzehn"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    },
+    {
+     "ru": "Тринадцать",
+     "en": "Thirteen",
+     "de": "Dreizehn"
+    },
+    {
+     "ru": "Двадцать две",
+     "en": "Twenty-two",
+     "de": "Zweiundzwanzig"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:24",
+   "q": {
+    "ru": "Какому колену вышел пятый жребий?",
+    "en": "Which tribe received the fifth lot?",
+    "de": "Für welchen Stamm kam das fünfte Los heraus?"
+   },
+   "o": [
+    {
+     "ru": "Ашеру",
+     "en": "Asher",
+     "de": "Ascher"
+    },
+    {
+     "ru": "Нафтали",
+     "en": "Naphtali",
+     "de": "Naftali"
+    },
+    {
+     "ru": "Дану",
+     "en": "Dan",
+     "de": "Dan"
+    },
+    {
+     "ru": "Иссахару",
+     "en": "Issachar",
+     "de": "Jissachar"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:26",
+   "q": {
+    "ru": "Какой горы на западе касалась граница Ашера?",
+    "en": "Which mountain in the west did Asher’s boundary touch?",
+    "de": "Welchen Berg im Westen berührte die Grenze Aschers?"
+   },
+   "o": [
+    {
+     "ru": "Кармеля",
+     "en": "Carmel",
+     "de": "Den Karmel"
+    },
+    {
+     "ru": "Тавора",
+     "en": "Tabor",
+     "de": "Den Tawor"
+    },
+    {
+     "ru": "Гризим",
+     "en": "Gerizim",
+     "de": "Den Grisim"
+    },
+    {
+     "ru": "Эваль",
+     "en": "Ebal",
+     "de": "Den Ewal"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 31:17",
+   "q": {
+    "ru": "О чём просит Давид в начале этой части псалма?",
+    "en": "What does David ask at the start of this part of the psalm?",
+    "de": "Worum bittet David am Anfang dieses Teils des Liedes?"
+   },
+   "o": [
+    {
+     "ru": "Чтобы Г-сподь озарил его Своим лицом",
+     "en": "That the L-rd show him favor",
+     "de": "Dass der Ewige Sein Gesicht über ihm leuchten lässt"
+    },
+    {
+     "ru": "Чтобы ему дали меч",
+     "en": "For a sword",
+     "de": "Um ein Schwert"
+    },
+    {
+     "ru": "Чтобы Шауль его простил",
+     "en": "That Saul forgive him",
+     "de": "Dass Schaul ihm vergibt"
+    },
+    {
+     "ru": "Чтобы враги ушли за море",
+     "en": "That his enemies go beyond the sea",
+     "de": "Dass die Feinde übers Meer gehen"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 31:20",
+   "q": {
+    "ru": "Для кого Г-сподь бережёт великое добро?",
+    "en": "For whom does the L-rd store up great good?",
+    "de": "Für wen bewahrt der Ewige großes Gutes auf?"
+   },
+   "o": [
+    {
+     "ru": "Для боящихся Его",
+     "en": "For those who fear Him",
+     "de": "Für die, die Ihn fürchten"
+    },
+    {
+     "ru": "Для богатых",
+     "en": "For the rich",
+     "de": "Für die Reichen"
+    },
+    {
+     "ru": "Для царей",
+     "en": "For kings",
+     "de": "Für Könige"
+    },
+    {
+     "ru": "Для смелых воинов",
+     "en": "For brave warriors",
+     "de": "Für mutige Krieger"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 31:22",
+   "q": {
+    "ru": "В каком городе, по Раши, Давиду было чудо «в осаждённом городе»?",
+    "en": "In which town, according to Rashi, was David’s wonder “in a besieged city”?",
+    "de": "In welcher Stadt geschah nach Raschi Davids Wunder „in einer belagerten Stadt“?"
+   },
+   "o": [
+    {
+     "ru": "В Кеиле",
+     "en": "In Keilah",
+     "de": "In Keila"
+    },
+    {
+     "ru": "В Хевроне",
+     "en": "In Hebron",
+     "de": "In Chewron"
+    },
+    {
+     "ru": "В Гивоне",
+     "en": "In Gibeon",
+     "de": "In Giwon"
+    },
+    {
+     "ru": "В Йерихо",
+     "en": "In Jericho",
+     "de": "In Jericho"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 31:25",
+   "q": {
+    "ru": "К кому обращён призыв «Будьте сильны»?",
+    "en": "To whom is the call “Be strong” addressed?",
+    "de": "An wen richtet sich der Ruf „Seid stark“?"
+   },
+   "o": [
+    {
+     "ru": "Ко всем надеющимся на Г-спода",
+     "en": "All who wait for the L-rd",
+     "de": "An alle, die auf den Ewigen hoffen"
+    },
+    {
+     "ru": "К воинам Шауля",
+     "en": "Saul’s soldiers",
+     "de": "An Schauls Krieger"
+    },
+    {
+     "ru": "К левитам",
+     "en": "The Levites",
+     "de": "An die Lewiten"
+    },
+    {
+     "ru": "К жителям Кеилы",
+     "en": "The people of Keilah",
+     "de": "An die Leute von Keila"
+    }
+   ]
+  }
+ ]
+}
