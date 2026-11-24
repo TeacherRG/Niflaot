@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 19:28",
+   "q": {
+    "ru": "До какого города на севере доходил удел Ашера?",
+    "en": "To which city in the north did Asher’s portion reach?",
+    "de": "Bis zu welcher Stadt im Norden reichte das Erbe Aschers?"
+   },
+   "o": [
+    {
+     "ru": "До Цидона Великого",
+     "en": "To Great Sidon",
+     "de": "Bis zum großen Zidon"
+    },
+    {
+     "ru": "До Дамесека",
+     "en": "To Damascus",
+     "de": "Bis Dammesek"
+    },
+    {
+     "ru": "До Хеврона",
+     "en": "To Hebron",
+     "de": "Bis Chewron"
+    },
+    {
+     "ru": "До Беэр-Шевы",
+     "en": "To Beer-sheba",
+     "de": "Bis Be’er-Scheva"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:29",
+   "q": {
+    "ru": "Какое значение слова «Цор» приводит Раши?",
+    "en": "What meaning of the word “Tyre” (Tzor) does Rashi give?",
+    "de": "Welche Bedeutung des Wortes „Zor“ bringt Raschi?"
+   },
+   "o": [
+    {
+     "ru": "Скала",
+     "en": "A rock",
+     "de": "Fels"
+    },
+    {
+     "ru": "Море",
+     "en": "The sea",
+     "de": "Meer"
+    },
+    {
+     "ru": "Башня",
+     "en": "A tower",
+     "de": "Turm"
+    },
+    {
+     "ru": "Остров",
+     "en": "An island",
+     "de": "Insel"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:30",
+   "q": {
+    "ru": "Сколько городов было в уделе Ашера?",
+    "en": "How many towns were in Asher’s portion?",
+    "de": "Wie viele Städte lagen im Erbe Aschers?"
+   },
+   "o": [
+    {
+     "ru": "Двадцать два",
+     "en": "Twenty-two",
+     "de": "Zweiundzwanzig"
+    },
+    {
+     "ru": "Двенадцать",
+     "en": "Twelve",
+     "de": "Zwölf"
+    },
+    {
+     "ru": "Шестнадцать",
+     "en": "Sixteen",
+     "de": "Sechzehn"
+    },
+    {
+     "ru": "Девятнадцать",
+     "en": "Nineteen",
+     "de": "Neunzehn"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:32",
+   "q": {
+    "ru": "Какому колену вышел шестой жребий?",
+    "en": "Which tribe received the sixth lot?",
+    "de": "Für welchen Stamm kam das sechste Los heraus?"
+   },
+   "o": [
+    {
+     "ru": "Нафтали",
+     "en": "Naphtali",
+     "de": "Naftali"
+    },
+    {
+     "ru": "Дану",
+     "en": "Dan",
+     "de": "Dan"
+    },
+    {
+     "ru": "Ашеру",
+     "en": "Asher",
+     "de": "Ascher"
+    },
+    {
+     "ru": "Иссахару",
+     "en": "Issachar",
+     "de": "Jissachar"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 32:1",
+   "q": {
+    "ru": "Кого псалом называет счастливым в первом стихе?",
+    "en": "Whom does the psalm call happy in its first verse?",
+    "de": "Wen nennt das Lied im ersten Vers glücklich?"
+   },
+   "o": [
+    {
+     "ru": "Того, чей проступок прощён",
+     "en": "He whose transgression is forgiven",
+     "de": "Den, dessen Vergehen vergeben ist"
+    },
+    {
+     "ru": "Того, кто богат",
+     "en": "He who is rich",
+     "de": "Den, der reich ist"
+    },
+    {
+     "ru": "Того, кто силён",
+     "en": "He who is strong",
+     "de": "Den, der stark ist"
+    },
+    {
+     "ru": "Того, у кого много детей",
+     "en": "He who has many children",
+     "de": "Den, der viele Kinder hat"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 32:3",
+   "q": {
+    "ru": "Что было с Давидом, пока он молчал и не признавался?",
+    "en": "What happened to David while he kept silent and did not confess?",
+    "de": "Was geschah mit David, solange er schwieg und nicht bekannte?"
+   },
+   "o": [
+    {
+     "ru": "Истлевали его кости",
+     "en": "His bones wasted away",
+     "de": "Seine Knochen zerfielen"
+    },
+    {
+     "ru": "Он стал богатым",
+     "en": "He became rich",
+     "de": "Er wurde reich"
+    },
+    {
+     "ru": "Он победил врагов",
+     "en": "He defeated his enemies",
+     "de": "Er besiegte seine Feinde"
+    },
+    {
+     "ru": "Он уснул",
+     "en": "He fell asleep",
+     "de": "Er schlief ein"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 32:5",
+   "q": {
+    "ru": "Кому, по Раши, Давид сказал «Я согрешил»?",
+    "en": "To whom, according to Rashi, did David say “I have sinned”?",
+    "de": "Zu wem sagte David nach Raschi: „Ich habe gesündigt“?"
+   },
+   "o": [
+    {
+     "ru": "Пророку Натану",
+     "en": "The prophet Nathan",
+     "de": "Zum Propheten Natan"
+    },
+    {
+     "ru": "Пророку Шмуэлю",
+     "en": "The prophet Samuel",
+     "de": "Zum Propheten Schmuel"
+    },
+    {
+     "ru": "Царю Шаулю",
+     "en": "King Saul",
+     "de": "Zu König Schaul"
+    },
+    {
+     "ru": "Йоаву",
+     "en": "Joab",
+     "de": "Zu Joaw"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 32:9",
+   "q": {
+    "ru": "На кого не надо быть похожими?",
+    "en": "What should we not be like?",
+    "de": "Wem sollen wir nicht gleichen?"
+   },
+   "o": [
+    {
+     "ru": "На коня и мула без разума",
+     "en": "A senseless horse or mule",
+     "de": "Einem Pferd und Maultier ohne Verstand"
+    },
+    {
+     "ru": "На льва",
+     "en": "A lion",
+     "de": "Einem Löwen"
+    },
+    {
+     "ru": "На орла",
+     "en": "An eagle",
+     "de": "Einem Adler"
+    },
+    {
+     "ru": "На муравья",
+     "en": "An ant",
+     "de": "Einer Ameise"
+    }
+   ]
+  }
+ ]
+}
