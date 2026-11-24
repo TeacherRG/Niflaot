@@ -343,9 +343,7 @@ I’m investigating together with the Lubavitcher Rebbe — “Niflaot of the Re
 ${grid}
 
 Four riddles: the haftarah mirrors the parshah, anointed because of a dispute, a horn and not a flask, and chosen forever.
-Play 👉 ${site}
-
-©mychitas.app`,
+Play 👉 ${site}`,
   source:
     'The investigation follows a talk of the Lubavitcher Rebbe on the Shabbatot of Vayeira and Chayei Sarah 5743 (Likkutei Sichot, vol. 25, Chayei Sarah, talk 3), in Hebrew translation; retold by the project.',
 };

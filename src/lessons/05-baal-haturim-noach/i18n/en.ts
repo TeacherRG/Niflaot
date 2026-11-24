@@ -502,9 +502,7 @@ I’m playing a gematria game on the Baal HaTurim’s commentary on the portion 
 ${grid}
 
 Five riddles: about Noach the tzaddik and “the waters of Noach”, the ark and the shining stone, the Flood, Og the giant and the covenant, the wine and the tower, the holy tongue and Sarah’s name. Can you do better?
-Play 👉 ${site}
-
-©mychitas.app`,
+Play 👉 ${site}`,
   source:
     'After the commentary of the Baal HaTurim (Rabbi Yaakov ben Asher, 14th century) on the portion of Noach (Genesis 6:9–11:32), short version (“Kitzur Baal HaTurim”). Hebrew text — Sefaria.',
 };

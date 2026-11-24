@@ -489,9 +489,7 @@ I’m investigating together with the Lubavitcher Rebbe — “Niflaot of the Re
 ${grid}
 
 Four riddles: the letter that stayed, Sarai and Sarah, three altars and the altar in Hebron.
-Play 👉 ${site}
-
-©mychitas.app`,
+Play 👉 ${site}`,
   source:
     'The investigation follows talks of the Lubavitcher Rebbe: Shabbat Parshat Lech Lecha 5744 (Likkutei Sichot, vol. 25, Lech Lecha, talk 3) and 7 Mar-Cheshvan 5746 (Likkutei Sichot, vol. 30, Lech Lecha, talk 1), in Hebrew translation; retold by the project.',
 };

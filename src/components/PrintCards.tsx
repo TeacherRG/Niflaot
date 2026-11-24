@@ -103,7 +103,7 @@ export function PrintCards({ lesson, cards }: { lesson: Lesson; cards: RebbeCard
                 <div key={k} className="pm-card pm-words">
                   <span className="pm-verse he">{displayNames(it.verse)}</span>
                   <span className="pm-tr">{ct.items[k].verse}</span>
-                  <span className="pm-copy">© mychitas.app 5787</span>
+                  <span className="pm-copy">© niflaot.app 5787</span>
                 </div>
               ))}
             </CardPage>
@@ -112,7 +112,7 @@ export function PrintCards({ lesson, cards }: { lesson: Lesson; cards: RebbeCard
                 <div key={k} className="pm-card pm-expl">
                   <span className="pm-expl-mark">✦</span>
                   <span className="pm-expl-t">{it.card}</span>
-                  <span className="pm-copy">© mychitas.app 5787</span>
+                  <span className="pm-copy">© niflaot.app 5787</span>
                 </div>
               ))}
             </CardPage>
@@ -130,7 +130,7 @@ export function PrintCards({ lesson, cards }: { lesson: Lesson; cards: RebbeCard
 
         <footer className="p-foot">
           <p className="p-holy">{t('print.holy')}</p>
-          {SITE_HOST} · {t('memo.shabbat')} · © mychitas.app 2026
+          {SITE_HOST} · {t('memo.shabbat')} · © 5787
         </footer>
       </article>
     </div>

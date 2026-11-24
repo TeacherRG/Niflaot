@@ -371,9 +371,7 @@ I’m investigating with the Lubavitcher Rebbe — “Niflaot of the Rebbe,” P
 ${grid}
 
 Four riddles: olah temimah, the Akeidah now, ashes are the everyday, and wholly upon the altar.
-Play 👉 ${site}
-
-©mychitas.app`,
+Play 👉 ${site}`,
   source:
     'The investigation follows a talk of the Lubavitcher Rebbe on Shabbat Behar-Bechukotai 5728 (Likkutei Sichot, vol. 25, Toldot, talk 3), in Hebrew translation; retold by the project.',
 };

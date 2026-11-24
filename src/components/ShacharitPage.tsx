@@ -1,4 +1,5 @@
 import '@fontsource/noto-serif-hebrew/400.css';
+import { useKeepAwake } from '../core/keepAwake';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { loadView, saveView, stripTaamim, type View } from '../core/reading';
 import { translitSiddurToken } from '../core/tehillimTranslit';
@@ -306,6 +307,7 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
   // подсветка, как в «Шнаим микра»: нажатие на слово — с него; ▶ — дальше сама, по длине слова и скорости
   const [active, setActive] = useState(-1);
   const [hl, setHl] = useState<'stopped' | 'playing' | 'paused'>('stopped');
+  useKeepAwake(hl === 'playing');
   const [rate, setRate] = useState(1);
   const remainingMs = useRef<number | null>(null);
   const deadline = useRef(0);

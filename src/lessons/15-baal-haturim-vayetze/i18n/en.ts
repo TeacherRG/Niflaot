@@ -454,9 +454,7 @@ I’m playing a gematria game on the commentary of the Baal HaTurim on Vayetzei.
 ${grid}
 
 Four riddles: with whom Yaakov studied and why the sun went out early, the ladder — Sinai and the end of the exiles, whose name is hidden at the well, mandrakes “like a person” and who told Lavan that Yaakov had fled. Can you do better?
-Play 👉 ${site}
-
-©mychitas.app`,
+Play 👉 ${site}`,
   source:
     'After the commentary of the Baal HaTurim (Rabbi Yaakov ben Asher, 14th century) on the portion of Vayetzei (Genesis 28:10–32:3), the short version (“Kitzur Baal HaTurim”). Hebrew text — Sefaria; translation — the Niflaot project.',
 };

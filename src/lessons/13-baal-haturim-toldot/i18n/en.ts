@@ -461,9 +461,7 @@ I’m playing a gematria game based on the Baal HaTurim’s commentary on Parsha
 ${grid}
 
 Four riddles: whom Yitzchak looked like and what “straw and fire” means, how many nations came out after Yaakov and in whose tents he studied, Avraham’s 172 years, and on which festival Yitzchak blessed Yaakov. Can you do better?
-Play 👉 ${site}
-
-©mychitas.app`,
+Play 👉 ${site}`,
   source:
     'Based on the commentary of the Baal HaTurim (Rabbi Yaakov ben Asher, 14th century) on Parshat Toldot (Bereishit 25:19–28:9), the short version (“Kitzur Baal HaTurim”). Hebrew text — Sefaria.',
 };

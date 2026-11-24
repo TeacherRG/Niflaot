@@ -480,9 +480,7 @@ Ich spiele ein Gematria-Spiel nach dem Kommentar des Baal HaTurim zum Wochenabsc
 ${grid}
 
 Fünf Rätsel: Warum G-tt zu Awraham kam und wer die drei Gäste waren, wie man Gäste empfängt und begleitet, was man Sara fragte und was hundert Jahre bedeuten, was Awraham seine Kinder lehrte und was „Staub und Asche“ heißt, was in den Worten auf dem Berg Morija steckt. Kannst du es besser?
-Spiel mit 👉 ${site}
-
-©mychitas.app`,
+Spiel mit 👉 ${site}`,
   source:
     'Nach dem Kommentar des Baal HaTurim (Rabbi Jaakow ben Ascher, 14. Jh.) zum Wochenabschnitt Wajera (Bereschit 18,1–22,24), Kurzfassung („Kizur Baal HaTurim“). Hebräischer Text — Sefaria.',
 };

@@ -259,7 +259,7 @@ export function RebbeCards({ lesson, cards: data, text }: { lesson: Lesson; card
               </a>
             )}
           </div>
-          <div className="memo-copy">© mychitas.app 2026</div>
+          <div className="memo-copy">© niflaot.app 5787</div>
         </div>
       )}
 

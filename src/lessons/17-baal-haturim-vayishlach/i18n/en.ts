@@ -476,9 +476,7 @@ I’m playing a gematria game on the Baal HaTurim’s commentary to Parshat Vayi
 ${grid}
 
 Four riddles: what Yaakov told Esav with one word, who is hidden in his prayer, who wrestled with him until dawn, and what was in his brother’s kiss. Can you do better?
-Play 👉 ${site}
-
-©mychitas.app`,
+Play 👉 ${site}`,
   source:
     'Based on the commentary of the Baal HaTurim (Rabbi Yaakov ben Asher, 14th c.) on Parshat Vayishlach (Genesis 32:4–36:43), the short version (Kitzur Baal HaTurim). Hebrew text — Sefaria; translation — the Niflaot project.',
 };

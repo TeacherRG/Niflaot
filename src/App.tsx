@@ -88,7 +88,7 @@ const CoinsPage = page(() => import('./components/CoinsPage'), 'CoinsPage');
 const KoeletPage = page(() => import('./components/KoeletPage'), 'KoeletPage');
 const Admin = page(() => import('./components/Admin'), 'Admin');
 
-const SIGNATURE = `\n\n${SITE_HOST}\n©mychitas.app`;
+const SIGNATURE = `\n\n${SITE_HOST}\n©niflaot.app`;
 
 /**
  * Hash routing: `#/` — catalog, `#/<lesson-slug>` — lesson, `#/<lesson-slug>/print` — printable version,
@@ -127,11 +127,11 @@ function useCopySignature() {
       if (a && (a.tagName === 'INPUT' || a.tagName === 'TEXTAREA')) return;
       const sel = getSelection();
       const text = sel?.toString() ?? '';
-      if (!sel || !text.trim() || !e.clipboardData || text.includes('©mychitas.app')) return;
+      if (!sel || !text.trim() || !e.clipboardData || text.includes('©niflaot.app')) return;
       const div = document.createElement('div');
       for (let i = 0; i < sel.rangeCount; i++) div.appendChild(sel.getRangeAt(i).cloneContents());
       e.clipboardData.setData('text/plain', text + SIGNATURE);
-      e.clipboardData.setData('text/html', `${div.innerHTML}<br><br>${SITE_HOST}<br>©mychitas.app`);
+      e.clipboardData.setData('text/html', `${div.innerHTML}<br><br>${SITE_HOST}<br>©niflaot.app`);
       e.preventDefault();
     };
     document.addEventListener('copy', on);

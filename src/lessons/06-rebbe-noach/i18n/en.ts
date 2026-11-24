@@ -463,9 +463,7 @@ I’m investigating together with the Lubavitcher Rebbe — Niflaot of the Rebbe
 ${grid}
 
 Four riddles: why a command to go out, the wolf with the lamb in the ark, “fill the earth,” and how to go out of your own ark. And then — cards: 12 verses of the parshah and the Rebbe’s explanations.
-Play 👉 ${site}
-
-©mychitas.app`,
+Play 👉 ${site}`,
   source:
     'The investigation is based on a talk of the Lubavitcher Rebbe (Shabbat Parshat Noach 5741 and 5743, Shabbat Parshat Chayei Sarah 5743; Likkutei Sichot, vol. 25, Noach, talk 3, in its Hebrew translation); retold by the project. The cards are based on talks on Parshat Noach (Likkutei Sichot, vols. 1, 5, 10, 15, 25).',
 };

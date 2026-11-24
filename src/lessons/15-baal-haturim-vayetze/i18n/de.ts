@@ -454,9 +454,7 @@ Ich spiele ein Gematria-Spiel zum Kommentar des Baal HaTurim zu Wajeze. ${allSol
 ${grid}
 
 Vier Rätsel: bei wem Jaakow lernte und warum die Sonne zu früh erlosch, die Leiter — Sinai und das Ende der Exile, wessen Name am Brunnen versteckt ist, Liebesäpfel „wie ein Mensch“ und wer Lawan erzählte, dass Jaakow geflohen war. Schaffst du es besser?
-Spiel mit 👉 ${site}
-
-©mychitas.app`,
+Spiel mit 👉 ${site}`,
   source:
     'Nach dem Kommentar des Baal HaTurim (Rabbi Jaakow ben Ascher, 14. Jh.) zur Parascha Wajeze (Bereschit 28,10–32,3), Kurzfassung („Kizur Baal HaTurim“). Hebräischer Text — Sefaria; Übersetzung — Projekt Niflaot.',
 };

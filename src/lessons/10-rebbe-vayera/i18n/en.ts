@@ -238,9 +238,7 @@ I’m investigating together with the Lubavitcher Rebbe — “Niflaot of the Re
 ${grid}
 
 Three riddles: eight days or thirteen years, an everlasting covenant, and why a baby.
-Play 👉 ${site}
-
-©mychitas.app`,
+Play 👉 ${site}`,
   source:
     'The investigation follows a talk of the Lubavitcher Rebbe on the last day of Pesach 5741 (Likkutei Sichot, vol. 25, Vayeira, talk 3), in Hebrew translation; retold by the project.',
 };

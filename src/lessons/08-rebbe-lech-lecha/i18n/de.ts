@@ -489,9 +489,7 @@ Ich ermittle zusammen mit dem Lubawitscher Rebben — „Niflaot des Rebben“, 
 ${grid}
 
 Vier Rätsel: der Buchstabe, der blieb, Sarai und Sara, drei Altäre und der Altar in Chewron.
-Spiel mit 👉 ${site}
-
-©mychitas.app`,
+Spiel mit 👉 ${site}`,
   source:
     'Die Ermittlung folgt Reden des Lubawitscher Rebben: Schabbat Lech Lecha 5744 (Likkutej Sichot, Bd. 25, Lech Lecha, Rede 3) und 7. Mar-Cheschwan 5746 (Likkutej Sichot, Bd. 30, Lech Lecha, Rede 1), in hebräischer Übersetzung; Nacherzählung des Projekts.',
 };

@@ -502,9 +502,7 @@ Ich spiele ein Gematria-Spiel nach dem Kommentar des Baal HaTurim zum Abschnitt 
 ${grid}
 
 Fünf Rätsel: über Noach, den Zaddik, und »die Wasser Noachs«, über die Arche und den leuchtenden Stein, über die Sintflut, den Riesen Og und den Bund, über den Wein und den Turm, über die heilige Sprache und Saras Namen. Schaffst du es besser?
-Spiel mit 👉 ${site}
-
-©mychitas.app`,
+Spiel mit 👉 ${site}`,
   source:
     'Nach dem Kommentar des Baal HaTurim (Rabbi Jaakow ben Ascher, 14. Jh.) zum Abschnitt Noach (Bereschit 6,9–11,32), Kurzfassung (»Kizur Baal HaTurim«). Hebräischer Text — Sefaria.',
 };

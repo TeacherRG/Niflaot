@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useKeepAwake } from '../core/keepAwake';
 import { useI18n } from '../i18n';
 import { isAdmin } from '../admin/github';
 import { markStudied } from '../core/habit';
@@ -48,6 +49,7 @@ export function Karaoke({ nigun: n }: { nigun: Nigun }) {
   const [time, setTime] = useState(0);
   const [end, setEnd] = useState(0);
   const [playing, setPlaying] = useState(false);
+  useKeepAwake(playing);
   const [slow, setSlow] = useState(false);
   const [loop, setLoop] = useState(false);
   const [marks, setMarks] = useState<number[] | null>(null); // the markup in progress

@@ -101,7 +101,7 @@ for (const lang of LANGS)
       '-f', 's16le', '-ar', String(rate), '-ac', '1', '-i', raw,
       // 44.1 kHz — what every podcast app plays without a hitch
       '-ar', '44100', '-ac', '1', '-codec:a', 'libmp3lame', '-b:a', '64k',
-      '-id3v2_version', '3', '-metadata', `title=${title}`, '-metadata', 'artist=Niflaot · MyChitas',
+      '-id3v2_version', '3', '-metadata', `title=${title}`, '-metadata', 'artist=Niflaot',
       '-metadata', `album=${{ ru: 'Нифлаот', en: 'Niflaot', de: 'Niflaot' }[lang]}`, '-metadata', 'genre=Podcast',
       out,
     ]);

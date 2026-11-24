@@ -355,9 +355,7 @@ Ich ermittle zusammen mit dem Lubawitscher Rebben — „Niflaot des Rebben“, 
 ${grid}
 
 Vier Rätsel: der Brief über die Befreiung, die Geheimnisse der Tora werden frei, der Auszug aus Ägypten und „alles Fleisch wird sehen“.
-Spiel mit 👉 ${site}
-
-©mychitas.app`,
+Spiel mit 👉 ${site}`,
   source:
     'Die Ermittlung folgt Reden des Lubawitscher Rebben am 19. Kislew 5743 und 5744 (Likkutej Sichot, Bd. 25, 19. Kislew), in hebräischer Übersetzung; Nacherzählung des Projekts.',
 };

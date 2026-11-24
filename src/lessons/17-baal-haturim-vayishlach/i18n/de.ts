@@ -476,9 +476,7 @@ Ich spiele ein Gematria-Spiel zum Kommentar des Baal HaTurim zum Abschnitt Wajis
 ${grid}
 
 Vier Rätsel: was Jaakow Esaw mit einem Wort sagte, wer in seinem Gebet versteckt ist, wer bis zum Morgen mit ihm rang und was im Kuss seines Bruders steckte. Schaffst du es besser?
-Spiel mit 👉 ${site}
-
-©mychitas.app`,
+Spiel mit 👉 ${site}`,
   source:
     'Nach dem Kommentar des Baal HaTurim (Rabbi Jaakow ben Ascher, 14. Jh.) zum Abschnitt Wajischlach (Bereschit 32,4–36,43), Kurzfassung („Kizzur Baal HaTurim“). Hebräischer Text — Sefaria; Übersetzung — Projekt Niflaot.',
 };

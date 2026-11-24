@@ -443,9 +443,7 @@ Ich spiele ein Gematria-Spiel nach dem Kommentar des Baal HaTurim zum Wochenabsc
 ${grid}
 
 Fünf Rätsel: „geh für dich“ und die Wolken auf dem Weg, Frieden mit Lot und Malki-Zedek, die Sterne und dreißig Gerechte, der Bund zwischen den Stücken und Atbasch, Awrahams Name und Jizchak. Schaffst du es besser?
-Spiel mit 👉 ${site}
-
-©mychitas.app`,
+Spiel mit 👉 ${site}`,
   source:
     'Nach dem Kommentar des Baal HaTurim (Rabbi Jaakow ben Ascher, 14. Jh.) zum Wochenabschnitt Lech Lecha (Bereschit 12,1–17,27), Kurzfassung („Kizur Baal HaTurim“). Hebräischer Text — Sefaria.',
 };

@@ -355,9 +355,7 @@ I’m investigating with the Lubavitcher Rebbe — “Niflaot of the Rebbe,” P
 ${grid}
 
 Four riddles: the letter about the release, the secrets of the Torah set free, the Exodus from Egypt and “all flesh shall see.”
-Play 👉 ${site}
-
-©mychitas.app`,
+Play 👉 ${site}`,
   source:
     'The investigation follows talks of the Lubavitcher Rebbe on 19 Kislev 5743 and 5744 (Likkutei Sichot, vol. 25, 19 Kislev), in Hebrew translation; retold by the project.',
 };

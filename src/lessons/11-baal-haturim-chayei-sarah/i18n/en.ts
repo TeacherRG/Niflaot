@@ -372,9 +372,7 @@ I’m playing a gematria game based on the Baal HaTurim’s commentary on Parsha
 ${grid}
 
 Four riddles: Sarah’s sun and her main years, what the Cave of Machpelah cost and what an “evil eye” is, what Avraham’s servant swore by and what he asked for at the well, how Rivkah came into Sarah’s tent. Can you do better?
-Play 👉 ${site}
-
-©mychitas.app`,
+Play 👉 ${site}`,
   source:
     'Based on the commentary of the Baal HaTurim (Rabbi Yaakov ben Asher, 14th century) on Parshat Chayei Sarah (Genesis 23:1–25:18), short version (“Kitzur Baal HaTurim”). Hebrew text — Sefaria.',
 };

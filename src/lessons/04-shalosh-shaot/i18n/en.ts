@@ -378,9 +378,7 @@ I’m investigating with the Lubavitcher Rebbe — “Niflaot of the Rebbe”, P
 ${grid}
 
 Three riddles: the three hours of the sixth day, “greater than his fellow”, and why at Sinai Moshe spoke to the women first. Then — the cards: 12 verses of the portion and the Rebbe’s explanations.
-Play 👉 ${site}
-
-©mychitas.app`,
+Play 👉 ${site}`,
   source:
     'From a talk of the Lubavitcher Rebbe (Simchat Torah 5723; Likkutei Sichot, vol. 3, Bereishit), translated by E. Touger (Sichos in English); retold by the project. Cards — from the weekly table of the Rebbe’s talks “Nishmat Ephraim” (parshapages.com).',
 };

@@ -514,8 +514,13 @@ for (const p of new Set(LESSONS.map((l) => l.parsha))) {
 // no browser permission prompts: the site must work for anyone without asking for the camera, location…
 // Two exceptions, each in its own module and only after a tap: the daily reminder — Notification.requestPermission()
 // in src/core/push.ts («Включить напоминание»), and the microphone — getUserMedia() in src/core/singing.ts
-// («Петь в микрофон» in the karaoke of a niggun; the sound stays on the device).
-const PERMISSION_OK: Record<string, RegExp> = { 'core/push.ts': /^requestPermission$/, 'core/singing.ts': /^getUserMedia$/ };
+// («Петь в микрофон» in the karaoke of a niggun; the sound stays on the device). The screen wake lock asks nothing
+// (the browser grants it to a visible page) — only in src/core/keepAwake.ts, while a text plays by itself.
+const PERMISSION_OK: Record<string, RegExp> = {
+  'core/push.ts': /^requestPermission$/,
+  'core/singing.ts': /^getUserMedia$/,
+  'core/keepAwake.ts': /^wakeLock$/,
+};
 const PERMISSION_APIS =
   /\b(getUserMedia|getDisplayMedia|enumerateDevices|geolocation|getCurrentPosition|watchPosition|SpeechRecognition|requestPermission|requestMIDIAccess|DeviceOrientationEvent|DeviceMotionEvent|wakeLock|bluetooth|navigator\.usb|navigator\.serial|navigator\.hid)\b/;
 for (const f of readdirSync('src', { recursive: true }) as string[]) {
