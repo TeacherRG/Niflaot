@@ -1,0 +1,246 @@
+{
+ "neviim": [
+  {
+   "ref": "joshua 19:40",
+   "q": {
+    "ru": "Какому колену вышел седьмой жребий?",
+    "en": "Which tribe received the seventh lot?",
+    "de": "Für welchen Stamm kam das siebte Los heraus?"
+   },
+   "o": [
+    {
+     "ru": "Дану",
+     "en": "Dan",
+     "de": "Dan"
+    },
+    {
+     "ru": "Нафтали",
+     "en": "Naphtali",
+     "de": "Naftali"
+    },
+    {
+     "ru": "Ашеру",
+     "en": "Asher",
+     "de": "Ascher"
+    },
+    {
+     "ru": "Биньямину",
+     "en": "Benjamin",
+     "de": "Binjamin"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:47",
+   "q": {
+    "ru": "Как сыны Дана назвали Лешем?",
+    "en": "What did the Danites call Leshem?",
+    "de": "Wie nannten die Söhne Dans Leschem?"
+   },
+   "o": [
+    {
+     "ru": "Дан",
+     "en": "Dan",
+     "de": "Dan"
+    },
+    {
+     "ru": "Шило",
+     "en": "Shiloh",
+     "de": "Schilo"
+    },
+    {
+     "ru": "Бейт-Эль",
+     "en": "Bethel",
+     "de": "Bet-El"
+    },
+    {
+     "ru": "Цор",
+     "en": "Tyre",
+     "de": "Zor"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:50",
+   "q": {
+    "ru": "Какой город получил Йеґошуа?",
+    "en": "Which town did Joshua receive?",
+    "de": "Welche Stadt bekam Jehoschua?"
+   },
+   "o": [
+    {
+     "ru": "Тимнат-Серах",
+     "en": "Timnath-serah",
+     "de": "Timnat-Serach"
+    },
+    {
+     "ru": "Хеврон",
+     "en": "Hebron",
+     "de": "Chewron"
+    },
+    {
+     "ru": "Шхем",
+     "en": "Shechem",
+     "de": "Schechem"
+    },
+    {
+     "ru": "Йерихо",
+     "en": "Jericho",
+     "de": "Jericho"
+    }
+   ]
+  },
+  {
+   "ref": "joshua 19:51",
+   "q": {
+    "ru": "Где закончили раздел земли по жребию?",
+    "en": "Where did they finish dividing the land by lot?",
+    "de": "Wo beendeten sie die Verteilung des Landes durch das Los?"
+   },
+   "o": [
+    {
+     "ru": "В Шило, у входа в Шатёр Откровения",
+     "en": "At Shiloh, at the entrance of the Tent of Meeting",
+     "de": "In Schilo, am Eingang des Zeltes der Begegnung"
+    },
+    {
+     "ru": "В Гилгале",
+     "en": "At Gilgal",
+     "de": "In Gilgal"
+    },
+    {
+     "ru": "В Йерушалаиме",
+     "en": "In Jerusalem",
+     "de": "In Jeruschalajim"
+    },
+    {
+     "ru": "В Беэр-Шеве",
+     "en": "In Beer-sheba",
+     "de": "In Be’er-Scheva"
+    }
+   ]
+  }
+ ],
+ "ketuvim": [
+  {
+   "ref": "psalms 33:1",
+   "q": {
+    "ru": "Кому, по псалму, подобает хвала Г-споду?",
+    "en": "To whom, says the psalm, is it fitting to praise the L-rd?",
+    "de": "Wem gebührt nach dem Lied das Lob des Ewigen?"
+   },
+   "o": [
+    {
+     "ru": "Прямым",
+     "en": "The upright",
+     "de": "Den Geraden"
+    },
+    {
+     "ru": "Царям",
+     "en": "Kings",
+     "de": "Den Königen"
+    },
+    {
+     "ru": "Мудрецам",
+     "en": "The wise",
+     "de": "Den Weisen"
+    },
+    {
+     "ru": "Воинам",
+     "en": "Warriors",
+     "de": "Den Kriegern"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 33:2",
+   "q": {
+    "ru": "На каком инструменте призывают играть Г-споду?",
+    "en": "On which instrument are we called to play to the L-rd?",
+    "de": "Auf welchem Instrument soll man dem Ewigen spielen?"
+   },
+   "o": [
+    {
+     "ru": "На десятиструнной арфе",
+     "en": "On the ten-stringed harp",
+     "de": "Auf der zehnsaitigen Harfe"
+    },
+    {
+     "ru": "На трубе",
+     "en": "On the trumpet",
+     "de": "Auf der Trompete"
+    },
+    {
+     "ru": "На барабане",
+     "en": "On the drum",
+     "de": "Auf der Trommel"
+    },
+    {
+     "ru": "На свирели",
+     "en": "On the flute",
+     "de": "Auf der Flöte"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 33:5",
+   "q": {
+    "ru": "Чем, по псалму, полна земля?",
+    "en": "With what, says the psalm, is the earth full?",
+    "de": "Wovon ist nach dem Lied die Erde voll?"
+   },
+   "o": [
+    {
+     "ru": "Милостью Г-спода",
+     "en": "The L-rd’s kindness",
+     "de": "Von der Gnade des Ewigen"
+    },
+    {
+     "ru": "Золотом",
+     "en": "Gold",
+     "de": "Von Gold"
+    },
+    {
+     "ru": "Водой",
+     "en": "Water",
+     "de": "Von Wasser"
+    },
+    {
+     "ru": "Войнами",
+     "en": "Wars",
+     "de": "Von Kriegen"
+    }
+   ]
+  },
+  {
+   "ref": "psalms 33:6",
+   "q": {
+    "ru": "Чем созданы небеса?",
+    "en": "By what were the heavens made?",
+    "de": "Wodurch wurden die Himmel gemacht?"
+   },
+   "o": [
+    {
+     "ru": "Словом Г-спода",
+     "en": "By the word of the L-rd",
+     "de": "Durch das Wort des Ewigen"
+    },
+    {
+     "ru": "Руками ангелов",
+     "en": "By the hands of angels",
+     "de": "Durch die Hände der Engel"
+    },
+    {
+     "ru": "Огнём",
+     "en": "By fire",
+     "de": "Durch Feuer"
+    },
+    {
+     "ru": "Ветром с моря",
+     "en": "By the wind from the sea",
+     "de": "Durch den Wind vom Meer"
+    }
+   ]
+  }
+ ]
+}

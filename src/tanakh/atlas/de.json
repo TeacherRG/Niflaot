@@ -147,7 +147,7 @@
   "shimon": {"n": "Schimon", "d": "Jaakows zweiter Sohn, von Lea. Sein Stamm bekam sein Erbe mitten im Erbe Jehudas (Jehoschua 19,1) – so erfüllten sich Jaakows Worte: „Ich will sie in Jaakow verteilen“ (Bereschit 49,7)."},
   "yissachar": {"n": "Jissachar", "d": "Jaakows Sohn von Lea. Sein Stamm bekam das vierte Los (Jehoschua 19,17). Raschi (Bereschit 49,14): Der Stamm Jissachar trug das Joch der Tora."},
   "zevulun": {"n": "Sewulun", "d": "Jaakows Sohn von Lea. Sein Stamm bekam das dritte Los – ein Erbe im Norden, von Sarid bis zum Tal Jiftach-El (Jehoschua 19,10–16)."},
-  "dan": {"n": "Dan"},
+  "dan": {"n": "Dan", "d": "Jaakows Sohn von Bilha, der Magd Rachels. Sein Stamm bekam das siebte und letzte Los – bei Zora, Ajalon und Jafo; das Erbe reichte nicht, und die Söhne Dans eroberten im Norden Leschem und nannten es Dan (Jehoschua 19,40–47)."},
   "naftali": {"n": "Naftali", "d": "Jaakows Sohn von Bilha, der Magd Rachels. Sein Stamm bekam das sechste Los – ein Erbe im Norden, am Kinneret und am oberen Jarden, mit den befestigten Städten Chazor und Kedesch (Jehoschua 19,32–39)."},
   "asher": {"n": "Ascher"},
   "yosef": {"n": "Josef"},
@@ -171,5 +171,8 @@
   "midbar-kadesh": {"n": "Wüste Kadesch", "d": "Nach Raschi (Tehillim 29,8) ist das die Wüste Sinai: Sie hat fünf Namen, und „Kadesch“, weil Israel dort geheiligt wurde, als es die Tora bekam (Schabbat 89a)."},
   "gat-hefer": {"n": "Gat-Chefer", "d": "Eine Stadt im Erbe Sewuluns; die Grenze ging östlich daran vorbei. Raschi: Das ist die Stadt des Propheten Jona, des Sohnes Amittais (Melachim II 14,25)."},
   "tavor": {"n": "Tawor", "d": "Ein Berg am Rand des Tales Jisreel, an der Grenze von Jissachar und Sewulun (Jehoschua 19,22). Am Tawor sammelte Barak sein Heer auf das Wort der Prophetin Dwora (Schoftim 4,6)."},
-  "shunem": {"n": "Schunem", "d": "Eine Stadt im Erbe Jissachars (Jehoschua 19,18). Dort lagerten die Philister vor Schauls letzter Schlacht (Schmuel I 28,4), und dort wohnte die Frau, die den Propheten Elischa aufnahm (Melachim II 4,8)."}
+  "shunem": {"n": "Schunem", "d": "Eine Stadt im Erbe Jissachars (Jehoschua 19,18). Dort lagerten die Philister vor Schauls letzter Schlacht (Schmuel I 28,4), und dort wohnte die Frau, die den Propheten Elischa aufnahm (Melachim II 4,8)."},
+  "leshem": {"n": "Leschem", "d": "Eine Stadt im äußersten Norden, an den Quellen des Jarden; im Buch Schoftim heißt sie Lajisch. Die Söhne Dans eroberten sie und nannten sie Dan (Jehoschua 19,47); daher „von Dan bis Be’er-Scheva“ – von einem Ende des Landes bis zum anderen."},
+  "timnat-serach": {"n": "Timnat-Serach", "d": "Eine Stadt im Bergland Efrajim, um die Jehoschua als Erbe bat; sie wurde auf das Wort des Ewigen gegeben – man fragte durch die Urim und Tumim (Mezudat David, Jehoschua 19,50)."},
+  "yafo": {"n": "Jafo", "d": "Eine Hafenstadt am Ufer des Großen Meeres; die Grenze des Erbes Dans ging ihr gegenüber (Jehoschua 19,46). Von Jafo fuhr der Prophet Jona nach Tarschisch (Jona 1,3)."}
 }
