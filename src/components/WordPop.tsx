@@ -238,7 +238,7 @@ export function WordPop() {
             card || <p className="wp-tr">{t('wp.name')}</p>
           ) : head ? (
             <div className="wp-main">
-              {(head !== open.word.replace(/[[\\]()]/g, '') || !!w?.infinitive) && (
+              {head
                 <>
                   <small className="wp-label">{dictionaryLabel}</small>
                   <span className="he wp-head" lang="he" dir="rtl">
