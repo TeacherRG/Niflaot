@@ -5,7 +5,9 @@ import { loadView, saveView, stripTaamim, type View } from '../core/reading';
 import { translitSiddurToken } from '../core/tehillimTranslit';
 import { markStudied } from '../core/habit';
 import { PRAYERS, type Prayer } from '../core/siddur';
+import { todaysConds } from '../core/siddurDay';
 import { useI18n } from '../i18n';
+import type { MessageKey } from '../i18n/locales/ru';
 import { Colophon } from './Colophon';
 import { TopBar } from './TopBar';
 import { ReadingSettings } from './ReadingSettings';
@@ -60,30 +62,80 @@ interface Word {
   he: string;
   gap: string;
   start: boolean;
+  /** пометки перед словом (Амида: «зимой», «в пост»…) — ключи `siddur.note.<ключ>`; не слова, не подсвечиваются */
+  notes?: string[];
+  /** первое слово благословения Амиды — с большой первой буквой */
+  big?: boolean;
 }
 interface Line {
   lead: string;
   words: Word[];
   first: number;
   last: number;
+  /** пометки после последнего слова строки */
+  tail?: string[];
 }
 
-/** Строки на слова; начало строки и фразы (после «:» и «.») — с большой буквы в транслите. */
-function splitLines(sections: ShacharitText['sections']): Line[][] {
+/**
+ * Разметка текста (`build-siddur.py`): ⟦ключ⟧ — пометка (`siddur.note.<ключ>`); ⟦?усл⟧ … ⟦/⟧ — вставка, которую говорят, только когда
+ * условие выполнено (⟦?!усл⟧ — когда нет); условия на сегодня — `todaysConds` (`src/core/siddurDay.ts`).
+ */
+/** ⟦b1⟧…⟦b19⟧, ⟦after⟧ — начало благословения Амиды: не подпись, а большая первая буква слова (владелец, 25.11.2026) */
+const BLESSING = /^(b\d+|after)$/;
+const TOKEN = new RegExp(`⟦\\?(!?)([a-z0-9]+)⟧|⟦/⟧|⟦([a-z0-9-]+)⟧|${HEBREW_WORD.source}`, 'gu');
+/** что показывать: условия дня; `null` — всё, как в сидуре (с пометками) */
+type Shown = ReadonlySet<string> | null;
+
+/** Строки на слова; начало строки и фразы (после «:» и «.») — с большой буквы в транслите. Вставки не на сегодня — пропускаются. */
+function splitLines(sections: ShacharitText['sections'], shown: Shown): Line[][] {
   let n = 0;
   return sections.map((section) =>
-    section.lines.map((text) => {
-      const found = [...text.matchAll(HEBREW_WORD)];
-      let start = true;
-      const words = found.map((m, k) => {
-        const end = (m.index ?? 0) + m[0].length;
-        const gap = text.slice(end, found[k + 1]?.index ?? text.length).trim();
-        const w = { i: n++, he: m[0], gap, start };
-        start = /[:.]/.test(gap);
-        return w;
-      });
-      return { lead: text.slice(0, found[0]?.index ?? text.length).trim(), words, first: words[0]?.i ?? n, last: (words.at(-1)?.i ?? n) };
-    }),
+    section.lines
+      .map((text): Line => {
+        const stack: boolean[] = [];
+        const visible = () => stack.every(Boolean);
+        const words: Word[] = [];
+        let lead = '';
+        let pending: string[] = [];
+        let big = false;
+        let start = true;
+        let pos = 0;
+        const text_ = (raw: string) => {
+          if (!visible() || !raw) return;
+          const last = words.at(-1);
+          if (last) last.gap += raw;
+          else lead += raw;
+        };
+        for (const m of text.matchAll(TOKEN)) {
+          text_(text.slice(pos, m.index));
+          pos = (m.index ?? 0) + m[0].length;
+          if (m[2] !== undefined) stack.push(shown === null || shown.has(m[2]) !== (m[1] === '!'));
+          else if (m[0] === '⟦/⟧') stack.pop();
+          else if (m[3] !== undefined) {
+            if (visible()) {
+              if (BLESSING.test(m[3])) big = true;
+              else pending.push(m[3]);
+            }
+          } else if (visible()) {
+            const prev = words.at(-1);
+            if (prev) start = /[:.]/.test(prev.gap);
+            words.push({ i: n++, he: m[0], gap: '', start: start || big, ...(pending.length ? { notes: pending } : {}), ...(big ? { big } : {}) });
+            pending = [];
+            big = false;
+          }
+        }
+        text_(text.slice(pos));
+        const clean = (x: string) => x.replace(/\s+/g, ' ').replace(/\(\s+/g, '(').trim();
+        for (const w of words) w.gap = clean(w.gap);
+        return {
+          lead: clean(lead),
+          words,
+          first: words[0]?.i ?? n,
+          last: words.at(-1)?.i ?? n,
+          ...(pending.length ? { tail: pending } : {}),
+        };
+      })
+      .filter((line) => line.words.length > 0),
   );
 }
 
@@ -125,34 +177,55 @@ const glossOf = (glossary: Record<string, string>, words: Word[], k: number) => 
   return (next && glossary[`${w} ${normalizeGlossWord(next.he)}`]) ?? glossary[w] ?? '…';
 };
 
+
+/**
+ * Пометки сидура: когда говорят вставку (зимой, в пост, в Рош ходеш…) и номер благословения Амиды. Только пояснение —
+ * не слова молитвы: без `data-i`, не подсвечиваются и не читаются в транслите.
+ */
+function Notes({ keys }: { keys: string[] }) {
+  const { t } = useI18n();
+  return (
+    <>
+      {keys.map((k, i) => (
+        <span key={i} className="sd-note" dir="auto">
+          {t(`siddur.note.${k}` as MessageKey)}
+        </span>
+      ))}{' '}
+    </>
+  );
+}
+
 const PrayerLine = memo(function PrayerLine({ line, tr, lang, pron, taamim, dir, active, past, onTap, translate = false, glossary = {} }: LineProps) {
   const he = (x: string) => (taamim ? x : stripTaamim(x));
   const trs = useMemo(
     () => (tr === 'he' ? [] : line.words.map((w) => (w.start ? cap : (x: string) => x)(translitSiddurToken(stripTaamim(w.he), lang, pron)))),
     [line, tr, lang, pron],
   );
-  const cls = (w: Word) => `rd-w${w.i === active ? ' rd-on' : past || (active >= 0 && w.i < active) ? ' rd-past' : ''}`;
+  const cls = (w: Word) => `rd-w${w.big ? ' sd-big' : ''}${w.i === active ? ' rd-on' : past || (active >= 0 && w.i < active) ? ' rd-past' : ''}`;
   if (tr === 'he' && !translate)
     return (
       <div className="shacharit-line he" dir="rtl" lang="he">
         {line.lead && `${line.lead} `}
         {line.words.map((w) => (
           <span key={w.i}>
+            {w.notes && <Notes keys={w.notes} />}
             <span data-i={w.i} className={cls(w)} onClick={() => onTap(w.i)}>
               {he(w.he)}
             </span>
             {w.gap}{' '}
           </span>
         ))}
+        {line.tail && <Notes keys={line.tail} />}
       </div>
     );
   return (
     <div className={`shacharit-line shacharit-duo${tr === 'tr' ? ' shacharit-tr' : ''}`} dir={dir} lang={lang}>
       {line.words.map((w, k) => (
         <span key={w.i}>
+          {w.notes && <Notes keys={w.notes} />}
           <span data-i={w.i} className={`shacharit-word ${cls(w)}`} onClick={() => onTap(w.i)}>
             <span className="shacharit-word-tr" dir="ltr">
-              {(translate ? glossOf(glossary, line.words, k) : trs[k]) + w.gap}
+              {(translate ? (w.big ? cap : (x: string) => x)(glossOf(glossary, line.words, k)) : trs[k]) + w.gap}
             </span>
             {(tr === 'duo' || (translate && tr === 'he')) && (
               <span className="shacharit-word-he he" dir="rtl" lang="he">
@@ -162,6 +235,7 @@ const PrayerLine = memo(function PrayerLine({ line, tr, lang, pron, taamim, dir,
           </span>{' '}
         </span>
       ))}
+      {line.tail && <Notes keys={line.tail} />}
     </div>
   );
 });
@@ -326,7 +400,10 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
   const sections = data
     ? data.sections.map((section, index) => ({ ...section, id: sectionId(index) }))
     : [];
-  const lines = useMemo(() => (data ? splitLines(data.sections) : []), [data]);
+  // вставки Амиды — по календарю на сегодня; «Показать все вставки» — весь текст сидура с пометками
+  const [allInserts, setAllInserts] = useState(false);
+  const shown = useMemo<Shown>(() => (allInserts ? null : todaysConds(prayer)), [allInserts, prayer]);
+  const lines = useMemo(() => (data ? splitLines(data.sections, shown) : []), [data, shown]);
   const words = useMemo(() => lines.flat().flatMap((l) => l.words), [lines]);
   const translitLang: TrLang = locale === 'ru' || locale === 'de' ? locale : 'en';
 
@@ -417,6 +494,14 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
                     <span dir="rtl" lang="he">{section.title}</span>
                     {ui !== 'he' && section.t?.[translitLang] && <small>{section.t[translitLang]}</small>}
                   </h2>
+                  {section.lines.some((x) => x.includes('⟦?')) && (
+                    <p className="sd-auto no-print">
+                      <span>{t(allInserts ? 'siddur.allNote' : 'siddur.auto')}</span>{' '}
+                      <button type="button" className="sd-auto-btn" onClick={() => setAllInserts((x) => !x)}>
+                        {t(allInserts ? 'siddur.showToday' : 'siddur.showAll')}
+                      </button>
+                    </p>
+                  )}
                   {lines[si].map((line, index) => (
                     <div key={index} className="shacharit-prayer">
                       <PrayerLine

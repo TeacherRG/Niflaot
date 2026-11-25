@@ -93,6 +93,88 @@ PRAYERS = {'shacharit': SHACHARIT, 'mincha': MINCHA, 'maariv': MAARIV, 'birkat-h
 KEEP_BARE = {'י״ה', 'בו״ה'}
 MIN_SMALL_RUN = 4
 
+# Амида: указания мелким шрифтом выгрузки (без огласовок) → пометки ⟦ключ⟧; текст пометки — на языке сайта (`siddur.note.<ключ>`),
+# на странице она мелкая и не входит в подсветку. Только в разделах «תפילת העמידה».
+AMIDAH = 'תפילת העמידה'
+NOTES = {
+    'בעשי״ת': 'aseret',
+    'בקיץ': 'summer',
+    'בחורף': 'winter',
+    'כשהש״ץ חוזר הש״ע אומרים זה:': 'kedusha',
+    'בתענית צבור אומר הש״ץ כאן עננו': 'aneinu-chazan',
+    'בתענית צבור יאמר כאן': 'aneinu',
+    'בראש חודש ובחול המועד אומרים:': 'yaale',
+    'בראש חדש:': 'rosh-chodesh',
+    'בחוה״מ פסח:': 'pesach',
+    'בחוה״מ סוכות:': 'sukkot',
+    'מודים דרבנן': 'modim-drabbanan',
+    'בחנוכה ופורים אומרים כאן ועל הנסים:': 'al-hanisim',
+    'לחנוכה—': 'chanukah',
+    'לפורים—': 'purim',
+    'לשליח ציבור:': 'chazan',
+    'בתענית ציבור אומר השליח ציבור:': 'fast-chazan',
+    'אמן': 'amen',
+    '(בתשעה באב אומרים כאן נחם)': 'nachem-here',
+    'במנחת תשעה באב:': 'nachem',
+    'במוצאי שבת ויום טוב אומרים:': 'havdalah',
+}
+# начало благословения Амиды — выделенные слова выгрузки → ⟦b<номер>⟧ (номер и название — `siddur.note.b<номер>`)
+BLESSINGS = {
+    'ברוך': 'b1', 'אתה גבור': 'b2', 'אתה קדוש': 'b3', 'אתה חונן': 'b4', 'השיבנו': 'b5', 'סלחלנו': 'b6', 'ראה נא': 'b7',
+    'רפאנו': 'b8', 'ברך עלינו': 'b9', 'תקע': 'b10', 'השיבה': 'b11', 'ולמלשינים': 'b12', 'עלהצדיקים': 'b13', 'ולירושלם': 'b14',
+    'אתצמח': 'b15', 'שמע קולנו': 'b16', 'רצה': 'b17', 'מודים': 'b18', 'שים': 'b19', 'אלהי': 'after',
+}
+MARK = re.compile(r'⟦[a-z0-9-]+⟧')
+
+# Условия вставок: ⟦?усл⟧ … ⟦/⟧ — текст говорят, только когда условие выполнено (⟦?!усл⟧ — когда нет); страница решает по календарю
+# (`src/core/siddurDay.ts`: aseret, tal / geshem, bracha / matar, fast, av9, rc, pesach, sukkot, yaale, chanukah, purim, hanisim,
+# havdalah; chazan — только хазан при повторении, читателю не показывается). Строка, которая начинается с такой пометки, — вся вставка.
+LINE_COND = {'aseret': 'aseret', 'aneinu-chazan': 'chazan', 'aneinu': 'fast', 'yaale': 'yaale', 'al-hanisim': 'hanisim',
+             'chanukah': 'chanukah', 'purim': 'purim', 'chazan': 'chazan', 'fast-chazan': 'chazan', 'nachem': 'av9',
+             'havdalah': 'havdalah'}
+YAALE = {'rosh-chodesh': 'rc', 'pesach': 'pesach', 'sukkot': 'sukkot'}
+
+
+def conditions(line: str) -> str:
+    """Строка Амиды с пометками → с условиями вставок (что говорят только летом / зимой, в Десять дней раскаяния, в пост…)."""
+    # 2-е благословение: «летом — מוריד הטל: зимой — משיב הרוח ומוריד הגשם:»
+    line = re.sub(r'⟦summer⟧ ([^⟦]*?:) ⟦winter⟧ ([^⟦]*?:)', r'⟦?tal⟧⟦summer⟧ \1⟦/⟧ ⟦?geshem⟧⟦winter⟧ \2⟦/⟧', line)
+    # 9-е благословение: «ותן летом — ברכה (зимой — טל ומטר לברכה)»
+    line = re.sub(r'⟦summer⟧ (\S+) \(⟦winter⟧ ([^)]*)\)', r'⟦?bracha⟧⟦summer⟧ \1⟦/⟧ ⟦?matar⟧⟦winter⟧ \2⟦/⟧', line)
+    # Десять дней раскаяния — замена: «האל (המלך) הקדוש», «מלך אוהב צדקה ומשפט: (המלך המשפט:)», «עשה שלום (השלום)»
+    def aseret(m: re.Match) -> str:
+        words = m.group(1).split(' ')
+        n = 4 if 'משפט' in bare(m.group(2)) else 1
+        return ' '.join(words[:-n]) + f' ⟦?!aseret⟧{" ".join(words[-n:])}⟦/⟧ ⟦?aseret⟧⟦aseret⟧ {m.group(2)}⟦/⟧'
+    line = re.sub(r'^(.*?) \(⟦aseret⟧ ([^)]*)\)', aseret, line)
+    # «Яале ве-яво»: «ביום — Рош ходеш: ראש החדש הזה. Песах: חג המצות הזה. Суккот: חג הסכות הזה.»
+    line = re.sub(r'⟦(rosh-chodesh|pesach|sukkot)⟧ ([^.⟦]*\.)', lambda m: f'⟦?{YAALE[m.group(1)]}⟧⟦{m.group(1)}⟧ {m.group(2)}⟦/⟧', line)
+    line = line.replace('⟦nachem-here⟧', '⟦?av9⟧⟦nachem-here⟧⟦/⟧')
+    head = re.match(r'⟦([a-z0-9-]+)⟧', line)
+    if head and head.group(1) in LINE_COND:
+        line = f'⟦?{LINE_COND[head.group(1)]}⟧{line}⟦/⟧'
+    return line
+
+
+def bare(text: str) -> str:
+    """Без тегов, огласовок, макафа и невидимых знаков — для сравнения с NOTES и BLESSINGS."""
+    text = re.sub(r'<[^>]+>', ' ', text).replace('־', '').replace('͏', '')
+    text = re.sub('[\u0591-\u05C7]', '', text)
+    return re.sub(r'\s+', ' ', text).strip().rstrip(',')
+
+
+def note_small(inner: str) -> str:
+    """Мелкий шрифт Амиды: указание до первого <br> → пометка, дальше — огласованные куски молитвы."""
+    head = re.split(r'<br\s*/?>', inner)[0]
+    key = NOTES.get(bare(head))
+    return ' ' + (f'⟦{key}⟧ ' if key else '') + small_runs(inner) + ' '
+
+
+def mark_blessing(m: re.Match) -> str:
+    key = BLESSINGS.get(bare(m.group(1)))
+    return (f' ⟦{key}⟧ ' if key else ' ') + m.group(1) + ' '
+
+
 LETTER = re.compile('[א-ת]')
 POINT = re.compile('[ְ-ׇּׁׂ]')
 
@@ -152,12 +234,22 @@ def main() -> None:
             for k in path:
                 node = node[k]
             lines = []
+            amidah = title == AMIDAH
+            carry = ''  # пометки строки без слов (указание перед <br>) — к началу следующей строки
             for raw in node[start:end]:
-                raw = re.sub(r'<small>(.*?)</small>', lambda m: ' ' + small_runs(m.group(1)) + ' ', raw, flags=re.S)
+                if amidah:
+                    raw = re.sub(r'<small>(.*?)</small>', lambda m: note_small(m.group(1)), raw, flags=re.S)
+                    raw = re.sub(r'<b>(.*?)</b>', mark_blessing, raw, flags=re.S)
+                else:
+                    raw = re.sub(r'<small>(.*?)</small>', lambda m: ' ' + small_runs(m.group(1)) + ' ', raw, flags=re.S)
                 for part in re.split(r'<br\s*/?>', raw):
                     line = clean_line(split_glued(part) if '<' not in part else part)
                     if line:
-                        lines.append(line)
+                        line = f'{carry} {line}'.strip() if carry else line
+                        lines.append(conditions(line) if amidah else line)
+                        carry = ''
+                    else:
+                        carry = ' '.join([carry, *MARK.findall(part)]).strip()
             if lines:
                 ru, en, de = TITLES[title]
                 sections.append({'key': '/'.join(path) + (f':{start}' if start is not None else ''), 'title': title,
