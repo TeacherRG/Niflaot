@@ -109,7 +109,7 @@ export function ReadingSettings({
               <div className="tk-view-sep" />
               <div className="tk-view-head">{locale === 'de' ? 'Übersetzungssprache' : locale === 'en' ? 'Translation language' : 'Язык перевода'}</div>
               {item(view.glossLang === 'none', 'אב', locale === 'de' ? 'Keine Übersetzung' : locale === 'en' ? 'No translation' : 'Без перевода', locale === 'de' ? 'Transliteration anzeigen' : locale === 'en' ? 'Show transliteration' : 'Показывать транслитерацию', () => setV({ ...view, glossLang: 'none' }))}
-              {item(view.glossLang === 'de', 'DE', 'Deutsch', locale === 'de' ? 'Wort-für-Wort-Übersetzung der Morgensegen' : locale === 'en' ? 'Word-by-word translation of morning blessings' : 'Пословный перевод утренних благословений', () => setV({ ...view, glossLang: 'de' }))}
+              {item(view.glossLang === 'de', 'DE', 'Deutsch', locale === 'de' ? 'Wort-für-Wort-Übersetzung: Morgensegen und Mincha' : locale === 'en' ? 'Word-by-word translation: morning blessings and Mincha' : 'Пословный перевод: утренние благословения и Минха', () => setV({ ...view, glossLang: 'de' }))}
             </>
           )}
           <div className="tk-view-sep" />
