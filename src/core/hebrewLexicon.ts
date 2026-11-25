@@ -115,7 +115,7 @@ export function validateHebrewLexicon(data: HebrewLexicon): string[] {
       if (!term.label?.trim() || !term.definition?.trim()) errors.push(`${at}: glossary term requires label and definition`);
     }
     for (const count of Object.values(entry.corpusStats ?? {})) {
-      if (count.frequency !== undefined && (!Number.isFinite(count.frequency) || count.frequency < 0))
+      if (count?.frequency !== undefined && (!Number.isFinite(count.frequency) || count.frequency < 0))
         errors.push(`${at}: corpus frequency must be a non-negative number`);
     }
     const senseIds = new Set<string>();
