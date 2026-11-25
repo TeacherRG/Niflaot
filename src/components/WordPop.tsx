@@ -245,7 +245,7 @@ export function WordPop() {
                     {head}
                   </span>
                 </>
-              )})}
+              )}
               {tr ? <><small className="wp-label">{translationLabel}</small><span className="wp-tr">{tr}</span></> : <span className="wp-note">{t('wp.rare')}</span>}
               {w && (
                 <small className="wp-meta">
