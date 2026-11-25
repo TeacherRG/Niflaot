@@ -56,7 +56,8 @@ for (const w of tanakh.words) {
     partOfSpeech: pos(w.pos),
     ...(w.root ? { root: w.root } : {}),
     senses: [{ id: `${id}:sense:1`, translations }],
-    // Strong's headword is dictionary evidence, not a corpus-attested token form.\n    forms: [],
+    // Strong's headword is dictionary evidence, not a corpus-attested token form.
+    forms: [],
     occurrences: [],
     sources: [
       { name: 'Open Scriptures Hebrew Bible', license: 'CC BY 4.0', url: 'https://github.com/openscriptures/morphhb' },
@@ -72,7 +73,8 @@ const rambamFiles = ['src/rambam/words/ru-1.txt', 'src/rambam/words/ru-2.txt', '
 const rambamRows = new Map<string, { surface: string; translation: string; lemma: string; file: string; line: number }>();
 for (const file of rambamFiles) {
   const body = await readFile(path.join(root, file), 'utf8');
-  body.split(/\r?\n/).forEach((line, index) => {
+  body.split(/\r?
+/).forEach((line, index) => {
     if (!line.trim() || line.startsWith('#')) return;
     const parts = line.split('|');
     if (parts.length !== 3 || !parts[1].trim()) throw new Error(`${file}:${index + 1}: expected surface|translation|lemma`);
@@ -84,7 +86,8 @@ for (const file of rambamFiles) {
 }
 
 const lexiconRu = new Map<string, string>();
-for (const line of (await readFile(path.join(root, 'src/rambam/words/lexicon-ru.txt'), 'utf8')).split(/\r?\n/)) {
+for (const line of (await readFile(path.join(root, 'src/rambam/words/lexicon-ru.txt'), 'utf8')).split(/\r?
+/)) {
   if (!line.trim() || line.startsWith('#')) continue;
   const [he, translation] = line.split('|');
   if (he && translation) lexiconRu.set(cleanVocalized(he), translation.trim());
@@ -93,7 +96,8 @@ for (const line of (await readFile(path.join(root, 'src/rambam/words/lexicon-ru.
 
 type Term = { title: string; definition: string };
 const terms = new Map<string, Term>();
-for (const line of (await readFile(path.join(root, 'src/rambam/words/terms-ru.txt'), 'utf8')).split(/\r?\n/)) {
+for (const line of (await readFile(path.join(root, 'src/rambam/words/terms-ru.txt'), 'utf8')).split(/\r?
+/)) {
   if (!line.trim() || line.startsWith('#')) continue;
   const [he, title, definition] = line.split('|');
   if (he && title && definition) {
@@ -114,7 +118,10 @@ for (const row of rambamRows.values()) {
   if (existing) {
     if (!existing.senses[0].translations.ru?.includes(row.translation)) existing.senses[0].translations.ru?.push(row.translation);
     existing.forms.push({ vocalized: row.surface, normalized: normalizeHebrew(row.surface), source: 'manual', reference: `project-word-list:${row.file}:${row.line}` });
-    if (term) {\n      existing.senses[0].domain = [...new Set([...(existing.senses[0].domain ?? []), 'halakha'])];\n      if (!existing.senses[0].terms?.some(t => t.label === term.title)) existing.senses[0].terms = [...(existing.senses[0].terms ?? []), { language: 'ru', label: term.title, definition: term.definition }];\n    }
+    if (term) {
+      existing.senses[0].domain = [...new Set([...(existing.senses[0].domain ?? []), 'halakha'])];
+      if (!existing.senses[0].terms?.some(t => t.label === term.title)) existing.senses[0].terms = [...(existing.senses[0].terms ?? []), { language: 'ru', label: term.title, definition: term.definition }];
+    }
     continue;
   }
   entries.push({
@@ -131,15 +138,18 @@ for (const row of rambamRows.values()) {
 
 const lexicon: HebrewLexicon = { schemaVersion: 1, generatedAt: new Date().toISOString(), entries };
 const errors = validateHebrewLexicon(lexicon);
-if (errors.length) throw new Error(errors.join('\n'));
+if (errors.length) throw new Error(errors.join('
+'));
 
 const out = path.join(root, 'src/data');
 await mkdir(out, { recursive: true });
-await writeFile(path.join(out, 'hebrew-lexicon.json'), JSON.stringify(lexicon, null, 2) + '\n');
+await writeFile(path.join(out, 'hebrew-lexicon.json'), JSON.stringify(lexicon, null, 2) + '
+');
 await writeFile(path.join(out, 'hebrew-lexicon-legacy-map.json'), JSON.stringify({
   schemaVersion: 1,
   policy: 'Legacy IDs are aliases only. Never merge lexemes by normalized spelling.',
   ids: legacy,
   ambiguous: Object.entries(legacy).filter(([, ids]) => ids.length > 1).map(([key, ids]) => ({ key, ids })),
-}, null, 2) + '\n');
+}, null, 2) + '
+');
 console.log(`Built ${entries.length} lexemes; ${Object.keys(legacy).length} legacy keys mapped; ${entries.filter(x => x.status === 'review').length} need editorial review.`);
