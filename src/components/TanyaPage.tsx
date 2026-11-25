@@ -120,7 +120,7 @@ export function TanyaPage() {
 
   return (
     <main className="tanya-page">
-      <TopBar />
+      <TopBar title="Тания" />
       <article className="tanya-book">
         <header className="tanya-cover">
           <p className="tanya-series">ТАНИЯ · КОНТРУС АХАРОН</p>
