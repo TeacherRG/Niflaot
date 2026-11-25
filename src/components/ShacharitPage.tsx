@@ -552,7 +552,7 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
               <SectionsMenu prayer={prayer} sections={sections} onGo={scrollTo} />
               <div className="sd-reader-actions">
                 <ReadingSettings view={view} setV={setV} audio={false} living={false} layout />
-                <button type="button" className="sd-fullscreen-btn" onClick={() => void toggleFullscreen()} aria-label="Полноэкранный режим" title="Полноэкранный режим">⛶</button>
+                <button type="button" className="sd-fullscreen-btn" onClick={() => void toggleFullscreen()} aria-label="Полноэкранный режим" title="Полноэкранный режим" aria-pressed={isFullscreen}>⛶</button>
               </div>
             </div>
             <p className="rd-hint no-print">{t('shn.tap')}</p>
@@ -612,16 +612,15 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
                 >
                   <span className="rd-stop-sq" aria-hidden="true" /><span className="rd-lbl"> {t('reading.stop')}</span>
                 </button>
-                <label className="rd-rate" title={t('reading.speed')}>
-                  <span className="sr-only">{t('reading.speed')}</span>
-                  <select value={rate} onChange={(e) => setRate(Number(e.target.value))}>
-                    {HIGHLIGHT_RATES.map((r) => (
-                      <option key={r} value={r}>
-                        {r}×
-                      </option>
-                    ))}
-                  </select>
-                </label>
+                <button
+                  type="button"
+                  className="rd-rate sd-rate-button"
+                  onClick={() => setRate((current) => HIGHLIGHT_RATES[(HIGHLIGHT_RATES.indexOf(current) + 1) % HIGHLIGHT_RATES.length])}
+                  aria-label={t('reading.speed')}
+                  title={t('reading.speed')}
+                >
+                  {rate}×
+                </button>
               </div>
             )}
             <p className="shacharit-credit">
