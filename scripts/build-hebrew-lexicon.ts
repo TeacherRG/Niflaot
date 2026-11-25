@@ -117,8 +117,6 @@ for (const row of rambamRows.values()) {
     sources: [{ name: 'Niflaot project Mishneh Torah word list', license: 'Project-authored translation; source text: Sefaria / Torat Emet 363' }],
     status: 'review',
   });
-  const legacyKey = `rambam:${vocalKey(row.surface)}`;
-  legacy[legacyKey] = [...new Set([...(legacy[legacyKey] ?? []), id])];
 }
 
 const lexicon: HebrewLexicon = { schemaVersion: 1, generatedAt: new Date().toISOString(), entries };
