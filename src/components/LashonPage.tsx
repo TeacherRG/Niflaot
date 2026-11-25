@@ -911,14 +911,14 @@ function Intro({ item, letter, read }: { item: Item; letter: boolean; read?: Rea
   );
 }
 
-const ASK: Record<string, MessageKey> = { tr: 'ln.q.tr', he: 'ln.q.he', value: 'ln.q.value', sound: 'ln.q.sound' };
+const ASK: Record<string, MessageKey> = { tr: 'ln.q.tr', he: 'ln.q.he', value: 'ln.q.value', sound: 'ln.q.sound', look: 'ln.q.look' };
 
 /** «Чтение»: the questions — a vowel point (its name, where it is, its sound), a syllable or a word (how it is read, where it is written) */
 const READ_ASK: Record<string, MessageKey> = { 'nk-tr': 'ln.q.vname', 'nk-he': 'ln.q.vhe', 'nk-sound': 'ln.q.vsound', tr: 'ln.q.read', he: 'ln.q.findRead' };
 
 function Pick({ ex, letter, read, sel, state, onPick }: { ex: Extract<Exercise, { t: 'pick' }>; letter: boolean; read?: ReadKind; sel: string | null; state: State; onPick: (k: string) => void }) {
   const { t } = useI18n();
-  const he = ex.ask === 'he';
+  const he = ex.ask === 'he' || ex.ask === 'look';
   const q = read ? (READ_ASK[`${read === 'nk' ? 'nk-' : ''}${ex.ask}`] ?? ASK[ex.ask]) : letter && ex.ask === 'tr' ? 'ln.q.name' : ASK[ex.ask];
   return (
     <>
@@ -926,7 +926,7 @@ function Pick({ ex, letter, read, sel, state, onPick }: { ex: Extract<Exercise, 
         {ex.warm && <span className="ln-new ln-warm">{t('ln.warm')}</span>}
         {t(q)}
       </p>
-      {he ? <p className="ln-tr-big">{ex.item.tr}</p> : <Prompt item={ex.item} letter={letter || !!read} />}
+      {ex.ask === 'he' ? <p className="ln-tr-big">{ex.item.tr}</p> : <Prompt item={ex.item} letter={letter || !!read} big={ex.ask === 'look'} />}
       <div className={`ln-opts${he ? ' he-opts' : ''}`}>
         {ex.options.map((o) => {
           const mark = state === 'answer' ? (sel === o.key ? ' sel' : '') : o.key === ex.item.key ? ' right' : sel === o.key ? ' wrong' : '';
