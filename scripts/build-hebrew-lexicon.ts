@@ -5,7 +5,10 @@ import { normalizeHebrew, validateHebrewLexicon, type HebrewLexeme, type HebrewL
 
 const root = process.cwd();
 const readJson = async <T>(file: string): Promise<T> => JSON.parse(await readFile(path.join(root, file), 'utf8')) as T;
-const rambamKey = (s: string) => {\n  const key = s.normalize('NFD').replace(/[\u0591-\u05C7]/g, '').replace(/[^\u05D0-\u05EA״׳]/g, '').replace(/^״+|״+$/g, '');\n  return /[\u05D0-\u05EA]׳$/.test(key) ? key : key.replace(/׳+$/g, '');\n};
+const rambamKey = (s: string) => {
+  const key = s.normalize('NFD').replace(/[\u0591-\u05C7]/g, '').replace(/[^\u05D0-\u05EA״׳]/g, '').replace(/^״+|״+$/g, '');
+  return /[\u05D0-\u05EA]׳$/.test(key) ? key : key.replace(/׳+$/g, '');
+};
 const cleanVocalized = (s: string) => s.normalize('NFD').replace(/[\u0591-\u05AF]/g, '').normalize('NFC').trim();
 const stableId = (prefix: string, value: string) => `${prefix}:${createHash('sha256').update(value).digest('hex').slice(0, 16)}`;
 
