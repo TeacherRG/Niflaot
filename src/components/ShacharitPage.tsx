@@ -621,6 +621,15 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
                 >
                   {rate}×
                 </button>
+                <button
+                  type="button"
+                  className="sd-fullscreen-exit"
+                  onClick={() => void toggleFullscreen()}
+                  aria-label="Выйти из полноэкранного режима"
+                  title="Выйти из полноэкранного режима"
+                >
+                  <span aria-hidden="true">✕</span>
+                </button>
               </div>
             )}
             <p className="shacharit-credit">
