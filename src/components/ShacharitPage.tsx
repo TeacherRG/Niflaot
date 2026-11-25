@@ -101,13 +101,17 @@ interface LineProps {
   /** вся строка уже прочитана */
   past: boolean;
   onTap: (i: number) => void;
+  translate?: boolean;
+  glossary?: Record<string, string>;
 }
 
 /**
  * Строка молитвы. Иврит — справа налево; с транслитом — слово крупно и под ним иврит (или наоборот, `trBig` — классом страницы),
  * направление строки — по выбору (`trDir`). Нажатие на слово — подсветка с него, прочитанные — бледнее.
  */
-const PrayerLine = memo(function PrayerLine({ line, tr, lang, pron, taamim, dir, active, past, onTap }: LineProps) {
+const normalizeGlossWord = (x: string) => x.normalize('NFD').replace(/[\\u0591-\\u05C7]/g, '').replace(/[־]/g, '');
+
+const PrayerLine = memo(function PrayerLine({ line, tr, lang, pron, taamim, dir, active, past, onTap, translate = false, glossary = {} }: LineProps) {
   const he = (x: string) => (taamim ? x : stripTaamim(x));
   const trs = useMemo(
     () => (tr === 'he' ? [] : line.words.map((w) => (w.start ? cap : (x: string) => x)(translitSiddurToken(stripTaamim(w.he), lang, pron)))),
@@ -134,7 +138,7 @@ const PrayerLine = memo(function PrayerLine({ line, tr, lang, pron, taamim, dir,
         <span key={w.i}>
           <span data-i={w.i} className={`shacharit-word ${cls(w)}`} onClick={() => onTap(w.i)}>
             <span className="shacharit-word-tr" dir="ltr">
-              {trs[k] + w.gap}
+              {(translate ? (glossary[normalizeGlossWord(w.he)] ?? '…') : trs[k]) + w.gap}
             </span>
             {tr === 'duo' && (
               <span className="shacharit-word-he he" dir="rtl" lang="he">
@@ -250,11 +254,18 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
   const { t, locale, ui } = useI18n();
   const [status, setStatus] = useState<TextStatus>('loading');
   const [data, setData] = useState<ShacharitText | null>(null);
+  const [germanGlossary, setGermanGlossary] = useState<Record<string, string>>({});
   // те же настройки, что у Теґилим (`niflaot:reading-view`); звука пока нет
   const [view, setView] = useState<View>(loadView);
 
   useEffect(() => {
     let active = true;
+    if (prayer === 'shacharit' && locale === 'de') {
+      fetch('/reading/siddur/morning-blessings-de.json')
+        .then((r) => (r.ok ? r.json() : {}))
+        .then((x: unknown) => { if (active && x && typeof x === 'object') setGermanGlossary(x as Record<string, string>); })
+        .catch(() => { if (active) setGermanGlossary({}); });
+    } else setGermanGlossary({});
     fetch(textUrl(prayer))
       .then(async (response) => {
         if (response.status === 404) {
@@ -275,7 +286,7 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
     return () => {
       active = false;
     };
-  }, []);
+  }, [prayer, locale]);
 
   // переход из меню «Разделы» другой молитвы: прокрутить к выбранному разделу, иначе — к началу
   useEffect(() => {
@@ -403,6 +414,8 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
                         active={active >= line.first && active <= line.last ? active : -1}
                         past={active > line.last}
                         onTap={onTap}
+                        translate={section.key === 'Shacharit/Morning Blessings' && locale === 'de'}
+                        glossary={germanGlossary}
                       />
                     </div>
                   ))}
