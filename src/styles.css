@@ -4326,6 +4326,12 @@ html.rm-focus body{padding-inline:0}
 html.rm-focus .admin-fab{display:none}
 html.rm-focus .rm-focus-btn{position:fixed;z-index:6;top:calc(4px + env(safe-area-inset-top,0px));left:4px;right:auto;margin:0;width:34px;height:34px;padding:0;justify-content:center;border-radius:50%;box-shadow:0 2px 8px rgba(20,26,51,.25)}
 html.rm-focus .rm-focus-l{display:none}
+/* текст — с самого верха: строки «Глава · English» нет, английский Тугера — кнопкой «EN» под слайдом */
+.rm-en-btn{display:none;min-width:40px;height:36px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--tchelet);font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.rm-en-btn[aria-pressed=true]{background:var(--tchelet);border-color:var(--tchelet);color:#fff}
+html.rm-focus .rm-en-btn{display:grid;place-items:center}
+html.rm-focus .rm-split:not(.solo) .rm-tools{display:contents}
+html.rm-focus .rm-split:not(.solo) .rm-tools>:not(.rm-focus-btn){display:none}
 @media (orientation:landscape) and (min-width:560px){
   /* слева — край слайда (поля картинки), вырез камеры его не портит; справа текст — с запасом под вырез */
   html.rm-focus .wrap.rm{padding-inline:4px max(6px,env(safe-area-inset-right,0px))}
@@ -4337,11 +4343,17 @@ html.rm-focus .rm-focus-l{display:none}
   html.rm-focus .rm-split.solo .rm-text{height:100%;overflow-y:auto;max-width:900px;margin:0 auto}
   html.rm-focus .rm-split:not(.solo) .rm-slides{padding:0;align-self:start}
   html.rm-focus .rm-ctl{margin-top:4px;height:36px}
-  html.rm-focus .rm-arrow,html.rm-focus .rm-full{height:34px}
+  html.rm-focus .rm-arrow,html.rm-focus .rm-full,html.rm-focus .rm-en-btn{height:34px}
   html.rm-focus .rm-split:not(.solo) .rm-text{padding:0 6px 0 2px}
 }
 @media (orientation:landscape) and (max-height:500px){
   html.rm-focus .rm-tap,html.rm-focus .rm-focus-l{display:none}
+/* текст — с самого верха: строки «Глава · English» нет, английский Тугера — кнопкой «EN» под слайдом */
+.rm-en-btn{display:none;min-width:40px;height:36px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--tchelet);font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.rm-en-btn[aria-pressed=true]{background:var(--tchelet);border-color:var(--tchelet);color:#fff}
+html.rm-focus .rm-en-btn{display:grid;place-items:center}
+html.rm-focus .rm-split:not(.solo) .rm-tools{display:contents}
+html.rm-focus .rm-split:not(.solo) .rm-tools>:not(.rm-focus-btn){display:none}
   html.rm-focus .rm-tools{font-size:13px;gap:4px 12px}
   html.rm-focus .rm-h p.he{font-size:19px;line-height:1.65}
 }

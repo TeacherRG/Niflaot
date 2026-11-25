@@ -250,6 +250,9 @@ export function RambamPage({ date: asked }: { date?: string }) {
                         </>
                       )}
                     </span>
+                    <button type="button" className="rm-en-btn" onClick={() => setEn(!en)} aria-pressed={en} title={t('rm.showEn')} lang="en">
+                      EN
+                    </button>
                     <a className="rm-full" href={slideSrc(day.id, slides[active]?.img ?? '')} target="_blank" rel="noopener" aria-label={t('rm.full')} title={t('rm.full')}>
                       ⤢
                     </a>
