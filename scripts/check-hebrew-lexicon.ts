@@ -17,7 +17,8 @@ const valid: HebrewLexicon = {
   }],
 };
 const errors = validateHebrewLexicon(valid);
-if (errors.length) throw new Error(errors.join('\n'));
+if (errors.length) throw new Error(errors.join('
+'));
 if (normalizeHebrew('מָסַךְ') !== normalizeHebrew('מַסָּךְ')) {
   // Normalization strips vowel points; homonym identity is handled by stable IDs, not this helper.
   throw new Error('Hebrew search normalization failed');
@@ -38,4 +39,12 @@ const badFrequency = structuredClone(valid);
 badFrequency.entries[0].corpusStats!.tanakh!.frequency = -1;
 if (!validateHebrewLexicon(badFrequency).some((x) => x.includes('corpus frequency')))
   throw new Error('Negative corpus frequency must be rejected');
-const migrated = migrateLegacyWordProgress(\n  { words: { '1234': [100, 3, 9] }, 'halacha-words': { 'אב': [200, 2, 10], 'unknown': 1 } },\n  { ids: { 'words:1234': ['tanakh:strong:1234'], 'halacha-words:אב': ['rambam:a', 'rambam:b'] } },\n);\nif (migrated.entries['tanakh:strong:1234']?.sources.words?.value instanceof Array === false)\n  throw new Error('One-to-one progress must be copied verbatim');\nif (migrated.unresolved.length !== 2 || migrated.unresolved[0].candidates.length !== 2)\n  throw new Error('Ambiguous and unknown progress must be preserved as unresolved');\nconsole.log('Hebrew lexicon schema and progress migration: OK');
+const migrated = migrateLegacyWordProgress(
+  { words: { '1234': [100, 3, 9] }, 'halacha-words': { 'אב': [200, 2, 10], 'unknown': 1 } },
+  { ids: { 'words:1234': ['tanakh:strong:1234'], 'halacha-words:אב': ['rambam:a', 'rambam:b'] } },
+);
+if (migrated.entries['tanakh:strong:1234']?.sources.words?.value instanceof Array === false)
+  throw new Error('One-to-one progress must be copied verbatim');
+if (migrated.unresolved.length !== 2 || migrated.unresolved[0].candidates.length !== 2)
+  throw new Error('Ambiguous and unknown progress must be preserved as unresolved');
+console.log('Hebrew lexicon schema and progress migration: OK');
