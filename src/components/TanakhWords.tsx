@@ -76,7 +76,7 @@ export function WordRow({ w, dict, store, here, compact, ex }: { w: Word; dict: 
   return (
     <li className={`tk-w${known ? ' on' : learning ? ' learn' : ''}${compact ? ' compact' : ''}`}>
       <span className="he tk-w-he" lang="he">
-        {w.infinitive ?? w.he}
+        {w.pos.split(/\s+/).includes('v') ? (w.infinitive ?? '—') : w.he}
       </span>
       <span className="tk-w-tr">{dict.tr[w.id]}</span>
       <small className="tk-w-meta">
