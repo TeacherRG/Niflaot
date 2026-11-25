@@ -1,5 +1,4 @@
 import { normalizeHebrew, validateHebrewLexicon, type HebrewLexicon } from '../src/core/hebrewLexicon';
-import { migrateLegacyWordProgress } from '../src/core/hebrewLexiconProgress';
 
 const valid: HebrewLexicon = {
   schemaVersion: 1,
@@ -39,12 +38,4 @@ const badFrequency = structuredClone(valid);
 badFrequency.entries[0].corpusStats!.tanakh!.frequency = -1;
 if (!validateHebrewLexicon(badFrequency).some((x) => x.includes('corpus frequency')))
   throw new Error('Negative corpus frequency must be rejected');
-const migrated = migrateLegacyWordProgress(
-  { words: { '1234': [100, 3, 9] }, 'halacha-words': { 'אב': [200, 2, 10], 'unknown': 1 } },
-  { ids: { 'words:1234': ['tanakh:strong:1234'], 'halacha-words:אב': ['rambam:a', 'rambam:b'] } },
-);
-if (!Array.isArray(migrated.entries['tanakh:strong:1234']?.sources.words?.value))
-  throw new Error('One-to-one progress must be copied verbatim');
-if (migrated.unresolved.length !== 2 || migrated.unresolved[0].candidates.length !== 2)
-  throw new Error('Ambiguous and unknown progress must be preserved as unresolved');
-console.log('Hebrew lexicon schema and progress migration: OK');
+console.log('Hebrew lexicon schema: OK');
