@@ -137,6 +137,25 @@ for (const row of rambamRows.values()) {
   });
 }
 
+
+for (const [he, translation] of lexiconRu) {
+  const id = stableId('rambam', `${cleanVocalized(he)}|${translation}`);
+  if (entries.some(entry => entry.id === id)) continue;
+  const term = terms.get(cleanVocalized(he));
+  const legacyKey = `rambam:${vocalKey(he)}`;
+  legacy[legacyKey] = [...new Set([...(legacy[legacyKey] ?? []), id])];
+  entries.push({
+    id: id as HebrewLexeme['id'],
+    headword: { vocalized: he, normalized: normalizeHebrew(he) },
+    partOfSpeech: 'unknown',
+    senses: [{ id: `${id}:sense:1`, translations: { ru: [translation] }, ...(term ? { terms: [{ language: 'ru', label: term.title, definition: term.definition }], domain: ['halakha'] } : {}) }],
+    forms: [],
+    occurrences: [],
+    sources: [{ name: 'Niflaot project Rambam supplementary lexicon', license: 'Project-authored translation; source text: Sefaria / Torat Emet 363' }],
+    status: 'review',
+  });
+}
+
 const lexicon: HebrewLexicon = { schemaVersion: 1, generatedAt: new Date().toISOString(), entries };
 const errors = validateHebrewLexicon(lexicon);
 if (errors.length) throw new Error(errors.join('
