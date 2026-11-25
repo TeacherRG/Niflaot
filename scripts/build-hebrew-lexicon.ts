@@ -129,6 +129,7 @@ await writeFile(path.join(out, 'hebrew-lexicon.json'), JSON.stringify(lexicon, n
 await writeFile(path.join(out, 'hebrew-lexicon-legacy-map.json'), JSON.stringify({
   schemaVersion: 1,
   policy: 'Legacy IDs are aliases only. Never merge lexemes by normalized spelling.',
-  ids: legacy,\n  ambiguous: Object.entries(legacy).filter(([, ids]) => ids.length > 1).map(([key, ids]) => ({ key, ids })),
+  ids: legacy,
+  ambiguous: Object.entries(legacy).filter(([, ids]) => ids.length > 1).map(([key, ids]) => ({ key, ids })),
 }, null, 2) + '\n');
 console.log(`Built ${entries.length} lexemes; ${Object.keys(legacy).length} legacy keys mapped; ${entries.filter(x => x.status === 'review').length} need editorial review.`);
