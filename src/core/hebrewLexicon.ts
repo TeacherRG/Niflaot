@@ -21,12 +21,20 @@ export type Headword = {
   verbalForm?: 'infinitive-construct' | 'infinitive-absolute' | 'unverified';
 };
 
-export type GlossaryTerm = {\n  language: Exclude<Language, 'he'>;\n  label: string;\n  definition: string;\n};\n\nexport type LexicalSense = {
+export type GlossaryTerm = {
+  language: Exclude<Language, 'he'>;
+  label: string;
+  definition: string;
+};
+
+export type LexicalSense = {
   id: string;
   translations: Partial<Record<Exclude<Language, 'he'>, string[]>>;
   /** Short explanation distinguishing this sense from homonyms. */
   definition?: Partial<Record<Exclude<Language, 'he'>, string>>;
-  domain?: string[];\n  /** Structured halakhic / domain glossary annotations, separate from translation. */\n  terms?: GlossaryTerm[];
+  domain?: string[];
+  /** Structured halakhic / domain glossary annotations, separate from translation. */
+  terms?: GlossaryTerm[];
 };
 
 export type AttestedForm = {
