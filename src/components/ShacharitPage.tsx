@@ -118,7 +118,7 @@ const PrayerLine = memo(function PrayerLine({ line, tr, lang, pron, taamim, dir,
     [line, tr, lang, pron],
   );
   const cls = (w: Word) => `rd-w${w.i === active ? ' rd-on' : past || (active >= 0 && w.i < active) ? ' rd-past' : ''}`;
-  if (tr === 'he')
+  if (tr === 'he' && !translate)
     return (
       <div className="shacharit-line he" dir="rtl" lang="he">
         {line.lead && `${line.lead} `}
@@ -140,7 +140,7 @@ const PrayerLine = memo(function PrayerLine({ line, tr, lang, pron, taamim, dir,
             <span className="shacharit-word-tr" dir="ltr">
               {(translate ? (glossary[normalizeGlossWord(w.he)] ?? '…') : trs[k]) + w.gap}
             </span>
-            {tr === 'duo' && (
+            {(tr === 'duo' || (translate && tr === 'he')) && (
               <span className="shacharit-word-he he" dir="rtl" lang="he">
                 {he(w.he)}
               </span>
