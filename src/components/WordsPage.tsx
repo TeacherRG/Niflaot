@@ -281,7 +281,7 @@ function Review({ dict, ids, exs, onClose }: { dict: Dict; ids: string[]; exs: R
     <div className="ws-card" aria-live="polite">
       <small className="ws-count">{t('words.progress', { i: i + 1, n: ids.length })}</small>
       <span className="he ws-he" lang="he">
-        {w.he}
+        {w.inf ?? w.he}
       </span>
       {w.root && (
         <small className="tk-w-meta">
