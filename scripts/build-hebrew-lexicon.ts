@@ -18,7 +18,7 @@ const [tanakh, ru, en, de] = await Promise.all([
 
 const infinitives = await readJson<Record<string, string>>('public/tanakh/words/infinitives.json').catch(() => ({}));
 const entries: HebrewLexeme[] = [];
-const legacy: Record<string, string> = {};
+const legacy: Record<string, string[]> = {};
 const tanakhByExactHeadword = new Map<string, string>();
 
 const pos = (raw: string): PartOfSpeech => {
@@ -67,7 +67,7 @@ for (const w of tanakh.words) {
     status: isVerb && !infinitive ? 'review' : 'verified',
   };
   entries.push(entry);
-  legacy[`tanakh:${w.id}`] = id;
+  legacy[`tanakh:${w.id}`] = [id];
   const exact = cleanVocalized(headword.vocalized);
   if (!tanakhByExactHeadword.has(exact)) tanakhByExactHeadword.set(exact, id);
 }
@@ -115,7 +115,8 @@ for (const row of rambamRows.values()) {
     sources: [{ name: 'Niflaot project Mishneh Torah word list', license: 'Project-authored translation; source text: Sefaria / Torat Emet 363' }],
     status: 'review',
   });
-  legacy[`rambam:${vocalKey(row.surface)}`] = id;
+  const legacyKey = `rambam:${vocalKey(row.surface)}`;
+  legacy[legacyKey] = [...new Set([...(legacy[legacyKey] ?? []), id])];
 }
 
 const lexicon: HebrewLexicon = { schemaVersion: 1, generatedAt: new Date().toISOString(), entries };
@@ -128,6 +129,6 @@ await writeFile(path.join(out, 'hebrew-lexicon.json'), JSON.stringify(lexicon, n
 await writeFile(path.join(out, 'hebrew-lexicon-legacy-map.json'), JSON.stringify({
   schemaVersion: 1,
   policy: 'Legacy IDs are aliases only. Never merge lexemes by normalized spelling.',
-  ids: legacy,
+  ids: legacy,\n  ambiguous: Object.entries(legacy).filter(([, ids]) => ids.length > 1).map(([key, ids]) => ({ key, ids })),
 }, null, 2) + '\\n');
 console.log(`Built ${entries.length} lexemes; ${Object.keys(legacy).length} legacy keys mapped; ${entries.filter(x => x.status === 'review').length} need editorial review.`);
