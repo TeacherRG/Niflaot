@@ -169,6 +169,7 @@ export function WordPop() {
   const own = id.startsWith('=') ? id.slice(1) : '';
   const tr = id && !own ? dict?.tr[id] : undefined;
   const head = w?.inf ?? w?.he ?? (own || (id ? lex?.[id] : undefined));
+  const showHead = !!head && (w?.pos.split(' ')[0] === 'v' || head !== open.word.replace(/[[\\]()]/g, ''));
   const box_ = id ? boxOf(store, id) : 0;
   const known = box_ >= KNOWN_BOX;
   const learning = box_ > 0 && !known;
@@ -234,7 +235,7 @@ export function WordPop() {
             card || <p className="wp-tr">{t('wp.name')}</p>
           ) : head ? (
             <div className="wp-main">
-              {head !== open.word.replace(/[[\]()]/g, '') && (
+              {showHead && (
                 <>
                   <small className="wp-label">{t('wp.dictionaryForm')}</small>
                   <span className="he wp-head" lang="he" dir="rtl">{head}</span>
