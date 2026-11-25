@@ -103,16 +103,16 @@ for (const row of rambamRows.values()) {
   const existing = entries.find(e => e.id === id);
   if (existing) {
     if (!existing.senses[0].translations.ru?.includes(row.translation)) existing.senses[0].translations.ru?.push(row.translation);
-    existing.forms.push({ vocalized: row.surface, normalized: normalizeHebrew(row.surface), source: 'sefaria', reference: `${row.file}:${row.line}` });
+    existing.forms.push({ vocalized: row.surface, normalized: normalizeHebrew(row.surface), source: 'manual', reference: `project-word-list:${row.file}:${row.line}` });
     continue;
   }
   const exactTanakh = tanakhByExactHeadword.get(cleanVocalized(lemma));
   entries.push({
     id: id as HebrewLexeme['id'],
-    headword: { vocalized: lemma, normalized: normalizeHebrew(lemma), verbalForm: 'unverified' },
+    headword: { vocalized: lemma, normalized: normalizeHebrew(lemma) },
     partOfSpeech: 'unknown',
     senses: [{ id: `${id}:sense:1`, translations: { ru: [gloss] }, ...(exactTanakh ? { definition: { ru: ['Отдельная лексема Рамбама; совпадение написания с Танахом само по себе не означает тождества значения.'] } } : {}) }],
-    forms: [{ vocalized: row.surface, normalized: normalizeHebrew(row.surface), source: 'sefaria', reference: `${row.file}:${row.line}` }],
+    forms: [{ vocalized: row.surface, normalized: normalizeHebrew(row.surface), source: 'manual', reference: `project-word-list:${row.file}:${row.line}` }],
     occurrences: [],
     sources: [{ name: 'Niflaot project Mishneh Torah word list', license: 'Project-authored translation; source text: Sefaria / Torat Emet 363' }],
     status: 'review',
