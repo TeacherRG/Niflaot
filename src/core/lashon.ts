@@ -435,6 +435,8 @@ function drill(unit: Unit, level: number): Exercise[] {
       out.push({ t: 'intro', item: it }, pick(it, unit, 'tr'));
       if (kind === 'rw' && i % 2) out.push(build(it, unit));
       if (i === 2) out.push(match(unit));
+      // One gentle word-recognition question replaces the former verse-order puzzle.
+      if (!abc && i === items.length - 1) out.push(pick(it, unit, 'look'));
     });
     out.push(abc ? pick(items[items.length - 1], unit, 'he') : match(unit));
     return out.filter((x): x is Exercise => !!x);
