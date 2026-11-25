@@ -287,14 +287,17 @@ export interface View {
   trDir: 'rtl' | 'ltr';
   /** «транслит и иврит»: что крупнее — транслит или иврит */
   trBig: 'tr' | 'he';
+  /** язык пословного перевода сидура; none — показывать транслитерацию */
+  glossLang: 'none' | 'de';
 }
 export const loadView = (): View => {
-  const v: View = { taamim: false, big: false, play: 'both', tr: 'he', pron: 'ash', living: true, trDir: 'ltr', trBig: 'tr', ...read<Partial<View>>('niflaot:reading-view', {}) };
+  const v: View = { taamim: false, big: false, play: 'both', tr: 'he', pron: 'ash', living: true, trDir: 'ltr', trBig: 'tr', glossLang: 'none', ...read<Partial<View>>('niflaot:reading-view', {}) };
   if (!PLAY_MODES.includes(v.play)) v.play = 'both';
   if (!TR_MODES.includes(v.tr)) v.tr = 'he';
   if (!PRONS.includes(v.pron)) v.pron = 'ash';
   if (v.trDir !== 'rtl') v.trDir = 'ltr';
   if (v.trBig !== 'he') v.trBig = 'tr';
+  if (v.glossLang !== 'de') v.glossLang = 'none';
   return v;
 };
 export const saveView = (v: View) => write('niflaot:reading-view', v);
