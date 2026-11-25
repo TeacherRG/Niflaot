@@ -314,7 +314,7 @@ export function reviewFromCourse(answers: Record<string, boolean>, s: WordStore 
     if (!right && s[id][1] >= KNOWN_BOX) {
       // «знаю» не сбрасывается одной ошибкой в уроке или игре (владелец, 10.11.2026: на главной крутились слова, отмеченные
       // «Знаю»): слово остаётся в «знаю» и ставится на проверку сегодня — решает карточка «Моих слов» («Помню» / «Не помню»)
-      if (s[id][2] > day) put(id, s[id][1], day);
+      if (s[id][2] > day) setWordEntry(id, s[id][1], day);
       continue;
     }
     review(id, right, false);
