@@ -396,7 +396,8 @@ def infinitive_forms():
         pool = constructs or [(k, p, form, n) for (k, p, form), n in candidates.items()]
         if pool:
             priority = max(x[1] for x in pool)
-            chosen = max((x for x in pool if x[1] == priority), key=lambda x: x[3])\n            out[lemma] = {'form': chosen[2], 'type': 'infinitive-construct' if chosen[0] == 'c' else 'infinitive-absolute'}
+            chosen = max((x for x in pool if x[1] == priority), key=lambda x: x[3])
+            out[lemma] = {'form': chosen[2], 'type': 'infinitive-construct' if chosen[0] == 'c' else 'infinitive-absolute'}
     return out
 
 
@@ -432,7 +433,9 @@ def cmd_build():
             w.pop('root', None)
             if ROOT_FIX[l]: w['root'] = ROOT_FIX[l]
         if l in FORM_FIX: w['he'] = FORM_FIX[l]
-        if verb and l in infinitives:\n            w['inf'] = infinitives[l]['form']\n            w['infType'] = infinitives[l]['type']
+        if verb and l in infinitives:
+            w['inf'] = infinitives[l]['form']
+            w['infType'] = infinitives[l]['type']
         # арамейское слово (Даниэль, Эзра): чаще всего встречается в арамейских главах
         if aram[l] * 2 > count[l]: w['aram'] = 1
         words.append(w)
@@ -444,8 +447,12 @@ def cmd_build():
             'total': total, 'names': names, 'lemmas': len(count),
             # «все слова» — сколько слов (без имён, мест и надписей) в Пророках и Писаниях: порог сертификата «Раввин языка Танаха»
             'all': sum(1 for l in count if l not in SKIP)}
-    body = ',\n'.join(json.dumps(w, ensure_ascii=False) for w in words)
-    OUT.write_text(json.dumps(head, ensure_ascii=False)[:-1] + ', "words": [\n' + body + '\n]}\n', encoding='utf-8')
+    body = ',
+'.join(json.dumps(w, ensure_ascii=False) for w in words)
+    OUT.write_text(json.dumps(head, ensure_ascii=False)[:-1] + ', "words": [
+' + body + '
+]}
+', encoding='utf-8')
     known = set(ranked)
     OUT_DAYS.mkdir(exist_ok=True)
     n = 0
@@ -458,7 +465,8 @@ def cmd_build():
                 ls += by.get((v['b'], v['c'], v['v']), [])
             c = collections.Counter(l for l in ls if l in known)
             out[s] = {'n': len(ls), 'w': dict(sorted(c.items(), key=lambda x: -x[1]))}
-        (OUT_DAYS / f.name).write_text(json.dumps(out, separators=(',', ':')) + '\n', encoding='utf-8')
+        (OUT_DAYS / f.name).write_text(json.dumps(out, separators=(',', ':')) + '
+', encoding='utf-8')
         n += 1
     cmd_examples(ranked)
     cmd_parse(lex)
@@ -475,10 +483,13 @@ def cmd_infinitives():
     verbs = [w for w in data['words'] if w['pos'].split()[0] == 'v']
     for w in verbs:
         if w['id'] in forms:
-            w['inf'] = forms[w['id']]['form']\n            w['infType'] = forms[w['id']]['type']
+            w['inf'] = forms[w['id']]['form']
+            w['infType'] = forms[w['id']]['type']
         else:
-            w.pop('inf', None)\n            w.pop('infType', None)
-    OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
+            w.pop('inf', None)
+            w.pop('infType', None)
+    OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')) + '
+', encoding='utf-8')
     print(f"Infinitives: {sum(1 for w in verbs if 'inf' in w)} of {len(verbs)} verbs; missing: {sum(1 for w in verbs if 'inf' not in w)}")
 
 
@@ -545,8 +556,10 @@ def cmd_parse(lex):
                     row.append(code)
                 vs[f"{v['b']} {v['c']}:{v['v']}"] = row
             out[s]['v'] = vs
-        (OUT_DAYS / f.name).write_text(json.dumps(out, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
-    (OUT_DAYS / 'lex.json').write_text(json.dumps(dict(sorted(heads.items(), key=lambda x: int(x[0]))), ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
+        (OUT_DAYS / f.name).write_text(json.dumps(out, ensure_ascii=False, separators=(',', ':')) + '
+', encoding='utf-8')
+    (OUT_DAYS / 'lex.json').write_text(json.dumps(dict(sorted(heads.items(), key=lambda x: int(x[0]))), ensure_ascii=False, separators=(',', ':')) + '
+', encoding='utf-8')
     print(f'parse: {hit} of {tot} words of the text matched ({hit / tot * 100:.1f}%), {len(heads)} headwords not in the dictionary')
 
 
@@ -631,7 +644,8 @@ def cmd_examples(ranked):
             t = trs[lang].get(ref)
             out[lang][l] = [date, sec, r, he, t] if t else [date, sec, r, he, en, 1]
     for lang, ex in out.items():
-        (OUT_DAYS / f'examples-{lang}.json').write_text(json.dumps(ex, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
+        (OUT_DAYS / f'examples-{lang}.json').write_text(json.dumps(ex, ensure_ascii=False, separators=(',', ':')) + '
+', encoding='utf-8')
     print(f'examples: {len(out["en"])} words ({missing} without), translated ru {sum(len(x) == 5 for x in out["ru"].values())}')
 
 
