@@ -2008,6 +2008,7 @@ const de: Messages = {
   'ln.q.vsound': "Wie klingt dieses Zeichen?",
   'ln.q.read': "Wie liest man das?",
   'ln.q.findRead': "Wo steht das so?",
+  'ln.q.look': "Finde dieses Wort unter ähnlich geschriebenen Wörtern", 
   'ln.q.syl': "Setze das Wort aus Silben zusammen",
   'ln.line': "Deine Antwort",
   'ln.rtl': "Hebräisch schreibt man von rechts nach links: Der erste Buchstabe steht rechts.",
