@@ -26,7 +26,7 @@ export const campaignShown = (now = Date.now()) =>
 export const inCampaign = (now = Date.now()) => now >= Date.parse(CAMPAIGN.from) && now < Date.parse(CAMPAIGN.to);
 
 /** the three categories of the letter to the shop */
-export const NOMS = ['sources', 'lashon', 'music'] as const;
+export const NOMS = ['sources', 'lashon', 'reading'] as const;
 export type Nom = (typeof NOMS)[number];
 export const isNom = (x: unknown): x is Nom => NOMS.includes(x as Nom);
 
@@ -51,13 +51,13 @@ export const DEVICE_RE = /^[a-z0-9]{16,32}$/;
 /**
  * The category of the page a friend landed on (path + hash of the address).
  * Святой язык — Hebrew lessons, words, letters, the picture game, «Слова Торы»;
- * Святая музыка — nigunim and «Святое чтение» (Теґилим — песни Давида, the siddur);
+ * Святое чтение — Теґилим and the siddur (`#/reading…`, the page /tehillim/; owner, 25.11.2026: «никаких нигунов, только Теґилим и сидур»);
  * everything else (Тора, Пророки и Писания, Хасидут, the home page, games) — Святые первоисточники.
  */
 export function nomOf(path: string, hash: string): Nom {
   const route = (hash.replace(/^#\/?/, '') || path.replace(/^\/(?:en\/|de\/)?/, '')).split(/[/?]/)[0];
   if (/^(lashon|learn-hebrew|words|hebrew-words|letters|torah-words|pics|halacha-words|english|russian|german)$/.test(route)) return 'lashon';
-  if (/^(nigun|reading|tehillim)$/.test(route)) return 'music';
+  if (/^(reading|tehillim)$/.test(route)) return 'reading';
   return 'sources';
 }
 

@@ -13,13 +13,13 @@
  */
 import { useEffect, useState } from 'react';
 import type { Mode } from './mode';
-import { isAdmin } from '../admin/github';
+import { NIGUN_PUBLIC } from '../nigun/public';
 
 export type Course = 'neviim' | 'ketuvim' | 'hemshech' | 'rambam' | 'lashon' | 'nigun' | 'koelet';
 export const COURSES: Course[] = ['neviim', 'ketuvim', 'hemshech', 'rambam', 'lashon', 'nigun', 'koelet'];
-/** The courses offered to choose: «Святая музыка» (nigun) only in the admin's browser for now (owner, 01.11.2026). */
-export const shownCourses = (): Course[] => (isAdmin() ? COURSES : COURSES.filter((c) => c !== 'nigun'));
-const shown = (v: CourseChoice): CourseChoice => (isAdmin() ? v : { ...v, c: v.c.filter((c) => c !== 'nigun') });
+/** The courses offered to choose: «Святая музыка» (nigun) is hidden for everyone for now (NIGUN_PUBLIC, owner, 25.11.2026). */
+export const shownCourses = (): Course[] => (NIGUN_PUBLIC ? COURSES : COURSES.filter((c) => c !== 'nigun'));
+const shown = (v: CourseChoice): CourseChoice => (NIGUN_PUBLIC ? v : { ...v, c: v.c.filter((c) => c !== 'nigun') });
 export type Pace = 'own' | 'cycle';
 export const PACES: Pace[] = ['own', 'cycle'];
 export type PlanYears = 1 | 3;

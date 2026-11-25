@@ -311,7 +311,7 @@ export function InvitesPage({ token }: { token: string }) {
   useEffect(() => {
     inviteBoard(token).then(setData, (e) => setErr(e?.status === 403 ? 'Этот токен GitHub не даёт доступа.' : 'Не удалось загрузить список.'));
   }, [token]);
-  const NAME = { sources: 'Святые первоисточники', lashon: 'Святой язык', music: 'Святая музыка и чтение' } as const;
+  const NAME = { sources: 'Святые первоисточники', lashon: 'Святой язык', reading: 'Святое чтение — Теґилим и сидур' } as const;
   return (
     <>
       <div className="wrap acc">

@@ -30,9 +30,10 @@ const cases: [string, string, string][] = [
   ['/', '#/lashon', 'lashon'],
   ['/en/learn-hebrew/', '', 'lashon'],
   ['/', '#/words/12', 'lashon'],
-  ['/', '#/reading/23', 'music'],
-  ['/de/tehillim/', '', 'music'],
-  ['/', '#/nigun/lubo', 'music'],
+  ['/', '#/reading/23', 'reading'],
+  ['/', '#/reading/siddur/shacharit', 'reading'],
+  ['/de/tehillim/', '', 'reading'],
+  ['/', '#/nigun/lubo', 'sources'],
 ];
 for (const [p, h, n] of cases) ok(nomOf(p, h) === n, `nomOf(${p}${h}) = ${nomOf(p, h)}, not ${n}`);
 ok(ticketsOf({ friends: 3, active: 2 }) === 7, 'tickets 3 + 2×2');

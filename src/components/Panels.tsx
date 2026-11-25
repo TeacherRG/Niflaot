@@ -15,6 +15,8 @@ import { AboutBody } from './AboutBody';
 import { canInstall, install, subscribeInstall } from '../core/install';
 import { useToday } from '../core/useToday';
 import { isAdmin } from '../admin/github';
+import { NIGUN_PUBLIC } from '../nigun/public';
+import { TANYA_PUBLIC } from '../core/tanyaPublic';
 import { todayChapter } from '../core/rambam';
 
 /** «Маахалот асурот 13» — today's chapter of the Rambam cycle, the menu line under «Мишне Тора» */
@@ -271,7 +273,7 @@ export function Panels() {
             <Icon name="home" />
             <span>{t('menu.home')}</span>
           </a>
-          {group(<Icon name="spark" />, t('menu.chassidut'), t('menu.chassidutSub'), inRebbe || starts('#/hemshech', '#/tanya'), (
+          {group(<Icon name="spark" />, t('menu.chassidut'), t('menu.chassidutSub'), inRebbe || starts('#/hemshech'), (
             <>
               {rebbeGroups.length > 0 && (
                 <details className="menu-group" open={inRebbe}>
@@ -286,7 +288,7 @@ export function Panels() {
                 </details>
               )}
               {link('#/hemshech', <Icon name="book" />, t('menu.hemshech'), today && 'title' in today.hs ? today.hs.title : t('hs.short'), !!today && 'title' in today.hs && today.hs.done)}
-              <a href="#/tanya" onClick={close} className="menu-item" aria-current={starts('#/tanya') ? 'page' : undefined}><Icon name="book" /><span>Тания<small>Заключительный трактат · глава 6</small></span></a>
+              {TANYA_PUBLIC && <a href="#/tanya" onClick={close} className="menu-item" aria-current={starts('#/tanya') ? 'page' : undefined}><Icon name="book" /><span>Тания<small>Заключительный трактат · глава 6</small></span></a>}
             </>
           ))}
           {group(<Icon name="book" />, t('menu.tanakh'), t('menu.tanakhSub'), inTorah || starts('#/neviim', '#/ketuvim', '#/atlas', '#/search'), (
@@ -352,7 +354,7 @@ export function Panels() {
               {admin && link('#/reading/shnayim', num('ת״א', true), t('reading.menuShnayim'), t('reading.menuShnayimSub'))}
             </>
           ))}
-          {admin && link('#/nigun', <Icon name="music" />, t('nigun.title'), t('nigun.menuSub'))}
+          {NIGUN_PUBLIC && link('#/nigun', <Icon name="music" />, t('nigun.title'), t('nigun.menuSub'))}
           {/* «Курсы Академии» — the academy's own courses (owner, 27.10.2026): «Тайна Коэлета» so far */}
           {group(<Icon name="award" />, t('menu.courses'), t('menu.coursesSub'), starts('#/koelet'), (
             link('#/koelet', num('ק', true), t('koelet.title'), t('koelet.menuSub'))

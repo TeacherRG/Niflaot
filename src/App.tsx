@@ -10,6 +10,7 @@ import { savedHebrewLevel } from './core/hebrewLevel';
 import { ShabbatRest, useShabbatRest } from './components/ShabbatRest';
 import { isAdmin } from './admin/github';
 import { NIGUN_PUBLIC } from './nigun/public';
+import { TANYA_PUBLIC } from './core/tanyaPublic';
 import { OPS, type Op } from './core/mentalMath';
 import { Panels } from './components/Panels';
 import { TermPopover } from './components/TermPopover';
@@ -245,7 +246,7 @@ function Site() {
             <LettersPage />
           ) : slug === 'math' && (!view || OPS.includes(view as Op)) ? (
             <MathPage op={(view as Op) || 'add'} />
-          ) : slug === 'tanya' && !view ? (
+          ) : slug === 'tanya' && !view && TANYA_PUBLIC ? (
             <TanyaPage />
           ) : slug === 'hemshech' ? (
             <HemshechPage key={route} passage={view || undefined} />
@@ -285,7 +286,7 @@ function Site() {
             <TorahWordsPage key={route} parsha={view || undefined} />
           ) : slug === 'quiz' ? (
             <QuizPage code={view === 'host' ? variant : view} host={view === 'host'} />
-          ) : slug === 'nigun' && (NIGUN_PUBLIC || isAdmin()) ? (
+          ) : slug === 'nigun' && NIGUN_PUBLIC ? (
             <NigunPage key={route} id={view || undefined} />
           ) : slug === 'zip' && !view ? (
             <ZipPage />

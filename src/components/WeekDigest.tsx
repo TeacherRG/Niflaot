@@ -6,7 +6,6 @@ import { BOOKS, SECTIONS, addDays, rangeLabel, type Section } from '../core/tana
 import { HEMSHECH, hsLang } from '../core/hemshech';
 import { HS_SENTENCES, TK_SENTENCES, digestWeek, digestWeeks, firstLines, firstSentences, quoteSentence, quoteVerse, retell, turimWeek, weekDays, weekEnd, weekNigun, weekPassages } from '../core/weekDigest';
 import { NIGUN_PUBLIC } from '../nigun/public';
-import { isAdmin } from '../admin/github';
 import { SITE_HOST } from '../core/site';
 import { civilDate, jewishDate } from '../core/hebrewDate';
 import { Icon } from './ui';
@@ -249,7 +248,7 @@ export function WeekDigest({ week }: { week?: string }) {
           </section>
         )}
 
-        {(NIGUN_PUBLIC || isAdmin()) && (
+        {NIGUN_PUBLIC && (
         <section className="wd-sec wd-nigun">
           <SectionHead icon="♫" title={t('digest.nigun')} sub={nigun.title[nl] ?? nigun.title.ru} he="ניגון" />
           <p className="wd-about no-print">{nigun.about[nl] ?? nigun.about.ru}</p>

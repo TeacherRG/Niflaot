@@ -12,14 +12,13 @@ import { readScore, readStore } from '../core/readCheck';
 import { useMode } from '../core/mode';
 import { localToday, readingPlan } from '../core/tanakh';
 import { useCourses } from '../core/courses';
-import { isAdmin } from '../admin/github';
 import { readQuizStore, quizReady } from '../core/quiz';
 import { readDoneStore } from '../core/tanakhDone';
 import { readWordStore, wordsCertificates } from '../core/words';
 import { readStars, torahWords, torahWordsCertificates } from '../core/torahWords';
 import { HEMSHECH, allPassages, hsCertificates, hsIsDone, passageDate, readHsDone, todayIndex } from '../core/hemshech';
 import { NIFLAOT_LOGO, PRINT_PARTNERS } from '../core/partners';
-import { NIGUNIM } from '../nigun';
+import { NIGUNIM, NIGUN_PUBLIC } from '../nigun';
 import { nigunCertificates, readNigunStore } from '../core/nigunGame';
 import { civilDate, jewishDate } from '../core/hebrewDate';
 import { useAccount } from '../core/account';
@@ -137,7 +136,7 @@ export function useCertificates() {
     const torahWordsCerts = torahWordsCertificates(torahWords(LESSONS, 'ru'), readStars());
     // «Святая музыка»: «Знаток нигуна» — the karaoke game on points (src/core/nigunGame.ts)
     // only in the admin's browser for now (owner, 01.11.2026)
-    const nigun = isAdmin() ? nigunCertificates(NIGUNIM, readNigunStore()) : [];
+    const nigun = NIGUN_PUBLIC ? nigunCertificates(NIGUNIM, readNigunStore()) : [];
     return { torah, tanakh, tracker, hemshech, hsTracker, words, torahWords: torahWordsCerts, nigun };
   }, [plan]);
 }
@@ -701,7 +700,7 @@ export function AcademyPage({ id, sample }: { id?: string; sample?: boolean }) {
         </section>
       );
     });
-  const facs = (adults ? FACULTIES.adults : FACULTIES.kids).filter((f) => f !== 'nigun' || isAdmin());
+  const facs = (adults ? FACULTIES.adults : FACULTIES.kids).filter((f) => f !== 'nigun' || NIGUN_PUBLIC);
   const certsOf = (f: FacultyId) =>
     f === 'lashon'
       ? adults
