@@ -5,7 +5,7 @@ import { normalizeHebrew, validateHebrewLexicon, type HebrewLexeme, type HebrewL
 
 const root = process.cwd();
 const readJson = async <T>(file: string): Promise<T> => JSON.parse(await readFile(path.join(root, file), 'utf8')) as T;
-const vocalKey = (s: string) => s.normalize('NFD').replace(/[\u0591-\u05AF\u05BC-\u05C7]/g, '').replace(/[^\u05D0-\u05EA]/g, '');
+const rambamKey = (s: string) => {\n  const key = s.normalize('NFD').replace(/[\u0591-\u05C7]/g, '').replace(/[^\u05D0-\u05EA״׳]/g, '').replace(/^״+|״+$/g, '');\n  return /[\u05D0-\u05EA]׳$/.test(key) ? key : key.replace(/׳+$/g, '');\n};
 const cleanVocalized = (s: string) => s.normalize('NFD').replace(/[\u0591-\u05AF]/g, '').normalize('NFC').trim();
 const stableId = (prefix: string, value: string) => `${prefix}:${createHash('sha256').update(value).digest('hex').slice(0, 16)}`;
 
@@ -110,7 +110,7 @@ for (const row of rambamRows.values()) {
   const lemma = row.lemma || row.surface;
   const gloss = lexiconRu.get(cleanVocalized(lemma)) || row.translation;
   const id = stableId('rambam', `${cleanVocalized(lemma)}|${row.translation}`);
-  const legacyKey = `halacha-words:${vocalKey(row.surface)}`;
+  const legacyKey = `halacha-words:${rambamKey(row.surface)}`;
   legacy[legacyKey] = [...new Set([...(legacy[legacyKey] ?? []), id])];
   const term = terms.get(cleanVocalized(lemma)) ?? terms.get(cleanVocalized(row.surface));
   const existing = entries.find(e => e.id === id);
@@ -140,7 +140,7 @@ for (const [he, translation] of lexiconRu) {
   const id = stableId('rambam', `${cleanVocalized(he)}|${translation}`);
   if (entries.some(entry => entry.id === id)) continue;
   const term = terms.get(cleanVocalized(he));
-  const legacyKey = `halacha-words:${vocalKey(he)}`;
+  const legacyKey = `halacha-words:${rambamKey(he)}`;
   legacy[legacyKey] = [...new Set([...(legacy[legacyKey] ?? []), id])];
   entries.push({
     id: id as HebrewLexeme['id'],
