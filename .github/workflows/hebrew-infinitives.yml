@@ -3,7 +3,7 @@ name: Generate Hebrew verb infinitives
 on:
   push:
     branches:
-      - feat/hebrew-verb-infinitives
+      - main
     paths:
       - scripts/fetch-words.py
       - .github/workflows/hebrew-infinitives.yml
