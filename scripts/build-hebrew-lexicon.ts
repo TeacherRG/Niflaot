@@ -107,7 +107,6 @@ for (const row of rambamRows.values()) {
     continue;
   }
   const exactTanakh = tanakhByExactHeadword.get(cleanVocalized(lemma));
-  const generalGloss = lexiconRu.get(cleanVocalized(lemma));
   entries.push({
     id: id as HebrewLexeme['id'],
     headword: { vocalized: lemma, normalized: normalizeHebrew(lemma), verbalForm: 'unverified' },
