@@ -74,14 +74,22 @@ interface Line {
   last: number;
   /** пометки после последнего слова строки */
   tail?: string[];
+  /** строка начинает отдельную молитву или благословение — черта над ней */
+  sep?: boolean;
+  /** название молитвы над чертой — ключ `siddur.p.<ключ>` (Кадиш, Ашрей, Алейну…) */
+  label?: string;
 }
 
 /**
  * Разметка текста (`build-siddur.py`): ⟦ключ⟧ — пометка (`siddur.note.<ключ>`); ⟦?усл⟧ … ⟦/⟧ — вставка, которую говорят, только когда
  * условие выполнено (⟦?!усл⟧ — когда нет); условия на сегодня — `todaysConds` (`src/core/siddurDay.ts`).
  */
-/** ⟦b1⟧…⟦b19⟧, ⟦after⟧ — начало благословения Амиды: не подпись, а большая первая буква слова (владелец, 25.11.2026) */
-const BLESSING = /^(b\d+|after)$/;
+/**
+ * Начало отдельной молитвы — черта и большая первая буква, без подписи (владелец, 25.11.2026): ⟦b1⟧…⟦b19⟧, ⟦after⟧ — благословения
+ * Амиды, ⟦p⟧ — молитвы и благословения других разделов; ⟦pr-<ключ>⟧ — то же с названием над чертой (`siddur.p.<ключ>`). Название — не слово.
+ */
+const BLESSING = /^(b\d+|after|p)$/;
+const PRAYER_NAME = /^pr-([a-z-]+)$/;
 const TOKEN = new RegExp(`⟦\\?(!?)([a-z0-9]+)⟧|⟦/⟧|⟦([a-z0-9-]+)⟧|${HEBREW_WORD.source}`, 'gu');
 /** что показывать: условия дня; `null` — всё, как в сидуре (с пометками) */
 type Shown = ReadonlySet<string> | null;
@@ -98,6 +106,8 @@ function splitLines(sections: ShacharitText['sections'], shown: Shown): Line[][]
         let lead = '';
         let pending: string[] = [];
         let big = false;
+        let sep = false;
+        let label: string | undefined;
         let start = true;
         let pos = 0;
         const text_ = (raw: string) => {
@@ -113,8 +123,12 @@ function splitLines(sections: ShacharitText['sections'], shown: Shown): Line[][]
           else if (m[0] === '⟦/⟧') stack.pop();
           else if (m[3] !== undefined) {
             if (visible()) {
-              if (BLESSING.test(m[3])) big = true;
-              else pending.push(m[3]);
+              const name = PRAYER_NAME.exec(m[3]);
+              if (BLESSING.test(m[3]) || name) {
+                big = true;
+                if (!words.length) sep = true;
+                if (name && !words.length) label = name[1];
+              } else pending.push(m[3]);
             }
           } else if (visible()) {
             const prev = words.at(-1);
@@ -133,6 +147,8 @@ function splitLines(sections: ShacharitText['sections'], shown: Shown): Line[][]
           first: words[0]?.i ?? n,
           last: words.at(-1)?.i ?? n,
           ...(pending.length ? { tail: pending } : {}),
+          ...(sep ? { sep } : {}),
+          ...(label ? { label } : {}),
         };
       })
       .filter((line) => line.words.length > 0),
@@ -504,7 +520,12 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
                     </p>
                   )}
                   {lines[si].map((line, index) => (
-                    <div key={index} className="shacharit-prayer">
+                    <div key={index} className={`shacharit-prayer${line.sep ? ' sd-sep' : ''}`}>
+                      {line.label && (
+                        <div className="sd-bless" dir="auto">
+                          {t(`siddur.p.${line.label}` as MessageKey)}
+                        </div>
+                      )}
                       <PrayerLine
                         line={line}
                         tr={view.tr}
