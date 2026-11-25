@@ -27,6 +27,11 @@ export function ReadingSettings({
 }) {
   const { t, locale } = useI18n();
   const [open, setOpen] = useState(false);
+  // строки «слово над словом» — транслит или пословный перевод (сидур): им можно выбрать направление (владелец, 25.11.2026: «знающие
+  // иврит читают справа налево, начинающие — слева направо»); под словом иврит — ещё и «что крупнее»
+  const gloss = layout && view.glossLang === 'de';
+  const paired = view.tr !== 'he' || gloss;
+  const withHebrew = view.tr === 'duo' || (gloss && view.tr === 'he');
   const root = useRef<HTMLDivElement>(null);
   const close = useCallback(() => setOpen(false), []);
   useDismiss(open, root, close);
@@ -84,24 +89,6 @@ export function ReadingSettings({
               {PRONS.map((p) =>
                 item(view.pron === p, p === 'ash' ? 'אָ=o' : 'אָ=a', t(`reading.pron.${p}`), t(`reading.pron.${p}.d`), () => setV({ ...view, pron: p })),
               )}
-              {layout && (
-                <>
-                  <div className="tk-view-sep" />
-                  <div className="tk-view-head">{t('reading.trDir')}</div>
-                  {(['rtl', 'ltr'] as const).map((d) =>
-                    item(view.trDir === d, d === 'rtl' ? '←' : '→', t(`reading.trDir.${d}`), t(`reading.trDir.${d}.d`), () => setV({ ...view, trDir: d })),
-                  )}
-                  {view.tr === 'duo' && (
-                    <>
-                      <div className="tk-view-sep" />
-                      <div className="tk-view-head">{t('reading.trBig')}</div>
-                      {(['tr', 'he'] as const).map((b) =>
-                        item(view.trBig === b, b === 'tr' ? `${t('reading.tr.ab')}+` : 'אב+', t(`reading.trBig.${b}`), t(`reading.trBig.${b}.d`), () => setV({ ...view, trBig: b })),
-                      )}
-                    </>
-                  )}
-                </>
-              )}
             </>
           )}
           {layout && (
@@ -109,7 +96,25 @@ export function ReadingSettings({
               <div className="tk-view-sep" />
               <div className="tk-view-head">{locale === 'de' ? 'Übersetzungssprache' : locale === 'en' ? 'Translation language' : 'Язык перевода'}</div>
               {item(view.glossLang === 'none', 'אב', locale === 'de' ? 'Keine Übersetzung' : locale === 'en' ? 'No translation' : 'Без перевода', locale === 'de' ? 'Transliteration anzeigen' : locale === 'en' ? 'Show transliteration' : 'Показывать транслитерацию', () => setV({ ...view, glossLang: 'none' }))}
-              {item(view.glossLang === 'de', 'DE', 'Deutsch', locale === 'de' ? 'Wort-für-Wort-Übersetzung: Morgensegen und Mincha' : locale === 'en' ? 'Word-by-word translation: morning blessings and Mincha' : 'Пословный перевод: утренние благословения и Минха', () => setV({ ...view, glossLang: 'de' }))}
+              {item(view.glossLang === 'de', 'DE', 'Deutsch', locale === 'de' ? 'Wort-für-Wort-Übersetzung: Morgensegen, Mincha und Maariw' : locale === 'en' ? 'Word-by-word translation: morning blessings, Mincha and Maariv' : 'Пословный перевод: утренние благословения, Минха и Маарив', () => setV({ ...view, glossLang: 'de' }))}
+            </>
+          )}
+          {layout && paired && (
+            <>
+              <div className="tk-view-sep" />
+              <div className="tk-view-head">{t('reading.trDir')}</div>
+              {(['rtl', 'ltr'] as const).map((d) =>
+                item(view.trDir === d, d === 'rtl' ? '←' : '→', t(`reading.trDir.${d}`), t(`reading.trDir.${d}.d`), () => setV({ ...view, trDir: d })),
+              )}
+              {withHebrew && (
+                <>
+                  <div className="tk-view-sep" />
+                  <div className="tk-view-head">{t('reading.trBig')}</div>
+                  {(['tr', 'he'] as const).map((b) =>
+                    item(view.trBig === b, b === 'tr' ? `${t('reading.tr.ab')}+` : 'אב+', t(`reading.trBig.${b}`), t(`reading.trBig.${b}.d`), () => setV({ ...view, trBig: b })),
+                  )}
+                </>
+              )}
             </>
           )}
           <div className="tk-view-sep" />
