@@ -168,7 +168,9 @@ export function WordPop() {
   // `=лемма` — the dictionary form of a word outside the dictionary as the parse gives it (Dicta); a number — the dictionary's
   const own = id.startsWith('=') ? id.slice(1) : '';
   const tr = id && !own ? dict?.tr[id] : undefined;
-  const dictionaryForm = w?.pos.split(/\s+/).includes('v') ? (w.infinitive ?? w.he) : w?.he;
+  const isVerb = w?.pos.split(/\s+/).includes('v') ?? false;
+  const dictionaryForm = isVerb ? w?.infinitive : w?.he;
+  const missingInfinitiveLabel = locale === 'de' ? 'Infinitiv nicht im Korpus gefunden' : locale === 'en' ? 'Infinitive not found in the corpus' : 'Инфинитив не найден в корпусе';
   const head = dictionaryForm ?? (own || (id ? lex?.[id] : undefined));
   const dictionaryLabel = locale === 'de' ? 'Wörterbuchform' : locale === 'en' ? 'Dictionary form' : 'Словарная форма';
   const verseLabel = locale === 'de' ? 'Form im Vers' : locale === 'en' ? 'Form in the verse' : 'Форма в стихе';
@@ -246,6 +248,7 @@ export function WordPop() {
                   </span>
                 </>
               )}
+              {isVerb && !w?.infinitive && <span className="wp-note">{missingInfinitiveLabel}</span>}
               {tr ? <><small className="wp-label">{translationLabel}</small><span className="wp-tr">{tr}</span></> : <span className="wp-note">{t('wp.rare')}</span>}
               {w && (
                 <small className="wp-meta">
