@@ -3205,7 +3205,8 @@ html.koelet-on,html.koelet-on body{overflow:hidden}
 .sd-note{display:inline-block;vertical-align:middle;margin:0 4px 6px;padding:1px 7px;border-radius:6px;background:var(--gold-soft);color:var(--gold-deep);font-family:var(--f-body);font-size:.78rem;font-weight:600;line-height:1.35;white-space:normal;unicode-bidi:isolate}
 .sd-auto{margin:0 0 12px;font-size:.85rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
 .sd-auto-btn{font:inherit;font-weight:600;color:var(--tchelet-deep);background:none;border:1px solid var(--line);border-radius:999px;padding:3px 12px;cursor:pointer}
-.sd-bless{display:block;margin:4px 0 6px;font-family:var(--f-body);font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--tchelet-deep);unicode-bidi:plaintext;text-align:start}
+.shacharit-line.he .sd-big{display:inline-block}
+.shacharit-line.he .sd-big::first-letter,.shacharit-word.sd-big .shacharit-word-tr::first-letter,.shacharit-word.sd-big .shacharit-word-he::first-letter{font-size:1.6em;font-weight:700;line-height:1}
 .shacharit-word-tr{font-family:var(--f-body);font-size:1em;font-weight:600;direction:ltr;unicode-bidi:isolate}
 .shacharit-word-he{font-family:"Noto Serif Hebrew",serif;font-size:.8em;color:var(--muted)}
 .shacharit-tr .shacharit-word{padding:0 2px;margin-bottom:0}

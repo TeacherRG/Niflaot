@@ -64,6 +64,8 @@ interface Word {
   start: boolean;
   /** пометки перед словом (Амида: «зимой», «в пост»…) — ключи `siddur.note.<ключ>`; не слова, не подсвечиваются */
   notes?: string[];
+  /** первое слово благословения Амиды — с большой первой буквой */
+  big?: boolean;
 }
 interface Line {
   lead: string;
@@ -78,6 +80,8 @@ interface Line {
  * Разметка текста (`build-siddur.py`): ⟦ключ⟧ — пометка (`siddur.note.<ключ>`); ⟦?усл⟧ … ⟦/⟧ — вставка, которую говорят, только когда
  * условие выполнено (⟦?!усл⟧ — когда нет); условия на сегодня — `todaysConds` (`src/core/siddurDay.ts`).
  */
+/** ⟦b1⟧…⟦b19⟧, ⟦after⟧ — начало благословения Амиды: не подпись, а большая первая буква слова (владелец, 25.11.2026) */
+const BLESSING = /^(b\d+|after)$/;
 const TOKEN = new RegExp(`⟦\\?(!?)([a-z0-9]+)⟧|⟦/⟧|⟦([a-z0-9-]+)⟧|${HEBREW_WORD.source}`, 'gu');
 /** что показывать: условия дня; `null` — всё, как в сидуре (с пометками) */
 type Shown = ReadonlySet<string> | null;
@@ -93,6 +97,7 @@ function splitLines(sections: ShacharitText['sections'], shown: Shown): Line[][]
         const words: Word[] = [];
         let lead = '';
         let pending: string[] = [];
+        let big = false;
         let start = true;
         let pos = 0;
         const text_ = (raw: string) => {
@@ -107,12 +112,16 @@ function splitLines(sections: ShacharitText['sections'], shown: Shown): Line[][]
           if (m[2] !== undefined) stack.push(shown === null || shown.has(m[2]) !== (m[1] === '!'));
           else if (m[0] === '⟦/⟧') stack.pop();
           else if (m[3] !== undefined) {
-            if (visible()) pending.push(m[3]);
+            if (visible()) {
+              if (BLESSING.test(m[3])) big = true;
+              else pending.push(m[3]);
+            }
           } else if (visible()) {
             const prev = words.at(-1);
             if (prev) start = /[:.]/.test(prev.gap);
-            words.push({ i: n++, he: m[0], gap: '', start, ...(pending.length ? { notes: pending } : {}) });
+            words.push({ i: n++, he: m[0], gap: '', start: start || big, ...(pending.length ? { notes: pending } : {}), ...(big ? { big } : {}) });
             pending = [];
+            big = false;
           }
         }
         text_(text.slice(pos));
@@ -168,8 +177,6 @@ const glossOf = (glossary: Record<string, string>, words: Word[], k: number) => 
   return (next && glossary[`${w} ${normalizeGlossWord(next.he)}`]) ?? glossary[w] ?? '…';
 };
 
-/** начало благословения Амиды — подпись над строкой, остальные пометки — мелко в строке */
-const isBlessing = (key: string) => /^(b\d+|after)$/.test(key);
 
 /**
  * Пометки сидура: когда говорят вставку (зимой, в пост, в Рош ходеш…) и номер благословения Амиды. Только пояснение —
@@ -180,7 +187,7 @@ function Notes({ keys }: { keys: string[] }) {
   return (
     <>
       {keys.map((k, i) => (
-        <span key={i} className={isBlessing(k) ? 'sd-bless' : 'sd-note'} dir="auto">
+        <span key={i} className="sd-note" dir="auto">
           {t(`siddur.note.${k}` as MessageKey)}
         </span>
       ))}{' '}
@@ -194,7 +201,7 @@ const PrayerLine = memo(function PrayerLine({ line, tr, lang, pron, taamim, dir,
     () => (tr === 'he' ? [] : line.words.map((w) => (w.start ? cap : (x: string) => x)(translitSiddurToken(stripTaamim(w.he), lang, pron)))),
     [line, tr, lang, pron],
   );
-  const cls = (w: Word) => `rd-w${w.i === active ? ' rd-on' : past || (active >= 0 && w.i < active) ? ' rd-past' : ''}`;
+  const cls = (w: Word) => `rd-w${w.big ? ' sd-big' : ''}${w.i === active ? ' rd-on' : past || (active >= 0 && w.i < active) ? ' rd-past' : ''}`;
   if (tr === 'he' && !translate)
     return (
       <div className="shacharit-line he" dir="rtl" lang="he">
@@ -218,7 +225,7 @@ const PrayerLine = memo(function PrayerLine({ line, tr, lang, pron, taamim, dir,
           {w.notes && <Notes keys={w.notes} />}
           <span data-i={w.i} className={`shacharit-word ${cls(w)}`} onClick={() => onTap(w.i)}>
             <span className="shacharit-word-tr" dir="ltr">
-              {(translate ? glossOf(glossary, line.words, k) : trs[k]) + w.gap}
+              {(translate ? (w.big ? cap : (x: string) => x)(glossOf(glossary, line.words, k)) : trs[k]) + w.gap}
             </span>
             {(tr === 'duo' || (translate && tr === 'he')) && (
               <span className="shacharit-word-he he" dir="rtl" lang="he">
