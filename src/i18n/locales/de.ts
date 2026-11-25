@@ -2343,7 +2343,7 @@ const de: Messages = {
   // «Pelecoin» — game coins for study and the common tzedakah box (src/core/coinsRules.ts)
   'coins.name': "Pelecoin",
   'inv.title': "Drei Schätze — teilen und gewinnen",
-  'inv.lead': "Vom {from} bis {to} teilst du Seiten von Niflaot mit dem Knopf „Teilen“: In deinen Links steckt dein persönlicher Code. Am {draw} — die Verlosung live am Glücksrad, in drei Kategorien.",
+  'inv.lead': "Vom {from} bis {to} teilst du Seiten von Niflaot mit dem Knopf „Teilen“: In deinen Links steckt dein persönlicher Code. Am {draw} — die Verlosung am Glücksrad in drei Kategorien; die Gewinner verkünden wir in unseren Kanälen.",
   'inv.how': "Ein Freund, der deinen Link zum ersten Mal öffnet, bringt 1 Los; lernt er auch auf der Seite, noch 2. Pro Tag zählen bis zu {cap} Freunde in jeder Kategorie. Die Kategorie ist die Seite, die du geteilt hast.",
   'inv.soon': "Die Aktion beginnt am {from} — dann kommt dein Code in deine Links.",
   'inv.closed': "Die Lose sind geschlossen. Viel Glück bei der Verlosung!",

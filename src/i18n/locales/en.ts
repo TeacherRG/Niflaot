@@ -2343,7 +2343,7 @@ const en: Messages = {
   // «Pelecoin» — game coins for study and the common tzedakah box (src/core/coinsRules.ts)
   'coins.name': "Pelecoin",
   'inv.title': "Three Treasures — share and win",
-  'inv.lead': "From {from} to {to}, share pages of Niflaot with the «Share» button: your links carry your personal code. On {draw} — the live prize draw on the wheel, in three categories.",
+  'inv.lead': "From {from} to {to}, share pages of Niflaot with the «Share» button: your links carry your personal code. On {draw} — the prize draw on the wheel in three categories; we announce the winners in our channels.",
   'inv.how': "A friend who opens your link for the first time — 1 ticket; if they also learn on the site — 2 more. Up to {cap} friends a day count in each category. The category is the page you shared.",
   'inv.soon': "The campaign starts on {from} — then your code is added to your links.",
   'inv.closed': "Tickets are closed. Good luck at the draw!",
