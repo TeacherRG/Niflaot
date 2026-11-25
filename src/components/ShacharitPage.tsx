@@ -1,4 +1,4 @@
-import '@fontsource/noto-serif-hebrew/400.css';
+import '@fontsource/frank-ruhl-libre/400.css';
 import { useKeepAwake } from '../core/keepAwake';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { loadView, saveView, stripTaamim, type View } from '../core/reading';
@@ -365,6 +365,52 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
   const [germanGlossary, setGermanGlossary] = useState<Record<string, string>>({});
   // те же настройки, что у Теґилим (`niflaot:reading-view`); звука пока нет
   const [view, setView] = useState<View>(loadView);
+  const readerRef = useRef<HTMLElement>(null);
+  const [fullscreenFallback, setFullscreenFallback] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const sync = () => {
+      const active = document.fullscreenElement === readerRef.current;
+      setIsFullscreen(active);
+      if (!document.fullscreenElement) setFullscreenFallback(false);
+    };
+    document.addEventListener('fullscreenchange', sync);
+    return () => document.removeEventListener('fullscreenchange', sync);
+  }, []);
+
+  const toggleFullscreen = useCallback(async () => {
+    const el = readerRef.current;
+    if (!el) return;
+    if (document.fullscreenElement === el) {
+      await document.exitFullscreen?.();
+      return;
+    }
+    if (document.fullscreenElement) await document.exitFullscreen?.();
+    if (el.requestFullscreen) {
+      try {
+        await el.requestFullscreen();
+        setIsFullscreen(true);
+      } catch {
+        setFullscreenFallback(true);
+        setIsFullscreen(true);
+      }
+    } else {
+      setFullscreenFallback(true);
+      setIsFullscreen(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    const key = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && fullscreenFallback) {
+        setFullscreenFallback(false);
+        setIsFullscreen(false);
+      }
+    };
+    window.addEventListener('keydown', key);
+    return () => window.removeEventListener('keydown', key);
+  }, [fullscreenFallback]);
 
   useEffect(() => {
     let active = true;
@@ -491,7 +537,7 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
   return (
     <>
       <TopBar title={t('reading.title')} />
-      <main className={`wrap rd shacharit-page${view.big ? ' rd-big' : ''}${(view.tr === 'duo' || (view.tr === 'he' && view.glossLang === 'de')) && view.trBig === 'he' ? ' shacharit-hebig' : ''}`}>
+      <main ref={readerRef} className={`wrap rd shacharit-page${view.big ? ' rd-big' : ''}${(view.tr === 'duo' || (view.tr === 'he' && view.glossLang === 'de')) && view.trBig === 'he' ? ' shacharit-hebig' : ''}${fullscreenFallback ? ' sd-fullscreen-fallback' : ''}`}>
         <header className="tk-head">
           <p className="tk-kicker">{t('reading.siddur')}</p>
           <h1>{t(PRAYER_KEY[prayer])}</h1>
@@ -504,7 +550,10 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
             {/* меню сидура — всегда в левом верхнем углу, настройки чтения — в правом (владелец, 18.11.2026) */}
             <div className="rd-corner no-print">
               <SectionsMenu prayer={prayer} sections={sections} onGo={scrollTo} />
-              <ReadingSettings view={view} setV={setV} audio={false} living={false} layout />
+              <div className="sd-reader-actions">
+                <ReadingSettings view={view} setV={setV} audio={false} living={false} layout />
+                <button type="button" className="sd-fullscreen-btn" onClick={() => void toggleFullscreen()} aria-label="Полноэкранный режим" title="Полноэкранный режим">⛶</button>
+              </div>
             </div>
             <p className="rd-hint no-print">{t('shn.tap')}</p>
             <article className="shacharit-text">
