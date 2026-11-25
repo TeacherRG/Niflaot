@@ -106,7 +106,7 @@ for (const line of (await readFile(path.join(root, 'src/rambam/words/terms-ru.tx
 for (const row of rambamRows.values()) {
   const lemma = row.lemma || row.surface;
   const gloss = lexiconRu.get(cleanVocalized(lemma)) || row.translation;
-  const id = stableId('rambam', `${cleanVocalized(lemma)}|${gloss}`);
+  const id = stableId('rambam', `${cleanVocalized(lemma)}|${row.translation}`);
   const legacyKey = `rambam:${vocalKey(row.surface)}`;
   legacy[legacyKey] = [...new Set([...(legacy[legacyKey] ?? []), id])];
   const term = terms.get(cleanVocalized(lemma)) ?? terms.get(cleanVocalized(row.surface));
@@ -114,7 +114,7 @@ for (const row of rambamRows.values()) {
   if (existing) {
     if (!existing.senses[0].translations.ru?.includes(row.translation)) existing.senses[0].translations.ru?.push(row.translation);
     existing.forms.push({ vocalized: row.surface, normalized: normalizeHebrew(row.surface), source: 'manual', reference: `project-word-list:${row.file}:${row.line}` });
-    if (term) existing.senses[0].terms = [...(existing.senses[0].terms ?? []), { language: 'ru', label: term.title, definition: term.definition }];
+    if (term) {\n      existing.senses[0].domain = [...new Set([...(existing.senses[0].domain ?? []), 'halakha'])];\n      if (!existing.senses[0].terms?.some(t => t.label === term.title)) existing.senses[0].terms = [...(existing.senses[0].terms ?? []), { language: 'ru', label: term.title, definition: term.definition }];\n    }
     continue;
   }
   entries.push({
