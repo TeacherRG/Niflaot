@@ -126,6 +126,63 @@ BLESSINGS = {
 }
 MARK = re.compile(r'⟦[a-z0-9-]+⟧')
 
+# Отдельные молитвы во всех разделах (владелец, 25.11.2026: «все отдельные молитвы отделить линией и заглавной буквой, как брахот
+# Амиды, и подписать: Кадиш, Таханун…»): выделенное начало строки выгрузки → ⟦p⟧ (черта и большая первая буква); известные
+# молитвы — ⟦pr-<ключ>⟧ (ещё и подпись `siddur.p.<ключ>`). Продолжения внутри Кадиша и Алейну — без черты.
+CONTINUE = ('תתקבל', 'יהא שלמא', 'עשה שלום', 'על ישראל ועל רבנן', 'ועלכן')
+PRAYER_NAMES = [
+    ('מודה אני', 'modeh-ani'), ('מהטבו', 'mah-tovu'), ('מה טבו', 'mah-tovu'), ('אדון עולם', 'adon-olam'),
+    ('אנא בכח', 'ana-bekoach'), ('הודו ליי', 'hodu'), ('ברוך שאמר', 'baruch-sheamar'), ('אשרי יושבי', 'ashrei'),
+    ('אז ישיר', 'az-yashir'), ('אז ישירמשה', 'az-yashir'), ('ישתבח', 'yishtabach'), ('ברכו אתיי', 'barchu'),
+    ('שמע ישראל', 'shema'), ('אשמנו', 'vidui'), ('אבינו מלכנו', 'avinu-malkenu'), ('ובא לציון', 'uva-letzion'),
+    ('אין כאלהינו', 'ein-keloheinu'), ('עלינו לשבח', 'aleinu'),
+]
+
+
+def prayer_start(m: re.Match, raw: str) -> str:
+    """Выделенное начало строки → ⟦p⟧, кроме продолжений Кадиша и Алейну и заголовков без огласовок («קדיש יתום»)."""
+    rest = bare(raw[m.start(2):])
+    if rest.startswith(CONTINUE) or not any(vocalized(w) for w in m.group(2).split()):
+        return m.group(1) + m.group(2)
+    return f'{m.group(1)}⟦p⟧ {m.group(2)}'
+
+
+def bare_start(line: str) -> str:
+    return bare(MARK.sub(' ', re.sub(r'⟦[^⟧]*⟧', ' ', line)))
+
+
+def kaddish_kind(lines: list[str], k: int) -> str:
+    """Вид Кадиша по его продолжению: «תתקבל» — полный, «על ישראל ועל רבנן» — де-рабанан, «יהא שלמא» — скорбящих, иначе — хаци."""
+    kind = 'kaddish-half'
+    for line in lines[k + 1:k + 5]:
+        b = bare_start(line)
+        if line.startswith('⟦p') :
+            break
+        if b.startswith('תתקבל'):
+            return 'kaddish-full'
+        if b.startswith('על ישראל ועל רבנן'):
+            return 'kaddish-drabbanan'
+        if b.startswith('יהא שלמא'):
+            kind = 'kaddish-yatom'
+    return kind
+
+
+# абзацы Шма, не выделенные в выгрузке (владелец, 25.11.2026: «выделить большой буквой ואהבת, והיה, ויאמר»)
+PARAGRAPHS = ('ואהבת את',)
+def name_prayers(lines: list[str]) -> list[str]:
+    """⟦p⟧ у известных молитв → ⟦pr-<ключ>⟧; невыделенные абзацы Шма → ⟦p⟧."""
+    out = [f'⟦p⟧ {line}' if not line.startswith('⟦') and bare_start(line).startswith(PARAGRAPHS) else line for line in lines]
+    for k, line in enumerate(out):
+        if not line.startswith('⟦p⟧'):
+            continue
+        b = bare_start(line)
+        key = 'kaddish' if b.startswith('יתגדל') else next((v for o, v in PRAYER_NAMES if b.startswith(o)), None)
+        if key == 'kaddish':
+            key = kaddish_kind(out, k)
+        if key:
+            out[k] = f'⟦pr-{key}⟧' + line[len('⟦p⟧'):]
+    return out
+
 # Условия вставок: ⟦?усл⟧ … ⟦/⟧ — текст говорят, только когда условие выполнено (⟦?!усл⟧ — когда нет); страница решает по календарю
 # (`src/core/siddurDay.ts`: aseret, tal / geshem, bracha / matar, fast, av9, rc, pesach, sukkot, yaale, chanukah, purim, hanisim,
 # havdalah; chazan — только хазан при повторении, читателю не показывается). Строка, которая начинается с такой пометки, — вся вставка.
@@ -242,6 +299,8 @@ def main() -> None:
                     raw = re.sub(r'<b>(.*?)</b>', mark_blessing, raw, flags=re.S)
                 else:
                     raw = re.sub(r'<small>(.*?)</small>', lambda m: ' ' + small_runs(m.group(1)) + ' ', raw, flags=re.S)
+                    # выделенное начало строки — новая молитва (кроме продолжений Кадиша и Алейну)
+                    raw = re.sub(r'^((?:\s|<br\s*/?>)*)<b>(.*?)</b>', lambda m: prayer_start(m, raw), raw, count=1, flags=re.S)
                 for part in re.split(r'<br\s*/?>', raw):
                     line = clean_line(split_glued(part) if '<' not in part else part)
                     if line:
@@ -251,6 +310,8 @@ def main() -> None:
                     else:
                         carry = ' '.join([carry, *MARK.findall(part)]).strip()
             if lines:
+                if not amidah:
+                    lines = name_prayers(lines)
                 ru, en, de = TITLES[title]
                 sections.append({'key': '/'.join(path) + (f':{start}' if start is not None else ''), 'title': title,
                                  't': {'ru': ru, 'en': en, 'de': de}, 'lines': lines})
