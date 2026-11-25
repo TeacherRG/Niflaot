@@ -103,7 +103,21 @@ export function validateHebrewLexicon(data: HebrewLexicon): string[] {
       errors.push(`${at}: normalized headword does not match vocalized headword`);
     if (!entry.senses?.length) errors.push(`${at}: at least one lexical sense is required`);
     if (entry.partOfSpeech === 'verb' && !entry.headword.verbalForm)
-      errors.push(`${at}: verb requires an explicit infinitive status`);\n    if (entry.headword?.verbalForm && !['infinitive-construct', 'infinitive-absolute', 'unverified'].includes(entry.headword.verbalForm))\n      errors.push(`${at}: unsupported verbal form type`);\n    for (const form of entry.forms ?? []) {\n      if (!form.vocalized?.trim() || form.normalized !== normalizeHebrew(form.vocalized))\n        errors.push(`${at}: attested form normalization mismatch`);\n      if (!form.reference?.trim()) errors.push(`${at}: attested form requires provenance`);\n    }\n    for (const term of entry.senses?.flatMap(sense => sense.terms ?? []) ?? []) {\n      if (!term.label?.trim() || !term.definition?.trim()) errors.push(`${at}: glossary term requires label and definition`);\n    }\n    for (const count of Object.values(entry.corpusStats ?? {})) {\n      if (count.frequency !== undefined && (!Number.isFinite(count.frequency) || count.frequency < 0))\n        errors.push(`${at}: corpus frequency must be a non-negative number`);\n    }
+      errors.push(`${at}: verb requires an explicit infinitive status`);
+    if (entry.headword?.verbalForm && !['infinitive-construct', 'infinitive-absolute', 'unverified'].includes(entry.headword.verbalForm))
+      errors.push(`${at}: unsupported verbal form type`);
+    for (const form of entry.forms ?? []) {
+      if (!form.vocalized?.trim() || form.normalized !== normalizeHebrew(form.vocalized))
+        errors.push(`${at}: attested form normalization mismatch`);
+      if (!form.reference?.trim()) errors.push(`${at}: attested form requires provenance`);
+    }
+    for (const term of entry.senses?.flatMap(sense => sense.terms ?? []) ?? []) {
+      if (!term.label?.trim() || !term.definition?.trim()) errors.push(`${at}: glossary term requires label and definition`);
+    }
+    for (const count of Object.values(entry.corpusStats ?? {})) {
+      if (count.frequency !== undefined && (!Number.isFinite(count.frequency) || count.frequency < 0))
+        errors.push(`${at}: corpus frequency must be a non-negative number`);
+    }
     const senseIds = new Set<string>();
     for (const sense of entry.senses ?? []) {
       if (!sense.id || senseIds.has(sense.id)) errors.push(`${at}: missing or duplicate sense id`);
