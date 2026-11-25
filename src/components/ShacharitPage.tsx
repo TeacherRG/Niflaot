@@ -111,6 +111,20 @@ interface LineProps {
  */
 const normalizeGlossWord = (x: string) => x.normalize('NFD').replace(/[\u0591-\u05C7]/g, '').replace(/[־]/g, '');
 
+/**
+ * Пословный немецкий перевод: файл и разделы молитвы, где он есть. Ключ словаря — слово без огласовок (слова через макаф — одно);
+ * ключ «слово следующее» — значение слова перед этим следующим (אל תשיבנו — «nicht», а не «G-tt»).
+ */
+const GLOSS_DE: Partial<Record<Prayer, { url: string; sections?: string[] }>> = {
+  shacharit: { url: '/reading/siddur/morning-blessings-de.json', sections: ['Shacharit/Morning Blessings'] },
+  mincha: { url: '/reading/siddur/mincha-de.json' },
+};
+const glossOf = (glossary: Record<string, string>, words: Word[], k: number) => {
+  const w = normalizeGlossWord(words[k].he);
+  const next = words[k + 1];
+  return (next && glossary[`${w} ${normalizeGlossWord(next.he)}`]) ?? glossary[w] ?? '…';
+};
+
 const PrayerLine = memo(function PrayerLine({ line, tr, lang, pron, taamim, dir, active, past, onTap, translate = false, glossary = {} }: LineProps) {
   const he = (x: string) => (taamim ? x : stripTaamim(x));
   const trs = useMemo(
@@ -138,7 +152,7 @@ const PrayerLine = memo(function PrayerLine({ line, tr, lang, pron, taamim, dir,
         <span key={w.i}>
           <span data-i={w.i} className={`shacharit-word ${cls(w)}`} onClick={() => onTap(w.i)}>
             <span className="shacharit-word-tr" dir="ltr">
-              {(translate ? (glossary[normalizeGlossWord(w.he)] ?? '…') : trs[k]) + w.gap}
+              {(translate ? glossOf(glossary, line.words, k) : trs[k]) + w.gap}
             </span>
             {(tr === 'duo' || (translate && tr === 'he')) && (
               <span className="shacharit-word-he he" dir="rtl" lang="he">
@@ -260,8 +274,9 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
 
   useEffect(() => {
     let active = true;
-    if (prayer === 'shacharit' && view.glossLang === 'de') {
-      fetch('/reading/siddur/morning-blessings-de.json')
+    const gloss = GLOSS_DE[prayer];
+    if (gloss && view.glossLang === 'de') {
+      fetch(gloss.url)
         .then((r) => (r.ok ? r.json() : {}))
         .then((x: unknown) => { if (active && x && typeof x === 'object') setGermanGlossary(x as Record<string, string>); })
         .catch(() => { if (active) setGermanGlossary({}); });
@@ -414,7 +429,7 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
                         active={active >= line.first && active <= line.last ? active : -1}
                         past={active > line.last}
                         onTap={onTap}
-                        translate={section.key === 'Shacharit/Morning Blessings' && view.glossLang === 'de'}
+                        translate={view.glossLang === 'de' && !!GLOSS_DE[prayer] && (GLOSS_DE[prayer]?.sections?.includes(section.key) ?? true)}
                         glossary={germanGlossary}
                       />
                     </div>
