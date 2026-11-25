@@ -468,6 +468,20 @@ def cmd_build():
     print(f'{total} words ({len(count)} lemmas, {names} names); top {SIZE} cover {words[-1]["cov"]}%; {n} days → {OUT_DAYS}')
 
 
+def cmd_infinitives():
+    """обновить только словарные инфинитивы в src/tanakh/words.json, не пересобирая переводы и примеры."""
+    forms = infinitive_forms()
+    data = json.loads(OUT.read_text(encoding='utf-8'))
+    verbs = [w for w in data['words'] if w['pos'].split()[0] == 'v']
+    for w in verbs:
+        if w['id'] in forms:
+            w['inf'] = forms[w['id']]
+        else:
+            w.pop('inf', None)
+    OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')) + '\\n', encoding='utf-8')
+    print(f"Infinitives: {sum(1 for w in verbs if 'inf' in w)} of {len(verbs)} verbs; missing: {sum(1 for w in verbs if 'inf' not in w)}")
+
+
 NORM = str.maketrans('ק', 'ה')
 def parse_verses():
     """(книга, глава, стих) → разбор слов OSHB по порядку: (буквы, «приставки|номер|окончание»); кетив и кери — оба,
@@ -654,6 +668,7 @@ if __name__ == '__main__':
     a = sys.argv[1:]
     if a == ['fetch']: cmd_fetch()
     elif a == ['build']: cmd_build()
+    elif a == ['infinitives']: cmd_infinitives()
     elif a[:1] == ['todo'] and len(a) == 2: cmd_todo(a[1])
     elif a == ['stems']: cmd_stems()
     else: sys.exit(__doc__)
