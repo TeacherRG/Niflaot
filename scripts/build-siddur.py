@@ -117,7 +117,13 @@ NOTES = {
     '(בתשעה באב אומרים כאן נחם)': 'nachem-here',
     'במנחת תשעה באב:': 'nachem',
     'במוצאי שבת ויום טוב אומרים:': 'havdalah',
+    # Биркат ґа-мазон
+    'בראש חודש—': 'rc-hr',
+    'בסוכות—': 'sukkot-hr',
+    'ביום שמתפללים בו מוסף —': 'musaf',
 }
+# длинные указания — по началу
+NOTE_PREFIX = {'בחנוכה ופורים אומרים כאן ועל הנסים': 'al-hanisim'}
 # начало благословения Амиды — выделенные слова выгрузки → ⟦b<номер>⟧ (номер и название — `siddur.note.b<номер>`)
 BLESSINGS = {
     'ברוך': 'b1', 'אתה גבור': 'b2', 'אתה קדוש': 'b3', 'אתה חונן': 'b4', 'השיבנו': 'b5', 'סלחלנו': 'b6', 'ראה נא': 'b7',
@@ -188,7 +194,7 @@ def name_prayers(lines: list[str]) -> list[str]:
 # havdalah; chazan — только хазан при повторении, читателю не показывается). Строка, которая начинается с такой пометки, — вся вставка.
 LINE_COND = {'aseret': 'aseret', 'aneinu-chazan': 'chazan', 'aneinu': 'fast', 'yaale': 'yaale', 'al-hanisim': 'hanisim',
              'chanukah': 'chanukah', 'purim': 'purim', 'chazan': 'chazan', 'fast-chazan': 'chazan', 'nachem': 'av9',
-             'havdalah': 'havdalah'}
+             'havdalah': 'havdalah', 'rc-hr': 'rc', 'sukkot-hr': 'sukkot'}
 YAALE = {'rosh-chodesh': 'rc', 'pesach': 'pesach', 'sukkot': 'sukkot'}
 
 
@@ -207,10 +213,73 @@ def conditions(line: str) -> str:
     # «Яале ве-яво»: «ביום — Рош ходеш: ראש החדש הזה. Песах: חג המצות הזה. Суккот: חג הסכות הזה.»
     line = re.sub(r'⟦(rosh-chodesh|pesach|sukkot)⟧ ([^.⟦]*\.)', lambda m: f'⟦?{YAALE[m.group(1)]}⟧⟦{m.group(1)}⟧ {m.group(2)}⟦/⟧', line)
     line = line.replace('⟦nachem-here⟧', '⟦?av9⟧⟦nachem-here⟧⟦/⟧')
+    # Биркат ґа-мазон: «מגדל (в день Мусафа — מגדול)»; «Авину малкену»: «חדש (в пост — ברך)»
+    line = re.sub(r'(\S+) \(⟦musaf⟧ ([^)]*)\)', r'⟦?!yaale⟧\1⟦/⟧ ⟦?yaale⟧⟦musaf⟧ \2⟦/⟧', line)
+    line = re.sub(r'(\S+) \(⟦taanit⟧ ([^)]*)\)', r'⟦?!taanit⟧\1⟦/⟧ ⟦?taanit⟧⟦taanit⟧ \2⟦/⟧', line)
     head = re.match(r'⟦([a-z0-9-]+)⟧', line)
     if head and head.group(1) in LINE_COND:
         line = f'⟦?{LINE_COND[head.group(1)]}⟧{line}⟦/⟧'
     return line
+
+
+# Вне Амиды (владелец, 25.11.2026: «распространить» календарь): строки выгрузки, которые говорят не каждый день, — по указаниям
+# выгрузки (`<small>` перед ними). (молитва, раздел) → [(первая, последняя строка выгрузки в разделе, условие, пометка)];
+# условие с «!» — когда условие не выполнено. Пометка — у первой строки (`siddur.note.<ключ>`).
+ITEM_CONDS = {
+    ('shacharit', 'ברכות השחר'): [(15, 15, '!tishabav', 'not-tishabav')],  # «שעשה לי כל צרכי» — не в 9 Ава
+    ('shacharit', 'תפילת שחרית'): [(4, 4, 'tachanun', 'tachanun'), (7, 7, 'tachanun', 'tachanun'),
+                                    (19, 19, 'tachanun', 'tachanun'), (31, 31, 'tachanun', 'tachanun')],
+    ('shacharit', 'פסוקי דזמרה'): [(16, 16, 'aseret', 'aseret')],  # «שיר המעלות ממעמקים»
+    ('shacharit', 'תחנון'): [(1, 33, 'tachanun', 'tachanun'), (10, 30, 'monthu', 'monthu'), (31, 31, 'avinu', 'avinu')],
+    ('shacharit', 'קריאת התורה'): [(1, 1, 'erechapayim', 'erechapayim')],
+    ('shacharit', 'אשרי ובא לציון'): [(2, 2, 'tachanun', 'tachanun')],  # «למנצח… יענך»
+    ('shacharit', 'שיר של יום'): [(1, 1, 'tachanun', 'tachanun'), *[(2 + 4 * d, 4 + 4 * d, f'day{d}', f'day{d}') for d in range(1, 7)],
+                                  (31, 31, 'rc', 'rc'), (34, 34, 'elul', 'elul')],
+    ('mincha', 'תחנון'): [(1, 11, 'tachanun', 'tachanun'), (9, 9, 'avinu', 'avinu')],
+    ('mincha', 'עלינו לשבח'): [(0, 0, 'elul', 'elul')],
+    ('maariv', 'ויהי נועם'): [(1, 2, 'vihinoam', 'vihinoam'), (3, 3, 'motzash', 'motzash')],
+    ('birkat-hamazon', 'על נהרות בבל'): [(1, 2, 'tachanun', 'tachanun')],
+    ('birkat-hamazon', 'שיר המעלות'): [(1, 1, '!tachanun', 'no-tachanun')],
+}
+# разделы с пометками, как в Амиде (мелкий шрифт → ⟦ключ⟧, условия строк)
+NOTE_SECTIONS = {('birkat-hamazon', 'ברכת המזון')}
+# «Авину малкену» — весь мелким шрифтом, внутри: «בעשרת ימי תשובה:» (כתבנו…) и «[בתענית ציבור … ]» (זכרנו…)
+AVINU = {('shacharit', 'תחנון'): 31, ('mincha', 'תחנון'): 9}
+
+
+def avinu_lines(raw: str) -> list[str]:
+    raw = re.sub(r'^\s*<small>|</small>\s*$', '', raw)
+    raw = raw.replace('(<small>בתענית ציבור:</small>', '(⟦taanit⟧ ')
+    raw = raw.replace('<small>בעשרת ימי תשובה:</small>', '⟦blk-aseret⟧')
+    raw = raw.replace('[<small>בתענית ציבור</small>', '⟦blk-taanit⟧')
+    out, block, note = [], None, ''
+    for part in re.split(r'<br\s*/?>', raw):
+        if '⟦blk-' in part:
+            block = 'aseret' if 'blk-aseret' in part else 'taanit'
+            note = f'⟦{block}⟧ '
+            continue
+        end = part.rstrip().endswith(']')
+        line = clean_line(split_glued(part.replace(']', ' ')) if '<' not in part else part.replace(']', ' '))
+        if line:
+            line = conditions(line)
+            out.append(f'⟦?{block}⟧{note}{line}⟦/⟧' if block else line)
+            note = ''
+        if end:
+            block = None
+    return out
+
+
+def wrap_items(lines: list[str], items: list[int], conds: list[tuple]) -> list[str]:
+    """Строки из строк выгрузки [от, до] — в ⟦?усл⟧ … ⟦/⟧; пометка — у первой."""
+    out = list(lines)
+    for a, b, cond, note in sorted(conds, key=lambda c: (c[1] - c[0]), reverse=False):
+        first = True
+        for k, j in enumerate(items):
+            if a <= j <= b:
+                neg = '!' if cond.startswith('!') else ''
+                out[k] = f'⟦?{neg}{cond.lstrip("!")}⟧' + (f'⟦{note}⟧ ' if first else '') + out[k] + '⟦/⟧'
+                first = False
+    return out
 
 
 def bare(text: str) -> str:
@@ -222,8 +291,8 @@ def bare(text: str) -> str:
 
 def note_small(inner: str) -> str:
     """Мелкий шрифт Амиды: указание до первого <br> → пометка, дальше — огласованные куски молитвы."""
-    head = re.split(r'<br\s*/?>', inner)[0]
-    key = NOTES.get(bare(head))
+    head = bare(re.split(r'<br\s*/?>', inner)[0])
+    key = NOTES.get(head) or next((v for k, v in NOTE_PREFIX.items() if head.startswith(k)), None)
     return ' ' + (f'⟦{key}⟧ ' if key else '') + small_runs(inner) + ' '
 
 
@@ -290,13 +359,22 @@ def main() -> None:
             node = data['text']
             for k in path:
                 node = node[k]
-            lines = []
+            lines, items = [], []
             amidah = title == AMIDAH
+            notes = amidah or (name, title) in NOTE_SECTIONS
             carry = ''  # пометки строки без слов (указание перед <br>) — к началу следующей строки
-            for raw in node[start:end]:
+            for j, raw in enumerate(node[start:end]):
+                if AVINU.get((name, title)) == j:
+                    got = avinu_lines(raw)
+                    lines += got
+                    items += [j] * len(got)
+                    continue
                 if amidah:
                     raw = re.sub(r'<small>(.*?)</small>', lambda m: note_small(m.group(1)), raw, flags=re.S)
                     raw = re.sub(r'<b>(.*?)</b>', mark_blessing, raw, flags=re.S)
+                elif notes:
+                    raw = re.sub(r'<small>(.*?)</small>', lambda m: note_small(m.group(1)), raw, flags=re.S)
+                    raw = re.sub(r'^((?:\s|<br\s*/?>)*)<b>(.*?)</b>', lambda m: prayer_start(m, raw), raw, count=1, flags=re.S)
                 else:
                     raw = re.sub(r'<small>(.*?)</small>', lambda m: ' ' + small_runs(m.group(1)) + ' ', raw, flags=re.S)
                     # выделенное начало строки — новая молитва (кроме продолжений Кадиша и Алейну)
@@ -305,13 +383,15 @@ def main() -> None:
                     line = clean_line(split_glued(part) if '<' not in part else part)
                     if line:
                         line = f'{carry} {line}'.strip() if carry else line
-                        lines.append(conditions(line) if amidah else line)
+                        lines.append(conditions(line) if notes else line)
+                        items.append(j)
                         carry = ''
                     else:
                         carry = ' '.join([carry, *MARK.findall(part)]).strip()
             if lines:
                 if not amidah:
                     lines = name_prayers(lines)
+                lines = wrap_items(lines, items, ITEM_CONDS.get((name, title), []))
                 ru, en, de = TITLES[title]
                 sections.append({'key': '/'.join(path) + (f':{start}' if start is not None else ''), 'title': title,
                                  't': {'ru': ru, 'en': en, 'de': de}, 'lines': lines})
