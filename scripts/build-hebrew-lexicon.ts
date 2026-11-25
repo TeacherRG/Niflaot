@@ -67,7 +67,7 @@ for (const w of tanakh.words) {
     status: isVerb && (!infinitive || !w.infType) ? 'review' : 'verified',
   };
   entries.push(entry);
-  legacy[`tanakh:${w.id}`] = [id];
+  legacy[`words:${w.id}`] = [id];\n  legacy[`tanakh:${w.id}`] = [id];
 }
 
 const rambamFiles = ['src/rambam/words/ru-1.txt', 'src/rambam/words/ru-2.txt', 'src/rambam/words/ru-3.txt'];
@@ -109,7 +109,7 @@ for (const row of rambamRows.values()) {
   const lemma = row.lemma || row.surface;
   const gloss = lexiconRu.get(cleanVocalized(lemma)) || row.translation;
   const id = stableId('rambam', `${cleanVocalized(lemma)}|${row.translation}`);
-  const legacyKey = `rambam:${vocalKey(row.surface)}`;
+  const legacyKey = `halacha-words:${vocalKey(row.surface)}`;
   legacy[legacyKey] = [...new Set([...(legacy[legacyKey] ?? []), id])];
   const term = terms.get(cleanVocalized(lemma)) ?? terms.get(cleanVocalized(row.surface));
   const existing = entries.find(e => e.id === id);
@@ -139,7 +139,7 @@ for (const [he, translation] of lexiconRu) {
   const id = stableId('rambam', `${cleanVocalized(he)}|${translation}`);
   if (entries.some(entry => entry.id === id)) continue;
   const term = terms.get(cleanVocalized(he));
-  const legacyKey = `rambam:${vocalKey(he)}`;
+  const legacyKey = `halacha-words:${vocalKey(he)}`;
   legacy[legacyKey] = [...new Set([...(legacy[legacyKey] ?? []), id])];
   entries.push({
     id: id as HebrewLexeme['id'],
