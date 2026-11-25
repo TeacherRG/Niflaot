@@ -192,7 +192,11 @@ def link(entry, lemmas):
     base = entry[1] or re.sub(r'[.:,;]', '', entry[2])
     # only the same vowels (the dagesh aside): by letters alone אִסּוּר «запрет» met אֵסוּר «оковы», דָּר «живёт» — דַּר «перламутр»
     return '' if key(base) in NO_LINK else voc.get(cant(base), '')
-NO_LINK = {'הן'}  # homographs: הֵן «они» (Рамбам) — הֵן «вот» (Танах)
+# homographs — the same letters and vowels, another word: הֵן «они» (Рамбам) — הֵן «вот» (Танах); כְּרוּב «капуста» — «крув»;
+# כַּרְפַּס «сельдерей» — «тонкое полотно»; פֶּרֶךְ (место) — «жестокость»; שָׁעָה «час» — «обратить взор»; גָּרַם «причинить» —
+# «обгладывать»; בָּדַק «проверить» — «чинить»; סַם «краситель, вещество» — «благовоние»; חָשַׁשׁ «опасаться» — «солома»;
+# שְׁבוּת «швут» — «плен»; נֶקֶב «отверстие» — «оправа»
+NO_LINK = {'הן', 'כרוב', 'כרפס', 'פרך', 'שעה', 'גרם', 'בדק', 'סם', 'חשש', 'שבות', 'נקב'}
 
 def cmd_words():
     """the project's dictionary → public/rambam/words/<lang>.json (what the page loads)"""
