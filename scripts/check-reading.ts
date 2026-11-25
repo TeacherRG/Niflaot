@@ -231,7 +231,10 @@ for (const prayer of PRAYERS) {
   if (siddur.sections.length < (prayer === 'shacharit' ? 10 : 3)) errors.push(`${prayer}: ${siddur.sections.length} разделов`);
   siddurSections.push(`${prayer} ${siddur.sections.length}`);
   for (const sec of siddur.sections)
-    for (const line of sec.lines) {
+    for (const raw of sec.lines) {
+      // пометки и условия вставок Амиды (`build-siddur.py`): ⟦ключ⟧, ⟦?усл⟧ … ⟦/⟧ — не текст молитвы
+      const line = raw.replace(/⟦(?:\?!?[a-z0-9]+|\/|[a-z0-9-]+)⟧/g, ' ');
+      if (/[⟦⟧]/.test(line)) errors.push(`${prayer}, ${sec.title}: неизвестная пометка: ${raw.slice(0, 40)}`);
       if (/[<>A-Za-z|]/.test(line)) errors.push(`${prayer}, ${sec.title}: теги, латиница или «|»: ${line.slice(0, 40)}`);
       for (const w of line.match(SIDDUR_WORD) ?? []) {
         siddurWords++;
