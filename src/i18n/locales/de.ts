@@ -280,7 +280,6 @@ const de: Messages = {
   'rm.onlyRu': "Die Wörter sind vorerst nur auf Russisch übersetzt.",
   'rm.noWord': "Für dieses Wort gibt es noch keine Übersetzung.",
   'rm.inTanakh': "Dieses Wort steht im Tanach-Wörterbuch — zu „Meine Wörter“ hinzufügen:",
-  'rm.inHalacha': "Nicht im Tanach-Wörterbuch — es steht in den „Halacha-Wörtern“:",
   'hw.title': "Halacha-Wörter",
   'hw.menuSub': "Wörter der Mischne Tora, die nicht im Tanach stehen — „Lerne ich“ und „Kenne ich“",
   'hw.lead': "Wörter der Mischne Tora, die das Tanach-Wörterbuch nicht hat. Markiere im Fenster über einem Wort „Lerne ich“ oder „Kenne ich“ — hier wiederholst du sie wie „Meine Wörter“.",

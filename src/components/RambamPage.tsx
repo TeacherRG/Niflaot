@@ -480,12 +480,7 @@ function RambamWord({ dict, box }: { dict: RambamDict | null; box: React.RefObje
         )}
         {entry?.[2] &&
           (entry[2].startsWith('h:') ? (
-            <>
-              <p className="wp-meta">
-                {t('rm.inHalacha')} <a href="#/halacha-words">{t('hw.title')} →</a>
-              </p>
-              <HalachaButtons id={entry[2].slice(2)} />
-            </>
+            <HalachaButtons id={entry[2].slice(2)} />
           ) : (
             <TanakhButtons id={entry[2]} />
           ))}

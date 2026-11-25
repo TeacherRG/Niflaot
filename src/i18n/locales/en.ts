@@ -280,7 +280,6 @@ const en: Messages = {
   'rm.onlyRu': "Word translations are in Russian only for now.",
   'rm.noWord': "No translation of this word yet.",
   'rm.inTanakh': "This word is in the Tanakh dictionary — add it to “My words”:",
-  'rm.inHalacha': "Not in the Tanakh dictionary — it is in the “Halachah words”:",
   'hw.title': "Halachah words",
   'hw.menuSub': "Mishneh Torah words not found in the Tanakh — “Learning” and “Know”",
   'hw.lead': "Words of the Mishneh Torah that the Tanakh dictionary hasn’t. Mark “Learning” or “Know” in the window over a word — here they are reviewed like “My words”.",
