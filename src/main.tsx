@@ -26,6 +26,7 @@ import { initTelegram } from './core/telegram';
 import { installServiceWorker } from './core/appUpdate';
 import { isSearchBot } from './core/shabbat';
 import { takeMovedProgress } from './core/migrate';
+import { startInvites, takeInvite } from './core/invite';
 import './styles.css';
 
 // Search engines' crawlers on a page written for them (scripts/prerender.ts: `/`, `/<slug>/`, `/en/…`, `/de/…`) get that
@@ -43,6 +44,8 @@ if (crawlerPage) {
   initTelegram();
   // back from «Войти через Google»: the token out of the address, the page the person was on (src/core/account.ts)
   takeGoogleReturn();
+  // «Три сокровища»: a friend's device came by a learner's link — before the trial marks the device as seen (src/core/invite.ts)
+  takeInvite();
   // the admin's unpublished text edits are shown on the site in their browser
   applyDraft();
   // the installed app may turn on every page (manifest «any», 24.11.2026); an app installed earlier keeps the old manifest
@@ -55,6 +58,7 @@ if (crawlerPage) {
   installPrompt();
   // the optional account: progress on every device (src/core/account.ts)
   startAccountSync();
+  startInvites();
   // offline use and the daily reminder (public/sw.js); not in development, where the files change all the time
   // the installed app looks for a new version when it comes back to the screen (src/core/appUpdate.ts)
   if (import.meta.env.PROD) installServiceWorker();

@@ -1513,6 +1513,13 @@ a.partner:hover{border-color:var(--gold-line);box-shadow:0 8px 22px -14px rgba(2
 .us-h{font-size:18px;margin:8px 0 4px}
 .us-days{width:100%;border-collapse:collapse;font-size:14px}
 .us-days th,.us-days td{text-align:left;padding:3px 6px;border-bottom:1px solid var(--line-soft)}
+/* «Три сокровища» (InviteCard.tsx, the admin's InvitesPage) */
+.inv-card{border:1px solid var(--gold);background:var(--gold-soft)}
+.inv-status{font-weight:600}
+.inv-table{width:100%;border-collapse:collapse;font-size:15px;margin:8px 0}
+.inv-table th,.inv-table td{text-align:start;padding:4px 6px;border-bottom:1px solid var(--line-soft)}
+.inv-table .num{text-align:end}
+.inv-wheel{width:100%;box-sizing:border-box;font:inherit;font-size:13px}
 .us-days td:last-child{display:flex;align-items:center;gap:6px}
 .us-bar{display:inline-block;height:10px;background:var(--tchelet);border-radius:3px}
 .leaders{list-style:none;padding:0;margin:0 0 12px;display:grid;gap:4px}

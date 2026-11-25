@@ -1,4 +1,5 @@
 import { track } from './analytics';
+import type { Nom } from './inviteRules';
 /**
  * «Войти» — the account (server: assistant/src/accounts.ts). Since 02.11.2026 the site opens only signed in (src/core/gate.ts:
  * without it — the Tehillim only); a **guest** (no server to send emails, offline): everything
@@ -225,6 +226,29 @@ export async function userStats(githubToken: string): Promise<UserStats> {
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new AccountError(data.error ?? 'failed', res.status);
   return data as UserStats;
+}
+
+/* «Три сокровища» — friends by a learner's link (src/core/invite.ts, src/core/inviteRules.ts) */
+export type InviteCounts = Record<Nom, { friends: number; active: number; tickets: number }>;
+export interface InviteState {
+  code: string;
+  open: boolean;
+  noms: InviteCounts;
+}
+export const myInvite = () => api<InviteState>('/invite');
+export const inviteVisit = (b: { code: string; device: string; nom: Nom }) => api<{ ok: boolean; counted?: boolean }>('/invite/visit', { body: b });
+export const inviteActive = (device: string) => api<{ ok: boolean }>('/invite/active', { body: { device } });
+export interface InviteBoard {
+  open: boolean;
+  board: Record<Nom, { nick: string; adult: boolean; friends: number; active: number; tickets: number }[]>;
+}
+/** the admin's list for the wheel: the admin's GitHub token, as userStats */
+export async function inviteBoard(githubToken: string): Promise<InviteBoard> {
+  if (!BASE) throw new AccountError('no server', 0);
+  const res = await fetch(`${BASE}/account/invite/board`, { headers: { Authorization: `Bearer ${githubToken}` } });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new AccountError(data.error ?? 'failed', res.status);
+  return data as InviteBoard;
 }
 
 export const leaders = (cls?: string) => api<Leaders>(`/leaders${cls ? `?class=${encodeURIComponent(cls)}` : ''}`);

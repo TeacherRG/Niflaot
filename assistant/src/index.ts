@@ -315,6 +315,8 @@ async function accountRoute(req: Request, env: Env, path: string, headers: Recor
   const fwd: Record<string, string> = {};
   const auth = req.headers.get('Authorization');
   if (auth) fwd.Authorization = auth;
+  // «Три сокровища»: one network counts once for a learner — the server keeps only a hash of the IP with the learner
+  if (path === '/invite/visit') fwd['X-IP'] = req.headers.get('CF-Connecting-IP') ?? '';
   return out(await accounts(env).fetch(`https://accounts${path}${url.search}`, {
     method: req.method,
     headers: fwd,

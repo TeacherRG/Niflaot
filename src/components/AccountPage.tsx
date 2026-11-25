@@ -11,6 +11,7 @@ import { BookProgress } from './BookProgress';
 import { DailyReminder } from './DailyReminder';
 import { Subscribe } from './Subscribe';
 import { NotesCard } from './BookmarksPage';
+import { InviteCard } from './InviteCard';
 import type { MessageKey } from '../i18n/locales/ru';
 import {
   AccountError,
@@ -626,6 +627,7 @@ export function AccountPage() {
           {token && u?.nick && !u.active && <Pending />}
           {token && u?.active && (
             <>
+              <InviteCard />
               <section className="acc-card">
                 <SyncLine />
                 <p className="acc-note">{t('acc.ai', { today: me!.ai.today, total: me!.ai.total })}</p>

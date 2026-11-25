@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Html, useI18n } from '../i18n';
 import { LESSONS } from '../lessons';
-import { classView, confirmConsent, leaders, removeFromClass, useAccount, userStats, type ClassView, type Leaders, type UserStats } from '../core/account';
+import { classView, confirmConsent, inviteBoard, leaders, removeFromClass, useAccount, userStats, type ClassView, type InviteBoard, type Leaders, type UserStats } from '../core/account';
+import { CAMPAIGN, NOMS, TICKET_ACTIVE, TICKET_VISIT } from '../core/inviteRules';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 
@@ -292,6 +293,72 @@ export function PrivacyPage() {
           <p className="terms-date">{t('privacy.updated', { date: t('privacy.date') })}</p>
         </header>
         <Html as="main" className="prose acc-card" html={t('privacy.body') + t('privacy.app')} />
+      </div>
+      <Colophon />
+    </>
+  );
+}
+
+/**
+ * «Три сокровища» — the admin's list for the wheel (`#/admin/invites`): nicknames and tickets by category. For Wheel of Names:
+ * each nickname repeated as many times as it has tickets (the same odds as weights, works without the advanced mode).
+ * Accounts «младше 14» are marked — by the rules they take part only through a parent's account.
+ */
+export function InvitesPage({ token }: { token: string }) {
+  const [data, setData] = useState<InviteBoard | null>(null);
+  const [err, setErr] = useState('');
+  useTitle('Три сокровища');
+  useEffect(() => {
+    inviteBoard(token).then(setData, (e) => setErr(e?.status === 403 ? 'Этот токен GitHub не даёт доступа.' : 'Не удалось загрузить список.'));
+  }, [token]);
+  const NAME = { sources: 'Святые первоисточники', lashon: 'Святой язык', music: 'Святая музыка и чтение' } as const;
+  return (
+    <>
+      <div className="wrap acc">
+        <header className="partners-head">
+          <h1>Три сокровища — билеты</h1>
+          <p>
+            Приём билетов: {new Date(CAMPAIGN.from).toLocaleString('ru')} — {new Date(CAMPAIGN.to).toLocaleString('ru')}; розыгрыш —{' '}
+            {new Date(CAMPAIGN.draw).toLocaleString('ru')}. Друг = {TICKET_VISIT} билет, поучился = ещё {TICKET_ACTIVE}.
+            {data && (data.open ? ' Сейчас идёт.' : ' Сейчас не идёт.')}
+          </p>
+        </header>
+        <main className="acc-card">
+          {err && <p className="acc-err">{err}</p>}
+          {!data && !err && <p className="acc-note">Загрузка…</p>}
+          {data &&
+            NOMS.map((n) => {
+              const rows = data.board[n];
+              const wheel = rows.filter((r) => r.adult).flatMap((r) => Array(r.tickets).fill(r.nick)).join('\n');
+              return (
+                <section key={n}>
+                  <h2 className="us-h">{NAME[n]}</h2>
+                  {!rows.length && <p className="acc-note">Пока никого.</p>}
+                  {!!rows.length && (
+                    <>
+                      <table className="us-days">
+                        <thead>
+                          <tr><th>Ник</th><th>Друзей</th><th>Учились</th><th>Билетов</th></tr>
+                        </thead>
+                        <tbody>
+                          {rows.map((r) => (
+                            <tr key={r.nick}>
+                              <td>{r.nick}{!r.adult && ' (младше 14)'}</td>
+                              <td className="num">{r.friends}</td>
+                              <td className="num">{r.active}</td>
+                              <td className="num"><b>{r.tickets}</b></td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                      <p className="acc-note">Для колеса (wheelofnames.com — вставить в список имён; ник повторён по числу билетов, без «младше 14»):</p>
+                      <textarea className="inv-wheel" readOnly rows={5} value={wheel} onFocus={(e) => e.currentTarget.select()} />
+                    </>
+                  )}
+                </section>
+              );
+            })}
+        </main>
       </div>
       <Colophon />
     </>

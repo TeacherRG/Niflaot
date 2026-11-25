@@ -16,6 +16,7 @@ import { methodsFor, validEmail, validNick } from './rules';
 import { verifyGoogleToken } from './google';
 import { mergeSnapshots, summarize, type Snapshot } from '../../src/core/sync';
 import { GIFT_DAY, GIFT_MAX, PUSHKA_TARGET, isCause, pushkaAdd, winningCause, type PushkaState } from '../../src/core/coinsRules';
+import { CODE_RE, DAY_CAP, DEVICE_RE, NOMS, campaignDay, inCampaign, isNom, newCode, ticketsOf, type Nom, type NomCount } from '../../src/core/inviteRules';
 
 export interface MailEnv {
   RESEND_API_KEY?: string;
@@ -119,6 +120,9 @@ export class Accounts extends DurableObject<MailEnv> {
     this.sql.exec(`
       CREATE TABLE IF NOT EXISTS pushka_gifts (id TEXT PRIMARY KEY, user TEXT NOT NULL, round INTEGER NOT NULL, amount INTEGER NOT NULL,
         cause TEXT NOT NULL, day TEXT NOT NULL, at INTEGER NOT NULL);
+      CREATE TABLE IF NOT EXISTS invite_codes (user TEXT PRIMARY KEY, code TEXT UNIQUE NOT NULL);
+      CREATE TABLE IF NOT EXISTS invite_visits (device TEXT PRIMARY KEY, user TEXT NOT NULL, nom TEXT NOT NULL, day TEXT NOT NULL,
+        counted INTEGER NOT NULL, active INTEGER NOT NULL DEFAULT 0, ipkey TEXT NOT NULL, at INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS pushka_rounds (n INTEGER PRIMARY KEY, coins INTEGER NOT NULL, closed INTEGER, cause TEXT);
       CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT UNIQUE NOT NULL, nick TEXT, nick_lc TEXT UNIQUE,
         age TEXT, parent_email TEXT, parent_ok INTEGER NOT NULL DEFAULT 0, consent TEXT, board INTEGER NOT NULL DEFAULT 1,
@@ -352,12 +356,92 @@ export class Accounts extends DurableObject<MailEnv> {
     return { round: r.n, coins: r.coins, target: PUSHKA_TARGET, votes: this.votes(r.n), closed: closed.map((c) => ({ n: c.n, at: c.closed, cause: c.cause })), ...(mine === undefined ? {} : { mine }) };
   }
 
+  /* ── «Три сокровища»: friends who came by a learner's link (src/core/inviteRules.ts) ── */
+
+  private inviteCode(user: string) {
+    const have = this.one<{ code: string }>('SELECT code FROM invite_codes WHERE user = ?', user);
+    if (have) return have.code;
+    for (;;) {
+      const code = newCode((n) => crypto.getRandomValues(new Uint32Array(1))[0] % n);
+      if (this.one('SELECT user FROM invite_codes WHERE code = ?', code)) continue;
+      this.sql.exec('INSERT INTO invite_codes (user, code) VALUES (?, ?)', user, code);
+      return code;
+    }
+  }
+
+  private inviteCounts(user: string): Record<Nom, NomCount & { tickets: number }> {
+    const out = Object.fromEntries(NOMS.map((n) => [n, { friends: 0, active: 0, tickets: 0 }])) as Record<Nom, NomCount & { tickets: number }>;
+    for (const r of this.sql
+      .exec<{ nom: string; friends: number; active: number }>(
+        'SELECT nom, COUNT(*) AS friends, SUM(active) AS active FROM invite_visits WHERE user = ? AND counted = 1 GROUP BY nom',
+        user,
+      )
+      .toArray())
+      if (isNom(r.nom)) out[r.nom] = { friends: r.friends, active: r.active, tickets: ticketsOf(r) };
+    return out;
+  }
+
+  /** a learner's own page: their code and their friends by category */
+  private invite(user: string) {
+    return { code: this.inviteCode(user), open: inCampaign(), noms: this.inviteCounts(user) };
+  }
+
+  /**
+   * A device opened a link with a code for the first time. Counted once per device; not the learner's own visit; once per
+   * network (a hash of the IP with the learner — the IP itself is not kept); not more than DAY_CAP a day in a category.
+   */
+  private async inviteVisit(req: Request, body: Record<string, any>) {
+    const { code, device, nom } = body;
+    if (typeof code !== 'string' || !CODE_RE.test(code) || typeof device !== 'string' || !DEVICE_RE.test(device) || !isNom(nom)) return fail('invite');
+    if (!inCampaign()) return json({ ok: false, why: 'closed' });
+    const ref = this.one<{ user: string }>('SELECT user FROM invite_codes WHERE code = ?', code);
+    if (!ref) return json({ ok: false, why: 'code' });
+    if (this.one('SELECT device FROM invite_visits WHERE device = ?', device)) return json({ ok: true });
+    const visitor = await this.user(req);
+    const now = Date.now();
+    const day = campaignDay(now);
+    const ipkey = await sha(`${req.headers.get('X-IP') ?? ''}:${ref.user}`);
+    const counted =
+      visitor?.id !== ref.user &&
+      !this.one('SELECT device FROM invite_visits WHERE user = ? AND ipkey = ? AND counted = 1', ref.user, ipkey) &&
+      this.one<{ n: number }>('SELECT COUNT(*) AS n FROM invite_visits WHERE user = ? AND nom = ? AND day = ? AND counted = 1', ref.user, nom, day)!.n < DAY_CAP;
+    this.sql.exec(
+      'INSERT INTO invite_visits (device, user, nom, day, counted, active, ipkey, at) VALUES (?, ?, ?, ?, ?, 0, ?, ?)',
+      device, ref.user, nom, day, counted ? 1 : 0, ipkey, now,
+    );
+    return json({ ok: true, counted });
+  }
+
+  /** the friend's device studied (a day of study on the site): +2 tickets to whoever brought it, once */
+  private inviteActive(body: Record<string, any>) {
+    const { device } = body;
+    if (typeof device !== 'string' || !DEVICE_RE.test(device)) return fail('invite');
+    if (!inCampaign()) return json({ ok: false, why: 'closed' });
+    this.sql.exec('UPDATE invite_visits SET active = 1 WHERE device = ? AND counted = 1', device);
+    return json({ ok: true });
+  }
+
+  /** the admin (`#/admin/invites`): nicknames and tickets for the wheel — only accounts that may take part */
+  private inviteBoard() {
+    const rows = this.sql
+      .exec<{ nick: string; age: string | null; parent_ok: number; nom: string; friends: number; active: number }>(
+        `SELECT u.nick, u.age, u.parent_ok, v.nom, COUNT(*) AS friends, SUM(v.active) AS active
+         FROM invite_visits v JOIN users u ON u.id = v.user WHERE v.counted = 1 AND u.nick IS NOT NULL GROUP BY v.user, v.nom`,
+      )
+      .toArray();
+    const board = Object.fromEntries(NOMS.map((n) => [n, [] as { nick: string; adult: boolean; friends: number; active: number; tickets: number }[]]));
+    for (const r of rows)
+      if (isNom(r.nom)) board[r.nom].push({ nick: r.nick, adult: r.age === 'adult', friends: r.friends, active: r.active, tickets: ticketsOf(r) });
+    for (const n of NOMS) board[n].sort((a, b) => b.tickets - a.tickets || a.nick.localeCompare(b.nick));
+    return { open: inCampaign(), board };
+  }
+
   private deleteUser(id: string) {
     for (const c of this.sql.exec<{ id: string }>('SELECT id FROM classes WHERE teacher = ?', id).toArray()) {
       this.sql.exec('DELETE FROM members WHERE class = ?', c.id);
       this.sql.exec('DELETE FROM classes WHERE id = ?', c.id);
     }
-    for (const t of ['members', 'progress', 'sessions', 'ai', 'consent_mail']) this.sql.exec(`DELETE FROM ${t} WHERE user = ?`, id);
+    for (const t of ['members', 'progress', 'sessions', 'ai', 'consent_mail', 'invite_codes', 'invite_visits']) this.sql.exec(`DELETE FROM ${t} WHERE user = ?`, id);
     // the coins given stay in the common box, without the account
     this.sql.exec("UPDATE pushka_gifts SET user = '' WHERE user = ?", id);
     this.sql.exec('DELETE FROM users WHERE id = ?', id);
@@ -472,9 +556,18 @@ export class Accounts extends DurableObject<MailEnv> {
     // the common tzedakah box: anyone sees it; a signed-in player also sees their own part of the round
     if (path === '/pushka' && req.method === 'GET') return json(this.pushka((await this.user(req))?.id));
 
+    if (path === '/invite/visit') return this.inviteVisit(req, body!);
+    if (path === '/invite/active') return this.inviteActive(body!);
+    if (path === '/invite/board') {
+      if (!(await this.admin(req))) return fail('admin', 403);
+      return json(this.inviteBoard());
+    }
+
     /* ── signed in ── */
     const u = await this.user(req);
     if (!u) return fail('auth', 401);
+
+    if (path === '/invite') return json(this.invite(u.id));
 
     if (path === '/pushka') {
       // a gift of game coins: taken once by its id; not more than GIFT_DAY coins a day from an account

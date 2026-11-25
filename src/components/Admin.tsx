@@ -15,10 +15,12 @@ import {
  * `#/admin`, `#/admin/<slug>` — the admin's text editor (Russian only: it is the project owner's tool).
  * Every text of a lesson or of the interface, in every language; an edit is shown on the site at once
  * (in this browser), «Опубликовать» commits all edits and the site rebuilds in a couple of minutes.
+ * `#/admin/invites` — «Три сокровища»: tickets for the wheel (InvitesPage).
  * `#/admin/users` — «Пользователи»: how many accounts, how many came lately (UsersPage).
  * `#/admin/leaders[/<class>]` — the leaderboard: players don't see it on the site, only the admin after signing in.
  */
 const UsersPage = lazy(() => import('./CommunityPages').then((m) => ({ default: m.UsersPage })));
+const InvitesPage = lazy(() => import('./CommunityPages').then((m) => ({ default: m.InvitesPage })));
 const LeadersPage = lazy(() => import('./CommunityPages').then((m) => ({ default: m.LeadersPage })));
 const UI_MESSAGES: Record<Locale, Record<string, unknown>> = { ru: ruUi, en: enUi, de: deUi };
 const LOGIN_KEY = 'niflaot:admin-login';
@@ -71,6 +73,12 @@ export function Admin({ slug, leaders }: { slug?: string; leaders?: string }) {
     return (
       <Suspense fallback={null}>
         <UsersPage token={token} />
+      </Suspense>
+    );
+  if (slug === 'invites')
+    return (
+      <Suspense fallback={null}>
+        <InvitesPage token={token} />
       </Suspense>
     );
   if (slug === 'leaders')
@@ -263,6 +271,7 @@ function Editor({ slug, login, onSignOut }: { slug?: string; login: string; onSi
         <h1>Редактор текстов</h1>
         <a href="#/admin/users">👥 Пользователи</a>
         <a href="#/admin/leaders">🏆 Таблица лидеров</a>
+        <a href="#/admin/invites">✨ Три сокровища</a>
         <span className="admin-who">{login && `@${login} · `}</span>
         <button className="btn ghost" onClick={onSignOut}>
           Выйти

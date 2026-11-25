@@ -9,12 +9,23 @@ export const SITE_URL = `https://${SITE_HOST}`;
 export type Ref = 'wa' | 'tg' | 'copy' | 'card' | 'qr' | 'rss' | 'channel' | 'daily' | 'app' | 'mail' | 'push' | 'tgapp' | 'quiz' | 'podcast' | 'share';
 
 /** Link to a lesson: its static page `/<slug>/` (own preview picture for messengers), marked with the channel. */
+/**
+ * «Три сокровища» (src/core/invite.ts): while the campaign runs, a signed-in learner's personal code rides on the links
+ * they share — `&r=<code>`. Set only in the browser; scripts that build links (Telegram, feeds) never have it.
+ */
+let inviteCode: string | null = null;
+export const setInviteCode = (code: string | null) => {
+  inviteCode = code;
+};
+const PERSONAL: Ref[] = ['wa', 'tg', 'copy', 'card', 'mail', 'share'];
+const inv = (ref: Ref | undefined) => (inviteCode && ref && PERSONAL.includes(ref) ? `&r=${inviteCode}` : '');
+
 export const lessonLink = (slug: string, ref: Ref, lang?: string) =>
-  `${SITE_URL}/${slug}/?${lang ? `lang=${lang}&` : ''}ref=${ref}`;
+  `${SITE_URL}/${slug}/?${lang ? `lang=${lang}&` : ''}ref=${ref}${inv(ref)}`;
 
 /** Link to a hash route of the app (`facts/<id>`), marked with the channel. */
 export const routeLink = (route: string, ref: Ref, lang?: string) =>
-  `${SITE_URL}/?${lang ? `lang=${lang}&` : ''}ref=${ref}#/${route}`;
+  `${SITE_URL}/?${lang ? `lang=${lang}&` : ''}ref=${ref}${inv(ref)}#/${route}`;
 
 /** Static pages for search engines (scripts/prerender.ts): Russian at the root, other languages under /<lang>/. */
 export type StaticPage = 'mental-math' | 'daily' | 'facts' | 'letters' | 'neviim' | 'ketuvim' | 'hebrew-words' | 'hemshech' | 'quiz' | 'nigun' | 'learn-hebrew' | 'free' | 'tehillim';
@@ -41,7 +52,7 @@ export const STATIC_PAGES: Record<StaticPage, string> = {
   free: 'free',
 };
 export const staticPath = (page: StaticPage, lang: string) => `/${lang === 'ru' ? '' : `${lang}/`}${page}/`;
-export const pageLink = (page: StaticPage, lang: string, ref?: Ref) => `${SITE_URL}${staticPath(page, lang)}${ref ? `?ref=${ref}` : ''}`;
+export const pageLink = (page: StaticPage, lang: string, ref?: Ref) => `${SITE_URL}${staticPath(page, lang)}${ref ? `?ref=${ref}${inv(ref)}` : ''}`;
 
 /**
  * The link to the page open now, for «Поделиться» (TopBar.tsx): a lesson's game (`#/<slug>`) — its static page
