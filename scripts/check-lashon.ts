@@ -142,14 +142,7 @@ for (const locale of ['ru', 'en', 'de'] as const) {
       err(`слова Торы ${locale}: стих ${v.ref} к ${it.he} — не тот`);
     if (!` ${v.words.join(' ')} `.includes(` ${it.he} `)) err(`слова Торы ${locale}: в стихе ${v.ref} нет слова ${it.he}`);
   }
-  // every lesson of a portion with verses — the new words', a review, the exam — has one «Составьте стих»
-  const hasVerse = (l: Exercise[]) => l.some((x) => x.t === 'build' && x.verse);
-  for (const u of twu) {
-    if (!u.verses?.length) err(`слова Торы ${locale}: у ${u.id} нет коротких стихов Торы`);
-    for (let k = 0; k < 5; k++)
-      if (!hasVerse(makeLesson(u, u.items.slice(0, 6))) || !hasVerse(makeLesson(u, null)) || !hasVerse(makeExam(u)))
-        err(`слова Торы ${locale}: в уроке ${u.id} нет «Составьте стих»`);
-  }
+  // Verse examples remain available on word introductions, but are no longer forced as a difficult exercise.
   checkUnits(twu, `слова Торы ${locale}`);
   const dict: Dict = { words, total: 0, rank: new Map(words.map((w, i) => [w.id, i + 1])), tr: TR[locale] };
   // «Составьте стих»: the example verses of the words (public/tanakh/words/examples-<lang>.json)
@@ -164,9 +157,9 @@ for (const locale of ['ru', 'en', 'de'] as const) {
     const word = exampleOf(ex, it.key)!.he[1];
     if (!v.words.join(' ').includes(word)) err(`слова Танаха ${locale}: в стихе ${v.ref} нет слова ${word}`);
   }
-  let verses = 0;
-  for (const u of tu.slice(0, 4)) for (let k = 0; k < 5; k++) verses += makeLesson(u, null, true).filter((x) => x.t === 'build' && x.verse).length;
-  if (!verses) err(`слова Танаха ${locale}: в повторениях нет «Составьте стих»`);
+  // The difficult verse-building task is replaced by a visual word-recognition question.
+  const sample = makeLesson(tu[0], null, true);
+  if (!sample.some((x) => x.t === 'pick' && x.ask === 'look')) err(`слова Танаха ${locale}: нет задания «Найди похожее слово»`);
   if (tu.reduce((a, u) => a + u.items.length, 0) !== Object.keys(TR[locale]).length) err(`слова Танаха ${locale}: не все переведённые слова в юнитах`);
   checkUnits(tu, `слова Танаха ${locale}`);
   // транслит: у первых TRANSLIT_WORDS слов Танаха — чтение (кроме Имён), латиницей / кириллицей, без иврита
