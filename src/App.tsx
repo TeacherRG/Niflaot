@@ -74,6 +74,7 @@ const ShacharitPage = page(() => import('./components/ShacharitPage'), 'Shachari
 const ShnayimPage = page(() => import('./components/ShnayimPage'), 'ShnayimPage');
 const TanakhQuizPage = page(() => import('./components/TanakhQuizPage'), 'TanakhQuizPage');
 const HemshechPage = page(() => import('./components/HemshechPage'), 'HemshechPage');
+const TanyaPage = page(() => import('./components/TanyaPage'), 'TanyaPage');
 const RambamPage = page(() => import('./components/RambamPage'), 'RambamPage');
 const RambamDeck = page(() => import('./components/RambamDeck'), 'RambamDeck');
 const HalachaWordsPage = page<'HalachaWordsPage', object>(() => import('./components/HalachaWordsPage'), 'HalachaWordsPage');
@@ -244,6 +245,8 @@ function Site() {
             <LettersPage />
           ) : slug === 'math' && (!view || OPS.includes(view as Op)) ? (
             <MathPage op={(view as Op) || 'add'} />
+          ) : slug === 'tanya' && !view ? (
+            <TanyaPage />
           ) : slug === 'hemshech' ? (
             <HemshechPage key={route} passage={view || undefined} />
           ) : slug === 'rambam' && /^\d{4}-\d{2}-\d{2}$/.test(view ?? '') && variant === 'slides' ? (
