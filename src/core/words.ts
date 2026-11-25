@@ -23,7 +23,10 @@ export interface Word {
   id: string;
   /** основная форма с огласовками (Имена — как во всём проекте) */
   he: string;
-  /** инфинитив конструкта для глаголов, из корпуса Macula Hebrew */
+  /** Засвидетельствованный инфинитив из OSHB; тип нужен, чтобы различать construct и absolute. */
+  inf?: string;
+  infType?: 'infinitive-construct' | 'infinitive-absolute';
+  /** Совместимое поле для существующего интерфейса. */
   infinitive?: string;
   pos: string;
   /** сколько раз встречается в Пророках и Писаниях */
@@ -63,13 +66,10 @@ export function loadDict(lang: WordLang): Promise<Dict> {
     p = Promise.all([
       import('../tanakh/words.json'),
       import(`../tanakh/words/${lang}.json`),
-      fetch(`${root()}tanakh/words/infinitives.json`)
-        .then((r) => (r.ok ? (r.json() as Promise<Record<string, string>>) : {}))
-        .catch(() => ({})),
-    ]).then(([w, tr, infinitives]) => {
+    ]).then(([w, tr]) => {
       const { words, total } = w.default as { words: Word[]; total: number };
       for (const word of words) {
-        if (word.pos.split(/\s+/).includes('v') && infinitives[word.id]) word.infinitive = infinitives[word.id];
+        if (word.pos.split(/\s+/).includes('v') && word.inf) word.infinitive = word.inf;
       }
       return { words, total, rank: new Map(words.map((x, i) => [x.id, i + 1])), tr: tr.default as Record<string, string> };
     });
