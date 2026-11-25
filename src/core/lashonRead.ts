@@ -145,7 +145,7 @@ export const RW_SIZE = 12;
 const RW_SKIP = new Set(['430', '3068', '410', '136', '3605', '3478', '3063']);
 export function readWordUnits(dict: Dict, locale: Locale): Unit[] {
   const ok = dict.words
-    .filter((w) => dict.tr[w.id] && !RW_SKIP.has(w.id) && /^[א-תְ-ּׁׂ]+$/.test(w.pos.split(/\s+/).includes('v') ? (w.infinitive ?? w.he) : w.he))
+    .filter((w) => dict.tr[w.id] && !RW_SKIP.has(w.id) && (!w.pos.split(/\s+/).includes('v') || !!w.infinitive) && /^[א-תְ-ּׁׂ]+$/.test(w.pos.split(/\s+/).includes('v') ? w.infinitive! : w.he))
     .map((w) => {
       const he = w.pos.split(/\s+/).includes('v') ? (w.infinitive ?? w.he) : w.he;
       return { w: { ...w, he }, syl: syllables(he), read: readHebrew(he, lang(locale)) };
