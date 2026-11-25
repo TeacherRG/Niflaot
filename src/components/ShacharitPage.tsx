@@ -596,6 +596,15 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
                 </section>
               ))}
             </article>
+            <button
+              type="button"
+              className="sd-fullscreen-exit"
+              onClick={() => void toggleFullscreen()}
+              aria-label="Выйти из полноэкранного режима"
+              title="Выйти из полноэкранного режима"
+            >
+              <span aria-hidden="true">✕</span>
+            </button>
             {total > 0 && (
               <div className="rd-audio-float no-print" role="group" aria-label={t('shn.highlightControls')}>
                 <button type="button" className="btn" onClick={play} aria-label={hlLabel} title={hlLabel}>
@@ -620,15 +629,6 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
                   title={t('reading.speed')}
                 >
                   {rate}×
-                </button>
-                <button
-                  type="button"
-                  className="sd-fullscreen-exit"
-                  onClick={() => void toggleFullscreen()}
-                  aria-label="Выйти из полноэкранного режима"
-                  title="Выйти из полноэкранного режима"
-                >
-                  <span aria-hidden="true">✕</span>
                 </button>
               </div>
             )}
