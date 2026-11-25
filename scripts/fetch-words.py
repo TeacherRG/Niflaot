@@ -42,6 +42,8 @@ RAW = 'https://raw.githubusercontent.com/openscriptures'
 # 2001–2500 — четвёртый, очень редкие (5–7 раз), 2501–3127 — пятый, самые редкие из частых (3–4 раза; все слова, что встречаются 3 раза)
 SIZE = 5215
 
+TORAH_BOOKS = {'Gen': 'genesis', 'Exod': 'exodus', 'Lev': 'leviticus', 'Num': 'numbers', 'Deut': 'deuteronomy'}
+
 BOOKS = {
     'Josh': 'joshua', 'Judg': 'judges', '1Sam': 'i-samuel', '2Sam': 'ii-samuel', '1Kgs': 'i-kings', '2Kgs': 'ii-kings',
     'Isa': 'isaiah', 'Jer': 'jeremiah', 'Ezek': 'ezekiel', 'Hos': 'hosea', 'Joel': 'joel', 'Amos': 'amos',
@@ -289,7 +291,7 @@ NAMES = {'430': 'אֱלֹקִים', '433': 'אֱלוֹקַּ', '426': 'אֱלָ�
 
 def cmd_fetch():
     (CACHE / 'wlc').mkdir(parents=True, exist_ok=True)
-    for b in BOOKS:
+    for b in (*TORAH_BOOKS, *BOOKS):
         urllib.request.urlretrieve(f'{RAW}/morphhb/master/wlc/{b}.xml', CACHE / 'wlc' / f'{b}.xml')
     urllib.request.urlretrieve(f'{RAW}/HebrewLexicon/master/HebrewStrong.xml', CACHE / 'HebrewStrong.xml')
     urllib.request.urlretrieve(f'{RAW}/HebrewLexicon/master/LexicalIndex.xml', CACHE / 'LexicalIndex.xml')
@@ -360,6 +362,40 @@ def tokens():
     return by, names, aram
 
 
+def infinitive_forms():
+    """номер Стронга → засвидетельствованная словарная форма инфинитива (сначала инфинитив конструкт)."""
+    forms = collections.defaultdict(collections.Counter)
+    W = re.compile(r'<w lemma="([^"]*)"[^>]*?morph="([^"]*)"[^>]*>([^<]*)</w>')
+    # OSHB: V[биньян]c — infinitive construct; V[биньян]a — infinitive absolute.
+    for b in (*TORAH_BOOKS, *BOOKS):
+        for m in W.finditer((CACHE / 'wlc' / f'{b}.xml').read_text(encoding='utf-8')):
+            ids = [p for p in m[1].split('/') if re.match(r'\d', p)]
+            if not ids:
+                continue
+            morphs = re.sub(r'^[HA]', '', m[2]).split('/')
+            verb = next((p for p in reversed(morphs) if p.startswith('V')), '')
+            if len(verb) < 3 or verb[2] not in ('c', 'a'):
+                continue
+            lemma = re.match(r'\d+', ids[-1])[0]
+            lemma = MERGE.get(lemma, lemma)
+            # Сохраняем огласовки, убираем только кантилляцию и разделители морфем.
+            form = re.sub(r'[\u0591-\u05AF\u05BD\u05C0\u05C3/]', '', m[3])
+            if not form:
+                continue
+            prefixes = [p for p in m[1].split('/')[:-1] if re.fullmatch(r'[a-z]', p)]
+            kind = verb[2]
+            priority = 2 if kind == 'c' and prefixes and prefixes[0] == 'l' else 1 if kind == 'c' and not prefixes else 0
+            forms[lemma][(kind, priority, form)] += 1
+    out = {}
+    for lemma, candidates in forms.items():
+        constructs = [(k, p, form, n) for (k, p, form), n in candidates.items() if k == 'c']
+        pool = constructs or [(k, p, form, n) for (k, p, form), n in candidates.items()]
+        if pool:
+            priority = max(x[1] for x in pool)
+            out[lemma] = max((x for x in pool if x[1] == priority), key=lambda x: x[3])[2]
+    return out
+
+
 FINAL = str.maketrans('ךםןףץ', 'כמנפצ')
 SOFIT = str.maketrans('כמנפצ', 'ךםןףץ')
 def letters(he):
@@ -374,6 +410,7 @@ def cmd_build():
     lex = lexicon()
     bdb = bdb_roots()
     by, names, aram = tokens()
+    infinitives = infinitive_forms()
     count = collections.Counter(l for ls in by.values() for l in ls)
     total = sum(count.values())
     ranked = [l for l, _ in count.most_common() if l not in SKIP][:SIZE]
@@ -391,6 +428,7 @@ def cmd_build():
             w.pop('root', None)
             if ROOT_FIX[l]: w['root'] = ROOT_FIX[l]
         if l in FORM_FIX: w['he'] = FORM_FIX[l]
+        if verb and l in infinitives: w['inf'] = infinitives[l]
         # арамейское слово (Даниэль, Эзра): чаще всего встречается в арамейских главах
         if aram[l] * 2 > count[l]: w['aram'] = 1
         words.append(w)
@@ -398,7 +436,7 @@ def cmd_build():
     for w in words:
         covered += w['n']
         w['cov'] = round(covered / total * 100, 1)
-    head = {'source': 'Open Scriptures Hebrew Bible Project (CC BY 4.0); Strong’s Hebrew Dictionary and Brown–Driver–Briggs (Public Domain)',
+    head = {'source': 'Open Scriptures Hebrew Bible Project (CC BY 4.0); Strong’s Hebrew Dictionary and Brown–Driver–Briggs (Public Domain); infinitives from OSHB infinitive-construct morphology',
             'total': total, 'names': names, 'lemmas': len(count),
             # «все слова» — сколько слов (без имён, мест и надписей) в Пророках и Писаниях: порог сертификата «Раввин языка Танаха»
             'all': sum(1 for l in count if l not in SKIP)}
@@ -420,6 +458,9 @@ def cmd_build():
         n += 1
     cmd_examples(ranked)
     cmd_parse(lex)
+    missing_inf = [w['id'] for w in words if w['pos'].split()[0] == 'v' and 'inf' not in w]
+    verbs = sum(1 for w in words if w['pos'].split()[0] == 'v')
+    print(f'Infinitives: {verbs - len(missing_inf)} of {verbs} verbs; missing: {len(missing_inf)}')
     print(f'{total} words ({len(count)} lemmas, {names} names); top {SIZE} cover {words[-1]["cov"]}%; {n} days → {OUT_DAYS}')
 
 
