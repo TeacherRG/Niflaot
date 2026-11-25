@@ -43,7 +43,7 @@ const migrated = migrateLegacyWordProgress(
   { words: { '1234': [100, 3, 9] }, 'halacha-words': { 'אב': [200, 2, 10], 'unknown': 1 } },
   { ids: { 'words:1234': ['tanakh:strong:1234'], 'halacha-words:אב': ['rambam:a', 'rambam:b'] } },
 );
-if (migrated.entries['tanakh:strong:1234']?.sources.words?.value instanceof Array === false)
+if (!Array.isArray(migrated.entries['tanakh:strong:1234']?.sources.words?.value))
   throw new Error('One-to-one progress must be copied verbatim');
 if (migrated.unresolved.length !== 2 || migrated.unresolved[0].candidates.length !== 2)
   throw new Error('Ambiguous and unknown progress must be preserved as unresolved');
