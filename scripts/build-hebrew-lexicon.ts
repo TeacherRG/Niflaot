@@ -5,8 +5,8 @@ import { normalizeHebrew, validateHebrewLexicon, type HebrewLexeme, type HebrewL
 
 const root = process.cwd();
 const readJson = async <T>(file: string): Promise<T> => JSON.parse(await readFile(path.join(root, file), 'utf8')) as T;
-const vocalKey = (s: string) => s.normalize('NFD').replace(/[\\u0591-\\u05AF\\u05BC-\\u05C7]/g, '').replace(/[^\\u05D0-\\u05EA]/g, '');
-const cleanVocalized = (s: string) => s.normalize('NFD').replace(/[\\u0591-\\u05AF]/g, '').normalize('NFC').trim();
+const vocalKey = (s: string) => s.normalize('NFD').replace(/[\u0591-\u05AF\u05BC-\u05C7]/g, '').replace(/[^\u05D0-\u05EA]/g, '');
+const cleanVocalized = (s: string) => s.normalize('NFD').replace(/[\u0591-\u05AF]/g, '').normalize('NFC').trim();
 const stableId = (prefix: string, value: string) => `${prefix}:${createHash('sha256').update(value).digest('hex').slice(0, 16)}`;
 
 const [tanakh, ru, en, de] = await Promise.all([
@@ -22,7 +22,7 @@ const legacy: Record<string, string[]> = {};
 const tanakhByExactHeadword = new Map<string, string>();
 
 const pos = (raw: string): PartOfSpeech => {
-  const p = raw.split(/\\s+/);
+  const p = raw.split(/\s+/);
   if (p.includes('v')) return 'verb';
   if (p.some(x => x.startsWith('n'))) return 'noun';
   if (p.includes('a')) return 'adjective';
@@ -76,7 +76,7 @@ const rambamFiles = ['src/rambam/words/ru-1.txt', 'src/rambam/words/ru-2.txt', '
 const rambamRows = new Map<string, { surface: string; translation: string; lemma: string; file: string; line: number }>();
 for (const file of rambamFiles) {
   const body = await readFile(path.join(root, file), 'utf8');
-  body.split(/\\r?\\n/).forEach((line, index) => {
+  body.split(/\r?\n/).forEach((line, index) => {
     if (!line.trim() || line.startsWith('#')) return;
     const parts = line.split('|');
     if (parts.length !== 3 || !parts[1].trim()) throw new Error(`${file}:${index + 1}: expected surface|translation|lemma`);
@@ -88,7 +88,7 @@ for (const file of rambamFiles) {
 }
 
 const lexiconRu = new Map<string, string>();
-for (const line of (await readFile(path.join(root, 'src/rambam/words/lexicon-ru.txt'), 'utf8')).split(/\\r?\\n/)) {
+for (const line of (await readFile(path.join(root, 'src/rambam/words/lexicon-ru.txt'), 'utf8')).split(/\r?\n/)) {
   if (!line.trim() || line.startsWith('#')) continue;
   const [he, translation] = line.split('|');
   if (he && translation) lexiconRu.set(cleanVocalized(he), translation.trim());
@@ -121,14 +121,14 @@ for (const row of rambamRows.values()) {
 
 const lexicon: HebrewLexicon = { schemaVersion: 1, generatedAt: new Date().toISOString(), entries };
 const errors = validateHebrewLexicon(lexicon);
-if (errors.length) throw new Error(errors.join('\\n'));
+if (errors.length) throw new Error(errors.join('\n'));
 
 const out = path.join(root, 'src/data');
 await mkdir(out, { recursive: true });
-await writeFile(path.join(out, 'hebrew-lexicon.json'), JSON.stringify(lexicon, null, 2) + '\\n');
+await writeFile(path.join(out, 'hebrew-lexicon.json'), JSON.stringify(lexicon, null, 2) + '\n');
 await writeFile(path.join(out, 'hebrew-lexicon-legacy-map.json'), JSON.stringify({
   schemaVersion: 1,
   policy: 'Legacy IDs are aliases only. Never merge lexemes by normalized spelling.',
   ids: legacy,\n  ambiguous: Object.entries(legacy).filter(([, ids]) => ids.length > 1).map(([key, ids]) => ({ key, ids })),
-}, null, 2) + '\\n');
+}, null, 2) + '\n');
 console.log(`Built ${entries.length} lexemes; ${Object.keys(legacy).length} legacy keys mapped; ${entries.filter(x => x.status === 'review').length} need editorial review.`);
