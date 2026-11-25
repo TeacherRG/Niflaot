@@ -67,7 +67,8 @@ for (const w of tanakh.words) {
     status: isVerb && (!infinitive || !w.infType) ? 'review' : 'verified',
   };
   entries.push(entry);
-  legacy[`words:${w.id}`] = [id];\n  legacy[`tanakh:${w.id}`] = [id];
+  legacy[`words:${w.id}`] = [id];
+  legacy[`tanakh:${w.id}`] = [id];
 }
 
 const rambamFiles = ['src/rambam/words/ru-1.txt', 'src/rambam/words/ru-2.txt', 'src/rambam/words/ru-3.txt'];
