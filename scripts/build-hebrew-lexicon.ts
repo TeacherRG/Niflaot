@@ -74,8 +74,7 @@ const rambamFiles = ['src/rambam/words/ru-1.txt', 'src/rambam/words/ru-2.txt', '
 const rambamRows = new Map<string, { surface: string; translation: string; lemma: string; file: string; line: number }>();
 for (const file of rambamFiles) {
   const body = await readFile(path.join(root, file), 'utf8');
-  body.split(/\r?
-/).forEach((line, index) => {
+  body.split(/\r?\n/).forEach((line, index) => {
     if (!line.trim() || line.startsWith('#')) return;
     const parts = line.split('|');
     if (parts.length !== 3 || !parts[1].trim()) throw new Error(`${file}:${index + 1}: expected surface|translation|lemma`);
@@ -87,8 +86,7 @@ for (const file of rambamFiles) {
 }
 
 const lexiconRu = new Map<string, string>();
-for (const line of (await readFile(path.join(root, 'src/rambam/words/lexicon-ru.txt'), 'utf8')).split(/\r?
-/)) {
+for (const line of (await readFile(path.join(root, 'src/rambam/words/lexicon-ru.txt'), 'utf8')).split(/\r?\n/)) {
   if (!line.trim() || line.startsWith('#')) continue;
   const [he, translation] = line.split('|');
   if (he && translation) lexiconRu.set(cleanVocalized(he), translation.trim());
@@ -97,8 +95,7 @@ for (const line of (await readFile(path.join(root, 'src/rambam/words/lexicon-ru.
 
 type Term = { title: string; definition: string };
 const terms = new Map<string, Term>();
-for (const line of (await readFile(path.join(root, 'src/rambam/words/terms-ru.txt'), 'utf8')).split(/\r?
-/)) {
+for (const line of (await readFile(path.join(root, 'src/rambam/words/terms-ru.txt'), 'utf8')).split(/\r?\n/)) {
   if (!line.trim() || line.startsWith('#')) continue;
   const [he, title, definition] = line.split('|');
   if (he && title && definition) {
