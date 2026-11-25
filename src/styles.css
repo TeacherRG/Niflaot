@@ -4383,3 +4383,34 @@ html.rm-focus .rm-split:not(.solo) .rm-tools>:not(.rm-focus-btn){display:none}
   .rm-deck-slide:last-child{break-after:auto;page-break-after:auto}
   .rm-deck-slide img{width:100%;height:100%;object-fit:contain}
 }
+
+
+/* Siddur reader: traditional Hebrew book typography, compact controls and immersive fullscreen. */
+.shacharit-line[lang="he"],.shacharit-word-he,.shacharit-menu .tk-view-btn small .he,.shacharit-menu-list .rd-set-d.he{font-family:"Frank Ruhl Libre",serif}
+.shacharit-line[lang="he"]{font-size:1.42em;line-height:1.95;letter-spacing:0}
+.shacharit-word-he{font-size:.86em;line-height:1.35}
+.sd-reader-actions{display:flex;align-items:center;gap:8px}
+.sd-fullscreen-btn{display:inline-grid;place-items:center;width:36px;height:36px;min-width:36px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--ink);font-size:21px;cursor:pointer;box-shadow:0 2px 8px #18243812}
+.sd-fullscreen-btn:hover,.sd-fullscreen-btn:focus-visible{border-color:var(--tchelet);background:var(--tchelet-soft)}
+.shacharit-page:fullscreen,.shacharit-page.sd-fullscreen-fallback{box-sizing:border-box;width:100%;height:100dvh;max-width:none;margin:0;padding:clamp(8px,2vw,24px);overflow:auto;background:var(--plain);color:var(--ink)}
+.shacharit-page:fullscreen .tk-head,.shacharit-page:fullscreen .rd-corner,.shacharit-page:fullscreen>.rd-hint,.shacharit-page:fullscreen .shacharit-credit,.shacharit-page.sd-fullscreen-fallback .tk-head,.shacharit-page.sd-fullscreen-fallback .rd-corner,.shacharit-page.sd-fullscreen-fallback>.rd-hint,.shacharit-page.sd-fullscreen-fallback .shacharit-credit{display:none!important}
+.shacharit-page:fullscreen .shacharit-text,.shacharit-page.sd-fullscreen-fallback .shacharit-text{width:100%;max-width:1100px;margin:0 auto;padding-bottom:54px}
+.shacharit-page:fullscreen .shacharit-section,.shacharit-page.sd-fullscreen-fallback .shacharit-section{margin:0 auto 18px;padding:clamp(8px,2vw,22px);border:0;border-radius:0;background:transparent;max-width:100%}
+.shacharit-page:fullscreen .shacharit-section h2,.shacharit-page.sd-fullscreen-fallback .shacharit-section h2{font-size:clamp(1rem,2.2vw,1.35rem);margin-bottom:clamp(8px,1.5vh,16px)}
+.shacharit-page:fullscreen .shacharit-line[lang="he"],.shacharit-page.sd-fullscreen-fallback .shacharit-line[lang="he"]{font-size:clamp(1.25rem,3.2vw,2rem);line-height:1.85}
+.shacharit-page:fullscreen .shacharit-line.shacharit-duo,.shacharit-page.sd-fullscreen-fallback .shacharit-line.shacharit-duo{font-size:clamp(1rem,2.1vw,1.35rem);line-height:1.65}
+.shacharit-page:fullscreen .rd-audio-float,.shacharit-page.sd-fullscreen-fallback .rd-audio-float{position:fixed;z-index:100;left:auto;right:max(10px,env(safe-area-inset-right));bottom:max(10px,env(safe-area-inset-bottom));transform:none;gap:4px;padding:4px;border-radius:999px;background:color-mix(in srgb,var(--surface) 92%,transparent);box-shadow:0 2px 12px #0002}
+.shacharit-page:fullscreen .rd-audio-float button,.shacharit-page.sd-fullscreen-fallback .rd-audio-float button{min-width:30px;min-height:30px;width:30px;height:30px;padding:0;border-radius:50%;font-size:13px;gap:0}
+.shacharit-page:fullscreen .rd-audio-float .rd-lbl,.shacharit-page.sd-fullscreen-fallback .rd-audio-float .rd-lbl{display:none}
+.shacharit-page:fullscreen .rd-rate select,.shacharit-page.sd-fullscreen-fallback .rd-rate select{min-width:42px;min-height:30px;height:30px;padding:0 4px;border-radius:16px;font-size:11px}
+.shacharit-page:fullscreen .rd-audio-float .rd-stop-sq,.shacharit-page.sd-fullscreen-fallback .rd-audio-float .rd-stop-sq{width:9px;height:9px}
+.shacharit-page:fullscreen .shacharit-section+.shacharit-section,.shacharit-page.sd-fullscreen-fallback .shacharit-section+.shacharit-section{border-top:1px solid var(--line)}
+@media (orientation:landscape) and (max-height:600px){
+ .shacharit-page{max-width:100%;padding-inline:clamp(12px,3vw,36px)}
+ .shacharit-section{padding-block:12px;margin-block:16px}
+ .shacharit-line[lang="he"]{font-size:clamp(1.2rem,3.6vh,1.7rem);line-height:1.7}
+ .shacharit-line.shacharit-duo{font-size:clamp(.95rem,2.6vh,1.15rem);line-height:1.55}
+ .shacharit-page:fullscreen .shacharit-text,.shacharit-page.sd-fullscreen-fallback .shacharit-text{max-width:1250px;columns:1}
+ .shacharit-page:fullscreen .shacharit-section,.shacharit-page.sd-fullscreen-fallback .shacharit-section{padding:4px 12px;margin-bottom:8px}
+}
+@media(max-width:640px){.sd-fullscreen-btn{width:32px;height:32px;min-width:32px}}
