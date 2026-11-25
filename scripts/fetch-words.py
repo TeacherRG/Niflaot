@@ -465,8 +465,7 @@ def cmd_build():
                 ls += by.get((v['b'], v['c'], v['v']), [])
             c = collections.Counter(l for l in ls if l in known)
             out[s] = {'n': len(ls), 'w': dict(sorted(c.items(), key=lambda x: -x[1]))}
-        (OUT_DAYS / f.name).write_text(json.dumps(out, separators=(',', ':')) + '
-', encoding='utf-8')
+        (OUT_DAYS / f.name).write_text(json.dumps(out, separators=(',', ':')) + '\\n', encoding='utf-8')
         n += 1
     cmd_examples(ranked)
     cmd_parse(lex)
