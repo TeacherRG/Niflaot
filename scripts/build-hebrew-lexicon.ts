@@ -24,6 +24,7 @@ const tanakhByExactHeadword = new Map<string, string>();
 const pos = (raw: string): PartOfSpeech => {
   const p = raw.split(/\s+/);
   if (p.includes('v')) return 'verb';
+  if (p.includes('np')) return 'proper-noun';
   if (p.some(x => x.startsWith('n'))) return 'noun';
   if (p.includes('a')) return 'adjective';
   if (p.includes('adv')) return 'adverb';
@@ -31,7 +32,6 @@ const pos = (raw: string): PartOfSpeech => {
   if (p.includes('prep')) return 'preposition';
   if (p.includes('conj')) return 'conjunction';
   if (p.includes('i')) return 'interjection';
-  if (p.includes('np')) return 'proper-noun';
   if (p.includes('d')) return 'particle';
   if (p.includes('prt') || p.includes('r') || p.includes('dp')) return 'particle';
   return 'unknown';
@@ -58,7 +58,7 @@ for (const w of tanakh.words) {
     partOfSpeech: pos(w.pos),
     ...(w.root ? { root: w.root } : {}),
     senses: [{ id: `${id}:sense:1`, translations }],
-    forms: [{ vocalized: w.he, normalized: normalizeHebrew(w.he), source: 'oshb', reference: `Strong:${w.id}` }],
+    // Strong's headword is dictionary evidence, not a corpus-attested token form.\n    forms: [],
     occurrences: [],
     sources: [
       { name: 'Open Scriptures Hebrew Bible', license: 'CC BY 4.0', url: 'https://github.com/openscriptures/morphhb' },
@@ -94,13 +94,26 @@ for (const line of (await readFile(path.join(root, 'src/rambam/words/lexicon-ru.
   if (he && translation) lexiconRu.set(cleanVocalized(he), translation.trim());
 }
 
+
+type Term = { title: string; definition: string };
+const terms = new Map<string, Term>();
+for (const line of (await readFile(path.join(root, 'src/rambam/words/terms-ru.txt'), 'utf8')).split(/\\r?\\n/)) {
+  if (!line.trim() || line.startsWith('#')) continue;
+  const [he, title, definition] = line.split('|');
+  if (he && title && definition) {
+    const key = cleanVocalized(he);
+    if (terms.has(key)) throw new Error(`Duplicate halakhic term key: ${he}`);
+    terms.set(key, { title: title.trim(), definition: definition.trim() });
+  }
+}
+
 for (const row of rambamRows.values()) {
   const lemma = row.lemma || row.surface;
   const gloss = lexiconRu.get(cleanVocalized(lemma)) || row.translation;
   const id = stableId('rambam', `${cleanVocalized(lemma)}|${gloss}`);
   const legacyKey = `rambam:${vocalKey(row.surface)}`;
   legacy[legacyKey] = [...new Set([...(legacy[legacyKey] ?? []), id])];
-  const existing = entries.find(e => e.id === id);
+  const term = terms.get(cleanVocalized(lemma)) ?? terms.get(cleanVocalized(row.surface));\n  const existing = entries.find(e => e.id === id);
   if (existing) {
     if (!existing.senses[0].translations.ru?.includes(row.translation)) existing.senses[0].translations.ru?.push(row.translation);
     existing.forms.push({ vocalized: row.surface, normalized: normalizeHebrew(row.surface), source: 'manual', reference: `project-word-list:${row.file}:${row.line}` });
@@ -111,7 +124,7 @@ for (const row of rambamRows.values()) {
     id: id as HebrewLexeme['id'],
     headword: { vocalized: lemma, normalized: normalizeHebrew(lemma) },
     partOfSpeech: 'unknown',
-    senses: [{ id: `${id}:sense:1`, translations: { ru: [gloss] }, ...(exactTanakh ? { definition: { ru: ['Отдельная лексема Рамбама; совпадение написания с Танахом само по себе не означает тождества значения.'] } } : {}) }],
+    senses: [{ id: `${id}:sense:1`, translations: { ru: [gloss] }, ...(term ? { definition: { ru: term.definition }, domain: ['halakha'] } : {}), ...(exactTanakh ? { domain: [...(term ? ['halakha'] : []), 'shared-spelling-review'] } : {}) }],
     forms: [{ vocalized: row.surface, normalized: normalizeHebrew(row.surface), source: 'manual', reference: `project-word-list:${row.file}:${row.line}` }],
     occurrences: [],
     sources: [{ name: 'Niflaot project Mishneh Torah word list', license: 'Project-authored translation; source text: Sefaria / Torat Emet 363' }],
