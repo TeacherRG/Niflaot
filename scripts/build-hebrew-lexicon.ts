@@ -54,7 +54,7 @@ for (const w of tanakh.words) {
     id: id as HebrewLexeme['id'],
     headword,
     partOfSpeech: pos(w.pos),
-    ...(w.root ? { root: w.root } : {}),
+    ...(w.root ? { root: w.root } : {}),\n    corpusStats: { tanakh: { frequency: w.n } },
     senses: [{ id: `${id}:sense:1`, translations }],
     // Strong's headword is dictionary evidence, not a corpus-attested token form.
     forms: [],
