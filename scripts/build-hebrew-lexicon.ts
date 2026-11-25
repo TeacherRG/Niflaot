@@ -10,13 +10,12 @@ const cleanVocalized = (s: string) => s.normalize('NFD').replace(/[\u0591-\u05AF
 const stableId = (prefix: string, value: string) => `${prefix}:${createHash('sha256').update(value).digest('hex').slice(0, 16)}`;
 
 const [tanakh, ru, en, de] = await Promise.all([
-  readJson<{ words: Array<{ id: string; he: string; pos: string; n: number; root?: string; aram?: number }>; total: number }>('src/tanakh/words.json'),
+  readJson<{ words: Array<{ id: string; he: string; pos: string; n: number; root?: string; aram?: number; inf?: string; infType?: 'infinitive-construct' | 'infinitive-absolute' }>; total: number }>('src/tanakh/words.json'),
   readJson<Record<string, string>>('src/tanakh/words/ru.json'),
   readJson<Record<string, string>>('src/tanakh/words/en.json'),
   readJson<Record<string, string>>('src/tanakh/words/de.json'),
 ]);
 
-const infinitives = await readJson<Record<string, string>>('public/tanakh/words/infinitives.json').catch(() => ({}));
 const entries: HebrewLexeme[] = [];
 const legacy: Record<string, string[]> = {};
 
@@ -45,9 +44,9 @@ for (const w of tanakh.words) {
   if (!Object.keys(translations).length) continue;
   const id = `tanakh:strong:${w.id}`;
   const isVerb = pos(w.pos) === 'verb';
-  const infinitive = infinitives[w.id];
+  const infinitive = w.inf;
   const headword = isVerb && infinitive
-    ? { vocalized: infinitive, normalized: normalizeHebrew(infinitive), verbalForm: 'infinitive-construct' as const }
+    ? { vocalized: infinitive, normalized: normalizeHebrew(infinitive), verbalForm: w.infType ?? 'unverified' as const }
     : isVerb
       ? { vocalized: w.he, normalized: normalizeHebrew(w.he), verbalForm: 'unverified' as const }
       : { vocalized: w.he, normalized: normalizeHebrew(w.he) };
