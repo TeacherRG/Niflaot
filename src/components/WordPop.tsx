@@ -168,7 +168,7 @@ export function WordPop() {
   // `=лемма` — the dictionary form of a word outside the dictionary as the parse gives it (Dicta); a number — the dictionary's
   const own = id.startsWith('=') ? id.slice(1) : '';
   const tr = id && !own ? dict?.tr[id] : undefined;
-  const head = w?.he ?? (own || (id ? lex?.[id] : undefined));
+  const head = w?.inf ?? w?.he ?? (own || (id ? lex?.[id] : undefined));
   const box_ = id ? boxOf(store, id) : 0;
   const known = box_ >= KNOWN_BOX;
   const learning = box_ > 0 && !known;
@@ -206,6 +206,7 @@ export function WordPop() {
   return createPortal(
     <div ref={box} className="wp no-print" role="dialog" aria-label={open.word} style={pos}>
       <p className="wp-word">
+        <small className="wp-label">{t('wp.formVerse')}</small>
         <span className="he" lang="he" dir="rtl">
           {open.word}
         </span>
@@ -234,10 +235,12 @@ export function WordPop() {
           ) : head ? (
             <div className="wp-main">
               {head !== open.word.replace(/[[\]()]/g, '') && (
-                <span className="he wp-head" lang="he" dir="rtl">
-                  {head}
-                </span>
+                <>
+                  <small className="wp-label">{t('wp.dictionaryForm')}</small>
+                  <span className="he wp-head" lang="he" dir="rtl">{head}</span>
+                </>
               )}
+              <small className="wp-label">{t('wp.translation')}</small>
               {tr ? <span className="wp-tr">{tr}</span> : <span className="wp-note">{t('wp.rare')}</span>}
               {w && (
                 <small className="wp-meta">
