@@ -6,7 +6,6 @@
 import { useEffect, useState } from 'react';
 import { INTERVALS, KNOWN_BOX, today, readWordStore, setWordEntry, type WordStore } from './words';
 import { normWord } from './sync';
-import { markStudied } from './habit';
 import { root } from './tanakh';
 
 export const HALACHA_KEY = 'niflaot:halacha-words';
