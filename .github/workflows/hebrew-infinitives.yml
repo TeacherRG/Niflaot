@@ -1,0 +1,31 @@
+name: Generate Hebrew verb infinitives
+
+on:
+  push:
+    branches:
+      - feat/hebrew-verb-infinitives
+    paths:
+      - scripts/fetch-words.py
+      - .github/workflows/hebrew-infinitives.yml
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Download OSHB morphology
+        run: python3 scripts/fetch-words.py fetch
+      - name: Generate dictionary infinitives
+        run: python3 scripts/fetch-words.py infinitives
+      - name: Commit generated dictionary
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/tanakh/words.json
+          git diff --cached --quiet || (git commit -m "Generate Hebrew verb infinitives" && git push)
