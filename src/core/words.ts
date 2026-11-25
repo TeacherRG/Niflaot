@@ -251,7 +251,7 @@ export function readWordStore(): WordStore {
   }
 }
 
-function put(id: string, box: number, due: number) {
+export function setWordEntry(id: string, box: number, due: number) {
   const s = readWordStore();
   s[id] = [Math.floor(Date.now() / 1000), box, due];
   try {
@@ -261,9 +261,9 @@ function put(id: string, box: number, due: number) {
   if (box > 0) markStudied();
 }
 /** «Знаю» — проверить через неделю; «Учу» — повторить сегодня; убрать из моих слов */
-export const markKnown = (id: string) => put(id, KNOWN_BOX, today() + INTERVALS[KNOWN_BOX]);
-export const markLearn = (id: string) => put(id, 1, today());
-export const unmark = (id: string) => put(id, 0, 0);
+export const markKnown = (id: string) => setWordEntry(id, KNOWN_BOX, today() + INTERVALS[KNOWN_BOX]);
+export const markLearn = (id: string) => setWordEntry(id, 1, today());
+export const unmark = (id: string) => setWordEntry(id, 0, 0);
 /**
  * итог повторения слова: вспомнил — следующая коробка, нет — снова коробка 1, завтра. `course` — и в «Святой язык — уроки»
  * (вспомнил — слово встречено сегодня, «Повторим» не спросит его раньше времени; нет — оно в «Трудных»); из самого курса — false:
@@ -280,8 +280,8 @@ export function review(id: string, remembered: boolean, course = true) {
   }
   if (remembered) {
     const next = Math.min(box + 1, INTERVALS.length - 1);
-    put(id, next, today() + INTERVALS[next]);
-  } else put(id, 1, today() + 1);
+    setWordEntry(id, next, today() + INTERVALS[next]);
+  } else setWordEntry(id, 1, today() + 1);
 }
 
 export function useWordStore(): WordStore {
