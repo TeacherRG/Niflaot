@@ -109,7 +109,7 @@ interface LineProps {
  * Строка молитвы. Иврит — справа налево; с транслитом — слово крупно и под ним иврит (или наоборот, `trBig` — классом страницы),
  * направление строки — по выбору (`trDir`). Нажатие на слово — подсветка с него, прочитанные — бледнее.
  */
-const normalizeGlossWord = (x: string) => x.normalize('NFD').replace(/[\\u0591-\\u05C7]/g, '').replace(/[־]/g, '');
+const normalizeGlossWord = (x: string) => x.normalize('NFD').replace(/[\u0591-\u05C7]/g, '').replace(/[־]/g, '');
 
 const PrayerLine = memo(function PrayerLine({ line, tr, lang, pron, taamim, dir, active, past, onTap, translate = false, glossary = {} }: LineProps) {
   const he = (x: string) => (taamim ? x : stripTaamim(x));
@@ -260,7 +260,7 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
 
   useEffect(() => {
     let active = true;
-    if (prayer === 'shacharit' && locale === 'de') {
+    if (prayer === 'shacharit' && view.glossLang === 'de') {
       fetch('/reading/siddur/morning-blessings-de.json')
         .then((r) => (r.ok ? r.json() : {}))
         .then((x: unknown) => { if (active && x && typeof x === 'object') setGermanGlossary(x as Record<string, string>); })
@@ -286,7 +286,7 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
     return () => {
       active = false;
     };
-  }, [prayer, locale]);
+  }, [prayer, view.glossLang]);
 
   // переход из меню «Разделы» другой молитвы: прокрутить к выбранному разделу, иначе — к началу
   useEffect(() => {
@@ -414,7 +414,7 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
                         active={active >= line.first && active <= line.last ? active : -1}
                         past={active > line.last}
                         onTap={onTap}
-                        translate={section.key === 'Shacharit/Morning Blessings' && locale === 'de'}
+                        translate={section.key === 'Shacharit/Morning Blessings' && view.glossLang === 'de'}
                         glossary={germanGlossary}
                       />
                     </div>
