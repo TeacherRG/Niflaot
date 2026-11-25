@@ -4415,13 +4415,12 @@ html.rm-focus .rm-split:not(.solo) .rm-tools>:not(.rm-focus-btn){display:none}
 }
 @media(max-width:640px){.sd-fullscreen-btn{width:32px;height:32px;min-width:32px}}
 
-.shacharit-page:fullscreen>.shacharit-text~*:not(.rd-audio-float),.shacharit-page.sd-fullscreen-fallback>.shacharit-text~*:not(.rd-audio-float){display:none!important}
+.shacharit-page:fullscreen>.shacharit-text~*:not(.rd-audio-float):not(.sd-fullscreen-exit),.shacharit-page.sd-fullscreen-fallback>.shacharit-text~*:not(.rd-audio-float):not(.sd-fullscreen-exit){display:none!important}
 .sd-rate-button{min-width:42px;min-height:30px;height:30px;padding:0 5px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);font-family:var(--f-num);font-size:11px;font-weight:700;cursor:pointer}
 
 .shacharit-page.sd-fullscreen-fallback{position:fixed;inset:0;z-index:9999}
 
 /* Explicit exit control for touch devices: only visible while immersive mode is active. */
-.sd-fullscreen-exit{display:none;align-items:center;justify-content:center;width:30px;height:30px;min-width:30px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--ink);font-size:14px;font-weight:700;cursor:pointer;touch-action:manipulation}
-.shacharit-page:fullscreen .sd-fullscreen-exit,.shacharit-page.sd-fullscreen-fallback .sd-fullscreen-exit{display:inline-flex}
-.shacharit-page:fullscreen .sd-fullscreen-exit,.shacharit-page.sd-fullscreen-fallback .sd-fullscreen-exit{box-shadow:0 1px 5px #0002}
+.sd-fullscreen-exit{display:none;align-items:center;justify-content:center;width:34px;height:34px;min-width:34px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--ink);font-size:15px;font-weight:700;cursor:pointer;touch-action:manipulation}
+.shacharit-page:fullscreen>.sd-fullscreen-exit,.shacharit-page.sd-fullscreen-fallback>.sd-fullscreen-exit{display:inline-flex;position:fixed;z-index:101;top:max(10px,env(safe-area-inset-top));right:max(10px,env(safe-area-inset-right));left:auto;bottom:auto;box-shadow:0 2px 10px #0003}
 .sd-fullscreen-exit:focus-visible{outline:2px solid var(--tchelet);outline-offset:2px}
