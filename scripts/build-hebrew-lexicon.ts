@@ -110,17 +110,19 @@ for (const row of rambamRows.values()) {
   const id = stableId('rambam', `${cleanVocalized(lemma)}|${gloss}`);
   const legacyKey = `rambam:${vocalKey(row.surface)}`;
   legacy[legacyKey] = [...new Set([...(legacy[legacyKey] ?? []), id])];
-  const term = terms.get(cleanVocalized(lemma)) ?? terms.get(cleanVocalized(row.surface));\n  const existing = entries.find(e => e.id === id);
+  const term = terms.get(cleanVocalized(lemma)) ?? terms.get(cleanVocalized(row.surface));
+  const existing = entries.find(e => e.id === id);
   if (existing) {
     if (!existing.senses[0].translations.ru?.includes(row.translation)) existing.senses[0].translations.ru?.push(row.translation);
     existing.forms.push({ vocalized: row.surface, normalized: normalizeHebrew(row.surface), source: 'manual', reference: `project-word-list:${row.file}:${row.line}` });
+    if (term) existing.senses[0].terms = [...(existing.senses[0].terms ?? []), { language: 'ru', label: term.title, definition: term.definition }];
     continue;
   }
   entries.push({
     id: id as HebrewLexeme['id'],
     headword: { vocalized: lemma, normalized: normalizeHebrew(lemma) },
     partOfSpeech: 'unknown',
-    senses: [{ id: `${id}:sense:1`, translations: { ru: [gloss] }, ...(term ? { definition: { ru: term.definition }, domain: ['halakha'] } : {}) }],
+    senses: [{ id: `${id}:sense:1`, translations: { ru: [gloss] }, ...(term ? { terms: [{ language: 'ru', label: term.title, definition: term.definition }], domain: ['halakha'] } : {}) }],
     forms: [{ vocalized: row.surface, normalized: normalizeHebrew(row.surface), source: 'manual', reference: `project-word-list:${row.file}:${row.line}` }],
     occurrences: [],
     sources: [{ name: 'Niflaot project Mishneh Torah word list', license: 'Project-authored translation; source text: Sefaria / Torat Emet 363' }],
