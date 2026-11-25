@@ -487,8 +487,7 @@ def cmd_infinitives():
         else:
             w.pop('inf', None)
             w.pop('infType', None)
-    OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')) + '
-', encoding='utf-8')
+    OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
     print(f"Infinitives: {sum(1 for w in verbs if 'inf' in w)} of {len(verbs)} verbs; missing: {sum(1 for w in verbs if 'inf' not in w)}")
 
 
