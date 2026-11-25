@@ -554,10 +554,8 @@ def cmd_parse(lex):
                     row.append(code)
                 vs[f"{v['b']} {v['c']}:{v['v']}"] = row
             out[s]['v'] = vs
-        (OUT_DAYS / f.name).write_text(json.dumps(out, ensure_ascii=False, separators=(',', ':')) + '
-', encoding='utf-8')
-    (OUT_DAYS / 'lex.json').write_text(json.dumps(dict(sorted(heads.items(), key=lambda x: int(x[0]))), ensure_ascii=False, separators=(',', ':')) + '
-', encoding='utf-8')
+        (OUT_DAYS / f.name).write_text(json.dumps(out, ensure_ascii=False, separators=(',', ':')) + '\\n', encoding='utf-8')
+    (OUT_DAYS / 'lex.json').write_text(json.dumps(dict(sorted(heads.items(), key=lambda x: int(x[0]))), ensure_ascii=False, separators=(',', ':')) + '\\n', encoding='utf-8')
     print(f'parse: {hit} of {tot} words of the text matched ({hit / tot * 100:.1f}%), {len(heads)} headwords not in the dictionary')
 
 
@@ -642,8 +640,7 @@ def cmd_examples(ranked):
             t = trs[lang].get(ref)
             out[lang][l] = [date, sec, r, he, t] if t else [date, sec, r, he, en, 1]
     for lang, ex in out.items():
-        (OUT_DAYS / f'examples-{lang}.json').write_text(json.dumps(ex, ensure_ascii=False, separators=(',', ':')) + '
-', encoding='utf-8')
+        (OUT_DAYS / f'examples-{lang}.json').write_text(json.dumps(ex, ensure_ascii=False, separators=(',', ':')) + '\\n', encoding='utf-8')
     print(f'examples: {len(out["en"])} words ({missing} without), translated ru {sum(len(x) == 5 for x in out["ru"].values())}')
 
 
