@@ -159,7 +159,9 @@ for (const locale of ['ru', 'en', 'de'] as const) {
   }
   // The difficult verse-building task is replaced by a visual word-recognition question.
   const sample = makeLesson(tu[0], null, true);
-  if (!sample.some((x) => x.t === 'pick' && x.ask === 'look')) err(`слова Танаха ${locale}: нет задания «Найди похожее слово»`);
+  const first = makeLesson(tu[0], tu[0].items.slice(0, 5));
+  if (!sample.some((x) => x.t === 'pick' && x.ask === 'look') || !first.some((x) => x.t === 'pick' && x.ask === 'look'))
+    err(`слова Танаха ${locale}: нет задания «Найди похожее слово» в повторении или первом уроке`);
   if (tu.reduce((a, u) => a + u.items.length, 0) !== Object.keys(TR[locale]).length) err(`слова Танаха ${locale}: не все переведённые слова в юнитах`);
   checkUnits(tu, `слова Танаха ${locale}`);
   // транслит: у первых TRANSLIT_WORDS слов Танаха — чтение (кроме Имён), латиницей / кириллицей, без иврита
