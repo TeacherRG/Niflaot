@@ -2008,6 +2008,7 @@ const en: Messages = {
   'ln.q.vsound': "How does this vowel point sound?",
   'ln.q.read': "How is it read?",
   'ln.q.findRead': "Where is it written like this?",
+  'ln.q.look': "Find this word among similar-looking words", 
   'ln.q.syl': "Build the word from its syllables",
   'ln.line': "Your answer",
   'ln.rtl': "Hebrew is written right to left: the first letter is on the right.",
