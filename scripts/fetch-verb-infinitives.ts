@@ -1,5 +1,4 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
-import { dirname } from 'node:path';
 
 const sourceUrl = 'https://raw.githubusercontent.com/fhardison/biblical-hebrew-form-generator-validator/main/output/forms.csv';
 const wordsPath = new URL('../src/tanakh/words.json', import.meta.url);
