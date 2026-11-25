@@ -64,7 +64,7 @@ for (const w of tanakh.words) {
       { name: 'Open Scriptures Hebrew Bible', license: 'CC BY 4.0', url: 'https://github.com/openscriptures/morphhb' },
       { name: 'Strong’s Hebrew Dictionary / Brown–Driver–Briggs', license: 'Public Domain' },
     ],
-    status: isVerb && !infinitive ? 'review' : 'verified',
+    status: isVerb && (!infinitive || !w.infType) ? 'review' : 'verified',
   };
   entries.push(entry);
   legacy[`tanakh:${w.id}`] = [id];
