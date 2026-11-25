@@ -167,9 +167,11 @@ def kaddish_kind(lines: list[str], k: int) -> str:
     return kind
 
 
+# абзацы Шма, не выделенные в выгрузке (владелец, 25.11.2026: «выделить большой буквой ואהבת, והיה, ויאמר»)
+PARAGRAPHS = ('ואהבת את',)
 def name_prayers(lines: list[str]) -> list[str]:
-    """⟦p⟧ у известных молитв → ⟦pr-<ключ>⟧."""
-    out = list(lines)
+    """⟦p⟧ у известных молитв → ⟦pr-<ключ>⟧; невыделенные абзацы Шма → ⟦p⟧."""
+    out = [f'⟦p⟧ {line}' if not line.startswith('⟦') and bare_start(line).startswith(PARAGRAPHS) else line for line in lines]
     for k, line in enumerate(out):
         if not line.startswith('⟦p⟧'):
             continue

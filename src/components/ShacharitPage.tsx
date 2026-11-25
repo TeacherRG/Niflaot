@@ -133,7 +133,9 @@ function splitLines(sections: ShacharitText['sections'], shown: Shown): Line[][]
           } else if (visible()) {
             const prev = words.at(-1);
             if (prev) start = /[:.]/.test(prev.gap);
-            words.push({ i: n++, he: m[0], gap: '', start: start || big, ...(pending.length ? { notes: pending } : {}), ...(big ? { big } : {}) });
+            // «׃» (соф пасук) — не часть слова, а конец стиха: «:» в иврите, точка в транслите и переводе
+            const sof = m[0].endsWith('׃');
+            words.push({ i: n++, he: sof ? m[0].slice(0, -1) : m[0], gap: sof ? ':' : '', start: start || big, ...(pending.length ? { notes: pending } : {}), ...(big ? { big } : {}) });
             pending = [];
             big = false;
           }
@@ -242,7 +244,8 @@ const PrayerLine = memo(function PrayerLine({ line, tr, lang, pron, taamim, dir,
           {w.notes && <Notes keys={w.notes} />}
           <span data-i={w.i} className={`shacharit-word ${cls(w)}`} onClick={() => onTap(w.i)}>
             <span className="shacharit-word-tr" dir="ltr">
-              {(translate ? (w.big ? cap : (x: string) => x)(glossOf(glossary, line.words, k)) : trs[k]) + w.gap}
+              {(translate ? (w.big ? cap : (x: string) => x)(glossOf(glossary, line.words, k)) : trs[k]) +
+                (k === line.words.length - 1 ? w.gap.replace(/:$/, '.') : w.gap)}
             </span>
             {(tr === 'duo' || (translate && tr === 'he')) && (
               <span className="shacharit-word-he he" dir="rtl" lang="he">
