@@ -250,6 +250,12 @@ export function RambamPage({ date: asked }: { date?: string }) {
                         </>
                       )}
                     </span>
+                    <button type="button" className="rm-en-btn" onClick={() => setEn(!en)} aria-pressed={en} title={t('rm.showEn')} lang="en">
+                      EN
+                    </button>
+                    <a className="rm-full rm-pdf" href={`#/rambam/${date}/slides`} aria-label={t('rm.deckOpen')} title={t('rm.deckOpen')}>
+                      PDF
+                    </a>
                     <a className="rm-full" href={slideSrc(day.id, slides[active]?.img ?? '')} target="_blank" rel="noopener" aria-label={t('rm.full')} title={t('rm.full')}>
                       ⤢
                     </a>
@@ -474,12 +480,7 @@ function RambamWord({ dict, box }: { dict: RambamDict | null; box: React.RefObje
         )}
         {entry?.[2] &&
           (entry[2].startsWith('h:') ? (
-            <>
-              <p className="wp-meta">
-                {t('rm.inHalacha')} <a href="#/halacha-words">{t('hw.title')} →</a>
-              </p>
-              <HalachaButtons id={entry[2].slice(2)} />
-            </>
+            <HalachaButtons id={entry[2].slice(2)} />
           ) : (
             <TanakhButtons id={entry[2]} />
           ))}

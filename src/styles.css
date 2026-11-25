@@ -4320,22 +4320,58 @@ html.rm-focus .rm .tk-dates,html.rm-focus .rm-head,html.rm-focus .rm-rotate,html
 html.rm-focus .wrap.rm{max-width:none;padding-top:env(safe-area-inset-top,0px)}
 html.rm-focus .rm-where{display:inline}
 html.rm-focus .rm-slides{top:0}
-html.rm-focus .rm-tools{position:sticky;top:0;z-index:1;align-items:center;margin:0 0 4px;padding:4px 0;background:var(--bg,var(--paper))}
+html.rm-focus .rm-tools{position:sticky;top:0;z-index:3;align-items:center;margin:0 0 4px;padding:4px 0;background:var(--bg,var(--paper))}
+/* ✕ «выйти» — круглой кнопкой в левом верхнем углу экрана, поверх угла слайда (владелец, 25.11.2026) */
+html.rm-focus body{padding-inline:0}
+html.rm-focus .admin-fab{display:none}
+html.rm-focus .rm-focus-btn{position:fixed;z-index:6;top:calc(4px + env(safe-area-inset-top,0px));left:4px;right:auto;margin:0;width:34px;height:34px;padding:0;justify-content:center;border-radius:50%;box-shadow:0 2px 8px rgba(20,26,51,.25)}
+html.rm-focus .rm-focus-l{display:none}
+/* текст — с самого верха: строки «Глава · English» нет, английский Тугера — кнопкой «EN» под слайдом */
+.rm-en-btn{display:none;min-width:40px;height:36px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--tchelet);font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.rm-en-btn[aria-pressed=true]{background:var(--tchelet);border-color:var(--tchelet);color:#fff}
+html.rm-focus .rm-en-btn{display:grid;place-items:center}
+html.rm-focus .rm-split:not(.solo) .rm-tools{display:contents}
+html.rm-focus .rm-split:not(.solo) .rm-tools>:not(.rm-focus-btn){display:none}
 @media (orientation:landscape) and (min-width:560px){
-  html.rm-focus .wrap.rm{padding-inline:max(8px,env(safe-area-inset-left,0px)) max(8px,env(safe-area-inset-right,0px))}
+  /* слева — край слайда (поля картинки), вырез камеры его не портит; справа текст — с запасом под вырез */
+  html.rm-focus .wrap.rm{padding-inline:4px max(6px,env(safe-area-inset-right,0px))}
   html.rm-focus .rm-split:not(.solo){
     --rm-ctl:44px;
-    grid-template-columns:min(62vw,calc((100svh - var(--rm-ctl) - 12px - env(safe-area-inset-top,0px)) * (var(--rm-ar,16 / 9)))) minmax(0,1fr);
-    gap:10px;height:calc(100svh - env(safe-area-inset-top,0px));padding:4px 0;box-sizing:border-box}
+    grid-template-columns:min(54vw,calc((100svh - var(--rm-ctl) - 8px - env(safe-area-inset-top,0px)) * (var(--rm-ar,16 / 9)))) minmax(0,1fr);
+    gap:8px;height:calc(100svh - env(safe-area-inset-top,0px));padding:4px 0;box-sizing:border-box}
   html.rm-focus .rm-split.solo{height:calc(100svh - env(safe-area-inset-top,0px))}
   html.rm-focus .rm-split.solo .rm-text{height:100%;overflow-y:auto;max-width:900px;margin:0 auto}
-  html.rm-focus .rm-split:not(.solo) .rm-slides{padding:0;align-self:center}
+  html.rm-focus .rm-split:not(.solo) .rm-slides{padding:0;align-self:start}
   html.rm-focus .rm-ctl{margin-top:4px;height:36px}
-  html.rm-focus .rm-arrow,html.rm-focus .rm-full{height:34px}
+  html.rm-focus .rm-arrow,html.rm-focus .rm-full,html.rm-focus .rm-en-btn{height:34px}
   html.rm-focus .rm-split:not(.solo) .rm-text{padding:0 6px 0 2px}
 }
 @media (orientation:landscape) and (max-height:500px){
   html.rm-focus .rm-tap,html.rm-focus .rm-focus-l{display:none}
+/* текст — с самого верха: строки «Глава · English» нет, английский Тугера — кнопкой «EN» под слайдом */
+.rm-en-btn{display:none;min-width:40px;height:36px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--tchelet);font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.rm-en-btn[aria-pressed=true]{background:var(--tchelet);border-color:var(--tchelet);color:#fff}
+html.rm-focus .rm-en-btn{display:grid;place-items:center}
+html.rm-focus .rm-split:not(.solo) .rm-tools{display:contents}
+html.rm-focus .rm-split:not(.solo) .rm-tools>:not(.rm-focus-btn){display:none}
   html.rm-focus .rm-tools{font-size:13px;gap:4px 12px}
   html.rm-focus .rm-h p.he{font-size:19px;line-height:1.65}
+}
+
+/* «Презентация главы» Мишне Торы (RambamDeck.tsx, #/rambam/<дата>/slides): все слайды перека; печать — слайд на страницу размером слайда */
+.rm-pdf{font-size:12px!important;font-weight:700}
+.rm-deck{max-width:1100px}
+.rm-deck-head h1{margin:0 0 4px;font-family:var(--f-he);font-size:26px}
+.rm-deck-note{margin:0 0 10px;color:var(--muted);font-size:14.5px}
+.rm-deck-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.rm-deck-list{display:grid;gap:14px;padding-bottom:30px}
+.rm-deck-slide{margin:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.rm-deck-slide img{display:block;width:100%;height:auto}
+@media print{
+  html:has(.rm-deck) .tabbar,html:has(.rm-deck) .ai-fab,html:has(.rm-deck) .admin-fab,html:has(.rm-deck) .colophon{display:none!important}
+  .wrap.rm-deck{max-width:none;margin:0;padding:0}
+  .rm-deck-list{display:block;padding:0}
+  .rm-deck-slide{border:0;border-radius:0;width:100vw;height:100vh;break-after:page;page-break-after:always;display:flex;align-items:center;justify-content:center}
+  .rm-deck-slide:last-child{break-after:auto;page-break-after:auto}
+  .rm-deck-slide img{width:100%;height:100%;object-fit:contain}
 }
