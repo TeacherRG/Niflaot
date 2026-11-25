@@ -379,7 +379,11 @@ def infinitive_forms():
             lemma = re.match(r'\d+', ids[-1])[0]
             lemma = MERGE.get(lemma, lemma)
             # Сохраняем огласовки, убираем только кантилляцию и разделители морфем.
-            form = re.sub(r'[\u0591-\u05AF\u05BD\u05C0\u05C3/]', '', m[3])
+            word_parts = m[3].split('/')
+            suffixes = sum(1 for p in morphs if p.startswith('S'))
+            if suffixes:
+                word_parts = word_parts[:-suffixes]
+            form = re.sub(r'[\u0591-\u05AF\u05BD\u05C0\u05C3/]', '', ''.join(word_parts))
             if not form:
                 continue
             prefixes = [p for p in m[1].split('/')[:-1] if re.fullmatch(r'[a-z]', p)]
