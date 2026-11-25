@@ -203,7 +203,7 @@ export function tanakhUnits(dict: Dict, verse: (id: string) => Verse | undefined
   // the first `TRANSLIT_WORDS` words — with how they are read (shown in the lesson unless the player reads Hebrew)
   const items = dict.words
     .filter((w) => dict.tr[w.id])
-    .map((w, i): Item => ({ key: w.id, he: w.he, tr: dict.tr[w.id], root: w.root, verse: verse(w.id), translit: locale && i < TRANSLIT_WORDS ? wordTranslit(w.he, locale) : undefined }));
+    .map((w, i): Item => { const he = w.pos.split(' ')[0] === 'v' ? (w.inf ?? w.he) : w.he; return { key: w.id, he, tr: dict.tr[w.id], root: w.root, verse: verse(w.id), translit: locale && i < TRANSLIT_WORDS ? wordTranslit(he, locale) : undefined }; });
   const out: Unit[] = [];
   for (let g = 0; g * TANAKH_GROUP < items.length; g++) {
     const level = items.slice(g * TANAKH_GROUP, (g + 1) * TANAKH_GROUP);
