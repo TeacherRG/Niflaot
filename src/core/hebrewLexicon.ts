@@ -61,7 +61,7 @@ export type HebrewLexeme = {
   id: LexemeId;
   headword: Headword;
   partOfSpeech: PartOfSpeech;
-  /** Roots are linguistic data, not a fallback dictionary form. */
+  /** Corpus-specific statistics; never confuse Tanakh frequency with whole-language frequency. */\n  corpusStats?: Partial<Record<'tanakh' | 'mishneh-torah', { frequency?: number }>>;\n  /** Roots are linguistic data, not a fallback dictionary form. */
   root?: string;
   senses: LexicalSense[];
   forms: AttestedForm[];
