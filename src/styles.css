@@ -4419,3 +4419,9 @@ html.rm-focus .rm-split:not(.solo) .rm-tools>:not(.rm-focus-btn){display:none}
 .sd-rate-button{min-width:42px;min-height:30px;height:30px;padding:0 5px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);font-family:var(--f-num);font-size:11px;font-weight:700;cursor:pointer}
 
 .shacharit-page.sd-fullscreen-fallback{position:fixed;inset:0;z-index:9999}
+
+/* Explicit exit control for touch devices: only visible while immersive mode is active. */
+.sd-fullscreen-exit{display:none;align-items:center;justify-content:center;width:30px;height:30px;min-width:30px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--ink);font-size:14px;font-weight:700;cursor:pointer;touch-action:manipulation}
+.shacharit-page:fullscreen .sd-fullscreen-exit,.shacharit-page.sd-fullscreen-fallback .sd-fullscreen-exit{display:inline-flex}
+.shacharit-page:fullscreen .sd-fullscreen-exit,.shacharit-page.sd-fullscreen-fallback .sd-fullscreen-exit{box-shadow:0 1px 5px #0002}
+.sd-fullscreen-exit:focus-visible{outline:2px solid var(--tchelet);outline-offset:2px}
