@@ -126,6 +126,35 @@ BLESSINGS = {
 }
 MARK = re.compile(r'⟦[a-z0-9-]+⟧')
 
+# Условия вставок: ⟦?усл⟧ … ⟦/⟧ — текст говорят, только когда условие выполнено (⟦?!усл⟧ — когда нет); страница решает по календарю
+# (`src/core/siddurDay.ts`: aseret, tal / geshem, bracha / matar, fast, av9, rc, pesach, sukkot, yaale, chanukah, purim, hanisim,
+# havdalah; chazan — только хазан при повторении, читателю не показывается). Строка, которая начинается с такой пометки, — вся вставка.
+LINE_COND = {'aseret': 'aseret', 'aneinu-chazan': 'chazan', 'aneinu': 'fast', 'yaale': 'yaale', 'al-hanisim': 'hanisim',
+             'chanukah': 'chanukah', 'purim': 'purim', 'chazan': 'chazan', 'fast-chazan': 'chazan', 'nachem': 'av9',
+             'havdalah': 'havdalah'}
+YAALE = {'rosh-chodesh': 'rc', 'pesach': 'pesach', 'sukkot': 'sukkot'}
+
+
+def conditions(line: str) -> str:
+    """Строка Амиды с пометками → с условиями вставок (что говорят только летом / зимой, в Десять дней раскаяния, в пост…)."""
+    # 2-е благословение: «летом — מוריד הטל: зимой — משיב הרוח ומוריד הגשם:»
+    line = re.sub(r'⟦summer⟧ ([^⟦]*?:) ⟦winter⟧ ([^⟦]*?:)', r'⟦?tal⟧⟦summer⟧ \1⟦/⟧ ⟦?geshem⟧⟦winter⟧ \2⟦/⟧', line)
+    # 9-е благословение: «ותן летом — ברכה (зимой — טל ומטר לברכה)»
+    line = re.sub(r'⟦summer⟧ (\S+) \(⟦winter⟧ ([^)]*)\)', r'⟦?bracha⟧⟦summer⟧ \1⟦/⟧ ⟦?matar⟧⟦winter⟧ \2⟦/⟧', line)
+    # Десять дней раскаяния — замена: «האל (המלך) הקדוש», «מלך אוהב צדקה ומשפט: (המלך המשפט:)», «עשה שלום (השלום)»
+    def aseret(m: re.Match) -> str:
+        words = m.group(1).split(' ')
+        n = 4 if 'משפט' in bare(m.group(2)) else 1
+        return ' '.join(words[:-n]) + f' ⟦?!aseret⟧{" ".join(words[-n:])}⟦/⟧ ⟦?aseret⟧⟦aseret⟧ {m.group(2)}⟦/⟧'
+    line = re.sub(r'^(.*?) \(⟦aseret⟧ ([^)]*)\)', aseret, line)
+    # «Яале ве-яво»: «ביום — Рош ходеш: ראש החדש הזה. Песах: חג המצות הזה. Суккот: חג הסכות הזה.»
+    line = re.sub(r'⟦(rosh-chodesh|pesach|sukkot)⟧ ([^.⟦]*\.)', lambda m: f'⟦?{YAALE[m.group(1)]}⟧⟦{m.group(1)}⟧ {m.group(2)}⟦/⟧', line)
+    line = line.replace('⟦nachem-here⟧', '⟦?av9⟧⟦nachem-here⟧⟦/⟧')
+    head = re.match(r'⟦([a-z0-9-]+)⟧', line)
+    if head and head.group(1) in LINE_COND:
+        line = f'⟦?{LINE_COND[head.group(1)]}⟧{line}⟦/⟧'
+    return line
+
 
 def bare(text: str) -> str:
     """Без тегов, огласовок, макафа и невидимых знаков — для сравнения с NOTES и BLESSINGS."""
@@ -216,7 +245,8 @@ def main() -> None:
                 for part in re.split(r'<br\s*/?>', raw):
                     line = clean_line(split_glued(part) if '<' not in part else part)
                     if line:
-                        lines.append(f'{carry} {line}'.strip() if carry else line)
+                        line = f'{carry} {line}'.strip() if carry else line
+                        lines.append(conditions(line) if amidah else line)
                         carry = ''
                     else:
                         carry = ' '.join([carry, *MARK.findall(part)]).strip()
