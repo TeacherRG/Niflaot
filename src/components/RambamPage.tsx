@@ -66,6 +66,7 @@ export function RambamPage({ date: asked }: { date?: string }) {
     setText(undefined);
     setSlides(null);
     setActive(0);
+    opened.current = false;
     loadText(day.id).then((x) => live && setText(x));
     loadSlides(day.id).then((x) => live && setSlides(x));
     loadDict().then((x) => live && setDict(x));
@@ -91,33 +92,51 @@ export function RambamPage({ date: asked }: { date?: string }) {
   }, [text, slides, day]);
 
   // the halachot of the slide in view; the two halves follow each other both ways — turning a slide scrolls the text to its
-  // halachot, scrolling the text turns the slide; the side that moved first leads for a moment (no ping-pong)
+  // halachot, scrolling the text turns the slide. Each side acts only once its scroll has stopped (a finger's momentum, a long
+  // smooth scroll), and a scroll started by the other side is not taken for the reader's own (no ping-pong).
   const lit = slides?.[active]?.hl ?? null;
-  const lead = useRef<{ by: 'text' | 'slide'; until: number }>({ by: 'slide', until: 0 });
+  const auto = useRef({ text: 0, slide: 0 }); // until when a scroll we started is still running (ms)
+  const quietText = useRef(false); // the next slide change came from the text: don't scroll the text back
   const aside = useRef<HTMLElement>(null);
-  const led = (by: 'text' | 'slide') => lead.current.by === by && Date.now() < lead.current.until;
   /** the text scrolls in its own column (side by side) or with the page (a phone upright, the slide stuck above) */
   const ownColumn = () => {
     const box = textBox.current;
     return !!box && box.scrollHeight > box.clientHeight + 4;
   };
+  const opened = useRef(false); // the first slide on opening the page: the text stays where it is
   useEffect(() => {
-    if (!lit || led('text')) return;
+    if (!lit) return;
+    if (!opened.current) {
+      opened.current = true;
+      return;
+    }
+    if (quietText.current) {
+      quietText.current = false;
+      return;
+    }
     const box = textBox.current;
     const el = box?.querySelector<HTMLElement>(`[data-h="${lit[0]}"]`);
     if (!box || !el) return;
-    lead.current = { by: 'slide', until: Date.now() + 900 };
-    if (ownColumn()) box.scrollTo({ top: el.offsetTop - box.offsetTop - 8, behavior: 'smooth' });
-    else {
-      const under = aside.current?.getBoundingClientRect().bottom ?? 60;
-      scrollTo({ top: scrollY + el.getBoundingClientRect().top - under - 8, behavior: 'smooth' });
-    }
+    const own = ownColumn();
+    // the page scrolls under the slide stuck above it: where its bottom will be once stuck, not where it is now
+    const a = aside.current;
+    const under = own ? box.getBoundingClientRect().top : a ? (parseFloat(getComputedStyle(a).top) || 0) + a.offsetHeight : 60;
+    const by = el.getBoundingClientRect().top - under - 8;
+    if (Math.abs(by) < 3) return;
+    auto.current.text = Date.now() + 2500;
+    const behavior = Math.abs(by) < 1500 ? 'smooth' : 'auto';
+    if (own) box.scrollBy({ top: by, behavior });
+    else scrollBy({ top: by, behavior });
   }, [lit]);
 
-  const goSlide = useCallback((k: number) => {
+  const goSlide = useCallback((k: number, fromText = false) => {
     const el = track.current;
     if (!el) return;
-    el.scrollTo({ left: el.clientWidth * k * (document.dir === 'rtl' ? -1 : 1), behavior: 'smooth' });
+    const left = el.clientWidth * k * (document.dir === 'rtl' ? -1 : 1);
+    if (Math.abs(el.scrollLeft - left) < 3) return;
+    if (fromText) auto.current.slide = Date.now() + 2500;
+    // a neighbour — smoothly; far away — at once (a smooth run over many snapped slides takes seconds)
+    el.scrollTo({ left, behavior: Math.abs(el.scrollLeft - left) <= el.clientWidth * 1.5 ? 'smooth' : 'auto' });
   }, []);
   // the slide counts once the strip has stopped: a smooth turn over several slides must not drag the text through each of them
   const settle = useRef(0);
@@ -125,28 +144,35 @@ export function RambamPage({ date: asked }: { date?: string }) {
     clearTimeout(settle.current);
     settle.current = window.setTimeout(() => {
       const el = track.current;
-      if (el) setActive(Math.round(Math.abs(el.scrollLeft) / el.clientWidth));
-    }, 120);
+      if (!el) return;
+      const k = Math.round(Math.abs(el.scrollLeft) / el.clientWidth);
+      if (Date.now() < auto.current.slide) {
+        auto.current.slide = 0;
+        if (k !== activeRef.current) quietText.current = true;
+      }
+      setActive(k);
+    }, 140);
   };
   const slideOf = (n: number) => slides?.findIndex((s) => s.hl && n >= s.hl[0] && n <= s.hl[1]) ?? -1;
   const openHalacha = (n: number) => {
     const k = slideOf(n);
-    if (k >= 0) {
-      lead.current = { by: 'text', until: Date.now() + 1500 };
-      goSlide(k);
-    }
+    if (k >= 0) goSlide(k, true);
   };
-  // scrolling the text: the first halacha at the top of the reading place — its slide, if the slide in view isn't one of its
+  // scrolling the text: once it stops, the first halacha at the top of the reading place — its slide, if the slide in view
+  // isn't one of its
   const activeRef = useRef(active);
   activeRef.current = active;
   useEffect(() => {
     if (!slides) return;
     const box = textBox.current;
     if (!box) return;
-    let frame = 0;
-    const check = () => {
-      frame = 0;
-      if (led('slide')) return;
+    let timer = 0;
+    const settled = () => {
+      if (Date.now() < auto.current.text) {
+        auto.current.text = 0; // our own scroll has ended
+        return;
+      }
+      if (Date.now() < auto.current.slide) return; // the strip is still turning
       const top = ownColumn() ? box.getBoundingClientRect().top + 24 : (aside.current?.getBoundingClientRect().bottom ?? 60) + 24;
       const first = [...box.querySelectorAll<HTMLElement>('[data-h]')].find((h) => h.getBoundingClientRect().bottom > top);
       if (!first) return;
@@ -155,18 +181,18 @@ export function RambamPage({ date: asked }: { date?: string }) {
       if (cur && n >= cur[0] && n <= cur[1]) return;
       const k = slideOf(n);
       if (k < 0 || k === activeRef.current) return;
-      lead.current = { by: 'text', until: Date.now() + 1500 };
-      goSlide(k);
+      goSlide(k, true);
     };
     const on = () => {
-      if (!frame) frame = requestAnimationFrame(check);
+      clearTimeout(timer);
+      timer = window.setTimeout(settled, 160);
     };
     box.addEventListener('scroll', on, { passive: true });
     addEventListener('scroll', on, { passive: true });
     return () => {
       box.removeEventListener('scroll', on);
       removeEventListener('scroll', on);
-      cancelAnimationFrame(frame);
+      clearTimeout(timer);
     };
   }, [slides, goSlide]);
 
