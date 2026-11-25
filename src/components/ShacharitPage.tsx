@@ -170,6 +170,7 @@ const normalizeGlossWord = (x: string) => x.normalize('NFD').replace(/[\u0591-\u
 const GLOSS_DE: Partial<Record<Prayer, { url: string; sections?: string[] }>> = {
   shacharit: { url: '/reading/siddur/morning-blessings-de.json', sections: ['Shacharit/Morning Blessings'] },
   mincha: { url: '/reading/siddur/mincha-de.json' },
+  maariv: { url: '/reading/siddur/maariv-de.json' },
 };
 const glossOf = (glossary: Record<string, string>, words: Word[], k: number) => {
   const w = normalizeGlossWord(words[k].he);
