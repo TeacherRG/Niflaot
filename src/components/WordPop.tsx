@@ -171,7 +171,7 @@ export function WordPop() {
   const isVerb = w?.pos.split(/\s+/).includes('v') ?? false;
   const dictionaryForm = isVerb ? w?.infinitive : w?.he;
   const missingInfinitiveLabel = locale === 'de' ? 'Infinitiv nicht im Korpus gefunden' : locale === 'en' ? 'Infinitive not found in the corpus' : 'Инфинитив не найден в корпусе';
-  const head = dictionaryForm ?? (own || (id ? lex?.[id] : undefined));
+  const head = isVerb ? dictionaryForm : dictionaryForm ?? (own || (id ? lex?.[id] : undefined));
   const dictionaryLabel = locale === 'de' ? 'Wörterbuchform' : locale === 'en' ? 'Dictionary form' : 'Словарная форма';
   const verseLabel = locale === 'de' ? 'Form im Vers' : locale === 'en' ? 'Form in the verse' : 'Форма в стихе';
   const translationLabel = locale === 'de' ? 'Übersetzung' : locale === 'en' ? 'Translation' : 'Перевод';
