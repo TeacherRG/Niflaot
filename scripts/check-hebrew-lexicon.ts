@@ -7,8 +7,8 @@ const valid: HebrewLexicon = {
     id: 'oshb:1234:sense-1' as HebrewLexicon['entries'][number]['id'],
     headword: { vocalized: 'לִמְסֹךְ', normalized: normalizeHebrew('לִמְסֹךְ'), verbalForm: 'infinitive-construct' },
     partOfSpeech: 'verb',
-    senses: [{ id: 'sense-1', translations: { ru: ['лить'] } }],
-    forms: [{ vocalized: 'מָסַךְ', normalized: normalizeHebrew('מָסַךְ'), source: 'oshb', reference: 'Gen.1.1', morphology: 'Vqc' }],
+    senses: [{ id: 'sense-1', translations: { ru: ['лить'] }, terms: [{ language: 'ru', label: 'термин', definition: 'пояснение' }] }],
+    forms: [{ vocalized: 'מָסַךְ', normalized: normalizeHebrew('מָסַךְ'), source: 'oshb', reference: 'Gen.1.1', morphology: 'Vqc' }],\n    corpusStats: { tanakh: { frequency: 2 } },
     occurrences: [{ corpus: 'tanakh', reference: 'Gen.1.1', surface: 'מָסַךְ' }],
     sources: [{ name: 'Open Scriptures Hebrew Bible', license: 'CC BY 4.0' }],
     status: 'verified',
@@ -28,4 +28,4 @@ const noInfinitive = structuredClone(valid);
 noInfinitive.entries[0].headword.verbalForm = undefined;
 if (!validateHebrewLexicon(noInfinitive).some((x) => x.includes('explicit infinitive status')))
   throw new Error('Verbs without an explicit infinitive status must be rejected');
-console.log('Hebrew lexicon schema: OK');
+const badForm = structuredClone(valid);\nbadForm.entries[0].forms[0].normalized = 'שקר';\nif (!validateHebrewLexicon(badForm).some((x) => x.includes('attested form normalization mismatch')))\n  throw new Error('Attested form normalization must be checked');\nconst badFrequency = structuredClone(valid);\nbadFrequency.entries[0].corpusStats!.tanakh!.frequency = -1;\nif (!validateHebrewLexicon(badFrequency).some((x) => x.includes('corpus frequency')))\n  throw new Error('Negative corpus frequency must be rejected');\nconsole.log('Hebrew lexicon schema: OK');
