@@ -388,7 +388,7 @@ def infinitive_forms():
                 continue
             prefixes = [p for p in m[1].split('/')[:-1] if re.fullmatch(r'[a-z]', p)]
             kind = verb[2]
-            priority = 2 if kind == 'c' and prefixes and prefixes[0] == 'l' else 1 if kind == 'c' and not prefixes else 0
+            priority = 2 if kind == 'c' and prefixes and 'l' in prefixes else 1 if kind == 'c' and not prefixes else 0
             forms[lemma][(kind, priority, form)] += 1
     out = {}
     for lemma, candidates in forms.items():
