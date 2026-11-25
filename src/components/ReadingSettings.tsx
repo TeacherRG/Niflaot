@@ -107,9 +107,9 @@ export function ReadingSettings({
           {layout && (
             <>
               <div className="tk-view-sep" />
-              <div className="tk-view-head">{locale === 'de' ? 'Übersetzungssprache' : locale === 'he' ? 'שפת התרגום' : locale === 'en' ? 'Translation language' : 'Язык перевода'}</div>
-              {item(view.glossLang === 'none', 'אב', locale === 'de' ? 'Keine Übersetzung' : locale === 'he' ? 'ללא תרגום' : locale === 'en' ? 'No translation' : 'Без перевода', locale === 'de' ? 'Transliteration anzeigen' : locale === 'he' ? 'הצגת תעתיק' : locale === 'en' ? 'Show transliteration' : 'Показывать транслитерацию', () => setV({ ...view, glossLang: 'none' }))}
-              {item(view.glossLang === 'de', 'DE', 'Deutsch', locale === 'de' ? 'Wort-für-Wort-Übersetzung der Morgensegen' : locale === 'he' ? 'תרגום מילה במילה לברכות השחר' : locale === 'en' ? 'Word-by-word translation of morning blessings' : 'Пословный перевод утренних благословений', () => setV({ ...view, glossLang: 'de' }))}
+              <div className="tk-view-head">{locale === 'de' ? 'Übersetzungssprache' : locale === 'en' ? 'Translation language' : 'Язык перевода'}</div>
+              {item(view.glossLang === 'none', 'אב', locale === 'de' ? 'Keine Übersetzung' : locale === 'en' ? 'No translation' : 'Без перевода', locale === 'de' ? 'Transliteration anzeigen' : locale === 'en' ? 'Show transliteration' : 'Показывать транслитерацию', () => setV({ ...view, glossLang: 'none' }))}
+              {item(view.glossLang === 'de', 'DE', 'Deutsch', locale === 'de' ? 'Wort-für-Wort-Übersetzung der Morgensegen' : locale === 'en' ? 'Word-by-word translation of morning blessings' : 'Пословный перевод утренних благословений', () => setV({ ...view, glossLang: 'de' }))}
             </>
           )}
           <div className="tk-view-sep" />
