@@ -244,7 +244,7 @@ export function alike(a: { tr: string; he: string }, b: { tr: string; he: string
   return x.some((m) => y.some((n) => m.includes(n) || n.includes(m)));
 }
 
-export type Ask = 'tr' | 'he' | 'value' | 'sound';
+export type Ask = 'tr' | 'he' | 'value' | 'sound' | 'look';
 export type Exercise =
   /** a new word or letter: just look (and «Дальше») */
   | { t: 'intro'; item: Item }
@@ -265,14 +265,28 @@ export const clusters = (he: string) => he.match(/[\u05D0-\u05EA][\u0591-\u05C7]
 const tileable = (he: string) => /^[\u05D0-\u05EA\u0591-\u05BD\u05BF-\u05C7]+$/.test(he) && clusters(he).length >= 2 && clusters(he).length <= 8;
 const phrase = (he: string) => he.split(' ').filter(Boolean);
 
-const label = (x: Item, ask: Ask) => (ask === 'tr' ? core(x.tr) : ask === 'he' ? core(x.he) : ask === 'value' ? String(x.value) : core(x.sound ?? ''));
+const label = (x: Item, ask: Ask) => (ask === 'tr' ? core(x.tr) : ask === 'he' || ask === 'look' ? core(x.he) : ask === 'value' ? String(x.value) : core(x.sound ?? ''));
+
+/** Similar-looking Hebrew words: rank by shared letter pairs, then shared letters. */
+function visualSimilarity(a: string, b: string): number {
+  const letters = (x: string) => [...core(x).replace(/[^א-ת]/g, '')];
+  const x = letters(a), y = letters(b);
+  const pairs = (xs: string[]) => new Set(xs.slice(0, -1).map((c, i) => c + xs[i + 1]));
+  const xp = pairs(x), yp = pairs(y);
+  const commonPairs = [...xp].filter((p) => yp.has(p)).length;
+  const commonLetters = [...new Set(x)].filter((c) => y.includes(c)).length;
+  return commonPairs * 3 + commonLetters;
+}
 
 function pick(item: Item, unit: Unit, ask: Ask): Exercise | null {
   const lbl = label(item, ask);
   const others: Item[] = [];
   // for a letter — the letters that look alike first: the exercise teaches the difference
   const near = unit.track === 'abc' ? (LOOKALIKES.find((g) => g.includes(item.key)) ?? []).map((c) => unit.pool.find((x) => x.key === c)).filter((x): x is Item => !!x) : [];
-  for (const w of [...shuffle(near), ...shuffle(unit.items), ...shuffle(unit.pool)]) {
+  const candidates = ask === 'look'
+    ? shuffle(unit.pool).filter((w) => w.key !== item.key && label(w, ask) !== lbl).sort((a, b) => visualSimilarity(item.he, b.he) - visualSimilarity(item.he, a.he))
+    : [...shuffle(near), ...shuffle(unit.items), ...shuffle(unit.pool)];
+  for (const w of candidates) {
     if (others.length === 3) break;
     if (w.key === item.key || label(w, ask) === lbl || others.some((o) => o.key === w.key || label(o, ask) === label(w, ask))) continue;
     if (unit.track === 'words' && (alike(w, item) || others.some((o) => alike(o, w)))) continue;
@@ -375,7 +389,6 @@ function lessonBody(unit: Unit, part: Item[] | null, hard: boolean): Exercise[] 
   if (part?.length) {
     const ex = drill({ ...unit, items: part }, 1);
     // one verse with a new word — unless the lesson is already long (a short remainder joined it)
-    if (part.length <= unit.size) ensureVerse(ex, unit, part);
     const before = shuffle(unit.items.filter((it) => !part.includes(it))).slice(0, 2);
     before.forEach((it, i) => {
       const x = pick(it, unit, i ? 'he' : 'tr');
@@ -385,7 +398,7 @@ function lessonBody(unit: Unit, part: Item[] | null, hard: boolean): Exercise[] 
   }
   // the review: the weakest and the longest not seen of the unit first (`focus`), then the rest
   const items = (unit.focus?.length ? [...unit.focus, ...shuffle(unit.items.filter((x) => !unit.focus!.includes(x)))] : shuffle(unit.items)).slice(0, 6);
-  return ensureVerse(drill({ ...unit, items }, hard ? 3 : 2), unit, items);
+  return drill({ ...unit, items }, hard ? 3 : 2);
 }
 
 /**
@@ -407,7 +420,7 @@ export const EXAM_LIVES = 3;
 export const XP_EXAM = 20;
 export function makeExam(unit: Unit): Exercise[] {
   const items = shuffle(unit.items).slice(0, EXAM_ITEMS);
-  return ensureVerse(drill({ ...unit, items }, 3), unit, items);
+  return drill({ ...unit, items }, 3);
 }
 
 /** the exercises over `unit.items`: level 1 — introduce and ask each, the pairs; 2 and 3 — every kind mixed (3 — harder) */
@@ -441,7 +454,7 @@ function drill(unit: Unit, level: number): Exercise[] {
         (it) => pick(it, unit, 'he'),
         (it) => build(it, unit),
         (it) => (hard ? gap(it) ?? root(it, unit) : pick(it, unit, 'tr')),
-        (it) => verse(it, unit) ?? (hard ? build(it, unit) : gap(it)),
+        (it) => pick(it, unit, 'look'),
         (it) => (hard ? root(it, unit) ?? pick(it, unit, 'he') : pick(it, unit, 'he')),
       ];
   let k = hard ? 1 : 0;
