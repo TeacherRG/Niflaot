@@ -19,7 +19,6 @@ const [tanakh, ru, en, de] = await Promise.all([
 const infinitives = await readJson<Record<string, string>>('public/tanakh/words/infinitives.json').catch(() => ({}));
 const entries: HebrewLexeme[] = [];
 const legacy: Record<string, string[]> = {};
-const tanakhByExactHeadword = new Map<string, string>();
 
 const pos = (raw: string): PartOfSpeech => {
   const p = raw.split(/\s+/);
@@ -68,8 +67,6 @@ for (const w of tanakh.words) {
   };
   entries.push(entry);
   legacy[`tanakh:${w.id}`] = [id];
-  const exact = cleanVocalized(headword.vocalized);
-  if (!tanakhByExactHeadword.has(exact)) tanakhByExactHeadword.set(exact, id);
 }
 
 const rambamFiles = ['src/rambam/words/ru-1.txt', 'src/rambam/words/ru-2.txt', 'src/rambam/words/ru-3.txt'];
@@ -119,12 +116,11 @@ for (const row of rambamRows.values()) {
     existing.forms.push({ vocalized: row.surface, normalized: normalizeHebrew(row.surface), source: 'manual', reference: `project-word-list:${row.file}:${row.line}` });
     continue;
   }
-  const exactTanakh = tanakhByExactHeadword.get(cleanVocalized(lemma));
   entries.push({
     id: id as HebrewLexeme['id'],
     headword: { vocalized: lemma, normalized: normalizeHebrew(lemma) },
     partOfSpeech: 'unknown',
-    senses: [{ id: `${id}:sense:1`, translations: { ru: [gloss] }, ...(term ? { definition: { ru: term.definition }, domain: ['halakha'] } : {}), ...(exactTanakh ? { domain: [...(term ? ['halakha'] : []), 'shared-spelling-review'] } : {}) }],
+    senses: [{ id: `${id}:sense:1`, translations: { ru: [gloss] }, ...(term ? { definition: { ru: term.definition }, domain: ['halakha'] } : {}) }],
     forms: [{ vocalized: row.surface, normalized: normalizeHebrew(row.surface), source: 'manual', reference: `project-word-list:${row.file}:${row.line}` }],
     occurrences: [],
     sources: [{ name: 'Niflaot project Mishneh Torah word list', license: 'Project-authored translation; source text: Sefaria / Torat Emet 363' }],
