@@ -16,7 +16,7 @@ const valid: HebrewLexicon = {
   }],
 };
 const errors = validateHebrewLexicon(valid);
-if (errors.length) throw new Error(errors.join('\\n'));
+if (errors.length) throw new Error(errors.join('\n'));
 if (normalizeHebrew('מָסַךְ') !== normalizeHebrew('מַסָּךְ')) {
   // Normalization strips vowel points; homonym identity is handled by stable IDs, not this helper.
   throw new Error('Hebrew search normalization failed');
