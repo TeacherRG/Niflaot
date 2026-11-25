@@ -471,7 +471,7 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
   return (
     <>
       <TopBar title={t('reading.title')} />
-      <main className={`wrap rd shacharit-page${view.big ? ' rd-big' : ''}${view.tr === 'duo' && view.trBig === 'he' ? ' shacharit-hebig' : ''}`}>
+      <main className={`wrap rd shacharit-page${view.big ? ' rd-big' : ''}${(view.tr === 'duo' || (view.tr === 'he' && view.glossLang === 'de')) && view.trBig === 'he' ? ' shacharit-hebig' : ''}`}>
         <header className="tk-head">
           <p className="tk-kicker">{t('reading.siddur')}</p>
           <h1>{t(PRAYER_KEY[prayer])}</h1>
