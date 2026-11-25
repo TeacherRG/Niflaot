@@ -202,7 +202,7 @@ export const UNIT_BLOCK = 10;
 export function tanakhUnits(dict: Dict, verse: (id: string) => Verse | undefined = () => undefined, locale?: Locale): Unit[] {
   // the first `TRANSLIT_WORDS` words — with how they are read (shown in the lesson unless the player reads Hebrew)
   const items = dict.words
-    .filter((w) => dict.tr[w.id] && (!w.pos.split(/\s+/).includes('v') || !!w.infinitive))
+    .filter((w) => dict.tr[w.id])
     .map((w, i): Item => {
       const he = w.pos.split(/\s+/).includes('v') ? (w.infinitive ?? w.he) : w.he;
       return { key: w.id, he, tr: dict.tr[w.id], root: w.root, verse: verse(w.id), translit: locale && i < TRANSLIT_WORDS ? wordTranslit(he, locale) : undefined };
@@ -369,7 +369,7 @@ function lessonBody(unit: Unit, part: Item[] | null, hard: boolean): Exercise[] 
     // one verse with a new word — unless the lesson is already long (a short remainder joined it)
     const before = shuffle(unit.items.filter((it) => !part.includes(it))).slice(0, 2);
     before.forEach((it, i) => {
-      const x = pick(it, unit, i ? 'he' : 'tr');
+      const x = ex.length < 20 ? pick(it, unit, i ? 'he' : 'tr') : null;
       if (x) ex.splice(ex.length - 1, 0, x);
     });
     return ex;
