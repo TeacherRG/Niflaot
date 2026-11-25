@@ -158,15 +158,15 @@ for (const [he, translation] of lexiconRu) {
 
 const lexicon: HebrewLexicon = { schemaVersion: 1, generatedAt: new Date().toISOString(), entries };
 const errors = validateHebrewLexicon(lexicon);
-if (errors.length) throw new Error(errors.join('\\n'));
+if (errors.length) throw new Error(errors.join('\n'));
 
 const out = path.join(root, 'src/data');
 await mkdir(out, { recursive: true });
-await writeFile(path.join(out, 'hebrew-lexicon.json'), JSON.stringify(lexicon, null, 2) + '\\n');
+await writeFile(path.join(out, 'hebrew-lexicon.json'), JSON.stringify(lexicon, null, 2) + '\n');
 await writeFile(path.join(out, 'hebrew-lexicon-legacy-map.json'), JSON.stringify({
   schemaVersion: 1,
   policy: 'Legacy IDs are aliases only. Never merge lexemes by normalized spelling.',
   ids: legacy,
   ambiguous: Object.entries(legacy).filter(([, ids]) => ids.length > 1).map(([key, ids]) => ({ key, ids })),
-}, null, 2) + '\\n');
+}, null, 2) + '\n');
 console.log(`Built ${entries.length} lexemes; ${Object.keys(legacy).length} legacy keys mapped; ${entries.filter(x => x.status === 'review').length} need editorial review.`);
