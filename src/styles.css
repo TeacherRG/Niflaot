@@ -4417,3 +4417,5 @@ html.rm-focus .rm-split:not(.solo) .rm-tools>:not(.rm-focus-btn){display:none}
 
 .shacharit-page:fullscreen>.shacharit-text~*:not(.rd-audio-float),.shacharit-page.sd-fullscreen-fallback>.shacharit-text~*:not(.rd-audio-float){display:none!important}
 .sd-rate-button{min-width:42px;min-height:30px;height:30px;padding:0 5px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);font-family:var(--f-num);font-size:11px;font-weight:700;cursor:pointer}
+
+.shacharit-page.sd-fullscreen-fallback{position:fixed;inset:0;z-index:9999}
