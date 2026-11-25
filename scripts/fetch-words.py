@@ -443,7 +443,7 @@ def cmd_build():
     for w in words:
         covered += w['n']
         w['cov'] = round(covered / total * 100, 1)
-    head = {'source': 'Open Scriptures Hebrew Bible Project (CC BY 4.0); Strong’s Hebrew Dictionary and Brown–Driver–Briggs (Public Domain); infinitives from OSHB infinitive-construct morphology',
+    head = {'source': 'Open Scriptures Hebrew Bible Project (CC BY 4.0); Strong’s Hebrew Dictionary and Brown–Driver–Briggs (Public Domain); infinitives from OSHB morphology (construct preferred; absolute fallback)',
             'total': total, 'names': names, 'lemmas': len(count),
             # «все слова» — сколько слов (без имён, мест и надписей) в Пророках и Писаниях: порог сертификата «Раввин языка Танаха»
             'all': sum(1 for l in count if l not in SKIP)}
