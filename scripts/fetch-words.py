@@ -396,7 +396,7 @@ def infinitive_forms():
         pool = constructs or [(k, p, form, n) for (k, p, form), n in candidates.items()]
         if pool:
             priority = max(x[1] for x in pool)
-            out[lemma] = max((x for x in pool if x[1] == priority), key=lambda x: x[3])[2]
+            chosen = max((x for x in pool if x[1] == priority), key=lambda x: x[3])\n            out[lemma] = {'form': chosen[2], 'type': 'infinitive-construct' if chosen[0] == 'c' else 'infinitive-absolute'}
     return out
 
 
@@ -432,7 +432,7 @@ def cmd_build():
             w.pop('root', None)
             if ROOT_FIX[l]: w['root'] = ROOT_FIX[l]
         if l in FORM_FIX: w['he'] = FORM_FIX[l]
-        if verb and l in infinitives: w['inf'] = infinitives[l]
+        if verb and l in infinitives:\n            w['inf'] = infinitives[l]['form']\n            w['infType'] = infinitives[l]['type']
         # арамейское слово (Даниэль, Эзра): чаще всего встречается в арамейских главах
         if aram[l] * 2 > count[l]: w['aram'] = 1
         words.append(w)
@@ -475,9 +475,9 @@ def cmd_infinitives():
     verbs = [w for w in data['words'] if w['pos'].split()[0] == 'v']
     for w in verbs:
         if w['id'] in forms:
-            w['inf'] = forms[w['id']]
+            w['inf'] = forms[w['id']]['form']\n            w['infType'] = forms[w['id']]['type']
         else:
-            w.pop('inf', None)
+            w.pop('inf', None)\n            w.pop('infType', None)
     OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
     print(f"Infinitives: {sum(1 for w in verbs if 'inf' in w)} of {len(verbs)} verbs; missing: {sum(1 for w in verbs if 'inf' not in w)}")
 
