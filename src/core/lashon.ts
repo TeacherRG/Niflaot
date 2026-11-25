@@ -202,8 +202,11 @@ export const UNIT_BLOCK = 10;
 export function tanakhUnits(dict: Dict, verse: (id: string) => Verse | undefined = () => undefined, locale?: Locale): Unit[] {
   // the first `TRANSLIT_WORDS` words — with how they are read (shown in the lesson unless the player reads Hebrew)
   const items = dict.words
-    .filter((w) => dict.tr[w.id])
-    .map((w, i): Item => ({ key: w.id, he: w.he, tr: dict.tr[w.id], root: w.root, verse: verse(w.id), translit: locale && i < TRANSLIT_WORDS ? wordTranslit(w.he, locale) : undefined }));
+    .filter((w) => dict.tr[w.id] && (!w.pos.split(/\s+/).includes('v') || !!w.infinitive))
+    .map((w, i): Item => {
+      const he = w.pos.split(/\s+/).includes('v') ? (w.infinitive ?? w.he) : w.he;
+      return { key: w.id, he, tr: dict.tr[w.id], root: w.root, verse: verse(w.id), translit: locale && i < TRANSLIT_WORDS ? wordTranslit(he, locale) : undefined };
+    });
   const out: Unit[] = [];
   for (let g = 0; g * TANAKH_GROUP < items.length; g++) {
     const level = items.slice(g * TANAKH_GROUP, (g + 1) * TANAKH_GROUP);

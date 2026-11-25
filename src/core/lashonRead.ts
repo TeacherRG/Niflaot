@@ -145,8 +145,11 @@ export const RW_SIZE = 12;
 const RW_SKIP = new Set(['430', '3068', '410', '136', '3605', '3478', '3063']);
 export function readWordUnits(dict: Dict, locale: Locale): Unit[] {
   const ok = dict.words
-    .filter((w) => dict.tr[w.id] && !RW_SKIP.has(w.id) && /^[א-תְ-ּׁׂ]+$/.test(w.he))
-    .map((w) => ({ w, syl: syllables(w.he), read: readHebrew(w.he, lang(locale)) }))
+    .filter((w) => dict.tr[w.id] && !RW_SKIP.has(w.id) && (!w.pos.split(/\s+/).includes('v') || !!w.infinitive) && /^[א-תְ-ּׁׂ]+$/.test(w.pos.split(/\s+/).includes('v') ? w.infinitive! : w.he))
+    .map((w) => {
+      const he = w.pos.split(/\s+/).includes('v') ? (w.infinitive ?? w.he) : w.he;
+      return { w: { ...w, he }, syl: syllables(he), read: readHebrew(he, lang(locale)) };
+    })
     // a «furtive» patach at the end (רוּחַ — ruach) is read before its letter: not a word to build by syllables
     .filter((x) => x.read && x.syl.every((s) => /[ֱ-ֻ]|וּ/.test(s)) && !/[חעה]ּ?ַ$/.test(x.w.he))
     // one reading — one word (עַיִן and אַיִן are both «ayin»)

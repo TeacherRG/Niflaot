@@ -168,7 +168,13 @@ export function WordPop() {
   // `=лемма` — the dictionary form of a word outside the dictionary as the parse gives it (Dicta); a number — the dictionary's
   const own = id.startsWith('=') ? id.slice(1) : '';
   const tr = id && !own ? dict?.tr[id] : undefined;
-  const head = w?.he ?? (own || (id ? lex?.[id] : undefined));
+  const isVerb = w?.pos.split(/\s+/).includes('v') ?? false;
+  const dictionaryForm = isVerb ? w?.infinitive : w?.he;
+  const missingInfinitiveLabel = locale === 'de' ? 'Infinitiv nicht im Korpus gefunden' : locale === 'en' ? 'Infinitive not found in the corpus' : 'Инфинитив не найден в корпусе';
+  const head = isVerb ? dictionaryForm : dictionaryForm ?? (own || (id ? lex?.[id] : undefined));
+  const dictionaryLabel = locale === 'de' ? 'Wörterbuchform' : locale === 'en' ? 'Dictionary form' : 'Словарная форма';
+  const verseLabel = locale === 'de' ? 'Form im Vers' : locale === 'en' ? 'Form in the verse' : 'Форма в стихе';
+  const translationLabel = locale === 'de' ? 'Übersetzung' : locale === 'en' ? 'Translation' : 'Перевод';
   const box_ = id ? boxOf(store, id) : 0;
   const known = box_ >= KNOWN_BOX;
   const learning = box_ > 0 && !known;
@@ -206,6 +212,7 @@ export function WordPop() {
   return createPortal(
     <div ref={box} className="wp no-print" role="dialog" aria-label={open.word} style={pos}>
       <p className="wp-word">
+        <small className="wp-label">{verseLabel}</small>
         <span className="he" lang="he" dir="rtl">
           {open.word}
         </span>
@@ -233,12 +240,16 @@ export function WordPop() {
             card || <p className="wp-tr">{t('wp.name')}</p>
           ) : head ? (
             <div className="wp-main">
-              {head !== open.word.replace(/[[\]()]/g, '') && (
-                <span className="he wp-head" lang="he" dir="rtl">
-                  {head}
-                </span>
+              {head && (
+                <>
+                  <small className="wp-label">{dictionaryLabel}</small>
+                  <span className="he wp-head" lang="he" dir="rtl">
+                    {head}
+                  </span>
+                </>
               )}
-              {tr ? <span className="wp-tr">{tr}</span> : <span className="wp-note">{t('wp.rare')}</span>}
+              {isVerb && !w?.infinitive && <span className="wp-note">{missingInfinitiveLabel}</span>}
+              {tr ? <><small className="wp-label">{translationLabel}</small><span className="wp-tr">{tr}</span></> : <span className="wp-note">{t('wp.rare')}</span>}
               {w && (
                 <small className="wp-meta">
                   {w.root && (
