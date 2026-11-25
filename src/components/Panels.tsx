@@ -271,7 +271,7 @@ export function Panels() {
             <Icon name="home" />
             <span>{t('menu.home')}</span>
           </a>
-          {group(<Icon name="spark" />, t('menu.chassidut'), t('menu.chassidutSub'), inRebbe || starts('#/hemshech'), (
+          {group(<Icon name="spark" />, t('menu.chassidut'), t('menu.chassidutSub'), inRebbe || starts('#/hemshech', '#/tanya'), (
             <>
               {rebbeGroups.length > 0 && (
                 <details className="menu-group" open={inRebbe}>
@@ -286,6 +286,7 @@ export function Panels() {
                 </details>
               )}
               {link('#/hemshech', <Icon name="book" />, t('menu.hemshech'), today && 'title' in today.hs ? today.hs.title : t('hs.short'), !!today && 'title' in today.hs && today.hs.done)}
+              <a href="#/tanya" onClick={close} className="menu-item" aria-current={starts('#/tanya') ? 'page' : undefined}><Icon name="book" /><span>Тания<small>Заключительный трактат · глава 6</small></span></a>
             </>
           ))}
           {group(<Icon name="book" />, t('menu.tanakh'), t('menu.tanakhSub'), inTorah || starts('#/neviim', '#/ketuvim', '#/atlas', '#/search'), (
