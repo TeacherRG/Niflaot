@@ -94,7 +94,7 @@ for (const line of (await readFile(path.join(root, 'src/rambam/words/lexicon-ru.
 
 type Term = { title: string; definition: string };
 const terms = new Map<string, Term>();
-for (const line of (await readFile(path.join(root, 'src/rambam/words/terms-ru.txt'), 'utf8')).split(/\\r?\\n/)) {
+for (const line of (await readFile(path.join(root, 'src/rambam/words/terms-ru.txt'), 'utf8')).split(/\r?\n/)) {
   if (!line.trim() || line.startsWith('#')) continue;
   const [he, title, definition] = line.split('|');
   if (he && title && definition) {
