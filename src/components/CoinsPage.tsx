@@ -55,7 +55,7 @@ export function CoinsPage() {
     } catch {}
   };
   const onGive = (n: number) => {
-    if (!give(n, cause, token, me?.user.email)) return setMsg(t('coins.noCoins'));
+    if (!give(n, cause, token)) return setMsg(t('coins.noCoins'));
     setMsg(t('coins.gave', { n }));
     setWaiting(pendingGifts());
     setTimeout(() => setWaiting(pendingGifts()), 2500);
