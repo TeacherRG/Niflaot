@@ -16,7 +16,7 @@ import { methodsFor, validEmail, validNick } from './rules';
 import { verifyGoogleToken } from './google';
 import { mergeSnapshots, summarize, type Snapshot } from '../../src/core/sync';
 import { GIFT_DAY, GIFT_MAX, PUSHKA_TARGET, isCause, pushkaAdd, winningCause, type PushkaState } from '../../src/core/coinsRules';
-import { balance as coinBalance, normCoins } from '../../src/core/coinsRules';
+import { balance as coinBalance, earnedTotal, normCoins, type CoinStore } from '../../src/core/coinsRules';
 
 export interface MailEnv {
   RESEND_API_KEY?: string;
@@ -151,23 +151,49 @@ export class Accounts extends DurableObject<MailEnv> {
     return this.sql.exec<T>(q, ...b).toArray()[0];
   }
 
-  /** Create a wallet exactly once from the legacy synced balance; all later changes are server-ledger only. */
+  /** Create a wallet exactly once from the legacy synced balance and import its old debits. */
   private wallet(u: User) {
     let w = this.one<{ balance: number; initialized: number }>('SELECT balance, initialized FROM wallets WHERE user = ?', u.id);
     if (!w) {
       const progress = this.one<{ data: string }>('SELECT data FROM progress WHERE user = ?', u.id);
-      let opening = 0;
+      let store: CoinStore = normCoins(null);
       try {
         const raw = progress ? JSON.parse(progress.data)['niflaot:coins'] : null;
-        opening = coinBalance(normCoins(raw ? JSON.parse(raw) : null));
+        store = normCoins(raw ? JSON.parse(raw) : null);
       } catch {}
       const at = Date.now();
-      this.sql.exec('INSERT OR IGNORE INTO wallets (user, balance, initialized) VALUES (?, ?, ?)', u.id, opening, at);
+      const opening = earnedTotal(store);
+      this.ctx.storage.transactionSync(() => {
+        this.sql.exec('INSERT OR IGNORE INTO wallets (user, balance, initialized) VALUES (?, ?, ?)', u.id, coinBalance(store), at);
+        const current = this.one<{ balance: number; initialized: number }>('SELECT balance, initialized FROM wallets WHERE user = ?', u.id);
+        if (!current) return;
+        this.sql.exec(
+          'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          `opening:${u.id}`, u.id, 'opening', opening, opening, 'legacy-account-snapshot', current.initialized,
+        );
+        for (const [day, [total, ids]] of Object.entries(store.g)) {
+          if (ids && Object.keys(ids).length) {
+            for (const [legacyId, amount] of Object.entries(ids)) {
+              const giftId = legacyId.includes(':') ? legacyId.slice(legacyId.indexOf(':') + 1) : legacyId;
+              const ledgerId = /^[a-z0-9]{6,24}$/.test(giftId) ? `gift:${u.id}:${giftId}` : `legacy:give:${u.id}:${day}:${legacyId}`;
+              this.sql.exec(
+                'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                ledgerId, u.id, 'give', -amount, Math.max(0, opening - amount), giftId, at,
+              );
+            }
+          } else if (total) {
+            this.sql.exec(
+              'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+              `legacy:give:${u.id}:${day}`, u.id, 'give', -total, 0, day, at,
+            );
+          }
+        }
+        for (const [item, cost] of Object.entries(store.i)) this.sql.exec(
+          'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          `legacy:buy:${u.id}:${item}`, u.id, 'buy', -cost, 0, item, at,
+        );
+      });
       w = this.one<{ balance: number; initialized: number }>('SELECT balance, initialized FROM wallets WHERE user = ?', u.id);
-      if (w) this.sql.exec(
-        'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        `opening:${u.id}`, u.id, 'opening', opening, w.balance, 'legacy-account-snapshot', w.initialized,
-      );
     }
     return w ?? null;
   }
@@ -578,11 +604,15 @@ export class Accounts extends DurableObject<MailEnv> {
         if (today + amount > GIFT_DAY) return fail('day', 429);
         const wallet = this.wallet(u);
         if (!wallet) return fail('wallet', 503);
-        if (wallet.balance < amount) return fail('balance', 409);
-        this.sql.exec('UPDATE wallets SET balance = balance - ? WHERE user = ? AND balance >= ?', amount, u.id, amount);
-        const nextBalance = this.one<{ balance: number }>('SELECT balance FROM wallets WHERE user = ?', u.id)!.balance;
-        this.sql.exec('INSERT INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-          `gift:${key}`, u.id, 'give', -amount, nextBalance, id, Date.now());
+        const priorDebit = this.one<{ amount: number }>('SELECT amount FROM wallet_ledger WHERE id = ?', `gift:${key}`);
+        if (priorDebit && priorDebit.amount !== -amount) return fail('gift', 409);
+        if (!priorDebit) {
+          if (wallet.balance < amount) return fail('balance', 409);
+          this.sql.exec('UPDATE wallets SET balance = balance - ? WHERE user = ? AND balance >= ?', amount, u.id, amount);
+          const nextBalance = this.one<{ balance: number }>('SELECT balance FROM wallets WHERE user = ?', u.id)!.balance;
+          this.sql.exec('INSERT INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            `gift:${key}`, u.id, 'give', -amount, nextBalance, id, Date.now());
+        }
         let round = this.round();
         this.sql.exec('INSERT INTO pushka_gifts (id, user, round, amount, cause, day, at) VALUES (?, ?, ?, ?, ?, ?, ?)', key, u.id, round.n, amount, cause, day, Date.now());
         const next = pushkaAdd(round.coins, amount);
