@@ -108,7 +108,7 @@ function DreidelPlayer({ code }: { code: string }) {
   useEffect(() => { if (!name.trim() && account?.user.nick) setName(account.user.nick); }, [account?.user.nick]);
   const query = useCallback(async () => {
     if (token && account?.user.active && !guestMode) {
-      const response = await fetch((import.meta.env.VITE_ASSISTANT_URL ?? '').replace(/\/$/, '') + '/account/dreidel-ticket', {
+      const response = await fetch((import.meta.env?.VITE_ASSISTANT_URL ?? '').replace(/\/$/, '') + '/account/dreidel-ticket', {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({ room: code }),
