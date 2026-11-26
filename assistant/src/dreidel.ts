@@ -141,18 +141,19 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
     }
   }
 
-  private async wipe() {
+  private async wipe(): Promise<boolean> {
     const room = await this.load();
     if (room?.phase === 'playing') finish(room);
     if (room?.phase === 'final' && !(await this.settleRoom(room))) {
       await this.ctx.storage.setAlarm(Date.now() + 60_000);
-      return;
+      return false;
     }
     for (const ws of this.ctx.getWebSockets()) {
       try { ws.close(4000, 'room closed'); } catch {}
     }
     this.room = null;
     await this.ctx.storage.deleteAll();
+    return true;
   }
 
   private async accountCall(path: 'consume' | 'reserve' | 'settle', body: object): Promise<any | null> {
@@ -224,7 +225,7 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
     if (url.pathname === '/init' && req.method === 'POST') {
       const existing = await this.load();
       if (existing && now - existing.created < ROOM_TTL) return new Response('busy', { status: 409 });
-      if (existing) await this.wipe();
+      if (existing && !(await this.wipe())) return new Response('settlement pending', { status: 503 });
       const body = await req.json() as { code?: string; key?: string };
       if (!validCode(body.code) || typeof body.key !== 'string' || body.key.length < 24)
         return new Response('bad room', { status: 400 });
