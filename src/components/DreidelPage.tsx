@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useAccount } from '../core/account';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { QrCode } from './QrCode';
@@ -47,7 +48,7 @@ function DreidelHome() {
 function Status({ status, error }: { status: string; error?: string }) {
   if (status === 'closed') return <p className="dreidel-error">Комната закрыта или не найдена.</p>;
   if (status !== 'open') return <p className="dreidel-muted">{status === 'lost' ? 'Связь прервалась, восстанавливаем…' : 'Подключаемся к комнате…'}</p>;
-  if (error) return <p className="dreidel-error">{error === 'full' ? 'В комнате уже 30 игроков.' : error === 'started' ? 'Игра уже началась.' : 'Введите имя.'}</p>;
+  if (error) return <p className="dreidel-error">{error === 'full' ? 'В комнате уже 30 игроков.' : error === 'started' ? 'Игра уже началась.' : error === 'balance' ? 'Не у всех участников есть 10 пеликоинов. Пополните баланс или войдите гостем.' : error === 'escrow' ? 'Серверный кошелёк временно не настроен. Гости могут играть виртуальными монетами.' : error === 'ticket' ? 'Не удалось подтвердить вход в аккаунт. Попробуйте ещё раз.' : 'Введите имя.'}</p>;
   return null;
 }
 
@@ -59,10 +60,10 @@ function Invite({ code }: { code: string }) {
 
 function DreidelHost({ code }: { code: string }) {
   const key = dreidelHostKey(code);
-  const { view, status, send } = useDreidelRoom(code, 'role=host&key=' + encodeURIComponent(key ?? ''));
+  const { view, status, error, send } = useDreidelRoom(code, 'role=host&key=' + encodeURIComponent(key ?? ''));
   if (!key) return <p className="dreidel-error">Ключ ведущего не найден на этом устройстве.</p>;
-  if (!view) return <Status status={status} />;
-  return <div className="dreidel-room"><Status status={status} /><h1>Комната дрейдла</h1>
+  if (!view) return <Status status={status} error={error} />;
+  return <div className="dreidel-room"><Status status={status} error={error} /><h1>Комната дрейдла</h1>
     {view.phase === 'lobby' ? <><Invite code={code} /><h2>Участники · {view.count}</h2><PlayerList view={view} /><button className="btn dreidel-primary" disabled={view.count < 2} onClick={() => send({ t: 'start' })}>Начать игру</button><p className="dreidel-muted">Нужно минимум два игрока.</p></>
       : <><GameBoard view={view} /><div className="dreidel-host-actions">{view.phase === 'playing' && <button className="btn" onClick={() => send({ t: 'end' })}>Завершить игру</button>}<a href="#/dreidel" className="btn">Новая игра</a></div></>}
   </div>;
@@ -97,15 +98,33 @@ function PlayerCoins({ view }: { view: DreidelView }) {
 
 function DreidelPlayer({ code }: { code: string }) {
   const stored = useMemo(() => dreidelPlayer(code), [code]);
-  const [name, setName] = useState(stored.name);
+  const { token, me: account } = useAccount();
+  const [guestMode, setGuestMode] = useState(false);
+  const [name, setName] = useState(stored.name || account?.user.nick || '');
   const [joined, setJoined] = useState(false);
-  const { view, status, error, send } = useDreidelRoom(code, 'role=player&pid=' + stored.pid);
+  useEffect(() => { if (!name.trim() && account?.user.nick) setName(account.user.nick); }, [account?.user.nick]);
+  const query = useCallback(async () => {
+    if (token && account?.user.active && !guestMode) {
+      const response = await fetch((import.meta.env.VITE_ASSISTANT_URL ?? '').replace(/\/$/, '') + '/account/dreidel-ticket', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ room: code }),
+      });
+      if (!response.ok) throw new Error('ticket');
+      const data = await response.json() as { ticket: string; name: string };
+      return 'role=player&ticket=' + encodeURIComponent(data.ticket);
+    }
+    return 'role=player&pid=' + stored.pid;
+  }, [code, stored.pid, token, account?.user.active, guestMode]);
+  const { view, status, error, send } = useDreidelRoom(code, query);
   useEffect(() => {
     if (status === 'open' && (joined || view?.me) && name.trim()) send({ t: 'hello', name });
   }, [status]);
-  if (!view) return <Status status={status} />;
+  if (!view) return <Status status={status} error={error} />;
   if (!view.me) return <div className="dreidel-room"><Status status={status} error={error} /><h1>Войти в игру</h1><form className="dreidel-join-card" onSubmit={(e) => { e.preventDefault(); if (!name.trim()) return; saveDreidelName(code, name.trim()); setJoined(true); send({ t: 'hello', name: name.trim() }); }}>
-    <label>Ваше имя<input value={name} onChange={(e) => setName(e.target.value)} maxLength={20} autoComplete="nickname" placeholder="Как вас зовут?" /></label><button className="btn dreidel-primary" disabled={!name.trim()}>Присоединиться</button>
-  </form></div>;
+    <label>Ваше имя<input value={name} onChange={(e) => setName(e.target.value)} maxLength={20} autoComplete="nickname" placeholder="Как вас зовут?" /></label>
+    {token && account?.user.active && <label className="dreidel-guest-choice"><input type="checkbox" checked={guestMode} onChange={(e) => setGuestMode(e.target.checked)} /> Играть гостем — с виртуальными монетами</label>}
+    <button className="btn dreidel-primary" disabled={!name.trim()}>Присоединиться</button>
+  </form><p className="dreidel-muted">{token && account?.user.active && !guestMode ? 'В начале игры с аккаунта резервируются 10 пеликоинов.' : 'Гостям выдаются 10 виртуальных монет.'}</p></div>;
   return <div className="dreidel-room"><Status status={status} error={error} /><h1>Дрейдл · {view.me.name}</h1><GameBoard view={view} me onSpin={() => send({ t: 'spin' })} /><p className="dreidel-muted">Ваши монеты: {view.me.coins}</p></div>;
 }
