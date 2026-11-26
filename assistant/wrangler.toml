@@ -84,5 +84,14 @@ class_name = "GeminiGate"
 tag = "v5"
 new_sqlite_classes = ["GeminiGate"]
 
+# «Дрейдл» — отдельная комната на код; случайный результат и банк считаются на сервере.
+[[durable_objects.bindings]]
+name = "DREIDEL"
+class_name = "DreidelRoom"
+
+[[migrations]]
+tag = "v6"
+new_sqlite_classes = ["DreidelRoom"]
+
 [triggers]
 crons = ["1 * * * *"]
