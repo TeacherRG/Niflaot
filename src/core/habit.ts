@@ -46,6 +46,7 @@ export function markStudied() {
   const firstDay = Object.keys(log).sort()[0];
   log[today] ||= 1;
   funnel(log, firstDay, today);
+  track('study_day', { key: today });
   if (repair) {
     log[fix.day] = 2;
     try {
