@@ -41,9 +41,8 @@ function publicView(room: Room, now: number, pid?: string) {
     players: room.players.map(({ name, coins }) => ({ name, coins })),
     count: room.players.length,
     pot: room.pot,
-    turn: current?.pid ?? null,
     turnName: current?.name ?? null,
-    last: room.last ?? null,
+    last: room.last ? { id: room.last.id, name: room.last.name, face: room.last.face, delta: room.last.delta, at: room.last.at } : null,
     now,
     me: me ? { name: me.name, coins: me.coins, canSpin: room.phase === 'playing' && current?.pid === me.pid } : null,
   };
