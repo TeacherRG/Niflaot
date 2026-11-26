@@ -665,10 +665,13 @@ export class Accounts extends DurableObject<MailEnv> {
         const n = this.one<{ n: number }>('SELECT COUNT(*) AS n FROM wallet_ledger WHERE user = ? AND kind = ? AND at >= ?', u.id, `earn:${kind}`, Date.parse(day + 'T00:00:00Z'))?.n ?? 0;
         if (n >= (kind === 'read' ? 5 : 20)) return fail('cap', 429);
       }
-      this.sql.exec('UPDATE wallets SET balance = balance + ? WHERE user = ?', amount, u.id);
-      const next = this.one<{ balance: number }>('SELECT balance FROM wallets WHERE user = ?', u.id)!.balance;
-      this.sql.exec('INSERT INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        ledgerId, u.id, `earn:${kind}`, amount, next, id, Date.now());
+      let next = 0;
+      this.ctx.storage.transactionSync(() => {
+        this.sql.exec('UPDATE wallets SET balance = balance + ? WHERE user = ?', amount, u.id);
+        next = this.one<{ balance: number }>('SELECT balance FROM wallets WHERE user = ?', u.id)!.balance;
+        this.sql.exec('INSERT INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          ledgerId, u.id, `earn:${kind}`, amount, next, id, Date.now());
+      });
       return json({ ok: true, gained: amount, balance: next });
     }
 
@@ -682,10 +685,13 @@ export class Accounts extends DurableObject<MailEnv> {
       const ledgerId = `buy:${u.id}:${item}`;
       if (this.one('SELECT id FROM wallet_ledger WHERE user = ? AND kind = \'buy\' AND ref = ?', u.id, item)) return fail('owned', 409);
       if (w.balance < costs[item]) return fail('balance', 409);
-      this.sql.exec('UPDATE wallets SET balance = balance - ? WHERE user = ? AND balance >= ?', costs[item], u.id, costs[item]);
-      const next = this.one<{ balance: number }>('SELECT balance FROM wallets WHERE user = ?', u.id)!.balance;
-      this.sql.exec('INSERT INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        ledgerId, u.id, 'buy', -costs[item], next, item, Date.now());
+      let next = 0;
+      this.ctx.storage.transactionSync(() => {
+        this.sql.exec('UPDATE wallets SET balance = balance - ? WHERE user = ? AND balance >= ?', costs[item], u.id, costs[item]);
+        next = this.one<{ balance: number }>('SELECT balance FROM wallets WHERE user = ?', u.id)!.balance;
+        this.sql.exec('INSERT INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          ledgerId, u.id, 'buy', -costs[item], next, item, Date.now());
+      });
       return json({ ok: true, balance: next });
     }
 
@@ -704,22 +710,24 @@ export class Accounts extends DurableObject<MailEnv> {
         if (!wallet) return fail('wallet', 409);
         const priorDebit = this.one<{ amount: number }>('SELECT amount FROM wallet_ledger WHERE id = ?', `gift:${key}`);
         if (priorDebit && priorDebit.amount !== -amount) return fail('gift', 409);
-        if (!priorDebit) {
-          if (wallet.balance < amount) return fail('balance', 409);
-          this.sql.exec('UPDATE wallets SET balance = balance - ? WHERE user = ? AND balance >= ?', amount, u.id, amount);
-          const nextBalance = this.one<{ balance: number }>('SELECT balance FROM wallets WHERE user = ?', u.id)!.balance;
-          this.sql.exec('INSERT INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-            `gift:${key}`, u.id, 'give', -amount, nextBalance, id, Date.now());
-        }
-        let round = this.round();
-        this.sql.exec('INSERT INTO pushka_gifts (id, user, round, amount, cause, day, at) VALUES (?, ?, ?, ?, ?, ?, ?)', key, u.id, round.n, amount, cause, day, Date.now());
-        const next = pushkaAdd(round.coins, amount);
-        for (let i = 0; i < next.filled; i++) {
-          this.sql.exec('UPDATE pushka_rounds SET coins = ?, closed = ?, cause = ? WHERE n = ?', PUSHKA_TARGET, Date.now(), winningCause(this.votes(round.n)), round.n);
-          this.sql.exec('INSERT INTO pushka_rounds (n, coins) VALUES (?, 0)', round.n + 1);
-          round = { n: round.n + 1, coins: 0 };
-        }
-        this.sql.exec('UPDATE pushka_rounds SET coins = ? WHERE n = ?', next.coins, round.n);
+        if (!priorDebit && wallet.balance < amount) return fail('balance', 409);
+        this.ctx.storage.transactionSync(() => {
+          if (!priorDebit) {
+            this.sql.exec('UPDATE wallets SET balance = balance - ? WHERE user = ? AND balance >= ?', amount, u.id, amount);
+            const nextBalance = this.one<{ balance: number }>('SELECT balance FROM wallets WHERE user = ?', u.id)!.balance;
+            this.sql.exec('INSERT INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+              `gift:${key}`, u.id, 'give', -amount, nextBalance, id, Date.now());
+          }
+          let round = this.round();
+          this.sql.exec('INSERT INTO pushka_gifts (id, user, round, amount, cause, day, at) VALUES (?, ?, ?, ?, ?, ?, ?)', key, u.id, round.n, amount, cause, day, Date.now());
+          const next = pushkaAdd(round.coins, amount);
+          for (let i = 0; i < next.filled; i++) {
+            this.sql.exec('UPDATE pushka_rounds SET coins = ?, closed = ?, cause = ? WHERE n = ?', PUSHKA_TARGET, Date.now(), winningCause(this.votes(round.n)), round.n);
+            this.sql.exec('INSERT INTO pushka_rounds (n, coins) VALUES (?, 0)', round.n + 1);
+            round = { n: round.n + 1, coins: 0 };
+          }
+          this.sql.exec('UPDATE pushka_rounds SET coins = ? WHERE n = ?', next.coins, round.n);
+        });
       }
       return json({ ok: true, pushka: this.pushka(u.id) });
     }
