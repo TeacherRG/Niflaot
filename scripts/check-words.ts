@@ -14,7 +14,7 @@ import { styleErrors } from './style-rules';
 import { LESSONS } from '../src/lessons';
 import { makeRound, torahWords, torahWordsCertificates } from '../src/core/torahWords';
 import { readHebrew } from '../src/core/translit';
-import { DAILY_KNOWN, MERGED, todaysReview, WORDS_ALL, wordsCertificates, type WordStore } from '../src/core/words';
+import { DAILY_KNOWN, dueWords, MERGED, todaysReview, WORDS_ALL, wordsCertificates, type WordStore } from '../src/core/words';
 import { apart, makePicRound, PIC_WORDS } from '../src/core/picWords';
 
 type Lang = 'ru' | 'en' | 'de';
@@ -42,6 +42,13 @@ const ids = dict.words.map((w) => w.id);
 // «Раввин языка Танаха» — все слова Пророков и Писаний: порог = `all` из words.json
 if (WORDS_ALL !== dict.all) err(`WORDS_ALL в src/core/words.ts = ${WORDS_ALL}, а слов в Пророках и Писаниях — ${dict.all} (all в words.json)`);
 if (wordsCertificates({}).at(-1)?.id !== 'w-all') err('последний сертификат слов — не «w-all»');
+// «Слова ґалахи» лежат в той же колоде с ключами `h:…` — в сертификаты и повторение «Моих слов» они не идут
+{
+  const mixed: WordStore = { '559': [1, 4, 0], 'h:שחיטה': [1, 5, 0], 'h:נבלה': [1, 1, 0] };
+  const w100 = wordsCertificates(mixed)[0].progress;
+  if (w100.got !== 1 || w100.done !== 1) err(`сертификаты слов Танаха считают «Слова ґалахи»: got ${w100.got}, done ${w100.done}`);
+  if (dueWords(mixed, 1).join() !== '559') err(`повторение «Моих слов» берёт «Слова ґалахи»: ${dueWords(mixed, 1).join()}`);
+}
 if (new Set(ids).size !== ids.length) err('words.json: номера слов повторяются');
 dict.words.forEach((w, i) => {
   const prev = dict.words[i - 1];

@@ -1,0 +1,38 @@
+name: Hebrew lexicon validation
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: [feat/unified-hebrew-lexicon]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run check
+      - run: python scripts/fetch-words.py fetch
+      - run: python scripts/fetch-words.py infinitives
+      - run: npm run build:hebrew-lexicon
+      - run: python -m py_compile scripts/fetch-words.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: canonical-hebrew-lexicon-preview
+          path: |
+            src/data/hebrew-lexicon.json
+            src/data/hebrew-lexicon-legacy-map.json
+          if-no-files-found: error

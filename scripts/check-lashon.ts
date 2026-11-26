@@ -33,7 +33,7 @@ function checkEx(u: Unit, ex: Exercise, where: string) {
       return;
     case 'pick': {
       const keys = ex.options.map((o) => o.key);
-      const lbl = ex.options.map((o) => (ex.ask === 'tr' ? core(o.tr) : ex.ask === 'he' ? core(o.he) : ex.ask === 'value' ? String(o.value) : o.sound));
+      const lbl = ex.options.map((o) => (ex.ask === 'tr' ? core(o.tr) : (ex.ask === 'he' || ex.ask === 'look') ? core(o.he) : ex.ask === 'value' ? String(o.value) : o.sound));
       if (ex.options.length !== 4 || new Set(keys).size !== 4 || new Set(lbl).size !== 4) err(`${where}: «выбрать» (${ex.ask}) ${ex.item.he} — не 4 разных варианта: ${lbl.join(' | ')}`);
       if (keys.filter((k) => k === ex.item.key).length !== 1 || !isRight(ex, ex.item.key)) err(`${where}: «выбрать» ${ex.item.he} — верный не один`);
       // reading: no two options read the same (or are called the same) — both would be right

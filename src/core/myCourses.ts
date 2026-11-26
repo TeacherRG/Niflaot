@@ -9,7 +9,7 @@ import { isDone } from './academy';
 import { readDoneStore } from './tanakhDone';
 import { allPassages, hsIsDone, hsLang, passageDate, readHsDone } from './hemshech';
 import { GOAL, readCourse, xpToday } from './lashon';
-import { inDeck, readWordStore, WORDS_ALL } from './words';
+import { inDeck, readWordStore, tanakhIds, WORDS_ALL } from './words';
 import { currentMode } from './mode';
 import { NIGUNIM } from '../nigun';
 import { nigunCertificates, readNigunStore } from './nigunGame';
@@ -92,7 +92,7 @@ function lashon(): CourseRow {
   const base = { id: 'lashon' as const, next: String(met), xp: Math.min(xp, GOAL), goal: GOAL, today: xp >= GOAL, href: '#/lashon' };
   if (currentMode() !== 'adults') return { ...base, done: Math.min(xp, GOAL), total: GOAL, finished: xp >= GOAL };
   const deck = readWordStore();
-  const words = new Set([...Object.keys(s.s).filter((k) => /^\d+$/.test(k)), ...Object.keys(deck).filter((id) => inDeck(deck, id))]);
+  const words = new Set([...Object.keys(s.s).filter((k) => /^\d+$/.test(k)), ...tanakhIds(deck).filter((id) => inDeck(deck, id))]);
   const done = Math.min(words.size, WORDS_ALL);
   return { ...base, next: String(Math.max(met, words.size)), done, total: WORDS_ALL, finished: done >= WORDS_ALL };
 }

@@ -139,8 +139,10 @@ function wordsDue(known = false): number[] {
   try {
     const raw = JSON.parse(localStorage.getItem('niflaot:words') ?? '{}') ?? {};
     // «учу» (коробки 1–2) — `wordsDue`, «знаю» (3+) — `wordsKnownDue`: их в день не больше 25 (`DAILY_KNOWN` в words.ts)
-    return Object.values(raw)
-      .map(normWord)
+    // «Слова ґалахи» (ключи `h:…`) — в своей колоде, не в «Моих словах»
+    return Object.entries(raw)
+      .filter(([id]) => !id.includes(':'))
+      .map(([, v]) => normWord(v))
       .filter((e) => (known ? e[1] >= 3 : e[1] > 0 && e[1] < 3))
       .map((e) => e[2]);
   } catch {
