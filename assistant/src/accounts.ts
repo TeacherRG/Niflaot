@@ -16,6 +16,7 @@ import { methodsFor, validEmail, validNick } from './rules';
 import { verifyGoogleToken } from './google';
 import { mergeSnapshots, summarize, type Snapshot } from '../../src/core/sync';
 import { GIFT_DAY, GIFT_MAX, PUSHKA_TARGET, isCause, pushkaAdd, winningCause, type PushkaState } from '../../src/core/coinsRules';
+import { balance as coinBalance, normCoins } from '../../src/core/coinsRules';
 
 export interface MailEnv {
   RESEND_API_KEY?: string;
@@ -120,6 +121,8 @@ export class Accounts extends DurableObject<MailEnv> {
       CREATE TABLE IF NOT EXISTS pushka_gifts (id TEXT PRIMARY KEY, user TEXT NOT NULL, round INTEGER NOT NULL, amount INTEGER NOT NULL,
         cause TEXT NOT NULL, day TEXT NOT NULL, at INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS pushka_rounds (n INTEGER PRIMARY KEY, coins INTEGER NOT NULL, closed INTEGER, cause TEXT);
+      CREATE TABLE IF NOT EXISTS wallets (user TEXT PRIMARY KEY, balance INTEGER NOT NULL CHECK(balance >= 0), initialized INTEGER NOT NULL);
+      CREATE TABLE IF NOT EXISTS wallet_ledger (id TEXT PRIMARY KEY, user TEXT NOT NULL, kind TEXT NOT NULL, amount INTEGER NOT NULL, balance_after INTEGER NOT NULL, ref TEXT, at INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT UNIQUE NOT NULL, nick TEXT, nick_lc TEXT UNIQUE,
         age TEXT, parent_email TEXT, parent_ok INTEGER NOT NULL DEFAULT 0, consent TEXT, board INTEGER NOT NULL DEFAULT 1,
         lang TEXT NOT NULL DEFAULT 'ru', created INTEGER NOT NULL, last INTEGER NOT NULL);
@@ -357,7 +360,7 @@ export class Accounts extends DurableObject<MailEnv> {
       this.sql.exec('DELETE FROM members WHERE class = ?', c.id);
       this.sql.exec('DELETE FROM classes WHERE id = ?', c.id);
     }
-    for (const t of ['members', 'progress', 'sessions', 'ai', 'consent_mail']) this.sql.exec(`DELETE FROM ${t} WHERE user = ?`, id);
+    for (const t of ['members', 'progress', 'sessions', 'ai', 'consent_mail', 'wallets', 'wallet_ledger']) this.sql.exec(`DELETE FROM ${t} WHERE user = ?`, id);
     // the coins given stay in the common box, without the account
     this.sql.exec("UPDATE pushka_gifts SET user = '' WHERE user = ?", id);
     this.sql.exec('DELETE FROM users WHERE id = ?', id);
@@ -475,6 +478,28 @@ export class Accounts extends DurableObject<MailEnv> {
     /* ── signed in ── */
     const u = await this.user(req);
     if (!u) return fail('auth', 401);
+
+    if (path === '/wallet') {
+      if (!active(u)) return fail('pending', 403);
+      // One-time legacy snapshot. Once a wallet row exists, client-synced coins can never change it.
+      let wallet = this.one<{ balance: number; initialized: number }>('SELECT balance, initialized FROM wallets WHERE user = ?', u.id);
+      if (!wallet) {
+        const progress = this.one<{ data: string }>('SELECT data FROM progress WHERE user = ?', u.id);
+        let legacy: unknown = null;
+        try { legacy = progress ? JSON.parse(progress.data)['niflaot:coins'] : null; } catch {}
+        let opening = 0;
+        try { opening = coinBalance(normCoins(legacy ? JSON.parse(legacy as string) : null)); } catch {}
+        const at = Date.now();
+        this.sql.exec('INSERT OR IGNORE INTO wallets (user, balance, initialized) VALUES (?, ?, ?)', u.id, opening, at);
+        wallet = this.one<{ balance: number; initialized: number }>('SELECT balance, initialized FROM wallets WHERE user = ?', u.id);
+        if (wallet) this.sql.exec(
+          'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          `opening:${u.id}`, u.id, 'opening', opening, wallet.balance, 'legacy-account-snapshot', wallet.initialized,
+        );
+      }
+      if (!wallet) return fail('wallet', 503);
+      return json({ balance: wallet.balance, initialized: wallet.initialized });
+    }
 
     if (path === '/pushka') {
       // a gift of game coins: taken once by its id; not more than GIFT_DAY coins a day from an account
