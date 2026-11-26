@@ -53,9 +53,9 @@ function normLedger(raw: unknown): Ledger {
   if (!raw || typeof raw !== 'object') return out;
   for (const [day, v] of Object.entries(raw as Record<string, unknown>)) {
     if (!DAY.test(day) || !Array.isArray(v)) continue;
-    const ids = v[1] && typeof v[1] === 'object' ? Object.fromEntries(Object.entries(v[1] as Record<string, unknown>).map(([k, n]) => [k, num(n)]).filter(([, n]) => n)) : undefined;
+    const ids = v[1] && typeof v[1] === 'object' ? Object.fromEntries(Object.entries(v[1] as Record<string, unknown>).map(([k, n]) => [k, num(n)])) : undefined;
     const total = ids ? Object.values<number>(ids).reduce((a, n) => a + n, 0) : num(v[0]);
-    if (total) out[day] = ids ? [total, ids] : [total];
+    if (total || (ids && Object.keys(ids).length)) out[day] = ids ? [total, ids] : [total];
   }
   return out;
 }
