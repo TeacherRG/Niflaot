@@ -17,7 +17,7 @@ import type { Locale } from '../i18n';
 
 const STORE = 'niflaot:account';
 // the same server as the AI teacher; read here directly — assistant.ts imports this module
-const BASE = (import.meta.env.VITE_ASSISTANT_URL ?? '').replace(/\/$/, '');
+const BASE = (import.meta.env?.VITE_ASSISTANT_URL ?? '').replace(/\/$/, '');
 
 export interface Me {
   user: {
