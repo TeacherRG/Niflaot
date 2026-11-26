@@ -1,0 +1,10 @@
+/* Compact, dependency-free 3D dreidel for the WhatsApp in-app browser. */
+.dreidel3d-stage{position:relative;display:grid;place-items:center;width:min(100%,340px);aspect-ratio:1/1.12;margin-inline:auto;perspective:900px;isolation:isolate;contain:layout paint}
+.dreidel3d-object{position:relative;z-index:1;display:block;width:100%;height:100%;overflow:visible;transform-style:preserve-3d;transform-origin:50% 48%;filter:drop-shadow(0 16px 12px rgba(4,13,32,.22));will-change:transform}
+.dreidel3d-object.is-spinning{animation:dreidel3d-spin 2.35s cubic-bezier(.12,.72,.14,1) both}
+.dreidel3d-shadow{position:absolute;z-index:0;left:20%;right:20%;bottom:7%;height:8%;border-radius:50%;background:rgba(5,13,29,.22);filter:blur(12px);transform:scaleX(1);transition:transform .25s ease,opacity .25s ease}
+.dreidel3d-shadow.is-spinning{animation:dreidel3d-shadow 2.35s ease-in-out both}
+.dreidel3d-base{position:absolute;z-index:0;bottom:5%;width:48%;height:5%;border:1px solid rgba(190,151,74,.4);border-radius:50%;background:radial-gradient(ellipse at 50% 35%,rgba(255,255,255,.72),rgba(205,174,113,.28) 48%,rgba(10,24,49,.06) 75%);box-shadow:0 3px 9px rgba(7,18,39,.12)}
+@keyframes dreidel3d-spin{0%{transform:rotateX(13deg) rotateY(0) rotateZ(-5deg) scale(1)}18%{transform:rotateX(24deg) rotateY(520deg) rotateZ(26deg) scale(1.04)}48%{transform:rotateX(-12deg) rotateY(1320deg) rotateZ(-19deg) scale(1.02)}76%{transform:rotateX(18deg) rotateY(2200deg) rotateZ(9deg) scale(1.01)}100%{transform:rotateX(10deg) rotateY(2880deg) rotateZ(0) scale(1)}}
+@keyframes dreidel3d-shadow{0%,100%{transform:scaleX(1);opacity:.8}25%,55%{transform:scaleX(.72);opacity:.48}80%{transform:scaleX(.9);opacity:.65}}
+@media(prefers-reduced-motion:reduce){.dreidel3d-object.is-spinning,.dreidel3d-shadow.is-spinning{animation-duration:.01ms;animation-iteration-count:1}}

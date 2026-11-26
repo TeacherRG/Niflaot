@@ -39,7 +39,6 @@ export function KabbalahMiniDial({ hour, day }: { hour: number; day: boolean }) 
         {items.map((item, i) => {
           const angle = i * 30;
           const [x, y] = point(angle, 43);
-          const [tx, ty] = point(angle, 31);
           return (
             <g key={item[0]} className={i === active ? 'active' : ''}>
               <path className="clk-kmini-sector" d={sector(i)} />

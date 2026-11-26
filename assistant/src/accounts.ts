@@ -16,6 +16,7 @@ import { methodsFor, validEmail, validNick } from './rules';
 import { verifyGoogleToken } from './google';
 import { mergeSnapshots, summarize, type Snapshot } from '../../src/core/sync';
 import { GIFT_DAY, GIFT_MAX, PUSHKA_TARGET, isCause, pushkaAdd, winningCause, type PushkaState } from '../../src/core/coinsRules';
+import { balance as coinBalance, normCoins, type CoinStore } from '../../src/core/coinsRules';
 
 export interface MailEnv {
   RESEND_API_KEY?: string;
@@ -31,6 +32,8 @@ export interface MailEnv {
   DEV_CODES?: string;
   /** Shared secret used only by scheduled GitHub Actions to deliver newsletter issues */
   NEWSLETTER_SECRET?: string;
+  /** Shared only between the Worker and Dreidel Durable Objects for escrow and one-time tickets. */
+  DREIDEL_INTERNAL_SECRET?: string;
 }
 
 const CODE_TTL = 10 * 60_000;
@@ -120,6 +123,10 @@ export class Accounts extends DurableObject<MailEnv> {
       CREATE TABLE IF NOT EXISTS pushka_gifts (id TEXT PRIMARY KEY, user TEXT NOT NULL, round INTEGER NOT NULL, amount INTEGER NOT NULL,
         cause TEXT NOT NULL, day TEXT NOT NULL, at INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS pushka_rounds (n INTEGER PRIMARY KEY, coins INTEGER NOT NULL, closed INTEGER, cause TEXT);
+      CREATE TABLE IF NOT EXISTS wallets (user TEXT PRIMARY KEY, balance INTEGER NOT NULL CHECK(balance >= 0), initialized INTEGER NOT NULL);
+      CREATE TABLE IF NOT EXISTS wallet_ledger (id TEXT PRIMARY KEY, user TEXT NOT NULL, kind TEXT NOT NULL, amount INTEGER NOT NULL, balance_after INTEGER NOT NULL, ref TEXT, at INTEGER NOT NULL);
+      CREATE TABLE IF NOT EXISTS wallet_reservations (user TEXT NOT NULL, ref TEXT NOT NULL, amount INTEGER NOT NULL, status TEXT NOT NULL, at INTEGER NOT NULL, PRIMARY KEY(user, ref));
+      CREATE TABLE IF NOT EXISTS dreidel_tickets (hash TEXT PRIMARY KEY, user TEXT NOT NULL, room TEXT NOT NULL, expires INTEGER NOT NULL, used INTEGER NOT NULL DEFAULT 0);
       CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT UNIQUE NOT NULL, nick TEXT, nick_lc TEXT UNIQUE,
         age TEXT, parent_email TEXT, parent_ok INTEGER NOT NULL DEFAULT 0, consent TEXT, board INTEGER NOT NULL DEFAULT 1,
         lang TEXT NOT NULL DEFAULT 'ru', created INTEGER NOT NULL, last INTEGER NOT NULL);
@@ -145,6 +152,75 @@ export class Accounts extends DurableObject<MailEnv> {
 
   private one<T extends Record<string, SqlStorageValue>>(q: string, ...b: unknown[]): T | undefined {
     return this.sql.exec<T>(q, ...b).toArray()[0];
+  }
+
+  /** Create a wallet exactly once from the legacy synced balance and import its old debits. */
+  private initializeWallet(u: User) {
+    let w = this.one<{ balance: number; initialized: number }>('SELECT balance, initialized FROM wallets WHERE user = ?', u.id);
+    if (!w) {
+      const progress = this.one<{ data: string }>('SELECT data FROM progress WHERE user = ?', u.id);
+      let store: CoinStore = normCoins(null);
+      try {
+        const raw = progress ? JSON.parse(progress.data)['niflaot:coins'] : null;
+        store = normCoins(raw ? JSON.parse(raw) : null);
+        // `x` is a server-only escrow adjustment; never trust a client-synced legacy value for migration.
+        store.x = 0;
+      } catch {}
+      const at = Date.now();
+      this.ctx.storage.transactionSync(() => {
+        this.sql.exec('INSERT OR IGNORE INTO wallets (user, balance, initialized) VALUES (?, ?, ?)', u.id, coinBalance(store), at);
+        const current = this.one<{ balance: number; initialized: number }>('SELECT balance, initialized FROM wallets WHERE user = ?', u.id);
+        if (!current) return;
+        for (const [day, [total]] of Object.entries(store.d)) {
+          if (!total) continue;
+          this.sql.exec(
+            'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            `legacy:earned:${u.id}:${day}`, u.id, 'legacy:earned', total, coinBalance(store), day, Date.parse(day + 'T12:00:00Z'),
+          );
+        }
+        // Preserve recent idempotency markers: a passage or answer already rewarded on a device
+        // must not be rewarded again when that account first moves to the server wallet.
+        for (const [day, [, ids]] of Object.entries(store.d)) {
+          if (!ids) continue;
+          for (const legacyId of Object.keys(ids)) {
+            const kind = legacyId.startsWith('r:') ? 'read' : legacyId.startsWith('a:') ? 'answer' : legacyId === 'c' ? 'chest' : '';
+            if (!kind) continue;
+            const rewardId = kind === 'chest' ? `chest:${day}` : legacyId.slice(2);
+            this.sql.exec(
+              'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+              `earn:${u.id}:${kind}:${rewardId}`, u.id, `earn:${kind}`, 0, coinBalance(store), rewardId, Date.parse(day + 'T12:00:00Z'),
+            );
+          }
+        }
+        for (const [day, [total, ids]] of Object.entries(store.g)) {
+          if (ids && Object.keys(ids).length) {
+            for (const [legacyId, amount] of Object.entries(ids)) {
+              const giftId = legacyId.includes(':') ? legacyId.slice(legacyId.indexOf(':') + 1) : legacyId;
+              const ledgerId = /^[a-z0-9]{6,24}$/.test(giftId) ? `gift:${u.id}:${giftId}` : `legacy:give:${u.id}:${day}:${legacyId}`;
+              this.sql.exec(
+                'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                ledgerId, u.id, 'give', -amount, coinBalance(store), giftId, Date.parse(day + 'T12:00:00Z'),
+              );
+            }
+          } else if (total) {
+            this.sql.exec(
+              'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+              `legacy:give:${u.id}:${day}`, u.id, 'give', -total, coinBalance(store), day, Date.parse(day + 'T12:00:00Z'),
+            );
+          }
+        }
+        for (const [item, cost] of Object.entries(store.i)) this.sql.exec(
+          'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          `legacy:buy:${u.id}:${item}`, u.id, 'buy', -cost, coinBalance(store), item, 0,
+        );
+      });
+      w = this.one<{ balance: number; initialized: number }>('SELECT balance, initialized FROM wallets WHERE user = ?', u.id);
+    }
+    return w ?? null;
+  }
+
+  private wallet(u: User) {
+    return this.one<{ balance: number; initialized: number }>('SELECT balance, initialized FROM wallets WHERE user = ?', u.id) ?? null;
   }
 
   private async user(req: Request): Promise<User | null> {
@@ -328,6 +404,7 @@ export class Accounts extends DurableObject<MailEnv> {
     this.sql.exec('DELETE FROM chat_day WHERE day < ?', new Date(now - 90 * 864e5).toISOString().slice(0, 10));
     this.sql.exec('DELETE FROM newsletter_unsub_tokens WHERE created < ?', now - 365 * 864e5);
     this.sql.exec('DELETE FROM newsletter_deliveries WHERE sent < ?', now - 2 * 365 * 864e5);
+    this.sql.exec('DELETE FROM dreidel_tickets WHERE expires < ?', now);
     await this.ctx.storage.setAlarm(now + 864e5);
   }
 
@@ -357,7 +434,7 @@ export class Accounts extends DurableObject<MailEnv> {
       this.sql.exec('DELETE FROM members WHERE class = ?', c.id);
       this.sql.exec('DELETE FROM classes WHERE id = ?', c.id);
     }
-    for (const t of ['members', 'progress', 'sessions', 'ai', 'consent_mail']) this.sql.exec(`DELETE FROM ${t} WHERE user = ?`, id);
+    for (const t of ['members', 'progress', 'sessions', 'ai', 'consent_mail', 'wallets', 'wallet_ledger', 'wallet_reservations', 'dreidel_tickets']) this.sql.exec(`DELETE FROM ${t} WHERE user = ?`, id);
     // the coins given stay in the common box, without the account
     this.sql.exec("UPDATE pushka_gifts SET user = '' WHERE user = ?", id);
     this.sql.exec('DELETE FROM users WHERE id = ?', id);
@@ -389,6 +466,61 @@ export class Accounts extends DurableObject<MailEnv> {
       });
     const body = req.method === 'POST' || req.method === 'PUT' ? ((await req.json().catch(() => null)) as Record<string, any> | null) : null;
     if ((req.method === 'POST' || req.method === 'PUT') && !body) return fail('bad json');
+
+    if (path.startsWith('/internal/dreidel/')) {
+      if (!this.env.DREIDEL_INTERNAL_SECRET || req.headers.get('X-Dreidel-Internal') !== this.env.DREIDEL_INTERNAL_SECRET)
+        return fail('auth', 401);
+      if (path === '/internal/dreidel/consume') {
+        const { ticket, room } = body!;
+        if (typeof ticket !== 'string' || ticket.length > 100 || typeof room !== 'string' || !/^[A-Z0-9]{5}$/.test(room)) return fail('ticket');
+        const hash = await sha(ticket);
+        const row = this.one<{ user: string; expires: number; used: number }>(
+          'SELECT user, expires, used FROM dreidel_tickets WHERE hash = ? AND room = ?', hash, room,
+        );
+        if (!row || row.used || row.expires < Date.now()) return fail('ticket', 401);
+        const u = this.one<User>('SELECT * FROM users WHERE id = ?', row.user);
+        if (!u || !active(u)) return fail('account', 403);
+        this.sql.exec('UPDATE dreidel_tickets SET used = 1 WHERE hash = ? AND used = 0', hash);
+        return json({ ok: true, userId: u.id, name: u.nick });
+      }
+      if (path === '/internal/dreidel/reserve' || path === '/internal/dreidel/settle') {
+        const { userId, room, payout } = body!;
+        if (typeof userId !== 'string' || typeof room !== 'string' || !/^[A-Z0-9]{5}:\d{10,16}$/.test(room)) return fail('reservation');
+        const u = this.one<User>('SELECT * FROM users WHERE id = ?', userId);
+        if (!u || !active(u)) return fail('account', 403);
+        const ref = `dreidel:${room}`;
+        if (path.endsWith('/reserve')) {
+          const w = this.wallet(u);
+          if (!w) return fail('wallet', 503);
+          const old = this.one<{ amount: number; status: string }>('SELECT amount, status FROM wallet_reservations WHERE user = ? AND ref = ?', u.id, ref);
+          if (old) return old.status === 'active' ? json({ ok: true, duplicate: true }) : fail('settled', 409);
+          if (w.balance < 10) return fail('balance', 409);
+          const next = w.balance - 10;
+          this.ctx.storage.transactionSync(() => {
+            this.sql.exec('UPDATE wallets SET balance = ? WHERE user = ? AND balance >= 10', next, u.id);
+            this.sql.exec('INSERT INTO wallet_reservations (user, ref, amount, status, at) VALUES (?, ?, 10, ?, ?)', u.id, ref, 'active', Date.now());
+            this.sql.exec('INSERT INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+              `reserve:${u.id}:${ref}`, u.id, 'reserve', -10, next, ref, Date.now());
+          });
+          return json({ ok: true, balance: next });
+        }
+        const reservation = this.one<{ amount: number; status: string }>('SELECT amount, status FROM wallet_reservations WHERE user = ? AND ref = ?', u.id, ref);
+        if (!reservation) return json({ ok: true, notReserved: true });
+        if (reservation.status !== 'active') return json({ ok: true, duplicate: true });
+        if (!Number.isInteger(payout) || payout < 0 || payout > 300) return fail('payout');
+        const w = this.wallet(u);
+        if (!w) return fail('wallet', 503);
+        const next = w.balance + payout;
+        this.ctx.storage.transactionSync(() => {
+          this.sql.exec("UPDATE wallet_reservations SET status = 'settled' WHERE user = ? AND ref = ? AND status = 'active'", u.id, ref);
+          this.sql.exec('UPDATE wallets SET balance = ? WHERE user = ?', next, u.id);
+          this.sql.exec('INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            `settle:${u.id}:${ref}`, u.id, 'settle', payout, next, ref, Date.now());
+        });
+        return json({ ok: true, balance: next, payout });
+      }
+      return fail('not found', 404);
+    }
 
     if (path === '/config') return json({ mail: !!this.env.RESEND_API_KEY || this.env.DEV_CODES === '1', google: this.env.GOOGLE_CLIENT_ID || null });
     if (path === '/chat-quota') return this.chatQuota(req);
@@ -476,6 +608,95 @@ export class Accounts extends DurableObject<MailEnv> {
     const u = await this.user(req);
     if (!u) return fail('auth', 401);
 
+    if (path === '/wallet/init') {
+      if (!active(u)) return fail('pending', 403);
+      const w = this.initializeWallet(u);
+      return w ? json({ ok: true, balance: w.balance, initialized: w.initialized }) : fail('wallet', 503);
+    }
+
+    if (path === '/dreidel-ticket') {
+      if (!active(u)) return fail('pending', 403);
+      if (!this.env.DREIDEL_INTERNAL_SECRET) return fail('escrow', 503);
+      const room = body!.room;
+      if (typeof room !== 'string' || !/^[A-Z0-9]{5}$/.test(room)) return fail('room');
+      const ticket = random(24);
+      this.sql.exec('INSERT INTO dreidel_tickets (hash, user, room, expires, used) VALUES (?, ?, ?, ?, 0)',
+        await sha(ticket), u.id, room, Date.now() + 60_000);
+      return json({ ticket, name: u.nick });
+    }
+
+    if (path === '/wallet' && req.method === 'GET') {
+      if (!active(u)) return fail('pending', 403);
+      const w = this.wallet(u);
+      if (!w) return fail('wallet', 409);
+      const ledger = this.sql.exec<{ kind: string; amount: number; ref: string | null; at: number }>(
+        'SELECT kind, amount, ref, at FROM wallet_ledger WHERE user = ? ORDER BY at, id', u.id,
+      ).toArray();
+      return json({ balance: w.balance, initialized: w.initialized, ledger });
+    }
+
+    if (path === '/wallet/earn') {
+      if (!active(u)) return fail('pending', 403);
+      const { id, kind } = body!;
+      if (typeof id !== 'string' || !/^[A-Za-z0-9:_-]{1,100}$/.test(id) || !['read', 'answer', 'chest'].includes(kind)) return fail('reward');
+      const w = this.wallet(u);
+      if (!w) return fail('wallet', 409);
+      const ledgerId = `earn:${u.id}:${kind}:${id}`;
+      const prior = this.one<{ balance_after: number }>('SELECT balance_after FROM wallet_ledger WHERE id = ?', ledgerId);
+      if (prior) return json({ ok: true, gained: 0, balance: w.balance, duplicate: true });
+      const day = new Date().toISOString().slice(0, 10);
+      const baseAmount = kind === 'read' ? 1 : kind === 'answer' ? 3 : 10;
+      const dayStart = Date.parse(day + 'T00:00:00Z');
+      const earned = this.one<{ n: number }>(
+        "SELECT COALESCE(SUM(amount), 0) AS n FROM wallet_ledger WHERE user = ? AND (kind = 'opening' OR kind = 'legacy:earned' OR kind LIKE 'earn:%')", u.id,
+      )?.n ?? 0;
+      const given = this.one<{ n: number }>(
+        "SELECT COALESCE(SUM(-amount), 0) AS n FROM wallet_ledger WHERE user = ? AND kind = 'give'", u.id,
+      )?.n ?? 0;
+      const earnedToday = this.one<{ n: number }>(
+        "SELECT COUNT(*) AS n FROM wallet_ledger WHERE user = ? AND kind IN ('earn:read', 'earn:answer') AND at >= ?", u.id, dayStart,
+      )?.n ?? 0;
+      const doubled = kind !== 'chest' && earnedToday === 0 && earned > 0 && given >= Math.ceil(earned / 10);
+      const amount = baseAmount * (doubled ? 2 : 1);
+      if (kind === 'chest') {
+        const last = this.one<{ at: number }>("SELECT at FROM wallet_ledger WHERE user = ? AND kind = 'earn:chest' ORDER BY at DESC LIMIT 1", u.id)?.at ?? 0;
+        if (last && Date.now() - last < 7 * 864e5) return fail('cap', 429);
+      } else {
+        const n = this.one<{ n: number }>('SELECT COUNT(*) AS n FROM wallet_ledger WHERE user = ? AND kind = ? AND at >= ?', u.id, `earn:${kind}`, Date.parse(day + 'T00:00:00Z'))?.n ?? 0;
+        if (n >= (kind === 'read' ? 5 : 20)) return fail('cap', 429);
+      }
+      let next = 0;
+      this.ctx.storage.transactionSync(() => {
+        this.sql.exec('UPDATE wallets SET balance = balance + ? WHERE user = ?', amount, u.id);
+        next = this.one<{ balance: number }>('SELECT balance FROM wallets WHERE user = ?', u.id)!.balance;
+        this.sql.exec('INSERT INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          ledgerId, u.id, `earn:${kind}`, amount, next, id, Date.now());
+      });
+      return json({ ok: true, gained: amount, balance: next });
+    }
+
+    if (path === '/wallet/buy') {
+      if (!active(u)) return fail('pending', 403);
+      const { item } = body!;
+      const costs: Record<string, number> = { alef: 15, chai: 18, pushka: 25 };
+      if (typeof item !== 'string' || !(item in costs)) return fail('item');
+      const w = this.wallet(u);
+      if (!w) return fail('wallet', 409);
+      const ledgerId = `buy:${u.id}:${item}`;
+      if (this.one('SELECT id FROM wallet_ledger WHERE user = ? AND kind = \'buy\' AND ref = ?', u.id, item)) return fail('owned', 409);
+      if (w.balance < costs[item]) return fail('balance', 409);
+      let next = 0;
+      this.ctx.storage.transactionSync(() => {
+        this.sql.exec('UPDATE wallets SET balance = balance - ? WHERE user = ? AND balance >= ?', costs[item], u.id, costs[item]);
+        next = this.one<{ balance: number }>('SELECT balance FROM wallets WHERE user = ?', u.id)!.balance;
+        this.sql.exec('INSERT INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          ledgerId, u.id, 'buy', -costs[item], next, item, Date.now());
+      });
+      return json({ ok: true, balance: next });
+    }
+
+
+
     if (path === '/pushka') {
       // a gift of game coins: taken once by its id; not more than GIFT_DAY coins a day from an account
       const { id, amount, cause } = body!;
@@ -485,15 +706,28 @@ export class Accounts extends DurableObject<MailEnv> {
         const day = new Date().toISOString().slice(0, 10);
         const today = this.one<{ n: number }>('SELECT COALESCE(SUM(amount), 0) AS n FROM pushka_gifts WHERE user = ? AND day = ?', u.id, day)!.n;
         if (today + amount > GIFT_DAY) return fail('day', 429);
-        let round = this.round();
-        this.sql.exec('INSERT INTO pushka_gifts (id, user, round, amount, cause, day, at) VALUES (?, ?, ?, ?, ?, ?, ?)', key, u.id, round.n, amount, cause, day, Date.now());
-        const next = pushkaAdd(round.coins, amount);
-        for (let i = 0; i < next.filled; i++) {
-          this.sql.exec('UPDATE pushka_rounds SET coins = ?, closed = ?, cause = ? WHERE n = ?', PUSHKA_TARGET, Date.now(), winningCause(this.votes(round.n)), round.n);
-          this.sql.exec('INSERT INTO pushka_rounds (n, coins) VALUES (?, 0)', round.n + 1);
-          round = { n: round.n + 1, coins: 0 };
-        }
-        this.sql.exec('UPDATE pushka_rounds SET coins = ? WHERE n = ?', next.coins, round.n);
+        const wallet = this.wallet(u);
+        if (!wallet) return fail('wallet', 409);
+        const priorDebit = this.one<{ amount: number }>('SELECT amount FROM wallet_ledger WHERE id = ?', `gift:${key}`);
+        if (priorDebit && priorDebit.amount !== -amount) return fail('gift', 409);
+        if (!priorDebit && wallet.balance < amount) return fail('balance', 409);
+        this.ctx.storage.transactionSync(() => {
+          if (!priorDebit) {
+            this.sql.exec('UPDATE wallets SET balance = balance - ? WHERE user = ? AND balance >= ?', amount, u.id, amount);
+            const nextBalance = this.one<{ balance: number }>('SELECT balance FROM wallets WHERE user = ?', u.id)!.balance;
+            this.sql.exec('INSERT INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+              `gift:${key}`, u.id, 'give', -amount, nextBalance, id, Date.now());
+          }
+          let round = this.round();
+          this.sql.exec('INSERT INTO pushka_gifts (id, user, round, amount, cause, day, at) VALUES (?, ?, ?, ?, ?, ?, ?)', key, u.id, round.n, amount, cause, day, Date.now());
+          const next = pushkaAdd(round.coins, amount);
+          for (let i = 0; i < next.filled; i++) {
+            this.sql.exec('UPDATE pushka_rounds SET coins = ?, closed = ?, cause = ? WHERE n = ?', PUSHKA_TARGET, Date.now(), winningCause(this.votes(round.n)), round.n);
+            this.sql.exec('INSERT INTO pushka_rounds (n, coins) VALUES (?, 0)', round.n + 1);
+            round = { n: round.n + 1, coins: 0 };
+          }
+          this.sql.exec('UPDATE pushka_rounds SET coins = ? WHERE n = ?', next.coins, round.n);
+        });
       }
       return json({ ok: true, pushka: this.pushka(u.id) });
     }

@@ -1,15 +1,16 @@
 /**
- * «Pelecoin» on the site: the player's coins in localStorage (`niflaot:coins`, synced with the account — src/core/sync.ts)
- * and the common tzedakah box on the accounts server (`/account/pushka`). The rules — src/core/coinsRules.ts.
- * No heavy imports: `earn` is called wherever the player reads a passage or answers.
+ * «Pelecoin»: guests use the local store; signed-in accounts use the server wallet and ledger.
+ * The common tzedakah box is on the accounts server (`/account/pushka`); rules live in `coinsRules.ts`.
+ * The old synced local store is retained only for the one-time account migration.
  */
 import { useEffect, useState, useSyncExternalStore } from 'react';
+import { authToken, useAccount } from './account';
 import { habitStats, studyDates, STUDY_EVENT, todayIso } from './habit';
 import { addChest, addEarn, balance, buy as buyItem, chestDue, fold, give as giveCoins, normCoins, REWARD, type Cause, type CoinStore, type EarnKind, type ItemId, type PushkaState } from './coinsRules';
 
 export const COINS_KEY = 'niflaot:coins';
 export const COINS_EVENT = 'niflaot:coins';
-/** gifts not yet taken by the server (a guest, offline): [{ id, amount, cause }] — this device only */
+/** Gifts waiting for the server: [{ id, amount, cause, owner }] — this device only */
 const OUT_KEY = 'niflaot:coins-out';
 // scripts (npm run check, prerender) load the core modules in Node, where there is no import.meta.env
 const BASE = (import.meta.env?.VITE_ASSISTANT_URL ?? '').replace(/\/$/, '');
@@ -50,6 +51,70 @@ export function useGame(): boolean {
 }
 
 export const readCoins = (): CoinStore => normCoins(parse(COINS_KEY));
+let serverStore: CoinStore | null = null;
+let serverWalletToken: string | null = null;
+let activeWalletOwner: string | null = null;
+const walletOwnerKey = (email: string) => {
+  let a = 2166136261, b = 0x9e3779b9;
+  for (let i = 0; i < email.length; i++) {
+    const n = email.charCodeAt(i);
+    a = Math.imul(a ^ n, 16777619);
+    b = Math.imul(b ^ n, 2246822519);
+  }
+  return `user:${(a >>> 0).toString(36)}${(b >>> 0).toString(36)}`;
+};
+export async function refreshWallet(token: string): Promise<CoinStore | null> {
+  if (!BASE) return null;
+  try {
+    const res = await fetch(`${BASE}/account/wallet`, { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' });
+    if (!res.ok) return null;
+    const data = await res.json() as { balance?: number; ledger?: { kind: string; amount: number; ref: string | null; at: number }[] };
+    const d: Record<string, [number, Record<string, number>]> = {};
+    const g: Record<string, [number, Record<string, number>]> = {};
+    const i: Record<string, number> = {};
+    let x = 0;
+    for (const row of data.ledger ?? []) {
+      const day = new Date(row.at).toISOString().slice(0, 10);
+      if (row.kind === 'opening' || row.kind === 'legacy:earned' || row.kind.startsWith('earn:')) {
+        const key = row.kind === 'opening' ? `opening:${row.ref ?? 'legacy'}`
+          : row.kind === 'legacy:earned' ? `legacy:${row.ref ?? ''}`
+          : row.kind === 'earn:read' ? `r:${row.ref ?? ''}`
+          : row.kind === 'earn:answer' ? `a:${row.ref ?? ''}`
+          : row.kind === 'earn:chest' ? 'c'
+          : `${row.kind}:${row.ref ?? ''}`;
+        const entry = d[day] ?? (d[day] = [0, {}]);
+        if (!(key in entry[1])) { entry[1][key] = row.amount; entry[0] += row.amount; }
+      } else if (row.kind === 'give') {
+        const key = `gift:${row.ref ?? ''}`;
+        const entry = g[day] ?? (g[day] = [0, {}]);
+        if (!(key in entry[1])) { entry[1][key] = -row.amount; entry[0] += -row.amount; }
+      } else if (row.kind === 'buy' && row.ref) i[row.ref] = -row.amount;
+      else if (row.kind === 'reserve' || row.kind === 'settle') x += row.amount;
+    }
+    const next = normCoins({ d, g, i, x });
+    if (balance(next) !== Number(data.balance)) return null;
+    serverStore = next;
+    serverWalletToken = token;
+    window.dispatchEvent(new Event(COINS_EVENT));
+    return serverStore;
+  } catch { return null; }
+}
+async function walletPost(path: string, body: object, token: string): Promise<{ ok: boolean; gained?: number; duplicate?: boolean } | null> {
+  try {
+    const res = await fetch(`${BASE}/account/wallet/${path}`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) return null;
+    const result = await res.json() as { ok: boolean; gained?: number; duplicate?: boolean };
+    await refreshWallet(token);
+    void loadPushka(token);
+    return result;
+  } catch { return null; }
+}
+const currentCoins = () => (serverWalletToken === authToken() ? serverStore : null) ?? readCoins();
+
 function write(s: CoinStore) {
   try {
     localStorage.setItem(COINS_KEY, JSON.stringify(fold(s, todayIso())));
@@ -65,8 +130,19 @@ export interface CoinNews {
 const announce = (news?: CoinNews) => window.dispatchEvent(new CustomEvent<CoinNews | undefined>(COINS_EVENT, { detail: news }));
 
 /** +1 for a passage read, +3 for a right answer — each `id` once; false — nothing given. */
-export function earn(kind: EarnKind, id: string): boolean {
+export function earn(kind: EarnKind | 'chest', id: string): boolean {
   if (!gameOn()) return false;
+  const token = authToken();
+  if (token) {
+    if (serverWalletToken !== token || !serverStore) return false;
+    void walletPost('earn', { kind, id }, token).then((result) => {
+      if (!result?.ok || result.duplicate || !result.gained) return;
+      const base = kind === 'read' ? REWARD.read : kind === 'answer' ? REWARD.answer : REWARD.chest;
+      announce({ gained: result.gained, doubled: result.gained > base, chest: kind === 'chest' });
+    });
+    return true;
+  }
+  if (kind === 'chest') return false;
   const r = addEarn(readCoins(), kind, id, todayIso());
   if (!r) return false;
   write(r.store);
@@ -78,16 +154,26 @@ export function earn(kind: EarnKind, id: string): boolean {
 function openChest() {
   if (!gameOn()) return;
   const today = todayIso();
-  const s = readCoins();
+  const s = currentCoins();
   const h = habitStats(studyDates(), today);
   if (!chestDue(s, h.streak, h.today, today)) return;
+  if (authToken()) {
+    earn('chest', `chest:${today}`);
+    return;
+  }
   write(addChest(s, today));
-  // after the reward's own toast
   setTimeout(() => announce({ gained: REWARD.chest, chest: true }), 1200);
 }
 if (typeof window !== 'undefined') window.addEventListener(STUDY_EVENT, openChest);
 
-export function buy(item: ItemId): boolean {
+export async function buy(item: ItemId): Promise<boolean> {
+  const token = authToken();
+  if (token) {
+    if (serverWalletToken !== token || !serverStore) return false;
+    const result = await walletPost('buy', { item }, token);
+    if (result?.ok) announce();
+    return !!result?.ok;
+  }
   const s = buyItem(readCoins(), item);
   if (!s) return false;
   write(s);
@@ -95,7 +181,7 @@ export function buy(item: ItemId): boolean {
   return true;
 }
 
-type Out = { id: string; amount: number; cause: Cause };
+type Out = { id: string; amount: number; cause: Cause; owner?: string };
 const outbox = (): Out[] => {
   const o = parse(OUT_KEY);
   return Array.isArray(o) ? o : [];
@@ -106,7 +192,7 @@ const saveOut = (o: Out[]) => {
     else localStorage.removeItem(OUT_KEY);
   } catch {}
 };
-export const pendingGifts = () => outbox().reduce((a, g) => a + g.amount, 0);
+export const pendingGifts = () => outbox().filter((g) => !g.owner || g.owner === 'guest' || g.owner === activeWalletOwner).reduce((a, g) => a + g.amount, 0);
 
 /* the common box, as the server last showed it */
 let pushka: PushkaState | null = null;
@@ -137,24 +223,26 @@ export async function loadPushka(token: string | null) {
   if (!BASE) return;
   try {
     if (token)
-      for (const g of outbox()) {
+      for (const g of outbox().filter((g) => !g.owner || g.owner === 'guest' || g.owner === activeWalletOwner)) {
         const p = await call(token, g);
         if (!p) break;
         dropOut(g.id);
         setPushka(p);
+        await refreshWallet(token);
       }
     const p = await call(token);
     if (p) setPushka(p);
   } catch {}
 }
 
-/** Give coins to the common box: they leave the balance at once; the server takes the gift now or at the next visit. */
+/** Give coins to the common box; account gifts are debited by the server and retried from this device's outbox. */
 export function give(amount: number, cause: Cause, token: string | null): boolean {
   const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
-  const s = giveCoins(readCoins(), amount, cause, id, todayIso());
+  if (authToken() && (serverWalletToken !== authToken() || !serverStore)) return false;
+  const s = giveCoins(currentCoins(), amount, cause, id, todayIso());
   if (!s) return false;
-  write(s);
-  saveOut([...outbox(), { id, amount, cause }]);
+  if (!authToken()) write(s);
+  saveOut([...outbox(), { id, amount, cause, owner: token ? (activeWalletOwner ?? '') : 'guest' }]);
   announce();
   void loadPushka(token);
   return true;
@@ -162,18 +250,34 @@ export function give(amount: number, cause: Cause, token: string | null): boolea
 
 /** The coins — re-read when something is earned or spent (this tab), in another tab, or brought by the account. */
 export function useCoins(): CoinStore {
-  const [s, set] = useState(readCoins);
+  const { token, me } = useAccount();
+  activeWalletOwner = token && me?.user.active ? walletOwnerKey(me.user.email) : null;
+  const [s, set] = useState(() => (token && serverWalletToken === token ? serverStore : null) ?? readCoins());
   useEffect(() => {
-    const on = () => set(readCoins());
+    let live = true;
+    if (token && me?.user.active) {
+      if (serverWalletToken !== token) { serverStore = null; serverWalletToken = token; set(normCoins(null)); }
+      void refreshWallet(token).then((next) => { if (live && next) { set(next); openChest(); } });
+    } else { serverStore = null; serverWalletToken = null; set(readCoins()); }
+    const on = () => set(serverStore ?? readCoins());
+    const synced = () => {
+      if (token && me?.user.active) {
+        void refreshWallet(token).then((next) => { if (live && next) { set(next); openChest(); } });
+        void loadPushka(token);
+      }
+    };
+    window.addEventListener('niflaot:account-synced', synced);
     window.addEventListener(COINS_EVENT, on);
     window.addEventListener('storage', on);
     window.addEventListener(STUDY_EVENT, on);
     return () => {
+      live = false;
+      window.removeEventListener('niflaot:account-synced', synced);
       window.removeEventListener(COINS_EVENT, on);
       window.removeEventListener('storage', on);
       window.removeEventListener(STUDY_EVENT, on);
     };
-  }, []);
+  }, [token, me?.user.active]);
   return s;
 }
 export const useBalance = () => balance(useCoins());

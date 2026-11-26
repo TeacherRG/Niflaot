@@ -15,7 +15,7 @@
  */
 
 export const REWARD = { read: 1, answer: 3, chest: 10 } as const;
-export type EarnKind = 'read' | 'answer';
+export type EarnKind = 'read' | 'answer' | 'chest';
 export const READ_CAP = 5;
 export const CHEST_DAYS = 7;
 export const KEEP_DAYS = 45;
@@ -41,6 +41,8 @@ export interface CoinStore {
   d: Ledger;
   g: Ledger;
   i: Record<string, number>;
+  /** Net change from in-progress or settled dreidel escrow; excluded from earned/given totals. */
+  x?: number;
 }
 
 const num = (x: unknown) => (Number.isFinite(x) && (x as number) > 0 ? Math.floor(x as number) : 0);
@@ -51,9 +53,9 @@ function normLedger(raw: unknown): Ledger {
   if (!raw || typeof raw !== 'object') return out;
   for (const [day, v] of Object.entries(raw as Record<string, unknown>)) {
     if (!DAY.test(day) || !Array.isArray(v)) continue;
-    const ids = v[1] && typeof v[1] === 'object' ? Object.fromEntries(Object.entries(v[1] as Record<string, unknown>).map(([k, n]) => [k, num(n)]).filter(([, n]) => n)) : undefined;
+    const ids = v[1] && typeof v[1] === 'object' ? Object.fromEntries(Object.entries(v[1] as Record<string, unknown>).map(([k, n]) => [k, num(n)])) : undefined;
     const total = ids ? Object.values<number>(ids).reduce((a, n) => a + n, 0) : num(v[0]);
-    if (total) out[day] = ids ? [total, ids] : [total];
+    if (total || (ids && Object.keys(ids).length)) out[day] = ids ? [total, ids] : [total];
   }
   return out;
 }
@@ -61,7 +63,7 @@ export function normCoins(raw: unknown): CoinStore {
   const r = (raw && typeof raw === 'object' ? raw : {}) as Record<string, unknown>;
   const i: Record<string, number> = {};
   if (r.i && typeof r.i === 'object') for (const [k, n] of Object.entries(r.i as Record<string, unknown>)) if (num(n)) i[k] = num(n);
-  return { d: normLedger(r.d), g: normLedger(r.g), i };
+  return { d: normLedger(r.d), g: normLedger(r.g), i, x: Number.isFinite(r.x) ? Math.trunc(r.x as number) : 0 };
 }
 
 const sum = (l: Ledger) => Object.values(l).reduce((a, [n]) => a + n, 0);
@@ -69,7 +71,7 @@ export const earnedTotal = (s: CoinStore) => sum(s.d);
 export const givenTotal = (s: CoinStore) => sum(s.g);
 export const spentTotal = (s: CoinStore) => Object.values(s.i).reduce((a, n) => a + n, 0);
 /** never below 0 (two devices could each spend the same coins before they met) */
-export const balance = (s: CoinStore) => Math.max(0, earnedTotal(s) - givenTotal(s) - spentTotal(s));
+export const balance = (s: CoinStore) => Math.max(0, earnedTotal(s) - givenTotal(s) - spentTotal(s) + (s.x ?? 0));
 export const earnedOn = (s: CoinStore, day: string) => s.d[day]?.[0] ?? 0;
 export const readsOn = (s: CoinStore, day: string) => Object.keys(s.d[day]?.[1] ?? {}).filter((k) => k.startsWith('r:')).length;
 const has = (l: Ledger, id: string) => Object.values(l).some(([, ids]) => ids && id in ids);
@@ -147,7 +149,7 @@ export function fold(s: CoinStore, today: string): CoinStore {
 const sorted = <T>(o: Record<string, T>): Record<string, T> => Object.fromEntries(Object.keys(o).sort().map((k) => [k, o[k]]));
 function canon(s: CoinStore): CoinStore {
   const l = (x: Ledger): Ledger => sorted(Object.fromEntries(Object.entries(x).map(([day, [n, ids]]) => [day, ids ? [n, sorted(ids)] : [n]])) as Ledger);
-  return { d: l(s.d), g: l(s.g), i: sorted(s.i) };
+  return { d: l(s.d), g: l(s.g), i: sorted(s.i), x: s.x ?? 0 };
 }
 
 function mergeLedger(a: Ledger, b: Ledger): Ledger {
@@ -169,7 +171,7 @@ function mergeLedger(a: Ledger, b: Ledger): Ledger {
 export function mergeCoinStores(a: CoinStore, b: CoinStore): CoinStore {
   const i: Record<string, number> = { ...b.i };
   for (const [k, n] of Object.entries(a.i)) i[k] = Math.max(n, i[k] ?? 0);
-  return canon({ d: mergeLedger(a.d, b.d), g: mergeLedger(a.g, b.g), i });
+  return canon({ d: mergeLedger(a.d, b.d), g: mergeLedger(a.g, b.g), i, x: (a.x ?? 0) !== 0 ? a.x : b.x ?? 0 });
 }
 
 /* ── the common box (the server) ── */

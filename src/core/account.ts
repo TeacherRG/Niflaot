@@ -17,7 +17,7 @@ import type { Locale } from '../i18n';
 
 const STORE = 'niflaot:account';
 // the same server as the AI teacher; read here directly — assistant.ts imports this module
-const BASE = (import.meta.env.VITE_ASSISTANT_URL ?? '').replace(/\/$/, '');
+const BASE = (import.meta.env?.VITE_ASSISTANT_URL ?? '').replace(/\/$/, '');
 
 export interface Me {
   user: {
@@ -183,10 +183,9 @@ export async function saveProfile(p: { nick: string; age?: 'adult' | 'child'; pa
 export async function refreshMe() {
   if (!state.token) return null;
   const me = await api<Me>('/me');
-  const wasActive = state.me?.user.active;
   set({ me });
-  // a child's account just got the parent's consent: the progress joins the account now
-  if (me.user.active && !wasActive) await firstSync();
+  // Sync on every authenticated page load before initializing the server wallet; also handles a newly approved child.
+  if (me.user.active) await firstSync();
   return me;
 }
 
@@ -308,7 +307,11 @@ async function pull(): Promise<boolean> {
 
 /** After signing in: the page reloads if this device got more — the lesson pages read their state when they open. */
 async function firstSync() {
-  if (await pull()) location.reload();
+  const changed = await pull();
+  // The legacy balance is snapshotted only after this device's progress has merged on the server.
+  await api('/wallet/init', { body: {} }).catch(() => {});
+  window.dispatchEvent(new Event('niflaot:account-synced'));
+  if (changed) location.reload();
 }
 
 /**
