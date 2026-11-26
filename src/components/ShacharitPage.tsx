@@ -556,20 +556,23 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
               </div>
             </div>
             <p className="rd-hint no-print">{t('shn.tap')}</p>
+            {/* вставки по календарю — одна строка на всю молитву (Амида, Таханун, Песнь дня, Биркат ґа-мазон…) */}
+            {sections.some((x) => x.lines.some((l) => l.includes('⟦?'))) && (
+              <p className="sd-auto no-print">
+                <span>{t(allInserts ? 'siddur.allNote' : 'siddur.auto')}</span>{' '}
+                <button type="button" className="sd-auto-btn" onClick={() => setAllInserts((x) => !x)}>
+                  {t(allInserts ? 'siddur.showToday' : 'siddur.showAll')}
+                </button>
+              </p>
+            )}
             <article className="shacharit-text">
               {sections.map((section, si) => (
                 <section className="shacharit-section" id={section.id} key={section.id}>
-                  <h2 className="shacharit-h">
-                    <span dir="rtl" lang="he">{section.title}</span>
-                    {ui !== 'he' && section.t?.[translitLang] && <small>{section.t[translitLang]}</small>}
-                  </h2>
-                  {section.lines.some((x) => x.includes('⟦?')) && (
-                    <p className="sd-auto no-print">
-                      <span>{t(allInserts ? 'siddur.allNote' : 'siddur.auto')}</span>{' '}
-                      <button type="button" className="sd-auto-btn" onClick={() => setAllInserts((x) => !x)}>
-                        {t(allInserts ? 'siddur.showToday' : 'siddur.showAll')}
-                      </button>
-                    </p>
+                  {lines[si].length > 0 && (
+                    <h2 className="shacharit-h">
+                      <span dir="rtl" lang="he">{section.title}</span>
+                      {ui !== 'he' && section.t?.[translitLang] && <small>{section.t[translitLang]}</small>}
+                    </h2>
                   )}
                   {lines[si].map((line, index) => (
                     <div key={index} className={`shacharit-prayer${line.sep ? ' sd-sep' : ''}`}>

@@ -19,7 +19,16 @@ export type SiddurCond =
   | 'fast' | 'av9' // a public fast (Aneinu at Mincha), Mincha of Tisha b'Av (Nachem)
   | 'rc' | 'pesach' | 'sukkot' | 'yaale' // Rosh Chodesh, Chol HaMoed — Yaale veYavo
   | 'chanukah' | 'purim' | 'hanisim' // Al HaNissim
-  | 'havdalah'; // Maariv at the end of Shabbat or Yom Tov — «Ata chonantanu»
+  | 'havdalah' // Maariv at the end of Shabbat or Yom Tov — «Ata chonantanu»
+  // outside the Amidah (owner, 25.11.2026: «распространить»)
+  | 'day1' | 'day2' | 'day3' | 'day4' | 'day5' | 'day6' // the Song of the Day: Sunday … Friday
+  | 'elul' // «לדוד ה׳ אורי» — from Rosh Chodesh Elul to Hoshana Rabba
+  | 'tachanun' // a day Tachanun is said (Chabad custom; see `noTachanun`)
+  | 'monthu' // Monday and Thursday additions to Tachanun
+  | 'avinu' | 'taanit' // Avinu Malkenu: a public fast or the Ten Days; «זכרנו» / «ברך» — a fast outside the Ten Days
+  | 'erechapayim' // «אל ארך אפים» before the Torah reading
+  | 'tishabav' // the day of Tisha b'Av (any prayer)
+  | 'motzash' | 'vihinoam'; // Maariv after Shabbat; «ויהי נועם» — not in a week with Yom Tov
 
 const atNoon = (iso: string) => new Date(`${iso}T12:00:00`);
 const addDays = (iso: string, n: number) => {
@@ -28,6 +37,33 @@ const addDays = (iso: string, n: number) => {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 };
 const isLeapGregorian = (y: number) => (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
+
+/** days without Tachanun (Chabad custom, «Сефер ґа-минґагим»; not checked by a rabbi) — besides Shabbat and Yom Tov */
+function noTachanun(hd: HDate, rc: boolean): boolean {
+  const m = hd.getMonth();
+  const day = hd.getDate();
+  const leap = HDate.isLeapYear(hd.getFullYear());
+  if (rc || m === months.NISAN) return true;
+  if (m === months.TISHREI && day >= 9) return true; // Erev Yom Kippur to the end of Tishrei
+  if (m === months.ELUL && day === 29) return true; // Erev Rosh Hashana
+  if (m === months.SIVAN && day <= 12) return true;
+  return festive(hd, leap);
+}
+/** a day without Tachanun whose eve (Mincha the day before) is also without it */
+function festive(hd: HDate, leap = HDate.isLeapYear(hd.getFullYear())): boolean {
+  const m = hd.getMonth();
+  const day = hd.getDate();
+  const kislev25 = new HDate(25, months.KISLEV, hd.getFullYear()).abs();
+  if (hd.abs() - kislev25 >= 0 && hd.abs() - kislev25 <= 7) return true; // Chanukah
+  if ((m === months.ADAR_I || (leap && m === months.ADAR_II)) && (day === 14 || day === 15)) return true; // Purim, Purim Katan
+  return (
+    (m === months.IYYAR && (day === 14 || day === 18)) || // Pesach Sheni, Lag BaOmer
+    (m === months.AV && (day === 9 || day === 15)) ||
+    (m === months.SHVAT && day === 15) ||
+    (m === months.KISLEV && day === 19) ||
+    (m === months.TAMUZ && (day === 12 || day === 13))
+  );
+}
 
 /** the calendar day whose Jewish date the prayer belongs to */
 export function prayerDay(prayer: Prayer, now = new Date(), zone = currentPlace().zone): string {
@@ -85,7 +121,37 @@ export function siddurConds(prayer: Prayer, iso: string, il = false): Set<Siddur
     const eve = new HDate(atNoon(addDays(iso, -1)));
     const evEvents = HebrewCalendar.getHolidaysOnDate(eve, il) ?? [];
     if (eve.getDay() === 6 || evEvents.some((e) => e.getFlags() & flags.CHAG)) out.add('havdalah');
+    if (eve.getDay() === 6) {
+      out.add('motzash');
+      const chag = [0, 1, 2, 3, 4, 5].some((k) =>
+        (HebrewCalendar.getHolidaysOnDate(new HDate(atNoon(addDays(iso, k))), il) ?? []).some((e) => e.getFlags() & flags.CHAG),
+      );
+      if (!chag) out.add('vihinoam');
+    }
   }
+
+  const dow = hd.getDay(); // 0 — Sunday
+  if (dow <= 5) out.add(`day${dow + 1}` as SiddurCond);
+  const elul = (hd.getMonth() === months.ELUL) || (hd.getMonth() === months.TISHREI && hd.getDate() <= 21);
+  if (elul) out.add('elul');
+
+  const av9 = desc.some((x) => x.startsWith("Tish'a B'Av"));
+  if (av9) out.add('tishabav');
+  const tomorrow = new HDate(atNoon(addDays(iso, 1)));
+  const restDay = dow === 6 || has(flags.CHAG);
+  const tachanun =
+    !restDay && !noTachanun(hd, out.has('rc')) && !av9 && !(prayer === 'mincha' && (dow === 5 || festive(tomorrow)));
+  if (tachanun && prayer !== 'maariv') out.add('tachanun');
+  if (tachanun && prayer === 'shacharit' && (dow === 1 || dow === 4)) out.add('monthu');
+
+  const publicFast = fast && !av9;
+  const tenDays = out.has('aseret') && hd.getDate() >= 3 && hd.getDate() <= 8;
+  if (out.has('tachanun') && (publicFast || tenDays)) out.add('avinu'); // not on a day without Tachanun (Mincha of Taanit Esther)
+  if (publicFast && !out.has('aseret')) out.add('taanit');
+  const purimDay = (hd.getMonth() === months.ADAR_I || hd.getMonth() === (HDate.isLeapYear(y) ? months.ADAR_II : months.ADAR_I)) &&
+    (hd.getDate() === 14 || hd.getDate() === 15);
+  const erevPesach = hd.getMonth() === months.NISAN && hd.getDate() === 14;
+  if (!(out.has('rc') || out.has('chanukah') || purimDay || erevPesach || av9)) out.add('erechapayim');
   return out;
 }
 
