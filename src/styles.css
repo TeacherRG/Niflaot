@@ -4427,6 +4427,61 @@ html.rm-focus .rm-split:not(.solo) .rm-tools>:not(.rm-focus-btn){display:none}
 .shacharit-page:fullscreen>.sd-fullscreen-exit,.shacharit-page.sd-fullscreen-fallback>.sd-fullscreen-exit{display:inline-flex;position:fixed;z-index:101;top:max(10px,env(safe-area-inset-top));right:max(10px,env(safe-area-inset-right));left:auto;bottom:auto;box-shadow:0 2px 10px #0003}
 .sd-fullscreen-exit:focus-visible{outline:2px solid var(--tchelet);outline-offset:2px}
 
+/* ───── «Святое чтение»: размер текста и фон из «⚙ Настроек чтения» (владелец, 26.11.2026) ─────
+   --rd-k — масштаб текста (иврит и транслит вместе, `sizeScale`); html[data-rbg] — фон чтения (`useReadingLook`), поверх темы сайта */
+.rd-text{font-size:calc(24px * var(--rd-k,1))}
+.rd-text.rd-tr{font-size:calc(19px * var(--rd-k,1))}
+.shacharit-text{font-size:calc(100% * var(--rd-k,1))}
+@media (max-width:640px){.rd-text{font-size:calc(21px * var(--rd-k,1))}.rd-text.rd-tr{font-size:calc(18px * var(--rd-k,1))}}
+.rd-size{display:flex;align-items:center;gap:6px;padding:4px 12px 0}
+.tk-view-list .rd-size button{display:flex;align-items:center;justify-content:center;padding:0 6px;font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;min-height:40px}
+.tk-view-list .rd-size .rd-size-btn{width:52px;font-weight:700;font-size:15px}
+.tk-view-list .rd-size .rd-size-up{font-size:19px}
+.tk-view-list .rd-size .rd-size-now{flex:1;font-family:var(--f-num);font-size:14px}
+.tk-view-list .rd-size button:disabled{opacity:.4;cursor:default}
+.rd-size-d{display:block;padding:2px 12px 6px}
+.rd-bgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:6px;padding:4px 12px 8px}
+.tk-view-list .rd-bgs .rd-bg-chip{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 4px;border:1px solid var(--line);border-radius:10px;font-size:12.5px;width:auto}
+.tk-view-list .rd-bgs .rd-bg-chip[aria-checked="true"]{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-line)}
+.rd-bg-sw{width:100%;height:22px;border-radius:6px;border:1px solid rgba(0,0,0,.12)}
+.rd-bg-site .rd-bg-sw{background:linear-gradient(90deg,#F4F5F8 50%,#FFFFFF 50%)}
+.rd-bg-white .rd-bg-sw{background:#FFFFFF}
+.rd-bg-beige .rd-bg-sw{background:#F5EDDA}
+.rd-bg-parchment .rd-bg-sw{background:radial-gradient(circle at 30% 40%,#F4E4BE,#E6D0A0)}
+.rd-bg-sepia .rd-bg-sw{background:#EADBBE}
+.rd-bg-gray .rd-bg-sw{background:#E4E6EA}
+.rd-bg-night .rd-bg-sw{background:#14161D}
+/* общее меню «☰ Разделы» */
+.rd-nav-group{font-size:13px}
+.rd-nav-row{display:flex;align-items:stretch}
+.tk-view-list .rd-nav-row .rd-nav-name{flex:1;min-width:0}
+.tk-view-list .rd-nav-row .rd-nav-fold{display:flex;align-items:center;flex:none;width:44px;justify-content:center;font-size:16px;color:var(--muted)}
+.tk-view-list .rd-nav-sub{padding-inline-start:28px}
+@media screen{
+  /* светлые фоны чтения — светлый текст и тогда, когда у сайта тёмная тема */
+  html[data-rbg="white"],html[data-rbg="beige"],html[data-rbg="parchment"],html[data-rbg="sepia"],html[data-rbg="gray"]{
+    --ink:#141A33; --ink-2:#232B4D; --muted:#5D6482; --gold:#A47C2F; --gold-2:#D8B565; --gold-soft:#F7F0E1; --gold-line:#E7D6AE;
+    --tchelet:#2B4F95; --tchelet-soft:#EAF0FA; --ok:#2A7448; --ok-soft:#E5F3EA; --bad:#AE2A21; --bad-soft:#FBE8E6;
+    --ink-3:#3D4466; --muted-2:#8A90A8; --ring:#B9BFD2; --tchelet-bg:#F2F5FB; --tchelet-line:#DDE4F1; color-scheme:light;
+  }
+  html[data-rbg="white"]{--paper:#FFFFFF;--surface:#FFFFFF;--line:#E3E5EE;--line-soft:#ECEEF4;--glass:rgba(255,255,255,.9);--glass-2:rgba(255,255,255,.96)}
+  html[data-rbg="beige"]{--paper:#F5EDDA;--surface:#FBF6EA;--line:#E5D9BE;--line-soft:#EBE1C9;--glass:rgba(245,237,218,.9);--glass-2:rgba(251,246,234,.96)}
+  html[data-rbg="parchment"]{--paper:#EEDDB5;--surface:#F6E9C9;--line:#D9C291;--line-soft:#E2CEA2;--ink:#2E2310;--ink-2:#3E3018;--glass:rgba(238,221,181,.9);--glass-2:rgba(246,233,201,.96)}
+  html[data-rbg="sepia"]{--paper:#EADBBE;--surface:#F3E8D2;--line:#D8C6A2;--line-soft:#DFCFAF;--ink:#3B2A14;--ink-2:#4B3720;--glass:rgba(234,219,190,.9);--glass-2:rgba(243,232,210,.96)}
+  html[data-rbg="gray"]{--paper:#E4E6EA;--surface:#F1F2F4;--line:#CED2DA;--line-soft:#D7DAE1;--glass:rgba(228,230,234,.9);--glass-2:rgba(241,242,244,.96)}
+  html[data-rbg="night"]{
+    --paper:#0E0F14; --surface:#16181F; --ink:#D9D4C7; --ink-2:#C3BEB0; --muted:#9A968B; --line:#2A2C35; --line-soft:#22242C;
+    --gold:#D9B66A; --gold-2:#E4C47E; --gold-soft:#2A2416; --gold-line:#4D4126; --tchelet:#86A5EC; --tchelet-soft:#1C2744;
+    --ok:#6BCB94; --ok-soft:#15301F; --bad:#F2867D; --bad-soft:#3A1C1A; --ink-3:#C3BEB0; --muted-2:#8E8A80; --ring:#4A4C57;
+    --tchelet-bg:#1A2340; --tchelet-line:#2C3A63; --glass:rgba(14,15,20,.9); --glass-2:rgba(22,24,31,.96); color-scheme:dark;
+  }
+  html[data-rbg]{--plain:var(--surface);--warm:var(--paper)}
+  html[data-rbg] body{background:var(--paper);background-image:none}
+  /* пергамент — с лёгкой неровностью, как у листа */
+  html[data-rbg="parchment"] body{background-image:radial-gradient(1200px 700px at 20% 0,rgba(255,248,225,.55),transparent 60%),radial-gradient(900px 600px at 90% 100%,rgba(190,150,80,.18),transparent 65%)}
+  html[data-rbg="parchment"] .rd-text,html[data-rbg="parchment"] .shacharit-section{background:linear-gradient(180deg,rgba(255,250,232,.55),rgba(246,233,201,.4))}
+}
+
 /* перечёркнутая книга: словарный инфинитив построен по грамматике — такой формы в Танахе нет (NoTanakh.tsx) */
 .no-tanakh{display:inline-flex;align-items:center;vertical-align:middle;margin-inline:.3em;color:var(--muted-2);font-size:.85rem;line-height:1;cursor:help;flex:none}
 .no-tanakh svg{display:block}

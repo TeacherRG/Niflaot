@@ -4,6 +4,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useI18n, uiLang } from '../i18n';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
+import { ReadingSettings, useReadingLook } from './ReadingSettings';
+import { ReadingMenu } from './ReadingMenu';
 import { NotFound, PageLoading } from './PageStates';
 import { hebrewNumber } from '../core/hebrewDate';
 import { markStudied } from '../core/habit';
@@ -45,6 +47,7 @@ export function ShnayimPage({ aliyah }: { aliyah?: string }) {
   const [data, setData] = useState<ShnayimText | null>(null);
   const [failed, setFailed] = useState(false);
   const [view, setView] = useState<View>(loadView);
+  useReadingLook(view);
   const [active, setActive] = useState(-1);
   const [highlightState, setHighlightState] = useState<'stopped' | 'playing' | 'paused'>('stopped');
   useKeepAwake(highlightState === 'playing');
@@ -160,7 +163,12 @@ export function ShnayimPage({ aliyah }: { aliyah?: string }) {
   return (
     <>
       <TopBar title={t('reading.title')} />
-      <div className={`wrap rd${view.big ? ' rd-big' : ''}`}>
+      <div className="wrap rd">
+        {/* «☰ Разделы» и «⚙ Настройки чтения» — как на всех страницах «Святого чтения» (владелец, 26.11.2026) */}
+        <div className="rd-corner no-print">
+          <ReadingMenu />
+          <ReadingSettings view={view} setV={setV} audio={false} living={false} translit={false} />
+        </div>
         <header className="tk-head">
           <p className="tk-kicker">
             📖 {t('reading.title')} · <span className="he">שְׁנַיִם מִקְרָא וְאֶחָד תַּרְגּוּם</span>
@@ -208,14 +216,6 @@ export function ShnayimPage({ aliyah }: { aliyah?: string }) {
           </button>
         </nav>
 
-        <div className="rd-opts no-print">
-          <label>
-            <input type="checkbox" checked={view.taamim} onChange={(e) => setV({ ...view, taamim: e.target.checked })} /> {t('reading.taamim')}
-          </label>
-          <label>
-            <input type="checkbox" checked={view.big} onChange={(e) => setV({ ...view, big: e.target.checked })} /> {t('reading.big')}
-          </label>
-        </div>
         <p className="rd-hint rd-tap-hint no-print">{t('shn.tap')}</p>
         <p className="rd-hint rd-tap-hint no-print">{t('shn.highlightHint')}</p>
 

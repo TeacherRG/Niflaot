@@ -5,7 +5,7 @@
  * Имена — как во всём проекте). «Песнь Аазину» — public/reading/torah/haazinu.json (Sefaria, Deuteronomy 32).
  * Записи чтения — только на этом устройстве:
  *   `niflaot:reading` = {"<ключ чтения>": {best, last — слов в минуту; n — попыток}};
- *   `niflaot:reading-view` = {taamim, big, play, tr, pron, living};
+ *   `niflaot:reading-view` = {taamim, play, tr, pron, living, trDir, trBig, glossLang, size, bg} (`big` — старый «крупный шрифт» → size 3);
  *   `niflaot:reading-times:<ключ чтения>` — разметка аудио учителем (начало каждого слова, с).
  */
 import { addDays, hebrewParts } from './restDays';
@@ -289,15 +289,32 @@ export interface View {
   trBig: 'tr' | 'he';
   /** язык пословного перевода сидура; none — показывать транслитерацию */
   glossLang: 'none' | 'de';
+  /** размер текста — шаги от обычного (−3 … +6), иврит и транслит вместе (владелец, 26.11.2026) */
+  size: number;
+  /** фон страниц «Святого чтения» */
+  bg: ReadingBg;
 }
+/** фон чтения: как на сайте / белый / бежевый / пергамент / сепия / серый / ночь (владелец, 26.11.2026: «бежевый, пергамент и какие ещё обычно ставят») */
+export type ReadingBg = 'site' | 'white' | 'beige' | 'parchment' | 'sepia' | 'gray' | 'night';
+export const READING_BGS: ReadingBg[] = ['site', 'white', 'beige', 'parchment', 'sepia', 'gray', 'night'];
+export const SIZE_MIN = -3;
+export const SIZE_MAX = 6;
+/** во сколько раз крупнее обычного: шаг — 12 % */
+export const sizeScale = (size: number) => Math.round((1 + 0.12 * size) * 100) / 100;
 export const loadView = (): View => {
-  const v: View = { taamim: false, big: false, play: 'both', tr: 'he', pron: 'ash', living: true, trDir: 'ltr', trBig: 'tr', glossLang: 'none', ...read<Partial<View>>('niflaot:reading-view', {}) };
+  const saved = read<Partial<View>>('niflaot:reading-view', {});
+  const v: View = { taamim: false, big: false, play: 'both', tr: 'he', pron: 'ash', living: true, trDir: 'ltr', trBig: 'tr', glossLang: 'none', size: saved.big ? 3 : 0, bg: 'site', ...saved };
   if (!PLAY_MODES.includes(v.play)) v.play = 'both';
   if (!TR_MODES.includes(v.tr)) v.tr = 'he';
   if (!PRONS.includes(v.pron)) v.pron = 'ash';
   if (v.trDir !== 'rtl') v.trDir = 'ltr';
   if (v.trBig !== 'he') v.trBig = 'tr';
   if (v.glossLang !== 'de') v.glossLang = 'none';
+  // «Крупный шрифт» (галочка до 26.11.2026) — теперь размер текста
+  if (typeof v.size !== 'number' || !Number.isFinite(v.size)) v.size = 0;
+  v.size = Math.max(SIZE_MIN, Math.min(SIZE_MAX, Math.round(v.size)));
+  v.big = false;
+  if (!READING_BGS.includes(v.bg)) v.bg = 'site';
   return v;
 };
 export const saveView = (v: View) => write('niflaot:reading-view', v);

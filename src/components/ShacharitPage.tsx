@@ -4,22 +4,20 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { loadView, saveView, stripTaamim, type View } from '../core/reading';
 import { translitSiddurToken } from '../core/tehillimTranslit';
 import { markStudied } from '../core/habit';
-import { PRAYERS, type Prayer } from '../core/siddur';
+import type { Prayer } from '../core/siddur';
 import { todaysConds } from '../core/siddurDay';
 import { useI18n } from '../i18n';
 import type { MessageKey } from '../i18n/locales/ru';
 import { Colophon } from './Colophon';
 import { TopBar } from './TopBar';
-import { ReadingSettings } from './ReadingSettings';
-import { Icon, useDismiss } from './ui';
+import { ReadingSettings, useReadingLook } from './ReadingSettings';
+import { GO_KEY, PRAYER_KEY, ReadingMenu, sectionId, type SectionName, type TrLang } from './ReadingMenu';
 
 /** Только слова молитвы — собирает `scripts/build-siddur.py` из JSON сидура (без указаний и пояснений). */
-const PRAYER_KEY = { shacharit: 'reading.shacharit', mincha: 'reading.mincha', maariv: 'reading.maariv', 'birkat-hamazon': 'reading.birkat' } as const;
 const textUrl = (prayer: Prayer) => `/reading/siddur/${prayer}-he.json`;
 const SOURCE_URL = 'https://www.sefaria.org/Weekday_Siddur_Chabad';
 const HEBREW_WORD = /[\u05D0-\u05EA\uFB1D-\uFB4F][\u05D0-\u05EA\u05BE\uFB1D-\uFB4F\u0591-\u05C7\u05F0-\u05F4'"]*/gu;
 
-type SectionName = { title: string; t?: Partial<Record<TrLang, string>> };
 interface ShacharitText {
   version: string;
   sections: ({ key: string; lines: string[] } & SectionName)[];
@@ -45,16 +43,6 @@ function isShacharitText(value: unknown): value is ShacharitText {
 }
 
 const HIGHLIGHT_RATES = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5];
-type TrLang = 'ru' | 'en' | 'de';
-/** раздел, к которому прокрутить после перехода на другую молитву из меню «Разделы» */
-const GO_KEY = 'niflaot:siddur-go';
-const sectionId = (i: number) => `shacharit-section-${i + 1}`;
-/** названия разделов всех молитв для меню — `index.json` (`build-siddur.py`) */
-let indexLoad: Promise<Record<string, SectionName[]>> | null = null;
-const loadIndex = () =>
-  (indexLoad ??= fetch('/reading/siddur/index.json')
-    .then((r) => (r.ok ? r.json() : {}))
-    .catch(() => ({}))) as Promise<Record<string, SectionName[]>>;
 
 /** Слово молитвы: номер по всему Шахариту (для подсветки), иврит, знаки после него, начинает ли фразу. */
 interface Word {
@@ -260,103 +248,6 @@ const PrayerLine = memo(function PrayerLine({ line, tr, lang, pron, taamim, dir,
   );
 });
 
-/**
- * Меню сидура (левый верхний угол): все молитвы и их разделы — на языке сайта, мелко иврит (владелец, 18.11.2026: «меню сидура
- * на языке пользователя и полное, чтобы перейти на любую молитву»); раздел этой молитвы — прокрутка, другой — её страница на этом месте.
- */
-function SectionsMenu({ prayer, sections, onGo }: { prayer: Prayer; sections: ({ id: string } & SectionName)[]; onGo: (id: string) => void }) {
-  const { t, locale, ui } = useI18n();
-  const [open, setOpen] = useState(false);
-  const [current, setCurrent] = useState(sections[0]?.id ?? '');
-  const [index, setIndex] = useState<Record<string, SectionName[]>>({});
-  const root = useRef<HTMLDivElement>(null);
-  const close = useCallback(() => setOpen(false), []);
-  useDismiss(open, root, close);
-  useEffect(() => {
-    let live = true;
-    void loadIndex().then((x) => live && setIndex(x));
-    return () => {
-      live = false;
-    };
-  }, []);
-  useEffect(() => {
-    const onScroll = () => {
-      let id = sections[0]?.id ?? '';
-      for (const s of sections) {
-        const el = document.getElementById(s.id);
-        if (el && el.getBoundingClientRect().top < 160) id = s.id;
-      }
-      setCurrent(id);
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [sections]);
-  // открыли меню — список сразу на этой молитве
-  const listRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (!open) return;
-    const list = listRef.current;
-    const head = list?.querySelector<HTMLElement>('.shacharit-menu-now');
-    if (list && head) list.scrollTop = head.offsetTop - 6;
-  }, [open]);
-  const lang: TrLang = locale === 'ru' || locale === 'de' ? locale : 'en';
-  const nameOf = (s: SectionName) => (ui === 'he' ? s.title : s.t?.[lang] ?? s.title);
-  const now = sections.find((s) => s.id === current);
-  const go = (p: Prayer, i: number) => {
-    close();
-    if (p === prayer) onGo(sectionId(i));
-    else {
-      try {
-        sessionStorage.setItem(GO_KEY, String(i));
-      } catch {
-        /* без хранилища — откроется начало молитвы */
-      }
-      location.hash = `#/reading/siddur/${p}`;
-    }
-  };
-  return (
-    <div className="tk-view rd-set shacharit-menu" ref={root}>
-      <button type="button" className="lang-btn tk-view-btn" aria-haspopup="true" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
-        <span aria-hidden="true">☰</span>
-        <span>
-          {t('reading.siddurContents')}
-          {now && <small>{` · ${nameOf(now)}`}</small>}
-        </span>
-        <Icon name="chevron" size={14} />
-      </button>
-      {open && (
-        <div ref={listRef} className="lang-list tk-view-list rd-set-list shacharit-menu-list" role="menu" aria-label={t('reading.siddurContents')}>
-          {PRAYERS.map((p, pi) => {
-            const list: SectionName[] = p === prayer ? sections : index[p] ?? [];
-            return (
-              <div key={p} role="group" aria-label={t(PRAYER_KEY[p])}>
-                {pi > 0 && <div className="tk-view-sep" />}
-                <div className={`tk-view-head${p === prayer ? ' shacharit-menu-now' : ''}`}>{t(PRAYER_KEY[p])}</div>
-                {list.map((s, i) => {
-                  const on = p === prayer && sectionId(i) === current;
-                  return (
-                    <button key={i} type="button" role="menuitemradio" aria-checked={on} onClick={() => go(p, i)}>
-                      <span className="name">
-                        {nameOf(s)}
-                        {ui !== 'he' && (
-                          <small className="rd-set-d he" dir="rtl" lang="he">
-                            {s.title}
-                          </small>
-                        )}
-                      </span>
-                      {on && <Icon name="check" size={16} />}
-                    </button>
-                  );
-                })}
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
-}
 
 export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
   const { t, locale, ui } = useI18n();
@@ -365,6 +256,7 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
   const [germanGlossary, setGermanGlossary] = useState<Record<string, string>>({});
   // те же настройки, что у Теґилим (`niflaot:reading-view`); звука пока нет
   const [view, setView] = useState<View>(loadView);
+  useReadingLook(view);
   const readerRef = useRef<HTMLElement>(null);
   const [fullscreenFallback, setFullscreenFallback] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -463,9 +355,7 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
     document.title = `${t(PRAYER_KEY[prayer])} · ${t('reading.siddur')} · ${t('app.title')}`;
   }, [t, prayer]);
 
-  const sections = data
-    ? data.sections.map((section, index) => ({ ...section, id: sectionId(index) }))
-    : [];
+  const sections = useMemo(() => (data ? data.sections.map((section, index) => ({ ...section, id: sectionId(index) })) : []), [data]);
   // вставки Амиды — по календарю на сегодня; «Показать все вставки» — весь текст сидура с пометками
   const [allInserts, setAllInserts] = useState(false);
   const shown = useMemo<Shown>(() => (allInserts ? null : todaysConds(prayer)), [allInserts, prayer]);
@@ -537,7 +427,15 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
   return (
     <>
       <TopBar title={t('reading.title')} />
-      <main ref={readerRef} className={`wrap rd shacharit-page${view.big ? ' rd-big' : ''}${(view.tr === 'duo' || (view.tr === 'he' && view.glossLang === 'de')) && view.trBig === 'he' ? ' shacharit-hebig' : ''}${fullscreenFallback ? ' sd-fullscreen-fallback' : ''}`}>
+      <main ref={readerRef} className={`wrap rd shacharit-page${(view.tr === 'duo' || (view.tr === 'he' && view.glossLang === 'de')) && view.trBig === 'he' ? ' shacharit-hebig' : ''}${fullscreenFallback ? ' sd-fullscreen-fallback' : ''}`}>
+        {/* «☰ Разделы» и «⚙ Настройки чтения» — сразу под верхней панелью, заголовки ниже (владелец, 26.11.2026) */}
+        <div className="rd-corner no-print">
+          <ReadingMenu prayer={prayer} sections={sections} onGo={scrollTo} />
+          <div className="sd-reader-actions">
+            <ReadingSettings view={view} setV={setV} audio={false} living={false} layout />
+            <button type="button" className="sd-fullscreen-btn" onClick={() => void toggleFullscreen()} aria-label="Полноэкранный режим" title="Полноэкранный режим" aria-pressed={isFullscreen}>⛶</button>
+          </div>
+        </div>
         <header className="tk-head">
           <p className="tk-kicker">{t('reading.siddur')}</p>
           <h1>{t(PRAYER_KEY[prayer])}</h1>
@@ -547,29 +445,24 @@ export function ShacharitPage({ prayer = 'shacharit' }: { prayer?: Prayer }) {
         </header>
         {status === 'ready' && data && (
           <>
-            {/* меню сидура — всегда в левом верхнем углу, настройки чтения — в правом (владелец, 18.11.2026) */}
-            <div className="rd-corner no-print">
-              <SectionsMenu prayer={prayer} sections={sections} onGo={scrollTo} />
-              <div className="sd-reader-actions">
-                <ReadingSettings view={view} setV={setV} audio={false} living={false} layout />
-                <button type="button" className="sd-fullscreen-btn" onClick={() => void toggleFullscreen()} aria-label="Полноэкранный режим" title="Полноэкранный режим" aria-pressed={isFullscreen}>⛶</button>
-              </div>
-            </div>
             <p className="rd-hint no-print">{t('shn.tap')}</p>
+            {/* вставки по календарю — одна строка на всю молитву (Амида, Таханун, Песнь дня, Биркат ґа-мазон…) */}
+            {sections.some((x) => x.lines.some((l) => l.includes('⟦?'))) && (
+              <p className="sd-auto no-print">
+                <span>{t(allInserts ? 'siddur.allNote' : 'siddur.auto')}</span>{' '}
+                <button type="button" className="sd-auto-btn" onClick={() => setAllInserts((x) => !x)}>
+                  {t(allInserts ? 'siddur.showToday' : 'siddur.showAll')}
+                </button>
+              </p>
+            )}
             <article className="shacharit-text">
               {sections.map((section, si) => (
                 <section className="shacharit-section" id={section.id} key={section.id}>
-                  <h2 className="shacharit-h">
-                    <span dir="rtl" lang="he">{section.title}</span>
-                    {ui !== 'he' && section.t?.[translitLang] && <small>{section.t[translitLang]}</small>}
-                  </h2>
-                  {section.lines.some((x) => x.includes('⟦?')) && (
-                    <p className="sd-auto no-print">
-                      <span>{t(allInserts ? 'siddur.allNote' : 'siddur.auto')}</span>{' '}
-                      <button type="button" className="sd-auto-btn" onClick={() => setAllInserts((x) => !x)}>
-                        {t(allInserts ? 'siddur.showToday' : 'siddur.showAll')}
-                      </button>
-                    </p>
+                  {lines[si].length > 0 && (
+                    <h2 className="shacharit-h">
+                      <span dir="rtl" lang="he">{section.title}</span>
+                      {ui !== 'he' && section.t?.[translitLang] && <small>{section.t[translitLang]}</small>}
+                    </h2>
                   )}
                   {lines[si].map((line, index) => (
                     <div key={index} className={`shacharit-prayer${line.sep ? ' sd-sep' : ''}`}>
