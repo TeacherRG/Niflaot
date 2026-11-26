@@ -396,6 +396,7 @@ export class Accounts extends DurableObject<MailEnv> {
     this.sql.exec('DELETE FROM chat_day WHERE day < ?', new Date(now - 90 * 864e5).toISOString().slice(0, 10));
     this.sql.exec('DELETE FROM newsletter_unsub_tokens WHERE created < ?', now - 365 * 864e5);
     this.sql.exec('DELETE FROM newsletter_deliveries WHERE sent < ?', now - 2 * 365 * 864e5);
+    this.sql.exec('DELETE FROM dreidel_tickets WHERE expires < ?', now);
     await this.ctx.storage.setAlarm(now + 864e5);
   }
 
