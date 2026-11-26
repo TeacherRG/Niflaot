@@ -246,7 +246,7 @@ export function useCoins(): CoinStore {
     const on = () => set(serverStore ?? readCoins());
     const synced = () => {
       if (token && me?.user.active) {
-        void refreshWallet(token).then((next) => { if (live && next) set(next); });
+        void refreshWallet(token).then((next) => { if (live && next) { set(next); openChest(); } });
         void loadPushka(token);
       }
     };
