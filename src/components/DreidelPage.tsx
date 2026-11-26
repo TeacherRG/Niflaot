@@ -124,8 +124,8 @@ function DreidelPlayer({ code }: { code: string }) {
   useEffect(() => {
     if (status === 'open' && (joined || view?.me) && name.trim()) send({ t: 'hello', name });
   }, [status]);
-  if (!view) return <Status status={status} error={error} />;
-  if (!view.me) return <div className="dreidel-room"><Status status={status} error={error} /><h1>Войти в игру</h1><form className="dreidel-join-card" onSubmit={(e) => { e.preventDefault(); if (!name.trim()) return; saveDreidelName(code, name.trim()); setJoined(true); send({ t: 'hello', name: name.trim() }); }}>
+  if (!view && error !== 'escrow' && error !== 'ticket') return <Status status={status} error={error} />;
+  if (!view || !view.me) return <div className="dreidel-room"><Status status={status} error={error} /><h1>Войти в игру</h1><form className="dreidel-join-card" onSubmit={(e) => { e.preventDefault(); if (!name.trim()) return; saveDreidelName(code, name.trim()); setJoined(true); send({ t: 'hello', name: name.trim() }); }}>
     <label>Ваше имя<input value={name} onChange={(e) => setName(e.target.value)} maxLength={20} autoComplete="nickname" placeholder="Как вас зовут?" /></label>
     {token && account?.user.active && <label className="dreidel-guest-choice"><input type="checkbox" checked={guestMode} onChange={(e) => { const next = e.target.checked; setGuestMode(next); try { localStorage.setItem(`niflaot:dreidel-guest:${code}`, next ? '1' : '0'); } catch {} }} /> Играть гостем — с виртуальными монетами</label>}
     <button className="btn dreidel-primary" disabled={!name.trim()}>Присоединиться</button>
