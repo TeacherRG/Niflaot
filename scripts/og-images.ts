@@ -173,7 +173,7 @@ const shots: [string, string][] = [
     page({
       eyebrow: 'Niflaot · for adults',
       he: 'מילים',
-      title: 'All 5215 words of Tanakh',
+      title: 'All 5214 words of Tanakh',
       sub: '500 are 80% of the Prophets and Writings · translation, root, review',
       letters: ['מ', 'ל'],
     }),

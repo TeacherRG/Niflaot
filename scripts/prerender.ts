@@ -792,7 +792,7 @@ function tanakhPage(section: Section, lang: 'ru' | 'en' | 'de', ui: Ui): Page {
 
 /**
  * «Все слова Танаха» (/hebrew-words/) for search: all the words of the Prophets and Writings (src/core/words.ts) — how much of
- * the text 100 / 300 / 500 … words cover, and all 5215 words by levels of 50: form, translation, root, how often.
+ * the text 100 / 300 / 500 … words cover, and all 5214 words by levels of 50: form, translation, root, how often.
  * The app opens «Мои слова» (the review). The source (Open Scriptures Hebrew Bible, CC BY 4.0) is credited.
  */
 const WORDS = wordsJson as { words: { id: string; he: string; n: number; root?: string; cov: number }[] };

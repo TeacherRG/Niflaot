@@ -82,6 +82,12 @@ dict.words.forEach((w, i) => {
     if (w?.inf?.normalize('NFC') !== f.normalize('NFC')) err(`words.json: инфинитив ${id} — «${w?.inf}», ожидалось «${f}»`);
   }
   if (verbs < 1300) err(`words.json: глаголов с инфинитивом — ${verbs}, меньше ожидаемого`);
+  // существительные — в начальной форме, не в смихуте (владелец, 26.11.2026): גְּבַר слит с גֶּבֶר; кандидаты — `fetch-words.py nouns`
+  if (dict.words.some((x) => x.id === '1399')) err('words.json: 1399 גְּבַר — должен быть слит с 1397 גֶּבֶר');
+  for (const [id, f] of [['1397', 'גֶּבֶר'], ['6212', 'עֵשֶׂב'], ['7810', 'שֹׁחַד'], ['6532', 'פָּרֹכֶת'], ['2146', 'זִכָּרוֹן']] as const) {
+    const w = dict.words.find((x) => x.id === id);
+    if (w?.he.normalize('NFC') !== f.normalize('NFC')) err(`words.json: ${id} — «${w?.he}», ожидалась начальная форма «${f}»`);
+  }
 }
 
 const badName: Record<Lang, (s: string) => string[]> = {
