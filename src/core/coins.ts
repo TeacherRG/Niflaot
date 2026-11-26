@@ -65,7 +65,11 @@ async function refreshWallet(token: string): Promise<CoinStore | null> {
     for (const row of data.ledger ?? []) {
       const day = new Date(row.at).toISOString().slice(0, 10);
       if (row.kind === 'opening' || row.kind.startsWith('earn:')) {
-        const key = row.kind === 'opening' ? `opening:${row.ref ?? 'legacy'}` : `${row.kind}:${row.ref ?? ''}`;
+        const key = row.kind === 'opening' ? `opening:${row.ref ?? 'legacy'}`
+          : row.kind === 'earn:read' ? `r:${row.ref ?? ''}`
+          : row.kind === 'earn:answer' ? `a:${row.ref ?? ''}`
+          : row.kind === 'earn:chest' ? 'c'
+          : `${row.kind}:${row.ref ?? ''}`;
         const entry = d[day] ?? (d[day] = [0, {}]);
         if (!(key in entry[1])) { entry[1][key] = row.amount; entry[0] += row.amount; }
       } else if (row.kind === 'give') {
