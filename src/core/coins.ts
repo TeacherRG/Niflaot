@@ -54,6 +54,15 @@ export const readCoins = (): CoinStore => normCoins(parse(COINS_KEY));
 let serverStore: CoinStore | null = null;
 let serverWalletToken: string | null = null;
 let activeWalletOwner: string | null = null;
+const walletOwnerKey = (email: string) => {
+  let a = 2166136261, b = 0x9e3779b9;
+  for (let i = 0; i < email.length; i++) {
+    const n = email.charCodeAt(i);
+    a = Math.imul(a ^ n, 16777619);
+    b = Math.imul(b ^ n, 2246822519);
+  }
+  return `user:${(a >>> 0).toString(36)}${(b >>> 0).toString(36)}`;
+};
 export async function refreshWallet(token: string): Promise<CoinStore | null> {
   if (!BASE) return null;
   try {
@@ -98,7 +107,7 @@ async function walletPost(path: string, body: object, token: string): Promise<{ 
     if (!res.ok) return null;
     const result = await res.json() as { ok: boolean; gained?: number; duplicate?: boolean };
     await refreshWallet(token);
-    void loadPushka(token, activeWalletOwner);
+    void loadPushka(token);
     return result;
   } catch { return null; }
 }
@@ -208,11 +217,11 @@ async function call(token: string | null, body?: Out): Promise<PushkaState | nul
 const dropOut = (id: string) => saveOut(outbox().filter((g) => g.id !== id));
 
 /** Load the box; with a signed-in player — first send the gifts that wait on this device. */
-export async function loadPushka(token: string | null, owner?: string | null) {
+export async function loadPushka(token: string | null) {
   if (!BASE) return;
   try {
     if (token)
-      for (const g of outbox().filter((g) => !g.owner || g.owner === 'guest' || g.owner === (owner ?? activeWalletOwner))) {
+      for (const g of outbox().filter((g) => !g.owner || g.owner === 'guest' || g.owner === activeWalletOwner)) {
         const p = await call(token, g);
         if (!p) break;
         dropOut(g.id);
@@ -225,13 +234,13 @@ export async function loadPushka(token: string | null, owner?: string | null) {
 }
 
 /** Give coins to the common box: they leave the balance at once; the server takes the gift now or at the next visit. */
-export function give(amount: number, cause: Cause, token: string | null, owner?: string | null): boolean {
+export function give(amount: number, cause: Cause, token: string | null): boolean {
   const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
   if (authToken() && (serverWalletToken !== authToken() || !serverStore)) return false;
   const s = giveCoins(currentCoins(), amount, cause, id, todayIso());
   if (!s) return false;
   if (!authToken()) write(s);
-  saveOut([...outbox(), { id, amount, cause, owner: token ? (owner ?? activeWalletOwner ?? '') : 'guest' }]);
+  saveOut([...outbox(), { id, amount, cause, owner: token ? (activeWalletOwner ?? '') : 'guest' }]);
   announce();
   void loadPushka(token);
   return true;
@@ -240,7 +249,7 @@ export function give(amount: number, cause: Cause, token: string | null, owner?:
 /** The coins — re-read when something is earned or spent (this tab), in another tab, or brought by the account. */
 export function useCoins(): CoinStore {
   const { token, me } = useAccount();
-  activeWalletOwner = token && me?.user.active ? me.user.email : null;
+  activeWalletOwner = token && me?.user.active ? walletOwnerKey(me.user.email) : null;
   const [s, set] = useState(() => (token && serverWalletToken === token ? serverStore : null) ?? readCoins());
   useEffect(() => {
     let live = true;
