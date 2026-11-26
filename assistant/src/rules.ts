@@ -79,6 +79,7 @@ const ROUTES: Record<string, string[]> = {
   '/delete': ['POST'],
   '/progress': ['GET', 'PUT'],
   '/pushka': ['GET', 'POST'],
+  '/wallet': ['GET'],
   '/class': ['POST'],
   '/class/join': ['POST'],
   '/class/leave': ['POST'],
