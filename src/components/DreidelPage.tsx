@@ -121,6 +121,7 @@ function DreidelPlayer({ code }: { code: string }) {
   }, [code, stored.pid, token, account?.user.active, guestMode]);
   const { view, status, error, send } = useDreidelRoom(code, query);
   useEffect(() => { if (token && view && (view.phase === 'playing' || view.phase === 'final')) void refreshWallet(token); }, [token, view?.phase]);
+  useEffect(() => { if (token && status === 'closed') void refreshWallet(token); }, [token, status]);
   useEffect(() => {
     if (status === 'open' && (joined || view?.me) && name.trim()) send({ t: 'hello', name });
   }, [status]);
