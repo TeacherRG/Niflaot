@@ -20,7 +20,7 @@ export function TabBar({ slug, view }: { slug: string; view?: string }) {
   const adults = useMode() === 'adults';
   const learn = useLearnLang();
   const [printing, setPrinting] = useState(false);
-  const shown = !(slug === 'admin' || slug === 'mode' || view === 'print' || (slug === 'quiz' && view === 'host') || slug === 'koelet');
+  const shown = !(slug === 'admin' || slug === 'mode' || view === 'print' || (slug === 'quiz' && view === 'host') || (slug === 'dreidel' && view === 'host') || slug === 'koelet');
   useEffect(() => {
     document.documentElement.classList.toggle('tabbed', shown);
     return () => document.documentElement.classList.remove('tabbed');
