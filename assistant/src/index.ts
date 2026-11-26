@@ -31,6 +31,8 @@ export { PushHub, Accounts, QuizRoom, Narrator, GeminiGate };
 
 interface Env extends MailEnv, QuizEnv, TtsEnv {
   ANTHROPIC_API_KEY: string;
+  /** GoatCounter read-only API key; set as a Cloudflare Worker secret. */
+  GOATCOUNTER_API_KEY?: string;
   /** comma-separated list of allowed page origins */
   ALLOWED_ORIGINS?: string;
   /** optional Cloudflare rate limiter (wrangler.toml [[ratelimits]]), keyed by client IP */
