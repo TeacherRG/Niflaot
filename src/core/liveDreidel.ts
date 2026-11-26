@@ -44,9 +44,8 @@ export type DreidelView = {
   players: { name: string; coins: number }[];
   count: number;
   pot: number;
-  turn: string | null;
   turnName: string | null;
-  last: { id: number; pid: string; name: string; face: 'נ' | 'ג' | 'ה' | 'ש'; delta: number; at: number } | null;
+  last: { id: number; name: string; face: 'נ' | 'ג' | 'ה' | 'ש'; delta: number; at: number } | null;
   now: number;
   me: { name: string; coins: number; canSpin: boolean } | null;
 };
