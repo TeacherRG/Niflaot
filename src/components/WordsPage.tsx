@@ -17,7 +17,9 @@ import {
   knownCount,
   loadDict,
   loadExamples,
+  headOf,
   nextWords,
+  notInTanakh,
   readWordStore,
   review,
   textCoverage,
@@ -29,6 +31,7 @@ import {
   type Word,
   type WordLang,
 } from '../core/words';
+import { NoTanakh } from './NoTanakh';
 
 /** a level of the list — 50 words in order of frequency */
 const LEVEL = 50;
@@ -81,7 +84,7 @@ export function WordsPage({ focus }: { focus?: string }) {
           .filter((id) => dict.tr[id] && s[id][1] > 0)
           .map((id) => {
             const w = dict.words[dict.rank.get(id)! - 1];
-            return { he: w.he, tr: dict.tr[id], root: w.root, rank: dict.rank.get(id)!, box: s[id][1], due: s[id][2] <= d };
+            return { he: headOf(w), tr: dict.tr[id], root: w.root, rank: dict.rank.get(id)!, box: s[id][1], due: s[id][2] <= d };
           });
         return wordsContext(rows, textCoverage(dict, s));
       },
@@ -281,8 +284,9 @@ function Review({ dict, ids, exs, onClose }: { dict: Dict; ids: string[]; exs: R
     <div className="ws-card" aria-live="polite">
       <small className="ws-count">{t('words.progress', { i: i + 1, n: ids.length })}</small>
       <span className="he ws-he" lang="he">
-        {w.he}
+        {headOf(w)}
       </span>
+      <NoTanakh show={notInTanakh(w)} />
       {w.root && (
         <small className="tk-w-meta">
           {t('words.root')}{' '}

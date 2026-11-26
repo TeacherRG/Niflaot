@@ -7,7 +7,7 @@ import { useMode } from '../core/mode';
 import { celebrate, feedback } from '../core/fx';
 import { noteAnswer } from '../core/lashonStore';
 import { markStudied } from '../core/habit';
-import { loadDict, reviewFromCourse, type Dict, type WordLang } from '../core/words';
+import { headOf, loadDict, reviewFromCourse, type Dict, type WordLang } from '../core/words';
 import { readHebrew } from '../core/translit';
 import { makePicRound, notePic, notePicBest, PIC_KNOWN, PIC_WORDS, picPoints, picSrc, picTime, readPicBest, readPicScore, type PicQuestion } from '../core/picWords';
 
@@ -38,7 +38,7 @@ export function PicWordsPage() {
   }, [lang]);
 
   const ids = useMemo(() => (dict ? PIC_WORDS.filter((id) => dict.tr[id] && dict.rank.has(id)) : []), [dict]);
-  const he = (id: string) => dict?.words[(dict.rank.get(id) ?? 1) - 1]?.he ?? '';
+  const he = (id: string) => { const w = dict?.words[(dict.rank.get(id) ?? 1) - 1]; return w ? headOf(w) : ''; };
   const tr = (id: string) => dict?.tr[id] ?? '';
   const read = (id: string) => (level === 'none' ? readHebrew(he(id), lang) : '');
   const known = ids.filter((id) => (score[id] ?? 0) >= PIC_KNOWN).length;

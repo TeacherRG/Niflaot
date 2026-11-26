@@ -13,7 +13,7 @@ const cleanVocalized = (s: string) => s.normalize('NFD').replace(/[\u0591-\u05AF
 const stableId = (prefix: string, value: string) => `${prefix}:${createHash('sha256').update(value).digest('hex').slice(0, 16)}`;
 
 const [tanakh, ru, en, de] = await Promise.all([
-  readJson<{ words: Array<{ id: string; he: string; pos: string; n: number; root?: string; aram?: number; inf?: string; infType?: 'infinitive-construct' | 'infinitive-absolute' }>; total: number }>('src/tanakh/words.json'),
+  readJson<{ words: Array<{ id: string; he: string; pos: string; n: number; root?: string; aram?: number; inf?: string; infTanakh?: 0 }>; total: number }>('src/tanakh/words.json'),
   readJson<Record<string, string>>('src/tanakh/words/ru.json'),
   readJson<Record<string, string>>('src/tanakh/words/en.json'),
   readJson<Record<string, string>>('src/tanakh/words/de.json'),
@@ -46,17 +46,18 @@ for (const w of tanakh.words) {
   };
   if (!Object.keys(translations).length) continue;
   const id = `tanakh:strong:${w.id}`;
-  const isVerb = pos(w.pos) === 'verb';
+  // глагол словаря — слово с инфинитивом (перевод — глагол); «свежий», «безумец» с пометкой Стронга «v» — не глаголы
+  const isVerb = pos(w.pos) === 'verb' && !!w.inf;
   const infinitive = w.inf;
   const headword = isVerb && infinitive
-    ? { vocalized: infinitive, normalized: normalizeHebrew(infinitive), verbalForm: w.infType ?? 'unverified' as const }
+    ? { vocalized: infinitive, normalized: normalizeHebrew(infinitive), verbalForm: 'infinitive-construct' as const }
     : isVerb
       ? { vocalized: w.he, normalized: normalizeHebrew(w.he), verbalForm: 'unverified' as const }
       : { vocalized: w.he, normalized: normalizeHebrew(w.he) };
   const entry: HebrewLexeme = {
     id: id as HebrewLexeme['id'],
     headword,
-    partOfSpeech: pos(w.pos),
+    partOfSpeech: isVerb ? 'verb' : pos(w.pos.replace(/(^|\s)v(?=\s|$)/g, ' ')),
     ...(w.root ? { root: w.root } : {}),
     corpusStats: { tanakh: { frequency: w.n } },
     senses: [{ id: `${id}:sense:1`, translations }],
@@ -67,7 +68,8 @@ for (const w of tanakh.words) {
       { name: 'Open Scriptures Hebrew Bible', license: 'CC BY 4.0', url: 'https://github.com/openscriptures/morphhb' },
       { name: 'Strong’s Hebrew Dictionary / Brown–Driver–Briggs', license: 'Public Domain' },
     ],
-    status: isVerb && (!infinitive || !w.infType) ? 'review' : 'verified',
+    // инфинитив по грамматике (в Танахе такой формы нет) — на проверку
+    status: isVerb && w.infTanakh === 0 ? 'review' : 'verified',
   };
   entries.push(entry);
   legacy[`words:${w.id}`] = [id];

@@ -37,7 +37,10 @@ const read = (path: string) => JSON.parse(readFileSync(new URL(path, import.meta
 
 // Имена Всевышнего среди слов: номер Стронга → как писать (אֵל «к» и אַל «не» — не Имена, поэтому по номерам)
 const NAMES: Record<string, string> = { '430': 'אֱלֹקִים', '433': 'אֱלוֹקַּ', '410': 'אֵ-ל', '136': 'אֲדֹ-נָי', '7706': 'שַׁ-דַּי' };
-const dict = read('../src/tanakh/words.json') as { all: number; words: { id: string; he: string; n: number; root?: string; cov: number }[] };
+const dict = read('../src/tanakh/words.json') as {
+  all: number;
+  words: { id: string; he: string; n: number; root?: string; cov: number; pos: string; aram?: number; inf?: string; infTanakh?: 0 }[];
+};
 const ids = dict.words.map((w) => w.id);
 // «Раввин языка Танаха» — все слова Пророков и Писаний: порог = `all` из words.json
 if (WORDS_ALL !== dict.all) err(`WORDS_ALL в src/core/words.ts = ${WORDS_ALL}, а слов в Пророках и Писаниях — ${dict.all} (all в words.json)`);
@@ -58,6 +61,34 @@ dict.words.forEach((w, i) => {
   if (/יהוה|אלהים|אלוה(?!ק)/.test(plain) || (NAMES[w.id] && w.he !== NAMES[w.id])) err(`words.json: ${w.id} «${w.he}» — Имя не по правилам проекта`);
   if (w.root && !/^[א-ת]{2,4}$/.test(w.root)) err(`words.json: ${w.id} — корень «${w.root}»`);
 });
+
+// словарный инфинитив (scripts/hebrew_infinitive.py): у каждого глагола с переводом-глаголом — инфинитив с ל, иврит с огласовками;
+// «нет в Танахе» (infTanakh: 0) — только у построенных по грамматике; у не-глаголов («свежий», «села») — его нет
+{
+  const ruTr = read('../src/tanakh/words/ru.json') as Record<string, string>;
+  const isVerbTr = (t = '') => /(ть|ться|ти|тись|чь|чься)(?![А-Яа-яЁё])/.test(t.replace(/\([^)]*\)/g, ''));
+  let verbs = 0;
+  for (const w of dict.words) {
+    const verb = w.pos.split(/\s+/)[0] === 'v' && isVerbTr(ruTr[w.id]);
+    if (verb) verbs++;
+    if (verb && !w.inf) err(`words.json: глагол ${w.id} «${w.he}» (${ruTr[w.id]}) — без инфинитива`);
+    if (!verb && w.inf) err(`words.json: ${w.id} «${w.he}» (${ruTr[w.id]}) — инфинитив у слова, которое переведено не глаголом`);
+    if (w.inf && !/^ל[\u0591-\u05C7]*[א-ת][\u0591-\u05C7א-ת]*$/.test(w.inf)) err(`words.json: ${w.id} — инфинитив «${w.inf}» не с ל или не иврит`);
+    if (w.inf && !/[\u05B0-\u05BB]/.test(w.inf)) err(`words.json: ${w.id} — инфинитив «${w.inf}» без огласовок`);
+    if (w.infTanakh !== undefined && (w.infTanakh !== 0 || !w.inf)) err(`words.json: ${w.id} — infTanakh только 0 и только с инфинитивом`);
+  }
+  for (const [id, f] of [['559', 'לֵאמֹר'], ['5414', 'לָתֵת'], ['1980', 'לָלֶכֶת'], ['1696', 'לְדַבֵּר'], ['6680', 'לְצַוֹּת'], ['539', 'לְהַאֲמִין']] as const) {
+    const w = dict.words.find((x) => x.id === id);
+    if (w?.inf?.normalize('NFC') !== f.normalize('NFC')) err(`words.json: инфинитив ${id} — «${w?.inf}», ожидалось «${f}»`);
+  }
+  if (verbs < 1300) err(`words.json: глаголов с инфинитивом — ${verbs}, меньше ожидаемого`);
+  // существительные — в начальной форме, не в смихуте (владелец, 26.11.2026): גְּבַר слит с גֶּבֶר; кандидаты — `fetch-words.py nouns`
+  if (dict.words.some((x) => x.id === '1399')) err('words.json: 1399 גְּבַר — должен быть слит с 1397 גֶּבֶר');
+  for (const [id, f] of [['1397', 'גֶּבֶר'], ['6212', 'עֵשֶׂב'], ['7810', 'שֹׁחַד'], ['6532', 'פָּרֹכֶת'], ['2146', 'זִכָּרוֹן']] as const) {
+    const w = dict.words.find((x) => x.id === id);
+    if (w?.he.normalize('NFC') !== f.normalize('NFC')) err(`words.json: ${id} — «${w?.he}», ожидалась начальная форма «${f}»`);
+  }
+}
 
 const badName: Record<Lang, (s: string) => string[]> = {
   ru: (s) => (/(^|[^\p{L}-])(Бог|Господ|Бож|божеств)/u.test(s) ? ['Имена по-русски — Б-г, Г-сподь'] : []),

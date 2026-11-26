@@ -211,6 +211,17 @@ for (const [w, want] of [
 
   // уроки по порядку: после урока его слова встречались, следующий урок — со следующими
   const tu = tanakhUnits({ words, total: 0, rank: new Map(), tr: trRu as Record<string, string> });
+  // арамейские слова (Даниэль, Эзра) — только последней частью пути (владелец, 26.11.2026)
+  {
+    const aram = new Set((words as { id: string; aram?: number }[]).filter((w) => w.aram).map((w) => w.id));
+    const firstAram = tu.findIndex((u) => u.items.some((x) => aram.has(x.key)));
+    if (firstAram < 0) err('уроки: нет арамейских слов');
+    tu.forEach((u, i) => {
+      const a = u.items.filter((x) => aram.has(x.key)).length;
+      if (i < firstAram && a) err(`уроки: арамейское слово в ${u.id}`);
+      if (i >= firstAram && (a !== u.items.length || u.stage !== 6)) err(`уроки: ${u.id} — в арамейской части не только арамейские слова`);
+    });
+  }
   const first = nextPart(tu[0], readCourse(), none);
   finishLesson(tu[0], first, 10);
   const second = nextPart(tu[0], readCourse(), none);

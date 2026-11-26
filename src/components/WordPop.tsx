@@ -2,7 +2,8 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProp
 import { createPortal } from 'react-dom';
 import { useI18n } from '../i18n';
 import type { MessageKey } from '../i18n/locales/ru';
-import { boxOf, KNOWN_BOX, loadDict, loadLex, markKnown, markLearn, unmark, useWordStore, type Dict, type WordLang } from '../core/words';
+import { boxOf, headOf, KNOWN_BOX, loadDict, loadLex, markKnown, markLearn, notInTanakh, unmark, useWordStore, type Dict, type WordLang } from '../core/words';
+import { NoTanakh } from './NoTanakh';
 import { readHebrew } from '../core/translit';
 import { atlasEntity, atlasName, loadAtlasTexts, osmLink, placeSure, useAtlasVersion, type AtlasTexts } from '../core/atlas';
 import { AtlasMap } from './AtlasMap';
@@ -168,10 +169,8 @@ export function WordPop() {
   // `=лемма` — the dictionary form of a word outside the dictionary as the parse gives it (Dicta); a number — the dictionary's
   const own = id.startsWith('=') ? id.slice(1) : '';
   const tr = id && !own ? dict?.tr[id] : undefined;
-  const isVerb = w?.pos.split(/\s+/).includes('v') ?? false;
-  const dictionaryForm = isVerb ? w?.infinitive : w?.he;
-  const missingInfinitiveLabel = locale === 'de' ? 'Infinitiv nicht im Korpus gefunden' : locale === 'en' ? 'Infinitive not found in the corpus' : 'Инфинитив не найден в корпусе';
-  const head = isVerb ? dictionaryForm : dictionaryForm ?? (own || (id ? lex?.[id] : undefined));
+  // словарная форма: у глагола — инфинитив (headOf), у слова вне словаря — форма разбора
+  const head = w ? headOf(w) : own || (id ? lex?.[id] : undefined);
   const dictionaryLabel = locale === 'de' ? 'Wörterbuchform' : locale === 'en' ? 'Dictionary form' : 'Словарная форма';
   const verseLabel = locale === 'de' ? 'Form im Vers' : locale === 'en' ? 'Form in the verse' : 'Форма в стихе';
   const translationLabel = locale === 'de' ? 'Übersetzung' : locale === 'en' ? 'Translation' : 'Перевод';
@@ -246,9 +245,9 @@ export function WordPop() {
                   <span className="he wp-head" lang="he" dir="rtl">
                     {head}
                   </span>
+                  {w && <NoTanakh show={notInTanakh(w)} />}
                 </>
               )}
-              {isVerb && !w?.infinitive && <span className="wp-note">{missingInfinitiveLabel}</span>}
               {tr ? <><small className="wp-label">{translationLabel}</small><span className="wp-tr">{tr}</span></> : <span className="wp-note">{t('wp.rare')}</span>}
               {w && (
                 <small className="wp-meta">

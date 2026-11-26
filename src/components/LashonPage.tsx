@@ -15,6 +15,7 @@ import { FINALS, letterName } from '../core/letterNames';
 import { answerWord, torahWords, useStars } from '../core/torahWords';
 import { readKind, readWordUnits, syllableUnits, syllables, vowelUnits } from '../core/lashonRead';
 import { exampleOf, inDeck, loadDict, loadExamples, markKnown, markLearn, readWordStore, reviewFromCourse, useWordStore, type WordLang } from '../core/words';
+import { NoTanakh } from './NoTanakh';
 import {
   GOAL,
   TANAKH_GROUP,
@@ -335,15 +336,16 @@ export function LashonPage() {
               <WordSearch units={words} title={unitTitle} met={(k) => !!store.s[k]} onOpen={(unit, mark) => setDict({ unit, mark })} />
               {weak(words)}
               {adults && words.some((u) => u.stage === 2)
-                ? [1, 2, 3, 4, 5].map((st) => {
+                ? [1, 2, 3, 4, 5, 6].map((st) => {
                     const list = words.filter((u) => u.stage === st);
                     if (!list.length) return null;
-                    const a = (list[0].n - 1) * TANAKH_GROUP + 1;
+                    // номера слов подряд: последний ивритский уровень бывает неполным
+                    const a = 1 + words.slice(0, words.indexOf(list[0])).reduce((k, u) => k + u.items.length, 0);
                     const b = a - 1 + list.reduce((k, u) => k + u.items.length, 0);
                     return (
                       <div key={st} className="ln-stage">
                         <h3>
-                          {t(`ln.stage${st as 1 | 2 | 3 | 4 | 5}`, { a, b })} <small>{t(`ln.stage${st as 1 | 2 | 3 | 4 | 5}Sub`)}</small>
+                          {t(`ln.stage${st as 1 | 2 | 3 | 4 | 5 | 6}`, { a, b })} <small>{t(`ln.stage${st as 1 | 2 | 3 | 4 | 5 | 6}Sub`)}</small>
                         </h3>
                         {blocks(list)}
                       </div>
@@ -466,6 +468,7 @@ function Dictionary({ unit, mark, met }: { unit: Unit; mark?: string; met: (key:
                 <span className="he" lang="he">
                   {it.he}
                 </span>
+                <NoTanakh show={!!it.noTanakh} />
                 <span className="ln-dict-tr">
                   {it.tr}
                   {it.root && (
@@ -839,6 +842,7 @@ function Prompt({ item, letter, big }: { item: Item; letter: boolean; big?: bool
       <span className={`he ln-he${big || letter ? ' big' : ''}`} lang="he">
         {item.he}
       </span>
+      <NoTanakh show={!!item.noTanakh} />
       {/* how the word is read: the Torah words and the first 500 words of Tanakh — for everyone who doesn't read Hebrew yet */}
       {level !== 'reads' && item.translit && <small className="tw-translit">{item.translit}</small>}
     </div>

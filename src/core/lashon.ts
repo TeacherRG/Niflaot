@@ -23,7 +23,7 @@
 import { useEffect, useState } from 'react';
 import type { Locale } from '../i18n/config';
 import type { TorahWord } from './torahWords';
-import type { Dict, Example } from './words';
+import { headOf, notInTanakh, type Dict, type Example } from './words';
 import type { Lesson } from '../lessons/types';
 import { BOOKS } from './tanakhCycle';
 import { VALUES } from './gematria';
@@ -52,6 +52,8 @@ export interface Item {
   /** огласовка: примечание и примеры — слоги с ней и как они читаются */
   note?: string;
   examples?: [string, string];
+  /** словарный инфинитив построен по грамматике — такой формы в Танахе нет (значок перечёркнутой книги) */
+  noTanakh?: boolean;
 }
 export interface Verse {
   /** слова стиха на иврите (слова через макаф — одна плитка), без ׃ */
@@ -193,6 +195,8 @@ export const TANAKH_COMMON = 1000;
 export const TANAKH_RARER = 1500;
 export const TANAKH_RARE = 2000;
 export const TANAKH_VERY_RARE = 2500;
+/** последняя часть пути взрослых — арамейские слова Даниэля и Эзры */
+export const TANAKH_ARAM_STAGE = 6;
 /** the path is long: its units are shown in blocks of 10, a block folded unless the unit to go on with is in it */
 export const UNIT_BLOCK = 10;
 /**
@@ -201,25 +205,31 @@ export const UNIT_BLOCK = 10;
  */
 export function tanakhUnits(dict: Dict, verse: (id: string) => Verse | undefined = () => undefined, locale?: Locale): Unit[] {
   // the first `TRANSLIT_WORDS` words — with how they are read (shown in the lesson unless the player reads Hebrew)
-  const items = dict.words
+  // арамейские слова (Даниэль, Эзра) — не в первых уровнях, а последней частью пути (владелец, 26.11.2026)
+  const ordered = [...dict.words.filter((w) => !w.aram), ...dict.words.filter((w) => w.aram)];
+  const items = ordered
     .filter((w) => dict.tr[w.id])
     .map((w, i): Item => {
-      const he = w.pos.split(/\s+/).includes('v') ? (w.infinitive ?? w.he) : w.he;
-      return { key: w.id, he, tr: dict.tr[w.id], root: w.root, verse: verse(w.id), translit: locale && i < TRANSLIT_WORDS ? wordTranslit(he, locale) : undefined };
+      const he = headOf(w);
+      return {
+        key: w.id, he, tr: dict.tr[w.id], root: w.root, verse: verse(w.id),
+        translit: locale && i < TRANSLIT_WORDS ? wordTranslit(he, locale) : undefined,
+        ...(notInTanakh(w) ? { noTanakh: true } : {}),
+      };
     });
+  const aram = new Set(dict.words.filter((w) => w.aram).map((w) => w.id));
+  const hebrew = items.filter((it) => !aram.has(it.key));
   const out: Unit[] = [];
-  for (let g = 0; g * TANAKH_GROUP < items.length; g++) {
-    const level = items.slice(g * TANAKH_GROUP, (g + 1) * TANAKH_GROUP);
-    out.push({
-      id: `t-${g + 1}`,
-      track: 'words',
-      n: g + 1,
-      items: level,
-      size: TANAKH_UNIT,
-      stage: g * TANAKH_GROUP < TANAKH_COMMON ? 1 : g * TANAKH_GROUP < TANAKH_RARER ? 2 : g * TANAKH_GROUP < TANAKH_RARE ? 3 : g * TANAKH_GROUP < TANAKH_VERY_RARE ? 4 : 5,
-      pool: [...level, ...items.slice(0, (g + 2) * TANAKH_GROUP)],
-    });
+  const push = (level: Item[], stage: number) =>
+    out.push({ id: `t-${out.length + 1}`, track: 'words', n: out.length + 1, items: level, size: TANAKH_UNIT, stage, pool: [] });
+  for (let g = 0; g * TANAKH_GROUP < hebrew.length; g++) {
+    const at = g * TANAKH_GROUP;
+    push(hebrew.slice(at, at + TANAKH_GROUP), at < TANAKH_COMMON ? 1 : at < TANAKH_RARER ? 2 : at < TANAKH_RARE ? 3 : at < TANAKH_VERY_RARE ? 4 : 5);
   }
+  const arams = items.filter((it) => aram.has(it.key));
+  for (let g = 0; g * TANAKH_GROUP < arams.length; g++) push(arams.slice(g * TANAKH_GROUP, (g + 1) * TANAKH_GROUP), TANAKH_ARAM_STAGE);
+  // варианты ответов — из своего уровня и всех прошлых (+ следующий)
+  out.forEach((u, g) => (u.pool = [...u.items, ...items.slice(0, (g + 2) * TANAKH_GROUP)]));
   return out;
 }
 

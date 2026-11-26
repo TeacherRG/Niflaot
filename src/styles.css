@@ -4486,3 +4486,9 @@ html.rm-focus .rm-split:not(.solo) .rm-tools>:not(.rm-focus-btn){display:none}
 @media (max-width:640px){
   .rd-corner .tk-view-list{position:fixed;inset-inline:10px;top:calc(var(--rd-corner-top,58px) + 58px);width:auto;min-width:0;max-width:none}
 }
+
+/* перечёркнутая книга: словарный инфинитив построен по грамматике — такой формы в Танахе нет (NoTanakh.tsx) */
+.no-tanakh{display:inline-flex;align-items:center;vertical-align:middle;margin-inline:.3em;color:var(--muted-2);font-size:.85rem;line-height:1;cursor:help;flex:none}
+.no-tanakh svg{display:block}
+.ln-prompt .no-tanakh{font-size:1.1rem}
+@media print{.no-tanakh{color:#666}}

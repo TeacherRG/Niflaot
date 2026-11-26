@@ -40,7 +40,7 @@ RAW = 'https://raw.githubusercontent.com/openscriptures'
 # сколько слов в словаре (с частотами и по дням); переводы — по мере готовности, с начала списка;
 # 1–1000 — первый уровень, 1001–1500 — второй, более редкие слова (12–22 раза в Пророках и Писаниях), 1501–2000 — третий,
 # 2001–2500 — четвёртый, очень редкие (5–7 раз), 2501–3127 — пятый, самые редкие из частых (3–4 раза; все слова, что встречаются 3 раза)
-SIZE = 5215
+SIZE = 5214
 
 TORAH_BOOKS = {'Gen': 'genesis', 'Exod': 'exodus', 'Lev': 'leviticus', 'Num': 'numbers', 'Deut': 'deuteronomy'}
 
@@ -71,7 +71,7 @@ ROOT_FIX = {'1964': None, '4940': 'שפח', '5542': None, '3240': 'נוח', '388
             '386': None, '394': None, '2042': None, '4670': None, '5895': None, '744': None, '130': None, '6163': None}
 # Одно слово, которое Стронг разбил на два номера: יָלַךְ (3212) — условная форма для יֵלֵךְ, לֵךְ, לֶכֶת, וַיֵּלֶךְ — это
 # тот же глагол הָלַךְ (1980); такого слова нет, в словаре — одна запись. Номер → номер, куда засчитывается.
-MERGE = {'3212': '1980', '786': '3426'}  # 786 אִשׁ — то же יֵשׁ «есть» (Шмуэль II 14:19, Миха 6:10)
+MERGE = {'3212': '1980', '786': '3426', '1399': '1397'}  # 786 אִשׁ — то же יֵשׁ «есть» (Шмуэль II 14:19, Миха 6:10)  # 1399 גְּבַר — поэтическая форма גֶּבֶר (Теґилим 18:26), к ней был прицеплен арамейский 1400 из Даниэля и Эзры: всё — גֶּבֶר (владелец, 26.11.2026)
 # Арамейские главы (Даниэль, Эзра) у Стронга — свои номера, но многие их слова — те же слова иврита: כֹּל, מֶלֶךְ, יוֹם, בַּיִת…
 # Такое слово — одна запись с ивритским номером, без пометки «арамейское» (владелец, 01.11.2026). Слито, только если буквы
 # те же и Стронг пишет «corresponding to» (или это то же слово) и значение то же; разное значение — остаётся арамейским:
@@ -81,7 +81,7 @@ MERGE = {'3212': '1980', '786': '3426'}  # 786 אִשׁ — то же יֵשׁ �
 ARAM_MERGE = {
     '4430': '4428', '4481': '4480', '3606': '3605', '5922': '5921', '3809': '3808', '560': '559', '1934': '1933',
     '3046': '3045', '1005': '1004', '5705': '5704', '6966': '6965', '6032': '6030', '3052': '3051', '7761': '7760',
-    '4406': '4405', '1932': '1931', '5974': '5973', '8133': '8132', '1400': '1399', '2006': '2005', '6755': '6754',
+    '4406': '4405', '1932': '1931', '5974': '5973', '8133': '8132', '1400': '1397', '2006': '2005', '6755': '6754',
     '3028': '3027', '858': '857', '7229': '7227', '3118': '3117', '5972': '5971', '5103': '5104', '2298': '2297',
     '1882': '1881', '7217': '7218', '7972': '7971', '7162': '7161', '7690': '7689', '4101': '4100', '3702': '3701',
     '1965': '1964', '3202': '3201', '7606': '7605', '8036': '8034', '5457': '5456', '7412': '7411', '3792': '3791',
@@ -288,6 +288,19 @@ SKIP = {'7652',
         '8067', '1665'}
 NAMES = {'430': 'אֱלֹקִים', '433': 'אֱלוֹקַּ', '426': 'אֱלָהּ', '410': 'אֵ-ל', '136': 'אֲדֹ-נָי', '7706': 'שַׁ-דַּי', '3050': 'קָהּ'}
 
+# Существительные — в начальной форме (владелец, 26.11.2026: «גְּבַר — это גֶּבֶר в смихуте; все существительные — в изначальной
+# форме»): у Стронга заголовок — смихут или редкая форма, а начальная форма есть в Танахе (OSHB: состояние «абсолютное»)
+FORM_FIX.update({
+    '2426': 'חֵל', '2146': 'זִכָּרוֹן', '6530': 'פָּרִיץ', '1824': 'דֳּמִי', '1375': 'גָּבִיעַ', '7670': 'שִׁבָּרוֹן',
+    '6818': 'צְעָקָה', '6212': 'עֵשֶׂב', '7810': 'שֹׁחַד', '3308': 'יֹפִי', '4740': 'מִקְצוֹעַ', '1492': 'גִּזָּה',
+    '4937': 'מִשְׁעָן', '862': 'אַתִּיק', '2947': 'טֶפַח', '6892': 'קִיא', '4206': 'מֵזַח', '4365': 'מִכְמֹרֶת',
+    '4866': 'מַשְׁבֵּר', '4245': 'מַחֲלָה', '7574': 'רֹתֶם', '4364': 'מִכְמָר', '4469': 'מִמְסָךְ', '1860': 'דֵּרָאוֹן',
+    '2032': 'הֵרָיוֹן', '1762': 'דֶּחִי', '4715': 'מַצְרֵף', '815': 'אֶשֶׁל', '5145': 'נֵזֶר', '5235': 'נֵכֶר',
+    '8216': 'שֵׁפֶל', '8102': 'שֵׁמֶץ', '5309': 'נֵפֶל', '4160': 'מֵץ', '5636': 'סִרְפַּד', '8516': 'תִּלְבֹּשֶׁת',
+    '872': 'בִּאָה', '6196': 'עֶרְמוֹן', '4890': 'מִשְׂחָק', '1848': 'דֳּפִי', '4267': 'מַחֲנָק', '2137': 'זְכוֹכִית',
+    '6532': 'פָּרֹכֶת', '8385': 'תֹּאֲנָה', '2842': 'חֲשַׁשׁ', '2415': 'חֹטֶר', '6724': 'צָיוֹן', '6060': 'עֲנָק',
+    '3791': 'כְּתָב', '2678': 'חֵצִי', '523': 'אֻמָּה',
+})
 
 def cmd_fetch():
     (CACHE / 'wlc').mkdir(parents=True, exist_ok=True)
@@ -362,43 +375,98 @@ def tokens():
     return by, names, aram
 
 
-def infinitive_forms():
-    """номер Стронга → засвидетельствованная словарная форма инфинитива (сначала инфинитив конструкт)."""
-    forms = collections.defaultdict(collections.Counter)
+# ручные поправки словарного инфинитива (номер → форма): редкие биньяны, причастия и пуал в заголовке, формы Танаха, которые
+# не годятся в словарь (пауза, сокращения хифиля). Есть ли форма в Танахе — проверяется само.
+INF_FIX = {
+    '3372': 'לִירֹא', '5401': 'לִנְשֹׁק', '2552': 'לָחֹם', '7286': 'לָרֹד', '8041': 'לְהַשְׂמְאִיל', '3231': 'לְהֵימִין',
+    '1970': 'לְהַהְכִּיר', '8428': 'לְהַתְווֹת', '4549': 'לְהִמֵּס', '4102': 'לְהִתְמַהְמֵהַּ', '1933': 'לַהֲוֹת',
+    '943': 'לְהִבּוֹךְ', '225': 'לְהֵאוֹת', '5783': 'לְהֵעוֹר', '5953': 'לְעוֹלֵל', '6850': 'לְצַפְצֵף', '3769': 'לְכַרְכֵּר',
+    '2237': 'לְזוֹרֵר', '7082': 'לְקוֹסֵס', '5605': 'לְהִסְתּוֹפֵף', '7444': 'לְרַנֵּן', '8591': 'לְהִתַּעְתֵּעַ', '6351': 'לְהָפֵחַ',
+    '4743': 'לְהִמַּק', '2425': 'לִחְיוֹת', '3032': 'לִידֹּד', '2986': 'לְהוּבַל', '8311': 'לְהִשְׂתָּרֵעַ', '8637': 'לְתַרְגֵּל',
+    '6188': 'לְהֵעָרֵל', '7734': 'לְהִסּוֹג', '7735': 'לְשַׂגְשֵׂג', '2589': 'לָחֹן', '7322': 'לְרוֹפֵף', '7375': 'לְרַטְפֵּשׁ',
+    '8638': 'לְתַרְגֵּם', '7773': 'לְשַׁוֵּעַ', '3856': 'לְהִתְלַהְלֵהַּ',
+    # арамейский шафель и особые формы
+    '7804': 'לְשֵׁיזָבָה', '3319': 'לְשֵׁיצָאָה', '8429': 'לְמִתְוַהּ',
+    # перевод — по пиэлю («благословить»); форма Танаха
+    '1288': 'לְבָרֵךְ', '4390': 'לִמְלֹאת',
+}
+
+
+def infinitive_forms(words):
+    """номер → (словарный инфинитив, есть ли он в Танахе) — у глаголов с переводом-глаголом; правила — scripts/hebrew_infinitive.py"""
+    import hebrew_infinitive as hi
+    ru = json.loads((TR / 'ru.json').read_text(encoding='utf-8'))
+    verbs = {w['id']: w for w in words if w['pos'].split()[0] == 'v' and hi.is_verb_translation(ru.get(w['id']))}
+    stem = collections.defaultdict(collections.Counter)
+    found = collections.defaultdict(collections.Counter)      # (номер, язык+биньян) → форма с ל
     W = re.compile(r'<w lemma="([^"]*)"[^>]*?morph="([^"]*)"[^>]*>([^<]*)</w>')
-    # OSHB: V[биньян]c — infinitive construct; V[биньян]a — infinitive absolute.
     for b in (*TORAH_BOOKS, *BOOKS):
         for m in W.finditer((CACHE / 'wlc' / f'{b}.xml').read_text(encoding='utf-8')):
             ids = [p for p in m[1].split('/') if re.match(r'\d', p)]
             if not ids:
                 continue
-            morphs = re.sub(r'^[HA]', '', m[2]).split('/')
-            verb = next((p for p in reversed(morphs) if p.startswith('V')), '')
-            if len(verb) < 3 or verb[2] not in ('c', 'a'):
+            l = re.match(r'\d+', ids[-1])[0]
+            l = MERGE.get(l, l)
+            if l not in verbs:
                 continue
-            lemma = re.match(r'\d+', ids[-1])[0]
-            lemma = MERGE.get(lemma, lemma)
-            # Сохраняем огласовки, убираем только кантилляцию и разделители морфем.
-            word_parts = m[3].split('/')
-            suffixes = sum(1 for p in morphs if p.startswith('S'))
-            if suffixes:
-                word_parts = word_parts[:-suffixes]
-            form = re.sub(r'[\u0591-\u05AF\u05BD\u05C0\u05C3/]', '', ''.join(word_parts))
-            if not form:
+            morphs, parts = m[2][1:].split('/'), m[3].split('/')
+            vi = [i for i, p in enumerate(morphs) if p.startswith('V')]
+            if not vi or len(parts) != len(morphs):
                 continue
-            prefixes = [p for p in m[1].split('/')[:-1] if re.fullmatch(r'[a-z]', p)]
-            kind = verb[2]
-            priority = 2 if kind == 'c' and prefixes and 'l' in prefixes else 1 if kind == 'c' and not prefixes else 0
-            forms[lemma][(kind, priority, form)] += 1
+            v, key = morphs[vi[0]], m[2][0] + morphs[vi[0]][1]
+            stem[l][key] += 1
+            # инфинитив конструкт без окончания-местоимения (перед окончанием огласовка другая)
+            if len(v) > 2 and v[2] == 'c' and vi[0] == len(morphs) - 1:
+                pre = ''.join(parts[:vi[0]])
+                found[(l, key)][(hi.with_l(pre, parts[vi[0]]), 'ל' in pre)] += 1
     out = {}
-    for lemma, candidates in forms.items():
-        constructs = [(k, p, form, n) for (k, p, form), n in candidates.items() if k == 'c']
-        pool = constructs or [(k, p, form, n) for (k, p, form), n in candidates.items()]
-        if pool:
-            priority = max(x[1] for x in pool)
-            chosen = max((x for x in pool if x[1] == priority), key=lambda x: x[3])
-            out[lemma] = {'form': chosen[2], 'type': 'infinitive-construct' if chosen[0] == 'c' else 'infinitive-absolute'}
+    for l, w in verbs.items():
+        if w.get('aram') and l in INF_FIX:
+            out[l] = (INF_FIX[l], 0)
+            continue
+        if w.get('aram'):
+            # арамейский: форма Даниэля / Эзры с ל (любой биньян — у «найти» это хафель), иначе — פְּעַל
+            c = collections.Counter()
+            for (ll, key), forms in found.items():
+                if ll == l and key[0] == 'A':
+                    for (f, with_l), n in forms.items():
+                        if with_l: c[f] += n
+            out[l] = (c.most_common(1)[0][0], 1) if c else (hi.aramaic(w), 0)
+            continue
+        b = hi.binyan(w['he'], stem[l])
+        gen = hi.generate(w, b)
+        same_b = collections.Counter()
+        for (ll, key), forms in found.items():
+            if ll == l and key[0] == 'H' and key[1] in hi.CODES[b]:
+                for (f, with_l), n in forms.items():
+                    # женские формы (לְאַהֲבָה, לְיִרְאָה) и сокращённый хифиль без ה (לַסְתִּר) — не словарные
+                    if with_l and not hi.nfc(f).endswith('ה') and not (b == 'hiph' and not f.startswith('לְה')):
+                        same_b[f] += n
+        alltanakh = [f for (ll, key), forms in found.items() if ll == l for (f, _) in forms]
+        if l in INF_FIX:
+            f = INF_FIX[l]
+            out[l] = (f, int(any(hi.same(f, x) for x in alltanakh)))
+            continue
+        elif same_b:
+            # самая частая форма Танаха с ל (לֵאמֹר, לָתֵת, לָלֶכֶת); та же, что по правилу, — в обычном написании
+            top = same_b.most_common(1)[0][0]
+            out[l] = (gen if hi.same(gen, top) else top, 1)
+        elif any(hi.same(gen, f) for (ll, key), forms in found.items() if ll == l and key[0] == 'H' and key[1] in hi.CODES[b]
+                 for (f, _) in forms):
+            out[l] = (gen, 1)
+        else:
+            out[l] = (gen, 0)
     return out
+
+
+def set_infinitives(words):
+    forms = infinitive_forms(words)
+    for w in words:
+        w.pop('inf', None); w.pop('infType', None); w.pop('infTanakh', None)
+        if w['id'] in forms:
+            w['inf'], seen = forms[w['id']]
+            if not seen: w['infTanakh'] = 0
+    return forms
 
 
 FINAL = str.maketrans('ךםןףץ', 'כמנפצ')
@@ -415,7 +483,6 @@ def cmd_build():
     lex = lexicon()
     bdb = bdb_roots()
     by, names, aram = tokens()
-    infinitives = infinitive_forms()
     count = collections.Counter(l for ls in by.values() for l in ls)
     total = sum(count.values())
     ranked = [l for l, _ in count.most_common() if l not in SKIP][:SIZE]
@@ -433,17 +500,15 @@ def cmd_build():
             w.pop('root', None)
             if ROOT_FIX[l]: w['root'] = ROOT_FIX[l]
         if l in FORM_FIX: w['he'] = FORM_FIX[l]
-        if verb and l in infinitives:
-            w['inf'] = infinitives[l]['form']
-            w['infType'] = infinitives[l]['type']
         # арамейское слово (Даниэль, Эзра): чаще всего встречается в арамейских главах
         if aram[l] * 2 > count[l]: w['aram'] = 1
         words.append(w)
+    set_infinitives(words)
     covered = 0
     for w in words:
         covered += w['n']
         w['cov'] = round(covered / total * 100, 1)
-    head = {'source': 'Open Scriptures Hebrew Bible Project (CC BY 4.0); Strong’s Hebrew Dictionary and Brown–Driver–Briggs (Public Domain); infinitives from OSHB morphology (construct preferred; absolute fallback)',
+    head = {'source': 'Open Scriptures Hebrew Bible Project (CC BY 4.0); Strong’s Hebrew Dictionary and Brown–Driver–Briggs (Public Domain); dictionary infinitives: OSHB forms of the headword binyan, else by grammar (infTanakh: 0)',
             'total': total, 'names': names, 'lemmas': len(count),
             # «все слова» — сколько слов (без имён, мест и надписей) в Пророках и Писаниях: порог сертификата «Раввин языка Танаха»
             'all': sum(1 for l in count if l not in SKIP)}
@@ -465,29 +530,20 @@ def cmd_build():
         n += 1
     cmd_examples(ranked)
     cmd_parse(lex)
-    missing_inf = [w['id'] for w in words if w['pos'].split()[0] == 'v' and 'inf' not in w]
-    verbs = sum(1 for w in words if w['pos'].split()[0] == 'v')
-    print(f'Infinitives: {verbs - len(missing_inf)} of {verbs} verbs; missing: {len(missing_inf)}')
+    print(f"Infinitives: {sum(1 for w in words if 'inf' in w)} verbs, {sum(1 for w in words if w.get('infTanakh') == 0)} by grammar")
     print(f'{total} words ({len(count)} lemmas, {names} names); top {SIZE} cover {words[-1]["cov"]}%; {n} days → {OUT_DAYS}')
 
 
 def cmd_infinitives():
     """обновить только словарные инфинитивы в src/tanakh/words.json, не пересобирая переводы и примеры."""
-    forms = infinitive_forms()
     data = json.loads(OUT.read_text(encoding='utf-8'))
-    verbs = [w for w in data['words'] if w['pos'].split()[0] == 'v']
-    for w in verbs:
-        if w['id'] in forms:
-            w['inf'] = forms[w['id']]['form']
-            w['infType'] = forms[w['id']]['type']
-        else:
-            w.pop('inf', None)
-            w.pop('infType', None)
-    # тот же вид, что у `build`: слово на строку — diff остаётся читаемым
     words = data.pop('words')
+    forms = set_infinitives(words)
+    # тот же вид, что у `build`: слово на строку — diff остаётся читаемым
     body = ',\n'.join(json.dumps(w, ensure_ascii=False) for w in words)
     OUT.write_text(json.dumps(data, ensure_ascii=False)[:-1] + ', "words": [\n' + body + '\n]}\n', encoding='utf-8')
-    print(f"Infinitives: {sum(1 for w in verbs if 'inf' in w)} of {len(verbs)} verbs; missing: {sum(1 for w in verbs if 'inf' not in w)}")
+    seen = sum(1 for f, s in forms.values() if s)
+    print(f'Infinitives: {len(forms)} verbs — {seen} as in Tanakh, {len(forms) - seen} by grammar (infTanakh: 0)')
 
 
 NORM = str.maketrans('ק', 'ה')
@@ -672,6 +728,29 @@ def cmd_stems():
             print(l, w['he'], 'FIX' if l in FORM_FIX else 'new', dict(c.most_common()), forms[(l, top)].most_common(2), sep='\t')
 
 
+def cmd_nouns():
+    """существительные, чей заголовок в Танахе есть только как смихут, а начальная форма (OSHB: «абсолютное» состояние) — другая:
+    кандидаты в FORM_FIX. Сеголаты (צֶמֶד: смихут = начальная форма) и пауза (עָרֶשׂ) — не ошибки, решать по словарю."""
+    import hebrew_infinitive as hi
+    k = lambda s: hi.nfc(s).replace('\u05bc', '')
+    words = {w['id']: w for w in json.loads(OUT.read_text(encoding='utf-8'))['words'] if w['pos'].split()[0][:1] == 'n' and w['pos'].split()[0] != 'np'}
+    forms = collections.defaultdict(collections.Counter)
+    W = re.compile(r'<w lemma="([^"]*)"[^>]*?morph="([^"]*)"[^>]*>([^<]*)</w>')
+    for b in (*TORAH_BOOKS, *BOOKS):
+        for m in W.finditer((CACHE / 'wlc' / f'{b}.xml').read_text(encoding='utf-8')):
+            ids = [p for p in m[1].split('/') if re.match(r'\d', p)]
+            if not ids: continue
+            l = MERGE.get(re.match(r'\d+', ids[-1])[0], re.match(r'\d+', ids[-1])[0])
+            ms, parts = m[2][1:].split('/'), m[3].split('/')
+            if l not in words or len(ms) != len(parts) or not ms[-1].startswith('N'): continue
+            forms[l][(ms[-1][-1], k(parts[-1]))] += 1
+    for l, w in words.items():
+        st = {s for (s, f) in forms[l] if f == k(w['he'])}
+        if st == {'c'}:
+            absolute = [f for (s, f), n in forms[l].most_common() if s == 'a']
+            if absolute and absolute[0] != k(w['he']): print(l, w['he'], w['n'], 'абсолютное:', ' '.join(absolute[:3]), sep='\t')
+
+
 if __name__ == '__main__':
     a = sys.argv[1:]
     if a == ['fetch']: cmd_fetch()
@@ -679,4 +758,5 @@ if __name__ == '__main__':
     elif a == ['infinitives']: cmd_infinitives()
     elif a[:1] == ['todo'] and len(a) == 2: cmd_todo(a[1])
     elif a == ['stems']: cmd_stems()
+    elif a == ['nouns']: cmd_nouns()
     else: sys.exit(__doc__)
