@@ -265,11 +265,12 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
     if (!m || typeof m !== 'object') return;
     const now = Date.now();
     let changed = false;
+    let startError: string | undefined;
     if (tag?.role === 'host') {
       if (m.t === 'start') {
         changed = await this.startRoom(room);
         if (!changed) {
-          ws.send(JSON.stringify({ error: this.env.DREIDEL_INTERNAL_SECRET ? 'balance' : 'escrow' }));
+          startError = this.env.DREIDEL_INTERNAL_SECRET ? 'balance' : 'escrow';
           if (room.phase === 'final') changed = true;
         }
       }
@@ -300,7 +301,8 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
       if (room.phase === 'final') await this.settleRoom(room);
       await this.save();
       this.broadcast();
-    }
+      if (startError) for (const peer of this.ctx.getWebSockets()) { try { peer.send(JSON.stringify({ error: startError })); } catch {} }
+    } else if (startError) ws.send(JSON.stringify({ error: startError }));
   }
 
   async webSocketClose(ws: WebSocket, code: number) {
