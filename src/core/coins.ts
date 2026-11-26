@@ -1,7 +1,7 @@
 /**
- * «Pelecoin» on the site: the player's coins in localStorage (`niflaot:coins`, synced with the account — src/core/sync.ts)
- * and the common tzedakah box on the accounts server (`/account/pushka`). The rules — src/core/coinsRules.ts.
- * No heavy imports: `earn` is called wherever the player reads a passage or answers.
+ * «Pelecoin»: guests use the local store; signed-in accounts use the server wallet and ledger.
+ * The common tzedakah box is on the accounts server (`/account/pushka`); rules live in `coinsRules.ts`.
+ * The old synced local store is retained only for the one-time account migration.
  */
 import { useEffect, useState, useSyncExternalStore } from 'react';
 import { authToken, useAccount } from './account';
@@ -10,7 +10,7 @@ import { addChest, addEarn, balance, buy as buyItem, chestDue, fold, give as giv
 
 export const COINS_KEY = 'niflaot:coins';
 export const COINS_EVENT = 'niflaot:coins';
-/** gifts not yet taken by the server (a guest, offline): [{ id, amount, cause }] — this device only */
+/** Gifts waiting for the server: [{ id, amount, cause, owner }] — this device only */
 const OUT_KEY = 'niflaot:coins-out';
 // scripts (npm run check, prerender) load the core modules in Node, where there is no import.meta.env
 const BASE = (import.meta.env?.VITE_ASSISTANT_URL ?? '').replace(/\/$/, '');
@@ -235,7 +235,7 @@ export async function loadPushka(token: string | null) {
   } catch {}
 }
 
-/** Give coins to the common box: they leave the balance at once; the server takes the gift now or at the next visit. */
+/** Give coins to the common box; account gifts are debited by the server and retried from this device's outbox. */
 export function give(amount: number, cause: Cause, token: string | null): boolean {
   const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
   if (authToken() && (serverWalletToken !== authToken() || !serverStore)) return false;
