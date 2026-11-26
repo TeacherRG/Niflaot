@@ -41,14 +41,14 @@ export type DreidelStatus = 'connecting' | 'open' | 'lost' | 'closed';
 export type DreidelView = {
   code: string;
   phase: 'lobby' | 'playing' | 'final';
-  players: { id: string; name: string; coins: number }[];
+  players: { name: string; coins: number }[];
   count: number;
   pot: number;
   turn: string | null;
   turnName: string | null;
   last: { id: number; pid: string; name: string; face: 'נ' | 'ג' | 'ה' | 'ש'; delta: number; at: number } | null;
   now: number;
-  me: { id: string; name: string; coins: number; canSpin: boolean } | null;
+  me: { name: string; coins: number; canSpin: boolean } | null;
 };
 
 export function useDreidelRoom(code: string, query: string) {
