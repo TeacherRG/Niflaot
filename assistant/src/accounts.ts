@@ -171,6 +171,20 @@ export class Accounts extends DurableObject<MailEnv> {
           'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
           `opening:${u.id}`, u.id, 'opening', opening, opening, 'legacy-account-snapshot', current.initialized,
         );
+        // Preserve recent idempotency markers: a passage or answer already rewarded on a device
+        // must not be rewarded again when that account first moves to the server wallet.
+        for (const [day, [, ids]] of Object.entries(store.d)) {
+          if (!ids) continue;
+          for (const [legacyId, value] of Object.entries(ids)) {
+            const kind = legacyId.startsWith('r:') ? 'read' : legacyId.startsWith('a:') ? 'answer' : legacyId === 'c' ? 'chest' : '';
+            if (!kind) continue;
+            const rewardId = kind === 'chest' ? `chest:${day}` : legacyId.slice(2);
+            this.sql.exec(
+              'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+              `earn:${u.id}:${kind}:${rewardId}`, u.id, `earn:${kind}`, 0, coinBalance(store), rewardId, Date.parse(day + 'T12:00:00Z'),
+            );
+          }
+        }
         for (const [day, [total, ids]] of Object.entries(store.g)) {
           if (ids && Object.keys(ids).length) {
             for (const [legacyId, amount] of Object.entries(ids)) {
