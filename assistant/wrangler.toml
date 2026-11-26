@@ -17,7 +17,8 @@ TTS_MODEL = "gemini-3.1-flash-tts-preview"
 TTS_VOICE = "Charon"
 
 # Secrets (not stored here): ANTHROPIC_API_KEY, RESEND_API_KEY (login codes and newsletter), NEWSLETTER_SECRET
-# (same value as the GitHub Actions secret), GEMINI_API_KEY (Google AI Studio — «Слушать»).
+# (same value as the GitHub Actions secret), GEMINI_API_KEY (Google AI Studio — «Слушать»),
+# DREIDEL_INTERNAL_SECRET (shared by Accounts and Dreidel; set with `npx wrangler secret put DREIDEL_INTERNAL_SECRET`).
 
 # Rate limit for /push and the account's changes: 20 requests per minute from one IP (the worker answers 429 above it).
 [[ratelimits]]
@@ -39,7 +40,6 @@ namespace_id = "1002"
 
 # The daily reminder of the site (src/push.ts): subscriptions in a Durable Object with SQLite storage (free plan),
 # sending once an hour.
-# Required for account-backed dreidel escrow: set with `npx wrangler secret put DREIDEL_INTERNAL_SECRET`.
 [[durable_objects.bindings]]
 name = "PUSH"
 class_name = "PushHub"
