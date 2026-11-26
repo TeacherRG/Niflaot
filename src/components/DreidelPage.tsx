@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useAccount } from '../core/account';
+import { refreshWallet } from '../core/coins';
 import { TopBar } from './TopBar';
 import { Colophon } from './Colophon';
 import { QrCode } from './QrCode';
@@ -117,6 +118,7 @@ function DreidelPlayer({ code }: { code: string }) {
     return 'role=player&pid=' + stored.pid;
   }, [code, stored.pid, token, account?.user.active, guestMode]);
   const { view, status, error, send } = useDreidelRoom(code, query);
+  useEffect(() => { if (token && view && (view.phase === 'playing' || view.phase === 'final')) void refreshWallet(token); }, [token, view?.phase]);
   useEffect(() => {
     if (status === 'open' && (joined || view?.me) && name.trim()) send({ t: 'hello', name });
   }, [status]);
