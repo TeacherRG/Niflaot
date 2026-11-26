@@ -68,7 +68,7 @@ export async function refreshWallet(token: string): Promise<CoinStore | null> {
   try {
     const res = await fetch(`${BASE}/account/wallet`, { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' });
     if (!res.ok) return null;
-    const data = await res.json() as { ledger?: { kind: string; amount: number; ref: string | null; at: number }[] };
+    const data = await res.json() as { balance?: number; ledger?: { kind: string; amount: number; ref: string | null; at: number }[] };
     const d: Record<string, [number, Record<string, number>]> = {};
     const g: Record<string, [number, Record<string, number>]> = {};
     const i: Record<string, number> = {};
@@ -92,7 +92,7 @@ export async function refreshWallet(token: string): Promise<CoinStore | null> {
       else if (row.kind === 'reserve' || row.kind === 'settle') x += row.amount;
     }
     const next = normCoins({ d, g, i, x });
-    if (balance(next) !== Number((await data.balance))) return null;
+    if (balance(next) !== Number(data.balance)) return null;
     serverStore = next;
     serverWalletToken = token;
     window.dispatchEvent(new Event(COINS_EVENT));
