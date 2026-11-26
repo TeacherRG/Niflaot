@@ -80,6 +80,7 @@ const ROUTES: Record<string, string[]> = {
   '/progress': ['GET', 'PUT'],
   '/pushka': ['GET', 'POST'],
   '/wallet': ['GET'],
+  '/wallet/init': ['POST'],
   '/wallet/earn': ['POST'],
   '/wallet/buy': ['POST'],
   '/dreidel-ticket': ['POST'],
