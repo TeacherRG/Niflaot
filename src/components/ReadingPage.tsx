@@ -14,7 +14,8 @@ import { resumeVoice, setVoicePitch } from '../core/voicePitch';
 import { isAdmin } from '../admin/github';
 import { LIVING_SITE, hasLiving, loadLiving, rememberLiving, type Living } from '../core/living';
 import { LivingBeacon, LivingPop } from './LivingPop';
-import { ReadingSettings } from './ReadingSettings';
+import { ReadingSettings, useReadingLook } from './ReadingSettings';
+import { ReadingMenu } from './ReadingMenu';
 import { translitToken } from '../core/tehillimTranslit';
 import {
   CHAPTERS,
@@ -123,6 +124,7 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   const [source, setSource] = useState<{ title: string; url: string } | null>(null);
   const [failed, setFailed] = useState(false);
   const [view, setView] = useState<View>(loadView);
+  useReadingLook(view);
   const [menuOpen, setMenuOpen] = useState(false);
   const [leadOpen, setLeadOpen] = useState(false);
   // подсказка «нажмите слово, которое слышите» — при выборе «Голос и подсветка» и один раз при первом запуске
@@ -472,7 +474,12 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
   return (
     <>
       <TopBar title={t('reading.title')} />
-      <div className={`wrap rd${view.big ? ' rd-big' : ''}`}>
+      <div className="wrap rd">
+        {/* «☰ Разделы» (общее меню «Святого чтения») и «⚙ Настройки чтения» — сразу под верхней панелью, заголовки ниже (владелец, 26.11.2026) */}
+        <div className="rd-corner no-print">
+          <ReadingMenu onTehillim={(what) => { setMenuSection(what); setMenuOpen(true); }} />
+          <ReadingSettings view={view} setV={setV} audio={tracks.length > 0} onBoth={() => setTip(true)} layout />
+        </div>
         <header className="tk-head">
           <p className="tk-kicker">
             📖 {t('reading.title')} · {t('reading.h1')}
@@ -504,22 +511,6 @@ export function ReadingPage({ chapter, day }: { chapter?: string; day?: string }
             </p>
           )}
         </header>
-
-        {/* меню Теґилим — всегда в левом верхнем углу, настройки чтения — в правом (владелец, 18.11.2026) */}
-        <div className="rd-corner no-print">
-          {!haazinu ? (
-            <button
-              type="button"
-              className="btn ghost rd-menu-open"
-              onClick={() => { setMenuSection('home'); setMenuOpen(true); }}
-              aria-label={t('reading.myTehillim')}
-              title={t('reading.myTehillim')}
-            >
-              ☰<span className="rd-menu-lbl"> {t('reading.myTehillim')}</span>
-            </button>
-          ) : <span />}
-          <ReadingSettings view={view} setV={setV} audio={tracks.length > 0} onBoth={() => setTip(true)} layout />
-        </div>
 
         {!haazinu && !mine && (
           <>
