@@ -4481,6 +4481,11 @@ html.rm-focus .rm-split:not(.solo) .rm-tools>:not(.rm-focus-btn){display:none}
   html[data-rbg="parchment"] body{background-image:radial-gradient(1200px 700px at 20% 0,rgba(255,248,225,.55),transparent 60%),radial-gradient(900px 600px at 90% 100%,rgba(190,150,80,.18),transparent 65%)}
   html[data-rbg="parchment"] .rd-text,html[data-rbg="parchment"] .shacharit-section{background:linear-gradient(180deg,rgba(255,250,232,.55),rgba(246,233,201,.4))}
 }
+/* на телефоне открытые «☰ Разделы» и «⚙ Настройки чтения» — во всю ширину экрана, под кнопками (владелец, 27.11.2026: «настройки съехали»
+   — список, прижатый к кнопке, уходил за левый край) */
+@media (max-width:640px){
+  .rd-corner .tk-view-list{position:fixed;inset-inline:10px;top:calc(var(--rd-corner-top,58px) + 58px);width:auto;min-width:0;max-width:none}
+}
 
 /* перечёркнутая книга: словарный инфинитив построен по грамматике — такой формы в Танахе нет (NoTanakh.tsx) */
 .no-tanakh{display:inline-flex;align-items:center;vertical-align:middle;margin-inline:.3em;color:var(--muted-2);font-size:.85rem;line-height:1;cursor:help;flex:none}
