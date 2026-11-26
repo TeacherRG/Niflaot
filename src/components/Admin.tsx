@@ -77,7 +77,7 @@ export function Admin({ slug, leaders }: { slug?: string; leaders?: string }) {
   if (slug === 'analytics')
     return (
       <Suspense fallback={null}>
-        <AnalyticsPage />
+        <AnalyticsPage token={token} />
       </Suspense>
     );
   if (slug === 'leaders')
