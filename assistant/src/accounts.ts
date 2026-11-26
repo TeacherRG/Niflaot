@@ -16,7 +16,7 @@ import { methodsFor, validEmail, validNick } from './rules';
 import { verifyGoogleToken } from './google';
 import { mergeSnapshots, summarize, type Snapshot } from '../../src/core/sync';
 import { GIFT_DAY, GIFT_MAX, PUSHKA_TARGET, isCause, pushkaAdd, winningCause, type PushkaState } from '../../src/core/coinsRules';
-import { balance as coinBalance, earnedTotal, normCoins, type CoinStore } from '../../src/core/coinsRules';
+import { balance as coinBalance, normCoins, type CoinStore } from '../../src/core/coinsRules';
 
 export interface MailEnv {
   RESEND_API_KEY?: string;
@@ -167,15 +167,17 @@ export class Accounts extends DurableObject<MailEnv> {
         store.x = 0;
       } catch {}
       const at = Date.now();
-      const opening = earnedTotal(store);
       this.ctx.storage.transactionSync(() => {
         this.sql.exec('INSERT OR IGNORE INTO wallets (user, balance, initialized) VALUES (?, ?, ?)', u.id, coinBalance(store), at);
         const current = this.one<{ balance: number; initialized: number }>('SELECT balance, initialized FROM wallets WHERE user = ?', u.id);
         if (!current) return;
-        this.sql.exec(
-          'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-          `opening:${u.id}`, u.id, 'opening', opening, opening, 'legacy-account-snapshot', current.initialized,
-        );
+        for (const [day, [total]] of Object.entries(store.d)) {
+          if (!total) continue;
+          this.sql.exec(
+            'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            `legacy:earned:${u.id}:${day}`, u.id, 'legacy:earned', total, coinBalance(store), day, Date.parse(day + 'T12:00:00Z'),
+          );
+        }
         // Preserve recent idempotency markers: a passage or answer already rewarded on a device
         // must not be rewarded again when that account first moves to the server wallet.
         for (const [day, [, ids]] of Object.entries(store.d)) {
@@ -197,19 +199,19 @@ export class Accounts extends DurableObject<MailEnv> {
               const ledgerId = /^[a-z0-9]{6,24}$/.test(giftId) ? `gift:${u.id}:${giftId}` : `legacy:give:${u.id}:${day}:${legacyId}`;
               this.sql.exec(
                 'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                ledgerId, u.id, 'give', -amount, Math.max(0, opening - amount), giftId, at,
+                ledgerId, u.id, 'give', -amount, coinBalance(store), giftId, Date.parse(day + 'T12:00:00Z'),
               );
             }
           } else if (total) {
             this.sql.exec(
               'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-              `legacy:give:${u.id}:${day}`, u.id, 'give', -total, 0, day, at,
+              `legacy:give:${u.id}:${day}`, u.id, 'give', -total, coinBalance(store), day, Date.parse(day + 'T12:00:00Z'),
             );
           }
         }
         for (const [item, cost] of Object.entries(store.i)) this.sql.exec(
           'INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-          `legacy:buy:${u.id}:${item}`, u.id, 'buy', -cost, 0, item, at,
+          `legacy:buy:${u.id}:${item}`, u.id, 'buy', -cost, coinBalance(store), item, 0,
         );
       });
       w = this.one<{ balance: number; initialized: number }>('SELECT balance, initialized FROM wallets WHERE user = ?', u.id);
@@ -646,7 +648,7 @@ export class Accounts extends DurableObject<MailEnv> {
       const baseAmount = kind === 'read' ? 1 : kind === 'answer' ? 3 : 10;
       const dayStart = Date.parse(day + 'T00:00:00Z');
       const earned = this.one<{ n: number }>(
-        "SELECT COALESCE(SUM(amount), 0) AS n FROM wallet_ledger WHERE user = ? AND (kind = 'opening' OR kind LIKE 'earn:%')", u.id,
+        "SELECT COALESCE(SUM(amount), 0) AS n FROM wallet_ledger WHERE user = ? AND (kind = 'opening' OR kind = 'legacy:earned' OR kind LIKE 'earn:%')", u.id,
       )?.n ?? 0;
       const given = this.one<{ n: number }>(
         "SELECT COALESCE(SUM(-amount), 0) AS n FROM wallet_ledger WHERE user = ? AND kind = 'give'", u.id,
