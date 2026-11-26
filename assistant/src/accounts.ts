@@ -504,22 +504,29 @@ export class Accounts extends DurableObject<MailEnv> {
     if (path === '/wallet' && req.method === 'GET') {
       if (!active(u)) return fail('pending', 403);
       const w = this.wallet(u);
-      return w ? json({ balance: w.balance, initialized: w.initialized }) : fail('wallet', 503);
+      if (!w) return fail('wallet', 503);
+      const ledger = this.sql.exec<{ kind: string; amount: number; ref: string | null; at: number }>(
+        'SELECT kind, amount, ref, at FROM wallet_ledger WHERE user = ? ORDER BY at, id', u.id,
+      ).toArray();
+      return json({ balance: w.balance, initialized: w.initialized, ledger });
     }
 
     if (path === '/wallet/earn') {
       if (!active(u)) return fail('pending', 403);
       const { id, kind } = body!;
-      if (typeof id !== 'string' || !/^[A-Za-z0-9:_-]{1,100}$/.test(id) || !['read', 'answer'].includes(kind)) return fail('reward');
+      if (typeof id !== 'string' || !/^[A-Za-z0-9:_-]{1,100}$/.test(id) || !['read', 'answer', 'chest'].includes(kind)) return fail('reward');
       const w = this.wallet(u);
       if (!w) return fail('wallet', 503);
       const ledgerId = `earn:${u.id}:${kind}:${id}`;
       const prior = this.one<{ balance_after: number }>('SELECT balance_after FROM wallet_ledger WHERE id = ?', ledgerId);
       if (prior) return json({ ok: true, gained: 0, balance: w.balance, duplicate: true });
       const day = new Date().toISOString().slice(0, 10);
-      const amount = kind === 'read' ? 1 : 3;
-      {
-        const n = this.one<{ n: number }>("SELECT COUNT(*) AS n FROM wallet_ledger WHERE user = ? AND kind = 'earn:read' AND at >= ?", u.id, Date.parse(day + 'T00:00:00Z'))?.n ?? 0;
+      const amount = kind === 'read' ? 1 : kind === 'answer' ? 3 : 10;
+      if (kind === 'chest') {
+        const last = this.one<{ at: number }>("SELECT at FROM wallet_ledger WHERE user = ? AND kind = 'earn:chest' ORDER BY at DESC LIMIT 1", u.id)?.at ?? 0;
+        if (last && Date.now() - last < 7 * 864e5) return fail('cap', 429);
+      } else {
+        const n = this.one<{ n: number }>('SELECT COUNT(*) AS n FROM wallet_ledger WHERE user = ? AND kind = ? AND at >= ?', u.id, `earn:${kind}`, Date.parse(day + 'T00:00:00Z'))?.n ?? 0;
         if (n >= (kind === 'read' ? 5 : 20)) return fail('cap', 429);
       }
       this.sql.exec('UPDATE wallets SET balance = balance + ? WHERE user = ?', amount, u.id);
@@ -554,6 +561,13 @@ export class Accounts extends DurableObject<MailEnv> {
       if (typeof id !== 'string' || !/^[a-z0-9]{6,24}$/.test(id) || !Number.isInteger(amount) || amount < 1 || amount > GIFT_MAX || !isCause(cause)) return fail('gift');
       const key = `${u.id}:${id}`;
       if (!this.one('SELECT id FROM pushka_gifts WHERE id = ?', key)) {
+        const wallet = this.wallet(u);
+        if (!wallet) return fail('wallet', 503);
+        if (wallet.balance < amount) return fail('balance', 409);
+        this.sql.exec('UPDATE wallets SET balance = balance - ? WHERE user = ? AND balance >= ?', amount, u.id, amount);
+        const nextBalance = this.one<{ balance: number }>('SELECT balance FROM wallets WHERE user = ?', u.id)!.balance;
+        this.sql.exec('INSERT INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+          `gift:${key}`, u.id, 'give', -amount, nextBalance, id, Date.now());
         const day = new Date().toISOString().slice(0, 10);
         const today = this.one<{ n: number }>('SELECT COALESCE(SUM(amount), 0) AS n FROM pushka_gifts WHERE user = ? AND day = ?', u.id, day)!.n;
         if (today + amount > GIFT_DAY) return fail('day', 429);
