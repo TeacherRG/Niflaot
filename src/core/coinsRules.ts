@@ -15,7 +15,7 @@
  */
 
 export const REWARD = { read: 1, answer: 3, chest: 10 } as const;
-export type EarnKind = 'read' | 'answer';
+export type EarnKind = 'read' | 'answer' | 'chest';
 export const READ_CAP = 5;
 export const CHEST_DAYS = 7;
 export const KEEP_DAYS = 45;
