@@ -23,6 +23,10 @@ export function LessonPage({ lesson, at }: { lesson: Lesson; at?: number }) {
   const running = !summary && !!S.started[S.lvl] && !S.done.includes(S.lvl);
 
   useEffect(() => {
+    if (S.started.some(Boolean)) track('lesson_started', { key: lesson.slug });
+  }, [S.started, lesson.slug]);
+
+  useEffect(() => {
     if (summary) track('lesson_complete', { key: lesson.slug });
   }, [summary, lesson.slug]);
 
@@ -39,13 +43,28 @@ export function LessonPage({ lesson, at }: { lesson: Lesson; at?: number }) {
   useEffect(() => {
     if (!running) return;
     let last = performance.now();
+    let lastActivity = Date.now();
+    let counted = 0;
+    const activity = () => { lastActivity = Date.now(); };
+    const events = ['pointerdown', 'keydown', 'scroll', 'touchstart'];
+    events.forEach((name) => addEventListener(name, activity, { passive: true }));
     const id = setInterval(() => {
       const now = performance.now();
       const d = Math.min(now - last, 5000);
       last = now;
-      if (!document.hidden) update((s) => void (s.time[s.lvl] += d));
+      if (!document.hidden && Date.now() - lastActivity <= 90_000) {
+        update((s) => void (s.time[s.lvl] += d));
+        counted += d;
+        if (counted >= 60_000) {
+          counted -= 60_000;
+          track('lesson_active_minute');
+        }
+      }
     }, 1000);
-    return () => clearInterval(id);
+    return () => {
+      clearInterval(id);
+      events.forEach((name) => removeEventListener(name, activity));
+    };
   }, [running, update]);
 
   const goTo = (lvl: number, scroll = true) => {
