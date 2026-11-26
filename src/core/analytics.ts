@@ -70,12 +70,16 @@ function count() {
 }
 
 /* ───── product events (funnel) — one name each, count over a period = how many times ─────
- * signup · first_lesson · lesson_complete · return_next_day · streak_7 · notification_click · share.
+ * signup · first_lesson · lesson_started · lesson_complete · study_day · active_minute · lesson_active_minute · return_next_day · streak_7 · notification_click · share.
  * No personal data: only the name. `once` — at most once per device (or per `key`, e.g. per lesson). */
 const EVENT_TITLES: Record<string, string> = {
   signup: 'Регистрация',
   first_lesson: 'Первая учёба',
+  lesson_started: 'Урок начат',
   lesson_complete: 'Урок закончен',
+  study_day: 'Учебный день',
+  active_minute: 'Минута активного использования',
+  lesson_active_minute: 'Минута активного занятия',
   return_next_day: 'Вернулся на следующий день',
   streak_7: 'Серия 7 дней',
   notification_click: 'Нажатие на уведомление',
@@ -140,4 +144,25 @@ export function installAnalytics() {
   } catch {}
   document.head.appendChild(s);
   addEventListener('hashchange', later);
+  installActiveTime();
+}
+
+/**
+ * Approximate engaged site time. A minute is counted only when the page is visible and
+ * the learner interacted within the previous 90 seconds. No keystrokes or content are collected.
+ */
+function installActiveTime() {
+  let lastActivity = 0;
+  const activity = () => { lastActivity = Date.now(); };
+  for (const name of ['pointerdown', 'keydown', 'scroll', 'touchstart']) {
+    addEventListener(name, activity, { passive: true });
+  }
+  setInterval(() => {
+    if (document.hidden || !lastActivity || Date.now() - lastActivity > 90_000) return;
+    track('active_minute');
+  }, 60_000);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) activity();
+  });
+
 }
