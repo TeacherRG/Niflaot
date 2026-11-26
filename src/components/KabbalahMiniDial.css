@@ -1,0 +1,14 @@
+.clk-kmini{position:absolute;z-index:8;top:clamp(4px,2.2cqh,18px);right:clamp(4px,2.2cqw,18px);width:clamp(82px,19cqw,138px);display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px;border:1px solid rgba(165,145,230,.35);border-radius:18px;background:rgba(10,14,34,.82);box-shadow:0 8px 28px rgba(0,0,0,.28),inset 0 0 18px rgba(120,95,210,.09);backdrop-filter:blur(9px);pointer-events:none}
+.clk-kmini svg{display:block;width:100%;height:auto;overflow:visible}
+.clk-kmini-aura{fill:rgba(92,74,160,.12);stroke:rgba(170,145,245,.4);stroke-width:1}
+.clk-kmini-sector{fill:rgba(70,78,125,.48);stroke:rgba(190,195,230,.24);stroke-width:.7}
+.clk-kmini g.active .clk-kmini-sector{fill:rgba(190,151,67,.72);stroke:#f4d68a;stroke-width:1.8;filter:drop-shadow(0 0 3px rgba(244,214,138,.7))}
+.clk-kmini-month{font:700 7px Georgia,serif;fill:#e9e5f5}
+.clk-kmini g.active .clk-kmini-month{fill:#fff8df}
+.clk-kmini-core{fill:#111a36;stroke:rgba(220,190,120,.72);stroke-width:1}
+.clk-kmini-number{font:800 15px system-ui,sans-serif;fill:#fff}
+.clk-kmini-caption{font:600 5px system-ui,sans-serif;fill:#c8bde8}
+.clk-kmini-current{display:flex;flex-direction:column;align-items:center;line-height:1.2;text-align:center;max-width:100%;color:#e8e4f4;font-size:10px}
+.clk-kmini-current b{font-size:11px;color:#f3d78d}
+.clk-kmini-current span{font-size:9px;color:#aeb4d0}
+@media(max-width:520px){.clk-kmini{width:clamp(76px,23cqw,100px);top:4px;right:4px;padding:4px;border-radius:14px}.clk-kmini-current{font-size:9px}.clk-kmini-current b{font-size:10px}}
