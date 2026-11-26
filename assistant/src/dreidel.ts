@@ -30,6 +30,8 @@ export interface DreidelEnv {
   DREIDEL_INTERNAL_SECRET?: string;
 }
 
+const roomRef = (room: Room) => `${room.code}:${room.created}`;
+
 const randomString = (n: number, chars: string) => {
   const bytes = crypto.getRandomValues(new Uint8Array(n));
   return Array.from(bytes, (b) => chars[b % chars.length]).join('');
@@ -176,12 +178,12 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
     if (accounts.length > 0 && accounts.length !== room.players.length) return false;
     if (accounts.length && !this.env.DREIDEL_INTERNAL_SECRET) return false;
     for (const p of accounts) {
-      const result = await this.accountCall('reserve', { userId: p.accountId, room: room.code });
+      const result = await this.accountCall('reserve', { userId: p.accountId, room: roomRef(room) });
       if (!result?.ok) {
         let pending = false;
         // A response may be lost after a successful reserve; settle all account players idempotently.
         for (const player of accounts) {
-          const release = await this.accountCall('settle', { userId: player.accountId, room: room.code, payout: 10 });
+          const release = await this.accountCall('settle', { userId: player.accountId, room: roomRef(room), payout: 10 });
           if (!release?.ok) { player.escrowed = true; pending = true; }
           else player.escrowed = false;
         }
@@ -211,7 +213,7 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
     if (room.phase !== 'final') return true;
     for (const p of room.players) {
       if (!p.accountId || !p.escrowed) continue;
-      const result = await this.accountCall('settle', { userId: p.accountId, room: room.code, payout: p.coins });
+      const result = await this.accountCall('settle', { userId: p.accountId, room: roomRef(room), payout: p.coins });
       if (!result?.ok) return false;
       p.escrowed = false;
     }
