@@ -50,7 +50,7 @@ export type DreidelView = {
   me: { name: string; coins: number; canSpin: boolean } | null;
 };
 
-export function useDreidelRoom(code: string, query: string) {
+export function useDreidelRoom(code: string, query: string | (() => Promise<string>)) {
   const [view, setView] = useState<DreidelView | null>(null);
   const [status, setStatus] = useState<DreidelStatus>('connecting');
   const [error, setError] = useState('');
@@ -60,28 +60,36 @@ export function useDreidelRoom(code: string, query: string) {
     let tries = 0;
     let ever = false;
     let timer: ReturnType<typeof setTimeout>;
-    const connect = () => {
-      const socket = new WebSocket(BASE.replace(/^http/, 'ws') + '/dreidel/ws/' + code + '?' + query);
-      ws.current = socket;
-      socket.onopen = () => { tries = 0; ever = true; setStatus('open'); };
-      socket.onmessage = (event) => {
-        const message = JSON.parse(String(event.data));
-        if (message.error) { setError(String(message.error)); return; }
-        setError('');
-        setView(message as DreidelView);
-      };
-      socket.onclose = (event) => {
+    const connect = async () => {
+      try {
+        const suffix = typeof query === 'function' ? await query() : query;
         if (!alive) return;
-        if (event.code === 4000 || (!ever && tries >= 2)) { setStatus('closed'); return; }
-        setStatus(ever ? 'lost' : 'connecting');
-        timer = setTimeout(connect, Math.min(15000, 1000 * 2 ** tries++));
-      };
+        const socket = new WebSocket(BASE.replace(/^http/, 'ws') + '/dreidel/ws/' + code + '?' + suffix);
+        ws.current = socket;
+        socket.onopen = () => { tries = 0; ever = true; setStatus('open'); };
+        socket.onmessage = (event) => {
+          const message = JSON.parse(String(event.data));
+          if (message.error) { setError(String(message.error)); return; }
+          setError('');
+          setView(message as DreidelView);
+        };
+        socket.onclose = (event) => {
+          if (!alive) return;
+          if (event.code === 4000 || (!ever && tries >= 2)) { setStatus('closed'); return; }
+          setStatus(ever ? 'lost' : 'connecting');
+          timer = setTimeout(() => { void connect(); }, Math.min(15000, 1000 * 2 ** tries++));
+        };
+      } catch {
+        if (!alive) return;
+        setError('ticket');
+        setStatus('closed');
+      }
     };
-    connect();
+    void connect();
     const wake = () => {
       if (document.visibilityState === 'visible' && ws.current && ws.current.readyState > 1) {
         clearTimeout(timer);
-        connect();
+        void connect();
       }
     };
     document.addEventListener('visibilitychange', wake);
