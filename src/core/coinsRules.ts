@@ -171,7 +171,7 @@ function mergeLedger(a: Ledger, b: Ledger): Ledger {
 export function mergeCoinStores(a: CoinStore, b: CoinStore): CoinStore {
   const i: Record<string, number> = { ...b.i };
   for (const [k, n] of Object.entries(a.i)) i[k] = Math.max(n, i[k] ?? 0);
-  return canon({ d: mergeLedger(a.d, b.d), g: mergeLedger(a.g, b.g), i, x: a.x ?? b.x ?? 0 });
+  return canon({ d: mergeLedger(a.d, b.d), g: mergeLedger(a.g, b.g), i, x: (a.x ?? 0) !== 0 ? a.x : b.x ?? 0 });
 }
 
 /* ── the common box (the server) ── */
