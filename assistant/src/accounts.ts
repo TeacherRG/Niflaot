@@ -561,6 +561,9 @@ export class Accounts extends DurableObject<MailEnv> {
       if (typeof id !== 'string' || !/^[a-z0-9]{6,24}$/.test(id) || !Number.isInteger(amount) || amount < 1 || amount > GIFT_MAX || !isCause(cause)) return fail('gift');
       const key = `${u.id}:${id}`;
       if (!this.one('SELECT id FROM pushka_gifts WHERE id = ?', key)) {
+        const day = new Date().toISOString().slice(0, 10);
+        const today = this.one<{ n: number }>('SELECT COALESCE(SUM(amount), 0) AS n FROM pushka_gifts WHERE user = ? AND day = ?', u.id, day)!.n;
+        if (today + amount > GIFT_DAY) return fail('day', 429);
         const wallet = this.wallet(u);
         if (!wallet) return fail('wallet', 503);
         if (wallet.balance < amount) return fail('balance', 409);
@@ -568,9 +571,6 @@ export class Accounts extends DurableObject<MailEnv> {
         const nextBalance = this.one<{ balance: number }>('SELECT balance FROM wallets WHERE user = ?', u.id)!.balance;
         this.sql.exec('INSERT INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
           `gift:${key}`, u.id, 'give', -amount, nextBalance, id, Date.now());
-        const day = new Date().toISOString().slice(0, 10);
-        const today = this.one<{ n: number }>('SELECT COALESCE(SUM(amount), 0) AS n FROM pushka_gifts WHERE user = ? AND day = ?', u.id, day)!.n;
-        if (today + amount > GIFT_DAY) return fail('day', 429);
         let round = this.round();
         this.sql.exec('INSERT INTO pushka_gifts (id, user, round, amount, cause, day, at) VALUES (?, ?, ?, ?, ?, ?, ?)', key, u.id, round.n, amount, cause, day, Date.now());
         const next = pushkaAdd(round.coins, amount);
