@@ -1,7 +1,7 @@
 /** Live connection helpers for multiplayer dreidel rooms. */
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-const BASE: string = (import.meta.env.VITE_ASSISTANT_URL ?? '').replace(/\/$/, '');
+const BASE: string = (import.meta.env?.VITE_ASSISTANT_URL ?? '').replace(/\/$/, '');
 const HOSTS = 'niflaot:dreidel-host';
 const PLAYER = 'niflaot:dreidel-player';
 const read = <T,>(key: string, fallback: T): T => {
