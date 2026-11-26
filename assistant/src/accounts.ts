@@ -518,9 +518,9 @@ export class Accounts extends DurableObject<MailEnv> {
       if (prior) return json({ ok: true, gained: 0, balance: w.balance, duplicate: true });
       const day = new Date().toISOString().slice(0, 10);
       const amount = kind === 'read' ? 1 : 3;
-      if (kind === 'read') {
+      {
         const n = this.one<{ n: number }>("SELECT COUNT(*) AS n FROM wallet_ledger WHERE user = ? AND kind = 'earn:read' AND at >= ?", u.id, Date.parse(day + 'T00:00:00Z'))?.n ?? 0;
-        if (n >= 5) return fail('cap', 429);
+        if (n >= (kind === 'read' ? 5 : 20)) return fail('cap', 429);
       }
       this.sql.exec('UPDATE wallets SET balance = balance + ? WHERE user = ?', amount, u.id);
       const next = this.one<{ balance: number }>('SELECT balance FROM wallets WHERE user = ?', u.id)!.balance;
@@ -546,45 +546,7 @@ export class Accounts extends DurableObject<MailEnv> {
       return json({ ok: true, balance: next });
     }
 
-    if (path === '/wallet/reserve') {
-      if (!active(u)) return fail('pending', 403);
-      const { id, amount } = body!;
-      if (typeof id !== 'string' || !/^[A-Z0-9]{5}:[A-Za-z0-9_-]{1,80}$/.test(id) || amount !== 10) return fail('reservation');
-      const w = this.wallet(u);
-      if (!w) return fail('wallet', 503);
-      const old = this.one<{ amount: number; status: string }>('SELECT amount, status FROM wallet_reservations WHERE user = ? AND ref = ?', u.id, id);
-      if (old) return old.status === 'active' ? json({ ok: true, balance: w.balance, reserved: old.amount, duplicate: true }) : fail('settled', 409);
-      if (w.balance < amount) return fail('balance', 409);
-      this.sql.exec('UPDATE wallets SET balance = balance - ? WHERE user = ? AND balance >= ?', amount, u.id, amount);
-      const next = this.one<{ balance: number }>('SELECT balance FROM wallets WHERE user = ?', u.id)!.balance;
-      const now = Date.now();
-      this.sql.exec('INSERT INTO wallet_reservations (user, ref, amount, status, at) VALUES (?, ?, ?, ?, ?)', u.id, id, amount, 'active', now);
-      this.sql.exec('INSERT INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        `reserve:${u.id}:${id}`, u.id, 'reserve', -amount, next, id, now);
-      return json({ ok: true, balance: next, reserved: amount });
-    }
 
-    if (path === '/wallet/settle' || path === '/wallet/release') {
-      if (!active(u)) return fail('pending', 403);
-      const { id, payout } = body!;
-      if (typeof id !== 'string' || !/^[A-Z0-9]{5}:[A-Za-z0-9_-]{1,80}$/.test(id)) return fail('reservation');
-      const reservation = this.one<{ amount: number; status: string }>('SELECT amount, status FROM wallet_reservations WHERE user = ? AND ref = ?', u.id, id);
-      if (!reservation) return fail('reservation', 404);
-      if (reservation.status !== 'active') {
-        const w = this.wallet(u);
-        return json({ ok: true, balance: w?.balance ?? 0, duplicate: true });
-      }
-      const amount = path === '/wallet/release' ? reservation.amount : payout;
-      if (!Number.isInteger(amount) || amount < 0 || amount > 1_000_000) return fail('payout');
-      const w = this.wallet(u);
-      if (!w) return fail('wallet', 503);
-      this.sql.exec("UPDATE wallet_reservations SET status = 'settled' WHERE user = ? AND ref = ? AND status = 'active'", u.id, id);
-      const next = w.balance + amount;
-      this.sql.exec('UPDATE wallets SET balance = ? WHERE user = ?', next, u.id);
-      this.sql.exec('INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        `settle:${u.id}:${id}`, u.id, path === '/wallet/release' ? 'release' : 'settle', amount, next, id, Date.now());
-      return json({ ok: true, balance: next, payout: amount });
-    }
 
     if (path === '/pushka') {
       // a gift of game coins: taken once by its id; not more than GIFT_DAY coins a day from an account
