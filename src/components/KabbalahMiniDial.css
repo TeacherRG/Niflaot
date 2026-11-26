@@ -1,4 +1,4 @@
-.clk-kmini{position:absolute;z-index:8;top:clamp(4px,2.2cqh,18px);right:clamp(4px,2.2cqw,18px);width:clamp(82px,19cqw,138px);display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px;border:1px solid rgba(165,145,230,.35);border-radius:18px;background:rgba(10,14,34,.82);box-shadow:0 8px 28px rgba(0,0,0,.28),inset 0 0 18px rgba(120,95,210,.09);backdrop-filter:blur(9px);pointer-events:none}
+.clk-kmini{position:absolute;z-index:8;top:clamp(4px,2.2cqh,18px);right:clamp(4px,2.2cqw,18px);width:clamp(82px,19cqw,138px);display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px;border:1px solid rgba(165,145,230,.35);border-radius:18px;background:rgba(10,14,34,.82);box-shadow:0 8px 28px rgba(0,0,0,.28),inset 0 0 18px rgba(120,95,210,.09);backdrop-filter:blur(9px)}
 .clk-kmini svg{display:block;width:100%;height:auto;overflow:visible}
 .clk-kmini-aura{fill:rgba(92,74,160,.12);stroke:rgba(170,145,245,.4);stroke-width:1}
 .clk-kmini-sector{fill:rgba(70,78,125,.48);stroke:rgba(190,195,230,.24);stroke-width:.7}
