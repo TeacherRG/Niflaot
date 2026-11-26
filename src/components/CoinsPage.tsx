@@ -24,7 +24,7 @@ const GIFTS = [5, 10, 25];
  */
 export function CoinsPage() {
   const { t, locale } = useI18n();
-  const { token, me } = useAccount();
+  const { token } = useAccount();
   const s = useCoins();
   const h = useHabit();
   const box = usePushka();
