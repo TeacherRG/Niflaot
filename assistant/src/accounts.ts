@@ -163,6 +163,8 @@ export class Accounts extends DurableObject<MailEnv> {
       try {
         const raw = progress ? JSON.parse(progress.data)['niflaot:coins'] : null;
         store = normCoins(raw ? JSON.parse(raw) : null);
+        // `x` is a server-only escrow adjustment; never trust a client-synced legacy value for migration.
+        store.x = 0;
       } catch {}
       const at = Date.now();
       const opening = earnedTotal(store);
