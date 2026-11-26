@@ -154,6 +154,7 @@ if (typeof window !== 'undefined') window.addEventListener(STUDY_EVENT, openChes
 export async function buy(item: ItemId): Promise<boolean> {
   const token = authToken();
   if (token) {
+    if (serverWalletToken !== token || !serverStore) return false;
     const result = await walletPost('buy', { item }, token);
     if (result?.ok) announce();
     return !!result?.ok;
@@ -222,7 +223,7 @@ export async function loadPushka(token: string | null) {
 /** Give coins to the common box: they leave the balance at once; the server takes the gift now or at the next visit. */
 export function give(amount: number, cause: Cause, token: string | null): boolean {
   const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
-  if (authToken() && serverWalletToken !== authToken()) return false;
+  if (authToken() && (serverWalletToken !== authToken() || !serverStore)) return false;
   const s = giveCoins(currentCoins(), amount, cause, id, todayIso());
   if (!s) return false;
   if (!authToken()) write(s);
@@ -243,11 +244,19 @@ export function useCoins(): CoinStore {
       void refreshWallet(token).then((next) => { if (live && next) set(next); });
     } else { serverStore = null; serverWalletToken = null; set(readCoins()); }
     const on = () => set(serverStore ?? readCoins());
+    const synced = () => {
+      if (token && me?.user.active) {
+        void refreshWallet(token).then((next) => { if (live && next) set(next); });
+        void loadPushka(token);
+      }
+    };
+    window.addEventListener('niflaot:account-synced', synced);
     window.addEventListener(COINS_EVENT, on);
     window.addEventListener('storage', on);
     window.addEventListener(STUDY_EVENT, on);
     return () => {
       live = false;
+      window.removeEventListener('niflaot:account-synced', synced);
       window.removeEventListener(COINS_EVENT, on);
       window.removeEventListener('storage', on);
       window.removeEventListener(STUDY_EVENT, on);
