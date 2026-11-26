@@ -72,7 +72,7 @@ function PlayerList({ view }: { view: DreidelView }) {
   return <ul className="dreidel-player-list">{view.players.map((p) => <li key={p.id}><span>{p.name}</span></li>)}</ul>;
 }
 
-function GameBoard({ view, me }: { view: DreidelView; me?: boolean }) {
+function GameBoard({ view, me, onSpin }: { view: DreidelView; me?: boolean; onSpin?: () => void }) {
   const [spinning, setSpinning] = useState(false);
   const lastSeen = useRef<number | null>(null);
   useEffect(() => {
@@ -85,7 +85,7 @@ function GameBoard({ view, me }: { view: DreidelView; me?: boolean }) {
     <Dreidel3D face={last?.face} spinning={spinning} onSpinEnd={() => setSpinning(false)} />
     {last && <p className="dreidel-last"><b>{last.name}</b>: выпало <strong>{last.face}</strong> · {last.delta > 0 ? '+' + last.delta : last.delta}</p>}
     <PlayerCoins view={view} />
-    {me && view.me?.canSpin && <button className="btn dreidel-primary dreidel-spin" disabled={spinning} onClick={() => { setSpinning(true); }}>Крутить дрейдл</button>}
+    {me && view.me?.canSpin && <button className="btn dreidel-primary dreidel-spin" disabled={spinning} onClick={onSpin}>Крутить дрейдл</button>}
     {me && !view.me?.canSpin && view.phase === 'playing' && <p className="dreidel-muted">Сейчас ход игрока: {view.turnName}</p>}
     {view.phase === 'final' && <h2 className="dreidel-finished">Игра завершена</h2>}
   </section>;
@@ -107,5 +107,5 @@ function DreidelPlayer({ code }: { code: string }) {
   if (!view.me) return <div className="dreidel-room"><Status status={status} error={error} /><h1>Войти в игру</h1><form className="dreidel-join-card" onSubmit={(e) => { e.preventDefault(); if (!name.trim()) return; saveDreidelName(code, name.trim()); setJoined(true); send({ t: 'hello', name: name.trim() }); }}>
     <label>Ваше имя<input value={name} onChange={(e) => setName(e.target.value)} maxLength={20} autoComplete="nickname" placeholder="Как вас зовут?" /></label><button className="btn dreidel-primary" disabled={!name.trim()}>Присоединиться</button>
   </form></div>;
-  return <div className="dreidel-room"><Status status={status} error={error} /><h1>Дрейдл · {view.me.name}</h1><GameBoard view={view} me /><p className="dreidel-muted">Ваши монеты: {view.me.coins}</p></div>;
+  return <div className="dreidel-room"><Status status={status} error={error} /><h1>Дрейдл · {view.me.name}</h1><GameBoard view={view} me onSpin={() => send({ t: 'spin' })} /><p className="dreidel-muted">Ваши монеты: {view.me.coins}</p></div>;
 }
