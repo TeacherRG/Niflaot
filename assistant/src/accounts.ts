@@ -175,7 +175,7 @@ export class Accounts extends DurableObject<MailEnv> {
         // must not be rewarded again when that account first moves to the server wallet.
         for (const [day, [, ids]] of Object.entries(store.d)) {
           if (!ids) continue;
-          for (const [legacyId, value] of Object.entries(ids)) {
+          for (const legacyId of Object.keys(ids)) {
             const kind = legacyId.startsWith('r:') ? 'read' : legacyId.startsWith('a:') ? 'answer' : legacyId === 'c' ? 'chest' : '';
             if (!kind) continue;
             const rewardId = kind === 'chest' ? `chest:${day}` : legacyId.slice(2);
