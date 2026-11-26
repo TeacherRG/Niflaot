@@ -521,7 +521,19 @@ export class Accounts extends DurableObject<MailEnv> {
       const prior = this.one<{ balance_after: number }>('SELECT balance_after FROM wallet_ledger WHERE id = ?', ledgerId);
       if (prior) return json({ ok: true, gained: 0, balance: w.balance, duplicate: true });
       const day = new Date().toISOString().slice(0, 10);
-      const amount = kind === 'read' ? 1 : kind === 'answer' ? 3 : 10;
+      const baseAmount = kind === 'read' ? 1 : kind === 'answer' ? 3 : 10;
+      const dayStart = Date.parse(day + 'T00:00:00Z');
+      const earned = this.one<{ n: number }>(
+        "SELECT COALESCE(SUM(amount), 0) AS n FROM wallet_ledger WHERE user = ? AND (kind = 'opening' OR kind LIKE 'earn:%')", u.id,
+      )?.n ?? 0;
+      const given = this.one<{ n: number }>(
+        "SELECT COALESCE(SUM(-amount), 0) AS n FROM wallet_ledger WHERE user = ? AND kind = 'give'", u.id,
+      )?.n ?? 0;
+      const earnedToday = this.one<{ n: number }>(
+        "SELECT COUNT(*) AS n FROM wallet_ledger WHERE user = ? AND kind LIKE 'earn:%' AND at >= ?", u.id, dayStart,
+      )?.n ?? 0;
+      const doubled = kind !== 'chest' && earnedToday === 0 && earned > 0 && given >= Math.ceil(earned / 10);
+      const amount = baseAmount * (doubled ? 2 : 1);
       if (kind === 'chest') {
         const last = this.one<{ at: number }>("SELECT at FROM wallet_ledger WHERE user = ? AND kind = 'earn:chest' ORDER BY at DESC LIMIT 1", u.id)?.at ?? 0;
         if (last && Date.now() - last < 7 * 864e5) return fail('cap', 429);
