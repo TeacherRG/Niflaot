@@ -46,7 +46,7 @@ function DreidelHome() {
 }
 
 function Status({ status, error }: { status: string; error?: string }) {
-  if (status === 'closed') return <p className="dreidel-error">Комната закрыта или не найдена.</p>;
+  if (status === 'closed') return <p className="dreidel-error">{error === 'ticket' ? 'Не удалось подтвердить вход в аккаунт. Проверьте подключение и попробуйте снова.' : 'Комната закрыта или не найдена.'}</p>;
   if (status !== 'open') return <p className="dreidel-muted">{status === 'lost' ? 'Связь прервалась, восстанавливаем…' : 'Подключаемся к комнате…'}</p>;
   if (error) return <p className="dreidel-error">{error === 'full' ? 'В комнате уже 30 игроков.' : error === 'started' ? 'Игра уже началась.' : error === 'balance' ? 'Не у всех участников есть 10 пеликоинов. Пополните баланс или войдите гостем.' : error === 'escrow' ? 'Серверный кошелёк временно не настроен. Гости могут играть виртуальными монетами.' : error === 'ticket' ? 'Не удалось подтвердить вход в аккаунт. Попробуйте ещё раз.' : 'Введите имя.'}</p>;
   return null;
