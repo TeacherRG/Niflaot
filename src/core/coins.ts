@@ -242,7 +242,7 @@ export function useCoins(): CoinStore {
     let live = true;
     if (token && me?.user.active) {
       if (serverWalletToken !== token) { serverStore = null; serverWalletToken = token; set(normCoins(null)); }
-      void refreshWallet(token).then((next) => { if (live && next) set(next); });
+      void refreshWallet(token).then((next) => { if (live && next) { set(next); openChest(); } });
     } else { serverStore = null; serverWalletToken = null; set(readCoins()); }
     const on = () => set(serverStore ?? readCoins());
     const synced = () => {
