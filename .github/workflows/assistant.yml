@@ -26,6 +26,7 @@ jobs:
       HAS_RESEND: ${{ secrets.RESEND_API_KEY != '' }}
       HAS_GEMINI: ${{ secrets.GEMINI_API_KEY != '' }}
       HAS_NEWSLETTER: ${{ secrets.NEWSLETTER_SECRET != '' }}
+      HAS_GOATCOUNTER: ${{ secrets.GOATCOUNTER_API_KEY != '' }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
@@ -79,5 +80,15 @@ jobs:
         run: printf '%s' "$NEWSLETTER_SECRET" | npx wrangler secret put NEWSLETTER_SECRET
         env:
           NEWSLETTER_SECRET: ${{ secrets.NEWSLETTER_SECRET }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      # GoatCounter API key is server-side only; the browser never receives it.
+      - name: GoatCounter key for private analytics
+        if: ${{ env.HAS_GOATCOUNTER == 'true' }}
+        working-directory: assistant
+        run: printf '%s' "$GOATCOUNTER_API_KEY" | npx wrangler secret put GOATCOUNTER_API_KEY
+        env:
+          GOATCOUNTER_API_KEY: ${{ secrets.GOATCOUNTER_API_KEY }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
