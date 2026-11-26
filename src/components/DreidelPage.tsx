@@ -69,7 +69,7 @@ function DreidelHost({ code }: { code: string }) {
 }
 
 function PlayerList({ view }: { view: DreidelView }) {
-  return <ul className="dreidel-player-list">{view.players.map((p) => <li key={p.id}><span>{p.name}</span></li>)}</ul>;
+  return <ul className="dreidel-player-list">{view.players.map((p, i) => <li key={p.name + '-' + i}><span>{p.name}</span></li>)}</ul>;
 }
 
 function GameBoard({ view, me, onSpin }: { view: DreidelView; me?: boolean; onSpin?: () => void }) {
@@ -92,7 +92,7 @@ function GameBoard({ view, me, onSpin }: { view: DreidelView; me?: boolean; onSp
 }
 
 function PlayerCoins({ view }: { view: DreidelView }) {
-  return <ul className="dreidel-coins">{view.players.map((p) => <li key={p.id}><span>{p.name}</span><b>{p.coins} 🪙</b></li>)}</ul>;
+  return <ul className="dreidel-coins">{view.players.map((p, i) => <li key={p.name + '-' + i}><span>{p.name}</span><b>{p.coins} 🪙</b></li>)}</ul>;
 }
 
 function DreidelPlayer({ code }: { code: string }) {
