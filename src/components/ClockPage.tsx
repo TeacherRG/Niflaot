@@ -5,6 +5,7 @@ import { TopBar } from './TopBar';
 import { Icon, Sheet, useDismiss } from './ui';
 import { CityPicker } from './ShabbatCalendar';
 import { BigFace, COLOR, loadMarks, loadTziruf, MARKS_KEY, TZIRUF_KEY, type FaceEvent, type FaceId } from './ClockFace';
+import { KabbalahMiniDial } from './KabbalahMiniDial';
 import { dayTimes, hebrewDateText, hebrewDayMonth, isErevPesach } from '../core/hebcal';
 import { currentPlace, PLACE_EVENT } from '../core/places';
 import { addDays, BEFORE, cleanMarks, DEADLINES, halfOf, halfTimes, hourOf, isoIn, nextRing, restAt, ringOn, shabbatSpan, shownDay, TIME_IDS, type Alarm, type AlarmKind, type Rest, type Spot, type TimeId } from '../core/clock';
@@ -341,6 +342,7 @@ export function ClockPage() {
               onPick={(id, fx, fy) => setPop(pop?.id === id && pop.pinned ? null : { id, fx, fy, pinned: true })}
               onHover={(id, fx, fy) => setPop((p) => (p?.pinned ? p : id ? { id, fx, fy, pinned: false } : null))}
             />
+            {half && <KabbalahMiniDial hour={hourOf(now, half)} day={half.day} />}
           ) : (
             <div className="clk2-nocity">
               <p>{t('clock.noCity')}</p>
