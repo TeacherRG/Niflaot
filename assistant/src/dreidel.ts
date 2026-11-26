@@ -4,10 +4,11 @@
  */
 import { DurableObject } from 'cloudflare:workers';
 import { CODE_CHARS, cleanName, validCode, validPid, ROOM_TTL } from '../../src/core/quizGame';
+import type { Accounts } from './accounts';
 
 const FACES = ['נ', 'ג', 'ה', 'ש'] as const;
 type Face = (typeof FACES)[number];
-type Player = { pid: string; name: string; coins: number };
+type Player = { pid: string; name: string; coins: number; accountId?: string; escrowed?: boolean };
 type Spin = { id: number; pid: string; name: string; face: Face; delta: number; at: number };
 type Room = {
   code: string;
@@ -19,11 +20,14 @@ type Room = {
   pot: number;
   spinId: number;
   last?: Spin;
+  settled?: boolean;
 };
-type Tag = { role: 'host' } | { role: 'player'; pid: string };
+type Tag = { role: 'host' } | { role: 'player'; pid: string; account?: boolean };
 
 export interface DreidelEnv {
   DREIDEL: DurableObjectNamespace<DreidelRoom>;
+  ACCOUNTS: DurableObjectNamespace<Accounts>;
+  DREIDEL_INTERNAL_SECRET?: string;
 }
 
 const randomString = (n: number, chars: string) => {
@@ -48,23 +52,28 @@ function publicView(room: Room, now: number, pid?: string) {
   };
 }
 
-function start(room: Room) {
-  if (room.phase !== 'lobby' || room.players.length < 2) return false;
-  room.players.forEach((p) => (p.coins = 10));
-  room.players.forEach((p) => (p.coins -= 1));
-  room.pot = room.players.length;
-  room.turn = 0;
-  room.last = undefined;
-  room.spinId = 0;
-  room.phase = 'playing';
-  return true;
+function finish(room: Room) {
+  const solvent = room.players.filter((p) => p.coins > 0);
+  const recipients = solvent.length === 1 ? solvent : room.players;
+  if (recipients.length && room.pot > 0) {
+    const share = Math.floor(room.pot / recipients.length);
+    let remainder = room.pot % recipients.length;
+    for (const p of recipients) {
+      const extra = remainder > 0 ? 1 : 0;
+      p.coins += share + extra;
+      remainder -= extra;
+    }
+  }
+  room.pot = 0;
+  room.phase = 'final';
+  room.settled = false;
 }
 
 function advance(room: Room) {
   room.turn = (room.turn + 1) % room.players.length;
   const solvent = room.players.filter((p) => p.coins > 0).length;
   if (solvent <= 1) {
-    room.phase = 'final';
+    finish(room);
     return;
   }
   if (room.pot === 0) {
@@ -74,7 +83,7 @@ function advance(room: Room) {
         room.pot += 1;
       }
     }
-    if (room.pot === 0) room.phase = 'final';
+    if (room.pot === 0) finish(room);
   }
 }
 
@@ -115,7 +124,7 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
     if (this.room) await this.ctx.storage.put('room', this.room);
     const room = this.room;
     if (room) {
-      const at = room.created + ROOM_TTL;
+      const at = room.phase === 'final' && room.settled === false ? Date.now() + 60_000 : room.created + ROOM_TTL;
       if ((await this.ctx.storage.getAlarm()) !== at) await this.ctx.storage.setAlarm(at);
     }
   }
@@ -133,11 +142,79 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
   }
 
   private async wipe() {
+    const room = await this.load();
+    if (room?.phase === 'playing') finish(room);
+    if (room?.phase === 'final' && !(await this.settleRoom(room))) {
+      await this.ctx.storage.setAlarm(Date.now() + 60_000);
+      return;
+    }
     for (const ws of this.ctx.getWebSockets()) {
       try { ws.close(4000, 'room closed'); } catch {}
     }
     this.room = null;
     await this.ctx.storage.deleteAll();
+  }
+
+  private async accountCall(path: 'consume' | 'reserve' | 'settle', body: object): Promise<any | null> {
+    const secret = this.env.DREIDEL_INTERNAL_SECRET;
+    if (!secret) return null;
+    try {
+      const stub = this.env.ACCOUNTS.get(this.env.ACCOUNTS.idFromName('main'));
+      const response = await stub.fetch(`https://accounts/internal/dreidel/${path}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Dreidel-Internal': secret },
+        body: JSON.stringify(body),
+      });
+      return response.ok ? await response.json() : null;
+    } catch { return null; }
+  }
+
+  private async startRoom(room: Room): Promise<boolean> {
+    if (room.phase !== 'lobby' || room.players.length < 2) return false;
+    const accounts = room.players.filter((p) => p.accountId);
+    if (accounts.length && !this.env.DREIDEL_INTERNAL_SECRET) return false;
+    for (const p of accounts) {
+      const result = await this.accountCall('reserve', { userId: p.accountId, room: room.code });
+      if (!result?.ok) {
+        let pending = false;
+        // A response may be lost after a successful reserve; settle all account players idempotently.
+        for (const player of accounts) {
+          const release = await this.accountCall('settle', { userId: player.accountId, room: room.code, payout: 10 });
+          if (!release?.ok) { player.escrowed = true; pending = true; }
+          else player.escrowed = false;
+        }
+        if (pending) {
+          room.players.forEach((player) => { player.coins = 10; });
+          room.pot = 0;
+          room.phase = 'final';
+          room.settled = false;
+          await this.save();
+        }
+        return false;
+      }
+      p.escrowed = true;
+    }
+    room.players.forEach((p) => (p.coins = 10));
+    room.players.forEach((p) => (p.coins -= 1));
+    room.pot = room.players.length;
+    room.turn = 0;
+    room.last = undefined;
+    room.spinId = 0;
+    room.phase = 'playing';
+    room.settled = false;
+    return true;
+  }
+
+  private async settleRoom(room: Room): Promise<boolean> {
+    if (room.phase !== 'final') return true;
+    for (const p of room.players) {
+      if (!p.accountId || !p.escrowed) continue;
+      const result = await this.accountCall('settle', { userId: p.accountId, room: room.code, payout: p.coins });
+      if (!result?.ok) return false;
+      p.escrowed = false;
+    }
+    room.settled = true;
+    return true;
   }
 
   async fetch(req: Request): Promise<Response> {
@@ -161,7 +238,11 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
       const role = url.searchParams.get('role');
       let tag: Tag;
       if (role === 'host' && url.searchParams.get('key') === room.hostKey) tag = { role: 'host' };
-      else if (role === 'player' && validPid(url.searchParams.get('pid'))) tag = { role: 'player', pid: url.searchParams.get('pid')! };
+      else if (role === 'player' && url.searchParams.get('ticket')) {
+        const identity = await this.accountCall('consume', { ticket: url.searchParams.get('ticket'), room: room.code });
+        if (!identity?.ok || !validPid(identity.userId)) return new Response('forbidden', { status: 403 });
+        tag = { role: 'player', pid: identity.userId, account: true };
+      } else if (role === 'player' && validPid(url.searchParams.get('pid'))) tag = { role: 'player', pid: url.searchParams.get('pid')! };
       else return new Response('forbidden', { status: 403 });
       const pair = new WebSocketPair();
       this.ctx.acceptWebSocket(pair[1], [tag.role]);
@@ -182,8 +263,14 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
     const now = Date.now();
     let changed = false;
     if (tag?.role === 'host') {
-      if (m.t === 'start') changed = start(room);
-      if (m.t === 'end' && room.phase === 'playing') room.phase = 'final', changed = true;
+      if (m.t === 'start') {
+        changed = await this.startRoom(room);
+        if (!changed) {
+          ws.send(JSON.stringify({ error: this.env.DREIDEL_INTERNAL_SECRET ? 'balance' : 'escrow' }));
+          if (room.phase === 'final') changed = true;
+        }
+      }
+      if (m.t === 'end' && room.phase === 'playing') { finish(room); changed = true; }
     } else if (tag?.role === 'player' && validPid(tag.pid)) {
       if (m.t === 'hello') {
         const name = cleanName(m.name);
@@ -193,7 +280,7 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
           if (room.phase === 'lobby') existing.name = name;
           changed = true;
         } else if (room.phase === 'lobby' && room.players.length < 30) {
-          room.players.push({ pid: tag.pid, name, coins: 10 });
+          room.players.push({ pid: tag.pid, name, coins: 10, ...(tag.account ? { accountId: tag.pid } : {}) });
           changed = true;
         } else {
           ws.send(JSON.stringify({ error: room.phase === 'lobby' ? 'full' : 'started' }));
@@ -202,6 +289,7 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
       } else if (m.t === 'spin') changed = spin(room, tag.pid, now);
     }
     if (changed) {
+      if (room.phase === 'final') await this.settleRoom(room);
       await this.save();
       this.broadcast();
     }
@@ -213,7 +301,13 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
 
   async alarm() {
     const room = await this.load();
-    if (room && Date.now() - room.created >= ROOM_TTL) await this.wipe();
+    if (!room || Date.now() - room.created < ROOM_TTL) return;
+    if (room.phase === 'playing') finish(room);
+    if (room.phase === 'final' && !(await this.settleRoom(room))) {
+      await this.ctx.storage.setAlarm(Date.now() + 60_000);
+      return;
+    }
+    await this.wipe();
   }
 }
 
