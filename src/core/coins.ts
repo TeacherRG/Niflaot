@@ -98,7 +98,7 @@ async function walletPost(path: string, body: object, token: string): Promise<{ 
     if (!res.ok) return null;
     const result = await res.json() as { ok: boolean; gained?: number; duplicate?: boolean };
     await refreshWallet(token);
-    void loadPushka(token, me?.user.email);
+    void loadPushka(token, activeWalletOwner);
     return result;
   } catch { return null; }
 }
