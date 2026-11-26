@@ -396,7 +396,8 @@ def infinitive_forms():
         pool = constructs or [(k, p, form, n) for (k, p, form), n in candidates.items()]
         if pool:
             priority = max(x[1] for x in pool)
-            out[lemma] = max((x for x in pool if x[1] == priority), key=lambda x: x[3])[2]
+            chosen = max((x for x in pool if x[1] == priority), key=lambda x: x[3])
+            out[lemma] = {'form': chosen[2], 'type': 'infinitive-construct' if chosen[0] == 'c' else 'infinitive-absolute'}
     return out
 
 
@@ -432,7 +433,9 @@ def cmd_build():
             w.pop('root', None)
             if ROOT_FIX[l]: w['root'] = ROOT_FIX[l]
         if l in FORM_FIX: w['he'] = FORM_FIX[l]
-        if verb and l in infinitives: w['inf'] = infinitives[l]
+        if verb and l in infinitives:
+            w['inf'] = infinitives[l]['form']
+            w['infType'] = infinitives[l]['type']
         # арамейское слово (Даниэль, Эзра): чаще всего встречается в арамейских главах
         if aram[l] * 2 > count[l]: w['aram'] = 1
         words.append(w)
@@ -440,7 +443,7 @@ def cmd_build():
     for w in words:
         covered += w['n']
         w['cov'] = round(covered / total * 100, 1)
-    head = {'source': 'Open Scriptures Hebrew Bible Project (CC BY 4.0); Strong’s Hebrew Dictionary and Brown–Driver–Briggs (Public Domain); infinitives from OSHB infinitive-construct morphology',
+    head = {'source': 'Open Scriptures Hebrew Bible Project (CC BY 4.0); Strong’s Hebrew Dictionary and Brown–Driver–Briggs (Public Domain); infinitives from OSHB morphology (construct preferred; absolute fallback)',
             'total': total, 'names': names, 'lemmas': len(count),
             # «все слова» — сколько слов (без имён, мест и надписей) в Пророках и Писаниях: порог сертификата «Раввин языка Танаха»
             'all': sum(1 for l in count if l not in SKIP)}
@@ -475,10 +478,15 @@ def cmd_infinitives():
     verbs = [w for w in data['words'] if w['pos'].split()[0] == 'v']
     for w in verbs:
         if w['id'] in forms:
-            w['inf'] = forms[w['id']]
+            w['inf'] = forms[w['id']]['form']
+            w['infType'] = forms[w['id']]['type']
         else:
             w.pop('inf', None)
-    OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
+            w.pop('infType', None)
+    # тот же вид, что у `build`: слово на строку — diff остаётся читаемым
+    words = data.pop('words')
+    body = ',\n'.join(json.dumps(w, ensure_ascii=False) for w in words)
+    OUT.write_text(json.dumps(data, ensure_ascii=False)[:-1] + ', "words": [\n' + body + '\n]}\n', encoding='utf-8')
     print(f"Infinitives: {sum(1 for w in verbs if 'inf' in w)} of {len(verbs)} verbs; missing: {sum(1 for w in verbs if 'inf' not in w)}")
 
 

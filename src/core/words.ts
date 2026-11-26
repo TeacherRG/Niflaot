@@ -23,7 +23,10 @@ export interface Word {
   id: string;
   /** основная форма с огласовками (Имена — как во всём проекте) */
   he: string;
-  /** инфинитив конструкта для глаголов, из корпуса Macula Hebrew */
+  /** Засвидетельствованный инфинитив из OSHB; тип нужен, чтобы различать construct и absolute. */
+  inf?: string;
+  infType?: 'infinitive-construct' | 'infinitive-absolute';
+  /** Совместимое поле для существующего интерфейса. */
   infinitive?: string;
   pos: string;
   /** сколько раз встречается в Пророках и Писаниях */
@@ -63,13 +66,10 @@ export function loadDict(lang: WordLang): Promise<Dict> {
     p = Promise.all([
       import('../tanakh/words.json'),
       import(`../tanakh/words/${lang}.json`),
-      fetch(`${root()}tanakh/words/infinitives.json`)
-        .then((r) => (r.ok ? (r.json() as Promise<Record<string, string>>) : {}))
-        .catch(() => ({})),
-    ]).then(([w, tr, infinitives]) => {
+    ]).then(([w, tr]) => {
       const { words, total } = w.default as { words: Word[]; total: number };
       for (const word of words) {
-        if (word.pos.split(/\s+/).includes('v') && infinitives[word.id]) word.infinitive = infinitives[word.id];
+        if (word.pos.split(/\s+/).includes('v') && word.inf) word.infinitive = word.inf;
       }
       return { words, total, rank: new Map(words.map((x, i) => [x.id, i + 1])), tr: tr.default as Record<string, string> };
     });
@@ -150,9 +150,15 @@ export const today = () => {
 export const boxOf = (s: WordStore, id: string) => s[id]?.[1] ?? 0;
 export const isKnown = (s: WordStore, id: string) => boxOf(s, id) >= KNOWN_BOX;
 export const inDeck = (s: WordStore, id: string) => boxOf(s, id) > 0;
+/**
+ * В колоде `niflaot:words` лежат и «Слова ґалахи» — с ключом `h:<слово>` (src/core/halachaWords.ts). Слово Танаха — номер
+ * Стронга без префикса: только такие идут в «Мои слова», сертификаты «N слов Танаха», план дня и напоминание.
+ */
+export const isTanakhWord = (id: string) => !id.includes(':');
+export const tanakhIds = (s: WordStore) => Object.keys(s).filter(isTanakhWord);
 /** слова, которые пора повторить сегодня (сначала — те, что ждут дольше) */
 export const dueWords = (s: WordStore, day = today()) =>
-  Object.keys(s)
+  tanakhIds(s)
     .filter((id) => s[id][1] > 0 && s[id][2] <= day)
     .sort((a, b) => s[a][2] - s[b][2]);
 
@@ -251,7 +257,7 @@ export function readWordStore(): WordStore {
   }
 }
 
-function put(id: string, box: number, due: number) {
+export function setWordEntry(id: string, box: number, due: number) {
   const s = readWordStore();
   s[id] = [Math.floor(Date.now() / 1000), box, due];
   try {
@@ -261,9 +267,9 @@ function put(id: string, box: number, due: number) {
   if (box > 0) markStudied();
 }
 /** «Знаю» — проверить через неделю; «Учу» — повторить сегодня; убрать из моих слов */
-export const markKnown = (id: string) => put(id, KNOWN_BOX, today() + INTERVALS[KNOWN_BOX]);
-export const markLearn = (id: string) => put(id, 1, today());
-export const unmark = (id: string) => put(id, 0, 0);
+export const markKnown = (id: string) => setWordEntry(id, KNOWN_BOX, today() + INTERVALS[KNOWN_BOX]);
+export const markLearn = (id: string) => setWordEntry(id, 1, today());
+export const unmark = (id: string) => setWordEntry(id, 0, 0);
 /**
  * итог повторения слова: вспомнил — следующая коробка, нет — снова коробка 1, завтра. `course` — и в «Святой язык — уроки»
  * (вспомнил — слово встречено сегодня, «Повторим» не спросит его раньше времени; нет — оно в «Трудных»); из самого курса — false:
@@ -280,8 +286,8 @@ export function review(id: string, remembered: boolean, course = true) {
   }
   if (remembered) {
     const next = Math.min(box + 1, INTERVALS.length - 1);
-    put(id, next, today() + INTERVALS[next]);
-  } else put(id, 1, today() + 1);
+    setWordEntry(id, next, today() + INTERVALS[next]);
+  } else setWordEntry(id, 1, today() + 1);
 }
 
 export function useWordStore(): WordStore {
@@ -314,7 +320,7 @@ export function reviewFromCourse(answers: Record<string, boolean>, s: WordStore 
     if (!right && s[id][1] >= KNOWN_BOX) {
       // «знаю» не сбрасывается одной ошибкой в уроке или игре (владелец, 10.11.2026: на главной крутились слова, отмеченные
       // «Знаю»): слово остаётся в «знаю» и ставится на проверку сегодня — решает карточка «Моих слов» («Помню» / «Не помню»)
-      if (s[id][2] > day) put(id, s[id][1], day);
+      if (s[id][2] > day) setWordEntry(id, s[id][1], day);
       continue;
     }
     review(id, right, false);
@@ -372,14 +378,14 @@ export const WORD_GOALS = [100, 300, 500, 1000, 1500, 2000, 2500, 3000, WORDS_AL
  * просто отмеченные. got — подтверждено (не больше вехи), done — «знаю» всего.
  */
 export const VERIFIED_BOX = 4;
-export const verifiedCount = (s: WordStore) => Object.values(s).filter((e) => e[1] >= VERIFIED_BOX).length;
+export const verifiedCount = (s: WordStore) => tanakhIds(s).filter((id) => s[id][1] >= VERIFIED_BOX).length;
 const W_NAME = (n: number) =>
   n === WORDS_ALL
     ? { ru: `все ${n} слов Пророков и Писаний`, en: `all ${n} words of the Prophets and Writings`, de: `alle ${n} Wörter der Propheten und Schriften` }
     : { ru: `${n} слов Танаха`, en: `${n} words of Tanakh`, de: `${n} Wörter des Tanach` };
 export function wordsCertificates(s: WordStore): (Certificate & { goal: number; progress: Progress })[] {
   const verified = verifiedCount(s);
-  const known = Object.values(s).filter((e) => e[1] >= KNOWN_BOX).length;
+  const known = tanakhIds(s).filter((id) => s[id][1] >= KNOWN_BOX).length;
   return WORD_GOALS.map((goal) => ({
     id: goal === WORDS_ALL ? 'w-all' : `w-${goal}`,
     kind: 'words' as const,

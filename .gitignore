@@ -6,3 +6,6 @@ __pycache__/
 *.tsbuildinfo
 /*.png
 telegram-card-*.png
+
+# единый словарь иврита — сборка (npm run build:hebrew-lexicon), в CI — артефакт
+/src/data/

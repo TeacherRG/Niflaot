@@ -9,7 +9,7 @@ import { rangeLabel, type Section } from './tanakhCycle';
 import { isDone, type DoneStore } from './academy';
 import { readDoneStore } from './tanakhDone';
 import { allPassages, hsIsDone, hsLang, passageDate, passageMinutes, readHsDone, todayIndex } from './hemshech';
-import { dueWords, inDeck, isKnown, readWordStore, todaysReview } from './words';
+import { dueWords, inDeck, isKnown, readWordStore, tanakhIds, todaysReview } from './words';
 import { bookRoadmap } from './milestones';
 import { civilDate } from './hebrewDate';
 import type { Course, CourseChoice } from './courses';
@@ -77,7 +77,7 @@ export function todayStudy(locale: string, choice: Pick<CourseChoice, 'pace' | '
   const k = hsNextIndex(choice.pace, readHsDone(), today);
   const p = k >= 0 ? allPassages()[k].p : undefined;
   const s = readWordStore();
-  const ids = Object.keys(s);
+  const ids = tanakhIds(s);
   const book = bookRoadmap('neviim', done, cycle, today).find((b) => b.status === 'now');
   return {
     date: day.date,

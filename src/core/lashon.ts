@@ -202,7 +202,7 @@ export const UNIT_BLOCK = 10;
 export function tanakhUnits(dict: Dict, verse: (id: string) => Verse | undefined = () => undefined, locale?: Locale): Unit[] {
   // the first `TRANSLIT_WORDS` words — with how they are read (shown in the lesson unless the player reads Hebrew)
   const items = dict.words
-    .filter((w) => dict.tr[w.id] && (!w.pos.split(/\s+/).includes('v') || !!w.infinitive))
+    .filter((w) => dict.tr[w.id])
     .map((w, i): Item => {
       const he = w.pos.split(/\s+/).includes('v') ? (w.infinitive ?? w.he) : w.he;
       return { key: w.id, he, tr: dict.tr[w.id], root: w.root, verse: verse(w.id), translit: locale && i < TRANSLIT_WORDS ? wordTranslit(he, locale) : undefined };
@@ -329,31 +329,6 @@ function build(item: Item, unit: Unit): Exercise | null {
   return { t: 'build', item, words: false, answer, tiles: shuffle([...answer, ...extra]) };
 }
 
-/**
- * «Составьте стих»: the translation of a short verse of the Prophets or Writings with the word → its Hebrew words in order;
- * one or two extra words from the other verses of the unit.
- */
-function verse(item: Item, unit: Unit): Exercise | null {
-  return item.verse ? verseEx(item.verse, unit, item) : null;
-}
-function verseEx(v: Verse, unit: Unit, word?: Item): Exercise {
-  const others = [...unit.items.flatMap((w) => w.verse ?? []), ...(unit.verses ?? [])].filter((x) => x !== v);
-  const extra = [...new Set(shuffle(others.flatMap((x) => x.words)).filter((x) => !v.words.includes(x)))].slice(0, v.words.length > 5 ? 1 : 2);
-  const item = word ?? { key: `verse:${v.ref}`, he: '', tr: '' };
-  return { t: 'build', item: { ...item, he: v.words.join(' '), tr: v.tr }, words: true, answer: v.words, tiles: shuffle([...v.words, ...extra]), verse: v, word };
-}
-/**
- * Every lesson of a unit that has verses gets one «Составьте стих»: a verse with a word of `prefer` (the new words), else
- * with any word of the unit, else (children) any short verse of the portion — without a «word of the lesson» hint.
- */
-function ensureVerse(ex: Exercise[], unit: Unit, prefer: Item[]) {
-  if (ex.some((x) => x.t === 'build' && x.verse)) return ex;
-  const it = shuffle(prefer).find((x) => x.verse) ?? shuffle(unit.items).find((x) => x.verse);
-  const v = it ? verseEx(it.verse!, unit, it) : unit.verses?.length ? verseEx(shuffle(unit.verses)[0], unit) : null;
-  if (v) ex.splice(Math.max(0, ex.length - 1), 0, v);
-  return ex;
-}
-
 /** a letter that looks like `c` (or any other), keeping c's vowel points */
 function gap(item: Item): Exercise | null {
   if (!tileable(item.he)) return null;
@@ -394,7 +369,7 @@ function lessonBody(unit: Unit, part: Item[] | null, hard: boolean): Exercise[] 
     // one verse with a new word — unless the lesson is already long (a short remainder joined it)
     const before = shuffle(unit.items.filter((it) => !part.includes(it))).slice(0, 2);
     before.forEach((it, i) => {
-      const x = pick(it, unit, i ? 'he' : 'tr');
+      const x = ex.length < 20 ? pick(it, unit, i ? 'he' : 'tr') : null;
       if (x) ex.splice(ex.length - 1, 0, x);
     });
     return ex;
