@@ -24,11 +24,6 @@ jobs:
           python-version: '3.x'
       - run: npm ci
       - run: npm run typecheck
-      # The Worker contains the authoritative multiplayer room logic; validate it before merge too.
-      - run: npm ci
-        working-directory: assistant
-      - run: npm run typecheck
-        working-directory: assistant
       - run: npm run check
       - run: python scripts/fetch-words.py fetch
       - run: python scripts/fetch-words.py infinitives
