@@ -240,7 +240,7 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
       if (role === 'host' && url.searchParams.get('key') === room.hostKey) tag = { role: 'host' };
       else if (role === 'player' && url.searchParams.get('ticket')) {
         const identity = await this.accountCall('consume', { ticket: url.searchParams.get('ticket'), room: room.code });
-        if (!identity?.ok || !validPid(identity.userId)) return new Response('forbidden', { status: 403 });
+        if (!identity?.ok || typeof identity.userId !== 'string' || !/^[A-Za-z0-9_-]{8,32}$/.test(identity.userId)) return new Response('forbidden', { status: 403 });
         tag = { role: 'player', pid: identity.userId, account: true };
       } else if (role === 'player' && validPid(url.searchParams.get('pid'))) tag = { role: 'player', pid: url.searchParams.get('pid')! };
       else return new Response('forbidden', { status: 403 });
@@ -271,7 +271,7 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
         }
       }
       if (m.t === 'end' && room.phase === 'playing') { finish(room); changed = true; }
-    } else if (tag?.role === 'player' && validPid(tag.pid)) {
+    } else if (tag?.role === 'player' && (tag.account ? /^[A-Za-z0-9_-]{8,32}$/.test(tag.pid) : validPid(tag.pid))) {
       if (m.t === 'hello') {
         const name = cleanName(m.name);
         if (!name) { ws.send(JSON.stringify({ error: 'name' })); return; }
