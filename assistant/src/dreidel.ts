@@ -178,6 +178,7 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
     const tag = ws.deserializeAttachment() as Tag | null;
     let m: { t?: string; name?: unknown };
     try { m = JSON.parse(message); } catch { return; }
+    if (!m || typeof m !== 'object') return;
     const now = Date.now();
     let changed = false;
     if (tag?.role === 'host') {
