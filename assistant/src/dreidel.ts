@@ -37,14 +37,15 @@ function publicView(room: Room, now: number, pid?: string) {
   return {
     code: room.code,
     phase: room.phase,
-    players: room.players.map(({ pid: id, name, coins }) => ({ id, name, coins })),
+    // Never publish player IDs: possession of a pid authorizes that player's WebSocket actions.
+    players: room.players.map(({ name, coins }) => ({ name, coins })),
     count: room.players.length,
     pot: room.pot,
     turn: current?.pid ?? null,
     turnName: current?.name ?? null,
     last: room.last ?? null,
     now,
-    me: me ? { id: me.pid, name: me.name, coins: me.coins, canSpin: room.phase === 'playing' && current?.pid === me.pid } : null,
+    me: me ? { name: me.name, coins: me.coins, canSpin: room.phase === 'playing' && current?.pid === me.pid } : null,
   };
 }
 
