@@ -147,7 +147,7 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
     const room = await this.load();
     if (room?.phase === 'playing') finish(room);
     if (room?.phase === 'final' && !(await this.settleRoom(room))) {
-      await this.ctx.storage.setAlarm(Date.now() + 60_000);
+      await this.save();
       return false;
     }
     for (const ws of this.ctx.getWebSockets()) {
@@ -313,7 +313,7 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
     if (!room || Date.now() - room.created < ROOM_TTL) return;
     if (room.phase === 'playing') finish(room);
     if (room.phase === 'final' && !(await this.settleRoom(room))) {
-      await this.ctx.storage.setAlarm(Date.now() + 60_000);
+      await this.save();
       return;
     }
     await this.wipe();
