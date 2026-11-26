@@ -47,7 +47,7 @@ function DreidelHome() {
 }
 
 function Status({ status, error }: { status: string; error?: string }) {
-  if (status === 'closed') return <p className="dreidel-error">{error === 'ticket' ? 'Не удалось подтвердить вход в аккаунт. Проверьте подключение и попробуйте снова.' : 'Комната закрыта или не найдена.'}</p>;
+  if (status === 'closed') return <p className="dreidel-error">{error === 'escrow' ? 'Аккаунтная игра пока не настроена на сервере. Можно войти гостем.' : error === 'ticket' ? 'Не удалось подтвердить вход в аккаунт. Проверьте подключение и попробуйте снова.' : 'Комната закрыта или не найдена.'}</p>;
   if (status !== 'open') return <p className="dreidel-muted">{status === 'lost' ? 'Связь прервалась, восстанавливаем…' : 'Подключаемся к комнате…'}</p>;
   if (error) return <p className="dreidel-error">{error === 'full' ? 'В комнате уже 30 игроков.' : error === 'started' ? 'Игра уже началась.' : error === 'balance' ? 'Не у всех участников есть 10 пеликоинов. Пополните баланс или создайте гостевую комнату.' : error === 'mode' ? 'Нельзя смешивать реальные пеликоины и виртуальные монеты. Создайте отдельную комнату для одного режима.' : error === 'escrow' ? 'Серверный кошелёк временно не настроен. Гости могут играть виртуальными монетами.' : error === 'ticket' ? 'Не удалось подтвердить вход в аккаунт. Попробуйте ещё раз.' : 'Введите имя.'}</p>;
   return null;
@@ -113,7 +113,7 @@ function DreidelPlayer({ code }: { code: string }) {
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({ room: code }),
       });
-      if (!response.ok) throw new Error('ticket');
+      if (!response.ok) throw new Error(response.status === 503 ? 'escrow' : 'ticket');
       const data = await response.json() as { ticket: string; name: string };
       return 'role=player&ticket=' + encodeURIComponent(data.ticket);
     }
