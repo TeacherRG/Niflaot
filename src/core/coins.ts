@@ -120,10 +120,11 @@ export function earn(kind: EarnKind | 'chest', id: string): boolean {
   if (!gameOn()) return false;
   const token = authToken();
   if (token) {
-    void walletPost('earn', { kind, id }, token).then(async (ok) => {
-      if (!ok) return;
-      const gained = kind === 'read' ? REWARD.read : kind === 'answer' ? REWARD.answer : REWARD.chest;
-      announce({ gained, chest: kind === 'chest' });
+    if (serverWalletToken !== token || !serverStore) return false;
+    void walletPost('earn', { kind, id }, token).then((result) => {
+      if (!result?.ok || result.duplicate || !result.gained) return;
+      const base = kind === 'read' ? REWARD.read : kind === 'answer' ? REWARD.answer : REWARD.chest;
+      announce({ gained: result.gained, doubled: result.gained > base, chest: kind === 'chest' });
     });
     return true;
   }
@@ -143,7 +144,7 @@ function openChest() {
   const h = habitStats(studyDates(), today);
   if (!chestDue(s, h.streak, h.today, today)) return;
   if (authToken()) {
-    earn('chest' as EarnKind, `chest:${today}`);
+    earn('chest', `chest:${today}`);
     return;
   }
   write(addChest(s, today));
