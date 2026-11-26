@@ -52,6 +52,7 @@ export function useGame(): boolean {
 
 export const readCoins = (): CoinStore => normCoins(parse(COINS_KEY));
 let serverStore: CoinStore | null = null;
+let serverWalletToken: string | null = null;
 async function refreshWallet(token: string): Promise<CoinStore | null> {
   if (!BASE) return null;
   try {
@@ -74,6 +75,7 @@ async function refreshWallet(token: string): Promise<CoinStore | null> {
       } else if (row.kind === 'buy' && row.ref) i[row.ref] = -row.amount;
     }
     serverStore = normCoins({ d, g, i });
+    serverWalletToken = token;
     window.dispatchEvent(new Event(COINS_EVENT));
     return serverStore;
   } catch { return null; }
@@ -91,7 +93,7 @@ async function walletPost(path: string, body: object, token: string): Promise<{ 
     return result;
   } catch { return null; }
 }
-const currentCoins = () => serverStore ?? readCoins();
+const currentCoins = () => (serverWalletToken === authToken() ? serverStore : null) ?? readCoins();
 
 function write(s: CoinStore) {
   try {
@@ -213,6 +215,7 @@ export async function loadPushka(token: string | null) {
 /** Give coins to the common box: they leave the balance at once; the server takes the gift now or at the next visit. */
 export function give(amount: number, cause: Cause, token: string | null): boolean {
   const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+  if (authToken() && serverWalletToken !== authToken()) return false;
   const s = giveCoins(currentCoins(), amount, cause, id, todayIso());
   if (!s) return false;
   if (!authToken()) write(s);
@@ -225,11 +228,13 @@ export function give(amount: number, cause: Cause, token: string | null): boolea
 /** The coins — re-read when something is earned or spent (this tab), in another tab, or brought by the account. */
 export function useCoins(): CoinStore {
   const { token, me } = useAccount();
-  const [s, set] = useState(() => serverStore ?? readCoins());
+  const [s, set] = useState(() => (token && serverWalletToken === token ? serverStore : null) ?? readCoins());
   useEffect(() => {
     let live = true;
-    if (token && me?.user.active) void refreshWallet(token).then((next) => { if (live && next) set(next); });
-    else { serverStore = null; set(readCoins()); }
+    if (token && me?.user.active) {
+      if (serverWalletToken !== token) { serverStore = null; serverWalletToken = token; set(normCoins(null)); }
+      void refreshWallet(token).then((next) => { if (live && next) set(next); });
+    } else { serverStore = null; serverWalletToken = null; set(readCoins()); }
     const on = () => set(serverStore ?? readCoins());
     window.addEventListener(COINS_EVENT, on);
     window.addEventListener('storage', on);
