@@ -187,13 +187,12 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
           if (!release?.ok) { player.escrowed = true; pending = true; }
           else player.escrowed = false;
         }
-        if (pending) {
-          room.players.forEach((player) => { player.coins = 10; });
-          room.pot = 0;
-          room.phase = 'final';
-          room.settled = false;
-          await this.save();
-        }
+        room.players.forEach((player) => { player.coins = 10; });
+        room.pot = 0;
+        // A failed start closes this room so a later retry cannot collide with already-settled reservations.
+        room.phase = 'final';
+        room.settled = !pending;
+        await this.save();
         return false;
       }
       p.escrowed = true;
