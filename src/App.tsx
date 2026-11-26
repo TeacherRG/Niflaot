@@ -80,6 +80,7 @@ const RambamDeck = page(() => import('./components/RambamDeck'), 'RambamDeck');
 const HalachaWordsPage = page<'HalachaWordsPage', object>(() => import('./components/HalachaWordsPage'), 'HalachaWordsPage');
 const AcademyPage = page(() => import('./components/AcademyPage'), 'AcademyPage');
 const QuizPage = page(() => import('./components/QuizPage'), 'QuizPage');
+const DreidelPage = page(() => import('./components/DreidelPage'), 'DreidelPage');
 const NigunPage = page(() => import('./components/NigunPage'), 'NigunPage');
 const ShabbatTable = page(() => import('./components/ShabbatTable'), 'ShabbatTable');
 const WeekDigest = page(() => import('./components/WeekDigest'), 'WeekDigest');
@@ -283,6 +284,8 @@ function Site() {
             <EnglishCoursePage key={slug} target={slug === 'russian' ? 'ru' : slug === 'german' ? 'de' : 'en'} />
           ) : slug === 'torah-words' ? (
             <TorahWordsPage key={route} parsha={view || undefined} />
+          ) : slug === 'dreidel' ? (
+            <DreidelPage code={view === 'host' ? variant : view} host={view === 'host'} />
           ) : slug === 'quiz' ? (
             <QuizPage code={view === 'host' ? variant : view} host={view === 'host'} />
           ) : slug === 'nigun' && (NIGUN_PUBLIC || isAdmin()) ? (
