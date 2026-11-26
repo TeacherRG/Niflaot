@@ -25,6 +25,7 @@ import { PushHub } from './push';
 import { Accounts, type MailEnv } from './accounts';
 import { QuizRoom, quizRoute, type QuizEnv } from './quiz';
 import { GeminiGate, Narrator, ttsRoute, type TtsEnv } from './tts';
+import { analyticsRoute } from './analytics';
 
 export { PushHub, Accounts, QuizRoom, Narrator, GeminiGate };
 
@@ -205,6 +206,11 @@ export default {
     const headers = cors(req.headers.get('Origin'), env);
     if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers });
     const path = new URL(req.url).pathname;
+    if (path === '/admin/analytics') {
+      if (!originOk(req.headers.get('Origin'), env)) return new Response('Forbidden', { status: 403, headers });
+      const r = await analyticsRoute(req, env);
+      return new Response(r.body, { status: r.status, headers: { ...headers, 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ...Object.fromEntries(r.headers) } });
+    }
     if (path.startsWith('/push/')) return pushRoute(req, env, path.slice(5), headers);
     if (path.startsWith('/account/')) return accountRoute(req, env, path.slice(8), headers);
     if (path.startsWith('/tts/'))
