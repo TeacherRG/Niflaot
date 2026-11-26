@@ -23,10 +23,13 @@ export interface Word {
   id: string;
   /** основная форма с огласовками (Имена — как во всём проекте) */
   he: string;
-  /** Засвидетельствованный инфинитив из OSHB; тип нужен, чтобы различать construct и absolute. */
+  /**
+   * Словарный инфинитив глагола с ל — לִשְׁמֹר, לְדַבֵּר, לָתֵת (у слов с переводом-глаголом; scripts/hebrew_infinitive.py):
+   * форма Танаха того же биньяна, а если её в Танахе нет — по грамматике, тогда `infTanakh: 0` (значок перечёркнутой книги).
+   */
   inf?: string;
-  infType?: 'infinitive-construct' | 'infinitive-absolute';
-  /** Совместимое поле для существующего интерфейса. */
+  infTanakh?: 0;
+  /** то же, что `inf` (так его читают страницы) */
   infinitive?: string;
   pos: string;
   /** сколько раз встречается в Пророках и Писаниях */
@@ -58,6 +61,11 @@ export type DayWords = Record<Section, { n: number; w: Record<string, number>; v
 /** сколько слов отрывка предлагать в день */
 export const PER_DAY = 5;
 
+/** Словарная форма слова: у глагола — инфинитив (владелец, 26.11.2026: «на русском и немецком инфинитив — значит и на иврите»). */
+export const headOf = (w: Pick<Word, 'he' | 'inf' | 'infinitive'>) => w.infinitive ?? w.inf ?? w.he;
+/** инфинитив построен по грамматике — такой формы в Танахе нет */
+export const notInTanakh = (w: Pick<Word, 'inf' | 'infTanakh'>) => !!w.inf && w.infTanakh === 0;
+
 const dicts = new Map<WordLang, Promise<Dict>>();
 /** Словарь и переводы — отдельным куском кода, только на странице отрывка. */
 export function loadDict(lang: WordLang): Promise<Dict> {
@@ -69,7 +77,7 @@ export function loadDict(lang: WordLang): Promise<Dict> {
     ]).then(([w, tr]) => {
       const { words, total } = w.default as { words: Word[]; total: number };
       for (const word of words) {
-        if (word.pos.split(/\s+/).includes('v') && word.inf) word.infinitive = word.inf;
+        if (word.inf) word.infinitive = word.inf;
       }
       return { words, total, rank: new Map(words.map((x, i) => [x.id, i + 1])), tr: tr.default as Record<string, string> };
     });
@@ -347,7 +355,9 @@ export function coverage(day: DayWords[Section], known: WordStore): number {
 }
 
 /** Следующие самые частые переведённые слова, которых нет в «Моих словах». */
-export const nextWords = (dict: Dict, s: WordStore, n = PER_DAY) => dict.words.filter((w) => dict.tr[w.id] && !inDeck(s, w.id)).slice(0, n);
+export const nextWords = (dict: Dict, s: WordStore, n = PER_DAY) => studyOrder(dict.words).filter((w) => dict.tr[w.id] && !inDeck(s, w.id)).slice(0, n);
+/** порядок учёбы: по частоте, арамейские слова (Даниэль, Эзра) — в конце (владелец, 26.11.2026) */
+export const studyOrder = <T extends { aram?: number }>(words: T[]) => [...words.filter((w) => !w.aram), ...words.filter((w) => w.aram)];
 
 /** Words of «Мои слова» not learned yet («учу», boxes 1–2): due today first, then the rest by the day of their review. */
 export function unlearnedWords(dict: Dict, s: WordStore): string[] {

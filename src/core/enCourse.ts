@@ -18,6 +18,7 @@
  * browser's voice of that language; progress — `niflaot:ru-course`, `niflaot:de-course`.
  */
 import { localToday } from './tanakh';
+import { headOf, studyOrder } from './words';
 import { markStudied } from './habit';
 
 export type Target = 'en' | 'ru' | 'de';
@@ -168,7 +169,9 @@ export function mainMeaning(tr: string): string | null {
 
 export const WORD_LEVEL = 50;
 /** levels of the word track (50 dictionary words each, by frequency); words without a plain English meaning are skipped */
-export function wordUnits(words: { id: string; he: string }[], tr: Record<string, string>): EnUnit[] {
+export function wordUnits(all: { id: string; he: string; inf?: string; aram?: number }[], tr: Record<string, string>): EnUnit[] {
+  // глагол — инфинитивом, арамейские слова — в конце (как в «Святом языке»)
+  const words = studyOrder(all).map((w) => ({ id: w.id, he: headOf(w) }));
   const units: EnUnit[] = [];
   for (let at = 0; at < words.length; at += WORD_LEVEL) {
     const slice = words.slice(at, at + WORD_LEVEL);

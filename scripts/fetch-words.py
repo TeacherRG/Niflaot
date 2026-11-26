@@ -362,43 +362,98 @@ def tokens():
     return by, names, aram
 
 
-def infinitive_forms():
-    """номер Стронга → засвидетельствованная словарная форма инфинитива (сначала инфинитив конструкт)."""
-    forms = collections.defaultdict(collections.Counter)
+# ручные поправки словарного инфинитива (номер → форма): редкие биньяны, причастия и пуал в заголовке, формы Танаха, которые
+# не годятся в словарь (пауза, сокращения хифиля). Есть ли форма в Танахе — проверяется само.
+INF_FIX = {
+    '3372': 'לִירֹא', '5401': 'לִנְשֹׁק', '2552': 'לָחֹם', '7286': 'לָרֹד', '8041': 'לְהַשְׂמְאִיל', '3231': 'לְהֵימִין',
+    '1970': 'לְהַהְכִּיר', '8428': 'לְהַתְווֹת', '4549': 'לְהִמֵּס', '4102': 'לְהִתְמַהְמֵהַּ', '1933': 'לַהֲוֹת',
+    '943': 'לְהִבּוֹךְ', '225': 'לְהֵאוֹת', '5783': 'לְהֵעוֹר', '5953': 'לְעוֹלֵל', '6850': 'לְצַפְצֵף', '3769': 'לְכַרְכֵּר',
+    '2237': 'לְזוֹרֵר', '7082': 'לְקוֹסֵס', '5605': 'לְהִסְתּוֹפֵף', '7444': 'לְרַנֵּן', '8591': 'לְהִתַּעְתֵּעַ', '6351': 'לְהָפֵחַ',
+    '4743': 'לְהִמַּק', '2425': 'לִחְיוֹת', '3032': 'לִידֹּד', '2986': 'לְהוּבַל', '8311': 'לְהִשְׂתָּרֵעַ', '8637': 'לְתַרְגֵּל',
+    '6188': 'לְהֵעָרֵל', '7734': 'לְהִסּוֹג', '7735': 'לְשַׂגְשֵׂג', '2589': 'לָחֹן', '7322': 'לְרוֹפֵף', '7375': 'לְרַטְפֵּשׁ',
+    '8638': 'לְתַרְגֵּם', '7773': 'לְשַׁוֵּעַ', '3856': 'לְהִתְלַהְלֵהַּ',
+    # арамейский шафель и особые формы
+    '7804': 'לְשֵׁיזָבָה', '3319': 'לְשֵׁיצָאָה', '8429': 'לְמִתְוַהּ',
+    # перевод — по пиэлю («благословить»); форма Танаха
+    '1288': 'לְבָרֵךְ', '4390': 'לִמְלֹאת',
+}
+
+
+def infinitive_forms(words):
+    """номер → (словарный инфинитив, есть ли он в Танахе) — у глаголов с переводом-глаголом; правила — scripts/hebrew_infinitive.py"""
+    import hebrew_infinitive as hi
+    ru = json.loads((TR / 'ru.json').read_text(encoding='utf-8'))
+    verbs = {w['id']: w for w in words if w['pos'].split()[0] == 'v' and hi.is_verb_translation(ru.get(w['id']))}
+    stem = collections.defaultdict(collections.Counter)
+    found = collections.defaultdict(collections.Counter)      # (номер, язык+биньян) → форма с ל
     W = re.compile(r'<w lemma="([^"]*)"[^>]*?morph="([^"]*)"[^>]*>([^<]*)</w>')
-    # OSHB: V[биньян]c — infinitive construct; V[биньян]a — infinitive absolute.
     for b in (*TORAH_BOOKS, *BOOKS):
         for m in W.finditer((CACHE / 'wlc' / f'{b}.xml').read_text(encoding='utf-8')):
             ids = [p for p in m[1].split('/') if re.match(r'\d', p)]
             if not ids:
                 continue
-            morphs = re.sub(r'^[HA]', '', m[2]).split('/')
-            verb = next((p for p in reversed(morphs) if p.startswith('V')), '')
-            if len(verb) < 3 or verb[2] not in ('c', 'a'):
+            l = re.match(r'\d+', ids[-1])[0]
+            l = MERGE.get(l, l)
+            if l not in verbs:
                 continue
-            lemma = re.match(r'\d+', ids[-1])[0]
-            lemma = MERGE.get(lemma, lemma)
-            # Сохраняем огласовки, убираем только кантилляцию и разделители морфем.
-            word_parts = m[3].split('/')
-            suffixes = sum(1 for p in morphs if p.startswith('S'))
-            if suffixes:
-                word_parts = word_parts[:-suffixes]
-            form = re.sub(r'[\u0591-\u05AF\u05BD\u05C0\u05C3/]', '', ''.join(word_parts))
-            if not form:
+            morphs, parts = m[2][1:].split('/'), m[3].split('/')
+            vi = [i for i, p in enumerate(morphs) if p.startswith('V')]
+            if not vi or len(parts) != len(morphs):
                 continue
-            prefixes = [p for p in m[1].split('/')[:-1] if re.fullmatch(r'[a-z]', p)]
-            kind = verb[2]
-            priority = 2 if kind == 'c' and prefixes and 'l' in prefixes else 1 if kind == 'c' and not prefixes else 0
-            forms[lemma][(kind, priority, form)] += 1
+            v, key = morphs[vi[0]], m[2][0] + morphs[vi[0]][1]
+            stem[l][key] += 1
+            # инфинитив конструкт без окончания-местоимения (перед окончанием огласовка другая)
+            if len(v) > 2 and v[2] == 'c' and vi[0] == len(morphs) - 1:
+                pre = ''.join(parts[:vi[0]])
+                found[(l, key)][(hi.with_l(pre, parts[vi[0]]), 'ל' in pre)] += 1
     out = {}
-    for lemma, candidates in forms.items():
-        constructs = [(k, p, form, n) for (k, p, form), n in candidates.items() if k == 'c']
-        pool = constructs or [(k, p, form, n) for (k, p, form), n in candidates.items()]
-        if pool:
-            priority = max(x[1] for x in pool)
-            chosen = max((x for x in pool if x[1] == priority), key=lambda x: x[3])
-            out[lemma] = {'form': chosen[2], 'type': 'infinitive-construct' if chosen[0] == 'c' else 'infinitive-absolute'}
+    for l, w in verbs.items():
+        if w.get('aram') and l in INF_FIX:
+            out[l] = (INF_FIX[l], 0)
+            continue
+        if w.get('aram'):
+            # арамейский: форма Даниэля / Эзры с ל (любой биньян — у «найти» это хафель), иначе — פְּעַל
+            c = collections.Counter()
+            for (ll, key), forms in found.items():
+                if ll == l and key[0] == 'A':
+                    for (f, with_l), n in forms.items():
+                        if with_l: c[f] += n
+            out[l] = (c.most_common(1)[0][0], 1) if c else (hi.aramaic(w), 0)
+            continue
+        b = hi.binyan(w['he'], stem[l])
+        gen = hi.generate(w, b)
+        same_b = collections.Counter()
+        for (ll, key), forms in found.items():
+            if ll == l and key[0] == 'H' and key[1] in hi.CODES[b]:
+                for (f, with_l), n in forms.items():
+                    # женские формы (לְאַהֲבָה, לְיִרְאָה) и сокращённый хифиль без ה (לַסְתִּר) — не словарные
+                    if with_l and not hi.nfc(f).endswith('ה') and not (b == 'hiph' and not f.startswith('לְה')):
+                        same_b[f] += n
+        alltanakh = [f for (ll, key), forms in found.items() if ll == l for (f, _) in forms]
+        if l in INF_FIX:
+            f = INF_FIX[l]
+            out[l] = (f, int(any(hi.same(f, x) for x in alltanakh)))
+            continue
+        elif same_b:
+            # самая частая форма Танаха с ל (לֵאמֹר, לָתֵת, לָלֶכֶת); та же, что по правилу, — в обычном написании
+            top = same_b.most_common(1)[0][0]
+            out[l] = (gen if hi.same(gen, top) else top, 1)
+        elif any(hi.same(gen, f) for (ll, key), forms in found.items() if ll == l and key[0] == 'H' and key[1] in hi.CODES[b]
+                 for (f, _) in forms):
+            out[l] = (gen, 1)
+        else:
+            out[l] = (gen, 0)
     return out
+
+
+def set_infinitives(words):
+    forms = infinitive_forms(words)
+    for w in words:
+        w.pop('inf', None); w.pop('infType', None); w.pop('infTanakh', None)
+        if w['id'] in forms:
+            w['inf'], seen = forms[w['id']]
+            if not seen: w['infTanakh'] = 0
+    return forms
 
 
 FINAL = str.maketrans('ךםןףץ', 'כמנפצ')
@@ -415,7 +470,6 @@ def cmd_build():
     lex = lexicon()
     bdb = bdb_roots()
     by, names, aram = tokens()
-    infinitives = infinitive_forms()
     count = collections.Counter(l for ls in by.values() for l in ls)
     total = sum(count.values())
     ranked = [l for l, _ in count.most_common() if l not in SKIP][:SIZE]
@@ -433,17 +487,15 @@ def cmd_build():
             w.pop('root', None)
             if ROOT_FIX[l]: w['root'] = ROOT_FIX[l]
         if l in FORM_FIX: w['he'] = FORM_FIX[l]
-        if verb and l in infinitives:
-            w['inf'] = infinitives[l]['form']
-            w['infType'] = infinitives[l]['type']
         # арамейское слово (Даниэль, Эзра): чаще всего встречается в арамейских главах
         if aram[l] * 2 > count[l]: w['aram'] = 1
         words.append(w)
+    set_infinitives(words)
     covered = 0
     for w in words:
         covered += w['n']
         w['cov'] = round(covered / total * 100, 1)
-    head = {'source': 'Open Scriptures Hebrew Bible Project (CC BY 4.0); Strong’s Hebrew Dictionary and Brown–Driver–Briggs (Public Domain); infinitives from OSHB morphology (construct preferred; absolute fallback)',
+    head = {'source': 'Open Scriptures Hebrew Bible Project (CC BY 4.0); Strong’s Hebrew Dictionary and Brown–Driver–Briggs (Public Domain); dictionary infinitives: OSHB forms of the headword binyan, else by grammar (infTanakh: 0)',
             'total': total, 'names': names, 'lemmas': len(count),
             # «все слова» — сколько слов (без имён, мест и надписей) в Пророках и Писаниях: порог сертификата «Раввин языка Танаха»
             'all': sum(1 for l in count if l not in SKIP)}
@@ -465,29 +517,20 @@ def cmd_build():
         n += 1
     cmd_examples(ranked)
     cmd_parse(lex)
-    missing_inf = [w['id'] for w in words if w['pos'].split()[0] == 'v' and 'inf' not in w]
-    verbs = sum(1 for w in words if w['pos'].split()[0] == 'v')
-    print(f'Infinitives: {verbs - len(missing_inf)} of {verbs} verbs; missing: {len(missing_inf)}')
+    print(f"Infinitives: {sum(1 for w in words if 'inf' in w)} verbs, {sum(1 for w in words if w.get('infTanakh') == 0)} by grammar")
     print(f'{total} words ({len(count)} lemmas, {names} names); top {SIZE} cover {words[-1]["cov"]}%; {n} days → {OUT_DAYS}')
 
 
 def cmd_infinitives():
     """обновить только словарные инфинитивы в src/tanakh/words.json, не пересобирая переводы и примеры."""
-    forms = infinitive_forms()
     data = json.loads(OUT.read_text(encoding='utf-8'))
-    verbs = [w for w in data['words'] if w['pos'].split()[0] == 'v']
-    for w in verbs:
-        if w['id'] in forms:
-            w['inf'] = forms[w['id']]['form']
-            w['infType'] = forms[w['id']]['type']
-        else:
-            w.pop('inf', None)
-            w.pop('infType', None)
-    # тот же вид, что у `build`: слово на строку — diff остаётся читаемым
     words = data.pop('words')
+    forms = set_infinitives(words)
+    # тот же вид, что у `build`: слово на строку — diff остаётся читаемым
     body = ',\n'.join(json.dumps(w, ensure_ascii=False) for w in words)
     OUT.write_text(json.dumps(data, ensure_ascii=False)[:-1] + ', "words": [\n' + body + '\n]}\n', encoding='utf-8')
-    print(f"Infinitives: {sum(1 for w in verbs if 'inf' in w)} of {len(verbs)} verbs; missing: {sum(1 for w in verbs if 'inf' not in w)}")
+    seen = sum(1 for f, s in forms.values() if s)
+    print(f'Infinitives: {len(forms)} verbs — {seen} as in Tanakh, {len(forms) - seen} by grammar (infTanakh: 0)')
 
 
 NORM = str.maketrans('ק', 'ה')

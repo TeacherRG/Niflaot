@@ -811,7 +811,7 @@ function wordsPage(lang: 'ru' | 'en' | 'de', ui: Ui): Page {
     const rows = ws
       .map(
         (w, k) =>
-          `<tr><td>${i + k + 1}</td><td class="he">${w.he}</td><td>${esc(tr[w.id])}</td><td class="he">${w.root ?? ''}</td><td>${w.n}</td></tr>`,
+          `<tr><td>${i + k + 1}</td><td class="he">${(w as { inf?: string }).inf ?? w.he}</td><td>${esc(tr[w.id])}</td><td class="he">${w.root ?? ''}</td><td>${w.n}</td></tr>`,
       )
       .join('');
     levels.push(

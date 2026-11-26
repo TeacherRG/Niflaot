@@ -4426,3 +4426,9 @@ html.rm-focus .rm-split:not(.solo) .rm-tools>:not(.rm-focus-btn){display:none}
 .sd-fullscreen-exit{display:none;align-items:center;justify-content:center;width:34px;height:34px;min-width:34px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--ink);font-size:15px;font-weight:700;cursor:pointer;touch-action:manipulation}
 .shacharit-page:fullscreen>.sd-fullscreen-exit,.shacharit-page.sd-fullscreen-fallback>.sd-fullscreen-exit{display:inline-flex;position:fixed;z-index:101;top:max(10px,env(safe-area-inset-top));right:max(10px,env(safe-area-inset-right));left:auto;bottom:auto;box-shadow:0 2px 10px #0003}
 .sd-fullscreen-exit:focus-visible{outline:2px solid var(--tchelet);outline-offset:2px}
+
+/* перечёркнутая книга: словарный инфинитив построен по грамматике — такой формы в Танахе нет (NoTanakh.tsx) */
+.no-tanakh{display:inline-flex;align-items:center;vertical-align:middle;margin-inline:.3em;color:var(--muted-2);font-size:.85rem;line-height:1;cursor:help;flex:none}
+.no-tanakh svg{display:block}
+.ln-prompt .no-tanakh{font-size:1.1rem}
+@media print{.no-tanakh{color:#666}}

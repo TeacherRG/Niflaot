@@ -21,7 +21,7 @@ import { todayIso, useHabit } from '../core/habit';
 import { Dedication } from './Dedication';
 import { NUMS, collectFacts, type Fact } from '../core/facts';
 import { displayNames } from '../core/names';
-import { loadDict, nextWords, today, unlearnedWords, useWordStore, type Dict, type WordLang } from '../core/words';
+import { headOf, loadDict, nextWords, today, unlearnedWords, useWordStore, type Dict, type WordLang } from '../core/words';
 import { certName, hebFinals, hebGuess, hebOnly, readMyName, saveMyName, SEFARIA_BOOKS, versesFor, type MyName, type MyVerses, type Verse } from '../core/myVerse';
 
 /**
@@ -282,7 +282,7 @@ function WordsTicker({ head }: { head: ReactNode }) {
       <li key={`${copy ? 'b' : 'a'}${k}`} aria-hidden={copy || k >= ids.length || undefined}>
         <a href={`#/words/${id}`} tabIndex={copy || k >= ids.length ? -1 : undefined}>
           <span className="he" dir="rtl">
-            {w.he}
+            {headOf(w)}
           </span>
           <span className="a-tick-g">
             {dict!.tr[id]}

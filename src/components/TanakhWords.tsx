@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n';
 import type { Section } from '../core/tanakhCycle';
 import { BOOKS } from '../core/tanakhCycle';
-import { boxOf, coverage, KNOWN_BOX, knownCount, loadDayWords, loadDict, markKnown, markLearn, pickWords, readWordStore, unmark, useWordStore, type DayWords, type Dict, type Example, type Word, type WordLang, type WordStore } from '../core/words';
+import { boxOf, coverage, headOf, KNOWN_BOX, knownCount, loadDayWords, loadDict, markKnown, markLearn, notInTanakh, pickWords, readWordStore, unmark, useWordStore, type DayWords, type Dict, type Example, type Word, type WordLang, type WordStore } from '../core/words';
+import { NoTanakh } from './NoTanakh';
 
 /**
  * «Слова отрывка» под отрывком дня (src/core/words.ts): сколько процентов слов отрывка игрок узнаёт и до пяти самых
@@ -76,8 +77,9 @@ export function WordRow({ w, dict, store, here, compact, ex }: { w: Word; dict: 
   return (
     <li className={`tk-w${known ? ' on' : learning ? ' learn' : ''}${compact ? ' compact' : ''}`}>
       <span className="he tk-w-he" lang="he">
-        {w.pos.split(/\s+/).includes('v') ? (w.infinitive ?? '—') : w.he}
+        {headOf(w)}
       </span>
+      <NoTanakh show={notInTanakh(w)} />
       <span className="tk-w-tr">{dict.tr[w.id]}</span>
       <small className="tk-w-meta">
         {w.root && (

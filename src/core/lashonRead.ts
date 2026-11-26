@@ -9,7 +9,7 @@
  * У элемента части: `tr` — название знака / чтение слога или слова, `sound` — звук знака, `mean` — перевод слова.
  */
 import type { Locale } from '../i18n/config';
-import type { Dict } from './words';
+import { headOf, notInTanakh, type Dict } from './words';
 import type { Item, Unit } from './lashon';
 import { readHebrew, type ReadLang } from './translit';
 
@@ -145,9 +145,9 @@ export const RW_SIZE = 12;
 const RW_SKIP = new Set(['430', '3068', '410', '136', '3605', '3478', '3063']);
 export function readWordUnits(dict: Dict, locale: Locale): Unit[] {
   const ok = dict.words
-    .filter((w) => dict.tr[w.id] && !RW_SKIP.has(w.id) && (!w.pos.split(/\s+/).includes('v') || !!w.infinitive) && /^[א-תְ-ּׁׂ]+$/.test(w.pos.split(/\s+/).includes('v') ? w.infinitive! : w.he))
+    .filter((w) => dict.tr[w.id] && !RW_SKIP.has(w.id) && !w.aram && !notInTanakh(w) && /^[א-תְ-ּׁׂ]+$/.test(headOf(w)))
     .map((w) => {
-      const he = w.pos.split(/\s+/).includes('v') ? (w.infinitive ?? w.he) : w.he;
+      const he = headOf(w);
       return { w: { ...w, he }, syl: syllables(he), read: readHebrew(he, lang(locale)) };
     })
     // a «furtive» patach at the end (רוּחַ — ruach) is read before its letter: not a word to build by syllables

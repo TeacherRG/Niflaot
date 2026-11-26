@@ -26,7 +26,7 @@ import { civilDate, jewishDate } from '../src/core/hebrewDate';
 import { routeLink, SITE_URL } from '../src/core/site';
 import { miniAppLink } from '../src/core/telegram';
 import { deliverNewsletter, newsletterEnabled, plainNewsletterText } from './newsletter';
-import { wordOfDay, type DayWords, type Word } from '../src/core/words';
+import { headOf, wordOfDay, type DayWords, type Word } from '../src/core/words';
 import WORDS from '../src/tanakh/words.json';
 import ru from '../src/i18n/locales/ru';
 import en from '../src/i18n/locales/en';
@@ -110,7 +110,7 @@ function post(loc: Loc): string {
   if (w)
     lines.push(
       '',
-      `🔤 <b>${html(t(loc, 'words.post'))}:</b> ${w.he} — ${html(wtr[w.id])}`,
+      `🔤 <b>${html(t(loc, 'words.post'))}:</b> ${headOf(w)} — ${html(wtr[w.id])}`,
       `${w.root ? `${html(t(loc, 'words.root'))} ${w.root} · ` : ''}${html(t(loc, 'words.count', { n: w.n }))}`,
       `👉 ${html(routeLink('words', 'channel', loc))}`,
     );
