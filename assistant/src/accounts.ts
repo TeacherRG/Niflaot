@@ -614,6 +614,7 @@ export class Accounts extends DurableObject<MailEnv> {
 
     if (path === '/dreidel-ticket') {
       if (!active(u)) return fail('pending', 403);
+      if (!this.env.DREIDEL_INTERNAL_SECRET) return fail('escrow', 503);
       const room = body!.room;
       if (typeof room !== 'string' || !/^[A-Z0-9]{5}$/.test(room)) return fail('room');
       const ticket = random(24);
