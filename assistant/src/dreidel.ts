@@ -22,7 +22,7 @@ type Room = {
   last?: Spin;
   settled?: boolean;
 };
-type Tag = { role: 'host' } | { role: 'player'; pid: string; account?: boolean };
+type Tag = { role: 'host' } | { role: 'player'; pid: string; account?: boolean; name?: string };
 
 export interface DreidelEnv {
   DREIDEL: DurableObjectNamespace<DreidelRoom>;
@@ -172,6 +172,7 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
   private async startRoom(room: Room): Promise<boolean> {
     if (room.phase !== 'lobby' || room.players.length < 2) return false;
     const accounts = room.players.filter((p) => p.accountId);
+    if (accounts.length > 0 && accounts.length !== room.players.length) return false;
     if (accounts.length && !this.env.DREIDEL_INTERNAL_SECRET) return false;
     for (const p of accounts) {
       const result = await this.accountCall('reserve', { userId: p.accountId, room: room.code });
@@ -241,7 +242,7 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
       else if (role === 'player' && url.searchParams.get('ticket')) {
         const identity = await this.accountCall('consume', { ticket: url.searchParams.get('ticket'), room: room.code });
         if (!identity?.ok || typeof identity.userId !== 'string' || !/^[A-Za-z0-9_-]{8,32}$/.test(identity.userId)) return new Response('forbidden', { status: 403 });
-        tag = { role: 'player', pid: identity.userId, account: true };
+        tag = { role: 'player', pid: identity.userId, account: true, name: identity.name };
       } else if (role === 'player' && validPid(url.searchParams.get('pid'))) tag = { role: 'player', pid: url.searchParams.get('pid')! };
       else return new Response('forbidden', { status: 403 });
       const pair = new WebSocketPair();
@@ -273,13 +274,18 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
       if (m.t === 'end' && room.phase === 'playing') { finish(room); changed = true; }
     } else if (tag?.role === 'player' && (tag.account ? /^[A-Za-z0-9_-]{8,32}$/.test(tag.pid) : validPid(tag.pid))) {
       if (m.t === 'hello') {
-        const name = cleanName(m.name);
+        const name = cleanName(tag.account ? tag.name : m.name);
         if (!name) { ws.send(JSON.stringify({ error: 'name' })); return; }
         const existing = room.players.find((p) => p.pid === tag.pid);
         if (existing) {
           if (room.phase === 'lobby') existing.name = name;
           changed = true;
         } else if (room.phase === 'lobby' && room.players.length < 30) {
+          const existingAccountMode = room.players.some((p) => !!p.accountId);
+          if (room.players.length && existingAccountMode !== !!tag.account) {
+            ws.send(JSON.stringify({ error: 'mode' }));
+            return;
+          }
           room.players.push({ pid: tag.pid, name, coins: 10, ...(tag.account ? { accountId: tag.pid } : {}) });
           changed = true;
         } else {
