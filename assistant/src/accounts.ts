@@ -556,7 +556,7 @@ export class Accounts extends DurableObject<MailEnv> {
         "SELECT COALESCE(SUM(-amount), 0) AS n FROM wallet_ledger WHERE user = ? AND kind = 'give'", u.id,
       )?.n ?? 0;
       const earnedToday = this.one<{ n: number }>(
-        "SELECT COUNT(*) AS n FROM wallet_ledger WHERE user = ? AND kind LIKE 'earn:%' AND at >= ?", u.id, dayStart,
+        "SELECT COUNT(*) AS n FROM wallet_ledger WHERE user = ? AND kind IN ('earn:read', 'earn:answer') AND at >= ?", u.id, dayStart,
       )?.n ?? 0;
       const doubled = kind !== 'chest' && earnedToday === 0 && earned > 0 && given >= Math.ceil(earned / 10);
       const amount = baseAmount * (doubled ? 2 : 1);
