@@ -26,8 +26,8 @@ import { certName, hebFinals, hebGuess, hebOnly, readMyName, saveMyName, SEFARIA
 
 /**
  * «Игры» (owner, 09.11.2026: «плитку переименуй в игры и свайпом сделай выбор игры»): one tile, the games side by side —
- * swipe (scroll-snap) or the dots; «Zip — стих Торы» (#/zip) and «Лоскуты гематрии» (#/patches), each with the level of the
- * next puzzle or ✓ for today. It opens on the first game not played today. `adults` — the book-like tile of the adults' home.
+ * swipe (scroll-snap) or the dots; «Zip — стих Торы» (#/zip), «Лоскуты гематрии» (#/patches) and «Дрейдл» (#/dreidel).
+ * It opens on the first game not played today. `adults` — the book-like tile of the adults' home.
  */
 function GamesTile({ adults = false }: { adults?: boolean }) {
   const { t } = useI18n();
@@ -44,6 +44,7 @@ function GamesTile({ adults = false }: { adults?: boolean }) {
   const games = [
     { href: '#/zip', name: 'Zip', he: 'פָּסוּק', icon: '🧩', sub: t(z.today ? 'home.zipDone' : 'home.zipNew', { n: z.l }), done: z.today },
     { href: '#/patches', name: t('patches.short'), he: 'טְלָאִים', icon: '🟩', sub: t(p.today ? 'home.patchesDone' : 'home.patchesNew', { n: p.l }), done: p.today },
+    { href: '#/dreidel', name: 'Дрейдл', he: 'סְבִיבוֹן', icon: '🪙', sub: 'Онлайн · игра с друзьями', done: false },
   ];
   const start = Math.max(0, games.findIndex((g) => !g.done));
   const [page, setPage] = useState(start);
