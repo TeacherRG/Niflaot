@@ -79,9 +79,9 @@ export function useDreidelRoom(code: string, query: string | (() => Promise<stri
           setStatus(ever ? 'lost' : 'connecting');
           timer = setTimeout(() => { void connect(); }, Math.min(15000, 1000 * 2 ** tries++));
         };
-      } catch {
+      } catch (error) {
         if (!alive) return;
-        setError('ticket');
+        setError(error instanceof Error && error.message === 'escrow' ? 'escrow' : 'ticket');
         setStatus('closed');
       }
     };
