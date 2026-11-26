@@ -1,12 +1,30 @@
 /**
- * «⚙ Настройки чтения» — одно меню для «Святого чтения» (Теґилим) и Шахарита: помощь при чтении (только где есть запись),
- * как показывать текст (иврит / транслит и иврит / только транслит), произношение, вид текста (кантилляция, крупный шрифт).
+ * «⚙ Настройки чтения» — одно меню на все страницы «Святого чтения» (Теґилим, сидур, «Шнаим микра»; владелец, 26.11.2026: «настройки
+ * одинаковы во всех разделах»): помощь при чтении (только где есть запись), как показывать текст (иврит / транслит и иврит / только
+ * транслит), произношение, вид текста (кантилляция, размер текста − / + — иврит и транслит вместе, фон).
  */
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useI18n } from '../i18n';
 import { Icon, useDismiss } from './ui';
-import { PLAY_MODES, type View } from '../core/reading';
+import { PLAY_MODES, READING_BGS, SIZE_MAX, SIZE_MIN, sizeScale, type View } from '../core/reading';
 import { PRONS, TR_MODES } from '../core/tehillimTranslit';
+
+/** фон и размер текста страницы чтения: html[data-rbg], --rd-k (масштаб текста); уходя со страницы — снимаются */
+export function useReadingLook(view: View) {
+  useEffect(() => {
+    const html = document.documentElement;
+    if (view.bg === 'site') delete html.dataset.rbg;
+    else html.dataset.rbg = view.bg;
+    html.style.setProperty('--rd-k', String(sizeScale(view.size)));
+  }, [view.bg, view.size]);
+  useEffect(
+    () => () => {
+      delete document.documentElement.dataset.rbg;
+      document.documentElement.style.removeProperty('--rd-k');
+    },
+    [],
+  );
+}
 
 export function ReadingSettings({
   view,
@@ -15,6 +33,7 @@ export function ReadingSettings({
   onBoth,
   living = true,
   layout = false,
+  translit = true,
 }: {
   view: View;
   setV: (v: View) => void;
@@ -24,6 +43,8 @@ export function ReadingSettings({
   living?: boolean;
   /** с транслитом — направление строк и что крупнее (Шахарит) */
   layout?: boolean;
+  /** есть ли у страницы транслит («Шнаим микра» — только иврит и Таргум) */
+  translit?: boolean;
 }) {
   const { t, locale } = useI18n();
   const [open, setOpen] = useState(false);
@@ -54,9 +75,10 @@ export function ReadingSettings({
           <small>
             {' · '}
             {audio && <>{t(`reading.mode.${view.play}`)} · </>}
-            {t(`reading.tr.${view.tr}`)}
+            {translit ? t(`reading.tr.${view.tr}`) : t('reading.tr.he')}
             {layout && view.glossLang === 'de' && <> · Deutsch</>}
-            {view.tr !== 'he' && <> · {t(`reading.pron.${view.pron}`)}</>}
+            {translit && view.tr !== 'he' && <> · {t(`reading.pron.${view.pron}`)}</>}
+            {` · ${Math.round(sizeScale(view.size) * 100)} %`}
           </small>
         </span>
         <Icon name="chevron" size={14} />
@@ -78,11 +100,15 @@ export function ReadingSettings({
               <div className="tk-view-sep" />
             </>
           )}
-          <div className="tk-view-head">{t('reading.tr')}</div>
-          {TR_MODES.map((m) =>
-            item(view.tr === m, m === 'he' ? 'אב' : m === 'duo' ? `${t('reading.tr.ab')}+אב` : t('reading.tr.ab'), t(`reading.tr.${m}`), t(`reading.tr.${m}.d`), () => setV({ ...view, tr: m })),
+          {translit && (
+            <>
+              <div className="tk-view-head">{t('reading.tr')}</div>
+              {TR_MODES.map((m) =>
+                item(view.tr === m, m === 'he' ? 'אב' : m === 'duo' ? `${t('reading.tr.ab')}+אב` : t('reading.tr.ab'), t(`reading.tr.${m}`), t(`reading.tr.${m}.d`), () => setV({ ...view, tr: m })),
+              )}
+            </>
           )}
-          {view.tr !== 'he' && (
+          {translit && view.tr !== 'he' && (
             <>
               <div className="tk-view-sep" />
               <div className="tk-view-head">{t('reading.pron')}</div>
@@ -117,10 +143,33 @@ export function ReadingSettings({
               )}
             </>
           )}
+          {translit && <div className="tk-view-sep" />}
+          <div className="tk-view-head">{t('reading.size')}</div>
+          <div className="rd-size" role="group" aria-label={t('reading.size')}>
+            <button type="button" className="rd-size-btn" disabled={view.size <= SIZE_MIN} aria-label={t('reading.sizeDown')} title={t('reading.sizeDown')} onClick={() => setV({ ...view, size: view.size - 1 })}>
+              <span aria-hidden="true">A−</span>
+            </button>
+            <button type="button" className="rd-size-now" title={t('reading.sizeReset')} aria-label={`${t('reading.sizeReset')} · ${Math.round(sizeScale(view.size) * 100)} %`} onClick={() => setV({ ...view, size: 0 })}>
+              {Math.round(sizeScale(view.size) * 100)} %
+            </button>
+            <button type="button" className="rd-size-btn rd-size-up" disabled={view.size >= SIZE_MAX} aria-label={t('reading.sizeUp')} title={t('reading.sizeUp')} onClick={() => setV({ ...view, size: view.size + 1 })}>
+              <span aria-hidden="true">A+</span>
+            </button>
+          </div>
+          <small className="rd-set-d rd-size-d">{t('reading.size.d')}</small>
+          <div className="tk-view-sep" />
+          <div className="tk-view-head">{t('reading.bg')}</div>
+          <div className="rd-bgs" role="group" aria-label={t('reading.bg')}>
+            {READING_BGS.map((b) => (
+              <button key={b} type="button" role="menuitemradio" aria-checked={view.bg === b} className={`rd-bg-chip rd-bg-${b}`} onClick={() => setV({ ...view, bg: b })}>
+                <span className="rd-bg-sw" aria-hidden="true" />
+                <span>{t(`reading.bg.${b}`)}</span>
+              </button>
+            ))}
+          </div>
           <div className="tk-view-sep" />
           <div className="tk-view-head">{t('reading.look')}</div>
           {item(view.taamim, '♫', t('reading.v.taamim'), t('reading.v.taamim.d'), () => setV({ ...view, taamim: !view.taamim }), 'menuitemcheckbox')}
-          {item(view.big, 'A+', t('reading.v.big'), t('reading.v.big.d'), () => setV({ ...view, big: !view.big }), 'menuitemcheckbox')}
           {living && item(view.living, '●', t('living.set'), t('living.set.d'), () => setV({ ...view, living: !view.living }), 'menuitemcheckbox')}
         </div>
       )}
