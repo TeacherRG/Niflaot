@@ -16,7 +16,7 @@ CHAT_DAILY_LIMIT = "1000"
 TTS_MODEL = "gemini-3.1-flash-tts-preview"
 TTS_VOICE = "Charon"
 
-# Secrets (not stored here): ANTHROPIC_API_KEY, RESEND_API_KEY (login codes and newsletter), NEWSLETTER_SECRET
+# Secrets (not stored here): ANTHROPIC_API_KEY, GOATCOUNTER_API_KEY (admin-only analytics), RESEND_API_KEY (login codes and newsletter), NEWSLETTER_SECRET
 # (same value as the GitHub Actions secret), GEMINI_API_KEY (Google AI Studio — «Слушать»).
 
 # Rate limit for /push and the account's changes: 20 requests per minute from one IP (the worker answers 429 above it).
