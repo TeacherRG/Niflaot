@@ -20,6 +20,7 @@ import {
  */
 const UsersPage = lazy(() => import('./CommunityPages').then((m) => ({ default: m.UsersPage })));
 const LeadersPage = lazy(() => import('./CommunityPages').then((m) => ({ default: m.LeadersPage })));
+const AnalyticsPage = lazy(() => import('./AnalyticsPage').then((m) => ({ default: m.AnalyticsPage })));
 const UI_MESSAGES: Record<Locale, Record<string, unknown>> = { ru: ruUi, en: enUi, de: deUi };
 const LOGIN_KEY = 'niflaot:admin-login';
 
@@ -71,6 +72,12 @@ export function Admin({ slug, leaders }: { slug?: string; leaders?: string }) {
     return (
       <Suspense fallback={null}>
         <UsersPage token={token} />
+      </Suspense>
+    );
+  if (slug === 'analytics')
+    return (
+      <Suspense fallback={null}>
+        <AnalyticsPage />
       </Suspense>
     );
   if (slug === 'leaders')
@@ -261,6 +268,7 @@ function Editor({ slug, login, onSignOut }: { slug?: string; login: string; onSi
     <main className="admin">
       <header className="admin-head">
         <h1>Редактор текстов</h1>
+        <a href="#/admin/analytics">📊 Статистика посещаемости</a>
         <a href="#/admin/users">👥 Пользователи</a>
         <a href="#/admin/leaders">🏆 Таблица лидеров</a>
         <span className="admin-who">{login && `@${login} · `}</span>
