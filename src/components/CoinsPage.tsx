@@ -24,7 +24,7 @@ const GIFTS = [5, 10, 25];
  */
 export function CoinsPage() {
   const { t, locale } = useI18n();
-  const { token } = useAccount();
+  const { token, me } = useAccount();
   const s = useCoins();
   const h = useHabit();
   const box = usePushka();
@@ -55,7 +55,7 @@ export function CoinsPage() {
     } catch {}
   };
   const onGive = (n: number) => {
-    if (!give(n, cause, token)) return setMsg(t('coins.noCoins'));
+    if (!give(n, cause, token, me?.user.email)) return setMsg(t('coins.noCoins'));
     setMsg(t('coins.gave', { n }));
     setWaiting(pendingGifts());
     setTimeout(() => setWaiting(pendingGifts()), 2500);
