@@ -110,7 +110,7 @@ export interface CoinNews {
 const announce = (news?: CoinNews) => window.dispatchEvent(new CustomEvent<CoinNews | undefined>(COINS_EVENT, { detail: news }));
 
 /** +1 for a passage read, +3 for a right answer — each `id` once; false — nothing given. */
-export function earn(kind: EarnKind, id: string): boolean {
+export function earn(kind: EarnKind | 'chest', id: string): boolean {
   if (!gameOn()) return false;
   const token = authToken();
   if (token) {
@@ -121,6 +121,7 @@ export function earn(kind: EarnKind, id: string): boolean {
     });
     return true;
   }
+  if (kind === 'chest') return false;
   const r = addEarn(readCoins(), kind, id, todayIso());
   if (!r) return false;
   write(r.store);
