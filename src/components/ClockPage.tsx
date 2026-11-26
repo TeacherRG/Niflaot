@@ -328,21 +328,23 @@ export function ClockPage() {
 
         <div className="clk2-stage" ref={stage}>
           {shown ? (
-            <BigFace
-              now={now}
-              zone={zone}
-              half={half}
-              hourLabel={hourLabel}
-              events={events}
-              active={pop?.id ?? null}
-              tziruf={tziruf}
-              hm={hm}
-              short={hmShort}
-              name={nameOf}
-              onPick={(id, fx, fy) => setPop(pop?.id === id && pop.pinned ? null : { id, fx, fy, pinned: true })}
-              onHover={(id, fx, fy) => setPop((p) => (p?.pinned ? p : id ? { id, fx, fy, pinned: false } : null))}
-            />
-            {half && <KabbalahMiniDial hour={hourOf(now, half)} day={half.day} />}
+            <>
+              <BigFace
+                now={now}
+                zone={zone}
+                half={half}
+                hourLabel={hourLabel}
+                events={events}
+                active={pop?.id ?? null}
+                tziruf={tziruf}
+                hm={hm}
+                short={hmShort}
+                name={nameOf}
+                onPick={(id, fx, fy) => setPop(pop?.id === id && pop.pinned ? null : { id, fx, fy, pinned: true })}
+                onHover={(id, fx, fy) => setPop((p) => (p?.pinned ? p : id ? { id, fx, fy, pinned: false } : null))}
+              />
+              {half && <KabbalahMiniDial hour={hourOf(now, half)} day={half.day} />}
+            </>
           ) : (
             <div className="clk2-nocity">
               <p>{t('clock.noCity')}</p>
