@@ -91,7 +91,9 @@ export async function refreshWallet(token: string): Promise<CoinStore | null> {
       } else if (row.kind === 'buy' && row.ref) i[row.ref] = -row.amount;
       else if (row.kind === 'reserve' || row.kind === 'settle') x += row.amount;
     }
-    serverStore = normCoins({ d, g, i, x });
+    const next = normCoins({ d, g, i, x });
+    if (balance(next) !== Number((await data.balance))) return null;
+    serverStore = next;
     serverWalletToken = token;
     window.dispatchEvent(new Event(COINS_EVENT));
     return serverStore;
