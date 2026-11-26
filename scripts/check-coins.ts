@@ -59,6 +59,8 @@ const old = fold(normCoins({ d: { '2026-01-01': [4, { 'a:x': 3, 'r:y': 1 }], [D]
 ok(!old.d['2026-01-01'][1] && old.d['2026-01-01'][0] === 4 && !!old.d[D][1], 'old days keep only their total');
 ok(earnedTotal(mergeCoinStores(old, normCoins({ d: { '2026-01-01': [4, { 'a:x': 3, 'r:y': 1 }] }, g: {}, i: {} }))) === 7, 'a folded day merges with an unfolded one without doubling');
 ok(balance(normCoins({ d: { [D]: [5] }, g: { [D]: [5] }, i: { chai: 18 } })) === 0, 'the balance is never negative');
+ok(balance(normCoins({ d: { [D]: [20] }, g: {}, i: {}, x: -10 })) === 10, 'a reserved game stack reduces the spendable balance without counting as a gift');
+ok(balance(normCoins({ d: { [D]: [20] }, g: {}, i: {}, x: -10 + 15 })) === 25, 'a settled game payout restores the spendable balance');
 ok(earnedTotal(normCoins({ d: { [D]: [999, { 'a:x': 3 }], bad: [5], '2026-11-11': ['7'] }, g: 5 })) === 3, 'a broken store is read safely: the total is the sum of the ids');
 
 // the account keeps the coins
