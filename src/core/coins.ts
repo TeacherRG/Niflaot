@@ -78,17 +78,18 @@ async function refreshWallet(token: string): Promise<CoinStore | null> {
     return serverStore;
   } catch { return null; }
 }
-async function walletPost(path: string, body: object, token: string): Promise<boolean> {
+async function walletPost(path: string, body: object, token: string): Promise<{ ok: boolean; gained?: number; duplicate?: boolean } | null> {
   try {
     const res = await fetch(`${BASE}/account/wallet/${path}`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     });
-    if (!res.ok) return false;
+    if (!res.ok) return null;
+    const result = await res.json() as { ok: boolean; gained?: number; duplicate?: boolean };
     await refreshWallet(token);
-    return true;
-  } catch { return false; }
+    return result;
+  } catch { return null; }
 }
 const currentCoins = () => serverStore ?? readCoins();
 
@@ -144,9 +145,9 @@ if (typeof window !== 'undefined') window.addEventListener(STUDY_EVENT, openChes
 export async function buy(item: ItemId): Promise<boolean> {
   const token = authToken();
   if (token) {
-    const ok = await walletPost('buy', { item }, token);
-    if (ok) announce();
-    return ok;
+    const result = await walletPost('buy', { item }, token);
+    if (result?.ok) announce();
+    return !!result?.ok;
   }
   const s = buyItem(readCoins(), item);
   if (!s) return false;
