@@ -149,7 +149,7 @@ export function fold(s: CoinStore, today: string): CoinStore {
 const sorted = <T>(o: Record<string, T>): Record<string, T> => Object.fromEntries(Object.keys(o).sort().map((k) => [k, o[k]]));
 function canon(s: CoinStore): CoinStore {
   const l = (x: Ledger): Ledger => sorted(Object.fromEntries(Object.entries(x).map(([day, [n, ids]]) => [day, ids ? [n, sorted(ids)] : [n]])) as Ledger);
-  return { d: l(s.d), g: l(s.g), i: sorted(s.i) };
+  return { d: l(s.d), g: l(s.g), i: sorted(s.i), x: s.x ?? 0 };
 }
 
 function mergeLedger(a: Ledger, b: Ledger): Ledger {
