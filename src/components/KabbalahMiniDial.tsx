@@ -21,7 +21,7 @@ function point(angle: number, radius: number) {
   return [60 + radius * Math.cos(a), 60 + radius * Math.sin(a)] as const;
 }
 function sector(index: number) {
-  const start = index * 30 - 15;
+  const start = (index + 1) * 30 - 15;
   const end = start + 30;
   const [x1, y1] = point(start, 56);
   const [x2, y2] = point(end, 56);
