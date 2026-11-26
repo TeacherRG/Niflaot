@@ -310,7 +310,15 @@ export class DreidelRoom extends DurableObject<DreidelEnv> {
 
   async alarm() {
     const room = await this.load();
-    if (!room || Date.now() - room.created < ROOM_TTL) return;
+    if (!room) return;
+    const expired = Date.now() - room.created >= ROOM_TTL;
+    if (room.phase === 'final' && room.settled === false) {
+      if (!(await this.settleRoom(room))) { await this.save(); return; }
+      if (expired) await this.wipe();
+      else await this.save();
+      return;
+    }
+    if (!expired) return;
     if (room.phase === 'playing') finish(room);
     if (room.phase === 'final' && !(await this.settleRoom(room))) {
       await this.save();
