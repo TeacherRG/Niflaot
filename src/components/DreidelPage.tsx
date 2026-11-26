@@ -100,7 +100,9 @@ function PlayerCoins({ view }: { view: DreidelView }) {
 function DreidelPlayer({ code }: { code: string }) {
   const stored = useMemo(() => dreidelPlayer(code), [code]);
   const { token, me: account } = useAccount();
-  const [guestMode, setGuestMode] = useState(false);
+  const [guestMode, setGuestMode] = useState(() => {
+    try { return typeof window !== 'undefined' && localStorage.getItem(`niflaot:dreidel-guest:${code}`) === '1'; } catch { return false; }
+  });
   const [name, setName] = useState(stored.name || account?.user.nick || '');
   const [joined, setJoined] = useState(false);
   useEffect(() => { if (!name.trim() && account?.user.nick) setName(account.user.nick); }, [account?.user.nick]);
@@ -125,7 +127,7 @@ function DreidelPlayer({ code }: { code: string }) {
   if (!view) return <Status status={status} error={error} />;
   if (!view.me) return <div className="dreidel-room"><Status status={status} error={error} /><h1>Войти в игру</h1><form className="dreidel-join-card" onSubmit={(e) => { e.preventDefault(); if (!name.trim()) return; saveDreidelName(code, name.trim()); setJoined(true); send({ t: 'hello', name: name.trim() }); }}>
     <label>Ваше имя<input value={name} onChange={(e) => setName(e.target.value)} maxLength={20} autoComplete="nickname" placeholder="Как вас зовут?" /></label>
-    {token && account?.user.active && <label className="dreidel-guest-choice"><input type="checkbox" checked={guestMode} onChange={(e) => setGuestMode(e.target.checked)} /> Играть гостем — с виртуальными монетами</label>}
+    {token && account?.user.active && <label className="dreidel-guest-choice"><input type="checkbox" checked={guestMode} onChange={(e) => { const next = e.target.checked; setGuestMode(next); try { localStorage.setItem(`niflaot:dreidel-guest:${code}`, next ? '1' : '0'); } catch {} }} /> Играть гостем — с виртуальными монетами</label>}
     <button className="btn dreidel-primary" disabled={!name.trim()}>Присоединиться</button>
   </form><p className="dreidel-muted">{token && account?.user.active && !guestMode ? 'В начале игры с аккаунта резервируются 10 пеликоинов.' : 'Гостям выдаются 10 виртуальных монет.'}</p></div>;
   return <div className="dreidel-room"><Status status={status} error={error} /><h1>Дрейдл · {view.me.name}</h1><GameBoard view={view} me onSpin={() => send({ t: 'spin' })} /><p className="dreidel-muted">Ваши монеты: {view.me.coins}</p></div>;
