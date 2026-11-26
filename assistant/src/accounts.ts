@@ -32,6 +32,8 @@ export interface MailEnv {
   DEV_CODES?: string;
   /** Shared secret used only by scheduled GitHub Actions to deliver newsletter issues */
   NEWSLETTER_SECRET?: string;
+  /** Shared only between the Worker and Dreidel Durable Objects for escrow and one-time tickets. */
+  DREIDEL_INTERNAL_SECRET?: string;
 }
 
 const CODE_TTL = 10 * 60_000;
@@ -124,6 +126,7 @@ export class Accounts extends DurableObject<MailEnv> {
       CREATE TABLE IF NOT EXISTS wallets (user TEXT PRIMARY KEY, balance INTEGER NOT NULL CHECK(balance >= 0), initialized INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS wallet_ledger (id TEXT PRIMARY KEY, user TEXT NOT NULL, kind TEXT NOT NULL, amount INTEGER NOT NULL, balance_after INTEGER NOT NULL, ref TEXT, at INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS wallet_reservations (user TEXT NOT NULL, ref TEXT NOT NULL, amount INTEGER NOT NULL, status TEXT NOT NULL, at INTEGER NOT NULL, PRIMARY KEY(user, ref));
+      CREATE TABLE IF NOT EXISTS dreidel_tickets (hash TEXT PRIMARY KEY, user TEXT NOT NULL, room TEXT NOT NULL, expires INTEGER NOT NULL, used INTEGER NOT NULL DEFAULT 0);
       CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT UNIQUE NOT NULL, nick TEXT, nick_lc TEXT UNIQUE,
         age TEXT, parent_email TEXT, parent_ok INTEGER NOT NULL DEFAULT 0, consent TEXT, board INTEGER NOT NULL DEFAULT 1,
         lang TEXT NOT NULL DEFAULT 'ru', created INTEGER NOT NULL, last INTEGER NOT NULL);
@@ -422,7 +425,7 @@ export class Accounts extends DurableObject<MailEnv> {
       this.sql.exec('DELETE FROM members WHERE class = ?', c.id);
       this.sql.exec('DELETE FROM classes WHERE id = ?', c.id);
     }
-    for (const t of ['members', 'progress', 'sessions', 'ai', 'consent_mail', 'wallets', 'wallet_ledger', 'wallet_reservations']) this.sql.exec(`DELETE FROM ${t} WHERE user = ?`, id);
+    for (const t of ['members', 'progress', 'sessions', 'ai', 'consent_mail', 'wallets', 'wallet_ledger', 'wallet_reservations', 'dreidel_tickets']) this.sql.exec(`DELETE FROM ${t} WHERE user = ?`, id);
     // the coins given stay in the common box, without the account
     this.sql.exec("UPDATE pushka_gifts SET user = '' WHERE user = ?", id);
     this.sql.exec('DELETE FROM users WHERE id = ?', id);
@@ -454,6 +457,61 @@ export class Accounts extends DurableObject<MailEnv> {
       });
     const body = req.method === 'POST' || req.method === 'PUT' ? ((await req.json().catch(() => null)) as Record<string, any> | null) : null;
     if ((req.method === 'POST' || req.method === 'PUT') && !body) return fail('bad json');
+
+    if (path.startsWith('/internal/dreidel/')) {
+      if (!this.env.DREIDEL_INTERNAL_SECRET || req.headers.get('X-Dreidel-Internal') !== this.env.DREIDEL_INTERNAL_SECRET)
+        return fail('auth', 401);
+      if (path === '/internal/dreidel/consume') {
+        const { ticket, room } = body!;
+        if (typeof ticket !== 'string' || ticket.length > 100 || typeof room !== 'string' || !/^[A-Z0-9]{5}$/.test(room)) return fail('ticket');
+        const hash = await sha(ticket);
+        const row = this.one<{ user: string; expires: number; used: number }>(
+          'SELECT user, expires, used FROM dreidel_tickets WHERE hash = ? AND room = ?', hash, room,
+        );
+        if (!row || row.used || row.expires < Date.now()) return fail('ticket', 401);
+        const u = this.one<User>('SELECT * FROM users WHERE id = ?', row.user);
+        if (!u || !active(u)) return fail('account', 403);
+        this.sql.exec('UPDATE dreidel_tickets SET used = 1 WHERE hash = ? AND used = 0', hash);
+        return json({ ok: true, userId: u.id, name: u.nick });
+      }
+      if (path === '/internal/dreidel/reserve' || path === '/internal/dreidel/settle') {
+        const { userId, room, payout } = body!;
+        if (typeof userId !== 'string' || typeof room !== 'string' || !/^[A-Z0-9]{5}$/.test(room)) return fail('reservation');
+        const u = this.one<User>('SELECT * FROM users WHERE id = ?', userId);
+        if (!u || !active(u)) return fail('account', 403);
+        const ref = `dreidel:${room}`;
+        if (path.endsWith('/reserve')) {
+          const w = this.wallet(u);
+          if (!w) return fail('wallet', 503);
+          const old = this.one<{ amount: number; status: string }>('SELECT amount, status FROM wallet_reservations WHERE user = ? AND ref = ?', u.id, ref);
+          if (old) return old.status === 'active' ? json({ ok: true, duplicate: true }) : fail('settled', 409);
+          if (w.balance < 10) return fail('balance', 409);
+          const next = w.balance - 10;
+          this.ctx.storage.transactionSync(() => {
+            this.sql.exec('UPDATE wallets SET balance = ? WHERE user = ? AND balance >= 10', next, u.id);
+            this.sql.exec('INSERT INTO wallet_reservations (user, ref, amount, status, at) VALUES (?, ?, 10, ?, ?)', u.id, ref, 'active', Date.now());
+            this.sql.exec('INSERT INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+              `reserve:${u.id}:${ref}`, u.id, 'reserve', -10, next, ref, Date.now());
+          });
+          return json({ ok: true, balance: next });
+        }
+        const reservation = this.one<{ amount: number; status: string }>('SELECT amount, status FROM wallet_reservations WHERE user = ? AND ref = ?', u.id, ref);
+        if (!reservation) return json({ ok: true, notReserved: true });
+        if (reservation.status !== 'active') return json({ ok: true, duplicate: true });
+        if (!Number.isInteger(payout) || payout < 0 || payout > 300) return fail('payout');
+        const w = this.wallet(u);
+        if (!w) return fail('wallet', 503);
+        const next = w.balance + payout;
+        this.ctx.storage.transactionSync(() => {
+          this.sql.exec("UPDATE wallet_reservations SET status = 'settled' WHERE user = ? AND ref = ? AND status = 'active'", u.id, ref);
+          this.sql.exec('UPDATE wallets SET balance = ? WHERE user = ?', next, u.id);
+          this.sql.exec('INSERT OR IGNORE INTO wallet_ledger (id, user, kind, amount, balance_after, ref, at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            `settle:${u.id}:${ref}`, u.id, 'settle', payout, next, ref, Date.now());
+        });
+        return json({ ok: true, balance: next, payout });
+      }
+      return fail('not found', 404);
+    }
 
     if (path === '/config') return json({ mail: !!this.env.RESEND_API_KEY || this.env.DEV_CODES === '1', google: this.env.GOOGLE_CLIENT_ID || null });
     if (path === '/chat-quota') return this.chatQuota(req);
@@ -540,6 +598,16 @@ export class Accounts extends DurableObject<MailEnv> {
     /* ── signed in ── */
     const u = await this.user(req);
     if (!u) return fail('auth', 401);
+
+    if (path === '/dreidel-ticket') {
+      if (!active(u)) return fail('pending', 403);
+      const room = body!.room;
+      if (typeof room !== 'string' || !/^[A-Z0-9]{5}$/.test(room)) return fail('room');
+      const ticket = random(24);
+      this.sql.exec('INSERT INTO dreidel_tickets (hash, user, room, expires, used) VALUES (?, ?, ?, ?, 0)',
+        await sha(ticket), u.id, room, Date.now() + 60_000);
+      return json({ ticket, name: u.nick });
+    }
 
     if (path === '/wallet' && req.method === 'GET') {
       if (!active(u)) return fail('pending', 403);
