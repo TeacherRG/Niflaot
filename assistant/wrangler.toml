@@ -39,6 +39,7 @@ namespace_id = "1002"
 
 # The daily reminder of the site (src/push.ts): subscriptions in a Durable Object with SQLite storage (free plan),
 # sending once an hour.
+# Required for account-backed dreidel escrow: set with `npx wrangler secret put DREIDEL_INTERNAL_SECRET`.
 [[durable_objects.bindings]]
 name = "PUSH"
 class_name = "PushHub"
