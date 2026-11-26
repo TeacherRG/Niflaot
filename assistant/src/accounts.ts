@@ -485,7 +485,7 @@ export class Accounts extends DurableObject<MailEnv> {
       }
       if (path === '/internal/dreidel/reserve' || path === '/internal/dreidel/settle') {
         const { userId, room, payout } = body!;
-        if (typeof userId !== 'string' || typeof room !== 'string' || !/^[A-Z0-9]{5}:\\d{10,16}$/.test(room)) return fail('reservation');
+        if (typeof userId !== 'string' || typeof room !== 'string' || !/^[A-Z0-9]{5}:\d{10,16}$/.test(room)) return fail('reservation');
         const u = this.one<User>('SELECT * FROM users WHERE id = ?', userId);
         if (!u || !active(u)) return fail('account', 403);
         const ref = `dreidel:${room}`;
