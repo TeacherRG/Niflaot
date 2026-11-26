@@ -155,7 +155,7 @@ export class Accounts extends DurableObject<MailEnv> {
   }
 
   /** Create a wallet exactly once from the legacy synced balance and import its old debits. */
-  private wallet(u: User) {
+  private initializeWallet(u: User) {
     let w = this.one<{ balance: number; initialized: number }>('SELECT balance, initialized FROM wallets WHERE user = ?', u.id);
     if (!w) {
       const progress = this.one<{ data: string }>('SELECT data FROM progress WHERE user = ?', u.id);
@@ -213,6 +213,10 @@ export class Accounts extends DurableObject<MailEnv> {
       w = this.one<{ balance: number; initialized: number }>('SELECT balance, initialized FROM wallets WHERE user = ?', u.id);
     }
     return w ?? null;
+  }
+
+  private wallet(u: User) {
+    return this.one<{ balance: number; initialized: number }>('SELECT balance, initialized FROM wallets WHERE user = ?', u.id) ?? null;
   }
 
   private async user(req: Request): Promise<User | null> {
@@ -600,6 +604,12 @@ export class Accounts extends DurableObject<MailEnv> {
     const u = await this.user(req);
     if (!u) return fail('auth', 401);
 
+    if (path === '/wallet/init') {
+      if (!active(u)) return fail('pending', 403);
+      const w = this.initializeWallet(u);
+      return w ? json({ ok: true, balance: w.balance, initialized: w.initialized }) : fail('wallet', 503);
+    }
+
     if (path === '/dreidel-ticket') {
       if (!active(u)) return fail('pending', 403);
       const room = body!.room;
@@ -613,7 +623,7 @@ export class Accounts extends DurableObject<MailEnv> {
     if (path === '/wallet' && req.method === 'GET') {
       if (!active(u)) return fail('pending', 403);
       const w = this.wallet(u);
-      if (!w) return fail('wallet', 503);
+      if (!w) return fail('wallet', 409);
       const ledger = this.sql.exec<{ kind: string; amount: number; ref: string | null; at: number }>(
         'SELECT kind, amount, ref, at FROM wallet_ledger WHERE user = ? ORDER BY at, id', u.id,
       ).toArray();
@@ -625,7 +635,7 @@ export class Accounts extends DurableObject<MailEnv> {
       const { id, kind } = body!;
       if (typeof id !== 'string' || !/^[A-Za-z0-9:_-]{1,100}$/.test(id) || !['read', 'answer', 'chest'].includes(kind)) return fail('reward');
       const w = this.wallet(u);
-      if (!w) return fail('wallet', 503);
+      if (!w) return fail('wallet', 409);
       const ledgerId = `earn:${u.id}:${kind}:${id}`;
       const prior = this.one<{ balance_after: number }>('SELECT balance_after FROM wallet_ledger WHERE id = ?', ledgerId);
       if (prior) return json({ ok: true, gained: 0, balance: w.balance, duplicate: true });
@@ -663,7 +673,7 @@ export class Accounts extends DurableObject<MailEnv> {
       const costs: Record<string, number> = { alef: 15, chai: 18, pushka: 25 };
       if (typeof item !== 'string' || !(item in costs)) return fail('item');
       const w = this.wallet(u);
-      if (!w) return fail('wallet', 503);
+      if (!w) return fail('wallet', 409);
       const ledgerId = `buy:${u.id}:${item}`;
       if (this.one('SELECT id FROM wallet_ledger WHERE user = ? AND kind = \'buy\' AND ref = ?', u.id, item)) return fail('owned', 409);
       if (w.balance < costs[item]) return fail('balance', 409);
@@ -686,7 +696,7 @@ export class Accounts extends DurableObject<MailEnv> {
         const today = this.one<{ n: number }>('SELECT COALESCE(SUM(amount), 0) AS n FROM pushka_gifts WHERE user = ? AND day = ?', u.id, day)!.n;
         if (today + amount > GIFT_DAY) return fail('day', 429);
         const wallet = this.wallet(u);
-        if (!wallet) return fail('wallet', 503);
+        if (!wallet) return fail('wallet', 409);
         const priorDebit = this.one<{ amount: number }>('SELECT amount FROM wallet_ledger WHERE id = ?', `gift:${key}`);
         if (priorDebit && priorDebit.amount !== -amount) return fail('gift', 409);
         if (!priorDebit) {
