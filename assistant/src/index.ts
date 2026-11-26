@@ -24,11 +24,12 @@ import { gematria, letters, VALUES } from '../../src/core/gematria';
 import { PushHub } from './push';
 import { Accounts, type MailEnv } from './accounts';
 import { QuizRoom, quizRoute, type QuizEnv } from './quiz';
+import { DreidelRoom, dreidelRoute, type DreidelEnv } from './dreidel';
 import { GeminiGate, Narrator, ttsRoute, type TtsEnv } from './tts';
 
-export { PushHub, Accounts, QuizRoom, Narrator, GeminiGate };
+export { PushHub, Accounts, QuizRoom, DreidelRoom, Narrator, GeminiGate };
 
-interface Env extends MailEnv, QuizEnv, TtsEnv {
+interface Env extends MailEnv, QuizEnv, DreidelEnv, TtsEnv {
   ANTHROPIC_API_KEY: string;
   /** comma-separated list of allowed page origins */
   ALLOWED_ORIGINS?: string;
@@ -42,6 +43,8 @@ interface Env extends MailEnv, QuizEnv, TtsEnv {
   PUSH: DurableObjectNamespace<PushHub>;
   /** accounts: one instance (wrangler.toml) */
   ACCOUNTS: DurableObjectNamespace<Accounts>;
+  /** multiplayer dreidel rooms */
+  DREIDEL: DurableObjectNamespace<DreidelRoom>;
 }
 
 const accounts = (env: Env) => env.ACCOUNTS.get(env.ACCOUNTS.idFromName('main'));
@@ -214,6 +217,17 @@ export default {
         const ip = req.headers.get('CF-Connecting-IP') ?? 'unknown';
         return !env.LIMITER || (await env.LIMITER.limit({ key: `tts:${ip}` })).success;
       });
+    if (path.startsWith('/dreidel/')) {
+      if (!originOk(req.headers.get('Origin'), env)) return new Response('Forbidden', { status: 403, headers });
+      if (env.LIMITER && path === '/dreidel/new') {
+        const ip = req.headers.get('CF-Connecting-IP') ?? 'unknown';
+        if (!(await env.LIMITER.limit({ key: `dreidel:${ip}` })).success)
+          return new Response('Too many requests', { status: 429, headers: { ...headers, 'Retry-After': '60' } });
+      }
+      const r = await dreidelRoute(req, env, path.slice('/dreidel'.length));
+      if (r.status === 101) return r;
+      return new Response(r.body, { status: r.status, headers: { ...headers, 'Content-Type': r.headers.get('Content-Type') ?? 'text/plain', 'Cache-Control': 'no-store' } });
+    }
     if (path.startsWith('/quiz/')) {
       if (!originOk(req.headers.get('Origin'), env)) return new Response('Forbidden', { status: 403, headers });
       // a new room costs a fetch of the deck: through the rate limit; joining a room doesn't
