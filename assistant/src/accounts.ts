@@ -582,7 +582,7 @@ export class Accounts extends DurableObject<MailEnv> {
       const w = this.wallet(u);
       if (!w) return fail('wallet', 503);
       const ledgerId = `buy:${u.id}:${item}`;
-      if (this.one('SELECT id FROM wallet_ledger WHERE id = ?', ledgerId)) return fail('owned', 409);
+      if (this.one('SELECT id FROM wallet_ledger WHERE user = ? AND kind = \'buy\' AND ref = ?', u.id, item)) return fail('owned', 409);
       if (w.balance < costs[item]) return fail('balance', 409);
       this.sql.exec('UPDATE wallets SET balance = balance - ? WHERE user = ? AND balance >= ?', costs[item], u.id, costs[item]);
       const next = this.one<{ balance: number }>('SELECT balance FROM wallets WHERE user = ?', u.id)!.balance;
