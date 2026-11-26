@@ -193,7 +193,7 @@ export function CoinsPage() {
                   {mine ? (
                     <p>{t(`coins.item.${it.id}.b` as MessageKey)}</p>
                   ) : (
-                    <button className="btn" disabled={have < it.cost} onClick={() => buy(it.id)}>
+                    <button className="btn" disabled={have < it.cost} onClick={() => { void buy(it.id).then((ok) => { if (!ok) setMsg(t('coins.noCoins')); }); }}>
                       {t('coins.buy', { n: it.cost })}
                     </button>
                   )}
