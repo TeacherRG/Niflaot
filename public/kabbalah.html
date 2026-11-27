@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Каббалистический циферблат — 12 часов и соответствий</title>
+  <!-- Подключение Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Шрифты Inter и Frank Ruhl Libre для красивого отображения иврита -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Базовая типографика и глубокий космический фон */
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at 20% 20%, #131b3a 0%, #070a17 55%, #03050c 100%);
+      color: #f1f5f9;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .font-hebrew {
+      font-family: 'Frank Ruhl Libre', serif;
+    }
+
+    /* Переливающийся анимированный градиент для текста и акцентов */
+    @keyframes iridescentFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .iridescent-text {
+      background: linear-gradient(
+        115deg,
+        #38bdf8 0%,
+        #818cf8 20%,
+        #e879f9 40%,
+        #fbbf24 60%,
+        #34d399 80%,
+        #38bdf8 100%
+      );
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: iridescentFlow 7s ease infinite;
+    }
+
+    /* Переливающаяся рамка карточек */
+    .iridescent-border {
+      position: relative;
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 1.25rem;
+    }
+
+    .iridescent-border::before {
+      content: "";
+      position: absolute;
+      inset: -1.5px;
+      border-radius: 1.32rem;
+      padding: 1.5px;
+      background: linear-gradient(
+        130deg,
+        rgba(56, 189, 248, 0.8),
+        rgba(168, 85, 247, 0.8),
+        rgba(251, 191, 36, 0.8),
+        rgba(52, 211, 153, 0.8),
+        rgba(56, 189, 248, 0.8)
+      );
+      background-size: 300% 300%;
+      animation: iridescentFlow 8s linear infinite;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    /* Вращающееся сияющее кольцо вокруг циферблата */
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .dial-aura {
+      background: conic-gradient(
+        from 0deg,
+        #06b6d4,
+        #6366f1,
+        #d946ef,
+        #f59e0b,
+        #10b981,
+        #06b6d4
+      );
+      animation: spinSlow 18s linear infinite;
+      filter: blur(22px);
+      opacity: 0.38;
+    }
+
+    /* Плавная подсветка секторов SVG */
+    .sector-group {
+      cursor: pointer;
+      transition: filter 0.25s ease, opacity 0.25s ease;
+    }
+
+    .sector-group:hover {
+      filter: brightness(1.25);
+    }
+
+    .sector-active {
+      filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.65));
+    }
+
+    /* Стилизация выделенных букв кода Танаха */
+    .code-letter {
+      color: #fde047;
+      font-weight: 900;
+      text-shadow: 0 0 10px rgba(250, 204, 21, 0.7);
+    }
+
+    /* Кастомный скроллбар для модальной статьи */
+    .article-scroll::-webkit-scrollbar {
+      width: 8px;
+    }
+    .article-scroll::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 4px;
+    }
+    .article-scroll::-webkit-scrollbar-thumb {
+      background: rgba(99, 102, 241, 0.5);
+      border-radius: 4px;
+    }
+    .article-scroll::-webkit-scrollbar-thumb:hover {
+      background: rgba(129, 140, 248, 0.8);
+    }
+
+    /* Анимация появления модального окна */
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .modal-animate {
+      animation: modalFadeIn 0.22s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-indigo-500/40 selection:text-white">
+
+  <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+    <!-- Верхняя панель заголовка и управления -->
+    <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/70 border border-indigo-500/30 text-xs font-medium text-indigo-300 mb-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Сефер Ецира · Аризаль · Алтер Ребе · Рав Гинзбург
+        </div>
+        <h1 class="text-2xl sm:text-4xl font-bold tracking-tight">
+          <span class="iridescent-text">Каббалистический циферблат</span>
+        </h1>
+        <p class="text-slate-400 text-sm sm:text-base mt-1">
+          12 перестановок Имени, диагонали <em>Гвулей Алахсон</em>, сфирот, колена, месяцы и созвездия
+        </p>
+      </div>
+
+      <!-- Кнопки переключения режимов и кнопка справки "i" -->
+      <div class="flex flex-wrap items-center gap-2">
+        <button id="btnLiveMode" type="button"
+          class="px-4 py-2.5 rounded-xl text-sm font-medium transition-all border border-cyan-400/50 bg-cyan-500/20 text-cyan-100 shadow-lg shadow-cyan-500/10">
+          ⏱ Живое время
+        </button>
+        <button id="btnToggleDayNight" type="button"
+          class="px-4 py-2.5 rounded-xl text-sm font-medium transition-all border border-amber-400/40 bg-amber-500/15 text-amber-200 hover:bg-amber-500/25">
+          ☀️ День (הוי"ה)
+        </button>
+        <button id="btnOpenHelp" type="button" aria-label="Открыть статью и справку по источникам" title="Статья и источники"
+          class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all border border-purple-400/50 bg-purple-500/20 text-purple-100 hover:bg-purple-500/35 hover:shadow-lg hover:shadow-purple-500/20">
+          <span class="w-5 h-5 rounded-full border border-purple-300/80 flex items-center justify-center text-xs font-serif italic font-bold leading-none">i</span>
+          <span>Справка</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Основная сетка: слева циферблат, справа карточка соответствий -->
+    <main class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+      <!-- БЛОК ЦИФЕРБЛАТА -->
+      <section class="lg:col-span-6 flex flex-col items-center">
+        <div class="relative w-full max-w-[540px] aspect-square flex items-center justify-center">
+          <!-- Переливающаяся аура за циферблатом -->
+          <div class="dial-aura absolute inset-6 rounded-full pointer-events-none"></div>
+
+          <!-- Интерактивный SVG-циферблат -->
+          <svg id="kabbalahDial" viewBox="0 0 600 600" class="relative z-10 w-full h-full drop-shadow-2xl select-none" role="img" aria-label="Каббалистический циферблат 12 часов">
+            <defs>
+              <!-- Переливающийся градиент для активного сектора и обводки -->
+              <linearGradient id="iridescentStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#38bdf8">
+                  <animate attributeName="stop-color" values="#38bdf8;#a855f7;#fbbf24;#34d399;#38bdf8" dur="8s" repeatCount="indefinite" />
+                </stop>
+                <stop offset="50%" stop-color="#e879f9">
+                  <animate attributeName="stop-color" values="#e879f9;#fbbf24;#34d399;#38bdf8;#e879f9" dur="8s" repeatCount="indefinite" />
+                </stop>
+                <stop offset="100%" stop-color="#fbbf24">
+                  <animate attributeName="stop-color" values="#fbbf24;#34d399;#38bdf8;#a855f7;#fbbf24" dur="8s" repeatCount="indefinite" />
+                </stop>
+              </linearGradient>
+
+              <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#1e293b" stop-opacity="0.98" />
+                <stop offset="75%" stop-color="#0f172a" stop-opacity="0.98" />
+                <stop offset="100%" stop-color="#020617" stop-opacity="1" />
+              </radialGradient>
+
+              <linearGradient id="activeSectorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.45">
+                  <animate attributeName="stop-color" values="#38bdf8;#c084fc;#fbbf24;#34d399;#38bdf8" dur="6s" repeatCount="indefinite" />
+                </stop>
+                <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.35">
+                  <animate attributeName="stop-color" values="#f59e0b;#34d399;#38bdf8;#c084fc;#f59e0b" dur="6s" repeatCount="indefinite" />
+                </stop>
+              </linearGradient>
+            </defs>
+
+            <!-- Внешнее декоративное кольцо -->
+            <circle cx="300" cy="300" r="288" fill="#070b19" stroke="url(#iridescentStroke)" stroke-width="3.5" />
+            <circle cx="300" cy="300" r="278" fill="none" stroke="rgba(148,163,184,0.18)" stroke-width="1" stroke-dasharray="4 6" />
+
+            <!-- Контейнер для 12 интерактивных секторов (заполняется через JS) -->
+            <g id="dialSectors"></g>
+
+            <!-- Разделительные концентрические кольца -->
+            <circle cx="300" cy="300" r="218" fill="none" stroke="rgba(148,163,184,0.22)" stroke-width="1" />
+            <circle cx="300" cy="300" r="160" fill="none" stroke="rgba(148,163,184,0.22)" stroke-width="1" />
+
+            <!-- Часовые стрелки -->
+            <g id="clockHands" class="pointer-events-none">
+              <!-- Часовая стрелка -->
+              <line id="hourHand" x1="300" y1="300" x2="300" y2="165" stroke="url(#iridescentStroke)" stroke-width="6" stroke-linecap="round" />
+              <!-- Минутная стрелка -->
+              <line id="minuteHand" x1="300" y1="300" x2="300" y2="120" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round" opacity="0.85" />
+              <!-- Секундная стрелка -->
+              <line id="secondHand" x1="300" y1="300" x2="300" y2="105" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round" opacity="0.9" />
+            </g>
+
+            <!-- Центральный медальон с главным Именем текущего часа -->
+            <g id="centerMedallion" class="pointer-events-none">
+              <circle cx="300" cy="300" r="104" fill="url(#centerGlow)" stroke="url(#iridescentStroke)" stroke-width="3" />
+              <circle cx="300" cy="300" r="95" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+              <text id="centerLabelTop" x="300" y="248" text-anchor="middle" fill="#94a3b8" font-size="12.5" font-weight="600" letter-spacing="1.4">
+                1-Й ЧАС · НИСАН
+              </text>
+              <text id="centerDivineName" x="300" y="304" text-anchor="middle" fill="url(#iridescentStroke)" class="font-hebrew" font-size="52" font-weight="900" direction="rtl">
+                יהוה
+              </text>
+              <text id="centerSubLabel" x="300" y="338" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="600">
+                Йеуда · Тиферет — Нецах
+              </text>
+              <text id="centerDigitalTime" x="300" y="370" text-anchor="middle" fill="#64748b" font-size="12" font-family="monospace">
+                00:00:00
+              </text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Быстрая навигация по часам под циферблатом -->
+        <div class="mt-4 flex flex-wrap items-center justify-center gap-3">
+          <button id="btnPrevHour" type="button"
+            class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-slate-200 text-sm font-medium transition">
+            ← Предыдущий час
+          </button>
+          <span id="modeBadge" class="text-xs text-slate-400 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800">
+            Нажмите на любой сектор
+          </span>
+          <button id="btnNextHour" type="button"
+            class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-slate-200 text-sm font-medium transition">
+            Следующий час →
+          </button>
+        </div>
+      </section>
+
+      <!-- БЛОК ПОДРОБНЫХ СООТВЕТСТВИЙ -->
+      <section class="lg:col-span-6 space-y-4">
+
+        <!-- 1. ПЕРВОЕ: Имя Авая (или Адонай ночью) этого часа -->
+        <div class="iridescent-border p-5 sm:p-6">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <span class="text-xs uppercase tracking-widest text-cyan-300 font-semibold">
+                1. Имя этого часа (<span id="cardPeriodLabel">День · Авая</span>)
+              </span>
+              <div class="flex items-baseline gap-4 mt-1">
+                <div id="cardDivineName" class="font-hebrew text-5xl sm:text-6xl font-black iridescent-text leading-none" dir="rtl">
+                  י-ה-ו-ה
+                </div>
+                <div class="text-sm text-slate-300">
+                  <div id="cardHourTitle" class="font-semibold text-white text-base">1-й час дня</div>
+                  <div id="cardAltName" class="text-slate-400 text-xs mt-0.5">Ночное имя: א-ד-נ-י</div>
+                </div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-xs text-slate-400">Простая буква</div>
+              <div id="cardSimpleLetter" class="font-hebrew text-4xl font-bold text-amber-300 leading-tight">ה</div>
+            </div>
+          </div>
+          <div id="cardSeasonVector" class="mt-4 pt-3 border-t border-slate-700/60 text-xs sm:text-sm text-slate-300 leading-relaxed">
+            <!-- Заполняется через JS -->
+          </div>
+        </div>
+
+        <!-- 2. ВТОРОЕ: Гвуль и Сфирот согласно Алтер Ребе -->
+        <div class="iridescent-border p-5">
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="text-xs uppercase tracking-widest text-purple-300 font-semibold">
+              2. Гвуль и Сфирот (Алтер Ребе · ХаБаД)
+            </span>
+            <span id="cardGvulHebrew" class="font-hebrew text-base text-purple-200" dir="rtl">גבול מזרח רום</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="rounded-xl bg-slate-900/70 border border-slate-700/60 p-3.5">
+              <div class="text-xs text-slate-400">Диагональ (Гвуль Алахсон)</div>
+              <div id="cardGvulRu" class="text-lg font-bold text-white mt-0.5">Восток — Верх</div>
+            </div>
+            <div class="rounded-xl bg-slate-900/70 border border-slate-700/60 p-3.5">
+              <div class="text-xs text-slate-400">Смешение Мидот (Зеир Анпин)</div>
+              <div id="cardSefirotPair" class="text-lg font-bold iridescent-text mt-0.5">Тиферет — Нецах</div>
+            </div>
+          </div>
+          <div class="mt-3 text-xs text-slate-400 flex items-center justify-between">
+            <span>Путь на 2D-Древе Аризаля:</span>
+            <span id="cardAriPath" class="text-indigo-300 font-medium">Кетер → Хохма</span>
+          </div>
+        </div>
+
+        <!-- 3. ТРЕТЬЕ: Колено, Месяц, Созвездие, Чувство, Орган, Камень Хошена -->
+        <div class="iridescent-border p-5">
+          <span class="text-xs uppercase tracking-widest text-emerald-300 font-semibold block mb-3">
+            3. Колено, Месяц, Созвездие и соответствия (Мир · Год · Душа)
+          </span>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div class="rounded-xl bg-slate-900/70 border border-slate-700/50 p-3">
+              <div class="text-xs text-slate-400">Колено Израиля</div>
+              <div id="cardTribe" class="text-base font-bold text-white mt-0.5">Йеуда</div>
+              <div id="cardTribeHe" class="font-hebrew text-sm text-amber-300/90" dir="rtl">יהודה</div>
+            </div>
+
+            <div class="rounded-xl bg-slate-900/70 border border-slate-700/50 p-3">
+              <div class="text-xs text-slate-400">Месяц года</div>
+              <div id="cardMonth" class="text-base font-bold text-white mt-0.5">Нисан</div>
+              <div id="cardMonthHe" class="font-hebrew text-sm text-slate-400" dir="rtl">ניסן</div>
+            </div>
+
+            <div class="rounded-xl bg-slate-900/70 border border-slate-700/50 p-3">
+              <div class="text-xs text-slate-400">Созвездие (Мазаль)</div>
+              <div id="cardZodiac" class="text-base font-bold text-cyan-300 mt-0.5">♈ Овен</div>
+              <div id="cardZodiacHe" class="font-hebrew text-sm text-cyan-200/80" dir="rtl">טלה</div>
+            </div>
+
+            <div class="rounded-xl bg-slate-900/70 border border-slate-700/50 p-3">
+              <div class="text-xs text-slate-400">Чувство (Хуш)</div>
+              <div id="cardSense" class="text-base font-bold text-white mt-0.5">Речь</div>
+              <div id="cardSenseHe" class="font-hebrew text-sm text-slate-400" dir="rtl">דיבור</div>
+            </div>
+
+            <div class="rounded-xl bg-slate-900/70 border border-slate-700/50 p-3">
+              <div class="text-xs text-slate-400">Орган тела</div>
+              <div id="cardOrgan" class="text-sm sm:text-base font-semibold text-white mt-0.5">Правая нога</div>
+            </div>
+
+            <div class="rounded-xl bg-slate-900/70 border border-slate-700/50 p-3">
+              <div class="text-xs text-slate-400">Камень Хошена</div>
+              <div class="flex items-center gap-2 mt-1">
+                <span id="cardStoneSwatch" class="w-3.5 h-3.5 rounded-full ring-2 ring-white/30 shrink-0"></span>
+                <span id="cardStone" class="text-xs sm:text-sm font-semibold text-white leading-tight">Нофех (бирюза)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Психология чувства по раву Ицхаку Гинзбургу -->
+          <div class="mt-3 rounded-xl bg-emerald-950/35 border border-emerald-500/25 px-3.5 py-2.5 text-xs text-slate-300 leading-relaxed">
+            <span class="text-emerald-300 font-semibold">Психология чувства (р. Ицхак Гинзбург):</span>
+            <span id="cardGinsburghNote">Исправление речи (Песах = «уста говорят») — выражение свободы и благодарности.</span>
+          </div>
+        </div>
+
+        <!-- 4. ЧЕТВЁРТОЕ: Кодовый стих Танаха -->
+        <div class="iridescent-border p-5">
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <span class="text-xs uppercase tracking-widest text-amber-300 font-semibold">
+              4. Стих-код Танаха (<span id="cardCodeType">Р"Т — Начальные буквы</span>)
+            </span>
+            <span id="cardVerseSource" class="text-xs text-slate-400">Теилим, 96:11</span>
+          </div>
+          <div id="cardVerseHe" class="font-hebrew text-2xl sm:text-3xl text-right text-slate-100 leading-relaxed py-1" dir="rtl">
+            <!-- Заполняется через JS -->
+          </div>
+          <p id="cardVerseRu" class="text-xs sm:text-sm text-slate-400 italic mt-1">
+            «Возвеселятся небеса и возрадуется земля»
+          </p>
+        </div>
+
+      </section>
+    </main>
+
+    <!-- Примечание внизу -->
+    <footer class="mt-8 text-center text-xs text-slate-500 max-w-3xl mx-auto">
+      В режиме «Живое время» дневные часы (06:00–18:00) отображают 12 перестановок Имени <strong>הוי"ה</strong>, а ночные (18:00–06:00) — 12 перестановок Имени <strong>אדנ"י</strong> (в модели равноденствия 12/12). Нажмите на любой сектор циферблата или откройте кнопку <strong>ⓘ Справка</strong> для изучения всех источников.
+    </footer>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО: РАЗВЕРНУТАЯ СТАТЬЯ И СПРАВКА -->
+  <div id="helpModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="helpModalTitle">
+    <div class="modal-animate relative w-full max-w-4xl max-h-[90vh] flex flex-col rounded-2xl bg-slate-900/95 border border-indigo-500/40 shadow-2xl shadow-indigo-950/80 overflow-hidden">
+
+      <!-- Шапка модального окна -->
+      <div class="flex items-center justify-between gap-4 px-5 py-4 sm:px-7 border-b border-slate-800 bg-slate-900/95 shrink-0">
+        <div>
+          <span class="text-xs uppercase tracking-widest text-purple-300 font-semibold">Исследование и первоисточники</span>
+          <h2 id="helpModalTitle" class="text-lg sm:text-2xl font-bold text-white leading-snug">
+            <span class="iridescent-text">Матрица числа 12 и тайна 13 в Каббале и Хасидуте</span>
+          </h2>
+        </div>
+        <button id="btnCloseHelp" type="button" aria-label="Закрыть справку"
+          class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white flex items-center justify-center text-lg transition shrink-0">
+          ✕
+        </button>
+      </div>
+
+      <!-- Прокручиваемое тело статьи -->
+      <div id="articleScrollArea" class="article-scroll overflow-y-auto px-5 py-6 sm:px-8 space-y-8 text-slate-300 text-sm sm:text-base leading-relaxed">
+
+        <!-- СОДЕРЖАНИЕ (оглавление с плавной прокруткой) -->
+        <nav id="articleToc" class="rounded-xl bg-slate-950/70 border border-indigo-500/30 p-4 sm:p-5">
+          <div class="text-xs uppercase tracking-widest text-cyan-300 font-semibold mb-3">Содержание</div>
+          <ol class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+            <li><button type="button" data-scroll-to="sec-1" class="toc-link text-left text-indigo-300 hover:text-amber-300 transition">1. Корень числа 12: Мир, Год, Душа и Имя Авая</button></li>
+            <li><button type="button" data-scroll-to="sec-2" class="toc-link text-left text-indigo-300 hover:text-amber-300 transition">2. Древо Сфирот: Кетер, Малхут и схема Аризаля</button></li>
+            <li><button type="button" data-scroll-to="sec-3" class="toc-link text-left text-indigo-300 hover:text-amber-300 transition">3. 12 диагоналей (Гвулей Алахсон) в хасидуте ХаБаД</button></li>
+            <li><button type="button" data-scroll-to="sec-4" class="toc-link text-left text-indigo-300 hover:text-amber-300 transition">4. 12 перестановок в Сидуре Алтер Ребе и 4 сезона</button></li>
+            <li><button type="button" data-scroll-to="sec-5" class="toc-link text-left text-indigo-300 hover:text-amber-300 transition">5. Тайна числа 13 и 13 качеств милосердия (12 + 1)</button></li>
+            <li><button type="button" data-scroll-to="sec-6" class="toc-link text-left text-indigo-300 hover:text-amber-300 transition">6. Подход рава Ицхака Гинзбурга (Галь Эйнай)</button></li>
+            <li><button type="button" data-scroll-to="sec-7" class="toc-link text-left text-indigo-300 hover:text-amber-300 transition">7. Другие системы «12» в Торе, Храме и человеке</button></li>
+            <li><button type="button" data-scroll-to="sec-8" class="toc-link text-left text-indigo-300 hover:text-amber-300 transition">8. Сводная таблица соответствий и стихов-кодов</button></li>
+            <li><button type="button" data-scroll-to="sec-9" class="toc-link text-left text-indigo-300 hover:text-amber-300 transition">9. Библиография и первоисточники</button></li>
+          </ol>
+        </nav>
+
+        <!-- РАЗДЕЛ 1 -->
+        <article id="sec-1" class="space-y-3 scroll-mt-4">
+          <h3 class="text-xl font-bold text-white border-b border-slate-800 pb-2">
+            1. Корень числа 12: триада «Мир — Год — Душа» и Имя <span class="font-hebrew text-amber-300">הוי"ה</span>
+          </h3>
+          <p>
+            В каббале и хасидуте число <strong>12</strong> — не случайное совпадение, а базовая матрица раскрытия Божественного света в трёх измерениях творения: <strong>Мире</strong> (<em>Олам</em> — пространство), <strong>Годе</strong> (<em>Шана</em> — время) и <strong>Душе</strong> (<em>Нефеш</em> — человек). Первоисточником этой системы служит древнейший трактат <em>«Сефер Ецира»</em> («Книга Творения», гл. 1 и 5), который развили <em>Зоар</em>, Аризаль (<em>Эц Хаим</em>, <em>При Эц Хаим</em>, <em>Шаар а-Каванот</em>), рабби Йешаяу Горовиц (<em>Шла — Шней Лухот а-Брит</em>), рабби Шнеур-Залман из Ляд (Алтер Ребе) и рабби Цви-Элимелех из Динова (<em>Бней Иссахар</em>).
+          </p>
+          <ul class="list-disc pl-5 space-y-2 text-slate-300">
+            <li>
+              <strong>12 перестановок Имени Авая (<span class="font-hebrew text-amber-200">י"ב צירופי הוי"ה</span>):</strong> Четырёхбуквенное Имя Всевышнего (<span class="font-hebrew">י-ה-ו-ה</span>) содержит две одинаковые буквы <em>эй</em> (<span class="font-hebrew">ה</span>), поэтому математически существует ровно <strong>12 уникальных перестановок</strong> (<code class="text-cyan-300">4! / 2! = 12</code>). По Аризалю (<em>При Эц Хаим</em>, «Шаар а-Криа Шма», гл. 3), каждая перестановка — это отдельный канал жизненной энергии, управляющий миром в свой месяц и свой час дня.
+            </li>
+            <li>
+              <strong>12 «простых букв» (<span class="font-hebrew text-amber-200">י"ב פשוטות</span>):</strong> Из 22 букв иврита <em>Сефер Ецира</em> выделяет 3 «материнские» (<span class="font-hebrew">אמ"ש</span>), 7 «двойных» (<span class="font-hebrew">בגדכפר"ת</span>) и 12 «простых» (<span class="font-hebrew">ה, ו, ז, ח, ט, י, ל, נ, ס, ע, צ, ק</span>), через которые сотворены 12 знаков зодиака, 12 месяцев, 12 органов тела и 12 чувств души.
+            </li>
+            <li>
+              <strong>12 часов дня и 12 часов ночи:</strong> Согласно <em>Зоару</em> (ч. 3), <em>Шла</em> (<em>Тора Ор</em> на трактат <em>Хулин</em>) и <em>При Эц Хаим</em>, сутки делятся на два цикла по 12 часов. <strong>12 часов дня</strong> (аспект <em>Хесед</em>, открытое управление) управляются 12 перестановками Имени <strong>Авая (<span class="font-hebrew">הוי"ה</span>)</strong>, а <strong>12 часов ночи</strong> (аспект <em>Дин / Малхут</em>, скрытое поддержание мира) — 12 перестановками Имени <strong>Адонай (<span class="font-hebrew">אדנ"י</span>)</strong>.
+            </li>
+          </ul>
+        </article>
+
+        <!-- РАЗДЕЛ 2 -->
+        <article id="sec-2" class="space-y-3 scroll-mt-4">
+          <h3 class="text-xl font-bold text-white border-b border-slate-800 pb-2">
+            2. Древо Сфирот: откуда Кетер и почему в 12 связях нет Малхут
+          </h3>
+          <p>
+            В каббале существуют два способа считать 10 сфирот: <strong>с Кетером</strong> (без <em>Даат</em>) и <strong>с Даат</strong> (вынося <em>Кетер</em> над системой, как это часто принято в хасидуте ХаБаД при описании сил души). В классической схеме <em>«32 путей мудрости»</em> (10 сфирот + 22 буквы-пути из <em>Сефер Ецира</em>) используется первый вариант — с <strong>Кетером</strong> на вершине.
+          </p>
+          <div class="rounded-xl bg-slate-950/60 border border-slate-800 p-4 space-y-2">
+            <p class="text-white font-semibold">Геометрия Древа Аризаля и Виленского Гаона (Гра):</p>
+            <ul class="list-disc pl-5 space-y-1.5 text-sm">
+              <li><strong>3 горизонтальные связи</strong> — 3 «материнские» буквы (<span class="font-hebrew">א, מ, ש</span>).</li>
+              <li><strong>7 вертикальных связей</strong> — 7 «двойных» букв (<span class="font-hebrew">בגדכפר"ת</span>), включая центральную ось <span class="text-cyan-300">Кетер → Тиферет</span> и <strong>единственный путь к Малхут</strong>: <span class="text-cyan-300">Есод → Малхут</span>.</li>
+              <li><strong>12 диагональных связей</strong> — 12 «простых» букв, начиная от <span class="text-amber-300">Кетер → Хохма</span> и <span class="text-amber-300">Кетер → Бина</span> и заканчивая <span class="text-amber-300">Нецах → Есод</span> и <span class="text-amber-300">Ход → Есод</span>.</li>
+            </ul>
+          </div>
+          <p>
+            <strong>Почему нет диагоналей к Малхут?</strong> В основе лежит фундаментальный принцип <em>Зоара</em>: у сфиры <em>Малхут</em> «нет ничего своего» (<em>лейт ла ми-гарма клум</em>). Она не получает свет напрямую от правого и левого столпов (<em>Нецах</em> и <em>Ход</em>): весь поток сначала собирается в <strong>Есоде</strong> и лишь через один вертикальный канал передаётся в <em>Малхут</em>.
+          </p>
+          <p class="text-xs sm:text-sm text-slate-400">
+            <em>Примечание о различии схем:</em> В западной герметической традиции (Древо Афанасия Кирхера, XVII в.) отсутствуют две верхние диагонали (<em>Хохма → Гвура</em> и <em>Бина → Хесед</em>), а вместо них проведены диагонали к <em>Малхут</em>. В нашем циферблате используется аутентичная еврейская схема Аризаля и Гра. При этом сама <em>Сефер Ецира</em> даёт принцип 3–7–12, а жёсткая привязка конкретных букв к плоским 2D-диагоналям является позднейшей геометрической реконструкцией.
+          </p>
+        </article>
+
+        <!-- РАЗДЕЛ 3 -->
+        <article id="sec-3" class="space-y-3 scroll-mt-4">
+          <h3 class="text-xl font-bold text-white border-b border-slate-800 pb-2">
+            3. 12 диагоналей (<span class="font-hebrew text-purple-300">י"ב גבולי אלכסון</span>) в хасидуте ХаБаД
+          </h3>
+          <p>
+            В хасидуте ХаБаД (Алтер Ребе, <em>Ликутей Тора</em>, гл. «Реэ» 7, «Масей» — биур <em>«Ве-ярад а-гвуль»</em>, «Цав» 12; <em>Тора Ор</em>, гл. «Ваехи»; Любавичский Ребе, <em>Торат Менахем</em>, гл. «Беар-Бехукотай» 5734) 12 диагоналей понимаются не как плоская 2D-схема, а как <strong>трёхмерные рёбра куба — 12 диагональных границ парцуфа Зеир Анпин</strong> (шести эмоциональных сфирот).
+          </p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Смешение качеств (<em>Мезигат а-Мидот</em> и <em>Иткалелут</em>):</strong> В <em>Ликутей Тора</em> («Реэ», 7) Алтер Ребе поясняет, что 6 чистых эмоций (<em>Хесед, Гвура, Тиферет, Нецах, Ход, Есод</em>) — это однонаправленные векторы, а <strong>12 диагоналей</strong> — точки их гармоничного смешения и уравновешивания (<em>мемуцаим у-мемузагим</em>).
+            </li>
+            <li>
+              <strong>От Праотцев к 12 коленам:</strong> Праотцы (Авраам, Ицхак, Яаков) соответствуют корневым сфирот в обобщённом виде, а 12 колен Израиля — это <strong>12 диагоналей Зеир Анпин</strong>, разветвляющих корень на 12 индивидуальных путей служения. Именно поэтому Красное море расступилось на 12 отдельных проходов (<em>Ликутей Тора</em>, «Цав», 12).
+            </li>
+            <li>
+              <strong>Тайна слова «граница» (<em>Гвуль</em>):</strong> В мире Ацилут высшие сфирот беспредельны, так как в них облачён свет <em>Эйн Соф</em>. Чтобы спуститься в человеческую душу и материальный мир, свет проходит через сокращения (<em>цимцумим</em>) и обретает сосуд-границу («и спустится граница» — <em>ве-ярад а-гвуль</em>, <em>Ликутей Тора</em>, «Масей»).
+            </li>
+            <li>
+              <strong>Ключ 6 направлений (<em>Вав кцавот</em> — как при потрясании лулава в Суккот):</strong>
+              <span class="text-cyan-200">Юг = Хесед</span>, <span class="text-cyan-200">Север = Гвура</span>, <span class="text-cyan-200">Восток = Тиферет</span>, <span class="text-cyan-200">Верх = Нецах</span>, <span class="text-cyan-200">Низ = Ход</span>, <span class="text-cyan-200">Запад = Есод</span>. Из 15 математических пар 6 направлений 3 являются противоположными осями (Юг–Север, Восток–Запад, Верх–Низ), а оставшиеся <strong>12 смежных рёбер</strong> образуют 12 диагоналей из <em>Сефер Ецира</em> (5:2), показанных в карточке №2 циферблата.
+            </li>
+          </ul>
+        </article>
+
+        <!-- РАЗДЕЛ 4 -->
+        <article id="sec-4" class="space-y-3 scroll-mt-4">
+          <h3 class="text-xl font-bold text-white border-b border-slate-800 pb-2">
+            4. 12 перестановок Имени в Сидуре Алтер Ребе и 4 сезона
+          </h3>
+          <p>
+            В <em>Сидуре им Да"Х</em> (раздел <em>Шаар а-Рош Ходеш</em>) Алтер Ребе не печатает механические схемы-каванот (в отличие от сефардского Сидура Рашаша), а переводит учение о 12 перестановках на язык внутреннего служения души (<em>пнимиют</em>). Он задаёт вопрос на стих пророка Малахи (3:6): <em>«Я, Авая, не изменяюсь»</em> — как же Неизменное Имя может «переставляться» 12 раз?
+          </p>
+          <p>
+            Ответ ХаБаДа: сами 4 буквы неизменны (<strong>י</strong> — <em>Хохма</em>, <strong>ה</strong> — <em>Бина</em>, <strong>ו</strong> — <em>Зеир Анпин</em>, <strong>ה</strong> — <em>Малхут</em>), а перестановка меняет <strong>точку входа и доминирующий вектор</strong> в данный месяц или час. 12 перестановок делятся на 4 сезонные тройки (по аналогии с 4 станами 12 колен в пустыне):
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+            <div class="rounded-xl bg-slate-950/60 border border-cyan-500/30 p-3.5">
+              <div class="font-bold text-cyan-300">Весна (Нисан, Ияр, Сиван) — буква <span class="font-hebrew text-lg">י</span></div>
+              <div class="text-xs text-slate-400 mt-0.5 font-hebrew" dir="rtl">יהוה · יההו · יוהה</div>
+              <p class="mt-1.5 text-slate-300 text-xs"><em>Хохма / Хесед.</em> Движение сверху вниз (<em>итъорут де-леэла</em>), прямое раскрытие света (Исход, Дарование Торы).</p>
+            </div>
+            <div class="rounded-xl bg-slate-950/60 border border-amber-500/30 p-3.5">
+              <div class="font-bold text-amber-300">Лето (Тамуз, Ав, Элул) — первая <span class="font-hebrew text-lg">ה</span></div>
+              <div class="text-xs text-slate-400 mt-0.5 font-hebrew" dir="rtl">הוהי · הויה · ההוי</div>
+              <p class="mt-1.5 text-slate-300 text-xs"><em>Бина / Гвура.</em> Движение снизу вверх (<em>итъорут де-летата</em>), самоанализ и корень <em>Тшувы</em> (возвращения).</p>
+            </div>
+            <div class="rounded-xl bg-slate-950/60 border border-purple-500/30 p-3.5">
+              <div class="font-bold text-purple-300">Осень (Тишрей, Хешван, Кислев) — буква <span class="font-hebrew text-lg">ו</span></div>
+              <div class="text-xs text-slate-400 mt-0.5 font-hebrew" dir="rtl">והיה · וההי · ויהה</div>
+              <p class="mt-1.5 text-slate-300 text-xs"><em>Зеир Анпин / Тиферет.</em> Вертикальный канал милосердия, соединяющий Небо и землю в праздники Тишрея и Хануку.</p>
+            </div>
+            <div class="rounded-xl bg-slate-950/60 border border-indigo-500/30 p-3.5">
+              <div class="font-bold text-indigo-300">Зима (Тевет, Шват, Адар) — вторая <span class="font-hebrew text-lg">ה</span></div>
+              <div class="text-xs text-slate-400 mt-0.5 font-hebrew" dir="rtl">היהו · היוה · ההיו</div>
+              <p class="mt-1.5 text-slate-300 text-xs"><em>Малхут.</em> Внешнее скрытие света, работа на уровне действия и принятия ига Небес, прорывающаяся радостью Пурима.</p>
+            </div>
+          </div>
+          <p class="text-sm">
+            Каждая из 12 перестановок зашифрована в конкретном стихе Танаха: <strong>Р"Т (Рашей тейвот — начальные буквы)</strong> указывают на раскрытие света «лицом», а <strong>С"Т (Софей тейвот — конечные буквы)</strong> — на аспект сокрытия (<em>ахораим</em>), который человек призван развернуть к добру.
+          </p>
+        </article>
+
+        <!-- РАЗДЕЛ 5 -->
+        <article id="sec-5" class="space-y-3 scroll-mt-4">
+          <h3 class="text-xl font-bold text-white border-b border-slate-800 pb-2">
+            5. Тайна числа 13 и 13 качеств милосердия (формула «12 + 1»)
+          </h3>
+          <p>
+            Над любой двенадцатеричной системой в иудаизме стоит <strong>число 13</strong> — гематрия слов <strong>«Эхад» (<span class="font-hebrew text-amber-300">אחד</span> — Един)</strong> и <strong>«Аава» (<span class="font-hebrew text-amber-300">אהבה</span> — Любовь)</strong>. Это надсистемный центр, объединяющий 12 частей: 12 месяцев + 13-й високосный (Адар II), 12 колен + колено Леви (при разделении Йосефа на Эфраима и Менаше), 12 врат молитвы + 13-е общие врата (<em>Шаар а-Колель</em>).
+          </p>
+          <p>Связь между <strong>13 качествами милосердия</strong> (<em>Йуд-Гимель Мидот а-Рахамим</em>) и <strong>12 перестановками Авая</strong> раскрывается в двух главных школах каббалы:</p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Школа Рамака (рабби Моше Кордоверо):</strong> В <em>«Пардес Римоним»</em> (Врата 1, гл. 7; Врата 23, <em>Эрех а-Кинуим</em> 1:19) и в <em>Комментарии на Сефер Ецира</em> (гл. 5) Рамак прямо пишет: <em>«13 качеств милосердия — это 12 границ, которые суть 12 Авайот, и [тринадцатая] объединяющая их сила (Коах а-Колель)»</em>. Аналогично <em>«Биур а-Ликутим»</em> (на <em>Ликутей Моаран</em> I:7) отождествляет 12 качеств (без стоящего над ними <em>Ве-наке</em>) с 12 перестановками Имени.
+            </li>
+            <li>
+              <strong>Школа Аризаля и ХаБаДа:</strong> В Лурианской каббале (<em>Эц Хаим</em>, <em>При Эц Хаим</em>) и в ХаБаДе (<em>Тора Ор</em>, <em>Сефер а-Маамарим</em> 5734) эти две системы разведены по вертикали как <strong>корень и ветви</strong>: 13 качеств милосердия принадлежат уровню <strong>Кетер</strong> (<em>Арих Анпин</em> — 13 <em>Тикуней Дикна</em>), а 12 перестановок Имени — уровню <strong>Зеир Анпин</strong>. В книге <em>«Агра де-Кала»</em> (гл. <em>Ваешев</em>, 28) объясняется, что 12 сыновей Яакова — это 12 перестановок <em>Авая</em>, а сам Яаков возносит их к уровню 13 качеств милосердия.
+            </li>
+            <li>
+              <strong>Дополнительные источники:</strong> Р. Хаим Виталь (<em>Эц а-Даат Тов</em> на <em>Ваяавор Ашем</em>) отмечает, что центральное качество <em>Рахум</em> окружено 12 остальными качествами; р. Натан Шапира (<em>Мегале Амукот</em>, гл. <em>Ваэтханан</em>, 6) соотносит 13 качеств по счёту <em>Зоара</em> (ч. 3, 131б) с развёртыванием 12 перестановок.
+            </li>
+          </ul>
+        </article>
+
+        <!-- РАЗДЕЛ 6: ПОДХОД РАВА ИЦХАКА ГИНЗБУРГА -->
+        <article id="sec-6" class="space-y-3 scroll-mt-4">
+          <h3 class="text-xl font-bold text-white border-b border-slate-800 pb-2">
+            6. Подход рава Ицхака Гинзбурга (<span class="text-emerald-300">Галь Эйнай</span>): 12 чувств, куб Сукки и 13-е чувство
+          </h3>
+          <p>
+            У <strong>рава Ицхака Гинзбурга</strong> (<em>«Оцар а-Нефеш»</em> — раздел <em>Йуд-Бет Хушим</em>, цикл о 12 месяцах на <code>inner.org</code>) базовая матрица полностью совпадает с системой Аризаля и ХаБаДа, но дополняется уникальными психологическими и пространственными акцентами:
+          </p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Куб Сукки как 12 диагональных границ:</strong> В уроке <em>«Hoshanot: The Meaning of Ani Vahu»</em> рав Гинзбург объясняет, почему 12 рёбер куба называются «диагональными» (<em>алахсон</em>): идеальная форма Сукки — куб (6 граней = 6 эмоций <em>Зеир Анпин</em>), и если человек стоит <strong>в центре куба</strong>, то взгляд на любое из 12 рёбер всегда идёт <strong>по диагонали</strong>.
+            </li>
+            <li>
+              <strong>13-е чувство колена Леви — «Пение» (<em>Шира</em>):</strong> В разборе <em>«Secrets of the Tribe of Levi»</em> рав Гинзбург показывает, что колено Леви стоит в центре (вокруг Мишкана) и соответствует 13-му високосному месяцу. Его особое <strong>13-е чувство — пение и музыка (<em>Шира</em>)</strong>, которое не входит в 12 внешних чувств <em>Сефер Ецира</em>, но служит их внутренней душой.
+            </li>
+            <li>
+              <strong>Психология 12 чувств (<em>Тикун а-Нефеш</em>):</strong> Рав Гинзбург раскрывает каждое чувство как инструмент исправления души — например, в <strong>Тамузе</strong> (зрение / Рак — <em>Сартан</em>) он читает <em>сар тан</em> («снять внешнюю оболочку тела»), в <strong>Хешване</strong> (обоняние / Менаше) связывает <em>реах</em> с <em>руах</em> (духом, которым Машиах распознаёт корни душ), в <strong>Кислеве</strong> (сон / Биньямин) отмечает, что все 10 снов Пятикнижия читаются именно в этом месяце, а в <strong>Адаре</strong> (смех / Нафтали) переставляет буквы «чёрной меланхолии» (<span class="font-hebrew text-amber-200">מרה שחורה</span>) в «радостную мысль» (<span class="font-hebrew text-amber-200">הרהור שמח</span>).
+            </li>
+            <li>
+              <strong>Цветовой спектр и практика Рош Ходеш:</strong> На основе камней Хошена и <em>Зоара</em> рав Гинзбург соотносит 12 месяцев с 12 оттенками цветового круга, а в молитве <strong>Мусаф на Рош Ходеш</strong> советует иметь в виду перестановку Имени <em>Авая</em> наступающего месяца.
+            </li>
+          </ul>
+        </article>
+
+        <!-- РАЗДЕЛ 7 -->
+        <article id="sec-7" class="space-y-3 scroll-mt-4">
+          <h3 class="text-xl font-bold text-white border-b border-slate-800 pb-2">
+            7. Другие двенадцатеричные системы в Торе, Храме и человеке
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div class="rounded-xl bg-slate-950/50 border border-slate-800 p-4 space-y-2">
+              <div class="font-semibold text-emerald-300">В Торе и Храме</div>
+              <ul class="list-disc pl-4 space-y-1 text-slate-300">
+                <li><strong>12 камней Хошена</strong> (нагрудника Первосвященника, <em>Бемидбар Раба</em> 2; <em>Рабейну Бехайе</em>). Эфраим и Менаше делят камень <em>Шоам</em> (Йосеф), а камень <em>Барекет</em> (изумруд) принадлежит колену Леви.</li>
+                <li><strong>12 хлебов предложения</strong> (<em>Лехем а-Паним</em>) — 12 каналов материального изобилия.</li>
+                <li><strong>12 быков</strong> под «Медным морем» в Храме Шломо (по 3 на каждую сторону света).</li>
+                <li><strong>12 жертв глав колен (Несиим)</strong> при освящении Мишкана (<em>Бамидбар</em>, гл. 7), читаемые в Хануку.</li>
+                <li><strong>6 + 6 колен</strong> на горах Гризим и Эйваль при входе в Землю Израиля (<em>Дварим</em> 27:12–13; <em>Сота</em> 32а).</li>
+                <li><strong>12 источников в Элиме</strong> (<em>Шмот</em> 15:27), 12 камней Иордана и жертвенника Элияу, <strong>12 врат молитвы</strong> на Небесах (<em>Шаар а-Каванот</em>).</li>
+              </ul>
+            </div>
+            <div class="rounded-xl bg-slate-950/50 border border-slate-800 p-4 space-y-2">
+              <div class="font-semibold text-cyan-300">В человеке (Сефер Ецира, 5:1)</div>
+              <ul class="list-disc pl-4 space-y-1 text-slate-300">
+                <li><strong>12 чувств / душевных свойств (Хушим):</strong> речь, размышление, ходьба, зрение, слух, действие, близость, обоняние, сон, гнев, вкус (питание), смех.</li>
+                <li><strong>12 органов-«руководителей»:</strong> правая нога, правая почка, левая нога, правая рука, левая почка, левая рука, желчный пузырь, кишечник, желудок, печень, пищевод, селезёнка.</li>
+                <li class="text-xs text-slate-400"><em>Уточнение:</em> В циферблате приведён порядок органов по версии Аризаля, Гра и <em>Бней Иссахар</em> (в ранней версии комментария Раавада список начинается с печени и желчного пузыря).</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- РАЗДЕЛ 8: СВОДНАЯ ТАБЛИЦА -->
+        <article id="sec-8" class="space-y-3 scroll-mt-4">
+          <h3 class="text-xl font-bold text-white border-b border-slate-800 pb-2">
+            8. Сводная таблица всех 12 соответствий
+          </h3>
+          <div class="overflow-x-auto rounded-xl border border-slate-800">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead class="bg-slate-950/90 text-slate-300 uppercase">
+                <tr>
+                  <th class="p-2.5 border-b border-slate-800">Час / Месяц</th>
+                  <th class="p-2.5 border-b border-slate-800 text-center">Авая</th>
+                  <th class="p-2.5 border-b border-slate-800 text-center">Буква</th>
+                  <th class="p-2.5 border-b border-slate-800">Колено</th>
+                  <th class="p-2.5 border-b border-slate-800">Созвездие (Мазаль)</th>
+                  <th class="p-2.5 border-b border-slate-800">Гвуль (Алтер Ребе)</th>
+                  <th class="p-2.5 border-b border-slate-800">Чувство / Орган</th>
+                  <th class="p-2.5 border-b border-slate-800">Камень</th>
+                  <th class="p-2.5 border-b border-slate-800">Стих-код</th>
+                </tr>
+              </thead>
+              <tbody id="articleSummaryTableBody" class="divide-y divide-slate-800/80 bg-slate-900/50">
+                <!-- Заполняется автоматически из KABBALAH_HOURS -->
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <!-- РАЗДЕЛ 9: БИБЛИОГРАФИЯ -->
+        <article id="sec-9" class="space-y-3 scroll-mt-4 pb-4">
+          <h3 class="text-xl font-bold text-white border-b border-slate-800 pb-2">
+            9. Первоисточники и ссылки
+          </h3>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs sm:text-sm text-slate-300 list-disc pl-5">
+            <li><strong>Сефер Ецира</strong> — гл. 1:1; 5:1–2 (версии Аризаля, Виленского Гаона и Раавада).</li>
+            <li><strong>Зоар</strong> — ч. 3, 131б (13 качеств милосердия); учение о 12 часах дня и ночи и сфире Малхут.</li>
+            <li><strong>Аризаль</strong> — <em>Эц Хаим</em>; <em>При Эц Хаим</em> («Шаар а-Криа Шма», гл. 3); <em>Шаар а-Каванот</em> (12 врат молитвы).</li>
+            <li><strong>Рамак (р. Моше Кордоверо)</strong> — <em>Пардес Римоним</em> (Врата 1, гл. 7; Врата 23, <em>Эрех а-Кинуим</em> 1:19); комментарий на <em>Сефер Ецира</em> (гл. 5).</li>
+            <li><strong>Р. Йосеф Гикатилла</strong> — <em>Шаарей Ора</em>, 5-е врата (связь 12 диагональных границ и 12 колен).</li>
+            <li><strong>Шла (р. Йешаяу Горовиц)</strong> — <em>Шней Лухот а-Брит</em>, <em>Тора Ор</em> на трактат <em>Хулин</em>.</li>
+            <li><strong>Алтер Ребе (р. Шнеур-Залман из Ляд)</strong> — <em>Ликутей Тора</em> (гл. «Цав» 12, «Масей» — биур <em>Ве-ярад а-гвуль</em>, «Реэ» 7); <em>Тора Ор</em> (гл. «Ваехи»); <em>Сидур им Да"Х</em> (<em>Шаар а-Рош Ходеш</em>).</li>
+            <li><strong>Любавичский Ребе</strong> — <em>Торат Менахем</em> (гл. «Беар-Бехукотай», 5734); <em>Ликутей Сихот</em>; <em>Сефер а-Маамарим</em> 5734.</li>
+            <li><strong>Р. Ицхак Гинзбург (Галь Эйнай)</strong> — <em>Оцар а-Нефеш</em> (<em>Йуд-Бет Хушим</em>); цикл о 12 месяцах, <em>Hoshanot: Ani Vahu</em>, <em>Secrets of the Tribe of Levi</em> (<code>inner.org</code>).</li>
+            <li><strong>Р. Цви-Элимелех из Динова</strong> — <em>Бней Иссахар</em> (разделы по 12 месяцам); <em>Агра де-Кала</em> (гл. <em>Ваешев</em>, 28).</li>
+            <li><strong>Р. Хаим Виталь</strong> — <em>Эц а-Даат Тов</em> (комментарий на стих <em>Ваяавор Ашем</em>).</li>
+            <li><strong>Р. Натан Шапира</strong> — <em>Мегале Амукот</em>, гл. <em>Ваэтханан</em>, 6.</li>
+            <li><strong>Биур а-Ликутим</strong> — комментарий на <em>Ликутей Моаран</em> (ч. 1, Тора 7).</li>
+            <li><strong>Мидраш и Талмуд</strong> — <em>Берешит Раба</em>; <em>Бемидбар Раба</em>, гл. 2; <em>Псикта Рабати</em>; Вавилонский Талмуд, <em>Сота</em> 32а; <em>Рабейну Бехайе</em> на <em>Шмот</em> 28.</li>
+          </ul>
+
+          <div class="pt-4 flex justify-center">
+            <button type="button" data-scroll-to="articleToc"
+              class="toc-link px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-medium text-indigo-300 transition">
+              ↑ Вернуться к содержанию
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * Полная таблица 12 каббалистических часов и месяцев
+     * Источники: Сефер Ецира (5:1-2), Аризаль (При Эц Хаим), Алтер Ребе (Ликутей Тора, Сидур им Да"Х),
+     * Бней Иссахар, р. Ицхак Гинзбург (Галь Эйнай)
+     */
+    const KABBALAH_HOURS = [
+      {
+        hour: 1,
+        month: "Нисан",
+        monthHe: "ניסן",
+        havaya: "י-ה-ו-ה",
+        havayaPlain: "יהוה",
+        adonai: "א-ד-נ-י",
+        adonaiPlain: "אדני",
+        letter: "ה",
+        seasonVector: "Весна · Буква י (Хохма / Хесед): прямое раскрытие света сверху вниз (итъорут де-леэла), максимум ясности.",
+        gvulHe: "גבול מזרח רום",
+        gvulRu: "Восток — Верх",
+        sefirotPair: "Тиферет — Нецах",
+        ariPath: "Кетер → Хохма",
+        tribe: "Йеуда",
+        tribeHe: "יהודה",
+        zodiac: "♈ Овен",
+        zodiacName: "Овен",
+        zodiacHe: "טלה",
+        zodiacSymbol: "♈",
+        sense: "Речь",
+        senseHe: "דיבור",
+        ginsburghNote: "Исправление речи (Песах = «уста говорят») — обретение внутренней свободы и благодарности.",
+        organ: "Правая нога",
+        stone: "Нофех (бирюза)",
+        stoneColor: "#06b6d4",
+        codeType: "Р\"Т — Начальные буквы (лицом)",
+        verseHe: "<span class='code-letter'>י</span>שמחו <span class='code-letter'>ה</span>שמים <span class='code-letter'>ו</span>תגל <span class='code-letter'>ה</span>ארץ",
+        verseRu: "«Возвеселятся небеса и возрадуется земля»",
+        verseSource: "Теилим, 96:11"
+      },
+      {
+        hour: 2,
+        month: "Ияр",
+        monthHe: "אייר",
+        havaya: "י-ה-ה-ו",
+        havayaPlain: "יההו",
+        adonai: "א-ד-י-נ",
+        adonaiPlain: "אדינ",
+        letter: "ו",
+        seasonVector: "Весна · Буква י (Хохма / Хесед): углубление света в разум и исправление качеств души (Сфират а-Омер).",
+        gvulHe: "גבול מזרח צפון",
+        gvulRu: "Восток — Север",
+        sefirotPair: "Тиферет — Гвура",
+        ariPath: "Кетер → Бина",
+        tribe: "Иссахар",
+        tribeHe: "יששכר",
+        zodiac: "♉ Телец",
+        zodiacName: "Телец",
+        zodiacHe: "שור",
+        zodiacSymbol: "♉",
+        sense: "Размышление",
+        senseHe: "הרהור",
+        ginsburghNote: "Свобода выбора и «пробуждение снизу» (итъорут де-летата): самоисцеление начинается с очищения мысли.",
+        organ: "Правая почка",
+        stone: "Сапир (сапфир)",
+        stoneColor: "#2563eb",
+        codeType: "Р\"Т — Начальные буквы (лицом)",
+        verseHe: "<span class='code-letter'>י</span>תהלל <span class='code-letter'>ה</span>מתהלל <span class='code-letter'>ה</span>שכל <span class='code-letter'>ו</span>ידוע",
+        verseRu: "«Пусть хвалится хвалящийся тем, что разумеет и знает»",
+        verseSource: "Ирмеяу, 9:23"
+      },
+      {
+        hour: 3,
+        month: "Сиван",
+        monthHe: "סיוון",
+        havaya: "י-ו-ה-ה",
+        havayaPlain: "יוהה",
+        adonai: "א-נ-ד-י",
+        adonaiPlain: "אנדי",
+        letter: "ז",
+        seasonVector: "Весна · Буква י (Хохма / Хесед): передача света Торы напрямую в сердце и мир (Дарование Торы).",
+        gvulHe: "גבול מזרח תחת",
+        gvulRu: "Восток — Низ",
+        sefirotPair: "Тиферет — Ход",
+        ariPath: "Хохма → Гвура",
+        tribe: "Звулун",
+        tribeHe: "זבולון",
+        zodiac: "♊ Близнецы",
+        zodiacName: "Близнецы",
+        zodiacHe: "תאומים",
+        zodiacSymbol: "♊",
+        sense: "Ходьба",
+        senseHe: "הילוך",
+        ginsburghNote: "Постоянное духовное движение вперёд (меалех) — соединение неба и земли через путь Галахи.",
+        organ: "Левая нога",
+        stone: "Яалом (алмаз)",
+        stoneColor: "#e2e8f0",
+        codeType: "Р\"Т — Начальные буквы (лицом)",
+        verseHe: "<span class='code-letter'>י</span>דותיו <span class='code-letter'>ו</span>לצלע <span class='code-letter'>ה</span>משכן <span class='code-letter'>ה</span>שנית",
+        verseRu: "«Шипы его, и для второй стороны Мишкана»",
+        verseSource: "Шмот, 26:19–20"
+      },
+      {
+        hour: 4,
+        month: "Тамуз",
+        monthHe: "תמוז",
+        havaya: "ה-ו-ה-י",
+        havayaPlain: "הוהי",
+        adonai: "ד-א-נ-י",
+        adonaiPlain: "דאני",
+        letter: "ח",
+        seasonVector: "Лето · Первая ה (Бина / Гвура): движение снизу вверх (итъорут де-летата), исправление сокрытия через зрение.",
+        gvulHe: "גבול דרום רום",
+        gvulRu: "Юг — Верх",
+        sefirotPair: "Хесед — Нецах",
+        ariPath: "Бина → Хесед",
+        tribe: "Реувен",
+        tribeHe: "ראובן",
+        zodiac: "♋ Рак",
+        zodiacName: "Рак",
+        zodiacHe: "סרטן",
+        zodiacSymbol: "♋",
+        sense: "Зрение",
+        senseHe: "ראיה",
+        ginsburghNote: "Сартан (Рак) = «сар тан» (снять внешнюю оболочку): учиться видеть внутреннюю искру и добро.",
+        organ: "Правая рука",
+        stone: "Одем (рубин)",
+        stoneColor: "#e11d48",
+        codeType: "С\"Т — Конечные буквы (сокрытие)",
+        verseHe: "וכל ז<span class='code-letter'>ה</span> איננ<span class='code-letter'>ו</span> שו<span class='code-letter'>ה</span> ל<span class='code-letter'>י</span>",
+        verseRu: "«Но всё это не имеет цены для меня»",
+        verseSource: "Эстер, 5:13"
+      },
+      {
+        hour: 5,
+        month: "Ав",
+        monthHe: "אב",
+        havaya: "ה-ו-י-ה",
+        havayaPlain: "הויה",
+        adonai: "ד-א-י-נ",
+        adonaiPlain: "דאינ",
+        letter: "ט",
+        seasonVector: "Лето · Первая ה (Бина / Гвура): пробуждение глубокого понимания и утешения, превращение скорби в радость.",
+        gvulHe: "גבול דרום מזרח",
+        gvulRu: "Юг — Восток",
+        sefirotPair: "Хесед — Тиферет",
+        ariPath: "Хохма → Тиферет",
+        tribe: "Шимон",
+        tribeHe: "שמעון",
+        zodiac: "♌ Лев",
+        zodiacName: "Лев",
+        zodiacHe: "אריה",
+        zodiacSymbol: "♌",
+        sense: "Слух",
+        senseHe: "שמיעה",
+        ginsburghNote: "Внутреннее вслушивание и принятие — умение слышать скрытое добро и утешение внутри испытаний.",
+        organ: "Левая почка",
+        stone: "Питда (топаз)",
+        stoneColor: "#eab308",
+        codeType: "Р\"Т — Начальные буквы (лицом)",
+        verseHe: "<span class='code-letter'>ה</span>סכת <span class='code-letter'>ו</span>שמע <span class='code-letter'>י</span>שראל <span class='code-letter'>ה</span>יום",
+        verseRu: "«Внемли и слушай, Израиль, сегодня»",
+        verseSource: "Дварим, 27:9"
+      },
+      {
+        hour: 6,
+        month: "Элул",
+        monthHe: "אלול",
+        havaya: "ה-ה-ו-י",
+        havayaPlain: "ההוי",
+        adonai: "ד-נ-א-י",
+        adonaiPlain: "דנאי",
+        letter: "י",
+        seasonVector: "Лето · Первая ה (Бина / Гвура): корень Тшувы (возвращения), Царь в поле — исправление поступков и мыслей.",
+        gvulHe: "גבול דרום תחת",
+        gvulRu: "Юг — Низ",
+        sefirotPair: "Хесед — Ход",
+        ariPath: "Бина → Тиферет",
+        tribe: "Гад",
+        tribeHe: "גד",
+        zodiac: "♍ Дева",
+        zodiacName: "Дева",
+        zodiacHe: "בתולה",
+        zodiacSymbol: "♍",
+        sense: "Действие",
+        senseHe: "מעשה",
+        ginsburghNote: "Исправление конкретных поступков; малая гематрия слова «Элул» равна 13 — связь с 13 качествами милосердия.",
+        organ: "Левая рука",
+        stone: "Шво (агат)",
+        stoneColor: "#d97706",
+        codeType: "С\"Т — Конечные буквы (сокрытие)",
+        verseHe: "וצדק<span class='code-letter'>ה</span> תהי<span class='code-letter'>ה</span> לנ<span class='code-letter'>ו</span> כ<span class='code-letter'>י</span>",
+        verseRu: "«И праведность будет нам, ибо...»",
+        verseSource: "Дварим, 6:25"
+      },
+      {
+        hour: 7,
+        month: "Тишрей",
+        monthHe: "תשרי",
+        havaya: "ו-ה-י-ה",
+        havayaPlain: "והיה",
+        adonai: "נ-א-ד-י",
+        adonaiPlain: "נאדי",
+        letter: "ל",
+        seasonVector: "Осень · Буква ו (Зеир Анпин / Тиферет): вертикальный канал милосердия, соединяющий Небо и землю в праздники.",
+        gvulHe: "גבול מערב רום",
+        gvulRu: "Запад — Верх",
+        sefirotPair: "Есод — Нецах",
+        ariPath: "Хесед → Тиферет",
+        tribe: "Эфраим",
+        tribeHe: "אפרים",
+        zodiac: "♎ Весы",
+        zodiacName: "Весы",
+        zodiacHe: "מאזניים",
+        zodiacSymbol: "♎",
+        sense: "Близость",
+        senseHe: "תשמיש",
+        ginsburghNote: "Чувство прикосновения и союза (Есод) — равновесие и глубокое единение души с Творцом в праздники.",
+        organ: "Желчный пузырь",
+        stone: "Шоам (оникс)",
+        stoneColor: "#64748b",
+        codeType: "С\"Т — Конечные буквы (сокрытие)",
+        verseHe: "וירא<span class='code-letter'>ו</span> אות<span class='code-letter'>ה</span> שר<span class='code-letter'>י</span> פרע<span class='code-letter'>ה</span>",
+        verseRu: "«И увидели её вельможи фараона»",
+        verseSource: "Берешит, 12:15"
+      },
+      {
+        hour: 8,
+        month: "Хешван",
+        monthHe: "חשוון",
+        havaya: "ו-ה-ה-י",
+        havayaPlain: "וההי",
+        adonai: "נ-א-י-ד",
+        adonaiPlain: "נאיד",
+        letter: "נ",
+        seasonVector: "Осень · Буква ו (Зеир Анпин / Тиферет): перенос света осенних праздников в будничную работу и тонкое чутьё души.",
+        gvulHe: "גבול מערב דרום",
+        gvulRu: "Запад — Юг",
+        sefirotPair: "Есод — Хесед",
+        ariPath: "Гвура → Тиферет",
+        tribe: "Менаше",
+        tribeHe: "מנשה",
+        zodiac: "♏ Скорпион",
+        zodiacName: "Скорпион",
+        zodiacHe: "עקרב",
+        zodiacSymbol: "♏",
+        sense: "Обоняние",
+        senseHe: "ריח",
+        ginsburghNote: "Самое духовное чувство (реах = руах): именно им Машиах распознаёт духовный корень каждой души.",
+        organ: "Кишечник",
+        stone: "Шоам (оникс)",
+        stoneColor: "#475569",
+        codeType: "Р\"Т — Начальные буквы (лицом)",
+        verseHe: "<span class='code-letter'>ו</span>דבש <span class='code-letter'>ה</span>יום <span class='code-letter'>ה</span>זה <span class='code-letter'>י</span>הוה",
+        verseRu: "«...и мёдом. В этот день Господь...»",
+        verseSource: "Дварим, 26:15–16"
+      },
+      {
+        hour: 9,
+        month: "Кислев",
+        monthHe: "כסלו",
+        havaya: "ו-י-ה-ה",
+        havayaPlain: "ויהה",
+        adonai: "נ-ד-א-י",
+        adonaiPlain: "נדאי",
+        letter: "ס",
+        seasonVector: "Осень · Буква ו (Зеир Анпин / Тиферет): свет чудес и хасидизма (Ханука, 19 Кислева), освещающий ночную тьму.",
+        gvulHe: "גבול מערב תחת",
+        gvulRu: "Запад — Низ",
+        sefirotPair: "Есод — Ход",
+        ariPath: "Тиферет → Нецах",
+        tribe: "Биньямин",
+        tribeHe: "בנימין",
+        zodiac: "♐ Стрелец",
+        zodiacName: "Стрелец",
+        zodiacHe: "קשת",
+        zodiacSymbol: "♐",
+        sense: "Сон",
+        senseHe: "שינה",
+        ginsburghNote: "Глубокое доверие (битахон) и покой: все 10 снов Пятикнижия читаются в Торе именно в месяце Кислев.",
+        organ: "Желудок",
+        stone: "Яшфе (яшма)",
+        stoneColor: "#b91c1c",
+        codeType: "Р\"Т — Начальные буквы (лицом)",
+        verseHe: "<span class='code-letter'>ו</span>ירא <span class='code-letter'>י</span>ושב <span class='code-letter'>ה</span>ארץ <span class='code-letter'>ה</span>כנעני",
+        verseRu: "«И увидел житель земли, ханааней»",
+        verseSource: "Берешит, 50:11"
+      },
+      {
+        hour: 10,
+        month: "Тевет",
+        monthHe: "טבת",
+        havaya: "ה-י-ה-ו",
+        havayaPlain: "היהו",
+        adonai: "י-א-ד-נ",
+        adonaiPlain: "יאדנ",
+        letter: "ע",
+        seasonVector: "Зима · Вторая ה (Малхут): работа в условиях внешнего скрытия, принятие ига Небес (кабалат оль) и выдержка.",
+        gvulHe: "גבול צפון רום",
+        gvulRu: "Север — Верх",
+        sefirotPair: "Гвура — Нецах",
+        ariPath: "Тиферет → Ход",
+        tribe: "Дан",
+        tribeHe: "דן",
+        zodiac: "♑ Козерог",
+        zodiacName: "Козерог",
+        zodiacHe: "גדי",
+        zodiacSymbol: "♑",
+        sense: "Гнев",
+        senseHe: "רוגז",
+        ginsburghNote: "Исправление гнева в святое рвение и твёрдость духа — очищение печени и обуздание импульсов.",
+        organ: "Печень",
+        stone: "Лешем (янтарь)",
+        stoneColor: "#f59e0b",
+        codeType: "С\"Т — Конечные буквы (сокрытие)",
+        verseHe: "ליהו<span class='code-letter'>ה</span> את<span class='code-letter'>י</span> ונרוממ<span class='code-letter'>ה</span> שמ<span class='code-letter'>ו</span>",
+        verseRu: "«Возвеличьте Господа со мною, и превознесём Имя Его»",
+        verseSource: "Теилим, 34:4"
+      },
+      {
+        hour: 11,
+        month: "Шват",
+        monthHe: "שבט",
+        havaya: "ה-י-ו-ה",
+        havayaPlain: "היוה",
+        adonai: "י-א-נ-ד",
+        adonaiPlain: "יאנד",
+        letter: "צ",
+        seasonVector: "Зима · Вторая ה (Малхут): скрытое пробуждение жизненных соков в земле (Ту би-Шват), освящение материального.",
+        gvulHe: "גבול צפון מערב",
+        gvulRu: "Север — Запад",
+        sefirotPair: "Гвура — Есод",
+        ariPath: "Нецах → Есод",
+        tribe: "Ашер",
+        tribeHe: "אשר",
+        zodiac: "♒ Водолей",
+        zodiacName: "Водолей",
+        zodiacHe: "דלי",
+        zodiacSymbol: "♒",
+        sense: "Вкус",
+        senseHe: "אכילה",
+        ginsburghNote: "Освящение наслаждения и трапезы — извлечение скрытых искр святости из материальной пищи.",
+        organ: "Пищевод",
+        stone: "Таршиш (аквамарин)",
+        stoneColor: "#0ea5e9",
+        codeType: "Р\"Т — Начальные буквы (лицом)",
+        verseHe: "<span class='code-letter'>ה</span>מר <span class='code-letter'>י</span>מירנו <span class='code-letter'>ו</span>היה <span class='code-letter'>ה</span>וא",
+        verseRu: "«Если же заменит его, то и оно будет...»",
+        verseSource: "Ваикра, 27:33"
+      },
+      {
+        hour: 12,
+        month: "Адар",
+        monthHe: "אדר",
+        havaya: "ה-ה-י-ו",
+        havayaPlain: "ההיו",
+        adonai: "י-ד-א-נ",
+        adonaiPlain: "ידאנ",
+        letter: "ק",
+        seasonVector: "Зима · Вторая ה (Малхут): прорыв скрытия сверхъестественной радостью (Пурим), переворот судьбы к добру.",
+        gvulHe: "גבול צפון תחת",
+        gvulRu: "Север — Низ",
+        sefirotPair: "Гвура — Ход",
+        ariPath: "Ход → Есод",
+        tribe: "Нафтали",
+        tribeHe: "נפתלי",
+        zodiac: "♓ Рыбы",
+        zodiacName: "Рыбы",
+        zodiacHe: "דגים",
+        zodiacSymbol: "♓",
+        sense: "Смех",
+        senseHe: "שחוק",
+        ginsburghNote: "Святой юмор: буквы «чёрной меланхолии» (מרה שחורה) переставляются в «радостную мысль» (הרהור שמח).",
+        organ: "Селезёнка",
+        stone: "Ахлама (аметист)",
+        stoneColor: "#9333ea",
+        codeType: "С\"Т — Конечные буквы (сокрытие)",
+        verseHe: "עיר<span class='code-letter'>ה</span> ולשרק<span class='code-letter'>ה</span> בנ<span class='code-letter'>י</span> אתונ<span class='code-letter'>ו</span>",
+        verseRu: "«Привязывает к лозе ослёнка своего и к ветви — сына ослицы»",
+        verseSource: "Берешит, 49:11"
+      }
+    ];
+
+    // Глобальное состояние приложения
+    let isLiveMode = true;
+    let isDayMode = true;
+    let selectedHourIndex = 0; // 0..11 (соответствует 1..12 часам)
+
+    // Ссылки на основные элементы DOM
+    const svgNS = "http://www.w3.org/2000/svg";
+    const dialSectorsEl = document.getElementById("dialSectors");
+    const btnLiveMode = document.getElementById("btnLiveMode");
+    const btnToggleDayNight = document.getElementById("btnToggleDayNight");
+    const btnPrevHour = document.getElementById("btnPrevHour");
+    const btnNextHour = document.getElementById("btnNextHour");
+    const modeBadge = document.getElementById("modeBadge");
+    const helpModal = document.getElementById("helpModal");
+    const btnOpenHelp = document.getElementById("btnOpenHelp");
+    const btnCloseHelp = document.getElementById("btnCloseHelp");
+    const articleScrollArea = document.getElementById("articleScrollArea");
+    const articleSummaryTableBody = document.getElementById("articleSummaryTableBody");
+
+    /**
+     * Переводит полярные координаты (угол в градусах от 12 часов по часовой) в декартовы (x, y)
+     */
+    function polarToCartesian(cx, cy, radius, angleInDegrees) {
+      const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
+      return {
+        x: cx + radius * Math.cos(angleInRadians),
+        y: cy + radius * Math.sin(angleInRadians)
+      };
+    }
+
+    /**
+     * Строит SVG path кольцевого сектора от rInner до rOuter между углами startAngle и endAngle
+     */
+    function describeRingSector(cx, cy, rInner, rOuter, startAngle, endAngle) {
+      const outerStart = polarToCartesian(cx, cy, rOuter, endAngle);
+      const outerEnd = polarToCartesian(cx, cy, rOuter, startAngle);
+      const innerStart = polarToCartesian(cx, cy, rInner, endAngle);
+      const innerEnd = polarToCartesian(cx, cy, rInner, startAngle);
+      const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+
+      return [
+        "M", outerStart.x, outerStart.y,
+        "A", rOuter, rOuter, 0, largeArcFlag, 0, outerEnd.x, outerEnd.y,
+        "L", innerEnd.x, innerEnd.y,
+        "A", rInner, rInner, 0, largeArcFlag, 1, innerStart.x, innerStart.y,
+        "Z"
+      ].join(" ");
+    }
+
+    /**
+     * Отрисовывает 12 интерактивных секторов циферблата
+     */
+    function renderDialSectors() {
+      if (!dialSectorsEl) return;
+      dialSectorsEl.innerHTML = "";
+
+      KABBALAH_HOURS.forEach((item, index) => {
+        // Час 1 находится на позиции 1:00 (30°), ..., Час 12 на позиции 12:00 (360° / 0°)
+        const centerAngle = (index + 1) * 30;
+        const startAngle = centerAngle - 15;
+        const endAngle = centerAngle + 15;
+
+        const group = document.createElementNS(svgNS, "g");
+        group.setAttribute("class", "sector-group");
+        group.setAttribute("data-index", index);
+
+        // Всплывающая подсказка при наведении
+        const tooltip = document.createElementNS(svgNS, "title");
+        tooltip.textContent = `${item.hour}-й час · ${item.month} · ${item.zodiac} (${item.zodiacHe}) · ${item.tribe}`;
+        group.appendChild(tooltip);
+
+        // Форма сектора
+        const path = document.createElementNS(svgNS, "path");
+        path.setAttribute("d", describeRingSector(300, 300, 104, 278, startAngle, endAngle));
+        path.setAttribute("id", `sector-path-${index}`);
+        path.setAttribute("fill", index % 2 === 0 ? "rgba(30, 41, 59, 0.42)" : "rgba(15, 23, 42, 0.55)");
+        path.setAttribute("stroke", "rgba(148, 163, 184, 0.2)");
+        path.setAttribute("stroke-width", "1");
+        group.appendChild(path);
+
+        // Внешнее кольцо: Имя часа (Авая / Адонай)
+        const namePos = polarToCartesian(300, 300, 248, centerAngle);
+        const nameText = document.createElementNS(svgNS, "text");
+        nameText.setAttribute("x", namePos.x);
+        nameText.setAttribute("y", namePos.y + 7);
+        nameText.setAttribute("text-anchor", "middle");
+        nameText.setAttribute("class", "font-hebrew");
+        nameText.setAttribute("font-size", "20");
+        nameText.setAttribute("font-weight", "800");
+        nameText.setAttribute("fill", "#cbd5e1");
+        nameText.setAttribute("direction", "rtl");
+        nameText.setAttribute("id", `sector-name-${index}`);
+        nameText.textContent = item.havayaPlain;
+        group.appendChild(nameText);
+
+        // Среднее кольцо: Месяц и Колено
+        const monthPos = polarToCartesian(300, 300, 198, centerAngle);
+        const monthText = document.createElementNS(svgNS, "text");
+        monthText.setAttribute("x", monthPos.x);
+        monthText.setAttribute("y", monthPos.y + 3);
+        monthText.setAttribute("text-anchor", "middle");
+        monthText.setAttribute("fill", "#e2e8f0");
+        monthText.setAttribute("font-size", "11");
+        monthText.setAttribute("font-weight", "600");
+        monthText.textContent = item.month;
+        group.appendChild(monthText);
+
+        const tribePos = polarToCartesian(300, 300, 179, centerAngle);
+        const tribeText = document.createElementNS(svgNS, "text");
+        tribeText.setAttribute("x", tribePos.x);
+        tribeText.setAttribute("y", tribePos.y + 3);
+        tribeText.setAttribute("text-anchor", "middle");
+        tribeText.setAttribute("fill", "#94a3b8");
+        tribeText.setAttribute("font-size", "9.5");
+        tribeText.setAttribute("font-weight", "500");
+        tribeText.textContent = item.tribe;
+        group.appendChild(tribeText);
+
+        // Внутреннее кольцо: Номер часа + значок созвездия и название созвездия
+        const innerPos = polarToCartesian(300, 300, 144, centerAngle);
+        const hourNum = document.createElementNS(svgNS, "text");
+        hourNum.setAttribute("x", innerPos.x);
+        hourNum.setAttribute("y", innerPos.y + 4);
+        hourNum.setAttribute("text-anchor", "middle");
+        hourNum.setAttribute("fill", "#94a3b8");
+        hourNum.setAttribute("font-size", "11");
+        hourNum.setAttribute("font-weight", "600");
+        hourNum.setAttribute("id", `sector-num-${index}`);
+        hourNum.textContent = `${item.hour} · ${item.zodiacSymbol}`;
+        group.appendChild(hourNum);
+
+        const zodiacPos = polarToCartesian(300, 300, 124, centerAngle);
+        const zodiacLabel = document.createElementNS(svgNS, "text");
+        zodiacLabel.setAttribute("x", zodiacPos.x);
+        zodiacLabel.setAttribute("y", zodiacPos.y + 3);
+        zodiacLabel.setAttribute("text-anchor", "middle");
+        zodiacLabel.setAttribute("fill", "#64748b");
+        zodiacLabel.setAttribute("font-size", "8.5");
+        zodiacLabel.setAttribute("font-weight", "500");
+        zodiacLabel.setAttribute("id", `sector-zodiac-${index}`);
+        zodiacLabel.textContent = item.zodiacName;
+        group.appendChild(zodiacLabel);
+
+        // Клик по сектору переключает в ручной режим и выбирает час
+        group.addEventListener("click", () => {
+          isLiveMode = false;
+          selectedHourIndex = index;
+          updateUI();
+        });
+
+        dialSectorsEl.appendChild(group);
+      });
+    }
+
+    /**
+     * Заполняет сводную таблицу внутри статьи-справочника
+     */
+    function buildArticleSummaryTable() {
+      if (!articleSummaryTableBody) return;
+      articleSummaryTableBody.innerHTML = KABBALAH_HOURS.map((item) => `
+        <tr class="hover:bg-slate-800/40 transition">
+          <td class="p-2.5 font-semibold text-white whitespace-nowrap">${item.hour} · ${item.month}</td>
+          <td class="p-2.5 text-center font-hebrew text-base text-amber-300 font-bold whitespace-nowrap" dir="rtl">${item.havaya}</td>
+          <td class="p-2.5 text-center font-hebrew text-base text-cyan-300 font-bold">${item.letter}</td>
+          <td class="p-2.5 text-slate-200 whitespace-nowrap">${item.tribe}</td>
+          <td class="p-2.5 text-cyan-200 whitespace-nowrap">
+            <div>${item.zodiac}</div>
+            <div class="font-hebrew text-xs text-slate-400" dir="rtl">${item.zodiacHe}</div>
+          </td>
+          <td class="p-2.5 text-slate-300">
+            <div class="font-medium text-indigo-200">${item.sefirotPair}</div>
+            <div class="text-[11px] text-slate-400">${item.gvulRu}</div>
+          </td>
+          <td class="p-2.5 text-slate-300">
+            <div>${item.sense}</div>
+            <div class="text-[11px] text-slate-400">${item.organ}</div>
+          </td>
+          <td class="p-2.5 text-slate-300 whitespace-nowrap">${item.stone}</td>
+          <td class="p-2.5 text-slate-300 whitespace-nowrap">${item.verseSource}</td>
+        </tr>
+      `).join("");
+    }
+
+    /**
+     * Обновляет подсветку циферблата, кнопки и все 4 карточки соответствий
+     */
+    function updateUI() {
+      try {
+        const data = KABBALAH_HOURS[selectedHourIndex];
+        if (!data) return;
+
+        // 1. Обновляем кнопки управления
+        if (isLiveMode) {
+          btnLiveMode.className = "px-4 py-2.5 rounded-xl text-sm font-medium transition-all border border-cyan-400/60 bg-cyan-500/25 text-cyan-100 shadow-lg shadow-cyan-500/15";
+          btnLiveMode.textContent = "⏱ Живое время (вкл)";
+          modeBadge.textContent = "Режим: живое время";
+        } else {
+          btnLiveMode.className = "px-4 py-2.5 rounded-xl text-sm font-medium transition-all border border-slate-700 bg-slate-800/70 text-slate-300 hover:bg-slate-700/80";
+          btnLiveMode.textContent = "⏱ Вернуть живое время";
+          modeBadge.textContent = `Ручной выбор: ${data.hour}-й час (${data.month})`;
+        }
+
+        if (isDayMode) {
+          btnToggleDayNight.className = "px-4 py-2.5 rounded-xl text-sm font-medium transition-all border border-amber-400/50 bg-amber-500/20 text-amber-200 hover:bg-amber-500/30";
+          btnToggleDayNight.textContent = '☀️ День (הוי"ה)';
+        } else {
+          btnToggleDayNight.className = "px-4 py-2.5 rounded-xl text-sm font-medium transition-all border border-indigo-400/50 bg-indigo-500/25 text-indigo-200 hover:bg-indigo-500/35";
+          btnToggleDayNight.textContent = '🌙 Ночь (אדנ"י)';
+        }
+
+        // 2. Обновляем 12 секторов SVG
+        KABBALAH_HOURS.forEach((item, idx) => {
+          const pathEl = document.getElementById(`sector-path-${idx}`);
+          const nameEl = document.getElementById(`sector-name-${idx}`);
+          const numEl = document.getElementById(`sector-num-${idx}`);
+          const zodiacEl = document.getElementById(`sector-zodiac-${idx}`);
+          if (!pathEl || !nameEl) return;
+
+          nameEl.textContent = isDayMode ? item.havayaPlain : item.adonaiPlain;
+
+          if (idx === selectedHourIndex) {
+            pathEl.setAttribute("fill", "url(#activeSectorGrad)");
+            pathEl.setAttribute("stroke", "url(#iridescentStroke)");
+            pathEl.setAttribute("stroke-width", "2.5");
+            pathEl.parentNode.classList.add("sector-active");
+            nameEl.setAttribute("fill", "#ffffff");
+            if (numEl) numEl.setAttribute("fill", "#fde047");
+            if (zodiacEl) zodiacEl.setAttribute("fill", "#e0f2fe");
+          } else {
+            pathEl.setAttribute("fill", idx % 2 === 0 ? "rgba(30, 41, 59, 0.42)" : "rgba(15, 23, 42, 0.55)");
+            pathEl.setAttribute("stroke", "rgba(148, 163, 184, 0.2)");
+            pathEl.setAttribute("stroke-width", "1");
+            pathEl.parentNode.classList.remove("sector-active");
+            nameEl.setAttribute("fill", "#cbd5e1");
+            if (numEl) numEl.setAttribute("fill", "#94a3b8");
+            if (zodiacEl) zodiacEl.setAttribute("fill", "#64748b");
+          }
+        });
+
+        // 3. Центральный медальон
+        document.getElementById("centerLabelTop").textContent = `${data.hour}-Й ЧАС · ${data.month.toUpperCase()}`;
+        document.getElementById("centerDivineName").textContent = isDayMode ? data.havayaPlain : data.adonaiPlain;
+        document.getElementById("centerSubLabel").textContent = `${data.tribe} · ${data.sefirotPair}`;
+
+        // 4. Карточка 1: Имя этого часа
+        document.getElementById("cardPeriodLabel").textContent = isDayMode ? "День · Авая" : "Ночь · Адонай";
+        document.getElementById("cardDivineName").textContent = isDayMode ? data.havaya : data.adonai;
+        document.getElementById("cardHourTitle").textContent = `${data.hour}-й час ${isDayMode ? "дня" : "ночи"}`;
+        document.getElementById("cardAltName").textContent = isDayMode
+          ? `Ночное имя: ${data.adonai}`
+          : `Дневное имя: ${data.havaya}`;
+        document.getElementById("cardSimpleLetter").textContent = data.letter;
+        document.getElementById("cardSeasonVector").textContent = data.seasonVector;
+
+        // 5. Карточка 2: Гвуль и Сфирот (Алтер Ребе)
+        document.getElementById("cardGvulHebrew").textContent = data.gvulHe;
+        document.getElementById("cardGvulRu").textContent = data.gvulRu;
+        document.getElementById("cardSefirotPair").textContent = data.sefirotPair;
+        document.getElementById("cardAriPath").textContent = data.ariPath;
+
+        // 6. Карточка 3: Колено, месяц, созвездие, чувство, орган, камень
+        document.getElementById("cardTribe").textContent = data.tribe;
+        document.getElementById("cardTribeHe").textContent = data.tribeHe;
+        document.getElementById("cardMonth").textContent = data.month;
+        document.getElementById("cardMonthHe").textContent = data.monthHe;
+        document.getElementById("cardZodiac").textContent = data.zodiac;
+        document.getElementById("cardZodiacHe").textContent = data.zodiacHe;
+        document.getElementById("cardSense").textContent = data.sense;
+        document.getElementById("cardSenseHe").textContent = data.senseHe;
+        document.getElementById("cardOrgan").textContent = data.organ;
+        document.getElementById("cardStone").textContent = data.stone;
+        document.getElementById("cardStoneSwatch").style.backgroundColor = data.stoneColor;
+        document.getElementById("cardGinsburghNote").textContent = data.ginsburghNote;
+
+        // 7. Карточка 4: Стих-код Танаха
+        document.getElementById("cardCodeType").textContent = data.codeType;
+        document.getElementById("cardVerseSource").textContent = data.verseSource;
+        document.getElementById("cardVerseHe").innerHTML = data.verseHe;
+        document.getElementById("cardVerseRu").textContent = data.verseRu;
+
+        // Обновляем положение часовой стрелки сразу при смене выбранного часа
+        updateClockHands();
+      } catch (err) {
+        console.error("Ошибка обновления интерфейса:", err);
+      }
+    }
+
+    /**
+     * Обновляет положение часовых стрелок и цифровое время в центре
+     */
+    function updateClockHands() {
+      const now = new Date();
+      const hours24 = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+
+      // В живом режиме автоматически вычисляем день/ночь и текущий каббалистический час (модель 06:00–18:00)
+      if (isLiveMode) {
+        const liveIsDay = hours24 >= 6 && hours24 < 18;
+        const liveHourIndex = liveIsDay ? (hours24 - 6) : ((hours24 + 6) % 12);
+
+        if (liveIsDay !== isDayMode || liveHourIndex !== selectedHourIndex) {
+          isDayMode = liveIsDay;
+          selectedHourIndex = liveHourIndex;
+          updateUI();
+          return;
+        }
+      }
+
+      // Углы стрелок
+      const hourAngle = isLiveMode
+        ? ((selectedHourIndex + 1) * 30 + (minutes / 60) * 30)
+        : ((selectedHourIndex + 1) * 30);
+      const minuteAngle = minutes * 6 + seconds * 0.1;
+      const secondAngle = seconds * 6;
+
+      const hourHand = document.getElementById("hourHand");
+      const minuteHand = document.getElementById("minuteHand");
+      const secondHand = document.getElementById("secondHand");
+      const digitalTimeEl = document.getElementById("centerDigitalTime");
+
+      if (hourHand) hourHand.setAttribute("transform", `rotate(${hourAngle} 300 300)`);
+      if (minuteHand) minuteHand.setAttribute("transform", `rotate(${minuteAngle} 300 300)`);
+      if (secondHand) secondHand.setAttribute("transform", `rotate(${secondAngle} 300 300)`);
+
+      if (digitalTimeEl) {
+        const hh = String(hours24).padStart(2, "0");
+        const mm = String(minutes).padStart(2, "0");
+        const ss = String(seconds).padStart(2, "0");
+        digitalTimeEl.textContent = `${hh}:${mm}:${ss}`;
+      }
+    }
+
+    /**
+     * Управление модальным окном статьи-справочника
+     */
+    function openHelpModal() {
+      if (!helpModal) return;
+      helpModal.classList.remove("hidden");
+      helpModal.classList.add("flex");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeHelpModal() {
+      if (!helpModal) return;
+      helpModal.classList.add("hidden");
+      helpModal.classList.remove("flex");
+      document.body.style.overflow = "";
+    }
+
+    // Привязка обработчиков событий
+    btnLiveMode.addEventListener("click", () => {
+      isLiveMode = true;
+      updateClockHands();
+      updateUI();
+    });
+
+    btnToggleDayNight.addEventListener("click", () => {
+      isLiveMode = false;
+      isDayMode = !isDayMode;
+      updateUI();
+    });
+
+    btnPrevHour.addEventListener("click", () => {
+      isLiveMode = false;
+      selectedHourIndex = (selectedHourIndex + 11) % 12;
+      updateUI();
+    });
+
+    btnNextHour.addEventListener("click", () => {
+      isLiveMode = false;
+      selectedHourIndex = (selectedHourIndex + 1) % 12;
+      updateUI();
+    });
+
+    btnOpenHelp.addEventListener("click", openHelpModal);
+    btnCloseHelp.addEventListener("click", closeHelpModal);
+
+    // Закрытие модального окна по клику на затемнённый фон
+    helpModal.addEventListener("click", (e) => {
+      if (e.target === helpModal) {
+        closeHelpModal();
+      }
+    });
+
+    // Закрытие модального окна по клавише Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !helpModal.classList.contains("hidden")) {
+        closeHelpModal();
+      }
+    });
+
+    // Плавная прокрутка по пунктам содержания внутри статьи
+    document.querySelectorAll(".toc-link").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const targetId = btn.getAttribute("data-scroll-to");
+        const targetEl = document.getElementById(targetId);
+        if (targetEl && articleScrollArea) {
+          targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+
+    // Инициализация приложения после загрузки DOM
+    window.addEventListener("DOMContentLoaded", () => {
+      renderDialSectors();
+      buildArticleSummaryTable();
+      updateClockHands();
+      updateUI();
+      setInterval(updateClockHands, 1000);
+    });
+  </script>
+</body>
+</html>
