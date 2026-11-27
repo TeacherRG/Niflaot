@@ -538,7 +538,6 @@ export function ClockPage() {
                       <b>{i + 1}. {names.month}</b>
                       <small>{names.tribe} · {h.sign} · {h.tziruf}</small>
                     </span>
-                    {active && <b>{t('clock.now')}</b>}
                   </li>
                 );
               })}
