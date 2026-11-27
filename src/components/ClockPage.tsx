@@ -351,7 +351,7 @@ export function ClockPage() {
                 onPick={(id, fx, fy) => setPop(pop?.id === id && pop.pinned ? null : { id, fx, fy, pinned: true })}
                 onHover={(id, fx, fy) => setPop((p) => (p?.pinned ? p : id ? { id, fx, fy, pinned: false } : null))}
               />
-              {half && kmini && <KabbalahMiniDial hour={hourOf(now, half)} day={half.day} onOpen={() => setPanel('kabbalah')} />}
+              {half && kmini && <KabbalahMiniDial hour={hourOf(now, half)} day={half.day} onOpen={() => { window.location.hash = '/kabbalah'; }} />}
             </>
           ) : (
             <div className="clk2-nocity">
