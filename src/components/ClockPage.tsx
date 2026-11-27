@@ -6,7 +6,7 @@ import { Icon, Sheet, useDismiss } from './ui';
 import { CityPicker } from './ShabbatCalendar';
 import { BigFace, COLOR, loadMarks, loadTziruf, MARKS_KEY, TZIRUF_KEY, type FaceEvent, type FaceId } from './ClockFace';
 import { KabbalahMiniDial } from './KabbalahMiniDial';
-import { KMINI_KEY, loadKmini } from '../core/kabbalahHours';
+import { HOUR_SIGNS, hourNames, KMINI_KEY, loadKmini } from '../core/kabbalahHours';
 import { dayTimes, hebrewDateText, hebrewDayMonth, isErevPesach } from '../core/hebcal';
 import { currentPlace, PLACE_EVENT } from '../core/places';
 import { addDays, BEFORE, cleanMarks, DEADLINES, halfOf, halfTimes, hourOf, isoIn, nextRing, restAt, ringOn, shabbatSpan, shownDay, TIME_IDS, type Alarm, type AlarmKind, type Rest, type Spot, type TimeId } from '../core/clock';
@@ -523,8 +523,32 @@ export function ClockPage() {
       </Sheet>
 
       <Sheet open={panel === 'kabbalah'} onClose={() => setPanel(null)} title={t('clock.km.title')} closeLabel={t('menu.close')}>
-        <p className="clk-note">{t('clock.km.note')}</p>
-        <TzirufMore open />
+        {half ? (
+          <div className="clk-times">
+            <p className="clk-note">{t(half.day ? 'clock.km.day' : 'clock.km.night')} · {t(half.day ? 'clock.hourDay' : 'clock.hourNight', { n: hourOf(now, half) })}</p>
+            <p className="clk-note">{t('clock.km.note')}</p>
+            <ul>
+              {HOUR_SIGNS.map((h, i) => {
+                const names = hourNames(i + 1, ui);
+                const active = i + 1 === hourOf(now, half);
+                return (
+                  <li key={h.month} className={active ? 'next' : ''}>
+                    <i style={{ background: active ? 'var(--gold)' : 'var(--muted)' }} aria-hidden="true" />
+                    <span>
+                      <b>{i + 1}. {names.month}</b>
+                      <small>{names.tribe} · {h.sign} · {h.tziruf}</small>
+                    </span>
+                    {active && <b>{t('clock.now')}</b>}
+                  </li>
+                );
+              })}
+            </ul>
+            <p className="clk-note">{t('clock.tzirufNote')}</p>
+            <TzirufMore open />
+          </div>
+        ) : (
+          <p className="clk-note">{t('clock.noCity')}</p>
+        )}
       </Sheet>
     </>
   );
