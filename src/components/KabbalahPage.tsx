@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import './KabbalahPage.css';
 
 /** The full interactive Kabbalistic dial, preserved from the supplied HTML source. */
 export function KabbalahPage() {
