@@ -86,6 +86,7 @@ const WeekDigest = page(() => import('./components/WeekDigest'), 'WeekDigest');
 const ZipPage = page(() => import('./components/ZipPage'), 'ZipPage');
 const PatchesPage = page(() => import('./components/PatchesPage'), 'PatchesPage');
 const ClockPage = page(() => import('./components/ClockPage'), 'ClockPage');
+const KabbalahPage = page(() => import('./components/KabbalahPage'), 'KabbalahPage');
 const CoinsPage = page(() => import('./components/CoinsPage'), 'CoinsPage');
 const KoeletPage = page(() => import('./components/KoeletPage'), 'KoeletPage');
 const Admin = page(() => import('./components/Admin'), 'Admin');
@@ -293,6 +294,8 @@ function Site() {
             <PatchesPage />
           ) : slug === 'coins' && !view ? (
             <CoinsPage />
+          ) : slug === 'kabbalah' && !view ? (
+            <KabbalahPage />
           ) : slug === 'clock' && !view ? (
             <ClockPage />
           ) : slug === 'koelet' ? (
