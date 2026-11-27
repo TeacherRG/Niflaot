@@ -40,6 +40,11 @@ jobs:
           # the Android app (TWA, android-twa.yml): /.well-known/assetlinks.json — the fingerprints of the upload key and of
           # Google Play app signing (Play Console → App integrity); empty → no file
           ANDROID_SHA256: ${{ vars.ANDROID_UPLOAD_SHA256 }},${{ vars.ANDROID_PLAY_SHA256 }}
+      - name: Verify Kabbalistic dial is included in the published build
+        run: |
+          test -s dist/kabbalah.html
+          grep -q 'kabbalahDial' dist/kabbalah.html
+          grep -q 'btnOpenHelp' dist/kabbalah.html
       - name: Verify crawl files and homepage SEO output
         run: |
           test -s dist/robots.txt
