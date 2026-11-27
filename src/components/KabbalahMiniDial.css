@@ -14,3 +14,19 @@
 .clk-kmini-current b{font-size:11px;color:#f3d78d}
 .clk-kmini-current span{font-size:9px;color:#aeb4d0}
 @media(max-width:520px){.clk-kmini{width:clamp(76px,23cqw,100px);top:4px;right:4px;padding:4px;border-radius:14px}.clk-kmini-current{font-size:9px}.clk-kmini-current b{font-size:10px}}
+.kmt-now{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:14px;background:var(--gold-soft,#fbf3dc);border:1px solid var(--gold,#c9a14a)}
+.kmt-now b{font-size:16px}
+.kmt-now p{margin:4px 0 0;font-size:14px;line-height:1.45}
+.kmt-sign{font-size:34px;line-height:1;color:var(--gold-deep,#8a6a1f)}
+.kmt-name .he{font-size:22px;color:var(--gold-deep,#8a6a1f);font-weight:700}
+.kmt-now .he,.kmt-table .he{font-family:'Frank Ruhl Libre',serif;unicode-bidi:isolate}
+.kmt-scroll{overflow-x:auto;margin-top:12px}
+.kmt-table{width:100%;border-collapse:collapse;font-size:14px}
+.kmt-table th{text-align:start;font-size:12px;font-weight:600;color:var(--muted,#666);padding:4px 6px;border-bottom:2px solid var(--line,#ddd)}
+.kmt-table td{padding:6px;border-bottom:1px solid var(--line-soft,#eee);vertical-align:top}
+.kmt-table td span.he{display:block;font-size:13px;opacity:.75}
+.kmt-table td.he{font-size:17px;white-space:nowrap}
+.kmt-table tr.on td{background:var(--gold-soft,#fbf3dc);font-weight:600}
+.kmt-table tr.on td:first-child{border-inline-start:3px solid var(--gold-deep,#8a6a1f)}
+.kmt-night{font-size:14px}
+.kmt-night .he{font-size:18px;font-weight:700;color:var(--gold-deep,#8a6a1f)}

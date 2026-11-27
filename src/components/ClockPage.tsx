@@ -5,7 +5,7 @@ import { TopBar } from './TopBar';
 import { Icon, Sheet, useDismiss } from './ui';
 import { CityPicker } from './ShabbatCalendar';
 import { BigFace, COLOR, loadMarks, loadTziruf, MARKS_KEY, TZIRUF_KEY, type FaceEvent, type FaceId } from './ClockFace';
-import { KabbalahMiniDial } from './KabbalahMiniDial';
+import { KabbalahMiniDial, KabbalahTable } from './KabbalahMiniDial';
 import { KMINI_KEY, loadKmini } from '../core/kabbalahHours';
 import { dayTimes, hebrewDateText, hebrewDayMonth, isErevPesach } from '../core/hebcal';
 import { currentPlace, PLACE_EVENT } from '../core/places';
@@ -182,7 +182,7 @@ function shabbatOf(now: Date, spot: Spot) {
  * how long until it, «label on the face»); the city — a chip above; Shabbat, the two alarms, the list of all times and
  * «how we count» — buttons below that open sheets. Rules — src/core/clock.ts, the ring — src/core/alarm.ts.
  */
-type Panel = 'shabbat' | 'wake' | 'study' | 'times' | 'info' | 'city' | null;
+type Panel = 'shabbat' | 'wake' | 'study' | 'times' | 'info' | 'city' | 'kabbalah' | null;
 
 export function ClockPage() {
   const { t, locale, ui } = useI18n();
@@ -351,7 +351,7 @@ export function ClockPage() {
                 onPick={(id, fx, fy) => setPop(pop?.id === id && pop.pinned ? null : { id, fx, fy, pinned: true })}
                 onHover={(id, fx, fy) => setPop((p) => (p?.pinned ? p : id ? { id, fx, fy, pinned: false } : null))}
               />
-              {half && kmini && <KabbalahMiniDial hour={hourOf(now, half)} day={half.day} onOpen={() => setPanel('info')} />}
+              {half && kmini && <KabbalahMiniDial hour={hourOf(now, half)} day={half.day} onOpen={() => setPanel('kabbalah')} />}
             </>
           ) : (
             <div className="clk2-nocity">
@@ -513,6 +513,11 @@ export function ClockPage() {
         ) : (
           <p className="clk-note">{t('clock.noCity')}</p>
         )}
+      </Sheet>
+
+      <Sheet open={panel === 'kabbalah'} onClose={() => setPanel(null)} title={t('clock.km.toggle')} closeLabel={t('menu.close')}>
+        {half ? <KabbalahTable hour={hourOf(now, half)} day={half.day} /> : <p className="clk-note">{t('clock.noCity')}</p>}
+        <TzirufMore />
       </Sheet>
 
       <Sheet open={panel === 'info'} onClose={() => setPanel(null)} title={t('clock.info')} closeLabel={t('menu.close')}>

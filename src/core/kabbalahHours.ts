@@ -63,6 +63,20 @@ const TRIBES: Record<Lang, string[]> = {
   en: ['Yehudah', 'Yissachar', 'Zevulun', 'Reuven', 'Shimon', 'Gad', 'Ephraim', 'Menasheh', 'Binyamin', 'Dan', 'Asher', 'Naftali'],
   de: ['Jehuda', 'Jissachar', 'Swulun', 'Reuwen', 'Schimon', 'Gad', 'Efraim', 'Menasche', 'Binjamin', 'Dan', 'Ascher', 'Naftali'],
 };
+const SIGNS: Record<Lang | 'he', string[]> = {
+  ru: ['Овен', 'Телец', 'Близнецы', 'Рак', 'Лев', 'Дева', 'Весы', 'Скорпион', 'Стрелец', 'Козерог', 'Водолей', 'Рыбы'],
+  en: ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'],
+  de: ['Widder', 'Stier', 'Zwillinge', 'Krebs', 'Löwe', 'Jungfrau', 'Waage', 'Skorpion', 'Schütze', 'Steinbock', 'Wassermann', 'Fische'],
+  he: ['טלה', 'שור', 'תאומים', 'סרטן', 'אריה', 'בתולה', 'מאזניים', 'עקרב', 'קשת', 'גדי', 'דלי', 'דגים'],
+};
+/** the sign of hour 1…12: its name in the language of the page and in Hebrew (Sefer Yetzirah 5) */
+export function signNames(hour: number, ui: string): { name: string; he: string } {
+  const i = HOUR_SIGNS.indexOf(hourSign(hour));
+  return { name: (SIGNS[ui as Lang] ?? (ui === 'he' ? SIGNS.he : SIGNS.en))[i], he: SIGNS.he[i] };
+}
+/** the Name of the night hours in the dial the owner supplied (26.11.2026) — never written whole */
+export const NIGHT_NAME = 'א-ד-נ-י';
+
 /** the month and the tribe of hour 1…12 in the language of the page (`he` — in Hebrew) */
 export function hourNames(hour: number, ui: string): { month: string; tribe: string } {
   const h = hourSign(hour);

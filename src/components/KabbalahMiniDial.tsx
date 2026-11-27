@@ -1,5 +1,5 @@
 import { useI18n } from '../i18n';
-import { HOUR_SIGNS, hourNames } from '../core/kabbalahHours';
+import { HOUR_SIGNS, hourNames, NIGHT_NAME, signNames } from '../core/kabbalahHours';
 import './KabbalahMiniDial.css';
 
 function point(angle: number, radius: number) {
@@ -56,5 +56,77 @@ export function KabbalahMiniDial({ hour, day, onOpen }: { hour: number; day: boo
         <span>{now.tribe}</span>
       </span>
     </button>
+  );
+}
+
+/**
+ * What pressing the small dial opens (owner, 27.11.2026: «при нажатии — вся информация, которая была в коде»): the hour of now,
+ * and the whole table of the twelve hours — month, tribe, sign, combination of the Name; the hour of now is lit.
+ */
+export function KabbalahTable({ hour, day }: { hour: number; day: boolean }) {
+  const { t, ui } = useI18n();
+  const active = Math.min(12, Math.max(1, hour)) - 1;
+  const now = hourNames(active + 1, ui);
+  const sign = signNames(active + 1, ui);
+  return (
+    <div className="kmt">
+      <div className="kmt-now">
+        <span className="kmt-sign" aria-hidden="true">{HOUR_SIGNS[active].sign}</span>
+        <div>
+          <b>{t(day ? 'clock.hourDay' : 'clock.hourNight', { n: active + 1 })}</b>
+          <p>
+            {t('clock.km.month')}: {now.month}
+            {ui !== 'he' && <>{' '}<span className="he">{HOUR_SIGNS[active].monthHe}</span></>} · {t('clock.km.tribe')}: {now.tribe}
+            {ui !== 'he' && <>{' '}<span className="he">{HOUR_SIGNS[active].tribeHe}</span></>} · {t('clock.km.sign')}: {sign.name}
+            {ui !== 'he' && <>{' '}<span className="he">{sign.he}</span></>}
+          </p>
+          <p className="kmt-name">
+            <span className="he">{HOUR_SIGNS[active].tziruf}</span>
+          </p>
+          {!day && (
+            <p className="kmt-night">
+              {t('clock.km.nightName')} <span className="he">{NIGHT_NAME}</span>
+            </p>
+          )}
+        </div>
+      </div>
+      <div className="kmt-scroll">
+        <table className="kmt-table">
+          <thead>
+            <tr>
+              <th>{t('clock.km.hour')}</th>
+              <th>{t('clock.km.month')}</th>
+              <th>{t('clock.km.tribe')}</th>
+              <th>{t('clock.km.sign')}</th>
+              <th>{t('clock.km.tziruf')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {HOUR_SIGNS.map((h, i) => {
+              const n = hourNames(i + 1, ui);
+              const sg = signNames(i + 1, ui);
+              return (
+                <tr key={h.month} className={i === active ? 'on' : ''} aria-current={i === active ? 'true' : undefined}>
+                  <td>{i + 1}</td>
+                  <td>
+                    {n.month}
+                    {ui !== 'he' && <span className="he">{h.monthHe}</span>}
+                  </td>
+                  <td>
+                    {n.tribe}
+                    {ui !== 'he' && <span className="he">{h.tribeHe}</span>}
+                  </td>
+                  <td>
+                    <span aria-hidden="true">{h.sign}</span> {sg.name}
+                  </td>
+                  <td className="he">{h.tziruf}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <p className="clk-note">{t('clock.km.source')}</p>
+    </div>
   );
 }
