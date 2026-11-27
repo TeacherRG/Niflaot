@@ -6,6 +6,7 @@ import { Icon, Sheet, useDismiss } from './ui';
 import { CityPicker } from './ShabbatCalendar';
 import { BigFace, COLOR, loadMarks, loadTziruf, MARKS_KEY, TZIRUF_KEY, type FaceEvent, type FaceId } from './ClockFace';
 import { KabbalahMiniDial } from './KabbalahMiniDial';
+import { KMINI_KEY, loadKmini } from '../core/kabbalahHours';
 import { dayTimes, hebrewDateText, hebrewDayMonth, isErevPesach } from '../core/hebcal';
 import { currentPlace, PLACE_EVENT } from '../core/places';
 import { addDays, BEFORE, cleanMarks, DEADLINES, halfOf, halfTimes, hourOf, isoIn, nextRing, restAt, ringOn, shabbatSpan, shownDay, TIME_IDS, type Alarm, type AlarmKind, type Rest, type Spot, type TimeId } from '../core/clock';
@@ -205,6 +206,13 @@ export function ClockPage() {
       localStorage.setItem(TZIRUF_KEY, tziruf ? '0' : '1');
     } catch {}
   };
+  const [kmini, setKmini] = useState(loadKmini);
+  const toggleKmini = () => {
+    setKmini(!kmini);
+    try {
+      localStorage.setItem(KMINI_KEY, kmini ? '0' : '1');
+    } catch {}
+  };
   const [, redraw] = useState(0);
   useDismiss(!!pop?.pinned, popBox, () => setPop(null));
 
@@ -328,21 +336,23 @@ export function ClockPage() {
 
         <div className="clk2-stage" ref={stage}>
           {shown ? (
-            <BigFace
-              now={now}
-              zone={zone}
-              half={half}
-              hourLabel={hourLabel}
-              events={events}
-              active={pop?.id ?? null}
-              tziruf={tziruf}
-              hm={hm}
-              short={hmShort}
-              name={nameOf}
-              onPick={(id, fx, fy) => setPop(pop?.id === id && pop.pinned ? null : { id, fx, fy, pinned: true })}
-              onHover={(id, fx, fy) => setPop((p) => (p?.pinned ? p : id ? { id, fx, fy, pinned: false } : null))}
-            />
-            {half && <KabbalahMiniDial hour={hourOf(now, half)} day={half.day} />}
+            <>
+              <BigFace
+                now={now}
+                zone={zone}
+                half={half}
+                hourLabel={hourLabel}
+                events={events}
+                active={pop?.id ?? null}
+                tziruf={tziruf}
+                hm={hm}
+                short={hmShort}
+                name={nameOf}
+                onPick={(id, fx, fy) => setPop(pop?.id === id && pop.pinned ? null : { id, fx, fy, pinned: true })}
+                onHover={(id, fx, fy) => setPop((p) => (p?.pinned ? p : id ? { id, fx, fy, pinned: false } : null))}
+              />
+              {half && kmini && <KabbalahMiniDial hour={hourOf(now, half)} day={half.day} onOpen={() => setPanel('info')} />}
+            </>
           ) : (
             <div className="clk2-nocity">
               <p>{t('clock.noCity')}</p>
@@ -493,6 +503,11 @@ export function ClockPage() {
               {t('clock.tziruf')}
             </label>
             {tziruf && <p className="clk-note">{t('clock.tzirufNote')}</p>}
+            <label className="clk2-pop-toggle clk2-tz">
+              <input type="checkbox" checked={kmini} onChange={toggleKmini} />
+              {t('clock.km.toggle')}
+            </label>
+            {kmini && <p className="clk-note">{t('clock.km.note')}</p>}
             <TzirufMore />
           </div>
         ) : (

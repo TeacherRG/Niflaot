@@ -3,6 +3,7 @@
  */
 import { addDays, cleanAlarm, cleanMarks, fracOf, halfOf, halfTimes, hourOf, TIME_IDS, dayKind, DEFAULT_ALARM, DEFAULT_STUDY, inIsrael, nextRing, restAt, shabbatSpan, shownDay, timesOf, candleMinutes, wallTime, type Alarm, type Spot } from '../src/core/clock';
 import { dayTimes, hebrewDayMonth, isErevPesach } from '../src/core/hebcal';
+import { HOUR_SIGNS, hourNames, TZIRUFIM } from '../src/core/kabbalahHours';
 
 let failed = 0;
 const ok = (cond: unknown, what: string) => {
@@ -173,6 +174,20 @@ for (const [name, s] of [['Vienna', vienna], ['Jerusalem', jerusalem]] as const)
   ok(isErevPesach('2027-04-21') && !isErevPesach('2027-04-22'), 'Erev Pesach 5787');
   const b = dayTimes('2027-04-21', jerusalem.lat, jerusalem.lon, jerusalem.zone).biurChametz!;
   ok(b > timesOf('2027-04-21', jerusalem).tefila! && b < timesOf('2027-04-21', jerusalem).chatzot!, 'the burning of chametz: after the morning prayer, before midday');
+}
+
+// the kabbalistic dial and the big face: one table, the Arizal's months (owner, 27.11.2026)
+{
+  const perms = new Set(TZIRUFIM);
+  ok(TZIRUFIM.length === 12 && perms.size === 12, 'twelve different combinations of the Name');
+  ok(TZIRUFIM.every((z) => /^[יהו](-[יהו]){3}$/.test(z) && [...z.replace(/-/g, '')].sort().join('') === [...'יהוה'].sort().join('')), 'each combination — the letters of the Name, joined with hyphens');
+  ok(TZIRUFIM[0] === 'י-ה-ו-ה' && TZIRUFIM[8] === 'ו-י-ה-ה' && TZIRUFIM[11] === 'ה-ה-י-ו', 'Nisan, Kislev, Adar — as the Arizal');
+  ok(HOUR_SIGNS.map((h) => h.tribe).join() === 'yehuda,issachar,zevulun,reuven,shimon,gad,ephraim,menashe,binyamin,dan,asher,naftali', 'the tribes — in the order of the camps');
+  ok(new Set(HOUR_SIGNS.map((h) => h.sign)).size === 12, 'twelve signs');
+  for (const ui of ['ru', 'en', 'de', 'he']) for (let n = 1; n <= 12; n++) {
+    const x = hourNames(n, ui);
+    ok(x.month && x.tribe, `kabbalistic dial: names of hour ${n} (${ui})`);
+  }
 }
 
 if (failed) {

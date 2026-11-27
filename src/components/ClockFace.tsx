@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { TZIRUFIM } from '../core/kabbalahHours';
 import { useI18n, uiLang } from '../i18n';
 import type { MessageKey } from '../i18n/locales/ru';
 import { cleanMarks, DEFAULT_MARKS, fracOf, halfOf, halfTimes, shownDay, type Half, type TimeId } from '../core/clock';
@@ -27,7 +28,7 @@ export const MARKS_KEY = 'niflaot:clock-marks';
  * permutation — «Reshit Chokhmah» (Gate of Fear, 10) and «Pardes Rimonim» (gate 21, ch. 8); the order by the hours is
  * the project's choice (owner, 16.11.2026: «как Пардес, имена через дефис, как опция»). Written with hyphens.
  */
-export const TZIRUFIM = ['יהוה', 'יההו', 'יוהה', 'ההיו', 'ההוי', 'היוה', 'והיה', 'וההי', 'ויהה', 'הויה', 'היהו', 'הוהי'].map((w) => [...w].join('-'));
+export { TZIRUFIM };
 export const TZIRUF_KEY = 'niflaot:clock-tziruf';
 export const loadTziruf = (): boolean => {
   try {
