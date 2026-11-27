@@ -407,29 +407,18 @@
       </section>
     </main>
 
-    <!-- Карточка «Поделиться этим часом» в том же стиле, что и карточки соответствий -->
-    <section class="iridescent-border mt-8 p-5 sm:p-6" aria-labelledby="shareCardTitle">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div class="min-w-0">
-          <span class="text-xs uppercase tracking-widest text-cyan-300 font-semibold">Поделиться изучением</span>
-          <h2 id="shareCardTitle" class="text-lg sm:text-xl font-bold text-white mt-1">Поделиться этим часом</h2>
-          <p id="shareHourTitle" class="text-sm font-semibold text-amber-200 mt-1">1-й час дня · Нисан</p>
-          <p id="shareHourSummary" class="text-xs sm:text-sm text-slate-400 mt-1">יהוה · Йеуда · Тиферет — Нецах</p>
-          <p id="shareStatus" class="text-xs text-emerald-300 mt-2" role="status" aria-live="polite"></p>
-        </div>
-        <button id="btnShareHour" type="button"
-          class="inline-flex shrink-0 items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold transition-all border border-cyan-400/50 bg-cyan-500/20 text-cyan-100 hover:bg-cyan-500/30 hover:shadow-lg hover:shadow-cyan-500/15 focus:outline-none focus:ring-2 focus:ring-cyan-300/70">
-          <span aria-hidden="true">↗</span>
-          <span>Поделиться этим часом</span>
+    <!-- Кнопка экспорта карточки часа -->
+    <section class="mt-8 flex justify-center" aria-label="Поделиться выбранным часом">
+      <div class="text-center">
+        <p id="shareHourTitle" class="text-sm font-semibold text-amber-200 mb-1">1-й час дня · Нисан</p>
+        <p id="shareHourSummary" class="text-xs text-slate-400 mb-3">יהוה · Йеуда · Тиферет — Нецах</p>
+        <p id="shareStatus" class="text-xs text-emerald-300 mb-2" role="status" aria-live="polite"></p>
+        <button id="btnShareHour" type="button" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold border border-amber-300/70 bg-slate-950 text-amber-200 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-300/70" style="box-shadow:0 0 0 2px rgba(212,175,55,.18),0 8px 28px rgba(0,0,0,.35)">
+          <span aria-hidden="true">↗</span><span>Поделиться этим часом</span>
         </button>
       </div>
     </section>
 
-    <!-- Примечание внизу -->
-    <footer class="mt-8 text-center text-xs text-slate-500 max-w-3xl mx-auto">
-      В режиме «Живое время» дневные часы (06:00–18:00) отображают 12 перестановок Имени <strong>הוי"ה</strong>, а ночные (18:00–06:00) — 12 перестановок Имени <strong>אדנ"י</strong> (в модели равноденствия 12/12). Нажмите на любой сектор циферблата или откройте кнопку <strong>ⓘ Справка</strong> для изучения всех источников.
-    </footer>
-  </div>
 
   <!-- МОДАЛЬНОЕ ОКНО: РАЗВЕРНУТАЯ СТАТЬЯ И СПРАВКА -->
   <div id="helpModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="helpModalTitle">
@@ -1460,42 +1449,47 @@
       document.body.style.overflow = "";
     }
 
-    async function shareSelectedHour() {
-      const data = KABBALAH_HOURS[selectedHourIndex];
-      const mode = isDayMode ? "day" : "night";
-      const shareUrl = `${window.location.origin}/#/kabbalah?hour=${data.hour}&mode=${mode}`;
-      const shareTitle = `Каббалистический циферблат · ${data.hour}-й час ${isDayMode ? "дня" : "ночи"}`;
-      const shareText = `${data.month} · ${isDayMode ? data.havayaPlain : data.adonaiPlain} · ${data.tribe} · ${data.sefirotPair}`;
-
-      if (shareStatus) shareStatus.textContent = "";
-      try {
-        if (navigator.share) {
-          await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
-          if (shareStatus) shareStatus.textContent = "Ссылка готова к отправке.";
-          return;
-        }
-        if (navigator.clipboard && window.isSecureContext) {
-          await navigator.clipboard.writeText(shareUrl);
-        } else {
-          const field = document.createElement("textarea");
-          field.value = shareUrl;
-          field.setAttribute("readonly", "");
-          field.style.position = "fixed";
-          field.style.opacity = "0";
-          document.body.appendChild(field);
-          field.select();
-          const copied = document.execCommand("copy");
-          field.remove();
-          if (!copied) throw new Error("Не удалось скопировать ссылку");
-        }
-        if (shareStatus) shareStatus.textContent = "Ссылка скопирована. Можно отправить её друзьям.";
-      } catch (err) {
-        if (err && err.name === "AbortError") return;
-        if (shareStatus) shareStatus.textContent = "Не удалось поделиться. Попробуйте ещё раз.";
-        console.error("Ошибка отправки ссылки:", err);
-      }
+    function buildHourShareCard(data) {
+      const canvas=document.createElement("canvas");canvas.width=1080;canvas.height=1520;
+      const ctx=canvas.getContext("2d");if(!ctx)throw new Error("Canvas недоступен");
+      const W=1080,gold="#e9c66d",ivory="#f7f0dc";
+      const bg=ctx.createLinearGradient(0,0,W,1520);bg.addColorStop(0,"#101a3d");bg.addColorStop(.55,"#081333");bg.addColorStop(1,"#111b40");ctx.fillStyle=bg;ctx.fillRect(0,0,W,1520);
+      ctx.strokeStyle=gold;ctx.lineWidth=5;ctx.strokeRect(25,25,1030,1470);ctx.lineWidth=2;ctx.strokeRect(42,42,996,1436);
+      for(let n=0;n<90;n++){ctx.fillStyle="rgba(233,198,109,.28)";ctx.beginPath();ctx.arc((n*193)%W,(n*317)%1520,1.5,0,Math.PI*2);ctx.fill();}
+      const txt=(v,x,y,size,color=ivory,bold=false)=>{ctx.fillStyle=color;ctx.font=(bold?"bold ":"")+size+"px Georgia";ctx.textAlign="center";ctx.fillText(String(v??""),x,y);};
+      const box=(y,h)=>{ctx.fillStyle="rgba(8,18,53,.88)";ctx.strokeStyle=gold;ctx.lineWidth=3;ctx.beginPath();ctx.roundRect(65,y,950,h,22);ctx.fill();ctx.stroke();};
+      const rtl=(v,x,y,size,color=ivory)=>{ctx.save();ctx.direction="rtl";ctx.fillStyle=color;ctx.font="bold "+size+"px 'Times New Roman'";ctx.textAlign="center";ctx.fillText(String(v??""),x,y);ctx.restore();};
+      const wrap=(v,x,y,max,line,size=23)=>{ctx.font=size+"px Georgia";ctx.fillStyle=ivory;ctx.textAlign="center";let row="",yy=y;for(const w of String(v??"").split(/\s+/)){const q=row?row+" "+w:w;if(ctx.measureText(q).width>max&&row){ctx.fillText(row,x,yy);row=w;yy+=line;}else row=q;}if(row)ctx.fillText(row,x,yy);};
+      txt("НИФЛАОТ · ПЕЛЕ ШАА",540,90,32,gold,true);txt("Каббалистический час · Соответствия и смысл",540,132,25);
+      txt(data.hour+"-й час "+(isDayMode?"дня":"ночи"),540,220,72,gold,true);txt(isDayMode?"День · Авая":"Ночь · Адонай",540,270,34);
+      box(315,220);txt("1. ИМЯ ЭТОГО ЧАСА",540,365,27,gold,true);rtl(isDayMode?data.havaya:data.adonai,540,475,94);
+      box(565,215);txt("ПРОСТАЯ БУКВА",540,615,27,gold,true);rtl(data.letter,540,720,90,gold);wrap(data.seasonVector,540,755,850,31,23);
+      box(805,230);txt("2. ГВУЛЬ И СФИРОТ",540,855,27,gold,true);rtl(data.gvulHe,540,920,46);txt(data.gvulRu,540,965,29,gold,true);txt(data.sefirotPair,540,1010,30,ivory,true);txt("Путь на 2D-Древе Аризаля: "+data.ariPath,540,1052,22);
+      box(1060,245);txt("3. КОЛЕНО · МЕСЯЦ · СОЗВЕЗДИЕ",540,1110,25,gold,true);
+      [320,540,760].forEach(x=>{ctx.strokeStyle="rgba(233,198,109,.7)";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x,1140);ctx.lineTo(x,1280);ctx.stroke();});
+      const xs=[205,430,650,875];txt("Колено",xs[0],1168,20);txt(data.tribe,xs[0],1208,27,ivory,true);rtl(data.tribeHe,xs[0],1250,27);
+      txt("Месяц",xs[1],1168,20);txt(data.month,xs[1],1208,27,ivory,true);rtl(data.monthHe,xs[1],1250,27);
+      txt("Созвездие",xs[2],1168,20);txt(data.zodiac,xs[2],1208,24,ivory,true);rtl(data.zodiacHe,xs[2],1250,25);
+      txt("Чувство · Орган",xs[3],1168,20);txt(data.sense+" · "+data.organ,xs[3],1208,21,ivory,true);txt(data.stone,xs[3],1250,21,gold);
+      box(1330,110);txt("© niflaot.app 5787",540,1400,36,gold,true);return canvas;
     }
 
+    async function shareSelectedHour() {
+      const data=KABBALAH_HOURS[selectedHourIndex],mode=isDayMode?"day":"night";
+      const shareUrl=window.location.origin+"/#/kabbalah?hour="+data.hour+"&mode="+mode;
+      const shareTitle="Каббалистический час · "+data.hour+"-й час "+(isDayMode?"дня":"ночи");
+      const shareText=data.month+" · "+(isDayMode?data.havayaPlain:data.adonaiPlain)+" · "+data.tribe+" · "+data.sefirotPair;
+      if(shareStatus)shareStatus.textContent="";
+      try{
+        const canvas=buildHourShareCard(data);
+        const blob=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error("Не удалось создать изображение")),"image/png"));
+        const file=new File([blob],"niflaot-kabbalah-hour.png",{type:"image/png"});
+        if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({title:shareTitle,text:shareText,url:shareUrl,files:[file]});if(shareStatus)shareStatus.textContent="Карточка готова к отправке.";return;}
+        const link=document.createElement("a");link.download="niflaot-kabbalah-hour.png";link.href=URL.createObjectURL(blob);link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);
+        if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(shareUrl);
+        if(shareStatus)shareStatus.textContent="Карточка сохранена; ссылка скопирована.";
+      }catch(err){if(err&&err.name==="AbortError")return;if(shareStatus)shareStatus.textContent="Не удалось создать карточку. Попробуйте ещё раз.";console.error("Ошибка создания карточки:",err);}
+    }
     // Привязка обработчиков событий
     btnLiveMode.addEventListener("click", () => {
       isLiveMode = true;
