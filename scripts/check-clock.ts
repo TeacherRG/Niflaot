@@ -3,7 +3,7 @@
  */
 import { addDays, cleanAlarm, cleanMarks, fracOf, halfOf, halfTimes, hourOf, TIME_IDS, dayKind, DEFAULT_ALARM, DEFAULT_STUDY, inIsrael, nextRing, restAt, shabbatSpan, shownDay, timesOf, candleMinutes, wallTime, type Alarm, type Spot } from '../src/core/clock';
 import { dayTimes, hebrewDayMonth, isErevPesach } from '../src/core/hebcal';
-import { HOUR_SIGNS, hourNames, TZIRUFIM } from '../src/core/kabbalahHours';
+import { HOUR_SIGNS, hourNames, NIGHT_TZIRUFIM, nameOfHour, TZIRUFIM, verseCode } from '../src/core/kabbalahHours';
 
 let failed = 0;
 const ok = (cond: unknown, what: string) => {
@@ -184,6 +184,17 @@ for (const [name, s] of [['Vienna', vienna], ['Jerusalem', jerusalem]] as const)
   ok(TZIRUFIM[0] === 'י-ה-ו-ה' && TZIRUFIM[8] === 'ו-י-ה-ה' && TZIRUFIM[11] === 'ה-ה-י-ו', 'Nisan, Kislev, Adar — as the Arizal');
   ok(HOUR_SIGNS.map((h) => h.tribe).join() === 'yehuda,issachar,zevulun,reuven,shimon,gad,ephraim,menashe,binyamin,dan,asher,naftali', 'the tribes — in the order of the camps');
   ok(new Set(HOUR_SIGNS.map((h) => h.sign)).size === 12, 'twelve signs');
+  ok(new Set(NIGHT_TZIRUFIM).size === 12 && NIGHT_TZIRUFIM.every((z) => [...z.replace(/-/g, '')].sort().join('') === [...'אדני'].sort().join('')), 'twelve combinations of the Name Adni');
+  ok(nameOfHour(0, true) === 'י-ה-ו-ה' && nameOfHour(0, false) === 'א-ד-נ-י', 'by day Havayah, by night Adni');
+  ok(HOUR_SIGNS.map((h) => h.letter).join('') === 'הוזחטילנסעצק', 'the letters of the months — Sefer Yetzirah 5');
+  // the stone of the tribe on the breastplate (Rashi, Shemot 28:17–20)
+  const STONES: Record<string, string> = { yehuda: 'נפך', issachar: 'ספיר', zevulun: 'יהלם', reuven: 'אדם', shimon: 'פטדה', gad: 'אחלמה', ephraim: 'שהם', menashe: 'שהם', binyamin: 'ישפה', dan: 'לשם', asher: 'תרשיש', naftali: 'שבו' };
+  ok(HOUR_SIGNS.every((h) => STONES[h.tribe] === h.stoneHe), 'the stone of each tribe');
+  for (const h of HOUR_SIGNS) {
+    ok(verseCode(h).map((w) => w[1]).filter(Boolean).join('-') === h.tziruf, `the verse of ${h.month} spells its combination`);
+    for (const l of [h.sense, h.organ, h.stone, h.gvul, h.sefirot, h.path, h.season, h.verseT, h.verseSrc]) ok(l.ru && l.en && l.de, `${h.month}: texts on ru/en/de`);
+    ok(!/[א-ת]/.test(h.verseT.ru + h.verseT.en + h.verseT.de) && !/Господ|God\b|Lord\b|Gott\b/.test(h.verseT.ru + h.verseT.en + h.verseT.de), `${h.month}: the translation — Names as on the site`);
+  }
   for (const ui of ['ru', 'en', 'de', 'he']) for (let n = 1; n <= 12; n++) {
     const x = hourNames(n, ui);
     ok(x.month && x.tribe, `kabbalistic dial: names of hour ${n} (${ui})`);

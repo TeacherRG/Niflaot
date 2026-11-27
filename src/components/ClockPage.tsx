@@ -5,7 +5,7 @@ import { TopBar } from './TopBar';
 import { Icon, Sheet, useDismiss } from './ui';
 import { CityPicker } from './ShabbatCalendar';
 import { BigFace, COLOR, loadMarks, loadTziruf, MARKS_KEY, TZIRUF_KEY, type FaceEvent, type FaceId } from './ClockFace';
-import { KabbalahMiniDial, KabbalahTable } from './KabbalahMiniDial';
+import { KabbalahMiniDial, KabbalahWindow } from './KabbalahMiniDial';
 import { KMINI_KEY, loadKmini } from '../core/kabbalahHours';
 import { dayTimes, hebrewDateText, hebrewDayMonth, isErevPesach } from '../core/hebcal';
 import { currentPlace, PLACE_EVENT } from '../core/places';
@@ -516,7 +516,7 @@ export function ClockPage() {
       </Sheet>
 
       <Sheet open={panel === 'kabbalah'} onClose={() => setPanel(null)} title={t('clock.km.toggle')} closeLabel={t('menu.close')}>
-        {half ? <KabbalahTable hour={hourOf(now, half)} day={half.day} /> : <p className="clk-note">{t('clock.noCity')}</p>}
+        {half ? <KabbalahWindow hour={hourOf(now, half)} day={half.day} /> : <p className="clk-note">{t('clock.noCity')}</p>}
         <TzirufMore />
       </Sheet>
 

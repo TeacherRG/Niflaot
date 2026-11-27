@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { TZIRUFIM } from '../core/kabbalahHours';
+import { nameOfHour, TZIRUFIM } from '../core/kabbalahHours';
 import { useI18n, uiLang } from '../i18n';
 import type { MessageKey } from '../i18n/locales/ru';
 import { cleanMarks, DEFAULT_MARKS, fracOf, halfOf, halfTimes, shownDay, type Half, type TimeId } from '../core/clock';
@@ -206,7 +206,7 @@ export function Face({
       </text>
       {tziruf && ring && (
         <text className="clk-tziruf he" lang="he" x="100" y="160" textAnchor="middle" dominantBaseline="central" direction="rtl">
-          {TZIRUFIM[ring.hour]}
+          {nameOfHour(ring.hour, ring.day)}
         </text>
       )}
     </svg>
@@ -338,7 +338,7 @@ export function BigFace({
       ))}
       {tziruf && ring && (
         <text className="clk-tziruf he" lang="he" x="100" y="154" textAnchor="middle" dominantBaseline="central" direction="rtl">
-          {TZIRUFIM[ring.hour]}
+          {nameOfHour(ring.hour, ring.day)}
         </text>
       )}
       <text className="clk-big" x="100" y="91" textAnchor="middle" dominantBaseline="central">

@@ -519,6 +519,178 @@ export async function renderTextCard(d: TextCardData): Promise<Blob> {
   return new Promise((resolve, reject) => c.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png'));
 }
 
+export interface HourCardData {
+  /** «Нифлаот · Каббалистические часы» */
+  eyebrow: string;
+  /** «6-й час дня · Элул» */
+  title: string;
+  /** the Name of the hour, letters with hyphens */
+  name: string;
+  /** «Ночное Имя: …» — the other Name of this hour */
+  alt: string;
+  sign: string;
+  /** label — value; a Hebrew value after « · » */
+  rows: [string, string, string?][];
+  /** the verse, word by word: [before, code letter, after] */
+  verse: [string, string, string][];
+  verseNote: string;
+  verseT: string;
+  cta: string;
+  link: string;
+  site: string;
+}
+
+/**
+ * «Поделиться карточкой» of the kabbalistic hour on «Часы» (owner, 27.11.2026): the Name of the hour large in gold, its other Name,
+ * the correspondences in two columns, the verse-code with its letters lit, a QR code to «Часы» and the site.
+ */
+export async function renderHourCard(d: HourCardData): Promise<Blob> {
+  await Promise.all(
+    [`700 120px ${FONTS.he}`, `700 40px ${FONTS.he}`, `700 26px ${FONTS.body}`, `600 30px ${FONTS.body}`, `italic 500 36px ${FONTS.display}`, `700 56px ${FONTS.display}`].map((f) =>
+      document.fonts.load(f, 'Aa Ая Ää אבְּ').catch(() => undefined),
+    ),
+  );
+  const c = document.createElement('canvas');
+  c.width = W;
+  c.height = H;
+  const ctx = c.getContext('2d')!;
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = INK;
+  ctx.fillRect(0, 0, W, H);
+  const glow = ctx.createRadialGradient(W / 2, 330, 40, W / 2, 330, 700);
+  glow.addColorStop(0, '#3A2F6E');
+  glow.addColorStop(1, 'rgba(20,26,51,0)');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = GOLD_DEEP;
+  ctx.lineWidth = 3;
+  ctx.strokeRect(48, 48, W - 96, H - 96);
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(64, 64, W - 128, H - 128);
+  const center = (text: string, y: number, font: string, color: string, dir: CanvasDirection = 'ltr', maxW = W - 200) => {
+    ctx.font = font;
+    let size = Number(/(\d+)px/.exec(font)?.[1] ?? 30);
+    while (ctx.measureText(text).width > maxW && size > 14) ctx.font = font.replace(/\d+px/, `${--size}px`);
+    ctx.fillStyle = color;
+    ctx.direction = dir;
+    ctx.textAlign = 'center';
+    ctx.fillText(text, W / 2, y);
+    ctx.direction = 'ltr';
+  };
+  ctx.letterSpacing = '6px';
+  center(d.eyebrow.toUpperCase(), 140, `700 24px ${FONTS.body}`, GOLD);
+  ctx.letterSpacing = '0px';
+  center(d.title, 205, `700 56px ${FONTS.display}`, '#FFFFFF');
+  // the sign in a golden ring, the Name under it
+  ctx.strokeStyle = GOLD;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.arc(W / 2, 290, 46, 0, Math.PI * 2);
+  ctx.stroke();
+  center(d.sign, 308, `48px ${FONTS.body}`, GOLD);
+  center(d.name, 470, `700 130px ${FONTS.he}`, GOLD, 'rtl');
+  center(d.alt, 535, `600 30px ${FONTS.body}`, MUTED);
+
+  // the correspondences: two columns of «label / value»
+  const colW = (W - 220) / 2;
+  const rowH = 74;
+  const top = 600;
+  d.rows.forEach(([label, value, he], i) => {
+    const x = 110 + (i % 2) * (colW + 0);
+    const y = top + Math.floor(i / 2) * rowH;
+    ctx.textAlign = 'left';
+    ctx.direction = 'ltr';
+    ctx.font = `700 20px ${FONTS.body}`;
+    ctx.fillStyle = GOLD;
+    ctx.letterSpacing = '2px';
+    ctx.fillText(label.toUpperCase(), x, y);
+    ctx.letterSpacing = '0px';
+    if (/^[א-ת]$/.test(value)) {
+      // the letter of the month — large, in the Hebrew font
+      ctx.font = `700 46px ${FONTS.he}`;
+      ctx.fillStyle = GOLD;
+      ctx.fillText(value, x, y + 44);
+      return;
+    }
+    let size = 30;
+    const text = he ? `${value}  ${he}` : value;
+    ctx.font = `600 ${size}px ${FONTS.body}`;
+    while (ctx.measureText(text).width > colW - 20 && size > 18) ctx.font = `600 ${--size}px ${FONTS.body}`;
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillText(value, x, y + 36);
+    if (he) {
+      const w = ctx.measureText(`${value}  `).width;
+      ctx.fillStyle = MUTED;
+      ctx.fillText(he, x + w, y + 36);
+    }
+  });
+
+  // the verse-code: the words right to left, the letters of the code lit in gold
+  const vy = top + Math.ceil(d.rows.length / 2) * rowH + 30;
+  ctx.strokeStyle = GOLD_DEEP;
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(160, vy - 20);
+  ctx.lineTo(W - 160, vy - 20);
+  ctx.stroke();
+  ctx.letterSpacing = '3px';
+  center(d.verseNote.toUpperCase(), vy + 18, `700 20px ${FONTS.body}`, GOLD);
+  ctx.letterSpacing = '0px';
+  let vs = 58;
+  const space = () => vs * 0.35;
+  const width = () => {
+    ctx.font = `700 ${vs}px ${FONTS.he}`;
+    return d.verse.reduce((a, [b, l, e]) => a + ctx.measureText(b + l + e).width, 0) + space() * (d.verse.length - 1);
+  };
+  while (width() > W - 220 && vs > 30) vs -= 2;
+  let x = W / 2 + width() / 2;
+  const ly = vy + 18 + vs + 18;
+  ctx.textAlign = 'right';
+  ctx.direction = 'rtl';
+  for (const [b, l, e] of d.verse) {
+    for (const [part, color] of [
+      [b, '#FFFFFF'],
+      [l, GOLD],
+      [e, '#FFFFFF'],
+    ] as const) {
+      if (!part) continue;
+      ctx.font = `700 ${vs}px ${FONTS.he}`;
+      ctx.fillStyle = color;
+      ctx.fillText(part, x, ly);
+      x -= ctx.measureText(part).width;
+    }
+    x -= space();
+  }
+  ctx.direction = 'ltr';
+  center(d.verseT, ly + 56, `italic 500 34px ${FONTS.display}`, '#E6E9F3');
+
+  // a QR code to «Часы» and the site at the bottom
+  const qr = qrcode(0, 'M');
+  qr.addData(d.link);
+  qr.make();
+  const n = qr.getModuleCount();
+  const cell = Math.floor(130 / n);
+  const side = cell * n + 20;
+  const qx = 110;
+  const qy = H - 110 - side;
+  ctx.fillStyle = '#FFFFFF';
+  ctx.beginPath();
+  ctx.roundRect(qx, qy, side, side, 12);
+  ctx.fill();
+  ctx.fillStyle = '#000000';
+  for (let r = 0; r < n; r++) for (let k = 0; k < n; k++) if (qr.isDark(r, k)) ctx.fillRect(qx + 10 + k * cell, qy + 10 + r * cell, cell, cell);
+  ctx.textAlign = 'left';
+  ctx.font = `600 28px ${FONTS.body}`;
+  ctx.fillStyle = MUTED;
+  wrap(ctx, d.cta, W - qx - side - 150)
+    .slice(0, 2)
+    .forEach((line, i) => ctx.fillText(line, qx + side + 32, qy + 48 + i * 36));
+  ctx.font = `700 40px ${FONTS.body}`;
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillText(d.site, qx + side + 32, qy + side - 12);
+  return new Promise((resolve, reject) => c.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png'));
+}
+
 /** Shares the picture through the system sheet when possible, otherwise downloads it. Returns 'shared' | 'saved'. */
 export async function shareOrSave(blob: Blob, filename: string, text: string): Promise<'shared' | 'saved'> {
   const file = new File([blob], filename, { type: 'image/png' });
