@@ -25,7 +25,7 @@ export function KabbalahPage() {
         src={`/kabbalah.html${sharedQuery}`}
         title="Каббалистический циферблат — 12 часов и соответствий"
         loading="eager"
-        allow="fullscreen"
+        allow="fullscreen; web-share"
       />
     </main>
   );
